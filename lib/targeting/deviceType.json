@@ -1,9 +1,0 @@
-{
-  "desktop": {"key": "desktop", "name": "Desktop", "featured": 1},
-  "console": {"key": "console", "name": "Console"},
-  "tablet": {"key": "tablet", "name": "Tablet", "featured": 1},
-  "mobile": {"key": "mobile", "name": "Mobile", "featured": 1},
-  "smarttv": {"key": "smarttv", "name": "Smart TV"},
-  "wearable": {"key": "wearable", "name": "Wearable"},
-  "embedded": {"key": "embedded", "name": "Embedded"}
-}
