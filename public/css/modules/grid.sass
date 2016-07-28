@@ -1,0 +1,42 @@
+.grid
+  display: flex
+  flex-direction: column
+  overflow: hidden
+
+  .grid-row-green
+    .colored
+      color: $green
+
+  .grid-row-red
+    .colored
+      color: $red
+
+  .grid-header
+    a
+      color: #7D7D8E
+      &:hover
+        color: $text-color
+
+  .grid-content
+    overflow-y: auto
+
+  .grid-footer
+    border-top: 1px solid #eee
+
+  .grid-row
+    width: 100%
+    max-width: 800px
+    margin: 0 auto 20px
+    table-layout: fixed
+    border: 1px solid #eee
+    background-color: #FFFFFF
+    &:last-of-type
+      border-bottom: none
+    &:hover
+      background-color: #f7fbff
+
+  .cell
+    border-top: 1px solid #eee
+    vertical-align: middle
+    padding: 0.8em 1em
+    overflow: hidden

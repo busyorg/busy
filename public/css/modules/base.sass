@@ -1,0 +1,333 @@
+/* --------------------------------
+ * Primary style
+ *--------------------------------
+
+body
+  background-color: $background-color
+  font-family: $font-primary
+  font-size: 15px
+  color: $text-color
+
+a
+  color: $primary-color
+  &:hover
+    color: #005dd9
+    text-decoration: none
+    outline: 0
+  text-decoration: none
+  outline: 0
+  &:active, &:visited, &:focus
+    text-decoration: none
+    outline: 0
+
+img
+  max-width: 100%
+
+
+
+
+fieldset
+  text-align: left
+
+.align-center
+  display: flex
+  align-items: center
+  justify-content: center
+  text-align: center
+
+\:focus
+  outline: 0
+
+\::-webkit-scrollbar
+  height: 4px
+  width: 4px
+  background: #ffffff
+
+\::-webkit-scrollbar-thumb
+  background: #898989
+
+.no-gutter [class*="col-"]
+  padding-left: 0
+  padding-right: 0
+
+.form-control
+  box-shadow: inset 0 1px 2px rgba(203, 203, 210, 0.4)
+  padding-left: 8px
+  padding-right: 8px
+  color: #3F3F44
+  background-color: #fff
+  background-image: none
+  border: 1px solid #CBCBD2
+  transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s
+
+.form-control-lg
+  line-height: 20px
+  font-size: 16px
+
+.input-group-lg >
+.form-control, .input-group-addon
+  line-height: 20px
+  font-size: 16px
+
+.input-under
+  font-size: 20px
+  background: transparent
+  border: none
+
+/* --------------------------------
+ *3. Main components
+ *--------------------------------
+
+html, body
+  height: 100%
+  text-align: left
+
+ul, li
+  list-style: none
+  margin: 0
+  padding: 0
+
+body.overflow-hidden
+  /* when primary navigation is visible, the content in the background won't scroll
+  overflow: hidden
+
+.header-block
+  padding-top: 60px
+  padding-bottom: 60px
+  min-height: 89vh
+
+.mobile-header-block
+  padding-top: 60px
+  padding-bottom: 40px
+  min-height: 69vh
+
+.section-block
+  padding: 60px 10px 60px 10px
+
+.section-header
+  font-size: 36px
+  font-weight: 500
+  text-align: center
+
+.section-subheader
+  font-weight: 500
+  a
+    color: #50e3c2
+    &:hover
+      color: #898989
+
+.section-body
+  max-width: 992px
+
+@media (min-width: 768px)
+  .section-header
+    font-size: 40px
+  .section-block
+    padding-bottom: 90px
+    padding-top: 90px
+
+@media (min-width: 992px)
+  .section-block
+    padding-bottom: 120px
+    padding-top: 120px
+  .section-header
+    font-size: 48px
+  .section-body
+    text-align: left
+
+.form-group
+  position: relative
+
+.btn-bordered-white
+  background: transparent
+  border-color: #ffffff
+  border-width: 2px
+  color: #ffffff
+  font-size: 20px
+  max-width: 100%
+  padding: 10px 15px
+  -webkit-transition: all 0.25s
+  -o-transition: all 0.25s
+  transition: all 0.25s
+  width: 320px
+  font-weight: 500
+  border-radius: 10px 10px 10px 10px
+  &:hover, &:focus
+    background: #50e3c2
+    border-color: #50e3c2
+    color: #ffffff
+  &:active
+    &:hover, &:focus
+      background: #50e3c2
+      border-color: #50e3c2
+      color: #ffffff
+
+.btn-bordered-green
+  background: transparent
+  border-color: #50e3c2
+  border-width: 2px
+  color: #50e3c2
+  font-size: 20px
+  font-family: $font-primary
+  max-width: 100%
+  padding: 10px 15px
+  -webkit-transition: all 0.25s
+  -o-transition: all 0.25s
+  transition: all 0.25s
+  width: 320px
+  font-weight: 500
+  border-radius: 10px 10px 10px 10px
+  &:hover, &:focus
+    background: #50e3c2
+    border-color: #50e3c2
+    color: #ffffff
+  &:active
+    &:hover, &:focus
+      background: #50e3c2
+      border-color: #50e3c2
+      color: #ffffff
+
+.btn-bordered-blue
+  background: transparent
+  border-color: #3EBFFF
+  border-width: 2px
+  color: #3EBFFF
+  font-size: 20px
+  max-width: 100%
+  padding: 10px 15px
+  -webkit-transition: all 0.25s
+  -o-transition: all 0.25s
+  transition: all 0.25s
+  width: 320px
+  font-weight: 500
+  border-radius: 10px 10px 10px 10px
+
+.btn-fill-green
+  background: #50e3c2
+  border-color: #50e3c2
+  border: 2px
+  color: #ffffff
+  font-size: 20px
+  max-width: 100%
+  padding: 10px 15px
+  -webkit-transition: all 0.25s
+  -o-transition: all 0.25s
+  transition: all 0.25s
+  width: 320px
+  font-weight: 500
+  border-radius: 10px 10px 10px 10px
+  outline: none
+  text-shadow: none
+
+.btn-bordered-blue
+  &:hover, &:focus
+    background: #3EBFFF
+    border-color: #3EBFFF
+    color: #ffffff
+  &:active
+    &:hover, &:focus
+      background: #3EBFFF
+      border-color: #3EBFFF
+      color: #ffffff
+
+.btn-blue-bkd
+  &:hover, &:focus
+    background: #ffffff
+    border-color: #ffffff
+    color: #3EBFFF
+  &:active
+    &:hover, &:focus
+      background: #ffffff
+      border-color: #ffffff
+      color: #3EBFFF
+
+.btn-fill-green
+  &:hover, &:focus
+    background: #47CBAE
+    border-color: #47CBAE
+    color: #ffffff
+  &:active
+    &:hover, &:focus
+      background: #47CBAE
+      border-color: #47CBAE
+      color: #ffffff
+
+.highlight-strong
+  font-family: $font-primary
+
+textarea
+  resize: none
+  &::-webkit-input-placeholder
+    color: #b7b7b7 !important
+  &:-moz-placeholder
+    /* Firefox 18-
+    color: #b7b7b7 !important
+  &::-moz-placeholder
+    /* Firefox 19+
+    color: #b7b7b7 !important
+  &:-ms-input-placeholder
+    color: #b7b7b7 !important
+
+input[type="checkbox"]
+  margin-right: 15px
+
+
+.app-wrapper
+  margin: 0 auto
+  position: relative
+  top: 0
+  height: 100%
+  overflow: hidden
+  @media (max-width: 992px)
+    height: auto
+
+.main-panel
+  overflow: hidden
+  height: 100%
+  position: relative
+  z-index: 2
+  float: right
+  //width: calc(100% - 260px)
+  width: 100%
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3)
+
+@media (max-width: 992px)
+  .main-panel
+    width: 100%
+
+#app
+  height: 100%
+
+.main-panel
+  height: 100%
+  position: relative
+  z-index: 2
+  display: flex
+  flex-direction: column
+  @media (max-width: 992px)
+    display: inherit
+
+
+.avatar
+  border-radius: 50%
+  overflow: hidden
+
+
+@media (max-width: 992px)
+  .hidden-xs
+    display: none !important
+
+
+
+
+.thumbs
+  background-color: rgba(0, 0, 0, 0.8)
+  width: 100%
+  text-align: center
+
+.filters
+  display: flex
+  align-items: center
+  justify-content: center
+  text-align: center
+  margin: 10px 0
