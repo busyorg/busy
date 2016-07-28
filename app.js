@@ -54,13 +54,13 @@ app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'node_modules')));
 
-// Redirect to https://app.bonustrack.co
+// Redirect to https://busy6.com
 app.use(function(req, res, next){
   var host = req.get('host');
-  if (host == 'localhost:3000' || (host == 'app.bonustrack.co' && req.secure)) {
+  if (host == 'localhost:3000' || (host == 'busy6.com' && req.secure)) {
     next();
   } else {
-    res.redirect('https://app.bonustrack.co');
+    res.redirect('https://busy6.com');
   }
 });
 
