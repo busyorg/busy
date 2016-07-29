@@ -34,6 +34,7 @@
     "marked": "^0.3.5",
     "moment": "^2.13.0",
     "morgan": "~1.6.1",
+    "mysql": "^2.11.1",
     "node-sass-middleware": "0.8.0",
     "nodemon": "^1.9.2",
     "nohm": "^0.9.8",
