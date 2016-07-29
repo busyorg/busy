@@ -5,7 +5,7 @@ Adrien work on this.
 - Add login method
 - Add post/comment methods
 - Add vote/downvote methods
-*- Add signup method
+- Add signup method
 
 ## Busy:
 
@@ -20,4 +20,5 @@ Fabien work on this.
 ### Back-end:
 
 ### Design:
+Fabien work on this
 - Create better post container with separated components
