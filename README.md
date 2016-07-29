@@ -23,3 +23,5 @@ Fabien work on this
 
 # Steem Connect
 
+# Steem Embed
+
