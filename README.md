@@ -1,3 +1,5 @@
+### Node.js for back-end, React.js/Redux for front-end, Redis as database.
+
 # SteemJS
 Adrien work on this.
 - Add login method
