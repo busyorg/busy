@@ -68,11 +68,11 @@ app.use(function(req, res, next){
   next();
 });
 
-var db = require('./db');
-app.use(function(req,res,next){
-  req.db = db;
-  next();
-});
+// var db = require('./db');
+// app.use(function(req,res,next){
+//   req.db = db;
+//   next();
+// });
 
 app.locals.env = process.env;
 
