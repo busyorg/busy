@@ -1,6 +1,7 @@
 var React = require("react"),
 	ReactRedux = require("react-redux"),
-	_ = require('lodash');
+	_ = require('lodash'),
+	sortBy = require('sort-by');
 
 var Sidebar = React.createClass({
 	render: function(){
@@ -11,6 +12,8 @@ var Sidebar = React.createClass({
 				tags.push(<li>#{category}</li>);
 			});
 		}
+		tags = tags.sort(sortBy('discussions'));
+		tags = tags.slice(0, 20);
 		return (
 			<nav className="sidebar">
 				<div className="sidebar-header"></div>

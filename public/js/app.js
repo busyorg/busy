@@ -55349,7 +55349,8 @@ module.exports = React.createClass({
 },{"../actions":355,"lodash":77,"marked":78,"numeral":80,"react":276,"react-router":122,"striptags":287,"text-ellipsis":290}],364:[function(require,module,exports){
 var React = require("react"),
     ReactRedux = require("react-redux"),
-    _ = require('lodash');
+    _ = require('lodash'),
+    sortBy = require('sort-by');
 
 var Sidebar = React.createClass({
 	displayName: "Sidebar",
@@ -55367,6 +55368,8 @@ var Sidebar = React.createClass({
 				));
 			});
 		}
+		tags = tags.sort(sortBy('discussions'));
+		tags = tags.slice(0, 20);
 		return React.createElement(
 			"nav",
 			{ className: "sidebar" },
@@ -55389,7 +55392,7 @@ var mapStateToProps = function (state) {
 
 module.exports = ReactRedux.connect(mapStateToProps)(Sidebar);
 
-},{"lodash":77,"react":276,"react-redux":88}],365:[function(require,module,exports){
+},{"lodash":77,"react":276,"react-redux":88,"sort-by":285}],365:[function(require,module,exports){
 var React = require('react'),
     ReactRedux = require("react-redux"),
     actions = require("../actions"),
