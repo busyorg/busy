@@ -12,14 +12,14 @@ var Wrapper = React.createClass({
         return (
             <div className="app-wrapper">
                 {!this.props.auth.isAuthenticated && <Loading />}
-                {/*this.props.auth.isAuthenticated &&
+                {this.props.auth.isAuthenticated &&
                     <nav className="sidebar">
                         <div className="sidebar-header">
                             <div className="avatar"><img src={this.props.auth.user.picture} width="48" height="48" /></div>
                             <div>{this.props.auth.user.email}</div>
                         </div>
                         <div className="sidebar-footer"></div>
-                    </nav>*/}
+                    </nav>}
                 {this.props.auth.isAuthenticated && <Modal />}
                 {this.props.auth.isAuthenticated && this.props.children}
             </div>

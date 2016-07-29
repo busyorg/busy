@@ -14,8 +14,6 @@ var server = http.Server(app);
 var io = require('socket.io')(server);
 
 var cors = require('cors');
-var passport = require('passport');
-var strategy = require('./setup-passport');
 //var cookieParser = require('cookie-parser');
 var session = require('express-session');
 
@@ -47,9 +45,6 @@ app.use(require('node-sass-middleware')({
 }));
 
 app.use(session({ secret: 'YOUR_SECRET_HERE', resave: false,  saveUninitialized: false }));
-
-app.use(passport.initialize());
-app.use(passport.session());
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'node_modules')));

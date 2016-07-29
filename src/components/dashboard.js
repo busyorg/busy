@@ -7,7 +7,12 @@ module.exports = React.createClass({
 		return (
 			<div className="main-panel">
 				<Header />
-				<Quickstart title="Stop Work. Get Busy." icon="show_chart" />
+				<Quickstart title="Getting Started" icon="flight_takeoff" />
+				<center>
+					<h3>Welcome on board</h3>
+					<h3>Still not introduce yourself?</h3>
+					<h3>Stats</h3>
+				</center>
 			</div>
 		);
 	}

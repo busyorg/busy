@@ -10,10 +10,10 @@ var React = require("react"),
 var Page = React.createClass({
 	componentWillReceiveProps: function (nextProps) {
 		if (!nextProps.pages[this.props.page] || (!nextProps.pages[this.props.page].isLoaded && !nextProps.pages[this.props.page].isFetching)) {
+			alert('Next');
 			var options = this.props.options;
 			//options.from = nextProps.auth.range.from;
 			//options.to = nextProps.auth.range.to;
-			console.log(options);
 			this.props.getFeed(this.props.page, options);
 		}
 		if (nextProps.pages[this.props.page] && !nextProps.pages[this.props.page].title && nextProps.pages[this.props.base] && nextProps.pages[this.props.base].entry && nextProps.pages[this.props.base].entry.name) {
@@ -21,15 +21,16 @@ var Page = React.createClass({
 		}
 	},
 	componentWillMount: function(){
+		alert('Will!');
 		this.props.setIcon(this.props.page, this.props.icon);
 		if (this.props.base || this.props.menu == 'secondary') {
 			this.props.setMenu('secondary');
 		}
 		if (!this.props.pages[this.props.page] || (!this.props.pages[this.props.page].isLoaded && !this.props.pages[this.props.page].isFetching)) {
+			alert('Mount');
 			var options = this.props.options;
 			//options.from = this.props.auth.range.from;
 			//options.to = this.props.auth.range.to;
-			console.log(options);
 			this.props.getFeed(this.props.page, options);
 		}
 	},
@@ -39,7 +40,7 @@ var Page = React.createClass({
 				<Header page={this.props.page} base={this.props.base} subnav={this.props.subnav} add={this.props.add} />
 				{this.props.pages[this.props.page] && this.props.pages[this.props.page].isFetching && <Loading />}
 				{this.props.pages[this.props.page] && _.size(this.props.pages[this.props.page].content) > 0 && <div>
-					<div style={{height: '10px', overflow: 'hidden'}}></div>
+					<div style={{height: '20px', overflow: 'hidden'}}></div>
 				</div>}
 				{this.props.pages[this.props.page] && _.size(this.props.pages[this.props.page].content) > 0 && <Grid filter={this.props.header.query} title={this.props.gridTitle} content={this.props.pages[this.props.page].content} />}
 			</div>
