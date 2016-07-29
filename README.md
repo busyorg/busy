@@ -1,4 +1,9 @@
-### Node.js for back-end, React.js/Redux for front-end, Redis as database.
+# Stack Used
+- Front-end: React.js/Redux
+- Back-end: Node.js for back-end
+- Database: Redis
+- Image mirror/resize: Cloudinary
+- Host: Heroku
 
 # SteemJS
 Adrien work on this.
