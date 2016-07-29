@@ -8,6 +8,10 @@ var React = require("react"),
 	Grid = require("./../containers/grid");
 
 var Page = React.createClass({
+	getInitialState: function() {
+		alert('yo');
+		return { }
+	},
 	componentWillReceiveProps: function (nextProps) {
 		if (!nextProps.pages[this.props.page] || (!nextProps.pages[this.props.page].isLoaded && !nextProps.pages[this.props.page].isFetching)) {
 			alert('Next');
