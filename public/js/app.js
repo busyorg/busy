@@ -55029,6 +55029,25 @@ var Header = React.createClass({
 					null,
 					React.createElement(
 						Link,
+						{ to: "/profile", activeClassName: "active" },
+						React.createElement(
+							"i",
+							{ className: "icon icon-md material-icons" },
+							"assignment_ind"
+						),
+						" ",
+						React.createElement(
+							"span",
+							{ className: "hidden-xs" },
+							"Profile"
+						)
+					)
+				),
+				React.createElement(
+					"li",
+					null,
+					React.createElement(
+						Link,
 						{ to: "/posts", activeClassName: "active" },
 						React.createElement(
 							"i",

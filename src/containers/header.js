@@ -32,6 +32,7 @@ var Header = React.createClass({
 					<li><a href="#" onClick={() => this.props.setMenu('secondary')}><i className="icon icon-md material-icons">expand_more</i></a></li>
 				</ul> :
 				<ul className="app-nav">
+					<li><Link to="/profile" activeClassName="active"><i className="icon icon-md material-icons">assignment_ind</i> <span className="hidden-xs">Profile</span></Link></li>
 					<li><Link to="/posts" activeClassName="active"><i className="icon icon-md material-icons">library_books</i> <span className="hidden-xs">Posts</span></Link></li>
 					<li><Link to="/replies" activeClassName="active"><i className="icon icon-md  material-icons">comment</i> <span className="hidden-xs">Replies</span></Link></li>
 					<li><Link to="/replies" activeClassName="active"><i className="icon icon-md  material-icons">people</i> <span className="hidden-xs">Friends</span></Link></li>
