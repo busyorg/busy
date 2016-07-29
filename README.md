@@ -25,4 +25,4 @@ Fabien work on this
 The aim of this project is to give trusted third part login handler for Steem blockchain.
 
 # Steem Embed
-NPM package for a link to available HTML embed. This package will help another dev for replicate our large embed possibilites. Here is few app we could embed: Youtube, Twitch, Vevo, CloudSound, Dailymotion, Periscope, Quora, Stackoverflow, Airbnb, Booking.com, Amazon, Add more here when you got one.
+NPM package for a link to available HTML embed. This package will help another dev for replicate our large embed possibilites. Here is few app we could embed: Youtube, Twitch, Vevo, CloudSound, Dailymotion, Periscope, Quora, StackOverflow, Airbnb, Booking.com, Amazon, Add more here when you got one.
