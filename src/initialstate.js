@@ -3,26 +3,25 @@ var moment = require('moment'),
 
 module.exports = function(){
 	return {
-		auth: {
+		app: {
 			isFetching: false,
+			isLoaded: false,
+			errorMessage: ''
+		},
+		auth: {
 			isAuthenticated: false,
-			errorMessage: '',
-			user: [],
-			range: {
-				from: moment().startOf('day').utcOffset(0).format(),
-				to: moment().add(1, 'day').startOf('day').utcOffset(0).format(),
-				period: 'today'
-			}
+			user: {name: 'fabien'}
 		},
 		modal: {
-			isVisible: false,
-			isFetching: false
+			isVisible: false
 		},
-		pages: {},
 		header: {
 			menu: 'primary',
+			tabs: [],
 			query: ''
 		},
-		tabs: []
+		pages: {
+			current: {}
+		},
 	};
 };

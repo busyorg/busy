@@ -1,16 +1,16 @@
 var Redux = require("redux"),
+	appReducer = require("./reducers/app"),
 	authReducer = require("./reducers/auth"),
 	headerReducer = require("./reducers/header"),
-	tabsReducer = require("./reducers/tabs"),
 	pagesReducer = require("./reducers/pages"),
 	modalReducer = require("./reducers/modal"),
 	initialState = require("./initialstate"),
 	thunk = require('redux-thunk').default;
 
 var rootReducer = Redux.combineReducers({
+	app: appReducer,
 	auth: authReducer,
 	header: headerReducer,
-	tabs: tabsReducer,
 	pages: pagesReducer,
 	modal: modalReducer
 });

@@ -11,6 +11,14 @@ module.exports = function(state,action){
 			return Object.assign({}, state, {
 				menu: action.menu
 			});
+		case C.TAB_CREATE:
+			state.tabs.push(action.page);
+			return state;
+		case C.TAB_DELETE:
+			if(state.tabs.indexOf(action.page) != -1) {
+				delete state.tabs[state.indexOf(action.page)];
+			}
+			return state;
 		default: return state || initialState().header;
 	}
 };

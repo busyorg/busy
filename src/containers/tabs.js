@@ -16,8 +16,9 @@ var Tabs = React.createClass({
 		this.forceUpdate();
 	},
 	render: function(){
-		return (
-			(this.props.hasTab || Object.keys(this.props.tabs).length != 0) &&
+		return {};
+		/*(
+			this.props.hasTab || Object.keys(this.props.tabs).length != 0) &&
 				<div className="page-top">
 					<ul>
 						{this.props.tabs.map(function(key) {
@@ -38,6 +39,7 @@ var Tabs = React.createClass({
 					</ul>
 				</div>
 		);
+		*/
 	}
 });
 				

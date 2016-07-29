@@ -27,14 +27,6 @@ module.exports = function(state,action){
 				isFetching: true,
 				isAuthenticated: false
 			});
-		case C.SET_RANGE:
-			return Object.assign({}, state, {
-				range: {
-					from: action.from,
-					to: action.to,
-					period: action.period
-				}
-			});
 		default: return state || initialState().auth;
 	}
 };

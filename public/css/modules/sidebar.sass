@@ -16,7 +16,7 @@ nav.sidebar
     color: #fff
 
     .sidebar-header
-        height: 160px
+        height: 113px
 
     .sidebar-footer
         height: 160px
@@ -24,20 +24,12 @@ nav.sidebar
     ul.sidebar-content
         background-color: rgba(255, 255, 255, .04)
         list-style-type: none
-        li > a
-            display: block
+        li
+            line-height: 1.8em
+            font-size: 16px
+            margin: 0 20px
             color: #898989
-            text-decoration: none
             opacity: 0.8
-            line-height: 52px
-            padding: 0 30px
-            transition: background-color 250ms ease-out,box-shadow 250ms ease-out,color 250ms ease-out
             &:hover
                 opacity: 1
                 color: #FFFFFF
-                box-shadow: inset 4px 0 0 rgba(255, 255, 255, .2)
-            &.active
-                background-color: rgba(255, 255, 255, .08)
-                opacity: 1
-                color: #FFFFFF
-                box-shadow: inset 4px 0 0 $primary-color
