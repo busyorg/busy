@@ -21,7 +21,10 @@ module.exports = function(){
 			query: ''
 		},
 		pages: {
-			current: {}
+			current: {
+				isFetching: false,
+				isLoaded: false
+			}
 		},
 	};
 };

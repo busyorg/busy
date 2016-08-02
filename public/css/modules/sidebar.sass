@@ -14,22 +14,36 @@ nav.sidebar
     bottom: 0
     left: 0
     color: #fff
+    a
+        color: #FFFFFF
+    i
+        color: #FFFFFF
 
     .sidebar-header
         height: 113px
+        .name
+            line-height: 1.8em
+            font-size: 22px !important
+            padding: 20px
 
     .sidebar-footer
-        height: 160px
+        position: absolute
+        bottom: 0
+        .balance
+            line-height: 1.8em
+            font-size: 16px
+            padding: 20px
+            opacity: 0.6
 
     ul.sidebar-content
         background-color: rgba(255, 255, 255, .04)
         list-style-type: none
-        li
+        li a
             line-height: 1.8em
             font-size: 16px
             margin: 0 20px
-            color: #898989
-            opacity: 0.8
+            opacity: 0.6
             &:hover
                 opacity: 1
-                color: #FFFFFF
+        a.active
+            opacity: 1 !important

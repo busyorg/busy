@@ -21,14 +21,15 @@
     overflow-y: auto
 
   .grid-footer
-    border-top: 1px solid #eee
+    border-top: 1px solid rgba(0, 0, 0, 0.1)
 
   .grid-row
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.05)
     width: 100%
-    max-width: 800px
+    border-radius: 5px
+    max-width: 600px
     margin: 0 auto 20px
     table-layout: fixed
-    border: 1px solid #eee
     background-color: #FFFFFF
     &:last-of-type
       border-bottom: none
@@ -37,13 +38,29 @@
 
   .cell
     vertical-align: middle
-    padding: 0.8em 1em
     overflow: hidden
+    li i
+      line-height: 47px
+    li
+      height: 47px
+      line-height: 47px
+      border-right: 1px solid rgba(0, 0, 0, 0.05)
+      float: left
+      vertical-align: middle
+    li:last-child
+      border-right: none
 
   .cell-top
-    border-bottom: 1px solid #eee
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1)
+    li
+      padding: 0 1em
 
   .cell-body
+    padding: 1em 1em
 
   .cell-bottom
-    border-top: 1px solid #eee
+    border-top: 1px solid rgba(0, 0, 0, 0.1)
+    text-align: center
+    li
+      width: 25%
+

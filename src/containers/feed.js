@@ -6,6 +6,7 @@ var React = require('react'),
   numeral = require('numeral'),
   sortBy = require('sort-by'),
   actions = require("../actions"),
+  AddPost = require('./add-post'),
   Post = require('./post');
 
 var colorCode = {green: 'rgba(39, 208, 169, 0.15)', red: 'rgba(249, 43, 97, 0.1)'};
@@ -53,6 +54,7 @@ module.exports = React.createClass({
     return (
       <div className="grid">
         <div className="grid-content">
+          <AddPost />
           {obj2Array(content).filter(function(key) {
             return key.title && key.title.toLowerCase().indexOf(self.props.filter.toLowerCase()) != -1;
           }).map(function(entry, key) {

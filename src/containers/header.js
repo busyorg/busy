@@ -14,12 +14,11 @@ var Header = React.createClass({
 		return (
 			<header>
 				<div className="top-nav">
-					<a href="#" onClick={() => this.props.showModal('account')}><i className="icon icon-md icon-menu material-icons">menu</i></a>
+					<a className="hide" href="#" onClick={() => this.props.showModal('account')}><i className="icon icon-md icon-menu material-icons">menu</i></a>
 					<div className="section-content top-head">
-						<img src="/img/logo.png" />
+						<Link to="/" onlyActiveOnIndex={true} activeClassName="active"><img src="/img/logo.png" /></Link>
 					</div>
-					<a href="#" onClick={() => this.props.refresh()}><i className="icon icon-md icon-menu material-icons">refresh</i></a>
-					{this.props.add && <a href="#" onClick={() => this.props.showModal(this.props.add)}><i className="icon icon-md icon-menu material-icons">add</i></a>}
+					<a className="hide" href="#" onClick={() => this.props.showModal('campaign')}><i className="icon icon-md icon-menu material-icons">add</i></a>
 				</div>
 				{this.props.header.menu == 'primary'? <ul className="app-nav">
 					<li><Link to="/trending" onlyActiveOnIndex={true} activeClassName="active"><i className="icon icon-md material-icons">show_chart</i> <span className="hidden-xs">Trending</span></Link></li>
@@ -27,11 +26,11 @@ var Header = React.createClass({
 					<li><Link to="/cashout" activeClassName="active"><i className="icon icon-md material-icons">attach_money</i> <span className="hidden-xs">Payout Time</span></Link></li>
 					<li><Link to="/created" activeClassName="active"><i className="icon icon-md material-icons">fiber_new</i> <span className="hidden-xs">New</span></Link></li>
 					<li><Link to="/active" activeClassName="active"><i className="icon icon-md material-icons">settings_remote</i> <span className="hidden-xs">Active</span></Link></li>
-					<li><Link to="/response" activeClassName="active"><i className="icon icon-md material-icons">comment</i> <span className="hidden-xs">Responses</span></Link></li>
-					<li><Link to="/popular" activeClassName="active"><i className="icon icon-md material-icons">gavel</i> <span className="hidden-xs">Popular</span></Link></li>
-					<li><a href="#" onClick={() => this.props.setMenu('secondary')}><i className="icon icon-md material-icons">expand_more</i></a></li>
+					<li className="hide"><Link to="/responses" activeClassName="active"><i className="icon icon-md material-icons">comment</i> <span className="hidden-xs">Responses</span></Link></li>
+					<li className="hide"><Link to="/votes" activeClassName="active"><i className="icon icon-md material-icons">gavel</i> <span className="hidden-xs">Popular</span></Link></li>
+					<li className="hide"><a href="#" onClick={() => this.props.setMenu('secondary')}><i className="icon icon-md material-icons">expand_more</i></a></li>
 				</ul> :
-				<ul className="app-nav">
+				<ul className="hide app-nav">
 					<li><Link to="/profile" activeClassName="active"><i className="icon icon-md material-icons">assignment_ind</i> <span className="hidden-xs">Profile</span></Link></li>
 					<li><Link to="/posts" activeClassName="active"><i className="icon icon-md material-icons">library_books</i> <span className="hidden-xs">Posts</span></Link></li>
 					<li><Link to="/replies" activeClassName="active"><i className="icon icon-md  material-icons">comment</i> <span className="hidden-xs">Replies</span></Link></li>

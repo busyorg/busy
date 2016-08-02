@@ -18,6 +18,10 @@ module.exports = function(state,action){
 				isFetching: false,
 				isLoaded: true
 			});
+		case C.CONFIG_SUCCESS:
+			return Object.assign({}, state, {
+				config: action.config
+			});
 		default: return state || initialState().app;
 	}
 };

@@ -2,25 +2,31 @@ var React = require("react"),
 	ReactRedux = require("react-redux"),
 	_ = require('lodash'),
 	actions = require("../actions"),
-	Header = require("./../containers/header"),
-	Loading = require("./../containers/loading"),
-	Feed = require("./../containers/feed");
+	Header = require("./header"),
+	Loading = require("./loading"),
+	Feed = require("./feed");
 
 var Page = React.createClass({
 	componentWillReceiveProps: function (nextProps) {
-		if (!nextProps.app.isLoaded && !nextProps.app.isFetching) {
-			var path = this.props.params.path;
-			this.props.getFeed('slug', {path: path});
-		}
-	},
-	componentWillMount: function(){
-		if (!this.props.app.isLoaded && !this.props.app.isFetching) {
-			var path = this.props.params.path;
-			this.props.getFeed('slug', {path: path});
+		var path = this.props.path;
+		if (nextProps.pages.current.path !== path && !nextProps.pages.current.isFetching && !nextProps.pages.current.isLoaded) {
+			this.props.getFeed(path, {path: path});
 		}
 		if (this.props.base || this.props.menu == 'secondary') {
 			this.props.setMenu('secondary');
 		}
+	},
+	componentWillMount: function () {
+		var path = this.props.path;
+		if (this.props.pages.current.path !== path) {
+			this.props.getFeed(path, {path: path});
+		}
+		if (this.props.base || this.props.menu == 'secondary') {
+			this.props.setMenu('secondary');
+		}
+	},
+	componentWillUnMount: function () {
+		this.props.clearFeed();
 	},
 	render: function(){
 		return (
@@ -46,7 +52,8 @@ var mapStateToProps = function(state){
 
 var mapDispatchToProps = function(dispatch){
 	return {
-		getFeed: function(page, options){ dispatch(actions.getFeed(page, options)); },
+		getFeed: function(path, options){ dispatch(actions.getFeed(path, options)); },
+		clearFeed: function(){ dispatch(actions.clearFeed()); },
 		setMenu: function(menu){ dispatch(actions.setMenu(menu)); }
 	}
 };

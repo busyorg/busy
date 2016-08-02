@@ -3,16 +3,50 @@ var axios = require('axios'),
 	C = require('./constants');
 
 module.exports = {
-	getFeed: function(page, options) {
+	login: function(name, password) {
 		return function(dispatch, getState) {
-			var req = {type: C.FEED_REQUEST};
+			var req = {type: C.LOGIN_REQUEST};
+			Object.assign(req);
+			dispatch(req);
+			axios.get('//api.steemjs.com/getAccounts?names[]=' + name)
+				.then(response => {
+					var res = {
+						type: C.LOGIN_SUCCESS,
+						user: response.data[0],
+					};
+					Object.assign(res);
+					dispatch(res);
+				});
+		};
+	},
+	getConfig: function() {
+		return function(dispatch, getState) {
+			var req = {type: C.CONFIG_REQUEST};
+			Object.assign(req);
+			dispatch(req);
+			axios.get('//api.steemjs.com/getConfig')
+				.then(response => {
+					var res = {
+						type: C.CONFIG_SUCCESS,
+						config: response.data,
+					};
+					Object.assign(res);
+					dispatch(res);
+				});
+		};
+	},
+	getFeed: function(path, options) {
+		return function(dispatch, getState) {
+			var req = {type: C.FEED_REQUEST, path: path};
 			Object.assign(req, options);
 			dispatch(req);
 			axios.get('//api.steemjs.com/getState?path=' + options.path)
 				.then(response => {
 					var res = {
 						type: C.FEED_SUCCESS,
-						page: page,
+						path: path,
+						isFetching: false,
+						isLoaded: true,
 						current_route: response.data.current_route,
 						categories: response.data.categories,
 						content: response.data.content,
@@ -21,6 +55,18 @@ module.exports = {
 					Object.assign(res, options);
 					dispatch(res);
 				});
+		};
+	},
+	clearFeed: function(path, options) {
+		return function(dispatch, getState) {
+			var req = {
+				type: C.FEED_CLEAR,
+				path: path,
+				isFetching: true,
+				isLoaded: false,
+				current_route: null,
+				content: [],
+			};
 		};
 	},
 	showModal: function(page) {

@@ -4,6 +4,7 @@ var React = require('react'),
   marked = require('marked'),
   ellipsis = require('text-ellipsis'),
   numeral = require('numeral'),
+  moment = require('moment'),
   actions = require("../actions"),
   Link = require("react-router").Link;
 
@@ -12,6 +13,7 @@ var classCode = {green: 'grid-row-green', red: 'grid-row-red'};
 
 module.exports = React.createClass({
   render: function() {
+    var steemit = 'https://steemit.com/' + this.props.entry.parent_permlink + '/@' + this.props.entry.author + '/' + this.props.entry.permlink;
     var self = this;
     var color = '';
     color = (this.props.entry.net_votes > 0)? 'green' : color;
@@ -25,20 +27,24 @@ module.exports = React.createClass({
     return (
       <div className={className}>
         <div className="cell cell-top">
-          <i className="icon icon-sm material-icons">perm_identity</i> @{this.props.entry.author} |
-          <i className="icon icon-sm material-icons">add_circle_outline</i> Follow
-          <i className="icon icon-sm material-icons pull-lg-right">bookmark_border</i>
+          <ul>
+            <li><Link to={'/@' + this.props.entry.author} activeClassName="active"><i className="icon icon-sm material-icons">perm_identity</i> @{this.props.entry.author}</Link></li>
+            <li className="hide hidden-xs"><a href="#"><i className="icon icon-sm material-icons">add_circle_outline</i> Follow</a></li>
+            <li className="pull-right">{moment(this.props.entry.created).fromNow()} <a href="#"><i className="icon icon-sm material-icons">bookmark_border</i></a></li>
+          </ul>
         </div>
-        <div className="thumbs"><img src={image} /></div>
+        {image && <div className="thumbs"><a href={steemit} target="_blank"><img src={image} /></a></div>}
         <div className="cell cell-body">
-          <h3>{this.props.entry.title}</h3>
+          <h3><a href={steemit} target="_blank">{this.props.entry.title}</a></h3>
           <p dangerouslySetInnerHTML={{__html: ellipsis(striptags(marked(this.props.entry.body)), 255, {ellipsis: '…'})}} />
         </div>
         <div className="cell cell-bottom" style={style}>
-          <i className="icon icon-sm material-icons">thumb_up</i> {numeral(this.props.entry.net_votes).format('0,0')} Likes |
-          {numeral(this.props.entry.pending_payout_value).format('$0,0.00')} Reward |
-          <i className="icon icon-sm material-icons">comment</i> {numeral(_.size(this.props.entry.replies)).format('0,0')} Comments |
-          <i className="icon icon-sm material-icons">send</i> Share
+          <ul>
+            <li><a href="#"><i className="icon icon-sm material-icons">thumb_up</i></a> {numeral(this.props.entry.net_votes).format('0,0')} Likes</li>
+            <li><i className="icon icon-sm material-icons">attach_money</i> {numeral(this.props.entry.pending_payout_value).format('$0,0.00')}</li>
+            <li><a href="#"><i className="icon icon-sm material-icons">comment</i></a> {numeral(_.size(this.props.entry.replies)).format('0,0')} Comments</li>
+            <li><a href="#"><i className="icon icon-sm material-icons">send</i> Share</a></li>
+          </ul>
         </div>
       </div>
     )
