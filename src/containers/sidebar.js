@@ -11,8 +11,9 @@ var Sidebar = React.createClass({
 		var user = this.props.auth.user;
 		var tags = [];
 		if (current.categories) {
-			Object.keys(current.categories).forEach(function(category) {
-				tags.push(<li><Link to={'/trending/' + category} activeClassName="active">#{category}</Link></li>);
+			var categories = _.sortBy(current.categories, 'discussions').reverse();
+			categories.forEach(function(category) {
+				tags.push(<li><Link to={'/trending/' + category.name} activeClassName="active">#{category.name}</Link></li>);
 			});
 		}
 		tags = tags.sort(sortBy('discussions'));
@@ -37,7 +38,7 @@ var Sidebar = React.createClass({
 						<li><a href="#" className="active"><i className="icon icon-md material-icons">public</i> World</a></li>
 						<li><span><i className="icon icon-md material-icons">people</i> Friends</span></li>
 					</ul>
-					<ul className="tags">{tags}</ul>
+					{tags.length? <ul className="tags">{tags}</ul> : <Loading color="white" />}
 				</div>
 				<div className="sidebar-footer">
 					{this.props.auth.isAuthenticated && <div className="avatar">

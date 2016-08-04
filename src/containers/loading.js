@@ -7,11 +7,7 @@ module.exports = React.createClass({
 		return (
 			<div>
 				<div style={{height: '10px', overflow: 'hidden'}}></div>
-					<div className={className}>
-						<span>.</span>
-						<span>.</span>
-						<span>.</span>
-					</div>
+					<div className={className}><span>.</span><span>.</span><span>.</span></div>
 			</div>
 		);
 	}

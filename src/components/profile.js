@@ -8,7 +8,7 @@ module.exports = React.createClass({
 				<Header />
 				<section className="align-center bg-green">
 					<div className="pal">
-						<i className="material-icons icon icon-xxl">play_arrow</i>
+						<img src="/img/logo-white.svg" width="100" height="100" />
 					</div>
 				</section>
 			</div>

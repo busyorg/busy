@@ -98068,11 +98068,7 @@ module.exports = React.createClass({
 				React.createElement(
 					"div",
 					{ className: "pal" },
-					React.createElement(
-						"i",
-						{ className: "material-icons icon icon-xxl" },
-						"play_arrow"
-					)
+					React.createElement("img", { src: "/img/logo-white.svg", width: "100", height: "100" })
 				)
 			)
 		);
@@ -98371,11 +98367,20 @@ var Header = React.createClass({
 				{ className: "top-nav" },
 				React.createElement(
 					"a",
-					{ className: "hide", href: "#", onClick: () => this.props.showModal('account') },
+					{ className: "hide", href: "#", onClick: () => '' },
 					React.createElement(
 						"i",
 						{ className: "icon icon-md icon-menu material-icons" },
 						"menu"
+					)
+				),
+				React.createElement(
+					"a",
+					{ href: "#", onClick: () => '' },
+					React.createElement(
+						"i",
+						{ className: "icon icon-md icon-menu material-icons" },
+						"arrow_back"
 					)
 				),
 				React.createElement(
@@ -98389,7 +98394,7 @@ var Header = React.createClass({
 				),
 				React.createElement(
 					"a",
-					{ className: "hide", href: "#", onClick: () => this.props.showModal('campaign') },
+					{ href: "#" },
 					React.createElement(
 						"i",
 						{ className: "icon icon-md icon-menu material-icons" },
@@ -98742,7 +98747,7 @@ var React = require("react"),
     ReactRedux = require("react-redux"),
     actions = require("../actions"),
     Account = require('../form/account'),
-    Campaign = require('../form/campaign');
+    Campaign = require('../form/post');
 
 var Modal = React.createClass({
 	displayName: "Modal",
@@ -98780,7 +98785,7 @@ var mapDispatchToProps = function (dispatch) {
 
 module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(Modal);
 
-},{"../actions":530,"../form/account":552,"../form/campaign":553,"react":409,"react-redux":221}],548:[function(require,module,exports){
+},{"../actions":530,"../form/account":552,"../form/post":553,"react":409,"react-redux":221}],548:[function(require,module,exports){
 var React = require("react"),
     ReactRedux = require("react-redux"),
     _ = require('lodash'),
@@ -98867,6 +98872,10 @@ var React = require('react'),
     cloudinary = require('cloudinary'),
     Link = require("react-router").Link;
 
+cloudinary.config('cloud_name', 'huvgywhku');
+cloudinary.config('api_key', '992272288114383');
+cloudinary.config('api_secret', 'enA36tsC5t6FKcFvm9trm4GdLSI');
+
 var colorCode = { green: 'rgba(39, 208, 169, 0.15)', red: 'rgba(249, 43, 97, 0.1)' };
 var classCode = { green: 'grid-row-green', red: 'grid-row-red' };
 
@@ -98889,10 +98898,12 @@ module.exports = React.createClass({
     }
 
     var image = _.has(jsonMetadata, 'image[0]') ? jsonMetadata.image[0] : '';
-    image = image ? cloudinary.url(image, { secure: true, width: 600, height: 400, crop: 'fill' }) : '';
-    cloudinary.uploader.upload(image, function (result) {
+    /*
+    cloudinary.uploader.upload(image, function(result) {
       console.log(result);
     });
+    image = (image)? cloudinary.url(image, {secure: true, width: 600, height: 400, crop: 'fill'}) : '';
+    */
 
     var body = striptags(marked(this.props.entry.body));
     body = body.replace(/(?:https?|ftp):\/\/[\n\S]+/g, '');
@@ -99092,15 +99103,16 @@ var Sidebar = React.createClass({
 		var user = this.props.auth.user;
 		var tags = [];
 		if (current.categories) {
-			Object.keys(current.categories).forEach(function (category) {
+			var categories = _.sortBy(current.categories, 'discussions').reverse();
+			categories.forEach(function (category) {
 				tags.push(React.createElement(
 					"li",
 					null,
 					React.createElement(
 						Link,
-						{ to: '/trending/' + category, activeClassName: "active" },
+						{ to: '/trending/' + category.name, activeClassName: "active" },
 						"#",
-						category
+						category.name
 					)
 				));
 			});
@@ -99170,11 +99182,11 @@ var Sidebar = React.createClass({
 						)
 					)
 				),
-				React.createElement(
+				tags.length ? React.createElement(
 					"ul",
 					{ className: "tags" },
 					tags
-				)
+				) : React.createElement(Loading, { color: "white" })
 			),
 			React.createElement(
 				"div",

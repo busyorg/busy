@@ -2,7 +2,7 @@ var React = require("react"),
 	ReactRedux = require("react-redux"),
 	actions = require("../actions"),
 	Account = require('../form/account'),
-	Campaign = require('../form/campaign');
+	Campaign = require('../form/post');
 
 var Modal = React.createClass({
 	render: function(){

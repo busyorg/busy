@@ -11,6 +11,10 @@ var React = require('react'),
   cloudinary = require('cloudinary'),
   Link = require("react-router").Link;
 
+cloudinary.config('cloud_name', 'huvgywhku');
+cloudinary.config('api_key', '992272288114383');
+cloudinary.config('api_secret', 'enA36tsC5t6FKcFvm9trm4GdLSI');
+
 var colorCode = {green: 'rgba(39, 208, 169, 0.15)', red: 'rgba(249, 43, 97, 0.1)'};
 var classCode = {green: 'grid-row-green', red: 'grid-row-red'};
 
@@ -28,10 +32,12 @@ module.exports = React.createClass({
     catch(e) { var jsonMetadata = {}; }
 
     var image = _.has(jsonMetadata, 'image[0]')? jsonMetadata.image[0] : '';
-    image = (image)? cloudinary.url(image, {secure: true, width: 600, height: 400, crop: 'fill'}) : '';
+    /*
     cloudinary.uploader.upload(image, function(result) {
       console.log(result);
     });
+    image = (image)? cloudinary.url(image, {secure: true, width: 600, height: 400, crop: 'fill'}) : '';
+    */
 
     var body = striptags(marked(this.props.entry.body));
     body = body.replace(/(?:https?|ftp):\/\/[\n\S]+/g, '');

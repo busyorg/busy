@@ -14,11 +14,12 @@ var Header = React.createClass({
 		return (
 			<header>
 				<div className="top-nav">
-					<a className="hide" href="#" onClick={() => this.props.showModal('account')}><i className="icon icon-md icon-menu material-icons">menu</i></a>
+					<a className="hide" href="#" onClick={() => ''}><i className="icon icon-md icon-menu material-icons">menu</i></a>
+					<a href="#" onClick={() => ''}><i className="icon icon-md icon-menu material-icons">arrow_back</i></a>
 					<div className="section-content top-head">
 						<Link to="/" onlyActiveOnIndex={true} activeClassName="active"><img src="/img/logo-blue.svg" /></Link>
 					</div>
-					<a className="hide" href="#" onClick={() => this.props.showModal('campaign')}><i className="icon icon-md icon-menu material-icons">add</i></a>
+					<a href="#"><i className="icon icon-md icon-menu material-icons">add</i></a>
 				</div>
 				{this.props.header.menu == 'primary'? <ul className="app-nav">
 					<li><Link to="/trending" onlyActiveOnIndex={true} activeClassName="active"><i className="icon icon-md material-icons">show_chart</i> <span className="hidden-xs">Trending</span></Link></li>

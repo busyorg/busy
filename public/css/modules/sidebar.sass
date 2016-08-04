@@ -3,7 +3,8 @@
  *--------------------------------
 
 nav.sidebar
-    display: block
+    display: flex
+    flex-direction: column
     z-index: 1
     font-family: $font-alt
     font-size: 15px
@@ -28,8 +29,7 @@ nav.sidebar
             padding: 0 20px
 
     .sidebar-footer
-        position: absolute
-        bottom: 0
+        height: 260px
         .balance
             line-height: 1.8em
             font-size: 16px
@@ -38,6 +38,7 @@ nav.sidebar
                 opacity: 0.6
 
     .sidebar-content
+        flex-grow: 1
         .list-selector
             overflow: hidden
             box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1)
@@ -57,7 +58,7 @@ nav.sidebar
             clear: both
             background-color: rgba(255, 255, 255, .1)
             list-style-type: none
-            max-height: 240px
+            max-height: 100%
             overflow-y: auto
             overflow-x: hidden
 
