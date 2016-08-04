@@ -41,14 +41,14 @@ var Sidebar = React.createClass({
 					{tags.length? <ul className="tags">{tags}</ul> : <Loading color="white" />}
 				</div>
 				<div className="sidebar-footer">
-					{this.props.auth.isAuthenticated && <div className="avatar">
+					{this.props.auth.isAuthenticated && <div>
+						<div className="title"><i className="icon icon-md material-icons">account_balance_wallet</i> Balances</div>
 						<div className="balance">
-							{current.feed_price && <div>{numeral(base).format('$0,0.00')} = 1 Steem</div>}
-							<div className="title">Balances</div>
 							<div>{numeral(user.balance).format('0,0.00')} Steem</div>
 							{current.feed_price && <div>{numeral(power).format('0,0.00')} Steem Power</div>}
 							<div>{numeral(user.sbd_balance).format('0,0.00')} Steem Dollars</div>
 							{current.feed_price && <div>{numeral(dollar).format('$0,0.00')} Steem Dollars</div>}
+							{current.feed_price && <div>{numeral(base).format('$0,0.00')} = 1 Steem</div>}
 						</div>
 					</div>}
 				</div>

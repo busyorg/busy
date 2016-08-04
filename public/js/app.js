@@ -99193,21 +99193,20 @@ var Sidebar = React.createClass({
 				{ className: "sidebar-footer" },
 				this.props.auth.isAuthenticated && React.createElement(
 					"div",
-					{ className: "avatar" },
+					null,
+					React.createElement(
+						"div",
+						{ className: "title" },
+						React.createElement(
+							"i",
+							{ className: "icon icon-md material-icons" },
+							"account_balance_wallet"
+						),
+						" Balances"
+					),
 					React.createElement(
 						"div",
 						{ className: "balance" },
-						current.feed_price && React.createElement(
-							"div",
-							null,
-							numeral(base).format('$0,0.00'),
-							" = 1 Steem"
-						),
-						React.createElement(
-							"div",
-							{ className: "title" },
-							"Balances"
-						),
 						React.createElement(
 							"div",
 							null,
@@ -99231,6 +99230,12 @@ var Sidebar = React.createClass({
 							null,
 							numeral(dollar).format('$0,0.00'),
 							" Steem Dollars"
+						),
+						current.feed_price && React.createElement(
+							"div",
+							null,
+							numeral(base).format('$0,0.00'),
+							" = 1 Steem"
 						)
 					)
 				)
