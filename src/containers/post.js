@@ -33,7 +33,6 @@ module.exports = React.createClass({
       console.log(result);
     });
 
-
     var body = striptags(marked(this.props.entry.body));
     body = body.replace(/(?:https?|ftp):\/\/[\n\S]+/g, '');
 	  var embeds = [];
