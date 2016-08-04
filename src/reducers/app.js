@@ -18,6 +18,16 @@ module.exports = function(state,action){
 				isFetching: false,
 				isLoaded: true
 			});
+		case C.CONTENT_REQUEST:
+			return Object.assign({}, state, {
+				isFetching: true,
+				isLoaded: false
+			});
+		case C.CONTENT_SUCCESS:
+			return Object.assign({}, state, {
+				isFetching: false,
+				isLoaded: true
+			});
 		case C.CONFIG_SUCCESS:
 			return Object.assign({}, state, {
 				config: action.config

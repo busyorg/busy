@@ -12,11 +12,13 @@ var React = require('react'),
   Active = require('./components/active'),
   Responses = require('./components/responses'),
   Votes = require('./components/votes'),
-  Tag = require('./components/tag');
+  Tag = require('./components/tag'),
+  Single = require('./components/content');
 
 module.exports = (
   <Route path="/" component={Wrapper}>
     <IndexRoute component={Dashboard} />
+    <Route path="/:tag/@:author/:permlink" component={Single} />
     <Route path="/trending/:tag" component={Tag} />
     <Route path="/@:name" component={Profile} />
     <Route path="/trending" component={Trending} />

@@ -19,6 +19,22 @@ module.exports = {
 				});
 		};
 	},
+	getContent: function(author, permlink) {
+		return function(dispatch, getState) {
+			var req = {type: C.CONTENT_REQUEST};
+			Object.assign(req);
+			dispatch(req);
+			axios.get('//api.steemjs.com/getContent?author=' + author + '&permlink=' + permlink)
+				.then(response => {
+					var res = {
+						type: C.CONTENT_SUCCESS,
+						content: response.data,
+					};
+					Object.assign(res);
+					dispatch(res);
+				});
+		};
+	},
 	getConfig: function() {
 		return function(dispatch, getState) {
 			var req = {type: C.CONFIG_REQUEST};
@@ -37,7 +53,14 @@ module.exports = {
 	},
 	getFeed: function(path, options) {
 		return function(dispatch, getState) {
-			var req = {type: C.FEED_REQUEST, path: path};
+			var req = {
+				type: C.FEED_REQUEST,
+				path: path,
+				isFetching: true,
+				isLoaded: false,
+				current_route: null,
+				content: []
+			};
 			Object.assign(req, options);
 			dispatch(req);
 			axios.get('//api.steemjs.com/getState?path=' + options.path)
@@ -48,6 +71,7 @@ module.exports = {
 						isFetching: false,
 						isLoaded: true,
 						current_route: response.data.current_route,
+						props: response.data.props,
 						categories: response.data.categories,
 						content: response.data.content,
 						feed_price: response.data.feed_price,

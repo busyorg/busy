@@ -1,6 +1,3 @@
-var moment = require('moment'),
-	C = require("./constants");
-
 module.exports = function(){
 	return {
 		app: {
@@ -24,7 +21,11 @@ module.exports = function(){
 			current: {
 				isFetching: false,
 				isLoaded: false
+			},
+			single: {
+				isFetching: false,
+				isLoaded: false
 			}
-		},
+		}
 	};
 };

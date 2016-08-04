@@ -20,11 +20,12 @@ nav.sidebar
         color: #FFFFFF
 
     .sidebar-header
-        height: 113px
+        height: 56px
+        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1)
         .name
-            line-height: 1.8em
-            font-size: 22px !important
-            padding: 20px
+            height: 56px
+            line-height: 56px
+            padding: 0 20px
 
     .sidebar-footer
         position: absolute
@@ -33,17 +34,44 @@ nav.sidebar
             line-height: 1.8em
             font-size: 16px
             padding: 20px
-            opacity: 0.6
+            div
+                opacity: 0.6
 
-    ul.sidebar-content
-        background-color: rgba(255, 255, 255, .04)
-        list-style-type: none
-        li a
-            line-height: 1.8em
-            font-size: 16px
-            margin: 0 20px
-            opacity: 0.6
-            &:hover
-                opacity: 1
-        a.active
-            opacity: 1 !important
+    .sidebar-content
+        .list-selector
+            overflow: hidden
+            box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1)
+            li
+                width: 50%
+                float: left
+                a.active
+                  opacity: 1 !important
+                span, a
+                    height: 56px
+                    line-height: 56px
+                    padding-left: 20px
+                    opacity: 0.6
+
+        .tags
+            padding: 8px 0
+            clear: both
+            background-color: rgba(255, 255, 255, .1)
+            list-style-type: none
+            max-height: 240px
+            overflow-y: auto
+            overflow-x: hidden
+
+            li a
+                line-height: 1.8em
+                font-size: 16px
+                margin: 0 20px
+                opacity: 0.6
+                &:hover
+                    opacity: 1
+            a.active
+                opacity: 1 !important
+
+    .title
+        line-height: 1.8em
+        font-size: 22px !important
+        opacity: 1 !important

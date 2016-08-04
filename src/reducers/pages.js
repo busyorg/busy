@@ -1,28 +1,27 @@
 var C = require("../constants"),
-	initialState = require("../initialstate"),
-	sortBy = require("sort-by");
+	initialState = require("../initialstate");
 
 module.exports = function(state,action){
 	switch(action.type){
 		case C.FEED_REQUEST:
 			return Object.assign({}, state, {
-				current: action,
-				path: action.path,
-				isFetching: true,
-				isLoaded: false,
-				current_route: null,
-				content: [],
+				current: Object.assign({}, state.current, action)
 			});
 		case C.FEED_SUCCESS:
-			return Object.assign({}, state, {current: action});
+			return Object.assign({}, state, {
+				current: Object.assign({}, state.current, action)
+			});
 		case C.FEED_CLEAR:
 			return Object.assign({}, state, {
-				current: action,
-				path: action.path,
-				isFetching: false,
-				isLoaded: false,
-				current_route: null,
-				content: [],
+				current: Object.assign({}, state.current, action)
+			});
+		case C.CONTENT_REQUEST:
+			return Object.assign({}, state, {
+				single: Object.assign({}, state.single, action)
+			});
+		case C.CONTENT_SUCCESS:
+			return Object.assign({}, state, {
+				single: Object.assign({}, state.single, action)
 			});
 		default: return state || initialState().pages;
 	}
