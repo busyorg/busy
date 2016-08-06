@@ -28,6 +28,16 @@ module.exports = function(state,action){
 				isFetching: false,
 				isLoaded: true
 			});
+		case C.ACCOUNT_REQUEST:
+			return Object.assign({}, state, {
+				isFetching: true,
+				isLoaded: false
+			});
+		case C.ACCOUNT_SUCCESS:
+			return Object.assign({}, state, {
+				isFetching: false,
+				isLoaded: true
+			});
 		case C.CONFIG_SUCCESS:
 			return Object.assign({}, state, {
 				config: action.config

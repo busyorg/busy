@@ -5,7 +5,8 @@ var React = require("react"),
 	steemembed = require('steemembed'),
 	marked = require('marked'),
 	Header = require("./../containers/header"),
-	Loading = require("./../containers/loading");
+	Loading = require("./../containers/loading"),
+	Link = require("react-router").Link;
 
 var Content = React.createClass({
 	getInitialState: function() {
@@ -19,16 +20,16 @@ var Content = React.createClass({
 		return (
 			<div className="main-panel">
 				<Header />
-						<div className="single">
-							{this.props.pages.single && this.props.app.isFetching && <Loading />}
-							{this.props.pages.single && !this.props.app.isFetching && _.size(this.props.pages.single.content) > 0 &&
-								<div className="container">
-									<h1 className="mvl">{single.content.title}</h1>
-									<div dangerouslySetInnerHTML={{__html: marked(single.content.body)}} />
-								</div>
-							}
-						</div>
-					}
+					<div><div style={{height: '20px', overflow: 'hidden'}}></div></div>
+					<div className="single">
+						{this.props.pages.single && this.props.app.isFetching && <Loading />}
+						{this.props.pages.single && !this.props.app.isFetching && _.size(this.props.pages.single.content) > 0 &&
+							<div className="container">
+								<p><Link to={'/@' + single.content.author}>@{single.content.author}</Link></p>
+								<h1 className="mvl">{single.content.title}</h1>
+								<div dangerouslySetInnerHTML={{__html: marked(single.content.body)}} />
+							</div>}
+					</div>
 			</div>
 		);
 	}

@@ -25,6 +25,10 @@ module.exports = function(){
 			single: {
 				isFetching: false,
 				isLoaded: false
+			},
+			profile: {
+				isFetching: false,
+				isLoaded: false
 			}
 		}
 	};

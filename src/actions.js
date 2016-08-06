@@ -19,6 +19,22 @@ module.exports = {
 				});
 		};
 	},
+	getAccount: function(name) {
+		return function(dispatch, getState) {
+			var req = {type: C.ACCOUNT_REQUEST};
+			Object.assign(req);
+			dispatch(req);
+			axios.get('//api.steemjs.com/getAccounts?names[]=' + name)
+				.then(response => {
+					var res = {
+						type: C.ACCOUNT_SUCCESS,
+						account: response.data[0],
+					};
+					Object.assign(res);
+					dispatch(res);
+				});
+		};
+	},
 	getContent: function(author, permlink) {
 		return function(dispatch, getState) {
 			var req = {type: C.CONTENT_REQUEST};

@@ -21,28 +21,28 @@ nav.sidebar
         color: #FFFFFF
 
     .sidebar-header
-        height: 56px
-        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1)
-        .name
-            height: 56px
-            line-height: 56px
-            padding: 0 20px
+        height: 114px
+        text-align: center
+        font-size: 22px
+        border-bottom: 1px solid rgba(0,0,0,0.2)
+        .me
+            padding: 20px
             font-size: 20px
-            border-bottom: 1px solid rgba(0,0,0,0.2)
 
-    .sidebar-footer
-        height: 240px
+    .menu
+        border-top: 1px solid rgba(0,0,0,0.2)
         .balance
+            font-family: $font-primary
             line-height: 1.8em
-            font-size: 16px
             padding: 20px
             opacity: 0.6
+            border-bottom: 1px solid rgba(0,0,0,0.2)
 
     .sidebar-content
         flex-grow: 1
+        overflow-y: auto
         .list-selector
             overflow: hidden
-            box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1)
             border-bottom: 1px solid rgba(0,0,0,0.2)
             li
                 width: 50%
@@ -56,9 +56,10 @@ nav.sidebar
                     opacity: 0.6
 
         .tags
+            font-family: $font-primary
             padding: 8px 0
             clear: both
-            background-color: rgba(255, 255, 255, .1)
+            background-color: rgba(255, 255, 255, .05)
             list-style-type: none
             max-height: 100%
             overflow-y: auto
@@ -76,7 +77,6 @@ nav.sidebar
 
     .title
         border-bottom: 1px solid rgba(0,0,0,0.2)
-        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1)
         padding-left: 20px
         height: 56px
         line-height: 56px

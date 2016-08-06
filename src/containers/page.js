@@ -17,6 +17,10 @@ var Page = React.createClass({
 		}
 	},
 	componentWillMount: function () {
+		var account = (this.props.account)? this.props.account : false;
+		var category = (this.props.category)? this.props.category : false;
+		if (account) this.props.setMenu('secondary');
+		if (category) this.props.setMenu('primary');
 		var path = this.props.path;
 		if (this.props.pages.current.path !== path) {
 			this.props.getFeed(path, {path: path});
@@ -29,9 +33,11 @@ var Page = React.createClass({
 		this.props.clearFeed();
 	},
 	render: function(){
+		var account = (this.props.account)? this.props.account : '';
+		var category = (this.props.category)? this.props.category : '';
 		return (
 			<div className="main-panel">
-				<Header base={this.props.base} subnav={this.props.subnav} add={this.props.add} />
+				<Header account={account} category={category} />
 				{this.props.pages.current && this.props.app.isFetching && <Loading />}
 				{this.props.pages.current && _.size(this.props.pages.current.content) > 0 && <div>
 					<div style={{height: '20px', overflow: 'hidden'}}></div>

@@ -29,28 +29,30 @@ var Sidebar = React.createClass({
 		return (
 			<nav className="sidebar">
 				<div className="sidebar-header">
-					{this.props.auth.isAuthenticated && <div className="avatar">
-						<div className="title name"><Link to={'/@' + user.name}>@{user.name}</Link></div>
+					{this.props.auth.isAuthenticated && <div className="me">
+						<span className="avatar avatar-sm"><img src="/img/logo-white.svg" /></span>
+						<div><Link to={'/@' + user.name}>@{user.name}</Link></div>
 					</div>}
 				</div>
 				<div className="sidebar-content">
 					<ul className="list-selector">
-						<li><a href="#" className="active"><i className="icon icon-md material-icons">public</i> World</a></li>
+						<li><Link to="/trending" className="active"><i className="icon icon-md material-icons">public</i> World</Link></li>
 						<li><span><i className="icon icon-md material-icons">people</i> Friends</span></li>
 					</ul>
 					{tags.length? <ul className="tags">{tags}</ul> : <Loading color="white" />}
-				</div>
-				<div className="sidebar-footer">
+					<div className="menu">
 					{this.props.auth.isAuthenticated && <div>
-						<div className="title"><i className="icon icon-md material-icons">account_balance_wallet</i> Balances</div>
-						<div className="balance">
-							<div>{numeral(user.balance).format('0,0.00')} Steem</div>
-							{current.feed_price && <div>{numeral(power).format('0,0.00')} Steem Power</div>}
-							<div>{numeral(user.sbd_balance).format('0,0.00')} Steem Dollars</div>
-							{current.feed_price && <div>{numeral(dollar).format('$0,0.00')} Steem Dollars</div>}
-							{current.feed_price && <div>{numeral(base).format('$0,0.00')} = 1 Steem</div>}
-						</div>
-					</div>}
+							<div className="title"><i className="icon icon-md material-icons">account_balance_wallet</i> Balances</div>
+							<div className="balance">
+								<div>{numeral(user.balance).format('0,0.00')} Steem</div>
+								{current.feed_price && <div>{numeral(power).format('0,0.00')} Steem Power</div>}
+								<div>{numeral(user.sbd_balance).format('0,0.00')} Steem Dollars</div>
+								{current.feed_price && <div>{numeral(dollar).format('$0,0.00')} Steem Dollars</div>}
+								{current.feed_price && <div>1 Steem = {numeral(base).format('$0,0.00')}</div>}
+							</div>
+							<div className="title"><Link to="/about"><i className="icon icon-md material-icons">info_outline</i> About</Link></div>
+						</div>}
+					</div>
 				</div>
 			</nav>
 		);

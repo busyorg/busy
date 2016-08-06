@@ -15,7 +15,7 @@ cloudinary.config('cloud_name', 'huvgywhku');
 cloudinary.config('api_key', '992272288114383');
 cloudinary.config('api_secret', 'enA36tsC5t6FKcFvm9trm4GdLSI');
 
-var colorCode = {green: 'rgba(39, 208, 169, 0.15)', red: 'rgba(249, 43, 97, 0.1)'};
+var colorCode = {green: 'rgba(39, 208, 169, 0.4)', red: 'rgba(249, 43, 97, 0.2)'};
 var classCode = {green: 'grid-row-green', red: 'grid-row-red'};
 
 module.exports = React.createClass({
@@ -25,7 +25,7 @@ module.exports = React.createClass({
     color = (this.props.entry.net_votes > 0)? 'green' : color;
     color = (this.props.entry.net_votes < 0)? 'red' : color;
     var bar = Math.abs(0.1 * this.props.entry.net_votes * 9);
-    var style = (color)? {height: '5px', boxShadow: 'inset ' + bar  + 'px 0 0 ' + colorCode[color]} : {};
+    var style = (color)? {height: '4px', boxShadow: 'inset ' + bar  + 'px 0 0 ' + colorCode[color]} : {};
     var className = 'grid-row';
     className += (color)? ' ' + classCode[color] : '';
     try { var jsonMetadata = JSON.parse(this.props.entry.json_metadata); }
@@ -72,7 +72,7 @@ module.exports = React.createClass({
         <div className="cell cell-bottom">
           <ul>
             <li><a href="#"><i className="icon icon-sm material-icons">thumb_up</i></a> {numeral(this.props.entry.net_votes).format('0,0')}<span className="hidden-xs"> Likes</span></li>
-            <li><span className="hidden-xs"><i className="icon icon-sm material-icons">attach_money</i> </span>{numeral(this.props.entry.total_payout_value).format('$0,0.00')}</li>
+            <li><span className="hidden-xs"><i className="icon icon-sm material-icons">attach_money</i> </span>{numeral(this.props.entry.total_pending_payout_value).format('$0,0.00')}</li>
             <li><a href="#"><i className="icon icon-sm material-icons">comment</i></a> {numeral(this.props.entry.children).format('0,0')}<span className="hidden-xs"> Comments</span></li>
             <li><a href="#"><i className="icon icon-sm material-icons">send</i><span className="hidden-xs"> Share</span></a></li>
           </ul>

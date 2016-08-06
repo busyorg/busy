@@ -8,9 +8,10 @@ module.exports = React.createClass({
 		};
 	},
 	render: function(){
-		var path = 'trending/' + this.props.params.tag;
+		var category = this.props.params.category;
+		var path = 'trending/' + category;
 		return (
-			<Page key={Math.random()} path={path} />
+			<Page key={Math.random()} path={path} category={category} />
 		);
 	}
 });

@@ -23,6 +23,14 @@ module.exports = function(state,action){
 			return Object.assign({}, state, {
 				single: Object.assign({}, state.single, action)
 			});
+		case C.ACCOUNT_REQUEST:
+			return Object.assign({}, state, {
+				profile: Object.assign({}, state.profile, action)
+			});
+		case C.ACCOUNT_SUCCESS:
+			return Object.assign({}, state, {
+				profile: Object.assign({}, state.profile, action)
+			});
 		default: return state || initialState().pages;
 	}
 };

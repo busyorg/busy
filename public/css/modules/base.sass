@@ -306,12 +306,34 @@ input[type="checkbox"]
 
 .avatar
   overflow: hidden
-
+  border-radius: 50%
+  background-color: #27d0a9
+  text-align: center
+  display: inline-block
+.avatar-sm
+  width: 40px
+  height: 40px
+  img
+    width: 24px
+    height: 24px
+    margin: 8px 0
+.avatar-xl
+  width: 70px
+  height: 70px
+  img
+    width: 45px
+    height: 45px
+    margin: 15px 0
 
 @media (max-width: 992px)
   .hidden-xs
     display: none !important
 
+.visible-xs
+  display: none
+@media (max-width: 992px)
+  .visible-xs
+    display: inherit !important
 
 
 .thumbs
@@ -354,6 +376,16 @@ input[type="checkbox"]
   margin: 0 auto
 
 .single
+  ol
+    li
+      list-style-type: decimal !important
+  ul
+    li
+      list-style-type: square !important
+      list-style-position: inside
+      margin-left: 20px
+
+.single
   display: flex
   flex-direction: column
   overflow-x: auto
@@ -363,3 +395,28 @@ input[type="checkbox"]
     max-height: 600px
     margin: 20px 0
     display: block
+
+.page
+  display: flex
+  overflow-y: auto
+  flex-direction: column
+
+.block
+  padding: 160px 0 220px
+  text-align: center
+  background-color: #434f66
+  color: white
+  h1
+    color: white
+.about-1
+  background: radial-gradient(circle at 50% 50%, rgba(0,0,0,0), rgba(0,0,0,0.6)), url('/img/about/1.jpg') top center / cover
+.about-2
+  background: radial-gradient(circle at 50% 50%, rgba(0,0,0,0), rgba(0,0,0,0.6)), url('/img/about/2.jpg') top center / cover
+.about-3
+  background: radial-gradient(circle at 50% 50%, rgba(0,0,0,0), rgba(0,0,0,0.6)), url('/img/about/3.jpg') center / cover
+.about-4
+  background: radial-gradient(circle at 50% 50%, rgba(0,0,0,0), rgba(0,0,0,0.6)), url('/img/about/4.jpg') center / cover
+.about-5
+  background: radial-gradient(circle at 50% 50%, rgba(0,0,0,0), rgba(0,0,0,0.6)), url('/img/about/5.jpg') center / cover
+.about-6
+  background: radial-gradient(circle at 50% 50%, rgba(0,0,0,0), rgba(0,0,0,0.6)), url('/img/about/6.jpg') top center / cover
