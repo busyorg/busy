@@ -11,6 +11,7 @@ var Header = React.createClass({
 		this.props.search();
 	},
 	render: function(){
+		var menu = this.props.menu || this.props.header.menu;
 		var account = this.props.account || this.props.auth.user.name;
 		var category = (this.props.category)? this.props.category : false;
 		var trending = (category)? '/trending/' + category : '/trending';
@@ -36,7 +37,7 @@ var Header = React.createClass({
 					</div>
 					<a href="#"><i className="icon icon-md icon-menu material-icons">add</i></a>
 				</div>
-				{this.props.header.menu == 'primary' && <ul className="app-nav">
+				{menu == 'primary' && <ul className="app-nav">
 					<li><Link to={trending} onlyActiveOnIndex={true} activeClassName="active"><i className="icon icon-md material-icons">show_chart</i><span className="hidden-xs"> Trending</span></Link></li>
 					<li><Link to={hot} activeClassName="active"><i className="icon icon-md material-icons">lightbulb_outline</i><span className="hidden-xs"> Hot</span></Link></li>
 					<li><Link to={cashout} activeClassName="active"><i className="icon icon-md material-icons">attach_money</i><span className="hidden-xs"> Payout Time</span></Link></li>
@@ -46,7 +47,7 @@ var Header = React.createClass({
 					<li className="hide"><Link to={votes} activeClassName="active"><i className="icon icon-md material-icons">gavel</i><span className="hidden-xs"> Popular</span></Link></li>
 					<li><a href="#" onClick={() => this.props.setMenu('secondary')}><i className="icon icon-md material-icons">expand_more</i></a></li>
 				</ul>}
-				{this.props.header.menu == 'secondary' && <ul className="app-nav">
+				{menu == 'secondary' && <ul className="app-nav">
 					<li><Link to={profile} activeClassName="active"><i className="icon icon-md material-icons">assignment_ind</i><span className="hidden-xs"> Profile</span></Link></li>
 					<li><Link to={posts} activeClassName="active"><i className="icon icon-md material-icons">library_books</i><span className="hidden-xs"> Posts</span></Link></li>
 					<li><Link to={replies} activeClassName="active"><i className="icon icon-md  material-icons">comment</i><span className="hidden-xs"> Replies</span></Link></li>
@@ -55,8 +56,12 @@ var Header = React.createClass({
 					<li className="hide"><Link to={permissions} activeClassName="active"><i className="icon icon-md material-icons">lock</i><span className="hidden-xs"> Permissions</span></Link></li>
 					<li><a href="#" onClick={() => this.props.setMenu('primary')}><i className="icon icon-md material-icons">expand_less</i></a></li>
 				</ul>}
-				{this.props.header.menu == 'about' && <ul className="app-nav">
+				{menu == 'about' && <ul className="app-nav">
 					<li><Link to="/about" activeClassName="active"><i className="icon icon-md material-icons">info_outline</i><span className="hidden-xs"> About</span></Link></li>
+					<li><Link to="/team" activeClassName="active"><i className="icon icon-md material-icons">group_work</i><span className="hidden-xs"> Team</span></Link></li>
+					<li><Link to="/jobs" activeClassName="active"><i className="icon icon-md material-icons">done</i><span className="hidden-xs"> Jobs</span></Link></li>
+					<li><Link to="/donate" activeClassName="active"><i className="icon icon-md material-icons">favorite</i><span className="hidden-xs"> Donate</span></Link></li>
+					<li><Link to="/help" activeClassName="active"><i className="icon icon-md material-icons">help_outline</i><span className="hidden-xs"> Help</span></Link></li>
 				</ul>}
 			</header>
 		);

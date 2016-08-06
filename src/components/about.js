@@ -1,14 +1,16 @@
 var React = require("react"),
 	Header = require("./../containers/header");
 
-var About = React.createClass({
-	componentWillMount: function () {
-		this.props.setMenu('about');
+module.exports = React.createClass({
+	getInitialState: function() {
+		return {
+			key: Math.random()
+		};
 	},
 	render: function(){
 		return (
 			<div className="main-panel">
-				<Header />
+				<Header menu="about" />
 				<div><div style={{height: '20px', overflow: 'hidden'}}></div></div>
 				<div className="page">
 					<div className="block about-1"><h1>Including billions of people in the global economy</h1></div>
@@ -22,11 +24,3 @@ var About = React.createClass({
 		);
 	}
 });
-
-var mapDispatchToProps = function(dispatch){
-	return {
-		setMenu: function(menu){ dispatch(actions.setMenu(menu)); }
-	}
-};
-
-module.exports = ReactRedux.connect(mapDispatchToProps)(About);

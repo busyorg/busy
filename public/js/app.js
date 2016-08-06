@@ -97933,11 +97933,16 @@ var React = require("react"),
 module.exports = React.createClass({
 	displayName: "exports",
 
+	getInitialState: function () {
+		return {
+			key: Math.random()
+		};
+	},
 	render: function () {
 		return React.createElement(
 			"div",
 			{ className: "main-panel" },
-			React.createElement(Header, null),
+			React.createElement(Header, { menu: "about" }),
 			React.createElement(
 				"div",
 				null,
@@ -98584,6 +98589,7 @@ var Header = React.createClass({
 		this.props.search();
 	},
 	render: function () {
+		var menu = this.props.menu || this.props.header.menu;
 		var account = this.props.account || this.props.auth.user.name;
 		var category = this.props.category ? this.props.category : false;
 		var trending = category ? '/trending/' + category : '/trending';
@@ -98642,7 +98648,7 @@ var Header = React.createClass({
 					)
 				)
 			),
-			this.props.header.menu == 'primary' ? React.createElement(
+			menu == 'primary' && React.createElement(
 				"ul",
 				{ className: "app-nav" },
 				React.createElement(
@@ -98784,7 +98790,8 @@ var Header = React.createClass({
 						)
 					)
 				)
-			) : React.createElement(
+			),
+			menu == 'secondary' && React.createElement(
 				"ul",
 				{ className: "app-nav" },
 				React.createElement(
@@ -98905,6 +98912,100 @@ var Header = React.createClass({
 							"i",
 							{ className: "icon icon-md material-icons" },
 							"expand_less"
+						)
+					)
+				)
+			),
+			menu == 'about' && React.createElement(
+				"ul",
+				{ className: "app-nav" },
+				React.createElement(
+					"li",
+					null,
+					React.createElement(
+						Link,
+						{ to: "/about", activeClassName: "active" },
+						React.createElement(
+							"i",
+							{ className: "icon icon-md material-icons" },
+							"info_outline"
+						),
+						React.createElement(
+							"span",
+							{ className: "hidden-xs" },
+							" About"
+						)
+					)
+				),
+				React.createElement(
+					"li",
+					null,
+					React.createElement(
+						Link,
+						{ to: "/team", activeClassName: "active" },
+						React.createElement(
+							"i",
+							{ className: "icon icon-md material-icons" },
+							"group_work"
+						),
+						React.createElement(
+							"span",
+							{ className: "hidden-xs" },
+							" Team"
+						)
+					)
+				),
+				React.createElement(
+					"li",
+					null,
+					React.createElement(
+						Link,
+						{ to: "/jobs", activeClassName: "active" },
+						React.createElement(
+							"i",
+							{ className: "icon icon-md material-icons" },
+							"done"
+						),
+						React.createElement(
+							"span",
+							{ className: "hidden-xs" },
+							" Jobs"
+						)
+					)
+				),
+				React.createElement(
+					"li",
+					null,
+					React.createElement(
+						Link,
+						{ to: "/donate", activeClassName: "active" },
+						React.createElement(
+							"i",
+							{ className: "icon icon-md material-icons" },
+							"favorite"
+						),
+						React.createElement(
+							"span",
+							{ className: "hidden-xs" },
+							" Donate"
+						)
+					)
+				),
+				React.createElement(
+					"li",
+					null,
+					React.createElement(
+						Link,
+						{ to: "/help", activeClassName: "active" },
+						React.createElement(
+							"i",
+							{ className: "icon icon-md material-icons" },
+							"help_outline"
+						),
+						React.createElement(
+							"span",
+							{ className: "hidden-xs" },
+							" Help"
 						)
 					)
 				)
@@ -99041,9 +99142,6 @@ var Page = React.createClass({
 		if (nextProps.pages.current.path !== path && !nextProps.pages.current.isFetching && !nextProps.pages.current.isLoaded) {
 			this.props.getFeed(path, { path: path });
 		}
-		if (this.props.base || this.props.menu == 'secondary') {
-			this.props.setMenu('secondary');
-		}
 	},
 	componentWillMount: function () {
 		var account = this.props.account ? this.props.account : false;
@@ -99053,9 +99151,6 @@ var Page = React.createClass({
 		var path = this.props.path;
 		if (this.props.pages.current.path !== path) {
 			this.props.getFeed(path, { path: path });
-		}
-		if (this.props.base || this.props.menu == 'secondary') {
-			this.props.setMenu('secondary');
 		}
 	},
 	componentWillUnMount: function () {
