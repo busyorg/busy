@@ -12,9 +12,6 @@ var Page = React.createClass({
 		if (nextProps.pages.current.path !== path && !nextProps.pages.current.isFetching && !nextProps.pages.current.isLoaded) {
 			this.props.getFeed(path, {path: path});
 		}
-		if (this.props.base || this.props.menu == 'secondary') {
-			this.props.setMenu('secondary');
-		}
 	},
 	componentWillMount: function () {
 		var account = (this.props.account)? this.props.account : false;
@@ -24,9 +21,6 @@ var Page = React.createClass({
 		var path = this.props.path;
 		if (this.props.pages.current.path !== path) {
 			this.props.getFeed(path, {path: path});
-		}
-		if (this.props.base || this.props.menu == 'secondary') {
-			this.props.setMenu('secondary');
 		}
 	},
 	componentWillUnMount: function () {

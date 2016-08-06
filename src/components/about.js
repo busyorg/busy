@@ -1,7 +1,10 @@
 var React = require("react"),
 	Header = require("./../containers/header");
 
-module.exports = React.createClass({
+var About = React.createClass({
+	componentWillMount: function () {
+		this.props.setMenu('about');
+	},
 	render: function(){
 		return (
 			<div className="main-panel">
@@ -19,3 +22,11 @@ module.exports = React.createClass({
 		);
 	}
 });
+
+var mapDispatchToProps = function(dispatch){
+	return {
+		setMenu: function(menu){ dispatch(actions.setMenu(menu)); }
+	}
+};
+
+module.exports = ReactRedux.connect(mapDispatchToProps)(About);
