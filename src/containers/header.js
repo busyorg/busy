@@ -63,6 +63,10 @@ var Header = React.createClass({
 					<li><Link to="/donate" activeClassName="active"><i className="icon icon-md material-icons">favorite</i><span className="hidden-xs"> Donate</span></Link></li>
 					<li><Link to="/help" activeClassName="active"><i className="icon icon-md material-icons">help_outline</i><span className="hidden-xs"> Help</span></Link></li>
 				</ul>}
+				{menu == 'chat' && <ul className="app-nav">
+					<li><Link to="/chat/tag" activeClassName="active"><i className="icon icon-md material-icons">chat</i><span className="hidden-xs"> tag</span></Link></li>
+					<li><Link to="/chat/@name" activeClassName="active"><i className="icon icon-md material-icons">perm_identity</i><span className="hidden-xs"> name</span></Link></li>
+				</ul>}
 			</header>
 		);
 	}

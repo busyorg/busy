@@ -16,7 +16,8 @@ var React = require('react'),
   Category = require('./components/category'),
   Single = require('./components/content'),
   Posts = require('./components/posts'),
-  Replies = require('./components/replies');
+  Replies = require('./components/replies'),
+  Chat = require('./components/chat');
 
 module.exports = (
   <Route path="/" component={Wrapper}>
@@ -34,5 +35,6 @@ module.exports = (
     <Route path="/active" component={Active} />
     <Route path="/responses" component={Responses} />
     <Route path="/votes" component={Votes} />
+    <Route path="/chat" component={Chat} />
   </Route>
 );

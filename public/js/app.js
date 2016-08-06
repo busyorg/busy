@@ -97926,7 +97926,7 @@ module.exports = {
 	}
 };
 
-},{"./constants":545,"axios":15,"moment":192}],531:[function(require,module,exports){
+},{"./constants":546,"axios":15,"moment":192}],531:[function(require,module,exports){
 var React = require("react"),
     Header = require("./../containers/header");
 
@@ -98010,7 +98010,7 @@ module.exports = React.createClass({
 	}
 });
 
-},{"./../containers/header":548,"react":409}],532:[function(require,module,exports){
+},{"./../containers/header":550,"react":409}],532:[function(require,module,exports){
 var React = require("react"),
     Page = require("./../containers/page");
 
@@ -98022,7 +98022,7 @@ module.exports = React.createClass({
 	}
 });
 
-},{"./../containers/page":551,"react":409}],533:[function(require,module,exports){
+},{"./../containers/page":553,"react":409}],533:[function(require,module,exports){
 var React = require("react"),
     Page = require("./../containers/page");
 
@@ -98034,7 +98034,7 @@ module.exports = React.createClass({
 	}
 });
 
-},{"./../containers/page":551,"react":409}],534:[function(require,module,exports){
+},{"./../containers/page":553,"react":409}],534:[function(require,module,exports){
 var React = require("react"),
     Page = require("./../containers/page");
 
@@ -98053,7 +98053,23 @@ module.exports = React.createClass({
 	}
 });
 
-},{"./../containers/page":551,"react":409}],535:[function(require,module,exports){
+},{"./../containers/page":553,"react":409}],535:[function(require,module,exports){
+var React = require("react"),
+    Header = require("./../containers/header");
+
+module.exports = React.createClass({
+	displayName: "exports",
+
+	render: function () {
+		return React.createElement(
+			"div",
+			{ className: "main-panel" },
+			React.createElement(Header, { menu: "chat" })
+		);
+	}
+});
+
+},{"./../containers/header":550,"react":409}],536:[function(require,module,exports){
 var React = require("react"),
     ReactRedux = require("react-redux"),
     _ = require('lodash'),
@@ -98130,7 +98146,7 @@ var mapDispatchToProps = function (dispatch) {
 
 module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(Content);
 
-},{"../actions":530,"./../containers/header":548,"./../containers/loading":549,"lodash":188,"marked":189,"react":409,"react-redux":221,"react-router":255,"steemembed":438}],536:[function(require,module,exports){
+},{"../actions":530,"./../containers/header":550,"./../containers/loading":551,"lodash":188,"marked":189,"react":409,"react-redux":221,"react-router":255,"steemembed":438}],537:[function(require,module,exports){
 var React = require("react"),
     Page = require("./../containers/page");
 
@@ -98142,7 +98158,7 @@ module.exports = React.createClass({
 	}
 });
 
-},{"./../containers/page":551,"react":409}],537:[function(require,module,exports){
+},{"./../containers/page":553,"react":409}],538:[function(require,module,exports){
 var React = require("react"),
     Header = require("./../containers/header");
 
@@ -98171,7 +98187,7 @@ module.exports = React.createClass({
 	}
 });
 
-},{"./../containers/header":548,"react":409}],538:[function(require,module,exports){
+},{"./../containers/header":550,"react":409}],539:[function(require,module,exports){
 var React = require("react"),
     Page = require("./../containers/page");
 
@@ -98183,7 +98199,7 @@ module.exports = React.createClass({
 	}
 });
 
-},{"./../containers/page":551,"react":409}],539:[function(require,module,exports){
+},{"./../containers/page":553,"react":409}],540:[function(require,module,exports){
 var React = require("react"),
     Page = require("./../containers/page");
 
@@ -98196,7 +98212,7 @@ module.exports = React.createClass({
 	}
 });
 
-},{"./../containers/page":551,"react":409}],540:[function(require,module,exports){
+},{"./../containers/page":553,"react":409}],541:[function(require,module,exports){
 var React = require("react"),
     ReactRedux = require("react-redux"),
     _ = require('lodash'),
@@ -98310,7 +98326,7 @@ var mapDispatchToProps = function (dispatch) {
 
 module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(Profile);
 
-},{"../actions":530,"./../containers/header":548,"./../containers/loading":549,"lodash":188,"numeral":194,"react":409,"react-redux":221}],541:[function(require,module,exports){
+},{"../actions":530,"./../containers/header":550,"./../containers/loading":551,"lodash":188,"numeral":194,"react":409,"react-redux":221}],542:[function(require,module,exports){
 var React = require("react"),
     Page = require("./../containers/page");
 
@@ -98323,7 +98339,7 @@ module.exports = React.createClass({
 	}
 });
 
-},{"./../containers/page":551,"react":409}],542:[function(require,module,exports){
+},{"./../containers/page":553,"react":409}],543:[function(require,module,exports){
 var React = require("react"),
     Page = require("./../containers/page");
 
@@ -98335,7 +98351,7 @@ module.exports = React.createClass({
 	}
 });
 
-},{"./../containers/page":551,"react":409}],543:[function(require,module,exports){
+},{"./../containers/page":553,"react":409}],544:[function(require,module,exports){
 var React = require("react"),
     Page = require("./../containers/page");
 
@@ -98347,7 +98363,7 @@ module.exports = React.createClass({
 	}
 });
 
-},{"./../containers/page":551,"react":409}],544:[function(require,module,exports){
+},{"./../containers/page":553,"react":409}],545:[function(require,module,exports){
 var React = require("react"),
     Page = require("./../containers/page");
 
@@ -98359,7 +98375,7 @@ module.exports = React.createClass({
 	}
 });
 
-},{"./../containers/page":551,"react":409}],545:[function(require,module,exports){
+},{"./../containers/page":553,"react":409}],546:[function(require,module,exports){
 module.exports = {
 	// Auth
 	LOGIN_REQUEST: 'LOGIN_REQUEST',
@@ -98404,7 +98420,7 @@ module.exports = {
 	SET_MENU: 'SET_MENU'
 };
 
-},{}],546:[function(require,module,exports){
+},{}],547:[function(require,module,exports){
 var React = require('react');
 
 module.exports = React.createClass({
@@ -98509,7 +98525,31 @@ module.exports = React.createClass({
   }
 });
 
-},{"react":409}],547:[function(require,module,exports){
+},{"react":409}],548:[function(require,module,exports){
+var React = require("react"),
+    Link = require("react-router").Link;
+
+module.exports = React.createClass({
+	displayName: "exports",
+
+	render: function () {
+		return React.createElement(
+			"div",
+			{ className: "chat-trigger" },
+			React.createElement(
+				Link,
+				{ to: "/chat" },
+				React.createElement(
+					"i",
+					{ className: "icon icon-lg material-icons" },
+					"chat"
+				)
+			)
+		);
+	}
+});
+
+},{"react":409,"react-router":255}],549:[function(require,module,exports){
 var React = require('react'),
     _ = require('lodash'),
     striptags = require('striptags'),
@@ -98573,7 +98613,7 @@ var obj2Array = function (object) {
   return array;
 };
 
-},{"../actions":530,"./add-post":546,"./post":552,"lodash":188,"marked":189,"numeral":194,"react":409,"sort-by":437,"striptags":453,"text-ellipsis":456}],548:[function(require,module,exports){
+},{"../actions":530,"./add-post":547,"./post":554,"lodash":188,"marked":189,"numeral":194,"react":409,"sort-by":437,"striptags":453,"text-ellipsis":456}],550:[function(require,module,exports){
 var React = require("react"),
     ReactRedux = require("react-redux"),
     actions = require("../actions"),
@@ -99009,6 +99049,46 @@ var Header = React.createClass({
 						)
 					)
 				)
+			),
+			menu == 'chat' && React.createElement(
+				"ul",
+				{ className: "app-nav" },
+				React.createElement(
+					"li",
+					null,
+					React.createElement(
+						Link,
+						{ to: "/chat/tag", activeClassName: "active" },
+						React.createElement(
+							"i",
+							{ className: "icon icon-md material-icons" },
+							"chat"
+						),
+						React.createElement(
+							"span",
+							{ className: "hidden-xs" },
+							" tag"
+						)
+					)
+				),
+				React.createElement(
+					"li",
+					null,
+					React.createElement(
+						Link,
+						{ to: "/chat/@name", activeClassName: "active" },
+						React.createElement(
+							"i",
+							{ className: "icon icon-md material-icons" },
+							"perm_identity"
+						),
+						React.createElement(
+							"span",
+							{ className: "hidden-xs" },
+							" name"
+						)
+					)
+				)
 			)
 		);
 	}
@@ -99046,7 +99126,7 @@ var mapDispatchToProps = function (dispatch) {
 
 module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(Header);
 
-},{"../actions":530,"react":409,"react-redux":221,"react-router":255}],549:[function(require,module,exports){
+},{"../actions":530,"react":409,"react-redux":221,"react-router":255}],551:[function(require,module,exports){
 var React = require("react");
 
 module.exports = React.createClass({
@@ -99082,7 +99162,7 @@ module.exports = React.createClass({
 	}
 });
 
-},{"react":409}],550:[function(require,module,exports){
+},{"react":409}],552:[function(require,module,exports){
 var React = require("react"),
     ReactRedux = require("react-redux"),
     actions = require("../actions"),
@@ -99125,7 +99205,7 @@ var mapDispatchToProps = function (dispatch) {
 
 module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(Modal);
 
-},{"../actions":530,"../form/account":555,"../form/post":556,"react":409,"react-redux":221}],551:[function(require,module,exports){
+},{"../actions":530,"../form/account":557,"../form/post":558,"react":409,"react-redux":221}],553:[function(require,module,exports){
 var React = require("react"),
     ReactRedux = require("react-redux"),
     _ = require('lodash'),
@@ -99198,7 +99278,7 @@ var mapDispatchToProps = function (dispatch) {
 
 module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(Page);
 
-},{"../actions":530,"./feed":547,"./header":548,"./loading":549,"lodash":188,"react":409,"react-redux":221}],552:[function(require,module,exports){
+},{"../actions":530,"./feed":549,"./header":550,"./loading":551,"lodash":188,"react":409,"react-redux":221}],554:[function(require,module,exports){
 var React = require('react'),
     _ = require('lodash'),
     steemembed = require('steemembed'),
@@ -99427,7 +99507,7 @@ module.exports = React.createClass({
   }
 });
 
-},{"../actions":530,"cloudinary":68,"franc":144,"lodash":188,"marked":189,"moment":192,"numeral":194,"react":409,"react-router":255,"steemembed":438,"striptags":453,"text-ellipsis":456}],553:[function(require,module,exports){
+},{"../actions":530,"cloudinary":68,"franc":144,"lodash":188,"marked":189,"moment":192,"numeral":194,"react":409,"react-router":255,"steemembed":438,"striptags":453,"text-ellipsis":456}],555:[function(require,module,exports){
 var React = require("react"),
     ReactRedux = require("react-redux"),
     _ = require('lodash'),
@@ -99527,11 +99607,11 @@ var Sidebar = React.createClass({
 						)
 					)
 				),
-				tags.length ? React.createElement(
+				tags.length > 0 && React.createElement(
 					"ul",
 					{ className: "tags" },
 					tags
-				) : React.createElement(Loading, { color: "white" }),
+				),
 				React.createElement(
 					"div",
 					{ className: "menu" },
@@ -99612,13 +99692,14 @@ var mapStateToProps = function (state) {
 
 module.exports = ReactRedux.connect(mapStateToProps)(Sidebar);
 
-},{"./../containers/loading":549,"lodash":188,"numeral":194,"react":409,"react-redux":221,"react-router":255,"sort-by":437}],554:[function(require,module,exports){
+},{"./../containers/loading":551,"lodash":188,"numeral":194,"react":409,"react-redux":221,"react-router":255,"sort-by":437}],556:[function(require,module,exports){
 var React = require('react'),
     ReactRedux = require("react-redux"),
     actions = require("../actions"),
     Modal = require("./../containers/modal"),
     Sidebar = require("./../containers/sidebar"),
-    Loading = require("./../containers/loading");
+    Loading = require("./../containers/loading"),
+    Chat = require("./../containers/chat-trigger");
 
 var Wrapper = React.createClass({
   displayName: "Wrapper",
@@ -99633,6 +99714,7 @@ var Wrapper = React.createClass({
       { className: "app-wrapper" },
       React.createElement(Sidebar, null),
       React.createElement(Modal, null),
+      React.createElement(Chat, null),
       this.props.children
     ) : React.createElement(Loading, { color: "white" });
   }
@@ -99658,7 +99740,7 @@ var mapDispatchToProps = function (dispatch) {
 
 module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(Wrapper);
 
-},{"../actions":530,"./../containers/loading":549,"./../containers/modal":550,"./../containers/sidebar":553,"react":409,"react-redux":221}],555:[function(require,module,exports){
+},{"../actions":530,"./../containers/chat-trigger":548,"./../containers/loading":551,"./../containers/modal":552,"./../containers/sidebar":555,"react":409,"react-redux":221}],557:[function(require,module,exports){
 var React = require("react"),
     ReactRedux = require("react-redux"),
     actions = require("../actions");
@@ -99798,7 +99880,7 @@ var mapDispatchToProps = function (dispatch) {
 
 module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(Account);
 
-},{"../actions":530,"react":409,"react-redux":221}],556:[function(require,module,exports){
+},{"../actions":530,"react":409,"react-redux":221}],558:[function(require,module,exports){
 var React = require("react"),
     ReactRedux = require("react-redux"),
     validator = require('validator'),
@@ -99893,7 +99975,7 @@ var mapDispatchToProps = function (dispatch) {
 
 module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(Campaign);
 
-},{"../actions":530,"react":409,"react-redux":221,"validator":464}],557:[function(require,module,exports){
+},{"../actions":530,"react":409,"react-redux":221,"validator":464}],559:[function(require,module,exports){
 var React = require('react'),
     ReactDOM = require('react-dom'),
     Router = require('react-router').Router,
@@ -99910,7 +99992,7 @@ ReactDOM.render(React.createElement(
 	React.createElement(Router, { routes: routes, history: appHistory })
 ), document.getElementById('app'));
 
-},{"./routes":564,"./store":565,"history":169,"react":409,"react-dom":218,"react-redux":221,"react-router":255}],558:[function(require,module,exports){
+},{"./routes":566,"./store":567,"history":169,"react":409,"react-dom":218,"react-redux":221,"react-router":255}],560:[function(require,module,exports){
 module.exports = function () {
 	return {
 		app: {
@@ -99947,7 +100029,7 @@ module.exports = function () {
 	};
 };
 
-},{}],559:[function(require,module,exports){
+},{}],561:[function(require,module,exports){
 var C = require("../constants"),
     initialState = require("../initialstate");
 
@@ -99997,7 +100079,7 @@ module.exports = function (state, action) {
 	}
 };
 
-},{"../constants":545,"../initialstate":558}],560:[function(require,module,exports){
+},{"../constants":546,"../initialstate":560}],562:[function(require,module,exports){
 var C = require("../constants"),
     initialState = require("../initialstate");
 
@@ -100032,7 +100114,7 @@ module.exports = function (state, action) {
 	}
 };
 
-},{"../constants":545,"../initialstate":558}],561:[function(require,module,exports){
+},{"../constants":546,"../initialstate":560}],563:[function(require,module,exports){
 var C = require("../constants"),
     initialState = require("../initialstate");
 
@@ -100059,7 +100141,7 @@ module.exports = function (state, action) {
 	}
 };
 
-},{"../constants":545,"../initialstate":558}],562:[function(require,module,exports){
+},{"../constants":546,"../initialstate":560}],564:[function(require,module,exports){
 var C = require("../constants"),
     initialState = require("../initialstate");
 
@@ -100085,7 +100167,7 @@ module.exports = function (state, action) {
 	}
 };
 
-},{"../constants":545,"../initialstate":558}],563:[function(require,module,exports){
+},{"../constants":546,"../initialstate":560}],565:[function(require,module,exports){
 var C = require("../constants"),
     initialState = require("../initialstate");
 
@@ -100124,7 +100206,7 @@ module.exports = function (state, action) {
 	}
 };
 
-},{"../constants":545,"../initialstate":558}],564:[function(require,module,exports){
+},{"../constants":546,"../initialstate":560}],566:[function(require,module,exports){
 var React = require('react'),
     ReactRouter = require('react-router'),
     Route = ReactRouter.Route,
@@ -100143,7 +100225,8 @@ var React = require('react'),
     Category = require('./components/category'),
     Single = require('./components/content'),
     Posts = require('./components/posts'),
-    Replies = require('./components/replies');
+    Replies = require('./components/replies'),
+    Chat = require('./components/chat');
 
 module.exports = React.createElement(
   Route,
@@ -100161,10 +100244,11 @@ module.exports = React.createElement(
   React.createElement(Route, { path: '/created', component: Created }),
   React.createElement(Route, { path: '/active', component: Active }),
   React.createElement(Route, { path: '/responses', component: Responses }),
-  React.createElement(Route, { path: '/votes', component: Votes })
+  React.createElement(Route, { path: '/votes', component: Votes }),
+  React.createElement(Route, { path: '/chat', component: Chat })
 );
 
-},{"./components/about":531,"./components/active":532,"./components/cashout":533,"./components/category":534,"./components/content":535,"./components/created":536,"./components/dashboard":537,"./components/hot":538,"./components/posts":539,"./components/profile":540,"./components/replies":541,"./components/responses":542,"./components/trending":543,"./components/votes":544,"./containers/wrapper":554,"react":409,"react-router":255}],565:[function(require,module,exports){
+},{"./components/about":531,"./components/active":532,"./components/cashout":533,"./components/category":534,"./components/chat":535,"./components/content":536,"./components/created":537,"./components/dashboard":538,"./components/hot":539,"./components/posts":540,"./components/profile":541,"./components/replies":542,"./components/responses":543,"./components/trending":544,"./components/votes":545,"./containers/wrapper":556,"react":409,"react-router":255}],567:[function(require,module,exports){
 var Redux = require("redux"),
     appReducer = require("./reducers/app"),
     authReducer = require("./reducers/auth"),
@@ -100184,4 +100268,4 @@ var rootReducer = Redux.combineReducers({
 
 module.exports = Redux.applyMiddleware(thunk)(Redux.createStore)(rootReducer, initialState(), window.devToolsExtension && window.devToolsExtension());
 
-},{"./initialstate":558,"./reducers/app":559,"./reducers/auth":560,"./reducers/header":561,"./reducers/modal":562,"./reducers/pages":563,"redux":426,"redux-thunk":420}]},{},[557]);
+},{"./initialstate":560,"./reducers/app":561,"./reducers/auth":562,"./reducers/header":563,"./reducers/modal":564,"./reducers/pages":565,"redux":426,"redux-thunk":420}]},{},[559]);

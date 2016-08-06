@@ -39,7 +39,7 @@ var Sidebar = React.createClass({
 						<li><Link to="/trending" className="active"><i className="icon icon-md material-icons">public</i> World</Link></li>
 						<li><span><i className="icon icon-md material-icons">people</i> Friends</span></li>
 					</ul>
-					{tags.length? <ul className="tags">{tags}</ul> : <Loading color="white" />}
+					{tags.length > 0 && <ul className="tags">{tags}</ul>}
 					<div className="menu">
 					{this.props.auth.isAuthenticated && <div>
 							<div className="title"><i className="icon icon-md material-icons">account_balance_wallet</i> Balances</div>
