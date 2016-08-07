@@ -24,21 +24,22 @@ var Sidebar = React.createClass({
 			var power = parseFloat(current.props.total_vesting_fund_steem) * (parseFloat(vests) / parseFloat(totalVest));
 			var base = (current.feed_price.base).replace(' SBD', '').replace(',', '');
 			var dollar = (parseFloat(base) * (parseFloat(user.balance) + parseFloat(power))) + parseFloat(user.sbd_balance);
-
 		}
 		return (
 			<nav className="sidebar">
 				<div className="sidebar-header">
-					{this.props.auth.isAuthenticated && <div className="me">
+					{this.props.auth.isAuthenticated? <div className="me">
 						<span className="avatar avatar-sm"><img src="/img/logo-white.svg" /></span>
 						<div><Link to={'/@' + user.name}>@{user.name}</Link></div>
+					</div> : <div className="login">
+						<a href="https://steemconnect.com/connect?appId=230kfd02-kf9j2-fsd57g4"><i className="icon icon-md material-icons">lock_outline</i> Steem Connect</a>
 					</div>}
 				</div>
 				<div className="sidebar-content">
-					<ul className="list-selector">
+					{this.props.auth.isAuthenticated && <ul className="list-selector">
 						<li><Link to="/trending" className="active"><i className="icon icon-md material-icons">public</i> World</Link></li>
 						<li><span><i className="icon icon-md material-icons">people</i> Friends</span></li>
-					</ul>
+					</ul>}
 					{tags.length > 0 && <ul className="tags">{tags}</ul>}
 					<div className="menu">
 					{this.props.auth.isAuthenticated && <div>
@@ -50,8 +51,8 @@ var Sidebar = React.createClass({
 								{current.feed_price && <div>{numeral(dollar).format('$0,0.00')} Steem Dollars</div>}
 								{current.feed_price && <div>1 Steem = {numeral(base).format('$0,0.00')}</div>}
 							</div>
-							<div className="title"><Link to="/about"><i className="icon icon-md material-icons">info_outline</i> About</Link></div>
 						</div>}
+						<div className="title"><Link to="/about"><i className="icon icon-md material-icons">info_outline</i> About</Link></div>
 					</div>
 				</div>
 			</nav>

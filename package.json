@@ -60,5 +60,8 @@
     "text-ellipsis": "^1.0.3",
     "ua-parser-js": "^0.7.10",
     "validator": "^5.1.0"
+  },
+  "devDependencies": {
+    "steemjs-lib": "^0.2.7"
   }
 }

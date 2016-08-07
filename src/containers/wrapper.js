@@ -3,22 +3,21 @@ var React = require('react'),
     actions = require("../actions"),
     Modal = require("./../containers/modal"),
     Sidebar = require("./../containers/sidebar"),
-    Loading = require("./../containers/loading"),
     Chat = require("./../containers/chat-trigger");
 
 var Wrapper = React.createClass({
   componentWillMount: function(){
-    this.props.login('fabien', '**********');
+    //this.props.login('fabien', '**********');
     this.props.getConfig();
   },
   render: function() {
       return (
-        this.props.auth.isAuthenticated? <div className="app-wrapper">
+        <div className="app-wrapper">
           <Sidebar />
           <Modal />
           <Chat />
           {this.props.children}
-        </div> : <Loading color="white" />
+        </div>
       );
   }
 });

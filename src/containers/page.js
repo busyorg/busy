@@ -36,7 +36,7 @@ var Page = React.createClass({
 				{this.props.pages.current && _.size(this.props.pages.current.content) > 0 && <div>
 					<div style={{height: '20px', overflow: 'hidden'}}></div>
 				</div>}
-				{this.props.pages.current && _.size(this.props.pages.current.content) > 0 && <Feed filter={this.props.header.query} title={this.props.gridTitle} content={this.props.pages.current.content} />}
+				{this.props.pages.current && _.size(this.props.pages.current.content) > 0 && <Feed filter={this.props.header.query} content={this.props.pages.current.content} />}
 			</div>
 		);
 	}

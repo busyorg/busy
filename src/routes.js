@@ -5,6 +5,7 @@ var React = require('react'),
   Wrapper = require('./containers/wrapper'),
   Dashboard = require('./components/dashboard'),
   About = require('./components/about'),
+  Projects = require('./components/projects'),
   Profile = require('./components/profile'),
   Trending = require('./components/trending'),
   Hot = require('./components/hot'),
@@ -23,6 +24,7 @@ module.exports = (
   <Route path="/" component={Wrapper}>
     <IndexRoute component={Dashboard} />
     <Route path="/about" component={About} />
+    <Route path="/projects" component={Projects} />
     <Route path="/:category/@:author/:permlink" component={Single} />
     <Route path="/trending/:category" component={Category} />
     <Route path="/@:name/posts" component={Posts} />
