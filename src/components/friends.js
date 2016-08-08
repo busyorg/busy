@@ -4,7 +4,7 @@ var React = require('react'),
 	actions = require('../actions'),
 	Header = require('./../containers/header'),
 	Loading = require('./../containers/loading'),
-	Feed = require('./../containers/Feed');
+	Feed = require('./../containers/feed');
 
 var Content = React.createClass({
 	getInitialState: function() {
