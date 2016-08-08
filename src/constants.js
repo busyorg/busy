@@ -39,5 +39,9 @@ module.exports = {
 	// Header
 	REFRESH: 'REFRESH',
 	SEARCH: 'SEARCH',
-	SET_MENU: 'SET_MENU'
+	SET_MENU: 'SET_MENU',
+
+	// Sidebar
+	SHOW_SIDEBAR: 'SHOW_SIDEBAR',
+	HIDE_SIDEBAR: 'HIDE_SIDEBAR'
 };

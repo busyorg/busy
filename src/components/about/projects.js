@@ -1,5 +1,5 @@
 var React = require("react"),
-	Header = require("./../containers/header");
+	Header = require("./../../containers/header");
 
 module.exports = React.createClass({
 	getInitialState: function() {

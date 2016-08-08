@@ -7,7 +7,7 @@ router.get('/test', function(req, res, next) {
   login.setRoles(["posting"]);
   var loginSuccess = login.checkKeys({
     accountName: "siol",
-    password: "kohsamuiphuket36",
+    password: "****",
     auths: {
       posting: [["STM7SWWzw9LbzMvvS6WukeXNSqNSZAG5GJbh5u88DT7jGCWdrvgh1", 1]]
     }}

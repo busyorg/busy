@@ -1,5 +1,6 @@
 var React = require("react"),
 	ReactRedux = require("react-redux"),
+	actions = require("../actions"),
 	_ = require('lodash'),
 	sortBy = require('sort-by'),
 	numeral = require('numeral'),
@@ -27,6 +28,7 @@ var Sidebar = React.createClass({
 		}
 		return (
 			<nav className="sidebar">
+				{this.props.app.sidebarIsVisible && <a className="visible-xs hide-sidebar" href="#" onClick={() => this.props.hideSidebar()}><i className="icon icon-md icon-menu material-icons">arrow_back</i></a>}
 				<div className="sidebar-header">
 					{this.props.auth.isAuthenticated? <div className="me">
 						<span className="avatar avatar-sm"><img src="/img/logo-white.svg" /></span>
@@ -38,7 +40,7 @@ var Sidebar = React.createClass({
 				<div className="sidebar-content">
 					{this.props.auth.isAuthenticated && <ul className="list-selector">
 						<li><Link to="/trending" className="active"><i className="icon icon-md material-icons">public</i> World</Link></li>
-						<li><span><i className="icon icon-md material-icons">people</i> Friends</span></li>
+						<li><Link to="/friends" className="active"><i className="icon icon-md material-icons">people</i> Friends</Link></li>
 					</ul>}
 					{tags.length > 0 && <ul className="tags">{tags}</ul>}
 					<div className="menu">
@@ -62,9 +64,16 @@ var Sidebar = React.createClass({
 
 var mapStateToProps = function(state){
 	return {
+		app: state.app,
 		auth: state.auth,
 		pages: state.pages
 	};
 };
 
-module.exports = ReactRedux.connect(mapStateToProps)(Sidebar);
+var mapDispatchToProps = function(dispatch){
+	return {
+		hideSidebar: function(){ dispatch(actions.hideSidebar()); }
+	}
+};
+
+module.exports = ReactRedux.connect(mapStateToProps,mapDispatchToProps)(Sidebar);

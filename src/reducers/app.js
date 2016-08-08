@@ -42,6 +42,14 @@ module.exports = function(state,action){
 			return Object.assign({}, state, {
 				config: action.config
 			});
+		case C.SHOW_SIDEBAR:
+			return Object.assign({}, state, {
+				sidebarIsVisible: true
+			});
+		case C.HIDE_SIDEBAR:
+			return Object.assign({}, state, {
+				sidebarIsVisible: false
+			});
 		default: return state || initialState().app;
 	}
 };

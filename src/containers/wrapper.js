@@ -7,13 +7,14 @@ var React = require('react'),
 
 var Wrapper = React.createClass({
   componentWillMount: function(){
-    //this.props.login('fabien', '**********');
+    this.props.login('fabien', '**********');
     this.props.getConfig();
   },
   render: function() {
+      var className = (!this.props.app.sidebarIsVisible)? 'app-wrapper full-width' : 'app-wrapper';
       return (
-        <div className="app-wrapper">
-          <Sidebar />
+        <div className={className}>
+          {this.props.app.sidebarIsVisible && <Sidebar />}
           <Modal />
           <Chat />
           {this.props.children}
@@ -24,6 +25,7 @@ var Wrapper = React.createClass({
 
 var mapStateToProps = function(state){
   return {
+    app: state.app,
     auth: state.auth,
     pages: state.pages
   };

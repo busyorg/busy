@@ -50,6 +50,7 @@ module.exports = React.createClass({
     }
     var language = franc(this.props.entry.title + ' ' + body);
     var textLength = (this.props.entry.title + ' ' + body).length;
+    var payout = parseFloat(this.props.entry.total_payout_value) + parseFloat(this.props.entry.total_pending_payout_value);
     return (
       <div className={className}>
         <div className="cell cell-top">
@@ -65,14 +66,14 @@ module.exports = React.createClass({
             <div dangerouslySetInnerHTML={{__html: embeds[0].embed}} />
           </div>}
         <div className="cell cell-body">
-          <h3><Link to={steemit}>{language != 'eng' && textLength > 100 && <img className="flag" src={'/img/flag/' + language.substr(0, 2) + '.svg'} />} {this.props.entry.title}</Link></h3>
+          <h3><Link to={steemit}>{language != 'eng' && textLength > 255 && <img className="flag" src={'/img/flag/' + language.substr(0, 2) + '.svg'} />} {this.props.entry.title}</Link></h3>
           <p dangerouslySetInnerHTML={{__html: ellipsis(body, 255, {ellipsis: '…'})}} />
         </div>
         <div style={style}></div>
         <div className="cell cell-bottom">
           <ul>
             <li><a href="#"><i className="icon icon-sm material-icons">thumb_up</i></a> {numeral(this.props.entry.net_votes).format('0,0')}<span className="hidden-xs"> Likes</span></li>
-            <li><span className="hidden-xs"><i className="icon icon-sm material-icons">attach_money</i> </span>{numeral(this.props.entry.total_pending_payout_value).format('$0,0.00')}</li>
+            <li><span className="hidden-xs"><i className="icon icon-sm material-icons">attach_money</i> </span>{numeral(payout).format('$0,0.00')}</li>
             <li><a href="#"><i className="icon icon-sm material-icons">comment</i></a> {numeral(this.props.entry.children).format('0,0')}<span className="hidden-xs"> Comments</span></li>
             <li><a href="#"><i className="icon icon-sm material-icons">send</i><span className="hidden-xs"> Share</span></a></li>
           </ul>

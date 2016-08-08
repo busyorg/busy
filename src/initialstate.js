@@ -3,7 +3,8 @@ module.exports = function(){
 		app: {
 			isFetching: false,
 			isLoaded: false,
-			errorMessage: ''
+			errorMessage: '',
+			sidebarIsVisible: true
 		},
 		auth: {
 			isAuthenticated: false,

@@ -54603,7 +54603,8 @@ function escape(html, encode) {
 }
 
 function unescape(html) {
-  return html.replace(/&([#\w]+);/g, function(_, n) {
+	// explicitly match decimal, hex, and named HTML entities 
+  return html.replace(/&(#(?:\d+)|(?:#x[0-9A-Fa-f]+)|(?:\w+));?/g, function(_, n) {
     n = n.toLowerCase();
     if (n === 'colon') return ':';
     if (n.charAt(0) === '#') {
@@ -65315,10 +65316,10 @@ function _compilePattern(pattern) {
   };
 }
 
-var CompiledPatternsCache = {};
+var CompiledPatternsCache = Object.create(null);
 
 function compilePattern(pattern) {
-  if (!(pattern in CompiledPatternsCache)) CompiledPatternsCache[pattern] = _compilePattern(pattern);
+  if (!CompiledPatternsCache[pattern]) CompiledPatternsCache[pattern] = _compilePattern(pattern);
 
   return CompiledPatternsCache[pattern];
 }
@@ -66959,6 +66960,7 @@ function createTransitionManager(history, routes) {
 }
 
 //export default useRoutes
+
 module.exports = exports['default'];
 }).call(this,require('_process'))
 },{"./TransitionUtils":244,"./computeChangedRoutes":247,"./getComponents":252,"./isActive":256,"./matchRoutes":259,"./routerWarning":260,"_process":204,"history/lib/Actions":154}],251:[function(require,module,exports){
@@ -97784,7 +97786,8 @@ function extend() {
 },{}],530:[function(require,module,exports){
 var axios = require('axios'),
     moment = require('moment'),
-    C = require('./constants');
+    C = require('./constants'),
+    ws = 'wss://node.steem.ws';
 
 module.exports = {
 	login: function (name, password) {
@@ -97792,7 +97795,7 @@ module.exports = {
 			var req = { type: C.LOGIN_REQUEST };
 			Object.assign(req);
 			dispatch(req);
-			axios.get('//api.steemjs.com/getAccounts?names[]=' + name).then(response => {
+			axios.get('//api.steemjs.com/getAccounts?names[]=' + name + '&ws=' + ws).then(response => {
 				var res = {
 					type: C.LOGIN_SUCCESS,
 					user: response.data[0]
@@ -97807,10 +97810,35 @@ module.exports = {
 			var req = { type: C.ACCOUNT_REQUEST };
 			Object.assign(req);
 			dispatch(req);
-			axios.get('//api.steemjs.com/getAccounts?names[]=' + name).then(response => {
+			axios.get('//api.steemjs.com/getAccounts?names[]=' + name + '&ws=' + ws).then(response => {
 				var res = {
 					type: C.ACCOUNT_SUCCESS,
 					account: response.data[0]
+				};
+				Object.assign(res);
+				dispatch(res);
+			});
+		};
+	},
+	getFollowingPosts: function (follower) {
+		return function (dispatch, getState) {
+			var req = {
+				type: C.FEED_REQUEST,
+				path: '/friends',
+				isFetching: true,
+				isLoaded: false,
+				current_route: null,
+				content: []
+			};
+			Object.assign(req);
+			dispatch(req);
+			axios.get('//api.steemjs.com/getFollowingPosts?follower=' + follower + '&ws=' + ws).then(response => {
+				var res = {
+					type: C.FEED_SUCCESS,
+					path: '/friends',
+					isFetching: false,
+					isLoaded: true,
+					content: response.data
 				};
 				Object.assign(res);
 				dispatch(res);
@@ -97822,7 +97850,7 @@ module.exports = {
 			var req = { type: C.CONTENT_REQUEST };
 			Object.assign(req);
 			dispatch(req);
-			axios.get('//api.steemjs.com/getContent?author=' + author + '&permlink=' + permlink).then(response => {
+			axios.get('//api.steemjs.com/getContent?author=' + author + '&permlink=' + permlink + '&ws=' + ws).then(response => {
 				var res = {
 					type: C.CONTENT_SUCCESS,
 					content: response.data
@@ -97837,7 +97865,7 @@ module.exports = {
 			var req = { type: C.CONFIG_REQUEST };
 			Object.assign(req);
 			dispatch(req);
-			axios.get('//api.steemjs.com/getConfig').then(response => {
+			axios.get('//api.steemjs.com/getConfig?ws=' + ws).then(response => {
 				var res = {
 					type: C.CONFIG_SUCCESS,
 					config: response.data
@@ -97859,7 +97887,7 @@ module.exports = {
 			};
 			Object.assign(req, options);
 			dispatch(req);
-			axios.get('//api.steemjs.com/getState?path=' + options.path).then(response => {
+			axios.get('//api.steemjs.com/getState?path=' + options.path + '&ws=' + ws).then(response => {
 				var res = {
 					type: C.FEED_SUCCESS,
 					path: path,
@@ -97891,6 +97919,16 @@ module.exports = {
 	showModal: function (page) {
 		return function (dispatch, getState) {
 			dispatch({ type: C.SHOW_MODAL, page: page });
+		};
+	},
+	showSidebar: function () {
+		return function (dispatch, getState) {
+			dispatch({ type: C.SHOW_SIDEBAR });
+		};
+	},
+	hideSidebar: function () {
+		return function (dispatch, getState) {
+			dispatch({ type: C.HIDE_SIDEBAR });
 		};
 	},
 	hideModal: function () {
@@ -97926,9 +97964,9 @@ module.exports = {
 	}
 };
 
-},{"./constants":547,"axios":15,"moment":192}],531:[function(require,module,exports){
+},{"./constants":549,"axios":15,"moment":192}],531:[function(require,module,exports){
 var React = require("react"),
-    Header = require("./../containers/header");
+    Header = require("./../../containers/header");
 
 module.exports = React.createClass({
 	displayName: "exports",
@@ -98010,7 +98048,150 @@ module.exports = React.createClass({
 	}
 });
 
-},{"./../containers/header":551,"react":409}],532:[function(require,module,exports){
+},{"./../../containers/header":553,"react":409}],532:[function(require,module,exports){
+var React = require("react"),
+    Header = require("./../../containers/header");
+
+module.exports = React.createClass({
+	displayName: "exports",
+
+	getInitialState: function () {
+		return {
+			key: Math.random()
+		};
+	},
+	render: function () {
+		return React.createElement(
+			"div",
+			{ className: "main-panel" },
+			React.createElement(Header, { menu: "about" }),
+			React.createElement(
+				"div",
+				null,
+				React.createElement("div", { style: { height: '20px', overflow: 'hidden' } })
+			),
+			React.createElement(
+				"div",
+				{ className: "page" },
+				React.createElement(
+					"div",
+					{ className: "block" },
+					React.createElement(
+						"h1",
+						null,
+						"Donate"
+					)
+				),
+				React.createElement(
+					"div",
+					{ className: "block" },
+					React.createElement(
+						"h1",
+						null,
+						"Donors"
+					)
+				)
+			)
+		);
+	}
+});
+
+},{"./../../containers/header":553,"react":409}],533:[function(require,module,exports){
+var React = require("react"),
+    Header = require("./../../containers/header");
+
+module.exports = React.createClass({
+	displayName: "exports",
+
+	getInitialState: function () {
+		return {
+			key: Math.random()
+		};
+	},
+	render: function () {
+		return React.createElement(
+			"div",
+			{ className: "main-panel" },
+			React.createElement(Header, { menu: "about" }),
+			React.createElement(
+				"div",
+				null,
+				React.createElement("div", { style: { height: '20px', overflow: 'hidden' } })
+			),
+			React.createElement(
+				"div",
+				{ className: "page" },
+				React.createElement(
+					"div",
+					{ className: "block" },
+					React.createElement(
+						"h1",
+						null,
+						"Steem.js ",
+						React.createElement("img", { src: "/img/open-source.svg", height: "46" })
+					),
+					React.createElement(
+						"a",
+						{ href: "https://steemjs.com/" },
+						"https://steemjs.com/"
+					),
+					React.createElement(
+						"a",
+						{ href: "https://www.npmjs.com/package/steem" },
+						"https://www.npmjs.com/package/steem"
+					)
+				),
+				React.createElement(
+					"div",
+					{ className: "block" },
+					React.createElement(
+						"h1",
+						null,
+						"Steem API ",
+						React.createElement("img", { src: "/img/open-source.svg", height: "46" })
+					),
+					React.createElement(
+						"a",
+						{ href: "https://github.com/adcpm/steem-api" },
+						"https://github.com/adcpm/steem-api"
+					)
+				),
+				React.createElement(
+					"div",
+					{ className: "block" },
+					React.createElement(
+						"h1",
+						null,
+						"Steem Connect ",
+						React.createElement("img", { src: "/img/open-source.svg", height: "46" })
+					),
+					React.createElement(
+						"a",
+						{ href: "https://steemconnect.com/" },
+						"https://steemconnect.com/"
+					)
+				),
+				React.createElement(
+					"div",
+					{ className: "block" },
+					React.createElement(
+						"h1",
+						null,
+						"Steem Embed ",
+						React.createElement("img", { src: "/img/open-source.svg", height: "46" })
+					),
+					React.createElement(
+						"a",
+						{ href: "https://www.npmjs.com/package/steemembed" },
+						"https://www.npmjs.com/package/steemembed"
+					)
+				)
+			)
+		);
+	}
+});
+
+},{"./../../containers/header":553,"react":409}],534:[function(require,module,exports){
 var React = require("react"),
     Page = require("./../containers/page");
 
@@ -98022,7 +98203,7 @@ module.exports = React.createClass({
 	}
 });
 
-},{"./../containers/page":554,"react":409}],533:[function(require,module,exports){
+},{"./../containers/page":556,"react":409}],535:[function(require,module,exports){
 var React = require("react"),
     Page = require("./../containers/page");
 
@@ -98034,7 +98215,7 @@ module.exports = React.createClass({
 	}
 });
 
-},{"./../containers/page":554,"react":409}],534:[function(require,module,exports){
+},{"./../containers/page":556,"react":409}],536:[function(require,module,exports){
 var React = require("react"),
     Page = require("./../containers/page");
 
@@ -98053,9 +98234,9 @@ module.exports = React.createClass({
 	}
 });
 
-},{"./../containers/page":554,"react":409}],535:[function(require,module,exports){
+},{"./../containers/page":556,"react":409}],537:[function(require,module,exports){
 var React = require("react"),
-    Header = require("./../containers/header");
+    Header = require("./../../containers/header");
 
 module.exports = React.createClass({
 	displayName: "exports",
@@ -98069,7 +98250,7 @@ module.exports = React.createClass({
 	}
 });
 
-},{"./../containers/header":551,"react":409}],536:[function(require,module,exports){
+},{"./../../containers/header":553,"react":409}],538:[function(require,module,exports){
 var React = require("react"),
     ReactRedux = require("react-redux"),
     _ = require('lodash'),
@@ -98146,7 +98327,7 @@ var mapDispatchToProps = function (dispatch) {
 
 module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(Content);
 
-},{"../actions":530,"./../containers/header":551,"./../containers/loading":552,"lodash":188,"marked":189,"react":409,"react-redux":221,"react-router":255,"steemembed":438}],537:[function(require,module,exports){
+},{"../actions":530,"./../containers/header":553,"./../containers/loading":554,"lodash":188,"marked":189,"react":409,"react-redux":221,"react-router":255,"steemembed":438}],539:[function(require,module,exports){
 var React = require("react"),
     Page = require("./../containers/page");
 
@@ -98158,7 +98339,7 @@ module.exports = React.createClass({
 	}
 });
 
-},{"./../containers/page":554,"react":409}],538:[function(require,module,exports){
+},{"./../containers/page":556,"react":409}],540:[function(require,module,exports){
 var React = require("react"),
     Header = require("./../containers/header");
 
@@ -98187,7 +98368,59 @@ module.exports = React.createClass({
 	}
 });
 
-},{"./../containers/header":551,"react":409}],539:[function(require,module,exports){
+},{"./../containers/header":553,"react":409}],541:[function(require,module,exports){
+var React = require('react'),
+    ReactRedux = require('react-redux'),
+    _ = require('lodash'),
+    actions = require('../actions'),
+    Header = require('./../containers/header'),
+    Loading = require('./../containers/loading'),
+    Feed = require('./../containers/Feed');
+
+var Content = React.createClass({
+	displayName: 'Content',
+
+	getInitialState: function () {
+		this.props.getFollowingPosts('fabien');
+		return {
+			key: Math.random()
+		};
+	},
+	render: function () {
+		return React.createElement(
+			'div',
+			{ className: 'main-panel' },
+			React.createElement(Header, null),
+			this.props.pages.current && this.props.app.isFetching && React.createElement(Loading, null),
+			this.props.pages.current && _.size(this.props.pages.current.content) > 0 && React.createElement(
+				'div',
+				null,
+				React.createElement('div', { style: { height: '20px', overflow: 'hidden' } })
+			),
+			this.props.pages.current && _.size(this.props.pages.current.content) > 0 && React.createElement(Feed, { filter: this.props.header.query, content: this.props.pages.current.content })
+		);
+	}
+});
+
+var mapStateToProps = function (state) {
+	return {
+		app: state.app,
+		header: state.header,
+		pages: state.pages
+	};
+};
+
+var mapDispatchToProps = function (dispatch) {
+	return {
+		getFollowingPosts: function (follower) {
+			dispatch(actions.getFollowingPosts(follower));
+		}
+	};
+};
+
+module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(Content);
+
+},{"../actions":530,"./../containers/Feed":552,"./../containers/header":553,"./../containers/loading":554,"lodash":188,"react":409,"react-redux":221}],542:[function(require,module,exports){
 var React = require("react"),
     Page = require("./../containers/page");
 
@@ -98199,9 +98432,33 @@ module.exports = React.createClass({
 	}
 });
 
-},{"./../containers/page":554,"react":409}],540:[function(require,module,exports){
+},{"./../containers/page":556,"react":409}],543:[function(require,module,exports){
 var React = require("react"),
     Page = require("./../containers/page");
+
+module.exports = React.createClass({
+	displayName: "exports",
+
+	render: function () {
+		return React.createElement(Page, { path: "responses" });
+	}
+});
+
+},{"./../containers/page":556,"react":409}],544:[function(require,module,exports){
+var React = require("react"),
+    Page = require("./../containers/page");
+
+module.exports = React.createClass({
+	displayName: "exports",
+
+	render: function () {
+		return React.createElement(Page, { path: "trending" });
+	}
+});
+
+},{"./../containers/page":556,"react":409}],545:[function(require,module,exports){
+var React = require("react"),
+    Page = require("./../../containers/page");
 
 module.exports = React.createClass({
 	displayName: "exports",
@@ -98212,14 +98469,14 @@ module.exports = React.createClass({
 	}
 });
 
-},{"./../containers/page":554,"react":409}],541:[function(require,module,exports){
+},{"./../../containers/page":556,"react":409}],546:[function(require,module,exports){
 var React = require("react"),
     ReactRedux = require("react-redux"),
     _ = require('lodash'),
     numeral = require('numeral'),
-    actions = require("../actions"),
-    Header = require("./../containers/header"),
-    Loading = require("./../containers/loading");
+    actions = require("../../actions"),
+    Header = require("./../../containers/header"),
+    Loading = require("./../../containers/loading");
 
 var Profile = React.createClass({
 	displayName: "Profile",
@@ -98326,104 +98583,9 @@ var mapDispatchToProps = function (dispatch) {
 
 module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(Profile);
 
-},{"../actions":530,"./../containers/header":551,"./../containers/loading":552,"lodash":188,"numeral":194,"react":409,"react-redux":221}],542:[function(require,module,exports){
+},{"../../actions":530,"./../../containers/header":553,"./../../containers/loading":554,"lodash":188,"numeral":194,"react":409,"react-redux":221}],547:[function(require,module,exports){
 var React = require("react"),
-    Header = require("./../containers/header");
-
-module.exports = React.createClass({
-	displayName: "exports",
-
-	getInitialState: function () {
-		return {
-			key: Math.random()
-		};
-	},
-	render: function () {
-		return React.createElement(
-			"div",
-			{ className: "main-panel" },
-			React.createElement(Header, { menu: "about" }),
-			React.createElement(
-				"div",
-				null,
-				React.createElement("div", { style: { height: '20px', overflow: 'hidden' } })
-			),
-			React.createElement(
-				"div",
-				{ className: "page" },
-				React.createElement(
-					"div",
-					{ className: "block" },
-					React.createElement(
-						"h1",
-						null,
-						"Steem.js ",
-						React.createElement("img", { src: "/img/open-source.svg", height: "46" })
-					),
-					React.createElement(
-						"a",
-						{ href: "https://steemjs.com/" },
-						"https://steemjs.com/"
-					),
-					React.createElement(
-						"a",
-						{ href: "https://www.npmjs.com/package/steem" },
-						"https://www.npmjs.com/package/steem"
-					)
-				),
-				React.createElement(
-					"div",
-					{ className: "block" },
-					React.createElement(
-						"h1",
-						null,
-						"Steem API ",
-						React.createElement("img", { src: "/img/open-source.svg", height: "46" })
-					),
-					React.createElement(
-						"a",
-						{ href: "https://github.com/adcpm/steem-api" },
-						"https://github.com/adcpm/steem-api"
-					)
-				),
-				React.createElement(
-					"div",
-					{ className: "block" },
-					React.createElement(
-						"h1",
-						null,
-						"Steem Connect ",
-						React.createElement("img", { src: "/img/open-source.svg", height: "46" })
-					),
-					React.createElement(
-						"a",
-						{ href: "https://steemconnect.com/" },
-						"https://steemconnect.com/"
-					)
-				),
-				React.createElement(
-					"div",
-					{ className: "block" },
-					React.createElement(
-						"h1",
-						null,
-						"Steem Embed ",
-						React.createElement("img", { src: "/img/open-source.svg", height: "46" })
-					),
-					React.createElement(
-						"a",
-						{ href: "https://www.npmjs.com/package/steemembed" },
-						"https://www.npmjs.com/package/steemembed"
-					)
-				)
-			)
-		);
-	}
-});
-
-},{"./../containers/header":551,"react":409}],543:[function(require,module,exports){
-var React = require("react"),
-    Page = require("./../containers/page");
+    Page = require("./../../containers/page");
 
 module.exports = React.createClass({
 	displayName: "exports",
@@ -98434,31 +98596,7 @@ module.exports = React.createClass({
 	}
 });
 
-},{"./../containers/page":554,"react":409}],544:[function(require,module,exports){
-var React = require("react"),
-    Page = require("./../containers/page");
-
-module.exports = React.createClass({
-	displayName: "exports",
-
-	render: function () {
-		return React.createElement(Page, { path: "responses" });
-	}
-});
-
-},{"./../containers/page":554,"react":409}],545:[function(require,module,exports){
-var React = require("react"),
-    Page = require("./../containers/page");
-
-module.exports = React.createClass({
-	displayName: "exports",
-
-	render: function () {
-		return React.createElement(Page, { path: "trending" });
-	}
-});
-
-},{"./../containers/page":554,"react":409}],546:[function(require,module,exports){
+},{"./../../containers/page":556,"react":409}],548:[function(require,module,exports){
 var React = require("react"),
     Page = require("./../containers/page");
 
@@ -98470,7 +98608,7 @@ module.exports = React.createClass({
 	}
 });
 
-},{"./../containers/page":554,"react":409}],547:[function(require,module,exports){
+},{"./../containers/page":556,"react":409}],549:[function(require,module,exports){
 module.exports = {
 	// Auth
 	LOGIN_REQUEST: 'LOGIN_REQUEST',
@@ -98512,10 +98650,14 @@ module.exports = {
 	// Header
 	REFRESH: 'REFRESH',
 	SEARCH: 'SEARCH',
-	SET_MENU: 'SET_MENU'
+	SET_MENU: 'SET_MENU',
+
+	// Sidebar
+	SHOW_SIDEBAR: 'SHOW_SIDEBAR',
+	HIDE_SIDEBAR: 'HIDE_SIDEBAR'
 };
 
-},{}],548:[function(require,module,exports){
+},{}],550:[function(require,module,exports){
 var React = require('react');
 
 module.exports = React.createClass({
@@ -98620,7 +98762,7 @@ module.exports = React.createClass({
   }
 });
 
-},{"react":409}],549:[function(require,module,exports){
+},{"react":409}],551:[function(require,module,exports){
 var React = require("react"),
     Link = require("react-router").Link;
 
@@ -98644,7 +98786,7 @@ module.exports = React.createClass({
 	}
 });
 
-},{"react":409,"react-router":255}],550:[function(require,module,exports){
+},{"react":409,"react-router":255}],552:[function(require,module,exports){
 var React = require('react'),
     _ = require('lodash'),
     striptags = require('striptags'),
@@ -98708,11 +98850,11 @@ var obj2Array = function (object) {
   return array;
 };
 
-},{"../actions":530,"./add-post":548,"./post":555,"lodash":188,"marked":189,"numeral":194,"react":409,"sort-by":437,"striptags":453,"text-ellipsis":456}],551:[function(require,module,exports){
+},{"../actions":530,"./add-post":550,"./post":557,"lodash":188,"marked":189,"numeral":194,"react":409,"sort-by":437,"striptags":453,"text-ellipsis":456}],553:[function(require,module,exports){
 var React = require("react"),
     ReactRedux = require("react-redux"),
-    actions = require("../actions"),
-    Link = require("react-router").Link;
+    actions = require("../actions");
+Link = require("react-router").Link;
 
 var Header = React.createClass({
 	displayName: "Header",
@@ -98746,18 +98888,18 @@ var Header = React.createClass({
 			React.createElement(
 				"div",
 				{ className: "top-nav" },
-				React.createElement(
+				!this.props.app.sidebarIsVisible && React.createElement(
 					"a",
-					{ className: "visible-xs", href: "#", onClick: () => '' },
+					{ href: "#", onClick: () => this.props.showSidebar() },
 					React.createElement(
 						"i",
 						{ className: "icon icon-md icon-menu material-icons" },
 						"menu"
 					)
 				),
-				React.createElement(
+				this.props.app.sidebarIsVisible && React.createElement(
 					"a",
-					{ className: "hidden-xs", href: "#", onClick: () => '' },
+					{ href: "#", onClick: () => this.props.hideSidebar() },
 					React.createElement(
 						"i",
 						{ className: "icon icon-md icon-menu material-icons" },
@@ -99209,6 +99351,7 @@ var Header = React.createClass({
 
 var mapStateToProps = function (state) {
 	return {
+		app: state.app,
 		auth: state.auth,
 		header: state.header
 	};
@@ -99218,6 +99361,12 @@ var mapDispatchToProps = function (dispatch) {
 	return {
 		showModal: function (page) {
 			dispatch(actions.showModal(page));
+		},
+		showSidebar: function () {
+			dispatch(actions.showSidebar());
+		},
+		hideSidebar: function () {
+			dispatch(actions.hideSidebar());
 		},
 		search: function (query) {
 			dispatch(actions.search(query));
@@ -99239,7 +99388,7 @@ var mapDispatchToProps = function (dispatch) {
 
 module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(Header);
 
-},{"../actions":530,"react":409,"react-redux":221,"react-router":255}],552:[function(require,module,exports){
+},{"../actions":530,"react":409,"react-redux":221,"react-router":255}],554:[function(require,module,exports){
 var React = require("react");
 
 module.exports = React.createClass({
@@ -99275,7 +99424,7 @@ module.exports = React.createClass({
 	}
 });
 
-},{"react":409}],553:[function(require,module,exports){
+},{"react":409}],555:[function(require,module,exports){
 var React = require("react"),
     ReactRedux = require("react-redux"),
     actions = require("../actions"),
@@ -99318,7 +99467,7 @@ var mapDispatchToProps = function (dispatch) {
 
 module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(Modal);
 
-},{"../actions":530,"../form/account":558,"../form/post":559,"react":409,"react-redux":221}],554:[function(require,module,exports){
+},{"../actions":530,"../form/account":560,"../form/post":561,"react":409,"react-redux":221}],556:[function(require,module,exports){
 var React = require("react"),
     ReactRedux = require("react-redux"),
     _ = require('lodash'),
@@ -99391,7 +99540,7 @@ var mapDispatchToProps = function (dispatch) {
 
 module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(Page);
 
-},{"../actions":530,"./feed":550,"./header":551,"./loading":552,"lodash":188,"react":409,"react-redux":221}],555:[function(require,module,exports){
+},{"../actions":530,"./feed":552,"./header":553,"./loading":554,"lodash":188,"react":409,"react-redux":221}],557:[function(require,module,exports){
 var React = require('react'),
     _ = require('lodash'),
     steemembed = require('steemembed'),
@@ -99449,6 +99598,7 @@ module.exports = React.createClass({
     }
     var language = franc(this.props.entry.title + ' ' + body);
     var textLength = (this.props.entry.title + ' ' + body).length;
+    var payout = parseFloat(this.props.entry.total_payout_value) + parseFloat(this.props.entry.total_pending_payout_value);
     return React.createElement(
       'div',
       { className: className },
@@ -99527,7 +99677,7 @@ module.exports = React.createClass({
           React.createElement(
             Link,
             { to: steemit },
-            language != 'eng' && textLength > 100 && React.createElement('img', { className: 'flag', src: '/img/flag/' + language.substr(0, 2) + '.svg' }),
+            language != 'eng' && textLength > 255 && React.createElement('img', { className: 'flag', src: '/img/flag/' + language.substr(0, 2) + '.svg' }),
             ' ',
             this.props.entry.title
           )
@@ -99574,7 +99724,7 @@ module.exports = React.createClass({
               ),
               ' '
             ),
-            numeral(this.props.entry.total_pending_payout_value).format('$0,0.00')
+            numeral(payout).format('$0,0.00')
           ),
           React.createElement(
             'li',
@@ -99620,9 +99770,10 @@ module.exports = React.createClass({
   }
 });
 
-},{"../actions":530,"cloudinary":68,"franc":144,"lodash":188,"marked":189,"moment":192,"numeral":194,"react":409,"react-router":255,"steemembed":438,"striptags":453,"text-ellipsis":456}],556:[function(require,module,exports){
+},{"../actions":530,"cloudinary":68,"franc":144,"lodash":188,"marked":189,"moment":192,"numeral":194,"react":409,"react-router":255,"steemembed":438,"striptags":453,"text-ellipsis":456}],558:[function(require,module,exports){
 var React = require("react"),
     ReactRedux = require("react-redux"),
+    actions = require("../actions"),
     _ = require('lodash'),
     sortBy = require('sort-by'),
     numeral = require('numeral'),
@@ -99662,6 +99813,15 @@ var Sidebar = React.createClass({
 		return React.createElement(
 			"nav",
 			{ className: "sidebar" },
+			this.props.app.sidebarIsVisible && React.createElement(
+				"a",
+				{ className: "visible-xs hide-sidebar", href: "#", onClick: () => this.props.hideSidebar() },
+				React.createElement(
+					"i",
+					{ className: "icon icon-md icon-menu material-icons" },
+					"arrow_back"
+				)
+			),
 			React.createElement(
 				"div",
 				{ className: "sidebar-header" },
@@ -99722,8 +99882,8 @@ var Sidebar = React.createClass({
 						"li",
 						null,
 						React.createElement(
-							"span",
-							null,
+							Link,
+							{ to: "/friends", className: "active" },
 							React.createElement(
 								"i",
 								{ className: "icon icon-md material-icons" },
@@ -99811,14 +99971,23 @@ var Sidebar = React.createClass({
 
 var mapStateToProps = function (state) {
 	return {
+		app: state.app,
 		auth: state.auth,
 		pages: state.pages
 	};
 };
 
-module.exports = ReactRedux.connect(mapStateToProps)(Sidebar);
+var mapDispatchToProps = function (dispatch) {
+	return {
+		hideSidebar: function () {
+			dispatch(actions.hideSidebar());
+		}
+	};
+};
 
-},{"./../containers/loading":552,"lodash":188,"numeral":194,"react":409,"react-redux":221,"react-router":255,"sort-by":437}],557:[function(require,module,exports){
+module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(Sidebar);
+
+},{"../actions":530,"./../containers/loading":554,"lodash":188,"numeral":194,"react":409,"react-redux":221,"react-router":255,"sort-by":437}],559:[function(require,module,exports){
 var React = require('react'),
     ReactRedux = require("react-redux"),
     actions = require("../actions"),
@@ -99830,14 +99999,15 @@ var Wrapper = React.createClass({
   displayName: "Wrapper",
 
   componentWillMount: function () {
-    //this.props.login('fabien', '**********');
+    this.props.login('fabien', '**********');
     this.props.getConfig();
   },
   render: function () {
+    var className = !this.props.app.sidebarIsVisible ? 'app-wrapper full-width' : 'app-wrapper';
     return React.createElement(
       "div",
-      { className: "app-wrapper" },
-      React.createElement(Sidebar, null),
+      { className: className },
+      this.props.app.sidebarIsVisible && React.createElement(Sidebar, null),
       React.createElement(Modal, null),
       React.createElement(Chat, null),
       this.props.children
@@ -99847,6 +100017,7 @@ var Wrapper = React.createClass({
 
 var mapStateToProps = function (state) {
   return {
+    app: state.app,
     auth: state.auth,
     pages: state.pages
   };
@@ -99865,7 +100036,7 @@ var mapDispatchToProps = function (dispatch) {
 
 module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(Wrapper);
 
-},{"../actions":530,"./../containers/chat-trigger":549,"./../containers/modal":553,"./../containers/sidebar":556,"react":409,"react-redux":221}],558:[function(require,module,exports){
+},{"../actions":530,"./../containers/chat-trigger":551,"./../containers/modal":555,"./../containers/sidebar":558,"react":409,"react-redux":221}],560:[function(require,module,exports){
 var React = require("react"),
     ReactRedux = require("react-redux"),
     actions = require("../actions");
@@ -100005,7 +100176,7 @@ var mapDispatchToProps = function (dispatch) {
 
 module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(Account);
 
-},{"../actions":530,"react":409,"react-redux":221}],559:[function(require,module,exports){
+},{"../actions":530,"react":409,"react-redux":221}],561:[function(require,module,exports){
 var React = require("react"),
     ReactRedux = require("react-redux"),
     validator = require('validator'),
@@ -100100,7 +100271,7 @@ var mapDispatchToProps = function (dispatch) {
 
 module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(Campaign);
 
-},{"../actions":530,"react":409,"react-redux":221,"validator":464}],560:[function(require,module,exports){
+},{"../actions":530,"react":409,"react-redux":221,"validator":464}],562:[function(require,module,exports){
 var React = require('react'),
     ReactDOM = require('react-dom'),
     Router = require('react-router').Router,
@@ -100117,13 +100288,14 @@ ReactDOM.render(React.createElement(
 	React.createElement(Router, { routes: routes, history: appHistory })
 ), document.getElementById('app'));
 
-},{"./routes":567,"./store":568,"history":169,"react":409,"react-dom":218,"react-redux":221,"react-router":255}],561:[function(require,module,exports){
+},{"./routes":569,"./store":570,"history":169,"react":409,"react-dom":218,"react-redux":221,"react-router":255}],563:[function(require,module,exports){
 module.exports = function () {
 	return {
 		app: {
 			isFetching: false,
 			isLoaded: false,
-			errorMessage: ''
+			errorMessage: '',
+			sidebarIsVisible: true
 		},
 		auth: {
 			isAuthenticated: false,
@@ -100154,7 +100326,7 @@ module.exports = function () {
 	};
 };
 
-},{}],562:[function(require,module,exports){
+},{}],564:[function(require,module,exports){
 var C = require("../constants"),
     initialState = require("../initialstate");
 
@@ -100199,12 +100371,20 @@ module.exports = function (state, action) {
 			return Object.assign({}, state, {
 				config: action.config
 			});
+		case C.SHOW_SIDEBAR:
+			return Object.assign({}, state, {
+				sidebarIsVisible: true
+			});
+		case C.HIDE_SIDEBAR:
+			return Object.assign({}, state, {
+				sidebarIsVisible: false
+			});
 		default:
 			return state || initialState().app;
 	}
 };
 
-},{"../constants":547,"../initialstate":561}],563:[function(require,module,exports){
+},{"../constants":549,"../initialstate":563}],565:[function(require,module,exports){
 var C = require("../constants"),
     initialState = require("../initialstate");
 
@@ -100239,7 +100419,7 @@ module.exports = function (state, action) {
 	}
 };
 
-},{"../constants":547,"../initialstate":561}],564:[function(require,module,exports){
+},{"../constants":549,"../initialstate":563}],566:[function(require,module,exports){
 var C = require("../constants"),
     initialState = require("../initialstate");
 
@@ -100266,7 +100446,7 @@ module.exports = function (state, action) {
 	}
 };
 
-},{"../constants":547,"../initialstate":561}],565:[function(require,module,exports){
+},{"../constants":549,"../initialstate":563}],567:[function(require,module,exports){
 var C = require("../constants"),
     initialState = require("../initialstate");
 
@@ -100292,7 +100472,7 @@ module.exports = function (state, action) {
 	}
 };
 
-},{"../constants":547,"../initialstate":561}],566:[function(require,module,exports){
+},{"../constants":549,"../initialstate":563}],568:[function(require,module,exports){
 var C = require("../constants"),
     initialState = require("../initialstate");
 
@@ -100331,16 +100511,17 @@ module.exports = function (state, action) {
 	}
 };
 
-},{"../constants":547,"../initialstate":561}],567:[function(require,module,exports){
+},{"../constants":549,"../initialstate":563}],569:[function(require,module,exports){
 var React = require('react'),
     ReactRouter = require('react-router'),
     Route = ReactRouter.Route,
     IndexRoute = ReactRouter.IndexRoute,
     Wrapper = require('./containers/wrapper'),
     Dashboard = require('./components/dashboard'),
-    About = require('./components/about'),
-    Projects = require('./components/projects'),
-    Profile = require('./components/profile'),
+    About = require('./components/about/about'),
+    Projects = require('./components/about/projects'),
+    Donate = require('./components/about/donate'),
+    Profile = require('./components/user/profile'),
     Trending = require('./components/trending'),
     Hot = require('./components/hot'),
     Cashout = require('./components/cashout'),
@@ -100350,9 +100531,10 @@ var React = require('react'),
     Votes = require('./components/votes'),
     Category = require('./components/category'),
     Single = require('./components/content'),
-    Posts = require('./components/posts'),
-    Replies = require('./components/replies'),
-    Chat = require('./components/chat');
+    Posts = require('./components/user/posts'),
+    Replies = require('./components/user/replies'),
+    Chat = require('./components/chat/chat'),
+    Friends = require('./components/friends');
 
 module.exports = React.createElement(
   Route,
@@ -100360,6 +100542,8 @@ module.exports = React.createElement(
   React.createElement(IndexRoute, { component: Dashboard }),
   React.createElement(Route, { path: '/about', component: About }),
   React.createElement(Route, { path: '/projects', component: Projects }),
+  React.createElement(Route, { path: '/donate', component: Donate }),
+  React.createElement(Route, { path: '/friends', component: Friends }),
   React.createElement(Route, { path: '/:category/@:author/:permlink', component: Single }),
   React.createElement(Route, { path: '/trending/:category', component: Category }),
   React.createElement(Route, { path: '/@:name/posts', component: Posts }),
@@ -100375,7 +100559,7 @@ module.exports = React.createElement(
   React.createElement(Route, { path: '/chat', component: Chat })
 );
 
-},{"./components/about":531,"./components/active":532,"./components/cashout":533,"./components/category":534,"./components/chat":535,"./components/content":536,"./components/created":537,"./components/dashboard":538,"./components/hot":539,"./components/posts":540,"./components/profile":541,"./components/projects":542,"./components/replies":543,"./components/responses":544,"./components/trending":545,"./components/votes":546,"./containers/wrapper":557,"react":409,"react-router":255}],568:[function(require,module,exports){
+},{"./components/about/about":531,"./components/about/donate":532,"./components/about/projects":533,"./components/active":534,"./components/cashout":535,"./components/category":536,"./components/chat/chat":537,"./components/content":538,"./components/created":539,"./components/dashboard":540,"./components/friends":541,"./components/hot":542,"./components/responses":543,"./components/trending":544,"./components/user/posts":545,"./components/user/profile":546,"./components/user/replies":547,"./components/votes":548,"./containers/wrapper":559,"react":409,"react-router":255}],570:[function(require,module,exports){
 var Redux = require("redux"),
     appReducer = require("./reducers/app"),
     authReducer = require("./reducers/auth"),
@@ -100395,4 +100579,4 @@ var rootReducer = Redux.combineReducers({
 
 module.exports = Redux.applyMiddleware(thunk)(Redux.createStore)(rootReducer, initialState(), window.devToolsExtension && window.devToolsExtension());
 
-},{"./initialstate":561,"./reducers/app":562,"./reducers/auth":563,"./reducers/header":564,"./reducers/modal":565,"./reducers/pages":566,"redux":426,"redux-thunk":420}]},{},[560]);
+},{"./initialstate":563,"./reducers/app":564,"./reducers/auth":565,"./reducers/header":566,"./reducers/modal":567,"./reducers/pages":568,"redux":426,"redux-thunk":420}]},{},[562]);

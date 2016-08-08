@@ -2,9 +2,9 @@ var React = require("react"),
 	ReactRedux = require("react-redux"),
 	_ = require('lodash'),
 	numeral = require('numeral'),
-	actions = require("../actions"),
-	Header = require("./../containers/header"),
-	Loading = require("./../containers/loading");
+	actions = require("../../actions"),
+	Header = require("./../../containers/header"),
+	Loading = require("./../../containers/loading");
 
 var Profile = React.createClass({
 	getInitialState: function() {

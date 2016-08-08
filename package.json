@@ -52,7 +52,6 @@
     "serve-favicon": "~2.3.0",
     "shortid": "^2.2.6",
     "socket.io": "^1.4.5",
-    "sort-by": "^1.1.1",
     "steem": "^0.2.12",
     "steemembed": "^1.0.7",
     "striptags": "^2.1.1",
@@ -60,8 +59,5 @@
     "text-ellipsis": "^1.0.3",
     "ua-parser-js": "^0.7.10",
     "validator": "^5.1.0"
-  },
-  "devDependencies": {
-    "steemjs-lib": "^0.2.7"
   }
 }

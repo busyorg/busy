@@ -4,9 +4,10 @@ var React = require('react'),
   IndexRoute = ReactRouter.IndexRoute,
   Wrapper = require('./containers/wrapper'),
   Dashboard = require('./components/dashboard'),
-  About = require('./components/about'),
-  Projects = require('./components/projects'),
-  Profile = require('./components/profile'),
+  About = require('./components/about/about'),
+  Projects = require('./components/about/projects'),
+  Donate = require('./components/about/donate'),
+  Profile = require('./components/user/profile'),
   Trending = require('./components/trending'),
   Hot = require('./components/hot'),
   Cashout = require('./components/cashout'),
@@ -16,15 +17,18 @@ var React = require('react'),
   Votes = require('./components/votes'),
   Category = require('./components/category'),
   Single = require('./components/content'),
-  Posts = require('./components/posts'),
-  Replies = require('./components/replies'),
-  Chat = require('./components/chat');
+  Posts = require('./components/user/posts'),
+  Replies = require('./components/user/replies'),
+  Chat = require('./components/chat/chat') ,
+  Friends = require('./components/friends');
 
 module.exports = (
   <Route path="/" component={Wrapper}>
     <IndexRoute component={Dashboard} />
     <Route path="/about" component={About} />
     <Route path="/projects" component={Projects} />
+    <Route path="/donate" component={Donate} />
+    <Route path="/friends" component={Friends} />
     <Route path="/:category/@:author/:permlink" component={Single} />
     <Route path="/trending/:category" component={Category} />
     <Route path="/@:name/posts" component={Posts} />

@@ -1,6 +1,6 @@
 var React = require("react"),
 	ReactRedux = require("react-redux"),
-	actions = require("../actions"),
+	actions = require("../actions")
 	Link = require("react-router").Link;
 
 var Header = React.createClass({
@@ -30,8 +30,8 @@ var Header = React.createClass({
 		return (
 			<header>
 				<div className="top-nav">
-					<a className="visible-xs" href="#" onClick={() => ''}><i className="icon icon-md icon-menu material-icons">menu</i></a>
-					<a className="hidden-xs" href="#" onClick={() => ''}><i className="icon icon-md icon-menu material-icons">arrow_back</i></a>
+					{!this.props.app.sidebarIsVisible && <a href="#" onClick={() => this.props.showSidebar()}><i className="icon icon-md icon-menu material-icons">menu</i></a>}
+					{this.props.app.sidebarIsVisible && <a href="#" onClick={() => this.props.hideSidebar()}><i className="icon icon-md icon-menu material-icons">arrow_back</i></a>}
 					<div className="section-content top-head">
 						<Link to="/" onlyActiveOnIndex={true} activeClassName="active"><img src="/img/logo-blue.svg" /></Link>
 					</div>
@@ -75,6 +75,7 @@ var Header = React.createClass({
 
 var mapStateToProps = function(state){
 	return {
+		app: state.app,
 		auth: state.auth,
 		header: state.header
 	};
@@ -83,6 +84,8 @@ var mapStateToProps = function(state){
 var mapDispatchToProps = function(dispatch){
 	return {
 		showModal: function(page){ dispatch(actions.showModal(page)); },
+		showSidebar: function(){ dispatch(actions.showSidebar()); },
+		hideSidebar: function(){ dispatch(actions.hideSidebar()); },
 		search: function(query){ dispatch(actions.search(query)); },
 		refresh: function(){ dispatch(actions.refresh()); },
 		createTab: function(page){ dispatch(actions.createTab(page)); },

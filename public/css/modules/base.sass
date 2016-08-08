@@ -292,6 +292,10 @@ input[type="checkbox"]
 @media (max-width: 992px)
   .main-panel
     width: 100% !important
+  .sidebar
+    background-color: $background-color
+    z-index: 999 !important
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.3)
 
 #app
   height: 100%
@@ -353,6 +357,11 @@ input[type="checkbox"]
   justify-content: center
   text-align: center
   margin: 10px 0
+
+
+.app-wrapper.full-width
+  .main-panel
+    width: 100% !important
 
 .main-panel
   width: calc(100% - 260px)

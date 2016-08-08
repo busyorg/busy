@@ -1,6 +1,7 @@
 var axios = require('axios'),
 	moment = require('moment'),
-	C = require('./constants');
+	C = require('./constants'),
+	ws = 'wss://node.steem.ws';
 
 module.exports = {
 	login: function(name, password) {
@@ -8,7 +9,7 @@ module.exports = {
 			var req = {type: C.LOGIN_REQUEST};
 			Object.assign(req);
 			dispatch(req);
-			axios.get('//api.steemjs.com/getAccounts?names[]=' + name)
+			axios.get('//api.steemjs.com/getAccounts?names[]=' + name + '&ws=' + ws)
 				.then(response => {
 					var res = {
 						type: C.LOGIN_SUCCESS,
@@ -24,11 +25,37 @@ module.exports = {
 			var req = {type: C.ACCOUNT_REQUEST};
 			Object.assign(req);
 			dispatch(req);
-			axios.get('//api.steemjs.com/getAccounts?names[]=' + name)
+			axios.get('//api.steemjs.com/getAccounts?names[]=' + name + '&ws=' + ws)
 				.then(response => {
 					var res = {
 						type: C.ACCOUNT_SUCCESS,
 						account: response.data[0],
+					};
+					Object.assign(res);
+					dispatch(res);
+				});
+		};
+	},
+	getFollowingPosts: function(follower) {
+		return function(dispatch, getState) {
+			var req = {
+				type: C.FEED_REQUEST,
+				path: '/friends',
+				isFetching: true,
+				isLoaded: false,
+				current_route: null,
+				content: []
+			};
+			Object.assign(req);
+			dispatch(req);
+			axios.get('//api.steemjs.com/getFollowingPosts?follower=' + follower + '&ws=' + ws)
+				.then(response => {
+					var res = {
+						type: C.FEED_SUCCESS,
+						path: '/friends',
+						isFetching: false,
+						isLoaded: true,
+						content: response.data
 					};
 					Object.assign(res);
 					dispatch(res);
@@ -40,7 +67,7 @@ module.exports = {
 			var req = {type: C.CONTENT_REQUEST};
 			Object.assign(req);
 			dispatch(req);
-			axios.get('//api.steemjs.com/getContent?author=' + author + '&permlink=' + permlink)
+			axios.get('//api.steemjs.com/getContent?author=' + author + '&permlink=' + permlink + '&ws=' + ws)
 				.then(response => {
 					var res = {
 						type: C.CONTENT_SUCCESS,
@@ -56,7 +83,7 @@ module.exports = {
 			var req = {type: C.CONFIG_REQUEST};
 			Object.assign(req);
 			dispatch(req);
-			axios.get('//api.steemjs.com/getConfig')
+			axios.get('//api.steemjs.com/getConfig?ws=' + ws)
 				.then(response => {
 					var res = {
 						type: C.CONFIG_SUCCESS,
@@ -79,7 +106,7 @@ module.exports = {
 			};
 			Object.assign(req, options);
 			dispatch(req);
-			axios.get('//api.steemjs.com/getState?path=' + options.path)
+			axios.get('//api.steemjs.com/getState?path=' + options.path + '&ws=' + ws)
 				.then(response => {
 					var res = {
 						type: C.FEED_SUCCESS,
@@ -112,6 +139,16 @@ module.exports = {
 	showModal: function(page) {
 		return function(dispatch, getState) {
 			dispatch({type:C.SHOW_MODAL, page: page});
+		};
+	},
+	showSidebar: function() {
+		return function(dispatch, getState) {
+			dispatch({type:C.SHOW_SIDEBAR});
+		};
+	},
+	hideSidebar: function() {
+		return function(dispatch, getState) {
+			dispatch({type:C.HIDE_SIDEBAR});
 		};
 	},
 	hideModal: function() {
