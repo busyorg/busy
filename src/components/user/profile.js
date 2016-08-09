@@ -3,6 +3,7 @@ var React = require("react"),
 	_ = require('lodash'),
 	numeral = require('numeral'),
 	actions = require("../../actions"),
+	parser = require("../../lib/parser"),
 	Header = require("./../../containers/header"),
 	Loading = require("./../../containers/loading");
 
@@ -17,8 +18,6 @@ var Profile = React.createClass({
 	render: function(){
 		var account = this.props.params.name;
 		var profile = this.props.pages.profile;
-		var reputation = (_.size(profile.account) > 0)? parseInt(profile.account.reputation)/100000000000 : '';
-		reputation = Number(reputation).toFixed(0);
 		return (
 			<div className="main-panel">
 				<Header account={account} />
@@ -26,7 +25,7 @@ var Profile = React.createClass({
 					<div className="pal">
 						<div className="mvl">
 							<div className="avatar avatar-xl">
-								{_.size(profile.account) > 0 && <div className="reputation">{reputation}</div>}
+								{_.size(profile.account) > 0 && <div className="reputation">{parser.reputation(parseInt(profile.account.reputation))}</div>}
 								<img src="/img/logo-white.svg" />
 							</div>
 							<h1>@{account}</h1>

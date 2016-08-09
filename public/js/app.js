@@ -98402,6 +98402,7 @@ var React = require("react"),
     _ = require('lodash'),
     numeral = require('numeral'),
     actions = require("../../actions"),
+    parser = require("../../lib/parser"),
     Header = require("./../../containers/header"),
     Loading = require("./../../containers/loading");
 
@@ -98418,8 +98419,6 @@ var Profile = React.createClass({
 	render: function () {
 		var account = this.props.params.name;
 		var profile = this.props.pages.profile;
-		var reputation = _.size(profile.account) > 0 ? parseInt(profile.account.reputation) / 100000000000 : '';
-		reputation = Number(reputation).toFixed(0);
 		return React.createElement(
 			"div",
 			{ className: "main-panel" },
@@ -98439,7 +98438,7 @@ var Profile = React.createClass({
 							_.size(profile.account) > 0 && React.createElement(
 								"div",
 								{ className: "reputation" },
-								reputation
+								parser.reputation(parseInt(profile.account.reputation))
 							),
 							React.createElement("img", { src: "/img/logo-white.svg" })
 						),
@@ -98549,7 +98548,7 @@ var mapDispatchToProps = function (dispatch) {
 
 module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(Profile);
 
-},{"../../actions":530,"./../../containers/header":553,"./../../containers/loading":554,"lodash":188,"numeral":194,"react":409,"react-redux":221}],547:[function(require,module,exports){
+},{"../../actions":530,"../../lib/parser":564,"./../../containers/header":553,"./../../containers/loading":554,"lodash":188,"numeral":194,"react":409,"react-redux":221}],547:[function(require,module,exports){
 var React = require("react"),
     Page = require("./../../containers/page");
 
@@ -100273,7 +100272,7 @@ ReactDOM.render(React.createElement(
 	React.createElement(Router, { routes: routes, history: appHistory })
 ), document.getElementById('app'));
 
-},{"./routes":569,"./store":570,"history":169,"react":409,"react-dom":218,"react-redux":221,"react-router":255}],563:[function(require,module,exports){
+},{"./routes":570,"./store":571,"history":169,"react":409,"react-dom":218,"react-redux":221,"react-router":255}],563:[function(require,module,exports){
 module.exports = function () {
 	return {
 		app: {
@@ -100312,6 +100311,27 @@ module.exports = function () {
 };
 
 },{}],564:[function(require,module,exports){
+module.exports = {
+	reputation: function (reputation) {
+		if (reputation == null) return reputation;
+		let rep = String(reputation);
+		const neg = rep.charAt(0) === '-';
+		rep = neg ? rep.substring(1) : rep;
+		var str = rep;
+		const leadingDigits = parseInt(str.substring(0, 4));
+		const log = Math.log(leadingDigits) / Math.log(10);
+		const n = str.length - 1;
+		var out = n + (log - parseInt(log));
+		if (isNaN(out)) out = 0;
+		out = Math.max(out - 9, 0);
+		out = (neg ? -1 : 1) * out;
+		out = out * 9 + 25;
+		out = parseInt(out);
+		return out;
+	}
+};
+
+},{}],565:[function(require,module,exports){
 var C = require("../constants"),
     initialState = require("../initialstate");
 
@@ -100369,7 +100389,7 @@ module.exports = function (state, action) {
 	}
 };
 
-},{"../constants":549,"../initialstate":563}],565:[function(require,module,exports){
+},{"../constants":549,"../initialstate":563}],566:[function(require,module,exports){
 var C = require("../constants"),
     initialState = require("../initialstate");
 
@@ -100404,7 +100424,7 @@ module.exports = function (state, action) {
 	}
 };
 
-},{"../constants":549,"../initialstate":563}],566:[function(require,module,exports){
+},{"../constants":549,"../initialstate":563}],567:[function(require,module,exports){
 var C = require("../constants"),
     initialState = require("../initialstate");
 
@@ -100431,7 +100451,7 @@ module.exports = function (state, action) {
 	}
 };
 
-},{"../constants":549,"../initialstate":563}],567:[function(require,module,exports){
+},{"../constants":549,"../initialstate":563}],568:[function(require,module,exports){
 var C = require("../constants"),
     initialState = require("../initialstate");
 
@@ -100457,7 +100477,7 @@ module.exports = function (state, action) {
 	}
 };
 
-},{"../constants":549,"../initialstate":563}],568:[function(require,module,exports){
+},{"../constants":549,"../initialstate":563}],569:[function(require,module,exports){
 var C = require("../constants"),
     initialState = require("../initialstate");
 
@@ -100496,7 +100516,7 @@ module.exports = function (state, action) {
 	}
 };
 
-},{"../constants":549,"../initialstate":563}],569:[function(require,module,exports){
+},{"../constants":549,"../initialstate":563}],570:[function(require,module,exports){
 var React = require('react'),
     ReactRouter = require('react-router'),
     Route = ReactRouter.Route,
@@ -100544,7 +100564,7 @@ module.exports = React.createElement(
   React.createElement(Route, { path: '/chat', component: Chat })
 );
 
-},{"./components/about/about":531,"./components/about/donate":532,"./components/about/projects":533,"./components/active":534,"./components/cashout":535,"./components/category":536,"./components/chat/chat":537,"./components/content":538,"./components/created":539,"./components/dashboard":540,"./components/hot":541,"./components/responses":542,"./components/trending":543,"./components/user/feed":544,"./components/user/posts":545,"./components/user/profile":546,"./components/user/replies":547,"./components/votes":548,"./containers/wrapper":559,"react":409,"react-router":255}],570:[function(require,module,exports){
+},{"./components/about/about":531,"./components/about/donate":532,"./components/about/projects":533,"./components/active":534,"./components/cashout":535,"./components/category":536,"./components/chat/chat":537,"./components/content":538,"./components/created":539,"./components/dashboard":540,"./components/hot":541,"./components/responses":542,"./components/trending":543,"./components/user/feed":544,"./components/user/posts":545,"./components/user/profile":546,"./components/user/replies":547,"./components/votes":548,"./containers/wrapper":559,"react":409,"react-router":255}],571:[function(require,module,exports){
 var Redux = require("redux"),
     appReducer = require("./reducers/app"),
     authReducer = require("./reducers/auth"),
@@ -100564,4 +100584,4 @@ var rootReducer = Redux.combineReducers({
 
 module.exports = Redux.applyMiddleware(thunk)(Redux.createStore)(rootReducer, initialState(), window.devToolsExtension && window.devToolsExtension());
 
-},{"./initialstate":563,"./reducers/app":564,"./reducers/auth":565,"./reducers/header":566,"./reducers/modal":567,"./reducers/pages":568,"redux":426,"redux-thunk":420}]},{},[562]);
+},{"./initialstate":563,"./reducers/app":565,"./reducers/auth":566,"./reducers/header":567,"./reducers/modal":568,"./reducers/pages":569,"redux":426,"redux-thunk":420}]},{},[562]);
