@@ -40,7 +40,7 @@ var Sidebar = React.createClass({
 				<div className="sidebar-content">
 					{this.props.auth.isAuthenticated && <ul className="list-selector">
 						<li><Link to="/trending" className="active"><i className="icon icon-md material-icons">public</i> World</Link></li>
-						<li><Link to="/friends" className="active"><i className="icon icon-md material-icons">people</i> Friends</Link></li>
+						<li><Link to={'/@' + user.name + '/feed'} className="active"><i className="icon icon-md material-icons">people</i> Friends</Link></li>
 					</ul>}
 					{tags.length > 0 && <ul className="tags">{tags}</ul>}
 					<div className="menu">

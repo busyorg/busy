@@ -23,6 +23,7 @@ var Header = React.createClass({
 		var votes = (category)? '/votes/' + category : '/votes';
 		var profile = '/@' + account;
 		var posts = '/@' + account + '/posts';
+		var feed = '/@' + account + '/feed';
 		var replies = '/@' + account + '/replies';
 		var friends = '/@' + account + '/friends';
 		var wallet = '/@' + account + '/wallet';
@@ -50,7 +51,8 @@ var Header = React.createClass({
 				{menu == 'secondary' && <ul className="app-nav">
 					<li><Link to={profile} activeClassName="active"><i className="icon icon-md material-icons">assignment_ind</i><span className="hidden-xs"> Profile</span></Link></li>
 					<li><Link to={posts} activeClassName="active"><i className="icon icon-md material-icons">library_books</i><span className="hidden-xs"> Posts</span></Link></li>
-					<li><Link to={replies} activeClassName="active"><i className="icon icon-md  material-icons">comment</i><span className="hidden-xs"> Replies</span></Link></li>
+					<li><Link to={feed} activeClassName="active"><i className="icon icon-md  material-icons">subject</i><span className="hidden-xs"> Feed</span></Link></li>
+					<li className="hide"><Link to={replies} activeClassName="active"><i className="icon icon-md  material-icons">comment</i><span className="hidden-xs"> Replies</span></Link></li>
 					<li><Link to={friends} activeClassName="active"><i className="icon icon-md  material-icons">people</i><span className="hidden-xs"> Friends</span></Link></li>
 					<li><Link to={wallet}  activeClassName="active"><i className="icon icon-md material-icons">account_balance_wallet</i><span className="hidden-xs"> Wallet</span></Link></li>
 					<li className="hide"><Link to={permissions} activeClassName="active"><i className="icon icon-md material-icons">lock</i><span className="hidden-xs"> Permissions</span></Link></li>

@@ -1,7 +1,7 @@
 var axios = require('axios'),
 	moment = require('moment'),
 	C = require('./constants'),
-	ws = 'wss://node.steem.ws';
+	ws = 'wss://steemit.com/wspa';
 
 module.exports = {
 	login: function(name, password) {
@@ -30,32 +30,6 @@ module.exports = {
 					var res = {
 						type: C.ACCOUNT_SUCCESS,
 						account: response.data[0],
-					};
-					Object.assign(res);
-					dispatch(res);
-				});
-		};
-	},
-	getFollowingPosts: function(follower) {
-		return function(dispatch, getState) {
-			var req = {
-				type: C.FEED_REQUEST,
-				path: '/friends',
-				isFetching: true,
-				isLoaded: false,
-				current_route: null,
-				content: []
-			};
-			Object.assign(req);
-			dispatch(req);
-			axios.get('//api.steemjs.com/getFollowingPosts?follower=' + follower + '&ws=' + ws)
-				.then(response => {
-					var res = {
-						type: C.FEED_SUCCESS,
-						path: '/friends',
-						isFetching: false,
-						isLoaded: true,
-						content: response.data
 					};
 					Object.assign(res);
 					dispatch(res);

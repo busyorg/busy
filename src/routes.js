@@ -19,8 +19,8 @@ var React = require('react'),
   Single = require('./components/content'),
   Posts = require('./components/user/posts'),
   Replies = require('./components/user/replies'),
-  Chat = require('./components/chat/chat') ,
-  Friends = require('./components/friends');
+  Chat = require('./components/chat/chat'),
+  Feed = require('./components/user/feed');
 
 module.exports = (
   <Route path="/" component={Wrapper}>
@@ -28,10 +28,10 @@ module.exports = (
     <Route path="/about" component={About} />
     <Route path="/projects" component={Projects} />
     <Route path="/donate" component={Donate} />
-    <Route path="/friends" component={Friends} />
     <Route path="/:category/@:author/:permlink" component={Single} />
     <Route path="/trending/:category" component={Category} />
     <Route path="/@:name/posts" component={Posts} />
+    <Route path="/@:name/feed" component={Feed} />
     <Route path="/@:name/replies" component={Replies} />
     <Route path="/@:name" component={Profile} />
     <Route path="/trending" component={Trending} />
