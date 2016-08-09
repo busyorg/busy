@@ -98463,7 +98463,7 @@ var Profile = React.createClass({
 						null,
 						React.createElement(
 							"i",
-							{ className: "icon icon-md icon-menu material-icons" },
+							{ className: "icon icon-md material-icons" },
 							"library_books"
 						),
 						" ",
@@ -98479,7 +98479,7 @@ var Profile = React.createClass({
 						null,
 						React.createElement(
 							"i",
-							{ className: "icon icon-md icon-menu material-icons" },
+							{ className: "icon icon-md material-icons" },
 							"gavel"
 						),
 						" ",
@@ -98495,7 +98495,7 @@ var Profile = React.createClass({
 						null,
 						React.createElement(
 							"i",
-							{ className: "icon icon-md icon-menu material-icons" },
+							{ className: "icon icon-md material-icons" },
 							"people"
 						),
 						" ",
@@ -98511,7 +98511,7 @@ var Profile = React.createClass({
 						null,
 						React.createElement(
 							"i",
-							{ className: "icon icon-md icon-menu material-icons" },
+							{ className: "icon icon-md material-icons" },
 							"people"
 						),
 						" ",

@@ -36,10 +36,10 @@ var Profile = React.createClass({
 					{profile && this.props.app.isFetching && <Loading />}
 					{profile && !this.props.app.isFetching && _.size(profile.account) > 0 &&
 							<ul className="secondary-nav">
-								<li><i className="icon icon-md icon-menu material-icons">library_books</i> {numeral(profile.account.post_count).format('0,0')}<span className="hidden-xs"> Posts</span></li>
-								<li><i className="icon icon-md icon-menu material-icons">gavel</i> {numeral(parseInt(profile.account.voting_power) / 10000).format('%0')}<span className="hidden-xs"> Voting Power</span></li>
-								<li><i className="icon icon-md icon-menu material-icons">people</i> {numeral(parseInt(0)).format('0,0')}<span className="hidden-xs"> Followers</span></li>
-								<li><i className="icon icon-md icon-menu material-icons">people</i> {numeral(parseInt(0)).format('0,0')}<span className="hidden-xs"> Followed</span></li>
+								<li><i className="icon icon-md material-icons">library_books</i> {numeral(profile.account.post_count).format('0,0')}<span className="hidden-xs"> Posts</span></li>
+								<li><i className="icon icon-md material-icons">gavel</i> {numeral(parseInt(profile.account.voting_power) / 10000).format('%0')}<span className="hidden-xs"> Voting Power</span></li>
+								<li><i className="icon icon-md material-icons">people</i> {numeral(parseInt(0)).format('0,0')}<span className="hidden-xs"> Followers</span></li>
+								<li><i className="icon icon-md material-icons">people</i> {numeral(parseInt(0)).format('0,0')}<span className="hidden-xs"> Followed</span></li>
 							</ul>}
 				</div>
 			</div>
