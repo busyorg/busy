@@ -34,7 +34,7 @@ var Sidebar = React.createClass({
 						<span className="avatar avatar-sm"><img src="/img/logo-white.svg" /></span>
 						<div><Link to={'/@' + user.name}>@{user.name}</Link></div>
 					</div> : <div className="login">
-						<a href="https://steemconnect.com/connect?appId=230kfd02-kf9j2-fsd57g4"><i className="icon icon-md material-icons">lock_outline</i> Steem Connect</a>
+						<a href="https://steemconnect.com/authorize/@busy"><i className="icon icon-md material-icons">lock_outline</i> Steem Connect</a>
 					</div>}
 				</div>
 				<div className="sidebar-content">

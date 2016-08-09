@@ -1,7 +1,7 @@
-var React = require("react"),
-	ReactRedux = require("react-redux"),
-	actions = require("../actions")
-	Link = require("react-router").Link;
+var React = require('react'),
+	ReactRedux = require('react-redux'),
+	actions = require('../actions'),
+	Link = require('react-router').Link;
 
 var Header = React.createClass({
 	handleChange: function(e) {

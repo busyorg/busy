@@ -43,5 +43,8 @@ module.exports = {
 
 	// Sidebar
 	SHOW_SIDEBAR: 'SHOW_SIDEBAR',
-	HIDE_SIDEBAR: 'HIDE_SIDEBAR'
+	HIDE_SIDEBAR: 'HIDE_SIDEBAR',
+
+	// WebSocket
+	WS: 'wss://steemit.com/wspa'
 };

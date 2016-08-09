@@ -97777,8 +97777,7 @@ function extend() {
 },{}],530:[function(require,module,exports){
 var axios = require('axios'),
     moment = require('moment'),
-    C = require('./constants'),
-    ws = 'wss://steemit.com/wspa';
+    C = require('./constants');
 
 module.exports = {
 	login: function (name, password) {
@@ -97786,7 +97785,7 @@ module.exports = {
 			var req = { type: C.LOGIN_REQUEST };
 			Object.assign(req);
 			dispatch(req);
-			axios.get('//api.steemjs.com/getAccounts?names[]=' + name + '&ws=' + ws).then(response => {
+			axios.get('//api.steemjs.com/getAccounts?names[]=' + name + '&ws=' + C.WS).then(response => {
 				var res = {
 					type: C.LOGIN_SUCCESS,
 					user: response.data[0]
@@ -97801,7 +97800,7 @@ module.exports = {
 			var req = { type: C.ACCOUNT_REQUEST };
 			Object.assign(req);
 			dispatch(req);
-			axios.get('//api.steemjs.com/getAccounts?names[]=' + name + '&ws=' + ws).then(response => {
+			axios.get('//api.steemjs.com/getAccounts?names[]=' + name + '&ws=' + C.WS).then(response => {
 				var res = {
 					type: C.ACCOUNT_SUCCESS,
 					account: response.data[0]
@@ -97816,7 +97815,7 @@ module.exports = {
 			var req = { type: C.CONTENT_REQUEST };
 			Object.assign(req);
 			dispatch(req);
-			axios.get('//api.steemjs.com/getContent?author=' + author + '&permlink=' + permlink + '&ws=' + ws).then(response => {
+			axios.get('//api.steemjs.com/getContent?author=' + author + '&permlink=' + permlink + '&ws=' + C.WS).then(response => {
 				var res = {
 					type: C.CONTENT_SUCCESS,
 					content: response.data
@@ -97831,7 +97830,7 @@ module.exports = {
 			var req = { type: C.CONFIG_REQUEST };
 			Object.assign(req);
 			dispatch(req);
-			axios.get('//api.steemjs.com/getConfig?ws=' + ws).then(response => {
+			axios.get('//api.steemjs.com/getConfig?ws=' + C.WS).then(response => {
 				var res = {
 					type: C.CONFIG_SUCCESS,
 					config: response.data
@@ -97853,7 +97852,7 @@ module.exports = {
 			};
 			Object.assign(req, options);
 			dispatch(req);
-			axios.get('//api.steemjs.com/getState?path=' + options.path + '&ws=' + ws).then(response => {
+			axios.get('//api.steemjs.com/getState?path=' + options.path + '&ws=' + C.WS).then(response => {
 				var res = {
 					type: C.FEED_SUCCESS,
 					path: path,
@@ -98014,7 +98013,7 @@ module.exports = React.createClass({
 	}
 });
 
-},{"./../../containers/header":553,"react":409}],532:[function(require,module,exports){
+},{"./../../containers/header":555,"react":409}],532:[function(require,module,exports){
 var React = require("react"),
     Header = require("./../../containers/header");
 
@@ -98062,7 +98061,7 @@ module.exports = React.createClass({
 	}
 });
 
-},{"./../../containers/header":553,"react":409}],533:[function(require,module,exports){
+},{"./../../containers/header":555,"react":409}],533:[function(require,module,exports){
 var React = require("react"),
     Header = require("./../../containers/header");
 
@@ -98157,7 +98156,7 @@ module.exports = React.createClass({
 	}
 });
 
-},{"./../../containers/header":553,"react":409}],534:[function(require,module,exports){
+},{"./../../containers/header":555,"react":409}],534:[function(require,module,exports){
 var React = require("react"),
     Page = require("./../containers/page");
 
@@ -98169,7 +98168,7 @@ module.exports = React.createClass({
 	}
 });
 
-},{"./../containers/page":556,"react":409}],535:[function(require,module,exports){
+},{"./../containers/page":558,"react":409}],535:[function(require,module,exports){
 var React = require("react"),
     Page = require("./../containers/page");
 
@@ -98181,7 +98180,7 @@ module.exports = React.createClass({
 	}
 });
 
-},{"./../containers/page":556,"react":409}],536:[function(require,module,exports){
+},{"./../containers/page":558,"react":409}],536:[function(require,module,exports){
 var React = require("react"),
     Page = require("./../containers/page");
 
@@ -98200,7 +98199,7 @@ module.exports = React.createClass({
 	}
 });
 
-},{"./../containers/page":556,"react":409}],537:[function(require,module,exports){
+},{"./../containers/page":558,"react":409}],537:[function(require,module,exports){
 var React = require("react"),
     Header = require("./../../containers/header");
 
@@ -98216,7 +98215,7 @@ module.exports = React.createClass({
 	}
 });
 
-},{"./../../containers/header":553,"react":409}],538:[function(require,module,exports){
+},{"./../../containers/header":555,"react":409}],538:[function(require,module,exports){
 var React = require("react"),
     ReactRedux = require("react-redux"),
     _ = require('lodash'),
@@ -98293,7 +98292,7 @@ var mapDispatchToProps = function (dispatch) {
 
 module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(Content);
 
-},{"../actions":530,"./../containers/header":553,"./../containers/loading":554,"lodash":188,"marked":189,"react":409,"react-redux":221,"react-router":255,"steemembed":438}],539:[function(require,module,exports){
+},{"../actions":530,"./../containers/header":555,"./../containers/loading":556,"lodash":188,"marked":189,"react":409,"react-redux":221,"react-router":255,"steemembed":438}],539:[function(require,module,exports){
 var React = require("react"),
     Page = require("./../containers/page");
 
@@ -98305,7 +98304,7 @@ module.exports = React.createClass({
 	}
 });
 
-},{"./../containers/page":556,"react":409}],540:[function(require,module,exports){
+},{"./../containers/page":558,"react":409}],540:[function(require,module,exports){
 var React = require("react"),
     Header = require("./../containers/header");
 
@@ -98334,7 +98333,7 @@ module.exports = React.createClass({
 	}
 });
 
-},{"./../containers/header":553,"react":409}],541:[function(require,module,exports){
+},{"./../containers/header":555,"react":409}],541:[function(require,module,exports){
 var React = require("react"),
     Page = require("./../containers/page");
 
@@ -98346,7 +98345,7 @@ module.exports = React.createClass({
 	}
 });
 
-},{"./../containers/page":556,"react":409}],542:[function(require,module,exports){
+},{"./../containers/page":558,"react":409}],542:[function(require,module,exports){
 var React = require("react"),
     Page = require("./../containers/page");
 
@@ -98358,7 +98357,7 @@ module.exports = React.createClass({
 	}
 });
 
-},{"./../containers/page":556,"react":409}],543:[function(require,module,exports){
+},{"./../containers/page":558,"react":409}],543:[function(require,module,exports){
 var React = require("react"),
     Page = require("./../containers/page");
 
@@ -98370,7 +98369,7 @@ module.exports = React.createClass({
 	}
 });
 
-},{"./../containers/page":556,"react":409}],544:[function(require,module,exports){
+},{"./../containers/page":558,"react":409}],544:[function(require,module,exports){
 var React = require("react"),
     Page = require("./../../containers/page");
 
@@ -98383,7 +98382,7 @@ module.exports = React.createClass({
 	}
 });
 
-},{"./../../containers/page":556,"react":409}],545:[function(require,module,exports){
+},{"./../../containers/page":558,"react":409}],545:[function(require,module,exports){
 var React = require("react"),
     Page = require("./../../containers/page");
 
@@ -98396,7 +98395,7 @@ module.exports = React.createClass({
 	}
 });
 
-},{"./../../containers/page":556,"react":409}],546:[function(require,module,exports){
+},{"./../../containers/page":558,"react":409}],546:[function(require,module,exports){
 var React = require("react"),
     ReactRedux = require("react-redux"),
     _ = require('lodash'),
@@ -98548,7 +98547,7 @@ var mapDispatchToProps = function (dispatch) {
 
 module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(Profile);
 
-},{"../../actions":530,"../../lib/parser":564,"./../../containers/header":553,"./../../containers/loading":554,"lodash":188,"numeral":194,"react":409,"react-redux":221}],547:[function(require,module,exports){
+},{"../../actions":530,"../../lib/parser":566,"./../../containers/header":555,"./../../containers/loading":556,"lodash":188,"numeral":194,"react":409,"react-redux":221}],547:[function(require,module,exports){
 var React = require("react"),
     Page = require("./../../containers/page");
 
@@ -98561,7 +98560,7 @@ module.exports = React.createClass({
 	}
 });
 
-},{"./../../containers/page":556,"react":409}],548:[function(require,module,exports){
+},{"./../../containers/page":558,"react":409}],548:[function(require,module,exports){
 var React = require("react"),
     Page = require("./../containers/page");
 
@@ -98573,7 +98572,7 @@ module.exports = React.createClass({
 	}
 });
 
-},{"./../containers/page":556,"react":409}],549:[function(require,module,exports){
+},{"./../containers/page":558,"react":409}],549:[function(require,module,exports){
 module.exports = {
 	// Auth
 	LOGIN_REQUEST: 'LOGIN_REQUEST',
@@ -98619,7 +98618,10 @@ module.exports = {
 
 	// Sidebar
 	SHOW_SIDEBAR: 'SHOW_SIDEBAR',
-	HIDE_SIDEBAR: 'HIDE_SIDEBAR'
+	HIDE_SIDEBAR: 'HIDE_SIDEBAR',
+
+	// WebSocket
+	WS: 'wss://steemit.com/wspa'
 };
 
 },{}],550:[function(require,module,exports){
@@ -98728,6 +98730,22 @@ module.exports = React.createClass({
 });
 
 },{"react":409}],551:[function(require,module,exports){
+var React = require('react'),
+    striptags = require('striptags'),
+    marked = require('marked'),
+    ellipsis = require('text-ellipsis');
+
+module.exports = React.createClass({
+	displayName: 'exports',
+
+	render: function () {
+		var body = striptags(marked(this.props.body));
+		body = body.replace(/(?:https?|ftp):\/\/[\n\S]+/g, '');
+		return React.createElement('span', { dangerouslySetInnerHTML: { __html: ellipsis(body, 255, { ellipsis: '…' }) } });
+	}
+});
+
+},{"marked":189,"react":409,"striptags":453,"text-ellipsis":456}],552:[function(require,module,exports){
 var React = require("react"),
     Link = require("react-router").Link;
 
@@ -98751,44 +98769,84 @@ module.exports = React.createClass({
 	}
 });
 
-},{"react":409,"react-router":255}],552:[function(require,module,exports){
+},{"react":409,"react-router":255}],553:[function(require,module,exports){
+var React = require('react'),
+    ReactRedux = require('react-redux'),
+    _ = require('lodash'),
+    numeral = require('numeral'),
+    axios = require('axios'),
+    C = require('./../constants'),
+    BodyShort = require('./body-short'),
+    Loading = require("./../containers/loading"),
+    Link = require('react-router').Link;
+
+var Comments = React.createClass({
+	displayName: 'Comments',
+
+	getInitialState: function () {
+		this.getContentReplies();
+		return {
+			key: Math.random(),
+			replies: []
+		};
+	},
+	getContentReplies: function () {
+		var parent = this.props.parent;
+		var parentPermlink = this.props.parentPermlink;
+		axios.get('//api.steemjs.com/getContentReplies?parent=' + parent + '&parentPermlink=' + parentPermlink + '&ws=' + C.WS).then(response => {
+			this.setState({ replies: response.data });
+		});
+	},
+	render: function () {
+		return React.createElement(
+			'div',
+			{ className: 'comments' },
+			this.state.replies.length > 0 && React.createElement(
+				'ul',
+				null,
+				this.state.replies.slice(0, 3).map(function (reply) {
+					var payout = parseFloat(reply.total_payout_value) + parseFloat(reply.total_pending_payout_value);
+					return React.createElement(
+						'li',
+						null,
+						React.createElement(
+							Link,
+							{ to: '/@' + reply.author },
+							'@',
+							reply.author
+						),
+						' ',
+						numeral(payout).format('$0,0.00'),
+						' ',
+						React.createElement(BodyShort, { body: reply.body })
+					);
+				})
+			),
+			this.state.replies.length == 0 && React.createElement(Loading, null)
+		);
+	}
+});
+
+var mapStateToProps = function (state) {
+	return {
+		auth: state.auth
+	};
+};
+
+module.exports = ReactRedux.connect(mapStateToProps)(Comments);
+
+},{"./../constants":549,"./../containers/loading":556,"./body-short":551,"axios":15,"lodash":188,"numeral":194,"react":409,"react-redux":221,"react-router":255}],554:[function(require,module,exports){
 var React = require('react'),
     _ = require('lodash'),
-    striptags = require('striptags'),
-    marked = require('marked'),
-    ellipsis = require('text-ellipsis'),
-    numeral = require('numeral'),
-    sortBy = require('sort-by'),
-    actions = require("../actions"),
     AddPost = require('./add-post'),
     Post = require('./post');
 
 module.exports = React.createClass({
   displayName: 'exports',
 
-  getInitialState: function () {
-    var content = this.props.content;
-    return {
-      sortBy: 'imp',
-      sortOrder: 'desc',
-      content: content
-    };
-  },
-  //total: this.props.total,
-  sortBy: function (a) {
-    var sortOrder = this.state.sortBy == a && this.state.sortOrder == 'desc' ? 'asc' : 'desc';
-    var orders = { 'asc': '', 'desc': '-' };
-    var content = this.state.content.sort(sortBy(orders[sortOrder] + a));
-    this.setState({
-      sortBy: a,
-      sortOrder: sortOrder,
-      content: content
-    });
-  },
   render: function () {
     var self = this;
-    var i = 0;
-    var content = this.state.content;
+    var content = this.props.content;
     return React.createElement(
       'div',
       { className: 'grid' },
@@ -98799,8 +98857,7 @@ module.exports = React.createClass({
         obj2Array(content).filter(function (key) {
           return key.title && key.title.toLowerCase().indexOf(self.props.filter.toLowerCase()) != -1;
         }).map(function (entry, key) {
-          i++;
-          return React.createElement(Post, { entry: entry });
+          return React.createElement(Post, { key: key, entry: entry });
         })
       )
     );
@@ -98815,14 +98872,14 @@ var obj2Array = function (object) {
   return array;
 };
 
-},{"../actions":530,"./add-post":550,"./post":557,"lodash":188,"marked":189,"numeral":194,"react":409,"sort-by":437,"striptags":453,"text-ellipsis":456}],553:[function(require,module,exports){
-var React = require("react"),
-    ReactRedux = require("react-redux"),
-    actions = require("../actions");
-Link = require("react-router").Link;
+},{"./add-post":550,"./post":559,"lodash":188,"react":409}],555:[function(require,module,exports){
+var React = require('react'),
+    ReactRedux = require('react-redux'),
+    actions = require('../actions'),
+    Link = require('react-router').Link;
 
 var Header = React.createClass({
-	displayName: "Header",
+	displayName: 'Header',
 
 	handleChange: function (e) {
 		this.props.search(e.target.value);
@@ -98849,482 +98906,482 @@ var Header = React.createClass({
 		var wallet = '/@' + account + '/wallet';
 		var permissions = '/@' + account + '/permissions';
 		return React.createElement(
-			"header",
+			'header',
 			null,
 			React.createElement(
-				"div",
-				{ className: "top-nav" },
+				'div',
+				{ className: 'top-nav' },
 				!this.props.app.sidebarIsVisible && React.createElement(
-					"a",
-					{ href: "#", onClick: () => this.props.showSidebar() },
+					'a',
+					{ href: '#', onClick: () => this.props.showSidebar() },
 					React.createElement(
-						"i",
-						{ className: "icon icon-md icon-menu material-icons" },
-						"menu"
+						'i',
+						{ className: 'icon icon-md icon-menu material-icons' },
+						'menu'
 					)
 				),
 				this.props.app.sidebarIsVisible && React.createElement(
-					"a",
-					{ href: "#", onClick: () => this.props.hideSidebar() },
+					'a',
+					{ href: '#', onClick: () => this.props.hideSidebar() },
 					React.createElement(
-						"i",
-						{ className: "icon icon-md icon-menu material-icons" },
-						"arrow_back"
+						'i',
+						{ className: 'icon icon-md icon-menu material-icons' },
+						'arrow_back'
 					)
 				),
 				React.createElement(
-					"div",
-					{ className: "section-content top-head" },
+					'div',
+					{ className: 'section-content top-head' },
 					React.createElement(
 						Link,
-						{ to: "/", onlyActiveOnIndex: true, activeClassName: "active" },
-						React.createElement("img", { src: "/img/logo-blue.svg" })
+						{ to: '/', onlyActiveOnIndex: true, activeClassName: 'active' },
+						React.createElement('img', { src: '/img/logo-blue.svg' })
 					)
 				),
 				React.createElement(
-					"a",
-					{ href: "#" },
+					'a',
+					{ href: '#' },
 					React.createElement(
-						"i",
-						{ className: "icon icon-md icon-menu material-icons" },
-						"add"
+						'i',
+						{ className: 'icon icon-md icon-menu material-icons' },
+						'add'
 					)
 				)
 			),
 			menu == 'primary' && React.createElement(
-				"ul",
-				{ className: "app-nav" },
+				'ul',
+				{ className: 'app-nav' },
 				React.createElement(
-					"li",
+					'li',
 					null,
 					React.createElement(
 						Link,
-						{ to: trending, onlyActiveOnIndex: true, activeClassName: "active" },
+						{ to: trending, onlyActiveOnIndex: true, activeClassName: 'active' },
 						React.createElement(
-							"i",
-							{ className: "icon icon-md material-icons" },
-							"show_chart"
+							'i',
+							{ className: 'icon icon-md material-icons' },
+							'show_chart'
 						),
 						React.createElement(
-							"span",
-							{ className: "hidden-xs" },
-							" Trending"
+							'span',
+							{ className: 'hidden-xs' },
+							' Trending'
 						)
 					)
 				),
 				React.createElement(
-					"li",
+					'li',
 					null,
 					React.createElement(
 						Link,
-						{ to: hot, activeClassName: "active" },
+						{ to: hot, activeClassName: 'active' },
 						React.createElement(
-							"i",
-							{ className: "icon icon-md material-icons" },
-							"lightbulb_outline"
+							'i',
+							{ className: 'icon icon-md material-icons' },
+							'lightbulb_outline'
 						),
 						React.createElement(
-							"span",
-							{ className: "hidden-xs" },
-							" Hot"
+							'span',
+							{ className: 'hidden-xs' },
+							' Hot'
 						)
 					)
 				),
 				React.createElement(
-					"li",
+					'li',
 					null,
 					React.createElement(
 						Link,
-						{ to: cashout, activeClassName: "active" },
+						{ to: cashout, activeClassName: 'active' },
 						React.createElement(
-							"i",
-							{ className: "icon icon-md material-icons" },
-							"attach_money"
+							'i',
+							{ className: 'icon icon-md material-icons' },
+							'attach_money'
 						),
 						React.createElement(
-							"span",
-							{ className: "hidden-xs" },
-							" Payout Time"
+							'span',
+							{ className: 'hidden-xs' },
+							' Payout Time'
 						)
 					)
 				),
 				React.createElement(
-					"li",
+					'li',
 					null,
 					React.createElement(
 						Link,
-						{ to: created, activeClassName: "active" },
+						{ to: created, activeClassName: 'active' },
 						React.createElement(
-							"i",
-							{ className: "icon icon-md material-icons" },
-							"fiber_new"
+							'i',
+							{ className: 'icon icon-md material-icons' },
+							'fiber_new'
 						),
 						React.createElement(
-							"span",
-							{ className: "hidden-xs" },
-							" New"
+							'span',
+							{ className: 'hidden-xs' },
+							' New'
 						)
 					)
 				),
 				React.createElement(
-					"li",
+					'li',
 					null,
 					React.createElement(
 						Link,
-						{ to: active, activeClassName: "active" },
+						{ to: active, activeClassName: 'active' },
 						React.createElement(
-							"i",
-							{ className: "icon icon-md material-icons" },
-							"settings_remote"
+							'i',
+							{ className: 'icon icon-md material-icons' },
+							'settings_remote'
 						),
 						React.createElement(
-							"span",
-							{ className: "hidden-xs" },
-							" Active"
+							'span',
+							{ className: 'hidden-xs' },
+							' Active'
 						)
 					)
 				),
 				React.createElement(
-					"li",
-					{ className: "hide" },
+					'li',
+					{ className: 'hide' },
 					React.createElement(
 						Link,
-						{ to: responses, activeClassName: "active" },
+						{ to: responses, activeClassName: 'active' },
 						React.createElement(
-							"i",
-							{ className: "icon icon-md material-icons" },
-							"comment"
+							'i',
+							{ className: 'icon icon-md material-icons' },
+							'comment'
 						),
 						React.createElement(
-							"span",
-							{ className: "hidden-xs" },
-							" Responses"
+							'span',
+							{ className: 'hidden-xs' },
+							' Responses'
 						)
 					)
 				),
 				React.createElement(
-					"li",
-					{ className: "hide" },
+					'li',
+					{ className: 'hide' },
 					React.createElement(
 						Link,
-						{ to: votes, activeClassName: "active" },
+						{ to: votes, activeClassName: 'active' },
 						React.createElement(
-							"i",
-							{ className: "icon icon-md material-icons" },
-							"gavel"
+							'i',
+							{ className: 'icon icon-md material-icons' },
+							'gavel'
 						),
 						React.createElement(
-							"span",
-							{ className: "hidden-xs" },
-							" Popular"
+							'span',
+							{ className: 'hidden-xs' },
+							' Popular'
 						)
 					)
 				),
 				React.createElement(
-					"li",
+					'li',
 					null,
 					React.createElement(
-						"a",
-						{ href: "#", onClick: () => this.props.setMenu('secondary') },
+						'a',
+						{ href: '#', onClick: () => this.props.setMenu('secondary') },
 						React.createElement(
-							"i",
-							{ className: "icon icon-md material-icons" },
-							"expand_more"
+							'i',
+							{ className: 'icon icon-md material-icons' },
+							'expand_more'
 						)
 					)
 				)
 			),
 			menu == 'secondary' && React.createElement(
-				"ul",
-				{ className: "app-nav" },
+				'ul',
+				{ className: 'app-nav' },
 				React.createElement(
-					"li",
+					'li',
 					null,
 					React.createElement(
 						Link,
-						{ to: profile, activeClassName: "active" },
+						{ to: profile, activeClassName: 'active' },
 						React.createElement(
-							"i",
-							{ className: "icon icon-md material-icons" },
-							"assignment_ind"
+							'i',
+							{ className: 'icon icon-md material-icons' },
+							'assignment_ind'
 						),
 						React.createElement(
-							"span",
-							{ className: "hidden-xs" },
-							" Profile"
+							'span',
+							{ className: 'hidden-xs' },
+							' Profile'
 						)
 					)
 				),
 				React.createElement(
-					"li",
+					'li',
 					null,
 					React.createElement(
 						Link,
-						{ to: posts, activeClassName: "active" },
+						{ to: posts, activeClassName: 'active' },
 						React.createElement(
-							"i",
-							{ className: "icon icon-md material-icons" },
-							"library_books"
+							'i',
+							{ className: 'icon icon-md material-icons' },
+							'library_books'
 						),
 						React.createElement(
-							"span",
-							{ className: "hidden-xs" },
-							" Posts"
+							'span',
+							{ className: 'hidden-xs' },
+							' Posts'
 						)
 					)
 				),
 				React.createElement(
-					"li",
+					'li',
 					null,
 					React.createElement(
 						Link,
-						{ to: feed, activeClassName: "active" },
+						{ to: feed, activeClassName: 'active' },
 						React.createElement(
-							"i",
-							{ className: "icon icon-md  material-icons" },
-							"subject"
+							'i',
+							{ className: 'icon icon-md  material-icons' },
+							'subject'
 						),
 						React.createElement(
-							"span",
-							{ className: "hidden-xs" },
-							" Feed"
+							'span',
+							{ className: 'hidden-xs' },
+							' Feed'
 						)
 					)
 				),
 				React.createElement(
-					"li",
-					{ className: "hide" },
+					'li',
+					{ className: 'hide' },
 					React.createElement(
 						Link,
-						{ to: replies, activeClassName: "active" },
+						{ to: replies, activeClassName: 'active' },
 						React.createElement(
-							"i",
-							{ className: "icon icon-md  material-icons" },
-							"comment"
+							'i',
+							{ className: 'icon icon-md  material-icons' },
+							'comment'
 						),
 						React.createElement(
-							"span",
-							{ className: "hidden-xs" },
-							" Replies"
+							'span',
+							{ className: 'hidden-xs' },
+							' Replies'
 						)
 					)
 				),
 				React.createElement(
-					"li",
+					'li',
 					null,
 					React.createElement(
 						Link,
-						{ to: friends, activeClassName: "active" },
+						{ to: friends, activeClassName: 'active' },
 						React.createElement(
-							"i",
-							{ className: "icon icon-md  material-icons" },
-							"people"
+							'i',
+							{ className: 'icon icon-md  material-icons' },
+							'people'
 						),
 						React.createElement(
-							"span",
-							{ className: "hidden-xs" },
-							" Friends"
+							'span',
+							{ className: 'hidden-xs' },
+							' Friends'
 						)
 					)
 				),
 				React.createElement(
-					"li",
+					'li',
 					null,
 					React.createElement(
 						Link,
-						{ to: wallet, activeClassName: "active" },
+						{ to: wallet, activeClassName: 'active' },
 						React.createElement(
-							"i",
-							{ className: "icon icon-md material-icons" },
-							"account_balance_wallet"
+							'i',
+							{ className: 'icon icon-md material-icons' },
+							'account_balance_wallet'
 						),
 						React.createElement(
-							"span",
-							{ className: "hidden-xs" },
-							" Wallet"
+							'span',
+							{ className: 'hidden-xs' },
+							' Wallet'
 						)
 					)
 				),
 				React.createElement(
-					"li",
-					{ className: "hide" },
+					'li',
+					{ className: 'hide' },
 					React.createElement(
 						Link,
-						{ to: permissions, activeClassName: "active" },
+						{ to: permissions, activeClassName: 'active' },
 						React.createElement(
-							"i",
-							{ className: "icon icon-md material-icons" },
-							"lock"
+							'i',
+							{ className: 'icon icon-md material-icons' },
+							'lock'
 						),
 						React.createElement(
-							"span",
-							{ className: "hidden-xs" },
-							" Permissions"
+							'span',
+							{ className: 'hidden-xs' },
+							' Permissions'
 						)
 					)
 				),
 				React.createElement(
-					"li",
+					'li',
 					null,
 					React.createElement(
-						"a",
-						{ href: "#", onClick: () => this.props.setMenu('primary') },
+						'a',
+						{ href: '#', onClick: () => this.props.setMenu('primary') },
 						React.createElement(
-							"i",
-							{ className: "icon icon-md material-icons" },
-							"expand_less"
+							'i',
+							{ className: 'icon icon-md material-icons' },
+							'expand_less'
 						)
 					)
 				)
 			),
 			menu == 'about' && React.createElement(
-				"ul",
-				{ className: "app-nav" },
+				'ul',
+				{ className: 'app-nav' },
 				React.createElement(
-					"li",
+					'li',
 					null,
 					React.createElement(
 						Link,
-						{ to: "/about", activeClassName: "active" },
+						{ to: '/about', activeClassName: 'active' },
 						React.createElement(
-							"i",
-							{ className: "icon icon-md material-icons" },
-							"info_outline"
+							'i',
+							{ className: 'icon icon-md material-icons' },
+							'info_outline'
 						),
 						React.createElement(
-							"span",
-							{ className: "hidden-xs" },
-							" About"
+							'span',
+							{ className: 'hidden-xs' },
+							' About'
 						)
 					)
 				),
 				React.createElement(
-					"li",
+					'li',
 					null,
 					React.createElement(
 						Link,
-						{ to: "/team", activeClassName: "active" },
+						{ to: '/team', activeClassName: 'active' },
 						React.createElement(
-							"i",
-							{ className: "icon icon-md material-icons" },
-							"group_work"
+							'i',
+							{ className: 'icon icon-md material-icons' },
+							'group_work'
 						),
 						React.createElement(
-							"span",
-							{ className: "hidden-xs" },
-							" Team"
+							'span',
+							{ className: 'hidden-xs' },
+							' Team'
 						)
 					)
 				),
 				React.createElement(
-					"li",
+					'li',
 					null,
 					React.createElement(
 						Link,
-						{ to: "/projects", activeClassName: "active" },
+						{ to: '/projects', activeClassName: 'active' },
 						React.createElement(
-							"i",
-							{ className: "icon icon-md material-icons" },
-							"all_out"
+							'i',
+							{ className: 'icon icon-md material-icons' },
+							'all_out'
 						),
 						React.createElement(
-							"span",
-							{ className: "hidden-xs" },
-							" Projects"
+							'span',
+							{ className: 'hidden-xs' },
+							' Projects'
 						)
 					)
 				),
 				React.createElement(
-					"li",
+					'li',
 					null,
 					React.createElement(
 						Link,
-						{ to: "/jobs", activeClassName: "active" },
+						{ to: '/jobs', activeClassName: 'active' },
 						React.createElement(
-							"i",
-							{ className: "icon icon-md material-icons" },
-							"done"
+							'i',
+							{ className: 'icon icon-md material-icons' },
+							'done'
 						),
 						React.createElement(
-							"span",
-							{ className: "hidden-xs" },
-							" Jobs"
+							'span',
+							{ className: 'hidden-xs' },
+							' Jobs'
 						)
 					)
 				),
 				React.createElement(
-					"li",
+					'li',
 					null,
 					React.createElement(
 						Link,
-						{ to: "/donate", activeClassName: "active" },
+						{ to: '/donate', activeClassName: 'active' },
 						React.createElement(
-							"i",
-							{ className: "icon icon-md material-icons" },
-							"favorite"
+							'i',
+							{ className: 'icon icon-md material-icons' },
+							'favorite'
 						),
 						React.createElement(
-							"span",
-							{ className: "hidden-xs" },
-							" Donate"
+							'span',
+							{ className: 'hidden-xs' },
+							' Donate'
 						)
 					)
 				),
 				React.createElement(
-					"li",
+					'li',
 					null,
 					React.createElement(
 						Link,
-						{ to: "/help", activeClassName: "active" },
+						{ to: '/help', activeClassName: 'active' },
 						React.createElement(
-							"i",
-							{ className: "icon icon-md material-icons" },
-							"help_outline"
+							'i',
+							{ className: 'icon icon-md material-icons' },
+							'help_outline'
 						),
 						React.createElement(
-							"span",
-							{ className: "hidden-xs" },
-							" Help"
+							'span',
+							{ className: 'hidden-xs' },
+							' Help'
 						)
 					)
 				)
 			),
 			menu == 'chat' && React.createElement(
-				"ul",
-				{ className: "app-nav" },
+				'ul',
+				{ className: 'app-nav' },
 				React.createElement(
-					"li",
+					'li',
 					null,
 					React.createElement(
 						Link,
-						{ to: "/chat/tag", activeClassName: "active" },
+						{ to: '/chat/tag', activeClassName: 'active' },
 						React.createElement(
-							"i",
-							{ className: "icon icon-md material-icons" },
-							"chat"
+							'i',
+							{ className: 'icon icon-md material-icons' },
+							'chat'
 						),
 						React.createElement(
-							"span",
-							{ className: "hidden-xs" },
-							" tag"
+							'span',
+							{ className: 'hidden-xs' },
+							' tag'
 						)
 					)
 				),
 				React.createElement(
-					"li",
+					'li',
 					null,
 					React.createElement(
 						Link,
-						{ to: "/chat/@name", activeClassName: "active" },
+						{ to: '/chat/@name', activeClassName: 'active' },
 						React.createElement(
-							"i",
-							{ className: "icon icon-md material-icons" },
-							"perm_identity"
+							'i',
+							{ className: 'icon icon-md material-icons' },
+							'perm_identity'
 						),
 						React.createElement(
-							"span",
-							{ className: "hidden-xs" },
-							" name"
+							'span',
+							{ className: 'hidden-xs' },
+							' name'
 						)
 					)
 				)
@@ -99372,7 +99429,7 @@ var mapDispatchToProps = function (dispatch) {
 
 module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(Header);
 
-},{"../actions":530,"react":409,"react-redux":221,"react-router":255}],554:[function(require,module,exports){
+},{"../actions":530,"react":409,"react-redux":221,"react-router":255}],556:[function(require,module,exports){
 var React = require("react");
 
 module.exports = React.createClass({
@@ -99408,7 +99465,7 @@ module.exports = React.createClass({
 	}
 });
 
-},{"react":409}],555:[function(require,module,exports){
+},{"react":409}],557:[function(require,module,exports){
 var React = require("react"),
     ReactRedux = require("react-redux"),
     actions = require("../actions"),
@@ -99451,7 +99508,7 @@ var mapDispatchToProps = function (dispatch) {
 
 module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(Modal);
 
-},{"../actions":530,"../form/account":560,"../form/post":561,"react":409,"react-redux":221}],556:[function(require,module,exports){
+},{"../actions":530,"../form/account":562,"../form/post":563,"react":409,"react-redux":221}],558:[function(require,module,exports){
 var React = require("react"),
     ReactRedux = require("react-redux"),
     _ = require('lodash'),
@@ -99524,19 +99581,18 @@ var mapDispatchToProps = function (dispatch) {
 
 module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(Page);
 
-},{"../actions":530,"./feed":552,"./header":553,"./loading":554,"lodash":188,"react":409,"react-redux":221}],557:[function(require,module,exports){
+},{"../actions":530,"./feed":554,"./header":555,"./loading":556,"lodash":188,"react":409,"react-redux":221}],559:[function(require,module,exports){
 var React = require('react'),
     _ = require('lodash'),
     steemembed = require('steemembed'),
-    striptags = require('striptags'),
-    marked = require('marked'),
-    ellipsis = require('text-ellipsis'),
     franc = require('franc'),
     numeral = require('numeral'),
     moment = require('moment'),
-    actions = require("../actions"),
+    actions = require('../actions'),
     cloudinary = require('cloudinary'),
-    Link = require("react-router").Link;
+    Comments = require('./../containers/comments'),
+    BodyShort = require('./body-short'),
+    Link = require('react-router').Link;
 
 cloudinary.config('cloud_name', 'huvgywhku');
 cloudinary.config('api_key', '992272288114383');
@@ -99549,16 +99605,17 @@ module.exports = React.createClass({
   displayName: 'exports',
 
   render: function () {
-    var steemit = '/' + this.props.entry.parent_permlink + '/@' + this.props.entry.author + '/' + this.props.entry.permlink;
+    var entry = this.props.entry;
+    var steemit = '/' + entry.parent_permlink + '/@' + entry.author + '/' + entry.permlink;
     var color = '';
-    color = this.props.entry.net_votes > 0 ? 'green' : color;
-    color = this.props.entry.net_votes < 0 ? 'red' : color;
-    var bar = Math.abs(0.1 * this.props.entry.net_votes * 9);
+    color = entry.net_votes > 0 ? 'green' : color;
+    color = entry.net_votes < 0 ? 'red' : color;
+    var bar = Math.abs(0.1 * entry.net_votes * 9);
     var style = color ? { height: '4px', boxShadow: 'inset ' + bar + 'px 0 0 ' + colorCode[color] } : {};
     var className = 'grid-row';
     className += color ? ' ' + classCode[color] : '';
     try {
-      var jsonMetadata = JSON.parse(this.props.entry.json_metadata);
+      var jsonMetadata = JSON.parse(entry.json_metadata);
     } catch (e) {
       var jsonMetadata = {};
     }
@@ -99571,8 +99628,6 @@ module.exports = React.createClass({
     image = (image)? cloudinary.url(image, {secure: true, width: 600, height: 400, crop: 'fill'}) : '';
     */
 
-    var body = striptags(marked(this.props.entry.body));
-    body = body.replace(/(?:https?|ftp):\/\/[\n\S]+/g, '');
     var embeds = [];
     if (_.has(jsonMetadata, 'links')) {
       jsonMetadata.links.forEach(function (link) {
@@ -99580,9 +99635,9 @@ module.exports = React.createClass({
         if (embed) embeds.push(embed);
       });
     }
-    var language = franc(this.props.entry.title + ' ' + body);
-    var textLength = (this.props.entry.title + ' ' + body).length;
-    var payout = parseFloat(this.props.entry.total_payout_value) + parseFloat(this.props.entry.total_pending_payout_value);
+    var language = franc(entry.title + ' ' + entry.body);
+    var textLength = (entry.title + ' ' + entry.body).length;
+    var payout = parseFloat(entry.total_payout_value) + parseFloat(entry.total_pending_payout_value);
     return React.createElement(
       'div',
       { className: className },
@@ -99597,14 +99652,14 @@ module.exports = React.createClass({
             null,
             React.createElement(
               Link,
-              { to: '/@' + this.props.entry.author, activeClassName: 'active' },
+              { to: '/@' + entry.author, activeClassName: 'active' },
               React.createElement(
                 'i',
                 { className: 'icon icon-sm material-icons' },
                 'perm_identity'
               ),
               ' @',
-              this.props.entry.author
+              entry.author
             )
           ),
           React.createElement(
@@ -99624,7 +99679,7 @@ module.exports = React.createClass({
           React.createElement(
             'li',
             { className: 'pull-right' },
-            moment(this.props.entry.created).fromNow(),
+            moment(entry.created).fromNow(),
             ' ',
             React.createElement(
               'a',
@@ -99663,10 +99718,14 @@ module.exports = React.createClass({
             { to: steemit },
             language != 'eng' && textLength > 255 && React.createElement('img', { className: 'flag', src: '/img/flag/' + language.substr(0, 2) + '.svg' }),
             ' ',
-            this.props.entry.title
+            entry.title
           )
         ),
-        React.createElement('p', { dangerouslySetInnerHTML: { __html: ellipsis(body, 255, { ellipsis: '…' }) } })
+        React.createElement(
+          'p',
+          null,
+          React.createElement(BodyShort, { body: entry.body })
+        )
       ),
       React.createElement('div', { style: style }),
       React.createElement(
@@ -99688,7 +99747,7 @@ module.exports = React.createClass({
               )
             ),
             ' ',
-            numeral(this.props.entry.net_votes).format('0,0'),
+            numeral(entry.net_votes).format('0,0'),
             React.createElement(
               'span',
               { className: 'hidden-xs' },
@@ -99723,7 +99782,7 @@ module.exports = React.createClass({
               )
             ),
             ' ',
-            numeral(this.props.entry.children).format('0,0'),
+            numeral(entry.children).format('0,0'),
             React.createElement(
               'span',
               { className: 'hidden-xs' },
@@ -99749,12 +99808,13 @@ module.exports = React.createClass({
             )
           )
         )
-      )
+      ),
+      entry.children > 0 && React.createElement(Comments, { parent: entry.author, parentPermlink: entry.permlink })
     );
   }
 });
 
-},{"../actions":530,"cloudinary":68,"franc":144,"lodash":188,"marked":189,"moment":192,"numeral":194,"react":409,"react-router":255,"steemembed":438,"striptags":453,"text-ellipsis":456}],558:[function(require,module,exports){
+},{"../actions":530,"./../containers/comments":553,"./body-short":551,"cloudinary":68,"franc":144,"lodash":188,"moment":192,"numeral":194,"react":409,"react-router":255,"steemembed":438}],560:[function(require,module,exports){
 var React = require("react"),
     ReactRedux = require("react-redux"),
     actions = require("../actions"),
@@ -99832,7 +99892,7 @@ var Sidebar = React.createClass({
 					{ className: "login" },
 					React.createElement(
 						"a",
-						{ href: "https://steemconnect.com/connect?appId=230kfd02-kf9j2-fsd57g4" },
+						{ href: "https://steemconnect.com/authorize/busy" },
 						React.createElement(
 							"i",
 							{ className: "icon icon-md material-icons" },
@@ -99971,7 +100031,7 @@ var mapDispatchToProps = function (dispatch) {
 
 module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(Sidebar);
 
-},{"../actions":530,"./../containers/loading":554,"lodash":188,"numeral":194,"react":409,"react-redux":221,"react-router":255,"sort-by":437}],559:[function(require,module,exports){
+},{"../actions":530,"./../containers/loading":556,"lodash":188,"numeral":194,"react":409,"react-redux":221,"react-router":255,"sort-by":437}],561:[function(require,module,exports){
 var React = require('react'),
     ReactRedux = require("react-redux"),
     actions = require("../actions"),
@@ -99983,7 +100043,7 @@ var Wrapper = React.createClass({
   displayName: "Wrapper",
 
   componentWillMount: function () {
-    this.props.login('fabien', '**********');
+    //this.props.login('fabien', '**********');
     this.props.getConfig();
   },
   render: function () {
@@ -100020,7 +100080,7 @@ var mapDispatchToProps = function (dispatch) {
 
 module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(Wrapper);
 
-},{"../actions":530,"./../containers/chat-trigger":551,"./../containers/modal":555,"./../containers/sidebar":558,"react":409,"react-redux":221}],560:[function(require,module,exports){
+},{"../actions":530,"./../containers/chat-trigger":552,"./../containers/modal":557,"./../containers/sidebar":560,"react":409,"react-redux":221}],562:[function(require,module,exports){
 var React = require("react"),
     ReactRedux = require("react-redux"),
     actions = require("../actions");
@@ -100160,7 +100220,7 @@ var mapDispatchToProps = function (dispatch) {
 
 module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(Account);
 
-},{"../actions":530,"react":409,"react-redux":221}],561:[function(require,module,exports){
+},{"../actions":530,"react":409,"react-redux":221}],563:[function(require,module,exports){
 var React = require("react"),
     ReactRedux = require("react-redux"),
     validator = require('validator'),
@@ -100255,7 +100315,7 @@ var mapDispatchToProps = function (dispatch) {
 
 module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(Campaign);
 
-},{"../actions":530,"react":409,"react-redux":221,"validator":464}],562:[function(require,module,exports){
+},{"../actions":530,"react":409,"react-redux":221,"validator":464}],564:[function(require,module,exports){
 var React = require('react'),
     ReactDOM = require('react-dom'),
     Router = require('react-router').Router,
@@ -100272,7 +100332,7 @@ ReactDOM.render(React.createElement(
 	React.createElement(Router, { routes: routes, history: appHistory })
 ), document.getElementById('app'));
 
-},{"./routes":570,"./store":571,"history":169,"react":409,"react-dom":218,"react-redux":221,"react-router":255}],563:[function(require,module,exports){
+},{"./routes":572,"./store":573,"history":169,"react":409,"react-dom":218,"react-redux":221,"react-router":255}],565:[function(require,module,exports){
 module.exports = function () {
 	return {
 		app: {
@@ -100310,7 +100370,7 @@ module.exports = function () {
 	};
 };
 
-},{}],564:[function(require,module,exports){
+},{}],566:[function(require,module,exports){
 module.exports = {
 	reputation: function (reputation) {
 		if (reputation == null) return reputation;
@@ -100331,7 +100391,7 @@ module.exports = {
 	}
 };
 
-},{}],565:[function(require,module,exports){
+},{}],567:[function(require,module,exports){
 var C = require("../constants"),
     initialState = require("../initialstate");
 
@@ -100389,7 +100449,7 @@ module.exports = function (state, action) {
 	}
 };
 
-},{"../constants":549,"../initialstate":563}],566:[function(require,module,exports){
+},{"../constants":549,"../initialstate":565}],568:[function(require,module,exports){
 var C = require("../constants"),
     initialState = require("../initialstate");
 
@@ -100424,7 +100484,7 @@ module.exports = function (state, action) {
 	}
 };
 
-},{"../constants":549,"../initialstate":563}],567:[function(require,module,exports){
+},{"../constants":549,"../initialstate":565}],569:[function(require,module,exports){
 var C = require("../constants"),
     initialState = require("../initialstate");
 
@@ -100451,7 +100511,7 @@ module.exports = function (state, action) {
 	}
 };
 
-},{"../constants":549,"../initialstate":563}],568:[function(require,module,exports){
+},{"../constants":549,"../initialstate":565}],570:[function(require,module,exports){
 var C = require("../constants"),
     initialState = require("../initialstate");
 
@@ -100477,7 +100537,7 @@ module.exports = function (state, action) {
 	}
 };
 
-},{"../constants":549,"../initialstate":563}],569:[function(require,module,exports){
+},{"../constants":549,"../initialstate":565}],571:[function(require,module,exports){
 var C = require("../constants"),
     initialState = require("../initialstate");
 
@@ -100516,7 +100576,7 @@ module.exports = function (state, action) {
 	}
 };
 
-},{"../constants":549,"../initialstate":563}],570:[function(require,module,exports){
+},{"../constants":549,"../initialstate":565}],572:[function(require,module,exports){
 var React = require('react'),
     ReactRouter = require('react-router'),
     Route = ReactRouter.Route,
@@ -100564,7 +100624,7 @@ module.exports = React.createElement(
   React.createElement(Route, { path: '/chat', component: Chat })
 );
 
-},{"./components/about/about":531,"./components/about/donate":532,"./components/about/projects":533,"./components/active":534,"./components/cashout":535,"./components/category":536,"./components/chat/chat":537,"./components/content":538,"./components/created":539,"./components/dashboard":540,"./components/hot":541,"./components/responses":542,"./components/trending":543,"./components/user/feed":544,"./components/user/posts":545,"./components/user/profile":546,"./components/user/replies":547,"./components/votes":548,"./containers/wrapper":559,"react":409,"react-router":255}],571:[function(require,module,exports){
+},{"./components/about/about":531,"./components/about/donate":532,"./components/about/projects":533,"./components/active":534,"./components/cashout":535,"./components/category":536,"./components/chat/chat":537,"./components/content":538,"./components/created":539,"./components/dashboard":540,"./components/hot":541,"./components/responses":542,"./components/trending":543,"./components/user/feed":544,"./components/user/posts":545,"./components/user/profile":546,"./components/user/replies":547,"./components/votes":548,"./containers/wrapper":561,"react":409,"react-router":255}],573:[function(require,module,exports){
 var Redux = require("redux"),
     appReducer = require("./reducers/app"),
     authReducer = require("./reducers/auth"),
@@ -100584,4 +100644,4 @@ var rootReducer = Redux.combineReducers({
 
 module.exports = Redux.applyMiddleware(thunk)(Redux.createStore)(rootReducer, initialState(), window.devToolsExtension && window.devToolsExtension());
 
-},{"./initialstate":563,"./reducers/app":565,"./reducers/auth":566,"./reducers/header":567,"./reducers/modal":568,"./reducers/pages":569,"redux":426,"redux-thunk":420}]},{},[562]);
+},{"./initialstate":565,"./reducers/app":567,"./reducers/auth":568,"./reducers/header":569,"./reducers/modal":570,"./reducers/pages":571,"redux":426,"redux-thunk":420}]},{},[564]);

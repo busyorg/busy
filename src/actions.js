@@ -1,7 +1,6 @@
 var axios = require('axios'),
 	moment = require('moment'),
-	C = require('./constants'),
-	ws = 'wss://steemit.com/wspa';
+	C = require('./constants');
 
 module.exports = {
 	login: function(name, password) {
@@ -9,7 +8,7 @@ module.exports = {
 			var req = {type: C.LOGIN_REQUEST};
 			Object.assign(req);
 			dispatch(req);
-			axios.get('//api.steemjs.com/getAccounts?names[]=' + name + '&ws=' + ws)
+			axios.get('//api.steemjs.com/getAccounts?names[]=' + name + '&ws=' + C.WS)
 				.then(response => {
 					var res = {
 						type: C.LOGIN_SUCCESS,
@@ -25,7 +24,7 @@ module.exports = {
 			var req = {type: C.ACCOUNT_REQUEST};
 			Object.assign(req);
 			dispatch(req);
-			axios.get('//api.steemjs.com/getAccounts?names[]=' + name + '&ws=' + ws)
+			axios.get('//api.steemjs.com/getAccounts?names[]=' + name + '&ws=' + C.WS)
 				.then(response => {
 					var res = {
 						type: C.ACCOUNT_SUCCESS,
@@ -41,7 +40,7 @@ module.exports = {
 			var req = {type: C.CONTENT_REQUEST};
 			Object.assign(req);
 			dispatch(req);
-			axios.get('//api.steemjs.com/getContent?author=' + author + '&permlink=' + permlink + '&ws=' + ws)
+			axios.get('//api.steemjs.com/getContent?author=' + author + '&permlink=' + permlink + '&ws=' + C.WS)
 				.then(response => {
 					var res = {
 						type: C.CONTENT_SUCCESS,
@@ -57,7 +56,7 @@ module.exports = {
 			var req = {type: C.CONFIG_REQUEST};
 			Object.assign(req);
 			dispatch(req);
-			axios.get('//api.steemjs.com/getConfig?ws=' + ws)
+			axios.get('//api.steemjs.com/getConfig?ws=' + C.WS)
 				.then(response => {
 					var res = {
 						type: C.CONFIG_SUCCESS,
@@ -80,7 +79,7 @@ module.exports = {
 			};
 			Object.assign(req, options);
 			dispatch(req);
-			axios.get('//api.steemjs.com/getState?path=' + options.path + '&ws=' + ws)
+			axios.get('//api.steemjs.com/getState?path=' + options.path + '&ws=' + C.WS)
 				.then(response => {
 					var res = {
 						type: C.FEED_SUCCESS,
