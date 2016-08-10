@@ -30,6 +30,14 @@ module.exports = React.createClass({
 						<h1>Steem Embed <img src="/img/open-source.svg" height="46" /></h1>
 						<a href="https://www.npmjs.com/package/steemembed">https://www.npmjs.com/package/steemembed</a>
 					</div>
+					<div className="block">
+						<h1>Busy Img <img src="/img/open-source.svg" height="46" /></h1>
+						<a href="https://www.npmjs.com/package/steemembed">https://img.busy6.com/</a>
+					</div>
+					<div className="block">
+						<h1>Busy WebSocket <img src="/img/open-source.svg" height="46" /></h1>
+						<a href="https://www.npmjs.com/package/steemembed">https://ws.busy6.com/</a>
+					</div>
 				</div>
 			</div>
 		);
