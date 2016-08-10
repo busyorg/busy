@@ -3,7 +3,7 @@ var axios = require('axios'),
 	C = require('./constants');
 
 module.exports = {
-	login: function(name, password) {
+	login: function(name) {
 		return function(dispatch, getState) {
 			var req = {type: C.LOGIN_REQUEST};
 			Object.assign(req);

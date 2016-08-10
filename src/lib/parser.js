@@ -1,6 +1,7 @@
 module.exports = {
 	reputation: function (reputation) {
 		if (reputation == null) return reputation;
+		reputation = parseInt(reputation);
 		let rep = String(reputation);
 		const neg = rep.charAt(0) === '-';
 		rep = neg ? rep.substring(1) : rep;

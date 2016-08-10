@@ -55405,7 +55405,7 @@ var axios = require('axios'),
     C = require('./constants');
 
 module.exports = {
-	login: function (name, password) {
+	login: function (name) {
 		return function (dispatch, getState) {
 			var req = { type: C.LOGIN_REQUEST };
 			Object.assign(req);
@@ -55878,6 +55878,7 @@ var React = require("react"),
     Header = require("./../containers/header"),
     Loading = require("./../containers/loading"),
     Body = require("./../containers/post/body"),
+    Comments = require("./../containers/post/comments"),
     Link = require("react-router").Link;
 
 var Content = React.createClass({
@@ -55895,6 +55896,7 @@ var Content = React.createClass({
 		try {
 			jsonMetadata = JSON.parse(single.json_metadata);
 		} catch (e) {}
+		console.log(single);
 		return React.createElement(
 			"div",
 			{ className: "main-panel" },
@@ -55926,7 +55928,8 @@ var Content = React.createClass({
 						{ className: "mvl" },
 						single.content.title
 					),
-					React.createElement(Body, { body: single.content.body, jsonMetadata: jsonMetadata })
+					React.createElement(Body, { body: single.content.body, jsonMetadata: jsonMetadata }),
+					single.content.children > 0 && React.createElement(Comments, { parent: single.content.author, parentPermlink: single.content.permlink })
 				)
 			)
 		);
@@ -55950,7 +55953,7 @@ var mapDispatchToProps = function (dispatch) {
 
 module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(Content);
 
-},{"../actions":363,"./../containers/header":387,"./../containers/loading":388,"./../containers/post/body":392,"lodash":81,"react":281,"react-redux":93,"react-router":127}],373:[function(require,module,exports){
+},{"../actions":363,"./../containers/header":387,"./../containers/loading":388,"./../containers/post/body":392,"./../containers/post/comments":393,"lodash":81,"react":281,"react-redux":93,"react-router":127}],373:[function(require,module,exports){
 var React = require("react"),
     Page = require("./../containers/page");
 
@@ -56095,7 +56098,7 @@ var Profile = React.createClass({
 							profile && !this.props.app.isFetching && _.size(profile.account) > 0 && React.createElement(
 								"div",
 								{ className: "reputation" },
-								parser.reputation(parseInt(profile.account.reputation))
+								parser.reputation(profile.account.reputation)
 							),
 							React.createElement("img", { src: "/img/logo-white.svg" })
 						),
@@ -56205,7 +56208,7 @@ var mapDispatchToProps = function (dispatch) {
 
 module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(Profile);
 
-},{"../../actions":363,"../../lib/parser":402,"./../../containers/header":387,"./../../containers/loading":388,"lodash":81,"numeral":85,"react":281,"react-redux":93}],381:[function(require,module,exports){
+},{"../../actions":363,"../../lib/parser":403,"./../../containers/header":387,"./../../containers/loading":388,"lodash":81,"numeral":85,"react":281,"react-redux":93}],381:[function(require,module,exports){
 var React = require("react"),
     Page = require("./../../containers/page");
 
@@ -57176,7 +57179,7 @@ module.exports = React.createClass({
 		var body = striptags(marked(this.props.body));
 		body = body.replace(/(?:https?|ftp):\/\/[\n\S]+/g, '');
 		var textLength = body.length;
-		return this.state.seeMore ? React.createElement('span', { dangerouslySetInnerHTML: { __html: body } }) : React.createElement(
+		return this.state.seeMore ? React.createElement('span', { dangerouslySetInnerHTML: { __html: striptags(marked(this.props.body), ['a', 'b', 'p']) } }) : React.createElement(
 			'span',
 			null,
 			React.createElement('span', { dangerouslySetInnerHTML: { __html: ellipsis(body, 255, { ellipsis: '…' }) } }),
@@ -57311,7 +57314,8 @@ module.exports = ReactRedux.connect(mapStateToProps)(Comments);
 var React = require('react'),
     franc = require('franc'),
     striptags = require('striptags'),
-    marked = require('marked');
+    marked = require('marked'),
+    languages = require('./../../lib/languages');
 
 module.exports = React.createClass({
 	displayName: 'exports',
@@ -57319,11 +57323,11 @@ module.exports = React.createClass({
 	render: function () {
 		var language = franc(this.props.title + ' ' + striptags(marked(this.props.body)));
 		var textLength = (this.props.title + ' ' + striptags(marked(this.props.body))).length;
-		return language != 'eng' && textLength > 255 && React.createElement('img', { className: 'flag', src: '/img/flag/' + language.substr(0, 2) + '.svg' });
+		return language != 'eng' && textLength > 255 && React.createElement('img', { className: 'flag', alt: language, src: '/img/flag/' + languages.getCountryCode(language) + '.svg' });
 	}
 });
 
-},{"franc":49,"marked":82,"react":281,"striptags":294}],395:[function(require,module,exports){
+},{"./../../lib/languages":402,"franc":49,"marked":82,"react":281,"striptags":294}],395:[function(require,module,exports){
 var React = require('react'),
     _ = require('lodash'),
     steemembed = require('steemembed'),
@@ -57551,7 +57555,8 @@ module.exports = React.createClass({
 },{"../../actions":363,"./body-short":391,"./comments":393,"./flag":394,"lodash":81,"moment":83,"numeral":85,"react":281,"react-router":127,"steemembed":291}],396:[function(require,module,exports){
 var React = require("react"),
     ReactRedux = require("react-redux"),
-    actions = require("../actions"),
+    actions = require("./../actions"),
+    parser = require("./../lib/parser"),
     _ = require('lodash'),
     sortBy = require('sort-by'),
     numeral = require('numeral'),
@@ -57609,6 +57614,11 @@ var Sidebar = React.createClass({
 					React.createElement(
 						"span",
 						{ className: "avatar avatar-sm" },
+						React.createElement(
+							"div",
+							{ className: "reputation" },
+							parser.reputation(user.reputation)
+						),
 						React.createElement("img", { src: "/img/logo-white.svg" })
 					),
 					React.createElement(
@@ -57765,7 +57775,7 @@ var mapDispatchToProps = function (dispatch) {
 
 module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(Sidebar);
 
-},{"../actions":363,"./../containers/loading":388,"lodash":81,"numeral":85,"react":281,"react-redux":93,"react-router":127,"sort-by":290}],397:[function(require,module,exports){
+},{"./../actions":363,"./../containers/loading":388,"./../lib/parser":403,"lodash":81,"numeral":85,"react":281,"react-redux":93,"react-router":127,"sort-by":290}],397:[function(require,module,exports){
 var React = require('react'),
     ReactRedux = require("react-redux"),
     actions = require("../actions"),
@@ -57777,7 +57787,7 @@ var Wrapper = React.createClass({
   displayName: "Wrapper",
 
   componentWillMount: function () {
-    //this.props.login('fabien', '**********');
+    this.props.login('fabien');
     this.props.getConfig();
   },
   render: function () {
@@ -57803,8 +57813,8 @@ var mapStateToProps = function (state) {
 
 var mapDispatchToProps = function (dispatch) {
   return {
-    login: function (username, password) {
-      dispatch(actions.login(username, password));
+    login: function (username) {
+      dispatch(actions.login(username));
     },
     getConfig: function () {
       dispatch(actions.getConfig());
@@ -58066,7 +58076,7 @@ ReactDOM.render(React.createElement(
 	React.createElement(Router, { routes: routes, history: appHistory })
 ), document.getElementById('app'));
 
-},{"./routes":408,"./store":409,"history":68,"react":281,"react-dom":90,"react-redux":93,"react-router":127}],401:[function(require,module,exports){
+},{"./routes":409,"./store":410,"history":68,"react":281,"react-dom":90,"react-redux":93,"react-router":127}],401:[function(require,module,exports){
 module.exports = function () {
 	return {
 		app: {
@@ -58106,8 +58116,19 @@ module.exports = function () {
 
 },{}],402:[function(require,module,exports){
 module.exports = {
+	languages: {
+		'cmn': 'cn'
+	},
+	getCountryCode: function (language) {
+		return this.languages[language] ? this.languages[language] : language.substr(0, 2);
+	}
+};
+
+},{}],403:[function(require,module,exports){
+module.exports = {
 	reputation: function (reputation) {
 		if (reputation == null) return reputation;
+		reputation = parseInt(reputation);
 		let rep = String(reputation);
 		const neg = rep.charAt(0) === '-';
 		rep = neg ? rep.substring(1) : rep;
@@ -58125,7 +58146,7 @@ module.exports = {
 	}
 };
 
-},{}],403:[function(require,module,exports){
+},{}],404:[function(require,module,exports){
 var C = require("../constants"),
     initialState = require("../initialstate");
 
@@ -58183,7 +58204,7 @@ module.exports = function (state, action) {
 	}
 };
 
-},{"../constants":383,"../initialstate":401}],404:[function(require,module,exports){
+},{"../constants":383,"../initialstate":401}],405:[function(require,module,exports){
 var C = require("../constants"),
     initialState = require("../initialstate");
 
@@ -58218,7 +58239,7 @@ module.exports = function (state, action) {
 	}
 };
 
-},{"../constants":383,"../initialstate":401}],405:[function(require,module,exports){
+},{"../constants":383,"../initialstate":401}],406:[function(require,module,exports){
 var C = require("../constants"),
     initialState = require("../initialstate");
 
@@ -58245,7 +58266,7 @@ module.exports = function (state, action) {
 	}
 };
 
-},{"../constants":383,"../initialstate":401}],406:[function(require,module,exports){
+},{"../constants":383,"../initialstate":401}],407:[function(require,module,exports){
 var C = require("../constants"),
     initialState = require("../initialstate");
 
@@ -58271,7 +58292,7 @@ module.exports = function (state, action) {
 	}
 };
 
-},{"../constants":383,"../initialstate":401}],407:[function(require,module,exports){
+},{"../constants":383,"../initialstate":401}],408:[function(require,module,exports){
 var C = require("../constants"),
     initialState = require("../initialstate");
 
@@ -58310,7 +58331,7 @@ module.exports = function (state, action) {
 	}
 };
 
-},{"../constants":383,"../initialstate":401}],408:[function(require,module,exports){
+},{"../constants":383,"../initialstate":401}],409:[function(require,module,exports){
 var React = require('react'),
     ReactRouter = require('react-router'),
     Route = ReactRouter.Route,
@@ -58360,7 +58381,7 @@ module.exports = React.createElement(
   React.createElement(Route, { path: '/callback', component: Callback })
 );
 
-},{"./components/about/about":364,"./components/about/donate":365,"./components/about/projects":366,"./components/active":367,"./components/auth/callback":368,"./components/cashout":369,"./components/category":370,"./components/chat/chat":371,"./components/content":372,"./components/created":373,"./components/dashboard":374,"./components/hot":375,"./components/responses":376,"./components/trending":377,"./components/user/feed":378,"./components/user/posts":379,"./components/user/profile":380,"./components/user/replies":381,"./components/votes":382,"./containers/wrapper":397,"react":281,"react-router":127}],409:[function(require,module,exports){
+},{"./components/about/about":364,"./components/about/donate":365,"./components/about/projects":366,"./components/active":367,"./components/auth/callback":368,"./components/cashout":369,"./components/category":370,"./components/chat/chat":371,"./components/content":372,"./components/created":373,"./components/dashboard":374,"./components/hot":375,"./components/responses":376,"./components/trending":377,"./components/user/feed":378,"./components/user/posts":379,"./components/user/profile":380,"./components/user/replies":381,"./components/votes":382,"./containers/wrapper":397,"react":281,"react-router":127}],410:[function(require,module,exports){
 var Redux = require("redux"),
     appReducer = require("./reducers/app"),
     authReducer = require("./reducers/auth"),
@@ -58380,4 +58401,4 @@ var rootReducer = Redux.combineReducers({
 
 module.exports = Redux.applyMiddleware(thunk)(Redux.createStore)(rootReducer, initialState(), window.devToolsExtension && window.devToolsExtension());
 
-},{"./initialstate":401,"./reducers/app":403,"./reducers/auth":404,"./reducers/header":405,"./reducers/modal":406,"./reducers/pages":407,"redux":288,"redux-thunk":282}]},{},[400]);
+},{"./initialstate":401,"./reducers/app":404,"./reducers/auth":405,"./reducers/header":406,"./reducers/modal":407,"./reducers/pages":408,"redux":288,"redux-thunk":282}]},{},[400]);

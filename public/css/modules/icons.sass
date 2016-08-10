@@ -36,15 +36,25 @@
   height: 25px
 
 .reputation
-  margin: -5px 55px
   font-family: $font-alt
-  font-size: 15px
   background-color: white
   border-radius: 50%
-  height: 30px
-  width: 30px
-  line-height: 30px
   text-align: center
-  position: absolute
   color: #27d0a9
   overflow: hidden
+
+.avatar
+  .reputation
+    position: absolute
+  &.avatar-sm .reputation
+    margin: 8px 35px
+    font-size: 12px
+    height: 24px
+    width: 24px
+    line-height: 24px
+  &.avatar-xl .reputation
+    margin: 20px 60px
+    font-size: 15px
+    height: 30px
+    width: 30px
+    line-height: 30px

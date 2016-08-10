@@ -25,7 +25,7 @@ var Profile = React.createClass({
 					<div className="pal">
 						<div className="mvl">
 							<div className="avatar avatar-xl">
-								{profile && !this.props.app.isFetching && _.size(profile.account) > 0 && <div className="reputation">{parser.reputation(parseInt(profile.account.reputation))}</div>}
+								{profile && !this.props.app.isFetching && _.size(profile.account) > 0 && <div className="reputation">{parser.reputation(profile.account.reputation)}</div>}
 								<img src="/img/logo-white.svg" />
 							</div>
 							<h1>@{account}</h1>

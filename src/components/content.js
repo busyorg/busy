@@ -5,6 +5,7 @@ var React = require("react"),
 	Header = require("./../containers/header"),
 	Loading = require("./../containers/loading"),
 	Body = require("./../containers/post/body"),
+	Comments = require("./../containers/post/comments"),
 	Link = require("react-router").Link;
 
 var Content = React.createClass({
@@ -18,6 +19,7 @@ var Content = React.createClass({
 		var single = this.props.pages.single;
 		var jsonMetadata = {};
 		try { jsonMetadata = JSON.parse(single.json_metadata); } catch(e) {}
+		console.log(single);
 		return (
 			<div className="main-panel">
 				<Header />
@@ -29,6 +31,7 @@ var Content = React.createClass({
 								<p><Link to={'/@' + single.content.author}>@{single.content.author}</Link></p>
 								<h1 className="mvl">{single.content.title}</h1>
 								<Body body={single.content.body} jsonMetadata={jsonMetadata} />
+								{single.content.children > 0 && <Comments parent={single.content.author} parentPermlink={single.content.permlink} />}
 							</div>}
 					</div>
 			</div>

@@ -1,6 +1,7 @@
 var React = require("react"),
 	ReactRedux = require("react-redux"),
-	actions = require("../actions"),
+	actions = require("./../actions"),
+	parser = require("./../lib/parser"),
 	_ = require('lodash'),
 	sortBy = require('sort-by'),
 	numeral = require('numeral'),
@@ -31,7 +32,10 @@ var Sidebar = React.createClass({
 				{this.props.app.sidebarIsVisible && <a className="visible-xs hide-sidebar" href="#" onClick={() => this.props.hideSidebar()}><i className="icon icon-md icon-menu material-icons">arrow_back</i></a>}
 				<div className="sidebar-header">
 					{this.props.auth.isAuthenticated? <div className="me">
-						<span className="avatar avatar-sm"><img src="/img/logo-white.svg" /></span>
+						<span className="avatar avatar-sm">
+							<div className="reputation">{parser.reputation(user.reputation)}</div>
+							<img src="/img/logo-white.svg" />
+						</span>
 						<div><Link to={'/@' + user.name}>@{user.name}</Link></div>
 					</div> : <div className="login">
 						<a href="https://steemconnect.com/authorize/@busy"><i className="icon icon-md material-icons">lock_outline</i> Steem Connect</a>

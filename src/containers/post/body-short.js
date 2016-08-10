@@ -15,7 +15,7 @@ module.exports = React.createClass({
 		body = body.replace(/(?:https?|ftp):\/\/[\n\S]+/g, '');
 		var textLength = body.length;
 		return (this.state.seeMore?
-			<span dangerouslySetInnerHTML={{__html: body}} /> :
+			<span dangerouslySetInnerHTML={{__html: striptags(marked(this.props.body), ['a', 'b', 'p'])}} /> :
 			<span>
 				<span dangerouslySetInnerHTML={{__html: ellipsis(body, 255, {ellipsis: '…'})}} />
 				{textLength > 255 &&<span> <a href="#" onClick={() => this.seeMore()}>See More</a></span>}
