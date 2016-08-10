@@ -2,10 +2,9 @@ var React = require("react"),
 	ReactRedux = require("react-redux"),
 	_ = require('lodash'),
 	actions = require("../actions"),
-	steemembed = require('steemembed'),
-	marked = require('marked'),
 	Header = require("./../containers/header"),
 	Loading = require("./../containers/loading"),
+	Body = require("./../containers/post/body"),
 	Link = require("react-router").Link;
 
 var Content = React.createClass({
@@ -17,6 +16,8 @@ var Content = React.createClass({
 	},
 	render: function(){
 		var single = this.props.pages.single;
+		var jsonMetadata = {};
+		try { jsonMetadata = JSON.parse(single.json_metadata); } catch(e) {}
 		return (
 			<div className="main-panel">
 				<Header />
@@ -27,7 +28,7 @@ var Content = React.createClass({
 							<div className="container">
 								<p><Link to={'/@' + single.content.author}>@{single.content.author}</Link></p>
 								<h1 className="mvl">{single.content.title}</h1>
-								<div dangerouslySetInnerHTML={{__html: marked(single.content.body)}} />
+								<Body body={single.content.body} jsonMetadata={jsonMetadata} />
 							</div>}
 					</div>
 			</div>

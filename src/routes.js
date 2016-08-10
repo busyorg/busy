@@ -20,7 +20,8 @@ var React = require('react'),
   Posts = require('./components/user/posts'),
   Replies = require('./components/user/replies'),
   Chat = require('./components/chat/chat'),
-  Feed = require('./components/user/feed');
+  Feed = require('./components/user/feed'),
+  Callback = require('./components/auth/callback');
 
 module.exports = (
   <Route path="/" component={Wrapper}>
@@ -42,5 +43,6 @@ module.exports = (
     <Route path="/responses" component={Responses} />
     <Route path="/votes" component={Votes} />
     <Route path="/chat" component={Chat} />
+    <Route path="/callback" component={Callback} />
   </Route>
 );

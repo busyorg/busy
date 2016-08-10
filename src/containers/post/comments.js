@@ -3,9 +3,9 @@ var React = require('react'),
 	_ = require('lodash'),
 	numeral = require('numeral'),
 	axios = require('axios'),
-	C = require('./../constants'),
+	C = require('./../../constants'),
 	BodyShort = require('./body-short'),
-	Loading = require("./../containers/loading"),
+	Loading = require("./../loading"),
 	Link = require('react-router').Link;
 
 var Comments = React.createClass({
@@ -30,7 +30,7 @@ var Comments = React.createClass({
 				{this.state.replies.length > 0 && <ul>
 					{this.state.replies.slice(0,3).map(function(reply) {
 						var payout = parseFloat(reply.total_payout_value) + parseFloat(reply.total_pending_payout_value);
-						return <li><Link to={'/@' + reply.author}>@{reply.author}</Link> {numeral(payout).format('$0,0.00')} <BodyShort body={reply.body} /></li>;
+						return <li><Link to={'/@' + reply.author}>@{reply.author}</Link> <b>{numeral(payout).format('$0,0.00')}</b> <BodyShort body={reply.body} /></li>;
 					})}
 				</ul>}
 				{this.state.replies.length == 0 && <Loading />}

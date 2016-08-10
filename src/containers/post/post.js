@@ -1,18 +1,19 @@
 var React = require('react'),
   _ = require('lodash'),
   steemembed = require('steemembed'),
-  franc = require('franc'),
   numeral = require('numeral'),
   moment = require('moment'),
-  actions = require('../actions'),
-  cloudinary = require('cloudinary'),
-  Comments = require('./../containers/comments'),
+  actions = require('../../actions'),
+  Comments = require('./comments'),
+  Flag = require('./flag'),
   BodyShort = require('./body-short'),
   Link = require('react-router').Link;
 
+/*
 cloudinary.config('cloud_name', 'huvgywhku');
 cloudinary.config('api_key', '992272288114383');
 cloudinary.config('api_secret', 'enA36tsC5t6FKcFvm9trm4GdLSI');
+*/
 
 var colorCode = {green: 'rgba(39, 208, 169, 0.4)', red: 'rgba(249, 43, 97, 0.2)'};
 var classCode = {green: 'grid-row-green', red: 'grid-row-red'};
@@ -31,7 +32,7 @@ module.exports = React.createClass({
     try { var jsonMetadata = JSON.parse(entry.json_metadata); }
     catch(e) { var jsonMetadata = {}; }
     var image = _.has(jsonMetadata, 'image[0]')? jsonMetadata.image[0] : '';
-    image = 'https://img1.steemit.com/600x400/' + image;
+    image = (image)? 'https://img1.steemit.com/600x400/' + image : '';
 	  var embeds = [];
     if (_.has(jsonMetadata, 'links')) {
       jsonMetadata.links.forEach(function(link) {
@@ -39,8 +40,6 @@ module.exports = React.createClass({
         if (embed) embeds.push(embed);
       });
     }
-    var language = franc(entry.title + ' ' + entry.body);
-    var textLength = (entry.title + ' ' + entry.body).length;
     var payout = parseFloat(entry.total_payout_value) + parseFloat(entry.total_pending_payout_value);
     return (
       <div className={className}>
@@ -57,7 +56,7 @@ module.exports = React.createClass({
             <div dangerouslySetInnerHTML={{__html: embeds[0].embed}} />
           </div>}
         <div className="cell cell-body">
-          <h3><Link to={steemit}>{language != 'eng' && textLength > 255 && <img className="flag" src={'/img/flag/' + language.substr(0, 2) + '.svg'} />} {entry.title}</Link></h3>
+          <h2><Link to={steemit}><Flag title={entry.title} body={entry.body} /> {entry.title}</Link></h2>
           <p><BodyShort body={entry.body} /></p>
         </div>
         <div style={style}></div>

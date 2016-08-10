@@ -1,7 +1,7 @@
 var React = require('react'),
   _ = require('lodash'),
   AddPost = require('./add-post'),
-  Post = require('./post');
+  Post = require('./post/post');
 
 module.exports = React.createClass({
   render: function() {
