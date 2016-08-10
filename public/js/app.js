@@ -99619,15 +99619,8 @@ module.exports = React.createClass({
     } catch (e) {
       var jsonMetadata = {};
     }
-
     var image = _.has(jsonMetadata, 'image[0]') ? jsonMetadata.image[0] : '';
-    /*
-    cloudinary.uploader.upload(image, function(result) {
-      console.log(result);
-    });
-    image = (image)? cloudinary.url(image, {secure: true, width: 600, height: 400, crop: 'fill'}) : '';
-    */
-
+    image = 'https://img1.steemit.com/600x400/' + image;
     var embeds = [];
     if (_.has(jsonMetadata, 'links')) {
       jsonMetadata.links.forEach(function (link) {
@@ -99892,7 +99885,7 @@ var Sidebar = React.createClass({
 					{ className: "login" },
 					React.createElement(
 						"a",
-						{ href: "https://steemconnect.com/authorize/busy" },
+						{ href: "https://steemconnect.com/authorize/@busy" },
 						React.createElement(
 							"i",
 							{ className: "icon icon-md material-icons" },
