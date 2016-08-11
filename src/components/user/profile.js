@@ -1,12 +1,13 @@
-var React = require("react"),
-	ReactRedux = require("react-redux"),
+var React = require('react'),
+	ReactRedux = require('react-redux'),
 	_ = require('lodash'),
 	numeral = require('numeral'),
 	moment = require('moment'),
-	actions = require("../../actions"),
-	parser = require("../../lib/parser"),
-	Header = require("./../../containers/header"),
-	Loading = require("./../../containers/loading");
+	actions = require('../../actions'),
+	parser = require('../../lib/parser'),
+	Triggers = require('./..//../containers/triggers'),
+	Header = require('./../../containers/header'),
+	Loading = require('./../../containers/loading');
 
 var Profile = React.createClass({
 	getInitialState: function() {
@@ -21,6 +22,7 @@ var Profile = React.createClass({
 		var profile = this.props.pages.profile;
 		return (
 			<div className="main-panel">
+				<Triggers chat="true" />
 				<Header account={account} />
 				<section className="align-center bg-green profile-header"
           style={{backgroundImage: 'url(https://img.busy6.com/@' + account + '/cover)', backgroundSize: 'cover'}}>

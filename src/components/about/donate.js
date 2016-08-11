@@ -1,14 +1,8 @@
-var React = require("react"),
-	ReactRedux = require('react-redux'),
-	Header = require("./../../containers/header"),
+var React = require('react'),
+	Header = require('./../../containers/header'),
 	Link = require('react-router').Link;
 
 module.exports = React.createClass({
-	getInitialState: function() {
-		return {
-			key: Math.random()
-		};
-	},
 	render: function(){
 		return (
 			<div className="main-panel">

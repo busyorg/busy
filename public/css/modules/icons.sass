@@ -32,8 +32,10 @@
 
 .flag
   border-radius: 50%
-  width: 25px
-  height: 25px
+  width: 24px
+  height: 24px
+  line-height: 1em
+  vertical-align: middle
 
 .reputation
   font-family: $font-alt
@@ -47,6 +49,11 @@
   background-color: rgba(255, 255, 255, 0.2)
   .reputation
     position: absolute
+  &.avatar-xs
+    height: 24px
+    width: 24px
+    line-height: 1em
+    vertical-align: middle
   &.avatar-sm .reputation
     margin: 8px 35px
     font-size: 12px

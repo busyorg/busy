@@ -47,7 +47,7 @@ module.exports = (
     <Route path="/help" component={Help} />
 
     <Route path="/:category/@:author/:permlink" component={Single} />
-    <Route path="/trending/:category" component={Category} />
+    <Route path="/:sortBy/:category" component={Category} />
 
     <Route path="/@:name/posts" component={Posts} />
     <Route path="/@:name/feed" component={Feed} />

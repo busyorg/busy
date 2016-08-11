@@ -14,8 +14,8 @@ var Sidebar = React.createClass({
 		var tags = [];
 		if (current.categories) {
 			var categories = _.sortBy(current.categories, 'discussions').reverse();
-			categories.forEach(function(category) {
-				tags.push(<li><Link to={'/trending/' + category.name} activeClassName="active">#{category.name}</Link></li>);
+			categories.forEach(function(category, key) {
+				tags.push(<li key={key}><Link to={'/trending/' + category.name} activeClassName="active">#{category.name}</Link></li>);
 			});
 		}
 		tags = tags.sort(sortBy('discussions'));

@@ -1,14 +1,8 @@
-var React = require("react"),
-	ReactRedux = require('react-redux'),
-	Header = require("./../../containers/header"),
+var React = require('react'),
+	Header = require('./../../containers/header'),
 	Link = require('react-router').Link;
 
 module.exports = React.createClass({
-	getInitialState: function() {
-		return {
-			key: Math.random()
-		};
-	},
 	render: function(){
 		return (
 			<div className="main-panel">
@@ -17,6 +11,7 @@ module.exports = React.createClass({
 				<div className="page">
 					<div className="block">
 						<h1>Help</h1>
+						<p><Link to="/trending/busy-help">#busy-help</Link></p>
 						<p><Link to="/@busy">@busy</Link></p>
 					</div>
 				</div>

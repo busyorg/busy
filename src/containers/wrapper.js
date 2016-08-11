@@ -6,7 +6,7 @@ var React = require('react'),
 
 var Wrapper = React.createClass({
   componentWillMount: function(){
-    this.props.login('metrox');
+    //this.props.login('berniesanders');
     this.props.getConfig();
   },
   render: function() {

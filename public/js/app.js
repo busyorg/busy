@@ -55555,82 +55555,78 @@ module.exports = {
 };
 
 },{"./constants":387,"axios":1,"moment":83}],364:[function(require,module,exports){
-var React = require("react"),
-    Header = require("./../../containers/header");
+var React = require('react'),
+    Header = require('./../../containers/header'),
+    Link = require('react-router').Link;
 
 module.exports = React.createClass({
-	displayName: "exports",
+	displayName: 'exports',
 
-	getInitialState: function () {
-		return {
-			key: Math.random()
-		};
-	},
 	render: function () {
 		return React.createElement(
-			"div",
-			{ className: "main-panel" },
-			React.createElement(Header, { menu: "about" }),
+			'div',
+			{ className: 'main-panel' },
+			React.createElement(Header, { menu: 'about' }),
 			React.createElement(
-				"div",
+				'div',
 				null,
-				React.createElement("div", { style: { height: '20px', overflow: 'hidden' } })
+				React.createElement('div', { style: { height: '20px', overflow: 'hidden' } })
 			),
 			React.createElement(
-				"div",
-				{ className: "page" },
+				'div',
+				{ className: 'page' },
 				React.createElement(
-					"div",
-					{ className: "block dark about-1" },
+					'div',
+					{ className: 'block dark about-1' },
 					React.createElement(
-						"h1",
+						'h1',
 						null,
-						"Including billions of people in the global economy"
+						'Including billions of people in the global economy'
 					)
 				),
 				React.createElement(
-					"div",
-					{ className: "block dark about-2" },
+					'div',
+					{ className: 'block dark about-2' },
 					React.createElement(
-						"h1",
+						'h1',
 						null,
-						"Protecting rights through immutable records"
+						'Protecting rights through immutable records'
 					)
 				),
 				React.createElement(
-					"div",
-					{ className: "block dark about-3" },
+					'div',
+					{ className: 'block dark about-3' },
 					React.createElement(
-						"h1",
+						'h1',
 						null,
-						"Creating a true sharing economy"
+						'Creating a true sharing economy'
 					)
 				),
 				React.createElement(
-					"div",
-					{ className: "block dark about-4" },
+					'div',
+					{ className: 'block dark about-4' },
 					React.createElement(
-						"h1",
+						'h1',
 						null,
-						"Ending the remittance ripoff"
+						'Ending the remittance ripoff'
 					)
 				),
 				React.createElement(
-					"div",
-					{ className: "block dark about-5" },
+					'div',
+					{ className: 'block dark about-5' },
 					React.createElement(
-						"h1",
+						'h1',
 						null,
-						"Protect privacy"
+						'Protect privacy'
 					)
 				),
 				React.createElement(
-					"div",
-					{ className: "block dark about-6" },
+					'div',
+					{ className: 'block dark about-6' },
 					React.createElement(
-						"h1",
+						'h1',
 						null,
-						"Ensuring compensation for the creators of value"
+						'Ensuring compensation for the creators of value'
 					)
 				)
 			)
@@ -55638,48 +55634,42 @@ module.exports = React.createClass({
 	}
 });
 
-},{"./../../containers/header":390,"react":281}],365:[function(require,module,exports){
-var React = require("react"),
-    ReactRedux = require('react-redux'),
-    Header = require("./../../containers/header"),
+},{"./../../containers/header":390,"react":281,"react-router":127}],365:[function(require,module,exports){
+var React = require('react'),
+    Header = require('./../../containers/header'),
     Link = require('react-router').Link;
 
 module.exports = React.createClass({
-	displayName: "exports",
+	displayName: 'exports',
 
-	getInitialState: function () {
-		return {
-			key: Math.random()
-		};
-	},
 	render: function () {
 		return React.createElement(
-			"div",
-			{ className: "main-panel" },
-			React.createElement(Header, { menu: "about" }),
+			'div',
+			{ className: 'main-panel' },
+			React.createElement(Header, { menu: 'about' }),
 			React.createElement(
-				"div",
+				'div',
 				null,
-				React.createElement("div", { style: { height: '20px', overflow: 'hidden' } })
+				React.createElement('div', { style: { height: '20px', overflow: 'hidden' } })
 			),
 			React.createElement(
-				"div",
-				{ className: "page" },
+				'div',
+				{ className: 'page' },
 				React.createElement(
-					"div",
-					{ className: "block" },
+					'div',
+					{ className: 'block' },
 					React.createElement(
-						"h1",
+						'h1',
 						null,
-						"Donate"
+						'Donate'
 					),
 					React.createElement(
-						"p",
+						'p',
 						null,
 						React.createElement(
 							Link,
-							{ to: "/@busy" },
-							"@busy"
+							{ to: '/@busy' },
+							'@busy'
 						)
 					)
 				)
@@ -55688,48 +55678,51 @@ module.exports = React.createClass({
 	}
 });
 
-},{"./../../containers/header":390,"react":281,"react-redux":93,"react-router":127}],366:[function(require,module,exports){
-var React = require("react"),
-    ReactRedux = require('react-redux'),
-    Header = require("./../../containers/header"),
+},{"./../../containers/header":390,"react":281,"react-router":127}],366:[function(require,module,exports){
+var React = require('react'),
+    Header = require('./../../containers/header'),
     Link = require('react-router').Link;
 
 module.exports = React.createClass({
-	displayName: "exports",
+	displayName: 'exports',
 
-	getInitialState: function () {
-		return {
-			key: Math.random()
-		};
-	},
 	render: function () {
 		return React.createElement(
-			"div",
-			{ className: "main-panel" },
-			React.createElement(Header, { menu: "about" }),
+			'div',
+			{ className: 'main-panel' },
+			React.createElement(Header, { menu: 'about' }),
 			React.createElement(
-				"div",
+				'div',
 				null,
-				React.createElement("div", { style: { height: '20px', overflow: 'hidden' } })
+				React.createElement('div', { style: { height: '20px', overflow: 'hidden' } })
 			),
 			React.createElement(
-				"div",
-				{ className: "page" },
+				'div',
+				{ className: 'page' },
 				React.createElement(
-					"div",
-					{ className: "block" },
+					'div',
+					{ className: 'block' },
 					React.createElement(
-						"h1",
+						'h1',
 						null,
-						"Help"
+						'Help'
 					),
 					React.createElement(
-						"p",
+						'p',
 						null,
 						React.createElement(
 							Link,
-							{ to: "/@busy" },
-							"@busy"
+							{ to: '/trending/busy-help' },
+							'#busy-help'
+						)
+					),
+					React.createElement(
+						'p',
+						null,
+						React.createElement(
+							Link,
+							{ to: '/@busy' },
+							'@busy'
 						)
 					)
 				)
@@ -55738,229 +55731,42 @@ module.exports = React.createClass({
 	}
 });
 
-},{"./../../containers/header":390,"react":281,"react-redux":93,"react-router":127}],367:[function(require,module,exports){
-var React = require("react"),
-    ReactRedux = require('react-redux'),
-    Header = require("./../../containers/header"),
+},{"./../../containers/header":390,"react":281,"react-router":127}],367:[function(require,module,exports){
+var React = require('react'),
+    Header = require('./../../containers/header'),
     Link = require('react-router').Link;
 
 module.exports = React.createClass({
-	displayName: "exports",
+	displayName: 'exports',
 
-	getInitialState: function () {
-		return {
-			key: Math.random()
-		};
-	},
 	render: function () {
 		return React.createElement(
-			"div",
-			{ className: "main-panel" },
-			React.createElement(Header, { menu: "about" }),
+			'div',
+			{ className: 'main-panel' },
+			React.createElement(Header, { menu: 'about' }),
 			React.createElement(
-				"div",
+				'div',
 				null,
-				React.createElement("div", { style: { height: '20px', overflow: 'hidden' } })
+				React.createElement('div', { style: { height: '20px', overflow: 'hidden' } })
 			),
 			React.createElement(
-				"div",
-				{ className: "page" },
+				'div',
+				{ className: 'page' },
 				React.createElement(
-					"div",
-					{ className: "block" },
+					'div',
+					{ className: 'block' },
 					React.createElement(
-						"h1",
+						'h1',
 						null,
-						"Jobs"
-					)
-				)
-			)
-		);
-	}
-});
-
-},{"./../../containers/header":390,"react":281,"react-redux":93,"react-router":127}],368:[function(require,module,exports){
-var React = require("react"),
-    Header = require("./../../containers/header");
-
-module.exports = React.createClass({
-	displayName: "exports",
-
-	getInitialState: function () {
-		return {
-			key: Math.random()
-		};
-	},
-	render: function () {
-		return React.createElement(
-			"div",
-			{ className: "main-panel" },
-			React.createElement(Header, { menu: "about" }),
-			React.createElement(
-				"div",
-				null,
-				React.createElement("div", { style: { height: '20px', overflow: 'hidden' } })
-			),
-			React.createElement(
-				"div",
-				{ className: "page" },
-				React.createElement(
-					"div",
-					{ className: "block" },
-					React.createElement(
-						"h1",
-						null,
-						"Steem.js ",
-						React.createElement("img", { src: "/img/open-source.svg", height: "46" })
+						'Jobs'
 					),
 					React.createElement(
-						"a",
-						{ href: "https://steemjs.com/" },
-						"https://steemjs.com/"
-					),
-					React.createElement(
-						"a",
-						{ href: "https://www.npmjs.com/package/steem" },
-						"https://www.npmjs.com/package/steem"
-					)
-				),
-				React.createElement(
-					"div",
-					{ className: "block" },
-					React.createElement(
-						"h1",
-						null,
-						"Steem API ",
-						React.createElement("img", { src: "/img/open-source.svg", height: "46" })
-					),
-					React.createElement(
-						"a",
-						{ href: "https://github.com/adcpm/steem-api" },
-						"https://github.com/adcpm/steem-api"
-					)
-				),
-				React.createElement(
-					"div",
-					{ className: "block" },
-					React.createElement(
-						"h1",
-						null,
-						"Steem Connect ",
-						React.createElement("img", { src: "/img/open-source.svg", height: "46" })
-					),
-					React.createElement(
-						"a",
-						{ href: "https://steemconnect.com/" },
-						"https://steemconnect.com/"
-					)
-				),
-				React.createElement(
-					"div",
-					{ className: "block" },
-					React.createElement(
-						"h1",
-						null,
-						"Steem Embed ",
-						React.createElement("img", { src: "/img/open-source.svg", height: "46" })
-					),
-					React.createElement(
-						"a",
-						{ href: "https://www.npmjs.com/package/steemembed" },
-						"https://www.npmjs.com/package/steemembed"
-					)
-				),
-				React.createElement(
-					"div",
-					{ className: "block" },
-					React.createElement(
-						"h1",
-						null,
-						"Steem Script ",
-						React.createElement("img", { src: "/img/open-source.svg", height: "46" })
-					),
-					React.createElement(
-						"p",
-						null,
-						"An Open JSON Standard for Trusted Workflows"
-					)
-				),
-				React.createElement(
-					"div",
-					{ className: "block" },
-					React.createElement(
-						"h1",
-						null,
-						"Busy Img ",
-						React.createElement("img", { src: "/img/open-source.svg", height: "46" })
-					),
-					React.createElement(
-						"a",
-						{ href: "https://www.npmjs.com/package/steemembed" },
-						"https://img.busy6.com/"
-					)
-				),
-				React.createElement(
-					"div",
-					{ className: "block" },
-					React.createElement(
-						"h1",
-						null,
-						"Busy WebSocket ",
-						React.createElement("img", { src: "/img/open-source.svg", height: "46" })
-					),
-					React.createElement(
-						"a",
-						{ href: "https://www.npmjs.com/package/steemembed" },
-						"https://ws.busy6.com/"
-					)
-				)
-			)
-		);
-	}
-});
-
-},{"./../../containers/header":390,"react":281}],369:[function(require,module,exports){
-var React = require("react"),
-    ReactRedux = require('react-redux'),
-    Header = require("./../../containers/header"),
-    Link = require('react-router').Link;
-
-module.exports = React.createClass({
-	displayName: "exports",
-
-	getInitialState: function () {
-		return {
-			key: Math.random()
-		};
-	},
-	render: function () {
-		return React.createElement(
-			"div",
-			{ className: "main-panel" },
-			React.createElement(Header, { menu: "about" }),
-			React.createElement(
-				"div",
-				null,
-				React.createElement("div", { style: { height: '20px', overflow: 'hidden' } })
-			),
-			React.createElement(
-				"div",
-				{ className: "page" },
-				React.createElement(
-					"div",
-					{ className: "block" },
-					React.createElement(
-						"h1",
-						null,
-						"Team"
-					),
-					React.createElement(
-						"p",
+						'p',
 						null,
 						React.createElement(
 							Link,
-							{ to: "/@fabien" },
-							"@fabien"
+							{ to: '/trending/busy-jobs' },
+							'#busy-jobs'
 						)
 					)
 				)
@@ -55969,7 +55775,257 @@ module.exports = React.createClass({
 	}
 });
 
-},{"./../../containers/header":390,"react":281,"react-redux":93,"react-router":127}],370:[function(require,module,exports){
+},{"./../../containers/header":390,"react":281,"react-router":127}],368:[function(require,module,exports){
+var React = require('react'),
+    Header = require('./../../containers/header'),
+    Link = require('react-router').Link;
+
+module.exports = React.createClass({
+	displayName: 'exports',
+
+	render: function () {
+		return React.createElement(
+			'div',
+			{ className: 'main-panel' },
+			React.createElement(Header, { menu: 'about' }),
+			React.createElement(
+				'div',
+				null,
+				React.createElement('div', { style: { height: '20px', overflow: 'hidden' } })
+			),
+			React.createElement(
+				'div',
+				{ className: 'page' },
+				React.createElement(
+					'div',
+					{ className: 'block' },
+					React.createElement(
+						'h1',
+						null,
+						'Steem.js ',
+						React.createElement('img', { src: '/img/open-source.svg', height: '46' })
+					),
+					React.createElement(
+						'p',
+						null,
+						React.createElement(
+							Link,
+							{ to: '/trending/steemjs' },
+							'#steemjs'
+						)
+					),
+					React.createElement(
+						'p',
+						null,
+						React.createElement(
+							'a',
+							{ href: 'https://steemjs.com/', target: '_blank' },
+							'https://steemjs.com/'
+						),
+						',',
+						React.createElement(
+							'a',
+							{ href: 'https://www.npmjs.com/package/steem', target: '_blank' },
+							'https://www.npmjs.com/package/steem'
+						)
+					)
+				),
+				React.createElement(
+					'div',
+					{ className: 'block' },
+					React.createElement(
+						'h1',
+						null,
+						'Steem API ',
+						React.createElement('img', { src: '/img/open-source.svg', height: '46' })
+					),
+					React.createElement(
+						'p',
+						null,
+						React.createElement(
+							Link,
+							{ to: '/trending/steemapi' },
+							'#steemapi'
+						)
+					),
+					React.createElement(
+						'p',
+						null,
+						React.createElement(
+							'a',
+							{ href: 'https://github.com/adcpm/steem-api', target: '_blank' },
+							'https://github.com/adcpm/steem-api'
+						)
+					)
+				),
+				React.createElement(
+					'div',
+					{ className: 'block' },
+					React.createElement(
+						'h1',
+						null,
+						'Steem Connect ',
+						React.createElement('img', { src: '/img/open-source.svg', height: '46' })
+					),
+					React.createElement(
+						'p',
+						null,
+						React.createElement(
+							Link,
+							{ to: '/trending/steemconnect' },
+							'#steemconnect'
+						)
+					),
+					React.createElement(
+						'p',
+						null,
+						React.createElement(
+							'a',
+							{ href: 'https://steemconnect.com/', target: '_blank' },
+							'https://steemconnect.com/'
+						)
+					)
+				),
+				React.createElement(
+					'div',
+					{ className: 'block' },
+					React.createElement(
+						'h1',
+						null,
+						'Steem Embed ',
+						React.createElement('img', { src: '/img/open-source.svg', height: '46' })
+					),
+					React.createElement(
+						'p',
+						null,
+						React.createElement(
+							Link,
+							{ to: '/trending/steemembed' },
+							'#steemembed'
+						)
+					),
+					React.createElement(
+						'p',
+						null,
+						React.createElement(
+							'a',
+							{ href: 'https://www.npmjs.com/package/steemembed', target: '_blank' },
+							'https://www.npmjs.com/package/steemembed'
+						)
+					)
+				),
+				React.createElement(
+					'div',
+					{ className: 'block' },
+					React.createElement(
+						'h1',
+						null,
+						'Steem Script ',
+						React.createElement('img', { src: '/img/open-source.svg', height: '46' })
+					),
+					React.createElement(
+						'p',
+						null,
+						'An Open JSON Standard for Trusted Workflows'
+					),
+					React.createElement(
+						'p',
+						null,
+						React.createElement(
+							Link,
+							{ to: '/trending/steemscript' },
+							'#steemscript'
+						)
+					)
+				),
+				React.createElement(
+					'div',
+					{ className: 'block' },
+					React.createElement(
+						'h1',
+						null,
+						'Busy Img ',
+						React.createElement('img', { src: '/img/open-source.svg', height: '46' })
+					),
+					React.createElement(
+						'p',
+						null,
+						React.createElement(
+							'a',
+							{ href: 'https://www.npmjs.com/package/steemembed', target: '_blank' },
+							'https://img.busy6.com/'
+						)
+					)
+				),
+				React.createElement(
+					'div',
+					{ className: 'block' },
+					React.createElement(
+						'h1',
+						null,
+						'Busy WebSocket ',
+						React.createElement('img', { src: '/img/open-source.svg', height: '46' })
+					),
+					React.createElement(
+						'p',
+						null,
+						React.createElement(
+							'a',
+							{ href: 'https://www.npmjs.com/package/steemembed', target: '_blank' },
+							'https://ws.busy6.com/'
+						)
+					)
+				)
+			)
+		);
+	}
+});
+
+},{"./../../containers/header":390,"react":281,"react-router":127}],369:[function(require,module,exports){
+var React = require('react'),
+    Header = require('./../../containers/header'),
+    Link = require('react-router').Link;
+
+module.exports = React.createClass({
+	displayName: 'exports',
+
+	render: function () {
+		return React.createElement(
+			'div',
+			{ className: 'main-panel' },
+			React.createElement(Header, { menu: 'about' }),
+			React.createElement(
+				'div',
+				null,
+				React.createElement('div', { style: { height: '20px', overflow: 'hidden' } })
+			),
+			React.createElement(
+				'div',
+				{ className: 'page' },
+				React.createElement(
+					'div',
+					{ className: 'block' },
+					React.createElement(
+						'h1',
+						null,
+						'Team'
+					),
+					React.createElement(
+						'p',
+						null,
+						React.createElement(
+							Link,
+							{ to: '/@fabien' },
+							'@fabien'
+						)
+					)
+				)
+			)
+		);
+	}
+});
+
+},{"./../../containers/header":390,"react":281,"react-router":127}],370:[function(require,module,exports){
 var React = require("react"),
     Page = require("./../containers/page");
 
@@ -56037,7 +56093,8 @@ module.exports = React.createClass({
 	},
 	render: function () {
 		var category = this.props.params.category;
-		var path = 'trending/' + category;
+		var sortBy = this.props.params.sortBy;
+		var path = sortBy + '/' + category;
 		return React.createElement(Page, { key: Math.random(), path: path, category: category });
 	}
 });
@@ -56073,11 +56130,8 @@ var React = require("react"),
 var Content = React.createClass({
 	displayName: "Content",
 
-	getInitialState: function () {
+	componentWillMount: function () {
 		this.props.getContent(this.props.params.author, this.props.params.permlink);
-		return {
-			key: Math.random()
-		};
 	},
 	render: function () {
 		var single = this.props.pages.single;
@@ -56085,7 +56139,6 @@ var Content = React.createClass({
 		try {
 			jsonMetadata = JSON.parse(single.json_metadata);
 		} catch (e) {}
-		console.log(single);
 		return React.createElement(
 			"div",
 			{ className: "main-panel" },
@@ -56143,7 +56196,7 @@ var mapDispatchToProps = function (dispatch) {
 
 module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(Content);
 
-},{"../actions":363,"./../containers/header":390,"./../containers/loading":391,"./../containers/post/body":395,"./../containers/post/comments":396,"./../containers/triggers":400,"lodash":81,"react":281,"react-redux":93,"react-router":127}],376:[function(require,module,exports){
+},{"../actions":363,"./../containers/header":390,"./../containers/loading":391,"./../containers/post/body":395,"./../containers/post/comments":396,"./../containers/triggers":401,"lodash":81,"react":281,"react-redux":93,"react-router":127}],376:[function(require,module,exports){
 var React = require("react"),
     Page = require("./../containers/page");
 
@@ -56157,34 +56210,27 @@ module.exports = React.createClass({
 
 },{"./../containers/page":393,"react":281}],377:[function(require,module,exports){
 var React = require("react"),
-    Header = require("./../containers/header");
+    ReactRedux = require('react-redux'),
+    Page = require("./../containers/page");
 
-module.exports = React.createClass({
-	displayName: "exports",
+var Dashboard = React.createClass({
+	displayName: "Dashboard",
 
 	render: function () {
-		return React.createElement(
-			"div",
-			{ className: "main-panel" },
-			React.createElement(Header, null),
-			React.createElement(
-				"section",
-				{ className: "align-center bg-green" },
-				React.createElement(
-					"div",
-					{ className: "pal" },
-					React.createElement(
-						"i",
-						{ className: "material-icons icon icon-xxl" },
-						"play_arrow"
-					)
-				)
-			)
-		);
+		var path = this.props.auth.isAuthenticated ? '@' + this.props.auth.user.name + '/feed' : '/trending';
+		return this.props.auth.isAuthenticated ? React.createElement(Page, { path: path, key: "feed" }) : React.createElement(Page, { path: path, key: "trending" });
 	}
 });
 
-},{"./../containers/header":390,"react":281}],378:[function(require,module,exports){
+var mapStateToProps = function (state) {
+	return {
+		auth: state.auth
+	};
+};
+
+module.exports = ReactRedux.connect(mapStateToProps)(Dashboard);
+
+},{"./../containers/page":393,"react":281,"react-redux":93}],378:[function(require,module,exports){
 var React = require("react"),
     Page = require("./../containers/page");
 
@@ -56247,18 +56293,19 @@ module.exports = React.createClass({
 });
 
 },{"./../../containers/page":393,"react":281}],383:[function(require,module,exports){
-var React = require("react"),
-    ReactRedux = require("react-redux"),
+var React = require('react'),
+    ReactRedux = require('react-redux'),
     _ = require('lodash'),
     numeral = require('numeral'),
     moment = require('moment'),
-    actions = require("../../actions"),
-    parser = require("../../lib/parser"),
-    Header = require("./../../containers/header"),
-    Loading = require("./../../containers/loading");
+    actions = require('../../actions'),
+    parser = require('../../lib/parser'),
+    Triggers = require('./..//../containers/triggers'),
+    Header = require('./../../containers/header'),
+    Loading = require('./../../containers/loading');
 
 var Profile = React.createClass({
-	displayName: "Profile",
+	displayName: 'Profile',
 
 	getInitialState: function () {
 		this.props.setMenu('secondary');
@@ -56271,130 +56318,131 @@ var Profile = React.createClass({
 		var account = this.props.params.name;
 		var profile = this.props.pages.profile;
 		return React.createElement(
-			"div",
-			{ className: "main-panel" },
+			'div',
+			{ className: 'main-panel' },
+			React.createElement(Triggers, { chat: 'true' }),
 			React.createElement(Header, { account: account }),
 			React.createElement(
-				"section",
-				{ className: "align-center bg-green profile-header",
+				'section',
+				{ className: 'align-center bg-green profile-header',
 					style: { backgroundImage: 'url(https://img.busy6.com/@' + account + '/cover)', backgroundSize: 'cover' } },
 				profile && !this.props.app.isFetching && _.size(profile.account) > 0 && React.createElement(
-					"div",
-					{ className: "activity container row" },
+					'div',
+					{ className: 'activity container row' },
 					React.createElement(
-						"div",
-						{ className: "col col-lg-6" },
-						"Created ",
+						'div',
+						{ className: 'col col-lg-6' },
+						'Created ',
 						moment(profile.account.created).fromNow()
 					),
 					React.createElement(
-						"div",
-						{ className: "col col-lg-6" },
-						"Last Active ",
+						'div',
+						{ className: 'col col-lg-6' },
+						'Last Active ',
 						moment(profile.account.last_active).fromNow()
 					)
 				),
 				React.createElement(
-					"div",
-					{ className: "pal" },
+					'div',
+					{ className: 'pal' },
 					React.createElement(
-						"div",
-						{ className: "mvl" },
+						'div',
+						{ className: 'mvl' },
 						React.createElement(
-							"div",
-							{ className: "avatar avatar-xl" },
+							'div',
+							{ className: 'avatar avatar-xl' },
 							profile && !this.props.app.isFetching && _.size(profile.account) > 0 && React.createElement(
-								"div",
-								{ className: "reputation" },
+								'div',
+								{ className: 'reputation' },
 								parser.reputation(profile.account.reputation)
 							),
-							React.createElement("img", { src: 'https://img.busy6.com/@' + account })
+							React.createElement('img', { src: 'https://img.busy6.com/@' + account })
 						),
 						React.createElement(
-							"h1",
+							'h1',
 							null,
-							"@",
+							'@',
 							account
 						)
 					)
 				)
 			),
 			React.createElement(
-				"div",
-				{ className: "profile" },
+				'div',
+				{ className: 'profile' },
 				profile && this.props.app.isFetching && React.createElement(Loading, null),
 				profile && !this.props.app.isFetching && _.size(profile.account) > 0 && React.createElement(
-					"div",
+					'div',
 					null,
 					React.createElement(
-						"ul",
-						{ className: "secondary-nav" },
+						'ul',
+						{ className: 'secondary-nav' },
 						React.createElement(
-							"li",
+							'li',
 							null,
 							React.createElement(
-								"i",
-								{ className: "icon icon-md material-icons" },
-								"library_books"
+								'i',
+								{ className: 'icon icon-md material-icons' },
+								'library_books'
 							),
-							" ",
+							' ',
 							numeral(profile.account.post_count).format('0,0'),
 							React.createElement(
-								"span",
-								{ className: "hidden-xs" },
-								" Posts"
+								'span',
+								{ className: 'hidden-xs' },
+								' Posts'
 							)
 						),
 						React.createElement(
-							"li",
+							'li',
 							null,
 							React.createElement(
-								"i",
-								{ className: "icon icon-md material-icons" },
-								"gavel"
+								'i',
+								{ className: 'icon icon-md material-icons' },
+								'gavel'
 							),
-							" ",
+							' ',
 							numeral(parseInt(profile.account.voting_power) / 10000).format('%0'),
 							React.createElement(
-								"span",
-								{ className: "hidden-xs" },
-								" Voting Power"
+								'span',
+								{ className: 'hidden-xs' },
+								' Voting Power'
 							)
 						),
 						React.createElement(
-							"li",
+							'li',
 							null,
 							React.createElement(
-								"i",
-								{ className: "icon icon-md material-icons" },
-								"people"
+								'i',
+								{ className: 'icon icon-md material-icons' },
+								'people'
 							),
-							" ",
+							' ',
 							numeral(parseInt(0)).format('0,0'),
 							React.createElement(
-								"span",
-								{ className: "hidden-xs" },
-								" Followers"
+								'span',
+								{ className: 'hidden-xs' },
+								' Followers'
 							)
 						),
 						React.createElement(
-							"li",
+							'li',
 							null,
 							React.createElement(
-								"i",
-								{ className: "icon icon-md material-icons" },
-								"people"
+								'i',
+								{ className: 'icon icon-md material-icons' },
+								'people'
 							),
-							" ",
+							' ',
 							numeral(parseInt(0)).format('0,0'),
 							React.createElement(
-								"span",
-								{ className: "hidden-xs" },
-								" Followed"
+								'span',
+								{ className: 'hidden-xs' },
+								' Followed'
 							)
 						)
 					),
-					React.createElement("div", { className: "container" })
+					React.createElement('div', { className: 'container' })
 				)
 			)
 		);
@@ -56421,7 +56469,7 @@ var mapDispatchToProps = function (dispatch) {
 
 module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(Profile);
 
-},{"../../actions":363,"../../lib/parser":407,"./../../containers/header":390,"./../../containers/loading":391,"lodash":81,"moment":83,"numeral":85,"react":281,"react-redux":93}],384:[function(require,module,exports){
+},{"../../actions":363,"../../lib/parser":408,"./../../containers/header":390,"./../../containers/loading":391,"./..//../containers/triggers":401,"lodash":81,"moment":83,"numeral":85,"react":281,"react-redux":93}],384:[function(require,module,exports){
 var React = require("react"),
     Page = require("./../../containers/page");
 
@@ -56723,8 +56771,8 @@ var Header = React.createClass({
 					)
 				),
 				React.createElement(
-					Link,
-					{ to: '/write' },
+					'a',
+					{ href: '#write' },
 					React.createElement(
 						'i',
 						{ className: 'icon icon-md icon-menu material-icons' },
@@ -57129,46 +57177,6 @@ var Header = React.createClass({
 						)
 					)
 				)
-			),
-			menu == 'chat' && React.createElement(
-				'ul',
-				{ className: 'app-nav' },
-				React.createElement(
-					'li',
-					null,
-					React.createElement(
-						Link,
-						{ to: '/chat/tag', activeClassName: 'active' },
-						React.createElement(
-							'i',
-							{ className: 'icon icon-md material-icons' },
-							'chat'
-						),
-						React.createElement(
-							'span',
-							{ className: 'hidden-xs' },
-							' tag'
-						)
-					)
-				),
-				React.createElement(
-					'li',
-					null,
-					React.createElement(
-						Link,
-						{ to: '/chat/@name', activeClassName: 'active' },
-						React.createElement(
-							'i',
-							{ className: 'icon icon-md material-icons' },
-							'perm_identity'
-						),
-						React.createElement(
-							'span',
-							{ className: 'hidden-xs' },
-							' name'
-						)
-					)
-				)
 			)
 		);
 	}
@@ -57292,7 +57300,7 @@ var mapDispatchToProps = function (dispatch) {
 
 module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(Modal);
 
-},{"../actions":363,"../form/account":402,"../form/post":403,"react":281,"react-redux":93}],393:[function(require,module,exports){
+},{"../actions":363,"../form/account":403,"../form/post":404,"react":281,"react-redux":93}],393:[function(require,module,exports){
 var React = require("react"),
     ReactRedux = require("react-redux"),
     _ = require('lodash'),
@@ -57367,7 +57375,7 @@ var mapDispatchToProps = function (dispatch) {
 
 module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(Page);
 
-},{"../actions":363,"./feed":389,"./header":390,"./loading":391,"./triggers":400,"lodash":81,"react":281,"react-redux":93}],394:[function(require,module,exports){
+},{"../actions":363,"./feed":389,"./header":390,"./loading":391,"./triggers":401,"lodash":81,"react":281,"react-redux":93}],394:[function(require,module,exports){
 var React = require('react'),
     striptags = require('striptags'),
     marked = require('marked'),
@@ -57425,14 +57433,14 @@ module.exports = React.createClass({
 		}
 		var regexp = /\b((?:[a-z][\w-]+:(?:\/{1,3}|[a-z0-9%])|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’]))/ig;
 		var matches = regexp.exec(this.props.body);
-		console.log(matches);
-		matches.forEach(function (match) {
-			if (validator.isURL(String(match))) {
-				var embed = steemembed.get(match);
-				if (embed) embeds.push(embed);
-			}
-		});
-		console.log(embeds);
+		if (_.has(matches)) {
+			matches.forEach(function (match) {
+				if (validator.isURL(String(match))) {
+					var embed = steemembed.get(match);
+					if (embed) embeds.push(embed);
+				}
+			});
+		}
 		var body = striptags(marked(this.props.body), ['a', 'p', 'h1', 'h2', 'h3', 'img']);
 		return React.createElement(
 			'div',
@@ -57461,12 +57469,9 @@ var React = require('react'),
 var Comments = React.createClass({
 	displayName: 'Comments',
 
-	getInitialState: function () {
+	componentWillMount: function () {
+		this.setState({ replies: [] });
 		this.getContentReplies();
-		return {
-			key: Math.random(),
-			replies: []
-		};
 	},
 	getContentReplies: function () {
 		var parent = this.props.parent;
@@ -57482,11 +57487,11 @@ var Comments = React.createClass({
 			this.state.replies.length > 0 && React.createElement(
 				'ul',
 				null,
-				this.state.replies.slice(0, 3).map(function (reply) {
+				this.state.replies.slice(0, 3).map(function (reply, key) {
 					var payout = parseFloat(reply.total_payout_value) + parseFloat(reply.total_pending_payout_value);
 					return React.createElement(
 						'li',
-						null,
+						{ key: key },
 						React.createElement(
 							Link,
 							{ to: '/@' + reply.author },
@@ -57530,11 +57535,11 @@ module.exports = React.createClass({
 	render: function () {
 		var language = franc(this.props.title + ' ' + striptags(marked(this.props.body)));
 		var textLength = (this.props.title + ' ' + striptags(marked(this.props.body))).length;
-		return language != 'eng' && textLength > 255 && React.createElement('img', { className: 'flag', alt: language, src: '/img/flag/' + languages.getCountryCode(language) + '.svg' });
+		return language != 'eng' && language != 'sco' && textLength > 255 && React.createElement('img', { className: 'flag', alt: language, src: '/img/flag/' + languages.getCountryCode(language) + '.svg' });
 	}
 });
 
-},{"./../../lib/languages":406,"franc":49,"marked":82,"react":281,"striptags":294}],398:[function(require,module,exports){
+},{"./../../lib/languages":407,"franc":49,"marked":82,"react":281,"striptags":294}],398:[function(require,module,exports){
 var React = require('react'),
     _ = require('lodash'),
     steemembed = require('steemembed'),
@@ -57544,13 +57549,8 @@ var React = require('react'),
     Comments = require('./comments'),
     Flag = require('./flag'),
     BodyShort = require('./body-short'),
+    Users = require('./users'),
     Link = require('react-router').Link;
-
-/*
-cloudinary.config('cloud_name', 'huvgywhku');
-cloudinary.config('api_key', '992272288114383');
-cloudinary.config('api_secret', 'enA36tsC5t6FKcFvm9trm4GdLSI');
-*/
 
 var colorCode = { green: 'rgba(39, 208, 169, 0.4)', red: 'rgba(249, 43, 97, 0.2)' };
 var classCode = { green: 'grid-row-green', red: 'grid-row-red' };
@@ -57599,9 +57599,9 @@ module.exports = React.createClass({
               Link,
               { to: '/@' + entry.author, activeClassName: 'active' },
               React.createElement(
-                'i',
-                { className: 'icon icon-sm material-icons' },
-                'perm_identity'
+                'span',
+                { className: 'avatar avatar-xs' },
+                React.createElement('img', { src: 'https://img.busy6.com/@' + entry.author, width: '24', height: '24' })
               ),
               ' @',
               entry.author
@@ -57666,6 +57666,7 @@ module.exports = React.createClass({
             entry.title
           )
         ),
+        React.createElement(Users, { jsonMetadata: jsonMetadata }),
         React.createElement(
           'p',
           null,
@@ -57759,7 +57760,51 @@ module.exports = React.createClass({
   }
 });
 
-},{"../../actions":363,"./body-short":394,"./comments":396,"./flag":397,"lodash":81,"moment":83,"numeral":85,"react":281,"react-router":127,"steemembed":291}],399:[function(require,module,exports){
+},{"../../actions":363,"./body-short":394,"./comments":396,"./flag":397,"./users":399,"lodash":81,"moment":83,"numeral":85,"react":281,"react-router":127,"steemembed":291}],399:[function(require,module,exports){
+var React = require('react'),
+    _ = require('lodash'),
+    Link = require('react-router').Link;
+
+module.exports = React.createClass({
+	displayName: 'exports',
+
+	render: function () {
+		var jsonMetadata = this.props.jsonMetadata;
+		return _.has(jsonMetadata, 'users') && React.createElement(
+			'p',
+			null,
+			React.createElement(
+				'span',
+				null,
+				'With '
+			),
+			jsonMetadata.users.map(function (user, key) {
+				return React.createElement(
+					'span',
+					{ key: key },
+					key > 0 && key + 1 != jsonMetadata.users.length && React.createElement(
+						'span',
+						null,
+						', '
+					),
+					key != 0 && key + 1 == jsonMetadata.users.length && React.createElement(
+						'span',
+						null,
+						' and '
+					),
+					React.createElement(
+						Link,
+						{ to: '/@' + user },
+						'@',
+						user
+					)
+				);
+			})
+		);
+	}
+});
+
+},{"lodash":81,"react":281,"react-router":127}],400:[function(require,module,exports){
 var React = require("react"),
     ReactRedux = require("react-redux"),
     actions = require("./../actions"),
@@ -57778,10 +57823,10 @@ var Sidebar = React.createClass({
 		var tags = [];
 		if (current.categories) {
 			var categories = _.sortBy(current.categories, 'discussions').reverse();
-			categories.forEach(function (category) {
+			categories.forEach(function (category, key) {
 				tags.push(React.createElement(
 					"li",
-					null,
+					{ key: key },
 					React.createElement(
 						Link,
 						{ to: '/trending/' + category.name, activeClassName: "active" },
@@ -57982,7 +58027,7 @@ var mapDispatchToProps = function (dispatch) {
 
 module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(Sidebar);
 
-},{"./../actions":363,"./../containers/loading":391,"./../lib/parser":407,"lodash":81,"numeral":85,"react":281,"react-redux":93,"react-router":127,"sort-by":290}],400:[function(require,module,exports){
+},{"./../actions":363,"./../containers/loading":391,"./../lib/parser":408,"lodash":81,"numeral":85,"react":281,"react-redux":93,"react-router":127,"sort-by":290}],401:[function(require,module,exports){
 var React = require("react"),
     Link = require("react-router").Link;
 
@@ -57994,8 +58039,8 @@ module.exports = React.createClass({
 			"div",
 			{ className: "triggers" },
 			this.props.replies && React.createElement(
-				Link,
-				{ to: "/replies", className: "trigger" },
+				"a",
+				{ href: "#replies", className: "trigger" },
 				React.createElement(
 					"i",
 					{ className: "icon icon-md material-icons" },
@@ -58003,8 +58048,8 @@ module.exports = React.createClass({
 				)
 			),
 			this.props.chat && React.createElement(
-				Link,
-				{ to: "/chat", className: "trigger" },
+				"a",
+				{ href: "#chat", className: "trigger" },
 				React.createElement(
 					"i",
 					{ className: "icon icon-md material-icons" },
@@ -58012,8 +58057,8 @@ module.exports = React.createClass({
 				)
 			),
 			this.props.add && React.createElement(
-				Link,
-				{ to: "/chat", className: "trigger" },
+				"a",
+				{ href: "#add", className: "trigger" },
 				React.createElement(
 					"i",
 					{ className: "icon icon-md material-icons" },
@@ -58024,7 +58069,7 @@ module.exports = React.createClass({
 	}
 });
 
-},{"react":281,"react-router":127}],401:[function(require,module,exports){
+},{"react":281,"react-router":127}],402:[function(require,module,exports){
 var React = require('react'),
     ReactRedux = require("react-redux"),
     actions = require("../actions"),
@@ -58035,7 +58080,7 @@ var Wrapper = React.createClass({
   displayName: "Wrapper",
 
   componentWillMount: function () {
-    this.props.login('metrox');
+    //this.props.login('berniesanders');
     this.props.getConfig();
   },
   render: function () {
@@ -58071,7 +58116,7 @@ var mapDispatchToProps = function (dispatch) {
 
 module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(Wrapper);
 
-},{"../actions":363,"./../containers/modal":392,"./../containers/sidebar":399,"react":281,"react-redux":93}],402:[function(require,module,exports){
+},{"../actions":363,"./../containers/modal":392,"./../containers/sidebar":400,"react":281,"react-redux":93}],403:[function(require,module,exports){
 var React = require("react"),
     ReactRedux = require("react-redux"),
     actions = require("../actions");
@@ -58211,7 +58256,7 @@ var mapDispatchToProps = function (dispatch) {
 
 module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(Account);
 
-},{"../actions":363,"react":281,"react-redux":93}],403:[function(require,module,exports){
+},{"../actions":363,"react":281,"react-redux":93}],404:[function(require,module,exports){
 var React = require("react"),
     ReactRedux = require("react-redux"),
     validator = require('validator'),
@@ -58306,7 +58351,7 @@ var mapDispatchToProps = function (dispatch) {
 
 module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(Campaign);
 
-},{"../actions":363,"react":281,"react-redux":93,"validator":299}],404:[function(require,module,exports){
+},{"../actions":363,"react":281,"react-redux":93,"validator":299}],405:[function(require,module,exports){
 var React = require('react'),
     ReactDOM = require('react-dom'),
     Router = require('react-router').Router,
@@ -58323,7 +58368,7 @@ ReactDOM.render(React.createElement(
 	React.createElement(Router, { routes: routes, history: appHistory })
 ), document.getElementById('app'));
 
-},{"./routes":413,"./store":414,"history":68,"react":281,"react-dom":90,"react-redux":93,"react-router":127}],405:[function(require,module,exports){
+},{"./routes":414,"./store":415,"history":68,"react":281,"react-dom":90,"react-redux":93,"react-router":127}],406:[function(require,module,exports){
 module.exports = function () {
 	return {
 		app: {
@@ -58361,17 +58406,19 @@ module.exports = function () {
 	};
 };
 
-},{}],406:[function(require,module,exports){
+},{}],407:[function(require,module,exports){
 module.exports = {
 	languages: {
-		'cmn': 'cn'
+		'cmn': 'cn',
+		'spa': 'es',
+		'kor': 'kr'
 	},
 	getCountryCode: function (language) {
 		return this.languages[language] ? this.languages[language] : language.substr(0, 2);
 	}
 };
 
-},{}],407:[function(require,module,exports){
+},{}],408:[function(require,module,exports){
 module.exports = {
 	reputation: function (reputation) {
 		if (reputation == null) return reputation;
@@ -58393,7 +58440,7 @@ module.exports = {
 	}
 };
 
-},{}],408:[function(require,module,exports){
+},{}],409:[function(require,module,exports){
 var C = require("../constants"),
     initialState = require("../initialstate");
 
@@ -58451,7 +58498,7 @@ module.exports = function (state, action) {
 	}
 };
 
-},{"../constants":387,"../initialstate":405}],409:[function(require,module,exports){
+},{"../constants":387,"../initialstate":406}],410:[function(require,module,exports){
 var C = require("../constants"),
     initialState = require("../initialstate");
 
@@ -58486,7 +58533,7 @@ module.exports = function (state, action) {
 	}
 };
 
-},{"../constants":387,"../initialstate":405}],410:[function(require,module,exports){
+},{"../constants":387,"../initialstate":406}],411:[function(require,module,exports){
 var C = require("../constants"),
     initialState = require("../initialstate");
 
@@ -58513,7 +58560,7 @@ module.exports = function (state, action) {
 	}
 };
 
-},{"../constants":387,"../initialstate":405}],411:[function(require,module,exports){
+},{"../constants":387,"../initialstate":406}],412:[function(require,module,exports){
 var C = require("../constants"),
     initialState = require("../initialstate");
 
@@ -58539,7 +58586,7 @@ module.exports = function (state, action) {
 	}
 };
 
-},{"../constants":387,"../initialstate":405}],412:[function(require,module,exports){
+},{"../constants":387,"../initialstate":406}],413:[function(require,module,exports){
 var C = require("../constants"),
     initialState = require("../initialstate");
 
@@ -58578,7 +58625,7 @@ module.exports = function (state, action) {
 	}
 };
 
-},{"../constants":387,"../initialstate":405}],413:[function(require,module,exports){
+},{"../constants":387,"../initialstate":406}],414:[function(require,module,exports){
 var React = require('react'),
     ReactRouter = require('react-router'),
     Route = ReactRouter.Route,
@@ -58620,7 +58667,7 @@ module.exports = React.createElement(
   React.createElement(Route, { path: '/donate', component: Donate }),
   React.createElement(Route, { path: '/help', component: Help }),
   React.createElement(Route, { path: '/:category/@:author/:permlink', component: Single }),
-  React.createElement(Route, { path: '/trending/:category', component: Category }),
+  React.createElement(Route, { path: '/:sortBy/:category', component: Category }),
   React.createElement(Route, { path: '/@:name/posts', component: Posts }),
   React.createElement(Route, { path: '/@:name/feed', component: Feed }),
   React.createElement(Route, { path: '/@:name/replies', component: Replies }),
@@ -58636,7 +58683,7 @@ module.exports = React.createElement(
   React.createElement(Route, { path: '/chat', component: Chat })
 );
 
-},{"./components/about/about":364,"./components/about/donate":365,"./components/about/help":366,"./components/about/jobs":367,"./components/about/projects":368,"./components/about/team":369,"./components/active":370,"./components/auth/callback":371,"./components/cashout":372,"./components/category":373,"./components/chat/chat":374,"./components/content":375,"./components/created":376,"./components/dashboard":377,"./components/hot":378,"./components/responses":379,"./components/trending":380,"./components/user/feed":381,"./components/user/posts":382,"./components/user/profile":383,"./components/user/replies":384,"./components/votes":385,"./components/write/write":386,"./containers/wrapper":401,"react":281,"react-router":127}],414:[function(require,module,exports){
+},{"./components/about/about":364,"./components/about/donate":365,"./components/about/help":366,"./components/about/jobs":367,"./components/about/projects":368,"./components/about/team":369,"./components/active":370,"./components/auth/callback":371,"./components/cashout":372,"./components/category":373,"./components/chat/chat":374,"./components/content":375,"./components/created":376,"./components/dashboard":377,"./components/hot":378,"./components/responses":379,"./components/trending":380,"./components/user/feed":381,"./components/user/posts":382,"./components/user/profile":383,"./components/user/replies":384,"./components/votes":385,"./components/write/write":386,"./containers/wrapper":402,"react":281,"react-router":127}],415:[function(require,module,exports){
 var Redux = require("redux"),
     appReducer = require("./reducers/app"),
     authReducer = require("./reducers/auth"),
@@ -58656,4 +58703,4 @@ var rootReducer = Redux.combineReducers({
 
 module.exports = Redux.applyMiddleware(thunk)(Redux.createStore)(rootReducer, initialState(), window.devToolsExtension && window.devToolsExtension());
 
-},{"./initialstate":405,"./reducers/app":408,"./reducers/auth":409,"./reducers/header":410,"./reducers/modal":411,"./reducers/pages":412,"redux":288,"redux-thunk":282}]},{},[404]);
+},{"./initialstate":406,"./reducers/app":409,"./reducers/auth":410,"./reducers/header":411,"./reducers/modal":412,"./reducers/pages":413,"redux":288,"redux-thunk":282}]},{},[405]);

@@ -9,12 +9,9 @@ var React = require('react'),
 	Link = require('react-router').Link;
 
 var Comments = React.createClass({
-	getInitialState: function() {
+	componentWillMount: function() {
+		this.setState({replies: []});
 		this.getContentReplies();
-		return {
-			key: Math.random(),
-			replies: []
-		};
 	},
 	getContentReplies: function() {
 		var parent = this.props.parent;
@@ -28,9 +25,9 @@ var Comments = React.createClass({
 		return (
 			<div className="comments">
 				{this.state.replies.length > 0 && <ul>
-					{this.state.replies.slice(0,3).map(function(reply) {
+					{this.state.replies.slice(0,3).map(function(reply, key) {
 						var payout = parseFloat(reply.total_payout_value) + parseFloat(reply.total_pending_payout_value);
-						return <li><Link to={'/@' + reply.author}>@{reply.author}</Link> <b>{numeral(payout).format('$0,0.00')}</b> <BodyShort body={reply.body} /></li>;
+						return <li key={key}><Link to={'/@' + reply.author}>@{reply.author}</Link> <b>{numeral(payout).format('$0,0.00')}</b> <BodyShort body={reply.body} /></li>;
 					})}
 				</ul>}
 				{this.state.replies.length == 0 && <Loading />}

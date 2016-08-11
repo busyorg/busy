@@ -10,17 +10,13 @@ var React = require("react"),
 	Link = require("react-router").Link;
 
 var Content = React.createClass({
-	getInitialState: function() {
+	componentWillMount: function() {
 		this.props.getContent(this.props.params.author, this.props.params.permlink);
-		return {
-			key: Math.random()
-		};
 	},
 	render: function(){
 		var single = this.props.pages.single;
 		var jsonMetadata = {};
 		try { jsonMetadata = JSON.parse(single.json_metadata); } catch(e) {}
-		console.log(single);
 		return (
 			<div className="main-panel">
 				<Triggers chat="true" replies="true" />

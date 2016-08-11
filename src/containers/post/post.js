@@ -7,13 +7,8 @@ var React = require('react'),
   Comments = require('./comments'),
   Flag = require('./flag'),
   BodyShort = require('./body-short'),
+  Users = require('./users'),
   Link = require('react-router').Link;
-
-/*
-cloudinary.config('cloud_name', 'huvgywhku');
-cloudinary.config('api_key', '992272288114383');
-cloudinary.config('api_secret', 'enA36tsC5t6FKcFvm9trm4GdLSI');
-*/
 
 var colorCode = {green: 'rgba(39, 208, 169, 0.4)', red: 'rgba(249, 43, 97, 0.2)'};
 var classCode = {green: 'grid-row-green', red: 'grid-row-red'};
@@ -45,7 +40,10 @@ module.exports = React.createClass({
       <div className={className}>
         <div className="cell cell-top">
           <ul>
-            <li><Link to={'/@' + entry.author} activeClassName="active"><i className="icon icon-sm material-icons">perm_identity</i> @{entry.author}</Link></li>
+            <li><Link to={'/@' + entry.author} activeClassName="active">
+              <span className="avatar avatar-xs">
+                <img src={'https://img.busy6.com/@' + entry.author} width="24" height="24" />
+              </span> @{entry.author}</Link></li>
             <li className="hide hidden-xs"><a href="#"><i className="icon icon-sm material-icons">add_circle_outline</i> Follow</a></li>
             <li className="pull-right">{moment(entry.created).fromNow()} <a href="#"><i className="icon icon-sm material-icons">bookmark_border</i></a></li>
           </ul>
@@ -57,6 +55,7 @@ module.exports = React.createClass({
           </div>}
         <div className="cell cell-body">
           <h2><Link to={steemit}><Flag title={entry.title} body={entry.body} /> {entry.title}</Link></h2>
+          <Users jsonMetadata={jsonMetadata} />
           <p><BodyShort body={entry.body} /></p>
         </div>
         <div style={style}></div>

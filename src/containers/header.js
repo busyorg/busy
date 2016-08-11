@@ -36,7 +36,7 @@ var Header = React.createClass({
 					<div className="section-content top-head">
 						<Link to="/" onlyActiveOnIndex={true} activeClassName="active"><img src="/img/logo-blue.svg" /></Link>
 					</div>
-					<Link to="/write"><i className="icon icon-md icon-menu material-icons">create</i></Link>
+					<a href="#write"><i className="icon icon-md icon-menu material-icons">create</i></a>
 				</div>
 				{menu == 'primary' && <ul className="app-nav">
 					<li><Link to={trending} onlyActiveOnIndex={true} activeClassName="active"><i className="icon icon-md material-icons">show_chart</i><span className="hidden-xs"> Trending</span></Link></li>
@@ -65,10 +65,6 @@ var Header = React.createClass({
 					<li><Link to="/jobs" activeClassName="active"><i className="icon icon-md material-icons">done</i><span className="hidden-xs"> Jobs</span></Link></li>
 					<li><Link to="/donate" activeClassName="active"><i className="icon icon-md material-icons">favorite</i><span className="hidden-xs"> Donate</span></Link></li>
 					<li><Link to="/help" activeClassName="active"><i className="icon icon-md material-icons">help_outline</i><span className="hidden-xs"> Help</span></Link></li>
-				</ul>}
-				{menu == 'chat' && <ul className="app-nav">
-					<li><Link to="/chat/tag" activeClassName="active"><i className="icon icon-md material-icons">chat</i><span className="hidden-xs"> tag</span></Link></li>
-					<li><Link to="/chat/@name" activeClassName="active"><i className="icon icon-md material-icons">perm_identity</i><span className="hidden-xs"> name</span></Link></li>
 				</ul>}
 			</header>
 		);
