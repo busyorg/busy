@@ -1,9 +1,14 @@
-var React = require("react"),
+var React = require('react'),
+	ReactRedux = require('react-redux'),
+	actions = require('./../../actions'),
 	Header = require("./../../containers/header");
 
-module.exports = React.createClass({
-	render: function(){
+var Callback = React.createClass({
+	componentWillMount: function(){
 		var token = this.props.location.query.token;
+		this.props.login(token);
+	},
+	render: function(){
 		return (
 			<div className="main-panel">
 				<Header />
@@ -16,3 +21,19 @@ module.exports = React.createClass({
 		);
 	}
 });
+
+var mapStateToProps = function(state){
+	return {
+		app: state.app,
+		auth: state.auth,
+		header: state.header
+	};
+};
+
+var mapDispatchToProps = function(dispatch){
+	return {
+		login: function(token){ dispatch(actions.login(token)); }
+	}
+};
+
+module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(Callback);

@@ -1,7 +1,7 @@
 var React = require("react"),
 	ReactRedux = require("react-redux"),
 	actions = require("./../actions"),
-	parser = require("./../lib/parser"),
+	parser = require("./../../lib/parser"),
 	_ = require('lodash'),
 	sortBy = require('sort-by'),
 	numeral = require('numeral'),

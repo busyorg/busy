@@ -3,21 +3,25 @@ var axios = require('axios'),
 	C = require('./constants');
 
 module.exports = {
-	login: function(name) {
+	login: function(token) {
 		return function(dispatch, getState) {
 			var req = {type: C.LOGIN_REQUEST};
 			Object.assign(req);
 			dispatch(req);
-			axios.get('//api.steemjs.com/getAccounts?names[]=' + name + '&ws=' + C.WS)
+			axios.get('/token?token=' + token)
 				.then(response => {
-					var res = {
-						type: C.LOGIN_SUCCESS,
-						user: response.data[0],
-					};
-					Object.assign(res);
-					dispatch(res);
+					var username = response.data.user.name;
+					axios.get('//api.steemjs.com/getAccounts?names[]=' + username + '&ws=' + C.WS)
+						.then(response => {
+							var res = {
+								type: C.LOGIN_SUCCESS,
+								user: response.data[0],
+							};
+							Object.assign(res);
+							dispatch(res);
+						});
 				});
-		};
+		}.bind(this);
 	},
 	getAccount: function(name) {
 		return function(dispatch, getState) {

@@ -4,8 +4,8 @@ var React = require('react'),
 	numeral = require('numeral'),
 	moment = require('moment'),
 	actions = require('../../actions'),
-	parser = require('../../lib/parser'),
-	Triggers = require('./..//../containers/triggers'),
+	parser = require('../../../lib/parser'),
+	Triggers = require('./../../containers/triggers'),
 	Header = require('./../../containers/header'),
 	Loading = require('./../../containers/loading');
 

@@ -2,7 +2,7 @@ var React = require('react'),
 	franc = require('franc'),
 	striptags = require('striptags'),
 	marked = require('marked'),
-	languages = require('./../../lib/languages');
+	languages = require('./../../../lib/languages');
 
 module.exports = React.createClass({
 	render: function(){
