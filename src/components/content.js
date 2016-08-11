@@ -2,6 +2,7 @@ var React = require("react"),
 	ReactRedux = require("react-redux"),
 	_ = require('lodash'),
 	actions = require("../actions"),
+	Triggers = require("./../containers/triggers"),
 	Header = require("./../containers/header"),
 	Loading = require("./../containers/loading"),
 	Body = require("./../containers/post/body"),
@@ -22,6 +23,7 @@ var Content = React.createClass({
 		console.log(single);
 		return (
 			<div className="main-panel">
+				<Triggers chat="true" replies="true" />
 				<Header />
 					<div><div style={{height: '20px', overflow: 'hidden'}}></div></div>
 					<div className="single">

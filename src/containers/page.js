@@ -4,6 +4,7 @@ var React = require("react"),
 	actions = require("../actions"),
 	Header = require("./header"),
 	Loading = require("./loading"),
+	Triggers = require("./triggers"),
 	Feed = require("./feed");
 
 var Page = React.createClass({
@@ -31,6 +32,7 @@ var Page = React.createClass({
 		var category = (this.props.category)? this.props.category : '';
 		return (
 			<div className="main-panel">
+				<Triggers chat="true" add="true" />
 				<Header account={account} category={category} />
 				{this.props.pages.current && this.props.app.isFetching && <Loading />}
 				{this.props.pages.current && _.size(this.props.pages.current.content) > 0 && <div>

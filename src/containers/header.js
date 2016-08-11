@@ -36,7 +36,7 @@ var Header = React.createClass({
 					<div className="section-content top-head">
 						<Link to="/" onlyActiveOnIndex={true} activeClassName="active"><img src="/img/logo-blue.svg" /></Link>
 					</div>
-					<a href="#"><i className="icon icon-md icon-menu material-icons">add</i></a>
+					<Link to="/write"><i className="icon icon-md icon-menu material-icons">create</i></Link>
 				</div>
 				{menu == 'primary' && <ul className="app-nav">
 					<li><Link to={trending} onlyActiveOnIndex={true} activeClassName="active"><i className="icon icon-md material-icons">show_chart</i><span className="hidden-xs"> Trending</span></Link></li>

@@ -16,8 +16,8 @@ module.exports = React.createClass({
 				<div><div style={{height: '20px', overflow: 'hidden'}}></div></div>
 				<div className="page">
 					<div className="block">
-						<h1>Donate</h1>
-						<p><Link to="/@busy">@busy</Link></p>
+						<h1>Team</h1>
+						<p><Link to="/@fabien">@fabien</Link></p>
 					</div>
 				</div>
 			</div>

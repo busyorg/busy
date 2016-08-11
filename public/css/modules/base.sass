@@ -311,23 +311,14 @@ input[type="checkbox"]
 .avatar
   overflow: hidden
   border-radius: 50%
-  background-color: #27d0a9
   text-align: center
   display: inline-block
 .avatar-sm
   width: 40px
   height: 40px
-  img
-    width: 24px
-    height: 24px
-    margin: 8px 0
 .avatar-xl
   width: 70px
   height: 70px
-  img
-    width: 45px
-    height: 45px
-    margin: 15px 0
 
 @media (max-width: 992px)
   .hidden-xs
@@ -413,3 +404,17 @@ input[type="checkbox"]
 
 *
   transition: all 0.3s ease
+
+
+.profile-header
+  position: relative
+.activity
+  width: 100%
+  position: absolute
+  bottom: 20px
+  font-size: 16px
+  color: rgba(255, 255, 255, 0.6)
+  .col:first-child
+    text-align: right
+  .col:last-child
+    text-align: left
