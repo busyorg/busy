@@ -10,12 +10,9 @@ var React = require('react'),
 	Loading = require('./../../containers/loading');
 
 var Profile = React.createClass({
-	getInitialState: function() {
+	componentWillMount: function() {
 		this.props.setMenu('secondary');
 		this.props.getAccount(this.props.params.name);
-		return {
-			key: Math.random()
-		};
 	},
 	render: function(){
 		var account = this.props.params.name;

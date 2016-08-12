@@ -10,7 +10,6 @@ module.exports = React.createClass({
 		var embeds = [];
 		if (_.has(this.props.jsonMetadata, 'links')) {
 			this.props.jsonMetadata.links.forEach(function (link) {
-				var embed = steemembed.get(link);
 				if (embed) embeds.push(embed);
 			});
 		}
@@ -24,7 +23,6 @@ module.exports = React.createClass({
 				}
 			});
 		}
-		console.log(embeds);
 		var body = striptags(marked(this.props.body), ['a', 'p', 'h1', 'h2', 'h3', 'img']);
 		return (
 			<div>

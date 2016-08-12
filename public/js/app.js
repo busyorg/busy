@@ -52619,6 +52619,7 @@ var SteemEmbed = {};
 SteemEmbed.get = function(url, options) {
 	var youtubeId = this.isYoutube(url);
 	var twitchChannel = this.isTwitch(url);
+	var periscopeId = this.isPeriscope(url);
 	if (youtubeId) {
 		return {
 			'type': 'video',
@@ -52635,25 +52636,44 @@ SteemEmbed.get = function(url, options) {
 			'id': twitchChannel,
 			'embed': this.twitch(url, twitchChannel)
 		}
+	} else if (periscopeId) {
+		return {
+			'type': 'video',
+			'url': url,
+			'provider_name': 'Periscope',
+			'id': periscopeId,
+			'embed': this.periscope(url, periscopeId)
+		}
 	}
 };
 
 SteemEmbed.isYoutube = function(url) {
 	var p = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
-	return (url.match(p)) ? RegExp.$1 : false;
+	return (url.match(p))? RegExp.$1 : false;
 };
 
 SteemEmbed.youtube = function(url, id) {
-	return '<iframe width="100%" height="400" src="https://www.youtube.com/embed/' + id + '" frameborder="0" allowfullscreen></iframe>';
+	return '<iframe width="100%" height="400" src="//www.youtube.com/embed/' + id + '" frameborder="0" scrolling="no" allowfullscreen></iframe>';
 };
 
 SteemEmbed.isTwitch = function(url) {
 	var p = /^(?:https?:\/\/)?(?:www\.)?(?:twitch.tv\/)(.*)?$/;
-	return (url.match(p)) ? RegExp.$1 : false;
+	return (url.match(p))? RegExp.$1 : false;
 };
 
 SteemEmbed.twitch = function(url, channel) {
-	return '<iframe class="videoplayer" src="http://player.twitch.tv/?channel=' + channel + '" height="400" width="100%" frameborder="0" scrolling="no"></iframe>';
+	return '<iframe width="100%" height="400" src="//player.twitch.tv/?channel=' + channel + '" frameborder="0" scrolling="no" allowfullscreen></iframe>';
+};
+
+SteemEmbed.isPeriscope = function(url) {
+	var p = /^(?:https?:\/\/)?(?:www\.)?(?:periscope.tv\/)(.*)?$/;
+	var m = (url.match(p))? RegExp.$1.split('/') : [];
+	var r = (m[1])? m[1] : false;
+	return r;
+};
+
+SteemEmbed.periscope = function(url, id) {
+	return '<iframe width="100%" height="400" src="//www.periscope.tv/w/' + id + '" frameborder="0" scrolling="no" allowfullscreen></iframe>';
 };
 
 
@@ -56383,12 +56403,9 @@ var React = require('react'),
 var Profile = React.createClass({
 	displayName: 'Profile',
 
-	getInitialState: function () {
+	componentWillMount: function () {
 		this.props.setMenu('secondary');
 		this.props.getAccount(this.props.params.name);
-		return {
-			key: Math.random()
-		};
 	},
 	render: function () {
 		var account = this.props.params.name;
@@ -57503,7 +57520,6 @@ module.exports = React.createClass({
 		var embeds = [];
 		if (_.has(this.props.jsonMetadata, 'links')) {
 			this.props.jsonMetadata.links.forEach(function (link) {
-				var embed = steemembed.get(link);
 				if (embed) embeds.push(embed);
 			});
 		}
@@ -57517,7 +57533,6 @@ module.exports = React.createClass({
 				}
 			});
 		}
-		console.log(embeds);
 		var body = striptags(marked(this.props.body), ['a', 'p', 'h1', 'h2', 'h3', 'img']);
 		return React.createElement(
 			'div',
