@@ -52614,10 +52614,11 @@ module.exports = sortBy;
 },{"object-path":89}],293:[function(require,module,exports){
 module.exports = require('./lib/steemembed');
 },{"./lib/steemembed":294}],294:[function(require,module,exports){
-var SteemEmbed = function(){};
+var SteemEmbed = {};
 
-SteemEmbed.prototype.get = function(url, options) {
+SteemEmbed.get = function(url, options) {
 	var youtubeId = this.isYoutube(url);
+	var twitchChannel = this.isTwitch(url);
 	if (youtubeId) {
 		return {
 			'type': 'video',
@@ -52626,22 +52627,37 @@ SteemEmbed.prototype.get = function(url, options) {
 			'id': youtubeId,
 			'embed': this.youtube(url, youtubeId)
 		}
-	} else {
-		return false;
+	} else if (twitchChannel) {
+		return {
+			'type': 'video',
+			'url': url,
+			'provider_name': 'Twitch',
+			'id': twitchChannel,
+			'embed': this.twitch(url, twitchChannel)
+		}
 	}
 };
 
-SteemEmbed.prototype.isYoutube = function(url) {
+SteemEmbed.isYoutube = function(url) {
 	var p = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
 	return (url.match(p)) ? RegExp.$1 : false;
 };
 
-SteemEmbed.prototype.youtube = function(url, id) {
-	return '<iframe width="600" height="400" src="https://www.youtube.com/embed/' + id + '" frameborder="0" allowfullscreen></iframe>';
+SteemEmbed.youtube = function(url, id) {
+	return '<iframe width="100%" height="400" src="https://www.youtube.com/embed/' + id + '" frameborder="0" allowfullscreen></iframe>';
+};
+
+SteemEmbed.isTwitch = function(url) {
+	var p = /^(?:https?:\/\/)?(?:www\.)?(?:twitch.tv\/)(.*)?$/;
+	return (url.match(p)) ? RegExp.$1 : false;
+};
+
+SteemEmbed.twitch = function(url, channel) {
+	return '<iframe class="videoplayer" src="http://player.twitch.tv/?channel=' + channel + '" height="400" width="100%" frameborder="0" scrolling="no"></iframe>';
 };
 
 
-module.exports = new SteemEmbed();
+module.exports = SteemEmbed;
 },{}],295:[function(require,module,exports){
 'use strict';
 module.exports = function (str) {
@@ -57493,7 +57509,7 @@ module.exports = React.createClass({
 		}
 		var regexp = /\b((?:[a-z][\w-]+:(?:\/{1,3}|[a-z0-9%])|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’]))/ig;
 		var matches = regexp.exec(this.props.body);
-		if (_.has(matches)) {
+		if (matches.length > 0) {
 			matches.forEach(function (match) {
 				if (validator.isURL(String(match))) {
 					var embed = steemembed.get(match);
@@ -57501,6 +57517,7 @@ module.exports = React.createClass({
 				}
 			});
 		}
+		console.log(embeds);
 		var body = striptags(marked(this.props.body), ['a', 'p', 'h1', 'h2', 'h3', 'img']);
 		return React.createElement(
 			'div',

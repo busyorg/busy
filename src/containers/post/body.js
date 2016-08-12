@@ -16,7 +16,7 @@ module.exports = React.createClass({
 		}
 		var regexp = /\b((?:[a-z][\w-]+:(?:\/{1,3}|[a-z0-9%])|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’]))/ig;
 		var matches = regexp.exec(this.props.body);
-		if (_.has(matches)) {
+		if (matches.length > 0) {
 			matches.forEach(function(match) {
 				if (validator.isURL(String(match))) {
 					var embed = steemembed.get(match);
@@ -24,6 +24,7 @@ module.exports = React.createClass({
 				}
 			});
 		}
+		console.log(embeds);
 		var body = striptags(marked(this.props.body), ['a', 'p', 'h1', 'h2', 'h3', 'img']);
 		return (
 			<div>
