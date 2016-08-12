@@ -57882,7 +57882,9 @@ module.exports = React.createClass({
 			React.createElement(
 				'span',
 				null,
-				'With '
+				'Mention',
+				_.size(jsonMetadata.users) > 1 ? 's' : '',
+				' '
 			),
 			jsonMetadata.users.map(function (user, key) {
 				return React.createElement(
