@@ -52620,6 +52620,7 @@ SteemEmbed.get = function(url, options) {
 	var youtubeId = this.isYoutube(url);
 	var twitchChannel = this.isTwitch(url);
 	var periscopeId = this.isPeriscope(url);
+	var soundcloudId = this.isSoundcloud(url);
 	if (youtubeId) {
 		return {
 			'type': 'video',
@@ -52643,6 +52644,14 @@ SteemEmbed.get = function(url, options) {
 			'provider_name': 'Periscope',
 			'id': periscopeId,
 			'embed': this.periscope(url, periscopeId)
+		}
+	} else if (soundcloudId) {
+		return {
+			'type': 'music',
+			'url': url,
+			'provider_name': 'SoundCloud',
+			'id': soundcloudId,
+			'embed': this.soundcloud(url, soundcloudId)
 		}
 	}
 };
@@ -52674,6 +52683,15 @@ SteemEmbed.isPeriscope = function(url) {
 
 SteemEmbed.periscope = function(url, id) {
 	return '<iframe width="100%" height="400" src="//www.periscope.tv/w/' + id + '" frameborder="0" scrolling="no" allowfullscreen></iframe>';
+};
+
+SteemEmbed.isSoundcloud = function(url) {
+	var p = /^(?:https?:\/\/)?(?:www\.)?(?:soundcloud.com\/)(.*)?$/;
+	return (url.match(p))? RegExp.$1 : false;
+};
+
+SteemEmbed.soundcloud = function(url, id) {
+	return '<iframe width="100%" height="400" src="//w.soundcloud.com/player/?url=' + encodeURIComponent(url + '?visual=true') + '" frameborder="0" scrolling="no" allowfullscreen></iframe>';
 };
 
 
@@ -57739,11 +57757,7 @@ module.exports = React.createClass({
           React.createElement('img', { src: image })
         )
       ),
-      _.has(embeds, '[0].embed') && React.createElement(
-        'div',
-        { className: 'thumbs' },
-        React.createElement('div', { dangerouslySetInnerHTML: { __html: embeds[0].embed } })
-      ),
+      _.has(embeds, '[0].embed') && React.createElement('div', { className: 'thumbs', dangerouslySetInnerHTML: { __html: embeds[0].embed } }),
       React.createElement(
         'div',
         { className: 'cell cell-body' },

@@ -50,9 +50,7 @@ module.exports = React.createClass({
         </div>
         {image && !_.has(embeds, '[0].embed') && <div className="thumbs"><Link to={steemit}><img src={image} /></Link></div>}
         {_.has(embeds, '[0].embed') &&
-          <div className="thumbs">
-            <div dangerouslySetInnerHTML={{__html: embeds[0].embed}} />
-          </div>}
+          <div className="thumbs" dangerouslySetInnerHTML={{__html: embeds[0].embed}} ></div>}
         <div className="cell cell-body">
           <h2><Link to={steemit}><Flag title={entry.title} body={entry.body} /> {entry.title}</Link></h2>
           <Users jsonMetadata={jsonMetadata} />
