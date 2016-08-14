@@ -56544,7 +56544,7 @@ module.exports = React.createClass({
 		return React.createElement(
 			'div',
 			{ className: 'main-panel' },
-			React.createElement(Header, { account: this.props.account }),
+			React.createElement(Header, { account: this.props.params.name }),
 			React.createElement(
 				'div',
 				null,
@@ -56553,7 +56553,7 @@ module.exports = React.createClass({
 			React.createElement(
 				'div',
 				{ className: 'container' },
-				React.createElement(Followed, { username: this.props.account })
+				React.createElement(Followed, { username: this.props.params.name })
 			)
 		);
 	}
@@ -56572,7 +56572,7 @@ module.exports = React.createClass({
 		return React.createElement(
 			'div',
 			{ className: 'main-panel' },
-			React.createElement(Header, { account: this.props.account }),
+			React.createElement(Header, { account: this.props.name }),
 			React.createElement(
 				'div',
 				null,
@@ -56581,7 +56581,7 @@ module.exports = React.createClass({
 			React.createElement(
 				'div',
 				{ className: 'container' },
-				React.createElement(Followers, { username: this.props.account })
+				React.createElement(Followers, { username: this.props.name })
 			)
 		);
 	}
@@ -57036,7 +57036,7 @@ var Followers = React.createClass({
 		this.getFollowing();
 	},
 	getFollowing: function () {
-		axios.get('//api.steemjs.com/getFollowing?follower=fabien&startFollowing=0&followType=blog&limit=10').then(response => {
+		axios.get('//api.steemjs.com/getFollowing?follower=' + this.props.username + '&startFollowing=0&followType=blog&limit=10').then(response => {
 			this.setState({ users: response.data });
 		});
 	},
@@ -57098,7 +57098,7 @@ var Followers = React.createClass({
 		this.getFollowers();
 	},
 	getFollowers: function () {
-		axios.get('//api.steemjs.com/getFollowers?following=fabien&startFollower=0&followType=blog&limit=10').then(response => {
+		axios.get('//api.steemjs.com/getFollowers?following=' + this.props.username + '&startFollower=0&followType=blog&limit=10').then(response => {
 			this.setState({ users: response.data });
 		});
 	},

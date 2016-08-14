@@ -11,7 +11,7 @@ var Followers = React.createClass({
 		this.getFollowers();
 	},
 	getFollowers: function() {
-		axios.get('//api.steemjs.com/getFollowers?following=fabien&startFollower=0&followType=blog&limit=10')
+		axios.get('//api.steemjs.com/getFollowers?following=' + this.props.username + '&startFollower=0&followType=blog&limit=10')
 			.then(response => {
 				this.setState({users: response.data});
 			});
