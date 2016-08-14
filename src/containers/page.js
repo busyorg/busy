@@ -1,63 +1,18 @@
-var React = require("react"),
-	ReactRedux = require("react-redux"),
+var React = require('react'),
 	_ = require('lodash'),
-	actions = require("../actions"),
-	Header = require("./header"),
-	Loading = require("./loading"),
-	Triggers = require("./triggers"),
-	Feed = require("./feed");
+	Header = require('./header'),
+	Triggers = require('./triggers'),
+	Feed = require('./feed/feed');
 
-var Page = React.createClass({
-	componentWillReceiveProps: function (nextProps) {
-		var path = this.props.path;
-		if (nextProps.pages.current.path !== path && !nextProps.pages.current.isFetching && !nextProps.pages.current.isLoaded) {
-			this.props.getFeed(path, {path: path});
-		}
-	},
-	componentWillMount: function () {
-		var account = (this.props.account)? this.props.account : false;
-		var category = (this.props.category)? this.props.category : false;
-		if (account) this.props.setMenu('secondary');
-		if (category) this.props.setMenu('primary');
-		var path = this.props.path;
-		if (this.props.pages.current.path !== path) {
-			this.props.getFeed(path, {path: path});
-		}
-	},
-	componentWillUnMount: function () {
-		this.props.clearFeed();
-	},
+module.exports = React.createClass({
 	render: function(){
-		var account = (this.props.account)? this.props.account : '';
-		var category = (this.props.category)? this.props.category : '';
 		return (
 			<div className="main-panel">
 				<Triggers chat="true" add="true" />
-				<Header account={account} category={category} />
-				{this.props.pages.current && this.props.app.isFetching && <Loading />}
-				{this.props.pages.current && _.size(this.props.pages.current.content) > 0 && <div>
-					<div style={{height: '20px', overflow: 'hidden'}}></div>
-				</div>}
-				{this.props.pages.current && _.size(this.props.pages.current.content) > 0 && <Feed filter={this.props.header.query} content={this.props.pages.current.content} />}
+				<Header account={this.props.account} category={this.props.category} />
+				<div><div style={{height: '20px', overflow: 'hidden'}}></div></div>
+				<Feed path={this.props.path} />
 			</div>
 		);
 	}
 });
-
-var mapStateToProps = function(state){
-	return {
-		app: state.app,
-		header: state.header,
-		pages: state.pages
-	};
-};
-
-var mapDispatchToProps = function(dispatch){
-	return {
-		getFeed: function(path, options){ dispatch(actions.getFeed(path, options)); },
-		clearFeed: function(){ dispatch(actions.clearFeed()); },
-		setMenu: function(menu){ dispatch(actions.setMenu(menu)); }
-	}
-};
-
-module.exports = ReactRedux.connect(mapStateToProps,mapDispatchToProps)(Page);
