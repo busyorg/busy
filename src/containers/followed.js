@@ -18,14 +18,19 @@ var Followers = React.createClass({
 	},
 	render: function(){
 		return (
-			<div className="users">
+			<center className="users">
 				{this.state.users.length > 0 && <ul>
 					{this.state.users.map(function(user, key) {
-						return <li key={key}><Link to={'/@' + user.following}>@{user.following}</Link></li>;
+						return <li key={key}>
+							<div className="avatar avatar-xl">
+								<img src={'https://img.busy6.com/@' + user.following} />
+							</div>
+							<div><Link to={'/@' + user.following}>@{user.following}</Link></div>
+						</li>;
 					})}
 				</ul>}
 				{this.state.users.length == 0 && <Loading />}
-			</div>
+			</center>
 		);
 	}
 });

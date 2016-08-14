@@ -57042,7 +57042,7 @@ var Followers = React.createClass({
 	},
 	render: function () {
 		return React.createElement(
-			'div',
+			'center',
 			{ className: 'users' },
 			this.state.users.length > 0 && React.createElement(
 				'ul',
@@ -57052,10 +57052,19 @@ var Followers = React.createClass({
 						'li',
 						{ key: key },
 						React.createElement(
-							Link,
-							{ to: '/@' + user.following },
-							'@',
-							user.following
+							'div',
+							{ className: 'avatar avatar-xl' },
+							React.createElement('img', { src: 'https://img.busy6.com/@' + user.following })
+						),
+						React.createElement(
+							'div',
+							null,
+							React.createElement(
+								Link,
+								{ to: '/@' + user.following },
+								'@',
+								user.following
+							)
 						)
 					);
 				})
@@ -57095,7 +57104,7 @@ var Followers = React.createClass({
 	},
 	render: function () {
 		return React.createElement(
-			'div',
+			'center',
 			{ className: 'users' },
 			this.state.users.length > 0 && React.createElement(
 				'ul',
@@ -57105,10 +57114,19 @@ var Followers = React.createClass({
 						'li',
 						{ key: key },
 						React.createElement(
-							Link,
-							{ to: '/@' + user.follower },
-							'@',
-							user.follower
+							'div',
+							{ className: 'avatar avatar-xl' },
+							React.createElement('img', { src: 'https://img.busy6.com/@' + user.follower })
+						),
+						React.createElement(
+							'div',
+							null,
+							React.createElement(
+								Link,
+								{ to: '/@' + user.follower },
+								'@',
+								user.follower
+							)
 						)
 					);
 				})
@@ -57754,11 +57772,11 @@ module.exports = React.createClass({
 			React.createElement('span', { dangerouslySetInnerHTML: { __html: ellipsis(body, 255, { ellipsis: '…' }) } }),
 			textLength > 255 && React.createElement(
 				'span',
-				null,
+				{ className: 'see-more' },
 				' ',
 				React.createElement(
 					'a',
-					{ href: '#', onClick: () => this.seeMore() },
+					{ onClick: () => this.seeMore() },
 					'See More'
 				)
 			)
