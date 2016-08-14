@@ -52797,7 +52797,7 @@ SteemEmbed.isTwitch = function(url) {
 };
 
 SteemEmbed.twitch = function(url, channel) {
-	return '<iframe width="100%" height="400" src="//player.twitch.tv/?channel=' + channel + '" frameborder="0" scrolling="no" allowfullscreen></iframe>';
+	return '<iframe width="100%" height="400" src="//player.twitch.tv/?channel=' + channel + '&autoplay=false" frameborder="0" scrolling="no" allowfullscreen></iframe>';
 };
 
 SteemEmbed.isPeriscope = function(url) {
