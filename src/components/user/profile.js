@@ -7,7 +7,8 @@ var React = require('react'),
 	parser = require('../../../lib/parser'),
 	Triggers = require('./../../containers/triggers'),
 	Header = require('./../../containers/header'),
-	Loading = require('./../../containers/loading');
+	Loading = require('./../../containers/loading'),
+	Link = require('react-router').Link;
 
 var Profile = React.createClass({
 	componentWillMount: function() {
@@ -44,8 +45,8 @@ var Profile = React.createClass({
 						<ul className="secondary-nav">
 							<li><i className="icon icon-md material-icons">library_books</i> {numeral(profile.account.post_count).format('0,0')}<span className="hidden-xs"> Posts</span></li>
 							<li><i className="icon icon-md material-icons">gavel</i> {numeral(parseInt(profile.account.voting_power) / 10000).format('%0')}<span className="hidden-xs"> Voting Power</span></li>
-							<li><i className="icon icon-md material-icons">people</i> {numeral(parseInt(0)).format('0,0')}<span className="hidden-xs"> Followers</span></li>
-							<li><i className="icon icon-md material-icons">people</i> {numeral(parseInt(0)).format('0,0')}<span className="hidden-xs"> Followed</span></li>
+							<li><Link to={'/@' + account + '/followers'}><i className="icon icon-md material-icons">people</i> {numeral(parseInt(0)).format('0,0')}<span className="hidden-xs"> Followers</span></Link></li>
+							<li><Link to={'/@' + account + '/followed'}><i className="icon icon-md material-icons">people</i> {numeral(parseInt(0)).format('0,0')}<span className="hidden-xs"> Followed</span></Link></li>
 						</ul>
 						<div className="container"></div>
 					</div>}

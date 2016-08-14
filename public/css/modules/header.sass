@@ -1,13 +1,15 @@
 header
   background: #fff
   a
-    color: #7D7D8E
+    color: #7D7D8E !important
+    &.visited
+
     &:hover
       opacity: 1
       color: $text-color
     &.active
       opacity: 1
-      color: $primary-color
+      color: $primary-color !important
       .icon
         color: $primary-color
 

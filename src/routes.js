@@ -15,20 +15,22 @@ var React = require('react'),
   Help = require('./components/about/help'),
 
   Single = require('./components/content'),
-  Category = require('./components/category'),
+  Category = require('./components/feed/category'),
 
   Posts = require('./components/user/posts'),
   Feed = require('./components/user/feed'),
   Replies = require('./components/user/replies'),
   Profile = require('./components/user/profile'),
+  Followers = require('./components/user/followers'),
+  Followed = require('./components/user/followed'),
 
-  Trending = require('./components/trending'),
-  Hot = require('./components/hot'),
-  Cashout = require('./components/cashout'),
-  Created = require('./components/created'),
-  Active = require('./components/active'),
-  Responses = require('./components/responses'),
-  Votes = require('./components/votes'),
+  Trending = require('./components/feed/trending'),
+  Hot = require('./components/feed/hot'),
+  Cashout = require('./components/feed/cashout'),
+  Created = require('./components/feed/created'),
+  Active = require('./components/feed/active'),
+  Responses = require('./components/feed/responses'),
+  Votes = require('./components/feed/votes'),
 
   Write = require('./components/write/write'),
 
@@ -46,14 +48,6 @@ module.exports = (
     <Route path="/donate" component={Donate} />
     <Route path="/help" component={Help} />
 
-    <Route path="/:category/@:author/:permlink" component={Single} />
-    <Route path="/:sortBy/:category" component={Category} />
-
-    <Route path="/@:name/posts" component={Posts} />
-    <Route path="/@:name/feed" component={Feed} />
-    <Route path="/@:name/replies" component={Replies} />
-    <Route path="/@:name" component={Profile} />
-
     <Route path="/trending" component={Trending} />
     <Route path="/hot" component={Hot} />
     <Route path="/cashout" component={Cashout} />
@@ -65,5 +59,15 @@ module.exports = (
     <Route path="/write" component={Write} />
 
     <Route path="/chat" component={Chat} />
+
+    <Route path="/@:name/posts" component={Posts} />
+    <Route path="/@:name/feed" component={Feed} />
+    <Route path="/@:name/replies" component={Replies} />
+    <Route path="/@:name/followers" component={Followers} />
+    <Route path="/@:name/followed" component={Followed} />
+    <Route path="/@:name" component={Profile} />
+
+    <Route path="/:category/@:author/:permlink" component={Single} />
+    <Route path="/:sortBy/:category" component={Category} />
   </Route>
 );
