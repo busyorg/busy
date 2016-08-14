@@ -7,7 +7,7 @@ var React = require('react'),
   Comments = require('./comments'),
   Flag = require('./flag'),
   BodyShort = require('./body-short'),
-  Users = require('./users'),
+  Mentions = require('./mentions'),
   Link = require('react-router').Link;
 
 var colorCode = {green: 'rgba(39, 208, 169, 0.4)', red: 'rgba(249, 43, 97, 0.2)'};
@@ -53,7 +53,7 @@ module.exports = React.createClass({
           <div className="thumbs" dangerouslySetInnerHTML={{__html: embeds[0].embed}} ></div>}
         <div className="cell cell-body">
           <h2><Link to={steemit}><Flag title={entry.title} body={entry.body} /> {entry.title}</Link></h2>
-          <Users jsonMetadata={jsonMetadata} />
+          <Mentions jsonMetadata={jsonMetadata} />
           <p><BodyShort body={entry.body} /></p>
         </div>
         <div style={style}></div>

@@ -56402,7 +56402,7 @@ var Dashboard = React.createClass({
 
 	render: function () {
 		var path = this.props.auth.isAuthenticated ? '@' + this.props.auth.user.name + '/feed' : '/';
-		return this.props.auth.isAuthenticated ? React.createElement(Page, { path: path, key: "feed" }) : React.createElement(Page, { path: path, key: "dashboard" });
+		return this.props.auth.isAuthenticated ? React.createElement(Page, { path: path, key: "feed", sortBy: "created" }) : React.createElement(Page, { path: path, key: "dashboard" });
 	}
 });
 
@@ -56454,7 +56454,7 @@ module.exports = React.createClass({
 		var category = this.props.params.category;
 		var sortBy = this.props.params.sortBy;
 		var path = sortBy + '/' + category;
-		return React.createElement(Page, { key: Math.random(), path: path, category: category });
+		return React.createElement(Page, { key: Math.random(), path: path, category: category, sortBy: "created" });
 	}
 });
 
@@ -56466,7 +56466,7 @@ module.exports = React.createClass({
 	displayName: "exports",
 
 	render: function () {
-		return React.createElement(Page, { path: "created" });
+		return React.createElement(Page, { path: "created", sortBy: "created" });
 	}
 });
 
@@ -56527,7 +56527,7 @@ module.exports = React.createClass({
 
 	render: function () {
 		var account = this.props.params.name;
-		return React.createElement(Page, { account: account, path: '@' + account + '/feed' });
+		return React.createElement(Page, { account: account, path: '@' + account + '/feed', sortBy: "created" });
 	}
 });
 
@@ -56596,7 +56596,7 @@ module.exports = React.createClass({
 
 	render: function () {
 		var account = this.props.params.name;
-		return React.createElement(Page, { account: account, path: '@' + account + '/posts' });
+		return React.createElement(Page, { account: account, path: '@' + account + '/posts', sortBy: "created" });
 	}
 });
 
@@ -56982,6 +56982,8 @@ module.exports = React.createClass({
 
   componentWillMount: function () {
     this.setState({
+      path: this.props.path,
+      sortBy: this.props.sortBy,
       isFetching: false,
       isLoaded: false,
       content: []
@@ -56994,10 +56996,11 @@ module.exports = React.createClass({
       isLoaded: false
     });
     axios.get('//api.steemjs.com/getState?path=' + path + '&scope=content').then(response => {
+      var content = this.state.sortBy ? _.sortBy(response.data, this.state.sortBy).reverse() : response.data;
       this.setState({
         isFetching: false,
         isLoaded: true,
-        content: response.data
+        content: content
       });
     });
   },
@@ -57017,7 +57020,7 @@ module.exports = React.createClass({
   }
 });
 
-},{"./../add-post":392,"./../loading":397,"./../post/post":404,"axios":3,"lodash":83,"react":283}],394:[function(require,module,exports){
+},{"./../add-post":392,"./../loading":397,"./../post/post":405,"axios":3,"lodash":83,"react":283}],394:[function(require,module,exports){
 var React = require('react'),
     ReactRedux = require('react-redux'),
     _ = require('lodash'),
@@ -57721,7 +57724,7 @@ module.exports = React.createClass({
 				null,
 				React.createElement('div', { style: { height: '20px', overflow: 'hidden' } })
 			),
-			React.createElement(Feed, { path: this.props.path })
+			React.createElement(Feed, { path: this.props.path, sortBy: this.props.sortBy })
 		);
 	}
 });
@@ -57892,6 +57895,52 @@ module.exports = React.createClass({
 },{"./../../../lib/languages":1,"franc":51,"marked":84,"react":283,"striptags":296}],404:[function(require,module,exports){
 var React = require('react'),
     _ = require('lodash'),
+    Link = require('react-router').Link;
+
+module.exports = React.createClass({
+	displayName: 'exports',
+
+	render: function () {
+		var jsonMetadata = this.props.jsonMetadata;
+		return _.has(jsonMetadata, 'users') && React.createElement(
+			'p',
+			null,
+			React.createElement(
+				'span',
+				null,
+				'Mention',
+				_.size(jsonMetadata.users) > 1 ? 's' : '',
+				' '
+			),
+			jsonMetadata.users.map(function (user, key) {
+				return React.createElement(
+					'span',
+					{ key: key },
+					key > 0 && key + 1 != jsonMetadata.users.length && React.createElement(
+						'span',
+						null,
+						', '
+					),
+					key != 0 && key + 1 == jsonMetadata.users.length && React.createElement(
+						'span',
+						null,
+						' and '
+					),
+					React.createElement(
+						Link,
+						{ to: '/@' + user },
+						'@',
+						user
+					)
+				);
+			})
+		);
+	}
+});
+
+},{"lodash":83,"react":283,"react-router":129}],405:[function(require,module,exports){
+var React = require('react'),
+    _ = require('lodash'),
     steemembed = require('steemembed'),
     numeral = require('numeral'),
     moment = require('moment'),
@@ -57899,7 +57948,7 @@ var React = require('react'),
     Comments = require('./comments'),
     Flag = require('./flag'),
     BodyShort = require('./body-short'),
-    Users = require('./users'),
+    Mentions = require('./mentions'),
     Link = require('react-router').Link;
 
 var colorCode = { green: 'rgba(39, 208, 169, 0.4)', red: 'rgba(249, 43, 97, 0.2)' };
@@ -58012,7 +58061,7 @@ module.exports = React.createClass({
             entry.title
           )
         ),
-        React.createElement(Users, { jsonMetadata: jsonMetadata }),
+        React.createElement(Mentions, { jsonMetadata: jsonMetadata }),
         React.createElement(
           'p',
           null,
@@ -58106,53 +58155,7 @@ module.exports = React.createClass({
   }
 });
 
-},{"../../actions":365,"./body-short":400,"./comments":402,"./flag":403,"./users":405,"lodash":83,"moment":85,"numeral":87,"react":283,"react-router":129,"steemembed":293}],405:[function(require,module,exports){
-var React = require('react'),
-    _ = require('lodash'),
-    Link = require('react-router').Link;
-
-module.exports = React.createClass({
-	displayName: 'exports',
-
-	render: function () {
-		var jsonMetadata = this.props.jsonMetadata;
-		return _.has(jsonMetadata, 'users') && React.createElement(
-			'p',
-			null,
-			React.createElement(
-				'span',
-				null,
-				'Mention',
-				_.size(jsonMetadata.users) > 1 ? 's' : '',
-				' '
-			),
-			jsonMetadata.users.map(function (user, key) {
-				return React.createElement(
-					'span',
-					{ key: key },
-					key > 0 && key + 1 != jsonMetadata.users.length && React.createElement(
-						'span',
-						null,
-						', '
-					),
-					key != 0 && key + 1 == jsonMetadata.users.length && React.createElement(
-						'span',
-						null,
-						' and '
-					),
-					React.createElement(
-						Link,
-						{ to: '/@' + user },
-						'@',
-						user
-					)
-				);
-			})
-		);
-	}
-});
-
-},{"lodash":83,"react":283,"react-router":129}],406:[function(require,module,exports){
+},{"../../actions":365,"./body-short":400,"./comments":402,"./flag":403,"./mentions":404,"lodash":83,"moment":85,"numeral":87,"react":283,"react-router":129,"steemembed":293}],406:[function(require,module,exports){
 var React = require("react"),
     ReactRedux = require("react-redux"),
     actions = require("./../actions"),

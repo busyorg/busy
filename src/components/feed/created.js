@@ -4,7 +4,7 @@ var React = require("react"),
 module.exports = React.createClass({
 	render: function(){
 		return (
-			<Page path="created" />
+			<Page path="created" sortBy="created" />
 		);
 	}
 });

@@ -8,6 +8,8 @@ var React = require('react'),
 module.exports = React.createClass({
   componentWillMount: function() {
     this.setState({
+      path: this.props.path,
+      sortBy: this.props.sortBy,
       isFetching: false,
       isLoaded: false,
       content: []
@@ -21,10 +23,11 @@ module.exports = React.createClass({
     });
     axios.get('//api.steemjs.com/getState?path=' + path + '&scope=content')
       .then(response => {
+        var content = (this.state.sortBy)? _.sortBy(response.data, this.state.sortBy).reverse() : response.data;
         this.setState({
           isFetching: false,
           isLoaded: true,
-          content: response.data
+          content: content
         });
       });
   },
