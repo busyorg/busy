@@ -57231,7 +57231,7 @@ var Header = React.createClass({
 						React.createElement(
 							'i',
 							{ className: 'icon icon-md material-icons' },
-							'lightbulb_outline'
+							'hot_tub'
 						),
 						React.createElement(
 							'span',
@@ -57285,7 +57285,7 @@ var Header = React.createClass({
 						React.createElement(
 							'i',
 							{ className: 'icon icon-md material-icons' },
-							'settings_remote'
+							'track_changes'
 						),
 						React.createElement(
 							'span',
@@ -57894,7 +57894,7 @@ module.exports = React.createClass({
 			null,
 			React.createElement(
 				Link,
-				{ to: '/created/' + languages.getCountryCode(language) },
+				{ to: '/hot/' + languages.getCountryCode(language) },
 				React.createElement('img', { className: 'flag', alt: language, src: '/img/flag/' + languages.getCountryCode(language) + '.svg' })
 			),
 			' '

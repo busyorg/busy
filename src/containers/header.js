@@ -39,10 +39,10 @@ var Header = React.createClass({
 				</div>
 				{menu == 'primary' && <ul className="app-nav">
 					<li><Link to={trending} onlyActiveOnIndex={true} activeClassName="active"><i className="icon icon-md material-icons">show_chart</i><span className="hidden-xs"> Trending</span></Link></li>
-					<li><Link to={hot} activeClassName="active"><i className="icon icon-md material-icons">lightbulb_outline</i><span className="hidden-xs"> Hot</span></Link></li>
+					<li><Link to={hot} activeClassName="active"><i className="icon icon-md material-icons">hot_tub</i><span className="hidden-xs"> Hot</span></Link></li>
 					<li><Link to={cashout} activeClassName="active"><i className="icon icon-md material-icons">attach_money</i><span className="hidden-xs"> Payout Time</span></Link></li>
 					<li><Link to={created} activeClassName="active"><i className="icon icon-md material-icons">fiber_new</i><span className="hidden-xs"> New</span></Link></li>
-					<li><Link to={active} activeClassName="active"><i className="icon icon-md material-icons">settings_remote</i><span className="hidden-xs"> Active</span></Link></li>
+					<li><Link to={active} activeClassName="active"><i className="icon icon-md material-icons">track_changes</i><span className="hidden-xs"> Active</span></Link></li>
 					<li className="hide"><Link to={responses} activeClassName="active"><i className="icon icon-md material-icons">comment</i><span className="hidden-xs"> Responses</span></Link></li>
 					<li className="hide"><Link to={votes} activeClassName="active"><i className="icon icon-md material-icons">gavel</i><span className="hidden-xs"> Popular</span></Link></li>
 					<li><a href="#" onClick={() => this.props.setMenu('secondary')}><i className="icon icon-md material-icons">expand_more</i></a></li>
