@@ -52,7 +52,7 @@ module.exports = React.createClass({
         {_.has(embeds, '[0].embed') &&
           <div className="thumbs" dangerouslySetInnerHTML={{__html: embeds[0].embed}} ></div>}
         <div className="cell cell-body">
-          <h2><Link to={steemit}><Flag title={entry.title} body={entry.body} /> {entry.title}</Link></h2>
+          <h2><Flag title={entry.title} body={entry.body} /><Link to={steemit}>{entry.title}</Link></h2>
           <Mentions jsonMetadata={jsonMetadata} />
           <p><BodyShort body={entry.body} /></p>
         </div>

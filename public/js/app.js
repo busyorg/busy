@@ -57880,7 +57880,8 @@ var React = require('react'),
     franc = require('franc'),
     striptags = require('striptags'),
     marked = require('marked'),
-    languages = require('./../../../lib/languages');
+    languages = require('./../../../lib/languages'),
+    Link = require('react-router').Link;
 
 module.exports = React.createClass({
 	displayName: 'exports',
@@ -57888,11 +57889,20 @@ module.exports = React.createClass({
 	render: function () {
 		var language = franc(this.props.title + ' ' + striptags(marked(this.props.body)));
 		var textLength = (this.props.title + ' ' + striptags(marked(this.props.body))).length;
-		return language != 'eng' && language != 'sco' && textLength > 255 && React.createElement('img', { className: 'flag', alt: language, src: '/img/flag/' + languages.getCountryCode(language) + '.svg' });
+		return language != 'eng' && language != 'sco' && textLength > 255 && React.createElement(
+			'span',
+			null,
+			React.createElement(
+				Link,
+				{ to: '/created/' + languages.getCountryCode(language) },
+				React.createElement('img', { className: 'flag', alt: language, src: '/img/flag/' + languages.getCountryCode(language) + '.svg' })
+			),
+			' '
+		);
 	}
 });
 
-},{"./../../../lib/languages":1,"franc":51,"marked":84,"react":283,"striptags":296}],404:[function(require,module,exports){
+},{"./../../../lib/languages":1,"franc":51,"marked":84,"react":283,"react-router":129,"striptags":296}],404:[function(require,module,exports){
 var React = require('react'),
     _ = require('lodash'),
     Link = require('react-router').Link;
@@ -58053,11 +58063,10 @@ module.exports = React.createClass({
         React.createElement(
           'h2',
           null,
+          React.createElement(Flag, { title: entry.title, body: entry.body }),
           React.createElement(
             Link,
             { to: steemit },
-            React.createElement(Flag, { title: entry.title, body: entry.body }),
-            ' ',
             entry.title
           )
         ),
