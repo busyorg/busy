@@ -75,7 +75,14 @@ var Sidebar = React.createClass({
 						<li><Link to="/trending" className="active"><i className="icon icon-md material-icons">public</i> World</Link></li>
 						<li><Link to={'/@' + user.name + '/feed'} className="active"><i className="icon icon-md material-icons">people</i> Friends</Link></li>
 					</ul>}
-					{!this.state.isFetching? <ul className="tags">{tags}</ul> : <Loading color="white"/>}
+					{this.state.isFetching && <Loading color="white"/>}
+					{_.size(this.state.categories) > 0 && <ul className="tags">{tags}</ul>}
+					{_.size(this.props.auth.following) > 0 &&
+						<ul className="tags">
+							<li>Following 1</li>
+							<li>Following 2</li>
+						</ul>
+					}
 					<div className="menu">
 					{this.props.auth.isAuthenticated && <div>
 							<div className="title"><Link to={'/@' + this.props.auth.user.name + '/wallet'}><i className="icon icon-md material-icons">account_balance_wallet</i> Balances</Link></div>

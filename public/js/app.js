@@ -57036,7 +57036,7 @@ var Followers = React.createClass({
 		this.getFollowing();
 	},
 	getFollowing: function () {
-		axios.get('//api.steemjs.com/getFollowing?follower=' + this.props.username + '&startFollowing=0&followType=blog&limit=10').then(response => {
+		axios.get('//api.steemjs.com/getFollowing?follower=' + this.props.username + '&startFollowing=0&followType=blog&limit=100').then(response => {
 			this.setState({ users: response.data });
 		});
 	},
@@ -57098,7 +57098,7 @@ var Followers = React.createClass({
 		this.getFollowers();
 	},
 	getFollowers: function () {
-		axios.get('//api.steemjs.com/getFollowers?following=' + this.props.username + '&startFollower=0&followType=blog&limit=10').then(response => {
+		axios.get('//api.steemjs.com/getFollowers?following=' + this.props.username + '&startFollower=0&followType=blog&limit=100').then(response => {
 			this.setState({ users: response.data });
 		});
 	},
@@ -58337,11 +58337,26 @@ var Sidebar = React.createClass({
 						)
 					)
 				),
-				!this.state.isFetching ? React.createElement(
+				this.state.isFetching && React.createElement(Loading, { color: "white" }),
+				_.size(this.state.categories) > 0 && React.createElement(
 					"ul",
 					{ className: "tags" },
 					tags
-				) : React.createElement(Loading, { color: "white" }),
+				),
+				_.size(this.props.auth.following) > 0 && React.createElement(
+					"ul",
+					{ className: "tags" },
+					React.createElement(
+						"li",
+						null,
+						"Following 1"
+					),
+					React.createElement(
+						"li",
+						null,
+						"Following 2"
+					)
+				),
 				React.createElement(
 					"div",
 					{ className: "menu" },
@@ -58786,7 +58801,8 @@ module.exports = function () {
 		},
 		auth: {
 			isAuthenticated: false,
-			user: { name: 'fabien' }
+			user: {},
+			following: []
 		},
 		modal: {
 			isVisible: false

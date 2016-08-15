@@ -8,7 +8,8 @@ module.exports = function(){
 		},
 		auth: {
 			isAuthenticated: false,
-			user: {name: 'fabien'}
+			user: {},
+			following: []
 		},
 		modal: {
 			isVisible: false
