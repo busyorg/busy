@@ -6,7 +6,8 @@ var React = require("react"),
 	axios = require('axios'),
 	sortBy = require('sort-by'),
 	numeral = require('numeral'),
-	Loading = require("./../containers/loading"),
+	steem = require('./../../lib/steem'),
+	Loading = require('./../containers/loading'),
 	Link = require("react-router").Link;
 
 var Sidebar = React.createClass({
@@ -14,29 +15,42 @@ var Sidebar = React.createClass({
 		this.setState({
 			isFetching: false,
 			isLoaded: false,
+			followingIsFetching: false,
+			followingIsLoaded: false,
 			categories: [],
 			props: {},
-			feedPrice: {}
+			feedPrice: {},
+			following: [],
+			menu: 'public'
 		});
-		this._getState('trending/busy');
-	},
-	_getState: function(path) {
 		this.setState({
 			isFetching: true,
 			isLoaded: false
 		});
-		axios.get('//api.steemjs.com/getState?path=' + path)
-			.then(response => {
-				this.setState({
-					isFetching: false,
-					isLoaded: true,
-					categories: response.data.categories,
-					props: response.data.props,
-					feedPrice: response.data.feed_price
-				});
+		steem.getState('trending/busy', '', function(err, state) {
+			this.setState({
+				isFetching: false,
+				isLoaded: true,
+				categories: state.categories,
+				props: state.props,
+				feedPrice: state.feed_price
 			});
+		}.bind(this));
+	},
+	getFollowing: function(){
+		if (this.props.auth.isAuthenticated === true
+			&& _.size(this.state.following) == 0
+			&& this.state.followingIsFetching == false
+			&& this.state.followingIsLoaded == false
+		) {
+			steem.getFollowing(this.props.auth.user.name, 0, 'blog', 10, function(err, following) {
+				console.log(following);
+				this.setState({following: following});
+			}.bind(this));
+		}
 	},
 	render: function(){
+		this.getFollowing();
 		var user = this.props.auth.user;
 		var tags = [];
 		if (this.state.categories) {
@@ -58,44 +72,44 @@ var Sidebar = React.createClass({
 			<nav className="sidebar">
 				{this.props.app.sidebarIsVisible && <a className="visible-xs hide-sidebar" href="#" onClick={() => this.props.hideSidebar()}><i className="icon icon-md icon-menu material-icons">arrow_back</i></a>}
 				<div className="sidebar-header">
-					{this.props.auth.isAuthenticated? <div className="me">
-						<Link to={'/@' + user.name}>
-							<span className="avatar avatar-sm">
-								<span className="reputation">{parser.reputation(user.reputation)}</span>
-								<img src={'https://img.busy6.com/@' + user.name} />
-							</span>
-							<span style={{clear: 'both', display: 'block'}}>@{user.name}</span>
-						</Link>
-					</div> : <div className="login">
-						<a href="https://steemconnect.com/authorize/@busy"><i className="icon icon-md material-icons">lock_outline</i> Steem Connect</a>
-					</div>}
+					<div className="me">
+						{this.props.auth.isAuthenticated?
+							<Link to={'/@' + user.name}>
+								<span className="avatar avatar-sm">
+									<span className="reputation">{parser.reputation(user.reputation)}</span>
+									<img src={'https://img.busy6.com/@' + user.name} />
+								</span>
+								<span style={{clear: 'both', display: 'block'}}>@{user.name}</span>
+							</Link> :
+							<a className="login" href="https://steemconnect.com/authorize/@busy"><i className="icon icon-md material-icons">lock_outline</i> Steem Connect</a>}
+					</div>
+					{this.props.auth.isAuthenticated && <ul className="list-selector">
+						<li><a onClick={() => this.setState({menu: 'public'})} className="active"><i className="icon icon-md material-icons">public</i></a></li>
+						<li><a onClick={() => this.setState({menu: 'feed'})}  className="active"><i className="icon icon-md material-icons">people</i></a></li>
+						<li><Link to={'/chat'} onClick={() => this.setState({menu: 'chat'})} className="active"><i className="icon icon-md material-icons">chat_bubble_outline</i></Link></li>
+						<li><a onClick={() => this.setState({menu: 'wallet'})} className="active"><i className="icon icon-md material-icons">account_balance_wallet</i></a></li>
+					</ul>}
 				</div>
 				<div className="sidebar-content">
-					{this.props.auth.isAuthenticated && <ul className="list-selector">
-						<li><Link to="/trending" className="active"><i className="icon icon-md material-icons">public</i> World</Link></li>
-						<li><Link to={'/@' + user.name + '/feed'} className="active"><i className="icon icon-md material-icons">people</i> Friends</Link></li>
-					</ul>}
 					{this.state.isFetching && <Loading color="white"/>}
-					{_.size(this.state.categories) > 0 && <ul className="tags">{tags}</ul>}
-					{_.size(this.props.auth.following) > 0 &&
+					{_.size(this.state.categories) > 0 && this.state.menu == 'public' && <ul className="tags">{tags}</ul>}
+					{this.props.auth.isAuthenticated && this.state.menu == 'wallet' &&
 						<ul className="tags">
-							<li>Following 1</li>
-							<li>Following 2</li>
-						</ul>
-					}
-					<div className="menu">
-					{this.props.auth.isAuthenticated && <div>
-							<div className="title"><Link to={'/@' + this.props.auth.user.name + '/wallet'}><i className="icon icon-md material-icons">account_balance_wallet</i> Balances</Link></div>
-							<div className="balance">
-								<div>{numeral(user.balance).format('0,0.00')} Steem</div>
-								{_.has(this.state.feedPrice, 'base') && <div>{numeral(power).format('0,0.00')} Steem Power</div>}
-								<div>{numeral(user.sbd_balance).format('0,0.00')} Steem Dollars</div>
-								{_.has(this.state.feedPrice, 'base') && <div>{numeral(dollar).format('$0,0.00')} Steem Dollars</div>}
-								{_.has(this.state.feedPrice, 'base') && <div>1 Steem = {numeral(base).format('$0,0.00')}</div>}
-							</div>
-						</div>}
-						<div className="title"><Link to="/about"><i className="icon icon-md material-icons">info_outline</i> About</Link></div>
-					</div>
+							<li>{numeral(user.balance).format('0,0.00')} Steem</li>
+							{_.has(this.state.feedPrice, 'base') && <li>{numeral(power).format('0,0.00')} Steem Power</li>}
+							<li>{numeral(user.sbd_balance).format('0,0.00')} Steem Dollars</li>
+							{_.has(this.state.feedPrice, 'base') && <li>{numeral(dollar).format('$0,0.00')} Steem Dollars</li>}
+							{_.has(this.state.feedPrice, 'base') && <li>1 Steem = {numeral(base).format('$0,0.00')}</li>}
+						</ul>}
+					{_.size(this.state.following) > 0 && this.state.menu == 'feed' &&
+						<ul className="tags">
+							{this.state.following.map(function(follow, key) {
+								return <li key={key}><Link to={'/@' + follow.following} activeClassName="active">@{follow.following}</Link></li>
+							})}
+						</ul>}
+				</div>
+				<div className="sidebar-footer">
+					<div className="title"><Link to="/about"><i className="icon icon-md material-icons">info_outline</i> About</Link></div>
 				</div>
 			</nav>
 		);

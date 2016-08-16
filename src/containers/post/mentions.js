@@ -5,7 +5,7 @@ var React = require('react'),
 module.exports = React.createClass({
 	render: function(){
 		var jsonMetadata = this.props.jsonMetadata;
-		return (_.has(jsonMetadata, 'users') &&
+		return (_.has(jsonMetadata, 'users') && _.size(jsonMetadata.users) <= 5 &&
 			<p><span>Mention{_.size(jsonMetadata.users) > 1? 's' : ''} </span>
 				{jsonMetadata.users.map(function(user, key) {
 					return <span key={key}>

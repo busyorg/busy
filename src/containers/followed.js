@@ -1,20 +1,16 @@
 var React = require('react'),
 	ReactRedux = require('react-redux'),
 	_ = require('lodash'),
-	axios = require('axios'),
+	steem = require('./../../lib/steem'),
 	Loading = require("./loading"),
 	Link = require('react-router').Link;
 
 var Followers = React.createClass({
 	componentWillMount: function() {
 		this.setState({users: []});
-		this.getFollowing();
-	},
-	getFollowing: function() {
-		axios.get('//api.steemjs.com/getFollowing?follower=' + this.props.username + '&startFollowing=0&followType=blog&limit=100')
-			.then(response => {
-				this.setState({users: response.data});
-			});
+		steem.getFollowing(this.props.username, '', '', '', function(err, following) {
+			this.setState({users: following});
+		}.bind(this));
 	},
 	render: function(){
 		return (

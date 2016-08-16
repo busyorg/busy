@@ -4,12 +4,6 @@ var React = require('react'),
 	Link = require('react-router').Link;
 
 var Header = React.createClass({
-	handleChange: function(e) {
-		this.props.search(e.target.value);
-	},
-	componentWillUnmount: function(){
-		this.props.search();
-	},
 	render: function(){
 		var menu = this.props.menu || this.props.header.menu;
 		var account = this.props.account || this.props.auth.user.name;
@@ -79,13 +73,8 @@ var mapStateToProps = function(state){
 
 var mapDispatchToProps = function(dispatch){
 	return {
-		showModal: function(page){ dispatch(actions.showModal(page)); },
 		showSidebar: function(){ dispatch(actions.showSidebar()); },
 		hideSidebar: function(){ dispatch(actions.hideSidebar()); },
-		search: function(query){ dispatch(actions.search(query)); },
-		refresh: function(){ dispatch(actions.refresh()); },
-		createTab: function(page){ dispatch(actions.createTab(page)); },
-		deleteTab: function(page){ dispatch(actions.deleteTab(page)); },
 		setMenu: function(menu){ dispatch(actions.setMenu(menu)); }
 	}
 };

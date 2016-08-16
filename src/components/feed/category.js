@@ -3,9 +3,7 @@ var React = require("react"),
 
 module.exports = React.createClass({
 	getInitialState: function() {
-		return {
-			key: Math.random()
-		};
+		return {key: Math.random()};
 	},
 	render: function(){
 		var category = this.props.params.category;
