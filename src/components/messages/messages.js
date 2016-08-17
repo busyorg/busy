@@ -10,6 +10,7 @@ module.exports = React.createClass({
 		};
 	},
 	componentDidMount: function(){
+		document.title = 'Messages | Busy';
 		var io = require('socket.io-client');
 		var socket = io.connect('https://ws.busy6.com/');
 		socket.on('send:message', this._messageRecieve);
@@ -27,8 +28,8 @@ module.exports = React.createClass({
 		var {name} = data;
 		users.push(name);
 		messages.push({
-			user: 'APPLICATION BOT',
-			text : name +' Joined'
+			user: 'bot',
+			text : name +' joined.'
 		});
 		this.setState({users, messages});
 	},
@@ -38,8 +39,8 @@ module.exports = React.createClass({
 		var index = users.indexOf(name);
 		users.splice(index, 1);
 		messages.push({
-			user: 'APPLICATION BOT',
-			text : name +' Left'
+			user: 'bot',
+			text : name +' left.'
 		});
 		this.setState({users, messages});
 	},
@@ -49,9 +50,8 @@ module.exports = React.createClass({
 	render: function(){
 		return (
 			<div className="main-panel">
-				<Header menu="chat" />
-				<div className="chat">
-					<UsersList users={this.state.users} />
+				<Header menu="messages" />
+				<div className="messages">
 					<MessageList messages={this.state.messages} />
 					<MessageForm onMessageSubmit={this.handleMessageSubmit} user={this.state.user} />
 				</div>
@@ -78,25 +78,23 @@ var MessageForm = React.createClass({
 		this.setState({ text : e.target.value });
 	},
 	render() {
-		return(
-			<div className='message-form'>
-				<h3>Write New Message</h3>
-				<form onSubmit={this.handleSubmit}>
+		return(<form className="container message-form" onSubmit={this.handleSubmit}>
 					<input onChange={this.changeHandler} value={this.state.text} />
-				</form>
-			</div>
-		);
+				</form>);
 	}
 });
 
 var MessageList = React.createClass({
 	render() {
 		return (
-			<div className='messages'>
-				<h2> Conversation: </h2>
-				{this.props.messages.map((message, i) => {
-						return (<Message key={i} user={message.user} text={message.text} />);
-					})}
+			<div className="messages-content">
+				<div className="container">
+					<ul>
+						{this.props.messages.map((message, i) => {
+								return (<Message key={i} user={message.user} text={message.text} />);
+							})}
+					</ul>
+				</div>
 			</div>
 		);
 	}
@@ -105,25 +103,9 @@ var MessageList = React.createClass({
 var Message = React.createClass({
 	render() {
 		return (
-			<div className="message">
-				<strong>{this.props.user} :</strong>
-				<span>{this.props.text}</span>
-			</div>
-		);
-	}
-});
-
-var UsersList = React.createClass({
-	render() {
-		return (
-			<div className='users'>
-				<h3> Online Users </h3>
-				<ul>
-					{this.props.users.map((user, i) => {
-							return (<li key={i}>{user}</li>);
-						})}
-				</ul>
-			</div>
+			<li className="message">
+				<span><b>@{this.props.user}</b>: {this.props.text}</span>
+			</li>
 		);
 	}
 });

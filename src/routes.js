@@ -6,6 +6,7 @@ var React = require('react'),
 
   Dashboard = require('./components/dashboard'),
   Callback = require('./components/auth/callback'),
+  Settings = require('./components/settings'),
 
   About = require('./components/about/about'),
   Team = require('./components/about/team'),
@@ -34,12 +35,13 @@ var React = require('react'),
 
   Write = require('./components/write/write'),
 
-  Chat = require('./components/chat/chat');
+  Messages = require('./components/messages/messages');
 
 module.exports = (
   <Route path="/" component={Wrapper}>
     <IndexRoute component={Dashboard} />
     <Route path="/callback" component={Callback} />
+    <Route path="/settings" component={Settings} />
 
     <Route path="/about" component={About} />
     <Route path="/team" component={Team} />
@@ -58,7 +60,7 @@ module.exports = (
 
     <Route path="/write" component={Write} />
 
-    <Route path="/chat" component={Chat} />
+    <Route path="/messages" component={Messages} />
 
     <Route path="/@:name/posts" component={Posts} />
     <Route path="/@:name/feed" component={Feed} />

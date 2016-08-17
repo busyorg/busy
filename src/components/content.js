@@ -19,7 +19,7 @@ var Content = React.createClass({
 		try { jsonMetadata = JSON.parse(single.json_metadata); } catch(e) {}
 		return (
 			<div className="main-panel">
-				<Triggers chat="true" replies="true" />
+				<Triggers messages="true" replies="true" />
 				<Header />
 					<div><div style={{height: '20px', overflow: 'hidden'}}></div></div>
 					<div className="single">

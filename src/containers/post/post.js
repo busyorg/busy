@@ -40,11 +40,16 @@ module.exports = React.createClass({
       <div className={className}>
         <div className="cell cell-top">
           <ul>
-            <li><Link to={'/@' + entry.author} activeClassName="active">
-              <span className="avatar avatar-xs">
-                <img src={'https://img.busy6.com/@' + entry.author} width="24" height="24" />
-              </span> @{entry.author}</Link></li>
-            <li className="hide hidden-xs"><a href="#"><i className="icon icon-sm material-icons">add_circle_outline</i> Follow</a></li>
+            <li>
+              <Link to={'/@' + entry.author} activeClassName="active">
+                <span className="avatar avatar-xs">
+                  <img src={'https://img.busy6.com/@' + entry.author} width="24" height="24" />
+                </span> @{entry.author}
+              </Link>
+              {!_.isEmpty(entry.parent_author) &&
+              <span className="hidden-xs"> replied <Link to={'/@' + entry.parent_author}>@{entry.parent_author}</Link>'s <Link to={'/' + entry.category + '/@' + entry.parent_author + '/' + entry.parent_permlink}>post.</Link>
+              </span>}
+            </li>
             <li className="pull-right">{moment(entry.created).fromNow()} <a href="#"><i className="icon icon-sm material-icons">bookmark_border</i></a></li>
           </ul>
         </div>

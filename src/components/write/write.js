@@ -5,7 +5,7 @@ module.exports = React.createClass({
 	render: function(){
 		return (
 			<div className="main-panel">
-				<Header menu="chat" />
+				<Header menu="messages" />
 			</div>
 		);
 	}

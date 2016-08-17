@@ -20,7 +20,7 @@ var Profile = React.createClass({
 		var profile = this.props.pages.profile;
 		return (
 			<div className="main-panel">
-				<Triggers chat="true" />
+				<Triggers messages="true" />
 				<Header account={account} />
 				<section className="align-center bg-green profile-header"
           style={{backgroundImage: 'url(https://img.busy6.com/@' + account + '/cover)', backgroundSize: 'cover'}}>

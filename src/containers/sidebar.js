@@ -86,7 +86,7 @@ var Sidebar = React.createClass({
 					{this.props.auth.isAuthenticated && <ul className="list-selector">
 						<li><a onClick={() => this.setState({menu: 'public'})} className="active"><i className="icon icon-md material-icons">public</i></a></li>
 						<li><a onClick={() => this.setState({menu: 'feed'})}  className="active"><i className="icon icon-md material-icons">people</i></a></li>
-						<li><Link to={'/chat'} onClick={() => this.setState({menu: 'chat'})} className="active"><i className="icon icon-md material-icons">chat_bubble_outline</i></Link></li>
+						<li><Link to={'/messages'} onClick={() => this.setState({menu: 'messages'})} className="active"><i className="icon icon-md material-icons">chat_bubble_outline</i></Link></li>
 						<li><a onClick={() => this.setState({menu: 'wallet'})} className="active"><i className="icon icon-md material-icons">account_balance_wallet</i></a></li>
 					</ul>}
 				</div>
@@ -95,12 +95,12 @@ var Sidebar = React.createClass({
 					{_.size(this.state.categories) > 0 && this.state.menu == 'public' && <ul className="tags">{tags}</ul>}
 					{this.props.auth.isAuthenticated && this.state.menu == 'wallet' &&
 						<ul className="tags">
-							<li>{numeral(user.balance).format('0,0.00')} Steem</li>
-							{_.has(this.state.feedPrice, 'base') && <li>{numeral(power).format('0,0.00')} Steem Power</li>}
-							<li>{numeral(user.sbd_balance).format('0,0.00')} Steem Dollars</li>
-							{_.has(this.state.feedPrice, 'base') && <li>{numeral(dollar).format('$0,0.00')} Steem Dollars</li>}
-							{_.has(this.state.feedPrice, 'base') && <li>1 Steem = {numeral(base).format('$0,0.00')}</li>}
-						</ul>}
+							{_.has(this.state.feedPrice, 'base') && <li><span className="menu-row">1 Steem <span className="pull-right">{numeral(base).format('$0,0.00')}</span></span></li>}
+							<li><span className="menu-row">Steem <span className="pull-right">{numeral(user.balance).format('0,0.00')}</span></span></li>
+							{_.has(this.state.feedPrice, 'base') && <li><span className="menu-row">Steem Power <span className="pull-right">{numeral(power).format('0,0.00')}</span></span></li>}
+							<li><span className="menu-row">Steem Dollars <span className="pull-right">{numeral(user.sbd_balance).format('0,0.00')}</span></span></li>
+							{_.has(this.state.feedPrice, 'base') && <li><span className="menu-row">Steem Dollars <span className="pull-right">{numeral(dollar).format('$0,0.00')}</span></span></li>}
+							</ul>}
 					{_.size(this.state.following) > 0 && this.state.menu == 'feed' &&
 						<ul className="tags">
 							{this.state.following.map(function(follow, key) {
