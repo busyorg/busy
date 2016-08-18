@@ -1,5 +1,5 @@
 # Busy
-The Busy Foundation’s mission is to promote and support the development of the next generation decentralized social network, and together build a more globally accessible, more free and more trustworthy Internet.<br/>
+The Busy Foundation’s mission is to develop and promote the next generation decentralized social network, and together build a more globally accessible, more free and more trustworthy Internet.<br/>
 Website: https://busy6.com/<br/>
 
 # Roadmap
