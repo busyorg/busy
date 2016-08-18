@@ -38,3 +38,7 @@ Website GitHub: https://github.com/adcpm/busy-img<br/>
 WebSocket: https://ws.busy6.com<br/>
 Website GitHub: https://github.com/adcpm/busy-ws<br/>
 - Connect "steem" NPM package to build streaming Steem blockchain and create a notification system.
+
+# Stack
+- Frontend: React.js + Redux
+- Backend: Node.js + Express.js

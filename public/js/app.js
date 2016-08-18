@@ -63132,6 +63132,24 @@ module.exports = React.createClass({
 				{ className: 'page' },
 				React.createElement(
 					'div',
+					{ className: 'block', style: { paddingBottom: '400px' } },
+					React.createElement(
+						'div',
+						{ className: 'container' },
+						React.createElement(
+							'h1',
+							null,
+							'About'
+						),
+						React.createElement(
+							'h2',
+							null,
+							'The Busy Foundation’s mission is to develop and promote the next generation decentralized social network, and together build a more globally accessible, more free and more trustworthy Internet.'
+						)
+					)
+				),
+				React.createElement(
+					'div',
 					{ className: 'block dark about-1' },
 					React.createElement(
 						'h1',
