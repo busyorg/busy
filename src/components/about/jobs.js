@@ -11,6 +11,7 @@ module.exports = React.createClass({
 				<div className="page">
 					<div className="block">
 						<h1>Jobs</h1>
+						<p>Roadmap: <Link to="https://github.com/adcpm/busy#roadmap">https://github.com/adcpm/busy#roadmap</Link></p>
 						<p><Link to="/trending/busy-jobs">#busy-jobs</Link></p>
 					</div>
 				</div>
