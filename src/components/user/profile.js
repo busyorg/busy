@@ -1,6 +1,7 @@
 var React = require('react'),
 	ReactRedux = require('react-redux'),
 	_ = require('lodash'),
+	steem = require('./../../../lib/steem'),
 	numeral = require('numeral'),
 	moment = require('moment'),
 	actions = require('../../actions'),
@@ -13,40 +14,43 @@ var React = require('react'),
 var Profile = React.createClass({
 	componentWillMount: function() {
 		this.props.setMenu('secondary');
-		this.props.getAccount(this.props.params.name);
+		this.setState({account: {}});
+		steem.getAccount(this.props.params.name, function(err, account) {
+			this.setState({account: account});
+		}.bind(this));
 	},
 	render: function(){
-		var account = this.props.params.name;
-		var profile = this.props.pages.profile;
+		var username = this.props.params.name;
+		var account = this.state.account;
+		var edit = (this.props.auth.isAuthenticated && username == this.props.auth.user.name);
 		return (
 			<div className="main-panel">
-				<Triggers messages="true" />
-				<Header account={account} />
+				<Triggers messages={!edit} edit={edit} />
+				<Header account={username} />
 				<section className="align-center bg-green profile-header"
-          style={{backgroundImage: 'url(https://img.busy6.com/@' + account + '/cover)', backgroundSize: 'cover'}}>
-					{profile && !this.props.app.isFetching && _.size(profile.account) > 0 &&
-						<div className="activity container row">
-							<div className="col col-lg-6">Created {moment(profile.account.created).fromNow()}</div>
-							<div className="col col-lg-6">Last Active {moment(profile.account.last_active).fromNow()}</div>
+          style={{backgroundImage: 'url(https://img.busy6.com/@' + username + '/cover)', backgroundSize: 'cover'}}>
+					{_.has(account, 'name') && <div className="activity container row">
+							<div className="col col-lg-6">Created {moment(account.created).fromNow()}</div>
+							<div className="col col-lg-6">Last Active {moment(account.last_active).fromNow()}</div>
 						</div>}
 					<div className="pal">
 						<div className="mvl">
 							<div className="avatar avatar-xl">
-								{profile && !this.props.app.isFetching && _.size(profile.account) > 0 && <div className="reputation">{parser.reputation(profile.account.reputation)}</div>}
-								<img src={'https://img.busy6.com/@' + account} />
+								{_.has(account, 'name') && <div className="reputation">{parser.reputation(account.reputation)}</div>}
+								<img src={'https://img.busy6.com/@' + username} />
 							</div>
-							<h1>@{account}</h1>
+							<h1>@{username}</h1>
 						</div>
 					</div>
 				</section>
 				<div className="profile">
-					{profile && this.props.app.isFetching && <Loading />}
-					{profile && !this.props.app.isFetching && _.size(profile.account) > 0 && <div>
+					{!_.has(account, 'name') && <Loading />}
+					{_.has(account, 'name') && <div>
 						<ul className="secondary-nav">
-							<li><i className="icon icon-md material-icons">library_books</i> {numeral(profile.account.post_count).format('0,0')}<span className="hidden-xs"> Posts</span></li>
-							<li><i className="icon icon-md material-icons">gavel</i> {numeral(parseInt(profile.account.voting_power) / 10000).format('%0')}<span className="hidden-xs"> Voting Power</span></li>
-							<li><Link to={'/@' + account + '/followers'}><i className="icon icon-md material-icons">people</i> {numeral(parseInt(0)).format('0,0')}<span className="hidden-xs"> Followers</span></Link></li>
-							<li><Link to={'/@' + account + '/followed'}><i className="icon icon-md material-icons">people</i> {numeral(parseInt(0)).format('0,0')}<span className="hidden-xs"> Followed</span></Link></li>
+							<li><i className="icon icon-md material-icons">library_books</i> {numeral(account.post_count).format('0,0')}<span className="hidden-xs"> Posts</span></li>
+							<li><i className="icon icon-md material-icons">gavel</i> {numeral(parseInt(account.voting_power) / 10000).format('%0')}<span className="hidden-xs"> Voting Power</span></li>
+							<li><Link to={'/@' + username + '/followers'}><i className="icon icon-md material-icons">people</i> {numeral(parseInt(0)).format('0,0')}<span className="hidden-xs"> Followers</span></Link></li>
+							<li><Link to={'/@' + username + '/followed'}><i className="icon icon-md material-icons">people</i> {numeral(parseInt(0)).format('0,0')}<span className="hidden-xs"> Followed</span></Link></li>
 						</ul>
 						<div className="container"></div>
 					</div>}
@@ -59,14 +63,13 @@ var Profile = React.createClass({
 var mapStateToProps = function(state){
 	return {
 		app: state.app,
-		pages: state.pages
+		auth: state.auth
 	};
 };
 
 var mapDispatchToProps = function(dispatch){
 	return {
-		setMenu: function(menu){ dispatch(actions.setMenu(menu)); },
-		getAccount: function(name){ dispatch(actions.getAccount(name)); }
+		setMenu: function(menu){ dispatch(actions.setMenu(menu)); }
 	}
 };
 

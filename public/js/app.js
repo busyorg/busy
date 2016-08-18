@@ -63047,36 +63047,6 @@ module.exports = {
 			});
 		}.bind(this);
 	},
-	getAccount: function (name) {
-		return function (dispatch, getState) {
-			var req = { type: C.ACCOUNT_REQUEST };
-			Object.assign(req);
-			dispatch(req);
-			steem.getAccount(name, function (err, account) {
-				var res = {
-					type: C.ACCOUNT_SUCCESS,
-					account: account
-				};
-				Object.assign(res);
-				dispatch(res);
-			});
-		};
-	},
-	getContent: function (author, permlink) {
-		return function (dispatch, getState) {
-			var req = { type: C.CONTENT_REQUEST };
-			Object.assign(req);
-			dispatch(req);
-			steem.getContent(author, permlink, function (err, content) {
-				var res = {
-					type: C.CONTENT_SUCCESS,
-					content: content
-				};
-				Object.assign(res);
-				dispatch(res);
-			});
-		};
-	},
 	getConfig: function () {
 		return function (dispatch, getState) {
 			var req = { type: C.CONFIG_REQUEST };
@@ -63336,6 +63306,16 @@ module.exports = React.createClass({
 					React.createElement(
 						'p',
 						null,
+						'Roadmap: ',
+						React.createElement(
+							Link,
+							{ to: 'https://github.com/adcpm/busy#roadmap' },
+							'https://github.com/adcpm/busy#roadmap'
+						)
+					),
+					React.createElement(
+						'p',
+						null,
 						React.createElement(
 							Link,
 							{ to: '/trending/busy-jobs' },
@@ -63591,6 +63571,15 @@ module.exports = React.createClass({
 							{ to: '/@fabien' },
 							'@fabien'
 						)
+					),
+					React.createElement(
+						'p',
+						null,
+						React.createElement(
+							Link,
+							{ to: '/@fabien' },
+							'You?'
+						)
 					)
 				)
 			)
@@ -63653,9 +63642,8 @@ module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(Callbac
 
 },{"./../../actions":417,"./../../containers/header":449,"react":317,"react-redux":129}],425:[function(require,module,exports){
 var React = require("react"),
-    ReactRedux = require("react-redux"),
     _ = require('lodash'),
-    actions = require("../actions"),
+    steem = require('./../../lib/steem'),
     Triggers = require("./../containers/triggers"),
     Header = require("./../containers/header"),
     Loading = require("./../containers/loading"),
@@ -63663,60 +63651,63 @@ var React = require("react"),
     Replies = require("./../containers/post/replies"),
     Link = require("react-router").Link;
 
-var Content = React.createClass({
-	displayName: "Content",
+module.exports = React.createClass({
+	displayName: 'exports',
 
 	componentWillMount: function () {
-		this.props.getContent(this.props.params.author, this.props.params.permlink);
+		this.setState({ content: {} });
+		steem.getContent(this.props.params.author, this.props.params.permlink, function (err, content) {
+			this.setState({ content: content });
+		}.bind(this));
 	},
 	render: function () {
-		var single = this.props.pages.single;
+		var content = this.state.content;
 		return React.createElement(
-			"div",
-			{ className: "main-panel" },
-			React.createElement(Triggers, { likes: "true", replies: "true", messages: "true" }),
+			'div',
+			{ className: 'main-panel' },
+			React.createElement(Triggers, { likes: 'true', replies: 'true', messages: 'true' }),
 			React.createElement(Header, null),
 			React.createElement(
-				"div",
+				'div',
 				null,
-				React.createElement("div", { style: { height: '20px', overflow: 'hidden' } })
+				React.createElement('div', { style: { height: '20px', overflow: 'hidden' } })
 			),
 			React.createElement(
-				"div",
-				{ className: "single" },
-				this.props.app.isFetching && React.createElement(Loading, null),
-				!this.props.app.isFetching && _.size(single.content) > 0 && React.createElement(
-					"div",
-					{ className: "container" },
+				'div',
+				{ className: 'single' },
+				!_.has(content, 'author') && React.createElement(Loading, null),
+				_.has(content, 'author') && React.createElement(
+					'div',
+					{ className: 'container' },
 					React.createElement(
-						"div",
-						{ className: "single-content" },
+						'div',
+						{ className: 'single-content' },
 						React.createElement(
-							"p",
+							'p',
 							null,
 							React.createElement(
 								Link,
-								{ to: '/@' + single.content.author },
-								"@",
-								single.content.author
+								{ to: '/@' + content.author },
+								'@',
+								content.author
 							)
 						),
 						React.createElement(
-							"h1",
-							{ className: "mvl" },
-							single.content.title
+							'h1',
+							{ className: 'mvl' },
+							content.title
 						),
-						React.createElement(Body, { body: single.content.body, jsonMetadata: single.content.json_metadata })
+						React.createElement(Body, { body: content.body, jsonMetadata: content.json_metadata })
 					),
-					single.content.children > 0 && React.createElement(
-						"div",
-						{ className: "single-replies" },
+					content.children > 0 && React.createElement(
+						'div',
+						{ className: 'single-replies' },
 						React.createElement(
-							"h2",
+							'h2',
 							null,
-							"Comments"
+							'Comments'
 						),
-						React.createElement(Replies, { parent: single.content.author, parentPermlink: single.content.permlink })
+						React.createElement(Replies, { parent: content.author, parentPermlink: content.permlink })
 					)
 				)
 			)
@@ -63724,24 +63715,7 @@ var Content = React.createClass({
 	}
 });
 
-var mapStateToProps = function (state) {
-	return {
-		app: state.app,
-		pages: state.pages
-	};
-};
-
-var mapDispatchToProps = function (dispatch) {
-	return {
-		getContent: function (author, permlink) {
-			dispatch(actions.getContent(author, permlink));
-		}
-	};
-};
-
-module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(Content);
-
-},{"../actions":417,"./../containers/header":449,"./../containers/loading":450,"./../containers/post/body":455,"./../containers/post/replies":460,"./../containers/triggers":464,"lodash":113,"react":317,"react-redux":129,"react-router":163}],426:[function(require,module,exports){
+},{"./../../lib/steem":3,"./../containers/header":449,"./../containers/loading":450,"./../containers/post/body":455,"./../containers/post/replies":460,"./../containers/triggers":464,"lodash":113,"react":317,"react-router":163}],426:[function(require,module,exports){
 var React = require("react"),
     ReactRedux = require('react-redux'),
     Page = require("./../containers/page");
@@ -64125,6 +64099,7 @@ module.exports = React.createClass({
 var React = require('react'),
     ReactRedux = require('react-redux'),
     _ = require('lodash'),
+    steem = require('./../../../lib/steem'),
     numeral = require('numeral'),
     moment = require('moment'),
     actions = require('../../actions'),
@@ -64139,34 +64114,38 @@ var Profile = React.createClass({
 
 	componentWillMount: function () {
 		this.props.setMenu('secondary');
-		this.props.getAccount(this.props.params.name);
+		this.setState({ account: {} });
+		steem.getAccount(this.props.params.name, function (err, account) {
+			this.setState({ account: account });
+		}.bind(this));
 	},
 	render: function () {
-		var account = this.props.params.name;
-		var profile = this.props.pages.profile;
+		var username = this.props.params.name;
+		var account = this.state.account;
+		var edit = this.props.auth.isAuthenticated && username == this.props.auth.user.name;
 		return React.createElement(
 			'div',
 			{ className: 'main-panel' },
-			React.createElement(Triggers, { messages: 'true' }),
-			React.createElement(Header, { account: account }),
+			React.createElement(Triggers, { messages: !edit, edit: edit }),
+			React.createElement(Header, { account: username }),
 			React.createElement(
 				'section',
 				{ className: 'align-center bg-green profile-header',
-					style: { backgroundImage: 'url(https://img.busy6.com/@' + account + '/cover)', backgroundSize: 'cover' } },
-				profile && !this.props.app.isFetching && _.size(profile.account) > 0 && React.createElement(
+					style: { backgroundImage: 'url(https://img.busy6.com/@' + username + '/cover)', backgroundSize: 'cover' } },
+				_.has(account, 'name') && React.createElement(
 					'div',
 					{ className: 'activity container row' },
 					React.createElement(
 						'div',
 						{ className: 'col col-lg-6' },
 						'Created ',
-						moment(profile.account.created).fromNow()
+						moment(account.created).fromNow()
 					),
 					React.createElement(
 						'div',
 						{ className: 'col col-lg-6' },
 						'Last Active ',
-						moment(profile.account.last_active).fromNow()
+						moment(account.last_active).fromNow()
 					)
 				),
 				React.createElement(
@@ -64178,18 +64157,18 @@ var Profile = React.createClass({
 						React.createElement(
 							'div',
 							{ className: 'avatar avatar-xl' },
-							profile && !this.props.app.isFetching && _.size(profile.account) > 0 && React.createElement(
+							_.has(account, 'name') && React.createElement(
 								'div',
 								{ className: 'reputation' },
-								parser.reputation(profile.account.reputation)
+								parser.reputation(account.reputation)
 							),
-							React.createElement('img', { src: 'https://img.busy6.com/@' + account })
+							React.createElement('img', { src: 'https://img.busy6.com/@' + username })
 						),
 						React.createElement(
 							'h1',
 							null,
 							'@',
-							account
+							username
 						)
 					)
 				)
@@ -64197,8 +64176,8 @@ var Profile = React.createClass({
 			React.createElement(
 				'div',
 				{ className: 'profile' },
-				profile && this.props.app.isFetching && React.createElement(Loading, null),
-				profile && !this.props.app.isFetching && _.size(profile.account) > 0 && React.createElement(
+				!_.has(account, 'name') && React.createElement(Loading, null),
+				_.has(account, 'name') && React.createElement(
 					'div',
 					null,
 					React.createElement(
@@ -64213,7 +64192,7 @@ var Profile = React.createClass({
 								'library_books'
 							),
 							' ',
-							numeral(profile.account.post_count).format('0,0'),
+							numeral(account.post_count).format('0,0'),
 							React.createElement(
 								'span',
 								{ className: 'hidden-xs' },
@@ -64229,7 +64208,7 @@ var Profile = React.createClass({
 								'gavel'
 							),
 							' ',
-							numeral(parseInt(profile.account.voting_power) / 10000).format('%0'),
+							numeral(parseInt(account.voting_power) / 10000).format('%0'),
 							React.createElement(
 								'span',
 								{ className: 'hidden-xs' },
@@ -64241,7 +64220,7 @@ var Profile = React.createClass({
 							null,
 							React.createElement(
 								Link,
-								{ to: '/@' + account + '/followers' },
+								{ to: '/@' + username + '/followers' },
 								React.createElement(
 									'i',
 									{ className: 'icon icon-md material-icons' },
@@ -64261,7 +64240,7 @@ var Profile = React.createClass({
 							null,
 							React.createElement(
 								Link,
-								{ to: '/@' + account + '/followed' },
+								{ to: '/@' + username + '/followed' },
 								React.createElement(
 									'i',
 									{ className: 'icon icon-md material-icons' },
@@ -64287,7 +64266,7 @@ var Profile = React.createClass({
 var mapStateToProps = function (state) {
 	return {
 		app: state.app,
-		pages: state.pages
+		auth: state.auth
 	};
 };
 
@@ -64295,16 +64274,13 @@ var mapDispatchToProps = function (dispatch) {
 	return {
 		setMenu: function (menu) {
 			dispatch(actions.setMenu(menu));
-		},
-		getAccount: function (name) {
-			dispatch(actions.getAccount(name));
 		}
 	};
 };
 
 module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(Profile);
 
-},{"../../../lib/parser":2,"../../actions":417,"./../../containers/header":449,"./../../containers/loading":450,"./../../containers/triggers":464,"lodash":113,"moment":115,"numeral":118,"react":317,"react-redux":129,"react-router":163}],442:[function(require,module,exports){
+},{"../../../lib/parser":2,"../../actions":417,"./../../../lib/steem":3,"./../../containers/header":449,"./../../containers/loading":450,"./../../containers/triggers":464,"lodash":113,"moment":115,"numeral":118,"react":317,"react-redux":129,"react-router":163}],442:[function(require,module,exports){
 var React = require("react"),
     Page = require("./../../containers/page");
 
@@ -64346,18 +64322,6 @@ module.exports = {
 	CONFIG_SUCCESS: 'CONFIG_SUCCESS',
 	CONFIG_FAILURE: 'CONFIG_FAILURE',
 
-	// Single
-	CONTENT_REQUEST: 'CONTENT_REQUEST',
-	CONTENT_SUCCESS: 'CONTENT_SUCCESS',
-
-	// Profile
-	ACCOUNT_REQUEST: 'ACCOUNT_REQUEST',
-	ACCOUNT_SUCCESS: 'ACCOUNT_SUCCESS',
-
-	// Tabs
-	TAB_CREATE: 'TAB_CREATE',
-	TAB_DELETE: 'TAB_DELETE',
-
 	// Header
 	SET_MENU: 'SET_MENU',
 
@@ -64365,8 +64329,9 @@ module.exports = {
 	SHOW_SIDEBAR: 'SHOW_SIDEBAR',
 	HIDE_SIDEBAR: 'HIDE_SIDEBAR',
 
-	// WebSocket
-	WS: 'wss://steemit.com/wspa'
+	// Tabs
+	TAB_CREATE: 'TAB_CREATE',
+	TAB_DELETE: 'TAB_DELETE'
 };
 
 },{}],445:[function(require,module,exports){
@@ -66091,6 +66056,15 @@ module.exports = React.createClass({
 		return React.createElement(
 			"div",
 			{ className: "triggers" },
+			this.props.edit && React.createElement(
+				"a",
+				{ href: "#edit", className: "trigger" },
+				React.createElement(
+					"i",
+					{ className: "icon icon-md material-icons" },
+					"format_paint"
+				)
+			),
 			this.props.likes && React.createElement(
 				"a",
 				{ href: "#replies", className: "trigger" },
@@ -66444,28 +66418,15 @@ module.exports = function () {
 			user: {},
 			following: []
 		},
-		modal: {
-			isVisible: false
-		},
 		header: {
 			menu: 'primary',
 			tabs: [],
 			query: ''
 		},
-		pages: {
-			current: {
-				isFetching: false,
-				isLoaded: false
-			},
-			single: {
-				isFetching: false,
-				isLoaded: false
-			},
-			profile: {
-				isFetching: false,
-				isLoaded: false
-			}
-		}
+		modal: {
+			isVisible: false
+		},
+		pages: {}
 	};
 };
 
@@ -66609,34 +66570,6 @@ var C = require("../constants"),
 
 module.exports = function (state, action) {
 	switch (action.type) {
-		case C.FEED_REQUEST:
-			return Object.assign({}, state, {
-				current: Object.assign({}, state.current, action)
-			});
-		case C.FEED_SUCCESS:
-			return Object.assign({}, state, {
-				current: Object.assign({}, state.current, action)
-			});
-		case C.FEED_CLEAR:
-			return Object.assign({}, state, {
-				current: Object.assign({}, state.current, action)
-			});
-		case C.CONTENT_REQUEST:
-			return Object.assign({}, state, {
-				single: Object.assign({}, state.single, action)
-			});
-		case C.CONTENT_SUCCESS:
-			return Object.assign({}, state, {
-				single: Object.assign({}, state.single, action)
-			});
-		case C.ACCOUNT_REQUEST:
-			return Object.assign({}, state, {
-				profile: Object.assign({}, state.profile, action)
-			});
-		case C.ACCOUNT_SUCCESS:
-			return Object.assign({}, state, {
-				profile: Object.assign({}, state.profile, action)
-			});
 		default:
 			return state || initialState().pages;
 	}

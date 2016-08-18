@@ -17,36 +17,6 @@ module.exports = {
 			});
 		}.bind(this);
 	},
-	getAccount: function(name) {
-		return function(dispatch, getState) {
-			var req = {type: C.ACCOUNT_REQUEST};
-			Object.assign(req);
-			dispatch(req);
-			steem.getAccount(name, function(err, account) {
-				var res = {
-					type: C.ACCOUNT_SUCCESS,
-					account: account,
-				};
-				Object.assign(res);
-				dispatch(res);
-			});
-		};
-	},
-	getContent: function(author, permlink) {
-		return function(dispatch, getState) {
-			var req = {type: C.CONTENT_REQUEST};
-			Object.assign(req);
-			dispatch(req);
-			steem.getContent(author, permlink, function(err, content) {
-				var res = {
-					type: C.CONTENT_SUCCESS,
-					content: content,
-				};
-				Object.assign(res);
-				dispatch(res);
-			});
-		};
-	},
 	getConfig: function() {
 		return function(dispatch, getState) {
 			var req = {type: C.CONFIG_REQUEST};

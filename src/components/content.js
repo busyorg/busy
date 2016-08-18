@@ -1,7 +1,6 @@
 var React = require("react"),
-	ReactRedux = require("react-redux"),
 	_ = require('lodash'),
-	actions = require("../actions"),
+	steem = require('./../../lib/steem'),
 	Triggers = require("./../containers/triggers"),
 	Header = require("./../containers/header"),
 	Loading = require("./../containers/loading"),
@@ -9,29 +8,32 @@ var React = require("react"),
 	Replies = require("./../containers/post/replies"),
 	Link = require("react-router").Link;
 
-var Content = React.createClass({
+module.exports = React.createClass({
 	componentWillMount: function() {
-		this.props.getContent(this.props.params.author, this.props.params.permlink);
+		this.setState({content: {}});
+		steem.getContent(this.props.params.author, this.props.params.permlink, function(err, content) {
+			this.setState({content: content});
+		}.bind(this));
 	},
 	render: function(){
-		var single = this.props.pages.single;
+		var content = this.state.content;
 		return (
 			<div className="main-panel">
 				<Triggers likes="true" replies="true" messages="true" />
 				<Header />
 					<div><div style={{height: '20px', overflow: 'hidden'}}></div></div>
 					<div className="single">
-						{this.props.app.isFetching && <Loading />}
-						{!this.props.app.isFetching && _.size(single.content) > 0 &&
+						{!_.has(content, 'author') && <Loading />}
+						{_.has(content, 'author') &&
 						<div className="container">
 							<div className="single-content">
-								<p><Link to={'/@' + single.content.author}>@{single.content.author}</Link></p>
-								<h1 className="mvl">{single.content.title}</h1>
-								<Body body={single.content.body} jsonMetadata={single.content.json_metadata} />
+								<p><Link to={'/@' + content.author}>@{content.author}</Link></p>
+								<h1 className="mvl">{content.title}</h1>
+								<Body body={content.body} jsonMetadata={content.json_metadata} />
 							</div>
-							{single.content.children > 0 && <div className="single-replies">
+							{content.children > 0 && <div className="single-replies">
 								<h2>Comments</h2>
-								<Replies parent={single.content.author} parentPermlink={single.content.permlink} />
+								<Replies parent={content.author} parentPermlink={content.permlink} />
 							</div>}
 						</div>}
 					</div>
@@ -39,18 +41,3 @@ var Content = React.createClass({
 		);
 	}
 });
-
-var mapStateToProps = function(state){
-	return {
-		app: state.app,
-		pages: state.pages
-	};
-};
-
-var mapDispatchToProps = function(dispatch){
-	return {
-		getContent: function(author, permlink){ dispatch(actions.getContent(author, permlink)); }
-	}
-};
-
-module.exports = ReactRedux.connect(mapStateToProps,mapDispatchToProps)(Content);

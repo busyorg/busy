@@ -11,27 +11,14 @@ module.exports = function(){
 			user: {},
 			following: []
 		},
-		modal: {
-			isVisible: false
-		},
 		header: {
 			menu: 'primary',
 			tabs: [],
 			query: ''
 		},
-		pages: {
-			current: {
-				isFetching: false,
-				isLoaded: false
-			},
-			single: {
-				isFetching: false,
-				isLoaded: false
-			},
-			profile: {
-				isFetching: false,
-				isLoaded: false
-			}
-		}
+		modal: {
+			isVisible: false
+		},
+		pages: {}
 	};
 };
