@@ -20,13 +20,8 @@ NPM Package: https://www.npmjs.com/package/steemconnect
 Website: https://steemconnect.com/
 Website GitHub: https://github.com/adcpm/steemconnect.com
 
-## Steem Connect
-NPM Package: https://www.npmjs.com/package/steemconnect
-Website: https://steemconnect.com/
-Website GitHub: https://github.com/adcpm/steemconnect.com
-
 ### NPM Package
-- Create a working method for signing transaction. Work in progress : https://github.com/adcpm/steemconnect/blob/master/lib/auth.js#L58
+- Create a working method for signing transaction. Work in progress : https://github.com/adcpm/steemconnect/blob/master/lib/auth.js#L58 source https://github.com/steemit/steemit.com/blob/master/shared/chain/transactions.js#L54
 
 ## Steem Embed
 NPM Package: https://www.npmjs.com/package/steemembed
