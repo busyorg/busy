@@ -1,6 +1,6 @@
 var React = require('react'),
 	steem = require('./../../../lib/steem'),
-	Reply = require('./reply'),
+	ReplyShort = require('./reply-short'),
 	Loading = require("./../loading");
 
 module.exports = React.createClass({
@@ -15,7 +15,7 @@ module.exports = React.createClass({
 			<div className="replies">
 				{this.state.replies.length > 0 && <ul>
 					{this.state.replies.slice(0,3).map(function(reply, key) {
-						return <Reply key={key} reply={reply} />;
+						return <ReplyShort key={key} reply={reply} />;
 					})}
 				</ul>}
 				{this.state.replies.length == 0 && <Loading />}
