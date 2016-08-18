@@ -4,9 +4,10 @@ var React = require('react'),
   numeral = require('numeral'),
   moment = require('moment'),
   actions = require('../../actions'),
-  Comments = require('./comments'),
+  RepliesShort = require('./replies-short'),
   Flag = require('./flag'),
   BodyShort = require('./body-short'),
+  Actions = require('./actions'),
   Mentions = require('./mentions'),
   Link = require('react-router').Link;
 
@@ -15,62 +16,50 @@ var classCode = {green: 'grid-row-green', red: 'grid-row-red'};
 
 module.exports = React.createClass({
   render: function() {
-    var entry = this.props.entry;
-    var steemit = '/' + entry.parent_permlink + '/@' + entry.author + '/' + entry.permlink;
+    var post = this.props.entry;
+    var steemit = '/' + post.parent_permlink + '/@' + post.author + '/' + post.permlink;
     var color = '';
-    color = (entry.net_votes > 0)? 'green' : color;
-    color = (entry.net_votes < 0)? 'red' : color;
-    var bar = Math.abs(40 / 1000 * entry.net_votes);
+    color = (post.net_votes > 0)? 'green' : color;
+    color = (post.net_votes < 0)? 'red' : color;
+    var bar = Math.abs(40 / 1000 * post.net_votes);
     var style = (color)? {height: '4px', boxShadow: 'inset ' + bar  + 'em 0 0 ' + colorCode[color]} : {};
     var className = 'grid-row';
     className += (color)? ' ' + classCode[color] : '';
-    try { var jsonMetadata = JSON.parse(entry.json_metadata); }
+    try { var jsonMetadata = JSON.parse(post.json_metadata); }
     catch(e) { var jsonMetadata = {}; }
     var image = _.has(jsonMetadata, 'image[0]')? jsonMetadata.image[0] : '';
     image = (image)? 'https://img1.steemit.com/600x400/' + image : '';
-	  var embeds = [];
-    if (_.has(jsonMetadata, 'links')) {
-      jsonMetadata.links.forEach(function(link) {
-        var embed = steemembed.get(link);
-        if (embed) embeds.push(embed);
-      });
-    }
-    var payout = parseFloat(entry.total_payout_value) + parseFloat(entry.total_pending_payout_value);
+	  var embeds = steemembed.getAll(post.body);
     return (
       <div className={className}>
         <div className="cell cell-top">
           <ul>
             <li>
-              <Link to={'/@' + entry.author} activeClassName="active">
+              <Link to={'/@' + post.author} activeClassName="active">
                 <span className="avatar avatar-xs">
-                  <img src={'https://img.busy6.com/@' + entry.author} width="24" height="24" />
-                </span> @{entry.author}
+                  <img src={'https://img.busy6.com/@' + post.author} width="24" height="24" />
+                </span> @{post.author}
               </Link>
-              {!_.isEmpty(entry.parent_author) &&
-              <span className="hidden-xs"> replied <Link to={'/@' + entry.parent_author}>@{entry.parent_author}</Link>'s <Link to={'/' + entry.category + '/@' + entry.parent_author + '/' + entry.parent_permlink}>post.</Link>
+              {!_.isEmpty(post.parent_author) &&
+              <span className="hidden-xs"> replied <Link to={'/@' + post.parent_author}>@{post.parent_author}</Link>'s <Link to={'/' + post.category + '/@' + post.parent_author + '/' + post.parent_permlink}>post.</Link>
               </span>}
             </li>
-            <li className="pull-right">{moment(entry.created).fromNow()} <a href="#"><i className="icon icon-sm material-icons">bookmark_border</i></a></li>
+            <li className="pull-right">{moment(post.created).fromNow()} <a href="#"><i className="icon icon-sm material-icons">bookmark_border</i></a></li>
           </ul>
         </div>
         {image && !_.has(embeds, '[0].embed') && <div className="thumbs"><Link to={steemit}><img src={image} /></Link></div>}
         {_.has(embeds, '[0].embed') &&
           <div className="thumbs" dangerouslySetInnerHTML={{__html: embeds[0].embed}} ></div>}
         <div className="cell cell-body">
-          <h2><Flag title={entry.title} body={entry.body} /><Link to={steemit}>{entry.title}</Link></h2>
+          <h2><Flag title={post.title} body={post.body} /><Link to={steemit}>{post.title}</Link></h2>
           <Mentions jsonMetadata={jsonMetadata} />
-          <p><BodyShort body={entry.body} /></p>
+          <p><BodyShort body={post.body} /></p>
         </div>
         <div style={style}></div>
         <div className="cell cell-bottom">
-          <ul>
-            <li><a href="#"><i className="icon icon-sm material-icons">thumb_up</i></a> {numeral(entry.net_votes).format('0,0')}<span className="hidden-xs"> Likes</span></li>
-            <li><span className="hidden-xs"><i className="icon icon-sm material-icons">attach_money</i> </span>{numeral(payout).format('$0,0.00')}</li>
-            <li><a href="#"><i className="icon icon-sm material-icons">comment</i></a> {numeral(entry.children).format('0,0')}<span className="hidden-xs"> Comments</span></li>
-            <li><a href="#"><i className="icon icon-sm material-icons">send</i><span className="hidden-xs"> Share</span></a></li>
-          </ul>
+          <Actions post={post} />
         </div>
-        {entry.children > 0 && <Comments parent={entry.author} parentPermlink={entry.permlink} />}
+        {post.children > 0 && <RepliesShort parent={post.author} parentPermlink={post.permlink} />}
       </div>
     )
   }

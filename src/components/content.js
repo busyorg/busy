@@ -6,7 +6,7 @@ var React = require("react"),
 	Header = require("./../containers/header"),
 	Loading = require("./../containers/loading"),
 	Body = require("./../containers/post/body"),
-	Comments = require("./../containers/post/comments"),
+	Replies = require("./../containers/post/replies"),
 	Link = require("react-router").Link;
 
 var Content = React.createClass({
@@ -15,22 +15,25 @@ var Content = React.createClass({
 	},
 	render: function(){
 		var single = this.props.pages.single;
-		var jsonMetadata = {};
-		try { jsonMetadata = JSON.parse(single.json_metadata); } catch(e) {}
 		return (
 			<div className="main-panel">
-				<Triggers messages="true" replies="true" />
+				<Triggers likes="true" replies="true" messages="true" />
 				<Header />
 					<div><div style={{height: '20px', overflow: 'hidden'}}></div></div>
 					<div className="single">
-						{this.props.pages.single && this.props.app.isFetching && <Loading />}
-						{this.props.pages.single && !this.props.app.isFetching && _.size(this.props.pages.single.content) > 0 &&
-							<div className="container">
+						{this.props.app.isFetching && <Loading />}
+						{!this.props.app.isFetching && _.size(single.content) > 0 &&
+						<div className="container">
+							<div className="single-content">
 								<p><Link to={'/@' + single.content.author}>@{single.content.author}</Link></p>
 								<h1 className="mvl">{single.content.title}</h1>
-								<Body body={single.content.body} jsonMetadata={jsonMetadata} />
-								{single.content.children > 0 && <Comments parent={single.content.author} parentPermlink={single.content.permlink} />}
+								<Body body={single.content.body} jsonMetadata={single.content.json_metadata} />
+							</div>
+							{single.content.children > 0 && <div className="single-replies">
+								<h2>Comments</h2>
+								<Replies parent={single.content.author} parentPermlink={single.content.permlink} />
 							</div>}
+						</div>}
 					</div>
 			</div>
 		);

@@ -1,29 +1,24 @@
 var React = require('react'),
 	_ = require('lodash'),
 	steemembed = require('steemembed'),
-	validator = require('validator'),
 	striptags = require('striptags'),
 	marked = require('marked');
 
 module.exports = React.createClass({
 	render: function(){
-		var embeds = [];
-		if (_.has(this.props.jsonMetadata, 'links')) {
-			this.props.jsonMetadata.links.forEach(function (link) {
-				if (embed) embeds.push(embed);
+		var embeds = steemembed.getAll(this.props.body);
+		var body = this.props.body;
+		var jsonMetadata = {};
+		try { jsonMetadata = JSON.parse(this.props.jsonMetadata); }
+		catch(e) { }
+		if (_.has(jsonMetadata, 'image[0]')) {
+			jsonMetadata.image.forEach(function(image) {
+				var newUrl = 'https://img1.steemit.com/870x600/' + image;
+				body = body.replace(new RegExp(image, 'g'), newUrl);
+				//body = body.replace(new RegExp(newUrl, 'g'), '![](' + newUrl + ')');
 			});
 		}
-		var regexp = /\b((?:[a-z][\w-]+:(?:\/{1,3}|[a-z0-9%])|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’]))/ig;
-		var matches = regexp.exec(this.props.body);
-		if (matches.length > 0) {
-			matches.forEach(function(match) {
-				if (validator.isURL(String(match))) {
-					var embed = steemembed.get(match);
-					if (embed) embeds.push(embed);
-				}
-			});
-		}
-		var body = striptags(marked(this.props.body), ['a', 'p', 'h1', 'h2', 'h3', 'img']);
+		body = striptags(marked(body), ['a', 'p', 'h1', 'h2', 'h3', 'img']);
 		return (
 			<div>
 				{_.has(embeds, '[0].embed') &&

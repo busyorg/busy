@@ -44,7 +44,6 @@ var Sidebar = React.createClass({
 			&& this.state.followingIsLoaded == false
 		) {
 			steem.getFollowing(this.props.auth.user.name, 0, 'blog', 10, function(err, following) {
-				console.log(following);
 				this.setState({following: following});
 			}.bind(this));
 		}
@@ -86,26 +85,32 @@ var Sidebar = React.createClass({
 					{this.props.auth.isAuthenticated && <ul className="list-selector">
 						<li><a onClick={() => this.setState({menu: 'public'})} className="active"><i className="icon icon-md material-icons">public</i></a></li>
 						<li><a onClick={() => this.setState({menu: 'feed'})}  className="active"><i className="icon icon-md material-icons">people</i></a></li>
-						<li><Link to={'/messages'} onClick={() => this.setState({menu: 'messages'})} className="active"><i className="icon icon-md material-icons">chat_bubble_outline</i></Link></li>
+						<li><a onClick={() => this.setState({menu: 'messages'})} className="active"><i className="icon icon-md material-icons">chat_bubble_outline</i></a></li>
 						<li><a onClick={() => this.setState({menu: 'wallet'})} className="active"><i className="icon icon-md material-icons">account_balance_wallet</i></a></li>
 					</ul>}
 				</div>
 				<div className="sidebar-content">
 					{this.state.isFetching && <Loading color="white"/>}
 					{_.size(this.state.categories) > 0 && this.state.menu == 'public' && <ul className="tags">{tags}</ul>}
-					{this.props.auth.isAuthenticated && this.state.menu == 'wallet' &&
-						<ul className="tags">
-							{_.has(this.state.feedPrice, 'base') && <li><span className="menu-row">1 Steem <span className="pull-right">{numeral(base).format('$0,0.00')}</span></span></li>}
-							<li><span className="menu-row">Steem <span className="pull-right">{numeral(user.balance).format('0,0.00')}</span></span></li>
-							{_.has(this.state.feedPrice, 'base') && <li><span className="menu-row">Steem Power <span className="pull-right">{numeral(power).format('0,0.00')}</span></span></li>}
-							<li><span className="menu-row">Steem Dollars <span className="pull-right">{numeral(user.sbd_balance).format('0,0.00')}</span></span></li>
-							{_.has(this.state.feedPrice, 'base') && <li><span className="menu-row">Steem Dollars <span className="pull-right">{numeral(dollar).format('$0,0.00')}</span></span></li>}
-							</ul>}
 					{_.size(this.state.following) > 0 && this.state.menu == 'feed' &&
 						<ul className="tags">
 							{this.state.following.map(function(follow, key) {
 								return <li key={key}><Link to={'/@' + follow.following} activeClassName="active">@{follow.following}</Link></li>
 							})}
+						</ul>}
+					{this.props.auth.isAuthenticated && this.state.menu == 'messages' &&
+						<ul className="tags">
+							<li><Link to={'/messages/@dantheman'} activeClassName="active">@dantheman</Link></li>
+							<li><Link to={'/messages/@ned'} activeClassName="active">@ned</Link></li>
+							<li><Link to={'/messages/@jesta'} activeClassName="active">@jesta</Link></li>
+						</ul>}
+					{this.props.auth.isAuthenticated && _.has(this.state.feedPrice, 'base') && this.state.menu == 'wallet' &&
+						<ul className="tags">
+							<li><span className="menu-row">1 Steem <span className="pull-right">{numeral(base).format('$0,0.00')}</span></span></li>
+							<li><span className="menu-row">Steem <span className="pull-right">{numeral(user.balance).format('0,0.00')}</span></span></li>
+							<li><span className="menu-row">Steem Power <span className="pull-right">{numeral(power).format('0,0.00')}</span></span></li>
+							<li><span className="menu-row">Steem Dollars <span className="pull-right">{numeral(user.sbd_balance).format('0,0.00')}</span></span></li>
+							<li><span className="menu-row">Steem Dollars <span className="pull-right">{numeral(dollar).format('$0,0.00')}</span></span></li>
 						</ul>}
 				</div>
 				<div className="sidebar-footer">

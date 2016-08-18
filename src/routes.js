@@ -61,6 +61,7 @@ module.exports = (
     <Route path="/write" component={Write} />
 
     <Route path="/messages" component={Messages} />
+    <Route path="/messages/:to" component={Messages} />
 
     <Route path="/@:name/posts" component={Posts} />
     <Route path="/@:name/feed" component={Feed} />
