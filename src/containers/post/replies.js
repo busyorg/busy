@@ -1,4 +1,5 @@
 var React = require('react'),
+	_ = require('lodash'),
 	steem = require('./../../../lib/steem'),
 	Reply = require('./reply'),
 	Loading = require("./../loading");
@@ -14,7 +15,7 @@ module.exports = React.createClass({
 		return (
 			<div className="replies">
 				{this.state.replies.length > 0 && <ul>
-					{this.state.replies.map(function(reply, key) {
+					{_.sortBy(this.state.replies, 'created').reverse().map(function(reply, key) {
 						return <Reply key={key} reply={reply} />;
 					})}
 				</ul>}

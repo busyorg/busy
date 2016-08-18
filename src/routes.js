@@ -18,6 +18,7 @@ var React = require('react'),
   Single = require('./components/content'),
   Category = require('./components/feed/category'),
 
+  Edit = require('./components/user/edit'),
   Posts = require('./components/user/posts'),
   Feed = require('./components/user/feed'),
   Replies = require('./components/user/replies'),
@@ -63,6 +64,7 @@ module.exports = (
     <Route path="/messages" component={Messages} />
     <Route path="/messages/:to" component={Messages} />
 
+    <Route path="/profile/edit" component={Edit} />
     <Route path="/@:name/posts" component={Posts} />
     <Route path="/@:name/feed" component={Feed} />
     <Route path="/@:name/replies" component={Replies} />

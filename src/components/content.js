@@ -1,6 +1,7 @@
 var React = require("react"),
 	_ = require('lodash'),
 	steem = require('./../../lib/steem'),
+	moment = require('moment'),
 	Triggers = require("./../containers/triggers"),
 	Header = require("./../containers/header"),
 	Loading = require("./../containers/loading"),
@@ -26,8 +27,15 @@ module.exports = React.createClass({
 						{!_.has(content, 'author') && <Loading />}
 						{_.has(content, 'author') &&
 						<div className="container">
+							<div style={{overflow: 'hidden', height: '40px', lineHeight: '40px'}}>
+								<Link to={'/@' + content.author}>
+		                <span className="avatar avatar-sm pull-left">
+		                  <img src={'https://img.busy6.com/@' + content.author} width="40" height="40" />
+		                </span> <span className="pull-left mls">@{content.author}</span>
+								</Link>
+								<span className="pull-right">{moment(content.created).fromNow()} <a href="#"><i className="icon icon-md material-icons">bookmark_border</i></a></span>
+							</div>
 							<div className="single-content">
-								<p><Link to={'/@' + content.author}>@{content.author}</Link></p>
 								<h1 className="mvl">{content.title}</h1>
 								<Body body={content.body} jsonMetadata={content.json_metadata} />
 							</div>

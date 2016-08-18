@@ -8,11 +8,19 @@ var React = require('react'),
 	parser = require('../../../lib/parser'),
 	Triggers = require('./../../containers/triggers'),
 	Header = require('./../../containers/header'),
+	Feed = require('./../../containers/feed/feed'),
 	Loading = require('./../../containers/loading'),
 	Link = require('react-router').Link;
 
 var Profile = React.createClass({
 	componentWillMount: function() {
+		this.props.setMenu('secondary');
+		this.setState({account: {}});
+		steem.getAccount(this.props.params.name, function(err, account) {
+			this.setState({account: account});
+		}.bind(this));
+	},
+	componentWillReceiveProps: function(nextProps) {
 		this.props.setMenu('secondary');
 		this.setState({account: {}});
 		steem.getAccount(this.props.params.name, function(err, account) {
@@ -54,6 +62,8 @@ var Profile = React.createClass({
 						</ul>
 						<div className="container"></div>
 					</div>}
+					<div><div style={{height: '20px', overflow: 'hidden'}}></div></div>
+					<Feed path={'@' + username + '/posts'} sortBy="created" limit="1" />
 				</div>
 			</div>
 		);
@@ -62,7 +72,6 @@ var Profile = React.createClass({
 
 var mapStateToProps = function(state){
 	return {
-		app: state.app,
 		auth: state.auth
 	};
 };

@@ -1,52 +1,32 @@
 var React = require('react'),
   _ = require('lodash'),
-  axios = require('axios'),
+  steem = require('./../../../lib/steem'),
   Loading = require('./../loading'),
   AddPost = require('./../add-post'),
   Post = require('./../post/post');
 
 module.exports = React.createClass({
   componentWillMount: function() {
-    this.setState({
-      path: this.props.path,
-      sortBy: this.props.sortBy,
-      isFetching: false,
-      isLoaded: false,
-      content: []
-    });
-    this._getState(this.props.path);
-  },
-  _getState: function(path) {
-    this.setState({
-      isFetching: true,
-      isLoaded: false
-    });
-    axios.get('//api.steemjs.com/getState?path=' + path + '&scope=content')
-      .then(response => {
-        var content = (this.state.sortBy)? _.sortBy(response.data, this.state.sortBy).reverse() : response.data;
-        this.setState({
-          isFetching: false,
-          isLoaded: true,
-          content: content
-        });
-      });
+    this.setState({content: {}});
+    steem.getState(this.props.path, 'content', function(err, content) {
+      this.setState({content: content});
+    }.bind(this));
   },
   render: function(){
+    var content = this.state.content;
+    content = (this.props.sortBy)? _.sortBy(content, this.props.sortBy).reverse() : content;
+    content = (this.props.limit)? content.slice(0, this.props.limit) : content;
     return (
       <div className="grid">
         <div className="grid-content">
           <AddPost />
-          {this.state.isFetching?
-            <Loading /> :
-            Object.keys(this.state.content).map(function(entry, key) {
-              return <Post key={key} entry={this.state.content[entry]} />;
-            }.bind(this))
+          {_.size(content) > 0?
+            Object.keys(content).map(function(entry, key) {
+              return <Post key={key} entry={content[entry]} />;
+            }.bind(this)) : <Loading />
           }
         </div>
       </div>
     );
   }
 });
-
-
-
