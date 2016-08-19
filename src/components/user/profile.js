@@ -63,7 +63,7 @@ var Profile = React.createClass({
 						<div className="container"></div>
 					</div>}
 					<div><div style={{height: '20px', overflow: 'hidden'}}></div></div>
-					<Feed path={'@' + username + '/posts'} sortBy="created" limit="1" />
+					<Feed path={'@' + username + '/posts'} sortBy="created" limit="1" replies="false" />
 				</div>
 			</div>
 		);

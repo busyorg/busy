@@ -22,7 +22,7 @@ module.exports = React.createClass({
           <AddPost />
           {_.size(content) > 0?
             Object.keys(content).map(function(entry, key) {
-              return <Post key={key} entry={content[entry]} />;
+              return <Post key={key} entry={content[entry]} replies={this.props.replies} />;
             }.bind(this)) : <Loading />
           }
         </div>

@@ -140,123 +140,6 @@ body.overflow-hidden
 .form-group
   position: relative
 
-.btn-bordered-white
-  background: transparent
-  border-color: #ffffff
-  border-width: 2px
-  color: #ffffff
-  font-size: 20px
-  max-width: 100%
-  padding: 10px 15px
-  -webkit-transition: all 0.25s
-  -o-transition: all 0.25s
-  transition: all 0.25s
-  width: 320px
-  font-weight: 500
-  border-radius: 10px 10px 10px 10px
-  &:hover, &:focus
-    background: #50e3c2
-    border-color: #50e3c2
-    color: #ffffff
-  &:active
-    &:hover, &:focus
-      background: #50e3c2
-      border-color: #50e3c2
-      color: #ffffff
-
-.btn-bordered-green
-  background: transparent
-  border-color: #50e3c2
-  border-width: 2px
-  color: #50e3c2
-  font-size: 20px
-  font-family: $font-primary
-  max-width: 100%
-  padding: 10px 15px
-  -webkit-transition: all 0.25s
-  -o-transition: all 0.25s
-  transition: all 0.25s
-  width: 320px
-  font-weight: 500
-  border-radius: 10px 10px 10px 10px
-  &:hover, &:focus
-    background: #50e3c2
-    border-color: #50e3c2
-    color: #ffffff
-  &:active
-    &:hover, &:focus
-      background: #50e3c2
-      border-color: #50e3c2
-      color: #ffffff
-
-.btn-bordered-blue
-  background: transparent
-  border-color: #3EBFFF
-  border-width: 2px
-  color: #3EBFFF
-  font-size: 20px
-  max-width: 100%
-  padding: 10px 15px
-  -webkit-transition: all 0.25s
-  -o-transition: all 0.25s
-  transition: all 0.25s
-  width: 320px
-  font-weight: 500
-  border-radius: 10px 10px 10px 10px
-
-.btn-fill-green
-  background: #50e3c2
-  border-color: #50e3c2
-  border: 2px
-  color: #ffffff
-  font-size: 20px
-  max-width: 100%
-  padding: 10px 15px
-  -webkit-transition: all 0.25s
-  -o-transition: all 0.25s
-  transition: all 0.25s
-  width: 320px
-  font-weight: 500
-  border-radius: 10px 10px 10px 10px
-  outline: none
-  text-shadow: none
-
-.btn-bordered-blue
-  &:hover, &:focus
-    background: #3EBFFF
-    border-color: #3EBFFF
-    color: #ffffff
-  &:active
-    &:hover, &:focus
-      background: #3EBFFF
-      border-color: #3EBFFF
-      color: #ffffff
-
-.btn-blue-bkd
-  &:hover, &:focus
-    background: #ffffff
-    border-color: #ffffff
-    color: #3EBFFF
-  &:active
-    &:hover, &:focus
-      background: #ffffff
-      border-color: #ffffff
-      color: #3EBFFF
-
-.btn-fill-green
-  &:hover, &:focus
-    background: #47CBAE
-    border-color: #47CBAE
-    color: #ffffff
-  &:active
-    &:hover, &:focus
-      background: #47CBAE
-      border-color: #47CBAE
-      color: #ffffff
-
-.highlight-strong
-  font-family: $font-primary
-
 textarea
   resize: none
   &::-webkit-input-placeholder
@@ -272,7 +155,6 @@ textarea
 
 input[type="checkbox"]
   margin-right: 15px
-
 
 .app-wrapper
   margin: 0 auto
@@ -425,3 +307,7 @@ input[type="checkbox"]
 
 .see-more
   color: $primary-color !important
+
+a.btn-primary
+  &:visited
+      color: white !important

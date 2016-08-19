@@ -59,7 +59,7 @@ module.exports = React.createClass({
         <div className="cell cell-bottom">
           <Actions post={post} />
         </div>
-        {post.children > 0 && <RepliesShort parent={post.author} parentPermlink={post.permlink} />}
+        {this.props.replies != 'false' && post.children > 0 && <RepliesShort parent={post.author} parentPermlink={post.permlink} />}
       </div>
     )
   }

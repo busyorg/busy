@@ -5,6 +5,7 @@ var React = require('react'),
   Wrapper = require('./containers/wrapper'),
 
   Dashboard = require('./components/dashboard'),
+  Login = require('./components/auth/login'),
   Callback = require('./components/auth/callback'),
   Settings = require('./components/settings'),
 
@@ -41,6 +42,7 @@ var React = require('react'),
 module.exports = (
   <Route path="/" component={Wrapper}>
     <IndexRoute component={Dashboard} />
+    <Route path="/login/@:name" component={Login} />
     <Route path="/callback" component={Callback} />
     <Route path="/settings" component={Settings} />
 

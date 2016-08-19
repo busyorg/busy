@@ -6,7 +6,6 @@ var React = require('react'),
 
 var Wrapper = React.createClass({
   componentWillMount: function(){
-    this.props.login('fabien');
     this.props.getConfig();
   },
   render: function() {
@@ -23,15 +22,12 @@ var Wrapper = React.createClass({
 
 var mapStateToProps = function(state){
   return {
-    app: state.app,
-    auth: state.auth,
-    pages: state.pages
+    app: state.app
   };
 };
 
 var mapDispatchToProps = function(dispatch){
   return {
-    login: function(username){ dispatch(actions.login(username)); },
     getConfig: function(){ dispatch(actions.getConfig()); }
   }
 };
