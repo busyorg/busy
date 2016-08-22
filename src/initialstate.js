@@ -16,9 +16,6 @@ module.exports = function(){
 			tabs: [],
 			query: ''
 		},
-		modal: {
-			isVisible: false
-		},
 		pages: {}
 	};
 };

@@ -1,8 +1,7 @@
 var React = require('react'),
-    ReactRedux = require("react-redux"),
-    actions = require("../actions"),
-    Modal = require("./../containers/modal"),
-    Sidebar = require("./../containers/sidebar");
+    ReactRedux = require('react-redux'),
+    actions = require('../actions'),
+    Sidebar = require('./../containers/sidebar');
 
 var Wrapper = React.createClass({
   componentWillMount: function(){
@@ -13,7 +12,6 @@ var Wrapper = React.createClass({
       return (
         <div className={className}>
           {this.props.app.sidebarIsVisible && <Sidebar />}
-          <Modal />
           {this.props.children}
         </div>
       );

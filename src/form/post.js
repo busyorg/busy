@@ -1,9 +1,6 @@
-var React = require("react"),
-	ReactRedux = require("react-redux"),
-	validator = require('validator'),
-	actions = require("../actions");
+var React = require('react');
 
-var Campaign = React.createClass({
+module.exports = React.createClass({
 	render: function(){
 		return (
 			<div className="mod-main">
@@ -23,24 +20,8 @@ var Campaign = React.createClass({
 					</fieldset>
 				</div>
 				<div className="mod-footer">
-					<a href="#" onClick={() => this.props.hideModal()}>Close</a> <button type="submit" className="btn btn-primary btn-lg">Save</button>
+					<a href="#">Close</a> <button type="submit" className="btn btn-primary btn-lg">Save</button>
 				</div>
 			</div>);
 	}
 });
-
-var mapStateToProps = function(state){
-	return {
-		modal: state.modal,
-		auth: state.auth
-	};
-};
-
-var mapDispatchToProps = function(dispatch){
-	return {
-		showModal: function(page){ dispatch(actions.showModal(page)); },
-		hideModal: function(){ dispatch(actions.hideModal()); }
-	}
-};
-
-module.exports = ReactRedux.connect(mapStateToProps,mapDispatchToProps)(Campaign);
