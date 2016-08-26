@@ -13,6 +13,15 @@ module.exports = React.createClass({
 						<h1>Jobs</h1>
 						<p>Roadmap: <Link to="https://github.com/adcpm/busy#roadmap">https://github.com/adcpm/busy#roadmap</Link></p>
 						<p><Link to="/trending/busy-jobs">#busy-jobs</Link></p>
+						<br/><br/>
+						<h1>Stack</h1>
+						<ul>
+							<li>Node.js</li>
+							<li>Express.js</li>
+							<li>React.js</li>
+							<li>Redux</li>
+							<li>Steem.js</li>
+						</ul>
 					</div>
 				</div>
 			</div>

@@ -1,13 +1,13 @@
 var React = require('react'),
 	_ = require('lodash'),
-	steem = require('./../../../lib/steem'),
+	api = require('./../../steem'),
 	Reply = require('./reply'),
 	Loading = require("./../loading");
 
 module.exports = React.createClass({
 	componentWillMount: function() {
 		this.setState({replies: []});
-		steem.getContentReplies(this.props.parent, this.props.parentPermlink, function(err, replies) {
+		api.getContentReplies(this.props.parent, this.props.parentPermlink, function(err, replies) {
 			this.setState({replies: replies});
 		}.bind(this));
 	},

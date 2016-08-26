@@ -1,6 +1,6 @@
 var React = require("react"),
 	_ = require('lodash'),
-	steem = require('./../../lib/steem'),
+	api = require('./../steem'),
 	moment = require('moment'),
 	Triggers = require("./../containers/triggers"),
 	Header = require("./../containers/header"),
@@ -12,7 +12,7 @@ var React = require("react"),
 module.exports = React.createClass({
 	componentWillMount: function() {
 		this.setState({content: {}});
-		steem.getContent(this.props.params.author, this.props.params.permlink, function(err, content) {
+		api.getContent(this.props.params.author, this.props.params.permlink, function(err, content) {
 			this.setState({content: content});
 		}.bind(this));
 	},

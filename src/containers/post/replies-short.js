@@ -1,12 +1,12 @@
 var React = require('react'),
-	steem = require('./../../../lib/steem'),
+	api = require('./../../steem'),
 	ReplyShort = require('./reply-short'),
 	Loading = require("./../loading");
 
 module.exports = React.createClass({
 	componentWillMount: function() {
 		this.setState({replies: []});
-		steem.getContentReplies(this.props.parent, this.props.parentPermlink, function(err, replies) {
+		api.getContentReplies(this.props.parent, this.props.parentPermlink, function(err, replies) {
 			this.setState({replies: replies});
 		}.bind(this));
 	},

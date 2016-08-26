@@ -1,6 +1,6 @@
 var React = require('react'),
   _ = require('lodash'),
-  steem = require('./../../../lib/steem'),
+  api = require('./../../steem'),
   Loading = require('./../loading'),
   AddPost = require('./../add-post'),
   Post = require('./../post/post');
@@ -8,8 +8,8 @@ var React = require('react'),
 module.exports = React.createClass({
   componentWillMount: function() {
     this.setState({content: {}});
-    steem.getState(this.props.path, 'content', function(err, content) {
-      this.setState({content: content});
+    api.getState(this.props.path, function(err, result) {
+      this.setState({content: result['content']});
     }.bind(this));
   },
   render: function(){

@@ -1,19 +1,27 @@
-var React = require("react"),
-	ReactRedux = require("react-redux"),
-	actions = require("./../actions"),
-	parser = require("./../../lib/parser"),
+var React = require('react'),
+	ReactRedux = require('react-redux'),
+	actions = require('./../actions'),
+	parser = require('./../../lib/parser'),
 	_ = require('lodash'),
-	axios = require('axios'),
 	sortBy = require('sort-by'),
 	numeral = require('numeral'),
-	steem = require('./../../lib/steem'),
+	api = require('./../steem'),
 	Loading = require('./../containers/loading'),
-	Link = require("react-router").Link;
+	Link = require('react-router').Link;
 
 var Sidebar = React.createClass({
-	componentWillMount: function() {
-		this.setState({
-			isFetching: false,
+	getInitialState: function() {
+		api.getState('trending/busy', function(err, result) {
+			this.setState({
+				isFetching: false,
+				isLoaded: true,
+				categories: result.categories,
+				props: result.props,
+				feedPrice: result.feed_price
+			});
+		}.bind(this));
+		return {
+			isFetching: true,
 			isLoaded: false,
 			followingIsFetching: false,
 			followingIsLoaded: false,
@@ -22,20 +30,7 @@ var Sidebar = React.createClass({
 			feedPrice: {},
 			following: [],
 			menu: 'public'
-		});
-		this.setState({
-			isFetching: true,
-			isLoaded: false
-		});
-		steem.getState('trending/busy', '', function(err, state) {
-			this.setState({
-				isFetching: false,
-				isLoaded: true,
-				categories: state.categories,
-				props: state.props,
-				feedPrice: state.feed_price
-			});
-		}.bind(this));
+		};
 	},
 	getFollowing: function(){
 		if (this.props.auth.isAuthenticated === true
@@ -43,7 +38,7 @@ var Sidebar = React.createClass({
 			&& this.state.followingIsFetching == false
 			&& this.state.followingIsLoaded == false
 		) {
-			steem.getFollowing(this.props.auth.user.name, 0, 'blog', 10, function(err, following) {
+			api.getFollowing(this.props.auth.user.name, 0, 'blog', 10, function(err, following) {
 				this.setState({following: following});
 			}.bind(this));
 		}

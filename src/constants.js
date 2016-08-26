@@ -16,8 +16,4 @@ module.exports = {
 	// Sidebar
 	SHOW_SIDEBAR: 'SHOW_SIDEBAR',
 	HIDE_SIDEBAR: 'HIDE_SIDEBAR',
-
-	// Tabs
-	TAB_CREATE: 'TAB_CREATE',
-	TAB_DELETE: 'TAB_DELETE',
 };

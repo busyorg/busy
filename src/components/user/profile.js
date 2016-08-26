@@ -1,7 +1,7 @@
 var React = require('react'),
 	ReactRedux = require('react-redux'),
 	_ = require('lodash'),
-	steem = require('./../../../lib/steem'),
+	api = require('./../../steem'),
 	numeral = require('numeral'),
 	moment = require('moment'),
 	actions = require('../../actions'),
@@ -16,15 +16,15 @@ var Profile = React.createClass({
 	componentWillMount: function() {
 		this.props.setMenu('secondary');
 		this.setState({account: {}});
-		steem.getAccount(this.props.params.name, function(err, account) {
-			this.setState({account: account});
+		api.getAccounts([this.props.params.name], function(err, accounts) {
+			this.setState({account: accounts[0]});
 		}.bind(this));
 	},
 	componentWillReceiveProps: function(nextProps) {
 		this.props.setMenu('secondary');
 		this.setState({account: {}});
-		steem.getAccount(this.props.params.name, function(err, account) {
-			this.setState({account: account});
+		api.getAccounts([this.props.params.name], function(err, accounts) {
+			this.setState({account: accounts[0]});
 		}.bind(this));
 	},
 	render: function(){

@@ -24,7 +24,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
 // uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+//README.md.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
 app.enable('trust proxy'); // For get req.ip
 
@@ -51,7 +51,7 @@ app.use(express.static(path.join(__dirname, 'node_modules')));
 
 // Redirect to https://busy6.com
 /*
-app.use(function(req, res, next){
+README.md.use(function(req, res, next){
   var host = req.get('host');
   if (host == 'localhost:3000' || (host == 'busy6.com' && req.secure)) {
     next();
@@ -72,7 +72,7 @@ app.use(function(req, res, next){
 
 /*
 var db = require('./db');
-app.use(function(req,res,next){
+README.md.use(function(req,res,next){
   req.db = db;
   next();
 });

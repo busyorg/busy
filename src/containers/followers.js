@@ -1,14 +1,14 @@
 var React = require('react'),
 	ReactRedux = require('react-redux'),
 	_ = require('lodash'),
-	steem = require('./../../lib/steem'),
+	api = require('./../steem'),
 	Loading = require("./loading"),
 	Link = require('react-router').Link;
 
 var Followers = React.createClass({
 	componentWillMount: function() {
 		this.setState({users: []});
-		steem.getFollowers(this.props.username, '', '', '', function(err, followers) {
+		api.getFollowers(this.props.username, '', '', '', function(err, followers) {
 			this.setState({users: followers});
 		}.bind(this));
 	},

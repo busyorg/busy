@@ -1,16 +1,15 @@
-var steem = require('./../lib/steem'),
+var api = require('./steem'),
 	C = require('./constants');
 
 module.exports = {
 	login: function(username) {
 		return function(dispatch, getState) {
 			var req = {type: C.LOGIN_REQUEST};
-			Object.assign(req);
 			dispatch(req);
-			steem.getAccount(username, function(err, user) {
+			api.getAccounts([username], function(err, users) {
 				var res = {
 					type: C.LOGIN_SUCCESS,
-					user: user,
+					user: users[0],
 				};
 				Object.assign(res);
 				dispatch(res);
@@ -20,14 +19,12 @@ module.exports = {
 	getConfig: function() {
 		return function(dispatch, getState) {
 			var req = {type: C.CONFIG_REQUEST};
-			Object.assign(req);
 			dispatch(req);
-			steem.getConfig(function(err, config) {
+			api.getConfig(function(err, config) {
 				var res = {
 					type: C.CONFIG_SUCCESS,
 					config: config,
 				};
-				Object.assign(res);
 				dispatch(res);
 			});
 		};
