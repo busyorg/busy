@@ -18,7 +18,7 @@ module.exports = React.createClass({
 			<span dangerouslySetInnerHTML={{__html: striptags(marked(this.props.body), ['a', 'b', 'p'])}} /> :
 			<span>
 				<span dangerouslySetInnerHTML={{__html: ellipsis(body, 255, {ellipsis: '…'})}} />
-				{textLength > 255 &&<span className="see-more"> <a onClick={function() { this.seeMore()}}>See More</a></span>}
+				{textLength > 255 &&<span className="see-more"> <a onClick={() => this.seeMore()}>See More</a></span>}
 			</span>
 		);
 	}

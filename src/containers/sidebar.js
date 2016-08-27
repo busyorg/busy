@@ -64,7 +64,7 @@ var Sidebar = React.createClass({
 		}
 		return (
 			<nav className="sidebar">
-				{this.props.app.sidebarIsVisible && <a className="visible-xs hide-sidebar" href="#" onClick={function() { this.props.hideSidebar()}}><i className="icon icon-md icon-menu material-icons">arrow_back</i></a>}
+				{this.props.app.sidebarIsVisible && <a className="visible-xs hide-sidebar" href="#" onClick={() => this.props.hideSidebar()}><i className="icon icon-md icon-menu material-icons">arrow_back</i></a>}
 				<div className="sidebar-header">
 					<div className="me">
 						{this.props.auth.isAuthenticated?
@@ -78,10 +78,10 @@ var Sidebar = React.createClass({
 							<a className="login" href="https://steemconnect.com/authorize/@busy"><i className="icon icon-md material-icons">lock_outline</i> Steem Connect</a>}
 					</div>
 					{this.props.auth.isAuthenticated && <ul className="list-selector">
-						<li><a onClick={function() { this.setState({menu: 'public'})}} className="active"><i className="icon icon-md material-icons">public</i></a></li>
-						<li><a onClick={function() { this.setState({menu: 'feed'})}}  className="active"><i className="icon icon-md material-icons">people</i></a></li>
-						<li><a onClick={function() { this.setState({menu: 'messages'})}} className="active"><i className="icon icon-md material-icons">chat_bubble_outline</i></a></li>
-						<li><a onClick={function() { this.setState({menu: 'wallet'})}} className="active"><i className="icon icon-md material-icons">account_balance_wallet</i></a></li>
+						<li><a onClick={() => this.setState({menu: 'public'})} className="active"><i className="icon icon-md material-icons">public</i></a></li>
+						<li><a onClick={() => this.setState({menu: 'feed'})}  className="active"><i className="icon icon-md material-icons">people</i></a></li>
+						<li><a onClick={() => this.setState({menu: 'messages'})} className="active"><i className="icon icon-md material-icons">chat_bubble_outline</i></a></li>
+						<li><a onClick={() => this.setState({menu: 'wallet'})} className="active"><i className="icon icon-md material-icons">account_balance_wallet</i></a></li>
 					</ul>}
 				</div>
 				<div className="sidebar-content">
