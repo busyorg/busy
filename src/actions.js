@@ -1,4 +1,4 @@
-var api = require('./steem'),
+var api = require('./steem/api'),
 	C = require('./constants');
 
 module.exports = {

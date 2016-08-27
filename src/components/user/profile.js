@@ -1,11 +1,11 @@
 var React = require('react'),
 	ReactRedux = require('react-redux'),
 	_ = require('lodash'),
-	api = require('./../../steem'),
+	api = require('./../../steem/api'),
+	formatter = require('../../steem/formatter'),
 	numeral = require('numeral'),
 	moment = require('moment'),
 	actions = require('../../actions'),
-	parser = require('../../../lib/parser'),
 	Triggers = require('./../../containers/triggers'),
 	Header = require('./../../containers/header'),
 	Feed = require('./../../containers/feed/feed'),
@@ -44,7 +44,7 @@ var Profile = React.createClass({
 					<div className="pal">
 						<div className="mvl">
 							<div className="avatar avatar-xl">
-								{_.has(account, 'name') && <div className="reputation">{parser.reputation(account.reputation)}</div>}
+								{_.has(account, 'name') && <div className="reputation">{formatter.reputation(account.reputation)}</div>}
 								<img src={'https://img.busy6.com/@' + username} />
 							</div>
 							<h1>@{username}</h1>

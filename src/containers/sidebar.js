@@ -1,11 +1,11 @@
 var React = require('react'),
 	ReactRedux = require('react-redux'),
 	actions = require('./../actions'),
-	parser = require('./../../lib/parser'),
+	formatter = require('./../steem/formatter'),
 	_ = require('lodash'),
 	sortBy = require('sort-by'),
 	numeral = require('numeral'),
-	api = require('./../steem'),
+	api = require('./../steem/api'),
 	Loading = require('./../containers/loading'),
 	Link = require('react-router').Link;
 
@@ -56,9 +56,7 @@ var Sidebar = React.createClass({
 		tags = tags.sort(sortBy('discussions'));
 		tags = tags.slice(0, 20);
 		if (_.has(this.state.feedPrice, 'base')) {
-			var vests = user.vesting_shares;
-			var totalVest = this.state.props.total_vesting_shares;
-			var power = parseFloat(this.state.props.total_vesting_fund_steem) * (parseFloat(vests) / parseFloat(totalVest));
+			var power = formatter.vestToSteem(user.vesting_shares, this.state.props.total_vesting_shares, this.state.props.total_vesting_fund_steem);
 			var base = (this.state.feedPrice.base).replace(' SBD', '').replace(',', '');
 			var dollar = (parseFloat(base) * (parseFloat(user.balance) + parseFloat(power))) + parseFloat(user.sbd_balance);
 		}
@@ -70,7 +68,7 @@ var Sidebar = React.createClass({
 						{this.props.auth.isAuthenticated?
 							<Link to={'/@' + user.name}>
 								<span className="avatar avatar-sm">
-									<span className="reputation">{parser.reputation(user.reputation)}</span>
+									<span className="reputation">{formatter.reputation(user.reputation)}</span>
 									<img src={'https://img.busy6.com/@' + user.name} />
 								</span>
 								<span style={{clear: 'both', display: 'block'}}>@{user.name}</span>

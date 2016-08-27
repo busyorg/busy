@@ -1,7 +1,7 @@
 var React = require('react'),
 	ReactRedux = require('react-redux'),
 	_ = require('lodash'),
-	api = require('./../steem'),
+	api = require('./../steem/api'),
 	Loading = require("./loading"),
 	Link = require('react-router').Link;
 
