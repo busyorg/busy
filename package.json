@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "start": "nodemon ./bin/www",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "",
     "build": "browserify --debug -t [reactify --es6] src/index.js > public/js/app.js && uglifyjs public/js/app.js -o public/js/app.min.js",
-    "postinstall": "browserify -t [ babelify --presets [ react ] ] src/index.js -o public/js/app.js"
+    "postinstall": ""
   },
   "dependencies": {
     "async": "^2.0.0",
