@@ -15,16 +15,34 @@ var React = require('react'),
 var Profile = React.createClass({
 	componentWillMount: function() {
 		this.props.setMenu('secondary');
-		this.setState({account: {}});
-		api.getAccounts([this.props.params.name], function(err, accounts) {
-			this.setState({account: accounts[0]});
-		}.bind(this));
+		this.setState({
+			account: {},
+			followersCount: 0,
+			followingCount: 0
+		});
+		this._init();
 	},
 	componentWillReceiveProps: function(nextProps) {
 		this.props.setMenu('secondary');
-		this.setState({account: {}});
-		api.getAccounts([this.props.params.name], function(err, accounts) {
-			this.setState({account: accounts[0]});
+		this.setState({
+			account: {},
+			followersCount: 0,
+			followingCount: 0
+		});
+		this._init();
+	},
+	_init: function(){
+		var username = this.props.params.name;
+		api.getAccounts([username], function(err, result) {
+			this.setState({account: result[0]});
+		}.bind(this));
+		api.getFollowers(username, 0, 'blog', 32, function(err, result) {
+			console.log(_.size(result));
+			this.setState({followersCount: _.size(result)});
+		}.bind(this));
+		api.getFollowing(username, 0, 'blog', 32, function(err, result) {
+			console.log(_.size(result));
+			this.setState({followingCount: _.size(result)});
 		}.bind(this));
 	},
 	render: function(){
@@ -57,8 +75,8 @@ var Profile = React.createClass({
 						<ul className="secondary-nav">
 							<li><i className="icon icon-md material-icons">library_books</i> {numeral(account.post_count).format('0,0')}<span className="hidden-xs"> Posts</span></li>
 							<li><i className="icon icon-md material-icons">gavel</i> {numeral(parseInt(account.voting_power) / 10000).format('%0')}<span className="hidden-xs"> Voting Power</span></li>
-							<li><Link to={'/@' + username + '/followers'}><i className="icon icon-md material-icons">people</i> {numeral(parseInt(0)).format('0,0')}<span className="hidden-xs"> Followers</span></Link></li>
-							<li><Link to={'/@' + username + '/followed'}><i className="icon icon-md material-icons">people</i> {numeral(parseInt(0)).format('0,0')}<span className="hidden-xs"> Followed</span></Link></li>
+							<li><Link to={'/@' + username + '/followers'}><i className="icon icon-md material-icons">people</i> {numeral(parseInt(this.state.followersCount)).format('0,0')}<span className="hidden-xs"> Followers</span></Link></li>
+							<li><Link to={'/@' + username + '/followed'}><i className="icon icon-md material-icons">people</i> {numeral(parseInt(this.state.followingCount)).format('0,0')}<span className="hidden-xs"> Followed</span></Link></li>
 						</ul>
 						<div className="container"></div>
 					</div>}

@@ -26,6 +26,7 @@ var React = require('react'),
   Profile = require('./components/user/profile'),
   Followers = require('./components/user/followers'),
   Followed = require('./components/user/followed'),
+  Wallet = require('./components/user/wallet'),
 
   Trending = require('./components/feed/trending'),
   Hot = require('./components/feed/hot'),
@@ -72,6 +73,7 @@ module.exports = (
     <Route path="/@:name/replies" component={Replies} />
     <Route path="/@:name/followers" component={Followers} />
     <Route path="/@:name/followed" component={Followed} />
+    <Route path="/@:name/wallet" component={Wallet} />
     <Route path="/@:name" component={Profile} />
 
     <Route path="/:category/@:author/:permlink" component={Single} />
