@@ -8,7 +8,6 @@ module.exports = {
 			var req = {type: C.LOGIN_REQUEST};
 			dispatch(req);
 			steemConnect.isAuthenticated(function(err, result) {
-				console.log(err, result);
 				api.getAccounts([result.username], function(err, users) {
 					var res = {
 						type: C.LOGIN_SUCCESS,
