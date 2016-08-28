@@ -6,6 +6,7 @@ var React = require('react'),
 var Wrapper = React.createClass({
   componentWillMount: function(){
     this.props.getConfig();
+    this.props.login();
   },
   render: function() {
       var className = (!this.props.app.sidebarIsVisible)? 'app-wrapper full-width' : 'app-wrapper';
@@ -26,6 +27,7 @@ var mapStateToProps = function(state){
 
 var mapDispatchToProps = function(dispatch){
   return {
+    login: function(){ dispatch(actions.login()); },
     getConfig: function(){ dispatch(actions.getConfig()); }
   }
 };
