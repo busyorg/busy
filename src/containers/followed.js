@@ -8,7 +8,7 @@ var React = require('react'),
 var Followers = React.createClass({
 	componentWillMount: function() {
 		this.setState({users: []});
-		api.getFollowing(this.props.username, '', '', '', function(err, following) {
+		api.getFollowing(this.props.username, 0, 'blog', 32, function(err, following) {
 			this.setState({users: following});
 		}.bind(this));
 	},
