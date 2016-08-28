@@ -1,5 +1,6 @@
 var React = require('react'),
     ReactRedux = require('react-redux'),
+    api = require('./../steem/api'),
     actions = require('../actions'),
     Sidebar = require('./../containers/sidebar');
 
@@ -7,6 +8,13 @@ var Wrapper = React.createClass({
   componentWillMount: function(){
     this.props.getConfig();
     this.props.login();
+  },
+  componentDidMount: function(){
+    setInterval(function() {
+      api.getDynamicGlobalProperties(function(err, result) {
+        console.log('Test!');
+      });
+    }, 10000);
   },
   render: function() {
       var className = (!this.props.app.sidebarIsVisible)? 'app-wrapper full-width' : 'app-wrapper';

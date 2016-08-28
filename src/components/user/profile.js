@@ -36,11 +36,11 @@ var Profile = React.createClass({
 		api.getAccounts([username], function(err, result) {
 			this.setState({account: result[0]});
 		}.bind(this));
-		api.getFollowers(username, 0, 'blog', 32, function(err, result) {
+		api.getFollowers(username, 0, 'blog', 100, function(err, result) {
 			console.log(_.size(result));
 			this.setState({followersCount: _.size(result)});
 		}.bind(this));
-		api.getFollowing(username, 0, 'blog', 32, function(err, result) {
+		api.getFollowing(username, 0, 'blog', 100, function(err, result) {
 			console.log(_.size(result));
 			this.setState({followingCount: _.size(result)});
 		}.bind(this));
