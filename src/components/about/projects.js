@@ -34,6 +34,7 @@ module.exports = React.createClass({
 						<h1>Steem Script <img src="/img/open-source.svg" height="46" /></h1>
 						<p>An Open JSON Standard for Trusted Workflows</p>
 						<p><Link to="/trending/steemscript">#steemscript</Link></p>
+						<p><a href="https://github.com/adcpm/steemscript" target="_blank">https://github.com/adcpm/steemscript</a></p>
 					</div>
 					<div className="block">
 						<h1>Busy Img <img src="/img/open-source.svg" height="46" /></h1>

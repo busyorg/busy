@@ -4,7 +4,7 @@ module.exports = function(){
 			isFetching: false,
 			isLoaded: false,
 			errorMessage: '',
-			sidebarIsVisible: true
+			sidebarIsVisible: false
 		},
 		auth: {
 			isAuthenticated: false,
