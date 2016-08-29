@@ -11,9 +11,7 @@ var Wrapper = React.createClass({
   },
   componentDidMount: function(){
     setInterval(function() {
-      api.getDynamicGlobalProperties(function(err, result) {
-        console.log('Test!');
-      });
+      api.getDynamicGlobalProperties(function(err, result) {});
     }, 10000);
   },
   render: function() {
