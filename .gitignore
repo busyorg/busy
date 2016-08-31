@@ -1,4 +1,5 @@
 public/js/app.js
+public/js/app.min.js
 .idea
 .save
 *.css.map

@@ -6,7 +6,7 @@
     "start": "nodemon ./bin/www",
     "test": "",
     "build": "browserify --debug -t [reactify --es6] src/index.js > public/js/app.js && uglifyjs public/js/app.js -o public/js/app.min.js",
-    "postinstall": ""
+    "postinstall": "browserify --debug -t [reactify --es6] src/index.js > public/js/app.js && uglifyjs public/js/app.js -o public/js/app.min.js"
   },
   "dependencies": {
     "async": "^2.0.0",
