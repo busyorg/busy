@@ -12,12 +12,13 @@ module.exports = React.createClass({
 					<div className="block">
 						<h1>Team</h1>
 						<p><Link to="/@fabien">@fabien</Link> CTO</p>
-						<p><Link to="/@clains">@clains</Link> CEO</p>
 						<p><Link to="/@ekitcho">@ekitcho</Link> CHRO</p>
 						<p><Link to="/@kaptainkrayola">@kaptainkrayola</Link> Developer</p>
 						<p><Link to="/@heimindanger">@heimindanger</Link> Developer</p>
+						<p><Link to="/@clains">@clains</Link> CEO</p>
 						<p><Link to="/@nil1511">@nil1511</Link> Developer</p>
-						<p><Link to="/@fabien">You?</Link></p>
+						<p><Link to="/@picokernel">@picokernel</Link> Developer</p>
+						<p>You? <Link to="/@fabien">Contact us</Link></p>
 					</div>
 				</div>
 			</div>
