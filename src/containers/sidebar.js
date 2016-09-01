@@ -38,7 +38,7 @@ var Sidebar = React.createClass({
 			&& this.state.followingIsFetching == false
 			&& this.state.followingIsLoaded == false
 		) {
-			api.getFollowing(this.props.auth.user.name, 0, 'blog', 10, function(err, following) {
+			api.getFollowing(this.props.auth.user.name, 0, 'blog', 50, function(err, following) {
 				this.setState({following: following});
 			}.bind(this));
 		}
