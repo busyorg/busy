@@ -26,6 +26,7 @@ V1: Facebook style feed + Slack style chat + custom profile + languages + large 
 - Enable follow/mute
 - Loop followers and following methods to get the real total count on profile
 - Add infinite scroll pagination
+- Fix CSS issue on Safari
 
 ## Steem.js
 GitHub: https://github.com/adcpm/steem<br/>
