@@ -15,10 +15,10 @@ The Busy Foundation’s mission is to develop and promote the next generation de
 # Roadmap
 
 ## Busy
+V1: Facebook style feed + Slack style chat + custom profile + languages + large embedding choice<br/>
 GitHub: https://github.com/adcpm/busy<br/>
 Issues: https://github.com/adcpm/busy/issues<br/>
 Website: https://bus.yt/<br/>
-V1: Facebook style feed + Slack style chat + custom profile + languages + large embedding choice
 - Update article when vote passed to get the new vote count and reward
 - Enable voting on article
 - Enable commenting on article
@@ -32,7 +32,6 @@ V1: Facebook style feed + Slack style chat + custom profile + languages + large 
 GitHub: https://github.com/adcpm/steem<br/>
 Issues: https://github.com/adcpm/steem/issues<br/>
 NPM Package: https://www.npmjs.com/package/steem<br/>
-V1: Custom profile, app manager, api key for app
 Website: https://steemjs.com/<br/>
 - Add the object "connect" into Steem.js index with the NPM package "steemconnect" (only for the browser version)
 
@@ -42,6 +41,7 @@ Website: https://api.steemjs.com/<br/>
 - Update the API with the last version of Steem.js
 
 ## Steem Connect
+V1: Custom profile, app manager, api key for app<br/>
 NPM Package: https://www.npmjs.com/package/steemconnect<br/>
 Website: https://steemconnect.com/<br/>
 GitHub: https://github.com/adcpm/steemconnect.com<br/>
