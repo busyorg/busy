@@ -18,7 +18,7 @@ The Busy Foundation’s mission is to develop and promote the next generation de
 GitHub: https://github.com/adcpm/busy<br/>
 Issues: https://github.com/adcpm/busy/issues<br/>
 Website: https://bus.yt/<br/>
-V1: Facebook + Slack, full embed
+V1: Facebook style feed + Slack style chat + custom profile + languages + large embedding choice
 - Update article when vote passed to get the new vote count and reward
 - Enable voting on article
 - Enable commenting on article
