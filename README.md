@@ -5,12 +5,20 @@ The Busy Foundation’s mission is to develop and promote the next generation de
 - Frontend: React.js + Redux
 - Backend: Node.js + Express.js
 
+## How to contribute?
+- Do a request from the roadmap
+- Find an issue and list it on the related GitHub repository issue page
+- Solve an issue
+- Improve documentation
+- Write tutorial for use Steem.js or Steem API
+
 # Roadmap
 
 ## Busy
 GitHub: https://github.com/adcpm/busy<br/>
 Issues: https://github.com/adcpm/busy/issues<br/>
 Website: https://bus.yt/<br/>
+V1: Facebook + Slack, full embed
 - Update article when vote passed to get the new vote count and reward
 - Enable voting on article
 - Enable commenting on article
@@ -23,6 +31,7 @@ Website: https://bus.yt/<br/>
 GitHub: https://github.com/adcpm/steem<br/>
 Issues: https://github.com/adcpm/steem/issues<br/>
 NPM Package: https://www.npmjs.com/package/steem<br/>
+V1: Custom profile, app manager, api key for app
 Website: https://steemjs.com/<br/>
 - Add the object "connect" into Steem.js index with the NPM package "steemconnect" (only for the browser version)
 
