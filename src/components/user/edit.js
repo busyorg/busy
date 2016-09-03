@@ -10,7 +10,10 @@ var Edit = React.createClass({
 				<Header account={this.props.auth.user.name} />
 				<div><div style={{height: '20px', overflow: 'hidden'}}></div></div>
 				<div className="page">
-					<div className="block"><h1>Edit Profile</h1></div>
+					<div className="block">
+						<h1>Edit Profile</h1>
+						<p><a href="https://steemconnect.com/logout" target="_blank">Log Out</a></p>
+					</div>
 				</div>
 			</div>
 		);
