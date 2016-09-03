@@ -16,6 +16,8 @@ Website: https://bus.yt/<br/>
 - Enable commenting on article
 - Enable commenting on feed article
 - Enable follow/mute
+- Loop followers and following methods to get the real total count on profile
+- Add infinite scroll pagination
 
 ## Steem.js
 GitHub: https://github.com/adcpm/steem<br/>
