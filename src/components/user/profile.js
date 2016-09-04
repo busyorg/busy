@@ -60,7 +60,7 @@ var Profile = React.createClass({
 							{_.has(account, 'name') && <div className="reputation">{formatter.reputation(account.reputation)}</div>}
 							<img src={'https://img.busy6.com/@' + username} />
 						</div>
-						<h1>{_.has(jsonMetadata, 'name')? jsonMetadata.name : '@' + username}</h1>
+						<h1>{_.has(jsonMetadata, 'profile.name')? jsonMetadata.name : '@' + username}</h1>
 					</div>
 				</section>
 				<div className="profile">
@@ -73,9 +73,9 @@ var Profile = React.createClass({
 							<li><Link to={'/@' + username + '/followed'}><i className="icon icon-md material-icons">people</i> {numeral(parseInt(this.state.followingCount)).format('0,0')}<span className="hidden-xs"> Followed</span></Link></li>
 						</ul>
 						<center className="mal">
-							{_.has(jsonMetadata, 'about') && <h3>{jsonMetadata.about}</h3>}
-							{_.has(jsonMetadata, 'website') && <p><i className="icon icon-md material-icons">link</i> <a href={jsonMetadata.website} target="_blank">{jsonMetadata.website}</a></p>}
-							{_.has(jsonMetadata, 'location') && <p><i className="icon icon-md material-icons">pin_drop</i> {jsonMetadata.location}</p>}
+							{_.has(jsonMetadata, 'profile.about') && <h3>{jsonMetadata.profile.about}</h3>}
+							{_.has(jsonMetadata, 'profile.website') && <p><i className="icon icon-md material-icons">link</i> <a href={jsonMetadata.profile.website} target="_blank">{jsonMetadata.profile.website}</a></p>}
+							{_.has(jsonMetadata, 'profile.location') && <p><i className="icon icon-md material-icons">pin_drop</i> {jsonMetadata.profile.location}</p>}
 							{_.has(account, 'name') && <p>
 								<span>Joined {moment(account.created).fromNow()}</span> <span>, last activity {moment(account.last_active).fromNow()}</span>
 							</p>}
