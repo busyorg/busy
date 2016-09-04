@@ -1,3 +1,3 @@
-var api = require('./../../node_modules/steem/lib/api');
+var api = require('steem').api;
 api.setWebSocket('wss://node.steem.ws');
 module.exports = api;
