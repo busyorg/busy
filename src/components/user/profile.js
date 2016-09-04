@@ -55,14 +55,12 @@ var Profile = React.createClass({
 				<Header account={username} />
 				<section className="align-center bg-green profile-header"
           style={{backgroundImage: 'url(https://img.busy6.com/@' + username + '/cover)', backgroundSize: 'cover'}}>
-					<div className="pal">
-						<div className="mvl">
-							<div className="avatar avatar-xl">
-								{_.has(account, 'name') && <div className="reputation">{formatter.reputation(account.reputation)}</div>}
-								<img src={'https://img.busy6.com/@' + username} />
-							</div>
-							<h1>{_.has(jsonMetadata, 'name')? jsonMetadata.name : '@' + username}</h1>
+					<div className="mvl">
+						<div className="avatar avatar-xl">
+							{_.has(account, 'name') && <div className="reputation">{formatter.reputation(account.reputation)}</div>}
+							<img src={'https://img.busy6.com/@' + username} />
 						</div>
+						<h1>{_.has(jsonMetadata, 'name')? jsonMetadata.name : '@' + username}</h1>
 					</div>
 				</section>
 				<div className="profile">
