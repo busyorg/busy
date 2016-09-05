@@ -60,7 +60,7 @@ var Profile = React.createClass({
 							{_.has(account, 'name') && <div className="reputation">{formatter.reputation(account.reputation)}</div>}
 							<img src={'https://img.busy6.com/@' + username} />
 						</div>
-						<h1>{_.has(jsonMetadata, 'profile.name')? jsonMetadata.name : '@' + username}</h1>
+						<h1>{_.has(jsonMetadata, 'profile.name')? jsonMetadata.profile.name : '@' + username}</h1>
 					</div>
 				</section>
 				<div className="profile">
