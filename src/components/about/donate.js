@@ -12,8 +12,7 @@ module.exports = React.createClass({
 					<div className="block">
 						<h1>Donate</h1>
 						<p><Link to="/@busy">@busy</Link></p>
-					</div>
-					<div className="block">
+						<br/><br/>
 						<h1>Donors</h1>
 						<p><Link to="/@bhuz">@bhuz</Link><br/><Link to="/findandreward/@bhuz/find-and-reward-first-rewards-distribution">Find&Reward: First Rewards Distribution</Link></p>
 					</div>
