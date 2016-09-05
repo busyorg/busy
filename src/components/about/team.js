@@ -19,6 +19,7 @@ module.exports = React.createClass({
 						<p><Link to="/@spectral">@spectral</Link> CEO</p>
 						<p><Link to="/@nil1511">@nil1511</Link> Developer</p>
 						<p><Link to="/@picokernel">@picokernel</Link> Developer</p>
+						<p><Link to="/@svk">@svk</Link> Developer</p>
 						<p>You? <Link to="/@fabien">Contact us</Link></p>
 					</div>
 				</div>
