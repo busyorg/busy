@@ -3,7 +3,6 @@ var React = require('react'),
 	actions = require('./../actions'),
 	formatter = require('./../steem/formatter'),
 	_ = require('lodash'),
-	sortBy = require('sort-by'),
 	numeral = require('numeral'),
 	api = require('./../steem/api'),
 	Loading = require('./../containers/loading'),
@@ -53,7 +52,7 @@ var Sidebar = React.createClass({
 				tags.push(<li key={key}><Link to={'/trending/' + category.name} activeClassName="active">#{category.name}</Link></li>);
 			});
 		}
-		tags = tags.sort(sortBy('discussions'));
+		tags = _.sortBy(tags, 'discussions');
 		tags = tags.slice(0, 20);
 		if (_.has(this.state.feedPrice, 'base')) {
 			var power = formatter.vestToSteem(user.vesting_shares, this.state.props.total_vesting_shares, this.state.props.total_vesting_fund_steem);
