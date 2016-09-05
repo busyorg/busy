@@ -17,6 +17,9 @@ var cors = require('cors');
 //var cookieParser = require('cookie-parser');
 var session = require('express-session');
 
+if (process.env.NODE_ENV !== 'production')
+  require('./webpack')(app);
+
 // view engine setup
 var hbs = require('hbs');
 hbs.registerPartials(__dirname + '/views/partials');
