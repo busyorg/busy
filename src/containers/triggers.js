@@ -1,6 +1,6 @@
 var React = require('react'),
 	Reply = require('./../form/reply'),
-	Link = require('react-router').Link;
+	{Link} = require('react-router');
 
 module.exports = React.createClass({
 	render: function(){
@@ -11,7 +11,7 @@ module.exports = React.createClass({
 					{this.props.likes && <a href="#replies" className="trigger"><i className="icon icon-md material-icons">thumb_up</i></a>}
 					{this.props.replies && <a href="#replies" className="trigger"><i className="icon icon-md material-icons">reply</i></a>}
 					{this.props.messages && <a href="#messages" className="trigger"><i className="icon icon-md material-icons">chat_bubble_outline</i></a>}
-					{this.props.add && <a href="#write" className="trigger"><i className="icon icon-md material-icons">add</i></a>}
+					{this.props.add && <Link to="/write" className="trigger"><i className="icon icon-md material-icons">add</i></Link>}
 				</div>
 			</div>
 		);

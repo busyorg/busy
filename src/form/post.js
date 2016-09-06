@@ -3,24 +3,23 @@ var React = require('react');
 module.exports = React.createClass({
 	render: function(){
 		return (
-			<div className="mod-main">
-				<div className="mod-header"><h2>Create Article</h2></div>
-				<div className="mod-content">
+			<div>
+				<div>
 					<fieldset className="form-group">
-						<label for="formGroupExampleInput">Name</label>
+						<label for="formGroupExampleInput">Title</label>
 						<input autoFocus type="text" className="form-control form-control-lg" ref="title" />
 					</fieldset>
 					<fieldset className="form-group">
 						<label for="formGroupExampleInput">Body</label>
-						<input type="text" className="form-control form-control-lg" ref="body" />
+						<textarea className="form-control form-control-lg" ref="body"></textarea>
 					</fieldset>
 					<fieldset className="form-group">
-						<label for="formGroupExampleInput">Tags</label>
-						<input type="text" className="form-control form-control-lg" ref="tags" />
+						<label for="formGroupExampleInput">Category</label>
+						<input type="text" className="form-control form-control-lg" ref="category" />
 					</fieldset>
 				</div>
-				<div className="mod-footer">
-					<a href="#">Close</a> <button type="submit" className="btn btn-primary btn-lg">Save</button>
+				<div>
+					<a href="#">Cancel</a> <button type="submit" className="btn btn-primary btn-lg">Post</button>
 				</div>
 			</div>);
 	}
