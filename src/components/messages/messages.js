@@ -80,9 +80,12 @@ var MessageForm = React.createClass({
 		this.setState({ text : e.target.value });
 	},
 	render: function() {
-		return(<form className="container message-form" onSubmit={this.handleSubmit}>
-					<input onChange={this.changeHandler} value={this.state.text} />
-				</form>);
+		return(
+			<form className="message-form" onSubmit={this.handleSubmit}>
+				<div className="container">
+					<textarea className="pas" autoFocus onChange={this.changeHandler} value={this.state.text} />
+				</div>
+			</form>);
 	}
 });
 
