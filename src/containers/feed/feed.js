@@ -41,7 +41,7 @@ module.exports = class componentName extends React.Component {
       if (lastResult && lastContent && lastResult.id == lastContent.id) {
         content = this.state.content;
       } else {
-        content = _.concat(this.state.content, result);
+        content = _.concat(this.state.content, _.slice(result, 1)); //Since first is same as last
       }
       this.setState({ content, isLoading: false });
     });
