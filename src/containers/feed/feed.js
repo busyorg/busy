@@ -26,7 +26,7 @@ module.exports = class componentName extends React.Component {
       'active': 'getDiscussionsByActive'
     }
     let currentType = type[this.props.path] || type['trending'];
-
+    tag = this.props.path.split('/')[1]
     let feed = this.props.path.match(/(@)(\w+)(\/feed)/);
     if (feed && feed.length && feed[2]) {
       currentType = type['feed'];
