@@ -81,7 +81,7 @@ module.exports = class componentName extends React.Component {
     var el = event.target;
     let {scrollTop, scrollHeight, offsetHeight} = el;
     let scrollRemain = scrollHeight - scrollTop - offsetHeight;
-    let scrollThreshold = window.innerHeight * 4;
+    let scrollThreshold = window.innerHeight + 200;
     if (scrollHeight && (scrollRemain < scrollThreshold) && !this.state.isLoading) {
       this.setState({ isLoading: true }, () => {
         this.loadMore();
