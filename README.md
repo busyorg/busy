@@ -45,7 +45,6 @@ V1: Custom profile, app manager, api key for app<br/>
 NPM Package: https://www.npmjs.com/package/steemconnect<br/>
 Website: https://steemconnect.com/<br/>
 GitHub: https://github.com/adcpm/steemconnect.com<br/>
-- Create profil page editable following SteemScript standard
 
 ## Steem Embed
 NPM Package: https://www.npmjs.com/package/steemembed<br/>
