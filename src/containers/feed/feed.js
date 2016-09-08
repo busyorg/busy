@@ -16,8 +16,9 @@ module.exports = class componentName extends React.Component {
   }
 
   getDiscussions = (tag, limit, start_author, start_permlink) => {
-    limit = limit || 10;
+    limit = limit || 20;
     let type = {
+      "feed": 'getDiscussionsByFeed',
       'trending': 'getDiscussionsByTrending',
       'hot': 'getDiscussionsByHot',
       'cashout': 'getDiscussionsByCashout',
@@ -26,9 +27,22 @@ module.exports = class componentName extends React.Component {
     }
     let currentType = type[this.props.path] || type['trending'];
 
+    let feed = this.props.path.match(/(@)(\w+)(\/feed)/);
+    if (feed && feed.length && feed[2]) {
+      currentType = type['feed'];
+      tag = feed[2] //username
+    }
+
     api[currentType]({ tag, limit, start_author, start_permlink }, (err, result) => {
       err && console.error('error while ' + currentType, JSON.stringify(err));
-      let content = _.concat(this.state.content, result);
+      let lastContent = _.last(this.state.content);
+      let lastResult = _.last(result);
+      let content;
+      if (lastResult && lastContent && lastResult.id == lastContent.id) {
+        content = this.state.content;
+      } else {
+        content = _.concat(this.state.content, result);
+      }
       this.setState({ content, isLoading: false });
     });
   }
