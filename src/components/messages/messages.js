@@ -83,7 +83,7 @@ var MessageForm = React.createClass({
 		return(
 			<form className="message-form" onSubmit={this.handleSubmit}>
 				<div className="container">
-					<textarea className="pas" autoFocus onChange={this.changeHandler} value={this.state.text} />
+					<textarea autoFocus className="pas" onChange={this.changeHandler} value={this.state.text} />
 				</div>
 			</form>);
 	}
