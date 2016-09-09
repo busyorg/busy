@@ -1,6 +1,6 @@
 var React = require("react"),
-	Header = require("./../../containers/header"),
-	Post = require('./../../form/post');
+	Header = require("./../containers/header"),
+	Post = require('./../form/post');
 
 module.exports = React.createClass({
 	render: function(){
