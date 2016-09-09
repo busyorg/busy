@@ -4,10 +4,10 @@ var React = require('react'),
   IndexRoute = ReactRouter.IndexRoute,
   Wrapper = require('./containers/wrapper'),
 
-  Dashboard = require('./components/dashboard'),
+  Dashboard = require('./app/dashboard'),
   Login = require('./auth/login'),
   Callback = require('./auth/callback'),
-  Settings = require('./components/settings'),
+  Settings = require('./app/settings'),
 
   About = require('./about/about'),
   Team = require('./about/team'),
@@ -36,7 +36,7 @@ var React = require('react'),
   Responses = require('./feed/responses'),
   Votes = require('./feed/votes'),
 
-  Write = require('./components/write/write'),
+  Write = require('./write/write'),
 
   Messages = require('./messages/Messages');
 
