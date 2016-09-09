@@ -5,11 +5,12 @@ var React = require('react'),
   moment = require('moment'),
   actions = require('../../actions'),
   RepliesShort = require('./replies-short'),
-  Flag = require('./flag'),
   BodyShort = require('./body-short'),
   Actions = require('./actions'),
   Mentions = require('./mentions'),
   Link = require('react-router').Link;
+
+import Flag from './flag';
 
 var colorCode = {green: 'rgba(39, 208, 169, 0.4)', red: 'rgba(249, 43, 97, 0.2)'};
 var classCode = {green: 'grid-row-green', red: 'grid-row-red'};
@@ -51,7 +52,9 @@ module.exports = React.createClass({
         {_.has(embeds, '[0].embed') &&
           <div className="thumbs" dangerouslySetInnerHTML={{__html: embeds[0].embed}} ></div>}
         <div className="cell cell-body">
-          <h2><Flag title={post.title} body={post.body} /><Link to={steemit}>{post.title}</Link></h2>
+          <h2>
+            <Flag title={post.title} body={post.body} />
+            <Link to={steemit}>{post.title}</Link></h2>
           <Mentions jsonMetadata={jsonMetadata} />
           <p><BodyShort body={post.body} /></p>
         </div>
