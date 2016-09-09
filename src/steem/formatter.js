@@ -1,1 +1,0 @@
-module.exports = require('./../../node_modules/steem/lib/formatter');
