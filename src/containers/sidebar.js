@@ -4,7 +4,7 @@ var React = require('react'),
 	formatter = require('steem/lib/formatter'),
 	_ = require('lodash'),
 	numeral = require('numeral'),
-	api = require('./../steem/api'),
+	api = require('./../steemAPI'),
 	Loading = require('./../containers/loading'),
 	Link = require('react-router').Link;
 

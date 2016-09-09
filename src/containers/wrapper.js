@@ -1,6 +1,6 @@
 var React = require('react'),
     ReactRedux = require('react-redux'),
-    api = require('./../steem/api'),
+    api = require('./../steemAPI'),
     actions = require('../actions'),
     Sidebar = require('./../containers/sidebar');
 

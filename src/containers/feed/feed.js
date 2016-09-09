@@ -1,6 +1,6 @@
 var React = require('react'),
   _ = require('lodash'),
-  api = require('./../../steem/api'),
+  api = require('./../../steemAPI'),
   Loading = require('./../loading'),
   AddPost = require('./../add-post'),
   Post = require('./../post/post');

@@ -1,5 +1,5 @@
 var React = require('react'),
-	api = require('./../../steem/api'),
+	api = require('./../../steemAPI'),
 	ReplyShort = require('./reply-short'),
 	Loading = require("./../loading");
 

@@ -1,4 +1,4 @@
-var api = require('./steem/api'),
+var api = require('./steemAPI'),
 	steemConnect = require('steemconnect'),
 	C = require('./constants');
 
