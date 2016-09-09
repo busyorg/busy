@@ -1,7 +1,7 @@
 var React = require('react'),
 	ReactRedux = require('react-redux'),
-	actions = require('./../../actions'),
-	Header = require("./../../containers/header");
+	actions = require('./../actions'),
+	Header = require("./../containers/header");
 
 var Callback = React.createClass({
 	componentWillMount: function(){

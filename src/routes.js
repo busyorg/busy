@@ -5,8 +5,8 @@ var React = require('react'),
   Wrapper = require('./containers/wrapper'),
 
   Dashboard = require('./components/dashboard'),
-  Login = require('./components/auth/login'),
-  Callback = require('./components/auth/callback'),
+  Login = require('./auth/login'),
+  Callback = require('./auth/callback'),
   Settings = require('./components/settings'),
 
   About = require('./about/about'),
