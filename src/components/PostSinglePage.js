@@ -1,6 +1,6 @@
 var React = require("react"),
 	_ = require('lodash'),
-	api = require('./../steem/api'),
+	api = require('./../steemAPI'),
 	moment = require('moment'),
 	Triggers = require("./../containers/triggers"),
 	Header = require("./../containers/header"),
