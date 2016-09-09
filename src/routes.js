@@ -38,7 +38,7 @@ var React = require('react'),
 
   Write = require('./components/write/write'),
 
-  Messages = require('./messages/messages');
+  Messages = require('./messages/Messages');
 
 module.exports = (
   <Route path="/" component={Wrapper}>
