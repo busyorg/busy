@@ -1,7 +1,7 @@
 var React = require('react'),
 	ReactRedux = require('react-redux'),
 	_ = require('lodash'),
-	api = require('./../steem/api'),
+	api = require('./../steemAPI'),
 	formatter = require('steem/lib/formatter'),
 	numeral = require('numeral'),
 	moment = require('moment'),
