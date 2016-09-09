@@ -36,7 +36,7 @@ var React = require('react'),
   Responses = require('./feed/responses'),
   Votes = require('./feed/votes'),
 
-  Write = require('./write/write'),
+  Write = require('./newPost/NewPost'),
 
   Messages = require('./messages/Messages');
 
