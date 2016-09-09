@@ -1,11 +1,11 @@
 var React = require('react'),
 	ReactRedux = require('react-redux'),
 	_ = require('lodash'),
-	api = require('./../../steem/api'),
+	api = require('./../steem/api'),
 	moment = require('moment'),
-	actions = require('../../actions'),
-	Triggers = require('./../../containers/triggers'),
-	Header = require('./../../containers/header'),
+	actions = require('../actions'),
+	Triggers = require('./../containers/triggers'),
+	Header = require('./../containers/header'),
 	Link = require('react-router').Link;
 
 var Wallet = React.createClass({

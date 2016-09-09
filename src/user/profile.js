@@ -1,15 +1,15 @@
 var React = require('react'),
 	ReactRedux = require('react-redux'),
 	_ = require('lodash'),
-	api = require('./../../steem/api'),
-	formatter = require('../../steem/formatter'),
+	api = require('./../steem/api'),
+	formatter = require('../steem/formatter'),
 	numeral = require('numeral'),
 	moment = require('moment'),
-	actions = require('../../actions'),
-	Triggers = require('./../../containers/triggers'),
-	Header = require('./../../containers/header'),
-	Feed = require('./../../containers/feed/feed'),
-	Loading = require('./../../containers/loading'),
+	actions = require('../actions'),
+	Triggers = require('./../containers/triggers'),
+	Header = require('./../containers/header'),
+	Feed = require('./../containers/feed/feed'),
+	Loading = require('./../containers/loading'),
 	Link = require('react-router').Link;
 
 var Profile = React.createClass({

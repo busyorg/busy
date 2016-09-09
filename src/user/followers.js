@@ -1,7 +1,7 @@
 var React = require('react'),
 	_ = require('lodash'),
-	Header = require('./../../containers/header'),
-	Followers = require('./../../containers/followers');
+	Header = require('./../containers/header'),
+	Followers = require('./../containers/followers');
 
 module.exports = React.createClass({
 	render: function(){
