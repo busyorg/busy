@@ -16,7 +16,7 @@ var React = require('react'),
   Donate = require('./statics/donate'),
   Help = require('./statics/help'),
 
-  Single = require('./components/content'),
+  PostSinglePage = require('./components/PostSinglePage'),
   Category = require('./feed/category'),
 
   Edit = require('./user/edit'),
@@ -76,7 +76,7 @@ module.exports = (
     <Route path="/@:name/wallet" component={Wallet} />
     <Route path="/@:name" component={Profile} />
 
-    <Route path="/:category/@:author/:permlink" component={Single} />
+    <Route path="/:category/@:author/:permlink" component={ PostSinglePage } />
     <Route path="/:sortBy/:category" component={Category} />
   </Route>
 );
