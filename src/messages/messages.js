@@ -1,7 +1,10 @@
-var React = require("react"),
-	Header = require("./../containers/header");
+import React from 'react';
+import Header from './../containers/header';
+import MessageForm from './MessageForm';
+import MessageList from './MessageList';
+import Message from './Message';
 
-module.exports = React.createClass({
+export default React.createClass({
 	getInitialState: function(){
 		return {
 			users: [],
@@ -9,6 +12,7 @@ module.exports = React.createClass({
 			text: ''
 		};
 	},
+
 	componentDidMount: function(){
 		document.title = 'Messages | Busy';
 		var io = require('socket.io-client');
@@ -18,11 +22,13 @@ module.exports = React.createClass({
 		socket.on('user:left', this._userLeft);
 		this.socket = socket;
 	},
+
 	_messageRecieve: function(message) {
 		var messages = this.state.messages;
 		messages.push(message);
 		this.setState({messages: messages});
 	},
+
 	_userJoined: function(data) {
 		var users = this.state.users;
 		var messages = this.state.messages;
@@ -34,6 +40,7 @@ module.exports = React.createClass({
 		});
 		this.setState({users: users, messages: messages});
 	},
+
 	_userLeft: function(data) {
 		var users = this.state.users;
 		var messages = this.state.messages;
@@ -46,9 +53,11 @@ module.exports = React.createClass({
 		});
 		this.setState({users: users, messages: messages});
 	},
+
 	handleMessageSubmit: function(message) {
 		this.socket.emit('send:message', message);
 	},
+
 	render: function(){
 		return (
 			<div className="main-panel">
@@ -58,59 +67,6 @@ module.exports = React.createClass({
 					<MessageForm onMessageSubmit={this.handleMessageSubmit} user={this.state.user} />
 				</div>
 			</div>
-		);
-	}
-});
-
-
-var MessageForm = React.createClass({
-	getInitialState: function() {
-		return {text: ''};
-	},
-	handleSubmit: function(e) {
-		e.preventDefault();
-		var message = {
-			user : this.props.user,
-			text : this.state.text
-		};
-		this.props.onMessageSubmit(message);
-		this.setState({ text: '' });
-	},
-	changeHandler: function(e) {
-		this.setState({ text : e.target.value });
-	},
-	render: function() {
-		return(
-			<form className="message-form" onSubmit={this.handleSubmit}>
-				<div className="container">
-					<textarea autoFocus className="pas" onChange={this.changeHandler} value={this.state.text} />
-				</div>
-			</form>);
-	}
-});
-
-var MessageList = React.createClass({
-	render: function() {
-		return (
-			<div className="messages-content">
-				<div className="container">
-					<ul>
-						{this.props.messages.map(function(message, i) {
-							return (<Message key={i} user={message.user} text={message.text} />);
-						})}
-					</ul>
-				</div>
-			</div>
-		);
-	}
-});
-
-var Message = React.createClass({
-	render: function() {
-		return (
-			<li className="message">
-				<span><b>@{this.props.user}</b>: {this.props.text}</span>
-			</li>
 		);
 	}
 });
