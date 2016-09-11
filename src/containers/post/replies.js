@@ -2,7 +2,7 @@ var React = require('react'),
 	_ = require('lodash'),
 	api = require('./../../steemAPI'),
 	Reply = require('./reply'),
-	Loading = require("./../loading");
+	Loading = require("./../../widgets/loading");
 
 module.exports = React.createClass({
 	componentWillMount: function() {

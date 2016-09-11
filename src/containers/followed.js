@@ -2,7 +2,7 @@ var React = require('react'),
 	ReactRedux = require('react-redux'),
 	_ = require('lodash'),
 	api = require('./../steemAPI'),
-	Loading = require("./loading"),
+	Loading = require("./../widgets/loading"),
 	Link = require('react-router').Link;
 
 var Followers = React.createClass({

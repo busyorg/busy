@@ -1,7 +1,7 @@
 var React = require('react'),
 	api = require('./../../steemAPI'),
 	ReplyShort = require('./reply-short'),
-	Loading = require("./../loading");
+	Loading = require("./../../widgets/loading");
 
 module.exports = React.createClass({
 	componentWillMount: function() {
