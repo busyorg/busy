@@ -1,32 +1,38 @@
-var C = require("../constants"),
-	initialState = require("../initialstate");
+import * as actionTypes from './authActionTypes';
 
-module.exports = function(state,action){
-	switch(action.type){
-		case C.LOGIN_REQUEST:
+const initialState = {
+  isAuthenticated: false,
+  user: {},
+  following: []
+};
+
+export default (state = initialState, action) => {
+	switch (action.type) {
+		case actionTypes.LOGIN_REQUEST:
 			return Object.assign({}, state, {
 				isFetching: true,
 				isAuthenticated: false,
 				user: []
 			});
-		case C.LOGIN_SUCCESS:
+		case actionTypes.LOGIN_SUCCESS:
 			return Object.assign({}, state, {
 				isFetching: false,
 				isAuthenticated: true,
 				errorMessage: '',
 				user: action.user
 			});
-		case C.LOGIN_FAILURE:
+		case actionTypes.LOGIN_FAILURE:
 			return Object.assign({}, state, {
 				isFetching: false,
 				isAuthenticated: false,
 				errorMessage: action.message
 			});
-		case C.LOGOUT_SUCCESS:
+		case actionTypes.LOGOUT_SUCCESS:
 			return Object.assign({}, state, {
 				isFetching: true,
 				isAuthenticated: false
 			});
-		default: return state || initialState().auth;
+		default:
+      return state;
 	}
 };
