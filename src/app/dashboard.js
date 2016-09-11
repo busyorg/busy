@@ -1,6 +1,6 @@
 var React = require("react"),
 	ReactRedux = require('react-redux'),
-	Page = require("./../containers/page");
+	Page = require("./../feed/page");
 
 var Dashboard = React.createClass({
 	render: function(){

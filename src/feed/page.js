@@ -1,8 +1,8 @@
 var React = require('react'),
 	_ = require('lodash'),
-	Header = require('./header'),
-	Triggers = require('./triggers'),
-	Feed = require('./feed/feed');
+	Header = require('./../containers/header'),
+	Triggers = require('./../containers/triggers'),
+	Feed = require('./../containers/feed/feed');
 
 module.exports = React.createClass({
 	render: function(){
