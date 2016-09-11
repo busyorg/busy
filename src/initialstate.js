@@ -6,11 +6,6 @@ module.exports = function(){
 			errorMessage: '',
 			sidebarIsVisible: false
 		},
-		auth: {
-			isAuthenticated: false,
-			user: {},
-			following: []
-		},
 		header: {
 			menu: 'primary',
 			tabs: [],
