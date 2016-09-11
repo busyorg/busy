@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from './../containers/header';
+import Header from './../app/header';
 import MessageForm from './MessageForm';
 import MessageList from './MessageList';
 import Message from './Message';

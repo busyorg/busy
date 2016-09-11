@@ -1,7 +1,7 @@
 var React = require('react'),
 	ReactRedux = require('react-redux'),
 	actions = require('./../actions'),
-	Header = require("./../containers/header"),
+	Header = require("./../app/header"),
 	Link = require('react-router').Link;
 
 var Callback = React.createClass({

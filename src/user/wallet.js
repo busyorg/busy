@@ -5,7 +5,7 @@ var React = require('react'),
 	moment = require('moment'),
 	actions = require('../actions'),
 	Triggers = require('./../containers/triggers'),
-	Header = require('./../containers/header'),
+	Header = require('./../app/header'),
 	Link = require('react-router').Link;
 
 var Wallet = React.createClass({
