@@ -6,7 +6,7 @@ var React = require('react'),
 
   Dashboard = require('./app/dashboard'),
   Login = require('./auth/login'),
-  Callback = require('./auth/callback'),
+  Callback = require('./widgets/callback'),
   Settings = require('./app/settings'),
 
   About = require('./statics/about'),
