@@ -9,11 +9,19 @@ var Wrapper = React.createClass({
     this.props.getConfig();
     this.props.login();
   },
+
   componentDidMount: function(){
-    setInterval(function() {
+    this.steemInterval = setInterval(function() {
       api.getDynamicGlobalProperties(function(err, result) {});
     }, 10000);
   },
+
+  componentWillUnmount() {
+    if(window.clearInterval) {
+      clearInterval(this.steemInterval);
+    }
+  },
+
   render: function() {
       var className = (!this.props.app.sidebarIsVisible)? 'app-wrapper full-width' : 'app-wrapper';
       return (
