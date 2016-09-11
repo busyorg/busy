@@ -6,7 +6,7 @@ var React = require('react'),
 	numeral = require('numeral'),
 	moment = require('moment'),
 	actions = require('../actions'),
-	Triggers = require('./../containers/triggers'),
+  PageActions = require('./../app/PageActions'),
 	Header = require('./../app/header'),
 	Feed = require('./../feed/feed'),
 	Loading = require('./../widgets/loading'),
@@ -51,7 +51,7 @@ var Profile = React.createClass({
 		var edit = (this.props.auth.isAuthenticated && username == this.props.auth.user.name);
 		return (
 			<div className="main-panel">
-				<Triggers messages={!edit} edit={edit} />
+				<PageActions messages={!edit} edit={edit} />
 				<Header account={username} />
 				<section className="align-center bg-green profile-header"
           style={{backgroundImage: 'url(https://img.busy6.com/@' + username + '/cover)', backgroundSize: 'cover'}}>

@@ -4,7 +4,7 @@ var React = require('react'),
 	api = require('./../steemAPI'),
 	moment = require('moment'),
 	actions = require('../actions'),
-	Triggers = require('./../containers/triggers'),
+  PageActions = require('./../app/PageActions'),
 	Header = require('./../app/header'),
 	Link = require('react-router').Link;
 
@@ -27,7 +27,7 @@ var Wallet = React.createClass({
 		var username = this.props.params.name;
 		return (
 			<div className="main-panel">
-				<Triggers />
+				<PageActions />
 				<Header account={username} />
 				<div><div style={{height: '20px', overflow: 'hidden'}}></div></div>
 				<div className="container">
