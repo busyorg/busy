@@ -1,9 +1,9 @@
 var React = require('react'),
   _ = require('lodash'),
-  api = require('./../../steemAPI'),
-  Loading = require('./../loading'),
-  AddPost = require('./../add-post'),
-  Post = require('./../post/post');
+  api = require('./../steemAPI'),
+  Loading = require('./../containers/loading'),
+  AddPost = require('./../containers/add-post'),
+  Post = require('./../containers/post/post');
 
 module.exports = class componentName extends React.Component {
   constructor(props) {
