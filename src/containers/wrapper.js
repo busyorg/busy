@@ -2,7 +2,7 @@ var React = require('react'),
     ReactRedux = require('react-redux'),
     api = require('./../steemAPI'),
     actions = require('../actions'),
-    Sidebar = require('./../containers/sidebar');
+    Sidebar = require('./../app/sidebar');
 
 var Wrapper = React.createClass({
   componentWillMount: function(){

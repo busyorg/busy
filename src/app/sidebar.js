@@ -5,7 +5,7 @@ var React = require('react'),
 	_ = require('lodash'),
 	numeral = require('numeral'),
 	api = require('./../steemAPI'),
-	Loading = require('./../widgets/loading'),
+	Loading = require('./../widgets/Loading'),
 	Link = require('react-router').Link;
 
 var Sidebar = React.createClass({
