@@ -2,7 +2,7 @@ var React = require('react'),
 	ReactRedux = require('react-redux'),
 	steemConnect = require('steemconnect'),
 	numeral = require('numeral'),
-	actions = require('./../../actions'),
+	actions = require('./../actions'),
 	Link = require('react-router').Link;
 
 var Actions = React.createClass({
