@@ -2,7 +2,7 @@ var React = require('react'),
   ReactRouter = require('react-router'),
   Route = ReactRouter.Route,
   IndexRoute = ReactRouter.IndexRoute,
-  Wrapper = require('./containers/wrapper'),
+  Wrapper = require('./wrapper'),
 
   Dashboard = require('./app/dashboard'),
   Login = require('./auth/login'),
