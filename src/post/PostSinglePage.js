@@ -4,9 +4,9 @@ var React = require("react"),
 	moment = require('moment'),
 	Triggers = require("./../containers/triggers"),
 	Header = require("./../containers/header"),
-	Loading = require("./../widgets/loading"),
-	Body = require("./../containers/post/body"),
-	Replies = require("./../containers/post/replies"),
+	Loading = require("./../widgets/Loading"),
+	Body = require("./body"),
+	Replies = require("./replies"),
 	Link = require("react-router").Link;
 
 module.exports = React.createClass({

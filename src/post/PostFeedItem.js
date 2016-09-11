@@ -3,10 +3,10 @@ var React = require('react'),
   steemembed = require('steemembed'),
   numeral = require('numeral'),
   moment = require('moment'),
-  actions = require('../../actions'),
+  actions = require('../actions'),
   RepliesShort = require('./replies-short'),
   BodyShort = require('./body-short'),
-  Actions = require('./actions'),
+  PostActions = require('./PostActions'),
   Mentions = require('./mentions'),
   Link = require('react-router').Link;
 
@@ -60,7 +60,7 @@ module.exports = React.createClass({
         </div>
         <div style={style}></div>
         <div className="cell cell-bottom">
-          <Actions post={post} />
+          <PostActions post={post} />
         </div>
         {this.props.replies != 'false' && post.children > 0 && <RepliesShort parent={post.author} parentPermlink={post.permlink} />}
       </div>

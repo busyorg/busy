@@ -16,7 +16,7 @@ var React = require('react'),
   Donate = require('./statics/donate'),
   Help = require('./statics/help'),
 
-  PostSinglePage = require('./components/PostSinglePage'),
+  PostSinglePage = require('./post/PostSinglePage'),
   Category = require('./feed/category'),
 
   Edit = require('./user/edit'),

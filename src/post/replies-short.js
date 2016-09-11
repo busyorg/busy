@@ -1,8 +1,7 @@
 var React = require('react'),
-	_ = require('lodash'),
-	api = require('./../../steemAPI'),
-	Reply = require('./reply'),
-	Loading = require("./../../widgets/loading");
+	api = require('./../steemAPI'),
+	ReplyShort = require('./reply-short'),
+	Loading = require("./../widgets/loading");
 
 module.exports = React.createClass({
 	componentWillMount: function() {
@@ -15,8 +14,8 @@ module.exports = React.createClass({
 		return (
 			<div className="replies">
 				{this.state.replies.length > 0 && <ul>
-					{_.sortBy(this.state.replies, 'created').reverse().map(function(reply, key) {
-						return <Reply key={key} reply={reply} />;
+					{this.state.replies.slice(0,3).map(function(reply, key) {
+						return <ReplyShort key={key} reply={reply} />;
 					})}
 				</ul>}
 				{this.state.replies.length == 0 && <Loading />}

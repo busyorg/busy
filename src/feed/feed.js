@@ -3,7 +3,7 @@ var React = require('react'),
   api = require('./../steemAPI'),
   Loading = require('./../widgets/loading'),
   AddPost = require('./../containers/add-post'),
-  Post = require('./../containers/post/post');
+  PostFeedItem = require('../post/PostFeedItem');
 
 module.exports = class componentName extends React.Component {
   constructor(props) {
