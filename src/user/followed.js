@@ -1,16 +1,40 @@
 var React = require('react'),
+	ReactRedux = require('react-redux'),
 	_ = require('lodash'),
-	Header = require('./../app/header'),
-	Followed = require('./../containers/followed');
+	api = require('./../steemAPI'),
+	Loading = require("./../widgets/Loading"),
+	Link = require('react-router').Link;
 
-module.exports = React.createClass({
+var Followers = React.createClass({
+	componentWillMount: function() {
+		this.setState({users: []});
+		api.getFollowing(this.props.username, 0, 'blog', 100, function(err, following) {
+			this.setState({users: following});
+		}.bind(this));
+	},
 	render: function(){
 		return (
-			<div className="main-panel">
-				<Header account={this.props.params.name} />
-				<div><div style={{height: '20px', overflow: 'hidden'}}></div></div>
-				<div className="container"><Followed username={this.props.params.name} /></div>
-			</div>
+			<center className="users">
+				{this.state.users.length > 0 && <ul>
+					{this.state.users.map(function(user, key) {
+						return <li key={key}>
+							<div className="avatar avatar-xl">
+								<img src={'https://img.busy6.com/@' + user.following} />
+							</div>
+							<div><Link to={'/@' + user.following}>@{user.following}</Link></div>
+						</li>;
+					})}
+				</ul>}
+				{this.state.users.length == 0 && <Loading />}
+			</center>
 		);
 	}
 });
+
+var mapStateToProps = function(state){
+	return {
+		auth: state.auth
+	};
+};
+
+module.exports = ReactRedux.connect(mapStateToProps)(Followers);
