@@ -2,7 +2,7 @@ var React = require("react"),
 	_ = require('lodash'),
 	api = require('./../steemAPI'),
 	moment = require('moment'),
-	Triggers = require("./../containers/triggers"),
+  PageActions = require("./../app/PageActions"),
 	Header = require("./../app/header"),
 	Loading = require("./../widgets/Loading"),
 	Body = require("./body"),
@@ -20,7 +20,7 @@ module.exports = React.createClass({
 		var content = this.state.content;
 		return (
 			<div className="main-panel">
-				<Triggers likes="true" replies="true" messages="true" />
+				<PageActions likes="true" replies="true" messages="true" />
 				<Header />
 					<div><div style={{height: '20px', overflow: 'hidden'}}></div></div>
 					<div className="single">
