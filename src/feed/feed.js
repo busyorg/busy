@@ -1,7 +1,7 @@
 var React = require('react'),
   _ = require('lodash'),
   api = require('./../steemAPI'),
-  Loading = require('./../widgets/loading'),
+  Loading = require('./../widgets/Loading'),
   AddPost = require('./../post/newPost/EmbeddedNewPost'),
   PostFeedItem = require('../post/PostFeedItem');
 
