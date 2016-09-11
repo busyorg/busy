@@ -4,6 +4,8 @@ var React = require('react'),
     actions = require('./actions'),
     Sidebar = require('./app/sidebar');
 
+import * as authActions from './auth/authActions';
+
 var Wrapper = React.createClass({
   componentWillMount: function(){
     this.props.getConfig();
@@ -33,17 +35,25 @@ var Wrapper = React.createClass({
   }
 });
 
-var mapStateToProps = function(state){
+var mapStateToProps = function({ app }){
   return {
-    app: state.app
+    app
   };
 };
 
 var mapDispatchToProps = function(dispatch){
   return {
-    login: function(){ dispatch(actions.login()); },
-    getConfig: function(){ dispatch(actions.getConfig()); }
+    login: () => {
+      dispatch(
+        authActions.login()
+      );
+    },
+    getConfig: () => {
+      dispatch(
+        actions.getConfig()
+      );
+    }
   }
 };
 
-module.exports = ReactRedux.connect(mapStateToProps,mapDispatchToProps)(Wrapper);
+module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(Wrapper);

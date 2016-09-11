@@ -1,12 +1,15 @@
 var React = require('react'),
 	ReactRedux = require('react-redux'),
-	actions = require('./../actions'),
 	Header = require("./../app/header");
+
+import * as authActions from '../auth/authActions';
 
 var Callback = React.createClass({
 	componentWillMount: function(){
 		var token = this.props.location.query.token;
-		this.props.login(token);
+    this.props.dispatch(
+      authActions.login(token)
+    );
 	},
 	render: function(){
 		return (
@@ -30,10 +33,5 @@ var mapStateToProps = function(state){
 	};
 };
 
-var mapDispatchToProps = function(dispatch){
-	return {
-		login: function(token){ dispatch(actions.login(token)); }
-	}
-};
 
-module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(Callback);
+module.exports = ReactRedux.connect(mapStateToProps)(Callback);

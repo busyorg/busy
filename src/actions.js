@@ -1,30 +1,7 @@
 var api = require('./steemAPI'),
-	steemConnect = require('steemconnect'),
 	C = require('./constants');
 
 module.exports = {
-	login: function() {
-		return function(dispatch, getState) {
-			var req = {type: C.LOGIN_REQUEST};
-			dispatch(req);
-			steemConnect.isAuthenticated(function(err, result) {
-				if (result.isAuthenticated == true) {
-					api.getAccounts([result.username], function(err, users) {
-						var res = {
-							type: C.LOGIN_SUCCESS,
-							user: users[0],
-						};
-						Object.assign(res);
-						dispatch(res);
-					});
-				} else {
-					var res = {type: C.LOGIN_FAILURE};
-					Object.assign(res);
-					dispatch(res);
-				}
-			});
-		}.bind(this);
-	},
 	getConfig: function() {
 		return function(dispatch, getState) {
 			var req = {type: C.CONFIG_REQUEST};
