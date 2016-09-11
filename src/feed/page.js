@@ -2,7 +2,7 @@ var React = require('react'),
 	_ = require('lodash'),
 	Header = require('./../containers/header'),
 	Triggers = require('./../containers/triggers'),
-	Feed = require('./../containers/feed/feed');
+	Feed = require('./feed');
 
 module.exports = React.createClass({
 	render: function(){

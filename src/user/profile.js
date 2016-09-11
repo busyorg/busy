@@ -8,7 +8,7 @@ var React = require('react'),
 	actions = require('../actions'),
 	Triggers = require('./../containers/triggers'),
 	Header = require('./../containers/header'),
-	Feed = require('./../containers/feed/feed'),
+	Feed = require('./../feed/feed'),
 	Loading = require('./../containers/loading'),
 	Link = require('react-router').Link;
 
