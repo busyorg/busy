@@ -9,7 +9,7 @@ var React = require('react'),
   PageActions = require('./../app/PageActions'),
 	Header = require('./../app/header'),
 	Feed = require('./../feed/feed'),
-	Loading = require('./../widgets/loading'),
+	Loading = require('./../widgets/Loading'),
 	Link = require('react-router').Link;
 
 var Profile = React.createClass({
