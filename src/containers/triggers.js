@@ -1,5 +1,4 @@
 var React = require('react'),
-	Reply = require('./../form/reply'),
 	{Link} = require('react-router');
 
 module.exports = React.createClass({
