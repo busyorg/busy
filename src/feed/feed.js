@@ -2,7 +2,7 @@ var React = require('react'),
   _ = require('lodash'),
   api = require('./../steemAPI'),
   Loading = require('./../widgets/loading'),
-  AddPost = require('./../newPost/EmbeddedNewPost'),
+  AddPost = require('./../post/newPost/EmbeddedNewPost'),
   PostFeedItem = require('../post/PostFeedItem');
 
 module.exports = class componentName extends React.Component {
