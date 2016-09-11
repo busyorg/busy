@@ -3,7 +3,7 @@ var React = require('react'),
   api = require('./../steemAPI'),
   Loading = require('./../widgets/loading'),
   AddPost = require('./../containers/add-post'),
-  Post = require('./../containers/post/post');
+  PostFeedItem = require('../post/PostFeedItem');
 
 module.exports = React.createClass({
   componentWillMount: function() {
@@ -22,7 +22,7 @@ module.exports = React.createClass({
           <AddPost />
           {_.size(content) > 0?
             Object.keys(content).map(function(entry, key) {
-              return <Post key={key} entry={content[entry]} replies={this.props.replies} />;
+              return <PostFeedItem key={key} entry={content[entry]} replies={this.props.replies} />;
             }.bind(this)) : <Loading />
           }
         </div>
