@@ -96,7 +96,7 @@ module.exports = class componentName extends React.Component {
         <div className="grid-content" ref="feedContainer">
           <AddPost />
           {content.map(function (entry, key) {
-            return <Post key={key} entry={entry} replies={this.props.replies} />;
+            return <PostFeedItem key={key} entry={entry} replies={this.props.replies} />;
           }.bind(this)) }
           {isLoading && <Loading />}
         </div>
