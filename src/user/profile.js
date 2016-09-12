@@ -8,9 +8,10 @@ var React = require('react'),
 	actions = require('../actions'),
   PageActions = require('./../app/PageActions'),
 	Header = require('./../app/header'),
-	Feed = require('./../feed/feed'),
 	Loading = require('./../widgets/Loading'),
 	Link = require('react-router').Link;
+
+import Feed from './../feed/feed';
 
 var Profile = React.createClass({
 	componentWillMount: function() {

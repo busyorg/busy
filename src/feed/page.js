@@ -1,8 +1,9 @@
 var React = require('react'),
 	_ = require('lodash'),
 	Header = require('./../app/header'),
-  PageActions = require('./../app/PageActions'),
-	Feed = require('./feed');
+  PageActions = require('./../app/PageActions');
+
+import Feed from './feed';
 
 module.exports = React.createClass({
 	render: function(){
