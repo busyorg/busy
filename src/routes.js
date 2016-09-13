@@ -2,43 +2,43 @@ var React = require('react'),
   ReactRouter = require('react-router'),
   Route = ReactRouter.Route,
   IndexRoute = ReactRouter.IndexRoute,
-  Wrapper = require('./containers/wrapper'),
+  Wrapper = require('./wrapper'),
 
-  Dashboard = require('./components/dashboard'),
-  Login = require('./components/auth/login'),
-  Callback = require('./components/auth/callback'),
-  Settings = require('./components/settings'),
+  Dashboard = require('./app/dashboard'),
+  Login = require('./auth/login'),
+  Callback = require('./widgets/callback'),
+  Settings = require('./app/settings'),
 
-  About = require('./components/about/about'),
-  Team = require('./components/about/team'),
-  Projects = require('./components/about/projects'),
-  Jobs = require('./components/about/jobs'),
-  Donate = require('./components/about/donate'),
-  Help = require('./components/about/help'),
+  About = require('./statics/about'),
+  Team = require('./statics/team'),
+  Projects = require('./statics/projects'),
+  Jobs = require('./statics/jobs'),
+  Donate = require('./statics/donate'),
+  Help = require('./statics/help'),
 
-  Single = require('./components/content'),
-  Category = require('./components/feed/category'),
+  PostSinglePage = require('./post/PostSinglePage'),
+  Category = require('./feed/category'),
 
-  Edit = require('./components/user/edit'),
-  Posts = require('./components/user/posts'),
-  Feed = require('./components/user/feed'),
-  Replies = require('./components/user/replies'),
-  Profile = require('./components/user/profile'),
-  Followers = require('./components/user/followers'),
-  Followed = require('./components/user/followed'),
-  Wallet = require('./components/user/wallet'),
+  Edit = require('./user/edit'),
+  Posts = require('./user/posts'),
+  Feed = require('./user/feed'),
+  Replies = require('./user/replies'),
+  Profile = require('./user/profile'),
+  Followers = require('./user/UserFollowersList'),
+  Followed = require('./user/UserFollowedList'),
+  Wallet = require('./user/wallet'),
 
-  Trending = require('./components/feed/trending'),
-  Hot = require('./components/feed/hot'),
-  Cashout = require('./components/feed/cashout'),
-  Created = require('./components/feed/created'),
-  Active = require('./components/feed/active'),
-  Responses = require('./components/feed/responses'),
-  Votes = require('./components/feed/votes'),
+  Trending = require('./feed/trending'),
+  Hot = require('./feed/hot'),
+  Cashout = require('./feed/cashout'),
+  Created = require('./feed/created'),
+  Active = require('./feed/active'),
+  Responses = require('./feed/responses'),
+  Votes = require('./feed/votes'),
 
-  Write = require('./components/write/write'),
+  Write = require('./post/newPost/NewPost'),
 
-  Messages = require('./components/messages/messages');
+  Messages = require('./messages/Messages');
 
 module.exports = (
   <Route path="/" component={Wrapper}>
@@ -76,7 +76,7 @@ module.exports = (
     <Route path="/@:name/wallet" component={Wallet} />
     <Route path="/@:name" component={Profile} />
 
-    <Route path="/:category/@:author/:permlink" component={Single} />
+    <Route path="/:category/@:author/:permlink" component={ PostSinglePage } />
     <Route path="/:sortBy/:category" component={Category} />
   </Route>
 );
