@@ -57,6 +57,7 @@
     "webpack": "^1.13.2"
   },
   "devDependencies": {
+    "eslint": "^3.5.0",
     "webpack-dev-server": "^1.15.1",
     "webpack-hot-middleware": "^2.10.0"
   }
