@@ -32,20 +32,21 @@ module.exports = {
         }),
         // new Visualizer()
     ],
-    module: {
-        loaders: [{
-            test: /\.js?$/,
-            exclude: /node_modules/,
-            loader: 'babel',
-            query: {
-                "presets": ["react", "es2015", "stage-0"]
-            }
-        }, {
-                test: /\.json?$/,
-                loader: 'json'
-            }, {
-                test: /\.css$/,
-                loader: 'style!css?modules&localIdentName=[name]---[local]---[hash:base64:5]'
-            }]
-    }
+  module: {
+    loaders: [
+      {
+        test: /\.js?$/,
+        exclude: /node_modules/,
+        loader: 'babel',
+      },
+      {
+        test: /\.json?$/,
+        loader: 'json',
+      },
+      {
+        test: /\.css$/,
+        loader: 'style!css?modules&localIdentName=[name]---[local]---[hash:base64:5]',
+      },
+    ],
+  },
 };
