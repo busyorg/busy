@@ -1,14 +1,14 @@
 var Redux = require('redux'),
-	appReducer = require('./reducers/app'),
 	headerReducer = require('./reducers/header'),
 	pagesReducer = require('./reducers/pages'),
 	initialState = require('./initialstate'),
 	thunk = require('redux-thunk').default;
 
 import authReducers from './auth/authReducers';
+import appReducers from './app/appReducers';
 
 const rootReducer = Redux.combineReducers({
-	app: appReducer,
+	app: appReducers,
 	auth: authReducers,
 	header: headerReducer,
 	pages: pagesReducer

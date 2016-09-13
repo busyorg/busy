@@ -1,55 +1,64 @@
-var C = require("../constants"),
-	initialState = require("../initialstate");
+import * as appTypes from './appActionTypes';
 
-module.exports = function(state,action){
+const initialState = {
+  isFetching: false,
+  isLoaded: false,
+  errorMessage: '',
+  sidebarIsVisible: false
+};
+
+// TODO(p0o): some actionsTypes in this reducer are not defined anywhere, need to figure it out later
+
+export default (state = initialState, action) =>{
 	switch(action.type){
-		case C.FEED_REQUEST:
+		case appTypes.FEED_REQUEST:
 			return Object.assign({}, state, {
 				isFetching: true,
 				isLoaded: false
 			});
-		case C.FEED_SUCCESS:
+		case appTypes.FEED_SUCCESS:
 			return Object.assign({}, state, {
 				isFetching: false,
 				isLoaded: true
 			});
-		case C.FEED_FAILURE:
+		case appTypes.FEED_FAILURE:
 			return Object.assign({}, state, {
 				isFetching: false,
 				isLoaded: true
 			});
-		case C.CONTENT_REQUEST:
+		case appTypes.CONTENT_REQUEST:
 			return Object.assign({}, state, {
 				isFetching: true,
 				isLoaded: false
 			});
-		case C.CONTENT_SUCCESS:
+		case appTypes.CONTENT_SUCCESS:
 			return Object.assign({}, state, {
 				isFetching: false,
 				isLoaded: true
 			});
-		case C.ACCOUNT_REQUEST:
+		case appTypes.ACCOUNT_REQUEST:
 			return Object.assign({}, state, {
 				isFetching: true,
 				isLoaded: false
 			});
-		case C.ACCOUNT_SUCCESS:
+		case appTypes.ACCOUNT_SUCCESS:
 			return Object.assign({}, state, {
 				isFetching: false,
 				isLoaded: true
 			});
-		case C.CONFIG_SUCCESS:
+		case appTypes.CONFIG_SUCCESS:
 			return Object.assign({}, state, {
 				config: action.config
 			});
-		case C.SHOW_SIDEBAR:
+		case appTypes.SHOW_SIDEBAR:
 			return Object.assign({}, state, {
 				sidebarIsVisible: true
 			});
-		case C.HIDE_SIDEBAR:
+		case appTypes.HIDE_SIDEBAR:
 			return Object.assign({}, state, {
 				sidebarIsVisible: false
 			});
-		default: return state || initialState().app;
+		default:
+      return state;
 	}
 };
