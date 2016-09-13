@@ -5,7 +5,7 @@ var React = require('react'),
   AddPost = require('./../post/newPost/EmbeddedNewPost'),
   PostFeedItem = require('../post/PostFeedItem');
 
-export default class componentName extends React.Component {
+export default class Feed extends React.Component {
   constructor(props) {
     super(props);
     this.state = { content: [], isLoading: true };
