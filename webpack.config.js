@@ -26,19 +26,20 @@ module.exports = {
     })
   ],
   module: {
-    loaders: [{
-      test: /\.js?$/,
-      exclude: /node_modules/,
-      loader: 'babel',
-      query: {
-        "presets": ["react", "es2015", "stage-0", "react-hmre"]
-      }
-    }, {
+    loaders: [
+      {
+        test: /\.js?$/,
+        exclude: /node_modules/,
+        loader: 'babel',
+      },
+      {
         test: /\.json?$/,
-        loader: 'json'
-      }, {
+        loader: 'json',
+      },
+      {
         test: /\.css$/,
-        loader: 'style!css?modules&localIdentName=[name]---[local]---[hash:base64:5]'
-      }]
-  }
+        loader: 'style!css?modules&localIdentName=[name]---[local]---[hash:base64:5]',
+      },
+    ],
+  },
 };
