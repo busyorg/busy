@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "nodemon --ignore src ./bin/www",
-    "test": "",
+    "test": "mocha --watch --require babel-register -g ./src/*/*-spec.js",
     "lint": "eslint src/**",
     "build": "webpack --progress -p --config webpack.prod.config.js",
     "postinstall": "npm run build"
