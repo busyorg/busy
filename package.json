@@ -5,6 +5,7 @@
   "scripts": {
     "start": "nodemon --ignore src ./bin/www",
     "test": "",
+    "lint": "eslint src/**",
     "build": "webpack --progress -p --config webpack.prod.config.js",
     "postinstall": "npm run build"
   },
