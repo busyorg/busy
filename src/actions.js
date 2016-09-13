@@ -1,14 +1,15 @@
-var api = require('./steemAPI'),
-	C = require('./constants');
+var api = require('./steemAPI');
+
+import * as appTypes from './app/appActionTypes';
 
 module.exports = {
 	getConfig: function() {
 		return function(dispatch, getState) {
-			var req = {type: C.CONFIG_REQUEST};
+			var req = {type: appTypes.CONFIG_REQUEST};
 			dispatch(req);
 			api.getConfig(function(err, config) {
 				var res = {
-					type: C.CONFIG_SUCCESS,
+					type: appTypes.CONFIG_SUCCESS,
 					config: config,
 				};
 				dispatch(res);
@@ -17,17 +18,17 @@ module.exports = {
 	},
 	showSidebar: function() {
 		return function(dispatch, getState) {
-			dispatch({type:C.SHOW_SIDEBAR});
+			dispatch({type: appTypes.SHOW_SIDEBAR});
 		};
 	},
 	hideSidebar: function() {
 		return function(dispatch, getState) {
-			dispatch({type:C.HIDE_SIDEBAR});
+			dispatch({type: appTypes.HIDE_SIDEBAR});
 		};
 	},
 	setMenu: function(menu) {
 		return function(dispatch, getState) {
-			dispatch({type:C.SET_MENU, menu: menu});
+			dispatch({type: appTypes.SET_MENU, menu: menu});
 		};
 	}
 };
