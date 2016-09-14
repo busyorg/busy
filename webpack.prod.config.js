@@ -30,7 +30,7 @@ module.exports = {
           'NODE_ENV': JSON.stringify('production'),
         },
       }),
-      new ExtractTextPlugin('css/base.css'),
+      new ExtractTextPlugin('../css/base.css'),
     ],
   module: {
     loaders: [
