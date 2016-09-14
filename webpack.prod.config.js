@@ -45,7 +45,10 @@ module.exports = {
       },
       {
         test: /\.sass$/,
-        loader: ExtractTextPlugin.extract('style-loader', 'css!sass')
+        loader: ExtractTextPlugin.extract(
+          'style-loader',
+          'css!autoprefixer-loader?browsers=last 2 version!sass'
+        ),
       },
     ],
   },
