@@ -2,7 +2,7 @@
 
 var path = require('path');
 var webpack = require('webpack');
-// var Visualizer = require('webpack-visualizer-plugin');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
     devtool: 'cheap-module-source-map',
@@ -15,22 +15,22 @@ module.exports = {
         publicPath: '/js'
     },
     plugins: [
-        new webpack.optimize.OccurenceOrderPlugin(),
-        new webpack.optimize.DedupePlugin(),
-        new webpack.optimize.UglifyJsPlugin({
-            minimize: true,
-            compress: {
-                warnings: false
-            }
-        }),
-        new webpack.optimize.AggressiveMergingPlugin(),
-        new webpack.DefinePlugin({
-            'process.env': {
-                // This has effect on the react lib size
-                'NODE_ENV': JSON.stringify('production'),
-            }
-        }),
-        // new Visualizer()
+      new webpack.optimize.OccurenceOrderPlugin(),
+      new webpack.optimize.DedupePlugin(),
+      new webpack.optimize.UglifyJsPlugin({
+        minimize: true,
+        compress: {
+          warnings: false,
+        }
+      }),
+      new webpack.optimize.AggressiveMergingPlugin(),
+      new webpack.DefinePlugin({
+        'process.env': {
+          // This has effect on the react lib size
+          'NODE_ENV': JSON.stringify('production'),
+        },
+      }),
+      new ExtractTextPlugin('[name].css'),
     ],
   module: {
     loaders: [
@@ -44,8 +44,8 @@ module.exports = {
         loader: 'json',
       },
       {
-        test: /\.css$/,
-        loader: 'style!css?modules&localIdentName=[name]---[local]---[hash:base64:5]',
+        test: /\.sass$/,
+        loader: ExtractTextPlugin.extract('style-loader', 'css!sass')
       },
     ],
   },
