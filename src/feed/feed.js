@@ -25,14 +25,13 @@ export default class Feed extends React.Component {
       'created': 'getDiscussionsByCreated',
       'active': 'getDiscussionsByActive'
     }
-    let currentType = type[this.props.path] || type['trending'];
+    let currentType = type[this.props.path.split('/')[0]] || type['trending'];
     tag = this.props.path.split('/')[1]
     let feed = this.props.path.match(/(@)(\w+)(\/feed)/);
     if (feed && feed.length && feed[2]) {
       currentType = type['feed'];
       tag = feed[2] //username
     }
-
     api[currentType]({ tag, limit, start_author, start_permlink }, (err, result) => {
       err && console.error('error while ' + currentType, JSON.stringify(err));
       let lastContent = _.last(this.state.content);
