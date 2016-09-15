@@ -4,7 +4,7 @@ var path = require('path');
 var webpack = require('webpack');
 
 module.exports = {
-  devtool: 'eval-source-map',
+  devtool: 'cheap-eval-source-map',
   entry: [
     'webpack-hot-middleware/client?reload=true',
     path.join(__dirname, 'src/index.js')
@@ -37,8 +37,13 @@ module.exports = {
         loader: 'json',
       },
       {
-        test: /\.css$/,
-        loader: 'style!css?modules&localIdentName=[name]---[local]---[hash:base64:5]',
+        test: /\.sass$/,
+        loaders: [
+          'style',
+          'css?sourceMap',
+          'autoprefixer-loader?browsers=last 2 version',
+          'sass?sourceMap&sourceMapContents',
+        ],
       },
     ],
   },

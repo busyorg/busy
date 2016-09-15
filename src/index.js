@@ -9,6 +9,9 @@ var React = require('react'),
 	createHistory = require('history').createHistory,
 	appHistory = routerHistory(createHistory)({ queryKey: false });
 
+// load the stylesheet
+require('./styles/base.sass');
+
 ReactDOM.render(
 	<Provider store={store}>
 		<Router routes={routes} history={appHistory} />
