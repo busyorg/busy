@@ -35,9 +35,7 @@ var React = require('react'),
   Active = require('./feed/active'),
   Responses = require('./feed/responses'),
   Votes = require('./feed/votes'),
-
-  Write = require('./post/newPost/NewPost'),
-
+  Write = require('./post/newPost/NewPost').default,
   Messages = require('./messages/Messages');
 
 module.exports = (
