@@ -7,7 +7,6 @@ module.exports = React.createClass({
 		return (
 			<div className="main-panel">
 				<Header menu="about" />
-				<div><div style={{height: '20px', overflow: 'hidden'}}></div></div>
 				<div className="page">
 					<div className="block">
 						<h1>Busy <img src="/img/open-source.svg" height="46" /></h1>

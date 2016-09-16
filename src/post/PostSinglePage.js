@@ -22,7 +22,6 @@ module.exports = React.createClass({
 			<div className="main-panel">
 				<PageActions likes="true" replies="true" messages="true" />
 				<Header />
-					<div><div style={{height: '20px', overflow: 'hidden'}}></div></div>
 					<div className="single">
 						{!_.has(content, 'author') && <Loading />}
 						{_.has(content, 'author') &&

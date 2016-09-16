@@ -7,7 +7,6 @@ module.exports = React.createClass({
 		return (
 			<div className="main-panel">
 				<Header menu="about" />
-				<div><div style={{height: '20px', overflow: 'hidden'}}></div></div>
 				<div className="page">
 					<div className="block" style={{paddingBottom: '400px'}}>
 						<div className="container">

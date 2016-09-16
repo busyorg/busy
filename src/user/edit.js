@@ -8,7 +8,6 @@ var Edit = React.createClass({
 		return (
 			<div className="main-panel">
 				<Header account={this.props.auth.user.name} />
-				<div><div style={{height: '20px', overflow: 'hidden'}}></div></div>
 				<div className="page">
 					<div className="block">
 						<h1>Edit Profile</h1>
