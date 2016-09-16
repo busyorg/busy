@@ -29,7 +29,6 @@ var Wallet = React.createClass({
 			<div className="main-panel">
 				<PageActions />
 				<Header account={username} />
-				<div><div style={{height: '20px', overflow: 'hidden'}}></div></div>
 				<div className="container">
 					<center>
 						<h1>Wallet</h1>
