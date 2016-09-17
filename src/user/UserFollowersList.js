@@ -8,7 +8,6 @@ module.exports = React.createClass({
 		return (
 			<div className="main-panel">
 				<Header account={this.props.name} />
-				<div><div style={{height: '20px', overflow: 'hidden'}}></div></div>
 				<div className="container"><Followers username={this.props.params.name} /></div>
 			</div>
 		);
