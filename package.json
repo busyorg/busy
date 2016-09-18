@@ -44,6 +44,7 @@
     "object-assign": "^4.1.0",
     "react": "^15.0.2",
     "react-dom": "^15.0.2",
+    "react-intl": "^2.1.5",
     "react-redux": "^4.4.5",
     "react-router": "^2.4.1",
     "redis": "^2.5.3",
