@@ -30,7 +30,7 @@ module.exports = React.createClass({
     catch(e) { var jsonMetadata = {}; }
     var image = _.has(jsonMetadata, 'image[0]')? jsonMetadata.image[0] : '';
     image = (image)? 'https://img1.steemit.com/600x400/' + image : '';
-	  var embeds = steemembed.getAll(post.body);
+    var embeds = steemembed.getAll(post.body);
     return (
       <div className={className}>
         <div className="cell cell-top">

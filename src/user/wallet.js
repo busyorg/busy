@@ -1,54 +1,54 @@
 var React = require('react'),
-	ReactRedux = require('react-redux'),
-	_ = require('lodash'),
-	api = require('./../steemAPI'),
-	moment = require('moment'),
-	actions = require('../actions'),
+  ReactRedux = require('react-redux'),
+  _ = require('lodash'),
+  api = require('./../steemAPI'),
+  moment = require('moment'),
+  actions = require('../actions'),
   PageActions = require('./../app/PageActions'),
-	Header = require('./../app/header'),
-	Link = require('react-router').Link;
+  Header = require('./../app/header'),
+  Link = require('react-router').Link;
 
 var Wallet = React.createClass({
-	componentWillMount: function() {
-		this.props.setMenu('secondary');
-		this.setState({account: {}});
-		api.getAccounts([this.props.params.name], function(err, accounts) {
-			this.setState({account: accounts[0]});
-		}.bind(this));
-	},
-	componentWillReceiveProps: function(nextProps) {
-		this.props.setMenu('secondary');
-		this.setState({account: {}});
-		api.getAccounts([this.props.params.name], function(err, accounts) {
-			this.setState({account: accounts[0]});
-		}.bind(this));
-	},
-	render: function(){
-		var username = this.props.params.name;
-		return (
-			<div className="main-panel">
-				<PageActions />
-				<Header account={username} />
-				<div className="container">
-					<center>
-						<h1>Wallet</h1>
-					</center>
-				</div>
-			</div>
-		);
-	}
+  componentWillMount: function() {
+    this.props.setMenu('secondary');
+    this.setState({account: {}});
+    api.getAccounts([this.props.params.name], function(err, accounts) {
+      this.setState({account: accounts[0]});
+    }.bind(this));
+  },
+  componentWillReceiveProps: function(nextProps) {
+    this.props.setMenu('secondary');
+    this.setState({account: {}});
+    api.getAccounts([this.props.params.name], function(err, accounts) {
+      this.setState({account: accounts[0]});
+    }.bind(this));
+  },
+  render: function(){
+    var username = this.props.params.name;
+    return (
+      <div className="main-panel">
+        <PageActions />
+        <Header account={username} />
+        <div className="container">
+          <center>
+            <h1>Wallet</h1>
+          </center>
+        </div>
+      </div>
+    );
+  }
 });
 
 var mapStateToProps = function(state){
-	return {
-		auth: state.auth
-	};
+  return {
+    auth: state.auth
+  };
 };
 
 var mapDispatchToProps = function(dispatch){
-	return {
-		setMenu: function(menu){ dispatch(actions.setMenu(menu)); }
-	}
+  return {
+    setMenu: function(menu){ dispatch(actions.setMenu(menu)); }
+  }
 };
 
 module.exports = ReactRedux.connect(mapStateToProps,mapDispatchToProps)(Wallet);

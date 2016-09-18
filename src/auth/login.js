@@ -1,7 +1,7 @@
 var React = require('react'),
-	ReactRedux = require('react-redux'),
-	Header = require("./../app/header"),
-	Link = require('react-router').Link;
+  ReactRedux = require('react-redux'),
+  Header = require("./../app/header"),
+  Link = require('react-router').Link;
 
 import * as authActions from './authActions';
 
@@ -11,7 +11,7 @@ var Callback = React.createClass({
     this.props.dispatch(
       authActions.login(username)
     );
-	},
+  },
   render: function(){
     return (
       <div className="main-panel">
