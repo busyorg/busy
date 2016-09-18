@@ -6,6 +6,7 @@ module.exports = {
   "extends": "airbnb",
   "rules": {
     "jsx-filename-extension": "off",
+    "comma-dangle": ["error", "never"]
   },
   "plugins": [
     "react",
