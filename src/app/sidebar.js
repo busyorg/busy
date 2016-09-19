@@ -98,17 +98,17 @@ var Sidebar = React.createClass({
                 </Link>
               </li>
               <li className="title">
-                <Link to="/drafts">
+                <Link to="/#drafts">
                   <i className="icon icon-md material-icons">library_books</i> Drafts
                 </Link>
               </li>
               <li className="title">
-                <Link to="/files">
+                <Link to="/#files">
                   <i className="icon icon-md material-icons">attach_file</i> Files
                 </Link>
               </li>
               <li className="title">
-                <Link to="/files">
+                <Link to="/#bookmarks">
                   <i className="icon icon-md material-icons">collections_bookmark</i> Bookmarks
                 </Link>
               </li>
