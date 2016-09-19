@@ -75,7 +75,9 @@ var Sidebar = React.createClass({
                 </span>
                 <span style={{clear: 'both', display: 'block'}}>@{user.name} <Link to="/settings" onClick={() => this.setState({menu: 'settings'})}><i className="icon icon-xs material-icons">settings</i></Link></span>
               </Link> :
-              <a className="login" href="https://steemconnect.com/authorize/@busy"><i className="icon icon-md material-icons">lock_outline</i> Steem Connect</a>}
+              <div className="log">
+                <a href="https://steemconnect.com/authorize/@busy"><i className="icon icon-lg material-icons pam">lock_outline</i></a>
+              </div>}
           </div>
           {this.props.auth.isAuthenticated && <ul className="list-selector">
             <li><a onClick={() => this.setState({menu: 'public'})} className="active"><i className="icon icon-md material-icons">public</i></a></li>
