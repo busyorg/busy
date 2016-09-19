@@ -79,13 +79,13 @@ var Sidebar = React.createClass({
                 <a href="https://steemconnect.com/authorize/@busy"><i className="icon icon-lg material-icons pam">lock_outline</i></a>
               </div>}
           </div>
-          {this.props.auth.isAuthenticated && <ul className="list-selector">
-            <li><a onClick={() => this.setState({menu: 'public'})} className="active"><i className="icon icon-md material-icons">public</i></a></li>
-            <li><a onClick={() => this.setState({menu: 'feed'})}  className="active"><i className="icon icon-md material-icons">chat_bubble_outline</i></a></li>
-            <li><a onClick={() => this.setState({menu: 'write'})} className="active"><i className="icon icon-md material-icons">create</i></a></li>
-            <li><a onClick={() => this.setState({menu: 'wallet'})} className="active"><i className="icon icon-md material-icons">account_balance_wallet</i></a></li>
-          </ul>}
         </div>
+        {this.props.auth.isAuthenticated && <ul className="list-selector">
+          <li><a onClick={() => this.setState({menu: 'public'})} className="active"><i className="icon icon-md material-icons">public</i></a></li>
+          <li><a onClick={() => this.setState({menu: 'feed'})}  className="active"><i className="icon icon-md material-icons">chat_bubble_outline</i></a></li>
+          <li><a onClick={() => this.setState({menu: 'write'})} className="active"><i className="icon icon-md material-icons">create</i></a></li>
+          <li><a onClick={() => this.setState({menu: 'wallet'})} className="active"><i className="icon icon-md material-icons">account_balance_wallet</i></a></li>
+        </ul>}
         <div className="sidebar-content">
           {this.state.isFetching && <Loading color="white"/>}
           {this.props.auth.isAuthenticated && _.has(this.state.feedPrice, 'base') && this.state.menu === 'settings' &&
