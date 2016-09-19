@@ -3,8 +3,13 @@ fieldset
   text-align: left
 
 input, textarea
-  border: 1px solid rgba(0, 0, 0, 0.15) !important
+  border: 0 !important
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15) !important
   border-radius: 0 !important
+  background: transparent !important
+  box-shadow: none !important
+  &:focus
+    border-bottom: 1px solid $primary-color !important
 
 input[type="checkbox"]
   margin-right: 15px
