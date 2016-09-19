@@ -2,7 +2,6 @@ var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
-var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var http = require('http'),
   https = require('https');
@@ -14,22 +13,16 @@ var server = http.Server(app);
 var io = require('socket.io')(server);
 
 var cors = require('cors');
-//var cookieParser = require('cookie-parser');
-var session = require('express-session');
 
 if (process.env.NODE_ENV !== 'production')
   require('./webpack')(app);
 
-// view engine setup
 var hbs = require('hbs');
 hbs.registerPartials(__dirname + '/views/partials');
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
-// uncomment after placing your favicon in /public
-//README.md.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-
-app.enable('trust proxy'); // For get req.ip
+app.enable('trust proxy');
 
 app.use(function(req, res, next){
   res.io = io;
@@ -39,26 +32,10 @@ app.use(function(req, res, next){
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-
-app.use(session({ secret: 'YOUR_SECRET_HERE', resave: false,  saveUninitialized: false }));
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'node_modules')));
 
-// Redirect to https://busy6.com
-/*
-README.md.use(function(req, res, next){
-  var host = req.get('host');
-  if (host == 'localhost:3000' || (host == 'busy6.com' && req.secure)) {
-    next();
-  } else {
-    res.redirect('https://busy6.com');
-  }
-});
-*/
-
-// Enable CORS
 app.use(cors());
 
 // Get user inside view
@@ -66,14 +43,6 @@ app.use(function(req, res, next){
   res.locals.user = req.user || null;
   next();
 });
-
-/*
-var db = require('./db');
-README.md.use(function(req,res,next){
-  req.db = db;
-  next();
-});
-*/
 
 app.locals.env = process.env;
 
