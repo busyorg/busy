@@ -61,8 +61,11 @@ var Sidebar = React.createClass({
     }
     return (
       <nav className="sidebar">
-        {this.props.app.sidebarIsVisible && <a className="visible-xs hide-sidebar" href="#" onClick={() => this.props.hideSidebar()}><i className="icon icon-md icon-menu material-icons">arrow_back</i></a>}
         <div className="sidebar-header">
+          {this.props.app.sidebarIsVisible &&
+          <a className="visible-xs hide-sidebar" href="#" onClick={() => this.props.hideSidebar()}>
+            <i className="icon icon-md icon-menu material-icons">arrow_back</i>
+          </a>}
           <div className="me">
             {this.props.auth.isAuthenticated?
               <Link to={'/@' + user.name}>
@@ -70,7 +73,7 @@ var Sidebar = React.createClass({
                   <span className="reputation">{formatter.reputation(user.reputation)}</span>
                   <img src={`https://img.busy6.com/@${user.name}`} />
                 </span>
-                <span style={{clear: 'both', display: 'block'}}>@{user.name}</span>
+                <span style={{clear: 'both', display: 'block'}}>@{user.name} <Link to="/settings" onClick={() => this.setState({menu: 'settings'})}><i className="icon icon-xs material-icons">settings</i></Link></span>
               </Link> :
               <a className="login" href="https://steemconnect.com/authorize/@busy"><i className="icon icon-md material-icons">lock_outline</i> Steem Connect</a>}
           </div>
@@ -83,6 +86,21 @@ var Sidebar = React.createClass({
         </div>
         <div className="sidebar-content">
           {this.state.isFetching && <Loading color="white"/>}
+          {this.props.auth.isAuthenticated && _.has(this.state.feedPrice, 'base') && this.state.menu === 'settings' &&
+            <ul>
+              <li className="title">
+                <Link to="/#profile"><i className="icon icon-md material-icons">perm_identity</i> Profile</Link>
+              </li>
+              <li className="title">
+                <Link to="/settings"><i className="icon icon-md material-icons">settings</i> Settings</Link>
+              </li>
+              <li className="title">
+                <Link to="/about"><i className="icon icon-md material-icons">info_outline</i> About</Link>
+              </li>
+              <li className="title">
+                <a href="https://steemconnect.com/logout"><i className="icon icon-md material-icons">lock_open</i> Log Out</a>
+              </li>
+            </ul>}
           {_.size(this.state.categories) > 0 && this.state.menu === 'public' && <ul className="tags">{tags}</ul>}
           {_.size(this.state.following) > 0 && this.state.menu === 'feed' &&
             <ul className="tags">
@@ -98,19 +116,13 @@ var Sidebar = React.createClass({
                 </Link>
               </li>
               <li className="title">
-                <Link to="/#drafts">
-                  <i className="icon icon-md material-icons">library_books</i> Drafts
-                </Link>
+                <Link to="/#drafts"><i className="icon icon-md material-icons">library_books</i> Drafts</Link>
               </li>
               <li className="title">
-                <Link to="/#files">
-                  <i className="icon icon-md material-icons">attach_file</i> Files
-                </Link>
+                <Link to="/#files"><i className="icon icon-md material-icons">attach_file</i> Files</Link>
               </li>
               <li className="title">
-                <Link to="/#bookmarks">
-                  <i className="icon icon-md material-icons">collections_bookmark</i> Bookmarks
-                </Link>
+                <Link to="/#bookmarks"><i className="icon icon-md material-icons">collections_bookmark</i> Bookmarks</Link>
               </li>
             </ul>}
           {this.props.auth.isAuthenticated && _.has(this.state.feedPrice, 'base') && this.state.menu === 'wallet' &&
