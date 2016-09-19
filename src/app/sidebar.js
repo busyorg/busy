@@ -68,7 +68,7 @@ var Sidebar = React.createClass({
               <Link to={'/@' + user.name}>
                 <span className="avatar avatar-sm">
                   <span className="reputation">{formatter.reputation(user.reputation)}</span>
-                  <img src={'https://img.busy6.com/@' + user.name} />
+                  <img src={`https://img.busy6.com/@${user.name}`} />
                 </span>
                 <span style={{clear: 'both', display: 'block'}}>@{user.name}</span>
               </Link> :
@@ -76,27 +76,39 @@ var Sidebar = React.createClass({
           </div>
           {this.props.auth.isAuthenticated && <ul className="list-selector">
             <li><a onClick={() => this.setState({menu: 'public'})} className="active"><i className="icon icon-md material-icons">public</i></a></li>
-            <li><a onClick={() => this.setState({menu: 'feed'})}  className="active"><i className="icon icon-md material-icons">people</i></a></li>
-            <li><a onClick={() => this.setState({menu: 'messages'})} className="active"><i className="icon icon-md material-icons">chat_bubble_outline</i></a></li>
+            <li><a onClick={() => this.setState({menu: 'feed'})}  className="active"><i className="icon icon-md material-icons">chat_bubble_outline</i></a></li>
+            <li><a onClick={() => this.setState({menu: 'write'})} className="active"><i className="icon icon-md material-icons">create</i></a></li>
             <li><a onClick={() => this.setState({menu: 'wallet'})} className="active"><i className="icon icon-md material-icons">account_balance_wallet</i></a></li>
           </ul>}
         </div>
         <div className="sidebar-content">
           {this.state.isFetching && <Loading color="white"/>}
-          {_.size(this.state.categories) > 0 && this.state.menu == 'public' && <ul className="tags">{tags}</ul>}
-          {_.size(this.state.following) > 0 && this.state.menu == 'feed' &&
+          {_.size(this.state.categories) > 0 && this.state.menu === 'public' && <ul className="tags">{tags}</ul>}
+          {_.size(this.state.following) > 0 && this.state.menu === 'feed' &&
             <ul className="tags">
               {this.state.following.map(function(follow, key) {
                 return <li key={key}><Link to={'/@' + follow.following} activeClassName="active">@{follow.following}</Link></li>
               })}
             </ul>}
-          {this.props.auth.isAuthenticated && this.state.menu == 'messages' &&
-            <ul className="tags">
-              <li><Link to={'/messages/@dantheman'} activeClassName="active">@dantheman</Link></li>
-              <li><Link to={'/messages/@ned'} activeClassName="active">@ned</Link></li>
-              <li><Link to={'/messages/@jesta'} activeClassName="active">@jesta</Link></li>
-            </ul>}
-          {this.props.auth.isAuthenticated && _.has(this.state.feedPrice, 'base') && this.state.menu == 'wallet' &&
+          {this.props.auth.isAuthenticated && _.has(this.state.feedPrice, 'base') && this.state.menu === 'write' &&
+            <div>
+              <div className="title">
+                <Link to="/write">
+                  <i className="icon icon-md material-icons">add</i> Write
+                </Link>
+              </div>
+              <div className="title">
+                <Link to="/drafts">
+                  <i className="icon icon-md material-icons">library_books</i> Drafts
+                </Link>
+              </div>
+              <div className="title">
+                <Link to="/files">
+                  <i className="icon icon-md material-icons">attach_file</i> Files
+                </Link>
+              </div>
+            </div>}
+          {this.props.auth.isAuthenticated && _.has(this.state.feedPrice, 'base') && this.state.menu === 'wallet' &&
             <ul className="tags">
               <li><span className="menu-row">1 Steem <span className="pull-right">{numeral(base).format('$0,0.00')}</span></span></li>
               <li><span className="menu-row">Steem <span className="pull-right">{numeral(user.balance).format('0,0.00')}</span></span></li>
