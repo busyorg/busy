@@ -48,20 +48,22 @@ nav.sidebar
         flex-grow: 1
         overflow-y: auto
         .tags
+          border-top: 1px solid rgba(0,0,0,0.2)
+          padding: 8px 0
+          li a, .menu-row
+            display: block
+            line-height: 1.8em
+            font-size: 16px
+            margin: 0 20px
+            opacity: 0.6
+            &:hover
+              opacity: 1
+        ul
             font-family: $font-primary
-            padding: 8px 0
             clear: both
             background-color: rgba(255, 255, 255, .05)
             list-style-type: none
 
-            li a, .menu-row
-                display: block
-                line-height: 1.8em
-                font-size: 16px
-                margin: 0 20px
-                opacity: 0.6
-                &:hover
-                    opacity: 1
             a.active
                 opacity: 1 !important
 
@@ -70,6 +72,7 @@ nav.sidebar
         padding-left: 20px
         height: 56px
         line-height: 56px
+        border-top: 1px solid rgba(0,0,0,0.2)
 
     a.login
         margin-top: 10px
@@ -84,6 +87,3 @@ nav.sidebar
         position: absolute
         right: 0
         top: 0
-
-    .sidebar-footer
-        border-top: 1px solid rgba(0,0,0,0.2)

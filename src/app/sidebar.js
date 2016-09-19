@@ -91,23 +91,28 @@ var Sidebar = React.createClass({
               })}
             </ul>}
           {this.props.auth.isAuthenticated && _.has(this.state.feedPrice, 'base') && this.state.menu === 'write' &&
-            <div>
-              <div className="title">
+            <ul>
+              <li className="title">
                 <Link to="/write">
                   <i className="icon icon-md material-icons">add</i> Write
                 </Link>
-              </div>
-              <div className="title">
+              </li>
+              <li className="title">
                 <Link to="/drafts">
                   <i className="icon icon-md material-icons">library_books</i> Drafts
                 </Link>
-              </div>
-              <div className="title">
+              </li>
+              <li className="title">
                 <Link to="/files">
                   <i className="icon icon-md material-icons">attach_file</i> Files
                 </Link>
-              </div>
-            </div>}
+              </li>
+              <li className="title">
+                <Link to="/files">
+                  <i className="icon icon-md material-icons">collections_bookmark</i> Bookmarks
+                </Link>
+              </li>
+            </ul>}
           {this.props.auth.isAuthenticated && _.has(this.state.feedPrice, 'base') && this.state.menu === 'wallet' &&
             <ul className="tags">
               <li><span className="menu-row">1 Steem <span className="pull-right">{numeral(base).format('$0,0.00')}</span></span></li>
@@ -116,9 +121,6 @@ var Sidebar = React.createClass({
               <li><span className="menu-row">Steem Dollars <span className="pull-right">{numeral(user.sbd_balance).format('0,0.00')}</span></span></li>
               <li><span className="menu-row">Steem Dollars <span className="pull-right">{numeral(dollar).format('$0,0.00')}</span></span></li>
             </ul>}
-        </div>
-        <div className="sidebar-footer">
-          <div className="title"><Link to="/about"><i className="icon icon-md material-icons">info_outline</i> About</Link></div>
         </div>
       </nav>
     );
