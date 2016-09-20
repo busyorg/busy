@@ -1,9 +1,10 @@
 import React from 'react';
 
-const CommentsList = () => {
+const CommentsList = ({ name }) => {
   return (
-    <div>
-    </div>
+    <span>
+      { name }
+    </span>
   );
 };
 
