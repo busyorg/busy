@@ -1,6 +1,7 @@
 {
   "name": "busy",
   "version": "0.0.1",
+  "bin": "./bin/www",
   "private": true,
   "scripts": {
     "start": "nodemon --ignore src ./bin/www",
