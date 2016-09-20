@@ -12,6 +12,9 @@ The Busy Foundation’s mission is to develop and promote the next generation de
 - Improve documentation
 - Write tutorial for use Steem.js or Steem API
 
+# Workflow
+https://github.com/adcpm/busy/projects/1
+
 # Roadmap
 
 ## Busy
@@ -19,7 +22,7 @@ V1: Facebook style feed + Slack style chat + custom profile + languages + large 
 GitHub: https://github.com/adcpm/busy<br/>
 Issues: https://github.com/adcpm/busy/issues<br/>
 Website: https://bus.yt/ and https://dev.bus.yt/<br/>
-See cards on Trello
+Worflow: https://github.com/adcpm/busy/projects/1
 
 ## Steem.js
 GitHub: https://github.com/adcpm/steem<br/>
@@ -57,7 +60,6 @@ NPM Package: https://www.npmjs.com/package/steemembed<br/>
 ## Busy Img
 GitHub: https://github.com/adcpm/busy-img<br/>
 Website: https://img.busy6.com<br/>
-- Detect if profile.profile_image exist and show it mirrored by Cloudinary or show default picture @busy
 
 ## Busy WebSocket
 GitHub: https://github.com/adcpm/busy-ws<br/>
