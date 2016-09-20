@@ -9,19 +9,27 @@ export default class Comments extends Component {
   }
 
   static propTypes = {
-    contentPermlink: React.PropTypes.string.isRequired,
-    contentAuthor: React.PropTypes.string.isRequired,
+    postId: React.PropTypes.string.isRequired,
   };
 
+  componentDidMount() {
+    this.props.getComments(this.props.postId);
+  }
+
   render() {
+    // TODO(p0o): remove default when postId is passed from the top (not implemented yet)
+    const postId = this.props.postId || 0;
+
     return (
       <div>
-        <CommentsList />
+        <CommentsList commentsData={ commentsData[postId] } />
       </div>
     );
   }
 }
 
-const mapStateToProps = (state) => {
-  return {state};
+const mapStateToProps = ({ comments }) => {
+  return {
+    comments
+  };
 };

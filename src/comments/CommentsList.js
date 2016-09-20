@@ -1,10 +1,12 @@
 import React from 'react';
 
-const CommentsList = ({ name }) => {
+const CommentsList = ({ commentsData, limit }) => {
   return (
-    <span>
-      { name }
-    </span>
+    commentsData.map((comment, idx) => {
+      return (
+        <div key={ idx }>{ comment.author }:{ comment.body }</div>
+      );
+    })
   );
 };
 
