@@ -19,6 +19,7 @@ var Sidebar = React.createClass({
         feedPrice: result.feed_price
       });
     }.bind(this));
+    this.getFollowing();
     return {
       isFetching: true,
       isLoaded: false,
@@ -43,7 +44,6 @@ var Sidebar = React.createClass({
     }
   },
   render: function(){
-    this.getFollowing();
     var user = this.props.auth.user;
     var tags = [];
     if (this.state.categories) {
