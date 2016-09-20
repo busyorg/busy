@@ -1,13 +1,12 @@
-var React = require('react'),
-  ReactDOM = require('react-dom'),
-  Router = require('react-router').Router,
-  Provider = require('react-redux').Provider,
-  store = require('./store'),
-  routes = require('./routes'),
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Router, useRouterHistory } from 'react-router';
+import { createHistory } from 'history';
+import { Provider } from 'react-redux';
+import store from './store';
+import routes from './routes';
 
-  routerHistory = require('react-router').useRouterHistory,
-  createHistory = require('history').createHistory,
-  appHistory = routerHistory(createHistory)({ queryKey: false });
+const appHistory = useRouterHistory(createHistory)({ queryKey: false });
 
 // load the stylesheet
 require('./styles/base.sass');
