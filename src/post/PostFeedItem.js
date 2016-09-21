@@ -6,7 +6,7 @@ var React = require('react'),
   actions = require('../actions'),
   RepliesShort = require('./replies-short'),
   BodyShort = require('./body-short'),
-  PostActions = require('./PostActions'),
+  PostActionButtons = require('./PostActionButtons'),
   Mentions = require('./mentions'),
   Link = require('react-router').Link;
 
@@ -60,7 +60,7 @@ module.exports = React.createClass({
         </div>
         <div style={style}></div>
         <div className="cell cell-bottom">
-          <PostActions post={post} />
+          <PostActionButtons post={post} />
         </div>
         {this.props.replies != 'false' && post.children > 0 && <RepliesShort parent={post.author} parentPermlink={post.permlink} />}
       </div>

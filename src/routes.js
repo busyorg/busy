@@ -38,7 +38,7 @@ var React = require('react'),
   Write = require('./post/newPost/NewPost').default,
   Messages = require('./messages/Messages');
 
-module.exports = (
+export default (
   <Route path="/" component={Wrapper}>
     <IndexRoute component={Dashboard} />
     <Route path="/login/@:name" component={Login} />

@@ -1,7 +1,11 @@
 module.exports = {
   "parserOptions": {
     "ecmaVersion": 7,
-    "sourceType": "module"
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true,
+      "experimentalObjectRestSpread": true,
+    },
   },
   "extends": "airbnb",
   "rules": {

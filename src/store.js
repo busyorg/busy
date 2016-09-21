@@ -1,13 +1,19 @@
-var Redux = require('redux'),
-  thunk = require('redux-thunk').default;
+import { combineReducers, applyMiddleware, createStore } from 'redux';
+import thunk from 'redux-thunk';
 
 import authReducers from './auth/authReducers';
 import appReducers, { headerReducer } from './app/appReducers';
+import commentsReducer from './comments/commentsReducer.js';
 
-const rootReducer = Redux.combineReducers({
+const reducers = combineReducers({
   app: appReducers,
   auth: authReducers,
-  header: headerReducer
+  header: headerReducer,
+  comments: commentsReducer
 });
 
-module.exports = Redux.applyMiddleware(thunk)(Redux.createStore)(rootReducer, {}, window.devToolsExtension && window.devToolsExtension());
+export default createStore(
+  reducers,
+  window.devToolsExtension && window.devToolsExtension(),
+  applyMiddleware(thunk)
+);
