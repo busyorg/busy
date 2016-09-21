@@ -1,22 +1,35 @@
+/* global window */
 import createLogger from 'redux-logger';
 import promiseMiddleware from 'redux-promise-middleware';
 import thunk from 'redux-thunk';
 import { combineReducers, applyMiddleware, createStore } from 'redux';
 
-import authReducers from './auth/authReducers';
+import MessagesWorker, { messagesReducer } from './common/messages';
 import appReducers, { headerReducer } from './app/appReducers';
+import authReducers from './auth/authReducers';
 import commentsReducer from './comments/commentsReducer.js';
+
+export const messagesWorker = new MessagesWorker();
 
 const reducers = combineReducers({
   app: appReducers,
   auth: authReducers,
+  comments: commentsReducer,
   header: headerReducer,
-  comments: commentsReducer
+  messages: messagesReducer,
 });
 
 const middleware = [
-  thunk,
-  promiseMiddleware()
+  promiseMiddleware({
+    promiseTypeSuffixes: [
+      'START',
+      'SUCCESS',
+      'ERROR',
+    ]
+  }),
+  thunk.withExtraArgument({
+    messagesWorker,
+  }),
 ];
 
 if (process.env.ENABLE_LOGGER &&
@@ -29,8 +42,13 @@ if (process.env.ENABLE_LOGGER &&
   }));
 }
 
-export default createStore(
+const store = createStore(
   reducers,
   typeof window !== 'undefined' && window.devToolsExtension && window.devToolsExtension(),
   applyMiddleware(...middleware)
 );
+
+messagesWorker.attachToStore(store);
+messagesWorker.start();
+
+export default store;

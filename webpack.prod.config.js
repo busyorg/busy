@@ -29,7 +29,8 @@ module.exports = {
           // This has effect on the react lib size
           NODE_ENV: JSON.stringify('production'),
           ENABLE_LOGGER: JSON.stringify(process.env.ENABLE_LOGGER),
-          IS_BROWSER: JSON.stringify(true)
+          BUSYWS_HOST: JSON.stringify(process.env.BUSYWS_HOST || 'https://ws.busy6.com'),
+          IS_BROWSER: JSON.stringify(true),
         },
       }),
       new ExtractTextPlugin('../css/base.css'),

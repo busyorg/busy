@@ -13,7 +13,7 @@ export default class SidebarContacts extends Component {
     const contacts = map(this.props.contacts, (follow, key) => (
       <li key={key}>
         <Link
-          to={`/@${follow.following}`}
+          to={`/messages/@${follow.following}`}
           activeClassName="active"
         >
           @{follow.following}

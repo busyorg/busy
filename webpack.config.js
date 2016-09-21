@@ -23,7 +23,8 @@ module.exports = {
         // This has effect on the react lib size
         NODE_ENV: JSON.stringify('development'),
         ENABLE_LOGGER: JSON.stringify(process.env.ENABLE_LOGGER),
-        IS_BROWSER: JSON.stringify(true)
+        BUSYWS_HOST: JSON.stringify(process.env.BUSYWS_HOST || 'http://localhost:3001'),
+        IS_BROWSER: JSON.stringify(true),
       }
     })
   ],
