@@ -14,6 +14,6 @@ const reducers = combineReducers({
 
 export default createStore(
   reducers,
-  window.devToolsExtension && window.devToolsExtension(),
+  typeof window !== 'undefined' && window.devToolsExtension && window.devToolsExtension(),
   applyMiddleware(thunk)
 );
