@@ -1,5 +1,8 @@
-var React = require('react'),
-  ReactRedux = require('react-redux'),
+import React, { PropTypes } from 'react';
+
+import SidebarContacts from './Sidebar/SidebarContacts';
+
+var ReactRedux = require('react-redux'),
   actions = require('./../actions'),
   formatter = require('steem/lib/formatter'),
   _ = require('lodash'),
@@ -18,8 +21,8 @@ var Sidebar = React.createClass({
         props: result.props,
         feedPrice: result.feed_price
       });
+      this.getFollowing();
     }.bind(this));
-    //this.getFollowing();
     return {
       isFetching: true,
       isLoaded: false,
@@ -32,12 +35,14 @@ var Sidebar = React.createClass({
       menu: 'public'
     };
   },
-  getFollowing(){
-    if (this.props.auth.isAuthenticated === true
-      && _.size(this.state.following) === 0
-      && this.state.followingIsFetching === false
-      && this.state.followingIsLoaded === false
-    ) {
+  componentDidUpdate: function() {
+    this.getFollowing();
+  },
+  getFollowing: function(){
+    if (this.props.auth.isAuthenticated &&
+        !_.size(this.state.following) &&
+        !this.state.followingIsFetching &&
+        !this.state.followingIsLoaded) {
       api.getFollowing(this.props.auth.user.name, 0, 'blog', 20, function(err, following) {
         this.setState({following: following});
       }.bind(this));
@@ -106,12 +111,11 @@ var Sidebar = React.createClass({
               </li>
             </ul>}
           {_.size(this.state.categories) > 0 && this.state.menu === 'public' && <ul className="tags">{tags}</ul>}
+
           {_.size(this.state.following) > 0 && this.state.menu === 'feed' &&
-            <ul className="tags">
-              {this.state.following.map(function(follow, key) {
-                return <li key={key}><Link to={'/@' + follow.following} activeClassName="active">@{follow.following}</Link></li>
-              })}
-            </ul>}
+              <SidebarContacts contacts={this.state.following} />
+          }
+
           {this.props.auth.isAuthenticated && _.has(this.state.feedPrice, 'base') && this.state.menu === 'write' &&
             <ul>
               <li className="title">
