@@ -44,7 +44,7 @@ module.exports = {
         loader: 'json',
       },
       {
-        test: /\.sass$/,
+        test: /\.s[ac]ss$/,
         loader: ExtractTextPlugin.extract(
           'style-loader',
           'css!autoprefixer-loader?browsers=last 2 version!sass'
