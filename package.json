@@ -55,6 +55,7 @@
     "redis": "^2.5.3",
     "redux": "^3.5.2",
     "redux-actions": "^0.12.0",
+    "redux-logger": "^2.6.1",
     "redux-thunk": "^2.1.0",
     "sass-loader": "^4.0.2",
     "serve-favicon": "~2.3.0",
