@@ -85,6 +85,7 @@
     "eslint-plugin-react": "^6.2.1",
     "jsdom": "^9.5.0",
     "mocha": "^3.0.2",
+    "react-addons-test-utils": "^15.3.2",
     "redux-mock-store": "^1.2.0",
     "webpack-dev-server": "^1.15.1",
     "webpack-hot-middleware": "^2.10.0"
