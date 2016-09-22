@@ -19,6 +19,7 @@ export default function PageHOC(ComposedComponent) {
       if (params.category && params.sortBy) {
         sortBy = params.sortBy;
         category = params.category;
+        path = `${sortBy}/${category}`;
       }
       return (
         <ComposedComponent
