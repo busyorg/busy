@@ -24,20 +24,27 @@ var Wrapper = React.createClass({
     }
   },
 
-  render: function() {
-      var className = (!this.props.app.sidebarIsVisible)? 'app-wrapper full-width' : 'app-wrapper';
-      return (
-        <div className={className}>
-          {this.props.app.sidebarIsVisible && <Sidebar />}
-          {this.props.children}
-        </div>
-      );
+  render() {
+    var className = (!this.props.app.sidebarIsVisible)? 'app-wrapper full-width' : 'app-wrapper';
+    const { auth } = this.props;
+    return (
+      <div className={className}>
+        {this.props.app.sidebarIsVisible && <Sidebar />}
+        {
+          React.cloneElement(
+            this.props.children,
+            { auth }
+          )
+        }
+      </div>
+    );
   }
 });
 
-var mapStateToProps = function({ app }){
+var mapStateToProps = function({ app, auth }){
   return {
-    app
+    app,
+    auth
   };
 };
 
