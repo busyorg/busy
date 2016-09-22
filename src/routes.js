@@ -66,6 +66,6 @@ export default (
     <Route path="/@:name" component={Profile} />
 
     <Route path="/:category/@:author/:permlink" component={ PostSinglePage } />
-    <Route path="/:sortBy/:category" component={Category} />
+    <Route path="/:sortBy/:category" component={Page} />
   </Route>
 );
