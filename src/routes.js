@@ -4,7 +4,6 @@ var React = require('react'),
   IndexRoute = ReactRouter.IndexRoute,
   Wrapper = require('./wrapper'),
 
-  Dashboard = require('./app/dashboard'),
   Login = require('./auth/login'),
   Callback = require('./widgets/callback'),
   Settings = require('./app/settings'),
@@ -15,10 +14,7 @@ var React = require('react'),
   Jobs = require('./statics/jobs'),
   Donate = require('./statics/donate'),
   Help = require('./statics/help'),
-
   PostSinglePage = require('./post/PostSinglePage'),
-  Category = require('./feed/category'),
-
   Edit = require('./user/edit'),
   Posts = require('./user/posts'),
   Feed = require('./user/feed'),
@@ -28,19 +24,14 @@ var React = require('react'),
   Followed = require('./user/UserFollowedList'),
   Wallet = require('./user/wallet'),
 
-  Trending = require('./feed/trending'),
-  Hot = require('./feed/hot'),
-  Cashout = require('./feed/cashout'),
-  Created = require('./feed/created'),
-  Active = require('./feed/active'),
-  Responses = require('./feed/responses'),
-  Votes = require('./feed/votes'),
-  Write = require('./post/newPost/NewPost').default,
-  Messages = require('./messages/Messages');
+  Write = require('./post/newPost/NewPost').default;
+
+import Page from './feed/page';
+import Messages from './messages/Messages';
 
 export default (
   <Route path="/" component={Wrapper}>
-    <IndexRoute component={Dashboard} />
+    <IndexRoute component={Page} />
     <Route path="/login/@:name" component={Login} />
     <Route path="/callback" component={Callback} />
     <Route path="/settings" component={Settings} />
@@ -52,13 +43,13 @@ export default (
     <Route path="/donate" component={Donate} />
     <Route path="/help" component={Help} />
 
-    <Route path="/trending" component={Trending} />
-    <Route path="/hot" component={Hot} />
-    <Route path="/cashout" component={Cashout} />
-    <Route path="/created" component={Created} />
-    <Route path="/active" component={Active} />
-    <Route path="/responses" component={Responses} />
-    <Route path="/votes" component={Votes} />
+    <Route path="/trending" component={Page} />
+    <Route path="/hot" component={Page} />
+    <Route path="/cashout" component={Page} />
+    <Route path="/created" component={Page} />
+    <Route path="/active" component={Page} />
+    <Route path="/responses" component={Page} />
+    <Route path="/votes" component={Page} />
 
     <Route path="/write" component={Write} />
 
