@@ -1,6 +1,7 @@
 var React = require("react"),
-  ReactRedux = require('react-redux'),
-  Page = require("./../feed/page");
+  ReactRedux = require('react-redux');
+
+import Page from './../feed/page';
 
 var Dashboard = React.createClass({
   render: function(){
