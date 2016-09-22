@@ -2,24 +2,33 @@ import React from 'react';
 import Header from './../app/header';
 import PageActions from './../app/PageActions';
 import Feed from './feed';
+import PageHOC from './PageHOC';
 
-const Page = ({ account, category, sortBy, path }) => {
-  return (
-    <div className="main-panel">
-      <PageActions
-        messages
-        add
-      />
-      <Header
-        account={account}
-        category={category}
-      />
-      <Feed
-        path={path}
-        sortBy={sortBy}
-      />
-    </div>
-  );
+@PageHOC
+export default class Page extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    const { account, category, sortBy, path } = this.props;
+    return (
+      <div className="main-panel">
+        <PageActions
+          messages
+          add
+        />
+        <Header
+          account={account}
+          category={category}
+        />
+        <Feed
+          path={path}
+          sortBy={sortBy}
+        />
+      </div>
+    );
+  }
 };
 
 Page.propTypes = {
@@ -28,5 +37,3 @@ Page.propTypes = {
   sortBy: React.PropTypes.string,
   path: React.PropTypes.string,
 };
-
-export default Page;
