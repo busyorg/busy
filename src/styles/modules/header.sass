@@ -1,4 +1,9 @@
+.full-width
+  header
+    left: 0
+
 header
+  z-index: 10
   background: #fff
   flex: 0 0 auto
   position: fixed
@@ -6,7 +11,6 @@ header
   left: 260px
   right: 0
   box-shadow: 0 2px 5px 0 rgba(0,0,0,0.05)
-  z-index: 10
   a
     color: #7D7D8E !important
     &:hover
@@ -17,10 +21,6 @@ header
       color: $primary-color !important
       .icon
         color: $primary-color
-
-@media (max-width: 992px)
-  header
-    left: 0
 
 .top-nav
   height: 56px
@@ -51,7 +51,6 @@ header
   max-height: 100%
   text-align: center
   border-bottom: 1px solid #E7E7EC
-  text-align: center
   li
     display: inline-block
     margin: 0 12px
@@ -65,48 +64,9 @@ header
       &.active
         box-shadow: inset 0 -1px 0 $primary-color
 
-.app-nav
-  overflow: hidden
-  height: 57px
-  text-align: center
-  box-shadow: inset 0 -1px 0 #E7E7EC
-  li
-    display: inline-block
-    margin: 0 12px
-    a
-      display: block
-      height: 57px
-      line-height: 54px
-      &:hover
-        box-shadow: inset 0 -1px 0 #d4d4da
-      &.active
-        box-shadow: inset 0 -1px 0 $primary-color
-
-
 @media (max-width: 991px)
   .sidebar-toggle
     display: inline-block !important
-
-
-
-
-.page-top
-  height: 3rem
-  vertical-align: middle
-  border-bottom: 1px solid #eee
-  font-weight: bold
-
-  ul
-    li
-      display: inline-block
-      padding: 0 12px
-      height: 47px
-      border-right: 1px solid #eeeef1
-      line-height: 46px
-      a
-        height: 47px
-        display: inline-block
-
 
 .top-head
   flex-grow: 1
