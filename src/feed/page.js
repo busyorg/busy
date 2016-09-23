@@ -25,6 +25,7 @@ export default class Page extends React.Component {
         <Feed
           path={path}
           sortBy={sortBy}
+          limit={ 10 }
         />
       </div>
     );
