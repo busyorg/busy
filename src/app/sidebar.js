@@ -9,7 +9,7 @@ var React = require('react'),
   Link = require('react-router').Link;
 
 var Sidebar = React.createClass({
-  getInitialState: function() {
+  getInitialState() {
     api.getState('trending/busy', function(err, result) {
       this.setState({
         isFetching: false,
@@ -32,7 +32,7 @@ var Sidebar = React.createClass({
       menu: 'public'
     };
   },
-  getFollowing: function(){
+  getFollowing(){
     if (this.props.auth.isAuthenticated === true
       && _.size(this.state.following) == 0
       && this.state.followingIsFetching == false
@@ -43,7 +43,7 @@ var Sidebar = React.createClass({
       }.bind(this));
     }
   },
-  render: function(){
+  render(){
     var user = this.props.auth.user;
     var tags = [];
     if (this.state.categories) {
@@ -143,17 +143,17 @@ var Sidebar = React.createClass({
   }
 });
 
-var mapStateToProps = function(state){
+var mapStateToProps = function (state) {
   return {
     app: state.app,
     auth: state.auth
   };
 };
 
-var mapDispatchToProps = function(dispatch){
+var mapDispatchToProps = function (dispatch) {
   return {
-    hideSidebar: function(){ dispatch(actions.hideSidebar()); }
-  }
+    hideSidebar() { dispatch(actions.hideSidebar()); }
+  };
 };
 
-module.exports = ReactRedux.connect(mapStateToProps,mapDispatchToProps)(Sidebar);
+module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(Sidebar);
