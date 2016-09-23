@@ -1,5 +1,5 @@
 // TODO(p0o): use a selector for these
-export const getContentListFromState = (path, state) => {
+export const getFeedFromState = (path, tag = 'all', state) => {
   switch (path) {
     case 'feed':
     case 'hot':
@@ -7,8 +7,8 @@ export const getContentListFromState = (path, state) => {
     case 'crated':
     case 'active':
     case 'trending':
-      return state[path];
+      return state.feed[path][tag];
     default:
-      return state['trending'];
+      return state.feed['trending']['all'];
   }
 };
