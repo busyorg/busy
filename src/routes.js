@@ -26,12 +26,12 @@ var React = require('react'),
 
   Write = require('./post/newPost/NewPost').default;
 
-import Page from './feed/page';
+import PageCreator from './feed/PageCreator';
 import Messages from './messages/Messages';
 
 export default (
   <Route path="/" component={Wrapper}>
-    <IndexRoute component={Page} />
+    <IndexRoute component={PageCreator()} />
     <Route path="/login/@:name" component={Login} />
     <Route path="/callback" component={Callback} />
     <Route path="/settings" component={Settings} />
@@ -43,13 +43,13 @@ export default (
     <Route path="/donate" component={Donate} />
     <Route path="/help" component={Help} />
 
-    <Route path="/trending" component={Page} />
-    <Route path="/hot" component={Page} />
-    <Route path="/cashout" component={Page} />
-    <Route path="/created" component={Page} />
-    <Route path="/active" component={Page} />
-    <Route path="/responses" component={Page} />
-    <Route path="/votes" component={Page} />
+    <Route path="/trending" component={PageCreator()} />
+    <Route path="/hot" component={PageCreator()} />
+    <Route path="/cashout" component={PageCreator()} />
+    <Route path="/created" component={PageCreator()} />
+    <Route path="/active" component={PageCreator()} />
+    <Route path="/responses" component={PageCreator()} />
+    <Route path="/votes" component={PageCreator()} />
 
     <Route path="/write" component={Write} />
 
@@ -66,6 +66,6 @@ export default (
     <Route path="/@:name" component={Profile} />
 
     <Route path="/:category/@:author/:permlink" component={ PostSinglePage } />
-    <Route path="/:sortBy/:category" component={Page} />
+    <Route path="/:sortBy/:category" component={PageCreator()} />
   </Route>
 );
