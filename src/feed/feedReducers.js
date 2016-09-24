@@ -4,7 +4,7 @@ const initialState = {
   feed: {},
   hot: {},
   cashout: {},
-  crated: {},
+  created: {},
   active: {},
   trending: {},
 };
@@ -36,7 +36,7 @@ const feedPathItem = (state = {}, action) => {
     case feedTypes.GET_MORE_FEED_CONTENT_SUCCESS:
       return {
         ...state,
-        [action.payload.tag]: feedTagItem(state[action.payload.tag], action)
+        [action.payload.category]: feedTagItem(state[action.payload.category], action)
       };
     default:
       return state;
@@ -49,7 +49,7 @@ const feed = (state = initialState, action) => {
     case feedTypes.GET_MORE_FEED_CONTENT_SUCCESS:
       return {
         ...state,
-        [action.payload.path]: feedPathItem(state[action.payload.path], action)
+        [action.payload.sortBy]: feedPathItem(state[action.payload.sortBy], action)
       };
     default:
       return state;

@@ -26,6 +26,7 @@ export default class Page extends React.Component {
           path={path}
           sortBy={sortBy}
           limit={ 10 }
+          category={category}
         />
       </div>
     );

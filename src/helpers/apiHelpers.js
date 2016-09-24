@@ -6,8 +6,8 @@
  * @param callback - The same callback giving to Steem API
  * @returns {function}
  */
-export const getDiscussionsFromAPI = function (path, API = {}, query, callback) {
-  switch (path) {
+export const getDiscussionsFromAPI = function (sortBy, API = {}, query, callback) {
+  switch (sortBy) {
     case 'feed':
       return API.getDiscussionsByFeed(query, callback);
     case 'hot':
