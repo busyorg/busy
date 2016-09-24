@@ -9,11 +9,12 @@ export default function PageHOC(ComposedComponent) {
     render() {
       const { auth, route, params } = this.props;
       let path = route.path && route.path.substring(1);
-      let sortBy = 'created';
+      let sortBy = (path && path.split('/')[0]) || 'created';
       let category;
 
-      if(path === '') {
-        path = auth.isAuthenticated && '@' + auth.user.name + '/feed';
+      if (path === '' && auth.isAuthenticated) {
+        path = '@' + auth.user.name + '/feed';
+        sortBy = 'created';
       }
 
       if (params.category && params.sortBy) {
