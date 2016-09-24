@@ -6,15 +6,14 @@ var React = require('react'),
 
   Dashboard = require('./app/dashboard'),
   Login = require('./auth/login'),
-  Callback = require('./widgets/callback'),
   Settings = require('./app/settings'),
 
-  About = require('./statics/about'),
-  Team = require('./statics/team'),
-  Projects = require('./statics/projects'),
-  Jobs = require('./statics/jobs'),
-  Donate = require('./statics/donate'),
-  Help = require('./statics/help'),
+  About = require('./statics/About'),
+  Team = require('./statics/Team'),
+  Projects = require('./statics/Projects'),
+  Jobs = require('./statics/Jobs'),
+  Donate = require('./statics/Donate'),
+  Help = require('./statics/Help'),
 
   PostSinglePage = require('./post/PostSinglePage'),
   Category = require('./feed/category'),
@@ -42,7 +41,6 @@ export default (
   <Route path="/" component={Wrapper}>
     <IndexRoute component={Dashboard} />
     <Route path="/login/@:name" component={Login} />
-    <Route path="/callback" component={Callback} />
     <Route path="/settings" component={Settings} />
 
     <Route path="/about" component={About} />
