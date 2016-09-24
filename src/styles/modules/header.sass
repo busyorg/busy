@@ -2,13 +2,20 @@
   header
     left: 0
 
+@media (min-width: 992px)
+  .full-width
+    header
+      left: 0 !important
+  header
+    left: 260px !important
+
 header
   z-index: 10
   background: #fff
   flex: 0 0 auto
   position: fixed
   top: 0
-  left: 260px
+  left: 0
   right: 0
   box-shadow: 0 2px 5px 0 rgba(0,0,0,0.05)
   a
@@ -21,6 +28,7 @@ header
       color: $primary-color !important
       .icon
         color: $primary-color
+
 
 .top-nav
   height: 56px
