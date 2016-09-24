@@ -63,7 +63,7 @@ var Sidebar = React.createClass({
       <nav className="sidebar">
         <div className="sidebar-header">
           {this.props.app.sidebarIsVisible &&
-          <a className="visible-xs hide-sidebar" href="#" onClick={() => this.props.hideSidebar()}>
+          <a className="visible-xs hide-sidebar" onClick={() => this.props.hideSidebar()}>
             <i className="icon icon-md icon-menu material-icons">arrow_back</i>
           </a>}
           <div className="me">
