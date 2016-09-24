@@ -39,7 +39,6 @@ var React = require('react'),
 export default (
   <Route path="/" component={Wrapper}>
     <IndexRoute component={Dashboard} />
-    <Route path="/login/@:name" component={Login} />
     <Route path="/settings" component={Settings} />
 
     <Route path="/about" component={About} />
