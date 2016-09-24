@@ -5,7 +5,6 @@ var React = require('react'),
   Wrapper = require('./wrapper'),
 
   Dashboard = require('./app/dashboard'),
-  Login = require('./auth/login'),
   Settings = require('./app/settings'),
 
   About = require('./statics/About'),
