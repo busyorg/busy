@@ -14,7 +14,7 @@ var Actions = React.createClass({
   componentWillMount: function() {
     if (this.props.auth.isAuthenticated) {
       this.props.post.active_votes.forEach(function(entry, key) {
-        if (entry.voter == this.props.auth.user.name) {
+        if (entry.voter === this.props.auth.user.name) {
           this.setState({voted: true});
         }
       }.bind(this));

@@ -49,7 +49,7 @@ var Profile = React.createClass({
     var account = this.state.account;
     try { var jsonMetadata = JSON.parse(account.json_metadata); }
     catch(e) { var jsonMetadata = {}; }
-    var edit = (this.props.auth.isAuthenticated && username == this.props.auth.user.name);
+    var edit = (this.props.auth.isAuthenticated && username === this.props.auth.user.name);
     return (
       <div className="main-panel">
         <PageActions messages={!edit} edit={edit} />

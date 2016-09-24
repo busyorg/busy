@@ -25,7 +25,7 @@ var Followers = React.createClass({
             </li>;
           })}
         </ul>}
-        {this.state.users.length == 0 && <Loading />}
+        {this.state.users.length === 0 && <Loading />}
       </center>
     );
   }

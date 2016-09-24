@@ -37,7 +37,7 @@ export default class Feed extends React.Component {
       let lastContent = _.last(this.state.content);
       let lastResult = _.last(result);
       let content;
-      if (lastResult && lastContent && lastResult.id == lastContent.id) {
+      if (lastResult && lastContent && lastResult.id === lastContent.id) {
         content = this.state.content;
       } else {
         content = _.concat(this.state.content, _.slice(result, 1)); //Since first is same as last
