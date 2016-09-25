@@ -63,6 +63,7 @@
     "socket.io-client": "^1.4.8",
     "steem": "^0.3.22",
     "steemconnect": "0.0.25",
+    "steemdb": "0.0.1",
     "steemembed": "^1.0.17",
     "striptags": "^2.1.1",
     "style-loader": "^0.13.1",
