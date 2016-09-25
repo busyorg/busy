@@ -26,12 +26,13 @@ var React = require('react'),
 
   Write = require('./post/newPost/NewPost').default;
 
-import PageCreator from './feed/PageCreator';
+import Page from './feed/page';
 import Messages from './messages/Messages';
+import { Trending, Hot, Votes, Responses, Active, Created, Cashout } from './feed/PathMatching';
 
 export default (
   <Route path="/" component={Wrapper}>
-    <IndexRoute component={PageCreator()} />
+    <IndexRoute component={Page} />
     <Route path="/login/@:name" component={Login} />
     <Route path="/callback" component={Callback} />
     <Route path="/settings" component={Settings} />
@@ -43,13 +44,13 @@ export default (
     <Route path="/donate" component={Donate} />
     <Route path="/help" component={Help} />
 
-    <Route path="/trending" component={PageCreator()} />
-    <Route path="/hot" component={PageCreator()} />
-    <Route path="/cashout" component={PageCreator()} />
-    <Route path="/created" component={PageCreator()} />
-    <Route path="/active" component={PageCreator()} />
-    <Route path="/responses" component={PageCreator()} />
-    <Route path="/votes" component={PageCreator()} />
+    <Route path="/trending(/:category)" component={Trending}/>
+    <Route path="/hot(/:category)" component={Hot}/>
+    <Route path="/cashout(/:category)" component={Cashout}/>
+    <Route path="/created(/:category)" component={Created}/>
+    <Route path="/active(/:category)" component={Active}/>
+    <Route path="/responses(/:category)" component={Responses}/>
+    <Route path="/votes(/:category)" component={Votes}/>
 
     <Route path="/write" component={Write} />
 
@@ -66,6 +67,5 @@ export default (
     <Route path="/@:name" component={Profile} />
 
     <Route path="/:category/@:author/:permlink" component={ PostSinglePage } />
-    <Route path="/:sortBy/:category" component={PageCreator()} />
   </Route>
 );
