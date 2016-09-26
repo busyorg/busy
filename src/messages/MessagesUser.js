@@ -32,7 +32,7 @@ class MessagesPage extends Component {
     return (
       <div className="Messages main-panel">
         <Header menu="messages">
-          <div><Link to={`/@${username}`}>@{username}</Link> <span>away</span></div>
+          <div><i className="icon icon-sm material-icons">star_border</i>  <Link to={`/@${username}`}>@{username}</Link> <span>away</span></div>
         </Header>
         <div className="messages">
           <MessageList messages={channel.latest} />

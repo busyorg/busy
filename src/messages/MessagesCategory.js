@@ -32,7 +32,7 @@ class MessagesPage extends Component {
     return (
       <div className="Messages main-panel">
         <Header menu="messages">
-          <div><Link to={`/trending/${category}`}>#{category}</Link> <span>{channel.nmembers} online</span></div>
+          <div><i className="icon icon-sm material-icons">star_border</i> <Link to={`/trending/${category}`}>#{category}</Link> <span>{channel.nmembers} online</span></div>
         </Header>
         <div className="messages">
           <MessageList messages={channel.latest} />
