@@ -14,7 +14,7 @@ module.exports = {
     "no-class-assign": 0,
     "react/jsx-filename-extension": 0,
     "react/sort-comp": 0,
-    "react/prop-types": 1,
+    "react/prop-types": 0,
     "no-underscore-dangle": 0,
     "comma-dangle": 0
   },
