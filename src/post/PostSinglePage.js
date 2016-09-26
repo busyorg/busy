@@ -20,7 +20,7 @@ module.exports = React.createClass({
     var content = this.state.content;
     return (
       <div className="main-panel">
-        <PageActions likes="true" replies="true" messages="true" />
+        <PageActions params={this.props.params} likes="true" replies="true" messages="true" />
         <Header />
           <div className="single">
             {!_.has(content, 'author') && <Loading />}

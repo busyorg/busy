@@ -9,7 +9,7 @@ module.exports = React.createClass({
   render: function(){
     return (
       <div className="main-panel">
-        <PageActions messages="true" add="true" />
+        <PageActions params={this.props.params} messages="true" add="true" />
         <Header account={this.props.account} category={this.props.category} />
         <Feed path={this.props.path} sortBy={this.props.sortBy} replies="false" />
       </div>

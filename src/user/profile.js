@@ -52,7 +52,7 @@ var Profile = React.createClass({
     var edit = (this.props.auth.isAuthenticated && username === this.props.auth.user.name);
     return (
       <div className="main-panel">
-        <PageActions messages={!edit} edit={edit} />
+        <PageActions params={this.props.params} messages={!edit} edit={edit} />
         <Header account={username} />
         <section className="align-center bg-green profile-header"
           style={{backgroundImage: 'url(https://img.busy6.com/@' + username + '/cover)', backgroundSize: 'cover'}}>
