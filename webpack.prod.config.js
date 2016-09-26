@@ -1,8 +1,9 @@
 'use strict';
 
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var Visualizer = require('webpack-visualizer-plugin');
 var path = require('path');
 var webpack = require('webpack');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
     devtool: 'source-map',
@@ -22,6 +23,9 @@ module.exports = {
         compress: {
           warnings: false,
         }
+      }),
+      new Visualizer({
+          filename: './statistics.html'
       }),
       new webpack.optimize.AggressiveMergingPlugin(),
       new webpack.DefinePlugin({
