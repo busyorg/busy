@@ -14,3 +14,5 @@ addons:
     packages:
     - gcc-4.8
     - g++-4.8
+notifications:
+  slack: busytalk:Y3T1Gp4P83g7EUKR1uA2zNvE
