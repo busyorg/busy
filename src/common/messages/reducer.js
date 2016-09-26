@@ -69,6 +69,8 @@ export default function messagesReducer(state = initialState, action) {
     }
 
     case actions.FETCH_CHANNEL_PRESENCE_SUCCESS: {
+      if (!action.payload) return state;
+
       return extend({}, state, {
         isLoading: false,
         channels: extend(state.channels, {
