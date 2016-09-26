@@ -1,5 +1,6 @@
 /* eslint-disable react/prefer-stateless-function, max-len */
 import React, { Component, PropTypes } from 'react';
+import map from 'lodash/map';
 import { Link } from 'react-router';
 
 export default class SidebarContacts extends Component {
@@ -9,7 +10,7 @@ export default class SidebarContacts extends Component {
   };
 
   render() {
-    const contacts = this.props.contacts.map((follow, key) => (
+    const contacts = map(this.props.contacts, (follow, key) => (
       <li key={key}>
         <Link
           to={`/@${follow.following}`}
@@ -20,10 +21,28 @@ export default class SidebarContacts extends Component {
       </li>
     ));
 
+    const channels = map(this.props.channels, (channel, key) => (
+      <li key={channel.name}>
+        <Link
+          to={`/messages/${channel.name}`}
+          activeClassName="active"
+        >
+          #{channel.name}
+        </Link>
+      </li>
+    ));
+
+
     return (
-      <ul className="tags">
-        {contacts}
-      </ul>
+      <div className="SidebarContacts">
+        <ul className="tags">
+          {contacts}
+        </ul>
+
+        <ul className="tags">
+          {channels}
+        </ul>
+      </div>
     );
   }
 }
