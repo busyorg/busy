@@ -80,7 +80,11 @@ var Sidebar = React.createClass({
                     <img alt={user.name} src={`https://img.busy6.com/@${user.name}`} />
                   </span>
                 </Link>
-                <span style={{ clear: 'both', display: 'block' }}>@{user.name} <Link to="/settings" onClick={() => this.setState({menu: 'settings'})}><i className="icon icon-xs material-icons">settings</i></Link></span>
+                <span style={{ clear: 'both', display: 'block' }}>
+                  @{user.name} <a onClick={() => this.setState({menu: 'settings'})}>
+                    <i className="icon icon-xs material-icons">settings</i>
+                  </a>
+                </span>
               </div>:
               <div className="log">
                 <a href="https://steemconnect.com/authorize/@busy"><i className="icon icon-lg material-icons pam">lock_outline</i></a>
