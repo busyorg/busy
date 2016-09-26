@@ -24,11 +24,19 @@ var Header = React.createClass({
     return (
       <header>
         <div className="top-nav">
-          {!this.props.app.sidebarIsVisible && <a onClick={() => this.props.showSidebar()}><i className="icon icon-md icon-menu material-icons">menu</i></a>}
-          {this.props.app.sidebarIsVisible && <a onClick={() => this.props.hideSidebar()}><i className="icon icon-md icon-menu material-icons">keyboard_backspace</i></a>}
+          {/* SideMenu button */}
+          {!this.props.app.sidebarIsVisible && <a href="#" onClick={() => this.props.showSidebar()}><i className="icon icon-md icon-menu material-icons">menu</i></a>}
+          {this.props.app.sidebarIsVisible && <a href="#" onClick={() => this.props.hideSidebar()}><i className="icon icon-md icon-menu material-icons">keyboard_backspace</i></a>}
+
+          {/* Left side Children */}
+          {this.props.children}
+
+          {/* Icon */}
           <div className="section-content top-head">
             <Link to="/" onlyActiveOnIndex={true} activeClassName="active"><img src="/img/logo-blue.svg" /></Link>
           </div>
+
+          {/* Notifications */}
           <a><i className="icon icon-md icon-menu material-icons">notifications</i></a>
         </div>
         {menu === 'primary' && <ul className="app-nav">
