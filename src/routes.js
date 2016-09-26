@@ -34,7 +34,8 @@ var React = require('react'),
   Responses = require('./feed/responses'),
   Votes = require('./feed/votes'),
   Write = require('./post/newPost/NewPost').default,
-  Messages = require('./messages/Messages').default;
+  MessagesUser = require('./messages/MessagesUser').default,
+  MessagesCategory = require('./messages/MessagesCategory').default;
 
 export default (
   <Route path="/" component={Wrapper}>
@@ -58,8 +59,8 @@ export default (
 
     <Route path="/write" component={Write} />
 
-    <Route path="/messages" component={Messages} />
-    <Route path="/messages/:channelName" component={Messages} />
+    <Route path="/messages/@:username" component={MessagesUser} />
+    <Route path="/messages/:category" component={MessagesCategory} />
 
     <Route path="/profile/edit" component={Edit} />
     <Route path="/@:name/posts" component={Posts} />

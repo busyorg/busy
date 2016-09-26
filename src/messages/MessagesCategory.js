@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 
 import './Messages.scss';
 import Header from './../app/header';
@@ -23,31 +24,20 @@ class MessagesPage extends Component {
     };
   }
   render() {
-    let channelName = this.props.params.channelName;
-
-    if (!channelName) {
-      channelName = 'general';
-    }
-    const channel = this.props.channels[channelName] || {
-      latest: [],
-      nmembers: 0,
-    };
-
+    let category = this.props.params.category;
+    const channel = this.props.channels[category] || {
+        latest: [],
+        nmembers: 0,
+      };
     return (
       <div className="Messages main-panel">
         <Header menu="messages">
-          <div>
-            <b>{channelName}</b>
-            {channelName.indexOf('@') !== 0 && (<span>{channel.nmembers} members</span>)}
-            {channelName.indexOf('@') === 0 && (<span>away</span>)}
-          </div>
+          <div><Link to={`/trending/${category}`}>#{category}</Link> <span>{channel.nmembers} online</span></div>
         </Header>
         <div className="messages">
-          <MessageList
-            messages={channel.latest}
-          />
+          <MessageList messages={channel.latest} />
           <MessageForm
-            channel={channelName}
+            channel={category}
             username={this.props.auth.user && this.props.auth.user.name}
           />
         </div>
