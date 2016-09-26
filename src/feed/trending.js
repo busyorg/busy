@@ -4,7 +4,10 @@ var React = require("react"),
 module.exports = React.createClass({
   render: function(){
     return (
-      <Page path="trending" />
+      <Page
+        {...this.props}
+        path="trending"
+      />
     );
   }
 });

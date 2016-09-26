@@ -1,9 +1,78 @@
 import React from 'react';
+import moment from 'moment';
 
-export default ({ user, text }) => {
+export default ({ model }) => {
+  const sentAt = model[0].sentAt;
+  const senderUsername = model[0].senderUsername;
+  const humanSentAt = moment(sentAt).format('hh:mm');
+
   return (
-    <li className='message'>
-      <span><b>@{ user }</b>: { text }</span>
+    <li
+      className="Message message"
+      >
+      <div className="media">
+        <div className="container">
+          <div className="media-left">
+            <img
+              className="media-object"
+              alt=""
+              style={{ maxWidth: 'none', width: '50px' }}
+              src="https://placehold.it/50x50.png"
+              />
+          </div>
+
+          <div className="media-body">
+
+            <div className="media-heading">
+              <b>@{senderUsername}</b>
+              <span
+                style={{
+                  textTransform: 'uppercase',
+                  paddingLeft: '10px',
+                  color: '#ccc',
+                  backgroundColor: 'transparent'
+                }}
+                >
+                {humanSentAt}
+              </span>
+            </div>
+
+            <p>
+              {model[0].text}
+            </p>
+
+          </div>
+        </div>
+      </div>
+
+      {
+        model.slice(1).map(({ text }, i) => (
+          <div className="media" key={i}>
+            <div className="container">
+              <div
+                className="media-left"
+                >
+                <div
+                  className="Message__timestamp"
+                  style={{
+                    width: '50px',
+                    textTransform: 'uppercase',
+                    color: '#ccc'
+                  }}
+                >
+                  {moment(sentAt).format('hh:mm')}
+                </div>
+              </div>
+
+              <div className="media-body">
+                <p>
+                  {text}
+                </p>
+              </div>
+            </div>
+          </div>
+        ))
+      }
     </li>
   );
 }

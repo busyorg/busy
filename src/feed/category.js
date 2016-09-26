@@ -10,7 +10,7 @@ module.exports = React.createClass({
     var sortBy = this.props.params.sortBy;
     var path = sortBy + '/' + category;
     return (
-      <Page key={Math.random()} path={path} category={category} sortBy="created" />
+      <Page {...this.props} key={Math.random()} path={path} category={category} sortBy="created" />
     );
   }
 });
