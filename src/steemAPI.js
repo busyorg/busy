@@ -1,5 +1,5 @@
 import { api } from 'steem';
 
-api.setWebSocket('wss://this.piston.rocks');
+api.setWebSocket('wss://steem.yt');
 
 module.exports = api;
