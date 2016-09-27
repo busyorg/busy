@@ -9,7 +9,7 @@ export default ({ model }) => {
   return (
     <li
       className="Message message"
-      >
+    >
       <div className="media">
         <div className="container">
           <div className="media-left">
@@ -17,8 +17,8 @@ export default ({ model }) => {
               className="media-object"
               alt=""
               style={{ maxWidth: 'none', width: '50px' }}
-              src="https://placehold.it/50x50.png"
-              />
+              src={`https://img.busy6.com/@${model[0].senderUsername}`}
+            />
           </div>
 
           <div className="media-body">
@@ -32,7 +32,7 @@ export default ({ model }) => {
                   color: '#ccc',
                   backgroundColor: 'transparent'
                 }}
-                >
+              >
                 {humanSentAt}
               </span>
             </div>
@@ -51,7 +51,7 @@ export default ({ model }) => {
             <div className="container">
               <div
                 className="media-left"
-                >
+              >
                 <div
                   className="Message__timestamp"
                   style={{
@@ -75,4 +75,4 @@ export default ({ model }) => {
       }
     </li>
   );
-}
+};

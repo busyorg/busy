@@ -13,7 +13,7 @@ class MessagesPage extends Component {
   static propTypes = {
     auth: PropTypes.object,
     params: PropTypes.shape({
-      channelName: PropTypes.string,
+      username: PropTypes.string,
     }),
     channels: PropTypes.object,
   };
@@ -27,20 +27,27 @@ class MessagesPage extends Component {
     };
   }
   render() {
-    let username = this.props.params.username;
-    const channel = this.props.channels[username] || {
+    const channelName = `@${this.props.params.username}`;
+    const channel = this.props.channels[channelName] || {
       latest: [],
       nmembers: 0,
     };
     return (
       <div className="Messages main-panel">
         <Header menu="messages">
-          <div><i className="icon icon-sm material-icons">star_border</i>  <Link to={`/@${username}`}>@{username}</Link> <span>away</span></div>
+          <div>
+            <i className="icon icon-sm material-icons">star_border</i>
+            <Link to={`/${channelName}`}>
+              {channelName}
+            </Link>
+            {' '}
+            <span>away</span>
+          </div>
         </Header>
         <div className="messages">
           <MessageList messages={channel.latest} />
           <MessageForm
-            channel={username}
+            channel={channelName}
             username={this.props.auth.user && this.props.auth.user.name}
           />
         </div>
@@ -50,7 +57,7 @@ class MessagesPage extends Component {
 }
 
 MessagesPage = actionDecorator(fetchChannelPresence, joinChannel)(MessagesPage);
-MessagesPage = connect((state, { params }) => ({
+MessagesPage = connect((state) => ({
   auth: state.auth,
   channels: state.messages.channels,
 }))(MessagesPage);
