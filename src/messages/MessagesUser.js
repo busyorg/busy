@@ -12,9 +12,12 @@ import { fetchChannelPresence, joinChannel } from '../common/messages/actions';
 class MessagesPage extends Component {
   static propTypes = {
     auth: PropTypes.object,
-    params: PropTypes.object,
+    params: PropTypes.shape({
+      channelName: PropTypes.string,
+    }),
     channels: PropTypes.object,
   };
+
   constructor(props) {
     super(props);
     this.state = {
