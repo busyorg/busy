@@ -31,3 +31,11 @@ export const getFeedLoadingFromState = (sortBy, category = 'all', feedState) => 
       return (feedState.trending.all && feedState.trending.all.loading) || false;
   }
 };
+
+// returning the same function but different naming helps to understand the code's flow better
+// and defines a pattern to scale this feature with reselect
+export const getUserFeedContentFromState = (username, feedState, postsState) =>
+  getFeedContentFromState('feed', username, feedState, postsState);
+
+export const getUserFeedLoadingFromState = (username, feedState) =>
+  (feedState.feed[username] && feedState.feed[username].loading) || false;
