@@ -44,13 +44,13 @@ export default (
     <Route path="/donate" component={Donate} />
     <Route path="/help" component={Help} />
 
-    <Route path="/trending(/:category)" component={Trending}/>
-    <Route path="/hot(/:category)" component={Hot}/>
-    <Route path="/cashout(/:category)" component={Cashout}/>
-    <Route path="/created(/:category)" component={Created}/>
-    <Route path="/active(/:category)" component={Active}/>
-    <Route path="/responses(/:category)" component={Responses}/>
-    <Route path="/votes(/:category)" component={Votes}/>
+    <Route path="/trending(/:category)" component={Trending} />
+    <Route path="/hot(/:category)" component={Hot} />
+    <Route path="/cashout(/:category)" component={Cashout} />
+    <Route path="/created(/:category)" component={Created} />
+    <Route path="/active(/:category)" component={Active} />
+    <Route path="/responses(/:category)" component={Responses} />
+    <Route path="/votes(/:category)" component={Votes} />
 
     <Route path="/write" component={Write} />
 
