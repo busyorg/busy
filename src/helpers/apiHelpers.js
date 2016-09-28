@@ -6,20 +6,21 @@
  * @param callback - The same callback giving to Steem API
  * @returns {function}
  */
-export const getDiscussionsFromAPI = function (sortBy, API = {}, query, callback) {
+export const getDiscussionsFromAPI = function (sortBy, query, callback) {
+  const { steemAPI } = window;
   switch (sortBy) {
     case 'feed':
-      return API.getDiscussionsByFeed(query, callback);
+      return steemAPI.getDiscussionsByFeed(query, callback);
     case 'hot':
-      return API.getDiscussionsByHot(query, callback);
+      return steemAPI.getDiscussionsByHot(query, callback);
     case 'cashout':
-      return API.getDiscussionsByCashout(query, callback);
+      return steemAPI.getDiscussionsByCashout(query, callback);
     case 'crated':
-      return API.getDiscussionsByCreated(query, callback);
+      return steemAPI.getDiscussionsByCreated(query, callback);
     case 'active':
-      return API.getDiscussionsByActive(query, callback);
+      return steemAPI.getDiscussionsByActive(query, callback);
     case 'trending':
     default:
-      return API.getDiscussionsByTrending(query, callback);
+      return steemAPI.getDiscussionsByTrending(query, callback);
   }
 };
