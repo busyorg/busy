@@ -7,20 +7,19 @@ export default function PageHOC(ComposedComponent) {
     }
 
     render() {
-      const { auth, route, params } = this.props;
-      let path = route.path && route.path.substring(1);
+      const { auth, route: { path }, params } = this.props;
 
-      let sortBy = (path && path.split('(')[0]) || 'created';
-      const category = params.category;
+      let sortBy = (path && path.split('(')[0].substring(1)) || 'created';
+      const { category } = params;
 
-      if (path === '' && auth.isAuthenticated) {
-        path = '@' + auth.user.name + '/feed';
-        sortBy = 'created';
+      if (!path && auth.isAuthenticated) {
+        sortBy = 'feed';
       }
 
       return (
         <ComposedComponent
           {...this.props}
+          limit={ 10 }
           path={path}
           sortBy={sortBy}
           category={category}

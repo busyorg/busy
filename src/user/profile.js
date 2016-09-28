@@ -11,7 +11,7 @@ var React = require('react'),
   Loading = require('./../widgets/Loading'),
   Link = require('react-router').Link;
 
-import Feed from './../feed/feed';
+import Feed from './../feed/feedComponent';
 
 var Profile = React.createClass({
   componentWillMount: function() {
