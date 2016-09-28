@@ -26,7 +26,7 @@ var React = require('react'),
 
   Write = require('./post/newPost/NewPost').default;
 
-import Page from './feed/pageComponent';
+import Page from './feed/Page';
 import Messages from './messages/Messages';
 import { Trending, Hot, Votes, Responses, Active, Created, Cashout } from './feed/PathMatching';
 

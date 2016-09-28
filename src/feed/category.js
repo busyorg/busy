@@ -1,5 +1,5 @@
 var React = require("react"),
-  Page = require("./pageComponent");
+  Page = require("./Page");
 
 module.exports = React.createClass({
   getInitialState: function() {

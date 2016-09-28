@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Header from './../app/header';
 import PageActions from './../app/PageActions';
-import Feed from './feedComponent';
+import Feed from './Feed';
 import PageHOC from './PageHOC';
 import {
   getFeedContent,

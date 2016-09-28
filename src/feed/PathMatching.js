@@ -1,5 +1,5 @@
 import React from 'react';
-import Page from './pageComponent';
+import Page from './Page';
 
 // These components are only used as a temporarily hack to make-
 // activeClassName on React Router <Link /> components work.
