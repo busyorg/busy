@@ -4,33 +4,8 @@ var React = require('react'),
   AddPost = require('./../post/newPost/EmbeddedNewPost'),
   PostFeedItem = require('../post/PostFeedItem');
 
-import { connect } from 'react-redux';
-import { getFeedContent, getMoreFeedContent } from './feedActions';
-import { getFeedContentFromState, getFeedLoadingFromState } from './../helpers/stateHelpers';
 import { RestoreScroll } from 'react-router-restore-scroll';
 
-@connect(
-  state => ({
-    feed: state.feed,
-    posts: state.posts,
-  }),
-  (dispatch, props) => ({
-    getFeedContent: (sortBy, category, limit) => dispatch(
-      getFeedContent({
-        sortBy,
-        category,
-        limit,
-      })
-    ),
-    getMoreFeedContent: (sortBy, category, limit) => dispatch(
-      getMoreFeedContent({
-        sortBy,
-        category,
-        limit,
-      })
-    ),
-  })
-)
 export default class Feed extends React.Component {
   constructor(props) {
     super(props);
@@ -38,9 +13,8 @@ export default class Feed extends React.Component {
   }
 
   componentDidMount() {
-    const { sortBy, category, limit, getFeedContent } = this.props;
     this.addScrollListener(this.refs.feedContainer);
-    getFeedContent(sortBy, category, limit);
+    this.props.loadContent();
   }
 
   addScrollListener(domNode) {
@@ -61,28 +35,20 @@ export default class Feed extends React.Component {
     })
   }
 
-  loadMore = () => {
-    const { sortBy, category, limit, getMoreFeedContent } = this.props;
-    getMoreFeedContent(sortBy, category, limit);
-  }
-
   scrollListener = (event) => {
     var el = event.target;
     let {scrollTop, scrollHeight, offsetHeight} = el;
     let scrollRemain = scrollHeight - scrollTop - offsetHeight;
     let scrollThreshold = window.innerHeight;
     if (scrollHeight && (scrollRemain < scrollThreshold)) {
-      this.loadMore();
+      this.props.loadMoreContent();
     }
-  }
+  };
 
   render() {
-    const { sortBy, category, feed, posts } = this.props;
-    const content = getFeedContentFromState(sortBy, category, feed, posts);
-    const isLoading = getFeedLoadingFromState(sortBy, category, feed);
+    const { content, isLoading } = this.props;
 
     return (
-      <RestoreScroll scrollKey="one">
         <div className="grid" ref="feedContainer">
           <div className="grid-content" >
             <AddPost />
@@ -94,7 +60,6 @@ export default class Feed extends React.Component {
             {isLoading && <Loading />}
           </div>
         </div>
-      </RestoreScroll>
     );
   }
 }
