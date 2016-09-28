@@ -13,9 +13,13 @@ const feedLoading = (state = false, action) => {
   switch (action.type) {
     case feedTypes.GET_FEED_CONTENT_SUCCESS:
     case feedTypes.GET_MORE_FEED_CONTENT_SUCCESS:
+    case feedTypes.GET_USER_FEED_CONTENT_SUCCESS:
+    case feedTypes.GET_MORE_USER_FEED_CONTENT_SUCCESS:
       return false;
     case feedTypes.GET_FEED_CONTENT:
     case feedTypes.GET_MORE_FEED_CONTENT:
+    case feedTypes.GET_USER_FEED_CONTENT:
+    case feedTypes.GET_MORE_USER_FEED_CONTENT:
       return true;
     default:
       return state;
@@ -25,11 +29,13 @@ const feedLoading = (state = false, action) => {
 const feedIdsList = (state = [], action) => {
   switch (action.type) {
     case feedTypes.GET_FEED_CONTENT_SUCCESS:
+    case feedTypes.GET_USER_FEED_CONTENT_SUCCESS:
       const postsIds = action.payload.postsData.map(post => post.id);
       return [
         ...postsIds,
       ];
     case feedTypes.GET_MORE_FEED_CONTENT_SUCCESS:
+    case feedTypes.GET_MORE_USER_FEED_CONTENT_SUCCESS:
       // first element of the array is the same element loaded in the previous chunk
       const morePostsIds = action.payload.postsData.map(post => post.id).slice(1);
       // add data only if it doesn't exist
@@ -44,12 +50,16 @@ const feedIdsList = (state = [], action) => {
   }
 };
 
-const feedCategoryItem = (state = {}, action) => {
+const feedSortBySubItem = (state = {}, action) => {
   switch (action.type) {
     case feedTypes.GET_FEED_CONTENT:
     case feedTypes.GET_MORE_FEED_CONTENT:
     case feedTypes.GET_FEED_CONTENT_SUCCESS:
     case feedTypes.GET_MORE_FEED_CONTENT_SUCCESS:
+    case feedTypes.GET_USER_FEED_CONTENT:
+    case feedTypes.GET_USER_FEED_CONTENT_SUCCESS:
+    case feedTypes.GET_MORE_USER_FEED_CONTENT:
+    case feedTypes.GET_MORE_USER_FEED_CONTENT_SUCCESS:
       return {
         loading: feedLoading(undefined, action),
         list: feedIdsList(state.list, action)
@@ -67,7 +77,15 @@ const feedSortByItem = (state = {}, action) => {
     case feedTypes.GET_MORE_FEED_CONTENT_SUCCESS:
       return {
         ...state,
-        [action.payload.category]: feedCategoryItem(state[action.payload.category], action)
+        [action.payload.category]: feedSortBySubItem(state[action.payload.category], action)
+      };
+    case feedTypes.GET_USER_FEED_CONTENT:
+    case feedTypes.GET_USER_FEED_CONTENT_SUCCESS:
+    case feedTypes.GET_MORE_USER_FEED_CONTENT:
+    case feedTypes.GET_MORE_USER_FEED_CONTENT_SUCCESS:
+      return {
+        ...state,
+        [action.payload.username]: feedSortBySubItem(state[action.payload.username], action)
       };
     default:
       return state;
@@ -80,6 +98,10 @@ const feed = (state = initialState, action) => {
     case feedTypes.GET_MORE_FEED_CONTENT:
     case feedTypes.GET_FEED_CONTENT_SUCCESS:
     case feedTypes.GET_MORE_FEED_CONTENT_SUCCESS:
+    case feedTypes.GET_USER_FEED_CONTENT:
+    case feedTypes.GET_USER_FEED_CONTENT_SUCCESS:
+    case feedTypes.GET_MORE_USER_FEED_CONTENT:
+    case feedTypes.GET_MORE_USER_FEED_CONTENT_SUCCESS:
       return {
         ...state,
         [action.payload.sortBy]: feedSortByItem(state[action.payload.sortBy], action)
