@@ -59,7 +59,8 @@ export const getFeedContent = ({ sortBy, category, limit }) => {
 
 export const getUserFeedContent = ({ username, limit }) => {
   return (dispatch, getState) => {
-    if (getState().feed.feed[username].isLoaded) {
+    const { feed } = getState();
+    if (feed.feed[username] && feed.feed[username].isLoaded) {
       return;
     }
 
