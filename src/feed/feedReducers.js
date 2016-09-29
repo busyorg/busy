@@ -61,14 +61,21 @@ const feedSortBySubItem = (state = {}, action) => {
       return {
         ...state,
         isFetching: feedFetching(undefined, action),
-        list: feedIdsList(state.list, action)
+        list: feedIdsList(state.list, action),
       };
     case feedTypes.GET_FEED_CONTENT_SUCCESS:
     case feedTypes.GET_USER_FEED_CONTENT_SUCCESS:
       return {
+        ...state,
+        hasMore: true,
         isLoaded: true,
         isFetching: feedFetching(undefined, action),
-        list: feedIdsList(state.list, action)
+        list: feedIdsList(state.list, action),
+      };
+    case feedTypes.FEED_HAS_NO_MORE:
+      return {
+        ...state,
+        hasMore: false,
       };
     default:
       return state;
@@ -81,6 +88,7 @@ const feedSortByItem = (state = {}, action) => {
     case feedTypes.GET_MORE_FEED_CONTENT:
     case feedTypes.GET_FEED_CONTENT_SUCCESS:
     case feedTypes.GET_MORE_FEED_CONTENT_SUCCESS:
+    case feedTypes.FEED_HAS_NO_MORE:
       return {
         ...state,
         [action.payload.category]: feedSortBySubItem(state[action.payload.category], action)
@@ -108,6 +116,7 @@ const feed = (state = initialState, action) => {
     case feedTypes.GET_USER_FEED_CONTENT_SUCCESS:
     case feedTypes.GET_MORE_USER_FEED_CONTENT:
     case feedTypes.GET_MORE_USER_FEED_CONTENT_SUCCESS:
+    case feedTypes.FEED_HAS_NO_MORE:
       return {
         ...state,
         [action.payload.sortBy]: feedSortByItem(state[action.payload.sortBy], action)
