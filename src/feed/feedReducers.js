@@ -9,7 +9,7 @@ const initialState = {
   trending: {},
 };
 
-const feedLoading = (state = false, action) => {
+const feedFetching = (state = false, action) => {
   switch (action.type) {
     case feedTypes.GET_FEED_CONTENT_SUCCESS:
     case feedTypes.GET_MORE_FEED_CONTENT_SUCCESS:
@@ -61,7 +61,7 @@ const feedSortBySubItem = (state = {}, action) => {
     case feedTypes.GET_MORE_USER_FEED_CONTENT:
     case feedTypes.GET_MORE_USER_FEED_CONTENT_SUCCESS:
       return {
-        loading: feedLoading(undefined, action),
+        isFetching: feedFetching(undefined, action),
         list: feedIdsList(state.list, action)
       };
     default:

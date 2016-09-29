@@ -51,16 +51,16 @@ export default class Page extends React.Component {
   render() {
     const { account, category, sortBy, path, auth, feed, posts, limit } = this.props;
 
-    let content, isLoading, loadContentAction, loadMoreContentAction;
+    let content, isFetching, loadContentAction, loadMoreContentAction;
 
     if(!path && auth.isAuthenticated) {
       content = getUserFeedContentFromState(auth.user.name, feed, posts);
-      isLoading = getUserFeedLoadingFromState(auth.user.name, feed);
+      isFetching = getUserFeedLoadingFromState(auth.user.name, feed);
       loadContentAction = this.props.getUserFeedContent;
       loadMoreContentAction = this.props.getMoreUserFeedContent;
     } else {
       content = getFeedContentFromState(sortBy, category, feed, posts);
-      isLoading = getFeedLoadingFromState(sortBy, category, feed);
+      isFetching = getFeedLoadingFromState(sortBy, category, feed);
       loadContentAction = this.props.getFeedContent;
       loadMoreContentAction = this.props.getMoreFeedContent;
     }
@@ -87,7 +87,7 @@ export default class Page extends React.Component {
             />
             <Feed
               content={content}
-              isLoading={isLoading}
+              isFetching={isFetching}
               loadContent={loadContentAction}
               loadMoreContent={loadMoreContentAction}
             />

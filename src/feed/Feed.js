@@ -16,7 +16,7 @@ export default class Feed extends React.Component {
   }
 
   render() {
-    const { content, isLoading, hasMore } = this.props;
+    const { content, isFetching, hasMore } = this.props;
 
     return (
       <div className="grid">
@@ -26,7 +26,7 @@ export default class Feed extends React.Component {
           <ReduxInfiniteScroll
             loadMore={this.props.loadMoreContent}
             loader={<Loading />}
-            loadingMore={isLoading}
+            loadingMore={isFetching}
             hasMore={hasMore}
             elementIsScrollable={false}
             threshold={200}

@@ -26,9 +26,9 @@ export const getFeedLoadingFromState = (sortBy, category = 'all', feedState) => 
     case 'crated':
     case 'active':
     case 'trending':
-      return (feedState[sortBy][category] && feedState[sortBy][category].loading) || false;
+      return (feedState[sortBy][category] && feedState[sortBy][category].isFetching) || false;
     default:
-      return (feedState.trending.all && feedState.trending.all.loading) || false;
+      return (feedState.trending.all && feedState.trending.all.isFetching) || false;
   }
 };
 
@@ -38,4 +38,4 @@ export const getUserFeedContentFromState = (username, feedState, postsState) =>
   getFeedContentFromState('feed', username, feedState, postsState);
 
 export const getUserFeedLoadingFromState = (username, feedState) =>
-  (feedState.feed[username] && feedState.feed[username].loading) || false;
+  (feedState.feed[username] && feedState.feed[username].isFetching) || false;
