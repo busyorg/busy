@@ -1,31 +1,78 @@
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
+import TextareaAutosize from 'react-textarea-autosize';
+import keycode from 'keycode';
 
-export default React.createClass({
-  getInitialState: function() {
-    return {text: ''};
-  },
+import './MessageForm.scss';
+import { connect } from 'react-redux';
+import { sendMessage } from '../common/messages/actions';
 
-  handleSubmit: function(e) {
-    e.preventDefault();
-    var message = {
-      user : this.props.user,
-      text : this.state.text
+class MessageForm extends Component {
+  static propTypes = {
+    placeholder: PropTypes.string,
+    username: PropTypes.string,
+    channel: PropTypes.string,
+    onMessageSubmit: PropTypes.func
+  };
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      text: ''
     };
-    this.props.onMessageSubmit(message);
-    this.setState({ text: '' });
-  },
+  }
 
-  changeHandler: function(e) {
-    this.setState({ text : e.target.value });
-  },
+  handleSubmit = (e) => {
+    if (e) e.preventDefault();
+    const message = {
+      senderUsername: this.props.username,
+      channelName: this.props.channel,
+      text: this.state.text,
+      sentAt: new Date(),
+    };
 
-  render: function() {
-    return(
-      <form className="message-form" onSubmit={this.handleSubmit}>
+    this.props.sendMessage(message);
+    this.setState({
+      text: ''
+    });
+  };
+
+  changeHandler = (e) => {
+    this.setState({
+      text: e.target.value
+    });
+  };
+
+  onKeydown(e) {
+    if (keycode(e) === 'enter' && !e.shiftKey) {
+      e.preventDefault();
+      this.handleSubmit();
+    }
+  }
+
+  render() {
+    this.onKeydown = this.onKeydown.bind(this);
+    return (
+      <form className="MessageForm message-form" onSubmit={this.handleSubmit}>
         <div className="container">
-          <textarea autoFocus className="pas" onChange={this.changeHandler} value={this.state.text} />
+          <TextareaAutosize
+            rows={1}
+            autoFocus
+            className="MessageForm__input pas"
+            type="text"
+            name="message"
+            onKeyDown={this.onKeydown}
+            onChange={this.changeHandler}
+            placeholder={this.props.placeholder || 'Say something!'}
+            value={this.state.text}
+          />
         </div>
       </form>
     );
   }
-});
+}
+
+MessageForm = connect(() => ({}), {
+  sendMessage,
+})(MessageForm);
+
+export default MessageForm;

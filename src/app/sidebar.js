@@ -1,5 +1,8 @@
-var React = require('react'),
-  ReactRedux = require('react-redux'),
+import React, { PropTypes } from 'react';
+
+import SidebarContacts from './Sidebar/SidebarContacts';
+
+var ReactRedux = require('react-redux'),
   actions = require('./../actions'),
   formatter = require('steem/lib/formatter'),
   _ = require('lodash'),
@@ -9,7 +12,7 @@ var React = require('react'),
   Link = require('react-router').Link;
 
 var Sidebar = React.createClass({
-  getInitialState: function() {
+  getInitialState() {
     api.getState('trending/busy', function(err, result) {
       this.setState({
         isFetching: false,
@@ -18,8 +21,8 @@ var Sidebar = React.createClass({
         props: result.props,
         feedPrice: result.feed_price
       });
+      this.getFollowing();
     }.bind(this));
-    this.getFollowing();
     return {
       isFetching: true,
       isLoaded: false,
@@ -32,18 +35,20 @@ var Sidebar = React.createClass({
       menu: 'public'
     };
   },
+  componentDidUpdate: function() {
+    this.getFollowing();
+  },
   getFollowing: function(){
-    if (this.props.auth.isAuthenticated === true
-      && _.size(this.state.following) == 0
-      && this.state.followingIsFetching == false
-      && this.state.followingIsLoaded == false
-    ) {
+    if (this.props.auth.isAuthenticated &&
+        !_.size(this.state.following) &&
+        !this.state.followingIsFetching &&
+        !this.state.followingIsLoaded) {
       api.getFollowing(this.props.auth.user.name, 0, 'blog', 20, function(err, following) {
         this.setState({following: following});
       }.bind(this));
     }
   },
-  render: function(){
+  render(){
     var user = this.props.auth.user;
     var tags = [];
     if (this.state.categories) {
@@ -63,28 +68,34 @@ var Sidebar = React.createClass({
       <nav className="sidebar">
         <div className="sidebar-header">
           {this.props.app.sidebarIsVisible &&
-          <a className="visible-xs hide-sidebar" href="#" onClick={() => this.props.hideSidebar()}>
+          <a className="visible-xs hide-sidebar" onClick={() => this.props.hideSidebar()}>
             <i className="icon icon-md icon-menu material-icons">arrow_back</i>
           </a>}
           <div className="me">
             {this.props.auth.isAuthenticated?
-              <Link to={'/@' + user.name}>
-                <span className="avatar avatar-sm">
-                  <span className="reputation">{formatter.reputation(user.reputation)}</span>
-                  <img src={`https://img.busy6.com/@${user.name}`} />
+              <div>
+                <Link to={`/@${user.name}`}>
+                  <span className="avatar avatar-sm">
+                    <span className="reputation">{formatter.reputation(user.reputation)}</span>
+                    <img alt={user.name} src={`https://img.busy6.com/@${user.name}`} />
+                  </span>
+                </Link>
+                <span style={{ clear: 'both', display: 'block' }}>
+                  @{user.name} <a onClick={() => this.setState({menu: 'settings'})}>
+                    <i className="icon icon-xs material-icons">settings</i>
+                  </a>
                 </span>
-                <span style={{clear: 'both', display: 'block'}}>@{user.name} <Link to="/settings" onClick={() => this.setState({menu: 'settings'})}><i className="icon icon-xs material-icons">settings</i></Link></span>
-              </Link> :
+              </div>:
               <div className="log">
                 <a href="https://steemconnect.com/authorize/@busy"><i className="icon icon-lg material-icons pam">lock_outline</i></a>
               </div>}
           </div>
         </div>
         {this.props.auth.isAuthenticated && <ul className="list-selector">
-          <li><a onClick={() => this.setState({menu: 'public'})} className="active"><i className="icon icon-md material-icons">public</i></a></li>
-          <li><a onClick={() => this.setState({menu: 'feed'})}  className="active"><i className="icon icon-md material-icons">chat_bubble_outline</i></a></li>
-          <li><a onClick={() => this.setState({menu: 'write'})} className="active"><i className="icon icon-md material-icons">create</i></a></li>
-          <li><a onClick={() => this.setState({menu: 'wallet'})} className="active"><i className="icon icon-md material-icons">account_balance_wallet</i></a></li>
+          <li><a onClick={() => this.setState({ menu: 'public' })} className="active"><i className="icon icon-md material-icons">public</i></a></li>
+          <li><a onClick={() => this.setState({ menu: 'feed' })} className="active"><i className="icon icon-md material-icons">chat_bubble_outline</i></a></li>
+          <li><a onClick={() => this.setState({ menu: 'write' })} className="active"><i className="icon icon-md material-icons">create</i></a></li>
+          <li><a onClick={() => this.setState({ menu: 'wallet' })} className="active"><i className="icon icon-md material-icons">account_balance_wallet</i></a></li>
         </ul>}
         <div className="sidebar-content">
           {this.state.isFetching && <Loading color="white"/>}
@@ -104,12 +115,14 @@ var Sidebar = React.createClass({
               </li>
             </ul>}
           {_.size(this.state.categories) > 0 && this.state.menu === 'public' && <ul className="tags">{tags}</ul>}
+
           {_.size(this.state.following) > 0 && this.state.menu === 'feed' &&
-            <ul className="tags">
-              {this.state.following.map(function(follow, key) {
-                return <li key={key}><Link to={'/@' + follow.following} activeClassName="active">@{follow.following}</Link></li>
-              })}
-            </ul>}
+              <SidebarContacts
+                contacts={this.state.following}
+                channels={this.state.categories}
+              />
+          }
+
           {this.props.auth.isAuthenticated && _.has(this.state.feedPrice, 'base') && this.state.menu === 'write' &&
             <ul>
               <li className="title">
@@ -141,17 +154,17 @@ var Sidebar = React.createClass({
   }
 });
 
-var mapStateToProps = function(state){
+var mapStateToProps = function (state) {
   return {
     app: state.app,
     auth: state.auth
   };
 };
 
-var mapDispatchToProps = function(dispatch){
+var mapDispatchToProps = function (dispatch) {
   return {
-    hideSidebar: function(){ dispatch(actions.hideSidebar()); }
-  }
+    hideSidebar() { dispatch(actions.hideSidebar()); }
+  };
 };
 
-module.exports = ReactRedux.connect(mapStateToProps,mapDispatchToProps)(Sidebar);
+module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(Sidebar);

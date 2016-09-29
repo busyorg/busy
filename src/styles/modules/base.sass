@@ -3,7 +3,7 @@
  *--------------------------------
 
 body
-  background-color: $background-color
+  background-color: white
   font-family: $font-primary
   font-size: 15px
   color: $text-color
@@ -47,7 +47,6 @@ img
   padding-right: 0
 
 
-
 /* --------------------------------
  *3. Main components
  *--------------------------------
@@ -61,71 +60,20 @@ ul, li
   margin: 0
   padding: 0
 
-body.overflow-hidden
-  /* when primary navigation is visible, the content in the background won't scroll
-  overflow: hidden
-
-.header-block
-  padding-top: 60px
-  padding-bottom: 60px
-  min-height: 89vh
-
-.mobile-header-block
-  padding-top: 60px
-  padding-bottom: 40px
-  min-height: 69vh
-
-.section-block
-  padding: 60px 10px 60px 10px
-
-.section-header
-  font-size: 36px
-  font-weight: 500
-  text-align: center
-
-.section-subheader
-  font-weight: 500
-  a
-    color: #50e3c2
-    &:hover
-      color: #898989
-
 .section-body
   max-width: 992px
 
-@media (min-width: 768px)
-  .section-header
-    font-size: 40px
-  .section-block
-    padding-bottom: 90px
-    padding-top: 90px
-
-@media (min-width: 992px)
-  .section-block
-    padding-bottom: 120px
-    padding-top: 120px
-  .section-header
-    font-size: 48px
-  .section-body
-    text-align: left
-
-
 .app-wrapper
   margin: 0 auto
-  position: relative
-  top: 0
-  height: 100%
+  height: auto !important
+  min-height: 100% !important
   overflow: hidden
 
 .main-panel
-  overflow: hidden
-  height: 100%
+  padding-top: 113px
+  min-height: 100%
   position: relative
   z-index: 2
-  float: right
-  //width: calc(100% - 260px)
-  width: 100%
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3)
 
 @media (max-width: 992px)
   .main-panel
@@ -139,24 +87,12 @@ body.overflow-hidden
   height: 100%
 
 .main-panel
-  height: 100%
   position: relative
   z-index: 2
+  float: right
   display: flex
   flex-direction: column
-
-
-.avatar
-  overflow: hidden
-  border-radius: 50%
-  text-align: center
-  display: inline-block
-.avatar-sm
-  width: 40px
-  height: 40px
-.avatar-xl
-  width: 70px
-  height: 70px
+  width: calc(100% - 260px)
 
 @media (max-width: 992px)
   .hidden-xs
@@ -168,13 +104,6 @@ body.overflow-hidden
   .visible-xs
     display: inherit !important
 
-
-.thumbs
-  background: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7))
-  width: 100%
-  text-align: center
-  overflow: hidden
-  line-height: 0
 
   img
     max-height: 400px
@@ -191,10 +120,6 @@ body.overflow-hidden
 .app-wrapper.full-width
   .main-panel
     width: 100% !important
-
-.main-panel
-  width: calc(100% - 260px)
-  background-color: #f1f2f4
 
 
 .bg-green

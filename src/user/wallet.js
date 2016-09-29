@@ -27,7 +27,7 @@ var Wallet = React.createClass({
     var username = this.props.params.name;
     return (
       <div className="main-panel">
-        <PageActions />
+        <PageActions params={this.props.params} />
         <Header account={username} />
         <div className="container">
           <center>

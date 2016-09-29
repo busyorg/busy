@@ -45,7 +45,7 @@ module.exports = React.createClass({
               <span className="hidden-xs"> replied <Link to={'/@' + post.parent_author}>@{post.parent_author}</Link>'s <Link to={'/' + post.category + '/@' + post.parent_author + '/' + post.parent_permlink}>post.</Link>
               </span>}
             </li>
-            <li className="pull-right">{moment(post.created).fromNow()} <a href="#"><i className="icon icon-sm material-icons">bookmark_border</i></a></li>
+            <li className="pull-right">{moment(post.created).fromNow()} <a><i className="icon icon-sm material-icons">bookmark_border</i></a></li>
           </ul>
         </div>
         {image && !_.has(embeds, '[0].embed') && <div className="thumbs"><Link to={steemit}><img src={image} /></Link></div>}

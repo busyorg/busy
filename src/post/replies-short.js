@@ -18,7 +18,7 @@ module.exports = React.createClass({
             return <ReplyShort key={key} reply={reply} />;
           })}
         </ul>}
-        {this.state.replies.length == 0 && <Loading />}
+        {this.state.replies.length === 0 && <Loading />}
       </div>
     );
   }

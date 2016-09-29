@@ -14,7 +14,7 @@ var Actions = React.createClass({
   componentWillMount: function() {
     if (this.props.auth.isAuthenticated) {
       this.props.post.active_votes.forEach(function(entry, key) {
-        if (entry.voter == this.props.auth.user.name) {
+        if (entry.voter === this.props.auth.user.name) {
           this.setState({voted: true});
         }
       }.bind(this));
@@ -37,8 +37,8 @@ var Actions = React.createClass({
     return (<ul>
         <li><a onClick={() => this.vote(voter, post.author, post.permlink, 10000)} className={this.state.voted? 'active' : ''}><i className="icon icon-sm material-icons">thumb_up</i></a> {numeral(post.net_votes).format('0,0')}<span className="hidden-xs"> Likes</span></li>
         <li><span className="hidden-xs"><i className="icon icon-sm material-icons">attach_money</i> </span>{numeral(payout).format('$0,0.00')}</li>
-        <li><a href="#"><i className="icon icon-sm material-icons">comment</i></a> {numeral(post.children).format('0,0')}<span className="hidden-xs"> Comments</span></li>
-        <li><a href="#"><i className="icon icon-sm material-icons">send</i><span className="hidden-xs"> Share</span></a></li>
+        <li><a><i className="icon icon-sm material-icons">comment</i></a> {numeral(post.children).format('0,0')}<span className="hidden-xs"> Comments</span></li>
+        <li><a><i className="icon icon-sm material-icons">send</i><span className="hidden-xs"> Share</span></a></li>
       </ul>);
   }
 });

@@ -20,7 +20,7 @@ module.exports = React.createClass({
     var content = this.state.content;
     return (
       <div className="main-panel">
-        <PageActions likes="true" replies="true" messages="true" />
+        <PageActions params={this.props.params} likes="true" replies="true" messages="true" />
         <Header />
           <div className="single">
             {!_.has(content, 'author') && <Loading />}
@@ -32,7 +32,7 @@ module.exports = React.createClass({
                       <img src={'https://img.busy6.com/@' + content.author} width="40" height="40" />
                     </span> <span className="pull-left mls">@{content.author}</span>
                 </Link>
-                <span className="pull-right">{moment(content.created).fromNow()} <a href="#"><i className="icon icon-md material-icons">bookmark_border</i></a></span>
+                <span className="pull-right">{moment(content.created).fromNow()} <a><i className="icon icon-md material-icons">bookmark_border</i></a></span>
               </div>
               <div className="single-content">
                 <h1 className="mvl">{content.title}</h1>

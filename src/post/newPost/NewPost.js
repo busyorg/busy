@@ -88,7 +88,7 @@ import Promise from 'bluebird'; // eslint-disable-line import/imports-first
 import assert from 'assert'; // eslint-disable-line import/imports-first
 import formSerialize from 'form-serialize'; // eslint-disable-line import/imports-first
 import request from 'superagent'; // eslint-disable-line import/imports-first
-import slug from 'slug'; // eslint-disable-line import/imports-first
+import _ from 'lodash'; // eslint-disable-line import/imports-first
 import { connect } from 'react-redux'; // eslint-disable-line import/imports-first
 
 Promise.promisifyAll(request.Request.prototype);
@@ -134,7 +134,7 @@ export function createPost(e) {
   body.parentAuthor = '';
   body.jsonMetadata = '';
   if (!body.permlink) {
-    body.permlink = slug(body.title);
+    body.permlink = _.kebabCase(body.title);
   }
   return rawCreatePost(body);
 }

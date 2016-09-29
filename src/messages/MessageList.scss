@@ -1,0 +1,51 @@
+.MessageList {
+  display: flex;
+  flex-direction: column-reverse;
+  overflow-y: scroll;
+  max-height: 100%;
+
+  .Message {
+    overflow: initial;
+    border-bottom: solid 10px transparent;
+    box-sizing: content-box;
+    display: inline-block;
+    margin: 0;
+    width: 100%;
+
+    span {
+      background: transparent;
+      padding: 0;
+    }
+
+
+    .Message__timestamp {
+      opacity: 0;
+    }
+
+    .media {
+      &:hover {
+        background-color: darken(#f1f2f4, 5%);
+
+        .Message__timestamp {
+          opacity: 1;
+        }
+      }
+    }
+
+    .media {
+      padding: .25em;
+
+      img {
+        border-radius: 5px;
+      }
+    }
+
+    p {
+      margin-bottom: 0;
+    }
+
+    &:nth-last-child(1) {
+      border-top: solid 10px transparent;
+    }
+  }
+}

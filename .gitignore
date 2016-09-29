@@ -1,5 +1,6 @@
 public/js/app.js
 public/js/app.min.js
+public/js/statistics.html
 public/js/app.min.js.map
 .idea
 .save
@@ -37,3 +38,4 @@ build/Release
 # https://docs.npmjs.com/misc/faq#should-i-check-my-node-modules-folder-into-git
 node_modules
 .tern-port
+.envrc

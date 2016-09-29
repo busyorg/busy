@@ -10,7 +10,7 @@ module.exports = React.createClass({
         {jsonMetadata.users.map(function(user, key) {
           return <span key={key}>
             {key > 0 && (key + 1) != jsonMetadata.users.length && <span>, </span>}
-            {key != 0 && (key + 1) == jsonMetadata.users.length && <span> and </span>}
+            {key != 0 && (key + 1) === jsonMetadata.users.length && <span> and </span>}
             <Link to={'/@' + user}>@{user}</Link>
           </span>;
         })}
