@@ -25,7 +25,8 @@ export const getMoreUserFeedContentSuccess = createAction(actionTypes.GET_MORE_U
 
 export const getFeedContent = ({ sortBy, category, limit }) => {
   return (dispatch, getState) => {
-    if(getFeedFromState(sortBy, category, getState().feed).length) {
+    const feed = getState().feed;
+    if (feed[sortBy][category] && feed[sortBy][category].isLoaded) {
       return;
     }
 
@@ -57,7 +58,7 @@ export const getFeedContent = ({ sortBy, category, limit }) => {
 
 export const getUserFeedContent = ({ username, limit }) => {
   return (dispatch, getState) => {
-    if (getState().feed.feed[username] && getState().feed.feed[username].length) {
+    if (getState().feed.feed[username].isLoaded) {
       return;
     }
 

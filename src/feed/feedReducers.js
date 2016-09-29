@@ -54,13 +54,19 @@ const feedSortBySubItem = (state = {}, action) => {
   switch (action.type) {
     case feedTypes.GET_FEED_CONTENT:
     case feedTypes.GET_MORE_FEED_CONTENT:
-    case feedTypes.GET_FEED_CONTENT_SUCCESS:
     case feedTypes.GET_MORE_FEED_CONTENT_SUCCESS:
     case feedTypes.GET_USER_FEED_CONTENT:
-    case feedTypes.GET_USER_FEED_CONTENT_SUCCESS:
     case feedTypes.GET_MORE_USER_FEED_CONTENT:
     case feedTypes.GET_MORE_USER_FEED_CONTENT_SUCCESS:
       return {
+        ...state,
+        isFetching: feedFetching(undefined, action),
+        list: feedIdsList(state.list, action)
+      };
+    case feedTypes.GET_FEED_CONTENT_SUCCESS:
+    case feedTypes.GET_USER_FEED_CONTENT_SUCCESS:
+      return {
+        isLoaded: true,
         isFetching: feedFetching(undefined, action),
         list: feedIdsList(state.list, action)
       };
