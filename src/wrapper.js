@@ -10,19 +10,30 @@ var Wrapper = React.createClass({
     this.props.login();
     this.props.getConfig();
   },
+
   render() {
     var className = (!this.props.app.sidebarIsVisible) ? 'app-wrapper full-width' : 'app-wrapper';
+    const { auth } = this.props;
     return (
       <div className={className}>
         <Sidebar />
-        {this.props.children}
+        {
+          React.cloneElement(
+            this.props.children,
+            { auth }
+          )
+        }
       </div>
     );
   }
 });
 
-const mapStateToProps = function ({ app }) {
-  return { app };
+
+const mapStateToProps = ({ app, auth }) => {
+  return {
+    app,
+    auth
+  };
 };
 
 const mapDispatchToProps = function (dispatch) {

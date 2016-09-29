@@ -8,6 +8,8 @@ import MessagesWorker, { messagesReducer } from './common/messages';
 import appReducers, { headerReducer } from './app/appReducers';
 import authReducers from './auth/authReducers';
 import commentsReducer from './comments/commentsReducer.js';
+import feedReducers from './feed/feedReducers';
+import postsReducers from './post/postsReducers';
 
 export const messagesWorker = new MessagesWorker();
 
@@ -16,6 +18,8 @@ const reducers = combineReducers({
   auth: authReducers,
   comments: commentsReducer,
   header: headerReducer,
+  posts: postsReducers,
+  feed: feedReducers,
   messages: messagesReducer,
 });
 

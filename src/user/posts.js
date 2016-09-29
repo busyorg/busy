@@ -1,5 +1,5 @@
 var React = require("react"),
-  Page = require("./../feed/page");
+  Page = require("./../feed/Page");
 
 module.exports = React.createClass({
   render: function(){

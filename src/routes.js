@@ -3,20 +3,14 @@ var React = require('react'),
   Route = ReactRouter.Route,
   IndexRoute = ReactRouter.IndexRoute,
   Wrapper = require('./wrapper'),
-
-  Dashboard = require('./app/dashboard'),
   Settings = require('./app/settings'),
-
   About = require('./statics/About'),
   Team = require('./statics/Team'),
   Projects = require('./statics/Projects'),
   Jobs = require('./statics/Jobs'),
   Donate = require('./statics/Donate'),
   Help = require('./statics/Help'),
-
   PostSinglePage = require('./post/PostSinglePage'),
-  Category = require('./feed/category'),
-
   Edit = require('./user/edit'),
   Posts = require('./user/posts'),
   Feed = require('./user/feed'),
@@ -25,21 +19,16 @@ var React = require('react'),
   Followers = require('./user/UserFollowersList'),
   Followed = require('./user/UserFollowedList'),
   Wallet = require('./user/wallet'),
-
-  Trending = require('./feed/trending'),
-  Hot = require('./feed/hot'),
-  Cashout = require('./feed/cashout'),
-  Created = require('./feed/created'),
-  Active = require('./feed/active'),
-  Responses = require('./feed/responses'),
-  Votes = require('./feed/votes'),
-  Write = require('./post/newPost/NewPost').default,
   MessagesUser = require('./messages/MessagesUser').default,
-  MessagesCategory = require('./messages/MessagesCategory').default;
+  MessagesCategory = require('./messages/MessagesCategory').default,
+  Write = require('./post/newPost/NewPost').default;
+
+import Page from './feed/Page';
+import { Trending, Hot, Votes, Responses, Active, Created, Cashout } from './feed/PathMatching';
 
 export default (
   <Route path="/" component={Wrapper}>
-    <IndexRoute component={Dashboard} />
+    <IndexRoute component={Page} />
     <Route path="/settings" component={Settings} />
 
     <Route path="/about" component={About} />
@@ -49,13 +38,13 @@ export default (
     <Route path="/donate" component={Donate} />
     <Route path="/help" component={Help} />
 
-    <Route path="/trending" component={Trending} />
-    <Route path="/hot" component={Hot} />
-    <Route path="/cashout" component={Cashout} />
-    <Route path="/created" component={Created} />
-    <Route path="/active" component={Active} />
-    <Route path="/responses" component={Responses} />
-    <Route path="/votes" component={Votes} />
+    <Route path="/trending(/:category)" component={Trending} />
+    <Route path="/hot(/:category)" component={Hot} />
+    <Route path="/cashout(/:category)" component={Cashout} />
+    <Route path="/created(/:category)" component={Created} />
+    <Route path="/active(/:category)" component={Active} />
+    <Route path="/responses(/:category)" component={Responses} />
+    <Route path="/votes(/:category)" component={Votes} />
 
     <Route path="/write" component={Write} />
 
@@ -72,6 +61,5 @@ export default (
     <Route path="/@:name" component={Profile} />
 
     <Route path="/:category/@:author/:permlink" component={ PostSinglePage } />
-    <Route path="/:sortBy/:category" component={Category} />
   </Route>
 );
