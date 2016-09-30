@@ -22,10 +22,12 @@ export const getUserFeedContentSuccess = createAction(actionTypes.GET_USER_FEED_
 export const getMoreUserFeedContentWithoutAPI = createAction(actionTypes.GET_MORE_USER_FEED_CONTENT);
 export const getMoreUserFeedContentSuccess = createAction(actionTypes.GET_MORE_USER_FEED_CONTENT_SUCCESS);
 
+export const feedHasNoMore = createAction(actionTypes.FEED_HAS_NO_MORE);
 
 export const getFeedContent = ({ sortBy, category, limit }) => {
   return (dispatch, getState) => {
-    if(getFeedFromState(sortBy, category, getState().feed).length) {
+    const feed = getState().feed;
+    if (feed[sortBy][category] && feed[sortBy][category].isLoaded) {
       return;
     }
 
@@ -57,7 +59,8 @@ export const getFeedContent = ({ sortBy, category, limit }) => {
 
 export const getUserFeedContent = ({ username, limit }) => {
   return (dispatch, getState) => {
-    if (getState().feed.feed[username] && getState().feed.feed[username].length) {
+    const { feed } = getState();
+    if (feed.feed[username] && feed.feed[username].isLoaded) {
       return;
     }
 
@@ -120,6 +123,14 @@ export const getMoreFeedContent = ({ sortBy, category, limit }) => {
         return;
       }
 
+      // The feed is completely loaded
+      if(postsData.length === 1) {
+        dispatch(feedHasNoMore({
+          sortBy,
+          category,
+        }));
+      }
+
       dispatch(
         getMoreFeedContentSuccess({
           sortBy: sortBy || 'trending',
@@ -161,6 +172,14 @@ export const getMoreUserFeedContent = ({ username, limit }) => {
         if (err) {
           console.error(`error while loading ${sortyBy} for ${username}`, JSON.stringify(err));
           return;
+        }
+
+        // The feed is completely loaded
+        if(postsData.length === 1) {
+          dispatch(feedHasNoMore({
+            sortBy,
+            category: username,
+          }));
         }
 
         dispatch(
