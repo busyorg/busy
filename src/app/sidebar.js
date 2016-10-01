@@ -116,14 +116,12 @@ var Sidebar = React.createClass({
                 <a href="https://steemconnect.com/logout"><i className="icon icon-md material-icons">lock_open</i> Log Out</a>
               </li>
             </ul>}
-          {_.size(this.state.categories) > 0 && this.state.menu === 'public' && <ul className="tags">{tags}</ul>}
+
+          {_.size(this.state.categories) > 0 && this.state.menu === 'public' &&
+            <ul className="tags">{tags}</ul>}
 
           {_.size(this.state.following) > 0 && this.state.menu === 'feed' &&
-            <SidebarContacts
-              contacts={this.state.following}
-              channels={this.state.categories}
-            />
-          }
+            <SidebarContacts contacts={this.state.following} />}
 
           {this.props.auth.isAuthenticated && _.has(this.state.feedPrice, 'base') && this.state.menu === 'write' &&
             <ul>
