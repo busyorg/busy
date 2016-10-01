@@ -72,7 +72,7 @@ var Sidebar = React.createClass({
             <i className="icon icon-md icon-menu material-icons">arrow_back</i>
           </a>}
           <div className="me">
-            {this.props.auth.isAuthenticated?
+            {this.props.auth.isAuthenticated ?
               <div>
                 <Link to={`/@${user.name}`}>
                   <span className="avatar avatar-sm">
@@ -85,9 +85,11 @@ var Sidebar = React.createClass({
                     <i className="icon icon-xs material-icons">settings</i>
                   </a>
                 </span>
-              </div>:
+              </div> :
               <div className="log">
-                <a href="https://steemconnect.com/authorize/@busy"><i className="icon icon-lg material-icons pam">lock_outline</i></a>
+                {this.props.auth.isFetching ?
+                  <Loading color="white" /> :
+                  <a href="https://steemconnect.com/authorize/@busy"><i className="icon icon-lg material-icons pam">lock_outline</i></a>}
               </div>}
           </div>
         </div>
