@@ -119,10 +119,10 @@ var Sidebar = React.createClass({
           {_.size(this.state.categories) > 0 && this.state.menu === 'public' && <ul className="tags">{tags}</ul>}
 
           {_.size(this.state.following) > 0 && this.state.menu === 'feed' &&
-              <SidebarContacts
-                contacts={this.state.following}
-                channels={this.state.categories}
-              />
+            <SidebarContacts
+              contacts={this.state.following}
+              channels={this.state.categories}
+            />
           }
 
           {this.props.auth.isAuthenticated && _.has(this.state.feedPrice, 'base') && this.state.menu === 'write' &&
