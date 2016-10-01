@@ -40,7 +40,7 @@ import {
       getMoreUserFeedContent: () => dispatch(
         getMoreUserFeedContent({ username: auth.user.name, limit})
       ),
-    }
+    };
   }
 )
 export default class Page extends React.Component {
@@ -69,37 +69,27 @@ export default class Page extends React.Component {
 
     return (
       <div className="main-panel">
-        { auth.isFetching?
-          <div>
-            <Header
-              account={account}
-              category={category}
-            />
-            <h1>Logging in...</h1>
-          </div>
-        :
-          <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <Header
-              account={account}
-              category={category}
-            />
-            <PageActions
-              messages
-              add
-            />
-            <Feed
-              content={content}
-              isFetching={isFetching}
-              hasMore={hasMore}
-              loadContent={loadContentAction}
-              loadMoreContent={loadMoreContentAction}
-            />
-          </div>
-        }
+        <Header
+          account={account}
+          category={category}
+        />
+        {auth.isAuthenticated &&
+          <PageActions
+            messages
+            add
+          />}
+        {!auth.isFetching &&
+          <Feed
+            content={content}
+            isFetching={isFetching}
+            hasMore={hasMore}
+            loadContent={loadContentAction}
+            loadMoreContent={loadMoreContentAction}
+          />}
       </div>
     );
   }
-};
+}
 
 Page.propTypes = {
   account: React.PropTypes.string,
