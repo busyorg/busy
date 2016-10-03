@@ -36,6 +36,22 @@ export const getFeedLoadingFromState = (sortBy, category = 'all', feedState) => 
   }
 };
 
+export const getFeedHasMoreFromState = (sortBy, listName = 'all', feedState) => {
+  switch (sortBy) {
+    case 'feed':
+    case 'hot':
+    case 'cashout':
+    case 'crated':
+    case 'active':
+    case 'trending':
+    case 'comments':
+    case 'blog':
+      return (feedState[sortBy][listName] && feedState[sortBy][listName].hasMore) || false;
+    default:
+      return false;
+  }
+};
+
 // returning the same function but different naming helps to understand the code's flow better
 // and defines a pattern to scale this feature with reselect
 export const getUserFeedContentFromState = (username, feedState, postsState) =>
