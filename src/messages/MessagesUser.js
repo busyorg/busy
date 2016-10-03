@@ -41,7 +41,12 @@ class MessagesPage extends Component {
               {channelName}
             </Link>
             {' '}
-            <span>away</span>
+            <span>
+              {this.props.users[this.props.params.username]
+                ? 'online'
+                : 'away'
+              }
+            </span>
           </div>
         </Header>
         <div className="messages">
@@ -60,6 +65,7 @@ MessagesPage = actionDecorator(fetchChannelPresence, joinChannel)(MessagesPage);
 MessagesPage = connect((state) => ({
   auth: state.auth,
   channels: state.messages.channels,
+  users: state.messages.users,
 }))(MessagesPage);
 
 export default MessagesPage;

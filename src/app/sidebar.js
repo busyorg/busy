@@ -1,6 +1,7 @@
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
+import size from 'lodash/size';
 
-import SidebarContacts from './Sidebar/SidebarContacts';
+import SidebarMessages from './Sidebar/SidebarMessages';
 
 var ReactRedux = require('react-redux'),
   actions = require('./../actions'),
@@ -11,9 +12,61 @@ var ReactRedux = require('react-redux'),
   Loading = require('./../widgets/Loading'),
   Link = require('react-router').Link;
 
-var Sidebar = React.createClass({
-  getInitialState() {
-    api.getState('trending/busy', function(err, result) {
+
+class SidebarIcons extends Component {
+  renderUnread() {
+    const nUnreadMessages = size(this.props.messages.unreadMessages);
+
+    if (!nUnreadMessages) return null;
+
+    return (
+      <div
+        className="SidebarIcons__unreadMessagesCount"
+        style={{
+          position: 'absolute',
+          top: '0',
+          right: '0',
+          lineHeight: '19px',
+          height: '20px',
+          width: '20px',
+          borderRadius: '100%',
+          backgroundColor: 'white',
+          color: 'black'
+        }}
+        >
+        {nUnreadMessages}
+      </div>
+    );
+  }
+
+  render() {
+    if (!this.props.auth.isAuthenticated) {
+      return null;
+    }
+
+    return (
+      <ul className="list-selector">
+        <li><a onClick={() => this.props.onClickMenu({ menu: 'public' })} className="active"><i className="icon icon-md material-icons">public</i></a></li>
+
+        <li style={{position: 'relative'}}>
+          <a onClick={() => this.props.onClickMenu({ menu: 'feed' })} className="active">
+            {this.renderUnread()}
+            <i className="icon icon-md material-icons">chat_bubble_outline</i>
+          </a>
+        </li>
+
+        <li><a onClick={() => this.props.onClickMenu({ menu: 'write' })} className="active"><i className="icon icon-md material-icons">create</i></a></li>
+        <li><a onClick={() => this.props.onClickMenu({ menu: 'wallet' })} className="active"><i className="icon icon-md material-icons">account_balance_wallet</i></a></li>
+      </ul>
+    );
+  }
+}
+
+class Sidebar extends Component {
+  constructor(props) {
+    super(props);
+
+    api.getState('trending/busy', (err, result) => {
       this.setState({
         isFetching: false,
         isLoaded: true,
@@ -22,8 +75,9 @@ var Sidebar = React.createClass({
         feedPrice: result.feed_price
       });
       this.getFollowing();
-    }.bind(this));
-    return {
+    });
+
+    this.state = {
       isFetching: true,
       isLoaded: false,
       followingIsFetching: false,
@@ -34,21 +88,28 @@ var Sidebar = React.createClass({
       following: [],
       menu: 'public'
     };
-  },
-  componentDidUpdate: function() {
+  }
+
+  componentDidUpdate() {
     this.getFollowing();
-  },
-  getFollowing: function(){
+  }
+
+  getFollowing() {
     if (this.props.auth.isAuthenticated &&
         !_.size(this.state.following) &&
         !this.state.followingIsFetching &&
         !this.state.followingIsLoaded) {
-      api.getFollowing(this.props.auth.user.name, 0, 'blog', 20, function(err, following) {
+      api.getFollowing(this.props.auth.user.name, 0, 'blog', 20, (err, following) => {
         this.setState({following: following});
-      }.bind(this));
+      });
     }
-  },
-  render(){
+  }
+
+  onClickMenu = ({ menu }) => {
+    this.setState({ menu });
+  };
+
+  render() {
     var user = this.props.auth.user;
     var tags = [];
     if (this.state.categories) {
@@ -93,12 +154,13 @@ var Sidebar = React.createClass({
               </div>}
           </div>
         </div>
-        {this.props.auth.isAuthenticated && <ul className="list-selector">
-          <li><a onClick={() => this.setState({ menu: 'public' })} className="active"><i className="icon icon-md material-icons">public</i></a></li>
-          <li><a onClick={() => this.setState({ menu: 'feed' })} className="active"><i className="icon icon-md material-icons">chat_bubble_outline</i></a></li>
-          <li><a onClick={() => this.setState({ menu: 'write' })} className="active"><i className="icon icon-md material-icons">create</i></a></li>
-          <li><a onClick={() => this.setState({ menu: 'wallet' })} className="active"><i className="icon icon-md material-icons">account_balance_wallet</i></a></li>
-        </ul>}
+
+        <SidebarIcons
+          onClickMenu={this.onClickMenu}
+          auth={this.props.auth}
+          messages={this.props.messages}
+        />
+
         <div className="sidebar-content">
           {this.state.isFetching && <Loading color="white"/>}
           {this.props.auth.isAuthenticated && _.has(this.state.feedPrice, 'base') && this.state.menu === 'settings' &&
@@ -120,8 +182,13 @@ var Sidebar = React.createClass({
           {_.size(this.state.categories) > 0 && this.state.menu === 'public' &&
             <ul className="tags">{tags}</ul>}
 
-          {_.size(this.state.following) > 0 && this.state.menu === 'feed' &&
-            <SidebarContacts contacts={this.state.following} />}
+          {this.state.menu === 'feed' &&
+            <SidebarMessages
+              messages={this.props.messages}
+              contacts={this.state.following}
+              channels={this.state.categories}
+            />
+          }
 
           {this.props.auth.isAuthenticated && _.has(this.state.feedPrice, 'base') && this.state.menu === 'write' &&
             <ul>
@@ -152,12 +219,13 @@ var Sidebar = React.createClass({
       </nav>
     );
   }
-});
+}
 
 var mapStateToProps = function (state) {
   return {
     app: state.app,
-    auth: state.auth
+    auth: state.auth,
+    messages: state.messages,
   };
 };
 

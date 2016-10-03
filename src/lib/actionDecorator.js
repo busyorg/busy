@@ -94,11 +94,13 @@ export default function actionDecorator(...actions) {
           ret = this.context.store.dispatch(action({
             params: this.props.params,
             location: this.props.location,
+            props: this.props,
           }));
         } else {
           ret = action({
             params: this.props.params,
             location: this.props.location,
+            props: this.props,
           });
         }
         ret.tap(() => {
