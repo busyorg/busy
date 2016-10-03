@@ -62,7 +62,7 @@ class MessagesPage extends Component {
 }
 
 MessagesPage = actionDecorator(fetchChannelPresence, joinChannel)(MessagesPage);
-MessagesPage = connect((state) => ({
+MessagesPage = connect(state => ({
   auth: state.auth,
   channels: state.messages.channels,
   users: state.messages.users,

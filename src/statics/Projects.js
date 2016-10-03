@@ -1,9 +1,9 @@
-var React = require('react'),
+let React = require('react'),
   Header = require('./../app/header'),
   { Link } = require('react-router');
 
 module.exports = React.createClass({
-  render: function(){
+  render() {
     return (
       <div className="main-panel">
         <Header menu="about" />
@@ -11,13 +11,13 @@ module.exports = React.createClass({
           <div className="block">
             <h1>Busy <img src="/img/open-source.svg" height="46" /></h1>
             <p><Link to="/trending/steemjs">#busy</Link></p>
-            <p><a href="https://bus.yt/" target="_blank">https://bus.yt/</a><br/>
+            <p><a href="https://bus.yt/" target="_blank">https://bus.yt/</a><br />
               <a href="https://github.com/adcpm/busy" target="_blank">https://github.com/adcpm/busy</a></p>
           </div>
           <div className="block">
             <h1>Steem.js <img src="/img/open-source.svg" height="46" /></h1>
             <p><Link to="/trending/steemjs">#steemjs</Link></p>
-            <p><a href="https://steemjs.com/" target="_blank">https://steemjs.com/</a><br/>
+            <p><a href="https://steemjs.com/" target="_blank">https://steemjs.com/</a><br />
             <a href="https://www.npmjs.com/package/steem" target="_blank">https://www.npmjs.com/package/steem</a></p>
           </div>
           <div className="block">

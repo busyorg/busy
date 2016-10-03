@@ -9,8 +9,8 @@ const initialState = {
 
 // TODO(p0o): some actionsTypes in this reducer are not defined anywhere, need to figure it out later
 
-export default (state = initialState, action) =>{
-  switch(action.type){
+export default (state = initialState, action) => {
+  switch (action.type) {
     case appTypes.FEED_REQUEST:
       return Object.assign({}, state, {
         isFetching: true,
@@ -70,7 +70,7 @@ const headerInitialState = {
 };
 
 export const headerReducer = (state = headerInitialState, action) => {
-  switch(action.type){
+  switch (action.type) {
     case appTypes.SET_MENU:
       return Object.assign({}, state, {
         menu: action.menu

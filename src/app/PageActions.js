@@ -1,13 +1,13 @@
-var React = require('react'),
-    {Link} = require('react-router');
+let React = require('react'),
+  { Link } = require('react-router');
 
 module.exports = React.createClass({
-  render: function() {
+  render() {
     let channel = '';
     if (this.props.params && this.props.params.name) {
       channel = `@${this.props.params.name}`;
     } else if (this.props.params && this.props.params.category) {
-      channel = this.props.params.category
+      channel = this.props.params.category;
     }
 
     return (

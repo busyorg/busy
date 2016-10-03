@@ -1,10 +1,10 @@
-var React = require('react'),
+let React = require('react'),
   _ = require('lodash'),
   Header = require('./../app/header'),
   Followed = require('./followed');
 
 module.exports = React.createClass({
-  render: function(){
+  render() {
     return (
       <div className="main-panel">
         <Header account={this.props.params.name} />

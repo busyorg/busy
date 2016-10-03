@@ -3,7 +3,7 @@ import size from 'lodash/size';
 
 import SidebarMessages from './Sidebar/SidebarMessages';
 
-var ReactRedux = require('react-redux'),
+let ReactRedux = require('react-redux'),
   actions = require('./../actions'),
   formatter = require('steem/lib/formatter'),
   _ = require('lodash'),
@@ -33,7 +33,7 @@ class SidebarIcons extends Component {
           backgroundColor: 'white',
           color: 'black'
         }}
-        >
+      >
         {nUnreadMessages}
       </div>
     );
@@ -48,7 +48,7 @@ class SidebarIcons extends Component {
       <ul className="list-selector">
         <li><a onClick={() => this.props.onClickMenu({ menu: 'public' })} className="active"><i className="icon icon-md material-icons">public</i></a></li>
 
-        <li style={{position: 'relative'}}>
+        <li style={{ position: 'relative' }}>
           <a onClick={() => this.props.onClickMenu({ menu: 'feed' })} className="active">
             {this.renderUnread()}
             <i className="icon icon-md material-icons">chat_bubble_outline</i>
@@ -100,7 +100,7 @@ class Sidebar extends Component {
         !this.state.followingIsFetching &&
         !this.state.followingIsLoaded) {
       api.getFollowing(this.props.auth.user.name, 0, 'blog', 20, (err, following) => {
-        this.setState({following: following});
+        this.setState({ following });
       });
     }
   }
@@ -110,11 +110,11 @@ class Sidebar extends Component {
   };
 
   render() {
-    var user = this.props.auth.user;
-    var tags = [];
+    const user = this.props.auth.user;
+    let tags = [];
     if (this.state.categories) {
-      var categories = _.sortBy(this.state.categories, 'discussions').reverse();
-      categories.forEach(function(category, key) {
+      const categories = _.sortBy(this.state.categories, 'discussions').reverse();
+      categories.forEach((category, key) => {
         tags.push(<li key={key}><Link to={'/trending/' + category.name} activeClassName="active">#{category.name}</Link></li>);
       });
     }
@@ -142,7 +142,7 @@ class Sidebar extends Component {
                   </span>
                 </Link>
                 <span style={{ clear: 'both', display: 'block' }}>
-                  @{user.name} <a onClick={() => this.setState({menu: 'settings'})}>
+                  @{user.name} <a onClick={() => this.setState({ menu: 'settings' })}>
                     <i className="icon icon-xs material-icons">settings</i>
                   </a>
                 </span>
@@ -162,7 +162,7 @@ class Sidebar extends Component {
         />
 
         <div className="sidebar-content">
-          {this.state.isFetching && <Loading color="white"/>}
+          {this.state.isFetching && <Loading color="white" />}
           {this.props.auth.isAuthenticated && _.has(this.state.feedPrice, 'base') && this.state.menu === 'settings' &&
             <ul>
               <li className="title">
@@ -221,7 +221,7 @@ class Sidebar extends Component {
   }
 }
 
-var mapStateToProps = function (state) {
+const mapStateToProps = function (state) {
   return {
     app: state.app,
     auth: state.auth,
@@ -229,7 +229,7 @@ var mapStateToProps = function (state) {
   };
 };
 
-var mapDispatchToProps = function (dispatch) {
+const mapDispatchToProps = function (dispatch) {
   return {
     hideSidebar() { dispatch(actions.hideSidebar()); }
   };

@@ -8,6 +8,7 @@
     "start": "nodemon --ignore src ./bin/www",
     "test": "BUSYWS_HOST=https://ws.busy6.com BABEL_ENV=test mocha --require babel-register ./src/*/*-spec.js",
     "test-watch": "BUSYWS_HOST=https://ws.busy6.com BABEL_ENV=test mocha --watch --require babel-register ./src/*/*-spec.js",
+    "eslint-autofix": "eslint --fix src/**/*.js *.js",
     "lint": "eslint src/**",
     "build": "webpack --progress -p --config webpack.prod.config.js",
     "postinstall": "npm run build"

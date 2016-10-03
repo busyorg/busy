@@ -41,7 +41,7 @@ import mapValues from 'lodash/mapValues';
  */
 
 export default function actionDecorator(...actions) {
-  return (Wrapped) => class ActionComponent extends Component {
+  return Wrapped => class ActionComponent extends Component {
     static actions = actions;
     static Wrapped = Wrapped;
 

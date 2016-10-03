@@ -29,16 +29,16 @@ import {
     const { sortBy, category, auth, limit } = ownProps;
     return {
       getFeedContent: () => dispatch(
-        getFeedContent({sortBy, category, limit})
+        getFeedContent({ sortBy, category, limit })
       ),
       getMoreFeedContent: () => dispatch(
-        getMoreFeedContent({sortBy, category, limit})
+        getMoreFeedContent({ sortBy, category, limit })
       ),
       getUserFeedContent: () => dispatch(
-        getUserFeedContent({ username: auth.user.name, limit})
+        getUserFeedContent({ username: auth.user.name, limit })
       ),
       getMoreUserFeedContent: () => dispatch(
-        getMoreUserFeedContent({ username: auth.user.name, limit})
+        getMoreUserFeedContent({ username: auth.user.name, limit })
       ),
     };
   }
@@ -53,7 +53,7 @@ export default class Page extends React.Component {
 
     let content, isFetching, hasMore, loadContentAction, loadMoreContentAction;
 
-    if(!path && auth.isAuthenticated) {
+    if (!path && auth.isAuthenticated) {
       content = getUserFeedContentFromState(auth.user.name, feed, posts);
       isFetching = getUserFeedLoadingFromState(auth.user.name, feed);
       hasMore = feed[sortBy][auth.user.name] ? feed[sortBy][auth.user.name].hasMore : true;

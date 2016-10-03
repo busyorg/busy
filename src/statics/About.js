@@ -1,13 +1,13 @@
-var React = require('react'),
+let React = require('react'),
   Header = require('./../app/header');
 
 module.exports = React.createClass({
-  render: function(){
+  render() {
     return (
       <div className="main-panel">
         <Header menu="about" />
         <div className="page">
-          <div className="block" style={{paddingBottom: '400px'}}>
+          <div className="block" style={{ paddingBottom: '400px' }}>
             <div className="container">
               <h1>About</h1>
               <h2>The Busy Foundation’s mission is to develop and promote the next generation decentralized social network, and together build a more globally accessible, more free and more trustworthy Internet.</h2>

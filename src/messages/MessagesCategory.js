@@ -27,9 +27,9 @@ class MessagesPage extends Component {
   render() {
     const category = this.props.params.category;
     const channel = this.props.channels[category] || {
-        latest: [],
-        nmembers: 0,
-      };
+      latest: [],
+      nmembers: 0,
+    };
     return (
       <div className="Messages main-panel">
         <Header menu="messages">
@@ -48,7 +48,7 @@ class MessagesPage extends Component {
 }
 
 MessagesPage = actionDecorator(fetchChannelPresence, joinChannel)(MessagesPage);
-MessagesPage = connect((state) => ({
+MessagesPage = connect(state => ({
   auth: state.auth,
   channels: state.messages.channels,
 }))(MessagesPage);

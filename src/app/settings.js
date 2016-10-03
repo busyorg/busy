@@ -1,9 +1,9 @@
-var React = require('react'),
+let React = require('react'),
   Header = require('./header'),
   Link = require('react-router').Link;
 
 module.exports = React.createClass({
-  render: function(){
+  render() {
     return (
       <div className="main-panel">
         <Header menu="about" />

@@ -4,7 +4,7 @@ const CommentsList = ({ commentsData, limit }) => {
   return (
     commentsData.map((comment, idx) => {
       return (
-        <div key={ idx }>{ comment.author }:{ comment.body }</div>
+        <div key={idx}>{ comment.author }:{ comment.body }</div>
       );
     })
   );
