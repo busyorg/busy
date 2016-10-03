@@ -7,6 +7,8 @@ const initialState = {
   created: {},
   active: {},
   trending: {},
+  comments: {},
+  blog: {},
 };
 
 const feedFetching = (state = false, action) => {
