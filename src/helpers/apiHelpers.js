@@ -20,7 +20,12 @@ export const getDiscussionsFromAPI = function (sortBy, query, callback) {
     case 'active':
       return steemAPI.getDiscussionsByActive(query, callback);
     case 'trending':
-    default:
       return steemAPI.getDiscussionsByTrending(query, callback);
+    case 'blog':
+      return steemAPI.getDiscussionsByBlog(query, callback);
+    case 'comments':
+      return steemAPI.getDiscussionsByComments(query, callback);
+    default:
+      throw new Error('There is not API endpoint defined for this sorting');
   }
 };
