@@ -14,18 +14,30 @@ export const FETCH_CHANNEL_PRESENCE_SUCCESS = '@messages/FETCH_CHANNEL_PRESENCE_
 export const FETCH_CHANNEL_PRESENCE_ERROR = '@messages/FETCH_CHANNEL_PRESENCE_ERROR';
 
 export function fetchChannelPresence({ params }) {
-  const channelName = params.category ||
-    (params.username ? `@${params.username}` : null) ||
-    'general';
-  const url = `${HOST}/api/v1/channels/${channelName}`;
-  return {
-    type: FETCH_CHANNEL_PRESENCE,
-    payload: {
-      promise: request
-        .get(url)
-        .endAsync()
-        .then((res) => res.body),
-    },
+  function getChannelName(state) {
+    if (params.category) return params.category;
+    if (params.username) {
+      if (!state.auth.user) return '';
+      return ['@' + state.auth.user.name, '@' + params.username].sort().join('-')
+    }
+
+    return 'general';
+  }
+
+  return (dispatch, getState) => {
+    const state = getState();
+    const channelName = getChannelName(state);
+    const url = `${HOST}/api/v1/channels/${channelName}`;
+
+    dispatch({
+      type: FETCH_CHANNEL_PRESENCE,
+      payload: {
+        promise: request
+          .get(url)
+          .endAsync()
+          .then((res) => res.body),
+      },
+    });
   };
 }
 
