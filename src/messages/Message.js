@@ -2,13 +2,7 @@ import React, { Component } from 'react';
 import moment from 'moment';
 import { connect } from 'react-redux';
 
-import { sendReadAcknoledgement } from '../common/messages/actions';
-
 class Message extends Component {
-  componentDidUpdate() {
-    this.props.sendReadAcknoledgement(this.props.model);
-  }
-
   render() {
     const { model } = this.props;
     const sentAt = model[0].sentAt;
@@ -86,9 +80,5 @@ class Message extends Component {
     );
   }
 }
-
-Message = connect(() => ({}), {
-  sendReadAcknoledgement,
-})(Message);
 
 export default Message;

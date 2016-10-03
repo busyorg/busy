@@ -74,15 +74,15 @@ export const USER_MESSAGE_READ_SUCCESS = '@messages/USER_MESSAGE_READ_SUCCESS';
 export const USER_MESSAGE_READ_ERROR = '@messages/USER_MESSAGE_READ_ERROR';
 
 export function sendReadAcknoledgement(messages) {
-  if (!messages || !messages.length) return;
+  console.log(messages);
+  if (!messages || !messages.length) {
+    return {
+      type: 'USER_MESSAGE_READ_SKIP',
+    };
+  }
+
   return (dispatch, getState, { messagesWorker }) => {
     const state = getState();
-    const nonUserMessage = findLast(
-      messages,
-      (m) => m.senderUsername !== state.auth.user.name
-    );
-
-    if (nonUserMessage) return dispatch({ type: 'USER_MESSAGE_READ_SKIP' });
 
     const uuid = last(messages).uuid;
     return dispatch({

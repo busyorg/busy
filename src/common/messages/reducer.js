@@ -54,21 +54,23 @@ export default function messagesReducer(state = initialState, action) {
     }
 
     case backgroundActions.USER_MESSAGE: {
-      const channel = state.channels[action.payload.channelName] || {
+      const channel = extend({}, state.channels[action.payload.channelName]) || {
         channelName: action.payload.channelName,
         users: {},
         latest: []
       };
 
-      channel.users[action.payload.senderUsername] = true;
-      channel.latest.push(action.payload);
+      channel.users = extend({}, channel.users, {
+        [`${action.payload.senderUsername}`]: true,
+      });
+      channel.latest = channel.latest.concat([action.payload]);
 
       const channels = extend({}, state.channels, {
         [`${action.payload.channelName}`]: channel,
       });
 
       const unreadMessages = action.payload.senderUsername === state.username
-        ? state.unreadMessages
+        ? extend({}, state.unreadMessages)
         : {
           ...state.unreadMessages,
           [`${action.payload.uuid}`]: action.payload,

@@ -23,8 +23,9 @@ class MessagesPage extends Component {
       text: '',
     };
   }
+
   render() {
-    let category = this.props.params.category;
+    const category = this.props.params.category;
     const channel = this.props.channels[category] || {
         latest: [],
         nmembers: 0,
