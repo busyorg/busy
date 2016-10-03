@@ -63,7 +63,7 @@ export default function messagesReducer(state = initialState, action) {
       channel.users = extend({}, channel.users, {
         [`${action.payload.senderUsername}`]: true,
       });
-      channel.latest = channel.latest.concat([action.payload]);
+      channel.latest = (channel.latest || []).concat([action.payload]);
 
       const channels = extend({}, state.channels, {
         [`${action.payload.channelName}`]: channel,
