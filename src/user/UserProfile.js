@@ -1,12 +1,23 @@
 import React from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Header from './../app/header';
+import {
+  getFeedContent,
+  getMoreFeedContent,
+  getUserFeedContent,
+  getMoreUserFeedContent,
+} from './../feed/feedActions';
 
 @connect(
   state => ({
     feed: state.feed,
     posts: state.posts,
-  })
+  }),
+  dispatch => bindActionCreators({
+    getFeedContent,
+    getMoreFeedContent,
+  }, dispatch)
 )
 export default class UserProfile extends React.Component {
   constructor(props) {
@@ -14,24 +25,31 @@ export default class UserProfile extends React.Component {
   }
 
   render() {
-    const { auth } = this.props;
+    const { auth, feed, posts } = this.props;
     const account = auth.user && auth.user.name;
-    let content, isFetching, hasMore, loadContentAction, loadMoreContentAction;
 
     return (
       <div className="main-panel">
         { auth.isFetching ?
           <div>
-            <Header account={account}/>
+            <Header account={account} />
             <h1>Logging in...</h1>
           </div>
           :
           <div>
-            <Header account={account}/>
-            { this.props.children }
+            <Header account={account} />
+            { React.cloneElement(
+              this.props.children,
+              {
+                feed,
+                posts,
+                getFeedContent,
+                getMoreFeedContent,
+              }
+            ) }
           </div>
         }
       </div>
     );
   }
-};
+}
