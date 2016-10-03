@@ -53,7 +53,6 @@ class MessageList extends Component {
   };
 
   sendReadAcks() {
-    console.log('MessageList::sendReadAcks');
     this.props.sendReadAcknoledgement(this.props.messages);
   }
 
