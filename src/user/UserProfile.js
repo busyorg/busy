@@ -45,7 +45,8 @@ export default class UserProfile extends React.Component {
                 posts,
                 getFeedContent,
                 getMoreFeedContent,
-                limit: 10
+                limit: 10,
+                auth
               }
             ) }
           </div>
