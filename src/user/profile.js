@@ -12,6 +12,12 @@ var React = require('react'),
   Link = require('react-router').Link;
 
 import Feed from './../feed/Feed';
+import {
+  getFeedContentFromState,
+  getFeedLoadingFromState,
+  getFeedHasMoreFromState
+} from './../helpers/stateHelpers';
+
 
 var Profile = React.createClass({
   componentWillMount: function() {
@@ -44,8 +50,26 @@ var Profile = React.createClass({
       this.setState({followingCount: _.size(result)});
     }.bind(this));
   },
-  render: function(){
-    var username = this.props.params.name;
+
+  render() {
+    const { feed, posts, getFeedContent, getMoreFeedContent, limit } = this.props;
+    const username = this.props.params.name;
+
+    const content = getFeedContentFromState('blog', username, feed, posts);
+    const isFetching = getFeedLoadingFromState('blog', username, feed);
+    const hasMore = getFeedHasMoreFromState('blog', username, feed);
+    const loadContentAction = () => getFeedContent({
+      sortBy: 'blog',
+      category: username,
+      limit
+    });
+
+    const loadMoreContentAction = () => getMoreFeedContent({
+      sortBy: 'blog',
+      category: username,
+      limit
+    });
+
     var account = this.state.account;
     try { var jsonMetadata = JSON.parse(account.json_metadata); }
     catch(e) { var jsonMetadata = {}; }
@@ -82,7 +106,13 @@ var Profile = React.createClass({
               </p>}
             </center>
           </div>}
-          <Feed path={'@' + username} sortBy="created" replies="false" />
+          <Feed
+            content={content}
+            isFetching={isFetching}
+            hasMore={hasMore}
+            loadContent={loadContentAction}
+            loadMoreContent={loadMoreContentAction}
+          />
         </div>
       </div>
     );
