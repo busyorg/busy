@@ -1,16 +1,13 @@
-var React = require('react'),
-  ReactRedux = require('react-redux'),
-  _ = require('lodash'),
+var _ = require('lodash'),
   api = require('./../steemAPI'),
   formatter = require('steem/lib/formatter'),
   numeral = require('numeral'),
   moment = require('moment'),
-  actions = require('../actions'),
   PageActions = require('./../app/PageActions'),
-  Header = require('./../app/header'),
   Loading = require('./../widgets/Loading'),
   Link = require('react-router').Link;
 
+import React, { Component } from 'react';
 import Feed from './../feed/Feed';
 import {
   getFeedContentFromState,
@@ -19,26 +16,32 @@ import {
 } from './../helpers/stateHelpers';
 
 
-var Profile = React.createClass({
-  componentWillMount: function() {
-    this.props.setMenu('secondary');
+export default class Profile extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  componentWillMount() {
+    //this.props.setMenu('secondary');
     this.setState({
       account: {},
       followersCount: 0,
       followingCount: 0
     });
     this._init();
-  },
-  componentWillReceiveProps: function(nextProps) {
-    this.props.setMenu('secondary');
+  }
+
+  componentWillReceiveProps(nextProps) {
+    //this.props.setMenu('secondary');
     this.setState({
       account: {},
       followersCount: 0,
       followingCount: 0
     });
     this._init();
-  },
-  _init: function(){
+  }
+
+  _init (){
     var username = this.props.params.name;
     api.getAccounts([username], function(err, result) {
       this.setState({account: result[0]});
@@ -49,7 +52,7 @@ var Profile = React.createClass({
     api.getFollowing(username, 0, 'blog', 100, function(err, result) {
       this.setState({followingCount: _.size(result)});
     }.bind(this));
-  },
+  }
 
   render() {
     const { feed, posts, getFeedContent, getMoreFeedContent, limit } = this.props;
@@ -116,18 +119,4 @@ var Profile = React.createClass({
       </div>
     );
   }
-});
-
-var mapStateToProps = function(state){
-  return {
-    auth: state.auth
-  };
-};
-
-var mapDispatchToProps = function(dispatch){
-  return {
-    setMenu: function(menu){ dispatch(actions.setMenu(menu)); }
-  }
-};
-
-module.exports = ReactRedux.connect(mapStateToProps,mapDispatchToProps)(Profile);
+}
