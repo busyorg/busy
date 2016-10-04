@@ -25,7 +25,7 @@ export default class UserProfile extends React.Component {
   }
 
   render() {
-    const { auth, feed, posts } = this.props;
+    const { auth, feed, posts, getFeedContent, getMoreFeedContent } = this.props;
     const account = auth.user && auth.user.name;
 
     return (
@@ -45,6 +45,7 @@ export default class UserProfile extends React.Component {
                 posts,
                 getFeedContent,
                 getMoreFeedContent,
+                limit: 10
               }
             ) }
           </div>
