@@ -75,9 +75,8 @@ var Profile = React.createClass({
     catch(e) { var jsonMetadata = {}; }
     var edit = (this.props.auth.isAuthenticated && username === this.props.auth.user.name);
     return (
-      <div className="main-panel">
+      <div>
         <PageActions params={this.props.params} messages={!edit} edit={edit} />
-        <Header account={username} />
         <section className="align-center bg-green profile-header"
           style={{backgroundImage: 'url(https://img.busy6.com/@' + username + '/cover)', backgroundSize: 'cover'}}>
           <div className="mvl">
