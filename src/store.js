@@ -3,6 +3,7 @@ import createLogger from 'redux-logger';
 import promiseMiddleware from 'redux-promise-middleware';
 import thunk from 'redux-thunk';
 import { combineReducers, applyMiddleware, createStore } from 'redux';
+import api from './steemAPI';
 
 import MessagesWorker, { messagesReducer } from './common/messages';
 import appReducers, { headerReducer } from './app/appReducers';
@@ -12,6 +13,10 @@ import feedReducers from './feed/feedReducers';
 import postsReducers from './post/postsReducers';
 
 export const messagesWorker = new MessagesWorker();
+
+if (process.env.NODE_ENV !== 'production') {
+  window.steemAPI = api;
+}
 
 const reducers = combineReducers({
   app: appReducers,
@@ -33,6 +38,7 @@ const middleware = [
   }),
   thunk.withExtraArgument({
     messagesWorker,
+    steemAPI: api,
   }),
 ];
 
