@@ -8,6 +8,7 @@ import {
   getUserFeedContent,
   getMoreUserFeedContent,
 } from './../feed/feedActions';
+import { getUserComments } from './userProfileActions';
 
 @connect(
   state => ({
@@ -17,6 +18,7 @@ import {
   dispatch => bindActionCreators({
     getFeedContent,
     getMoreFeedContent,
+    getUserComments,
   }, dispatch)
 )
 export default class UserProfile extends React.Component {
@@ -25,7 +27,7 @@ export default class UserProfile extends React.Component {
   }
 
   render() {
-    const { auth, feed, posts, getFeedContent, getMoreFeedContent } = this.props;
+    const { auth, feed, posts, getFeedContent, getMoreFeedContent, getUserComments } = this.props;
     const account = auth.user && auth.user.name;
 
     return (
@@ -45,6 +47,7 @@ export default class UserProfile extends React.Component {
                 posts,
                 getFeedContent,
                 getMoreFeedContent,
+                getUserComments,
                 limit: 10,
                 auth
               }
