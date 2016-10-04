@@ -30,9 +30,9 @@ export const getMoreUserComments = (username) => {
     const getDiscussionsByComments = Promise.promisify(
         steemAPI.getDiscussionsByComments, { context: steemAPI });
 
-    const comments = getUserCommentsFromState(username, feed, comments);
-    const startAuthor = comments[comments.length - 1].author;
-    const startPermlink = comments[comments.length - 1].permlink;
+    const userComments = getUserCommentsFromState(username, feed, comments);
+    const startAuthor = userComments[userComments.length - 1].author;
+    const startPermlink = userComments[userComments.length - 1].permlink;
 
     dispatch({
       type: actionTypes.GET_MORE_USER_COMMENTS,
