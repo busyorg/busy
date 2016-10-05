@@ -68,7 +68,7 @@
     "serve-favicon": "~2.3.0",
     "socket.io": "^1.4.5",
     "socket.io-client": "^1.4.8",
-    "steem": "^0.3.22",
+    "steem": "^0.3.25",
     "steemconnect": "0.0.25",
     "steemdb": "0.0.1",
     "steemembed": "^1.0.17",
