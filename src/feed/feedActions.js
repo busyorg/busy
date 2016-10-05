@@ -124,7 +124,7 @@ export const getMoreFeedContent = ({ sortBy, category, limit }) => {
       }
 
       // The feed is completely loaded
-      if(postsData.length === 1) {
+      if (postsData.length === 1) {
         dispatch(feedHasNoMore({
           sortBy,
           category,
@@ -163,11 +163,11 @@ export const getMoreUserFeedContent = ({ username, limit }) => {
     const startPermlink = feedContent[feedContent.length - 1].permlink;
 
     getDiscussionsFromAPI(sortBy, {
-        tag: username,
-        limit: limit + 1,
-        start_author: startAuthor,
-        start_permlink: startPermlink,
-      },
+      tag: username,
+      limit: limit + 1,
+      start_author: startAuthor,
+      start_permlink: startPermlink,
+    },
       (err, postsData) => {
         if (err) {
           console.error(`error while loading ${sortyBy} for ${username}`, JSON.stringify(err));
@@ -175,7 +175,7 @@ export const getMoreUserFeedContent = ({ username, limit }) => {
         }
 
         // The feed is completely loaded
-        if(postsData.length === 1) {
+        if (postsData.length === 1) {
           dispatch(feedHasNoMore({
             sortBy,
             category: username,

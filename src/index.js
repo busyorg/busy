@@ -12,6 +12,12 @@ import {
 
 const createHistory = useHistoryRestoreScroll(() => browserHistory);
 
+browserHistory.listen(() => {
+  store.dispatch({
+    type: 'HIDE_SIDEBAR',
+  });
+});
+
 const routerRender = applyRouterMiddleware(
   useRouterRestoreScroll()
 );

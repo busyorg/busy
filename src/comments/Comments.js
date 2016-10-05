@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import CommentsList from './CommentsList';
 
-@connect (mapStateToProps)
+@connect(mapStateToProps)
 export default class Comments extends Component {
   constructor(props) {
     super(props);
@@ -22,7 +22,7 @@ export default class Comments extends Component {
 
     return (
       <div>
-        <CommentsList commentsData={ commentsData[postId] } />
+        <CommentsList commentsData={commentsData[postId]} />
       </div>
     );
   }

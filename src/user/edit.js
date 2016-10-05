@@ -1,10 +1,10 @@
-var React = require('react'),
+let React = require('react'),
   ReactRedux = require('react-redux'),
   Header = require('./../app/header'),
   Link = require('react-router').Link;
 
-var Edit = React.createClass({
-  render: function(){
+const Edit = React.createClass({
+  render() {
     return (
       <div className="main-panel">
         <Header account={this.props.auth.user.name} />
@@ -19,7 +19,7 @@ var Edit = React.createClass({
   }
 });
 
-var mapStateToProps = function(state){
+const mapStateToProps = function (state) {
   return {
     auth: state.auth
   };

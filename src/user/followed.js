@@ -1,28 +1,28 @@
-var React = require('react'),
+let React = require('react'),
   ReactRedux = require('react-redux'),
   _ = require('lodash'),
   api = require('./../steemAPI'),
-  Loading = require("./../widgets/Loading"),
+  Loading = require('./../widgets/Loading'),
   Link = require('react-router').Link;
 
-var Followers = React.createClass({
-  componentWillMount: function() {
-    this.setState({users: []});
-    api.getFollowing(this.props.username, 0, 'blog', 100, function(err, following) {
-      this.setState({users: following});
-    }.bind(this));
+const Followers = React.createClass({
+  componentWillMount() {
+    this.setState({ users: [] });
+    api.getFollowing(this.props.username, 0, 'blog', 100, (err, following) => {
+      this.setState({ users: following });
+    });
   },
-  render: function(){
+  render() {
     return (
       <center className="users">
         {this.state.users.length > 0 && <ul>
-          {this.state.users.map(function(user, key) {
-            return <li key={key}>
+          {this.state.users.map((user, key) => {
+            return (<li key={key}>
               <div className="avatar avatar-xl">
                 <img src={'https://img.busy6.com/@' + user.following} />
               </div>
               <div><Link to={'/@' + user.following}>@{user.following}</Link></div>
-            </li>;
+            </li>);
           })}
         </ul>}
         {this.state.users.length === 0 && <Loading />}
@@ -31,7 +31,7 @@ var Followers = React.createClass({
   }
 });
 
-var mapStateToProps = function(state){
+const mapStateToProps = function (state) {
   return {
     auth: state.auth
   };

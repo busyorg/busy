@@ -1,23 +1,23 @@
-var React = require("react"),
+let React = require('react'),
   _ = require('lodash'),
   api = require('./../steemAPI'),
   moment = require('moment'),
-  PageActions = require("./../app/PageActions"),
-  Header = require("./../app/header"),
-  Loading = require("./../widgets/Loading"),
-  Body = require("./body"),
-  Replies = require("./replies"),
-  Link = require("react-router").Link;
+  PageActions = require('./../app/PageActions'),
+  Header = require('./../app/header'),
+  Loading = require('./../widgets/Loading'),
+  Body = require('./body'),
+  Replies = require('./replies'),
+  Link = require('react-router').Link;
 
 module.exports = React.createClass({
-  componentWillMount: function() {
-    this.setState({content: {}});
-    api.getContent(this.props.params.author, this.props.params.permlink, function(err, content) {
-      this.setState({content: content});
-    }.bind(this));
+  componentWillMount() {
+    this.setState({ content: {} });
+    api.getContent(this.props.params.author, this.props.params.permlink, (err, content) => {
+      this.setState({ content });
+    });
   },
-  render: function(){
-    var content = this.state.content;
+  render() {
+    const content = this.state.content;
     return (
       <div className="main-panel">
         <PageActions params={this.props.params} likes="true" replies="true" messages="true" />
@@ -26,7 +26,7 @@ module.exports = React.createClass({
             {!_.has(content, 'author') && <Loading />}
             {_.has(content, 'author') &&
             <div className="container">
-              <div style={{overflow: 'hidden', height: '40px', lineHeight: '40px'}}>
+              <div style={{ overflow: 'hidden', height: '40px', lineHeight: '40px' }}>
                 <Link to={'/@' + content.author}>
                     <span className="avatar avatar-sm pull-left">
                       <img src={'https://img.busy6.com/@' + content.author} width="40" height="40" />

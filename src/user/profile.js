@@ -1,4 +1,4 @@
-var React = require('react'),
+let React = require('react'),
   ReactRedux = require('react-redux'),
   _ = require('lodash'),
   api = require('./../steemAPI'),
@@ -13,8 +13,8 @@ var React = require('react'),
 
 import Feed from './../feed/Feed';
 
-var Profile = React.createClass({
-  componentWillMount: function() {
+const Profile = React.createClass({
+  componentWillMount() {
     this.props.setMenu('secondary');
     this.setState({
       account: {},
@@ -23,7 +23,7 @@ var Profile = React.createClass({
     });
     this._init();
   },
-  componentWillReceiveProps: function(nextProps) {
+  componentWillReceiveProps(nextProps) {
     this.props.setMenu('secondary');
     this.setState({
       account: {},
@@ -32,36 +32,37 @@ var Profile = React.createClass({
     });
     this._init();
   },
-  _init: function(){
-    var username = this.props.params.name;
-    api.getAccounts([username], function(err, result) {
-      this.setState({account: result[0]});
-    }.bind(this));
-    api.getFollowers(username, 0, 'blog', 100, function(err, result) {
-      this.setState({followersCount: _.size(result)});
-    }.bind(this));
-    api.getFollowing(username, 0, 'blog', 100, function(err, result) {
-      this.setState({followingCount: _.size(result)});
-    }.bind(this));
+  _init() {
+    const username = this.props.params.name;
+    api.getAccounts([username], (err, result) => {
+      this.setState({ account: result[0] });
+    });
+    api.getFollowers(username, 0, 'blog', 100, (err, result) => {
+      this.setState({ followersCount: _.size(result) });
+    });
+    api.getFollowing(username, 0, 'blog', 100, (err, result) => {
+      this.setState({ followingCount: _.size(result) });
+    });
   },
-  render: function(){
-    var username = this.props.params.name;
-    var account = this.state.account;
+  render() {
+    const username = this.props.params.name;
+    const account = this.state.account;
     try { var jsonMetadata = JSON.parse(account.json_metadata); }
-    catch(e) { var jsonMetadata = {}; }
-    var edit = (this.props.auth.isAuthenticated && username === this.props.auth.user.name);
+    catch (e) { var jsonMetadata = {}; }
+    const edit = (this.props.auth.isAuthenticated && username === this.props.auth.user.name);
     return (
       <div className="main-panel">
         <PageActions params={this.props.params} messages={!edit} edit={edit} />
         <Header account={username} />
         <section className="align-center bg-green profile-header"
-          style={{backgroundImage: 'url(https://img.busy6.com/@' + username + '/cover)', backgroundSize: 'cover'}}>
+          style={{ backgroundImage: 'url(https://img.busy6.com/@' + username + '/cover)', backgroundSize: 'cover' }}
+        >
           <div className="mvl">
             <div className="avatar avatar-xl">
               {_.has(account, 'name') && <div className="reputation">{formatter.reputation(account.reputation)}</div>}
               <img src={'https://img.busy6.com/@' + username} />
             </div>
-            <h1>{_.has(jsonMetadata, 'profile.name')? jsonMetadata.profile.name : '@' + username}</h1>
+            <h1>{_.has(jsonMetadata, 'profile.name') ? jsonMetadata.profile.name : '@' + username}</h1>
           </div>
         </section>
         <div className="profile">
@@ -89,16 +90,16 @@ var Profile = React.createClass({
   }
 });
 
-var mapStateToProps = function(state){
+const mapStateToProps = function (state) {
   return {
     auth: state.auth
   };
 };
 
-var mapDispatchToProps = function(dispatch){
+const mapDispatchToProps = function (dispatch) {
   return {
-    setMenu: function(menu){ dispatch(actions.setMenu(menu)); }
-  }
+    setMenu(menu) { dispatch(actions.setMenu(menu)); }
+  };
 };
 
-module.exports = ReactRedux.connect(mapStateToProps,mapDispatchToProps)(Profile);
+module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(Profile);

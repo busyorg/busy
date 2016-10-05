@@ -6,7 +6,7 @@ const posts = (state = {}, action) => {
     case feedTypes.GET_MORE_FEED_CONTENT_SUCCESS:
     case feedTypes.GET_USER_FEED_CONTENT_SUCCESS:
     case feedTypes.GET_MORE_USER_FEED_CONTENT_SUCCESS:
-      let posts = {};
+      const posts = {};
       action.payload.postsData.forEach(post => posts[post.id] = post);
       return {
         ...state,

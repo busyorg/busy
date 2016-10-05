@@ -1,9 +1,9 @@
-var React = require('react'),
+let React = require('react'),
   Header = require('./../app/header'),
   { Link } = require('react-router');
 
 module.exports = React.createClass({
-  render: function(){
+  render() {
     return (
       <div className="main-panel">
         <Header menu="about" />
@@ -11,7 +11,7 @@ module.exports = React.createClass({
           <div className="block">
             <h1>Donate</h1>
             <p><Link to="/@busy">@busy</Link></p>
-            <br/><br/>
+            <br /><br />
             <h1>Donors</h1>
             <p><Link to="/@smooth">@smooth</Link></p>
             <p><Link to="/@cass">@cass</Link></p>

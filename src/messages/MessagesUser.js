@@ -27,7 +27,10 @@ class MessagesPage extends Component {
     };
   }
   render() {
-    const channelName = `@${this.props.params.username}`;
+    const channelName = [
+      `@${this.props.auth.user && this.props.auth.user.name}`,
+      `@${this.props.params.username}`
+    ].sort().join('-');
     const channel = this.props.channels[channelName] || {
       latest: [],
       nmembers: 0,
@@ -41,7 +44,12 @@ class MessagesPage extends Component {
               {channelName}
             </Link>
             {' '}
-            <span>away</span>
+            <span>
+              {this.props.users[this.props.params.username]
+                ? 'online'
+                : 'away'
+              }
+            </span>
           </div>
         </Header>
         <div className="messages">
@@ -56,10 +64,13 @@ class MessagesPage extends Component {
   }
 }
 
-MessagesPage = actionDecorator(fetchChannelPresence, joinChannel)(MessagesPage);
-MessagesPage = connect((state) => ({
+MessagesPage = actionDecorator(fetchChannelPresence, joinChannel)(MessagesPage, {
+  waitFor: state => state.auth && state.auth.user && state.auth.user.name,
+});
+MessagesPage = connect(state => ({
   auth: state.auth,
   channels: state.messages.channels,
+  users: state.messages.users,
 }))(MessagesPage);
 
 export default MessagesPage;

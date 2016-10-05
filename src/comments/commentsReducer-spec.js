@@ -26,8 +26,6 @@ describe('commentsReducer', function () {
       expect(
         commentsReducers({ current: 'state' }, sampleAction)
       ).to.deep.equal({ current: 'state', '42': commentsDataMock });
-
     });
   });
-
 });

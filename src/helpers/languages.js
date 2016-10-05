@@ -5,5 +5,5 @@ export const getCountryCode = (language) => {
     spa: 'es',
     kor: 'kr'
   };
-  return (languages[language])? languages[language] : language.substr(0, 2);
+  return (languages[language]) ? languages[language] : language.substr(0, 2);
 };

@@ -1,9 +1,11 @@
 /* eslint-disable react/no-find-dom-node */
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
-import reduce from 'lodash/reduce';
 import map from 'lodash/map';
+import reduce from 'lodash/reduce';
+import { connect } from 'react-redux';
 
+import { sendReadAcknoledgement } from '../common/messages/actions';
 import './MessageList.scss';
 import Message from './Message.js';
 
@@ -45,10 +47,18 @@ function messageGroups(messages) {
   return ret.all.concat(ret.latest ? [ret.latest] : []);
 }
 
-export default class MessageList extends Component {
+class MessageList extends Component {
   static propTypes = {
     messages: PropTypes.array
   };
+
+  sendReadAcks() {
+    this.props.sendReadAcknoledgement(this.props.messages);
+  }
+
+  componentDidMount() {
+    this.sendReadAcks();
+  }
 
   componentWillUpdate() {
     const node = ReactDOM.findDOMNode(this);
@@ -56,6 +66,7 @@ export default class MessageList extends Component {
   }
 
   componentDidUpdate() {
+    this.sendReadAcks();
     if (this.shouldScrollBottom) {
       const node = ReactDOM.findDOMNode(this);
       node.scrollTop = node.scrollHeight;
@@ -81,3 +92,9 @@ export default class MessageList extends Component {
     );
   }
 }
+
+MessageList = connect(() => ({}), {
+  sendReadAcknoledgement,
+})(MessageList);
+
+export default MessageList;
