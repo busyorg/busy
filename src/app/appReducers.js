@@ -1,4 +1,5 @@
 import * as appTypes from './appActionTypes';
+import * as responsive from '../lib/responsive'
 
 const initialState = {
   isFetching: false,
@@ -50,14 +51,24 @@ export default (state = initialState, action) => {
       return Object.assign({}, state, {
         config: action.config
       });
+
+    case responsive.MEDIA_CHANGED: {
+      if (action.payload.isSmall == null) return state;
+      return Object.assign({}, state, {
+        sidebarIsVisible: !action.payload.isSmall,
+      });
+    }
+
     case appTypes.SHOW_SIDEBAR:
       return Object.assign({}, state, {
         sidebarIsVisible: true
       });
+
     case appTypes.HIDE_SIDEBAR:
       return Object.assign({}, state, {
         sidebarIsVisible: false
       });
+
     default:
       return state;
   }
