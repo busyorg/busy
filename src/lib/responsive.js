@@ -47,9 +47,6 @@ export function isLarge() {
 export function mountResponsive(store) {
   if (process.env.IS_BROWSER) {
     const tracker = mediaQueryTracker({
-      isPhone: small,
-      isTablet: medium,
-      isDesktop: large,
       isSmall: small,
       isMedium: medium,
       isLarge: large,
