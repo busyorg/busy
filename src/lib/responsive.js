@@ -55,8 +55,6 @@ export function mountResponsive(store) {
     });
 
     const dispatch = store.dispatch.bind(store);
-    store.dispatch(() => {
-      return tracker(dispatch);
-    });
+    store.dispatch(() => tracker(dispatch));
   }
 }
