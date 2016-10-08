@@ -1,7 +1,9 @@
 # Busy
 [![Build Status](https://travis-ci.com/adcpm/busy.svg?token=eFcxA3zpHo5ybjGqtUqC&branch=dev)](https://travis-ci.com/adcpm/busy)
-- - -
-The Busy Foundation’s mission is to develop and promote the next generation decentralized social network, and together build a more globally accessible, more free and more trustworthy Internet.<br/>
+
+![Preview](https://dl.dropboxusercontent.com/u/552542683/busy.gif)
+
+### The Busy Foundation’s mission is to develop and promote the next generation decentralized social network, and together build a more globally accessible, more free and more trustworthy Internet.<br/>
 
 # Stack
 - Frontend: React.js + Redux
