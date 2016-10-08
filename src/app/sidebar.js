@@ -186,7 +186,6 @@ class Sidebar extends Component {
             <SidebarMessages
               messages={this.props.messages}
               contacts={this.state.following}
-              channels={this.state.categories}
             />
           }
 

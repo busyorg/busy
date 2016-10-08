@@ -18,11 +18,9 @@ function UnreadCount({ unread }) {
   );
 }
 
-
 export default class SidebarMessages extends Component {
   static propTypes = {
     contacts: PropTypes.array,
-    channels: PropTypes.object,
     messages: PropTypes.object,
   };
 
@@ -56,19 +54,6 @@ export default class SidebarMessages extends Component {
       </li>
     ));
 
-    const channels = map(this.props.channels, (channel, key) => (
-      <li key={channel.name}>
-        <Link
-          to={`/messages/${channel.name}`}
-          activeClassName="active"
-        >
-          #{channel.name}
-          <UnreadCount unread={size(unreadByChannel[channel.name])} />
-        </Link>
-      </li>
-    ));
-
-
     return (
       <div className="SidebarMessages">
         {unreadMessages.length ? (
@@ -76,16 +61,9 @@ export default class SidebarMessages extends Component {
             {unreadMessages}
           </ul>
         ) : null}
-
         {contacts.length ? (
           <ul className="tags">
             {contacts}
-          </ul>
-        ) : null}
-
-        {channels.length ? (
-          <ul className="tags">
-            {channels}
           </ul>
         ) : null}
       </div>
