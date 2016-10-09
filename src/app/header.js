@@ -1,25 +1,25 @@
-var React = require('react'),
+let React = require('react'),
   ReactRedux = require('react-redux'),
   actions = require('./../actions'),
   Link = require('react-router').Link;
 
-var Header = React.createClass({
+const Header = React.createClass({
   render() {
-    var menu = this.props.menu || this.props.header.menu;
-    var account = this.props.account || this.props.auth.user.name;
-    var category = (this.props.category) ? `/${this.props.category}` : '';
+    const menu = this.props.menu || this.props.header.menu;
+    const account = this.props.account || this.props.auth.user.name;
+    const category = (this.props.category) ? `/${this.props.category}` : '';
     return (
       <header>
         <div className="top-nav">
           {!this.props.app.sidebarIsVisible && <a href="#" onClick={() => this.props.showSidebar()}><i className="icon icon-md icon-menu material-icons">menu</i></a>}
           {this.props.app.sidebarIsVisible && <a href="#" onClick={() => this.props.hideSidebar()}><i className="icon icon-md icon-menu material-icons">keyboard_backspace</i></a>}
           <div className="section-content top-head">
-            <Link to="/" onlyActiveOnIndex={true} activeClassName="active"><img src="/img/logo-blue.svg" /></Link>
+            <Link to="/" onlyActiveOnIndex activeClassName="active"><img src="/img/logo-blue.svg" /></Link>
           </div>
           <a><i className="icon icon-md icon-menu material-icons">notifications</i></a>
         </div>
         {menu === 'primary' && <ul className="app-nav">
-          <li><Link to={`/trending${category}`} onlyActiveOnIndex={true} activeClassName="active"><i className="icon icon-md material-icons">show_chart</i><span className="hidden-xs"> Trending</span></Link></li>
+          <li><Link to={`/trending${category}`} onlyActiveOnIndex activeClassName="active"><i className="icon icon-md material-icons">show_chart</i><span className="hidden-xs"> Trending</span></Link></li>
           <li><Link to={`/hot${category}`} activeClassName="active"><i className="icon icon-md material-icons">whatshot</i><span className="hidden-xs"> Hot</span></Link></li>
           <li><Link to={`/cashout${category}`} activeClassName="active"><i className="icon icon-md material-icons">schedule</i><span className="hidden-xs"> Payout Time</span></Link></li>
           <li><Link to={`/created${category}`} activeClassName="active"><i className="icon icon-md material-icons">fiber_new</i><span className="hidden-xs"> New</span></Link></li>
@@ -33,7 +33,7 @@ var Header = React.createClass({
           <li><Link to={`/@${account}/posts`} activeClassName="active"><i className="icon icon-md material-icons">library_books</i><span className="hidden-xs"> Posts</span></Link></li>
           <li><Link to={`/@${account}/feed`} activeClassName="active"><i className="icon icon-md  material-icons">subject</i><span className="hidden-xs"> Feed</span></Link></li>
           <li className="hide"><Link to={`/@${account}/replies`} activeClassName="active"><i className="icon icon-md  material-icons">comment</i><span className="hidden-xs"> Replies</span></Link></li>
-          <li><Link to={`/@${account}/wallet`}  activeClassName="active"><i className="icon icon-md material-icons">account_balance_wallet</i><span className="hidden-xs"> Wallet</span></Link></li>
+          <li><Link to={`/@${account}/wallet`} activeClassName="active"><i className="icon icon-md material-icons">account_balance_wallet</i><span className="hidden-xs"> Wallet</span></Link></li>
           <li className="hide"><Link to={`/@${account}/permissions`} activeClassName="active"><i className="icon icon-md material-icons">lock</i><span className="hidden-xs"> Permissions</span></Link></li>
           <li><a onClick={() => this.props.setMenu('primary')}><i className="icon icon-md material-icons">expand_less</i></a></li>
         </ul>}
@@ -56,7 +56,7 @@ var Header = React.createClass({
   }
 });
 
-var mapStateToProps = function(state){
+const mapStateToProps = function (state) {
   return {
     app: state.app,
     auth: state.auth,
@@ -64,12 +64,12 @@ var mapStateToProps = function(state){
   };
 };
 
-var mapDispatchToProps = function(dispatch){
+const mapDispatchToProps = function (dispatch) {
   return {
-    showSidebar: function(){ dispatch(actions.showSidebar()); },
-    hideSidebar: function(){ dispatch(actions.hideSidebar()); },
-    setMenu: function(menu){ dispatch(actions.setMenu(menu)); }
-  }
+    showSidebar() { dispatch(actions.showSidebar()); },
+    hideSidebar() { dispatch(actions.hideSidebar()); },
+    setMenu(menu) { dispatch(actions.setMenu(menu)); }
+  };
 };
 
-module.exports = ReactRedux.connect(mapStateToProps,mapDispatchToProps)(Header);
+module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(Header);

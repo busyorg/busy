@@ -1,4 +1,4 @@
-var React = require('react'),
+let React = require('react'),
   _ = require('lodash'),
   steemembed = require('steemembed'),
   numeral = require('numeral'),
@@ -12,25 +12,25 @@ var React = require('react'),
 
 import Flag from './flag';
 
-var colorCode = {green: 'rgba(39, 208, 169, 0.4)', red: 'rgba(249, 43, 97, 0.2)'};
-var classCode = {green: 'grid-row-green', red: 'grid-row-red'};
+const colorCode = { green: 'rgba(39, 208, 169, 0.4)', red: 'rgba(249, 43, 97, 0.2)' };
+const classCode = { green: 'grid-row-green', red: 'grid-row-red' };
 
 module.exports = React.createClass({
-  render: function() {
-    var post = this.props.entry;
-    var steemit = '/' + post.parent_permlink + '/@' + post.author + '/' + post.permlink;
-    var color = '';
-    color = (post.net_votes > 0)? 'green' : color;
-    color = (post.net_votes < 0)? 'red' : color;
-    var bar = Math.abs(40 / 1000 * post.net_votes);
-    var style = (color)? {height: '4px', boxShadow: 'inset ' + bar  + 'em 0 0 ' + colorCode[color]} : {};
-    var className = 'grid-row';
-    className += (color)? ' ' + classCode[color] : '';
+  render() {
+    const post = this.props.entry;
+    const steemit = '/' + post.parent_permlink + '/@' + post.author + '/' + post.permlink;
+    let color = '';
+    color = (post.net_votes > 0) ? 'green' : color;
+    color = (post.net_votes < 0) ? 'red' : color;
+    const bar = Math.abs(40 / 1000 * post.net_votes);
+    const style = (color) ? { height: '4px', boxShadow: 'inset ' + bar + 'em 0 0 ' + colorCode[color] } : {};
+    let className = 'grid-row';
+    className += (color) ? ' ' + classCode[color] : '';
     try { var jsonMetadata = JSON.parse(post.json_metadata); }
-    catch(e) { var jsonMetadata = {}; }
-    var image = _.has(jsonMetadata, 'image[0]')? jsonMetadata.image[0] : '';
-    image = (image)? 'https://img1.steemit.com/600x400/' + image : '';
-    var embeds = steemembed.getAll(post.body);
+    catch (e) { var jsonMetadata = {}; }
+    let image = _.has(jsonMetadata, 'image[0]') ? jsonMetadata.image[0] : '';
+    image = (image) ? 'https://img1.steemit.com/600x400/' + image : '';
+    const embeds = steemembed.getAll(post.body);
     return (
       <div className={className}>
         <div className="cell cell-top">
@@ -50,7 +50,7 @@ module.exports = React.createClass({
         </div>
         {image && !_.has(embeds, '[0].embed') && <div className="thumbs"><Link to={steemit}><img src={image} /></Link></div>}
         {_.has(embeds, '[0].embed') &&
-          <div className="thumbs" dangerouslySetInnerHTML={{__html: embeds[0].embed}} ></div>}
+          <div className="thumbs" dangerouslySetInnerHTML={{ __html: embeds[0].embed }} />}
         <div className="cell cell-body">
           <h2>
             <Flag title={post.title} body={post.body} />
@@ -58,12 +58,12 @@ module.exports = React.createClass({
           <Mentions jsonMetadata={jsonMetadata} />
           <p><BodyShort body={post.body} /></p>
         </div>
-        <div style={style}></div>
+        <div style={style} />
         <div className="cell cell-bottom">
           <PostActionButtons post={post} />
         </div>
         {this.props.replies != 'false' && post.children > 0 && <RepliesShort parent={post.author} parentPermlink={post.permlink} />}
       </div>
-    )
+    );
   }
 });

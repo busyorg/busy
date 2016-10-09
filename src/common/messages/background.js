@@ -3,12 +3,15 @@ import assert from 'assert';
 import each from 'lodash/each';
 import io from 'socket.io-client';
 
+import { fetchMessages } from './actions';
+
 export const CONNECTED = '@messages/CONNECTED';
 export const DISCONNECTED = '@messages/DISCONNECTED';
 export const INIT = '@messages/INIT';
 
 export const USER_JOIN = '@messages/USER_JOIN';
 export const USER_MESSAGE = '@messages/USER_MESSAGE';
+export const USER_UNREAD_MESSAGES = '@messages/USER_UNREAD_MESSAGES';
 export const USER_LEAVE = '@messages/USER_LEAVE';
 export const ERROR = '@messages/ERROR';
 
@@ -29,9 +32,8 @@ export const socketEventsToActions = {
 };
 
 export default class MessagesWorker {
-  constructor(store) {
+  constructor() {
     this.socket = io.connect(process.env.BUSYWS_HOST);
-    if (store) this.attachToStore(store);
   }
 
   attachToStore(store) {
@@ -47,9 +49,15 @@ export default class MessagesWorker {
       this.store.dispatch({
         type: CONNECTED,
       });
+
+      const state = this.store.getState();
+      if (state.auth.isAuthenticated) {
+        this.onAuthenticated(state.auth);
+      }
     });
 
     this.socket.on('disconnect', () => {
+      this.joined = false;
       this.store.dispatch({
         type: DISCONNECTED,
       });
@@ -70,9 +78,12 @@ export default class MessagesWorker {
   }
 
   onAuthenticated({ user }) {
+    if (this.joined) return;
+    this.joined = true;
     const username = user.name;
     const payload = { senderUsername: username };
     this.socket.emit('USER_JOIN', payload);
+    this.store.dispatch(fetchMessages(username));
   }
 
   onSocketEvent(actionType, payload) {
@@ -88,7 +99,10 @@ export default class MessagesWorker {
         if (res.ok) {
           resolve(res);
         } else {
-          const err = new Error(res.error);
+          const err = new Error(
+            res.error ||
+              'Failed to emit payload'
+          );
           err.res = res;
           reject(err);
         }

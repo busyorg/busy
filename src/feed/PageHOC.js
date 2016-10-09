@@ -21,7 +21,7 @@ export default function PageHOC(ComposedComponent) {
       return (
         <ComposedComponent
           {...this.props}
-          limit={ 10 }
+          limit={10}
           path={path}
           sortBy={sortBy}
           category={category}
@@ -29,4 +29,4 @@ export default function PageHOC(ComposedComponent) {
       );
     }
   };
-};
+}

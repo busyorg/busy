@@ -2,7 +2,7 @@ import * as commentsTypes from './commentsActionTypes';
 import * as userProfileTypes from './../user/userProfileActionTypes';
 
 const comments = (state = {}, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case commentsTypes.GET_COMMENTS_SUCCESS:
       return {
         ...state,

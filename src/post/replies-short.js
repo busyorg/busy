@@ -1,20 +1,20 @@
-var React = require('react'),
+let React = require('react'),
   api = require('./../steemAPI'),
   ReplyShort = require('./reply-short'),
-  Loading = require("./../widgets/Loading");
+  Loading = require('./../widgets/Loading');
 
 module.exports = React.createClass({
-  componentWillMount: function() {
-    this.setState({replies: []});
-    api.getContentReplies(this.props.parent, this.props.parentPermlink, function(err, replies) {
-      this.setState({replies: replies});
-    }.bind(this));
+  componentWillMount() {
+    this.setState({ replies: [] });
+    api.getContentReplies(this.props.parent, this.props.parentPermlink, (err, replies) => {
+      this.setState({ replies });
+    });
   },
-  render: function(){
+  render() {
     return (
       <div className="replies">
         {this.state.replies.length > 0 && <ul>
-          {this.state.replies.slice(0,3).map(function(reply, key) {
+          {this.state.replies.slice(0, 3).map((reply, key) => {
             return <ReplyShort key={key} reply={reply} />;
           })}
         </ul>}

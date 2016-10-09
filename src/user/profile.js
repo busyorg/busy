@@ -23,6 +23,7 @@ export default class Profile extends Component {
 
   componentWillMount() {
     //this.props.setMenu('secondary');
+
     this.setState({
       account: {},
       followersCount: 0,
@@ -74,20 +75,22 @@ export default class Profile extends Component {
     });
 
     var account = this.state.account;
+
     try { var jsonMetadata = JSON.parse(account.json_metadata); }
-    catch(e) { var jsonMetadata = {}; }
-    var edit = (this.props.auth.isAuthenticated && username === this.props.auth.user.name);
+    catch (e) { var jsonMetadata = {}; }
+    const edit = (this.props.auth.isAuthenticated && username === this.props.auth.user.name);
     return (
       <div>
         <PageActions params={this.props.params} messages={!edit} edit={edit} />
         <section className="align-center bg-green profile-header"
-          style={{backgroundImage: 'url(https://img.busy6.com/@' + username + '/cover)', backgroundSize: 'cover'}}>
+          style={{ backgroundImage: 'url(https://img.busy6.com/@' + username + '/cover)', backgroundSize: 'cover' }}
+        >
           <div className="mvl">
             <div className="avatar avatar-xl">
               {_.has(account, 'name') && <div className="reputation">{formatter.reputation(account.reputation)}</div>}
               <img src={'https://img.busy6.com/@' + username} />
             </div>
-            <h1>{_.has(jsonMetadata, 'profile.name')? jsonMetadata.profile.name : '@' + username}</h1>
+            <h1>{_.has(jsonMetadata, 'profile.name') ? jsonMetadata.profile.name : '@' + username}</h1>
           </div>
         </section>
         <div className="profile">
@@ -119,4 +122,5 @@ export default class Profile extends Component {
       </div>
     );
   }
+
 }

@@ -1,4 +1,4 @@
-/***
+/** *
  * Get the path from URL and the API object of steem and return the correct API call based on path
  * @param path - as in URL like 'trending'
  * @param API - the { api } from steem npm package

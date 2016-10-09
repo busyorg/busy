@@ -1,4 +1,4 @@
-var React = require('react'),
+let React = require('react'),
   Loading = require('./../widgets/Loading'),
   AddPost = require('./../post/newPost/EmbeddedNewPost'),
   PostFeedItem = require('../post/PostFeedItem');

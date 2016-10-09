@@ -11,6 +11,7 @@ import authReducers from './auth/authReducers';
 import commentsReducer from './comments/commentsReducer.js';
 import feedReducers from './feed/feedReducers';
 import postsReducers from './post/postsReducers';
+import {responsiveReducer, mountResponsive} from './lib/responsive';
 
 export const messagesWorker = new MessagesWorker();
 
@@ -25,6 +26,7 @@ const reducers = combineReducers({
   header: headerReducer,
   posts: postsReducers,
   feed: feedReducers,
+  responsive: responsiveReducer,
   messages: messagesReducer,
 });
 
@@ -58,6 +60,7 @@ const store = createStore(
   applyMiddleware(...middleware)
 );
 
+mountResponsive(store);
 messagesWorker.attachToStore(store);
 messagesWorker.start();
 

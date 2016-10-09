@@ -1,4 +1,4 @@
-var React = require('react'),
+let React = require('react'),
   ReactRedux = require('react-redux'),
   _ = require('lodash'),
   api = require('./../steemAPI'),
@@ -8,23 +8,23 @@ var React = require('react'),
   Header = require('./../app/header'),
   Link = require('react-router').Link;
 
-var Wallet = React.createClass({
-  componentWillMount: function() {
+const Wallet = React.createClass({
+  componentWillMount() {
     this.props.setMenu('secondary');
-    this.setState({account: {}});
-    api.getAccounts([this.props.params.name], function(err, accounts) {
-      this.setState({account: accounts[0]});
-    }.bind(this));
+    this.setState({ account: {} });
+    api.getAccounts([this.props.params.name], (err, accounts) => {
+      this.setState({ account: accounts[0] });
+    });
   },
-  componentWillReceiveProps: function(nextProps) {
+  componentWillReceiveProps(nextProps) {
     this.props.setMenu('secondary');
-    this.setState({account: {}});
-    api.getAccounts([this.props.params.name], function(err, accounts) {
-      this.setState({account: accounts[0]});
-    }.bind(this));
+    this.setState({ account: {} });
+    api.getAccounts([this.props.params.name], (err, accounts) => {
+      this.setState({ account: accounts[0] });
+    });
   },
-  render: function(){
-    var username = this.props.params.name;
+  render() {
+    const username = this.props.params.name;
     return (
       <div className="main-panel">
         <PageActions params={this.props.params} />
@@ -39,16 +39,16 @@ var Wallet = React.createClass({
   }
 });
 
-var mapStateToProps = function(state){
+const mapStateToProps = function (state) {
   return {
     auth: state.auth
   };
 };
 
-var mapDispatchToProps = function(dispatch){
+const mapDispatchToProps = function (dispatch) {
   return {
-    setMenu: function(menu){ dispatch(actions.setMenu(menu)); }
-  }
+    setMenu(menu) { dispatch(actions.setMenu(menu)); }
+  };
 };
 
-module.exports = ReactRedux.connect(mapStateToProps,mapDispatchToProps)(Wallet);
+module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(Wallet);

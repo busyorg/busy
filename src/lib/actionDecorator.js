@@ -41,7 +41,7 @@ import mapValues from 'lodash/mapValues';
  */
 
 export default function actionDecorator(...actions) {
-  return (Wrapped) => class ActionComponent extends Component {
+  return (Wrapped, options) => class ActionComponent extends Component {
     static actions = actions;
     static Wrapped = Wrapped;
 
@@ -79,7 +79,8 @@ export default function actionDecorator(...actions) {
     }
 
     componentDidUpdate(prevProps) {
-      if (!isEqual(this.props.params, prevProps.params) ||
+      if (!this._dispatched ||
+          !isEqual(this.props.params, prevProps.params) ||
           !isEqual(this.props.location, prevProps.location)) {
         this.dispatchActions();
       }
@@ -87,18 +88,27 @@ export default function actionDecorator(...actions) {
 
     dispatchActions() {
       if (!actions || !actions[0]) return;
+      if (options && options.waitFor) {
+        const state = this.context.store.getState();
+        if (!options.waitFor(state)) {
+          return;
+        }
+      }
 
+      this._dispatched = true;
       const dispatch = (action, key) => {
         let ret;
         if (this.context.store) {
           ret = this.context.store.dispatch(action({
             params: this.props.params,
             location: this.props.location,
+            props: this.props,
           }));
         } else {
           ret = action({
             params: this.props.params,
             location: this.props.location,
+            props: this.props,
           });
         }
         ret.tap(() => {

@@ -1,4 +1,5 @@
 import * as appTypes from './appActionTypes';
+import * as responsive from '../lib/responsive'
 
 const initialState = {
   isFetching: false,
@@ -9,8 +10,8 @@ const initialState = {
 
 // TODO(p0o): some actionsTypes in this reducer are not defined anywhere, need to figure it out later
 
-export default (state = initialState, action) =>{
-  switch(action.type){
+export default (state = initialState, action) => {
+  switch (action.type) {
     case appTypes.FEED_REQUEST:
       return Object.assign({}, state, {
         isFetching: true,
@@ -50,14 +51,24 @@ export default (state = initialState, action) =>{
       return Object.assign({}, state, {
         config: action.config
       });
+
+    case responsive.MEDIA_CHANGED: {
+      if (action.payload.isSmall == null) return state;
+      return Object.assign({}, state, {
+        sidebarIsVisible: !action.payload.isSmall,
+      });
+    }
+
     case appTypes.SHOW_SIDEBAR:
       return Object.assign({}, state, {
         sidebarIsVisible: true
       });
+
     case appTypes.HIDE_SIDEBAR:
       return Object.assign({}, state, {
         sidebarIsVisible: false
       });
+
     default:
       return state;
   }
@@ -70,7 +81,7 @@ const headerInitialState = {
 };
 
 export const headerReducer = (state = headerInitialState, action) => {
-  switch(action.type){
+  switch (action.type) {
     case appTypes.SET_MENU:
       return Object.assign({}, state, {
         menu: action.menu

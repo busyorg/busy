@@ -1,8 +1,9 @@
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
+import size from 'lodash/size';
 
-import SidebarContacts from './Sidebar/SidebarContacts';
+import SidebarMessages from './Sidebar/SidebarMessages';
 
-var ReactRedux = require('react-redux'),
+let ReactRedux = require('react-redux'),
   actions = require('./../actions'),
   formatter = require('steem/lib/formatter'),
   _ = require('lodash'),
@@ -11,9 +12,61 @@ var ReactRedux = require('react-redux'),
   Loading = require('./../widgets/Loading'),
   Link = require('react-router').Link;
 
-var Sidebar = React.createClass({
-  getInitialState() {
-    api.getState('trending/busy', function(err, result) {
+
+class SidebarIcons extends Component {
+  renderUnread() {
+    const nUnreadMessages = size(this.props.messages.unreadMessages);
+
+    if (!nUnreadMessages) return null;
+
+    return (
+      <div
+        className="SidebarIcons__unreadMessagesCount"
+        style={{
+          position: 'absolute',
+          top: '0',
+          right: '0',
+          lineHeight: '19px',
+          height: '20px',
+          width: '20px',
+          borderRadius: '100%',
+          backgroundColor: 'white',
+          color: 'black'
+        }}
+      >
+        {nUnreadMessages}
+      </div>
+    );
+  }
+
+  render() {
+    if (!this.props.auth.isAuthenticated) {
+      return null;
+    }
+
+    return (
+      <ul className="list-selector">
+        <li><a onClick={() => this.props.onClickMenu({ menu: 'public' })} className="active"><i className="icon icon-md material-icons">public</i></a></li>
+
+        <li style={{ position: 'relative' }}>
+          <a onClick={() => this.props.onClickMenu({ menu: 'feed' })} className="active">
+            {this.renderUnread()}
+            <i className="icon icon-md material-icons">chat_bubble_outline</i>
+          </a>
+        </li>
+
+        <li><a onClick={() => this.props.onClickMenu({ menu: 'write' })} className="active"><i className="icon icon-md material-icons">create</i></a></li>
+        <li><a onClick={() => this.props.onClickMenu({ menu: 'wallet' })} className="active"><i className="icon icon-md material-icons">account_balance_wallet</i></a></li>
+      </ul>
+    );
+  }
+}
+
+class Sidebar extends Component {
+  constructor(props) {
+    super(props);
+
+    api.getState('trending/busy', (err, result) => {
       this.setState({
         isFetching: false,
         isLoaded: true,
@@ -22,8 +75,9 @@ var Sidebar = React.createClass({
         feedPrice: result.feed_price
       });
       this.getFollowing();
-    }.bind(this));
-    return {
+    });
+
+    this.state = {
       isFetching: true,
       isLoaded: false,
       followingIsFetching: false,
@@ -34,26 +88,33 @@ var Sidebar = React.createClass({
       following: [],
       menu: 'public'
     };
-  },
-  componentDidUpdate: function() {
+  }
+
+  componentDidUpdate() {
     this.getFollowing();
-  },
-  getFollowing: function(){
+  }
+
+  getFollowing() {
     if (this.props.auth.isAuthenticated &&
         !_.size(this.state.following) &&
         !this.state.followingIsFetching &&
         !this.state.followingIsLoaded) {
-      api.getFollowing(this.props.auth.user.name, 0, 'blog', 20, function(err, following) {
-        this.setState({following: following});
-      }.bind(this));
+      api.getFollowing(this.props.auth.user.name, 0, 'blog', 20, (err, following) => {
+        this.setState({ following });
+      });
     }
-  },
-  render(){
-    var user = this.props.auth.user;
-    var tags = [];
+  }
+
+  onClickMenu = ({ menu }) => {
+    this.setState({ menu });
+  };
+
+  render() {
+    const user = this.props.auth.user;
+    let tags = [];
     if (this.state.categories) {
-      var categories = _.sortBy(this.state.categories, 'discussions').reverse();
-      categories.forEach(function(category, key) {
+      const categories = _.sortBy(this.state.categories, 'discussions').reverse();
+      categories.forEach((category, key) => {
         tags.push(<li key={key}><Link to={'/trending/' + category.name} activeClassName="active">#{category.name}</Link></li>);
       });
     }
@@ -72,7 +133,7 @@ var Sidebar = React.createClass({
             <i className="icon icon-md icon-menu material-icons">arrow_back</i>
           </a>}
           <div className="me">
-            {this.props.auth.isAuthenticated?
+            {this.props.auth.isAuthenticated ?
               <div>
                 <Link to={`/@${user.name}`}>
                   <span className="avatar avatar-sm">
@@ -81,24 +142,27 @@ var Sidebar = React.createClass({
                   </span>
                 </Link>
                 <span style={{ clear: 'both', display: 'block' }}>
-                  @{user.name} <a onClick={() => this.setState({menu: 'settings'})}>
+                  @{user.name} <a onClick={() => this.setState({ menu: 'settings' })}>
                     <i className="icon icon-xs material-icons">settings</i>
                   </a>
                 </span>
-              </div>:
+              </div> :
               <div className="log">
-                <a href="https://steemconnect.com/authorize/@busy"><i className="icon icon-lg material-icons pam">lock_outline</i></a>
+                {this.props.auth.isFetching ?
+                  <Loading color="white" /> :
+                  <a href="https://steemconnect.com/authorize/@busy"><i className="icon icon-lg material-icons pam">lock_outline</i></a>}
               </div>}
           </div>
         </div>
-        {this.props.auth.isAuthenticated && <ul className="list-selector">
-          <li><a onClick={() => this.setState({ menu: 'public' })} className="active"><i className="icon icon-md material-icons">public</i></a></li>
-          <li><a onClick={() => this.setState({ menu: 'feed' })} className="active"><i className="icon icon-md material-icons">chat_bubble_outline</i></a></li>
-          <li><a onClick={() => this.setState({ menu: 'write' })} className="active"><i className="icon icon-md material-icons">create</i></a></li>
-          <li><a onClick={() => this.setState({ menu: 'wallet' })} className="active"><i className="icon icon-md material-icons">account_balance_wallet</i></a></li>
-        </ul>}
+
+        <SidebarIcons
+          onClickMenu={this.onClickMenu}
+          auth={this.props.auth}
+          messages={this.props.messages}
+        />
+
         <div className="sidebar-content">
-          {this.state.isFetching && <Loading color="white"/>}
+          {this.state.isFetching && <Loading color="white" />}
           {this.props.auth.isAuthenticated && _.has(this.state.feedPrice, 'base') && this.state.menu === 'settings' &&
             <ul>
               <li className="title">
@@ -114,13 +178,15 @@ var Sidebar = React.createClass({
                 <a href="https://steemconnect.com/logout"><i className="icon icon-md material-icons">lock_open</i> Log Out</a>
               </li>
             </ul>}
-          {_.size(this.state.categories) > 0 && this.state.menu === 'public' && <ul className="tags">{tags}</ul>}
 
-          {_.size(this.state.following) > 0 && this.state.menu === 'feed' &&
-              <SidebarContacts
-                contacts={this.state.following}
-                channels={this.state.categories}
-              />
+          {_.size(this.state.categories) > 0 && this.state.menu === 'public' &&
+            <ul className="tags">{tags}</ul>}
+
+          {this.state.menu === 'feed' &&
+            <SidebarMessages
+              messages={this.props.messages}
+              contacts={this.state.following}
+            />
           }
 
           {this.props.auth.isAuthenticated && _.has(this.state.feedPrice, 'base') && this.state.menu === 'write' &&
@@ -152,16 +218,17 @@ var Sidebar = React.createClass({
       </nav>
     );
   }
-});
+}
 
-var mapStateToProps = function (state) {
+const mapStateToProps = function (state) {
   return {
     app: state.app,
-    auth: state.auth
+    auth: state.auth,
+    messages: state.messages,
   };
 };
 
-var mapDispatchToProps = function (dispatch) {
+const mapDispatchToProps = function (dispatch) {
   return {
     hideSidebar() { dispatch(actions.hideSidebar()); }
   };
