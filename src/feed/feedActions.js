@@ -25,7 +25,7 @@ export const getMoreUserFeedContentSuccess = createAction(actionTypes.GET_MORE_U
 export const feedHasNoMore = createAction(actionTypes.FEED_HAS_NO_MORE);
 
 export const getFeedContent = ({ sortBy, category, limit }) => {
-  return (dispatch, getState) => {
+  return (dispatch, getState, { steemAPI }) => {
     const feed = getState().feed;
     if (feed[sortBy][category] && feed[sortBy][category].isLoaded) {
       return;
@@ -40,6 +40,7 @@ export const getFeedContent = ({ sortBy, category, limit }) => {
       tag: category,
       limit,
     },
+    steemAPI,
     (err, postsData) => {
       if (err) {
         console.error(`error while loading ${sortBy}/${category}`, JSON.stringify(err));
@@ -58,7 +59,7 @@ export const getFeedContent = ({ sortBy, category, limit }) => {
 };
 
 export const getUserFeedContent = ({ username, limit }) => {
-  return (dispatch, getState) => {
+  return (dispatch, getState, { steemAPI }) => {
     const { feed } = getState();
     if (feed.feed[username] && feed.feed[username].isLoaded) {
       return;
@@ -75,6 +76,7 @@ export const getUserFeedContent = ({ username, limit }) => {
       tag: username,
       limit,
     },
+    steemAPI,
     (err, postsData) => {
       if (err) {
         console.error(`error while loading ${sortBy}/${username}`, JSON.stringify(err));
@@ -93,7 +95,7 @@ export const getUserFeedContent = ({ username, limit }) => {
 };
 
 export const getMoreFeedContent = ({ sortBy, category, limit }) => {
-  return (dispatch, getState) => {
+  return (dispatch, getState, { steemAPI }) => {
     const feedContent = getFeedContentFromState(
         sortBy, category, getState().feed, getState().posts);
     const isLoading = getFeedLoadingFromState(sortBy, category, getState().feed);
@@ -117,6 +119,7 @@ export const getMoreFeedContent = ({ sortBy, category, limit }) => {
       start_author: startAuthor,
       start_permlink: startPermlink,
     },
+    steemAPI,
     (err, postsData) => {
       if (err) {
         console.error(`error while loading ${sortyBy}/${category}`, JSON.stringify(err));
@@ -143,7 +146,7 @@ export const getMoreFeedContent = ({ sortBy, category, limit }) => {
 };
 
 export const getMoreUserFeedContent = ({ username, limit }) => {
-  return (dispatch, getState) => {
+  return (dispatch, getState, { steemAPI }) => {
     const sortBy = 'feed';
     const { feed, posts } = getState();
     const feedContent = getUserFeedContentFromState(username, feed, posts);
@@ -167,7 +170,8 @@ export const getMoreUserFeedContent = ({ username, limit }) => {
       limit: limit + 1,
       start_author: startAuthor,
       start_permlink: startPermlink,
-    },
+      },
+      steemAPI,
       (err, postsData) => {
         if (err) {
           console.error(`error while loading ${sortyBy} for ${username}`, JSON.stringify(err));
