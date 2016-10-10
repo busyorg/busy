@@ -6,7 +6,7 @@ import {
   getFeedHasMoreFromState
 } from './../helpers/stateHelpers';
 
-export default class UserFeed extends Component {
+export default class UserProfileFeed extends Component {
   constructor(props) {
     super(props);
   }

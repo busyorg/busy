@@ -23,8 +23,8 @@ var React = require('react'),
 import Page from './feed/Page';
 import UserProfile from './user/UserProfile';
 import Profile from './user/profile';
-import UserProfilePosts from './user/posts';
-import UserProfileFeed from './user/feed';
+import UserProfilePosts from './user/UserProfilePosts';
+import UserProfileFeed from './user/UserProfileFeed';
 import { Trending, Hot, Votes, Responses, Active, Created, Cashout } from './feed/PathMatching';
 
 export default (
