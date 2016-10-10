@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Feed from './../feed/Feed';
 import {
-  getFeedContentFromState,
+  getUserCommentsFromState,
   getFeedLoadingFromState,
   getFeedHasMoreFromState
 } from './../helpers/stateHelpers';
@@ -16,10 +16,10 @@ export default class Posts extends Component {
   }
 
   render() {
-    const { feed, posts, getUserComments, getMoreUserComments, limit } = this.props;
+    const { feed, comments, getUserComments, getMoreUserComments, limit } = this.props;
     const username = this.props.params.name;
 
-    const content = getFeedContentFromState('comments', username, feed, posts);
+    const content = getUserCommentsFromState(username, feed, comments);
     const isFetching = getFeedLoadingFromState('comments', username, feed);
     const hasMore = getFeedHasMoreFromState('comments', username, feed);
     const loadContentAction = () => getUserComments(username);
