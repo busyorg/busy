@@ -8,7 +8,7 @@ import {
   getUserFeedContent,
   getMoreUserFeedContent,
 } from './../feed/feedActions';
-import { getUserComments } from './userProfileActions';
+import { getUserComments, getMoreUserComments } from './userProfileActions';
 
 @connect(
   state => ({
@@ -19,6 +19,7 @@ import { getUserComments } from './userProfileActions';
     getFeedContent,
     getMoreFeedContent,
     getUserComments,
+    getMoreUserComments
   }, dispatch)
 )
 export default class UserProfile extends React.Component {
@@ -48,6 +49,7 @@ export default class UserProfile extends React.Component {
                 getFeedContent,
                 getMoreFeedContent,
                 getUserComments,
+                getMoreUserComments,
                 limit: 10,
                 auth
               }
