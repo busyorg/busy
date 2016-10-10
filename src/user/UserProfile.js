@@ -9,6 +9,7 @@ import {
   getMoreUserFeedContent,
 } from './../feed/feedActions';
 import { getUserComments, getMoreUserComments } from './userProfileActions';
+import appActions from './../actions';
 
 @connect(
   state => ({
@@ -20,12 +21,17 @@ import { getUserComments, getMoreUserComments } from './userProfileActions';
     getFeedContent,
     getMoreFeedContent,
     getUserComments,
-    getMoreUserComments
+    getMoreUserComments,
+    setMenu: appActions.setMenu,
   }, dispatch)
 )
 export default class UserProfile extends React.Component {
   constructor(props) {
     super(props);
+  }
+
+  componentDidUpdate() {
+    this.props.setMenu('secondary');
   }
 
   render() {
