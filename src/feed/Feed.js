@@ -16,7 +16,7 @@ export default class Feed extends React.Component {
   }
 
   render() {
-    const { content, isFetching, hasMore } = this.props;
+    const { content, isFetching, hasMore, ItemComponent } = this.props;
 
     return (
       <div className="grid">
@@ -33,7 +33,7 @@ export default class Feed extends React.Component {
           >
             {
               content.map((entry, key) =>
-                <PostFeedItem key={key} entry={entry} replies={this.props.replies} />
+                <ItemComponent key={key} entry={entry} replies={this.props.replies} />
               )
             }
           </ReduxInfiniteScroll>
@@ -42,3 +42,6 @@ export default class Feed extends React.Component {
     );
   }
 }
+Feed.defaultProps = {
+  ItemComponent: PostFeedItem
+};
