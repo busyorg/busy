@@ -11,8 +11,8 @@ export default class Posts extends Component {
     super(props);
   }
 
-  componentWillMount() {
-    this.props.getUserComments(this.props.params.name);
+  componentDidMount() {
+    this.props.setMenu('secondary');
   }
 
   render() {

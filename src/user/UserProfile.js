@@ -32,10 +32,6 @@ export default class UserProfile extends React.Component {
     super(props);
   }
 
-  componentDidUpdate() {
-    this.props.setMenu('secondary');
-  }
-
   render() {
     const { auth } = this.props;
     const account = auth.user && auth.user.name;

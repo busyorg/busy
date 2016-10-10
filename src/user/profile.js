@@ -32,6 +32,10 @@ export default class Profile extends Component {
     this._init();
   }
 
+  componentDidMount() {
+    this.props.setMenu('secondary');
+  }
+
   componentWillReceiveProps(nextProps) {
     //this.props.setMenu('secondary');
     this.setState({
