@@ -20,7 +20,7 @@ export const getUserComments = (username) => {
   };
 };
 
-export const getMoreUserComments = (username) => {
+export const getMoreUserComments = (username, limit) => {
   return (dispatch, getState, { steemAPI }) => {
     const { feed, comments } = getState();
     if (feed.comments[username] && feed.comments[username].isLoaded) {
@@ -40,6 +40,7 @@ export const getMoreUserComments = (username) => {
         promise: getDiscussionsByComments({
           start_author: startAuthor,
           start_permlink: startPermlink,
+          limit,
         }),
       },
       meta: { username }
