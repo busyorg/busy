@@ -20,8 +20,8 @@ export default class UserFeed extends Component {
     const username = this.props.params.name;
 
     const content = getFeedContentFromState('feed', username, feed, posts);
-    const isFetching = getFeedLoadingFromState('comments', username, feed);
-    const hasMore = getFeedHasMoreFromState('comments', username, feed);
+    const isFetching = getFeedLoadingFromState('feed', username, feed);
+    const hasMore = getFeedHasMoreFromState('feed', username, feed);
     const loadContentAction = () => getUserFeedContent({
       sortBy: 'feed',
       username,
