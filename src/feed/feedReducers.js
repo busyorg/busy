@@ -1,4 +1,5 @@
 import * as feedTypes from './feedActionTypes';
+import * as userProfileTypes from './../user/userProfileActionTypes';
 
 const initialState = {
   feed: {},
@@ -47,6 +48,10 @@ const feedIdsList = (state = [], action) => {
           ...morePostsIds,
         ];
       }
+    case userProfileTypes.GET_USER_COMMENTS_SUCCESS:
+      return Object.keys(action.payload.content).map(key => action.payload.content[key].id);
+    case userProfileTypes.GET_MORE_USER_COMMENTS_SUCCESS:
+      return action.payload.result.map(comment => comment.id);
     default:
       return state;
   }
@@ -60,6 +65,8 @@ const feedSortBySubItem = (state = {}, action) => {
     case feedTypes.GET_USER_FEED_CONTENT:
     case feedTypes.GET_MORE_USER_FEED_CONTENT:
     case feedTypes.GET_MORE_USER_FEED_CONTENT_SUCCESS:
+    case userProfileTypes.GET_USER_COMMENTS_START:
+    case userProfileTypes.GET_MORE_USER_COMMENTS_START:
       return {
         ...state,
         isFetching: feedFetching(undefined, action),
@@ -67,6 +74,8 @@ const feedSortBySubItem = (state = {}, action) => {
       };
     case feedTypes.GET_FEED_CONTENT_SUCCESS:
     case feedTypes.GET_USER_FEED_CONTENT_SUCCESS:
+    case userProfileTypes.GET_USER_COMMENTS_SUCCESS:
+    case userProfileTypes.GET_MORE_USER_COMMENTS_SUCCESS:
       return {
         ...state,
         hasMore: true,
@@ -103,6 +112,14 @@ const feedSortByItem = (state = {}, action) => {
         ...state,
         [action.payload.username]: feedSortBySubItem(state[action.payload.username], action)
       };
+    case userProfileTypes.GET_USER_COMMENTS_START:
+    case userProfileTypes.GET_USER_COMMENTS_SUCCESS:
+    case userProfileTypes.GET_MORE_USER_COMMENTS_START:
+    case userProfileTypes.GET_MORE_USER_COMMENTS_SUCCESS:
+      return {
+        ...state,
+        [action.meta.username]: feedSortBySubItem(state[action.meta.username], action)
+      };
     default:
       return state;
   }
@@ -122,6 +139,14 @@ const feed = (state = initialState, action) => {
       return {
         ...state,
         [action.payload.sortBy]: feedSortByItem(state[action.payload.sortBy], action)
+      };
+    case userProfileTypes.GET_USER_COMMENTS_START:
+    case userProfileTypes.GET_USER_COMMENTS_SUCCESS:
+    case userProfileTypes.GET_MORE_USER_COMMENTS_START:
+    case userProfileTypes.GET_MORE_USER_COMMENTS_SUCCESS:
+      return {
+        ...state,
+        comments: feedSortByItem(state.comments, action)
       };
     default:
       return state;
