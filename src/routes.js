@@ -12,7 +12,6 @@ var React = require('react'),
   Help = require('./statics/Help'),
   PostSinglePage = require('./post/PostSinglePage'),
   Edit = require('./user/edit'),
-  Feed = require('./user/feed'),
   Replies = require('./user/replies'),
   Followers = require('./user/UserFollowersList'),
   Followed = require('./user/UserFollowedList'),
@@ -24,7 +23,8 @@ var React = require('react'),
 import Page from './feed/Page';
 import UserProfile from './user/UserProfile';
 import Profile from './user/profile';
-import Posts from './user/posts';
+import UserProfilePosts from './user/posts';
+import UserProfileFeed from './user/feed';
 import { Trending, Hot, Votes, Responses, Active, Created, Cashout } from './feed/PathMatching';
 
 export default (
@@ -54,8 +54,8 @@ export default (
 
     <Route component={UserProfile}>
       <Route path="/profile/edit" component={Edit} />
-      <Route path="/@:name/posts" component={Posts} />
-      <Route path="/@:name/feed" component={Feed} />
+      <Route path="/@:name/posts" component={UserProfilePosts} />
+      <Route path="/@:name/feed" component={UserProfileFeed} />
       <Route path="/@:name/replies" component={Replies} />
       <Route path="/@:name/followers" component={Followers} />
       <Route path="/@:name/followed" component={Followed} />
