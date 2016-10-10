@@ -44,19 +44,22 @@ export function followUser(username) {
   return (dispatch, getState) => dispatch({
     type: FOLLOW_USER,
     payload: {
-      promise: steemConnect.sendAsync('https://steemconnect.com/api/customJson', {
-        json: JSON.stringify([
-          'follow',
-          {
-            follower: getState().auth.user.name,
-            following: username,
-          },
-        ]),
-        requiredAuths: [],
-        requiredPostingAuths: [
-          getState().auth.user.name,
-        ],
-      }),
+      promise: request.get('https://steemconnect.com/api/customJson')
+        .withCredentials()
+        .query({
+          json: JSON.stringify([
+            'follow',
+            {
+              follower: getState().auth.user.name,
+              following: username,
+            },
+          ]),
+          requiredAuths: [],
+          requiredPostingAuths: [
+            getState().auth.user.name,
+          ],
+        })
+        .endAsync(),
     }
   });
 }
@@ -70,19 +73,22 @@ export function unfollowUser(username) {
   return (dispatch, getState) => dispatch({
     type: UNFOLLOW_USER,
     payload: {
-      promise: request.get('https://steemconnect.com/api/customJson').query({
-        json: JSON.stringify([
-          'unfollow',
-          {
-            unfollower: getState().auth.user.name,
-            unfollowing: username,
-          },
-        ]),
-        requiredAuths: [],
-        requiredPostingAuths: [
-          getState().auth.user.name,
-        ],
-      }).endAsync(),
+      promise: request.get('https://steemconnect.com/api/customJson')
+        .withCredentials()
+        .query({
+          json: JSON.stringify([
+            'unfollow',
+            {
+              unfollower: getState().auth.user.name,
+              unfollowing: username,
+            },
+          ]),
+          requiredAuths: [],
+          requiredPostingAuths: [
+            getState().auth.user.name,
+          ],
+        })
+        .endAsync(),
     }
   });
 }
