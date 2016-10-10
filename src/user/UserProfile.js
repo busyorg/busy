@@ -14,6 +14,7 @@ import { getUserComments, getMoreUserComments } from './userProfileActions';
   state => ({
     feed: state.feed,
     posts: state.posts,
+    comments: state.comments,
   }),
   dispatch => bindActionCreators({
     getFeedContent,
@@ -28,7 +29,7 @@ export default class UserProfile extends React.Component {
   }
 
   render() {
-    const { auth, feed, posts, getFeedContent, getMoreFeedContent, getUserComments } = this.props;
+    const { auth } = this.props;
     const account = auth.user && auth.user.name;
 
     return (
@@ -44,14 +45,8 @@ export default class UserProfile extends React.Component {
             { React.cloneElement(
               this.props.children,
               {
-                feed,
-                posts,
-                getFeedContent,
-                getMoreFeedContent,
-                getUserComments,
-                getMoreUserComments,
+                ...this.props,
                 limit: 10,
-                auth
               }
             ) }
           </div>
