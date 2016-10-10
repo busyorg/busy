@@ -11,11 +11,15 @@ export default class UserFeed extends Component {
     super(props);
   }
 
+  componentDidMount() {
+    this.props.setMenu('secondary');
+  }
+
   render() {
     const { feed, posts, getUserFeedContent, getMoreUserFeedContent } = this.props;
     const username = this.props.params.name;
 
-    const content = getFeedContentFromState(username, feed, posts);
+    const content = getFeedContentFromState('feed', username, feed, posts);
     const isFetching = getFeedLoadingFromState('comments', username, feed);
     const hasMore = getFeedHasMoreFromState('comments', username, feed);
     const loadContentAction = () => getUserFeedContent({
