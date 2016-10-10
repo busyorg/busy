@@ -13,7 +13,7 @@ export const GET_FOLLOWING_SUCCESS = 'GET_FOLLOWING_SUCCESS';
 export const GET_FOLLOWING_ERROR = 'GET_FOLLOWING_ERROR';
 
 function getFollowing(opts) {
-  return (dispatch, getState) => api.startP.then(() => {
+  return (dispatch, getState) => {
     const { auth } = getState();
     const currentUsername = auth.user && auth.user.name;
     const options = extend({
@@ -30,7 +30,7 @@ function getFollowing(opts) {
         promise: api.getFollowingWithAsync(options),
       }
     });
-  });
+  };
 }
 
 const requestLogin = () => {
@@ -53,23 +53,21 @@ const loginFail = () => {
 };
 
 export const login = () => {
-  return (dispatch) => api.startP.then(() => {
+  return (dispatch) => {
     dispatch(requestLogin());
 
     steemConnect.isAuthenticated((err, result) => {
-      console.log(err, result);
       if (result.isAuthenticated) {
         dispatch(getFollowing({
           follower: result.username,
         }));
 
         api.getAccounts([result.username], (err, users) => {
-          console.log(err, users);
           dispatch(loginSuccess(users[0]));
         });
       } else {
         dispatch(loginFail());
       }
     });
-  });
+  };
 };

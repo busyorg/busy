@@ -98,6 +98,7 @@ class Profile extends Component {
     const isFollowing = this.props.following && has(this.props.following, (u) => (
       u.name === this.props.params.name
     ));
+    console.log(this.props.following);
     const isFollowingIsLoading = this.props.followingIsLoading;
 
     return (

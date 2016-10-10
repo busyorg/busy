@@ -49,7 +49,7 @@ export default (state = initialState, action) => {
       });
 
     case actionTypes.GET_FOLLOWING_SUCCESS:
-      if (!state.user || action.meta.follower !== state.user.name) {
+      if (state.user && action.meta.follower !== state.user.name) {
         return state;
       }
 
