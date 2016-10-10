@@ -6,7 +6,6 @@ import {
   useHistoryRestoreScroll,
   useRouterRestoreScroll
 } from 'react-router-restore-scroll';
-
 import api from './steemAPI';
 import routes from './routes';
 import store from './store';
@@ -28,8 +27,6 @@ const routerRender = applyRouterMiddleware(
 
 // load the stylesheet
 require('./styles/base.sass');
-
-window.steemAPI = api;
 
 ReactDOM.render(
   <Provider store={store}>

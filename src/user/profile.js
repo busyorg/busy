@@ -1,59 +1,91 @@
-let React = require('react'),
-  ReactRedux = require('react-redux'),
-  _ = require('lodash'),
+var _ = require('lodash'),
   api = require('./../steemAPI'),
   formatter = require('steem/lib/formatter'),
   numeral = require('numeral'),
   moment = require('moment'),
-  actions = require('../actions'),
   PageActions = require('./../app/PageActions'),
-  Header = require('./../app/header'),
   Loading = require('./../widgets/Loading'),
   Link = require('react-router').Link;
 
+import React, { Component } from 'react';
 import Feed from './../feed/Feed';
+import {
+  getFeedContentFromState,
+  getFeedLoadingFromState,
+  getFeedHasMoreFromState
+} from './../helpers/stateHelpers';
 
-const Profile = React.createClass({
+
+export default class Profile extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   componentWillMount() {
-    this.props.setMenu('secondary');
+    //this.props.setMenu('secondary');
+
     this.setState({
       account: {},
       followersCount: 0,
       followingCount: 0
     });
     this._init();
-  },
+  }
+
+  componentDidMount() {
+    this.props.setMenu('secondary');
+  }
+
   componentWillReceiveProps(nextProps) {
-    this.props.setMenu('secondary');
+    //this.props.setMenu('secondary');
     this.setState({
       account: {},
       followersCount: 0,
       followingCount: 0
     });
     this._init();
-  },
-  _init() {
-    const username = this.props.params.name;
-    api.getAccounts([username], (err, result) => {
-      this.setState({ account: result[0] });
-    });
-    api.getFollowers(username, 0, 'blog', 100, (err, result) => {
-      this.setState({ followersCount: _.size(result) });
-    });
-    api.getFollowing(username, 0, 'blog', 100, (err, result) => {
-      this.setState({ followingCount: _.size(result) });
-    });
-  },
+  }
+
+  _init (){
+    var username = this.props.params.name;
+    api.getAccounts([username], function(err, result) {
+      this.setState({account: result[0]});
+    }.bind(this));
+    api.getFollowers(username, 0, 'blog', 100, function(err, result) {
+      this.setState({followersCount: _.size(result)});
+    }.bind(this));
+    api.getFollowing(username, 0, 'blog', 100, function(err, result) {
+      this.setState({followingCount: _.size(result)});
+    }.bind(this));
+  }
+
   render() {
+    const { feed, posts, getFeedContent, getMoreFeedContent, limit } = this.props;
     const username = this.props.params.name;
-    const account = this.state.account;
+
+    const content = getFeedContentFromState('blog', username, feed, posts);
+    const isFetching = getFeedLoadingFromState('blog', username, feed);
+    const hasMore = getFeedHasMoreFromState('blog', username, feed);
+    const loadContentAction = () => getFeedContent({
+      sortBy: 'blog',
+      category: username,
+      limit
+    });
+
+    const loadMoreContentAction = () => getMoreFeedContent({
+      sortBy: 'blog',
+      category: username,
+      limit
+    });
+
+    var account = this.state.account;
+
     try { var jsonMetadata = JSON.parse(account.json_metadata); }
     catch (e) { var jsonMetadata = {}; }
     const edit = (this.props.auth.isAuthenticated && username === this.props.auth.user.name);
     return (
-      <div className="main-panel">
+      <div>
         <PageActions params={this.props.params} messages={!edit} edit={edit} />
-        <Header account={username} />
         <section className="align-center bg-green profile-header"
           style={{ backgroundImage: 'url(https://img.busy6.com/@' + username + '/cover)', backgroundSize: 'cover' }}
         >
@@ -83,23 +115,16 @@ const Profile = React.createClass({
               </p>}
             </center>
           </div>}
-          <Feed path={'@' + username} sortBy="created" replies="false" />
+          <Feed
+            content={content}
+            isFetching={isFetching}
+            hasMore={hasMore}
+            loadContent={loadContentAction}
+            loadMoreContent={loadMoreContentAction}
+          />
         </div>
       </div>
     );
   }
-});
 
-const mapStateToProps = function (state) {
-  return {
-    auth: state.auth
-  };
-};
-
-const mapDispatchToProps = function (dispatch) {
-  return {
-    setMenu(menu) { dispatch(actions.setMenu(menu)); }
-  };
-};
-
-module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(Profile);
+}

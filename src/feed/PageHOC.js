@@ -14,6 +14,8 @@ export default function PageHOC(ComposedComponent) {
 
       if (!path && auth.isAuthenticated) {
         sortBy = 'feed';
+      } else if (!path) {
+        sortBy = 'trending';
       }
 
       return (

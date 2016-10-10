@@ -12,10 +12,7 @@ var React = require('react'),
   Help = require('./statics/Help'),
   PostSinglePage = require('./post/PostSinglePage'),
   Edit = require('./user/edit'),
-  Posts = require('./user/posts'),
-  Feed = require('./user/feed'),
   Replies = require('./user/replies'),
-  Profile = require('./user/profile'),
   Followers = require('./user/UserFollowersList'),
   Followed = require('./user/UserFollowedList'),
   Wallet = require('./user/wallet'),
@@ -24,6 +21,10 @@ var React = require('react'),
   Write = require('./post/newPost/NewPost').default;
 
 import Page from './feed/Page';
+import UserProfile from './user/UserProfile';
+import Profile from './user/profile';
+import UserProfilePosts from './user/UserProfilePosts';
+import UserProfileFeed from './user/UserProfileFeed';
 import { Trending, Hot, Votes, Responses, Active, Created, Cashout } from './feed/PathMatching';
 
 export default (
@@ -51,14 +52,16 @@ export default (
     <Route path="/messages/@:username" component={MessagesUser} />
     <Route path="/messages/:category" component={MessagesCategory} />
 
-    <Route path="/profile/edit" component={Edit} />
-    <Route path="/@:name/posts" component={Posts} />
-    <Route path="/@:name/feed" component={Feed} />
-    <Route path="/@:name/replies" component={Replies} />
-    <Route path="/@:name/followers" component={Followers} />
-    <Route path="/@:name/followed" component={Followed} />
-    <Route path="/@:name/wallet" component={Wallet} />
-    <Route path="/@:name" component={Profile} />
+    <Route component={UserProfile}>
+      <Route path="/profile/edit" component={Edit} />
+      <Route path="/@:name/posts" component={UserProfilePosts} />
+      <Route path="/@:name/feed" component={UserProfileFeed} />
+      <Route path="/@:name/replies" component={Replies} />
+      <Route path="/@:name/followers" component={Followers} />
+      <Route path="/@:name/followed" component={Followed} />
+      <Route path="/@:name/wallet" component={Wallet} />
+      <Route path="/@:name" component={Profile} />
+    </Route>
 
     <Route path="/:category/@:author/:permlink" component={ PostSinglePage } />
   </Route>

@@ -1,5 +1,5 @@
 // TODO(p0o): use a selector for these
-export const getFeedFromState = (sortBy = '', category = 'all', state) => {
+export const getFeedFromState = (sortBy, category = 'all', state) => {
   switch (sortBy) {
     case 'feed':
     case 'hot':
@@ -7,15 +7,22 @@ export const getFeedFromState = (sortBy = '', category = 'all', state) => {
     case 'crated':
     case 'active':
     case 'trending':
+    case 'comments':
+    case 'blog':
       return state[sortBy][category] ? state[sortBy][category].list : [];
     default:
-      return state.trending.all ? state.trending.all.list : [];
+      return [];
   }
 };
 
-export const getFeedContentFromState = (sortBy, category = 'all', feedState, postsState) => {
+export const getFeedContentFromState = (sortBy, category, feedState, postsState) => {
   const feedList = getFeedFromState(sortBy, category, feedState);
   return feedList.map(feedId => postsState[feedId]);
+};
+
+export const getUserCommentsFromState = (username, feedState, commentsState) => {
+  const feedList = getFeedFromState('comments', username, feedState);
+  return feedList.map(feedId => commentsState[feedId]);
 };
 
 export const getFeedLoadingFromState = (sortBy, category = 'all', feedState) => {
@@ -26,9 +33,27 @@ export const getFeedLoadingFromState = (sortBy, category = 'all', feedState) => 
     case 'crated':
     case 'active':
     case 'trending':
+    case 'comments':
+    case 'blog':
       return (feedState[sortBy][category] && feedState[sortBy][category].isFetching) || false;
     default:
-      return (feedState.trending.all && feedState.trending.all.isFetching) || false;
+      return false;
+  }
+};
+
+export const getFeedHasMoreFromState = (sortBy, listName = 'all', feedState) => {
+  switch (sortBy) {
+    case 'feed':
+    case 'hot':
+    case 'cashout':
+    case 'crated':
+    case 'active':
+    case 'trending':
+    case 'comments':
+    case 'blog':
+      return (feedState[sortBy][listName] && feedState[sortBy][listName].hasMore) || false;
+    default:
+      return false;
   }
 };
 

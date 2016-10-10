@@ -6,8 +6,7 @@
  * @param callback - The same callback giving to Steem API
  * @returns {function}
  */
-export const getDiscussionsFromAPI = function (sortBy, query, callback) {
-  const { steemAPI } = window;
+export const getDiscussionsFromAPI = function (sortBy, query, steemAPI, callback) {
   switch (sortBy) {
     case 'feed':
       return steemAPI.getDiscussionsByFeed(query, callback);
@@ -20,7 +19,12 @@ export const getDiscussionsFromAPI = function (sortBy, query, callback) {
     case 'active':
       return steemAPI.getDiscussionsByActive(query, callback);
     case 'trending':
-    default:
       return steemAPI.getDiscussionsByTrending(query, callback);
+    case 'blog':
+      return steemAPI.getDiscussionsByBlog(query, callback);
+    case 'comments':
+      return steemAPI.getDiscussionsByComments(query, callback);
+    default:
+      throw new Error('There is not API endpoint defined for this sorting');
   }
 };
