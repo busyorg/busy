@@ -12,7 +12,6 @@ var React = require('react'),
   Help = require('./statics/Help'),
   PostSinglePage = require('./post/PostSinglePage'),
   Edit = require('./user/edit'),
-  Posts = require('./user/posts'),
   Feed = require('./user/feed'),
   Replies = require('./user/replies'),
   Followers = require('./user/UserFollowersList'),
@@ -25,6 +24,7 @@ var React = require('react'),
 import Page from './feed/Page';
 import UserProfile from './user/UserProfile';
 import Profile from './user/profile';
+import Posts from './user/posts';
 import { Trending, Hot, Votes, Responses, Active, Created, Cashout } from './feed/PathMatching';
 
 export default (
