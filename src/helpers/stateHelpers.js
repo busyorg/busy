@@ -20,6 +20,11 @@ export const getFeedContentFromState = (sortBy, category, feedState, postsState)
   return feedList.map(feedId => postsState[feedId]);
 };
 
+export const getUserCommentsFromState = (username, feedState, commentsState) => {
+  const feedList = getFeedFromState('comments', username, feedState);
+  return feedList.map(feedId => commentsState[feedId]);
+};
+
 export const getFeedLoadingFromState = (sortBy, category = 'all', feedState) => {
   switch (sortBy) {
     case 'feed':
