@@ -1,12 +1,13 @@
 import Promise from 'bluebird';
 import extend from 'lodash/extend';
 import steemConnect from 'steemconnect';
-import broadcast from 'steem/lib/broadcast';
+import request from 'superagent';
 
 import * as actionTypes from './authActionTypes';
 import api from '../steemAPI';
 
 Promise.promisifyAll(steemConnect);
+Promise.promisifyAll(request.Request.prototype);
 
 export const GET_FOLLOWING = 'GET_FOLLOWING';
 export const GET_FOLLOWING_START = 'GET_FOLLOWING_START';
@@ -69,7 +70,7 @@ export function unfollowUser(username) {
   return (dispatch, getState) => dispatch({
     type: UNFOLLOW_USER,
     payload: {
-      promise: steemConnect.sendAsync('https://steemconnect.com/api/customJson', {
+      promise: request.get('https://steemconnect.com/api/customJson').query({
         json: JSON.stringify([
           'unfollow',
           {
@@ -81,7 +82,7 @@ export function unfollowUser(username) {
         requiredPostingAuths: [
           getState().auth.user.name,
         ],
-      }),
+      }).endAsync(),
     }
   });
 }
