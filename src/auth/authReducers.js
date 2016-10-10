@@ -1,4 +1,5 @@
 import * as actionTypes from './authActionTypes';
+import * as actions from './authActions';
 
 const initialState = {
   isAuthenticated: false,
@@ -35,24 +36,17 @@ export default (state = initialState, action) => {
         isAuthenticated: false
       });
 
-    case actionTypes.GET_FOLLOWING_START:
-      if (!state.user || action.meta.follower !== state.user.name) {
-        return state;
-      }
+    case actions.GET_FOLLOWING_START:
       return Object.assign({}, state, {
         followingIsLoading: true,
       });
 
-    case actionTypes.GET_FOLLOWING_ERROR:
+    case actions.GET_FOLLOWING_ERROR:
       return Object.assign({}, state, {
         followingIsLoading: false,
       });
 
-    case actionTypes.GET_FOLLOWING_SUCCESS:
-      if (state.user && action.meta.follower !== state.user.name) {
-        return state;
-      }
-
+    case actions.GET_FOLLOWING_SUCCESS:
       return Object.assign({}, state, {
         following: action.payload,
         followingIsLoading: false,

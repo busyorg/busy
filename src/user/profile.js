@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 import classNames from 'classnames';
 import formatter from 'steem/lib/formatter';
-import has from 'lodash/has';
+import find from 'lodash/find';
 import moment from 'moment';
 import numeral from 'numeral';
 import { Link } from 'react-router';
@@ -20,6 +20,7 @@ import Loading from '../widgets/Loading';
 import PageActions from '../app/PageActions';
 import actions from '../actions';
 import api from '../steemAPI';
+import {followUser, unfollowUser} from '../auth/authActions';
 
 class Profile extends Component {
   constructor(props) {
@@ -67,6 +68,18 @@ class Profile extends Component {
     });
   }
 
+  onClickFollow = () => {
+    const isFollowing = this.props.following && !!find(this.props.following, (u) => (
+      u.following === this.props.params.name
+    ));
+
+    if (isFollowing) {
+      this.props.unfollowUser(this.props.params.name);
+    } else {
+      this.props.followUser(this.props.params.name);
+    }
+  };
+
   render() {
     const { feed, posts, getFeedContent, getMoreFeedContent, limit } = this.props;
     const username = this.props.params.name;
@@ -95,10 +108,9 @@ class Profile extends Component {
     try { var jsonMetadata = JSON.parse(account.json_metadata); }
     catch (e) { var jsonMetadata = {}; }
 
-    const isFollowing = this.props.following && has(this.props.following, (u) => (
-      u.name === this.props.params.name
+    const isFollowing = this.props.following && !!find(this.props.following, (u) => (
+      u.following === this.props.params.name
     ));
-    console.log(this.props.following);
     const isFollowingIsLoading = this.props.followingIsLoading;
 
     return (
@@ -124,6 +136,7 @@ class Profile extends Component {
               className={classNames('btn btn-primary', {
                 disabled: isFollowingIsLoading,
               })}
+              onClick={this.onClickFollow}
             >
               {isFollowing ? 'Unfollow' : 'Follow'}
             </button>
@@ -179,7 +192,9 @@ const mapStateToProps = function (state) {
 
 const mapDispatchToProps = function (dispatch) {
   return {
-    setMenu(menu) { dispatch(actions.setMenu(menu)); }
+    setMenu(menu) { dispatch(actions.setMenu(menu)); },
+    followUser: (...args) => dispatch(followUser(...args)),
+    unfollowUser: (...args) => dispatch(unfollowUser(...args)),
   };
 };
 

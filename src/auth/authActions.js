@@ -1,6 +1,7 @@
 import Promise from 'bluebird';
 import extend from 'lodash/extend';
 import steemConnect from 'steemconnect';
+import broadcast from 'steem/lib/broadcast';
 
 import * as actionTypes from './authActionTypes';
 import api from '../steemAPI';
@@ -31,6 +32,58 @@ function getFollowing(opts) {
       }
     });
   };
+}
+
+export const FOLLOW_USER = 'FOLLOW_USER';
+export const FOLLOW_USER_START = 'FOLLOW_USER_START';
+export const FOLLOW_USER_SUCCESS = 'FOLLOW_USER_SUCCESS';
+export const FOLLOW_USER_ERROR = 'FOLLOW_USER_ERROR';
+
+export function followUser(username) {
+  return (dispatch, getState) => dispatch({
+    type: FOLLOW_USER,
+    payload: {
+      promise: steemConnect.sendAsync('https://steemconnect.com/api/customJson', {
+        json: JSON.stringify([
+          'follow',
+          {
+            follower: getState().auth.user.name,
+            following: username,
+          },
+        ]),
+        requiredAuths: [],
+        requiredPostingAuths: [
+          getState().auth.user.name,
+        ],
+      }),
+    }
+  });
+}
+
+export const UNFOLLOW_USER = 'UNFOLLOW_USER';
+export const UNFOLLOW_USER_START = 'UNFOLLOW_USER_START';
+export const UNFOLLOW_USER_SUCCESS = 'UNFOLLOW_USER_SUCCESS';
+export const UNFOLLOW_USER_ERROR = 'UNFOLLOW_USER_ERROR';
+
+export function unfollowUser(username) {
+  return (dispatch, getState) => dispatch({
+    type: UNFOLLOW_USER,
+    payload: {
+      promise: steemConnect.sendAsync('https://steemconnect.com/api/customJson', {
+        json: JSON.stringify([
+          'unfollow',
+          {
+            unfollower: getState().auth.user.name,
+            unfollowing: username,
+          },
+        ]),
+        requiredAuths: [],
+        requiredPostingAuths: [
+          getState().auth.user.name,
+        ],
+      }),
+    }
+  });
 }
 
 const requestLogin = () => {
