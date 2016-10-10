@@ -20,6 +20,8 @@ import appActions from './../actions';
   dispatch => bindActionCreators({
     getFeedContent,
     getMoreFeedContent,
+    getUserFeedContent,
+    getMoreUserFeedContent,
     getUserComments,
     getMoreUserComments,
     setMenu: appActions.setMenu,
