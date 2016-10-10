@@ -3,7 +3,9 @@ import * as actionTypes from './authActionTypes';
 const initialState = {
   isAuthenticated: false,
   user: {},
-  following: []
+
+  following: [],
+  followingIsLoading: true,
 };
 
 export default (state = initialState, action) => {
@@ -32,6 +34,30 @@ export default (state = initialState, action) => {
         isFetching: true,
         isAuthenticated: false
       });
+
+    case actionTypes.GET_FOLLOWING_START:
+      if (!state.user || action.meta.follower !== state.user.name) {
+        return state;
+      }
+      return Object.assign({}, state, {
+        followingIsLoading: true,
+      });
+
+    case actionTypes.GET_FOLLOWING_ERROR:
+      return Object.assign({}, state, {
+        followingIsLoading: false,
+      });
+
+    case actionTypes.GET_FOLLOWING_SUCCESS:
+      if (!state.user || action.meta.follower !== state.user.name) {
+        return state;
+      }
+
+      return Object.assign({}, state, {
+        following: action.payload,
+        followingIsLoading: false,
+      });
+
     default:
       return state;
   }
