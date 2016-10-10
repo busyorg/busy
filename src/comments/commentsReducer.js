@@ -9,18 +9,24 @@ const comments = (state = {}, action) => {
         [action.payload.postId]: action.payload.commentsData
       };
     case userProfileTypes.GET_USER_COMMENTS_SUCCESS:
-      return {
-        ...state,
-        ...action.payload.content,
-      };
-    case userProfileTypes.GET_MORE_USER_COMMENTS_SUCCESS:
       const commentsList = {};
-      action.payload.result.forEach(comment => {
-        commentsList[`${comment.author}/${comment.permlink}`] = comment;
+      // map data based on id
+      Object.keys(action.payload.content).forEach((key) => {
+        const { id } = action.payload.content[key];
+        commentsList[id] = action.payload.content[key];
       });
       return {
         ...state,
         ...commentsList,
+      };
+    case userProfileTypes.GET_MORE_USER_COMMENTS_SUCCESS:
+      const commentsMoreList = {};
+      action.payload.result.forEach(comment => {
+        commentsMoreList[comment.id] = comment;
+      });
+      return {
+        ...state,
+        ...commentsMoreList,
       };
     default:
       return state;
