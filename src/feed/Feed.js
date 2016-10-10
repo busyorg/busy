@@ -32,7 +32,7 @@ export default class Feed extends React.Component {
             threshold={200}
           >
             {
-              content.map((entry, key) =>
+              content && content.map((entry, key) =>
                 <PostFeedItem key={key} entry={entry} replies={this.props.replies} />
               )
             }
