@@ -1,9 +1,8 @@
-let React = require('react'),
-  Loading = require('./../widgets/Loading'),
-  AddPost = require('./../post/newPost/EmbeddedNewPost'),
-  PostFeedItem = require('../post/PostFeedItem');
-
+import React from 'react';
 import ReduxInfiniteScroll from 'redux-infinite-scroll';
+import Loading from './../widgets/Loading';
+import AddPost from './../post/newPost/EmbeddedNewPost';
+import PostFeedItem from '../post/PostFeedItem';
 
 export default class Feed extends React.Component {
   constructor(props) {
