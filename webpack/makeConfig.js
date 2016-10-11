@@ -61,7 +61,7 @@ function makeStyleLoaders(options) {
         test: /\.s[ac]ss$/,
         loaders: [
           'style',
-          'css?sourceMap',
+          'css?sourceMap?importLoaders=1',
           'autoprefixer-loader?browsers=last 2 version',
           'sass?sourceMap&sourceMapContents',
         ],
@@ -74,7 +74,7 @@ function makeStyleLoaders(options) {
       test: /\.s[ac]ss$/,
       loader: ExtractTextPlugin.extract(
         'style-loader',
-        'css!autoprefixer-loader?browsers=last 2 version!sass'
+        'css?importLoaders=1!autoprefixer-loader?browsers=last 2 version!sass'
       ),
     },
   ];
@@ -110,6 +110,10 @@ function makeConfig(options) {
           test: /\.json?$/,
           loader: 'json',
         },
+        {
+          loader: 'url-loader?name=[name].[hash].[ext]&limit=1',
+          test: /\.(eot|ttf|woff|woff2)(\?.+)?$/,
+        }
       ].concat(makeStyleLoaders(options)),
     },
   };
