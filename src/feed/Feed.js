@@ -3,6 +3,7 @@ import ReduxInfiniteScroll from 'redux-infinite-scroll';
 import Loading from './../widgets/Loading';
 import AddPost from './../post/newPost/EmbeddedNewPost';
 import PostFeedItem from '../post/PostFeedItem';
+import CommentForm from './../comments/CommentForm';
 
 export default class Feed extends React.Component {
   constructor(props) {
@@ -20,6 +21,7 @@ export default class Feed extends React.Component {
       <div className="grid">
         <div className="grid-content">
           <AddPost />
+          <CommentForm />
 
           <ReduxInfiniteScroll
             loadMore={this.props.loadMoreContent}
