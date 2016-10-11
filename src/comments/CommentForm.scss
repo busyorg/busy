@@ -1,0 +1,19 @@
+@import "./../styles/colors";
+
+.CommentForm {
+  position: fixed;
+  width: 100%;
+  bottom: -4px;
+  left: 0;
+  padding-top: 5px;
+}
+
+.CommentForm__input {
+  border: 4px solid $primary-color;
+  border-radius: 0.8rem 0.8rem 0 0;
+  background: #fff;
+  padding: 0 1rem 0 1rem;
+  min-height: 3rem;
+  width: 40rem;
+  margin: 0 auto;
+}
