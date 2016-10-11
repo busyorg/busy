@@ -7,7 +7,6 @@ import PostFeedItem from '../post/PostFeedItem';
 export default class Feed extends React.Component {
   constructor(props) {
     super(props);
-    this._customListener = [];
   }
 
   componentDidMount() {
