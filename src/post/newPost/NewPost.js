@@ -113,7 +113,7 @@ function rawCreatePost(body) {
   return () => ({
     type: CREATE_POST,
     payload: {
-      promise: request.get('https://steemconnect.com/api/comment')
+      promise: request.get(`${process.env.STEEMCONNECT_HOST}/comment`)
         .query(body)
         .withCredentials()
         .endAsync()

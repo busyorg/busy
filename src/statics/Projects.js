@@ -28,7 +28,7 @@ module.exports = React.createClass({
           <div className="block">
             <h1>Steem Connect <img src="/img/open-source.svg" height="46" /></h1>
             <p><Link to="/trending/steemconnect">#steemconnect</Link></p>
-            <p><a href="https://steemconnect.com/" target="_blank">https://steemconnect.com/</a></p>
+            <p><a href={process.env.STEEMCONNECT_HOST} target="_blank">{process.env.STEEMCONNECT_HOST}</a></p>
           </div>
           <div className="block">
             <h1>Steem Script <img src="/img/open-source.svg" height="46" /></h1>

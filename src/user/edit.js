@@ -11,7 +11,7 @@ const Edit = React.createClass({
         <div className="page">
           <div className="block">
             <h1>Edit Profile</h1>
-            <p><a href="https://steemconnect.com/logout" target="_blank">Log Out</a></p>
+            <p><a href={`${process.env.STEEMCONNECT_HOST}/logout`} target="_blank">Log Out</a></p>
           </div>
         </div>
       </div>

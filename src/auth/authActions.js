@@ -44,7 +44,7 @@ export function followUser(username) {
   return (dispatch, getState) => dispatch({
     type: FOLLOW_USER,
     payload: {
-      promise: request.get('https://steemconnect.com/api/customJson')
+      promise: request.get(`${process.env.STEEMCONNECT_HOST}/api/customJson`)
         .withCredentials()
         .query({
           json: JSON.stringify([
@@ -73,7 +73,7 @@ export function unfollowUser(username) {
   return (dispatch, getState) => dispatch({
     type: UNFOLLOW_USER,
     payload: {
-      promise: request.get('https://steemconnect.com/api/customJson')
+      promise: request.get(`${process.env.STEEMCONNECT_HOST}/api/customJson`)
         .withCredentials()
         .query({
           json: JSON.stringify([
