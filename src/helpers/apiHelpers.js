@@ -14,7 +14,7 @@ export const getDiscussionsFromAPI = function (sortBy, query, steemAPI, callback
       return steemAPI.getDiscussionsByHot(query, callback);
     case 'cashout':
       return steemAPI.getDiscussionsByCashout(query, callback);
-    case 'crated':
+    case 'created':
       return steemAPI.getDiscussionsByCreated(query, callback);
     case 'active':
       return steemAPI.getDiscussionsByActive(query, callback);

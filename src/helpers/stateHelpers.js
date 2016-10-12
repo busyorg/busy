@@ -4,7 +4,7 @@ export const getFeedFromState = (sortBy, category = 'all', state) => {
     case 'feed':
     case 'hot':
     case 'cashout':
-    case 'crated':
+    case 'created':
     case 'active':
     case 'trending':
     case 'comments':
@@ -30,7 +30,7 @@ export const getFeedLoadingFromState = (sortBy, category = 'all', feedState) => 
     case 'feed':
     case 'hot':
     case 'cashout':
-    case 'crated':
+    case 'created':
     case 'active':
     case 'trending':
     case 'comments':
@@ -46,7 +46,7 @@ export const getFeedHasMoreFromState = (sortBy, listName = 'all', feedState) => 
     case 'feed':
     case 'hot':
     case 'cashout':
-    case 'crated':
+    case 'created':
     case 'active':
     case 'trending':
     case 'comments':

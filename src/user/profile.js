@@ -72,7 +72,8 @@ class Profile extends Component {
     });
   }
 
-  onClickFollow = () => {
+  onClickFollow = (e) => {
+    if (e && e.preventDefault) e.preventDefault();
     const isFollowing = this.props.following && !!find(this.props.following, (u) => (
       u.following === this.props.params.name
     ));
@@ -119,7 +120,17 @@ class Profile extends Component {
 
     return (
       <div>
-        <PageActions params={this.props.params} messages={!edit} edit={edit} />
+        <PageActions
+          params={this.props.params}
+          messages={!edit}
+          edit={edit}
+
+          followButton
+          isFollowingIsLoading={isFollowingIsLoading}
+          isFollowing={isFollowing}
+          onClickFollow={this.onClickFollow}
+        />
+
         <Header account={username} />
         <section
           className="align-center bg-green profile-header"
@@ -129,23 +140,6 @@ class Profile extends Component {
             position: 'relative',
           }}
         >
-          <div
-            style={{
-              position: 'absolute',
-              right: 15,
-              top: 15
-            }}
-          >
-            <button
-              className={classNames('btn btn-primary', {
-                disabled: isFollowingIsLoading,
-              })}
-              onClick={this.onClickFollow}
-            >
-              {isFollowing ? 'Unfollow' : 'Follow'}
-            </button>
-          </div>
-
           <div className="mvl">
             <div className="avatar avatar-xl">
               {_.has(account, 'name') && <div className="reputation">{formatter.reputation(account.reputation)}</div>}
