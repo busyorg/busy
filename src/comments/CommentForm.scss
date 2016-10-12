@@ -6,6 +6,11 @@
   bottom: -4px;
   left: 0;
   padding-top: 5px;
+  transition: bottom 0.7s cubic-bezier(0.18, 0.73, 0.47, 0.85);
+
+  &.disappear {
+    bottom: -100px;
+  }
 }
 
 .CommentForm__input {

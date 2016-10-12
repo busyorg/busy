@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import Textarea from 'react-textarea-autosize';
 import keycode from 'keycode';
 
@@ -12,6 +12,11 @@ export default class CommentForm extends Component {
     };
   }
 
+  static propTypes = {
+    open: PropTypes.bool.isRequired,
+    parentId: PropTypes.string
+  };
+
   handleChange = (e) => {
     this.setState({ comment: e.target.value });
   };
@@ -23,8 +28,10 @@ export default class CommentForm extends Component {
   }
 
   render() {
+    const { open, parentId } = this.props;
+
     return (
-      <div className={'CommentForm'}>
+      <div className={open? 'CommentForm': 'CommentForm disappear'}>
         <Textarea
           rows={1}
           autoFocus
