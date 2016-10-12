@@ -21,18 +21,17 @@ export default class Feed extends React.Component {
     this.setState({ activeComment: postId });
   };
 
+  handleFeedClick() {
+    this.setState({ activeComment: null });
+  }
+
   render() {
     const { content, isFetching, hasMore, ItemComponent } = this.props;
     const { activeComment } = this.state;
 
     return (
       <div className="grid">
-        <div className="grid-content">
-          <AddPost />
-          <CommentForm
-            open={activeComment !== null}
-            parentId={activeComment}
-          />
+        <div className="grid-content" onClick={() => this.handleFeedClick()}>
 
           <ReduxInfiniteScroll
             loadMore={this.props.loadMoreContent}
@@ -54,6 +53,12 @@ export default class Feed extends React.Component {
             }
           </ReduxInfiniteScroll>
         </div>
+
+        <AddPost />
+        <CommentForm
+          open={activeComment !== null}
+          parentId={activeComment}
+        />
       </div>
     );
   }
