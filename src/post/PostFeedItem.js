@@ -60,7 +60,10 @@ module.exports = React.createClass({
         </div>
         <div style={style} />
         <div className="cell cell-bottom">
-          <PostActionButtons post={post} />
+          <PostActionButtons
+            post={post}
+            onCommentRequest={this.props.onCommentRequest}
+          />
         </div>
         {this.props.replies != 'false' && post.children > 0 && <RepliesShort parent={post.author} parentPermlink={post.permlink} />}
       </div>

@@ -8,20 +8,31 @@ import CommentForm from './../comments/CommentForm';
 export default class Feed extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      activeComment: null
+    };
   }
 
   componentDidMount() {
     this.props.loadContent();
   }
 
+  handleCommentRequest(postId) {
+    this.setState({ activeComment: postId });
+  };
+
   render() {
     const { content, isFetching, hasMore, ItemComponent } = this.props;
+    const { activeComment } = this.state;
 
     return (
       <div className="grid">
         <div className="grid-content">
           <AddPost />
-          <CommentForm />
+          <CommentForm
+            open={activeComment !== null}
+            parentId={activeComment}
+          />
 
           <ReduxInfiniteScroll
             loadMore={this.props.loadMoreContent}
@@ -33,7 +44,12 @@ export default class Feed extends React.Component {
           >
             {
               content.map((entry, key) =>
-                <ItemComponent key={key} entry={entry} replies={this.props.replies} />
+                <ItemComponent
+                  key={key}
+                  entry={entry}
+                  replies={this.props.replies}
+                  onCommentRequest={e => this.handleCommentRequest(e)}
+                />
               )
             }
           </ReduxInfiniteScroll>
