@@ -31,15 +31,17 @@ export default class CommentForm extends Component {
     const { open, parentId } = this.props;
 
     return (
-      <div className={open? 'CommentForm': 'CommentForm disappear'}>
-        <Textarea
-          rows={1}
-          autoFocus
-          className={'CommentForm__input'}
-          onKeyDown={this.handleKey}
-          onChange={this.handleChange}
-          placeholder={'Write a comment...'}
-        />
+      <div className={open ? 'CommentForm' : 'CommentForm disappear'}>
+        { open &&
+          <Textarea
+            rows={1}
+            autoFocus
+            className={'CommentForm__input'}
+            onKeyDown={this.handleKey}
+            onChange={this.handleChange}
+            placeholder={'Write a comment...'}
+          />
+        }
       </div>
     );
   }
