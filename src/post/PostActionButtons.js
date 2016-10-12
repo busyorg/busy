@@ -30,6 +30,12 @@ const Actions = React.createClass({
   init() {
 
   },
+
+  handleCommentBoxClick(e) {
+    e.stopPropagation();
+    this.props.onCommentRequest(this.props.post.id);
+  },
+
   render() {
     const voter = (this.props.auth.isAuthenticated) ? this.props.auth.user.name : '';
     const post = this.props.post;
@@ -38,7 +44,7 @@ const Actions = React.createClass({
         <li><a onClick={() => this.vote(voter, post.author, post.permlink, 10000)} className={this.state.voted ? 'active' : ''}><i className="icon icon-sm material-icons">thumb_up</i></a> {numeral(post.net_votes).format('0,0')}<span className="hidden-xs"> Likes</span></li>
         <li><span className="hidden-xs"><i className="icon icon-sm material-icons">attach_money</i> </span>{numeral(payout).format('$0,0.00')}</li>
         <li>
-          <a onClick={() => this.props.onCommentRequest(post.id)}>
+          <a onClick={e => this.handleCommentBoxClick(e)}>
             <i className="icon icon-sm material-icons">comment</i>
           </a>
           { ' ' }
