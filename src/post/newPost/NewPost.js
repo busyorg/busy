@@ -60,14 +60,16 @@ export function RawNewPost({createPost, user}) {
             value={author || ''}
           />
 
-          <div>
-            <Link to="/">
-              Cancel
-            </Link>
+          <div className="form-group">
+            <div className="btn-group">
+              <Link to="/" className="btn btn-default btn-lg">
+                Cancel
+              </Link>
 
-            <button type="submit" className="btn btn-primary btn-lg">
-              Post
-            </button>
+              <button type="submit" className="btn btn-primary btn-lg">
+                Post
+              </button>
+            </div>
           </div>
         </form>
       </div>
