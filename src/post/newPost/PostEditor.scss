@@ -1,0 +1,104 @@
+.PostEditor {
+  $font-primary: 'Karla', sans-serif;
+
+  background: #fff;
+  font-size: 14px;
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: $font-primary;
+    margin-bottom: 0;
+  }
+
+  h1 {
+    font-size: 4em;
+  }
+
+  h2 {
+    font-size: 3em;
+  }
+
+  h3 {
+    font-size: 2.5em;
+  }
+
+
+  h4 {
+    font-size: 2em;
+  }
+
+  pre {
+    margin-bottom: 0;
+  }
+
+  ul {
+    padding-left: 20px;
+
+    li {
+      list-style: initial;
+    }
+  }
+
+  ol {
+    padding-left: 20px;
+
+    li {
+      list-style: initial;
+      list-style-type: decimal;
+    }
+  }
+
+  blockquote {
+    font-family: $font-primary;
+  }
+
+  .PostEditor__blockquote {
+    border-left: 5px solid #eee;
+    color: #666;
+    font-style: italic;
+    margin: 16px 0;
+    padding: 10px 20px;
+  }
+
+  .PostEditor__editor {
+    cursor: text;
+    font-size: 16px;
+    margin-top: 10px;
+  }
+
+  .PostEditor__editor .public-DraftEditorPlaceholder-root,
+  .PostEditor__editor .public-DraftEditor-content {
+    margin: 0 -15px -15px;
+    padding: 15px;
+  }
+
+  .PostEditor__editor .public-DraftEditor-content {
+    min-height: 100px;
+  }
+
+  .PostEditor__hidePlaceholder .public-DraftEditorPlaceholder-root {
+    display: none;
+  }
+
+  .PostEditor__editor .public-DraftStyleDefault-pre {
+    background-color: rgba(0, 0, 0, 0.05);
+    font-size: 16px;
+    padding: 20px;
+  }
+
+  .PostEditor__controls {
+    font-size: 14px;
+    user-select: none;
+  }
+
+  .PostEditor__styleButton {
+    color: #999;
+    cursor: pointer;
+    margin-right: 16px;
+    padding: 2px 0;
+    display: inline-block;
+  }
+
+  .PostEditor__activeButton {
+    color: #5890ff;
+  }
+}
