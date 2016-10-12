@@ -1,4 +1,7 @@
-public/js/app.js
+public/js/*.ttf
+public/js/*.woff
+public/js/*.woff2
+public/js/*.eot
 public/js/app.min.js
 public/js/statistics.html
 public/js/app.min.js.map
