@@ -1,9 +1,12 @@
 import * as actionTypes from './authActionTypes';
+import * as actions from './authActions';
 
 const initialState = {
   isAuthenticated: false,
   user: {},
-  following: []
+
+  following: [],
+  followingIsLoading: true,
 };
 
 export default (state = initialState, action) => {
@@ -32,6 +35,23 @@ export default (state = initialState, action) => {
         isFetching: true,
         isAuthenticated: false
       });
+
+    case actions.GET_FOLLOWING_START:
+      return Object.assign({}, state, {
+        followingIsLoading: true,
+      });
+
+    case actions.GET_FOLLOWING_ERROR:
+      return Object.assign({}, state, {
+        followingIsLoading: false,
+      });
+
+    case actions.GET_FOLLOWING_SUCCESS:
+      return Object.assign({}, state, {
+        following: action.payload,
+        followingIsLoading: false,
+      });
+
     default:
       return state;
   }

@@ -150,7 +150,7 @@ class Sidebar extends Component {
               <div className="log">
                 {this.props.auth.isFetching ?
                   <Loading color="white" /> :
-                  <a href="https://steemconnect.com/authorize/@busy"><i className="icon icon-lg material-icons pam">lock_outline</i></a>}
+                  <a href="https://dev.steemconnect.com/authorize/@busy.app?redirect_url=https://dev.bus.yt/"><i className="icon icon-lg material-icons pam">lock_outline</i></a>}
               </div>}
           </div>
         </div>
