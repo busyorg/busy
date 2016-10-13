@@ -150,7 +150,7 @@ class Sidebar extends Component {
               <div className="log">
                 {this.props.auth.isFetching ?
                   <Loading color="white" /> :
-                  <a href="https://dev.steemconnect.com/authorize/@busy.app?redirect_url=https://dev.bus.yt/"><i className="icon icon-lg material-icons pam">lock_outline</i></a>}
+                  <a href={`${process.env.STEEMCONNECT_HOST}/authorize/@busy.app?redirect_url=https://dev.bus.yt/`}><i className="icon icon-lg material-icons pam">lock_outline</i></a>}
               </div>}
           </div>
         </div>
@@ -175,7 +175,7 @@ class Sidebar extends Component {
                 <Link to="/about"><i className="icon icon-md material-icons">info_outline</i> About</Link>
               </li>
               <li className="title">
-                <a href="https://steemconnect.com/logout"><i className="icon icon-md material-icons">lock_open</i> Log Out</a>
+                <a href={`${process.env.STEEMCONNECT_HOST}/logout`}><i className="icon icon-md material-icons">lock_open</i> Log Out</a>
               </li>
             </ul>}
 
