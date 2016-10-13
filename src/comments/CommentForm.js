@@ -1,9 +1,20 @@
 import React, { Component, PropTypes } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as commentActions from './commentsActions';
 import Textarea from 'react-textarea-autosize';
 import keycode from 'keycode';
 
 import './CommentForm.scss';
 
+@connect(
+  state => ({
+    comments: state.comments
+  }),
+  (dispatch) => ({
+    sendComment: bindActionCreators(commentActions.sendComment, dispatch)
+  })
+)
 export default class CommentForm extends Component {
   constructor(props) {
     super(props);
@@ -23,7 +34,8 @@ export default class CommentForm extends Component {
 
   handleKey(e) {
     if(keycode(e) === 'enter' && !e.shiftKey) {
-      // submit
+      const { sendComment, parentId } = this.props;
+      sendComment(parentId, e.target.value);
     }
   }
 
@@ -34,7 +46,7 @@ export default class CommentForm extends Component {
   }
 
   render() {
-    const { open, parentId } = this.props;
+    const { open } = this.props;
 
     return (
       <div className={open ? 'CommentForm' : 'CommentForm disappear'}>
@@ -42,7 +54,7 @@ export default class CommentForm extends Component {
           rows={1}
           ref={(c) => { this._input = c; }}
           className={'CommentForm__input'}
-          onKeyDown={this.handleKey}
+          onKeyDown={(e) => this.handleKey(e)}
           onChange={this.handleChange}
           placeholder={'Write a comment...'}
         />
