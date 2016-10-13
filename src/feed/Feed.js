@@ -9,7 +9,7 @@ export default class Feed extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeComment: null
+      activeComment: {}
     };
   }
 
@@ -39,16 +39,16 @@ export default class Feed extends React.Component {
      * disable comment box on scroll and remove listener to avoid re-execution of function
      */
     this.removeListener();
-    this.setState({ activeComment: null });
+    this.setState({ activeComment: {} });
   };
 
-  handleCommentRequest(postId) {
-    this.setState({ activeComment: postId });
+  handleCommentRequest(e) {
+    this.setState({ activeComment: e });
     this.initializeListener();
   }
 
   handleFeedClick() {
-    this.setState({ activeComment: null });
+    this.setState({ activeComment: {} });
   }
 
   render() {
@@ -82,8 +82,11 @@ export default class Feed extends React.Component {
 
         <AddPost />
         <CommentForm
-          open={activeComment !== null}
-          parentId={activeComment}
+          open={Object.keys(activeComment).length !== 0}
+          parentAuthor={activeComment.parentAuthor}
+          parentPermlink={activeComment.parentPermlink}
+          author={activeComment.author}
+          permlink={activeComment.permlink}
         />
       </div>
     );
