@@ -1,7 +1,13 @@
 import * as commentsTypes from './commentsActionTypes';
 import * as userProfileTypes from './../user/userProfileActionTypes';
 
-const comments = (state = {}, action) => {
+const initialState = {
+  lists: [],
+  comments: {},
+  drafts: {},
+};
+
+const commentsData = (state = {}, action) => {
   switch (action.type) {
     case commentsTypes.GET_COMMENTS_SUCCESS:
       return {
@@ -27,6 +33,20 @@ const comments = (state = {}, action) => {
       return {
         ...state,
         ...commentsMoreList,
+      };
+    default:
+      return state;
+  }
+};
+
+const comments = (state = initialState, action) => {
+  switch (action.type) {
+    case commentsTypes.GET_COMMENTS_SUCCESS:
+    case userProfileTypes.GET_USER_COMMENTS_SUCCESS:
+    case userProfileTypes.GET_MORE_USER_COMMENTS_SUCCESS:
+      return {
+        ...state,
+        comments: commentsData(state.comments, action)
       };
     default:
       return state;
