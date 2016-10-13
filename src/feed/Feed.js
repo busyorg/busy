@@ -85,8 +85,7 @@ export default class Feed extends React.Component {
           open={Object.keys(activeComment).length !== 0}
           parentAuthor={activeComment.parentAuthor}
           parentPermlink={activeComment.parentPermlink}
-          author={activeComment.author}
-          permlink={activeComment.permlink}
+          category={activeComment.category}
         />
       </div>
     );

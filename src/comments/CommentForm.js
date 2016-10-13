@@ -27,8 +27,7 @@ export default class CommentForm extends Component {
     open: PropTypes.bool.isRequired,
     parentPermlink: PropTypes.string,
     parentAuthor: PropTypes.string,
-    author: PropTypes.string,
-    permlink: PropTypes.string,
+    category: PropTypes.string,
   };
 
   handleChange = (e) => {
@@ -37,8 +36,8 @@ export default class CommentForm extends Component {
 
   handleKey(e) {
     if(keycode(e) === 'enter' && !e.shiftKey) {
-      const { sendComment, parentAuthor, parentPermlink, author, permlink } = this.props;
-      sendComment(parentAuthor, parentPermlink, author, permlink, e.target.value);
+      const { sendComment, parentAuthor, parentPermlink, category } = this.props;
+      sendComment(category, parentAuthor, parentPermlink, e.target.value);
     }
   }
 

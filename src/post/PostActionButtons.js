@@ -33,12 +33,11 @@ const Actions = React.createClass({
 
   handleCommentBoxClick(e) {
     e.stopPropagation();
-    const { parent_author, parent_permlink, author, permlink } = this.props.post;
+    const { category, author, permlink } = this.props.post;
     this.props.onCommentRequest({
-      parentAuthor: parent_author,
-      parentPermlink: parent_permlink,
-      author,
-      permlink,
+      parentAuthor: author,
+      parentPermlink: permlink,
+      category,
     });
   },
 
