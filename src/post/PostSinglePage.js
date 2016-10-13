@@ -1,15 +1,15 @@
-let React = require('react'),
-  _ = require('lodash'),
-  api = require('./../steemAPI'),
-  moment = require('moment'),
-  PageActions = require('./../app/PageActions'),
-  Header = require('./../app/header'),
-  Loading = require('./../widgets/Loading'),
-  Body = require('./body'),
-  Replies = require('./replies'),
-  Link = require('react-router').Link;
+import React from 'react';
+import _ from 'lodash';
+import moment from 'moment';
+import { Link } from 'react-router';
+import api from './../steemAPI';
+import Header from './../app/header';
+import Loading from './../widgets/Loading';
+import Body from './body';
+import Replies from './replies';
+import PageActions from './../app/PageActions';
 
-module.exports = React.createClass({
+export default React.createClass({
   componentWillMount() {
     this.setState({ content: {} });
     api.getContent(this.props.params.author, this.props.params.permlink, (err, content) => {
