@@ -2,6 +2,7 @@ import Promise from 'bluebird';
 import { createAction } from 'redux-actions';
 import SteemConnect from 'steemconnect';
 import * as actionTypes from './commentsActionTypes';
+import { createCommentPermlink } from './../helpers/steemitHelpers';
 
 SteemConnect.comment = Promise.promisify(SteemConnect.comment, { context: SteemConnect });
 
@@ -25,8 +26,19 @@ export const getComments = (postId) => {
   };
 };
 
-export const sendComment = (parentAuthor, parentPermlink, author, permlink, commentBody) => {
+export const sendComment = (category, parentAuthor, parentPermlink, commentBody) => {
   return (dispatch, getState) => {
+    const { auth } = getState();
+
+    if(!auth.isAuthenticated) {
+      // dispatch error
+      return;
+    }
+
+    const author = auth.user.name;
+    const permlink = createCommentPermlink(parentAuthor, parentPermlink);
+    const jsonMetadata = `{"tags": ["${category}"]}`;
+
     const optimisticData = {
       author,
       permlink,
@@ -43,10 +55,11 @@ export const sendComment = (parentAuthor, parentPermlink, author, permlink, comm
           permlink,
           '',
           commentBody,
-          {}
+          jsonMetadata
         ),
         data: optimisticData,
       }
     });
+
   };
 };
