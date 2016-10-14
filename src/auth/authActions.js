@@ -117,17 +117,23 @@ export const login = () => {
     dispatch(requestLogin());
 
     steemConnect.isAuthenticated((err, result) => {
-      if (result.isAuthenticated) {
-        dispatch(getFollowing({
-          follower: result.username,
-        }));
-
-        api.getAccounts([result.username], (err, users) => {
-          dispatch(loginSuccess(users[0]));
-        });
-      } else {
+      if (err || !result || !result.isAuthenticated) {
         dispatch(loginFail());
+        return;
       }
+
+      dispatch(getFollowing({
+        follower: result.username,
+      }));
+
+      api.getAccounts([result.username], (err, users) => { // eslint-disable-line no-shadow
+        if (err || !users || !users[0]) {
+          dispatch(loginFail());
+          return;
+        }
+
+        dispatch(loginSuccess(users[0]));
+      });
     });
   };
 };
