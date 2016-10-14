@@ -29,6 +29,14 @@ class PostSinglePage extends React.Component {
     });
   }
 
+  hasReblog() {
+    const { content } = this.state;
+    if (!content) return false;
+    const { isAuthenticated, user } = this.props.auth;
+    if (!isAuthenticated || !user) return false;
+    return content.author !== user.name;
+  }
+
   onClickReblog = (e) => {
     if (e && e.preventDefault) e.preventDefault();
     const { content } = this.state;
@@ -100,7 +108,7 @@ class PostSinglePage extends React.Component {
         <PageActions
           params={this.props.params}
           likes
-          reblog={this.props.auth.isAuthenticated}
+          reblog={this.hasReblog()}
           replies
           messages
           onClickReblog={this.onClickReblog}
