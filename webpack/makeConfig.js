@@ -23,7 +23,14 @@ function makePlugins(options) {
           : JSON.stringify('production'),
         ENABLE_LOGGER: JSON.stringify(process.env.ENABLE_LOGGER),
         BUSYWS_HOST: JSON.stringify(process.env.BUSYWS_HOST || 'https://ws.busy6.com'),
-        STEEMCONNECT_HOST: JSON.stringify(process.env.STEEMCONNECT_HOST || 'https://dev.steemconnect.com'),
+        STEEMCONNECT_HOST: JSON.stringify(
+          process.env.STEEMCONNECT_HOST ||
+            'https://dev.steemconnect.com'
+        ),
+        STEEMCONNECT_API_HOST: JSON.stringify(
+          process.env.STEEMCONNECT_API_HOST ||
+            'https://dev.steemconnect.com/api'
+        ),
         IS_BROWSER: JSON.stringify(true),
       },
     }),

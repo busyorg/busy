@@ -149,7 +149,7 @@ function createPost(body) {
   return () => ({
     type: CREATE_POST,
     payload: {
-      promise: request.get(`${process.env.STEEMCONNECT_HOST}/comment`)
+      promise: request.get(`${process.env.STEEMCONNECT_API_HOST}/comment`)
         .query(body)
         .withCredentials()
         .endAsync()
