@@ -30,8 +30,8 @@ export default class PageActions extends Component {
         })}
         onClick={onClickFollow}
       >
-        <i className="icon icon-person-add material-icons">
-          {isFollowing ? 'person outline' : 'person_add'}
+        <i className="icon material-icons">
+          {isFollowing ? 'person_outline' : 'person_add'}
         </i>
       </a>
     );

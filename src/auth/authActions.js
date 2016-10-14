@@ -44,20 +44,11 @@ export function followUser(username) {
   return (dispatch, getState) => dispatch({
     type: FOLLOW_USER,
     payload: {
-      promise: request.get(`${process.env.STEEMCONNECT_API_HOST}/customJson`)
+      promise: request.get(`${process.env.STEEMCONNECT_API_HOST}/follow`)
         .withCredentials()
         .query({
-          json: JSON.stringify([
-            'follow',
-            {
-              follower: getState().auth.user.name,
-              following: username,
-            },
-          ]),
-          requiredAuths: [],
-          requiredPostingAuths: [
-            getState().auth.user.name,
-          ],
+          follower: getState().auth.user.name,
+          following: username,
         })
         .endAsync(),
     }
@@ -73,20 +64,11 @@ export function unfollowUser(username) {
   return (dispatch, getState) => dispatch({
     type: UNFOLLOW_USER,
     payload: {
-      promise: request.get(`${process.env.STEEMCONNECT_API_HOST}/customJson`)
+      promise: request.get(`${process.env.STEEMCONNECT_API_HOST}/unfollow`)
         .withCredentials()
         .query({
-          json: JSON.stringify([
-            'unfollow',
-            {
-              unfollower: getState().auth.user.name,
-              unfollowing: username,
-            },
-          ]),
-          requiredAuths: [],
-          requiredPostingAuths: [
-            getState().auth.user.name,
-          ],
+          unfollower: getState().auth.user.name,
+          unfollowing: username,
         })
         .endAsync(),
     }
