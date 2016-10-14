@@ -57,7 +57,8 @@ class PostSinglePage extends React.Component {
           style={{
             overflow: 'hidden',
             height: '40px',
-            lineHeight: '40px'
+            lineHeight: '40px',
+            marginTop: '15px',
           }}
         >
           <Link to={'/@' + content.author}>
