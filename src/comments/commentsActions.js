@@ -26,9 +26,9 @@ export const getComments = (postId) => {
   };
 };
 
-export const sendComment = (category, parentAuthor, parentPermlink, commentBody) => {
+export const sendComment = () => {
   return (dispatch, getState) => {
-    const { auth } = getState();
+    const { auth, comments } = getState();
 
     if(!auth.isAuthenticated) {
       // dispatch error
@@ -36,13 +36,16 @@ export const sendComment = (category, parentAuthor, parentPermlink, commentBody)
     }
 
     const author = auth.user.name;
+    const id = comments.currentDraftId;
+    const { parentAuthor, parentPermlink, category, body } = comments.commentingDraft[id];
+
     const permlink = createCommentPermlink(parentAuthor, parentPermlink);
     const jsonMetadata = `{"tags": ["${category}"]}`;
 
     const optimisticData = {
       author,
       permlink,
-      commentBody
+      body
     };
 
     dispatch({
@@ -54,7 +57,7 @@ export const sendComment = (category, parentAuthor, parentPermlink, commentBody)
           author,
           permlink,
           '',
-          commentBody,
+          body,
           jsonMetadata
         ),
         data: optimisticData,
@@ -63,3 +66,7 @@ export const sendComment = (category, parentAuthor, parentPermlink, commentBody)
 
   };
 };
+
+export const openCommentingDraft = createAction(actionTypes.OPEN_COMMENTING_DRAFT);
+export const updateCommentingDraft = createAction(actionTypes.UPDATE_COMMENTING_DRAFT);
+export const closeCommentingDraft = createAction(actionTypes.CLOSE_COMMENTING_DRAFT);

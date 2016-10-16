@@ -2,9 +2,18 @@ import * as commentsTypes from './commentsActionTypes';
 import * as userProfileTypes from './../user/userProfileActionTypes';
 
 const initialState = {
-  lists: [],
+  lists: {},
   comments: {},
-  drafts: {},
+  commentingDraft: {},
+  isCommenting: false,
+  currentDraftId: null,
+};
+
+const initialCommentingDraftItem = {
+  parentAuthor: null,
+  parentPermlink: null,
+  category: null,
+  body: null,
 };
 
 const commentsData = (state = {}, action) => {
@@ -39,6 +48,40 @@ const commentsData = (state = {}, action) => {
   }
 };
 
+const commentingDraftItem = (state = initialCommentingDraftItem, action) => {
+  switch (action.type) {
+    case commentsTypes.OPEN_COMMENTING_DRAFT:
+      const { parentAuthor, parentPermlink, category } = action.payload;
+      return {
+        ...state,
+        parentAuthor,
+        parentPermlink,
+        category,
+      };
+    case commentsTypes.UPDATE_COMMENTING_DRAFT:
+      return {
+        ...state,
+        body: action.payload.body,
+      };
+    default:
+      return state;
+  }
+};
+
+const commentingDraft = (state = {}, action) => {
+  switch (action.type) {
+    case commentsTypes.OPEN_COMMENTING_DRAFT:
+    case commentsTypes.UPDATE_COMMENTING_DRAFT:
+      const { id } = action.payload;
+      return {
+        ...state,
+        [id]: commentingDraftItem(state[id], action),
+      };
+    default:
+      return state;
+  }
+};
+
 const comments = (state = initialState, action) => {
   switch (action.type) {
     case commentsTypes.GET_COMMENTS_SUCCESS:
@@ -47,6 +90,21 @@ const comments = (state = initialState, action) => {
       return {
         ...state,
         comments: commentsData(state.comments, action)
+      };
+    case commentsTypes.OPEN_COMMENTING_DRAFT:
+    case commentsTypes.UPDATE_COMMENTING_DRAFT:
+      return {
+        ...state,
+        commentingDraft: commentingDraft(state.commentingDraft, action),
+        isCommenting: true,
+        currentDraftId: action.payload.id,
+      };
+    case commentsTypes.CLOSE_COMMENTING_DRAFT:
+      return {
+        ...state,
+        commentingDraft: commentingDraft(state.commentingDraft, action),
+        isCommenting: false,
+        currentDraftId: null,
       };
     default:
       return state;

@@ -9,35 +9,28 @@ import './CommentForm.scss';
 
 @connect(
   state => ({
-    comments: state.comments
+    comments: state.comments,
   }),
-  (dispatch) => ({
-    sendComment: bindActionCreators(commentActions.sendComment, dispatch)
-  })
+  (dispatch) => bindActionCreators({
+    sendComment: commentActions.sendComment,
+    updateCommentingDraft: commentActions.updateCommentingDraft,
+  }, dispatch)
 )
 export default class CommentForm extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      comment: ''
-    };
   }
 
-  static propTypes = {
-    open: PropTypes.bool.isRequired,
-    parentPermlink: PropTypes.string,
-    parentAuthor: PropTypes.string,
-    category: PropTypes.string,
-  };
-
   handleChange = (e) => {
-    this.setState({ comment: e.target.value });
+    this.props.updateCommentingDraft({
+      id: this.props.comments.currentDraftId,
+      body: e.target.value,
+    });
   };
 
   handleKey(e) {
     if(keycode(e) === 'enter' && !e.shiftKey) {
-      const { sendComment, parentAuthor, parentPermlink, category } = this.props;
-      sendComment(category, parentAuthor, parentPermlink, e.target.value);
+      this.props.sendComment();
     }
   }
 
@@ -48,10 +41,10 @@ export default class CommentForm extends Component {
   }
 
   render() {
-    const { open } = this.props;
+    const { comments } = this.props;
 
     return (
-      <div className={open ? 'CommentForm' : 'CommentForm disappear'}>
+      <div className={comments.isCommenting ? 'CommentForm' : 'CommentForm disappear'}>
         <Textarea
           rows={1}
           ref={(c) => { this._input = c; }}

@@ -8,9 +8,6 @@ import CommentForm from './../comments/CommentForm';
 export default class Feed extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      activeComment: {}
-    };
   }
 
   componentDidMount() {
@@ -39,21 +36,20 @@ export default class Feed extends React.Component {
      * disable comment box on scroll and remove listener to avoid re-execution of function
      */
     this.removeListener();
-    this.setState({ activeComment: {} });
+    this.props.closeCommentingDraft();
   };
 
-  handleCommentRequest(e) {
-    this.setState({ activeComment: e });
+  handleCommentRequest(draftProps) {
+    this.props.openCommentingDraft(draftProps);
     this.initializeListener();
   }
 
   handleFeedClick() {
-    this.setState({ activeComment: {} });
+    this.props.closeCommentingDraft();
   }
 
   render() {
     const { content, isFetching, hasMore, ItemComponent } = this.props;
-    const { activeComment } = this.state;
 
     return (
       <div className="grid">
@@ -81,12 +77,7 @@ export default class Feed extends React.Component {
         </div>
 
         <AddPost />
-        <CommentForm
-          open={Object.keys(activeComment).length !== 0}
-          parentAuthor={activeComment.parentAuthor}
-          parentPermlink={activeComment.parentPermlink}
-          category={activeComment.category}
-        />
+        <CommentForm />
       </div>
     );
   }

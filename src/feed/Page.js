@@ -17,6 +17,7 @@ import {
   getUserFeedContentFromState,
   getUserFeedLoadingFromState,
 } from './../helpers/stateHelpers';
+import * as commentsActions from './../comments/commentsActions';
 
 
 @PageHOC
@@ -40,6 +41,8 @@ import {
       getMoreUserFeedContent: () => dispatch(
         getMoreUserFeedContent({ username: auth.user.name, limit })
       ),
+      openCommentingDraft: bindActionCreators(commentsActions.openCommentingDraft, dispatch),
+      closeCommentingDraft: bindActionCreators(commentsActions.closeCommentingDraft, dispatch),
     };
   }
 )
@@ -49,7 +52,8 @@ export default class Page extends React.Component {
   }
 
   render() {
-    const { account, category, sortBy, path, auth, feed, posts, limit } = this.props;
+    const { account, category, sortBy, path, auth, feed, posts } = this.props;
+    const { openCommentingDraft, closeCommentingDraft } = this.props;
 
     let content, isFetching, hasMore, loadContentAction, loadMoreContentAction;
 
@@ -85,6 +89,8 @@ export default class Page extends React.Component {
             hasMore={hasMore}
             loadContent={loadContentAction}
             loadMoreContent={loadMoreContentAction}
+            openCommentingDraft={openCommentingDraft}
+            closeCommentingDraft={closeCommentingDraft}
           />}
       </div>
     );
