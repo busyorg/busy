@@ -6,7 +6,7 @@ let React = require('react'),
 module.exports = React.createClass({
   render() {
     return (
-      <div className="main-panel">
+      <div>
         <Header account={this.props.name} />
         <div className="container"><Followers username={this.props.params.name} /></div>
       </div>
