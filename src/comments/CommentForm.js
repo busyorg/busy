@@ -35,7 +35,7 @@ export default class CommentForm extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if(prevProps.open !== this.props.open) {
+    if(prevProps.comments.isCommenting !== this.props.comments.isCommenting) {
       this._input.focus();
     }
   }
