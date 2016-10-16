@@ -10,22 +10,15 @@ class Message extends Component {
     const humanSentAt = moment(sentAt).format('hh:mm');
 
     return (
-      <li
-        className="Message message"
-      >
+      <li className="Message message">
         <div className="media">
           <div className="container">
             <div className="media-left">
-              <img
-                className="media-object"
-                alt=""
-                style={{ maxWidth: 'none', width: '50px' }}
-                src={`https://img.busy6.com/@${model[0].senderUsername}`}
-              />
+              <div className="avatar avatar-sm">
+                <img src={`https://img.busy6.com/@${model[0].senderUsername}`} />
+              </div>
             </div>
-
             <div className="media-body">
-
               <div className="media-heading">
                 <b>@{senderUsername}</b>
                 <span
@@ -39,11 +32,9 @@ class Message extends Component {
                   {humanSentAt}
                 </span>
               </div>
-
               <p>
                 {model[0].text}
               </p>
-
             </div>
           </div>
         </div>
@@ -52,9 +43,7 @@ class Message extends Component {
           model.slice(1).map(({ text }, i) => (
             <div className="media" key={i}>
               <div className="container">
-                <div
-                  className="media-left"
-                >
+                <div className="media-left">
                   <div
                     className="Message__timestamp"
                     style={{
@@ -66,11 +55,8 @@ class Message extends Component {
                     {moment(sentAt).format('hh:mm')}
                   </div>
                 </div>
-
                 <div className="media-body">
-                  <p>
-                    {text}
-                  </p>
+                  <p>{text}</p>
                 </div>
               </div>
             </div>
