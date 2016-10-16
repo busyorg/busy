@@ -1,7 +1,6 @@
-let React = require('react'),
-  _ = require('lodash'),
-  Header = require('./../app/header'),
-  Followers = require('./followers');
+import React from 'react';
+import Header from './../app/header';
+import Followers from './followers';
 
 module.exports = React.createClass({
   render() {
