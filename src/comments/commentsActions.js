@@ -10,6 +10,11 @@ export const getCommentsWithoutAPICall = createAction(actionTypes.GET_COMMENTS);
 export const getCommentsSuccess = createAction(actionTypes.GET_COMMENTS_SUCCESS);
 export const getCommentsFail = createAction(actionTypes.GET_COMMENTS_FAIL);
 
+export const openCommentingDraft = createAction(actionTypes.OPEN_COMMENTING_DRAFT);
+export const updateCommentingDraft = createAction(actionTypes.UPDATE_COMMENTING_DRAFT);
+export const closeCommentingDraft = createAction(actionTypes.CLOSE_COMMENTING_DRAFT);
+
+
 export const getComments = (postId) => {
   return (dispatch, getState) => {
     dispatch(getCommentsWithoutAPICall({ postId }));
@@ -63,10 +68,8 @@ export const sendComment = () => {
         data: optimisticData,
       }
     });
+    dispatch(closeCommentingDraft());
 
   };
 };
 
-export const openCommentingDraft = createAction(actionTypes.OPEN_COMMENTING_DRAFT);
-export const updateCommentingDraft = createAction(actionTypes.UPDATE_COMMENTING_DRAFT);
-export const closeCommentingDraft = createAction(actionTypes.CLOSE_COMMENTING_DRAFT);
