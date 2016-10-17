@@ -6,28 +6,26 @@ import { createCommentPermlink } from './../helpers/steemitHelpers';
 
 SteemConnect.comment = Promise.promisify(SteemConnect.comment, { context: SteemConnect });
 
-export const getCommentsWithoutAPICall = createAction(actionTypes.GET_COMMENTS);
-export const getCommentsSuccess = createAction(actionTypes.GET_COMMENTS_SUCCESS);
-export const getCommentsFail = createAction(actionTypes.GET_COMMENTS_FAIL);
-
 export const openCommentingDraft = createAction(actionTypes.OPEN_COMMENTING_DRAFT);
 export const updateCommentingDraft = createAction(actionTypes.UPDATE_COMMENTING_DRAFT);
 export const closeCommentingDraft = createAction(actionTypes.CLOSE_COMMENTING_DRAFT);
 
 
 export const getComments = (postId) => {
-  return (dispatch, getState) => {
-    dispatch(getCommentsWithoutAPICall({ postId }));
-    // TODO(p0o): get author and permLink from state
-    // TODO(p0o): call the api to get the commentsData
-    const commentsData = [];
+  return (dispatch, getState, { steemAPI }) => {
+    const { posts } = getState();
 
-    dispatch(
-      getCommentsSuccess({
-        postId,
-        commentsData
-      })
-    );
+    const { author, permlink } = posts[postId];
+
+    dispatch({
+      type: actionTypes.GET_COMMENTS,
+      payload: {
+        promise: steemAPI.getContentReplies(author, permlink)
+      },
+      meta: {
+        id: postId,
+      },
+    });
   };
 };
 
