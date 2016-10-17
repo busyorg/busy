@@ -1,4 +1,6 @@
 import Promise from 'bluebird';
+import fetch from 'isomorphic-fetch';
+
 import * as actionTypes from './userProfileActionTypes';
 
 export const getUserComments = (username) => {
@@ -48,3 +50,50 @@ export const getMoreUserComments = (username, limit) => {
   };
 };
 
+/*!
+ * busy-img actions
+ */
+
+// TODO - Move this to an environment variable
+const BUSY_IMG_HOST = 'https://img.busy6.com';
+
+export const UPLOAD_FILE = 'UPLOAD_FILE';
+export const UPLOAD_FILE_START = 'UPLOAD_FILE_START';
+export const UPLOAD_FILE_SUCCESS = 'UPLOAD_FILE_SUCCESS';
+export const UPLOAD_FILE_ERROR = 'UPLOAD_FILE_ERROR';
+
+export function uploadFile({ username, file, fileInput }) {
+  const formData = new FormData();
+
+  if (file) {
+    formData.append('file', file);
+  } else if (fileInput) {
+    formData.append('file', fileInput.files[0]);
+  }
+
+  return (dispatch) => dispatch({
+    type: UPLOAD_FILE,
+    payload: {
+      promise: fetch(`${BUSY_IMG_HOST}/@${username}/uploads`, {
+        method: 'post',
+        body: formData,
+        origin: true,
+      }).then(res => res.json()),
+    }
+  });
+}
+
+export const FETCH_FILES = 'FETCH_FILES';
+export const FETCH_FILES_START = 'FETCH_FILES_START';
+export const FETCH_FILES_SUCCESS = 'FETCH_FILES_SUCCESS';
+export const FETCH_FILES_ERROR = 'FETCH_FILES_ERROR';
+
+export function fetchFiles({ username }) {
+  return (dispatch) => dispatch({
+    type: FETCH_FILES,
+    payload: {
+      promise: fetch(`${BUSY_IMG_HOST}/@${username}/uploads`)
+        .then(res => res.json()),
+    },
+  });
+}
