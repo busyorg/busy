@@ -1,10 +1,12 @@
 // Forked from https://github.com/rajaraodv/draftjs-examples
 import React, { Component } from 'react';
-import { Editor, EditorState, RichUtils, convertToRaw, convertFromRaw } from 'draft-js';
 import exportMarkdown from 'draft-js-export-markdown/lib/stateToMarkdown';
+import { Editor, EditorState, RichUtils, convertToRaw, convertFromRaw } from 'draft-js';
+import { connect } from 'react-redux';
 
 import './NewPost.scss';
 import './PostEditor.scss';
+import { uploadFile } from '../../user/userProfileActions';
 
 // Custom overrides for "code" style.
 const styleMap = {
@@ -85,7 +87,7 @@ const BLOCK_TYPES = [
   },
 ];
 
-export default class PostEditor extends Component {
+class PostEditor extends Component {
   constructor(props) {
     super(props);
     const editorState = process.env.NODE_ENV === 'production'
@@ -150,6 +152,13 @@ export default class PostEditor extends Component {
     );
   }
 
+  uploadFile = (e) => {
+    e.preventDefault();
+    const fileInput = this.refs.file;
+    const username = this.props.user.name;
+    this.props.uploadFile({ username, fileInput });
+  };
+
   render() {
     const {
       editorState,
@@ -161,6 +170,17 @@ export default class PostEditor extends Component {
 
     return (
       <div className="PostEditor">
+        <div>
+          <input
+            ref="file"
+            name="file"
+            type="file"
+          />
+          <button onClick={this.uploadFile}>
+            Submit
+          </button>
+        </div>
+
         <div className="NewPost__control-group">
           <BlockStyleControls
             editorState={editorState}
@@ -187,6 +207,14 @@ export default class PostEditor extends Component {
     );
   }
 }
+
+PostEditor = connect((state) => ({
+  files: state.userProfile.files,
+}), {
+  uploadFile,
+})(PostEditor);
+
+export default PostEditor;
 
 class StyleButton extends React.Component {
   onToggle = (e) => {

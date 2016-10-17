@@ -73,6 +73,7 @@ export class RawNewPost extends Component {
               <fieldset className="form-group">
                 <label htmlFor="body">Body</label>
                 <PostEditor
+                  user={this.props.user}
                   required
                   ref="editor"
                 />
