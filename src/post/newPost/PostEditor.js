@@ -2,8 +2,9 @@
 import newDebug from 'debug';
 import React, { Component } from 'react';
 import exportMarkdown from 'draft-js-export-markdown/lib/stateToMarkdown';
-import { Editor, EditorState, RichUtils, convertToRaw, convertFromRaw } from 'draft-js';
+import { DefaultDraftBlockRenderMap, Editor, EditorState, RichUtils, convertToRaw, convertFromRaw } from 'draft-js';
 import { connect } from 'react-redux';
+import { Map } from 'immutable';
 
 import './NewPost.scss';
 import './PostEditor.scss';
@@ -105,6 +106,47 @@ function getSelectedBlockNode(root) {
   return null;
 }
 
+function getCurrentBlock(editorState) {
+  const selectionState = editorState.getSelection();
+  const contentState = editorState.getCurrentContent();
+  const block = contentState.getBlockForKey(selectionState.getStartKey());
+  return block;
+}
+
+function addNewBlock(editorState, newType, initialData) {
+  const selectionState = editorState.getSelection();
+  if (!selectionState.isCollapsed()) {
+    return editorState;
+  }
+  const contentState = editorState.getCurrentContent();
+  const key = selectionState.getStartKey();
+  const blockMap = contentState.getBlockMap();
+  const currentBlock = getCurrentBlock(editorState);
+
+  if (!currentBlock) {
+    return editorState;
+  }
+
+  if (currentBlock.getLength() === 0) {
+    if (currentBlock.getType() === newType) {
+      return editorState;
+    }
+
+    const newBlock = currentBlock.merge({
+      type: newType,
+      data: initialData,
+    });
+
+    const newContentState = contentState.merge({
+      blockMap: blockMap.set(key, newBlock),
+      selectionAfter: selectionState,
+    });
+    return EditorState.push(editorState, newContentState, 'change-block-type');
+  }
+  return editorState;
+}
+
+
 class SideControls extends Component {
   findNode({ editorState }) {
     if (!process.env.IS_BROWSER) return;
@@ -170,7 +212,15 @@ class SideControls extends Component {
   onChangeImage = () => {
     const fileInput = this.refs.fileInput;
     const username = this.props.user.name;
-    this.props.uploadFile({ username, fileInput });
+    this.props.uploadFile({ username, fileInput })
+      .then(({ value }) => {
+        this.props.onChange(addNewBlock(
+          this.props.editorState,
+          'atomic:image', {
+            src: value.secure_url || value.url,
+          }
+        ));
+      });
   };
 
   render() {
@@ -234,6 +284,22 @@ class SideControls extends Component {
           remove
         </i>
         </button>
+      </div>
+    );
+  }
+}
+
+class ImageBlock extends Component {
+  render() {
+    const data = this.props.block.getData();
+    const src = data.get('src');
+
+    return (
+      <div>
+        <img
+          role="presentation"
+          src={src}
+        />
       </div>
     );
   }
@@ -304,6 +370,21 @@ class PostEditor extends Component {
     );
   }
 
+  blockRendererFn = (contentBlock) => {
+    const type = contentBlock.getType();
+    switch (type) {
+      case 'atomic:image': {
+        return {
+          component: ImageBlock,
+        };
+      }
+
+      default: {
+        return null;
+      }
+    }
+  };
+
   render() {
     const {
       editorState,
@@ -336,8 +417,16 @@ class PostEditor extends Component {
 
         <div className={className} onClick={this.focus}>
           <Editor
+            blockRendererFn={this.blockRendererFn}
             blockStyleFn={getBlockStyle}
+
             customStyleMap={styleMap}
+            blockRenderMap={new Map({
+              'atomic:image': {
+                element: 'figure',
+              }
+            }).merge(DefaultDraftBlockRenderMap)}
+
             editorState={editorState}
             handleKeyCommand={this.handleKeyCommand}
             onChange={this.onChange}
