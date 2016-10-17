@@ -1,4 +1,5 @@
 // Forked from https://github.com/rajaraodv/draftjs-examples
+import Debug from 'debug';
 import React, { Component } from 'react';
 import exportMarkdown from 'draft-js-export-markdown/lib/stateToMarkdown';
 import { Editor, EditorState, RichUtils, convertToRaw, convertFromRaw } from 'draft-js';
@@ -7,6 +8,8 @@ import { connect } from 'react-redux';
 import './NewPost.scss';
 import './PostEditor.scss';
 import { uploadFile } from '../../user/userProfileActions';
+
+const debug = Debug('busy:PostEditor');
 
 // Custom overrides for "code" style.
 const styleMap = {
@@ -108,7 +111,7 @@ class SideControls extends Component {
 
     const node = getSelectedBlockNode(window); // eslint-disable-line no-undef
     if (!node) {
-      console.log('No node');
+      debug('No node');
       this.hide();
       return;
     }
@@ -117,7 +120,7 @@ class SideControls extends Component {
     const selectionState = editorState.getSelection();
     if (!selectionState.isCollapsed() ||
         selectionState.anchorKey !== selectionState.focusKey) {
-      console.log(
+      debug(
         'Selection state changed to be (collapsed, anchorKey)',
         selectionState.isCollapsed()
       );
@@ -127,7 +130,7 @@ class SideControls extends Component {
 
     const block = contentState.getBlockForKey(selectionState.anchorKey);
     if (block.getLength() > 0) {
-      console.log('Block has content, hidding');
+      debug('Block has content, hidding');
       this.hide();
       return;
     }
