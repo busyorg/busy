@@ -63,14 +63,20 @@ export const UPLOAD_FILE_ERROR = 'UPLOAD_FILE_ERROR';
 
 export function uploadFile({ username, file, fileInput }) {
   const formData = new FormData();
+  const meta = {};
 
   if (file) {
     formData.append('file', file);
+    meta.filename = file.name;
   } else if (fileInput) {
     formData.append('file', fileInput.files[0]);
+    meta.filename = fileInput.files[0].name;
+  } else {
+    throw new TypeError('Missing one of `file` or `fileInput` to `uploadFile` call');
   }
 
   return (dispatch) => dispatch({
+    meta,
     type: UPLOAD_FILE,
     payload: {
       promise: fetch(`${BUSY_IMG_HOST}/@${username}/uploads`, {
