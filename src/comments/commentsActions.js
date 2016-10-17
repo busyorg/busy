@@ -20,7 +20,7 @@ export const getComments = (postId) => {
     dispatch({
       type: actionTypes.GET_COMMENTS,
       payload: {
-        promise: steemAPI.getContentReplies(author, permlink)
+        promise: steemAPI.getContentRepliesAsync(author, permlink)
       },
       meta: {
         id: postId,
