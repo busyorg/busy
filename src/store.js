@@ -11,6 +11,7 @@ import authReducers from './auth/authReducers';
 import commentsReducer from './comments/commentsReducer.js';
 import feedReducers from './feed/feedReducers';
 import postsReducers from './post/postsReducers';
+import userProfileReducer from './user/userProfileReducer';
 import {responsiveReducer, mountResponsive} from './lib/responsive';
 
 export const messagesWorker = new MessagesWorker();
@@ -26,6 +27,7 @@ const reducers = combineReducers({
   header: headerReducer,
   posts: postsReducers,
   feed: feedReducers,
+  userProfile: userProfileReducer,
   responsive: responsiveReducer,
   messages: messagesReducer,
 });
