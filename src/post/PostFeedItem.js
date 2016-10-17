@@ -11,6 +11,7 @@ let React = require('react'),
   Link = require('react-router').Link;
 
 import Flag from './flag';
+import Comments from './../comments/Comments';
 
 const colorCode = { green: 'rgba(39, 208, 169, 0.4)', red: 'rgba(249, 43, 97, 0.2)' };
 const classCode = { green: 'grid-row-green', red: 'grid-row-red' };
@@ -66,6 +67,7 @@ module.exports = React.createClass({
           />
         </div>
         {this.props.replies != 'false' && post.children > 0 && <RepliesShort parent={post.author} parentPermlink={post.permlink} />}
+        <Comments postId={post.id} />
       </div>
     );
   }
