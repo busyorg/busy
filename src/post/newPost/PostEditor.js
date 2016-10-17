@@ -1,5 +1,5 @@
 // Forked from https://github.com/rajaraodv/draftjs-examples
-import Debug from 'debug';
+import newDebug from 'debug';
 import React, { Component } from 'react';
 import exportMarkdown from 'draft-js-export-markdown/lib/stateToMarkdown';
 import { Editor, EditorState, RichUtils, convertToRaw, convertFromRaw } from 'draft-js';
@@ -9,7 +9,7 @@ import './NewPost.scss';
 import './PostEditor.scss';
 import { uploadFile } from '../../user/userProfileActions';
 
-const debug = Debug('busy:PostEditor');
+const debug = newDebug('busy:PostEditor');
 
 // Custom overrides for "code" style.
 const styleMap = {
