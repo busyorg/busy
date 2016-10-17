@@ -1,8 +1,18 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import CommentsList from './CommentsList';
+import * as commentsActions from './commentsActions';
+import { getCommentsFromState } from './../helpers/stateHelpers';
 
-@connect(mapStateToProps)
+@connect(
+  state => ({
+    comments: state.comments,
+  }),
+  dispatch => bindActionCreators({
+    getComments: commentsActions.getComments,
+  }, dispatch)
+)
 export default class Comments extends Component {
   constructor(props) {
     super(props);
@@ -10,6 +20,8 @@ export default class Comments extends Component {
 
   static propTypes = {
     postId: React.PropTypes.string.isRequired,
+    comments: React.PropTypes.object,
+    getComments: React.PropTypes.func,
   };
 
   componentDidMount() {
@@ -17,19 +29,14 @@ export default class Comments extends Component {
   }
 
   render() {
-    // TODO(p0o): remove default when postId is passed from the top (not implemented yet)
-    const postId = this.props.postId || 0;
+    const { postId, comments } = this.props;
+    const commentsData = getCommentsFromState(postId, comments);
 
     return (
       <div>
-        <CommentsList commentsData={commentsData[postId]} />
+        <CommentsList comments={commentsData} />
       </div>
     );
   }
 }
 
-const mapStateToProps = ({ comments }) => {
-  return {
-    comments
-  };
-};
