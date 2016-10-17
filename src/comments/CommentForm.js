@@ -21,16 +21,14 @@ export default class CommentForm extends Component {
     super(props);
   }
 
-  handleChange = (e) => {
-    this.props.updateCommentingDraft({
-      id: this.props.comments.currentDraftId,
-      body: e.target.value,
-    });
-  };
-
   handleKey(e) {
     if(keycode(e) === 'enter' && !e.shiftKey) {
       this.props.sendComment();
+    } else {
+      this.props.updateCommentingDraft({
+        id: this.props.comments.currentDraftId,
+        body: e.target.value,
+      });
     }
   }
 
@@ -50,7 +48,6 @@ export default class CommentForm extends Component {
           ref={(c) => { this._input = c; }}
           className={'CommentForm__input'}
           onKeyDown={(e) => this.handleKey(e)}
-          onChange={this.handleChange}
           placeholder={'Write a comment...'}
         />
       </div>
