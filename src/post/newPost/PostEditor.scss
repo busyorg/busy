@@ -102,3 +102,22 @@
     color: #5890ff;
   }
 }
+
+.SideControls {
+  .icon {
+    font-size: 1.2rem;
+    display: inline-block;
+    background: white;
+    border-radius: 100%;
+    color: lighten(black, 10%);
+    padding: 5px;
+    margin-right: 10px;
+    opacity: 0.6;
+    border: solid 1px #ccc;
+
+    &:hover {
+      opacity: 1;
+      cursor: pointer;
+    }
+  }
+}

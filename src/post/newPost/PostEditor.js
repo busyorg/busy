@@ -87,6 +87,111 @@ const BLOCK_TYPES = [
   },
 ];
 
+function getSelectedBlockNode(root) {
+  const selection = root.getSelection();
+  if (selection.rangeCount === 0) {
+    return null;
+  }
+  let node = selection.getRangeAt(0).startContainer;
+  do {
+    if (node.getAttribute && node.getAttribute('data-block') === 'true') {
+      return node;
+    }
+    node = node.parentNode;
+  } while (node !== null);
+  return null;
+}
+
+class SideControls extends Component {
+  findNode({ editorState }) {
+    if (!process.env.IS_BROWSER) return;
+
+    const node = getSelectedBlockNode(window); // eslint-disable-line no-undef
+    if (!node) {
+      this.hide();
+      return;
+    }
+
+    const contentState = editorState.getCurrentContent();
+    const selectionState = editorState.getSelection();
+    if (!selectionState.isCollapsed() ||
+        selectionState.anchorKey !== selectionState.focusKey) {
+      this.hide();
+      return;
+    }
+
+    const block = contentState.getBlockForKey(selectionState.anchorKey);
+    if (block.getLength() > 0) {
+      this.hide();
+      return;
+    }
+
+    this.show(node);
+  }
+
+  show(node) {
+    this.setState({
+      style: {
+        display: 'block',
+        position: 'absolute',
+        top: node.offsetTop - 3,
+        left: -40,
+      },
+    });
+  }
+
+  hide() {
+    this.setState({
+      style: null,
+    });
+  }
+
+  componentWillReceiveProps(newProps) {
+    this.findNode(newProps);
+  }
+
+  render() {
+    return (
+      <div
+        className="SideControls"
+        style={this.state && this.state.style ? this.state.style : {
+          display: 'none',
+        }}
+      >
+        <i
+          className="icon icon-md material-icons"
+        >
+          close
+        </i>
+
+        <i
+          className="icon icon-md material-icons"
+        >
+          add_a_photo
+        </i>
+
+        <i
+          className="icon icon-md material-icons"
+        >
+          code
+        </i>
+
+        <i
+          className="icon icon-md material-icons"
+        >
+          play_arrow
+        </i>
+
+        <i
+          className="icon icon-md material-icons"
+        >
+          remove
+        </i>
+      </div>
+    );
+  }
+}
+
 class PostEditor extends Component {
   constructor(props) {
     super(props);
@@ -170,16 +275,10 @@ class PostEditor extends Component {
 
     return (
       <div className="PostEditor">
-        <div>
-          <input
-            ref="file"
-            name="file"
-            type="file"
-          />
-          <button onClick={this.uploadFile}>
-            Submit
-          </button>
-        </div>
+        <SideControls
+          editorState={editorState}
+          onChange={this.onChange}
+        />
 
         <div className="NewPost__control-group">
           <BlockStyleControls
