@@ -108,6 +108,7 @@ class SideControls extends Component {
 
     const node = getSelectedBlockNode(window); // eslint-disable-line no-undef
     if (!node) {
+      console.log('No node');
       this.hide();
       return;
     }
@@ -116,12 +117,17 @@ class SideControls extends Component {
     const selectionState = editorState.getSelection();
     if (!selectionState.isCollapsed() ||
         selectionState.anchorKey !== selectionState.focusKey) {
+      console.log(
+        'Selection state changed to be (collapsed, anchorKey)',
+        selectionState.isCollapsed()
+      );
       this.hide();
       return;
     }
 
     const block = contentState.getBlockForKey(selectionState.anchorKey);
     if (block.getLength() > 0) {
+      console.log('Block has content, hidding');
       this.hide();
       return;
     }
@@ -147,46 +153,84 @@ class SideControls extends Component {
   }
 
   componentWillReceiveProps(newProps) {
-    this.findNode(newProps);
+    setTimeout(() => {
+      this.findNode(newProps);
+    }, 100);
   }
+
+  onClickUpload = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    this.refs.fileInput.click();
+  };
+
+  onChangeImage = () => {
+    const fileInput = this.refs.fileInput;
+    const username = this.props.user.name;
+    this.props.uploadFile({ username, fileInput });
+  };
 
   render() {
     return (
       <div
         className="SideControls"
         style={this.state && this.state.style ? this.state.style : {
-          display: 'none',
+          display: 'block',
+          position: 'absolute',
+          opacity: 0,
+          pointerEvents: 'none',
         }}
       >
-        <i
-          className="icon icon-md material-icons"
-        >
-          close
-        </i>
+        <button>
+          <i className="icon icon-md material-icons">
+            close
+          </i>
+        </button>
 
-        <i
-          className="icon icon-md material-icons"
+        <button
+          onMouseDown={this.onClickUpload}
+          type="button"
         >
-          add_a_photo
-        </i>
+          <i
+            className="icon icon-md material-icons"
+          >
+            add_a_photo
+          </i>
+        </button>
 
+        <input
+          ref="fileInput"
+          onChange={this.onChangeImage}
+          name="file"
+          type="file"
+          style={{
+            display: 'none',
+          }}
+        />
+
+        <button>
         <i
           className="icon icon-md material-icons"
         >
           code
         </i>
+        </button>
 
+        <button>
         <i
           className="icon icon-md material-icons"
         >
           play_arrow
         </i>
+        </button>
 
+        <button>
         <i
           className="icon icon-md material-icons"
         >
           remove
         </i>
+        </button>
       </div>
     );
   }
@@ -257,13 +301,6 @@ class PostEditor extends Component {
     );
   }
 
-  uploadFile = (e) => {
-    e.preventDefault();
-    const fileInput = this.refs.file;
-    const username = this.props.user.name;
-    this.props.uploadFile({ username, fileInput });
-  };
-
   render() {
     const {
       editorState,
@@ -278,6 +315,8 @@ class PostEditor extends Component {
         <SideControls
           editorState={editorState}
           onChange={this.onChange}
+          uploadFile={this.props.uploadFile}
+          user={this.props.user}
         />
 
         <div className="NewPost__control-group">
