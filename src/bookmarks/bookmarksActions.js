@@ -11,7 +11,7 @@ export const TOGGLE_BOOKMARK_FAIL = 'TOGGLE_BOOKMARK_FAIL';
 export const toggleBookmarkRequest = createAction(TOGGLE_BOOKMARK);
 export const toggleBookmarkSuccess = createAction(TOGGLE_BOOKMARK_SUCCESS);
 
-export const toggleBookmark = (postId) => {
+export const toggleBookmark = ({ postId }) => {
   return (dispatch) => {
     dispatch(toggleBookmarkRequest({ postId }));
     toggleBookmarkHelper(postId);
