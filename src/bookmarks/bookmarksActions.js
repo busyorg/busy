@@ -5,7 +5,7 @@ import * as actionTypes from './bookmarksActionTypes';
 export const toggleBookmarkRequest = createAction(actionTypes.TOGGLE_BOOKMARK);
 export const toggleBookmarkSuccess = createAction(actionTypes.TOGGLE_BOOKMARK_SUCCESS);
 
-export const toggleBookmark = (postId) => {
+export const toggleBookmark = ({ postId }) => {
   return (dispatch) => {
     dispatch(toggleBookmarkRequest({ postId }));
     toggleBookmarkHelper(postId);
