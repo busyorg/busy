@@ -1,5 +1,5 @@
-import MessagesWorker, { actions } from './background';
-import messagesReducer from './reducer';
+import MessagesWorker, { actions } from './messagesBackground';
+import messagesReducer from './messagesReducer';
 
 export { messagesReducer };
 export { actions };
