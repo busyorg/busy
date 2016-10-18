@@ -12,7 +12,8 @@ import commentsReducer from './comments/commentsReducer.js';
 import feedReducers from './feed/feedReducers';
 import postsReducers from './post/postsReducers';
 import userProfileReducer from './user/userProfileReducer';
-import {responsiveReducer, mountResponsive} from './lib/responsive';
+import bookmarksReducer from './bookmarks/bookmarksReducer';
+import { responsiveReducer, mountResponsive } from './lib/responsive';
 
 export const messagesWorker = new MessagesWorker();
 
@@ -30,6 +31,7 @@ const reducers = combineReducers({
   userProfile: userProfileReducer,
   responsive: responsiveReducer,
   messages: messagesReducer,
+  bookmarks: bookmarksReducer,
 });
 
 const middleware = [
