@@ -1,4 +1,4 @@
-import * as appTypes from './appActionTypes';
+import * as appTypes from '../actions';
 import * as responsive from '../lib/responsive';
 
 const initialState = {
