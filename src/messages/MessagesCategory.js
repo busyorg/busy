@@ -7,7 +7,7 @@ import Header from './../app/header';
 import MessageForm from './MessageForm';
 import MessageList from './MessageList';
 import actionDecorator from '../lib/actionDecorator';
-import { fetchChannelPresence, joinChannel } from '../common/messages/actions';
+import { fetchChannelPresence, joinChannel } from './messagesActions';
 
 class MessagesPage extends Component {
   static propTypes = {

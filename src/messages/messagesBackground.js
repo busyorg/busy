@@ -3,7 +3,7 @@ import assert from 'assert';
 import each from 'lodash/each';
 import io from 'socket.io-client';
 
-import { fetchMessages } from './actions';
+import { fetchMessages } from './messagesActions';
 
 export const CONNECTED = '@messages/CONNECTED';
 export const DISCONNECTED = '@messages/DISCONNECTED';

@@ -4,7 +4,7 @@ import keycode from 'keycode';
 
 import './MessageForm.scss';
 import { connect } from 'react-redux';
-import { sendMessage } from '../common/messages/actions';
+import { sendMessage } from './messagesActions';
 
 class MessageForm extends Component {
   static propTypes = {
