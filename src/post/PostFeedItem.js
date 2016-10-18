@@ -66,7 +66,7 @@ module.exports = React.createClass({
             onCommentRequest={this.props.onCommentRequest}
           />
         </div>
-        {this.props.replies != 'false' && post.children > 0 && <RepliesShort parent={post.author} parentPermlink={post.permlink} />}
+
         <Comments postId={post.id} />
       </div>
     );
