@@ -1,8 +1,6 @@
 import Promise from 'bluebird';
 import fetch from 'isomorphic-fetch';
 
-import * as actionTypes from './userProfileActionTypes';
-
 export const GET_USER_COMMENTS = 'GET_USER_COMMENTS';
 export const GET_USER_COMMENTS_START = 'GET_USER_COMMENTS_START';
 export const GET_USER_COMMENTS_SUCCESS = 'GET_USER_COMMENTS_SUCCESS';
