@@ -46,10 +46,10 @@ export default class PostFeedItem extends React.Component {
               {!_.isEmpty(post.parent_author) &&
               <span className="hidden-xs"> replied&nbsp;
                 <Link to={`/@${post.parent_author}`}>
-                @{post.parent_author}
-              </Link>'s&nbsp;
-                <Link to={`/${post.category}/@${post.parent_author}/${post.parent_permlink}`}>post.</Link>
-            </span>}
+                  @{post.parent_author}
+                </Link>'s
+                &nbsp;<Link to={`/${post.category}/@${post.parent_author}/${post.parent_permlink}`}>post.</Link>
+              </span>}
             </li>
             <li className="pull-right">{moment(post.created).fromNow()}&nbsp;
               <a onClick={() => this.props.toggleBookmark(post.id)}>
