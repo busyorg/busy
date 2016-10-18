@@ -23,6 +23,7 @@ import { toggleBookmark } from './../bookmarks/bookmarksActions';
   state => ({
     feed: state.feed,
     posts: state.posts,
+    bookmarks: state.bookmarks,
   }),
   (dispatch, ownProps) => {
     const { sortBy, category, auth, limit } = ownProps;
@@ -39,6 +40,9 @@ import { toggleBookmark } from './../bookmarks/bookmarksActions';
       getMoreUserFeedContent: () => dispatch(
         getMoreUserFeedContent({ username: auth.user.name, limit })
       ),
+      toggleBookmark: (postId) => dispatch(
+        toggleBookmark({ postId })
+      ),
     };
   }
 )
@@ -51,7 +55,7 @@ export default class Page extends React.Component {
   render() {
     const { account, category, sortBy, path, auth, feed, posts, limit } = this.props;
 
-    let content, isFetching, hasMore, loadContentAction, loadMoreContentAction;
+    let content, isFetching, hasMore, loadContentAction, loadMoreContentAction, toggleBookmark;
 
     if (!path && auth.isAuthenticated) {
       content = getUserFeedContentFromState(auth.user.name, feed, posts);
@@ -65,6 +69,7 @@ export default class Page extends React.Component {
       hasMore = feed[sortBy][category] ? feed[sortBy][category].hasMore : true;
       loadContentAction = this.props.getFeedContent;
       loadMoreContentAction = this.props.getMoreFeedContent;
+      toggleBookmark = this.props.toggleBookmark;
     }
 
     return (
