@@ -1,9 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import CommentsList from './CommentsList';
 import * as commentsActions from './commentsActions';
 import { getCommentsFromState } from './../helpers/stateHelpers';
+
+import './Comments.scss';
 
 @connect(
   state => ({
@@ -11,6 +13,7 @@ import { getCommentsFromState } from './../helpers/stateHelpers';
   }),
   dispatch => bindActionCreators({
     getComments: commentsActions.getComments,
+    getMoreComments: commentsActions.getMoreComments,
   }, dispatch)
 )
 export default class Comments extends Component {
@@ -19,24 +22,31 @@ export default class Comments extends Component {
   }
 
   static propTypes = {
-    postId: React.PropTypes.string.isRequired,
-    comments: React.PropTypes.object,
-    getComments: React.PropTypes.func,
+    postId: PropTypes.string.isRequired,
+    comments: PropTypes.object,
+    getComments: PropTypes.func,
   };
 
-  componentDidMount() {
+  componentWillMount() {
     this.props.getComments(this.props.postId);
   }
+
+  handleShowMore = (e) => {
+    e.stopPropagation();
+    this.props.getMoreComments(this.props.postId);
+  };
 
   render() {
     const { postId, comments } = this.props;
     const commentsData = getCommentsFromState(postId, comments);
 
     return (
-      <div>
+      <div className="Comments">
         <CommentsList comments={commentsData} />
+        <div className="Comments__showMore" onClick={this.handleShowMore}>
+          Load more comments...
+        </div>
       </div>
     );
   }
 }
-
