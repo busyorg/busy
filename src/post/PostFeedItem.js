@@ -51,7 +51,13 @@ export default class PostFeedItem extends React.Component {
                 <Link to={`/${post.category}/@${post.parent_author}/${post.parent_permlink}`}>post.</Link>
             </span>}
             </li>
-            <li className="pull-right">{moment(post.created).fromNow()} <a onClick={() => this.props.toggleBookmark(post.id)}><i className="icon icon-sm material-icons">bookmark_border</i></a></li>
+            <li className="pull-right">{moment(post.created).fromNow()}&nbsp;
+              <a onClick={() => this.props.toggleBookmark(post.id)}>
+                <i className="icon icon-sm material-icons">
+                  {_.has(this.props.bookmarks, post.id) ? 'bookmark' : 'bookmark_border'}
+                </i>
+              </a>
+            </li>
           </ul>
         </div>
         {image && !_.has(embeds, '[0].embed') && <div className="thumbs"><Link to={steemit}><img src={image} /></Link></div>}
