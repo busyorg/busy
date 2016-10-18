@@ -1,0 +1,19 @@
+@import './../styles/colors';
+
+.Comments {
+  background: #fff;
+}
+
+.Comments__showMore {
+  cursor: pointer;
+  padding: 0.7rem;
+  height: 2.5rem;
+  font-size: 0.9rem;
+  color: $text-color;
+  transition: all 0.2s;
+  &:hover {
+    font-size: 0.93rem;
+    padding: 0.6rem;
+    background: #EEEEEE;
+  }
+}
