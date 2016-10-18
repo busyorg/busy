@@ -1,4 +1,4 @@
-import { creatAction } from 'redux-actions';
+import { createAction } from 'redux-actions';
 import * as actionTypes from './commentsActionTypes';
 
 export const getCommentsWithoutAPICall = createAction(actionTypes.GET_COMMENTS);
