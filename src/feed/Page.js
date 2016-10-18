@@ -53,7 +53,7 @@ export default class Page extends React.Component {
   }
 
   render() {
-    const { account, category, sortBy, path, auth, feed, posts, limit } = this.props;
+    const { account, category, sortBy, path, auth, feed, posts, limit, bookmarks } = this.props;
 
     let content, isFetching, hasMore, loadContentAction, loadMoreContentAction;
 
@@ -90,6 +90,7 @@ export default class Page extends React.Component {
             loadContent={loadContentAction}
             loadMoreContent={loadMoreContentAction}
             toggleBookmark={this.props.toggleBookmark}
+            bookmarks={this.props.bookmarks}
           />}
       </div>
     );
