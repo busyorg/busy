@@ -1,5 +1,4 @@
 import React from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Header from './../app/header';
 import PageActions from './../app/PageActions';
@@ -17,7 +16,7 @@ import {
   getUserFeedContentFromState,
   getUserFeedLoadingFromState,
 } from './../helpers/stateHelpers';
-
+import { toggleBookmark } from './../bookmarks/bookmarksActions';
 
 @PageHOC
 @connect(
@@ -43,6 +42,7 @@ import {
     };
   }
 )
+
 export default class Page extends React.Component {
   constructor(props) {
     super(props);
@@ -85,6 +85,7 @@ export default class Page extends React.Component {
             hasMore={hasMore}
             loadContent={loadContentAction}
             loadMoreContent={loadMoreContentAction}
+            toggleBookmark={toggleBookmark}
           />}
       </div>
     );
