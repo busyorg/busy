@@ -3,6 +3,16 @@ import fetch from 'isomorphic-fetch';
 
 import * as actionTypes from './userProfileActionTypes';
 
+export const GET_USER_COMMENTS = 'GET_USER_COMMENTS';
+export const GET_USER_COMMENTS_START = 'GET_USER_COMMENTS_START';
+export const GET_USER_COMMENTS_SUCCESS = 'GET_USER_COMMENTS_SUCCESS';
+export const GET_USER_COMMENTS_ERROR = 'GET_USER_COMMENTS_ERROR';
+
+export const GET_MORE_USER_COMMENTS = 'GET_MORE_USER_COMMENTS';
+export const GET_MORE_USER_COMMENTS_START = 'GET_MORE_USER_COMMENTS_START';
+export const GET_MORE_USER_COMMENTS_SUCCESS = 'GET_MORE_USER_COMMENTS_SUCCESS';
+export const GET_MORE_USER_COMMENTS_ERROR = 'GET_MORE_USER_COMMENTS_ERROR';
+
 export const getUserComments = (username) => {
   return (dispatch, getState, { steemAPI }) => {
     const feed = getState().feed;
