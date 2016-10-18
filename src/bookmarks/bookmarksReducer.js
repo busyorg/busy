@@ -1,15 +1,17 @@
-import _ from 'lodash';
+import object from 'lodash/object';
 import * as bookmarksTypes from './bookmarksActionTypes';
 
 const bookmarks = (state = {}, action) => {
   switch (action.type) {
     case bookmarksTypes.TOGGLE_BOOKMARK_SUCCESS:
-      if (_.has(state, action.payload.postId)) {
-        delete state[action.payload.postId];
+      if (object.has(state, action.payload.postId)) {
+        return object.omit(state, action.payload.postId);
       } else {
-        state[action.payload.postId] = {};
+        return {
+          ...state,
+          [action.payload.postId]: 'x',
+        };
       }
-      return state;
     default:
       return state;
   }

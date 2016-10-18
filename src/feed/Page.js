@@ -55,7 +55,7 @@ export default class Page extends React.Component {
   render() {
     const { account, category, sortBy, path, auth, feed, posts, limit } = this.props;
 
-    let content, isFetching, hasMore, loadContentAction, loadMoreContentAction, toggleBookmark;
+    let content, isFetching, hasMore, loadContentAction, loadMoreContentAction;
 
     if (!path && auth.isAuthenticated) {
       content = getUserFeedContentFromState(auth.user.name, feed, posts);
@@ -69,7 +69,6 @@ export default class Page extends React.Component {
       hasMore = feed[sortBy][category] ? feed[sortBy][category].hasMore : true;
       loadContentAction = this.props.getFeedContent;
       loadMoreContentAction = this.props.getMoreFeedContent;
-      toggleBookmark = this.props.toggleBookmark;
     }
 
     return (
@@ -90,7 +89,7 @@ export default class Page extends React.Component {
             hasMore={hasMore}
             loadContent={loadContentAction}
             loadMoreContent={loadMoreContentAction}
-            toggleBookmark={toggleBookmark}
+            toggleBookmark={this.props.toggleBookmark}
           />}
       </div>
     );

@@ -15,7 +15,7 @@ export default class Feed extends React.Component {
   }
 
   render() {
-    const { content, isFetching, hasMore, ItemComponent, toggleBookmark } = this.props;
+    const { content, isFetching, hasMore, ItemComponent } = this.props;
 
     return (
       <div className="grid">
@@ -33,7 +33,7 @@ export default class Feed extends React.Component {
                 key={key}
                 entry={entry}
                 replies={this.props.replies}
-                toggleBookmark={toggleBookmark}
+                toggleBookmark={this.props.toggleBookmark}
               />
             )}
           </ReduxInfiniteScroll>
