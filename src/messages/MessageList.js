@@ -5,7 +5,7 @@ import map from 'lodash/map';
 import reduce from 'lodash/reduce';
 import { connect } from 'react-redux';
 
-import { sendReadAcknoledgement } from '../common/messages/actions';
+import { sendReadAcknoledgement } from './messagesActions';
 import './MessageList.scss';
 import Message from './Message.js';
 
