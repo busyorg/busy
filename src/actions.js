@@ -1,20 +1,20 @@
 var api = require('./steemAPI');
 
-export const CONFIG_REQUEST = 'CONFIG_REQUEST';
-export const CONFIG_SUCCESS = 'CONFIG_SUCCESS';
-export const CONFIG_FAILURE = 'CONFIG_FAILURE';
+export const CONFIG_REQUEST = '@app/CONFIG_REQUEST';
+export const CONFIG_SUCCESS = '@app/CONFIG_SUCCESS';
+export const CONFIG_FAILURE = '@app/CONFIG_FAILURE';
 
-export const FEED_REQUEST = 'FEED_REQUEST';
-export const FEED_SUCCESS = 'FEED_SUCCESS';
-export const FEED_FAILURE = 'FEED_FAILURE';
-export const CONTENT_REQUEST = 'CONTENT_REQUEST';
-export const CONTENT_SUCCESS = 'CONTENT_SUCCESS';
-export const ACCOUNT_REQUEST = 'ACCOUNT_REQUEST';
-export const ACCOUNT_SUCCESS = 'ACCOUNT_SUCCESS';
+export const FEED_REQUEST = '@app/FEED_REQUEST';
+export const FEED_SUCCESS = '@app/FEED_SUCCESS';
+export const FEED_FAILURE = '@app/FEED_FAILURE';
+export const CONTENT_REQUEST = '@app/CONTENT_REQUEST';
+export const CONTENT_SUCCESS = '@app/CONTENT_SUCCESS';
+export const ACCOUNT_REQUEST = '@app/ACCOUNT_REQUEST';
+export const ACCOUNT_SUCCESS = '@app/ACCOUNT_SUCCESS';
 
-export const SHOW_SIDEBAR = 'SHOW_SIDEBAR';
-export const HIDE_SIDEBAR = 'HIDE_SIDEBAR';
-export const SET_MENU = 'SET_MENU';
+export const SHOW_SIDEBAR = '@app/SHOW_SIDEBAR';
+export const HIDE_SIDEBAR = '@app/HIDE_SIDEBAR';
+export const SET_MENU = '@app/SET_MENU';
 
 module.exports = {
   getConfig: function() {
