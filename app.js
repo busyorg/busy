@@ -38,11 +38,6 @@ app.use(express.static(path.join(__dirname, 'node_modules')));
 
 app.use(cors());
 
-// Get user inside view
-app.use((req, res, next) => {
-  res.locals.user = req.user || null;
-  next();
-});
 
 app.locals.env = process.env;
 
