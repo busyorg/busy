@@ -2,7 +2,7 @@
 import newDebug from 'debug';
 import React, { Component } from 'react';
 import exportMarkdown from 'draft-js-export-markdown/lib/stateToMarkdown';
-import { DefaultDraftBlockRenderMap, Editor, EditorState, RichUtils, convertToRaw, convertFromRaw } from 'draft-js';
+import { DefaultDraftBlockRenderMap, Editor, EditorBlock, EditorState, RichUtils, convertToRaw, convertFromRaw } from 'draft-js';
 import { connect } from 'react-redux';
 import { Map } from 'immutable';
 
@@ -290,6 +290,19 @@ class SideControls extends Component {
 }
 
 class ImageBlock extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selected: false
+    };
+  }
+
+  onClick = () => {
+    this.setState({
+      selected: !this.state.selected,
+    });
+  };
+
   render() {
     const data = this.props.block.getData();
     const src = data.get('src');
@@ -298,8 +311,19 @@ class ImageBlock extends Component {
       <div>
         <img
           role="presentation"
+          style={
+            this.state && this.state.selected ? {
+              outline: 'solid 3px #3756a0',
+            } : {
+            }
+          }
+          onClick={this.onClick}
           src={src}
         />
+
+        <figcaption>
+          <EditorBlock {...this.props} />
+        </figcaption>
       </div>
     );
   }
