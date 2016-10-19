@@ -9,9 +9,11 @@ const bookmarks = (state = {}, action) => {
       } else {
         return {
           ...state,
-          [action.payload.postId]: 'x',
+          [action.payload.postId]: {},
         };
       }
+    case bookmarksActions.GET_BOOKMARKS_SUCCESS:
+      return action.payload.bookmarks;
     default:
       return state;
   }

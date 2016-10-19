@@ -1,6 +1,7 @@
 var React = require('react'),
   ReactRedux = require('react-redux'),
   actions = require('./actions'),
+  bookmarksActions = require('./bookmarks/bookmarksActions'),
   Sidebar = require('./app/sidebar');
 
 import * as authActions from './auth/authActions';
@@ -9,6 +10,7 @@ var Wrapper = React.createClass({
   componentWillMount() {
     this.props.login();
     this.props.getConfig();
+    this.props.getBookmarks();
   },
 
   render() {
@@ -43,6 +45,9 @@ const mapDispatchToProps = function (dispatch) {
     },
     getConfig: () => {
       dispatch(actions.getConfig());
+    },
+    getBookmarks: () => {
+      dispatch(bookmarksActions.getBookmarks());
     }
   };
 };
