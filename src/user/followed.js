@@ -1,40 +1,25 @@
-let React = require('react'),
-  ReactRedux = require('react-redux'),
-  _ = require('lodash'),
-  api = require('./../steemAPI'),
-  Loading = require('./../widgets/Loading'),
-  Link = require('react-router').Link;
+import React from 'react';
+import api from './../steemAPI';
+import Loading from './../widgets/Loading';
+import UserList from './UserList';
 
-const Followers = React.createClass({
+export default class Followed extends React.Component {
   componentWillMount() {
     this.setState({ users: [] });
     api.getFollowing(this.props.username, 0, 'blog', 100, (err, following) => {
       this.setState({ users: following });
     });
-  },
+  }
   render() {
     return (
       <center className="users">
         {this.state.users.length > 0 && <ul>
           {this.state.users.map((user, key) => {
-            return (<li key={key}>
-              <div className="avatar avatar-xl">
-                <img src={'https://img.busy6.com/@' + user.following} />
-              </div>
-              <div><Link to={'/@' + user.following}>@{user.following}</Link></div>
-            </li>);
+            return (<UserList username={user.following} key={key} />);
           })}
         </ul>}
         {this.state.users.length === 0 && <Loading />}
       </center>
     );
   }
-});
-
-const mapStateToProps = function (state) {
-  return {
-    auth: state.auth
-  };
 };
-
-module.exports = ReactRedux.connect(mapStateToProps)(Followers);
