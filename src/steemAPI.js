@@ -1,5 +1,5 @@
 import { api } from 'steem';
 
-api.setWebSocket('wss://steem.yt');
+api.setWebSocket('wss://node.steem.ws');
 
 module.exports = api;
