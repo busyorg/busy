@@ -1,17 +1,18 @@
-let React = require('react'),
-  ReactRedux = require('react-redux'),
-  _ = require('lodash'),
-  api = require('./../steemAPI'),
-  Loading = require('./../widgets/Loading'),
-  Link = require('react-router').Link;
+import React from 'react';
+import { Link } from 'react-router';
+import api from './../steemAPI';
+import Loading from './../widgets/Loading';
 
-const Followers = React.createClass({
+export default class PostFeedItem extends React.Component {
+  constructor(props) {
+    super(props);
+  }
   componentWillMount() {
     this.setState({ users: [] });
     api.getFollowers(this.props.username, 0, 'blog', 100, (err, followers) => {
       this.setState({ users: followers });
     });
-  },
+  }
   render() {
     return (
       <center className="users">
@@ -19,9 +20,9 @@ const Followers = React.createClass({
           {this.state.users.map((user, key) => {
             return (<li key={key}>
               <div className="avatar avatar-xl">
-                <img src={'https://img.busy6.com/@' + user.follower} />
+                <img src={`https://img.busy6.com/@${user.follower}`} />
               </div>
-              <div><Link to={'/@' + user.follower}>@{user.follower}</Link></div>
+              <div><Link to={`/@${user.follower}`}>@{user.follower}</Link></div>
             </li>);
           })}
         </ul>}
@@ -29,12 +30,4 @@ const Followers = React.createClass({
       </center>
     );
   }
-});
-
-const mapStateToProps = function (state) {
-  return {
-    auth: state.auth
-  };
 };
-
-module.exports = ReactRedux.connect(mapStateToProps)(Followers);
