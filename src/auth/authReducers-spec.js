@@ -1,6 +1,6 @@
 /* eslint-disable prefer-arrow-callback, no-undef, import/no-extraneous-dependencies */
 import { expect } from 'chai';
-import * as authTypes from './authActionTypes';
+import * as authTypes from './authActions';
 import authReducers from './authReducers';
 
 const initialStateMock = {

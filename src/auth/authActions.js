@@ -3,11 +3,19 @@ import extend from 'lodash/extend';
 import steemConnect from 'steemconnect';
 import request from 'superagent';
 
-import * as actionTypes from './authActionTypes';
 import api from '../steemAPI';
 
 Promise.promisifyAll(steemConnect);
 Promise.promisifyAll(request.Request.prototype);
+
+export const LOGIN = 'LOGIN';
+export const LOGIN_REQUEST = 'LOGIN_START';
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+export const LOGIN_FAILURE = 'LOGIN_ERROR';
+export const LOGOUT = 'LOGOUT';
+export const LOGOUT_START = 'LOGOUT_START';
+export const LOGOUT_ERROR = 'LOGOUT_ERROR';
+export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 
 export const GET_FOLLOWING = 'GET_FOLLOWING';
 export const GET_FOLLOWING_START = 'GET_FOLLOWING_START';
@@ -77,20 +85,20 @@ export function unfollowUser(username) {
 
 const requestLogin = () => {
   return {
-    type: actionTypes.LOGIN_REQUEST
+    type: LOGIN_REQUEST
   };
 };
 
 const loginSuccess = (user) => {
   return {
-    type: actionTypes.LOGIN_SUCCESS,
+    type: LOGIN_SUCCESS,
     user
   };
 };
 
 const loginFail = () => {
   return {
-    type: actionTypes.LOGIN_FAILURE
+    type: LOGIN_FAILURE
   };
 };
 
