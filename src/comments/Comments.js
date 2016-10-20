@@ -13,7 +13,7 @@ import './Comments.scss';
   }),
   dispatch => bindActionCreators({
     getComments: commentsActions.getComments,
-    getMoreComments: commentsActions.getMoreComments,
+    showMoreComments: commentsActions.showMoreComments,
   }, dispatch)
 )
 export default class Comments extends Component {
@@ -33,7 +33,7 @@ export default class Comments extends Component {
 
   handleShowMore = (e) => {
     e.stopPropagation();
-    this.props.getMoreComments(this.props.postId);
+    this.props.showMoreComments(this.props.postId);
   };
 
   render() {
