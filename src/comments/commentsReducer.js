@@ -24,12 +24,12 @@ const commentsList = (state = {}, action) => {
         isFetching: true,
         list: [],
         show: 1,
+        hasMore: true,
       };
     case commentsTypes.GET_COMMENTS_SUCCESS:
-      const list = action.payload.map(comment => comment.id);
       return {
         ...state,
-        list,
+        list: action.payload.list,
         isFetching: false,
       };
     case commentsTypes.GET_MORE_COMMENTS_START:
@@ -38,16 +38,25 @@ const commentsList = (state = {}, action) => {
         isFetching: true,
       };
     case commentsTypes.GET_MORE_COMMENTS_SUCCESS:
+      let hasMore = true;
+      if(action.payload[action.payload.length - 1].id === state.list[state.list.length - 1]) {
+        // there are no more comments
+        hasMore = false;
+      }
       const moreList = action.payload.map(comment => comment.id);
-      const show = state.show === 1? 10 : state.show + 10;
       return {
         ...state,
-        isFetching: true,
+        isFetching: false,
+        hasMore,
         list: [
           ...state.list,
-          moreList,
+          ...moreList,
         ],
-        show,
+      };
+    case commentsTypes.SHOW_MORE_COMMENTS:
+      return {
+        ...state,
+        show: state.show === 1 ? 10 : state.show + 10,
       };
     default:
       return state;
@@ -60,6 +69,7 @@ const commentsLists = (state = {}, action) => {
     case commentsTypes.GET_COMMENTS_SUCCESS:
     case commentsTypes.GET_MORE_COMMENTS_START:
     case commentsTypes.GET_MORE_COMMENTS_SUCCESS:
+    case commentsTypes.SHOW_MORE_COMMENTS:
       return {
         ...state,
         [action.meta.id]: commentsList(state[action.meta.id], action),
@@ -69,28 +79,21 @@ const commentsLists = (state = {}, action) => {
   }
 };
 
+const mapCommentsBasedOnId = (data) => {
+  const commentsList = {};
+  Object.keys(data).forEach((key) => {
+    commentsList[data[key].id] = data[key];
+  });
+  return commentsList;
+};
+
 const commentsData = (state = {}, action) => {
   switch (action.type) {
     case commentsTypes.GET_COMMENTS_SUCCESS:
-    case commentsTypes.GET_MORE_COMMENTS_SUCCESS:
-      const data = {};
-      action.payload.forEach((comment) => {
-        data[comment.id] = comment;
-      });
-      return {
-        ...state,
-        ...data,
-      };
     case userProfileTypes.GET_USER_COMMENTS_SUCCESS:
-      const commentsList = {};
-      // map data based on id
-      Object.keys(action.payload.content).forEach((key) => {
-        const { id } = action.payload.content[key];
-        commentsList[id] = action.payload.content[key];
-      });
       return {
         ...state,
-        ...commentsList,
+        ...mapCommentsBasedOnId(action.payload.content),
       };
     case userProfileTypes.GET_MORE_USER_COMMENTS_SUCCESS:
       const commentsMoreList = {};
@@ -148,6 +151,7 @@ const comments = (state = initialState, action) => {
     case userProfileTypes.GET_MORE_USER_COMMENTS_SUCCESS:
     case commentsTypes.GET_MORE_COMMENTS_START:
     case commentsTypes.GET_MORE_COMMENTS_SUCCESS:
+    case commentsTypes.SHOW_MORE_COMMENTS:
       return {
         ...state,
         comments: commentsData(state.comments, action),
