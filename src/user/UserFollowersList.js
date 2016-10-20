@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from './../app/header';
-import Followers from './followers';
+import Followers from './Followers';
 
 module.exports = React.createClass({
   render() {
