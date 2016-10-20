@@ -32,6 +32,10 @@ function makePlugins(options) {
           process.env.STEEMCONNECT_API_HOST ||
             'https://dev.steemconnect.com/api'
         ),
+        WS: JSON.stringify(
+          process.env.WS ||
+          'wss://steemit.com/wspa'
+        ),
         IS_BROWSER: JSON.stringify(true),
       },
     }),
