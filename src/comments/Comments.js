@@ -38,13 +38,20 @@ export default class Comments extends Component {
 
   render() {
     const { postId, comments } = this.props;
+    const hasMore = (comments.lists[postId] && comments.lists[postId].hasMore);
 
     return (
       <div className="Comments">
         <CommentsList postId={postId} comments={comments} />
-        <div className="Comments__showMore" onClick={this.handleShowMore}>
+
+        <div
+          className="Comments__showMore"
+          onClick={this.handleShowMore}
+          style={{ visibility: hasMore ? 'visible' : 'hidden' }}
+        >
           Load more comments...
         </div>
+
       </div>
     );
   }
