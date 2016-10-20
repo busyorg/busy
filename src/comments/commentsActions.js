@@ -38,17 +38,11 @@ const nestCommentsChildren = (commentKey, allComments) => {
  * @param apiRes - The result of getState for an article full path with steemAPI
  */
 const sortCommentsList = (apiRes) => {
-  const rootComments = Object.entries(apiRes.content).filter(([key, comment]) => {
-    return comment.id === comment.root_comment;
+  const rootComments = Object.keys(apiRes.content).filter((commentKey) => {
+    return apiRes.content[commentKey].depth === 1;
   });
-  return rootComments.map(([key, comment]) => {
-    const nestedComments = [];
-    if(comment.children > 0) {
-      nestedComments.push(nestCommentsChildren(key, apiRes.content));
-    }
 
-    return nestedComments;
-  });
+  return rootComments.map(key => nestCommentsChildren(key, apiRes.content));
 };
 
 
@@ -72,43 +66,6 @@ export const getComments = (postId) => {
         id: postId,
       },
     });
-  };
-};
-
-export const getMoreComments = (postId) => {
-  return (dispatch, getState, { steemAPI }) => {
-    const { comments } = getState();
-
-    const list = comments.lists[postId] ? comments.lists[postId].list : [];
-    const show = comments.lists[postId] ? comments.lists[postId].show : 1;
-
-    if (list.length === 0 || !comments.lists[postId].hasMore) {
-      // Not possible to load more
-      return;
-    }
-
-    if (list.length > show + 10) {
-      // The next 10 comments are already loaded in state
-      dispatch(showMoreComments(postId));
-      return;
-    }
-
-    const lastCommentId = list[list.length - 1];
-    const startAuthor = comments.comments[lastCommentId].author;
-    const startPermlink = comments.comments[lastCommentId].permlink;
-
-    dispatch({
-      type: actionTypes.GET_MORE_COMMENTS,
-      payload: {
-        promise: steemAPI.getRepliesByLastUpdateAsync(startAuthor, startPermlink, 10),
-      },
-      meta: {
-        id: postId,
-      },
-    }).then(() => dispatch(
-        showMoreComments(postId)
-      )
-    );
   };
 };
 
