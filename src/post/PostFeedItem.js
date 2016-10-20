@@ -65,7 +65,7 @@ export default class PostFeedItem extends React.Component {
         <div className="thumbs" dangerouslySetInnerHTML={{ __html: embeds[0].embed }} />}
         <div className="cell cell-body">
           <h2>
-            <Flag title={post.title} body={post.body} />&nbsp;
+            <Flag title={post.title} body={post.body} className="prs" />
             <Link to={steemit}>{post.title}</Link>
           </h2>
           <Mentions jsonMetadata={jsonMetadata} />
