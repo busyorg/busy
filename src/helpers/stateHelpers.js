@@ -64,10 +64,3 @@ export const getUserFeedContentFromState = (username, feedState, postsState) =>
 
 export const getUserFeedLoadingFromState = (username, feedState) =>
   (feedState.feed[username] && feedState.feed[username].isFetching) || false;
-
-
-export const getCommentsFromState = (id, commentsState) => {
-  const list = commentsState.lists[id] ? commentsState.lists[id].list : [];
-  const show = commentsState.lists[id] && commentsState.lists[id].show;
-  return list.slice(0, show).map(commentId => commentsState.comments[commentId]);
-};
