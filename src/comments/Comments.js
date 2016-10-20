@@ -38,11 +38,10 @@ export default class Comments extends Component {
 
   render() {
     const { postId, comments } = this.props;
-    const commentsData = getCommentsFromState(postId, comments);
 
     return (
       <div className="Comments">
-        <CommentsList comments={commentsData} />
+        <CommentsList postId={postId} comments={comments} />
         <div className="Comments__showMore" onClick={this.handleShowMore}>
           Load more comments...
         </div>
