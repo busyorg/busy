@@ -56,7 +56,7 @@ if (process.env.ENABLE_LOGGER &&
 
 const store = createStore(
   reducers,
-  typeof window !== 'undefined' && window.devToolsExtension && window.devToolsExtension(),
+  window.devToolsExtension && window.devToolsExtension(),
   applyMiddleware(...middleware)
 );
 
