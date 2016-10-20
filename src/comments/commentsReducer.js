@@ -32,31 +32,12 @@ const commentsList = (state = {}, action) => {
         list: action.payload.list,
         isFetching: false,
       };
-    case commentsTypes.GET_MORE_COMMENTS_START:
-      return {
-        ...state,
-        isFetching: true,
-      };
-    case commentsTypes.GET_MORE_COMMENTS_SUCCESS:
-      let hasMore = true;
-      if(action.payload[action.payload.length - 1].id === state.list[state.list.length - 1]) {
-        // there are no more comments
-        hasMore = false;
-      }
-      const moreList = action.payload.map(comment => comment.id);
-      return {
-        ...state,
-        isFetching: false,
-        hasMore,
-        list: [
-          ...state.list,
-          ...moreList,
-        ],
-      };
     case commentsTypes.SHOW_MORE_COMMENTS:
+      const newShowValue = state.show === 1 ? 10 : state.show + 10;
       return {
         ...state,
-        show: state.show === 1 ? 10 : state.show + 10,
+        show: newShowValue,
+        hasMore: newShowValue < state.list.length,
       };
     default:
       return state;
@@ -67,8 +48,6 @@ const commentsLists = (state = {}, action) => {
   switch (action.type) {
     case commentsTypes.GET_COMMENTS_START:
     case commentsTypes.GET_COMMENTS_SUCCESS:
-    case commentsTypes.GET_MORE_COMMENTS_START:
-    case commentsTypes.GET_MORE_COMMENTS_SUCCESS:
     case commentsTypes.SHOW_MORE_COMMENTS:
       return {
         ...state,
@@ -149,8 +128,6 @@ const comments = (state = initialState, action) => {
     case commentsTypes.GET_COMMENTS_SUCCESS:
     case userProfileTypes.GET_USER_COMMENTS_SUCCESS:
     case userProfileTypes.GET_MORE_USER_COMMENTS_SUCCESS:
-    case commentsTypes.GET_MORE_COMMENTS_START:
-    case commentsTypes.GET_MORE_COMMENTS_SUCCESS:
     case commentsTypes.SHOW_MORE_COMMENTS:
       return {
         ...state,
