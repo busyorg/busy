@@ -45,7 +45,6 @@ const sortCommentsList = (apiRes) => {
   return rootComments.map(key => nestCommentsChildren(key, apiRes.content));
 };
 
-
 export const getComments = (postId) => {
   return (dispatch, getState, { steemAPI }) => {
     const { posts } = getState();

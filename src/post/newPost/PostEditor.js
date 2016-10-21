@@ -1,10 +1,16 @@
 // Forked from https://github.com/rajaraodv/draftjs-examples
+import newDebug from 'debug';
 import React, { Component } from 'react';
-import { Editor, EditorState, RichUtils, convertToRaw, convertFromRaw } from 'draft-js';
 import exportMarkdown from 'draft-js-export-markdown/lib/stateToMarkdown';
+import { DefaultDraftBlockRenderMap, Editor, EditorBlock, EditorState, RichUtils, convertToRaw, convertFromRaw } from 'draft-js';
+import { connect } from 'react-redux';
+import { Map } from 'immutable';
 
 import './NewPost.scss';
 import './PostEditor.scss';
+import { uploadFile } from '../../user/userProfileActions';
+
+const debug = newDebug('busy:PostEditor');
 
 // Custom overrides for "code" style.
 const styleMap = {
@@ -85,7 +91,245 @@ const BLOCK_TYPES = [
   },
 ];
 
-export default class PostEditor extends Component {
+function getSelectedBlockNode(root) {
+  const selection = root.getSelection();
+  if (selection.rangeCount === 0) {
+    return null;
+  }
+  let node = selection.getRangeAt(0).startContainer;
+  do {
+    if (node.getAttribute && node.getAttribute('data-block') === 'true') {
+      return node;
+    }
+    node = node.parentNode;
+  } while (node !== null);
+  return null;
+}
+
+function getCurrentBlock(editorState) {
+  const selectionState = editorState.getSelection();
+  const contentState = editorState.getCurrentContent();
+  const block = contentState.getBlockForKey(selectionState.getStartKey());
+  return block;
+}
+
+function addNewBlock(editorState, newType, initialData) {
+  const selectionState = editorState.getSelection();
+  if (!selectionState.isCollapsed()) {
+    return editorState;
+  }
+  const contentState = editorState.getCurrentContent();
+  const key = selectionState.getStartKey();
+  const blockMap = contentState.getBlockMap();
+  const currentBlock = getCurrentBlock(editorState);
+
+  if (!currentBlock) {
+    return editorState;
+  }
+
+  if (currentBlock.getLength() === 0) {
+    if (currentBlock.getType() === newType) {
+      return editorState;
+    }
+
+    const newBlock = currentBlock.merge({
+      type: newType,
+      data: initialData,
+    });
+
+    const newContentState = contentState.merge({
+      blockMap: blockMap.set(key, newBlock),
+      selectionAfter: selectionState,
+    });
+    return EditorState.push(editorState, newContentState, 'change-block-type');
+  }
+  return editorState;
+}
+
+
+class SideControls extends Component {
+  findNode({ editorState }) {
+    if (!process.env.IS_BROWSER) return;
+
+    const node = getSelectedBlockNode(window); // eslint-disable-line no-undef
+    if (!node) {
+      debug('No node');
+      this.hide();
+      return;
+    }
+
+    const contentState = editorState.getCurrentContent();
+    const selectionState = editorState.getSelection();
+    if (!selectionState.isCollapsed() ||
+        selectionState.anchorKey !== selectionState.focusKey) {
+      debug(
+        'Selection state changed to be (collapsed, anchorKey)',
+        selectionState.isCollapsed()
+      );
+      this.hide();
+      return;
+    }
+
+    const block = contentState.getBlockForKey(selectionState.anchorKey);
+    if (block.getLength() > 0) {
+      debug('Block has content, hidding');
+      this.hide();
+      return;
+    }
+
+    this.show(node);
+  }
+
+  show(node) {
+    this.setState({
+      style: {
+        display: 'block',
+        position: 'absolute',
+        top: node.offsetTop - 3,
+        left: -40,
+      },
+    });
+  }
+
+  hide() {
+    this.setState({
+      style: null,
+    });
+  }
+
+  componentWillReceiveProps(newProps) {
+    setTimeout(() => {
+      this.findNode(newProps);
+    }, 100);
+  }
+
+  onClickUpload = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    this.refs.fileInput.click();
+  };
+
+  onChangeImage = () => {
+    const fileInput = this.refs.fileInput;
+    const username = this.props.user.name;
+    this.props.uploadFile({ username, fileInput })
+      .then(({ value }) => {
+        this.props.onChange(addNewBlock(
+          this.props.editorState,
+          'atomic:image', {
+            src: value.secure_url || value.url,
+          }
+        ));
+      });
+  };
+
+  render() {
+    return (
+      <div
+        className="SideControls"
+        style={this.state && this.state.style ? this.state.style : {
+          display: 'block',
+          position: 'absolute',
+          opacity: 0,
+          pointerEvents: 'none',
+        }}
+      >
+        <button>
+          <i className="icon icon-md material-icons">
+            close
+          </i>
+        </button>
+
+        <button
+          onMouseDown={this.onClickUpload}
+          type="button"
+        >
+          <i
+            className="icon icon-md material-icons"
+          >
+            add_a_photo
+          </i>
+        </button>
+
+        <input
+          ref="fileInput"
+          onChange={this.onChangeImage}
+          name="file"
+          type="file"
+          style={{
+            display: 'none',
+          }}
+        />
+
+        <button>
+        <i
+          className="icon icon-md material-icons"
+        >
+          code
+        </i>
+        </button>
+
+        <button>
+        <i
+          className="icon icon-md material-icons"
+        >
+          play_arrow
+        </i>
+        </button>
+
+        <button>
+        <i
+          className="icon icon-md material-icons"
+        >
+          remove
+        </i>
+        </button>
+      </div>
+    );
+  }
+}
+
+class ImageBlock extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selected: false
+    };
+  }
+
+  onClick = () => {
+    this.setState({
+      selected: !this.state.selected,
+    });
+  };
+
+  render() {
+    const data = this.props.block.getData();
+    const src = data.get('src');
+
+    return (
+      <div>
+        <img
+          role="presentation"
+          style={
+            this.state && this.state.selected ? {
+              outline: 'solid 3px #3756a0',
+            } : {
+            }
+          }
+          onClick={this.onClick}
+          src={src}
+        />
+
+        <figcaption>
+          <EditorBlock {...this.props} />
+        </figcaption>
+      </div>
+    );
+  }
+}
+
+class PostEditor extends Component {
   constructor(props) {
     super(props);
     const editorState = process.env.NODE_ENV === 'production'
@@ -150,6 +394,21 @@ export default class PostEditor extends Component {
     );
   }
 
+  blockRendererFn = (contentBlock) => {
+    const type = contentBlock.getType();
+    switch (type) {
+      case 'atomic:image': {
+        return {
+          component: ImageBlock,
+        };
+      }
+
+      default: {
+        return null;
+      }
+    }
+  };
+
   render() {
     const {
       editorState,
@@ -161,6 +420,13 @@ export default class PostEditor extends Component {
 
     return (
       <div className="PostEditor">
+        <SideControls
+          editorState={editorState}
+          onChange={this.onChange}
+          uploadFile={this.props.uploadFile}
+          user={this.props.user}
+        />
+
         <div className="NewPost__control-group">
           <BlockStyleControls
             editorState={editorState}
@@ -175,8 +441,16 @@ export default class PostEditor extends Component {
 
         <div className={className} onClick={this.focus}>
           <Editor
+            blockRendererFn={this.blockRendererFn}
             blockStyleFn={getBlockStyle}
+
             customStyleMap={styleMap}
+            blockRenderMap={new Map({
+              'atomic:image': {
+                element: 'figure',
+              }
+            }).merge(DefaultDraftBlockRenderMap)}
+
             editorState={editorState}
             handleKeyCommand={this.handleKeyCommand}
             onChange={this.onChange}
@@ -187,6 +461,14 @@ export default class PostEditor extends Component {
     );
   }
 }
+
+PostEditor = connect((state) => ({
+  files: state.userProfile.files,
+}), {
+  uploadFile,
+})(PostEditor);
+
+export default PostEditor;
 
 class StyleButton extends React.Component {
   onToggle = (e) => {

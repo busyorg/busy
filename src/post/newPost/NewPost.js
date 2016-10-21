@@ -73,6 +73,7 @@ export class RawNewPost extends Component {
               <fieldset className="form-group">
                 <label htmlFor="body">Body</label>
                 <PostEditor
+                  user={this.props.user}
                   required
                   ref="editor"
                 />
@@ -149,7 +150,7 @@ function createPost(body) {
   return () => ({
     type: CREATE_POST,
     payload: {
-      promise: request.get(`${process.env.STEEMCONNECT_HOST}/comment`)
+      promise: request.get(`${process.env.STEEMCONNECT_API_HOST}/comment`)
         .query(body)
         .withCredentials()
         .endAsync()

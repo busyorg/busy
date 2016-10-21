@@ -1,4 +1,4 @@
-import * as feedTypes from './../feed/feedActionTypes';
+import * as feedTypes from './../feed/feedActions';
 
 const posts = (state = {}, action) => {
   switch (action.type) {

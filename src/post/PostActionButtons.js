@@ -46,9 +46,11 @@ const Actions = React.createClass({
     const voter = (this.props.auth.isAuthenticated) ? this.props.auth.user.name : '';
     const post = this.props.post;
     const payout = parseFloat(post.total_payout_value) + parseFloat(post.total_pending_payout_value);
-    return (<ul>
+    return (
+      <ul>
         <li><a onClick={() => this.vote(voter, post.author, post.permlink, 10000)} className={this.state.voted ? 'active' : ''}><i className="icon icon-sm material-icons">thumb_up</i></a> {numeral(post.net_votes).format('0,0')}<span className="hidden-xs"> Likes</span></li>
         <li><span className="hidden-xs"><i className="icon icon-sm material-icons">attach_money</i> </span>{numeral(payout).format('$0,0.00')}</li>
+
         <li>
           <a onClick={e => this.handleCommentBoxClick(e)}>
             <i className="icon icon-sm material-icons">comment</i>
@@ -57,8 +59,18 @@ const Actions = React.createClass({
           {numeral(post.children).format('0,0')}
           <span className="hidden-xs"> Comments</span>
         </li>
-        <li><a><i className="icon icon-sm material-icons">send</i><span className="hidden-xs"> Share</span></a></li>
-      </ul>);
+
+        <li>
+          <a>
+            <i className="icon icon-sm material-icons">repeat</i>
+            <span className="hidden-xs">
+              { ' ' }
+              Reblog
+            </span>
+          </a>
+        </li>
+      </ul>
+    );
   }
 });
 

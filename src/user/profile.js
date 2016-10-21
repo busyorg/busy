@@ -55,6 +55,14 @@ class Profile extends Component {
     this._init();
   }
 
+  hasFollow() {
+    const username = this.props.params.name;
+    return (
+      this.props.auth.isAuthenticated
+        && username !== this.props.auth.user.name
+    );
+  }
+
   async _init() {
     await api.apiNamesP;
     const username = this.props.params.name;
@@ -125,7 +133,7 @@ class Profile extends Component {
           messages={!edit}
           edit={edit}
 
-          followButton
+          followButton={this.hasFollow()}
           isFollowingIsLoading={isFollowingIsLoading}
           isFollowing={isFollowing}
           onClickFollow={this.onClickFollow}

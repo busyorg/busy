@@ -3,8 +3,8 @@ import omit from 'lodash/omit';
 import size from 'lodash/size';
 import keyBy from 'lodash/keyBy';
 
-import * as actions from './actions';
-import { actions as backgroundActions } from './background';
+import * as actions from './messagesActions';
+import { actions as backgroundActions } from './messagesBackground';
 
 // type Channel = {
 //   channelName: String,

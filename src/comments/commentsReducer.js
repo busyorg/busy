@@ -1,5 +1,5 @@
-import * as commentsTypes from './commentsActionTypes';
-import * as userProfileTypes from './../user/userProfileActionTypes';
+import * as commentsTypes from './commentsActions';
+import * as userProfileTypes from './../user/userProfileActions';
 
 const initialState = {
   lists: {},

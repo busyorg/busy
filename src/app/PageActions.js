@@ -30,8 +30,25 @@ export default class PageActions extends Component {
         })}
         onClick={onClickFollow}
       >
-        <i className="icon icon-person-add material-icons">
-          {isFollowing ? 'person outline' : 'person_add'}
+        <i className="icon material-icons">
+          {isFollowing ? 'person_outline' : 'person_add'}
+        </i>
+      </a>
+    );
+  }
+
+  renderReblogButton() {
+    if (!this.props.reblog) {
+      return null;
+    }
+
+    return (
+      <a
+        className="trigger"
+        onClick={this.props.onClickReblog}
+      >
+        <i className="icon material-icons">
+          autorenew
         </i>
       </a>
     );
@@ -50,11 +67,12 @@ export default class PageActions extends Component {
        <div className="triggers">
          {this.renderFollowButton()}
 
-          {this.props.edit && <Link to="/profile/edit" className="trigger"><i className="icon icon-md material-icons">format_paint</i></Link>}
-          {this.props.likes && <a href="#replies" className="trigger"><i className="icon icon-md material-icons">thumb_up</i></a>}
-          {this.props.replies && <a href="#replies" className="trigger"><i className="icon icon-md material-icons">reply</i></a>}
-          {this.props.messages && <Link to={`/messages/${channel}`} className="trigger"><i className="icon icon-md material-icons">chat_bubble_outline</i></Link>}
-          {this.props.add && <Link to="/write" className="trigger"><i className="icon icon-md material-icons">add</i></Link>}
+         {this.renderReblogButton()}
+         {this.props.edit && <Link to="/profile/edit" className="trigger"><i className="icon icon-md material-icons">format_paint</i></Link>}
+         {this.props.likes && <a href="#replies" className="trigger"><i className="icon icon-md material-icons">thumb_up</i></a>}
+         {this.props.replies && <a href="#replies" className="trigger"><i className="icon icon-md material-icons">reply</i></a>}
+         {this.props.messages && <Link to={`/messages/${channel}`} className="trigger"><i className="icon icon-md material-icons">chat_bubble_outline</i></Link>}
+         {this.props.add && <Link to="/write" className="trigger"><i className="icon icon-md material-icons">add</i></Link>}
         </div>
       </div>
     );

@@ -17,7 +17,6 @@
       padding: 0;
     }
 
-
     .Message__timestamp {
       opacity: 0;
     }
@@ -29,14 +28,6 @@
         .Message__timestamp {
           opacity: 1;
         }
-      }
-    }
-
-    .media {
-      padding: .25em;
-
-      img {
-        border-radius: 5px;
       }
     }
 

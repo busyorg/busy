@@ -5,13 +5,15 @@ import thunk from 'redux-thunk';
 import { combineReducers, applyMiddleware, createStore } from 'redux';
 import api from './steemAPI';
 
-import MessagesWorker, { messagesReducer } from './common/messages';
+import MessagesWorker, { messagesReducer } from './messages';
 import appReducers, { headerReducer } from './app/appReducers';
 import authReducers from './auth/authReducers';
 import commentsReducer from './comments/commentsReducer.js';
 import feedReducers from './feed/feedReducers';
 import postsReducers from './post/postsReducers';
-import {responsiveReducer, mountResponsive} from './lib/responsive';
+import userProfileReducer from './user/userProfileReducer';
+import bookmarksReducer from './bookmarks/bookmarksReducer';
+import { responsiveReducer, mountResponsive } from './lib/responsive';
 
 export const messagesWorker = new MessagesWorker();
 
@@ -26,8 +28,10 @@ const reducers = combineReducers({
   header: headerReducer,
   posts: postsReducers,
   feed: feedReducers,
+  userProfile: userProfileReducer,
   responsive: responsiveReducer,
   messages: messagesReducer,
+  bookmarks: bookmarksReducer,
 });
 
 const middleware = [

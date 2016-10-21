@@ -1,5 +1,18 @@
 import { createAction } from 'redux-actions';
-import * as actionTypes from './feedActionTypes';
+
+export const GET_FEED_CONTENT = '@feed/GET_FEED_CONTENT';
+export const GET_FEED_CONTENT_SUCCESS = '@feed/GET_FEED_CONTENT_SUCCESS';
+
+export const GET_MORE_FEED_CONTENT = '@feed/GET_MORE_FEED_CONTENT';
+export const GET_MORE_FEED_CONTENT_SUCCESS = '@feed/GET_MORE_FEED_CONTENT_SUCCESS';
+
+export const GET_USER_FEED_CONTENT = '@feed/GET_USER_FEED_CONTENT';
+export const GET_USER_FEED_CONTENT_SUCCESS = '@feed/GET_USER_FEED_CONTENT_SUCCESS';
+
+export const GET_MORE_USER_FEED_CONTENT = '@feed/GET_MORE_USER_FEED_CONTENT';
+export const GET_MORE_USER_FEED_CONTENT_SUCCESS = '@feed/GET_MORE_USER_FEED_CONTENT_SUCCESS';
+
+export const FEED_HAS_NO_MORE = '@feed/FEED_HAS_NO_MORE';
 
 import { getDiscussionsFromAPI } from './../helpers/apiHelpers';
 import {
@@ -10,19 +23,19 @@ import {
   getUserFeedContentFromState
 } from './../helpers/stateHelpers';
 
-export const getFeedContentWithoutAPI = createAction(actionTypes.GET_FEED_CONTENT);
-export const getFeedContentSuccess = createAction(actionTypes.GET_FEED_CONTENT_SUCCESS);
+export const getFeedContentWithoutAPI = createAction(GET_FEED_CONTENT);
+export const getFeedContentSuccess = createAction(GET_FEED_CONTENT_SUCCESS);
 
-export const getMoreFeedContentWithoutAPI = createAction(actionTypes.GET_MORE_FEED_CONTENT);
-export const getMoreFeedContentSuccess = createAction(actionTypes.GET_MORE_FEED_CONTENT_SUCCESS);
+export const getMoreFeedContentWithoutAPI = createAction(GET_MORE_FEED_CONTENT);
+export const getMoreFeedContentSuccess = createAction(GET_MORE_FEED_CONTENT_SUCCESS);
 
-export const getUserFeedContentWithoutAPI = createAction(actionTypes.GET_USER_FEED_CONTENT);
-export const getUserFeedContentSuccess = createAction(actionTypes.GET_USER_FEED_CONTENT_SUCCESS);
+export const getUserFeedContentWithoutAPI = createAction(GET_USER_FEED_CONTENT);
+export const getUserFeedContentSuccess = createAction(GET_USER_FEED_CONTENT_SUCCESS);
 
-export const getMoreUserFeedContentWithoutAPI = createAction(actionTypes.GET_MORE_USER_FEED_CONTENT);
-export const getMoreUserFeedContentSuccess = createAction(actionTypes.GET_MORE_USER_FEED_CONTENT_SUCCESS);
+export const getMoreUserFeedContentWithoutAPI = createAction(GET_MORE_USER_FEED_CONTENT);
+export const getMoreUserFeedContentSuccess = createAction(GET_MORE_USER_FEED_CONTENT_SUCCESS);
 
-export const feedHasNoMore = createAction(actionTypes.FEED_HAS_NO_MORE);
+export const feedHasNoMore = createAction(FEED_HAS_NO_MORE);
 
 export const getFeedContent = ({ sortBy, category, limit }) => {
   return (dispatch, getState, { steemAPI }) => {

@@ -6,7 +6,7 @@ import chaiEnzyme from 'chai-enzyme';
 import { Provider, connect } from 'react-redux';
 import { mount } from 'enzyme';
 
-import * as appTypes from '../app/appActionTypes';
+import * as appTypes from '../actions';
 import actionDecorator from './actionDecorator';
 import store from '../store';
 import { makeDOMEnvironment } from '../helpers/testHelpers';

@@ -7,33 +7,17 @@
   $form-background: rgba(0, 0, 0, .05);
 
   $input-background: $messages-background;
-  $input-border-radius: 10px;
-  $input-border-color: darken($input-background, 10%);
-  $input-focused-border-color: $blue;
 
   height: auto;
-  padding: 20px 0;
   position: absolute;
   bottom: 0;
   width: 100%;
   left: 0;
 
-  .container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
   .MessageForm__input {
     background: $input-background !important;
-    border: solid 3px $input-border-color !important;
-    border-radius: $input-border-radius !important;
     max-height: 30vh;
-    min-height: 44px;
+    min-height: 60px;
     width: 100%;
-
-    &:focus {
-      border-color: $input-focused-border-color !important;
-    }
   }
 }

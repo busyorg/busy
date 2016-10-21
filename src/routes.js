@@ -10,12 +10,11 @@ var React = require('react'),
   Jobs = require('./statics/Jobs'),
   Donate = require('./statics/Donate'),
   Help = require('./statics/Help'),
-  PostSinglePage = require('./post/PostSinglePage'),
   Edit = require('./user/edit'),
   Replies = require('./user/replies'),
-  Followers = require('./user/UserFollowersList'),
-  Followed = require('./user/UserFollowedList'),
-  Wallet = require('./user/wallet'),
+  Followers = require('./user/UserFollowers'),
+  Followed = require('./user/UserFollowed'),
+  Wallet = require('./user/Wallet'),
   MessagesUser = require('./messages/MessagesUser').default,
   MessagesCategory = require('./messages/MessagesCategory').default,
   Write = require('./post/newPost/NewPost').default;
@@ -26,6 +25,7 @@ import Profile from './user/profile';
 import UserProfilePosts from './user/UserProfilePosts';
 import UserProfileFeed from './user/UserProfileFeed';
 import { Trending, Hot, Votes, Responses, Active, Created, Cashout } from './feed/PathMatching';
+import PostSinglePage from './post/PostSinglePage';
 
 export default (
   <Route path="/" component={Wrapper}>

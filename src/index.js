@@ -10,6 +10,11 @@ import api from './steemAPI';
 import routes from './routes';
 import store from './store';
 import {isSmall} from './lib/responsive';
+import steemconnect from 'steemconnect';
+
+if (process.env.STEEMCONNECT_API_HOST) {
+  steemconnect.setPath(process.env.STEEMCONNECT_API_HOST);
+}
 
 const createHistory = useHistoryRestoreScroll(() => browserHistory);
 

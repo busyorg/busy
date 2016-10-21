@@ -3,11 +3,19 @@ import extend from 'lodash/extend';
 import steemConnect from 'steemconnect';
 import request from 'superagent';
 
-import * as actionTypes from './authActionTypes';
 import api from '../steemAPI';
 
 Promise.promisifyAll(steemConnect);
 Promise.promisifyAll(request.Request.prototype);
+
+export const LOGIN = '@auth/LOGIN';
+export const LOGIN_REQUEST = '@auth/LOGIN_START';
+export const LOGIN_SUCCESS = '@auth/LOGIN_SUCCESS';
+export const LOGIN_FAILURE = '@auth/LOGIN_ERROR';
+export const LOGOUT = '@auth/LOGOUT';
+export const LOGOUT_START = '@auth/LOGOUT_START';
+export const LOGOUT_ERROR = '@auth/LOGOUT_ERROR';
+export const LOGOUT_SUCCESS = '@auth/LOGOUT_SUCCESS';
 
 export const GET_FOLLOWING = 'GET_FOLLOWING';
 export const GET_FOLLOWING_START = 'GET_FOLLOWING_START';
@@ -44,20 +52,11 @@ export function followUser(username) {
   return (dispatch, getState) => dispatch({
     type: FOLLOW_USER,
     payload: {
-      promise: request.get(`${process.env.STEEMCONNECT_HOST}/api/customJson`)
+      promise: request.get(`${process.env.STEEMCONNECT_API_HOST}/follow`)
         .withCredentials()
         .query({
-          json: JSON.stringify([
-            'follow',
-            {
-              follower: getState().auth.user.name,
-              following: username,
-            },
-          ]),
-          requiredAuths: [],
-          requiredPostingAuths: [
-            getState().auth.user.name,
-          ],
+          follower: getState().auth.user.name,
+          following: username,
         })
         .endAsync(),
     }
@@ -73,20 +72,11 @@ export function unfollowUser(username) {
   return (dispatch, getState) => dispatch({
     type: UNFOLLOW_USER,
     payload: {
-      promise: request.get(`${process.env.STEEMCONNECT_HOST}/api/customJson`)
+      promise: request.get(`${process.env.STEEMCONNECT_API_HOST}/unfollow`)
         .withCredentials()
         .query({
-          json: JSON.stringify([
-            'unfollow',
-            {
-              unfollower: getState().auth.user.name,
-              unfollowing: username,
-            },
-          ]),
-          requiredAuths: [],
-          requiredPostingAuths: [
-            getState().auth.user.name,
-          ],
+          unfollower: getState().auth.user.name,
+          unfollowing: username,
         })
         .endAsync(),
     }
@@ -95,20 +85,20 @@ export function unfollowUser(username) {
 
 const requestLogin = () => {
   return {
-    type: actionTypes.LOGIN_REQUEST
+    type: LOGIN_REQUEST
   };
 };
 
 const loginSuccess = (user) => {
   return {
-    type: actionTypes.LOGIN_SUCCESS,
+    type: LOGIN_SUCCESS,
     user
   };
 };
 
 const loginFail = () => {
   return {
-    type: actionTypes.LOGIN_FAILURE
+    type: LOGIN_FAILURE
   };
 };
 
@@ -117,17 +107,23 @@ export const login = () => {
     dispatch(requestLogin());
 
     steemConnect.isAuthenticated((err, result) => {
-      if (result.isAuthenticated) {
-        dispatch(getFollowing({
-          follower: result.username,
-        }));
-
-        api.getAccounts([result.username], (err, users) => {
-          dispatch(loginSuccess(users[0]));
-        });
-      } else {
+      if (err || !result || !result.isAuthenticated) {
         dispatch(loginFail());
+        return;
       }
+
+      dispatch(getFollowing({
+        follower: result.username,
+      }));
+
+      api.getAccounts([result.username], (err, users) => { // eslint-disable-line no-shadow
+        if (err || !users || !users[0]) {
+          dispatch(loginFail());
+          return;
+        }
+
+        dispatch(loginSuccess(users[0]));
+      });
     });
   };
 };
