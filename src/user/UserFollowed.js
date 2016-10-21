@@ -1,6 +1,6 @@
 import React from 'react';
-import api from './../steemAPI';
-import Loading from './../widgets/Loading';
+import api from '../steemAPI';
+import Loading from '../widgets/Loading';
 import UserList from './UserList';
 
 module.exports = React.createClass({

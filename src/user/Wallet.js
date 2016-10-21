@@ -1,7 +1,7 @@
 import React from 'react';
 import numeral from 'numeral';
 import { formatter } from 'steem';
-import api from './../steemAPI';
+import api from '../steemAPI';
 
 module.exports = React.createClass({
   componentWillMount() {
