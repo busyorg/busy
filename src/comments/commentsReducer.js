@@ -158,19 +158,21 @@ const comments = (state = initialState, action) => {
         lists: commentsLists(state.lists, action),
       };
     case commentsTypes.OPEN_COMMENTING_DRAFT:
-    case commentsTypes.UPDATE_COMMENTING_DRAFT:
       return {
         ...state,
         commentingDraft: commentingDraft(state.commentingDraft, action),
         isCommenting: true,
         currentDraftId: action.payload.id,
       };
-    case commentsTypes.CLOSE_COMMENTING_DRAFT:
+    case commentsTypes.UPDATE_COMMENTING_DRAFT:
       return {
         ...state,
         commentingDraft: commentingDraft(state.commentingDraft, action),
+      };
+    case commentsTypes.CLOSE_COMMENTING_DRAFT:
+      return {
+        ...state,
         isCommenting: false,
-        currentDraftId: null,
       };
     default:
       return state;
