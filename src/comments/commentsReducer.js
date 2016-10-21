@@ -39,6 +39,18 @@ const commentsList = (state = {}, action) => {
         show: newShowValue,
         hasMore: newShowValue < state.list.length,
       };
+    case commentsTypes.SEND_COMMENT_START:
+      return {
+        ...state,
+        show: state.show + 1,
+        list: [
+          {
+            id: action.meta.optimisticId,
+            children: {},
+          },
+          ...state.list,
+        ],
+      };
     default:
       return state;
   }
@@ -52,6 +64,11 @@ const commentsLists = (state = {}, action) => {
       return {
         ...state,
         [action.meta.id]: commentsList(state[action.meta.id], action),
+      };
+    case commentsTypes.SEND_COMMENT_START:
+      return {
+        ...state,
+        [action.meta.parentId]: commentsList(state[action.meta.parentId], action),
       };
     default:
       return state;
@@ -82,6 +99,11 @@ const commentsData = (state = {}, action) => {
       return {
         ...state,
         ...commentsMoreList,
+      };
+    case commentsTypes.SEND_COMMENT_START:
+      return {
+        ...state,
+        [action.meta.optimisticId]: action.payload,
       };
     default:
       return state;
@@ -129,6 +151,7 @@ const comments = (state = initialState, action) => {
     case userProfileTypes.GET_USER_COMMENTS_SUCCESS:
     case userProfileTypes.GET_MORE_USER_COMMENTS_SUCCESS:
     case commentsTypes.SHOW_MORE_COMMENTS:
+    case commentsTypes.SEND_COMMENT_START:
       return {
         ...state,
         comments: commentsData(state.comments, action),
