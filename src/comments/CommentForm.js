@@ -21,20 +21,27 @@ export default class CommentForm extends Component {
     super(props);
   }
 
+  updateDraft() {
+    this.props.updateCommentingDraft({
+      id: this.props.comments.currentDraftId,
+      body: this._input.value,
+    });
+  }
+
   handleKey(e) {
-    if(keycode(e) === 'enter' && !e.shiftKey) {
+    if (keycode(e) === 'enter' && !e.shiftKey) {
+      this.updateDraft();
       this.props.sendComment();
-    } else {
-      this.props.updateCommentingDraft({
-        id: this.props.comments.currentDraftId,
-        body: e.target.value,
-      });
     }
   }
 
   componentDidUpdate(prevProps) {
-    if(prevProps.comments.isCommenting !== this.props.comments.isCommenting) {
+    if (prevProps.comments.isCommenting !== this.props.comments.isCommenting) {
       this._input.focus();
+
+      if (!this.props.comments.isCommenting) {
+        this.updateDraft();
+      }
     }
   }
 
