@@ -5,6 +5,22 @@ import { Link } from 'react-router';
 
 import './CommentItem.scss';
 
+const renderOptimisticComment = (comment) => {
+  return (
+    <div className="CommentItem">
+      <Link to={`/@${comment.author}`}>
+        @{ comment.author }
+      </Link>
+      { ' ' }
+      <b>
+        $0.00
+      </b>
+      { ' ' }
+      <BodyShort body={comment.body}/>
+    </div>
+  );
+};
+
 export default class CommentItem extends Component {
   constructor(props) {
     super(props);
@@ -19,6 +35,11 @@ export default class CommentItem extends Component {
 
   render() {
     const { comment } = this.props;
+
+    if (comment.isOptimistic) {
+      return renderOptimisticComment(comment);
+    }
+
     const payout =
       parseFloat(comment.total_payout_value) +
       parseFloat(comment.total_pending_payout_value);
