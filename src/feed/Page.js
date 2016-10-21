@@ -1,4 +1,5 @@
 import React from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Header from './../app/header';
 import PageActions from './../app/PageActions';
