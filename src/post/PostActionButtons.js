@@ -33,6 +33,10 @@ const Actions = React.createClass({
 
   handleCommentBoxClick(e) {
     e.stopPropagation();
+    if (!this.props.auth.isAuthenticated) {
+      return;
+    }
+
     const { id, category, author, permlink } = this.props.post;
     this.props.onCommentRequest({
       parentAuthor: author,
