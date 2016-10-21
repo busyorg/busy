@@ -1,7 +1,6 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import Header from './../app/header';
 import {
   getFeedContent,
   getMoreFeedContent,
@@ -9,7 +8,9 @@ import {
   getMoreUserFeedContent,
 } from './../feed/feedActions';
 import { getUserComments, getMoreUserComments } from './userProfileActions';
-import appActions from './../actions';
+import appActions from '../actions';
+import Header from '../app/header';
+import MenuUser from '../app/Menu/MenuUser';
 
 @connect(
   state => ({
@@ -33,28 +34,19 @@ export default class UserProfile extends React.Component {
   }
 
   render() {
-    const { auth } = this.props;
-    const account = auth.user && auth.user.name;
-
     return (
       <div className="main-panel">
-        { auth.isFetching ?
-          <div>
-            <Header account={account} />
-            <h1>Logging in...</h1>
-          </div>
-          :
-          <div>
-            <Header account={account} />
-            { React.cloneElement(
-              this.props.children,
-              {
-                ...this.props,
-                limit: 10,
-              }
-            ) }
-          </div>
-        }
+        <Header />
+        <MenuUser username={this.props.params.name} />
+        <div>
+          { React.cloneElement(
+            this.props.children,
+            {
+              ...this.props,
+              limit: 10,
+            }
+          ) }
+        </div>
       </div>
     );
   }

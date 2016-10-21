@@ -73,20 +73,3 @@ export default (state = initialState, action) => {
       return state;
   }
 };
-
-const headerInitialState = {
-  menu: 'primary',
-  tabs: [],
-  query: ''
-};
-
-export const headerReducer = (state = headerInitialState, action) => {
-  switch (action.type) {
-    case appTypes.SET_MENU:
-      return Object.assign({}, state, {
-        menu: action.menu
-      });
-    default:
-      return state;
-  }
-};

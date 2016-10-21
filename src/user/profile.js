@@ -138,8 +138,6 @@ class Profile extends Component {
           isFollowing={isFollowing}
           onClickFollow={this.onClickFollow}
         />
-
-        <Header account={username} />
         <section
           className="align-center bg-green profile-header"
           style={{

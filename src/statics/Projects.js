@@ -1,12 +1,14 @@
-let React = require('react'),
-  Header = require('./../app/header'),
-  { Link } = require('react-router');
+import React from 'react';
+import { Link } from 'react-router';
+import Header from './../app/header';
+import MenuAbout from '../app/Menu/MenuAbout';
 
 module.exports = React.createClass({
   render() {
     return (
       <div className="main-panel">
-        <Header menu="about" />
+        <Header />
+        <MenuAbout />
         <div className="page">
           <div className="block">
             <h1>Busy <img src="/img/open-source.svg" height="46" /></h1>

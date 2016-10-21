@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Header from './../app/header';
-import PageActions from './../app/PageActions';
+import Header from '../app/header';
+import MenuFeed from '../app/Menu/MenuFeed';
+import PageActions from '../app/PageActions';
 import Feed from './Feed';
 import PageHOC from './PageHOC';
 import {
@@ -73,10 +74,8 @@ export default class Page extends React.Component {
 
     return (
       <div className="main-panel">
-        <Header
-          account={account}
-          category={category}
-        />
+        <Header />
+        <MenuFeed category={category} />
         {auth.isAuthenticated &&
           <PageActions
             messages

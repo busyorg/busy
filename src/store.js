@@ -6,7 +6,7 @@ import { combineReducers, applyMiddleware, createStore } from 'redux';
 import api from './steemAPI';
 
 import MessagesWorker, { messagesReducer } from './messages';
-import appReducers, { headerReducer } from './app/appReducers';
+import appReducers from './app/appReducers';
 import authReducers from './auth/authReducers';
 import commentsReducer from './comments/commentsReducer.js';
 import feedReducers from './feed/feedReducers';
@@ -25,7 +25,6 @@ const reducers = combineReducers({
   app: appReducers,
   auth: authReducers,
   comments: commentsReducer,
-  header: headerReducer,
   posts: postsReducers,
   feed: feedReducers,
   userProfile: userProfileReducer,
