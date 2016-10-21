@@ -13,7 +13,7 @@ const initialCommentingDraftItem = {
   parentAuthor: null,
   parentPermlink: null,
   category: null,
-  body: null,
+  body: '',
 };
 
 const commentsList = (state = {}, action) => {
