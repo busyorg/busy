@@ -22,7 +22,7 @@ const Header = React.createClass({
 });
 
 const mapStateToProps = (state) => {
-  return {};
+  return { app: state.app };
 };
 
 const mapDispatchToProps = (dispatch) => {
