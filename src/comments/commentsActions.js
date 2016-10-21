@@ -1,17 +1,33 @@
 import Promise from 'bluebird';
 import { createAction } from 'redux-actions';
 import SteemConnect from 'steemconnect';
-import * as actionTypes from './commentsActionTypes';
 import { createCommentPermlink } from './../helpers/steemitHelpers';
 
 SteemConnect.comment = Promise.promisify(SteemConnect.comment, { context: SteemConnect });
 
-export const openCommentingDraft = createAction(actionTypes.OPEN_COMMENTING_DRAFT);
-export const updateCommentingDraft = createAction(actionTypes.UPDATE_COMMENTING_DRAFT);
-export const closeCommentingDraft = createAction(actionTypes.CLOSE_COMMENTING_DRAFT);
+export const GET_COMMENTS = 'GET_COMMENTS';
+export const GET_COMMENTS_START = 'GET_COMMENTS_START';
+export const GET_COMMENTS_SUCCESS = 'GET_COMMENTS_SUCCESS';
+export const GET_COMMENTS_ERROR = 'GET_COMMENTS_ERROR';
+
+export const SHOW_MORE_COMMENTS = 'SHOW_MORE_COMMENTS';
+
+export const SEND_COMMENT = 'SEND_COMMENT';
+export const SEND_COMMENT_START = 'SEND_COMMENT_START';
+export const SEND_COMMENT_SUCCESS = 'SEND_COMMENT_SUCCESS';
+export const SEND_COMMENT_ERROR = 'SEND_COMMENT_ERROR';
+
+export const OPEN_COMMENTING_DRAFT = 'OPEN_COMMENTING_DRAFT';
+export const UPDATE_COMMENTING_DRAFT = 'UPDATE_COMMENTING_DRAFT';
+export const CLOSE_COMMENTING_DRAFT = 'CLOSE_COMMENTING_DRAFT';
+
+
+export const openCommentingDraft = createAction(OPEN_COMMENTING_DRAFT);
+export const updateCommentingDraft = createAction(UPDATE_COMMENTING_DRAFT);
+export const closeCommentingDraft = createAction(CLOSE_COMMENTING_DRAFT);
 
 export const showMoreComments = createAction(
-  actionTypes.SHOW_MORE_COMMENTS,
+  SHOW_MORE_COMMENTS,
   () => null,
   meta => ({ id: meta, })
 );
@@ -52,7 +68,7 @@ export const getComments = (postId) => {
     const { author, permlink, category } = posts[postId];
 
     dispatch({
-      type: actionTypes.GET_COMMENTS,
+      type: GET_COMMENTS,
       payload: {
         promise: steemAPI.getStateAsync(`/${category}/@${author}/${permlink}`).then((apiRes) => {
           return {
@@ -93,7 +109,7 @@ export const sendComment = () => {
     const optimisticId = Date.now();
 
     dispatch({
-      type: actionTypes.SEND_COMMENT,
+      type: SEND_COMMENT,
       payload: {
         promise: SteemConnect.comment(
           parentAuthor,
