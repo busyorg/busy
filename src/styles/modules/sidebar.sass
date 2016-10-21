@@ -1,6 +1,8 @@
 .full-width
   .sidebar
     left: -260px
+    box-shadow: none !important
+
 
 nav.sidebar
     background-color: #3756a0
@@ -90,3 +92,12 @@ nav.sidebar
         position: absolute
         right: 0
         top: 0
+
+
+@media (max-width: 992px)
+  .main-panel
+    width: 100% !important
+  .sidebar
+    background-color: $background-color
+    z-index: 999 !important
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.3) !important
