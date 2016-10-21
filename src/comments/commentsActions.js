@@ -87,9 +87,11 @@ export const sendComment = () => {
 
     const optimisticData = {
       author,
-      permlink,
-      body
+      body,
+      isOptimistic: true,
     };
+
+    const optimisticId = Date.now();
 
     dispatch({
       type: actionTypes.SEND_COMMENT,
@@ -104,7 +106,11 @@ export const sendComment = () => {
           jsonMetadata
         ),
         data: optimisticData,
-      }
+      },
+      meta: {
+        optimisticId,
+        parentId: id,
+      },
     });
     dispatch(closeCommentingDraft());
 
