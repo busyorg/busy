@@ -24,13 +24,14 @@ const commentsList = (state = {}, action) => {
         isFetching: true,
         list: [],
         show: 1,
-        hasMore: true,
       };
     case commentsTypes.GET_COMMENTS_SUCCESS:
+      const hasMore = action.payload.list.length > 1;
       return {
         ...state,
         list: action.payload.list,
         isFetching: false,
+        hasMore,
       };
     case commentsTypes.SHOW_MORE_COMMENTS:
       const newShowValue = state.show === 1 ? 10 : state.show + 10;
