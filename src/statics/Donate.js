@@ -17,7 +17,7 @@ module.exports = React.createClass({
             <h1>Donors</h1>
             <p><Link to="/@smooth">@smooth</Link></p>
             <p><Link to="/@cass">@cass</Link></p>
-            <p><Link to="/@bhuz">@bhuz</Link> <Link to="/findandreward/@bhuz/find-and-reward-first-rewards-distribution">Find&Reward: First Rewards Distribution</Link></p>
+            <p><Link to="/@bhuz">@bhuz</Link></p>
           </div>
         </div>
       </div>
