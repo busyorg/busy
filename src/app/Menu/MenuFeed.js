@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 
 const HeaderTriggers = React.createClass({
   render() {
-    const category = this.props.category;
+    const category = (this.props.category) ? `/${this.props.category}` : '';
     return (
       <ul className="app-nav">
         <li><Link to={`/trending${category}`} onlyActiveOnIndex activeClassName="active"><i className="icon icon-md material-icons">show_chart</i><span className="hidden-xs"> Trending</span></Link></li>
