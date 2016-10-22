@@ -115,7 +115,7 @@ class Sidebar extends Component {
     if (this.state.categories) {
       const categories = _.sortBy(this.state.categories, 'discussions').reverse();
       categories.forEach((category, key) => {
-        tags.push(<li key={key}><Link to={'/trending/' + category.name} activeClassName="active">#{category.name}</Link></li>);
+        tags.push(<li key={key}><Link to={`/trending/${category.name}`} activeClassName="active">#{category.name}</Link></li>);
       });
     }
     tags = _.sortBy(tags, 'discussions');
@@ -128,10 +128,9 @@ class Sidebar extends Component {
     return (
       <nav className="sidebar">
         <div className="sidebar-header">
-          {this.props.app.sidebarIsVisible &&
-          <a className="visible-xs hide-sidebar" onClick={() => this.props.hideSidebar()}>
+          <a className="hide-sidebar" onClick={() => this.props.hideSidebar()}>
             <i className="icon icon-md icon-menu material-icons">arrow_back</i>
-          </a>}
+          </a>
           <div className="me">
             {this.props.auth.isAuthenticated ?
               <div>
