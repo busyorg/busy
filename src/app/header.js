@@ -7,12 +7,11 @@ const Header = React.createClass({
   render() {
     return (
       <header>
+        <Link to="/" onlyActiveOnIndex activeClassName="active" className="logo"><img src="/img/logo-blue.svg" width="34" /></Link>
         <div className="top-nav">
           {!this.props.app.sidebarIsVisible && <a href="#" onClick={() => this.props.showSidebar()}><i className="icon icon-md icon-menu material-icons">menu</i></a>}
-          {this.props.app.sidebarIsVisible && <a href="#" onClick={() => this.props.hideSidebar()}><i className="icon icon-md icon-menu material-icons">keyboard_backspace</i></a>}
-          <div className="section-content top-head">
-            <Link to="/" onlyActiveOnIndex activeClassName="active"><img src="/img/logo-blue.svg" /></Link>
-          </div>
+          <a href="#"><i className="icon icon-md icon-menu material-icons">search</i></a>
+          <div className="section-content top-head"></div>
           <a><i className="icon icon-md icon-menu material-icons">notifications</i></a>
         </div>
         {this.props.children && <div className="app-nav">{this.props.children}</div>}
