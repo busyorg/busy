@@ -13,6 +13,7 @@ import feedReducers from './feed/feedReducers';
 import postsReducers from './post/postsReducers';
 import userProfileReducer from './user/userProfileReducer';
 import bookmarksReducer from './bookmarks/bookmarksReducer';
+import notificationReducer from './notification/notificationReducers';
 import { responsiveReducer, mountResponsive } from './lib/responsive';
 
 export const messagesWorker = new MessagesWorker();
@@ -31,6 +32,7 @@ const reducers = combineReducers({
   responsive: responsiveReducer,
   messages: messagesReducer,
   bookmarks: bookmarksReducer,
+  notifications: notificationReducer,
 });
 
 const middleware = [
