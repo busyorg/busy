@@ -44,13 +44,14 @@ export default class Comments extends Component {
       <div className="Comments">
         <CommentsList postId={postId} comments={comments} />
 
-        <div
-          className="Comments__showMore"
-          onClick={this.handleShowMore}
-          style={{ visibility: hasMore ? 'visible' : 'hidden' }}
-        >
-          Load more comments...
-        </div>
+        { hasMore &&
+          <button
+            className="Comments__showMore"
+            onClick={this.handleShowMore}
+          >
+            Load more comments...
+          </button>
+        }
 
       </div>
     );
