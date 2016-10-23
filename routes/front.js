@@ -1,8 +1,7 @@
 var express = require('express');
 var router = express.Router();
-var steemconnect = require('steemconnect');
 
-router.get('/token', steemconnect.setToken, function (req, res) {
+router.get('/token', function (req, res) {
   res.redirect('/');
 });
 
