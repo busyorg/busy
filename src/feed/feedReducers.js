@@ -1,5 +1,5 @@
 import * as feedTypes from './feedActions';
-import * as userProfileTypes from './../user/userProfileActions';
+import * as userProfileTypes from '../user/userActions';
 
 const initialState = {
   feed: {},

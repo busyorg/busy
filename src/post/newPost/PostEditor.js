@@ -8,7 +8,7 @@ import { Map } from 'immutable';
 
 import './NewPost.scss';
 import './PostEditor.scss';
-import { uploadFile } from '../../user/userProfileActions';
+import { uploadFile } from '../../user/userActions';
 
 const debug = newDebug('busy:PostEditor');
 

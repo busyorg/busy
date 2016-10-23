@@ -10,20 +10,20 @@ var React = require('react'),
   Jobs = require('./statics/Jobs'),
   Donate = require('./statics/Donate'),
   Help = require('./statics/Help'),
-  Edit = require('./user/edit'),
-  Replies = require('./user/replies'),
-  Followers = require('./user/UserFollowers'),
-  Followed = require('./user/UserFollowed'),
-  Wallet = require('./user/Wallet'),
   MessagesUser = require('./messages/MessagesUser').default,
   MessagesCategory = require('./messages/MessagesCategory').default,
   Write = require('./post/newPost/NewPost').default;
 
 import Page from './feed/Page';
-import UserProfile from './user/UserProfile';
-import Profile from './user/profile';
-import UserProfilePosts from './user/UserProfilePosts';
-import UserProfileFeed from './user/UserProfileFeed';
+import User from './user/User';
+import Profile from './user/UserProfile';
+import Followers from './user/UserFollowers';
+import Followed from './user/UserFollowed';
+import Posts from './user/UserPosts';
+import Replies from './user/UserReplies';
+import Feed from './user/UserFeed';
+import Transfers from './user/UserTransfers';
+import Edit from './user/UserEdit';
 import { Trending, Hot, Votes, Responses, Active, Created, Cashout } from './feed/PathMatching';
 import PostSinglePage from './post/PostSinglePage';
 
@@ -52,14 +52,14 @@ export default (
     <Route path="/messages/@:username" component={MessagesUser} />
     <Route path="/messages/:category" component={MessagesCategory} />
 
-    <Route component={UserProfile}>
+    <Route component={User}>
       <Route path="/profile/edit" component={Edit} />
-      <Route path="/@:name/posts" component={UserProfilePosts} />
-      <Route path="/@:name/feed" component={UserProfileFeed} />
+      <Route path="/@:name/posts" component={Posts} />
+      <Route path="/@:name/feed" component={Feed} />
       <Route path="/@:name/replies" component={Replies} />
       <Route path="/@:name/followers" component={Followers} />
       <Route path="/@:name/followed" component={Followed} />
-      <Route path="/@:name/wallet" component={Wallet} />
+      <Route path="/@:name/transfers" component={Transfers} />
       <Route path="/@:name" component={Profile} />
     </Route>
 

@@ -1,7 +1,7 @@
 import keyBy from 'lodash/keyBy';
 import omit from 'lodash/omit';
 
-import * as actions from './userProfileActions';
+import * as actions from './userActions';
 
 const initialState = {
   // Map<FilePublicId, File>

@@ -2,7 +2,7 @@ import React from 'react';
 import ReduxInfiniteScroll from 'redux-infinite-scroll';
 import Loading from './../widgets/Loading';
 import AddPost from './../post/newPost/EmbeddedNewPost';
-import PostFeedItem from '../post/PostFeedItem';
+import PostFeed from '../post/PostFeed';
 import CommentForm from './../comments/CommentForm';
 
 export default class Feed extends React.Component {
@@ -87,5 +87,5 @@ export default class Feed extends React.Component {
   }
 }
 Feed.defaultProps = {
-  ItemComponent: PostFeedItem
+  ItemComponent: PostFeed
 };
