@@ -2,18 +2,18 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, browserHistory, applyRouterMiddleware } from 'react-router';
 import { Provider } from 'react-redux';
+import steemconnect from 'steemconnect';
 import {
   useHistoryRestoreScroll,
   useRouterRestoreScroll
 } from 'react-router-restore-scroll';
-import api from './steemAPI';
 import routes from './routes';
 import store from './store';
-import {isSmall} from './helpers/responsive';
-import steemconnect from 'steemconnect';
+import { isSmall } from './helpers/responsive';
 
 if (process.env.STEEMCONNECT_API_HOST) {
   steemconnect.setPath(process.env.STEEMCONNECT_API_HOST);
+  steemconnect.setApp('@busy.app');
 }
 
 const createHistory = useHistoryRestoreScroll(() => browserHistory);
