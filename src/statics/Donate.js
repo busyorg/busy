@@ -15,6 +15,7 @@ module.exports = React.createClass({
             <p><Link to="/@busy">@busy</Link></p>
             <br /><br />
             <h1>Donors</h1>
+            <p><Link to="/@steemit">@steemit</Link></p>
             <p><Link to="/@smooth">@smooth</Link></p>
             <p><Link to="/@cass">@cass</Link></p>
             <p><Link to="/@bhuz">@bhuz</Link></p>
