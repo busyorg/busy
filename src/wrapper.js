@@ -5,6 +5,8 @@ var React = require('react'),
   Sidebar = require('./app/Sidebar');
 
 import * as authActions from './auth/authActions';
+import { notify } from './notification/notificationActions';
+import Notification from './notification/Notification';
 
 var Wrapper = React.createClass({
   componentWillMount() {
@@ -15,14 +17,15 @@ var Wrapper = React.createClass({
 
   render() {
     var className = (!this.props.app.sidebarIsVisible) ? 'app-wrapper full-width' : 'app-wrapper';
-    const { auth } = this.props;
+    const { auth, notify } = this.props;
     return (
       <div className={className}>
         <Sidebar />
+        <Notification />
         {
           React.cloneElement(
             this.props.children,
-            { auth }
+            { auth, notify }
           )
         }
       </div>
@@ -48,6 +51,9 @@ const mapDispatchToProps = function (dispatch) {
     },
     getBookmarks: () => {
       dispatch(bookmarksActions.getBookmarks());
+    },
+    notify: (text) => {
+      dispatch(notify(text));
     }
   };
 };
