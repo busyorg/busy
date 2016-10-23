@@ -7,6 +7,7 @@ import BodyShort from './body-short';
 import Mentions from './mentions';
 import RepliesShort from './replies-short';
 import Flag from './flag';
+import Comments from './../comments/Comments';
 import PostActionButtons from './PostActionButtons';
 
 const colorCode = { green: 'rgba(39, 208, 169, 0.4)', red: 'rgba(249, 43, 97, 0.2)' };
@@ -73,9 +74,14 @@ export default class PostFeedItem extends React.Component {
         </div>
         <div style={style} />
         <div className="cell cell-bottom">
-          <PostActionButtons post={post} />
+          <PostActionButtons
+            post={post}
+            onCommentRequest={this.props.onCommentRequest}
+          />
         </div>
-        {this.props.replies !== 'false' && post.children > 0 && <RepliesShort parent={post.author} parentPermlink={post.permlink} />}
+
+        <Comments postId={post.id} />
+
       </div>
     );
   }

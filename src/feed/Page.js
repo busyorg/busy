@@ -1,4 +1,5 @@
 import React from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Header from '../app/header';
 import MenuFeed from '../app/Menu/MenuFeed';
@@ -17,7 +18,9 @@ import {
   getUserFeedContentFromState,
   getUserFeedLoadingFromState,
 } from './../helpers/stateHelpers';
+import * as commentsActions from './../comments/commentsActions';
 import { toggleBookmark } from './../bookmarks/bookmarksActions';
+
 
 @PageHOC
 @connect(
@@ -41,6 +44,8 @@ import { toggleBookmark } from './../bookmarks/bookmarksActions';
       getMoreUserFeedContent: () => dispatch(
         getMoreUserFeedContent({ username: auth.user.name, limit })
       ),
+      openCommentingDraft: bindActionCreators(commentsActions.openCommentingDraft, dispatch),
+      closeCommentingDraft: bindActionCreators(commentsActions.closeCommentingDraft, dispatch),
       toggleBookmark: (postId) => dispatch(
         toggleBookmark({ postId })
       ),
@@ -55,6 +60,7 @@ export default class Page extends React.Component {
 
   render() {
     const { account, category, sortBy, path, auth, feed, posts, limit, bookmarks } = this.props;
+    const { openCommentingDraft, closeCommentingDraft } = this.props;
 
     let content, isFetching, hasMore, loadContentAction, loadMoreContentAction;
 
@@ -88,8 +94,10 @@ export default class Page extends React.Component {
             hasMore={hasMore}
             loadContent={loadContentAction}
             loadMoreContent={loadMoreContentAction}
+            openCommentingDraft={openCommentingDraft}
+            closeCommentingDraft={closeCommentingDraft}
             toggleBookmark={this.props.toggleBookmark}
-            bookmarks={this.props.bookmarks}
+            bookmarks={bookmarks}
           />}
       </div>
     );

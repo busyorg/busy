@@ -110,12 +110,9 @@ class PostSinglePage extends React.Component {
           likes
           reblog={this.hasReblog()}
           replies
-          messages
           onClickReblog={this.onClickReblog}
         />
-
         <Header />
-
         <div className="single">
           {this.renderContent()}
         </div>

@@ -1,0 +1,26 @@
+@import "./../styles/colors";
+
+.CommentForm {
+  position: fixed;
+  width: 100%;
+  bottom: -4px;
+  left: 0;
+  padding-top: 5px;
+  transition: bottom 0.7s cubic-bezier(0.18, 0.73, 0.47, 0.85);
+
+  &.disappear {
+    bottom: -100px;
+  }
+}
+
+.CommentForm__input {
+  display: block;
+  border: 4px solid $primary-color;
+  border-radius: 0.8rem 0.8rem 0 0;
+  background: #fff;
+  font-size: 1.4rem;
+  padding: 0 1rem 0 1rem;
+  min-height: 4rem;
+  width: 40rem;
+  margin: 0 auto;
+}

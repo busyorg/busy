@@ -14,6 +14,8 @@ import postsReducers from './post/postsReducers';
 import userProfileReducer from './user/userProfileReducer';
 import bookmarksReducer from './bookmarks/bookmarksReducer';
 import notificationReducer from './notification/notificationReducers';
+import favoritesReducer from './favorites/favoritesReducer';
+
 import { responsiveReducer, mountResponsive } from './lib/responsive';
 
 export const messagesWorker = new MessagesWorker();
@@ -33,6 +35,7 @@ const reducers = combineReducers({
   messages: messagesReducer,
   bookmarks: bookmarksReducer,
   notifications: notificationReducer,
+  favorites: favoritesReducer,
 });
 
 const middleware = [
@@ -61,7 +64,7 @@ if (process.env.ENABLE_LOGGER &&
 
 const store = createStore(
   reducers,
-  typeof window !== 'undefined' && window.devToolsExtension && window.devToolsExtension(),
+  window.devToolsExtension && window.devToolsExtension(),
   applyMiddleware(...middleware)
 );
 

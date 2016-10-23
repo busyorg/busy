@@ -1,35 +1,59 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import CommentsList from './CommentsList';
+import * as commentsActions from './commentsActions';
+import { getCommentsFromState } from './../helpers/stateHelpers';
 
-@connect(mapStateToProps)
+import './Comments.scss';
+
+@connect(
+  state => ({
+    comments: state.comments,
+  }),
+  dispatch => bindActionCreators({
+    getComments: commentsActions.getComments,
+    showMoreComments: commentsActions.showMoreComments,
+  }, dispatch)
+)
 export default class Comments extends Component {
   constructor(props) {
     super(props);
   }
 
   static propTypes = {
-    postId: React.PropTypes.string.isRequired,
+    postId: PropTypes.string.isRequired,
+    comments: PropTypes.object,
+    getComments: PropTypes.func,
   };
 
-  componentDidMount() {
+  componentWillMount() {
     this.props.getComments(this.props.postId);
   }
 
+  handleShowMore = (e) => {
+    e.stopPropagation();
+    this.props.showMoreComments(this.props.postId);
+  };
+
   render() {
-    // TODO(p0o): remove default when postId is passed from the top (not implemented yet)
-    const postId = this.props.postId || 0;
+    const { postId, comments } = this.props;
+    const hasMore = (comments.lists[postId] && comments.lists[postId].hasMore);
 
     return (
-      <div>
-        <CommentsList commentsData={commentsData[postId]} />
+      <div className="Comments">
+        <CommentsList postId={postId} comments={comments} />
+
+        { hasMore &&
+          <button
+            className="Comments__showMore"
+            onClick={this.handleShowMore}
+          >
+            Load more comments...
+          </button>
+        }
+
       </div>
     );
   }
 }
-
-const mapStateToProps = ({ comments }) => {
-  return {
-    comments
-  };
-};

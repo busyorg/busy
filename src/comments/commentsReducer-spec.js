@@ -1,6 +1,6 @@
 /* eslint-disable prefer-arrow-callback, no-undef, import/no-extraneous-dependencies */
 import { expect } from 'chai';
-import * as commentsTypes from './commentsActionTypes';
+import * as commentsTypes from './commentsAction';
 import commentsReducers from './commentsReducer';
 
 const initialStateMock = {};
