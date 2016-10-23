@@ -12,6 +12,7 @@ import commentsReducer from './comments/commentsReducer.js';
 import feedReducers from './feed/feedReducers';
 import postsReducers from './post/postsReducers';
 import userProfileReducer from './user/userReducer';
+import notificationReducer from './notification/notificationReducers';
 import bookmarksReducer from './app/Bookmarks/bookmarksReducer';
 import favoritesReducer from './app/Favorites/favoritesReducer';
 import { responsiveReducer, mountResponsive } from './helpers/responsive';
@@ -31,6 +32,7 @@ const reducers = combineReducers({
   userProfile: userProfileReducer,
   responsive: responsiveReducer,
   messages: messagesReducer,
+  notifications: notificationReducer,
   bookmarks: bookmarksReducer,
   favorites: favoritesReducer,
 });
