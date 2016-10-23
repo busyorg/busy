@@ -28,13 +28,17 @@ function makePlugins(options) {
           process.env.STEEMCONNECT_HOST ||
             'https://dev.steemconnect.com'
         ),
+        STEEMCONNECT_REDIRECT_URL: JSON.stringify(
+          process.env.STEEMCONNECT_REDIRECT_URL ||
+          'http://localhost:3000/token'
+        ),
         STEEMCONNECT_API_HOST: JSON.stringify(
           process.env.STEEMCONNECT_API_HOST ||
             'https://dev.steemconnect.com/api'
         ),
         WS: JSON.stringify(
           process.env.WS ||
-          'wss://steemit.com/wspa'
+          'wss://steem.yt'
         ),
         IS_BROWSER: JSON.stringify(true),
       },
