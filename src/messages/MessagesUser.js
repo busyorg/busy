@@ -8,6 +8,7 @@ import MessageForm from './MessageForm';
 import MessageList from './MessageList';
 import actionDecorator from '../lib/actionDecorator';
 import { fetchChannelPresence, joinChannel } from './messagesActions';
+import { toggleFavoriteUser } from '../favorites/favoritesActions';
 
 class MessagesPage extends Component {
   static propTypes = {
@@ -39,7 +40,11 @@ class MessagesPage extends Component {
       <div className="Messages main-panel">
         <Header menu="messages">
           <div>
-            <i className="icon icon-sm material-icons">star_border</i>
+            <a onClick={() => this.props.toggleFavoriteCategory(category)}>
+              <i className="icon icon-sm material-icons">
+                {_.has(this.props.favorites, category) ? 'star' : 'star_border'}
+              </i>
+            </a>
             <Link to={`/${channelName}`}>
               {channelName}
             </Link>
@@ -67,10 +72,12 @@ class MessagesPage extends Component {
 MessagesPage = actionDecorator(fetchChannelPresence, joinChannel)(MessagesPage, {
   waitFor: state => state.auth && state.auth.user && state.auth.user.name,
 });
+
 MessagesPage = connect(state => ({
   auth: state.auth,
   channels: state.messages.channels,
   users: state.messages.users,
+  favorites: state.favorites,
 }))(MessagesPage);
 
 export default MessagesPage;
