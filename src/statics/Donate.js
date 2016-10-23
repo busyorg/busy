@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
-import Header from './../app/header';
+import Header from '../app/Header';
 import MenuAbout from '../app/Menu/MenuAbout';
 
 module.exports = React.createClass({

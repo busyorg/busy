@@ -3,7 +3,6 @@ var React = require('react'),
   Route = ReactRouter.Route,
   IndexRoute = ReactRouter.IndexRoute,
   Wrapper = require('./wrapper'),
-  Settings = require('./app/settings'),
   About = require('./statics/About'),
   Team = require('./statics/Team'),
   Projects = require('./statics/Projects'),
@@ -14,6 +13,7 @@ var React = require('react'),
   MessagesCategory = require('./messages/MessagesCategory').default,
   Write = require('./post/newPost/NewPost').default;
 
+import Settings from './app/AppSettings';
 import Page from './feed/Page';
 import User from './user/User';
 import Profile from './user/UserProfile';

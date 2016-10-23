@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from './../app/header';
+import Header from '../app/Header';
 import MenuAbout from '../app/Menu/MenuAbout';
 
 module.exports = React.createClass({

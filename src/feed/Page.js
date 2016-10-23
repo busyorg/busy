@@ -1,9 +1,9 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import Header from '../app/header';
+import Header from '../app/Header';
 import MenuFeed from '../app/Menu/MenuFeed';
-import PageActions from '../app/PageActions';
+import Triggers from '../app/Triggers';
 import Feed from './Feed';
 import PageHOC from './PageHOC';
 import {
@@ -19,7 +19,7 @@ import {
   getUserFeedLoadingFromState,
 } from './../helpers/stateHelpers';
 import * as commentsActions from './../comments/commentsActions';
-import { toggleBookmark } from './../bookmarks/bookmarksActions';
+import { toggleBookmark } from '../app/Bookmarks/bookmarksActions';
 
 
 @PageHOC
@@ -83,7 +83,7 @@ export default class Page extends React.Component {
         <Header />
         <MenuFeed category={category} />
         {auth.isAuthenticated &&
-          <PageActions
+          <Triggers
             messages
             add
           />}

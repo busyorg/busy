@@ -3,12 +3,12 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
 import './Messages.scss';
-import Header from './../app/header';
+import Header from '../app/Header';
 import MessageForm from './MessageForm';
 import MessageList from './MessageList';
-import actionDecorator from '../lib/actionDecorator';
+import actionDecorator from '../helpers/actionDecorator';
 import { fetchChannelPresence, joinChannel } from './messagesActions';
-import { toggleFavoriteCategory } from '../favorites/favoritesActions';
+import { toggleFavoriteCategory } from '../app/Favorites/favoritesActions';
 
 class MessagesPage extends Component {
   static propTypes = {

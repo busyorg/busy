@@ -15,9 +15,9 @@ import {
   getFeedLoadingFromState,
   getFeedHasMoreFromState
 } from './../helpers/stateHelpers';
-import Header from '../app/header';
+import Header from '../app/Header';
 import Loading from '../widgets/Loading';
-import PageActions from '../app/PageActions';
+import Triggers from '../app/Triggers';
 import actions from '../actions';
 import api from '../steemAPI';
 import {followUser, unfollowUser} from '../auth/authActions';
@@ -128,7 +128,7 @@ class Profile extends Component {
 
     return (
       <div>
-        <PageActions
+        <Triggers
           params={this.props.params}
           messages={!edit}
           edit={edit}

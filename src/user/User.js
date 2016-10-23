@@ -9,7 +9,7 @@ import {
 } from './../feed/feedActions';
 import { getUserComments, getMoreUserComments } from './userActions';
 import appActions from '../actions';
-import Header from '../app/header';
+import Header from '../app/Header';
 import MenuUser from '../app/Menu/MenuUser';
 
 @connect(

@@ -1,8 +1,8 @@
 var React = require('react'),
   ReactRedux = require('react-redux'),
   actions = require('./actions'),
-  bookmarksActions = require('./bookmarks/bookmarksActions'),
-  Sidebar = require('./app/sidebar');
+  bookmarksActions = require('./app/Bookmarks/bookmarksActions'),
+  Sidebar = require('./app/Sidebar');
 
 import * as authActions from './auth/authActions';
 

@@ -6,7 +6,7 @@ import { Link, browserHistory } from 'react-router';
 import '../../fonts/Karla.scss';
 import '../../fonts/MaterialIcons.scss';
 import './NewPost.scss';
-import Header from '../../app/header';
+import Header from '../../app/Header';
 import PostEditor from './PostEditor';
 
 export class RawNewPost extends Component {

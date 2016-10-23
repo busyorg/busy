@@ -1,5 +1,5 @@
 let React = require('react'),
-  Header = require('./header'),
+  Header = require('./Header'),
   Link = require('react-router').Link;
 
 module.exports = React.createClass({

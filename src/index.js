@@ -9,7 +9,7 @@ import {
 import api from './steemAPI';
 import routes from './routes';
 import store from './store';
-import {isSmall} from './lib/responsive';
+import {isSmall} from './helpers/responsive';
 import steemconnect from 'steemconnect';
 
 if (process.env.STEEMCONNECT_API_HOST) {

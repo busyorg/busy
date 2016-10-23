@@ -8,11 +8,11 @@ import Promise from 'bluebird';
 import request from 'superagent';
 
 import api from './../steemAPI';
-import Header from './../app/header';
+import Header from '../app/Header';
 import Loading from './../widgets/Loading';
 import Body from './body';
 import Replies from './replies';
-import PageActions from './../app/PageActions';
+import Triggers from './../app/Triggers';
 
 class PostSinglePage extends React.Component {
   constructor(props) {
@@ -105,7 +105,7 @@ class PostSinglePage extends React.Component {
   render() {
     return (
       <div className="main-panel">
-        <PageActions
+        <Triggers
           params={this.props.params}
           likes
           reblog={this.hasReblog()}

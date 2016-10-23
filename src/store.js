@@ -12,9 +12,9 @@ import commentsReducer from './comments/commentsReducer.js';
 import feedReducers from './feed/feedReducers';
 import postsReducers from './post/postsReducers';
 import userProfileReducer from './user/userReducer';
-import bookmarksReducer from './bookmarks/bookmarksReducer';
-import favoritesReducer from './favorites/favoritesReducer';
-import { responsiveReducer, mountResponsive } from './lib/responsive';
+import bookmarksReducer from './app/Bookmarks/bookmarksReducer';
+import favoritesReducer from './app/Favorites/favoritesReducer';
+import { responsiveReducer, mountResponsive } from './helpers/responsive';
 
 export const messagesWorker = new MessagesWorker();
 

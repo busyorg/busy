@@ -1,5 +1,5 @@
 import * as appTypes from '../actions';
-import * as responsive from '../lib/responsive';
+import * as responsive from '../helpers/responsive';
 
 const initialState = {
   isFetching: false,

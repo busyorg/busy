@@ -9,7 +9,7 @@ import { mount } from 'enzyme';
 import * as appTypes from '../actions';
 import actionDecorator from './actionDecorator';
 import store from '../store';
-import { makeDOMEnvironment } from '../helpers/testHelpers';
+import { makeDOMEnvironment } from './testHelpers';
 
 chai.use(chaiEnzyme);
 
