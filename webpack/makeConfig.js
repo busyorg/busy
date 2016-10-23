@@ -30,7 +30,7 @@ function makePlugins(options) {
         ),
         STEEMCONNECT_REDIRECT_URL: JSON.stringify(
           process.env.STEEMCONNECT_REDIRECT_URL ||
-          'http://localhost:3000/token'
+          'http://localhost:3000'
         ),
         STEEMCONNECT_API_HOST: JSON.stringify(
           process.env.STEEMCONNECT_API_HOST ||
