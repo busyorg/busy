@@ -57,7 +57,7 @@ const Actions = React.createClass({
 
         <li>
           <a onClick={e => this.handleCommentBoxClick(e)}>
-            <i className="icon icon-sm material-icons">comment</i>
+            <i className="icon icon-sm material-icons">reply</i>
           </a>
           { ' ' }
           {numeral(post.children).format('0,0')}
