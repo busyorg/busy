@@ -211,7 +211,7 @@ class Sidebar extends Component {
               <li><span className="menu-row">Steem <span className="pull-right">{numeral(user.balance).format('0,0.00')}</span></span></li>
               <li><span className="menu-row">Steem Power <span className="pull-right">{numeral(power).format('0,0.00')}</span></span></li>
               <li><span className="menu-row">Steem Dollars <span className="pull-right">{numeral(user.sbd_balance).format('0,0.00')}</span></span></li>
-              <li><span className="menu-row">Steem Dollars <span className="pull-right">{numeral(dollar).format('$0,0.00')}</span></span></li>
+              <li><span className="menu-row">Estimated Value <span className="pull-right">{numeral(dollar).format('$0,0.00')}</span></span></li>
             </ul>}
         </div>
       </nav>
