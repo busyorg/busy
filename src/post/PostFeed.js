@@ -76,6 +76,7 @@ export default class PostFeedItem extends React.Component {
         <div className="cell cell-bottom">
           <PostActionButtons
             post={post}
+            notify={this.props.notify}
             onCommentRequest={this.props.onCommentRequest}
           />
         </div>

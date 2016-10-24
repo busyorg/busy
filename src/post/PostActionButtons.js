@@ -34,6 +34,7 @@ const Actions = React.createClass({
   handleCommentBoxClick(e) {
     e.stopPropagation();
     if (!this.props.auth.isAuthenticated) {
+      this.props.notify('You need to login in order to write comments.');
       return;
     }
 

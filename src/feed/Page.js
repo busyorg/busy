@@ -59,7 +59,7 @@ export default class Page extends React.Component {
   }
 
   render() {
-    const { account, category, sortBy, path, auth, feed, posts, limit, bookmarks } = this.props;
+    const { notify, category, sortBy, path, auth, feed, posts, limit, bookmarks } = this.props;
     const { openCommentingDraft, closeCommentingDraft } = this.props;
 
     let content, isFetching, hasMore, loadContentAction, loadMoreContentAction;
@@ -98,6 +98,7 @@ export default class Page extends React.Component {
             closeCommentingDraft={closeCommentingDraft}
             toggleBookmark={this.props.toggleBookmark}
             bookmarks={bookmarks}
+            notify={notify}
           />}
       </div>
     );

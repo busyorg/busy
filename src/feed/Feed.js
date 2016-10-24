@@ -49,7 +49,16 @@ export default class Feed extends React.Component {
   }
 
   render() {
-    const { content, isFetching, hasMore, ItemComponent, replies, toggleBookmark, bookmarks } = this.props;
+    const {
+      content,
+      isFetching,
+      hasMore,
+      ItemComponent,
+      replies,
+      toggleBookmark,
+      bookmarks,
+      notify
+    } = this.props;
 
     return (
       <div className="grid">
@@ -73,6 +82,7 @@ export default class Feed extends React.Component {
                   toggleBookmark={toggleBookmark}
                   bookmarks={bookmarks}
                   onCommentRequest={e => this.handleCommentRequest(e)}
+                  notify={notify}
                 />
               )
             }
