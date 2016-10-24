@@ -18,7 +18,7 @@ import Page from './feed/Page';
 import User from './user/User';
 import Profile from './user/UserProfile';
 import Followers from './user/UserFollowers';
-import Followed from './user/UserFollowed';
+import Following from './user/UserFollowing';
 import Posts from './user/UserPosts';
 import Replies from './user/UserReplies';
 import Feed from './user/UserFeed';
@@ -58,7 +58,7 @@ export default (
       <Route path="/@:name/feed" component={Feed} />
       <Route path="/@:name/replies" component={Replies} />
       <Route path="/@:name/followers" component={Followers} />
-      <Route path="/@:name/followed" component={Followed} />
+      <Route path="/@:name/followed" component={Following} />
       <Route path="/@:name/transfers" component={Transfers} />
       <Route path="/@:name" component={Profile} />
     </Route>

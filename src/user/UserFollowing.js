@@ -3,7 +3,7 @@ import steemdb from 'steemdb';
 import Loading from '../widgets/Loading';
 import UserList from './UserList';
 
-export default class UserFollowers extends Component {
+export default class UserFollowing extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -15,7 +15,7 @@ export default class UserFollowers extends Component {
     steemdb.accounts({
       account: this.props.params.name
     }, (err, result) => {
-      this.setState({ users: result[0].followers });
+      this.setState({ users: result[0].following });
     });
   }
 
@@ -34,4 +34,3 @@ export default class UserFollowers extends Component {
     );
   }
 };
-
