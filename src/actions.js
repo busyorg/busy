@@ -14,14 +14,13 @@ export const ACCOUNT_SUCCESS = '@app/ACCOUNT_SUCCESS';
 
 export const SHOW_SIDEBAR = '@app/SHOW_SIDEBAR';
 export const HIDE_SIDEBAR = '@app/HIDE_SIDEBAR';
-export const SET_MENU = '@app/SET_MENU';
 
 module.exports = {
-  getConfig: function() {
-    return function(dispatch, getState) {
+  getConfig: () => {
+    return (dispatch, getState) => {
       var req = {type: CONFIG_REQUEST};
       dispatch(req);
-      api.getConfig(function(err, config) {
+      api.getConfig((err, config) => {
         var res = {
           type: CONFIG_SUCCESS,
           config: config,
@@ -30,19 +29,14 @@ module.exports = {
       });
     };
   },
-  showSidebar: function() {
-    return function(dispatch, getState) {
+  showSidebar: () => {
+    return (dispatch, getState) => {
       dispatch({type: SHOW_SIDEBAR});
     };
   },
-  hideSidebar: function() {
-    return function(dispatch, getState) {
+  hideSidebar: () => {
+    return (dispatch, getState) => {
       dispatch({type: HIDE_SIDEBAR});
     };
   },
-  setMenu: function(menu) {
-    return function(dispatch, getState) {
-      dispatch({type: SET_MENU, menu: menu});
-    };
-  }
 };

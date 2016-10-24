@@ -11,10 +11,6 @@ export default class UserProfileFeed extends Component {
     super(props);
   }
 
-  componentDidMount() {
-    this.props.setMenu('secondary');
-  }
-
   render() {
     const { feed, posts, getUserFeedContent, getMoreUserFeedContent } = this.props;
     const username = this.props.params.name;

@@ -11,10 +11,6 @@ export default class UserProfilePosts extends Component {
     super(props);
   }
 
-  componentDidMount() {
-    this.props.setMenu('secondary');
-  }
-
   render() {
     const { feed, comments, getUserComments, getMoreUserComments, limit } = this.props;
     const username = this.props.params.name;

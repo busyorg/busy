@@ -1,7 +1,6 @@
 import 'babel-polyfill';
 import React, { Component } from 'react';
 import _ from 'lodash';
-import classNames from 'classnames';
 import formatter from 'steem/lib/formatter';
 import find from 'lodash/find';
 import moment from 'moment';
@@ -15,10 +14,8 @@ import {
   getFeedLoadingFromState,
   getFeedHasMoreFromState
 } from './../helpers/stateHelpers';
-import Header from '../app/Header';
 import Loading from '../widgets/Loading';
 import Triggers from '../app/Triggers';
-import actions from '../actions';
 import api from '../steemAPI';
 import {followUser, unfollowUser} from '../auth/authActions';
 
@@ -28,8 +25,6 @@ class Profile extends Component {
   }
 
   componentWillMount() {
-    //this.props.setMenu('secondary');
-
     this.setState({
       account: {},
       followersCount: 0,
@@ -41,12 +36,7 @@ class Profile extends Component {
     this._init();
   }
 
-  componentDidMount() {
-    this.props.setMenu('secondary');
-  }
-
   componentWillReceiveProps(nextProps) {
-    //this.props.setMenu('secondary');
     this.setState({
       account: {},
       followersCount: 0,
@@ -196,7 +186,6 @@ const mapStateToProps = function (state) {
 
 const mapDispatchToProps = function (dispatch) {
   return {
-    setMenu(menu) { dispatch(actions.setMenu(menu)); },
     followUser: (...args) => dispatch(followUser(...args)),
     unfollowUser: (...args) => dispatch(unfollowUser(...args)),
   };

@@ -25,7 +25,6 @@ import MenuUser from '../app/Menu/MenuUser';
     getMoreUserFeedContent,
     getUserComments,
     getMoreUserComments,
-    setMenu: appActions.setMenu,
   }, dispatch)
 )
 export default class UserProfile extends React.Component {
