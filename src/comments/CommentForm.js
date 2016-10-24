@@ -39,23 +39,23 @@ export default class CommentForm extends Component {
     }
   }
 
+  componentWillUpdate(nextProps) {
+    const { comments } = this.props;
+    if(nextProps.comments.currentDraftId !== comments.currentDraftId) {
+      this.updateDraft();
+      this._input.focus();
+    }
+  }
+
   componentDidUpdate(prevProps) {
     const { comments } = this.props;
     const draftValue = comments.currentDraftId
       ? comments.commentingDraft[comments.currentDraftId].body
       : '';
 
-    if (prevProps.comments.isCommenting !== comments.isCommenting) {
-
-      if (comments.isCommenting) {
-        this._input.focus();
-        // not using react value (controlled component) for performance reasons
-        this._input.value = draftValue;
-      }
-
-      if (!comments.isCommenting) {
-        this.updateDraft();
-      }
+    if (prevProps.comments.currentDraftId !== comments.currentDraftId) {
+      // not using react value (controlled component) for performance reasons
+      this._input.value = draftValue;
     }
   }
 
