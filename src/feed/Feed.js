@@ -12,36 +12,10 @@ export default class Feed extends React.Component {
 
   componentDidMount() {
     this.props.loadContent();
-    this.initializeListener();
   }
-
-  componentWillUnmount() {
-    this.removeListener();
-  }
-
-  initializeListener() {
-    if (window) {
-      window.addEventListener('scroll', this.onScroll);
-    }
-  }
-
-  removeListener() {
-    if (window) {
-      window.removeEventListener('scroll', this.onScroll);
-    }
-  }
-
-  onScroll = () => {
-    /**
-     * disable comment box on scroll and remove listener to avoid re-execution of function
-     */
-    this.removeListener();
-    this.props.closeCommentingDraft();
-  };
 
   handleCommentRequest(draftProps) {
     this.props.openCommentingDraft(draftProps);
-    this.initializeListener();
   }
 
   handleFeedClick() {
