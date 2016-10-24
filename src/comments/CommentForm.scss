@@ -5,8 +5,9 @@
   width: 100%;
   bottom: -4px;
   left: 0;
-  padding-top: 5px;
+  padding-top: 2px;
   transition: bottom 0.7s cubic-bezier(0.18, 0.73, 0.47, 0.85);
+  background: $input-background;
 
   &.disappear {
     bottom: -100px;
@@ -15,12 +16,9 @@
 
 .CommentForm__input {
   display: block;
-  border: 4px solid $primary-color;
-  border-radius: 0.8rem 0.8rem 0 0;
-  background: #fff;
-  font-size: 1.4rem;
-  padding: 0 1rem 0 1rem;
-  min-height: 4rem;
-  width: 40rem;
+  background: $input-background;
+  max-height: 30vh;
+  min-height: 6rem;
+  width: 598px;
   margin: 0 auto;
 }
