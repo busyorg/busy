@@ -1,6 +1,7 @@
 import 'babel-polyfill';
 import React, { Component } from 'react';
 import _ from 'lodash';
+import steemdb from 'steemdb';
 import formatter from 'steem/lib/formatter';
 import find from 'lodash/find';
 import moment from 'moment';
@@ -16,33 +17,24 @@ import {
 } from './../helpers/stateHelpers';
 import Loading from '../widgets/Loading';
 import Triggers from '../app/Triggers';
-import api from '../steemAPI';
 import {followUser, unfollowUser} from '../auth/authActions';
 
 class Profile extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      user: {},
+      isFollowing: false,
+      isFollowingIsLoading: true,
+    };
   }
 
   componentWillMount() {
-    this.setState({
-      account: {},
-      followersCount: 0,
-      followingCount: 0,
-
-      isFollowing: false,
-      isFollowingIsLoading: true,
+    steemdb.accounts({
+      account: this.props.params.name
+    }, (err, result) => {
+      this.setState({ user: result[0] });
     });
-    this._init();
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      account: {},
-      followersCount: 0,
-      followingCount: 0
-    });
-    this._init();
   }
 
   hasFollow() {
@@ -51,23 +43,6 @@ class Profile extends Component {
       this.props.auth.isAuthenticated
         && username !== this.props.auth.user.name
     );
-  }
-
-  async _init() {
-    await api.apiNamesP;
-    const username = this.props.params.name;
-
-    api.getAccounts([username], (err, result) => {
-      this.setState({ account: result[0] });
-    });
-
-    api.getFollowers(username, 0, 'blog', 100, (err, result) => {
-      this.setState({ followersCount: _.size(result) });
-    });
-
-    api.getFollowing(username, 0, 'blog', 100, (err, result) => {
-      this.setState({ followingCount: _.size(result) });
-    });
   }
 
   onClickFollow = (e) => {
@@ -106,10 +81,9 @@ class Profile extends Component {
       limit
     });
 
-    var account = this.state.account;
-
-    try { var jsonMetadata = JSON.parse(account.json_metadata); }
-    catch (e) { var jsonMetadata = {}; }
+    const user = this.state.user;
+    let jsonMetadata = {};
+    try { jsonMetadata = JSON.parse(user.json_metadata); } catch (e) { jsonMetadata = {}; }
 
     const isFollowing = this.props.following && !!find(this.props.following, (u) => (
       u.following === this.props.params.name
@@ -138,7 +112,7 @@ class Profile extends Component {
         >
           <div className="mvl">
             <div className="avatar avatar-xl">
-              {_.has(account, 'name') && <div className="reputation">{formatter.reputation(account.reputation)}</div>}
+              {_.has(user, 'name') && <div className="reputation">{formatter.reputation(user.reputation)}</div>}
               <img src={'https://img.busy6.com/@' + username} />
             </div>
 
@@ -146,21 +120,21 @@ class Profile extends Component {
           </div>
         </section>
         <div className="profile">
-          {!_.has(account, 'name') && <Loading />}
-          {_.has(account, 'name') && <div>
+          {!_.has(user, 'name') && <Loading />}
+          {_.has(user, 'name') && <div>
             <ul className="secondary-nav">
-              <li><i className="icon icon-md material-icons">library_books</i> {numeral(account.post_count).format('0,0')}<span className="hidden-xs"> Posts</span></li>
-              <li><i className="icon icon-md material-icons">gavel</i> {numeral(parseInt(account.voting_power) / 10000).format('%0')}<span className="hidden-xs"> Voting Power</span></li>
-              <li><Link to={'/@' + username + '/followers'}><i className="icon icon-md material-icons">people</i> {numeral(parseInt(this.state.followersCount)).format('0,0')}<span className="hidden-xs"> Followers</span></Link></li>
-              <li><Link to={'/@' + username + '/followed'}><i className="icon icon-md material-icons">people</i> {numeral(parseInt(this.state.followingCount)).format('0,0')}<span className="hidden-xs"> Followed</span></Link></li>
+              <li><i className="icon icon-md material-icons">library_books</i> {numeral(user.post_count).format('0,0')}<span className="hidden-xs"> Posts</span></li>
+              <li><i className="icon icon-md material-icons">gavel</i> {numeral(parseInt(user.voting_power) / 10000).format('%0')}<span className="hidden-xs"> Voting Power</span></li>
+              <li><Link to={`/@${username}/followers`}><i className="icon icon-md material-icons">people</i> {numeral(parseInt(user.followers_count)).format('0,0')}<span className="hidden-xs"> Followers</span></Link></li>
+              <li><Link to={`/@${username}/followed`}><i className="icon icon-md material-icons">people</i> {numeral(parseInt(user.following_count)).format('0,0')}<span className="hidden-xs"> Followed</span></Link></li>
             </ul>
             <center className="mal">
               {_.has(jsonMetadata, 'profile.about') && <h3>{jsonMetadata.profile.about}</h3>}
               {_.has(jsonMetadata, 'profile.website') && <p><i className="icon icon-md material-icons">link</i> <a href={jsonMetadata.profile.website} target="_blank">{jsonMetadata.profile.website}</a></p>}
               {_.has(jsonMetadata, 'profile.location') && <p><i className="icon icon-md material-icons">pin_drop</i> {jsonMetadata.profile.location}</p>}
-              {_.has(account, 'name') && <p>
-                <span>Joined {moment(account.created).fromNow()}</span> <span>, last activity {moment(account.last_active).fromNow()}</span>
-              </p>}
+              <p>
+                <span>Joined {moment(user.created).fromNow()}</span> <span>, last activity {moment(user.last_active).fromNow()}</span>
+              </p>
             </center>
           </div>}
           <Feed
