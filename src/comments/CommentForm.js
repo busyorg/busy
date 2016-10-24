@@ -12,6 +12,7 @@ import './CommentForm.scss';
   state => ({
     sidebarIsVisible: state.app.sidebarIsVisible,
     comments: state.comments,
+    posts: state.posts,
   }),
   (dispatch) => bindActionCreators({
     sendComment: commentActions.sendComment,
@@ -59,7 +60,7 @@ export default class CommentForm extends Component {
   }
 
   render() {
-    const { comments, sidebarIsVisible, closeCommentingDraft } = this.props;
+    const { comments, sidebarIsVisible, closeCommentingDraft, posts } = this.props;
 
     let commentsClass = 'CommentForm';
     if (!comments.isCommenting) {
@@ -69,8 +70,21 @@ export default class CommentForm extends Component {
       commentsClass += ' withSidebar';
     }
 
+    let parentTitle = '';
+    if (comments.currentDraftId) {
+      parentTitle = posts[comments.currentDraftId] ? posts[comments.currentDraftId].title : '';
+    }
+
+
     return (
       <div className={commentsClass}>
+
+        { comments.currentDraftId &&
+          <div className="CommentForm__details">
+            Commenting to: <b>{ parentTitle }</b>
+          </div>
+        }
+
         <Textarea
           rows={1}
           ref={(c) => { this._input = c; }}
@@ -78,7 +92,7 @@ export default class CommentForm extends Component {
           onKeyDown={(e) => this.handleKey(e)}
           placeholder={'Write a comment...'}
         />
-        <a className="CommentForm__close" onClick={closeCommentingDraft}>
+        <a className="CommentForm__close" onClick={() => closeCommentingDraft()}>
           <Icon name="clear" />
         </a>
       </div>
