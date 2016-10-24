@@ -9,6 +9,7 @@ import './CommentForm.scss';
 
 @connect(
   state => ({
+    sidebarIsVisible: state.app.sidebarIsVisible,
     comments: state.comments,
   }),
   (dispatch) => bindActionCreators({
@@ -56,10 +57,18 @@ export default class CommentForm extends Component {
   }
 
   render() {
-    const { comments } = this.props;
+    const { comments, sidebarIsVisible } = this.props;
+
+    let commentsClass = 'CommentForm';
+    if (!comments.isCommenting) {
+      commentsClass += ' disappear';
+    }
+    if (sidebarIsVisible) {
+      commentsClass += ' withSidebar';
+    }
 
     return (
-      <div className={comments.isCommenting ? 'CommentForm' : 'CommentForm disappear'}>
+      <div className={commentsClass}>
         <Textarea
           rows={1}
           ref={(c) => { this._input = c; }}

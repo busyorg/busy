@@ -4,13 +4,17 @@
   position: fixed;
   width: 100%;
   bottom: -4px;
-  left: 0;
+  right: 0;
   padding-top: 2px;
   transition: bottom 0.7s cubic-bezier(0.18, 0.73, 0.47, 0.85);
   background: $input-background;
 
   &.disappear {
     bottom: -100px;
+  }
+
+  &.withSidebar {
+    width: calc(100% - 240px);
   }
 }
 
