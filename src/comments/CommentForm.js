@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import Icon from './../widgets/Icon';
 import * as commentActions from './commentsActions';
 import Textarea from 'react-textarea-autosize';
 import keycode from 'keycode';
@@ -15,6 +16,7 @@ import './CommentForm.scss';
   (dispatch) => bindActionCreators({
     sendComment: commentActions.sendComment,
     updateCommentingDraft: commentActions.updateCommentingDraft,
+    closeCommentingDraft: commentActions.closeCommentingDraft,
   }, dispatch)
 )
 export default class CommentForm extends Component {
@@ -57,7 +59,7 @@ export default class CommentForm extends Component {
   }
 
   render() {
-    const { comments, sidebarIsVisible } = this.props;
+    const { comments, sidebarIsVisible, closeCommentingDraft } = this.props;
 
     let commentsClass = 'CommentForm';
     if (!comments.isCommenting) {
@@ -76,6 +78,9 @@ export default class CommentForm extends Component {
           onKeyDown={(e) => this.handleKey(e)}
           placeholder={'Write a comment...'}
         />
+        <a className="CommentForm__close" onClick={closeCommentingDraft}>
+          <Icon name="clear" />
+        </a>
       </div>
     );
   }
