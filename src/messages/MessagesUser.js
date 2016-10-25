@@ -8,7 +8,6 @@ import MessageForm from './MessageForm';
 import MessageList from './MessageList';
 import actionDecorator from '../helpers/actionDecorator';
 import { fetchChannelPresence, joinChannel } from './messagesActions';
-import { toggleFavoriteUser } from '../app/Favorites/favoritesActions';
 
 class MessagesPage extends Component {
   static propTypes = {
@@ -28,6 +27,7 @@ class MessagesPage extends Component {
     };
   }
   render() {
+    const username = this.props.params.username;
     const channelName = [
       `@${this.props.auth.user && this.props.auth.user.name}`,
       `@${this.props.params.username}`
@@ -38,25 +38,16 @@ class MessagesPage extends Component {
     };
     return (
       <div className="Messages main-panel">
-        <Header menu="messages">
-          <div>
-            <a onClick={() => this.props.toggleFavoriteCategory(category)}>
-              <i className="icon icon-sm material-icons">
-                {_.has(this.props.favorites, category) ? 'star' : 'star_border'}
-              </i>
-            </a>
-            <Link to={`/${channelName}`}>
-              {channelName}
-            </Link>
-            {' '}
-            <span>
-              {this.props.users[this.props.params.username]
-                ? 'online'
-                : 'away'
-              }
-            </span>
-          </div>
-        </Header>
+        <Header />
+        <div className="secondary-nav">
+          <i className="icon icon-sm material-icons">
+            {_.has(this.props.favorites, username) ? 'star' : 'star_border'}
+          </i>
+          <Link to={`/@${username}`}>@{username}</Link>{' '}
+          <span>{this.props.users[this.props.params.username] ?
+            'online' : 'away'}
+          </span>
+        </div>
         <div className="messages">
           <MessageList messages={channel.latest} />
           <MessageForm

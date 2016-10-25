@@ -8,7 +8,6 @@ import MessageForm from './MessageForm';
 import MessageList from './MessageList';
 import actionDecorator from '../helpers/actionDecorator';
 import { fetchChannelPresence, joinChannel } from './messagesActions';
-import { toggleFavoriteCategory } from '../app/Favorites/favoritesActions';
 
 class MessagesPage extends Component {
   static propTypes = {
@@ -33,16 +32,13 @@ class MessagesPage extends Component {
     };
     return (
       <div className="Messages main-panel">
-        <Header menu="messages">
-          <div>
-            <a onClick={() => this.props.toggleFavoriteCategory(category)}>
-              <i className="icon icon-sm material-icons">
-                {_.has(this.props.favorites, category) ? 'star' : 'star_border'}
-              </i>
-            </a>
-            <Link to={`/trending/${category}`}>#{category}</Link> <span>{channel.nmembers} online</span>
-          </div>
-        </Header>
+        <Header />
+        <div className="secondary-nav">
+          <i className="icon icon-sm material-icons">
+            {_.has(this.props.favorites, category) ? 'star' : 'star_border'}
+          </i>
+          <Link to={`/trending/${category}`}>#{category}</Link> <span>{channel.nmembers} online</span>
+        </div>
         <div className="messages">
           <MessageList messages={channel.latest} />
           <MessageForm
