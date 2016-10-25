@@ -94,6 +94,7 @@ class Profile extends Component {
       <div>
         <TriggerProfile
           params={this.props.params}
+          username={username}
           edit={edit}
           followButton={this.hasFollow()}
           isFollowingIsLoading={isFollowingIsLoading}
