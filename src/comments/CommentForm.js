@@ -78,23 +78,22 @@ export default class CommentForm extends Component {
 
     return (
       <div className={commentsClass}>
-
-        { comments.currentDraftId &&
-          <div className="CommentForm__details">
-            Commenting to: <b>{ parentTitle }</b>
-          </div>
-        }
-
-        <Textarea
-          rows={1}
-          ref={(c) => { this._input = c; }}
-          className={'CommentForm__input'}
-          onKeyDown={(e) => this.handleKey(e)}
-          placeholder={'Write a comment...'}
-        />
-        <a className="CommentForm__close" onClick={() => closeCommentingDraft()}>
-          <Icon name="clear" />
-        </a>
+        <div className="container">
+          { comments.currentDraftId &&
+            <div className="mvm"><i className="icon icon-sm material-icons">reply</i> Reply to <b>{ parentTitle }</b></div>
+          }
+          <Textarea
+            rows={1}
+            ref={(c) => { this._input = c; }}
+            className={'CommentForm__input'}
+            onKeyDown={(e) => this.handleKey(e)}
+            placeholder={'Write a comment...'}
+            autoFocus
+          />
+          <a className="CommentForm__close" onClick={() => closeCommentingDraft()}>
+            <Icon name="clear" />
+          </a>
+        </div>
       </div>
     );
   }
