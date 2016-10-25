@@ -5,8 +5,8 @@ var React = require('react'),
   Sidebar = require('./app/Sidebar');
 
 import * as authActions from './auth/authActions';
-import { notify } from './notification/notificationActions';
-import Notification from './notification/Notification';
+import { notify } from './app/Notification/notificationActions';
+import Notification from './app/Notification/Notification';
 
 var Wrapper = React.createClass({
   componentWillMount() {

@@ -1,0 +1,11 @@
+.NotificationHolder {
+  position: fixed;
+  z-index: 100;
+  top: 67px;
+}
+
+.Notification {
+  opacity: 0.8;
+  background: black;
+  color: #fff;
+}
