@@ -1,12 +1,14 @@
-var React = require('react'),
-  ReactRedux = require('react-redux'),
-  actions = require('./actions'),
-  bookmarksActions = require('./app/Bookmarks/bookmarksActions'),
-  Sidebar = require('./app/Sidebar');
+import { IntlProvider } from 'react-intl';
 
-import * as authActions from './auth/authActions';
+import { login } from './auth/authActions';
+import { getConfig } from './actions';
+import { getBookmarks } from './app/Bookmarks/bookmarksActions';
 import { notify } from './app/Notification/notificationActions';
 import Notification from './app/Notification/Notification';
+import Sidebar from './app/Sidebar';
+
+var React = require('react'),
+  ReactRedux = require('react-redux');
 
 var Wrapper = React.createClass({
   componentWillMount() {
@@ -16,19 +18,21 @@ var Wrapper = React.createClass({
   },
 
   render() {
-    var className = (!this.props.app.sidebarIsVisible) ? 'app-wrapper full-width' : 'app-wrapper';
+    const className = (!this.props.app.sidebarIsVisible) ? 'app-wrapper full-width' : 'app-wrapper';
     const { auth, notify } = this.props;
     return (
-      <div className={className}>
-        <Sidebar />
-        <Notification />
-        {
-          React.cloneElement(
-            this.props.children,
-            { auth, notify }
-          )
-        }
-      </div>
+      <IntlProvider locale="en">
+        <div className={className}>
+          <Sidebar />
+          <Notification />
+          {
+            React.cloneElement(
+              this.props.children,
+              { auth, notify }
+            )
+          }
+        </div>
+      </IntlProvider>
     );
   }
 });
@@ -41,20 +45,12 @@ const mapStateToProps = ({ app, auth }) => {
   };
 };
 
-const mapDispatchToProps = function (dispatch) {
+const mapDispatchToProps = (dispatch) => {
   return {
-    login: () => {
-      dispatch(authActions.login());
-    },
-    getConfig: () => {
-      dispatch(actions.getConfig());
-    },
-    getBookmarks: () => {
-      dispatch(bookmarksActions.getBookmarks());
-    },
-    notify: (text) => {
-      dispatch(notify(text));
-    }
+    login: () => { dispatch(login()); },
+    getConfig: () => { dispatch(getConfig()); },
+    getBookmarks: () => { dispatch(getBookmarks()); },
+    notify: (text) => { dispatch(notify(text)); }
   };
 };
 
