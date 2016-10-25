@@ -7,20 +7,21 @@
   right: 0;
   padding-top: 2px;
   transition: bottom 0.7s;
+  background: $input-background;
 
   &.disappear {
-    bottom: -100px;
+    bottom: -30vh;
   }
 
   &.withSidebar {
-    width: calc(100% - 240px);
+    width: calc(100% - 260px);
   }
 }
 
 .CommentForm__input {
   display: block;
   width: 100%;
-  background: $input-background;
+  font-size: 1.2em;
   max-height: 30vh;
   min-height: 6rem;
 }
@@ -29,13 +30,4 @@
   position: absolute;
   top: 10px;
   right: 25px;
-}
-
-.CommentForm__details {
-  position: absolute;
-  top: 10px;
-  left: 25px;
-  font-size: 12px;
-  color: lighten($text-color, 15%);
-  width: calc(50% - 350px);
 }
