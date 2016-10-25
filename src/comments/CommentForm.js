@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import Icon from './../widgets/Icon';
 import * as commentActions from './commentsActions';
 import Textarea from 'react-textarea-autosize';
 import keycode from 'keycode';
@@ -9,11 +10,14 @@ import './CommentForm.scss';
 
 @connect(
   state => ({
+    sidebarIsVisible: state.app.sidebarIsVisible,
     comments: state.comments,
+    posts: state.posts,
   }),
   (dispatch) => bindActionCreators({
     sendComment: commentActions.sendComment,
     updateCommentingDraft: commentActions.updateCommentingDraft,
+    closeCommentingDraft: commentActions.closeCommentingDraft,
   }, dispatch)
 )
 export default class CommentForm extends Component {
@@ -35,31 +39,52 @@ export default class CommentForm extends Component {
     }
   }
 
+  componentWillUpdate(nextProps) {
+    const { comments } = this.props;
+    if(nextProps.comments.currentDraftId !== comments.currentDraftId) {
+      this.updateDraft();
+      this._input.focus();
+    }
+  }
+
   componentDidUpdate(prevProps) {
     const { comments } = this.props;
     const draftValue = comments.currentDraftId
       ? comments.commentingDraft[comments.currentDraftId].body
       : '';
 
-    if (prevProps.comments.isCommenting !== comments.isCommenting) {
-
-      if (comments.isCommenting) {
-        this._input.focus();
-        // not using react value (controlled component) for performance reasons
-        this._input.value = draftValue;
-      }
-
-      if (!comments.isCommenting) {
-        this.updateDraft();
-      }
+    if (prevProps.comments.currentDraftId !== comments.currentDraftId) {
+      // not using react value (controlled component) for performance reasons
+      this._input.value = draftValue;
     }
   }
 
   render() {
-    const { comments } = this.props;
+    const { comments, sidebarIsVisible, closeCommentingDraft, posts } = this.props;
+
+    let commentsClass = 'CommentForm';
+    if (!comments.isCommenting) {
+      commentsClass += ' disappear';
+    }
+    if (sidebarIsVisible) {
+      commentsClass += ' withSidebar';
+    }
+
+    let parentTitle = '';
+    if (comments.currentDraftId) {
+      parentTitle = posts[comments.currentDraftId] ? posts[comments.currentDraftId].title : '';
+    }
+
 
     return (
-      <div className={comments.isCommenting ? 'CommentForm' : 'CommentForm disappear'}>
+      <div className={commentsClass}>
+
+        { comments.currentDraftId &&
+          <div className="CommentForm__details">
+            Commenting to: <b>{ parentTitle }</b>
+          </div>
+        }
+
         <Textarea
           rows={1}
           ref={(c) => { this._input = c; }}
@@ -67,6 +92,9 @@ export default class CommentForm extends Component {
           onKeyDown={(e) => this.handleKey(e)}
           placeholder={'Write a comment...'}
         />
+        <a className="CommentForm__close" onClick={() => closeCommentingDraft()}>
+          <Icon name="clear" />
+        </a>
       </div>
     );
   }
