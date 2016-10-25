@@ -12,7 +12,7 @@ import Header from '../app/Header';
 import Loading from './../widgets/Loading';
 import Body from './body';
 import Replies from './replies';
-import Triggers from './../app/Triggers';
+import TriggerPost from './../app/Trigger/TriggerPost';
 
 class PostSinglePage extends React.Component {
   constructor(props) {
@@ -105,11 +105,8 @@ class PostSinglePage extends React.Component {
   render() {
     return (
       <div className="main-panel">
-        <Triggers
+        <TriggerPost
           params={this.props.params}
-          likes
-          reblog={this.hasReblog()}
-          replies
           onClickReblog={this.onClickReblog}
         />
         <Header />

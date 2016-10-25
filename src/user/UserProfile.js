@@ -16,7 +16,7 @@ import {
   getFeedHasMoreFromState
 } from './../helpers/stateHelpers';
 import Loading from '../widgets/Loading';
-import Triggers from '../app/Triggers';
+import TriggerProfile from '../app/Trigger/TriggerProfile';
 import {followUser, unfollowUser} from '../auth/authActions';
 
 class Profile extends Component {
@@ -92,11 +92,9 @@ class Profile extends Component {
 
     return (
       <div>
-        <Triggers
+        <TriggerProfile
           params={this.props.params}
-          messages={!edit}
           edit={edit}
-
           followButton={this.hasFollow()}
           isFollowingIsLoading={isFollowingIsLoading}
           isFollowing={isFollowing}

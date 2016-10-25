@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 
-const HeaderTriggers = React.createClass({
+module.exports = React.createClass({
   render() {
     const category = (this.props.category) ? `/${this.props.category}` : '';
     return (
@@ -17,5 +17,3 @@ const HeaderTriggers = React.createClass({
     );
   }
 });
-
-module.exports = HeaderTriggers;
