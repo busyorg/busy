@@ -15,28 +15,28 @@ export const ACCOUNT_SUCCESS = '@app/ACCOUNT_SUCCESS';
 export const SHOW_SIDEBAR = '@app/SHOW_SIDEBAR';
 export const HIDE_SIDEBAR = '@app/HIDE_SIDEBAR';
 
-module.exports = {
-  getConfig: () => {
-    return (dispatch, getState) => {
-      var req = {type: CONFIG_REQUEST};
-      dispatch(req);
-      api.getConfig((err, config) => {
-        var res = {
-          type: CONFIG_SUCCESS,
-          config: config,
-        };
-        dispatch(res);
-      });
-    };
-  },
-  showSidebar: () => {
-    return (dispatch, getState) => {
-      dispatch({type: SHOW_SIDEBAR});
-    };
-  },
-  hideSidebar: () => {
-    return (dispatch, getState) => {
-      dispatch({type: HIDE_SIDEBAR});
-    };
-  },
+export const getConfig = () => {
+  return (dispatch, getState) => {
+    var req = {type: CONFIG_REQUEST};
+    dispatch(req);
+    api.getConfig((err, config) => {
+      var res = {
+        type: CONFIG_SUCCESS,
+        config: config,
+      };
+      dispatch(res);
+    });
+  };
+};
+
+export const showSidebar = () => {
+  return (dispatch, getState) => {
+    dispatch({type: SHOW_SIDEBAR});
+  };
+};
+
+export const hideSidebar = () => {
+  return (dispatch, getState) => {
+    dispatch({type: HIDE_SIDEBAR});
+  };
 };
