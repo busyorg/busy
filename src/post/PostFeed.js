@@ -36,10 +36,16 @@ export default class PostFeedItem extends React.Component {
 
     return (
       <div className={className}>
+        {!_.isEmpty(post.first_reblogged_by) &&
+          <div className="cell cell-top">
+            <ul>
+              <li><i className="icon icon-sm material-icons">repeat</i> Reblogged by <Link to={`/@${post.first_reblogged_by}`}>@{post.first_reblogged_by}</Link></li>
+            </ul>
+          </div>}
         <div className="cell cell-top">
           <ul>
             <li>
-              <Link to={`/@${post.author}`} activeClassName="active">
+              <Link to={`/@${post.author}`}>
               <span className="avatar avatar-xs">
                 <img src={`https://img.busy6.com/@${post.author}`} width="24" height="24" />
               </span> @{post.author}
