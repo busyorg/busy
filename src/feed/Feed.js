@@ -12,36 +12,10 @@ export default class Feed extends React.Component {
 
   componentDidMount() {
     this.props.loadContent();
-    this.initializeListener();
   }
-
-  componentWillUnmount() {
-    this.removeListener();
-  }
-
-  initializeListener() {
-    if (window) {
-      window.addEventListener('scroll', this.onScroll);
-    }
-  }
-
-  removeListener() {
-    if (window) {
-      window.removeEventListener('scroll', this.onScroll);
-    }
-  }
-
-  onScroll = () => {
-    /**
-     * disable comment box on scroll and remove listener to avoid re-execution of function
-     */
-    this.removeListener();
-    this.props.closeCommentingDraft();
-  };
 
   handleCommentRequest(draftProps) {
     this.props.openCommentingDraft(draftProps);
-    this.initializeListener();
   }
 
   handleFeedClick() {
@@ -49,7 +23,16 @@ export default class Feed extends React.Component {
   }
 
   render() {
-    const { content, isFetching, hasMore, ItemComponent, replies, toggleBookmark, bookmarks } = this.props;
+    const {
+      content,
+      isFetching,
+      hasMore,
+      ItemComponent,
+      replies,
+      toggleBookmark,
+      bookmarks,
+      notify
+    } = this.props;
 
     return (
       <div className="grid">
@@ -73,6 +56,7 @@ export default class Feed extends React.Component {
                   toggleBookmark={toggleBookmark}
                   bookmarks={bookmarks}
                   onCommentRequest={e => this.handleCommentRequest(e)}
+                  notify={notify}
                 />
               )
             }
