@@ -65,10 +65,10 @@ export default (state = initialState, action) => {
       });
 
     case appTypes.HIDE_SIDEBAR:
-      return Object.assign({}, state, {
-        sidebarIsVisible: false
-      });
-
+      return {
+        ...state,
+        sidebarIsVisible: false,
+      };
     default:
       return state;
   }
