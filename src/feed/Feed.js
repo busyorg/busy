@@ -14,6 +14,12 @@ export default class Feed extends React.Component {
     this.props.loadContent();
   }
 
+  componentDidUpdate() {
+    if(!this.props.content.length && !this.props.isFetching) {
+      this.props.loadContent();
+    }
+  }
+
   handleCommentRequest(draftProps) {
     this.props.openCommentingDraft(draftProps);
   }
