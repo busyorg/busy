@@ -5,7 +5,7 @@ import { Link, browserHistory } from 'react-router';
 
 import '../../fonts/Karla.scss';
 import '../../fonts/MaterialIcons.scss';
-import './NewPost.scss';
+import './write.scss';
 import Header from '../../app/Header';
 import PostEditor from './PostEditor';
 

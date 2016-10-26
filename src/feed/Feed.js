@@ -1,9 +1,9 @@
 import React from 'react';
 import ReduxInfiniteScroll from 'redux-infinite-scroll';
-import Loading from './../widgets/Loading';
-import AddPost from './../post/newPost/EmbeddedNewPost';
+import Loading from '../widgets/Loading';
+import AddPost from '../post/Write/EmbeddedNewPost';
 import PostFeed from '../post/PostFeed';
-import CommentForm from './../comments/CommentForm';
+import CommentForm from '../comments/CommentForm';
 
 export default class Feed extends React.Component {
   constructor(props) {

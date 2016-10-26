@@ -6,7 +6,7 @@ import { DefaultDraftBlockRenderMap, Editor, EditorBlock, EditorState, RichUtils
 import { connect } from 'react-redux';
 import { Map } from 'immutable';
 
-import './NewPost.scss';
+import './Write.scss';
 import './PostEditor.scss';
 import { uploadFile } from '../../user/userActions';
 
@@ -234,23 +234,10 @@ class SideControls extends Component {
           pointerEvents: 'none',
         }}
       >
-        <button>
-          <i className="icon icon-md material-icons">
-            close
-          </i>
+        <button><i className="icon icon-md material-icons">close</i></button>
+        <button onMouseDown={this.onClickUpload} type="button">
+          <i className="icon icon-md material-icons">add_a_photo</i>
         </button>
-
-        <button
-          onMouseDown={this.onClickUpload}
-          type="button"
-        >
-          <i
-            className="icon icon-md material-icons"
-          >
-            add_a_photo
-          </i>
-        </button>
-
         <input
           ref="fileInput"
           onChange={this.onChangeImage}
@@ -260,30 +247,7 @@ class SideControls extends Component {
             display: 'none',
           }}
         />
-
-        <button>
-        <i
-          className="icon icon-md material-icons"
-        >
-          code
-        </i>
-        </button>
-
-        <button>
-        <i
-          className="icon icon-md material-icons"
-        >
-          play_arrow
-        </i>
-        </button>
-
-        <button>
-        <i
-          className="icon icon-md material-icons"
-        >
-          remove
-        </i>
-        </button>
+        <button><i className="icon icon-md material-icons">remove</i></button>
       </div>
     );
   }

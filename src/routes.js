@@ -11,7 +11,7 @@ var React = require('react'),
   Help = require('./statics/Help'),
   MessagesUser = require('./messages/MessagesUser').default,
   MessagesCategory = require('./messages/MessagesCategory').default,
-  Write = require('./post/newPost/NewPost').default;
+  Write = require('./post/Write/Write').default;
 
 import Settings from './app/AppSettings';
 import Page from './feed/Page';
