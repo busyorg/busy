@@ -101,7 +101,7 @@ export default class PostFeed extends Component {
             </li>
             <li className="pull-right">
               { `${moment(post.created).fromNow()} ` }
-              <a href="#" onClick={() => toggleBookmark(post.id)}>
+              <a onClick={() => toggleBookmark(post.id)}>
                 <Icon
                   small
                   name={bookmarks.indexOf(post.id) > -1 ? 'bookmark' : 'bookmark_border'}
