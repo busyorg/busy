@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import CommentsList from './CommentsList';
 import * as commentsActions from './commentsActions';
 import { getCommentsFromState } from './../helpers/stateHelpers';
+import Loading from './../widgets/Loading';
 
 import './Comments.scss';
 
@@ -39,18 +40,24 @@ export default class Comments extends Component {
   render() {
     const { postId, comments } = this.props;
     const hasMore = (comments.lists[postId] && comments.lists[postId].hasMore);
+    const isFetching = (comments.lists[postId] && comments.lists[postId].isFetching);
 
     return (
       <div className="Comments">
         <CommentsList postId={postId} comments={comments} />
 
+        { isFetching &&
+          <Loading />
+        }
+
         { hasMore &&
-          <button
+          <a
             className="Comments__showMore"
+            tabIndex="0"
             onClick={this.handleShowMore}
           >
             Load more comments...
-          </button>
+          </a>
         }
 
       </div>
