@@ -47,6 +47,11 @@ const Actions = React.createClass({
     });
   },
 
+  handleCommentsTextClick(e) {
+    e.stopPropagation();
+    this.props.onShowCommentsRequest();
+  },
+
   render() {
     const voter = (this.props.auth.isAuthenticated) ? this.props.auth.user.name : '';
     const post = this.props.post;
@@ -61,8 +66,10 @@ const Actions = React.createClass({
             <i className="icon icon-sm material-icons">reply</i>
           </a>
           { ' ' }
-          {numeral(post.children).format('0,0')}
-          <span className="hidden-xs"> Comments</span>
+          <a onClick={e => this.handleCommentsTextClick(e)}>
+            { numeral(post.children).format('0,0') }
+            <span className="hidden-xs"> Comments</span>
+          </a>
         </li>
 
         <li>

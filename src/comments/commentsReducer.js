@@ -16,6 +16,9 @@ const initialCommentingDraftItem = {
   body: '',
 };
 
+const defaultNumberOfCommentsToShow = 3;
+const defaultCommentsForPagination = 10;
+
 const commentsList = (state = {}, action) => {
   switch (action.type) {
     case commentsTypes.GET_COMMENTS_START:
@@ -23,10 +26,10 @@ const commentsList = (state = {}, action) => {
         ...state,
         isFetching: true,
         list: [],
-        show: 1,
+        show: defaultNumberOfCommentsToShow,
       };
     case commentsTypes.GET_COMMENTS_SUCCESS:
-      const hasMore = action.payload.list.length > 1;
+      const hasMore = action.payload.list.length > defaultNumberOfCommentsToShow;
       return {
         ...state,
         list: action.payload.list,
@@ -34,7 +37,9 @@ const commentsList = (state = {}, action) => {
         hasMore,
       };
     case commentsTypes.SHOW_MORE_COMMENTS:
-      const newShowValue = state.show === 1 ? 10 : state.show + 10;
+      const newShowValue = state.show === defaultNumberOfCommentsToShow
+        ? defaultCommentsForPagination
+        : state.show + defaultCommentsForPagination;
       return {
         ...state,
         show: newShowValue,

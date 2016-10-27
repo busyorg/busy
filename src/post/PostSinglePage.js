@@ -11,7 +11,7 @@ import api from './../steemAPI';
 import Header from '../app/Header';
 import Loading from './../widgets/Loading';
 import Body from './body';
-import Replies from './replies';
+import Comments from './../comments/Comments';
 import TriggerPost from './../app/Trigger/TriggerPost';
 
 class PostSinglePage extends React.Component {
@@ -92,10 +92,7 @@ class PostSinglePage extends React.Component {
         {content.children > 0 && (
           <div className="single-replies">
             <h2>Comments</h2>
-            <Replies
-              parent={content.author}
-              parentPermlink={content.permlink}
-            />
+            <Comments postId={content.id} />
           </div>
         )}
       </div>
