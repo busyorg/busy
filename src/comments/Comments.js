@@ -51,12 +51,13 @@ export default class Comments extends Component {
         }
 
         { hasMore &&
-          <button
+          <a
             className="Comments__showMore"
+            tabIndex="0"
             onClick={this.handleShowMore}
           >
             Load more comments...
-          </button>
+          </a>
         }
 
       </div>

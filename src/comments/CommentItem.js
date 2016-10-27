@@ -56,12 +56,16 @@ export default class CommentItem extends Component {
         { ' ' }
         <BodyShort body={comment.body}/>
         { (comment.children > 0 && !this.state.showReplies) &&
-          <div className="Comments__showMore" onClick={this.toggleShowReplies}>
+          <a
+            className="Comments__showMore"
+            tabIndex="0"
+            onClick={this.toggleShowReplies}
+          >
             {comment.children > 1
               ? `Show ${comment.children} replies...`
               : `Show ${comment.children} reply...`
             }
-          </div>
+          </a>
         }
 
         { this.state.showReplies && this.props.children }
