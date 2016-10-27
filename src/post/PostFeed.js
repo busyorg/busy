@@ -28,7 +28,14 @@ const getJsonMetaData = (props) => {
 export default class PostFeed extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      showComments: false,
+    };
   }
+
+  handleShowCommentsRequest = () => {
+    this.setState({ showComments: true });
+  };
 
   render() {
     const { post, onCommentRequest, bookmarks, toggleBookmark, notify } = this.props;
@@ -136,10 +143,13 @@ export default class PostFeed extends Component {
             post={post}
             notify={notify}
             onCommentRequest={onCommentRequest}
+            onShowCommentsRequest={this.handleShowCommentsRequest}
           />
         </div>
 
-        <Comments postId={post.id} />
+        { this.state.showComments &&
+          <Comments postId={post.id} />
+        }
 
       </div>
     );
