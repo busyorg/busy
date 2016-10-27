@@ -179,7 +179,10 @@ class Sidebar extends Component {
             </ul>}
 
           {_.size(this.state.categories) > 0 && this.state.menu === 'public' &&
-            <ul className="tags">{tags}</ul>}
+            <ul className="tags">
+              {tags}
+              <li><Link to="/tags" activeClassName="active">See More</Link></li>
+            </ul>}
 
           {this.state.menu === 'feed' &&
             <SidebarMessages
