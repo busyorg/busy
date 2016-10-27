@@ -31,9 +31,10 @@ export const toggleBookmarkSuccess = createAction(TOGGLE_BOOKMARK_SUCCESS);
 export const toggleBookmark = ({ postId }) => {
   return (dispatch) => {
     dispatch(toggleBookmarkRequest({ postId }));
-    toggleBookmarkHelper(postId);
+    const bookmarks = toggleBookmarkHelper(postId);
+
     dispatch(
-      toggleBookmarkSuccess({ postId })
+      toggleBookmarkSuccess({ bookmarks })
     );
   };
 };
