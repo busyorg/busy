@@ -54,10 +54,10 @@ export default class Feed extends React.Component {
           >
 
             {
-              content.map((entry, key) =>
+              content.map((post, key) =>
                 <ItemComponent
                   key={key}
-                  entry={entry}
+                  post={post}
                   replies={replies}
                   toggleBookmark={toggleBookmark}
                   bookmarks={bookmarks}
