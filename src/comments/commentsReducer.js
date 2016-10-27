@@ -29,7 +29,7 @@ const commentsList = (state = {}, action) => {
         show: defaultNumberOfCommentsToShow,
       };
     case commentsTypes.GET_COMMENTS_SUCCESS:
-      const hasMore = action.payload.list.length > 1;
+      const hasMore = action.payload.list.length > defaultNumberOfCommentsToShow;
       return {
         ...state,
         list: action.payload.list,
