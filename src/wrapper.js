@@ -1,4 +1,5 @@
 import { IntlProvider } from 'react-intl';
+import locales from './languages/locales';
 
 import { login } from './auth/authActions';
 import { getConfig } from './actions';
@@ -21,7 +22,7 @@ var Wrapper = React.createClass({
     const className = (!this.props.app.sidebarIsVisible) ? 'app-wrapper full-width' : 'app-wrapper';
     const { auth, notify } = this.props;
     return (
-      <IntlProvider locale="en">
+      <IntlProvider locale="en" messages={locales.en}>
         <div className={className}>
           <Sidebar />
           <Notification />

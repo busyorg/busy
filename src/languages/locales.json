@@ -1,0 +1,32 @@
+{
+  "cn": {},
+  "cn": {},
+  "ru": {},
+  "fr": {
+    "Trending": "Tendance",
+    "Hot": "Hot",
+    "Payout Time": "Payout Time",
+    "New": "Nouveau",
+    "Active": "Actif",
+
+    "Profile": "Profil",
+    "Posts": "Posts",
+    "Feed": "Feed",
+    "Wallet": "Wallet",
+
+    "Write": "Écrire",
+    "Drafts": "Brouillons",
+    "Files": "Files",
+    "Bookmarks": "Bookmarks",
+
+    "Settings": "Paramètres",
+    "About": "À propos",
+    "Log Out": "Déconnexion",
+
+    "See More": "Afficher la suite",
+
+    "Estimated Value": "Estimated Value"
+  },
+  "de": {},
+  "kr": {}
+}
