@@ -1,5 +1,5 @@
 import { IntlProvider } from 'react-intl';
-import locales from './languages/locales';
+import locales from './locales/locales';
 
 import { login } from './auth/authActions';
 import { getConfig } from './actions';
