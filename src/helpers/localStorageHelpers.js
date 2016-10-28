@@ -2,26 +2,26 @@ import store from 'store';
 import _ from 'lodash';
 
 export const getBookmarks = () => {
-  return store.get('bookmarks') || [];
+  return store.get('bookmarks') || {};
 };
 
 export const addBookmark = ({ postId, author, permlink }) => {
-  const bookmarks = store.get('bookmarks') || [];
-  bookmarks.push({ postId, author, permlink });
+  const bookmarks = store.get('bookmarks') || {};
+  bookmarks[postId] = { author, permlink };
   store.set('bookmarks', bookmarks);
   return true;
 };
 
 export const removeBookmark = (postId) => {
-  const bookmarks = store.get('bookmarks') || [];
-  const editedBookmarks = bookmarks.filter(item => item.postId !== postId);
-  store.set('bookmarks', editedBookmarks);
+  const bookmarks = store.get('bookmarks') || {};
+  delete bookmarks[postId];
+  store.set('bookmarks', bookmarks);
   return true;
 };
 
 export const toggleBookmark = ({ postId, author, permlink }) => {
-  const bookmarks = store.get('bookmarks') || [];
-  if (bookmarks.some(item => item.postId === postId)) {
+  const bookmarks = store.get('bookmarks') || {};
+  if (bookmarks[postId]) {
     removeBookmark(postId);
   } else {
     addBookmark({ postId, author, permlink });

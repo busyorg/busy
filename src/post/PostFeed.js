@@ -104,7 +104,7 @@ export default class PostFeed extends Component {
               <a onClick={() => toggleBookmark(post.id)}>
                 <Icon
                   small
-                  name={bookmarks.indexOf(post.id) > -1 ? 'bookmark' : 'bookmark_border'}
+                  name={bookmarks[post.id] ? 'bookmark' : 'bookmark_border'}
                 />
               </a>
             </li>
