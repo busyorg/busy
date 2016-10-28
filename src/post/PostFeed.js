@@ -5,11 +5,10 @@ import { Link } from 'react-router';
 import steemembed from 'steemembed';
 import BodyShort from './body-short';
 import Mentions from './mentions';
-import RepliesShort from './replies-short';
 import Flag from './flag';
-import Comments from './../comments/Comments';
+import Comments from '../comments/Comments';
 import PostActionButtons from './PostActionButtons';
-import Icon from './../widgets/Icon';
+import Icon from '../widgets/Icon';
 
 const colorCode = { green: 'rgba(39, 208, 169, 0.4)', red: 'rgba(249, 43, 97, 0.2)' };
 const classCode = { green: 'grid-row-green', red: 'grid-row-red' };
