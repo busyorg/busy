@@ -5,29 +5,26 @@ export const getBookmarks = () => {
   return store.get('bookmarks') || [];
 };
 
-export const addBookmark = (postId) => {
+export const addBookmark = ({ postId, author, permlink }) => {
   const bookmarks = store.get('bookmarks') || [];
-  bookmarks.push(postId);
+  bookmarks.push({ postId, author, permlink });
   store.set('bookmarks', bookmarks);
   return true;
 };
 
 export const removeBookmark = (postId) => {
   const bookmarks = store.get('bookmarks') || [];
-  const pos = bookmarks.indexOf(postId);
-  if (pos > -1) {
-    bookmarks.splice(pos, 1);
-  }
-  store.set('bookmarks', bookmarks);
+  const editedBookmarks = bookmarks.filter(item => item.postId !== postId);
+  store.set('bookmarks', editedBookmarks);
   return true;
 };
 
-export const toggleBookmark = (postId) => {
+export const toggleBookmark = ({ postId, author, permlink }) => {
   const bookmarks = store.get('bookmarks') || [];
-  if (bookmarks.indexOf(postId) > -1) {
+  if (bookmarks.some(item => item.postId === postId)) {
     removeBookmark(postId);
   } else {
-    addBookmark(postId);
+    addBookmark({ postId, author, permlink });
   }
   return getBookmarks();
 };

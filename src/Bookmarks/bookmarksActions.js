@@ -29,9 +29,14 @@ export const toggleBookmarkRequest = createAction(TOGGLE_BOOKMARK);
 export const toggleBookmarkSuccess = createAction(TOGGLE_BOOKMARK_SUCCESS);
 
 export const toggleBookmark = (postId) => {
-  return (dispatch) => {
+  return (dispatch, getState) => {
+    const { posts } = getState();
+
     dispatch(toggleBookmarkRequest(postId));
-    const bookmarks = toggleBookmarkHelper(postId);
+
+    const { author, permlink } = posts[postId];
+
+    const bookmarks = toggleBookmarkHelper({ postId, author, permlink });
 
     dispatch(
       toggleBookmarkSuccess(bookmarks)
