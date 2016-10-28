@@ -8,16 +8,38 @@ export const GET_BOOKMARKS = '@Bookmarks/GET_BOOKMARKS';
 export const GET_BOOKMARKS_SUCCESS = '@Bookmarks/GET_BOOKMARKS_SUCCESS';
 export const GET_BOOKMARKS_FAIL = '@Bookmarks/GET_BOOKMARKS_FAIL';
 
-export const getBookmarksRequest = createAction(GET_BOOKMARKS);
-export const getBookmarksSuccess = createAction(GET_BOOKMARKS_SUCCESS);
+/**
+ * Use async await to load all the posts of bookmarked from steemAPI and returns a Promise
+ *
+ * @param bookmarks from localStorage only contain author and permlink
+ * @param steemAPI
+ * @returns Promise - bookmarksData
+ */
+async function getBookmarksData(bookmarks, steemAPI) {
+  let bookmarksData = {};
+  for (let idx = 0; idx < Object.keys(bookmarks).length; idx++) {
+    const postId = Object.keys(bookmarks)[idx];
+
+    const postData = await steemAPI.getContentAsync(
+      bookmarks[postId].author,
+      bookmarks[postId].permlink
+    );
+    bookmarksData[postId] = postData;
+  }
+  return bookmarksData;
+}
 
 export const getBookmarks = () => {
-  return (dispatch) => {
-    dispatch(getBookmarksRequest());
+  return (dispatch, getState, { steemAPI }) => {
+
     const bookmarks = getBookmarksHelper();
-    dispatch(
-      getBookmarksSuccess(bookmarks)
-    );
+
+    dispatch({
+      type: GET_BOOKMARKS,
+      payload: {
+        promise: getBookmarksData(bookmarks, steemAPI)
+      }
+    });
   };
 };
 
