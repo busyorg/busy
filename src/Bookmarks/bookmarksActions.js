@@ -16,7 +16,7 @@ export const getBookmarks = () => {
     dispatch(getBookmarksRequest());
     const bookmarks = getBookmarksHelper();
     dispatch(
-      getBookmarksSuccess({ bookmarks })
+      getBookmarksSuccess(bookmarks)
     );
   };
 };
@@ -28,13 +28,13 @@ export const TOGGLE_BOOKMARK_FAIL = '@Bookmarks/TOGGLE_BOOKMARK_FAIL';
 export const toggleBookmarkRequest = createAction(TOGGLE_BOOKMARK);
 export const toggleBookmarkSuccess = createAction(TOGGLE_BOOKMARK_SUCCESS);
 
-export const toggleBookmark = ({ postId }) => {
+export const toggleBookmark = (postId) => {
   return (dispatch) => {
-    dispatch(toggleBookmarkRequest({ postId }));
+    dispatch(toggleBookmarkRequest(postId));
     const bookmarks = toggleBookmarkHelper(postId);
 
     dispatch(
-      toggleBookmarkSuccess({ bookmarks })
+      toggleBookmarkSuccess(bookmarks)
     );
   };
 };
