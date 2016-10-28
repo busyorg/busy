@@ -2,7 +2,7 @@ import { IntlProvider } from 'react-intl';
 
 import { login } from './auth/authActions';
 import { getConfig } from './actions';
-import { getBookmarks } from './app/Bookmarks/bookmarksActions';
+import { getBookmarks } from 'Bookmarks/bookmarksActions';
 import { notify } from './app/Notification/notificationActions';
 import Notification from './app/Notification/Notification';
 import Sidebar from './app/Sidebar';
