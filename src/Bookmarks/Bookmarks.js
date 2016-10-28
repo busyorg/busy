@@ -1,6 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Header from './../app/Header';
 import Feed from './../feed/Feed';
+import {
+  getFeedContentFromState,
+  getFeedLoadingFromState
+} from './../helpers/stateHelpers';
+import {
+  getFeedContent,
+  getMoreFeedContent,
+} from './../feed/feedActions';
 
 @connect(
   state => ({
