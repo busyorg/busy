@@ -27,7 +27,6 @@ import { toggleBookmark } from '../Bookmarks/bookmarksActions';
   state => ({
     feed: state.feed,
     posts: state.posts,
-    bookmarks: state.bookmarks,
   }),
   (dispatch, ownProps) => {
     const { sortBy, category, auth, limit } = ownProps;
@@ -44,23 +43,16 @@ import { toggleBookmark } from '../Bookmarks/bookmarksActions';
       getMoreUserFeedContent: () => dispatch(
         getMoreUserFeedContent({ username: auth.user.name, limit })
       ),
-      openCommentingDraft: bindActionCreators(commentsActions.openCommentingDraft, dispatch),
-      closeCommentingDraft: bindActionCreators(commentsActions.closeCommentingDraft, dispatch),
-      toggleBookmark: (postId) => dispatch(
-        toggleBookmark({ postId })
-      ),
     };
   }
 )
-
 export default class Page extends React.Component {
   constructor(props) {
     super(props);
   }
 
   render() {
-    const { notify, category, sortBy, path, auth, feed, posts, limit, bookmarks } = this.props;
-    const { openCommentingDraft, closeCommentingDraft } = this.props;
+    const { notify, category, sortBy, path, auth, feed, posts } = this.props;
 
     let content, isFetching, hasMore, loadContentAction, loadMoreContentAction;
 
@@ -82,28 +74,27 @@ export default class Page extends React.Component {
       <div className="main-panel">
         <Header />
         <MenuFeed category={category} />
-        {auth.isAuthenticated &&
-          <TriggerFeed category={category} />}
-        {!auth.isFetching &&
+
+        { auth.isAuthenticated &&
+          <TriggerFeed category={category} />
+        }
+
+        { !auth.isFetching &&
           <Feed
             content={content}
             isFetching={isFetching}
             hasMore={hasMore}
             loadContent={loadContentAction}
             loadMoreContent={loadMoreContentAction}
-            openCommentingDraft={openCommentingDraft}
-            closeCommentingDraft={closeCommentingDraft}
-            toggleBookmark={this.props.toggleBookmark}
-            bookmarks={bookmarks}
             notify={notify}
-          />}
+          />
+        }
       </div>
     );
   }
 }
 
 Page.propTypes = {
-  account: React.PropTypes.string,
   category: React.PropTypes.string,
   sortBy: React.PropTypes.string,
   path: React.PropTypes.string,

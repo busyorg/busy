@@ -1,10 +1,25 @@
 import React from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import ReduxInfiniteScroll from 'redux-infinite-scroll';
 import Loading from '../widgets/Loading';
 import AddPost from '../post/Write/EmbeddedNewPost';
 import PostFeed from '../post/PostFeed';
 import CommentForm from '../comments/CommentForm';
+import * as commentsActions from './../comments/commentsActions';
+import * as bookmarkActions from '../Bookmarks/bookmarksActions';
 
+
+@connect(
+  state => ({
+    bookmarks: state.bookmarks,
+  }),
+  dispatch => bindActionCreators({
+    openCommentingDraft: commentsActions.openCommentingDraft,
+    closeCommentingDraft: commentsActions.closeCommentingDraft,
+    toggleBookmark: bookmarkActions.toggleBookmark,
+  }, dispatch)
+)
 export default class Feed extends React.Component {
   constructor(props) {
     super(props);
