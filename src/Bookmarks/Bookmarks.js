@@ -7,11 +7,15 @@ import {
   getFeedLoadingFromState,
   getFeedHasMoreFromState
 } from './../helpers/stateHelpers';
+import * as bookmarksActions from './../Bookmarks/bookmarksActions';
 
 @connect(
   state => ({
     feed: state.feed,
     posts: state.posts,
+  }),
+  dispatch => ({
+    getBookmarks: () => dispatch(bookmarksActions.getBookmarks()),
   })
 )
 export default class Bookmarks extends Component {
@@ -25,7 +29,7 @@ export default class Bookmarks extends Component {
     const content = getFeedContentFromState(sortBy, category, feed, posts);
     const isFetching = getFeedLoadingFromState(sortBy, category, feed);
     const hasMore = false;
-    const loadContentAction = () => null;
+    const loadContentAction = this.props.getBookmarks;
     const loadMoreContentAction = () => null;
 
     return (
