@@ -4,7 +4,8 @@ import Header from './../app/Header';
 import Feed from './../feed/Feed';
 import {
   getFeedContentFromState,
-  getFeedLoadingFromState
+  getFeedLoadingFromState,
+  getFeedHasMoreFromState
 } from './../helpers/stateHelpers';
 import {
   getFeedContent,
@@ -33,11 +34,11 @@ export default class Bookmarks extends Component {
   }
 
   render() {
-    const { sortBy, category, feed, notify } = this.props;
+    const { sortBy, category, feed, posts, notify } = this.props;
 
     const content = getFeedContentFromState(sortBy, category, feed, posts);
     const isFetching = getFeedLoadingFromState(sortBy, category, feed);
-    const hasMore = feed[sortBy][category] ? feed[sortBy][category].hasMore : true;
+    const hasMore = getFeedHasMoreFromState(sortBy, category, feed);
     const loadContentAction = this.props.getFeedContent;
     const loadMoreContentAction = this.props.getMoreFeedContent;
 
