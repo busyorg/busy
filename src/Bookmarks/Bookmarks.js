@@ -7,26 +7,12 @@ import {
   getFeedLoadingFromState,
   getFeedHasMoreFromState
 } from './../helpers/stateHelpers';
-import {
-  getFeedContent,
-  getMoreFeedContent,
-} from './../feed/feedActions';
 
 @connect(
   state => ({
     feed: state.feed,
     posts: state.posts,
-  }),
-  (dispatch, { sortBy, category, limit }) => {
-    return {
-      getFeedContent: () => dispatch(
-        getFeedContent({ sortBy, category, limit })
-      ),
-      getMoreFeedContent: () => dispatch(
-        getMoreFeedContent({ sortBy, category, limit })
-      ),
-    };
-  }
+  })
 )
 export default class Bookmarks extends Component {
   constructor(props) {
@@ -38,9 +24,9 @@ export default class Bookmarks extends Component {
 
     const content = getFeedContentFromState(sortBy, category, feed, posts);
     const isFetching = getFeedLoadingFromState(sortBy, category, feed);
-    const hasMore = getFeedHasMoreFromState(sortBy, category, feed);
-    const loadContentAction = this.props.getFeedContent;
-    const loadMoreContentAction = this.props.getMoreFeedContent;
+    const hasMore = false;
+    const loadContentAction = () => null;
+    const loadMoreContentAction = () => null;
 
     return (
       <div className="main-panel">
@@ -60,5 +46,4 @@ export default class Bookmarks extends Component {
 Bookmarks.defaultProps = {
   sortBy: 'bookmarks',
   category: 'all',
-  limit: 10,
 };
