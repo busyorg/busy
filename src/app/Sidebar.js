@@ -202,7 +202,7 @@ class Sidebar extends Component {
                 <Link to="/#files"><i className="icon icon-md material-icons">attach_file</i> Files</Link>
               </li>
               <li className="title">
-                <Link to="/#bookmarks"><i className="icon icon-md material-icons">collections_bookmark</i> Bookmarks</Link>
+                <Link to="/bookmarks"><i className="icon icon-md material-icons">collections_bookmark</i> Bookmarks</Link>
               </li>
             </ul>}
           {this.props.auth.isAuthenticated && _.has(this.state.feedPrice, 'base') && this.state.menu === 'wallet' &&
