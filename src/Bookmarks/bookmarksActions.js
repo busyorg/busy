@@ -5,6 +5,7 @@ import {
 } from './../helpers/localStorageHelpers';
 
 export const GET_BOOKMARKS = '@Bookmarks/GET_BOOKMARKS';
+export const GET_BOOKMARKS_START = '@Bookmarks/GET_BOOKMARKS_START';
 export const GET_BOOKMARKS_SUCCESS = '@Bookmarks/GET_BOOKMARKS_SUCCESS';
 export const GET_BOOKMARKS_FAIL = '@Bookmarks/GET_BOOKMARKS_FAIL';
 
@@ -16,7 +17,7 @@ export const GET_BOOKMARKS_FAIL = '@Bookmarks/GET_BOOKMARKS_FAIL';
  * @returns Promise - bookmarksData
  */
 async function getBookmarksData(bookmarks, steemAPI) {
-  let bookmarksData = {};
+  let bookmarksData = [];
   for (let idx = 0; idx < Object.keys(bookmarks).length; idx++) {
     const postId = Object.keys(bookmarks)[idx];
 
@@ -24,7 +25,7 @@ async function getBookmarksData(bookmarks, steemAPI) {
       bookmarks[postId].author,
       bookmarks[postId].permlink
     );
-    bookmarksData[postId] = postData;
+    bookmarksData.push(postData);
   }
   return bookmarksData;
 }
@@ -37,7 +38,9 @@ export const getBookmarks = () => {
     dispatch({
       type: GET_BOOKMARKS,
       payload: {
-        promise: getBookmarksData(bookmarks, steemAPI)
+        promise: getBookmarksData(bookmarks, steemAPI).then(
+          bookmarksData => ({ postsData: bookmarksData })
+        ),
       }
     });
   };
