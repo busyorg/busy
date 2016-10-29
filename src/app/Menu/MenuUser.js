@@ -10,23 +10,23 @@ module.exports = React.createClass({
         <li>
           <Link to={`/@${username}`} activeClassName="active">
             <i className="icon icon-md material-icons">assignment_ind</i>{' '}
-            <span className="hidden-xs"><FormattedMessage id="Profile" /></span>
+            <span className="hidden-xs"><FormattedMessage id="profile" defaultMessage="Profile" /></span>
           </Link>
         </li>
         <li>
           <Link to={`/@${username}/posts`} activeClassName="active">
             <i className="icon icon-md material-icons">library_books</i>{' '}
-            <span className="hidden-xs"><FormattedMessage id="Posts" /></span></Link>
+            <span className="hidden-xs"><FormattedMessage id="posts" defaultMessage="Posts" /></span></Link>
         </li>
         <li>
           <Link to={`/@${username}/feed`} activeClassName="active">
             <i className="icon icon-md  material-icons">subject</i>{' '}
-            <span className="hidden-xs"><FormattedMessage id="Feed" /></span></Link>
+            <span className="hidden-xs"><FormattedMessage id="feed" defaultMessage="Feed" /></span></Link>
         </li>
         <li>
           <Link to={`/@${username}/transfers`} activeClassName="active">
             <i className="icon icon-md material-icons">account_balance_wallet</i>{' '}
-            <span className="hidden-xs"><FormattedMessage id="Wallet" /></span></Link>
+            <span className="hidden-xs"><FormattedMessage id="wallet" defaultMessage="Wallet" /></span></Link>
         </li>
       </ul>
     );

@@ -5,7 +5,8 @@ const initialState = {
   isFetching: false,
   isLoaded: false,
   errorMessage: '',
-  sidebarIsVisible: true
+  sidebarIsVisible: true,
+  locale: 'en',
 };
 
 // TODO(p0o): some actionsTypes in this reducer are not defined anywhere, need to figure it out later
@@ -68,6 +69,12 @@ export default (state = initialState, action) => {
       return {
         ...state,
         sidebarIsVisible: false,
+      };
+
+    case appTypes.SET_LOCALE:
+      return {
+        ...state,
+        locale: action.payload.locale,
       };
     default:
       return state;
