@@ -13,7 +13,7 @@ import feedReducers from './feed/feedReducers';
 import postsReducers from './post/postsReducers';
 import userProfileReducer from './user/userReducer';
 import notificationReducer from './app/Notification/notificationReducers';
-import bookmarksReducer from './app/Bookmarks/bookmarksReducer';
+import bookmarksReducer from './Bookmarks/bookmarksReducer';
 import favoritesReducer from './app/Favorites/favoritesReducer';
 import { responsiveReducer, mountResponsive } from './helpers/responsive';
 

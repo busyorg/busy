@@ -9,5 +9,8 @@
       "presets": ["react-hmre"]
     }
   },
-  "plugins": ["transform-decorators-legacy"]
+  "plugins": [
+  "transform-decorators-legacy",
+  "transform-runtime"
+  ]
 }

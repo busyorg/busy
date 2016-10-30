@@ -1,5 +1,7 @@
 import * as feedTypes from './feedActions';
 import * as userProfileTypes from '../user/userActions';
+import * as bookmarksActions from './../Bookmarks/bookmarksActions';
+
 
 const initialState = {
   feed: {},
@@ -10,6 +12,7 @@ const initialState = {
   trending: {},
   comments: {},
   blog: {},
+  bookmarks: {},
 };
 
 const feedFetching = (state = false, action) => {
@@ -18,11 +21,13 @@ const feedFetching = (state = false, action) => {
     case feedTypes.GET_MORE_FEED_CONTENT_SUCCESS:
     case feedTypes.GET_USER_FEED_CONTENT_SUCCESS:
     case feedTypes.GET_MORE_USER_FEED_CONTENT_SUCCESS:
+    case bookmarksActions.GET_BOOKMARKS_SUCCESS:
       return false;
     case feedTypes.GET_FEED_CONTENT:
     case feedTypes.GET_MORE_FEED_CONTENT:
     case feedTypes.GET_USER_FEED_CONTENT:
     case feedTypes.GET_MORE_USER_FEED_CONTENT:
+    case bookmarksActions.GET_BOOKMARKS_START:
       return true;
     default:
       return state;
@@ -33,6 +38,7 @@ const feedIdsList = (state = [], action) => {
   switch (action.type) {
     case feedTypes.GET_FEED_CONTENT_SUCCESS:
     case feedTypes.GET_USER_FEED_CONTENT_SUCCESS:
+    case bookmarksActions.GET_BOOKMARKS_SUCCESS:
       const postsIds = action.payload.postsData.map(post => post.id);
       return [
         ...postsIds,
@@ -67,6 +73,8 @@ const feedSortBySubItem = (state = {}, action) => {
     case feedTypes.GET_MORE_USER_FEED_CONTENT_SUCCESS:
     case userProfileTypes.GET_USER_COMMENTS_START:
     case userProfileTypes.GET_MORE_USER_COMMENTS_START:
+    case bookmarksActions.GET_BOOKMARKS_START:
+    case bookmarksActions.GET_BOOKMARKS_SUCCESS:
       return {
         ...state,
         isFetching: feedFetching(undefined, action),
@@ -120,6 +128,12 @@ const feedSortByItem = (state = {}, action) => {
         ...state,
         [action.meta.username]: feedSortBySubItem(state[action.meta.username], action)
       };
+    case bookmarksActions.GET_BOOKMARKS_START:
+    case bookmarksActions.GET_BOOKMARKS_SUCCESS:
+      return {
+        ...state,
+        all: feedSortBySubItem(state.all, action),
+      };
     default:
       return state;
   }
@@ -147,6 +161,12 @@ const feed = (state = initialState, action) => {
       return {
         ...state,
         comments: feedSortByItem(state.comments, action)
+      };
+    case bookmarksActions.GET_BOOKMARKS_START:
+    case bookmarksActions.GET_BOOKMARKS_SUCCESS:
+      return {
+        ...state,
+        bookmarks: feedSortByItem(state.bookmarks, action)
       };
     default:
       return state;

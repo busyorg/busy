@@ -5,15 +5,9 @@ export const getBookmarks = () => {
   return store.get('bookmarks') || {};
 };
 
-export const toggleBookmark = (postId) => {
+export const addBookmark = ({ postId, author, permlink }) => {
   const bookmarks = store.get('bookmarks') || {};
-  return (_.has(bookmarks, postId)) ?
-    removeBookmark(postId) : addBookmark(postId);
-};
-
-export const addBookmark = (postId) => {
-  const bookmarks = store.get('bookmarks') || {};
-  bookmarks[postId] = {};
+  bookmarks[postId] = { author, permlink, timestamp: Date.now() };
   store.set('bookmarks', bookmarks);
   return true;
 };
@@ -23,6 +17,16 @@ export const removeBookmark = (postId) => {
   delete bookmarks[postId];
   store.set('bookmarks', bookmarks);
   return true;
+};
+
+export const toggleBookmark = ({ postId, author, permlink }) => {
+  const bookmarks = store.get('bookmarks') || {};
+  if (bookmarks[postId]) {
+    removeBookmark(postId);
+  } else {
+    addBookmark({ postId, author, permlink });
+  }
+  return getBookmarks();
 };
 
 export const getFavoriteUsers = () => {

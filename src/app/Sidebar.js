@@ -225,10 +225,12 @@ class Sidebar extends Component {
                 </Link>
               </li>
               <li className="title">
-                <Link to="/#bookmarks">
+
+                <Link to="/bookmarks">
                   <i className="icon icon-md material-icons">collections_bookmark</i>{' '}
                   <FormattedMessage id="bookmarks" defaultMessage="Bookmarks" />
                 </Link>
+
               </li>
             </ul>}
           {this.props.auth.isAuthenticated && _.has(this.state.feedPrice, 'base') && this.state.menu === 'wallet' &&

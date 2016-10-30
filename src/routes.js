@@ -27,6 +27,7 @@ import Edit from './user/UserEdit';
 import Categories from './categories/Categories';
 import { Trending, Hot, Votes, Responses, Active, Created, Cashout } from './feed/PathMatching';
 import PostSinglePage from './post/PostSinglePage';
+import Bookmarks from './Bookmarks/Bookmarks';
 
 export default (
   <Route path="/" component={Wrapper}>
@@ -48,6 +49,7 @@ export default (
     <Route path="/active(/:category)" component={Active} />
     <Route path="/responses(/:category)" component={Responses} />
     <Route path="/votes(/:category)" component={Votes} />
+    <Route path="/bookmarks" component={Bookmarks} />
 
     <Route path="/write" component={Write} />
 
