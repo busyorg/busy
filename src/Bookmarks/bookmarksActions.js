@@ -41,6 +41,7 @@ export const getBookmarks = () => {
         promise: getBookmarksData(bookmarks, steemAPI).then(
           bookmarksData => ({ postsData: bookmarksData })
         ),
+        data: bookmarks,
       }
     });
   };
