@@ -24,13 +24,17 @@ export default class Bookmarks extends Component {
     super(props);
   }
 
+  componentDidMount() {
+    this.props.getBookmarks();
+  }
+
   render() {
     const { sortBy, category, feed, posts, notify } = this.props;
 
     const content = getFeedContentFromState(sortBy, category, feed, posts);
     const isFetching = getFeedLoadingFromState(sortBy, category, feed);
     const hasMore = false;
-    const loadContentAction = this.props.getBookmarks;
+    const loadContentAction = () => null;
     const loadMoreContentAction = () => null;
 
     return (
