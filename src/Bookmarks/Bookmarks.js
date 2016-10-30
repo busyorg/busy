@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Header from './../app/Header';
+import MenuFeed from './../app/Menu/MenuFeed';
 import Feed from './../feed/Feed';
 import {
   getFeedContentFromState,
@@ -35,6 +36,7 @@ export default class Bookmarks extends Component {
     return (
       <div className="main-panel">
         <Header />
+        <MenuFeed />
         <Feed
           content={content}
           isFetching={isFetching}
