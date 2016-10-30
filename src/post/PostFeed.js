@@ -5,11 +5,10 @@ import { Link } from 'react-router';
 import steemembed from 'steemembed';
 import BodyShort from './body-short';
 import Mentions from './mentions';
-import RepliesShort from './replies-short';
 import Flag from './flag';
-import Comments from './../comments/Comments';
+import Comments from '../comments/Comments';
 import PostActionButtons from './PostActionButtons';
-import Icon from './../widgets/Icon';
+import Icon from '../widgets/Icon';
 
 const colorCode = { green: 'rgba(39, 208, 169, 0.4)', red: 'rgba(249, 43, 97, 0.2)' };
 const classCode = { green: 'grid-row-green', red: 'grid-row-red' };
@@ -67,7 +66,7 @@ export default class PostFeed extends Component {
           <div className="cell cell-top">
             <ul>
               <li>
-                <Icon name="repeat" small />
+                <Icon name="repeat" s />
                 { ' Reblogged by ' }
                 <Link to={`/@${post.first_reblogged_by}`}>@{post.first_reblogged_by}</Link>
               </li>
@@ -101,11 +100,13 @@ export default class PostFeed extends Component {
             </li>
             <li className="pull-right">
               { `${moment(post.created).fromNow()} ` }
+
               <a onClick={() => toggleBookmark(post.id)}>
                 <Icon
                   small
                   name={bookmarks[post.id] ? 'bookmark' : 'bookmark_border'}
                 />
+
               </a>
             </li>
           </ul>

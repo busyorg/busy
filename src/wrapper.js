@@ -5,6 +5,7 @@ import { getConfig } from './actions';
 import { notify } from './app/Notification/notificationActions';
 import Notification from './app/Notification/Notification';
 import Sidebar from './app/Sidebar';
+import * as messages from './translations/i18n';
 
 var React = require('react'),
   ReactRedux = require('react-redux');
@@ -17,18 +18,16 @@ var Wrapper = React.createClass({
 
   render() {
     const className = (!this.props.app.sidebarIsVisible) ? 'app-wrapper full-width' : 'app-wrapper';
-    const { auth, notify } = this.props;
+    const { app, auth, notify } = this.props;
     return (
-      <IntlProvider locale="en">
+      <IntlProvider locale={app.locale} messages={messages[app.locale]}>
         <div className={className}>
           <Sidebar />
           <Notification />
-          {
-            React.cloneElement(
+          {React.cloneElement(
               this.props.children,
               { auth, notify }
-            )
-          }
+            )}
         </div>
       </IntlProvider>
     );

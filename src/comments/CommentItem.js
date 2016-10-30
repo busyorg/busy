@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router';
 import numeral from 'numeral';
 import BodyShort from './../post/body-short';
-import { Link } from 'react-router';
+import Icon from './../widgets/Icon';
 
 import './CommentItem.scss';
 
@@ -46,30 +47,17 @@ export default class CommentItem extends Component {
 
     return (
       <div className="CommentItem">
-        <Link to={`/@${comment.author}`}>
-          @{ comment.author }
-        </Link>
-        { ' ' }
-        <b>
-          { numeral(payout).format('$0,0.00') }
-        </b>
-        { ' ' }
-        <BodyShort body={comment.body}/>
-        { (comment.children > 0 && !this.state.showReplies) &&
-          <a
-            className="Comments__showMore"
-            tabIndex="0"
-            onClick={this.toggleShowReplies}
-          >
-            {comment.children > 1
-              ? `Show ${comment.children} replies...`
-              : `Show ${comment.children} reply...`
-            }
-          </a>
-        }
-
+          <Link to={`/@${comment.author}`}>
+            @{ comment.author }
+          </Link>{ ' ' }
+          <BodyShort body={comment.body} />
+          { (comment.children > 0 && !this.state.showReplies) &&
+            <a tabIndex="0" onClick={this.toggleShowReplies}>
+              <Icon name="reply" s />View {comment.children}{' '}
+              {comment.children > 1 ? 'replies' : 'reply'}
+            </a>
+          }
         { this.state.showReplies && this.props.children }
-
       </div>
     );
   }

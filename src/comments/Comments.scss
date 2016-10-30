@@ -1,13 +1,11 @@
-@import './../styles/colors';
+@import '../styles/colors';
 
 .Comments {
-  background: #fff;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .Comments__showMore {
   display: block;
-  width: 100%;
-  padding: 0.7rem;
-  height: 2.5rem;
-  font-size: 0.9rem;
+  text-align: center;
+  padding: 1em;
 }

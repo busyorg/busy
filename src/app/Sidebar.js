@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import size from 'lodash/size';
+import { FormattedMessage } from 'react-intl';
 
 import SidebarMessages from './Sidebar/SidebarMessages';
 
@@ -165,21 +166,36 @@ class Sidebar extends Component {
           {this.props.auth.isAuthenticated && _.has(this.state.feedPrice, 'base') && this.state.menu === 'settings' &&
             <ul>
               <li className="title">
-                <Link to="/#profile"><i className="icon icon-md material-icons">perm_identity</i> Profile</Link>
+                <Link to="/#profile">
+                  <i className="icon icon-md material-icons">perm_identity</i>{' '}
+                  <FormattedMessage id="profile" defaultMessage="Profile" />
+                </Link>
               </li>
               <li className="title">
-                <Link to="/settings"><i className="icon icon-md material-icons">settings</i> Settings</Link>
+                <Link to="/settings">
+                  <i className="icon icon-md material-icons">settings</i>{' '}
+                  <FormattedMessage id="settings" defaultMessage="Settings" />
+                </Link>
               </li>
               <li className="title">
-                <Link to="/about"><i className="icon icon-md material-icons">info_outline</i> About</Link>
+                <Link to="/about">
+                  <i className="icon icon-md material-icons">info_outline</i>{' '}
+                  <FormattedMessage id="about" defaultMessage="About" />
+                </Link>
               </li>
               <li className="title">
-                <a href={`${process.env.STEEMCONNECT_HOST}/logout`}><i className="icon icon-md material-icons">lock_open</i> Log Out</a>
+                <a href={`${process.env.STEEMCONNECT_HOST}/logout`}>
+                  <i className="icon icon-md material-icons">lock_open</i>{' '}
+                  <FormattedMessage id="logout" defaultMessage="Log Out" />
+                </a>
               </li>
             </ul>}
 
           {_.size(this.state.categories) > 0 && this.state.menu === 'public' &&
-            <ul className="tags">{tags}</ul>}
+            <ul className="tags">
+              {tags}
+              <li><Link to="/tags" activeClassName="active"><FormattedMessage id="see_more" defaultMessage="See More" /></Link></li>
+            </ul>}
 
           {this.state.menu === 'feed' &&
             <SidebarMessages
@@ -192,17 +208,29 @@ class Sidebar extends Component {
             <ul>
               <li className="title">
                 <Link to="/write">
-                  <i className="icon icon-md material-icons">add</i> Write
+                  <i className="icon icon-md material-icons">add</i>{' '}
+                  <FormattedMessage id="write" defaultMessage="Write" />
                 </Link>
               </li>
               <li className="title">
-                <Link to="/#drafts"><i className="icon icon-md material-icons">library_books</i> Drafts</Link>
+                <Link to="/#drafts">
+                  <i className="icon icon-md material-icons">library_books</i>{' '}
+                  <FormattedMessage id="drafts" defaultMessage="Drafts" />
+                </Link>
               </li>
               <li className="title">
-                <Link to="/#files"><i className="icon icon-md material-icons">attach_file</i> Files</Link>
+                <Link to="/#files">
+                  <i className="icon icon-md material-icons">attach_file</i>{' '}
+                  <FormattedMessage id="files" defaultMessage="Files" />
+                </Link>
               </li>
               <li className="title">
-                <Link to="/bookmarks"><i className="icon icon-md material-icons">collections_bookmark</i> Bookmarks</Link>
+
+                <Link to="/bookmarks">
+                  <i className="icon icon-md material-icons">collections_bookmark</i>{' '}
+                  <FormattedMessage id="bookmarks" defaultMessage="Bookmarks" />
+                </Link>
+
               </li>
             </ul>}
           {this.props.auth.isAuthenticated && _.has(this.state.feedPrice, 'base') && this.state.menu === 'wallet' &&
@@ -211,7 +239,7 @@ class Sidebar extends Component {
               <li><span className="menu-row">Steem <span className="pull-right">{numeral(user.balance).format('0,0.00')}</span></span></li>
               <li><span className="menu-row">Steem Power <span className="pull-right">{numeral(power).format('0,0.00')}</span></span></li>
               <li><span className="menu-row">Steem Dollars <span className="pull-right">{numeral(user.sbd_balance).format('0,0.00')}</span></span></li>
-              <li><span className="menu-row">Estimated Value <span className="pull-right">{numeral(dollar).format('$0,0.00')}</span></span></li>
+              <li><span className="menu-row"><FormattedMessage id="estimated_value" defaultMessage="Estimated Value" /> <span className="pull-right">{numeral(dollar).format('$0,0.00')}</span></span></li>
             </ul>}
         </div>
       </nav>

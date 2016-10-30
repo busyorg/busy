@@ -1,3 +1,5 @@
+import { createAction } from 'redux-actions';
+
 var api = require('./steemAPI');
 
 export const CONFIG_REQUEST = '@app/CONFIG_REQUEST';
@@ -11,9 +13,6 @@ export const CONTENT_REQUEST = '@app/CONTENT_REQUEST';
 export const CONTENT_SUCCESS = '@app/CONTENT_SUCCESS';
 export const ACCOUNT_REQUEST = '@app/ACCOUNT_REQUEST';
 export const ACCOUNT_SUCCESS = '@app/ACCOUNT_SUCCESS';
-
-export const SHOW_SIDEBAR = '@app/SHOW_SIDEBAR';
-export const HIDE_SIDEBAR = '@app/HIDE_SIDEBAR';
 
 export const getConfig = () => {
   return (dispatch, getState) => {
@@ -29,6 +28,9 @@ export const getConfig = () => {
   };
 };
 
+export const SHOW_SIDEBAR = '@app/SHOW_SIDEBAR';
+export const HIDE_SIDEBAR = '@app/HIDE_SIDEBAR';
+
 export const showSidebar = () => {
   return (dispatch, getState) => {
     dispatch({type: SHOW_SIDEBAR});
@@ -38,5 +40,15 @@ export const showSidebar = () => {
 export const hideSidebar = () => {
   return (dispatch, getState) => {
     dispatch({type: HIDE_SIDEBAR});
+  };
+};
+
+export const SET_LOCALE = '@app/SET_LOCALE';
+
+export const setLocaleRequest = createAction(SET_LOCALE);
+
+export const setLocale = (locale) => {
+  return (dispatch) => {
+    dispatch(setLocaleRequest({ locale }));
   };
 };

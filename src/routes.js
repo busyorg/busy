@@ -24,6 +24,7 @@ import Replies from './user/UserReplies';
 import Feed from './user/UserFeed';
 import Transfers from './user/UserTransfers';
 import Edit from './user/UserEdit';
+import Categories from './categories/Categories';
 import { Trending, Hot, Votes, Responses, Active, Created, Cashout } from './feed/PathMatching';
 import PostSinglePage from './post/PostSinglePage';
 import Bookmarks from './Bookmarks/Bookmarks';
@@ -40,6 +41,7 @@ export default (
     <Route path="/donate" component={Donate} />
     <Route path="/help" component={Help} />
 
+    <Route path="/tags" component={Categories} />
     <Route path="/trending(/:category)" component={Trending} />
     <Route path="/hot(/:category)" component={Hot} />
     <Route path="/cashout(/:category)" component={Cashout} />
