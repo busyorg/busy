@@ -56,7 +56,7 @@ export default class Comments extends Component {
             tabIndex="0"
             onClick={this.handleShowMore}
           >
-            Load more comments...
+            See More Comments
           </a>
         }
 

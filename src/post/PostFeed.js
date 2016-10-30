@@ -66,7 +66,7 @@ export default class PostFeed extends Component {
           <div className="cell cell-top">
             <ul>
               <li>
-                <Icon name="repeat" small />
+                <Icon name="repeat" s />
                 { ' Reblogged by ' }
                 <Link to={`/@${post.first_reblogged_by}`}>@{post.first_reblogged_by}</Link>
               </li>
@@ -101,10 +101,7 @@ export default class PostFeed extends Component {
             <li className="pull-right">
               { `${moment(post.created).fromNow()} ` }
               <a href="#" onClick={() => toggleBookmark(post.id)}>
-                <Icon
-                  small
-                  name={has(bookmarks, post.id) ? 'bookmark' : 'bookmark_border'}
-                />
+                <Icon name={has(bookmarks, post.id) ? 'bookmark' : 'bookmark_border'} s />
               </a>
             </li>
           </ul>

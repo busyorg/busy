@@ -3,33 +3,24 @@ import React from 'react';
 const Icon = ({
   name,
   style,
-  xSmall = false,
-  small = false,
-  medium = true,
-  large = false,
-  xLarge = false,
-  xXLarge = false,
+  n = false,
+  xs = false,
+  s = false,
+  m = true,
+  l = false,
+  x = false,
+  xl = false,
+  xxl = false,
 }) => {
   let size = '';
-  if (xSmall) {
-    size = 'icon-xs';
-  }
-  if (small) {
-    size = 'icon-sm';
-  }
-  if (medium) {
-    size = 'icon-md';
-  }
-  if (large) {
-    size = 'icon-lg';
-  }
-  if (xLarge) {
-    size = 'icon-xl';
-  }
-  if (xXLarge) {
-    size = 'icon-xxl';
-  }
-
+  size = (n) ? 'icon-n' : size;
+  size = (xs) ? 'icon-xs' : size;
+  size = (s) ? 'icon-s' : size;
+  size = (m) ? 'icon-m' : size;
+  size = (l) ? 'icon-l' : size;
+  size = (x) ? 'icon-x' : size;
+  size = (xl) ? 'icon-xl' : size;
+  size = (xxl) ? 'icon-xxl' : size;
   return (
     <i className={`icon ${size} material-icons`} style={style}>{ name }</i>
   );
