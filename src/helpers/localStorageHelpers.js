@@ -7,7 +7,7 @@ export const getBookmarks = () => {
 
 export const addBookmark = ({ postId, author, permlink }) => {
   const bookmarks = store.get('bookmarks') || {};
-  bookmarks[postId] = { author, permlink, timestamp: Date().now };
+  bookmarks[postId] = { author, permlink, timestamp: Date.now() };
   store.set('bookmarks', bookmarks);
   return true;
 };
