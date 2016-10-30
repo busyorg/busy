@@ -27,7 +27,7 @@ async function getBookmarksData(bookmarks, steemAPI) {
     );
     bookmarksData.push(postData);
   }
-  return bookmarksData.sort((a, b) => a.timestamp - b.timestamp);
+  return bookmarksData.sort((a, b) => a.timestamp - b.timestamp).reverse();
 }
 
 export const getBookmarks = () => {
