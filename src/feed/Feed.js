@@ -7,7 +7,7 @@ import AddPost from '../post/Write/EmbeddedNewPost';
 import PostFeed from '../post/PostFeed';
 import CommentForm from '../comments/CommentForm';
 import * as commentsActions from './../comments/commentsActions';
-import * as bookmarkActions from '../Bookmarks/bookmarksActions';
+import * as bookmarkActions from '../bookmarks/bookmarksActions';
 
 
 @connect(

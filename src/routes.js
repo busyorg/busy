@@ -27,7 +27,7 @@ import Edit from './user/UserEdit';
 import Categories from './categories/Categories';
 import { Trending, Hot, Votes, Responses, Active, Created, Cashout } from './feed/PathMatching';
 import PostSinglePage from './post/PostSinglePage';
-import Bookmarks from './Bookmarks/Bookmarks';
+import Bookmarks from './bookmarks/Bookmarks';
 
 export default (
   <Route path="/" component={Wrapper}>

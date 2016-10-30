@@ -1,5 +1,5 @@
 import * as feedTypes from './../feed/feedActions';
-import * as bookmarksActions from './../Bookmarks/bookmarksActions';
+import * as bookmarksActions from '../bookmarks/bookmarksActions';
 
 const posts = (state = {}, action) => {
   switch (action.type) {

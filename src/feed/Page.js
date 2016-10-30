@@ -19,7 +19,7 @@ import {
   getUserFeedLoadingFromState,
 } from './../helpers/stateHelpers';
 import * as commentsActions from './../comments/commentsActions';
-import { toggleBookmark } from '../Bookmarks/bookmarksActions';
+import { toggleBookmark } from '../bookmarks/bookmarksActions';
 
 
 @PageHOC

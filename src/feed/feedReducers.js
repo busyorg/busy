@@ -1,6 +1,6 @@
 import * as feedTypes from './feedActions';
 import * as userProfileTypes from '../user/userActions';
-import * as bookmarksActions from './../Bookmarks/bookmarksActions';
+import * as bookmarksActions from '../bookmarks/bookmarksActions';
 
 
 const initialState = {

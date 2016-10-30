@@ -8,7 +8,7 @@ import {
   getFeedLoadingFromState,
   getFeedHasMoreFromState
 } from './../helpers/stateHelpers';
-import * as bookmarksActions from './../Bookmarks/bookmarksActions';
+import * as bookmarksActions from './/bookmarksActions';
 
 @connect(
   state => ({
