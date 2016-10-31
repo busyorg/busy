@@ -1,21 +1,20 @@
+import React from 'react';
+import { connect } from 'react-redux';
 import { IntlProvider } from 'react-intl';
-
 import { login } from './auth/authActions';
 import { getConfig } from './actions';
-import { getBookmarks } from './bookmarks/bookmarksActions';
+import { getStoredBookmarks } from './bookmarks/bookmarksActions';
 import { notify } from './app/Notification/notificationActions';
 import Notification from './app/Notification/Notification';
 import Sidebar from './app/Sidebar';
 import * as messages from './translations/i18n';
 
-var React = require('react'),
-  ReactRedux = require('react-redux');
 
 var Wrapper = React.createClass({
   componentWillMount() {
     this.props.login();
     this.props.getConfig();
-    this.props.getBookmarks();
+    this.props.getStoredBookmarks();
   },
 
   render() {
@@ -48,9 +47,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     login: () => { dispatch(login()); },
     getConfig: () => { dispatch(getConfig()); },
-    getBookmarks: () => { dispatch(getBookmarks()); },
-    notify: (text) => { dispatch(notify(text)); }
+    notify: (text) => { dispatch(notify(text)); },
+    getStoredBookmarks: () => { dispatch(getStoredBookmarks()); },
   };
 };
 
-module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(Wrapper);
+module.exports = connect(mapStateToProps, mapDispatchToProps)(Wrapper);
