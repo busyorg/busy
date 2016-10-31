@@ -1,5 +1,6 @@
+import React from 'react';
+import { connect } from 'react-redux';
 import { IntlProvider } from 'react-intl';
-
 import { login } from './auth/authActions';
 import { getConfig } from './actions';
 import { getStoredBookmarks } from './bookmarks/bookmarksActions';
@@ -8,8 +9,6 @@ import Notification from './app/Notification/Notification';
 import Sidebar from './app/Sidebar';
 import * as messages from './translations/i18n';
 
-var React = require('react'),
-  ReactRedux = require('react-redux');
 
 var Wrapper = React.createClass({
   componentWillMount() {
@@ -53,4 +52,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(Wrapper);
+module.exports = connect(mapStateToProps, mapDispatchToProps)(Wrapper);
