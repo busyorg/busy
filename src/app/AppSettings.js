@@ -1,6 +1,7 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { FormattedMessage } from 'react-intl';
 import { setLocale } from '../actions';
 import Header from './Header';
 
@@ -24,29 +25,29 @@ export default class AppSettings extends React.Component {
       <div className="main-panel">
         <Header />
         <center className="container ptl">
-          <h1>Settings</h1>
-          <h2>Language</h2>
+          <h1><FormattedMessage id="settings" /></h1>
+          <h2><FormattedMessage id="language" /></h2>
           <div className="row mhl">
             <div className="col col-lg-2 mbl">
-              <a href="#" onClick={() => setLocale('en')}>
+              <a onClick={() => setLocale('en')}>
                 <img className="flag flag-lg" alt="English" src="/img/flag/us.svg" />
                 <h2 className="mvs">English</h2>
               </a>
             </div>
             <div className="col col-lg-2 mbl">
-              <a href="#" onClick={() => setLocale('cn')}>
+              <a onClick={() => setLocale('cn')}>
                 <img className="flag flag-lg" alt="简体中文" src="/img/flag/cn.svg" />
                 <h2 className="mvs">简体中文</h2>
               </a>
             </div>
             <div className="col col-lg-2 mbl">
-              <a href="#" onClick={() => setLocale('fr')}>
+              <a onClick={() => setLocale('fr')}>
                 <img className="flag flag-lg" alt="Français" src="/img/flag/fr.svg" />
                 <h2 className="mvs">Français</h2>
               </a>
             </div>
             <div className="col col-lg-2 mbl">
-              <a href="#" onClick={() => setLocale('de')}>
+              <a onClick={() => setLocale('de')}>
                 <img className="flag flag-lg" alt="Deutsch" src="/img/flag/de.svg" />
                 <h2 className="mvs">Deutsch</h2>
               </a>
@@ -58,7 +59,7 @@ export default class AppSettings extends React.Component {
               </a>
             </div>
             <div className="col col-lg-2 mbl">
-              <a href="#" onClick={() => setLocale('kr')}>
+              <a onClick={() => setLocale('kr')}>
                 <img className="flag flag-lg" alt="한국어" src="/img/flag/kr.svg" />
                 <h2 className="mvs">한국어</h2>
               </a>
