@@ -2,7 +2,7 @@ import { IntlProvider } from 'react-intl';
 
 import { login } from './auth/authActions';
 import { getConfig } from './actions';
-import { getBookmarks } from './bookmarks/bookmarksActions';
+import { getStoredBookmarks } from './bookmarks/bookmarksActions';
 import { notify } from './app/Notification/notificationActions';
 import Notification from './app/Notification/Notification';
 import Sidebar from './app/Sidebar';
@@ -15,7 +15,7 @@ var Wrapper = React.createClass({
   componentWillMount() {
     this.props.login();
     this.props.getConfig();
-    this.props.getBookmarks();
+    this.props.getStoredBookmarks();
   },
 
   render() {
@@ -48,8 +48,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     login: () => { dispatch(login()); },
     getConfig: () => { dispatch(getConfig()); },
-    getBookmarks: () => { dispatch(getBookmarks()); },
-    notify: (text) => { dispatch(notify(text)); }
+    notify: (text) => { dispatch(notify(text)); },
+    getStoredBookmarks: () => { dispatch(getStoredBookmarks()); },
   };
 };
 
