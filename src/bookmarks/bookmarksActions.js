@@ -38,8 +38,10 @@ async function getBookmarksData(bookmarks, steemAPI) {
 
 export const getBookmarks = () => {
   return (dispatch, getState, { steemAPI }) => {
+    const { auth } = getState();
+    const user = auth.isAuthenticated ? auth.user.name : 'guest';
 
-    const bookmarks = getBookmarksHelper();
+    const bookmarks = getBookmarksHelper(user);
 
     dispatch({
       type: GET_BOOKMARKS,
@@ -59,13 +61,14 @@ export const toggleBookmarkSuccess = createAction(TOGGLE_BOOKMARK_SUCCESS);
 
 export const toggleBookmark = (postId) => {
   return (dispatch, getState) => {
-    const { posts } = getState();
+    const { posts, auth } = getState();
+    const user = auth.isAuthenticated ? auth.user.name : 'guest';
 
     dispatch(toggleBookmarkRequest(postId));
 
     const { author, permlink } = posts[postId];
 
-    const bookmarks = toggleBookmarkHelper({ postId, author, permlink });
+    const bookmarks = toggleBookmarkHelper({ postId, author, permlink }, user);
 
     dispatch(
       toggleBookmarkSuccess(bookmarks)
@@ -74,8 +77,11 @@ export const toggleBookmark = (postId) => {
 };
 
 export const getStoredBookmarks = () => {
-  return dispatch => {
-    const bookmarks = getBookmarksHelper();
+  return (dispatch, getState) => {
+    const { auth } = getState();
+    const user = auth.isAuthenticated ? auth.user.name : 'guest';
+
+    const bookmarks = getBookmarksHelper(user);
     dispatch(
       createAction(GET_STORED_BOOKMARKS)(bookmarks)
     );
