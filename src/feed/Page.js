@@ -20,6 +20,7 @@ import {
 } from './../helpers/stateHelpers';
 import * as commentsActions from './../comments/commentsActions';
 import { toggleBookmark } from '../bookmarks/bookmarksActions';
+import Loading from '../widgets/Loading';
 
 
 @PageHOC
@@ -75,10 +76,8 @@ export default class Page extends React.Component {
         <Header />
         <MenuFeed category={category} />
 
-        { auth.isAuthenticated &&
-          <TriggerFeed category={category} />
-        }
-
+        { auth.isAuthenticated && <TriggerFeed category={category} /> }
+        { auth.isFetching && <Loading /> }
         { !auth.isFetching &&
           <Feed
             content={content}
