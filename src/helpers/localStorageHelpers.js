@@ -1,32 +1,30 @@
 import store from 'store';
 import _ from 'lodash';
 
-export const getBookmarks = () => {
-  return store.get('bookmarks') || {};
+export const getBookmarks = (user) => {
+  return store.get('bookmarks')[user] || {};
 };
 
-export const addBookmark = ({ postId, author, permlink }) => {
-  const bookmarks = store.get('bookmarks') || {};
+export const addBookmark = ({ postId, author, permlink }, user) => {
+  const bookmarks = store.get('bookmarks')[user] || {};
   bookmarks[postId] = { author, permlink, timestamp: Date.now() };
-  store.set('bookmarks', bookmarks);
-  return true;
+  store.set('bookmarks', { [user]: bookmarks });
 };
 
-export const removeBookmark = (postId) => {
-  const bookmarks = store.get('bookmarks') || {};
+export const removeBookmark = (postId, user) => {
+  const bookmarks = store.get('bookmarks')[user] || {};
   delete bookmarks[postId];
-  store.set('bookmarks', bookmarks);
-  return true;
+  store.set('bookmarks', { [user]: bookmarks });
 };
 
-export const toggleBookmark = ({ postId, author, permlink }) => {
-  const bookmarks = store.get('bookmarks') || {};
+export const toggleBookmark = ({ postId, author, permlink }, user) => {
+  const bookmarks = store.get('bookmarks')[user] || {};
   if (bookmarks[postId]) {
-    removeBookmark(postId);
+    removeBookmark(postId, user);
   } else {
-    addBookmark({ postId, author, permlink });
+    addBookmark({ postId, author, permlink }, user);
   }
-  return getBookmarks();
+  return getBookmarks(user);
 };
 
 export const getFavoriteUsers = () => {
