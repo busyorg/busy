@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { IntlProvider } from 'react-intl';
+import { addLocaleData, IntlProvider } from 'react-intl';
+import enLocaleData from 'react-intl/locale-data/en';
 import { login } from './auth/authActions';
 import { getConfig } from './actions';
 import { getStoredBookmarks } from './bookmarks/bookmarksActions';
@@ -8,6 +9,12 @@ import { notify } from './app/Notification/notificationActions';
 import Notification from './app/Notification/Notification';
 import Sidebar from './app/Sidebar';
 import * as messages from './translations/i18n';
+
+addLocaleData(enLocaleData);
+addLocaleData({
+  locale: 'fr',
+  parentLocale: 'en',
+});
 
 
 var Wrapper = React.createClass({
@@ -18,6 +25,7 @@ var Wrapper = React.createClass({
   },
 
   render() {
+    console.log(messages);
     const className = (!this.props.app.sidebarIsVisible) ? 'app-wrapper full-width' : 'app-wrapper';
     const { app, auth, notify } = this.props;
     return (
