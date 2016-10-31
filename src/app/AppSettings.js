@@ -53,7 +53,7 @@ export default class AppSettings extends React.Component {
               </a>
             </div>
             <div className="col col-lg-2 mbl">
-              <a href="#" onClick={() => setLocale('ru')}>
+              <a onClick={() => setLocale('ru')}>
                 <img className="flag flag-lg" alt="Русский" src="/img/flag/ru.svg" />
                 <h2 className="mvs">Русский</h2>
               </a>
