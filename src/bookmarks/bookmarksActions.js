@@ -9,6 +9,12 @@ export const GET_BOOKMARKS_START = '@Bookmarks/GET_BOOKMARKS_START';
 export const GET_BOOKMARKS_SUCCESS = '@Bookmarks/GET_BOOKMARKS_SUCCESS';
 export const GET_BOOKMARKS_FAIL = '@Bookmarks/GET_BOOKMARKS_FAIL';
 
+export const GET_STORED_BOOKMARKS = '@Bookmarks/GET_STORED_BOOKMARKS';
+
+export const TOGGLE_BOOKMARK = '@Bookmarks/TOGGLE_BOOKMARK';
+export const TOGGLE_BOOKMARK_SUCCESS = '@Bookmarks/TOGGLE_BOOKMARK_SUCCESS';
+export const TOGGLE_BOOKMARK_FAIL = '@Bookmarks/TOGGLE_BOOKMARK_FAIL';
+
 /**
  * Use async await to load all the posts of bookmarked from steemAPI and returns a Promise
  *
@@ -47,9 +53,6 @@ export const getBookmarks = () => {
   };
 };
 
-export const TOGGLE_BOOKMARK = '@Bookmarks/TOGGLE_BOOKMARK';
-export const TOGGLE_BOOKMARK_SUCCESS = '@Bookmarks/TOGGLE_BOOKMARK_SUCCESS';
-export const TOGGLE_BOOKMARK_FAIL = '@Bookmarks/TOGGLE_BOOKMARK_FAIL';
 
 export const toggleBookmarkRequest = createAction(TOGGLE_BOOKMARK);
 export const toggleBookmarkSuccess = createAction(TOGGLE_BOOKMARK_SUCCESS);
@@ -68,4 +71,13 @@ export const toggleBookmark = (postId) => {
       toggleBookmarkSuccess(bookmarks)
     );
   };
+};
+
+export const getStoredBookmarks = () => {
+  return dispatch => {
+    const bookmarks = getBookmarksHelper();
+    dispatch(
+      createAction(GET_STORED_BOOKMARKS)(bookmarks)
+    );
+  }
 };
