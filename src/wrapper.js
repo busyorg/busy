@@ -1,21 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { addLocaleData, IntlProvider } from 'react-intl';
-import enLocaleData from 'react-intl/locale-data/en';
+import { IntlProvider } from 'react-intl';
 import { login } from './auth/authActions';
 import { getConfig } from './actions';
 import { getStoredBookmarks } from './bookmarks/bookmarksActions';
 import { notify } from './app/Notification/notificationActions';
 import Notification from './app/Notification/Notification';
 import Sidebar from './app/Sidebar';
-import * as messages from './translations/i18n';
-
-addLocaleData(enLocaleData);
-addLocaleData({
-  locale: 'fr',
-  parentLocale: 'en',
-});
-
+import * as messages from './translations/Translations';
 
 var Wrapper = React.createClass({
   componentWillMount() {
