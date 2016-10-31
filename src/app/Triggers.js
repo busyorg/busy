@@ -24,7 +24,6 @@ export default class PageActions extends Component {
     // TODO - Add Tooltip
     return (
       <a
-        href="#"
         className={classNames('trigger', {
           disabled: isFollowingIsLoading,
         })}

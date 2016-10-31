@@ -9,8 +9,8 @@ const Header = React.createClass({
       <header>
         <div className="logo"><Link to="/" onlyActiveOnIndex activeClassName="active"><img src="/img/busy-blue.svg" width="34" /></Link></div>
         <div className="top-nav">
-          {!this.props.app.sidebarIsVisible && <a href="#" onClick={() => this.props.showSidebar()}><i className="icon icon-md icon-menu material-icons">menu</i></a>}
-          {this.props.app.sidebarIsVisible && <a href="#"><i className="icon icon-md icon-menu material-icons">search</i></a>}
+          {!this.props.app.sidebarIsVisible && <a onClick={() => this.props.showSidebar()}><i className="icon icon-md icon-menu material-icons">menu</i></a>}
+          {this.props.app.sidebarIsVisible && <a><i className="icon icon-md icon-menu material-icons">search</i></a>}
           <div className="section-content top-head"></div>
           <a><i className="icon icon-md icon-menu material-icons">notifications</i></a>
         </div>
