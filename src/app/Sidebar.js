@@ -168,25 +168,25 @@ class Sidebar extends Component {
               <li className="title">
                 <Link to="/#profile">
                   <i className="icon icon-md material-icons">perm_identity</i>{' '}
-                  <FormattedMessage id="profile" defaultMessage="Profile" />
+                  <FormattedMessage id="profile" />
                 </Link>
               </li>
               <li className="title">
                 <Link to="/settings">
                   <i className="icon icon-md material-icons">settings</i>{' '}
-                  <FormattedMessage id="settings" defaultMessage="Settings" />
+                  <FormattedMessage id="settings" />
                 </Link>
               </li>
               <li className="title">
                 <Link to="/about">
                   <i className="icon icon-md material-icons">info_outline</i>{' '}
-                  <FormattedMessage id="about" defaultMessage="About" />
+                  <FormattedMessage id="about" />
                 </Link>
               </li>
               <li className="title">
                 <a href={`${process.env.STEEMCONNECT_HOST}/logout`}>
                   <i className="icon icon-md material-icons">lock_open</i>{' '}
-                  <FormattedMessage id="logout" defaultMessage="Log Out" />
+                  <FormattedMessage id="logout" />
                 </a>
               </li>
             </ul>}
@@ -194,7 +194,7 @@ class Sidebar extends Component {
           {_.size(this.state.categories) > 0 && this.state.menu === 'public' &&
             <ul className="tags">
               {tags}
-              <li><Link to="/tags" activeClassName="active"><FormattedMessage id="see_more" defaultMessage="See More" /></Link></li>
+              <li><Link to="/tags" activeClassName="active"><FormattedMessage id="see_more" /></Link></li>
             </ul>}
 
           {this.state.menu === 'feed' &&
@@ -209,26 +209,26 @@ class Sidebar extends Component {
               <li className="title">
                 <Link to="/write">
                   <i className="icon icon-md material-icons">add</i>{' '}
-                  <FormattedMessage id="write" defaultMessage="Write" />
+                  <FormattedMessage id="write" />
                 </Link>
               </li>
               <li className="title">
                 <Link to="/#drafts">
                   <i className="icon icon-md material-icons">library_books</i>{' '}
-                  <FormattedMessage id="drafts" defaultMessage="Drafts" />
+                  <FormattedMessage id="drafts" />
                 </Link>
               </li>
               <li className="title">
                 <Link to="/#files">
                   <i className="icon icon-md material-icons">attach_file</i>{' '}
-                  <FormattedMessage id="files" defaultMessage="Files" />
+                  <FormattedMessage id="files" />
                 </Link>
               </li>
               <li className="title">
 
                 <Link to="/bookmarks">
                   <i className="icon icon-md material-icons">collections_bookmark</i>{' '}
-                  <FormattedMessage id="bookmarks" defaultMessage="Bookmarks" />
+                  <FormattedMessage id="bookmarks" />
                 </Link>
 
               </li>
@@ -239,7 +239,7 @@ class Sidebar extends Component {
               <li><span className="menu-row">Steem <span className="pull-right">{numeral(user.balance).format('0,0.00')}</span></span></li>
               <li><span className="menu-row">Steem Power <span className="pull-right">{numeral(power).format('0,0.00')}</span></span></li>
               <li><span className="menu-row">Steem Dollars <span className="pull-right">{numeral(user.sbd_balance).format('0,0.00')}</span></span></li>
-              <li><span className="menu-row"><FormattedMessage id="estimated_value" defaultMessage="Estimated Value" /> <span className="pull-right">{numeral(dollar).format('$0,0.00')}</span></span></li>
+              <li><span className="menu-row"><FormattedMessage id="estimated_value" /> <span className="pull-right">{numeral(dollar).format('$0,0.00')}</span></span></li>
             </ul>}
         </div>
       </nav>
