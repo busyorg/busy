@@ -25,7 +25,6 @@ var Wrapper = React.createClass({
   },
 
   render() {
-    console.log(messages);
     const className = (!this.props.app.sidebarIsVisible) ? 'app-wrapper full-width' : 'app-wrapper';
     const { app, auth, notify } = this.props;
     return (
