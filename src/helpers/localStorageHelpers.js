@@ -2,23 +2,28 @@ import store from 'store';
 import _ from 'lodash';
 
 export const getBookmarks = (user) => {
-  return store.get('bookmarks')[user] || {};
+  const allBookmarks = store.get('bookmarks');
+  return allBookmarks ? allBookmarks[user] : {};
 };
 
 export const addBookmark = ({ postId, author, permlink }, user) => {
-  const bookmarks = store.get('bookmarks')[user] || {};
+  const bookmarks = getBookmarks(user);
+
   bookmarks[postId] = { author, permlink, timestamp: Date.now() };
   store.set('bookmarks', { [user]: bookmarks });
 };
 
 export const removeBookmark = (postId, user) => {
-  const bookmarks = store.get('bookmarks')[user] || {};
-  delete bookmarks[postId];
-  store.set('bookmarks', { [user]: bookmarks });
+  const bookmarks = getBookmarks(user);
+
+  if (bookmarks[postId]) {
+    delete bookmarks[postId];
+    store.set('bookmarks', { [user]: bookmarks });
+  }
 };
 
 export const toggleBookmark = ({ postId, author, permlink }, user) => {
-  const bookmarks = store.get('bookmarks')[user] || {};
+  const bookmarks = getBookmarks(user);
   if (bookmarks[postId]) {
     removeBookmark(postId, user);
   } else {
