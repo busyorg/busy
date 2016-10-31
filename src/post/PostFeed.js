@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
+import { FormattedRelative } from 'react-intl';
 import { has } from 'lodash/object';
-import moment from 'moment';
 import { Link } from 'react-router';
 import steemembed from 'steemembed';
 import BodyShort from './body-short';
@@ -99,14 +99,12 @@ export default class PostFeed extends Component {
 
             </li>
             <li className="pull-right">
-              { `${moment(post.created).fromNow()} ` }
-
+              <FormattedRelative value={post.created} />{' '}
               <a onClick={() => toggleBookmark(post.id)}>
                 <Icon
                   small
                   name={bookmarks[post.id] ? 'bookmark' : 'bookmark_border'}
                 />
-
               </a>
             </li>
           </ul>
