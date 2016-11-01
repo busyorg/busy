@@ -6,13 +6,21 @@ Promise.promisifyAll(request.Request.prototype);
 export const REBLOG = '@post/REBLOG';
 
 export const reblog = (query) => {
-  return dispatch => dispatch({
-    type: REBLOG,
-    payload: {
-      promise: request.get(`${process.env.STEEMCONNECT_API_HOST}/reblog`)
-        .query(query)
-        .withCredentials()
-        .endAsync(),
+  return (dispatch, getState) => {
+    const { auth } = getState();
+
+    if (!auth.isAuthenticated || auth.user.name !== query.author) {
+      return;
     }
-  });
+
+    dispatch({
+      type: REBLOG,
+      payload: {
+        promise: request.get(`${process.env.STEEMCONNECT_API_HOST}/reblog`)
+          .query(query)
+          .withCredentials()
+          .endAsync(),
+      }
+    });
+  }
 };
