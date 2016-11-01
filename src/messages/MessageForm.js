@@ -23,6 +23,7 @@ class MessageForm extends Component {
 
   handleSubmit = (e) => {
     if (e) e.preventDefault();
+
     const message = {
       senderUsername: this.props.username,
       channelName: this.props.channel,

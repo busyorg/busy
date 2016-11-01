@@ -31,11 +31,12 @@ class MessagesPage extends Component {
     const channelName = [
       `@${this.props.auth.user && this.props.auth.user.name}`,
       `@${this.props.params.username}`
-    ].sort().join('-');
+    ].sort();
     const channel = this.props.channels[channelName] || {
       latest: [],
       nmembers: 0,
     };
+
     return (
       <div className="Messages main-panel">
         <Header />

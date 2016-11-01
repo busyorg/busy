@@ -3,6 +3,9 @@ import findLast from 'lodash/findLast';
 import last from 'lodash/last';
 import map from 'lodash/map';
 import request from 'superagent';
+import querystring from 'querystring';
+import uuid from 'uuid';
+import extend from 'lodash/extend';
 
 Promise.promisifyAll(request.Request.prototype);
 
@@ -15,13 +18,18 @@ export const FETCH_CHANNEL_PRESENCE_ERROR = '@messages/FETCH_CHANNEL_PRESENCE_ER
 
 export function fetchChannelPresence({ params }) {
   function getChannelName(state) {
-    if (params.category) return params.category;
+    if (params.category) return '?channelName=' + params.category;
     if (params.username) {
       if (!state.auth.user) return '';
-      return ['@' + state.auth.user.name, '@' + params.username].sort().join('-')
+      return '?' + querystring.stringify({
+        channelName: [
+          '@' + state.auth.user.name,
+          '@' + params.username,
+        ]
+      });
     }
 
-    return 'general';
+    return '?channelName=general';
   }
 
   return (dispatch, getState) => {
@@ -42,12 +50,19 @@ export function fetchChannelPresence({ params }) {
 }
 
 export const SEND_MESSAGE_REQUEST = '@messages/SEND_MESSAGE_REQUEST';
+export const SEND_MESSAGE_REQUEST_SUCCESS = '@messages/SEND_MESSAGE_REQUEST_SUCCESS';
 
 export function sendMessage(message) {
+  const msg = extend(message, {
+    uuid: message.uuid || uuid(),
+  });
   return (dispatch, getState, { messagesWorker }) => dispatch({
     type: SEND_MESSAGE_REQUEST,
+    meta: {
+      message: msg,
+    },
     payload: {
-      promise: messagesWorker.sendMessage(message),
+      promise: messagesWorker.sendMessage(msg),
     },
   });
 }
