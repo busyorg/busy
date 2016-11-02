@@ -13,7 +13,9 @@ import PostSingleModal from './PostSingleModal';
 import PostSinglePage from './PostSinglePage';
 
 @connect(
-  () => ({}),
+  ({ posts, app }) => ({
+    content: app.activePostModal ? posts[app.activePostModal] : {},
+  }),
   dispatch => ({
     reblog: (q) => dispatch(postActions.reblog(q))
   })
