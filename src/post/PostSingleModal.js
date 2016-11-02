@@ -22,6 +22,7 @@ export default class PostSingleModal extends Component {
   }
 
   handleClose = (e) => {
+    this.props.closePostModal();
     // fix the manipulated URL
     if (window && window.history) {
       window.history.back();

@@ -20,7 +20,6 @@ import PostSingle from './../post/PostSingle';
     closeCommentingDraft: commentsActions.closeCommentingDraft,
     toggleBookmark: bookmarkActions.toggleBookmark,
     openPostModal: appActions.openPostModal,
-    closePostModal: appActions.closePostModal,
   }, dispatch)
 )
 export default class Feed extends React.Component {
@@ -81,7 +80,6 @@ export default class Feed extends React.Component {
                   bookmarks={bookmarks}
                   onCommentRequest={e => this.handleCommentRequest(e)}
                   openPostModal={this.props.openPostModal}
-                  closePostModal={this.props.closePostModal}
                   notify={notify}
                 />
               )

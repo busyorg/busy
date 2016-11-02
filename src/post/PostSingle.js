@@ -9,6 +9,7 @@ import Body from './body';
 import Comments from './../comments/Comments';
 import TriggerPost from './../app/Trigger/TriggerPost';
 import * as postActions from './postActions';
+import { closePostModal } from './../actions';
 import PostSingleModal from './PostSingleModal';
 import PostSinglePage from './PostSinglePage';
 
@@ -18,7 +19,8 @@ import PostSinglePage from './PostSinglePage';
     activePostModal: app.activePostModal,
   }),
   dispatch => ({
-    reblog: (q) => dispatch(postActions.reblog(q))
+    reblog: (q) => dispatch(postActions.reblog(q)),
+    closePostModal: () => dispatch(closePostModal()),
   })
 )
 export default class PostSingle extends React.Component {
@@ -61,7 +63,11 @@ export default class PostSingle extends React.Component {
     return (
       <div>
         { (modal && activePostModal) &&
-          <PostSingleModal content={content} onClickReblog={this.handleReblog}/>
+          <PostSingleModal
+            content={content}
+            onClickReblog={this.handleReblog}
+            closePostModal={this.props.closePostModal}
+          />
         }
 
         { !modal &&
