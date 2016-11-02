@@ -7,7 +7,7 @@ import Body from './body';
 import Comments from './../comments/Comments';
 import TriggerPost from './../app/Trigger/TriggerPost';
 
-export default PostSinglePage = ({ content, onClickReblog }) => {
+const PostSinglePage = ({ content, onClickReblog }) => {
   if (!content.author) {
     return <Loading />;
   }
@@ -61,4 +61,6 @@ export default PostSinglePage = ({ content, onClickReblog }) => {
       </div>
     </div>
   );
-}
+};
+
+export default PostSinglePage;

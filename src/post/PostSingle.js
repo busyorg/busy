@@ -15,12 +15,13 @@ import PostSinglePage from './PostSinglePage';
 @connect(
   ({ posts, app }) => ({
     content: app.activePostModal ? posts[app.activePostModal] : {},
+    activePostModal: app.activePostModal,
   }),
   dispatch => ({
     reblog: (q) => dispatch(postActions.reblog(q))
   })
 )
-class PostSingle extends React.Component {
+export default class PostSingle extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -54,14 +55,17 @@ class PostSingle extends React.Component {
   };
 
   render() {
-    const { modal } = this.props;
+    const { modal, activePostModal } = this.props;
     const content = this.props.modal ? this.props.content : this.state.content;
 
     return (
       <div>
-        { modal
-          ? <PostSingleModal content={content} onClickReblog={this.handleReblog} />
-          : <PostSinglePage content={content} onClickReblog={this.handleReblog} />
+        { (modal && activePostModal) &&
+          <PostSingleModal content={content} onClickReblog={this.handleReblog}/>
+        }
+
+        { !modal &&
+          <PostSinglePage content={content} onClickReblog={this.handleReblog} />
         }
       </div>
     );
