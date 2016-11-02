@@ -3,7 +3,8 @@
   z-index: 2;
   top: 56px;
   width: 100%;
-  height: Calc(100% - 56px);
+  height: calc(100% - 56px);
   background: #fff;
   opacity: 0.8;
+  overflow: scroll;
 }
