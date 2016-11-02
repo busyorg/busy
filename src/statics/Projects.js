@@ -13,7 +13,7 @@ module.exports = React.createClass({
           <div className="block">
             <h1>Busy <img src="/img/open-source.svg" height="46" /></h1>
             <p><Link to="/trending/steemjs">#busy</Link></p>
-            <p><a href="https://bus.yt/" target="_blank">https://bus.yt/</a><br />
+            <p><a href="https://busy.org/" target="_blank">https://busy.org/</a><br />
               <a href="https://github.com/adcpm/busy" target="_blank">https://github.com/adcpm/busy</a></p>
           </div>
           <div className="block">
@@ -45,11 +45,11 @@ module.exports = React.createClass({
           </div>
           <div className="block">
             <h1>Busy Img <img src="/img/open-source.svg" height="46" /></h1>
-            <p><a href="https://www.npmjs.com/package/steemembed" target="_blank">https://img.busy6.com/</a></p>
+            <p><a href="https://www.npmjs.com/package/steemembed" target="_blank">https://img.busy.org/</a></p>
           </div>
           <div className="block">
             <h1>Busy WebSocket <img src="/img/open-source.svg" height="46" /></h1>
-            <p><a href="https://www.npmjs.com/package/steemembed" target="_blank">https://ws.busy6.com/</a></p>
+            <p><a href="https://www.npmjs.com/package/steemembed" target="_blank">https://ws.busy.org/</a></p>
           </div>
           <div className="block">
             <h1>Busy DB <img src="/img/open-source.svg" height="46" /></h1>

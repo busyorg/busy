@@ -79,7 +79,7 @@ export default class PostFeed extends Component {
             <li>
               <Link to={`/@${post.author}`}>
                 <span className="avatar avatar-xs">
-                  <img src={`https://img.busy6.com/@${post.author}`} role="presentation" width="24" height="24" />
+                  <img src={`https://img.busy.org/@${post.author}`} width="24" height="24" />
                 </span>
                 { ` @${post.author}` }
               </Link>

@@ -71,7 +71,7 @@ class PostSinglePage extends React.Component {
         >
           <Link to={'/@' + content.author}>
             <span className="avatar avatar-sm pull-left">
-              <img src={'https://img.busy6.com/@' + content.author} width="40" height="40" />
+              <img src={'https://img.busy.org/@' + content.author} width="40" height="40" />
             </span>
             <span className="pull-left mls">
               @{content.author}

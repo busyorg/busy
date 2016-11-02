@@ -104,7 +104,7 @@ class Profile extends Component {
         <section
           className="align-center bg-green profile-header"
           style={{
-            backgroundImage: 'url(https://img.busy6.com/@' + username + '/cover)',
+            backgroundImage: 'url(https://img.busy.org/@' + username + '/cover)',
             backgroundSize: 'cover',
             position: 'relative',
           }}
@@ -112,7 +112,7 @@ class Profile extends Component {
           <div className="mvl">
             <div className="avatar avatar-xl">
               {_.has(user, 'name') && <div className="reputation">{formatter.reputation(user.reputation)}</div>}
-              <img src={'https://img.busy6.com/@' + username} />
+              <img src={'https://img.busy.org/@' + username} />
             </div>
 
             <h1>{_.has(jsonMetadata, 'profile.name') ? jsonMetadata.profile.name : '@' + username}</h1>

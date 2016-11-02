@@ -22,8 +22,8 @@ function makePlugins(options) {
           ? JSON.stringify('development')
           : JSON.stringify('production'),
         ENABLE_LOGGER: JSON.stringify(process.env.ENABLE_LOGGER),
-        BUSYWS_HOST: JSON.stringify(process.env.BUSYWS_HOST || 'https://ws.busy6.com'),
-        BUSY_IMG_HOST: JSON.stringify(process.env.BUSY_IMG_HOST || 'https://img.busy6.com'),
+        BUSYWS_HOST: JSON.stringify(process.env.BUSYWS_HOST || 'https://ws.busy.org'),
+        BUSY_IMG_HOST: JSON.stringify(process.env.BUSY_IMG_HOST || 'https://img.busy.org'),
         STEEMCONNECT_HOST: JSON.stringify(
           process.env.STEEMCONNECT_HOST ||
             'https://dev.steemconnect.com'
