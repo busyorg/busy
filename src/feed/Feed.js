@@ -8,7 +8,7 @@ import PostFeed from '../post/PostFeed';
 import CommentForm from '../comments/CommentForm';
 import * as commentsActions from './../comments/commentsActions';
 import * as bookmarkActions from '../bookmarks/bookmarksActions';
-
+import PostSingle from './../post/PostSingle';
 
 @connect(
   state => ({
@@ -85,6 +85,7 @@ export default class Feed extends React.Component {
           </ReduxInfiniteScroll>
         </div>
 
+        <PostSingle modal />
         <AddPost />
         <CommentForm />
       </div>
