@@ -9,17 +9,26 @@ export default class PostSingleModal extends Component {
   }
 
   componentDidMount() {
-    if (window.history) {
-      // manipulate address bar to show the article's address
+    // manipulate address bar to show the article's address
+    if (window && window.history) {
       const { content } = this.props;
       const postPath = `/${content.parent_permlink}/@${content.author}/${content.permlink}`;
       window.history.pushState({}, content.title, postPath);
     }
+    // freeze scroll in the feed
+    if (window) {
+      window.document.querySelector('body').style.overflow = 'hidden';
+    }
   }
 
   handleClose = (e) => {
-    if (window.history) {
+    // fix the manipulated URL
+    if (window && window.history) {
       window.history.back();
+    }
+    // un-freeze scroll in the feed
+    if (window) {
+      window.document.querySelector('body').style.overflow = 'initial';
     }
   };
 
