@@ -6,6 +6,7 @@ import Loading from '../widgets/Loading';
 import AddPost from '../post/Write/EmbeddedNewPost';
 import PostFeed from '../post/PostFeed';
 import CommentForm from '../comments/CommentForm';
+import * as appActions from './../actions';
 import * as commentsActions from './../comments/commentsActions';
 import * as bookmarkActions from '../bookmarks/bookmarksActions';
 import PostSingle from './../post/PostSingle';
@@ -18,6 +19,8 @@ import PostSingle from './../post/PostSingle';
     openCommentingDraft: commentsActions.openCommentingDraft,
     closeCommentingDraft: commentsActions.closeCommentingDraft,
     toggleBookmark: bookmarkActions.toggleBookmark,
+    openPostModal: appActions.openPostModal,
+    closePostModal: appActions.closePostModal,
   }, dispatch)
 )
 export default class Feed extends React.Component {
@@ -77,6 +80,8 @@ export default class Feed extends React.Component {
                   toggleBookmark={toggleBookmark}
                   bookmarks={bookmarks}
                   onCommentRequest={e => this.handleCommentRequest(e)}
+                  openPostModal={this.props.openPostModal}
+                  closePostModal={this.props.closePostModal}
                   notify={notify}
                 />
               )
