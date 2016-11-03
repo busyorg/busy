@@ -17,6 +17,7 @@ import PostSinglePage from './PostSinglePage';
   ({ posts, app }) => ({
     content: app.activePostModal ? posts[app.activePostModal] : {},
     activePostModal: app.activePostModal,
+    sidebarIsVisible: app.sidebarIsVisible,
   }),
   dispatch => ({
     reblog: (q) => dispatch(postActions.reblog(q)),
@@ -57,7 +58,7 @@ export default class PostSingle extends React.Component {
   };
 
   render() {
-    const { modal, activePostModal } = this.props;
+    const { modal, activePostModal, sidebarIsVisible } = this.props;
     const content = this.props.modal ? this.props.content : this.state.content;
 
     return (
@@ -65,6 +66,7 @@ export default class PostSingle extends React.Component {
         { (modal && activePostModal) &&
           <PostSingleModal
             content={content}
+            sidebarIsVisible={sidebarIsVisible}
             onClickReblog={this.handleReblog}
             closePostModal={this.props.closePostModal}
           />
