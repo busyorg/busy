@@ -26,6 +26,10 @@ export default class PostSingleModal extends Component {
 
   routerWillLeave = () => {
     this.props.closePostModal();
+    // un-freeze scroll in the feed
+    if (window) {
+      window.document.querySelector('body').style.overflow = 'initial';
+    }
     return true;
   };
 
