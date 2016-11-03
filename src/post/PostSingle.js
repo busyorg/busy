@@ -69,6 +69,7 @@ export default class PostSingle extends React.Component {
             sidebarIsVisible={sidebarIsVisible}
             onClickReblog={this.handleReblog}
             closePostModal={this.props.closePostModal}
+            route={this.props.route}
           />
         }
 

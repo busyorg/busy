@@ -88,7 +88,10 @@ export default class Feed extends React.Component {
           </ReduxInfiniteScroll>
         </div>
 
-        <PostSingle modal />
+        <PostSingle
+          modal
+          route={this.props.route}
+        />
         <AddPost />
         <CommentForm />
       </div>

@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router';
 import PostSingleContent from './PostSingleContent';
 import Icon from './../widgets/Icon';
 import './PostSingleModal.scss';
 
+@withRouter
 export default class PostSingleModal extends Component {
   constructor(props) {
     super(props);
   }
 
   componentDidMount() {
+    this.props.router.setRouteLeaveHook(this.props.route, this.routerWillLeave);
     // manipulate address bar to show the article's address
     if (window && window.history) {
       const { content } = this.props;
@@ -20,6 +23,11 @@ export default class PostSingleModal extends Component {
       window.document.querySelector('body').style.overflow = 'hidden';
     }
   }
+
+  routerWillLeave = () => {
+    this.props.closePostModal();
+    return true;
+  };
 
   handleClose = (e) => {
     this.props.closePostModal();
