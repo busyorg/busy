@@ -39,7 +39,6 @@ export default class PostFeed extends Component {
 
   render() {
     const { post, onCommentRequest, bookmarks, toggleBookmark, notify } = this.props;
-    const postPath = `/${post.parent_permlink}/@${post.author}/${post.permlink}`;
 
     let color = '';
     color = (post.net_votes > 0) && 'green';
@@ -113,9 +112,12 @@ export default class PostFeed extends Component {
 
         { (imageName && !has(embeds, '[0].embed')) &&
           <div className="thumbs">
-            <Link to={postPath}>
+            <PostModalLink
+              post={post}
+              onClick={() => this.props.openPostModal(post.id)}
+            >
               <img src={imagePath} />
-            </Link>
+            </PostModalLink>
           </div>
         }
 
