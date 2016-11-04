@@ -1,12 +1,6 @@
 import React from 'react';
-import moment from 'moment';
-import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import api from './../steemAPI';
-import Header from '../app/Header';
-import Body from './body';
-import Comments from './../comments/Comments';
-import TriggerPost from './../app/Trigger/TriggerPost';
 import * as postActions from './postActions';
 import { closePostModal } from './../actions';
 import PostSingleModal from './PostSingleModal';
