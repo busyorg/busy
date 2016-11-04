@@ -26,7 +26,7 @@ import Transfers from './user/UserTransfers';
 import Edit from './user/UserEdit';
 import Categories from './categories/Categories';
 import { Trending, Hot, Votes, Responses, Active, Created, Cashout } from './feed/PathMatching';
-import PostSinglePage from './post/PostSinglePage';
+import PostSingle from './post/PostSingle';
 import Bookmarks from './bookmarks/Bookmarks';
 
 export default (
@@ -67,6 +67,6 @@ export default (
       <Route path="/@:name" component={Profile} />
     </Route>
 
-    <Route path="/:category/@:author/:permlink" component={ PostSinglePage } />
+    <Route path="/:category/@:author/:permlink" component={ PostSingle } />
   </Route>
 );
