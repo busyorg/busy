@@ -86,6 +86,7 @@ export default class Page extends React.Component {
             loadContent={loadContentAction}
             loadMoreContent={loadMoreContentAction}
             notify={notify}
+            route={this.props.route}
           />
         }
       </div>

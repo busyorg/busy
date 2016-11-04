@@ -9,6 +9,7 @@ import Flag from './flag';
 import Comments from '../comments/Comments';
 import PostActionButtons from './PostActionButtons';
 import Icon from '../widgets/Icon';
+import PostModalLink from './PostModalLink';
 
 const colorCode = { green: 'rgba(39, 208, 169, 0.4)', red: 'rgba(249, 43, 97, 0.2)' };
 const classCode = { green: 'grid-row-green', red: 'grid-row-red' };
@@ -38,7 +39,6 @@ export default class PostFeed extends Component {
 
   render() {
     const { post, onCommentRequest, bookmarks, toggleBookmark, notify } = this.props;
-    const postPath = `/${post.parent_permlink}/@${post.author}/${post.permlink}`;
 
     let color = '';
     color = (post.net_votes > 0) && 'green';
@@ -112,9 +112,12 @@ export default class PostFeed extends Component {
 
         { (imageName && !has(embeds, '[0].embed')) &&
           <div className="thumbs">
-            <Link to={postPath}>
+            <PostModalLink
+              post={post}
+              onClick={() => this.props.openPostModal(post.id)}
+            >
               <img src={imagePath} />
-            </Link>
+            </PostModalLink>
           </div>
         }
 
@@ -125,7 +128,12 @@ export default class PostFeed extends Component {
         <div className="cell cell-body">
           <h2>
             <Flag title={post.title} body={post.body} className="prs" />
-            <Link to={postPath}>{post.title}</Link>
+            <PostModalLink
+              post={post}
+              onClick={() => this.props.openPostModal(post.id)}
+            >
+              {post.title}
+            </PostModalLink>
           </h2>
 
           <Mentions jsonMetaData={jsonMetaData} />
