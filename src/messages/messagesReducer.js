@@ -1,7 +1,9 @@
+import assert from 'assert';
 import extend from 'lodash/extend';
+import keyBy from 'lodash/keyBy';
 import omit from 'lodash/omit';
 import size from 'lodash/size';
-import keyBy from 'lodash/keyBy';
+import uniqBy from 'lodash/uniqBy';
 
 import * as actions from './messagesActions';
 import { actions as backgroundActions } from './messagesBackground';
@@ -23,6 +25,13 @@ const initialState = {
   isLoading: true,
   isConnected: false,
 };
+
+function mergeMessages(state, messages) {
+  return extend({}, state, {
+    messages: keyBy(messages, 'uuid'),
+  });
+}
+
 
 export default function messagesReducer(state = initialState, action) {
   switch (action.type) {
@@ -53,6 +62,37 @@ export default function messagesReducer(state = initialState, action) {
       });
     }
 
+    case actions.SEND_MESSAGE_REQUEST_SUCCESS: {
+      assert(
+        action.meta.message.uuid === action.payload.uuid,
+        // eslint-disable-next-line prefer-template
+        'UUID in ACK is wrong? (sent uuid = ' +
+          action.meta.message.uuid +
+          ', received uuid = ' +
+          action.payload.uuid +
+          ')'
+      );
+      const channel = extend({}, state.channels[action.meta.message.channelName]) || {
+        channelName: action.meta.message.channelName,
+        users: {},
+        latest: []
+      };
+
+      // action.meta.message.origin = 'SEND_MESSAGE_REQUEST';
+      channel.users = extend({}, channel.users, {
+        [`${action.meta.message.senderUsername}`]: true,
+      });
+      channel.latest = uniqBy((channel.latest || []).concat([action.meta.message]), 'uuid');
+
+      const channels = extend({}, state.channels, {
+        [`${action.meta.message.channelName}`]: channel,
+      });
+
+      return extend({}, state, {
+        channels,
+      });
+    }
+
     case backgroundActions.USER_MESSAGE: {
       const channel = extend({}, state.channels[action.payload.channelName]) || {
         channelName: action.payload.channelName,
@@ -63,7 +103,11 @@ export default function messagesReducer(state = initialState, action) {
       channel.users = extend({}, channel.users, {
         [`${action.payload.senderUsername}`]: true,
       });
-      channel.latest = (channel.latest || []).concat([action.payload]);
+      // action.payload.origin = 'USER_MESSAGE';
+      channel.latest = uniqBy(
+        (channel.latest || []).concat([action.payload]),
+        'uuid'
+      );
 
       const channels = extend({}, state.channels, {
         [`${action.payload.channelName}`]: channel,
@@ -115,7 +159,7 @@ export default function messagesReducer(state = initialState, action) {
 
       return extend({}, state, {
         isLoading: false,
-        channels: extend(state.channels, {
+        channels: extend({}, state.channels, {
           [`${action.payload.channelName}`]: extend(action.payload, {
             nmembers: size(action.payload.users),
           }),
