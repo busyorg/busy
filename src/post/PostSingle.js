@@ -76,7 +76,7 @@ export default class PostSingle extends React.Component {
           />
         }
 
-        { (!modal) &&
+        { (!modal && content.author) &&
           <PostSinglePage content={content} onClickReblog={this.handleReblog} />
         }
       </div>
