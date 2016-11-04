@@ -15,7 +15,7 @@ class Message extends Component {
           <div className="container">
             <div className="media-left">
               <div className="avatar avatar-md">
-                <img src={`https://img.busy6.com/@${model[0].senderUsername}`} />
+                <img src={`https://img.busy.org/@${model[0].senderUsername}`} />
               </div>
             </div>
             <div className="media-body">

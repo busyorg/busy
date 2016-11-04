@@ -6,7 +6,7 @@ export default class UserList extends React.Component {
     return (
       <div className="UserList pvm">
           <div className="avatar avatar-md mrm">
-            <img src={`https://img.busy6.com/@${this.props.username}`} />
+            <img src={`https://img.busy.org/@${this.props.username}`} />
           </div>
           <Link to={`/@${this.props.username}`}>@{this.props.username}</Link>
           <i className="icon icon-md icon-menu material-icons">person_add</i>

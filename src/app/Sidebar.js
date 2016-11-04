@@ -138,7 +138,7 @@ class Sidebar extends Component {
                 <Link to={`/@${user.name}`}>
                   <span className="avatar avatar-sm">
                     <span className="reputation">{formatter.reputation(user.reputation)}</span>
-                    <img alt={user.name} src={`https://img.busy6.com/@${user.name}`} />
+                    <img alt={user.name} src={`https://img.busy.org/@${user.name}`} />
                   </span>
                 </Link>
                 <span style={{ clear: 'both', display: 'block' }}>
