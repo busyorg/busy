@@ -4,7 +4,6 @@ import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import api from './../steemAPI';
 import Header from '../app/Header';
-import Loading from './../widgets/Loading';
 import Body from './body';
 import Comments from './../comments/Comments';
 import TriggerPost from './../app/Trigger/TriggerPost';
@@ -33,11 +32,15 @@ export default class PostSingle extends React.Component {
   }
 
   componentWillMount() {
-    if (!this.props.modal) {
+    if (!this.props.modal && this.props.params) {
       // TODO(p0o): refactor this later with redux
-      api.getContent(this.props.params.author, this.props.params.permlink, (err, content) => {
-        this.setState({content});
-      });
+      api.getContentAsync(this.props.params.author, this.props.params.permlink)
+        .then((content) => {
+          this.setState({
+            content
+          });
+        })
+        .catch(err => console.log(err));
     }
   }
 
@@ -73,7 +76,7 @@ export default class PostSingle extends React.Component {
           />
         }
 
-        { !modal &&
+        { (!modal) &&
           <PostSinglePage content={content} onClickReblog={this.handleReblog} />
         }
       </div>
