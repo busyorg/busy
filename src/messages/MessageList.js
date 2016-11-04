@@ -76,7 +76,6 @@ class MessageList extends Component {
   render() {
     const { messages } = this.props;
     const groups = messageGroups(messages);
-    console.log(groups);
     const messageEls = map(groups, ({ messages, key }, i) => (
       <Message
         key={[key, i]}
