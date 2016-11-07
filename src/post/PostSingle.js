@@ -8,8 +8,9 @@ import PostSinglePage from './PostSinglePage';
 
 @connect(
   ({ posts, app }) => ({
-    content: app.activePostModal ? posts[app.activePostModal] : {},
-    activePostModal: app.activePostModal,
+    content: app.lastPostId ? posts[app.lastPostId] : {},
+    isPostModalOpen: app.isPostModalOpen,
+    lastPostId: app.lastPostId,
     sidebarIsVisible: app.sidebarIsVisible,
   }),
   (dispatch, ownProps) => ({
@@ -32,7 +33,7 @@ export default class PostSingle extends React.Component {
 
   handleReblog = (e) => {
     if (e && e.preventDefault) e.preventDefault();
-    const content = this.props.modal ? this.props.content : this.state.content;
+    const { content } = this.props;
 
     if (!content) {
       // TODO wait
@@ -47,12 +48,11 @@ export default class PostSingle extends React.Component {
   };
 
   render() {
-    const { modal, activePostModal, sidebarIsVisible } = this.props;
-    const content = this.props.modal ? this.props.content : this.state.content;
+    const { modal, isPostModalOpen, sidebarIsVisible, content } = this.props;
 
     return (
       <div>
-        { (modal && activePostModal) &&
+        { (modal && isPostModalOpen) &&
           <PostSingleModal
             content={content}
             sidebarIsVisible={sidebarIsVisible}

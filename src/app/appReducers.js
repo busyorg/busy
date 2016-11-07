@@ -1,5 +1,6 @@
 import * as appTypes from '../actions';
 import * as responsive from '../helpers/responsive';
+import * as postActions from './../post/postActions';
 
 const initialState = {
   isFetching: false,
@@ -89,6 +90,11 @@ export default (state = initialState, action) => {
         ...state,
         isPostModalOpen: false,
         lastPostId: null,
+      };
+    case postActions.GET_CONTENT_SUCCESS:
+      return {
+        ...state,
+        lastPostId: action.payload ? action.payload.id : null,
       };
     default:
       return state;
