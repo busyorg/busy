@@ -12,7 +12,13 @@ const Header = React.createClass({
           {!this.props.app.sidebarIsVisible && <a onClick={() => this.props.showSidebar()}><i className="icon icon-md icon-menu material-icons">menu</i></a>}
           {this.props.app.sidebarIsVisible && <a><i className="icon icon-md icon-menu material-icons">search</i></a>}
           <div className="section-content top-head"></div>
-          <a><i className="icon icon-md icon-menu material-icons">notifications</i></a>
+          <button
+            className="btn-reset"
+          >
+            <i className="icon icon-md icon-menu material-icons">
+              notifications
+            </i>
+          </button>
         </div>
         {this.props.children && <div className="app-nav">{this.props.children}</div>}
       </header>
