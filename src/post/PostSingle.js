@@ -12,30 +12,22 @@ import PostSinglePage from './PostSinglePage';
     activePostModal: app.activePostModal,
     sidebarIsVisible: app.sidebarIsVisible,
   }),
-  dispatch => ({
+  (dispatch, ownProps) => ({
     reblog: (q) => dispatch(postActions.reblog(q)),
     closePostModal: () => dispatch(closePostModal()),
+    getContent: () => dispatch(postActions.getContent(
+      ownProps.params.author,
+      ownProps.params.permlink
+    ))
   })
 )
 export default class PostSingle extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      content: {},
-    };
   }
 
   componentWillMount() {
-    if (!this.props.modal && this.props.params) {
-      // TODO(p0o): refactor this later with redux
-      api.getContentAsync(this.props.params.author, this.props.params.permlink)
-        .then((content) => {
-          this.setState({
-            content
-          });
-        })
-        .catch(err => console.log(err));
-    }
+    this.props.getContent();
   }
 
   handleReblog = (e) => {
