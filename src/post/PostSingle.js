@@ -28,7 +28,9 @@ export default class PostSingle extends React.Component {
   }
 
   componentWillMount() {
-    this.props.getContent();
+    if (!this.props.modal) {
+      this.props.getContent();
+    }
   }
 
   handleReblog = (e) => {
