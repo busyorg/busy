@@ -1,5 +1,6 @@
 import * as feedTypes from './../feed/feedActions';
 import * as bookmarksActions from '../bookmarks/bookmarksActions';
+import * as postsActions from './postActions';
 
 const posts = (state = {}, action) => {
   switch (action.type) {
@@ -13,6 +14,13 @@ const posts = (state = {}, action) => {
       return {
         ...state,
         ...posts,
+      };
+    case postsActions.GET_CONTENT_SUCCESS:
+      return {
+        ...state,
+        [action.payload.id]: {
+          ...action.payload
+        },
       };
     default:
       return state;
