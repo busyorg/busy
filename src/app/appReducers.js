@@ -1,5 +1,6 @@
 import * as appTypes from '../actions';
 import * as responsive from '../helpers/responsive';
+import * as postActions from './../post/postActions';
 
 const initialState = {
   isFetching: false,
@@ -7,7 +8,8 @@ const initialState = {
   errorMessage: '',
   sidebarIsVisible: true,
   locale: 'en',
-  activePostModal: null,
+  isPostModalOpen: false,
+  lastPostId: null,
 };
 
 // TODO(p0o): some actionsTypes in this reducer are not defined anywhere, need to figure it out later
@@ -80,12 +82,19 @@ export default (state = initialState, action) => {
     case appTypes.OPEN_POST_MODAL:
       return {
         ...state,
-        activePostModal: action.payload,
+        isPostModalOpen: true,
+        lastPostId: action.payload,
       };
     case appTypes.CLOSE_POST_MODAL:
       return {
         ...state,
-        activePostModal: null,
+        isPostModalOpen: false,
+        lastPostId: null,
+      };
+    case postActions.GET_CONTENT_SUCCESS:
+      return {
+        ...state,
+        lastPostId: action.payload ? action.payload.id : null,
       };
     default:
       return state;

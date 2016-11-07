@@ -8,39 +8,34 @@ import PostSinglePage from './PostSinglePage';
 
 @connect(
   ({ posts, app }) => ({
-    content: app.activePostModal ? posts[app.activePostModal] : {},
-    activePostModal: app.activePostModal,
+    content: app.lastPostId ? posts[app.lastPostId] : {},
+    isPostModalOpen: app.isPostModalOpen,
+    lastPostId: app.lastPostId,
     sidebarIsVisible: app.sidebarIsVisible,
   }),
-  dispatch => ({
+  (dispatch, ownProps) => ({
     reblog: (q) => dispatch(postActions.reblog(q)),
     closePostModal: () => dispatch(closePostModal()),
+    getContent: () => dispatch(postActions.getContent(
+      ownProps.params.author,
+      ownProps.params.permlink
+    ))
   })
 )
 export default class PostSingle extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      content: {},
-    };
   }
 
   componentWillMount() {
-    if (!this.props.modal && this.props.params) {
-      // TODO(p0o): refactor this later with redux
-      api.getContentAsync(this.props.params.author, this.props.params.permlink)
-        .then((content) => {
-          this.setState({
-            content
-          });
-        })
-        .catch(err => console.log(err));
+    if (!this.props.modal) {
+      this.props.getContent();
     }
   }
 
   handleReblog = (e) => {
     if (e && e.preventDefault) e.preventDefault();
-    const content = this.props.modal ? this.props.content : this.state.content;
+    const { content } = this.props;
 
     if (!content) {
       // TODO wait
@@ -55,12 +50,11 @@ export default class PostSingle extends React.Component {
   };
 
   render() {
-    const { modal, activePostModal, sidebarIsVisible } = this.props;
-    const content = this.props.modal ? this.props.content : this.state.content;
+    const { modal, isPostModalOpen, sidebarIsVisible, content } = this.props;
 
     return (
       <div>
-        { (modal && activePostModal) &&
+        { (modal && isPostModalOpen) &&
           <PostSingleModal
             content={content}
             sidebarIsVisible={sidebarIsVisible}
