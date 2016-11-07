@@ -41,7 +41,7 @@ export const getContent = (postAuthor, postPermlink) => {
     dispatch({
       type: GET_CONTENT,
       payload: {
-        promise: steemAPI.getContentWithAsync(postAuthor, postPermlink),
+        promise: steemAPI.getContentAsync(postAuthor, postPermlink),
       },
     });
 
