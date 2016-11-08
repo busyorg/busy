@@ -1,33 +1,13 @@
 .PostSingleModal {
   position: fixed;
-  z-index: 2;
-  top: 56px;
-  padding-top: 56px;
-  height: calc(100% - 56px);
+  z-index: 19;
+  top: 0;
+  height: 100%;
   width: 100%;
   background: #fff;
   opacity: 1;
-  overflow: scroll;
+  overflow-y: scroll;
   &.withSidebar {
     width: calc(100% - 260px);
   }
 }
-
-.PostBar {
-  position: fixed;
-  z-index: 3;
-  top: 56px;
-  background: #fff;
-  border-bottom: 1px solid #E7E7EC;
-  width: 100%;
-  &.withSidebar {
-    width: calc(100% - 260px);
-  }
-}
-
-.PostBar__close {
-  float: right;
-  padding: 12px 16px;
-  border: 1px solid #E7E7EC;
-}
-

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router';
+import { withRouter, Link } from 'react-router';
 import PostSingleContent from './PostSingleContent';
 import Icon from './../widgets/Icon';
 import './PostSingleModal.scss';
@@ -46,15 +46,19 @@ export default class PostSingleModal extends Component {
   };
 
   render() {
-    const { content, onClickReblog, sidebarIsVisible } = this.props;
+    const { content, sidebarIsVisible } = this.props;
 
     return (
       <div className={ sidebarIsVisible ? 'PostSingleModal withSidebar' : 'PostSingleModal' }>
-        <div className={ sidebarIsVisible ? 'PostBar withSidebar' : 'PostBar' }>
-          <a onClick={this.handleClose} className="PostBar__close">
-            <Icon name="clear" />
-          </a>
-        </div>
+        <header>
+          <div className="logo"><Link to="/" onlyActiveOnIndex activeClassName="active"><img src="/img/busy-blue.svg" width="34" /></Link></div>
+          <div className="top-nav">
+            <a onClick={this.handleClose}>
+              <i className="icon icon-md icon-menu material-icons">clear</i>
+            </a>
+          </div>
+          {this.props.children && <div className="app-nav">{this.props.children}</div>}
+        </header>
         <PostSingleContent
           content={content}
         />
