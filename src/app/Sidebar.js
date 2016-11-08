@@ -91,10 +91,6 @@ class Sidebar extends Component {
     };
   }
 
-  componentDidUpdate() {
-    this.getFollowing();
-  }
-
   getFollowing() {
     if (this.props.auth.isAuthenticated &&
         !_.size(this.state.following) &&
