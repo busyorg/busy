@@ -18,9 +18,17 @@ export default class PostSingleModal extends Component {
       const postPath = `/${content.parent_permlink}/@${content.author}/${content.permlink}`;
       window.history.pushState({}, content.title, postPath);
     }
-    // freeze scroll in the feed
+
     if (window) {
+      // freeze scroll in the feed
       window.document.querySelector('body').style.overflow = 'hidden';
+      window.onpopstate = () => this.routerWillLeave();
+    }
+  }
+
+  componentWillUnmount() {
+    if (window) {
+      window.onpopstate = null;
     }
   }
 
@@ -34,14 +42,10 @@ export default class PostSingleModal extends Component {
   };
 
   handleClose = (e) => {
-    this.props.closePostModal();
+    this.routerWillLeave();
     // fix the manipulated URL
     if (window && window.history) {
       window.history.back();
-    }
-    // un-freeze scroll in the feed
-    if (window) {
-      window.document.querySelector('body').style.overflow = 'initial';
     }
   };
 
