@@ -76,13 +76,12 @@ export default class SidebarMessages extends Component {
     return (
       <div className="SidebarMessages">
         <ul className="tags">
-          <pre><code>{JSON.stringify(unreadByChannel)}</code></pre>
-        {unreadMessages.length ? (
-          unreadMessages
-        ) : null}
-        {contacts.length ? (
-          contacts
-        ) : null}
+          {unreadMessages.length ? (
+            unreadMessages
+          ) : null}
+          {contacts.length ? (
+            contacts
+          ) : null}
         </ul>
       </div>
     );
