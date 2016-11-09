@@ -14,9 +14,9 @@ module.exports = React.createClass({
           </Link>
         </li>
         <li>
-          <Link to={`/@${username}/posts`} activeClassName="active">
-            <i className="icon icon-md material-icons">library_books</i>{' '}
-            <span className="hidden-xs"><FormattedMessage id="posts" /></span></Link>
+          <Link to="#activity" activeClassName="active">
+            <i className="icon icon-md material-icons">update</i>{' '}
+            <span className="hidden-xs"><FormattedMessage id="activity" /></span></Link>
         </li>
         <li>
           <Link to={`/@${username}/feed`} activeClassName="active">
