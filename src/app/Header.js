@@ -7,7 +7,7 @@ const Header = React.createClass({
   render() {
     return (
       <header>
-        <div className="logo"><Link to="/" onlyActiveOnIndex activeClassName="active"><img src="/img/busy-blue.svg" width="34" /></Link></div>
+        <div className="logo"><Link to="/" onlyActiveOnIndex activeClassName="active"><img src="/img/busy-blue.svg" /></Link></div>
         <div className="top-nav">
           {!this.props.app.sidebarIsVisible && <a onClick={() => this.props.showSidebar()}><i className="icon icon-md icon-menu material-icons">menu</i></a>}
           {this.props.app.sidebarIsVisible && <a><i className="icon icon-md icon-menu material-icons">search</i></a>}
