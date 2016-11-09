@@ -70,16 +70,14 @@ export default class SidebarMessages extends Component {
 
     return (
       <div className="SidebarMessages">
+        <ul className="tags">
         {unreadMessages.length ? (
-          <ul className="tags">
-            {unreadMessages}
-          </ul>
+          {unreadMessages}
         ) : null}
         {contacts.length ? (
-          <ul className="tags">
-            {contacts}
-          </ul>
+          {contacts}
         ) : null}
+        </ul>
       </div>
     );
   }
