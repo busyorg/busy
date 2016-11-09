@@ -20,12 +20,6 @@ module.exports = React.createClass({
           </Link>
         </li>
         <li>
-          <Link to={`/cashout${category}`} activeClassName="active">
-            <i className="icon icon-md material-icons">schedule</i>{' '}
-            <span className="hidden-xs"><FormattedMessage id="payout_time" /></span>
-          </Link>
-        </li>
-        <li>
           <Link to={`/created${category}`} activeClassName="active">
             <i className="icon icon-md material-icons">fiber_new</i>{' '}
             <span className="hidden-xs"><FormattedMessage id="new" /></span></Link>
