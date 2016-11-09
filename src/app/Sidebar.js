@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import size from 'lodash/size';
 import { FormattedMessage } from 'react-intl';
+import steemdb from 'steemdb';
 
 import SidebarMessages from './Sidebar/SidebarMessages';
 
@@ -91,13 +92,19 @@ class Sidebar extends Component {
     };
   }
 
+  componentDidUpdate() {
+    this.getFollowing();
+  }
+
   getFollowing() {
     if (this.props.auth.isAuthenticated &&
         !_.size(this.state.following) &&
         !this.state.followingIsFetching &&
         !this.state.followingIsLoaded) {
-      api.getFollowing(this.props.auth.user.name, 0, 'blog', 20, (err, following) => {
-        this.setState({ following });
+      steemdb.accounts({
+        account: this.props.auth.user.name
+      }, (err, result) => {
+        this.setState({ following: result[0].following });
       });
     }
   }

@@ -40,16 +40,17 @@ export default class SidebarMessages extends Component {
       );
     });
 
-    const contacts = map(filter(this.props.contacts, ({ following }) => {
-      return !unreadByChannel['@' + following] || !unreadByChannel['@' + following].length;
+    let contacts = this.props.contacts.slice(0, 20);
+    contacts = map(filter(contacts, ({ following }) => {
+      return !unreadByChannel[`@${following}`] || !unreadByChannel[`@${following}`].length;
     }), (follow, key) => (
       <li key={key}>
         <Link
-          to={`/messages/@${follow.following}`}
+          to={`/messages/@${follow}`}
           activeClassName="active"
         >
-          @{follow.following}{' '}
-          <UnreadCount unread={size(unreadByChannel['@' + follow.following])} />
+          @{follow}{' '}
+          <UnreadCount unread={size(unreadByChannel[`@${follow}`])} />
         </Link>
       </li>
     ));
