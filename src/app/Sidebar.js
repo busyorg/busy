@@ -181,12 +181,6 @@ class Sidebar extends Component {
                 </Link>
               </li>
               <li className="title">
-                <Link to="/about">
-                  <i className="icon icon-md material-icons">info_outline</i>{' '}
-                  <FormattedMessage id="about" />
-                </Link>
-              </li>
-              <li className="title">
                 <a href={`${process.env.STEEMCONNECT_HOST}/logout`}>
                   <i className="icon icon-md material-icons">lock_open</i>{' '}
                   <FormattedMessage id="logout" />
