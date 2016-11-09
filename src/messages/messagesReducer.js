@@ -35,7 +35,7 @@ function mergeMessages(state, messages) {
 
 export default function messagesReducer(state = initialState, action) {
   switch (action.type) {
-    case 'LOGIN_SUCCESS': {
+    case '@auth/LOGIN_SUCCESS': {
       return extend({}, state, {
         username: action.user.name,
       });

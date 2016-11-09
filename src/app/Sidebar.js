@@ -197,6 +197,7 @@ class Sidebar extends Component {
           {this.state.menu === 'feed' &&
             <SidebarMessages
               messages={this.props.messages}
+              auth={this.props.auth}
               contacts={this.state.following}
             />
           }
