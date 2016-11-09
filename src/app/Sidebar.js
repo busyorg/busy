@@ -93,7 +93,9 @@ class Sidebar extends Component {
   }
 
   componentDidUpdate() {
-    this.getFollowing();
+    if (!this.state.followingFetched) {
+      this.getFollowing();
+    }
   }
 
   getFollowing() {
@@ -104,7 +106,10 @@ class Sidebar extends Component {
       steemdb.accounts({
         account: this.props.auth.user.name
       }, (err, result) => {
-        this.setState({ following: result[0].following });
+        this.setState({
+          following: result[0].following,
+          followingFetched: true,
+        });
       });
     }
   }
