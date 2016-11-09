@@ -14,7 +14,9 @@
   "new": "New",
   "active": "Actif",
   "posts": "Posts",
+  "activity": "Activité",
   "feed": "Feed",
   "wallet": "Wallet",
-  "language": "Langue"
+  "language": "Langue",
+  "estimated_value": ""
 }
