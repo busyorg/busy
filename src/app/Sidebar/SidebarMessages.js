@@ -6,6 +6,7 @@ import groupBy from 'lodash/groupBy';
 import map from 'lodash/map';
 import size from 'lodash/size';
 import { Link } from 'react-router';
+import without from 'lodash/without';
 
 import './SidebarMessages.scss';
 
@@ -54,8 +55,12 @@ export default class SidebarMessages extends Component {
     });
 
     let contacts = this.props.contacts.slice(0, 20);
-    contacts = map(filter(contacts, ({ following }) => {
-      return !unreadByChannel[`@${following}`] || !unreadByChannel[`@${following}`].length;
+    contacts = map(filter(contacts, (contact) => {
+      const channelName = [
+        `@${contact}`,
+        `@${this.props.auth.user && this.props.auth.user.name}`,
+      ].sort().toString();
+      return !unreadByChannel[channelName] || !unreadByChannel[channelName].length;
     }), (follow, key) => (
       <li key={key}>
         <Link
@@ -71,6 +76,7 @@ export default class SidebarMessages extends Component {
     return (
       <div className="SidebarMessages">
         <ul className="tags">
+          <pre><code>{JSON.stringify(unreadByChannel)}</code></pre>
         {unreadMessages.length ? (
           unreadMessages
         ) : null}
