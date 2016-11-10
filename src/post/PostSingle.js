@@ -5,21 +5,23 @@ import * as postActions from './postActions';
 import { closePostModal } from './../actions';
 import PostSingleModal from './PostSingleModal';
 import PostSinglePage from './PostSinglePage';
+import * as reblogActions from './../app/reblog/reblogActions';
 
 @connect(
-  ({ posts, app }) => ({
+  ({ posts, app, reblog }) => ({
     content: app.lastPostId ? posts[app.lastPostId] : {},
     isPostModalOpen: app.isPostModalOpen,
     lastPostId: app.lastPostId,
     sidebarIsVisible: app.sidebarIsVisible,
+    reblogList: reblog,
   }),
   (dispatch, ownProps) => ({
-    reblog: (q) => dispatch(postActions.reblog(q)),
+    reblog: (postId) => dispatch(reblogActions.reblog(postId)),
     closePostModal: () => dispatch(closePostModal()),
     getContent: () => dispatch(postActions.getContent(
       ownProps.params.author,
       ownProps.params.permlink
-    ))
+    )),
   })
 )
 export default class PostSingle extends React.Component {
@@ -33,24 +35,8 @@ export default class PostSingle extends React.Component {
     }
   }
 
-  handleReblog = (e) => {
-    if (e && e.preventDefault) e.preventDefault();
-    const { content } = this.props;
-
-    if (!content) {
-      // TODO wait
-      return;
-    }
-
-    this.props.reblog({
-      account: content.author, // TODO What is this
-      author: content.author,
-      permlink: content.permlink,
-    });
-  };
-
   render() {
-    const { modal, isPostModalOpen, sidebarIsVisible, content } = this.props;
+    const { modal, isPostModalOpen, sidebarIsVisible, content, reblog, reblogList } = this.props;
 
     return (
       <div>
@@ -58,14 +44,19 @@ export default class PostSingle extends React.Component {
           <PostSingleModal
             content={content}
             sidebarIsVisible={sidebarIsVisible}
-            onClickReblog={this.handleReblog}
             closePostModal={this.props.closePostModal}
             route={this.props.route}
+            reblog={() => reblog(content.id)}
+            isReblogged={reblogList.includes(content.id)}
           />
         }
 
         { (!modal && content.author) &&
-          <PostSinglePage content={content} onClickReblog={this.handleReblog} />
+          <PostSinglePage
+            content={content}
+            reblog={() => reblog(content.id)}
+            isReblogged={reblogList.includes(content.id)}
+          />
         }
       </div>
     );

@@ -51,7 +51,7 @@ export default class PostSingleModal extends Component {
   };
 
   render() {
-    const { content, sidebarIsVisible } = this.props;
+    const { content, sidebarIsVisible, reblog, isReblogged } = this.props;
 
     return (
       <div className={ sidebarIsVisible ? 'PostSingleModal withSidebar' : 'PostSingleModal' }>

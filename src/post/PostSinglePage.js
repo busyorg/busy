@@ -14,13 +14,13 @@ export default class PostSinglePage extends React.Component {
   }
 
   render() {
-    const { content, onClickReblog } = this.props;
+    const { content, reblog, isReblogged } = this.props;
     return (
       <div>
         <Header />
         <TriggerPost
-          params={this.props.params}
-          onClickReblog={onClickReblog}
+          reblog={reblog}
+          isReblogged={isReblogged}
         />
         { content.author ?
           <PostSingleContent content={content} />
