@@ -4,6 +4,7 @@ import PostSingleContent from './PostSingleContent';
 import Icon from './../widgets/Icon';
 import './PostSingleModal.scss';
 import TriggerPost from './../app/Trigger/TriggerPost';
+import CommentForm from './../comments/CommentForm';
 
 @withRouter
 export default class PostSingleModal extends Component {
@@ -51,13 +52,14 @@ export default class PostSingleModal extends Component {
   };
 
   render() {
-    const { content, sidebarIsVisible, reblog, isReblogged } = this.props;
+    const { content, sidebarIsVisible, reblog, isReblogged, openCommentingDraft } = this.props;
 
     return (
       <div className={ sidebarIsVisible ? 'PostSingleModal withSidebar' : 'PostSingleModal' }>
         <TriggerPost
           reblog={reblog}
           isReblogged={isReblogged}
+          openCommentingDraft={openCommentingDraft}
         />
         <header>
           <div className="logo"><Link to="/" onlyActiveOnIndex activeClassName="active"><img src="/img/busy-blue.svg" width="34" /></Link></div>
@@ -71,6 +73,8 @@ export default class PostSingleModal extends Component {
         <PostSingleContent
           content={content}
         />
+
+        <CommentForm />
       </div>
     );
   }
