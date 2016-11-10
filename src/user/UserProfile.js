@@ -17,7 +17,7 @@ import {
 } from './../helpers/stateHelpers';
 import Loading from '../widgets/Loading';
 import TriggerProfile from '../app/Trigger/TriggerProfile';
-import {followUser, unfollowUser} from '../auth/authActions';
+import { followUser, unfollowUser } from './userActions';
 
 class Profile extends Component {
   constructor(props) {
