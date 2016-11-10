@@ -3,6 +3,7 @@ import React from 'react';
 const Icon = ({
   name,
   style,
+  className = '',
   n = false,
   xs = false,
   s = false,
@@ -22,7 +23,7 @@ const Icon = ({
   size = (xl) ? 'icon-xl' : size;
   size = (xxl) ? 'icon-xxl' : size;
   return (
-    <i className={`icon ${size} material-icons`} style={style}>{ name }</i>
+    <i className={`icon ${size} material-icons ${className}`} style={style}>{ name }</i>
   );
 };
 
