@@ -3,8 +3,6 @@ import extend from 'lodash/extend';
 import steemConnect from 'steemconnect';
 import request from 'superagent';
 
-import api from '../steemAPI';
-
 Promise.promisifyAll(steemConnect);
 Promise.promisifyAll(request.Request.prototype);
 
@@ -23,7 +21,7 @@ export const GET_FOLLOWING_SUCCESS = 'GET_FOLLOWING_SUCCESS';
 export const GET_FOLLOWING_ERROR = 'GET_FOLLOWING_ERROR';
 
 function getFollowing(opts) {
-  return (dispatch, getState) => {
+  return (dispatch, getState, { steemAPI }) => {
     const { auth } = getState();
     const currentUsername = auth.user && auth.user.name;
     const options = extend({
@@ -37,7 +35,7 @@ function getFollowing(opts) {
       type: GET_FOLLOWING,
       meta: options,
       payload: {
-        promise: api.getFollowingWithAsync(options),
+        promise: steemAPI.getFollowingWithAsync(options),
       }
     });
   };
