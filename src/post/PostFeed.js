@@ -151,6 +151,8 @@ export default class PostFeed extends Component {
             notify={notify}
             onCommentRequest={onCommentRequest}
             onShowCommentsRequest={this.handleShowCommentsRequest}
+            reblog={this.props.reblog}
+            isReblogged={this.props.isReblogged}
           />
         </div>
 

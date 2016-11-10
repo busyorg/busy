@@ -5,6 +5,8 @@ let React = require('react'),
   actions = require('./../actions'),
   Link = require('react-router').Link;
 
+import Icon from './../widgets/Icon';
+
 const Actions = React.createClass({
   getInitialState() {
     return {
@@ -52,6 +54,16 @@ const Actions = React.createClass({
     this.props.onShowCommentsRequest();
   },
 
+  handleReblog() {
+    const { auth, post, reblog, notify } = this.props;
+
+    if (!auth.isAuthenticated) {
+      notify('You need to login in order to reblog posts.');
+      return;
+    }
+    reblog(post.id);
+  },
+
   render() {
     const voter = (this.props.auth.isAuthenticated) ? this.props.auth.user.name : '';
     const post = this.props.post;
@@ -73,8 +85,11 @@ const Actions = React.createClass({
         </li>
 
         <li>
-          <a>
-            <i className="icon icon-sm material-icons">repeat</i>
+          <a
+            onClick={() => this.handleReblog()}
+            className={this.props.isReblogged ? 'active' : '' }
+          >
+            <Icon small name="repeat" />
             <span className="hidden-xs">
               { ' ' }
               Reblog
