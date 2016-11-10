@@ -16,6 +16,7 @@ import notificationReducer from './app/Notification/notificationReducers';
 import bookmarksReducer from './bookmarks/bookmarksReducer';
 import favoritesReducer from './app/Favorites/favoritesReducer';
 import { responsiveReducer, mountResponsive } from './helpers/responsive';
+import reblogReducers from './app/reblog/reblogReducers';
 
 export const messagesWorker = new MessagesWorker();
 
@@ -35,6 +36,7 @@ const reducers = combineReducers({
   notifications: notificationReducer,
   bookmarks: bookmarksReducer,
   favorites: favoritesReducer,
+  reblog: reblogReducers,
 });
 
 const middleware = [
