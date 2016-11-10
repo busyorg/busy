@@ -75,8 +75,11 @@ const Actions = React.createClass({
         </li>
 
         <li>
-          <a onClick={() => this.props.reblog(post.id)}>
-            <Icon small name={this.props.isReblogged ? 'repeat' : 'repeat' } />
+          <a
+            onClick={() => this.props.reblog(post.id)}
+            className={this.props.isReblogged ? 'active' : '' }
+          >
+            <Icon small name="repeat" />
             <span className="hidden-xs">
               { ' ' }
               Reblog
