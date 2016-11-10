@@ -54,6 +54,16 @@ const Actions = React.createClass({
     this.props.onShowCommentsRequest();
   },
 
+  handleReblog() {
+    const { auth, post, reblog, notify } = this.props;
+
+    if (!auth.isAuthenticated) {
+      notify('You need to login in order to reblog posts.');
+      return;
+    }
+    reblog(post.id);
+  },
+
   render() {
     const voter = (this.props.auth.isAuthenticated) ? this.props.auth.user.name : '';
     const post = this.props.post;
@@ -76,7 +86,7 @@ const Actions = React.createClass({
 
         <li>
           <a
-            onClick={() => this.props.reblog(post.id)}
+            onClick={() => this.handleReblog()}
             className={this.props.isReblogged ? 'active' : '' }
           >
             <Icon small name="repeat" />
