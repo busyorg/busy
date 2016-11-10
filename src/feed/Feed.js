@@ -9,17 +9,20 @@ import CommentForm from '../comments/CommentForm';
 import * as appActions from './../actions';
 import * as commentsActions from './../comments/commentsActions';
 import * as bookmarkActions from '../bookmarks/bookmarksActions';
+import * as reblogActions from './../app/reblog/reblogActions';
 import PostSingle from './../post/PostSingle';
 
 @connect(
   state => ({
     bookmarks: state.bookmarks,
+    reblogList: state.reblog,
   }),
   dispatch => bindActionCreators({
     openCommentingDraft: commentsActions.openCommentingDraft,
     closeCommentingDraft: commentsActions.closeCommentingDraft,
     toggleBookmark: bookmarkActions.toggleBookmark,
     openPostModal: appActions.openPostModal,
+    reblog: reblogActions.reblog,
   }, dispatch)
 )
 export default class Feed extends React.Component {
@@ -54,7 +57,9 @@ export default class Feed extends React.Component {
       replies,
       toggleBookmark,
       bookmarks,
-      notify
+      notify,
+      reblog,
+      reblogList
     } = this.props;
 
     return (
@@ -81,6 +86,8 @@ export default class Feed extends React.Component {
                   onCommentRequest={e => this.handleCommentRequest(e)}
                   openPostModal={this.props.openPostModal}
                   notify={notify}
+                  reblog={reblog}
+                  isReblogged={reblogList.includes(post.id)}
                 />
               )
             }

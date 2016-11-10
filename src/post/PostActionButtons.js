@@ -5,6 +5,8 @@ let React = require('react'),
   actions = require('./../actions'),
   Link = require('react-router').Link;
 
+import Icon from './../widgets/Icon';
+
 const Actions = React.createClass({
   getInitialState() {
     return {
@@ -73,8 +75,8 @@ const Actions = React.createClass({
         </li>
 
         <li>
-          <a>
-            <i className="icon icon-sm material-icons">repeat</i>
+          <a onClick={() => this.props.reblog(post.id)}>
+            <Icon small name={this.props.isReblogged ? 'repeat' : 'repeat' } />
             <span className="hidden-xs">
               { ' ' }
               Reblog
