@@ -28,7 +28,13 @@ export const reblog = (postId) => {
     SteemConnect.reblog(auth.user.name, post.author, post.permlink).then(() => {
       const list = storePostId(postId);
       dispatch(getRebloggedListAction(list));
-    }).catch(err => console.log(err));
+    }).catch(err => {
+      if(err.res && err.res.status === 500) {
+        // already reblogged
+        const list = storePostId(postId);
+        dispatch(getRebloggedListAction(list));
+      }
+    });
   }
 };
 
