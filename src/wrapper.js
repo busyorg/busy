@@ -8,12 +8,14 @@ import { notify } from './app/Notification/notificationActions';
 import Notification from './app/Notification/Notification';
 import Sidebar from './app/Sidebar';
 import * as messages from './translations/Translations';
+import * as reblogActions from './app/reblog/reblogActions';
 
 var Wrapper = React.createClass({
   componentWillMount() {
     this.props.login();
     this.props.getConfig();
     this.props.getStoredBookmarks();
+    this.props.getRebloggedList();
   },
 
   render() {
@@ -48,6 +50,7 @@ const mapDispatchToProps = (dispatch) => {
     getConfig: () => { dispatch(getConfig()); },
     notify: (text) => { dispatch(notify(text)); },
     getStoredBookmarks: () => { dispatch(getStoredBookmarks()); },
+    getRebloggedList: () => { dispatch(reblogActions.getRebloggedList()); },
   };
 };
 
