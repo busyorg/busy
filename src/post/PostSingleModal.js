@@ -3,6 +3,7 @@ import { withRouter, Link } from 'react-router';
 import PostSingleContent from './PostSingleContent';
 import Icon from './../widgets/Icon';
 import './PostSingleModal.scss';
+import TriggerPost from './../app/Trigger/TriggerPost';
 
 @withRouter
 export default class PostSingleModal extends Component {
@@ -54,6 +55,10 @@ export default class PostSingleModal extends Component {
 
     return (
       <div className={ sidebarIsVisible ? 'PostSingleModal withSidebar' : 'PostSingleModal' }>
+        <TriggerPost
+          reblog={reblog}
+          isReblogged={isReblogged}
+        />
         <header>
           <div className="logo"><Link to="/" onlyActiveOnIndex activeClassName="active"><img src="/img/busy-blue.svg" width="34" /></Link></div>
           <div className="top-nav">
