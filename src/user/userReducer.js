@@ -13,6 +13,7 @@ const initialState = {
 
   filesFetchError: null,
   filesFetchIsLoading: true,
+  following: {},
 };
 
 export default function userProfileReducer(state = initialState, action) {
@@ -68,21 +69,21 @@ export default function userProfileReducer(state = initialState, action) {
         filesFetchError: action.payload,
       });
     }
-    case types.GET_FOLLOWING_START:
+    case actions.GET_FOLLOWING_START:
       return {
         ...state,
         following: {
           isFetching: true,
         },
       };
-    case types.GET_FOLLOWING_ERROR:
+    case actions.GET_FOLLOWING_ERROR:
       return {
         ...state,
         following: {
           isFetching: false,
         },
       };
-    case types.GET_FOLLOWING_SUCCESS:
+    case actions.GET_FOLLOWING_SUCCESS:
       return {
         ...state,
         following: {
