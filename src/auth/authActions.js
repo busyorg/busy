@@ -2,6 +2,7 @@ import Promise from 'bluebird';
 import extend from 'lodash/extend';
 import steemConnect from 'steemconnect';
 import request from 'superagent';
+import { getFollowing } from './../user/userActions';
 
 Promise.promisifyAll(steemConnect);
 Promise.promisifyAll(request.Request.prototype);
@@ -45,9 +46,9 @@ export const login = () => {
         return;
       }
 
-      dispatch(getFollowing({
-        follower: result.username,
-      }));
+      dispatch(
+        getFollowing(result.username)
+      );
 
       steemAPI.getAccounts([result.username], (err, users) => { // eslint-disable-line no-shadow
         if (err || !users || !users[0]) {
