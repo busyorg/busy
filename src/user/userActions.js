@@ -177,7 +177,7 @@ export const getFollowing = (userName = '') => {
 
     dispatch({
       type: GET_FOLLOWING,
-      meta: options,
+      meta: targetUsername,
       payload: {
         promise: steemdb.accounts({ account: targetUsername }).then(
           res => res[0] && res[0].following

@@ -88,7 +88,7 @@ export default function userProfileReducer(state = initialState, action) {
         ...state,
         following: {
           list: action.payload,
-          isFetching: true,
+          isFetching: false,
         },
       };
     default: {
