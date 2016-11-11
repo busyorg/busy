@@ -62,7 +62,7 @@ const loginFail = () => {
 };
 
 export const login = () => {
-  return (dispatch) => {
+  return (dispatch, getState, { steemAPI }) => {
     dispatch(requestLogin());
 
     steemConnect.isAuthenticated((err, result) => {
@@ -75,7 +75,7 @@ export const login = () => {
         follower: result.username,
       }));
 
-      api.getAccounts([result.username], (err, users) => { // eslint-disable-line no-shadow
+      steemAPI.getAccounts([result.username], (err, users) => { // eslint-disable-line no-shadow
         if (err || !users || !users[0]) {
           dispatch(loginFail());
           return;
