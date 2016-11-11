@@ -68,7 +68,28 @@ export default function userProfileReducer(state = initialState, action) {
         filesFetchError: action.payload,
       });
     }
-
+    case types.GET_FOLLOWING_START:
+      return {
+        ...state,
+        following: {
+          isFetching: true,
+        },
+      };
+    case types.GET_FOLLOWING_ERROR:
+      return {
+        ...state,
+        following: {
+          isFetching: false,
+        },
+      };
+    case types.GET_FOLLOWING_SUCCESS:
+      return {
+        ...state,
+        following: {
+          list: action.payload,
+          isFetching: true,
+        },
+      };
     default: {
       return state;
     }
