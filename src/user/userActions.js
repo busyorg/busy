@@ -133,6 +133,9 @@ export const followUser = (username) => {
       payload: {
         promise: steemConnect.follow(auth.user.name, username),
       },
+      meta: {
+        username
+      }
     });
   }
 };
@@ -154,6 +157,9 @@ export const unfollowUser = (username) => {
       payload: {
         promise: steemConnect.unfollow(auth.user.name, username),
       },
+      meta: {
+        username
+      }
     });
   }
 };
