@@ -1,6 +1,7 @@
 import Promise from 'bluebird';
 import fetch from 'isomorphic-fetch';
 import steemConnect from 'steemconnect';
+import steemdb from 'steemdb';
 
 export const GET_USER_COMMENTS = 'GET_USER_COMMENTS';
 export const GET_USER_COMMENTS_START = 'GET_USER_COMMENTS_START';
@@ -155,4 +156,33 @@ export const unfollowUser = (username) => {
       },
     });
   }
+};
+
+export const GET_FOLLOWING = '@user/GET_FOLLOWING';
+export const GET_FOLLOWING_START = '@user/GET_FOLLOWING_START';
+export const GET_FOLLOWING_SUCCESS = '@user/GET_FOLLOWING_SUCCESS';
+export const GET_FOLLOWING_ERROR = '@user/GET_FOLLOWING_ERROR';
+
+steemdb.accounts = Promise.promisify(steemdb.accounts, { context: steemdb });
+
+export const getFollowing = (userName = '') => {
+  return (dispatch, getState) => {
+    const { auth } = getState();
+
+    if (!userName && !auth.isAuthenticated) {
+      return;
+    }
+
+    const targetUsername = userName || auth.user.name;
+
+    dispatch({
+      type: GET_FOLLOWING,
+      meta: options,
+      payload: {
+        promise: steemdb.accounts({ account: targetUsername }).then(
+          res => res[0] && res[0].following
+        ),
+      }
+    });
+  };
 };

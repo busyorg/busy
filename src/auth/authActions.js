@@ -15,32 +15,6 @@ export const LOGOUT_START = '@auth/LOGOUT_START';
 export const LOGOUT_ERROR = '@auth/LOGOUT_ERROR';
 export const LOGOUT_SUCCESS = '@auth/LOGOUT_SUCCESS';
 
-export const GET_FOLLOWING = 'GET_FOLLOWING';
-export const GET_FOLLOWING_START = 'GET_FOLLOWING_START';
-export const GET_FOLLOWING_SUCCESS = 'GET_FOLLOWING_SUCCESS';
-export const GET_FOLLOWING_ERROR = 'GET_FOLLOWING_ERROR';
-
-function getFollowing(opts) {
-  return (dispatch, getState, { steemAPI }) => {
-    const { auth } = getState();
-    const currentUsername = auth.user && auth.user.name;
-    const options = extend({
-      follower: currentUsername,
-      startFollowing: 0,
-      followType: 'blog',
-      limit: 100,
-    }, opts);
-
-    dispatch({
-      type: GET_FOLLOWING,
-      meta: options,
-      payload: {
-        promise: steemAPI.getFollowingWithAsync(options),
-      }
-    });
-  };
-}
-
 
 const requestLogin = () => {
   return {
