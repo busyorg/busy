@@ -91,6 +91,30 @@ export default function userProfileReducer(state = initialState, action) {
           isFetching: false,
         },
       };
+    case actions.FOLLOW_USER_START:
+      return {
+        ...state,
+        following: {
+          ...state.following,
+          list: [
+            ...state.following.list,
+            action.meta.username,
+          ],
+        },
+      };
+    case actions.UNFOLLOW_USER_START:
+      const targetIdx = state.following.list.indexOf(action.meta.username);
+      const newList = [
+        ...state.following.list.slice(0, targetIdx),
+        ...state.following.list.slice(targetIdx + 1),
+      ];
+      return {
+        ...state,
+        following: {
+          ...state.following,
+          list: newList,
+        },
+      };
     default: {
       return state;
     }
