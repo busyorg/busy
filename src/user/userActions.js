@@ -1,5 +1,7 @@
 import Promise from 'bluebird';
 import fetch from 'isomorphic-fetch';
+import steemConnect from 'steemconnect';
+import steemdb from 'steemdb';
 
 export const GET_USER_COMMENTS = 'GET_USER_COMMENTS';
 export const GET_USER_COMMENTS_START = 'GET_USER_COMMENTS_START';
@@ -110,3 +112,83 @@ export function fetchFiles({ username }) {
     },
   });
 }
+
+steemConnect.follow = Promise.promisify(steemConnect.follow, { context: steemConnect });
+steemConnect.unfollow = Promise.promisify(steemConnect.follow, { context: steemConnect });
+
+export const FOLLOW_USER = '@user/FOLLOW_USER';
+export const FOLLOW_USER_START = '@user/FOLLOW_USER_START';
+export const FOLLOW_USER_SUCCESS = '@user/FOLLOW_USER_SUCCESS';
+export const FOLLOW_USER_ERROR = '@user/FOLLOW_USER_ERROR';
+
+export const followUser = (username) => {
+  return (dispatch, getState) => {
+    const { auth } = getState();
+    if(!auth.isAuthenticated) {
+      return;
+    }
+
+    dispatch({
+      type: FOLLOW_USER,
+      payload: {
+        promise: steemConnect.follow(auth.user.name, username),
+      },
+      meta: {
+        username
+      }
+    });
+  }
+};
+
+export const UNFOLLOW_USER = '@user/UNFOLLOW_USER';
+export const UNFOLLOW_USER_START = '@user/UNFOLLOW_USER_START';
+export const UNFOLLOW_USER_SUCCESS = '@user/UNFOLLOW_USER_SUCCESS';
+export const UNFOLLOW_USER_ERROR = '@user/UNFOLLOW_USER_ERROR';
+
+export const unfollowUser = (username) => {
+  return (dispatch, getState) => {
+    const { auth } = getState();
+    if(!auth.isAuthenticated) {
+      return;
+    }
+
+    dispatch({
+      type: UNFOLLOW_USER,
+      payload: {
+        promise: steemConnect.unfollow(auth.user.name, username),
+      },
+      meta: {
+        username
+      }
+    });
+  }
+};
+
+export const GET_FOLLOWING = '@user/GET_FOLLOWING';
+export const GET_FOLLOWING_START = '@user/GET_FOLLOWING_START';
+export const GET_FOLLOWING_SUCCESS = '@user/GET_FOLLOWING_SUCCESS';
+export const GET_FOLLOWING_ERROR = '@user/GET_FOLLOWING_ERROR';
+
+steemdb.accounts = Promise.promisify(steemdb.accounts, { context: steemdb });
+
+export const getFollowing = (userName = '') => {
+  return (dispatch, getState) => {
+    const { auth } = getState();
+
+    if (!userName && !auth.isAuthenticated) {
+      return;
+    }
+
+    const targetUsername = userName || auth.user.name;
+
+    dispatch({
+      type: GET_FOLLOWING,
+      meta: targetUsername,
+      payload: {
+        promise: steemdb.accounts({ account: targetUsername }).then(
+          res => res[0] && res[0].following
+        ),
+      }
+    });
+  };
+};

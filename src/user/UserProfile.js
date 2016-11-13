@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 import steemdb from 'steemdb';
 import formatter from 'steem/lib/formatter';
-import find from 'lodash/find';
 import moment from 'moment';
 import numeral from 'numeral';
 import { Link } from 'react-router';
@@ -17,7 +16,7 @@ import {
 } from './../helpers/stateHelpers';
 import Loading from '../widgets/Loading';
 import TriggerProfile from '../app/Trigger/TriggerProfile';
-import {followUser, unfollowUser} from '../auth/authActions';
+import { followUser, unfollowUser } from './userActions';
 
 class Profile extends Component {
   constructor(props) {
@@ -47,9 +46,9 @@ class Profile extends Component {
 
   onClickFollow = (e) => {
     if (e && e.preventDefault) e.preventDefault();
-    const isFollowing = this.props.following && !!find(this.props.following, (u) => (
-      u.following === this.props.params.name
-    ));
+    const { following } = this.props;
+    const username = this.props.params.name;
+    const isFollowing = following.list && following.list.includes(username);
 
     if (isFollowing) {
       this.props.unfollowUser(this.props.params.name);
@@ -85,10 +84,8 @@ class Profile extends Component {
     let jsonMetadata = {};
     try { jsonMetadata = JSON.parse(user.json_metadata); } catch (e) { jsonMetadata = {}; }
 
-    const isFollowing = this.props.following && !!find(this.props.following, (u) => (
-      u.following === this.props.params.name
-    ));
-    const isFollowingIsLoading = this.props.followingIsLoading;
+    const { following } = this.props;
+    const isFollowing = following.list && following.list.includes(username);
 
     return (
       <div>
@@ -96,8 +93,8 @@ class Profile extends Component {
           params={this.props.params}
           username={username}
           edit={edit}
-          followButton={this.hasFollow()}
-          isFollowingIsLoading={isFollowingIsLoading}
+          hasFollow={this.hasFollow()}
+          followingIsFetching={following.isFetching}
           isFollowing={isFollowing}
           onClickFollow={this.onClickFollow}
         />
@@ -151,9 +148,7 @@ class Profile extends Component {
 
 const mapStateToProps = function (state) {
   return {
-    auth: state.auth,
-    followingIsLoading: state.auth.followingIsLoading,
-    following: state.auth.following,
+    following: state.userProfile.following,
   };
 };
 
