@@ -18,9 +18,9 @@ if (process.env.SENTRY_PUBLIC_DSN) {
     .install();
 }
 
-if (process.env.STEEMCONNECT_API_HOST) {
-  steemconnect.setPath(process.env.STEEMCONNECT_API_HOST);
-  steemconnect.setApp('@busy.app');
+if (process.env.STEEMCONNECT_HOST) {
+  steemconnect.setBaseUrl(process.env.STEEMCONNECT_HOST);
+  steemconnect.setApp('busy.app');
 }
 
 const createHistory = useHistoryRestoreScroll(() => browserHistory);
