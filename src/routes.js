@@ -1,18 +1,7 @@
-var React = require('react'),
-  ReactRouter = require('react-router'),
-  Route = ReactRouter.Route,
-  IndexRoute = ReactRouter.IndexRoute,
-  Wrapper = require('./wrapper'),
-  About = require('./statics/About'),
-  Team = require('./statics/Team'),
-  Projects = require('./statics/Projects'),
-  Jobs = require('./statics/Jobs'),
-  Donate = require('./statics/Donate'),
-  Help = require('./statics/Help'),
-  MessagesUser = require('./messages/MessagesUser').default,
-  MessagesCategory = require('./messages/MessagesCategory').default,
-  Write = require('./post/Write/Write').default;
+import React from 'react';
+import { Route, IndexRoute } from 'react-router';
 
+import Wrapper from './wrapper';
 import Settings from './app/AppSettings';
 import Page from './feed/Page';
 import User from './user/User';
@@ -29,17 +18,14 @@ import { Trending, Hot, Votes, Responses, Active, Created, Cashout } from './fee
 import PostSingle from './post/PostSingle';
 import Bookmarks from './bookmarks/Bookmarks';
 
+var MessagesUser = require('./messages/MessagesUser').default,
+  MessagesCategory = require('./messages/MessagesCategory').default,
+  Write = require('./post/Write/Write').default;
+
 export default (
   <Route path="/" component={Wrapper}>
     <IndexRoute component={Page} />
     <Route path="/settings" component={Settings} />
-
-    <Route path="/about" component={About} />
-    <Route path="/team" component={Team} />
-    <Route path="/projects" component={Projects} />
-    <Route path="/jobs" component={Jobs} />
-    <Route path="/donate" component={Donate} />
-    <Route path="/help" component={Help} />
 
     <Route path="/tags" component={Categories} />
     <Route path="/trending(/:category)" component={Trending} />
