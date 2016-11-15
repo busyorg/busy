@@ -41,7 +41,11 @@ export default class CommentForm extends Component {
 
   componentWillUpdate(nextProps) {
     const { comments } = this.props;
-    if(nextProps.comments.currentDraftId !== comments.currentDraftId) {
+    const shouldUpdateDraft =
+      nextProps.comments.currentDraftId !== comments.currentDraftId &&
+      nextProps.comments.isCommenting;
+
+    if(shouldUpdateDraft) {
       this.updateDraft();
       this._input.focus();
     }
@@ -88,7 +92,6 @@ export default class CommentForm extends Component {
             className={'CommentForm__input'}
             onKeyDown={(e) => this.handleKey(e)}
             placeholder={'Write a comment...'}
-            autoFocus
           />
           <a className="CommentForm__close" onClick={() => closeCommentingDraft()}>
             <Icon name="clear" />
