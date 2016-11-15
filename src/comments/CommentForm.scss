@@ -3,14 +3,12 @@
 .CommentForm {
   position: fixed;
   width: 100%;
-  bottom: -4px;
+  bottom: 0;
   right: 0;
-  padding-top: 2px;
-  transition: bottom 0.7s;
   background: $input-background;
 
   &.disappear {
-    bottom: -30vh;
+    display: none;
   }
 
   &.withSidebar {
@@ -21,7 +19,6 @@
 .CommentForm__input {
   display: block;
   width: 100%;
-  font-size: 1.2em;
   max-height: 30vh;
   min-height: 6rem;
 }
