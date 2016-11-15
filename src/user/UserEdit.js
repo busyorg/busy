@@ -1,6 +1,6 @@
 let React = require('react'),
   ReactRedux = require('react-redux'),
-  Header = require('./../app/Header'),
+  Header = require('../app/Header'),
   Link = require('react-router').Link;
 
 const Edit = React.createClass({

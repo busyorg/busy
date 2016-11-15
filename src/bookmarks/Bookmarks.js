@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Header from './../app/Header';
-import MenuFeed from './../app/Menu/MenuFeed';
-import Feed from './../feed/Feed';
+import Header from '../app/Header';
+import MenuFeed from '../app/Menu/MenuFeed';
+import Feed from '../feed/Feed';
 import {
   getFeedContentFromState,
   getFeedLoadingFromState,
   getFeedHasMoreFromState
-} from './../helpers/stateHelpers';
+} from '../helpers/stateHelpers';
 import * as bookmarksActions from './bookmarksActions';
 
 @connect(

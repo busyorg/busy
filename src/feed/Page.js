@@ -17,8 +17,8 @@ import {
   getFeedLoadingFromState,
   getUserFeedContentFromState,
   getUserFeedLoadingFromState,
-} from './../helpers/stateHelpers';
-import * as commentsActions from './../comments/commentsActions';
+} from '../helpers/stateHelpers';
+import * as commentsActions from '../comments/commentsActions';
 import { toggleBookmark } from '../bookmarks/bookmarksActions';
 import Loading from '../widgets/Loading';
 

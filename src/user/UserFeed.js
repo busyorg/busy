@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import Feed from './../feed/Feed';
+import Feed from '../feed/Feed';
 import {
   getFeedContentFromState,
   getFeedLoadingFromState,
   getFeedHasMoreFromState
-} from './../helpers/stateHelpers';
+} from '../helpers/stateHelpers';
 
 export default class UserProfileFeed extends Component {
   constructor(props) {

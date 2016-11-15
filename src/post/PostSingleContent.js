@@ -2,7 +2,8 @@ import React from 'react';
 import moment from 'moment';
 import { Link } from 'react-router';
 import Body from './body';
-import Comments from './../comments/Comments';
+import Comments from '../comments/Comments';
+import Avatar from '../widgets/Avatar';
 
 const PostSingleContent = ({ content }) => {
   return (
@@ -16,19 +17,16 @@ const PostSingleContent = ({ content }) => {
               marginTop: '15px',
             }}
         >
-          <Link to={'/@' + content.author}>
-          <span className="avatar avatar-sm pull-left">
-            <img src={'https://img.busy.org/@' + content.author} width="40" height="40" />
-          </span>
-          <span className="pull-left mls">
-            @{content.author}
-          </span>
+          <Link to={`/@${content.author}`}>
+            <Avatar sm username={content.author} className="pull-left" />
+            <span className="pull-left mls">
+              @{content.author}
+            </span>
           </Link>
-
-        <span className="pull-right">
-          {moment(content.created).fromNow()}
-          <a><i className="icon icon-md material-icons">bookmark_border</i></a>
-        </span>
+          <span className="pull-right">
+            {moment(content.created).fromNow()}
+            <a><i className="icon icon-md material-icons">bookmark_border</i></a>
+          </span>
         </div>
 
         <div className="single-content">

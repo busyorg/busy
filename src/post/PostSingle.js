@@ -1,12 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import api from './../steemAPI';
+import api from '../steemAPI';
 import * as postActions from './postActions';
-import { closePostModal } from './../actions';
+import { closePostModal } from '../actions';
 import PostSingleModal from './PostSingleModal';
 import PostSinglePage from './PostSinglePage';
-import * as reblogActions from './../app/reblog/reblogActions';
-import * as commentsActions from './../comments/commentsActions';
+import * as reblogActions from '../app/reblog/reblogActions';
+import * as commentsActions from '../comments/commentsActions';
 
 @connect(
   ({ posts, app, reblog }) => ({

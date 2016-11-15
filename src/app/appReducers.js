@@ -1,6 +1,6 @@
 import * as appTypes from '../actions';
 import * as responsive from '../helpers/responsive';
-import * as postActions from './../post/postActions';
+import * as postActions from '../post/postActions';
 
 const initialState = {
   isFetching: false,

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
-import Icon from './../../widgets/Icon';
+import Icon from '../../widgets/Icon';
 
 const TriggerPost = ({ reblog, isReblogged, openCommentingDraft }) => {
   return (

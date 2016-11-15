@@ -6,7 +6,7 @@ import {
   getMoreFeedContent,
   getUserFeedContent,
   getMoreUserFeedContent,
-} from './../feed/feedActions';
+} from '../feed/feedActions';
 import { getUserComments, getMoreUserComments } from './userActions';
 import appActions from '../actions';
 import Header from '../app/Header';
