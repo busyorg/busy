@@ -84,7 +84,13 @@ export default class CommentForm extends Component {
       <div className={commentsClass}>
         <div className="container">
           { comments.currentDraftId &&
-            <div className="mvm"><i className="icon icon-sm material-icons">reply</i> Reply to <b>{ parentTitle }</b></div>
+            <div className="mvm">
+              <i className="icon icon-sm material-icons">reply</i>
+              { ' Reply to ' }
+              <b>
+                { parentTitle }
+              </b>
+            </div>
           }
           <Textarea
             rows={1}
