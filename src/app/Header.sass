@@ -1,3 +1,5 @@
+@import "../styles/colors.scss"
+
 .full-width
   header
     left: 0
@@ -30,11 +32,6 @@ header
         color: $primary-color
 
   .logo
-    position: absolute
-    top: 0
-    width: 100%
-    text-align: center
-    line-height: 50px
     img
       height: 30px
 
@@ -46,8 +43,7 @@ header
   max-height: 100%
   border-bottom: 1px solid #E7E7EC
   >
-  *
-    border-right: 1px solid #E7E7EC
+  a
     &:last-child
       border-right: none
   .sidebar-toggle
@@ -60,6 +56,16 @@ header
     border: none
     width: 100%
     height: 100%
+
+  .left
+    z-index: 99
+    position: absolute
+    left: 0
+
+  .right
+    z-index: 99
+    position: absolute
+    right: 0
 
 .app-nav
   overflow: hidden
