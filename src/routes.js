@@ -17,6 +17,7 @@ import Categories from './categories/Categories';
 import { Trending, Hot, Votes, Responses, Active, Created, Cashout } from './feed/PathMatching';
 import PostSingle from './post/PostSingle';
 import Bookmarks from './bookmarks/Bookmarks';
+import Login from './auth/Login';
 
 var MessagesUser = require('./messages/MessagesUser').default,
   MessagesCategory = require('./messages/MessagesCategory').default,
@@ -25,6 +26,8 @@ var MessagesUser = require('./messages/MessagesUser').default,
 export default (
   <Route path="/" component={Wrapper}>
     <IndexRoute component={Page} />
+    <Route path="/login" component={Login} />
+
     <Route path="/settings" component={Settings} />
 
     <Route path="/tags" component={Categories} />
