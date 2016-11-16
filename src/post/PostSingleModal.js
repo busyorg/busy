@@ -62,11 +62,13 @@ export default class PostSingleModal extends Component {
           openCommentingDraft={openCommentingDraft}
         />
         <header>
-          <div className="logo"><Link to="/" onlyActiveOnIndex activeClassName="active"><img src="/img/busy-blue.svg" width="34" /></Link></div>
           <div className="top-nav">
-            <a onClick={this.handleClose}>
+            <a className="left" onClick={this.handleClose}>
               <i className="icon icon-md icon-menu material-icons">clear</i>
             </a>
+            <div className="section-content top-head">
+              <div className="logo"><Link to="/" onlyActiveOnIndex activeClassName="active"><img src="/img/busy-blue.svg" /></Link></div>
+            </div>
           </div>
           {this.props.children && <div className="app-nav">{this.props.children}</div>}
         </header>

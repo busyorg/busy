@@ -3,22 +3,18 @@ let React = require('react'),
   actions = require('../actions'),
   Link = require('react-router').Link;
 
+import './Header.sass';
+
 const Header = React.createClass({
   render() {
     return (
       <header>
-        <div className="logo"><Link to="/" onlyActiveOnIndex activeClassName="active"><img src="/img/busy-blue.svg" /></Link></div>
         <div className="top-nav">
-          {!this.props.app.sidebarIsVisible && <a onClick={() => this.props.showSidebar()}><i className="icon icon-md icon-menu material-icons">menu</i></a>}
-          {this.props.app.sidebarIsVisible && <a><i className="icon icon-md icon-menu material-icons">search</i></a>}
-          <div className="section-content top-head"></div>
-          <button
-            className="btn-reset"
-          >
-            <i className="icon icon-md icon-menu material-icons">
-              notifications
-            </i>
-          </button>
+          {!this.props.app.sidebarIsVisible && <a className="left" onClick={() => this.props.showSidebar()}><i className="icon icon-md icon-menu material-icons">menu</i></a>}
+          <div className="section-content top-head">
+            <div className="logo"><Link to="/" onlyActiveOnIndex activeClassName="active"><img src="/img/busy-blue.svg" /></Link></div>
+          </div>
+          <a className="right"><i className="icon icon-md icon-menu material-icons">notifications</i></a>
         </div>
         {this.props.children && <div className="app-nav">{this.props.children}</div>}
       </header>
