@@ -10,6 +10,7 @@ import {
 import routes from './routes';
 import store from './store';
 import { isSmall } from './helpers/responsive';
+import { HIDE_SIDEBAR } from './actions';
 
 if (process.env.SENTRY_PUBLIC_DSN) {
   const Raven = require('raven-js');
@@ -28,7 +29,7 @@ const createHistory = useHistoryRestoreScroll(() => browserHistory);
 browserHistory.listen(() => {
   if (isSmall()) {
     store.dispatch({
-      type: 'HIDE_SIDEBAR',
+      type: HIDE_SIDEBAR,
     });
   }
 });
