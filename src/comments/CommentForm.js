@@ -36,7 +36,6 @@ export default class CommentForm extends Component {
     if (keycode(e) === 'enter' && !e.shiftKey) {
       this.updateDraft();
       this.props.sendComment();
-      alert('enter key is recognized by mobile');
     }
   }
 
