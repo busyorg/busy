@@ -10,7 +10,7 @@
   background: $input-background;
 
   &.disappear {
-    bottom: -30vh;
+    bottom: -210px;
   }
 
   &.withSidebar {
@@ -22,7 +22,7 @@
   display: block;
   width: 100%;
   font-size: 1.2em;
-  max-height: 30vh;
+  max-height: 150px;
   min-height: 6rem;
 }
 
