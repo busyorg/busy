@@ -1,9 +1,5 @@
 import React from 'react';
-import moment from 'moment';
-import { Link } from 'react-router';
 import Header from '../app/Header';
-import Body from './body';
-import Comments from '../comments/Comments';
 import TriggerPost from '../app/Trigger/TriggerPost';
 import PostSingleContent from './PostSingleContent';
 import Loading from '../widgets/Loading';
@@ -17,7 +13,7 @@ export default class PostSinglePage extends React.Component {
   render() {
     const { content, reblog, isReblogged, openCommentingDraft } = this.props;
     return (
-      <div>
+      <div className="main-panel">
         <Header />
         <TriggerPost
           reblog={reblog}
@@ -25,11 +21,8 @@ export default class PostSinglePage extends React.Component {
           openCommentingDraft={openCommentingDraft}
         />
         { content.author ?
-          <PostSingleContent content={content} />
-          :
-          <Loading />
+          <PostSingleContent content={content} /> : <Loading />
         }
-
         <CommentForm />
       </div>
     );
