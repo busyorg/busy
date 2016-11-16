@@ -1,12 +1,10 @@
-@import "./../styles/colors";
+@import "../styles/colors";
 
 .CommentForm {
   position: fixed;
   width: 100%;
-  bottom: -4px;
+  bottom: 0;
   right: 0;
-  padding-top: 2px;
-  transition: bottom 0.7s;
   background: $input-background;
 
   &.disappear {

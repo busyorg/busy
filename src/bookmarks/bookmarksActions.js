@@ -2,7 +2,7 @@ import { createAction } from 'redux-actions';
 import {
   getBookmarks as getBookmarksHelper,
   toggleBookmark as toggleBookmarkHelper,
-} from './../helpers/localStorageHelpers';
+} from '../helpers/localStorageHelpers';
 
 export const GET_BOOKMARKS = '@Bookmarks/GET_BOOKMARKS';
 export const GET_BOOKMARKS_START = '@Bookmarks/GET_BOOKMARKS_START';

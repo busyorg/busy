@@ -4,7 +4,7 @@ import striptags from 'striptags';
 import marked from 'marked';
 import { Link } from 'react-router';
 
-import { getCountryCode } from './../helpers/languages';
+import { getCountryCode } from '../helpers/languages';
 
 export default ({ title, body, className }) => {
   const language = franc(`${title} ${striptags(marked(body))}`);

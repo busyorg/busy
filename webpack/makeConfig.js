@@ -35,10 +35,6 @@ function makePlugins(options) {
           process.env.STEEMCONNECT_REDIRECT_URL ||
           'http://localhost:3000'
         ),
-        STEEMCONNECT_API_HOST: JSON.stringify(
-          process.env.STEEMCONNECT_API_HOST ||
-            'https://dev.steemconnect.com/api'
-        ),
         WS: JSON.stringify(
           process.env.WS ||
           'wss://steem.yt'

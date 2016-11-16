@@ -1,5 +1,6 @@
 import React from 'react';
 import moment from 'moment';
+import Avatar from '../widgets/Avatar';
 
 function Message(props) {
   const { model } = props;
@@ -12,12 +13,7 @@ function Message(props) {
       <div className="media" data-uuid={model[0].uuid}>
         <div className="container">
           <div className="media-left">
-            <div className="avatar avatar-md">
-              <img
-                role="presentation"
-                src={`https://img.busy.org/@${senderUsername}`}
-              />
-            </div>
+            <Avatar md username={senderUsername} />
           </div>
           <div className="media-body">
             <div className="media-heading">

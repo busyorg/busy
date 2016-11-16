@@ -6,11 +6,11 @@ import Loading from '../widgets/Loading';
 import AddPost from '../post/Write/EmbeddedNewPost';
 import PostFeed from '../post/PostFeed';
 import CommentForm from '../comments/CommentForm';
-import * as appActions from './../actions';
-import * as commentsActions from './../comments/commentsActions';
+import * as appActions from '../actions';
+import * as commentsActions from '../comments/commentsActions';
 import * as bookmarkActions from '../bookmarks/bookmarksActions';
-import * as reblogActions from './../app/reblog/reblogActions';
-import PostSingle from './../post/PostSingle';
+import * as reblogActions from '../app/reblog/reblogActions';
+import PostSingle from '../post/PostSingle';
 
 @connect(
   state => ({

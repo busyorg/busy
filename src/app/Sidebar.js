@@ -2,16 +2,17 @@ import React, { Component, PropTypes } from 'react';
 import size from 'lodash/size';
 import { FormattedMessage } from 'react-intl';
 import steemdb from 'steemdb';
+import Avatar from '../widgets/Avatar';
 
 import SidebarMessages from './Sidebar/SidebarMessages';
 
 let ReactRedux = require('react-redux'),
-  actions = require('./../actions'),
+  actions = require('../actions'),
   formatter = require('steem/lib/formatter'),
   _ = require('lodash'),
   numeral = require('numeral'),
-  api = require('./../steemAPI'),
-  Loading = require('./../widgets/Loading'),
+  api = require('../steemAPI'),
+  Loading = require('../widgets/Loading'),
   Link = require('react-router').Link;
 
 
@@ -144,10 +145,7 @@ class Sidebar extends Component {
             {this.props.auth.isAuthenticated ?
               <div>
                 <Link to={`/@${user.name}`}>
-                  <span className="avatar avatar-sm">
-                    <span className="reputation">{formatter.reputation(user.reputation)}</span>
-                    <img alt={user.name} src={`https://img.busy.org/@${user.name}`} />
-                  </span>
+                  <Avatar sm username={user.name} reputation={user.reputation} />
                 </Link>
                 <span style={{ clear: 'both', display: 'block' }}>
                   @{user.name} <a onClick={() => this.setState({ menu: 'settings' })}>

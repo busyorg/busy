@@ -9,6 +9,7 @@ import Flag from './flag';
 import Comments from '../comments/Comments';
 import PostActionButtons from './PostActionButtons';
 import Icon from '../widgets/Icon';
+import Avatar from '../widgets/Avatar';
 import PostModalLink from './PostModalLink';
 
 const colorCode = { green: 'rgba(39, 208, 169, 0.4)', red: 'rgba(249, 43, 97, 0.2)' };
@@ -78,9 +79,7 @@ export default class PostFeed extends Component {
           <ul>
             <li>
               <Link to={`/@${post.author}`}>
-                <span className="avatar avatar-xs">
-                  <img src={`https://img.busy.org/@${post.author}`} width="24" height="24" />
-                </span>
+                <Avatar xs username={post.author} />
                 { ` @${post.author}` }
               </Link>
 

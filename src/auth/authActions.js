@@ -2,7 +2,7 @@ import Promise from 'bluebird';
 import extend from 'lodash/extend';
 import steemConnect from 'steemconnect';
 import request from 'superagent';
-import { getFollowing } from './../user/userActions';
+import { getFollowing } from '../user/userActions';
 
 Promise.promisifyAll(steemConnect);
 Promise.promisifyAll(request.Request.prototype);

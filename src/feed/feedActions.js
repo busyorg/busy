@@ -14,14 +14,14 @@ export const GET_MORE_USER_FEED_CONTENT_SUCCESS = '@feed/GET_MORE_USER_FEED_CONT
 
 export const FEED_HAS_NO_MORE = '@feed/FEED_HAS_NO_MORE';
 
-import { getDiscussionsFromAPI } from './../helpers/apiHelpers';
+import { getDiscussionsFromAPI } from '../helpers/apiHelpers';
 import {
   getFeedFromState,
   getFeedContentFromState,
   getFeedLoadingFromState,
   getUserFeedLoadingFromState,
   getUserFeedContentFromState
-} from './../helpers/stateHelpers';
+} from '../helpers/stateHelpers';
 
 export const getFeedContentWithoutAPI = createAction(GET_FEED_CONTENT);
 export const getFeedContentSuccess = createAction(GET_FEED_CONTENT_SUCCESS);

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
-import numeral from 'numeral';
-import BodyShort from './../post/body-short';
-import Icon from './../widgets/Icon';
+import BodyShort from '../post/body-short';
+import Avatar from '../widgets/Avatar';
+import Icon from '../widgets/Icon';
 
 import './CommentItem.scss';
 
@@ -10,14 +10,12 @@ const renderOptimisticComment = (comment) => {
   return (
     <div className="CommentItem">
       <Link to={`/@${comment.author}`}>
-        @{ comment.author }
+        <Avatar xs username={comment.author} /> @{ comment.author }
       </Link>
       { ' ' }
-      <b>
-        $0.00
-      </b>
+      <b>$0.00</b>
       { ' ' }
-      <BodyShort body={comment.body}/>
+      <BodyShort body={comment.body} />
     </div>
   );
 };
@@ -48,7 +46,7 @@ export default class CommentItem extends Component {
     return (
       <div className="CommentItem">
           <Link to={`/@${comment.author}`}>
-            @{ comment.author }
+            <Avatar xs username={comment.author} /> @{ comment.author }
           </Link>{ ' ' }
           <BodyShort body={comment.body} />
           { (comment.children > 0 && !this.state.showReplies) &&

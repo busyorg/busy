@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { withRouter, Link } from 'react-router';
 import PostSingleContent from './PostSingleContent';
-import Icon from './../widgets/Icon';
+import Icon from '../widgets/Icon';
 import './PostSingleModal.scss';
-import TriggerPost from './../app/Trigger/TriggerPost';
-import CommentForm from './../comments/CommentForm';
+import TriggerPost from '../app/Trigger/TriggerPost';
+import CommentForm from '../comments/CommentForm';
 
 @withRouter
 export default class PostSingleModal extends Component {

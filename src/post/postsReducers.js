@@ -1,4 +1,4 @@
-import * as feedTypes from './../feed/feedActions';
+import * as feedTypes from '../feed/feedActions';
 import * as bookmarksActions from '../bookmarks/bookmarksActions';
 import * as postsActions from './postActions';
 

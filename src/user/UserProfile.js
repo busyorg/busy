@@ -7,13 +7,14 @@ import moment from 'moment';
 import numeral from 'numeral';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
+import Avatar from '../widgets/Avatar';
 
-import Feed from './../feed/Feed';
+import Feed from '../feed/Feed';
 import {
   getFeedContentFromState,
   getFeedLoadingFromState,
   getFeedHasMoreFromState
-} from './../helpers/stateHelpers';
+} from '../helpers/stateHelpers';
 import Loading from '../widgets/Loading';
 import TriggerProfile from '../app/Trigger/TriggerProfile';
 import { followUser, unfollowUser } from './userActions';
@@ -107,11 +108,7 @@ class Profile extends Component {
           }}
         >
           <div className="mvl">
-            <div className="avatar avatar-xl">
-              {_.has(user, 'name') && <div className="reputation">{formatter.reputation(user.reputation)}</div>}
-              <img src={'https://img.busy.org/@' + username} />
-            </div>
-
+            <Avatar xl username={username} reputation={_.has(user, 'name') && user.reputation} />
             <h1>{_.has(jsonMetadata, 'profile.name') ? jsonMetadata.profile.name : '@' + username}</h1>
           </div>
         </section>

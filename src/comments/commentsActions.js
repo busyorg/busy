@@ -1,7 +1,7 @@
 import Promise from 'bluebird';
 import { createAction } from 'redux-actions';
 import SteemConnect from 'steemconnect';
-import { createCommentPermlink } from './../helpers/steemitHelpers';
+import { createCommentPermlink } from '../helpers/steemitHelpers';
 
 SteemConnect.comment = Promise.promisify(SteemConnect.comment, { context: SteemConnect });
 

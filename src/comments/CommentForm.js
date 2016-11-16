@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import Icon from './../widgets/Icon';
+import Icon from '../widgets/Icon';
 import * as commentActions from './commentsActions';
 import Textarea from 'react-textarea-autosize';
 import keycode from 'keycode';
