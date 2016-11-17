@@ -1,7 +1,6 @@
 import * as appTypes from '../actions';
 import * as responsive from '../helpers/responsive';
 import * as postActions from '../post/postActions';
-import * as commentTypes from '../comments/commentsActions';
 
 const initialState = {
   isFetching: false,
@@ -70,7 +69,6 @@ export default (state = initialState, action) => {
       });
 
     case appTypes.HIDE_SIDEBAR:
-    case commentTypes.OPEN_COMMENTING_DRAFT:
       return {
         ...state,
         sidebarIsVisible: false,
