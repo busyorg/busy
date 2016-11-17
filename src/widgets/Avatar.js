@@ -22,7 +22,7 @@ const Avatar = ({
   return (
     <span className={`avatar ${size}`}>
       {reputation && <span className="reputation">{formatter.reputation(reputation)}</span>}
-      <img src={`https://img.busy.org/@${username}`} />
+      <img src={`https://img.steemconnect.com/@${username}`} />
     </span>
   );
 };

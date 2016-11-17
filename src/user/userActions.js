@@ -64,7 +64,7 @@ export const getMoreUserComments = (username, limit) => {
  * busy-img actions
  */
 
-const BUSY_IMG_HOST = process.env.BUSY_IMG_HOST || 'https://img.busy.org';
+const BUSY_IMG_HOST = process.env.BUSY_IMG_HOST || 'https://img.steemconnect.com';
 
 export const UPLOAD_FILE = 'UPLOAD_FILE';
 export const UPLOAD_FILE_START = 'UPLOAD_FILE_START';
