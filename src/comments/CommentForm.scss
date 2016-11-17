@@ -14,6 +14,12 @@
   &.withSidebar {
     width: calc(100% - 260px);
   }
+  &.mobile {
+    height: calc(100% - 55px);
+  }
+  &.disappear.mobile {
+    bottom: -100%;
+  }
 }
 
 .CommentForm__input {

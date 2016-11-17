@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { isSmall } from 'react-responsive-utils';
+import classNames from 'classnames';
 import Icon from '../widgets/Icon';
 import * as commentActions from './commentsActions';
 import Textarea from 'react-textarea-autosize';
@@ -66,19 +68,17 @@ export default class CommentForm extends Component {
   render() {
     const { comments, sidebarIsVisible, closeCommentingDraft, posts } = this.props;
 
-    let commentsClass = 'CommentForm';
-    if (!comments.isCommenting) {
-      commentsClass += ' disappear';
-    }
-    if (sidebarIsVisible) {
-      commentsClass += ' withSidebar';
-    }
+    const commentsClass = classNames({
+      'CommentForm': true,
+      'disappear': !comments.isCommenting,
+      'withSidebar': sidebarIsVisible,
+      'mobile': isSmall(),
+    });
 
     let parentTitle = '';
     if (comments.currentDraftId) {
       parentTitle = posts[comments.currentDraftId] ? posts[comments.currentDraftId].title : '';
     }
-
 
     return (
       <div className={commentsClass}>
