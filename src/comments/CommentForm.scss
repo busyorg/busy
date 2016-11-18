@@ -8,18 +8,25 @@
   background: $input-background;
 
   &.disappear {
-    display: none;
+    bottom: -210px;
   }
 
   &.withSidebar {
     width: calc(100% - 260px);
+  }
+  &.mobile {
+    height: calc(100% - 55px);
+  }
+  &.disappear.mobile {
+    bottom: -100%;
   }
 }
 
 .CommentForm__input {
   display: block;
   width: 100%;
-  max-height: 30vh;
+  font-size: 1.2em;
+  max-height: 150px;
   min-height: 6rem;
 }
 
