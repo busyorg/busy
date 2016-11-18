@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import steemConnect from 'steemconnect';
 import numeral from 'numeral';
-import action from '../actions';
 import { Link } from 'react-router';
+import action from '../actions';
+import LikeButton from './actionButtons/LikeButton';
 
 import Icon from '../widgets/Icon';
 
@@ -76,15 +77,11 @@ export default class PostActionButtons extends Component {
     return (
       <ul>
         <li>
-          <a
+          <LikeButton
             onClick={() => this.vote(voter, post.author, post.permlink, 10000)}
-            className={this.state.voted ? 'active' : ''}
-          >
-            <i className="icon icon-sm material-icons">thumb_up</i>
-          </a>
-          { ' ' }
-          { numeral(post.net_votes).format('0,0') }
-          <span className="hidden-xs"> Likes</span>
+            active={this.state.voted}
+            numberOfVotes={ numeral(post.net_votes).format('0,0') }
+          />
         </li>
         <li>
           <span className="hidden-xs">
