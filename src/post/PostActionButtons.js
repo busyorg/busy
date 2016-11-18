@@ -5,6 +5,7 @@ import numeral from 'numeral';
 import { Link } from 'react-router';
 import action from '../actions';
 import LikeButton from './actionButtons/LikeButton';
+import PayoutLabel from './actionButtons/PayoutLabel';
 
 import Icon from '../widgets/Icon';
 
@@ -84,13 +85,9 @@ export default class PostActionButtons extends Component {
           />
         </li>
         <li>
-          <span className="hidden-xs">
-            <i className="icon icon-sm material-icons">
-              attach_money
-            </i>
-            { ' ' }
-          </span>
-          { numeral(payout).format('$0,0.00') }
+          <PayoutLabel
+            value={numeral(payout).format('$0,0.00')}
+          />
         </li>
 
         <li>
