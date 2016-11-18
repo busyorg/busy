@@ -66,7 +66,7 @@ Using the power of the Steem blockchain, Busy is an **Open-Source** social netwo
 
 
 # WHO?
-Founded by @fabien and me, @ekitcho in July 2016, Busy is now a strong team with several core members, developers, advisors, ambassadors, donors, and so on.
+Founded by @fabien and @ekitcho in July 2016, Busy is now a strong team with several core members, developers, advisors, ambassadors, donors, and so on.
 
 **Busy Team**
 @ekitcho: CEO, Business Developer, working on the global vision, philosophy and strategy
@@ -146,6 +146,7 @@ Mobile app iOS/Android + Desktop app
 * Different layouts to read/browse the content and improved navigation
 
 ***
+
 This is the first Step of the Busy project. After the Social Network platform release, we want to develop a free marketplace for product and services and integrate different Apps in a healthy ecosystem. We have prepared every tool allowing developers to contribute to the Steem Blockchain and Busy project easily.
 ***
 
@@ -154,6 +155,7 @@ This is the first Step of the Busy project. After the Social Network platform re
 * SteemJs: Javascript Library API to easily interact with Steem blockchain
 * SteemAPI: API to the Steem blockchain
 * SteemScript:  Open JSON Standard for Trusted Workflows (JSON metadata)
+
 ***
 
 # HOW TO HELP OR CONTRIBUTE TO BUSY?
@@ -178,6 +180,9 @@ We're hiring Experienced and talented Designer (Branding), UI/UX Designers, Mark
 <img src="http://www.steemimg.com/images/2016/11/17/busymockupekitcho48b67.jpg">
 
 ***
+## Steem Blockchain
+Website : https://steem.io/
+GitHub : https://github.com/steemit/steem
 
 ## Steem.js
 GitHub: https://github.com/adcpm/steem<br/>
