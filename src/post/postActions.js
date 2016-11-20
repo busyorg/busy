@@ -43,7 +43,14 @@ export const likePost = (postId) => {
     dispatch({
       type: LIKE_POST,
       payload: {
-        promise: steemConnect.vote(voter, posts[postId].author, posts[postId].permlink, 10000),
+        promise: steemConnect.vote(voter, posts[postId].author, posts[postId].permlink, 10000).then(
+          (res) => {
+            dispatch(
+              getContent(posts[postId].author, posts[postId].permlink)
+            )
+            return res;
+          }
+        ),
       },
       meta: { postId, voter },
     });
