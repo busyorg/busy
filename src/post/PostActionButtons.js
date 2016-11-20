@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import steemConnect from 'steemconnect';
 import numeral from 'numeral';
 import { Link } from 'react-router';
-import action from '../actions';
 import LikeButton from './actionButtons/LikeButton';
 import PayoutLabel from './actionButtons/PayoutLabel';
 import * as postActions from './postActions';
-
 import Icon from '../widgets/Icon';
 
 @connect(
@@ -22,27 +19,6 @@ import Icon from '../widgets/Icon';
 export default class PostActionButtons extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      voted: false
-    };
-  }
-
-  componentWillMount() {
-    if (this.props.auth.isAuthenticated) {
-      this.props.post.active_votes.forEach((entry, key) => {
-        if (entry.voter === this.props.auth.user.name) {
-          this.setState({ voted: true });
-        }
-      });
-    }
-  }
-
-  vote(voter, author, permlink, weight) {
-    if (this.props.auth.isAuthenticated) {
-      steemConnect.vote(voter, author, permlink, weight, (err, result) => {
-        if (!err) this.setState({ voted: true });
-      });
-    }
   }
 
   handleCommentBoxClick(e) {
@@ -77,9 +53,9 @@ export default class PostActionButtons extends Component {
   }
 
   render() {
-    const voter = (this.props.auth.isAuthenticated) ? this.props.auth.user.name : '';
-    const post = this.props.post;
+    const { post } = this.props;
     const payout = parseFloat(post.total_payout_value) + parseFloat(post.total_pending_payout_value);
+
     return (
       <ul>
         <li>
