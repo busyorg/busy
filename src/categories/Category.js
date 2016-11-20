@@ -3,7 +3,7 @@ import moment from 'moment';
 import numeral from 'numeral';
 import { Link } from 'react-router';
 
-import Icon from '../../widgets/Icon';
+import Icon from '../widgets/Icon';
 
 export default class Category extends Component {
   render() {
