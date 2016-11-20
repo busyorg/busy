@@ -10,7 +10,7 @@ const Error404 = () => {
       <Header />
       <div className="container">
         <center className="ptl">
-          <Icon xl name="info" />
+          <Icon name="info" xl />
           <h1>Page Not Found</h1>
           <h2>Oops! Looks like you followed a bad link.</h2>
           <p>If you think this is a problem with Busy,
