@@ -1,7 +1,7 @@
 import React from 'react';
 import Icon from '../../widgets/Icon';
 
-const LikeButton = ({onClick, active, numberOfVotes}) => {
+const LikeButton = ({onClick, onTextClick, active, numberOfVotes}) => {
   return (
     <div>
       <a
@@ -11,8 +11,13 @@ const LikeButton = ({onClick, active, numberOfVotes}) => {
         <Icon name="thumb_up" small />
       </a>
       { ' ' }
-      { numberOfVotes }
-      <span className="hidden-xs"> Likes</span>
+      <a
+        onClick={onTextClick}
+        className={active ? 'active' : ''}
+      >
+        { numberOfVotes }
+        <span className="hidden-xs"> Likes</span>
+      </a>
     </div>
   );
 };

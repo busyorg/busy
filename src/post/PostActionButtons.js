@@ -43,6 +43,11 @@ export default class PostActionButtons extends Component {
     this.props.onShowCommentsRequest();
   }
 
+  handleLikesTextClick(e) {
+    e.stopPropagation();
+    this.props.onShowLikesRequest();
+  }
+
   handleReblog() {
     const { auth, post, reblog, notify } = this.props;
 
@@ -63,6 +68,7 @@ export default class PostActionButtons extends Component {
         <li>
           <LikeButton
             onClick={isPostLiked ? this.props.unlikePost : this.props.likePost}
+            onTextClick={(e) => this.handleLikesTextClick(e)}
             active={isPostLiked}
             numberOfVotes={ numeral(post.net_votes).format('0,0') }
           />
