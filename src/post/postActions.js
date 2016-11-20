@@ -47,7 +47,7 @@ export const likePost = (postId) => {
           (res) => {
             dispatch(
               getContent(posts[postId].author, posts[postId].permlink)
-            )
+            );
             return res;
           }
         ),
