@@ -16,7 +16,8 @@ import Icon from '../widgets/Icon';
   dispatch => ({})
 )
 export default class PostActionButtons extends Component {
-  constructor() {
+  constructor(props) {
+    super(props);
     this.state = {
       voted: false
     };
