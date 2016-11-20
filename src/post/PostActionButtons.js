@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import steemConnect from 'steemconnect';
 import numeral from 'numeral';
 import { Link } from 'react-router';
 import action from '../actions';
 import LikeButton from './actionButtons/LikeButton';
 import PayoutLabel from './actionButtons/PayoutLabel';
+import * as postActions from './postActions';
 
 import Icon from '../widgets/Icon';
 
@@ -13,7 +15,9 @@ import Icon from '../widgets/Icon';
   state => ({
     auth: state.auth,
   }),
-  dispatch => ({})
+  (dispatch, ownProps) => bindActionCreators({
+    likePost: () => postActions.likePost(ownProps.post.id),
+  }, dispatch)
 )
 export default class PostActionButtons extends Component {
   constructor(props) {
@@ -80,7 +84,7 @@ export default class PostActionButtons extends Component {
       <ul>
         <li>
           <LikeButton
-            onClick={() => this.vote(voter, post.author, post.permlink, 10000)}
+            onClick={this.props.likePost}
             active={this.state.voted}
             numberOfVotes={ numeral(post.net_votes).format('0,0') }
           />
