@@ -14,6 +14,7 @@ import Icon from '../widgets/Icon';
   }),
   (dispatch, ownProps) => bindActionCreators({
     likePost: () => postActions.likePost(ownProps.post.id),
+    unlikePost: () => postActions.likePost(ownProps.post.id, -10000),
   }, dispatch)
 )
 export default class PostActionButtons extends Component {
@@ -61,7 +62,7 @@ export default class PostActionButtons extends Component {
       <ul>
         <li>
           <LikeButton
-            onClick={this.props.likePost}
+            onClick={isPostLiked ? this.props.unlikePost : this.props.likePost}
             active={isPostLiked}
             numberOfVotes={ numeral(post.net_votes).format('0,0') }
           />

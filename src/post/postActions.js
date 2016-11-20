@@ -30,7 +30,7 @@ export const getContent = (postAuthor, postPermlink) => {
   };
 };
 
-export const likePost = (postId) => {
+export const likePost = (postId, weight = 10000) => {
   return (dispatch, getState) => {
     const { auth, posts } = getState();
 
@@ -43,7 +43,7 @@ export const likePost = (postId) => {
     dispatch({
       type: LIKE_POST,
       payload: {
-        promise: steemConnect.vote(voter, posts[postId].author, posts[postId].permlink, 10000).then(
+        promise: steemConnect.vote(voter, posts[postId].author, posts[postId].permlink, weight).then(
           (res) => {
             dispatch(
               getContent(posts[postId].author, posts[postId].permlink)
@@ -52,7 +52,7 @@ export const likePost = (postId) => {
           }
         ),
       },
-      meta: { postId, voter },
+      meta: { postId, voter, weight },
     });
   }
 };
