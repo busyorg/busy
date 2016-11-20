@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
+import Avatar from '../widgets/Avatar';
 import './LikesList.scss';
 
 export default class LikesList extends Component {
@@ -24,7 +25,9 @@ export default class LikesList extends Component {
       <div className="LikesList">
         {
           activeVotes.slice(0, this.state.show).map(vote =>
-            <div>
+            <div className="LikesList__item">
+              <Avatar xs username={vote.voter} />
+              { ' ' }
               <Link to={`/@${vote.voter}`}>
                 @{vote.voter}
               </Link>
