@@ -53,15 +53,16 @@ export default class PostActionButtons extends Component {
   }
 
   render() {
-    const { post } = this.props;
+    const { post, auth } = this.props;
     const payout = parseFloat(post.total_payout_value) + parseFloat(post.total_pending_payout_value);
+    const isPostLiked = auth.isAuthenticated && post.active_votes.some(vote => vote.voter === auth.user.name);
 
     return (
       <ul>
         <li>
           <LikeButton
             onClick={this.props.likePost}
-            active={this.state.voted}
+            active={isPostLiked}
             numberOfVotes={ numeral(post.net_votes).format('0,0') }
           />
         </li>
