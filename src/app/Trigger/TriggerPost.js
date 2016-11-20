@@ -1,12 +1,13 @@
 import React from 'react';
-import { Link } from 'react-router';
 import Icon from '../../widgets/Icon';
 
 const TriggerPost = ({ reblog, isReblogged, openCommentingDraft }) => {
   return (
     <div className="actions">
       <div className="triggers">
-        <a className="trigger"><i className="icon icon-md material-icons">thumb_up</i></a>
+        <a className="trigger">
+          <Icon name="thumb_up" />
+        </a>
         <a
           className="trigger"
           onClick={e => {

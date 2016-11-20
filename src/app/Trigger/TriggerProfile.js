@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router';
 import classNames from 'classnames';
 
+import Icon from '../../widgets/Icon';
+
 const TriggerProfile = React.createClass({
   render() {
     const {
@@ -14,14 +16,13 @@ const TriggerProfile = React.createClass({
     return (
       <div className="actions">
         <div className="triggers">
-
-          { hasFollow &&
+          {hasFollow &&
             <a className={classNames('trigger', { disabled: followingIsFetching })} onClick={onClickFollow}>
-              <i className="icon material-icons">{isFollowing ? 'person_outline' : 'person_add'}</i>
-            </a>
-          }
-
-          <Link to={`/messages/@${this.props.username}`} className="trigger"><i className="icon icon-md material-icons">chat_bubble_outline</i></Link>
+              <Icon name={isFollowing ? 'person_outline' : 'person_add'} />
+            </a>}
+          <Link to={`/messages/@${this.props.username}`} className="trigger">
+            <Icon name="chat_bubble_outline" />
+          </Link>
         </div>
       </div>
     );
