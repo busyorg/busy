@@ -45,6 +45,7 @@ export const likePost = (postId) => {
       payload: {
         promise: steemConnect.vote(voter, posts[postId].author, posts[postId].permlink, 10000),
       },
+      meta: { postId, voter },
     });
   }
 };
