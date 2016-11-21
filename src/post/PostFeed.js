@@ -67,7 +67,7 @@ export default class PostFeed extends Component {
           <div className="cell cell-top">
             <ul>
               <li>
-                <Icon name="repeat" s />
+                <Icon name="repeat" sm />
                 { ' Reblogged by ' }
                 <Link to={`/@${post.first_reblogged_by}`}>@{post.first_reblogged_by}</Link>
               </li>

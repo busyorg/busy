@@ -18,6 +18,7 @@ import { Trending, Hot, Votes, Responses, Active, Created, Cashout } from './fee
 import PostSingle from './post/PostSingle';
 import Bookmarks from './bookmarks/Bookmarks';
 import Login from './auth/Login';
+import Error404 from './statics/Error404';
 
 var MessagesUser = require('./messages/MessagesUser').default,
   MessagesCategory = require('./messages/MessagesCategory').default,
@@ -56,6 +57,8 @@ export default (
       <Route path="/@:name" component={Profile} />
     </Route>
 
-    <Route path="/:category/@:author/:permlink" component={ PostSingle } />
+    <Route path="/:category/@:author/:permlink" component={PostSingle} />
+
+    <Route path="/*" component={Error404} />
   </Route>
 );

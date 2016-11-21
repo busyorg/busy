@@ -1,71 +1,33 @@
 import React, { Component, PropTypes } from 'react';
-import size from 'lodash/size';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { Link } from 'react-router';
 import { FormattedMessage } from 'react-intl';
+import formatter from 'steem/lib/formatter';
 import steemdb from 'steemdb';
-import Avatar from '../widgets/Avatar';
+import _ from 'lodash';
+import numeral from 'numeral';
 
+import api from '../steemAPI';
+import { hideSidebar } from '../actions';
+import Loading from '../widgets/Loading';
+import Icon from '../widgets/Icon';
+import Avatar from '../widgets/Avatar';
+import SidebarTabs from './Sidebar/SidebarTabs';
 import SidebarMessages from './Sidebar/SidebarMessages';
 
-let ReactRedux = require('react-redux'),
-  actions = require('../actions'),
-  formatter = require('steem/lib/formatter'),
-  _ = require('lodash'),
-  numeral = require('numeral'),
-  api = require('../steemAPI'),
-  Loading = require('../widgets/Loading'),
-  Link = require('react-router').Link;
+@connect(
+  state => ({
+    app: state.app,
+    auth: state.auth,
+    messages: state.messages,
+  }),
+  dispatch => bindActionCreators({
+    hideSidebar: hideSidebar,
+  }, dispatch)
+)
 
-
-class SidebarIcons extends Component {
-  renderUnread() {
-    const nUnreadMessages = size(this.props.messages.unreadMessages);
-
-    if (!nUnreadMessages) return null;
-
-    return (
-      <div
-        className="SidebarIcons__unreadMessagesCount"
-        style={{
-          position: 'absolute',
-          top: '0',
-          right: '0',
-          lineHeight: '19px',
-          height: '20px',
-          width: '20px',
-          borderRadius: '100%',
-          backgroundColor: 'white',
-          color: 'black'
-        }}
-      >
-        {nUnreadMessages}
-      </div>
-    );
-  }
-
-  render() {
-    if (!this.props.auth.isAuthenticated) {
-      return null;
-    }
-
-    return (
-      <ul className="list-selector">
-        <li><a onClick={() => this.props.onClickMenu({ menu: 'public' })} className="active"><i className="icon icon-md material-icons">public</i></a></li>
-
-        <li style={{ position: 'relative' }}>
-          <a onClick={() => this.props.onClickMenu({ menu: 'feed' })} className="active">
-            {this.renderUnread()}
-            <i className="icon icon-md material-icons">chat_bubble_outline</i>
-          </a>
-        </li>
-
-        <li><a onClick={() => this.props.onClickMenu({ menu: 'write' })} className="active"><i className="icon icon-md material-icons">create</i></a></li>
-        <li><a onClick={() => this.props.onClickMenu({ menu: 'wallet' })} className="active"><i className="icon icon-md material-icons">account_balance_wallet</i></a></li>
-      </ul>
-    );
-  }
-}
-
-class Sidebar extends Component {
+export default class Sidebar extends Component {
   constructor(props) {
     super(props);
 
@@ -139,7 +101,7 @@ class Sidebar extends Component {
       <nav className="sidebar">
         <div className="sidebar-header">
           <a className="hide-sidebar" onClick={() => this.props.hideSidebar()}>
-            <i className="icon icon-md icon-menu material-icons">arrow_back</i>
+            <Icon name="arrow_back" className="icon-menu" />
           </a>
           <div className="me">
             {this.props.auth.isAuthenticated ?
@@ -149,19 +111,21 @@ class Sidebar extends Component {
                 </Link>
                 <span style={{ clear: 'both', display: 'block' }}>
                   @{user.name} <a onClick={() => this.setState({ menu: 'settings' })}>
-                    <i className="icon icon-xs material-icons">settings</i>
+                    <Icon name="settings" xs />
                   </a>
                 </span>
               </div> :
               <div className="log">
                 {this.props.auth.isFetching ?
                   <Loading color="white" /> :
-                  <a href={`${process.env.STEEMCONNECT_HOST}/authorize/@busy.app?redirect_url=${process.env.STEEMCONNECT_REDIRECT_URL}`}><i className="icon icon-lg material-icons pam">lock_outline</i></a>}
+                  <a href={`${process.env.STEEMCONNECT_HOST}/authorize/@busy.app?redirect_url=${process.env.STEEMCONNECT_REDIRECT_URL}`}>
+                    <Icon name="lock_outline" lg />
+                  </a>}
               </div>}
           </div>
         </div>
 
-        <SidebarIcons
+        <SidebarTabs
           onClickMenu={this.onClickMenu}
           auth={this.props.auth}
           messages={this.props.messages}
@@ -173,19 +137,19 @@ class Sidebar extends Component {
             <ul>
               <li className="title">
                 <Link to="/#profile">
-                  <i className="icon icon-md material-icons">perm_identity</i>{' '}
+                  <Icon name="perm_identity" />{' '}
                   <FormattedMessage id="profile" />
                 </Link>
               </li>
               <li className="title">
                 <Link to="/settings">
-                  <i className="icon icon-md material-icons">settings</i>{' '}
+                  <Icon name="settings" />{' '}
                   <FormattedMessage id="settings" />
                 </Link>
               </li>
               <li className="title">
                 <a href={`${process.env.STEEMCONNECT_HOST}/logout`}>
-                  <i className="icon icon-md material-icons">lock_open</i>{' '}
+                  <Icon name="lock_open" />{' '}
                   <FormattedMessage id="logout" />
                 </a>
               </li>
@@ -209,29 +173,27 @@ class Sidebar extends Component {
             <ul>
               <li className="title">
                 <Link to="/write">
-                  <i className="icon icon-md material-icons">add</i>{' '}
+                  <Icon name="add" />{' '}
                   <FormattedMessage id="write" />
                 </Link>
               </li>
               <li className="title">
                 <Link to="/#drafts">
-                  <i className="icon icon-md material-icons">library_books</i>{' '}
+                  <Icon name="library_books" />{' '}
                   <FormattedMessage id="drafts" />
                 </Link>
               </li>
               <li className="title">
                 <Link to="/#files">
-                  <i className="icon icon-md material-icons">attach_file</i>{' '}
+                  <Icon name="attach_file" />{' '}
                   <FormattedMessage id="files" />
                 </Link>
               </li>
               <li className="title">
-
                 <Link to="/bookmarks">
-                  <i className="icon icon-md material-icons">collections_bookmark</i>{' '}
+                  <Icon name="collections_bookmark" />{' '}
                   <FormattedMessage id="bookmarks" />
                 </Link>
-
               </li>
             </ul>}
           {this.props.auth.isAuthenticated && _.has(this.state.feedPrice, 'base') && this.state.menu === 'wallet' &&
@@ -247,19 +209,3 @@ class Sidebar extends Component {
     );
   }
 }
-
-const mapStateToProps = function (state) {
-  return {
-    app: state.app,
-    auth: state.auth,
-    messages: state.messages,
-  };
-};
-
-const mapDispatchToProps = function (dispatch) {
-  return {
-    hideSidebar() { dispatch(actions.hideSidebar()); }
-  };
-};
-
-module.exports = ReactRedux.connect(mapStateToProps, mapDispatchToProps)(Sidebar);
