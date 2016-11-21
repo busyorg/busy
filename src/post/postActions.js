@@ -45,8 +45,12 @@ export const likePost = (postId, weight = 10000) => {
       payload: {
         promise: steemConnect.vote(voter, posts[postId].author, posts[postId].permlink, weight).then(
           (res) => {
-            dispatch(
-              getContent(posts[postId].author, posts[postId].permlink)
+            // Delay to make sure you get the latest data (unknown issue with API)
+            setTimeout(() =>
+              dispatch(
+                getContent(posts[postId].author, posts[postId].permlink)
+              ),
+              1000
             );
             return res;
           }
