@@ -11,9 +11,11 @@ const LikeButton = ({onClick, onTextClick, active, numberOfVotes}) => {
         <Icon name="thumb_up" small />
       </a>
       { ' ' }
+
       <a
         onClick={onTextClick}
         className={active ? 'active' : ''}
+        style={parseInt(numberOfVotes) === 0 ? {cursor: 'default'} : {} }
       >
         { numberOfVotes }
         <span className="hidden-xs"> Likes</span>
