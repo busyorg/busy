@@ -3,12 +3,10 @@
     left: -260px
     box-shadow: none !important
 
-
 nav.sidebar
     background-color: #3756a0
     display: flex
     flex-direction: column
-    z-index: 1
     font-family: $font-alt
     font-size: 15px
     width: 260px
@@ -18,8 +16,10 @@ nav.sidebar
     bottom: 0
     left: 0
     color: #fff
+
     a
         color: #FFFFFF
+
     i
         color: #FFFFFF
 
@@ -27,6 +27,7 @@ nav.sidebar
         text-align: center
         font-size: 20px
         height: 112px
+
         .me
             overflow: hidden
             padding: 20px
@@ -46,26 +47,33 @@ nav.sidebar
             width: 25%
             float: left
             text-align: center
+
             a.active
                 opacity: 1 !important
+
             span, a
                 display: block
                 height: 56px
                 line-height: 52px
                 opacity: 0.6
+
     .sidebar-content
         flex-grow: 1
         overflow-y: auto
+
         .tags
           padding: 10px 0
+
           li a, .menu-row
             display: block
             line-height: 1.8em
             font-size: 16px
             margin: 0 20px
             opacity: 0.6
+
             &:hover
               opacity: 1
+
         ul
             font-family: $font-primary
             clear: both
@@ -94,10 +102,11 @@ nav.sidebar
         right: 0
         top: 0
 
-
 @media (max-width: 992px)
+
   .main-panel
     width: 100% !important
+
   .sidebar
     background-color: $background-color
     z-index: 999 !important
