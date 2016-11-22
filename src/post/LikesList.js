@@ -20,7 +20,7 @@ export default class LikesList extends Component {
   render() {
     const { activeVotes } = this.props;
     const hasMore = activeVotes.length > this.state.show;
-
+console.log(activeVotes);
     return (
       <div className="LikesList">
         {
@@ -31,6 +31,11 @@ export default class LikesList extends Component {
               <Link to={`/@${vote.voter}`}>
                 @{vote.voter}
               </Link>
+              { ' ' }
+              {vote.percent < 0
+                ? 'Disliked'
+                : 'Liked'
+              }
             </div>
           )
         }
