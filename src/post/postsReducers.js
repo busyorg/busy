@@ -8,18 +8,16 @@ const postItem = (state = {}, action) => {
       let optimisticActiveVotes = [];
       let optimisticNetVotes = 0;
 
-      if (action.meta.weight > 0) {
-        optimisticActiveVotes = [
-          ...state.active_votes,
-          {
-            voter: action.meta.voter
-          },
-        ];
-        optimisticNetVotes = parseInt(state.net_votes) + 1;
-      } else {
-        optimisticActiveVotes = state.active_votes.filter(vote => vote.voter !== action.meta.voter);
-        optimisticNetVotes = parseInt(state.net_votes) - 1;
-      }
+      optimisticActiveVotes = [
+        ...state.active_votes.filter(vote => vote.voter !== action.meta.voter),
+        {
+          voter: action.meta.voter,
+          percent: action.meta.weight,
+        },
+      ];
+      optimisticNetVotes = action.meta.weight > 0
+        ? parseInt(state.net_votes) + 1
+        : parseInt(state.net_votes) - 1;
 
       return {
         ...state,
