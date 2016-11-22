@@ -10,12 +10,13 @@ import * as reblogActions from '../app/reblog/reblogActions';
 import * as commentsActions from '../comments/commentsActions';
 
 @connect(
-  ({ posts, app, reblog }) => ({
+  ({ posts, app, reblog, auth }) => ({
     content: app.lastPostId ? posts[app.lastPostId] : {},
     isPostModalOpen: app.isPostModalOpen,
     lastPostId: app.lastPostId,
     sidebarIsVisible: app.sidebarIsVisible,
     reblogList: reblog,
+    auth,
   }),
   (dispatch, ownProps) => bindActionCreators({
     reblog: reblogActions.reblog,
