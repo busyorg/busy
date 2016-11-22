@@ -28,7 +28,7 @@ import * as commentsActions from '../comments/commentsActions';
     openCommentingDraft: commentsActions.openCommentingDraft,
     closeCommentingDraft: commentsActions.closeCommentingDraft,
     likePost: (id) => postActions.likePost(id),
-    unlikePost: (id) => postActions.likePost(id, -10000),
+    unlikePost: (id) => postActions.likePost(id, 0),
   }, dispatch)
 )
 export default class PostSingle extends React.Component {
