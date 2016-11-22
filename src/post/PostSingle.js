@@ -27,8 +27,8 @@ import * as commentsActions from '../comments/commentsActions';
     ),
     openCommentingDraft: commentsActions.openCommentingDraft,
     closeCommentingDraft: commentsActions.closeCommentingDraft,
-    likePost: () => postActions.likePost(ownProps.content.id),
-    unlikePost: () => postActions.likePost(ownProps.content.id, -10000),
+    likePost: (id) => postActions.likePost(id),
+    unlikePost: (id) => postActions.likePost(id, -10000),
   }, dispatch)
 )
 export default class PostSingle extends React.Component {
@@ -72,9 +72,9 @@ export default class PostSingle extends React.Component {
             reblog={() => reblog(content.id)}
             isReblogged={reblogList.includes(content.id)}
             openCommentingDraft={openCommentingDraft}
-            likePost={this.props.likePost}
-            unlikePost={this.props.unlikePost}
-            isPostiked={isPostLiked}
+            likePost={() => this.props.likePost(content.id)}
+            unlikePost={() => this.props.unlikePost(content.id)}
+            isPostLiked={isPostLiked}
           />
         }
 
@@ -84,8 +84,9 @@ export default class PostSingle extends React.Component {
             reblog={() => reblog(content.id)}
             isReblogged={reblogList.includes(content.id)}
             openCommentingDraft={openCommentingDraft}
-            likePost={this.props.likePost}
-            unlikePost={this.props.unlikePost}
+            likePost={() => this.props.likePost(content.id)}
+            unlikePost={() => this.props.unlikePost(content.id)}
+            isPostLiked={isPostLiked}
           />
         }
       </div>
