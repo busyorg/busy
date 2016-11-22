@@ -129,6 +129,7 @@ export default class Sidebar extends Component {
 
         <SidebarTabs
           onClickMenu={this.onClickMenu}
+          menu={this.state.menu}
           auth={this.props.auth}
           messages={this.props.messages}
         />
