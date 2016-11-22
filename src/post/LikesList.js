@@ -25,7 +25,7 @@ export default class LikesList extends Component {
       <div className="LikesList">
         {
           activeVotes.slice(0, this.state.show).map(vote =>
-            <div className="LikesList__item">
+            <div className="LikesList__item" key={vote.voter}>
               <Avatar xs username={vote.voter} />
               { ' ' }
               <Link to={`/@${vote.voter}`}>
