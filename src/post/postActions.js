@@ -1,5 +1,6 @@
 import steemConnect from 'steemconnect';
 import Promise from 'bluebird';
+import { omit } from 'lodash/object';
 
 export const GET_CONTENT = 'GET_CONTENT';
 export const GET_CONTENT_START = 'GET_CONTENT_START';
@@ -11,10 +12,12 @@ export const LIKE_POST_START = '@post/LIKE_POST_START';
 export const LIKE_POST_SUCCESS = '@post/LIKE_POST_SUCCESS';
 export const LIKE_POST_ERROR = '@post/LIKE_POST_ERROR';
 
+import steem from 'steem';
+
 steemConnect.vote = Promise.promisify(steemConnect.vote, { context: steemConnect });
 
 
-export const getContent = (postAuthor, postPermlink) => {
+export const getContent = (postAuthor, postPermlink, omitAttributes = []) => {
   return (dispatch, getState, { steemAPI }) => {
     if (!postAuthor || !postPermlink) {
       return;
@@ -23,7 +26,9 @@ export const getContent = (postAuthor, postPermlink) => {
     dispatch({
       type: GET_CONTENT,
       payload: {
-        promise: steemAPI.getContentAsync(postAuthor, postPermlink),
+        promise: steemAPI.getContentAsync(postAuthor, postPermlink).then(
+          postData => omit(postData, omitAttributes)
+        ),
       },
     });
 
@@ -48,7 +53,7 @@ export const likePost = (postId, weight = 10000) => {
             // Delay to make sure you get the latest data (unknown issue with API)
             setTimeout(() =>
               dispatch(
-                getContent(posts[postId].author, posts[postId].permlink)
+                getContent(posts[postId].author, posts[postId].permlink, ['net_votes', 'active_votes'])
               ),
               1000
             );

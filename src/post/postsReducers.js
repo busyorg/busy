@@ -48,7 +48,8 @@ const posts = (state = {}, action) => {
       return {
         ...state,
         [action.payload.id]: {
-          ...action.payload
+          ...state[action.payload.id],
+          ...action.payload,
         },
       };
     case postsActions.LIKE_POST_START:
