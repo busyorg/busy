@@ -51,7 +51,7 @@ export default class CommentItem extends Component {
           <BodyShort body={comment.body} />
           { (comment.children > 0 && !this.state.showReplies) &&
             <a tabIndex="0" onClick={this.toggleShowReplies}>
-              <Icon name="reply" s />View {comment.children}{' '}
+              <Icon name="reply" sm />View {comment.children}{' '}
               {comment.children > 1 ? 'replies' : 'reply'}
             </a>
           }

@@ -3,8 +3,6 @@ import formSerialize from 'form-serialize';
 import kebabCase from 'lodash/kebabCase';
 import { Link, browserHistory } from 'react-router';
 
-import '../../fonts/Karla.scss';
-import '../../fonts/MaterialIcons.scss';
 import './Write.scss';
 import Header from '../../app/Header';
 import PostEditor from './PostEditor';

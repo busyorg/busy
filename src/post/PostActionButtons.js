@@ -95,7 +95,7 @@ export default class PostActionButtons extends Component {
             onClick={() => this.handleReblog()}
             className={this.props.isReblogged ? 'active' : '' }
           >
-            <Icon small name="repeat" />
+            <Icon name="repeat" sm />
             <span className="hidden-xs">
               { ' ' }
               Reblog

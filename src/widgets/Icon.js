@@ -1,29 +1,26 @@
 import React from 'react';
 
+import '../fonts/MaterialIcons.scss';
+import './Icon.sass';
+
 const Icon = ({
   name,
   style,
   className = '',
-  n = false,
   xs = false,
-  s = false,
-  m = true,
-  l = false,
-  x = false,
+  sm = false,
+  md = false,
+  lg = false,
   xl = false,
-  xxl = false,
 }) => {
-  let size = '';
-  size = (n) ? 'icon-n' : size;
+  let size = 'icon-md';
   size = (xs) ? 'icon-xs' : size;
-  size = (s) ? 'icon-s' : size;
-  size = (m) ? 'icon-m' : size;
-  size = (l) ? 'icon-l' : size;
-  size = (x) ? 'icon-x' : size;
+  size = (sm) ? 'icon-sm' : size;
+  size = (md) ? 'icon-md' : size;
+  size = (lg) ? 'icon-lg' : size;
   size = (xl) ? 'icon-xl' : size;
-  size = (xxl) ? 'icon-xxl' : size;
   return (
-    <i className={`icon ${size} material-icons ${className}`} style={style}>{ name }</i>
+    <i className={`material-icons icon ${size} ${className}`} style={style}>{ name }</i>
   );
 };
 
