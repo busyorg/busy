@@ -20,7 +20,7 @@ export default class LikesList extends Component {
   render() {
     const { activeVotes } = this.props;
     const hasMore = activeVotes.length > this.state.show;
-console.log(activeVotes);
+
     return (
       <div className="LikesList">
         {
