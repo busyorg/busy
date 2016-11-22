@@ -52,7 +52,7 @@ export default class PostSingle extends React.Component {
     const isPostLiked =
       auth.isAuthenticated &&
       content.active_votes &&
-      content.active_votes.some(vote => vote.voter === auth.user.name);
+      content.active_votes.some(vote => vote.voter === auth.user.name && vote.percent > 0);
 
     const openCommentingDraft = () => this.props.openCommentingDraft({
       parentAuthor: content.author,
