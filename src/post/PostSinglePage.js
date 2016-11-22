@@ -19,6 +19,9 @@ export default class PostSinglePage extends React.Component {
           reblog={reblog}
           isReblogged={isReblogged}
           openCommentingDraft={openCommentingDraft}
+          likePost={this.props.likePost}
+          unlikePost={this.props.unlikePost}
+          isPostLiked={this.props.isPostLiked}
         />
         { content.author ?
           <PostSingleContent content={content} /> : <Loading />
