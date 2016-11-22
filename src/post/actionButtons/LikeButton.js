@@ -12,14 +12,22 @@ const LikeButton = ({onClick, onTextClick, active, numberOfVotes}) => {
       </a>
       { ' ' }
 
-      <a
-        onClick={onTextClick}
-        className={active ? 'active' : ''}
-        style={parseInt(numberOfVotes) === 0 ? {cursor: 'default'} : {} }
-      >
-        { numberOfVotes }
-        <span className="hidden-xs"> Likes</span>
-      </a>
+      {
+        parseInt(numberOfVotes) > 0 ?
+          <a
+            onClick={onTextClick}
+            className={active ? 'active' : ''}
+          >
+            { numberOfVotes }
+            <span className="hidden-xs"> Likes</span>
+          </a>
+        :
+          <span>
+            { numberOfVotes }
+            <span className="hidden-xs"> Likes</span>
+          </span>
+      }
+
     </div>
   );
 };
