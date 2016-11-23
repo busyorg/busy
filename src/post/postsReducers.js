@@ -5,13 +5,22 @@ import * as postsActions from './postActions';
 const postItem = (state = {}, action) => {
   switch (action.type) {
     case postsActions.LIKE_POST_START:
-      const optimisticActiveVotes = [
-        ...state.active_votes.filter(vote => vote.voter !== action.meta.voter),
-        {
-          voter: action.meta.voter,
-          percent: action.meta.weight,
-        },
-      ];
+      let optimisticActiveVotes;
+
+      if (action.meta.weight !== 0) {
+        optimisticActiveVotes = [
+          ...state.active_votes.filter(vote => vote.voter !== action.meta.voter),
+          {
+            voter: action.meta.voter,
+            percent: action.meta.weight,
+          }
+        ];
+      } else {
+        optimisticActiveVotes = state.active_votes.filter(
+          vote => vote.voter !== action.meta.voter
+        );
+      }
+
       const optimisticNetVotes = action.meta.weight > 0
         ? parseInt(state.net_votes) + 1
         : parseInt(state.net_votes) - 1;
