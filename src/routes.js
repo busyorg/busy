@@ -17,7 +17,6 @@ import Categories from './categories/Categories';
 import { Trending, Hot, Votes, Responses, Active, Created, Cashout } from './feed/PathMatching';
 import PostSingle from './post/PostSingle';
 import Bookmarks from './bookmarks/Bookmarks';
-import Login from './auth/Login';
 import Error404 from './statics/Error404';
 
 var MessagesUser = require('./messages/MessagesUser').default,
@@ -27,10 +26,7 @@ var MessagesUser = require('./messages/MessagesUser').default,
 export default (
   <Route path="/" component={Wrapper}>
     <IndexRoute component={Page} />
-    <Route path="/login" component={Login} />
-
     <Route path="/settings" component={Settings} />
-
     <Route path="/tags" component={Categories} />
     <Route path="/trending(/:category)" component={Trending} />
     <Route path="/hot(/:category)" component={Hot} />
@@ -40,12 +36,9 @@ export default (
     <Route path="/responses(/:category)" component={Responses} />
     <Route path="/votes(/:category)" component={Votes} />
     <Route path="/bookmarks" component={Bookmarks} />
-
     <Route path="/write" component={Write} />
-
     <Route path="/messages/@:username" component={MessagesUser} />
     <Route path="/messages/:category" component={MessagesCategory} />
-
     <Route component={User}>
       <Route path="/profile/edit" component={Edit} />
       <Route path="/@:name/posts" component={Posts} />
@@ -56,9 +49,7 @@ export default (
       <Route path="/@:name/transfers" component={Transfers} />
       <Route path="/@:name" component={Profile} />
     </Route>
-
     <Route path="/:category/@:author/:permlink" component={PostSingle} />
-
     <Route path="/*" component={Error404} />
   </Route>
 );

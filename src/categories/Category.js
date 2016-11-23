@@ -10,7 +10,7 @@ export default class Category extends Component {
     const category = this.props.category;
     return (
       <div className="page">
-        <div className="block">
+        <center className="my-3">
           <h1>
             <Link to={`/trending/${category.name}`}>#{category.name}</Link>{' '}
             <Icon name="star_border" lg />
@@ -20,7 +20,7 @@ export default class Category extends Component {
             <Icon name="attach_money" lg /> {numeral(category.total_payouts).format('$0,0')}
           </h2>
           <p>Last update {moment(category.last_update).fromNow()}</p>
-        </div>
+        </center>
       </div>
     );
   }

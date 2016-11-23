@@ -16,6 +16,8 @@ import Avatar from '../widgets/Avatar';
 import SidebarTabs from './Sidebar/SidebarTabs';
 import SidebarMessages from './Sidebar/SidebarMessages';
 
+import './Sidebar.sass';
+
 @connect(
   state => ({
     app: state.app,
@@ -127,6 +129,7 @@ export default class Sidebar extends Component {
 
         <SidebarTabs
           onClickMenu={this.onClickMenu}
+          menu={this.state.menu}
           auth={this.props.auth}
           messages={this.props.messages}
         />

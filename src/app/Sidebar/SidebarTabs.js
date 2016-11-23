@@ -39,27 +39,39 @@ export default class SidebarTabs extends Component {
     if (!this.props.auth.isAuthenticated) {
       return null;
     }
-
+    const menu = this.props.menu;
     return (
       <ul className="list-selector">
         <li>
-          <a onClick={() => this.props.onClickMenu({ menu: 'public' })} className="active">
+          <a
+            onClick={() => this.props.onClickMenu({ menu: 'public' })}
+            className={menu === 'public' && 'active'}
+          >
             <Icon name="public" />
           </a>
         </li>
         <li style={{ position: 'relative' }}>
-          <a onClick={() => this.props.onClickMenu({ menu: 'feed' })} className="active">
+          <a
+            onClick={() => this.props.onClickMenu({ menu: 'feed' })}
+            className={menu === 'feed' && 'active'}
+          >
             {this.renderUnread()}
             <Icon name="chat_bubble_outline" />
           </a>
         </li>
         <li>
-          <a onClick={() => this.props.onClickMenu({ menu: 'write' })} className="active">
+          <a
+            onClick={() => this.props.onClickMenu({ menu: 'write' })}
+            className={menu === 'write' && 'active'}
+          >
             <Icon name="create" />
           </a>
         </li>
         <li>
-          <a onClick={() => this.props.onClickMenu({ menu: 'wallet' })} className="active">
+          <a
+            onClick={() => this.props.onClickMenu({ menu: 'wallet' })}
+            className={menu === 'wallet' && 'active'}
+          >
             <Icon name="account_balance_wallet" />
           </a>
         </li>

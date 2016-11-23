@@ -1,14 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router';
+
+import Icon from '../widgets/Icon';
 import Avatar from '../widgets/Avatar';
+
+import './UserList.sass';
 
 export default class UserList extends React.Component {
   render() {
     return (
       <div className="UserList pvm">
-          <Avatar md username={this.props.username} className="mrm" />
-          <Link to={`/@${this.props.username}`}>@{this.props.username}</Link>
-          <i className="icon icon-md icon-menu material-icons">person_add</i>
+        <Avatar md username={this.props.username} className="mrm" />
+        <Link to={`/@${this.props.username}`}>@{this.props.username}</Link>{ ' ' }
+        <Icon name="person_add" />
       </div>
     );
   }
