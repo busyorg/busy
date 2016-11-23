@@ -13,7 +13,7 @@ const LikeButton = ({onClick, onTextClick, active, numberOfVotes}) => {
       { ' ' }
 
       {
-        parseInt(numberOfVotes) > 0 ?
+        parseInt(numberOfVotes) !== 0 ?
           <a
             onClick={onTextClick}
             className={active ? 'active' : ''}
