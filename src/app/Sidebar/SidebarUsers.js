@@ -10,12 +10,12 @@ import { Link } from 'react-router';
 
 import Icon from '../../widgets/Icon';
 
-import './SidebarMessages.scss';
+import './SidebarUsers.scss';
 
 function UnreadCount({ unread }) {
   if (!unread) return null;
   return (
-    <span className="SidebarMessages__unreadCount">
+    <span className="SidebarUsers__unreadCount">
       <span>
         {unread}
       </span>
@@ -23,7 +23,7 @@ function UnreadCount({ unread }) {
   );
 }
 
-export default class SidebarMessages extends Component {
+export default class SidebarUsers extends Component {
   static propTypes = {
     contacts: PropTypes.array,
     messages: PropTypes.object,
@@ -91,7 +91,7 @@ export default class SidebarMessages extends Component {
     ));
 
     return (
-      <div className="SidebarMessages">
+      <div className="SidebarUsers">
         <ul className="tags">
           <li className="search">
             <div className="input-group">

@@ -14,7 +14,7 @@ import Loading from '../widgets/Loading';
 import Icon from '../widgets/Icon';
 import Avatar from '../widgets/Avatar';
 import SidebarTabs from './Sidebar/SidebarTabs';
-import SidebarMessages from './Sidebar/SidebarMessages';
+import SidebarUsers from './Sidebar/SidebarUsers';
 
 import './Sidebar.sass';
 
@@ -188,7 +188,7 @@ export default class Sidebar extends Component {
           }
 
           {this.state.menu === 'feed' &&
-            <SidebarMessages
+            <SidebarUsers
               messages={this.props.messages}
               auth={this.props.auth}
               contacts={this.state.following}
