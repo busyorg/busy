@@ -81,7 +81,7 @@ export default class SidebarMessages extends Component {
     }), (follow, key) => (
       <li key={key}>
         <Link
-          to={`/messages/@${follow}`}
+          to={`/@${follow}`}
           activeClassName="active"
         >
           @{follow}{' '}
