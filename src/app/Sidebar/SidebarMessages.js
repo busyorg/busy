@@ -3,10 +3,12 @@ import React, { Component, PropTypes } from 'react';
 import filter from 'lodash/filter';
 import find from 'lodash/find';
 import groupBy from 'lodash/groupBy';
+import startsWith from 'lodash/startsWith';
 import map from 'lodash/map';
 import size from 'lodash/size';
 import { Link } from 'react-router';
-import without from 'lodash/without';
+
+import Icon from '../../widgets/Icon';
 
 import './SidebarMessages.scss';
 
@@ -25,6 +27,17 @@ export default class SidebarMessages extends Component {
   static propTypes = {
     contacts: PropTypes.array,
     messages: PropTypes.object,
+  };
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      search: '',
+    };
+  }
+
+  search = (e) => {
+    this.setState({ search: e.target.value });
   };
 
   render() {
@@ -54,8 +67,12 @@ export default class SidebarMessages extends Component {
       );
     });
 
-    let contacts = this.props.contacts.slice(0, 20);
-    contacts = map(filter(contacts, (contact) => {
+    const search = this.state.search;
+    let users = filter(this.props.contacts, (user) => {
+      return startsWith(user, search);
+    });
+    users = users.slice(0, 20);
+    users = map(filter(users, (contact) => {
       const channelName = [
         `@${contact}`,
         `@${this.props.auth.user && this.props.auth.user.name}`,
@@ -76,11 +93,23 @@ export default class SidebarMessages extends Component {
     return (
       <div className="SidebarMessages">
         <ul className="tags">
+          <li className="search">
+            <div className="input-group">
+              <span className="input-group-addon"><Icon name="search" sm /></span>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Search"
+                value={search}
+                onChange={this.search}
+              />
+            </div>
+          </li>
           {unreadMessages.length ? (
             unreadMessages
           ) : null}
-          {contacts.length ? (
-            contacts
+          {users.length ? (
+            users
           ) : null}
         </ul>
       </div>

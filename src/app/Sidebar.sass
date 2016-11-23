@@ -19,6 +19,19 @@ nav.sidebar
   left: 0
   color: #fff
 
+  .form-control, .input-group-addon
+    background: transparent
+    border: none
+    box-shadow: none
+    color: #ffffff
+
+  .input-group-addon
+    padding: 0
+
+  ::-webkit-input-placeholder
+    color: rgba(255, 255, 255, 0.6)
+    opacity: 1
+
   a
     color: #FFFFFF
 
@@ -76,6 +89,9 @@ nav.sidebar
 
       &:hover
         opacity: 1
+
+      .search
+        margin: 0 20px
 
     ul
       font-family: $font-primary

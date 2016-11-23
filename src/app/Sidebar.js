@@ -53,7 +53,8 @@ export default class Sidebar extends Component {
       props: {},
       feedPrice: {},
       following: [],
-      menu: 'public'
+      menu: 'public',
+      search: '',
     };
   }
 
@@ -79,20 +80,27 @@ export default class Sidebar extends Component {
     }
   }
 
+  search = (e) => {
+    this.setState({ search: e.target.value });
+  };
+
   onClickMenu = ({ menu }) => {
     this.setState({ menu });
   };
 
   render() {
     const user = this.props.auth.user;
+    const search = this.state.search;
     let tags = [];
     if (this.state.categories) {
-      const categories = _.sortBy(this.state.categories, 'discussions').reverse();
+      let categories = _.sortBy(this.state.categories, 'discussions').reverse();
+      categories = _.filter(categories, (category) => {
+        return _.startsWith(category.name, search);
+      });
       categories.forEach((category, key) => {
         tags.push(<li key={key}><Link to={`/trending/${category.name}`} activeClassName="active">#{category.name}</Link></li>);
       });
     }
-    tags = _.sortBy(tags, 'discussions');
     tags = tags.slice(0, 20);
     if (_.has(this.state.feedPrice, 'base')) {
       var power = formatter.vestToSteem(user.vesting_shares, this.state.props.total_vesting_shares, this.state.props.total_vesting_fund_steem);
@@ -159,10 +167,25 @@ export default class Sidebar extends Component {
             </ul>}
 
           {_.size(this.state.categories) > 0 && this.state.menu === 'public' &&
-            <ul className="tags">
-              {tags}
-              <li><Link to="/tags" activeClassName="active"><FormattedMessage id="see_more" /></Link></li>
-            </ul>}
+            <div>
+              <ul className="tags">
+                <li className="search">
+                  <div className="input-group">
+                    <span className="input-group-addon"><Icon name="search" sm /></span>
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="Search"
+                      value={search}
+                      onChange={this.search}
+                    />
+                  </div>
+                </li>
+                {tags}
+                <li><Link to="/tags" activeClassName="active"><FormattedMessage id="see_more" /></Link></li>
+              </ul>
+            </div>
+          }
 
           {this.state.menu === 'feed' &&
             <SidebarMessages
