@@ -13,7 +13,7 @@ const getFilteredUsers = (props, state) => {
   let users = props.contacts.filter((user) => {
     return startsWith(user, search);
   });
-  users = users.slice(0, 20);
+  users = users.slice(0, 25);
   users = users.filter((contact) => {
     const channelName = [
       `@${contact}`,
