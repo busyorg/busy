@@ -1,4 +1,3 @@
-/* eslint-disable react/prefer-stateless-function, max-len */
 import React, { Component, PropTypes } from 'react';
 import find from 'lodash/find';
 import groupBy from 'lodash/groupBy';
@@ -8,15 +7,11 @@ import { Link } from 'react-router';
 
 import Icon from '../../widgets/Icon';
 
-import './SidebarUsers.scss';
-
 function UnreadCount({ unread }) {
   if (!unread) return null;
   return (
-    <span className="SidebarUsers__unreadCount">
-      <span>
-        {unread}
-      </span>
+    <span className="Sidebar__unreadCount">
+      {unread}
     </span>
   );
 }
@@ -90,30 +85,28 @@ export default class SidebarUsers extends Component {
     ));
 
     return (
-      <div className="SidebarUsers">
-        <ul className="Sidebar__tags">
-          <li className="Sidebar__search">
-            <div className="input-group">
-              <span className="input-group-addon"><Icon name="search" sm /></span>
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Search"
-                value={search}
-                onChange={this.search}
-              />
-            </div>
-          </li>
-          { unreadMessages.length
-            ? unreadMessages
-            : null
-          }
-          { users.length
-            ? users
-            : null
-          }
-        </ul>
-      </div>
-    );
+      <ul className="Sidebar__tags">
+        <li className="Sidebar__search">
+          <div className="input-group">
+            <span className="input-group-addon"><Icon name="search" sm /></span>
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Search"
+              value={search}
+              onChange={this.search}
+            />
+          </div>
+        </li>
+        { unreadMessages.length
+          ? unreadMessages
+          : null
+        }
+        { users.length
+          ? users
+          : null
+        }
+      </ul>
+  );
   }
 }
