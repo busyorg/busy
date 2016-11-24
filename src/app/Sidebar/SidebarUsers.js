@@ -104,12 +104,14 @@ export default class SidebarUsers extends Component {
               />
             </div>
           </li>
-          {unreadMessages.length ? (
-            unreadMessages
-          ) : null}
-          {users.length ? (
-            users
-          ) : null}
+          {unreadMessages.length
+            ? (unreadMessages)
+            : null
+          }
+          {users.length
+            ? (users)
+            : null
+          }
         </ul>
       </div>
     );
