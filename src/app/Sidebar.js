@@ -108,7 +108,7 @@ export default class Sidebar extends Component {
       var dollar = (parseFloat(base) * (parseFloat(user.balance) + parseFloat(power))) + parseFloat(user.sbd_balance);
     }
     return (
-      <nav className="sidebar">
+      <nav className="Sidebar">
         <div className="sidebar-header">
           <a className="hide-sidebar" onClick={() => this.props.hideSidebar()}>
             <Icon name="arrow_back" className="icon-menu" />
@@ -168,8 +168,8 @@ export default class Sidebar extends Component {
 
           {_.size(this.state.categories) > 0 && this.state.menu === 'public' &&
             <div>
-              <ul className="tags">
-                <li className="search">
+              <ul className="Sidebar__tags">
+                <li className="Sidebar__search">
                   <div className="input-group">
                     <span className="input-group-addon"><Icon name="search" sm /></span>
                     <input
@@ -223,7 +223,7 @@ export default class Sidebar extends Component {
               </li>
             </ul>}
           {this.props.auth.isAuthenticated && _.has(this.state.feedPrice, 'base') && this.state.menu === 'wallet' &&
-            <ul className="tags">
+            <ul className="Sidebar__tags">
               <li><span className="menu-row">1 Steem <span className="pull-right">{numeral(base).format('$0,0.00')}</span></span></li>
               <li><span className="menu-row">Steem <span className="pull-right">{numeral(user.balance).format('0,0.00')}</span></span></li>
               <li><span className="menu-row">Steem Power <span className="pull-right">{numeral(power).format('0,0.00')}</span></span></li>

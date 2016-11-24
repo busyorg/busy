@@ -91,8 +91,8 @@ export default class SidebarUsers extends Component {
 
     return (
       <div className="SidebarUsers">
-        <ul className="tags">
-          <li className="search">
+        <ul className="Sidebar__tags">
+          <li className="Sidebar__search">
             <div className="input-group">
               <span className="input-group-addon"><Icon name="search" sm /></span>
               <input
@@ -104,12 +104,12 @@ export default class SidebarUsers extends Component {
               />
             </div>
           </li>
-          {unreadMessages.length
-            ? (unreadMessages)
+          { unreadMessages.length
+            ? unreadMessages
             : null
           }
-          {users.length
-            ? (users)
+          { users.length
+            ? users
             : null
           }
         </ul>
