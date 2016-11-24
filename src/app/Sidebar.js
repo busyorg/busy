@@ -94,7 +94,7 @@ export default class Sidebar extends Component {
     let tags = [];
     if (this.state.categories) {
       let categories = _.sortBy(this.state.categories, 'discussions').reverse();
-      categories = _.filter(categories, (category) => {
+      categories = categories.filter((category) => {
         return _.startsWith(category.name, search);
       });
       categories.forEach((category, key) => {

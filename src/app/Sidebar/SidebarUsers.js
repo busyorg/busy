@@ -1,10 +1,8 @@
 /* eslint-disable react/prefer-stateless-function, max-len */
 import React, { Component, PropTypes } from 'react';
-import filter from 'lodash/filter';
 import find from 'lodash/find';
 import groupBy from 'lodash/groupBy';
 import startsWith from 'lodash/startsWith';
-import map from 'lodash/map';
 import size from 'lodash/size';
 import { Link } from 'react-router';
 
@@ -42,7 +40,7 @@ export default class SidebarUsers extends Component {
 
   render() {
     const unreadByChannel = groupBy(this.props.messages.unreadMessages, 'channelName');
-    const unreadMessages = map(unreadByChannel, (messages, channelName) => {
+    const unreadMessages = unreadByChannel.length > 0 && unreadByChannel.map((messages, channelName) => {
       let channelNamePrime = channelName;
 
       if (channelName.indexOf(',') !== -1 &&
@@ -68,17 +66,18 @@ export default class SidebarUsers extends Component {
     });
 
     const search = this.state.search;
-    let users = filter(this.props.contacts, (user) => {
+    let users = this.props.contacts.filter((user) => {
       return startsWith(user, search);
     });
     users = users.slice(0, 20);
-    users = map(filter(users, (contact) => {
+    users = users.filter((contact) => {
       const channelName = [
         `@${contact}`,
         `@${this.props.auth.user && this.props.auth.user.name}`,
       ].sort().toString();
       return !unreadByChannel[channelName] || !unreadByChannel[channelName].length;
-    }), (follow, key) => (
+    });
+    users = users.map((follow, key) => (
       <li key={key}>
         <Link
           to={`/@${follow}`}
