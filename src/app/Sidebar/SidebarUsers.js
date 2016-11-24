@@ -7,6 +7,60 @@ import { Link } from 'react-router';
 
 import Icon from '../../widgets/Icon';
 
+const getFilteredUsers = (props, state) => {
+  const unreadByChannel = groupBy(props.messages.unreadMessages, 'channelName');
+  const search = state.search;
+  let users = props.contacts.filter((user) => {
+    return startsWith(user, search);
+  });
+  users = users.slice(0, 20);
+  users = users.filter((contact) => {
+    const channelName = [
+      `@${contact}`,
+      `@${props.auth.user && props.auth.user.name}`,
+    ].sort().toString();
+    return !unreadByChannel[channelName] || !unreadByChannel[channelName].length;
+  });
+  users = users.map((follow, key) => (
+    <li key={key}>
+      <Link
+        to={`/@${follow}`}
+        activeClassName="active"
+      >
+        @{follow}{' '}
+        <UnreadCount unread={size(unreadByChannel[`@${follow}`])} />
+      </Link>
+    </li>
+  ));
+  return users;
+};
+
+const getUnreadMessages = (props) => {
+  const unreadByChannel = groupBy(props.messages.unreadMessages, 'channelName');
+  return unreadByChannel.length > 0 && unreadByChannel.map((messages, channelName) => {
+    let channelNamePrime = channelName;
+    if (channelName.indexOf(',') !== -1 &&
+      props.auth &&
+      props.auth.user) {
+      channelNamePrime = find(
+        channelName.split(','),
+        (c) => c !== `@${props.auth.user.name}`
+      );
+    }
+    return (
+      <li key={channelNamePrime}>
+        <Link
+          to={`/messages/${channelNamePrime}`}
+          activeClassName="active"
+        >
+          {channelNamePrime}{' '}
+          <UnreadCount unread={messages.length} />
+        </Link>
+      </li>
+    );
+  });
+};
+
 function UnreadCount({ unread }) {
   if (!unread) return null;
   return (
@@ -34,56 +88,8 @@ export default class SidebarUsers extends Component {
   };
 
   render() {
-    const unreadByChannel = groupBy(this.props.messages.unreadMessages, 'channelName');
-    const unreadMessages = unreadByChannel.length > 0 && unreadByChannel.map((messages, channelName) => {
-      let channelNamePrime = channelName;
-
-      if (channelName.indexOf(',') !== -1 &&
-          this.props.auth &&
-          this.props.auth.user) {
-        channelNamePrime = find(
-          channelName.split(','),
-          (c) => c !== `@${this.props.auth.user.name}`
-        );
-      }
-
-      return (
-        <li key={channelNamePrime}>
-          <Link
-            to={`/messages/${channelNamePrime}`}
-            activeClassName="active"
-          >
-            {channelNamePrime}{' '}
-            <UnreadCount unread={messages.length} />
-          </Link>
-        </li>
-      );
-    });
-
-    const search = this.state.search;
-    let users = this.props.contacts.filter((user) => {
-      return startsWith(user, search);
-    });
-    users = users.slice(0, 20);
-    users = users.filter((contact) => {
-      const channelName = [
-        `@${contact}`,
-        `@${this.props.auth.user && this.props.auth.user.name}`,
-      ].sort().toString();
-      return !unreadByChannel[channelName] || !unreadByChannel[channelName].length;
-    });
-    users = users.map((follow, key) => (
-      <li key={key}>
-        <Link
-          to={`/@${follow}`}
-          activeClassName="active"
-        >
-          @{follow}{' '}
-          <UnreadCount unread={size(unreadByChannel[`@${follow}`])} />
-        </Link>
-      </li>
-    ));
-
+    const unreadMessages = getUnreadMessages(this.props);
+    const users = getFilteredUsers(this.props, this.state);
     return (
       <ul className="Sidebar__tags">
         <li className="Sidebar__search">
@@ -93,7 +99,7 @@ export default class SidebarUsers extends Component {
               type="text"
               className="form-control"
               placeholder="Search"
-              value={search}
+              value={this.props.search}
               onChange={this.search}
             />
           </div>
@@ -107,6 +113,6 @@ export default class SidebarUsers extends Component {
           : null
         }
       </ul>
-  );
+    );
   }
 }
