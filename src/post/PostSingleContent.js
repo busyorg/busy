@@ -33,15 +33,16 @@ const PostSingleContent = ({ content }) => {
           <h1 className="mvl">{content.title}</h1>
           <Body body={content.body} jsonMetadata={content.json_metadata} />
         </div>
+      </div>
 
-        { content.children > 0 && (
-          <div className="single-replies">
+      { content.children > 0 && (
+        <div className="single-replies">
+          <div className="container">
             <h2>Comments</h2>
             <Comments postId={content.id} />
           </div>
-        )
-        }
-      </div>
+        </div>
+      ) }
     </div>
   );
 };
