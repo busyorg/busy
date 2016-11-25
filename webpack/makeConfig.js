@@ -37,7 +37,7 @@ function makePlugins(options) {
         ),
         WS: JSON.stringify(
           process.env.WS ||
-          'wss://steem.yt'
+          'wss://steemit.com/wspa'
         ),
         IS_BROWSER: JSON.stringify(true),
       },
