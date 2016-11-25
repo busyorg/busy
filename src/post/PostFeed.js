@@ -82,7 +82,9 @@ export default class PostFeed extends Component {
                 <Avatar xs username={post.author} />
                 { ` @${post.author}` }
               </Link>
-
+              <span className="hidden-xs">
+                { ' ' }in <Link to={`/trending/${post.category}`}>#{post.category}</Link>
+              </span>
               { post.parent_author &&
                 <span className="hidden-xs">
                       { ' replied ' }
