@@ -7,7 +7,7 @@ import Icon from '../widgets/Icon';
 import './Splash.sass';
 
 const Splash = () => {
-  const loginURL = steemconnect.getLoginUrl(process.env.STEEMCONNECT_REDIRECT_URL);
+  const loginURL = steemconnect.getLoginURL();
   return (
     <div className="Splash">
       <Modal>

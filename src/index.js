@@ -20,8 +20,11 @@ if (process.env.SENTRY_PUBLIC_DSN) {
 }
 
 if (process.env.STEEMCONNECT_HOST) {
-  steemconnect.setBaseUrl(process.env.STEEMCONNECT_HOST);
-  steemconnect.setApp('busy.app');
+  steemconnect.init({
+    app: 'busy.app',
+    baseURL: process.env.STEEMCONNECT_HOST,
+    callbackURL: process.env.STEEMCONNECT_REDIRECT_URL
+  });
 }
 
 const createHistory = useHistoryRestoreScroll(() => browserHistory);
