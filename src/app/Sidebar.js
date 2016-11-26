@@ -14,7 +14,7 @@ import Loading from '../widgets/Loading';
 import Icon from '../widgets/Icon';
 import Avatar from '../widgets/Avatar';
 import SidebarTabs from './Sidebar/SidebarTabs';
-import SidebarMessages from './Sidebar/SidebarMessages';
+import SidebarUsers from './Sidebar/SidebarUsers';
 
 import './Sidebar.sass';
 
@@ -93,21 +93,21 @@ export default class Sidebar extends Component {
     let tags = [];
     if (this.state.categories) {
       let categories = _.sortBy(this.state.categories, 'discussions').reverse();
-      categories = _.filter(categories, (category) => {
+      categories = categories.filter((category) => {
         return _.startsWith(category.name, search);
       });
       categories.forEach((category, key) => {
         tags.push(<li key={key}><Link to={`/trending/${category.name}`} activeClassName="active">#{category.name}</Link></li>);
       });
     }
-    tags = tags.slice(0, 20);
+    tags = tags.slice(0, 25);
     if (_.has(this.state.feedPrice, 'base')) {
       var power = formatter.vestToSteem(user.vesting_shares, this.state.props.total_vesting_shares, this.state.props.total_vesting_fund_steem);
       var base = (this.state.feedPrice.base).replace(' SBD', '').replace(',', '');
       var dollar = (parseFloat(base) * (parseFloat(user.balance) + parseFloat(power))) + parseFloat(user.sbd_balance);
     }
     return (
-      <nav className="sidebar">
+      <nav className="Sidebar">
         <div className="sidebar-header">
           <a className="hide-sidebar" onClick={() => this.props.hideSidebar()}>
             <Icon name="arrow_back" className="icon-menu" />
@@ -159,8 +159,8 @@ export default class Sidebar extends Component {
 
           {_.size(this.state.categories) > 0 && this.state.menu === 'public' &&
             <div>
-              <ul className="tags">
-                <li className="search">
+              <ul className="Sidebar__tags">
+                <li className="Sidebar__search">
                   <div className="input-group">
                     <span className="input-group-addon"><Icon name="search" sm /></span>
                     <input
@@ -179,7 +179,7 @@ export default class Sidebar extends Component {
           }
 
           {this.state.menu === 'feed' &&
-            <SidebarMessages
+            <SidebarUsers
               messages={this.props.messages}
               auth={this.props.auth}
               contacts={this.state.following}
@@ -214,7 +214,7 @@ export default class Sidebar extends Component {
               </li>
             </ul>}
           {_.has(this.state.feedPrice, 'base') && this.state.menu === 'wallet' &&
-            <ul className="tags">
+            <ul className="Sidebar__tags">
               <li><span className="menu-row">1 Steem <span className="pull-right">{numeral(base).format('$0,0.00')}</span></span></li>
               <li><span className="menu-row">Steem <span className="pull-right">{numeral(user.balance).format('0,0.00')}</span></span></li>
               <li><span className="menu-row">Steem Power <span className="pull-right">{numeral(power).format('0,0.00')}</span></span></li>

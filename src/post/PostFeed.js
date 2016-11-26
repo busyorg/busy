@@ -11,6 +11,7 @@ import PostActionButtons from './PostActionButtons';
 import Icon from '../widgets/Icon';
 import Avatar from '../widgets/Avatar';
 import PostModalLink from './PostModalLink';
+import LikesList from './LikesList';
 
 const colorCode = { green: 'rgba(39, 208, 169, 0.4)', red: 'rgba(249, 43, 97, 0.2)' };
 const classCode = { green: 'grid-row-green', red: 'grid-row-red' };
@@ -31,11 +32,22 @@ export default class PostFeed extends Component {
     super(props);
     this.state = {
       showComments: false,
+      showLikes: false,
     };
   }
 
   handleShowCommentsRequest = () => {
-    this.setState({ showComments: true });
+    this.setState({
+      showComments: !this.state.showComments,
+      showLikes: false,
+    });
+  };
+
+  handleShowLikesRequest = () => {
+    this.setState({
+      showLikes: !this.state.showLikes,
+      showComments: false,
+    });
   };
 
   render() {
@@ -152,6 +164,7 @@ export default class PostFeed extends Component {
             notify={notify}
             onCommentRequest={onCommentRequest}
             onShowCommentsRequest={this.handleShowCommentsRequest}
+            onShowLikesRequest={this.handleShowLikesRequest}
             reblog={this.props.reblog}
             isReblogged={this.props.isReblogged}
           />
@@ -159,6 +172,13 @@ export default class PostFeed extends Component {
 
         { this.state.showComments &&
           <Comments postId={post.id} />
+        }
+
+        { this.state.showLikes &&
+          <LikesList
+            activeVotes={post.active_votes}
+            netVotes={post.net_votes}
+          />
         }
 
       </div>

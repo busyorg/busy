@@ -60,6 +60,9 @@ export default class PostSingleModal extends Component {
           reblog={reblog}
           isReblogged={isReblogged}
           openCommentingDraft={openCommentingDraft}
+          likePost={this.props.likePost}
+          unlikePost={this.props.unlikePost}
+          isPostLiked={this.props.isPostLiked}
         />
         <header>
           <div className="top-nav">

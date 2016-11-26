@@ -1,11 +1,14 @@
 import React from 'react';
 import Icon from '../../widgets/Icon';
 
-const TriggerPost = ({ reblog, isReblogged, openCommentingDraft }) => {
+const TriggerPost = ({ reblog, isReblogged, openCommentingDraft, isPostLiked, likePost, unlikePost }) => {
   return (
     <div className="actions">
       <div className="triggers">
-        <a className="trigger">
+        <a
+          className={isPostLiked ? 'trigger active' : 'trigger'}
+          onClick={isPostLiked ? unlikePost : likePost}
+        >
           <Icon name="thumb_up" />
         </a>
         <a
