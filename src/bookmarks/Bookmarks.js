@@ -40,7 +40,6 @@ export default class Bookmarks extends Component {
     return (
       <div className="main-panel">
         <Header />
-        <MenuFeed />
         <Feed
           content={content}
           isFetching={isFetching}
