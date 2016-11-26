@@ -18,9 +18,6 @@ const Splash = () => {
             </div>
             <div className="modal-body">
               <h2>We're currently in beta.</h2>
-              <p>Utque proeliorum periti rectores primo catervas
-                Nemo quaeso miretur, si post exsudatos labores
-                Erat autem diritatis eius hoc quoque indicium</p>
               <a href={loginURL} className="btn btn-lg btn-primary">
                 <Icon name="lock" sm />{ ' ' }
                 Log In
