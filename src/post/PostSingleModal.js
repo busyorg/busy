@@ -70,7 +70,7 @@ export default class PostSingleModal extends Component {
               <i className="icon icon-md icon-menu material-icons">clear</i>
             </a>
             <div className="section-content top-head">
-              <div className="logo"><Link to="/" onlyActiveOnIndex activeClassName="active"><img src="/img/busy-blue.svg" /></Link></div>
+              <div className="logo"><Link to="/" onlyActiveOnIndex activeClassName="active"><img src="/img/logo.svg" /></Link></div>
             </div>
           </div>
           {this.props.children && <div className="app-nav">{this.props.children}</div>}

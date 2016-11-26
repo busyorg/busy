@@ -65,8 +65,7 @@ export default class Sidebar extends Component {
   }
 
   getFollowing() {
-    if (this.props.auth.isAuthenticated &&
-        !_.size(this.state.following) &&
+    if (!_.size(this.state.following) &&
         !this.state.followingIsFetching &&
         !this.state.followingIsLoaded) {
       steemdb.accounts({
@@ -114,24 +113,16 @@ export default class Sidebar extends Component {
             <Icon name="arrow_back" className="icon-menu" />
           </a>
           <div className="me">
-            {this.props.auth.isAuthenticated ?
-              <div>
-                <Link to={`/@${user.name}`}>
-                  <Avatar sm username={user.name} reputation={user.reputation} />
-                </Link>
-                <span style={{ clear: 'both', display: 'block' }}>
-                  @{user.name} <a onClick={() => this.setState({ menu: 'settings' })}>
-                    <Icon name="settings" xs />
-                  </a>
-                </span>
-              </div> :
-              <div className="log">
-                {this.props.auth.isFetching ?
-                  <Loading color="white" /> :
-                  <a href={`${process.env.STEEMCONNECT_HOST}/authorize/@busy.app?redirect_url=${process.env.STEEMCONNECT_REDIRECT_URL}`}>
-                    <Icon name="lock_outline" lg />
-                  </a>}
-              </div>}
+            <div>
+              <Link to={`/@${user.name}`}>
+                <Avatar sm username={user.name} reputation={user.reputation} />
+              </Link>
+              <span style={{ clear: 'both', display: 'block' }}>
+                @{user.name} <a onClick={() => this.setState({ menu: 'settings' })}>
+                  <Icon name="settings" xs />
+                </a>
+              </span>
+            </div>
           </div>
         </div>
 
@@ -144,7 +135,7 @@ export default class Sidebar extends Component {
 
         <div className="sidebar-content">
           {this.state.isFetching && <Loading color="white" />}
-          {this.props.auth.isAuthenticated && _.has(this.state.feedPrice, 'base') && this.state.menu === 'settings' &&
+          {_.has(this.state.feedPrice, 'base') && this.state.menu === 'settings' &&
             <ul>
               <li className="title">
                 <Link to="/#profile">
@@ -195,7 +186,7 @@ export default class Sidebar extends Component {
             />
           }
 
-          {this.props.auth.isAuthenticated && _.has(this.state.feedPrice, 'base') && this.state.menu === 'write' &&
+          {_.has(this.state.feedPrice, 'base') && this.state.menu === 'write' &&
             <ul>
               <li className="title">
                 <Link to="/write">
@@ -222,7 +213,7 @@ export default class Sidebar extends Component {
                 </Link>
               </li>
             </ul>}
-          {this.props.auth.isAuthenticated && _.has(this.state.feedPrice, 'base') && this.state.menu === 'wallet' &&
+          {_.has(this.state.feedPrice, 'base') && this.state.menu === 'wallet' &&
             <ul className="Sidebar__tags">
               <li><span className="menu-row">1 Steem <span className="pull-right">{numeral(base).format('$0,0.00')}</span></span></li>
               <li><span className="menu-row">Steem <span className="pull-right">{numeral(user.balance).format('0,0.00')}</span></span></li>

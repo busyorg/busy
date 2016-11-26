@@ -21,6 +21,9 @@ const PostSingleContent = ({ content }) => {
             <Avatar sm username={content.author} className="pull-left" />
             <span className="pull-left mls">
               @{content.author}
+              <span className="hidden-xs">
+                { ' ' }in <Link to={`/trending/${content.category}`}>#{content.category}</Link>
+              </span>
             </span>
           </Link>
           <span className="pull-right">

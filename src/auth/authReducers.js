@@ -2,6 +2,7 @@ import * as types from './authActions';
 
 const initialState = {
   isAuthenticated: false,
+  isFetching: false,
   user: {},
 
   following: [],

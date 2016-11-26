@@ -35,7 +35,7 @@ export default class Header extends Component {
             <Icon name="menu" className="icon-menu" />
           </a>}
           <div className="section-content top-head">
-            <div className="logo"><Link to="/" onlyActiveOnIndex activeClassName="active"><img src="/img/busy-blue.svg" /></Link></div>
+            <div className="logo"><Link to="/" onlyActiveOnIndex activeClassName="active"><img src="/img/logo.svg" /></Link></div>
           </div>
           <a className="right">
             <Icon name="notifications" className="icon-menu" />
