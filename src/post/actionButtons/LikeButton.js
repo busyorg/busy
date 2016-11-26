@@ -8,7 +8,7 @@ const LikeButton = ({onClick, onTextClick, active, numberOfVotes}) => {
         onClick={onClick}
         className={active ? 'active' : ''}
       >
-        <Icon name="thumb_up" small />
+        <Icon name="thumb_up" sm />
       </a>
       { ' ' }
 

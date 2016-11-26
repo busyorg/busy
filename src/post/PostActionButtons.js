@@ -83,7 +83,7 @@ export default class PostActionButtons extends Component {
 
         <li>
           <a onClick={e => this.handleCommentBoxClick(e)}>
-            <i className="icon icon-sm material-icons">reply</i>
+            <Icon name="reply" sm />
           </a>
           { ' ' }
           <a onClick={e => this.handleCommentsTextClick(e)}>
