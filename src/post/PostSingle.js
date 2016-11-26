@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import api from '../steemAPI';
 import * as postActions from './postActions';
 import { closePostModal } from '../actions';
@@ -9,27 +10,26 @@ import * as reblogActions from '../app/reblog/reblogActions';
 import * as commentsActions from '../comments/commentsActions';
 
 @connect(
-  ({ posts, app, reblog }) => ({
+  ({ posts, app, reblog, auth }) => ({
     content: app.lastPostId ? posts[app.lastPostId] : {},
     isPostModalOpen: app.isPostModalOpen,
     lastPostId: app.lastPostId,
     sidebarIsVisible: app.sidebarIsVisible,
     reblogList: reblog,
+    auth,
   }),
-  (dispatch, ownProps) => ({
-    reblog: (postId) => dispatch(reblogActions.reblog(postId)),
-    closePostModal: () => dispatch(closePostModal()),
-    getContent: () => dispatch(postActions.getContent(
+  (dispatch, ownProps) => bindActionCreators({
+    reblog: reblogActions.reblog,
+    closePostModal: closePostModal,
+    getContent: () => postActions.getContent(
       ownProps.params.author,
       ownProps.params.permlink
-    )),
-    openCommentingDraft: (opts) => {
-      dispatch(commentsActions.openCommentingDraft(opts))
-    },
-    closeCommentingDraft: () => {
-      dispatch(commentsActions.closeCommentingDraft())
-    },
-  })
+    ),
+    openCommentingDraft: commentsActions.openCommentingDraft,
+    closeCommentingDraft: commentsActions.closeCommentingDraft,
+    likePost: (id) => postActions.likePost(id),
+    unlikePost: (id) => postActions.likePost(id, 0),
+  }, dispatch)
 )
 export default class PostSingle extends React.Component {
   constructor(props) {
@@ -48,7 +48,12 @@ export default class PostSingle extends React.Component {
   }
 
   render() {
-    const { modal, isPostModalOpen, sidebarIsVisible, content, reblog, reblogList } = this.props;
+    const { modal, isPostModalOpen, sidebarIsVisible, content, reblog, reblogList, auth } = this.props;
+    const isPostLiked =
+      auth.isAuthenticated &&
+      content.active_votes &&
+      content.active_votes.some(vote => vote.voter === auth.user.name && vote.percent > 0);
+
     const openCommentingDraft = () => this.props.openCommentingDraft({
       parentAuthor: content.author,
       parentPermlink: content.permlink,
@@ -67,6 +72,9 @@ export default class PostSingle extends React.Component {
             reblog={() => reblog(content.id)}
             isReblogged={reblogList.includes(content.id)}
             openCommentingDraft={openCommentingDraft}
+            likePost={() => this.props.likePost(content.id)}
+            unlikePost={() => this.props.unlikePost(content.id)}
+            isPostLiked={isPostLiked}
           />
         }
 
@@ -76,6 +84,9 @@ export default class PostSingle extends React.Component {
             reblog={() => reblog(content.id)}
             isReblogged={reblogList.includes(content.id)}
             openCommentingDraft={openCommentingDraft}
+            likePost={() => this.props.likePost(content.id)}
+            unlikePost={() => this.props.unlikePost(content.id)}
+            isPostLiked={isPostLiked}
           />
         }
       </div>
