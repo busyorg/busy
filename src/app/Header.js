@@ -6,7 +6,7 @@ import { Link } from 'react-router';
 import { showSidebar } from '../actions';
 import Icon from '../widgets/Icon';
 
-import './Header.sass';
+import './Header.scss';
 
 @connect(
   state => ({

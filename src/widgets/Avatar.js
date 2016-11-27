@@ -1,7 +1,7 @@
 import React from 'react';
 import { formatter } from 'steem';
 
-import './Avatar.sass';
+import './Avatar.scss';
 
 const Avatar = ({
   username,

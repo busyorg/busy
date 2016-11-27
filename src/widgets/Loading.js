@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './Loading.sass';
+import './Loading.scss';
 
 const Loading = ({ color }) => {
   let className = (color === 'white') ? 'loading-white' : 'loading';
