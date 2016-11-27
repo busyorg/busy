@@ -11,6 +11,7 @@ import './Comments.scss';
 @connect(
   state => ({
     comments: state.comments,
+    auth: state.auth,
   }),
   dispatch => bindActionCreators({
     getComments: commentsActions.getComments,
@@ -51,6 +52,7 @@ export default class Comments extends Component {
           comments={comments}
           likeComment={this.props.likeComment}
           unlikeComment={this.props.unlikeComment}
+          auth={this.props.auth}
         />
 
         { isFetching &&
