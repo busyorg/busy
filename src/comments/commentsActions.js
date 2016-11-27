@@ -26,6 +26,11 @@ export const openCommentingDraft = createAction(OPEN_COMMENTING_DRAFT);
 export const updateCommentingDraft = createAction(UPDATE_COMMENTING_DRAFT);
 export const closeCommentingDraft = createAction(CLOSE_COMMENTING_DRAFT);
 
+export const LIKE_COMMENT = '@comments/LIKE_COMMENT';
+export const LIKE_COMMENT_START = '@comments/LIKE_COMMENT_START';
+export const LIKE_COMMENT_SUCCESS = '@comments/LIKE_COMMENT_SUCCESS';
+export const LIKE_COMMENT_ERROR = '@comments/LIKE_COMMENT_ERROR';
+
 export const showMoreComments = createAction(
   SHOW_MORE_COMMENTS,
   () => null,
@@ -132,4 +137,27 @@ export const sendComment = () => {
   };
 };
 
+export const likeComment = (commentId, weight = 10000) => {
+  return (dispatch, getState) => {
+    const { auth, comments } = getState();
+
+    if (!auth.isAuthenticated) {
+      return;
+    }
+
+    const voter = auth.user.name;
+    const { author, permlink } = comments.comments[commentId];
+
+    dispatch({
+      type: LIKE_COMMENT,
+      payload: {
+        promise: SteemConnect.vote(voter, author, permlink, weight).then((res) => {
+          // reload comment data
+          return res;
+        }),
+      },
+      meta: { commentId, voter, weight },
+    });
+  }
+};
 
