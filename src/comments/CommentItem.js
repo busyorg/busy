@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
+import numeral from 'numeral';
 import BodyShort from '../post/body-short';
 import Avatar from '../widgets/Avatar';
 import Icon from '../widgets/Icon';
@@ -60,10 +61,12 @@ export default class CommentItem extends Component {
             <Icon name="thumb_up" sm />
           </div>
           <div className="CommentActionButtons__button">
-            0 votes
+            { numeral(comment.net_votes).format('0,0') }
+            { ' ' }
+            votes
           </div>
           <div className="CommentActionButtons__button">
-            $0.0
+            ${ payout }
           </div>
         </div>
         { this.state.showReplies && this.props.children }
