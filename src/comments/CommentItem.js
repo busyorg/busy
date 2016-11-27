@@ -55,6 +55,17 @@ export default class CommentItem extends Component {
               {comment.children > 1 ? 'replies' : 'reply'}
             </a>
           }
+        <div className="CommentActionButtons">
+          <div className="CommentActionButtons__button">
+            <Icon name="thumb_up" sm />
+          </div>
+          <div className="CommentActionButtons__button">
+            0 votes
+          </div>
+          <div className="CommentActionButtons__button">
+            $0.0
+          </div>
+        </div>
         { this.state.showReplies && this.props.children }
       </div>
     );
