@@ -33,7 +33,7 @@ export default class LikesList extends Component {
               </Link>
               { ' ' }
               {vote.percent < 0
-                ? 'Disliked'
+                ? <span className="text-danger">Disliked</span>
                 : 'Liked'
               }
             </div>

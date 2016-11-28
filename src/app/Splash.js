@@ -4,7 +4,7 @@ import steemconnect from 'steemconnect';
 import Modal from '../widgets/Modal';
 import Icon from '../widgets/Icon';
 
-import './Splash.sass';
+import './Splash.scss';
 
 const Splash = () => {
   const loginURL = steemconnect.getLoginURL();

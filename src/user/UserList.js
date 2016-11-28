@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 import Icon from '../widgets/Icon';
 import Avatar from '../widgets/Avatar';
 
-import './UserList.sass';
+import './UserList.scss';
 
 export default class UserList extends React.Component {
   render() {

@@ -1,13 +1,16 @@
 .LikesList {
   border-top: 1px solid rgba(0, 0, 0, 0.1);
+  padding-top: 0.5em;
 }
 
 .LikesList__item {
-  padding: 1rem;
+  padding: 0.5em 1em;
 }
 
 .LikesList__showMore {
+  margin-top: 0.5em;
   display: block;
   text-align: center;
   padding: 1em;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
