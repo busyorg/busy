@@ -93,6 +93,11 @@ const mapCommentsBasedOnId = (data) => {
 const commentItem = (state = {}, action) => {
   switch (action.type) {
     case commentsTypes.LIKE_COMMENT_START:
+      if (action.meta.isRetry) {
+        // No optimistic change in case of retry
+        return state;
+      }
+
       let optimisticActiveVotes;
 
       if (action.meta.weight !== 0) {
