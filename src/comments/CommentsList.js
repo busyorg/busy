@@ -14,7 +14,7 @@ const renderComments = (list, comments, likeComment, unlikeComment, auth) => {
         auth={auth}
       >
         { Object.keys(children).length > 0 &&
-          renderComments(children, comments)
+          renderComments(children, comments, likeComment, unlikeComment, auth)
         }
       </CommentItem>
     );
