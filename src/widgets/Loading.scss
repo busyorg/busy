@@ -1,0 +1,61 @@
+@import "../styles/fonts.scss";
+
+@keyframes blink {
+  0% {
+    opacity: 0.2;
+  }
+
+  20% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.2;
+  }
+}
+
+.loading, .loading-white {
+  margin: 1em 0;
+}
+
+.loading-white span {
+  font-family: $font-primary;
+  text-align: center;
+  color: white;
+  padding-right: 2px;
+  padding-left: 1px;
+  font-size: 16px !important;
+  animation-name: blink;
+  animation-duration: 1.4s;
+  animation-iteration-count: infinite;
+  animation-fill-mode: both;
+
+  &:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+
+  &:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+}
+
+.loading span {
+  font-family: $font-primary;
+  text-align: center;
+  color: #3756a0;
+  padding-right: 2px;
+  padding-left: 1px;
+  font-size: 16px !important;
+  animation-name: blink;
+  animation-duration: 1.4s;
+  animation-iteration-count: infinite;
+  animation-fill-mode: both;
+
+  &:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+
+  &:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+}
