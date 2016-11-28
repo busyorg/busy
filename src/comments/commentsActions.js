@@ -140,7 +140,7 @@ export const sendComment = () => {
   };
 };
 
-export const likeComment = (commentId, weight = 10000) => {
+export const likeComment = (commentId, weight = 10000, retryCount = 0) => {
   return (dispatch, getState, { steemAPI }) => {
     const { auth, comments } = getState();
 
@@ -158,12 +158,16 @@ export const likeComment = (commentId, weight = 10000) => {
           // reload comment data to fetch payout after vote
           steemAPI.getContentAsync(author, permlink).then(data => {
             dispatch(reloadExistingComment(data));
+            return data;
           });
-
           return res;
         }),
       },
       meta: { commentId, voter, weight },
+    }).catch(err => {
+      if (err.res && err.res.status === 500 && retryCount <= 5) {
+        dispatch(likeComment(commentId, weight, retryCount + 1));
+      }
     });
   }
 };
