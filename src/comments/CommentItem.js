@@ -63,7 +63,7 @@ export default class CommentItem extends Component {
         <div className="CommentActionButtons">
           <div className="CommentActionButtons__button">
             <a
-              onClick={isCommentLiked ? () => likeComment(comment.id) :() => likeComment(comment.id)}
+              onClick={isCommentLiked ? () => unlikeComment(comment.id) :() => likeComment(comment.id)}
               className={isCommentLiked ? 'active' : ''}
             >
               <Icon name="thumb_up" sm />
