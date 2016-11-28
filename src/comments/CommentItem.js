@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
+import numeral from 'numeral';
 import BodyShort from '../post/body-short';
 import Avatar from '../widgets/Avatar';
 import Icon from '../widgets/Icon';
@@ -33,7 +34,7 @@ export default class CommentItem extends Component {
   };
 
   render() {
-    const { comment } = this.props;
+    const { comment, likeComment, unlikeComment, auth } = this.props;
 
     if (comment.isOptimistic) {
       return renderOptimisticComment(comment);
@@ -42,6 +43,10 @@ export default class CommentItem extends Component {
     const payout =
       parseFloat(comment.total_payout_value) +
       parseFloat(comment.total_pending_payout_value);
+
+    const isCommentLiked =
+      auth.isAuthenticated &&
+      comment.active_votes.some(vote => vote.voter === auth.user.name && vote.percent > 0);
 
     return (
       <div className="CommentItem">
@@ -55,6 +60,24 @@ export default class CommentItem extends Component {
               {comment.children > 1 ? 'replies' : 'reply'}
             </a>
           }
+        <div className="CommentActionButtons">
+          <div className="CommentActionButtons__button">
+            <a
+              onClick={isCommentLiked ? () => unlikeComment(comment.id) :() => likeComment(comment.id)}
+              className={isCommentLiked ? 'active' : ''}
+            >
+              <Icon name="thumb_up" sm />
+            </a>
+          </div>
+          <div className="CommentActionButtons__button">
+            { numeral(comment.net_votes).format('0,0') }
+            { ' ' }
+            votes
+          </div>
+          <div className="CommentActionButtons__button">
+            ${ payout }
+          </div>
+        </div>
         { this.state.showReplies && this.props.children }
       </div>
     );

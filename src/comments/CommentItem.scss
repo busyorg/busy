@@ -1,4 +1,22 @@
+@import '../styles/colors';
+
 .CommentItem {
   word-break: break-all;
-  padding: 1em;
+  padding: 1rem 1.5rem;
+  a.active {
+    i {
+      color: $primary-color;
+    }
+  }
+}
+
+.CommentActionButtons {
+  margin-top: 1rem;
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.CommentActionButtons__button {
+  margin: 0.3rem 1rem;
+  display: inline-block;
 }

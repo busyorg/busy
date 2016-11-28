@@ -90,6 +90,44 @@ const mapCommentsBasedOnId = (data) => {
   return commentsList;
 };
 
+const commentItem = (state = {}, action) => {
+  switch (action.type) {
+    case commentsTypes.LIKE_COMMENT_START:
+      if (action.meta.isRetry) {
+        // No optimistic change in case of retry
+        return state;
+      }
+
+      let optimisticActiveVotes;
+
+      if (action.meta.weight !== 0) {
+        optimisticActiveVotes = [
+          ...state.active_votes.filter(vote => vote.voter !== action.meta.voter),
+          {
+            voter: action.meta.voter,
+            percent: action.meta.weight,
+          }
+        ];
+      } else {
+        optimisticActiveVotes = state.active_votes.filter(
+          vote => vote.voter !== action.meta.voter
+        );
+      }
+
+      const optimisticNetVotes = action.meta.weight > 0
+        ? parseInt(state.net_votes) + 1
+        : parseInt(state.net_votes) - 1;
+
+      return {
+        ...state,
+        active_votes: optimisticActiveVotes,
+        net_votes: optimisticNetVotes,
+      };
+    default:
+      return state;
+  }
+}
+
 const commentsData = (state = {}, action) => {
   switch (action.type) {
     case commentsTypes.GET_COMMENTS_SUCCESS:
@@ -111,6 +149,16 @@ const commentsData = (state = {}, action) => {
       return {
         ...state,
         [action.meta.optimisticId]: action.payload,
+      };
+    case commentsTypes.LIKE_COMMENT_START:
+      return {
+        ...state,
+        [action.meta.commentId]: commentItem(state[action.meta.commentId], action),
+      };
+    case commentsTypes.RELOAD_EXISTING_COMMENT:
+      return {
+        ...state,
+        [action.payload.id]: action.payload,
       };
     default:
       return state;
@@ -181,6 +229,12 @@ const comments = (state = initialState, action) => {
       return {
         ...state,
         isCommenting: false,
+      };
+    case commentsTypes.LIKE_COMMENT_START:
+    case commentsTypes.RELOAD_EXISTING_COMMENT:
+      return {
+        ...state,
+        comments: commentsData(state.comments, action),
       };
     default:
       return state;

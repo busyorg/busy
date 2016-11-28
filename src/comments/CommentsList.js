@@ -1,21 +1,27 @@
 import React from 'react';
 import CommentItem from './CommentItem';
 
-const renderComments = (list, comments) => {
+const renderComments = (list, comments, likeComment, unlikeComment, auth) => {
   return list.map(({ id , children }) => {
     const comment = comments[id];
 
     return (
-      <CommentItem key={id} comment={comment} >
+      <CommentItem
+        key={id}
+        comment={comment}
+        likeComment={likeComment}
+        unlikeComment={unlikeComment}
+        auth={auth}
+      >
         { Object.keys(children).length > 0 &&
-          renderComments(children, comments)
+          renderComments(children, comments, likeComment, unlikeComment, auth)
         }
       </CommentItem>
     );
   })
 };
 
-const CommentsList = ({ postId, comments }) => {
+const CommentsList = ({ postId, comments, likeComment, unlikeComment, auth }) => {
   if (!comments.lists[postId]) {
     return null;
   }
@@ -25,7 +31,7 @@ const CommentsList = ({ postId, comments }) => {
 
   return (
     <div>
-      { renderComments(visibleList, comments.comments) }
+      { renderComments(visibleList, comments.comments, likeComment, unlikeComment, auth) }
     </div>
   );
 };

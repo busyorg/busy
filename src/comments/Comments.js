@@ -11,10 +11,13 @@ import './Comments.scss';
 @connect(
   state => ({
     comments: state.comments,
+    auth: state.auth,
   }),
   dispatch => bindActionCreators({
     getComments: commentsActions.getComments,
     showMoreComments: commentsActions.showMoreComments,
+    likeComment: (id) => commentsActions.likeComment(id),
+    unlikeComment: (id) => commentsActions.likeComment(id, 0),
   }, dispatch)
 )
 export default class Comments extends Component {
@@ -44,7 +47,13 @@ export default class Comments extends Component {
 
     return (
       <div className="Comments">
-        <CommentsList postId={postId} comments={comments} />
+        <CommentsList
+          postId={postId}
+          comments={comments}
+          likeComment={this.props.likeComment}
+          unlikeComment={this.props.unlikeComment}
+          auth={this.props.auth}
+        />
 
         { isFetching &&
           <Loading />
