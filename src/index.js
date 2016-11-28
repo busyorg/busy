@@ -42,7 +42,7 @@ const routerRender = applyRouterMiddleware(
 );
 
 // load the stylesheet
-require('./styles/base.sass');
+require('./styles/base.scss');
 
 ReactDOM.render(
   <Provider store={store}>
