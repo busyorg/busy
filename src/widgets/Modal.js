@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './Modal.sass';
+import './Modal.scss';
 
 const Modal = ({ children }) => {
   return (

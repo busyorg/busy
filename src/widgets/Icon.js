@@ -1,7 +1,7 @@
 import React from 'react';
 
 import '../fonts/MaterialIcons.scss';
-import './Icon.sass';
+import './Icon.scss';
 
 const Icon = ({
   name,

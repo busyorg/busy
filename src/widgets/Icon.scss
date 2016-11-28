@@ -1,0 +1,64 @@
+@import "../styles/colors.scss";
+
+.icon {
+  vertical-align: middle;
+  color: #AAA;
+}
+
+.icon-xs {
+  font-size: 16px;
+}
+
+.icon-sm {
+  font-size: 22px;
+}
+
+.icon-md {
+  font-size: 28px;
+}
+
+.icon-lg {
+  font-size: 36px;
+}
+
+.icon-xl {
+  font-size: 86px;
+}
+
+.icon-menu {
+  height: 56px;
+  line-height: 54px;
+  margin: 0 14px;
+  min-width: 28px;
+  width: 28px;
+  overflow: hidden;
+}
+
+.main-panel {
+  a:hover {
+    .icon {
+      color: $primary-color;
+    }
+  }
+}
+
+.flag {
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  line-height: 1em;
+  vertical-align: middle;
+}
+
+.flag-lg {
+  width: 48px;
+  height: 48px;
+}
+
+.cell.cell-bottom {
+  a.active {
+    i {
+      color: $primary-color;
+    }
+  }
+}

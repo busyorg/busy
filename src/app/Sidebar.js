@@ -16,7 +16,7 @@ import Avatar from '../widgets/Avatar';
 import SidebarTabs from './Sidebar/SidebarTabs';
 import SidebarUsers from './Sidebar/SidebarUsers';
 
-import './Sidebar.sass';
+import './Sidebar.scss';
 
 @connect(
   state => ({
