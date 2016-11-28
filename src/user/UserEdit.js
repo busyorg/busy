@@ -9,7 +9,7 @@ const Edit = React.createClass({
       <div className="main-panel">
         <Header account={this.props.auth.user.name} />
         <div className="page">
-          <div className="block">
+          <div className="container">
             <h1>Edit Profile</h1>
             <p><a href={`${process.env.STEEMCONNECT_HOST}/logout`} target="_blank">Log Out</a></p>
           </div>

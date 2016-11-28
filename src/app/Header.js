@@ -37,9 +37,9 @@ export default class Header extends Component {
           <div className="section-content top-head">
             <div className="logo"><Link to="/" onlyActiveOnIndex activeClassName="active"><img src="/img/logo.svg" /></Link></div>
           </div>
-          <a className="right">
-            <Icon name="notifications" className="icon-menu" />
-          </a>
+          <Link to="/bookmarks" className="right">
+            <Icon name="bookmarks" className="icon-menu" />
+          </Link>
         </div>
         {this.props.children && <div className="app-nav">{this.props.children}</div>}
       </header>

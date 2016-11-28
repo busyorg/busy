@@ -100,7 +100,7 @@ export default class Sidebar extends Component {
         tags.push(<li key={key}><Link to={`/trending/${category.name}`} activeClassName="active">#{category.name}</Link></li>);
       });
     }
-    tags = tags.slice(0, 25);
+    tags = tags.slice(0, 16);
     if (_.has(this.state.feedPrice, 'base')) {
       var power = formatter.vestToSteem(user.vesting_shares, this.state.props.total_vesting_shares, this.state.props.total_vesting_fund_steem);
       var base = (this.state.feedPrice.base).replace(' SBD', '').replace(',', '');
