@@ -150,6 +150,11 @@ const commentsData = (state = {}, action) => {
         ...state,
         [action.meta.commentId]: commentItem(state[action.meta.commentId], action),
       };
+    case commentsTypes.RELOAD_EXISTING_COMMENT:
+      return {
+        ...state,
+        [action.payload.id]: action.payload,
+      };
     default:
       return state;
   }
@@ -221,6 +226,7 @@ const comments = (state = initialState, action) => {
         isCommenting: false,
       };
     case commentsTypes.LIKE_COMMENT_START:
+    case commentsTypes.RELOAD_EXISTING_COMMENT:
       return {
         ...state,
         comments: commentsData(state.comments, action),

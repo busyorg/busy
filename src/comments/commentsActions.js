@@ -37,6 +37,9 @@ export const showMoreComments = createAction(
   meta => ({ id: meta, })
 );
 
+export const RELOAD_EXISTING_COMMENT = '@comments/RELOAD_EXISTING_COMMENT';
+export const reloadExistingComment = createAction(RELOAD_EXISTING_COMMENT);
+
 /**
  * Will recursively create a tree of comments with their children like this:
  * { id: '2.1.85555', children: [ { id: '2.1.55444', children: [...] ], }
@@ -138,7 +141,7 @@ export const sendComment = () => {
 };
 
 export const likeComment = (commentId, weight = 10000) => {
-  return (dispatch, getState) => {
+  return (dispatch, getState, { steemAPI }) => {
     const { auth, comments } = getState();
 
     if (!auth.isAuthenticated) {
@@ -152,7 +155,11 @@ export const likeComment = (commentId, weight = 10000) => {
       type: LIKE_COMMENT,
       payload: {
         promise: SteemConnect.vote(voter, author, permlink, weight).then((res) => {
-          // reload comment data
+          // reload comment data to fetch payout after vote
+          steemAPI.getContentAsync(author, permlink).then(data => {
+            dispatch(reloadExistingComment(data));
+          });
+
           return res;
         }),
       },
