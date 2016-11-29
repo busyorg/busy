@@ -10,6 +10,11 @@
     border-radius: 25px;
     overflow: hidden;
 
+    .icon {
+      color: white;
+      line-height: 50px;
+    }
+
     .trigger {
       height: 50px;
       width: 50px;
@@ -36,7 +41,7 @@
         border-right: none;
       }
 
-      i {
+      .icon {
         color: white;
         line-height: 50px;
       }
