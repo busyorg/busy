@@ -63,6 +63,7 @@ export default class PostSingleModal extends Component {
           likePost={this.props.likePost}
           unlikePost={this.props.unlikePost}
           isPostLiked={this.props.isPostLiked}
+          content={content}
         />
         <header>
           <div className="top-nav">

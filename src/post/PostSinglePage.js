@@ -22,6 +22,7 @@ export default class PostSinglePage extends React.Component {
           likePost={this.props.likePost}
           unlikePost={this.props.unlikePost}
           isPostLiked={this.props.isPostLiked}
+          content={content}
         />
         { content.author ?
           <PostSingleContent content={content} /> : <Loading />
