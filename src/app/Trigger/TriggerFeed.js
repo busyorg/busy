@@ -8,14 +8,6 @@ const TriggerFeed = React.createClass({
     return (
       <div className="actions">
         <div className="triggers">
-          {this.props.category &&
-            <Link to={`/messages/${this.props.category}`} className="trigger">
-              <Icon name="chat_bubble_outline" />
-            </Link>}
-          {this.props.category &&
-            <a className="trigger">
-              <Icon name="star_outline" />
-            </a>}
           <Link to="/write" className="trigger">
             <Icon name="add" />
           </Link>

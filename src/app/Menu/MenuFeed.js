@@ -8,6 +8,12 @@ const MenuFeed = ({ category }) => {
   const categoryUrl = category ? `/${category}` : '';
   return (
     <ul className="app-nav">
+      { category &&
+        <li className="hidden-xs">
+          <Icon name="star_border" />{ ' ' }
+          #{ category }
+        </li>
+      }
       <li>
         <Link to={`/trending${categoryUrl}`} onlyActiveOnIndex activeClassName="active">
           <Icon name="show_chart" />{' '}

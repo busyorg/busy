@@ -7,6 +7,10 @@ import Icon from '../../widgets/Icon';
 const MenuUser = ({ username }) => {
   return (
     <ul className="app-nav">
+      <li className="hidden-xs">
+          <Icon name="star_border" />{ ' ' }
+          <span className="hidden-xs">@{ username }</span>
+      </li>
       <li>
         <Link to={`/@${username}`} activeClassName="active">
           <Icon name="assignment_ind" />{ ' ' }
@@ -29,6 +33,12 @@ const MenuUser = ({ username }) => {
         <Link to={`/@${username}/transfers`} activeClassName="active">
           <Icon name="account_balance_wallet" />{ ' ' }
           <span className="hidden-xs"><FormattedMessage id="wallet" /></span>
+        </Link>
+      </li>
+      <li>
+        <Link to={`/messages/@${username}`} activeClassName="active">
+          <Icon name="chat_bubble_outline" />{ ' ' }
+          <span className="hidden-xs"><FormattedMessage id="messages" /></span>
         </Link>
       </li>
     </ul>
