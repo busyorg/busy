@@ -30,6 +30,16 @@ class Profile extends Component {
   }
 
   componentWillMount() {
+    this.fetchUserData();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.params.name !== this.props.params.name) {
+      this.fetchUserData();
+    }
+  }
+
+  fetchUserData() {
     steemdb.accounts({
       account: this.props.params.name
     }, (err, result) => {
