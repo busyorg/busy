@@ -33,8 +33,10 @@ class Profile extends Component {
     this.fetchUserData();
   }
 
-  componentDidUpdate() {
-    this.fetchUserData();
+  componentDidUpdate(prevProps) {
+    if (prevProps.params.name !== this.props.params.name) {
+      this.fetchUserData();
+    }
   }
 
   fetchUserData() {
