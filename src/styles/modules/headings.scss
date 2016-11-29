@@ -11,20 +11,20 @@ h1, h2, h3 {
 }
 
 h1 {
-  font-size: 1.8em;
+  font-size: 2.2rem;
   letter-spacing: 0;
 }
 
 h2 {
-  font-size: 1.4em;
+  font-size: 1.4rem;
 }
 
 h3 {
-  font-size: 1.2em;
+  font-size: 1.2rem;
 }
 
 h4 {
-  font-size: 1em;
+  font-size: 1rem;
 }
 
 p {
@@ -33,14 +33,14 @@ p {
 
 @media all and (max-width: 768px) {
   h1 {
-    font-size: 2.2em;
+    font-size: 2rem;
   }
 
   h2, h3 {
-    font-size: 1.2em;
+    font-size: 1.2rem;
   }
 }
 
 sup {
-  font-size: 0.8em;
+  font-size: 0.8rem;
 }

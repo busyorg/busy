@@ -67,10 +67,6 @@ ul, li {
   padding: 0;
 }
 
-.section-body {
-  max-width: 992px;
-}
-
 .app-wrapper {
   margin: 0 auto;
   height: auto !important;
@@ -125,14 +121,6 @@ ul, li {
   }
 }
 
-.filters {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  margin: 10px 0;
-}
-
 .app-wrapper.full-width {
   .main-panel {
     width: 100% !important;
@@ -173,61 +161,8 @@ ul, li {
   flex-direction: column;
 }
 
-.block {
-  padding: 160px 0 220px;
-  text-align: center;
-
-  &.dark {
-    color: white;
-
-    h1 {
-      color: white;
-    }
-  }
-
-  &.about-1 {
-    background: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.6)), url("/img/about/1.jpg") #434f66 top (center / cover);
-  }
-
-  &.about-2 {
-    background: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.6)), url("/img/about/2.jpg") #434f66 top (center / cover);
-  }
-
-  &.about-3 {
-    background: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.6)), url("/img/about/3.jpg") #434f66 (center / cover);
-  }
-
-  &.about-4 {
-    background: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.6)), url("/img/about/4.jpg") #434f66 (center / cover);
-  }
-
-  &.about-5 {
-    background: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.6)), url("/img/about/5.jpg") #434f66 (center / cover);
-  }
-
-  &.about-6 {
-    background: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.6)), url("/img/about/6.jpg") #434f66 top (center / cover);
-  }
-}
-
 .anim, header, .main-panel {
   transition: all 0.3s ease;
-}
-
-.activity {
-  width: 100%;
-  position: absolute;
-  bottom: 20px;
-  font-size: 16px;
-  color: rgba(255, 255, 255, 0.6);
-
-  .col:first-child {
-    text-align: right;
-  }
-
-  .col:last-child {
-    text-align: left;
-  }
 }
 
 .see-more {
