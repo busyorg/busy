@@ -2,12 +2,10 @@ import 'babel-polyfill';
 import React, { Component } from 'react';
 import _ from 'lodash';
 import steemdb from 'steemdb';
-import formatter from 'steem/lib/formatter';
 import moment from 'moment';
 import numeral from 'numeral';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
-import Avatar from '../widgets/Avatar';
 
 import Feed from '../feed/Feed';
 import {
@@ -18,6 +16,8 @@ import {
 import Loading from '../widgets/Loading';
 import TriggerProfile from '../app/Trigger/TriggerProfile';
 import { followUser, unfollowUser } from './userActions';
+import Avatar from '../widgets/Avatar';
+import Icon from '../widgets/Icon';
 
 class Profile extends Component {
   constructor(props) {
@@ -119,7 +119,10 @@ class Profile extends Component {
         >
           <div className="mvl">
             <Avatar xl username={username} reputation={_.has(user, 'name') && user.reputation} />
-            <h1>{_.has(jsonMetadata, 'profile.name') ? jsonMetadata.profile.name : '@' + username}</h1>
+            <h1>
+              <Icon name="star_border" md />{ ' ' }
+              {_.has(jsonMetadata, 'profile.name') ? jsonMetadata.profile.name : '@' + username}
+            </h1>
           </div>
         </section>
         <div className="profile">
