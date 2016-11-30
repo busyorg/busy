@@ -21,6 +21,7 @@ import {
 import * as commentsActions from '../comments/commentsActions';
 import { toggleBookmark } from '../bookmarks/bookmarksActions';
 import Loading from '../widgets/Loading';
+import Icon from '../widgets/Icon';
 
 
 @PageHOC
@@ -75,6 +76,12 @@ export default class Page extends React.Component {
       <div className="main-panel">
         <Header />
         <MenuFeed category={category} />
+        { category &&
+          <h2 className="mt-1 mb-0 text-lg-center">
+            <Icon name="star_border" sm />{ ' ' }
+            #{ category }
+          </h2>
+        }
 
         { auth.isAuthenticated && <TriggerFeed category={category} /> }
         { auth.isFetching && <Loading /> }
