@@ -17,6 +17,7 @@
   "activity": "Activity",
   "feed": "Feed",
   "wallet": "Wallet",
+  "messages": "Messages",
   "language": "Language",
   "estimated_value": "Estimated Value"
 }
