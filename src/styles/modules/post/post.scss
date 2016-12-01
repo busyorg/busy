@@ -107,3 +107,8 @@
     border-width: 1px 0 1px 0 !important;
   }
 }
+
+.grid-row > .Comments > .CommentsList {
+  padding: 0.5em 1em;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
