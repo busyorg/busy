@@ -23,6 +23,7 @@ import './Sidebar.scss';
     app: state.app,
     auth: state.auth,
     messages: state.messages,
+    favorites: state.favorites,
   }),
   dispatch => bindActionCreators({
     hideSidebar: hideSidebar,
