@@ -50,32 +50,43 @@ export default class CommentItem extends Component {
 
     return (
       <div className="CommentItem">
-          <Link to={`/@${comment.author}`}>
-            <Avatar xs username={comment.author} /> @{ comment.author }
-          </Link>{ ' ' }
-          <BodyShort body={comment.body} />
-          { (comment.children > 0 && !this.state.showReplies) &&
-            <a tabIndex="0" onClick={this.toggleShowReplies}>
-              <Icon name="reply" sm />View {comment.children}{' '}
-              {comment.children > 1 ? 'replies' : 'reply'}
-            </a>
-          }
-        <div className="CommentActionButtons">
-          <div className="CommentActionButtons__button">
-            <a
-              onClick={isCommentLiked ? () => unlikeComment(comment.id) :() => likeComment(comment.id)}
-              className={isCommentLiked ? 'active' : ''}
-            >
-              <Icon name="thumb_up" sm />
-            </a>
+        <div className={`CommentItem__content CommentItem__content--level-${comment.depth}`}>
+          <div className="CommentUser">
+            <Link to={`/@${comment.author}`}>
+              <Avatar xs username={comment.author} />
+            </Link>
           </div>
-          <div className="CommentActionButtons__button">
-            { numeral(comment.net_votes).format('0,0') }
-            { ' ' }
-            votes
-          </div>
-          <div className="CommentActionButtons__button">
-            ${ payout }
+          <div className="CommentBody">
+            <span className="CommentBody__username">
+              <Link to={`/@${comment.author}`}>
+                @{ comment.author }
+              </Link>
+            </span>
+            <BodyShort body={comment.body} />
+            <div className="CommentActionButtons">
+              <div className="CommentActionButtons__button">
+                <a
+                  onClick={isCommentLiked
+                    ? () => unlikeComment(comment.id)
+                    : () => likeComment(comment.id)}
+                  className={isCommentLiked ? 'active' : ''}
+                >
+                  <Icon name="thumb_up" xs />
+                </a>
+              </div>
+              <div className="CommentActionButtons__button">
+                { numeral(comment.net_votes).format('0,0') }
+              </div>
+              <div className="CommentActionButtons__button">
+                ${ payout }
+              </div>
+              { (comment.children > 0 && !this.state.showReplies) &&
+              <a tabIndex="0" onClick={this.toggleShowReplies}>
+                <Icon name="reply" xs />View {comment.children}{' '}
+                {comment.children > 1 ? 'replies' : 'reply'}
+              </a>
+              }
+            </div>
           </div>
         </div>
         { this.state.showReplies && this.props.children }

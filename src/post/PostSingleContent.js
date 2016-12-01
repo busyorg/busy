@@ -37,7 +37,7 @@ const PostSingleContent = ({ content }) => {
       { content.children > 0 && (
         <div className="PostSingleContent__replies py-3">
           <div className="container">
-            <h2>Comments</h2>
+            <h1>Comments</h1>
             <Comments postId={content.id} />
           </div>
         </div>

@@ -30,7 +30,7 @@ const CommentsList = ({ postId, comments, likeComment, unlikeComment, auth }) =>
   const visibleList = list.slice(0, show);
 
   return (
-    <div>
+    <div className="CommentsList">
       { renderComments(visibleList, comments.comments, likeComment, unlikeComment, auth) }
     </div>
   );
