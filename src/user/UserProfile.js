@@ -170,6 +170,8 @@ class Profile extends Component {
   }
 }
 
+// TODO:(p0o) refactor this to User.js container and avoid adding redux actions or state params here
+
 const mapStateToProps = function (state) {
   return {
     following: state.userProfile.following,
