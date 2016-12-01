@@ -6,7 +6,7 @@ import moment from 'moment';
 import numeral from 'numeral';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
-
+import FavoriteUserButton from '../favorites/FavoriteUserButton';
 import Feed from '../feed/Feed';
 import {
   getFeedContentFromState,
@@ -68,6 +68,12 @@ class Profile extends Component {
     }
   };
 
+  isFavorited() {
+    const { favorites } = this.props;
+    const username = this.props.params.name;
+    return username && favorites.includes(username);
+  }
+
   render() {
     const { feed, posts, getFeedContent, getMoreFeedContent, limit } = this.props;
     const username = this.props.params.name;
@@ -120,7 +126,15 @@ class Profile extends Component {
           <div className="mvl">
             <Avatar xl username={username} reputation={_.has(user, 'name') && user.reputation} />
             <h1>
-              <Icon name="star_border" md />{ ' ' }
+
+              <FavoriteUserButton
+                isFavorited={this.isFavorited()}
+                onClick={this.isFavorited()
+                  ? () => this.props.removeUserFavorite(username)
+                  : () => this.props.addUserFavorite(username)
+                }
+              />
+
               {_.has(jsonMetadata, 'profile.name') ? jsonMetadata.profile.name : '@' + username}
             </h1>
           </div>

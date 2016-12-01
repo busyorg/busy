@@ -11,12 +11,14 @@ import { getUserComments, getMoreUserComments } from './userActions';
 import appActions from '../actions';
 import Header from '../app/Header';
 import MenuUser from '../app/Menu/MenuUser';
+import { addUserFavorite, removeUserFavorite } from '../favorites/favoritesActions';
 
 @connect(
   state => ({
     feed: state.feed,
     posts: state.posts,
     comments: state.comments,
+    favorites: state.favorites.users,
   }),
   dispatch => bindActionCreators({
     getFeedContent,
@@ -25,6 +27,8 @@ import MenuUser from '../app/Menu/MenuUser';
     getMoreUserFeedContent,
     getUserComments,
     getMoreUserComments,
+    addUserFavorite,
+    removeUserFavorite
   }, dispatch)
 )
 export default class UserProfile extends React.Component {
