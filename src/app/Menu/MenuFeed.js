@@ -15,15 +15,15 @@ const MenuFeed = ({ category }) => {
         </Link>
       </li>
       <li>
+        <Link to={`/created${categoryUrl}`} activeClassName="active">
+          <Icon name="fiber_new" />{' '}
+          <span className="hidden-xs"><FormattedMessage id="new" /></span></Link>
+      </li>
+      <li>
         <Link to={`/hot${categoryUrl}`} activeClassName="active">
           <Icon name="whatshot" />{' '}
           <span className="hidden-xs"><FormattedMessage id="hot" /></span>
         </Link>
-      </li>
-      <li>
-        <Link to={`/created${categoryUrl}`} activeClassName="active">
-          <Icon name="fiber_new" />{' '}
-          <span className="hidden-xs"><FormattedMessage id="new" /></span></Link>
       </li>
       <li>
         <Link to={`/active${categoryUrl}`} activeClassName="active">
