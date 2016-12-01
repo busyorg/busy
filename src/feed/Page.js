@@ -21,8 +21,7 @@ import {
 import * as commentsActions from '../comments/commentsActions';
 import { toggleBookmark } from '../bookmarks/bookmarksActions';
 import Loading from '../widgets/Loading';
-import Icon from '../widgets/Icon';
-
+import FavoriteCategoryButton from '../favorites/FavoriteCategoryButton';
 
 @PageHOC
 @connect(
@@ -77,10 +76,7 @@ export default class Page extends React.Component {
         <Header />
         <MenuFeed category={category} />
         { category &&
-          <h2 className="mt-1 mb-0 text-lg-center">
-            <Icon name="star_border" sm />{ ' ' }
-            #{ category }
-          </h2>
+          <FavoriteCategoryButton name={category} />
         }
 
         { auth.isAuthenticated && <TriggerFeed category={category} /> }
