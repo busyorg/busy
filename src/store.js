@@ -14,7 +14,7 @@ import postsReducers from './post/postsReducers';
 import userProfileReducer from './user/userReducer';
 import notificationReducer from './app/Notification/notificationReducers';
 import bookmarksReducer from './bookmarks/bookmarksReducer';
-import favoritesReducer from './app/Favorites/favoritesReducer';
+import favoritesReducer from './favorites/favoritesReducers';
 import { responsiveReducer, mountResponsive } from './helpers/responsive';
 import reblogReducers from './app/reblog/reblogReducers';
 
