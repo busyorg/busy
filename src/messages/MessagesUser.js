@@ -1,9 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
 
 import './Messages.scss';
 import Header from '../app/Header';
+import MenuUser from '../app/Menu/MenuUser';
 import MessageForm from './MessageForm';
 import MessageList from './MessageList';
 import actionDecorator from '../helpers/actionDecorator';
@@ -40,15 +40,7 @@ class MessagesPage extends Component {
     return (
       <div className="Messages main-panel">
         <Header />
-        <div className="secondary-nav">
-          <i className="icon icon-sm material-icons">
-            {_.has(this.props.favorites, username) ? 'star' : 'star_border'}
-          </i>
-          <Link to={`/@${username}`}>@{username}</Link>{' '}
-          <span>{this.props.users[this.props.params.username] ?
-            'online' : 'away'}
-          </span>
-        </div>
+        <MenuUser username={username} />
         <div className="messages">
           <MessageList messages={channel.latest} />
           <MessageForm

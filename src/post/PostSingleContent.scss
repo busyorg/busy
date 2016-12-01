@@ -1,13 +1,19 @@
-.single {
+.PostSingleContent {
   display: flex;
   flex-direction: column;
   overflow-x: auto;
 
-  .single-content {
-    font-size: 20px;
-    line-height: 1.5em;
+  .PostSingleContent__header {
+    overflow: hidden;
+    height: 40px;
+    line-height: 40px;
+    font-size: 18px;
+  }
+
+  .PostSingleContent__content {
+    font-size: 22px;
+    line-height: 1.6em;
     font-family: Georgia, Cambria, "Times New Roman", Times, serif;
-    margin-bottom: 40px;
     overflow: hidden;
 
     p {
@@ -18,7 +24,7 @@
       max-width: 100%;
       max-height: 600px;
       height: auto;
-      margin: 20px 0;
+      margin: 2em 0;
       border: 1px solid rgba(0, 0, 0, 0.1);
       display: block;
       background-color: white;
@@ -43,8 +49,9 @@
     }
   }
 
-  .single-replies {
+  .PostSingleContent__replies {
     background-color: #f1f2f4;
+    font-size: 18px;
 
     li {
       margin: 0 !important;

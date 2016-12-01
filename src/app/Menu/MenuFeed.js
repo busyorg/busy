@@ -11,7 +11,7 @@ const MenuFeed = ({ category }) => {
       <li>
         <Link to={`/trending${categoryUrl}`} onlyActiveOnIndex activeClassName="active">
           <Icon name="show_chart" />{' '}
-          <span className="hidden-xs"><FormattedMessage id="trending" /></span>
+          <span className="hidden-xs"><FormattedMessage id="trending"/></span>
         </Link>
       </li>
       <li>

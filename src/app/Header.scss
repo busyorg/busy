@@ -114,8 +114,8 @@ header {
       }
     }
 
-    &:visited {
-      color: #7D7D8E !important;
+    &:visited, &:hover {
+      color: #4e4d4d !important;
     }
 
     &.active {

@@ -1,22 +1,18 @@
 import React from 'react';
 import moment from 'moment';
 import { Link } from 'react-router';
+
 import Body from './body';
 import Comments from '../comments/Comments';
 import Avatar from '../widgets/Avatar';
 
+import './PostSingleContent.scss';
+
 const PostSingleContent = ({ content }) => {
   return (
-    <div className="single">
+    <div className="PostSingleContent">
       <div className="container">
-        <div
-          style={{
-              overflow: 'hidden',
-              height: '40px',
-              lineHeight: '40px',
-              marginTop: '15px',
-            }}
-        >
+        <div className="PostSingleContent__header my-2">
           <Link to={`/@${content.author}`}>
             <Avatar sm username={content.author} className="pull-left" />
             <span className="pull-left mls">
@@ -32,14 +28,14 @@ const PostSingleContent = ({ content }) => {
           </span>
         </div>
 
-        <div className="single-content">
+        <div className="PostSingleContent__content my-2">
           <h1 className="mvl">{content.title}</h1>
           <Body body={content.body} jsonMetadata={content.json_metadata} />
         </div>
       </div>
 
       { content.children > 0 && (
-        <div className="single-replies">
+        <div className="PostSingleContent__replies py-3">
           <div className="container">
             <h2>Comments</h2>
             <Comments postId={content.id} />

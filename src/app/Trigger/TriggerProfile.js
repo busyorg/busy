@@ -20,9 +20,6 @@ const TriggerProfile = React.createClass({
             <a className={classNames('trigger', { disabled: followingIsFetching })} onClick={onClickFollow}>
               <Icon name={isFollowing ? 'person_outline' : 'person_add'} />
             </a>}
-          <Link to={`/messages/@${this.props.username}`} className="trigger">
-            <Icon name="chat_bubble_outline" />
-          </Link>
         </div>
       </div>
     );
