@@ -41,7 +41,14 @@
 
 .CommentActionButtons__button {
   display: inline-block;
+  line-height: 1em;
+  padding-right: 0.5em;
   margin-right: 0.5em;
+  border-right: 1px solid #7d7d8e;
+
+  &:last-child {
+    border-right: none;
+  }
 }
 
 .CommentUser {
