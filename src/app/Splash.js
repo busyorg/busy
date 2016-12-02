@@ -17,7 +17,7 @@ const Splash = () => {
               <img src="/img/logo.svg" height="40" />
             </div>
             <div className="modal-body">
-              <h2>We're currently in beta.</h2>
+              <h2>We're currently in Closed Alpha.</h2>
               <a href={loginURL} className="btn btn-lg btn-primary">
                 <Icon name="lock" sm />{ ' ' }
                 Log In
