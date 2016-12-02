@@ -4,7 +4,7 @@
   word-break: keep-all;
 
   a.active {
-    i {
+    .icon {
       color: $primary-color;
     }
   }
@@ -13,26 +13,26 @@
 .CommentItem__content {
   margin: 0.5em 0;
   display: flex;
+}
 
-  &.CommentItem__content--level-1 {
-    margin-left: 0;
-  }
+.CommentItem__content--level-1 {
+  margin-left: 0;
+}
 
-  &.CommentItem__content--level-2 {
-    margin-left: 2em;
-  }
+.CommentItem__content--level-2 {
+  margin-left: 2em;
+}
 
-  &.CommentItem__content--level-3 {
-    margin-left: 4em;
-  }
+.CommentItem__content--level-3 {
+  margin-left: 4em;
+}
 
-  &.CommentItem__content--level-4 {
-    margin-left: 6em;
-  }
+.CommentItem__content--level-4 {
+  margin-left: 6em;
+}
 
-  &.CommentItem__content--level-5 {
-    margin-left: 8em;
-  }
+.CommentItem__content--level-5 {
+  margin-left: 8em;
 }
 
 .CommentActionButtons {
