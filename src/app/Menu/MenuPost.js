@@ -1,6 +1,9 @@
 import React from 'react';
 import numeral from 'numeral';
+
 import Icon from '../../widgets/Icon';
+
+import './MenuPost.scss';
 
 const TriggerPost = ({
   reblog,
@@ -21,10 +24,10 @@ const TriggerPost = ({
   const numberOfVotes = numeral(content.net_votes).format('0,0');
 
   return (
-    <div className="actions">
-      <div className="triggers">
+    <ul className="MenuPost secondary-nav">
+      <li>
         <a
-          className={isPostLiked ? 'trigger active' : 'trigger'}
+          className={isPostLiked ? 'active' : ''}
           onClick={isPostLiked ? unlikePost : likePost}
         >
           <Icon name="thumb_up" />
@@ -32,13 +35,14 @@ const TriggerPost = ({
         { ' ' }
         { numberOfVotes }
         { ' Likes' }
-
+      </li>
+      <li>
         <Icon name="attach_money" />
         { ' ' }
         { payout }
-
+      </li>
+      <li>
         <a
-          className="trigger"
           onClick={e => {
             e.stopPropagation();
             openCommentingDraft();
@@ -49,14 +53,16 @@ const TriggerPost = ({
         { ' ' }
         { numberOfComments }
         { ' Comments' }
+      </li>
+      <li>
         <a
-          className={isReblogged ? 'trigger active' : 'trigger'}
+          className={isReblogged ? 'active' : ''}
           onClick={reblog}
         >
           <Icon name="repeat" />
         </a>
-      </div>
-    </div>
+      </li>
+    </ul>
   );
 };
 
