@@ -72,9 +72,7 @@ export default class CommentItem extends Component {
                   className={isCommentLiked ? 'active' : ''}
                 >
                   <Icon name="thumb_up" xs />
-                </a>
-              </div>
-              <div className="CommentActionButtons__button">
+                </a>{ ' ' }
                 { numeral(comment.net_votes).format('0,0') }
               </div>
               <div className="CommentActionButtons__button">

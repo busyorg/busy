@@ -1,7 +1,8 @@
 @import '../styles/colors';
 
-.Comments {
-
+.Comments--feed .CommentsList {
+  padding: 0.5em 1em;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .Comments__showMore {

@@ -171,7 +171,7 @@ export default class PostFeed extends Component {
         </div>
 
         { this.state.showComments &&
-          <Comments postId={post.id} />
+          <Comments postId={post.id} className="Comments--feed" />
         }
 
         { this.state.showLikes &&

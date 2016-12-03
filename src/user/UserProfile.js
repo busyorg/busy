@@ -112,7 +112,7 @@ class Profile extends Component {
         <section
           className="align-center bg-green profile-header"
           style={{
-            backgroundImage: 'url(https://img.steemconnect.com/@' + username + '/cover)',
+            backgroundImage: 'url(https://img.steemconnect.com/' + username + '/cover)',
             backgroundSize: 'cover',
             position: 'relative',
           }}
