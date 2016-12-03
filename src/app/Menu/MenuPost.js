@@ -32,9 +32,10 @@ const TriggerPost = ({
         >
           <Icon name="thumb_up" />
         </a>
-        { ' ' }
-        { numberOfVotes }
-        { ' Likes' }
+        { ` ${numberOfVotes}` }
+        <span className="hidden-xs">
+          { ' Likes' }
+        </span>
       </li>
       <li>
         <Icon name="attach_money" />
@@ -50,9 +51,10 @@ const TriggerPost = ({
         >
           <Icon name="reply" />
         </a>
-        { ' ' }
-        { numberOfComments }
-        { ' Comments' }
+        { ` ${numberOfComments}` }
+        <span className="hidden-xs">
+          { ' Comments' }
+        </span>
       </li>
       <li>
         <a
