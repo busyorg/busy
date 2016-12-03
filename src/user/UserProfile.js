@@ -139,7 +139,8 @@ class Profile extends Component {
               {_.has(jsonMetadata, 'profile.website') && <p><i className="icon icon-md material-icons">link</i> <a href={jsonMetadata.profile.website} target="_blank">{jsonMetadata.profile.website}</a></p>}
               {_.has(jsonMetadata, 'profile.location') && <p><i className="icon icon-md material-icons">pin_drop</i> {jsonMetadata.profile.location}</p>}
               <p>
-                <span>Joined {moment(user.created).fromNow()}</span> <span>, last activity {moment(user.last_active).fromNow()}</span>
+                Joined {moment(user.created).fromNow()}
+                , last activity {moment(user.last_vote_time).fromNow()}
               </p>
             </center>
           </div>}
