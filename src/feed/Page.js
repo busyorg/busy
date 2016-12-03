@@ -77,7 +77,7 @@ export default class Page extends React.Component {
         <Header />
         <MenuFeed category={category} />
         { category &&
-          <h2 className="mt-1 mb-0 text-lg-center">
+          <h2 className="mt-1 mb-0 align-center">
             <Icon name="star_border" sm />{ ' ' }
             #{ category }
           </h2>
