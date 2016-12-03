@@ -11,19 +11,12 @@ const Splash = () => {
   return (
     <div className="Splash">
       <Modal>
-        <div className="modal-dialog">
-          <div className="modal-content">
-            <div className="modal-header">
-              <img src="/img/logo.svg" height="40" />
-            </div>
-            <div className="modal-body">
-              <h2>We're currently in Closed Alpha.</h2>
-              <a href={loginURL} className="btn btn-lg btn-primary">
-                <Icon name="lock" sm />{ ' ' }
-                Log In
-              </a>
-            </div>
-          </div>
+        <div className="container container-small">
+          <h1>Hello You, Alpha Tester!</h1>
+          <p>You can log in now to Busy using your Steem account and Steem Connect.</p>
+          <a href={loginURL} className="btn btn-lg btn-outline-success">
+            Log In
+          </a>
         </div>
       </Modal>
     </div>

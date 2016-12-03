@@ -6,16 +6,24 @@
   font-size: 18px;
 }
 
-.btn-primary {
+.btn-success {
   color: #fff;
   background-color: #2ED8B1;
   border: none;
 
   &:hover, &:focus, &:active {
-    background-color: #27d0a9 !important;
+    background-color: #2ED8B1 !important;
   }
+}
 
-  .icon {
-    color: #ffffff;
+.btn-outline-success {
+  color: #2ED8B1 !important;
+  background-color: transparent;
+  border: none;
+  box-shadow: inset 0 0 0 3px #2ED8B1;
+
+  &:hover, &:focus, &:active {
+    color: #fff !important;
+    background-color: #2ED8B1 !important;
   }
 }

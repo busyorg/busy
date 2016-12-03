@@ -155,6 +155,10 @@ ul, li {
   word-wrap: break-word;
 }
 
+.container-small {
+  max-width: 420px;
+}
+
 .page {
   display: flex;
   overflow-y: auto;
