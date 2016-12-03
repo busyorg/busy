@@ -11,8 +11,7 @@ export default class UserList extends React.Component {
     return (
       <div className="UserList pvm">
         <Avatar md username={this.props.username} className="mrm" />
-        <Link to={`/@${this.props.username}`}>@{this.props.username}</Link>{ ' ' }
-        <Icon name="person_add" />
+        <Link to={`/@${this.props.username}`}>@{this.props.username}</Link>
       </div>
     );
   }
