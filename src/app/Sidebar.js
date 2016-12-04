@@ -55,7 +55,7 @@ export default class Sidebar extends Component {
       this.setState({
         isFetching: false,
         isLoaded: true,
-        categories: result.categories,
+        categories: result.category_idx && result.category_idx.trending,
         props: result.props,
         feedPrice: result.feed_price
       });
@@ -110,8 +110,7 @@ export default class Sidebar extends Component {
 
     if (categories) {
       // excluding items in favorite to avoid repetition
-      const categoriesList = sortBy(categories, 'discussions').reverse().map(cat => cat.name);
-      const categoriesWithoutFavorites = difference(categoriesList, favorites.categories);
+      const categoriesWithoutFavorites = difference(categories, favorites.categories);
 
       return this.filterTagsBySearch(categoriesWithoutFavorites)
         .slice(0, 16 - favorites.categories.length)
