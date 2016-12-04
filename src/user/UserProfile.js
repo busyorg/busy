@@ -134,7 +134,7 @@ class Profile extends Component {
               <li><Link to={`/@${username}/followers`}><i className="icon icon-md material-icons">people</i> {numeral(parseInt(user.followers_count)).format('0,0')}<span className="hidden-xs"> Followers</span></Link></li>
               <li><Link to={`/@${username}/followed`}><i className="icon icon-md material-icons">people</i> {numeral(parseInt(user.following_count)).format('0,0')}<span className="hidden-xs"> Followed</span></Link></li>
             </ul>
-            <center className="mal">
+            <center className="container my-2">
               {_.has(jsonMetadata, 'profile.about') && <h3>{jsonMetadata.profile.about}</h3>}
               {_.has(jsonMetadata, 'profile.website') && <p><i className="icon icon-md material-icons">link</i> <a href={jsonMetadata.profile.website} target="_blank">{jsonMetadata.profile.website}</a></p>}
               {_.has(jsonMetadata, 'profile.location') && <p><i className="icon icon-md material-icons">pin_drop</i> {jsonMetadata.profile.location}</p>}
