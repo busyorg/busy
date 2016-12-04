@@ -69,10 +69,11 @@ export default class CommentForm extends Component {
     const { comments, sidebarIsVisible, closeCommentingDraft, posts } = this.props;
 
     const commentsClass = classNames({
-      'CommentForm': true,
-      'disappear': !comments.isCommenting,
-      'withSidebar': sidebarIsVisible,
-      'mobile': isSmall(),
+      CommentForm: true,
+      'py-1': true,
+      disappear: !comments.isCommenting,
+      withSidebar: sidebarIsVisible,
+      mobile: isSmall(),
     });
 
     let parentTitle = '';
@@ -84,7 +85,7 @@ export default class CommentForm extends Component {
       <div className={commentsClass}>
         <div className="container">
           { comments.currentDraftId &&
-            <div className="mvm">
+            <div className="mb-1">
               <i className="icon icon-sm material-icons">reply</i>
               { ' Reply to ' }
               <b>
@@ -93,9 +94,8 @@ export default class CommentForm extends Component {
             </div>
           }
           <Textarea
-            rows={1}
             ref={(c) => { this._input = c; }}
-            className={'CommentForm__input'}
+            className="CommentForm__input"
             onKeyDown={(e) => this.handleKey(e)}
             placeholder={'Write a comment...'}
           />
