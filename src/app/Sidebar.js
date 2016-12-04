@@ -45,7 +45,7 @@ export default class Sidebar extends Component {
       props: {},
       feedPrice: {},
       following: [],
-      menu: 'public',
+      menu: 'categories',
       search: '',
     };
   }
@@ -222,6 +222,7 @@ export default class Sidebar extends Component {
               messages={this.props.messages}
               auth={this.props.auth}
               contacts={this.state.following}
+              favorites={this.props.favorites}
             />
           }
 
