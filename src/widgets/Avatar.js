@@ -28,7 +28,7 @@ const Avatar = ({
   size += ` ${className}`;
   return (
     <span className={`Avatar ${size}`}>
-      {reputation &&
+      {reputation > 0 &&
         <span className="Avatar__reputation">
           {formatter.reputation(reputation)}
         </span>
