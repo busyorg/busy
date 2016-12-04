@@ -9,6 +9,8 @@ import Avatar from '../widgets/Avatar';
 import './PostSingleContent.scss';
 
 const PostSingleContent = ({ content }) => {
+  let jsonMetadata = {};
+  try { jsonMetadata = JSON.parse(content.json_metadata); } catch (e) { }
   return (
     <div className="PostSingleContent">
       <div className="container">
@@ -31,6 +33,15 @@ const PostSingleContent = ({ content }) => {
         <div className="PostSingleContent__content my-2">
           <h1 className="mvl">{content.title}</h1>
           <Body body={content.body} jsonMetadata={content.json_metadata} />
+          { jsonMetadata.tags &&
+            <div className="my-2">
+              { jsonMetadata.tags.map(tag => (
+                <span>
+                  <Link to={`/trending/${tag}`} className="tag tag-default">{tag}</Link>{ ' ' }
+                </span>
+              ))}
+            </div>
+          }
         </div>
       </div>
 
