@@ -3,6 +3,7 @@ import moment from 'moment';
 import { Link } from 'react-router';
 
 import Body from './body';
+import Icon from '../widgets/Icon';
 import Comments from '../comments/Comments';
 import Avatar from '../widgets/Avatar';
 
@@ -49,7 +50,7 @@ const PostSingleContent = ({ content }) => {
       { content.children > 0 && (
         <div className="PostSingleContent__replies py-3">
           <div className="container">
-            <h1>Comments</h1>
+            <h1><Icon name="reply" lg /> Comments ({content.children})</h1>
             <Comments postId={content.id} />
           </div>
         </div>
