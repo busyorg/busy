@@ -93,7 +93,7 @@ export default class Sidebar extends Component {
   renderFavoritedTags() {
     const { favorites } = this.props;
     const favoritedCategories = favorites.categories;
-    return this.filterTagsBySearch(favoritedCategories).map((category, idx) =>
+    return this.filterTagsBySearch(favoritedCategories).slice(0, 16).map((category, idx) =>
       <li key={idx}>
         <Link to={`/trending/${category}`} activeClassName="active">
           <Icon name="star" sm />
@@ -113,12 +113,14 @@ export default class Sidebar extends Component {
       const categoriesList = sortBy(categories, 'discussions').reverse().map(cat => cat.name);
       const categoriesWithoutFavorites = difference(categoriesList, favorites.categories);
 
-      return this.filterTagsBySearch(categoriesWithoutFavorites).map((category, idx) =>
-        <li key={idx}>
-          <Link to={`/trending/${category}`} activeClassName="active">
-            #{category}
-          </Link>
-        </li>
+      return this.filterTagsBySearch(categoriesWithoutFavorites)
+        .slice(0, 16 - favorites.categories.length)
+        .map((category, idx) =>
+          <li key={idx}>
+            <Link to={`/trending/${category}`} activeClassName="active">
+              #{category}
+            </Link>
+          </li>
       );
     }
     return [];
