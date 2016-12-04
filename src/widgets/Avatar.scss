@@ -1,59 +1,68 @@
 @import "../styles/fonts.scss";
 
-.avatar {
-  background-color: rgba(0, 0, 0, 0.1);
+.Avatar {
   line-height: 1em;
-  overflow: hidden;
-  border-radius: 50%;
   text-align: center;
   display: inline-block;
+  position: relative;
+}
 
-  &.avatar-xs {
+.Avatar--xs {
+  height: 24px;
+  width: 24px;
+  line-height: 1em;
+  vertical-align: middle;
+}
+
+.Avatar--sm {
+  width: 40px;
+  height: 40px;
+
+  .Avatar__reputation {
+    top: 8px;
+    font-size: 12px;
     height: 24px;
     width: 24px;
-    line-height: 1em;
-    vertical-align: middle;
+    line-height: 24px;
   }
+}
 
-  &.avatar-sm {
-    width: 40px;
-    height: 40px;
+.Avatar--md {
+  width: 50px;
+  height: 50px;
+}
 
-    .reputation {
-      left: auto;
-      margin: 8px 35px;
-      font-size: 12px;
-      height: 24px;
-      width: 24px;
-      line-height: 24px;
-    }
+.Avatar--lg {
+  width: 60px;
+  height: 60px;
+}
+
+.Avatar--xl {
+  width: 70px;
+  height: 70px;
+
+  .Avatar__reputation {
+    top: 20px;
+    font-size: 15px;
+    height: 30px;
+    width: 30px;
+    line-height: 30px;
   }
+}
 
-  &.avatar-md {
-    width: 50px;
-    height: 50px;
-  }
+.Avatar__reputation {
+  position: absolute;
+  font-family: $font-alt;
+  background-color: white;
+  border-radius: 50%;
+  text-align: center;
+  color: #27d0a9;
+  overflow: hidden;
+  right: -20px;
+}
 
-  &.avatar-xl {
-    width: 70px;
-    height: 70px;
-
-    .reputation {
-      margin: 20px 60px;
-      font-size: 15px;
-      height: 30px;
-      width: 30px;
-      line-height: 30px;
-    }
-  }
-
-  .reputation {
-    position: absolute;
-    font-family: $font-alt;
-    background-color: white;
-    border-radius: 50%;
-    text-align: center;
-    color: #27d0a9;
-    overflow: hidden;
-  }
+.Avatar__img {
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  overflow: hidden;
 }
