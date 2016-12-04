@@ -18,6 +18,7 @@ import TriggerProfile from '../app/Trigger/TriggerProfile';
 import { followUser, unfollowUser } from './userActions';
 import Avatar from '../widgets/Avatar';
 import Icon from '../widgets/Icon';
+import Badge from '../widgets/Badge';
 
 class Profile extends Component {
   constructor(props) {
@@ -121,7 +122,7 @@ class Profile extends Component {
             <Avatar xl username={username} reputation={_.has(user, 'name') && user.reputation} />
             <h1>
               <Icon name="star_border" md />{ ' ' }
-              {_.has(jsonMetadata, 'profile.name') ? jsonMetadata.profile.name : '@' + username}
+              { _.has(jsonMetadata, 'profile.name') ? jsonMetadata.profile.name : `@${username} ` }
             </h1>
           </div>
         </section>
@@ -135,6 +136,7 @@ class Profile extends Component {
               <li><Link to={`/@${username}/followed`}><i className="icon icon-md material-icons">people</i> {numeral(parseInt(user.following_count)).format('0,0')}<span className="hidden-xs"> Followed</span></Link></li>
             </ul>
             <center className="container container-small my-2">
+              <h3><Badge vestingShares={user.vesting_shares} /></h3>
               {_.has(jsonMetadata, 'profile.about') && <h3>{jsonMetadata.profile.about}</h3>}
               {_.has(jsonMetadata, 'profile.website') && <p><i className="icon icon-md material-icons">link</i> <a href={jsonMetadata.profile.website} target="_blank">{jsonMetadata.profile.website}</a></p>}
               {_.has(jsonMetadata, 'profile.location') && <p><i className="icon icon-md material-icons">pin_drop</i> {jsonMetadata.profile.location}</p>}
