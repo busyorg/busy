@@ -194,7 +194,7 @@ export default class Sidebar extends Component {
               </li>
             </ul>}
 
-          {_.size(this.state.categories) > 0 && this.state.menu === 'public' &&
+          {_.size(this.state.categories) > 0 && this.state.menu === 'categories' &&
             <div>
               <ul className="Sidebar__tags">
                 <li className="Sidebar__search">
@@ -218,7 +218,7 @@ export default class Sidebar extends Component {
             </div>
           }
 
-          {this.state.menu === 'feed' &&
+          {this.state.menu === 'users' &&
             <SidebarUsers
               messages={this.props.messages}
               auth={this.props.auth}
