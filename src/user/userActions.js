@@ -64,8 +64,6 @@ export const getMoreUserComments = (username, limit) => {
  * busy-img actions
  */
 
-const BUSY_IMG_HOST = process.env.BUSY_IMG_HOST || 'https://img.steemconnect.com';
-
 export const UPLOAD_FILE = 'UPLOAD_FILE';
 export const UPLOAD_FILE_START = 'UPLOAD_FILE_START';
 export const UPLOAD_FILE_SUCCESS = 'UPLOAD_FILE_SUCCESS';
@@ -89,7 +87,7 @@ export function uploadFile({ username, file, fileInput }) {
     meta,
     type: UPLOAD_FILE,
     payload: {
-      promise: fetch(`${BUSY_IMG_HOST}/@${username}/uploads`, {
+      promise: fetch(`${process.env.STEEMCONNECT_IMG_HOST}/@${username}/uploads`, {
         method: 'post',
         body: formData,
         origin: true,
@@ -107,7 +105,7 @@ export function fetchFiles({ username }) {
   return (dispatch) => dispatch({
     type: FETCH_FILES,
     payload: {
-      promise: fetch(`${BUSY_IMG_HOST}/@${username}/uploads`)
+      promise: fetch(`${process.env.STEEMCONNECT_IMG_HOST}/@${username}/uploads`)
         .then(res => res.json()),
     },
   });
