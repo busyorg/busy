@@ -17,13 +17,14 @@ const PostSingleContent = ({ content }) => {
         <div className="PostSingleContent__header my-2">
           <Link to={`/@${content.author}`}>
             <Avatar sm username={content.author} className="pull-left" />
-            <span className="pull-left mls">
+            <span className="mls">
               @{content.author}
-              <span className="hidden-xs">
-                { ' ' }in <Link to={`/hot/${content.category}`}>#{content.category}</Link>
-              </span>
             </span>
           </Link>
+          <span className="hidden-xs">
+            { ' in ' }
+            <Link to={`/hot/${content.category}`}>#{content.category}</Link>
+          </span>
           <span className="pull-right">
             {moment(content.created).fromNow()}
             <a><i className="icon icon-md material-icons">bookmark_border</i></a>
