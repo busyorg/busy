@@ -112,16 +112,17 @@ export default class Sidebar extends Component {
           <a className="hide-sidebar" onClick={() => this.props.hideSidebar()}>
             <Icon name="arrow_back" className="icon-menu" />
           </a>
-          <div className="me">
+          <div className="Sidebar__log">
             <div>
-              <Link to={`/@${user.name}`}>
+              <Link to={`/@${user.name}`} className="my-1">
                 <Avatar sm username={user.name} reputation={user.reputation} />
               </Link>
-              <span style={{ clear: 'both', display: 'block' }}>
-                @{user.name} <a onClick={() => this.setState({ menu: 'settings' })}>
+              <div className="Sidebar__username">
+                @{ `${user.name} ` }
+                <a onClick={() => this.setState({ menu: 'settings' })}>
                   <Icon name="settings" xs />
                 </a>
-              </span>
+              </div>
             </div>
           </div>
         </div>
@@ -138,10 +139,10 @@ export default class Sidebar extends Component {
           {_.has(this.state.feedPrice, 'base') && this.state.menu === 'settings' &&
             <ul>
               <li className="title">
-                <Link to="/#profile">
+                <a href="https://steemconnect.com/profile" target="_blank">
                   <Icon name="perm_identity" />{' '}
                   <FormattedMessage id="profile" />
-                </Link>
+                </a>
               </li>
               <li className="title">
                 <Link to="/settings">
@@ -194,21 +195,21 @@ export default class Sidebar extends Component {
                   <FormattedMessage id="write" />
                 </Link>
               </li>
-              <li className="title">
+              {/* <li className="title">
                 <Link to="/#drafts">
                   <Icon name="library_books" />{' '}
                   <FormattedMessage id="drafts" />
                 </Link>
-              </li>
-              <li className="title">
+              </li> */}
+              {/* <li className="title">
                 <Link to="/#files">
                   <Icon name="attach_file" />{' '}
                   <FormattedMessage id="files" />
                 </Link>
-              </li>
+              </li> */}
               <li className="title">
                 <Link to="/bookmarks">
-                  <Icon name="collections_bookmark" />{' '}
+                  <Icon name="bookmark" />{' '}
                   <FormattedMessage id="bookmarks" />
                 </Link>
               </li>

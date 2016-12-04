@@ -90,8 +90,8 @@ header {
 
 .app-nav {
   overflow: hidden;
-  height: 57px;
-  min-height: 57px;
+  height: 56px;
+  min-height: 56px;
   line-height: 50px;
   text-align: center;
   box-shadow: inset 0 -1px 0 #E7E7EC;
@@ -103,7 +103,7 @@ header {
 
   a {
     display: block;
-    height: 57px;
+    height: 56px;
     line-height: 54px;
     color: $text-color;
 
@@ -135,7 +135,7 @@ header {
 }
 
 .secondary-nav {
-  height: 57px;
+  height: 56px;
   line-height: 50px;
   position: relative;
   background-color: white;
@@ -150,7 +150,7 @@ header {
 
     a {
       display: inline-block;
-      height: 57px;
+      height: 56px;
       line-height: 54px;
 
       &:hover {
