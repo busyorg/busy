@@ -97,7 +97,7 @@ export default class Sidebar extends Component {
         return _.startsWith(category.name, search);
       });
       categories.forEach((category, key) => {
-        tags.push(<li key={key}><Link to={`/trending/${category.name}`} activeClassName="active">#{category.name}</Link></li>);
+        tags.push(<li key={key}><Link to={`/hot/${category.name}`} activeClassName="active">#{category.name}</Link></li>);
       });
     }
     tags = tags.slice(0, 16);

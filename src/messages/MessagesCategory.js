@@ -37,7 +37,7 @@ class MessagesPage extends Component {
           <i className="icon icon-sm material-icons">
             {_.has(this.props.favorites, category) ? 'star' : 'star_border'}
           </i>
-          <Link to={`/trending/${category}`}>#{category}</Link> <span>{channel.nmembers} online</span>
+          <Link to={`/hot/${category}`}>#{category}</Link> <span>{channel.nmembers} online</span>
         </div>
         <div className="messages">
           <MessageList messages={channel.latest} />

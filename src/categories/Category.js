@@ -12,7 +12,7 @@ export default class Category extends Component {
       <div className="page">
         <center className="my-3">
           <h1>
-            <Link to={`/trending/${category.name}`}>#{category.name}</Link>{' '}
+            <Link to={`/hot/${category.name}`}>#{category.name}</Link>{' '}
             <Icon name="star_border" lg />
           </h1>
           <h2>

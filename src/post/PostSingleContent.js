@@ -20,7 +20,7 @@ const PostSingleContent = ({ content }) => {
             <span className="pull-left mls">
               @{content.author}
               <span className="hidden-xs">
-                { ' ' }in <Link to={`/trending/${content.category}`}>#{content.category}</Link>
+                { ' ' }in <Link to={`/hot/${content.category}`}>#{content.category}</Link>
               </span>
             </span>
           </Link>
@@ -37,7 +37,7 @@ const PostSingleContent = ({ content }) => {
             <div className="my-2">
               { jsonMetadata.tags.map(tag => (
                 <span>
-                  <Link to={`/trending/${tag}`} className="tag tag-default">{tag}</Link>{ ' ' }
+                  <Link to={`/hot/${tag}`} className="tag tag-default">{tag}</Link>{ ' ' }
                 </span>
               ))}
             </div>
