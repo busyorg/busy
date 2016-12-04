@@ -6,6 +6,7 @@
   bottom: 0;
   right: 0;
   background: $input-background;
+  z-index: 9;
 
   &.disappear {
     bottom: -210px;
