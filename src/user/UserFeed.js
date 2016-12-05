@@ -36,6 +36,7 @@ export default class UserProfileFeed extends Component {
         hasMore={hasMore}
         loadContent={loadContentAction}
         loadMoreContent={loadMoreContentAction}
+        route={this.props.route}
       />
     );
   }

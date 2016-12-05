@@ -164,6 +164,7 @@ class Profile extends Component {
             hasMore={hasMore}
             loadContent={loadContentAction}
             loadMoreContent={loadMoreContentAction}
+            route={this.props.route}
           />
         </div>
       </div>
