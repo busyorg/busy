@@ -1,6 +1,6 @@
 import 'babel-polyfill';
 import React, { Component } from 'react';
-import _ from 'lodash';
+import { has } from 'lodash/object';
 import steemdb from 'steemdb';
 import moment from 'moment';
 import numeral from 'numeral';
@@ -119,16 +119,16 @@ class Profile extends Component {
           }}
         >
           <div className="mvl">
-            <Avatar xl username={username} reputation={_.has(user, 'name') && user.reputation} />
+            <Avatar xl username={username} reputation={has(user, 'name') && user.reputation} />
             <h1>
               <Icon name="star_border" md />{ ' ' }
-              { _.has(jsonMetadata, 'profile.name') ? jsonMetadata.profile.name : `@${username} ` }
+              { has(jsonMetadata, 'profile.name') ? jsonMetadata.profile.name : `@${username} ` }
             </h1>
           </div>
         </section>
         <div className="profile">
-          {!_.has(user, 'name') && <Loading />}
-          {_.has(user, 'name') && <div>
+          { !has(user, 'name') && <Loading />}
+          { has(user, 'name') && <div>
             <ul className="secondary-nav">
               <li><i className="icon icon-md material-icons">library_books</i> {numeral(user.post_count).format('0,0')}<span className="hidden-xs"> Posts</span></li>
               <li><i className="icon icon-md material-icons">gavel</i> {numeral(parseInt(user.voting_power) / 10000).format('%0')}<span className="hidden-xs"> Voting Power</span></li>
@@ -137,9 +137,23 @@ class Profile extends Component {
             </ul>
             <center className="container container-small my-2">
               <h3><Badge vestingShares={user.vesting_shares} /></h3>
-              {_.has(jsonMetadata, 'profile.about') && <h3>{jsonMetadata.profile.about}</h3>}
-              {_.has(jsonMetadata, 'profile.website') && <p><i className="icon icon-md material-icons">link</i> <a href={jsonMetadata.profile.website} target="_blank">{jsonMetadata.profile.website}</a></p>}
-              {_.has(jsonMetadata, 'profile.location') && <p><i className="icon icon-md material-icons">pin_drop</i> {jsonMetadata.profile.location}</p>}
+              { has(jsonMetadata, 'profile.about') &&
+                <h3>{ jsonMetadata.profile.about }</h3>
+              }
+              { has(jsonMetadata, 'profile.website') &&
+                <p>
+                  <i className="icon icon-md material-icons">link</i>{ ' ' }
+                  <a href={jsonMetadata.profile.website} target="_blank">
+                    { jsonMetadata.profile.website }
+                  </a>
+                </p>
+              }
+              { has(jsonMetadata, 'profile.location') &&
+                <p>
+                  <i className="icon icon-md material-icons">pin_drop</i>{ ' ' }
+                  { jsonMetadata.profile.location }
+                </p>
+              }
               <p>
                 Joined {moment(user.created).fromNow()}
                 , last activity {moment(user.last_vote_time).fromNow()}
