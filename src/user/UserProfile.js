@@ -1,12 +1,13 @@
 import 'babel-polyfill';
 import React, { Component } from 'react';
-import _ from 'lodash';
+import { has } from 'lodash/object';
 import steemdb from 'steemdb';
 import moment from 'moment';
 import numeral from 'numeral';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import FavoriteUserButton from '../favorites/FavoriteUserButton';
+
 import Feed from '../feed/Feed';
 import {
   getFeedContentFromState,
@@ -17,7 +18,7 @@ import Loading from '../widgets/Loading';
 import TriggerProfile from '../app/Trigger/TriggerProfile';
 import { followUser, unfollowUser } from './userActions';
 import Avatar from '../widgets/Avatar';
-import Icon from '../widgets/Icon';
+import Badge from '../widgets/Badge';
 
 class Profile extends Component {
   constructor(props) {
@@ -124,9 +125,8 @@ class Profile extends Component {
           }}
         >
           <div className="mvl">
-            <Avatar xl username={username} reputation={_.has(user, 'name') && user.reputation} />
+            <Avatar xl username={username} reputation={has(user, 'name') && user.reputation} />
             <h1>
-
               <FavoriteUserButton
                 isFavorited={this.isFavorited()}
                 onClick={this.isFavorited()
@@ -134,14 +134,13 @@ class Profile extends Component {
                   : () => this.props.addUserFavorite(username)
                 }
               />
-
-              {_.has(jsonMetadata, 'profile.name') ? jsonMetadata.profile.name : '@' + username}
+              { has(jsonMetadata, 'profile.name') ? jsonMetadata.profile.name : `@${username} ` }
             </h1>
           </div>
         </section>
         <div className="profile">
-          {!_.has(user, 'name') && <Loading />}
-          {_.has(user, 'name') && <div>
+          { !has(user, 'name') && <Loading />}
+          { has(user, 'name') && <div>
             <ul className="secondary-nav">
               <li><i className="icon icon-md material-icons">library_books</i> {numeral(user.post_count).format('0,0')}<span className="hidden-xs"> Posts</span></li>
               <li><i className="icon icon-md material-icons">gavel</i> {numeral(parseInt(user.voting_power) / 10000).format('%0')}<span className="hidden-xs"> Voting Power</span></li>
@@ -149,9 +148,24 @@ class Profile extends Component {
               <li><Link to={`/@${username}/followed`}><i className="icon icon-md material-icons">people</i> {numeral(parseInt(user.following_count)).format('0,0')}<span className="hidden-xs"> Followed</span></Link></li>
             </ul>
             <center className="container container-small my-2">
-              {_.has(jsonMetadata, 'profile.about') && <h3>{jsonMetadata.profile.about}</h3>}
-              {_.has(jsonMetadata, 'profile.website') && <p><i className="icon icon-md material-icons">link</i> <a href={jsonMetadata.profile.website} target="_blank">{jsonMetadata.profile.website}</a></p>}
-              {_.has(jsonMetadata, 'profile.location') && <p><i className="icon icon-md material-icons">pin_drop</i> {jsonMetadata.profile.location}</p>}
+              <h3><Badge vestingShares={user.vesting_shares} /></h3>
+              { has(jsonMetadata, 'profile.about') &&
+                <h3>{ jsonMetadata.profile.about }</h3>
+              }
+              { has(jsonMetadata, 'profile.website') &&
+                <p>
+                  <i className="icon icon-md material-icons">link</i>{ ' ' }
+                  <a href={jsonMetadata.profile.website} target="_blank">
+                    { jsonMetadata.profile.website }
+                  </a>
+                </p>
+              }
+              { has(jsonMetadata, 'profile.location') &&
+                <p>
+                  <i className="icon icon-md material-icons">pin_drop</i>{ ' ' }
+                  { jsonMetadata.profile.location }
+                </p>
+              }
               <p>
                 Joined {moment(user.created).fromNow()}
                 , last activity {moment(user.last_vote_time).fromNow()}
