@@ -45,7 +45,7 @@ export default class SidebarTabs extends Component {
         <li>
           <a
             onClick={() => this.props.onClickMenu({ menu: 'categories' })}
-            className={menu === 'public' && 'active'}
+            className={menu === 'categories' && 'active'}
           >
             <Icon name="public" />
           </a>
@@ -53,7 +53,7 @@ export default class SidebarTabs extends Component {
         <li style={{ position: 'relative' }}>
           <a
             onClick={() => this.props.onClickMenu({ menu: 'users' })}
-            className={menu === 'feed' && 'active'}
+            className={menu === 'users' && 'active'}
           >
             {this.renderUnread()}
             <Icon name="chat_bubble_outline" />

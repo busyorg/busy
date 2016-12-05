@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import find from 'lodash/find';
 import groupBy from 'lodash/groupBy';
 import { startsWith } from 'lodash/string';
-import { difference } from 'lodash/array';
 import size from 'lodash/size';
 import { Link } from 'react-router';
 
@@ -101,8 +100,7 @@ export default class SidebarUsers extends Component {
       <li key={idx}>
         <Link to={`/@${user}`} activeClassName="active">
           <Icon name="star" xs />
-          { ' ' }
-          @{user}
+          {user}
         </Link>
       </li>
     );

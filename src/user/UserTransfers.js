@@ -26,9 +26,7 @@ module.exports = React.createClass({
     const base = (!_.isEmpty(this.state.feedPrice)) ? (this.state.feedPrice.base).replace(' SBD', '').replace(',', '') : 0;
     let power = 0;
     let dollar = 0;
-    let shares = 0;
     if (!_.isEmpty(this.state.feedPrice) && !_.isEmpty(account)) {
-      shares = (100 / (parseFloat(this.state.props.total_vesting_shares) - 210792436466.193333)) * parseFloat(account.vesting_shares);
       power = formatter.vestToSteem(account.vesting_shares,
         this.state.props.total_vesting_shares,
         this.state.props.total_vesting_fund_steem);
@@ -40,24 +38,23 @@ module.exports = React.createClass({
       <div className="container">
         {(!_.isEmpty(this.state.feedPrice) && !_.isEmpty(account)) ?
           <center className="ptl">
-            <div>
-              <h3>Estimated Account Value</h3>
-              <h1>{numeral(dollar).format('$0,0.00')}</h1>
-            </div>
-            <ul className="row">
+            <ul className="row text-lg-center">
               <li className="col col-lg-4">
                 <h3>Steem</h3>
-                <h1>{numeral(account.balance).format('0,0.00')}</h1>
+                <h2>{numeral(account.balance).format('0,0.00')}</h2>
               </li>
               <li className="col col-lg-4">
                 <h3>Steem Power</h3>
-                <h1>{numeral(power).format('0,0.00')}<br /><small>{numeral(shares).format('0,0.000')}%*</small></h1>
+                <h2>{numeral(power).format('0,0.00')}</h2>
               </li>
               <li className="col col-lg-4">
                 <h3>Steem Dollars</h3>
-                <h1>{numeral(account.sbd_balance).format('$0,0.00')}</h1>
+                <h2>{numeral(account.sbd_balance).format('$0,0.00')}</h2>
               </li>
             </ul>
+            <div className="my-2">
+              <h2>Estimated Account Value: {numeral(dollar).format('$0,0.00')}</h2>
+            </div>
           </center> : <Loading />
         }
       </div>
