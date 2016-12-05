@@ -1,8 +1,9 @@
 /* global window */
 import createLogger from 'redux-logger';
 import promiseMiddleware from 'redux-promise-middleware';
+import persistState from 'redux-localstorage'
 import thunk from 'redux-thunk';
-import { combineReducers, applyMiddleware, createStore } from 'redux';
+import { combineReducers, applyMiddleware, createStore, compose } from 'redux';
 import api from './steemAPI';
 
 import MessagesWorker, { messagesReducer } from './messages';
@@ -14,7 +15,7 @@ import postsReducers from './post/postsReducers';
 import userProfileReducer from './user/userReducer';
 import notificationReducer from './app/Notification/notificationReducers';
 import bookmarksReducer from './bookmarks/bookmarksReducer';
-import favoritesReducer from './app/Favorites/favoritesReducer';
+import favoritesReducer from './favorites/favoritesReducers';
 import { responsiveReducer, mountResponsive } from './helpers/responsive';
 import reblogReducers from './app/reblog/reblogReducers';
 
@@ -50,8 +51,13 @@ const middleware = [
   thunk.withExtraArgument({
     messagesWorker,
     steemAPI: api,
-  }),
+  })
 ];
+
+const enhancer = compose(
+  applyMiddleware(...middleware),
+  persistState('favorites')
+);
 
 if (process.env.ENABLE_LOGGER &&
     process.env.IS_BROWSER &&
@@ -66,7 +72,7 @@ if (process.env.ENABLE_LOGGER &&
 const store = createStore(
   reducers,
   window.devToolsExtension && window.devToolsExtension(),
-  applyMiddleware(...middleware)
+  enhancer
 );
 
 mountResponsive(store);

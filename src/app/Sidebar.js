@@ -5,8 +5,10 @@ import { Link } from 'react-router';
 import { FormattedMessage } from 'react-intl';
 import formatter from 'steem/lib/formatter';
 import steemdb from 'steemdb';
-import _ from 'lodash';
 import numeral from 'numeral';
+import { sortBy } from 'lodash/collection';
+import { startsWith } from 'lodash/string';
+import { difference } from 'lodash/array';
 
 import api from '../steemAPI';
 import { hideSidebar } from '../actions';
@@ -23,6 +25,7 @@ import './Sidebar.scss';
     app: state.app,
     auth: state.auth,
     messages: state.messages,
+    favorites: state.favorites,
   }),
   dispatch => bindActionCreators({
     hideSidebar: hideSidebar,
@@ -33,17 +36,6 @@ export default class Sidebar extends Component {
   constructor(props) {
     super(props);
 
-    api.getState('trending/busy', (err, result) => {
-      this.setState({
-        isFetching: false,
-        isLoaded: true,
-        categories: result.categories,
-        props: result.props,
-        feedPrice: result.feed_price
-      });
-      this.getFollowing();
-    });
-
     this.state = {
       isFetching: true,
       isLoaded: false,
@@ -53,30 +45,84 @@ export default class Sidebar extends Component {
       props: {},
       feedPrice: {},
       following: [],
-      menu: 'public',
+      menu: 'categories',
       search: '',
     };
   }
 
+  componentDidMount() {
+    api.getState('trending/busy', (err, result) => {
+      this.setState({
+        isFetching: false,
+        isLoaded: true,
+        categories: result.category_idx && result.category_idx.trending,
+        props: result.props,
+        feedPrice: result.feed_price
+      });
+      this.getFollowing();
+    });
+  }
+
   componentDidUpdate() {
-    if (!this.state.followingFetched) {
+    if (!this.state.followingIsLoaded) {
       this.getFollowing();
     }
   }
 
   getFollowing() {
-    if (!_.size(this.state.following) &&
+    if (!this.state.following.length &&
         !this.state.followingIsFetching &&
         !this.state.followingIsLoaded) {
       steemdb.accounts({
         account: this.props.auth.user.name
-      }, (err, result) => {
+      },
+      (err, result) => {
         this.setState({
           following: result[0].following,
           followingFetched: true,
         });
       });
     }
+  }
+
+  filterTagsBySearch(tags = []) {
+    const { search } = this.state;
+    return tags.filter((tag) => startsWith(tag, search));
+  }
+
+  renderFavoritedTags() {
+    const { favorites } = this.props;
+    const favoritedCategories = favorites.categories;
+    return this.filterTagsBySearch(favoritedCategories).slice(0, 16).map((category, idx) =>
+      <li key={idx}>
+        <Link to={`/hot/${category}`} activeClassName="active">
+          <Icon name="star" xs />
+          { ' ' }
+          #{category}
+        </Link>
+      </li>
+    );
+  }
+
+  renderTags() {
+    const { categories } = this.state;
+    const { favorites } = this.props;
+
+    if (categories) {
+      // excluding items in favorite to avoid repetition
+      const categoriesWithoutFavorites = difference(categories, favorites.categories);
+
+      return this.filterTagsBySearch(categoriesWithoutFavorites)
+        .slice(0, 16 - favorites.categories.length)
+        .map((category, idx) =>
+          <li key={idx}>
+            <Link to={`/hot/${category}`} activeClassName="active">
+              #{category}
+            </Link>
+          </li>
+      );
+    }
+    return [];
   }
 
   search = (e) => {
@@ -90,17 +136,7 @@ export default class Sidebar extends Component {
   render() {
     const user = this.props.auth.user;
     const search = this.state.search;
-    let tags = [];
-    if (this.state.categories) {
-      let categories = _.sortBy(this.state.categories, 'discussions').reverse();
-      categories = categories.filter((category) => {
-        return _.startsWith(category.name, search);
-      });
-      categories.forEach((category, key) => {
-        tags.push(<li key={key}><Link to={`/hot/${category.name}`} activeClassName="active">#{category.name}</Link></li>);
-      });
-    }
-    tags = tags.slice(0, 16);
+
     if (_.has(this.state.feedPrice, 'base')) {
       var power = formatter.vestToSteem(user.vesting_shares, this.state.props.total_vesting_shares, this.state.props.total_vesting_fund_steem);
       var base = (this.state.feedPrice.base).replace(' SBD', '').replace(',', '');
@@ -158,7 +194,7 @@ export default class Sidebar extends Component {
               </li>
             </ul>}
 
-          {_.size(this.state.categories) > 0 && this.state.menu === 'public' &&
+          {_.size(this.state.categories) > 0 && this.state.menu === 'categories' &&
             <div>
               <ul className="Sidebar__tags">
                 <li className="Sidebar__search">
@@ -173,17 +209,21 @@ export default class Sidebar extends Component {
                     />
                   </div>
                 </li>
-                {tags}
+
+                { this.renderFavoritedTags() }
+                { this.renderTags() }
+
                 <li><Link to="/tags" activeClassName="active"><FormattedMessage id="see_more" /></Link></li>
               </ul>
             </div>
           }
 
-          {this.state.menu === 'feed' &&
+          {this.state.menu === 'users' &&
             <SidebarUsers
               messages={this.props.messages}
               auth={this.props.auth}
               contacts={this.state.following}
+              favorites={this.props.favorites}
             />
           }
 
