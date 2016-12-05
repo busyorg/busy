@@ -40,7 +40,7 @@ export const getMoreUserComments = (username, limit) => {
     }
 
     const getDiscussionsByComments = Promise.promisify(
-        steemAPI.getDiscussionsByComments, { context: steemAPI });
+      steemAPI.getDiscussionsByComments, { context: steemAPI });
 
     const userComments = getUserCommentsFromState(username, feed, comments);
     const startAuthor = userComments[userComments.length - 1].author;
@@ -70,14 +70,17 @@ export const UPLOAD_FILE_SUCCESS = 'UPLOAD_FILE_SUCCESS';
 export const UPLOAD_FILE_ERROR = 'UPLOAD_FILE_ERROR';
 
 export function uploadFile({ username, file, fileInput }) {
-  const formData = new FormData();
   const meta = {};
-
+  const fileDetails = {};
   if (file) {
-    formData.append('file', file);
+    fileDetails.file = file;
+    fileDetails.name = file.name;
+    fileDetails.type = file.type;
     meta.filename = file.name;
   } else if (fileInput) {
-    formData.append('file', fileInput.files[0]);
+    fileDetails.file = fileInput.files[0];
+    fileDetails.name = fileInput.files[0].name;
+    fileDetails.type = fileInput.files[0].type;
     meta.filename = fileInput.files[0].name;
   } else {
     throw new TypeError('Missing one of `file` or `fileInput` to `uploadFile` call');
@@ -87,11 +90,20 @@ export function uploadFile({ username, file, fileInput }) {
     meta,
     type: UPLOAD_FILE,
     payload: {
-      promise: fetch(`${process.env.STEEMCONNECT_IMG_HOST}/@${username}/uploads`, {
-        method: 'post',
-        body: formData,
-        origin: true,
-      }).then(res => res.json()),
+      promise: new Promise((resolve, reject) => {
+        const request = new global.XMLHttpRequest();
+        request.open('POST', `${process.env.STEEMCONNECT_IMG_HOST}/@${username}/uploads`, true);
+        // Send the proper header information along with the request
+        request.setRequestHeader('Content-Type', fileDetails.type);
+        request.onreadystatechange = () => {
+          if (request.readyState === 4 && request.status === 201) {
+            return resolve(JSON.parse(request.response));
+          } else if (request.status >= 400) {
+            return reject(JSON.parse(request.response));
+          }
+        };
+        request.send(fileDetails.file);
+      }),
     }
   });
 }
@@ -122,7 +134,7 @@ export const FOLLOW_USER_ERROR = '@user/FOLLOW_USER_ERROR';
 export const followUser = (username) => {
   return (dispatch, getState) => {
     const { auth } = getState();
-    if(!auth.isAuthenticated) {
+    if (!auth.isAuthenticated) {
       return;
     }
 
@@ -146,7 +158,7 @@ export const UNFOLLOW_USER_ERROR = '@user/UNFOLLOW_USER_ERROR';
 export const unfollowUser = (username) => {
   return (dispatch, getState) => {
     const { auth } = getState();
-    if(!auth.isAuthenticated) {
+    if (!auth.isAuthenticated) {
       return;
     }
 
