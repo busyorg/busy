@@ -17,10 +17,14 @@ const initialCommentingDraftItem = {
   body: '',
 };
 
+const initialCommentsList = {
+  list: [],
+};
+
 const defaultNumberOfCommentsToShow = 5;
 const defaultCommentsForPagination = 10;
 
-const commentsList = (state = {}, action) => {
+const commentsList = (state = initialCommentsList, action) => {
   switch (action.type) {
     case commentsTypes.GET_COMMENTS_START:
       return {
