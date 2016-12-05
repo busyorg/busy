@@ -100,7 +100,7 @@ export default class SidebarUsers extends Component {
     return filterUsersBySearch(favoritedUsers, this.state.search).slice(0, 16).map((user, idx) =>
       <li key={idx}>
         <Link to={`/@${user}`} activeClassName="active">
-          <Icon name="star" sm />
+          <Icon name="star" xs />
           { ' ' }
           @{user}
         </Link>
