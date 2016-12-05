@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import find from 'lodash/find';
 import groupBy from 'lodash/groupBy';
-import startsWith from 'lodash/startsWith';
+import { startsWith } from 'lodash/string';
+import { difference } from 'lodash/array';
 import size from 'lodash/size';
 import { Link } from 'react-router';
 
@@ -10,10 +11,12 @@ import Icon from '../../widgets/Icon';
 const getFilteredUsers = (props, state) => {
   const unreadByChannel = groupBy(props.messages.unreadMessages, 'channelName');
   const search = state.search;
+  const { favorites } = props;
+
   let users = props.contacts.filter((user) => {
-    return startsWith(user, search);
+    return startsWith(user, search) && !favorites.users.includes(user);
   });
-  users = users.slice(0, 16);
+  users = users.slice(0, 16 - favorites.users.length);
   users = users.filter((contact) => {
     const channelName = [
       `@${contact}`,
@@ -61,6 +64,10 @@ const getUnreadMessages = (props) => {
   });
 };
 
+const filterUsersBySearch = (users, keyword) => {
+  return users.filter((user) => startsWith(user, keyword));
+};
+
 function UnreadCount({ unread }) {
   if (!unread) return null;
   return (
@@ -87,6 +94,20 @@ export default class SidebarUsers extends Component {
     this.setState({ search: e.target.value });
   };
 
+  renderFavoritedUsers() {
+    const { favorites } = this.props;
+    const favoritedUsers = favorites.users;
+    return filterUsersBySearch(favoritedUsers, this.state.search).slice(0, 16).map((user, idx) =>
+      <li key={idx}>
+        <Link to={`/@${user}`} activeClassName="active">
+          <Icon name="star" xs />
+          { ' ' }
+          @{user}
+        </Link>
+      </li>
+    );
+  }
+
   render() {
     const unreadMessages = getUnreadMessages(this.props);
     const users = getFilteredUsers(this.props, this.state);
@@ -104,6 +125,9 @@ export default class SidebarUsers extends Component {
             />
           </div>
         </li>
+
+        { this.renderFavoritedUsers() }
+
         { unreadMessages.length
           ? unreadMessages
           : null

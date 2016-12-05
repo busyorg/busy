@@ -44,7 +44,7 @@ export default class SidebarTabs extends Component {
       <ul className="list-selector">
         <li>
           <a
-            onClick={() => this.props.onClickMenu({ menu: 'public' })}
+            onClick={() => this.props.onClickMenu({ menu: 'categories' })}
             className={menu === 'public' && 'active'}
           >
             <Icon name="public" />
@@ -52,7 +52,7 @@ export default class SidebarTabs extends Component {
         </li>
         <li style={{ position: 'relative' }}>
           <a
-            onClick={() => this.props.onClickMenu({ menu: 'feed' })}
+            onClick={() => this.props.onClickMenu({ menu: 'users' })}
             className={menu === 'feed' && 'active'}
           >
             {this.renderUnread()}

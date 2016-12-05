@@ -21,14 +21,15 @@ import {
 import * as commentsActions from '../comments/commentsActions';
 import { toggleBookmark } from '../bookmarks/bookmarksActions';
 import Loading from '../widgets/Loading';
-import Icon from '../widgets/Icon';
-
+import FavoriteCategoryButton from '../favorites/FavoriteCategoryButton';
+import * as favoriteActions from '../favorites/favoritesActions';
 
 @PageHOC
 @connect(
   state => ({
     feed: state.feed,
     posts: state.posts,
+    favorites: state.favorites.categories,
   }),
   (dispatch, ownProps) => {
     const { sortBy, category, auth, limit } = ownProps;
@@ -45,12 +46,23 @@ import Icon from '../widgets/Icon';
       getMoreUserFeedContent: () => dispatch(
         getMoreUserFeedContent({ username: auth.user.name, limit })
       ),
+      addCategoryFavorite: () => dispatch(
+        favoriteActions.addCategoryFavorite(category)
+      ),
+      removeCategoryFavorite: () => dispatch(
+        favoriteActions.removeCategoryFavorite(category)
+      ),
     };
   }
 )
 export default class Page extends React.Component {
   constructor(props) {
     super(props);
+  }
+
+  isFavorited() {
+    const { category, favorites } = this.props;
+    return category && favorites.includes(category);
   }
 
   render() {
@@ -76,11 +88,16 @@ export default class Page extends React.Component {
       <div className="main-panel">
         <Header />
         <MenuFeed category={category} />
+
         { category &&
-          <h2 className="mt-1 mb-0 align-center">
-            <Icon name="star_border" sm />{ ' ' }
-            #{ category }
-          </h2>
+          <FavoriteCategoryButton
+            name={category}
+            isFavorited={this.isFavorited()}
+            onClick={this.isFavorited()
+              ? this.props.removeCategoryFavorite
+              : this.props.addCategoryFavorite
+            }
+          />
         }
 
         { auth.isAuthenticated && <TriggerFeed category={category} /> }

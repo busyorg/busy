@@ -6,6 +6,7 @@ import moment from 'moment';
 import numeral from 'numeral';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
+import FavoriteUserButton from '../favorites/FavoriteUserButton';
 
 import Feed from '../feed/Feed';
 import {
@@ -17,7 +18,6 @@ import Loading from '../widgets/Loading';
 import TriggerProfile from '../app/Trigger/TriggerProfile';
 import { followUser, unfollowUser } from './userActions';
 import Avatar from '../widgets/Avatar';
-import Icon from '../widgets/Icon';
 import Badge from '../widgets/Badge';
 
 class Profile extends Component {
@@ -68,6 +68,12 @@ class Profile extends Component {
       this.props.followUser(this.props.params.name);
     }
   };
+
+  isFavorited() {
+    const { favorites } = this.props;
+    const username = this.props.params.name;
+    return username && favorites.includes(username);
+  }
 
   render() {
     const { feed, posts, getFeedContent, getMoreFeedContent, limit } = this.props;
@@ -121,7 +127,13 @@ class Profile extends Component {
           <div className="mvl">
             <Avatar xl username={username} reputation={has(user, 'name') && user.reputation} />
             <h1>
-              <Icon name="star_border" md />{ ' ' }
+              <FavoriteUserButton
+                isFavorited={this.isFavorited()}
+                onClick={this.isFavorited()
+                  ? () => this.props.removeUserFavorite(username)
+                  : () => this.props.addUserFavorite(username)
+                }
+              />
               { has(jsonMetadata, 'profile.name') ? jsonMetadata.profile.name : `@${username} ` }
             </h1>
           </div>
@@ -172,6 +184,8 @@ class Profile extends Component {
     );
   }
 }
+
+// TODO:(p0o) refactor this to User.js container and avoid adding redux actions or state params here
 
 const mapStateToProps = function (state) {
   return {
