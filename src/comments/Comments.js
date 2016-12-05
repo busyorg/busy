@@ -29,6 +29,7 @@ export default class Comments extends Component {
     postId: PropTypes.string.isRequired,
     comments: PropTypes.object,
     getComments: PropTypes.func,
+    className: PropTypes.string,
   };
 
   componentWillMount() {
@@ -41,12 +42,12 @@ export default class Comments extends Component {
   };
 
   render() {
-    const { postId, comments } = this.props;
+    const { postId, comments, className } = this.props;
     const hasMore = (comments.lists[postId] && comments.lists[postId].hasMore);
     const isFetching = (comments.lists[postId] && comments.lists[postId].isFetching);
-
+    const classNames = className ? `Comments ${className}` : 'Comments';
     return (
-      <div className="Comments">
+      <div className={classNames}>
         <CommentsList
           postId={postId}
           comments={comments}

@@ -88,6 +88,7 @@ export default class Page extends React.Component {
       <div className="main-panel">
         <Header />
         <MenuFeed category={category} />
+
         { category &&
           <FavoriteCategoryButton
             name={category}

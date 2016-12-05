@@ -1,22 +1,62 @@
 @import '../styles/colors';
 
 .CommentItem {
-  word-break: break-all;
-  padding: 1rem 1.5rem;
+  word-break: keep-all;
+
   a.active {
-    i {
+    .icon {
       color: $primary-color;
     }
   }
 }
 
+.CommentItem__content {
+  margin: 0.5em 0;
+  display: flex;
+}
+
+.CommentItem__content--level-1 {
+  margin-left: 0;
+}
+
+.CommentItem__content--level-2 {
+  margin-left: 2em;
+}
+
+.CommentItem__content--level-3 {
+  margin-left: 4em;
+}
+
+.CommentItem__content--level-4 {
+  margin-left: 6em;
+}
+
+.CommentItem__content--level-5 {
+  margin-left: 8em;
+}
+
 .CommentActionButtons {
-  margin-top: 1rem;
-  background: #f1f1f1;
-  border-radius: 3px;
+  color: #7d7d8e;
 }
 
 .CommentActionButtons__button {
-  margin: 0.3rem 1rem;
   display: inline-block;
+  line-height: 1em;
+  padding-right: 0.5em;
+  margin-right: 0.5em;
+  border-right: 1px solid #7d7d8e;
+
+  &:last-child {
+    border-right: none;
+  }
+}
+
+.CommentUser {
+  margin-right: 0.5em;
+}
+
+.CommentBody {
+  .CommentBody__username {
+    display: block;
+  }
 }

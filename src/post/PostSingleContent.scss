@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   overflow-x: auto;
+  padding-bottom: 56px;
 
   .PostSingleContent__header {
     overflow: hidden;
@@ -22,7 +23,6 @@
 
     img {
       max-width: 100%;
-      max-height: 600px;
       height: auto;
       margin: 2em 0;
       border: 1px solid rgba(0, 0, 0, 0.1);

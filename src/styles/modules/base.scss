@@ -12,23 +12,11 @@ body {
 a {
   cursor: pointer;
   color: $primary-color;
+  text-decoration: none !important;
+  outline: 0 !important;
 
   &:hover {
     color: #005dd9;
-    text-decoration: none;
-    outline: 0;
-  }
-
-  text-decoration: none;
-  outline: 0;
-
-  &:active, &:visited, &:focus {
-    text-decoration: none;
-    outline: 0;
-  }
-
-  &:visited {
-    color: #014c8c;
   }
 }
 
@@ -155,13 +143,21 @@ ul, li {
   word-wrap: break-word;
 }
 
+.container-small {
+  max-width: 420px;
+}
+
+.tag {
+  font-family: $font-primary;
+}
+
 .page {
   display: flex;
   overflow-y: auto;
   flex-direction: column;
 }
 
-.anim, header, .main-panel {
+.anim, header, .main-panel, .CommentForm {
   transition: all 0.3s ease;
 }
 

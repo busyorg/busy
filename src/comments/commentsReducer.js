@@ -17,7 +17,7 @@ const initialCommentingDraftItem = {
   body: '',
 };
 
-const defaultNumberOfCommentsToShow = 3;
+const defaultNumberOfCommentsToShow = 5;
 const defaultCommentsForPagination = 10;
 
 const commentsList = (state = {}, action) => {

@@ -5,7 +5,9 @@
   width: 100%;
   bottom: 0;
   right: 0;
-  background: $input-background;
+  z-index: 9;
+  background-color: #FFFFFF;
+  border-top: 1px solid #E7E7EC;
 
   &.disappear {
     bottom: -210px;
@@ -27,7 +29,7 @@
   width: 100%;
   font-size: 1.2em;
   max-height: 150px;
-  min-height: 6rem;
+  min-height: 1em;
 }
 
 .CommentForm__close {

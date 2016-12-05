@@ -46,19 +46,9 @@
   }
 
   .sidebar-header {
-    text-align: center;
-    font-size: 20px;
-    height: 112px;
-
-    .me {
-      overflow: hidden;
-      padding: 20px;
-      font-size: 20px;
-    }
-
-    .log {
-      font-size: 16px;
-    }
+    height: 111px;
+    min-height: 111px;
+    overflow: hidden;
   }
 
   .Sidebar__unreadCount {
@@ -177,4 +167,19 @@
     z-index: 999 !important;
     box-shadow: 0 0 40px rgba(0, 0, 0, 0.3) !important;
   }
+}
+
+.Sidebar__log {
+  height: 111px;
+  min-height: 111px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  font-size: 20px;
+}
+
+.Sidebar__username {
+  margin-top: 0.25em;
 }

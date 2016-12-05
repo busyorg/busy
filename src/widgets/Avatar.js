@@ -14,16 +14,26 @@ const Avatar = ({
   className = '',
 }) => {
   let size = '';
-  size = (xs) ? 'avatar-xs' : size;
-  size = (sm) ? 'avatar-sm' : size;
-  size = (md) ? 'avatar-md' : size;
-  size = (lg) ? 'avatar-lg' : size;
-  size = (xl) ? 'avatar-xl' : size;
+  let s = '';
+  size = (xs) ? 'Avatar--xs' : size;
+  size = (sm) ? 'Avatar--sm' : size;
+  size = (md) ? 'Avatar--md' : size;
+  size = (lg) ? 'Avatar--lg' : size;
+  size = (xl) ? 'Avatar--xl' : size;
+  s = (xs) ? 48 : s;
+  s = (sm) ? 80 : s;
+  s = (md) ? 100 : s;
+  s = (lg) ? 120 : s;
+  s = (xl) ? 140 : s;
   size += ` ${className}`;
   return (
-    <span className={`avatar ${size}`}>
-      {reputation && <span className="reputation">{formatter.reputation(reputation)}</span>}
-      <img src={`https://img.steemconnect.com/@${username}`} />
+    <span className={`Avatar ${size}`}>
+      {reputation &&
+        <span className="Avatar__reputation">
+          {formatter.reputation(reputation)}
+        </span>
+      }
+      <img className="Avatar__img" src={`${process.env.STEEMCONNECT_IMG_HOST}/@${username}?s=${s}`} />
     </span>
   );
 };

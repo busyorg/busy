@@ -24,7 +24,7 @@ export default class UserFollowing extends Component {
       <div className="container">
         <center className="users">
           {this.state.users && <ul>
-            {this.state.users.map((username, key) => {
+            {this.state.users.slice(0, 20).map((username, key) => {
               return (<UserList username={username} key={key} />);
             })}
           </ul>}

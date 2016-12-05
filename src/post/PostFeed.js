@@ -95,7 +95,7 @@ export default class PostFeed extends Component {
                 { ` @${post.author}` }
               </Link>
               <span className="hidden-xs">
-                { ' ' }in <Link to={`/trending/${post.category}`}>#{post.category}</Link>
+                { ' ' }in <Link to={`/hot/${post.category}`}>#{post.category}</Link>
               </span>
               { post.parent_author &&
                 <span className="hidden-xs">
@@ -171,7 +171,7 @@ export default class PostFeed extends Component {
         </div>
 
         { this.state.showComments &&
-          <Comments postId={post.id} />
+          <Comments postId={post.id} className="Comments--feed" />
         }
 
         { this.state.showLikes &&

@@ -4,18 +4,9 @@ fieldset {
 
 input, textarea {
   border: 0;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 0;
   background: transparent;
   box-shadow: none;
-
-  &:focus {
-    border-bottom: 1px solid $primary-color;
-  }
-}
-
-input[type="checkbox"] {
-  margin-right: 15px;
 }
 
 textarea {
@@ -62,10 +53,4 @@ textarea {
 .input-group-lg > .form-control, .input-group-addon {
   line-height: 20px;
   font-size: 16px;
-}
-
-.input-under {
-  font-size: 20px;
-  background: transparent;
-  border: none;
 }
