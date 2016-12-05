@@ -97,8 +97,7 @@ export default class Sidebar extends Component {
       <li key={idx}>
         <Link to={`/hot/${category}`} activeClassName="active">
           <Icon name="star" xs />
-          { ' ' }
-          #{category}
+          {category}
         </Link>
       </li>
     );
