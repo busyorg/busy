@@ -80,10 +80,12 @@ export function uploadFile({ username, file, fileInput }) {
   } else if (fileInput) {
     fileDetails.file = fileInput.files[0];
     fileDetails.name = fileInput.files[0].name;
+    fileDetails.type = fileInput.files[0].type;
     meta.filename = fileInput.files[0].name;
   } else {
     throw new TypeError('Missing one of `file` or `fileInput` to `uploadFile` call');
   }
+
   return (dispatch) => dispatch({
     meta,
     type: UPLOAD_FILE,
