@@ -1,6 +1,7 @@
 import * as feedTypes from '../feed/feedActions';
 import * as bookmarksActions from '../bookmarks/bookmarksActions';
 import * as postsActions from './postActions';
+import * as commentsActions from '../comments/commentsActions';
 
 const postItem = (state = {}, action) => {
   switch (action.type) {
@@ -29,6 +30,11 @@ const postItem = (state = {}, action) => {
         ...state,
         active_votes: optimisticActiveVotes,
         net_votes: optimisticNetVotes,
+      };
+    case commentsActions.SEND_COMMENT_START:
+      return {
+        ...state,
+        children: parseInt(state.children) + 1,
       };
     default:
       return state;
@@ -60,6 +66,11 @@ const posts = (state = {}, action) => {
       return {
         ...state,
         [action.meta.postId]: postItem(state[action.meta.postId], action),
+      };
+    case commentsActions.SEND_COMMENT_START:
+      return {
+        ...state,
+        [action.meta.parentId]: postItem(state[action.meta.parentId], action),
       };
     default:
       return state;
