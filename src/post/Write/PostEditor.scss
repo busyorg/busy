@@ -3,7 +3,7 @@
 
   background: #fff;
   font-size: 14px;
-
+  position: relative;
   h1, h2, h3, h4, h5, h6 {
     font-family: $font-primary;
     margin-bottom: 0;
@@ -90,15 +90,67 @@
     user-select: none;
   }
 
+  $iconPaddingY: 4px;
+  $iconPaddingX: 2px;
   .PostEditor__styleButton {
     color: #999;
     cursor: pointer;
-    margin-right: 16px;
-    padding: 2px 0;
+    margin: 0;
+    padding: $iconPaddingY $iconPaddingX;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
     display: inline-block;
+
+    i:hover{
+      color:#fff;
+    }
   }
 
   .PostEditor__activeButton {
     color: #5890ff;
+  }
+  
+  .NewPost__toolbar{
+    background: #000;
+    position: absolute;
+    display: none;
+    z-index: 10;
+
+    .toolbar__button{
+      background: none;
+      border: none;
+      outline: none;
+    }
+
+    &__visible{
+      display: block;
+      background: #333;
+    }
+
+    &__wrapper {
+      background-color: #181818;
+      border-radius: 4px;
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.4);
+      left: -50%;
+      position: relative;
+      transition: background-color 0.2s ease-in-out;
+    }
+
+    .toolbar__list{
+      padding: 0 8px;
+      margin: 0;
+      white-space: nowrap;
+      list-style: none;
+    }
+    
+    .toolbar__item__separator{
+      list-style: none;
+      border-right: 1px solid #ddd;
+      margin-right: $iconPaddingX;
+      height: 1.5em;
+      vertical-align: middle;
+    }
   }
 }

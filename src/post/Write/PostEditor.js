@@ -2,9 +2,10 @@
 import newDebug from 'debug';
 import React, { Component } from 'react';
 import exportMarkdown from 'draft-js-export-markdown/lib/stateToMarkdown';
-import { DefaultDraftBlockRenderMap, Editor, EditorBlock, EditorState, RichUtils, convertToRaw, convertFromRaw } from 'draft-js';
+import { DefaultDraftBlockRenderMap, getVisibleSelectionRect, Editor, EditorBlock, EditorState, RichUtils, convertToRaw, convertFromRaw } from 'draft-js';
 import { connect } from 'react-redux';
 import { Map } from 'immutable';
+import classNames from 'classnames';
 
 import './Write.scss';
 import './PostEditor.scss';
@@ -32,63 +33,77 @@ function getBlockStyle(block) {
 const INLINE_STYLES = [
   {
     label: 'Bold',
-    style: 'BOLD'
+    style: 'BOLD',
+    icon: () => <i className="icon icon-md material-icons">format_bold</i>
   },
   {
     label: 'Italic',
-    style: 'ITALIC'
+    style: 'ITALIC',
+    icon: () => <i className="icon icon-md material-icons">format_italic</i>
   },
   {
     label: 'Underline',
-    style: 'UNDERLINE'
+    style: 'UNDERLINE',
+    icon: () => <i className="icon icon-md material-icons">format_underline</i>
   },
   {
     label: 'Monospace',
-    style: 'CODE'
+    style: 'CODE',
+    icon: () => <i className="icon icon-md material-icons">text_format</i>
   },
 ];
 
 const BLOCK_TYPES = [
-  {
-    label: 'H1',
-    style: 'header-one'
-  },
-  {
-    label: 'H2',
-    style: 'header-two'
-  },
+  // {
+  //   label: 'H1',
+  //   style: 'header-one',
+  //   icon: () => <i className="icon icon-md material-icons">code</i>
+  // },
+  // {
+  //   label: 'H2',
+  //   style: 'header-two',
+  //   icon: () => <i className="icon icon-md material-icons">code</i>
+  // },
   {
     label: 'H3',
-    style: 'header-three'
+    style: 'header-three',
+    icon: () => <i className="icon icon-md material-icons">format_size</i>
   },
   {
     label: 'H4',
-    style: 'header-four'
+    style: 'header-four',
+    icon: () => <i className="icon icon-md material-icons">format_size</i>
   },
-  {
-    label: 'H5',
-    style: 'header-five'
-  },
-  {
-    label: 'H6',
-    style: 'header-six'
-  },
+  // {
+  //   label: 'H5',
+  //   style: 'header-five',
+  //   icon: () => <i className="icon icon-md material-icons">code</i>
+  // },
+  // {
+  //   label: 'H6',
+  //   style: 'header-six',
+  //   icon: () => <i className="icon icon-md material-icons">code</i>
+  // },
   {
     label: 'Blockquote',
-    style: 'blockquote'
+    style: 'blockquote',
+    icon: () => <i className="icon icon-md material-icons">format_quote</i>
   },
-  {
-    label: 'UL',
-    style: 'unordered-list-item'
-  },
-  {
-    label: 'OL',
-    style: 'ordered-list-item'
-  },
-  {
-    label: 'Code Block',
-    style: 'code-block'
-  },
+  // {
+  //   label: 'UL',
+  //   style: 'unordered-list-item',
+  //   icon: () => <i className="icon icon-md material-icons">format_list_bulleted</i>
+  // },
+  // {
+  //   label: 'OL',
+  //   style: 'ordered-list-item',
+  //   icon: () => <i className="icon icon-md material-icons">format_list_numbered</i>
+  // },
+  // {
+  //   label: 'Code Block',
+  //   style: 'code-block',
+  //   icon: () => <i className="icon icon-md material-icons">code</i>
+  // },
 ];
 
 function getSelectedBlockNode(root) {
@@ -104,6 +119,26 @@ function getSelectedBlockNode(root) {
     node = node.parentNode;
   } while (node !== null);
   return null;
+}
+
+function getSelectionCoords(editor, toolbar) {
+  console.log(editor, toolbar);
+  const editorBounds = editor.getBoundingClientRect();
+  const rangeBounds = getVisibleSelectionRect(global);
+
+  if (!rangeBounds || !toolbar) {
+    return null;
+  }
+
+  const rangeWidth = rangeBounds.right - rangeBounds.left;
+
+  const toolbarHeight = toolbar.offsetHeight;
+  // const rangeHeight = rangeBounds.bottom - rangeBounds.top;
+  const offsetLeft = (rangeBounds.left - editorBounds.left)
+    + (rangeWidth / 2);
+  const offsetTop = rangeBounds.top - editorBounds.top - (toolbarHeight + 14);
+  const offsetBottom = editorBounds.bottom - rangeBounds.top + 14;
+  return { offsetLeft, offsetTop, offsetBottom };
 }
 
 function getCurrentBlock(editorState) {
@@ -303,7 +338,7 @@ class PostEditor extends Component {
       );
 
     this.state = {
-      editorState,
+      editorState, showToolbar: false
     };
   }
 
@@ -316,12 +351,41 @@ class PostEditor extends Component {
     };
   }
 
-  focus = () => this.refs.editor.focus(); // eslint-disable-line
+  setToolBarPosition = () => {
+    const editor = this.editor;
+    const toolbar = this.toolbar;
+    const selectionCoords = getSelectionCoords(editor, toolbar);
+    console.log('selectionCoords', selectionCoords);
+    if (!selectionCoords) {
+      return null;
+    }
+    if (selectionCoords &&
+      !this.state.position ||
+      this.state.position.bottom !== selectionCoords.offsetBottom ||
+      this.state.position.left !== selectionCoords.offsetLeft) {
+      console.log('show toolbar');
+      this.setState({
+        showToolbar: true,
+        position: {
+          bottom: selectionCoords.offsetBottom,
+          left: selectionCoords.offsetLeft
+        }
+      });
+    }
+  }
 
   onChange = (editorState) => {
-    this.setState({
-      editorState
-    });
+    const selection = editorState.getSelection();
+    const hasSelectedText = !editorState.getSelection().isCollapsed();
+    console.log('onChange', editorState, selection, hasSelectedText);
+    const newState = { editorState };
+    if (hasSelectedText) {
+      this.setToolBarPosition();
+    } else {
+      newState.showToolbar = false;
+    }
+
+    this.setState(newState);
   };
 
   handleKeyCommand = command => this._handleKeyCommand(command);
@@ -333,6 +397,7 @@ class PostEditor extends Component {
   _handleKeyCommand(command) {
     const { editorState } = this.state;
     const newState = RichUtils.handleKeyCommand(editorState, command);
+    console.log('_handleKeyCommand', newState);
     if (newState) {
       this.onChange(newState);
       return true;
@@ -381,7 +446,15 @@ class PostEditor extends Component {
     // If the user changes block type before entering any text, we can
     // either style the placeholder or hide it. Let's just hide it now.
     const className = 'PostEditor__editor';
-
+    const toolbarClasses = classNames('NewPost__toolbar', {
+      NewPost__toolbar__visible: this.state.showToolbar,
+    });
+    const selection = editorState.getSelection();
+    const blockType = editorState
+      .getCurrentContent()
+      .getBlockForKey(selection.getStartKey())
+      .getType();
+    const currentStyle = editorState.getCurrentInlineStyle();
     return (
       <div className="PostEditor">
         <SideControls
@@ -391,7 +464,7 @@ class PostEditor extends Component {
           user={this.props.user}
         />
 
-        <div className="NewPost__control-group">
+        {/* <div className="NewPost__control-group">
           <BlockStyleControls
             editorState={editorState}
             onToggle={this.toggleBlockType}
@@ -401,9 +474,9 @@ class PostEditor extends Component {
             editorState={editorState}
             onToggle={this.toggleInlineStyle}
           />
-        </div>
+        </div>*/}
 
-        <div className={className} onClick={this.focus}>
+        <div className={className} ref={(c) => { this.editor = c; }}>
           <Editor
             blockRendererFn={this.blockRendererFn}
             blockStyleFn={getBlockStyle}
@@ -418,8 +491,38 @@ class PostEditor extends Component {
             editorState={editorState}
             handleKeyCommand={this.handleKeyCommand}
             onChange={this.onChange}
-            ref="editor"
           />
+        </div>
+        <div className={toolbarClasses} style={this.state.position} >
+          <div style={{ position: 'absolute', bottom: 0 }}>
+            <div className="NewPost__toolbar__wrapper" ref={(c) => { this.toolbar = c; }}>
+              <ul className="toolbar__list">
+                {INLINE_STYLES.map(type =>
+                <StyleButton
+                  key={type.label}
+                  active={currentStyle.has(type.style)}
+                  label={type.label}
+                  onToggle={this.toggleInlineStyle}
+                  style={type.style}
+                  type="inline"
+                  icon={type.icon}
+                />
+              )}
+                <StyleButton type="separator" />
+                {BLOCK_TYPES.map(type =>
+                <StyleButton
+                  key={type.label}
+                  active={type.style === blockType}
+                  label={type.label}
+                  onToggle={this.toggleBlockType}
+                  style={type.style}
+                  type="block"
+                  icon={type.icon}
+                />
+              )}
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
     );
@@ -434,6 +537,8 @@ PostEditor = connect(state => ({
 
 export default PostEditor;
 
+const Separator = () => <li className="PostEditor__styleButton toolbar__item__separator" />;
+
 class StyleButton extends React.Component {
   onToggle = (e) => {
     e.preventDefault();
@@ -441,55 +546,22 @@ class StyleButton extends React.Component {
   };
 
   render() {
+    const Icon = this.props.icon;
+    if (this.props.type === 'separator') {
+      return (<Separator />);
+    }
+
     let className = 'PostEditor__styleButton';
     if (this.props.active) {
       className += ' PostEditor__activeButton';
     }
 
     return (
-      <span className={className} onMouseDown={this.onToggle}>
-        {this.props.label}
-      </span>
+      <li className={className} title={this.props.label}>
+        <button onClick={this.onToggle} type="button" className="toolbar__button">
+          <Icon />
+        </button>
+      </li>
     );
   }
 }
-
-const BlockStyleControls = (props) => {
-  const { editorState } = props;
-  const selection = editorState.getSelection();
-  const blockType = editorState
-    .getCurrentContent()
-    .getBlockForKey(selection.getStartKey())
-    .getType();
-
-  return (
-    <div className="PostEditor__controls">
-      {BLOCK_TYPES.map(type =>
-        <StyleButton
-          key={type.label}
-          active={type.style === blockType}
-          label={type.label}
-          onToggle={props.onToggle}
-          style={type.style}
-        />
-      )}
-    </div>
-  );
-};
-
-const InlineStyleControls = (props) => {
-  const currentStyle = props.editorState.getCurrentInlineStyle();
-  return (
-    <div className="PostEditor__controls">
-      {INLINE_STYLES.map(type =>
-        <StyleButton
-          key={type.label}
-          active={currentStyle.has(type.style)}
-          label={type.label}
-          onToggle={props.onToggle}
-          style={type.style}
-        />
-      )}
-    </div>
-  );
-};
