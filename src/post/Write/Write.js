@@ -15,15 +15,17 @@ export class RawNewPost extends Component {
     createPost: PropTypes.func,
   };
 
-  onSubmit(e) {
+  onSubmit = (e) => {
     e.preventDefault();
     e.preventDefault();
     const data = formSerialize(e.target, {
       hash: true,
     });
 
+
     data.parentAuthor = '';
-    const postBody = this.refs.editor.getContent();
+    const postBody = this.editor.getContent();
+
     data.jsonMetadata = JSON.stringify({
       post: postBody,
     });
@@ -43,16 +45,14 @@ export class RawNewPost extends Component {
     const author = user.name;
 
     return (
-      <div
-        className="main-panel"
-      >
+      <div className="main-panel">
         <Header menu="messages" />
 
         <div className="container">
           <form
             action="/write"
             method="post"
-            onSubmit={this.onSubmit.bind(this)}
+            onSubmit={this.onSubmit}
           >
             <div>
               <fieldset className="form-group">
@@ -73,7 +73,9 @@ export class RawNewPost extends Component {
                 <PostEditor
                   user={this.props.user}
                   required
-                  ref="editor"
+                  ref={
+                    (c) => { this.editor = c && c.getWrappedInstance ? c.getWrappedInstance() : c; }
+                  }
                 />
                 <hr />
               </fieldset>
@@ -136,7 +138,7 @@ export const CREATE_POST_ERROR = 'CREATE_POST_ERROR';
 
 const requiredFields =
   'parentAuthor,parentPermlink,author,permlink,title,body,jsonMetadata'
-  .split(',');
+    .split(',');
 function createPost(body) {
   requiredFields.forEach((field) => {
     assert(
@@ -152,7 +154,7 @@ function createPost(body) {
         .query(body)
         .withCredentials()
         .endAsync()
-        .then((res) => res.body)
+        .then(res => res.body)
         .tap(() => {
           browserHistory.push(
             `/${body.parentPermlink}/@${body.author}/${body.permlink}`
@@ -162,7 +164,7 @@ function createPost(body) {
   });
 }
 
-const NewPost = connect((state) => ({
+const NewPost = connect(state => ({
   user: state.auth.user,
 }), {
   createPost,

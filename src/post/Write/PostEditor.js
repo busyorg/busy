@@ -161,7 +161,7 @@ class SideControls extends Component {
     const contentState = editorState.getCurrentContent();
     const selectionState = editorState.getSelection();
     if (!selectionState.isCollapsed() ||
-        selectionState.anchorKey !== selectionState.focusKey) {
+      selectionState.anchorKey !== selectionState.focusKey) {
       debug(
         'Selection state changed to be (collapsed, anchorKey)',
         selectionState.isCollapsed()
@@ -299,8 +299,8 @@ class PostEditor extends Component {
     const editorState = process.env.NODE_ENV === 'production'
       ? EditorState.createEmpty()
       : EditorState.createWithContent(
-          convertFromRaw(require('./test-state.json').raw) // eslint-disable-line
-        );
+        convertFromRaw(require('./test-state.json').raw) // eslint-disable-line
+      );
 
     this.state = {
       editorState,
@@ -324,11 +324,11 @@ class PostEditor extends Component {
     });
   };
 
-  handleKeyCommand = (command) => this._handleKeyCommand(command);
+  handleKeyCommand = command => this._handleKeyCommand(command);
 
-  toggleBlockType = (type) => this._toggleBlockType(type);
+  toggleBlockType = type => this._toggleBlockType(type);
 
-  toggleInlineStyle = (style) => this._toggleInlineStyle(style);
+  toggleInlineStyle = style => this._toggleInlineStyle(style);
 
   _handleKeyCommand(command) {
     const { editorState } = this.state;
@@ -418,7 +418,7 @@ class PostEditor extends Component {
             editorState={editorState}
             handleKeyCommand={this.handleKeyCommand}
             onChange={this.onChange}
-            ref="editor" // eslint-disable-line
+            ref="editor"
           />
         </div>
       </div>
@@ -426,11 +426,11 @@ class PostEditor extends Component {
   }
 }
 
-PostEditor = connect((state) => ({
+PostEditor = connect(state => ({
   files: state.userProfile.files,
 }), {
   uploadFile,
-})(PostEditor);
+}, undefined, { withRef: true })(PostEditor);
 
 export default PostEditor;
 
@@ -464,7 +464,7 @@ const BlockStyleControls = (props) => {
 
   return (
     <div className="PostEditor__controls">
-      {BLOCK_TYPES.map((type) =>
+      {BLOCK_TYPES.map(type =>
         <StyleButton
           key={type.label}
           active={type.style === blockType}
