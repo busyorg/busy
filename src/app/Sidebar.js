@@ -52,8 +52,9 @@ export default class Sidebar extends Component {
 
   componentDidMount() {
     api.getState('trending/busy', (err, result) => {
-      const categories = (result.category_idx && result.category_idx.trending)
+      let categories = (result.category_idx && result.category_idx.trending)
         || (result.tag_idx && result.tag_idx.trending);
+      categories = categories.filter(Boolean);
       this.setState({
         isFetching: false,
         isLoaded: true,
