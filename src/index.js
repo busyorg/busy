@@ -21,7 +21,7 @@ if (process.env.SENTRY_PUBLIC_DSN) {
 
 if (process.env.STEEMCONNECT_HOST) {
   steemconnect.init({
-    app: 'busy.app',
+    app: 'busy.org',
     baseURL: process.env.STEEMCONNECT_HOST,
     callbackURL: process.env.STEEMCONNECT_REDIRECT_URL
   });
