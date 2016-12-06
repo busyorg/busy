@@ -32,8 +32,10 @@ export default class Comments extends Component {
     className: PropTypes.string,
   };
 
-  componentWillMount() {
-    this.props.getComments(this.props.postId);
+  componentDidUpdate(prevProps) {
+    if (this.props.show && prevProps.show !== this.props.show) {
+      this.props.getComments(this.props.postId);
+    }
   }
 
   handleShowMore = (e) => {

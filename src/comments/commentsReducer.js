@@ -19,6 +19,7 @@ const initialCommentingDraftItem = {
 
 const initialCommentsList = {
   list: [],
+  show: 0,
 };
 
 const defaultNumberOfCommentsToShow = 5;
