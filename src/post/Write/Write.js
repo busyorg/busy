@@ -128,7 +128,9 @@ import Promise from 'bluebird'; // eslint-disable-line import/imports-first
 import assert from 'assert'; // eslint-disable-line import/imports-first
 import request from 'superagent'; // eslint-disable-line import/imports-first
 import { connect } from 'react-redux'; // eslint-disable-line import/imports-first
+import SteemConnect from 'steemconnect'; // eslint-disable-line import/imports-first
 
+Promise.promisifyAll(SteemConnect);
 Promise.promisifyAll(request.Request.prototype);
 
 export const CREATE_POST = 'CREATE_POST';
@@ -139,27 +141,26 @@ export const CREATE_POST_ERROR = 'CREATE_POST_ERROR';
 const requiredFields =
   'parentAuthor,parentPermlink,author,permlink,title,body,jsonMetadata'
     .split(',');
-function createPost(body) {
+function createPost(postData) {
   requiredFields.forEach((field) => {
     assert(
-      body[field] != null,
+      postData[field] != null,
       `Developer Error: Missing required field ${field}`
     );
   });
-
+  const { parentAuthor, parentPermlink, author, permlink, title, body, jsonMetadata } = postData;
   return () => ({
     type: CREATE_POST,
     payload: {
-      promise: request.get(`${process.env.STEEMCONNECT_HOST}/comment`)
-        .query(body)
-        .withCredentials()
-        .endAsync()
-        .then(res => res.body)
-        .tap(() => {
-          browserHistory.push(
-            `/${body.parentPermlink}/@${body.author}/${body.permlink}`
-          );
-        }),
+      promise: SteemConnect
+        .commentAsync(parentAuthor, parentPermlink, author, permlink, title, body, jsonMetadata)
+        .then((result) => {
+          if (result !== null) {
+            throw new Error(result);
+          } else {
+            browserHistory.push(`/${parentPermlink}/@${author}/${permlink}`);
+          }
+        })
     },
   });
 }
