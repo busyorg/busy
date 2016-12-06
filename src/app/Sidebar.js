@@ -40,7 +40,7 @@ export default class Sidebar extends Component {
       isFetching: true,
       isLoaded: false,
       followingIsFetching: false,
-      followingIsLoaded: false,
+      followingFetched: false,
       categories: [],
       props: {},
       feedPrice: {},
@@ -66,24 +66,26 @@ export default class Sidebar extends Component {
   }
 
   componentDidUpdate() {
-    if (!this.state.followingIsLoaded) {
+    if (!this.state.followingFetched) {
       this.getFollowing();
     }
   }
 
   getFollowing() {
     if (!this.state.following.length &&
-        !this.state.followingIsFetching &&
-        !this.state.followingIsLoaded) {
+      !this.state.followingIsFetching &&
+      !this.state.followingFetched) {
+      this.setState({ followingIsFetching: true });
       steemdb.accounts({
         account: this.props.auth.user.name
       },
-      (err, result) => {
-        this.setState({
-          following: result[0].following,
-          followingFetched: true,
+        (err, result) => {
+          this.setState({
+            following: result[0].following,
+            followingIsFetching: false,
+            followingFetched: true,
+          });
         });
-      });
     }
   }
 
