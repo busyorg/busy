@@ -41,6 +41,10 @@ export default class CommentForm extends Component {
     }
   }
 
+  handlePageClick(e) {
+    e.stopPropagation();
+  }
+
   componentWillUpdate(nextProps) {
     const { comments } = this.props;
     const shouldUpdateDraft =
@@ -82,7 +86,7 @@ export default class CommentForm extends Component {
     }
 
     return (
-      <div className={commentsClass}>
+      <div onClick={e => this.handlePageClick(e)} className={commentsClass}>
         <div className="container">
           { comments.currentDraftId &&
             <div className="mb-1">
