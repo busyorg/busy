@@ -6,6 +6,7 @@ import { DefaultDraftBlockRenderMap, getVisibleSelectionRect, Editor, EditorBloc
 import { connect } from 'react-redux';
 import { Map } from 'immutable';
 import classNames from 'classnames';
+import Icon from '../../widgets/Icon';
 
 import './Write.scss';
 import './PostEditor.scss';
@@ -34,22 +35,22 @@ const INLINE_STYLES = [
   {
     label: 'Bold',
     style: 'BOLD',
-    icon: () => <i className="icon icon-md material-icons">format_bold</i>
+    icon: () => <Icon name="format_bold" />
   },
   {
     label: 'Italic',
     style: 'ITALIC',
-    icon: () => <i className="icon icon-md material-icons">format_italic</i>
+    icon: () => <Icon name="format_italic" />
   },
   {
     label: 'Underline',
     style: 'UNDERLINE',
-    icon: () => <i className="icon icon-md material-icons">format_underline</i>
+    icon: () => <Icon name="format_underline" />
   },
   {
     label: 'Monospace',
     style: 'CODE',
-    icon: () => <i className="icon icon-md material-icons">text_format</i>
+    icon: () => <Icon name="text_format" />
   },
 ];
 
@@ -57,52 +58,52 @@ const BLOCK_TYPES = [
   // {
   //   label: 'H1',
   //   style: 'header-one',
-  //   icon: () => <i className="icon icon-md material-icons">code</i>
+  //   icon: () => <Icon name="code" />
   // },
   // {
   //   label: 'H2',
   //   style: 'header-two',
-  //   icon: () => <i className="icon icon-md material-icons">code</i>
+  //   icon: () => <Icon name="code" />
   // },
   {
     label: 'H3',
     style: 'header-three',
-    icon: () => <i className="icon icon-md material-icons">format_size</i>
+    icon: () => <Icon name="format_size" />
   },
   {
     label: 'H4',
     style: 'header-four',
-    icon: () => <i className="icon icon-md material-icons">format_size</i>
+    icon: () => <Icon name="format_size" />
   },
   // {
   //   label: 'H5',
   //   style: 'header-five',
-  //   icon: () => <i className="icon icon-md material-icons">code</i>
+  //   icon: () => <Icon name="code" />
   // },
   // {
   //   label: 'H6',
   //   style: 'header-six',
-  //   icon: () => <i className="icon icon-md material-icons">code</i>
+  //   icon: () => <Icon name="code" />
   // },
   {
     label: 'Blockquote',
     style: 'blockquote',
-    icon: () => <i className="icon icon-md material-icons">format_quote</i>
+    icon: () => <Icon name="format_quote" />
   },
   // {
   //   label: 'UL',
   //   style: 'unordered-list-item',
-  //   icon: () => <i className="icon icon-md material-icons">format_list_bulleted</i>
+  //   icon: () => <Icon name="format_list_bulleted" />
   // },
   // {
   //   label: 'OL',
   //   style: 'ordered-list-item',
-  //   icon: () => <i className="icon icon-md material-icons">format_list_numbered</i>
+  //   icon: () => <Icon name="format_list_numbered" />
   // },
   // {
   //   label: 'Code Block',
   //   style: 'code-block',
-  //   icon: () => <i className="icon icon-md material-icons">code</i>
+  //   icon: () => <Icon name="code" />
   // },
 ];
 
@@ -279,14 +280,14 @@ class SideControls extends Component {
           pointerEvents: 'none',
         }}
       >
-        <button onClick={this.showMenu}><i className="icon icon-md material-icons">add</i></button>
+        <button onClick={this.showMenu}><Icon name="add" /></button>
         {this.state.showControls && <div className="Controls__menu">
-          <button><i className="icon icon-md material-icons">close</i></button>
+          <button><Icon name="close" /></button>
           <button onMouseDown={this.onClickUpload} type="button">
-            <i className="icon icon-md material-icons">add_a_photo</i>
+            <Icon name="add_a_photo" />
           </button>
           <input ref={(c) => { this.fileInput = c; }} onChange={this.onChangeImage} name="file" type="file" />
-          <button><i className="icon icon-md material-icons">remove</i></button>
+          <button><Icon name="remove" /></button>
         </div>}
       </div>
     );
@@ -529,7 +530,7 @@ const StyleButton = ({ item, type, active, onToggle }) => {
     return (<Separator />);
   }
 
-  const Icon = item.icon;
+  const StyleIcon = item.icon;
   let className = 'PostEditor__styleButton';
   if (active) {
     className += ' PostEditor__activeButton';
@@ -538,7 +539,7 @@ const StyleButton = ({ item, type, active, onToggle }) => {
   return (
     <li className={className} title={item.label}>
       <button onClick={() => onToggle(item.style)} type="button" className="toolbar__button">
-        <Icon />
+        <StyleIcon />
       </button>
     </li>
   );
