@@ -93,8 +93,6 @@
   $iconPaddingY: 4px;
   $iconPaddingX: 2px;
   .PostEditor__styleButton {
-    color: #999;
-    cursor: pointer;
     margin: 0;
     padding: $iconPaddingY $iconPaddingX;
     border: 0;
@@ -102,14 +100,20 @@
     font: inherit;
     vertical-align: baseline;
     display: inline-block;
+    cursor: pointer;
 
-    i:hover{
-      color:#fff;
+    i{
+      color: #999;
+      &:hover{
+        color:#fff;
+      }
     }
   }
 
   .PostEditor__activeButton {
-    color: #5890ff;
+    i{
+      color: #5890ff;
+    }
   }
   
   $toolbarBackground:#000;

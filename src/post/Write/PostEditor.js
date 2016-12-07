@@ -498,27 +498,27 @@ class PostEditor extends Component {
             <div className="NewPost__toolbar__wrapper" ref={(c) => { this.toolbar = c; }}>
               <ul className="toolbar__list">
                 {INLINE_STYLES.map(type =>
-                <StyleButton
-                  key={type.label}
-                  active={currentStyle.has(type.style)}
-                  label={type.label}
-                  onToggle={this.toggleInlineStyle}
-                  style={type.style}
-                  type="inline"
-                  icon={type.icon}
-                />
+                  <StyleButton
+                    key={type.label}
+                    active={currentStyle.has(type.style)}
+                    label={type.label}
+                    onToggle={this.toggleInlineStyle}
+                    style={type.style}
+                    type="inline"
+                    icon={type.icon}
+                  />
               )}
                 <StyleButton type="separator" />
                 {BLOCK_TYPES.map(type =>
-                <StyleButton
-                  key={type.label}
-                  active={type.style === blockType}
-                  label={type.label}
-                  onToggle={this.toggleBlockType}
-                  style={type.style}
-                  type="block"
-                  icon={type.icon}
-                />
+                  <StyleButton
+                    key={type.label}
+                    active={type.style === blockType}
+                    label={type.label}
+                    onToggle={this.toggleBlockType}
+                    style={type.style}
+                    type="block"
+                    icon={type.icon}
+                  />
               )}
               </ul>
             </div>
