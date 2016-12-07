@@ -17,6 +17,7 @@ import './Comments.scss';
     showMoreComments: commentsActions.showMoreComments,
     likeComment: (id) => commentsActions.likeComment(id),
     unlikeComment: (id) => commentsActions.likeComment(id, 0),
+    openCommentingDraft: commentsActions.openCommentingDraft,
   }, dispatch)
 )
 export default class Comments extends Component {
@@ -53,6 +54,7 @@ export default class Comments extends Component {
           likeComment={this.props.likeComment}
           unlikeComment={this.props.unlikeComment}
           auth={this.props.auth}
+          openCommentingDraft={this.props.openCommentingDraft}
         />
 
         { isFetching &&

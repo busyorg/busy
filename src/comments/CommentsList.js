@@ -1,27 +1,33 @@
 import React from 'react';
 import CommentItem from './CommentItem';
 
-const renderComments = (list, comments, likeComment, unlikeComment, auth) => {
+const renderComments = (args) => {
+  const { list, ...restArgs } = args;
+
   return list.map(({ id , children }) => {
-    const comment = comments[id];
+    const comment = args.comments[id];
 
     return (
       <CommentItem
         key={id}
         comment={comment}
-        likeComment={likeComment}
-        unlikeComment={unlikeComment}
-        auth={auth}
+        likeComment={args.likeComment}
+        unlikeComment={args.unlikeComment}
+        auth={args.auth}
+        openCommentingDraft={args.openCommentingDraft}
       >
         { Object.keys(children).length > 0 &&
-          renderComments(children, comments, likeComment, unlikeComment, auth)
+          renderComments({
+            list: children,
+            ...restArgs
+          })
         }
       </CommentItem>
     );
   })
 };
 
-const CommentsList = ({ postId, comments, likeComment, unlikeComment, auth }) => {
+const CommentsList = ({ postId, comments, likeComment, unlikeComment, auth, openCommentingDraft }) => {
   if (!comments.lists[postId]) {
     return null;
   }
@@ -31,7 +37,15 @@ const CommentsList = ({ postId, comments, likeComment, unlikeComment, auth }) =>
 
   return (
     <div className="CommentsList">
-      { renderComments(visibleList, comments.comments, likeComment, unlikeComment, auth) }
+      { renderComments({
+          list: visibleList,
+          comments: comments.comments,
+          likeComment,
+          unlikeComment,
+          auth,
+          openCommentingDraft
+        })
+      }
     </div>
   );
 };

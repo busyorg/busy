@@ -33,6 +33,18 @@ export default class CommentItem extends Component {
     this.setState({ showReplies: !this.state.showReplies });
   };
 
+  handleReplyClick(e) {
+    e.stopPropagation();
+    const { comment } = this.props;
+
+    this.props.openCommentingDraft({
+      parentAuthor: comment.author,
+      parentPermlink: comment.permlink,
+      category: comment.category,
+      id: comment.id,
+    });
+  }
+
   render() {
     const { comment, likeComment, unlikeComment, auth } = this.props;
 
@@ -78,9 +90,16 @@ export default class CommentItem extends Component {
               <div className="CommentActionButtons__button">
                 ${ payout }
               </div>
+
+              <a onClick={(e) => this.handleReplyClick(e)}>
+                <Icon name="reply" xs />
+              </a>
+
+              { ' ' }
+
               { (comment.children > 0 && !this.state.showReplies) &&
               <a tabIndex="0" onClick={this.toggleShowReplies}>
-                <Icon name="reply" xs />View {comment.children}{' '}
+                View {comment.children}{' '}
                 {comment.children > 1 ? 'replies' : 'reply'}
               </a>
               }
