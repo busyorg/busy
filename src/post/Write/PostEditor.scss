@@ -112,8 +112,9 @@
     color: #5890ff;
   }
   
+  $toolbarBackground:#000;
   .NewPost__toolbar{
-    background: #000;
+    background: $toolbarBackground;
     position: absolute;
     display: none;
     z-index: 10;
@@ -126,11 +127,10 @@
 
     &__visible{
       display: block;
-      background: #333;
     }
 
     &__wrapper {
-      background-color: #181818;
+      background-color: $toolbarBackground;
       border-radius: 4px;
       box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.4);
       left: -50%;
@@ -143,6 +143,21 @@
       margin: 0;
       white-space: nowrap;
       list-style: none;
+
+      &::after{
+        content: '';
+        display: inline-block;
+        top: 100%;
+        left: 50%;
+        position: absolute;
+        pointer-events: none;
+        width: 0;
+        height: 0;
+        margin-left: -8px;
+        border-width: 8px;
+        border-style: solid;
+        border-color: $toolbarBackground transparent transparent;
+      }
     }
     
     .toolbar__item__separator{
