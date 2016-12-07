@@ -183,6 +183,12 @@ function addNewBlock(editorState, newType, initialData) {
 
 
 class SideControls extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showControls: false
+    };
+  }
   findNode({ editorState }) {
     if (!process.env.IS_BROWSER) return;
 
@@ -220,16 +226,14 @@ class SideControls extends Component {
       style: {
         display: 'block',
         position: 'absolute',
-        top: node.offsetTop - 3,
-        left: -40,
+        top: node.offsetTop - 4,
+        left: -50,
       },
     });
   }
 
   hide() {
-    this.setState({
-      style: null,
-    });
+    this.setState({ style: null });
   }
 
   componentWillReceiveProps(newProps) {
@@ -241,11 +245,11 @@ class SideControls extends Component {
   onClickUpload = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    this.refs.fileInput.click();
+    this.fileInput.click();
   };
 
   onChangeImage = () => {
-    const fileInput = this.refs.fileInput;
+    const fileInput = this.fileInput;
     const username = this.props.user.name;
     this.props.uploadFile({ username, fileInput })
       .then(({ value }) => {
@@ -258,7 +262,13 @@ class SideControls extends Component {
       });
   };
 
+  showMenu = (e) => {
+    e.preventDefault();
+    this.setState({ showControls: true });
+  }
+
   render() {
+    console.log('showControls', this.state.showControls);
     return (
       <div
         className="SideControls"
@@ -269,20 +279,15 @@ class SideControls extends Component {
           pointerEvents: 'none',
         }}
       >
-        <button><i className="icon icon-md material-icons">close</i></button>
-        <button onMouseDown={this.onClickUpload} type="button">
-          <i className="icon icon-md material-icons">add_a_photo</i>
-        </button>
-        <input
-          ref="fileInput"
-          onChange={this.onChangeImage}
-          name="file"
-          type="file"
-          style={{
-            display: 'none',
-          }}
-        />
-        <button><i className="icon icon-md material-icons">remove</i></button>
+        <button onClick={this.showMenu}><i className="icon icon-md material-icons">add</i></button>
+        {this.state.showControls && <div className="Controls__menu">
+          <button><i className="icon icon-md material-icons">close</i></button>
+          <button onMouseDown={this.onClickUpload} type="button">
+            <i className="icon icon-md material-icons">add_a_photo</i>
+          </button>
+          <input ref={(c) => { this.fileInput = c; }} onChange={this.onChangeImage} name="file" type="file" />
+          <button><i className="icon icon-md material-icons">remove</i></button>
+        </div>}
       </div>
     );
   }

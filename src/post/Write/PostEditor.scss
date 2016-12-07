@@ -172,4 +172,32 @@
       vertical-align: middle;
     }
   }
+
+  .SideControls{
+    button{
+      border: 0;
+      color: #fff;
+      cursor: pointer;
+      height: 35px;
+      width: 35px;
+      font-size: 0;
+      padding: 0;  
+      -webkit-transition: all 0.5s ease;
+      transition: all 0.5s ease;
+      position: relative;
+      background: none;
+      border: 1px solid #bbb;
+      border-radius: 50%;
+      margin: 0 5px;
+    }
+    
+    input[type="file"]{
+      display: none;
+    }
+
+    .Controls__menu{
+      display: inline-block;
+      padding: 0 5px;
+    }
+  }
 }
