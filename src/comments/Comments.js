@@ -3,7 +3,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import CommentsList from './CommentsList';
 import * as commentsActions from './commentsActions';
-import { getCommentsFromState } from '../helpers/stateHelpers';
 import Loading from '../widgets/Loading';
 
 import './Comments.scss';
