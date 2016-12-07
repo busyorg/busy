@@ -62,7 +62,7 @@
   .PostEditor__editor {
     cursor: text;
     font-size: 16px;
-    margin-top: 10px;
+    margin-top: 0px;
   }
 
   .PostEditor__editor .public-DraftEditorPlaceholder-root,
@@ -73,6 +73,14 @@
 
   .PostEditor__editor .public-DraftEditor-content {
     min-height: 100px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .PostEditor__editor .public-DraftEditorPlaceholder-root{
+    color: #999;
+    position: absolute;
+    z-index: 0;
   }
 
   .PostEditor__hidePlaceholder .public-DraftEditorPlaceholder-root {

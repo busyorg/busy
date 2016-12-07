@@ -123,7 +123,6 @@ function getSelectedBlockNode(root) {
 }
 
 function getSelectionCoords(editor, toolbar) {
-  console.log(editor, toolbar);
   const editorBounds = editor.getBoundingClientRect();
   const rangeBounds = getVisibleSelectionRect(global);
 
@@ -132,13 +131,12 @@ function getSelectionCoords(editor, toolbar) {
   }
 
   const rangeWidth = rangeBounds.right - rangeBounds.left;
+  // const rangeHeight = rangeBounds.bottom - rangeBounds.top;
 
   const toolbarHeight = toolbar.offsetHeight;
-  // const rangeHeight = rangeBounds.bottom - rangeBounds.top;
-  const offsetLeft = (rangeBounds.left - editorBounds.left)
-    + (rangeWidth / 2);
+  const offsetLeft = (rangeBounds.left - editorBounds.left) + (rangeWidth / 2);
   const offsetTop = rangeBounds.top - editorBounds.top - (toolbarHeight + 14);
-  const offsetBottom = editorBounds.bottom - rangeBounds.top + 14;
+  const offsetBottom = (editorBounds.bottom - rangeBounds.top) + 14;
   return { offsetLeft, offsetTop, offsetBottom };
 }
 
@@ -337,11 +335,11 @@ class ImageBlock extends Component {
 class PostEditor extends Component {
   constructor(props) {
     super(props);
-    const editorState = process.env.NODE_ENV === 'production'
-      ? EditorState.createEmpty()
-      : EditorState.createWithContent(
-        convertFromRaw(require('./test-state.json').raw) // eslint-disable-line
-      );
+    const editorState = EditorState.createEmpty();
+      // ? EditorState.createEmpty()
+      // : EditorState.createWithContent(
+      //   convertFromRaw(require('./test-state.json').raw) // eslint-disable-line
+      // );
 
     this.state = {
       editorState, showToolbar: false
@@ -350,9 +348,7 @@ class PostEditor extends Component {
 
   getContent() {
     return {
-      markdown: exportMarkdown(
-        this.state.editorState.getCurrentContent()
-      ),
+      markdown: exportMarkdown(this.state.editorState.getCurrentContent()),
       raw: convertToRaw(this.state.editorState.getCurrentContent()),
     };
   }
@@ -428,6 +424,7 @@ class PostEditor extends Component {
   }
 
   blockRendererFn = (contentBlock) => {
+    console.log('blockRendererFn', contentBlock);
     const type = contentBlock.getType();
     switch (type) {
       case 'atomic:image': {
@@ -472,7 +469,8 @@ class PostEditor extends Component {
           <Editor
             blockRendererFn={this.blockRendererFn}
             blockStyleFn={getBlockStyle}
-
+            // onTab={(e) => { e.preventDefault(); }}
+            placeholder="Create your own story here"
             customStyleMap={styleMap}
             blockRenderMap={new Map({
               'atomic:image': {
