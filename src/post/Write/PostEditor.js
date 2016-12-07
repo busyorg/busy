@@ -356,13 +356,11 @@ class PostEditor extends Component {
     const toolbar = this.toolbar;
     const selectionCoords = getSelectionCoords(editor, toolbar);
     console.log('selectionCoords', selectionCoords);
-    if (!selectionCoords) {
-      return null;
-    }
+
     if (selectionCoords &&
-      !this.state.position ||
+      (!this.state.position ||
       this.state.position.bottom !== selectionCoords.offsetBottom ||
-      this.state.position.left !== selectionCoords.offsetLeft) {
+      this.state.position.left !== selectionCoords.offsetLeft)) {
       console.log('show toolbar');
       this.setState({
         showToolbar: true,
@@ -397,7 +395,7 @@ class PostEditor extends Component {
   _handleKeyCommand(command) {
     const { editorState } = this.state;
     const newState = RichUtils.handleKeyCommand(editorState, command);
-    console.log('_handleKeyCommand', newState);
+
     if (newState) {
       this.onChange(newState);
       return true;
@@ -464,18 +462,6 @@ class PostEditor extends Component {
           user={this.props.user}
         />
 
-        {/* <div className="NewPost__control-group">
-          <BlockStyleControls
-            editorState={editorState}
-            onToggle={this.toggleBlockType}
-          />
-
-          <InlineStyleControls
-            editorState={editorState}
-            onToggle={this.toggleInlineStyle}
-          />
-        </div>*/}
-
         <div className={className} ref={(c) => { this.editor = c; }}>
           <Editor
             blockRendererFn={this.blockRendererFn}
@@ -501,25 +487,21 @@ class PostEditor extends Component {
                   <StyleButton
                     key={type.label}
                     active={currentStyle.has(type.style)}
-                    label={type.label}
                     onToggle={this.toggleInlineStyle}
-                    style={type.style}
                     type="inline"
-                    icon={type.icon}
+                    item={type}
                   />
-              )}
+                )}
                 <StyleButton type="separator" />
                 {BLOCK_TYPES.map(type =>
                   <StyleButton
                     key={type.label}
                     active={type.style === blockType}
-                    label={type.label}
                     onToggle={this.toggleBlockType}
-                    style={type.style}
                     type="block"
-                    icon={type.icon}
+                    item={type}
                   />
-              )}
+                )}
               </ul>
             </div>
           </div>
@@ -531,37 +513,29 @@ class PostEditor extends Component {
 
 PostEditor = connect(state => ({
   files: state.userProfile.files,
-}), {
-  uploadFile,
-}, undefined, { withRef: true })(PostEditor);
+}), { uploadFile }, undefined, { withRef: true })(PostEditor);
 
 export default PostEditor;
 
 const Separator = () => <li className="PostEditor__styleButton toolbar__item__separator" />;
 
-class StyleButton extends React.Component {
-  onToggle = (e) => {
-    e.preventDefault();
-    this.props.onToggle(this.props.style);
-  };
-
-  render() {
-    const Icon = this.props.icon;
-    if (this.props.type === 'separator') {
-      return (<Separator />);
-    }
-
-    let className = 'PostEditor__styleButton';
-    if (this.props.active) {
-      className += ' PostEditor__activeButton';
-    }
-
-    return (
-      <li className={className} title={this.props.label}>
-        <button onClick={this.onToggle} type="button" className="toolbar__button">
-          <Icon />
-        </button>
-      </li>
-    );
+const StyleButton = ({ item, type, active, onToggle }) => {
+  if (type === 'separator') {
+    return (<Separator />);
   }
-}
+
+  const Icon = item.icon;
+  let className = 'PostEditor__styleButton';
+  if (active) {
+    className += ' PostEditor__activeButton';
+  }
+
+  return (
+    <li className={className} title={item.label}>
+      <button onClick={() => onToggle(item.style)} type="button" className="toolbar__button">
+        <Icon />
+      </button>
+    </li>
+  );
+};
+
