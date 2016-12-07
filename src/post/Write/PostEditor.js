@@ -336,10 +336,6 @@ class PostEditor extends Component {
   constructor(props) {
     super(props);
     const editorState = EditorState.createEmpty();
-      // ? EditorState.createEmpty()
-      // : EditorState.createWithContent(
-      //   convertFromRaw(require('./test-state.json').raw) // eslint-disable-line
-      // );
 
     this.state = {
       editorState, showToolbar: false
@@ -360,9 +356,10 @@ class PostEditor extends Component {
     console.log('selectionCoords', selectionCoords);
 
     if (selectionCoords &&
-      (!this.state.position ||
+      ((!this.state.position ||
         this.state.position.bottom !== selectionCoords.offsetBottom ||
-        this.state.position.left !== selectionCoords.offsetLeft)) {
+        this.state.position.left !== selectionCoords.offsetLeft)
+        || !this.state.showToolbar)) {
       console.log('show toolbar');
       this.setState({
         showToolbar: true,
@@ -424,7 +421,6 @@ class PostEditor extends Component {
   }
 
   blockRendererFn = (contentBlock) => {
-    console.log('blockRendererFn', contentBlock);
     const type = contentBlock.getType();
     switch (type) {
       case 'atomic:image': {
@@ -469,7 +465,6 @@ class PostEditor extends Component {
           <Editor
             blockRendererFn={this.blockRendererFn}
             blockStyleFn={getBlockStyle}
-            // onTab={(e) => { e.preventDefault(); }}
             placeholder="Create your own story here"
             customStyleMap={styleMap}
             blockRenderMap={new Map({
