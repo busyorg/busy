@@ -196,7 +196,7 @@ class SideControls extends Component {
     const node = getSelectedBlockNode(window); // eslint-disable-line no-undef
     if (!node) {
       debug('No node');
-      this.hide();
+      if (!this.state.showControls) { this.hide(); }
       return;
     }
 
@@ -234,7 +234,7 @@ class SideControls extends Component {
   }
 
   hide() {
-    this.setState({ style: null });
+    this.setState({ style: null, showControls: false });
   }
 
   componentWillReceiveProps(newProps) {
@@ -263,13 +263,13 @@ class SideControls extends Component {
       });
   };
 
-  showMenu = (e) => {
+  toggleMenu = (e) => {
     e.preventDefault();
-    this.setState({ showControls: true });
+    this.setState({ showControls: !this.state.showControls });
   }
 
   render() {
-    console.log('showControls', this.state.showControls);
+    const showControls = this.state.showControls;
     return (
       <div
         className="SideControls"
@@ -280,8 +280,8 @@ class SideControls extends Component {
           pointerEvents: 'none',
         }}
       >
-        <button onClick={this.showMenu}><Icon name="add" /></button>
-        {this.state.showControls && <div className="Controls__menu">
+        <button onClick={this.toggleMenu}><Icon name={showControls ? 'close' : 'add'} /></button>
+        {showControls && <div className="Controls__menu">
           <button><Icon name="close" /></button>
           <button onMouseDown={this.onClickUpload} type="button">
             <Icon name="add_a_photo" />
@@ -365,8 +365,8 @@ class PostEditor extends Component {
 
     if (selectionCoords &&
       (!this.state.position ||
-      this.state.position.bottom !== selectionCoords.offsetBottom ||
-      this.state.position.left !== selectionCoords.offsetLeft)) {
+        this.state.position.bottom !== selectionCoords.offsetBottom ||
+        this.state.position.left !== selectionCoords.offsetLeft)) {
       console.log('show toolbar');
       this.setState({
         showToolbar: true,
