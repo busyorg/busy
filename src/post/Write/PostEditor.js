@@ -2,7 +2,7 @@
 import newDebug from 'debug';
 import React, { Component } from 'react';
 import exportMarkdown from 'draft-js-export-markdown/lib/stateToMarkdown';
-import { DefaultDraftBlockRenderMap, getVisibleSelectionRect, Editor, EditorBlock, EditorState, RichUtils, convertToRaw, convertFromRaw } from 'draft-js';
+import { DefaultDraftBlockRenderMap, getVisibleSelectionRect, Editor, EditorBlock, EditorState, RichUtils, convertToRaw } from 'draft-js';
 import { connect } from 'react-redux';
 import { Map } from 'immutable';
 import classNames from 'classnames';
@@ -338,7 +338,7 @@ class PostEditor extends Component {
     const editorState = EditorState.createEmpty();
 
     this.state = {
-      editorState, showToolbar: false
+      editorState, showToolbar: false, lastResetedBlock: null
     };
   }
 
@@ -371,11 +371,25 @@ class PostEditor extends Component {
     }
   }
 
+  resetBlockState = (editorState) => {
+    const currentStyle = editorState.getCurrentInlineStyle();
+    const newEditorState = RichUtils.toggleBlockType(editorState, 'unstyled');
+    return EditorState.setInlineStyleOverride(newEditorState, currentStyle.clear());
+  }
+
   onChange = (editorState) => {
     const selection = editorState.getSelection();
-    const hasSelectedText = !editorState.getSelection().isCollapsed();
-    console.log('onChange', editorState, selection, hasSelectedText);
+    const lastBlock = editorState.getCurrentContent().getLastBlock();
+    const hasSelectedText = !selection.isCollapsed();
     const newState = { editorState };
+
+    if (selection.anchorKey === lastBlock.key &&
+      lastBlock.text.length === 0 &&
+      this.state.lastResetedBlock !== lastBlock.key) {
+      newState.editorState = this.resetBlockState(newState.editorState);
+      newState.lastResetedBlock = lastBlock.key;
+    }
+
     if (hasSelectedText) {
       this.setToolBarPosition();
     } else {
@@ -385,13 +399,7 @@ class PostEditor extends Component {
     this.setState(newState);
   };
 
-  handleKeyCommand = command => this._handleKeyCommand(command);
-
-  toggleBlockType = type => this._toggleBlockType(type);
-
-  toggleInlineStyle = style => this._toggleInlineStyle(style);
-
-  _handleKeyCommand(command) {
+  handleKeyCommand = (command) => {
     const { editorState } = this.state;
     const newState = RichUtils.handleKeyCommand(editorState, command);
 
@@ -402,7 +410,7 @@ class PostEditor extends Component {
     return false;
   }
 
-  _toggleBlockType(blockType) {
+  toggleBlockType = (blockType) => {
     this.onChange(
       RichUtils.toggleBlockType(
         this.state.editorState,
@@ -411,7 +419,7 @@ class PostEditor extends Component {
     );
   }
 
-  _toggleInlineStyle(inlineStyle) {
+  toggleInlineStyle = (inlineStyle) => {
     this.onChange(
       RichUtils.toggleInlineStyle(
         this.state.editorState,
@@ -436,9 +444,7 @@ class PostEditor extends Component {
   };
 
   render() {
-    const {
-      editorState,
-    } = this.state;
+    const { editorState } = this.state;
 
     // If the user changes block type before entering any text, we can
     // either style the placeholder or hide it. Let's just hide it now.
