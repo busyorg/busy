@@ -182,6 +182,10 @@
   }
 
   .SideControls{
+    display: block;
+    position: absolute;
+    z-index: 2;
+
     button{
       border: 0;
       color: #fff;
