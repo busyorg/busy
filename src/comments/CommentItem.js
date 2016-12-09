@@ -42,6 +42,7 @@ export default class CommentItem extends Component {
       parentPermlink: comment.permlink,
       category: comment.category,
       id: comment.id,
+      isReplyToComment: true,
     });
   }
 
