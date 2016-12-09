@@ -43,7 +43,7 @@ export const reloadExistingComment = createAction(RELOAD_EXISTING_COMMENT);
 const getRootCommentsList = (apiRes) => {
   return Object.keys(apiRes.content).filter((commentKey) => {
     return apiRes.content[commentKey].depth === 1;
-  }).map(comment => comment.id);
+  }).map(commentKey => apiRes.content[commentKey].id);
 };
 
 
