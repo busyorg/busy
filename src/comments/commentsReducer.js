@@ -81,10 +81,7 @@ const listByPostIdItem = (state = initialCommentsList, action) => {
         ...state,
         show: state.show + 1,
         list: [
-          {
-            id: action.meta.optimisticId,
-            children: {},
-          },
+          action.meta.optimisticId,
           ...state.list,
         ],
       };
