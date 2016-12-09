@@ -2,7 +2,7 @@
 import newDebug from 'debug';
 import React, { Component } from 'react';
 import exportMarkdown from 'draft-js-export-markdown/lib/stateToMarkdown';
-import { DefaultDraftBlockRenderMap, getVisibleSelectionRect, Editor, EditorState, RichUtils, convertToRaw } from 'draft-js';
+import { DefaultDraftBlockRenderMap, getVisibleSelectionRect as draftVSR, Editor, EditorState, RichUtils, convertToRaw } from 'draft-js';
 import { connect } from 'react-redux';
 import { Map } from 'immutable';
 import classNames from 'classnames';
@@ -31,6 +31,22 @@ function getBlockStyle(block) {
     case 'blockquote': return 'PostEditor__blockquote';
     default: return null;
   }
+}
+
+// Monkey patch for getVisibleSelectionRect bug
+// https://github.com/facebook/draft-js/issues/570
+function getVisibleSelectionRect(window) {
+  let selection = draftVSR(window);
+
+  // When selection the first word of the wrapped line, chrome will return two rects
+  // And the first rect has 0 width
+  if (selection) {
+    const selectionRects = window.getSelection().getRangeAt(0).getClientRects();
+    if (selectionRects.length === 2 && selectionRects[0].width === 0) {
+      selection = selectionRects[1];
+    }
+  }
+  return selection;
 }
 
 const INLINE_STYLES = [
@@ -112,7 +128,6 @@ const BLOCK_TYPES = [
 function getSelectionCoords(editor, toolbar) {
   const editorBounds = editor.getBoundingClientRect();
   const rangeBounds = getVisibleSelectionRect(global);
-  console.log('rangeBounds', rangeBounds);
   if (!rangeBounds || !toolbar) {
     return null;
   }
@@ -148,13 +163,13 @@ class PostEditor extends Component {
     const selection = this.state.editorState.getSelection();
     const newState = this.state.editorState;
     const hasSelectedText = !selection.isCollapsed();
+    const selectionCoords = getSelectionCoords(this.editor, this.toolbar);
+
     let shouldUpdateState = false;
-    if (hasSelectedText) {
-      const selectionCoords = getSelectionCoords(this.editor, this.toolbar);
-      if (selectionCoords &&
-        (!this.state.position ||
+    if (hasSelectedText && selectionCoords) {
+      if (!this.state.position ||
           this.state.position.bottom !== selectionCoords.offsetBottom ||
-          this.state.position.left !== selectionCoords.offsetLeft)) {
+          this.state.position.left !== selectionCoords.offsetLeft) {
         shouldUpdateState = true;
         newState.showToolbar = true;
         newState.position = {
@@ -162,7 +177,7 @@ class PostEditor extends Component {
           left: selectionCoords.offsetLeft
         };
       }
-    } else if (newState.showToolbar !== false) {
+    } else if (newState.showToolbar !== false || selectionCoords === null) {
       shouldUpdateState = true;
       newState.showToolbar = false;
       newState.position = null;
