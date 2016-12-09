@@ -125,7 +125,7 @@ function getSelectedBlockNode(root) {
 function getSelectionCoords(editor, toolbar) {
   const editorBounds = editor.getBoundingClientRect();
   const rangeBounds = getVisibleSelectionRect(global);
-
+  console.log('rangeBounds', rangeBounds);
   if (!rangeBounds || !toolbar) {
     return null;
   }
@@ -349,26 +349,30 @@ class PostEditor extends Component {
     };
   }
 
-  setToolBarPosition = () => {
-    const editor = this.editor;
-    const toolbar = this.toolbar;
-    const selectionCoords = getSelectionCoords(editor, toolbar);
-    console.log('selectionCoords', selectionCoords);
-
-    if (selectionCoords &&
-      ((!this.state.position ||
-        this.state.position.bottom !== selectionCoords.offsetBottom ||
-        this.state.position.left !== selectionCoords.offsetLeft)
-        || !this.state.showToolbar)) {
-      console.log('show toolbar');
-      this.setState({
-        showToolbar: true,
-        position: {
+  updateToolBarState = () => {
+    const selection = this.state.editorState.getSelection();
+    const newState = this.state.editorState;
+    const hasSelectedText = !selection.isCollapsed();
+    let shouldUpdateState = false;
+    if (hasSelectedText) {
+      const selectionCoords = getSelectionCoords(this.editor, this.toolbar);
+      if (selectionCoords &&
+        (!this.state.position ||
+          this.state.position.bottom !== selectionCoords.offsetBottom ||
+          this.state.position.left !== selectionCoords.offsetLeft)) {
+        shouldUpdateState = true;
+        newState.showToolbar = true;
+        newState.position = {
           bottom: selectionCoords.offsetBottom,
           left: selectionCoords.offsetLeft
-        }
-      });
+        };
+      }
+    } else if (newState.showToolbar !== false) {
+      shouldUpdateState = true;
+      newState.showToolbar = false;
+      newState.position = null;
     }
+    if (shouldUpdateState) this.setState(newState);
   }
 
   resetBlockState = (editorState) => {
@@ -380,9 +384,7 @@ class PostEditor extends Component {
   onChange = (editorState) => {
     const selection = editorState.getSelection();
     const lastBlock = editorState.getCurrentContent().getLastBlock();
-    const hasSelectedText = !selection.isCollapsed();
     const newState = { editorState };
-
     if (selection.anchorKey === lastBlock.key &&
       lastBlock.text.length === 0 &&
       this.state.lastResetedBlock !== lastBlock.key) {
@@ -390,13 +392,9 @@ class PostEditor extends Component {
       newState.lastResetedBlock = lastBlock.key;
     }
 
-    if (hasSelectedText) {
-      this.setToolBarPosition();
-    } else {
-      newState.showToolbar = false;
-    }
-
-    this.setState(newState);
+    this.setState(newState, () => {
+      this.updateToolBarState();
+    });
   };
 
   handleKeyCommand = (command) => {
@@ -487,7 +485,7 @@ class PostEditor extends Component {
         <div className={toolbarClasses} style={this.state.position} >
           <div style={{ position: 'absolute', bottom: 0 }}>
             <div className="NewPost__toolbar__wrapper" ref={(c) => { this.toolbar = c; }}>
-              <ul className="toolbar__list">
+              <ul className="toolbar__list" onMouseDown={(x) => { x.preventDefault(); }}>>
                 {INLINE_STYLES.map(type =>
                   <StyleButton
                     key={type.label}
