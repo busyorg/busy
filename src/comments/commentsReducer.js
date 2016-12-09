@@ -56,10 +56,10 @@ const listByPostIdItem = (state = initialCommentsList, action) => {
         show: defaultNumberOfCommentsToShow,
       };
     case commentsTypes.GET_COMMENTS_SUCCESS:
-      const hasMore = action.payload.list.length > defaultNumberOfCommentsToShow;
+      const hasMore = action.payload.rootCommentsList.length > defaultNumberOfCommentsToShow;
       return {
         ...state,
-        list: action.payload.list,
+        list: action.payload.rootCommentsList,
         isFetching: false,
         hasMore,
       };
