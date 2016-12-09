@@ -33,6 +33,10 @@ const listByCommentId = (state = {}, action) => {
         ...action.payload.commentsChildrenList,
       };
     case commentsTypes.SEND_COMMENT_START:
+      if (!action.meta.isReplyToComment) {
+        return state;
+      }
+
       const listWithNewComment = [
         action.meta.optimisticId,
         ...state[action.meta.parentId]
@@ -99,6 +103,10 @@ const listByPostId = (state = {}, action) => {
         [action.meta.id]: listByPostIdItem(state[action.meta.id], action),
       };
     case commentsTypes.SEND_COMMENT_START:
+      if (action.meta.isReplyToComment) {
+        return state;
+      }
+
       return {
         ...state,
         [action.meta.parentId]: listByPostIdItem(state[action.meta.parentId], action),

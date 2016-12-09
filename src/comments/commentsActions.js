@@ -93,7 +93,13 @@ export const sendComment = () => {
 
     const author = auth.user.name;
     const id = comments.currentDraftId;
-    const { parentAuthor, parentPermlink, category, body } = comments.commentingDraft[id];
+    const {
+      parentAuthor,
+      parentPermlink,
+      category,
+      body,
+      isReplyToComment
+    } = comments.commentingDraft[id];
 
     const permlink = createCommentPermlink(parentAuthor, parentPermlink);
     const jsonMetadata = `{"tags": ["${category}"]}`;
@@ -123,6 +129,7 @@ export const sendComment = () => {
       meta: {
         optimisticId,
         parentId: id,
+        isReplyToComment,
       },
     });
     dispatch(closeCommentingDraft());
