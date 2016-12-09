@@ -40,33 +40,22 @@ export const showMoreComments = createAction(
 export const RELOAD_EXISTING_COMMENT = '@comments/RELOAD_EXISTING_COMMENT';
 export const reloadExistingComment = createAction(RELOAD_EXISTING_COMMENT);
 
-/**
- * Will recursively create a tree of comments with their children like this:
- * { id: '2.1.85555', children: [ { id: '2.1.55444', children: [...] ], }
- * @param commentKey - the key of rootComment we want to re-structure
- * @param allComments - all comments received from getState api (usually res.content)
- * @returns {{id: *, children: *}}
- */
-const nestCommentsChildren = (commentKey, allComments) => {
-  const currentComment = allComments[commentKey];
-  return {
-    id: currentComment.id,
-    children: currentComment.children > 0
-      ? currentComment.replies.map(childCommentKey => nestCommentsChildren(childCommentKey, allComments))
-      : {},
-  };
+const getRootCommentsList = (apiRes) => {
+  return Object.keys(apiRes.content).filter((commentKey) => {
+    return apiRes.content[commentKey].depth === 1;
+  }).map(comment => comment.id);
 };
 
-/**
- * Will restructure and sort comments with only id and its children
- * @param apiRes - The result of getState for an article full path with steemAPI
- */
-const sortCommentsList = (apiRes) => {
-  const rootComments = Object.keys(apiRes.content).filter((commentKey) => {
-    return apiRes.content[commentKey].depth === 1;
+
+const getCommentsChildrenLists = (apiRes) => {
+  let listsById = {};
+  Object.keys(apiRes.content).forEach((commentKey) => {
+    listsById[apiRes.content[commentKey].id] = apiRes.content[commentKey].replies.map(
+      childKey => apiRes.content[childKey].id
+    );
   });
 
-  return rootComments.map(key => nestCommentsChildren(key, apiRes.content));
+  return listsById;
 };
 
 export const getComments = (postId) => {
@@ -80,7 +69,8 @@ export const getComments = (postId) => {
       payload: {
         promise: steemAPI.getStateAsync(`/${category}/@${author}/${permlink}`).then((apiRes) => {
           return {
-            list: sortCommentsList(apiRes),
+            rootCommentsList: getRootCommentsList(apiRes),
+            commentsChildrenList: getCommentsChildrenLists(apiRes),
             content: apiRes.content,
           };
         }),

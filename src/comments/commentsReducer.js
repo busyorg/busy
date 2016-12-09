@@ -3,7 +3,8 @@ import * as userProfileTypes from '../user/userActions';
 import * as appTypes from '../actions';
 
 const initialState = {
-  lists: {},
+  listByPostId: {},
+  listByCommentId: {},
   comments: {},
   commentingDraft: {},
   isCommenting: false,
@@ -24,7 +25,28 @@ const initialCommentsList = {
 const defaultNumberOfCommentsToShow = 5;
 const defaultCommentsForPagination = 10;
 
-const commentsList = (state = initialCommentsList, action) => {
+const listByCommentId = (state = {}, action) => {
+  switch (action.type) {
+    case commentsTypes.GET_COMMENTS_SUCCESS:
+      return {
+        ...state,
+        ...action.payload.commentsChildrenList,
+      };
+    case commentsTypes.SEND_COMMENT_START:
+      const listWithNewComment = [
+        action.meta.optimisticId,
+        ...state[action.meta.parentId]
+      ];
+      return {
+        ...state,
+        [action.meta.parentId]: listWithNewComment,
+      };
+    default:
+      return state;
+  }
+};
+
+const listByPostIdItem = (state = initialCommentsList, action) => {
   switch (action.type) {
     case commentsTypes.GET_COMMENTS_START:
       return {
@@ -67,19 +89,19 @@ const commentsList = (state = initialCommentsList, action) => {
   }
 };
 
-const commentsLists = (state = {}, action) => {
+const listByPostId = (state = {}, action) => {
   switch (action.type) {
     case commentsTypes.GET_COMMENTS_START:
     case commentsTypes.GET_COMMENTS_SUCCESS:
     case commentsTypes.SHOW_MORE_COMMENTS:
       return {
         ...state,
-        [action.meta.id]: commentsList(state[action.meta.id], action),
+        [action.meta.id]: listByPostIdItem(state[action.meta.id], action),
       };
     case commentsTypes.SEND_COMMENT_START:
       return {
         ...state,
-        [action.meta.parentId]: commentsList(state[action.meta.parentId], action),
+        [action.meta.parentId]: listByPostIdItem(state[action.meta.parentId], action),
       };
     default:
       return state;
@@ -214,7 +236,8 @@ const comments = (state = initialState, action) => {
       return {
         ...state,
         comments: commentsData(state.comments, action),
-        lists: commentsLists(state.lists, action),
+        listByPostId: listByPostId(state.listByPostId, action),
+        listByCommentId: listByCommentId(state.listByCommentId, action),
       };
     case commentsTypes.OPEN_COMMENTING_DRAFT:
       return {
