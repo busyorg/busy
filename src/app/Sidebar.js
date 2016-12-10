@@ -78,8 +78,8 @@ export default class Sidebar extends Component {
       !this.state.followingFetched) {
       this.setState({ followingIsFetching: true });
       steemdb.accounts({
-        account: this.props.auth.user.name
-      },
+          account: this.props.auth.user.name
+        },
         (err, result) => {
           this.setState({
             following: result[0].following,
@@ -124,6 +124,24 @@ export default class Sidebar extends Component {
               #{category}
             </Link>
           </li>
+        );
+    }
+    return [];
+  }
+
+  renderSearchAsTag() {
+    const { search, categories } = this.state;
+    const { favorites } = this.props;
+    if (search
+      && !categories.includes(search)
+      && !favorites.categories.includes(search)
+    ) {
+      return (
+        <li>
+          <Link to={`/hot/${search}`} activeClassName="active">
+            #{search}
+          </Link>
+        </li>
       );
     }
     return [];
@@ -213,10 +231,9 @@ export default class Sidebar extends Component {
                     />
                   </div>
                 </li>
-
+                { this.renderSearchAsTag() }
                 { this.renderFavoritedTags() }
                 { this.renderTags() }
-
                 <li><Link to="/tags" activeClassName="active"><FormattedMessage id="see_more" /></Link></li>
               </ul>
             </div>
