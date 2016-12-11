@@ -1,7 +1,7 @@
 /* global window */
 import createLogger from 'redux-logger';
 import promiseMiddleware from 'redux-promise-middleware';
-import persistState from 'redux-localstorage'
+import persistState from 'redux-localstorage';
 import thunk from 'redux-thunk';
 import { combineReducers, applyMiddleware, createStore, compose } from 'redux';
 import api from './steemAPI';
@@ -16,6 +16,7 @@ import userProfileReducer from './user/userReducer';
 import notificationReducer from './app/Notification/notificationReducers';
 import bookmarksReducer from './bookmarks/bookmarksReducer';
 import favoritesReducer from './favorites/favoritesReducers';
+import editorReducer from './post/Write/EditorReducers';
 import { responsiveReducer, mountResponsive } from './helpers/responsive';
 import reblogReducers from './app/reblog/reblogReducers';
 
@@ -29,6 +30,7 @@ const reducers = combineReducers({
   app: appReducers,
   auth: authReducers,
   comments: commentsReducer,
+  editor: editorReducer,
   posts: postsReducers,
   feed: feedReducers,
   userProfile: userProfileReducer,
@@ -60,8 +62,8 @@ const enhancer = compose(
 );
 
 if (process.env.ENABLE_LOGGER &&
-    process.env.IS_BROWSER &&
-    process.env.NODE_ENV !== 'production') {
+  process.env.IS_BROWSER &&
+  process.env.NODE_ENV !== 'production') {
   middleware.push(createLogger({
     collapsed: true,
     duration: true,

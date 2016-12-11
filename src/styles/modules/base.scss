@@ -62,13 +62,6 @@ ul, li {
   overflow: hidden;
 }
 
-.main-panel {
-  padding-top: 56px;
-  min-height: 100%;
-  position: relative;
-  z-index: 2;
-}
-
 @media (max-width: 992px) {
   .main-panel {
     width: 100% !important;
@@ -80,8 +73,10 @@ ul, li {
 }
 
 .main-panel {
+  padding-top: 56px;
+  min-height: 100%;
   position: relative;
-  z-index: 2;
+  z-index: 3;
   float: right;
   display: flex;
   flex-direction: column;
