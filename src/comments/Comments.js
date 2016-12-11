@@ -55,8 +55,8 @@ export default class Comments extends Component {
       return null;
     }
 
-    const hasMore = (comments.lists[postId] && comments.lists[postId].hasMore);
-    const isFetching = (comments.lists[postId] && comments.lists[postId].isFetching);
+    const hasMore = (comments.listByPostId[postId] && comments.listByPostId[postId].hasMore);
+    const isFetching = (comments.listByPostId[postId] && comments.listByPostId[postId].isFetching);
 
     const classNames = className ? `Comments ${className}` : 'Comments';
     return (
