@@ -15,7 +15,7 @@ import {
   getFeedHasMoreFromState
 } from '../helpers/stateHelpers';
 import Loading from '../widgets/Loading';
-import TriggerProfile from '../app/Trigger/TriggerProfile';
+import Follow from '../widgets/Follow';
 import { followUser, unfollowUser } from './userActions';
 import Avatar from '../widgets/Avatar';
 import Badge from '../widgets/Badge';
@@ -107,15 +107,6 @@ class Profile extends Component {
 
     return (
       <div>
-        <TriggerProfile
-          params={this.props.params}
-          username={username}
-          edit={edit}
-          hasFollow={this.hasFollow()}
-          followingIsFetching={following.isFetching}
-          isFollowing={isFollowing}
-          onClickFollow={this.onClickFollow}
-        />
         <section
           className="align-center bg-green profile-header"
           style={{
@@ -134,7 +125,17 @@ class Profile extends Component {
                   : () => this.props.addUserFavorite(username)
                 }
               />
-              { has(jsonMetadata, 'profile.name') ? jsonMetadata.profile.name : `@${username} ` }
+              { has(jsonMetadata, 'profile.name') ? jsonMetadata.profile.name : `@${username}` }
+              { ' ' }
+              <Follow
+                params={this.props.params}
+                username={username}
+                edit={edit}
+                hasFollow={this.hasFollow()}
+                followingIsFetching={following.isFetching}
+                isFollowing={isFollowing}
+                onClickFollow={this.onClickFollow}
+              />
             </h1>
           </div>
         </section>

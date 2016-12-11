@@ -3,7 +3,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Header from '../app/Header';
 import MenuFeed from '../app/Menu/MenuFeed';
-import TriggerFeed from '../app/Trigger/TriggerFeed';
 import Feed from './Feed';
 import PageHOC from './PageHOC';
 import {
@@ -100,7 +99,6 @@ export default class Page extends React.Component {
           />
         }
 
-        { auth.isAuthenticated && <TriggerFeed category={category} /> }
         { auth.isFetching && <Loading /> }
         { !auth.isFetching &&
           <Feed
