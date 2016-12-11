@@ -28,7 +28,7 @@ import './Sidebar.scss';
     favorites: state.favorites,
   }),
   dispatch => bindActionCreators({
-    hideSidebar: hideSidebar,
+    hideSidebar,
   }, dispatch)
 )
 
@@ -152,7 +152,10 @@ export default class Sidebar extends Component {
   };
 
   onClickMenu = ({ menu }) => {
-    this.setState({ menu });
+    this.setState({
+      menu,
+      search: '',
+    });
   };
 
   render() {
