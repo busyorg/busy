@@ -60,11 +60,11 @@ const INLINE_STYLES = [
     style: 'ITALIC',
     icon: () => <Icon name="format_italic" />
   },
-  {
-    label: 'Underline',
-    style: 'UNDERLINE',
-    icon: () => <Icon name="format_underline" />
-  },
+  // {
+  //   label: 'Underline',
+  //   style: 'UNDERLINE',
+  //   icon: () => <Icon name="format_underline" />
+  // },
   {
     label: 'Monospace',
     style: 'CODE',
