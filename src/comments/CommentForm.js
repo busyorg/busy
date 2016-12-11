@@ -77,8 +77,15 @@ export default class CommentForm extends Component {
     });
 
     let parentTitle = '';
+    const commentsData = comments.comments;
+
     if (comments.currentDraftId) {
-      parentTitle = posts[comments.currentDraftId] ? posts[comments.currentDraftId].title : '';
+      if (posts[comments.currentDraftId]) {
+        parentTitle = posts[comments.currentDraftId].title;
+      } else if (commentsData[comments.currentDraftId]) {
+        const replyingComment = commentsData[comments.currentDraftId];
+        parentTitle = `@${replyingComment.author} in ${replyingComment.root_title}`;
+      }
     }
 
     return (
