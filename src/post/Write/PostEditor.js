@@ -295,7 +295,7 @@ class PostEditor extends Component {
         <div className={toolbarClasses} style={this.state.position} >
           <div style={{ position: 'absolute', bottom: 0 }}>
             <div className="NewPost__toolbar__wrapper" ref={(c) => { this.toolbar = c; }}>
-              <ul className="toolbar__list" onMouseDown={(x) => { x.preventDefault(); }}>>
+              <ul className="toolbar__list" onMouseDown={(x) => { x.preventDefault(); }}>
                 {INLINE_STYLES.map(type =>
                   <StyleButton
                     key={type.label}

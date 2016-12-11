@@ -73,11 +73,6 @@ export default class SideControls extends Component {
     if (!process.env.IS_BROWSER) return;
 
     const node = getSelectedBlockNode(window); // eslint-disable-line no-undef
-    if (!node) {
-      debug('No node');
-      if (!this.state.showControls) { this.hide(); }
-      return;
-    }
 
     const contentState = editorState.getCurrentContent();
     const selectionState = editorState.getSelection();
@@ -98,7 +93,9 @@ export default class SideControls extends Component {
       return;
     }
 
-    this.show(node);
+    if (node) {
+      this.show(node);
+    }
   }
 
   show(node) {
@@ -115,9 +112,7 @@ export default class SideControls extends Component {
   }
 
   componentWillReceiveProps(newProps) {
-    setTimeout(() => {
-      this.findNode(newProps);
-    }, 100);
+    this.findNode(newProps);
   }
 
   onClickUpload = (e) => {
@@ -155,15 +150,16 @@ export default class SideControls extends Component {
           pointerEvents: 'none',
         }}
       >
-        <button onClick={this.toggleMenu}><Icon name={showControls ? 'close' : 'add'} /></button>
-        {showControls && <div className="Controls__menu">
-          <button><Icon name="close" /></button>
-          <button onMouseDown={this.onClickUpload} type="button">
-            <Icon name="add_a_photo" />
-          </button>
-          <input ref={(c) => { this.fileInput = c; }} onChange={this.onChangeImage} name="file" type="file" />
-          <button><Icon name="remove" /></button>
-        </div>}
+        <button className="Controls__button" onClick={this.toggleMenu}><Icon name={showControls ? 'close' : 'add'} /></button>
+        {showControls &&
+          <div className="Controls__menu">
+            <button className="Controls__button"><Icon name="close" /></button>
+            <button className="Controls__button" onMouseDown={this.onClickUpload} type="button">
+              <Icon name="add_a_photo" />
+            </button>
+            <input className="Controls__image__hidden" ref={(c) => { this.fileInput = c; }} onChange={this.onChangeImage} name="file" type="file" />
+            <button className="Controls__button"><Icon name="remove" /></button>
+          </div>}
       </div>
     );
   }
