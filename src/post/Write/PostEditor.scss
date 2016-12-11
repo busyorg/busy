@@ -1,9 +1,11 @@
+@import "../../styles/colors.scss";
+
 .PostEditor {
   $font-primary: 'Karla', sans-serif;
 
   background: #fff;
   font-size: 14px;
-
+  position: relative;
   h1, h2, h3, h4, h5, h6 {
     font-family: $font-primary;
     margin-bottom: 0;
@@ -62,7 +64,7 @@
   .PostEditor__editor {
     cursor: text;
     font-size: 16px;
-    margin-top: 10px;
+    margin-top: 0px;
   }
 
   .PostEditor__editor .public-DraftEditorPlaceholder-root,
@@ -73,6 +75,14 @@
 
   .PostEditor__editor .public-DraftEditor-content {
     min-height: 100px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .PostEditor__editor .public-DraftEditorPlaceholder-root{
+    color: #999;
+    position: absolute;
+    z-index: 0;
   }
 
   .PostEditor__hidePlaceholder .public-DraftEditorPlaceholder-root {
@@ -90,15 +100,117 @@
     user-select: none;
   }
 
+  $iconPaddingY: 4px;
+  $iconPaddingX: 2px;
   .PostEditor__styleButton {
-    color: #999;
-    cursor: pointer;
-    margin-right: 16px;
-    padding: 2px 0;
+    margin: 0;
+    padding: $iconPaddingY $iconPaddingX;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
     display: inline-block;
+    cursor: pointer;
+
+    i{
+      color: #999;
+      &:hover{
+        color:#fff;
+      }
+    }
   }
 
   .PostEditor__activeButton {
-    color: #5890ff;
+    i{
+      color: #5890ff;
+    }
+  }
+  
+  .NewPost__toolbar{
+    background: $toolbarBackground;
+    position: absolute;
+    display: none;
+    z-index: 10;
+
+    .toolbar__button{
+      background: none;
+      border: none;
+      outline: none;
+    }
+
+    &__visible{
+      display: block;
+    }
+
+    &__wrapper {
+      background-color: $toolbarBackground;
+      border-radius: 4px;
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.4);
+      left: -50%;
+      position: relative;
+      transition: background-color 0.2s ease-in-out;
+    }
+
+    .toolbar__list{
+      padding: 0 8px;
+      margin: 0;
+      white-space: nowrap;
+      list-style: none;
+
+      &::after{
+        content: '';
+        display: inline-block;
+        top: 100%;
+        left: 50%;
+        position: absolute;
+        pointer-events: none;
+        width: 0;
+        height: 0;
+        margin-left: -8px;
+        border-width: 8px;
+        border-style: solid;
+        border-color: $toolbarBackground transparent transparent;
+      }
+    }
+    
+    .toolbar__item__separator{
+      list-style: none;
+      border-right: 1px solid #ddd;
+      margin-right: $iconPaddingX;
+      height: 1.5em;
+      vertical-align: middle;
+    }
+  }
+
+  .SideControls{
+    display: block;
+    position: absolute;
+    z-index: 2;
+
+    .Controls__button{
+      border: 0;
+      color: #fff;
+      cursor: pointer;
+      height: 35px;
+      width: 35px;
+      font-size: 0;
+      padding: 0;  
+      -webkit-transition: all 0.5s ease;
+      transition: all 0.5s ease;
+      position: relative;
+      background: #fff;
+      border: 1px solid #bbb;
+      border-radius: 50%;
+      margin: 0 5px;
+    }
+    
+    .Controls__image__hidden{
+      display: none;
+    }
+
+    .Controls__menu{
+      display: inline-block;
+      padding: 0 5px;
+    }
   }
 }

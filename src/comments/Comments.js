@@ -32,8 +32,16 @@ export default class Comments extends Component {
     className: PropTypes.string,
   };
 
-  componentWillMount() {
-    this.props.getComments(this.props.postId);
+  componentDidMount() {
+    if (this.props.show) {
+      this.props.getComments(this.props.postId);
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.show && prevProps.show !== this.props.show) {
+      this.props.getComments(this.props.postId);
+    }
   }
 
   handleShowMore = (e) => {
@@ -42,9 +50,14 @@ export default class Comments extends Component {
   };
 
   render() {
-    const { postId, comments, className } = this.props;
-    const hasMore = (comments.listByPostId[postId] && comments.listByPostId[postId].hasMore);
-    const isFetching = (comments.listByPostId[postId] && comments.listByPostId[postId].isFetching);
+    const { postId, comments, className, show } = this.props;
+    if (!show) {
+      return null;
+    }
+
+    const hasMore = (comments.lists[postId] && comments.lists[postId].hasMore);
+    const isFetching = (comments.lists[postId] && comments.lists[postId].isFetching);
+
     const classNames = className ? `Comments ${className}` : 'Comments';
     return (
       <div className={classNames}>

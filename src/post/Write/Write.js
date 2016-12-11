@@ -1,11 +1,13 @@
+import { connect } from 'react-redux';
 import React, { Component, PropTypes } from 'react';
 import formSerialize from 'form-serialize';
 import kebabCase from 'lodash/kebabCase';
-import { Link, browserHistory } from 'react-router';
+import { Link } from 'react-router';
 
 import './Write.scss';
 import Header from '../../app/Header';
 import PostEditor from './PostEditor';
+import { createPost } from './EditorActions';
 
 export class RawNewPost extends Component {
   static propTypes = {
@@ -15,15 +17,17 @@ export class RawNewPost extends Component {
     createPost: PropTypes.func,
   };
 
-  onSubmit(e) {
+  onSubmit = (e) => {
     e.preventDefault();
     e.preventDefault();
     const data = formSerialize(e.target, {
       hash: true,
     });
 
+
     data.parentAuthor = '';
-    const postBody = this.refs.editor.getContent();
+    const postBody = this.editor.getContent();
+
     data.jsonMetadata = JSON.stringify({
       post: postBody,
     });
@@ -37,22 +41,18 @@ export class RawNewPost extends Component {
   }
 
   render() {
-    const {
-      user,
-    } = this.props;
-    const author = user.name;
+    console.log('editor', this.props.editor);
+    const { user: { name: author }, editor: { loading } } = this.props;
 
     return (
-      <div
-        className="main-panel"
-      >
+      <div className="main-panel">
         <Header menu="messages" />
 
         <div className="container">
           <form
             action="/write"
             method="post"
-            onSubmit={this.onSubmit.bind(this)}
+            onSubmit={this.onSubmit}
           >
             <div>
               <fieldset className="form-group">
@@ -73,7 +73,9 @@ export class RawNewPost extends Component {
                 <PostEditor
                   user={this.props.user}
                   required
-                  ref="editor"
+                  ref={
+                    (c) => { this.editor = c && c.getWrappedInstance ? c.getWrappedInstance() : c; }
+                  }
                 />
                 <hr />
               </fieldset>
@@ -107,7 +109,7 @@ export class RawNewPost extends Component {
                   Cancel
                 </Link>
 
-                <button type="submit" className="btn btn-primary btn-lg">
+                <button type="submit" disabled={loading} className="btn btn-primary btn-lg">
                   Post
                 </button>
               </div>
@@ -119,53 +121,8 @@ export class RawNewPost extends Component {
   }
 }
 
-// TODO - Remove this from here
-// Couldn't find your standard state and action management
-
-import Promise from 'bluebird'; // eslint-disable-line import/imports-first
-import assert from 'assert'; // eslint-disable-line import/imports-first
-import request from 'superagent'; // eslint-disable-line import/imports-first
-import { connect } from 'react-redux'; // eslint-disable-line import/imports-first
-
-Promise.promisifyAll(request.Request.prototype);
-
-export const CREATE_POST = 'CREATE_POST';
-export const CREATE_POST_START = 'CREATE_POST_START';
-export const CREATE_POST_SUCCESS = 'CREATE_POST_SUCCESS';
-export const CREATE_POST_ERROR = 'CREATE_POST_ERROR';
-
-const requiredFields =
-  'parentAuthor,parentPermlink,author,permlink,title,body,jsonMetadata'
-  .split(',');
-function createPost(body) {
-  requiredFields.forEach((field) => {
-    assert(
-      body[field] != null,
-      `Developer Error: Missing required field ${field}`
-    );
-  });
-
-  return () => ({
-    type: CREATE_POST,
-    payload: {
-      promise: request.get(`${process.env.STEEMCONNECT_HOST}/comment`)
-        .query(body)
-        .withCredentials()
-        .endAsync()
-        .then((res) => res.body)
-        .tap(() => {
-          browserHistory.push(
-            `/${body.parentPermlink}/@${body.author}/${body.permlink}`
-          );
-        }),
-    },
-  });
-}
-
-const NewPost = connect((state) => ({
-  user: state.auth.user,
-}), {
-  createPost,
-})(RawNewPost);
+const NewPost = connect(state => ({
+  user: state.auth.user, editor: state.editor
+}), { createPost })(RawNewPost);
 
 export default NewPost;
