@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import ReduxInfiniteScroll from 'redux-infinite-scroll';
-import _ from 'lodash';
+import { isNumber, filter, take } from 'lodash';
 
 import './UserList.scss';
 import Avatar from '../widgets/Avatar';
@@ -14,27 +14,27 @@ const UserRow = props => <div className="UserList pvm">
 export default class UserList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { filter: null, page: 1 };
+    this.state = { filterText: null, page: 1 };
   }
 
   filterTextChange = (event) => {
     this.setState({
-      filter: event.target.value.trim().toLowerCase(),
+      filterText: event.target.value.trim().toLowerCase(),
       page: 1
     });
   }
 
   paginate = () => {
-    const page = _.isNumber(this.state.page) ? (this.state.page + 1) : 1;
+    const page = isNumber(this.state.page) ? (this.state.page + 1) : 1;
     this.setState({ page });
   }
 
   render() {
-    const filter = this.state.filter;
+    const filterText = this.state.filterText;
     const defaultPageItems = 10;
     const noOfItemsToShow = defaultPageItems * this.state.page;
-    const users = this.state.filter ?
-      _.filter(this.props.users, user => user.indexOf(filter) >= 0) : this.props.users;
+    const users = this.state.filterText ?
+      filter(this.props.users, user => user.indexOf(filterText) >= 0) : this.props.users;
 
     return (<div>
       <input placeholder="filter" onChange={this.filterTextChange} />
@@ -43,7 +43,7 @@ export default class UserList extends React.Component {
         elementIsScrollable={false}
         hasMore={users.length > noOfItemsToShow}
       >
-        {_.take(users, noOfItemsToShow).map(user => <UserRow username={user} key={user} />)}
+        {take(users, noOfItemsToShow).map(user => <UserRow username={user} key={user} />)}
       </ReduxInfiniteScroll>
     </div>);
   }
