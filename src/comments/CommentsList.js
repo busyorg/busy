@@ -15,9 +15,11 @@ const CommentsList = ({
   }
 
   const { show, list } = comments.listByPostId[postId];
+  const showLimit = isSinglePage ? list.length : show;
+
   const visibleList = list.sort((item1, item2) => {
     return (comments.comments[item1].net_votes - comments.comments[item2].net_votes) * -1;
-  }).slice(0, show);
+  }).slice(0, showLimit);
 
 
   return (

@@ -75,7 +75,7 @@ export default class Comments extends Component {
           <Loading />
         }
 
-        { hasMore &&
+        { (hasMore && !this.props.isSinglePage) &&
           <a
             className="Comments__showMore"
             tabIndex="0"
