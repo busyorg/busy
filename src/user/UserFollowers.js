@@ -23,15 +23,10 @@ export default class UserFollowers extends Component {
     return (
       <div className="container">
         <center className="users">
-          {this.state.users && <ul>
-            {this.state.users.slice(0, 20).map((username, key) => {
-              return (<UserList username={username} key={key} />);
-            })}
-          </ul>}
+          {this.state.users && <UserList users={this.state.users} />}
           {!this.state.users && <Loading />}
         </center>
       </div>
     );
   }
-};
-
+}
