@@ -82,7 +82,7 @@ export const getComments = (postId) => {
   };
 };
 
-export const sendComment = () => {
+export const sendComment = (depth) => {
   return (dispatch, getState) => {
     const { auth, comments } = getState();
 
@@ -108,6 +108,7 @@ export const sendComment = () => {
       author,
       body,
       isOptimistic: true,
+      depth,
     };
 
     const optimisticId = Date.now();
