@@ -32,6 +32,10 @@ const postItem = (state = {}, action) => {
         net_votes: optimisticNetVotes,
       };
     case commentsActions.SEND_COMMENT_START:
+      if (action.meta.isReplyToComment) {
+        return state;
+      }
+
       return {
         ...state,
         children: parseInt(state.children) + 1,

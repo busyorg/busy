@@ -67,3 +67,18 @@ export const getUserFeedContentFromState = (username, feedState, postsState) =>
 
 export const getUserFeedLoadingFromState = (username, feedState) =>
   (feedState.feed[username] && feedState.feed[username].isFetching) || false;
+
+
+/**
+ * Sort comments based on payout
+ * @param {Array} list - list of IDs of comments
+ * @param {Object} commentsState - state.comments in busy redux setup
+ * @returns {Array} - list of sorted IDs
+ */
+export const sortCommentsFromSteem = (list, commentsState) => {
+  return list.sort((item1, item2) => {
+    const itemA = parseFloat(commentsState.comments[item1].total_pending_payout_value);
+    const itemB = parseFloat(commentsState.comments[item2].total_pending_payout_value);
+    return (itemA - itemB) * -1;
+  });
+};

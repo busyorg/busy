@@ -1,37 +1,39 @@
 import React from 'react';
 import CommentItem from './CommentItem';
+import { sortCommentsFromSteem } from '../helpers/stateHelpers';
 
-const renderComments = (list, comments, likeComment, unlikeComment, auth) => {
-  return list.map(({ id , children }) => {
-    const comment = comments[id];
-
-    return (
-      <CommentItem
-        key={id}
-        comment={comment}
-        likeComment={likeComment}
-        unlikeComment={unlikeComment}
-        auth={auth}
-      >
-        { Object.keys(children).length > 0 &&
-          renderComments(children, comments, likeComment, unlikeComment, auth)
-        }
-      </CommentItem>
-    );
-  })
-};
-
-const CommentsList = ({ postId, comments, likeComment, unlikeComment, auth }) => {
-  if (!comments.lists[postId]) {
+const CommentsList = ({
+  postId,
+  comments,
+  likeComment,
+  unlikeComment,
+  auth,
+  openCommentingDraft,
+  isSinglePage
+}) => {
+  if (!comments.listByPostId[postId]) {
     return null;
   }
 
-  const { show, list } = comments.lists[postId];
-  const visibleList = list.slice(0, show);
+  const { show, list } = comments.listByPostId[postId];
+  const showLimit = isSinglePage ? list.length : show;
+
+  const visibleList = sortCommentsFromSteem(list, comments).slice(0, showLimit);
 
   return (
     <div className="CommentsList">
-      { renderComments(visibleList, comments.comments, likeComment, unlikeComment, auth) }
+      { visibleList.map((commentId, idx) =>
+        <CommentItem
+          key={idx}
+          comment={comments.comments[commentId]}
+          allComments={comments}
+          likeComment={likeComment}
+          unlikeComment={unlikeComment}
+          auth={auth}
+          openCommentingDraft={openCommentingDraft}
+          isSinglePage={isSinglePage}
+        />
+      )}
     </div>
   );
 };

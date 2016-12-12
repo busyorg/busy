@@ -3,7 +3,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import CommentsList from './CommentsList';
 import * as commentsActions from './commentsActions';
-import { getCommentsFromState } from '../helpers/stateHelpers';
 import Loading from '../widgets/Loading';
 
 import './Comments.scss';
@@ -18,6 +17,7 @@ import './Comments.scss';
     showMoreComments: commentsActions.showMoreComments,
     likeComment: (id) => commentsActions.likeComment(id),
     unlikeComment: (id) => commentsActions.likeComment(id, 0),
+    openCommentingDraft: commentsActions.openCommentingDraft,
   }, dispatch)
 )
 export default class Comments extends Component {
@@ -55,8 +55,9 @@ export default class Comments extends Component {
       return null;
     }
 
-    const hasMore = (comments.lists[postId] && comments.lists[postId].hasMore);
-    const isFetching = (comments.lists[postId] && comments.lists[postId].isFetching);
+    const hasMore = (comments.listByPostId[postId] && comments.listByPostId[postId].hasMore);
+    const isFetching = (comments.listByPostId[postId] && comments.listByPostId[postId].isFetching);
+
     const classNames = className ? `Comments ${className}` : 'Comments';
     return (
       <div className={classNames}>
@@ -66,13 +67,15 @@ export default class Comments extends Component {
           likeComment={this.props.likeComment}
           unlikeComment={this.props.unlikeComment}
           auth={this.props.auth}
+          openCommentingDraft={this.props.openCommentingDraft}
+          isSinglePage={this.props.isSinglePage}
         />
 
         { isFetching &&
           <Loading />
         }
 
-        { hasMore &&
+        { (hasMore && !this.props.isSinglePage) &&
           <a
             className="Comments__showMore"
             tabIndex="0"
