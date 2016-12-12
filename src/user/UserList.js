@@ -36,15 +36,17 @@ export default class UserList extends React.Component {
     const users = this.state.filterText ?
       filter(this.props.users, user => user.indexOf(filterText) >= 0) : this.props.users;
 
-    return (<div>
-      <input placeholder="filter" onChange={this.filterTextChange} />
-      <ReduxInfiniteScroll
-        loadMore={this.paginate}
-        elementIsScrollable={false}
-        hasMore={users.length > noOfItemsToShow}
-      >
-        {take(users, noOfItemsToShow).map(user => <UserRow username={user} key={user} />)}
-      </ReduxInfiniteScroll>
-    </div>);
+    return (
+      <div>
+        <input placeholder="filter" onChange={this.filterTextChange} />
+        <ReduxInfiniteScroll
+          loadMore={this.paginate}
+          elementIsScrollable={false}
+          hasMore={users.length > noOfItemsToShow}
+        >
+          {take(users, noOfItemsToShow).map(user => <UserRow username={user} key={user} />)}
+        </ReduxInfiniteScroll>
+      </div>
+    );
   }
 }
