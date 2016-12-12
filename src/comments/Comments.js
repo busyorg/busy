@@ -68,6 +68,7 @@ export default class Comments extends Component {
           unlikeComment={this.props.unlikeComment}
           auth={this.props.auth}
           openCommentingDraft={this.props.openCommentingDraft}
+          isSinglePage={this.props.isSinglePage}
         />
 
         { isFetching &&

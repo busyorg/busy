@@ -1,7 +1,15 @@
 import React from 'react';
 import CommentItem from './CommentItem';
 
-const CommentsList = ({ postId, comments, likeComment, unlikeComment, auth, openCommentingDraft }) => {
+const CommentsList = ({
+  postId,
+  comments,
+  likeComment,
+  unlikeComment,
+  auth,
+  openCommentingDraft,
+  isSinglePage
+}) => {
   if (!comments.listByPostId[postId]) {
     return null;
   }
@@ -23,6 +31,7 @@ const CommentsList = ({ postId, comments, likeComment, unlikeComment, auth, open
           unlikeComment={unlikeComment}
           auth={auth}
           openCommentingDraft={openCommentingDraft}
+          isSinglePage={isSinglePage}
         />
       )}
     </div>

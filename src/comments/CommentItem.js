@@ -33,7 +33,7 @@ export default class CommentItem extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showReplies: false,
+      showReplies: props.isSinglePage,
     };
   }
 

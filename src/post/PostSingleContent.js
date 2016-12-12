@@ -54,6 +54,7 @@ const PostSingleContent = ({ content }) => {
             <Comments
               postId={content.id}
               show
+              isSinglePage
             />
           </div>
         </div>
