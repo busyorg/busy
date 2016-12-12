@@ -1,5 +1,6 @@
 import React from 'react';
 import CommentItem from './CommentItem';
+import { sortCommentsFromSteem } from '../helpers/stateHelpers';
 
 const CommentsList = ({
   postId,
@@ -17,10 +18,7 @@ const CommentsList = ({
   const { show, list } = comments.listByPostId[postId];
   const showLimit = isSinglePage ? list.length : show;
 
-  const visibleList = list.sort((item1, item2) => {
-    return (comments.comments[item1].net_votes - comments.comments[item2].net_votes) * -1;
-  }).slice(0, showLimit);
-
+  const visibleList = sortCommentsFromSteem(list, comments).slice(0, showLimit);
 
   return (
     <div className="CommentsList">
