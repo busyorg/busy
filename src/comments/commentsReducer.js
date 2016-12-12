@@ -178,9 +178,18 @@ const commentsData = (state = {}, action) => {
         ...commentsMoreList,
       };
     case commentsTypes.SEND_COMMENT_START:
+      let newChildren = state[action.meta.parentId].children;
+      if (action.meta.isReplyToComment) {
+        newChildren += 1;
+      }
+
       return {
         ...state,
         [action.meta.optimisticId]: action.payload,
+        [action.meta.parentId]: {
+          ...state[action.meta.parentId],
+          children: newChildren,
+        },
       };
     case commentsTypes.LIKE_COMMENT_START:
       return {
