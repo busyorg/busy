@@ -3,10 +3,6 @@ import ReactDOM from 'react-dom';
 import { Router, browserHistory, applyRouterMiddleware } from 'react-router';
 import { Provider } from 'react-redux';
 import steemconnect from 'steemconnect';
-import {
-  useHistoryRestoreScroll,
-  useRouterRestoreScroll
-} from 'react-router-restore-scroll';
 import routes from './routes';
 import store from './store';
 import { isSmall } from './helpers/responsive';
@@ -27,8 +23,6 @@ if (process.env.STEEMCONNECT_HOST) {
   });
 }
 
-const createHistory = useHistoryRestoreScroll(() => browserHistory);
-
 browserHistory.listen(() => {
   if (isSmall()) {
     store.dispatch({
@@ -37,9 +31,6 @@ browserHistory.listen(() => {
   }
 });
 
-const routerRender = applyRouterMiddleware(
-  useRouterRestoreScroll()
-);
 
 // load the stylesheet
 require('./styles/base.scss');
@@ -48,8 +39,7 @@ ReactDOM.render(
   <Provider store={store}>
     <Router
       routes={routes}
-      history={createHistory()}
-      render={routerRender}
+      history={browserHistory}
     />
   </Provider>,
   document.getElementById('app')
