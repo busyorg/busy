@@ -10,13 +10,21 @@ import './CommentItem.scss';
 const renderOptimisticComment = (comment) => {
   return (
     <div className="CommentItem">
-      <Link to={`/@${comment.author}`}>
-        <Avatar xs username={comment.author} /> @{ comment.author }
-      </Link>
-      { ' ' }
-      <b>$0.00</b>
-      { ' ' }
-      <BodyShort body={comment.body} />
+      <div className={`CommentItem__content CommentItem__content--level-${comment.depth}`}>
+        <div className="CommentUser">
+          <Link to={`/@${comment.author}`}>
+            <Avatar xs username={comment.author} />
+          </Link>
+        </div>
+        <div className="CommentBody">
+          <span className="CommentBody__username">
+            <Link to={`/@${comment.author}`}>
+              @{ comment.author }
+            </Link>
+          </span>
+          <BodyShort body={comment.body} />
+        </div>
+      </div>
     </div>
   );
 };
