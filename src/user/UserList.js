@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import ReduxInfiniteScroll from 'redux-infinite-scroll';
-import { isNumber, filter, take } from 'lodash';
+import { isNumber, take } from 'lodash';
 
 import './UserList.scss';
 import Avatar from '../widgets/Avatar';
@@ -34,7 +34,7 @@ export default class UserList extends React.Component {
     const defaultPageItems = 10;
     const noOfItemsToShow = defaultPageItems * this.state.page;
     const users = this.state.filterText ?
-      filter(this.props.users, user => user.indexOf(filterText) >= 0) : this.props.users;
+      this.props.users.filter(user => user.indexOf(filterText) >= 0) : this.props.users;
 
     return (
       <div>
