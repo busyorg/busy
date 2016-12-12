@@ -116,7 +116,9 @@ export default class CommentItem extends Component {
           </div>
         </div>
         { this.state.showReplies && allComments.listByCommentId[comment.id] &&
-          allComments.listByCommentId[comment.id].map(commentId =>
+          allComments.listByCommentId[comment.id].sort((item1, item2) => {
+            return (allComments.comments[item1].net_votes - allComments.comments[item2].net_votes) * -1;
+          }).map(commentId =>
             <CommentItem
               { ...this.props }
               key={commentId}

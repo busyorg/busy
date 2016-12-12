@@ -7,7 +7,10 @@ const CommentsList = ({ postId, comments, likeComment, unlikeComment, auth, open
   }
 
   const { show, list } = comments.listByPostId[postId];
-  const visibleList = list.sort((item1, item2) => item1.net_votes > item2.net_votes).slice(0, show);
+  const visibleList = list.sort((item1, item2) => {
+    return (comments.comments[item1].net_votes - comments.comments[item2].net_votes) * -1;
+  }).slice(0, show);
+
 
   return (
     <div className="CommentsList">
