@@ -17,7 +17,7 @@ import './CommentForm.scss';
     posts: state.posts,
   }),
   (dispatch) => bindActionCreators({
-    sendComment: commentActions.sendComment,
+    sendComment: depth => commentActions.sendComment(depth),
     updateCommentingDraft: commentActions.updateCommentingDraft,
     closeCommentingDraft: commentActions.closeCommentingDraft,
   }, dispatch)
@@ -34,11 +34,15 @@ export default class CommentForm extends Component {
     });
   }
 
-  handleKey(e) {
+  handleKey(e, commentDepth) {
     if (keycode(e) === 'enter' && !e.shiftKey) {
       this.updateDraft();
-      this.props.sendComment();
+      this.props.sendComment(commentDepth);
     }
+  }
+
+  handlePageClick(e) {
+    e.stopPropagation();
   }
 
   componentWillUpdate(nextProps) {
@@ -77,12 +81,27 @@ export default class CommentForm extends Component {
     });
 
     let parentTitle = '';
+    // will need depth in optimistic payload since it's used to style nested comments
+    let commentDepth;
+
+    const commentsData = comments.comments;
+    const isReplyToComment = comments.currentDraftId
+      ? comments.commentingDraft[comments.currentDraftId].isReplyToComment
+      : false;
+
     if (comments.currentDraftId) {
-      parentTitle = posts[comments.currentDraftId] ? posts[comments.currentDraftId].title : '';
+      if (isReplyToComment) {
+        const replyingComment = commentsData[comments.currentDraftId];
+        parentTitle = `@${replyingComment.author} in ${replyingComment.root_title}`;
+        commentDepth = commentsData[comments.currentDraftId].depth + 1;
+      } else {
+        parentTitle = posts[comments.currentDraftId].title;
+        commentDepth = 1;
+      }
     }
 
     return (
-      <div className={commentsClass}>
+      <div onClick={e => this.handlePageClick(e)} className={commentsClass}>
         <div className="container">
           { comments.currentDraftId &&
             <div className="mb-1">
@@ -96,7 +115,7 @@ export default class CommentForm extends Component {
           <Textarea
             ref={(c) => { this._input = c; }}
             className="CommentForm__input"
-            onKeyDown={(e) => this.handleKey(e)}
+            onKeyDown={(e) => this.handleKey(e, commentDepth)}
             placeholder={'Write a comment...'}
           />
           <a className="CommentForm__close" onClick={() => closeCommentingDraft()}>

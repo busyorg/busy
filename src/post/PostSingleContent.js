@@ -51,7 +51,11 @@ const PostSingleContent = ({ content }) => {
         <div className="PostSingleContent__replies py-3">
           <div className="container">
             <h1><Icon name="reply" lg /> Comments ({content.children})</h1>
-            <Comments postId={content.id} />
+            <Comments
+              postId={content.id}
+              show
+              isSinglePage
+            />
           </div>
         </div>
       ) }
