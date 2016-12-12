@@ -13,7 +13,7 @@ import Replies from './user/UserReplies';
 import Feed from './user/UserFeed';
 import Transfers from './user/UserTransfers';
 import Edit from './user/UserEdit';
-import Categories from './categories/Categories';
+import Tags from './tags/Tags';
 import { Trending, Hot, Votes, Responses, Active, Created, Cashout } from './feed/PathMatching';
 import PostSingle from './post/PostSingle';
 import Bookmarks from './bookmarks/Bookmarks';
@@ -27,7 +27,7 @@ export default (
   <Route path="/" component={Wrapper}>
     <IndexRoute component={Page} />
     <Route path="/settings" component={Settings} />
-    <Route path="/tags" component={Categories} />
+    <Route path="/tags" component={Tags} />
     <Route path="/trending(/:category)" component={Trending} />
     <Route path="/hot(/:category)" component={Hot} />
     <Route path="/cashout(/:category)" component={Cashout} />
