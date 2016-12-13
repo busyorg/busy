@@ -4,6 +4,7 @@ import numeral from 'numeral';
 import BodyShort from '../post/body-short';
 import Avatar from '../widgets/Avatar';
 import Icon from '../widgets/Icon';
+import { sortCommentsFromSteem } from '../helpers/stateHelpers';
 
 import './CommentItem.scss';
 
@@ -116,9 +117,7 @@ export default class CommentItem extends Component {
           </div>
         </div>
         { this.state.showReplies && allComments.listByCommentId[comment.id] &&
-          allComments.listByCommentId[comment.id].sort((item1, item2) => {
-            return (allComments.comments[item1].net_votes - allComments.comments[item2].net_votes) * -1;
-          }).map(commentId =>
+          sortCommentsFromSteem(allComments.listByCommentId[comment.id], allComments).map(commentId =>
             <CommentItem
               { ...this.props }
               key={commentId}
