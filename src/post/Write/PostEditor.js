@@ -10,7 +10,6 @@ import classNames from 'classnames';
 import './Write.scss';
 import './PostEditor.scss';
 import Icon from '../../widgets/Icon';
-import { uploadFile } from '../../user/userActions';
 import SideControls from './SideControls';
 import ImageBlock from './ImageBlock';
 
@@ -168,8 +167,8 @@ class PostEditor extends Component {
     let shouldUpdateState = false;
     if (hasSelectedText && selectionCoords) {
       if (!this.state.position ||
-          this.state.position.bottom !== selectionCoords.offsetBottom ||
-          this.state.position.left !== selectionCoords.offsetLeft) {
+        this.state.position.bottom !== selectionCoords.offsetBottom ||
+        this.state.position.left !== selectionCoords.offsetLeft) {
         shouldUpdateState = true;
         newState.showToolbar = true;
         newState.position = {
@@ -271,7 +270,6 @@ class PostEditor extends Component {
         <SideControls
           editorState={editorState}
           onChange={this.onChange}
-          uploadFile={this.props.uploadFile}
           user={this.props.user}
         />
 
@@ -326,7 +324,7 @@ class PostEditor extends Component {
 
 PostEditor = connect(state => ({
   files: state.userProfile.files,
-}), { uploadFile }, undefined, { withRef: true })(PostEditor);
+}), undefined, undefined, { withRef: true })(PostEditor);
 
 export default PostEditor;
 

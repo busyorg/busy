@@ -1,11 +1,14 @@
 // Forked from https://github.com/rajaraodv/draftjs-examples
 import newDebug from 'debug';
-import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { EditorState } from 'draft-js';
-import Icon from '../../widgets/Icon';
-import './PostEditor.scss';
+import React, { Component } from 'react';
 
-const debug = newDebug('busy:PostEditor');
+import './PostEditor.scss';
+import Icon from '../../widgets/Icon';
+import { uploadFile } from '../../user/userActions';
+
+const debug = newDebug('busy:PostEditor:SideControls');
 
 function getSelectedBlockNode(root) {
   const selection = root.getSelection();
@@ -62,13 +65,14 @@ function addNewBlock(editorState, newType, initialData) {
   return editorState;
 }
 
-export default class SideControls extends Component {
+class SideControls extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showControls: false
+      showControls: false, style: null
     };
   }
+
   findNode({ editorState }) {
     if (!process.env.IS_BROWSER) return;
 
@@ -112,7 +116,8 @@ export default class SideControls extends Component {
   }
 
   componentWillReceiveProps(newProps) {
-    this.findNode(newProps);
+    // {editorState} state is not updated synchronously
+    setTimeout(() => this.findNode(newProps));
   }
 
   onClickUpload = (e) => {
@@ -164,3 +169,9 @@ export default class SideControls extends Component {
     );
   }
 }
+
+SideControls = connect(state => ({
+  files: state.userProfile.files,
+}), { uploadFile })(SideControls);
+
+export default SideControls;
