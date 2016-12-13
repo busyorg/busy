@@ -41,7 +41,6 @@ export class RawNewPost extends Component {
   }
 
   render() {
-    console.log('editor', this.props.editor);
     const { user: { name: author }, editor: { loading } } = this.props;
 
     return (

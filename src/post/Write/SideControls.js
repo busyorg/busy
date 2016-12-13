@@ -65,6 +65,14 @@ function addNewBlock(editorState, newType, initialData) {
   return editorState;
 }
 
+function preloadFile({ file }) {
+  return new Promise((resolve) => {
+    const reader = new global.FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+  });
+}
+
 class SideControls extends Component {
   constructor(props) {
     super(props);
@@ -128,15 +136,20 @@ class SideControls extends Component {
 
   onChangeImage = () => {
     const fileInput = this.fileInput;
+    const file = fileInput.files[0];
     const username = this.props.user.name;
-    this.props.uploadFile({ username, fileInput })
-      .then(({ value }) => {
+    preloadFile({ file })
+      .then((dataUrl) => {
         this.props.onChange(addNewBlock(
           this.props.editorState,
           'atomic:image', {
-            src: value.url,
+            src: dataUrl
           }
         ));
+        return this.props.uploadFile({ username, file });
+      })
+      .then(({ value }) => {
+        console.log('uploaded', value);
       });
   };
 
