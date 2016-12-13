@@ -18,11 +18,13 @@ export default class ImageBlock extends Component {
   render() {
     const data = this.props.block.getData();
     const src = data.get('src');
+    const id = data.get('id');
 
     return (
       <div>
         <img
           role="presentation"
+          id={id}
           style={
             this.state && this.state.selected ? {
               outline: 'solid 3px #3756a0',

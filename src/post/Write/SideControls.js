@@ -138,18 +138,24 @@ class SideControls extends Component {
     const fileInput = this.fileInput;
     const file = fileInput.files[0];
     const username = this.props.user.name;
+    const imgId = `preloaded_${Math.random().toString(16).substr(2)}`;
     preloadFile({ file })
       .then((dataUrl) => {
         this.props.onChange(addNewBlock(
           this.props.editorState,
           'atomic:image', {
-            src: dataUrl
+            src: dataUrl,
+            id: imgId,
           }
         ));
         return this.props.uploadFile({ username, file });
       })
       .then(({ value }) => {
-        console.log('uploaded', value);
+        const img = global.document.querySelectorAll(`#${imgId}`);
+        if (img.length) {
+          console.log('set Url', value.url);
+          img[0].dataset.url = value.url;
+        }
       });
   };
 
