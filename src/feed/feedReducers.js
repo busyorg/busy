@@ -168,6 +168,21 @@ const feed = (state = initialState, action) => {
         ...state,
         bookmarks: feedSortByItem(state.bookmarks, action)
       };
+    case bookmarksActions.TOGGLE_BOOKMARK:
+      const toggledId = action.payload;
+      // remove from feed if toggled off
+      if (state.bookmarks.all && state.bookmarks.all.list.includes(toggledId)) {
+        return {
+          ...state,
+          bookmarks: {
+            ...state.bookmarks,
+            all: {
+              ...state.bookmarks.all,
+              list: state.bookmarks.all.list.filter(item => item !== toggledId),
+            },
+          },
+        };
+      }
     default:
       return state;
   }
