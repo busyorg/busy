@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withRouter, Link } from 'react-router';
 import PostSingleContent from './PostSingleContent';
 
-import TriggerPost from '../app/Menu/MenuPost';
+import MenuPost from '../app/Menu/MenuPost';
 import CommentForm from '../comments/CommentForm';
 
 import './PostSingleModal.scss';
@@ -57,7 +57,7 @@ export default class PostSingleModal extends Component {
 
     return (
       <div className={ sidebarIsVisible ? 'PostSingleModal withSidebar' : 'PostSingleModal' }>
-        <TriggerPost
+        <MenuPost
           reblog={reblog}
           isReblogged={isReblogged}
           openCommentingDraft={openCommentingDraft}

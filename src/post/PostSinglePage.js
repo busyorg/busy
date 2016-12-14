@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from '../app/Header';
-import TriggerPost from '../app/Menu/MenuPost';
+import MenuPost from '../app/Menu/MenuPost';
 import PostSingleContent from './PostSingleContent';
 import Loading from '../widgets/Loading';
 import CommentForm from '../comments/CommentForm';
@@ -15,7 +15,7 @@ export default class PostSinglePage extends React.Component {
     return (
       <div className="main-panel">
         <Header />
-        <TriggerPost
+        <MenuPost
           reblog={reblog}
           isReblogged={isReblogged}
           openCommentingDraft={openCommentingDraft}
