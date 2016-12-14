@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { EditorBlock } from 'draft-js';
+import { EditorBlock, Entity } from 'draft-js';
 
 export default class ImageBlock extends Component {
   constructor(props) {
@@ -16,8 +16,7 @@ export default class ImageBlock extends Component {
   };
 
   render() {
-    const data = this.props.block.getData();
-    const src = data.get('src');
+    const { src } = Entity.get(this.props.block.getEntityAt(0)).getData();
 
     return (
       <div>

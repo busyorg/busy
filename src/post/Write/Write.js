@@ -3,11 +3,14 @@ import React, { Component, PropTypes } from 'react';
 import formSerialize from 'form-serialize';
 import kebabCase from 'lodash/kebabCase';
 import { Link } from 'react-router';
+import { each } from 'lodash';
 
 import './Write.scss';
 import Header from '../../app/Header';
 import PostEditor from './PostEditor';
 import { createPost } from './EditorActions';
+
+const version = require('../../../package.json').version;
 
 export class RawNewPost extends Component {
   static propTypes = {
@@ -27,21 +30,51 @@ export class RawNewPost extends Component {
 
     data.parentAuthor = '';
     const postBody = this.editor.getContent();
-
-    data.jsonMetadata = JSON.stringify({
-      post: postBody,
+    const image = [];
+    each(postBody.raw.entityMap, (entity) => {
+      if (entity.type === 'IMAGE') {
+        image.push(entity.data.src);
+      }
     });
-    data.body = postBody.markdown;
+    const tags = data.parentPermlink.trim().split(' ');
+    const users = [];
+    const userRegex = /@([a-zA-Z.0-9-]+)/g;
+    const links = [];
+    const linkRegex = /\[.+?]\((.*?)\)/g;
+    let matches;
+
+    while (matches = userRegex.exec(postBody.markdown)) {
+      if (users.indexOf(matches[1]) === -1) {
+        users.push(matches[1]);
+      }
+    }
+
+    while (matches = linkRegex.exec(postBody.markdown)) {
+      if (links.indexOf(matches[1]) === -1 && matches[1].search(/https?:\/\//) === 0) {
+        links.push(matches[1]);
+      }
+    }
 
     if (!data.permlink) {
       data.permlink = kebabCase(data.title);
     }
 
+    data.body = postBody.markdown;
+    const metaData = {
+      app: `busy/${version}`,
+      format: 'markdown',
+    };
+
+    if (tags.length) { metaData.tags = tags; }
+    if (users.length) { metaData.users = users; }
+    if (links.length) { metaData.links = links; }
+    if (image.length) { metaData.image = image; }
+
+    data.jsonMetadata = JSON.stringify(metaData);
     this.props.createPost(data);
   }
 
   render() {
-    console.log('editor', this.props.editor);
     const { user: { name: author }, editor: { loading } } = this.props;
 
     return (

@@ -1,11 +1,14 @@
 // Forked from https://github.com/rajaraodv/draftjs-examples
 import newDebug from 'debug';
+import { connect } from 'react-redux';
+import { Entity, EditorState, AtomicBlockUtils } from 'draft-js';
 import React, { Component } from 'react';
-import { EditorState } from 'draft-js';
-import Icon from '../../widgets/Icon';
-import './PostEditor.scss';
 
-const debug = newDebug('busy:PostEditor');
+import './PostEditor.scss';
+import Icon from '../../widgets/Icon';
+import { uploadFile } from '../../user/userActions';
+
+const debug = newDebug('busy:PostEditor:SideControls');
 
 function getSelectedBlockNode(root) {
   const selection = root.getSelection();
@@ -22,53 +25,34 @@ function getSelectedBlockNode(root) {
   return null;
 }
 
-function getCurrentBlock(editorState) {
-  const selectionState = editorState.getSelection();
-  const contentState = editorState.getCurrentContent();
-  const block = contentState.getBlockForKey(selectionState.getStartKey());
-  return block;
+function addNewEntitiy(editorState, entityKey) {
+  const newEditorState = AtomicBlockUtils.insertAtomicBlock(
+    editorState,
+    entityKey,
+    ' '
+  );
+  return EditorState.forceSelection(
+    newEditorState,
+    editorState.getCurrentContent().getSelectionAfter()
+  );
 }
 
-function addNewBlock(editorState, newType, initialData) {
-  const selectionState = editorState.getSelection();
-  if (!selectionState.isCollapsed()) {
-    return editorState;
-  }
-  const contentState = editorState.getCurrentContent();
-  const key = selectionState.getStartKey();
-  const blockMap = contentState.getBlockMap();
-  const currentBlock = getCurrentBlock(editorState);
-
-  if (!currentBlock) {
-    return editorState;
-  }
-
-  if (currentBlock.getLength() === 0) {
-    if (currentBlock.getType() === newType) {
-      return editorState;
-    }
-
-    const newBlock = currentBlock.merge({
-      type: newType,
-      data: initialData,
-    });
-
-    const newContentState = contentState.merge({
-      blockMap: blockMap.set(key, newBlock),
-      selectionAfter: selectionState,
-    });
-    return EditorState.push(editorState, newContentState, 'change-block-type');
-  }
-  return editorState;
+function preloadFile({ file }) {
+  return new Promise((resolve) => {
+    const reader = new global.FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+  });
 }
 
-export default class SideControls extends Component {
+class SideControls extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showControls: false
+      showControls: false, style: null
     };
   }
+
   findNode({ editorState }) {
     if (!process.env.IS_BROWSER) return;
 
@@ -112,7 +96,8 @@ export default class SideControls extends Component {
   }
 
   componentWillReceiveProps(newProps) {
-    this.findNode(newProps);
+    // {editorState} state is not updated synchronously
+    setTimeout(() => this.findNode(newProps));
   }
 
   onClickUpload = (e) => {
@@ -123,15 +108,18 @@ export default class SideControls extends Component {
 
   onChangeImage = () => {
     const fileInput = this.fileInput;
+    const file = fileInput.files[0];
     const username = this.props.user.name;
-    this.props.uploadFile({ username, fileInput })
+    let entityKey;
+    preloadFile({ file })
+      .then((dataUrl) => {
+        this.hide();
+        entityKey = Entity.create('IMAGE', 'IMMUTABLE', { src: dataUrl });
+        this.props.onChange(addNewEntitiy(this.props.editorState, entityKey));
+        return this.props.uploadFile({ username, file });
+      })
       .then(({ value }) => {
-        this.props.onChange(addNewBlock(
-          this.props.editorState,
-          'atomic:image', {
-            src: value.url,
-          }
-        ));
+        Entity.replaceData(entityKey, { src: value.url });
       });
   };
 
@@ -153,14 +141,18 @@ export default class SideControls extends Component {
         <button className="Controls__button" onClick={this.toggleMenu}><Icon name={showControls ? 'close' : 'add'} /></button>
         {showControls &&
           <div className="Controls__menu">
-            <button className="Controls__button"><Icon name="close" /></button>
             <button className="Controls__button" onMouseDown={this.onClickUpload} type="button">
               <Icon name="add_a_photo" />
             </button>
             <input className="Controls__image__hidden" ref={(c) => { this.fileInput = c; }} onChange={this.onChangeImage} name="file" type="file" />
-            <button className="Controls__button"><Icon name="remove" /></button>
           </div>}
       </div>
     );
   }
 }
+
+SideControls = connect(state => ({
+  files: state.userProfile.files,
+}), { uploadFile })(SideControls);
+
+export default SideControls;
