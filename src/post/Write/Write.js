@@ -28,13 +28,10 @@ export class RawNewPost extends Component {
 
     data.parentAuthor = '';
     const postBody = this.editor.getContent();
-    const images = [];
-    const videos = [];
+    const image = [];
     each(postBody.raw.entityMap, (entity) => {
       if (entity.type === 'IMAGE') {
-        images.push(entity.data.src);
-      } else if (entity.type === 'VIDEO') {
-        images.push(entity.data.src);
+        image.push(entity.data.src);
       }
     });
 
@@ -47,10 +44,8 @@ export class RawNewPost extends Component {
       app: 'busy/0.1',
       format: 'markdown',
       tags: data.parentPermlink.trim().split(' '),
-      users: [data.author],
-      images,
-      videos,
-      canonical: `${global.location.origin}/${data.parentPermlink}/@${data.author}/${data.permlink}`
+      users: [],
+      image,
     });
 
     this.props.createPost(data);
