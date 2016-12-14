@@ -8,7 +8,7 @@ module.exports = React.createClass({
   render() {
     const embeds = steemembed.getAll(this.props.body);
     let body = this.props.body;
-    body = striptags(marked(body), ['a', 'p', 'h1', 'h2', 'h3', 'img']);
+    body = striptags(marked(body), ['a', 'p', 'h1', 'h2', 'h3', 'img', 'code', 'pre']);
     let jsonMetadata = {};
     try { jsonMetadata = JSON.parse(this.props.jsonMetadata); }
     catch (e) { }
