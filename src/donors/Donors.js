@@ -19,8 +19,6 @@ const Donors = () =>
             </Link>
             { ' ' }
             <Donor rank={donors[donor]} />
-            { ' ' }
-            <small></small>
           </h3>
         )}
       </ul>
