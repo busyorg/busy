@@ -19,6 +19,8 @@ import Follow from '../widgets/Follow';
 import { followUser, unfollowUser } from './userActions';
 import Avatar from '../widgets/Avatar';
 import Badge from '../widgets/Badge';
+import Donor from '../widgets/Donor';
+import donors from '../helpers/donors';
 
 class Profile extends Component {
   constructor(props) {
@@ -147,6 +149,13 @@ class Profile extends Component {
             </ul>
             <center className="container container-small my-2">
               <h3><Badge vestingShares={user.vesting_shares} /></h3>
+              { donors[username] &&
+                <h3>
+                  <Link to="/donors">
+                    <Donor rank={donors[username]} />
+                  </Link>
+                </h3>
+              }
               { has(jsonMetadata, 'profile.about') &&
                 <h3>{ jsonMetadata.profile.about }</h3>
               }
