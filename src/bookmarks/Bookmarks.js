@@ -39,7 +39,7 @@ export default class Bookmarks extends Component {
 
     return (
       <div className="main-panel">
-        <Header />
+        <Header title="Bookmarks" />
         <Feed
           content={content}
           isFetching={isFetching}

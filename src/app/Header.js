@@ -24,6 +24,7 @@ export default class Header extends Component {
 
   static propTypes = {
     showSidebar: PropTypes.func,
+    title: PropTypes.string,
   };
 
   render() {
@@ -31,11 +32,21 @@ export default class Header extends Component {
       <header>
         <div className="top-nav">
           {!this.props.app.sidebarIsVisible &&
-          <a className="left" onClick={() => this.props.showSidebar()}>
-            <Icon name="menu" className="icon-menu" />
-          </a>}
+            <a className="left" onClick={() => this.props.showSidebar()}>
+              <Icon name="menu" className="icon-menu" />
+            </a>
+          }
+
+          <div className="Header__title">
+            { this.props.title }
+          </div>
+
           <div className="section-content top-head">
-            <div className="logo"><Link to="/" onlyActiveOnIndex activeClassName="active"><img src="/img/logo.svg" /></Link></div>
+            <div className="logo">
+              <Link to="/" onlyActiveOnIndex activeClassName="active">
+                <img src="/img/logo.svg" />
+              </Link>
+            </div>
           </div>
           <Link to="/bookmarks" className="right">
             <Icon name="bookmarks" className="icon-menu" />
