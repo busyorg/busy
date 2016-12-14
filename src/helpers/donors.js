@@ -7,4 +7,10 @@ export default {
   theprophet0: 'bronze',
   furion: 'bronze',
   liondani: 'bronze',
+  teamsteem: 'bronze',
+  hanshotfirst: 'bronze',
+  exyle: 'bronze',
+  fulltimegeek: 'bronze',
+  hql2016: 'bronze',
+  tanemahuta: 'bronze',
 };
