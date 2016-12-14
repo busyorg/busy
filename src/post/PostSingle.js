@@ -29,8 +29,8 @@ import * as bookmarkActions from '../bookmarks/bookmarksActions';
     ),
     openCommentingDraft: commentsActions.openCommentingDraft,
     closeCommentingDraft: commentsActions.closeCommentingDraft,
-    likePost: (id) => postActions.likePost(id),
-    unlikePost: (id) => postActions.likePost(id, 0),
+    likePost: (id) => postActions.votePost(id),
+    unlikePost: (id) => postActions.votePost(id, 0),
     toggleBookmark: bookmarkActions.toggleBookmark,
   }, dispatch)
 )
