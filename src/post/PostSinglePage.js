@@ -25,7 +25,13 @@ export default class PostSinglePage extends React.Component {
           content={content}
         />
         { content.author ?
-          <PostSingleContent content={content} /> : <Loading />
+          <PostSingleContent
+            content={content}
+            bookmarks={this.props.bookmarks}
+            toggleBookmark={this.props.toggleBookmark}
+          />
+          :
+          <Loading />
         }
         <CommentForm />
       </div>

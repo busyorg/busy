@@ -79,6 +79,8 @@ export default class PostSingleModal extends Component {
         </header>
         <PostSingleContent
           content={content}
+          bookmarks={this.props.bookmarks}
+          toggleBookmark={this.props.toggleBookmark}
         />
 
         <CommentForm />

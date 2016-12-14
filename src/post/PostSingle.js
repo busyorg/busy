@@ -8,14 +8,16 @@ import PostSingleModal from './PostSingleModal';
 import PostSinglePage from './PostSinglePage';
 import * as reblogActions from '../app/reblog/reblogActions';
 import * as commentsActions from '../comments/commentsActions';
+import * as bookmarkActions from '../bookmarks/bookmarksActions';
 
 @connect(
-  ({ posts, app, reblog, auth }) => ({
+  ({ posts, app, reblog, auth, bookmarks }) => ({
     content: app.lastPostId ? posts[app.lastPostId] : {},
     isPostModalOpen: app.isPostModalOpen,
     lastPostId: app.lastPostId,
     sidebarIsVisible: app.sidebarIsVisible,
     reblogList: reblog,
+    bookmarks,
     auth,
   }),
   (dispatch, ownProps) => bindActionCreators({
@@ -29,6 +31,7 @@ import * as commentsActions from '../comments/commentsActions';
     closeCommentingDraft: commentsActions.closeCommentingDraft,
     likePost: (id) => postActions.likePost(id),
     unlikePost: (id) => postActions.likePost(id, 0),
+    toggleBookmark: bookmarkActions.toggleBookmark,
   }, dispatch)
 )
 export default class PostSingle extends React.Component {
@@ -75,6 +78,8 @@ export default class PostSingle extends React.Component {
             likePost={() => this.props.likePost(content.id)}
             unlikePost={() => this.props.unlikePost(content.id)}
             isPostLiked={isPostLiked}
+            bookmarks={this.props.bookmarks}
+            toggleBookmark={this.props.toggleBookmark}
           />
         }
 
@@ -87,6 +92,8 @@ export default class PostSingle extends React.Component {
             likePost={() => this.props.likePost(content.id)}
             unlikePost={() => this.props.unlikePost(content.id)}
             isPostLiked={isPostLiked}
+            bookmarks={this.props.bookmarks}
+            toggleBookmark={this.props.toggleBookmark}
           />
         }
       </div>
