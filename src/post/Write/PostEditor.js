@@ -61,16 +61,6 @@ const INLINE_STYLES = [
     style: 'ITALIC',
     icon: () => <Icon name="format_italic" />
   },
-  // {
-  //   label: 'Underline',
-  //   style: 'UNDERLINE',
-  //   icon: () => <Icon name="format_underline" />
-  // },
-  {
-    label: 'Monospace',
-    style: 'CODE',
-    icon: () => <Icon name="text_format" />
-  },
 ];
 
 const BLOCK_TYPES = [
@@ -79,21 +69,22 @@ const BLOCK_TYPES = [
   //   style: 'header-one',
   //   icon: () => <Icon name="code" />
   // },
-  // {
-  //   label: 'H2',
-  //   style: 'header-two',
-  //   icon: () => <Icon name="code" />
-  // },
+  {
+    label: 'H2',
+    style: 'header-two',
+    icon: () => <Icon name="title" />
+  },
   {
     label: 'H3',
     style: 'header-three',
-    icon: () => <Icon name="format_size" />
+    icon: () => <Icon name="title" sm />
+
   },
-  {
-    label: 'H4',
-    style: 'header-four',
-    icon: () => <Icon name="format_size" />
-  },
+  // {
+  //   label: 'H4',
+  //   style: 'header-four',
+  //   icon: () => <Icon name="format_size" />
+  // },
   // {
   //   label: 'H5',
   //   style: 'header-five',
@@ -119,11 +110,11 @@ const BLOCK_TYPES = [
   //   style: 'ordered-list-item',
   //   icon: () => <Icon name="format_list_numbered" />
   // },
-  // {
-  //   label: 'Code Block',
-  //   style: 'code-block',
-  //   icon: () => <Icon name="code" />
-  // },
+  {
+    label: 'Code Block',
+    style: 'code-block',
+    icon: () => <Icon name="code" />
+  },
 ];
 
 function getSelectionCoords(editor, toolbar) {
@@ -278,7 +269,7 @@ class PostEditor extends Component {
           <Editor
             blockRendererFn={this.blockRendererFn}
             blockStyleFn={getBlockStyle}
-            placeholder="Create your own story here"
+            placeholder="Write your story…"
             customStyleMap={styleMap}
             blockRenderMap={new Map({
               'atomic:IMAGE': {
