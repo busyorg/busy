@@ -1,16 +1,17 @@
 // Forked from https://github.com/rajaraodv/draftjs-examples
 import newDebug from 'debug';
-import React, { Component } from 'react';
-import exportMarkdown from 'draft-js-export-markdown/lib/stateToMarkdown';
-import { DefaultDraftBlockRenderMap, getVisibleSelectionRect as draftVSR, Editor, EditorState, RichUtils, convertToRaw } from 'draft-js';
-import { connect } from 'react-redux';
 import { Map } from 'immutable';
 import classNames from 'classnames';
+import { connect } from 'react-redux';
+import React, { Component } from 'react';
+
+// draft-js
+import exportMarkdown from 'draft-js-export-markdown/lib/stateToMarkdown';
+import { DefaultDraftBlockRenderMap, getVisibleSelectionRect as draftVSR, EditorState, Entity, Editor, RichUtils, convertToRaw } from 'draft-js';
 
 import './Write.scss';
 import './PostEditor.scss';
 import Icon from '../../widgets/Icon';
-import { uploadFile } from '../../user/userActions';
 import SideControls from './SideControls';
 import ImageBlock from './ImageBlock';
 
@@ -168,8 +169,8 @@ class PostEditor extends Component {
     let shouldUpdateState = false;
     if (hasSelectedText && selectionCoords) {
       if (!this.state.position ||
-          this.state.position.bottom !== selectionCoords.offsetBottom ||
-          this.state.position.left !== selectionCoords.offsetLeft) {
+        this.state.position.bottom !== selectionCoords.offsetBottom ||
+        this.state.position.left !== selectionCoords.offsetLeft) {
         shouldUpdateState = true;
         newState.showToolbar = true;
         newState.position = {
@@ -237,18 +238,17 @@ class PostEditor extends Component {
   }
 
   blockRendererFn = (contentBlock) => {
-    const type = contentBlock.getType();
-    switch (type) {
-      case 'atomic:image': {
+    if (contentBlock.getType() === 'atomic') {
+      const entity = Entity.get(contentBlock.getEntityAt(0));
+      const type = entity.getType();
+      if (type === 'IMAGE') {
         return {
           component: ImageBlock,
+          editable: false,
         };
       }
-
-      default: {
-        return null;
-      }
     }
+    return null;
   };
 
   render() {
@@ -271,7 +271,6 @@ class PostEditor extends Component {
         <SideControls
           editorState={editorState}
           onChange={this.onChange}
-          uploadFile={this.props.uploadFile}
           user={this.props.user}
         />
 
@@ -282,7 +281,7 @@ class PostEditor extends Component {
             placeholder="Create your own story here"
             customStyleMap={styleMap}
             blockRenderMap={new Map({
-              'atomic:image': {
+              'atomic:IMAGE': {
                 element: 'figure',
               }
             }).merge(DefaultDraftBlockRenderMap)}
@@ -326,7 +325,7 @@ class PostEditor extends Component {
 
 PostEditor = connect(state => ({
   files: state.userProfile.files,
-}), { uploadFile }, undefined, { withRef: true })(PostEditor);
+}), undefined, undefined, { withRef: true })(PostEditor);
 
 export default PostEditor;
 

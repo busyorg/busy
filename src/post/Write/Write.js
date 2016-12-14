@@ -3,6 +3,7 @@ import React, { Component, PropTypes } from 'react';
 import formSerialize from 'form-serialize';
 import kebabCase from 'lodash/kebabCase';
 import { Link } from 'react-router';
+import { each } from 'lodash';
 
 import './Write.scss';
 import Header from '../../app/Header';
@@ -27,21 +28,35 @@ export class RawNewPost extends Component {
 
     data.parentAuthor = '';
     const postBody = this.editor.getContent();
-
-    data.jsonMetadata = JSON.stringify({
-      post: postBody,
+    const images = [];
+    const videos = [];
+    each(postBody.raw.entityMap, (entity) => {
+      if (entity.type === 'IMAGE') {
+        images.push(entity.data.src);
+      } else if (entity.type === 'VIDEO') {
+        images.push(entity.data.src);
+      }
     });
-    data.body = postBody.markdown;
 
     if (!data.permlink) {
       data.permlink = kebabCase(data.title);
     }
 
+    data.body = postBody.markdown;
+    data.jsonMetadata = JSON.stringify({
+      app: 'busy/0.1',
+      format: 'markdown',
+      tags: data.parentPermlink.trim().split(' '),
+      users: [data.author],
+      images,
+      videos,
+      canonical: `${global.location.origin}/${data.parentPermlink}/@${data.author}/${data.permlink}`
+    });
+
     this.props.createPost(data);
   }
 
   render() {
-    console.log('editor', this.props.editor);
     const { user: { name: author }, editor: { loading } } = this.props;
 
     return (
