@@ -1,7 +1,7 @@
 // Forked from https://github.com/rajaraodv/draftjs-examples
 import newDebug from 'debug';
 import { connect } from 'react-redux';
-import { EditorState } from 'draft-js';
+import { Entity, EditorState, AtomicBlockUtils } from 'draft-js';
 import React, { Component } from 'react';
 
 import './PostEditor.scss';
@@ -63,6 +63,18 @@ function addNewBlock(editorState, newType, initialData) {
     return EditorState.push(editorState, newContentState, 'change-block-type');
   }
   return editorState;
+}
+
+function addNewEntitiy(editorState, entityKey) {
+  const newEditorState = AtomicBlockUtils.insertAtomicBlock(
+    editorState,
+    entityKey,
+    ' '
+  );
+  return EditorState.forceSelection(
+    newEditorState,
+    editorState.getCurrentContent().getSelectionAfter()
+  );
 }
 
 function preloadFile({ file }) {
@@ -138,24 +150,15 @@ class SideControls extends Component {
     const fileInput = this.fileInput;
     const file = fileInput.files[0];
     const username = this.props.user.name;
-    const imgId = `preloaded_${Math.random().toString(16).substr(2)}`;
+    let entityKey;
     preloadFile({ file })
       .then((dataUrl) => {
-        this.props.onChange(addNewBlock(
-          this.props.editorState,
-          'atomic:image', {
-            src: dataUrl,
-            id: imgId,
-          }
-        ));
+        entityKey = Entity.create('IMAGE', 'IMMUTABLE', { src: dataUrl });
+        this.props.onChange(addNewEntitiy(this.props.editorState, entityKey));
         return this.props.uploadFile({ username, file });
       })
       .then(({ value }) => {
-        const img = global.document.querySelectorAll(`#${imgId}`);
-        if (img.length) {
-          console.log('set Url', value.url);
-          img[0].dataset.url = value.url;
-        }
+        Entity.replaceData(entityKey, { src: value.url });
       });
   };
 
