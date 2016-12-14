@@ -37,8 +37,8 @@ module.exports = React.createClass({
     return (
       <div className="container">
         {(!_.isEmpty(this.state.feedPrice) && !_.isEmpty(account)) ?
-          <center className="ptl">
-            <ul className="row text-lg-center">
+          <div className="ptl text-xs-center">
+            <ul className="row text-xs-center">
               <li className="col col-lg-4">
                 <h3>Steem</h3>
                 <h2>{numeral(account.balance).format('0,0.00')}</h2>
@@ -55,7 +55,7 @@ module.exports = React.createClass({
             <div className="my-2">
               <h2>Estimated Account Value: {numeral(dollar).format('$0,0.00')}</h2>
             </div>
-          </center> : <Loading />
+          </div> : <Loading />
         }
       </div>
     );

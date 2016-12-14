@@ -22,9 +22,9 @@ export default class UserFollowers extends Component {
   render() {
     return (
       <div className="my-3">
-        <center className="container">
+        <div className="container text-xs-center">
           <h1>@{ this.props.params.name }'s followers ({ this.state.users.length })</h1>
-        </center>
+        </div>
         <div className="container container-small">
           { this.state.users && <UserList users={this.state.users} /> }
           { !this.state.users && <Loading /> }
