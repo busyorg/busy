@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+
 import Header from '../app/Header';
-import MenuFeed from '../app/Menu/MenuFeed';
 import Feed from '../feed/Feed';
 import {
   getFeedContentFromState,
@@ -39,22 +39,25 @@ export default class Bookmarks extends Component {
 
     return (
       <div className="main-panel">
-        <Header title="Bookmarks" />
-        <Feed
-          content={content}
-          isFetching={isFetching}
-          hasMore={hasMore}
-          loadContent={loadContentAction}
-          loadMoreContent={loadMoreContentAction}
-          notify={notify}
-        />
-
-        { !content.length &&
-          <b className="align-center">
-            You have stored no items in your bookmark!
-          </b>
-        }
-
+        <Header />
+        <div className="my-3">
+          <h1 className="text-xs-center">Bookmarks</h1>
+          <Feed
+            content={content}
+            isFetching={isFetching}
+            hasMore={hasMore}
+            loadContent={loadContentAction}
+            loadMoreContent={loadMoreContentAction}
+            notify={notify}
+          />
+          { !isFetching && !content.length &&
+            <div className="container">
+              <h3 className="text-xs-center">
+                You don't have any story saved.
+              </h3>
+            </div>
+          }
+        </div>
       </div>
     );
   }
