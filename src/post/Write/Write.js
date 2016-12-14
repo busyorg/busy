@@ -10,6 +10,8 @@ import Header from '../../app/Header';
 import PostEditor from './PostEditor';
 import { createPost } from './EditorActions';
 
+const version = require('../../../package.json').version;
+
 export class RawNewPost extends Component {
   static propTypes = {
     user: PropTypes.shape({
@@ -59,7 +61,7 @@ export class RawNewPost extends Component {
 
     data.body = postBody.markdown;
     data.jsonMetadata = JSON.stringify({
-      app: 'busy/0.1',
+      app: `busy/${version}`,
       format: 'markdown',
       tags: data.parentPermlink.trim().split(' '),
       users,
