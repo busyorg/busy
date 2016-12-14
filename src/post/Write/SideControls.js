@@ -138,11 +138,13 @@ class SideControls extends Component {
           pointerEvents: 'none',
         }}
       >
-        <button className="Controls__button" onClick={this.toggleMenu}><Icon name={showControls ? 'close' : 'add'} /></button>
+        <button className="Controls__button" onClick={this.toggleMenu}>
+          <Icon name={showControls ? 'close' : 'add'} sm />
+        </button>
         {showControls &&
           <div className="Controls__menu">
             <button className="Controls__button" onMouseDown={this.onClickUpload} type="button">
-              <Icon name="add_a_photo" />
+              <Icon name="add_a_photo" sm />
             </button>
             <input className="Controls__image__hidden" ref={(c) => { this.fileInput = c; }} onChange={this.onChangeImage} name="file" type="file" />
           </div>}
