@@ -25,46 +25,6 @@ function getSelectedBlockNode(root) {
   return null;
 }
 
-function getCurrentBlock(editorState) {
-  const selectionState = editorState.getSelection();
-  const contentState = editorState.getCurrentContent();
-  const block = contentState.getBlockForKey(selectionState.getStartKey());
-  return block;
-}
-
-function addNewBlock(editorState, newType, initialData) {
-  const selectionState = editorState.getSelection();
-  if (!selectionState.isCollapsed()) {
-    return editorState;
-  }
-  const contentState = editorState.getCurrentContent();
-  const key = selectionState.getStartKey();
-  const blockMap = contentState.getBlockMap();
-  const currentBlock = getCurrentBlock(editorState);
-
-  if (!currentBlock) {
-    return editorState;
-  }
-
-  if (currentBlock.getLength() === 0) {
-    if (currentBlock.getType() === newType) {
-      return editorState;
-    }
-
-    const newBlock = currentBlock.merge({
-      type: newType,
-      data: initialData,
-    });
-
-    const newContentState = contentState.merge({
-      blockMap: blockMap.set(key, newBlock),
-      selectionAfter: selectionState,
-    });
-    return EditorState.push(editorState, newContentState, 'change-block-type');
-  }
-  return editorState;
-}
-
 function addNewEntitiy(editorState, entityKey) {
   const newEditorState = AtomicBlockUtils.insertAtomicBlock(
     editorState,
@@ -153,6 +113,7 @@ class SideControls extends Component {
     let entityKey;
     preloadFile({ file })
       .then((dataUrl) => {
+        this.hide();
         entityKey = Entity.create('IMAGE', 'IMMUTABLE', { src: dataUrl });
         this.props.onChange(addNewEntitiy(this.props.editorState, entityKey));
         return this.props.uploadFile({ username, file });
@@ -180,12 +141,10 @@ class SideControls extends Component {
         <button className="Controls__button" onClick={this.toggleMenu}><Icon name={showControls ? 'close' : 'add'} /></button>
         {showControls &&
           <div className="Controls__menu">
-            <button className="Controls__button"><Icon name="close" /></button>
             <button className="Controls__button" onMouseDown={this.onClickUpload} type="button">
               <Icon name="add_a_photo" />
             </button>
             <input className="Controls__image__hidden" ref={(c) => { this.fileInput = c; }} onChange={this.onChangeImage} name="file" type="file" />
-            <button className="Controls__button"><Icon name="remove" /></button>
           </div>}
       </div>
     );
