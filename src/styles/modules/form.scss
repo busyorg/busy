@@ -2,11 +2,23 @@ fieldset {
   text-align: left;
 }
 
-input, textarea {
+input, textarea, .form-control, .input-group-addon {
   border: 0;
   border-radius: 0;
   background: transparent;
   box-shadow: none;
+  color: #3F3F44;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.input-group-addon {
+  padding-right: 0.5rem !important;
+}
+
+.form-control-lg {
+  font-size: 1.25rem;
+  line-height: 2rem;
 }
 
 textarea {
@@ -29,28 +41,4 @@ textarea {
   &:-ms-input-placeholder {
     color: #b7b7b7 !important;
   }
-}
-
-.form-group {
-  position: relative;
-}
-
-.form-control {
-  box-shadow: inset 0 1px 2px rgba(203, 203, 210, 0.4);
-  padding-left: 8px;
-  padding-right: 8px;
-  color: #3F3F44;
-  background-color: #fff;
-  background-image: none;
-  border: 1px solid #CBCBD2;
-}
-
-.form-control-lg {
-  line-height: 20px;
-  font-size: 16px;
-}
-
-.input-group-lg > .form-control, .input-group-addon {
-  line-height: 20px;
-  font-size: 16px;
 }
