@@ -36,7 +36,7 @@ export class RawNewPost extends Component {
         image.push(entity.data.src);
       }
     });
-
+    const tags = data.parentPermlink.trim().split(' ');
     const users = [];
     const userRegex = /@([a-zA-Z.0-9-]+)/g;
     const links = [];
@@ -60,15 +60,17 @@ export class RawNewPost extends Component {
     }
 
     data.body = postBody.markdown;
-    data.jsonMetadata = JSON.stringify({
+    const metaData = {
       app: `busy/${version}`,
       format: 'markdown',
-      tags: data.parentPermlink.trim().split(' '),
-      users,
-      links,
-      image,
-    });
+    };
 
+    if (tags.length) { metaData.tags = tags; }
+    if (users.length) { metaData.users = users; }
+    if (links.length) { metaData.links = links; }
+    if (image.length) { metaData.image = image; }
+
+    data.jsonMetadata = JSON.stringify(metaData);
     this.props.createPost(data);
   }
 
