@@ -79,50 +79,41 @@ export class RawNewPost extends Component {
 
     return (
       <div className="main-panel">
-        <Header menu="messages" />
-
-        <div className="container">
+        <Header />
+        <div className="container my-3">
           <form
             action="/write"
             method="post"
             onSubmit={this.onSubmit}
           >
-            <div>
-              <fieldset className="form-group">
-                <label htmlFor="title">
-                  Title
-                </label>
-                <input
-                  autoFocus
-                  name="title"
-                  required
-                  type="text"
-                  className="form-control form-control-lg"
-                />
-              </fieldset>
+            <fieldset className="form-group">
+              <input
+                autoFocus
+                name="title"
+                placeholder="Title"
+                required
+                type="text"
+                className="form-control form-control-xl"
+              />
+            </fieldset>
 
-              <fieldset className="form-group">
-                <label htmlFor="body">Body</label>
-                <PostEditor
-                  user={this.props.user}
-                  required
-                  ref={
-                    (c) => { this.editor = c && c.getWrappedInstance ? c.getWrappedInstance() : c; }
-                  }
-                />
-                <hr />
-              </fieldset>
+            <PostEditor
+              user={this.props.user}
+              required
+              ref={
+                (c) => { this.editor = c && c.getWrappedInstance ? c.getWrappedInstance() : c; }
+              }
+            />
 
-              <fieldset className="form-group">
-                <label htmlFor="parentPermlink">Category</label>
-                <input
-                  type="text"
-                  name="parentPermlink"
-                  required
-                  className="form-control form-control-lg"
-                />
-              </fieldset>
-            </div>
+            <fieldset className="form-group">
+              <input
+                type="text"
+                name="parentPermlink"
+                placeholder="Category"
+                required
+                className="form-control form-control-lg"
+              />
+            </fieldset>
 
             <input
               name="authorPermlink"
@@ -137,15 +128,9 @@ export class RawNewPost extends Component {
             />
 
             <div className="form-group">
-              <div className="btn-group">
-                <Link to="/" className="btn btn-default btn-lg">
-                  Cancel
-                </Link>
-
-                <button type="submit" disabled={loading} className="btn btn-primary btn-lg">
-                  Post
-                </button>
-              </div>
+              <button type="submit" disabled={loading} className="btn btn-success btn-lg">
+                Publish
+              </button>
             </div>
           </form>
         </div>
