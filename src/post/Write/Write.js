@@ -35,6 +35,24 @@ export class RawNewPost extends Component {
       }
     });
 
+    const users = [];
+    const userRegex = /@([a-zA-Z.0-9-]+)/g;
+    const links = [];
+    const linkRegex = /\[.+?]\((.*?)\)/g;
+    let matches;
+
+    while (matches = userRegex.exec(postBody.markdown)) {
+      if (users.indexOf(matches[1]) === -1) {
+        users.push(matches[1]);
+      }
+    }
+
+    while (matches = linkRegex.exec(postBody.markdown)) {
+      if (links.indexOf(matches[1]) === -1 && matches[1].search(/https?:\/\//) === 0) {
+        links.push(matches[1]);
+      }
+    }
+
     if (!data.permlink) {
       data.permlink = kebabCase(data.title);
     }
@@ -44,7 +62,8 @@ export class RawNewPost extends Component {
       app: 'busy/0.1',
       format: 'markdown',
       tags: data.parentPermlink.trim().split(' '),
-      users: [],
+      users,
+      links,
       image,
     });
 
