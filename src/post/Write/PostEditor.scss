@@ -2,30 +2,27 @@
 
 .PostEditor {
   $font-primary: 'Karla', sans-serif;
-
-  background: #fff;
-  font-size: 14px;
+  font-size: 22px;
+  line-height: 1.6em;
+  font-family: Georgia, Cambria, "Times New Roman", Times, serif;
   position: relative;
-  h1, h2, h3, h4, h5, h6 {
-    font-family: $font-primary;
-    margin-bottom: 0;
-  }
-
-  h1 {
-    font-size: 4em;
-  }
 
   h2 {
-    font-size: 3em;
+    font-size: 1.4em;
+    font-weight: bold;
   }
 
   h3 {
-    font-size: 2.5em;
+    font-size: 1.2em;
+    font-weight: bold;
   }
 
-
   h4 {
-    font-size: 2em;
+    font-size: 1em;
+  }
+
+  p {
+    margin-bottom: 1.2em;
   }
 
   pre {
@@ -63,8 +60,6 @@
 
   .PostEditor__editor {
     cursor: text;
-    font-size: 16px;
-    margin-top: 0px;
   }
 
   .PostEditor__editor .public-DraftEditorPlaceholder-root,
