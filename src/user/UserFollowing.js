@@ -21,11 +21,14 @@ export default class UserFollowing extends Component {
 
   render() {
     return (
-      <div className="container">
-        <center className="users">
-          {this.state.users && <UserList users={this.state.users} />}
-          {!this.state.users && <Loading />}
+      <div className="my-3">
+        <center className="container">
+          <h1>@{ this.props.params.name }'s followed ({ this.state.users.length })</h1>
         </center>
+        <div className="container container-small">
+          { this.state.users && <UserList users={this.state.users} /> }
+          { !this.state.users && <Loading /> }
+        </div>
       </div>
     );
   }

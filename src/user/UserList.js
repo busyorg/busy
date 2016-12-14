@@ -3,13 +3,14 @@ import { Link } from 'react-router';
 import ReduxInfiniteScroll from 'redux-infinite-scroll';
 import { isNumber, take } from 'lodash';
 
-import './UserList.scss';
 import Avatar from '../widgets/Avatar';
+import Icon from '../widgets/Icon';
 
-const UserRow = props => <div className="UserList pvm">
-  <Avatar md username={props.username} className="mrm" />
-  <Link to={`/@${props.username}`}>@{props.username}</Link>
-</div>;
+const UserRow = props => <h3>
+  <Link to={`/@${props.username}`}>
+    <Avatar username={props.username} sm /> @{ props.username }
+  </Link>
+</h3>;
 
 export default class UserList extends React.Component {
   constructor(props) {
@@ -17,9 +18,9 @@ export default class UserList extends React.Component {
     this.state = { filterText: null, page: 1 };
   }
 
-  filterTextChange = (event) => {
+  search = (event) => {
     this.setState({
-      filterText: event.target.value.trim().toLowerCase(),
+      search: event.target.value.trim().toLowerCase(),
       page: 1
     });
   }
@@ -30,15 +31,26 @@ export default class UserList extends React.Component {
   }
 
   render() {
-    const filterText = this.state.filterText;
+    const search = this.state.search;
     const defaultPageItems = 10;
     const noOfItemsToShow = defaultPageItems * this.state.page;
-    const users = this.state.filterText ?
-      this.props.users.filter(user => user.indexOf(filterText) >= 0) : this.props.users;
+    const users = this.state.search ?
+      this.props.users.filter(user => user.indexOf(search) >= 0) : this.props.users;
 
     return (
       <div>
-        <input placeholder="filter" onChange={this.filterTextChange} />
+        <div className="input-group input-group-lg">
+          <span className="input-group-addon">
+            <Icon name="search" lg />
+          </span>
+          <input
+            type="text"
+            className="form-control form-control-lg"
+            placeholder="Search"
+            onChange={this.search}
+          />
+        </div>
+        <hr className="mt-0" />
         <ReduxInfiniteScroll
           loadMore={this.paginate}
           elementIsScrollable={false}
