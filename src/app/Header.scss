@@ -169,6 +169,12 @@ header {
   }
 }
 
+.Header__title {
+  position: absolute;
+  left: 50px;
+  display: inline-block;
+}
+
 @media (max-width: 991px) {
   .sidebar-toggle {
     display: inline-block !important;

@@ -9,7 +9,7 @@ import Avatar from '../widgets/Avatar';
 
 import './PostSingleContent.scss';
 
-const PostSingleContent = ({ content }) => {
+const PostSingleContent = ({ content, toggleBookmark, bookmarks }) => {
   let jsonMetadata = {};
   try { jsonMetadata = JSON.parse(content.json_metadata); } catch (e) { }
   return (
@@ -28,7 +28,14 @@ const PostSingleContent = ({ content }) => {
           </span>
           <span className="pull-right">
             {moment(content.created).fromNow()}
-            <a><i className="icon icon-md material-icons">bookmark_border</i></a>
+
+            <a onClick={() => toggleBookmark(content.id)}>
+              <Icon
+                small
+                name={bookmarks[content.id] ? 'bookmark' : 'bookmark_border'}
+              />
+            </a>
+
           </span>
         </div>
 

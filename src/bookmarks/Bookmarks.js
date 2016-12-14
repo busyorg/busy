@@ -39,7 +39,7 @@ export default class Bookmarks extends Component {
 
     return (
       <div className="main-panel">
-        <Header />
+        <Header title="Bookmarks" />
         <Feed
           content={content}
           isFetching={isFetching}
@@ -48,6 +48,13 @@ export default class Bookmarks extends Component {
           loadMoreContent={loadMoreContentAction}
           notify={notify}
         />
+
+        { !content.length &&
+          <b className="align-center">
+            You have stored no items in your bookmark!
+          </b>
+        }
+
       </div>
     );
   }
