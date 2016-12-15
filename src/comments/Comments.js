@@ -44,16 +44,6 @@ export default class Comments extends Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    const postId = this.props.postId;
-    if (this.props.show && this.props.hide && postId) {
-      const comments = nextProps.comments.listByPostId[postId];
-      if (!comments.isFetching && comments.list.length === 0) {
-        this.props.hide();
-      }
-    }
-  }
-
   handleShowMore = (e) => {
     e.stopPropagation();
     this.props.showMoreComments(this.props.postId);

@@ -50,10 +50,6 @@ export default class PostFeed extends Component {
     });
   };
 
-  hideComments = () => {
-    this.setState({ showComments: false });
-  }
-
   render() {
     const { post, onCommentRequest, bookmarks, toggleBookmark, notify } = this.props;
 
@@ -178,7 +174,6 @@ export default class PostFeed extends Component {
         <Comments
           postId={post.id}
           show={this.state.showComments}
-          hide={this.hideComments}
           className="Comments--feed"
         />
 

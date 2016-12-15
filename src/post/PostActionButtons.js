@@ -40,7 +40,9 @@ export default class PostActionButtons extends Component {
 
   handleCommentsTextClick(e) {
     e.stopPropagation();
-    this.props.onShowCommentsRequest();
+    if (this.props.post.children) {
+      this.props.onShowCommentsRequest();
+    }
   }
 
   handleLikesTextClick(e) {
