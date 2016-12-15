@@ -45,7 +45,7 @@ const PostSingleContent = ({ content, toggleBookmark, bookmarks }) => {
           { jsonMetadata.tags &&
             <div className="my-2">
               { jsonMetadata.tags.map(tag => (
-                <span>
+                <span key={tag}>
                   <Link to={`/hot/${tag}`} className="tag tag-default">{tag}</Link>{ ' ' }
                 </span>
               ))}
