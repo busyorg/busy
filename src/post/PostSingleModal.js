@@ -14,7 +14,7 @@ export default class PostSingleModal extends Component {
   }
 
   componentDidMount() {
-    this.props.router.setRouteLeaveHook(this.props.route, this.routerWillLeave);
+    this.unlisten = this.props.router.listen(this.routerWillLeave);
     // manipulate address bar to show the article's address
     if (window && window.history) {
       const { content } = this.props;
@@ -30,6 +30,8 @@ export default class PostSingleModal extends Component {
   }
 
   componentWillUnmount() {
+    this.unlisten();
+
     if (window) {
       window.onpopstate = null;
     }
