@@ -23,6 +23,14 @@ export default (props) => {
       body = body.replace(new RegExp(`<a href="${newUrl}">${newUrl}</a>`, 'g'), `<img src="${newUrl}">`);
     });
   }
+
+  if (has(jsonMetadata, 'users[0]')) {
+    jsonMetadata.users.forEach((user) => {
+      const newUrl = `${global.location.origin}/@${user}`;
+      body = body.replace(new RegExp(`@${user}`, 'g'), `<a href="${newUrl}">@${user}</a>`);
+    });
+  }
+
   return (
     <div>
       {has(embeds, '[0].embed') &&
