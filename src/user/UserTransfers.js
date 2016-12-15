@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { Component } from 'react';
 import numeral from 'numeral';
 import { formatter } from 'steem';
 import api from '../steemAPI';
 import Loading from '../widgets/Loading';
+import { isEmpty } from 'lodash/lang';
 
-module.exports = React.createClass({
+export default class UserTransfers extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   componentWillMount() {
     this.setState({
       account: {},
@@ -20,7 +25,8 @@ module.exports = React.createClass({
         feedPrice: result.feed_price
       });
     });
-  },
+  }
+
   render() {
     const account = this.state.account;
     const base = (!_.isEmpty(this.state.feedPrice)) ? (this.state.feedPrice.base).replace(' SBD', '').replace(',', '') : 0;
@@ -60,4 +66,4 @@ module.exports = React.createClass({
       </div>
     );
   }
-});
+}
