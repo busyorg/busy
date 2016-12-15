@@ -15,6 +15,7 @@ import Icon from '../widgets/Icon';
   (dispatch, ownProps) => bindActionCreators({
     likePost: () => postActions.votePost(ownProps.post.id),
     unlikePost: () => postActions.votePost(ownProps.post.id, 0),
+    dislikePost: () => postActions.votePost(ownProps.post.id, -1000),
   }, dispatch)
 )
 export default class PostActionButtons extends Component {
