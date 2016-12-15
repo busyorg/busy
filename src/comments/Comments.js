@@ -26,7 +26,7 @@ export default class Comments extends Component {
   }
 
   static propTypes = {
-    postId: PropTypes.string.isRequired,
+    postId: PropTypes.number.isRequired,
     comments: PropTypes.object,
     getComments: PropTypes.func,
     className: PropTypes.string,
