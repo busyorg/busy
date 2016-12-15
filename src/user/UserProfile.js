@@ -147,7 +147,7 @@ class Profile extends Component {
               <li><Link to={`/@${username}/followers`}><i className="icon icon-md material-icons">people</i> {numeral(parseInt(user.followers_count)).format('0,0')}<span className="hidden-xs"> Followers</span></Link></li>
               <li><Link to={`/@${username}/followed`}><i className="icon icon-md material-icons">people</i> {numeral(parseInt(user.following_count)).format('0,0')}<span className="hidden-xs"> Followed</span></Link></li>
             </ul>
-            <center className="container container-small my-2">
+            <div className="container container-small my-2 text-xs-center">
               <h3><Badge vestingShares={user.vesting_shares} /></h3>
               { donors[username] &&
                 <h3>
@@ -177,7 +177,7 @@ class Profile extends Component {
                 Joined {moment(user.created).fromNow()}
                 , last activity {moment(user.last_vote_time).fromNow()}
               </p>
-            </center>
+            </div>
           </div>}
           <Feed
             content={content}

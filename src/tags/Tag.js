@@ -8,7 +8,7 @@ const Tag = ({
   tag,
 }) =>
   <div className="page">
-    <center className="my-3">
+    <div className="my-3 text-xs-center">
       <h1>
         <Link to={`/hot/${tag.name}`}>#{tag.name}</Link>{' '}
       </h1>
@@ -16,7 +16,7 @@ const Tag = ({
         <Icon name="library_books" lg /> {numeral(tag.comments).format('0,0')}{' '}
         <Icon name="attach_money" lg /> {numeral(tag.total_payouts).format('$0,0')}
       </h2>
-    </center>
+    </div>
   </div>;
 
 export default Tag;
