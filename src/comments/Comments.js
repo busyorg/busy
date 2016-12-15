@@ -15,8 +15,8 @@ import './Comments.scss';
   dispatch => bindActionCreators({
     getComments: commentsActions.getComments,
     showMoreComments: commentsActions.showMoreComments,
-    likeComment: (id) => commentsActions.likeComment(id),
-    unlikeComment: (id) => commentsActions.likeComment(id, 0),
+    likeComment: id => commentsActions.likeComment(id),
+    unlikeComment: id => commentsActions.likeComment(id, 0),
     openCommentingDraft: commentsActions.openCommentingDraft,
   }, dispatch)
 )
@@ -41,6 +41,16 @@ export default class Comments extends Component {
   componentDidUpdate(prevProps) {
     if (this.props.show && prevProps.show !== this.props.show) {
       this.props.getComments(this.props.postId);
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const postId = this.props.postId;
+    if (this.props.show && this.props.hide && postId) {
+      const comments = nextProps.comments.listByPostId[postId];
+      if (!comments.isFetching && comments.list.length === 0) {
+        this.props.hide();
+      }
     }
   }
 
@@ -71,11 +81,11 @@ export default class Comments extends Component {
           isSinglePage={this.props.isSinglePage}
         />
 
-        { isFetching &&
+        {isFetching &&
           <Loading />
         }
 
-        { (hasMore && !this.props.isSinglePage) &&
+        {(hasMore && !this.props.isSinglePage) &&
           <a
             className="Comments__showMore"
             tabIndex="0"
