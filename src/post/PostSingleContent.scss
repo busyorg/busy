@@ -47,6 +47,12 @@
         margin-left: 20px;
       }
     }
+
+    table{
+      width: 100%;
+    }
+
+    tr:nth-child(even), thead {background: #eee}
   }
 
   .PostSingleContent__replies {
