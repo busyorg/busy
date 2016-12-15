@@ -70,9 +70,9 @@ export default class PostActionButtons extends Component {
         <li>
           <LikeButton
             onClick={isPostLiked ? this.props.unlikePost : this.props.likePost}
-            onTextClick={(e) => this.handleLikesTextClick(e)}
+            onTextClick={e => this.handleLikesTextClick(e)}
             active={isPostLiked}
-            numberOfVotes={ numeral(post.net_votes).format('0,0') }
+            numberOfVotes={numeral(post.net_votes).format('0,0')}
           />
         </li>
         <li>
@@ -85,21 +85,21 @@ export default class PostActionButtons extends Component {
           <a onClick={e => this.handleCommentBoxClick(e)}>
             <Icon name="reply" sm />
           </a>
-          { ' ' }
+          {' '}
           <a onClick={e => this.handleCommentsTextClick(e)}>
-            { numeral(post.children).format('0,0') }
-            <span className="hidden-xs"> Comments</span>
+            {numeral(post.children).format('0,0')}
+            <span className="hidden-xs"> {post.children ? 'Comments' : 'Comment'}</span>
           </a>
         </li>
 
         <li>
           <a
             onClick={() => this.handleReblog()}
-            className={this.props.isReblogged ? 'active' : '' }
+            className={this.props.isReblogged ? 'active' : ''}
           >
             <Icon name="repeat" sm />
             <span className="hidden-xs">
-              { ' ' }
+              {' '}
               Reblog
             </span>
           </a>
