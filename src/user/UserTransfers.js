@@ -29,10 +29,12 @@ export default class UserTransfers extends Component {
 
   render() {
     const account = this.state.account;
-    const base = (!_.isEmpty(this.state.feedPrice)) ? (this.state.feedPrice.base).replace(' SBD', '').replace(',', '') : 0;
+    const base = (!isEmpty(this.state.feedPrice))
+      ? (this.state.feedPrice.base).replace(' SBD', '').replace(',', '')
+      : 0;
     let power = 0;
     let dollar = 0;
-    if (!_.isEmpty(this.state.feedPrice) && !_.isEmpty(account)) {
+    if (!isEmpty(this.state.feedPrice) && !isEmpty(account)) {
       power = formatter.vestToSteem(account.vesting_shares,
         this.state.props.total_vesting_shares,
         this.state.props.total_vesting_fund_steem);
@@ -42,7 +44,7 @@ export default class UserTransfers extends Component {
     }
     return (
       <div className="container">
-        {(!_.isEmpty(this.state.feedPrice) && !_.isEmpty(account)) ?
+        {(!isEmpty(this.state.feedPrice) && !isEmpty(account)) ?
           <div className="ptl text-xs-center">
             <ul className="row text-xs-center">
               <li className="col col-lg-4">
@@ -61,7 +63,9 @@ export default class UserTransfers extends Component {
             <div className="my-2">
               <h2>Estimated Account Value: {numeral(dollar).format('$0,0.00')}</h2>
             </div>
-          </div> : <Loading />
+          </div>
+          :
+          <Loading />
         }
       </div>
     );
