@@ -40,9 +40,7 @@ export default class PostActionButtons extends Component {
 
   handleCommentsTextClick(e) {
     e.stopPropagation();
-    if (this.props.post.children) {
-      this.props.onShowCommentsRequest();
-    }
+    this.props.onShowCommentsRequest();
   }
 
   handleLikesTextClick(e) {
@@ -88,10 +86,14 @@ export default class PostActionButtons extends Component {
             <Icon name="reply" sm />
           </a>
           {' '}
-          <a onClick={e => this.handleCommentsTextClick(e)}>
-            {numeral(post.children).format('0,0')}
-            <span className="hidden-xs"> {post.children ? 'Comments' : 'Comment'}</span>
-          </a>
+          {post.children ?
+            <a onClick={e => this.handleCommentsTextClick(e)}>
+              {numeral(post.children).format('0,0')}
+              <span className="hidden-xs">Comments</span>
+            </a> :
+            <span className="hidden-xs">0 Comment</span>
+          }
+
         </li>
 
         <li>
