@@ -1,22 +1,36 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
 import numeral from 'numeral';
 import { formatter } from 'steem';
+import { connect } from 'react-redux';
 import api from '../steemAPI';
 import Loading from '../widgets/Loading';
 import { isEmpty } from 'lodash/lang';
+import * as walletActions from '../wallet/walletActions';
 
+@connect(
+  state => ({
+    wallet: state.wallet,
+  }),
+  dispatch => bindActionCreators({
+    getWallet: walletActions.getWallet,
+  }, dispatch)
+)
 export default class UserTransfers extends Component {
   constructor(props) {
     super(props);
-  }
-
-  componentWillMount() {
-    this.setState({
+    this.state = {
       account: {},
       props: {},
       feedPrice: {},
-    });
-    api.getAccounts([this.props.params.name], (err, result) => {
+    };
+  }
+
+  componentDidMount() {
+    const username = this.props.params.name;
+    this.props.getWallet(username);
+
+    api.getAccounts([username], (err, result) => {
       this.setState({ account: result[0] });
     });
     api.getState('trending/busy', (err, result) => {
