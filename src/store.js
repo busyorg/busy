@@ -19,6 +19,7 @@ import favoritesReducer from './favorites/favoritesReducers';
 import editorReducer from './post/Write/EditorReducers';
 import { responsiveReducer, mountResponsive } from './helpers/responsive';
 import reblogReducers from './app/reblog/reblogReducers';
+import walletReducer from './wallet/walletReducer';
 
 export const messagesWorker = new MessagesWorker();
 
@@ -40,6 +41,7 @@ const reducers = combineReducers({
   bookmarks: bookmarksReducer,
   favorites: favoritesReducer,
   reblog: reblogReducers,
+  wallet: walletReducer,
 });
 
 const middleware = [
