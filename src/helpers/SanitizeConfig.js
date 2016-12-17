@@ -18,17 +18,15 @@ const iframeWhitelist = [
   {
     re: /^(https?:)?\/\/www.youtube.com\/embed\/.*/i,
     fn: src => src.replace(/\?.+$/, '') // strip query string (yt: autoplay=1,controls=0,showinfo=0, etc)
-
   },
   {
-    re: /^https:\/\/w.soundcloud.com\/player\/.*/i,
+    re: /^(https?:)?\/\/w.soundcloud.com\/player\/.*/i,
     fn: (src) => {
       if (!src) return null;
       // <iframe width="100%" height="450" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/257659076&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true"></iframe>
-      const m = src.match(/url=(.+?)&/);
+      const m = src.match(/url=(.+?)[&?]/);
       if (!m || m.length !== 2) return null;
-      return `https://w.soundcloud.com/player/?url=${m[1]
-        }&auto_play=false&hide_related=false&show_comments=true` +
+      return `https://w.soundcloud.com/player/?url=${m[1]}&auto_play=false&hide_related=false&show_comments=true` +
         '&show_user=true&show_reposts=false&visual=true';
     }
   }
@@ -62,7 +60,7 @@ export default ({ large = true, highQualityPost = true, noImage = false, sanitiz
   },
   transformTags: {
     iframe: (tagName, attribs) => {
-      const srcAtty = attribs.src;
+      const srcAtty = decodeURIComponent(attribs.src);
       for (const item of iframeWhitelist) {
         if (item.re.test(srcAtty)) {
           const src = typeof item.fn === 'function' ? item.fn(srcAtty, item.re) : srcAtty;
