@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReduxInfiniteScroll from 'redux-infinite-scroll';
 import { Link } from 'react-router';
+import { FormattedRelative } from 'react-intl';
 
 const defaultPageItems = 10;
 
@@ -103,6 +104,23 @@ const renderReportFromOp = (op, username) => {
   );
 };
 
+const getOnlyViableTransfers = (list) => {
+  return list.filter((op) => {
+    // filtering out some types of transactions to integrate it with Steemit results
+    const type = op[1].op[0];
+    const data = op[1].op[1];
+
+    if (type === 'curation_reward' || type === 'author_reward') {
+      return false;
+    }
+
+    if (data.sbd_payout === '0.000 SBD' && data.vesting_payout === '0.000000 VESTS') {
+      return false;
+    }
+    return true;
+  });
+};
+
 export default class TransferHistory extends Component {
   constructor(props) {
     super(props);
@@ -122,25 +140,17 @@ export default class TransferHistory extends Component {
     return (
       <table className="table">
         <ReduxInfiniteScroll
-          loadMore={this.handleNextPage}
+          loadMore={() => this.handleNextPage()}
           elementIsScrollable={false}
           hasMore={list.length > visibleItems}
         >
-          { list.reverse().filter(op => {
-            // filtering out some types of transactions to integrate it with Steemit results
-            const type = op[1].op[0];
-            const data = op[1].op[1];
-            return (
-              type !== 'curation_reward' &&
-              type !== 'author_reward' &&
-              data.sbd_payout !== '0.000 SBD' &&
-              data.vesting_payout !== '0.000000 VESTS'
-            );
-          }).slice(0, visibleItems).map(transfer =>
+          { getOnlyViableTransfers(list).reverse().slice(0, visibleItems).map(op =>
             <tr>
-              <td></td>
-              <td>{ renderReportFromOp(transfer, username) }</td>
-              <td></td>
+              <td style={{ width: '15%' }}>
+                <FormattedRelative value={op[1].timestamp} />
+              </td>
+              <td style={{ width: '50%' }}>{ renderReportFromOp(op, username) }</td>
+              <td>{ op[1].op[1].memo }</td>
             </tr>
           )}
         </ReduxInfiniteScroll>
