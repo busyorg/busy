@@ -38,8 +38,5 @@ export default (props) => {
 
   body = sanitizeHtml(body, sanitizeConfig({}));
 
-  return (
-    <div>
-      <span dangerouslySetInnerHTML={{ __html: body }} />
-    </div>);
+  return <div dangerouslySetInnerHTML={{ __html: body }} />;
 };
