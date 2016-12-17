@@ -29,6 +29,14 @@ const iframeWhitelist = [
       return `https://w.soundcloud.com/player/?url=${m[1]}&auto_play=false&hide_related=false&show_comments=true` +
         '&show_user=true&show_reposts=false&visual=true';
     }
+  },
+  {
+    re: /^(https?:)?\/\/(?:www\.)?(?:periscope.tv\/)(.*)?$/i,
+    fn: src => src // handled by steemembeded
+  },
+  {
+    re: /^(https?:)?\/\/(?:www\.)?(?:(player.)?twitch.tv\/)(.*)?$/i,
+    fn: src => src // handled by steemembeded
   }
 ];
 export const noImageText = '(Image not shown due to low ratings)';
