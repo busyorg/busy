@@ -7,6 +7,7 @@ import api from '../steemAPI';
 import Loading from '../widgets/Loading';
 import { isEmpty } from 'lodash/lang';
 import * as walletActions from '../wallet/walletActions';
+import TransferHistory from './TransferHistory';
 
 @connect(
   state => ({
@@ -42,6 +43,8 @@ export default class UserTransfers extends Component {
   }
 
   render() {
+    const username = this.props.params.name;
+
     const account = this.state.account;
     const base = (!isEmpty(this.state.feedPrice))
       ? (this.state.feedPrice.base).replace(' SBD', '').replace(',', '')
@@ -81,6 +84,11 @@ export default class UserTransfers extends Component {
           :
           <Loading />
         }
+
+        <TransferHistory
+          list={this.props.wallet.history[username] || []}
+          username={username}
+        />
       </div>
     );
   }
