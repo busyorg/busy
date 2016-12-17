@@ -126,7 +126,17 @@ export default class TransferHistory extends Component {
           elementIsScrollable={false}
           hasMore={list.length > visibleItems}
         >
-          { list.reverse().slice(0, visibleItems).map(transfer =>
+          { list.reverse().filter(op => {
+            // filtering out some types of transactions to integrate it with Steemit results
+            const type = op[1].op[0];
+            const data = op[1].op[1];
+            return (
+              type !== 'curation_reward' &&
+              type !== 'author_reward' &&
+              data.sbd_payout !== '0.000 SBD' &&
+              data.vesting_payout !== '0.000000 VESTS'
+            );
+          }).slice(0, visibleItems).map(transfer =>
             <tr>
               <td></td>
               <td>{ renderReportFromOp(transfer, username) }</td>
