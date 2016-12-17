@@ -4,13 +4,7 @@ import steemembed from 'steemembed';
 import sanitizeHtml from 'sanitize-html';
 import marked from 'marked';
 
-const sanitizeConfig = {
-  allowedTags: `
-    div, iframe, del,
-    a, p, b, q, br, ul, li, ol, img, h1, h2, h3, h4, h5, h6, hr,
-    blockquote, pre, code, em, strong, center, table, thead, tbody, tr, th, td,
-    strike, sup, sub`.trim().split(/,\s*/)
-};
+import sanitizeConfig from './../helpers/SanitizeConfig';
 
 export default (props) => {
   const embeds = steemembed.getAll(props.body);
@@ -28,6 +22,10 @@ export default (props) => {
     });
   }
 
+  if (has(embeds, '[0].embed')) {
+    embeds.forEach((embed) => { body = body.replace(embed.url, embed.embed); });
+  }
+
   body = marked(body);
 
   if (has(jsonMetadata, 'image[0]')) {
@@ -38,14 +36,10 @@ export default (props) => {
     });
   }
 
-  body = sanitizeHtml(body, sanitizeConfig);
+  body = sanitizeHtml(body, sanitizeConfig({}));
 
   return (
     <div>
-      {has(embeds, '[0].embed') &&
-        <div className="thumbs">
-          <div dangerouslySetInnerHTML={{ __html: embeds[0].embed }} />
-        </div>}
       <span dangerouslySetInnerHTML={{ __html: body }} />
     </div>);
 };
