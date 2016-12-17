@@ -30,21 +30,20 @@ const renderReportFromOp = (op, username) => {
   }
 
   /*  all transfers involve up to 2 accounts, context and 1 other. */
-  let descriptionStart = "";
+  let descriptionStart = '';
   let otherAccount = null;
-  let descriptionEnd = "";
+  let descriptionEnd = '';
 
   if (type === 'transfer_to_vesting') {
     if (data.from === username) {
       if (data.to === '') {
         descriptionStart += `Transfer ${data.amount.split(' ')[0]} to STEEM POWER`;
-      }
-      else {
+      } else {
         descriptionStart += `Transfer ${data.amount.split(' ')[0]} STEEM POWER to `;
         otherAccount = data.to;
       }
     }
-    else if( data.to === username ) {
+    else if (data.to === username) {
       descriptionStart += `Receive ${data.amount.split(' ')[0]} STEEM POWER from `;
       otherAccount = data.from;
     } else {
@@ -76,24 +75,25 @@ const renderReportFromOp = (op, username) => {
     }
   } else if (type === 'cancel_transfer_from_savings') {
     descriptionStart += `Cancel transfer from savings (request ${data.request_id})`;
-  } else if( type === 'withdraw_vesting' ) {
-    if( data.vesting_shares === '0.000000 VESTS' )
+  } else if (type === 'withdraw_vesting') {
+    if (data.vesting_shares === '0.000000 VESTS') {
       descriptionStart += 'Stop power down';
-    else
-      descriptionStart += 'Start power down of ' + data.vesting_shares;
+    } else {
+      descriptionStart += `Start power down of ${data.vesting_shares}`;
+    }
   } else if (type === 'curation_reward') {
     descriptionStart += `${curationReward} STEEM POWER for `;
     otherAccount = data.comment_author + '/' + data.comment_permlink;
   } else if (type === 'author_reward') {
-    let steem_payout = '';
-    if(data.steem_payout !== '0.000 STEEM') steem_payout = ", " + data.steem_payout;
-    descriptionStart += `${renameToSd(data.sbd_payout)}${steem_payout}, and ${authorReward} STEEM POWER for ${data.author}/${data.permlink}`;
-    // otherAccount = ``;
+    let steemPayout = '';
+    if(data.steem_payout !== '0.000 STEEM') steemPayout = ', ' + data.steem_payout;
+    descriptionStart += `${renameToSd(data.sbd_payout)}${steemPayout}, and ${authorReward} STEEM POWER for ${data.author}/${data.permlink}`;
+
     descriptionEnd = '';
   } else if (type === 'interest') {
     descriptionStart += `Receive interest of ${data.interest}`;
   } else {
-    descriptionStart += JSON.stringify({type, ...data}, null, 2);
+    descriptionStart += JSON.stringify({ type, ...data }, null, 2);
   }
   return (
     <span>
