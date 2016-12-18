@@ -15,8 +15,8 @@ import './Comments.scss';
   dispatch => bindActionCreators({
     getComments: commentsActions.getComments,
     showMoreComments: commentsActions.showMoreComments,
-    likeComment: (id) => commentsActions.likeComment(id),
-    unlikeComment: (id) => commentsActions.likeComment(id, 0),
+    likeComment: id => commentsActions.likeComment(id),
+    unlikeComment: id => commentsActions.likeComment(id, 0),
     openCommentingDraft: commentsActions.openCommentingDraft,
   }, dispatch)
 )
@@ -26,7 +26,7 @@ export default class Comments extends Component {
   }
 
   static propTypes = {
-    postId: PropTypes.string.isRequired,
+    postId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
     comments: PropTypes.object,
     getComments: PropTypes.func,
     className: PropTypes.string,
@@ -71,11 +71,11 @@ export default class Comments extends Component {
           isSinglePage={this.props.isSinglePage}
         />
 
-        { isFetching &&
+        {isFetching &&
           <Loading />
         }
 
-        { (hasMore && !this.props.isSinglePage) &&
+        {(hasMore && !this.props.isSinglePage) &&
           <a
             className="Comments__showMore"
             tabIndex="0"

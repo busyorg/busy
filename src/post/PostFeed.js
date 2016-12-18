@@ -99,7 +99,7 @@ export default class PostFeed extends Component {
               </span>
               { post.parent_author &&
                 <span className="hidden-xs">
-                      { ' replied ' }
+                  { ' replied ' }
                   <Link to={`/@${post.parent_author}`}>
                     @{post.parent_author}
                   </Link>
