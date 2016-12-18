@@ -60,7 +60,8 @@ export default class PostActionButtons extends Component {
 
   render() {
     const { post, auth } = this.props;
-    const payout = parseFloat(post.total_payout_value) + parseFloat(post.total_pending_payout_value);
+    const payout = parseFloat(post.total_payout_value)
+      + parseFloat(post.total_pending_payout_value);
     const isPostLiked =
       auth.isAuthenticated &&
       post.active_votes.some(vote => vote.voter === auth.user.name && vote.percent > 0);
@@ -89,11 +90,12 @@ export default class PostActionButtons extends Component {
           {post.children ?
             <a onClick={e => this.handleCommentsTextClick(e)}>
               {numeral(post.children).format('0,0')}
-              <span className="hidden-xs">Comments</span>
+              <span className="hidden-xs"> Comment
+                { post.children > 1 && 's' }
+              </span>
             </a> :
             <span className="hidden-xs">0 Comment</span>
           }
-
         </li>
 
         <li>
