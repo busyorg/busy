@@ -29,8 +29,9 @@ import * as bookmarkActions from '../bookmarks/bookmarksActions';
     ),
     openCommentingDraft: commentsActions.openCommentingDraft,
     closeCommentingDraft: commentsActions.closeCommentingDraft,
-    likePost: (id) => postActions.likePost(id),
-    unlikePost: (id) => postActions.likePost(id, 0),
+    likePost: id => postActions.votePost(id),
+    unlikePost: id => postActions.votePost(id, 0),
+    dislikePost: id => postActions.votePost(id, -1000),
     toggleBookmark: bookmarkActions.toggleBookmark,
   }, dispatch)
 )
@@ -57,6 +58,11 @@ export default class PostSingle extends React.Component {
       content.active_votes &&
       content.active_votes.some(vote => vote.voter === auth.user.name && vote.percent > 0);
 
+    const isPostDisliked =
+      auth.isAuthenticated &&
+      content.active_votes &&
+      content.active_votes.some(vote => vote.voter === auth.user.name && vote.percent < 0);
+
     const openCommentingDraft = () => this.props.openCommentingDraft({
       parentAuthor: content.author,
       parentPermlink: content.permlink,
@@ -77,7 +83,9 @@ export default class PostSingle extends React.Component {
             openCommentingDraft={openCommentingDraft}
             likePost={() => this.props.likePost(content.id)}
             unlikePost={() => this.props.unlikePost(content.id)}
+            dislikePost={() => this.props.dislikePost(content.id)}
             isPostLiked={isPostLiked}
+            isPostDisliked={isPostDisliked}
             bookmarks={this.props.bookmarks}
             toggleBookmark={this.props.toggleBookmark}
           />
@@ -91,7 +99,9 @@ export default class PostSingle extends React.Component {
             openCommentingDraft={openCommentingDraft}
             likePost={() => this.props.likePost(content.id)}
             unlikePost={() => this.props.unlikePost(content.id)}
+            dislikePost={() => this.props.dislikePost(content.id)}
             isPostLiked={isPostLiked}
+            isPostDisliked={isPostDisliked}
             bookmarks={this.props.bookmarks}
             toggleBookmark={this.props.toggleBookmark}
           />

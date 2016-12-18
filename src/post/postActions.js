@@ -35,7 +35,7 @@ export const getContent = (postAuthor, postPermlink, omitAttributes = []) => {
   };
 };
 
-export const likePost = (postId, weight = 10000) => {
+export const votePost = (postId, weight = 10000) => {
   return (dispatch, getState) => {
     const { auth, posts } = getState();
 

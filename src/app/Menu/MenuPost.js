@@ -10,8 +10,10 @@ const TriggerPost = ({
   isReblogged,
   openCommentingDraft,
   isPostLiked,
+  isPostDisliked,
   likePost,
   unlikePost,
+  dislikePost,
   content
 }) => {
 
@@ -22,6 +24,7 @@ const TriggerPost = ({
 
   const numberOfComments = numeral(content.children).format('0,0');
   const numberOfVotes = numeral(content.net_votes).format('0,0');
+  const numberOfDislikes = content.active_votes.filter(vote => vote.percent < 0).length;
 
   return (
     <ul className="MenuPost secondary-nav">
@@ -37,6 +40,20 @@ const TriggerPost = ({
           { ' Likes' }
         </span>
       </li>
+
+      <li>
+        <a
+          className={isPostDisliked ? 'active' : ''}
+          onClick={isPostDisliked ? unlikePost : dislikePost}
+        >
+          <Icon name="thumb_down" />
+        </a>
+        { ` ${numberOfDislikes}` }
+        <span className="hidden-xs">
+          { ' Dislikes' }
+        </span>
+      </li>
+
       <li>
         <Icon name="attach_money" />
         { ' ' }

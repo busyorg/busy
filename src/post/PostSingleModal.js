@@ -65,7 +65,9 @@ export default class PostSingleModal extends Component {
           openCommentingDraft={openCommentingDraft}
           likePost={this.props.likePost}
           unlikePost={this.props.unlikePost}
+          dislikePost={this.props.dislikePost}
           isPostLiked={this.props.isPostLiked}
+          isPostDisliked={this.props.isPostDisliked}
           content={content}
         />
         <header>
