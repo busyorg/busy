@@ -1,17 +1,37 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
 import numeral from 'numeral';
 import { formatter } from 'steem';
+import { connect } from 'react-redux';
 import api from '../steemAPI';
 import Loading from '../widgets/Loading';
+import { isEmpty } from 'lodash/lang';
+import * as walletActions from '../wallet/walletActions';
+import TransferHistory from './TransferHistory';
 
-module.exports = React.createClass({
-  componentWillMount() {
-    this.setState({
+@connect(
+  state => ({
+    wallet: state.wallet,
+  }),
+  dispatch => bindActionCreators({
+    getWallet: walletActions.getWallet,
+  }, dispatch)
+)
+export default class UserTransfers extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
       account: {},
       props: {},
       feedPrice: {},
-    });
-    api.getAccounts([this.props.params.name], (err, result) => {
+    };
+  }
+
+  componentDidMount() {
+    const username = this.props.params.name;
+    this.props.getWallet(username);
+
+    api.getAccounts([username], (err, result) => {
       this.setState({ account: result[0] });
     });
     api.getState('trending/busy', (err, result) => {
@@ -20,13 +40,18 @@ module.exports = React.createClass({
         feedPrice: result.feed_price
       });
     });
-  },
+  }
+
   render() {
+    const username = this.props.params.name;
+
     const account = this.state.account;
-    const base = (!_.isEmpty(this.state.feedPrice)) ? (this.state.feedPrice.base).replace(' SBD', '').replace(',', '') : 0;
+    const base = (!isEmpty(this.state.feedPrice))
+      ? (this.state.feedPrice.base).replace(' SBD', '').replace(',', '')
+      : 0;
     let power = 0;
     let dollar = 0;
-    if (!_.isEmpty(this.state.feedPrice) && !_.isEmpty(account)) {
+    if (!isEmpty(this.state.feedPrice) && !isEmpty(account)) {
       power = formatter.vestToSteem(account.vesting_shares,
         this.state.props.total_vesting_shares,
         this.state.props.total_vesting_fund_steem);
@@ -36,7 +61,7 @@ module.exports = React.createClass({
     }
     return (
       <div className="container">
-        {(!_.isEmpty(this.state.feedPrice) && !_.isEmpty(account)) ?
+        {(!isEmpty(this.state.feedPrice) && !isEmpty(account)) ?
           <div className="ptl text-xs-center">
             <ul className="row text-xs-center">
               <li className="col col-lg-4">
@@ -55,9 +80,16 @@ module.exports = React.createClass({
             <div className="my-2">
               <h2>Estimated Account Value: {numeral(dollar).format('$0,0.00')}</h2>
             </div>
-          </div> : <Loading />
+          </div>
+          :
+          <Loading />
         }
+
+        <TransferHistory
+          list={this.props.wallet.history[username] || []}
+          username={username}
+        />
       </div>
     );
   }
-});
+}
