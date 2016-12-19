@@ -6,7 +6,7 @@ import * as postActions from './postActions';
 import { closePostModal } from '../actions';
 import PostSingleModal from './PostSingleModal';
 import PostSinglePage from './PostSinglePage';
-import * as reblogActions from '../app/reblog/reblogActions';
+import * as reblogActions from '../app/Reblog/reblogActions';
 import * as commentsActions from '../comments/commentsActions';
 import * as bookmarkActions from '../bookmarks/bookmarksActions';
 

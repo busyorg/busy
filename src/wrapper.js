@@ -13,7 +13,7 @@ import Splash from './app/Splash';
 import Loading from './widgets/Loading';
 import Modal from './widgets/Modal';
 import * as messages from './translations/Translations';
-import * as reblogActions from './app/reblog/reblogActions';
+import * as reblogActions from './app/Reblog/reblogActions';
 
 @connect(
   state => ({

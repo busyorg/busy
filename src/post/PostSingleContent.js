@@ -2,7 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import { Link } from 'react-router';
 
-import Body from './body';
+import Body from './Body';
 import Icon from '../widgets/Icon';
 import Comments from '../comments/Comments';
 import Avatar from '../widgets/Avatar';

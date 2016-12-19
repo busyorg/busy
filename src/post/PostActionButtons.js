@@ -53,7 +53,7 @@ export default class PostActionButtons extends Component {
     const { auth, post, reblog, notify } = this.props;
 
     if (!auth.isAuthenticated) {
-      notify('You need to login in order to reblog posts.');
+      notify('You need to login in order to Reblog posts.');
       return;
     }
     reblog(post.id);

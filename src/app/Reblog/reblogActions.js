@@ -5,7 +5,7 @@ import { createAction } from 'redux-actions';
 
 SteemConnect.reblog = Promise.promisify(SteemConnect.reblog, { context: SteemConnect });
 
-export const GET_REBLOGGED_LIST = '@reblog/GET_REBLOGGED_LIST';
+export const GET_REBLOGGED_LIST = '@Reblog/GET_REBLOGGED_LIST';
 
 const getRebloggedListAction = createAction(GET_REBLOGGED_LIST);
 

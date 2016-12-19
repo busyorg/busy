@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import numeral from 'numeral';
-import BodyShort from '../post/body-short';
+import BodyShort from '../post/BodyShort';
 import Avatar from '../widgets/Avatar';
 import Icon from '../widgets/Icon';
 import { sortCommentsFromSteem } from '../helpers/stateHelpers';
