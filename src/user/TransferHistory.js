@@ -143,9 +143,10 @@ export default class TransferHistory extends Component {
           loadMore={() => this.handleNextPage()}
           elementIsScrollable={false}
           hasMore={list.length > visibleItems}
+          holderType="tbody"
         >
-          { getOnlyViableTransfers(list).reverse().slice(0, visibleItems).map(op =>
-            <tr>
+          { getOnlyViableTransfers(list).reverse().slice(0, visibleItems).map((op, idx) =>
+            <tr key={idx}>
               <td style={{ width: '15%' }}>
                 <FormattedRelative value={op[1].timestamp} />
               </td>
