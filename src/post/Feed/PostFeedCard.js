@@ -5,7 +5,7 @@ import { has } from 'lodash/object';
 
 import BodyShort from '../BodyShort';
 import Mentions from '../Mentions';
-import Flag from '../Flag';
+import Flag from '../../widgets/Flag';
 import Comments from '../../comments/Comments';
 import PostActionButtons from '../PostActionButtons';
 import Icon from '../../widgets/Icon';

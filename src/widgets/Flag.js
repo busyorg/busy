@@ -6,6 +6,8 @@ import { Link } from 'react-router';
 
 import { getCountryCode } from '../helpers/languages';
 
+import './Flag.scss';
+
 export default ({ title, body, className }) => {
   const language = franc(`${title} ${striptags(marked(body))}`);
   const textLength = (`${title} ${striptags(marked(body))}`).length;
@@ -15,7 +17,7 @@ export default ({ title, body, className }) => {
   return (
     <span className={className}>
       <Link to={`/hot/${getCountryCode(language)}`}>
-        <img className="flag" alt={language} src={`/img/flag/${getCountryCode(language)}.svg`} />
+        <img className="Flag" alt={language} src={`/img/flag/${getCountryCode(language)}.svg`} />
       </Link>
     </span>
   );

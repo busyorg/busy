@@ -13,14 +13,14 @@ const Icon = ({
   lg = false,
   xl = false,
 }) => {
-  let size = 'icon-md';
-  size = (xs) ? 'icon-xs' : size;
-  size = (sm) ? 'icon-sm' : size;
-  size = (md) ? 'icon-md' : size;
-  size = (lg) ? 'icon-lg' : size;
-  size = (xl) ? 'icon-xl' : size;
+  let size = 'Icon--md';
+  size = (xs) ? 'Icon--xs' : size;
+  size = (sm) ? 'Icon--sm' : size;
+  size = (md) ? 'Icon--md' : size;
+  size = (lg) ? 'Icon--lg' : size;
+  size = (xl) ? 'Icon--xl' : size;
   return (
-    <i className={`material-icons icon ${size} ${className}`} style={style}>{ name }</i>
+    <i className={`material-icons Icon ${size} ${className}`} style={style}>{ name }</i>
   );
 };
 
