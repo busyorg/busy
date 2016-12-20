@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import ReduxInfiniteScroll from 'redux-infinite-scroll';
 
 import Loading from '../widgets/Loading';
-import AddPost from '../post/Write/EmbeddedNewPost';
 import PostFeed from '../post/PostFeed';
 import CommentForm from '../comments/CommentForm';
 import * as appActions from '../actions';
@@ -39,7 +38,7 @@ export default class Feed extends React.Component {
   }
 
   componentDidUpdate() {
-    if(!this.props.content.length && !this.props.isFetching) {
+    if (!this.props.content.length && !this.props.isFetching) {
       this.props.loadContent();
     }
   }
@@ -99,7 +98,6 @@ export default class Feed extends React.Component {
           modal
           route={this.props.route}
         />
-        <AddPost />
         <CommentForm />
       </div>
     );
