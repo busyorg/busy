@@ -2,9 +2,17 @@ import React from 'react';
 import { has } from 'lodash';
 import steemembed from 'steemembed';
 import sanitizeHtml from 'sanitize-html';
-import marked from 'marked';
+import Remarkable from 'remarkable';
 
 import sanitizeConfig from './../helpers/SanitizeConfig';
+
+const remarkable = new Remarkable({
+  html: true, // remarkable renders first then sanitize runs...
+  breaks: true,
+  linkify: true, // linkify is done locally
+  typographer: false, // https://github.com/jonschlinkert/remarkable/issues/142#issuecomment-221546793
+  quotes: '“”‘’'
+});
 
 export default (props) => {
   const embeds = steemembed.getAll(props.body);
@@ -26,12 +34,11 @@ export default (props) => {
     embeds.forEach((embed) => { body = body.replace(embed.url, embed.embed); });
   }
 
-  body = marked(body);
+  body = remarkable.render(body);
 
   if (has(jsonMetadata, 'image[0]')) {
     jsonMetadata.image.forEach((image) => {
       if (/^\/\//.test(image)) {
-        // set protocol to https if not specified
         image = `https:${image}`;
       }
       const newUrl = `https://img1.steemit.com/870x600/${image}`;
