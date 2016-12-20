@@ -98,7 +98,7 @@ export default class CommentItem extends Component {
                 { numeral(comment.net_votes).format('0,0') }
               </div>
               <div className="CommentActionButtons__button">
-                ${ payout }
+                { numeral(payout).format('$0,0.000') }
               </div>
 
               <a onClick={(e) => this.handleReplyClick(e)}>
