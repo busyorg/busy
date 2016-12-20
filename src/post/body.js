@@ -30,6 +30,10 @@ export default (props) => {
 
   if (has(jsonMetadata, 'image[0]')) {
     jsonMetadata.image.forEach((image) => {
+      if (/^\/\//.test(image)) {
+        // set protocol to https if not specified
+        image = `https:${image}`;
+      }
       const newUrl = `https://img1.steemit.com/870x600/${image}`;
       body = body.replace(new RegExp(image, 'g'), newUrl);
       body = body.replace(new RegExp(`<a href="${newUrl}">${newUrl}</a>`, 'g'), `<img src="${newUrl}">`);
