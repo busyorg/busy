@@ -29,7 +29,7 @@ function makePlugins(options) {
           : JSON.stringify(process.env.SENTRY_PUBLIC_DSN),
         STEEMCONNECT_HOST: JSON.stringify(
           process.env.STEEMCONNECT_HOST ||
-            'https://dev.steemconnect.com'
+          'https://dev.steemconnect.com'
         ),
         STEEMCONNECT_REDIRECT_URL: JSON.stringify(
           process.env.STEEMCONNECT_REDIRECT_URL ||
@@ -82,6 +82,12 @@ function makeStyleLoaders(options) {
           'sass?sourceMap&sourceMapContents',
         ],
       },
+      {
+        test: /plugin\.css$/,
+        loaders: [
+          'style', 'css',
+        ],
+      },
     ];
   }
 
@@ -92,6 +98,12 @@ function makeStyleLoaders(options) {
         'style-loader',
         'css?importLoaders=1!autoprefixer-loader?browsers=last 2 version!sass'
       ),
+    },
+    {
+      test: /plugin\.css$/,
+      loaders: [
+        'style', 'css',
+      ],
     },
   ];
 }
