@@ -1,6 +1,6 @@
 import React from 'react';
-import moment from 'moment';
 import { Link } from 'react-router';
+import { FormattedRelative } from 'react-intl';
 
 import Body from './Body';
 import Icon from '../widgets/Icon';
@@ -17,8 +17,9 @@ const PostSingleContent = ({ content, toggleBookmark, bookmarks }) => {
       <div className="container">
         <div className="PostSingleContent__header my-2">
           <Link to={`/@${content.author}`}>
-            <Avatar sm username={content.author} className="pull-left" />
-            <span className="mls">
+            <Avatar sm username={content.author} />
+            { ' ' }
+            <span>
               @{content.author}
             </span>
           </Link>
@@ -27,8 +28,7 @@ const PostSingleContent = ({ content, toggleBookmark, bookmarks }) => {
             <Link to={`/hot/${content.category}`}>#{content.category}</Link>
           </span>
           <span className="pull-right">
-            {moment(content.created).fromNow()}
-
+            <FormattedRelative value={content.created} />
             <a onClick={() => toggleBookmark(content.id)}>
               <Icon
                 small
