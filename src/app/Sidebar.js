@@ -98,13 +98,16 @@ export default class Sidebar extends Component {
   renderFavoritedTags() {
     const { favorites } = this.props;
     const favoritedCategories = favorites.categories;
-    return this.filterTagsBySearch(favoritedCategories).slice(0, 16).map((category, idx) =>
-      <li key={idx}>
-        <Link to={`/hot/${category}`} activeClassName="active">
-          <Icon name="star" xs />
-          {category}
-        </Link>
-      </li>
+    return this.filterTagsBySearch(favoritedCategories)
+      .sort()
+      .slice(0, 16)
+      .map((category, idx) =>
+        <li key={idx}>
+          <Link to={`/hot/${category}`} activeClassName="active">
+            <Icon name="star" xs />
+            {category}
+          </Link>
+        </li>
     );
   }
 

@@ -23,7 +23,7 @@ const getFilteredUsers = (props, state) => {
     ].sort().toString();
     return !unreadByChannel[channelName] || !unreadByChannel[channelName].length;
   });
-  users = users.map((follow, key) => (
+  users = users.sort().map((follow, key) => (
     <li key={key}>
       <Link
         to={`/@${follow}`}
@@ -63,9 +63,8 @@ const getUnreadMessages = (props) => {
   });
 };
 
-const filterUsersBySearch = (users, keyword) => {
-  return users.filter((user) => startsWith(user, keyword));
-};
+const filterUsersBySearch = (users, keyword) =>
+  users.sort().filter(user => startsWith(user, keyword));
 
 function UnreadCount({ unread }) {
   if (!unread) return null;
