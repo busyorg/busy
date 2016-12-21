@@ -19,8 +19,17 @@ export default (props) => {
   let body = props.body;
   let jsonMetadata = {};
   try { jsonMetadata = JSON.parse(props.jsonMetadata); } catch (e) { }
+  jsonMetadata.image = jsonMetadata.image || [];
 
   body = body.replace(/<!--([\s\S]+?)(-->|$)/g, '(html comment removed: $1)');
+
+  const imageRegex = /https?:\/\/(?:[-a-zA-Z0-9._]*[-a-zA-Z0-9])(?::\d{2,5})?(?:[/?#](?:[^\s"'<>\][()]*[^\s"'<>\][().,])?(?:(?:\.(?:tiff?|jpe?g|gif|png|svg|ico)|ipfs\/[a-z\d]{40,})))/ig;
+
+  body.replace(imageRegex, (img) => {
+    if (jsonMetadata.image.indexOf(img) === -1) {
+      jsonMetadata.image.push(img);
+    }
+  });
 
   if (has(jsonMetadata, 'users[0]')) {
     body = body.replace(/(^|\s)(@[-.a-z\d]+)/ig, (user) => {
@@ -38,12 +47,15 @@ export default (props) => {
 
   if (has(jsonMetadata, 'image[0]')) {
     jsonMetadata.image.forEach((image) => {
-      if (/^\/\//.test(image)) {
-        image = `https:${image}`;
-      }
+      if (/^\/\//.test(image)) { image = `https:${image}`; }
+
       const newUrl = `https://img1.steemit.com/870x600/${image}`;
       body = body.replace(new RegExp(image, 'g'), newUrl);
       body = body.replace(new RegExp(`<a href="${newUrl}">${newUrl}</a>`, 'g'), `<img src="${newUrl}">`);
+      // not in img tag
+      if (body.search(`<img.+?src=["']${newUrl}["'].*?>`) === -1) {
+        body = body.replace(new RegExp(newUrl, 'g'), `<img src="${newUrl}">`);
+      }
     });
   }
 
