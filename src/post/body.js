@@ -49,7 +49,7 @@ export default (props) => {
     jsonMetadata.image.forEach((image) => {
       if (/^\/\//.test(image)) { image = `https:${image}`; }
 
-      const newUrl = `https://img1.steemit.com/870x600/${image}`;
+      const newUrl = `https://img1.steemit.com/0x0/${image}`;
       body = body.replace(new RegExp(image, 'g'), newUrl);
       body = body.replace(new RegExp(`<a href="${newUrl}">${newUrl}</a>`, 'g'), `<img src="${newUrl}">`);
       // not in img tag
