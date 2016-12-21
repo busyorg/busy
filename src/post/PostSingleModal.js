@@ -4,6 +4,7 @@ import PostSingleContent from './PostSingleContent';
 
 import MenuPost from '../app/Menu/MenuPost';
 import CommentForm from '../comments/CommentForm';
+import Icon from '../widgets/Icon';
 
 import './PostSingleModal.scss';
 
@@ -73,7 +74,7 @@ export default class PostSingleModal extends Component {
         <header>
           <div className="top-nav">
             <a className="left" onClick={this.handleClose}>
-              <i className="icon icon-md icon-menu material-icons">clear</i>
+              <Icon name="clear" className="Icon--menu" />
             </a>
             <div className="section-content top-head">
               <div className="logo"><Link to="/" onlyActiveOnIndex activeClassName="active"><img src="/img/logo.svg" /></Link></div>

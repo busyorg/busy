@@ -3,32 +3,30 @@
   flex-direction: column;
   overflow-x: auto;
   padding-bottom: 56px;
+}
 
-  .PostSingleContent__header {
-    overflow: hidden;
-    height: 40px;
-    line-height: 40px;
-    font-size: 18px;
+.PostSingleContent__header {
+  font-size: 18px;
+}
+
+.PostSingleContent__content {
+  font-size: 22px;
+  line-height: 1.6em;
+  font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+  overflow: hidden;
+
+  p {
+    text-align: justify;
   }
 
-  .PostSingleContent__content {
-    font-size: 22px;
-    line-height: 1.6em;
-    font-family: Georgia, Cambria, "Times New Roman", Times, serif;
-    overflow: hidden;
-
-    p {
-      text-align: justify;
-    }
-
-    img {
-      max-width: 100%;
-      height: auto;
-      margin: 2em 0;
-      border: 1px solid rgba(0, 0, 0, 0.1);
-      display: block;
-      background-color: white;
-    }
+  img {
+    max-width: 100%;
+    height: auto;
+    margin: 2em 0;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    display: block;
+    background-color: white;
+  }
 
     div.pull-right{
       padding-left: 1rem;
@@ -60,35 +58,34 @@
     ol {
       margin-bottom: 2em;
 
-      li {
-        list-style-type: decimal !important;
-      }
+    li {
+      list-style-type: decimal !important;
     }
-
-    ul {
-      margin-bottom: 2em;
-
-      li {
-        list-style-type: square !important;
-        list-style-position: outside;
-        margin-left: 20px;
-      }
-    }
-
-    table{
-      width: 100%;
-    }
-
-    tr:nth-child(even), thead {background: #eee}
   }
 
-  .PostSingleContent__replies {
-    background-color: #f1f2f4;
-    font-size: 18px;
+  ul {
+    margin-bottom: 2em;
 
     li {
-      margin: 0 !important;
-      padding: 1em 0;
+      list-style-type: square !important;
+      list-style-position: outside;
+      margin-left: 20px;
     }
+  }
+
+  table{
+    width: 100%;
+  }
+
+  tr:nth-child(even), thead {background: #eee}
+}
+
+.PostSingleContent__replies {
+  background-color: #f1f2f4;
+  font-size: 18px;
+
+  li {
+    margin: 0 !important;
+    padding: 1em 0;
   }
 }

@@ -1,13 +1,13 @@
 import 'babel-polyfill';
 import React, { Component } from 'react';
+import { FormattedRelative } from 'react-intl';
 import { has } from 'lodash/object';
 import steemdb from 'steemdb';
-import moment from 'moment';
 import numeral from 'numeral';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
-import FavoriteUserButton from '../favorites/FavoriteUserButton';
 
+import FavoriteUserButton from '../favorites/FavoriteUserButton';
 import Feed from '../feed/Feed';
 import {
   getFeedContentFromState,
@@ -17,6 +17,7 @@ import {
 import Loading from '../widgets/Loading';
 import Follow from '../widgets/Follow';
 import { followUser, unfollowUser } from './userActions';
+import Icon from '../widgets/Icon';
 import Avatar from '../widgets/Avatar';
 import Badge from '../widgets/Badge';
 import Donor from '../widgets/Donor';
@@ -142,10 +143,26 @@ class Profile extends Component {
           { !has(user, 'name') && <Loading />}
           { has(user, 'name') && <div>
             <ul className="secondary-nav">
-              <li><i className="icon icon-md material-icons">library_books</i> {numeral(user.post_count).format('0,0')}<span className="hidden-xs"> Posts</span></li>
-              <li><i className="icon icon-md material-icons">gavel</i> {numeral(parseInt(user.voting_power) / 10000).format('%0')}<span className="hidden-xs"> Voting Power</span></li>
-              <li><Link to={`/@${username}/followers`}><i className="icon icon-md material-icons">people</i> {numeral(parseInt(user.followers_count)).format('0,0')}<span className="hidden-xs"> Followers</span></Link></li>
-              <li><Link to={`/@${username}/followed`}><i className="icon icon-md material-icons">people</i> {numeral(parseInt(user.following_count)).format('0,0')}<span className="hidden-xs"> Followed</span></Link></li>
+              <li>
+                <Icon name="library_books" /> {numeral(user.post_count).format('0,0')}
+                <span className="hidden-xs"> Posts</span>
+              </li>
+              <li>
+                <Icon name="gavel" /> {numeral(parseInt(user.voting_power) / 10000).format('%0')}
+                <span className="hidden-xs"> Voting Power</span>
+              </li>
+              <li>
+                <Link to={`/@${username}/followers`}>
+                  <Icon name="people" /> {numeral(parseInt(user.followers_count)).format('0,0')}
+                  <span className="hidden-xs"> Followers</span>
+                </Link>
+              </li>
+              <li>
+                <Link to={`/@${username}/followed`}>
+                  <Icon name="people" /> {numeral(parseInt(user.following_count)).format('0,0')}
+                  <span className="hidden-xs"> Followed</span>
+                </Link>
+              </li>
             </ul>
             <div className="container container-small my-2 text-xs-center">
               <h3><Badge vestingShares={user.vesting_shares} /></h3>
@@ -161,7 +178,7 @@ class Profile extends Component {
               }
               { has(jsonMetadata, 'profile.website') &&
                 <p>
-                  <i className="icon icon-md material-icons">link</i>{ ' ' }
+                  <Icon name="link" />{ ' ' }
                   <a href={jsonMetadata.profile.website} target="_blank">
                     { jsonMetadata.profile.website }
                   </a>
@@ -169,13 +186,13 @@ class Profile extends Component {
               }
               { has(jsonMetadata, 'profile.location') &&
                 <p>
-                  <i className="icon icon-md material-icons">pin_drop</i>{ ' ' }
+                  <Icon name="pin_drop" />{ ' ' }
                   { jsonMetadata.profile.location }
                 </p>
               }
               <p>
-                Joined {moment(user.created).fromNow()}
-                , last activity {moment(user.last_vote_time).fromNow()}
+                Joined <FormattedRelative value={user.created} />
+                , last activity <FormattedRelative value={user.last_vote_time} />
               </p>
             </div>
           </div>}

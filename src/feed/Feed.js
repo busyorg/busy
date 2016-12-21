@@ -2,15 +2,17 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import ReduxInfiniteScroll from 'redux-infinite-scroll';
+
 import Loading from '../widgets/Loading';
-import AddPost from '../post/Write/EmbeddedNewPost';
 import PostFeed from '../post/PostFeed';
 import CommentForm from '../comments/CommentForm';
 import * as appActions from '../actions';
 import * as commentsActions from '../comments/commentsActions';
 import * as bookmarkActions from '../bookmarks/bookmarksActions';
-import * as reblogActions from '../app/reblog/reblogActions';
+import * as reblogActions from '../app/Reblog/reblogActions';
 import PostSingle from '../post/PostSingle';
+
+import './Feed.scss';
 
 @connect(
   state => ({
@@ -25,6 +27,7 @@ import PostSingle from '../post/PostSingle';
     reblog: reblogActions.reblog,
   }, dispatch)
 )
+
 export default class Feed extends React.Component {
   constructor(props) {
     super(props);
@@ -35,7 +38,7 @@ export default class Feed extends React.Component {
   }
 
   componentDidUpdate() {
-    if(!this.props.content.length && !this.props.isFetching) {
+    if (!this.props.content.length && !this.props.isFetching) {
       this.props.loadContent();
     }
   }
@@ -63,9 +66,8 @@ export default class Feed extends React.Component {
     } = this.props;
 
     return (
-      <div className="grid">
-        <div className="grid-content" onClick={() => this.handleFeedClick()}>
-
+      <div className="Feed">
+        <div className="Feed__content" onClick={() => this.handleFeedClick()}>
           <ReduxInfiniteScroll
             loadMore={this.props.loadMoreContent}
             loader={<Loading />}
@@ -74,7 +76,6 @@ export default class Feed extends React.Component {
             elementIsScrollable={false}
             threshold={200}
           >
-
             {
               content.map((post, key) =>
                 <ItemComponent
@@ -91,15 +92,12 @@ export default class Feed extends React.Component {
                 />
               )
             }
-
           </ReduxInfiniteScroll>
         </div>
-
         <PostSingle
           modal
           route={this.props.route}
         />
-        <AddPost />
         <CommentForm />
       </div>
     );

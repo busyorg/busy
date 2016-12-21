@@ -4,6 +4,7 @@ import striptags from 'striptags';
 import Remarkable from 'remarkable';
 import { Link } from 'react-router';
 
+import './Flag.scss';
 import { getCountryCode } from '../helpers/languages';
 
 const remarkable = new Remarkable({ html: true });
@@ -17,7 +18,7 @@ export default ({ title, body, className }) => {
   return (
     <span className={className}>
       <Link to={`/hot/${getCountryCode(language)}`}>
-        <img className="flag" alt={language} src={`/img/flag/${getCountryCode(language)}.svg`} />
+        <img className="Flag" alt={language} src={`/img/flag/${getCountryCode(language)}.svg`} />
       </Link>
     </span>
   );

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import numeral from 'numeral';
-import BodyShort from '../post/body-short';
+import BodyShort from '../post/BodyShort';
 import Avatar from '../widgets/Avatar';
 import Icon from '../widgets/Icon';
 import { sortCommentsFromSteem } from '../helpers/stateHelpers';
@@ -98,7 +98,7 @@ export default class CommentItem extends Component {
                 { numeral(comment.net_votes).format('0,0') }
               </div>
               <div className="CommentActionButtons__button">
-                ${ payout }
+                { numeral(payout).format('$0,0.000') }
               </div>
 
               <a onClick={(e) => this.handleReplyClick(e)}>

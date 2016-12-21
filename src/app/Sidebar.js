@@ -171,7 +171,7 @@ export default class Sidebar extends Component {
       <nav className="Sidebar">
         <div className="sidebar-header">
           <a className="hide-sidebar" onClick={() => this.props.hideSidebar()}>
-            <Icon name="arrow_back" className="icon-menu" />
+            <Icon name="arrow_back" className="Icon--menu" />
           </a>
           <div className="Sidebar__log">
             <div>
