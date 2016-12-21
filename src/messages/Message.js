@@ -1,12 +1,12 @@
 import React from 'react';
-import moment from 'moment';
+import { FormattedRelative } from 'react-intl';
+
 import Avatar from '../widgets/Avatar';
 
 function Message(props) {
   const { model } = props;
   const sentAt = model[0].sentAt;
   const senderUsername = (model[0].senderUsername || model[0].sentBy);
-  const humanSentAt = moment(sentAt).format('hh:mm');
 
   return (
     <li className="Message message">
@@ -26,7 +26,7 @@ function Message(props) {
                   backgroundColor: 'transparent'
                 }}
               >
-                {humanSentAt}
+                <FormattedRelative value={sentAt} />
               </span>
             </div>
             <p>
@@ -49,7 +49,7 @@ function Message(props) {
                     color: '#ccc'
                   }}
                 >
-                  {moment(sentAt).format('hh:mm')}
+                  <FormattedRelative value={sentAt} />
                 </div>
               </div>
               <div className="media-body">

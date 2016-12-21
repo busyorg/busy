@@ -14,7 +14,7 @@ import Feed from './user/UserFeed';
 import Transfers from './user/UserTransfers';
 import Edit from './user/UserEdit';
 import Tags from './tags/Tags';
-import Donors from './donors/Donors';
+import Donors from './statics/Donors';
 import { Trending, Hot, Votes, Responses, Active, Created, Cashout } from './feed/PathMatching';
 import PostSingle from './post/PostSingle';
 import Bookmarks from './bookmarks/Bookmarks';

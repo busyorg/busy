@@ -1,6 +1,7 @@
-/* --------------------------------
- * Primary style
- *-------------------------------- */
+html, body {
+  height: 100%;
+  text-align: left;
+}
 
 body {
   background-color: white;
@@ -38,15 +39,6 @@ img {
 .no-gutter [class*="col-"] {
   padding-left: 0;
   padding-right: 0;
-}
-
-/* --------------------------------
- *3. Main components
- *-------------------------------- */
-
-html, body {
-  height: 100%;
-  text-align: left;
 }
 
 ul, li {
