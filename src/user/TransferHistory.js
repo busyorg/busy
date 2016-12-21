@@ -3,6 +3,8 @@ import ReduxInfiniteScroll from 'redux-infinite-scroll';
 import { Link } from 'react-router';
 import { FormattedRelative } from 'react-intl';
 
+import Avatar from '../widgets/Avatar';
+
 const defaultPageItems = 10;
 
 // Functions Borrowed from Steemit.com sourcecode for integrity
@@ -97,9 +99,14 @@ const renderReportFromOp = (op, username) => {
   }
   return (
     <span>
-      {descriptionStart}
-      {otherAccount && <Link to={`/@${otherAccount}`}>{otherAccount}</Link>}
-      {descriptionEnd}
+      { descriptionStart }
+      { otherAccount &&
+        <Link to={`/@${otherAccount}`}>
+          <Avatar username={otherAccount} xs />
+          { ' ' }@{ otherAccount }
+        </Link>
+      }
+      { descriptionEnd }
     </span>
   );
 };
@@ -147,11 +154,14 @@ export default class TransferHistory extends Component {
         >
           { getOnlyViableTransfers(list).reverse().slice(0, visibleItems).map((op, idx) =>
             <tr key={idx}>
-              <td style={{ width: '15%' }}>
+              <td>
+                { renderReportFromOp(op, username) }
+                <br />
+                <b>{ op[1].op[1].memo }</b>
+              </td>
+              <td className="text-xs-right">
                 <FormattedRelative value={op[1].timestamp} />
               </td>
-              <td style={{ width: '50%' }}>{ renderReportFromOp(op, username) }</td>
-              <td>{ op[1].op[1].memo }</td>
             </tr>
           )}
         </ReduxInfiniteScroll>

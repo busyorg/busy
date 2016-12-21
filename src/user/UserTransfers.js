@@ -44,7 +44,6 @@ export default class UserTransfers extends Component {
 
   render() {
     const username = this.props.params.name;
-
     const account = this.state.account;
     const base = (!isEmpty(this.state.feedPrice))
       ? (this.state.feedPrice.base).replace(' SBD', '').replace(',', '')
@@ -60,7 +59,7 @@ export default class UserTransfers extends Component {
         + parseFloat(account.sbd_balance);
     }
     return (
-      <div className="container">
+      <div className="container my-3">
         {(!isEmpty(this.state.feedPrice) && !isEmpty(account)) ?
           <div className="ptl text-xs-center">
             <ul className="row text-xs-center">
