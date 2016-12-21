@@ -28,8 +28,35 @@
     background-color: white;
   }
 
-  ol {
-    margin-bottom: 2em;
+    div.pull-right{
+      padding-left: 1rem;
+      max-width: 50%;
+    }
+
+    div.pull-left {
+      float: left;
+      padding-right: 1rem;
+      max-width: 50%;
+    }
+
+    div.text-justify {
+      text-align: justify;
+    }
+
+    div.text-right {
+      text-align: right;
+    }
+
+    div.text-center {
+      text-align: center;
+    }
+
+    div.text-rtl {
+      direction: rtl;
+    }
+
+    ol {
+      margin-bottom: 2em;
 
     li {
       list-style-type: decimal !important;
@@ -41,7 +68,7 @@
 
     li {
       list-style-type: square !important;
-      list-style-position: inside;
+      list-style-position: outside;
       margin-left: 20px;
     }
   }
