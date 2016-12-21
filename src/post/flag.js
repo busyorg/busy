@@ -1,14 +1,16 @@
 import React from 'react';
 import franc from 'franc';
 import striptags from 'striptags';
-import marked from 'marked';
+import Remarkable from 'remarkable';
 import { Link } from 'react-router';
 
 import { getCountryCode } from '../helpers/languages';
 
+const remarkable = new Remarkable({ html: true });
+
 export default ({ title, body, className }) => {
-  const language = franc(`${title} ${striptags(marked(body))}`);
-  const textLength = (`${title} ${striptags(marked(body))}`).length;
+  const language = franc(`${title} ${striptags(remarkable.render(body))}`);
+  const textLength = (`${title} ${striptags(remarkable.render(body))}`).length;
   if (!(language !== 'eng' && language !== 'sco' && textLength > 255)) {
     return null;
   }
