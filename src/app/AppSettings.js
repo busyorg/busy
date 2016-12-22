@@ -3,8 +3,9 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 
-import { setLocale } from '../actions';
+import { setLocale, setLayout } from '../actions';
 import Header from './Header';
+import Icon from '../widgets/Icon';
 
 @connect(
   state => ({
@@ -12,6 +13,7 @@ import Header from './Header';
   }),
   dispatch => bindActionCreators({
     setLocale,
+    setLayout,
   }, dispatch)
 )
 
@@ -21,12 +23,38 @@ export default class AppSettings extends React.Component {
   }
 
   render() {
-    const { setLocale } = this.props;
+    const {
+      setLayout,
+      setLocale,
+    } = this.props;
     return (
       <div className="main-panel">
         <Header />
-        <div className="container ptl text-xs-center">
+        <div className="container my-3 text-xs-center">
           <h1><FormattedMessage id="settings" /></h1>
+
+          <h2><FormattedMessage id="layout" /></h2>
+          <div className="row mhl">
+            <div className="col col-lg-4 mbl">
+              <a onClick={() => setLayout('card')}>
+                <Icon name="view_agenda" lg />
+                <h2 className="mvs">Card</h2>
+              </a>
+            </div>
+            <div className="col col-lg-4 mbl">
+              <a onClick={() => setLayout('grid')}>
+                <Icon name="view_module" lg />
+                <h2 className="mvs">Grid</h2>
+              </a>
+            </div>
+            <div className="col col-lg-4 mbl">
+              <a onClick={() => setLayout('list')}>
+                <Icon name="view_list" lg />
+                <h2 className="mvs">List</h2>
+              </a>
+            </div>
+          </div>
+
           <h2><FormattedMessage id="language" /></h2>
           <div className="row mhl">
             <div className="col col-lg-4 mbl">
@@ -66,6 +94,7 @@ export default class AppSettings extends React.Component {
               </a>
             </div>
           </div>
+
         </div>
       </div>
     );
