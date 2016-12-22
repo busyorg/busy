@@ -3,6 +3,8 @@ import { has } from 'lodash/object';
 import steemembed from 'steemembed';
 
 import PostFeedCard from './Feed/PostFeedCard';
+import PostFeedGrid from './Feed/PostFeedGrid';
+import PostFeedList from './Feed/PostFeedList';
 
 const getJsonMetaData = (props) => {
   let jsonMetaData;
@@ -39,15 +41,25 @@ export default class PostFeed extends Component {
   };
 
   render() {
-    const { post, onCommentRequest, bookmarks, toggleBookmark, notify } = this.props;
+    const {
+      post,
+      onCommentRequest,
+      app,
+      bookmarks,
+      toggleBookmark,
+      notify
+    } = this.props;
     const jsonMetaData = getJsonMetaData(this.props);
     const imageName = has(jsonMetaData, 'image[0]') ? jsonMetaData.image[0] : '';
     const imagePath = imageName
       ? `https://img1.steemit.com/600x400/${imageName}`
       : '';
     const embeds = steemembed.getAll(post.body);
+    let ItemComponent = PostFeedCard;
+    ItemComponent = (app.layout === 'grid') ? PostFeedGrid : ItemComponent;
+    ItemComponent = (app.layout === 'list') ? PostFeedList : ItemComponent;
     return (
-      <PostFeedCard
+      <ItemComponent
         post={post}
         onCommentRequest={onCommentRequest}
         bookmarks={bookmarks}
@@ -68,3 +80,4 @@ export default class PostFeed extends Component {
     );
   }
 }
+

@@ -4,17 +4,18 @@ import { FormattedRelative } from 'react-intl';
 import { has } from 'lodash/object';
 
 import BodyShort from '../BodyShort';
+import Mentions from '../Mentions';
 import Flag from '../../widgets/Flag';
 import Comments from '../../comments/Comments';
-import PostActionTabs from '../PostActionTabs';
+import PostActionButtons from '../PostActionButtons';
 import Icon from '../../widgets/Icon';
 import Avatar from '../../widgets/Avatar';
 import PostModalLink from './../PostModalLink';
 import LikesList from './../LikesList';
 
-import './PostFeedCard.scss';
+import './PostFeedGrid.scss';
 
-const PostFeedCard = ({
+const PostFeedGrid = ({
   post,
   onCommentRequest,
   bookmarks,
@@ -32,9 +33,10 @@ const PostFeedCard = ({
   handleShowCommentsRequest,
   handleShowLikesRequest,
 }) =>
-  <div className="PostFeedCard">
+  <div className="PostFeedGrid">
+    GRID
     { post.first_reblogged_by &&
-    <div className="PostFeedCard__cell PostFeedCard__cell--top">
+    <div className="PostFeedGrid__cell PostFeedGrid__cell--top">
       <ul>
         <li>
           <Icon name="repeat" sm />
@@ -45,7 +47,7 @@ const PostFeedCard = ({
     </div>
     }
 
-    <div className="PostFeedCard__cell PostFeedCard__cell--top">
+    <div className="PostFeedGrid__cell PostFeedGrid__cell--top">
       <ul>
         <li>
           <Link to={`/@${post.author}`}>
@@ -55,6 +57,19 @@ const PostFeedCard = ({
           <span className="hidden-xs">
             { ' ' }in <Link to={`/hot/${post.category}`}>#{post.category}</Link>
           </span>
+          { post.parent_author &&
+          <span className="hidden-xs">
+            { ' replied ' }
+            <Link to={`/@${post.parent_author}`}>
+              @{post.parent_author}
+            </Link>
+            &#8217;s&nbsp;
+            <Link to={`/${post.category}/@${post.parent_author}/${post.parent_permlink}`}>
+              post.
+            </Link>
+          </span>
+          }
+
         </li>
         <li className="pull-right">
           <FormattedRelative value={post.created} />{' '}
@@ -69,7 +84,7 @@ const PostFeedCard = ({
     </div>
 
     { (imageName && !has(embeds, '[0].embed')) &&
-    <div className="PostFeedCard__thumbs">
+    <div className="PostFeedGrid__thumbs">
       <PostModalLink
         post={post}
         onClick={() => openPostModal(post.id)}
@@ -80,25 +95,29 @@ const PostFeedCard = ({
     }
 
     { has(embeds, '[0].embed') &&
-    <div className="PostFeedCard__thumbs" dangerouslySetInnerHTML={{ __html: embeds[0].embed }} />
+    <div className="PostFeedGrid__thumbs" dangerouslySetInnerHTML={{ __html: embeds[0].embed }} />
     }
 
-    <div className="PostFeedCard__cell PostFeedCard__cell--body">
+    <div className="PostFeedGrid__cell PostFeedGrid__cell--body">
       <h2>
-        <Flag title={post.title} body={post.body} className="pr-1" />
+        <Flag title={post.title} body={post.body} className="prs" />
         <PostModalLink
           post={post}
           onClick={() => openPostModal(post.id)}
         >
-          { post.title }
+          {post.title}
         </PostModalLink>
       </h2>
 
-      <BodyShort body={post.body} />
+      <Mentions jsonMetaData={jsonMetaData} />
+
+      <p>
+        <BodyShort body={post.body} />
+      </p>
     </div>
 
-    <div className="PostFeedCard__cell PostFeedCard__cell--bottom">
-      <PostActionTabs
+    <div className="PostFeedGrid__cell PostFeedGrid__cell--bottom">
+      <PostActionButtons
         post={post}
         notify={notify}
         onCommentRequest={onCommentRequest}
@@ -124,4 +143,4 @@ const PostFeedCard = ({
 
   </div>;
 
-export default PostFeedCard;
+export default PostFeedGrid;

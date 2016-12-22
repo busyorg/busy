@@ -1,9 +1,9 @@
-.PostFeedCard {
+.PostFeedGrid {
   border: 1px solid #E7E7EC;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.05);
   width: 100%;
   border-radius: 5px;
-  max-width: 600px;
+  max-width: 460px;
   margin: 0 auto 20px;
   table-layout: fixed;
   background-color: #FFFFFF;
@@ -11,19 +11,15 @@
   h2 {
     margin-bottom: 0.4em !important;
   }
-
-  h2 a {
-    color: #434F66;
-  }
 }
 
 @media (max-width: 600px) {
-  .PostFeedCard {
+  .PostFeedGrid {
     border-width: 1px 0 1px 0 !important;
   }
 }
 
-.PostFeedCard__thumbs {
+.PostFeedGrid__thumbs {
   background: white;
   width: 100%;
   text-align: center;
@@ -32,7 +28,7 @@
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-.PostFeedCard__cell {
+.PostFeedGrid__cell {
   vertical-align: middle;
   overflow: hidden;
 
@@ -52,7 +48,7 @@
   }
 }
 
-.PostFeedCard__cell--top {
+.PostFeedGrid__cell--top {
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 
   li {
@@ -60,11 +56,11 @@
   }
 }
 
-.PostFeedCard__cell--body {
+.PostFeedGrid__cell--body {
   padding: 1em 1em;
 }
 
-.PostFeedCard__cell--bottom {
+.PostFeedGrid__cell--bottom {
   border-top: 1px solid rgba(0, 0, 0, 0.1);
   text-align: center;
 
