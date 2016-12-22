@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import numeral from 'numeral';
-import LikeButton from './actionButtons/LikeButton';
+import LikeTab from './actionButtons/LikeTab';
 import PayoutLabel from './actionButtons/PayoutLabel';
 import * as postActions from './postActions';
 import Icon from '../widgets/Icon';
@@ -69,7 +69,7 @@ export default class PostActionButtons extends Component {
     return (
       <ul>
         <li>
-          <LikeButton
+          <LikeTab
             onClick={isPostLiked ? this.props.unlikePost : this.props.likePost}
             onTextClick={e => this.handleLikesTextClick(e)}
             active={isPostLiked}
@@ -81,17 +81,33 @@ export default class PostActionButtons extends Component {
             value={numeral(payout).format('$0,0.00')}
           />
         </li>
+
         <li>
-          <Icon name="reply" sm />
+          <a onClick={e => this.handleCommentBoxClick(e)}>
+            <Icon name="reply" sm />
+          </a>
           { ' ' }
-          { numeral(post.children).format('0,0') }
+          {post.children ?
+            <a onClick={e => this.handleCommentsTextClick(e)}>
+              {numeral(post.children).format('0,0')}
+              <span className="hidden-xs"> Comment
+                { post.children > 1 && 's' }
+              </span>
+            </a> :
+            <span className="hidden-xs">0 Comment</span>
+          }
         </li>
+
         <li>
           <a
             onClick={() => this.handleReblog()}
             className={this.props.isReblogged ? 'active' : ''}
           >
             <Icon name="repeat" sm />
+            <span className="hidden-xs">
+              { ' ' }
+              Reblog
+            </span>
           </a>
         </li>
       </ul>
