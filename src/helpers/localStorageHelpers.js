@@ -1,5 +1,5 @@
 import store from 'store';
-import { has } from 'lodash';
+import _ from 'lodash';
 
 export const getBookmarks = (user) => {
   const allBookmarks = store.get('bookmarks');
@@ -39,7 +39,7 @@ export const getFavoriteUsers = () => {
 
 export const toggleFavoriteUser = (username) => {
   const users = store.get('users') || {};
-  return (has(users, username)) ?
+  return (_.has(users, username)) ?
     removeFavoriteUser(username) : addFavoriteUser(username);
 };
 
@@ -63,7 +63,7 @@ export const getFavoriteCategories = () => {
 
 export const toggleFavoriteCategory = (category) => {
   const categories = store.get('categories') || {};
-  return (has(categories, category)) ?
+  return (_.has(categories, category)) ?
     removeFavoriteCategory(category) : addFavoriteCategory(category);
 };
 
