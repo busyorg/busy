@@ -89,6 +89,14 @@ export class RawNewPost extends Component {
     this.setState(state);
   }
 
+  onCategoryInputKeyUp = (event) => {
+    const SPACE_KEYCODE = 32;
+    if (event.keyCode === SPACE_KEYCODE && !event.shiftKey) {
+      const tag = event.target.value.trim();
+      if (this.categoryInput && tag.length) { this.categoryInput.addTag(tag); }
+    }
+  }
+
   render() {
     const { user: { name: author }, editor: { loading } } = this.props;
     const { tags, categoryInputDisabled } = this.state;
@@ -129,12 +137,14 @@ export class RawNewPost extends Component {
                   name: 'parentPermlink',
                   className: 'form-control form-control-lg catergories-input',
                   disabled: categoryInputDisabled,
+                  onKeyUp: this.onCategoryInputKeyUp,
                   placeholder: categoryInputDisabled ? 'Max 5 Category Allowed' : 'Category'
                 }}
                 tagProps={{
                   className: 'catergory', classNameRemove: 'catergory-remove'
                 }}
                 className="catergories-container"
+                ref={(c) => { this.categoryInput = c; }}
               />
             </fieldset>
 
