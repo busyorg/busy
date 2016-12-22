@@ -8,6 +8,7 @@ const initialState = {
   errorMessage: '',
   sidebarIsVisible: true,
   locale: 'en',
+  layout: 'card',
   isPostModalOpen: false,
   lastPostId: null,
 };
@@ -74,11 +75,18 @@ export default (state = initialState, action) => {
         sidebarIsVisible: false,
       };
 
+    case appTypes.SET_LAYOUT:
+      return {
+        ...state,
+        layout: action.payload.layout,
+      };
+
     case appTypes.SET_LOCALE:
       return {
         ...state,
         locale: action.payload.locale,
       };
+
     case appTypes.OPEN_POST_MODAL:
       return {
         ...state,

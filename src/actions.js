@@ -1,6 +1,6 @@
 import { createAction } from 'redux-actions';
 
-var api = require('./steemAPI');
+const api = require('./steemAPI');
 
 export const CONFIG_REQUEST = '@app/CONFIG_REQUEST';
 export const CONFIG_SUCCESS = '@app/CONFIG_SUCCESS';
@@ -20,41 +20,44 @@ export const CLOSE_POST_MODAL = '@app/CLOSE_POST_MODAL';
 export const openPostModal = createAction(OPEN_POST_MODAL);
 export const closePostModal = createAction(CLOSE_POST_MODAL);
 
-export const getConfig = () => {
-  return (dispatch, getState) => {
-    var req = {type: CONFIG_REQUEST};
-    dispatch(req);
+export const getConfig = () =>
+  (dispatch, getState) => {
+    dispatch({ type: CONFIG_REQUEST });
     api.getConfig((err, config) => {
-      var res = {
+      dispatch({
         type: CONFIG_SUCCESS,
-        config: config,
-      };
-      dispatch(res);
+        config,
+      });
     });
   };
-};
 
 export const SHOW_SIDEBAR = '@app/SHOW_SIDEBAR';
 export const HIDE_SIDEBAR = '@app/HIDE_SIDEBAR';
 
-export const showSidebar = () => {
-  return (dispatch, getState) => {
-    dispatch({type: SHOW_SIDEBAR});
+export const showSidebar = () =>
+  (dispatch, getState) => {
+    dispatch({ type: SHOW_SIDEBAR });
   };
-};
 
-export const hideSidebar = () => {
-  return (dispatch, getState) => {
-    dispatch({type: HIDE_SIDEBAR});
+export const hideSidebar = () =>
+  (dispatch, getState) => {
+    dispatch({ type: HIDE_SIDEBAR });
   };
-};
+
+export const SET_LAYOUT = '@app/SET_LAYOUT';
+
+export const setLayoutRequest = createAction(SET_LAYOUT);
+
+export const setLayout = layout =>
+  (dispatch) => {
+    dispatch(setLayoutRequest({ layout }));
+  };
 
 export const SET_LOCALE = '@app/SET_LOCALE';
 
 export const setLocaleRequest = createAction(SET_LOCALE);
 
-export const setLocale = (locale) => {
-  return (dispatch) => {
+export const setLocale = locale =>
+  (dispatch) => {
     dispatch(setLocaleRequest({ locale }));
   };
-};
