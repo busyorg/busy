@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import numeral from 'numeral';
-import BodyShort from '../post/BodyShort';
+import Body from '../post/Body';
 import Avatar from '../widgets/Avatar';
 import Icon from '../widgets/Icon';
 import { sortCommentsFromSteem } from '../helpers/stateHelpers';
@@ -23,7 +23,7 @@ const renderOptimisticComment = (comment) => {
               @{ comment.author }
             </Link>
           </span>
-          <BodyShort body={comment.body} />
+          <Body body={comment.body} />
         </div>
       </div>
     </div>
@@ -84,7 +84,7 @@ export default class CommentItem extends Component {
                 @{ comment.author }
               </Link>
             </span>
-            <BodyShort body={comment.body} />
+            <Body body={comment.body} />
             <div className="CommentActionButtons">
               <div className="CommentActionButtons__button">
                 <a
