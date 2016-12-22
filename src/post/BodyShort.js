@@ -19,8 +19,13 @@ module.exports = React.createClass({
     return (this.state.seeMore ?
       <span dangerouslySetInnerHTML={{ __html: striptags(remarkable.render(this.props.body), ['a', 'b', 'p']) }} /> :
       <span>
-        <span dangerouslySetInnerHTML={{ __html: ellipsis(body, 255, { ellipsis: '…' }) }} />
-        {textLength > 255 && <span className="see-more"><a onClick={() => this.seeMore()}>See More</a></span>}
+        <span dangerouslySetInnerHTML={{ __html: ellipsis(body, 140, { ellipsis: '…' }) }} />
+        {/*
+          textLength > 140 &&
+            <span className="see-more">
+              <a onClick={() => this.seeMore()}>See More</a>
+            </span>
+        */}
       </span>
     );
   }
