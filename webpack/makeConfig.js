@@ -1,5 +1,6 @@
 'use strict';
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const Visualizer = require('webpack-visualizer-plugin');
 const _ = require('lodash');
 const path = require('path');
@@ -29,7 +30,7 @@ function makePlugins(options) {
           : JSON.stringify(process.env.SENTRY_PUBLIC_DSN),
         STEEMCONNECT_HOST: JSON.stringify(
           process.env.STEEMCONNECT_HOST ||
-            'https://dev.steemconnect.com'
+          'https://dev.steemconnect.com'
         ),
         STEEMCONNECT_REDIRECT_URL: JSON.stringify(
           process.env.STEEMCONNECT_REDIRECT_URL ||
@@ -42,6 +43,7 @@ function makePlugins(options) {
         IS_BROWSER: JSON.stringify(true),
       },
     }),
+    new LodashModuleReplacementPlugin(),
     new Visualizer({
       filename: './statistics.html'
     }),
