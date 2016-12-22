@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
 import numeral from 'numeral';
+import IsScrolling from '../../helpers/IsScrolling';
 
 import Icon from '../../widgets/Icon';
 
 import './MenuPost.scss';
 
+@IsScrolling
 export default class MenuPost extends Component {
-  constructor() {
-    super();
-  }
-
   render() {
     const {
       reblog,
@@ -32,7 +30,10 @@ export default class MenuPost extends Component {
     const numberOfDislikes = content.active_votes.filter(vote => vote.percent < 0).length;
 
     return (
-      <ul className="MenuPost secondary-nav">
+      <ul
+        className="MenuPost secondary-nav"
+        style={this.props.isScrolling ? { display: 'none' } : {}}
+      >
         <li>
           <a
             className={isPostLiked ? 'active' : ''}
