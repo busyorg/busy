@@ -10,7 +10,8 @@
     }
   },
   "plugins": [
-  "transform-decorators-legacy",
-  "transform-runtime"
+    "transform-decorators-legacy",
+    "transform-runtime",
+    "lodash"
   ]
 }
