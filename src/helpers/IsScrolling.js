@@ -19,7 +19,7 @@ class IsScrolling extends React.Component {
   componentDidMount() {
     if (window) {
       window.addEventListener('scroll', this.setScrollOn, true);
-      this.myInterval = setInterval(this.setScrollOff, 700);
+      this.myInterval = setInterval(this.setScrollOff, 1200);
     }
   }
 
