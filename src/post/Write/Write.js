@@ -4,15 +4,22 @@ import formSerialize from 'form-serialize';
 import kebabCase from 'lodash/kebabCase';
 import { Link } from 'react-router';
 import { each } from 'lodash';
+import TagsInput from 'react-tagsinput';
 
 import './Write.scss';
 import Header from '../../app/Header';
 import PostEditor from './PostEditor';
 import { createPost } from './EditorActions';
+import Icon from './../../widgets/Icon';
 
 const version = require('../../../package.json').version;
 
 export class RawNewPost extends Component {
+  constructor() {
+    super();
+    this.state = { tags: [], categoryInputDisabled: false };
+  }
+
   static propTypes = {
     user: PropTypes.shape({
       name: PropTypes.string,
@@ -36,7 +43,7 @@ export class RawNewPost extends Component {
         image.push(entity.data.src);
       }
     });
-    const tags = data.parentPermlink.trim().split(' ');
+    const tags = this.state.tags;
     const users = [];
     const userRegex = /@([a-zA-Z.0-9-]+)/g;
     const links = [];
@@ -74,8 +81,39 @@ export class RawNewPost extends Component {
     this.props.createPost(data);
   }
 
+  handleChange = (tags) => {
+    const state = { categoryInputDisabled: false };
+    state.tags = tags.map(t => t.toLowerCase().trim());
+
+    if (tags.length === 5) {
+      state.categoryInputDisabled = true;
+    }
+    this.setState(state);
+  }
+
+  onCategoryInputKeyUp = (event) => {
+    const SPACE_KEYCODE = 32;
+    if (event.keyCode === SPACE_KEYCODE && !event.shiftKey) {
+      const tag = event.target.value.trim();
+      if (this.categoryInput && tag.length) { this.categoryInput.addTag(tag); }
+    }
+  }
+
+  renderTag = (props) => {
+    const { tag, key, disabled, onRemove, classNameRemove, getTagDisplayValue, ...other } = props;
+    return (
+      <span key={key} {...other}>
+        {getTagDisplayValue(tag)}
+        {!disabled &&
+          <Icon className={classNameRemove} onClick={() => onRemove(key)} name="close" />
+        }
+      </span>
+    );
+  }
+
   render() {
     const { user: { name: author }, editor: { loading } } = this.props;
+    const { tags, categoryInputDisabled } = this.state;
 
     return (
       <div className="main-panel">
@@ -106,12 +144,22 @@ export class RawNewPost extends Component {
             />
 
             <fieldset className="form-group">
-              <input
-                type="text"
-                name="parentPermlink"
-                placeholder="Category"
-                required
-                className="form-control form-control-lg"
+              <TagsInput
+                value={tags} onChange={this.handleChange} addOnBlur onlyUnique inputProps={{
+                  required: tags.length === 0,
+                  type: 'text',
+                  name: 'parentPermlink',
+                  className: 'form-control form-control-lg catergories-input',
+                  disabled: categoryInputDisabled,
+                  onKeyUp: this.onCategoryInputKeyUp,
+                  placeholder: categoryInputDisabled ? 'Max 5 Category Allowed' : 'Category'
+                }}
+                tagProps={{
+                  className: 'catergory', classNameRemove: 'catergory-remove'
+                }}
+                className="catergories-container"
+                ref={(c) => { this.categoryInput = c; }}
+                renderTag={this.renderTag}
               />
             </fieldset>
 
