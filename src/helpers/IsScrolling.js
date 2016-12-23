@@ -1,8 +1,8 @@
 /* eslint-disable no-undef */
 import React from 'react';
 
-const IsScrollingHoC = (TheComponent) =>
-class IsScrolling extends TheComponent {
+const IsScrollingHoC = TheComponent =>
+class IsScrolling extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -10,24 +10,25 @@ class IsScrolling extends TheComponent {
     };
   }
 
-  componentDidMount() {
-    if (window) {
-      window.document.addEventListener('scroll', this.setScrollOn);
-      setInterval(this.setScrollOff, 500);
-    }
-  }
-
-  componentWillUnmount() {
-    if (window) {
-      window.document.removeEventListener('scroll', this.setScrollOn);
-    }
-  }
-
   setScrollOn = () => {
     if (!this.state.isScrolling) {
       this.setState({ isScrolling: true });
     }
   };
+
+  componentDidMount() {
+    if (window) {
+      window.addEventListener('scroll', this.setScrollOn, true);
+      this.myInterval = setInterval(this.setScrollOff, 700);
+    }
+  }
+
+  componentWillUnmount() {
+    if (window) {
+      window.removeEventListener('scroll', this.setScrollOn, true);
+      clearInterval(this.myInterval);
+    }
+  }
 
   setScrollOff = () => {
     if (this.state.isScrolling) {
