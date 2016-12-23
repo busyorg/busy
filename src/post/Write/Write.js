@@ -42,7 +42,7 @@ export class RawNewPost extends Component {
         image.push(entity.data.src);
       }
     });
-    const tags = this.state.tags.map(t => t.trim());
+    const tags = this.state.tags;
     const users = [];
     const userRegex = /@([a-zA-Z.0-9-]+)/g;
     const links = [];
@@ -81,7 +81,8 @@ export class RawNewPost extends Component {
   }
 
   handleChange = (tags) => {
-    const state = { tags, categoryInputDisabled: false };
+    const state = { categoryInputDisabled: false };
+    state.tags = tags.map(t => t.toLowerCase().trim());
 
     if (tags.length === 5) {
       state.categoryInputDisabled = true;
