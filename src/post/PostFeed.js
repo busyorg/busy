@@ -3,7 +3,6 @@ import { has } from 'lodash/object';
 import steemembed from 'steemembed';
 
 import PostFeedCard from './Feed/PostFeedCard';
-import PostFeedGrid from './Feed/PostFeedGrid';
 import PostFeedList from './Feed/PostFeedList';
 
 const getJsonMetaData = (props) => {
@@ -56,7 +55,6 @@ export default class PostFeed extends Component {
       : '';
     const embeds = steemembed.getAll(post.body);
     let ItemComponent = PostFeedCard;
-    ItemComponent = (app.layout === 'grid') ? PostFeedGrid : ItemComponent;
     ItemComponent = (app.layout === 'list') ? PostFeedList : ItemComponent;
     return (
       <ItemComponent
