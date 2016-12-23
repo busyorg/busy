@@ -10,6 +10,7 @@ import './Write.scss';
 import Header from '../../app/Header';
 import PostEditor from './PostEditor';
 import { createPost } from './EditorActions';
+import Icon from './../../widgets/Icon';
 
 const version = require('../../../package.json').version;
 
@@ -98,6 +99,18 @@ export class RawNewPost extends Component {
     }
   }
 
+  renderTag = (props) => {
+    const { tag, key, disabled, onRemove, classNameRemove, getTagDisplayValue, ...other } = props;
+    return (
+      <span key={key} {...other}>
+        {getTagDisplayValue(tag)}
+        {!disabled &&
+          <Icon className={classNameRemove} onClick={() => onRemove(key)} name="close" />
+        }
+      </span>
+    );
+  }
+
   render() {
     const { user: { name: author }, editor: { loading } } = this.props;
     const { tags, categoryInputDisabled } = this.state;
@@ -146,6 +159,7 @@ export class RawNewPost extends Component {
                 }}
                 className="catergories-container"
                 ref={(c) => { this.categoryInput = c; }}
+                renderTag={this.renderTag}
               />
             </fieldset>
 
