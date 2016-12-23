@@ -2,7 +2,6 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
-
 import { setLocale, setLayout } from '../actions';
 import Header from './Header';
 import Icon from '../widgets/Icon';
@@ -24,6 +23,7 @@ export default class AppSettings extends React.Component {
 
   render() {
     const {
+      app,
       setLayout,
       setLocale,
     } = this.props;
@@ -32,29 +32,27 @@ export default class AppSettings extends React.Component {
         <Header />
         <div className="container my-3 text-xs-center">
           <h1><FormattedMessage id="settings" /></h1>
-
           <h2><FormattedMessage id="layout" /></h2>
           <div className="row mhl">
             <div className="col col-lg-4 mbl">
-              <a onClick={() => setLayout('card')}>
+              <a
+                onClick={() => setLayout('card')}
+                className={app.layout === 'card' && 'active'}
+              >
                 <Icon name="view_agenda" lg />
                 <h2 className="mvs">Card</h2>
               </a>
             </div>
             <div className="col col-lg-4 mbl">
-              <a onClick={() => setLayout('grid')}>
-                <Icon name="view_module" lg />
-                <h2 className="mvs">Grid</h2>
-              </a>
-            </div>
-            <div className="col col-lg-4 mbl">
-              <a onClick={() => setLayout('list')}>
+              <a
+                onClick={() => setLayout('list')}
+                className={app.layout === 'list' && 'active'}
+              >
                 <Icon name="view_list" lg />
                 <h2 className="mvs">List</h2>
               </a>
             </div>
           </div>
-
           <h2><FormattedMessage id="language" /></h2>
           <div className="row mhl">
             <div className="col col-lg-4 mbl">
@@ -94,7 +92,6 @@ export default class AppSettings extends React.Component {
               </a>
             </div>
           </div>
-
         </div>
       </div>
     );

@@ -75,10 +75,22 @@ export default (state = initialState, action) => {
         sidebarIsVisible: false,
       };
 
+    case appTypes.GET_LAYOUT:
+      return {
+        ...state,
+        layout: action.payload.layout,
+      };
+
     case appTypes.SET_LAYOUT:
       return {
         ...state,
         layout: action.payload.layout,
+      };
+
+    case appTypes.GET_LOCALE:
+      return {
+        ...state,
+        locale: action.payload.locale,
       };
 
     case appTypes.SET_LOCALE:

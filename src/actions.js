@@ -1,4 +1,10 @@
 import { createAction } from 'redux-actions';
+import {
+  getLayout as getLayoutHelper,
+  setLayout as setLayoutHelper,
+  getLocale as getLocaleHelper,
+  setLocale as setLocaleHelper,
+} from './helpers/localStorageHelpers';
 
 const api = require('./steemAPI');
 
@@ -16,12 +22,11 @@ export const ACCOUNT_SUCCESS = '@app/ACCOUNT_SUCCESS';
 
 export const OPEN_POST_MODAL = '@app/OPEN_POST_MODAL';
 export const CLOSE_POST_MODAL = '@app/CLOSE_POST_MODAL';
-
 export const openPostModal = createAction(OPEN_POST_MODAL);
 export const closePostModal = createAction(CLOSE_POST_MODAL);
 
 export const getConfig = () =>
-  (dispatch, getState) => {
+  (dispatch) => {
     dispatch({ type: CONFIG_REQUEST });
     api.getConfig((err, config) => {
       dispatch({
@@ -35,29 +40,45 @@ export const SHOW_SIDEBAR = '@app/SHOW_SIDEBAR';
 export const HIDE_SIDEBAR = '@app/HIDE_SIDEBAR';
 
 export const showSidebar = () =>
-  (dispatch, getState) => {
+  (dispatch) => {
     dispatch({ type: SHOW_SIDEBAR });
   };
 
 export const hideSidebar = () =>
-  (dispatch, getState) => {
+  (dispatch) => {
     dispatch({ type: HIDE_SIDEBAR });
   };
 
+export const GET_LAYOUT = '@app/GET_LAYOUT';
 export const SET_LAYOUT = '@app/SET_LAYOUT';
-
+export const getLayoutRequest = createAction(GET_LAYOUT);
 export const setLayoutRequest = createAction(SET_LAYOUT);
+
+export const getLayout = () =>
+  (dispatch) => {
+    const layout = getLayoutHelper();
+    dispatch(getLayoutRequest({ layout }));
+  };
 
 export const setLayout = layout =>
   (dispatch) => {
+    setLayoutHelper(layout);
     dispatch(setLayoutRequest({ layout }));
   };
 
+export const GET_LOCALE = '@app/GET_LOCALE';
 export const SET_LOCALE = '@app/SET_LOCALE';
-
+export const getLocaleRequest = createAction(GET_LOCALE);
 export const setLocaleRequest = createAction(SET_LOCALE);
+
+export const getLocale = () =>
+  (dispatch) => {
+    const locale = getLocaleHelper();
+    dispatch(getLocaleRequest({ locale }));
+  };
 
 export const setLocale = locale =>
   (dispatch) => {
+    setLocaleHelper(locale);
     dispatch(setLocaleRequest({ locale }));
   };
