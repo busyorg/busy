@@ -1,6 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import Select from 'react-select';
+import 'react-select/dist/react-select.css';
+
 import CommentsList from './CommentsList';
 import * as commentsActions from './commentsActions';
 import Loading from '../widgets/Loading';
@@ -58,9 +61,26 @@ export default class Comments extends Component {
     const hasMore = (comments.listByPostId[postId] && comments.listByPostId[postId].hasMore);
     const isFetching = (comments.listByPostId[postId] && comments.listByPostId[postId].isFetching);
 
+    const sortingOptions = [
+      { value: 'trending', label: 'Trending' },
+      { value: 'votes', label: 'Votes' },
+      { value: 'new', label: 'New' }
+    ];
+
     const classNames = className ? `Comments ${className}` : 'Comments';
     return (
       <div className={classNames}>
+        <p style={{ width: '200' }}>
+          <span>
+            Sort by:
+          </span>
+          <Select
+            name="comments-sorting"
+            value="trending"
+            options={sortingOptions}
+            autosize
+          />
+        </p>
         <CommentsList
           postId={postId}
           comments={comments}
