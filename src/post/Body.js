@@ -66,7 +66,7 @@ export default (props) => {
   }
 
   body.replace(/<img[^>]+src="([^">]+)"/ig, (img, ...rest) => {
-    if (rest.length && rest[0]) {
+    if (rest.length && rest[0] && rest[0].indexOf('https://img1.steemit.com/0x0/') !== 0) {
       const newUrl = `https://img1.steemit.com/0x0/${rest[0]}`;
       body = body.replace(new RegExp(escapeRegExp(rest[0]), 'g'), newUrl);
     }
