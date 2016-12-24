@@ -1,7 +1,7 @@
 /* eslint-disable no-useless-escape */
 
 import React from 'react';
-import { has } from 'lodash';
+import _ from 'lodash';
 import steemembed from 'steemembed';
 import sanitizeHtml from 'sanitize-html';
 import Remarkable from 'remarkable';
@@ -32,12 +32,12 @@ export default (props) => {
   const imageRegex = /https?:\/\/(?:[-a-zA-Z0-9._]*[-a-zA-Z0-9])(?::\d{2,5})?(?:[/?#](?:[^\s"'<>\][()]*[^\s"'<>\][().,])?(?:(?:\.(?:tiff?|jpe?g|gif|png|svg|ico)|ipfs\/[a-z\d]{40,})))/ig;
 
   body.replace(imageRegex, (img) => {
-    if (jsonMetadata.image.indexOf(img) === -1) {
+    if (_.filter(jsonMetadata.image, i => i.indexOf(img) !== -1).length === 0) {
       jsonMetadata.image.push(img);
     }
   });
 
-  if (has(jsonMetadata, 'users[0]')) {
+  if (_.has(jsonMetadata, 'users[0]')) {
     body = body.replace(/(^|\s)(@[-.a-z\d]+)/ig, (user) => {
       const space = /^\s/.test(user) ? user[0] : '';
       user = user.trim().substring(1);
@@ -45,13 +45,13 @@ export default (props) => {
     });
   }
 
-  if (has(embeds, '[0].embed')) {
+  if (_.has(embeds, '[0].embed')) {
     embeds.forEach((embed) => { body = body.replace(embed.url, embed.embed); });
   }
 
   body = remarkable.render(body);
 
-  if (has(jsonMetadata, 'image[0]')) {
+  if (_.has(jsonMetadata, 'image[0]')) {
     jsonMetadata.image.forEach((image) => {
       let newUrl = image;
       if (/^\/\//.test(image)) { newUrl = `https:${image}`; }
@@ -66,7 +66,6 @@ export default (props) => {
   }
 
   body.replace(/<img[^>]+src="([^">]+)"/ig, (img, ...rest) => {
-    // console.log('img', img, rest);
     if (rest.length && rest[0]) {
       const newUrl = `https://img1.steemit.com/0x0/${rest[0]}`;
       body = body.replace(new RegExp(escapeRegExp(rest[0]), 'g'), newUrl);
