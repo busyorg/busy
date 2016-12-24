@@ -1,3 +1,5 @@
+/* eslint-disable no-useless-escape */
+
 import React from 'react';
 import { has } from 'lodash';
 import steemembed from 'steemembed';
@@ -13,6 +15,10 @@ const remarkable = new Remarkable({
   typographer: false, // https://github.com/jonschlinkert/remarkable/issues/142#issuecomment-221546793
   quotes: '“”‘’'
 });
+
+function escapeRegExp(str) {
+  return str.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, '\\$1');
+}
 
 export default (props) => {
   const embeds = steemembed.getAll(props.body);
@@ -47,17 +53,25 @@ export default (props) => {
 
   if (has(jsonMetadata, 'image[0]')) {
     jsonMetadata.image.forEach((image) => {
-      if (/^\/\//.test(image)) { image = `https:${image}`; }
+      let newUrl = image;
+      if (/^\/\//.test(image)) { newUrl = `https:${image}`; }
 
-      const newUrl = `https://img1.steemit.com/0x0/${image}`;
-      body = body.replace(new RegExp(image, 'g'), newUrl);
-      body = body.replace(new RegExp(`<a href="${newUrl}">${newUrl}</a>`, 'g'), `<img src="${newUrl}">`);
+      body = body.replace(new RegExp(`<a href="${image}">${image}</a>`, 'g'), `<img src="${newUrl}">`);
       // not in img tag
-      if (body.search(`<img.+?src=["']${newUrl}["'].*?>`) === -1) {
-        body = body.replace(new RegExp(newUrl, 'g'), `<img src="${newUrl}">`);
+
+      if (body.search(`<img[^>]+src="${image}"`) === -1) {
+        body = body.replace(new RegExp(image, 'g'), `<img src="${newUrl}">`);
       }
     });
   }
+
+  body.replace(/<img[^>]+src="([^">]+)"/ig, (img, ...rest) => {
+    // console.log('img', img, rest);
+    if (rest.length && rest[0]) {
+      const newUrl = `https://img1.steemit.com/0x0/${rest[0]}`;
+      body = body.replace(new RegExp(escapeRegExp(rest[0]), 'g'), newUrl);
+    }
+  });
 
   body = sanitizeHtml(body, sanitizeConfig({}));
 
