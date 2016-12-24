@@ -26,6 +26,9 @@ import './Comments.scss';
 export default class Comments extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      sortOrder: 'trending',
+    };
   }
 
   static propTypes = {
@@ -52,6 +55,10 @@ export default class Comments extends Component {
     this.props.showMoreComments(this.props.postId);
   };
 
+  handleSortChange = (val) => {
+    this.setState({ sortOrder: val });
+  };
+
   render() {
     const { postId, comments, className, show } = this.props;
     if (!show) {
@@ -75,10 +82,10 @@ export default class Comments extends Component {
             Sort by:
           </span>
           <Select
-            name="comments-sorting"
-            value="trending"
+            value={this.state.sortOrder}
             options={sortingOptions}
-            autosize
+            onChange={this.handleSortChange}
+            clearable={false}
           />
         </p>
         <CommentsList
@@ -89,6 +96,7 @@ export default class Comments extends Component {
           auth={this.props.auth}
           openCommentingDraft={this.props.openCommentingDraft}
           isSinglePage={this.props.isSinglePage}
+          sortOrder={this.state.sortOrder}
         />
 
         {isFetching &&
