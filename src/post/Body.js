@@ -1,5 +1,3 @@
-/* eslint-disable no-useless-escape */
-
 import React from 'react';
 import _ from 'lodash';
 import steemembed from 'steemembed';
@@ -7,6 +5,7 @@ import sanitizeHtml from 'sanitize-html';
 import Remarkable from 'remarkable';
 
 import sanitizeConfig from './../helpers/SanitizeConfig';
+import { replaceAll, imageRegex } from './../helpers/regexHelpers';
 
 const remarkable = new Remarkable({
   html: true, // remarkable renders first then sanitize runs...
@@ -16,10 +15,6 @@ const remarkable = new Remarkable({
   quotes: '“”‘’'
 });
 
-function escapeRegExp(str) {
-  return str.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, '\\$1');
-}
-
 export default (props) => {
   const embeds = steemembed.getAll(props.body);
   let body = props.body;
@@ -28,8 +23,6 @@ export default (props) => {
   jsonMetadata.image = jsonMetadata.image || [];
 
   body = body.replace(/<!--([\s\S]+?)(-->|$)/g, '(html comment removed: $1)');
-
-  const imageRegex = /https?:\/\/(?:[-a-zA-Z0-9._]*[-a-zA-Z0-9])(?::\d{2,5})?(?:[/?#](?:[^\s"'<>\][()]*[^\s"'<>\][().,])?(?:(?:\.(?:tiff?|jpe?g|gif|png|svg|ico)|ipfs\/[a-z\d]{40,})))/ig;
 
   body.replace(imageRegex, (img) => {
     if (_.filter(jsonMetadata.image, i => i.indexOf(img) !== -1).length === 0) {
@@ -56,11 +49,11 @@ export default (props) => {
       let newUrl = image;
       if (/^\/\//.test(image)) { newUrl = `https:${image}`; }
 
-      body = body.replace(new RegExp(`<a href="${image}">${image}</a>`, 'g'), `<img src="${newUrl}">`);
+      body = replaceAll(body, `<a href="${image}">${image}</a>`, `<img src="${newUrl}">`);
       // not in img tag
 
       if (body.search(`<img[^>]+src="${image}"`) === -1) {
-        body = body.replace(new RegExp(image, 'g'), `<img src="${newUrl}">`);
+        body = replaceAll(body, image, `<img src="${newUrl}">`);
       }
     });
   }
@@ -68,7 +61,7 @@ export default (props) => {
   body.replace(/<img[^>]+src="([^">]+)"/ig, (img, ...rest) => {
     if (rest.length && rest[0] && rest[0].indexOf('https://img1.steemit.com/0x0/') !== 0) {
       const newUrl = `https://img1.steemit.com/0x0/${rest[0]}`;
-      body = body.replace(new RegExp(escapeRegExp(rest[0]), 'g'), newUrl);
+      body = replaceAll(body, rest[0], newUrl);
     }
   });
 
