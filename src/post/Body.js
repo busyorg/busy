@@ -5,7 +5,7 @@ import sanitizeHtml from 'sanitize-html';
 import Remarkable from 'remarkable';
 
 import sanitizeConfig from './../helpers/SanitizeConfig';
-import { replaceAll, imageRegex } from './../helpers/regexHelpers';
+import { replaceAll, escapeRegExp, imageRegex } from './../helpers/regexHelpers';
 
 const remarkable = new Remarkable({
   html: true, // remarkable renders first then sanitize runs...
@@ -51,8 +51,7 @@ export default (props) => {
 
       body = replaceAll(body, `<a href="${image}">${image}</a>`, `<img src="${newUrl}">`);
       // not in img tag
-
-      if (body.search(`<img[^>]+src="${image}"`) === -1) {
+      if (body.search(`<img[^>]+src="${escapeRegExp(image)}"`) === -1) {
         body = replaceAll(body, image, `<img src="${newUrl}">`);
       }
     });
