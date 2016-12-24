@@ -1,4 +1,4 @@
-'use strict';
+
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const Visualizer = require('webpack-visualizer-plugin');
@@ -43,7 +43,7 @@ function makePlugins(options) {
         IS_BROWSER: JSON.stringify(true),
       },
     }),
-    new LodashModuleReplacementPlugin(),
+    new LodashModuleReplacementPlugin({ collections: true, paths: true }),
     new Visualizer({
       filename: './statistics.html'
     }),
