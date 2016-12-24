@@ -76,7 +76,7 @@ function makeStyleLoaders(options) {
   if (options.isDevelopment) {
     return [
       {
-        test: /\.s[ac]ss$/,
+        test: /\.s?[ac]ss$/,
         loaders: [
           'style',
           'css?sourceMap?importLoaders=1',
@@ -89,7 +89,7 @@ function makeStyleLoaders(options) {
 
   return [
     {
-      test: /\.s[ac]ss$/,
+      test: /\.s?[ac]ss$/,
       loader: ExtractTextPlugin.extract(
         'style-loader',
         'css?importLoaders=1!autoprefixer-loader?browsers=last 2 version!sass'
