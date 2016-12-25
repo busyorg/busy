@@ -1,10 +1,11 @@
 import React from 'react';
-import { has } from 'lodash';
+import _ from 'lodash';
 import steemembed from 'steemembed';
 import sanitizeHtml from 'sanitize-html';
 import Remarkable from 'remarkable';
 
-import sanitizeConfig from './../helpers/SanitizeConfig';
+import sanitizeConfig from '../helpers/SanitizeConfig';
+import { replaceAll, escapeRegExp, imageRegex } from '../helpers/regexHelpers';
 
 const remarkable = new Remarkable({
   html: true, // remarkable renders first then sanitize runs...
@@ -23,15 +24,13 @@ export default (props) => {
 
   body = body.replace(/<!--([\s\S]+?)(-->|$)/g, '(html comment removed: $1)');
 
-  const imageRegex = /https?:\/\/(?:[-a-zA-Z0-9._]*[-a-zA-Z0-9])(?::\d{2,5})?(?:[/?#](?:[^\s"'<>\][()]*[^\s"'<>\][().,])?(?:(?:\.(?:tiff?|jpe?g|gif|png|svg|ico)|ipfs\/[a-z\d]{40,})))/ig;
-
   body.replace(imageRegex, (img) => {
-    if (jsonMetadata.image.indexOf(img) === -1) {
+    if (_.filter(jsonMetadata.image, i => i.indexOf(img) !== -1).length === 0) {
       jsonMetadata.image.push(img);
     }
   });
 
-  if (has(jsonMetadata, 'users[0]')) {
+  if (_.has(jsonMetadata, 'users[0]')) {
     body = body.replace(/(^|\s)(@[-.a-z\d]+)/ig, (user) => {
       const space = /^\s/.test(user) ? user[0] : '';
       user = user.trim().substring(1);
@@ -39,25 +38,31 @@ export default (props) => {
     });
   }
 
-  if (has(embeds, '[0].embed')) {
+  if (_.has(embeds, '[0].embed')) {
     embeds.forEach((embed) => { body = body.replace(embed.url, embed.embed); });
   }
 
   body = remarkable.render(body);
 
-  if (has(jsonMetadata, 'image[0]')) {
+  if (_.has(jsonMetadata, 'image[0]')) {
     jsonMetadata.image.forEach((image) => {
-      if (/^\/\//.test(image)) { image = `https:${image}`; }
+      let newUrl = image;
+      if (/^\/\//.test(image)) { newUrl = `https:${image}`; }
 
-      const newUrl = `https://img1.steemit.com/0x0/${image}`;
-      body = body.replace(new RegExp(image, 'g'), newUrl);
-      body = body.replace(new RegExp(`<a href="${newUrl}">${newUrl}</a>`, 'g'), `<img src="${newUrl}">`);
+      body = replaceAll(body, `<a href="${image}">${image}</a>`, `<img src="${newUrl}">`);
       // not in img tag
-      if (body.search(`<img.+?src=["']${newUrl}["'].*?>`) === -1) {
-        body = body.replace(new RegExp(newUrl, 'g'), `<img src="${newUrl}">`);
+      if (body.search(`<img[^>]+src="${escapeRegExp(image)}"`) === -1) {
+        body = replaceAll(body, image, `<img src="${newUrl}">`);
       }
     });
   }
+
+  body.replace(/<img[^>]+src="([^">]+)"/ig, (img, ...rest) => {
+    if (rest.length && rest[0] && rest[0].indexOf('https://img1.steemit.com/0x0/') !== 0) {
+      const newUrl = `https://img1.steemit.com/0x0/${rest[0]}`;
+      body = replaceAll(body, rest[0], newUrl);
+    }
+  });
 
   body = sanitizeHtml(body, sanitizeConfig({}));
 
