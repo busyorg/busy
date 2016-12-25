@@ -105,7 +105,7 @@ export class RawNewPost extends Component {
       <span key={key} {...other}>
         {getTagDisplayValue(tag)}
         {!disabled &&
-          <button onClick={() => onRemove(key)}><Icon className={classNameRemove} name="close" /></button>
+          <a onClick={() => onRemove(key)}><Icon className={classNameRemove} name="close" /></a>
         }
       </span>
     );
