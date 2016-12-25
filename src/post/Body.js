@@ -4,8 +4,8 @@ import steemembed from 'steemembed';
 import sanitizeHtml from 'sanitize-html';
 import Remarkable from 'remarkable';
 
-import sanitizeConfig from './../helpers/SanitizeConfig';
-import { replaceAll, escapeRegExp, imageRegex } from './../helpers/regexHelpers';
+import sanitizeConfig from '../helpers/SanitizeConfig';
+import { replaceAll, escapeRegExp, imageRegex } from '../helpers/regexHelpers';
 
 const remarkable = new Remarkable({
   html: true, // remarkable renders first then sanitize runs...
