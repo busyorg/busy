@@ -13,8 +13,7 @@ const PostFeedList = ({
   bookmarks,
   toggleBookmark,
   notify,
-  jsonMetaData,
-  imageName,
+  jsonMetadata,
   imagePath,
   openPostModal,
   reblog,
@@ -23,7 +22,7 @@ const PostFeedList = ({
   handleShowLikesRequest,
 }) =>
   <div className="PostFeedList">
-    { imageName &&
+    { imagePath &&
       <div className="PostFeedList__thumbs">
         <PostModalLink
           post={post}

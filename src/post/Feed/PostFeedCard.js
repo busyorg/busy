@@ -20,8 +20,7 @@ const PostFeedCard = ({
   bookmarks,
   toggleBookmark,
   notify,
-  jsonMetaData,
-  imageName,
+  jsonMetadata,
   imagePath,
   embeds,
   openPostModal,
@@ -68,7 +67,7 @@ const PostFeedCard = ({
       </ul>
     </div>
 
-    { (imageName && !has(embeds, '[0].embed')) &&
+    { (imagePath && !has(embeds, '[0].embed')) &&
     <div className="PostFeedCard__thumbs">
       <PostModalLink
         post={post}

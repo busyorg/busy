@@ -5,14 +5,14 @@ import steemembed from 'steemembed';
 import PostFeedCard from './Feed/PostFeedCard';
 import PostFeedList from './Feed/PostFeedList';
 
-const getJsonMetaData = (props) => {
-  let jsonMetaData;
+const getjsonMetadata = (props) => {
+  let jsonMetadata;
   try {
-    jsonMetaData = JSON.parse(props.post.json_metadata);
+    jsonMetadata = JSON.parse(props.post.json_metadata);
   } catch (e) {
-    jsonMetaData = {};
+    jsonMetadata = {};
   }
-  return jsonMetaData;
+  return jsonMetadata;
 };
 
 
@@ -48,14 +48,14 @@ export default class PostFeed extends Component {
       toggleBookmark,
       notify
     } = this.props;
-    const jsonMetaData = getJsonMetaData(this.props);
-    const imageName = has(jsonMetaData, 'image[0]') ? jsonMetaData.image[0] : '';
-    const imagePath = imageName
-      ? `https://img1.steemit.com/600x400/${imageName}`
+    const jsonMetadata = getjsonMetadata(this.props);
+    const imagePath = jsonMetadata.image && jsonMetadata.image[0]
+      ? `https://img1.steemit.com/600x400/${jsonMetadata.image[0]}`
       : '';
     const embeds = steemembed.getAll(post.body);
-    let ItemComponent = PostFeedCard;
-    ItemComponent = (app.layout === 'list') ? PostFeedList : ItemComponent;
+    const ItemComponent = (app.layout === 'list')
+      ? PostFeedList
+      : PostFeedCard;
     return (
       <ItemComponent
         post={post}
@@ -63,8 +63,7 @@ export default class PostFeed extends Component {
         bookmarks={bookmarks}
         toggleBookmark={toggleBookmark}
         notify={notify}
-        jsonMetaData={jsonMetaData}
-        imageName={imageName}
+        jsonMetadata={jsonMetadata}
         imagePath={imagePath}
         embeds={embeds}
         openPostModal={this.props.openPostModal}
