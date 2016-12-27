@@ -1,8 +1,6 @@
 import { createAction } from 'redux-actions';
 import * as localStorageHelpers from './helpers/localStorageHelpers';
 
-const api = require('./steemAPI');
-
 export const CONFIG_REQUEST = '@app/CONFIG_REQUEST';
 export const CONFIG_SUCCESS = '@app/CONFIG_SUCCESS';
 export const CONFIG_FAILURE = '@app/CONFIG_FAILURE';
@@ -21,9 +19,9 @@ export const openPostModal = createAction(OPEN_POST_MODAL);
 export const closePostModal = createAction(CLOSE_POST_MODAL);
 
 export const getConfig = () =>
-  (dispatch) => {
+  (dispatch, getState, { steemAPI }) => {
     dispatch({ type: CONFIG_REQUEST });
-    api.getConfig((err, config) => {
+    steemAPI.getConfig((err, config) => {
       dispatch({
         type: CONFIG_SUCCESS,
         config,
