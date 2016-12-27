@@ -1,10 +1,5 @@
 import { createAction } from 'redux-actions';
-import {
-  getLayout as getLayoutHelper,
-  setLayout as setLayoutHelper,
-  getLocale as getLocaleHelper,
-  setLocale as setLocaleHelper,
-} from './helpers/localStorageHelpers';
+import * as localStorageHelpers from './helpers/localStorageHelpers';
 
 const api = require('./steemAPI');
 
@@ -56,13 +51,13 @@ export const setLayoutRequest = createAction(SET_LAYOUT);
 
 export const getLayout = () =>
   (dispatch) => {
-    const layout = getLayoutHelper();
+    const layout = localStorageHelpers.getLayout();
     dispatch(getLayoutRequest({ layout }));
   };
 
 export const setLayout = layout =>
   (dispatch) => {
-    setLayoutHelper(layout);
+    localStorageHelpers.setLayout(layout);
     dispatch(setLayoutRequest({ layout }));
   };
 
@@ -73,12 +68,12 @@ export const setLocaleRequest = createAction(SET_LOCALE);
 
 export const getLocale = () =>
   (dispatch) => {
-    const locale = getLocaleHelper();
+    const locale = localStorageHelpers.getLocale();
     dispatch(getLocaleRequest({ locale }));
   };
 
 export const setLocale = locale =>
   (dispatch) => {
-    setLocaleHelper(locale);
+    localStorageHelpers.setLocale(locale);
     dispatch(setLocaleRequest({ locale }));
   };
