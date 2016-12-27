@@ -82,7 +82,8 @@ export const sortCommentsFromSteem = (list, commentsState, sortBy = 'trending') 
 
   if (sortBy === 'trending') {
     compareFunc = (itemA, itemB) =>
-      itemA.total_pending_payout_value - itemB.total_pending_payout_value;
+      parseFloat(itemA.total_pending_payout_value) -
+      parseFloat(itemB.total_pending_payout_value);
   } else if (sortBy === 'votes') {
     compareFunc = (itemA, itemB) => itemA.net_votes - itemB.net_votes;
   } else if (sortBy === 'new') {
