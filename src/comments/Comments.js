@@ -55,8 +55,10 @@ export default class Comments extends Component {
     this.props.showMoreComments(this.props.postId);
   };
 
-  handleSortChange = (val) => {
-    this.setState({ sortOrder: val });
+  handleSortChange = ({ value }) => {
+    if (value !== this.state.sortOrder) {
+      this.setState({ sortOrder: value });
+    }
   };
 
   render() {
@@ -77,7 +79,7 @@ export default class Comments extends Component {
     const classNames = className ? `Comments ${className}` : 'Comments';
     return (
       <div className={classNames}>
-        <p style={{ width: '200' }}>
+        <div style={{ width: '200' }}>
           <span>
             Sort by:
           </span>
@@ -87,7 +89,7 @@ export default class Comments extends Component {
             onChange={this.handleSortChange}
             clearable={false}
           />
-        </p>
+        </div>
         <CommentsList
           postId={postId}
           comments={comments}
