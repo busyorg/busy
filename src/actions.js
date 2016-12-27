@@ -1,5 +1,4 @@
 import { createAction } from 'redux-actions';
-import * as localStorageHelpers from './helpers/localStorageHelpers';
 
 export const CONFIG_REQUEST = '@app/CONFIG_REQUEST';
 export const CONFIG_SUCCESS = '@app/CONFIG_SUCCESS';
@@ -30,48 +29,23 @@ export const getConfig = () =>
   };
 
 export const SHOW_SIDEBAR = '@app/SHOW_SIDEBAR';
+export const showSidebar = createAction(SHOW_SIDEBAR);
+
 export const HIDE_SIDEBAR = '@app/HIDE_SIDEBAR';
+export const hideSidebar = createAction(HIDE_SIDEBAR);
 
-export const showSidebar = () =>
-  (dispatch) => {
-    dispatch({ type: SHOW_SIDEBAR });
-  };
-
-export const hideSidebar = () =>
-  (dispatch) => {
-    dispatch({ type: HIDE_SIDEBAR });
-  };
-
-export const GET_LAYOUT = '@app/GET_LAYOUT';
 export const SET_LAYOUT = '@app/SET_LAYOUT';
-export const getLayoutRequest = createAction(GET_LAYOUT);
-export const setLayoutRequest = createAction(SET_LAYOUT);
-
-export const getLayout = () =>
-  (dispatch) => {
-    const layout = localStorageHelpers.getLayout();
-    dispatch(getLayoutRequest({ layout }));
-  };
+export const setLayoutAction = createAction(SET_LAYOUT);
 
 export const setLayout = layout =>
   (dispatch) => {
-    localStorageHelpers.setLayout(layout);
-    dispatch(setLayoutRequest({ layout }));
+    dispatch(setLayoutAction({ layout }));
   };
 
-export const GET_LOCALE = '@app/GET_LOCALE';
 export const SET_LOCALE = '@app/SET_LOCALE';
-export const getLocaleRequest = createAction(GET_LOCALE);
-export const setLocaleRequest = createAction(SET_LOCALE);
-
-export const getLocale = () =>
-  (dispatch) => {
-    const locale = localStorageHelpers.getLocale();
-    dispatch(getLocaleRequest({ locale }));
-  };
+export const setLocaleAction = createAction(SET_LOCALE);
 
 export const setLocale = locale =>
   (dispatch) => {
-    localStorageHelpers.setLocale(locale);
-    dispatch(setLocaleRequest({ locale }));
+    dispatch(setLocaleAction({ locale }));
   };

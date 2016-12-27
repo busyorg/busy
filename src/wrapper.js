@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { IntlProvider } from 'react-intl';
 
 import { login } from './auth/authActions';
-import { getConfig, getLayout, getLocale } from './actions';
+import { getConfig } from './actions';
 import { getStoredBookmarks } from './bookmarks/bookmarksActions';
 import { notify } from './app/Notification/notificationActions';
 import Notification from './app/Notification/Notification';
@@ -26,8 +26,6 @@ import * as reblogActions from './app/Reblog/reblogActions';
     notify,
     getStoredBookmarks,
     getRebloggedList: reblogActions.getRebloggedList,
-    getLayout,
-    getLocale,
   }, dispatch)
 )
 
@@ -37,8 +35,6 @@ export default class Wrapper extends Component {
     this.props.getConfig();
     this.props.getStoredBookmarks();
     this.props.getRebloggedList();
-    this.props.getLayout();
-    this.props.getLocale();
   }
 
   render() {

@@ -2,7 +2,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
-import { setLocale, setLayout } from '../actions';
+import * as actions from '../actions';
 import Header from './Header';
 import Icon from '../widgets/Icon';
 
@@ -11,8 +11,8 @@ import Icon from '../widgets/Icon';
     app: state.app,
   }),
   dispatch => bindActionCreators({
-    setLocale,
-    setLayout,
+    setLocale: actions.setLocale,
+    setLayout: actions.setLayout,
   }, dispatch)
 )
 
