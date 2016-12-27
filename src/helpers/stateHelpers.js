@@ -73,12 +73,22 @@ export const getUserFeedLoadingFromState = (username, feedState) =>
  * Sort comments based on payout
  * @param {Array} list - list of IDs of comments
  * @param {Object} commentsState - state.comments in busy redux setup
+ * @param {String} sortBy - how comments should be sorted
  * @returns {Array} - list of sorted IDs
  */
-export const sortCommentsFromSteem = (list, commentsState) => {
-  return list.sort((item1, item2) => {
-    const itemA = parseFloat(commentsState.comments[item1].total_pending_payout_value);
-    const itemB = parseFloat(commentsState.comments[item2].total_pending_payout_value);
-    return (itemA - itemB) * -1;
-  });
+export const sortCommentsFromSteem = (list, commentsState, sortBy = 'trending') => {
+  let compareFunc;
+  if (sortBy === 'trending') {
+    compareFunc = (itemA, itemB) =>
+      itemA.total_pending_payout_value - itemB.total_pending_payout_value;
+  } else if (sortBy === 'votes') {
+    compareFunc = (itemA, itemB) => itemA.net_votes - itemB.net_votes;
+  } else if (sortBy === 'new') {
+    compareFunc = (itemA, itemB) =>
+      new Date(itemA.last_update).getTime() - new Date(itemB.last_update).getTime()
+  }
+
+  return list.sort((item1, item2) =>
+    compareFunc(commentsState.comments[item1], commentsState.comments[item2])
+  ).reverse();
 };
