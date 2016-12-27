@@ -84,6 +84,12 @@ function makeStyleLoaders(options) {
           'sass?sourceMap&sourceMapContents',
         ],
       },
+      {
+        test: /plugin\.css$/,
+        loaders: [
+          'style', 'css',
+        ],
+      },
     ];
   }
 
@@ -94,6 +100,12 @@ function makeStyleLoaders(options) {
         'style-loader',
         'css?importLoaders=1!autoprefixer-loader?browsers=last 2 version!sass'
       ),
+    },
+    {
+      test: /plugin\.css$/,
+      loaders: [
+        'style', 'css',
+      ],
     },
   ];
 }

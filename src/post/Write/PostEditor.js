@@ -7,7 +7,9 @@ import React, { Component } from 'react';
 
 // draft-js
 import exportMarkdown from 'draft-js-export-markdown/lib/stateToMarkdown';
-import { DefaultDraftBlockRenderMap, getVisibleSelectionRect as draftVSR, EditorState, Entity, Editor, RichUtils, convertToRaw } from 'draft-js';
+import { DefaultDraftBlockRenderMap, getVisibleSelectionRect as draftVSR, EditorState, Entity, RichUtils, convertToRaw } from 'draft-js';
+import Editor from 'draft-js-plugins-editor';
+import createMarkdownShortcutsPlugin from 'draft-js-markdown-shortcuts-plugin';
 
 import './Write.scss';
 import './PostEditor.scss';
@@ -16,6 +18,10 @@ import SideControls from './SideControls';
 import ImageBlock from './ImageBlock';
 
 const debug = newDebug('busy:PostEditor');
+
+const plugins = [
+  createMarkdownShortcutsPlugin()
+];
 
 // Custom overrides for "code" style.
 const styleMap = {
@@ -280,6 +286,7 @@ class PostEditor extends Component {
             editorState={editorState}
             handleKeyCommand={this.handleKeyCommand}
             onChange={this.onChange}
+            plugins={plugins}
           />
         </div>
         <div className={toolbarClasses} style={this.state.position} >
