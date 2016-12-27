@@ -3,10 +3,12 @@ import * as responsive from '../helpers/responsive';
 import * as postActions from '../post/postActions';
 
 const initialState = {
+  __persist: ['layout', 'locale'],
   isFetching: false,
   isLoaded: false,
   errorMessage: '',
   sidebarIsVisible: true,
+  layout: 'card',
   locale: 'en',
   isPostModalOpen: false,
   lastPostId: null,
@@ -74,11 +76,30 @@ export default (state = initialState, action) => {
         sidebarIsVisible: false,
       };
 
+    case appTypes.GET_LAYOUT:
+      return {
+        ...state,
+        layout: action.payload.layout,
+      };
+
+    case appTypes.SET_LAYOUT:
+      return {
+        ...state,
+        layout: action.payload.layout,
+      };
+
+    case appTypes.GET_LOCALE:
+      return {
+        ...state,
+        locale: action.payload.locale,
+      };
+
     case appTypes.SET_LOCALE:
       return {
         ...state,
         locale: action.payload.locale,
       };
+
     case appTypes.OPEN_POST_MODAL:
       return {
         ...state,

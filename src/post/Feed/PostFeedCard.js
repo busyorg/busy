@@ -4,10 +4,9 @@ import { FormattedRelative } from 'react-intl';
 import { has } from 'lodash/object';
 
 import BodyShort from '../BodyShort';
-import Mentions from '../Mentions';
 import Flag from '../../widgets/Flag';
 import Comments from '../../comments/Comments';
-import PostActionButtons from '../PostActionButtons';
+import PostActionTabs from '../PostActionTabs';
 import Icon from '../../widgets/Icon';
 import Avatar from '../../widgets/Avatar';
 import PostModalLink from './../PostModalLink';
@@ -21,8 +20,7 @@ const PostFeedCard = ({
   bookmarks,
   toggleBookmark,
   notify,
-  jsonMetaData,
-  imageName,
+  jsonMetadata,
   imagePath,
   embeds,
   openPostModal,
@@ -56,19 +54,6 @@ const PostFeedCard = ({
           <span className="hidden-xs">
             { ' ' }in <Link to={`/hot/${post.category}`}>#{post.category}</Link>
           </span>
-          { post.parent_author &&
-          <span className="hidden-xs">
-            { ' replied ' }
-            <Link to={`/@${post.parent_author}`}>
-              @{post.parent_author}
-            </Link>
-            &#8217;s&nbsp;
-            <Link to={`/${post.category}/@${post.parent_author}/${post.parent_permlink}`}>
-              post.
-            </Link>
-          </span>
-          }
-
         </li>
         <li className="pull-right">
           <FormattedRelative value={post.created} />{' '}
@@ -82,7 +67,7 @@ const PostFeedCard = ({
       </ul>
     </div>
 
-    { (imageName && !has(embeds, '[0].embed')) &&
+    { (imagePath && !has(embeds, '[0].embed')) &&
     <div className="PostFeedCard__thumbs">
       <PostModalLink
         post={post}
@@ -99,24 +84,20 @@ const PostFeedCard = ({
 
     <div className="PostFeedCard__cell PostFeedCard__cell--body">
       <h2>
-        <Flag title={post.title} body={post.body} className="prs" />
+        <Flag title={post.title} body={post.body} className="pr-1" />
         <PostModalLink
           post={post}
           onClick={() => openPostModal(post.id)}
         >
-          {post.title}
+          { post.title }
         </PostModalLink>
       </h2>
 
-      <Mentions jsonMetaData={jsonMetaData} />
-
-      <p>
-        <BodyShort body={post.body} />
-      </p>
+      <BodyShort body={post.body} />
     </div>
 
     <div className="PostFeedCard__cell PostFeedCard__cell--bottom">
-      <PostActionButtons
+      <PostActionTabs
         post={post}
         notify={notify}
         onCommentRequest={onCommentRequest}

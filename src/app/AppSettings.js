@@ -2,16 +2,17 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
-
-import { setLocale } from '../actions';
+import * as actions from '../actions';
 import Header from './Header';
+import Icon from '../widgets/Icon';
 
 @connect(
   state => ({
     app: state.app,
   }),
   dispatch => bindActionCreators({
-    setLocale,
+    setLocale: actions.setLocale,
+    setLayout: actions.setLayout,
   }, dispatch)
 )
 
@@ -21,12 +22,37 @@ export default class AppSettings extends React.Component {
   }
 
   render() {
-    const { setLocale } = this.props;
+    const {
+      app,
+      setLayout,
+      setLocale,
+    } = this.props;
     return (
       <div className="main-panel">
         <Header />
-        <div className="container ptl text-xs-center">
+        <div className="container my-3 text-xs-center">
           <h1><FormattedMessage id="settings" /></h1>
+          <h2><FormattedMessage id="layout" /></h2>
+          <div className="row mhl">
+            <div className="col col-lg-4 mbl">
+              <a
+                onClick={() => setLayout('card')}
+                className={app.layout === 'card' && 'active'}
+              >
+                <Icon name="view_agenda" lg />
+                <h2 className="mvs">Card</h2>
+              </a>
+            </div>
+            <div className="col col-lg-4 mbl">
+              <a
+                onClick={() => setLayout('list')}
+                className={app.layout === 'list' && 'active'}
+              >
+                <Icon name="view_list" lg />
+                <h2 className="mvs">List</h2>
+              </a>
+            </div>
+          </div>
           <h2><FormattedMessage id="language" /></h2>
           <div className="row mhl">
             <div className="col col-lg-4 mbl">

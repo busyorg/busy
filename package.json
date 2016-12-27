@@ -72,6 +72,7 @@
     "redux-actions": "^0.12.0",
     "redux-infinite-scroll": "^1.0.9",
     "redux-localstorage": "^0.4.1",
+    "redux-localstorage-slicer": "^1.0.2",
     "redux-logger": "^2.6.1",
     "redux-promise-middleware": "^4.0.0",
     "redux-thunk": "^2.1.0",

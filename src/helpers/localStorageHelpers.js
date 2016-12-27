@@ -81,17 +81,16 @@ export const removeFavoriteCategory = (category) => {
   return true;
 };
 
-export const getDrafts = () => {
-  return store.get('drafts') || {};
+export const getLayout = () =>
+  store.get('layout') || 'card';
+
+export const setLayout = (layout) => {
+  store.set('layout', layout);
 };
 
-export const createDraft = () => {
-  return true;
-};
+export const getLocale = () =>
+store.get('locale') || 'en';
 
-export const deleteDraft = (id) => {
-  const drafts = store.get('drafts') || {};
-  delete drafts[id];
-  store.set('drafts', drafts);
-  return true;
+export const setLocale = (locale) => {
+  store.set('locale', locale);
 };

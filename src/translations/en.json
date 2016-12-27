@@ -19,5 +19,6 @@
   "wallet": "Wallet",
   "messages": "Messages",
   "language": "Language",
-  "estimated_value": "Estimated Value"
+  "estimated_value": "Estimated Value",
+  "layout": "Layout"
 }

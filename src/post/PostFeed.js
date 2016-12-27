@@ -3,15 +3,16 @@ import { has } from 'lodash/object';
 import steemembed from 'steemembed';
 
 import PostFeedCard from './Feed/PostFeedCard';
+import PostFeedList from './Feed/PostFeedList';
 
-const getJsonMetaData = (props) => {
-  let jsonMetaData;
+const getjsonMetadata = (props) => {
+  let jsonMetadata;
   try {
-    jsonMetaData = JSON.parse(props.post.json_metadata);
+    jsonMetadata = JSON.parse(props.post.json_metadata);
   } catch (e) {
-    jsonMetaData = {};
+    jsonMetadata = {};
   }
-  return jsonMetaData;
+  return jsonMetadata;
 };
 
 
@@ -39,22 +40,30 @@ export default class PostFeed extends Component {
   };
 
   render() {
-    const { post, onCommentRequest, bookmarks, toggleBookmark, notify } = this.props;
-    const jsonMetaData = getJsonMetaData(this.props);
-    const imageName = has(jsonMetaData, 'image[0]') ? jsonMetaData.image[0] : '';
-    const imagePath = imageName
-      ? `https://img1.steemit.com/600x400/${imageName}`
+    const {
+      post,
+      onCommentRequest,
+      app,
+      bookmarks,
+      toggleBookmark,
+      notify
+    } = this.props;
+    const jsonMetadata = getjsonMetadata(this.props);
+    const imagePath = jsonMetadata.image && jsonMetadata.image[0]
+      ? `https://img1.steemit.com/600x400/${jsonMetadata.image[0]}`
       : '';
     const embeds = steemembed.getAll(post.body);
+    const ItemComponent = (app.layout === 'list')
+      ? PostFeedList
+      : PostFeedCard;
     return (
-      <PostFeedCard
+      <ItemComponent
         post={post}
         onCommentRequest={onCommentRequest}
         bookmarks={bookmarks}
         toggleBookmark={toggleBookmark}
         notify={notify}
-        jsonMetaData={jsonMetaData}
-        imageName={imageName}
+        jsonMetadata={jsonMetadata}
         imagePath={imagePath}
         embeds={embeds}
         openPostModal={this.props.openPostModal}
@@ -68,3 +77,4 @@ export default class PostFeed extends Component {
     );
   }
 }
+
