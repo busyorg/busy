@@ -78,6 +78,8 @@ export const getUserFeedLoadingFromState = (username, feedState) =>
  */
 export const sortCommentsFromSteem = (list, commentsState, sortBy = 'trending') => {
   let compareFunc;
+  const newList = [...list];
+
   if (sortBy === 'trending') {
     compareFunc = (itemA, itemB) =>
       itemA.total_pending_payout_value - itemB.total_pending_payout_value;
@@ -88,7 +90,7 @@ export const sortCommentsFromSteem = (list, commentsState, sortBy = 'trending') 
       new Date(itemA.last_update).getTime() - new Date(itemB.last_update).getTime()
   }
 
-  return list.sort((item1, item2) =>
+  return newList.sort((item1, item2) =>
     compareFunc(commentsState.comments[item1], commentsState.comments[item2])
   ).reverse();
 };
