@@ -1,9 +1,11 @@
 import * as editorActions from './EditorActions';
 
 const defaultState = {
+  __persist: ['draftPost'],
   loading: false,
   error: null,
-  success: false
+  success: false,
+  draftPost: {}
 };
 
 const editor = (state = defaultState, action) => {
@@ -19,6 +21,10 @@ const editor = (state = defaultState, action) => {
     case editorActions.CREATE_POST_SUCCESS:
       return { ...defaultState,
         success: true
+      };
+    case editorActions.SAVE_DRAFT:
+      return { ...defaultState,
+        draftPost: action.payload
       };
     default:
       return state;

@@ -8,6 +8,7 @@ import _ from 'lodash';
 
 // draft-js
 import exportMarkdown from 'draft-js-export-markdown/lib/stateToMarkdown';
+import { stateFromMarkdown } from 'draft-js-import-markdown';
 import { DefaultDraftBlockRenderMap, getVisibleSelectionRect as draftVSR, EditorState, Entity, Editor, RichUtils, convertToRaw } from 'draft-js';
 
 import './Write.scss';
@@ -150,6 +151,14 @@ class PostEditor extends Component {
       markdown: exportMarkdown(this.state.editorState.getCurrentContent()),
       raw: convertToRaw(this.state.editorState.getCurrentContent()),
     };
+  }
+
+  setContent(content, format) {
+    if (format === 'markdown') {
+      const contentState = stateFromMarkdown(content);
+      const editorState = EditorState.createWithContent(contentState);
+      this.setState({ editorState });
+    }
   }
 
   updateToolBarState = () => {

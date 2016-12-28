@@ -8,15 +8,25 @@ import TagsInput from 'react-tagsinput';
 import './Write.scss';
 import Header from '../../app/Header';
 import PostEditor from './PostEditor';
-import { createPost } from './EditorActions';
+import { createPost, saveDraft } from './EditorActions';
 import Icon from './../../widgets/Icon';
 
 const version = require('../../../package.json').version;
 
 export class RawNewPost extends Component {
-  constructor() {
-    super();
-    this.state = { tags: [], categoryInputDisabled: false };
+  constructor(props) {
+    super(props);
+    let tags;
+    let categoryInputDisabled = false;
+
+    const { draftPost: { jsonMetadata } = {} } = props.editor;
+    try { tags = JSON.parse(jsonMetadata).tags; } catch (e) { tags = []; }
+    if (!_.isArray(tags)) { tags = []; }
+    if (tags.length >= 5) {
+      categoryInputDisabled = true;
+    }
+
+    this.state = { tags, categoryInputDisabled };
   }
 
   static propTypes = {
@@ -25,6 +35,21 @@ export class RawNewPost extends Component {
     }),
     createPost: PropTypes.func,
   };
+
+  componentDidMount() {
+    const { draftPost } = this.props.editor;
+    const { title, body, jsonMetadata } = draftPost || {};
+
+    if (title && this.title) {
+      this.title.value = title;
+    }
+    let metadata;
+    try { metadata = JSON.parse(jsonMetadata); } catch (e) { metadata = {}; }
+
+    if (body) {
+      this.editor.setContent(body, metadata.format);
+    }
+  }
 
   onSubmit = (e) => {
     e.preventDefault();
@@ -88,9 +113,10 @@ export class RawNewPost extends Component {
 
   saveDraft = _.debounce(() => {
     const data = this.getNewPostData();
-    console.log(data);
+    this.props.saveDraft(data);
     console.log('Saved Draft');
-  }, 1000)
+  }, 400);
+
 
   onCategoryChange = (tags) => {
     const state = { categoryInputDisabled: false };
@@ -144,6 +170,7 @@ export class RawNewPost extends Component {
                 required
                 type="text"
                 onChange={this.saveDraft}
+                ref={(c) => { this.title = c; }}
                 className="form-control form-control-xl"
               />
             </fieldset>
@@ -203,6 +230,6 @@ export class RawNewPost extends Component {
 
 const NewPost = connect(state => ({
   user: state.auth.user, editor: state.editor
-}), { createPost })(RawNewPost);
+}), { createPost, saveDraft })(RawNewPost);
 
 export default NewPost;

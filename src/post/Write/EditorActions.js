@@ -7,6 +7,7 @@ import assert from 'assert';
 import request from 'superagent';
 import SteemConnect from 'steemconnect';
 import { browserHistory } from 'react-router';
+import { createAction } from 'redux-actions';
 
 Promise.promisifyAll(SteemConnect);
 Promise.promisifyAll(request.Request.prototype);
@@ -43,3 +44,6 @@ export function createPost(postData) {
     });
   };
 }
+
+export const SAVE_DRAFT = '@editor/SAVE_DRAFT';
+export const saveDraft = createAction(SAVE_DRAFT);
