@@ -153,9 +153,11 @@ class PostEditor extends Component {
   }
 
   setRawContent(content) {
-    console.log('setting Content', content);
-    const editorState = EditorState.createWithContent(convertFromRaw(content));
-    this.setState({ editorState });
+    this.setState({ editorState: EditorState.createWithContent(convertFromRaw(content)) });
+  }
+
+  resetState() {
+    this.setState({ editorState: EditorState.createEmpty() });
   }
 
   updateToolBarState = () => {

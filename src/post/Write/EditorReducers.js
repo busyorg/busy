@@ -1,11 +1,11 @@
 import * as editorActions from './EditorActions';
 
 const defaultState = {
-  __persist: ['draftPost'],
+  __persist: ['draftPosts'],
   loading: false,
   error: null,
   success: false,
-  draftPost: {}
+  draftPosts: {}
 };
 
 const editor = (state = defaultState, action) => {
@@ -22,10 +22,13 @@ const editor = (state = defaultState, action) => {
       return { ...defaultState,
         success: true
       };
-    case editorActions.SAVE_DRAFT:
+    case editorActions.SAVE_DRAFT: {
+      const { postData, rawBody } = action.payload;
+      const id = action.payload.id || Date.now().toString(16);
       return { ...defaultState,
-        draftPost: action.payload
+        draftPosts: Object.assign({}, state.draftPosts, { [id]: { postData, rawBody } })
       };
+    }
     default:
       return state;
   }

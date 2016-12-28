@@ -260,12 +260,12 @@ export default class Sidebar extends Component {
                   <FormattedMessage id="write" />
                 </Link>
               </li>
-              {/* <li className="title">
-                <Link to="/#drafts">
+              <li className="title">
+                <Link to="/drafts">
                   <Icon name="library_books" />{' '}
                   <FormattedMessage id="drafts" />
                 </Link>
-              </li> */}
+              </li>
               {/* <li className="title">
                 <Link to="/#files">
                   <Icon name="attach_file" />{' '}

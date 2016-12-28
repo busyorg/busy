@@ -18,12 +18,17 @@ const MAX_ALLOW_CATEGORIES = 5;
 export class RawNewPost extends Component {
   constructor(props) {
     super(props);
-    let tags;
+    let tags = [];
 
-    const { draftPost } = this.props.editor;
-    const { jsonMetadata } = draftPost.createPostData || {};
-    try { tags = JSON.parse(jsonMetadata).tags; } catch (e) { tags = []; }
-    if (!_.isArray(tags)) { tags = []; }
+    const { location: { query } } = props;
+
+    const { draftPosts } = this.props.editor;
+    const draftPost = draftPosts[query.draft];
+    if (draftPost) {
+      const { jsonMetadata } = draftPost.postData || {};
+      try { tags = JSON.parse(jsonMetadata).tags; } catch (e) { tags = []; }
+      if (!_.isArray(tags)) { tags = []; }
+    }
 
     this.state = { tags };
   }
@@ -36,15 +41,19 @@ export class RawNewPost extends Component {
   };
 
   componentDidMount() {
-    const { draftPost } = this.props.editor;
-    const { title } = draftPost.createPostData || {};
+    const { draftPosts } = this.props.editor;
+    const { location: { query } } = this.props;
+    const draftPost = draftPosts[query.draft];
+    if (draftPost) {
+      const { title } = draftPost.postData || {};
 
-    if (title && this.title) {
-      this.title.value = title;
-    }
+      if (title && this.title) {
+        this.title.value = title;
+      }
 
-    if (draftPost.rawBody) {
-      this.editor.setRawContent(draftPost.rawBody);
+      if (draftPost.rawBody) {
+        this.editor.setRawContent(draftPost.rawBody);
+      }
     }
   }
 
@@ -111,9 +120,22 @@ export class RawNewPost extends Component {
   saveDraft = _.debounce(() => {
     const data = this.getNewPostData();
     const postBody = this.editor.getContent();
-    this.props.saveDraft({ createPostData: data, rawBody: postBody.raw });
+    const { location: { query } } = this.props;
+    this.props.saveDraft({ postData: data, rawBody: postBody.raw, id: query.draft });
   }, 400);
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.location.query !== this.props.location.query
+      && nextProps.location.query.draft === undefined) {
+      this.resetEditor();
+    }
+  }
+
+  resetEditor = () => {
+    this.title.value = '';
+    this.editor.resetState();
+    this.setState({ tags: [] });
+  }
 
   onCategoryChange = (tags) => {
     this.setState({
