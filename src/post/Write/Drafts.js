@@ -7,9 +7,14 @@ import Header from '../../app/Header';
 
 const DraftRow = (props) => {
   const id = props.id;
-  const { title = '', body = '' } = props.data;
-  let draftTitle = title.trim() || body.substring(0, 50);
-  draftTitle = draftTitle || 'Untitled Draft';
+  let { title = '', body = '' } = props.data;
+  title = title.trim();
+  body = body.replace(/\r?\n|\r|[\u200B-\u200D\uFEFF]/g, ' ').substring(0, 50);
+  let draftTitle = title.length ? title : body;
+  draftTitle = draftTitle.trim();
+  if (draftTitle.length === 0) {
+    draftTitle = 'Untitled Draft';
+  }
   return <Link to={{ pathname: '/write', query: { draft: id } }}><div>{draftTitle}</div></Link>;
 };
 

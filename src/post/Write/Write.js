@@ -121,7 +121,12 @@ export class RawNewPost extends Component {
     const data = this.getNewPostData();
     const postBody = this.editor.getContent();
     const { location: { query } } = this.props;
-    this.props.saveDraft({ postData: data, rawBody: postBody.raw, id: query.draft });
+    let id = query.draft;
+    if (id === undefined) {
+      id = Date.now().toString(16);
+      this.props.router.push({ pathname: '/write', query: { draft: id } });
+    }
+    this.props.saveDraft({ postData: data, rawBody: postBody.raw, id });
   }, 400);
 
   componentWillReceiveProps(nextProps) {
@@ -129,6 +134,10 @@ export class RawNewPost extends Component {
       && nextProps.location.query.draft === undefined) {
       this.resetEditor();
     }
+  }
+
+  componentWillUnmount() {
+    this.saveDraft.cancel();
   }
 
   resetEditor = () => {

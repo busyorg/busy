@@ -24,7 +24,7 @@ const editor = (state = defaultState, action) => {
       };
     case editorActions.SAVE_DRAFT: {
       const { postData, rawBody } = action.payload;
-      const id = action.payload.id || Date.now().toString(16);
+      const id = action.payload.id;
       return { ...defaultState,
         draftPosts: Object.assign({}, state.draftPosts, { [id]: { postData, rawBody } })
       };
