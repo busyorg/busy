@@ -39,7 +39,6 @@
     "debug": "~2.2.0",
     "draft-js": "^0.9.1",
     "draft-js-export-markdown": "^0.2.1",
-    "draft-js-import-markdown": "^0.2.1",
     "express": "~4.13.1",
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.9.0",

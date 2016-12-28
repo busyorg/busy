@@ -20,7 +20,8 @@ export class RawNewPost extends Component {
     super(props);
     let tags;
 
-    const { draftPost: { jsonMetadata } = {} } = props.editor;
+    const { draftPost } = this.props.editor;
+    const { jsonMetadata } = draftPost.createPostData || {};
     try { tags = JSON.parse(jsonMetadata).tags; } catch (e) { tags = []; }
     if (!_.isArray(tags)) { tags = []; }
 
@@ -36,16 +37,14 @@ export class RawNewPost extends Component {
 
   componentDidMount() {
     const { draftPost } = this.props.editor;
-    const { title, body, jsonMetadata } = draftPost || {};
+    const { title } = draftPost.createPostData || {};
 
     if (title && this.title) {
       this.title.value = title;
     }
-    let metadata;
-    try { metadata = JSON.parse(jsonMetadata); } catch (e) { metadata = {}; }
 
-    if (body) {
-      this.editor.setContent(body, metadata.format);
+    if (draftPost.rawBody) {
+      this.editor.setRawContent(draftPost.rawBody);
     }
   }
 
@@ -111,8 +110,8 @@ export class RawNewPost extends Component {
 
   saveDraft = _.debounce(() => {
     const data = this.getNewPostData();
-    this.props.saveDraft(data);
-    console.log('Saved Draft');
+    const postBody = this.editor.getContent();
+    this.props.saveDraft({ createPostData: data, rawBody: postBody.raw });
   }, 400);
 
 
