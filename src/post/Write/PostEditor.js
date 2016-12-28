@@ -4,6 +4,7 @@ import { Map } from 'immutable';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
+import _ from 'lodash';
 
 // draft-js
 import exportMarkdown from 'draft-js-export-markdown/lib/stateToMarkdown';
@@ -196,6 +197,10 @@ class PostEditor extends Component {
 
     this.setState(newState, () => {
       this.updateToolBarState();
+
+      if (_.isFunction(this.props.onChange)) {
+        this.props.onChange();
+      }
     });
   };
 
