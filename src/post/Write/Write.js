@@ -13,20 +13,18 @@ import Icon from './../../widgets/Icon';
 
 const version = require('../../../package.json').version;
 
+const MAX_ALLOW_CATEGORIES = 5;
+
 export class RawNewPost extends Component {
   constructor(props) {
     super(props);
     let tags;
-    let categoryInputDisabled = false;
 
     const { draftPost: { jsonMetadata } = {} } = props.editor;
     try { tags = JSON.parse(jsonMetadata).tags; } catch (e) { tags = []; }
     if (!_.isArray(tags)) { tags = []; }
-    if (tags.length >= 5) {
-      categoryInputDisabled = true;
-    }
 
-    this.state = { tags, categoryInputDisabled };
+    this.state = { tags };
   }
 
   static propTypes = {
@@ -119,13 +117,12 @@ export class RawNewPost extends Component {
 
 
   onCategoryChange = (tags) => {
-    const state = { categoryInputDisabled: false };
-    state.tags = tags.map(t => t.toLowerCase().trim());
-
-    if (tags.length === 5) {
-      state.categoryInputDisabled = true;
-    }
-    this.setState(state, () => { this.saveDraft(); });
+    this.setState({
+      tags: tags.map(t => t.toLowerCase().trim())
+    },
+      () => {
+        this.saveDraft();
+      });
   }
 
   onCategoryInputKeyUp = (event) => {
@@ -150,7 +147,8 @@ export class RawNewPost extends Component {
 
   render() {
     const { user: { name: author }, editor: { loading } } = this.props;
-    const { tags, categoryInputDisabled } = this.state;
+    const { tags } = this.state;
+    const categoryInputDisabled = tags.length === MAX_ALLOW_CATEGORIES;
 
     return (
       <div className="main-panel">
@@ -193,7 +191,7 @@ export class RawNewPost extends Component {
                   className: 'form-control form-control-lg catergories-input',
                   disabled: categoryInputDisabled,
                   onKeyUp: this.onCategoryInputKeyUp,
-                  placeholder: categoryInputDisabled ? 'Max 5 Category Allowed' : 'Category'
+                  placeholder: categoryInputDisabled ? `Max ${MAX_ALLOW_CATEGORIES} Category Allowed` : 'Category'
                 }}
                 tagProps={{
                   className: 'catergory', classNameRemove: 'catergory-remove'
