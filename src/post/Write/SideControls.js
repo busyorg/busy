@@ -92,7 +92,10 @@ class SideControls extends Component {
   }
 
   hide() {
-    this.setState({ style: null, showControls: false });
+    // Checks if SideControls is mounted
+    if (this.SideControls) {
+      this.setState({ style: null, showControls: false });
+    }
   }
 
   componentWillReceiveProps(newProps) {
@@ -132,6 +135,7 @@ class SideControls extends Component {
     const showControls = this.state.showControls;
     return (
       <div
+        ref={(c) => { this.SideControls = c; }}
         className="SideControls"
         style={this.state && this.state.style ? this.state.style : {
           opacity: 0,
