@@ -8,7 +8,15 @@ import _ from 'lodash';
 
 // draft-js
 import exportMarkdown from 'draft-js-export-markdown/lib/stateToMarkdown';
-import { DefaultDraftBlockRenderMap, getVisibleSelectionRect as draftVSR, EditorState, Entity, Editor, RichUtils, convertToRaw, convertFromRaw } from 'draft-js';
+import {
+  DefaultDraftBlockRenderMap,
+  getVisibleSelectionRect as draftVSR,
+  EditorState,
+  Entity,
+  Editor, RichUtils,
+  convertToRaw,
+  convertFromRaw
+} from 'draft-js';
 
 import './Write.scss';
 import './PostEditor.scss';

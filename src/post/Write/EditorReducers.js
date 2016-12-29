@@ -27,7 +27,7 @@ const editor = (state = defaultState, action) => {
       const { postData, rawBody } = action.payload;
       const id = action.payload.id;
       return { ...defaultState,
-        draftPosts: Object.assign({}, state.draftPosts, { [id]: { postData, rawBody } })
+        draftPosts: { ...state.draftPosts, [id]: { postData, rawBody } }
       };
     }
     case editorActions.DELETE_DRAFT:
