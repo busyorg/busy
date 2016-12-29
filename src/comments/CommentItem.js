@@ -70,6 +70,10 @@ export default class CommentItem extends Component {
       auth.isAuthenticated &&
       comment.active_votes.some(vote => vote.voter === auth.user.name && vote.percent > 0);
 
+    const isCommentDisliked =
+      auth.isAuthenticated &&
+      comment.active_votes.some(vote => vote.voter === auth.user.name && vote.percent < 0);
+
     return (
       <div className="CommentItem">
         <div className={`CommentItem__content CommentItem__content--level-${comment.depth}`}>
@@ -97,6 +101,19 @@ export default class CommentItem extends Component {
                 </a>{ ' ' }
                 { numeral(comment.net_votes).format('0,0') }
               </div>
+
+              <div className="CommentActionButtons__button">
+                <a
+                  onClick={isCommentDisliked
+                    ? () => unlikeComment(comment.id)
+                    : () => dislikeComment(comment.id)}
+                  className={isCommentDisliked ? 'active' : ''}
+                >
+                  <Icon name="thumb_down" xs />
+                </a>{ ' ' }
+                { numeral(comment.active_votes.filter(vote => vote.percent < 0).length).format('0,0') }
+              </div>
+
               <div className="CommentActionButtons__button">
                 { numeral(payout).format('$0,0.000') }
               </div>
