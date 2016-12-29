@@ -17,6 +17,7 @@ import './Comments.scss';
     showMoreComments: commentsActions.showMoreComments,
     likeComment: id => commentsActions.likeComment(id),
     unlikeComment: id => commentsActions.likeComment(id, 0),
+    dislikeComment: id => commentsActions.likeComment(id, -1000),
     openCommentingDraft: commentsActions.openCommentingDraft,
   }, dispatch)
 )
@@ -66,6 +67,7 @@ export default class Comments extends Component {
           comments={comments}
           likeComment={this.props.likeComment}
           unlikeComment={this.props.unlikeComment}
+          dislikeComment={this.props.dislikeComment}
           auth={this.props.auth}
           openCommentingDraft={this.props.openCommentingDraft}
           isSinglePage={this.props.isSinglePage}

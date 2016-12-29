@@ -56,7 +56,7 @@ export default class CommentItem extends Component {
   }
 
   render() {
-    const { comment, likeComment, unlikeComment, auth, allComments } = this.props;
+    const { comment, likeComment, unlikeComment, dislikeComment, auth, allComments } = this.props;
 
     if (comment.isOptimistic) {
       return renderOptimisticComment(comment);

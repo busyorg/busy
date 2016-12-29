@@ -7,6 +7,7 @@ const CommentsList = ({
   comments,
   likeComment,
   unlikeComment,
+  dislikeComment,
   auth,
   openCommentingDraft,
   isSinglePage
@@ -29,6 +30,7 @@ const CommentsList = ({
           allComments={comments}
           likeComment={likeComment}
           unlikeComment={unlikeComment}
+          dislikeComment={dislikeComment}
           auth={auth}
           openCommentingDraft={openCommentingDraft}
           isSinglePage={isSinglePage}
