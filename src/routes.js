@@ -19,10 +19,11 @@ import { Trending, Hot, Votes, Responses, Active, Created, Cashout } from './fee
 import PostSingle from './post/PostSingle';
 import Bookmarks from './bookmarks/Bookmarks';
 import Error404 from './statics/Error404';
+import Write from './post/Write/Write';
+import Drafts from './post/Write/Drafts';
 
 var MessagesUser = require('./messages/MessagesUser').default,
-  MessagesCategory = require('./messages/MessagesCategory').default,
-  Write = require('./post/Write/Write').default;
+  MessagesCategory = require('./messages/MessagesCategory').default;
 
 export default (
   <Route path="/" component={Wrapper}>
@@ -39,6 +40,7 @@ export default (
     <Route path="/votes(/:category)" component={Votes} />
     <Route path="/bookmarks" component={Bookmarks} />
     <Route path="/write" component={Write} />
+    <Route path="/drafts" component={Drafts} />
     <Route path="/messages/@:username" component={MessagesUser} />
     <Route path="/messages/:category" component={MessagesCategory} />
     <Route component={User}>
