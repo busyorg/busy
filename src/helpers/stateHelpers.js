@@ -82,28 +82,16 @@ export const sortCommentsFromSteem = (list, commentsState, sortBy = 'trending') 
 
   if (sortBy === 'trending') {
     compareFunc = (itemA, itemB) => {
-      if (itemA.net_rshares < 0) {
-        return 1;
-      } else if (itemB.net_rshares < 0) {
-        return -1;
+      let compareRes = parseFloat(itemA.total_payout_value) - parseFloat(itemB.total_payout_value);
+      if (compareRes === 0) {
+        compareRes = itemA.net_votes - itemB.net_votes;
       }
-
-      // Following this algorithm from steemit devs:
-      // https://github.com/steemit/steemit.com/blob/34894d4da193e5d676295050e981a1b642acddc5/app/components/cards/Comment.jsx#L44
-      return itemA.children_rshares2 - itemB.children_rshares2;
+      return compareRes;
     };
   } else if (sortBy === 'votes') {
     compareFunc = (itemA, itemB) => itemA.net_votes - itemB.net_votes;
   } else if (sortBy === 'new') {
-    compareFunc = (itemA, itemB) => {
-      if (itemA.net_rshares < 0) {
-        return 1;
-      } else if (itemB.net_rshares < 0) {
-        return -1;
-      }
-
-      return Date.parse(itemA.created) - Date.parse(itemB.created);
-    };
+    compareFunc = (itemA, itemB) => Date.parse(itemA.created) - Date.parse(itemB.created);
   }
 
   return newList.sort((item1, item2) =>
