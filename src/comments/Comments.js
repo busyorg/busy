@@ -79,17 +79,21 @@ export default class Comments extends Component {
     const classNames = className ? `Comments ${className}` : 'Comments';
     return (
       <div className={classNames}>
-        <div style={{ width: '200' }}>
-          <span>
-            Sort by:
-          </span>
-          <Select
-            value={this.state.sortOrder}
-            options={sortingOptions}
-            onChange={this.handleSortChange}
-            clearable={false}
-          />
-        </div>
+
+        { this.props.isSinglePage &&
+          <div style={{ width: '200' }}>
+            <span>
+              Sort by:
+            </span>
+            <Select
+              value={this.state.sortOrder}
+              options={sortingOptions}
+              onChange={this.handleSortChange}
+              clearable={false}
+            />
+          </div>
+        }
+
         <CommentsList
           postId={postId}
           comments={comments}
