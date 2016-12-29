@@ -81,14 +81,29 @@ export const sortCommentsFromSteem = (list, commentsState, sortBy = 'trending') 
   const newList = [...list];
 
   if (sortBy === 'trending') {
-    compareFunc = (itemA, itemB) =>
-      parseFloat(itemA.total_pending_payout_value) -
-      parseFloat(itemB.total_pending_payout_value);
+    compareFunc = (itemA, itemB) => {
+      if (itemA.net_rshares < 0) {
+        return 1;
+      } else if (itemB.net_rshares < 0) {
+        return -1;
+      }
+
+      // Following this algorithm from steemit devs:
+      // https://github.com/steemit/steemit.com/blob/34894d4da193e5d676295050e981a1b642acddc5/app/components/cards/Comment.jsx#L44
+      return itemA.children_rshares2 - itemB.children_rshares2;
+    };
   } else if (sortBy === 'votes') {
     compareFunc = (itemA, itemB) => itemA.net_votes - itemB.net_votes;
   } else if (sortBy === 'new') {
-    compareFunc = (itemA, itemB) =>
-      new Date(itemA.last_update).getTime() - new Date(itemB.last_update).getTime()
+    compareFunc = (itemA, itemB) => {
+      if (itemA.net_rshares < 0) {
+        return 1;
+      } else if (itemB.net_rshares < 0) {
+        return -1;
+      }
+
+      return Date.parse(itemA.created) - Date.parse(itemB.created);
+    };
   }
 
   return newList.sort((item1, item2) =>
