@@ -146,9 +146,7 @@ const commentItem = (state = {}, action) => {
         );
       }
 
-      const optimisticNetVotes = action.meta.weight > 0
-        ? parseInt(state.net_votes) + 1
-        : parseInt(state.net_votes) - 1;
+      const optimisticNetVotes = optimisticActiveVotes.filter(vote => vote.percent > 0).length;
 
       return {
         ...state,
