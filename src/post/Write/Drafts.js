@@ -4,10 +4,12 @@ import React from 'react';
 import _ from 'lodash';
 
 import Header from '../../app/Header';
+import Icon from '../../widgets/Icon';
+import { deleteDraft } from './EditorActions';
 
-const DraftRow = (props) => {
-  const id = props.id;
-  let { title = '', body = '' } = props.data;
+let DraftRow = (props) => {
+  const { id, data } = props;
+  let { title = '', body = '' } = data;
   title = title.trim();
   body = body.replace(/\r?\n|\r|[\u200B-\u200D\uFEFF]/g, ' ').substring(0, 50);
   let draftTitle = title.length ? title : body;
@@ -15,8 +17,13 @@ const DraftRow = (props) => {
   if (draftTitle.length === 0) {
     draftTitle = 'Untitled Draft';
   }
-  return <Link to={{ pathname: '/write', query: { draft: id } }}><div>{draftTitle}</div></Link>;
+  return (<div>
+    <Link to={{ pathname: '/write', query: { draft: id } }}>{draftTitle}</Link>
+    <a onClick={() => { props.deleteDraft(id); }}><Icon name="cancel" /></a>
+  </div>);
 };
+
+DraftRow = connect(() => ({}), { deleteDraft })(DraftRow);
 
 const DraftList = ({ editor: { draftPosts } }) =>
   (

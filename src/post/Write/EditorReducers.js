@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import * as editorActions from './EditorActions';
 
 const defaultState = {
@@ -29,6 +30,10 @@ const editor = (state = defaultState, action) => {
         draftPosts: Object.assign({}, state.draftPosts, { [id]: { postData, rawBody } })
       };
     }
+    case editorActions.DELETE_DRAFT:
+      return { ...defaultState,
+        draftPosts: _.omit(state.draftPosts, action.payload)
+      };
     default:
       return state;
   }

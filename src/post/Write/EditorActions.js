@@ -47,3 +47,6 @@ export function createPost(postData) {
 
 export const SAVE_DRAFT = '@editor/SAVE_DRAFT';
 export const saveDraft = createAction(SAVE_DRAFT);
+
+export const DELETE_DRAFT = '@editor/DELETE_DRAFT';
+export const deleteDraft = createAction(DELETE_DRAFT);
