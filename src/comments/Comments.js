@@ -81,7 +81,7 @@ export default class Comments extends Component {
       <div className={classNames}>
 
         { this.props.isSinglePage &&
-          <div style={{ width: '200' }}>
+          <div style={{ width: '200px' }}>
             <span>
               Sort by:
             </span>
