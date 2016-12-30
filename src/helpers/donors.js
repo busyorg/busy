@@ -17,4 +17,5 @@ export default {
   fulltimegeek: 'bronze',
   shortcut: 'bronze',
   hql2016: 'bronze',
+  sweetsssj: 'bronze',
 };
