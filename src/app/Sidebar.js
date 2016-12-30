@@ -6,9 +6,7 @@ import { FormattedMessage } from 'react-intl';
 import formatter from 'steem/lib/formatter';
 import steemdb from 'steemdb';
 import numeral from 'numeral';
-import { sortBy } from 'lodash/collection';
-import { startsWith } from 'lodash/string';
-import { difference } from 'lodash/array';
+import _ from 'lodash';
 
 import api from '../steemAPI';
 import { hideSidebar } from '../actions';
@@ -92,7 +90,7 @@ export default class Sidebar extends Component {
 
   filterTagsBySearch(tags = []) {
     const { search } = this.state;
-    return tags.filter((tag) => startsWith(tag, search));
+    return tags.filter((tag) => _.startsWith(tag, search));
   }
 
   renderFavoritedTags() {
@@ -117,7 +115,7 @@ export default class Sidebar extends Component {
 
     if (categories) {
       // excluding items in favorite to avoid repetition
-      const categoriesWithoutFavorites = difference(categories, favorites.categories);
+      const categoriesWithoutFavorites = _.difference(categories, favorites.categories);
 
       return this.filterTagsBySearch(categoriesWithoutFavorites)
         .slice(0, 16 - favorites.categories.length)
@@ -262,12 +260,12 @@ export default class Sidebar extends Component {
                   <FormattedMessage id="write" />
                 </Link>
               </li>
-              {/* <li className="title">
-                <Link to="/#drafts">
+              <li className="title">
+                <Link to="/drafts">
                   <Icon name="library_books" />{' '}
                   <FormattedMessage id="drafts" />
                 </Link>
-              </li> */}
+              </li>
               {/* <li className="title">
                 <Link to="/#files">
                   <Icon name="attach_file" />{' '}

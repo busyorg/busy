@@ -16,6 +16,7 @@ import './Feed.scss';
 
 @connect(
   state => ({
+    app: state.app,
     bookmarks: state.bookmarks,
     reblogList: state.reblog,
   }),
@@ -59,6 +60,7 @@ export default class Feed extends React.Component {
       ItemComponent,
       replies,
       toggleBookmark,
+      app,
       bookmarks,
       notify,
       reblog,
@@ -83,6 +85,7 @@ export default class Feed extends React.Component {
                   post={post}
                   replies={replies}
                   toggleBookmark={toggleBookmark}
+                  app={app}
                   bookmarks={bookmarks}
                   onCommentRequest={e => this.handleCommentRequest(e)}
                   openPostModal={this.props.openPostModal}

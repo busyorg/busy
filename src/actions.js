@@ -1,7 +1,5 @@
 import { createAction } from 'redux-actions';
 
-var api = require('./steemAPI');
-
 export const CONFIG_REQUEST = '@app/CONFIG_REQUEST';
 export const CONFIG_SUCCESS = '@app/CONFIG_SUCCESS';
 export const CONFIG_FAILURE = '@app/CONFIG_FAILURE';
@@ -16,45 +14,38 @@ export const ACCOUNT_SUCCESS = '@app/ACCOUNT_SUCCESS';
 
 export const OPEN_POST_MODAL = '@app/OPEN_POST_MODAL';
 export const CLOSE_POST_MODAL = '@app/CLOSE_POST_MODAL';
-
 export const openPostModal = createAction(OPEN_POST_MODAL);
 export const closePostModal = createAction(CLOSE_POST_MODAL);
 
-export const getConfig = () => {
-  return (dispatch, getState) => {
-    var req = {type: CONFIG_REQUEST};
-    dispatch(req);
-    api.getConfig((err, config) => {
-      var res = {
+export const getConfig = () =>
+  (dispatch, getState, { steemAPI }) => {
+    dispatch({ type: CONFIG_REQUEST });
+    steemAPI.getConfig((err, config) => {
+      dispatch({
         type: CONFIG_SUCCESS,
-        config: config,
-      };
-      dispatch(res);
+        config,
+      });
     });
   };
-};
 
 export const SHOW_SIDEBAR = '@app/SHOW_SIDEBAR';
+export const showSidebar = createAction(SHOW_SIDEBAR);
+
 export const HIDE_SIDEBAR = '@app/HIDE_SIDEBAR';
+export const hideSidebar = createAction(HIDE_SIDEBAR);
 
-export const showSidebar = () => {
-  return (dispatch, getState) => {
-    dispatch({type: SHOW_SIDEBAR});
-  };
-};
+export const SET_LAYOUT = '@app/SET_LAYOUT';
+export const setLayoutAction = createAction(SET_LAYOUT);
 
-export const hideSidebar = () => {
-  return (dispatch, getState) => {
-    dispatch({type: HIDE_SIDEBAR});
+export const setLayout = layout =>
+  (dispatch) => {
+    dispatch(setLayoutAction({ layout }));
   };
-};
 
 export const SET_LOCALE = '@app/SET_LOCALE';
+export const setLocaleAction = createAction(SET_LOCALE);
 
-export const setLocaleRequest = createAction(SET_LOCALE);
-
-export const setLocale = (locale) => {
-  return (dispatch) => {
-    dispatch(setLocaleRequest({ locale }));
+export const setLocale = locale =>
+  (dispatch) => {
+    dispatch(setLocaleAction({ locale }));
   };
-};

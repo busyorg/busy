@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import numeral from 'numeral';
-import BodyShort from '../post/BodyShort';
+import Body from '../post/Body';
 import Avatar from '../widgets/Avatar';
 import Icon from '../widgets/Icon';
 import { sortCommentsFromSteem } from '../helpers/stateHelpers';
@@ -23,7 +23,7 @@ const renderOptimisticComment = (comment) => {
               @{ comment.author }
             </Link>
           </span>
-          <BodyShort body={comment.body} />
+          <Body body={comment.body} />
         </div>
       </div>
     </div>
@@ -56,7 +56,7 @@ export default class CommentItem extends Component {
   }
 
   render() {
-    const { comment, likeComment, unlikeComment, auth, allComments } = this.props;
+    const { comment, likeComment, unlikeComment, dislikeComment, auth, allComments, sortOrder } = this.props;
 
     if (comment.isOptimistic) {
       return renderOptimisticComment(comment);
@@ -69,6 +69,10 @@ export default class CommentItem extends Component {
     const isCommentLiked =
       auth.isAuthenticated &&
       comment.active_votes.some(vote => vote.voter === auth.user.name && vote.percent > 0);
+
+    const isCommentDisliked =
+      auth.isAuthenticated &&
+      comment.active_votes.some(vote => vote.voter === auth.user.name && vote.percent < 0);
 
     return (
       <div className="CommentItem">
@@ -84,7 +88,7 @@ export default class CommentItem extends Component {
                 @{ comment.author }
               </Link>
             </span>
-            <BodyShort body={comment.body} />
+            <Body body={comment.body} />
             <div className="CommentActionButtons">
               <div className="CommentActionButtons__button">
                 <a
@@ -97,6 +101,19 @@ export default class CommentItem extends Component {
                 </a>{ ' ' }
                 { numeral(comment.net_votes).format('0,0') }
               </div>
+
+              <div className="CommentActionButtons__button">
+                <a
+                  onClick={isCommentDisliked
+                    ? () => unlikeComment(comment.id)
+                    : () => dislikeComment(comment.id)}
+                  className={isCommentDisliked ? 'active' : ''}
+                >
+                  <Icon name="thumb_down" xs />
+                </a>{ ' ' }
+                { numeral(comment.active_votes.filter(vote => vote.percent < 0).length).format('0,0') }
+              </div>
+
               <div className="CommentActionButtons__button">
                 { numeral(payout).format('$0,0.000') }
               </div>
@@ -117,7 +134,11 @@ export default class CommentItem extends Component {
           </div>
         </div>
         { this.state.showReplies && allComments.listByCommentId[comment.id] &&
-          sortCommentsFromSteem(allComments.listByCommentId[comment.id], allComments).map(commentId =>
+          sortCommentsFromSteem(
+            allComments.listByCommentId[comment.id],
+            allComments,
+            sortOrder
+          ).map(commentId =>
             <CommentItem
               { ...this.props }
               key={commentId}

@@ -20,7 +20,7 @@ import * as reblogActions from './app/Reblog/reblogActions';
     app: state.app,
     auth: state.auth,
   }),
-  (dispatch) => bindActionCreators({
+  dispatch => bindActionCreators({
     login,
     getConfig,
     notify,

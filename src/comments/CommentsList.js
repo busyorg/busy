@@ -7,9 +7,11 @@ const CommentsList = ({
   comments,
   likeComment,
   unlikeComment,
+  dislikeComment,
   auth,
   openCommentingDraft,
-  isSinglePage
+  isSinglePage,
+  sortOrder
 }) => {
   if (!comments.listByPostId[postId]) {
     return null;
@@ -18,7 +20,7 @@ const CommentsList = ({
   const { show, list } = comments.listByPostId[postId];
   const showLimit = isSinglePage ? list.length : show;
 
-  const visibleList = sortCommentsFromSteem(list, comments).slice(0, showLimit);
+  const visibleList = sortCommentsFromSteem(list, comments, sortOrder).slice(0, showLimit);
 
   return (
     <div className="CommentsList">
@@ -29,9 +31,11 @@ const CommentsList = ({
           allComments={comments}
           likeComment={likeComment}
           unlikeComment={unlikeComment}
+          dislikeComment={dislikeComment}
           auth={auth}
           openCommentingDraft={openCommentingDraft}
           isSinglePage={isSinglePage}
+          sortOrder={sortOrder}
         />
       )}
     </div>

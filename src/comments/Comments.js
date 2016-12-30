@@ -1,6 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import Select from 'react-select';
+import 'react-select/dist/react-select.css';
+
 import CommentsList from './CommentsList';
 import * as commentsActions from './commentsActions';
 import Loading from '../widgets/Loading';
@@ -17,12 +20,16 @@ import './Comments.scss';
     showMoreComments: commentsActions.showMoreComments,
     likeComment: id => commentsActions.likeComment(id),
     unlikeComment: id => commentsActions.likeComment(id, 0),
+    dislikeComment: id => commentsActions.likeComment(id, -10000),
     openCommentingDraft: commentsActions.openCommentingDraft,
   }, dispatch)
 )
 export default class Comments extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      sortOrder: 'trending',
+    };
   }
 
   static propTypes = {
@@ -49,6 +56,12 @@ export default class Comments extends Component {
     this.props.showMoreComments(this.props.postId);
   };
 
+  handleSortChange = ({ value }) => {
+    if (value !== this.state.sortOrder) {
+      this.setState({ sortOrder: value });
+    }
+  };
+
   render() {
     const { postId, comments, className, show } = this.props;
     if (!show) {
@@ -58,17 +71,40 @@ export default class Comments extends Component {
     const hasMore = (comments.listByPostId[postId] && comments.listByPostId[postId].hasMore);
     const isFetching = (comments.listByPostId[postId] && comments.listByPostId[postId].isFetching);
 
+    const sortingOptions = [
+      { value: 'trending', label: 'Trending' },
+      { value: 'votes', label: 'Votes' },
+      { value: 'new', label: 'New' }
+    ];
+
     const classNames = className ? `Comments ${className}` : 'Comments';
     return (
       <div className={classNames}>
+
+        { this.props.isSinglePage &&
+          <div style={{ width: '200px' }}>
+            <span>
+              Sort by:
+            </span>
+            <Select
+              value={this.state.sortOrder}
+              options={sortingOptions}
+              onChange={this.handleSortChange}
+              clearable={false}
+            />
+          </div>
+        }
+
         <CommentsList
           postId={postId}
           comments={comments}
           likeComment={this.props.likeComment}
           unlikeComment={this.props.unlikeComment}
+          dislikeComment={this.props.dislikeComment}
           auth={this.props.auth}
           openCommentingDraft={this.props.openCommentingDraft}
           isSinglePage={this.props.isSinglePage}
+          sortOrder={this.state.sortOrder}
         />
 
         {isFetching &&
