@@ -17,7 +17,7 @@ import './Comments.scss';
     showMoreComments: commentsActions.showMoreComments,
     likeComment: id => commentsActions.likeComment(id),
     unlikeComment: id => commentsActions.likeComment(id, 0),
-    dislikeComment: id => commentsActions.likeComment(id, -1000),
+    dislikeComment: id => commentsActions.likeComment(id, -10000),
     openCommentingDraft: commentsActions.openCommentingDraft,
   }, dispatch)
 )
