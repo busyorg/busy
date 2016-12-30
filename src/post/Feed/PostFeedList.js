@@ -20,6 +20,7 @@ const PostFeedList = ({
   isReblogged,
   handleShowCommentsRequest,
   handleShowLikesRequest,
+  layout
 }) =>
   <div className="PostFeedList">
     { imagePath &&
@@ -51,7 +52,7 @@ const PostFeedList = ({
           onShowLikesRequest={handleShowLikesRequest}
           reblog={reblog}
           isReblogged={isReblogged}
-          layout={this.props.layout}
+          layout={layout}
         />
         <span>
           <Link to={`/@${post.author}`}>

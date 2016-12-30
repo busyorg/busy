@@ -30,6 +30,7 @@ const PostFeedCard = ({
   showLikes,
   handleShowCommentsRequest,
   handleShowLikesRequest,
+  layout
 }) =>
   <div className="PostFeedCard">
     { post.first_reblogged_by &&
@@ -105,7 +106,7 @@ const PostFeedCard = ({
         onShowLikesRequest={handleShowLikesRequest}
         reblog={reblog}
         isReblogged={isReblogged}
-        layout={this.props.layout}
+        layout={layout}
       />
     </div>
 
