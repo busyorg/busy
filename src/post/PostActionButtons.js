@@ -75,6 +75,7 @@ export default class PostActionButtons extends Component {
             onTextClick={e => this.handleLikesTextClick(e)}
             active={isPostLiked}
             numberOfVotes={numeral(post.net_votes).format('0,0')}
+            layout={layout}
           />
         </li>
         <li>
