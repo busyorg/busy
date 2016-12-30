@@ -1,9 +1,12 @@
+import _ from 'lodash';
 import * as editorActions from './EditorActions';
 
 const defaultState = {
+  __persist: ['draftPosts'],
   loading: false,
   error: null,
-  success: false
+  success: false,
+  draftPosts: {}
 };
 
 const editor = (state = defaultState, action) => {
@@ -19,6 +22,17 @@ const editor = (state = defaultState, action) => {
     case editorActions.CREATE_POST_SUCCESS:
       return { ...defaultState,
         success: true
+      };
+    case editorActions.SAVE_DRAFT: {
+      const { postData, rawBody } = action.payload;
+      const id = action.payload.id;
+      return { ...defaultState,
+        draftPosts: { ...state.draftPosts, [id]: { postData, rawBody } }
+      };
+    }
+    case editorActions.DELETE_DRAFT:
+      return { ...defaultState,
+        draftPosts: _.omit(state.draftPosts, action.payload)
       };
     default:
       return state;

@@ -4,10 +4,19 @@ import { Map } from 'immutable';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
+import _ from 'lodash';
 
 // draft-js
 import exportMarkdown from 'draft-js-export-markdown/lib/stateToMarkdown';
-import { DefaultDraftBlockRenderMap, getVisibleSelectionRect as draftVSR, EditorState, Entity, Editor, RichUtils, convertToRaw } from 'draft-js';
+import {
+  DefaultDraftBlockRenderMap,
+  getVisibleSelectionRect as draftVSR,
+  EditorState,
+  Entity,
+  Editor, RichUtils,
+  convertToRaw,
+  convertFromRaw
+} from 'draft-js';
 
 import './Write.scss';
 import './PostEditor.scss';
@@ -151,6 +160,14 @@ class PostEditor extends Component {
     };
   }
 
+  setRawContent(content) {
+    this.setState({ editorState: EditorState.createWithContent(convertFromRaw(content)) });
+  }
+
+  resetState() {
+    this.setState({ editorState: EditorState.createEmpty() });
+  }
+
   updateToolBarState = () => {
     const selection = this.state.editorState.getSelection();
     const newState = this.state.editorState;
@@ -196,6 +213,10 @@ class PostEditor extends Component {
 
     this.setState(newState, () => {
       this.updateToolBarState();
+
+      if (_.isFunction(this.props.onChange)) {
+        this.props.onChange();
+      }
     });
   };
 
