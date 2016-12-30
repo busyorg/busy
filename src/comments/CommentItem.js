@@ -56,7 +56,7 @@ export default class CommentItem extends Component {
   }
 
   render() {
-    const { comment, likeComment, unlikeComment, auth, allComments } = this.props;
+    const { comment, likeComment, unlikeComment, auth, allComments, sortOrder } = this.props;
 
     if (comment.isOptimistic) {
       return renderOptimisticComment(comment);
@@ -117,7 +117,11 @@ export default class CommentItem extends Component {
           </div>
         </div>
         { this.state.showReplies && allComments.listByCommentId[comment.id] &&
-          sortCommentsFromSteem(allComments.listByCommentId[comment.id], allComments).map(commentId =>
+          sortCommentsFromSteem(
+            allComments.listByCommentId[comment.id],
+            allComments,
+            sortOrder
+          ).map(commentId =>
             <CommentItem
               { ...this.props }
               key={commentId}
