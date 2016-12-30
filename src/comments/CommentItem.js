@@ -56,7 +56,7 @@ export default class CommentItem extends Component {
   }
 
   render() {
-    const { comment, likeComment, unlikeComment, auth, allComments, sortOrder } = this.props;
+    const { comment, likeComment, unlikeComment, dislikeComment, auth, allComments, sortOrder } = this.props;
 
     if (comment.isOptimistic) {
       return renderOptimisticComment(comment);
@@ -69,6 +69,10 @@ export default class CommentItem extends Component {
     const isCommentLiked =
       auth.isAuthenticated &&
       comment.active_votes.some(vote => vote.voter === auth.user.name && vote.percent > 0);
+
+    const isCommentDisliked =
+      auth.isAuthenticated &&
+      comment.active_votes.some(vote => vote.voter === auth.user.name && vote.percent < 0);
 
     return (
       <div className="CommentItem">
@@ -97,6 +101,19 @@ export default class CommentItem extends Component {
                 </a>{ ' ' }
                 { numeral(comment.net_votes).format('0,0') }
               </div>
+
+              <div className="CommentActionButtons__button">
+                <a
+                  onClick={isCommentDisliked
+                    ? () => unlikeComment(comment.id)
+                    : () => dislikeComment(comment.id)}
+                  className={isCommentDisliked ? 'active' : ''}
+                >
+                  <Icon name="thumb_down" xs />
+                </a>{ ' ' }
+                { numeral(comment.active_votes.filter(vote => vote.percent < 0).length).format('0,0') }
+              </div>
+
               <div className="CommentActionButtons__button">
                 { numeral(payout).format('$0,0.000') }
               </div>
