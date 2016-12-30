@@ -18,4 +18,6 @@ export default {
   shortcut: 'bronze',
   hql2016: 'bronze',
   sweetsssj: 'bronze',
+  'craig-grant': 'bronze',
+  twinner: 'bronze',
 };
