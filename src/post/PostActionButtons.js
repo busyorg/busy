@@ -6,6 +6,7 @@ import LikeButton from './actionButtons/LikeButton';
 import PayoutLabel from './actionButtons/PayoutLabel';
 import * as postActions from './postActions';
 import Icon from '../widgets/Icon';
+import ReblogButton from './actionButtons/ReblogButton';
 
 @connect(
   state => ({
@@ -110,20 +111,11 @@ export default class PostActionButtons extends Component {
         </li>
 
         <li>
-          <a
+          <ReblogButton
             onClick={() => this.handleReblog()}
-            className={this.props.isReblogged ? 'active' : ''}
-          >
-            <Icon name="repeat" sm />
-
-            { layout === 'card' &&
-              <span className="hidden-xs">
-                { ' ' }
-                Reblog
-              </span>
-            }
-
-          </a>
+            active={this.props.isReblogged}
+            layout={layout}
+          />
         </li>
       </ul>
     );
