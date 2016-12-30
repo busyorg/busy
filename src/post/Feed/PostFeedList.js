@@ -51,6 +51,7 @@ const PostFeedList = ({
           onShowLikesRequest={handleShowLikesRequest}
           reblog={reblog}
           isReblogged={isReblogged}
+          layout={this.props.layout}
         />
         <span>
           <Link to={`/@${post.author}`}>

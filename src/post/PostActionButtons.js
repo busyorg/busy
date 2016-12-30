@@ -59,7 +59,7 @@ export default class PostActionButtons extends Component {
   }
 
   render() {
-    const { post, auth } = this.props;
+    const { post, auth, layout } = this.props;
     const payout = parseFloat(post.total_payout_value)
       + parseFloat(post.total_pending_payout_value);
     const isPostLiked =
@@ -81,17 +81,48 @@ export default class PostActionButtons extends Component {
             value={numeral(payout).format('$0,0.00')}
           />
         </li>
+
         <li>
-          <Icon name="reply" sm />
+          <a onClick={e => this.handleCommentBoxClick(e)}>
+            <Icon name="reply" sm />
+          </a>
           { ' ' }
-          { numeral(post.children).format('0,0') }
+
+          { (post.children && layout === 'card') &&
+            <a onClick={e => this.handleCommentsTextClick(e)}>
+              {numeral(post.children).format('0,0')}
+                <span className="hidden-xs"> Comment
+                  { post.children > 1 && 's' }
+                </span>
+            </a>
+          }
+
+          { (!post.children && layout === 'card') &&
+            <span className="hidden-xs">0 Comment</span>
+          }
+
+          { layout === 'list' &&
+            <span>
+              { numeral(post.children).format('0,0') }
+            </span>
+          }
+
         </li>
+
         <li>
           <a
             onClick={() => this.handleReblog()}
             className={this.props.isReblogged ? 'active' : ''}
           >
             <Icon name="repeat" sm />
+
+            { layout === 'card' &&
+              <span className="hidden-xs">
+                { ' ' }
+                Reblog
+              </span>
+            }
+
           </a>
         </li>
       </ul>
