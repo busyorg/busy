@@ -2,6 +2,8 @@ import React from 'react';
 import Icon from '../../widgets/Icon';
 
 export default function LikeButton({ onClick, onTextClick, active, numberOfVotes, layout }) {
+  const isCardLayout = layout === 'card';
+  const isListLayout = layout === 'list';
   return (
     <div>
       <a
@@ -12,8 +14,7 @@ export default function LikeButton({ onClick, onTextClick, active, numberOfVotes
       </a>
       { ' ' }
 
-      { layout === 'card' &&
-      parseInt(numberOfVotes) !== 0 ?
+      { (isCardLayout && parseInt(numberOfVotes) !== 0) &&
         <a
           onClick={onTextClick}
           className={active ? 'active' : ''}
@@ -21,14 +22,16 @@ export default function LikeButton({ onClick, onTextClick, active, numberOfVotes
           { numberOfVotes }
           <span className="hidden-xs"> Likes</span>
         </a>
-        :
-        <span>
-            { numberOfVotes }
-          <span className="hidden-xs"> Likes</span>
-          </span>
       }
 
-      { layout === 'card' &&
+      { (isCardLayout && parseInt(numberOfVotes) === 0) &&
+        <span>
+          { numberOfVotes }
+        <span className="hidden-xs"> Likes</span>
+        </span>
+      }
+
+      { isListLayout &&
       <span>
           { numberOfVotes }
         </span>

@@ -66,6 +66,8 @@ export default class PostActionButtons extends Component {
     const isPostLiked =
       auth.isAuthenticated &&
       post.active_votes.some(vote => vote.voter === auth.user.name && vote.percent > 0);
+    const isCardLayout = layout === 'card';
+    const isListLayout = layout === 'list';
 
     return (
       <ul>
@@ -90,7 +92,7 @@ export default class PostActionButtons extends Component {
           </a>
           { ' ' }
 
-          { (post.children && layout === 'card') &&
+          { (post.children && isCardLayout) &&
             <a onClick={e => this.handleCommentsTextClick(e)}>
               {numeral(post.children).format('0,0')}
                 <span className="hidden-xs"> Comment
@@ -99,11 +101,11 @@ export default class PostActionButtons extends Component {
             </a>
           }
 
-          { (!post.children && layout === 'card') &&
+          { (!post.children && isCardLayout) &&
             <span className="hidden-xs">0 Comment</span>
           }
 
-          { layout === 'list' &&
+          { isListLayout &&
             <span>
               { numeral(post.children).format('0,0') }
             </span>
