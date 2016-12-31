@@ -13,10 +13,12 @@ import {
   getVisibleSelectionRect as draftVSR,
   EditorState,
   Entity,
-  Editor, RichUtils,
+  RichUtils,
   convertToRaw,
   convertFromRaw
 } from 'draft-js';
+import createMarkdownShortcutsPlugin from 'draft-js-markdown-shortcuts-plugin';
+import Editor from 'draft-js-plugins-editor';
 
 import './Write.scss';
 import './PostEditor.scss';
@@ -25,6 +27,9 @@ import SideControls from './SideControls';
 import ImageBlock from './ImageBlock';
 
 const debug = newDebug('busy:PostEditor');
+const plugins = [
+  createMarkdownShortcutsPlugin()
+];
 
 // Custom overrides for "code" style.
 const styleMap = {
@@ -301,6 +306,7 @@ class PostEditor extends Component {
             editorState={editorState}
             handleKeyCommand={this.handleKeyCommand}
             onChange={this.onChange}
+            plugins={plugins}
           />
         </div>
         <div className={toolbarClasses} style={this.state.position} >
