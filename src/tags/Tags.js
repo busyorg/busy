@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
-import { values, sortBy, size } from 'lodash';
-
 import steemAPI from '../steemAPI';
 import Loading from '../widgets/Loading';
 import Header from '../app/Header';
 import Tag from './Tag';
+
+const sortTags = tags =>
+  Object.keys(tags)
+  .sort((key1, key2) => (tags[key1].comments - tags[key2].comments))
+  .reverse()
+  .map(tagKey => tags[tagKey]);
 
 export default class Tags extends Component {
   constructor(props) {
@@ -21,19 +25,19 @@ export default class Tags extends Component {
   }
 
   render() {
-    const tags = this.state.tags;
+    const { tags } = this.state;
+    const sortedTags = sortTags(tags);
+    const isFetching = !sortedTags.length;
+
     return (
       <div className="main-panel">
         <Header />
-        { size(tags)
-          ? <ul>
-            { values(sortBy(tags, 'comments')).reverse().map((tag, key) =>
-              tag.name
-                ? <Tag key={key} tag={tag} />
-                : []
-            )}
-          </ul>
-          : <Loading />
+        <ul>
+          { sortedTags.map((tag, idx) => (tag.name ? <Tag key={idx} tag={tag} /> : [])) }
+        </ul>
+
+        { isFetching &&
+          <Loading />
         }
       </div>
     );
