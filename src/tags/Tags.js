@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import steemAPI from '../steemAPI';
 import Loading from '../widgets/Loading';
 import Header from '../app/Header';
 import Tag from './Tag';
+import * as favoriteActions from '../favorites/favoritesActions';
 
 const sortTags = tags =>
   Object.keys(tags)
@@ -10,6 +13,16 @@ const sortTags = tags =>
   .reverse()
   .map(tagKey => tags[tagKey]);
 
+
+@connect(
+  state => ({
+    favorites: state.favorites.categories,
+  }),
+  dispatch => bindActionCreators({
+    addCategoryFavorite: favoriteActions.addCategoryFavorite,
+    removeCategoryFavorite: favoriteActions.removeCategoryFavorite,
+  }, dispatch)
+)
 export default class Tags extends Component {
   constructor(props) {
     super(props);
@@ -33,7 +46,16 @@ export default class Tags extends Component {
       <div className="main-panel">
         <Header />
         <ul>
-          { sortedTags.map((tag, idx) => (tag.name ? <Tag key={idx} tag={tag} /> : [])) }
+          { sortedTags.map((tag, idx) => (tag.name ?
+            <Tag
+              key={idx}
+              tag={tag}
+              isFavorited={this.props.favorites.includes(tag.name)}
+              addCategoryFavorite={this.props.addCategoryFavorite}
+              removeCategoryFavorite={this.props.removeCategoryFavorite}
+            />
+            : []
+          )) }
         </ul>
 
         { isFetching &&
