@@ -7,18 +7,23 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 
 // draft-js
-import exportMarkdown from 'draft-js-export-markdown/lib/stateToMarkdown';
+import 'draft-js-emoji-plugin/lib/plugin.css';
+import 'draft-js-hashtag-plugin/lib/plugin.css';
 import {
   DefaultDraftBlockRenderMap,
   getVisibleSelectionRect as draftVSR,
   EditorState,
+  ContentState,
   Entity,
   RichUtils,
   convertToRaw,
   convertFromRaw
 } from 'draft-js';
+import Editor, { createEditorStateWithText } from 'draft-js-plugins-editor';
+import createEmojiPlugin from 'draft-js-emoji-plugin';
+import createHashtagPlugin from 'draft-js-hashtag-plugin';
+import exportMarkdown from 'draft-js-export-markdown/lib/stateToMarkdown';
 import createMarkdownShortcutsPlugin from 'draft-js-markdown-shortcuts-plugin';
-import Editor from 'draft-js-plugins-editor';
 
 import './Write.scss';
 import './PostEditor.scss';
@@ -27,8 +32,14 @@ import SideControls from './SideControls';
 import ImageBlock from './ImageBlock';
 
 const debug = newDebug('busy:PostEditor');
+const emojiPlugin = createEmojiPlugin();
+const hashtagPlugin = createHashtagPlugin();
+const { EmojiSuggestions } = emojiPlugin;
+
 const plugins = [
-  createMarkdownShortcutsPlugin()
+  createMarkdownShortcutsPlugin(),
+  emojiPlugin,
+  hashtagPlugin
 ];
 
 // Custom overrides for "code" style.
@@ -151,7 +162,7 @@ function getSelectionCoords(editor, toolbar) {
 class PostEditor extends Component {
   constructor(props) {
     super(props);
-    const editorState = EditorState.createEmpty();
+    const editorState = createEditorStateWithText('');
 
     this.state = {
       editorState, showToolbar: false, lastResetedBlock: null
@@ -170,7 +181,7 @@ class PostEditor extends Component {
   }
 
   resetState() {
-    this.setState({ editorState: EditorState.createEmpty() });
+    this.setState({ editorState: EditorState.push(this.state.editorState, ContentState.createFromText('')) });
   }
 
   updateToolBarState = () => {
@@ -308,6 +319,7 @@ class PostEditor extends Component {
             onChange={this.onChange}
             plugins={plugins}
           />
+          <EmojiSuggestions />
         </div>
         <div className={toolbarClasses} style={this.state.position} >
           <div style={{ position: 'absolute', bottom: 0 }}>
