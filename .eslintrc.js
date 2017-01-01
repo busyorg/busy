@@ -16,7 +16,8 @@ module.exports = {
     "react/sort-comp": 0,
     "react/prop-types": 0,
     "no-underscore-dangle": 0,
-    "comma-dangle": 0
+    "comma-dangle": 0,
+    "no-static-element-interactions": 0,
   },
   "plugins": [
     "react",
