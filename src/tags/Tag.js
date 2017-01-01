@@ -12,7 +12,7 @@ const Tag = ({
 }) =>
   <div className="page">
     <div className="my-3 text-xs-center">
-      <h1>
+      <span>
         <FavoriteCategoryButton
           name={tag.name}
           isFavorited={isFavorited}
@@ -22,6 +22,8 @@ const Tag = ({
           }
           noTitle
         />
+      </span>
+      <h1 style={{ display: 'inline-block' }}>
         { ' ' }
         <Link to={`/hot/${tag.name}`}>#{tag.name}</Link>{' '}
       </h1>

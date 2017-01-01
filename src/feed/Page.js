@@ -89,14 +89,16 @@ export default class Page extends React.Component {
         <MenuFeed category={category} />
 
         { category &&
-          <FavoriteCategoryButton
-            name={category}
-            isFavorited={this.isFavorited()}
-            onClick={this.isFavorited()
-              ? this.props.removeCategoryFavorite
-              : this.props.addCategoryFavorite
-            }
-          />
+          <div className="mt-1 mb-0 text-xs-center">
+            <FavoriteCategoryButton
+              name={category}
+              isFavorited={this.isFavorited()}
+              onClick={this.isFavorited()
+                ? this.props.removeCategoryFavorite
+                : this.props.addCategoryFavorite
+              }
+            />
+          </div>
         }
 
         { auth.isFetching && <Loading /> }
