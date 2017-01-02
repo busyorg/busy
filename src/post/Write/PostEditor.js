@@ -9,6 +9,7 @@ import _ from 'lodash';
 // draft-js
 import 'draft-js-emoji-plugin/lib/plugin.css';
 import 'draft-js-hashtag-plugin/lib/plugin.css';
+import 'draft-js-linkify-plugin/lib/plugin.css';
 import {
   DefaultDraftBlockRenderMap,
   getVisibleSelectionRect as draftVSR,
@@ -24,6 +25,7 @@ import createEmojiPlugin from 'draft-js-emoji-plugin';
 import createHashtagPlugin from 'draft-js-hashtag-plugin';
 import exportMarkdown from 'draft-js-export-markdown/lib/stateToMarkdown';
 import createMarkdownShortcutsPlugin from 'draft-js-markdown-shortcuts-plugin';
+import createLinkifyPlugin from 'draft-js-linkify-plugin';
 
 import './Write.scss';
 import './PostEditor.scss';
@@ -34,12 +36,14 @@ import ImageBlock from './ImageBlock';
 const debug = newDebug('busy:PostEditor');
 const emojiPlugin = createEmojiPlugin();
 const hashtagPlugin = createHashtagPlugin();
+const linkifyPlugin = createLinkifyPlugin();
 const { EmojiSuggestions } = emojiPlugin;
 
 const plugins = [
   createMarkdownShortcutsPlugin(),
   emojiPlugin,
-  hashtagPlugin
+  hashtagPlugin,
+  linkifyPlugin
 ];
 
 // Custom overrides for "code" style.
