@@ -22,6 +22,8 @@ import Avatar from '../widgets/Avatar';
 import Badge from '../widgets/Badge';
 import Donor from '../widgets/Donor';
 import donors from '../helpers/donors';
+import EmptyUserProfile from '../statics/EmptyUserProfile';
+import EmptyUserOwnProfile from '../statics/EmptyUserOwnProfile';
 
 class Profile extends Component {
   constructor(props) {
@@ -79,12 +81,9 @@ class Profile extends Component {
   }
 
   render() {
-    const { feed, posts, getFeedContent, getMoreFeedContent, limit } = this.props;
+    const { feed, posts, getFeedContent, getMoreFeedContent, limit, auth } = this.props;
     const username = this.props.params.name;
-    const edit = (
-      this.props.auth.isAuthenticated
-        && username === this.props.auth.user.name
-    );
+    const isOwnProfile = auth.isAuthenticated && username === auth.user.name;
 
     const content = getFeedContentFromState('blog', username, feed, posts);
     const isFetching = getFeedLoadingFromState('blog', username, feed);
@@ -204,6 +203,13 @@ class Profile extends Component {
             loadMoreContent={loadMoreContentAction}
             route={this.props.route}
           />
+
+          { (content.length === 0 && !isFetching) &&
+            isOwnProfile ?
+              <EmptyUserOwnProfile />
+            :
+              <EmptyUserProfile />
+          }
         </div>
       </div>
     );
