@@ -31,7 +31,7 @@ export default class UserProfileFeed extends Component {
     });
 
     return (
-      <di>
+      <div>
         <Feed
           content={content}
           isFetching={isFetching}
@@ -44,7 +44,7 @@ export default class UserProfileFeed extends Component {
         { (content.length === 0 && !isFetching) &&
           <EmptyFeed />
         }
-      </di>
+      </div>
     );
   }
 }
