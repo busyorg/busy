@@ -177,7 +177,15 @@ class PostEditor extends Component {
   }
 
   setRawContent(content) {
-    this.setState({ editorState: EditorState.createWithContent(convertFromRaw(content)) });
+    // setTimeout is required as getDecorator are not immediately.
+    setTimeout(() => {
+      this.setState({
+        editorState: EditorState.createWithContent(
+          convertFromRaw(content),
+          this.state.editorState.getDecorator()
+        )
+      });
+    });
   }
 
   resetState() {
@@ -188,7 +196,7 @@ class PostEditor extends Component {
     const selection = this.state.editorState.getSelection();
     const newState = this.state.editorState;
     const hasSelectedText = !selection.isCollapsed();
-    const selectionCoords = getSelectionCoords(this.editor, this.toolbar);
+    const selectionCoords = getSelectionCoords(this.editorContainer, this.toolbar);
 
     let shouldUpdateState = false;
     if (hasSelectedText && selectionCoords) {
@@ -302,7 +310,7 @@ class PostEditor extends Component {
           user={this.props.user}
         />
 
-        <div className={className} ref={(c) => { this.editor = c; }}>
+        <div className={className} ref={(c) => { this.editorContainer = c; }}>
           <Editor
             blockRendererFn={this.blockRendererFn}
             blockStyleFn={getBlockStyle}
