@@ -20,7 +20,6 @@ const Tag = ({
             ? () => removeCategoryFavorite(tag.name)
             : () => addCategoryFavorite(tag.name)
           }
-          noTitle
         />
       </span>
       <h1 style={{ display: 'inline-block' }}>

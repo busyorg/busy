@@ -1,13 +1,10 @@
 import React from 'react';
 import Icon from '../widgets/Icon';
 
-const FavoriteCategoryButton = ({ name, onClick, isFavorited, noTitle }) => (
+const FavoriteCategoryButton = ({ children, onClick, isFavorited }) =>
   <a onClick={onClick}>
     <Icon name={isFavorited ? 'star' : 'star_border'} sm />{ ' ' }
-    <h2 style={{ display: 'inline' }}>
-      { noTitle ? '' : `#${name}` }
-    </h2>
+    { children }
   </a>
-);
 
 export default FavoriteCategoryButton;
