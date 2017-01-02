@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import ReduxInfiniteScroll from 'redux-infinite-scroll';
@@ -12,7 +11,6 @@ import * as commentsActions from '../comments/commentsActions';
 import * as bookmarkActions from '../bookmarks/bookmarksActions';
 import * as reblogActions from '../app/Reblog/reblogActions';
 import PostSingle from '../post/PostSingle';
-import Icon from '../widgets/Icon';
 
 import './Feed.scss';
 
@@ -72,7 +70,6 @@ export default class Feed extends React.Component {
     return (
       <div className="Feed">
         <div className="Feed__content" onClick={() => this.handleFeedClick()}>
-
           <ReduxInfiniteScroll
             loadMore={this.props.loadMoreContent}
             loader={<Loading />}
