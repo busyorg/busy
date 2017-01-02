@@ -112,7 +112,7 @@ export class RawNewPost extends Component {
     if (users.length) { metaData.users = users; }
     if (links.length) { metaData.links = links; }
     if (image.length) { metaData.image = image; }
-
+    data.parentPermlink = tags.length ? tags[0] : 'general';
     data.jsonMetadata = JSON.stringify(metaData);
     return data;
   }
