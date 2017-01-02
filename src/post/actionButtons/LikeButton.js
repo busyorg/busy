@@ -1,7 +1,7 @@
 import React from 'react';
 import Icon from '../../widgets/Icon';
 
-export default function LikeButton({ onClick, onTextClick, active, numberOfVotes, layout }) {
+const LikeButton = ({ onClick, onTextClick, active, numberOfVotes, layout }) => {
   const isCardLayout = layout === 'card';
   const isListLayout = layout === 'list';
   return (
@@ -39,4 +39,6 @@ export default function LikeButton({ onClick, onTextClick, active, numberOfVotes
 
     </div>
   );
-}
+};
+
+export default LikeButton;
