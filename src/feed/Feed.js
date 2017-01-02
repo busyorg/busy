@@ -73,16 +73,6 @@ export default class Feed extends React.Component {
       <div className="Feed">
         <div className="Feed__content" onClick={() => this.handleFeedClick()}>
 
-          { (content.length === 0 && !isFetching) &&
-            <div className="ptl text-xs-center">
-              <Icon name="info" xl />
-              <h1>Empty Feed</h1>
-              <p>
-                This feed is still empty, please try another feed from the menu or <Link to="/">home page</Link>
-              </p>
-            </div>
-          }
-
           <ReduxInfiniteScroll
             loadMore={this.props.loadMoreContent}
             loader={<Loading />}
