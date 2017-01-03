@@ -33,13 +33,9 @@ export function createPost(postData) {
         SteemConnect
           .commentAsync(parentAuthor, parentPermlink, author, permlink, title, body, jsonMetadata)
           .then(({ result }) => {
-            if (result !== null) {
-              throw new Error(result);
-            } else {
-              browserHistory.push(`/${parentPermlink}/@${author}/${permlink}`);
-            }
+            browserHistory.push(`/${parentPermlink}/@${author}/${permlink}`);
             return result;
-          })
+          }).catch(err => err)
       },
     });
   };
