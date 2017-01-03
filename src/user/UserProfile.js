@@ -204,11 +204,12 @@ class Profile extends Component {
             route={this.props.route}
           />
 
-          { (content.length === 0 && !isFetching) &&
-            isOwnProfile ?
-              <EmptyUserOwnProfile />
-            :
-              <EmptyUserProfile />
+          { (content.length === 0 && !isFetching && isOwnProfile) &&
+            <EmptyUserOwnProfile />
+          }
+
+          { (content.length === 0 && !isFetching && !isOwnProfile) &&
+            <EmptyUserProfile />
           }
         </div>
       </div>
