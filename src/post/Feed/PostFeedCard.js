@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router';
 import { FormattedRelative } from 'react-intl';
 import { has } from 'lodash/object';
-
 import BodyShort from '../BodyShort';
 import Flag from '../../widgets/Flag';
 import Comments from '../../comments/Comments';
@@ -11,6 +10,7 @@ import Icon from '../../widgets/Icon';
 import Avatar from '../../widgets/Avatar';
 import PostModalLink from './../PostModalLink';
 import LikesList from './../LikesList';
+import ProfileTooltip from '../../user/profileTooltip/ProfileTooltip';
 
 import './PostFeedCard.scss';
 
@@ -47,10 +47,10 @@ const PostFeedCard = ({
     <div className="PostFeedCard__cell PostFeedCard__cell--top">
       <ul>
         <li>
-          <Link to={`/@${post.author}`}>
+          <ProfileTooltip username={post.author}>
             <Avatar xs username={post.author} />
             { ` @${post.author}` }
-          </Link>
+          </ProfileTooltip>
           <span className="hidden-xs">
             { ' ' }in <Link to={`/hot/${post.category}`}>#{post.category}</Link>
           </span>
