@@ -1,3 +1,8 @@
-.ProfileTooltip {
+.ProfileTooltipContainer {
   display: inline-block;
+}
+
+.ProfileTooltip {
+  width: 310px;
+  min-height: 240px;
 }

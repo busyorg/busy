@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import ToolTip from 'react-portal-tooltip';
+import UserCoverImage from '../UserCoverImage';
 
 import './ProfileTooltip.scss';
 
@@ -15,7 +16,7 @@ export default class UserProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isOpen: false,
+      isOpen: true,
     };
   }
 
@@ -28,13 +29,13 @@ export default class UserProfile extends Component {
   };
 
   closeTooltip = () => {
-    this.setState({ isOpen: false });
+    this.setState({ isOpen: true });
   };
 
   render() {
     const { username } = this.props;
     return (
-      <div className="ProfileTooltip">
+      <div className="ProfileTooltipContainer">
         <Link
           onMouseEnter={this.openTooltip}
           onMouseLeave={this.closeTooltip}
@@ -51,8 +52,14 @@ export default class UserProfile extends Component {
           parent={`#${username}`}
         >
           <div>
-            <p>This is the content of the tooltip</p>
-            <img src="image.png"/>
+            <div>
+              <UserCoverImage
+                width={300}
+                height={120}
+                username={username}
+              />
+            </div>
+            <p>{username}</p>
           </div>
         </ToolTip>
       </div>
