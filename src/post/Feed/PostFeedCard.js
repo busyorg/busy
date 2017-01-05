@@ -6,7 +6,7 @@ import { has } from 'lodash/object';
 import BodyShort from '../BodyShort';
 import Flag from '../../widgets/Flag';
 import Comments from '../../comments/Comments';
-import PostActionTabs from '../PostActionTabs';
+import PostActionButtons from '../PostActionButtons';
 import Icon from '../../widgets/Icon';
 import Avatar from '../../widgets/Avatar';
 import PostModalLink from './../PostModalLink';
@@ -30,6 +30,7 @@ const PostFeedCard = ({
   showLikes,
   handleShowCommentsRequest,
   handleShowLikesRequest,
+  layout
 }) =>
   <div className="PostFeedCard">
     { post.first_reblogged_by &&
@@ -97,7 +98,7 @@ const PostFeedCard = ({
     </div>
 
     <div className="PostFeedCard__cell PostFeedCard__cell--bottom">
-      <PostActionTabs
+      <PostActionButtons
         post={post}
         notify={notify}
         onCommentRequest={onCommentRequest}
@@ -105,6 +106,7 @@ const PostFeedCard = ({
         onShowLikesRequest={handleShowLikesRequest}
         reblog={reblog}
         isReblogged={isReblogged}
+        layout={layout}
       />
     </div>
 
