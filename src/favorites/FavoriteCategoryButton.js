@@ -3,8 +3,9 @@ import Icon from '../widgets/Icon';
 
 const FavoriteCategoryButton = ({ children, onClick, isFavorited }) =>
   <a onClick={onClick}>
-    <Icon name={isFavorited ? 'star' : 'star_border'} sm />{ ' ' }
+    <Icon name={isFavorited ? 'star' : 'star_border'} sm />
+    { children && ' ' }
     { children }
-  </a>
+  </a>;
 
 export default FavoriteCategoryButton;
