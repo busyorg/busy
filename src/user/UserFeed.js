@@ -5,6 +5,7 @@ import {
   getFeedLoadingFromState,
   getFeedHasMoreFromState
 } from '../helpers/stateHelpers';
+import EmptyFeed from '../statics/EmptyFeed';
 
 export default class UserProfileFeed extends Component {
   constructor(props) {
@@ -30,14 +31,20 @@ export default class UserProfileFeed extends Component {
     });
 
     return (
-      <Feed
-        content={content}
-        isFetching={isFetching}
-        hasMore={hasMore}
-        loadContent={loadContentAction}
-        loadMoreContent={loadMoreContentAction}
-        route={this.props.route}
-      />
+      <div>
+        <Feed
+          content={content}
+          isFetching={isFetching}
+          hasMore={hasMore}
+          loadContent={loadContentAction}
+          loadMoreContent={loadMoreContentAction}
+          route={this.props.route}
+        />
+
+        { (content.length === 0 && !isFetching) &&
+          <EmptyFeed />
+        }
+      </div>
     );
   }
 }

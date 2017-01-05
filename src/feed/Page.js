@@ -22,6 +22,7 @@ import { toggleBookmark } from '../bookmarks/bookmarksActions';
 import Loading from '../widgets/Loading';
 import FavoriteCategoryButton from '../favorites/FavoriteCategoryButton';
 import * as favoriteActions from '../favorites/favoritesActions';
+import EmptyFeed from '../statics/EmptyFeed';
 
 @PageHOC
 @connect(
@@ -110,6 +111,10 @@ export default class Page extends React.Component {
             notify={notify}
             route={this.props.route}
           />
+        }
+
+        { (content.length === 0 && !isFetching) &&
+          <EmptyFeed />
         }
       </div>
     );
