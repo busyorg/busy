@@ -169,7 +169,9 @@ export class RawNewPost extends Component {
       <span key={key} {...other}>
         {getTagDisplayValue(tag)}
         {!disabled &&
-          <a onClick={() => onRemove(key)}><Icon className={classNameRemove} name="close" /></a>
+          <a onClick={() => onRemove(key)}>
+            <Icon className={classNameRemove} name="close" xs />
+          </a>
         }
       </span>
     );
@@ -218,15 +220,17 @@ export class RawNewPost extends Component {
                   required: tags.length === 0,
                   type: 'text',
                   name: 'parentPermlink',
-                  className: 'form-control form-control-lg catergories-input',
+                  className: 'form-control form-control-lg categories-input',
                   disabled: categoryInputDisabled,
                   onKeyUp: this.onCategoryInputKeyUp,
-                  placeholder: categoryInputDisabled ? `Max ${MAX_ALLOW_CATEGORIES} Category Allowed` : 'Category'
+                  placeholder: categoryInputDisabled ? '' : 'Category'
                 }}
                 tagProps={{
-                  className: 'catergory', classNameRemove: 'catergory-remove'
+                  className: 'category',
+                  classNameRemove: 'category-remove',
+                  xs: true,
                 }}
-                className="catergories-container"
+                className="categories-container"
                 ref={(c) => { this.categoryInput = c; }}
                 renderTag={this.renderTag}
               />
