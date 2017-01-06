@@ -12,12 +12,8 @@
 .PostSingleContent__content {
   font-size: 20px;
   line-height: 1.6em;
-  font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+  font-family: "DroidSerif", Georgia, Cambria, "Times New Roman", Times, serif;
   overflow: hidden;
-
-  p {
-    text-align: justify;
-  }
 
   img {
     max-width: 100%;
@@ -28,39 +24,39 @@
     background-color: white;
   }
 
-    div.pull-right{
-      padding-left: 1rem;
-      max-width: 50%;
-    }
+  div.pull-right{
+    padding-left: 1rem;
+    max-width: 50%;
+  }
 
-    div.pull-left {
-      float: left;
-      padding-right: 1rem;
-      max-width: 50%;
-    }
+  div.pull-left {
+    float: left;
+    padding-right: 1rem;
+    max-width: 50%;
+  }
 
-    div.text-justify {
-      text-align: justify;
-    }
+  div.text-justify {
+    text-align: justify;
+  }
 
-    div.text-right {
-      text-align: right;
-    }
+  div.text-right {
+    text-align: right;
+  }
 
-    div.text-center {
-      text-align: center;
-    }
+  div.text-center {
+    text-align: center;
+  }
 
-    div.text-rtl {
-      direction: rtl;
-    }
+  div.text-rtl {
+    direction: rtl;
+  }
 
-    ol {
-      margin-bottom: 2em;
+  ol {
+    margin-bottom: 2em;
+  }
 
-    li {
-      list-style-type: decimal !important;
-    }
+  ol li {
+    list-style-type: decimal !important;
   }
 
   ul {
@@ -88,8 +84,8 @@
     padding: 1em;
   }
 
-  h4 {
-    font-size: 1.4rem;
+  h4, h5, h6 {
+    font-size: 1em;
     font-weight: bold;
     line-height: 1.6em;
     margin-bottom: 1em;
