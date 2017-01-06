@@ -5,7 +5,6 @@
 import Promise from 'bluebird';
 import assert from 'assert';
 import request from 'superagent';
-import steem from 'steem';
 import SteemConnect from 'steemconnect';
 import { browserHistory } from 'react-router';
 import { createAction } from 'redux-actions';
@@ -20,36 +19,23 @@ export const CREATE_POST_ERROR = '@editor/CREATE_POST_ERROR';
 
 const requiredFields = 'parentAuthor,parentPermlink,author,permlink,title,body,jsonMetadata'.split(',');
 
-const getPermlink = (author, permlink) =>
-  steem.api.getContent(author, permlink).then((content) => {
-    let newPermlink = permlink;
-    if (content.id !== 0) { newPermlink = `${Date.now().toString(32)}-${permlink}`; }
-    return newPermlink;
-  }).catch((err) => {
-    console.warn('Error while getting content', err);
-    return permlink;
-  });
-
-
 export function createPost(postData) {
   requiredFields.forEach((field) => {
     assert(postData[field] != null, `Developer Error: Missing required field ${field}`);
   });
 
   return (dispatch) => {
-    const { parentAuthor, parentPermlink, author, title, body, jsonMetadata } = postData;
+    const { parentAuthor, parentPermlink, author, permlink, title, body, jsonMetadata } = postData;
     dispatch({
       type: CREATE_POST,
       payload: {
-        promise: getPermlink(author, postData.permlink)
-          .then(permlink =>
-            SteemConnect
-              .commentAsync(parentAuthor, parentPermlink, author, permlink, title, body, jsonMetadata)
-              .then(({ result }) => {
-                browserHistory.push(`/${parentPermlink}/@${author}/${permlink}`);
-                return result;
-              })
-          ).catch(err => err)
+        promise:
+          SteemConnect
+            .commentAsync(parentAuthor, parentPermlink, author, permlink, title, body, jsonMetadata)
+            .then(({ result }) => {
+              browserHistory.push(`/${parentPermlink}/@${author}/${permlink}`);
+              return result;
+            }).catch(err => err)
       },
     });
   };
