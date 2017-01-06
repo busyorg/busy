@@ -30,12 +30,12 @@ export function createPost(postData) {
       type: CREATE_POST,
       payload: {
         promise:
-          SteemConnect
-            .commentAsync(parentAuthor, parentPermlink, author, permlink, title, body, jsonMetadata)
-            .then(({ result }) => {
-              browserHistory.push(`/${parentPermlink}/@${author}/${permlink}`);
-              return result;
-            }).catch(err => err)
+        SteemConnect
+          .commentAsync(parentAuthor, parentPermlink, author, permlink, title, body, jsonMetadata)
+          .then(({ result }) => {
+            browserHistory.push(`/${parentPermlink}/@${author}/${permlink}`);
+            return result;
+          }).catch(err => err)
       },
     });
   };
