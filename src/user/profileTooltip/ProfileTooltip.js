@@ -3,7 +3,9 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import ToolTip from 'react-portal-tooltip';
+import steemdb from 'steemdb';
 import UserCoverImage from '../UserCoverImage';
+import Avatar from '../../widgets/Avatar';
 
 import './ProfileTooltip.scss';
 
@@ -16,7 +18,8 @@ export default class UserProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isOpen: true,
+      isOpen: false,
+      userData: {},
     };
   }
 
@@ -24,16 +27,25 @@ export default class UserProfile extends Component {
     username: PropTypes.string
   };
 
+  fetchData() {
+    steemdb.accounts({ account: this.props.username }, (err, result) => {
+      this.setState({ userData: result[0] });
+      console.log(result[0]);
+    });
+  }
+
   openTooltip = () => {
     this.setState({ isOpen: true });
+    this.fetchData();
   };
 
   closeTooltip = () => {
-    this.setState({ isOpen: true });
+    this.setState({ isOpen: false });
   };
 
   render() {
     const { username } = this.props;
+    const { userData } = this.state;
     return (
       <div className="ProfileTooltipContainer">
         <Link
@@ -51,7 +63,7 @@ export default class UserProfile extends Component {
           arrow="top"
           parent={`#${username}`}
         >
-          <div>
+          <div className="ProfileTooltip">
             <div>
               <UserCoverImage
                 width={300}
@@ -59,7 +71,18 @@ export default class UserProfile extends Component {
                 username={username}
               />
             </div>
-            <p>{username}</p>
+            <div className="ProfileTooltip__leftContainer">
+              <div className="ProfileTooltip__avatar">
+                <Avatar
+                  md
+                  username={username}
+                  reputation={userData.name && userData.reputation}
+                />
+              </div>
+            </div>
+            <div className="ProfileTooltip__rightContainer">
+              <h3>{username}</h3>
+            </div>
           </div>
         </ToolTip>
       </div>

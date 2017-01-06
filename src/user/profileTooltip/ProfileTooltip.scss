@@ -3,6 +3,23 @@
 }
 
 .ProfileTooltip {
-  width: 310px;
-  min-height: 240px;
+  width: 300px;
+  height: 200px;
+}
+
+.ProfileTooltip__leftContainer {
+  position: relative;
+  margin-top: -30px;
+  float: left;
+  width: 40%;
+}
+
+.ProfileTooltip__rightContainer {
+  position: relative;
+  margin-top: -30px;
+  float: left;
+}
+
+.ProfileTooltip__avatar {
+  margin-left: 10px;
 }
