@@ -4,7 +4,10 @@
 
 .ProfileTooltip {
   width: 300px;
-  height: 200px;
+  height: 240px;
+  & p {
+    margin-bottom: 0.2rem;
+  }
 }
 
 .ProfileTooltip__leftContainer {
@@ -18,8 +21,27 @@
   position: relative;
   margin-top: -30px;
   float: left;
+  max-width: 60%;
+  font-size: 0.8rem;
+}
+
+.ProfileTooltip__footerContainer {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  left: 8px;
 }
 
 .ProfileTooltip__avatar {
   margin-left: 10px;
+}
+
+.ProfileTooltip_about {
+  display: block;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  overflow: hidden;
+  padding: 0;
+  max-height: calc(1rem * 3);
+  line-height: 1rem;
 }
