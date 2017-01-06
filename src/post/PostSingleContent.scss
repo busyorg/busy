@@ -10,7 +10,7 @@
 }
 
 .PostSingleContent__content {
-  font-size: 22px;
+  font-size: 20px;
   line-height: 1.6em;
   font-family: Georgia, Cambria, "Times New Roman", Times, serif;
   overflow: hidden;
@@ -73,11 +73,27 @@
     }
   }
 
-  table{
+  table {
     width: 100%;
+    border: 1px solid #f8f8f8;
   }
 
-  tr:nth-child(even), thead {background: #eee}
+  td, th {
+    padding: 0.75em;
+    vertical-align: top;
+  }
+
+  tr:nth-child(even), thead {
+    background: #f8f8f8;
+    padding: 1em;
+  }
+
+  h4 {
+    font-size: 1.4rem;
+    font-weight: bold;
+    line-height: 1.6em;
+    margin-bottom: 1em;
+  }
 }
 
 .PostSingleContent__replies {
