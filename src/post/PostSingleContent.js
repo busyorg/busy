@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import { FormattedRelative } from 'react-intl';
 
 import Body from './Body';
+import AuthorBio from './AuthorBio';
 import Icon from '../widgets/Icon';
 import Comments from '../comments/Comments';
 import Avatar from '../widgets/Avatar';
@@ -51,6 +52,7 @@ const PostSingleContent = ({ content, toggleBookmark, bookmarks }) => {
               ))}
             </div>
           }
+          <AuthorBio authorName={content.author} />
         </div>
       </div>
 
