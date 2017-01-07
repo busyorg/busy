@@ -36,7 +36,8 @@ const PayoutDetail = ({ show, post }) => {
       {payoutLimitHit && <div>Payout limit reached on this post</div>}
       <AmountWithLabel label="Potential Payout" amount={potentialPayout} />
       <AmountWithLabel label="Promoted" amount={promotionCost} />
-      {cashoutInTime && <div>Will release <FormattedRelative value={cashoutInTime} /></div>}
+      {!isPayoutDeclined && cashoutInTime &&
+        <div>Will release <FormattedRelative value={cashoutInTime} /></div>}
       {isPayoutDeclined && <div>Declined Payout</div>}
       <AmountWithLabel label="Max Accepted Payout" amount={maxAcceptedPayout} />
       <AmountWithLabel label="Total Past Payouts" amount={pastPayouts} />
