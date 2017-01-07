@@ -1,18 +1,25 @@
 import { addLocaleData } from 'react-intl';
-import enLocaleData from 'react-intl/locale-data/en';
+import en from 'react-intl/locale-data/en';
+import zh from 'react-intl/locale-data/zh';
+import fr from 'react-intl/locale-data/fr';
+import de from 'react-intl/locale-data/de';
+import ru from 'react-intl/locale-data/ru';
+import ko from 'react-intl/locale-data/ko';
 
-import en from './en.json';
-import cn from './cn.json';
-import fr from './fr.json';
-import de from './de.json';
-import ru from './ru.json';
-import kr from './kr.json';
+import enMessage from './en.json';
+import cnMessage from './cn.json';
+import frMessage from './fr.json';
+import deMessage from './de.json';
+import ruMessage from './ru.json';
+import krMessage from './kr.json';
 
-addLocaleData(enLocaleData);
-addLocaleData({ locale: 'cn', parentLocale: 'en' });
-addLocaleData({ locale: 'fr', parentLocale: 'en' });
-addLocaleData({ locale: 'de', parentLocale: 'en' });
-addLocaleData({ locale: 'ru', parentLocale: 'en' });
-addLocaleData({ locale: 'kr', parentLocale: 'en' });
+addLocaleData([...en, ...zh, ...fr, ...de, ...ru, ...ko]);
 
-export { en, cn, fr, de, ru, kr };
+export {
+  enMessage as en,
+  cnMessage as cn,
+  frMessage as fr,
+  deMessage as de,
+  ruMessage as ru,
+  krMessage as kr
+};
