@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { FormattedRelative } from 'react-intl';
-import { has } from 'lodash/object';
+import _ from 'lodash';
+import numeral from 'numeral';
 
 import BodyShort from '../BodyShort';
 import Flag from '../../widgets/Flag';
@@ -11,12 +12,37 @@ import Icon from '../../widgets/Icon';
 import Avatar from '../../widgets/Avatar';
 import PostModalLink from './../PostModalLink';
 import LikesList from './../LikesList';
+import { calculatePayout } from '../../helpers/steemitHelpers';
 
 import './PostFeedCard.scss';
 
+const AmountWithLabel = ({ label, amount }) => _.isNumber(amount) ? <div>{label}: {numeral(amount).format('$0,0.00')}</div> : null;
+
 const PayoutDetail = ({ show, post }) => {
   if (show) {
-    return <div>PayoutDetail</div>;
+    const {
+      payoutLimitHit,
+      potentialPayout,
+      promotionCost,
+      cashoutInTime,
+      isPayoutDeclined,
+      maxAcceptedPayout,
+      pastPayouts,
+      authorPayouts,
+      curatorPayouts,
+    } = calculatePayout(post);
+
+    return (<div>
+      {payoutLimitHit && <div>Payout limit reached on this post</div>}
+      <AmountWithLabel label="Potential Payout" amount={potentialPayout} />
+      <AmountWithLabel label="Promoted" amount={promotionCost} />
+      {cashoutInTime && <div>Will release <FormattedRelative value={cashoutInTime} /></div>}
+      {isPayoutDeclined && <div>Declined Payout</div>}
+      <AmountWithLabel label="Max Accepted Payout" amount={maxAcceptedPayout} />
+      <AmountWithLabel label="Total Past Payouts" amount={pastPayouts} />
+      <AmountWithLabel label="Authors Payout" amount={authorPayouts} />
+      <AmountWithLabel label="Curators Payout" amount={curatorPayouts} />
+    </div>);
   }
   return null;
 };
@@ -77,7 +103,7 @@ const PostFeedCard = ({
       </ul>
     </div>
 
-    {(imagePath && !has(embeds, '[0].embed')) &&
+    {(imagePath && !_.has(embeds, '[0].embed')) &&
       <div className="PostFeedCard__thumbs">
         <PostModalLink
           post={post}
@@ -88,7 +114,7 @@ const PostFeedCard = ({
       </div>
     }
 
-    {has(embeds, '[0].embed') &&
+    {_.has(embeds, '[0].embed') &&
       <div className="PostFeedCard__thumbs" dangerouslySetInnerHTML={{ __html: embeds[0].embed }} />
     }
 
@@ -126,7 +152,7 @@ const PostFeedCard = ({
       className="Comments--feed"
     />
 
-    <PayoutDetail show={showPayout} post />
+    <PayoutDetail show={showPayout} post={post} />
 
     {showLikes &&
       <LikesList
