@@ -48,13 +48,13 @@ class AuthorBio extends Component {
     if (author) {
       const isFollowing = author ? author.followers.indexOf(loggedInUser) >= 0 : false;
       const onClickFollowFn = isFollowing ? this.props.unfollowUser : this.props.followUser;
-      const { about, location, name } = author.json_metadata.profile || {};
+      const { about, name } = author.json_metadata.profile || {};
       const displayName = name || `@${authorName}`;
 
       return (
         <div className="col-md-4">
           <div>
-            <Avatar md username={authorName} />
+            <Avatar lg username={authorName} />
             {displayName}
             <Follow
               hasFollow={authorName !== loggedInUser}
@@ -63,8 +63,6 @@ class AuthorBio extends Component {
             />
           </div>
           <div style={{ display: 'inline-block' }}>
-            <span>From: {location}</span>
-            <br />
             <span>{about}</span>
           </div>
         </div>
