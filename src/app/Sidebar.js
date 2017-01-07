@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { FormattedMessage } from 'react-intl';
+import fetch from 'isomorphic-fetch';
 import formatter from 'steem/lib/formatter';
 import steemdb from 'steemdb';
 import numeral from 'numeral';
@@ -39,7 +40,7 @@ export default class Sidebar extends Component {
       followingFetched: false,
       categories: [],
       props: {},
-      feedPrice: {},
+      price: '',
       following: [],
       menu: 'categories',
       search: '',
@@ -56,10 +57,17 @@ export default class Sidebar extends Component {
         isLoaded: true,
         categories: categories,
         props: result.props,
-        feedPrice: result.feed_price
       });
       this.getFollowing();
     });
+
+    fetch('https://api.coinmarketcap.com/v1/ticker/steem/')
+      .then(res =>
+        res.json().then((json) => {
+          const priceUsd = json[0].price_usd;
+          this.setState({ price: priceUsd });
+        })
+      );
   }
 
   componentDidUpdate() {
@@ -158,14 +166,22 @@ export default class Sidebar extends Component {
   };
 
   render() {
+    const { search, price, props, menu } = this.state;
     const user = this.props.auth.user;
-    const search = this.state.search;
 
-    if (_.has(this.state.feedPrice, 'base')) {
-      var power = formatter.vestToSteem(user.vesting_shares, this.state.props.total_vesting_shares, this.state.props.total_vesting_fund_steem);
-      var base = (this.state.feedPrice.base).replace(' SBD', '').replace(',', '');
-      var dollar = (parseFloat(base) * (parseFloat(user.balance) + parseFloat(power))) + parseFloat(user.sbd_balance);
-    }
+    const power = props
+      ? formatter.vestToSteem(
+        user.vesting_shares,
+        props.total_vesting_shares,
+        props.total_vesting_fund_steem,
+      )
+      : 0;
+
+    const dollar = price
+      ? (parseFloat(price) * (parseFloat(user.balance) + parseFloat(power)))
+        + parseFloat(user.sbd_balance)
+      : 0;
+
     return (
       <nav className="Sidebar">
         <div className="sidebar-header">
@@ -189,14 +205,14 @@ export default class Sidebar extends Component {
 
         <SidebarTabs
           onClickMenu={this.onClickMenu}
-          menu={this.state.menu}
+          menu={menu}
           auth={this.props.auth}
           messages={this.props.messages}
         />
 
         <div className="sidebar-content">
           {this.state.isFetching && <Loading color="white" />}
-          {_.has(this.state.feedPrice, 'base') && this.state.menu === 'settings' &&
+          {price && props && menu === 'settings' &&
             <ul>
               <li className="title">
                 <a href="https://steemconnect.com/profile" target="_blank">
@@ -218,7 +234,7 @@ export default class Sidebar extends Component {
               </li>
             </ul>}
 
-          {_.size(this.state.categories) > 0 && this.state.menu === 'categories' &&
+          {_.size(this.state.categories) > 0 && menu === 'categories' &&
             <div>
               <ul>
                 <li>
@@ -245,7 +261,7 @@ export default class Sidebar extends Component {
             </div>
           }
 
-          {this.state.menu === 'users' &&
+          {menu === 'users' &&
             <SidebarUsers
               messages={this.props.messages}
               auth={this.props.auth}
@@ -254,7 +270,7 @@ export default class Sidebar extends Component {
             />
           }
 
-          {_.has(this.state.feedPrice, 'base') && this.state.menu === 'write' &&
+          {price && props && menu === 'write' &&
             <ul>
               <li className="title">
                 <Link to="/write">
@@ -275,7 +291,8 @@ export default class Sidebar extends Component {
                 </Link>
               </li>
             </ul>}
-          {_.has(this.state.feedPrice, 'base') && this.state.menu === 'wallet' &&
+
+          {price && props && menu === 'wallet' &&
             <ul>
               <li className="title">
                 <Link to="/transfer">
@@ -285,7 +302,7 @@ export default class Sidebar extends Component {
               </li>
               <li>
                 <ul>
-                  <li><span className="menu-row">1 Steem <span className="pull-right">{numeral(base).format('$0,0.00')}</span></span></li>
+                  <li><span className="menu-row">1 Steem <span className="pull-right">{numeral(price).format('$0,0.000')}</span></span></li>
                   <li><span className="menu-row">Steem <span className="pull-right">{numeral(user.balance).format('0,0.00')}</span></span></li>
                   <li><span className="menu-row">Steem Power <span className="pull-right">{numeral(power).format('0,0.00')}</span></span></li>
                   <li><span className="menu-row">Steem Dollars <span className="pull-right">{numeral(user.sbd_balance).format('0,0.00')}</span></span></li>
