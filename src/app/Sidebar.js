@@ -7,7 +7,6 @@ import formatter from 'steem/lib/formatter';
 import steemdb from 'steemdb';
 import numeral from 'numeral';
 import _ from 'lodash';
-
 import api from '../steemAPI';
 import { hideSidebar } from '../actions';
 import Loading from '../widgets/Loading';
@@ -15,7 +14,6 @@ import Icon from '../widgets/Icon';
 import Avatar from '../widgets/Avatar';
 import SidebarTabs from './Sidebar/SidebarTabs';
 import SidebarUsers from './Sidebar/SidebarUsers';
-
 import './Sidebar.scss';
 
 @connect(
@@ -222,23 +220,27 @@ export default class Sidebar extends Component {
 
           {_.size(this.state.categories) > 0 && this.state.menu === 'categories' &&
             <div>
-              <ul className="Sidebar__tags">
-                <li className="Sidebar__search">
-                  <div className="input-group">
-                    <span className="input-group-addon"><Icon name="search" sm /></span>
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder="Search"
-                      value={search}
-                      onChange={this.search}
-                    />
-                  </div>
+              <ul>
+                <li>
+                  <ul>
+                    <li className="Sidebar__search">
+                      <div className="input-group">
+                        <span className="input-group-addon"><Icon name="search" sm /></span>
+                        <input
+                          type="text"
+                          className="form-control"
+                          placeholder="Search"
+                          value={search}
+                          onChange={this.search}
+                        />
+                      </div>
+                    </li>
+                    { this.renderSearchAsTag() }
+                    { this.renderFavoritedTags() }
+                    { this.renderTags() }
+                    <li><Link to="/tags" activeClassName="active"><FormattedMessage id="see_more" /></Link></li>
+                  </ul>
                 </li>
-                { this.renderSearchAsTag() }
-                { this.renderFavoritedTags() }
-                { this.renderTags() }
-                <li><Link to="/tags" activeClassName="active"><FormattedMessage id="see_more" /></Link></li>
               </ul>
             </div>
           }
@@ -266,12 +268,6 @@ export default class Sidebar extends Component {
                   <FormattedMessage id="drafts" />
                 </Link>
               </li>
-              {/* <li className="title">
-                <Link to="/#files">
-                  <Icon name="attach_file" />{' '}
-                  <FormattedMessage id="files" />
-                </Link>
-              </li> */}
               <li className="title">
                 <Link to="/bookmarks">
                   <Icon name="bookmark" />{' '}
@@ -280,13 +276,23 @@ export default class Sidebar extends Component {
               </li>
             </ul>}
           {_.has(this.state.feedPrice, 'base') && this.state.menu === 'wallet' &&
-            <ul className="Sidebar__tags">
-              <li><span className="menu-row">1 Steem <span className="pull-right">{numeral(base).format('$0,0.00')}</span></span></li>
-              <li><span className="menu-row">Steem <span className="pull-right">{numeral(user.balance).format('0,0.00')}</span></span></li>
-              <li><span className="menu-row">Steem Power <span className="pull-right">{numeral(power).format('0,0.00')}</span></span></li>
-              <li><span className="menu-row">Steem Dollars <span className="pull-right">{numeral(user.sbd_balance).format('0,0.00')}</span></span></li>
-              <li><span className="menu-row"><FormattedMessage id="estimated_value" /> <span className="pull-right">{numeral(dollar).format('$0,0.00')}</span></span></li>
-            </ul>}
+            <ul>
+              <li className="title">
+                <Link to="/transfer">
+                  <Icon name="send" />{' '}
+                  <FormattedMessage id="transfer" />
+                </Link>
+              </li>
+              <li>
+                <ul>
+                  <li><span className="menu-row">1 Steem <span className="pull-right">{numeral(base).format('$0,0.00')}</span></span></li>
+                  <li><span className="menu-row">Steem <span className="pull-right">{numeral(user.balance).format('0,0.00')}</span></span></li>
+                  <li><span className="menu-row">Steem Power <span className="pull-right">{numeral(power).format('0,0.00')}</span></span></li>
+                  <li><span className="menu-row">Steem Dollars <span className="pull-right">{numeral(user.sbd_balance).format('0,0.00')}</span></span></li>
+                  <li><span className="menu-row"><FormattedMessage id="estimated_value" /> <span className="pull-right">{numeral(dollar).format('$0,0.00')}</span></span></li>
+                </ul>
+              </li>
+              </ul>}
         </div>
       </nav>
     );

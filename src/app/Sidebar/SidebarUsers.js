@@ -109,30 +109,33 @@ export default class SidebarUsers extends Component {
     const unreadMessages = getUnreadMessages(this.props);
     const users = getFilteredUsers(this.props, this.state);
     return (
-      <ul className="Sidebar__tags">
-        <li className="Sidebar__search">
-          <div className="input-group">
-            <span className="input-group-addon"><Icon name="search" sm /></span>
-            <input
-              type="text"
-              className="form-control"
-              placeholder="Search"
-              value={this.props.search}
-              onChange={this.search}
-            />
-          </div>
+      <ul>
+        <li>
+          <ul>
+            <li className="Sidebar__search">
+              <div className="input-group">
+                <span className="input-group-addon"><Icon name="search" sm /></span>
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Search"
+                  value={this.props.search}
+                  onChange={this.search}
+                />
+              </div>
+            </li>
+            { this.renderFavoritedUsers() }
+
+            { unreadMessages.length
+              ? unreadMessages
+              : null
+            }
+            { users.length
+              ? users
+              : null
+            }
+          </ul>
         </li>
-
-        { this.renderFavoritedUsers() }
-
-        { unreadMessages.length
-          ? unreadMessages
-          : null
-        }
-        { users.length
-          ? users
-          : null
-        }
       </ul>
     );
   }
