@@ -14,6 +14,13 @@ import LikesList from './../LikesList';
 
 import './PostFeedCard.scss';
 
+const PayoutDetail = ({ show, post }) => {
+  if (show) {
+    return <div>PayoutDetail</div>;
+  }
+  return null;
+};
+
 const PostFeedCard = ({
   post,
   onCommentRequest,
@@ -28,21 +35,23 @@ const PostFeedCard = ({
   isReblogged,
   showComments,
   showLikes,
+  showPayout,
   handleShowCommentsRequest,
   handleShowLikesRequest,
+  handleShowPayoutRequest,
   layout
 }) =>
   <div className="PostFeedCard">
-    { post.first_reblogged_by &&
-    <div className="PostFeedCard__cell PostFeedCard__cell--top">
-      <ul>
-        <li>
-          <Icon name="repeat" sm />
-          { ' Reblogged by ' }
-          <Link to={`/@${post.first_reblogged_by}`}>@{post.first_reblogged_by}</Link>
-        </li>
-      </ul>
-    </div>
+    {post.first_reblogged_by &&
+      <div className="PostFeedCard__cell PostFeedCard__cell--top">
+        <ul>
+          <li>
+            <Icon name="repeat" sm />
+            {' Reblogged by '}
+            <Link to={`/@${post.first_reblogged_by}`}>@{post.first_reblogged_by}</Link>
+          </li>
+        </ul>
+      </div>
     }
 
     <div className="PostFeedCard__cell PostFeedCard__cell--top">
@@ -50,10 +59,10 @@ const PostFeedCard = ({
         <li>
           <Link to={`/@${post.author}`}>
             <Avatar xs username={post.author} />
-            { ` @${post.author}` }
+            {` @${post.author}`}
           </Link>
           <span className="hidden-xs">
-            { ' ' }in <Link to={`/hot/${post.category}`}>#{post.category}</Link>
+            {' '}in <Link to={`/hot/${post.category}`}>#{post.category}</Link>
           </span>
         </li>
         <li className="pull-right">
@@ -68,19 +77,19 @@ const PostFeedCard = ({
       </ul>
     </div>
 
-    { (imagePath && !has(embeds, '[0].embed')) &&
-    <div className="PostFeedCard__thumbs">
-      <PostModalLink
-        post={post}
-        onClick={() => openPostModal(post.id)}
-      >
-        <img src={imagePath} />
-      </PostModalLink>
-    </div>
+    {(imagePath && !has(embeds, '[0].embed')) &&
+      <div className="PostFeedCard__thumbs">
+        <PostModalLink
+          post={post}
+          onClick={() => openPostModal(post.id)}
+        >
+          <img src={imagePath} />
+        </PostModalLink>
+      </div>
     }
 
-    { has(embeds, '[0].embed') &&
-    <div className="PostFeedCard__thumbs" dangerouslySetInnerHTML={{ __html: embeds[0].embed }} />
+    {has(embeds, '[0].embed') &&
+      <div className="PostFeedCard__thumbs" dangerouslySetInnerHTML={{ __html: embeds[0].embed }} />
     }
 
     <div className="PostFeedCard__cell PostFeedCard__cell--body">
@@ -90,7 +99,7 @@ const PostFeedCard = ({
           post={post}
           onClick={() => openPostModal(post.id)}
         >
-          { post.title }
+          {post.title}
         </PostModalLink>
       </h2>
 
@@ -104,6 +113,7 @@ const PostFeedCard = ({
         onCommentRequest={onCommentRequest}
         onShowCommentsRequest={handleShowCommentsRequest}
         onShowLikesRequest={handleShowLikesRequest}
+        onShowPayoutRequest={handleShowPayoutRequest}
         reblog={reblog}
         isReblogged={isReblogged}
         layout={layout}
@@ -116,11 +126,13 @@ const PostFeedCard = ({
       className="Comments--feed"
     />
 
-    { showLikes &&
-    <LikesList
-      activeVotes={post.active_votes}
-      netVotes={post.net_votes}
-    />
+    <PayoutDetail show={showPayout} post />
+
+    {showLikes &&
+      <LikesList
+        activeVotes={post.active_votes}
+        netVotes={post.net_votes}
+      />
     }
 
   </div>;
