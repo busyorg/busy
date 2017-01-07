@@ -20,5 +20,6 @@
   "messages": "Messages",
   "language": "Language",
   "estimated_value": "Estimated Value",
-  "layout": "Layout"
+  "layout": "Layout",
+  "transfer": "Transfer"
 }
