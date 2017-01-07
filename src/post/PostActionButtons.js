@@ -62,7 +62,9 @@ export default class PostActionButtons extends Component {
   render() {
     const { post, auth, layout } = this.props;
     const payout = parseFloat(post.total_payout_value)
-      + parseFloat(post.total_pending_payout_value);
+      + parseFloat(post.total_pending_payout_value)
+      + parseFloat(post.curator_payout_value);
+
     const isPostLiked =
       auth.isAuthenticated &&
       post.active_votes.some(vote => vote.voter === auth.user.name && vote.percent > 0);
