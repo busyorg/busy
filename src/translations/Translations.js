@@ -7,19 +7,19 @@ import ru from 'react-intl/locale-data/ru';
 import ko from 'react-intl/locale-data/ko';
 
 import enMessage from './en.json';
-import cnMessage from './cn.json';
+import zhMessage from './zh.json';
 import frMessage from './fr.json';
 import deMessage from './de.json';
 import ruMessage from './ru.json';
-import krMessage from './kr.json';
+import koMessage from './ko.json';
 
 addLocaleData([...en, ...zh, ...fr, ...de, ...ru, ...ko]);
 
 export {
   enMessage as en,
-  cnMessage as cn,
+  zhMessage as zh,
   frMessage as fr,
   deMessage as de,
   ruMessage as ru,
-  krMessage as kr
+  koMessage as ko
 };
