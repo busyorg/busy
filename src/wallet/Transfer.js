@@ -13,15 +13,16 @@ import Header from '../app/Header';
 export default class Transfer extends Component {
   constructor(props) {
     super(props);
+    const { location: { query } } = props;
     this.handleToChange = this.handleToChange.bind(this);
     this.handleAmountChange = this.handleAmountChange.bind(this);
     this.handleMemoChange = this.handleMemoChange.bind(this);
     this.state = {
       from: this.props.auth.user.name,
-      to: '',
-      memo: '',
-      amount: '',
-      currency: 'STEEM',
+      to: query.to || '',
+      memo: query.memo || '',
+      amount: query.amount || '',
+      currency: query.currency || 'STEEM',
     };
   }
 
@@ -83,20 +84,24 @@ export default class Transfer extends Component {
                   }
                 </span>
               </div>
-              <h4>
+              <p>
                 Balance{ ' ' }
                 <a href="#" onClick={() => this.setState({ amount: numeral(balance).format('0.000') })}>
                   { numeral(balance).format('0,0.000') }
                 </a>
                 { ` ${currency}` }
-              </h4>
-              <input
-                value={memo}
-                onChange={this.handleMemoChange}
-                placeholder="Memo"
-                type="text"
-                className="form-control form-control-lg"
-              />
+              </p>
+            </div>
+            <div className="form-group text-xs-left">
+              <blockquote>
+                <input
+                  value={memo}
+                  onChange={this.handleMemoChange}
+                  placeholder="Memo"
+                  type="text"
+                  className="form-control form-control-lg"
+                />
+              </blockquote>
             </div>
             <div className="form-group">
               <a
