@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import steem from 'steem';
+import numeral from 'numeral';
 import Icon from '../widgets/Icon';
 import Header from '../app/Header';
 
@@ -21,6 +21,7 @@ export default class Transfer extends Component {
       to: '',
       memo: '',
       amount: '',
+      currency: 'STEEM',
     };
   }
 
@@ -37,15 +38,17 @@ export default class Transfer extends Component {
   };
 
   render() {
-    const { from, to, amount, memo } = this.state;
-    const url = `https://steemjs.com/sign/transfer?from=${from}&to=${to}&memo=${memo}&amount=${amount}`;
+    const account = this.props.auth.user;
+    const { from, to, amount, currency, memo } = this.state;
+    const balance = currency === 'STEEM' ? account.balance : account.sbd_balance;
+    const url = `https://steemjs.com/sign/transfer?from=${from}&to=${to}&memo=${memo}&amount=${amount}%20${currency}`;
     return (
       <div className="main-panel">
         <Header />
         <div className="my-3 container container-small text-xs-center">
           <h1>Transfer</h1>
           <form>
-            <div className="form-group">
+            <div className="form-group text-xs-left">
               <div className="input-group">
                 <span className="input-group-addon">
                   <Icon name="perm_identity" sm />
@@ -70,7 +73,23 @@ export default class Transfer extends Component {
                   type="text"
                   className="form-control form-control-lg"
                 />
+                <span className="input-group-addon">
+                  <a href="#">{ currency }</a>
+                  { ' ' }
+                  {
+                    currency === 'STEEM'
+                      ? <a onClick={() => this.setState({ currency: 'SBD' })}>SBD</a>
+                      : <a onClick={() => this.setState({ currency: 'STEEM' })}>STEEM</a>
+                  }
+                </span>
               </div>
+              <h4>
+                Balance{ ' ' }
+                <a href="#" onClick={() => this.setState({ amount: numeral(balance).format('0.000') })}>
+                  { numeral(balance).format('0,0.000') }
+                </a>
+                { ` ${currency}` }
+              </h4>
               <input
                 value={memo}
                 onChange={this.handleMemoChange}
