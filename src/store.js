@@ -58,11 +58,6 @@ const middleware = [
   })
 ];
 
-const enhancer = compose(
-  applyMiddleware(...middleware),
-  persistState(['favorites', 'editor', 'app'])
-);
-
 if (process.env.ENABLE_LOGGER &&
   process.env.IS_BROWSER &&
   process.env.NODE_ENV !== 'production') {
@@ -72,6 +67,11 @@ if (process.env.ENABLE_LOGGER &&
     stateTransformer: state => JSON.parse(JSON.stringify(state))
   }));
 }
+
+const enhancer = compose(
+  applyMiddleware(...middleware),
+  persistState(['favorites', 'editor', 'app'])
+);
 
 const store = createStore(
   reducers,
