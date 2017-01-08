@@ -25,7 +25,7 @@ export default class Transfer extends Component {
   }
 
   handleToChange = (event) => {
-    this.setState({ to: event.target.value });
+    this.setState({ to: event.target.value.toLowerCase() });
   };
 
   handleAmountChange = (event) => {
@@ -51,6 +51,7 @@ export default class Transfer extends Component {
                   <Icon name="perm_identity" sm />
                 </span>
                 <input
+                  autoFocus
                   value={to}
                   onChange={this.handleToChange}
                   placeholder="To"
