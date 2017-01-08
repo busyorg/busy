@@ -163,7 +163,7 @@ class Profile extends Component {
                 </Link>
               </li>
             </ul>
-            <div className="container container-small my-2 text-xs-center">
+            <div className="container container-small my-2 text-center">
               <h3><Badge vestingShares={user.vesting_shares} /></h3>
               { donors[username] &&
                 <h3>

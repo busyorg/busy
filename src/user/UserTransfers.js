@@ -61,8 +61,8 @@ export default class UserTransfers extends Component {
     return (
       <div className="container my-3">
         {(!isEmpty(this.state.feedPrice) && !isEmpty(account)) ?
-          <div className="ptl text-xs-center">
-            <ul className="row text-xs-center">
+          <div className="ptl text-center">
+            <ul className="row text-center">
               <li className="col col-lg-4">
                 <h3>Steem</h3>
                 <h2>{numeral(account.balance).format('0,0.00')}</h2>

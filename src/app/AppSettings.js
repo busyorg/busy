@@ -30,7 +30,7 @@ export default class AppSettings extends React.Component {
     return (
       <div className="main-panel">
         <Header />
-        <div className="container my-3 text-xs-center">
+        <div className="container my-3 text-center">
           <h1><FormattedMessage id="settings" /></h1>
           <h2><FormattedMessage id="layout" /></h2>
           <div className="row mhl">
