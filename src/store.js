@@ -2,7 +2,6 @@
 import createLogger from 'redux-logger';
 import promiseMiddleware from 'redux-promise-middleware';
 import persistState from 'redux-localstorage';
-import persistSlicer from 'redux-localstorage-slicer';
 import thunk from 'redux-thunk';
 import { combineReducers, applyMiddleware, createStore, compose } from 'redux';
 import api from './steemAPI';
@@ -61,10 +60,7 @@ const middleware = [
 
 const enhancer = compose(
   applyMiddleware(...middleware),
-  persistState(null, {
-    slicer: persistSlicer(),
-  }),
-  persistState('favorites'),
+  persistState(['favorites', 'editor', 'app'])
 );
 
 if (process.env.ENABLE_LOGGER &&

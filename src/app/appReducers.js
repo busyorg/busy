@@ -3,7 +3,6 @@ import * as responsive from '../helpers/responsive';
 import * as postActions from '../post/postActions';
 
 const initialState = {
-  __persist: ['layout', 'locale'],
   isFetching: false,
   isLoaded: false,
   errorMessage: '',
