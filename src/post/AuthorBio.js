@@ -12,7 +12,6 @@ import { followUser, unfollowUser, getFollowing } from '../user/userActions';
   ({ auth, userProfile }) => ({ auth, following: userProfile.following }),
   dispatch => bindActionCreators({ followUser, unfollowUser, getFollowing }, dispatch)
 )
-
 class AuthorBio extends Component {
   constructor(props) {
     super(props);
@@ -22,7 +21,7 @@ class AuthorBio extends Component {
   }
 
   componentDidMount() {
-    const loggedInUser = this.props.auth.user.name;
+    const loggedInUser = this.props.auth.user ? this.props.auth.user.name : '';
     this.props.getFollowing(loggedInUser);
     steemdb.accounts({
       account: this.props.authorName
@@ -34,6 +33,7 @@ class AuthorBio extends Component {
           author.json_metadata = JSON.parse(result[0].json_metadata);
         } catch (e) {
           author.json_metadata = {};
+          throw new Error(`Error parsing jsonMetadata for user ${author.name}`);
         }
         this.setState({ author });
       }
@@ -60,7 +60,7 @@ class AuthorBio extends Component {
             <Link to={`${authorName}`}>
               {displayName}
             </Link>
-            { ' ' }
+            {' '}
             <Follow
               hasFollow={authorName !== loggedInUser}
               isFollowing={isFollowing}
