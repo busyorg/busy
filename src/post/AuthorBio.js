@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import steemdb from 'steemdb';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
+import { Link } from 'react-router';
 import Avatar from '../widgets/Avatar';
 import Loading from '../widgets/Loading';
 import Follow from '../widgets/Follow';
@@ -12,6 +12,7 @@ import { followUser, unfollowUser, getFollowing } from '../user/userActions';
   ({ auth, userProfile }) => ({ auth, following: userProfile.following }),
   dispatch => bindActionCreators({ followUser, unfollowUser, getFollowing }, dispatch)
 )
+
 class AuthorBio extends Component {
   constructor(props) {
     super(props);
@@ -51,17 +52,22 @@ class AuthorBio extends Component {
       const onClickFollowFn = isFollowing ? this.props.unfollowUser : this.props.followUser;
 
       return (
-        <div className="col-md-4">
-          <div>
+        <div>
+          <div className="pull-left">
             <Avatar lg username={authorName} />
-            <span>{displayName}</span>
+          </div>
+          <div className="pull-left">
+            <Link to={`${authorName}`}>
+              {displayName}
+            </Link>
+            { ' ' }
             <Follow
               hasFollow={authorName !== loggedInUser}
               isFollowing={isFollowing}
               onClickFollow={() => onClickFollowFn(authorName)}
             />
+            <div>{about}</div>
           </div>
-          <div>{about}</div>
         </div>
       );
     }
