@@ -10,7 +10,7 @@ import Icon from '../../widgets/Icon';
 import Avatar from '../../widgets/Avatar';
 import PostModalLink from './../PostModalLink';
 import LikesList from './../LikesList';
-import ProfileTooltip from '../../user/profileTooltip/ProfileTooltip';
+import ProfileTooltipOrigin from '../../user/profileTooltip/ProfileTooltipOrigin';
 
 import './PostFeedCard.scss';
 
@@ -47,10 +47,13 @@ const PostFeedCard = ({
     <div className="PostFeedCard__cell PostFeedCard__cell--top">
       <ul>
         <li>
-          <ProfileTooltip username={post.author}>
-            <Avatar xs username={post.author} />
-            { ` @${post.author}` }
-          </ProfileTooltip>
+          <ProfileTooltipOrigin username={post.author} >
+            <Link to={`/@${post.author}`}>
+              <Avatar xs username={post.author} />
+              { ` @${post.author}` }
+            </Link>
+          </ProfileTooltipOrigin>
+
           <span className="hidden-xs">
             { ' ' }in <Link to={`/hot/${post.category}`}>#{post.category}</Link>
           </span>
