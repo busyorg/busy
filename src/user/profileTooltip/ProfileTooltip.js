@@ -8,6 +8,7 @@ import _ from 'lodash';
 import UserCoverImage from '../UserCoverImage';
 import Avatar from '../../widgets/Avatar';
 import Icon from '../../widgets/Icon';
+import Loading from '../../widgets/Loading';
 
 import './ProfileTooltip.scss';
 
@@ -21,6 +22,7 @@ export default class ProfileTooltip extends Component {
     super(props);
     this.state = {
       userData: {},
+      fetching: false,
     };
   }
 
@@ -30,8 +32,9 @@ export default class ProfileTooltip extends Component {
 
   fetchData() {
     const { username } = this.props;
+    this.setState({ fetching: true });
     steemdb.accounts({ account: username }, (err, result) => {
-      this.setState({ userData: result[0] });
+      this.setState({ userData: result[0], fetching: false });
     });
   }
 
@@ -58,53 +61,59 @@ export default class ProfileTooltip extends Component {
       }
     }
 
-    return (
-      <div className="ProfileTooltipContainer">
+    if (this.state.fetching) {
+      return (
         <div className="ProfileTooltip">
-          <div>
-            <UserCoverImage
-              width={300}
-              height={120}
+          <Loading />
+        </div>
+      );
+    }
+
+    return (
+      <div className="ProfileTooltip">
+        <div>
+          <UserCoverImage
+            width={300}
+            height={120}
+            username={username}
+          />
+        </div>
+
+        <div className="ProfileTooltip__leftContainer">
+          <div className="ProfileTooltip__avatar">
+            <Avatar
+              md
               username={username}
+              reputation={userData.name && userData.reputation}
             />
           </div>
+        </div>
 
-          <div className="ProfileTooltip__leftContainer">
-            <div className="ProfileTooltip__avatar">
-              <Avatar
-                md
-                username={username}
-                reputation={userData.name && userData.reputation}
-              />
-            </div>
-          </div>
+        <div className="ProfileTooltip__rightContainer">
+          <h3>{username}</h3>
+          <p>
+            { jsonMetadata.profile &&
+              jsonMetadata.profile.location &&
+              `Location: ${jsonMetadata.profile.location}`
+            }
+          </p>
+          <p className="ProfileTooltip_about">
+            { jsonMetadata.profile && jsonMetadata.profile.about }
+          </p>
+        </div>
 
-          <div className="ProfileTooltip__rightContainer">
-            <h3>{username}</h3>
-            <p>
-              { jsonMetadata.profile &&
-                jsonMetadata.profile.location &&
-                `Location: ${jsonMetadata.profile.location}`
-              }
-            </p>
-            <p className="ProfileTooltip_about">
-              { jsonMetadata.profile && jsonMetadata.profile.about }
-            </p>
-          </div>
+        <div className="ProfileTooltip__footerContainer">
+          <Link to={`/@${username}/followers`}>
+            <Icon name="people" sm />
+            { numeral(parseInt(userData.followers_count, 10)).format('0,0') }
+            <span className="hidden-xs"> Followers</span>
+          </Link>
 
-          <div className="ProfileTooltip__footerContainer">
-            <Link to={`/@${username}/followers`}>
-              <Icon name="people" sm />
-              { numeral(parseInt(userData.followers_count, 10)).format('0,0') }
-              <span className="hidden-xs"> Followers</span>
-            </Link>
-
-            <Link to={`/@${username}/followed`}>
-              <Icon name="people" sm />
-              { numeral(parseInt(userData.following_count, 10)).format('0,0') }
-              <span className="hidden-xs"> Followed</span>
-            </Link>
-          </div>
+          <Link to={`/@${username}/followed`}>
+            <Icon name="people" sm />
+            { numeral(parseInt(userData.following_count, 10)).format('0,0') }
+            <span className="hidden-xs"> Followed</span>
+          </Link>
         </div>
       </div>
     );
