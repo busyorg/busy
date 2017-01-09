@@ -28,7 +28,6 @@ import './Sidebar.scss';
     hideSidebar,
   }, dispatch)
 )
-
 export default class Sidebar extends Component {
   constructor(props) {
     super(props);

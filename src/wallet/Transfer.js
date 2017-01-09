@@ -9,7 +9,6 @@ import Header from '../app/Header';
     auth: state.auth,
   })
 )
-
 export default class Transfer extends Component {
   constructor(props) {
     super(props);
