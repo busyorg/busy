@@ -79,6 +79,7 @@
     "redux-logger": "^2.6.1",
     "redux-promise-middleware": "^4.0.0",
     "redux-thunk": "^2.1.0",
+    "redux-tooltip": "^0.7.2",
     "remarkable": "^1.7.1",
     "sanitize-html": "^1.13.0",
     "sass-loader": "^4.0.2",
