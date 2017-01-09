@@ -29,9 +29,9 @@ const DraftList = ({ editor: { draftPosts } }) =>
   <div className="main-panel">
     <Header />
     <div className="my-3 container container-small">
-      <h1 className="text-xs-center">Drafts</h1>
+      <h1 className="text-center">Drafts</h1>
       { _.size(draftPosts) === 0 &&
-        <h3 className="text-xs-center">
+        <h3 className="text-center">
           You don't have any draft saved.
         </h3>
       }

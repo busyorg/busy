@@ -11,7 +11,7 @@ const Tag = ({
   isFavorited
 }) =>
   <div className="page">
-    <div className="my-3 text-xs-center">
+    <div className="my-3 text-center">
       <h1>
         <FavoriteCategoryButton
           name={tag.name}

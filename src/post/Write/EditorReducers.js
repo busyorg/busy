@@ -2,7 +2,6 @@ import _ from 'lodash';
 import * as editorActions from './EditorActions';
 
 const defaultState = {
-  __persist: ['draftPosts'],
   loading: false,
   error: null,
   success: false,

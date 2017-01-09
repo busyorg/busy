@@ -2,7 +2,6 @@
 import createLogger from 'redux-logger';
 import promiseMiddleware from 'redux-promise-middleware';
 import persistState from 'redux-localstorage';
-import persistSlicer from 'redux-localstorage-slicer';
 import thunk from 'redux-thunk';
 import { combineReducers, applyMiddleware, createStore, compose } from 'redux';
 import api from './steemAPI';
@@ -59,14 +58,6 @@ const middleware = [
   })
 ];
 
-const enhancer = compose(
-  applyMiddleware(...middleware),
-  persistState(null, {
-    slicer: persistSlicer(),
-  }),
-  persistState('favorites'),
-);
-
 if (process.env.ENABLE_LOGGER &&
   process.env.IS_BROWSER &&
   process.env.NODE_ENV !== 'production') {
@@ -76,6 +67,11 @@ if (process.env.ENABLE_LOGGER &&
     stateTransformer: state => JSON.parse(JSON.stringify(state))
   }));
 }
+
+const enhancer = compose(
+  applyMiddleware(...middleware),
+  persistState(['favorites', 'editor', 'app'])
+);
 
 const store = createStore(
   reducers,
