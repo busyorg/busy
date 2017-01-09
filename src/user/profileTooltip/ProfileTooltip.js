@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import ToolTip from 'react-portal-tooltip';
 import steemdb from 'steemdb';
 import numeral from 'numeral';
 import _ from 'lodash';
@@ -17,11 +16,10 @@ import './ProfileTooltip.scss';
     auth: state.auth,
   })
 )
-export default class UserProfile extends Component {
+export default class ProfileTooltip extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isOpen: false,
       userData: {},
     };
   }
@@ -31,26 +29,28 @@ export default class UserProfile extends Component {
   };
 
   fetchData() {
-    steemdb.accounts({ account: this.props.username }, (err, result) => {
+    const { username } = this.props;
+    steemdb.accounts({ account: username }, (err, result) => {
       this.setState({ userData: result[0] });
-      console.log(result[0]);
     });
   }
 
-  openTooltip = () => {
-    this.setState({ isOpen: true });
-    this.fetchData();
-  };
+  componentDidUpdate(nextProps) {
+    if (this.props.username !== nextProps.username) {
+      this.fetchData();
+    }
+  }
 
-  closeTooltip = () => {
-    this.setState({ isOpen: false });
-  };
+  componentDidMount() {
+    this.fetchData();
+  }
 
   render() {
     const { username } = this.props;
     const { userData } = this.state;
+
     let jsonMetadata = {};
-    if (!_.isEmpty(userData)) {
+    if (!_.isEmpty(userData) && userData.json_metadata) {
       try {
         jsonMetadata = JSON.parse(userData.json_metadata);
       } catch (e) {
@@ -60,68 +60,52 @@ export default class UserProfile extends Component {
 
     return (
       <div className="ProfileTooltipContainer">
-        <Link
-          onMouseEnter={this.openTooltip}
-          onMouseLeave={this.closeTooltip}
-          to={`/@${username}`}
-          id={`${username}`}
-        >
-          { this.props.children }
-        </Link>
+        <div className="ProfileTooltip">
+          <div>
+            <UserCoverImage
+              width={300}
+              height={120}
+              username={username}
+            />
+          </div>
 
-        <ToolTip
-          active={this.state.isOpen}
-          position="right"
-          arrow="top"
-          parent={`#${username}`}
-        >
-          <div className="ProfileTooltip">
-            <div>
-              <UserCoverImage
-                width={300}
-                height={120}
+          <div className="ProfileTooltip__leftContainer">
+            <div className="ProfileTooltip__avatar">
+              <Avatar
+                md
                 username={username}
+                reputation={userData.name && userData.reputation}
               />
             </div>
-
-            <div className="ProfileTooltip__leftContainer">
-              <div className="ProfileTooltip__avatar">
-                <Avatar
-                  md
-                  username={username}
-                  reputation={userData.name && userData.reputation}
-                />
-              </div>
-            </div>
-
-            <div className="ProfileTooltip__rightContainer">
-              <h3>{username}</h3>
-              <p>
-                { jsonMetadata.profile &&
-                  jsonMetadata.profile.location &&
-                  `Location: ${jsonMetadata.profile.location}`
-                }
-              </p>
-              <p className="ProfileTooltip_about">
-                { jsonMetadata.profile && jsonMetadata.profile.about }
-              </p>
-            </div>
-
-            <div className="ProfileTooltip__footerContainer">
-              <Link to={`/@${username}/followers`}>
-                <Icon name="people" sm />
-                { numeral(parseInt(userData.followers_count, 10)).format('0,0') }
-                <span className="hidden-xs"> Followers</span>
-              </Link>
-
-              <Link to={`/@${username}/followed`}>
-                <Icon name="people" sm />
-                { numeral(parseInt(userData.following_count, 10)).format('0,0') }
-                <span className="hidden-xs"> Followed</span>
-              </Link>
-            </div>
           </div>
-        </ToolTip>
+
+          <div className="ProfileTooltip__rightContainer">
+            <h3>{username}</h3>
+            <p>
+              { jsonMetadata.profile &&
+                jsonMetadata.profile.location &&
+                `Location: ${jsonMetadata.profile.location}`
+              }
+            </p>
+            <p className="ProfileTooltip_about">
+              { jsonMetadata.profile && jsonMetadata.profile.about }
+            </p>
+          </div>
+
+          <div className="ProfileTooltip__footerContainer">
+            <Link to={`/@${username}/followers`}>
+              <Icon name="people" sm />
+              { numeral(parseInt(userData.followers_count, 10)).format('0,0') }
+              <span className="hidden-xs"> Followers</span>
+            </Link>
+
+            <Link to={`/@${username}/followed`}>
+              <Icon name="people" sm />
+              { numeral(parseInt(userData.following_count, 10)).format('0,0') }
+              <span className="hidden-xs"> Followed</span>
+            </Link>
+          </div>
+        </div>
       </div>
     );
   }

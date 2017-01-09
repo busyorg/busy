@@ -5,6 +5,7 @@ import persistState from 'redux-localstorage';
 import persistSlicer from 'redux-localstorage-slicer';
 import thunk from 'redux-thunk';
 import { combineReducers, applyMiddleware, createStore, compose } from 'redux';
+import { reducer as tooltip } from 'redux-tooltip';
 import api from './steemAPI';
 
 import MessagesWorker, { messagesReducer } from './messages';
@@ -43,6 +44,7 @@ const reducers = combineReducers({
   favorites: favoritesReducer,
   reblog: reblogReducers,
   wallet: walletReducer,
+  tooltip,
 });
 
 const middleware = [

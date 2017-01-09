@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { IntlProvider } from 'react-intl';
+import { Tooltip } from 'redux-tooltip';
 
 import { login } from './auth/authActions';
 import { getConfig } from './actions';
@@ -30,6 +31,10 @@ import * as reblogActions from './app/Reblog/reblogActions';
 )
 
 export default class Wrapper extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   componentWillMount() {
     this.props.login();
     this.props.getConfig();
@@ -42,21 +47,24 @@ export default class Wrapper extends Component {
     const className = (!app.sidebarIsVisible) ? 'app-wrapper full-width' : 'app-wrapper';
     return (
       <IntlProvider locale={app.locale} messages={messages[app.locale]}>
-        { auth.isFetching ?
-          <Modal>
-            <Loading />
-          </Modal>
-          : auth.isAuthenticated
-            ? <div className={className}>
-              <Sidebar />
-              <Notification />
-              {React.cloneElement(
-                this.props.children,
-                { auth, notify }
-              )}
-            </div>
-            : <Splash />
-        }
+        <div>
+          { auth.isFetching ?
+            <Modal>
+              <Loading />
+            </Modal>
+            : auth.isAuthenticated
+              ? <div className={className}>
+                <Sidebar />
+                <Notification />
+                {React.cloneElement(
+                  this.props.children,
+                  { auth, notify }
+                )}
+              </div>
+              : <Splash />
+          }
+          <Tooltip name="userProfile" store={this.props.store} place="right"/>
+        </div>
       </IntlProvider>
     );
   }
