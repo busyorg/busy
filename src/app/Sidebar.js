@@ -62,12 +62,11 @@ export default class Sidebar extends Component {
     });
 
     fetch('https://api.coinmarketcap.com/v1/ticker/steem/')
-      .then(res =>
-        res.json().then((json) => {
-          const priceUsd = json[0].price_usd;
-          this.setState({ price: priceUsd });
-        })
-      );
+      .then(res => res.json())
+      .then((json) => {
+        const priceUsd = json[0].price_usd;
+        this.setState({ price: priceUsd });
+      });
   }
 
   componentDidUpdate() {
