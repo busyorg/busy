@@ -22,7 +22,7 @@ export default class UserFollowers extends Component {
   render() {
     return (
       <div className="my-3">
-        <div className="container text-xs-center">
+        <div className="container text-center">
           <h1>@{ this.props.params.name }'s followers ({ this.state.users.length })</h1>
         </div>
         <div className="container container-small">

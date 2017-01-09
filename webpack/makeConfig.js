@@ -105,7 +105,7 @@ function makeConfig(options) {
   const isDevelopment = options.isDevelopment;
 
   return {
-    devtool: isDevelopment ? 'cheap-eval-source-map' : 'source-map',
+    devtool: isDevelopment ? 'eval-source-map' : 'source-map',
     entry: (isDevelopment ? [
       'webpack-hot-middleware/client?reload=true',
     ] : []).concat([

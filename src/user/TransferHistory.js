@@ -159,7 +159,7 @@ export default class TransferHistory extends Component {
                 <br />
                 <b>{ op[1].op[1].memo }</b>
               </td>
-              <td className="text-xs-right">
+              <td className="text-right">
                 <FormattedRelative value={op[1].timestamp} />
               </td>
             </tr>

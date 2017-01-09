@@ -30,7 +30,7 @@ export default class AppSettings extends React.Component {
     return (
       <div className="main-panel">
         <Header />
-        <div className="container my-3 text-xs-center">
+        <div className="container my-3 text-center">
           <h1><FormattedMessage id="settings" /></h1>
           <h2><FormattedMessage id="layout" /></h2>
           <div className="row mhl">
@@ -62,8 +62,8 @@ export default class AppSettings extends React.Component {
               </a>
             </div>
             <div className="col col-lg-4 mbl">
-              <a onClick={() => setLocale('cn')}>
-                <img className="Flag Flag--lg" alt="简体中文" src="/img/flag/cn.svg" />
+              <a onClick={() => setLocale('zh')}>
+                <img className="Flag Flag--lg" alt="简体中文" src="/img/flag/zh.svg" />
                 <h2 className="mvs">简体中文</h2>
               </a>
             </div>
@@ -86,8 +86,8 @@ export default class AppSettings extends React.Component {
               </a>
             </div>
             <div className="col col-lg-4 mbl">
-              <a onClick={() => setLocale('kr')}>
-                <img className="Flag Flag--lg" alt="한국어" src="/img/flag/kr.svg" />
+              <a onClick={() => setLocale('ko')}>
+                <img className="Flag Flag--lg" alt="한국어" src="/img/flag/ko.svg" />
                 <h2 className="mvs">한국어</h2>
               </a>
             </div>

@@ -10,7 +10,7 @@ const Donors = () =>
   <div className="main-panel">
     <Header />
     <div className="container container-small my-3">
-      <h1 className="text-xs-center">Donors</h1>
+      <h1 className="text-center">Donors</h1>
       <ul>
         { Object.keys(donors).map(donor =>
           <h3>

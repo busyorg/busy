@@ -8,7 +8,7 @@ const Error404 = () =>
   <div className="main-panel">
     <Header />
     <div className="container my-3">
-      <div className="ptl text-xs-center">
+      <div className="ptl text-center">
         <h1><Icon name="info" lg /> Page Not Found</h1>
         <h2>Oops! Looks like you followed a bad link.</h2>
         <p>If you think this is a problem with Busy,

@@ -41,7 +41,7 @@ export default class Bookmarks extends Component {
       <div className="main-panel">
         <Header />
         <div className="my-3">
-          <h1 className="text-xs-center">Bookmarks</h1>
+          <h1 className="text-center">Bookmarks</h1>
           <Feed
             content={content}
             isFetching={isFetching}
@@ -52,7 +52,7 @@ export default class Bookmarks extends Component {
           />
           { !isFetching && !content.length &&
             <div className="container">
-              <h3 className="text-xs-center">
+              <h3 className="text-center">
                 You don't have any story saved.
               </h3>
             </div>
