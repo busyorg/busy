@@ -105,6 +105,7 @@ export default class Transfer extends Component {
             </div>
             <div className="form-group">
               <a
+                rel="noopener noreferrer"
                 href={url}
                 target="_blank"
                 className="btn btn-success btn-lg"
