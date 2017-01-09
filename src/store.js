@@ -5,7 +5,7 @@ import persistState from 'redux-localstorage';
 import persistSlicer from 'redux-localstorage-slicer';
 import thunk from 'redux-thunk';
 import { combineReducers, applyMiddleware, createStore, compose } from 'redux';
-import { reducer as tooltip } from 'redux-tooltip';
+import { reducer as tooltip, middleware as tooltipMW } from 'redux-tooltip';
 import api from './steemAPI';
 
 import MessagesWorker, { messagesReducer } from './messages';
@@ -58,7 +58,8 @@ const middleware = [
   thunk.withExtraArgument({
     messagesWorker,
     steemAPI: api,
-  })
+  }),
+  tooltipMW
 ];
 
 const enhancer = compose(

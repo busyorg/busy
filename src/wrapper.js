@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { IntlProvider } from 'react-intl';
-import { Tooltip } from 'redux-tooltip';
+import { Tooltip, actions as tooltipActions } from 'redux-tooltip';
 
 import { login } from './auth/authActions';
 import { getConfig } from './actions';
@@ -27,6 +27,8 @@ import * as reblogActions from './app/Reblog/reblogActions';
     notify,
     getStoredBookmarks,
     getRebloggedList: reblogActions.getRebloggedList,
+    keepTooltip: tooltipActions.keep,
+    hideTooltip: tooltipActions.hide,
   }, dispatch)
 )
 
@@ -63,7 +65,13 @@ export default class Wrapper extends Component {
               </div>
               : <Splash />
           }
-          <Tooltip name="userProfile" store={this.props.store} place="right"/>
+          <Tooltip
+            name="userProfile"
+            store={this.props.store}
+            place="right"
+            onHover={() => this.props.keepTooltip({ name: 'userProfile' })}
+            onLeave={() => this.props.hideTooltip({ name: 'userProfile' })}
+          />
         </div>
       </IntlProvider>
     );
