@@ -3,7 +3,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { FormattedMessage } from 'react-intl';
-import fetch from 'isomorphic-fetch';
 import formatter from 'steem/lib/formatter';
 import steemdb from 'steemdb';
 import numeral from 'numeral';
@@ -59,13 +58,6 @@ export default class Sidebar extends Component {
       });
       this.getFollowing();
     });
-
-    fetch('https://api.coinmarketcap.com/v1/ticker/steem/')
-      .then(res => res.json())
-      .then((json) => {
-        const priceUsd = json[0].price_usd;
-        this.setState({ price: priceUsd });
-      });
   }
 
   componentDidUpdate() {
@@ -164,8 +156,8 @@ export default class Sidebar extends Component {
   };
 
   render() {
-    const { search, price, props, menu } = this.state;
-    const user = this.props.auth.user;
+    const { search, props, menu } = this.state;
+    const { auth: { user }, app: { rate } } = this.props;
 
     const power = props
       ? formatter.vestToSteem(
@@ -175,8 +167,8 @@ export default class Sidebar extends Component {
       )
       : 0;
 
-    const dollar = price
-      ? (parseFloat(price) * (parseFloat(user.balance) + parseFloat(power)))
+    const dollar = rate
+      ? (parseFloat(rate) * (parseFloat(user.balance) + parseFloat(power)))
         + parseFloat(user.sbd_balance)
       : 0;
 
@@ -210,7 +202,7 @@ export default class Sidebar extends Component {
 
         <div className="sidebar-content">
           {this.state.isFetching && <Loading color="white" />}
-          {price && props && menu === 'settings' &&
+          {rate && props && menu === 'settings' &&
             <ul>
               <li className="title">
                 <a href="https://steemconnect.com/profile" target="_blank">
@@ -268,7 +260,7 @@ export default class Sidebar extends Component {
             />
           }
 
-          {price && props && menu === 'write' &&
+          {rate && props && menu === 'write' &&
             <ul>
               <li className="title">
                 <Link to="/write">
@@ -290,7 +282,7 @@ export default class Sidebar extends Component {
               </li>
             </ul>}
 
-          {price && props && menu === 'wallet' &&
+          {rate && props && menu === 'wallet' &&
             <ul>
               <li className="title">
                 <Link to="/transfer">
@@ -300,7 +292,7 @@ export default class Sidebar extends Component {
               </li>
               <li>
                 <ul>
-                  <li><span className="menu-row">1 Steem <span className="pull-right">{numeral(price).format('$0,0.000')}</span></span></li>
+                  <li><span className="menu-row">1 Steem <span className="pull-right">{numeral(rate).format('$0,0.000')}</span></span></li>
                   <li><span className="menu-row">Steem <span className="pull-right">{numeral(user.balance).format('0,0.00')}</span></span></li>
                   <li><span className="menu-row">Steem Power <span className="pull-right">{numeral(power).format('0,0.00')}</span></span></li>
                   <li><span className="menu-row">Steem Dollars <span className="pull-right">{numeral(user.sbd_balance).format('0,0.00')}</span></span></li>
