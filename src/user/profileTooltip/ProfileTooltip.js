@@ -10,6 +10,7 @@ import Avatar from '../../widgets/Avatar';
 import Icon from '../../widgets/Icon';
 import Loading from '../../widgets/Loading';
 import Follow from '../../widgets/Follow';
+import Badge from '../../widgets/Badge';
 
 import './ProfileTooltip.scss';
 
@@ -90,6 +91,8 @@ export default class ProfileTooltip extends Component {
               />
             </Link>
           </div>
+
+          <Badge vestingShares={userData.vesting_shares} />
         </div>
 
         <div className="ProfileTooltip__rightContainer">
