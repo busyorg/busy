@@ -122,11 +122,18 @@ export class RawNewPost extends Component {
     const postBody = this.editor.getContent();
     const { location: { query } } = this.props;
     let id = query.draft;
-    if (id === undefined) {
+
+    // Remove zero width space
+    const isBodyEmpty = postBody.markdown.replace(/[\u200B-\u200D\uFEFF]/g, '').trim().length === 0;
+
+    if (id === undefined && !isBodyEmpty) {
       id = Date.now().toString(16);
       this.props.router.push({ pathname: '/write', query: { draft: id } });
     }
-    this.props.saveDraft({ postData: data, rawBody: postBody.raw, id });
+
+    if (id !== undefined) {
+      this.props.saveDraft({ postData: data, rawBody: postBody.raw, id });
+    }
   }, 400);
 
   componentWillReceiveProps(nextProps) {
