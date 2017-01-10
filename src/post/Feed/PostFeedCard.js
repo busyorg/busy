@@ -38,7 +38,9 @@ const PostFeedCard = ({
         <li>
           <Icon name="repeat" sm />
           { ' Reblogged by ' }
-          <Link to={`/@${post.first_reblogged_by}`}>@{post.first_reblogged_by}</Link>
+          <ProfileTooltipOrigin username={post.first_reblogged_by} >
+            <Link to={`/@${post.first_reblogged_by}`}>@{post.first_reblogged_by}</Link>
+          </ProfileTooltipOrigin>
         </li>
       </ul>
     </div>
