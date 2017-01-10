@@ -92,6 +92,19 @@ export default class ProfileTooltip extends Component {
         <div className="ProfileTooltip__rightContainer">
           <h3>{username}</h3>
           <p>
+            <Link to={`/@${username}/followers`} className="ProfileTooltip--smallText">
+              <Icon name="people" sm />
+              { numeral(parseInt(userData.followers_count, 10)).format('0,0') }
+              <span className="hidden-xs"> Followers</span>
+            </Link>
+
+            <Link to={`/@${username}/followed`} className="ProfileTooltip--smallText">
+              <Icon name="people" sm />
+              { numeral(parseInt(userData.following_count, 10)).format('0,0') }
+              <span className="hidden-xs"> Followed</span>
+            </Link>
+          </p>
+          <p>
             { jsonMetadata.profile &&
               jsonMetadata.profile.location &&
               `Location: ${jsonMetadata.profile.location}`
@@ -103,17 +116,14 @@ export default class ProfileTooltip extends Component {
         </div>
 
         <div className="ProfileTooltip__footerContainer">
-          <Link to={`/@${username}/followers`}>
-            <Icon name="people" sm />
-            { numeral(parseInt(userData.followers_count, 10)).format('0,0') }
-            <span className="hidden-xs"> Followers</span>
-          </Link>
 
-          <Link to={`/@${username}/followed`}>
-            <Icon name="people" sm />
-            { numeral(parseInt(userData.following_count, 10)).format('0,0') }
-            <span className="hidden-xs"> Followed</span>
-          </Link>
+          <div>
+            <Link to={`/messages/@${username}`}>
+              <Icon name="chat_bubble" />
+              Message
+            </Link>
+            { ' ' }
+          </div>
         </div>
       </div>
     );
