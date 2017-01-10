@@ -26,7 +26,7 @@ export class RawNewPost extends Component {
     const draftPost = draftPosts[query.draft];
     if (draftPost) {
       const { jsonMetadata } = draftPost.postData || {};
-      try { tags = JSON.parse(jsonMetadata).tags; } catch (e) { tags = []; }
+      tags = jsonMetadata.tags;
       if (!_.isArray(tags)) { tags = []; }
     }
 
