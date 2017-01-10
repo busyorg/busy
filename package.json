@@ -52,6 +52,7 @@
     "hbs": "~3.1.0",
     "history": "^3.2.1",
     "immutable": "^3.8.1",
+    "isomorphic-fetch": "^2.2.1",
     "json-loader": "^0.5.4",
     "keycode": "^2.1.6",
     "lodash": "^4.0.0",
