@@ -9,6 +9,7 @@ import UserCoverImage from '../UserCoverImage';
 import Avatar from '../../widgets/Avatar';
 import Icon from '../../widgets/Icon';
 import Loading from '../../widgets/Loading';
+import Follow from '../../widgets/Follow';
 
 import './ProfileTooltip.scss';
 
@@ -123,6 +124,9 @@ export default class ProfileTooltip extends Component {
               Message
             </Link>
             { ' ' }
+            <Follow username={username} store={this.props.store} >
+              Follow
+            </Follow>
           </div>
         </div>
       </div>

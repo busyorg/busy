@@ -49,6 +49,7 @@ export default class FollowButton extends Component {
             onClick={this.onClickFollow}
           >
             <Icon name={isFollowing ? 'person_outline' : 'person_add'} />
+            { this.props.children }
           </a>
         }
       </span>
