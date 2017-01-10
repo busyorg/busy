@@ -234,8 +234,7 @@ export class RawNewPost extends Component {
                 }}
                 tagProps={{
                   className: 'category',
-                  classNameRemove: 'category-remove',
-                  xs: true,
+                  classNameRemove: 'category-remove'
                 }}
                 className="categories-container"
                 ref={(c) => { this.categoryInput = c; }}
