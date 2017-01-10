@@ -11,6 +11,10 @@ export default class ProfileTooltipOrigin extends Component {
     super(props);
   }
 
+  shouldComponentUpdate(nextProps) {
+    return nextProps.username !== this.props.username;
+  }
+
   render() {
     return (
       <Origin
