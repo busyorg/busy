@@ -5,6 +5,7 @@ import Flag from '../../widgets/Flag';
 import PostActionButtons from '../PostActionButtons';
 import Avatar from '../../widgets/Avatar';
 import PostModalLink from './../PostModalLink';
+import ProfileTooltipOrigin from '../../user/profileTooltip/ProfileTooltipOrigin';
 import './PostFeedList.scss';
 
 const PostFeedList = ({
@@ -53,10 +54,12 @@ const PostFeedList = ({
           isReblogged={isReblogged}
         />
         <span>
-          <Link to={`/@${post.author}`}>
-            <Avatar xs username={post.author} />
-            { ` @${post.author}` }
-          </Link>
+          <ProfileTooltipOrigin username={post.author} >
+            <Link to={`/@${post.author}`}>
+              <Avatar xs username={post.author} />
+              { ` @${post.author}` }
+            </Link>
+          </ProfileTooltipOrigin>
           <span className="hidden-xs">
             { ' in ' }<Link to={`/hot/${post.category}`}>#{post.category}</Link>
           </span>
