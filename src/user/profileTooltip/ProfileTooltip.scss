@@ -4,6 +4,12 @@
   & p {
     margin-bottom: 0.2rem;
   }
+  & h3 {
+    margin-bottom: 0.6rem;
+  }
+  & a {
+    margin-right: 8px;
+  }
 }
 
 .ProfileTooltip__leftContainer {
@@ -40,4 +46,8 @@
   padding: 0;
   max-height: calc(1rem * 3);
   line-height: 1rem;
+}
+
+.ProfileTooltip--smallText {
+  font-size: 0.6rem;
 }
