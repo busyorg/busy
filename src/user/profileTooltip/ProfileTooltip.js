@@ -82,16 +82,22 @@ export default class ProfileTooltip extends Component {
 
         <div className="ProfileTooltip__leftContainer">
           <div className="ProfileTooltip__avatar">
-            <Avatar
-              md
-              username={username}
-              reputation={userData.name && userData.reputation}
-            />
+            <Link to={`/@${username}`}>
+              <Avatar
+                md
+                username={username}
+                reputation={userData.name && userData.reputation}
+              />
+            </Link>
           </div>
         </div>
 
         <div className="ProfileTooltip__rightContainer">
-          <h3>{username}</h3>
+          <h3>
+            <Link to={`/@${username}`}>
+              {username}
+            </Link>
+          </h3>
           <p>
             <Link to={`/@${username}/followers`} className="ProfileTooltip--smallText">
               <Icon name="people" sm />
