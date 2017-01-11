@@ -7,6 +7,12 @@ import './MenuPost.scss';
 
 @IsScrolling
 export default class MenuPost extends Component {
+
+  nextStory = () => {
+    this.props.nextStory();
+    this.props.scrollToTop();
+  }
+
   render() {
     const {
       reblog,
@@ -17,7 +23,8 @@ export default class MenuPost extends Component {
       likePost,
       unlikePost,
       dislikePost,
-      content
+      content,
+      nextStory
     } = this.props;
     const payout = numeral(
       parseFloat(content.total_payout_value) +
@@ -40,9 +47,9 @@ export default class MenuPost extends Component {
           >
             <Icon name="thumb_up" />
           </a>
-          { ` ${numberOfVotes}` }
+          {` ${numberOfVotes}`}
           <span className="hidden-xs">
-            { ' ' }<FormattedMessage id="likes" />
+            {' '}<FormattedMessage id="likes" />
           </span>
         </li>
 
@@ -53,28 +60,28 @@ export default class MenuPost extends Component {
           >
             <Icon name="thumb_down" />
           </a>
-          { ` ${numberOfDislikes}` }
+          {` ${numberOfDislikes}`}
           <span className="hidden-xs">
-            { ' ' }<FormattedMessage id="dislikes" />
+            {' '}<FormattedMessage id="dislikes" />
           </span>
         </li>
 
         <li>
           <Icon name="attach_money" />
-          { ' ' }{ payout }
+          {' '}{payout}
         </li>
         <li>
           <a
-            onClick={e => {
-            e.stopPropagation();
-            openCommentingDraft();
-          }}
+            onClick={(e) => {
+              e.stopPropagation();
+              openCommentingDraft();
+            }}
           >
             <Icon name="reply" />
           </a>
-          { ` ${numberOfComments}` }
+          {` ${numberOfComments}`}
           <span className="hidden-xs">
-            { ' ' }<FormattedMessage id="comments" />
+            {' '}<FormattedMessage id="comments" />
           </span>
         </li>
         <li>
@@ -85,6 +92,12 @@ export default class MenuPost extends Component {
             <Icon name="repeat" />
           </a>
         </li>
+        {nextStory && <li className="pull-right">
+          <a onClick={this.nextStory}>
+            <FormattedMessage id="nextStory" />
+            <Icon name="navigate_next" />
+          </a>
+        </li>}
       </ul>
     );
   }

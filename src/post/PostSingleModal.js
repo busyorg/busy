@@ -10,9 +10,6 @@ import './PostSingleModal.scss';
 
 @withRouter
 export default class PostSingleModal extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   componentDidMount() {
     this.unlisten = this.props.router.listen(this.routerWillLeave);
@@ -55,11 +52,17 @@ export default class PostSingleModal extends Component {
     }
   };
 
+  scrollToTop = () => {
+    if (this.DOMNode) {
+      this.DOMNode.scrollTop = 0;
+    }
+  }
+
   render() {
-    const { content, sidebarIsVisible, reblog, isReblogged, openCommentingDraft } = this.props;
+    const { content, sidebarIsVisible, reblog, isReblogged, openCommentingDraft, nextStory } = this.props;
 
     return (
-      <div className={ sidebarIsVisible ? 'PostSingleModal withSidebar' : 'PostSingleModal' }>
+      <div className={sidebarIsVisible ? 'PostSingleModal withSidebar' : 'PostSingleModal'} ref={(c) => { this.DOMNode = c; }}>
         <MenuPost
           reblog={reblog}
           isReblogged={isReblogged}
@@ -69,6 +72,8 @@ export default class PostSingleModal extends Component {
           dislikePost={this.props.dislikePost}
           isPostLiked={this.props.isPostLiked}
           isPostDisliked={this.props.isPostDisliked}
+          nextStory={nextStory}
+          scrollToTop={this.scrollToTop}
           content={content}
         />
         <header>
