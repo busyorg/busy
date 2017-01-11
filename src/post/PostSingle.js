@@ -12,7 +12,7 @@ import * as bookmarkActions from '../bookmarks/bookmarksActions';
 
 @connect(
   ({ posts, app, reblog, auth, bookmarks }) => ({
-    content: posts[app.lastPostId] ? posts[app.lastPostId] : {},
+    content: posts[app.lastPostId] ? posts[app.lastPostId] : null,
     isPostModalOpen: app.isPostModalOpen,
     lastPostId: app.lastPostId,
     sidebarIsVisible: app.sidebarIsVisible,
@@ -53,6 +53,11 @@ export default class PostSingle extends React.Component {
 
   render() {
     const { modal, isPostModalOpen, sidebarIsVisible, content, reblog, reblogList, auth } = this.props;
+
+    if (!content) {
+      return null;
+    }
+
     const isPostLiked =
       auth.isAuthenticated &&
       content.active_votes &&
