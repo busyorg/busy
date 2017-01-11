@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
+import { FormattedMessage } from 'react-intl';
 import numeral from 'numeral';
 import { formatter } from 'steem';
 import { connect } from 'react-redux';
+import _ from 'lodash';
 import api from '../steemAPI';
 import Loading from '../widgets/Loading';
-import { isEmpty } from 'lodash/lang';
 import * as walletActions from '../wallet/walletActions';
 import TransferHistory from './TransferHistory';
 
@@ -45,12 +46,12 @@ export default class UserTransfers extends Component {
   render() {
     const username = this.props.params.name;
     const account = this.state.account;
-    const base = (!isEmpty(this.state.feedPrice))
+    const base = (!_.isEmpty(this.state.feedPrice))
       ? (this.state.feedPrice.base).replace(' SBD', '').replace(',', '')
       : 0;
     let power = 0;
     let dollar = 0;
-    if (!isEmpty(this.state.feedPrice) && !isEmpty(account)) {
+    if (!_.isEmpty(this.state.feedPrice) && !_.isEmpty(account)) {
       power = formatter.vestToSteem(account.vesting_shares,
         this.state.props.total_vesting_shares,
         this.state.props.total_vesting_fund_steem);
@@ -60,9 +61,9 @@ export default class UserTransfers extends Component {
     }
     return (
       <div className="container my-3">
-        {(!isEmpty(this.state.feedPrice) && !isEmpty(account)) ?
-          <div className="ptl text-xs-center">
-            <ul className="row text-xs-center">
+        {(!_.isEmpty(this.state.feedPrice) && !_.isEmpty(account)) ?
+          <div className="ptl text-center">
+            <ul className="row text-center">
               <li className="col col-lg-4">
                 <h3>Steem</h3>
                 <h2>{numeral(account.balance).format('0,0.00')}</h2>
@@ -77,7 +78,9 @@ export default class UserTransfers extends Component {
               </li>
             </ul>
             <div className="my-2">
-              <h2>Estimated Account Value: {numeral(dollar).format('$0,0.00')}</h2>
+              <h2>
+                <FormattedMessage id="estimated_value" />
+                : {numeral(dollar).format('$0,0.00')}</h2>
             </div>
           </div>
           :

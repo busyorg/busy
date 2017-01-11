@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
+import { FormattedMessage } from 'react-intl';
 import BodyShort from '../BodyShort';
-import Flag from '../../widgets/Flag';
 import PostActionButtons from '../PostActionButtons';
 import Avatar from '../../widgets/Avatar';
 import PostModalLink from './../PostModalLink';
@@ -60,7 +60,8 @@ const PostFeedList = ({
             { ` @${post.author}` }
           </Link>
           <span className="hidden-xs">
-            { ' in ' }<Link to={`/hot/${post.category}`}>#{post.category}</Link>
+            { ' ' }<FormattedMessage id="in" />{ ' ' }
+            <Link to={`/hot/${post.category}`}>#{post.category}</Link>
           </span>
         </span>
       </div>

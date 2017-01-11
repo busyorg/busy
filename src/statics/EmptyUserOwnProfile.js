@@ -1,10 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router';
+import { FormattedMessage } from 'react-intl';
 
 const EmptyUserProfile = () =>
-  <div className="ptl text-xs-center">
+  <div className="text-center">
     <h3>
-      You didn't publish any stories yet. <Link to="/write">Start now</Link>
+      <FormattedMessage id="empty_user_own_profile" />
+      <Link to="/write">Start now</Link>
     </h3>
   </div>;
 

@@ -1,9 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router';
-import { FormattedRelative } from 'react-intl';
+import { FormattedMessage, FormattedRelative } from 'react-intl';
 import _ from 'lodash';
 import numeral from 'numeral';
-
 import BodyShort from '../BodyShort';
 import Flag from '../../widgets/Flag';
 import Comments from '../../comments/Comments';
@@ -13,7 +12,6 @@ import Avatar from '../../widgets/Avatar';
 import PostModalLink from './../PostModalLink';
 import LikesList from './../LikesList';
 import { calculatePayout } from '../../helpers/steemitHelpers';
-
 import './PostFeedCard.scss';
 
 const AmountWithLabel = ({ label, amount }) => _.isNumber(amount) ? <div>{label}: {numeral(amount).format('$0,0.00')}</div> : null;
@@ -89,7 +87,8 @@ const PostFeedCard = ({
             {` @${post.author}`}
           </Link>
           <span className="hidden-xs">
-            {' '}in <Link to={`/hot/${post.category}`}>#{post.category}</Link>
+            { ' ' }<FormattedMessage id="in" />{ ' ' }
+            <Link to={`/hot/${post.category}`}>#{post.category}</Link>
           </span>
         </li>
         <li className="pull-right">
@@ -104,7 +103,7 @@ const PostFeedCard = ({
       </ul>
     </div>
 
-    {(imagePath && !_.has(embeds, '[0].embed')) &&
+    { (imagePath && !_.has(embeds, '[0].embed')) &&
       <div className="PostFeedCard__thumbs">
         <PostModalLink
           post={post}
@@ -115,7 +114,7 @@ const PostFeedCard = ({
       </div>
     }
 
-    {_.has(embeds, '[0].embed') &&
+    { _.has(embeds, '[0].embed') &&
       <div className="PostFeedCard__thumbs" dangerouslySetInnerHTML={{ __html: embeds[0].embed }} />
     }
 

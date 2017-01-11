@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import numeral from 'numeral';
+import { FormattedMessage } from 'react-intl';
 import IsScrolling from '../../helpers/IsScrolling';
-
 import Icon from '../../widgets/Icon';
-
 import './MenuPost.scss';
 
 @IsScrolling
@@ -42,9 +41,9 @@ export default class MenuPost extends Component {
             <Icon name="thumb_up" />
           </a>
           { ` ${numberOfVotes}` }
-        <span className="hidden-xs">
-          { ' Likes' }
-        </span>
+          <span className="hidden-xs">
+            { ' ' }<FormattedMessage id="likes" />
+          </span>
         </li>
 
         <li>
@@ -55,15 +54,14 @@ export default class MenuPost extends Component {
             <Icon name="thumb_down" />
           </a>
           { ` ${numberOfDislikes}` }
-        <span className="hidden-xs">
-          { ' Dislikes' }
-        </span>
+          <span className="hidden-xs">
+            { ' ' }<FormattedMessage id="dislikes" />
+          </span>
         </li>
 
         <li>
           <Icon name="attach_money" />
-          { ' ' }
-          { payout }
+          { ' ' }{ payout }
         </li>
         <li>
           <a
@@ -75,9 +73,9 @@ export default class MenuPost extends Component {
             <Icon name="reply" />
           </a>
           { ` ${numberOfComments}` }
-        <span className="hidden-xs">
-          { ' Comments' }
-        </span>
+          <span className="hidden-xs">
+            { ' ' }<FormattedMessage id="comments" />
+          </span>
         </li>
         <li>
           <a

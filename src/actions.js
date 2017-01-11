@@ -1,4 +1,5 @@
 import { createAction } from 'redux-actions';
+import fetch from 'isomorphic-fetch';
 
 export const CONFIG_REQUEST = '@app/CONFIG_REQUEST';
 export const CONFIG_SUCCESS = '@app/CONFIG_SUCCESS';
@@ -48,4 +49,21 @@ export const setLocaleAction = createAction(SET_LOCALE);
 export const setLocale = locale =>
   (dispatch) => {
     dispatch(setLocaleAction({ locale }));
+  };
+
+export const RATE_REQUEST = '@app/RATE_REQUEST';
+export const RATE_SUCCESS = '@app/RATE_SUCCESS';
+
+export const getRate = () =>
+  (dispatch) => {
+    dispatch({ type: RATE_REQUEST });
+    fetch('https://api.coinmarketcap.com/v1/ticker/steem/')
+      .then(res => res.json())
+      .then((json) => {
+        const rate = json[0].price_usd;
+        dispatch({
+          type: RATE_SUCCESS,
+          rate,
+        });
+      });
   };
