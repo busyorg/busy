@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { FormattedMessage } from 'react-intl';
-
 import Icon from '../../widgets/Icon';
 import Avatar from '../../widgets/Avatar';
 
@@ -14,12 +13,6 @@ const MenuUser = ({ username }) => {
           <span className="hidden-xs">@{ username }</span>
         </Link>
       </li>
-      {/* <li>
-          <Link to={`@${username}/activity`} activeClassName="active">
-            <Icon name="history" />{ ' ' }
-            <span className="hidden-xs"><FormattedMessage id="activity" /></span>
-          </Link>
-        </li> */}
       <li>
         <Link to={`/@${username}/feed`} activeClassName="active">
           <Icon name="subject" />{ ' ' }

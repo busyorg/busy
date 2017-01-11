@@ -1,10 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import TextareaAutosize from 'react-textarea-autosize';
 import keycode from 'keycode';
-
-import './MessageForm.scss';
 import { connect } from 'react-redux';
 import { sendMessage } from './messagesActions';
+import './MessageForm.scss';
 
 class MessageForm extends Component {
   static propTypes = {

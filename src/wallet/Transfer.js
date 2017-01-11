@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { FormattedMessage } from 'react-intl';
 import numeral from 'numeral';
 import Icon from '../widgets/Icon';
 import Header from '../app/Header';
@@ -109,7 +110,7 @@ export default class Transfer extends Component {
                 target="_blank"
                 className="btn btn-success btn-lg"
               >
-                Continue
+                <FormattedMessage id="continue" />
               </a>
             </div>
           </form>

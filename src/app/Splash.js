@@ -1,9 +1,6 @@
 import React from 'react';
 import steemconnect from 'steemconnect';
-
 import Modal from '../widgets/Modal';
-import Icon from '../widgets/Icon';
-
 import './Splash.scss';
 
 const Splash = () => {

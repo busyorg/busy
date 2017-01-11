@@ -1,13 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { FormattedMessage } from 'react-intl';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
-
 import CommentsList from './CommentsList';
 import * as commentsActions from './commentsActions';
 import Loading from '../widgets/Loading';
-
 import './Comments.scss';
 
 @connect(
@@ -117,7 +116,7 @@ export default class Comments extends Component {
             tabIndex="0"
             onClick={this.handleShowMore}
           >
-            See More Comments
+            <FormattedMessage id="see_more_comments" />
           </a>
         }
 

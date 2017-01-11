@@ -2,10 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-
 import { showSidebar } from '../actions';
 import Icon from '../widgets/Icon';
-
 import './Header.scss';
 
 @connect(
@@ -16,7 +14,6 @@ import './Header.scss';
     showSidebar: showSidebar,
   }, dispatch)
 )
-
 export default class Header extends Component {
   constructor(props) {
     super(props);
