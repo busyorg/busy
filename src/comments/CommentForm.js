@@ -1,13 +1,13 @@
 import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { FormattedMessage } from 'react-intl';
 import { isSmall } from 'react-responsive-utils';
 import classNames from 'classnames';
-import Icon from '../widgets/Icon';
-import * as commentActions from './commentsActions';
 import Textarea from 'react-textarea-autosize';
 import keycode from 'keycode';
-
+import Icon from '../widgets/Icon';
+import * as commentActions from './commentsActions';
 import './CommentForm.scss';
 
 @connect(
@@ -106,7 +106,7 @@ export default class CommentForm extends Component {
           { comments.currentDraftId &&
             <div className="mb-1">
               <i className="icon icon-sm material-icons">reply</i>
-              { ' Reply to ' }
+              { ' ' }<FormattedMessage id="reply_to" />{ ' ' }
               <b>
                 { parentTitle }
               </b>

@@ -1,0 +1,13 @@
+@font-face {
+  font-family: 'DroidSerif';
+  font-style: normal;
+  font-weight: 400;
+  src: local('DroidSerif'), local('DroidSerif'), url('../fonts/DroidSerif.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'DroidSerif';
+  font-style: normal;
+  font-weight: 700;
+  src: local('DroidSerif Bold'), local('DroidSerif-Bold'), url('../fonts/DroidSerif-Bold.ttf') format('truetype');
+}

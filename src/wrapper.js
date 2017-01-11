@@ -5,7 +5,7 @@ import { IntlProvider } from 'react-intl';
 import { Tooltip, actions as tooltipActions } from 'redux-tooltip';
 
 import { login } from './auth/authActions';
-import { getConfig } from './actions';
+import { getConfig, getRate } from './actions';
 import { getStoredBookmarks } from './bookmarks/bookmarksActions';
 import { notify } from './app/Notification/notificationActions';
 import Notification from './app/Notification/Notification';
@@ -25,6 +25,7 @@ import * as reblogActions from './app/Reblog/reblogActions';
     login,
     getConfig,
     notify,
+    getRate,
     getStoredBookmarks,
     getRebloggedList: reblogActions.getRebloggedList,
     keepTooltip: tooltipActions.keep,
@@ -42,6 +43,7 @@ export default class Wrapper extends Component {
     this.props.getConfig();
     this.props.getStoredBookmarks();
     this.props.getRebloggedList();
+    this.props.getRate();
   }
 
   render() {

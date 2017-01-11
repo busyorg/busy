@@ -37,6 +37,7 @@
 
 .CommentActionButtons {
   color: #7d7d8e;
+  margin-bottom: 0.5em;
 }
 
 .CommentActionButtons__button {
@@ -58,5 +59,6 @@
 .CommentBody {
   .CommentBody__username {
     display: block;
+    margin-bottom: 0.5em;
   }
 }

@@ -2,6 +2,7 @@
 export default {
   steemit: 'gold',
   smooth: 'gold',
+  jamesc: 'gold',
   cass: 'silver',
   bhuz: 'silver',
   liondani: 'bronze',

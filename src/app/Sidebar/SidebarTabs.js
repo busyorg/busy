@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-
 import Icon from '../../widgets/Icon';
 
 export default class SidebarTabs extends Component {
