@@ -1,8 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
-import { FormattedRelative } from 'react-intl';
-import { has } from 'lodash/object';
-
+import { FormattedMessage, FormattedRelative } from 'react-intl';
+import _ from 'lodash';
 import BodyShort from '../BodyShort';
 import Flag from '../../widgets/Flag';
 import Comments from '../../comments/Comments';
@@ -11,7 +10,6 @@ import Icon from '../../widgets/Icon';
 import Avatar from '../../widgets/Avatar';
 import PostModalLink from './../PostModalLink';
 import LikesList from './../LikesList';
-
 import './PostFeedCard.scss';
 
 const PostFeedCard = ({
@@ -53,7 +51,8 @@ const PostFeedCard = ({
             { ` @${post.author}` }
           </Link>
           <span className="hidden-xs">
-            { ' ' }in <Link to={`/hot/${post.category}`}>#{post.category}</Link>
+            { ' ' }<FormattedMessage id="in" />{ ' ' }
+            <Link to={`/hot/${post.category}`}>#{post.category}</Link>
           </span>
         </li>
         <li className="pull-right">
@@ -68,7 +67,7 @@ const PostFeedCard = ({
       </ul>
     </div>
 
-    { (imagePath && !has(embeds, '[0].embed')) &&
+    { (imagePath && !_.has(embeds, '[0].embed')) &&
     <div className="PostFeedCard__thumbs">
       <PostModalLink
         post={post}
@@ -79,7 +78,7 @@ const PostFeedCard = ({
     </div>
     }
 
-    { has(embeds, '[0].embed') &&
+    { _.has(embeds, '[0].embed') &&
     <div className="PostFeedCard__thumbs" dangerouslySetInnerHTML={{ __html: embeds[0].embed }} />
     }
 

@@ -15,7 +15,6 @@ import Icon from '../widgets/Icon';
     setLayout: actions.setLayout,
   }, dispatch)
 )
-
 export default class AppSettings extends React.Component {
   constructor(props) {
     super(props);
@@ -40,7 +39,9 @@ export default class AppSettings extends React.Component {
                 className={app.layout === 'card' && 'active'}
               >
                 <Icon name="view_agenda" lg />
-                <h2 className="mvs">Card</h2>
+                <h2 className="mvs">
+                  <FormattedMessage id="card" />
+                </h2>
               </a>
             </div>
             <div className="col col-lg-4 mbl">
@@ -49,7 +50,9 @@ export default class AppSettings extends React.Component {
                 className={app.layout === 'list' && 'active'}
               >
                 <Icon name="view_list" lg />
-                <h2 className="mvs">List</h2>
+                <h2 className="mvs">
+                  <FormattedMessage id="list" />
+                </h2>
               </a>
             </div>
           </div>
