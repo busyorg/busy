@@ -33,7 +33,6 @@ class AuthorBio extends Component {
           author.json_metadata = JSON.parse(result[0].json_metadata);
         } catch (e) {
           author.json_metadata = {};
-          throw new Error(`Error parsing jsonMetadata for user ${author.name}`);
         }
         this.setState({ author });
       }
