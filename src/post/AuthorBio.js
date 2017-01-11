@@ -56,7 +56,7 @@ class AuthorBio extends Component {
             <Avatar lg username={authorName} />
           </div>
           <div className="pull-left">
-            <Link to={`${authorName}`}>
+            <Link to={`/@${authorName}`}>
               {displayName}
             </Link>
             {' '}
