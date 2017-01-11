@@ -4,7 +4,6 @@ import groupBy from 'lodash/groupBy';
 import { startsWith } from 'lodash/string';
 import size from 'lodash/size';
 import { Link } from 'react-router';
-
 import Icon from '../../widgets/Icon';
 
 const getFilteredUsers = (props, state) => {
