@@ -12,7 +12,7 @@ import * as bookmarkActions from '../bookmarks/bookmarksActions';
 
 @connect(
   ({ posts, app, reblog, auth, bookmarks }) => ({
-    content: app.lastPostId ? posts[app.lastPostId] : {},
+    content: posts[app.lastPostId] ? posts[app.lastPostId] : {},
     isPostModalOpen: app.isPostModalOpen,
     lastPostId: app.lastPostId,
     sidebarIsVisible: app.sidebarIsVisible,
