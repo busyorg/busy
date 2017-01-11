@@ -12,7 +12,6 @@ import Replies from './user/UserReplies';
 import Feed from './user/UserFeed';
 import Transfers from './user/UserTransfers';
 import Transfer from './wallet/Transfer';
-import Edit from './user/UserEdit';
 import Tags from './tags/Tags';
 import Donors from './statics/Donors';
 import { Trending, Hot, Votes, Responses, Active, Created, Cashout } from './feed/PathMatching';
@@ -45,7 +44,6 @@ export default (
     <Route path="/messages/:category" component={MessagesCategory} />
     <Route path="/transfer" component={Transfer} />
     <Route component={User}>
-      <Route path="/profile/edit" component={Edit} />
       <Route path="/@:name/posts" component={Posts} />
       <Route path="/@:name/feed" component={Feed} />
       <Route path="/@:name/replies" component={Replies} />
