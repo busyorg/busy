@@ -20,6 +20,7 @@ import './Sidebar.scss';
   state => ({
     app: state.app,
     auth: state.auth,
+    user: state.user,
     messages: state.messages,
     favorites: state.favorites,
   }),
@@ -34,12 +35,9 @@ export default class Sidebar extends Component {
     this.state = {
       isFetching: true,
       isLoaded: false,
-      followingIsFetching: false,
-      followingFetched: false,
       categories: [],
       props: {},
       price: '',
-      following: [],
       menu: 'categories',
       search: '',
     };
@@ -56,32 +54,7 @@ export default class Sidebar extends Component {
         categories: categories,
         props: result.props,
       });
-      this.getFollowing();
     });
-  }
-
-  componentDidUpdate() {
-    if (!this.state.followingFetched) {
-      this.getFollowing();
-    }
-  }
-
-  getFollowing() {
-    if (!this.state.following.length &&
-      !this.state.followingIsFetching &&
-      !this.state.followingFetched) {
-      this.setState({ followingIsFetching: true });
-      steemdb.accounts({
-          account: this.props.auth.user.name
-        },
-        (err, result) => {
-          this.setState({
-            following: result[0].following,
-            followingIsFetching: false,
-            followingFetched: true,
-          });
-        });
-    }
   }
 
   filterTagsBySearch(tags = []) {
@@ -244,7 +217,7 @@ export default class Sidebar extends Component {
             <SidebarUsers
               messages={this.props.messages}
               auth={this.props.auth}
-              contacts={this.state.following}
+              contacts={this.props.user.following.list}
               favorites={this.props.favorites}
             />
           }
