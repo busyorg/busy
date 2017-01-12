@@ -21,6 +21,7 @@ export default class ProfileTooltipOrigin extends Component {
         name="userProfile"
         content={<ProfileTooltip username={this.props.username} store={this.context.store} />}
         delay
+        delayOn="both"
       >
         { this.props.children }
       </Origin>
