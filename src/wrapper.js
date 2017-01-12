@@ -11,6 +11,7 @@ import Notification from './app/Notification/Notification';
 import Sidebar from './app/Sidebar';
 import * as messages from './translations/Translations';
 import * as reblogActions from './app/Reblog/reblogActions';
+import './user/profileTooltip/ProfileTooltip.scss';
 
 @connect(
   state => ({
@@ -51,8 +52,10 @@ export default class Wrapper extends Component {
           <Notification />
           <Tooltip
             name="userProfile"
+            className="ProfileTooltipHolder"
             store={this.props.store}
-            place="top"
+            place="bottom"
+            auto={false}
             onHover={() => this.props.keepTooltip({ name: 'userProfile' })}
             onLeave={() => this.props.hideTooltip({ name: 'userProfile' })}
           />
