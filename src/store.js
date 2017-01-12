@@ -67,14 +67,13 @@ if (process.env.ENABLE_LOGGER &&
   middleware.push(createLogger({
     collapsed: true,
     duration: true,
-    stateTransformer: state => JSON.parse(JSON.stringify(state))
   }));
 }
 
 const enhancer = compose(
   applyMiddleware(...middleware),
   persistState(['favorites', 'editor', 'app'], {
-    slicer: () => (state) => ({
+    slicer: () => state => ({
       favorites: state.favorites,
       editor: state.editor,
       app: {
