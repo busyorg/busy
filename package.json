@@ -65,7 +65,6 @@
     "object-assign": "^4.1.0",
     "raven-js": "^3.8.0",
     "react": "^15.3.2",
-    "react-advanced-img": "^1.0.0",
     "react-dom": "^15.3.2",
     "react-intl": "^2.1.5",
     "react-redux": "^4.4.5",
