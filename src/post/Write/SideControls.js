@@ -158,7 +158,7 @@ class SideControls extends Component {
 }
 
 SideControls = connect(state => ({
-  files: state.userProfile.files,
+  files: state.user.files,
 }), { uploadFile })(SideControls);
 
 export default SideControls;

@@ -1,5 +1,5 @@
 import * as commentsTypes from './commentsActions';
-import * as userProfileTypes from '../user/userActions';
+import * as userTypes from '../user/userActions';
 import * as appTypes from '../actions';
 
 const initialState = {
@@ -161,12 +161,12 @@ const commentItem = (state = {}, action) => {
 const commentsData = (state = {}, action) => {
   switch (action.type) {
     case commentsTypes.GET_COMMENTS_SUCCESS:
-    case userProfileTypes.GET_USER_COMMENTS_SUCCESS:
+    case userTypes.GET_USER_COMMENTS_SUCCESS:
       return {
         ...state,
         ...mapCommentsBasedOnId(action.payload.content),
       };
-    case userProfileTypes.GET_MORE_USER_COMMENTS_SUCCESS:
+    case userTypes.GET_MORE_USER_COMMENTS_SUCCESS:
       const commentsMoreList = {};
       action.payload.result.forEach(comment => {
         commentsMoreList[comment.id] = comment;
@@ -247,8 +247,8 @@ const comments = (state = initialState, action) => {
   switch (action.type) {
     case commentsTypes.GET_COMMENTS_START:
     case commentsTypes.GET_COMMENTS_SUCCESS:
-    case userProfileTypes.GET_USER_COMMENTS_SUCCESS:
-    case userProfileTypes.GET_MORE_USER_COMMENTS_SUCCESS:
+    case userTypes.GET_USER_COMMENTS_SUCCESS:
+    case userTypes.GET_MORE_USER_COMMENTS_SUCCESS:
     case commentsTypes.SHOW_MORE_COMMENTS:
     case commentsTypes.SEND_COMMENT_START:
       return {

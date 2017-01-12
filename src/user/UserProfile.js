@@ -228,7 +228,7 @@ class Profile extends Component {
 
 const mapStateToProps = function (state) {
   return {
-    following: state.userProfile.following,
+    following: state.user.following,
   };
 };
 
