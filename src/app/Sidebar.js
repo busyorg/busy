@@ -11,7 +11,7 @@ import api from '../steemAPI';
 import { hideSidebar } from '../actions';
 import Loading from '../widgets/Loading';
 import Icon from '../widgets/Icon';
-import Avatar from '../widgets/Avatar';
+import SidebarHeader from './Sidebar/SidebarHeader';
 import SidebarTabs from './Sidebar/SidebarTabs';
 import SidebarUsers from './Sidebar/SidebarUsers';
 import './Sidebar.scss';
@@ -157,7 +157,8 @@ export default class Sidebar extends Component {
 
   render() {
     const { search, props, menu } = this.state;
-    const { auth: { user }, app: { rate } } = this.props;
+    const { auth, app: { rate }, hideSidebar } = this.props;
+    const { user } = auth;
 
     const power = props
       ? formatter.vestToSteem(
@@ -174,24 +175,12 @@ export default class Sidebar extends Component {
 
     return (
       <nav className="Sidebar">
-        <div className="sidebar-header">
-          <a className="hide-sidebar" onClick={() => this.props.hideSidebar()}>
-            <Icon name="arrow_back" className="Icon--menu" />
-          </a>
-          <div className="Sidebar__log">
-            <div>
-              <Link to={`/@${user.name}`} className="my-1">
-                <Avatar sm username={user.name} reputation={user.reputation} />
-              </Link>
-              <div className="Sidebar__username">
-                @{ `${user.name} ` }
-                <a onClick={() => this.setState({ menu: 'settings' })}>
-                  <Icon name="settings" xs />
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
+        <SidebarHeader
+          auth={auth}
+          user={user}
+          hideSidebar={hideSidebar}
+          onClickMenu={this.onClickMenu}
+        />
 
         <SidebarTabs
           onClickMenu={this.onClickMenu}

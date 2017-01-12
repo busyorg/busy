@@ -60,6 +60,10 @@
   }
 }
 
+.PostFeedCard__cell--tab-content {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
 .PostFeedCard__cell--body {
   padding: 1em 1em;
 }

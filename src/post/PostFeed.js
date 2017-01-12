@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { has } from 'lodash/object';
 import steemembed from 'steemembed';
 
 import PostFeedCard from './Feed/PostFeedCard';
@@ -22,6 +21,7 @@ export default class PostFeed extends Component {
     this.state = {
       showComments: false,
       showLikes: false,
+      showPayout: false,
     };
   }
 
@@ -29,6 +29,7 @@ export default class PostFeed extends Component {
     this.setState({
       showComments: !this.state.showComments,
       showLikes: false,
+      showPayout: false,
     });
   };
 
@@ -36,6 +37,15 @@ export default class PostFeed extends Component {
     this.setState({
       showLikes: !this.state.showLikes,
       showComments: false,
+      showPayout: false,
+    });
+  };
+
+  handleShowPayoutRequest = () => {
+    this.setState({
+      showLikes: false,
+      showComments: false,
+      showPayout: !this.state.showPayout,
     });
   };
 
@@ -71,8 +81,10 @@ export default class PostFeed extends Component {
         isReblogged={this.props.isReblogged}
         showComments={this.state.showComments}
         showLikes={this.state.showLikes}
+        showPayout={this.state.showPayout}
         handleShowCommentsRequest={this.handleShowCommentsRequest}
         handleShowLikesRequest={this.handleShowLikesRequest}
+        handleShowPayoutRequest={this.handleShowPayoutRequest}
         layout={app.layout}
       />
     );
