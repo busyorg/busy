@@ -1,12 +1,11 @@
 import 'babel-polyfill';
 import React, { Component } from 'react';
-import { FormattedRelative } from 'react-intl';
-import { has } from 'lodash/object';
+import { FormattedMessage, FormattedRelative } from 'react-intl';
+import  _ from 'lodash';
 import steemdb from 'steemdb';
 import numeral from 'numeral';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
-
 import FavoriteUserButton from '../favorites/FavoriteUserButton';
 import Feed from '../feed/Feed';
 import {
@@ -90,8 +89,8 @@ export default class UserProfile extends Component {
             position: 'relative',
           }}
         >
-          <div className="mvl">
-            <Avatar xl username={username} reputation={has(user, 'name') && user.reputation} />
+          <div className="my-3">
+            <Avatar xl username={username} reputation={_.has(user, 'name') && user.reputation} />
             <h1>
               <FavoriteUserButton
                 isFavorited={this.isFavorited()}
@@ -100,38 +99,46 @@ export default class UserProfile extends Component {
                   : () => this.props.addUserFavorite(username)
                 }
               />
-              { has(jsonMetadata, 'profile.name') ? jsonMetadata.profile.name : `@${username}` }
+              { _.has(jsonMetadata, 'profile.name') ? jsonMetadata.profile.name : `@${username}` }
               { ' ' }
               <Follow username={username} />
             </h1>
           </div>
         </section>
         <div className="profile">
-          { !has(user, 'name') && <Loading />}
-          { has(user, 'name') && <div>
+          { !_.has(user, 'name') && <Loading />}
+          { _.has(user, 'name') && <div>
             <ul className="secondary-nav">
               <li>
                 <Icon name="library_books" /> {numeral(user.post_count).format('0,0')}
-                <span className="hidden-xs"> Posts</span>
+                <span className="hidden-xs">
+                  { ' ' }<FormattedMessage id="posts" />
+                </span>
               </li>
               <li>
                 <Icon name="gavel" /> {numeral(parseInt(user.voting_power) / 10000).format('%0')}
-                <span className="hidden-xs"> Voting Power</span>
+                <span className="hidden-xs">
+                  { ' ' }<FormattedMessage id="voting_power" />
+                </span>
               </li>
               <li>
                 <Link to={`/@${username}/followers`}>
                   <Icon name="people" /> {numeral(parseInt(user.followers_count)).format('0,0')}
-                  <span className="hidden-xs"> Followers</span>
+                  <span className="hidden-xs">
+                    { ' ' }<FormattedMessage id="followers" />
+                  </span>
                 </Link>
               </li>
               <li>
                 <Link to={`/@${username}/followed`}>
                   <Icon name="people" /> {numeral(parseInt(user.following_count)).format('0,0')}
-                  <span className="hidden-xs"> Followed</span>
+                  <span className="hidden-xs">
+                    { ' ' }<FormattedMessage id="followed" />
+                  </span>
                 </Link>
               </li>
             </ul>
-            <div className="container container-small my-2 text-xs-center">
+            <div className="container container-small my-3 text-center">
               <h3><Badge vestingShares={user.vesting_shares} /></h3>
               { donors[username] &&
                 <h3>
@@ -140,10 +147,10 @@ export default class UserProfile extends Component {
                   </Link>
                 </h3>
               }
-              { has(jsonMetadata, 'profile.about') &&
+              { _.has(jsonMetadata, 'profile.about') &&
                 <h3>{ jsonMetadata.profile.about }</h3>
               }
-              { has(jsonMetadata, 'profile.website') &&
+              { _.has(jsonMetadata, 'profile.website') &&
                 <p>
                   <Icon name="link" />{ ' ' }
                   <a href={jsonMetadata.profile.website} target="_blank">
@@ -151,7 +158,7 @@ export default class UserProfile extends Component {
                   </a>
                 </p>
               }
-              { has(jsonMetadata, 'profile.location') &&
+              { _.has(jsonMetadata, 'profile.location') &&
                 <p>
                   <Icon name="pin_drop" />{ ' ' }
                   { jsonMetadata.profile.location }

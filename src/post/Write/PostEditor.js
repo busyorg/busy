@@ -7,16 +7,25 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 
 // draft-js
-import exportMarkdown from 'draft-js-export-markdown/lib/stateToMarkdown';
+import 'draft-js-emoji-plugin/lib/plugin.css';
+import 'draft-js-hashtag-plugin/lib/plugin.css';
+import 'draft-js-linkify-plugin/lib/plugin.css';
 import {
   DefaultDraftBlockRenderMap,
   getVisibleSelectionRect as draftVSR,
   EditorState,
+  ContentState,
   Entity,
-  Editor, RichUtils,
+  RichUtils,
   convertToRaw,
   convertFromRaw
 } from 'draft-js';
+import Editor, { createEditorStateWithText } from 'draft-js-plugins-editor';
+import createEmojiPlugin from 'draft-js-emoji-plugin';
+import createHashtagPlugin from 'draft-js-hashtag-plugin';
+import exportMarkdown from 'draft-js-export-markdown/lib/stateToMarkdown';
+import createMarkdownShortcutsPlugin from 'draft-js-markdown-shortcuts-plugin';
+import createLinkifyPlugin from 'draft-js-linkify-plugin';
 
 import './Write.scss';
 import './PostEditor.scss';
@@ -25,6 +34,17 @@ import SideControls from './SideControls';
 import ImageBlock from './ImageBlock';
 
 const debug = newDebug('busy:PostEditor');
+const emojiPlugin = createEmojiPlugin();
+const hashtagPlugin = createHashtagPlugin();
+const linkifyPlugin = createLinkifyPlugin();
+const { EmojiSuggestions } = emojiPlugin;
+
+const plugins = [
+  createMarkdownShortcutsPlugin(),
+  emojiPlugin,
+  hashtagPlugin,
+  linkifyPlugin
+];
 
 // Custom overrides for "code" style.
 const styleMap = {
@@ -146,7 +166,7 @@ function getSelectionCoords(editor, toolbar) {
 class PostEditor extends Component {
   constructor(props) {
     super(props);
-    const editorState = EditorState.createEmpty();
+    const editorState = createEditorStateWithText('');
 
     this.state = {
       editorState, showToolbar: false, lastResetedBlock: null
@@ -161,18 +181,26 @@ class PostEditor extends Component {
   }
 
   setRawContent(content) {
-    this.setState({ editorState: EditorState.createWithContent(convertFromRaw(content)) });
+    // setTimeout is required as getDecorator are not immediately.
+    setTimeout(() => {
+      this.setState({
+        editorState: EditorState.createWithContent(
+          convertFromRaw(content),
+          this.state.editorState.getDecorator()
+        )
+      });
+    });
   }
 
   resetState() {
-    this.setState({ editorState: EditorState.createEmpty() });
+    this.setState({ editorState: EditorState.push(this.state.editorState, ContentState.createFromText('')) });
   }
 
   updateToolBarState = () => {
     const selection = this.state.editorState.getSelection();
     const newState = this.state.editorState;
     const hasSelectedText = !selection.isCollapsed();
-    const selectionCoords = getSelectionCoords(this.editor, this.toolbar);
+    const selectionCoords = getSelectionCoords(this.editorContainer, this.toolbar);
 
     let shouldUpdateState = false;
     if (hasSelectedText && selectionCoords) {
@@ -286,7 +314,7 @@ class PostEditor extends Component {
           user={this.props.user}
         />
 
-        <div className={className} ref={(c) => { this.editor = c; }}>
+        <div className={className} ref={(c) => { this.editorContainer = c; }}>
           <Editor
             blockRendererFn={this.blockRendererFn}
             blockStyleFn={getBlockStyle}
@@ -301,7 +329,9 @@ class PostEditor extends Component {
             editorState={editorState}
             handleKeyCommand={this.handleKeyCommand}
             onChange={this.onChange}
+            plugins={plugins}
           />
+          <EmojiSuggestions />
         </div>
         <div className={toolbarClasses} style={this.state.position} >
           <div style={{ position: 'absolute', bottom: 0 }}>

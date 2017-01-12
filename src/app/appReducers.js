@@ -3,13 +3,13 @@ import * as responsive from '../helpers/responsive';
 import * as postActions from '../post/postActions';
 
 const initialState = {
-  __persist: ['layout', 'locale'],
   isFetching: false,
   isLoaded: false,
   errorMessage: '',
   sidebarIsVisible: true,
   layout: 'card',
   locale: 'en',
+  rate: 0,
   isPostModalOpen: false,
   lastPostId: null,
 };
@@ -98,6 +98,12 @@ export default (state = initialState, action) => {
       return {
         ...state,
         locale: action.payload.locale,
+      };
+
+    case appTypes.RATE_SUCCESS:
+      return {
+        ...state,
+        rate: action.rate,
       };
 
     case appTypes.OPEN_POST_MODAL:

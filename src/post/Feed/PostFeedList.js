@@ -1,9 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router';
+import { FormattedMessage } from 'react-intl';
 import BodyShort from '../BodyShort';
-import Flag from '../../widgets/Flag';
 import PostActionButtons from '../PostActionButtons';
 import Avatar from '../../widgets/Avatar';
+import Icon from '../../widgets/Icon';
 import PostModalLink from './../PostModalLink';
 import ProfileTooltipOrigin from '../../user/profileTooltip/ProfileTooltipOrigin';
 import './PostFeedList.scss';
@@ -21,6 +22,7 @@ const PostFeedList = ({
   isReblogged,
   handleShowCommentsRequest,
   handleShowLikesRequest,
+  layout
 }) =>
   <div className="PostFeedList">
     { imagePath &&
@@ -34,6 +36,12 @@ const PostFeedList = ({
       </div>
     }
     <div className="PostFeedList__cell PostFeedList__cell--body">
+      <a onClick={() => toggleBookmark(post.id)} className="PostFeedList__cell__bookmark">
+        <Icon
+          small
+          name={bookmarks[post.id] ? 'bookmark' : 'bookmark_border'}
+        />
+      </a>
       <h2>
         <PostModalLink
           post={post}
@@ -52,6 +60,7 @@ const PostFeedList = ({
           onShowLikesRequest={handleShowLikesRequest}
           reblog={reblog}
           isReblogged={isReblogged}
+          layout={layout}
         />
         <span>
           <ProfileTooltipOrigin username={post.author} >
@@ -61,7 +70,8 @@ const PostFeedList = ({
             </Link>
           </ProfileTooltipOrigin>
           <span className="hidden-xs">
-            { ' in ' }<Link to={`/hot/${post.category}`}>#{post.category}</Link>
+            { ' ' }<FormattedMessage id="in" />{ ' ' }
+            <Link to={`/hot/${post.category}`}>#{post.category}</Link>
           </span>
         </span>
       </div>

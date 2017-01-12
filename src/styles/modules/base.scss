@@ -157,3 +157,9 @@ a.btn-primary {
     color: white !important;
   }
 }
+
+blockquote {
+  color: lighten(black, 60%);
+  padding-left: 1em;
+  border-left: 5px solid lighten(black, 60%);
+}

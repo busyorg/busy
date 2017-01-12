@@ -73,6 +73,7 @@ export default class PostFeed extends Component {
         showLikes={this.state.showLikes}
         handleShowCommentsRequest={this.handleShowCommentsRequest}
         handleShowLikesRequest={this.handleShowLikesRequest}
+        layout={app.layout}
       />
     );
   }

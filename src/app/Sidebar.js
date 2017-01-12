@@ -7,15 +7,13 @@ import formatter from 'steem/lib/formatter';
 import steemdb from 'steemdb';
 import numeral from 'numeral';
 import _ from 'lodash';
-
 import api from '../steemAPI';
 import { hideSidebar } from '../actions';
 import Loading from '../widgets/Loading';
 import Icon from '../widgets/Icon';
-import Avatar from '../widgets/Avatar';
+import SidebarHeader from './Sidebar/SidebarHeader';
 import SidebarTabs from './Sidebar/SidebarTabs';
 import SidebarUsers from './Sidebar/SidebarUsers';
-
 import './Sidebar.scss';
 
 @connect(
@@ -29,7 +27,6 @@ import './Sidebar.scss';
     hideSidebar,
   }, dispatch)
 )
-
 export default class Sidebar extends Component {
   constructor(props) {
     super(props);
@@ -41,7 +38,7 @@ export default class Sidebar extends Component {
       followingFetched: false,
       categories: [],
       props: {},
-      feedPrice: {},
+      price: '',
       following: [],
       menu: 'categories',
       search: '',
@@ -58,7 +55,6 @@ export default class Sidebar extends Component {
         isLoaded: true,
         categories: categories,
         props: result.props,
-        feedPrice: result.feed_price
       });
       this.getFollowing();
     });
@@ -160,45 +156,42 @@ export default class Sidebar extends Component {
   };
 
   render() {
-    const user = this.props.auth.user;
-    const search = this.state.search;
+    const { search, props, menu } = this.state;
+    const { auth, app: { rate }, hideSidebar } = this.props;
+    const { user } = auth;
 
-    if (_.has(this.state.feedPrice, 'base')) {
-      var power = formatter.vestToSteem(user.vesting_shares, this.state.props.total_vesting_shares, this.state.props.total_vesting_fund_steem);
-      var base = (this.state.feedPrice.base).replace(' SBD', '').replace(',', '');
-      var dollar = (parseFloat(base) * (parseFloat(user.balance) + parseFloat(power))) + parseFloat(user.sbd_balance);
-    }
+    const power = props
+      ? formatter.vestToSteem(
+        user.vesting_shares,
+        props.total_vesting_shares,
+        props.total_vesting_fund_steem,
+      )
+      : 0;
+
+    const dollar = rate
+      ? (parseFloat(rate) * (parseFloat(user.balance) + parseFloat(power)))
+        + parseFloat(user.sbd_balance)
+      : 0;
+
     return (
       <nav className="Sidebar">
-        <div className="sidebar-header">
-          <a className="hide-sidebar" onClick={() => this.props.hideSidebar()}>
-            <Icon name="arrow_back" className="Icon--menu" />
-          </a>
-          <div className="Sidebar__log">
-            <div>
-              <Link to={`/@${user.name}`} className="my-1">
-                <Avatar sm username={user.name} reputation={user.reputation} />
-              </Link>
-              <div className="Sidebar__username">
-                @{ `${user.name} ` }
-                <a onClick={() => this.setState({ menu: 'settings' })}>
-                  <Icon name="settings" xs />
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
+        <SidebarHeader
+          auth={auth}
+          user={user}
+          hideSidebar={hideSidebar}
+          onClickMenu={this.onClickMenu}
+        />
 
         <SidebarTabs
           onClickMenu={this.onClickMenu}
-          menu={this.state.menu}
+          menu={menu}
           auth={this.props.auth}
           messages={this.props.messages}
         />
 
         <div className="sidebar-content">
           {this.state.isFetching && <Loading color="white" />}
-          {_.has(this.state.feedPrice, 'base') && this.state.menu === 'settings' &&
+          {rate && props && menu === 'settings' &&
             <ul>
               <li className="title">
                 <a href="https://steemconnect.com/profile" target="_blank">
@@ -220,30 +213,34 @@ export default class Sidebar extends Component {
               </li>
             </ul>}
 
-          {_.size(this.state.categories) > 0 && this.state.menu === 'categories' &&
+          {_.size(this.state.categories) > 0 && menu === 'categories' &&
             <div>
-              <ul className="Sidebar__tags">
-                <li className="Sidebar__search">
-                  <div className="input-group">
-                    <span className="input-group-addon"><Icon name="search" sm /></span>
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder="Search"
-                      value={search}
-                      onChange={this.search}
-                    />
-                  </div>
+              <ul>
+                <li>
+                  <ul>
+                    <li className="Sidebar__search">
+                      <div className="input-group">
+                        <span className="input-group-addon"><Icon name="search" sm /></span>
+                        <input
+                          type="text"
+                          className="form-control"
+                          placeholder="Search"
+                          value={search}
+                          onChange={this.search}
+                        />
+                      </div>
+                    </li>
+                    { this.renderSearchAsTag() }
+                    { this.renderFavoritedTags() }
+                    { this.renderTags() }
+                    <li><Link to="/tags" activeClassName="active"><FormattedMessage id="see_more" /></Link></li>
+                  </ul>
                 </li>
-                { this.renderSearchAsTag() }
-                { this.renderFavoritedTags() }
-                { this.renderTags() }
-                <li><Link to="/tags" activeClassName="active"><FormattedMessage id="see_more" /></Link></li>
               </ul>
             </div>
           }
 
-          {this.state.menu === 'users' &&
+          {menu === 'users' &&
             <SidebarUsers
               messages={this.props.messages}
               auth={this.props.auth}
@@ -252,7 +249,7 @@ export default class Sidebar extends Component {
             />
           }
 
-          {_.has(this.state.feedPrice, 'base') && this.state.menu === 'write' &&
+          {rate && props && menu === 'write' &&
             <ul>
               <li className="title">
                 <Link to="/write">
@@ -266,12 +263,6 @@ export default class Sidebar extends Component {
                   <FormattedMessage id="drafts" />
                 </Link>
               </li>
-              {/* <li className="title">
-                <Link to="/#files">
-                  <Icon name="attach_file" />{' '}
-                  <FormattedMessage id="files" />
-                </Link>
-              </li> */}
               <li className="title">
                 <Link to="/bookmarks">
                   <Icon name="bookmark" />{' '}
@@ -279,14 +270,25 @@ export default class Sidebar extends Component {
                 </Link>
               </li>
             </ul>}
-          {_.has(this.state.feedPrice, 'base') && this.state.menu === 'wallet' &&
-            <ul className="Sidebar__tags">
-              <li><span className="menu-row">1 Steem <span className="pull-right">{numeral(base).format('$0,0.00')}</span></span></li>
-              <li><span className="menu-row">Steem <span className="pull-right">{numeral(user.balance).format('0,0.00')}</span></span></li>
-              <li><span className="menu-row">Steem Power <span className="pull-right">{numeral(power).format('0,0.00')}</span></span></li>
-              <li><span className="menu-row">Steem Dollars <span className="pull-right">{numeral(user.sbd_balance).format('0,0.00')}</span></span></li>
-              <li><span className="menu-row"><FormattedMessage id="estimated_value" /> <span className="pull-right">{numeral(dollar).format('$0,0.00')}</span></span></li>
-            </ul>}
+
+          {rate && props && menu === 'wallet' &&
+            <ul>
+              <li className="title">
+                <Link to="/transfer">
+                  <Icon name="send" />{' '}
+                  <FormattedMessage id="transfer" />
+                </Link>
+              </li>
+              <li>
+                <ul>
+                  <li><span className="menu-row">1 Steem <span className="pull-right">{numeral(rate).format('$0,0.000')}</span></span></li>
+                  <li><span className="menu-row">Steem <span className="pull-right">{numeral(user.balance).format('0,0.00')}</span></span></li>
+                  <li><span className="menu-row">Steem Power <span className="pull-right">{numeral(power).format('0,0.00')}</span></span></li>
+                  <li><span className="menu-row">Steem Dollars <span className="pull-right">{numeral(user.sbd_balance).format('0,0.00')}</span></span></li>
+                  <li><span className="menu-row"><FormattedMessage id="estimated_value" /> <span className="pull-right">{numeral(dollar).format('$0,0.00')}</span></span></li>
+                </ul>
+              </li>
+              </ul>}
         </div>
       </nav>
     );

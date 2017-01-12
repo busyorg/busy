@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router';
-import { FormattedRelative } from 'react-intl';
-import { has } from 'lodash/object';
+import { FormattedMessage, FormattedRelative } from 'react-intl';
+import _ from 'lodash';
 import BodyShort from '../BodyShort';
 import Flag from '../../widgets/Flag';
 import Comments from '../../comments/Comments';
-import PostActionTabs from '../PostActionTabs';
+import PostActionButtons from '../PostActionButtons';
 import Icon from '../../widgets/Icon';
 import Avatar from '../../widgets/Avatar';
 import PostModalLink from './../PostModalLink';
@@ -30,6 +30,7 @@ const PostFeedCard = ({
   showLikes,
   handleShowCommentsRequest,
   handleShowLikesRequest,
+  layout
 }) =>
   <div className="PostFeedCard">
     { post.first_reblogged_by &&
@@ -57,7 +58,8 @@ const PostFeedCard = ({
           </ProfileTooltipOrigin>
 
           <span className="hidden-xs">
-            { ' ' }in <Link to={`/hot/${post.category}`}>#{post.category}</Link>
+            { ' ' }<FormattedMessage id="in" />{ ' ' }
+            <Link to={`/hot/${post.category}`}>#{post.category}</Link>
           </span>
         </li>
         <li className="pull-right">
@@ -72,7 +74,7 @@ const PostFeedCard = ({
       </ul>
     </div>
 
-    { (imagePath && !has(embeds, '[0].embed')) &&
+    { (imagePath && !_.has(embeds, '[0].embed')) &&
     <div className="PostFeedCard__thumbs">
       <PostModalLink
         post={post}
@@ -83,7 +85,7 @@ const PostFeedCard = ({
     </div>
     }
 
-    { has(embeds, '[0].embed') &&
+    { _.has(embeds, '[0].embed') &&
     <div className="PostFeedCard__thumbs" dangerouslySetInnerHTML={{ __html: embeds[0].embed }} />
     }
 
@@ -102,7 +104,7 @@ const PostFeedCard = ({
     </div>
 
     <div className="PostFeedCard__cell PostFeedCard__cell--bottom">
-      <PostActionTabs
+      <PostActionButtons
         post={post}
         notify={notify}
         onCommentRequest={onCommentRequest}
@@ -110,6 +112,7 @@ const PostFeedCard = ({
         onShowLikesRequest={handleShowLikesRequest}
         reblog={reblog}
         isReblogged={isReblogged}
+        layout={layout}
       />
     </div>
 

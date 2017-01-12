@@ -26,7 +26,7 @@ export class RawNewPost extends Component {
     const draftPost = draftPosts[query.draft];
     if (draftPost) {
       const { jsonMetadata } = draftPost.postData || {};
-      try { tags = JSON.parse(jsonMetadata).tags; } catch (e) { tags = []; }
+      tags = jsonMetadata.tags;
       if (!_.isArray(tags)) { tags = []; }
     }
 
@@ -112,8 +112,8 @@ export class RawNewPost extends Component {
     if (users.length) { metaData.users = users; }
     if (links.length) { metaData.links = links; }
     if (image.length) { metaData.image = image; }
-
-    data.jsonMetadata = JSON.stringify(metaData);
+    data.parentPermlink = tags.length ? tags[0] : 'general';
+    data.jsonMetadata = metaData;
     return data;
   }
 
@@ -122,11 +122,18 @@ export class RawNewPost extends Component {
     const postBody = this.editor.getContent();
     const { location: { query } } = this.props;
     let id = query.draft;
-    if (id === undefined) {
+
+    // Remove zero width space
+    const isBodyEmpty = postBody.markdown.replace(/[\u200B-\u200D\uFEFF]/g, '').trim().length === 0;
+
+    if (id === undefined && !isBodyEmpty) {
       id = Date.now().toString(16);
       this.props.router.push({ pathname: '/write', query: { draft: id } });
     }
-    this.props.saveDraft({ postData: data, rawBody: postBody.raw, id });
+
+    if (id !== undefined) {
+      this.props.saveDraft({ postData: data, rawBody: postBody.raw, id });
+    }
   }, 400);
 
   componentWillReceiveProps(nextProps) {
@@ -169,7 +176,9 @@ export class RawNewPost extends Component {
       <span key={key} {...other}>
         {getTagDisplayValue(tag)}
         {!disabled &&
-          <a onClick={() => onRemove(key)}><Icon className={classNameRemove} name="close" /></a>
+          <a onClick={() => onRemove(key)}>
+            <Icon className={classNameRemove} name="close" xs />
+          </a>
         }
       </span>
     );
@@ -218,15 +227,16 @@ export class RawNewPost extends Component {
                   required: tags.length === 0,
                   type: 'text',
                   name: 'parentPermlink',
-                  className: 'form-control form-control-lg catergories-input',
+                  className: 'form-control form-control-lg categories-input',
                   disabled: categoryInputDisabled,
                   onKeyUp: this.onCategoryInputKeyUp,
-                  placeholder: categoryInputDisabled ? `Max ${MAX_ALLOW_CATEGORIES} Category Allowed` : 'Category'
+                  placeholder: categoryInputDisabled ? '' : 'Category'
                 }}
                 tagProps={{
-                  className: 'catergory', classNameRemove: 'catergory-remove'
+                  className: 'category',
+                  classNameRemove: 'category-remove'
                 }}
-                className="catergories-container"
+                className="categories-container"
                 ref={(c) => { this.categoryInput = c; }}
                 renderTag={this.renderTag}
               />
