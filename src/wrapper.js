@@ -68,7 +68,8 @@ export default class Wrapper extends Component {
           <Tooltip
             name="userProfile"
             store={this.props.store}
-            place="right"
+            place="bottom"
+            auto={false}
             onHover={() => this.props.keepTooltip({ name: 'userProfile' })}
             onLeave={() => this.props.hideTooltip({ name: 'userProfile' })}
           />
