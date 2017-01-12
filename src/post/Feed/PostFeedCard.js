@@ -14,7 +14,11 @@ import LikesList from './../LikesList';
 import { calculatePayout } from '../../helpers/steemitHelpers';
 import './PostFeedCard.scss';
 
-const AmountWithLabel = ({ label, amount }) => _.isNumber(amount) ? <div>{label}: {numeral(amount).format('$0,0.00')}</div> : null;
+const AmountWithLabel = ({ label, amount }) => (
+  _.isNumber(amount)
+    ? <div>{label}: {numeral(amount).format('$0,0.00')}</div>
+    : null
+);
 
 const PayoutDetail = ({ show, post }) => {
   if (show) {
@@ -30,7 +34,7 @@ const PayoutDetail = ({ show, post }) => {
       curatorPayouts,
     } = calculatePayout(post);
 
-    return (<div>
+    return (<div className="PostFeedCard__cell--tab-content p-3">
       {payoutLimitHit && <div>Payout limit reached on this post</div>}
       <AmountWithLabel label="Potential Payout" amount={potentialPayout} />
       <AmountWithLabel label="Promoted" amount={promotionCost} />
