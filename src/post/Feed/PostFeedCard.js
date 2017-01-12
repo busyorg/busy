@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import { FormattedMessage, FormattedRelative } from 'react-intl';
 import _ from 'lodash';
+import numeral from 'numeral';
 import BodyShort from '../BodyShort';
 import Flag from '../../widgets/Flag';
 import Comments from '../../comments/Comments';
@@ -10,7 +11,44 @@ import Icon from '../../widgets/Icon';
 import Avatar from '../../widgets/Avatar';
 import PostModalLink from './../PostModalLink';
 import LikesList from './../LikesList';
+import { calculatePayout } from '../../helpers/steemitHelpers';
 import './PostFeedCard.scss';
+
+const AmountWithLabel = ({ label, amount }) => (
+  _.isNumber(amount)
+    ? <div>{label}: {numeral(amount).format('$0,0.00')}</div>
+    : null
+);
+
+const PayoutDetail = ({ show, post }) => {
+  if (show) {
+    const {
+      payoutLimitHit,
+      potentialPayout,
+      promotionCost,
+      cashoutInTime,
+      isPayoutDeclined,
+      maxAcceptedPayout,
+      pastPayouts,
+      authorPayouts,
+      curatorPayouts,
+    } = calculatePayout(post);
+
+    return (<div className="PostFeedCard__cell--tab-content p-3">
+      {payoutLimitHit && <div>Payout limit reached on this post</div>}
+      <AmountWithLabel label="Potential Payout" amount={potentialPayout} />
+      <AmountWithLabel label="Promoted" amount={promotionCost} />
+      {!isPayoutDeclined && cashoutInTime &&
+        <div>Will release <FormattedRelative value={cashoutInTime} /></div>}
+      {isPayoutDeclined && <div>Declined Payout</div>}
+      <AmountWithLabel label="Max Accepted Payout" amount={maxAcceptedPayout} />
+      <AmountWithLabel label="Total Past Payouts" amount={pastPayouts} />
+      <AmountWithLabel label="Authors Payout" amount={authorPayouts} />
+      <AmountWithLabel label="Curators Payout" amount={curatorPayouts} />
+    </div>);
+  }
+  return null;
+};
 
 const PostFeedCard = ({
   post,
@@ -26,21 +64,23 @@ const PostFeedCard = ({
   isReblogged,
   showComments,
   showLikes,
+  showPayout,
   handleShowCommentsRequest,
   handleShowLikesRequest,
+  handleShowPayoutRequest,
   layout
 }) =>
   <div className="PostFeedCard">
-    { post.first_reblogged_by &&
-    <div className="PostFeedCard__cell PostFeedCard__cell--top">
-      <ul>
-        <li>
-          <Icon name="repeat" sm />
-          { ' Reblogged by ' }
-          <Link to={`/@${post.first_reblogged_by}`}>@{post.first_reblogged_by}</Link>
-        </li>
-      </ul>
-    </div>
+    {post.first_reblogged_by &&
+      <div className="PostFeedCard__cell PostFeedCard__cell--top">
+        <ul>
+          <li>
+            <Icon name="repeat" sm />
+            {' Reblogged by '}
+            <Link to={`/@${post.first_reblogged_by}`}>@{post.first_reblogged_by}</Link>
+          </li>
+        </ul>
+      </div>
     }
 
     <div className="PostFeedCard__cell PostFeedCard__cell--top">
@@ -48,7 +88,7 @@ const PostFeedCard = ({
         <li>
           <Link to={`/@${post.author}`}>
             <Avatar xs username={post.author} />
-            { ` @${post.author}` }
+            {` @${post.author}`}
           </Link>
           <span className="hidden-xs">
             { ' ' }<FormattedMessage id="in" />{ ' ' }
@@ -68,18 +108,18 @@ const PostFeedCard = ({
     </div>
 
     { (imagePath && !_.has(embeds, '[0].embed')) &&
-    <div className="PostFeedCard__thumbs">
-      <PostModalLink
-        post={post}
-        onClick={() => openPostModal(post.id)}
-      >
-        <img src={imagePath} />
-      </PostModalLink>
-    </div>
+      <div className="PostFeedCard__thumbs">
+        <PostModalLink
+          post={post}
+          onClick={() => openPostModal(post.id)}
+        >
+          <img src={imagePath} />
+        </PostModalLink>
+      </div>
     }
 
     { _.has(embeds, '[0].embed') &&
-    <div className="PostFeedCard__thumbs" dangerouslySetInnerHTML={{ __html: embeds[0].embed }} />
+      <div className="PostFeedCard__thumbs" dangerouslySetInnerHTML={{ __html: embeds[0].embed }} />
     }
 
     <div className="PostFeedCard__cell PostFeedCard__cell--body">
@@ -89,7 +129,7 @@ const PostFeedCard = ({
           post={post}
           onClick={() => openPostModal(post.id)}
         >
-          { post.title }
+          {post.title}
         </PostModalLink>
       </h2>
 
@@ -103,6 +143,7 @@ const PostFeedCard = ({
         onCommentRequest={onCommentRequest}
         onShowCommentsRequest={handleShowCommentsRequest}
         onShowLikesRequest={handleShowLikesRequest}
+        onShowPayoutRequest={handleShowPayoutRequest}
         reblog={reblog}
         isReblogged={isReblogged}
         layout={layout}
@@ -115,11 +156,13 @@ const PostFeedCard = ({
       className="Comments--feed"
     />
 
-    { showLikes &&
-    <LikesList
-      activeVotes={post.active_votes}
-      netVotes={post.net_votes}
-    />
+    <PayoutDetail show={showPayout} post={post} />
+
+    {showLikes &&
+      <LikesList
+        activeVotes={post.active_votes}
+        netVotes={post.net_votes}
+      />
     }
 
   </div>;
