@@ -62,7 +62,9 @@ export default class PostActionButtons extends Component {
   render() {
     const { post, auth, layout } = this.props;
     const payout = parseFloat(post.total_payout_value)
-      + parseFloat(post.total_pending_payout_value);
+      + parseFloat(post.total_pending_payout_value)
+      + parseFloat(post.curator_payout_value);
+
     const isPostLiked =
       auth.isAuthenticated &&
       post.active_votes.some(vote => vote.voter === auth.user.name && vote.percent > 0);
@@ -82,6 +84,7 @@ export default class PostActionButtons extends Component {
         </li>
         <li>
           <PayoutLabel
+            onClick={() => { this.props.onShowPayoutRequest(); }}
             value={numeral(payout).format('$0,0.00')}
           />
         </li>
@@ -90,24 +93,24 @@ export default class PostActionButtons extends Component {
           <a onClick={e => this.handleCommentBoxClick(e)}>
             <Icon name="reply" sm />
           </a>
-          { ' ' }
+          {' '}
 
-          { (post.children && isCardLayout) &&
+          {(post.children && isCardLayout) &&
             <a onClick={e => this.handleCommentsTextClick(e)}>
               {numeral(post.children).format('0,0')}
-                <span className="hidden-xs"> Comment
-                  { post.children > 1 && 's' }
-                </span>
+              <span className="hidden-xs"> Comment
+                  {post.children > 1 && 's'}
+              </span>
             </a>
           }
 
-          { (!post.children && isCardLayout) &&
+          {(!post.children && isCardLayout) &&
             <span className="hidden-xs">0 Comment</span>
           }
 
-          { isListLayout &&
+          {isListLayout &&
             <span>
-              { numeral(post.children).format('0,0') }
+              {numeral(post.children).format('0,0')}
             </span>
           }
 
