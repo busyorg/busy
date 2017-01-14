@@ -2,7 +2,7 @@ import React from 'react';
 import { Origin } from 'redux-tooltip';
 
 const TooltipOrigin = ({ children, content, active }) => {
-  if (!active) {
+  if (active) {
     return (
       <Origin
         content={content}
