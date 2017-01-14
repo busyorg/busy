@@ -13,6 +13,7 @@ import PostModalLink from './../PostModalLink';
 import LikesList from './../LikesList';
 import ProfileTooltipOrigin from '../../user/profileTooltip/ProfileTooltipOrigin';
 import { calculatePayout } from '../../helpers/steemitHelpers';
+import TooltipOrigin from '../../app/TooltipOrigin';
 import './PostFeedCard.scss';
 
 const AmountWithLabel = ({ label, amount }) => (
@@ -104,12 +105,19 @@ const PostFeedCard = ({
         </li>
         <li className="pull-right">
           <FormattedRelative value={post.created} />{' '}
-          <a onClick={() => toggleBookmark(post.id)}>
-            <Icon
-              small
-              name={bookmarks[post.id] ? 'bookmark' : 'bookmark_border'}
-            />
-          </a>
+
+          <TooltipOrigin
+            content="Add in your bookmarks"
+            active={!bookmarks[post.id]}
+          >
+            <a onClick={() => toggleBookmark(post.id)}>
+              <Icon
+                small
+                name={bookmarks[post.id] ? 'bookmark' : 'bookmark_border'}
+              />
+            </a>
+          </TooltipOrigin>
+
         </li>
       </ul>
     </div>
