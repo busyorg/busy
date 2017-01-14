@@ -48,13 +48,13 @@ export default class PostSingle extends React.Component {
   }
 
   render() {
-    const { modal, isPostModalOpen, sidebarIsVisible, content, contentIdList = [], reblog, reblogList, auth } = this.props;
+    const { modal, isPostModalOpen, sidebarIsVisible, content, contentList = [], reblog, reblogList, auth } = this.props;
     if (!content) {
       return null;
     }
 
-    const currentStoryIndex = contentIdList.indexOf(content.id);
-    const nextStoryId = currentStoryIndex > -1 ? contentIdList[currentStoryIndex + 1] : undefined;
+    const currentStoryIndex = contentList.indexOf(content);
+    const nextStory = currentStoryIndex > -1 ? contentList[currentStoryIndex + 1] : undefined;
 
     const isPostLiked =
       auth.isAuthenticated &&
@@ -90,7 +90,8 @@ export default class PostSingle extends React.Component {
             isPostLiked={isPostLiked}
             isPostDisliked={isPostDisliked}
             bookmarks={this.props.bookmarks}
-            nextStory={nextStoryId && (() => this.props.openPostModal(nextStoryId))}
+            nextStory={nextStory}
+            openPostModal={this.props.openPostModal}
             toggleBookmark={this.props.toggleBookmark}
           />
         }

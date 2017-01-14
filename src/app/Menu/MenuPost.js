@@ -9,7 +9,7 @@ import './MenuPost.scss';
 export default class MenuPost extends Component {
 
   nextStory = () => {
-    this.props.nextStory();
+    this.props.openPostModal(this.props.nextStory.id);
     this.props.scrollToTop();
   }
 
@@ -34,7 +34,6 @@ export default class MenuPost extends Component {
     const numberOfComments = numeral(content.children).format('0,0');
     const numberOfVotes = numeral(content.net_votes).format('0,0');
     const numberOfDislikes = content.active_votes.filter(vote => vote.percent < 0).length;
-
     return (
       <ul
         className="MenuPost secondary-nav"
@@ -93,9 +92,9 @@ export default class MenuPost extends Component {
           </a>
         </li>
         {nextStory && <li className="pull-right">
-          <a onClick={this.nextStory}>
-            <FormattedMessage id="nextStory" />
-            <Icon name="navigate_next" />
+          <a className="next-story" onClick={this.nextStory}>
+            <span><FormattedMessage id="next_story" /><Icon name="navigate_next" /></span>
+            <span>{nextStory.title}</span>
           </a>
         </li>}
       </ul>

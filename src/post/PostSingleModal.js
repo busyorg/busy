@@ -59,7 +59,7 @@ export default class PostSingleModal extends Component {
   }
 
   render() {
-    const { content, sidebarIsVisible, reblog, isReblogged, openCommentingDraft, nextStory } = this.props;
+    const { content, sidebarIsVisible, reblog, isReblogged, openCommentingDraft } = this.props;
 
     return (
       <div className={sidebarIsVisible ? 'PostSingleModal withSidebar' : 'PostSingleModal'} ref={(c) => { this.DOMNode = c; }}>
@@ -72,7 +72,8 @@ export default class PostSingleModal extends Component {
           dislikePost={this.props.dislikePost}
           isPostLiked={this.props.isPostLiked}
           isPostDisliked={this.props.isPostDisliked}
-          nextStory={nextStory}
+          openPostModal={this.props.openPostModal}
+          nextStory={this.props.nextStory}
           scrollToTop={this.scrollToTop}
           content={content}
         />

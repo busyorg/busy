@@ -94,7 +94,7 @@ export default class Feed extends React.Component {
         </div>
         <PostSingle
           modal
-          contentIdList={content.map((c => c.id))}
+          contentList={content}
           openPostModal={this.props.openPostModal}
           route={this.props.route}
         />

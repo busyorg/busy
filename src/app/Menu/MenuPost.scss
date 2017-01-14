@@ -10,11 +10,24 @@
   left: 0;
 }
 
+a.next-story {
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  span {
+    line-height: 26px;
+    width: 200px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    vertical-align: middle;
+  }
+}
+
 @media (min-width: 992px) {
   .full-width .MenuPost {
     left: 0 !important;
   }
-
   .MenuPost {
     left: 260px !important;
   }
