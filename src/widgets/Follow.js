@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import classNames from 'classnames';
 import Icon from './Icon';
 import { followUser, unfollowUser } from '../user/userActions';
+import TooltipOrigin from '../app/TooltipOrigin';
 
 @connect(
   state => ({
@@ -44,13 +45,19 @@ export default class FollowButton extends Component {
     return (
       <span>
         { hasFollow &&
-          <a
-            className={classNames('trigger', { disabled: following.isFetching })}
-            onClick={this.onClickFollow}
+          <TooltipOrigin
+            content={isFollowing ? `Unfollow ${username}` : `Follow ${username}`}
+            active
+            store={this.props.store}
           >
-            <Icon name={isFollowing ? 'person_outline' : 'person_add'} sm />
-            { this.props.children }
-          </a>
+            <a
+              className={classNames('trigger', { disabled: following.isFetching })}
+              onClick={this.onClickFollow}
+            >
+              <Icon name={isFollowing ? 'person_outline' : 'person_add'} sm />
+              { this.props.children }
+            </a>
+          </TooltipOrigin>
         }
       </span>
     );
