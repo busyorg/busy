@@ -15,7 +15,6 @@ import {
 } from '../helpers/stateHelpers';
 import Loading from '../widgets/Loading';
 import Follow from '../widgets/Follow';
-import { followUser, unfollowUser } from './userActions';
 import Icon from '../widgets/Icon';
 import Avatar from '../widgets/Avatar';
 import Badge from '../widgets/Badge';
@@ -24,13 +23,11 @@ import donors from '../helpers/donors';
 import EmptyUserProfile from '../statics/EmptyUserProfile';
 import EmptyUserOwnProfile from '../statics/EmptyUserOwnProfile';
 
-class Profile extends Component {
+export default class UserProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
       user: {},
-      isFollowing: false,
-      isFollowingIsLoading: true,
     };
   }
 
@@ -51,27 +48,6 @@ class Profile extends Component {
       this.setState({ user: result[0] });
     });
   }
-
-  hasFollow() {
-    const username = this.props.params.name;
-    return (
-      this.props.auth.isAuthenticated
-        && username !== this.props.auth.user.name
-    );
-  }
-
-  onClickFollow = (e) => {
-    if (e && e.preventDefault) e.preventDefault();
-    const { following } = this.props;
-    const username = this.props.params.name;
-    const isFollowing = following.list && following.list.includes(username);
-
-    if (isFollowing) {
-      this.props.unfollowUser(this.props.params.name);
-    } else {
-      this.props.followUser(this.props.params.name);
-    }
-  };
 
   isFavorited() {
     const { favorites } = this.props;
@@ -103,9 +79,6 @@ class Profile extends Component {
     let jsonMetadata = {};
     try { jsonMetadata = JSON.parse(user.json_metadata); } catch (e) { jsonMetadata = {}; }
 
-    const { following } = this.props;
-    const isFollowing = following.list && following.list.includes(username);
-
     return (
       <div>
         <section
@@ -128,12 +101,7 @@ class Profile extends Component {
               />
               { _.has(jsonMetadata, 'profile.name') ? jsonMetadata.profile.name : `@${username}` }
               { ' ' }
-              <Follow
-                hasFollow={this.hasFollow()}
-                followingIsFetching={following.isFetching}
-                isFollowing={isFollowing}
-                onClickFollow={this.onClickFollow}
-              />
+              <Follow username={username} />
             </h1>
           </div>
         </section>
@@ -223,22 +191,3 @@ class Profile extends Component {
     );
   }
 }
-
-// TODO:(p0o) refactor this to User.js container and avoid adding redux actions or state params here
-
-const mapStateToProps = function (state) {
-  return {
-    following: state.user.following,
-  };
-};
-
-const mapDispatchToProps = function (dispatch) {
-  return {
-    followUser: (...args) => dispatch(followUser(...args)),
-    unfollowUser: (...args) => dispatch(unfollowUser(...args)),
-  };
-};
-
-Profile = connect(mapStateToProps, mapDispatchToProps)(Profile);
-
-export default Profile
