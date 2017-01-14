@@ -293,7 +293,6 @@ class PostEditor extends Component {
 
   render() {
     const { editorState } = this.state;
-
     // If the user changes block type before entering any text, we can
     // either style the placeholder or hide it. Let's just hide it now.
     const className = 'PostEditor__editor';
@@ -318,7 +317,7 @@ class PostEditor extends Component {
           <Editor
             blockRendererFn={this.blockRendererFn}
             blockStyleFn={getBlockStyle}
-            placeholder="Write your story…"
+            placeholder={this.props.placeholder}
             customStyleMap={styleMap}
             blockRenderMap={new Map({
               'atomic:IMAGE': {
