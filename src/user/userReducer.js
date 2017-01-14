@@ -10,13 +10,15 @@ const initialState = {
   // Map<FileName, Bool>
   fileUploadIsLoading: {},
   fileUploadError: null,
-
   filesFetchError: null,
   filesFetchIsLoading: true,
-  following: {},
+  following: {
+    list: [],
+    isFetching: false,
+  },
 };
 
-export default function userProfileReducer(state = initialState, action) {
+export default function userReducer(state = initialState, action) {
   switch (action.type) {
     case actions.UPLOAD_FILE_START: {
       return Object.assign({}, state, {
@@ -73,6 +75,7 @@ export default function userProfileReducer(state = initialState, action) {
       return {
         ...state,
         following: {
+          list: [],
           isFetching: true,
         },
       };
@@ -80,6 +83,7 @@ export default function userProfileReducer(state = initialState, action) {
       return {
         ...state,
         following: {
+          list: [],
           isFetching: false,
         },
       };

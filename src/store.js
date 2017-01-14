@@ -13,7 +13,7 @@ import authReducers from './auth/authReducers';
 import commentsReducer from './comments/commentsReducer.js';
 import feedReducers from './feed/feedReducers';
 import postsReducers from './post/postsReducers';
-import userProfileReducer from './user/userReducer';
+import userReducer from './user/userReducer';
 import notificationReducer from './app/Notification/notificationReducers';
 import bookmarksReducer from './bookmarks/bookmarksReducer';
 import favoritesReducer from './favorites/favoritesReducers';
@@ -35,7 +35,7 @@ const reducers = combineReducers({
   editor: editorReducer,
   posts: postsReducers,
   feed: feedReducers,
-  userProfile: userProfileReducer,
+  user: userReducer,
   responsive: responsiveReducer,
   messages: messagesReducer,
   notifications: notificationReducer,

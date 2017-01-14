@@ -1,5 +1,5 @@
 import * as feedTypes from './feedActions';
-import * as userProfileTypes from '../user/userActions';
+import * as userTypes from '../user/userActions';
 import * as bookmarksActions from '../bookmarks/bookmarksActions';
 
 
@@ -54,9 +54,9 @@ const feedIdsList = (state = [], action) => {
           ...morePostsIds,
         ];
       }
-    case userProfileTypes.GET_USER_COMMENTS_SUCCESS:
+    case userTypes.GET_USER_COMMENTS_SUCCESS:
       return Object.keys(action.payload.content).map(key => action.payload.content[key].id);
-    case userProfileTypes.GET_MORE_USER_COMMENTS_SUCCESS:
+    case userTypes.GET_MORE_USER_COMMENTS_SUCCESS:
       return action.payload.result.map(comment => comment.id);
     default:
       return state;
@@ -71,8 +71,8 @@ const feedSortBySubItem = (state = {}, action) => {
     case feedTypes.GET_USER_FEED_CONTENT:
     case feedTypes.GET_MORE_USER_FEED_CONTENT:
     case feedTypes.GET_MORE_USER_FEED_CONTENT_SUCCESS:
-    case userProfileTypes.GET_USER_COMMENTS_START:
-    case userProfileTypes.GET_MORE_USER_COMMENTS_START:
+    case userTypes.GET_USER_COMMENTS_START:
+    case userTypes.GET_MORE_USER_COMMENTS_START:
     case bookmarksActions.GET_BOOKMARKS_START:
     case bookmarksActions.GET_BOOKMARKS_SUCCESS:
       return {
@@ -82,8 +82,8 @@ const feedSortBySubItem = (state = {}, action) => {
       };
     case feedTypes.GET_FEED_CONTENT_SUCCESS:
     case feedTypes.GET_USER_FEED_CONTENT_SUCCESS:
-    case userProfileTypes.GET_USER_COMMENTS_SUCCESS:
-    case userProfileTypes.GET_MORE_USER_COMMENTS_SUCCESS:
+    case userTypes.GET_USER_COMMENTS_SUCCESS:
+    case userTypes.GET_MORE_USER_COMMENTS_SUCCESS:
       return {
         ...state,
         hasMore: true,
@@ -120,10 +120,10 @@ const feedSortByItem = (state = {}, action) => {
         ...state,
         [action.payload.username]: feedSortBySubItem(state[action.payload.username], action)
       };
-    case userProfileTypes.GET_USER_COMMENTS_START:
-    case userProfileTypes.GET_USER_COMMENTS_SUCCESS:
-    case userProfileTypes.GET_MORE_USER_COMMENTS_START:
-    case userProfileTypes.GET_MORE_USER_COMMENTS_SUCCESS:
+    case userTypes.GET_USER_COMMENTS_START:
+    case userTypes.GET_USER_COMMENTS_SUCCESS:
+    case userTypes.GET_MORE_USER_COMMENTS_START:
+    case userTypes.GET_MORE_USER_COMMENTS_SUCCESS:
       return {
         ...state,
         [action.meta.username]: feedSortBySubItem(state[action.meta.username], action)
@@ -154,10 +154,10 @@ const feed = (state = initialState, action) => {
         ...state,
         [action.payload.sortBy]: feedSortByItem(state[action.payload.sortBy], action)
       };
-    case userProfileTypes.GET_USER_COMMENTS_START:
-    case userProfileTypes.GET_USER_COMMENTS_SUCCESS:
-    case userProfileTypes.GET_MORE_USER_COMMENTS_START:
-    case userProfileTypes.GET_MORE_USER_COMMENTS_SUCCESS:
+    case userTypes.GET_USER_COMMENTS_START:
+    case userTypes.GET_USER_COMMENTS_SUCCESS:
+    case userTypes.GET_MORE_USER_COMMENTS_START:
+    case userTypes.GET_MORE_USER_COMMENTS_SUCCESS:
       return {
         ...state,
         comments: feedSortByItem(state.comments, action)

@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
-import steemdb from 'steemdb';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
+import steemAPI from '../steemAPI';
 import Avatar from '../widgets/Avatar';
 import Loading from '../widgets/Loading';
 import Follow from '../widgets/Follow';
-import { followUser, unfollowUser, getFollowing } from '../user/userActions';
+import { followUser, unfollowUser } from '../user/userActions';
 
 @connect(
-  ({ auth, userProfile }) => ({ auth, following: userProfile.following }),
-  dispatch => bindActionCreators({ followUser, unfollowUser, getFollowing }, dispatch)
+  ({ auth, user }) => ({ auth, following: user.following }),
+  dispatch => bindActionCreators({ followUser, unfollowUser }, dispatch)
 )
 class AuthorBio extends Component {
   constructor(props) {
@@ -21,14 +21,9 @@ class AuthorBio extends Component {
   }
 
   componentDidMount() {
-    const loggedInUser = this.props.auth.user ? this.props.auth.user.name : '';
-    this.props.getFollowing(loggedInUser);
-    steemdb.accounts({
-      account: this.props.authorName
-    }, (err, result) => {
+    steemAPI.getAccounts([this.props.authorName], (err, result) => {
       if (result.length) {
         const author = result[0];
-
         try {
           author.json_metadata = JSON.parse(result[0].json_metadata);
         } catch (e) {
