@@ -291,6 +291,8 @@ class PostEditor extends Component {
     return null;
   };
 
+  focus = () => this.editor.focus()
+
   render() {
     const { editorState } = this.state;
     // If the user changes block type before entering any text, we can
@@ -315,6 +317,7 @@ class PostEditor extends Component {
 
         <div className={className} ref={(c) => { this.editorContainer = c; }}>
           <Editor
+            ref={(c) => { this.editor = c; }}
             blockRendererFn={this.blockRendererFn}
             blockStyleFn={getBlockStyle}
             placeholder={this.props.placeholder}

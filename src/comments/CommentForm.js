@@ -55,7 +55,7 @@ export default class CommentForm extends Component {
 
     if (shouldUpdateDraft) {
       this.updateDraft();
-      // this._input.focus();
+      this._input.focus();
     }
   }
 
@@ -112,7 +112,7 @@ export default class CommentForm extends Component {
             ref={
               (c) => { this._input = c && c.getWrappedInstance ? c.getWrappedInstance() : c; }
             }
-            />
+          />
           <a className="CommentForm__close" onClick={() => closeCommentingDraft()}>
             <Icon name="clear" />
           </a>
