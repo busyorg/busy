@@ -2,7 +2,7 @@
 
 .Icon {
   vertical-align: middle;
-  color: #AAA;
+  color: #c2ccd3;
 }
 
 .Icon--xs {
@@ -35,12 +35,9 @@
 }
 
 .main-panel {
-  a:hover {
-    .Icon {
-      color: $primary-color;
-    }
+  a:hover > .Icon {
+    color: #99AAB5;
   }
-
   a.active {
     .Icon {
       color: $primary-color;
