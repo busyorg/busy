@@ -366,7 +366,7 @@ class PostEditor extends Component {
 }
 
 PostEditor = connect(state => ({
-  files: state.userProfile.files,
+  files: state.user.files,
 }), undefined, undefined, { withRef: true })(PostEditor);
 
 export default PostEditor;

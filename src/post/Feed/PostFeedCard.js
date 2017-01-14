@@ -11,6 +11,7 @@ import Icon from '../../widgets/Icon';
 import Avatar from '../../widgets/Avatar';
 import PostModalLink from './../PostModalLink';
 import LikesList from './../LikesList';
+import ProfileTooltipOrigin from '../../user/profileTooltip/ProfileTooltipOrigin';
 import { calculatePayout } from '../../helpers/steemitHelpers';
 import './PostFeedCard.scss';
 
@@ -71,13 +72,16 @@ const PostFeedCard = ({
   layout
 }) =>
   <div className="PostFeedCard">
-    {post.first_reblogged_by &&
+
+    { post.first_reblogged_by &&
       <div className="PostFeedCard__cell PostFeedCard__cell--top">
         <ul>
           <li>
             <Icon name="repeat" sm />
             {' Reblogged by '}
-            <Link to={`/@${post.first_reblogged_by}`}>@{post.first_reblogged_by}</Link>
+            <ProfileTooltipOrigin username={post.first_reblogged_by} >
+              <Link to={`/@${post.first_reblogged_by}`}>@{post.first_reblogged_by}</Link>
+            </ProfileTooltipOrigin>
           </li>
         </ul>
       </div>
@@ -86,10 +90,13 @@ const PostFeedCard = ({
     <div className="PostFeedCard__cell PostFeedCard__cell--top">
       <ul>
         <li>
-          <Link to={`/@${post.author}`}>
-            <Avatar xs username={post.author} />
-            {` @${post.author}`}
-          </Link>
+          <ProfileTooltipOrigin username={post.author} >
+            <Link to={`/@${post.author}`}>
+              <Avatar xs username={post.author} />
+              { ` @${post.author}` }
+            </Link>
+          </ProfileTooltipOrigin>
+
           <span className="hidden-xs">
             { ' ' }<FormattedMessage id="in" />{ ' ' }
             <Link to={`/hot/${post.category}`}>#{post.category}</Link>

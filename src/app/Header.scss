@@ -36,7 +36,7 @@ header {
       opacity: 1;
       color: $primary-color !important;
 
-      .icon {
+      .Icon {
         color: $primary-color;
       }
     }
@@ -161,7 +161,7 @@ header {
       &.active {
         box-shadow: inset 0 -1px 0 $primary-color;
 
-        .icon {
+        .Icon {
           color: $primary-color;
         }
       }
