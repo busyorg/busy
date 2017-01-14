@@ -7,7 +7,7 @@ import { followUser, unfollowUser } from '../user/userActions';
 
 @connect(
   state => ({
-    following: state.userProfile.following,
+    following: state.user.following,
     auth: state.auth,
   }),
   dispatch => bindActionCreators({
