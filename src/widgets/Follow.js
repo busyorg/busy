@@ -48,7 +48,7 @@ export default class FollowButton extends Component {
             className={classNames('trigger', { disabled: following.isFetching })}
             onClick={this.onClickFollow}
           >
-            <Icon name={isFollowing ? 'person_outline' : 'person_add'} />
+            <Icon name={isFollowing ? 'person_outline' : 'person_add'} sm />
             { this.props.children }
           </a>
         }
