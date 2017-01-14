@@ -315,7 +315,11 @@ class PostEditor extends Component {
           user={this.props.user}
         />
 
-        <div className={className} ref={(c) => { this.editorContainer = c; }}>
+        <div
+          className={className}
+          ref={(c) => { this.editorContainer = c; }}
+          onKeyDown={this.props.onKeyDown}
+        >
           <Editor
             ref={(c) => { this.editor = c; }}
             blockRendererFn={this.blockRendererFn}

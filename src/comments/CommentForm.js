@@ -27,7 +27,6 @@ import './CommentForm.scss';
 export default class CommentForm extends Component {
 
   updateDraft() {
-    // debugger;
     const body = this._input.getContent().markdown;
     this.props.updateCommentingDraft({
       id: this.props.comments.currentDraftId,
@@ -36,7 +35,6 @@ export default class CommentForm extends Component {
   }
 
   handleKey(e, commentDepth) {
-    console.log('handleKey');
     if (keycode(e) === 'enter' && !e.shiftKey) {
       this.updateDraft();
       this.props.sendComment(commentDepth);
