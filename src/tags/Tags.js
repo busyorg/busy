@@ -59,7 +59,7 @@ export default class Tags extends Component {
         </ul>
 
         { isFetching &&
-          <div className="my-3">
+          <div className="my-5">
             <Loading />
           </div>
         }

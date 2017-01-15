@@ -28,7 +28,7 @@ DraftRow = connect(() => ({}), { deleteDraft })(DraftRow);
 const DraftList = ({ editor: { draftPosts } }) =>
   <div className="main-panel">
     <Header />
-    <div className="my-3 container container-small">
+    <div className="my-5 container container-small">
       <h1 className="text-center">Drafts</h1>
       { _.size(draftPosts) === 0 &&
         <h3 className="text-center">

@@ -89,7 +89,7 @@ export default class UserProfile extends Component {
             position: 'relative',
           }}
         >
-          <div className="my-3">
+          <div className="my-5">
             <Avatar xl username={username} reputation={_.has(user, 'name') && user.reputation} />
             <h1>
               <FavoriteUserButton
@@ -138,7 +138,7 @@ export default class UserProfile extends Component {
                 </Link>
               </li>
             </ul>
-            <div className="container container-small my-3 text-center">
+            <div className="container container-small my-5 text-center">
               <h3><Badge vestingShares={user.vesting_shares} /></h3>
               { donors[username] &&
                 <h3>

@@ -9,7 +9,7 @@ import Donor from '../widgets/Donor';
 const Donors = () =>
   <div className="main-panel">
     <Header />
-    <div className="container container-small my-3">
+    <div className="container container-small my-5">
       <h1 className="text-center">
         <FormattedMessage id="donors" />
       </h1>

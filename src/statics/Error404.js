@@ -7,15 +7,10 @@ import Icon from '../widgets/Icon';
 const Error404 = () =>
   <div className="main-panel">
     <Header />
-    <div className="container my-3">
+    <div className="container my-5">
       <div className="ptl text-center">
-        <h1>
-          <Icon name="info" lg />
-          { ' ' }<FormattedMessage id="page_not_found" />
-        </h1>
-        <h2>
-          <FormattedMessage id="page_not_found_message" />
-        </h2>
+        <h1><FormattedMessage id="page_not_found" /></h1>
+        <h2><FormattedMessage id="page_not_found_message" /></h2>
         <p>If you think this is a problem with Busy, please
           { ' ' }
           <a

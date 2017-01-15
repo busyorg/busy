@@ -60,7 +60,7 @@ export default class UserTransfers extends Component {
         + parseFloat(account.sbd_balance);
     }
     return (
-      <div className="container my-3">
+      <div className="container my-5">
         {(!_.isEmpty(this.state.feedPrice) && !_.isEmpty(account)) ?
           <div className="ptl text-center">
             <ul className="row text-center">

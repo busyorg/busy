@@ -46,7 +46,7 @@ export default class Transfer extends Component {
     return (
       <div className="main-panel">
         <Header />
-        <div className="my-3 container container-small text-xs-center">
+        <div className="my-5 container container-small text-center">
           <h1>Transfer</h1>
           <form>
             <div className="form-group text-xs-left">
