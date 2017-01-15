@@ -1,16 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
 import steemAPI from '../steemAPI';
 import Avatar from '../widgets/Avatar';
 import Loading from '../widgets/Loading';
 import Follow from '../widgets/Follow';
-import { followUser, unfollowUser } from '../user/userActions';
 
 @connect(
-  ({ auth, user }) => ({ auth, following: user.following }),
-  dispatch => bindActionCreators({ followUser, unfollowUser }, dispatch)
+  ({ user }) => ({ following: user.following })
 )
 class AuthorBio extends Component {
   constructor(props) {
@@ -35,15 +32,12 @@ class AuthorBio extends Component {
   }
 
   render() {
-    const { authorName, auth, following } = this.props;
+    const { authorName, following } = this.props;
     const { author } = this.state;
-    const loggedInUser = auth.user.name;
 
     if (author && !following.isFetching) {
-      const isFollowing = following.list.indexOf(authorName) >= 0;
       const { about, name } = author.json_metadata.profile || {};
       const displayName = name || `@${authorName}`;
-      const onClickFollowFn = isFollowing ? this.props.unfollowUser : this.props.followUser;
 
       return (
         <div>
@@ -55,11 +49,7 @@ class AuthorBio extends Component {
               {displayName}
             </Link>
             {' '}
-            <Follow
-              hasFollow={authorName !== loggedInUser}
-              isFollowing={isFollowing}
-              onClickFollow={() => onClickFollowFn(authorName)}
-            />
+            <Follow username={authorName} />
             <div>{about}</div>
           </div>
         </div>
