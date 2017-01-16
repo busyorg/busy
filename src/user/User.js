@@ -100,10 +100,12 @@ export default class UserProfile extends React.Component {
                   : () => this.props.addUserFavorite(username)
                 }
               />
-              { _.has(jsonMetadata, 'profile.name') ? jsonMetadata.profile.name : `@${username}` }
-              { ' ' }
-              <Follow username={username} />
+              { _.has(jsonMetadata, 'profile.name')
+                ? jsonMetadata.profile.name
+                : `@${username}`
+              }
             </h1>
+            <Follow username={username} />
           </div>
         </section>
         <div className="profile">
@@ -114,8 +116,8 @@ export default class UserProfile extends React.Component {
                 <Link to={`/@${username}`}>
                   <Icon name="library_books" /> {numeral(user.post_count).format('0,0')}
                   <span className="hidden-xs">
-                  { ' ' }<FormattedMessage id="posts" />
-                </span>
+                    { ' ' }<FormattedMessage id="posts" />
+                  </span>
                 </Link>
               </li>
               <li>
