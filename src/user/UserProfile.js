@@ -1,12 +1,9 @@
 import 'babel-polyfill';
 import React, { Component } from 'react';
-import { FormattedMessage, FormattedRelative } from 'react-intl';
+import { FormattedRelative } from 'react-intl';
 import  _ from 'lodash';
 import steemdb from 'steemdb';
-import numeral from 'numeral';
 import { Link } from 'react-router';
-import { connect } from 'react-redux';
-import FavoriteUserButton from '../favorites/FavoriteUserButton';
 import Feed from '../feed/Feed';
 import {
   getFeedContentFromState,
@@ -14,9 +11,7 @@ import {
   getFeedHasMoreFromState
 } from '../helpers/stateHelpers';
 import Loading from '../widgets/Loading';
-import Follow from '../widgets/Follow';
 import Icon from '../widgets/Icon';
-import Avatar from '../widgets/Avatar';
 import Badge from '../widgets/Badge';
 import Donor from '../widgets/Donor';
 import donors from '../helpers/donors';
@@ -81,63 +76,9 @@ export default class UserProfile extends Component {
 
     return (
       <div>
-        <section
-          className="align-center bg-green profile-header"
-          style={{
-            backgroundImage: `url(${process.env.STEEMCONNECT_IMG_HOST}/@${username}/cover)`,
-            backgroundSize: 'cover',
-            position: 'relative',
-          }}
-        >
-          <div className="my-5">
-            <Avatar xl username={username} reputation={_.has(user, 'name') && user.reputation} />
-            <h1>
-              <FavoriteUserButton
-                isFavorited={this.isFavorited()}
-                onClick={this.isFavorited()
-                  ? () => this.props.removeUserFavorite(username)
-                  : () => this.props.addUserFavorite(username)
-                }
-              />
-              { _.has(jsonMetadata, 'profile.name') ? jsonMetadata.profile.name : `@${username}` }
-              { ' ' }
-              <Follow username={username} />
-            </h1>
-          </div>
-        </section>
         <div className="profile">
           { !_.has(user, 'name') && <Loading />}
           { _.has(user, 'name') && <div>
-            <ul className="secondary-nav">
-              <li>
-                <Icon name="library_books" /> {numeral(user.post_count).format('0,0')}
-                <span className="hidden-xs">
-                  { ' ' }<FormattedMessage id="posts" />
-                </span>
-              </li>
-              <li>
-                <Icon name="gavel" /> {numeral(parseInt(user.voting_power) / 10000).format('%0')}
-                <span className="hidden-xs">
-                  { ' ' }<FormattedMessage id="voting_power" />
-                </span>
-              </li>
-              <li>
-                <Link to={`/@${username}/followers`}>
-                  <Icon name="people" /> {numeral(parseInt(user.followers_count)).format('0,0')}
-                  <span className="hidden-xs">
-                    { ' ' }<FormattedMessage id="followers" />
-                  </span>
-                </Link>
-              </li>
-              <li>
-                <Link to={`/@${username}/followed`}>
-                  <Icon name="people" /> {numeral(parseInt(user.following_count)).format('0,0')}
-                  <span className="hidden-xs">
-                    { ' ' }<FormattedMessage id="followed" />
-                  </span>
-                </Link>
-              </li>
-            </ul>
             <div className="container container-small my-5 text-center">
               <h3><Badge vestingShares={user.vesting_shares} /></h3>
               { donors[username] &&
