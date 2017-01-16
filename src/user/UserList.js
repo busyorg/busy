@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router';
 import ReduxInfiniteScroll from 'redux-infinite-scroll';
 import { isNumber, take } from 'lodash';
-
 import Avatar from '../widgets/Avatar';
 import Icon from '../widgets/Icon';
 

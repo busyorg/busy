@@ -6,8 +6,9 @@ const UserCoverImage = ({ username, width, height }) => (
       style={{
         width: `${width}px`,
         height: `${height}px`,
-        background: `url(${process.env.STEEMCONNECT_IMG_HOST}/@${username}/cover)`,
+        backgroundImage: `url(${process.env.STEEMCONNECT_IMG_HOST}/@${username}/cover) #`,
         backgroundSize: 'cover',
+        backgroundColor: '#434f66',
       }}
     >
       {' '}

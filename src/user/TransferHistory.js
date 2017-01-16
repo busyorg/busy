@@ -150,19 +150,22 @@ export default class TransferHistory extends Component {
           loadMore={() => this.handleNextPage()}
           elementIsScrollable={false}
           hasMore={list.length > visibleItems}
-          holderType="tbody"
         >
-          { getOnlyViableTransfers(list).reverse().slice(0, visibleItems).map((op, idx) =>
-            <tr key={idx}>
-              <td>
-                { renderReportFromOp(op, username) }
-                <br />
-                <b>{ op[1].op[1].memo }</b>
-              </td>
-              <td className="text-right">
-                <FormattedRelative value={op[1].timestamp} />
-              </td>
-            </tr>
+          {getOnlyViableTransfers(list).reverse().slice(0, visibleItems).map((op, idx) =>
+            <div className="my-3">
+              <hr />
+              <h4>
+                <b>{renderReportFromOp(op, username)}</b>{' '}
+                <small className="pull-right">
+                  <FormattedRelative value={op[1].timestamp} />
+                </small>
+              </h4>
+              {op[1].op[1].memo &&
+                <blockquote>
+                  {op[1].op[1].memo}
+                </blockquote>
+              }
+            </div>
           )}
         </ReduxInfiniteScroll>
       </table>

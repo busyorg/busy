@@ -64,24 +64,23 @@ export default class UserTransfers extends Component {
         {(!_.isEmpty(this.state.feedPrice) && !_.isEmpty(account)) ?
           <div className="ptl text-center">
             <ul className="row text-center">
-              <li className="col col-lg-4">
+              <li className="col col-lg-3">
                 <h3>Steem</h3>
                 <h2>{numeral(account.balance).format('0,0.00')}</h2>
               </li>
-              <li className="col col-lg-4">
+              <li className="col col-lg-3">
                 <h3>Steem Power</h3>
                 <h2>{numeral(power).format('0,0.00')}</h2>
               </li>
-              <li className="col col-lg-4">
+              <li className="col col-lg-3">
                 <h3>Steem Dollars</h3>
                 <h2>{numeral(account.sbd_balance).format('$0,0.00')}</h2>
               </li>
+              <li className="col col-lg-3">
+                <h3><FormattedMessage id="estimated_value" /></h3>
+                <h2>{numeral(dollar).format('$0,0.00')}</h2>
+              </li>
             </ul>
-            <div className="my-2">
-              <h2>
-                <FormattedMessage id="estimated_value" />
-                : {numeral(dollar).format('$0,0.00')}</h2>
-            </div>
           </div>
           :
           <Loading />
