@@ -29,7 +29,7 @@ export default class Header extends Component {
       <header>
         <div className="top-nav">
           {!this.props.app.sidebarIsVisible &&
-            <a className="left" onClick={() => this.props.showSidebar()}>
+            <a className="left ml-2" onClick={() => this.props.showSidebar()}>
               <Icon name="menu" className="Icon--menu" />
             </a>
           }
@@ -45,9 +45,15 @@ export default class Header extends Component {
               </Link>
             </div>
           </div>
-          <Link to="/bookmarks" className="right">
-            <Icon name="bookmarks" className="Icon--menu" />
-          </Link>
+
+          <div className="right mr-2">
+            <a>
+              <Icon name="notifications_none" className="Icon--menu" />
+            </a>
+            <Link to="/bookmarks">
+              <Icon name="bookmarks" className="Icon--menu" />
+            </Link>
+          </div>
         </div>
         {this.props.children && <div className="app-nav">{this.props.children}</div>}
       </header>
