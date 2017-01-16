@@ -1,11 +1,12 @@
 import React from 'react';
+import { injectIntl } from 'react-intl';
 import Icon from '../widgets/Icon';
 import './FavoriteButton.scss';
 import TooltipOrigin from '../app/TooltipOrigin';
 
-const FavoriteCategoryButton = ({ children, onClick, isFavorited }) =>
+const FavoriteCategoryButton = ({ children, onClick, isFavorited, intl }) =>
   <TooltipOrigin
-    content="Add in your favorites"
+    content={intl.formatMessage({ id: '@tooltip_add_fav' })}
     active={!isFavorited}
   >
     <a
@@ -18,4 +19,4 @@ const FavoriteCategoryButton = ({ children, onClick, isFavorited }) =>
     </a>
   </TooltipOrigin>;
 
-export default FavoriteCategoryButton;
+export default injectIntl(FavoriteCategoryButton);

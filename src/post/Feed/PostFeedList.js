@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { FormattedMessage } from 'react-intl';
+import { injectIntl } from 'react-intl';
 import BodyShort from '../BodyShort';
 import PostActionButtons from '../PostActionButtons';
 import Avatar from '../../widgets/Avatar';
@@ -23,7 +24,8 @@ const PostFeedList = ({
   isReblogged,
   handleShowCommentsRequest,
   handleShowLikesRequest,
-  layout
+  layout,
+  intl,
 }) =>
   <div className="PostFeedList">
     { imagePath &&
@@ -39,7 +41,7 @@ const PostFeedList = ({
     <div className="PostFeedList__cell PostFeedList__cell--body">
 
       <TooltipOrigin
-        content="Add in your bookmarks"
+        content={intl.formatMessage({ id: '@tooltip_add_bookmark' })}
         active={!bookmarks[post.id]}
       >
         <a onClick={() => toggleBookmark(post.id)} className="PostFeedList__cell__bookmark">
@@ -86,4 +88,4 @@ const PostFeedList = ({
     </div>
   </div>;
 
-export default PostFeedList;
+export default injectIntl(PostFeedList);

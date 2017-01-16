@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { injectIntl } from 'react-intl';
 import classNames from 'classnames';
 import Icon from './Icon';
 import { followUser, unfollowUser } from '../user/userActions';
@@ -16,6 +17,7 @@ import TooltipOrigin from '../app/TooltipOrigin';
     unfollowUser,
   }, dispatch)
 )
+@injectIntl
 export default class FollowButton extends Component {
   static propTypes = {
     username: React.PropTypes.string.isRequired,
@@ -38,7 +40,7 @@ export default class FollowButton extends Component {
   };
 
   render() {
-    const { following, username, auth } = this.props;
+    const { following, username, auth, intl } = this.props;
     const isFollowing = following.list && following.list.includes(username);
     const hasFollow = auth.isAuthenticated && username !== auth.user.name;
 
@@ -46,7 +48,10 @@ export default class FollowButton extends Component {
       <span>
         { hasFollow &&
           <TooltipOrigin
-            content={isFollowing ? `Unfollow ${username}` : `Follow ${username}`}
+            content={isFollowing
+            ? intl.formatMessage({ id: '@tooltip_follow_user' }, { username })
+            : intl.formatMessage({ id: '@tooltip_unfollow_user' }, { username })
+            }
             active
             store={this.props.store}
           >

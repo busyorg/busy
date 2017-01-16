@@ -40,5 +40,9 @@
   "comments": "Comments",
   "card": "Card",
   "list": "List",
-  "login": "Log In"
+  "login": "Log In",
+  "@tooltip_follow_user": "Follow {username}",
+  "@tooltip_unfollow_user": "Unfollow {username}",
+  "@tooltip_add_fav": "Add in your favorites",
+  "@tooltip_add_bookmark": "Add in your bookmarks"
 }

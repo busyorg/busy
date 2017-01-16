@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import { FormattedMessage, FormattedRelative } from 'react-intl';
 import _ from 'lodash';
 import numeral from 'numeral';
+import { injectIntl } from 'react-intl';
 import BodyShort from '../BodyShort';
 import Flag from '../../widgets/Flag';
 import Comments from '../../comments/Comments';
@@ -70,7 +71,8 @@ const PostFeedCard = ({
   handleShowCommentsRequest,
   handleShowLikesRequest,
   handleShowPayoutRequest,
-  layout
+  layout,
+  intl,
 }) =>
   <div className="PostFeedCard">
 
@@ -107,7 +109,7 @@ const PostFeedCard = ({
           <FormattedRelative value={post.created} />{' '}
 
           <TooltipOrigin
-            content="Add in your bookmarks"
+            content={intl.formatMessage({ id: '@tooltip_add_bookmark' })}
             active={!bookmarks[post.id]}
           >
             <a onClick={() => toggleBookmark(post.id)}>
@@ -182,4 +184,4 @@ const PostFeedCard = ({
 
   </div>;
 
-export default PostFeedCard;
+export default injectIntl(PostFeedCard);
