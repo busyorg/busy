@@ -21,4 +21,8 @@ export default {
   sweetsssj: 'bronze',
   'craig-grant': 'bronze',
   twinner: 'bronze',
+  beers: 'bronze',
+  shaka: 'bronze',
+  andu: 'bronze',
+  ourlifestory: 'bronze',
 };
