@@ -47,9 +47,6 @@ export default class Header extends Component {
           </div>
 
           <div className="right mr-2">
-            <a>
-              <Icon name="notifications_none" className="Icon--menu" />
-            </a>
             <Link to="/bookmarks">
               <Icon name="bookmarks" className="Icon--menu" />
             </Link>
