@@ -16,7 +16,7 @@ const PostSingleContent = ({ content, toggleBookmark, bookmarks }) => {
   return (
     <div className="PostSingleContent">
       <div className="container">
-        <div className="PostSingleContent__header my-2">
+        <div className="PostSingleContent__header mt-4">
           <Link to={`/@${content.author}`}>
             <Avatar sm username={content.author} />
             { ' ' }
@@ -40,7 +40,7 @@ const PostSingleContent = ({ content, toggleBookmark, bookmarks }) => {
           </span>
         </div>
 
-        <div className="PostSingleContent__content my-2">
+        <div className="PostSingleContent__content mt-4">
           <h1 className="mvl">{content.title}</h1>
           <Body body={content.body} jsonMetadata={content.json_metadata} />
           { jsonMetadata.tags &&

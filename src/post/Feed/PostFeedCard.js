@@ -131,7 +131,6 @@ const PostFeedCard = ({
 
     <div className="PostFeedCard__cell PostFeedCard__cell--body">
       <h2>
-        <Flag title={post.title} body={post.body} className="pr-1" />
         <PostModalLink
           post={post}
           onClick={() => openPostModal(post.id)}

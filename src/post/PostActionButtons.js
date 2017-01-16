@@ -95,7 +95,7 @@ export default class PostActionButtons extends Component {
           </a>
           {' '}
 
-          {(post.children && isCardLayout) &&
+          {(post.children > 0 && isCardLayout) &&
             <a onClick={e => this.handleCommentsTextClick(e)}>
               {numeral(post.children).format('0,0')}
               <span className="hidden-xs"> Comment
@@ -110,7 +110,7 @@ export default class PostActionButtons extends Component {
 
           {isListLayout &&
             <span>
-              {numeral(post.children).format('0,0')}
+              {numeral(post.children).format('0,0')}ss
             </span>
           }
 

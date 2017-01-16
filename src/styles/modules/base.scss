@@ -6,7 +6,7 @@ html, body {
 body {
   background-color: white;
   font-family: $font-primary;
-  font-size: 15px;
+  font-size: 16px;
   color: $text-color;
 }
 
@@ -15,6 +15,7 @@ a {
   color: $primary-color;
   text-decoration: none !important;
   outline: 0 !important;
+  font-weight: 600;
 
   &:hover {
     color: #005dd9;
