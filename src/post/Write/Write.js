@@ -192,7 +192,7 @@ export class RawNewPost extends Component {
     return (
       <div className="main-panel">
         <Header />
-        <div className="container my-3">
+        <div className="container my-5">
           <form
             action="/write"
             method="post"

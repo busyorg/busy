@@ -28,12 +28,7 @@ import './Feed.scss';
     reblog: reblogActions.reblog,
   }, dispatch)
 )
-
 export default class Feed extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   componentDidMount() {
     this.props.loadContent();
   }
@@ -99,6 +94,8 @@ export default class Feed extends React.Component {
         </div>
         <PostSingle
           modal
+          contentList={content}
+          openPostModal={this.props.openPostModal}
           route={this.props.route}
         />
         <CommentForm />

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
+import numeral from 'numeral';
 import Avatar from '../widgets/Avatar';
 import './LikesList.scss';
 
@@ -34,7 +35,12 @@ export default class LikesList extends Component {
               { ' ' }
               {vote.percent < 0
                 ? <span className="text-danger">Disliked</span>
-                : 'Liked'
+                : <span>
+                  Liked{' '}
+                  <span className="text-info">
+                    {numeral((vote.percent / 10000)).format('0%')}
+                  </span>
+                </span>
               }
             </div>
           )

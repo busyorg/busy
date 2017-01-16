@@ -15,17 +15,14 @@ export default class UserFollowing extends Component {
     steemdb.accounts({
       account: this.props.params.name
     }, (err, result) => {
-      this.setState({ users: result[0].following });
+      this.setState({ users: result[0].following.sort() });
     });
   }
 
   render() {
     return (
-      <div className="my-3">
-        <div className="container text-center">
-          <h1>@{ this.props.params.name }'s followed ({ this.state.users.length })</h1>
-        </div>
-        <div className="container container-small">
+      <div>
+        <div className="container">
           { this.state.users && <UserList users={this.state.users} /> }
           { !this.state.users && <Loading /> }
         </div>

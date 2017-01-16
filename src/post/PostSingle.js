@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import api from '../steemAPI';
 import * as postActions from './postActions';
 import { closePostModal } from '../actions';
 import PostSingleModal from './PostSingleModal';
@@ -22,7 +21,7 @@ import * as bookmarkActions from '../bookmarks/bookmarksActions';
   }),
   (dispatch, ownProps) => bindActionCreators({
     reblog: reblogActions.reblog,
-    closePostModal: closePostModal,
+    closePostModal,
     getContent: () => postActions.getContent(
       ownProps.params.author,
       ownProps.params.permlink
@@ -36,9 +35,6 @@ import * as bookmarkActions from '../bookmarks/bookmarksActions';
   }, dispatch)
 )
 export default class PostSingle extends React.Component {
-  constructor(props) {
-    super(props);
-  }
 
   componentWillMount() {
     if (!this.props.modal) {
@@ -52,11 +48,13 @@ export default class PostSingle extends React.Component {
   }
 
   render() {
-    const { modal, isPostModalOpen, sidebarIsVisible, content, reblog, reblogList, auth } = this.props;
-
+    const { modal, isPostModalOpen, sidebarIsVisible, content, contentList = [], reblog, reblogList, auth } = this.props;
     if (!content) {
       return null;
     }
+
+    const currentStoryIndex = contentList.indexOf(content);
+    const nextStory = currentStoryIndex > -1 ? contentList[currentStoryIndex + 1] : undefined;
 
     const isPostLiked =
       auth.isAuthenticated &&
@@ -77,7 +75,7 @@ export default class PostSingle extends React.Component {
 
     return (
       <div onClick={e => this.handlePageClick(e)}>
-        { (modal && isPostModalOpen) &&
+        {(modal && isPostModalOpen) &&
           <PostSingleModal
             content={content}
             sidebarIsVisible={sidebarIsVisible}
@@ -92,11 +90,13 @@ export default class PostSingle extends React.Component {
             isPostLiked={isPostLiked}
             isPostDisliked={isPostDisliked}
             bookmarks={this.props.bookmarks}
+            nextStory={nextStory}
+            openPostModal={this.props.openPostModal}
             toggleBookmark={this.props.toggleBookmark}
           />
         }
 
-        { (!modal && content.author) &&
+        {(!modal && content.author) &&
           <PostSinglePage
             content={content}
             reblog={() => reblog(content.id)}

@@ -7,6 +7,12 @@ import './MenuPost.scss';
 
 @IsScrolling
 export default class MenuPost extends Component {
+
+  nextStory = () => {
+    this.props.openPostModal(this.props.nextStory.id);
+    this.props.scrollToTop();
+  }
+
   render() {
     const {
       reblog,
@@ -17,7 +23,8 @@ export default class MenuPost extends Component {
       likePost,
       unlikePost,
       dislikePost,
-      content
+      content,
+      nextStory
     } = this.props;
     const payout = numeral(
       parseFloat(content.total_payout_value) +
@@ -27,7 +34,6 @@ export default class MenuPost extends Component {
     const numberOfComments = numeral(content.children).format('0,0');
     const numberOfVotes = numeral(content.net_votes).format('0,0');
     const numberOfDislikes = content.active_votes.filter(vote => vote.percent < 0).length;
-
     return (
       <ul
         className="MenuPost secondary-nav"
@@ -40,9 +46,9 @@ export default class MenuPost extends Component {
           >
             <Icon name="thumb_up" />
           </a>
-          { ` ${numberOfVotes}` }
+          {` ${numberOfVotes}`}
           <span className="hidden-xs">
-            { ' ' }<FormattedMessage id="likes" />
+            {' '}<FormattedMessage id="likes" />
           </span>
         </li>
 
@@ -53,28 +59,28 @@ export default class MenuPost extends Component {
           >
             <Icon name="thumb_down" />
           </a>
-          { ` ${numberOfDislikes}` }
+          {` ${numberOfDislikes}`}
           <span className="hidden-xs">
-            { ' ' }<FormattedMessage id="dislikes" />
+            {' '}<FormattedMessage id="dislikes" />
           </span>
         </li>
 
         <li>
           <Icon name="attach_money" />
-          { ' ' }{ payout }
+          {' '}{payout}
         </li>
         <li>
           <a
-            onClick={e => {
-            e.stopPropagation();
-            openCommentingDraft();
-          }}
+            onClick={(e) => {
+              e.stopPropagation();
+              openCommentingDraft();
+            }}
           >
             <Icon name="reply" />
           </a>
-          { ` ${numberOfComments}` }
+          {` ${numberOfComments}`}
           <span className="hidden-xs">
-            { ' ' }<FormattedMessage id="comments" />
+            {' '}<FormattedMessage id="comments" />
           </span>
         </li>
         <li>
@@ -85,6 +91,12 @@ export default class MenuPost extends Component {
             <Icon name="repeat" />
           </a>
         </li>
+        {nextStory && <li className="pull-right">
+          <a className="next-story" onClick={this.nextStory}>
+            <span><FormattedMessage id="next_story" /><Icon name="navigate_next" /></span>
+            <span>{nextStory.title}</span>
+          </a>
+        </li>}
       </ul>
     );
   }

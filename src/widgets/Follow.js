@@ -56,11 +56,13 @@ export default class FollowButton extends Component {
             store={this.props.store}
           >
             <a
-              className={classNames('trigger', { disabled: following.isFetching })}
+              className={classNames('btn btn-outline-success btn-sm', { disabled: following.isFetching })}
               onClick={this.onClickFollow}
             >
-              <Icon name={isFollowing ? 'person_outline' : 'person_add'} sm />
-              { this.props.children }
+              { isFollowing
+                ? 'Follow'
+                : 'Followed'
+              }
             </a>
           </TooltipOrigin>
         }

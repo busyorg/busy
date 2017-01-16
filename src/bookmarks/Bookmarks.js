@@ -40,7 +40,7 @@ export default class Bookmarks extends Component {
     return (
       <div className="main-panel">
         <Header />
-        <div className="my-3">
+        <div className="my-5">
           <h1 className="text-center">
             <FormattedMessage id="bookmarks" />
           </h1>

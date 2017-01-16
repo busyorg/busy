@@ -44,5 +44,7 @@
   "@tooltip_follow_user": "Follow {username}",
   "@tooltip_unfollow_user": "Unfollow {username}",
   "@tooltip_add_fav": "Add in your favorites",
-  "@tooltip_add_bookmark": "Add in your bookmarks"
+  "@tooltip_add_bookmark": "Add in your bookmarks",
+  "next_story": "Next Story",
+  "login": "Log In"
 }
