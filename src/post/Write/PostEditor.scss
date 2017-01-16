@@ -1,20 +1,18 @@
 @import "../../styles/colors.scss";
 
 .PostEditor {
-  $font-primary: 'Karla', sans-serif;
   font-size: 22px;
   line-height: 1.6em;
-  font-family: Georgia, Cambria, "Times New Roman", Times, serif;
   position: relative;
 
   h2 {
     font-size: 1.4em;
-    font-weight: bold;
+    font-weight: 600;
   }
 
   h3 {
     font-size: 1.2em;
-    font-weight: bold;
+    font-weight: 600;
   }
 
   h4 {
@@ -44,10 +42,6 @@
       list-style: initial;
       list-style-type: decimal;
     }
-  }
-
-  blockquote {
-    font-family: $font-primary;
   }
 
   .PostEditor__blockquote {
@@ -101,8 +95,6 @@
     margin: 0;
     padding: $iconPaddingY $iconPaddingX;
     border: 0;
-    font-size: 100%;
-    font: inherit;
     vertical-align: baseline;
     display: inline-block;
     cursor: pointer;
@@ -183,7 +175,6 @@
     z-index: 2;
 
     .Controls__button{
-      border: 0;
       color: #fff;
       cursor: pointer;
       height: 35px;
