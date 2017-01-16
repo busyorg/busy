@@ -11,7 +11,7 @@ const Mentions = ({ jsonMetaData }) => {
           <span key={key}>
             { key > 0 && (key + 1) !== jsonMetaData.users.length && <span>, </span> }
             { key !== 0 && (key + 1) === jsonMetaData.users.length && <span> and </span> }
-            <Link to={`/@${user}`}>@{user}</Link>
+            <Link to={`/@${user}`}>{user}</Link>
           </span>
         )}
 

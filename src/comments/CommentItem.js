@@ -20,7 +20,7 @@ const renderOptimisticComment = (comment) => {
         <div className="CommentBody">
           <span className="CommentBody__username">
             <Link to={`/@${comment.author}`}>
-              @{ comment.author }
+              {comment.author}
             </Link>
           </span>
           <Body body={comment.body} />
@@ -85,7 +85,7 @@ export default class CommentItem extends Component {
           <div className="CommentBody">
             <span className="CommentBody__username">
               <Link to={`/@${comment.author}`}>
-                @{ comment.author }
+                {comment.author}
               </Link>
             </span>
             <Body body={comment.body} />

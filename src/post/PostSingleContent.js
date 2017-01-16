@@ -21,7 +21,7 @@ const PostSingleContent = ({ content, toggleBookmark, bookmarks }) => {
             <Avatar sm username={content.author} />
             { ' ' }
             <span>
-              @{content.author}
+              {content.author}
             </span>
           </Link>
           <span className="hidden-xs">
