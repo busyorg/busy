@@ -37,7 +37,7 @@ class AuthorBio extends Component {
 
     if (author && !following.isFetching) {
       const { about, name } = author.json_metadata.profile || {};
-      const displayName = name || `@${authorName}`;
+      const displayName = name || authorName;
 
       return (
         <div>

@@ -30,7 +30,7 @@ export default class LikesList extends Component {
               <Avatar xs username={vote.voter} />
               { ' ' }
               <Link to={`/@${vote.voter}`}>
-                @{vote.voter}
+                {vote.voter}
               </Link>
               { ' ' }
               {vote.percent < 0

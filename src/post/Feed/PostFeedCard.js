@@ -80,7 +80,7 @@ const PostFeedCard = ({
             <Icon name="repeat" sm />
             {' Reblogged by '}
             <ProfileTooltipOrigin username={post.first_reblogged_by} >
-              <Link to={`/@${post.first_reblogged_by}`}>@{post.first_reblogged_by}</Link>
+              <Link to={`/@${post.first_reblogged_by}`}>{post.first_reblogged_by}</Link>
             </ProfileTooltipOrigin>
           </li>
         </ul>
@@ -93,7 +93,7 @@ const PostFeedCard = ({
           <ProfileTooltipOrigin username={post.author} >
             <Link to={`/@${post.author}`}>
               <Avatar xs username={post.author} />
-              { ` @${post.author}` }
+              {` ${post.author}`}
             </Link>
           </ProfileTooltipOrigin>
 

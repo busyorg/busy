@@ -49,8 +49,8 @@ export default class FollowButton extends Component {
             onClick={this.onClickFollow}
           >
             {isFollowing
-              ? 'Follow'
-              : 'Followed'
+              ? 'Followed'
+              : 'Follow'
             }
           </a>
         }

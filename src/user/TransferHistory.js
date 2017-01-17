@@ -103,7 +103,7 @@ const renderReportFromOp = (op, username) => {
       { otherAccount &&
         <Link to={`/@${otherAccount}`}>
           <Avatar username={otherAccount} xs />
-          { ' ' }@{ otherAccount }
+          {' '}{otherAccount}
         </Link>
       }
       { descriptionEnd }

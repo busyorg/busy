@@ -92,7 +92,7 @@ export default class CommentForm extends Component {
     if (comments.currentDraftId) {
       if (isReplyToComment) {
         const replyingComment = commentsData[comments.currentDraftId];
-        parentTitle = `@${replyingComment.author} in ${replyingComment.root_title}`;
+        parentTitle = `${replyingComment.author} in ${replyingComment.root_title}`;
         commentDepth = commentsData[comments.currentDraftId].depth + 1;
       } else {
         parentTitle = posts[comments.currentDraftId].title;
