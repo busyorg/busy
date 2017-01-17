@@ -1,19 +1,15 @@
 import React, { Component, PropTypes } from 'react';
 import _ from 'lodash';
-import find from 'lodash/find';
-import groupBy from 'lodash/groupBy';
-import { startsWith } from 'lodash/string';
-import size from 'lodash/size';
 import { Link } from 'react-router';
 import Icon from '../../widgets/Icon';
 
 const getFilteredUsers = (props, state) => {
-  const unreadByChannel = groupBy(props.messages.unreadMessages, 'channelName');
+  const unreadByChannel = _.groupBy(props.messages.unreadMessages, 'channelName');
   const search = state.search;
   const { favorites } = props;
 
   let users = props.contacts.filter((user) => {
-    return startsWith(user, search) && !favorites.users.includes(user);
+    return _.startsWith(user, search) && !favorites.users.includes(user);
   });
   users = users.slice(0, 16 - favorites.users.length);
   users = users.filter((contact) => {
@@ -30,7 +26,7 @@ const getFilteredUsers = (props, state) => {
         activeClassName="active"
       >
         @{follow}{' '}
-        <UnreadCount unread={size(unreadByChannel[`@${follow}`])} />
+        <UnreadCount unread={_.size(unreadByChannel[`@${follow}`])} />
       </Link>
     </li>
   ));
@@ -38,13 +34,13 @@ const getFilteredUsers = (props, state) => {
 };
 
 const getUnreadMessages = (props) => {
-  const unreadByChannel = groupBy(props.messages.unreadMessages, 'channelName');
+  const unreadByChannel = _.groupBy(props.messages.unreadMessages, 'channelName');
   return _.map(unreadByChannel,(messages, channelName) => {
     let channelNamePrime = channelName;
     if (channelName.indexOf(',') !== -1 &&
       props.auth &&
       props.auth.user) {
-      channelNamePrime = find(
+      channelNamePrime = _.find(
         channelName.split(','),
         (c) => c !== `@${props.auth.user.name}`
       );
@@ -64,7 +60,7 @@ const getUnreadMessages = (props) => {
 };
 
 const filterUsersBySearch = (users, keyword) =>
-  users.sort().filter(user => startsWith(user, keyword));
+  users.sort().filter(user => _.startsWith(user, keyword));
 
 function UnreadCount({ unread }) {
   if (!unread) return null;
