@@ -215,6 +215,7 @@ export class RawNewPost extends Component {
             <PostEditor
               user={this.props.user}
               onChange={this.saveDraft}
+              placeholder="Write your story…"
               required
               ref={
                 (c) => { this.editor = c && c.getWrappedInstance ? c.getWrappedInstance() : c; }

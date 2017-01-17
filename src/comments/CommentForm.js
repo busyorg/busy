@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
@@ -7,6 +7,7 @@ import classNames from 'classnames';
 import Textarea from 'react-textarea-autosize';
 import keycode from 'keycode';
 import Icon from '../widgets/Icon';
+import PostEditor from '../post/Write/PostEditor';
 import * as commentActions from './commentsActions';
 import './CommentForm.scss';
 
@@ -15,22 +16,21 @@ import './CommentForm.scss';
     sidebarIsVisible: state.app.sidebarIsVisible,
     comments: state.comments,
     posts: state.posts,
+    auth: state.auth
   }),
-  (dispatch) => bindActionCreators({
+  dispatch => bindActionCreators({
     sendComment: depth => commentActions.sendComment(depth),
     updateCommentingDraft: commentActions.updateCommentingDraft,
     closeCommentingDraft: commentActions.closeCommentingDraft,
   }, dispatch)
 )
 export default class CommentForm extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   updateDraft() {
+    const body = this._input.getContent().markdown;
     this.props.updateCommentingDraft({
       id: this.props.comments.currentDraftId,
-      body: this._input.value,
+      body,
     });
   }
 
@@ -51,26 +51,15 @@ export default class CommentForm extends Component {
       nextProps.comments.currentDraftId !== comments.currentDraftId &&
       nextProps.comments.isCommenting;
 
-    if(shouldUpdateDraft) {
+    if (shouldUpdateDraft) {
       this.updateDraft();
       this._input.focus();
     }
   }
 
-  componentDidUpdate(prevProps) {
-    const { comments } = this.props;
-    const draftValue = comments.currentDraftId
-      ? comments.commentingDraft[comments.currentDraftId].body
-      : '';
-
-    if (prevProps.comments.currentDraftId !== comments.currentDraftId) {
-      // not using react value (controlled component) for performance reasons
-      this._input.value = draftValue;
-    }
-  }
-
   render() {
-    const { comments, sidebarIsVisible, closeCommentingDraft, posts } = this.props;
+    const { comments, sidebarIsVisible, closeCommentingDraft, posts, auth } = this.props;
+    const { user } = auth;
 
     const commentsClass = classNames({
       CommentForm: true,
@@ -103,20 +92,24 @@ export default class CommentForm extends Component {
     return (
       <div onClick={e => this.handlePageClick(e)} className={commentsClass}>
         <div className="container">
-          { comments.currentDraftId &&
+          {comments.currentDraftId &&
             <div className="mb-1">
               <i className="icon icon-sm material-icons">reply</i>
-              { ' ' }<FormattedMessage id="reply_to" />{ ' ' }
+              {' '}<FormattedMessage id="reply_to" />{' '}
               <b>
-                { parentTitle }
+                {parentTitle}
               </b>
             </div>
           }
-          <Textarea
-            ref={(c) => { this._input = c; }}
+          <PostEditor
+            user={user}
             className="CommentForm__input"
-            onKeyDown={(e) => this.handleKey(e, commentDepth)}
             placeholder={'Write a comment...'}
+            onKeyDown={e => this.handleKey(e, commentDepth)}
+            required
+            ref={
+              (c) => { this._input = c && c.getWrappedInstance ? c.getWrappedInstance() : c; }
+            }
           />
           <a className="CommentForm__close" onClick={() => closeCommentingDraft()}>
             <Icon name="clear" />
