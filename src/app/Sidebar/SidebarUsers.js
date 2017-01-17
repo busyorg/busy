@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import _ from 'lodash';
 import find from 'lodash/find';
 import groupBy from 'lodash/groupBy';
 import { startsWith } from 'lodash/string';
@@ -38,7 +39,7 @@ const getFilteredUsers = (props, state) => {
 
 const getUnreadMessages = (props) => {
   const unreadByChannel = groupBy(props.messages.unreadMessages, 'channelName');
-  return unreadByChannel.length > 0 && unreadByChannel.map((messages, channelName) => {
+  return _.map(unreadByChannel,(messages, channelName) => {
     let channelNamePrime = channelName;
     if (channelName.indexOf(',') !== -1 &&
       props.auth &&
