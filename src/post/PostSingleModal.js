@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter, Link } from 'react-router';
 import PostSingleContent from './PostSingleContent';
-
-import MenuPost from '../app/Menu/MenuPost';
 import CommentForm from '../comments/CommentForm';
 import Icon from '../widgets/Icon';
 
@@ -59,41 +57,64 @@ export default class PostSingleModal extends Component {
   }
 
   render() {
-    const { content, sidebarIsVisible, reblog, isReblogged, openCommentingDraft } = this.props;
+    const {
+      content,
+      sidebarIsVisible,
+      reblog,
+      isReblogged,
+      openCommentingDraft,
+      likePost,
+      unlikePost,
+      dislikePost,
+      isPostLiked,
+      isPostDisliked,
+      openPostModal,
+      nextStory,
+      bookmarks,
+      toggleBookmark,
+      children
+    } = this.props;
 
     return (
-      <div className={sidebarIsVisible ? 'PostSingleModal withSidebar' : 'PostSingleModal'} ref={(c) => { this.DOMNode = c; }}>
-        <MenuPost
-          reblog={reblog}
-          isReblogged={isReblogged}
-          openCommentingDraft={openCommentingDraft}
-          likePost={this.props.likePost}
-          unlikePost={this.props.unlikePost}
-          dislikePost={this.props.dislikePost}
-          isPostLiked={this.props.isPostLiked}
-          isPostDisliked={this.props.isPostDisliked}
-          openPostModal={this.props.openPostModal}
-          nextStory={this.props.nextStory}
-          scrollToTop={this.scrollToTop}
-          content={content}
-        />
+      <div
+        className={
+          sidebarIsVisible
+            ? 'PostSingleModal withSidebar'
+            : 'PostSingleModal'
+        }
+        ref={(c) => { this.DOMNode = c; }}
+      >
         <header>
           <div className="top-nav">
-            <a className="left" onClick={this.handleClose}>
+            <a className="left ml-1" onClick={this.handleClose}>
               <Icon name="clear" className="Icon--menu" />
             </a>
             <div className="section-content top-head">
-              <div className="logo"><Link to="/" onlyActiveOnIndex activeClassName="active"><img src="/img/logo.svg" /></Link></div>
+              <div className="logo">
+                <Link to="/" onlyActiveOnIndex activeClassName="active">
+                  <img src="/img/logo.svg" />
+                </Link>
+              </div>
             </div>
           </div>
-          {this.props.children && <div className="app-nav">{this.props.children}</div>}
+          {children && <div className="app-nav">{children}</div>}
         </header>
         <PostSingleContent
           content={content}
-          bookmarks={this.props.bookmarks}
-          toggleBookmark={this.props.toggleBookmark}
+          bookmarks={bookmarks}
+          toggleBookmark={toggleBookmark}
+          reblog={reblog}
+          isReblogged={isReblogged}
+          openCommentingDraft={openCommentingDraft}
+          likePost={likePost}
+          unlikePost={unlikePost}
+          dislikePost={dislikePost}
+          isPostLiked={isPostLiked}
+          isPostDisliked={isPostDisliked}
+          openPostModal={openPostModal}
+          nextStory={nextStory}
+          scrollToTop={this.scrollToTop}
         />
-
         <CommentForm />
       </div>
     );
