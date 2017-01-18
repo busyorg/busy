@@ -4,74 +4,73 @@ import { Link } from 'react-router';
 import Icon from '../../widgets/Icon';
 import Avatar from '../../widgets/Avatar';
 
-const getFilteredUsers = (props, state) => {
-  const unreadByChannel = _.groupBy(props.messages.unreadMessages, 'channelName');
-  const search = state.search;
-  const { favorites } = props;
+const UnreadCount = ({ unread, username }) => {
+  if (!unread) return null;
+  return (
+    <Link to={`/messages/@${username}`} className="Sidebar__unreadCount" >
+      <span>
+        {unread}
+      </span>
+    </Link>
+  );
+};
 
-  let users = props.contacts.filter((user) => {
-    return _.startsWith(user, search) && !favorites.users.includes(user);
+/**
+ * List of users that sent a message and the message is unread
+ * @param props
+ * @returns {Array|*}
+ */
+const getUnreadUsersList = (props) => {
+  const unreadByChannel = _.groupBy(props.messages.unreadMessages, 'channelName');
+  return _.map(unreadByChannel, (messages) => {
+    const { senderUsername } = messages[0];
+    return {
+      username: senderUsername,
+      hasUnread: true,
+      unreadLength: messages.length,
+    };
   });
-  users = users.slice(0, 16 - favorites.users.length);
-  users = users.filter((contact) => {
-    const channelName = [
-      `@${contact}`,
-      `@${props.auth.user && props.auth.user.name}`,
-    ].sort().toString();
-    return !unreadByChannel[channelName] || !unreadByChannel[channelName].length;
-  });
-  users = users.sort().map((follow, key) => (
-    <li key={key} className="pb-1">
-      <Link
-        to={`/@${follow}`}
-        activeClassName="active"
-      >
-        <Avatar username={follow} xs />{' '}
-        {follow}{' '}
-        <UnreadCount unread={_.size(unreadByChannel[`@${follow}`])} />
+};
+
+const getFavoritedUsersList = props => props.favorites.users.sort().map(
+  username => ({
+    username,
+    favorited: true,
+  })
+);
+
+const getUsersList = props => props.contacts.sort().map(username => ({ username }));
+
+const filterUsersBySearch = (users, keyword) =>
+  users.filter(user => _.startsWith(user.username, keyword));
+
+const renderUsers = (props, state) => {
+  const { search } = state;
+  const unreadUsers = getUnreadUsersList(props);
+  const favoritedUsers = getFavoritedUsersList(props);
+  const users = getUsersList(props);
+
+  const usersList = filterUsersBySearch([
+    ...unreadUsers,
+    ...favoritedUsers,
+    ...users,
+  ], search);
+
+  return _.uniqWith(usersList,
+    (listA, listB) => listA.username === listB.username
+  )
+  .slice(0, 16)
+  .map((user, idx) => (
+    <li key={idx} className="pb-1">
+      <Link to={`/@${user.username}`} activeClassName="active">
+        <Avatar username={user.username} xs /> {user.username}
+        {' '}
+        { user.favorited && <Icon name="star" xs /> }
+        { user.hasUnread && <UnreadCount unread={user.unreadLength} username={user.username} /> }
       </Link>
     </li>
   ));
-  return users;
 };
-
-const getUnreadMessages = (props) => {
-  const unreadByChannel = _.groupBy(props.messages.unreadMessages, 'channelName');
-  return _.map(unreadByChannel,(messages, channelName) => {
-    let channelNamePrime = channelName;
-    if (channelName.indexOf(',') !== -1 &&
-      props.auth &&
-      props.auth.user) {
-      channelNamePrime = _.find(
-        channelName.split(','),
-        (c) => c !== `@${props.auth.user.name}`
-      );
-    }
-    return (
-      <li key={channelNamePrime}>
-        <Link
-          to={`/messages/${channelNamePrime}`}
-          activeClassName="active"
-        >
-          {channelNamePrime}{' '}
-          <UnreadCount unread={messages.length} />
-        </Link>
-      </li>
-    );
-  });
-};
-
-const filterUsersBySearch = (users, keyword) =>
-  users.sort().filter(user => _.startsWith(user, keyword));
-
-function UnreadCount({ unread }) {
-  if (!unread) return null;
-  return (
-    <span className="Sidebar__unreadCount">
-      {unread}
-    </span>
-  );
-}
 
 export default class SidebarUsers extends Component {
   static propTypes = {
@@ -90,22 +89,7 @@ export default class SidebarUsers extends Component {
     this.setState({ search: e.target.value });
   };
 
-  renderFavoritedUsers() {
-    const { favorites } = this.props;
-    const favoritedUsers = favorites.users;
-    return filterUsersBySearch(favoritedUsers, this.state.search).slice(0, 16).map((user, idx) =>
-      <li key={idx} className="pb-1">
-        <Link to={`/@${user}`} activeClassName="active">
-          <Avatar username={user} xs /> {user}
-          {' '}<Icon name="star" xs />
-        </Link>
-      </li>
-    );
-  }
-
   render() {
-    const unreadMessages = getUnreadMessages(this.props);
-    const users = getFilteredUsers(this.props, this.state);
     return (
       <ul>
         <li>
@@ -122,16 +106,9 @@ export default class SidebarUsers extends Component {
                 />
               </div>
             </li>
-            { this.renderFavoritedUsers() }
 
-            { unreadMessages.length
-              ? unreadMessages
-              : null
-            }
-            { users.length
-              ? users
-              : null
-            }
+            { renderUsers(this.props, this.state) }
+
           </ul>
         </li>
       </ul>
