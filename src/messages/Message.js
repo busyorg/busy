@@ -20,7 +20,6 @@ function Message(props) {
               <b>@{senderUsername}</b>
               <span
                 style={{
-                  textTransform: 'uppercase',
                   paddingLeft: '10px',
                   color: '#ccc',
                   backgroundColor: 'transparent'
@@ -45,7 +44,6 @@ function Message(props) {
                   className="Message__timestamp"
                   style={{
                     width: '50px',
-                    textTransform: 'uppercase',
                     color: '#ccc'
                   }}
                 >
