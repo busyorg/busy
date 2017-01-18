@@ -11,6 +11,7 @@
     display: inline-block;
     margin: 0;
     width: 100%;
+    position: relative;
 
     span {
       background: transparent;
@@ -39,4 +40,10 @@
       border-top: solid 10px transparent;
     }
   }
+}
+
+.Message__left {
+  position: absolute;
+  top: 0;
+  left: 0;
 }
