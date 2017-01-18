@@ -7,7 +7,7 @@ import Icon from '../widgets/Icon';
 
 const UserRow = props => <h3>
   <Link to={`/@${props.username}`}>
-    <Avatar username={props.username} sm /> @{ props.username }
+    <Avatar username={props.username} sm /> {props.username}
   </Link>
 </h3>;
 

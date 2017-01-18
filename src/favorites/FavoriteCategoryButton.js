@@ -13,9 +13,9 @@ const FavoriteCategoryButton = ({ children, onClick, isFavorited, intl }) =>
       className={isFavorited ? 'FavoriteButton FavoriteButton--active' : 'FavoriteButton'}
       onClick={onClick}
     >
-      <Icon name={isFavorited ? 'star' : 'star_border'} sm />
-      { children && ' ' }
       { children }
+      { children && ' ' }
+      <Icon name={isFavorited ? 'star' : 'star_border'} sm />
     </a>
   </TooltipOrigin>;
 

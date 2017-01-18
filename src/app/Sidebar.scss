@@ -33,7 +33,7 @@
   }
 
   ::-webkit-input-placeholder {
-    color: rgba(255, 255, 255, 0.6);
+    color: rgba(255, 255, 255, 0.7);
     opacity: 1;
   }
 
@@ -76,7 +76,7 @@
         display: block;
         height: 56px;
         line-height: 52px;
-        opacity: 0.6;
+        opacity: 0.7;
       }
     }
   }
@@ -94,7 +94,8 @@
         line-height: 1.8em;
         font-size: 16px;
         margin: 0 20px;
-        opacity: 0.6;
+        opacity: 0.7;
+        color: white;
       }
 
       &:hover {

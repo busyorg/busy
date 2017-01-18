@@ -26,18 +26,18 @@ const SidebarHeader = ({
         !auth.isAuthenticated && !auth.isFetching &&
           <a href={steemconnect.getLoginURL()}>
             <Icon name="lock_outline" />
-            { ' ' }<FormattedMessage id="login" />
+            {' '}<FormattedMessage id="login" />
           </a>
       }
       {
         auth.isAuthenticated &&
           <div>
             <Link to={`/@${user.name}`} className="my-1">
-              <Avatar sm username={user.name} reputation={user.reputation}/>
+              <Avatar sm username={user.name} reputation={user.reputation} />
             </Link>
             <div className="SidebarHeader__username">
-              @{ `${user.name} ` }
-              <a onClick={() => onClickMenu({menu: 'settings'})}>
+              {`${user.name} `}
+              <a onClick={() => onClickMenu({ menu: 'settings' })}>
                 <Icon name="settings" xs />
               </a>
             </div>

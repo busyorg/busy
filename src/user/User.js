@@ -59,6 +59,7 @@ export default class UserProfile extends React.Component {
   }
 
   fetchUserData() {
+    this.setState({ user: {} });
     steemdb.accounts({
       account: this.props.params.name
     }, (err, result) => {
@@ -93,6 +94,11 @@ export default class UserProfile extends React.Component {
           <div className="my-5">
             <Avatar xl username={username} reputation={_.has(user, 'name') && user.reputation} />
             <h1>
+              { _.has(jsonMetadata, 'profile.name')
+                ? jsonMetadata.profile.name
+                : username
+              }
+              {' '}
               <FavoriteUserButton
                 isFavorited={this.isFavorited()}
                 onClick={this.isFavorited()
@@ -100,10 +106,6 @@ export default class UserProfile extends React.Component {
                   : () => this.props.addUserFavorite(username)
                 }
               />
-              { _.has(jsonMetadata, 'profile.name')
-                ? jsonMetadata.profile.name
-                : `@${username}`
-              }
             </h1>
             <Follow username={username} />
           </div>

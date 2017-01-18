@@ -75,7 +75,7 @@ const PostFeedList = ({
           <ProfileTooltipOrigin username={post.author} >
             <Link to={`/@${post.author}`}>
               <Avatar xs username={post.author} />
-              { ` @${post.author}` }
+              {` ${post.author}`}
             </Link>
           </ProfileTooltipOrigin>
           <span className="hidden-xs">

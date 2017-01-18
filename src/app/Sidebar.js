@@ -71,8 +71,8 @@ export default class Sidebar extends Component {
       .map((category, idx) =>
         <li key={idx}>
           <Link to={`/hot/${category}`} activeClassName="active">
+            # {category}{' '}
             <Icon name="star" xs />
-            {category}
           </Link>
         </li>
     );
@@ -91,7 +91,7 @@ export default class Sidebar extends Component {
         .map((category, idx) =>
           <li key={idx}>
             <Link to={`/hot/${category}`} activeClassName="active">
-              #{category}
+              # {category}
             </Link>
           </li>
         );
@@ -247,6 +247,10 @@ export default class Sidebar extends Component {
           {rate && props && menu === 'wallet' &&
             <ul>
               <li className="title">
+                <Link to={`/@${this.props.auth.user.name}/transfers`}>
+                  <Icon name="account_balance_wallet" />{' '}
+                  <FormattedMessage id="wallet" />
+                </Link>
                 <Link to="/transfer">
                   <Icon name="send" />{' '}
                   <FormattedMessage id="transfer" />

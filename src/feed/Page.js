@@ -98,7 +98,7 @@ export default class Page extends React.Component {
                 : this.props.addCategoryFavorite
               }
             >
-              #{ category }
+              # { category }
             </FavoriteCategoryButton>
           </h2>
         }
