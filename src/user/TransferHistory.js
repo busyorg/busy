@@ -154,12 +154,12 @@ export default class TransferHistory extends Component {
           {getOnlyViableTransfers(list).reverse().slice(0, visibleItems).map((op, idx) =>
             <div className="my-3">
               <hr />
-              <h4>
+              <h5>
                 <b>{renderReportFromOp(op, username)}</b>{' '}
                 <small className="pull-right">
                   <FormattedRelative value={op[1].timestamp} />
                 </small>
-              </h4>
+              </h5>
               {op[1].op[1].memo &&
                 <blockquote>
                   {op[1].op[1].memo}
