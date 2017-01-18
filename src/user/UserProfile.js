@@ -1,7 +1,7 @@
 import 'babel-polyfill';
 import React, { Component } from 'react';
 import { FormattedRelative } from 'react-intl';
-import  _ from 'lodash';
+import _ from 'lodash';
 import steemdb from 'steemdb';
 import { Link } from 'react-router';
 import Feed from '../feed/Feed';
@@ -37,6 +37,7 @@ export default class UserProfile extends Component {
   }
 
   fetchUserData() {
+    this.setState({ user: {} });
     steemdb.accounts({
       account: this.props.params.name
     }, (err, result) => {
@@ -94,7 +95,7 @@ export default class UserProfile extends Component {
               { _.has(jsonMetadata, 'profile.website') &&
                 <p>
                   <Icon name="link" />{ ' ' }
-                  <a href={jsonMetadata.profile.website} target="_blank">
+                  <a href={jsonMetadata.profile.website} target="_blank" rel="noopener noreferrer">
                     { jsonMetadata.profile.website }
                   </a>
                 </p>

@@ -59,6 +59,7 @@ export default class UserProfile extends React.Component {
   }
 
   fetchUserData() {
+    this.setState({ user: {} });
     steemdb.accounts({
       account: this.props.params.name
     }, (err, result) => {
