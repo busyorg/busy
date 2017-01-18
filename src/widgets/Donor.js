@@ -1,5 +1,4 @@
 import React from 'react';
-
 import './Donor.scss';
 
 const Donor = ({
