@@ -20,6 +20,8 @@ import Bookmarks from './bookmarks/Bookmarks';
 import Error404 from './statics/Error404';
 import Write from './post/Write/Write';
 import Drafts from './post/Write/Drafts';
+import About from './statics/About';
+import Help from './statics/Help';
 
 var MessagesUser = require('./messages/MessagesUser').default,
   MessagesCategory = require('./messages/MessagesCategory').default;
@@ -27,6 +29,8 @@ var MessagesUser = require('./messages/MessagesUser').default,
 export default (
   <Route path="/" component={Wrapper}>
     <IndexRoute component={Page} />
+    <Route path="/help" component={Help} />
+    <Route path="/about" component={About} />
     <Route path="/settings" component={Settings} />
     <Route path="/tags" component={Tags} />
     <Route path="/donors" component={Donors} />
