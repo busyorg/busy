@@ -61,9 +61,6 @@ export default class PostActionButtons extends Component {
 
   render() {
     const { post, auth, layout } = this.props;
-    const payout = parseFloat(post.total_payout_value)
-      + parseFloat(post.total_pending_payout_value)
-      + parseFloat(post.curator_payout_value);
 
     const isPostLiked =
       auth.isAuthenticated &&
@@ -85,7 +82,7 @@ export default class PostActionButtons extends Component {
         <li>
           <PayoutLabel
             onClick={() => { this.props.onShowPayoutRequest(); }}
-            value={numeral(payout).format('$0,0.00')}
+            post={post}
           />
         </li>
 
@@ -110,7 +107,7 @@ export default class PostActionButtons extends Component {
 
           {isListLayout &&
             <span>
-              {numeral(post.children).format('0,0')}ss
+              {numeral(post.children).format('0,0')}
             </span>
           }
 

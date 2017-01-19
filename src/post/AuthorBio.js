@@ -5,6 +5,7 @@ import steemAPI from '../steemAPI';
 import Avatar from '../widgets/Avatar';
 import Loading from '../widgets/Loading';
 import Follow from '../widgets/Follow';
+import './AuthorBio.scss';
 
 @connect(
   ({ user }) => ({ following: user.following })
@@ -40,11 +41,11 @@ class AuthorBio extends Component {
       const displayName = name || authorName;
 
       return (
-        <div>
-          <div className="pull-left">
+        <div className="AuthorBio py-5">
+          <div className="mr-3">
             <Avatar lg username={authorName} />
           </div>
-          <div className="pull-left">
+          <div className="AuthorBio__right">
             <Link to={`/@${authorName}`}>
               {displayName}
             </Link>
@@ -56,7 +57,11 @@ class AuthorBio extends Component {
       );
     }
 
-    return <Loading />;
+    return (
+      <div className="my-5">
+        <Loading />
+      </div>
+    );
   }
 }
 
