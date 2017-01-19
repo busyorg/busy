@@ -8,6 +8,7 @@ export default class MenuPost extends Component {
 
   nextStory = () => {
     this.props.openPostModal(this.props.nextStory.id);
+    this.props.pushUrlState(this.props.nextStory);
     this.props.scrollToTop();
   }
 

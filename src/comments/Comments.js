@@ -45,7 +45,9 @@ export default class Comments extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.show && prevProps.show !== this.props.show) {
+    const postChanged = (this.props.postId && prevProps.postId !== this.props.postId);
+    const showToggled = (this.props.show && prevProps.show !== this.props.show);
+    if (showToggled || postChanged) {
       this.props.getComments(this.props.postId);
     }
   }
@@ -80,7 +82,7 @@ export default class Comments extends Component {
     return (
       <div className={classNames}>
 
-        { this.props.isSinglePage &&
+        {this.props.isSinglePage &&
           <div style={{ width: '200px' }}>
             <span>
               Sort by:

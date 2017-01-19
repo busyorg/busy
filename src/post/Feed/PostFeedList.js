@@ -1,12 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import BodyShort from '../BodyShort';
 import PostActionButtons from '../PostActionButtons';
 import Avatar from '../../widgets/Avatar';
 import Icon from '../../widgets/Icon';
 import PostModalLink from './../PostModalLink';
 import ProfileTooltipOrigin from '../../user/profileTooltip/ProfileTooltipOrigin';
+import TooltipOrigin from '../../app/TooltipOrigin';
 import './PostFeedList.scss';
 
 const PostFeedList = ({
@@ -22,7 +23,8 @@ const PostFeedList = ({
   isReblogged,
   handleShowCommentsRequest,
   handleShowLikesRequest,
-  layout
+  layout,
+  intl,
 }) =>
   <div className="PostFeedList">
     { imagePath &&
@@ -36,12 +38,18 @@ const PostFeedList = ({
       </div>
     }
     <div className="PostFeedList__cell PostFeedList__cell--body">
-      <a onClick={() => toggleBookmark(post.id)} className="PostFeedList__cell__bookmark">
-        <Icon
-          small
-          name={bookmarks[post.id] ? 'bookmark' : 'bookmark_border'}
-        />
-      </a>
+
+      <TooltipOrigin
+        content={intl.formatMessage({ id: '@tooltip_add_bookmark' })}
+        active={!bookmarks[post.id]}
+      >
+        <a onClick={() => toggleBookmark(post.id)} className="PostFeedList__cell__bookmark">
+          <Icon
+            small
+            name={bookmarks[post.id] ? 'bookmark' : 'bookmark_border'}
+          />
+        </a>
+      </TooltipOrigin>
       <h2>
         <PostModalLink
           post={post}
@@ -79,4 +87,4 @@ const PostFeedList = ({
     </div>
   </div>;
 
-export default PostFeedList;
+export default injectIntl(PostFeedList);
