@@ -46,7 +46,7 @@ export default class SidebarTabs extends Component {
             onClick={() => this.props.onClickMenu({ menu: 'categories' })}
             className={menu === 'categories' && 'active'}
           >
-            <Icon name="public" />
+            <Icon name="public" lg />
           </a>
         </li>
         <li style={{ position: 'relative' }}>
@@ -55,7 +55,7 @@ export default class SidebarTabs extends Component {
             className={menu === 'users' && 'active'}
           >
             {this.renderUnread()}
-            <Icon name="chat_bubble_outline" />
+            <Icon name="chat_bubble_outline" lg />
           </a>
         </li>
         <li>
@@ -63,7 +63,7 @@ export default class SidebarTabs extends Component {
             onClick={() => this.props.onClickMenu({ menu: 'write' })}
             className={menu === 'write' && 'active'}
           >
-            <Icon name="create" />
+            <Icon name="create" lg />
           </a>
         </li>
         <li>
@@ -71,7 +71,7 @@ export default class SidebarTabs extends Component {
             onClick={() => this.props.onClickMenu({ menu: 'wallet' })}
             className={menu === 'wallet' && 'active'}
           >
-            <Icon name="account_balance_wallet" />
+            <Icon name="account_balance_wallet" lg />
           </a>
         </li>
       </ul>
