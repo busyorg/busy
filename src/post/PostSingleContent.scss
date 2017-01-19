@@ -11,17 +11,21 @@
 
 .PostSingleContent__content,
 .PostSingleContent__replies .CommentBody {
-  font-size: 20px;
+  width: 820px;
+  font-size: 1em;
   line-height: 1.6em;
   overflow: hidden;
 
   img {
-    max-width: 100%;
     height: auto;
     margin: 2em 0;
     border: 1px solid rgba(0, 0, 0, 0.1);
-    display: block;
+    display: inline-block;
     background-color: white;
+    vertical-align: middle;
+    width: auto;
+    max-width: 100%;
+    max-height: none;
   }
 
   div.pull-right{
