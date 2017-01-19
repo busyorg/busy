@@ -54,31 +54,13 @@ export default class PostSingleModal extends Component {
     if (this.DOMNode) {
       this.DOMNode.scrollTop = 0;
     }
-  }
+  };
 
   render() {
-    const {
-      content,
-      sidebarIsVisible,
-      reblog,
-      isReblogged,
-      openCommentingDraft,
-      likePost,
-      unlikePost,
-      dislikePost,
-      isPostLiked,
-      isPostDisliked,
-      openPostModal,
-      nextStory,
-      bookmarks,
-      toggleBookmark,
-      children
-    } = this.props;
-
     return (
       <div
         className={
-          sidebarIsVisible
+          this.props.sidebarIsVisible
             ? 'PostSingleModal withSidebar'
             : 'PostSingleModal'
         }
@@ -97,22 +79,22 @@ export default class PostSingleModal extends Component {
               </div>
             </div>
           </div>
-          {children && <div className="app-nav">{children}</div>}
+          {this.props.children && <div className="app-nav">{this.props.children}</div>}
         </header>
         <PostSingleContent
-          content={content}
-          bookmarks={bookmarks}
-          toggleBookmark={toggleBookmark}
-          reblog={reblog}
-          isReblogged={isReblogged}
-          openCommentingDraft={openCommentingDraft}
-          likePost={likePost}
-          unlikePost={unlikePost}
-          dislikePost={dislikePost}
-          isPostLiked={isPostLiked}
-          isPostDisliked={isPostDisliked}
-          openPostModal={openPostModal}
-          nextStory={nextStory}
+          content={this.props.content}
+          bookmarks={this.props.bookmarks}
+          toggleBookmark={this.props.toggleBookmark}
+          reblog={this.props.reblog}
+          isReblogged={this.props.isReblogged}
+          openCommentingDraft={this.props.openCommentingDraft}
+          likePost={this.props.likePost}
+          unlikePost={this.props.unlikePost}
+          dislikePost={this.props.dislikePost}
+          isPostLiked={this.props.isPostLiked}
+          isPostDisliked={this.props.isPostDisliked}
+          openPostModal={this.props.openPostModal}
+          nextStory={this.props.nextStory}
           scrollToTop={this.scrollToTop}
         />
         <CommentForm />
