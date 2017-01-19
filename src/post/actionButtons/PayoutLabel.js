@@ -8,7 +8,7 @@ const PayoutLabel = ({ post, onClick }) => {
     + parseFloat(post.curator_payout_value);
   const maxAcceptedPayout = parseFloat(post.max_accepted_payout);
   return (
-    <a onClick={onClick && onClick}>
+    <a onClick={onClick}>
       <span className="hidden-xs">
         <Icon name="attach_money" sm />
       </span>
