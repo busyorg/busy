@@ -2,9 +2,9 @@
 import createLogger from 'redux-logger';
 import promiseMiddleware from 'redux-promise-middleware';
 import persistState from 'redux-localstorage';
-import persistSlicer from 'redux-localstorage-slicer';
 import thunk from 'redux-thunk';
 import { combineReducers, applyMiddleware, createStore, compose } from 'redux';
+import { reducer as tooltip, middleware as tooltipMW } from 'redux-tooltip';
 import api from './steemAPI';
 
 import MessagesWorker, { messagesReducer } from './messages';
@@ -13,7 +13,7 @@ import authReducers from './auth/authReducers';
 import commentsReducer from './comments/commentsReducer.js';
 import feedReducers from './feed/feedReducers';
 import postsReducers from './post/postsReducers';
-import userProfileReducer from './user/userReducer';
+import userReducer from './user/userReducer';
 import notificationReducer from './app/Notification/notificationReducers';
 import bookmarksReducer from './bookmarks/bookmarksReducer';
 import favoritesReducer from './favorites/favoritesReducers';
@@ -35,7 +35,7 @@ const reducers = combineReducers({
   editor: editorReducer,
   posts: postsReducers,
   feed: feedReducers,
-  userProfile: userProfileReducer,
+  user: userReducer,
   responsive: responsiveReducer,
   messages: messagesReducer,
   notifications: notificationReducer,
@@ -43,6 +43,7 @@ const reducers = combineReducers({
   favorites: favoritesReducer,
   reblog: reblogReducers,
   wallet: walletReducer,
+  tooltip,
 });
 
 const middleware = [
@@ -56,16 +57,9 @@ const middleware = [
   thunk.withExtraArgument({
     messagesWorker,
     steemAPI: api,
-  })
-];
-
-const enhancer = compose(
-  applyMiddleware(...middleware),
-  persistState(null, {
-    slicer: persistSlicer(),
   }),
-  persistState('favorites'),
-);
+  tooltipMW
+];
 
 if (process.env.ENABLE_LOGGER &&
   process.env.IS_BROWSER &&
@@ -73,9 +67,22 @@ if (process.env.ENABLE_LOGGER &&
   middleware.push(createLogger({
     collapsed: true,
     duration: true,
-    stateTransformer: state => JSON.parse(JSON.stringify(state))
   }));
 }
+
+const enhancer = compose(
+  applyMiddleware(...middleware),
+  persistState(['favorites', 'editor', 'app'], {
+    slicer: () => state => ({
+      favorites: state.favorites,
+      editor: state.editor,
+      app: {
+        locale: state.app.locale,
+        layout: state.app.layout,
+      },
+    }),
+  })
+);
 
 const store = createStore(
   reducers,

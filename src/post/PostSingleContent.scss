@@ -2,7 +2,6 @@
   display: flex;
   flex-direction: column;
   overflow-x: auto;
-  padding-bottom: 56px;
 }
 
 .PostSingleContent__header {
@@ -10,79 +9,88 @@
 }
 
 .PostSingleContent__content {
-  font-size: 22px;
+  font-size: 20px;
   line-height: 1.6em;
-  font-family: Georgia, Cambria, "Times New Roman", Times, serif;
   overflow: hidden;
-
-  p {
-    text-align: justify;
-  }
 
   img {
     max-width: 100%;
     height: auto;
-    margin: 2em 0;
-    border: 1px solid rgba(0, 0, 0, 0.1);
     display: block;
     background-color: white;
   }
 
-    div.pull-right{
-      padding-left: 1rem;
-      max-width: 50%;
-    }
+  div.pull-right{
+    padding-left: 1rem;
+    max-width: 50%;
+  }
 
-    div.pull-left {
-      float: left;
-      padding-right: 1rem;
-      max-width: 50%;
-    }
+  div.pull-left {
+    float: left;
+    padding-right: 1rem;
+    max-width: 50%;
+  }
 
-    div.text-justify {
-      text-align: justify;
-    }
+  div.text-justify {
+    text-align: justify;
+  }
 
-    div.text-right {
-      text-align: right;
-    }
+  div.text-right {
+    text-align: right;
+  }
 
-    div.text-center {
-      text-align: center;
-    }
+  div.text-center {
+    text-align: center;
+  }
 
-    div.text-rtl {
-      direction: rtl;
-    }
+  div.text-rtl {
+    direction: rtl;
+  }
 
-    ol {
-      margin-bottom: 2em;
+  ol {
+    margin-bottom: 2em;
+  }
 
-    li {
-      list-style-type: decimal !important;
-    }
+  ol li {
+    list-style-type: decimal !important;
   }
 
   ul {
     margin-bottom: 2em;
 
     li {
-      list-style-type: square !important;
+      list-style-type: disc !important;
       list-style-position: outside;
       margin-left: 20px;
     }
   }
 
-  table{
+  table {
     width: 100%;
+    border: 1px solid #f8f8f8;
   }
 
-  tr:nth-child(even), thead {background: #eee}
+  td, th {
+    padding: 0.75em;
+    vertical-align: top;
+  }
+
+  tr:nth-child(even), thead {
+    background: #f8f8f8;
+    padding: 1em;
+  }
+
+  h4, h5, h6 {
+    font-size: 1em;
+    font-weight: bold;
+    line-height: 1.6em;
+    margin-bottom: 1em;
+  }
 }
 
 .PostSingleContent__replies {
-  background-color: #f1f2f4;
-  font-size: 18px;
+  font-size: 1.2em;
+  border-top: 1px solid #E7E7EC;
 
   li {
     margin: 0 !important;

@@ -11,8 +11,9 @@ const Tag = ({
   isFavorited
 }) =>
   <div className="page">
-    <div className="my-3 text-xs-center">
+    <div className="my-5 text-center">
       <h1>
+        <Link to={`/hot/${tag.name}`}># {tag.name}</Link>{' '}
         <FavoriteCategoryButton
           name={tag.name}
           isFavorited={isFavorited}
@@ -21,8 +22,6 @@ const Tag = ({
             : () => addCategoryFavorite(tag.name)
           }
         />
-        { ' ' }
-        <Link to={`/hot/${tag.name}`}>#{tag.name}</Link>{' '}
       </h1>
       <h2>
         <Icon name="library_books" lg /> {numeral(tag.comments).format('0,0')}{' '}

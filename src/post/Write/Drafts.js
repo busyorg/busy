@@ -26,23 +26,19 @@ let DraftRow = (props) => {
 DraftRow = connect(() => ({}), { deleteDraft })(DraftRow);
 
 const DraftList = ({ editor: { draftPosts } }) =>
-  (
-    <div className="main-panel">
-      <Header />
-      <div className="my-3">
-        <h1 className="text-xs-center">Drafts</h1>
-        <div className="container">
-          { _.size(draftPosts) === 0 &&
-            <h3 className="text-xs-center">
-              You don't have any draft saved.
-            </h3>
-          }
-          { _.map(draftPosts, (draft, key) =>
-            <DraftRow key={key} data={draft.postData} id={key} />)
-          }
-        </div>
-      </div>
+  <div className="main-panel">
+    <Header />
+    <div className="my-5 container container-small">
+      <h1 className="text-center">Drafts</h1>
+      { _.size(draftPosts) === 0 &&
+        <h3 className="text-center">
+          You don't have any draft saved.
+        </h3>
+      }
+      { _.map(draftPosts, (draft, key) =>
+        <DraftRow key={key} data={draft.postData} id={key} />)
+      }
     </div>
-  );
+  </div>;
 
 export default connect(state => ({ editor: state.editor }))(DraftList);

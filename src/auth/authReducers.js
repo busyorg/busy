@@ -4,9 +4,6 @@ const initialState = {
   isAuthenticated: false,
   isFetching: false,
   user: {},
-
-  following: [],
-  followingIsLoading: true,
 };
 
 export default (state = initialState, action) => {

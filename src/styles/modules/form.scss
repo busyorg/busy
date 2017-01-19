@@ -10,6 +10,7 @@ input, textarea, .form-control, .input-group-addon {
   color: #3F3F44;
   padding-left: 0 !important;
   padding-right: 0 !important;
+  font-family: $font-primary;
 }
 
 .input-group-addon {
@@ -24,7 +25,7 @@ input, textarea, .form-control, .input-group-addon {
 .form-control-xl {
   font-size: 2.2rem;
   letter-spacing: 0;
-  font-weight: bold;
+  font-weight: 600;
 }
 
 textarea {
@@ -47,4 +48,8 @@ textarea {
   &:-ms-input-placeholder {
     color: #b7b7b7 !important;
   }
+}
+
+.form-control {
+  box-shadow: none !important;
 }

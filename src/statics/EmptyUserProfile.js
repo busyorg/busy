@@ -1,9 +1,10 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 
 const EmptyUserProfile = () =>
-  <div className="ptl text-xs-center">
+  <div className="text-center">
     <h3>
-      This user doesn't have any story published yet.
+      <FormattedMessage id="empty_user_profile" />
     </h3>
   </div>;
 

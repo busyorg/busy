@@ -34,7 +34,7 @@ export default (props) => {
     body = body.replace(/(^|\s)(@[-.a-z\d]+)/ig, (user) => {
       const space = /^\s/.test(user) ? user[0] : '';
       user = user.trim().substring(1);
-      return `${space}<a href="/@${user}">@${user}</a>`;
+      return `${space}<a href="/@${user}">${user}</a>`;
     });
   }
 

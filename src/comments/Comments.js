@@ -1,13 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { FormattedMessage } from 'react-intl';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
-
 import CommentsList from './CommentsList';
 import * as commentsActions from './commentsActions';
 import Loading from '../widgets/Loading';
-
 import './Comments.scss';
 
 @connect(
@@ -46,7 +45,9 @@ export default class Comments extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.show && prevProps.show !== this.props.show) {
+    const postChanged = (this.props.postId && prevProps.postId !== this.props.postId);
+    const showToggled = (this.props.show && prevProps.show !== this.props.show);
+    if (showToggled || postChanged) {
       this.props.getComments(this.props.postId);
     }
   }
@@ -81,7 +82,7 @@ export default class Comments extends Component {
     return (
       <div className={classNames}>
 
-        { this.props.isSinglePage &&
+        {this.props.isSinglePage &&
           <div style={{ width: '200px' }}>
             <span>
               Sort by:
@@ -117,7 +118,7 @@ export default class Comments extends Component {
             tabIndex="0"
             onClick={this.handleShowMore}
           >
-            See More Comments
+            <FormattedMessage id="see_more_comments" />
           </a>
         }
 

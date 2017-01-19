@@ -4,8 +4,8 @@ import groupBy from 'lodash/groupBy';
 import { startsWith } from 'lodash/string';
 import size from 'lodash/size';
 import { Link } from 'react-router';
-
 import Icon from '../../widgets/Icon';
+import Avatar from '../../widgets/Avatar';
 
 const getFilteredUsers = (props, state) => {
   const unreadByChannel = groupBy(props.messages.unreadMessages, 'channelName');
@@ -24,12 +24,13 @@ const getFilteredUsers = (props, state) => {
     return !unreadByChannel[channelName] || !unreadByChannel[channelName].length;
   });
   users = users.sort().map((follow, key) => (
-    <li key={key}>
+    <li key={key} className="pb-1">
       <Link
         to={`/@${follow}`}
         activeClassName="active"
       >
-        @{follow}{' '}
+        <Avatar username={follow} xs />{' '}
+        {follow}{' '}
         <UnreadCount unread={size(unreadByChannel[`@${follow}`])} />
       </Link>
     </li>
@@ -96,10 +97,10 @@ export default class SidebarUsers extends Component {
     const { favorites } = this.props;
     const favoritedUsers = favorites.users;
     return filterUsersBySearch(favoritedUsers, this.state.search).slice(0, 16).map((user, idx) =>
-      <li key={idx}>
+      <li key={idx} className="pb-1">
         <Link to={`/@${user}`} activeClassName="active">
-          <Icon name="star" xs />
-          {user}
+          <Avatar username={user} xs /> {user}
+          {' '}<Icon name="star" xs />
         </Link>
       </li>
     );
@@ -109,30 +110,33 @@ export default class SidebarUsers extends Component {
     const unreadMessages = getUnreadMessages(this.props);
     const users = getFilteredUsers(this.props, this.state);
     return (
-      <ul className="Sidebar__tags">
-        <li className="Sidebar__search">
-          <div className="input-group">
-            <span className="input-group-addon"><Icon name="search" sm /></span>
-            <input
-              type="text"
-              className="form-control"
-              placeholder="Search"
-              value={this.props.search}
-              onChange={this.search}
-            />
-          </div>
+      <ul>
+        <li>
+          <ul>
+            <li className="Sidebar__search">
+              <div className="input-group">
+                <span className="input-group-addon"><Icon name="search" sm /></span>
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Search"
+                  value={this.props.search}
+                  onChange={this.search}
+                />
+              </div>
+            </li>
+            { this.renderFavoritedUsers() }
+
+            { unreadMessages.length
+              ? unreadMessages
+              : null
+            }
+            { users.length
+              ? users
+              : null
+            }
+          </ul>
         </li>
-
-        { this.renderFavoritedUsers() }
-
-        { unreadMessages.length
-          ? unreadMessages
-          : null
-        }
-        { users.length
-          ? users
-          : null
-        }
       </ul>
     );
   }

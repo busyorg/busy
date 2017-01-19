@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
+import { FormattedRelative } from 'react-intl';
 import numeral from 'numeral';
 import Body from '../post/Body';
 import Avatar from '../widgets/Avatar';
 import Icon from '../widgets/Icon';
 import { sortCommentsFromSteem } from '../helpers/stateHelpers';
-
 import './CommentItem.scss';
 
 const renderOptimisticComment = (comment) => {
@@ -20,7 +20,7 @@ const renderOptimisticComment = (comment) => {
         <div className="CommentBody">
           <span className="CommentBody__username">
             <Link to={`/@${comment.author}`}>
-              @{ comment.author }
+              {comment.author}
             </Link>
           </span>
           <Body body={comment.body} />
@@ -85,8 +85,12 @@ export default class CommentItem extends Component {
           <div className="CommentBody">
             <span className="CommentBody__username">
               <Link to={`/@${comment.author}`}>
-                @{ comment.author }
+                {comment.author}
               </Link>
+              {' '}
+              <span className="text-info">
+                <FormattedRelative value={comment.created} />
+              </span>
             </span>
             <Body body={comment.body} />
             <div className="CommentActionButtons">

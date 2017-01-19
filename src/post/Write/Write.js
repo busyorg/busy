@@ -26,7 +26,7 @@ export class RawNewPost extends Component {
     const draftPost = draftPosts[query.draft];
     if (draftPost) {
       const { jsonMetadata } = draftPost.postData || {};
-      try { tags = JSON.parse(jsonMetadata).tags; } catch (e) { tags = []; }
+      tags = jsonMetadata.tags;
       if (!_.isArray(tags)) { tags = []; }
     }
 
@@ -122,11 +122,18 @@ export class RawNewPost extends Component {
     const postBody = this.editor.getContent();
     const { location: { query } } = this.props;
     let id = query.draft;
-    if (id === undefined) {
+
+    // Remove zero width space
+    const isBodyEmpty = postBody.markdown.replace(/[\u200B-\u200D\uFEFF]/g, '').trim().length === 0;
+
+    if (id === undefined && !isBodyEmpty) {
       id = Date.now().toString(16);
       this.props.router.push({ pathname: '/write', query: { draft: id } });
     }
-    this.props.saveDraft({ postData: data, rawBody: postBody.raw, id });
+
+    if (id !== undefined) {
+      this.props.saveDraft({ postData: data, rawBody: postBody.raw, id });
+    }
   }, 400);
 
   componentWillReceiveProps(nextProps) {
@@ -185,7 +192,7 @@ export class RawNewPost extends Component {
     return (
       <div className="main-panel">
         <Header />
-        <div className="container my-3">
+        <div className="container my-5">
           <form
             action="/write"
             method="post"
@@ -227,8 +234,7 @@ export class RawNewPost extends Component {
                 }}
                 tagProps={{
                   className: 'category',
-                  classNameRemove: 'category-remove',
-                  xs: true,
+                  classNameRemove: 'category-remove'
                 }}
                 className="categories-container"
                 ref={(c) => { this.categoryInput = c; }}

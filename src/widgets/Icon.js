@@ -1,5 +1,4 @@
 import React from 'react';
-
 import '../fonts/MaterialIcons.scss';
 import './Icon.scss';
 

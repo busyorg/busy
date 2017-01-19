@@ -90,7 +90,7 @@ export default class Page extends React.Component {
         <MenuFeed category={category} />
 
         { category &&
-          <h2 className="mt-1 mb-0 text-xs-center">
+          <h2 className="mt-3 text-center">
             <FavoriteCategoryButton
               isFavorited={this.isFavorited()}
               onClick={this.isFavorited()
@@ -98,7 +98,7 @@ export default class Page extends React.Component {
                 : this.props.addCategoryFavorite
               }
             >
-              #{ category }
+              # { category }
             </FavoriteCategoryButton>
           </h2>
         }

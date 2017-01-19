@@ -2,7 +2,7 @@
 
 .Icon {
   vertical-align: middle;
-  color: #AAA;
+  color: #c2ccd3;
 }
 
 .Icon--xs {
@@ -14,7 +14,7 @@
 }
 
 .Icon--md {
-  font-size: 28px;
+  font-size: 26px;
 }
 
 .Icon--lg {
@@ -28,19 +28,16 @@
 .Icon--menu {
   height: 56px;
   line-height: 54px;
-  margin: 0 14px;
+  margin: 0 4px;
   min-width: 28px;
   width: 28px;
   overflow: hidden;
 }
 
 .main-panel {
-  a:hover {
-    .Icon {
-      color: $primary-color;
-    }
+  a:hover > .Icon {
+    color: #99AAB5;
   }
-
   a.active {
     .Icon {
       color: $primary-color;

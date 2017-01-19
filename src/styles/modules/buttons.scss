@@ -2,7 +2,6 @@
   border-radius: 1.5em;
   font-family: $font-primary;
   font-weight: bold;
-  text-transform: uppercase;
   font-size: 18px;
 }
 
@@ -13,14 +12,21 @@
 
   &:hover, &:focus, &:active {
     background-color: #2ED8B1 !important;
+    box-shadow: none;
   }
+}
+
+.btn-sm {
+  font-size: 15px;
+  line-height: 1.6em;
+  padding: 0.25em 1em;
 }
 
 .btn-outline-success {
   color: #2ED8B1 !important;
   background-color: transparent;
   border: none;
-  box-shadow: inset 0 0 0 3px #2ED8B1;
+  box-shadow: inset 0 0 0 2px #2ED8B1;
 
   &:hover, &:focus, &:active {
     color: #fff !important;

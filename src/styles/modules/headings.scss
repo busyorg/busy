@@ -4,7 +4,7 @@
 
 h1, h2, h3 {
   font-family: $font-alt;
-  color: #434F66;
+  color: #4f545c;
   font-weight: 500;
   line-height: 1.2em;
   margin-bottom: 1em;
@@ -25,7 +25,12 @@ h3 {
 }
 
 h4 {
+  font-size: 1.2rem;
+}
+
+h5 {
   font-size: 1rem;
+  font-weight: 500;
 }
 
 p {

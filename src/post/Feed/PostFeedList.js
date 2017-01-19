@@ -1,10 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import BodyShort from '../BodyShort';
-import Flag from '../../widgets/Flag';
 import PostActionButtons from '../PostActionButtons';
 import Avatar from '../../widgets/Avatar';
+import Icon from '../../widgets/Icon';
 import PostModalLink from './../PostModalLink';
+import ProfileTooltipOrigin from '../../user/profileTooltip/ProfileTooltipOrigin';
+import TooltipOrigin from '../../app/TooltipOrigin';
 import './PostFeedList.scss';
 
 const PostFeedList = ({
@@ -20,7 +23,8 @@ const PostFeedList = ({
   isReblogged,
   handleShowCommentsRequest,
   handleShowLikesRequest,
-  layout
+  layout,
+  intl,
 }) =>
   <div className="PostFeedList">
     { imagePath &&
@@ -34,6 +38,18 @@ const PostFeedList = ({
       </div>
     }
     <div className="PostFeedList__cell PostFeedList__cell--body">
+
+      <TooltipOrigin
+        content={intl.formatMessage({ id: '@tooltip_add_bookmark' })}
+        active={!bookmarks[post.id]}
+      >
+        <a onClick={() => toggleBookmark(post.id)} className="PostFeedList__cell__bookmark">
+          <Icon
+            small
+            name={bookmarks[post.id] ? 'bookmark' : 'bookmark_border'}
+          />
+        </a>
+      </TooltipOrigin>
       <h2>
         <PostModalLink
           post={post}
@@ -55,12 +71,15 @@ const PostFeedList = ({
           layout={layout}
         />
         <span>
-          <Link to={`/@${post.author}`}>
-            <Avatar xs username={post.author} />
-            { ` @${post.author}` }
-          </Link>
+          <ProfileTooltipOrigin username={post.author} >
+            <Link to={`/@${post.author}`}>
+              <Avatar xs username={post.author} />
+              {` ${post.author}`}
+            </Link>
+          </ProfileTooltipOrigin>
           <span className="hidden-xs">
-            { ' in ' }<Link to={`/hot/${post.category}`}>#{post.category}</Link>
+            { ' ' }<FormattedMessage id="in" />{ ' ' }
+            <Link to={`/hot/${post.category}`}>#{post.category}</Link>
           </span>
         </span>
       </div>
@@ -68,4 +87,4 @@ const PostFeedList = ({
     </div>
   </div>;
 
-export default PostFeedList;
+export default injectIntl(PostFeedList);

@@ -74,7 +74,7 @@ class MessageList extends Component {
   }
 
   render() {
-    const { messages } = this.props;
+    const { messages, username } = this.props;
     const groups = messageGroups(messages);
     const messageEls = map(groups, ({ messages, key }, i) => (
       <Message
@@ -84,11 +84,16 @@ class MessageList extends Component {
     )).reverse();
 
     return (
-      <ul
+      <div
         className="MessageList messages-content media-list"
       >
-        {messageEls}
-      </ul>
+        <ul className="container">
+          <li className="py-4 text-center">
+            <p className="mb-4">This is the beginning of your private message history with <b>@{username}</b>.</p>
+          </li>
+          {messageEls}
+        </ul>
+      </div>
     );
   }
 }

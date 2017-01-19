@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
+import { FormattedMessage } from 'react-intl';
 import Header from '../app/Header';
 import Feed from '../feed/Feed';
 import {
@@ -40,8 +40,10 @@ export default class Bookmarks extends Component {
     return (
       <div className="main-panel">
         <Header />
-        <div className="my-3">
-          <h1 className="text-xs-center">Bookmarks</h1>
+        <div className="my-5">
+          <h1 className="text-center">
+            <FormattedMessage id="bookmarks" />
+          </h1>
           <Feed
             content={content}
             isFetching={isFetching}
@@ -52,8 +54,8 @@ export default class Bookmarks extends Component {
           />
           { !isFetching && !content.length &&
             <div className="container">
-              <h3 className="text-xs-center">
-                You don't have any story saved.
+              <h3 className="text-center">
+                <FormattedMessage id="empty_bookmarks" />
               </h3>
             </div>
           }
