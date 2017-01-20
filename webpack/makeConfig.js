@@ -43,7 +43,7 @@ function makePlugins(options) {
         IS_BROWSER: JSON.stringify(true),
       },
     }),
-    new LodashModuleReplacementPlugin({ collections: true, paths: true }),
+    new LodashModuleReplacementPlugin({ collections: true, paths: true, shorthands: true }),
     new Visualizer({
       filename: './statistics.html'
     }),
