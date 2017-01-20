@@ -17,7 +17,13 @@ export const FETCH_CHANNEL_PRESENCE_SUCCESS = '@messages/FETCH_CHANNEL_PRESENCE_
 export const FETCH_CHANNEL_PRESENCE_ERROR = '@messages/FETCH_CHANNEL_PRESENCE_ERROR';
 
 export const fetchChannelPresence = (channelName = 'general') =>
-  (dispatch) => {
+  (dispatch, getState) => {
+    const { auth } = getState();
+
+    if (!auth.isAuthenticated) {
+      return;
+    }
+
     const url = `${HOST}/api/v1/channels/?channelName=?${channelName}`;
 
     dispatch({
@@ -38,15 +44,23 @@ export function sendMessage(message) {
   const msg = extend(message, {
     uuid: message.uuid || uuid(),
   });
-  return (dispatch, getState, { messagesWorker }) => dispatch({
-    type: SEND_MESSAGE_REQUEST,
-    meta: {
-      message: msg,
-    },
-    payload: {
-      promise: messagesWorker.sendMessage(msg),
-    },
-  });
+  return (dispatch, getState, { messagesWorker }) => {
+    const { auth } = getState();
+
+    if (!auth.isAuthenticated) {
+      return;
+    }
+
+    dispatch({
+      type: SEND_MESSAGE_REQUEST,
+      meta: {
+        message: msg,
+      },
+      payload: {
+        promise: messagesWorker.sendMessage(msg),
+      },
+    });
+  }
 }
 
 export const JOIN_CHANNEL = '@messages/JOIN_CHANNEL';
