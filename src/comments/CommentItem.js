@@ -76,10 +76,13 @@ export default class CommentItem extends Component {
 
     return (
       <div className="CommentItem">
-        <div className={`CommentItem__content CommentItem__content--level-${comment.depth}`}>
+        <div className={`CommentItem__content CommentItem__content--level-${comment.depth} pb-2`}>
           <div className="CommentUser">
             <Link to={`/@${comment.author}`}>
-              <Avatar xs username={comment.author} />
+              <Avatar
+                className={this.props.isSinglePage ? 'Avatar--md' : 'Avatar--xs'}
+                username={comment.author}
+              />
             </Link>
           </div>
           <div className="CommentBody">
