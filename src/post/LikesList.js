@@ -21,28 +21,30 @@ export default class LikesList extends Component {
   render() {
     const { activeVotes } = this.props;
     const hasMore = activeVotes.length > this.state.show;
-
     return (
       <div className="LikesList">
         {
-          activeVotes.slice(0, this.state.show).map(vote =>
-            <div className="LikesList__item" key={vote.voter}>
-              <Avatar xs username={vote.voter} />
-              { ' ' }
-              <Link to={`/@${vote.voter}`}>
-                {vote.voter}
-              </Link>
-              { ' ' }
-              {vote.percent < 0
-                ? <span className="text-danger">Disliked</span>
-                : <span>
-                  Liked{' '}
-                  <span className="text-info">
-                    {numeral((vote.percent / 10000)).format('0%')}
+          activeVotes
+            .sort((a, b) => a.rshares - b.rshares)
+            .reverse()
+            .slice(0, this.state.show).map(vote =>
+              <div className="LikesList__item" key={vote.voter}>
+                <Avatar xs username={vote.voter} />
+                {' '}
+                <Link to={`/@${vote.voter}`}>
+                  {vote.voter}
+                </Link>
+                {' '}
+                {vote.percent < 0
+                  ? <span className="text-danger">Disliked</span>
+                  : <span>
+                    Liked{' '}
+                    <span className="text-info">
+                      {numeral((vote.percent / 10000)).format('0%')}
+                    </span>
                   </span>
-                </span>
-              }
-            </div>
+                }
+              </div>
           )
         }
         { hasMore &&
