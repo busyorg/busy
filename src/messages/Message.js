@@ -9,25 +9,27 @@ function Message(props) {
 
   return (
     <li className="Message message">
-      <div data-uuid={model[0].uuid}>
-        <div className="Message__left">
-          <Avatar sm username={senderUsername} />
-        </div>
-        <div className="ml-5">
-          <div className="media-heading">
-            <b>{senderUsername}</b>
-            {' '}
-            <span className="text-info">
-              <FormattedRelative value={sentAt} />
-            </span>
+      <div className="container">
+        <div data-uuid={model[0].uuid}>
+          <div className="Message__left">
+            <Avatar sm username={senderUsername} />
           </div>
-          <p>{model[0].text}</p>
+          <div className="ml-5">
+            <div className="media-heading">
+              <b>{senderUsername}</b>
+              {' '}
+              <span className="text-info">
+                <FormattedRelative value={sentAt} />
+              </span>
+            </div>
+            <p>{model[0].text}</p>
+          </div>
         </div>
       </div>
 
       {
         model.slice(1).map(({ uuid, text }, i) => (
-          <div key={i} data-uuid={uuid}>
+          <div className="container" key={i} data-uuid={uuid}>
             <div className="ml-5">
               <p>{text}</p>
             </div>
