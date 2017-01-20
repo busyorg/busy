@@ -1,4 +1,9 @@
-/* eslint-disable camelcase */
+/* eslint-disable camelcase,no-param-reassign,consistent-return,no-console */
+
+import base58 from 'bs58';
+import steem from 'steem';
+import getSlug from 'speakingurl';
+import secureRandom from 'secure-random';
 
 /**
  * This function is extracted from steemit.com source code and does the same tasks with some slight-
@@ -84,3 +89,53 @@ export const calculatePayout = (post) => {
 
   return payoutDetails;
 };
+
+function checkPermLinkLength(permlink) {
+  if (permlink.length > 255) {
+    // STEEMIT_MAX_PERMLINK_LENGTH
+    permlink = permlink.substring(permlink.length - 255, permlink.length);
+  }
+  // only letters numbers and dashes shall survive
+  permlink = permlink.toLowerCase().replace(/[^a-z0-9-]+/g, '');
+  return permlink;
+}
+
+function slug(text) {
+  return getSlug(text.replace(/[<>]/g, ''), { truncate: 128 });
+}
+
+/**
+ * Generate permlink
+ * https://github.com/steemit/steemit.com/blob/ded8ecfcc9caf2d73b6ef12dbd0191bd9dbf990b/app/redux/TransactionSaga.js
+ */
+
+export function createPermlink(title, author, parent_author, parent_permlink) {
+  let permlink;
+  if (title && title.trim() !== '') {
+    let s = slug(title);
+    if (s === '') {
+      s = base58.encode(secureRandom.randomBuffer(4));
+    }
+
+    return steem.api.getContent(author, s).then((content) => {
+      let prefix;
+      if (content.body !== '') {
+        // make sure slug is unique
+        prefix = `${base58.encode(secureRandom.randomBuffer(4))}-`;
+      } else {
+        prefix = '';
+      }
+      permlink = prefix + s;
+      return checkPermLinkLength(permlink);
+    }).catch((err) => {
+      console.warn('Error while getting content', err);
+      return permlink;
+    });
+  } else {
+    // comments: re-parentauthor-parentpermlink-time
+    const timeStr = new Date().toISOString().replace(/[^a-zA-Z0-9]+/g, '');
+    parent_permlink = parent_permlink.replace(/(-\d{8}t\d{9}z)/g, '');
+    permlink = `re-${parent_author}-${parent_permlink}-${timeStr}`;
+    return Promise.resolve(checkPermLinkLength(permlink));
+  }
+}

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import _ from 'lodash';
 import Icon from '../../widgets/Icon';
 
 export default class SidebarTabs extends Component {
@@ -10,7 +11,7 @@ export default class SidebarTabs extends Component {
   }
 
   renderUnread() {
-    const nUnreadMessages = this.props.messages.unreadMessages.length;
+    const nUnreadMessages = _.size(this.props.messages.unreadMessages);
 
     if (!nUnreadMessages) return null;
 

@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import _ from 'lodash';
@@ -7,10 +8,20 @@ import './Messages.scss';
 import Header from '../app/Header';
 import MessageForm from './MessageForm';
 import MessageList from './MessageList';
-import actionDecorator from '../helpers/actionDecorator';
 import { fetchChannelPresence, joinChannel } from './messagesActions';
 
-class MessagesPage extends Component {
+@connect(
+  state => ({
+    auth: state.auth,
+    channels: state.messages.channels,
+    favorites: state.favorites,
+  }),
+  dispatch => bindActionCreators({
+    fetchChannelPresence,
+    joinChannel
+  }, dispatch)
+)
+export default class MessagesCategory extends Component {
   static propTypes = {
     auth: PropTypes.object,
     params: PropTypes.object,
@@ -23,6 +34,12 @@ class MessagesPage extends Component {
       messages: [],
       text: '',
     };
+  }
+
+  componentDidMount() {
+    const { category } = this.props.params;
+    this.props.fetchChannelPresence(category);
+    this.props.joinChannel(category);
   }
 
   render() {
@@ -51,13 +68,3 @@ class MessagesPage extends Component {
     );
   }
 }
-
-MessagesPage = actionDecorator(fetchChannelPresence, joinChannel)(MessagesPage);
-
-MessagesPage = connect(state => ({
-  auth: state.auth,
-  channels: state.messages.channels,
-  favorites: state.favorites,
-}))(MessagesPage);
-
-export default MessagesPage;
