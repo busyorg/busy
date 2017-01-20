@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { injectIntl } from 'react-intl';
 import classNames from 'classnames';
-import Icon from './Icon';
 import { followUser, unfollowUser } from '../user/userActions';
 import TooltipOrigin from '../app/TooltipOrigin';
 
@@ -60,8 +59,8 @@ export default class FollowButton extends Component {
               onClick={this.onClickFollow}
             >
               { isFollowing
-                ? 'Follow'
-                : 'Followed'
+                ? 'Followed'
+                : 'Follow'
               }
             </a>
           </TooltipOrigin>
