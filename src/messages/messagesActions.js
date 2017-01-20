@@ -16,26 +16,9 @@ export const FETCH_CHANNEL_PRESENCE_START = '@messages/FETCH_CHANNEL_PRESENCE_ST
 export const FETCH_CHANNEL_PRESENCE_SUCCESS = '@messages/FETCH_CHANNEL_PRESENCE_SUCCESS';
 export const FETCH_CHANNEL_PRESENCE_ERROR = '@messages/FETCH_CHANNEL_PRESENCE_ERROR';
 
-export function fetchChannelPresence({ params }) {
-  function getChannelName(state) {
-    if (params.category) return '?channelName=' + params.category;
-    if (params.username) {
-      if (!state.auth.user) return '';
-      return '?' + querystring.stringify({
-        channelName: [
-          '@' + state.auth.user.name,
-          '@' + params.username,
-        ]
-      });
-    }
-
-    return '?channelName=general';
-  }
-
-  return (dispatch, getState) => {
-    const state = getState();
-    const channelName = getChannelName(state);
-    const url = `${HOST}/api/v1/channels/${channelName}`;
+export const fetchChannelPresence = (channelName = 'general') =>
+  (dispatch) => {
+    const url = `${HOST}/api/v1/channels/?channelName=?${channelName}`;
 
     dispatch({
       type: FETCH_CHANNEL_PRESENCE,
@@ -43,11 +26,10 @@ export function fetchChannelPresence({ params }) {
         promise: request
           .get(url)
           .endAsync()
-          .then((res) => res.body),
+          .then(res => res.body),
       },
     });
   };
-}
 
 export const SEND_MESSAGE_REQUEST = '@messages/SEND_MESSAGE_REQUEST';
 export const SEND_MESSAGE_REQUEST_SUCCESS = '@messages/SEND_MESSAGE_REQUEST_SUCCESS';
@@ -69,14 +51,15 @@ export function sendMessage(message) {
 
 export const JOIN_CHANNEL = '@messages/JOIN_CHANNEL';
 
-export function joinChannel({ params }) {
-  const channelName = params.category || 'general';
-  return (dispatch, getState, { messagesWorker }) => dispatch({
-    type: JOIN_CHANNEL,
-    payload: {
-      promise: messagesWorker.joinChannel(channelName),
-    },
-  });
+export function joinChannel(channelName = 'general') {
+  return (dispatch, getState, { messagesWorker }) => {
+    dispatch({
+      type: JOIN_CHANNEL,
+      payload: {
+        promise: messagesWorker.joinChannel(channelName),
+      },
+    });
+  };
 }
 
 export const USER_MESSAGE_RECEIVED = '@messages/USER_MESSAGE_RECEIVED';
