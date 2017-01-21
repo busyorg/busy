@@ -10,6 +10,10 @@ body {
   color: $text-color;
 }
 
+button {
+  cursor: pointer;
+}
+
 a {
   cursor: pointer;
   color: $primary-color;

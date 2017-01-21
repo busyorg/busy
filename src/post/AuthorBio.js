@@ -51,7 +51,7 @@ class AuthorBio extends Component {
             </Link>
             {' '}
             <Follow username={authorName} />
-            <div>{about}</div>
+            <p className="mt-2">{about}</p>
           </div>
         </div>
       );

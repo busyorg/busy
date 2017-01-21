@@ -84,16 +84,14 @@ class MessageList extends Component {
     )).reverse();
 
     return (
-      <div
+      <ul
         className="MessageList messages-content media-list"
       >
-        <ul className="container">
-          <li className="py-4 text-center">
-            <p className="mb-4">This is the beginning of your private message history with <b>@{username}</b>.</p>
-          </li>
-          {messageEls}
-        </ul>
-      </div>
+        {messageEls}
+        <li className="py-4 text-center">
+          <p className="mb-4">This is the beginning of your private message history with <b>@{username}</b>.</p>
+        </li>
+      </ul>
     );
   }
 }

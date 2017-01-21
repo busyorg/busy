@@ -38,7 +38,7 @@ export default class AppSettings extends React.Component {
                 onClick={() => setLayout('card')}
                 className={app.layout === 'card' && 'active'}
               >
-                <Icon name="view_agenda" lg />
+                <Icon name="view_agenda" xl />
                 <h2 className="mvs">
                   <FormattedMessage id="card" />
                 </h2>
@@ -49,7 +49,7 @@ export default class AppSettings extends React.Component {
                 onClick={() => setLayout('list')}
                 className={app.layout === 'list' && 'active'}
               >
-                <Icon name="view_list" lg />
+                <Icon name="view_list" xl />
                 <h2 className="mvs">
                   <FormattedMessage id="list" />
                 </h2>

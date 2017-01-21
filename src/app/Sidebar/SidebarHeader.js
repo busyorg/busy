@@ -14,34 +14,31 @@ const SidebarHeader = ({
   onClickMenu,
 }) =>
   <div className="SidebarHeader">
-    <a className="hide-sidebar" onClick={() => hideSidebar()}>
+    <a className="hide-sidebar hidden-lg-up" onClick={() => hideSidebar()}>
       <Icon name="arrow_back" className="Icon--menu" />
     </a>
     <div className="SidebarHeader__log">
-      {
-        auth.isFetching &&
-          <Loading color="white" />
+      {auth.isFetching &&
+        <Loading color="white" />
       }
-      {
-        !auth.isAuthenticated && !auth.isFetching &&
-          <a href={steemconnect.getLoginURL()}>
-            <Icon name="lock_outline" />
-            {' '}<FormattedMessage id="login" />
-          </a>
+      {!auth.isAuthenticated && !auth.isFetching &&
+        <a href={steemconnect.getLoginURL()}>
+          <Icon name="lock_outline" />
+          {' '}<FormattedMessage id="login" />
+        </a>
       }
-      {
-        auth.isAuthenticated &&
-          <div>
-            <Link to={`/@${user.name}`} className="my-1">
-              <Avatar sm username={user.name} reputation={user.reputation} />
-            </Link>
-            <div className="SidebarHeader__username">
-              {`${user.name} `}
-              <a onClick={() => onClickMenu({ menu: 'settings' })}>
-                <Icon name="settings" xs />
-              </a>
-            </div>
+      {auth.isAuthenticated &&
+        <div>
+          <Link to={`/@${user.name}`} className="my-1">
+            <Avatar sm username={user.name} reputation={user.reputation} />
+          </Link>
+          <div className="SidebarHeader__username">
+            {`${user.name} `}
+            <a onClick={() => onClickMenu({ menu: 'settings' })}>
+              <Icon name="settings" xs />
+            </a>
           </div>
+        </div>
       }
     </div>
   </div>;

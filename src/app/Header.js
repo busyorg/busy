@@ -9,6 +9,7 @@ import './Header.scss';
 @connect(
   state => ({
     app: state.app,
+    auth: state.auth,
   }),
   dispatch => bindActionCreators({
     showSidebar: showSidebar,
@@ -35,7 +36,7 @@ export default class Header extends Component {
           }
 
           <div className="Header__title">
-            { this.props.title }
+            {this.props.title}
           </div>
 
           <div className="section-content top-head">
@@ -46,13 +47,31 @@ export default class Header extends Component {
             </div>
           </div>
 
-          <div className="right mr-2">
-            <Link to="/bookmarks">
-              <Icon name="bookmarks" className="Icon--menu" />
-            </Link>
-          </div>
+          {this.props.auth.isAuthenticated
+            ? <div className="right mr-2">
+              <Link to="/write">
+                <Icon name="add" className="Icon--menu" />
+              </Link>
+              <Link to="/bookmarks">
+                <Icon name="bookmarks" className="Icon--menu" />
+              </Link>
+              <Link to="/help">
+                <Icon name="help_outline" className="Icon--menu" />
+              </Link>
+            </div>
+            : <div className="right mr-2">
+              <Link to="/help">
+                <Icon name="help_outline" className="Icon--menu" />
+              </Link>
+            </div>
+          }
         </div>
-        {this.props.children && <div className="app-nav">{this.props.children}</div>}
+
+        {this.props.children &&
+          <div className="app-nav">
+            {this.props.children}
+          </div>
+        }
       </header>
     );
   }
