@@ -23,6 +23,7 @@ const PostSingleContent = ({
   isPostDisliked,
   openPostModal,
   nextStory,
+  pushUrlState,
   scrollToTop,
 }) => {
   let jsonMetadata = {};
@@ -84,6 +85,7 @@ const PostSingleContent = ({
         openPostModal={openPostModal}
         nextStory={nextStory}
         scrollToTop={scrollToTop}
+        pushUrlState={pushUrlState}
         content={content}
       />
 

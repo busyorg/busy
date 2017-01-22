@@ -14,8 +14,7 @@ export default class PostSingleModal extends Component {
     // manipulate address bar to show the article's address
     if (window && window.history) {
       const { content } = this.props;
-      const postPath = `/${content.parent_permlink}/@${content.author}/${content.permlink}`;
-      window.history.pushState({}, content.title, postPath);
+      this.pushUrlState(content);
     }
 
     if (window) {
@@ -55,6 +54,11 @@ export default class PostSingleModal extends Component {
       this.DOMNode.scrollTop = 0;
     }
   };
+
+  pushUrlState = (content) => {
+    const postPath = `/${content.parent_permlink}/@${content.author}/${content.permlink}`;
+    window.history.pushState({}, content.title, postPath);
+  }
 
   render() {
     return (
@@ -96,6 +100,7 @@ export default class PostSingleModal extends Component {
           openPostModal={this.props.openPostModal}
           nextStory={this.props.nextStory}
           scrollToTop={this.scrollToTop}
+          pushUrlState={this.pushUrlState}
         />
         <CommentForm />
       </div>
