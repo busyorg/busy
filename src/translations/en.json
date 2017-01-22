@@ -20,7 +20,7 @@
   "wallet": "Wallet",
   "messages": "Messages",
   "language": "Language",
-  "estimated_value": "Estimated Value",
+  "estimated_value": "Total ≈",
   "layout": "Layout",
   "transfer": "Transfer",
   "reply_to": "Reply to",
@@ -46,5 +46,6 @@
   "@tooltip_add_fav": "Add in your favorites",
   "@tooltip_add_bookmark": "Add in your bookmarks",
   "next_story": "Next Story",
-  "login": "Log In"
+  "help": "Help",
+  "search": "Search"
 }
