@@ -45,11 +45,11 @@ export default class FollowButton extends Component {
 
     return (
       <span>
-        { hasFollow &&
+        {hasFollow &&
           <TooltipOrigin
             content={isFollowing
-            ? intl.formatMessage({ id: '@tooltip_follow_user' }, { username })
-            : intl.formatMessage({ id: '@tooltip_unfollow_user' }, { username })
+              ? intl.formatMessage({ id: '@tooltip_unfollow_user' }, { username })
+              : intl.formatMessage({ id: '@tooltip_follow_user' }, { username })
             }
             active
             store={this.props.store}
@@ -58,7 +58,7 @@ export default class FollowButton extends Component {
               className={classNames('btn btn-outline-success btn-sm', { disabled: following.isFetching })}
               onClick={this.onClickFollow}
             >
-              { isFollowing
+              {isFollowing
                 ? 'Followed'
                 : 'Follow'
               }

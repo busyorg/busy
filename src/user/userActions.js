@@ -125,7 +125,7 @@ export function fetchFiles({ username }) {
 }
 
 steemConnect.follow = Promise.promisify(steemConnect.follow, { context: steemConnect });
-steemConnect.unfollow = Promise.promisify(steemConnect.follow, { context: steemConnect });
+steemConnect.unfollow = Promise.promisify(steemConnect.unfollow, { context: steemConnect });
 
 export const FOLLOW_USER = '@user/FOLLOW_USER';
 export const FOLLOW_USER_START = '@user/FOLLOW_USER_START';
@@ -162,7 +162,6 @@ export const unfollowUser = (username) => {
     if (!auth.isAuthenticated) {
       return;
     }
-
     dispatch({
       type: UNFOLLOW_USER,
       payload: {
