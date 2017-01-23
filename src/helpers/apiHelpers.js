@@ -46,3 +46,10 @@ export const getAccount = username =>
       throw new Error('User Not Found');
     });
 
+export const getFollowingCount = username =>
+  steemAPI.getFollowCountAsync(username);
+
+export const getAccountWithFollowingCount = username =>
+  Promise.all([getAccount(username), getFollowingCount(username)])
+    .then(([account, { following_count, follower_count }]) =>
+      ({ ...account, following_count, follower_count }));

@@ -23,8 +23,8 @@ export default class UserFollowers extends Component {
     return (
       <div>
         <div className="container">
-          { this.state.users && <UserList users={this.state.users} /> }
-          { !this.state.users && <Loading /> }
+          {this.state.users && <UserList users={this.state.users} />}
+          {!this.state.users && <Loading />}
         </div>
       </div>
     );
