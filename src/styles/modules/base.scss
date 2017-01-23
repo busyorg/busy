@@ -189,3 +189,13 @@ blockquote {
 {
   color: #FFFFFF;
 }
+
+pre {
+  padding: 0.5em 1em;
+  background-color: #f8f8f8;
+}
+
+code {
+  padding: 0.25em;
+  font-family: $font-primary !important;
+}
