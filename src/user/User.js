@@ -2,8 +2,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
-import  _ from 'lodash';
-import steemdb from 'steemdb';
+import _ from 'lodash';
 import numeral from 'numeral';
 import { Link } from 'react-router';
 import {
@@ -12,6 +11,7 @@ import {
   getUserFeedContent,
   getMoreUserFeedContent,
 } from '../feed/feedActions';
+import { getAccountWithFollowingCount } from '../helpers/apiHelpers';
 import { getUserComments, getMoreUserComments } from './userActions';
 import Header from '../app/Header';
 import MenuUser from '../app/Menu/MenuUser';
@@ -60,11 +60,8 @@ export default class UserProfile extends React.Component {
 
   fetchUserData() {
     this.setState({ user: {} });
-    steemdb.accounts({
-      account: this.props.params.name
-    }, (err, result) => {
-      this.setState({ user: result[0] });
-    });
+    getAccountWithFollowingCount(this.props.params.name)
+      .then(user => this.setState({ user }));
   }
 
   isFavorited() {
@@ -94,7 +91,7 @@ export default class UserProfile extends React.Component {
           <div className="my-5">
             <Avatar xl username={username} reputation={_.has(user, 'name') && user.reputation} />
             <h1>
-              { _.has(jsonMetadata, 'profile.name')
+              {_.has(jsonMetadata, 'profile.name')
                 ? jsonMetadata.profile.name
                 : username
               }
@@ -111,28 +108,28 @@ export default class UserProfile extends React.Component {
           </div>
         </section>
         <div className="profile">
-          { !_.has(user, 'name') && <Loading />}
-          { _.has(user, 'name') && <div>
+          {!_.has(user, 'name') && <Loading />}
+          {_.has(user, 'name') && <div>
             <ul className="secondary-nav">
               <li>
                 <Link to={`/@${username}`}>
                   <Icon name="library_books" /> {numeral(user.post_count).format('0,0')}
                   <span className="hidden-xs">
-                    { ' ' }<FormattedMessage id="posts" />
+                    {' '}<FormattedMessage id="posts" />
                   </span>
                 </Link>
               </li>
               <li>
                 <Icon name="gavel" /> {numeral(parseInt(user.voting_power) / 10000).format('%0')}
                 <span className="hidden-xs">
-                  { ' ' }<FormattedMessage id="voting_power" />
+                  {' '}<FormattedMessage id="voting_power" />
                 </span>
               </li>
               <li>
                 <Link to={`/@${username}/followers`}>
-                  <Icon name="people" /> {numeral(parseInt(user.followers_count)).format('0,0')}
+                  <Icon name="people" /> {numeral(parseInt(user.follower_count)).format('0,0')}
                   <span className="hidden-xs">
-                    { ' ' }<FormattedMessage id="followers" />
+                    {' '}<FormattedMessage id="followers" />
                   </span>
                 </Link>
               </li>
@@ -140,7 +137,7 @@ export default class UserProfile extends React.Component {
                 <Link to={`/@${username}/followed`}>
                   <Icon name="people" /> {numeral(parseInt(user.following_count)).format('0,0')}
                   <span className="hidden-xs">
-                    { ' ' }<FormattedMessage id="followed" />
+                    {' '}<FormattedMessage id="followed" />
                   </span>
                 </Link>
               </li>
@@ -148,13 +145,13 @@ export default class UserProfile extends React.Component {
           </div>}
         </div>
         <div>
-          { React.cloneElement(
+          {React.cloneElement(
             this.props.children,
             {
               ...this.props,
               limit: 10,
             }
-          ) }
+          )}
         </div>
       </div>
     );

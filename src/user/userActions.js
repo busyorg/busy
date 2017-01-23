@@ -1,7 +1,8 @@
 import Promise from 'bluebird';
 import fetch from 'isomorphic-fetch';
 import steemConnect from 'steemconnect';
-import steemdb from 'steemdb';
+
+import { getAllFollowing } from '../helpers/apiHelpers';
 
 export const GET_USER_COMMENTS = 'GET_USER_COMMENTS';
 export const GET_USER_COMMENTS_START = 'GET_USER_COMMENTS_START';
@@ -124,7 +125,7 @@ export function fetchFiles({ username }) {
 }
 
 steemConnect.follow = Promise.promisify(steemConnect.follow, { context: steemConnect });
-steemConnect.unfollow = Promise.promisify(steemConnect.follow, { context: steemConnect });
+steemConnect.unfollow = Promise.promisify(steemConnect.unfollow, { context: steemConnect });
 
 export const FOLLOW_USER = '@user/FOLLOW_USER';
 export const FOLLOW_USER_START = '@user/FOLLOW_USER_START';
@@ -161,7 +162,6 @@ export const unfollowUser = (username) => {
     if (!auth.isAuthenticated) {
       return;
     }
-
     dispatch({
       type: UNFOLLOW_USER,
       payload: {
@@ -179,7 +179,6 @@ export const GET_FOLLOWING_START = '@user/GET_FOLLOWING_START';
 export const GET_FOLLOWING_SUCCESS = '@user/GET_FOLLOWING_SUCCESS';
 export const GET_FOLLOWING_ERROR = '@user/GET_FOLLOWING_ERROR';
 
-steemdb.accounts = Promise.promisify(steemdb.accounts, { context: steemdb });
 
 export const getFollowing = (userName = '') => {
   return (dispatch, getState) => {
@@ -195,9 +194,7 @@ export const getFollowing = (userName = '') => {
       type: GET_FOLLOWING,
       meta: targetUsername,
       payload: {
-        promise: steemdb.accounts({ account: targetUsername }).then(
-          res => res[0] && res[0].following
-        ),
+        promise: getAllFollowing(userName),
       }
     });
   };

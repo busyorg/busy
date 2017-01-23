@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { FormattedMessage } from 'react-intl';
 import formatter from 'steem/lib/formatter';
-import steemdb from 'steemdb';
 import numeral from 'numeral';
 import _ from 'lodash';
+
 import api from '../steemAPI';
 import { hideSidebar } from '../actions';
 import Loading from '../widgets/Loading';
@@ -51,7 +51,7 @@ export default class Sidebar extends Component {
       this.setState({
         isFetching: false,
         isLoaded: true,
-        categories: categories,
+        categories,
         props: result.props,
       });
     });
@@ -59,7 +59,7 @@ export default class Sidebar extends Component {
 
   filterTagsBySearch(tags = []) {
     const { search } = this.state;
-    return tags.filter((tag) => _.startsWith(tag, search));
+    return tags.filter(tag => _.startsWith(tag, search));
   }
 
   renderFavoritedTags() {
