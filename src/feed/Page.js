@@ -1,5 +1,4 @@
 import React from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Header from '../app/Header';
 import MenuFeed from '../app/Menu/MenuFeed';
@@ -17,10 +16,8 @@ import {
   getUserFeedContentFromState,
   getUserFeedLoadingFromState,
 } from '../helpers/stateHelpers';
-import * as commentsActions from '../comments/commentsActions';
-import { toggleBookmark } from '../bookmarks/bookmarksActions';
 import Loading from '../widgets/Loading';
-import FavoriteCategoryButton from '../favorites/FavoriteCategoryButton';
+import FavoriteButton from '../favorites/FavoriteButton';
 import * as favoriteActions from '../favorites/favoritesActions';
 import EmptyFeed from '../statics/EmptyFeed';
 
@@ -88,21 +85,19 @@ export default class Page extends React.Component {
       <div className="main-panel">
         <Header />
         <MenuFeed category={category} />
-
         { category &&
           <h2 className="mt-3 text-center">
-            <FavoriteCategoryButton
+            <span className="text-info">#</span>
+            {' '}{category}{' '}
+            <FavoriteButton
               isFavorited={this.isFavorited()}
               onClick={this.isFavorited()
                 ? this.props.removeCategoryFavorite
                 : this.props.addCategoryFavorite
               }
-            >
-              # { category }
-            </FavoriteCategoryButton>
+            />
           </h2>
         }
-
         { auth.isFetching && <Loading /> }
         { !auth.isFetching &&
           <Feed
