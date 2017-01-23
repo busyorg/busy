@@ -94,7 +94,6 @@
     "speakingurl": "^11.0.0",
     "steem": "adcpm/steem#dev",
     "steemconnect": "adcpm/steemconnect#dev",
-    "steemdb": "adcpm/steemdb#dev",
     "steemembed": "adcpm/steemembed#dev",
     "store": "^1.3.20",
     "striptags": "^2.1.1",
