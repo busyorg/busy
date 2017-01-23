@@ -5,7 +5,7 @@ import sanitizeHtml from 'sanitize-html';
 import Remarkable from 'remarkable';
 
 import sanitizeConfig from '../helpers/SanitizeConfig';
-import { replaceAll, escapeRegExp, imageRegex } from '../helpers/regexHelpers';
+import { replaceAll, escapeRegExp, imageRegex, linkify } from '../helpers/regexHelpers';
 
 const remarkable = new Remarkable({
   html: true, // remarkable renders first then sanitize runs...
@@ -30,13 +30,7 @@ export default (props) => {
     }
   });
 
-  if (_.has(jsonMetadata, 'users[0]')) {
-    body = body.replace(/(^|\s)(@[-.a-z\d]+)/ig, (user) => {
-      const space = /^\s/.test(user) ? user[0] : '';
-      user = user.trim().substring(1);
-      return `${space}<a href="/@${user}">${user}</a>`;
-    });
-  }
+  body = linkify(body);
 
   if (_.has(embeds, '[0].embed')) {
     embeds.forEach((embed) => { body = body.replace(embed.url, embed.embed); });
@@ -51,7 +45,7 @@ export default (props) => {
 
       body = replaceAll(body, `<a href="${image}">${image}</a>`, `<img src="${newUrl}">`);
       // not in img tag
-      if (body.search(`<img[^>]+src="${escapeRegExp(image)}"`) === -1) {
+      if (body.search(`<img[^>]+src=["']${escapeRegExp(image)}["']`) === -1) {
         body = replaceAll(body, image, `<img src="${newUrl}">`);
       }
     });

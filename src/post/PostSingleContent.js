@@ -9,6 +9,18 @@ import Comments from '../comments/Comments';
 import Avatar from '../widgets/Avatar';
 import './PostSingleContent.scss';
 
+const Tag = ({ tag }) => {
+  if (tag.trim().length) {
+    return (<span>
+      <Link to={`/hot/${tag}`} className="btn btn-sm btn-secondary">
+        {tag}
+      </Link>
+      {' '}
+    </span>);
+  }
+  return null;
+};
+
 const PostSingleContent = ({
   content,
   toggleBookmark,
@@ -23,6 +35,7 @@ const PostSingleContent = ({
   isPostDisliked,
   openPostModal,
   nextStory,
+  pushUrlState,
   scrollToTop,
 }) => {
   let jsonMetadata = {};
@@ -33,13 +46,13 @@ const PostSingleContent = ({
         <div className="PostSingleContent__header mb-3">
           <Link to={`/@${content.author}`}>
             <Avatar sm username={content.author} />
-            { ' ' }
+            {' '}
             <span>
               {content.author}
             </span>
           </Link>
           <span className="hidden-xs">
-            { ' in ' }
+            {' in '}
             <Link to={`/hot/${content.category}`}>#{content.category}</Link>
           </span>
           <span className="pull-right">
@@ -60,14 +73,7 @@ const PostSingleContent = ({
 
         {jsonMetadata.tags &&
           <div className="mb-3">
-            {jsonMetadata.tags.map(tag => (
-              <span key={tag}>
-                <Link to={`/hot/${tag}`} className="btn btn-sm btn-secondary">
-                  {tag}
-                </Link>
-                { ' ' }
-              </span>
-            ))}
+            {jsonMetadata.tags.map(tag => <Tag key={tag} tag={tag} />)}
           </div>
         }
       </div>
@@ -84,6 +90,7 @@ const PostSingleContent = ({
         openPostModal={openPostModal}
         nextStory={nextStory}
         scrollToTop={scrollToTop}
+        pushUrlState={pushUrlState}
         content={content}
       />
 
