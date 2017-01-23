@@ -1,3 +1,5 @@
+import Promise from 'bluebird';
+
 import steemAPI from '../steemAPI';
 
 /** *
@@ -53,3 +55,25 @@ export const getAccountWithFollowingCount = username =>
   Promise.all([getAccount(username), getFollowingCount(username)])
     .then(([account, { following_count, follower_count }]) =>
       ({ ...account, following_count, follower_count }));
+
+export const getFollowing = (username, startForm = '', type = 'blog', limit = 100) =>
+  steemAPI.getFollowingAsync(username, startForm, type, limit)
+    .then(result => result.map(user => user.following));
+
+export const getFollowers = (username, startForm = '', type = 'blog', limit = 100) =>
+  steemAPI.getFollowersAsync(username, startForm, type, limit)
+    .then(result => result.map(user => user.follower));
+
+export const getAllFollowing = username =>
+  getFollowingCount(username)
+    .get('following_count')
+    .then((followingCount) => {
+      const chunkSize = 100;
+      const limitArray = Array.fill(Array(Math.ceil(followingCount / chunkSize)), chunkSize);
+      return Promise.reduce(limitArray, (currentList, limit) => {
+        const startForm = currentList[currentList.length - 1] || '';
+        return getFollowing(username, startForm, 'blog', limit)
+          .then(following => currentList.slice(0, currentList.length - 1).concat(following));
+      }, []);
+    });
+
