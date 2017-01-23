@@ -33,3 +33,11 @@
     background-color: #2ED8B1 !important;
   }
 }
+
+.btn-success {
+  color: #fff !important;
+
+  &:hover, &:focus, &:active {
+    color: #fff !important;
+  }
+}
