@@ -2,12 +2,14 @@ import React from 'react';
 import { Link } from 'react-router';
 import ReduxInfiniteScroll from 'redux-infinite-scroll';
 import { isNumber, take } from 'lodash';
+import Follow from '../widgets/Follow';
 import Avatar from '../widgets/Avatar';
 import Icon from '../widgets/Icon';
 
 const UserRow = props => <h3>
   <Link to={`/@${props.username}`}>
     <Avatar username={props.username} sm /> {props.username}
+    {' '}<Follow username={props.username} />
   </Link>
 </h3>;
 
@@ -20,22 +22,22 @@ export default class UserList extends React.Component {
   search = (event) => {
     this.setState({
       search: event.target.value.trim().toLowerCase(),
-      page: 1
+      page: 1,
     });
-  }
+  };
 
   paginate = () => {
     const page = isNumber(this.state.page) ? (this.state.page + 1) : 1;
     this.setState({ page });
-  }
+  };
 
   render() {
     const search = this.state.search;
     const defaultPageItems = 10;
     const noOfItemsToShow = defaultPageItems * this.state.page;
-    const users = this.state.search ?
-      this.props.users.filter(user => user.indexOf(search) >= 0) : this.props.users;
-
+    const users = this.state.search
+      ? this.props.users.filter(user => user.indexOf(search) >= 0)
+      : this.props.users;
     return (
       <div>
         <div className="input-group input-group-lg">
