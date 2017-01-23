@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import steemdb from 'steemdb';
-import Loading from '../widgets/Loading';
+
 import UserList from './UserList';
+import Loading from '../widgets/Loading';
+import { getAllFollowers } from '../helpers/apiHelpers';
 
 export default class UserFollowers extends Component {
   constructor(props) {
@@ -12,11 +13,8 @@ export default class UserFollowers extends Component {
   }
 
   componentWillMount() {
-    steemdb.accounts({
-      account: this.props.params.name
-    }, (err, result) => {
-      this.setState({ users: result[0].followers.sort() });
-    });
+    getAllFollowers(this.props.params.name)
+      .then(users => this.setState({ users: users.sort() }));
   }
 
   render() {

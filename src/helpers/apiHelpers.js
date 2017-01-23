@@ -77,3 +77,16 @@ export const getAllFollowing = username =>
       }, []);
     });
 
+export const getAllFollowers = username =>
+  getFollowingCount(username)
+    .get('follower_count')
+    .then((followerCount) => {
+      const chunkSize = 100;
+      const limitArray = Array.fill(Array(Math.ceil(followerCount / chunkSize)), chunkSize);
+      return Promise.reduce(limitArray, (currentList, limit) => {
+        const startForm = currentList[currentList.length - 1] || '';
+        return getFollowers(username, startForm, 'blog', limit)
+          .then(following => currentList.slice(0, currentList.length - 1).concat(following));
+      }, []);
+    });
+
