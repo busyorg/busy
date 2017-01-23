@@ -1,3 +1,5 @@
+import steemAPI from '../steemAPI';
+
 /** *
  * Get the path from URL and the API object of steem and return the correct API call based on path
  * @param path - as in URL like 'trending'
@@ -28,3 +30,19 @@ export const getDiscussionsFromAPI = function (sortBy, query, steemAPI, callback
       throw new Error('There is not API endpoint defined for this sorting');
   }
 };
+
+export const getAccount = username =>
+  steemAPI.getAccountsAsync([username])
+    .then((result) => {
+      if (result.length) {
+        const userAccount = result[0];
+        try {
+          userAccount.json_metadata = JSON.parse(result[0].json_metadata);
+        } catch (e) {
+          userAccount.json_metadata = {};
+        }
+        return userAccount;
+      }
+      throw new Error('User Not Found');
+    });
+
