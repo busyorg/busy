@@ -19,7 +19,11 @@ class AuthorBio extends Component {
   }
 
   componentDidMount() {
-    steemAPI.getAccounts([this.props.authorName], (err, result) => {
+    this.setAuthor(this.props.authorName);
+  }
+
+  setAuthor = (authorName) => {
+    steemAPI.getAccounts([authorName], (err, result) => {
       if (result.length) {
         const author = result[0];
         try {
@@ -30,6 +34,12 @@ class AuthorBio extends Component {
         this.setState({ author });
       }
     });
+  }
+
+  componentWillReceiveProps(newProps) {
+    if (newProps.authorName !== this.props.authorName) {
+      this.setAuthor(newProps.authorName);
+    }
   }
 
   render() {
