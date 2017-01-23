@@ -1,13 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { FormattedMessage, injectIntl } from 'react-intl';
+import { Tooltip } from 'pui-react-tooltip';
+import { OverlayTrigger } from 'pui-react-overlay-trigger';
 import BodyShort from '../BodyShort';
 import PostActionButtons from '../PostActionButtons';
 import Avatar from '../../widgets/Avatar';
 import Icon from '../../widgets/Icon';
 import PostModalLink from './../PostModalLink';
 import ProfileTooltipOrigin from '../../user/profileTooltip/ProfileTooltipOrigin';
-import TooltipOrigin from '../../app/TooltipOrigin';
 import './PostFeedList.scss';
 
 const PostFeedList = ({
@@ -39,17 +40,19 @@ const PostFeedList = ({
     }
     <div className="PostFeedList__cell PostFeedList__cell--body">
 
-      <TooltipOrigin
-        content={intl.formatMessage({ id: '@tooltip_add_bookmark' })}
-        active={!bookmarks[post.id]}
+      <OverlayTrigger
+        placement="top"
+        overlay={
+          <Tooltip>
+            {intl.formatMessage({ id: bookmarks[post.id] ? '@tooltip_remove_bookmark' : '@tooltip_add_bookmark' })}
+          </Tooltip>}
       >
         <a onClick={() => toggleBookmark(post.id)} className="PostFeedList__cell__bookmark">
           <Icon
-            small
             name={bookmarks[post.id] ? 'bookmark' : 'bookmark_border'}
           />
         </a>
-      </TooltipOrigin>
+      </OverlayTrigger>
       <h2>
         <PostModalLink
           post={post}
