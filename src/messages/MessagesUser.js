@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import querystring from 'querystring';
 import dispatchActions from '../helpers/dispatchActions';
 import './Messages.scss';
 import Header from '../app/Header';
@@ -11,12 +10,10 @@ import { fetchChannelPresence, joinChannel } from './messagesActions';
 
 const getChannelName = (auth, params) => {
   if (!auth.user) return '';
-  return '?' + querystring.stringify({
-    channelName: [
-      '@' + auth.user.name,
-      '@' + params.username,
-    ]
-  });
+  return [
+    `@${auth.user.name}`,
+    `@${params.username}`,
+  ];
 };
 
 @connect(
