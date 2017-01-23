@@ -42,7 +42,6 @@ export default class FollowButton extends Component {
     const { following, username, auth, intl } = this.props;
     const isFollowing = following.list && following.list.includes(username);
     const hasFollow = auth.isAuthenticated && username !== auth.user.name;
-
     return (
       <span>
         {hasFollow &&
@@ -55,7 +54,11 @@ export default class FollowButton extends Component {
             store={this.props.store}
           >
             <a
-              className={classNames('btn btn-outline-success btn-sm', { disabled: following.isFetching })}
+              className={classNames('btn btn-sm', {
+                disabled: following.isFetching,
+                'btn-outline-success': !isFollowing,
+                'btn-success': isFollowing,
+              })}
               onClick={this.onClickFollow}
             >
               {isFollowing
