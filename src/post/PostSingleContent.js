@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { FormattedRelative } from 'react-intl';
+import BookmarkButton from '../bookmarks/BookmarkButton';
 import MenuPost from '../app/Menu/MenuPost';
 import Body from './Body';
 import AuthorBio from './AuthorBio';
@@ -44,12 +45,11 @@ const PostSingleContent = ({
           </span>
           <span className="pull-right">
             <FormattedRelative value={content.created} />
-            <a onClick={() => toggleBookmark(content.id)}>
-              <Icon
-                small
-                name={bookmarks[content.id] ? 'bookmark' : 'bookmark_border'}
-              />
-            </a>
+            <BookmarkButton
+              post={content}
+              bookmarks={bookmarks}
+              toggleBookmark={toggleBookmark}
+            />
           </span>
         </div>
 

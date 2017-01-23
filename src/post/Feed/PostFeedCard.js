@@ -3,8 +3,7 @@ import { Link } from 'react-router';
 import { FormattedMessage, FormattedRelative, injectIntl } from 'react-intl';
 import _ from 'lodash';
 import numeral from 'numeral';
-import { Tooltip } from 'pui-react-tooltip';
-import { OverlayTrigger } from 'pui-react-overlay-trigger';
+import BookmarkButton from '../../bookmarks/BookmarkButton';
 import BodyShort from '../BodyShort';
 import Comments from '../../comments/Comments';
 import PostActionButtons from '../PostActionButtons';
@@ -106,19 +105,11 @@ const PostFeedCard = ({
         </li>
         <li className="pull-right">
           <FormattedRelative value={post.created} />{' '}
-          <OverlayTrigger
-            placement="top"
-            overlay={
-              <Tooltip>
-                {intl.formatMessage({ id: bookmarks[post.id] ? '@tooltip_remove_bookmark' : '@tooltip_add_bookmark' })}
-              </Tooltip>}
-          >
-            <a onClick={() => toggleBookmark(post.id)}>
-              <Icon
-                name={bookmarks[post.id] ? 'bookmark' : 'bookmark_border'}
-              />
-            </a>
-          </OverlayTrigger>
+          <BookmarkButton
+            post={post}
+            bookmarks={bookmarks}
+            toggleBookmark={toggleBookmark}
+          />
         </li>
       </ul>
     </div>

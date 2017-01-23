@@ -1,12 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { FormattedMessage, injectIntl } from 'react-intl';
-import { Tooltip } from 'pui-react-tooltip';
-import { OverlayTrigger } from 'pui-react-overlay-trigger';
 import BodyShort from '../BodyShort';
 import PostActionButtons from '../PostActionButtons';
 import Avatar from '../../widgets/Avatar';
-import Icon from '../../widgets/Icon';
+import BookmarkButton from '../../bookmarks/BookmarkButton';
 import PostModalLink from './../PostModalLink';
 import ProfileTooltipOrigin from '../../user/profileTooltip/ProfileTooltipOrigin';
 import './PostFeedList.scss';
@@ -39,20 +37,11 @@ const PostFeedList = ({
       </div>
     }
     <div className="PostFeedList__cell PostFeedList__cell--body">
-
-      <OverlayTrigger
-        placement="top"
-        overlay={
-          <Tooltip>
-            {intl.formatMessage({ id: bookmarks[post.id] ? '@tooltip_remove_bookmark' : '@tooltip_add_bookmark' })}
-          </Tooltip>}
-      >
-        <a onClick={() => toggleBookmark(post.id)} className="PostFeedList__cell__bookmark">
-          <Icon
-            name={bookmarks[post.id] ? 'bookmark' : 'bookmark_border'}
-          />
-        </a>
-      </OverlayTrigger>
+      <BookmarkButton
+        post={post}
+        bookmarks={bookmarks}
+        toggleBookmark={toggleBookmark}
+      />
       <h2>
         <PostModalLink
           post={post}
