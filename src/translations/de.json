@@ -43,8 +43,10 @@
   "login": "Log In",
   "@tooltip_follow_user": "Folgen {username}",
   "@tooltip_unfollow_user": "Entfolgen {username}",
-  "@tooltip_add_fav": "Add in your favorites",
-  "@tooltip_add_bookmark": "Add in your bookmarks",
+  "@tooltip_add_fav": "Add in favorites",
+  "@tooltip_remove_fav": "Remove from favorites",
+  "@tooltip_add_bookmark": "Add in bookmarks",
+  "@tooltip_remove_bookmark": "Remove from bookmarks",
   "next_story": "Next Story",
   "help": "Hilf",
   "search": "Search"

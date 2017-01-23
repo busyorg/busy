@@ -43,8 +43,10 @@
   "login": "登入",
   "@tooltip_follow_user": "关注 {username}",
   "@tooltip_unfollow_user": "取消关注 {username}",
-  "@tooltip_add_fav": "Add in your favorites",
-  "@tooltip_add_bookmark": "Add in your bookmarks",
+  "@tooltip_add_fav": "Add in favorites",
+  "@tooltip_remove_fav": "Remove from favorites",
+  "@tooltip_add_bookmark": "Add in bookmarks",
+  "@tooltip_remove_bookmark": "Remove from bookmarks",
   "next_story": "Next Story",
   "help": "帮助",
   "search": "搜尋"
