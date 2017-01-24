@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router, browserHistory } from 'react-router';
+import { Router, browserHistory, applyRouterMiddleware } from 'react-router';
+import useScroll from 'react-router-scroll/lib/useScroll';
 import { Provider } from 'react-redux';
 import steemconnect from 'steemconnect';
 import ReactGA from 'react-ga';
@@ -48,6 +49,7 @@ ReactDOM.render(
       routes={routes}
       history={browserHistory}
       onUpdate={logPageView}
+      render={applyRouterMiddleware(useScroll())}
     />
   </Provider>,
   document.getElementById('app')
