@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { withRouter, Link } from 'react-router';
+import { Tooltip } from 'pui-react-tooltip';
+import { OverlayTrigger } from 'pui-react-overlay-trigger';
 import PostSingleContent from './PostSingleContent';
 import CommentForm from '../comments/CommentForm';
 import Icon from '../widgets/Icon';
-
 import './PostSingleModal.scss';
 
 @withRouter
@@ -60,6 +61,12 @@ export default class PostSingleModal extends Component {
     window.history.pushState({}, content.title, postPath);
   }
 
+  nextStory = () => {
+    this.props.openPostModal(this.props.nextStory.id);
+    this.pushUrlState(this.props.nextStory);
+    this.scrollToTop();
+  }
+
   render() {
     return (
       <div
@@ -72,7 +79,7 @@ export default class PostSingleModal extends Component {
       >
         <header>
           <div className="top-nav">
-            <a className="left ml-1" onClick={this.handleClose}>
+            <a className="left ml-2" onClick={this.handleClose}>
               <Icon name="clear" className="Icon--menu" />
             </a>
             <div className="section-content top-head">
@@ -82,8 +89,20 @@ export default class PostSingleModal extends Component {
                 </Link>
               </div>
             </div>
+            {this.props.nextStory &&
+              <div className="right mr-3">
+                <OverlayTrigger
+                  placement="left"
+                  overlay={
+                    <Tooltip>{this.props.nextStory.title}</Tooltip>}
+                >
+                  <a onClick={this.nextStory}>
+                    <Icon name="navigate_next" className="Icon--menu" />
+                  </a>
+                </OverlayTrigger>
+              </div>
+            }
           </div>
-          {this.props.children && <div className="app-nav">{this.props.children}</div>}
         </header>
         <PostSingleContent
           content={this.props.content}
@@ -97,10 +116,6 @@ export default class PostSingleModal extends Component {
           dislikePost={this.props.dislikePost}
           isPostLiked={this.props.isPostLiked}
           isPostDisliked={this.props.isPostDisliked}
-          openPostModal={this.props.openPostModal}
-          nextStory={this.props.nextStory}
-          scrollToTop={this.scrollToTop}
-          pushUrlState={this.pushUrlState}
         />
         <CommentForm />
       </div>

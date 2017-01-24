@@ -3,8 +3,8 @@ import { Link } from 'react-router';
 import { FormattedMessage, FormattedRelative, injectIntl } from 'react-intl';
 import _ from 'lodash';
 import numeral from 'numeral';
+import BookmarkButton from '../../bookmarks/BookmarkButton';
 import BodyShort from '../BodyShort';
-import Flag from '../../widgets/Flag';
 import Comments from '../../comments/Comments';
 import PostActionButtons from '../PostActionButtons';
 import Icon from '../../widgets/Icon';
@@ -13,7 +13,6 @@ import PostModalLink from './../PostModalLink';
 import LikesList from './../LikesList';
 import ProfileTooltipOrigin from '../../user/profileTooltip/ProfileTooltipOrigin';
 import { calculatePayout } from '../../helpers/steemitHelpers';
-import TooltipOrigin from '../../app/TooltipOrigin';
 import './PostFeedCard.scss';
 
 const AmountWithLabel = ({ label, amount }) => (
@@ -106,19 +105,11 @@ const PostFeedCard = ({
         </li>
         <li className="pull-right">
           <FormattedRelative value={post.created} />{' '}
-
-          <TooltipOrigin
-            content={intl.formatMessage({ id: '@tooltip_add_bookmark' })}
-            active={!bookmarks[post.id]}
-          >
-            <a onClick={() => toggleBookmark(post.id)}>
-              <Icon
-                small
-                name={bookmarks[post.id] ? 'bookmark' : 'bookmark_border'}
-              />
-            </a>
-          </TooltipOrigin>
-
+          <BookmarkButton
+            post={post}
+            bookmarks={bookmarks}
+            toggleBookmark={toggleBookmark}
+          />
         </li>
       </ul>
     </div>

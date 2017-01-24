@@ -64,6 +64,8 @@
     "nodemon": "^1.9.2",
     "numeral": "^1.5.3",
     "object-assign": "^4.1.0",
+    "pui-react-overlay-trigger": "^7.4.0",
+    "pui-react-tooltip": "^7.4.0",
     "raven-js": "^3.8.0",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",

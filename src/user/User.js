@@ -16,7 +16,7 @@ import { getUserComments, getMoreUserComments } from './userActions';
 import Header from '../app/Header';
 import MenuUser from '../app/Menu/MenuUser';
 import { addUserFavorite, removeUserFavorite } from '../favorites/favoritesActions';
-import FavoriteUserButton from '../favorites/FavoriteUserButton';
+import FavoriteButton from '../favorites/FavoriteButton';
 import Loading from '../widgets/Loading';
 import Follow from '../widgets/Follow';
 import Icon from '../widgets/Icon';
@@ -96,7 +96,7 @@ export default class UserProfile extends React.Component {
                 : username
               }
               {' '}
-              <FavoriteUserButton
+              <FavoriteButton
                 isFavorited={this.isFavorited()}
                 onClick={this.isFavorited()
                   ? () => this.props.removeUserFavorite(username)

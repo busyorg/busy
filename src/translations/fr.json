@@ -43,8 +43,10 @@
   "login": "Connexion",
   "@tooltip_follow_user": "Suivre {username}",
   "@tooltip_unfollow_user": "Se désabonner {username}",
-  "@tooltip_add_fav": "Ajouter en favoris",
-  "@tooltip_add_bookmark": "Ajouter en bookmark",
+  "@tooltip_add_fav": "Add in favorites",
+  "@tooltip_remove_fav": "Remove from favorites",
+  "@tooltip_add_bookmark": "Add in bookmarks",
+  "@tooltip_remove_bookmark": "Remove from bookmarks",
   "next_story": "Article suivant",
   "help": "Aide",
   "search": "Recherche"

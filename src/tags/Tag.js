@@ -1,7 +1,7 @@
 import React from 'react';
 import numeral from 'numeral';
 import { Link } from 'react-router';
-import FavoriteCategoryButton from '../favorites/FavoriteCategoryButton';
+import FavoriteButton from '../favorites/FavoriteButton';
 import Icon from '../widgets/Icon';
 
 const Tag = ({
@@ -14,7 +14,7 @@ const Tag = ({
     <div className="my-5 text-center">
       <h1>
         <Link to={`/hot/${tag.name}`}># {tag.name}</Link>{' '}
-        <FavoriteCategoryButton
+        <FavoriteButton
           name={tag.name}
           isFavorited={isFavorited}
           onClick={isFavorited

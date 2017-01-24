@@ -4,10 +4,9 @@ import { FormattedMessage, injectIntl } from 'react-intl';
 import BodyShort from '../BodyShort';
 import PostActionButtons from '../PostActionButtons';
 import Avatar from '../../widgets/Avatar';
-import Icon from '../../widgets/Icon';
+import BookmarkButton from '../../bookmarks/BookmarkButton';
 import PostModalLink from './../PostModalLink';
 import ProfileTooltipOrigin from '../../user/profileTooltip/ProfileTooltipOrigin';
-import TooltipOrigin from '../../app/TooltipOrigin';
 import './PostFeedList.scss';
 
 const PostFeedList = ({
@@ -38,18 +37,11 @@ const PostFeedList = ({
       </div>
     }
     <div className="PostFeedList__cell PostFeedList__cell--body">
-
-      <TooltipOrigin
-        content={intl.formatMessage({ id: '@tooltip_add_bookmark' })}
-        active={!bookmarks[post.id]}
-      >
-        <a onClick={() => toggleBookmark(post.id)} className="PostFeedList__cell__bookmark">
-          <Icon
-            small
-            name={bookmarks[post.id] ? 'bookmark' : 'bookmark_border'}
-          />
-        </a>
-      </TooltipOrigin>
+      <BookmarkButton
+        post={post}
+        bookmarks={bookmarks}
+        toggleBookmark={toggleBookmark}
+      />
       <h2>
         <PostModalLink
           post={post}
