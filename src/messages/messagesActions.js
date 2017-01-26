@@ -105,6 +105,8 @@ export function sendReadAcknoledgement(messages) {
   }
 
   return (dispatch, getState, { messagesWorker }) => {
+    const state = getState();
+    const username = state.auth.user && state.auth.user.name;
     const uuid = last(messages).uuid;
     return dispatch({
       type: USER_MESSAGE_READ,
@@ -114,6 +116,7 @@ export function sendReadAcknoledgement(messages) {
       payload: {
         promise: messagesWorker.emitAsync('USER_MESSAGE_READ', {
           uuid,
+          readBy: username,
         }),
       },
     });
