@@ -1,5 +1,6 @@
 import React from 'react';
 import { FormattedRelative } from 'react-intl';
+import Body from '../Post/Body';
 import Avatar from '../widgets/Avatar';
 
 function Message(props) {
@@ -26,12 +27,11 @@ function Message(props) {
           </div>
         </div>
       </div>
-
       {
         model.slice(1).map(({ uuid, text }, i) => (
           <div className="container" key={i} data-uuid={uuid}>
             <div className="ml-5">
-              <p>{text}</p>
+              <Body body={text} />
             </div>
           </div>
         ))
