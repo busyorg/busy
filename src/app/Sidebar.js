@@ -6,7 +6,6 @@ import { FormattedMessage } from 'react-intl';
 import formatter from 'steem/lib/formatter';
 import numeral from 'numeral';
 import _ from 'lodash';
-
 import api from '../steemAPI';
 import { hideSidebar } from '../actions';
 import Loading from '../widgets/Loading';
@@ -67,7 +66,7 @@ export default class Sidebar extends Component {
     const favoritedCategories = favorites.categories;
     return this.filterTagsBySearch(favoritedCategories)
       .sort()
-      .slice(0, 16)
+      .slice(0, 20)
       .map((category, idx) =>
         <li key={idx}>
           <Link to={`/hot/${category}`} activeClassName="active">
@@ -87,7 +86,7 @@ export default class Sidebar extends Component {
       const categoriesWithoutFavorites = _.difference(categories, favorites.categories);
 
       return this.filterTagsBySearch(categoriesWithoutFavorites)
-        .slice(0, 16 - favorites.categories.length)
+        .slice(0, 20 - favorites.categories.length)
         .map((category, idx) =>
           <li key={idx}>
             <Link to={`/hot/${category}`} activeClassName="active">

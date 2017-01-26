@@ -59,7 +59,7 @@ const renderUsers = (props, state) => {
   return _.uniqWith(usersList,
     (listA, listB) => listA.username === listB.username
   )
-  .slice(0, 16)
+  .slice(0, 20)
   .map((user, idx) => (
     <li key={idx} className="pb-1">
       <Link to={`/@${user.username}`} activeClassName="active">
@@ -106,9 +106,7 @@ export default class SidebarUsers extends Component {
                 />
               </div>
             </li>
-
-            { renderUsers(this.props, this.state) }
-
+            {renderUsers(this.props, this.state)}
           </ul>
         </li>
       </ul>
