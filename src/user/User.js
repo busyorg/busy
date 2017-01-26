@@ -149,6 +149,7 @@ export default class UserProfile extends React.Component {
             this.props.children,
             {
               ...this.props,
+              user,
               limit: 10,
             }
           )}

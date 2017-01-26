@@ -9,7 +9,6 @@ import {
   getFeedLoadingFromState,
   getFeedHasMoreFromState
 } from '../helpers/stateHelpers';
-import { getAccount } from '../helpers/apiHelpers';
 import Loading from '../widgets/Loading';
 import Icon from '../widgets/Icon';
 import Badge from '../widgets/Badge';
@@ -21,27 +20,6 @@ import EmptyUserOwnProfile from '../statics/EmptyUserOwnProfile';
 export default class UserProfile extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      user: {},
-    };
-  }
-
-  componentWillMount() {
-    this.fetchUserData();
-  }
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.params.name !== this.props.params.name) {
-      this.fetchUserData();
-    }
-  }
-
-  fetchUserData() {
-    this.setState({ user: {} });
-    getAccount(this.props.params.name)
-      .then((user) => {
-        this.setState({ user });
-      });
   }
 
   isFavorited() {
@@ -54,7 +32,6 @@ export default class UserProfile extends Component {
     const { feed, posts, getFeedContent, getMoreFeedContent, limit, auth } = this.props;
     const username = this.props.params.name;
     const isOwnProfile = auth.isAuthenticated && username === auth.user.name;
-
     const content = getFeedContentFromState('blog', username, feed, posts);
     const isFetching = getFeedLoadingFromState('blog', username, feed);
     const hasMore = getFeedHasMoreFromState('blog', username, feed);
@@ -63,15 +40,13 @@ export default class UserProfile extends Component {
       category: username,
       limit
     });
-
     const loadMoreContentAction = () => getMoreFeedContent({
       sortBy: 'blog',
       category: username,
       limit
     });
-
-    const user = this.state.user;
-    const jsonMetadata = user.json_metadata;
+    const user = this.props.user;
+    const jsonMetadata = user.json_metadata || {};
 
     return (
       <div>
