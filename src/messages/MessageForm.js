@@ -2,7 +2,9 @@ import React, { Component, PropTypes } from 'react';
 import TextareaAutosize from 'react-textarea-autosize';
 import keycode from 'keycode';
 import { connect } from 'react-redux';
+import EmojiPalette, { MODES } from 'react-emoji-palette';
 import { sendMessage } from './messagesActions';
+import Icon from '../widgets/Icon';
 import './MessageForm.scss';
 
 class MessageForm extends Component {
@@ -16,7 +18,8 @@ class MessageForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      text: ''
+      text: '',
+      showEmoji: false,
     };
   }
 
@@ -34,6 +37,12 @@ class MessageForm extends Component {
     this.setState({
       text: ''
     });
+  };
+
+  handleEmojiButton = (e) => {
+    e.preventDefault();
+
+    this.setState({ showEmoji: !this.state.showEmoji });
   };
 
   changeHandler = (e) => {
@@ -54,6 +63,18 @@ class MessageForm extends Component {
     return (
       <form className="MessageForm message-form" onSubmit={this.handleSubmit}>
         <div className="container">
+
+          { this.state.showEmoji &&
+            <div className="MessageForm__emojiContainer">
+              <EmojiPalette
+                onEmojiSelect={ (emoji) => console.log(emoji) } // required
+                mode={MODES.TWEMOJI} // optional, default is NATIVE
+                maxUnicodeVersion={9} // optional, default is 8
+                displayZeroWidthJoins={true} // optional, default is false
+              />
+            </div>
+          }
+
           <TextareaAutosize
             rows={1}
             autoFocus
@@ -65,6 +86,12 @@ class MessageForm extends Component {
             placeholder={this.props.placeholder || 'Say something!'}
             value={this.state.text}
           />
+
+          <a onClick={this.handleEmojiButton} >
+            <Icon name="mood" className="MessageForm__emojiButton" />
+          </a>
+
+
         </div>
       </form>
     );
