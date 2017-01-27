@@ -23,6 +23,18 @@ class MessageForm extends Component {
     };
   }
 
+  componentDidMount() {
+    if (window) {
+      window.addEventListener('click', this.handlePageClick);
+    }
+  }
+
+  componentWillUnmount() {
+    if (window) {
+      window.removeEventListener('click', this.handlePageClick);
+    }
+  }
+
   handleSubmit = (e) => {
     if (e) e.preventDefault();
 
@@ -40,7 +52,7 @@ class MessageForm extends Component {
   };
 
   handleEmojiButton = (e) => {
-    e.preventDefault();
+    e.stopPropagation();
 
     this.setState({ showEmoji: !this.state.showEmoji });
   };
@@ -58,20 +70,31 @@ class MessageForm extends Component {
     }
   }
 
+  handlePageClick = (e) => {
+    e.preventDefault();
+    this.setState({ showEmoji: false });
+  };
+
+  handleEmojiBoxClick = (e) => {
+    e.stopPropagation();
+  };
+
   render() {
     this.onKeydown = this.onKeydown.bind(this);
     return (
       <form className="MessageForm message-form" onSubmit={this.handleSubmit}>
-        <div className="container">
+        <div className="container" >
 
           { this.state.showEmoji &&
             <div className="MessageForm__emojiContainer">
-              <EmojiPalette
-                onEmojiSelect={ (emoji) => console.log(emoji) } // required
-                mode={MODES.TWEMOJI} // optional, default is NATIVE
-                maxUnicodeVersion={9} // optional, default is 8
-                displayZeroWidthJoins={true} // optional, default is false
-              />
+              <div onClick={this.handleEmojiBoxClick}>
+                <EmojiPalette
+                  onEmojiSelect={ (emoji) => console.log(emoji) } // required
+                  mode={MODES.TWEMOJI} // optional, default is NATIVE
+                  maxUnicodeVersion={9} // optional, default is 8
+                  displayZeroWidthJoins={true} // optional, default is false
+                />
+              </div>
             </div>
           }
 
