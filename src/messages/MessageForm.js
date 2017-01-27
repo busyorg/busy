@@ -84,6 +84,13 @@ export default class MessageForm extends Component {
     e.stopPropagation();
   };
 
+  handleEmojiSelect = ({ shortname }) => {
+    this.setState({
+      showEmoji: false,
+      text: `${this.state.text} ${shortname}`
+    });
+  };
+
   render() {
     return (
       <form className="MessageForm message-form" onSubmit={this.handleSubmit}>
@@ -92,9 +99,7 @@ export default class MessageForm extends Component {
           { this.state.showEmoji &&
             <div className="MessageForm__emojiContainer">
               <div onClick={this.handleEmojiBoxClick}>
-                <EmojiPicker onChange={function(data){
-                  console.log("Emoji chosen", data);
-                }} />
+                <EmojiPicker onChange={data => this.handleEmojiSelect(data)} />
               </div>
             </div>
           }
