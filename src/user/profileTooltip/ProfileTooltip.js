@@ -65,70 +65,39 @@ export default class ProfileTooltip extends Component {
 
     return (
       <div className="ProfileTooltip">
-        <div>
-          <UserCoverImage
-            width={300}
-            height={120}
-            username={username}
-          />
-        </div>
-
-        <div className="ProfileTooltip__leftContainer">
-          <div className="ProfileTooltip__avatar">
+        <div className="my-3">
+          <Link to={`/@${username}`}>
+            <Avatar
+              xl
+              username={username}
+              reputation={userData.name && userData.reputation}
+            />
+          </Link>
+          <h3 className="my-2">
             <Link to={`/@${username}`}>
-              <Avatar
-                md
-                username={username}
-                reputation={userData.name && userData.reputation}
-              />
-            </Link>
-          </div>
-
-          <Badge vestingShares={userData.vesting_shares} />
-        </div>
-
-        <div className="ProfileTooltip__rightContainer">
-          <h3>
-            <Link to={`/@${username}`}>
-              {username}
+              {_.has(jsonMetadata, 'profile.name', username)
+                ? jsonMetadata.profile.name
+                : username
+              }
             </Link>
           </h3>
-          <p>
+          <div><Follow username={username} store={this.props.store} /></div>
+          <div className="my-2">
             <Link to={`/@${username}/followers`} className="ProfileTooltip--smallText">
               <Icon name="people" sm />
               {numeral(parseInt(userData.follower_count, 10)).format('0,0')}
               <span className="hidden-xs"> Followers</span>
             </Link>
-
-            <Link to={`/@${username}/followed`} className="ProfileTooltip--smallText">
-              <Icon name="people" sm />
-              {numeral(parseInt(userData.following_count, 10)).format('0,0')}
-              <span className="hidden-xs"> Followed</span>
-            </Link>
-          </p>
-          <p>
-            {jsonMetadata.profile &&
-              jsonMetadata.profile.location &&
-              `Location: ${jsonMetadata.profile.location}`
-            }
-          </p>
-          <p className="ProfileTooltip_about">
-            {jsonMetadata.profile && jsonMetadata.profile.about}
-          </p>
-        </div>
-
-        <div className="ProfileTooltip__footerContainer">
-
-          <div>
-            <Link to={`/messages/@${username}`}>
-              <Icon name="chat_bubble" />
-              Message
-            </Link>
-            {' '}
-            <Follow username={username} store={this.props.store} >
-              Follow
-            </Follow>
           </div>
+        </div>
+        <div>
+          <p><Badge vestingShares={userData.vesting_shares} /></p>
+          {_.has(jsonMetadata, 'profile.location') &&
+            <p><Icon xs name="pin_drop" /> {jsonMetadata.profile.location}</p>
+          }
+          {_.has(jsonMetadata, 'profile.about') &&
+            <p>{jsonMetadata.about}</p>
+          }
         </div>
       </div>
     );
