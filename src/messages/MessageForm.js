@@ -8,7 +8,12 @@ import { sendMessage } from './messagesActions';
 import Icon from '../widgets/Icon';
 import './MessageForm.scss';
 
-class MessageForm extends Component {
+
+@connect(
+  () => ({}),
+  { sendMessage }
+)
+export default class MessageForm extends Component {
   static propTypes = {
     placeholder: PropTypes.string,
     username: PropTypes.string,
@@ -52,24 +57,23 @@ class MessageForm extends Component {
     });
   };
 
-  handleEmojiButton = (e) => {
+  handleEmojiButtonClick = (e) => {
     e.stopPropagation();
-
     this.setState({ showEmoji: !this.state.showEmoji });
   };
 
-  changeHandler = (e) => {
+  handleChatEditorChange = (e) => {
     this.setState({
       text: e.target.value
     });
   };
 
-  onKeydown(e) {
+  submitIfEnterWithoutShift = (e) => {
     if (keycode(e) === 'enter' && !e.shiftKey) {
       e.preventDefault();
       this.handleSubmit();
     }
-  }
+  };
 
   handlePageClick = (e) => {
     e.preventDefault();
@@ -81,7 +85,6 @@ class MessageForm extends Component {
   };
 
   render() {
-    this.onKeydown = this.onKeydown.bind(this);
     return (
       <form className="MessageForm message-form" onSubmit={this.handleSubmit}>
         <div className="container" >
@@ -102,13 +105,13 @@ class MessageForm extends Component {
             className="MessageForm__input pas"
             type="text"
             name="message"
-            onKeyDown={this.onKeydown}
-            onChange={this.changeHandler}
+            onKeyDown={this.submitIfEnterWithoutShift}
+            onChange={this.handleChatEditorChange}
             placeholder={this.props.placeholder || 'Say something!'}
             value={this.state.text}
           />
 
-          <a onClick={this.handleEmojiButton} >
+          <a onClick={this.handleEmojiButtonClick} >
             <Icon name="mood" className="MessageForm__emojiButton" />
           </a>
 
@@ -117,9 +120,3 @@ class MessageForm extends Component {
     );
   }
 }
-
-MessageForm = connect(() => ({}), {
-  sendMessage,
-})(MessageForm);
-
-export default MessageForm;
