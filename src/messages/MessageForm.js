@@ -2,7 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import TextareaAutosize from 'react-textarea-autosize';
 import keycode from 'keycode';
 import { connect } from 'react-redux';
-import EmojiPalette, { MODES } from 'react-emoji-palette';
+import EmojiPicker from 'emojione-picker';
+import 'emojione-picker/css/picker.css';
 import { sendMessage } from './messagesActions';
 import Icon from '../widgets/Icon';
 import './MessageForm.scss';
@@ -88,12 +89,9 @@ class MessageForm extends Component {
           { this.state.showEmoji &&
             <div className="MessageForm__emojiContainer">
               <div onClick={this.handleEmojiBoxClick}>
-                <EmojiPalette
-                  onEmojiSelect={ (emoji) => console.log(emoji) } // required
-                  mode={MODES.TWEMOJI} // optional, default is NATIVE
-                  maxUnicodeVersion={9} // optional, default is 8
-                  displayZeroWidthJoins={true} // optional, default is false
-                />
+                <EmojiPicker onChange={function(data){
+                  console.log("Emoji chosen", data);
+                }} />
               </div>
             </div>
           }
@@ -113,7 +111,6 @@ class MessageForm extends Component {
           <a onClick={this.handleEmojiButton} >
             <Icon name="mood" className="MessageForm__emojiButton" />
           </a>
-
 
         </div>
       </form>
