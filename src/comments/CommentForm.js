@@ -8,6 +8,7 @@ import classNames from 'classnames';
 import Textarea from 'react-textarea-autosize';
 import keycode from 'keycode';
 import Icon from '../widgets/Icon';
+import Avatar from '../widgets/Avatar';
 import * as commentActions from './commentsActions';
 import './CommentForm.scss';
 
@@ -17,6 +18,7 @@ import './CommentForm.scss';
     sidebarIsVisible: state.app.sidebarIsVisible,
     comments: state.comments,
     posts: state.posts,
+    auth: state.auth,
   }),
   dispatch => bindActionCreators({
     sendComment: depth => commentActions.sendComment(depth),
@@ -109,24 +111,22 @@ export default class CommentForm extends Component {
     return (
       <div onClick={e => this.handlePageClick(e)} className={commentsClass}>
         <div className="container">
+          <a className="pull-right" onClick={() => closeCommentingDraft()}>
+            <Icon name="clear" />
+          </a>
           {comments.currentDraftId &&
-            <div className="mb-1">
+            <div className="my-2">
               <i className="icon icon-sm material-icons">reply</i>
               {' '}<FormattedMessage id="reply_to" />{' '}
-              <b>
-                {parentTitle}
-              </b>
+              <b>{parentTitle}</b>
             </div>
           }
           <Textarea
             ref={(c) => { this._input = c; }}
-            className="CommentForm__input"
+            className="CommentForm__input my-2 p-2"
             onKeyDown={e => this.handleKey(e, commentDepth)}
             placeholder={'Write a comment...'}
           />
-          <a className="CommentForm__close" onClick={() => closeCommentingDraft()}>
-            <Icon name="clear" />
-          </a>
         </div>
       </div>
     );
