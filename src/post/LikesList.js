@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 import numeral from 'numeral';
 import Avatar from '../widgets/Avatar';
+import ProfileTooltipOrigin from '../user/profileTooltip/ProfileTooltipOrigin';
 import './LikesList.scss';
 
 export default class LikesList extends Component {
@@ -29,11 +30,13 @@ export default class LikesList extends Component {
             .reverse()
             .slice(0, this.state.show).map(vote =>
               <div className="LikesList__item" key={vote.voter}>
-                <Avatar xs username={vote.voter} />
-                {' '}
-                <Link to={`/@${vote.voter}`}>
-                  {vote.voter}
-                </Link>
+                <ProfileTooltipOrigin username={vote.voter} >
+                  <Link to={`/@${vote.voter}`}>
+                    <Avatar xs username={vote.voter} />
+                    {' '}
+                    {vote.voter}
+                  </Link>
+                </ProfileTooltipOrigin>
                 {' '}
                 {vote.percent < 0
                   ? <span className="text-danger">Disliked</span>
