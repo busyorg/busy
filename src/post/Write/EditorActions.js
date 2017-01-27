@@ -9,6 +9,8 @@ import SteemConnect from 'steemconnect';
 import { browserHistory } from 'react-router';
 import { createAction } from 'redux-actions';
 
+import { createPermlink } from '../../helpers/steemitHelpers';
+
 Promise.promisifyAll(SteemConnect);
 Promise.promisifyAll(request.Request.prototype);
 
@@ -25,17 +27,20 @@ export function createPost(postData) {
   });
 
   return (dispatch) => {
-    const { parentAuthor, parentPermlink, author, permlink, title, body, jsonMetadata } = postData;
+    const { parentAuthor, parentPermlink, author, title, body, jsonMetadata } = postData;
     dispatch({
       type: CREATE_POST,
       payload: {
-        promise:
-        SteemConnect
-          .commentAsync(parentAuthor, parentPermlink, author, permlink, title, body, jsonMetadata)
-          .then(({ result }) => {
-            browserHistory.push(`/${parentPermlink}/@${author}/${permlink}`);
-            return result;
-          }).catch(err => err)
+        promise: createPermlink(title, author, parentAuthor, parentPermlink)
+          .then((permlink) => {
+            SteemConnect
+              .commentAsync(parentAuthor, parentPermlink, author, permlink, title, body, jsonMetadata)
+              .then(({ result }) => {
+                browserHistory.push(`/${parentPermlink}/@${author}/${permlink}`);
+                return result;
+              });
+          }
+          ).catch(err => err)
       },
     });
   };

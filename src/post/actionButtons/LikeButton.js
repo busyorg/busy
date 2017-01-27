@@ -13,34 +13,27 @@ const LikeButton = ({ onClick, onTextClick, active, numberOfVotes, layout }) => 
       >
         <Icon name="thumb_up" sm />
       </a>
-      { ' ' }
-
-      { (isCardLayout && parseInt(numberOfVotes) !== 0) &&
+      {' '}
+      {(isCardLayout && parseInt(numberOfVotes) !== 0) &&
         <a
           onClick={onTextClick}
           className={active ? 'active' : ''}
         >
-          { numberOfVotes }
+          {numberOfVotes}
           <span className="hidden-xs">
-            { ' ' }<FormattedMessage id="likes" />
+            {' '}<FormattedMessage id="likes" />
           </span>
         </a>
       }
-
-      { (isCardLayout && parseInt(numberOfVotes) === 0) &&
+      {(isCardLayout && parseInt(numberOfVotes) === 0) &&
         <span>
-          { numberOfVotes }
+          {numberOfVotes}
           <span className="hidden-xs">
-            { ' ' }<FormattedMessage id="likes" />
+            {' '}<FormattedMessage id="likes" />
           </span>
         </span>
       }
-
-      { isListLayout &&
-      <span>
-          { numberOfVotes }
-        </span>
-      }
+      {isListLayout && <span>{numberOfVotes}</span>}
     </div>
   );
 };

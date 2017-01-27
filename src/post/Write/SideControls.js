@@ -1,7 +1,7 @@
 // Forked from https://github.com/rajaraodv/draftjs-examples
 import newDebug from 'debug';
 import { connect } from 'react-redux';
-import { Entity, EditorState, AtomicBlockUtils } from 'draft-js';
+import { Entity, EditorState, AtomicBlockUtils, ContentState, SelectionState } from 'draft-js';
 import React, { Component } from 'react';
 
 import './PostEditor.scss';
@@ -26,14 +26,22 @@ function getSelectedBlockNode(root) {
 }
 
 function addNewEntitiy(editorState, entityKey) {
-  const newEditorState = AtomicBlockUtils.insertAtomicBlock(
+  let newEditorState = AtomicBlockUtils.insertAtomicBlock(
     editorState,
     entityKey,
     ' '
   );
+  const content = newEditorState.getCurrentContent();
+  const selection = content.getSelectionBefore();
+  const blockMap = content.blockMap.remove(selection.anchorKey);
+  const newContent = ContentState.createFromBlockArray(blockMap.toArray());
+  const nextKey = newContent.getBlockAfter(newContent.getSelectionAfter().anchorKey).key;
+  const selectionState = SelectionState.createEmpty(nextKey);
+  newEditorState = EditorState.push(editorState, newContent, 'insert');
+
   return EditorState.forceSelection(
     newEditorState,
-    editorState.getCurrentContent().getSelectionAfter()
+    selectionState
   );
 }
 

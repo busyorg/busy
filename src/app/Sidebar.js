@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { FormattedMessage } from 'react-intl';
 import formatter from 'steem/lib/formatter';
-import steemdb from 'steemdb';
 import numeral from 'numeral';
 import _ from 'lodash';
 import api from '../steemAPI';
@@ -51,7 +50,7 @@ export default class Sidebar extends Component {
       this.setState({
         isFetching: false,
         isLoaded: true,
-        categories: categories,
+        categories,
         props: result.props,
       });
     });
@@ -59,7 +58,7 @@ export default class Sidebar extends Component {
 
   filterTagsBySearch(tags = []) {
     const { search } = this.state;
-    return tags.filter((tag) => _.startsWith(tag, search));
+    return tags.filter(tag => _.startsWith(tag, search));
   }
 
   renderFavoritedTags() {
@@ -67,7 +66,7 @@ export default class Sidebar extends Component {
     const favoritedCategories = favorites.categories;
     return this.filterTagsBySearch(favoritedCategories)
       .sort()
-      .slice(0, 16)
+      .slice(0, 20)
       .map((category, idx) =>
         <li key={idx}>
           <Link to={`/hot/${category}`} activeClassName="active">
@@ -87,7 +86,7 @@ export default class Sidebar extends Component {
       const categoriesWithoutFavorites = _.difference(categories, favorites.categories);
 
       return this.filterTagsBySearch(categoriesWithoutFavorites)
-        .slice(0, 16 - favorites.categories.length)
+        .slice(0, 20 - favorites.categories.length)
         .map((category, idx) =>
           <li key={idx}>
             <Link to={`/hot/${category}`} activeClassName="active">

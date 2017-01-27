@@ -1,6 +1,6 @@
 
 export default {
-  steemit: 'gold',
+  steemit: 'platinum',
   smooth: 'gold',
   jamesc: 'gold',
   cass: 'silver',

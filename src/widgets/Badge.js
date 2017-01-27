@@ -1,17 +1,18 @@
 import React from 'react';
-
+import numeral from 'numeral';
 import './Badge.scss';
 
 const Badge = ({
   vestingShares,
 }) => {
+  const vest = numeral(vestingShares).format('0.0');
   let rank = 'dust';
-  rank = vestingShares > 10000 ? 'newbie' : rank;
-  rank = vestingShares > 100000 ? 'user' : rank;
-  rank = vestingShares > 1000000 ? 'superuser' : rank;
-  rank = vestingShares > 10000000 ? 'hero' : rank;
-  rank = vestingShares > 100000000 ? 'superhero' : rank;
-  rank = vestingShares > 1000000000 ? 'legend' : rank;
+  rank = vest > 10000 ? 'newbie' : rank;
+  rank = vest > 100000 ? 'user' : rank;
+  rank = vest > 1000000 ? 'superuser' : rank;
+  rank = vest > 10000000 ? 'hero' : rank;
+  rank = vest > 100000000 ? 'superhero' : rank;
+  rank = vest > 1000000000 ? 'legend' : rank;
   return (
     <span className="Badge">
       <svg className={`Badge__icon Badge__icon--${rank}`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">

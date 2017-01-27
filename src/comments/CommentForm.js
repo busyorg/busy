@@ -1,22 +1,26 @@
 import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 import { FormattedMessage } from 'react-intl';
 import { isSmall } from 'react-responsive-utils';
 import classNames from 'classnames';
 import Textarea from 'react-textarea-autosize';
 import keycode from 'keycode';
 import Icon from '../widgets/Icon';
+import Avatar from '../widgets/Avatar';
 import * as commentActions from './commentsActions';
 import './CommentForm.scss';
 
+@withRouter
 @connect(
   state => ({
     sidebarIsVisible: state.app.sidebarIsVisible,
     comments: state.comments,
     posts: state.posts,
+    auth: state.auth,
   }),
-  (dispatch) => bindActionCreators({
+  dispatch => bindActionCreators({
     sendComment: depth => commentActions.sendComment(depth),
     updateCommentingDraft: commentActions.updateCommentingDraft,
     closeCommentingDraft: commentActions.closeCommentingDraft,
@@ -51,7 +55,7 @@ export default class CommentForm extends Component {
       nextProps.comments.currentDraftId !== comments.currentDraftId &&
       nextProps.comments.isCommenting;
 
-    if(shouldUpdateDraft) {
+    if (shouldUpdateDraft) {
       this.updateDraft();
       this._input.focus();
     }
@@ -66,6 +70,10 @@ export default class CommentForm extends Component {
     if (prevProps.comments.currentDraftId !== comments.currentDraftId) {
       // not using react value (controlled component) for performance reasons
       this._input.value = draftValue;
+    }
+
+    if (this.props.location.pathname !== prevProps.location.pathname) {
+      this.props.closeCommentingDraft();
     }
   }
 
@@ -103,24 +111,22 @@ export default class CommentForm extends Component {
     return (
       <div onClick={e => this.handlePageClick(e)} className={commentsClass}>
         <div className="container">
-          { comments.currentDraftId &&
-            <div className="mb-1">
+          <a className="pull-right" onClick={() => closeCommentingDraft()}>
+            <Icon name="clear" />
+          </a>
+          {comments.currentDraftId &&
+            <div className="my-2">
               <i className="icon icon-sm material-icons">reply</i>
-              { ' ' }<FormattedMessage id="reply_to" />{ ' ' }
-              <b>
-                { parentTitle }
-              </b>
+              {' '}<FormattedMessage id="reply_to" />{' '}
+              <b>{parentTitle}</b>
             </div>
           }
           <Textarea
             ref={(c) => { this._input = c; }}
-            className="CommentForm__input"
-            onKeyDown={(e) => this.handleKey(e, commentDepth)}
+            className="CommentForm__input my-2 p-2"
+            onKeyDown={e => this.handleKey(e, commentDepth)}
             placeholder={'Write a comment...'}
           />
-          <a className="CommentForm__close" onClick={() => closeCommentingDraft()}>
-            <Icon name="clear" />
-          </a>
         </div>
       </div>
     );

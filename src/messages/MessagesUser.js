@@ -72,7 +72,10 @@ export default class MessagesPage extends Component {
         <Header />
         <MenuUser username={username} />
         <div className="messages">
-          <MessageList messages={channel.latest} />
+          <MessageList
+            username={username}
+            messages={channel.latest}
+          />
           <MessageForm
             channel={channelName}
             username={this.props.auth.user && this.props.auth.user.name}

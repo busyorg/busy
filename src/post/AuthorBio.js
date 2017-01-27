@@ -5,6 +5,7 @@ import steemAPI from '../steemAPI';
 import Avatar from '../widgets/Avatar';
 import Loading from '../widgets/Loading';
 import Follow from '../widgets/Follow';
+import './AuthorBio.scss';
 
 @connect(
   ({ user }) => ({ following: user.following })
@@ -18,7 +19,11 @@ class AuthorBio extends Component {
   }
 
   componentDidMount() {
-    steemAPI.getAccounts([this.props.authorName], (err, result) => {
+    this.setAuthor(this.props.authorName);
+  }
+
+  setAuthor = (authorName) => {
+    steemAPI.getAccounts([authorName], (err, result) => {
       if (result.length) {
         const author = result[0];
         try {
@@ -31,6 +36,12 @@ class AuthorBio extends Component {
     });
   }
 
+  componentWillReceiveProps(newProps) {
+    if (newProps.authorName !== this.props.authorName) {
+      this.setAuthor(newProps.authorName);
+    }
+  }
+
   render() {
     const { authorName, following } = this.props;
     const { author } = this.state;
@@ -40,23 +51,27 @@ class AuthorBio extends Component {
       const displayName = name || authorName;
 
       return (
-        <div>
-          <div className="pull-left">
+        <div className="AuthorBio py-5">
+          <div className="mr-3">
             <Avatar lg username={authorName} />
           </div>
-          <div className="pull-left">
+          <div className="AuthorBio__right">
             <Link to={`/@${authorName}`}>
               {displayName}
             </Link>
             {' '}
             <Follow username={authorName} />
-            <div>{about}</div>
+            <p className="mt-2">{about}</p>
           </div>
         </div>
       );
     }
 
-    return <Loading />;
+    return (
+      <div className="my-5">
+        <Loading />
+      </div>
+    );
   }
 }
 

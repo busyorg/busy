@@ -145,21 +145,21 @@ export default class TransferHistory extends Component {
     const { list, username } = this.props;
 
     return (
-      <table className="table">
+      <div>
         <ReduxInfiniteScroll
           loadMore={() => this.handleNextPage()}
           elementIsScrollable={false}
           hasMore={list.length > visibleItems}
         >
           {getOnlyViableTransfers(list).reverse().slice(0, visibleItems).map((op, idx) =>
-            <div className="my-3">
+            <div key={idx} className="my-4">
               <hr />
-              <h4>
+              <h5>
                 <b>{renderReportFromOp(op, username)}</b>{' '}
-                <small className="pull-right">
+                <span className="pull-right">
                   <FormattedRelative value={op[1].timestamp} />
-                </small>
-              </h4>
+                </span>
+              </h5>
               {op[1].op[1].memo &&
                 <blockquote>
                   {op[1].op[1].memo}
@@ -168,7 +168,7 @@ export default class TransferHistory extends Component {
             </div>
           )}
         </ReduxInfiniteScroll>
-      </table>
+      </div>
     );
   }
 }

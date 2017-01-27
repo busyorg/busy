@@ -59,6 +59,7 @@ export default class Wrapper extends Component {
             onHover={() => this.props.keepTooltip({ name: 'userProfile' })}
             onLeave={() => this.props.hideTooltip({ name: 'userProfile' })}
           />
+          <Tooltip />
           { React.cloneElement(
             this.props.children,
             { auth, notify }
