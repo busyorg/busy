@@ -24,7 +24,7 @@ const About = () =>
               value absorbed by the shareholders of these intermediaries and centralized
               services. As a non-profit and decentralized organization, Busy provides
               the power of cryptocurrency and blockchain innovations within a platform
-              that return much of its value to the creators ensuring fair compensation.</h4>
+              that returns much of its value to the creators ensuring fair compensation.</h4>
           </div>
         </div>
         <div className="About__3 hero">

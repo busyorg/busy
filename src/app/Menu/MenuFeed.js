@@ -5,6 +5,7 @@ import Icon from '../../widgets/Icon';
 
 const MenuFeed = ({ category }) => {
   const categoryUrl = category ? `/${category}` : '';
+  const channel = category ? category : 'general';
   return (
     <ul className="app-nav">
       <li>
@@ -36,6 +37,14 @@ const MenuFeed = ({ category }) => {
           <Icon name="track_changes" />
           <span className="hidden-xs">
             { ' ' }<FormattedMessage id="active" />
+          </span>
+        </Link>
+      </li>
+      <li>
+        <Link to={`/messages/${channel}`} activeClassName="active">
+          <Icon name="chat_bubble_outline" />
+          <span className="hidden-xs">
+            { ' ' }<FormattedMessage id="chat" />
           </span>
         </Link>
       </li>

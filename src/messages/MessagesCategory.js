@@ -1,14 +1,13 @@
 import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
-import _ from 'lodash';
 import dispatchActions from '../helpers/dispatchActions';
-import './Messages.scss';
 import Header from '../app/Header';
 import MessageForm from './MessageForm';
 import MessageList from './MessageList';
+import MenuFeed from '../app/Menu/MenuFeed';
 import { fetchChannelPresence, joinChannel } from './messagesActions';
+import './Messages.scss';
 
 @dispatchActions(
   {
@@ -50,12 +49,7 @@ export default class MessagesCategory extends Component {
     return (
       <div className="Messages main-panel">
         <Header />
-        <div className="secondary-nav">
-          <i className="icon icon-sm material-icons">
-            {_.has(this.props.favorites, category) ? 'star' : 'star_border'}
-          </i>
-          <Link to={`/hot/${category}`}>#{category}</Link> <span>{channel.nmembers} online</span>
-        </div>
+        <MenuFeed category={category} />
         <div className="messages">
           <MessageList messages={channel.latest} />
           <MessageForm
