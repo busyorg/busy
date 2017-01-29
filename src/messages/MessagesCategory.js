@@ -49,7 +49,10 @@ export default class MessagesCategory extends Component {
     return (
       <div className="Messages main-panel">
         <Header />
-        <MenuFeed category={category} />
+        <MenuFeed
+          auth={this.props.auth}
+          category={category === 'general' ? '' : category}
+        />
         <div className="messages">
           <MessageList messages={channel.latest} />
           <MessageForm

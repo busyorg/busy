@@ -72,7 +72,10 @@ export default class MessagesPage extends Component {
     return (
       <div className="Messages main-panel">
         <Header />
-        <MenuUser username={username} />
+        <MenuUser
+          auth={this.props.auth}
+          username={username}
+        />
         <div className="messages">
           <MessageList
             username={username}

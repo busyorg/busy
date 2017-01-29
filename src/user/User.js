@@ -24,6 +24,7 @@ import Avatar from '../widgets/Avatar';
 
 @connect(
   state => ({
+    auth: state.auth,
     feed: state.feed,
     posts: state.posts,
     comments: state.comments,
@@ -79,7 +80,10 @@ export default class UserProfile extends React.Component {
     return (
       <div className="main-panel">
         <Header />
-        <MenuUser username={this.props.params.name} />
+        <MenuUser
+          auth={this.props.auth}
+          username={this.props.params.name}
+        />
         <section
           className="align-center bg-green profile-header"
           style={{

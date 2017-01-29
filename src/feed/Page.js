@@ -84,7 +84,10 @@ export default class Page extends React.Component {
     return (
       <div className="main-panel">
         <Header />
-        <MenuFeed category={category} />
+        <MenuFeed
+          auth={auth}
+          category={category}
+        />
         { category &&
           <h2 className="mt-3 text-center">
             <span className="text-info">#</span>
