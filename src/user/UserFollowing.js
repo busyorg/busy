@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-
 import UserList from './UserList';
 import Loading from '../widgets/Loading';
 import { getAllFollowing } from '../helpers/apiHelpers';
