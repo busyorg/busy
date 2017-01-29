@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import dispatchActions from '../helpers/dispatchActions';
 import Header from '../app/Header';
 import MessageForm from './MessageForm';
 import MessageList from './MessageList';
@@ -8,16 +9,21 @@ import MenuFeed from '../app/Menu/MenuFeed';
 import { fetchChannelPresence, joinChannel } from './messagesActions';
 import './Messages.scss';
 
+@dispatchActions(
+  {
+    waitFor: state => state.auth && state.auth.isAuthenticated,
+  },
+  ownProps => ({
+    fetchChannelPresence: () => fetchChannelPresence(ownProps.params.category),
+    joinChannel: () => joinChannel(ownProps.params.category),
+  })
+)
 @connect(
   state => ({
     auth: state.auth,
     channels: state.messages.channels,
     favorites: state.favorites,
-  }),
-  dispatch => bindActionCreators({
-    fetchChannelPresence,
-    joinChannel
-  }, dispatch)
+  })
 )
 export default class MessagesCategory extends Component {
   static propTypes = {
@@ -32,12 +38,6 @@ export default class MessagesCategory extends Component {
       messages: [],
       text: '',
     };
-  }
-
-  componentDidMount() {
-    const { category } = this.props.params;
-    this.props.fetchChannelPresence(category);
-    this.props.joinChannel(category);
   }
 
   render() {

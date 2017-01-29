@@ -3,6 +3,7 @@ import _ from 'lodash';
 import steemembed from 'steemembed';
 import sanitizeHtml from 'sanitize-html';
 import Remarkable from 'remarkable';
+import emojione from 'emojione';
 
 import sanitizeConfig from '../helpers/SanitizeConfig';
 import { replaceAll, escapeRegExp, imageRegex, linkify } from '../helpers/regexHelpers';
@@ -59,6 +60,7 @@ export default (props) => {
   });
 
   body = sanitizeHtml(body, sanitizeConfig({}));
+  const bodyWithEmojis = emojione.shortnameToImage(body);
 
-  return <div dangerouslySetInnerHTML={{ __html: body }} />;
+  return <div dangerouslySetInnerHTML={{ __html: bodyWithEmojis }} />;
 };
