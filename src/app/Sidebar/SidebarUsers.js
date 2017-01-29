@@ -62,11 +62,18 @@ const renderUsers = (props, state) => {
   .slice(0, 20)
   .map((user, idx) => (
     <li key={idx} className="pb-1">
-      <Link to={`/@${user.username}`} activeClassName="active">
+      <Link
+        to={
+          user.hasUnread
+            ? `/messages/@${user.username}`
+            : `/@${user.username}`
+        }
+        activeClassName="active"
+      >
         <Avatar username={user.username} xs /> {user.username}
         {' '}
-        { user.favorited && <Icon name="star" xs /> }
-        { user.hasUnread && <UnreadCount unread={user.unreadLength} username={user.username} /> }
+        {user.favorited && <Icon name="star" xs />}
+        {user.hasUnread && <UnreadCount unread={user.unreadLength} username={user.username} />}
       </Link>
     </li>
   ));
