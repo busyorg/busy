@@ -1,5 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { FormattedMessage } from 'react-intl';
+import steemconnect from 'steemconnect';
 import Header from '../app/Header';
 import MenuFeed from '../app/Menu/MenuFeed';
 import Feed from './Feed';
@@ -20,6 +22,7 @@ import Loading from '../widgets/Loading';
 import FavoriteButton from '../favorites/FavoriteButton';
 import * as favoriteActions from '../favorites/favoritesActions';
 import EmptyFeed from '../statics/EmptyFeed';
+import Icon from '../widgets/Icon';
 
 @PageHOC
 @connect(
@@ -84,11 +87,31 @@ export default class Page extends React.Component {
     return (
       <div className="main-panel">
         <Header />
-        <MenuFeed
-          auth={auth}
-          category={category}
-        />
-        { category &&
+        {!auth.isFetching && !auth.isAuthenticated && !category &&
+          <div className="my-5 text-center">
+            <div className="container">
+              <h1>Join the community that rewards his users</h1>
+              <a
+                className="btn btn-success"
+                href="https://steemit.com/enter_email"
+                target="_blank"
+              >
+                <FormattedMessage id="signup" />
+              </a>
+              {' or '}
+              <a href={steemconnect.getLoginURL()}>
+                <FormattedMessage id="login" />
+              </a>
+            </div>
+          </div>
+        }
+        {!auth.isFetching &&
+          <MenuFeed
+            auth={auth}
+            category={category}
+          />
+        }
+        {category &&
           <h2 className="mt-3 text-center">
             <span className="text-info">#</span>
             {' '}{category}{' '}
@@ -101,8 +124,8 @@ export default class Page extends React.Component {
             />
           </h2>
         }
-        { auth.isFetching && <Loading /> }
-        { !auth.isFetching &&
+        {auth.isFetching && <Loading />}
+        {!auth.isFetching &&
           <Feed
             content={content}
             isFetching={isFetching}
@@ -113,8 +136,7 @@ export default class Page extends React.Component {
             route={this.props.route}
           />
         }
-
-        { (content.length === 0 && !isFetching) &&
+        {(content.length === 0 && !isFetching) &&
           <EmptyFeed />
         }
       </div>
