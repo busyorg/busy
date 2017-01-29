@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import querystring from 'querystring';
+import dispatchActions from '../helpers/dispatchActions';
 import './Messages.scss';
 import Header from '../app/Header';
 import MenuUser from '../app/Menu/MenuUser';
@@ -9,17 +8,35 @@ import MessageForm from './MessageForm';
 import MessageList from './MessageList';
 import { fetchChannelPresence, joinChannel } from './messagesActions';
 
+const getChannelName = (auth, params) => {
+  if (!auth.user) return '';
+  return [
+    `@${auth.user.name}`,
+    `@${params.username}`,
+  ];
+};
+
 @connect(
   state => ({
     auth: state.auth,
     channels: state.messages.channels,
     users: state.messages.users,
     favorites: state.favorites,
-  }),
-  dispatch => bindActionCreators({
-    fetchChannelPresence,
-    joinChannel
-  }, dispatch)
+  })
+)
+@dispatchActions(
+  {
+    waitFor: state => state.auth && state.auth.isAuthenticated,
+  },
+  (ownProps) => {
+    const { auth, params } = ownProps;
+    const channelName = getChannelName(auth, params);
+
+    return {
+      fetchChannelPresence: () => fetchChannelPresence(channelName),
+      joinChannel: () => joinChannel(channelName),
+    };
+  }
 )
 export default class MessagesPage extends Component {
   static propTypes = {
@@ -37,25 +54,6 @@ export default class MessagesPage extends Component {
       messages: [],
       text: '',
     };
-  }
-
-  getChannelName() {
-    const { auth, params } = this.props;
-
-    if (!auth.user) return '';
-    return '?' + querystring.stringify({
-      channelName: [
-        '@' + auth.user.name,
-        '@' + params.username,
-      ]
-    });
-  }
-
-  componentDidMount() {
-    const channelName = this.getChannelName();
-
-    this.props.fetchChannelPresence(channelName);
-    this.props.joinChannel(channelName);
   }
 
   render() {

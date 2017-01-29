@@ -2,10 +2,18 @@ import React, { Component, PropTypes } from 'react';
 import TextareaAutosize from 'react-textarea-autosize';
 import keycode from 'keycode';
 import { connect } from 'react-redux';
+import EmojiPicker from 'emojione-picker';
+import 'emojione-picker/css/picker.css';
 import { sendMessage } from './messagesActions';
+import Icon from '../widgets/Icon';
 import './MessageForm.scss';
 
-class MessageForm extends Component {
+
+@connect(
+  () => ({}),
+  { sendMessage }
+)
+export default class MessageForm extends Component {
   static propTypes = {
     placeholder: PropTypes.string,
     username: PropTypes.string,
@@ -16,8 +24,21 @@ class MessageForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      text: ''
+      text: '',
+      showEmoji: false,
     };
+  }
+
+  componentDidMount() {
+    if (window) {
+      window.addEventListener('click', this.handlePageClick);
+    }
+  }
+
+  componentWillUnmount() {
+    if (window) {
+      window.removeEventListener('click', this.handlePageClick);
+    }
   }
 
   handleSubmit = (e) => {
@@ -36,43 +57,71 @@ class MessageForm extends Component {
     });
   };
 
-  changeHandler = (e) => {
+  handleEmojiButtonClick = (e) => {
+    e.stopPropagation();
+    this.setState({ showEmoji: !this.state.showEmoji });
+  };
+
+  handleChatEditorChange = (e) => {
     this.setState({
       text: e.target.value
     });
   };
 
-  onKeydown(e) {
+  submitIfEnterWithoutShift = (e) => {
     if (keycode(e) === 'enter' && !e.shiftKey) {
       e.preventDefault();
       this.handleSubmit();
     }
-  }
+  };
+
+  handlePageClick = (e) => {
+    e.preventDefault();
+    this.setState({ showEmoji: false });
+  };
+
+  handleEmojiBoxClick = (e) => {
+    e.stopPropagation();
+  };
+
+  handleEmojiSelect = ({ shortname }) => {
+    this.setState({
+      showEmoji: false,
+      text: `${this.state.text} ${shortname}`
+    });
+  };
 
   render() {
-    this.onKeydown = this.onKeydown.bind(this);
     return (
       <form className="MessageForm message-form" onSubmit={this.handleSubmit}>
-        <div className="container">
+        <div className="container" >
+
+          { this.state.showEmoji &&
+            <div className="MessageForm__emojiContainer">
+              <div onClick={this.handleEmojiBoxClick}>
+                <EmojiPicker onChange={data => this.handleEmojiSelect(data)} />
+              </div>
+            </div>
+          }
+
           <TextareaAutosize
             rows={1}
             autoFocus
             className="MessageForm__input pas"
             type="text"
             name="message"
-            onKeyDown={this.onKeydown}
-            onChange={this.changeHandler}
+            onKeyDown={this.submitIfEnterWithoutShift}
+            onChange={this.handleChatEditorChange}
             placeholder={this.props.placeholder || 'Say something!'}
             value={this.state.text}
           />
+
+          <a onClick={this.handleEmojiButtonClick} >
+            <Icon name="mood" className="MessageForm__emojiButton" />
+          </a>
+
         </div>
       </form>
     );
   }
 }
-
-MessageForm = connect(() => ({}), {
-  sendMessage,
-})(MessageForm);
-
-export default MessageForm;

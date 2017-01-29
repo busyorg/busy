@@ -131,7 +131,11 @@ function makeConfig(options) {
         {
           loader: 'url-loader?name=[name].[hash].[ext]&limit=1',
           test: /\.(eot|ttf|woff|woff2)(\?.+)?$/,
-        }
+        },
+        {
+          test: /\.png$/,
+          loader: 'file-loader',
+        },
       ].concat(makeStyleLoaders(options)),
     },
   };

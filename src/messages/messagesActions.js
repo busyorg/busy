@@ -24,7 +24,9 @@ export const fetchChannelPresence = (channelName = 'general') =>
       return;
     }
 
-    const url = `${HOST}/api/v1/channels/?channelName=?${channelName}`;
+    const channelURI = `?${querystring.stringify({ channelName })}`;
+
+    const url = `${HOST}/api/v1/channels/${channelURI}`;
 
     dispatch({
       type: FETCH_CHANNEL_PRESENCE,
