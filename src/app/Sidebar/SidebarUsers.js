@@ -4,14 +4,12 @@ import { Link } from 'react-router';
 import Icon from '../../widgets/Icon';
 import Avatar from '../../widgets/Avatar';
 
-const UnreadCount = ({ unread, username }) => {
+const UnreadCount = ({ unread }) => {
   if (!unread) return null;
   return (
-    <Link to={`/messages/@${username}`} className="Sidebar__unreadCount" >
-      <span>
-        {unread}
-      </span>
-    </Link>
+    <span className="Sidebar__unreadCount">
+      {unread}
+    </span>
   );
 };
 
@@ -73,7 +71,7 @@ const renderUsers = (props, state) => {
         <Avatar username={user.username} xs /> {user.username}
         {' '}
         {user.favorited && <Icon name="star" xs />}
-        {user.hasUnread && <UnreadCount unread={user.unreadLength} username={user.username} />}
+        {user.hasUnread && <UnreadCount unread={user.unreadLength} />}
       </Link>
     </li>
   ));
