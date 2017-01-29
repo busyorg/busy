@@ -10,7 +10,7 @@ const Help = () =>
       <h2>Report an issue</h2>
       <p>
         If you spot a problem with Busy, please
-        {' '}<a href="mailto:">contact us</a> or submit an issue on{' '}
+        {' '}<a href="mailto:contact@busy.org">contact us</a> or submit an issue on{' '}
         <a
           href="https://github.com/adcpm/busy/issues"
           target="_blank"
