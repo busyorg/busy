@@ -29,7 +29,7 @@ const MenuUser = ({ auth, username }) =>
         <Link to={`/messages/@${username}`} activeClassName="active">
           <Icon name="chat_bubble_outline" />{' '}
           <span className="hidden-xs">
-            <FormattedMessage id="chat" />
+            <FormattedMessage id="messages" />
           </span>
         </Link>
       </li>
