@@ -13,6 +13,7 @@ import PostModalLink from './../PostModalLink';
 import LikesList from './../LikesList';
 import ProfileTooltipOrigin from '../../user/profileTooltip/ProfileTooltipOrigin';
 import { calculatePayout } from '../../helpers/steemitHelpers';
+import Tooltip from '../../tooltip/Tooltip';
 import './PostFeedCard.scss';
 
 const AmountWithLabel = ({ label, amount }) => (
@@ -100,7 +101,10 @@ const PostFeedCard = ({
 
           <span className="hidden-xs">
             { ' ' }<FormattedMessage id="in" />{ ' ' }
-            <Link to={`/hot/${post.category}`}>#{post.category}</Link>
+            <Tooltip message="Hello world!">
+              <span>
+              <Link to={`/hot/${post.category}`}>#{post.category}</Link></span>
+            </Tooltip>
           </span>
         </li>
         <li className="pull-right">
