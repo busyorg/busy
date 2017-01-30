@@ -74,9 +74,6 @@ export default class UserProfile extends React.Component {
   render() {
     const username = this.props.params.name;
     const user = this.state.user;
-    let jsonMetadata = {};
-    try { jsonMetadata = JSON.parse(user.json_metadata); } catch (e) { jsonMetadata = {}; }
-
     return (
       <div className="main-panel">
         <Header />
@@ -95,8 +92,8 @@ export default class UserProfile extends React.Component {
           <div className="my-5">
             <Avatar xl username={username} reputation={_.has(user, 'name') && user.reputation} />
             <h1>
-              {_.has(jsonMetadata, 'profile.name')
-                ? jsonMetadata.profile.name
+              {_.has(user.json_metadata, 'profile.name')
+                ? user.json_metadata.profile.name
                 : username
               }
               {' '}
