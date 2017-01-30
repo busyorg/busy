@@ -1,10 +1,12 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import Header from '../app/Header';
+import MenuHelp from '../app/Menu/MenuHelp';
 
-const Help = () =>
+export default () =>
   <div className="main-panel">
     <Header />
+    <MenuHelp />
     <div className="container text-center my-5">
       <h1><FormattedMessage id="help" /></h1>
       <h2>Report an issue</h2>
@@ -21,5 +23,3 @@ const Help = () =>
       </p>
     </div>
   </div>;
-
-export default Help;
