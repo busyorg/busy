@@ -21,6 +21,7 @@ import editorReducer from './post/Write/EditorReducers';
 import { responsiveReducer, mountResponsive } from './helpers/responsive';
 import reblogReducers from './app/Reblog/reblogReducers';
 import walletReducer from './wallet/walletReducer';
+import currentTooltip from './tooltip/tooltipReducer.js';
 
 export const messagesWorker = new MessagesWorker();
 
@@ -44,6 +45,7 @@ const reducers = combineReducers({
   reblog: reblogReducers,
   wallet: walletReducer,
   tooltip,
+  currentTooltip
 });
 
 const middleware = [
