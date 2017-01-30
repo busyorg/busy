@@ -25,4 +25,8 @@ export default {
   shaka: 'bronze',
   andu: 'bronze',
   ourlifestory: 'bronze',
+  'delegate.lafona': 'bronze',
+  joshbreslauer: 'bronze',
+  aizensou: 'bronze',
+  rubenalexander: 'bronze',
 };
