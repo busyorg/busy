@@ -6,29 +6,31 @@ import Body from '../post/Body';
 import Avatar from '../widgets/Avatar';
 import Icon from '../widgets/Icon';
 import { sortCommentsFromSteem } from '../helpers/stateHelpers';
+import ProfileTooltipOrigin from '../user/profileTooltip/ProfileTooltipOrigin';
 import './CommentItem.scss';
 
-const renderOptimisticComment = (comment) => {
-  return (
-    <div className="CommentItem">
-      <div className={`CommentItem__content CommentItem__content--level-${comment.depth}`}>
-        <div className="CommentUser">
+const renderOptimisticComment = (comment) =>
+  <div className="CommentItem">
+    <div className={`CommentItem__content CommentItem__content--level-${comment.depth}`}>
+      <div className="CommentUser">
+        <ProfileTooltipOrigin username={comment.author} >
           <Link to={`/@${comment.author}`}>
             <Avatar xs username={comment.author} />
           </Link>
-        </div>
-        <div className="CommentBody">
-          <span className="CommentBody__username">
+        </ProfileTooltipOrigin>
+      </div>
+      <div className="CommentBody">
+        <span className="CommentBody__username">
+          <ProfileTooltipOrigin username={comment.author} >
             <Link to={`/@${comment.author}`}>
               {comment.author}
             </Link>
-          </span>
-          <Body body={comment.body} />
-        </div>
+          </ProfileTooltipOrigin>
+        </span>
+        <Body body={comment.body} />
       </div>
     </div>
-  );
-};
+  </div>;
 
 export default class CommentItem extends Component {
   constructor(props) {
@@ -81,15 +83,22 @@ export default class CommentItem extends Component {
       <div className="CommentItem">
         <div className={`CommentItem__content CommentItem__content--level-${comment.depth} pb-2`}>
           <div className="CommentUser">
-            <Link to={`/@${comment.author}`}>
-              <Avatar
-                className={this.props.isSinglePage ? 'Avatar--md' : 'Avatar--xs'}
-                username={comment.author}
-              />
-            </Link>
+            <ProfileTooltipOrigin username={comment.author} >
+              <Link to={`/@${comment.author}`}>
+                <Avatar
+                  className={this.props.isSinglePage ? 'Avatar--md' : 'Avatar--xs'}
+                  username={comment.author}
+                />
+              </Link>
+            </ProfileTooltipOrigin>
           </div>
           <div className="CommentBody">
             <span className="CommentBody__username">
+              <ProfileTooltipOrigin username={comment.author} >
+                <Link to={`/@${comment.author}`}>
+                  {comment.author}
+                </Link>
+              </ProfileTooltipOrigin>
               <Link to={`/@${comment.author}`}>
                 {comment.author}
               </Link>
