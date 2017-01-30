@@ -51,5 +51,10 @@
   "help": "Help",
   "search": "Search",
   "chat": "Chat",
-  "signup": "Sign Up"
+  "signup": "Sign Up",
+  "team": "Team",
+  "donors": "Donors",
+  "advisors": "Advisors",
+  "contributors": "Contributors",
+  "donate": "Donate"
 }

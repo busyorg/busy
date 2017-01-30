@@ -51,5 +51,10 @@
   "help": "Aide",
   "search": "Recherche",
   "chat": "Chat",
-  "signup": "Inscription"
+  "signup": "Inscription",
+  "team": "Équipe",
+  "donors": "Donateurs",
+  "advisors": "Advisors",
+  "contributors": "Contributors",
+  "donate": "Faire un don"
 }
