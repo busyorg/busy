@@ -90,7 +90,7 @@ export default class Page extends React.Component {
         {!auth.isFetching && !auth.isAuthenticated && !category &&
           <div className="my-5 text-center">
             <div className="container">
-              <h1>Join the community that rewards his users</h1>
+              <h1>Join Busy today.</h1>
               <a
                 className="btn btn-success"
                 href="https://steemit.com/enter_email"
