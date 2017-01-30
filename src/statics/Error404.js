@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router';
 import { FormattedMessage } from 'react-intl';
 import Header from '../app/Header';
-import Icon from '../widgets/Icon';
 
 const Error404 = () =>
   <div className="main-panel">
