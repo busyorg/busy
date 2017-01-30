@@ -74,6 +74,9 @@ export default class CommentItem extends Component {
       auth.isAuthenticated &&
       comment.active_votes.some(vote => vote.voter === auth.user.name && vote.percent < 0);
 
+    const numberOfLikes = numeral(comment.active_votes.filter(vote => vote.percent > 0).length).format('0,0');
+    const numberOfDislikes = numeral(comment.active_votes.filter(vote => vote.percent < 0).length).format('0,0');
+
     return (
       <div className="CommentItem">
         <div className={`CommentItem__content CommentItem__content--level-${comment.depth} pb-2`}>
@@ -105,8 +108,8 @@ export default class CommentItem extends Component {
                   className={isCommentLiked ? 'active' : ''}
                 >
                   <Icon name="thumb_up" xs />
-                </a>{ ' ' }
-                { numeral(comment.net_votes).format('0,0') }
+                </a>
+                {` ${numberOfLikes}`}
               </div>
 
               <div className="CommentActionButtons__button">
@@ -117,8 +120,8 @@ export default class CommentItem extends Component {
                   className={isCommentDisliked ? 'active' : ''}
                 >
                   <Icon name="thumb_down" xs />
-                </a>{ ' ' }
-                { numeral(comment.active_votes.filter(vote => vote.percent < 0).length).format('0,0') }
+                </a>
+                {` ${numberOfDislikes}`}
               </div>
 
               <div className="CommentActionButtons__button">
