@@ -22,6 +22,8 @@ import Write from './post/Write/Write';
 import Drafts from './post/Write/Drafts';
 import About from './statics/About';
 import Help from './statics/Help';
+import Team from './statics/Team';
+import RequireLogin from './auth/RequireLogin';
 
 var MessagesUser = require('./messages/MessagesUser').default,
   MessagesCategory = require('./messages/MessagesCategory').default;
@@ -31,7 +33,7 @@ export default (
     <IndexRoute component={Page} />
     <Route path="/help" component={Help} />
     <Route path="/about" component={About} />
-    <Route path="/settings" component={Settings} />
+    <Route path="/team" component={Team} />
     <Route path="/tags" component={Tags} />
     <Route path="/donors" component={Donors} />
     <Route path="/trending(/:category)" component={Trending} />
@@ -41,12 +43,15 @@ export default (
     <Route path="/active(/:category)" component={Active} />
     <Route path="/responses(/:category)" component={Responses} />
     <Route path="/votes(/:category)" component={Votes} />
-    <Route path="/bookmarks" component={Bookmarks} />
-    <Route path="/write" component={Write} />
-    <Route path="/drafts" component={Drafts} />
-    <Route path="/messages/@:username" component={MessagesUser} />
-    <Route path="/messages/:category" component={MessagesCategory} />
-    <Route path="/transfer" component={Transfer} />
+    <Route component={RequireLogin}>
+      <Route path="/transfer" component={Transfer} />
+      <Route path="/messages/@:username" component={MessagesUser} />
+      <Route path="/messages/:category" component={MessagesCategory} />
+      <Route path="/bookmarks" component={Bookmarks} />
+      <Route path="/write" component={Write} />
+      <Route path="/drafts" component={Drafts} />
+      <Route path="/settings" component={Settings} />
+    </Route>
     <Route component={User}>
       <Route path="/@:name/posts" component={Posts} />
       <Route path="/@:name/feed" component={Feed} />
