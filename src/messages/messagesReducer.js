@@ -159,6 +159,10 @@ export default function messagesReducer(state = initialState, action) {
 
       return extend({}, state, {
         isLoading: false,
+        users: extend(state.users, action.payload.users.reduce((m, { username }) => ({
+          ...m,
+          [username]: true,
+        }), {})),
         channels: extend({}, state.channels, {
           [`${action.payload.channelName}`]: extend(action.payload, {
             nmembers: size(action.payload.users),
