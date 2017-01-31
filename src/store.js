@@ -93,5 +93,6 @@ const store = createStore(
 
 mountResponsive(store);
 messagesWorker.attachToStore(store);
+messagesWorker.start();
 
 export default store;

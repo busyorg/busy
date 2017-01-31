@@ -53,18 +53,13 @@ export default class MessagesWorker {
         type: CONNECTED,
       });
 
-      this.socket.emit('authentication', { token: state.auth.token });
-      this.socket.on('authenticated', () => {
-        if (!state.auth.isAuthenticated) {
-          return;
-        }
-
+      if (state.auth.isAuthenticated) {
         this.onAuthenticated(state.auth);
+      }
 
-        each(socketEventsToActions, (actionType, socketEvent) => {
-          this.socket.on(socketEvent, (payload) => {
-            this.onSocketEvent(actionType, payload);
-          });
+      each(socketEventsToActions, (actionType, socketEvent) => {
+        this.socket.on(socketEvent, (payload) => {
+          this.onSocketEvent(actionType, payload);
         });
       });
     });
