@@ -8,7 +8,7 @@ const Message = (props) => {
   const sentAt = model[0].sentAt;
   const senderUsername = (model[0].senderUsername || model[0].sentBy);
   return (
-    <li className="Message message">
+    <div className="Message message">
       <div className="container">
         <div data-uuid={model[0].uuid}>
           <div className="Message__left">
@@ -32,7 +32,7 @@ const Message = (props) => {
           </div>
         </div>
       )}
-    </li>
+    </div>
   );
 };
 
