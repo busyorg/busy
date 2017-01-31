@@ -23,6 +23,7 @@ import './Messages.scss';
     auth: state.auth,
     channels: state.messages.channels,
     favorites: state.favorites,
+    isConnected: state.messages.isConnected,
   })
 )
 export default class MessagesCategory extends Component {
@@ -55,10 +56,14 @@ export default class MessagesCategory extends Component {
         />
         <div className="messages">
           <MessageList messages={channel.latest} />
-          <MessageForm
-            channel={category}
-            username={this.props.auth.user && this.props.auth.user.name}
-          />
+
+          { this.props.isConnected &&
+            <MessageForm
+              channel={category}
+              username={this.props.auth.user && this.props.auth.user.name}
+            />
+          }
+
         </div>
       </div>
     );

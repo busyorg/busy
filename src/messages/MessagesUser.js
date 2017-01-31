@@ -22,11 +22,12 @@ const getChannelName = (auth, params) => {
     channels: state.messages.channels,
     users: state.messages.users,
     favorites: state.favorites,
+    isConnected: state.messages.isConnected,
   })
 )
 @dispatchActions(
   {
-    waitFor: state => state.auth && state.auth.isAuthenticated,
+    waitFor: state => state.auth && state.auth.isAuthenticated
   },
   (ownProps) => {
     const { auth, params } = ownProps;
@@ -79,10 +80,14 @@ export default class MessagesPage extends Component {
             username={username}
             messages={channel.latest}
           />
-          <MessageForm
-            channel={channelName}
-            username={this.props.auth.user && this.props.auth.user.name}
-          />
+
+          { this.props.isConnected &&
+            <MessageForm
+              channel={channelName}
+              username={this.props.auth.user && this.props.auth.user.name}
+            />
+          }
+
         </div>
       </div>
     );
