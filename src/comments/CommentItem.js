@@ -94,14 +94,11 @@ export default class CommentItem extends Component {
           </div>
           <div className="CommentBody">
             <span className="CommentBody__username">
-              <ProfileTooltipOrigin username={comment.author} >
+              <ProfileTooltipOrigin username={comment.author}>
                 <Link to={`/@${comment.author}`}>
                   {comment.author}
                 </Link>
               </ProfileTooltipOrigin>
-              <Link to={`/@${comment.author}`}>
-                {comment.author}
-              </Link>
               {' '}
               <span className="text-info">
                 <FormattedRelative value={comment.created} />
@@ -143,11 +140,11 @@ export default class CommentItem extends Component {
 
               { ' ' }
 
-              { (comment.children > 0 && !this.state.showReplies) &&
-              <a tabIndex="0" onClick={this.toggleShowReplies}>
-                View {comment.children}{' '}
-                {comment.children > 1 ? 'replies' : 'reply'}
-              </a>
+              {(comment.children > 0 && !this.state.showReplies) &&
+                <a tabIndex="0" onClick={this.toggleShowReplies}>
+                  View {comment.children}{' '}
+                  {comment.children > 1 ? 'replies' : 'reply'}
+                </a>
               }
             </div>
           </div>
