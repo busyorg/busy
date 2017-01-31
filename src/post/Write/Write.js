@@ -10,6 +10,7 @@ import Header from '../../app/Header';
 import PostEditor from './PostEditor';
 import { createPost, saveDraft } from './EditorActions';
 import Icon from './../../widgets/Icon';
+import Loading from './../../widgets/Loading';
 
 const version = require('../../../package.json').version;
 
@@ -255,9 +256,14 @@ export class RawNewPost extends Component {
             />
 
             <div className="form-group">
-              <button type="submit" disabled={loading} className="btn btn-success btn-lg">
-                Publish
-              </button>
+              {loading ?
+                <button type="submit" disabled className="btn btn-success btn-sm">
+                  <Loading />
+                </button>
+                :
+                <button type="submit" className="btn btn-success btn-lg">
+                  Publish
+              </button>}
             </div>
           </form>
         </div>
