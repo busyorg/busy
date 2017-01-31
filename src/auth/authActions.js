@@ -27,7 +27,7 @@ const loginSuccess = (user, token) =>
 const loginFail = () => ({ type: LOGIN_FAILURE });
 
 export const login = () =>
-  (dispatch, getState, { steemAPI, messageWorker }) => {
+  (dispatch, getState, { steemAPI, messagesWorker }) => {
     dispatch(requestLogin());
     steemConnect.isAuthenticated((err, result) => {
       if (err || !result || !result.isAuthenticated) {
@@ -41,7 +41,7 @@ export const login = () =>
           return;
         }
         dispatch(loginSuccess(users[0], result.token));
-        messageWorker.start();
+        messagesWorker.start();
       });
     });
   };
