@@ -1,7 +1,7 @@
 
 export default [
   {
-    name: 'Chris Keopraseuth',
+    name: 'Christopher Keo',
     username: 'ekitcho',
     role: 'CEO',
   },
