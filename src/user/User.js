@@ -90,7 +90,12 @@ export default class UserProfile extends React.Component {
           }}
         >
           <div className="my-5">
-            <Avatar xl username={username} reputation={_.has(user, 'name') && user.reputation} />
+            <Avatar
+              xl
+              key={username}
+              username={username}
+              reputation={_.has(user, 'name') && user.reputation}
+            />
             <h1>
               {_.has(user.json_metadata, 'profile.name')
                 ? user.json_metadata.profile.name
