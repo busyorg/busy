@@ -11,9 +11,13 @@
   height: auto;
   position: fixed;
   bottom: 0;
-  width: calc(100% - 260px);
+  width: 100%;
   right: 0;
   background: #fff;
+
+  &.withSidebar {
+    width: calc(100% - 260px);
+  }
 
   .MessageForm__input {
     background: $input-background !important;
