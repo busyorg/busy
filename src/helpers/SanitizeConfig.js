@@ -64,7 +64,7 @@ export default ({ large = true, highQualityPost = true, noImage = false, sanitiz
     // style is subject to attack, filtering more below
     td: ['style'],
     img: ['src', 'alt'],
-    a: ['href', 'rel'],
+    a: ['href', 'rel', 'target'],
   },
   transformTags: {
     iframe: (tagName, attribs) => {
@@ -137,8 +137,8 @@ export default ({ large = true, highQualityPost = true, noImage = false, sanitiz
       const attys = { href };
       // If it's not a (relative or absolute) steemit URL...
       if (!href.match(/^(\/(?!\/)|https:\/\/(app\.|dev\.)?busy.org)/)) {
-        // attys.target = '_blank' // pending iframe impl https://mathiasbynens.github.io/rel-noopener/
-        attys.rel = highQualityPost ? 'noopener' : 'nofollow noopener';
+        attys.target = '_blank'; // pending iframe impl https://mathiasbynens.github.io/rel-noopener/
+        attys.rel = 'nofollow noopener';
       }
       return {
         tagName,
