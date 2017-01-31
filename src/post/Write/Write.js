@@ -4,15 +4,14 @@ import formSerialize from 'form-serialize';
 import kebabCase from 'lodash/kebabCase';
 import _ from 'lodash';
 import TagsInput from 'react-tagsinput';
-
-import './Write.scss';
 import Header from '../../app/Header';
 import PostEditor from './PostEditor';
 import { createPost, saveDraft } from './EditorActions';
 import Icon from './../../widgets/Icon';
+import Loading from './../../widgets/Loading';
+import './Write.scss';
 
 const version = require('../../../package.json').version;
-
 const MAX_ALLOW_CATEGORIES = 5;
 
 export class RawNewPost extends Component {
@@ -242,21 +241,13 @@ export class RawNewPost extends Component {
               />
             </fieldset>
 
-            <input
-              name="authorPermlink"
-              type="hidden"
-              value=""
-            />
+            <input name="authorPermlink" type="hidden" />
 
-            <input
-              name="author"
-              type="hidden"
-              value={author || ''}
-            />
+            <input name="author" type="hidden" value={author || ''} />
 
             <div className="form-group">
-              <button type="submit" disabled={loading} className="btn btn-success btn-lg">
-                Publish
+              <button type="submit" disabled={!!loading} className="btn btn-success btn-lg">
+                {loading ? <Loading color="white" className="my-0" /> : 'Publish'}
               </button>
             </div>
           </form>
