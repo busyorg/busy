@@ -121,9 +121,10 @@ export default class MessagesWorker {
     return this.emitAsync('USER_MESSAGE', message);
   }
 
-  joinChannel(channelName) {
+  joinChannel(channelName, token) {
     return this.emitAsync('USER_JOIN', {
-      channelName
+      channelName,
+      token,
     });
   }
 }
