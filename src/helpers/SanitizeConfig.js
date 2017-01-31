@@ -48,7 +48,7 @@ export const allowedTags = `
 `.trim().split(/,\s*/);
 
 // Medium insert plugin uses: div, figure, figcaption, iframe
-export default ({ large = true, highQualityPost = true, noImage = false, sanitizeErrors = []}) => ({
+export default ({ large = true, highQualityPost = true, noImage = false, sanitizeErrors = [] }) => ({
   allowedTags,
   // figure, figcaption,
 
