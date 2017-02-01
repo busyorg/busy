@@ -1,6 +1,10 @@
 import React from 'react';
 import numeral from 'numeral';
 import { FormattedMessage } from 'react-intl';
+import _ from 'lodash';
+import { Tooltip } from 'pui-react-tooltip';
+import { OverlayTrigger } from 'pui-react-overlay-trigger';
+import { getUpvotes, getDownvotes, sortVotes } from '../../helpers/voteHelpers';
 import Icon from '../../widgets/Icon';
 import './MenuPost.scss';
 
@@ -23,6 +27,13 @@ const MenuPost = ({
   const numberOfComments = numeral(content.children).format('0,0');
   const numberOfLikes = numeral(content.active_votes.filter(vote => vote.percent > 0).length).format('0,0');
   const numberOfDislikes = numeral(content.active_votes.filter(vote => vote.percent < 0).length).format('0,0');
+  const upvotes = sortVotes(getUpvotes(content.active_votes), 'rshares')
+    .reverse()
+    .slice(0, 5);
+  const downvotes = sortVotes(getDownvotes(content.active_votes), 'rshares')
+    .reverse()
+    .slice(0, 5);
+
   return (
     <div className="secondary-nav">
       <ul
@@ -36,7 +47,20 @@ const MenuPost = ({
           >
             <Icon name="thumb_up" />
           </a>
-          {` ${numberOfLikes}`}
+          {' '}
+          <OverlayTrigger
+            placement="top"
+            overlay={
+              <Tooltip>
+                {upvotes.map(vote =>
+                  <div key={vote.voter}>{vote.voter}</div>
+                )}
+                {_.size(upvotes) === 5 && <div>…</div>}
+              </Tooltip>
+            }
+          >
+            <a>{numberOfLikes}</a>
+          </OverlayTrigger>
           <span className="hidden-xs">
             {' '}<FormattedMessage id="likes" />
           </span>
@@ -49,7 +73,20 @@ const MenuPost = ({
           >
             <Icon name="thumb_down" />
           </a>
-          {` ${numberOfDislikes}`}
+          {' '}
+          <OverlayTrigger
+            placement="top"
+            overlay={
+              <Tooltip>
+                {downvotes.map(vote =>
+                  <div key={vote.voter}>{vote.voter}</div>
+                )}
+                {_.size(downvotes) === 5 && <div>…</div>}
+              </Tooltip>
+            }
+          >
+            <a>{numberOfDislikes}</a>
+          </OverlayTrigger>
           <span className="hidden-xs">
             {' '}<FormattedMessage id="dislikes" />
           </span>
