@@ -1,6 +1,6 @@
 // TODO - Remove !important qualifiers
 // TODO - Move variables somewhere else
-.MessageForm.message-form {
+.MessageForm {
   $blue: #3756a0;
 
   $messages-background: #f1f2f4;
@@ -9,16 +9,22 @@
   $input-background: $messages-background;
 
   height: auto;
-  position: absolute;
+  position: fixed;
   bottom: 0;
   width: 100%;
-  left: 0;
+  right: 0;
+  background: #fff;
+
+  &.withSidebar {
+    width: calc(100% - 260px);
+  }
 
   .MessageForm__input {
     background: $input-background !important;
-    max-height: 30vh;
-    min-height: 60px;
     width: 100%;
+    font-size: 1.2em;
+    max-height: 150px;
+    min-height: 4em;
   }
 }
 

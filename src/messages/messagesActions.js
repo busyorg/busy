@@ -69,10 +69,12 @@ export const JOIN_CHANNEL = '@messages/JOIN_CHANNEL';
 
 export function joinChannel(channelName = 'general') {
   return (dispatch, getState, { messagesWorker }) => {
+    const { auth } = getState();
+
     dispatch({
       type: JOIN_CHANNEL,
       payload: {
-        promise: messagesWorker.joinChannel(channelName),
+        promise: messagesWorker.joinChannel(channelName, auth.token),
       },
     });
   };

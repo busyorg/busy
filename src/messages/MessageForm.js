@@ -10,7 +10,9 @@ import './MessageForm.scss';
 
 
 @connect(
-  () => ({}),
+  state => ({
+    sidebarIsVisible: state.app.sidebarIsVisible,
+  }),
   { sendMessage }
 )
 export default class MessageForm extends Component {
@@ -92,8 +94,12 @@ export default class MessageForm extends Component {
   };
 
   render() {
+    const { sidebarIsVisible } = this.props;
     return (
-      <form className="MessageForm message-form" onSubmit={this.handleSubmit}>
+      <form
+        className={ sidebarIsVisible ? 'MessageForm withSidebar' : 'MessageForm'}
+        onSubmit={this.handleSubmit}
+      >
         <div className="container" >
 
           { this.state.showEmoji &&
