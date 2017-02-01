@@ -1,7 +1,9 @@
 import React from 'react';
 import { FormattedRelative } from 'react-intl';
+import { Link } from 'react-router';
 import Body from '../post/Body';
 import Avatar from '../widgets/Avatar';
+import ProfileTooltipOrigin from '../user/profileTooltip/ProfileTooltipOrigin';
 
 const Message = (props) => {
   const { model } = props;
@@ -12,11 +14,21 @@ const Message = (props) => {
       <div className="container">
         <div data-uuid={model[0].uuid}>
           <div className="Message__left">
-            <Avatar sm username={senderUsername} />
+            <ProfileTooltipOrigin username={senderUsername}>
+              <Link to={`/@${senderUsername}`}>
+                <Avatar sm username={senderUsername} />
+              </Link>
+            </ProfileTooltipOrigin>
           </div>
           <div className="ml-5">
             <div className="media-heading">
-              <b>{senderUsername}</b>{' '}
+              <b>
+                <ProfileTooltipOrigin username={senderUsername}>
+                  <Link to={`/@${senderUsername}`}>
+                    {senderUsername}
+                  </Link>
+                </ProfileTooltipOrigin>
+              </b>{' '}
               <span className="text-info">
                 <FormattedRelative value={sentAt} />
               </span>
