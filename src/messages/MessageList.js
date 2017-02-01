@@ -47,6 +47,16 @@ function messageGroups(messages) {
   return ret.all.concat(ret.latest ? [ret.latest] : []);
 }
 
+const sortBasedOnDate = list =>
+  list.sort((itemA, itemB) => {
+    if (itemA.messages && itemB.messages) {
+      const itemADate = new Date(itemA.messages[0].sentAt).getTime();
+      const itemBDate = new Date(itemB.messages[0].sentAt).getTime();
+      return itemADate - itemBDate;
+    }
+    return 0;
+  });
+
 class MessageList extends Component {
   static propTypes = {
     messages: PropTypes.array
@@ -75,7 +85,7 @@ class MessageList extends Component {
 
   render() {
     const { messages, category, username } = this.props;
-    const groups = messageGroups(messages);
+    const groups = sortBasedOnDate(messageGroups(messages));
     const messageEls = map(groups, ({ messages, key }, i) => (
       <Message
         key={[key, i]}
