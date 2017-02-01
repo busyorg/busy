@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { FormattedRelative } from 'react-intl';
 import numeral from 'numeral';
+import _ from 'lodash';
+import { Tooltip } from 'pui-react-tooltip';
+import { OverlayTrigger } from 'pui-react-overlay-trigger';
+import { getUpvotes, getDownvotes, sortVotes } from '../helpers/voteHelpers';
 import Body from '../post/Body';
 import Avatar from '../widgets/Avatar';
 import Icon from '../widgets/Icon';
@@ -78,6 +82,12 @@ export default class CommentItem extends Component {
 
     const numberOfLikes = numeral(comment.active_votes.filter(vote => vote.percent > 0).length).format('0,0');
     const numberOfDislikes = numeral(comment.active_votes.filter(vote => vote.percent < 0).length).format('0,0');
+    const upvotes = sortVotes(getUpvotes(comment.active_votes), 'rshares')
+      .reverse()
+      .slice(0, 5);
+    const downvotes = sortVotes(getDownvotes(comment.active_votes), 'rshares')
+      .reverse()
+      .slice(0, 5);
 
     return (
       <div className="CommentItem">
@@ -115,7 +125,20 @@ export default class CommentItem extends Component {
                 >
                   <Icon name="thumb_up" xs />
                 </a>
-                {` ${numberOfLikes}`}
+                {' '}
+                <OverlayTrigger
+                  placement="top"
+                  overlay={
+                    <Tooltip>
+                      {upvotes.map(vote =>
+                        <div key={vote.voter}>{vote.voter}</div>
+                      )}
+                      {_.size(upvotes) === 5 && <div>…</div>}
+                    </Tooltip>
+                  }
+                >
+                  <a>{numberOfLikes}</a>
+                </OverlayTrigger>
               </div>
 
               <div className="CommentActionButtons__button">
@@ -127,18 +150,31 @@ export default class CommentItem extends Component {
                 >
                   <Icon name="thumb_down" xs />
                 </a>
-                {` ${numberOfDislikes}`}
+                {' '}
+                <OverlayTrigger
+                  placement="top"
+                  overlay={
+                    <Tooltip>
+                      {downvotes.map(vote =>
+                        <div key={vote.voter}>{vote.voter}</div>
+                      )}
+                      {_.size(downvotes) === 5 && <div>…</div>}
+                    </Tooltip>
+                  }
+                >
+                  <a>{numberOfDislikes}</a>
+                </OverlayTrigger>
               </div>
 
               <div className="CommentActionButtons__button">
                 { numeral(payout).format('$0,0.000') }
               </div>
 
-              <a onClick={(e) => this.handleReplyClick(e)}>
+              <a onClick={e => this.handleReplyClick(e)}>
                 <Icon name="reply" xs />
               </a>
 
-              { ' ' }
+              {' '}
 
               {(comment.children > 0 && !this.state.showReplies) &&
                 <a tabIndex="0" onClick={this.toggleShowReplies}>
