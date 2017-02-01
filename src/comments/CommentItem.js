@@ -13,7 +13,7 @@ const renderOptimisticComment = (comment) =>
   <div className="CommentItem">
     <div className={`CommentItem__content CommentItem__content--level-${comment.depth}`}>
       <div className="CommentUser">
-        <ProfileTooltipOrigin username={comment.author} >
+        <ProfileTooltipOrigin username={comment.author}>
           <Link to={`/@${comment.author}`}>
             <Avatar xs username={comment.author} />
           </Link>
@@ -21,7 +21,7 @@ const renderOptimisticComment = (comment) =>
       </div>
       <div className="CommentBody">
         <span className="CommentBody__username">
-          <ProfileTooltipOrigin username={comment.author} >
+          <ProfileTooltipOrigin username={comment.author}>
             <Link to={`/@${comment.author}`}>
               {comment.author}
             </Link>
