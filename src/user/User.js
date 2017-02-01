@@ -21,6 +21,9 @@ import Loading from '../widgets/Loading';
 import Follow from '../widgets/Follow';
 import Icon from '../widgets/Icon';
 import Avatar from '../widgets/Avatar';
+import { fetchChannelPresence } from '../messages/messagesActions';
+import getChannelName from '../helpers/getChannelName';
+import dispatchActions from '../helpers/dispatchActions';
 
 @connect(
   state => ({
@@ -40,6 +43,19 @@ import Avatar from '../widgets/Avatar';
     addUserFavorite,
     removeUserFavorite
   }, dispatch)
+)
+@dispatchActions(
+  {
+    waitFor: state => state.auth && state.auth.isAuthenticated,
+  },
+  (ownProps) => {
+    const { auth, params } = ownProps;
+    const channelName = getChannelName(auth, params.name);
+
+    return {
+      fetchChannelPresence: () => fetchChannelPresence(channelName),
+    };
+  }
 )
 export default class UserProfile extends React.Component {
   constructor(props) {
