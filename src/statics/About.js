@@ -16,7 +16,7 @@ export default () =>
         by building together a true sharing economy, a more free and trustworthy
         Internet without middleman.
       </p>
-      <div className="About__2 hero">
+      <div className="About__1 hero">
         <div className="container">
           <h1>Ensuring compensation for the creators of value</h1>
           <p>Artists and User-generated content create billions dollars worth of
@@ -26,7 +26,7 @@ export default () =>
             that returns much of its value to the creators ensuring fair compensation.</p>
         </div>
       </div>
-      <div className="About__3 hero">
+      <div className="About__2 hero">
         <div className="container">
           <h1>Creating a true sharing economy</h1>
           <p>Uber or Airbnb are often described as the sharing economy, a nice notion
@@ -38,16 +38,15 @@ export default () =>
             fee that allows people to transact safely and freely.</p>
         </div>
       </div>
-      <div className="About__4 hero">
+      <div className="About__3 hero">
         <div className="container">
           <h1>Ending the remittance ripoff</h1>
           <p>The largest flow of funds into the developing world is not foreign aid
             but remittance money repatriated to poor countries from their families
             living abroad. Using Western Union, Moneygram and other centralized
             services, the process takes time, patience and cost from 5 to 25% commission.
-            Selling goods or services using eBay, Paypal, takes 1 to 10% commission. Busy
-            goal is to end the remittance ripoff providing a digital wallet that allows
-            everyone to send/receive digital money with no transaction fee.</p>
+            Busy goal is to end the remittance ripoff providing a digital wallet that
+            allows everyone to send/receive digital money with no transaction fee.</p>
         </div>
       </div>
     </div>
