@@ -3,7 +3,7 @@ export default {
   steemit: 'platinum',
   smooth: 'gold',
   jamesc: 'gold',
-  cass: 'silver',
+  cass: 'gold',
   bhuz: 'silver',
   liondani: 'bronze',
   donkeypong: 'bronze',
