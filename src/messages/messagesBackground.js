@@ -79,11 +79,11 @@ export default class MessagesWorker {
     });
   }
 
-  onAuthenticated({ user }) {
+  onAuthenticated({ user, token }) {
     if (this.joined) return;
     this.joined = true;
     const username = user.name;
-    const payload = { senderUsername: username };
+    const payload = { senderUsername: username, token };
     this.socket.emit('USER_JOIN', payload);
     this.store.dispatch(fetchMessages(username));
   }
