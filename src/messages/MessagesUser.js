@@ -1,20 +1,14 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import dispatchActions from '../helpers/dispatchActions';
+
 import './Messages.scss';
 import Header from '../app/Header';
 import MenuUser from '../app/Menu/MenuUser';
 import MessageForm from './MessageForm';
 import MessageList from './MessageList';
+import dispatchActions from '../helpers/dispatchActions';
+import getChannelName from '../helpers/getChannelName';
 import { fetchChannelPresence, joinChannel } from './messagesActions';
-
-const getChannelName = (auth, params) => {
-  if (!auth.user) return '';
-  return [
-    `@${auth.user.name}`,
-    `@${params.username}`,
-  ];
-};
 
 @connect(
   state => ({
@@ -31,7 +25,7 @@ const getChannelName = (auth, params) => {
   },
   (ownProps) => {
     const { auth, params } = ownProps;
-    const channelName = getChannelName(auth, params);
+    const channelName = getChannelName(auth, params.username);
 
     return {
       fetchChannelPresence: () => fetchChannelPresence(channelName),
