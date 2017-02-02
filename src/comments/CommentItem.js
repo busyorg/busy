@@ -91,7 +91,7 @@ export default class CommentItem extends Component {
 
     return (
       <div className="CommentItem">
-        <div className={`CommentItem__content CommentItem__content--level-${comment.depth} pb-2`}>
+        <div className={`CommentItem__content CommentItem__content--level-${comment.depth}`}>
           <div className="CommentUser">
             <ProfileTooltipOrigin username={comment.author} >
               <Link to={`/@${comment.author}`}>
