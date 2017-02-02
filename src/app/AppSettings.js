@@ -40,7 +40,7 @@ export default class AppSettings extends React.Component {
                 className={app.layout === 'card' && 'active'}
               >
                 <Icon name="view_agenda" xl />
-                <h2 className="mvs">
+                <h2 className="my-2">
                   <FormattedMessage id="card" />
                 </h2>
               </a>
@@ -51,7 +51,7 @@ export default class AppSettings extends React.Component {
                 className={app.layout === 'list' && 'active'}
               >
                 <Icon name="view_list" xl />
-                <h2 className="mvs">
+                <h2 className="my-2">
                   <FormattedMessage id="list" />
                 </h2>
               </a>
@@ -62,37 +62,43 @@ export default class AppSettings extends React.Component {
             <div className="col col-lg-4 mb-3">
               <a onClick={() => setLocale('en')}>
                 <img className="Flag Flag--lg" alt="English" src="/img/flag/us.svg" />
-                <h2 className="mvs">English</h2>
+                <h2 className="my-2">English</h2>
               </a>
             </div>
             <div className="col col-lg-4 mb-3">
               <a onClick={() => setLocale('zh')}>
                 <img className="Flag Flag--lg" alt="简体中文" src="/img/flag/zh.svg" />
-                <h2 className="mvs">简体中文</h2>
+                <h2 className="my-2">简体中文</h2>
               </a>
             </div>
             <div className="col col-lg-4 mb-3">
               <a onClick={() => setLocale('fr')}>
                 <img className="Flag Flag--lg" alt="Français" src="/img/flag/fr.svg" />
-                <h2 className="mvs">Français</h2>
+                <h2 className="my-2">Français</h2>
               </a>
             </div>
             <div className="col col-lg-4 mb-3">
               <a onClick={() => setLocale('de')}>
                 <img className="Flag Flag--lg" alt="Deutsch" src="/img/flag/de.svg" />
-                <h2 className="mvs">Deutsch</h2>
+                <h2 className="my-2">Deutsch</h2>
               </a>
             </div>
             <div className="col col-lg-4 mb-3">
               <a onClick={() => setLocale('ru')}>
                 <img className="Flag Flag--lg" alt="Русский" src="/img/flag/ru.svg" />
-                <h2 className="mvs">Русский</h2>
+                <h2 className="my-2">Русский</h2>
               </a>
             </div>
             <div className="col col-lg-4 mb-3">
               <a onClick={() => setLocale('ko')}>
                 <img className="Flag Flag--lg" alt="한국어" src="/img/flag/ko.svg" />
-                <h2 className="mvs">한국어</h2>
+                <h2 className="my-2">한국어</h2>
+              </a>
+            </div>
+            <div className="col col-lg-4 mb-3">
+              <a onClick={() => setLocale('nl')}>
+                <img className="Flag Flag--lg" alt="한국어" src="/img/flag/nl.svg" />
+                <h2 className="my-2">Nederlands</h2>
               </a>
             </div>
           </div>

@@ -5,6 +5,7 @@ import fr from 'react-intl/locale-data/fr';
 import de from 'react-intl/locale-data/de';
 import ru from 'react-intl/locale-data/ru';
 import ko from 'react-intl/locale-data/ko';
+import nl from 'react-intl/locale-data/nl';
 
 import enMessage from './en.json';
 import zhMessage from './zh.json';
@@ -12,8 +13,9 @@ import frMessage from './fr.json';
 import deMessage from './de.json';
 import ruMessage from './ru.json';
 import koMessage from './ko.json';
+import nlMessage from './nl.json';
 
-addLocaleData([...en, ...zh, ...fr, ...de, ...ru, ...ko]);
+addLocaleData([...en, ...zh, ...fr, ...de, ...ru, ...ko, ...nl]);
 
 export {
   enMessage as en,
@@ -21,5 +23,6 @@ export {
   frMessage as fr,
   deMessage as de,
   ruMessage as ru,
-  koMessage as ko
+  koMessage as ko,
+  nlMessage as nl,
 };
