@@ -29,4 +29,5 @@ export default {
   joshbreslauer: 'bronze',
   aizensou: 'bronze',
   rubenalexander: 'bronze',
+  roelandp: 'bronze',
 };
