@@ -15,7 +15,7 @@ const Donors = () =>
       <h1><FormattedMessage id="donors" /></h1>
       <p>
         As a non-profit organization, what would we be without you? Through the on-going
-        support of our donors, Busy will be released in Q1 2017 and will keep evolving
+        support of our donors, Busy will keep evolving.
       </p>
       <Link className="btn btn-primary my-4" to="/transfer?to=busy.org">
         <FormattedMessage id="donate" />
