@@ -108,7 +108,7 @@ export default class Sidebar extends Component {
       return (
         <li>
           <Link to={`/hot/${search}`} activeClassName="active">
-            #{search}
+            # {search}
           </Link>
         </li>
       );
