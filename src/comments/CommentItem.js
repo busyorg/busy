@@ -126,19 +126,22 @@ export default class CommentItem extends Component {
                   <Icon name="thumb_up" xs />
                 </a>
                 {' '}
-                <OverlayTrigger
-                  placement="top"
-                  overlay={
-                    <Tooltip>
-                      {upvotes.map(vote =>
-                        <div key={vote.voter}>{vote.voter}</div>
-                      )}
-                      {_.size(upvotes) === 5 && <div>…</div>}
-                    </Tooltip>
-                  }
-                >
-                  <a>{numberOfLikes}</a>
-                </OverlayTrigger>
+                {upvotes.length > 0
+                  ? <OverlayTrigger
+                    placement="top"
+                    overlay={
+                      <Tooltip>
+                        {upvotes.map(vote =>
+                          <div key={vote.voter}>{vote.voter}</div>
+                        )}
+                        {_.size(upvotes) === 5 && <div>…</div>}
+                      </Tooltip>
+                    }
+                  >
+                    <a>{numberOfLikes}</a>
+                  </OverlayTrigger>
+                : numberOfLikes
+                }
               </div>
 
               <div className="CommentActionButtons__button">
@@ -151,19 +154,22 @@ export default class CommentItem extends Component {
                   <Icon name="thumb_down" xs />
                 </a>
                 {' '}
-                <OverlayTrigger
-                  placement="top"
-                  overlay={
-                    <Tooltip>
-                      {downvotes.map(vote =>
-                        <div key={vote.voter}>{vote.voter}</div>
-                      )}
-                      {_.size(downvotes) === 5 && <div>…</div>}
-                    </Tooltip>
-                  }
-                >
-                  <a>{numberOfDislikes}</a>
-                </OverlayTrigger>
+                {downvotes.length > 0
+                  ? <OverlayTrigger
+                    placement="top"
+                    overlay={
+                      <Tooltip>
+                        {downvotes.map(vote =>
+                          <div key={vote.voter}>{vote.voter}</div>
+                        )}
+                        {_.size(downvotes) === 5 && <div>…</div>}
+                      </Tooltip>
+                    }
+                  >
+                    <a>{numberOfDislikes}</a>
+                  </OverlayTrigger>
+                  : numberOfDislikes
+                }
               </div>
 
               <div className="CommentActionButtons__button">
