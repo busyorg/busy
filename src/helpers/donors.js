@@ -30,4 +30,6 @@ export default {
   aizensou: 'bronze',
   rubenalexander: 'bronze',
   roelandp: 'bronze',
+  stellabelle: 'bronze',
+  pnc: 'bronze',
 };
