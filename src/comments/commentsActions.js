@@ -3,6 +3,8 @@ import { createAction } from 'redux-actions';
 import SteemConnect from 'steemconnect';
 import { createCommentPermlink } from '../helpers/steemitHelpers';
 
+const version = require('../../package.json').version;
+
 SteemConnect.comment = Promise.promisify(SteemConnect.comment, { context: SteemConnect });
 
 export const GET_COMMENTS = 'GET_COMMENTS';
@@ -102,7 +104,7 @@ export const sendComment = (depth) => {
     } = comments.commentingDraft[id];
 
     const permlink = createCommentPermlink(parentAuthor, parentPermlink);
-    const jsonMetadata = { tags: [category] };
+    const jsonMetadata = { tags: [category], app: `busy/${version}` };
 
     const optimisticData = {
       author,
