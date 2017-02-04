@@ -40,9 +40,9 @@ export default (props) => {
       let newUrl = image;
       if (/^\/\//.test(image)) { newUrl = `https:${image}`; }
 
-      body = replaceAll(body, `<a href="${image}">${image}</a>`, `<img src="${newUrl}">`);
+      body = replaceAll(body, `<a href=[\\s"']+${image}["']>${image}</a>`, `<img src="${newUrl}">`);
       // not in any tag
-      if (body.search(`<[^>]+=["']${escapeRegExp(image)}["']`) === -1) {
+      if (body.search(`<[^>]+=[\\s"']+${escapeRegExp(image)}["']`) === -1) {
         body = replaceAll(body, image, `<img src="${newUrl}">`);
       }
     });
@@ -57,7 +57,7 @@ export default (props) => {
 
   if (_.has(embeds, '[0].embed')) {
     embeds.forEach((embed) => {
-      body = body.replace(`<a href="${embed.url}">${embed.url}</a>`, embed.embed);
+      body = body.replace(`<a href=[\\s"']+${embed.url}["']>${embed.url}</a>`, embed.embed);
     });
   }
 
