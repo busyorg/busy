@@ -19,6 +19,11 @@ export default [
     username: 'snowflake',
   },
   {
+    name: 'Thomas Hägg',
     username: 'the-ego-is-you',
+  },
+  {
+    name: 'Tibo Nova',
+    username: 'tibonova',
   },
 ];
