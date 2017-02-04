@@ -33,10 +33,6 @@ export default (props) => {
 
   body = linkify(body);
 
-  if (_.has(embeds, '[0].embed')) {
-    embeds.forEach((embed) => { body = body.replace(embed.url, embed.embed); });
-  }
-
   body = remarkable.render(body);
 
   if (_.has(jsonMetadata, 'image[0]')) {
@@ -58,6 +54,12 @@ export default (props) => {
       body = replaceAll(body, rest[0], newUrl);
     }
   });
+
+  if (_.has(embeds, '[0].embed')) {
+    embeds.forEach((embed) => {
+      body = body.replace(`<a href="${embed.url}">${embed.url}</a>`, embed.embed);
+    });
+  }
 
   body = sanitizeHtml(body, sanitizeConfig({}));
   const bodyWithEmojis = emojione.shortnameToImage(body);
