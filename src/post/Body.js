@@ -4,9 +4,17 @@ import steemembed from 'steemembed';
 import sanitizeHtml from 'sanitize-html';
 import Remarkable from 'remarkable';
 import emojione from 'emojione';
+import xmldom from 'xmldom';
 
 import sanitizeConfig from '../helpers/SanitizeConfig';
 import { replaceAll, escapeRegExp, imageRegex, linkify } from '../helpers/regexHelpers';
+
+
+const noop = () => { };
+const DOMParser = new xmldom.DOMParser({
+  errorHandler: { warning: noop, error: noop }
+});
+const XMLSerializer = new xmldom.XMLSerializer();
 
 const remarkable = new Remarkable({
   html: true, // remarkable renders first then sanitize runs...
@@ -39,10 +47,10 @@ export default (props) => {
     jsonMetadata.image.forEach((image) => {
       let newUrl = image;
       if (/^\/\//.test(image)) { newUrl = `https:${image}`; }
+      body = replaceAll(body, `<a href="${image}">${image}</a>`, `<img src="${newUrl}">`);
 
-      body = replaceAll(body, `<a href=[\\s"']+${image}["']>${image}</a>`, `<img src="${newUrl}">`);
       // not in any tag
-      if (body.search(`<[^>]+=[\\s"']+${escapeRegExp(image)}["']`) === -1) {
+      if (body.search(`<[^>]+=([\\s"'])?${escapeRegExp(image)}(["'])?`) === -1) {
         body = replaceAll(body, image, `<img src="${newUrl}">`);
       }
     });
@@ -55,9 +63,12 @@ export default (props) => {
     }
   });
 
+  const bodyDoc = DOMParser.parseFromString(body);
+  body = XMLSerializer.serializeToString(bodyDoc);
+
   if (_.has(embeds, '[0].embed')) {
     embeds.forEach((embed) => {
-      body = body.replace(`<a href=[\\s"']+${embed.url}["']>${embed.url}</a>`, embed.embed);
+      body = replaceAll(body, `<a href="${embed.url}">${embed.url}</a>`, embed.embed);
     });
   }
 
