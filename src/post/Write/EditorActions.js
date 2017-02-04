@@ -19,6 +19,12 @@ export const CREATE_POST_START = '@editor/CREATE_POST_START';
 export const CREATE_POST_SUCCESS = '@editor/CREATE_POST_SUCCESS';
 export const CREATE_POST_ERROR = '@editor/CREATE_POST_ERROR';
 
+export const SAVE_DRAFT = '@editor/SAVE_DRAFT';
+export const saveDraft = createAction(SAVE_DRAFT);
+
+export const DELETE_DRAFT = '@editor/DELETE_DRAFT';
+export const deleteDraft = createAction(DELETE_DRAFT);
+
 const requiredFields = 'parentAuthor,parentPermlink,author,permlink,title,body,jsonMetadata'.split(',');
 
 export function createPost(postData) {
@@ -27,7 +33,7 @@ export function createPost(postData) {
   });
 
   return (dispatch) => {
-    const { parentAuthor, parentPermlink, author, title, body, jsonMetadata } = postData;
+    const { parentAuthor, parentPermlink, author, title, body, jsonMetadata, draftId } = postData;
     dispatch({
       type: CREATE_POST,
       payload: {
@@ -36,6 +42,7 @@ export function createPost(postData) {
             SteemConnect
               .commentAsync(parentAuthor, parentPermlink, author, permlink, title, body, jsonMetadata)
               .then(({ result }) => {
+                if (draftId) { dispatch(deleteDraft(draftId)); }
                 browserHistory.push(`/${parentPermlink}/@${author}/${permlink}`);
                 return result;
               });
@@ -45,9 +52,3 @@ export function createPost(postData) {
     });
   };
 }
-
-export const SAVE_DRAFT = '@editor/SAVE_DRAFT';
-export const saveDraft = createAction(SAVE_DRAFT);
-
-export const DELETE_DRAFT = '@editor/DELETE_DRAFT';
-export const deleteDraft = createAction(DELETE_DRAFT);

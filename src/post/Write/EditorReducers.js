@@ -12,14 +12,20 @@ const editor = (state = defaultState, action) => {
   switch (action.type) {
     case editorActions.CREATE_POST_START:
       return { ...state,
-        loading: true
+        loading: true,
+        error: null,
+        success: false
       };
     case editorActions.CREATE_POST_ERROR:
       return { ...state,
-        error: action.payload.result
+        error: action.payload.result,
+        loading: false,
+        success: false,
       };
     case editorActions.CREATE_POST_SUCCESS:
       return { ...state,
+        error: null,
+        loading: false,
         success: true
       };
     case editorActions.SAVE_DRAFT: {
