@@ -58,8 +58,9 @@ export class RawNewPost extends Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    e.preventDefault();
+    const { location: { query } } = this.props;
     const data = this.getNewPostData();
+    data.draftId = query.draft;
     this.props.createPost(data);
   }
 
