@@ -45,8 +45,8 @@ export default (props) => {
       if (/^\/\//.test(image)) { newUrl = `https:${image}`; }
 
       body = replaceAll(body, `<a href="${image}">${image}</a>`, `<img src="${newUrl}">`);
-      // not in img tag
-      if (body.search(`<img[^>]+src=["']${escapeRegExp(image)}["']`) === -1) {
+      // not in any tag
+      if (body.search(`<[^>]+=["']${escapeRegExp(image)}["']`) === -1) {
         body = replaceAll(body, image, `<img src="${newUrl}">`);
       }
     });
