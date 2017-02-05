@@ -33,6 +33,7 @@ const PostSingleContent = ({
   dislikePost,
   isPostLiked,
   isPostDisliked,
+  onEdit,
 }) => {
   let jsonMetadata = {};
   try { jsonMetadata = JSON.parse(content.json_metadata); } catch (e) { }
@@ -77,6 +78,7 @@ const PostSingleContent = ({
         isPostLiked={isPostLiked}
         isPostDisliked={isPostDisliked}
         content={content}
+        onEdit={onEdit}
       />
       <div className="container">
         <AuthorBio authorName={content.author} />

@@ -8,6 +8,7 @@ import PostSinglePage from './PostSinglePage';
 import * as reblogActions from '../app/Reblog/reblogActions';
 import * as commentsActions from '../comments/commentsActions';
 import * as bookmarkActions from '../bookmarks/bookmarksActions';
+import { editPost } from '../post/Write/EditorActions';
 
 @connect(
   ({ posts, app, reblog, auth, bookmarks }) => ({
@@ -22,6 +23,7 @@ import * as bookmarkActions from '../bookmarks/bookmarksActions';
   (dispatch, ownProps) => bindActionCreators({
     reblog: reblogActions.reblog,
     closePostModal,
+    editPost,
     getContent: () => postActions.getContent(
       ownProps.params.author,
       ownProps.params.permlink
@@ -48,9 +50,15 @@ export default class PostSingle extends React.Component {
   }
 
   render() {
+    let onEdit;
     const { modal, isPostModalOpen, sidebarIsVisible, content, contentList = [], reblog, reblogList, auth } = this.props;
+
     if (!content) {
       return null;
+    }
+
+    if (content.author === auth.user.name) {
+      onEdit = () => { this.props.editPost(content); };
     }
 
     const currentStoryIndex = contentList.indexOf(content);
@@ -93,6 +101,7 @@ export default class PostSingle extends React.Component {
             nextStory={nextStory}
             openPostModal={this.props.openPostModal}
             toggleBookmark={this.props.toggleBookmark}
+            onEdit={onEdit}
           />
         }
 
@@ -109,6 +118,7 @@ export default class PostSingle extends React.Component {
             isPostDisliked={isPostDisliked}
             bookmarks={this.props.bookmarks}
             toggleBookmark={this.props.toggleBookmark}
+            onEdit={onEdit}
           />
         }
       </div>

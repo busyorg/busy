@@ -19,6 +19,7 @@ const MenuPost = ({
   dislikePost,
   content,
   isScrolling,
+  onEdit,
 }) => {
   const payout = numeral(
     parseFloat(content.total_payout_value) +
@@ -118,9 +119,15 @@ const MenuPost = ({
             <Icon name="repeat" />
           </a>
         </li>
+        {onEdit && <li>
+          <a onClick={onEdit}>
+            <Icon name="edit" />
+            {' '}<FormattedMessage id="edit" />
+          </a>
+        </li>}
       </ul>
     </div>
   );
-}
+};
 
 export default MenuPost;

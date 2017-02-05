@@ -116,6 +116,7 @@ export default class PostSingleModal extends Component {
           dislikePost={this.props.dislikePost}
           isPostLiked={this.props.isPostLiked}
           isPostDisliked={this.props.isPostDisliked}
+          onEdit={this.props.onEdit}
         />
         <CommentForm />
       </div>

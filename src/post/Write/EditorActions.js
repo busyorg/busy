@@ -25,6 +25,9 @@ export const saveDraft = createAction(SAVE_DRAFT);
 export const DELETE_DRAFT = '@editor/DELETE_DRAFT';
 export const deleteDraft = createAction(DELETE_DRAFT);
 
+export const EDIT_POST = '@editor/EDIT_POST';
+export const editPost = createAction(EDIT_POST);
+
 const requiredFields = 'parentAuthor,parentPermlink,author,permlink,title,body,jsonMetadata'.split(',');
 
 export function createPost(postData) {
