@@ -134,6 +134,7 @@ export const sendComment = (depth) => {
       meta: {
         optimisticId,
         parentId: id,
+        isEditing,
         isReplyToComment,
       },
     });

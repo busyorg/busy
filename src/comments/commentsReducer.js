@@ -34,7 +34,7 @@ const listByCommentId = (state = {}, action) => {
         ...action.payload.commentsChildrenList,
       };
     case commentsTypes.SEND_COMMENT_START:
-      if (!action.meta.isReplyToComment) {
+      if (!action.meta.isReplyToComment || action.meta.isEditing) {
         return state;
       }
 
@@ -156,7 +156,7 @@ const commentItem = (state = {}, action) => {
     default:
       return state;
   }
-}
+};
 
 const commentsData = (state = {}, action) => {
   switch (action.type) {
@@ -168,7 +168,7 @@ const commentsData = (state = {}, action) => {
       };
     case userTypes.GET_MORE_USER_COMMENTS_SUCCESS:
       const commentsMoreList = {};
-      action.payload.result.forEach(comment => {
+      action.payload.result.forEach((comment) => {
         commentsMoreList[comment.id] = comment;
       });
       return {
@@ -176,11 +176,19 @@ const commentsData = (state = {}, action) => {
         ...commentsMoreList,
       };
     case commentsTypes.SEND_COMMENT_START:
+      if (action.meta.isEditing) {
+        const editedComment = state[action.meta.parentId];
+        editedComment.body = action.payload.body;
+        return {
+          ...state,
+          [action.meta.parentId]: editedComment,
+        };
+      }
       if (!action.meta.isReplyToComment) {
         return {
           ...state,
           [action.meta.optimisticId]: action.payload,
-        }
+        };
       }
 
       const newChildren = state[action.meta.parentId].children + 1;
@@ -256,6 +264,7 @@ const comments = (state = initialState, action) => {
     case userTypes.GET_MORE_USER_COMMENTS_SUCCESS:
     case commentsTypes.SHOW_MORE_COMMENTS:
     case commentsTypes.SEND_COMMENT_START:
+
       return {
         ...state,
         comments: commentsData(state.comments, action),
