@@ -123,6 +123,15 @@ export class RawNewPost extends Component {
     data.parentPermlink = tags.length ? tags[0] : 'general';
     data.jsonMetadata = metaData;
     if (this.state.isUpdating) { data.isUpdating = this.state.isUpdating; }
+
+    const { draftPosts } = this.props.editor;
+    const { location: { query } } = this.props;
+    const id = query.draft;
+    const draftPost = _.get(draftPosts, id, {});
+    // originalBody need to preserved for update draft. They are used to create patch.
+    if (_.has(draftPost, 'postData.originalBody')) {
+      data.originalBody = draftPost.postData.originalBody;
+    }
     return data;
   }
 

@@ -36,12 +36,18 @@ const editor = (state = defaultState, action) => {
       const id = action.payload.id;
       return {
         ...state,
+        loading: false,
+        error: null,
+        success: false,
         draftPosts: { ...state.draftPosts, [id]: { postData, rawBody } }
       };
     }
     case editorActions.DELETE_DRAFT:
       return {
         ...state,
+        loading: false,
+        error: null,
+        success: false,
         draftPosts: _.omit(state.draftPosts, action.payload)
       };
     default:

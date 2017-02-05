@@ -9,9 +9,8 @@ import SteemConnect from 'steemconnect';
 import { browserHistory } from 'react-router';
 import { createAction } from 'redux-actions';
 
-import { createPermlink } from '../../helpers/steemitHelpers';
+import { createPermlink, getBodyPatchIfSmaller } from '../../helpers/steemitHelpers';
 
-Promise.promisifyAll(SteemConnect);
 Promise.promisifyAll(request.Request.prototype);
 
 export const CREATE_POST = '@editor/CREATE_POST';
@@ -31,6 +30,7 @@ export const editPost = post =>
     try { jsonMetadata = JSON.parse(post.json_metadata); } catch (e) { }
     const draft = {
       ...post,
+      originalBody: post.body,
       isUpdating: true,
       jsonMetadata,
       parentAuthor: post.parent_author,
@@ -48,10 +48,12 @@ export function createPost(postData) {
   });
 
   return (dispatch) => {
-    const { parentAuthor, parentPermlink, author, title, body, jsonMetadata, draftId, isUpdating } = postData;
+    const { parentAuthor, parentPermlink, author, title, jsonMetadata, draftId, isUpdating } = postData;
     const getPremLink = isUpdating ?
       Promise.resolve(postData.permlink) :
       createPermlink(title, author, parentAuthor, parentPermlink);
+
+    const body = isUpdating ? getBodyPatchIfSmaller(postData.originalBody, postData.body) : postData.body;
 
     dispatch({
       type: CREATE_POST,
