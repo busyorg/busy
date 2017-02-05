@@ -3,9 +3,9 @@ import numeral from 'numeral';
 import Icon from '../../widgets/Icon';
 
 const PayoutLabel = ({ post, onClick }) => {
-  const payout = parseFloat(post.total_payout_value)
-    + parseFloat(post.total_pending_payout_value)
-    + parseFloat(post.curator_payout_value);
+  const pendingPayoutValue = parseFloat(post.pending_payout_value);
+  const totalPayoutValue = parseFloat(post.total_payout_value);
+  const payout = totalPayoutValue || pendingPayoutValue;
   const maxAcceptedPayout = parseFloat(post.max_accepted_payout);
   return (
     <a onClick={onClick}>
