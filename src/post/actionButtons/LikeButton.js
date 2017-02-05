@@ -2,7 +2,7 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import Icon from '../../widgets/Icon';
 
-const LikeButton = ({ onClick, onTextClick, active, numberOfVotes, layout }) => {
+const LikeButton = ({ onClick, active, numberOfVotes, layout }) => {
   const isCardLayout = layout === 'card';
   const isListLayout = layout === 'list';
   return (
@@ -14,22 +14,10 @@ const LikeButton = ({ onClick, onTextClick, active, numberOfVotes, layout }) => 
         <Icon name="thumb_up" sm />
       </a>
       {' '}
-      {(isCardLayout && parseInt(numberOfVotes) !== 0) &&
-        <a
-          onClick={onTextClick}
-          className={active ? 'active' : ''}
-        >
-          {numberOfVotes}
-          <span className="hidden-xs">
-            {' '}<FormattedMessage id="likes" />
-          </span>
-        </a>
-      }
-      {(isCardLayout && parseInt(numberOfVotes) === 0) &&
+      {isCardLayout &&
         <span>
-          {numberOfVotes}
           <span className="hidden-xs">
-            {' '}<FormattedMessage id="likes" />
+            {' '}<FormattedMessage id="like" />
           </span>
         </span>
       }
