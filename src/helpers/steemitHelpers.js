@@ -1,10 +1,12 @@
-/* eslint-disable camelcase,no-param-reassign,consistent-return,no-console */
+/* eslint-disable camelcase,no-param-reassign,consistent-return,no-console,new-cap */
 
 import base58 from 'bs58';
 import steem from 'steem';
 import getSlug from 'speakingurl';
 import secureRandom from 'secure-random';
+import diff_match_patch from 'diff-match-patch';
 
+const dmp = new diff_match_patch();
 /**
  * This function is extracted from steemit.com source code and does the same tasks with some slight-
  * adjustments to meet our needs. Refer to the main one in case of future problems:
@@ -131,11 +133,33 @@ export function createPermlink(title, author, parent_author, parent_permlink) {
       console.warn('Error while getting content', err);
       return permlink;
     });
-  } else {
-    // comments: re-parentauthor-parentpermlink-time
-    const timeStr = new Date().toISOString().replace(/[^a-zA-Z0-9]+/g, '');
-    parent_permlink = parent_permlink.replace(/(-\d{8}t\d{9}z)/g, '');
-    permlink = `re-${parent_author}-${parent_permlink}-${timeStr}`;
-    return Promise.resolve(checkPermLinkLength(permlink));
   }
+  // comments: re-parentauthor-parentpermlink-time
+  const timeStr = new Date().toISOString().replace(/[^a-zA-Z0-9]+/g, '');
+  parent_permlink = parent_permlink.replace(/(-\d{8}t\d{9}z)/g, '');
+  permlink = `re-${parent_author}-${parent_permlink}-${timeStr}`;
+  return Promise.resolve(checkPermLinkLength(permlink));
+}
+
+/**
+ * https://github.com/steemit/steemit.com/blob/ded8ecfcc9caf2d73b6ef12dbd0191bd9dbf990b/app/redux/TransactionSaga.js#L412
+ */
+function createPatch(text1, text2) {
+  if (!text1 && text1 === '') return undefined;
+  const patches = dmp.patch_make(text1, text2);
+  const patch = dmp.patch_toText(patches);
+  return patch;
+}
+
+/**
+ * https://github.com/steemit/steemit.com/blob/ded8ecfcc9caf2d73b6ef12dbd0191bd9dbf990b/app/redux/TransactionSaga.js#L329
+ */
+export function getBodyPatchIfSmaller(originalBody, body) {
+  if (!originalBody) return body;
+  const patch = createPatch(originalBody, body);
+  // Putting body into buffer will expand Unicode characters into their true length
+  if (patch && patch.length < new Buffer(body, 'utf-8').length) {
+    body = patch;
+  }
+  return body;
 }

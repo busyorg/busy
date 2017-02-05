@@ -100,10 +100,12 @@ export const sendComment = (depth) => {
       parentPermlink,
       category,
       body,
-      isReplyToComment
+      isReplyToComment,
+      isEditing,
     } = comments.commentingDraft[id];
 
-    const permlink = createCommentPermlink(parentAuthor, parentPermlink);
+    const permlink = isEditing ? comments.commentingDraft[id].permlink :
+      createCommentPermlink(parentAuthor, parentPermlink);
     const jsonMetadata = { tags: [category], app: `busy/${version}` };
 
     const optimisticData = {
@@ -132,11 +134,11 @@ export const sendComment = (depth) => {
       meta: {
         optimisticId,
         parentId: id,
+        isEditing,
         isReplyToComment,
       },
     });
     dispatch(closeCommentingDraft());
-
   };
 };
 
