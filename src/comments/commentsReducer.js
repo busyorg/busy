@@ -210,15 +210,20 @@ const commentsData = (state = {}, action) => {
 
 const commentingDraftItem = (state = initialCommentingDraftItem, action) => {
   switch (action.type) {
-    case commentsTypes.OPEN_COMMENTING_DRAFT:
-      const { parentAuthor, parentPermlink, category, isReplyToComment } = action.payload;
+    case commentsTypes.OPEN_COMMENTING_DRAFT: {
+      const { parentAuthor, parentPermlink, category, isReplyToComment,
+        isEditing = false, body = '', permlink = '' } = action.payload;
       return {
         ...state,
         parentAuthor,
         parentPermlink,
         category,
+        isEditing,
+        body,
+        permlink,
         isReplyToComment: !!isReplyToComment,
       };
+    }
     case commentsTypes.UPDATE_COMMENTING_DRAFT:
       return {
         ...state,

@@ -13,7 +13,7 @@ import { sortCommentsFromSteem } from '../helpers/stateHelpers';
 import ProfileTooltipOrigin from '../user/profileTooltip/ProfileTooltipOrigin';
 import './CommentItem.scss';
 
-const renderOptimisticComment = (comment) =>
+const renderOptimisticComment = comment =>
   <div className="CommentItem">
     <div className={`CommentItem__content CommentItem__content--level-${comment.depth}`}>
       <div className="CommentUser">
@@ -51,13 +51,27 @@ export default class CommentItem extends Component {
   handleReplyClick(e) {
     e.stopPropagation();
     const { comment } = this.props;
-
     this.props.openCommentingDraft({
       parentAuthor: comment.author,
       parentPermlink: comment.permlink,
       category: comment.category,
       id: comment.id,
       isReplyToComment: true,
+    });
+  }
+
+  handleEditClick(e) {
+    e.stopPropagation();
+    const { comment } = this.props;
+    this.props.openCommentingDraft({
+      parentAuthor: comment.author,
+      category: comment.category,
+      permlink: comment.permlink,
+      parentPermlink: comment.parent_permlink,
+      id: comment.id,
+      isReplyToComment: true,
+      isEditing: true,
+      body: comment.body
     });
   }
 
@@ -80,6 +94,7 @@ export default class CommentItem extends Component {
       auth.isAuthenticated &&
       comment.active_votes.some(vote => vote.voter === auth.user.name && vote.percent < 0);
 
+    const isEditable = _.has(auth, 'user.name') ? comment.author === auth.user.name : false;
     const numberOfLikes = numeral(comment.active_votes.filter(vote => vote.percent > 0).length).format('0,0');
     const numberOfDislikes = numeral(comment.active_votes.filter(vote => vote.percent < 0).length).format('0,0');
     const upvotes = sortVotes(getUpvotes(comment.active_votes), 'rshares')
@@ -140,7 +155,7 @@ export default class CommentItem extends Component {
                   >
                     <a>{numberOfLikes}</a>
                   </OverlayTrigger>
-                : numberOfLikes
+                  : numberOfLikes
                 }
               </div>
 
@@ -173,8 +188,14 @@ export default class CommentItem extends Component {
               </div>
 
               <div className="CommentActionButtons__button">
-                { numeral(payout).format('$0,0.000') }
+                {numeral(payout).format('$0,0.000')}
               </div>
+
+              {isEditable && <div className="CommentActionButtons__button">
+                <a onClick={e => this.handleEditClick(e)}>
+                  <Icon name="edit" xs />
+                </a>
+              </div>}
 
               <a onClick={e => this.handleReplyClick(e)}>
                 <Icon name="reply" xs />
@@ -191,21 +212,21 @@ export default class CommentItem extends Component {
             </div>
           </div>
         </div>
-        { this.state.showReplies && allComments.listByCommentId[comment.id] &&
+        {this.state.showReplies && allComments.listByCommentId[comment.id] &&
           sortCommentsFromSteem(
             allComments.listByCommentId[comment.id],
             allComments,
             sortOrder
           ).map(commentId =>
             <CommentItem
-              { ...this.props }
+              {...this.props}
               key={commentId}
               comment={allComments.comments[commentId]}
             />
-          )
+            )
         }
       </div>
     );
   }
-};
+}
 
