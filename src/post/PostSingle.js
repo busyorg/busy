@@ -58,7 +58,10 @@ export default class PostSingle extends React.Component {
     }
 
     if (content.author === auth.user.name) {
-      onEdit = () => { this.props.editPost(content); };
+      let jsonMetadata = {};
+      try { jsonMetadata = JSON.parse(content.json_metadata); } catch (e) { }
+      // Support Only markdown edits
+      if (jsonMetadata.format === 'markdown') { onEdit = () => { this.props.editPost(content); }; }
     }
 
     const currentStoryIndex = contentList.indexOf(content);
