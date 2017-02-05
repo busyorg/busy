@@ -23,7 +23,8 @@ import {
 import Editor, { createEditorStateWithText } from 'draft-js-plugins-editor';
 import createEmojiPlugin from 'draft-js-emoji-plugin';
 import createHashtagPlugin from 'draft-js-hashtag-plugin';
-import exportMarkdown from 'draft-js-export-markdown/lib/stateToMarkdown';
+import { stateFromMarkdown } from 'draft-js-import-markdown';
+import { stateToMarkdown } from 'draft-js-export-markdown';
 import createMarkdownShortcutsPlugin from 'draft-js-markdown-shortcuts-plugin';
 import createLinkifyPlugin from 'draft-js-linkify-plugin';
 
@@ -175,17 +176,25 @@ class PostEditor extends Component {
 
   getContent() {
     return {
-      markdown: exportMarkdown(this.state.editorState.getCurrentContent()),
+      markdown: stateToMarkdown(this.state.editorState.getCurrentContent()),
       raw: convertToRaw(this.state.editorState.getCurrentContent()),
     };
   }
 
+  setMarkdown(markdown) {
+    this.setEditStateFromContent(stateFromMarkdown(markdown));
+  }
+
   setRawContent(content) {
+    this.setEditStateFromContent(convertFromRaw(content));
+  }
+
+  setEditStateFromContent(contentState) {
     // setTimeout is required as getDecorator are not immediately.
     setTimeout(() => {
       this.setState({
         editorState: EditorState.createWithContent(
-          convertFromRaw(content),
+          contentState,
           this.state.editorState.getDecorator()
         )
       });

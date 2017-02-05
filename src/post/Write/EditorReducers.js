@@ -11,19 +11,22 @@ const defaultState = {
 const editor = (state = defaultState, action) => {
   switch (action.type) {
     case editorActions.CREATE_POST_START:
-      return { ...state,
+      return {
+        ...state,
         loading: true,
         error: null,
         success: false
       };
     case editorActions.CREATE_POST_ERROR:
-      return { ...state,
+      return {
+        ...state,
         error: action.payload.result,
         loading: false,
         success: false,
       };
     case editorActions.CREATE_POST_SUCCESS:
-      return { ...state,
+      return {
+        ...state,
         error: null,
         loading: false,
         success: true
@@ -31,12 +34,14 @@ const editor = (state = defaultState, action) => {
     case editorActions.SAVE_DRAFT: {
       const { postData, rawBody } = action.payload;
       const id = action.payload.id;
-      return { ...state,
+      return {
+        ...state,
         draftPosts: { ...state.draftPosts, [id]: { postData, rawBody } }
       };
     }
     case editorActions.DELETE_DRAFT:
-      return { ...state,
+      return {
+        ...state,
         draftPosts: _.omit(state.draftPosts, action.payload)
       };
     default:

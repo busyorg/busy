@@ -25,8 +25,20 @@ export const saveDraft = createAction(SAVE_DRAFT);
 export const DELETE_DRAFT = '@editor/DELETE_DRAFT';
 export const deleteDraft = createAction(DELETE_DRAFT);
 
-export const EDIT_POST = '@editor/EDIT_POST';
-export const editPost = createAction(EDIT_POST);
+export const editPost = post =>
+  (dispatch) => {
+    let jsonMetadata = {};
+    try { jsonMetadata = JSON.parse(post.json_metadata); } catch (e) { }
+    const draft = {
+      ...post,
+      isUpdating: true,
+      jsonMetadata,
+      parentAuthor: post.parent_author,
+      parentPermlink: post.parent_permlink,
+    };
+    dispatch(saveDraft({ postData: draft, id: post.id }));
+    browserHistory.push(`/write?draft=${post.id}`);
+  };
 
 const requiredFields = 'parentAuthor,parentPermlink,author,permlink,title,body,jsonMetadata'.split(',');
 
@@ -36,20 +48,23 @@ export function createPost(postData) {
   });
 
   return (dispatch) => {
-    const { parentAuthor, parentPermlink, author, title, body, jsonMetadata, draftId } = postData;
+    const { parentAuthor, parentPermlink, author, title, body, jsonMetadata, draftId, isUpdating } = postData;
+    const getPremLink = isUpdating ?
+      Promise.resolve(postData.permlink) :
+      createPermlink(title, author, parentAuthor, parentPermlink);
+
     dispatch({
       type: CREATE_POST,
       payload: {
-        promise: createPermlink(title, author, parentAuthor, parentPermlink)
-          .then((permlink) => {
+        promise: getPremLink
+          .then(permlink =>
             SteemConnect
               .commentAsync(parentAuthor, parentPermlink, author, permlink, title, body, jsonMetadata)
               .then(({ result }) => {
                 if (draftId) { dispatch(deleteDraft(draftId)); }
                 browserHistory.push(`/${parentPermlink}/@${author}/${permlink}`);
                 return result;
-              });
-          }
+              })
           ).catch(err => err)
       },
     });
