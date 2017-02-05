@@ -82,9 +82,9 @@ export default class CommentItem extends Component {
       return renderOptimisticComment(comment);
     }
 
-    const payout =
-      parseFloat(comment.total_payout_value) +
-      parseFloat(comment.total_pending_payout_value);
+    const pendingPayoutValue = parseFloat(comment.pending_payout_value);
+    const totalPayoutValue = parseFloat(comment.total_payout_value);
+    const payout = totalPayoutValue || pendingPayoutValue;
 
     const isCommentLiked =
       auth.isAuthenticated &&
@@ -223,7 +223,7 @@ export default class CommentItem extends Component {
               key={commentId}
               comment={allComments.comments[commentId]}
             />
-            )
+          )
         }
       </div>
     );
