@@ -13,6 +13,7 @@ const initialState = {
   comments: {},
   blog: {},
   bookmarks: {},
+  replies: {},
 };
 
 const feedFetching = (state = false, action) => {
