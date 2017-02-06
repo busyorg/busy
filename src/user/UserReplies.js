@@ -1,11 +1,50 @@
-import React from 'react';
-import Page from '../feed/Page';
+import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import Feed from '../feed/Feed';
+import * as userActions from './userActions';
+import {
+  getFeedContentFromState,
+  getFeedLoadingFromState,
+  getFeedHasMoreFromState
+} from '../helpers/stateHelpers';
 
-module.exports = React.createClass({
+@connect(
+  state => ({
+    feed: state.feed,
+    posts: state.posts,
+  }),
+  dispatch => bindActionCreators({
+    getUserReplies: userActions.getUserReplies
+  }, dispatch)
+)
+export default class UserReplies extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   render() {
-    const account = this.props.params.name;
+    const { getUserReplies } = this.props;
+
+    const username = this.props.params.name;
+    const content = getFeedContentFromState('replies', username, feed, posts);
+    const isFetching = getFeedLoadingFromState('replies', username, feed);
+    const hasMore = getFeedHasMoreFromState('replies', username, feed);
+    const loadContentAction = () => getUserReplies(username);
+    const loadMoreContentAction = () => undefined;
+
     return (
-      <Page account={account} path={`@${account}/recent-replies`} />
+      <div>
+        <Feed
+          content={content}
+          isFetching={isFetching}
+          hasMore={hasMore}
+          loadContent={loadContentAction}
+          loadMoreContent={loadMoreContentAction}
+          route={this.props.route}
+          username={username}
+        />
+      </div>
     );
   }
-});
+}
