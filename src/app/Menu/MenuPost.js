@@ -21,10 +21,10 @@ const MenuPost = ({
   isScrolling,
   onEdit,
 }) => {
-  const payout = numeral(
-    parseFloat(content.total_payout_value) +
-    parseFloat(content.total_pending_payout_value)
-  ).format('$0,0.00');
+  const pendingPayoutValue = parseFloat(content.pending_payout_value);
+  const totalPayoutValue = parseFloat(content.total_payout_value);
+  let payout = totalPayoutValue || pendingPayoutValue;
+  payout = numeral(payout).format('$0,0.00');
   const numberOfComments = numeral(content.children).format('0,0');
   const numberOfLikes = numeral(content.active_votes.filter(vote => vote.percent > 0).length).format('0,0');
   const numberOfDislikes = numeral(content.active_votes.filter(vote => vote.percent < 0).length).format('0,0');
