@@ -69,6 +69,10 @@ export default (props) => {
   if (_.has(embeds, '[0].embed')) {
     embeds.forEach((embed) => {
       body = replaceAll(body, `<a href="${embed.url}">${embed.url}</a>`, embed.embed);
+
+      if (body.search(`<[^>]+=([\\s"'])?${embed.url}(["'])?`) === -1) {
+        body = replaceAll(body, embed.url, embed.embed);
+      }
     });
   }
 
