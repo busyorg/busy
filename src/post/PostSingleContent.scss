@@ -51,14 +51,14 @@
     margin-bottom: 2em;
   }
 
-  ol li {
+  ol > li {
     list-style-type: decimal !important;
   }
 
   ul {
     margin-bottom: 2em;
 
-    li {
+     & > li {
       list-style-type: disc !important;
       list-style-position: outside;
       margin-left: 20px;
