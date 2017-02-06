@@ -12,6 +12,7 @@ import Avatar from '../../widgets/Avatar';
 import PostModalLink from './../PostModalLink';
 import LikesList from './../LikesList';
 import ProfileTooltipOrigin from '../../user/profileTooltip/ProfileTooltipOrigin';
+import Reactions from '../Reactions';
 import { calculatePayout } from '../../helpers/steemitHelpers';
 import './PostFeedCard.scss';
 
@@ -114,21 +115,6 @@ const PostFeedCard = ({
       </ul>
     </div>
 
-    { (imagePath && !_.has(embeds, '[0].embed')) &&
-      <div className="PostFeedCard__thumbs">
-        <PostModalLink
-          post={post}
-          onClick={() => openPostModal(post.id)}
-        >
-          <img src={imagePath} />
-        </PostModalLink>
-      </div>
-    }
-
-    { _.has(embeds, '[0].embed') &&
-      <div className="PostFeedCard__thumbs" dangerouslySetInnerHTML={{ __html: embeds[0].embed }} />
-    }
-
     <div className="PostFeedCard__cell PostFeedCard__cell--body">
       <h2>
         <PostModalLink
@@ -142,6 +128,22 @@ const PostFeedCard = ({
       <BodyShort body={post.body} />
     </div>
 
+    {_.has(embeds, '[0].embed') &&
+      <div className="PostFeedCard__thumbs" dangerouslySetInnerHTML={{ __html: embeds[0].embed }} />
+    }
+
+    {(imagePath && !_.has(embeds, '[0].embed')) &&
+    <div className="PostFeedCard__thumbs">
+      <PostModalLink
+        post={post}
+        onClick={() => openPostModal(post.id)}
+      >
+        <img src={imagePath} />
+      </PostModalLink>
+    </div>
+    }
+
+
     <div className="PostFeedCard__cell PostFeedCard__cell--bottom">
       <PostActionButtons
         post={post}
@@ -153,6 +155,11 @@ const PostFeedCard = ({
         reblog={reblog}
         isReblogged={isReblogged}
         layout={layout}
+      />
+      <Reactions
+        post={post}
+        handleShowLikesRequest={handleShowLikesRequest}
+        handleShowCommentsRequest={handleShowCommentsRequest}
       />
     </div>
 

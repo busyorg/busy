@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { FormattedMessage } from 'react-intl';
 import numeral from 'numeral';
 import LikeButton from './actionButtons/LikeButton';
 import PayoutLabel from './actionButtons/PayoutLabel';
@@ -85,34 +86,17 @@ export default class PostActionButtons extends Component {
             post={post}
           />
         </li>
-
         <li>
           <a onClick={e => this.handleCommentBoxClick(e)}>
             <Icon name="reply" sm />
+            {isCardLayout &&
+              <span className="hidden-xs"> <FormattedMessage id="comment" /></span>
+            }
           </a>
-          {' '}
-
-          {(post.children > 0 && isCardLayout) &&
-            <a onClick={e => this.handleCommentsTextClick(e)}>
-              {numeral(post.children).format('0,0')}
-              <span className="hidden-xs"> Comment
-                  {post.children > 1 && 's'}
-              </span>
-            </a>
-          }
-
-          {(!post.children && isCardLayout) &&
-            <span className="hidden-xs">0 Comment</span>
-          }
-
           {isListLayout &&
-            <span>
-              {numeral(post.children).format('0,0')}
-            </span>
+            <span> {numeral(post.children).format('0,0')}</span>
           }
-
         </li>
-
         <li>
           <ReblogButton
             onClick={() => this.handleReblog()}
