@@ -12,16 +12,15 @@ const LikeButton = ({ onClick, active, numberOfVotes, layout }) => {
         className={active ? 'active' : ''}
       >
         <Icon name="thumb_up" sm />
-      </a>
-      {' '}
-      {isCardLayout &&
-        <span>
-          <span className="hidden-xs">
-            {' '}<FormattedMessage id="like" />
+        {isCardLayout &&
+          <span>
+            <span className="hidden-xs">
+              {' '}<FormattedMessage id="like" />
+            </span>
           </span>
-        </span>
-      }
-      {isListLayout && <span>{numberOfVotes}</span>}
+        }
+      </a>
+      {isListLayout && <span> {numberOfVotes}</span>}
     </div>
   );
 };

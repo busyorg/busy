@@ -86,22 +86,17 @@ export default class PostActionButtons extends Component {
             post={post}
           />
         </li>
-
         <li>
           <a onClick={e => this.handleCommentBoxClick(e)}>
             <Icon name="reply" sm />
+            {isCardLayout &&
+              <span className="hidden-xs"> <FormattedMessage id="comment" /></span>
+            }
           </a>
-          {' '}
-
-          {isCardLayout &&
-            <span className="hidden-xs"><FormattedMessage id="comment" /></span>
-          }
-
           {isListLayout &&
-            <span>{numeral(post.children).format('0,0')}</span>
+            <span> {numeral(post.children).format('0,0')}</span>
           }
         </li>
-
         <li>
           <ReblogButton
             onClick={() => this.handleReblog()}
