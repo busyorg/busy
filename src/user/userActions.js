@@ -2,7 +2,7 @@ import Promise from 'bluebird';
 import fetch from 'isomorphic-fetch';
 import steemConnect from 'steemconnect';
 
-import { getAllFollowing } from '../helpers/apiHelpers';
+import { getAllFollowing, mapAPIContentToId } from '../helpers/apiHelpers';
 
 export const GET_USER_COMMENTS = 'GET_USER_COMMENTS';
 export const GET_USER_COMMENTS_START = 'GET_USER_COMMENTS_START';
@@ -13,6 +13,11 @@ export const GET_MORE_USER_COMMENTS = 'GET_MORE_USER_COMMENTS';
 export const GET_MORE_USER_COMMENTS_START = 'GET_MORE_USER_COMMENTS_START';
 export const GET_MORE_USER_COMMENTS_SUCCESS = 'GET_MORE_USER_COMMENTS_SUCCESS';
 export const GET_MORE_USER_COMMENTS_ERROR = 'GET_MORE_USER_COMMENTS_ERROR';
+
+export const GET_USER_REPLIES = '@user/GET_USER_REPLIES';
+export const GET_USER_REPLIES_START = '@user/GET_USER_REPLIES_START';
+export const GET_USER_REPLIES_SUCCESS = '@user/GET_USER_REPLIES_SUCCESS';
+export const GET_USER_REPLIES_ERROR = '@user/GET_USER_REPLIES_ERROR';
 
 export const getUserComments = (username) => {
   return (dispatch, getState, { steemAPI }) => {
@@ -199,3 +204,16 @@ export const getFollowing = (userName = '') => {
     });
   };
 };
+
+export const getUserReplies = username =>
+  (dispatch, getState, { steemAPI }) => {
+    dispatch({
+      type: GET_USER_REPLIES,
+      payload: {
+        promise: steemAPI.getStateAsync(`/@${username}/recent-replies`).then(
+          apiRes => mapAPIContentToId(apiRes)
+        ),
+      },
+      meta: { username },
+    });
+  };
