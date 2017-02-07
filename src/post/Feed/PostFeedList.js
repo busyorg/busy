@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
-import { FormattedMessage, injectIntl } from 'react-intl';
+import { FormattedMessage, FormattedRelative, injectIntl } from 'react-intl';
 import BodyShort from '../BodyShort';
 import PostActionButtons from '../PostActionButtons';
 import Avatar from '../../widgets/Avatar';
@@ -62,6 +62,12 @@ const PostFeedList = ({
           isReblogged={isReblogged}
           layout={layout}
         />
+        <span>
+          <FormattedRelative value={post.created} />
+          { ' ' }
+          <FormattedMessage id="by" />
+          { ' ' }
+        </span>
         <span>
           <ProfileTooltipOrigin username={post.author} >
             <Link to={`/@${post.author}`}>
