@@ -112,24 +112,24 @@ const MenuPost = ({
             {' '}<FormattedMessage id="comments" />
           </span>
         </li>
-        <li>
-
-          {canReblog &&
+        {canReblog &&
+          <li>
             <a
               className={isReblogged ? 'active' : ''}
               onClick={reblog}
             >
               <Icon name="repeat" />
             </a>
-          }
-
-        </li>
-        {onEdit && <li>
-          <a onClick={onEdit}>
-            <Icon name="edit" />
-            {' '}<FormattedMessage id="edit" />
-          </a>
-        </li>}
+          </li>
+        }
+        {onEdit &&
+          <li>
+            <a onClick={onEdit}>
+              <Icon name="edit" />
+              {' '}<FormattedMessage id="edit" />
+            </a>
+          </li>
+        }
       </ul>
     </div>
   );

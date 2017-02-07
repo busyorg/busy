@@ -98,15 +98,15 @@ export default class PostActionButtons extends Component {
             <span> {numeral(post.children).format('0,0')}</span>
           }
         </li>
-        <li>
-          {canReblog &&
+        {canReblog &&
+          <li>
             <ReblogButton
               onClick={() => this.handleReblog()}
               active={this.props.isReblogged}
               layout={layout}
             />
-          }
-        </li>
+          </li>
+        }
       </ul>
     );
   }
