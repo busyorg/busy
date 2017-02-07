@@ -156,12 +156,13 @@ const PostFeedCard = ({
         isReblogged={isReblogged}
         layout={layout}
       />
-      <Reactions
-        post={post}
-        handleShowLikesRequest={handleShowLikesRequest}
-        handleShowCommentsRequest={handleShowCommentsRequest}
-      />
     </div>
+
+    <Reactions
+      post={post}
+      handleShowLikesRequest={handleShowLikesRequest}
+      handleShowCommentsRequest={handleShowCommentsRequest}
+    />
 
     <Comments
       postId={post.id}
