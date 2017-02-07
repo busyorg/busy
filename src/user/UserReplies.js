@@ -24,7 +24,7 @@ export default class UserReplies extends Component {
   }
 
   render() {
-    const { getUserReplies } = this.props;
+    const { getUserReplies, feed, posts } = this.props;
 
     const username = this.props.params.name;
     const content = getFeedContentFromState('replies', username, feed, posts);
@@ -42,7 +42,6 @@ export default class UserReplies extends Component {
           loadContent={loadContentAction}
           loadMoreContent={loadMoreContentAction}
           route={this.props.route}
-          username={username}
         />
       </div>
     );

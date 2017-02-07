@@ -10,6 +10,7 @@ export const getFeedFromState = (sortBy, category = 'all', state) => {
     case 'comments':
     case 'blog':
     case 'bookmarks':
+    case 'replies':
       return state[sortBy][category] ? state[sortBy][category].list : [];
     default:
       return [];
@@ -37,6 +38,7 @@ export const getFeedLoadingFromState = (sortBy, category = 'all', feedState) => 
     case 'comments':
     case 'blog':
     case 'bookmarks':
+    case 'replies':
       return (feedState[sortBy][category] && feedState[sortBy][category].isFetching) || false;
     default:
       return false;
@@ -54,6 +56,7 @@ export const getFeedHasMoreFromState = (sortBy, listName = 'all', feedState) => 
     case 'comments':
     case 'blog':
     case 'bookmarks':
+    case 'replies':
       return (feedState[sortBy][listName] && feedState[sortBy][listName].hasMore) || false;
     default:
       return false;

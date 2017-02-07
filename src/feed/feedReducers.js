@@ -23,12 +23,14 @@ const feedFetching = (state = false, action) => {
     case feedTypes.GET_USER_FEED_CONTENT_SUCCESS:
     case feedTypes.GET_MORE_USER_FEED_CONTENT_SUCCESS:
     case bookmarksActions.GET_BOOKMARKS_SUCCESS:
+    case userTypes.GET_USER_REPLIES_SUCCESS:
       return false;
     case feedTypes.GET_FEED_CONTENT:
     case feedTypes.GET_MORE_FEED_CONTENT:
     case feedTypes.GET_USER_FEED_CONTENT:
     case feedTypes.GET_MORE_USER_FEED_CONTENT:
     case bookmarksActions.GET_BOOKMARKS_START:
+    case userTypes.GET_USER_REPLIES_START:
       return true;
     default:
       return state;
@@ -59,6 +61,8 @@ const feedIdsList = (state = [], action) => {
       return Object.keys(action.payload.content).map(key => action.payload.content[key].id);
     case userTypes.GET_MORE_USER_COMMENTS_SUCCESS:
       return action.payload.result.map(comment => comment.id);
+    case userTypes.GET_USER_REPLIES_SUCCESS:
+      return Object.keys(action.payload);
     default:
       return state;
   }
@@ -76,6 +80,7 @@ const feedSortBySubItem = (state = {}, action) => {
     case userTypes.GET_MORE_USER_COMMENTS_START:
     case bookmarksActions.GET_BOOKMARKS_START:
     case bookmarksActions.GET_BOOKMARKS_SUCCESS:
+    case userTypes.GET_USER_REPLIES_START:
       return {
         ...state,
         isFetching: feedFetching(undefined, action),
@@ -85,6 +90,7 @@ const feedSortBySubItem = (state = {}, action) => {
     case feedTypes.GET_USER_FEED_CONTENT_SUCCESS:
     case userTypes.GET_USER_COMMENTS_SUCCESS:
     case userTypes.GET_MORE_USER_COMMENTS_SUCCESS:
+    case userTypes.GET_USER_REPLIES_SUCCESS:
       return {
         ...state,
         hasMore: true,
@@ -125,6 +131,8 @@ const feedSortByItem = (state = {}, action) => {
     case userTypes.GET_USER_COMMENTS_SUCCESS:
     case userTypes.GET_MORE_USER_COMMENTS_START:
     case userTypes.GET_MORE_USER_COMMENTS_SUCCESS:
+    case userTypes.GET_USER_REPLIES_START:
+    case userTypes.GET_USER_REPLIES_SUCCESS:
       return {
         ...state,
         [action.meta.username]: feedSortBySubItem(state[action.meta.username], action)
@@ -168,6 +176,12 @@ const feed = (state = initialState, action) => {
       return {
         ...state,
         bookmarks: feedSortByItem(state.bookmarks, action)
+      };
+    case userTypes.GET_USER_REPLIES_START:
+    case userTypes.GET_USER_REPLIES_SUCCESS:
+      return {
+        ...state,
+        replies: feedSortByItem(state.replies, action),
       };
     case bookmarksActions.TOGGLE_BOOKMARK:
       const toggledId = action.payload;

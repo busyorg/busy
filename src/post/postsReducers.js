@@ -2,6 +2,7 @@ import * as feedTypes from '../feed/feedActions';
 import * as bookmarksActions from '../bookmarks/bookmarksActions';
 import * as postsActions from './postActions';
 import * as commentsActions from '../comments/commentsActions';
+import * as userActions from '../user/userActions';
 
 const postItem = (state = {}, action) => {
   switch (action.type) {
@@ -58,6 +59,11 @@ const posts = (state = {}, action) => {
         ...state,
         ...posts,
       };
+    case userActions.GET_USER_REPLIES_SUCCESS:
+      return {
+        ...state,
+        ...action.payload,
+      }
     case postsActions.GET_CONTENT_SUCCESS:
       return {
         ...state,
