@@ -66,7 +66,7 @@ export default class PostActionButtons extends Component {
     const isPostLiked =
       auth.isAuthenticated &&
       post.active_votes.some(vote => vote.voter === auth.user.name && vote.percent > 0);
-    const hasReblog = auth.isAuthenticated && auth.user.name !== post.author;
+    const canReblog = auth.isAuthenticated && auth.user.name !== post.author;
     const isCardLayout = layout === 'card';
     const isListLayout = layout === 'list';
 
@@ -99,7 +99,7 @@ export default class PostActionButtons extends Component {
           }
         </li>
         <li>
-          {hasReblog &&
+          {canReblog &&
             <ReblogButton
               onClick={() => this.handleReblog()}
               active={this.props.isReblogged}

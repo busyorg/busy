@@ -11,7 +11,7 @@ import './MenuPost.scss';
 const MenuPost = ({
   reblog,
   isReblogged,
-  hasReblog,
+  canReblog,
   openCommentingDraft,
   isPostLiked,
   isPostDisliked,
@@ -114,7 +114,7 @@ const MenuPost = ({
         </li>
         <li>
 
-          {hasReblog &&
+          {canReblog &&
             <a
               className={isReblogged ? 'active' : ''}
               onClick={reblog}
