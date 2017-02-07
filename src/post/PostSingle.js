@@ -77,6 +77,8 @@ export default class PostSingle extends React.Component {
       content.active_votes &&
       content.active_votes.some(vote => vote.voter === auth.user.name && vote.percent < 0);
 
+    const canReblog = auth.isAuthenticated && auth.user.name !== content.author;
+
     const openCommentingDraft = () => this.props.openCommentingDraft({
       parentAuthor: content.author,
       parentPermlink: content.permlink,
@@ -94,6 +96,7 @@ export default class PostSingle extends React.Component {
             route={this.props.route}
             reblog={() => reblog(content.id)}
             isReblogged={reblogList.includes(content.id)}
+            canReblog={canReblog}
             openCommentingDraft={openCommentingDraft}
             likePost={() => this.props.likePost(content.id)}
             unlikePost={() => this.props.unlikePost(content.id)}
@@ -113,6 +116,7 @@ export default class PostSingle extends React.Component {
             content={content}
             reblog={() => reblog(content.id)}
             isReblogged={reblogList.includes(content.id)}
+            canReblog={canReblog}
             openCommentingDraft={openCommentingDraft}
             likePost={() => this.props.likePost(content.id)}
             unlikePost={() => this.props.unlikePost(content.id)}

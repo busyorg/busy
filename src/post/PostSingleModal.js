@@ -110,6 +110,7 @@ export default class PostSingleModal extends Component {
           toggleBookmark={this.props.toggleBookmark}
           reblog={this.props.reblog}
           isReblogged={this.props.isReblogged}
+          canReblog={this.props.canReblog}
           openCommentingDraft={this.props.openCommentingDraft}
           likePost={this.props.likePost}
           unlikePost={this.props.unlikePost}

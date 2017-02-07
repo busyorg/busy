@@ -27,6 +27,7 @@ const PostSingleContent = ({
   bookmarks,
   reblog,
   isReblogged,
+  canReblog,
   openCommentingDraft,
   likePost,
   unlikePost,
@@ -70,6 +71,7 @@ const PostSingleContent = ({
       </div>
       <MenuPost
         reblog={reblog}
+        canReblog={canReblog}
         isReblogged={isReblogged}
         openCommentingDraft={openCommentingDraft}
         likePost={likePost}
