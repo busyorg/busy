@@ -1,10 +1,18 @@
-**About Issue** 
+<!--
+Thanks for opening an issue! To help the team to understand your needs, please complete the below template to ensure we have the necessary details to assist you. 
+-->
 
-**Url(If any).**
+#### Expected behavior
 
-**Expected behavior and actual behavior**
+<!-- What do you think should happen? -->
 
-**Steps to reproduce the problem.**
+#### Actual behavior
 
-**Browser and version.**
+<!-- What actually happens? -->
 
+#### How to reproduce
+
+<!-- For bugs, provide an URL that demos the problem -->
+
+* Browser: 
+* Operating system: 
