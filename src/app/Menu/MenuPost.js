@@ -11,6 +11,7 @@ import './MenuPost.scss';
 const MenuPost = ({
   reblog,
   isReblogged,
+  hasReblog,
   openCommentingDraft,
   isPostLiked,
   isPostDisliked,
@@ -112,12 +113,16 @@ const MenuPost = ({
           </span>
         </li>
         <li>
-          <a
-            className={isReblogged ? 'active' : ''}
-            onClick={reblog}
-          >
-            <Icon name="repeat" />
-          </a>
+
+          {hasReblog &&
+            <a
+              className={isReblogged ? 'active' : ''}
+              onClick={reblog}
+            >
+              <Icon name="repeat" />
+            </a>
+          }
+
         </li>
         {onEdit && <li>
           <a onClick={onEdit}>

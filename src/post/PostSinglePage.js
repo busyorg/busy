@@ -21,6 +21,7 @@ export default class PostSinglePage extends React.Component {
             toggleBookmark={this.props.toggleBookmark}
             reblog={reblog}
             isReblogged={isReblogged}
+            hasReblog={this.props.hasReblog}
             openCommentingDraft={openCommentingDraft}
             likePost={this.props.likePost}
             unlikePost={this.props.unlikePost}
