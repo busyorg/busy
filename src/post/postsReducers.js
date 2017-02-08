@@ -60,10 +60,11 @@ const posts = (state = {}, action) => {
         ...posts,
       };
     case userActions.GET_USER_REPLIES_SUCCESS:
+    case userActions.GET_MORE_USER_REPLIES_SUCCESS:
       return {
         ...state,
         ...action.payload,
-      }
+      };
     case postsActions.GET_CONTENT_SUCCESS:
       return {
         ...state,

@@ -24,6 +24,7 @@ const feedFetching = (state = false, action) => {
     case feedTypes.GET_MORE_USER_FEED_CONTENT_SUCCESS:
     case bookmarksActions.GET_BOOKMARKS_SUCCESS:
     case userTypes.GET_USER_REPLIES_SUCCESS:
+    case userTypes.GET_MORE_USER_REPLIES_SUCCESS:
       return false;
     case feedTypes.GET_FEED_CONTENT:
     case feedTypes.GET_MORE_FEED_CONTENT:
@@ -31,6 +32,7 @@ const feedFetching = (state = false, action) => {
     case feedTypes.GET_MORE_USER_FEED_CONTENT:
     case bookmarksActions.GET_BOOKMARKS_START:
     case userTypes.GET_USER_REPLIES_START:
+    case userTypes.GET_MORE_USER_REPLIES_START:
       return true;
     default:
       return state;
@@ -38,11 +40,12 @@ const feedFetching = (state = false, action) => {
 };
 
 const feedIdsList = (state = [], action) => {
+  let postsIds;
   switch (action.type) {
     case feedTypes.GET_FEED_CONTENT_SUCCESS:
     case feedTypes.GET_USER_FEED_CONTENT_SUCCESS:
     case bookmarksActions.GET_BOOKMARKS_SUCCESS:
-      const postsIds = action.payload.postsData.map(post => post.id);
+      postsIds = action.payload.postsData.map(post => post.id);
       return [
         ...postsIds,
       ];
@@ -63,6 +66,12 @@ const feedIdsList = (state = [], action) => {
       return action.payload.result.map(comment => comment.id);
     case userTypes.GET_USER_REPLIES_SUCCESS:
       return Object.keys(action.payload);
+    case userTypes.GET_MORE_USER_REPLIES_SUCCESS:
+      postsIds = action.payload.map(reply => reply.id);
+      return [
+        ...state,
+        ...postsIds,
+      ];
     default:
       return state;
   }
@@ -81,6 +90,7 @@ const feedSortBySubItem = (state = {}, action) => {
     case bookmarksActions.GET_BOOKMARKS_START:
     case bookmarksActions.GET_BOOKMARKS_SUCCESS:
     case userTypes.GET_USER_REPLIES_START:
+    case userTypes.GET_MORE_USER_REPLIES_START:
       return {
         ...state,
         isFetching: feedFetching(undefined, action),
@@ -90,10 +100,18 @@ const feedSortBySubItem = (state = {}, action) => {
     case feedTypes.GET_USER_FEED_CONTENT_SUCCESS:
     case userTypes.GET_USER_COMMENTS_SUCCESS:
     case userTypes.GET_MORE_USER_COMMENTS_SUCCESS:
-    case userTypes.GET_USER_REPLIES_SUCCESS:
       return {
         ...state,
         hasMore: true,
+        isLoaded: true,
+        isFetching: feedFetching(undefined, action),
+        list: feedIdsList(state.list, action),
+      };
+    case userTypes.GET_USER_REPLIES_SUCCESS:
+    case userTypes.GET_MORE_USER_REPLIES_SUCCESS:
+      return {
+        ...state,
+        hasMore: action.payload.length === action.meta.limit,
         isLoaded: true,
         isFetching: feedFetching(undefined, action),
         list: feedIdsList(state.list, action),
@@ -133,6 +151,8 @@ const feedSortByItem = (state = {}, action) => {
     case userTypes.GET_MORE_USER_COMMENTS_SUCCESS:
     case userTypes.GET_USER_REPLIES_START:
     case userTypes.GET_USER_REPLIES_SUCCESS:
+    case userTypes.GET_MORE_USER_REPLIES_START:
+    case userTypes.GET_MORE_USER_REPLIES_SUCCESS:
       return {
         ...state,
         [action.meta.username]: feedSortBySubItem(state[action.meta.username], action)
@@ -179,6 +199,8 @@ const feed = (state = initialState, action) => {
       };
     case userTypes.GET_USER_REPLIES_START:
     case userTypes.GET_USER_REPLIES_SUCCESS:
+    case userTypes.GET_MORE_USER_REPLIES_START:
+    case userTypes.GET_MORE_USER_REPLIES_SUCCESS:
       return {
         ...state,
         replies: feedSortByItem(state.replies, action),
