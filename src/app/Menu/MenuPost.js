@@ -11,6 +11,7 @@ import './MenuPost.scss';
 const MenuPost = ({
   reblog,
   isReblogged,
+  canReblog,
   openCommentingDraft,
   isPostLiked,
   isPostDisliked,
@@ -19,11 +20,12 @@ const MenuPost = ({
   dislikePost,
   content,
   isScrolling,
+  onEdit,
 }) => {
-  const payout = numeral(
-    parseFloat(content.total_payout_value) +
-    parseFloat(content.total_pending_payout_value)
-  ).format('$0,0.00');
+  const pendingPayoutValue = parseFloat(content.pending_payout_value);
+  const totalPayoutValue = parseFloat(content.total_payout_value);
+  let payout = totalPayoutValue || pendingPayoutValue;
+  payout = numeral(payout).format('$0,0.00');
   const numberOfComments = numeral(content.children).format('0,0');
   const numberOfLikes = numeral(content.active_votes.filter(vote => vote.percent > 0).length).format('0,0');
   const numberOfDislikes = numeral(content.active_votes.filter(vote => vote.percent < 0).length).format('0,0');
@@ -110,17 +112,27 @@ const MenuPost = ({
             {' '}<FormattedMessage id="comments" />
           </span>
         </li>
-        <li>
-          <a
-            className={isReblogged ? 'active' : ''}
-            onClick={reblog}
-          >
-            <Icon name="repeat" />
-          </a>
-        </li>
+        {canReblog &&
+          <li>
+            <a
+              className={isReblogged ? 'active' : ''}
+              onClick={reblog}
+            >
+              <Icon name="repeat" />
+            </a>
+          </li>
+        }
+        {onEdit &&
+          <li>
+            <a onClick={onEdit}>
+              <Icon name="edit" />
+              {' '}<FormattedMessage id="edit" />
+            </a>
+          </li>
+        }
       </ul>
     </div>
   );
-}
+};
 
 export default MenuPost;

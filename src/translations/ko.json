@@ -56,5 +56,9 @@
   "donors": "Donors",
   "advisors": "Advisors",
   "contributors": "Contributors",
-  "donate": "Donate"
+  "donate": "Donate",
+  "edit": "Edit",
+  "like": "Like",
+  "comment": "Comment",
+  "by": "by"
 }

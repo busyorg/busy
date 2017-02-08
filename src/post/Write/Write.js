@@ -18,18 +18,20 @@ export class RawNewPost extends Component {
   constructor(props) {
     super(props);
     let tags = [];
-
+    const state = {};
     const { location: { query } } = props;
 
     const { draftPosts } = this.props.editor;
     const draftPost = draftPosts[query.draft];
     if (draftPost) {
-      const { jsonMetadata } = draftPost.postData || {};
+      const { jsonMetadata, isUpdating } = draftPost.postData || {};
       tags = jsonMetadata.tags;
       if (!_.isArray(tags)) { tags = []; }
+      state.isUpdating = isUpdating;
     }
 
-    this.state = { tags };
+    state.tags = tags;
+    this.state = state;
   }
 
   static propTypes = {
@@ -49,17 +51,24 @@ export class RawNewPost extends Component {
       if (title && this.title) {
         this.title.value = title;
       }
-
       if (draftPost.rawBody) {
         this.editor.setRawContent(draftPost.rawBody);
+      } else if (_.has(draftPost.postData, 'body')) {
+        this.editor.setMarkdown(draftPost.postData.body);
+      }
+
+      if (_.has(draftPost.postData, 'permlink')) {
+        this.permlink.value = _.get(draftPost.postData, 'permlink');
       }
     }
   }
 
   onSubmit = (e) => {
     e.preventDefault();
-    e.preventDefault();
+    const { location: { query } } = this.props;
     const data = this.getNewPostData();
+    data.draftId = query.draft;
+    data.isUpdating = this.state.isUpdating;
     this.props.createPost(data);
   }
 
@@ -113,6 +122,16 @@ export class RawNewPost extends Component {
     if (image.length) { metaData.image = image; }
     data.parentPermlink = tags.length ? tags[0] : 'general';
     data.jsonMetadata = metaData;
+    if (this.state.isUpdating) { data.isUpdating = this.state.isUpdating; }
+
+    const { draftPosts } = this.props.editor;
+    const { location: { query } } = this.props;
+    const id = query.draft;
+    const draftPost = _.get(draftPosts, id, {});
+    // originalBody need to preserved for update draft. They are used to create patch.
+    if (_.has(draftPost, 'postData.originalBody')) {
+      data.originalBody = draftPost.postData.originalBody;
+    }
     return data;
   }
 
@@ -148,8 +167,9 @@ export class RawNewPost extends Component {
 
   resetEditor = () => {
     this.title.value = '';
+    this.permlink.value = '';
     this.editor.resetState();
-    this.setState({ tags: [] });
+    this.setState({ tags: [], isUpdating: undefined });
   }
 
   onCategoryChange = (tags) => {
@@ -187,7 +207,7 @@ export class RawNewPost extends Component {
     const { user: { name: author }, editor: { loading } } = this.props;
     const { tags } = this.state;
     const categoryInputDisabled = tags.length === MAX_ALLOW_CATEGORIES;
-
+    const postText = this.state.isUpdating ? 'Update' : 'Publish';
     return (
       <div className="main-panel">
         <Header />
@@ -241,13 +261,12 @@ export class RawNewPost extends Component {
               />
             </fieldset>
 
-            <input name="authorPermlink" type="hidden" />
-
+            <input name="permlink" type="hidden" ref={(c) => { this.permlink = c; }} />
             <input name="author" type="hidden" value={author || ''} />
 
             <div className="form-group">
               <button type="submit" disabled={!!loading} className="btn btn-success btn-lg">
-                {loading ? <Loading color="white" className="my-0" /> : 'Publish'}
+                {loading ? <Loading color="white" className="my-0" /> : postText}
               </button>
             </div>
           </form>

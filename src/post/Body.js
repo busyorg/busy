@@ -4,9 +4,17 @@ import steemembed from 'steemembed';
 import sanitizeHtml from 'sanitize-html';
 import Remarkable from 'remarkable';
 import emojione from 'emojione';
+import xmldom from 'xmldom';
 
 import sanitizeConfig from '../helpers/SanitizeConfig';
 import { replaceAll, escapeRegExp, imageRegex, linkify } from '../helpers/regexHelpers';
+
+
+const noop = () => { };
+const DOMParser = new xmldom.DOMParser({
+  errorHandler: { warning: noop, error: noop }
+});
+const XMLSerializer = new xmldom.XMLSerializer();
 
 const remarkable = new Remarkable({
   html: true, // remarkable renders first then sanitize runs...
@@ -33,20 +41,16 @@ export default (props) => {
 
   body = linkify(body);
 
-  if (_.has(embeds, '[0].embed')) {
-    embeds.forEach((embed) => { body = body.replace(embed.url, embed.embed); });
-  }
-
   body = remarkable.render(body);
 
   if (_.has(jsonMetadata, 'image[0]')) {
     jsonMetadata.image.forEach((image) => {
       let newUrl = image;
       if (/^\/\//.test(image)) { newUrl = `https:${image}`; }
-
       body = replaceAll(body, `<a href="${image}">${image}</a>`, `<img src="${newUrl}">`);
-      // not in img tag
-      if (body.search(`<img[^>]+src=["']${escapeRegExp(image)}["']`) === -1) {
+
+      // not in any tag
+      if (body.search(`<[^>]+=([\\s"'])?${escapeRegExp(image)}(["'])?`) === -1) {
         body = replaceAll(body, image, `<img src="${newUrl}">`);
       }
     });
@@ -58,6 +62,19 @@ export default (props) => {
       body = replaceAll(body, rest[0], newUrl);
     }
   });
+
+  const bodyDoc = DOMParser.parseFromString(body);
+  body = XMLSerializer.serializeToString(bodyDoc);
+
+  if (_.has(embeds, '[0].embed')) {
+    embeds.forEach((embed) => {
+      body = replaceAll(body, `<a href="${embed.url}">${embed.url}</a>`, embed.embed);
+
+      if (body.search(`<[^>]+=([\\s"'])?${embed.url}(["'])?`) === -1) {
+        body = replaceAll(body, embed.url, embed.embed);
+      }
+    });
+  }
 
   body = sanitizeHtml(body, sanitizeConfig({}));
   const bodyWithEmojis = emojione.shortnameToImage(body);
