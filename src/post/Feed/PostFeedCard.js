@@ -105,7 +105,7 @@ const PostFeedCard = ({
             <span className="hidden-xs">
               { ' ' }<FormattedMessage id="in" />{ ' ' }
               {isReplyPost ?
-                <Link to={`/${post.category}/@${post.parent_author}/${post.parent_permlink}#${post.permlink}`}>
+                <Link to={`${post.url}`}>
                   {post.root_title}
                 </Link>
                 :
