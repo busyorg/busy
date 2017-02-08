@@ -71,14 +71,14 @@ class MessageList extends Component {
   }
 
   componentWillUpdate() {
-    const node = ReactDOM.findDOMNode(this);
+    const node = document.body;
     this.shouldScrollBottom = node.scrollTop + node.offsetHeight === node.scrollHeight;
   }
 
   componentDidUpdate() {
     this.sendReadAcks();
     if (this.shouldScrollBottom) {
-      const node = ReactDOM.findDOMNode(this);
+      const node = document.body;
       node.scrollTop = node.scrollHeight;
     }
   }
