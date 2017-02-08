@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import map from 'lodash/map';
 import reduce from 'lodash/reduce';
 import { connect } from 'react-redux';
+import debounce from 'lodash/debounce';
 
 import { sendReadAcknoledgement } from './messagesActions';
 import './MessageList.scss';
@@ -70,17 +71,12 @@ class MessageList extends Component {
     this.sendReadAcks();
   }
 
-  componentWillUpdate() {
-    const node = document.body;
-    this.shouldScrollBottom = node.scrollTop + node.offsetHeight === node.scrollHeight;
-  }
-
   componentDidUpdate() {
     this.sendReadAcks();
-    if (this.shouldScrollBottom) {
-      const node = document.body;
-      node.scrollTop = node.scrollHeight;
-    }
+
+    document.body.scrollTop = document.body.scrollHeight;
+    // Firefox Compatibility while document.scrollingElement isn't available
+    document.documentElement.scrollTop = document.documentElement.scrollHeight;
   }
 
   render() {
