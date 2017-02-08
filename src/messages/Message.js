@@ -1,6 +1,7 @@
 import React from 'react';
-import { FormattedRelative } from 'react-intl';
+import { FormattedRelative, FormattedTime } from 'react-intl';
 import { Link } from 'react-router';
+
 import Body from '../post/Body';
 import Avatar from '../widgets/Avatar';
 import ProfileTooltipOrigin from '../user/profileTooltip/ProfileTooltipOrigin';
@@ -30,20 +31,29 @@ const Message = (props) => {
                 </ProfileTooltipOrigin>
               </b>{' '}
               <span className="text-info">
-                <FormattedRelative value={sentAt} />
+                <FormattedRelative value={sentAt} />{' '}
+                (<FormattedTime value={sentAt} />)
               </span>
             </div>
             <Body body={model[0].text} />
           </div>
         </div>
       </div>
-      {model.slice(1).map(({ uuid, text }, i) =>
-        <div className="container" key={i} data-uuid={uuid}>
-          <div className="ml-5">
-            <Body body={text} />
+
+      {model.slice(1).map((message, i) => {
+        const { text, uuid, sentAt: msentAt } = message;
+        return (
+          <div className="Message__item container" key={i} data-uuid={uuid}>
+            <div className="Message__timestamp">
+              <FormattedTime value={new Date(msentAt)} />
+            </div>
+
+            <div className="ml-5">
+              <Body body={text} />
+            </div>
           </div>
-        </div>
-      )}
+        );
+      })}
     </div>
   );
 };
