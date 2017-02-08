@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router';
+import { Link, withRouter } from 'react-router';
 import { FormattedRelative } from 'react-intl';
 import numeral from 'numeral';
 import _ from 'lodash';
@@ -36,12 +36,33 @@ const renderOptimisticComment = comment =>
     </div>
   </div>;
 
+@withRouter
 export default class CommentItem extends Component {
   constructor(props) {
     super(props);
     this.state = {
       showReplies: props.isSinglePage,
     };
+  }
+
+  componentDidMount() {
+    this.checkHashLink();
+  }
+
+  checkHashLink() {
+    const { location } = this.props;
+    // eslint-disable-next-line
+    if (window && location.hash) {
+      this.scrollToAnchoredLink();
+    }
+  }
+
+  scrollToAnchoredLink() {
+    const { location } = this.props;
+    // eslint-disable-next-line
+    const targetElm = window.document.getElementById(location.hash);
+    if (!targetElm) return;
+    targetElm.scrollIntoView();
   }
 
   toggleShowReplies = (e) => {
