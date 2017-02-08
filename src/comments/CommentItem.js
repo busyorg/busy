@@ -126,7 +126,7 @@ export default class CommentItem extends Component {
       .slice(0, 5);
 
     return (
-      <div className="CommentItem">
+      <div className="CommentItem" id={`#@${comment.author}/${comment.permlink}`}>
         <div className={`CommentItem__content CommentItem__content--level-${comment.depth}`}>
           <div className="CommentUser">
             <ProfileTooltipOrigin username={comment.author} >
