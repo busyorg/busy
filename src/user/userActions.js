@@ -246,6 +246,6 @@ export const getMoreUserReplies = username =>
           apiRes => apiRes.slice(1)
         ),
       },
-      meta: { username },
+      meta: { username, limit },
     });
   };
