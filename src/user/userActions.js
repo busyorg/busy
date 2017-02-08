@@ -19,6 +19,12 @@ export const GET_USER_REPLIES_START = '@user/GET_USER_REPLIES_START';
 export const GET_USER_REPLIES_SUCCESS = '@user/GET_USER_REPLIES_SUCCESS';
 export const GET_USER_REPLIES_ERROR = '@user/GET_USER_REPLIES_ERROR';
 
+export const GET_MORE_USER_REPLIES = '@user/GET_MORE_USER_REPLIES';
+export const GET_MORE_USER_REPLIES_START = '@user/GET_MORE_USER_REPLIES_START';
+export const GET_MORE_USER_REPLIES_SUCCESS = '@user/GET_MORE_USER_REPLIES_SUCCESS';
+export const GET_MORE_USER_REPLIES_ERROR = '@user/GET_MORE_USER_REPLIES_ERROR';
+
+
 export const getUserComments = (username) => {
   return (dispatch, getState, { steemAPI }) => {
     const feed = getState().feed;
@@ -212,6 +218,32 @@ export const getUserReplies = username =>
       payload: {
         promise: steemAPI.getStateAsync(`/@${username}/recent-replies`).then(
           apiRes => mapAPIContentToId(apiRes)
+        ),
+      },
+      meta: { username },
+    });
+  };
+
+export const getMoreUserReplies = username =>
+  (dispatch, getState, { steemAPI }) => {
+    const { feed, posts } = getState();
+    const lastFetchedReplyId =
+      feed.replies[username] &&
+      feed.replies[username].list[feed.replies[username].list.length -1];
+
+    if (!lastFetchedReplyId) {
+      return;
+    }
+
+    const startAuthor = posts[lastFetchedReplyId].author;
+    const startPermlink = posts[lastFetchedReplyId].permlink;
+    const limit = 10;
+
+    dispatch({
+      type: GET_MORE_USER_REPLIES,
+      payload: {
+        promise: steemAPI.getRepliesByLastUpdateAsync(startAuthor, startPermlink, limit).then(
+          apiRes => apiRes.slice(1)
         ),
       },
       meta: { username },

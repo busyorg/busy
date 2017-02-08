@@ -15,7 +15,8 @@ import {
     posts: state.posts,
   }),
   dispatch => bindActionCreators({
-    getUserReplies: userActions.getUserReplies
+    getUserReplies: userActions.getUserReplies,
+    getMoreUserReplies: userActions.getMoreUserReplies,
   }, dispatch)
 )
 export default class UserReplies extends Component {
@@ -24,14 +25,14 @@ export default class UserReplies extends Component {
   }
 
   render() {
-    const { getUserReplies, feed, posts } = this.props;
+    const { getUserReplies, getMoreUserReplies, feed, posts } = this.props;
 
     const username = this.props.params.name;
     const content = getFeedContentFromState('replies', username, feed, posts);
     const isFetching = getFeedLoadingFromState('replies', username, feed);
     const hasMore = getFeedHasMoreFromState('replies', username, feed);
     const loadContentAction = () => getUserReplies(username);
-    const loadMoreContentAction = () => undefined;
+    const loadMoreContentAction = () => getMoreUserReplies(username);
 
     return (
       <div>
