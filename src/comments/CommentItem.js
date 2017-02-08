@@ -125,8 +125,17 @@ export default class CommentItem extends Component {
       .reverse()
       .slice(0, 5);
 
+    const anchoredLink = `#@${comment.author}/${comment.permlink}`;
+
     return (
-      <div className="CommentItem" id={`#@${comment.author}/${comment.permlink}`}>
+      <div
+        className={
+          anchoredLink === this.props.location.hash
+          ? 'CommentItem CommentItem--highlight'
+          : 'CommentItem'
+        }
+        id={anchoredLink}
+      >
         <div className={`CommentItem__content CommentItem__content--level-${comment.depth}`}>
           <div className="CommentUser">
             <ProfileTooltipOrigin username={comment.author} >
