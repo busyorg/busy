@@ -52,9 +52,9 @@ const sortBasedOnDate = list =>
     if (itemA.messages && itemB.messages) {
       const itemADate = new Date(itemA.messages[0].sentAt).getTime();
       const itemBDate = new Date(itemB.messages[0].sentAt).getTime();
-      return itemADate - itemBDate;
+      return itemADate > itemBDate ? 1 : -1;
     }
-    return 0;
+    return -1;
   });
 
 class MessageList extends Component {
@@ -84,18 +84,17 @@ class MessageList extends Component {
   }
 
   render() {
-    const { messages, category, username } = this.props;
+    const { messages, username } = this.props;
     const groups = sortBasedOnDate(messageGroups(messages));
-    const messageEls = map(groups, ({ messages, key }, i) => (
+    const messageEls = map(groups, ({ messages: messageGroup, key }, i) => (
       <Message
         key={[key, i]}
-        model={messages}
+        model={messageGroup}
       />
-    )).reverse();
+    ));
 
     return (
       <div className="MessageList messages-content media-list">
-        {messageEls}
         <div className="py-4 text-center">
           {username
             ? <p className="mb-4">
@@ -106,6 +105,7 @@ class MessageList extends Component {
             </p>
           }
         </div>
+        {messageEls}
       </div>
     );
   }

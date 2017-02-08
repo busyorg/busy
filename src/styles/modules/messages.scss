@@ -1,12 +1,8 @@
 .messages {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
+  height: calc(100% - 56px);
 }
 
 .messages-content {
-  flex-grow: 1;
-
   li {
     display: block;
   }
