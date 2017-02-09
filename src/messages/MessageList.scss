@@ -1,9 +1,4 @@
 .MessageList {
-  display: flex;
-  flex-direction: column-reverse;
-  overflow-y: scroll;
-  max-height: 100%;
-
   .Message {
     overflow: initial;
     border-bottom: solid 10px transparent;
@@ -18,13 +13,19 @@
       padding: 0;
     }
 
-    .Message__timestamp {
-      opacity: 0;
-    }
+    .Message__item {
+      position: relative;
 
-    .media {
+      .Message__timestamp {
+        opacity: 0;
+        font-size: 10px;
+        position: absolute;
+        left: 4px;
+        top: 4px;
+      }
+
       &:hover {
-        background-color: darken(#f1f2f4, 5%);
+        background-color: darken(#f1f2f4, 2%);
 
         .Message__timestamp {
           opacity: 1;
