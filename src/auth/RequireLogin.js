@@ -9,7 +9,7 @@ import Error404 from '../statics/Error404';
     auth: state.auth,
   })
 )
-export default class UserProfile extends React.Component {
+export default class RequiredLogin extends React.Component {
   constructor(props) {
     super(props);
   }
