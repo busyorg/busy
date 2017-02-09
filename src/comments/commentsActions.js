@@ -112,7 +112,7 @@ export const sendComment = (depth) => {
       author,
       body,
       isOptimistic: true,
-      depth,
+      depth: depth + 1,
     };
 
     const optimisticId = Date.now();
