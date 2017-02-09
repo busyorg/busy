@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
-import steemembed from 'steemembed';
+import embedjs from 'embedjs';
 import sanitizeHtml from 'sanitize-html';
 import Remarkable from 'remarkable';
 import emojione from 'emojione';
@@ -25,7 +25,7 @@ const remarkable = new Remarkable({
 });
 
 export default (props) => {
-  const embeds = steemembed.getAll(props.body);
+  const embeds = embedjs.getAll(props.body);
   let body = props.body;
   let jsonMetadata = {};
   try { jsonMetadata = JSON.parse(props.jsonMetadata); } catch (e) { }
