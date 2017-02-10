@@ -19,7 +19,8 @@ const UnreadCount = ({ unread }) => {
  * @returns {Array|*}
  */
 const getUnreadUsersList = (props) => {
-  const unreadByChannel = _.groupBy(props.messages.unreadMessages, 'channelName');
+  const unreadMessages = props.messages.unreadMessages;
+  const unreadByChannel = _.groupBy(unreadMessages, 'channelName');
   return _.map(unreadByChannel, (messages) => {
     const { senderUsername } = messages[0];
     return {
