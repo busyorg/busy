@@ -12,7 +12,7 @@ const Error401 = () =>
       <div className="ptl text-center">
         <h1><FormattedMessage id="page_forbidden" /></h1>
         <h2><FormattedMessage id="page_forbidden_message" /></h2>
-        <p>You need to login to use the Chat feature, please
+        <p>You need to login to use this feature, please
           { ' ' }
           <a href={steemconnect.getLoginURL()}>
             <Icon name="lock_outline" />
