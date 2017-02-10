@@ -60,5 +60,7 @@
   "edit": "Edit",
   "like": "Like",
   "comment": "Comment",
-  "by": "by"
+  "by": "by",
+  "page_forbidden": "Page Requires Authentication",
+  "page_forbidden_message": "Oops! Looks like you need to login to use this page."
 }
