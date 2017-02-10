@@ -4,12 +4,19 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
 
 .PostFeedEmbed__playButton {
   position: absolute;
   & .Icon {
     font-size: 100px;
+    transition: 0.1s all;
+  }
+  &:hover {
+    & .Icon {
+      font-size: 120px;
+    }
   }
 }
 
