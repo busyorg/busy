@@ -14,7 +14,7 @@ function messageGroups(messages) {
   // Group messages by username and minute
   const ret = reduce(messages, (memo, message) => {
     const key =
-      `${message.senderUsername}-${Math.floor(new Date(message.sentAt).getTime() / 1000 / 60)}`;
+      `${message.senderUsername}-${Math.floor(new Date(message.receivedAt).getTime() / 1000 / 60)}`;
     if (!memo.latest) {
       return {
         all: memo.all,
@@ -51,8 +51,8 @@ function messageGroups(messages) {
 const sortBasedOnDate = list =>
   list.sort((itemA, itemB) => {
     if (itemA.messages && itemB.messages) {
-      const itemADate = new Date(itemA.messages[0].sentAt).getTime();
-      const itemBDate = new Date(itemB.messages[0].sentAt).getTime();
+      const itemADate = new Date(itemA.messages[0].receivedAt).getTime();
+      const itemBDate = new Date(itemB.messages[0].receivedAt).getTime();
       return itemADate > itemBDate ? 1 : -1;
     }
     return -1;

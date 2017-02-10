@@ -50,7 +50,6 @@ export default class MessageForm extends Component {
       senderUsername: this.props.username,
       channelName: this.props.channel,
       text: this.state.text,
-      sentAt: new Date(),
     };
 
     this.props.sendMessage(message);

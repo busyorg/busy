@@ -8,7 +8,7 @@ import ProfileTooltipOrigin from '../user/profileTooltip/ProfileTooltipOrigin';
 
 const Message = (props) => {
   const { model } = props;
-  const sentAt = model[0].sentAt;
+  const receivedAt = model[0].receivedAt;
   const senderUsername = (model[0].senderUsername || model[0].sentBy);
   return (
     <div className="Message message">
@@ -31,8 +31,8 @@ const Message = (props) => {
                 </ProfileTooltipOrigin>
               </b>{' '}
               <span className="text-info">
-                <FormattedRelative value={sentAt} />{' '}
-                (<FormattedTime value={sentAt} />)
+                <FormattedRelative value={receivedAt} />{' '}
+                (<FormattedTime value={receivedAt} />)
               </span>
             </div>
             <Body body={model[0].text} />
@@ -41,11 +41,11 @@ const Message = (props) => {
       </div>
 
       {model.slice(1).map((message, i) => {
-        const { text, uuid, sentAt: msentAt } = message;
+        const { text, uuid, receivedAt: mreceivedAt } = message;
         return (
           <div className="Message__item container" key={i} data-uuid={uuid}>
             <div className="Message__timestamp">
-              <FormattedTime value={new Date(msentAt)} />
+              <FormattedTime value={new Date(mreceivedAt)} />
             </div>
 
             <div className="ml-5">
