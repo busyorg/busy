@@ -13,13 +13,16 @@ import { sortCommentsFromSteem } from '../helpers/stateHelpers';
 import ProfileTooltipOrigin from '../user/profileTooltip/ProfileTooltipOrigin';
 import './CommentItem.scss';
 
-const renderOptimisticComment = comment =>
+const renderOptimisticComment = (comment, isSinglePage) =>
   <div className="CommentItem">
     <div className={`CommentItem__content CommentItem__content--level-${comment.depth}`}>
       <div className="CommentUser">
         <ProfileTooltipOrigin username={comment.author}>
           <Link to={`/@${comment.author}`}>
-            <Avatar xs username={comment.author} />
+            <Avatar
+              className={isSinglePage ? 'Avatar--md' : 'Avatar--xs'}
+              username={comment.author}
+            />
           </Link>
         </ProfileTooltipOrigin>
       </div>
@@ -79,7 +82,7 @@ export default class CommentItem extends Component {
     const { comment, likeComment, unlikeComment, dislikeComment, auth, allComments, sortOrder } = this.props;
 
     if (comment.isOptimistic) {
-      return renderOptimisticComment(comment);
+      return renderOptimisticComment(comment, this.props.isSinglePage);
     }
 
     const pendingPayoutValue = parseFloat(comment.pending_payout_value);
