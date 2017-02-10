@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import Header from '../app/Header';
 import Icon from '../widgets/Icon';
 
-const Error403 = () =>
+const Error401 = () =>
   <div className="main-panel">
     <Header />
     <div className="container my-5">
@@ -24,4 +24,4 @@ const Error403 = () =>
     </div>
   </div>;
 
-export default Error403;
+export default Error401;
