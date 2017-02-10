@@ -1,5 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import embedjs from 'embedjs';
+import Icon from '../widgets/Icon';
+import './Feed/PostFeedCard.scss';
+import './PostFeedEmbed.scss';
 
 export default class PostFeedEmbed extends Component {
   constructor(props) {
@@ -15,15 +18,18 @@ export default class PostFeedEmbed extends Component {
 
   renderThumbFirst(thumb) {
     return (
-      <div className="PostFeedCard__thumbs" onClick={this.handleThumbClick}>
+      <div className="PostFeedCard__thumbs PostFeedEmbed" onClick={this.handleThumbClick}>
         <img src={thumb} />
+        <div className="PostFeedEmbed__playButton">
+          <Icon name="play_circle_outline" xxl/>
+        </div>
       </div>
     );
   }
 
   handleThumbClick = (e) => {
     e.stopPropagation();
-    this.setState({ showIframe: true })
+    this.setState({ showIframe: true });
   };
 
   renderWithIframe(embed) {
