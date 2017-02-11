@@ -1,12 +1,12 @@
 import React from 'react';
-import { FormattedRelative, FormattedTime } from 'react-intl';
+import { FormattedTime } from 'react-intl';
 import { Link } from 'react-router';
 
 import Body from '../post/Body';
 import Avatar from '../widgets/Avatar';
 import ProfileTooltipOrigin from '../user/profileTooltip/ProfileTooltipOrigin';
 
-const Message = (props) => {
+const MessageGroup = (props) => {
   const { model } = props;
   const receivedAt = model[0].receivedAt;
   const senderUsername = (model[0].senderUsername || model[0].sentBy);
@@ -30,9 +30,9 @@ const Message = (props) => {
                   </Link>
                 </ProfileTooltipOrigin>
               </b>{' '}
+
               <span className="text-info">
-                <FormattedRelative value={receivedAt} />{' '}
-                (<FormattedTime value={receivedAt} />)
+                <FormattedTime value={receivedAt} />
               </span>
             </div>
             <Body body={model[0].text} />
@@ -58,4 +58,4 @@ const Message = (props) => {
   );
 };
 
-export default Message;
+export default MessageGroup;
