@@ -40,12 +40,8 @@ export default class MessageDateGroup extends Component {
             position: 'relative',
           }}
         >
-          <h3
-            style={{
-              textAlign: 'center',
-            }}
-          >
-            <span
+          <p className="text-center">
+            <b
               style={{
                 background: 'white',
                 borderRadius: 10,
@@ -56,8 +52,8 @@ export default class MessageDateGroup extends Component {
               }}
             >
               {day}
-            </span>
-          </h3>
+            </b>
+          </p>
 
           <hr
             style={{
