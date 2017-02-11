@@ -113,7 +113,9 @@ export default function messagesReducer(state = initialState, action) {
         [`${action.payload.channelName}`]: channel,
       });
 
-      const unreadMessages = action.payload.senderUsername === state.username
+      const unreadMessages =
+        action.payload.senderUsername === state.username ||
+          !Array.isArray(action.payload.channelName)
         ? extend({}, state.unreadMessages)
         : {
           ...state.unreadMessages,
