@@ -46,7 +46,7 @@
     "draft-js-linkify-plugin": "^2.0.0-beta9",
     "draft-js-markdown-shortcuts-plugin": "0.0.6",
     "draft-js-plugins-editor": "^2.0.0-beta9",
-    "embedjs": "adcpm/embedjs#dev",
+    "embedjs": "0.0.3",
     "emojione": "^2.2.7",
     "emojione-picker": "^1.1.0",
     "express": "~4.13.1",
