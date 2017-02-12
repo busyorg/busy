@@ -129,7 +129,7 @@ const PostFeedCard = ({
       <BodyShort body={post.body} />
     </div>
 
-    { (embeds && embeds[0]) &&
+    {(embeds && embeds[0]) &&
       <PostFeedEmbed post={post} />
     }
 
