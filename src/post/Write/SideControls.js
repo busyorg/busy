@@ -125,7 +125,7 @@ class SideControls extends Component {
     preloadFile({ file })
       .then((dataUrl) => {
         this.hide();
-        entityKey = Entity.create('IMAGE', 'IMMUTABLE', { src: dataUrl });
+        entityKey = Entity.create('image', 'IMMUTABLE', { src: dataUrl });
         this.props.onChange(addNewEntitiy(this.props.editorState, entityKey));
         return this.props.uploadFile({ username, file });
       })

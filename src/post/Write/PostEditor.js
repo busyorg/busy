@@ -10,38 +10,47 @@ import _ from 'lodash';
 import 'draft-js-emoji-plugin/lib/plugin.css';
 import 'draft-js-hashtag-plugin/lib/plugin.css';
 import 'draft-js-linkify-plugin/lib/plugin.css';
+import 'draft-js-image-plugin/lib/plugin.css';
+import 'draft-js-focus-plugin/lib/plugin.css';
 import {
   DefaultDraftBlockRenderMap,
   getVisibleSelectionRect as draftVSR,
   EditorState,
   ContentState,
-  Entity,
   RichUtils,
   convertToRaw,
   convertFromRaw
 } from 'draft-js';
-import Editor, { createEditorStateWithText } from 'draft-js-plugins-editor';
+import Editor, { createEditorStateWithText, composeDecorators } from 'draft-js-plugins-editor';
 import createEmojiPlugin from 'draft-js-emoji-plugin';
 import createHashtagPlugin from 'draft-js-hashtag-plugin';
 import { stateFromMarkdown } from 'draft-js-import-markdown';
 import { stateToMarkdown } from 'draft-js-export-markdown';
 import createMarkdownShortcutsPlugin from 'draft-js-markdown-shortcuts-plugin';
 import createLinkifyPlugin from 'draft-js-linkify-plugin';
+import createImagePlugin from 'draft-js-image-plugin';
+import createFocusPlugin from 'draft-js-focus-plugin';
+import createDndPlugin from 'draft-js-dnd-plugin';
 
 import './Write.scss';
 import './PostEditor.scss';
 import Icon from '../../widgets/Icon';
 import SideControls from './SideControls';
-import ImageBlock from './ImageBlock';
 
 const debug = newDebug('busy:PostEditor');
 const emojiPlugin = createEmojiPlugin();
 const hashtagPlugin = createHashtagPlugin();
 const linkifyPlugin = createLinkifyPlugin();
 const { EmojiSuggestions } = emojiPlugin;
+const focusPlugin = createFocusPlugin();
+const dndPlugin = createDndPlugin();
+
+const decorator = composeDecorators(focusPlugin.decorator, dndPlugin.decorator);
+const imagePlugin = createImagePlugin({ decorator });
 
 const plugins = [
   createMarkdownShortcutsPlugin(),
+  dndPlugin, focusPlugin, imagePlugin,
   emojiPlugin,
   hashtagPlugin,
   linkifyPlugin
@@ -286,20 +295,6 @@ class PostEditor extends Component {
     );
   }
 
-  blockRendererFn = (contentBlock) => {
-    if (contentBlock.getType() === 'atomic') {
-      const entity = Entity.get(contentBlock.getEntityAt(0));
-      const type = entity.getType();
-      if (type === 'IMAGE') {
-        return {
-          component: ImageBlock,
-          editable: false,
-        };
-      }
-    }
-    return null;
-  };
-
   render() {
     const { editorState } = this.state;
 
@@ -325,16 +320,9 @@ class PostEditor extends Component {
 
         <div className={className} ref={(c) => { this.editorContainer = c; }}>
           <Editor
-            blockRendererFn={this.blockRendererFn}
             blockStyleFn={getBlockStyle}
             placeholder="Write your story…"
             customStyleMap={styleMap}
-            blockRenderMap={new Map({
-              'atomic:IMAGE': {
-                element: 'figure',
-              }
-            }).merge(DefaultDraftBlockRenderMap)}
-
             editorState={editorState}
             handleKeyCommand={this.handleKeyCommand}
             onChange={this.onChange}
