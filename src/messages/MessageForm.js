@@ -102,8 +102,8 @@ export default class MessageForm extends Component {
         className={ sidebarIsVisible ? 'MessageForm withSidebar' : 'MessageForm'}
         onSubmit={this.handleSubmit}
       >
-        <div className="container" >
-
+        <hr className="mt-0" />
+        <div className="mx-4 my-3">
           { this.state.showEmoji &&
             <div className="MessageForm__emojiContainer">
               <div onClick={this.handleEmojiBoxClick}>
@@ -111,11 +111,9 @@ export default class MessageForm extends Component {
               </div>
             </div>
           }
-
           <TextareaAutosize
             rows={1}
-            autoFocus
-            className="MessageForm__input pas"
+            className="MessageForm__input"
             type="text"
             name="message"
             onKeyDown={this.submitIfEnterWithoutShift}
@@ -123,11 +121,9 @@ export default class MessageForm extends Component {
             placeholder={this.props.placeholder || 'Say something!'}
             value={this.state.text}
           />
-
           <a onClick={this.handleEmojiButtonClick} >
-            <Icon name="mood" className="MessageForm__emojiButton" />
+            <Icon name="mood" className="MessageForm__emojiButton p-2" />
           </a>
-
         </div>
       </form>
     );
