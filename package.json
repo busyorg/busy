@@ -47,7 +47,7 @@
     "draft-js-image-plugin": "^2.0.0-beta9",
     "draft-js-import-markdown": "^0.2.1",
     "draft-js-linkify-plugin": "^2.0.0-beta9",
-    "draft-js-markdown-shortcuts-plugin": "0.0.6",
+    "draft-js-markdown-shortcuts-plugin": "github:nil1511/draft-js-markdown-shortcuts-plugin#db68db0",
     "draft-js-plugins-editor": "^2.0.0-beta9",
     "embedjs": "0.0.3",
     "emojione": "^2.2.7",
