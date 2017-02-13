@@ -65,7 +65,7 @@ const feedIdsList = (state = [], action) => {
     case userTypes.GET_MORE_USER_COMMENTS_SUCCESS:
       return action.payload.result.map(comment => comment.id);
     case userTypes.GET_USER_REPLIES_SUCCESS:
-      return Object.keys(action.payload);
+      return Object.keys(action.payload).reverse();
     case userTypes.GET_MORE_USER_REPLIES_SUCCESS:
       postsIds = action.payload.map(reply => reply.id);
       return [
