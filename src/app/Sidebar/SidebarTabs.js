@@ -56,7 +56,7 @@ export default class SidebarTabs extends Component {
             className={menu === 'users' && 'active'}
           >
             {this.renderUnread()}
-            <Icon name="chat_bubble_outline" lg />
+            <Icon name="people" lg />
           </a>
         </li>
         <li>
