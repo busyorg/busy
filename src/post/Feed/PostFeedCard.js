@@ -14,6 +14,7 @@ import LikesList from './../LikesList';
 import ProfileTooltipOrigin from '../../user/profileTooltip/ProfileTooltipOrigin';
 import Reactions from '../Reactions';
 import { calculatePayout } from '../../helpers/steemitHelpers';
+import PostFeedEmbed from '../PostFeedEmbed';
 import './PostFeedCard.scss';
 
 const AmountWithLabel = ({ label, amount }) => (
@@ -138,8 +139,8 @@ const PostFeedCard = ({
         <BodyShort body={post.body} />
       </div>
 
-      {_.has(embeds, '[0].embed') &&
-        <div className="PostFeedCard__thumbs" dangerouslySetInnerHTML={{ __html: embeds[0].embed }} />
+      {(embeds && embeds[0]) &&
+        <PostFeedEmbed post={post} />
       }
 
       {(imagePath && !_.has(embeds, '[0].embed')) &&
@@ -152,7 +153,6 @@ const PostFeedCard = ({
         </PostModalLink>
       </div>
       }
-
 
       <div className="PostFeedCard__cell PostFeedCard__cell--bottom">
         <PostActionButtons

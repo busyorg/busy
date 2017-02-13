@@ -32,11 +32,11 @@ const iframeWhitelist = [
   },
   {
     re: /^(https?:)?\/\/(?:www\.)?(?:periscope.tv\/)(.*)?$/i,
-    fn: src => src // handled by steemembeded
+    fn: src => src // handled by embedjs
   },
   {
     re: /^(https?:)?\/\/(?:www\.)?(?:(player.)?twitch.tv\/)(.*)?$/i,
-    fn: src => src // handled by steemembeded
+    fn: src => src // handled by embedjs
   }
 ];
 export const noImageText = '(Image not shown due to low ratings)';

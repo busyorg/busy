@@ -2,14 +2,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Header from '../app/Header';
 import Loading from '../widgets/Loading';
-import Error404 from '../statics/Error404';
+import Error401 from '../statics/Error401';
 
 @connect(
   state => ({
     auth: state.auth,
   })
 )
-export default class UserProfile extends React.Component {
+export default class RequiredLogin extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -24,7 +24,7 @@ export default class UserProfile extends React.Component {
       );
     }
     if (!this.props.auth.isAuthenticated) {
-      return <Error404 />;
+      return <Error401 />;
     }
     return (
       React.cloneElement(this.props.children, { ...this.props })

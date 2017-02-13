@@ -1,62 +1,11 @@
-/* eslint-disable react/no-find-dom-node */
 import React, { Component, PropTypes } from 'react';
-import ReactDOM from 'react-dom';
 import map from 'lodash/map';
-import reduce from 'lodash/reduce';
 import { connect } from 'react-redux';
-import debounce from 'lodash/debounce';
 
-import { sendReadAcknoledgement } from './messagesActions';
 import './MessageList.scss';
-import Message from './Message.js';
-
-function messageGroups(messages) {
-  // Group messages by username and minute
-  const ret = reduce(messages, (memo, message) => {
-    const key =
-      `${message.senderUsername}-${Math.floor(new Date(message.sentAt).getTime() / 1000 / 60)}`;
-    if (!memo.latest) {
-      return {
-        all: memo.all,
-        latest: {
-          key,
-          messages: [message]
-        }
-      };
-    } else if (memo.latest.key === key) {
-      return {
-        all: memo.all,
-        latest: {
-          key,
-          messages: memo.latest.messages.concat([message]),
-        },
-      };
-    }
-
-    return {
-      all: memo.all.concat([memo.latest]),
-      latest: {
-        key,
-        messages: [message],
-      }
-    };
-  }, {
-    latest: null,
-    all: [],
-  });
-
-  return ret.all.concat(ret.latest ? [ret.latest] : []);
-}
-
-const sortBasedOnDate = list =>
-  list.sort((itemA, itemB) => {
-    if (itemA.messages && itemB.messages) {
-      const itemADate = new Date(itemA.messages[0].sentAt).getTime();
-      const itemBDate = new Date(itemB.messages[0].sentAt).getTime();
-      return itemADate > itemBDate ? 1 : -1;
-    }
-    return -1;
-  });
+import MessageDateGroup from './MessageDateGroup';
+import { groupMessagesByDate } from './messageGroupHelpers';
+import { sendReadAcknoledgement } from './messagesActions';
 
 class MessageList extends Component {
   static propTypes = {
@@ -81,11 +30,11 @@ class MessageList extends Component {
 
   render() {
     const { messages, username } = this.props;
-    const groups = sortBasedOnDate(messageGroups(messages));
-    const messageEls = map(groups, ({ messages: messageGroup, key }, i) => (
-      <Message
-        key={[key, i]}
-        model={messageGroup}
+    const dateGroups = groupMessagesByDate(messages);
+    const messageEls = map(dateGroups, (dateGroup, i) => (
+      <MessageDateGroup
+        key={i}
+        model={dateGroup}
       />
     ));
 

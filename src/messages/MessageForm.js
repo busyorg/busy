@@ -19,7 +19,10 @@ export default class MessageForm extends Component {
   static propTypes = {
     placeholder: PropTypes.string,
     username: PropTypes.string,
-    channel: PropTypes.string,
+    channel: PropTypes.oneOf([
+      PropTypes.string,
+      PropTypes.array,
+    ]),
     onMessageSubmit: PropTypes.func
   };
 
@@ -50,7 +53,6 @@ export default class MessageForm extends Component {
       senderUsername: this.props.username,
       channelName: this.props.channel,
       text: this.state.text,
-      sentAt: new Date(),
     };
 
     this.props.sendMessage(message);
