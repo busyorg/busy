@@ -1,11 +1,9 @@
 import React, { Component, PropTypes } from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import dispatchActions from '../helpers/dispatchActions';
 import Header from '../app/Header';
 import MessageForm from './MessageForm';
 import MessageList from './MessageList';
-import MenuFeed from '../app/Menu/MenuFeed';
 import { fetchChannelPresence, joinChannel } from './messagesActions';
 import './Messages.scss';
 
@@ -42,28 +40,22 @@ export default class MessagesCategory extends Component {
   }
 
   render() {
-    const category = this.props.params.category;
+    const category = this.props.params.category || 'general';
     const channel = this.props.channels[category] || {
       latest: [],
       nmembers: 0,
     };
     return (
       <div className="Messages main-panel">
-        <Header />
-        <MenuFeed
-          auth={this.props.auth}
-          category={category === 'general' ? '' : category}
-        />
+        <Header category={category} />
         <div className="messages">
           <MessageList messages={channel.latest} />
-
           { this.props.isConnected &&
             <MessageForm
               channel={category}
               username={this.props.auth.user && this.props.auth.user.name}
             />
           }
-
         </div>
       </div>
     );
