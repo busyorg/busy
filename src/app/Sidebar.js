@@ -69,7 +69,7 @@ export default class Sidebar extends Component {
       .slice(0, 25)
       .map((category, idx) =>
         <li key={idx}>
-          <Link to={`/hot/${category}`} activeClassName="active">
+          <Link to={`/trending/${category}`} activeClassName="active">
             # {category}{' '}
             <Icon name="star" xs />
           </Link>
@@ -89,7 +89,7 @@ export default class Sidebar extends Component {
         .slice(0, 25 - favorites.categories.length)
         .map((category, idx) =>
           <li key={idx}>
-            <Link to={`/hot/${category}`} activeClassName="active">
+            <Link to={`/trending/${category}`} activeClassName="active">
               # {category}
             </Link>
           </li>
@@ -107,7 +107,7 @@ export default class Sidebar extends Component {
     ) {
       return (
         <li>
-          <Link to={`/hot/${search}`} activeClassName="active">
+          <Link to={`/trending/${search}`} activeClassName="active">
             # {search}
           </Link>
         </li>
