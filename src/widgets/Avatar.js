@@ -33,7 +33,7 @@ const Avatar = ({
           {formatter.reputation(reputation)}
         </span>
       }
-      <img className="Avatar__img" src={`${process.env.STEEMCONNECT_IMG_HOST}/@${username}?s=${s}`} />
+      <img key={username} className="Avatar__img" src={`${process.env.STEEMCONNECT_IMG_HOST}/@${username}?s=${s}`} />
     </span>
   );
 };

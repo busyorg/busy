@@ -139,7 +139,7 @@ const PostFeedCard = ({
         post={post}
         onClick={() => openPostModal(post.id)}
       >
-        <img src={imagePath} />
+        <img key={imagePath} src={imagePath} />
       </PostModalLink>
     </div>
     }
