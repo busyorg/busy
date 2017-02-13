@@ -66,7 +66,7 @@ export default class Sidebar extends Component {
     const favoritedCategories = favorites.categories;
     return this.filterTagsBySearch(favoritedCategories)
       .sort()
-      .slice(0, 20)
+      .slice(0, 25)
       .map((category, idx) =>
         <li key={idx}>
           <Link to={`/hot/${category}`} activeClassName="active">
@@ -86,7 +86,7 @@ export default class Sidebar extends Component {
       const categoriesWithoutFavorites = _.difference(categories, favorites.categories);
 
       return this.filterTagsBySearch(categoriesWithoutFavorites)
-        .slice(0, 20 - favorites.categories.length)
+        .slice(0, 25 - favorites.categories.length)
         .map((category, idx) =>
           <li key={idx}>
             <Link to={`/hot/${category}`} activeClassName="active">
@@ -202,6 +202,13 @@ export default class Sidebar extends Component {
                         />
                       </div>
                     </li>
+                    {!search &&
+                      <li>
+                        <Link to="/trending" activeClassName="active">
+                          Trending Now
+                        </Link>
+                      </li>
+                    }
                     { this.renderSearchAsTag() }
                     { this.renderFavoritedTags() }
                     { this.renderTags() }
