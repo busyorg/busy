@@ -142,10 +142,20 @@ const PostFeedCard = ({
         <div className="PostFeedCard__thumbs" dangerouslySetInnerHTML={{ __html: embeds[0].embed }} />
       }
 
-
-    <div className="PostFeedCard__cell PostFeedCard__cell--body">
-      <h2>
+      {(imagePath && !_.has(embeds, '[0].embed')) &&
+      <div className="PostFeedCard__thumbs">
         <PostModalLink
+          post={post}
+          onClick={() => openPostModal(post.id)}
+        >
+          <img src={imagePath} />
+        </PostModalLink>
+      </div>
+      }
+
+
+      <div className="PostFeedCard__cell PostFeedCard__cell--bottom">
+        <PostActionButtons
           post={post}
           notify={notify}
           onCommentRequest={onCommentRequest}
@@ -158,42 +168,17 @@ const PostFeedCard = ({
         />
       </div>
 
-
-    {_.has(embeds, '[0].embed') &&
-      <div className="PostFeedCard__thumbs" dangerouslySetInnerHTML={{ __html: embeds[0].embed }} />
-    }
-
-    {(imagePath && !_.has(embeds, '[0].embed')) &&
-    <div className="PostFeedCard__thumbs">
-      <PostModalLink
-        post={post}
-        onClick={() => openPostModal(post.id)}
-      >
-        <img src={imagePath} />
-      </PostModalLink>
-    </div>
-    }
-
-
-    <div className="PostFeedCard__cell PostFeedCard__cell--bottom">
-      <PostActionButtons
+      <Reactions
         post={post}
         handleShowLikesRequest={handleShowLikesRequest}
         handleShowCommentsRequest={handleShowCommentsRequest}
       />
 
-
-    <Reactions
-      post={post}
-      handleShowLikesRequest={handleShowLikesRequest}
-      handleShowCommentsRequest={handleShowCommentsRequest}
-    />
-
-    <Comments
-      postId={post.id}
-      show={showComments}
-      className="Comments--feed"
-    />
+      <Comments
+        postId={post.id}
+        show={showComments}
+        className="Comments--feed"
+      />
 
       <PayoutDetail show={showPayout} post={post} />
 
