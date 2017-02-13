@@ -41,7 +41,8 @@ const PostSingleContent = ({
   return (
     <div className="PostSingleContent my-4">
       <div className="container">
-        <div className="PostSingleContent__header mb-3">
+        <h1>{content.title}</h1>
+        <div className="PostSingleContent__header mb-4">
           <Link to={`/@${content.author}`}>
             <Avatar sm username={content.author} />
             {' '}<span>{content.author}</span>
@@ -60,7 +61,6 @@ const PostSingleContent = ({
           </span>
         </div>
         <div className="PostSingleContent__content mb-3">
-          <h1 className="mvl">{content.title}</h1>
           <Body body={content.body} jsonMetadata={content.json_metadata} />
         </div>
         {jsonMetadata.tags &&
