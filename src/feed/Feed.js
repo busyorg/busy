@@ -74,8 +74,11 @@ export default class Feed extends React.Component {
             threshold={200}
           >
             {
-              content.map((post, key) =>
-                <ItemComponent
+              content.map((post, key) => {
+                if (this.props.username && post.author !== this.props.username) {
+                  return false;
+                }
+                return (<ItemComponent
                   key={key}
                   post={post}
                   replies={replies}
@@ -87,8 +90,8 @@ export default class Feed extends React.Component {
                   notify={notify}
                   reblog={reblog}
                   isReblogged={reblogList.includes(post.id)}
-                />
-              )
+                />);
+              })
             }
           </ReduxInfiniteScroll>
         </div>

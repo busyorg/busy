@@ -50,5 +50,17 @@
   "next_story": "Next Story",
   "help": "Help",
   "search": "Search",
-  "chat": "Chat"
+  "chat": "Chat",
+  "signup": "Sign Up",
+  "team": "Team",
+  "donors": "Donors",
+  "advisors": "Advisors",
+  "contributors": "Contributors",
+  "donate": "Donate",
+  "edit": "Edit",
+  "like": "Like",
+  "comment": "Comment",
+  "by": "by",
+  "page_forbidden": "Page Requires Authentication",
+  "page_forbidden_message": "Oops! Looks like you need to login to use this page."
 }

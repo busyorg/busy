@@ -24,13 +24,17 @@ export const fetchChannelPresence = (channelName = 'general') =>
       return;
     }
 
-    const url = `${HOST}/api/v1/channels/?channelName=?${channelName}`;
+    const channelURI = `?${querystring.stringify({ channelName })}`;
+    const { token } = auth;
+
+    const url = `${HOST}/api/v1/channels/${channelURI}`;
 
     dispatch({
       type: FETCH_CHANNEL_PRESENCE,
       payload: {
         promise: request
           .get(url)
+          .query({ token })
           .endAsync()
           .then(res => res.body),
       },
@@ -67,10 +71,12 @@ export const JOIN_CHANNEL = '@messages/JOIN_CHANNEL';
 
 export function joinChannel(channelName = 'general') {
   return (dispatch, getState, { messagesWorker }) => {
+    const { auth } = getState();
+
     dispatch({
       type: JOIN_CHANNEL,
       payload: {
-        promise: messagesWorker.joinChannel(channelName),
+        promise: messagesWorker.joinChannel(channelName, auth.token),
       },
     });
   };
@@ -130,24 +136,30 @@ export const FETCH_MESSAGES_ERROR = '@messages/FETCH_MESSAGES_ERROR';
 
 export function fetchMessages(username) {
   const url = `${HOST}/api/v1/messages`;
-  return (dispatch) => dispatch({
-    type: FETCH_MESSAGES,
-    payload: {
-      promise: request
-        .get(url)
-        .query({
-          username
-        })
-        .endAsync()
-        .then((res) => res.body)
-        .then((messages) => {
-          process.nextTick(() => {
-            messages.unreadMessages.forEach((message) => {
-              dispatch(sendReceivedAcknoledgement(message));
+  return (dispatch, getState) => {
+    const { auth } = getState();
+    const { token } = auth;
+
+    dispatch({
+      type: FETCH_MESSAGES,
+      payload: {
+        promise: request
+          .get(url)
+          .query({
+            username,
+            token,
+          })
+          .endAsync()
+          .then((res) => res.body)
+          .then((messages) => {
+            process.nextTick(() => {
+              messages.unreadMessages.forEach((message) => {
+                dispatch(sendReceivedAcknoledgement(message));
+              });
             });
-          });
-          return messages;
-        }),
-    },
-  });
+            return messages;
+          }),
+      },
+    });
+  };
 }

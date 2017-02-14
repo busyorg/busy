@@ -1,12 +1,4 @@
-.messages {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-}
-
 .messages-content {
-  flex-grow: 1;
-
   li {
     display: block;
   }

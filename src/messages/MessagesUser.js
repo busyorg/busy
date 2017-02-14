@@ -1,12 +1,13 @@
 import React, { Component, PropTypes } from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import querystring from 'querystring';
+
 import './Messages.scss';
 import Header from '../app/Header';
 import MenuUser from '../app/Menu/MenuUser';
 import MessageForm from './MessageForm';
 import MessageList from './MessageList';
+import dispatchActions from '../helpers/dispatchActions';
+import getChannelName from '../helpers/getChannelName';
 import { fetchChannelPresence, joinChannel } from './messagesActions';
 
 @connect(
@@ -15,11 +16,22 @@ import { fetchChannelPresence, joinChannel } from './messagesActions';
     channels: state.messages.channels,
     users: state.messages.users,
     favorites: state.favorites,
-  }),
-  dispatch => bindActionCreators({
-    fetchChannelPresence,
-    joinChannel
-  }, dispatch)
+    isConnected: state.messages.isConnected,
+  })
+)
+@dispatchActions(
+  {
+    waitFor: state => state.auth && state.auth.isAuthenticated
+  },
+  (ownProps) => {
+    const { auth, params } = ownProps;
+    const channelName = getChannelName(auth, params.username);
+
+    return {
+      fetchChannelPresence: () => fetchChannelPresence(channelName),
+      joinChannel: () => joinChannel(channelName),
+    };
+  }
 )
 export default class MessagesPage extends Component {
   static propTypes = {
@@ -39,25 +51,6 @@ export default class MessagesPage extends Component {
     };
   }
 
-  getChannelName() {
-    const { auth, params } = this.props;
-
-    if (!auth.user) return '';
-    return '?' + querystring.stringify({
-      channelName: [
-        '@' + auth.user.name,
-        '@' + params.username,
-      ]
-    });
-  }
-
-  componentDidMount() {
-    const channelName = this.getChannelName();
-
-    this.props.fetchChannelPresence(channelName);
-    this.props.joinChannel(channelName);
-  }
-
   render() {
     const username = this.props.params.username;
     const channelName = [
@@ -72,16 +65,23 @@ export default class MessagesPage extends Component {
     return (
       <div className="Messages main-panel">
         <Header />
-        <MenuUser username={username} />
+        <MenuUser
+          auth={this.props.auth}
+          username={username}
+        />
         <div className="messages">
           <MessageList
             username={username}
             messages={channel.latest}
           />
-          <MessageForm
-            channel={channelName}
-            username={this.props.auth.user && this.props.auth.user.name}
-          />
+
+          { this.props.isConnected &&
+            <MessageForm
+              channel={channelName}
+              username={this.props.auth.user && this.props.auth.user.name}
+            />
+          }
+
         </div>
       </div>
     );

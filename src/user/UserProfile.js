@@ -92,6 +92,7 @@ export default class UserProfile extends Component {
             loadContent={loadContentAction}
             loadMoreContent={loadMoreContentAction}
             route={this.props.route}
+            username={user.name}
           />
 
           {(content.length === 0 && !isFetching && isOwnProfile) &&

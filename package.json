@@ -1,6 +1,6 @@
 {
   "name": "busy",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "bin": "./bin/www",
   "main": "./bin/www",
   "private": true,
@@ -14,7 +14,6 @@
     "postinstall": "npm run build"
   },
   "dependencies": {
-    "async": "^2.0.0",
     "autoprefixer-loader": "^3.2.0",
     "babel-core": "^6.16.0",
     "babel-eslint": "^6.1.2",
@@ -38,13 +37,18 @@
     "cors": "^2.7.1",
     "css-loader": "^0.24.0",
     "debug": "~2.2.0",
+    "diff-match-patch": "^1.0.0",
     "draft-js": "^0.9.1",
     "draft-js-emoji-plugin": "^2.0.0-beta9",
     "draft-js-export-markdown": "^0.2.1",
     "draft-js-hashtag-plugin": "^2.0.0-beta9",
+    "draft-js-import-markdown": "^0.2.1",
     "draft-js-linkify-plugin": "^2.0.0-beta9",
     "draft-js-markdown-shortcuts-plugin": "0.0.6",
     "draft-js-plugins-editor": "^2.0.0-beta9",
+    "embedjs": "0.0.3",
+    "emojione": "^2.2.7",
+    "emojione-picker": "^1.1.0",
     "express": "~4.13.1",
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.9.0",
@@ -79,7 +83,6 @@
     "react-sticky": "^5.0.5",
     "react-tagsinput": "^3.14.0",
     "react-textarea-autosize": "^4.0.5",
-    "redis": "^2.5.3",
     "redux": "^3.5.2",
     "redux-actions": "^0.12.0",
     "redux-infinite-scroll": "^1.0.9",
@@ -96,9 +99,8 @@
     "socket.io": "^1.4.5",
     "socket.io-client": "^1.4.8",
     "speakingurl": "^11.0.0",
-    "steem": "adcpm/steem#dev",
+    "steem": "^0.4.6",
     "steemconnect": "adcpm/steemconnect#dev",
-    "steemembed": "adcpm/steemembed#dev",
     "store": "^1.3.20",
     "striptags": "^2.1.1",
     "style-loader": "^0.13.1",
@@ -110,7 +112,8 @@
     "validator": "^5.1.0",
     "warning": "^3.0.0",
     "webpack": "^1.13.2",
-    "webpack-visualizer-plugin": "^0.1.5"
+    "webpack-visualizer-plugin": "^0.1.5",
+    "xmldom": "^0.1.27"
   },
   "devDependencies": {
     "babel-register": "^6.14.0",

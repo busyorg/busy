@@ -50,5 +50,15 @@
   "next_story": "Next Story",
   "help": "帮助",
   "search": "搜尋",
-  "chat": "Chat"
+  "chat": "Chat",
+  "signup": "Sign Up",
+  "team": "Team",
+  "donors": "Donors",
+  "advisors": "Advisors",
+  "contributors": "Contributors",
+  "donate": "Donate",
+  "edit": "Edit",
+  "like": "Like",
+  "comment": "Comment",
+  "by": "by"
 }

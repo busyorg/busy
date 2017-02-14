@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
-import { FormattedMessage, injectIntl } from 'react-intl';
+import { FormattedMessage, FormattedRelative, injectIntl } from 'react-intl';
 import BodyShort from '../BodyShort';
 import PostActionButtons from '../PostActionButtons';
 import Avatar from '../../widgets/Avatar';
@@ -63,6 +63,7 @@ const PostFeedList = ({
           layout={layout}
         />
         <span>
+          <FormattedMessage id="by" />{' '}
           <ProfileTooltipOrigin username={post.author} >
             <Link to={`/@${post.author}`}>
               <Avatar xs username={post.author} />
@@ -70,12 +71,14 @@ const PostFeedList = ({
             </Link>
           </ProfileTooltipOrigin>
           <span className="hidden-xs">
-            { ' ' }<FormattedMessage id="in" />{ ' ' }
-            <Link to={`/hot/${post.category}`}>#{post.category}</Link>
+            {' '}<FormattedMessage id="in" />
+            {' '}<Link to={`/hot/${post.category}`}>#{post.category}</Link>{' '}
+            <span className="text-info">
+              <FormattedRelative value={post.created} />
+            </span>
           </span>
         </span>
       </div>
-
     </div>
   </div>;
 

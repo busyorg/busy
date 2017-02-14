@@ -50,5 +50,15 @@
   "next_story": "Next Story",
   "help": "Hilf",
   "search": "Search",
-  "chat": "Chat"
+  "chat": "Chat",
+  "signup": "Sign Up",
+  "team": "Team",
+  "donors": "Donors",
+  "advisors": "Advisors",
+  "contributors": "Contributors",
+  "donate": "Donate",
+  "edit": "Edit",
+  "like": "Like",
+  "comment": "Comment",
+  "by": "by"
 }

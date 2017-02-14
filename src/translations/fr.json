@@ -50,5 +50,15 @@
   "next_story": "Article suivant",
   "help": "Aide",
   "search": "Recherche",
-  "chat": "Chat"
+  "chat": "Chat",
+  "signup": "Inscription",
+  "team": "Équipe",
+  "donors": "Donateurs",
+  "advisors": "Advisors",
+  "contributors": "Contributors",
+  "donate": "Faire un don",
+  "edit": "Edit",
+  "like": "J'aime",
+  "comment": "Commenter",
+  "by": "par"
 }

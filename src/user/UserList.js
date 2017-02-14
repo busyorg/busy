@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import ReduxInfiniteScroll from 'redux-infinite-scroll';
 import { isNumber, take } from 'lodash';
+import UserCard from '../widgets/UserCard';
 import Follow from '../widgets/Follow';
 import Avatar from '../widgets/Avatar';
 import Icon from '../widgets/Icon';
@@ -56,8 +57,11 @@ export default class UserList extends React.Component {
           loadMore={this.paginate}
           elementIsScrollable={false}
           hasMore={users.length > noOfItemsToShow}
+          className="row my-5"
         >
-          {take(users, noOfItemsToShow).map(user => <UserRow username={user} key={user} />)}
+          {take(users, noOfItemsToShow).map(user =>
+            <UserCard key={user} username={user} label={<Follow username={user} />} />
+          )}
         </ReduxInfiniteScroll>
       </div>
     );

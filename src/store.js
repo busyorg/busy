@@ -74,14 +74,15 @@ if (process.env.ENABLE_LOGGER &&
 
 const enhancer = compose(
   applyMiddleware(...middleware),
-  persistState(['favorites', 'editor', 'app'], {
+  persistState(['app', 'favorites', 'editor', 'bookmarks'], {
     slicer: () => state => ({
-      favorites: state.favorites,
-      editor: state.editor,
       app: {
         locale: state.app.locale,
         layout: state.app.layout,
       },
+      bookmarks: state.bookmarks,
+      favorites: state.favorites,
+      editor: state.editor,
     }),
   })
 );

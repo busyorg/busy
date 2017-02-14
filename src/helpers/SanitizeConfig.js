@@ -32,11 +32,11 @@ const iframeWhitelist = [
   },
   {
     re: /^(https?:)?\/\/(?:www\.)?(?:periscope.tv\/)(.*)?$/i,
-    fn: src => src // handled by steemembeded
+    fn: src => src // handled by embedjs
   },
   {
     re: /^(https?:)?\/\/(?:www\.)?(?:(player.)?twitch.tv\/)(.*)?$/i,
-    fn: src => src // handled by steemembeded
+    fn: src => src // handled by embedjs
   }
 ];
 export const noImageText = '(Image not shown due to low ratings)';
@@ -48,7 +48,7 @@ export const allowedTags = `
 `.trim().split(/,\s*/);
 
 // Medium insert plugin uses: div, figure, figcaption, iframe
-export default ({ large = true, highQualityPost = true, noImage = false, sanitizeErrors = [] }) => ({
+export default ({ large = true, noImage = false, sanitizeErrors = []}) => ({
   allowedTags,
   // figure, figcaption,
 
@@ -64,7 +64,7 @@ export default ({ large = true, highQualityPost = true, noImage = false, sanitiz
     // style is subject to attack, filtering more below
     td: ['style'],
     img: ['src', 'alt'],
-    a: ['href', 'rel'],
+    a: ['href', 'rel', 'target'],
   },
   transformTags: {
     iframe: (tagName, attribs) => {
@@ -137,8 +137,8 @@ export default ({ large = true, highQualityPost = true, noImage = false, sanitiz
       const attys = { href };
       // If it's not a (relative or absolute) steemit URL...
       if (!href.match(/^(\/(?!\/)|https:\/\/(app\.|dev\.)?busy.org)/)) {
-        // attys.target = '_blank' // pending iframe impl https://mathiasbynens.github.io/rel-noopener/
-        attys.rel = highQualityPost ? 'noopener' : 'nofollow noopener';
+        attys.target = '_blank'; // pending iframe impl https://mathiasbynens.github.io/rel-noopener/
+        attys.rel = 'nofollow noopener';
       }
       return {
         tagName,

@@ -27,12 +27,14 @@ const PostSingleContent = ({
   bookmarks,
   reblog,
   isReblogged,
+  canReblog,
   openCommentingDraft,
   likePost,
   unlikePost,
   dislikePost,
   isPostLiked,
   isPostDisliked,
+  onEdit,
 }) => {
   let jsonMetadata = {};
   try { jsonMetadata = JSON.parse(content.json_metadata); } catch (e) { }
@@ -69,6 +71,7 @@ const PostSingleContent = ({
       </div>
       <MenuPost
         reblog={reblog}
+        canReblog={canReblog}
         isReblogged={isReblogged}
         openCommentingDraft={openCommentingDraft}
         likePost={likePost}
@@ -77,6 +80,7 @@ const PostSingleContent = ({
         isPostLiked={isPostLiked}
         isPostDisliked={isPostDisliked}
         content={content}
+        onEdit={onEdit}
       />
       <div className="container">
         <AuthorBio authorName={content.author} />

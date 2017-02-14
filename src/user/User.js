@@ -21,9 +21,13 @@ import Loading from '../widgets/Loading';
 import Follow from '../widgets/Follow';
 import Icon from '../widgets/Icon';
 import Avatar from '../widgets/Avatar';
+import { fetchChannelPresence } from '../messages/messagesActions';
+import getChannelName from '../helpers/getChannelName';
+import dispatchActions from '../helpers/dispatchActions';
 
 @connect(
   state => ({
+    auth: state.auth,
     feed: state.feed,
     posts: state.posts,
     comments: state.comments,
@@ -39,6 +43,19 @@ import Avatar from '../widgets/Avatar';
     addUserFavorite,
     removeUserFavorite
   }, dispatch)
+)
+@dispatchActions(
+  {
+    waitFor: state => state.auth && state.auth.isAuthenticated,
+  },
+  (ownProps) => {
+    const { auth, params } = ownProps;
+    const channelName = getChannelName(auth, params.name);
+
+    return {
+      fetchChannelPresence: () => fetchChannelPresence(channelName),
+    };
+  }
 )
 export default class UserProfile extends React.Component {
   constructor(props) {
@@ -73,13 +90,13 @@ export default class UserProfile extends React.Component {
   render() {
     const username = this.props.params.name;
     const user = this.state.user;
-    let jsonMetadata = {};
-    try { jsonMetadata = JSON.parse(user.json_metadata); } catch (e) { jsonMetadata = {}; }
-
     return (
       <div className="main-panel">
         <Header />
-        <MenuUser username={this.props.params.name} />
+        <MenuUser
+          auth={this.props.auth}
+          username={this.props.params.name}
+        />
         <section
           className="align-center bg-green profile-header"
           style={{
@@ -89,10 +106,15 @@ export default class UserProfile extends React.Component {
           }}
         >
           <div className="my-5">
-            <Avatar xl username={username} reputation={_.has(user, 'name') && user.reputation} />
+            <Avatar
+              xl
+              key={username}
+              username={username}
+              reputation={_.has(user, 'name') && user.reputation}
+            />
             <h1>
-              {_.has(jsonMetadata, 'profile.name')
-                ? jsonMetadata.profile.name
+              {_.has(user.json_metadata, 'profile.name')
+                ? user.json_metadata.profile.name
                 : username
               }
               {' '}

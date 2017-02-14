@@ -4,14 +4,12 @@ import { Link } from 'react-router';
 import Icon from '../../widgets/Icon';
 import Avatar from '../../widgets/Avatar';
 
-const UnreadCount = ({ unread, username }) => {
+const UnreadCount = ({ unread }) => {
   if (!unread) return null;
   return (
-    <Link to={`/messages/@${username}`} className="Sidebar__unreadCount" >
-      <span>
-        {unread}
-      </span>
-    </Link>
+    <span className="Sidebar__unreadCount">
+      {unread}
+    </span>
   );
 };
 
@@ -21,7 +19,8 @@ const UnreadCount = ({ unread, username }) => {
  * @returns {Array|*}
  */
 const getUnreadUsersList = (props) => {
-  const unreadByChannel = _.groupBy(props.messages.unreadMessages, 'channelName');
+  const unreadMessages = props.messages.unreadMessages;
+  const unreadByChannel = _.groupBy(unreadMessages, 'channelName');
   return _.map(unreadByChannel, (messages) => {
     const { senderUsername } = messages[0];
     return {
@@ -62,11 +61,18 @@ const renderUsers = (props, state) => {
   .slice(0, 20)
   .map((user, idx) => (
     <li key={idx} className="pb-1">
-      <Link to={`/@${user.username}`} activeClassName="active">
+      <Link
+        to={
+          user.hasUnread
+            ? `/messages/@${user.username}`
+            : `/@${user.username}`
+        }
+        activeClassName="active"
+      >
         <Avatar username={user.username} xs /> {user.username}
         {' '}
-        { user.favorited && <Icon name="star" xs /> }
-        { user.hasUnread && <UnreadCount unread={user.unreadLength} username={user.username} /> }
+        {user.favorited && <Icon name="star" xs />}
+        {user.hasUnread && <UnreadCount unread={user.unreadLength} />}
       </Link>
     </li>
   ));

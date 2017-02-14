@@ -8,6 +8,7 @@ import PostSinglePage from './PostSinglePage';
 import * as reblogActions from '../app/Reblog/reblogActions';
 import * as commentsActions from '../comments/commentsActions';
 import * as bookmarkActions from '../bookmarks/bookmarksActions';
+import { editPost } from '../post/Write/EditorActions';
 
 @connect(
   ({ posts, app, reblog, auth, bookmarks }) => ({
@@ -22,6 +23,7 @@ import * as bookmarkActions from '../bookmarks/bookmarksActions';
   (dispatch, ownProps) => bindActionCreators({
     reblog: reblogActions.reblog,
     closePostModal,
+    editPost,
     getContent: () => postActions.getContent(
       ownProps.params.author,
       ownProps.params.permlink
@@ -48,9 +50,18 @@ export default class PostSingle extends React.Component {
   }
 
   render() {
+    let onEdit;
     const { modal, isPostModalOpen, sidebarIsVisible, content, contentList = [], reblog, reblogList, auth } = this.props;
+
     if (!content) {
       return null;
+    }
+
+    if (content.author === auth.user.name) {
+      let jsonMetadata = {};
+      try { jsonMetadata = JSON.parse(content.json_metadata); } catch (e) { }
+      // Support Only markdown edits
+      if (jsonMetadata.format === 'markdown') { onEdit = () => { this.props.editPost(content); }; }
     }
 
     const currentStoryIndex = contentList.indexOf(content);
@@ -65,6 +76,8 @@ export default class PostSingle extends React.Component {
       auth.isAuthenticated &&
       content.active_votes &&
       content.active_votes.some(vote => vote.voter === auth.user.name && vote.percent < 0);
+
+    const canReblog = auth.isAuthenticated && auth.user.name !== content.author;
 
     const openCommentingDraft = () => this.props.openCommentingDraft({
       parentAuthor: content.author,
@@ -83,6 +96,7 @@ export default class PostSingle extends React.Component {
             route={this.props.route}
             reblog={() => reblog(content.id)}
             isReblogged={reblogList.includes(content.id)}
+            canReblog={canReblog}
             openCommentingDraft={openCommentingDraft}
             likePost={() => this.props.likePost(content.id)}
             unlikePost={() => this.props.unlikePost(content.id)}
@@ -93,6 +107,7 @@ export default class PostSingle extends React.Component {
             nextStory={nextStory}
             openPostModal={this.props.openPostModal}
             toggleBookmark={this.props.toggleBookmark}
+            onEdit={onEdit}
           />
         }
 
@@ -101,6 +116,7 @@ export default class PostSingle extends React.Component {
             content={content}
             reblog={() => reblog(content.id)}
             isReblogged={reblogList.includes(content.id)}
+            canReblog={canReblog}
             openCommentingDraft={openCommentingDraft}
             likePost={() => this.props.likePost(content.id)}
             unlikePost={() => this.props.unlikePost(content.id)}
@@ -109,6 +125,7 @@ export default class PostSingle extends React.Component {
             isPostDisliked={isPostDisliked}
             bookmarks={this.props.bookmarks}
             toggleBookmark={this.props.toggleBookmark}
+            onEdit={onEdit}
           />
         }
       </div>

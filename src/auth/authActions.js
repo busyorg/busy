@@ -1,5 +1,4 @@
 import Promise from 'bluebird';
-import extend from 'lodash/extend';
 import steemConnect from 'steemconnect';
 import request from 'superagent';
 import { getFollowing } from '../user/userActions';
@@ -16,48 +15,32 @@ export const LOGOUT_START = '@auth/LOGOUT_START';
 export const LOGOUT_ERROR = '@auth/LOGOUT_ERROR';
 export const LOGOUT_SUCCESS = '@auth/LOGOUT_SUCCESS';
 
+const requestLogin = () => ({ type: LOGIN_REQUEST });
 
-const requestLogin = () => {
-  return {
-    type: LOGIN_REQUEST
-  };
-};
-
-const loginSuccess = (user) => {
-  return {
+const loginSuccess = (user, token) =>
+  ({
     type: LOGIN_SUCCESS,
-    user
-  };
-};
+    user,
+    token,
+  });
 
-const loginFail = () => {
-  return {
-    type: LOGIN_FAILURE
-  };
-};
+const loginFail = () => ({ type: LOGIN_FAILURE });
 
-export const login = () => {
-  return (dispatch, getState, { steemAPI }) => {
+export const login = () =>
+  (dispatch, getState, { steemAPI }) => {
     dispatch(requestLogin());
-
     steemConnect.isAuthenticated((err, result) => {
       if (err || !result || !result.isAuthenticated) {
         dispatch(loginFail());
         return;
       }
-
-      dispatch(
-        getFollowing(result.username)
-      );
-
+      dispatch(getFollowing(result.username));
       steemAPI.getAccounts([result.username], (err, users) => { // eslint-disable-line no-shadow
         if (err || !users || !users[0]) {
           dispatch(loginFail());
           return;
         }
-
-        dispatch(loginSuccess(users[0]));
+        dispatch(loginSuccess(users[0], result.token));
       });
     });
   };
-};

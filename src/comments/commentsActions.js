@@ -3,6 +3,8 @@ import { createAction } from 'redux-actions';
 import SteemConnect from 'steemconnect';
 import { createCommentPermlink } from '../helpers/steemitHelpers';
 
+const version = require('../../package.json').version;
+
 SteemConnect.comment = Promise.promisify(SteemConnect.comment, { context: SteemConnect });
 
 export const GET_COMMENTS = 'GET_COMMENTS';
@@ -86,7 +88,7 @@ export const sendComment = (depth) => {
   return (dispatch, getState) => {
     const { auth, comments } = getState();
 
-    if(!auth.isAuthenticated) {
+    if (!auth.isAuthenticated) {
       // dispatch error
       return;
     }
@@ -98,11 +100,13 @@ export const sendComment = (depth) => {
       parentPermlink,
       category,
       body,
-      isReplyToComment
+      isReplyToComment,
+      isEditing,
     } = comments.commentingDraft[id];
 
-    const permlink = createCommentPermlink(parentAuthor, parentPermlink);
-    const jsonMetadata = `{"tags": ["${category}"]}`;
+    const permlink = isEditing ? comments.commentingDraft[id].permlink :
+      createCommentPermlink(parentAuthor, parentPermlink);
+    const jsonMetadata = { tags: [category], app: `busy/${version}` };
 
     const optimisticData = {
       author,
@@ -130,11 +134,11 @@ export const sendComment = (depth) => {
       meta: {
         optimisticId,
         parentId: id,
+        isEditing,
         isReplyToComment,
       },
     });
     dispatch(closeCommentingDraft());
-
   };
 };
 

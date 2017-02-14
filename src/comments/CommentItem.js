@@ -2,33 +2,42 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { FormattedRelative } from 'react-intl';
 import numeral from 'numeral';
+import _ from 'lodash';
+import { Tooltip } from 'pui-react-tooltip';
+import { OverlayTrigger } from 'pui-react-overlay-trigger';
+import { getUpvotes, getDownvotes, sortVotes } from '../helpers/voteHelpers';
 import Body from '../post/Body';
 import Avatar from '../widgets/Avatar';
 import Icon from '../widgets/Icon';
 import { sortCommentsFromSteem } from '../helpers/stateHelpers';
+import ProfileTooltipOrigin from '../user/profileTooltip/ProfileTooltipOrigin';
 import './CommentItem.scss';
 
-const renderOptimisticComment = (comment) => {
-  return (
-    <div className="CommentItem">
-      <div className={`CommentItem__content CommentItem__content--level-${comment.depth}`}>
-        <div className="CommentUser">
+const renderOptimisticComment = (comment, isSinglePage) =>
+  <div className="CommentItem">
+    <div className={`CommentItem__content CommentItem__content--level-${comment.depth}`}>
+      <div className="CommentUser">
+        <ProfileTooltipOrigin username={comment.author}>
           <Link to={`/@${comment.author}`}>
-            <Avatar xs username={comment.author} />
+            <Avatar
+              className={isSinglePage ? 'Avatar--md' : 'Avatar--xs'}
+              username={comment.author}
+            />
           </Link>
-        </div>
-        <div className="CommentBody">
-          <span className="CommentBody__username">
+        </ProfileTooltipOrigin>
+      </div>
+      <div className="CommentBody">
+        <span className="CommentBody__username">
+          <ProfileTooltipOrigin username={comment.author}>
             <Link to={`/@${comment.author}`}>
               {comment.author}
             </Link>
-          </span>
-          <Body body={comment.body} />
-        </div>
+          </ProfileTooltipOrigin>
+        </span>
+        <Body body={comment.body} />
       </div>
     </div>
-  );
-};
+  </div>;
 
 export default class CommentItem extends Component {
   constructor(props) {
@@ -45,7 +54,6 @@ export default class CommentItem extends Component {
   handleReplyClick(e) {
     e.stopPropagation();
     const { comment } = this.props;
-
     this.props.openCommentingDraft({
       parentAuthor: comment.author,
       parentPermlink: comment.permlink,
@@ -55,16 +63,31 @@ export default class CommentItem extends Component {
     });
   }
 
+  handleEditClick(e) {
+    e.stopPropagation();
+    const { comment } = this.props;
+    this.props.openCommentingDraft({
+      parentAuthor: comment.author,
+      category: comment.category,
+      permlink: comment.permlink,
+      parentPermlink: comment.parent_permlink,
+      id: comment.id,
+      isReplyToComment: true,
+      isEditing: true,
+      body: comment.body
+    });
+  }
+
   render() {
     const { comment, likeComment, unlikeComment, dislikeComment, auth, allComments, sortOrder } = this.props;
 
     if (comment.isOptimistic) {
-      return renderOptimisticComment(comment);
+      return renderOptimisticComment(comment, this.props.isSinglePage);
     }
 
-    const payout =
-      parseFloat(comment.total_payout_value) +
-      parseFloat(comment.total_pending_payout_value);
+    const pendingPayoutValue = parseFloat(comment.pending_payout_value);
+    const totalPayoutValue = parseFloat(comment.total_payout_value);
+    const payout = totalPayoutValue || pendingPayoutValue;
 
     const isCommentLiked =
       auth.isAuthenticated &&
@@ -74,22 +97,36 @@ export default class CommentItem extends Component {
       auth.isAuthenticated &&
       comment.active_votes.some(vote => vote.voter === auth.user.name && vote.percent < 0);
 
+    const isEditable = _.has(auth, 'user.name') ? comment.author === auth.user.name : false;
+    const numberOfLikes = numeral(comment.active_votes.filter(vote => vote.percent > 0).length).format('0,0');
+    const numberOfDislikes = numeral(comment.active_votes.filter(vote => vote.percent < 0).length).format('0,0');
+    const upvotes = sortVotes(getUpvotes(comment.active_votes), 'rshares')
+      .reverse()
+      .slice(0, 5);
+    const downvotes = sortVotes(getDownvotes(comment.active_votes), 'rshares')
+      .reverse()
+      .slice(0, 5);
+
     return (
       <div className="CommentItem">
-        <div className={`CommentItem__content CommentItem__content--level-${comment.depth} pb-2`}>
+        <div className={`CommentItem__content CommentItem__content--level-${comment.depth}`}>
           <div className="CommentUser">
-            <Link to={`/@${comment.author}`}>
-              <Avatar
-                className={this.props.isSinglePage ? 'Avatar--md' : 'Avatar--xs'}
-                username={comment.author}
-              />
-            </Link>
+            <ProfileTooltipOrigin username={comment.author} >
+              <Link to={`/@${comment.author}`}>
+                <Avatar
+                  className={this.props.isSinglePage ? 'Avatar--md' : 'Avatar--xs'}
+                  username={comment.author}
+                />
+              </Link>
+            </ProfileTooltipOrigin>
           </div>
           <div className="CommentBody">
             <span className="CommentBody__username">
-              <Link to={`/@${comment.author}`}>
-                {comment.author}
-              </Link>
+              <ProfileTooltipOrigin username={comment.author}>
+                <Link to={`/@${comment.author}`}>
+                  {comment.author}
+                </Link>
+              </ProfileTooltipOrigin>
               {' '}
               <span className="text-info">
                 <FormattedRelative value={comment.created} />
@@ -105,8 +142,24 @@ export default class CommentItem extends Component {
                   className={isCommentLiked ? 'active' : ''}
                 >
                   <Icon name="thumb_up" xs />
-                </a>{ ' ' }
-                { numeral(comment.net_votes).format('0,0') }
+                </a>
+                {' '}
+                {upvotes.length > 0
+                  ? <OverlayTrigger
+                    placement="top"
+                    overlay={
+                      <Tooltip>
+                        {upvotes.map(vote =>
+                          <div key={vote.voter}>{vote.voter}</div>
+                        )}
+                        {_.size(upvotes) === 5 && <div>…</div>}
+                      </Tooltip>
+                    }
+                  >
+                    <a>{numberOfLikes}</a>
+                  </OverlayTrigger>
+                  : numberOfLikes
+                }
               </div>
 
               <div className="CommentActionButtons__button">
@@ -117,44 +170,66 @@ export default class CommentItem extends Component {
                   className={isCommentDisliked ? 'active' : ''}
                 >
                   <Icon name="thumb_down" xs />
-                </a>{ ' ' }
-                { numeral(comment.active_votes.filter(vote => vote.percent < 0).length).format('0,0') }
+                </a>
+                {' '}
+                {downvotes.length > 0
+                  ? <OverlayTrigger
+                    placement="top"
+                    overlay={
+                      <Tooltip>
+                        {downvotes.map(vote =>
+                          <div key={vote.voter}>{vote.voter}</div>
+                        )}
+                        {_.size(downvotes) === 5 && <div>…</div>}
+                      </Tooltip>
+                    }
+                  >
+                    <a>{numberOfDislikes}</a>
+                  </OverlayTrigger>
+                  : numberOfDislikes
+                }
               </div>
 
               <div className="CommentActionButtons__button">
-                { numeral(payout).format('$0,0.000') }
+                {numeral(payout).format('$0,0.000')}
               </div>
 
-              <a onClick={(e) => this.handleReplyClick(e)}>
+              {isEditable && <div className="CommentActionButtons__button">
+                <a onClick={e => this.handleEditClick(e)}>
+                  <Icon name="edit" xs />
+                </a>
+              </div>}
+
+              <a onClick={e => this.handleReplyClick(e)}>
                 <Icon name="reply" xs />
               </a>
 
-              { ' ' }
+              {' '}
 
-              { (comment.children > 0 && !this.state.showReplies) &&
-              <a tabIndex="0" onClick={this.toggleShowReplies}>
-                View {comment.children}{' '}
-                {comment.children > 1 ? 'replies' : 'reply'}
-              </a>
+              {(comment.children > 0 && !this.state.showReplies) &&
+                <a tabIndex="0" onClick={this.toggleShowReplies}>
+                  View {comment.children}{' '}
+                  {comment.children > 1 ? 'replies' : 'reply'}
+                </a>
               }
             </div>
           </div>
         </div>
-        { this.state.showReplies && allComments.listByCommentId[comment.id] &&
+        {this.state.showReplies && allComments.listByCommentId[comment.id] &&
           sortCommentsFromSteem(
             allComments.listByCommentId[comment.id],
             allComments,
             sortOrder
           ).map(commentId =>
             <CommentItem
-              { ...this.props }
+              {...this.props}
               key={commentId}
               comment={allComments.comments[commentId]}
             />
-          )
+            )
         }
       </div>
     );
   }
-};
+}
 

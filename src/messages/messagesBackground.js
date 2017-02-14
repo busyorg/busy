@@ -46,27 +46,28 @@ export default class MessagesWorker {
   }
 
   start() {
+    const state = this.store.getState();
+
     this.socket.on('connect', () => {
       this.store.dispatch({
         type: CONNECTED,
       });
 
-      const state = this.store.getState();
       if (state.auth.isAuthenticated) {
         this.onAuthenticated(state.auth);
       }
+
+      each(socketEventsToActions, (actionType, socketEvent) => {
+        this.socket.on(socketEvent, (payload) => {
+          this.onSocketEvent(actionType, payload);
+        });
+      });
     });
 
     this.socket.on('disconnect', () => {
       this.joined = false;
       this.store.dispatch({
         type: DISCONNECTED,
-      });
-    });
-
-    each(socketEventsToActions, (actionType, socketEvent) => {
-      this.socket.on(socketEvent, (payload) => {
-        this.onSocketEvent(actionType, payload);
       });
     });
 
@@ -78,11 +79,11 @@ export default class MessagesWorker {
     });
   }
 
-  onAuthenticated({ user }) {
+  onAuthenticated({ user, token }) {
     if (this.joined) return;
     this.joined = true;
     const username = user.name;
-    const payload = { senderUsername: username };
+    const payload = { senderUsername: username, token };
     this.socket.emit('USER_JOIN', payload);
     this.store.dispatch(fetchMessages(username));
   }
@@ -115,9 +116,10 @@ export default class MessagesWorker {
     return this.emitAsync('USER_MESSAGE', message);
   }
 
-  joinChannel(channelName) {
+  joinChannel(channelName, token) {
     return this.emitAsync('USER_JOIN', {
-      channelName
+      channelName,
+      token,
     });
   }
 }

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import steemembed from 'steemembed';
-
+import embedjs from 'embedjs';
 import PostFeedCard from './Feed/PostFeedCard';
 import PostFeedList from './Feed/PostFeedList';
 
@@ -60,9 +59,9 @@ export default class PostFeed extends Component {
     } = this.props;
     const jsonMetadata = getjsonMetadata(this.props);
     const imagePath = jsonMetadata.image && jsonMetadata.image[0]
-      ? `https://steemitimages.com/600x400/${jsonMetadata.image[0]}`
+      ? `https://steemitimages.com/600x800/${jsonMetadata.image[0]}`
       : '';
-    const embeds = steemembed.getAll(post.body);
+    const embeds = embedjs.getAll(post.body);
     const ItemComponent = (app.layout === 'list')
       ? PostFeedList
       : PostFeedCard;

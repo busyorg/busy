@@ -32,6 +32,10 @@
     color: #fff !important;
     background-color: #2ED8B1 !important;
   }
+
+  .Icon {
+    color: #2ED8B1;
+  }
 }
 
 .btn-success {
@@ -39,5 +43,9 @@
 
   &:hover, &:focus, &:active {
     color: #fff !important;
+  }
+
+  .Icon {
+    color: #ffffff;
   }
 }
