@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Gateway } from 'react-gateway';
+import './Tooltip.scss';
 
 const DELAY = 500;
 const TOOLTIP_MARGIN = 20;
@@ -24,9 +26,11 @@ const renderTooltip = ({ message, pos, className }) => {
   const style = pos.top < 150 ? getTooltipOnBottomStyle(pos) : getTooltipOnTopStyle(pos);
 
   return (
-    <div className={className} style={style}>
-      { message }
-    </div>
+    <Gateway into="tooltip">
+      <div className={className} style={style}>
+        { message }
+      </div>
+    </Gateway>
   );
 };
 

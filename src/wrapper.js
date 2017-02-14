@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { IntlProvider } from 'react-intl';
+import { GatewayProvider, GatewayDest } from 'react-gateway';
 import { Tooltip, actions as tooltipActions } from 'redux-tooltip';
 import { login } from './auth/authActions';
 import { getConfig, getRate } from './actions';
@@ -47,24 +48,27 @@ export default class Wrapper extends Component {
     const className = (!app.sidebarIsVisible) ? 'app-wrapper full-width' : 'app-wrapper';
     return (
       <IntlProvider locale={app.locale} messages={messages[app.locale]}>
-        <div className={className}>
-          <Sidebar />
-          <Notification />
-          <Tooltip
-            name="userProfile"
-            className="ProfileTooltipHolder"
-            store={this.props.store}
-            place="bottom"
-            auto={false}
-            onHover={() => this.props.keepTooltip({ name: 'userProfile' })}
-            onLeave={() => this.props.hideTooltip({ name: 'userProfile' })}
-          />
-          <Tooltip />
-          { React.cloneElement(
-            this.props.children,
-            { auth, notify }
-          )}
-        </div>
+        <GatewayProvider>
+          <div className={className}>
+            <Sidebar />
+            <Notification />
+            <Tooltip
+              name="userProfile"
+              className="ProfileTooltipHolder"
+              store={this.props.store}
+              place="bottom"
+              auto={false}
+              onHover={() => this.props.keepTooltip({ name: 'userProfile' })}
+              onLeave={() => this.props.hideTooltip({ name: 'userProfile' })}
+            />
+            <Tooltip />
+            { React.cloneElement(
+              this.props.children,
+              { auth, notify }
+            )}
+            <GatewayDest name="tooltip" />
+          </div>
+        </GatewayProvider>
       </IntlProvider>
     );
   }
