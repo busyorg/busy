@@ -3,6 +3,11 @@ import React, { Component } from 'react';
 const DELAY = 500;
 const TOOLTIP_MARGIN = 20;
 
+const initialState = {
+  active: false,
+  pos: null,
+};
+
 const renderTooltip = ({ message, pos, className }) => {
   const getTooltipOnBottomStyle = position => ({
     position: 'absolute',
@@ -28,12 +33,14 @@ const renderTooltip = ({ message, pos, className }) => {
 export default class Tooltip extends Component {
   constructor(props) {
     super(props);
+    this.state = initialState;
   }
 
   tooltipDelay = null;
 
   static defaultProps = {
     message: '',
+    className: 'BusyTooltip',
   };
 
   showTooltip = (e) => {
@@ -44,10 +51,9 @@ export default class Tooltip extends Component {
       e.target.getBoundingClientRect();
 
     this.tooltipDelay = setTimeout(() => {
-      this.props.showTooltip({
+      this.setState({
         active: true,
         pos,
-        message
       });
     }, DELAY);
   };
@@ -58,7 +64,7 @@ export default class Tooltip extends Component {
       clearTimeout(this.tooltipDelay);
     }
 
-    this.props.hideTooltip();
+    this.setState(initialState);
   };
 
   render() {
@@ -72,7 +78,7 @@ export default class Tooltip extends Component {
           renderTooltip({
             message,
             pos,
-            className
+            className,
           })
         }
       </span>
