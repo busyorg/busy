@@ -1,7 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import * as tooltipActions from './tooltipActions';
 
 const DELAY = 500;
 const TOOLTIP_MARGIN = 20;
@@ -28,15 +25,6 @@ const renderTooltip = ({ message, pos, className }) => {
   );
 };
 
-@connect(
-  state => ({
-    tooltip: state.currentTooltip,
-  }),
-  dispatch => bindActionCreators({
-    showTooltip: tooltipActions.showTooltip,
-    hideTooltip: tooltipActions.hideTooltip,
-  }, dispatch)
-)
 export default class Tooltip extends Component {
   constructor(props) {
     super(props);
@@ -74,7 +62,7 @@ export default class Tooltip extends Component {
   };
 
   render() {
-    const { className, message, tooltip } = this.props;
+    const { className, message } = this.props;
     const { pos, active } = this.state;
 
     return (
