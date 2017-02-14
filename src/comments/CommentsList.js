@@ -24,9 +24,9 @@ const CommentsList = ({
 
   return (
     <div className="CommentsList">
-      { visibleList.map((commentId, idx) =>
+      { visibleList.map(commentId =>
         <CommentItem
-          key={idx}
+          key={commentId}
           comment={comments.comments[commentId]}
           allComments={comments}
           likeComment={likeComment}
