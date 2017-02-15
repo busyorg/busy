@@ -5,6 +5,8 @@ import Icon from '../../widgets/Icon';
 import Avatar from '../../widgets/Avatar';
 import Status from '../../widgets/Status';
 
+const limit = 25;
+
 const UnreadCount = ({ unread }) => {
   if (!unread) return null;
   return (
@@ -59,7 +61,7 @@ const renderUsers = (props, state) => {
   return _.uniqWith(usersList,
     (listA, listB) => listA.username === listB.username
   )
-  .slice(0, 25)
+  .slice(0, limit)
   .map((user, idx) => (
     <li key={idx} className="pb-1">
       <Link
