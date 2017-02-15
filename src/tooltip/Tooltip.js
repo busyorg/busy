@@ -1,40 +1,14 @@
 import React, { Component } from 'react';
-import { Gateway } from 'react-gateway';
 import { getElementPosition } from './tooltipHelpers';
-import './Tooltip.scss';
+import TooltipBox from './TooltipBox';
 
 const DELAY = 500;
-const TOOLTIP_MARGIN = 20;
 
 const initialState = {
   active: false,
   pos: null,
 };
 
-const renderTooltip = ({ message, pos, posInBrowser, className }) => {
-
-  const getTooltipOnTopStyle = position => ({
-    position: 'absolute',
-    top: `${position.top - TOOLTIP_MARGIN}px`,
-    left: `${position.left}px`,
-  });
-
-  const getTooltipOnBottomStyle = position => ({
-    position: 'absolute',
-    top: `${position.bottom + TOOLTIP_MARGIN}px`,
-    left: `${position.left}px`,
-  });
-
-  const style = posInBrowser.top < 150 ? getTooltipOnBottomStyle(pos) : getTooltipOnTopStyle(pos);
-
-  return (
-    <Gateway into="tooltip">
-      <div className={className} style={style}>
-        { message }
-      </div>
-    </Gateway>
-  );
-};
 
 export default class Tooltip extends Component {
   constructor(props) {
@@ -79,12 +53,12 @@ export default class Tooltip extends Component {
       <span onMouseEnter={this.showTooltip} onMouseLeave={this.removeTooltip}>
         { this.props.children }
         { active &&
-          renderTooltip({
-            message,
-            pos,
-            posInBrowser,
-            className,
-          })
+          <TooltipBox
+            pos={pos}
+            message={message}
+            posInBrowser={posInBrowser}
+            className={className}
+          />
         }
       </span>
     );
