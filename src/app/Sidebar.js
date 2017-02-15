@@ -13,6 +13,7 @@ import Icon from '../widgets/Icon';
 import SidebarHeader from './Sidebar/SidebarHeader';
 import SidebarTabs from './Sidebar/SidebarTabs';
 import SidebarUsers from './Sidebar/SidebarUsers';
+import SidebarTags from './Sidebar/SidebarTags';
 import './Sidebar.scss';
 
 @connect(
@@ -30,7 +31,6 @@ import './Sidebar.scss';
 export default class Sidebar extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       isFetching: true,
       isLoaded: false,
@@ -38,7 +38,6 @@ export default class Sidebar extends Component {
       props: {},
       price: '',
       menu: 'categories',
-      search: '',
     };
   }
 
@@ -56,66 +55,6 @@ export default class Sidebar extends Component {
     });
   }
 
-  filterTagsBySearch(tags = []) {
-    const { search } = this.state;
-    return tags.filter(tag => _.startsWith(tag, search));
-  }
-
-  renderFavoritedTags() {
-    const { favorites } = this.props;
-    const favoritedCategories = favorites.categories;
-    return this.filterTagsBySearch(favoritedCategories)
-      .sort()
-      .slice(0, 20)
-      .map((category, idx) =>
-        <li key={idx}>
-          <Link to={`/hot/${category}`} activeClassName="active">
-            # {category}{' '}
-            <Icon name="star" xs />
-          </Link>
-        </li>
-    );
-  }
-
-  renderTags() {
-    const { categories } = this.state;
-    const { favorites } = this.props;
-
-    if (categories) {
-      // excluding items in favorite to avoid repetition
-      const categoriesWithoutFavorites = _.difference(categories, favorites.categories);
-
-      return this.filterTagsBySearch(categoriesWithoutFavorites)
-        .slice(0, 20 - favorites.categories.length)
-        .map((category, idx) =>
-          <li key={idx}>
-            <Link to={`/hot/${category}`} activeClassName="active">
-              # {category}
-            </Link>
-          </li>
-        );
-    }
-    return [];
-  }
-
-  renderSearchAsTag() {
-    const { search, categories } = this.state;
-    const { favorites } = this.props;
-    if (search
-      && !categories.includes(search)
-      && !favorites.categories.includes(search)
-    ) {
-      return (
-        <li>
-          <Link to={`/hot/${search}`} activeClassName="active">
-            # {search}
-          </Link>
-        </li>
-      );
-    }
-    return [];
-  }
-
   search = (e) => {
     this.setState({ search: e.target.value });
   };
@@ -128,7 +67,7 @@ export default class Sidebar extends Component {
   };
 
   render() {
-    const { search, props, menu } = this.state;
+    const { props, menu } = this.state;
     const { auth, app: { rate }, hideSidebar } = this.props;
     const { user } = auth;
 
@@ -186,30 +125,10 @@ export default class Sidebar extends Component {
             </ul>}
 
           {_.size(this.state.categories) > 0 && menu === 'categories' &&
-            <div>
-              <ul>
-                <li>
-                  <ul>
-                    <li className="Sidebar__search">
-                      <div className="input-group">
-                        <span className="input-group-addon"><Icon name="search" sm /></span>
-                        <input
-                          type="text"
-                          className="form-control"
-                          placeholder="Search"
-                          value={search}
-                          onChange={this.search}
-                        />
-                      </div>
-                    </li>
-                    { this.renderSearchAsTag() }
-                    { this.renderFavoritedTags() }
-                    { this.renderTags() }
-                    <li><Link to="/tags" activeClassName="active"><FormattedMessage id="see_more" /></Link></li>
-                  </ul>
-                </li>
-              </ul>
-            </div>
+            <SidebarTags
+              favorites={this.props.favorites}
+              categories={this.state.categories}
+            />
           }
 
           {menu === 'users' &&

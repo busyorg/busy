@@ -14,7 +14,6 @@ import {
 import { getAccountWithFollowingCount } from '../helpers/apiHelpers';
 import { getUserComments, getMoreUserComments } from './userActions';
 import Header from '../app/Header';
-import MenuUser from '../app/Menu/MenuUser';
 import { addUserFavorite, removeUserFavorite } from '../favorites/favoritesActions';
 import FavoriteButton from '../favorites/FavoriteButton';
 import Loading from '../widgets/Loading';
@@ -92,11 +91,7 @@ export default class UserProfile extends React.Component {
     const user = this.state.user;
     return (
       <div className="main-panel">
-        <Header />
-        <MenuUser
-          auth={this.props.auth}
-          username={this.props.params.name}
-        />
+        <Header username={username} />
         <section
           className="align-center bg-green profile-header"
           style={{
@@ -142,12 +137,6 @@ export default class UserProfile extends React.Component {
                 </Link>
               </li>
               <li>
-                <Icon name="gavel" /> {numeral(parseInt(user.voting_power) / 10000).format('%0')}
-                <span className="hidden-xs">
-                  {' '}<FormattedMessage id="voting_power" />
-                </span>
-              </li>
-              <li>
                 <Link to={`/@${username}/followers`}>
                   <Icon name="people" /> {numeral(parseInt(user.follower_count)).format('0,0')}
                   <span className="hidden-xs">
@@ -163,6 +152,22 @@ export default class UserProfile extends React.Component {
                   </span>
                 </Link>
               </li>
+              <li>
+                <Link to={`/@${username}/transfers`} activeClassName="active">
+                  <Icon name="account_balance_wallet" />{' '}
+                  <span className="hidden-xs"><FormattedMessage id="wallet" /></span>
+                </Link>
+              </li>
+              {this.props.auth.isAuthenticated &&
+                <li>
+                  <Link to={`/messages/@${this.props.params.name}`} activeClassName="active">
+                    <Icon name="chat_bubble_outline" />{' '}
+                    <span className="hidden-xs">
+                      <FormattedMessage id="messages" />
+                    </span>
+                  </Link>
+                </li>
+              }
             </ul>
           </div>}
         </div>

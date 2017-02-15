@@ -3,6 +3,9 @@ import _ from 'lodash';
 import { Link } from 'react-router';
 import Icon from '../../widgets/Icon';
 import Avatar from '../../widgets/Avatar';
+import Status from '../../widgets/Status';
+
+const limit = 25;
 
 const UnreadCount = ({ unread }) => {
   if (!unread) return null;
@@ -58,7 +61,7 @@ const renderUsers = (props, state) => {
   return _.uniqWith(usersList,
     (listA, listB) => listA.username === listB.username
   )
-  .slice(0, 20)
+  .slice(0, limit)
   .map((user, idx) => (
     <li key={idx} className="pb-1">
       <Link
@@ -70,6 +73,9 @@ const renderUsers = (props, state) => {
         activeClassName="active"
       >
         <Avatar username={user.username} xs /> {user.username}
+        {!!props.messages.users[user.username] &&
+          <Status isOnline={!!props.messages.users[user.username]} />
+        }
         {' '}
         {user.favorited && <Icon name="star" xs />}
         {user.hasUnread && <UnreadCount unread={user.unreadLength} />}

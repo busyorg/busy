@@ -1,14 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-
-import './Messages.scss';
 import Header from '../app/Header';
-import MenuUser from '../app/Menu/MenuUser';
 import MessageForm from './MessageForm';
 import MessageList from './MessageList';
 import dispatchActions from '../helpers/dispatchActions';
 import getChannelName from '../helpers/getChannelName';
 import { fetchChannelPresence, joinChannel } from './messagesActions';
+import './Messages.scss';
 
 @connect(
   state => ({
@@ -55,7 +53,7 @@ export default class MessagesPage extends Component {
     const username = this.props.params.username;
     const channelName = [
       `@${this.props.auth.user && this.props.auth.user.name}`,
-      `@${this.props.params.username}`
+      `@${username}`
     ].sort();
     const channel = this.props.channels[channelName] || {
       latest: [],
@@ -64,24 +62,18 @@ export default class MessagesPage extends Component {
 
     return (
       <div className="Messages main-panel">
-        <Header />
-        <MenuUser
-          auth={this.props.auth}
-          username={username}
-        />
+        <Header username={username} />
         <div className="messages">
           <MessageList
             username={username}
             messages={channel.latest}
           />
-
           { this.props.isConnected &&
             <MessageForm
               channel={channelName}
               username={this.props.auth.user && this.props.auth.user.name}
             />
           }
-
         </div>
       </div>
     );

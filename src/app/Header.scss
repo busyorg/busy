@@ -1,3 +1,4 @@
+@import "../styles/fonts.scss";
 @import "../styles/colors.scss";
 
 .full-width header {
@@ -78,6 +79,7 @@ header {
     z-index: 99;
     position: absolute;
     left: 0;
+    width: 100%;
   }
 
   .right {
@@ -169,9 +171,10 @@ header {
 }
 
 .Header__title {
-  position: absolute;
-  left: 50px;
-  display: inline-block;
+  font-size: 20px;
+  font-weight: bold;
+  font-family: $font-alt;
+  color: black !important;
 }
 
 @media (max-width: 991px) {

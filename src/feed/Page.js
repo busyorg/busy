@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import steemconnect from 'steemconnect';
 import Header from '../app/Header';
-import MenuFeed from '../app/Menu/MenuFeed';
 import Feed from './Feed';
 import PageHOC from './PageHOC';
 import {
@@ -19,10 +18,8 @@ import {
   getUserFeedLoadingFromState,
 } from '../helpers/stateHelpers';
 import Loading from '../widgets/Loading';
-import FavoriteButton from '../favorites/FavoriteButton';
 import * as favoriteActions from '../favorites/favoritesActions';
 import EmptyFeed from '../statics/EmptyFeed';
-import Icon from '../widgets/Icon';
 
 @PageHOC
 @connect(
@@ -86,7 +83,7 @@ export default class Page extends React.Component {
 
     return (
       <div className="main-panel">
-        <Header />
+        <Header category={category || 'general'} sortBy={sortBy} />
         {!auth.isFetching && !auth.isAuthenticated && !category &&
           <div className="my-5 text-center">
             <div className="container">
@@ -104,25 +101,6 @@ export default class Page extends React.Component {
               </a>
             </div>
           </div>
-        }
-        {!auth.isFetching &&
-          <MenuFeed
-            auth={auth}
-            category={category}
-          />
-        }
-        {category &&
-          <h2 className="mt-3 text-center">
-            <span className="text-info">#</span>
-            {' '}{category}{' '}
-            <FavoriteButton
-              isFavorited={this.isFavorited()}
-              onClick={this.isFavorited()
-                ? this.props.removeCategoryFavorite
-                : this.props.addCategoryFavorite
-              }
-            />
-          </h2>
         }
         {auth.isFetching && <Loading />}
         {!auth.isFetching &&
