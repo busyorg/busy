@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Gateway } from 'react-gateway';
+import { getElementPosition } from './tooltipHelpers';
 import './Tooltip.scss';
 
 const DELAY = 500;
@@ -10,20 +11,21 @@ const initialState = {
   pos: null,
 };
 
-const renderTooltip = ({ message, pos, className }) => {
+const renderTooltip = ({ message, pos, posInBrowser, className }) => {
+
+  const getTooltipOnTopStyle = position => ({
+    position: 'absolute',
+    top: `${position.top - TOOLTIP_MARGIN}px`,
+    left: `${position.left}px`,
+  });
+
   const getTooltipOnBottomStyle = position => ({
     position: 'absolute',
     top: `${position.bottom + TOOLTIP_MARGIN}px`,
     left: `${position.left}px`,
   });
 
-  const getTooltipOnTopStyle = position => ({
-    position: 'absolute',
-    bottom: `${position.top + TOOLTIP_MARGIN}px`,
-    left: `${position.left}px`,
-  });
-
-  const style = pos.top < 150 ? getTooltipOnBottomStyle(pos) : getTooltipOnTopStyle(pos);
+  const style = posInBrowser.top < 150 ? getTooltipOnBottomStyle(pos) : getTooltipOnTopStyle(pos);
 
   return (
     <Gateway into="tooltip">
@@ -48,16 +50,14 @@ export default class Tooltip extends Component {
   };
 
   showTooltip = (e) => {
-    const { message } = this.props;
-    const pos =
-      e.target &&
-      e.target.getBoundingClientRect &&
-      e.target.getBoundingClientRect();
+    const pos = e.target && getElementPosition(e.target);
+    const posInBrowser = e.target && e.target.getBoundingClientRect();
 
     this.tooltipDelay = setTimeout(() => {
       this.setState({
         active: true,
         pos,
+        posInBrowser,
       });
     }, DELAY);
   };
@@ -73,7 +73,7 @@ export default class Tooltip extends Component {
 
   render() {
     const { className, message } = this.props;
-    const { pos, active } = this.state;
+    const { pos, posInBrowser, active } = this.state;
 
     return (
       <span onMouseEnter={this.showTooltip} onMouseLeave={this.removeTooltip}>
@@ -82,6 +82,7 @@ export default class Tooltip extends Component {
           renderTooltip({
             message,
             pos,
+            posInBrowser,
             className,
           })
         }
