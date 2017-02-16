@@ -3,13 +3,13 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import numeral from 'numeral';
 import _ from 'lodash';
-import UserCoverImage from '../UserCoverImage';
-import Avatar from '../../widgets/Avatar';
-import Icon from '../../widgets/Icon';
-import Loading from '../../widgets/Loading';
-import Follow from '../../widgets/Follow';
-import Badge from '../../widgets/Badge';
-import { getAccountWithFollowingCount } from '../../helpers/apiHelpers';
+import UserCoverImage from '../user/UserCoverImage';
+import Avatar from '../widgets/Avatar';
+import Icon from '../widgets/Icon';
+import Loading from '../widgets/Loading';
+import Follow from '../widgets/Follow';
+import Badge from '../widgets/Badge';
+import { getAccountWithFollowingCount } from '../helpers/apiHelpers';
 
 import './ProfileTooltip.scss';
 

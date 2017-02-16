@@ -12,7 +12,6 @@ import Notification from './app/Notification/Notification';
 import Sidebar from './app/Sidebar';
 import * as messages from './translations/Translations';
 import * as reblogActions from './app/Reblog/reblogActions';
-import './user/profileTooltip/ProfileTooltip.scss';
 
 @connect(
   state => ({
