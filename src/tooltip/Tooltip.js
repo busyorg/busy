@@ -41,7 +41,11 @@ export default class Tooltip extends Component {
     }, DELAY);
   };
 
-  removeTooltip = () => {
+  keepTooltip = () => {
+    clearTimeout(this.tooltipRemoveDelay);
+  };
+
+  removeTooltip = (forceNoDelay = false) => {
     const { keep } = this.props;
 
     // eslint-disable-next-line
@@ -50,9 +54,10 @@ export default class Tooltip extends Component {
     }
 
     // add delay to remove on keep so user has time to move the mouse to the tooltip
+    const delay = keep && !forceNoDelay ? DELAY : 0;
     this.tooltipRemoveDelay = setTimeout(() => {
       this.setState(initialState);
-    }, keep ? DELAY : 0);
+    }, delay);
   };
 
   render() {
@@ -60,17 +65,19 @@ export default class Tooltip extends Component {
     const { pos, posInBrowser, active } = this.state;
 
     return (
-      <span onMouseEnter={this.showTooltip} onMouseLeave={this.removeTooltip}>
+      <span onMouseEnter={this.showTooltip} onMouseLeave={() => this.removeTooltip()}>
         { this.props.children }
         { active &&
           <Gateway into="tooltip">
-            <TemplateComp
-              pos={pos}
-              message={message}
-              posInBrowser={posInBrowser}
-              className={className}
-              value={value}
-            />
+            <div onMouseEnter={this.keepTooltip} onMouseLeave={() => this.removeTooltip(true)}>
+              <TemplateComp
+                pos={pos}
+                message={message}
+                posInBrowser={posInBrowser}
+                className={className}
+                value={value}
+              />
+            </div>
           </Gateway>
         }
       </span>

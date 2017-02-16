@@ -128,6 +128,7 @@ export default class ProfileTooltip extends Component {
 export const ProfileTooltipOrigin = ({ username, children }) => (
   <Tooltip
     value={{ username }}
+    keep
     TemplateComp={ProfileTooltip}
     className="ProfileTooltip"
   >
