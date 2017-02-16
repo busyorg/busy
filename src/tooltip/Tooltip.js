@@ -18,12 +18,14 @@ export default class Tooltip extends Component {
   }
 
   tooltipDelay = null;
+  tooltipRemoveDelay = null;
 
   static defaultProps = {
     message: '',
     className: 'BusyTooltip',
     TemplateComp: SimpleTooltip,
     value: null,
+    keep: false,
   };
 
   showTooltip = (e) => {
@@ -40,12 +42,17 @@ export default class Tooltip extends Component {
   };
 
   removeTooltip = () => {
+    const { keep } = this.props;
+
     // eslint-disable-next-line
     if (window && window.clearTimeout) {
       clearTimeout(this.tooltipDelay);
     }
 
-    this.setState(initialState);
+    // add delay to remove on keep so user has time to move the mouse to the tooltip
+    this.tooltipRemoveDelay = setTimeout(() => {
+      this.setState(initialState);
+    }, keep ? DELAY : 0);
   };
 
   render() {
