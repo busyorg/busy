@@ -10,7 +10,7 @@ import Body from '../post/Body';
 import Avatar from '../widgets/Avatar';
 import Icon from '../widgets/Icon';
 import { sortCommentsFromSteem } from '../helpers/stateHelpers';
-import ProfileTooltipOrigin from '../user/profileTooltip/ProfileTooltipOrigin';
+import { ProfileTooltipOrigin } from '../tooltip/ProfileTooltip';
 import './CommentItem.scss';
 
 const renderOptimisticComment = (comment, isSinglePage) =>

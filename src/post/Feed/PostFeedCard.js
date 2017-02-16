@@ -11,10 +11,9 @@ import Icon from '../../widgets/Icon';
 import Avatar from '../../widgets/Avatar';
 import PostModalLink from './../PostModalLink';
 import LikesList from './../LikesList';
-import ProfileTooltipOrigin from '../../user/profileTooltip/ProfileTooltipOrigin';
+import { ProfileTooltipOrigin } from '../../tooltip/ProfileTooltip';
 import Reactions from '../Reactions';
 import { calculatePayout } from '../../helpers/steemitHelpers';
-import Tooltip from '../../tooltip/Tooltip';
 import PostFeedEmbed from '../PostFeedEmbed';
 import './PostFeedCard.scss';
 
@@ -103,10 +102,9 @@ const PostFeedCard = ({
 
           <span className="hidden-xs">
             { ' ' }<FormattedMessage id="in" />{ ' ' }
-            <Tooltip message="Hello world!">
-              <span>
-              <Link to={`/hot/${post.category}`}>#{post.category}</Link></span>
-            </Tooltip>
+            <span>
+              <Link to={`/hot/${post.category}`}>#{post.category}</Link>
+            </span>
           </span>
         </li>
         <li className="pull-right">
