@@ -14,6 +14,14 @@ import Tooltip from './Tooltip';
 
 import './ProfileTooltip.scss';
 
+const TOOLTIP_MARGIN = 10;
+
+const getTooltipOnBottomStyle = (position, tooltipWidth) => ({
+  position: 'absolute',
+  top: `${position.bottom + TOOLTIP_MARGIN}px`,
+  left: `${(position.left + (position.width / 2)) - (tooltipWidth / 2)}px`,
+});
+
 @connect(
   state => ({
     auth: state.auth,
@@ -25,11 +33,18 @@ export default class ProfileTooltip extends Component {
     this.state = {
       userData: {},
       fetching: false,
+      el: null,
     };
   }
 
   static propTypes = {
     value: PropTypes.shape({ username: PropTypes.string }),
+  };
+
+  handleRef = (e) => {
+    if (!this.state.el) {
+      this.setState({ el: e });
+    }
   };
 
   fetchData() {
@@ -53,20 +68,24 @@ export default class ProfileTooltip extends Component {
   }
 
   render() {
+    const { pos, className } = this.props;
+    const tooltipWidth = this.state.el ? this.state.el.clientWidth : 0;
+
+    const style = getTooltipOnBottomStyle(pos, tooltipWidth);
     const { username } = this.props.value;
     const { userData } = this.state;
     const jsonMetadata = userData.json_metadata;
 
     if (this.state.fetching || _.isEmpty(userData)) {
       return (
-        <div className="ProfileTooltip">
+        <div className={className}>
           <Loading />
         </div>
       );
     }
 
     return (
-      <div className="ProfileTooltip">
+      <div className={className} style={style} ref={this.handleRef}>
         <div className="my-3">
           <Link to={`/@${username}`}>
             <Avatar
@@ -107,7 +126,11 @@ export default class ProfileTooltip extends Component {
 }
 
 export const ProfileTooltipOrigin = ({ username, children }) => (
-  <Tooltip value={{ username }} TemplateComp={ProfileTooltip} >
+  <Tooltip
+    value={{ username }}
+    TemplateComp={ProfileTooltip}
+    className="ProfileTooltip"
+  >
     {children}
   </Tooltip>
 );
