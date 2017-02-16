@@ -38,6 +38,14 @@ export default class MessageForm extends Component {
     if (window) {
       window.addEventListener('click', this.handlePageClick);
     }
+
+    // setInterval(() => {
+    //   this.props.sendMessage({
+    //     senderUsername: this.props.username,
+    //     channelName: this.props.channel,
+    //     text: new Date().toISOString(),
+    //   })
+    // }, 1000);
   }
 
   componentWillUnmount() {
