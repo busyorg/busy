@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Tooltip from './Tooltip';
 import './Tooltip.scss';
 
 const TOOLTIP_MARGIN = 10;
@@ -24,7 +25,8 @@ export default class SimpleTooltip extends Component {
   };
 
   render() {
-    const { message, pos, className } = this.props;
+    const { pos, className } = this.props;
+    const { message } = this.props.value;
     const tooltipWidth = this.state.el ? this.state.el.clientWidth : 0;
 
     const style = getTooltipOnBottomStyle(pos, tooltipWidth);
@@ -36,3 +38,9 @@ export default class SimpleTooltip extends Component {
     );
   }
 }
+
+export const SimpleTooltipOrigin = ({ message, children }) => (
+  <Tooltip value={{ message }} >
+    {children}
+  </Tooltip>
+);

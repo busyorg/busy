@@ -21,7 +21,6 @@ export default class Tooltip extends Component {
   tooltipRemoveDelay = null;
 
   static defaultProps = {
-    message: '',
     className: 'BusyTooltip',
     TemplateComp: SimpleTooltip,
     value: null,
@@ -61,7 +60,7 @@ export default class Tooltip extends Component {
   };
 
   render() {
-    const { className, message, TemplateComp, value } = this.props;
+    const { className, TemplateComp, value } = this.props;
     const { pos, posInBrowser, active } = this.state;
 
     return (
@@ -72,7 +71,6 @@ export default class Tooltip extends Component {
             <div onMouseEnter={this.keepTooltip} onMouseLeave={() => this.removeTooltip(true)}>
               <TemplateComp
                 pos={pos}
-                message={message}
                 posInBrowser={posInBrowser}
                 className={className}
                 value={value}
