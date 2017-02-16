@@ -10,6 +10,7 @@ import Loading from '../widgets/Loading';
 import Follow from '../widgets/Follow';
 import Badge from '../widgets/Badge';
 import { getAccountWithFollowingCount } from '../helpers/apiHelpers';
+import Tooltip from './Tooltip';
 
 import './ProfileTooltip.scss';
 
@@ -103,3 +104,9 @@ export default class ProfileTooltip extends Component {
     );
   }
 }
+
+export const ProfileTooltipOrigin = ({ username, children }) => (
+  <Tooltip value={username} TemplateComp={ProfileTooltip} >
+    {children}
+  </Tooltip>
+);
