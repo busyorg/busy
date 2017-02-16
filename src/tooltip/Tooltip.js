@@ -23,6 +23,7 @@ export default class Tooltip extends Component {
     message: '',
     className: 'BusyTooltip',
     TemplateComp: SimpleTooltip,
+    value: null,
   };
 
   showTooltip = (e) => {
@@ -48,7 +49,7 @@ export default class Tooltip extends Component {
   };
 
   render() {
-    const { className, message, TemplateComp } = this.props;
+    const { className, message, TemplateComp, value } = this.props;
     const { pos, posInBrowser, active } = this.state;
 
     return (
@@ -61,6 +62,7 @@ export default class Tooltip extends Component {
               message={message}
               posInBrowser={posInBrowser}
               className={className}
+              value={value}
             />
           </Gateway>
         }
