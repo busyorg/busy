@@ -5,6 +5,8 @@ import { IntlProvider } from 'react-intl';
 import { Tooltip, actions as tooltipActions } from 'redux-tooltip';
 import { login } from './auth/authActions';
 import { getConfig, getRate } from './actions';
+import steemAPI from './steemAPI';
+import { getMessages } from './translations/translationHelper';
 import { getStoredBookmarks } from './bookmarks/bookmarksActions';
 import { notify } from './app/Notification/notificationActions';
 import Notification from './app/Notification/Notification';
@@ -32,6 +34,9 @@ import './user/profileTooltip/ProfileTooltip.scss';
 export default class Wrapper extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      messages: {},
+    };
   }
 
   componentWillMount() {
@@ -40,13 +45,22 @@ export default class Wrapper extends Component {
     this.props.getStoredBookmarks();
     this.props.getRebloggedList();
     this.props.getRate();
+    this.loadMessages();
   }
+
+  loadMessages = () => {
+    steemAPI.getState('/test/@siol/4psulv-test', (err, result) => {
+      this.setState({
+        messages: getMessages(result.content)
+      });
+    });
+  };
 
   render() {
     const { app, auth, notify } = this.props;
     const className = (!app.sidebarIsVisible) ? 'app-wrapper full-width' : 'app-wrapper';
     return (
-      <IntlProvider locale={app.locale} messages={messages[app.locale]}>
+      <IntlProvider locale={app.locale} messages={this.state.messages[app.locale] || {}}>
         <div className={className}>
           <Sidebar />
           <Notification />
