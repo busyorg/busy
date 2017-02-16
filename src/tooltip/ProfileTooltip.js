@@ -29,11 +29,11 @@ export default class ProfileTooltip extends Component {
   }
 
   static propTypes = {
-    username: PropTypes.string
+    value: PropTypes.shape({ username: PropTypes.string }),
   };
 
   fetchData() {
-    const { username } = this.props;
+    const { username } = this.props.value;
     this.setState({ fetching: true });
     getAccountWithFollowingCount(username)
       .then((userData) => {
@@ -42,7 +42,8 @@ export default class ProfileTooltip extends Component {
   }
 
   componentDidUpdate(nextProps) {
-    if (this.props.username !== nextProps.username) {
+    const { username } = this.props.value;
+    if (username !== nextProps.value.username) {
       this.fetchData();
     }
   }
@@ -52,7 +53,7 @@ export default class ProfileTooltip extends Component {
   }
 
   render() {
-    const { username } = this.props;
+    const { username } = this.props.value;
     const { userData } = this.state;
     const jsonMetadata = userData.json_metadata;
 
@@ -106,7 +107,7 @@ export default class ProfileTooltip extends Component {
 }
 
 export const ProfileTooltipOrigin = ({ username, children }) => (
-  <Tooltip value={username} TemplateComp={ProfileTooltip} >
+  <Tooltip value={{ username }} TemplateComp={ProfileTooltip} >
     {children}
   </Tooltip>
 );
