@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import { Gateway } from 'react-gateway';
 import { getElementPosition } from './tooltipHelpers';
-import TooltipBox from './TooltipBox';
+import SimpleTooltip from './SimpleTooltip';
 
 const DELAY = 500;
 
@@ -21,6 +22,7 @@ export default class Tooltip extends Component {
   static defaultProps = {
     message: '',
     className: 'BusyTooltip',
+    TemplateComp: SimpleTooltip,
   };
 
   showTooltip = (e) => {
@@ -46,19 +48,21 @@ export default class Tooltip extends Component {
   };
 
   render() {
-    const { className, message } = this.props;
+    const { className, message, TemplateComp } = this.props;
     const { pos, posInBrowser, active } = this.state;
 
     return (
       <span onMouseEnter={this.showTooltip} onMouseLeave={this.removeTooltip}>
         { this.props.children }
         { active &&
-          <TooltipBox
-            pos={pos}
-            message={message}
-            posInBrowser={posInBrowser}
-            className={className}
-          />
+          <Gateway into="tooltip">
+            <TemplateComp
+              pos={pos}
+              message={message}
+              posInBrowser={posInBrowser}
+              className={className}
+            />
+          </Gateway>
         }
       </span>
     );

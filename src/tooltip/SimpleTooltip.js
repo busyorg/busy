@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Gateway } from 'react-gateway';
 import './Tooltip.scss';
 
 const TOOLTIP_MARGIN = 10;
@@ -10,7 +9,7 @@ const getTooltipOnBottomStyle = (position, tooltipWidth) => ({
   left: `${(position.left + (position.width / 2)) - (tooltipWidth / 2)}px`,
 });
 
-export default class TooltipBox extends Component {
+export default class SimpleTooltip extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -31,11 +30,9 @@ export default class TooltipBox extends Component {
     const style = getTooltipOnBottomStyle(pos, tooltipWidth);
 
     return (
-      <Gateway into="tooltip">
-        <div className={className} style={style} ref={this.handleRef}>
-          { message }
-        </div>
-      </Gateway>
+      <div className={className} style={style} ref={this.handleRef}>
+        { message }
+      </div>
     );
   }
 }
