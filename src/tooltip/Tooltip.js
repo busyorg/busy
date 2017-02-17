@@ -41,7 +41,9 @@ export default class Tooltip extends Component {
   };
 
   keepTooltip = () => {
-    clearTimeout(this.tooltipRemoveDelay);
+    if (this.props.keep) {
+      clearTimeout(this.tooltipRemoveDelay);
+    }
   };
 
   removeTooltip = (forceNoDelay = false) => {
