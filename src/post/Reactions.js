@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import numeral from 'numeral';
 import { FormattedMessage } from 'react-intl';
-import { Tooltip } from 'pui-react-tooltip';
-import { OverlayTrigger } from 'pui-react-overlay-trigger';
+import { SimpleTooltipOrigin } from '../tooltip/SimpleTooltip';
 import {
   sortVotes,
   getUpvotes,
@@ -44,12 +43,9 @@ export default class Reactions extends Component {
               <span className="hidden-xs">
                 {followingUpvotes.map((vote, idx) =>
                   <span key={idx} className="mr-1">
-                    <OverlayTrigger
-                      placement="top"
-                      overlay={<Tooltip>{vote.voter}</Tooltip>}
-                    >
+                    <SimpleTooltipOrigin message={vote.voter}>
                       <Link to={`/@${vote.voter}`}><Avatar username={vote.voter} xs /></Link>
-                    </OverlayTrigger>
+                    </SimpleTooltipOrigin>
                   </span>
                 )}
               </span>
@@ -66,12 +62,9 @@ export default class Reactions extends Component {
               <span className="hidden-xs">
                 {followingDownvotes.map((vote, idx) =>
                   <span key={idx} className="mr-1">
-                    <OverlayTrigger
-                      placement="top"
-                      overlay={<Tooltip>{vote.voter}</Tooltip>}
-                    >
+                    <SimpleTooltipOrigin message={vote.voter}>
                       <a><Avatar username={vote.voter} xs /></a>
-                    </OverlayTrigger>
+                    </SimpleTooltipOrigin>
                   </span>
                 )}
               </span>

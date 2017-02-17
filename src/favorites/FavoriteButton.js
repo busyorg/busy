@@ -1,16 +1,15 @@
 import React from 'react';
-import { Tooltip } from 'pui-react-tooltip';
-import { OverlayTrigger } from 'pui-react-overlay-trigger';
+import { SimpleTooltipOrigin } from '../tooltip/SimpleTooltip';
 import { injectIntl } from 'react-intl';
 import Icon from '../widgets/Icon';
 import './FavoriteButton.scss';
 
 const FavoriteUserButton = ({ onClick, isFavorited, intl }) =>
-  <OverlayTrigger
-    overlay={
-      <Tooltip>
-        {intl.formatMessage({ id: isFavorited ? '@tooltip_remove_fav' : '@tooltip_add_fav' })}
-      </Tooltip>}
+  <SimpleTooltipOrigin
+    message={intl.formatMessage({ id: isFavorited
+    ? '@tooltip_remove_fav'
+    : '@tooltip_add_fav'
+    })}
   >
     <a
       className={isFavorited ? 'FavoriteButton FavoriteButton--active' : 'FavoriteButton'}
@@ -18,6 +17,6 @@ const FavoriteUserButton = ({ onClick, isFavorited, intl }) =>
     >
       <Icon name={isFavorited ? 'star' : 'star_border'} sm />
     </a>
-  </OverlayTrigger>;
+  </SimpleTooltipOrigin>;
 
 export default injectIntl(FavoriteUserButton);

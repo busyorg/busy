@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter, Link } from 'react-router';
-import { Tooltip } from 'pui-react-tooltip';
-import { OverlayTrigger } from 'pui-react-overlay-trigger';
+import { SimpleTooltipOrigin } from '../tooltip/SimpleTooltip';
 import PostSingleContent from './PostSingleContent';
 import CommentForm from '../comments/CommentForm';
 import Icon from '../widgets/Icon';
@@ -91,15 +90,11 @@ export default class PostSingleModal extends Component {
             </div>
             {this.props.nextStory &&
               <div className="right mr-3">
-                <OverlayTrigger
-                  placement="left"
-                  overlay={
-                    <Tooltip>{this.props.nextStory.title}</Tooltip>}
-                >
+                <SimpleTooltipOrigin message={this.props.nextStory.title}>
                   <a onClick={this.nextStory}>
                     <Icon name="navigate_next" className="Icon--menu" />
                   </a>
-                </OverlayTrigger>
+                </SimpleTooltipOrigin>
               </div>
             }
           </div>
