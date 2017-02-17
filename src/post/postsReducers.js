@@ -2,6 +2,7 @@ import * as feedTypes from '../feed/feedActions';
 import * as bookmarksActions from '../bookmarks/bookmarksActions';
 import * as postsActions from './postActions';
 import * as commentsActions from '../comments/commentsActions';
+import * as userActions from '../user/userActions';
 
 const postItem = (state = {}, action) => {
   switch (action.type) {
@@ -46,14 +47,25 @@ const postItem = (state = {}, action) => {
 };
 
 const posts = (state = {}, action) => {
+  let posts = {};
   switch (action.type) {
     case feedTypes.GET_FEED_CONTENT_SUCCESS:
     case feedTypes.GET_MORE_FEED_CONTENT_SUCCESS:
     case feedTypes.GET_USER_FEED_CONTENT_SUCCESS:
     case feedTypes.GET_MORE_USER_FEED_CONTENT_SUCCESS:
     case bookmarksActions.GET_BOOKMARKS_SUCCESS:
-      const posts = {};
       action.payload.postsData.forEach(post => posts[post.id] = post);
+      return {
+        ...state,
+        ...posts,
+      };
+    case userActions.GET_USER_REPLIES_SUCCESS:
+      return {
+        ...state,
+        ...action.payload,
+      };
+    case userActions.GET_MORE_USER_REPLIES_SUCCESS:
+      action.payload.forEach((post) => { posts[post.id] = post; });
       return {
         ...state,
         ...posts,

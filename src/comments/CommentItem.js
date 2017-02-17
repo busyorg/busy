@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router';
+import { Link, withRouter } from 'react-router';
 import { FormattedRelative } from 'react-intl';
 import numeral from 'numeral';
 import _ from 'lodash';
@@ -39,12 +39,33 @@ const renderOptimisticComment = (comment, isSinglePage) =>
     </div>
   </div>;
 
+@withRouter
 export default class CommentItem extends Component {
   constructor(props) {
     super(props);
     this.state = {
       showReplies: props.isSinglePage,
     };
+  }
+
+  componentDidMount() {
+    this.checkHashLink();
+  }
+
+  checkHashLink() {
+    const { location } = this.props;
+    // eslint-disable-next-line
+    if (window && location.hash) {
+      this.scrollToAnchoredLink();
+    }
+  }
+
+  scrollToAnchoredLink() {
+    const { location } = this.props;
+    // eslint-disable-next-line
+    const targetElm = window.document.getElementById(location.hash);
+    if (!targetElm) return;
+    targetElm.scrollIntoView();
   }
 
   toggleShowReplies = (e) => {
@@ -107,8 +128,17 @@ export default class CommentItem extends Component {
       .reverse()
       .slice(0, 5);
 
+    const anchoredLink = `#@${comment.author}/${comment.permlink}`;
+
     return (
-      <div className="CommentItem">
+      <div
+        className={
+          anchoredLink === this.props.location.hash
+          ? 'CommentItem CommentItem--highlight'
+          : 'CommentItem'
+        }
+        id={anchoredLink}
+      >
         <div className={`CommentItem__content CommentItem__content--level-${comment.depth}`}>
           <div className="CommentUser">
             <ProfileTooltipOrigin username={comment.author} >
