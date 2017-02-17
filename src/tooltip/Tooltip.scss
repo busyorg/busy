@@ -1,7 +1,10 @@
 .BusyTooltip {
-  background: #fff;
+  color: #fff;
+  background: #000;
+  font-size: 0.85rem;
   z-index: 3;
-  box-shadow: #454545 1px 1px 2px;
-  padding: 2px;
-  border-radius: 2px;
+  padding: 4px;
+  border-radius: 5px;
+  white-space: pre-line;
+  text-align: center;
 }
