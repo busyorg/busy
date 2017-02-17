@@ -40,7 +40,7 @@ export default class SimpleTooltip extends Component {
 }
 
 export const SimpleTooltipOrigin = ({ message, children }) => (
-  <Tooltip value={{ message }} >
+  <Tooltip value={{ message }} TemplateComp={SimpleTooltip}>
     {children}
   </Tooltip>
 );

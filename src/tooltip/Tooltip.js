@@ -17,15 +17,14 @@ export default class Tooltip extends Component {
     this.state = initialState;
   }
 
-  tooltipDelay = null;
-  tooltipRemoveDelay = null;
-
   static defaultProps = {
     className: 'BusyTooltip',
-    TemplateComp: SimpleTooltip,
     value: null,
     keep: false,
   };
+
+  tooltipDelay = null;
+  tooltipRemoveDelay = null;
 
   showTooltip = (e) => {
     const pos = e.target && getElementPosition(e.target);
@@ -61,25 +60,40 @@ export default class Tooltip extends Component {
     }, delay);
   };
 
-  render() {
+  renderTooltip() {
     const { className, TemplateComp, value } = this.props;
     const { pos, posInBrowser, active } = this.state;
 
+    if (!active) return null;
+
     return (
-      <span onMouseEnter={this.showTooltip} onMouseLeave={() => this.removeTooltip()}>
-        { this.props.children }
-        { active &&
-          <Gateway into="tooltip">
-            <div onMouseEnter={this.keepTooltip} onMouseLeave={() => this.removeTooltip(true)}>
-              <TemplateComp
-                pos={pos}
-                posInBrowser={posInBrowser}
-                className={className}
-                value={value}
-              />
-            </div>
-          </Gateway>
-        }
+      <Gateway into="tooltip">
+        <div onMouseEnter={this.keepTooltip} onMouseLeave={() => this.removeTooltip(true)}>
+          <TemplateComp
+            pos={pos}
+            posInBrowser={posInBrowser}
+            className={className}
+            value={value}
+          />
+        </div>
+      </Gateway>
+    );
+  }
+
+  render() {
+    const theChildElement = React.Children.only(this.props.children);
+
+    return (
+      <span>
+        {React.cloneElement(
+          theChildElement,
+          {
+            onMouseEnter: e => this.showTooltip(e),
+            onMouseLeave: () => this.removeTooltip()
+          }
+        )}
+
+        {this.renderTooltip()}
       </span>
     );
   }
