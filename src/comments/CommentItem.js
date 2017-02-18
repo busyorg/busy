@@ -3,13 +3,13 @@ import { Link, withRouter } from 'react-router';
 import { FormattedRelative } from 'react-intl';
 import numeral from 'numeral';
 import _ from 'lodash';
-import { SimpleTooltipOrigin } from '../tooltip/SimpleTooltip';
+import { SimpleTooltipOrigin } from '../widgets/tooltip/SimpleTooltip';
 import { getUpvotes, getDownvotes, sortVotes } from '../helpers/voteHelpers';
 import Body from '../post/Body';
 import Avatar from '../widgets/Avatar';
 import Icon from '../widgets/Icon';
 import { sortCommentsFromSteem } from '../helpers/stateHelpers';
-import { ProfileTooltipOrigin } from '../tooltip/ProfileTooltip';
+import { ProfileTooltipOrigin } from '../widgets/tooltip/ProfileTooltip';
 import './CommentItem.scss';
 
 const renderOptimisticComment = (comment, isSinglePage) =>

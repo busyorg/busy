@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 import numeral from 'numeral';
 import Avatar from '../widgets/Avatar';
-import { ProfileTooltipOrigin } from '../tooltip/ProfileTooltip';
+import { ProfileTooltipOrigin } from '../widgets/tooltip/ProfileTooltip';
 import './LikesList.scss';
 
 export default class LikesList extends Component {

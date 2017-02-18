@@ -2,7 +2,7 @@ import React from 'react';
 import numeral from 'numeral';
 import { FormattedMessage } from 'react-intl';
 import _ from 'lodash';
-import { SimpleTooltipOrigin } from '../../tooltip/SimpleTooltip';
+import { SimpleTooltipOrigin } from '../../widgets/tooltip/SimpleTooltip';
 import { getUpvotes, getDownvotes, sortVotes } from '../../helpers/voteHelpers';
 import Icon from '../../widgets/Icon';
 import './MenuPost.scss';

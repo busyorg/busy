@@ -3,7 +3,7 @@ import { FormattedTime } from 'react-intl';
 import { Link } from 'react-router';
 import Body from '../post/Body';
 import Avatar from '../widgets/Avatar';
-import { ProfileTooltipOrigin } from '../tooltip/ProfileTooltip';
+import { ProfileTooltipOrigin } from '../widgets/tooltip/ProfileTooltip';
 
 const MessageGroup = (props) => {
   const { model } = props;

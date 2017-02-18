@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter, Link } from 'react-router';
-import { SimpleTooltipOrigin } from '../tooltip/SimpleTooltip';
+import { SimpleTooltipOrigin } from '../widgets/tooltip/SimpleTooltip';
 import PostSingleContent from './PostSingleContent';
 import CommentForm from '../comments/CommentForm';
 import Icon from '../widgets/Icon';

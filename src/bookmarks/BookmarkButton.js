@@ -1,6 +1,6 @@
 import React from 'react';
 import { injectIntl } from 'react-intl';
-import { SimpleTooltipOrigin } from '../tooltip/SimpleTooltip';
+import { SimpleTooltipOrigin } from '../widgets/tooltip/SimpleTooltip';
 import Icon from '../widgets/Icon';
 
 const BookmarkButton = ({ post, bookmarks, toggleBookmark, intl }) =>

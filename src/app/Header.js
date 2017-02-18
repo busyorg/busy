@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import { SimpleTooltipOrigin } from '../tooltip/SimpleTooltip';
+import { SimpleTooltipOrigin } from '../widgets/tooltip/SimpleTooltip';
 import { showSidebar } from '../actions';
 import Icon from '../widgets/Icon';
 import './Header.scss';

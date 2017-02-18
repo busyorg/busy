@@ -6,7 +6,7 @@ import PostActionButtons from '../PostActionButtons';
 import Avatar from '../../widgets/Avatar';
 import BookmarkButton from '../../bookmarks/BookmarkButton';
 import PostModalLink from './../PostModalLink';
-import { ProfileTooltipOrigin } from '../../tooltip/ProfileTooltip';
+import { ProfileTooltipOrigin } from '../../widgets/tooltip/ProfileTooltip';
 import './PostFeedList.scss';
 
 const PostFeedList = ({
