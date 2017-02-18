@@ -1,7 +1,7 @@
 // Forked from https://github.com/rajaraodv/draftjs-examples
 import newDebug from 'debug';
 import { connect } from 'react-redux';
-import { Entity, EditorState, AtomicBlockUtils, ContentState, SelectionState } from 'draft-js';
+import { EditorState, AtomicBlockUtils, ContentState, SelectionState } from 'draft-js';
 import React, { Component } from 'react';
 
 import './PostEditor.scss';
@@ -122,15 +122,17 @@ class SideControls extends Component {
     const file = fileInput.files[0];
     const username = this.props.user.name;
     let entityKey;
+    const contentState = this.props.editorState.getCurrentContent();
     preloadFile({ file })
       .then((dataUrl) => {
         this.hide();
-        entityKey = Entity.create('image', 'IMMUTABLE', { src: dataUrl });
+        const contentStateWithEntity = contentState.createEntity('image', 'IMMUTABLE', { src: dataUrl });
+        entityKey = contentStateWithEntity.getLastCreatedEntityKey();
         this.props.onChange(addNewEntitiy(this.props.editorState, entityKey));
         return this.props.uploadFile({ username, file });
       })
       .then(({ value }) => {
-        Entity.replaceData(entityKey, { src: value.url });
+        contentState.replaceEntityData(entityKey, { src: value.url });
       });
   };
 

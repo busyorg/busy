@@ -1,19 +1,17 @@
 // Forked from https://github.com/rajaraodv/draftjs-examples
 import newDebug from 'debug';
-import { Map } from 'immutable';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import _ from 'lodash';
 
 // draft-js
-import 'draft-js-emoji-plugin/lib/plugin.css';
-import 'draft-js-hashtag-plugin/lib/plugin.css';
-import 'draft-js-linkify-plugin/lib/plugin.css';
-import 'draft-js-image-plugin/lib/plugin.css';
-import 'draft-js-focus-plugin/lib/plugin.css';
+import 'draft-js-plugins/draft-js-emoji-plugin/lib/plugin.css';
+import 'draft-js-plugins/draft-js-hashtag-plugin/lib/plugin.css';
+import 'draft-js-plugins/draft-js-linkify-plugin/lib/plugin.css';
+import 'draft-js-plugins/draft-js-image-plugin/lib/plugin.css';
+import 'draft-js-plugins/draft-js-focus-plugin/lib/plugin.css';
 import {
-  DefaultDraftBlockRenderMap,
   getVisibleSelectionRect as draftVSR,
   EditorState,
   ContentState,
@@ -21,16 +19,16 @@ import {
   convertToRaw,
   convertFromRaw
 } from 'draft-js';
-import Editor, { createEditorStateWithText, composeDecorators } from 'draft-js-plugins-editor';
-import createEmojiPlugin from 'draft-js-emoji-plugin';
-import createHashtagPlugin from 'draft-js-hashtag-plugin';
+import Editor, { createEditorStateWithText, composeDecorators } from 'draft-js-plugins/draft-js-plugins-editor';
+import createEmojiPlugin from 'draft-js-plugins/draft-js-emoji-plugin';
+import createHashtagPlugin from 'draft-js-plugins/draft-js-hashtag-plugin';
 import { stateFromMarkdown } from 'draft-js-import-markdown';
 import { stateToMarkdown } from 'draft-js-export-markdown';
 import createMarkdownShortcutsPlugin from 'draft-js-markdown-shortcuts-plugin';
-import createLinkifyPlugin from 'draft-js-linkify-plugin';
-import createImagePlugin from 'draft-js-image-plugin';
-import createFocusPlugin from 'draft-js-focus-plugin';
-import createDndPlugin from 'draft-js-dnd-plugin';
+import createLinkifyPlugin from 'draft-js-plugins/draft-js-linkify-plugin';
+import createImagePlugin from 'draft-js-plugins/draft-js-image-plugin';
+import createFocusPlugin from 'draft-js-plugins/draft-js-focus-plugin';
+import createDndPlugin from 'draft-js-plugins/draft-js-drag-n-drop-plugin';
 
 import './Write.scss';
 import './PostEditor.scss';
