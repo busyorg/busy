@@ -76,6 +76,7 @@
     "react-ga": "^2.1.2",
     "react-gateway": "^2.6.0",
     "react-intl": "^2.1.5",
+    "react-onclickoutside": "^5.9.0",
     "react-redux": "^4.4.5",
     "react-responsive-utils": "^1.0.2",
     "react-router": "^3.0.0",
