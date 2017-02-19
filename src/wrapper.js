@@ -66,6 +66,8 @@ export default class Wrapper extends Component {
               { auth, notify }
             )}
             <GatewayDest name="tooltip" />
+            <GatewayDest name="popover" />
+            <GatewayDest name="modal" />
           </div>
         </GatewayProvider>
       </IntlProvider>
