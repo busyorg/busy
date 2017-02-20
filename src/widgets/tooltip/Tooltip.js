@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { Gateway } from 'react-gateway';
 import { getElementPosition } from './tooltipHelpers';
 import SimpleTooltip from './SimpleTooltip';
@@ -17,10 +17,18 @@ export default class Tooltip extends Component {
     this.state = initialState;
   }
 
+  static propTypes = {
+    className: PropTypes.string,
+    value: PropTypes.shape({ message: PropTypes.string }),
+    appearOn: PropTypes.oneOf(['top', 'bottom']),
+    TemplateComp: PropTypes.react,
+  };
+
   static defaultProps = {
     className: 'BusyTooltip',
     value: null,
     keep: false,
+    appearOn: 'top',
   };
 
   tooltipDelay = null;
@@ -61,7 +69,7 @@ export default class Tooltip extends Component {
   };
 
   renderTooltip() {
-    const { className, TemplateComp, value } = this.props;
+    const { className, TemplateComp, value, appearOn } = this.props;
     const { pos, posInBrowser, active } = this.state;
 
     if (!active) return null;
@@ -74,6 +82,7 @@ export default class Tooltip extends Component {
             posInBrowser={posInBrowser}
             className={className}
             value={value}
+            appearOn={appearOn}
           />
         </div>
       </Gateway>

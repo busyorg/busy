@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import Tooltip from './Tooltip';
 import './SimpleTooltip.scss';
 
@@ -10,6 +10,12 @@ const getTooltipOnBottomStyle = (position, tooltipWidth) => ({
   left: `${(position.left + (position.width / 2)) - (tooltipWidth / 2)}px`,
 });
 
+const getTooltipOnTopStyle = (position, tooltipWidth, tooltipHeight) => ({
+  position: 'absolute',
+  top: `${(position.top - tooltipHeight) - TOOLTIP_MARGIN}px`,
+  left: `${(position.left + (position.width / 2)) - (tooltipWidth / 2)}px`,
+});
+
 export default class SimpleTooltip extends Component {
   constructor(props) {
     super(props);
@@ -18,6 +24,16 @@ export default class SimpleTooltip extends Component {
     };
   }
 
+  static propTypes = {
+    pos: PropTypes.shape({
+      top: PropTypes.string,
+      bottom: PropTypes.string,
+    }),
+    className: PropTypes.string,
+    value: PropTypes.shape({ message: PropTypes.string }),
+    appearOn: PropTypes.oneOf(['top', 'bottom']),
+  };
+
   handleRef = (e) => {
     if (!this.state.el) {
       this.setState({ el: e });
@@ -25,11 +41,14 @@ export default class SimpleTooltip extends Component {
   };
 
   render() {
-    const { pos, className } = this.props;
+    const { pos, className, appearOn } = this.props;
     const { message } = this.props.value;
     const tooltipWidth = this.state.el ? this.state.el.clientWidth : 0;
+    const tooltipHeight = this.state.el ? this.state.el.clientHeight : 0;
 
-    const style = getTooltipOnBottomStyle(pos, tooltipWidth);
+    const style = appearOn === 'bottom'
+      ? getTooltipOnBottomStyle(pos, tooltipWidth)
+      : getTooltipOnTopStyle(pos, tooltipWidth, tooltipHeight);
 
     return (
       <div className={className} style={style} ref={this.handleRef}>
@@ -39,8 +58,8 @@ export default class SimpleTooltip extends Component {
   }
 }
 
-export const SimpleTooltipOrigin = ({ message, children }) => (
-  <Tooltip value={{ message }} TemplateComp={SimpleTooltip}>
+export const SimpleTooltipOrigin = ({ message, children, appearOn }) => (
+  <Tooltip value={{ message }} TemplateComp={SimpleTooltip} appearOn={appearOn}>
     {children}
   </Tooltip>
 );
