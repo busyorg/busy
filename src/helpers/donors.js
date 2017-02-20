@@ -5,7 +5,7 @@ export default {
   jamesc: 'gold',
   cass: 'gold',
   bhuz: 'silver',
-  twinner: 'bronze',
+  twinner: 'silver',
   liondani: 'bronze',
   donkeypong: 'bronze',
   furion: 'bronze',
