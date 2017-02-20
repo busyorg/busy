@@ -19,7 +19,7 @@ export const getMessages = (replies) => {
 
   Object.keys(sortedReplies).forEach((key) => {
     const reply = sortedReplies[key];
-    if (reply.depth === 1 && reply.body.length === 4 && reply.body.substring(0, 2) === '# ') {
+    if (isRootLocaleComment(reply)) {
       localesMap[reply.permlink] = reply.body.replace('#', '').replace(' ', '').toLowerCase();
       messages[localesMap[reply.permlink]] = {};
     }
@@ -44,3 +44,6 @@ export const getLocale = (appLocale, messages) => {
   locale = messages[locale] ? locale : 'en';
   return locale;
 };
+
+const isRootLocaleComment =
+  reply => (reply.depth === 1 && reply.body.length === 4 && reply.body.substring(0, 2) === '# ');
