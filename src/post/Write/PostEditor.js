@@ -11,6 +11,7 @@ import 'draft-js-plugins/draft-js-hashtag-plugin/lib/plugin.css';
 import 'draft-js-plugins/draft-js-linkify-plugin/lib/plugin.css';
 import 'draft-js-plugins/draft-js-image-plugin/lib/plugin.css';
 import 'draft-js-plugins/draft-js-focus-plugin/lib/plugin.css';
+import 'draft-js-delete-img-btn-plugin/lib/plugin.css';
 import {
   getVisibleSelectionRect as draftVSR,
   EditorState,
@@ -29,6 +30,8 @@ import createLinkifyPlugin from 'draft-js-plugins/draft-js-linkify-plugin';
 import createImagePlugin from 'draft-js-plugins/draft-js-image-plugin';
 import createFocusPlugin from 'draft-js-plugins/draft-js-focus-plugin';
 import createDndPlugin from 'draft-js-plugins/draft-js-drag-n-drop-plugin';
+import createDeleteImgPlugin from 'draft-js-delete-img-btn-plugin';
+
 
 import './Write.scss';
 import './PostEditor.scss';
@@ -42,13 +45,17 @@ const linkifyPlugin = createLinkifyPlugin();
 const { EmojiSuggestions } = emojiPlugin;
 const focusPlugin = createFocusPlugin();
 const dndPlugin = createDndPlugin();
+const deleteImgPlugin = createDeleteImgPlugin();
+const { DeleteImgBtn } = deleteImgPlugin;
 
-const decorator = composeDecorators(focusPlugin.decorator, dndPlugin.decorator);
+const decorator = composeDecorators(focusPlugin.decorator,
+  dndPlugin.decorator, deleteImgPlugin.decorator);
 const imagePlugin = createImagePlugin({ decorator });
 
 const plugins = [
   createMarkdownShortcutsPlugin(),
   dndPlugin, focusPlugin, imagePlugin,
+  deleteImgPlugin,
   emojiPlugin,
   hashtagPlugin,
   linkifyPlugin
@@ -327,6 +334,7 @@ class PostEditor extends Component {
             plugins={plugins}
           />
           <EmojiSuggestions />
+          <DeleteImgBtn />
         </div>
         <div className={toolbarClasses} style={this.state.position} >
           <div style={{ position: 'absolute', bottom: 0 }}>
