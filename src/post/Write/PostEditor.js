@@ -13,11 +13,14 @@ import 'draft-js-plugins/draft-js-image-plugin/lib/plugin.css';
 import 'draft-js-plugins/draft-js-focus-plugin/lib/plugin.css';
 import 'draft-js-delete-img-btn-plugin/lib/plugin.css';
 import {
+  genKey,
   getVisibleSelectionRect as draftVSR,
   EditorState,
   ContentState,
   RichUtils,
   convertToRaw,
+  ContentBlock,
+  SelectionState,
   convertFromRaw
 } from 'draft-js';
 import Editor, { createEditorStateWithText, composeDecorators } from 'draft-js-plugins/draft-js-plugins-editor';
@@ -300,6 +303,21 @@ class PostEditor extends Component {
     );
   }
 
+  addEmptyLine = () => {
+    let editorState = this.state.editorState;
+    const contentState = editorState.getCurrentContent();
+    const lastBlock = contentState.getLastBlock();
+    if (lastBlock.getType() === 'code-block' || lastBlock.getType() === 'atomic') {
+      const blockArray = contentState.getBlocksAsArray();
+      const newBlock = new ContentBlock({ key: genKey(), type: 'unstyled', text: '' });
+      const newContntState = ContentState.createFromBlockArray([...blockArray, newBlock]);
+      const newSelectionState = SelectionState.createEmpty(newBlock.getKey());
+      editorState = EditorState.push(editorState, newContntState, 'insert-characters');
+      editorState = EditorState.forceSelection(editorState, newSelectionState);
+      this.onChange(editorState);
+    }
+  }
+
   render() {
     const { editorState } = this.state;
 
@@ -335,6 +353,7 @@ class PostEditor extends Component {
           />
           <EmojiSuggestions />
           <DeleteImgBtn />
+          <div className="newLine" onClick={this.addEmptyLine}>&nbsp;</div>
         </div>
         <div className={toolbarClasses} style={this.state.position} >
           <div style={{ position: 'absolute', bottom: 0 }}>
