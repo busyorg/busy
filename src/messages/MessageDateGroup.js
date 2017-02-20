@@ -66,9 +66,11 @@ export default class MessageDateGroup extends Component {
           />
         </div>
 
-        {this.props.model.messages.map((userGroup, i) => (
+        {this.props.model.messages.map((userGroup) => (
           <MessageGroup
-            key={[userGroup.key, i]}
+            key={
+              userGroup.messages[userGroup.messages.length - 1].uuid
+            }
             model={userGroup.messages}
           />
         ))}
