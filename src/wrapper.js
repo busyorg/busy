@@ -6,13 +6,14 @@ import { Tooltip, actions as tooltipActions } from 'redux-tooltip';
 import { login } from './auth/authActions';
 import { getConfig, getRate } from './actions';
 import steemAPI from './steemAPI';
-import { getMessages } from './translations/translationHelper';
+import { getMessages, getLocale } from './translations/translationHelper';
 import { getStoredBookmarks } from './bookmarks/bookmarksActions';
 import { notify } from './app/Notification/notificationActions';
 import Notification from './app/Notification/Notification';
 import Sidebar from './app/Sidebar';
-import getMessageWithLocale from './translations/Translations';
 import * as reblogActions from './app/Reblog/reblogActions';
+import config from '../config.json';
+import './translations/Translations';
 import './user/profileTooltip/ProfileTooltip.scss';
 
 @connect(
@@ -49,19 +50,19 @@ export default class Wrapper extends Component {
   }
 
   loadMessages = () => {
-    steemAPI.getState('/test/@siol/4psulv-test', (err, result) => {
-      this.setState({
-        messages: getMessages(result.content)
-      });
+    const path = `/${config.translations.parent_permlink}/@${config.translations.author}/${config.translations.permlink}`;
+    steemAPI.getState(path, (err, result) => {
+      this.setState({ messages: getMessages(result.content) });
     });
   };
 
   render() {
+    const { messages } = this.state;
     const { app, auth, notify } = this.props;
-    const { messages, locale } = getMessageWithLocale(app.locale);
+    const locale = getLocale(app.locale, messages);
     const className = (!app.sidebarIsVisible) ? 'app-wrapper full-width' : 'app-wrapper';
     return (
-      <IntlProvider locale={locale} messages={this.state.messages[locale] || {}}>
+      <IntlProvider locale={locale} messages={messages[app.locale || locale] || {}}>
         <div className={className}>
           <Sidebar />
           <Notification />
