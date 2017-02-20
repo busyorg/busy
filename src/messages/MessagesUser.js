@@ -24,12 +24,16 @@ import { fetchChannelPresence, joinChannel } from './messagesActions';
     waitFor: state => state.auth && state.auth.isAuthenticated
   },
   (ownProps) => {
-    const { auth, params } = ownProps;
+    const { auth, params, channels } = ownProps;
     const channelName = getChannelName(auth, params.username);
+    const channel = channels[channelName];
 
     return {
       fetchChannelPresence: () => fetchChannelPresence(channelName),
       joinChannel: () => joinChannel(channelName),
+      fetchMoreMessages: () => fetchChannelPresence(channelName, {
+        offset: channel ? (+channel.offset) + 40 : 0,
+      }),
     };
   }
 )
@@ -73,6 +77,8 @@ export default class MessagesPage extends Component {
           <MessageList
             username={username}
             messages={channel.latest}
+            fetchMoreMessages={() => this.props.fetchMoreMessages(this.props)}
+            hasMore={channel.hasMore}
           />
 
           { this.props.isConnected &&

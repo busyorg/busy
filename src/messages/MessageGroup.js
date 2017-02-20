@@ -43,7 +43,7 @@ const MessageGroup = (props) => {
       {model.slice(1).map((message, i) => {
         const { text, uuid, receivedAt: mreceivedAt } = message;
         return (
-          <div className="Message__item container" key={i} data-uuid={uuid}>
+          <div className="Message__item container" key={uuid} data-uuid={uuid}>
             <div className="Message__timestamp">
               <FormattedTime value={new Date(mreceivedAt)} />
             </div>
