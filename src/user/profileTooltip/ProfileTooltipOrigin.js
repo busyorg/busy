@@ -3,7 +3,7 @@ import { Origin } from 'redux-tooltip';
 import { connect } from 'react-redux';
 import { injectIntl, IntlProvider } from 'react-intl';
 import ProfileTooltip from './ProfileTooltip';
-import * as messages from '../../translations/Translations';
+import getMessageWithLocale from '../../translations/Translations';
 
 @connect(
   state => ({
@@ -26,8 +26,9 @@ export default class ProfileTooltipOrigin extends Component {
 
   renderTooltipContent() {
     const { app } = this.props;
+    const { messages, locale } = getMessageWithLocale(app.locale);
     return (
-      <IntlProvider locale={app.locale} messages={messages[app.locale]}>
+      <IntlProvider locale={locale} messages={messages}>
         <ProfileTooltip
           username={this.props.username}
           store={this.context.store}
