@@ -61,8 +61,12 @@ export default class Wrapper extends Component {
     const { app, auth, notify } = this.props;
     const locale = getLocale(app.locale, messages);
     const className = (!app.sidebarIsVisible) ? 'app-wrapper full-width' : 'app-wrapper';
+    let translations = messages[app.locale || locale] || {};
+    if (messages.en) {
+      translations = { ...messages.en, ...translations };
+    }
     return (
-      <IntlProvider locale={locale} messages={messages[app.locale || locale] || {}}>
+      <IntlProvider locale={locale} messages={translations}>
         <div className={className}>
           <Sidebar />
           <Notification />
