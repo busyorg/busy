@@ -47,19 +47,19 @@ export default class Header extends Component {
           </div>
           {this.props.auth.isAuthenticated ?
             <div className="right mr-2">
-              <SimpleTooltipOrigin message="Write">
+              <SimpleTooltipOrigin appearOn="bottom" message="Write">
                 <Link to="/write">
                   <Icon name="add" className="Icon--menu" />
                 </Link>
               </SimpleTooltipOrigin>
 
-              <SimpleTooltipOrigin message="Bookmarks">
+              <SimpleTooltipOrigin appearOn="bottom" message="Bookmarks">
                 <Link to="/bookmarks">
                   <Icon name="bookmarks" className="Icon--menu" />
                 </Link>
               </SimpleTooltipOrigin>
 
-              <SimpleTooltipOrigin message="Help">
+              <SimpleTooltipOrigin appearOn="bottom" message="Help">
                 <Link to="/help">
                   <Icon name="help_outline" className="Icon--menu" />
                 </Link>
@@ -67,7 +67,7 @@ export default class Header extends Component {
             </div>
             :
             <div className="right mr-2">
-              <SimpleTooltipOrigin message="Help">
+              <SimpleTooltipOrigin appearOn="bottom" message="Help">
                 <Link to="/help">
                   <Icon name="help_outline" className="Icon--menu" />
                 </Link>
