@@ -1,5 +1,8 @@
 import _ from 'lodash';
 
+const isRootLocaleComment =
+  reply => (reply.depth === 1 && reply.body.length === 4 && reply.body.substring(0, 2) === '# ');
+
 export const toObject = (body) => {
   const object = {};
   const lines = body.split(/\n/);
@@ -44,6 +47,3 @@ export const getLocale = (appLocale, messages) => {
   locale = messages[locale] ? locale : 'en';
   return locale;
 };
-
-const isRootLocaleComment =
-  reply => (reply.depth === 1 && reply.body.length === 4 && reply.body.substring(0, 2) === '# ');
