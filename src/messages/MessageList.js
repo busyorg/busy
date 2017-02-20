@@ -55,7 +55,6 @@ class MessageList extends Component {
   }, 100);
 
   render() {
-    console.log('MessageList::render() - this.props =', this.props);
     const { messages, username } = this.props;
     const dateGroups = groupMessagesByDate(messages);
     const messageEls = map(dateGroups, (dateGroup) => (
