@@ -1,20 +1,7 @@
 {
-  "name": "busy",
-  "scripts": {
-  },
-  "env": {
-  },
-  "formation": {
-    "web": {
-      "quantity": 1
-    }
-  },
-  "addons": [
-
-  ],
-  "buildpacks": [
-    {
-      "url": "heroku/nodejs"
-    }
-  ]
+  "translations": {
+    "author": "siol",
+    "parent_permlink": "test",
+    "permlink": "translations"
+  }
 }
