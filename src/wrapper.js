@@ -9,7 +9,7 @@ import { getStoredBookmarks } from './bookmarks/bookmarksActions';
 import { notify } from './app/Notification/notificationActions';
 import Notification from './app/Notification/Notification';
 import Sidebar from './app/Sidebar';
-import * as messages from './translations/Translations';
+import getMessageWithLocale from './translations/Translations';
 import * as reblogActions from './app/Reblog/reblogActions';
 import './user/profileTooltip/ProfileTooltip.scss';
 
@@ -44,9 +44,10 @@ export default class Wrapper extends Component {
 
   render() {
     const { app, auth, notify } = this.props;
+    const { messages, locale } = getMessageWithLocale(app.locale);
     const className = (!app.sidebarIsVisible) ? 'app-wrapper full-width' : 'app-wrapper';
     return (
-      <IntlProvider locale={app.locale} messages={messages[app.locale]}>
+      <IntlProvider locale={locale} messages={messages}>
         <div className={className}>
           <Sidebar />
           <Notification />
@@ -60,7 +61,7 @@ export default class Wrapper extends Component {
             onLeave={() => this.props.hideTooltip({ name: 'userProfile' })}
           />
           <Tooltip />
-          { React.cloneElement(
+          {React.cloneElement(
             this.props.children,
             { auth, notify }
           )}
