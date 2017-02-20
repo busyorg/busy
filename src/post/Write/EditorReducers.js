@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import * as editorActions from './EditorActions';
+import * as userActions from '../../user/userActions';
 
 const defaultState = {
   loading: false,
@@ -36,20 +37,21 @@ const editor = (state = defaultState, action) => {
       const id = action.payload.id;
       return {
         ...state,
-        loading: false,
-        error: null,
-        success: false,
         draftPosts: { ...state.draftPosts, [id]: { postData, rawBody } }
       };
     }
     case editorActions.DELETE_DRAFT:
       return {
         ...state,
-        loading: false,
-        error: null,
-        success: false,
         draftPosts: _.omit(state.draftPosts, action.payload)
       };
+
+    case userActions.UPLOAD_FILE_START:
+      return { ...state, loading: true };
+
+    case userActions.UPLOAD_FILE_ERROR:
+    case userActions.UPLOAD_FILE_SUCCESS:
+      return { ...state, loading: false };
     default:
       return state;
   }

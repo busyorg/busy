@@ -160,7 +160,7 @@ class SideControls extends Component {
             <button className="Controls__button" onMouseDown={this.onClickUpload} type="button">
               <Icon name="add_a_photo" sm />
             </button>
-            <input className="Controls__image__hidden" ref={(c) => { this.fileInput = c; }} onChange={this.onChangeImage} name="file" type="file" />
+            <input className="Controls__image__hidden" ref={(c) => { this.fileInput = c; }} onChange={this.onChangeImage} name="file" type="file" accept="image/*" />
           </div>}
       </div>
     );
