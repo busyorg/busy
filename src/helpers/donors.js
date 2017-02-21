@@ -5,6 +5,7 @@ export default {
   jamesc: 'gold',
   cass: 'gold',
   bhuz: 'silver',
+  twinner: 'silver',
   liondani: 'bronze',
   donkeypong: 'bronze',
   furion: 'bronze',
@@ -20,7 +21,6 @@ export default {
   hql2016: 'bronze',
   sweetsssj: 'bronze',
   'craig-grant': 'bronze',
-  twinner: 'bronze',
   beers: 'bronze',
   shaka: 'bronze',
   andu: 'bronze',
@@ -32,4 +32,5 @@ export default {
   roelandp: 'bronze',
   stellabelle: 'bronze',
   pnc: 'bronze',
+  shaka: 'bronze',
 };

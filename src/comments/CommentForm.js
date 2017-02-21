@@ -38,15 +38,20 @@ export default class CommentForm extends Component {
     });
   }
 
-  handleKey(e, commentDepth) {
+  handleKey(e) {
     if (keycode(e) === 'enter' && !e.shiftKey) {
       this.updateDraft();
-      this.props.sendComment(commentDepth);
     }
   }
 
   handlePageClick(e) {
     e.stopPropagation();
+  }
+
+  handleSubmit(e, commentDepth) {
+    e.stopPropagation();
+    this.updateDraft();
+    this.props.sendComment(commentDepth);
   }
 
   componentWillUpdate(nextProps) {
@@ -109,7 +114,10 @@ export default class CommentForm extends Component {
     }
 
     return (
-      <div onClick={e => this.handlePageClick(e)} className={commentsClass}>
+      <div
+        onClick={e => this.handlePageClick(e)}
+        className={commentsClass}
+      >
         <div className="container">
           <a className="pull-right" onClick={() => closeCommentingDraft()}>
             <Icon name="clear" />
@@ -124,9 +132,15 @@ export default class CommentForm extends Component {
           <Textarea
             ref={(c) => { this._input = c; }}
             className="CommentForm__input my-2 p-2"
-            onKeyDown={e => this.handleKey(e, commentDepth)}
+            onKeyDown={e => this.handleKey(e)}
             placeholder={'Write a comment...'}
           />
+          <button
+            onClick={e => this.handleSubmit(e, commentDepth)}
+            className="btn btn-success CommentForm__submit"
+          >
+            <Icon name="send" />
+          </button>
         </div>
       </div>
     );

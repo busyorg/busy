@@ -144,14 +144,14 @@ const PostFeedCard = ({
       }
 
       {(imagePath && !_.has(embeds, '[0].embed')) &&
-      <div className="PostFeedCard__thumbs">
-        <PostModalLink
-          post={post}
-          onClick={() => openPostModal(post.id)}
-        >
-          <img src={imagePath} />
-        </PostModalLink>
-      </div>
+        <div className="PostFeedCard__thumbs">
+          <PostModalLink
+            post={post}
+            onClick={() => openPostModal(post.id)}
+          >
+            <img key={imagePath} src={imagePath} />
+          </PostModalLink>
+        </div>
       }
 
       <div className="PostFeedCard__cell PostFeedCard__cell--bottom">

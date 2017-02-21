@@ -8,7 +8,7 @@ const initialState = {
   errorMessage: '',
   sidebarIsVisible: true,
   layout: 'card',
-  locale: 'en',
+  locale: null,
   rate: 0,
   isPostModalOpen: false,
   lastPostId: null,

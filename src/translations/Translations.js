@@ -19,13 +19,26 @@ import seMessage from './se.json';
 
 addLocaleData([...en, ...zh, ...fr, ...de, ...ru, ...ko, ...nl, ...se]);
 
-export {
-  enMessage as en,
-  zhMessage as zh,
-  frMessage as fr,
-  deMessage as de,
-  ruMessage as ru,
-  koMessage as ko,
-  nlMessage as nl,
-  seMessage as se,
+const localeList = {
+  en: enMessage,
+  zh: zhMessage,
+  fr: frMessage,
+  de: deMessage,
+  ru: ruMessage,
+  ko: koMessage,
+  nl: nlMessage,
+  se: seMessage,
 };
+
+function getMessageWithLocale(appLocale) {
+  const browserLocale = navigator.language || navigator.userLanguage; // eslint-disable-line
+  let locale = appLocale || browserLocale;
+  locale = locale.substr(0, 2); // get en from en-GB or en
+
+  if (localeList[locale]) {
+    return { messages: localeList[locale], locale };
+  }
+  return { messages: enMessage, locale: 'en' };
+}
+
+export default getMessageWithLocale;
