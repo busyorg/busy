@@ -21,7 +21,7 @@ export default class Tooltip extends Component {
     className: PropTypes.string,
     value: PropTypes.shape({ message: PropTypes.string }),
     appearOn: PropTypes.oneOf(['top', 'bottom']),
-    TemplateComp: PropTypes.react,
+    TemplateComp: PropTypes.func,
   };
 
   static defaultProps = {
