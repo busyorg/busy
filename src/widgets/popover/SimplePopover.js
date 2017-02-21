@@ -25,6 +25,7 @@ export default class SimplePopover extends Component {
     }
   };
 
+  // Will be triggered by OnClickOutside HoC
   handleClickOutside() {
     this.props.removePopover();
   }
