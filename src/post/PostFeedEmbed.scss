@@ -1,19 +1,24 @@
 .PostFeedEmbed {
-  position: relative;
   margin: 0;
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 600px;
+  height: 480px;
   cursor: pointer;
 }
 
 .PostFeedEmbed__playButton {
-  position: absolute;
+  width: 100px;
+  height: 100px;
+  transition: 0.1s all;
   & .Icon {
     font-size: 100px;
     transition: 0.1s all;
   }
   &:hover {
+    width: 120px;
+    height: 120px;
     & .Icon {
       font-size: 120px;
     }
