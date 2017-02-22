@@ -11,6 +11,13 @@ const defaultState = {
 
 const editor = (state = defaultState, action) => {
   switch (action.type) {
+    case editorActions.NEW_POST:
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        success: false
+      };
     case editorActions.CREATE_POST_START:
       return {
         ...state,
