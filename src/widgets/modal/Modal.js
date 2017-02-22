@@ -4,6 +4,41 @@ import ReactModal2 from 'react-modal2';
 import Icon from '../Icon';
 import './Modal.scss';
 
+/**
+ * This component is only created to facilitate the process of using react-modal2 with react gateway
+ *
+ * You can import this Modal and use onClose props with internal state to control its appearance:
+ *
+ *export default class MyComponent extends React.Component {
+ * state = {
+ *   isModalOpen: false
+ * };
+ *
+ * handleOpen = () => {
+ *   this.setState({ isModalOpen: true });
+ * };
+ *
+ * handleClose = () => {
+ *   this.setState({ isModalOpen: false });
+ * };
+ *
+ * render() {
+ *   return (
+ *     <div>
+ *       <button onClick={this.handleOpen}>Open</button>
+ *       {this.state.isModalOpen && (
+ *         <MyCustomModal onClose={this.handleClose}>
+ *           <h1>Hello from Modal</h1>
+ *           <button onClick={this.handleClose}>Close</button>
+ *         </MyCustomModal>
+ *       )}
+ *     </div>
+ *   );
+ * }
+ *}
+ *
+ * more info: https://www.npmjs.com/package/react-modal2
+ */
 
 export default class Modal extends React.Component {
   static propTypes = {
