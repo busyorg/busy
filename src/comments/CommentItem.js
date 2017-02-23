@@ -256,7 +256,7 @@ export default class CommentItem extends Component {
               key={commentId}
               comment={allComments.comments[commentId]}
             />
-            )
+          )
         }
       </div>
     );
