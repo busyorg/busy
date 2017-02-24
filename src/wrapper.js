@@ -3,7 +3,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { IntlProvider } from 'react-intl';
 import { GatewayProvider, GatewayDest } from 'react-gateway';
-import { Tooltip, actions as tooltipActions } from 'redux-tooltip';
 import { login } from './auth/authActions';
 import { getConfig, getRate } from './actions';
 import { getStoredBookmarks } from './bookmarks/bookmarksActions';
@@ -25,8 +24,6 @@ import * as reblogActions from './app/Reblog/reblogActions';
     getRate,
     getStoredBookmarks,
     getRebloggedList: reblogActions.getRebloggedList,
-    keepTooltip: tooltipActions.keep,
-    hideTooltip: tooltipActions.hide,
   }, dispatch)
 )
 export default class Wrapper extends Component {
@@ -52,16 +49,6 @@ export default class Wrapper extends Component {
           <div className={className}>
             <Sidebar />
             <Notification />
-            <Tooltip
-              name="userProfile"
-              className="ProfileTooltipHolder"
-              store={this.props.store}
-              place="bottom"
-              auto={false}
-              onHover={() => this.props.keepTooltip({ name: 'userProfile' })}
-              onLeave={() => this.props.hideTooltip({ name: 'userProfile' })}
-            />
-            <Tooltip />
             { React.cloneElement(
               this.props.children,
               { auth, notify }

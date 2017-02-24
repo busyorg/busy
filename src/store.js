@@ -4,7 +4,6 @@ import promiseMiddleware from 'redux-promise-middleware';
 import persistState from 'redux-localstorage';
 import thunk from 'redux-thunk';
 import { combineReducers, applyMiddleware, createStore, compose } from 'redux';
-import { reducer as tooltip, middleware as tooltipMW } from 'redux-tooltip';
 import api from './steemAPI';
 
 import MessagesWorker, { messagesReducer } from './messages';
@@ -43,7 +42,6 @@ const reducers = combineReducers({
   favorites: favoritesReducer,
   reblog: reblogReducers,
   wallet: walletReducer,
-  tooltip,
 });
 
 const middleware = [
@@ -57,8 +55,7 @@ const middleware = [
   thunk.withExtraArgument({
     messagesWorker,
     steemAPI: api,
-  }),
-  tooltipMW
+  })
 ];
 
 if (process.env.ENABLE_LOGGER &&
