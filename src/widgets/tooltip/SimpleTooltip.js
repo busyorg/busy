@@ -26,8 +26,8 @@ export default class SimpleTooltip extends Component {
 
   static propTypes = {
     pos: PropTypes.shape({
-      top: PropTypes.string,
-      bottom: PropTypes.string,
+      top: PropTypes.number,
+      bottom: PropTypes.number,
     }),
     className: PropTypes.string,
     value: PropTypes.shape({ message: PropTypes.string }),
