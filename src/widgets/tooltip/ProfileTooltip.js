@@ -19,7 +19,7 @@ const TOOLTIP_MARGIN = 10;
 const getTooltipOnBottomStyle = (position, tooltipWidth) => ({
   position: 'absolute',
   top: `${position.bottom + TOOLTIP_MARGIN}px`,
-  left: `${(position.left + (position.width / 2)) - (tooltipWidth / 2)}px`,
+  left: `${position.left}px`,
 });
 
 @connect(
