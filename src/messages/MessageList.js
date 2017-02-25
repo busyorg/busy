@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 
 import './MessageList.scss';
 import InfiniteScroll from '../widgets/InfiniteScroll';
+import Loading from '../widgets/Loading';
 import MessageDateGroup from './MessageDateGroup';
 import { getTopPosition, setTopPosition, getViewportHeight } from '../helpers/scrollHelpers';
 import { groupMessagesByDate } from './messageGroupHelpers';
@@ -63,7 +64,7 @@ class MessageList extends Component {
       />
     ));
 
-    const loader = this.props.hasMore ? (
+    const loader = (this.props.isLoading || this.props.hasMore) ? (
       <div
         style={{
           zIndex: 10,
@@ -71,16 +72,16 @@ class MessageList extends Component {
         className="text-center"
       >
         Loading More messages
+        <Loading style={{ marginLeft: 15, display: 'inline-block' }} />
       </div>
     ) : (
       <div className="text-center">
         {username
-          ? (
-            <span>
-              This is the beginning of your private message history with <b>@{username}</b>.
-            </span>
-          )
-          : 'This is the beginning of the chat.'
+        ? (
+          <span>
+            This is the beginning of your private message history with <b>@{username}</b>.
+          </span>
+        ) : 'This is the beginning of the chat.'
         }
       </div>
     );
