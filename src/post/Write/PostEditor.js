@@ -1,47 +1,64 @@
 // Forked from https://github.com/rajaraodv/draftjs-examples
 import newDebug from 'debug';
-import { Map } from 'immutable';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import _ from 'lodash';
 
 // draft-js
-import 'draft-js-emoji-plugin/lib/plugin.css';
-import 'draft-js-hashtag-plugin/lib/plugin.css';
-import 'draft-js-linkify-plugin/lib/plugin.css';
+import 'draft-js-plugins/draft-js-emoji-plugin/lib/plugin.css';
+import 'draft-js-plugins/draft-js-hashtag-plugin/lib/plugin.css';
+import 'draft-js-plugins/draft-js-linkify-plugin/lib/plugin.css';
+import 'draft-js-plugins/draft-js-image-plugin/lib/plugin.css';
+import 'draft-js-plugins/draft-js-focus-plugin/lib/plugin.css';
+import 'draft-js-delete-img-btn-plugin/lib/plugin.css';
 import {
-  DefaultDraftBlockRenderMap,
+  genKey,
   getVisibleSelectionRect as draftVSR,
   EditorState,
   ContentState,
-  Entity,
   RichUtils,
   convertToRaw,
+  ContentBlock,
+  SelectionState,
   convertFromRaw
 } from 'draft-js';
-import Editor, { createEditorStateWithText } from 'draft-js-plugins-editor';
-import createEmojiPlugin from 'draft-js-emoji-plugin';
-import createHashtagPlugin from 'draft-js-hashtag-plugin';
+import Editor, { createEditorStateWithText, composeDecorators } from 'draft-js-plugins/draft-js-plugins-editor';
+import createEmojiPlugin from 'draft-js-plugins/draft-js-emoji-plugin';
+import createHashtagPlugin from 'draft-js-plugins/draft-js-hashtag-plugin';
 import { stateFromMarkdown } from 'draft-js-import-markdown';
 import { stateToMarkdown } from 'draft-js-export-markdown';
 import createMarkdownShortcutsPlugin from 'draft-js-markdown-shortcuts-plugin';
-import createLinkifyPlugin from 'draft-js-linkify-plugin';
+import createLinkifyPlugin from 'draft-js-plugins/draft-js-linkify-plugin';
+import createImagePlugin from 'draft-js-plugins/draft-js-image-plugin';
+import createFocusPlugin from 'draft-js-plugins/draft-js-focus-plugin';
+import createDndPlugin from 'draft-js-plugins/draft-js-drag-n-drop-plugin';
+import createDeleteImgPlugin from 'draft-js-delete-img-btn-plugin';
+
 
 import './Write.scss';
 import './PostEditor.scss';
 import Icon from '../../widgets/Icon';
 import SideControls from './SideControls';
-import ImageBlock from './ImageBlock';
 
 const debug = newDebug('busy:PostEditor');
 const emojiPlugin = createEmojiPlugin();
 const hashtagPlugin = createHashtagPlugin();
 const linkifyPlugin = createLinkifyPlugin();
 const { EmojiSuggestions } = emojiPlugin;
+const focusPlugin = createFocusPlugin();
+const dndPlugin = createDndPlugin();
+const deleteImgPlugin = createDeleteImgPlugin();
+const { DeleteImgBtn } = deleteImgPlugin;
+
+const decorator = composeDecorators(focusPlugin.decorator,
+  dndPlugin.decorator, deleteImgPlugin.decorator);
+const imagePlugin = createImagePlugin({ decorator });
 
 const plugins = [
   createMarkdownShortcutsPlugin(),
+  dndPlugin, focusPlugin, imagePlugin,
+  deleteImgPlugin,
   emojiPlugin,
   hashtagPlugin,
   linkifyPlugin
@@ -286,19 +303,20 @@ class PostEditor extends Component {
     );
   }
 
-  blockRendererFn = (contentBlock) => {
-    if (contentBlock.getType() === 'atomic') {
-      const entity = Entity.get(contentBlock.getEntityAt(0));
-      const type = entity.getType();
-      if (type === 'IMAGE') {
-        return {
-          component: ImageBlock,
-          editable: false,
-        };
-      }
+  addEmptyLine = () => {
+    let editorState = this.state.editorState;
+    const contentState = editorState.getCurrentContent();
+    const lastBlock = contentState.getLastBlock();
+    if (lastBlock.getType() === 'code-block' || lastBlock.getType() === 'atomic') {
+      const blockArray = contentState.getBlocksAsArray();
+      const newBlock = new ContentBlock({ key: genKey(), type: 'unstyled', text: '' });
+      const newContntState = ContentState.createFromBlockArray([...blockArray, newBlock]);
+      const newSelectionState = SelectionState.createEmpty(newBlock.getKey());
+      editorState = EditorState.push(editorState, newContntState, 'insert-characters');
+      editorState = EditorState.forceSelection(editorState, newSelectionState);
+      this.onChange(editorState);
     }
-    return null;
-  };
+  }
 
   render() {
     const { editorState } = this.state;
@@ -325,22 +343,17 @@ class PostEditor extends Component {
 
         <div className={className} ref={(c) => { this.editorContainer = c; }}>
           <Editor
-            blockRendererFn={this.blockRendererFn}
             blockStyleFn={getBlockStyle}
             placeholder="Write your story…"
             customStyleMap={styleMap}
-            blockRenderMap={new Map({
-              'atomic:IMAGE': {
-                element: 'figure',
-              }
-            }).merge(DefaultDraftBlockRenderMap)}
-
             editorState={editorState}
             handleKeyCommand={this.handleKeyCommand}
             onChange={this.onChange}
             plugins={plugins}
           />
           <EmojiSuggestions />
+          <DeleteImgBtn />
+          <div className="newLine" onClick={this.addEmptyLine}>&nbsp;</div>
         </div>
         <div className={toolbarClasses} style={this.state.position} >
           <div style={{ position: 'absolute', bottom: 0 }}>
