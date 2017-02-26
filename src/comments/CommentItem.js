@@ -60,6 +60,11 @@ export default class CommentItem extends Component {
     }
   }
 
+  updateCommentPostion = () => {
+    // should happen after react-router updated the route
+    setTimeout(() => this.checkHashLink());
+  }
+
   scrollToAnchoredLink() {
     const { location } = this.props;
     // eslint-disable-next-line
@@ -134,8 +139,8 @@ export default class CommentItem extends Component {
       <div
         className={
           anchoredLink === this.props.location.hash
-          ? 'CommentItem CommentItem--highlight'
-          : 'CommentItem'
+            ? 'CommentItem CommentItem--highlight'
+            : 'CommentItem'
         }
         id={anchoredLink}
       >
@@ -158,9 +163,9 @@ export default class CommentItem extends Component {
                 </Link>
               </ProfileTooltipOrigin>
               {' '}
-              <span className="text-info">
+              <Link className="text-info" to={comment.url} onClick={this.updateCommentPostion}>
                 <FormattedRelative value={comment.created} />
-              </span>
+              </Link>
             </span>
             <Body body={comment.body} />
             <div className="CommentActionButtons">
