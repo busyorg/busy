@@ -78,7 +78,7 @@ export default class ProfileTooltip extends Component {
 
     if (this.state.fetching || _.isEmpty(userData)) {
       return (
-        <div className={className}>
+        <div className={className} style={style}>
           <Loading />
         </div>
       );
