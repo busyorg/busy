@@ -24,6 +24,7 @@ import Avatar from '../widgets/Avatar';
 import { fetchChannelPresence } from '../messages/messagesActions';
 import getChannelName from '../helpers/getChannelName';
 import dispatchActions from '../helpers/dispatchActions';
+import UserNotFound from '../statics/UserNotFound';
 
 @connect(
   state => ({
@@ -179,7 +180,7 @@ export default class UserProfile extends React.Component {
           }
         )}
       </div>
-    </div>) : <strong className="text-center w-100 p-5">User not found</strong>;
+    </div>) : <UserNotFound />;
   }
 
   render() {
