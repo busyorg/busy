@@ -2,8 +2,10 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
 const UserNotFound = () =>
-  <strong className="text-center w-100 p-5">
-    <FormattedMessage id="user_not_found" />
-  </strong>;
+  <div className="text-center">
+    <h3>
+      <FormattedMessage id="user_not_found" />
+    </h3>
+  </div>;
 
 export default UserNotFound;
