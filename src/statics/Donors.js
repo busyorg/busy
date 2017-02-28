@@ -14,8 +14,11 @@ const Donors = () =>
     <div className="container text-center my-5">
       <h1><FormattedMessage id="donors" /></h1>
       <p>
-        As a non-profit organization, what would we be without you? Through the on-going
-        support of our donors, Busy will keep evolving.
+        <FormattedMessage
+          id="@statics/our_donors"
+          defaultMessage="As a non-profit organization, what would we be without you? Through the on-going support of our donors, Busy will keep evolving"
+        />
+        .
       </p>
       <Link className="btn btn-primary my-4" to="/transfer?to=busy.org">
         <FormattedMessage id="donate" />
