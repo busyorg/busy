@@ -6,7 +6,6 @@ import MenuPost from '../app/Menu/MenuPost';
 import Body from './Body';
 import BodyShort from './BodyShort';
 import AuthorBio from './AuthorBio';
-import Comments from '../comments/Comments';
 import Avatar from '../widgets/Avatar';
 import './PostSingleContent.scss';
 
@@ -109,13 +108,7 @@ const PostSingleContent = ({
           >
             Write a comment
           </button>
-          {content.children > 0 &&
-            <Comments
-              postId={content.id}
-              show
-              isSinglePage
-            />
-          }
+
         </div>
       </div>
     </div>

@@ -3,6 +3,7 @@ import Header from '../app/Header';
 import PostSingleContent from './PostSingleContent';
 import Loading from '../widgets/Loading';
 import CommentForm from '../comments/CommentForm';
+import Comments from '../comments/Comments';
 
 export default class PostSinglePage extends React.Component {
   constructor(props) {
@@ -33,7 +34,15 @@ export default class PostSinglePage extends React.Component {
           :
           <Loading />
         }
-        <CommentForm />
+        <CommentForm embedded />
+
+        {content.children > 0 &&
+          <Comments
+            postId={content.id}
+            show
+            isSinglePage
+          />
+        }
       </div>
     );
   }

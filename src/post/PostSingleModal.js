@@ -5,6 +5,7 @@ import { OverlayTrigger } from 'pui-react-overlay-trigger';
 import PostSingleContent from './PostSingleContent';
 import CommentForm from '../comments/CommentForm';
 import Icon from '../widgets/Icon';
+import Comments from '../comments/Comments';
 import './PostSingleModal.scss';
 
 @withRouter
@@ -119,7 +120,15 @@ export default class PostSingleModal extends Component {
           isPostDisliked={this.props.isPostDisliked}
           onEdit={this.props.onEdit}
         />
-        <CommentForm />
+        <CommentForm embedded />
+
+        {this.props.content.children > 0 &&
+          <Comments
+            postId={this.props.content.id}
+            show
+            isSinglePage
+          />
+        }
       </div>
     );
   }
