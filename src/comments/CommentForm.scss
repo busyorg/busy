@@ -21,6 +21,9 @@
   &.disappear.mobile {
     bottom: -100%;
   }
+  &.CommentForm--embedded {
+    position: static;
+  }
 }
 
 .CommentForm__input {

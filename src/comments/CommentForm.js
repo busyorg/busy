@@ -31,6 +31,14 @@ export default class CommentForm extends Component {
     super(props);
   }
 
+  static PropTypes = {
+    embedded: React.PropTypes.bool,
+  };
+
+  static defaultProps = {
+    embedded: false,
+  };
+
   updateDraft() {
     this.props.updateCommentingDraft({
       id: this.props.comments.currentDraftId,
@@ -83,12 +91,13 @@ export default class CommentForm extends Component {
   }
 
   render() {
-    const { comments, sidebarIsVisible, closeCommentingDraft, posts } = this.props;
+    const { comments, sidebarIsVisible, closeCommentingDraft, posts, embedded } = this.props;
 
     const commentsClass = classNames({
       CommentForm: true,
+      'CommentForm--embedded': embedded,
       'py-1': true,
-      disappear: !comments.isCommenting,
+      disappear: !embedded && !comments.isCommenting,
       withSidebar: sidebarIsVisible,
       mobile: isSmall(),
     });
