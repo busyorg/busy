@@ -98,7 +98,7 @@ export default class CommentForm extends Component {
       'CommentForm--embedded': embedded,
       'py-1': true,
       disappear: !embedded && !comments.isCommenting,
-      withSidebar: sidebarIsVisible,
+      withSidebar: !embedded && sidebarIsVisible,
       mobile: isSmall(),
     });
 
