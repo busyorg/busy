@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Gateway } from 'react-gateway';
+import IsScrolling from 'react-is-scrolling';
 import { getElementPosition } from './tooltipHelpers';
 import SimpleTooltip from './SimpleTooltip';
 
@@ -10,7 +11,7 @@ const initialState = {
   pos: null,
 };
 
-
+@IsScrolling
 export default class Tooltip extends Component {
   constructor(props) {
     super(props);
@@ -33,6 +34,14 @@ export default class Tooltip extends Component {
 
   tooltipDelay = null;
   tooltipRemoveDelay = null;
+
+  componentWillReceiveProps(newProps) {
+    const isScrollMovedOnOpenTooltip =
+      this.state.active && newProps.isScrolling && !this.props.isScrolling;
+    if (isScrollMovedOnOpenTooltip) {
+      this.removeTooltip(true);
+    }
+  }
 
   showTooltip = (e) => {
     const pos = e.target && getElementPosition(e.target);
