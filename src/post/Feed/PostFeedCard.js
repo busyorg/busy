@@ -11,7 +11,7 @@ import Icon from '../../widgets/Icon';
 import Avatar from '../../widgets/Avatar';
 import PostModalLink from './../PostModalLink';
 import LikesList from './../LikesList';
-import ProfileTooltipOrigin from '../../user/profileTooltip/ProfileTooltipOrigin';
+import { ProfileTooltipOrigin } from '../../widgets/tooltip/ProfileTooltip';
 import Reactions from '../Reactions';
 import { calculatePayout } from '../../helpers/steemitHelpers';
 import PostFeedEmbed from '../PostFeedEmbed';

@@ -1,9 +1,8 @@
 import React, { Component, PropTypes } from 'react';
-import { Tooltip } from 'pui-react-tooltip';
-import { OverlayTrigger } from 'pui-react-overlay-trigger';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
+import { SimpleTooltipOrigin } from '../widgets/tooltip/SimpleTooltip';
 import { showSidebar } from '../actions';
 import Icon from '../widgets/Icon';
 import './Header.scss';
@@ -46,30 +45,33 @@ export default class Header extends Component {
               </Link>
             </div>
           </div>
-          {this.props.auth.isAuthenticated
-            ? <div className="right mr-2">
-              <OverlayTrigger placement="bottom" overlay={<Tooltip>Write</Tooltip>}>
+          {this.props.auth.isAuthenticated ?
+            <div className="right mr-2">
+              <SimpleTooltipOrigin appearOn="bottom" message="Write">
                 <Link to="/write">
                   <Icon name="add" className="Icon--menu" />
                 </Link>
-              </OverlayTrigger>
-              <OverlayTrigger placement="bottom" overlay={<Tooltip>Bookmarks</Tooltip>}>
+              </SimpleTooltipOrigin>
+
+              <SimpleTooltipOrigin appearOn="bottom" message="Bookmarks">
                 <Link to="/bookmarks">
                   <Icon name="bookmarks" className="Icon--menu" />
                 </Link>
-              </OverlayTrigger>
-              <OverlayTrigger placement="bottom" overlay={<Tooltip>Help</Tooltip>}>
+              </SimpleTooltipOrigin>
+
+              <SimpleTooltipOrigin appearOn="bottom" message="Help">
                 <Link to="/help">
                   <Icon name="help_outline" className="Icon--menu" />
                 </Link>
-              </OverlayTrigger>
+              </SimpleTooltipOrigin>
             </div>
-            : <div className="right mr-2">
-              <OverlayTrigger placement="bottom" overlay={<Tooltip>Help</Tooltip>}>
+            :
+            <div className="right mr-2">
+              <SimpleTooltipOrigin appearOn="bottom" message="Help">
                 <Link to="/help">
                   <Icon name="help_outline" className="Icon--menu" />
                 </Link>
-              </OverlayTrigger>
+              </SimpleTooltipOrigin>
             </div>
           }
         </div>
