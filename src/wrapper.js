@@ -11,7 +11,6 @@ import { getStoredBookmarks } from './bookmarks/bookmarksActions';
 import { notify } from './app/Notification/notificationActions';
 import Notification from './app/Notification/Notification';
 import Sidebar from './app/Sidebar';
-import getMessageWithLocale from './translations/Translations';
 import * as reblogActions from './app/Reblog/reblogActions';
 import config from '../config.json';
 import './translations/Translations';
@@ -47,6 +46,10 @@ export default class Wrapper extends Component {
     this.loadMessages();
   }
 
+  /**
+   * Load translations messages stored on Steem blockchain using comments:
+   * https://busy.org/test/@siol/translations
+   */
   loadMessages = () => {
     const path = `/${config.translations.parent_permlink}/@${config.translations.author}/${config.translations.permlink}`;
     steemAPI.getState(path, (err, result) => {
