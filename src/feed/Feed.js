@@ -10,7 +10,7 @@ import * as appActions from '../actions';
 import * as commentsActions from '../comments/commentsActions';
 import * as bookmarkActions from '../bookmarks/bookmarksActions';
 import * as reblogActions from '../app/Reblog/reblogActions';
-import PostSingle from '../post/PostSingle';
+import PostSingle from '../post/postSingle/PostSingle';
 
 import './Feed.scss';
 

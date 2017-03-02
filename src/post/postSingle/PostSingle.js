@@ -1,14 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as postActions from './postActions';
-import { closePostModal } from '../actions';
+import * as postActions from './../postActions';
+import { closePostModal } from '../../actions';
 import PostSingleModal from './PostSingleModal';
 import PostSinglePage from './PostSinglePage';
-import * as reblogActions from '../app/Reblog/reblogActions';
-import * as commentsActions from '../comments/commentsActions';
-import * as bookmarkActions from '../bookmarks/bookmarksActions';
-import { editPost } from '../post/Write/EditorActions';
+import * as reblogActions from '../../app/Reblog/reblogActions';
+import * as commentsActions from '../../comments/commentsActions';
+import * as bookmarkActions from '../../bookmarks/bookmarksActions';
+import { editPost } from '../Write/EditorActions';
 
 @connect(
   ({ posts, app, reblog, auth, bookmarks }) => ({

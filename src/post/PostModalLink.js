@@ -1,5 +1,5 @@
 import React from 'react';
-import PostSingleModal from './PostSingleModal';
+import PostSingleModal from './postSingle/PostSingleModal';
 
 const handleClick = (e, onClick) => {
   e.preventDefault();

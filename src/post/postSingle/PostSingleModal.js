@@ -4,7 +4,7 @@ import { Tooltip } from 'pui-react-tooltip';
 import { OverlayTrigger } from 'pui-react-overlay-trigger';
 import PostSingleContent from './PostSingleContent';
 import PostSingleComments from './PostSingleComments';
-import Icon from '../widgets/Icon';
+import Icon from '../../widgets/Icon';
 import './PostSingleModal.scss';
 
 @withRouter
@@ -122,7 +122,7 @@ export default class PostSingleModal extends Component {
 
         <PostSingleComments
           content={this.props.content}
-          openCommentingDraft={openCommentingDraft}
+          openCommentingDraft={this.props.openCommentingDraft}
         />
       </div>
     );

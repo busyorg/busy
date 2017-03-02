@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
-import CommentForm from '../comments/CommentForm';
-import Comments from '../comments/Comments';
+import CommentForm from '../../comments/CommentForm';
+import Comments from '../../comments/Comments';
 import './PostSingleComments.scss';
 
 export default class PostSingleComments extends Component {

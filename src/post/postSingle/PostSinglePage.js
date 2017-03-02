@@ -1,7 +1,7 @@
 import React from 'react';
-import Header from '../app/Header';
+import Header from '../../app/Header';
 import PostSingleContent from './PostSingleContent';
-import Loading from '../widgets/Loading';
+import Loading from '../../widgets/Loading';
 import PostSingleComments from './PostSingleComments';
 
 export default class PostSinglePage extends React.Component {

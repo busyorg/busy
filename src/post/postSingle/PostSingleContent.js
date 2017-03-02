@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router';
 import { FormattedMessage, FormattedRelative } from 'react-intl';
-import BookmarkButton from '../bookmarks/BookmarkButton';
-import MenuPost from '../app/Menu/MenuPost';
-import Body from './Body';
-import BodyShort from './BodyShort';
-import AuthorBio from './AuthorBio';
-import Avatar from '../widgets/Avatar';
+import BookmarkButton from '../../bookmarks/BookmarkButton';
+import MenuPost from '../../app/Menu/MenuPost';
+import Body from './../Body';
+import BodyShort from './../BodyShort';
+import AuthorBio from './../AuthorBio';
+import Avatar from '../../widgets/Avatar';
 import './PostSingleContent.scss';
 
 const Tag = ({ tag }) => {
