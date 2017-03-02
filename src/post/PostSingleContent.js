@@ -93,24 +93,7 @@ const PostSingleContent = ({
       <div className="container">
         <AuthorBio authorName={content.author} />
       </div>
-      <div className="PostSingleContent__replies pt-5">
-        <div className="container">
-          <h1>
-            <FormattedMessage id="comments" />{' '}
-            <span className="text-info">{content.children}</span>
-          </h1>
-          <button
-            className="btn btn-small btn-primary mb-3"
-            onClick={(e) => {
-              e.stopPropagation();
-              openCommentingDraft();
-            }}
-          >
-            Write a comment
-          </button>
 
-        </div>
-      </div>
     </div>
   );
 };

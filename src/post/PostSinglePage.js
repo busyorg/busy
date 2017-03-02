@@ -2,8 +2,7 @@ import React from 'react';
 import Header from '../app/Header';
 import PostSingleContent from './PostSingleContent';
 import Loading from '../widgets/Loading';
-import CommentForm from '../comments/CommentForm';
-import Comments from '../comments/Comments';
+import PostSingleComments from './PostSingleComments';
 
 export default class PostSinglePage extends React.Component {
   constructor(props) {
@@ -34,15 +33,11 @@ export default class PostSinglePage extends React.Component {
           :
           <Loading />
         }
-        <CommentForm embedded />
 
-        {content.children > 0 &&
-          <Comments
-            postId={content.id}
-            show
-            isSinglePage
-          />
-        }
+        <PostSingleComments
+          content={content}
+          openCommentingDraft={openCommentingDraft}
+        />
       </div>
     );
   }

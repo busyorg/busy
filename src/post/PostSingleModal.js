@@ -3,9 +3,8 @@ import { withRouter, Link } from 'react-router';
 import { Tooltip } from 'pui-react-tooltip';
 import { OverlayTrigger } from 'pui-react-overlay-trigger';
 import PostSingleContent from './PostSingleContent';
-import CommentForm from '../comments/CommentForm';
+import PostSingleComments from './PostSingleComments';
 import Icon from '../widgets/Icon';
-import Comments from '../comments/Comments';
 import './PostSingleModal.scss';
 
 @withRouter
@@ -120,15 +119,11 @@ export default class PostSingleModal extends Component {
           isPostDisliked={this.props.isPostDisliked}
           onEdit={this.props.onEdit}
         />
-        <CommentForm embedded />
 
-        {this.props.content.children > 0 &&
-          <Comments
-            postId={this.props.content.id}
-            show
-            isSinglePage
-          />
-        }
+        <PostSingleComments
+          content={this.props.content}
+          openCommentingDraft={openCommentingDraft}
+        />
       </div>
     );
   }
