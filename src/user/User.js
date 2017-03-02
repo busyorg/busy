@@ -141,21 +141,21 @@ export default class UserProfile extends React.Component {
               <Link to={`/@${user.name}`}>
                 <Icon name="library_books" /> {numeral(user.post_count).format('0,0')}
                 <span className="hidden-xs">
-                  {' '}<FormattedMessage id="posts" />
+                  {' '}<FormattedMessage id="posts" defaultMessage="Posts" />
                 </span>
               </Link>
             </li>
             <li>
               <Icon name="gavel" /> {numeral(parseInt(user.voting_power, 10) / 10000).format('%0')}
               <span className="hidden-xs">
-                {' '}<FormattedMessage id="voting_power" />
+                {' '}<FormattedMessage id="voting_power" defaultMessage="Voting Power" />
               </span>
             </li>
             <li>
               <Link to={`/@${user.name}/followers`}>
                 <Icon name="people" /> {numeral(parseInt(user.follower_count, 10)).format('0,0')}
                 <span className="hidden-xs">
-                  {' '}<FormattedMessage id="followers" />
+                  {' '}<FormattedMessage id="followers" defaultMessage="Followers" />
                 </span>
               </Link>
             </li>
@@ -163,7 +163,7 @@ export default class UserProfile extends React.Component {
               <Link to={`/@${user.name}/followed`}>
                 <Icon name="people" /> {numeral(parseInt(user.following_count, 10)).format('0,0')}
                 <span className="hidden-xs">
-                  {' '}<FormattedMessage id="followed" />
+                  {' '}<FormattedMessage id="followed" defaultMessage="Followed" />
                 </span>
               </Link>
             </li>
