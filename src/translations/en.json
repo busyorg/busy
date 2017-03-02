@@ -62,5 +62,6 @@
   "comment": "Comment",
   "by": "by",
   "page_forbidden": "Page Requires Authentication",
-  "page_forbidden_message": "Oops! Looks like you need to login to use this page."
+  "page_forbidden_message": "Oops! Looks like you need to login to use this page.",
+  "user_not_found": "User not found"
 }

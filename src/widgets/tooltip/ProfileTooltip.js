@@ -3,15 +3,24 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import numeral from 'numeral';
 import _ from 'lodash';
-import UserCoverImage from '../UserCoverImage';
-import Avatar from '../../widgets/Avatar';
-import Icon from '../../widgets/Icon';
-import Loading from '../../widgets/Loading';
-import Follow from '../../widgets/Follow';
-import Badge from '../../widgets/Badge';
+import UserCoverImage from '../../user/UserCoverImage';
+import Avatar from '../Avatar';
+import Icon from '../Icon';
+import Loading from '../Loading';
+import Follow from '../Follow';
+import Badge from '../Badge';
 import { getAccountWithFollowingCount } from '../../helpers/apiHelpers';
+import Tooltip from './Tooltip';
 
 import './ProfileTooltip.scss';
+
+const TOOLTIP_MARGIN = 10;
+
+const getTooltipOnBottomStyle = (position, tooltipWidth) => ({
+  position: 'absolute',
+  top: `${position.bottom + TOOLTIP_MARGIN}px`,
+  left: `${position.left}px`,
+});
 
 @connect(
   state => ({
@@ -24,15 +33,22 @@ export default class ProfileTooltip extends Component {
     this.state = {
       userData: {},
       fetching: false,
+      el: null,
     };
   }
 
   static propTypes = {
-    username: PropTypes.string
+    value: PropTypes.shape({ username: PropTypes.string }),
+  };
+
+  handleRef = (e) => {
+    if (!this.state.el) {
+      this.setState({ el: e });
+    }
   };
 
   fetchData() {
-    const { username } = this.props;
+    const { username } = this.props.value;
     this.setState({ fetching: true });
     getAccountWithFollowingCount(username)
       .then((userData) => {
@@ -41,7 +57,8 @@ export default class ProfileTooltip extends Component {
   }
 
   componentDidUpdate(nextProps) {
-    if (this.props.username !== nextProps.username) {
+    const { username } = this.props.value;
+    if (username !== nextProps.value.username) {
       this.fetchData();
     }
   }
@@ -51,20 +68,24 @@ export default class ProfileTooltip extends Component {
   }
 
   render() {
-    const { username } = this.props;
+    const { pos, className } = this.props;
+    const tooltipWidth = this.state.el ? this.state.el.clientWidth : 0;
+
+    const style = getTooltipOnBottomStyle(pos, tooltipWidth);
+    const { username } = this.props.value;
     const { userData } = this.state;
     const jsonMetadata = userData.json_metadata;
 
     if (this.state.fetching || _.isEmpty(userData)) {
       return (
-        <div className="ProfileTooltip">
+        <div className={className} style={style}>
           <Loading />
         </div>
       );
     }
 
     return (
-      <div className="ProfileTooltip">
+      <div className={className} style={style} ref={this.handleRef}>
         <div className="my-3">
           <Link to={`/@${username}`}>
             <Avatar
@@ -103,3 +124,14 @@ export default class ProfileTooltip extends Component {
     );
   }
 }
+
+export const ProfileTooltipOrigin = ({ username, children }) => (
+  <Tooltip
+    value={{ username }}
+    keep
+    TemplateComp={ProfileTooltip}
+    className="ProfileTooltip"
+  >
+    {children}
+  </Tooltip>
+);
