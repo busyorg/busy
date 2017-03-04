@@ -63,14 +63,14 @@ export default class CommentForm extends Component {
   }
 
   componentWillUpdate(nextProps) {
-    const { comments } = this.props;
+    const { comments, embedded } = this.props;
     const shouldUpdateDraft =
       nextProps.comments.currentDraftId !== comments.currentDraftId &&
       nextProps.comments.isCommenting;
 
     if (shouldUpdateDraft) {
       this.updateDraft();
-      this._input.focus();
+      if (!embedded) this._input.focus();
     }
   }
 
@@ -128,9 +128,12 @@ export default class CommentForm extends Component {
         className={commentsClass}
       >
         <div className="container">
-          <a className="pull-right" onClick={() => closeCommentingDraft()}>
-            <Icon name="clear" />
-          </a>
+          {!embedded &&
+            <a className="pull-right" onClick={() => closeCommentingDraft()}>
+              <Icon name="clear" />
+            </a>
+          }
+
           {comments.currentDraftId &&
             <div className="my-2">
               <i className="icon icon-sm material-icons">reply</i>
