@@ -30,16 +30,16 @@ export default class CommentFormEmbedded extends Component {
 
   static PropTypes = {
     parentId: React.PropTypes.string.isRequired,
-    isReplayToComment: React.PropTypes.bool,
+    isReplyToComment: React.PropTypes.bool,
   };
 
   static defaultProps = {
-    isReplayToComment: false,
+    isReplyToComment: false,
   };
 
   componentDidMount() {
-    const { parentId, posts, comments, isReplayToComment } = this.props;
-    const content = isReplayToComment ? comments[parentId] : posts[parentId];
+    const { parentId, posts, comments, isReplyToComment } = this.props;
+    const content = isReplyToComment ? comments[parentId] : posts[parentId];
 
     this.props.updateCommentingDraft({
       id: parentId,
