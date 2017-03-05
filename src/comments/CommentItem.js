@@ -10,6 +10,7 @@ import Avatar from '../widgets/Avatar';
 import Icon from '../widgets/Icon';
 import { sortCommentsFromSteem } from '../helpers/stateHelpers';
 import { ProfileTooltipOrigin } from '../widgets/tooltip/ProfileTooltip';
+import CommentFormEmbedded from './CommentFormEmbedded';
 import './CommentItem.scss';
 
 const renderOptimisticComment = (comment, isSinglePage) =>
@@ -44,6 +45,7 @@ export default class CommentItem extends Component {
     super(props);
     this.state = {
       showReplies: props.isSinglePage,
+      showEmbeddedComment: false,
     };
   }
 
@@ -78,7 +80,13 @@ export default class CommentItem extends Component {
 
   handleReplyClick(e) {
     e.stopPropagation();
-    const { comment } = this.props;
+    const { comment, isSinglePage } = this.props;
+
+    if (isSinglePage) {
+      this.setState({ showEmbeddedComment: !this.state.showEmbeddedComment });
+      return;
+    }
+
     this.props.openCommentingDraft({
       parentAuthor: comment.author,
       parentPermlink: comment.permlink,
@@ -237,6 +245,14 @@ export default class CommentItem extends Component {
                 </a>
               }
             </div>
+
+            {this.state.showEmbeddedComment &&
+              <CommentFormEmbedded
+                parentId={comment.id}
+                isReplyToComment
+              />
+            }
+
           </div>
         </div>
         {this.state.showReplies && allComments.listByCommentId[comment.id] &&

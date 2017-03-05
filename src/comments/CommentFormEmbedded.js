@@ -39,7 +39,7 @@ export default class CommentFormEmbedded extends Component {
 
   componentDidMount() {
     const { parentId, posts, comments, isReplyToComment } = this.props;
-    const content = isReplyToComment ? comments[parentId] : posts[parentId];
+    const content = isReplyToComment ? comments.comments[parentId] : posts[parentId];
 
     this.props.updateCommentingDraft({
       id: parentId,
@@ -88,6 +88,7 @@ export default class CommentFormEmbedded extends Component {
       parentTitle = `${replyingComment.author} in ${replyingComment.root_title}`;
       commentDepth = commentsData[parentId].depth + 1;
     } else {
+      console.log(posts);
       parentTitle = posts[parentId].title;
       commentDepth = 1;
     }
