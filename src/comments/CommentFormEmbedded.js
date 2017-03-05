@@ -37,6 +37,20 @@ export default class CommentFormEmbedded extends Component {
     isReplayToComment: false,
   };
 
+  componentDidMount() {
+    const { parentId, posts, comments, isReplayToComment } = this.props;
+    const content = isReplayToComment ? comments[parentId] : posts[parentId];
+
+    this.props.updateCommentingDraft({
+      id: parentId,
+      body: this._input.value,
+      parentAuthor: content.author,
+      parentPermlink: content.permlink,
+      category: content.category,
+      isReplyToComment,
+    });
+  }
+
   updateDraft() {
     this.props.updateCommentingDraft({
       id: this.props.parentId,
