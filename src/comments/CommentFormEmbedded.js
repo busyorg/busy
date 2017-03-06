@@ -88,7 +88,6 @@ export default class CommentFormEmbedded extends Component {
       parentTitle = `${replyingComment.author} in ${replyingComment.root_title}`;
       commentDepth = commentsData[parentId].depth + 1;
     } else {
-      console.log(posts);
       parentTitle = posts[parentId].title;
       commentDepth = 1;
     }
