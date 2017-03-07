@@ -84,8 +84,8 @@ export const getComments = (postId) => {
   };
 };
 
-export const sendComment = (depth) => {
-  return (dispatch, getState) => {
+export const sendComment = (depth, parentId = null) =>
+  (dispatch, getState) => {
     const { auth, comments } = getState();
 
     if (!auth.isAuthenticated) {
@@ -94,7 +94,8 @@ export const sendComment = (depth) => {
     }
 
     const author = auth.user.name;
-    const id = comments.currentDraftId;
+    const id = parentId || comments.currentDraftId;
+
     const {
       parentAuthor,
       parentPermlink,
@@ -117,7 +118,7 @@ export const sendComment = (depth) => {
 
     const optimisticId = Date.now();
 
-    dispatch({
+    return dispatch({
       type: SEND_COMMENT,
       payload: {
         promise: SteemConnect.comment(
@@ -137,10 +138,8 @@ export const sendComment = (depth) => {
         isEditing,
         isReplyToComment,
       },
-    });
-    dispatch(closeCommentingDraft());
+    }).then(() => dispatch(closeCommentingDraft()));
   };
-};
 
 export const likeComment = (commentId, weight = 10000, retryCount = 0) => {
   return (dispatch, getState, { steemAPI }) => {

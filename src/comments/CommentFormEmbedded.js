@@ -19,7 +19,7 @@ import './CommentForm.scss';
     auth: state.auth,
   }),
   dispatch => bindActionCreators({
-    sendComment: depth => commentActions.sendComment(depth),
+    sendComment: (depth, parentId) => commentActions.sendComment(depth, parentId),
     updateCommentingDraft: commentActions.updateCommentingDraft,
   }, dispatch)
 )
@@ -74,7 +74,9 @@ export default class CommentFormEmbedded extends Component {
   handleSubmit(e, commentDepth) {
     e.stopPropagation();
     this.updateDraft();
-    this.props.sendComment(commentDepth).then(() => console.log('finished'));
+    this.props.sendComment(commentDepth, this.props.parentId).then(() => {
+      this.setState({ draftValue: '' });
+    });
   }
 
   handleTextChange = (e) => {
