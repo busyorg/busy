@@ -235,7 +235,7 @@ const commentingDraftItem = (state = initialCommentingDraftItem, action) => {
     case commentsTypes.UPDATE_COMMENTING_DRAFT:
       return {
         ...state,
-        body: action.payload.body,
+        ...action.payload,
       };
     default:
       return state;
