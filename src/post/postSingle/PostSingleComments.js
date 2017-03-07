@@ -9,10 +9,6 @@ export default class PostSingleComments extends Component {
     super(props);
   }
 
-  componentDidMount() {
-    this.props.openCommentingDraft();
-  }
-
   render() {
     const { content } = this.props;
     return (
