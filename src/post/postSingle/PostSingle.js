@@ -12,7 +12,7 @@ import { editPost } from '../Write/EditorActions';
 
 @connect(
   ({ posts, app, reblog, auth, bookmarks }) => ({
-    content: posts[app.lastPostId] ? posts[app.lastPostId] : null,
+    posts,
     isPostModalOpen: app.isPostModalOpen,
     lastPostId: app.lastPostId,
     sidebarIsVisible: app.sidebarIsVisible,
@@ -39,20 +39,20 @@ import { editPost } from '../Write/EditorActions';
 export default class PostSingle extends React.Component {
 
   componentWillMount() {
-    if (!this.props.modal) {
+    const { location, posts } = this.props;
+    const postId = location.state;
+
+    if (!postId || !posts[postId]) {
       this.props.getContent();
     }
   }
 
-  handlePageClick(e) {
-    e.stopPropagation();
-    this.props.closeCommentingDraft();
-  }
-
   render() {
     let onEdit;
-    const { modal, isPostModalOpen, sidebarIsVisible, content, contentList = [], reblog, reblogList, auth } = this.props;
+    const { modal, posts, isPostModalOpen, sidebarIsVisible, contentList = [], reblog, reblogList, auth } = this.props;
 
+    const postId = this.props.location.state;
+    const content = postId && posts[postId];
     if (!content) {
       return null;
     }
@@ -87,7 +87,7 @@ export default class PostSingle extends React.Component {
     });
 
     return (
-      <div onClick={e => this.handlePageClick(e)}>
+      <div>
         {(modal && isPostModalOpen) &&
           <PostSingleModal
             content={content}
