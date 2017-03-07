@@ -5,7 +5,6 @@ import BodyShort from '../BodyShort';
 import PostActionButtons from '../PostActionButtons';
 import Avatar from '../../widgets/Avatar';
 import BookmarkButton from '../../bookmarks/BookmarkButton';
-import PostModalLink from './../PostModalLink';
 import { ProfileTooltipOrigin } from '../../widgets/tooltip/ProfileTooltip';
 import './PostFeedList.scss';
 
@@ -17,7 +16,6 @@ const PostFeedList = ({
   notify,
   jsonMetadata,
   imagePath,
-  openPostModal,
   reblog,
   isReblogged,
   handleShowCommentsRequest,
@@ -28,12 +26,9 @@ const PostFeedList = ({
   <div className="PostFeedList">
     { imagePath &&
       <div className="PostFeedList__thumbs">
-        <PostModalLink
-          post={post}
-          onClick={() => openPostModal(post.id)}
-        >
+        <Link to={{ pathname: post.url, state: post.id }}>
           <img key={imagePath} src={imagePath} />
-        </PostModalLink>
+        </Link>
       </div>
     }
     <div className="PostFeedList__cell PostFeedList__cell--body">
@@ -43,12 +38,9 @@ const PostFeedList = ({
         toggleBookmark={toggleBookmark}
       />
       <h2>
-        <PostModalLink
-          post={post}
-          onClick={() => openPostModal(post.id)}
-        >
+        <Link to={{ pathname: post.url, state: post.id }}>
           {post.title}
-        </PostModalLink>
+        </Link>
       </h2>
       <BodyShort body={post.body} />
       <div className="PostFeedList__cell PostFeedList__cell--bottom">

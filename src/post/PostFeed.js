@@ -75,7 +75,6 @@ export default class PostFeed extends Component {
         jsonMetadata={jsonMetadata}
         imagePath={imagePath}
         embeds={embeds}
-        openPostModal={this.props.openPostModal}
         reblog={this.props.reblog}
         isReblogged={this.props.isReblogged}
         showComments={this.state.showComments}

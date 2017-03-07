@@ -10,7 +10,6 @@ import * as appActions from '../actions';
 import * as commentsActions from '../comments/commentsActions';
 import * as bookmarkActions from '../bookmarks/bookmarksActions';
 import * as reblogActions from '../app/Reblog/reblogActions';
-import PostSingle from '../post/postSingle/PostSingle';
 
 import './Feed.scss';
 
@@ -24,7 +23,6 @@ import './Feed.scss';
     openCommentingDraft: commentsActions.openCommentingDraft,
     closeCommentingDraft: commentsActions.closeCommentingDraft,
     toggleBookmark: bookmarkActions.toggleBookmark,
-    openPostModal: appActions.openPostModal,
     reblog: reblogActions.reblog,
   }, dispatch)
 )
@@ -78,29 +76,26 @@ export default class Feed extends React.Component {
                 if (this.props.username && post.author !== this.props.username) {
                   return false;
                 }
-                return (<ItemComponent
-                  key={key}
-                  post={post}
-                  replies={replies}
-                  toggleBookmark={toggleBookmark}
-                  app={app}
-                  bookmarks={bookmarks}
-                  onCommentRequest={e => this.handleCommentRequest(e)}
-                  openPostModal={this.props.openPostModal}
-                  notify={notify}
-                  reblog={reblog}
-                  isReblogged={reblogList.includes(post.id)}
-                />);
+
+                return (
+                  <ItemComponent
+                    key={key}
+                    post={post}
+                    replies={replies}
+                    toggleBookmark={toggleBookmark}
+                    app={app}
+                    bookmarks={bookmarks}
+                    onCommentRequest={e => this.handleCommentRequest(e)}
+                    notify={notify}
+                    reblog={reblog}
+                    isReblogged={reblogList.includes(post.id)}
+                  />
+                );
               })
             }
           </ReduxInfiniteScroll>
         </div>
-        <PostSingle
-          modal
-          contentList={content}
-          openPostModal={this.props.openPostModal}
-          route={this.props.route}
-        />
+
         <CommentForm />
       </div>
     );

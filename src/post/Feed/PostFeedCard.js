@@ -9,7 +9,6 @@ import Comments from '../../comments/Comments';
 import PostActionButtons from '../PostActionButtons';
 import Icon from '../../widgets/Icon';
 import Avatar from '../../widgets/Avatar';
-import PostModalLink from './../PostModalLink';
 import LikesList from './../LikesList';
 import { ProfileTooltipOrigin } from '../../widgets/tooltip/ProfileTooltip';
 import Reactions from '../Reactions';
@@ -62,7 +61,6 @@ const PostFeedCard = ({
   jsonMetadata,
   imagePath,
   embeds,
-  openPostModal,
   reblog,
   isReblogged,
   showComments,
@@ -72,7 +70,6 @@ const PostFeedCard = ({
   handleShowLikesRequest,
   handleShowPayoutRequest,
   layout,
-  intl,
 }) => {
   const isReplyPost = !!post.parent_author;
 
@@ -128,12 +125,9 @@ const PostFeedCard = ({
 
       <div className="PostFeedCard__cell PostFeedCard__cell--body">
         <h2>
-          <PostModalLink
-            post={post}
-            onClick={() => openPostModal(post.id)}
-          >
+          <Link to={{ pathname: post.url, state: post.id }}>
             {post.title}
-          </PostModalLink>
+          </Link>
         </h2>
 
         <BodyShort body={post.body} />
@@ -145,12 +139,9 @@ const PostFeedCard = ({
 
       {(imagePath && !_.has(embeds, '[0].embed')) &&
         <div className="PostFeedCard__thumbs">
-          <PostModalLink
-            post={post}
-            onClick={() => openPostModal(post.id)}
-          >
+          <Link to={{ pathname: post.url, state: post.id }}>
             <img key={imagePath} src={imagePath} />
-          </PostModalLink>
+          </Link>
         </div>
       }
 

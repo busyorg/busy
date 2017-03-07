@@ -10,8 +10,6 @@ const initialState = {
   layout: 'card',
   locale: null,
   rate: 0,
-  isPostModalOpen: false,
-  lastPostId: null,
 };
 
 // TODO(p0o): some actionsTypes in this reducer are not defined anywhere, need to figure it out later
@@ -104,24 +102,6 @@ export default (state = initialState, action) => {
       return {
         ...state,
         rate: action.rate,
-      };
-
-    case appTypes.OPEN_POST_MODAL:
-      return {
-        ...state,
-        isPostModalOpen: true,
-        lastPostId: action.payload,
-      };
-    case appTypes.CLOSE_POST_MODAL:
-      return {
-        ...state,
-        isPostModalOpen: false,
-        lastPostId: null,
-      };
-    case postActions.GET_CONTENT_SUCCESS:
-      return {
-        ...state,
-        lastPostId: action.payload ? action.payload.id : null,
       };
     default:
       return state;
