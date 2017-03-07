@@ -76,6 +76,7 @@ export default class CommentFormEmbedded extends Component {
     this.updateDraft();
     this.props.sendComment(commentDepth, this.props.parentId).then(() => {
       this.setState({ draftValue: '' });
+      if (_.isFunction(this.props.onSubmit)) this.props.onSubmit();
     });
   }
 

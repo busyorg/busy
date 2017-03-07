@@ -250,6 +250,7 @@ export default class CommentItem extends Component {
               <CommentFormEmbedded
                 parentId={comment.id}
                 isReplyToComment
+                onSubmit={() => this.setState({ showEmbeddedComment : false })}
               />
             }
 
