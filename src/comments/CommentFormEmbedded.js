@@ -4,10 +4,10 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { FormattedMessage } from 'react-intl';
 import { isSmall } from 'react-responsive-utils';
+import _ from 'lodash';
 import classNames from 'classnames';
 import Textarea from 'react-textarea-autosize';
 import Icon from '../widgets/Icon';
-import Avatar from '../widgets/Avatar';
 import * as commentActions from './commentsActions';
 import './CommentForm.scss';
 
@@ -26,6 +26,9 @@ import './CommentForm.scss';
 export default class CommentFormEmbedded extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      draftValue: '',
+    };
   }
 
   static PropTypes = {
@@ -43,30 +46,41 @@ export default class CommentFormEmbedded extends Component {
 
     this.props.updateCommentingDraft({
       id: parentId,
-      body: this._input.value,
+      body: '',
       parentAuthor: content.author,
       parentPermlink: content.permlink,
       category: content.category,
       isReplyToComment,
     });
+    this.loadDraft();
   }
 
-  updateDraft() {
+  updateDraft = _.debounce(() => {
     this.props.updateCommentingDraft({
       id: this.props.parentId,
-      body: this._input.value,
+      body: this.state.draftValue,
     });
+  }, 1000);
+
+  loadDraft() {
+    const { parentId, comments } = this.props;
+    const draftValue =
+      comments.commentingDraft[parentId] &&
+      comments.commentingDraft[parentId].body || '';
+
+    this.setState({ draftValue });
   }
 
   handleSubmit(e, commentDepth) {
     e.stopPropagation();
     this.updateDraft();
-    this.props.sendComment(commentDepth);
+    this.props.sendComment(commentDepth).then(() => console.log('finished'));
   }
 
-  componentWillUnmount() {
+  handleTextChange = (e) => {
+    this.setState({ draftValue: e.target.value });
     this.updateDraft();
-  }
+  };
 
   render() {
     const { comments, posts, isReplyToComment, parentId } = this.props;
@@ -92,9 +106,6 @@ export default class CommentFormEmbedded extends Component {
       commentDepth = 1;
     }
 
-    const draftValue =
-      comments.commentingDraft[parentId] &&
-      comments.commentingDraft[parentId].body || '';
 
     return (
       <div className={commentsClass}>
@@ -107,11 +118,10 @@ export default class CommentFormEmbedded extends Component {
           </div>
 
           <Textarea
-            ref={(c) => { this._input = c; }}
             className="CommentForm__input my-2 p-2"
-            onKeyDown={e => this.handleKey(e)}
             placeholder={'Write a comment...'}
-            defaultValue={draftValue}
+            value={this.state.draftValue}
+            onChange={this.handleTextChange}
           />
           <button
             onClick={e => this.handleSubmit(e, commentDepth)}
