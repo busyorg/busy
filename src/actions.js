@@ -12,7 +12,11 @@ export const CONTENT_REQUEST = '@app/CONTENT_REQUEST';
 export const CONTENT_SUCCESS = '@app/CONTENT_SUCCESS';
 export const ACCOUNT_REQUEST = '@app/ACCOUNT_REQUEST';
 export const ACCOUNT_SUCCESS = '@app/ACCOUNT_SUCCESS';
+export const OPEN_POST_MODAL = '@app/OPEN_POST_MODAL';
+export const CLOSE_POST_MODAL = '@app/CLOSE_POST_MODAL';
 
+export const openPostModal = createAction(OPEN_POST_MODAL);
+export const closePostModal = createAction(CLOSE_POST_MODAL);
 
 export const getConfig = () =>
   (dispatch, getState, { steemAPI }) => {

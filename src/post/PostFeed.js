@@ -84,6 +84,7 @@ export default class PostFeed extends Component {
         handleShowLikesRequest={this.handleShowLikesRequest}
         handleShowPayoutRequest={this.handleShowPayoutRequest}
         layout={app.layout}
+        openPostModal={this.props.openPostModal}
       />
     );
   }

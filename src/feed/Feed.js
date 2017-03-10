@@ -24,6 +24,7 @@ import './Feed.scss';
     closeCommentingDraft: commentsActions.closeCommentingDraft,
     toggleBookmark: bookmarkActions.toggleBookmark,
     reblog: reblogActions.reblog,
+    openPostModal: appActions.openPostModal,
   }, dispatch)
 )
 export default class Feed extends React.Component {
@@ -89,6 +90,7 @@ export default class Feed extends React.Component {
                     notify={notify}
                     reblog={reblog}
                     isReblogged={reblogList.includes(post.id)}
+                    openPostModal={this.props.openPostModal}
                   />
                 );
               })

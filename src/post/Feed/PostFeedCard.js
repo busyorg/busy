@@ -70,6 +70,7 @@ const PostFeedCard = ({
   handleShowLikesRequest,
   handleShowPayoutRequest,
   layout,
+  openPostModal,
 }) => {
   const isReplyPost = !!post.parent_author;
 
@@ -125,7 +126,7 @@ const PostFeedCard = ({
 
       <div className="PostFeedCard__cell PostFeedCard__cell--body">
         <h2>
-          <Link to={{ pathname: post.url, state: post.id }}>
+          <Link to={post.url} onClick={() => openPostModal(post.id)}>
             {post.title}
           </Link>
         </h2>
@@ -139,7 +140,7 @@ const PostFeedCard = ({
 
       {(imagePath && !_.has(embeds, '[0].embed')) &&
         <div className="PostFeedCard__thumbs">
-          <Link to={{ pathname: post.url, state: post.id }}>
+          <Link to={post.url} onClick={() => openPostModal(post.id)}>
             <img key={imagePath} src={imagePath} />
           </Link>
         </div>

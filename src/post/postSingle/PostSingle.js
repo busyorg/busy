@@ -6,11 +6,13 @@ import PostSinglePage from './PostSinglePage';
 import * as reblogActions from '../../app/Reblog/reblogActions';
 import * as commentsActions from '../../comments/commentsActions';
 import * as bookmarkActions from '../../bookmarks/bookmarksActions';
+import * as appActions from '../../actions';
 import { editPost } from '../Write/EditorActions';
 
 @connect(
   ({ posts, app, reblog, auth, bookmarks }) => ({
-    posts,
+    content: posts[app.lastPostId] || null,
+    lastPostId: app.lastPostId,
     sidebarIsVisible: app.sidebarIsVisible,
     reblogList: reblog,
     bookmarks,
@@ -29,25 +31,27 @@ import { editPost } from '../Write/EditorActions';
     unlikePost: id => postActions.votePost(id, 0),
     dislikePost: id => postActions.votePost(id, -1000),
     toggleBookmark: bookmarkActions.toggleBookmark,
+    closePostModal: appActions.closePostModal,
   }, dispatch)
 )
 export default class PostSingle extends React.Component {
 
   componentWillMount() {
-    const { location, posts } = this.props;
-    const postId = location.state;
+    const { content } = this.props;
 
-    if (!postId || !posts[postId]) {
+    if (!content) {
       this.props.getContent();
     }
   }
 
+  componentWillUnmount() {
+    this.props.closePostModal();
+  }
+
   render() {
     let onEdit;
-    const { posts, contentList = [], reblog, reblogList, auth } = this.props;
+    const { contentList = [], reblog, reblogList, auth, content } = this.props;
 
-    const postId = this.props.location.state;
-    const content = postId && posts[postId];
     if (!content) {
       return null;
     }

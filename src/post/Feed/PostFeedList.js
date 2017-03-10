@@ -22,11 +22,12 @@ const PostFeedList = ({
   handleShowLikesRequest,
   layout,
   intl,
+  openPostModal
 }) =>
   <div className="PostFeedList">
     { imagePath &&
       <div className="PostFeedList__thumbs">
-        <Link to={{ pathname: post.url, state: post.id }}>
+        <Link to={post.url} onClick={() => openPostModal(post.id)}>
           <img key={imagePath} src={imagePath} />
         </Link>
       </div>
@@ -38,7 +39,7 @@ const PostFeedList = ({
         toggleBookmark={toggleBookmark}
       />
       <h2>
-        <Link to={{ pathname: post.url, state: post.id }}>
+        <Link to={post.url} onClick={() => openPostModal(post.id)}>
           {post.title}
         </Link>
       </h2>
