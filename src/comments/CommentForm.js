@@ -63,14 +63,14 @@ export default class CommentForm extends Component {
   }
 
   componentWillUpdate(nextProps) {
-    const { comments, embedded } = this.props;
+    const { comments } = this.props;
     const shouldUpdateDraft =
       nextProps.comments.currentDraftId !== comments.currentDraftId &&
       nextProps.comments.isCommenting;
 
     if (shouldUpdateDraft) {
       this.updateDraft();
-      if (!embedded) this._input.focus();
+      this._input.focus();
     }
   }
 
@@ -91,14 +91,13 @@ export default class CommentForm extends Component {
   }
 
   render() {
-    const { comments, sidebarIsVisible, closeCommentingDraft, posts, embedded } = this.props;
+    const { comments, sidebarIsVisible, closeCommentingDraft, posts } = this.props;
 
     const commentsClass = classNames({
       CommentForm: true,
-      'CommentForm--embedded': embedded,
       'py-1': true,
-      disappear: !embedded && !comments.isCommenting,
-      withSidebar: !embedded && sidebarIsVisible,
+      disappear: !comments.isCommenting,
+      withSidebar: sidebarIsVisible,
       mobile: isSmall(),
     });
 
@@ -128,11 +127,9 @@ export default class CommentForm extends Component {
         className={commentsClass}
       >
         <div className="container">
-          {!embedded &&
-            <a className="pull-right" onClick={() => closeCommentingDraft()}>
-              <Icon name="clear" />
-            </a>
-          }
+          <a className="pull-right" onClick={() => closeCommentingDraft()}>
+            <Icon name="clear" />
+          </a>
 
           {comments.currentDraftId &&
             <div className="my-2">
