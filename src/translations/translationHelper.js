@@ -35,7 +35,7 @@ export const getMessages = (replies) => {
     const locale = localesMap[reply.parent_permlink];
     if (locale) {
       const object = toObject(reply.body);
-      messages[locale] = Object.assign(messages[locale], object);
+      messages[locale] = { ...messages[locale], ...object };
     }
   });
 
