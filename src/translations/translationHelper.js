@@ -7,9 +7,11 @@ export const toObject = (body) => {
   const object = {};
   const lines = body.split(/\n/);
   lines.forEach((line) => {
-    const message = line.split(':');
-    if (message.length === 2) {
-      object[message[0].trim()] = message[1].trim();
+    const separatorPosition = line.indexOf(':');
+    const key = separatorPosition > 0 ? line.slice(0, separatorPosition) : '';
+    const value = separatorPosition > 0 ? line.slice(separatorPosition + 1) : '';
+    if (key && value) {
+      object[key.trim()] = value.trim();
     }
   });
   return object;
