@@ -20,7 +20,8 @@ export const toObject = (body) => {
 export const getMessages = (replies) => {
   const localesMap = {};
   const messages = {};
-  const sortedReplies = _.sortBy(replies, 'net_rshares');
+  let sortedReplies = _.sortBy(replies, 'net_rshares');
+  sortedReplies = _.filter(sortedReplies, r => r.net_rshares >= 0);
 
   Object.keys(sortedReplies).forEach((key) => {
     const reply = sortedReplies[key];
