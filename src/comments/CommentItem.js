@@ -46,6 +46,7 @@ export default class CommentItem extends Component {
     this.state = {
       showReplies: props.isSinglePage,
       showEmbeddedComment: false,
+      isEditing: false,
     };
   }
 
@@ -98,9 +99,18 @@ export default class CommentItem extends Component {
 
   handleEditClick(e) {
     e.stopPropagation();
-    const { comment } = this.props;
+    const { comment, isSinglePage } = this.props;
+
+    if (isSinglePage) {
+      this.setState({
+        showEmbeddedComment: !this.state.showEmbeddedComment,
+        isEditing: true,
+      });
+      return;
+    }
+
     this.props.openCommentingDraft({
-      parentAuthor: comment.author,
+      parentAuthor: comment.parent_author,
       category: comment.category,
       permlink: comment.permlink,
       parentPermlink: comment.parent_permlink,
@@ -250,7 +260,8 @@ export default class CommentItem extends Component {
               <CommentFormEmbedded
                 parentId={comment.id}
                 isReplyToComment
-                onSubmit={() => this.setState({ showEmbeddedComment : false })}
+                isEditing={this.state.isEditing}
+                onSubmit={() => this.setState({ showEmbeddedComment: false, isEditing: false })}
               />
             }
 

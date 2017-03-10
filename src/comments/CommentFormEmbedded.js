@@ -41,18 +41,42 @@ export default class CommentFormEmbedded extends Component {
   };
 
   componentDidMount() {
-    const { parentId, posts, comments, isReplyToComment } = this.props;
+    const { parentId, posts, comments, isReplyToComment, isEditing } = this.props;
     const content = isReplyToComment ? comments.comments[parentId] : posts[parentId];
+    let payload;
 
-    this.props.updateCommentingDraft({
-      id: parentId,
-      body: '',
-      parentAuthor: content.author,
-      parentPermlink: content.permlink,
-      category: content.category,
-      isReplyToComment,
-    });
+    if (isEditing) {
+      payload = {
+        id: parentId,
+        parentAuthor: content.parent_author,
+        category: content.category,
+        permlink: content.permlink,
+        parentPermlink: content.parent_permlink,
+        isReplyToComment: true,
+        isEditing: true,
+        body: content.body,
+      };
+    } else {
+      payload = {
+        id: parentId,
+        body: '',
+        parentAuthor: content.author,
+        parentPermlink: content.permlink,
+        category: content.category,
+        isReplyToComment,
+      };
+    }
+
+    this.props.updateCommentingDraft(payload);
     this.loadDraft();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { parentId, comments } = nextProps;
+    const draftValue =
+      (comments.commentingDraft[parentId] && comments.commentingDraft[parentId].body);
+
+    this.setState({ draftValue });
   }
 
   updateDraft = _.debounce(() => {
@@ -65,8 +89,7 @@ export default class CommentFormEmbedded extends Component {
   loadDraft() {
     const { parentId, comments } = this.props;
     const draftValue =
-      comments.commentingDraft[parentId] &&
-      comments.commentingDraft[parentId].body || '';
+      (comments.commentingDraft[parentId] && comments.commentingDraft[parentId].body);
 
     this.setState({ draftValue });
   }
@@ -108,7 +131,6 @@ export default class CommentFormEmbedded extends Component {
       parentTitle = posts[parentId].title;
       commentDepth = 1;
     }
-
 
     return (
       <div className={commentsClass}>
