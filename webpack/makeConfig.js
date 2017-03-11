@@ -15,7 +15,7 @@ function makePlugins(options) {
   const isDevelopment = options.isDevelopment;
 
   let plugins = [
-    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
         // This has effect on the react lib size
@@ -51,20 +51,19 @@ function makePlugins(options) {
 
   if (isDevelopment) {
     plugins = plugins.concat([
-      new webpack.optimize.OccurenceOrderPlugin(),
+      new webpack.optimize.OccurrenceOrderPlugin(),
       new webpack.HotModuleReplacementPlugin(),
-      new webpack.NoErrorsPlugin(),
+      new webpack.NoEmitOnErrorsPlugin(),
     ]);
   } else {
     plugins = plugins.concat([
-      new webpack.optimize.DedupePlugin(),
       new webpack.optimize.UglifyJsPlugin({
         minimize: true,
+        sourceMap: true,
         compress: {
           warnings: false,
         }
       }),
-      new webpack.optimize.AggressiveMergingPlugin(),
       new ExtractTextPlugin('../css/base.css'),
     ]);
   }
@@ -78,10 +77,10 @@ function makeStyleLoaders(options) {
       {
         test: /\.s?[ac]ss$/,
         loaders: [
-          'style',
-          'css?sourceMap?importLoaders=1',
+          'style-loader',
+          'css-loader?sourceMap?importLoaders=1',
           'autoprefixer-loader?browsers=last 2 version',
-          'sass?sourceMap&sourceMapContents',
+          'sass-loader?sourceMap&sourceMapContents',
         ],
       },
     ];
@@ -90,16 +89,14 @@ function makeStyleLoaders(options) {
   return [
     {
       test: /\.s?[ac]ss$/,
-      loader: ExtractTextPlugin.extract(
-        'style-loader',
-        'css?importLoaders=1!autoprefixer-loader?browsers=last 2 version!sass'
-      ),
+      loader: ExtractTextPlugin.extract({
+        fallback: 'style-loader', use: 'css-loader?importLoaders=1!autoprefixer-loader?browsers=last 2 version!sass-loader'
+      }),
     },
   ];
 }
 
-function makeConfig(options) {
-  if (!options) options = {};
+function makeConfig(options = {}) {
   _.defaults(options, DEFAULTS);
 
   const isDevelopment = options.isDevelopment;
@@ -122,11 +119,7 @@ function makeConfig(options) {
         {
           test: /\.js?$/,
           exclude: /node_modules/,
-          loader: 'babel',
-        },
-        {
-          test: /\.json?$/,
-          loader: 'json',
+          loader: 'babel-loader',
         },
         {
           loader: 'url-loader?name=[name].[hash].[ext]&limit=1',
