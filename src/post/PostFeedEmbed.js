@@ -18,10 +18,13 @@ export default class PostFeedEmbed extends Component {
 
   renderThumbFirst(thumb) {
     return (
-      <div className="PostFeedCard__thumbs PostFeedEmbed" onClick={this.handleThumbClick}>
-        <img src={thumb} />
+      <div
+        style={{ background: `url(${thumb})` }}
+        className="PostFeedCard__thumbs PostFeedEmbed"
+        onClick={this.handleThumbClick}
+      >
         <div className="PostFeedEmbed__playButton">
-          <Icon name="play_circle_outline" xxl/>
+          <Icon name="play_circle_outline" xxl />
         </div>
       </div>
     );

@@ -16,7 +16,7 @@ export const FETCH_CHANNEL_PRESENCE_START = '@messages/FETCH_CHANNEL_PRESENCE_ST
 export const FETCH_CHANNEL_PRESENCE_SUCCESS = '@messages/FETCH_CHANNEL_PRESENCE_SUCCESS';
 export const FETCH_CHANNEL_PRESENCE_ERROR = '@messages/FETCH_CHANNEL_PRESENCE_ERROR';
 
-export const fetchChannelPresence = (channelName = 'general') =>
+export const fetchChannelPresence = (channelName = 'general', query = {}) =>
   (dispatch, getState) => {
     const { auth } = getState();
 
@@ -24,17 +24,20 @@ export const fetchChannelPresence = (channelName = 'general') =>
       return;
     }
 
-    const channelURI = `?${querystring.stringify({ channelName })}`;
     const { token } = auth;
 
-    const url = `${HOST}/api/v1/channels/${channelURI}`;
+    const url = `${HOST}/api/v1/channels/`;
 
     dispatch({
       type: FETCH_CHANNEL_PRESENCE,
       payload: {
         promise: request
           .get(url)
-          .query({ token })
+          .query({
+            ...query,
+            token,
+            channelName,
+          })
           .endAsync()
           .then(res => res.body),
       },
