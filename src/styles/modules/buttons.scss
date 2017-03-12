@@ -42,6 +42,23 @@
   }
 }
 
+.btn-outline-secondary {
+  color: white !important;
+  background-color: transparent;
+  border: none;
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.6);
+
+  &:hover, &:focus, &:active {
+    color: white !important;
+    background-color: rgba(105, 105, 105, 0.1) !important;
+    box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 1);
+  }
+
+  .Icon {
+    color: white;
+  }
+}
+
 .btn-success {
   color: #fff !important;
 
