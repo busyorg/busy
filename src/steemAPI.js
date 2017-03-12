@@ -1,5 +1,5 @@
-import { api } from 'steem';
+import steem from 'steem';
 
-api.setWebSocket(process.env.WS);
+steem.config.set(process.env.WS);
 
-module.exports = api;
+module.exports = steem.api;
