@@ -2,7 +2,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import ReduxInfiniteScroll from 'redux-infinite-scroll';
-
+import Modal from '../widgets/modal/Modal';
 import Loading from '../widgets/Loading';
 import PostFeed from '../post/PostFeed';
 import CommentForm from '../comments/CommentForm';
@@ -10,7 +10,7 @@ import * as appActions from '../actions';
 import * as commentsActions from '../comments/commentsActions';
 import * as bookmarkActions from '../bookmarks/bookmarksActions';
 import * as reblogActions from '../app/Reblog/reblogActions';
-
+import PostSingle from '../post/postSingle/PostSingle';
 import './Feed.scss';
 
 @connect(
@@ -99,6 +99,14 @@ export default class Feed extends React.Component {
         </div>
 
         <CommentForm />
+        {app.isPostModalOpen &&
+          <Modal onClose={this.props.closePostModal}>
+            <PostSingle
+              modal
+              contentList={content}
+            />
+          </Modal>
+        }
       </div>
     );
   }

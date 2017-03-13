@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as postActions from './../postActions';
 import PostSinglePage from './PostSinglePage';
+import PostSingleModal from './PostSingleModal';
 import * as reblogActions from '../../app/Reblog/reblogActions';
 import * as commentsActions from '../../comments/commentsActions';
 import * as bookmarkActions from '../../bookmarks/bookmarksActions';
@@ -34,7 +35,19 @@ import { editPost } from '../Write/EditorActions';
     closePostModal: appActions.closePostModal,
   }, dispatch)
 )
-export default class PostSingle extends React.Component {
+export default class PostSingle extends Component {
+  static propTypes = {
+    modal: PropTypes.bool,
+    contentList: PropTypes.arrayOf(PropTypes.shape({
+      // eslint-disable-next-line
+      author: PropTypes.string,
+    })),
+  };
+
+  static defaultProps = {
+    modal: false,
+    contentList: [],
+  };
 
   componentWillMount() {
     const { content } = this.props;
@@ -50,7 +63,7 @@ export default class PostSingle extends React.Component {
 
   render() {
     let onEdit;
-    const { contentList = [], reblog, reblogList, auth, content } = this.props;
+    const { contentList, reblog, reblogList, auth, content, modal } = this.props;
 
     if (!content) {
       return null;
@@ -78,23 +91,30 @@ export default class PostSingle extends React.Component {
 
     const canReblog = auth.isAuthenticated && auth.user.name !== content.author;
 
+    const theProps = {
+      content,
+      reblog: () => reblog(content.id),
+      isReblogged: reblogList.includes(content.id),
+      canReblog,
+      likePost: () => this.props.likePost(content.id),
+      unlikePost: () => this.props.unlikePost(content.id),
+      dislikePost: () => this.props.dislikePost(content.id),
+      isPostLiked,
+      isPostDisliked,
+      contentList,
+      bookmarks: this.props.bookmarks,
+      toggleBookmark: this.props.toggleBookmark,
+      onEdit,
+    };
+
     return (
       <div>
-        {content.author &&
-          <PostSinglePage
-            content={content}
-            reblog={() => reblog(content.id)}
-            isReblogged={reblogList.includes(content.id)}
-            canReblog={canReblog}
-            likePost={() => this.props.likePost(content.id)}
-            unlikePost={() => this.props.unlikePost(content.id)}
-            dislikePost={() => this.props.dislikePost(content.id)}
-            isPostLiked={isPostLiked}
-            isPostDisliked={isPostDisliked}
-            bookmarks={this.props.bookmarks}
-            toggleBookmark={this.props.toggleBookmark}
-            onEdit={onEdit}
-          />
+        {content.author && !modal &&
+          <PostSinglePage {...theProps} />
+        }
+
+        {modal &&
+          <PostSingleModal {...theProps} />
         }
       </div>
     );

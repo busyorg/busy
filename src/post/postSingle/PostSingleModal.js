@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { withRouter, Link } from 'react-router';
 import { SimpleTooltipOrigin } from '../../widgets/tooltip/SimpleTooltip';
 import PostSingleContent from './PostSingleContent';
@@ -13,8 +15,8 @@ export default class PostSingleModal extends Component {
     this.unlisten = this.props.router.listen(this.routerWillLeave);
     // manipulate address bar to show the article's address
     if (window && window.history) {
-      const { content } = this.props;
-      this.pushUrlState(content);
+      const { post } = this.props;
+      this.pushUrlState(post);
     }
 
     if (window) {
@@ -56,15 +58,14 @@ export default class PostSingleModal extends Component {
   };
 
   pushUrlState = (content) => {
-    const postPath = `/${content.parent_permlink}/@${content.author}/${content.permlink}`;
-    window.history.pushState({}, content.title, postPath);
-  }
+    window.history.pushState({}, content.title, content.url);
+  };
 
   nextStory = () => {
     this.props.openPostModal(this.props.nextStory.id);
     this.pushUrlState(this.props.nextStory);
     this.scrollToTop();
-  }
+  };
 
   render() {
     return (
@@ -76,29 +77,7 @@ export default class PostSingleModal extends Component {
         }
         ref={(c) => { this.DOMNode = c; }}
       >
-        <header>
-          <div className="top-nav">
-            <a className="left ml-2" onClick={this.handleClose}>
-              <Icon name="clear" className="Icon--menu" />
-            </a>
-            <div className="section-content top-head">
-              <div className="logo">
-                <Link to="/" onlyActiveOnIndex activeClassName="active">
-                  <img src="/img/logo.svg" />
-                </Link>
-              </div>
-            </div>
-            {this.props.nextStory &&
-              <div className="right mr-3">
-                <SimpleTooltipOrigin message={this.props.nextStory.title}>
-                  <a onClick={this.nextStory}>
-                    <Icon name="navigate_next" className="Icon--menu" />
-                  </a>
-                </SimpleTooltipOrigin>
-              </div>
-            }
-          </div>
-        </header>
+
         <PostSingleContent
           content={this.props.content}
           bookmarks={this.props.bookmarks}
