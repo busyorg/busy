@@ -74,6 +74,11 @@ const PostFeedCard = ({
 }) => {
   const isReplyPost = !!post.parent_author;
 
+  const handlePostClick = (e) => {
+    e.preventDefault();
+    openPostModal(post.id);
+  };
+
   return (
     <div className="PostFeedCard">
 
@@ -126,7 +131,7 @@ const PostFeedCard = ({
 
       <div className="PostFeedCard__cell PostFeedCard__cell--body">
         <h2>
-          <Link to={post.url} onClick={() => openPostModal(post.id)}>
+          <Link to={post.url} onClick={e => handlePostClick(e)}>
             {post.title}
           </Link>
         </h2>
@@ -140,7 +145,7 @@ const PostFeedCard = ({
 
       {(imagePath && !_.has(embeds, '[0].embed')) &&
         <div className="PostFeedCard__thumbs">
-          <Link to={post.url} onClick={() => openPostModal(post.id)}>
+          <Link to={post.url} onClick={e => handlePostClick(e)}>
             <img key={imagePath} src={imagePath} />
           </Link>
         </div>
