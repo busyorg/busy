@@ -1,54 +1,31 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { withRouter, Link } from 'react-router';
-import { SimpleTooltipOrigin } from '../../widgets/tooltip/SimpleTooltip';
 import PostSingleContent from './PostSingleContent';
 import PostSingleComments from './PostSingleComments';
-import Icon from '../../widgets/Icon';
 import './PostSingleModal.scss';
 
-@withRouter
 export default class PostSingleModal extends Component {
 
   componentDidMount() {
-    this.unlisten = this.props.router.listen(this.routerWillLeave);
     // manipulate address bar to show the article's address
+    // eslint-disable-next-line
     if (window && window.history) {
-      const { post } = this.props;
-      this.pushUrlState(post);
-    }
-
-    if (window) {
-      // freeze scroll in the feed
-      window.document.querySelector('body').style.overflow = 'hidden';
-      window.onpopstate = () => this.routerWillLeave();
+      const { content } = this.props;
+      this.pushUrlState(content);
     }
   }
 
   componentWillUnmount() {
-    this.unlisten();
-
-    if (window) {
-      window.onpopstate = null;
-    }
+    this.handleClose();
   }
 
-  routerWillLeave = () => {
-    this.props.closePostModal();
-    // un-freeze scroll in the feed
-    if (window) {
-      window.document.querySelector('body').style.overflow = 'initial';
-    }
-    return true;
-  };
-
-  handleClose = (e) => {
-    this.routerWillLeave();
+  handleClose = () => {
     // fix the manipulated URL
+    /* eslint-disable */
     if (window && window.history) {
       window.history.back();
+      window.onpopstate = null;
     }
+    /* eslint-enable */
   };
 
   scrollToTop = () => {
@@ -70,11 +47,7 @@ export default class PostSingleModal extends Component {
   render() {
     return (
       <div
-        className={
-          this.props.sidebarIsVisible
-            ? 'PostSingleModal withSidebar'
-            : 'PostSingleModal'
-        }
+        className="PostSingleModal"
         ref={(c) => { this.DOMNode = c; }}
       >
 
