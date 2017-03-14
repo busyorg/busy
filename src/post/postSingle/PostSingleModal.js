@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PostSingleContent from './PostSingleContent';
 import PostSingleComments from './PostSingleComments';
-import './PostSingleModal.scss';
 
 export default class PostSingleModal extends Component {
 
@@ -46,11 +45,7 @@ export default class PostSingleModal extends Component {
 
   render() {
     return (
-      <div
-        className="PostSingleModal"
-        ref={(c) => { this.DOMNode = c; }}
-      >
-
+      <div ref={(c) => { this.DOMNode = c; }}>
         <PostSingleContent
           content={this.props.content}
           bookmarks={this.props.bookmarks}
