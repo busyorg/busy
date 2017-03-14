@@ -25,6 +25,7 @@ import './Feed.scss';
     toggleBookmark: bookmarkActions.toggleBookmark,
     reblog: reblogActions.reblog,
     openPostModal: appActions.openPostModal,
+    closePostModal: appActions.closePostModal,
   }, dispatch)
 )
 export default class Feed extends React.Component {
