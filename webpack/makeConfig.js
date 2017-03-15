@@ -51,7 +51,7 @@ function makePlugins(options) {
   if (isDevelopment) {
     plugins = plugins.concat([
       new webpack.HotModuleReplacementPlugin(),
-      new webpack.NoErrorsPlugin(),
+      new webpack.NoEmitOnErrorsPlugin(),
     ]);
   } else {
     plugins = plugins.concat([
