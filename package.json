@@ -49,7 +49,7 @@
     "emojione": "^2.2.7",
     "emojione-picker": "^1.1.0",
     "express": "~4.13.1",
-    "extract-text-webpack-plugin": "^1.0.1",
+    "extract-text-webpack-plugin": "^2.1.0",
     "file-loader": "^0.9.0",
     "form-serialize": "^0.7.1",
     "franc": "^2.0.0",
