@@ -92,7 +92,7 @@ function makeStyleLoaders(options) {
             },
           },
           {
-            loader: 'sass',
+            loader: 'sass-loader',
             options: {
               sourceMap: true,
               sourceMapContents: true,
@@ -153,11 +153,7 @@ function makeConfig(options = {}) {
         {
           test: /\.js?$/,
           exclude: /node_modules/,
-          loader: 'babel',
-        },
-        {
-          test: /\.json?$/,
-          loader: 'json',
+          loader: 'babel-loader',
         },
         {
           test: /\.(eot|ttf|woff|woff2)(\?.+)?$/,
