@@ -77,11 +77,30 @@ function makeStyleLoaders(options) {
     return [
       {
         test: /\.s?[ac]ss$/,
-        loaders: [
-          'style',
-          'css?sourceMap?importLoaders=1',
-          'autoprefixer-loader?browsers=last 2 version',
-          'sass?sourceMap&sourceMapContents',
+        use: [
+          {
+            loader: 'style-loader',
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              sourceMap: true,
+              importLoaders: 1,
+            },
+          },
+          {
+            loader: 'autoprefixer-loader',
+            options: {
+              browsers: 'last 2 version',
+            },
+          },
+          {
+            loader: 'sass',
+            options: {
+              sourceMap: true,
+              sourceMapContents: true,
+            },
+          },
         ],
       },
     ];
@@ -90,16 +109,31 @@ function makeStyleLoaders(options) {
   return [
     {
       test: /\.s?[ac]ss$/,
-      loader: ExtractTextPlugin.extract(
-        'style-loader',
-        'css?importLoaders=1!autoprefixer-loader?browsers=last 2 version!sass'
-      ),
+      use: ExtractTextPlugin.extract({
+        fallback: 'style-loader',
+        use: [
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 1,
+            },
+          },
+          {
+            loader: 'autoprefixer-loader',
+            options: {
+              browsers: 'last 2 version',
+            },
+          },
+          {
+            loader: 'sass-loader',
+          },
+        ],
+      }),
     },
   ];
 }
 
-function makeConfig(options) {
-  if (!options) options = {};
+function makeConfig(options = {}) {
   _.defaults(options, DEFAULTS);
 
   const isDevelopment = options.isDevelopment;
@@ -118,7 +152,7 @@ function makeConfig(options) {
     },
     plugins: makePlugins(options),
     module: {
-      loaders: [
+      rules: [
         {
           test: /\.js?$/,
           exclude: /node_modules/,
@@ -129,8 +163,12 @@ function makeConfig(options) {
           loader: 'json',
         },
         {
-          loader: 'url-loader?name=[name].[hash].[ext]&limit=1',
           test: /\.(eot|ttf|woff|woff2)(\?.+)?$/,
+          loader: 'url-loader',
+          options: {
+            name: '[name].[hash].[ext]',
+            limit: 1,
+          },
         },
         {
           test: /\.png$/,
