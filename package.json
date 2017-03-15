@@ -111,7 +111,7 @@
     "url-loader": "^0.5.7",
     "validator": "^5.1.0",
     "warning": "^3.0.0",
-    "webpack": "^1.13.2",
+    "webpack": "^2.2.1",
     "webpack-visualizer-plugin": "^0.1.5",
     "xmldom": "^0.1.27"
   },
