@@ -55,7 +55,6 @@ function makePlugins(options) {
     ]);
   } else {
     plugins = plugins.concat([
-      new webpack.optimize.DedupePlugin(),
       new webpack.optimize.UglifyJsPlugin({
         minimize: true,
         compress: {
