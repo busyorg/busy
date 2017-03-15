@@ -15,7 +15,6 @@ function makePlugins(options) {
   const isDevelopment = options.isDevelopment;
 
   let plugins = [
-    new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
         // This has effect on the react lib size
@@ -51,7 +50,6 @@ function makePlugins(options) {
 
   if (isDevelopment) {
     plugins = plugins.concat([
-      new webpack.optimize.OccurenceOrderPlugin(),
       new webpack.HotModuleReplacementPlugin(),
       new webpack.NoErrorsPlugin(),
     ]);
