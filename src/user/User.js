@@ -132,6 +132,9 @@ export default class UserProfile extends React.Component {
             />
           </h1>
           <Follow username={user.name} />
+          <Link to={`/transfer?to=${user.name}`} className="btn btn-sm btn-outline-secondary ml-2">
+            <FormattedMessage id="transfer" defaultMessage="Transfer" />
+          </Link>
         </div>
       </section>
       <div className="profile">

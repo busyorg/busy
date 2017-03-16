@@ -1,7 +1,7 @@
 import React from 'react';
 import numeral from 'numeral';
 import { FormattedMessage } from 'react-intl';
-import _ from 'lodash';
+import { Link } from 'react-router';
 import { SimpleTooltipOrigin } from '../../widgets/tooltip/SimpleTooltip';
 import { getUpvotes, getDownvotes, sortVotes } from '../../helpers/voteHelpers';
 import Icon from '../../widgets/Icon';
@@ -113,6 +113,18 @@ const MenuPost = ({
             </a>
           </li>
         }
+        <li>
+          <Link
+            to={`/transfer?to=${content.author}&amount=50.000&currency=STEEM&memo=Thank you for your post: ${content.title}`}
+          >
+            <Icon name="favorite" />
+            {' '}
+            <FormattedMessage
+              id="tip"
+              defaultMessage="Tip the author"
+            />
+          </Link>
+        </li>
       </ul>
     </div>
   );
