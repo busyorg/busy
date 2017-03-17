@@ -8,6 +8,8 @@ const https = require('https');
 http.globalAgent.maxSockets = Infinity;
 https.globalAgent.maxSockets = Infinity;
 
+const OneWeek = 1000 * 60 * 60 * 24 * 7;
+
 const app = express();
 const server = http.Server(app);
 const io = require('socket.io')(server);
@@ -33,7 +35,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public'), { maxAge: OneWeek }));
 app.use(express.static(path.join(__dirname, 'node_modules')));
 
 app.use(cors());
