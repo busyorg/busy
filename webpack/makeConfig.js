@@ -163,7 +163,7 @@ function makeConfig(options = {}) {
           test: /\.(eot|ttf|woff|woff2)(\?.+)?$/,
           loader: 'url-loader',
           options: {
-            name: '[name].[hash].[ext]',
+            name: '../fonts/[name].[ext]',
             limit: 1,
           },
         },
