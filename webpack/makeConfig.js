@@ -55,11 +55,15 @@ function makePlugins(options) {
     ]);
   } else {
     plugins = plugins.concat([
-      new webpack.optimize.UglifyJsPlugin({
-        minimize: true,
-        compress: {
-          warnings: false,
+      new webpack.optimize.CommonsChunkPlugin({
+        name: 'vendor',
+        minChunks(module) {
+          // this assumes your vendor imports exist in the node_modules directory
+          return module.context && module.context.indexOf('node_modules') !== -1;
         }
+      }),
+      new webpack.optimize.CommonsChunkPlugin({
+        name: 'manifest',
       }),
       new webpack.optimize.AggressiveMergingPlugin(),
       new ExtractTextPlugin('../css/base.css'),
@@ -137,14 +141,14 @@ function makeConfig(options = {}) {
 
   return {
     devtool: isDevelopment ? 'eval-source-map' : 'source-map',
-    entry: (isDevelopment ? [
-      'webpack-hot-middleware/client?reload=true',
-    ] : []).concat([
-      path.join(options.baseDir, 'src/index.js')
-    ]),
+    entry: {
+      main: (isDevelopment ? ['webpack-hot-middleware/client?reload=true'] : []).concat([
+        path.join(options.baseDir, 'src/index.js')
+      ]),
+    },
     output: {
       path: path.join(options.baseDir, '/public/js'),
-      filename: 'app.min.js',
+      filename: 'app-[name].[chunkhash].js',
       publicPath: '/js/'
     },
     plugins: makePlugins(options),
