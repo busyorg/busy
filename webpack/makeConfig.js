@@ -5,6 +5,7 @@ const Visualizer = require('webpack-visualizer-plugin');
 const _ = require('lodash');
 const path = require('path');
 const webpack = require('webpack');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const DEFAULTS = {
   isDevelopment: process.env.NODE_ENV !== 'production',
@@ -67,6 +68,11 @@ function makePlugins(options) {
       }),
       new webpack.optimize.AggressiveMergingPlugin(),
       new ExtractTextPlugin('../css/base.css'),
+      new HtmlWebpackPlugin({
+        title: 'Busy',
+        filename: '../index.html',
+        template: path.join(options.baseDir, '/templates/index.html'),
+      }),
     ]);
   }
 
@@ -170,6 +176,10 @@ function makeConfig(options = {}) {
         {
           test: /\.png$/,
           loader: 'file-loader',
+        },
+        {
+          test: /\.html$/,
+          loader: 'html-loader'
         },
       ].concat(makeStyleLoaders(options)),
     },
