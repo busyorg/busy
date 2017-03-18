@@ -45,7 +45,7 @@
     "draft-js-import-markdown": "github:nil1511/draft-js-import-markdown#build",
     "draft-js-markdown-shortcuts-plugin": "github:nil1511/draft-js-markdown-shortcuts-plugin#build",
     "draft-js-plugins": "github:nil1511/draft-js-plugins#build",
-    "embedjs": "0.0.3",
+    "embedjs": "^0.0.4",
     "emojione": "^2.2.7",
     "emojione-picker": "^1.1.0",
     "express": "~4.13.1",
