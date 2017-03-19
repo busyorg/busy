@@ -8,6 +8,7 @@ import BodyShort from './BodyShort';
 import AuthorBio from './AuthorBio';
 import Comments from '../comments/Comments';
 import Avatar from '../widgets/Avatar';
+import { jsonParse } from '../helpers/formatter';
 import './PostSingleContent.scss';
 
 const Tag = ({ tag }) => {
@@ -38,8 +39,7 @@ const PostSingleContent = ({
   onEdit,
   location
 }) => {
-  let jsonMetadata = {};
-  try { jsonMetadata = JSON.parse(content.json_metadata); } catch (e) { }
+  const jsonMetadata = jsonParse(content.json_metadata);
   const hasAnchoredLink = !!location.hash;
   return (
     <div className="PostSingleContent my-4">

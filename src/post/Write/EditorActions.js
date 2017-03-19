@@ -8,7 +8,7 @@ import request from 'superagent';
 import SteemConnect from 'steemconnect';
 import { browserHistory } from 'react-router';
 import { createAction } from 'redux-actions';
-
+import { jsonParse } from '../../helpers/formatter';
 import { createPermlink, getBodyPatchIfSmaller } from '../../helpers/steemitHelpers';
 
 Promise.promisifyAll(request.Request.prototype);
@@ -29,8 +29,7 @@ export const deleteDraft = createAction(DELETE_DRAFT);
 
 export const editPost = post =>
   (dispatch) => {
-    let jsonMetadata = {};
-    try { jsonMetadata = JSON.parse(post.json_metadata); } catch (e) { }
+    const jsonMetadata = jsonParse(post.json_metadata);
     const draft = {
       ...post,
       originalBody: post.body,
