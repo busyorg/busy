@@ -2144,9 +2144,9 @@ elliptic@^6.0.0:
     minimalistic-assert "^1.0.0"
     minimalistic-crypto-utils "^1.0.0"
 
-embedjs@0.0.3:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/embedjs/-/embedjs-0.0.3.tgz#e01ffd7fee312b202941d0aa505d5b34a7471cc8"
+embedjs@^0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/embedjs/-/embedjs-0.0.4.tgz#b92242069fe246333c5d3869a14e7ef930d48642"
   dependencies:
     url-extractor "^2.0.2"
 
