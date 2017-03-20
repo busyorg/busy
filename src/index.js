@@ -41,7 +41,7 @@ browserHistory.listen(() => {
 
 
 // load the stylesheet
-require('./styles/base.scss');
+import './styles/base.scss';
 
 ReactDOM.render(
   <Provider store={store}>
