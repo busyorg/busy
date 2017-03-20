@@ -16,15 +16,12 @@ const io = require('socket.io')(server);
 
 const cors = require('cors');
 
-if (process.env.NODE_ENV !== 'production')
+if (process.env.NODE_ENV !== 'production') {
   require('./webpack')(app);
-
-const hbs = require('hbs');
-hbs.registerPartials(__dirname + '/views/partials');
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'hbs');
+}
 
 app.enable('trust proxy');
+app.set('view engine', 'ejs');
 
 app.use((req, res, next) => {
   res.io = io;
@@ -35,15 +32,15 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use(express.static(path.join(__dirname, 'public'), { maxAge: OneWeek }));
+app.use(express.static(path.join(__dirname, 'public'), {
+  maxAge: OneWeek,
+  index: process.env.NODE_ENV !== 'production' ? '../templates/development_index.html' : 'index.html',
+}));
 app.use(express.static(path.join(__dirname, 'node_modules')));
 
 app.use(cors());
 
-
 app.locals.env = process.env;
-
-app.use('/', require('./routes/front'));
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
