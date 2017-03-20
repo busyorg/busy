@@ -13,7 +13,7 @@ import LikesList from './../LikesList';
 import { ProfileTooltipOrigin } from '../../widgets/tooltip/ProfileTooltip';
 import Reactions from '../Reactions';
 import { calculatePayout } from '../../helpers/steemitHelpers';
-import sortedBody from './postFeedHelpers';
+import sortedBody from '../../helpers/postFeedHelpers';
 
 import './PostFeedCard.scss';
 
