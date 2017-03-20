@@ -11,7 +11,7 @@
     "test-watch": "BUSYWS_HOST=https://ws.busy.org BABEL_ENV=test mocha --watch --require babel-register ./src/*/*-spec.js",
     "eslint-autofix": "eslint --fix src/**/*.js *.js",
     "lint": "eslint src/**",
-    "build": "npm run cleanup-public && cp -r ./assets/* ./public/ && webpack -p --config webpack.prod.config.js",
+    "build": "npm run cleanup-public && mkdir -p public && cp -r ./assets/* ./public/ && webpack -p --config webpack.prod.config.js",
     "postinstall": "npm run build",
     "cleanup-public": "rm -rf ./public/*"
   },
