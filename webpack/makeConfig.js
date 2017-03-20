@@ -1,16 +1,22 @@
-
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const Visualizer = require('webpack-visualizer-plugin');
 const _ = require('lodash');
 const path = require('path');
 const webpack = require('webpack');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
 
 const DEFAULTS = {
   isDevelopment: process.env.NODE_ENV !== 'production',
   baseDir: path.join(__dirname, '..'),
 };
+
+function isVendor({ resource }) {
+  return resource &&
+    resource.indexOf('node_modules') >= 0 &&
+    resource.match(/\.jsx?$/);
+}
 
 function makePlugins(options) {
   const isDevelopment = options.isDevelopment;
@@ -60,14 +66,16 @@ function makePlugins(options) {
         name: 'vendor',
         minChunks(module) {
           // this assumes your vendor imports exist in the node_modules directory
-          return module.context && module.context.indexOf('node_modules') !== -1;
+          return isVendor(module);
         }
       }),
       new webpack.optimize.CommonsChunkPlugin({
         name: 'manifest',
       }),
       new webpack.optimize.AggressiveMergingPlugin(),
-      new ExtractTextPlugin('../css/base.css'),
+      new ExtractTextPlugin({
+        filename: '../css/style.[contenthash].css',
+      }),
       new HtmlWebpackPlugin({
         title: 'Busy',
         filename: '../index.html',
@@ -83,7 +91,7 @@ function makeStyleLoaders(options) {
   if (options.isDevelopment) {
     return [
       {
-        test: /\.s?[ac]ss$/,
+        test: /\.scss|.css$/,
         use: [
           {
             loader: 'style-loader',
@@ -115,8 +123,8 @@ function makeStyleLoaders(options) {
 
   return [
     {
-      test: /\.s?[ac]ss$/,
-      use: ExtractTextPlugin.extract({
+      test: /\.scss|.css$/,
+      loader: ExtractTextPlugin.extract({
         fallback: 'style-loader',
         use: [
           {
@@ -154,7 +162,7 @@ function makeConfig(options = {}) {
     },
     output: {
       path: path.join(options.baseDir, '/public/js'),
-      filename: 'app-[name].[chunkhash].js',
+      filename: options.isDevelopment ? 'busyapp-[name].js' : 'busyapp-[name].[chunkhash].js',
       publicPath: '/js/'
     },
     plugins: makePlugins(options),
