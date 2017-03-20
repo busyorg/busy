@@ -58,7 +58,7 @@ const getPositionsForFirstHalf = (text) => {
 export default function sortedBody(post, embeds, imagePath, openPostModal) {
   const htmlBody = getHtml(post.body);
   const preview = {
-    text: () => (<div key="text" className="PostFeedCard__cell PostFeedCard__cell--body">
+    text: () => (<div key="text" className="PostFeedCard__cell PostFeedCard__cell--text">
       <BodyShort body={post.body} />
     </div>),
     embed: () => (embeds && embeds[0]) && <PostFeedEmbed key="embed" post={post} />,
