@@ -5,13 +5,15 @@
   "main": "./bin/www",
   "private": true,
   "scripts": {
-    "start": "nodemon --ignore src ./bin/www",
+    "start": "NODE_ENV=production nodemon --ignore src ./bin/www",
+    "dev": "NODE_ENV=development nodemon --ignore src ./bin/www",
     "test": "BUSYWS_HOST=https://ws.busy.org BABEL_ENV=test mocha --require babel-register ./src/*/*-spec.js",
     "test-watch": "BUSYWS_HOST=https://ws.busy.org BABEL_ENV=test mocha --watch --require babel-register ./src/*/*-spec.js",
     "eslint-autofix": "eslint --fix src/**/*.js *.js",
     "lint": "eslint src/**",
-    "build": "webpack --progress -p --hide-modules --config webpack.prod.config.js",
-    "postinstall": "npm run build"
+    "build": "npm run cleanup-public && cp -r ./assets/* ./public/ && webpack -p --config webpack.prod.config.js",
+    "postinstall": "npm run build",
+    "cleanup-public": "rm -rf ./public/*"
   },
   "dependencies": {
     "autoprefixer-loader": "^3.2.0",
@@ -45,6 +47,7 @@
     "draft-js-import-markdown": "github:nil1511/draft-js-import-markdown#build",
     "draft-js-markdown-shortcuts-plugin": "github:nil1511/draft-js-markdown-shortcuts-plugin#build",
     "draft-js-plugins": "github:nil1511/draft-js-plugins#build",
+    "ejs": "^2.5.6",
     "embedjs": "0.0.3",
     "emojione": "^2.2.7",
     "emojione-picker": "^1.1.0",
