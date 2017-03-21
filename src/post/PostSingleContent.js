@@ -42,7 +42,7 @@ const PostSingleContent = ({
   try { jsonMetadata = JSON.parse(content.json_metadata); } catch (e) { }
   const hasAnchoredLink = !!location.hash;
   return (
-    <div className="PostSingleContent my-4">
+    <div className="PostSingleContent py-4">
       <div className="container">
         <h1>{content.title}</h1>
         <div className="PostSingleContent__header mb-3">
