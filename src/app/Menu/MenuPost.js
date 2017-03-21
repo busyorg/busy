@@ -118,11 +118,13 @@ const MenuPost = ({
             to={`/transfer?to=${content.author}&amount=50.000&currency=STEEM&memo=Thank you for your post: ${content.title}`}
           >
             <Icon name="favorite" />
-            {' '}
-            <FormattedMessage
-              id="tip"
-              defaultMessage="Tip the author"
-            />
+            <span className="hidden-xs">
+              {' '}
+              <FormattedMessage
+                id="tip"
+                defaultMessage="Tip the author"
+              />
+            </span>
           </Link>
         </li>
       </ul>
