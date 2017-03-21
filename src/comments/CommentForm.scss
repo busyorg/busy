@@ -30,4 +30,11 @@
   max-height: 150px;
   min-height: 4em;
   background-color: white;
+  padding-right: 80px !important;
+}
+
+.CommentForm__submit {
+  position: absolute;
+  right: 2em;
+  bottom: 1em;
 }

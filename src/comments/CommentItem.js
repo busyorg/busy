@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router';
+import { Link, withRouter } from 'react-router';
 import { FormattedRelative } from 'react-intl';
 import numeral from 'numeral';
 import _ from 'lodash';
-import { Tooltip } from 'pui-react-tooltip';
-import { OverlayTrigger } from 'pui-react-overlay-trigger';
+import { SimpleTooltipOrigin } from '../widgets/tooltip/SimpleTooltip';
 import { getUpvotes, getDownvotes, sortVotes } from '../helpers/voteHelpers';
 import Body from '../post/Body';
 import Avatar from '../widgets/Avatar';
 import Icon from '../widgets/Icon';
 import { sortCommentsFromSteem } from '../helpers/stateHelpers';
-import ProfileTooltipOrigin from '../user/profileTooltip/ProfileTooltipOrigin';
+import { ProfileTooltipOrigin } from '../widgets/tooltip/ProfileTooltip';
 import './CommentItem.scss';
 
 const renderOptimisticComment = (comment, isSinglePage) =>
@@ -39,12 +38,38 @@ const renderOptimisticComment = (comment, isSinglePage) =>
     </div>
   </div>;
 
+@withRouter
 export default class CommentItem extends Component {
   constructor(props) {
     super(props);
     this.state = {
       showReplies: props.isSinglePage,
     };
+  }
+
+  componentDidMount() {
+    this.checkHashLink();
+  }
+
+  checkHashLink() {
+    const { location } = this.props;
+    // eslint-disable-next-line
+    if (window && location.hash) {
+      this.scrollToAnchoredLink();
+    }
+  }
+
+  updateCommentPostion = () => {
+    // should happen after react-router updated the route
+    setTimeout(() => this.checkHashLink());
+  }
+
+  scrollToAnchoredLink() {
+    const { location } = this.props;
+    // eslint-disable-next-line
+    const targetElm = window.document.getElementById(location.hash);
+    if (!targetElm) return;
+    targetElm.scrollIntoView();
   }
 
   toggleShowReplies = (e) => {
@@ -100,15 +125,32 @@ export default class CommentItem extends Component {
     const isEditable = _.has(auth, 'user.name') ? comment.author === auth.user.name : false;
     const numberOfLikes = numeral(comment.active_votes.filter(vote => vote.percent > 0).length).format('0,0');
     const numberOfDislikes = numeral(comment.active_votes.filter(vote => vote.percent < 0).length).format('0,0');
-    const upvotes = sortVotes(getUpvotes(comment.active_votes), 'rshares')
+
+    const fiveLastUpvotes =
+      sortVotes(getUpvotes(comment.active_votes), 'rshares')
+        .reverse()
+        .slice(0, 5);
+    const likesTooltipMsg = fiveLastUpvotes.map(vote => `${vote.voter}\n`);
+    if (likesTooltipMsg.length === 5) likesTooltipMsg.push('...');
+
+    const fiveLastDownvotes =
+      sortVotes(getDownvotes(comment.active_votes), 'rshares')
       .reverse()
       .slice(0, 5);
-    const downvotes = sortVotes(getDownvotes(comment.active_votes), 'rshares')
-      .reverse()
-      .slice(0, 5);
+    const dislikesTooltipMsg = fiveLastDownvotes.map(vote => `${vote.voter}\n`);
+    if (dislikesTooltipMsg.length === 5) dislikesTooltipMsg.push('...');
+
+    const anchoredLink = `#@${comment.author}/${comment.permlink}`;
 
     return (
-      <div className="CommentItem">
+      <div
+        className={
+          anchoredLink === this.props.location.hash
+            ? 'CommentItem CommentItem--highlight'
+            : 'CommentItem'
+        }
+        id={anchoredLink}
+      >
         <div className={`CommentItem__content CommentItem__content--level-${comment.depth}`}>
           <div className="CommentUser">
             <ProfileTooltipOrigin username={comment.author} >
@@ -128,9 +170,9 @@ export default class CommentItem extends Component {
                 </Link>
               </ProfileTooltipOrigin>
               {' '}
-              <span className="text-info">
+              <Link className="text-info" to={comment.url} onClick={this.updateCommentPostion}>
                 <FormattedRelative value={comment.created} />
-              </span>
+              </Link>
             </span>
             <Body body={comment.body} />
             <div className="CommentActionButtons">
@@ -144,21 +186,12 @@ export default class CommentItem extends Component {
                   <Icon name="thumb_up" xs />
                 </a>
                 {' '}
-                {upvotes.length > 0
-                  ? <OverlayTrigger
-                    placement="top"
-                    overlay={
-                      <Tooltip>
-                        {upvotes.map(vote =>
-                          <div key={vote.voter}>{vote.voter}</div>
-                        )}
-                        {_.size(upvotes) === 5 && <div>…</div>}
-                      </Tooltip>
-                    }
-                  >
+                {fiveLastUpvotes.length > 0 ?
+                  <SimpleTooltipOrigin message={likesTooltipMsg}>
                     <a>{numberOfLikes}</a>
-                  </OverlayTrigger>
-                  : numberOfLikes
+                  </SimpleTooltipOrigin>
+                  :
+                  numberOfLikes
                 }
               </div>
 
@@ -172,21 +205,12 @@ export default class CommentItem extends Component {
                   <Icon name="thumb_down" xs />
                 </a>
                 {' '}
-                {downvotes.length > 0
-                  ? <OverlayTrigger
-                    placement="top"
-                    overlay={
-                      <Tooltip>
-                        {downvotes.map(vote =>
-                          <div key={vote.voter}>{vote.voter}</div>
-                        )}
-                        {_.size(downvotes) === 5 && <div>…</div>}
-                      </Tooltip>
-                    }
-                  >
+                {fiveLastDownvotes.length > 0 ?
+                  <SimpleTooltipOrigin message={dislikesTooltipMsg}>
                     <a>{numberOfDislikes}</a>
-                  </OverlayTrigger>
-                  : numberOfDislikes
+                  </SimpleTooltipOrigin>
+                  :
+                  numberOfDislikes
                 }
               </div>
 

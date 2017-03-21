@@ -6,12 +6,13 @@ import _ from 'lodash';
 import TagsInput from 'react-tagsinput';
 import Header from '../../app/Header';
 import PostEditor from './PostEditor';
-import { createPost, saveDraft } from './EditorActions';
+import { createPost, saveDraft, newPost } from './EditorActions';
 import Icon from './../../widgets/Icon';
 import Loading from './../../widgets/Loading';
 import './Write.scss';
 
 const version = require('../../../package.json').version;
+
 const MAX_ALLOW_CATEGORIES = 5;
 
 export class RawNewPost extends Component {
@@ -42,6 +43,7 @@ export class RawNewPost extends Component {
   };
 
   componentDidMount() {
+    this.props.newPost(); // reset loading, success and error flags
     const { draftPosts } = this.props.editor;
     const { location: { query } } = this.props;
     const draftPost = draftPosts[query.draft];
@@ -65,11 +67,14 @@ export class RawNewPost extends Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    const { location: { query } } = this.props;
-    const data = this.getNewPostData();
-    data.draftId = query.draft;
-    data.isUpdating = this.state.isUpdating;
-    this.props.createPost(data);
+    const { editor: { success } } = this.props;
+    if (!success) {
+      const { location: { query } } = this.props;
+      const data = this.getNewPostData();
+      data.draftId = query.draft;
+      data.isUpdating = this.state.isUpdating;
+      this.props.createPost(data);
+    }
   }
 
   getNewPostData = () => {
@@ -204,10 +209,11 @@ export class RawNewPost extends Component {
   }
 
   render() {
-    const { user: { name: author }, editor: { loading } } = this.props;
+    const { user: { name: author }, editor: { loading, success } } = this.props;
     const { tags } = this.state;
     const categoryInputDisabled = tags.length === MAX_ALLOW_CATEGORIES;
-    const postText = this.state.isUpdating ? 'Update' : 'Publish';
+    const publishText = success ? 'Continue' : 'Publish';
+    const postText = this.state.isUpdating ? 'Update' : publishText;
     return (
       <div className="main-panel">
         <Header />
@@ -278,6 +284,6 @@ export class RawNewPost extends Component {
 
 const NewPost = connect(state => ({
   user: state.auth.user, editor: state.editor
-}), { createPost, saveDraft })(RawNewPost);
+}), { createPost, saveDraft, newPost })(RawNewPost);
 
 export default NewPost;

@@ -1,9 +1,8 @@
 import React from 'react';
 import numeral from 'numeral';
 import { FormattedMessage } from 'react-intl';
-import _ from 'lodash';
-import { Tooltip } from 'pui-react-tooltip';
-import { OverlayTrigger } from 'pui-react-overlay-trigger';
+import { Link } from 'react-router';
+import { SimpleTooltipOrigin } from '../../widgets/tooltip/SimpleTooltip';
 import { getUpvotes, getDownvotes, sortVotes } from '../../helpers/voteHelpers';
 import Icon from '../../widgets/Icon';
 import './MenuPost.scss';
@@ -19,7 +18,6 @@ const MenuPost = ({
   unlikePost,
   dislikePost,
   content,
-  isScrolling,
   onEdit,
 }) => {
   const pendingPayoutValue = parseFloat(content.pending_payout_value);
@@ -29,19 +27,24 @@ const MenuPost = ({
   const numberOfComments = numeral(content.children).format('0,0');
   const numberOfLikes = numeral(content.active_votes.filter(vote => vote.percent > 0).length).format('0,0');
   const numberOfDislikes = numeral(content.active_votes.filter(vote => vote.percent < 0).length).format('0,0');
-  const upvotes = sortVotes(getUpvotes(content.active_votes), 'rshares')
+
+  const fiveLastUpvotes =
+    sortVotes(getUpvotes(content.active_votes), 'rshares')
     .reverse()
     .slice(0, 5);
-  const downvotes = sortVotes(getDownvotes(content.active_votes), 'rshares')
+  const likesTooltipMsg = fiveLastUpvotes.map(vote => `${vote.voter}\n`);
+  if (likesTooltipMsg.length === 5) likesTooltipMsg.push('...');
+
+  const fiveLastDownvotes =
+    sortVotes(getDownvotes(content.active_votes), 'rshares')
     .reverse()
     .slice(0, 5);
+  const dislikesTooltipMsg = fiveLastDownvotes.map(vote => `${vote.voter}\n`);
+  if (dislikesTooltipMsg.length === 5) dislikesTooltipMsg.push('...');
 
   return (
     <div className="secondary-nav">
-      <ul
-        className="container text-left"
-        style={isScrolling ? { display: 'none' } : {}}
-      >
+      <ul className="container text-left">
         <li>
           <a
             className={isPostLiked ? 'active' : ''}
@@ -50,19 +53,9 @@ const MenuPost = ({
             <Icon name="thumb_up" />
           </a>
           {' '}
-          <OverlayTrigger
-            placement="top"
-            overlay={
-              <Tooltip>
-                {upvotes.map(vote =>
-                  <div key={vote.voter}>{vote.voter}</div>
-                )}
-                {_.size(upvotes) === 5 && <div>…</div>}
-              </Tooltip>
-            }
-          >
+          <SimpleTooltipOrigin message={likesTooltipMsg}>
             <a>{numberOfLikes}</a>
-          </OverlayTrigger>
+          </SimpleTooltipOrigin>
           <span className="hidden-xs">
             {' '}<FormattedMessage id="likes" />
           </span>
@@ -76,19 +69,9 @@ const MenuPost = ({
             <Icon name="thumb_down" />
           </a>
           {' '}
-          <OverlayTrigger
-            placement="top"
-            overlay={
-              <Tooltip>
-                {downvotes.map(vote =>
-                  <div key={vote.voter}>{vote.voter}</div>
-                )}
-                {_.size(downvotes) === 5 && <div>…</div>}
-              </Tooltip>
-            }
-          >
+          <SimpleTooltipOrigin message={dislikesTooltipMsg}>
             <a>{numberOfDislikes}</a>
-          </OverlayTrigger>
+          </SimpleTooltipOrigin>
           <span className="hidden-xs">
             {' '}<FormattedMessage id="dislikes" />
           </span>
@@ -130,6 +113,20 @@ const MenuPost = ({
             </a>
           </li>
         }
+        <li>
+          <Link
+            to={`/transfer?to=${content.author}&amount=50.000&currency=STEEM&memo=Thank you for your post: ${content.title}`}
+          >
+            <Icon name="favorite" />
+            <span className="hidden-xs">
+              {' '}
+              <FormattedMessage
+                id="tip"
+                defaultMessage="Tip the author"
+              />
+            </span>
+          </Link>
+        </li>
       </ul>
     </div>
   );

@@ -22,9 +22,15 @@ import './Messages.scss';
   state => ({
     auth: state.auth,
     channels: state.messages.channels,
+    isLoading: state.messages.isLoading,
     favorites: state.favorites,
     isConnected: state.messages.isConnected,
-  })
+  }),
+  {
+    fetchMoreMessages: ({ params, channels }) => fetchChannelPresence(params.category, {
+      offset: channels[params.category] ? (+channels[params.category].offset) + 40 : 0,
+    }),
+  },
 )
 export default class MessagesCategory extends Component {
   static propTypes = {
@@ -32,6 +38,7 @@ export default class MessagesCategory extends Component {
     params: PropTypes.object,
     channels: PropTypes.object,
   };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -47,6 +54,7 @@ export default class MessagesCategory extends Component {
       latest: [],
       nmembers: 0,
     };
+
     return (
       <div className="Messages main-panel">
         <Header />
@@ -55,7 +63,13 @@ export default class MessagesCategory extends Component {
           category={category === 'general' ? '' : category}
         />
         <div className="messages">
-          <MessageList messages={channel.latest} />
+          <MessageList
+            key="message-list"
+            messages={channel.latest}
+            isLoading={this.props.isLoading}
+            fetchMoreMessages={() => this.props.fetchMoreMessages(this.props)}
+            hasMore={channel.hasMore}
+          />
 
           { this.props.isConnected &&
             <MessageForm

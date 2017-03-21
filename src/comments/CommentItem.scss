@@ -10,6 +10,17 @@
   }
 }
 
+.CommentItem--highlight {
+  background: linear-gradient(270deg, #e3eae8, #d4e2f9, #fefffe);
+  background-size: 400% 400%;
+
+  -webkit-animation: blinking 3s ease infinite;
+  -moz-animation: blinking 3s ease infinite;
+  animation: blinking 3s ease infinite;
+  padding: 5px;
+  border-radius: 5px;
+}
+
 .CommentItem__content {
   margin: 0.5em 0;
   display: flex;
@@ -63,4 +74,20 @@
   }
 
   p { margin-bottom: 0.3em; }
+}
+
+@-webkit-keyframes blinking {
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+@-moz-keyframes blinking {
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+@keyframes blinking {
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
 }

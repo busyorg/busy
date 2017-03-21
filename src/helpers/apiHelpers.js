@@ -90,3 +90,10 @@ export const getAllFollowers = username =>
       }, []);
     });
 
+export const mapAPIContentToId = (apiRes) => {
+  const listsById = {};
+  Object.keys(apiRes.content).forEach((contentKey) => {
+    listsById[apiRes.content[contentKey].id] = apiRes.content[contentKey];
+  });
+  return listsById;
+};

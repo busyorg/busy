@@ -1,9 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { Link, withRouter } from 'react-router';
 import { FormattedMessage, FormattedRelative } from 'react-intl';
 import BookmarkButton from '../bookmarks/BookmarkButton';
 import MenuPost from '../app/Menu/MenuPost';
 import Body from './Body';
+import BodyShort from './BodyShort';
 import AuthorBio from './AuthorBio';
 import Comments from '../comments/Comments';
 import Avatar from '../widgets/Avatar';
@@ -35,12 +36,15 @@ const PostSingleContent = ({
   isPostLiked,
   isPostDisliked,
   onEdit,
+  location
 }) => {
   let jsonMetadata = {};
   try { jsonMetadata = JSON.parse(content.json_metadata); } catch (e) { }
+  const hasAnchoredLink = !!location.hash;
   return (
-    <div className="PostSingleContent my-4">
+    <div className="PostSingleContent py-4">
       <div className="container">
+        <h1>{content.title}</h1>
         <div className="PostSingleContent__header mb-3">
           <Link to={`/@${content.author}`}>
             <Avatar sm username={content.author} />
@@ -60,8 +64,10 @@ const PostSingleContent = ({
           </span>
         </div>
         <div className="PostSingleContent__content mb-3">
-          <h1 className="mvl">{content.title}</h1>
-          <Body body={content.body} jsonMetadata={content.json_metadata} />
+          {hasAnchoredLink
+            ? <BodyShort body={content.body} />
+            : <Body body={content.body} jsonMetadata={content.json_metadata} />
+          }
         </div>
         {jsonMetadata.tags &&
           <div className="mb-3">
@@ -113,4 +119,4 @@ const PostSingleContent = ({
   );
 };
 
-export default PostSingleContent;
+export default withRouter(PostSingleContent);

@@ -32,7 +32,6 @@ function mergeMessages(state, messages) {
   });
 }
 
-
 export default function messagesReducer(state = initialState, action) {
   switch (action.type) {
     case '@auth/LOGIN_SUCCESS': {
@@ -105,7 +104,7 @@ export default function messagesReducer(state = initialState, action) {
       });
       // action.payload.origin = 'USER_MESSAGE';
       channel.latest = uniqBy(
-        (channel.latest || []).concat([action.payload]),
+        (channel.latest || []).concat(action.payload),
         'uuid'
       );
 
@@ -159,15 +158,25 @@ export default function messagesReducer(state = initialState, action) {
     case actions.FETCH_CHANNEL_PRESENCE_SUCCESS: {
       if (!action.payload) return state;
 
+      const channel = state.channels[action.payload.channelName] || {
+        users: [],
+        latest: [],
+        nmembers: 0,
+      };
+      console.log(channel)
+
+      const latest = uniqBy((channel.latest || []).concat(action.payload.latest), 'uuid');
+
       return extend({}, state, {
         isLoading: false,
-        users: extend(state.users, action.payload.users.reduce((m, { username }) => ({
+        users: extend({}, state.users, action.payload.users.reduce((m, { username }) => ({
           ...m,
           [username]: true,
         }), {})),
         channels: extend({}, state.channels, {
-          [`${action.payload.channelName}`]: extend(action.payload, {
+          [`${action.payload.channelName}`]: extend({}, action.payload, {
             nmembers: size(action.payload.users),
+            latest,
           }),
         })
       });

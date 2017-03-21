@@ -6,7 +6,7 @@ import PostActionButtons from '../PostActionButtons';
 import Avatar from '../../widgets/Avatar';
 import BookmarkButton from '../../bookmarks/BookmarkButton';
 import PostModalLink from './../PostModalLink';
-import ProfileTooltipOrigin from '../../user/profileTooltip/ProfileTooltipOrigin';
+import { ProfileTooltipOrigin } from '../../widgets/tooltip/ProfileTooltip';
 import './PostFeedList.scss';
 
 const PostFeedList = ({
@@ -32,7 +32,7 @@ const PostFeedList = ({
           post={post}
           onClick={() => openPostModal(post.id)}
         >
-          <img src={imagePath} />
+          <img key={imagePath} src={imagePath} />
         </PostModalLink>
       </div>
     }

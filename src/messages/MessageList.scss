@@ -7,6 +7,21 @@
     margin: 0;
     position: relative;
 
+    p {
+      animation: fade-in 1s ease-out;
+      transition: opacity 0.2s ease-out;
+      will-change: opacity;
+      @keyframes blink {
+        from {
+          opacity: 0;
+        }
+
+        to {
+          opacity: 1;
+        }
+      }
+    }
+
     span {
       background: transparent;
       padding: 0;
