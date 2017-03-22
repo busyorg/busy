@@ -78,6 +78,7 @@
     "react-dom": "^15.3.2",
     "react-ga": "^2.1.2",
     "react-gateway": "^2.6.0",
+    "react-hot-loader": "next",
     "react-intl": "^2.1.5",
     "react-is-scrolling": "^1.0.1",
     "react-modal2": "^3.1.0",
@@ -136,7 +137,6 @@
     "mocha": "^3.0.2",
     "mocha-make-stub": "^2.3.2",
     "react-addons-test-utils": "^15.3.2",
-    "react-hot-loader": "next",
     "redux-mock-store": "^1.2.0",
     "webpack-dev-server": "^1.15.1",
     "webpack-hot-middleware": "^2.10.0"
