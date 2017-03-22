@@ -3,6 +3,9 @@ import { Link } from 'react-router';
 import { FormattedMessage, FormattedRelative, injectIntl } from 'react-intl';
 import _ from 'lodash';
 import numeral from 'numeral';
+import { getHtml } from '../Body';
+import BodyShort from '../BodyShort';
+import PostFeedEmbed from '../PostFeedEmbed';
 import BookmarkButton from '../../bookmarks/BookmarkButton';
 import Comments from '../../comments/Comments';
 import PostActionButtons from '../PostActionButtons';
@@ -12,8 +15,15 @@ import PostModalLink from './../PostModalLink';
 import LikesList from './../LikesList';
 import { ProfileTooltipOrigin } from '../../widgets/tooltip/ProfileTooltip';
 import Reactions from '../Reactions';
+
 import { calculatePayout } from '../../helpers/steemitHelpers';
-import sortedBody from '../../helpers/postFeedHelpers';
+import {
+  getPositions,
+  isPostStartsWithAPicture,
+  isPostStartsWithAnEmbed,
+  isPostWithPictureBeforeFirstHalf,
+  isPostWithEmbedBeforeFirstHalf
+} from './PostFeedCardHelper';
 
 import './PostFeedCard.scss';
 
@@ -76,7 +86,37 @@ const PostFeedCard = ({
   intl,
 }) => {
   const isReplyPost = !!post.parent_author;
-  const bodyData = sortedBody(post, embeds, imagePath, openPostModal);
+  const preview = {
+    text: () => (<div key="text" className="PostFeedCard__cell PostFeedCard__cell--text">
+      <BodyShort body={post.body} />
+    </div>),
+    embed: () => (embeds && embeds[0]) && <PostFeedEmbed key="embed" post={post} />,
+    image: () => imagePath && <div key="image" className="PostFeedCard__thumbs">
+      <PostModalLink post={post} onClick={() => openPostModal(post.id)}>
+        <img alt="post" key={imagePath} src={imagePath} />
+      </PostModalLink>
+    </div>
+  };
+
+  const htmlBody = getHtml(post.body);
+  const tagPositions = getPositions(htmlBody);
+  const bodyData = [];
+
+  if (isPostStartsWithAPicture(tagPositions)) {
+    bodyData.push(preview.image());
+    bodyData.push(preview.text());
+  } else if (isPostStartsWithAnEmbed(tagPositions)) {
+    bodyData.push(preview.embed());
+    bodyData.push(preview.text());
+  } else if (isPostWithPictureBeforeFirstHalf(tagPositions)) {
+    bodyData.push(preview.text());
+    bodyData.push(preview.image());
+  } else if (isPostWithEmbedBeforeFirstHalf(tagPositions)) {
+    bodyData.push(preview.text());
+    bodyData.push(preview.embed());
+  } else {
+    bodyData.push(preview.text());
+  }
 
   return (
     <div className="PostFeedCard">
