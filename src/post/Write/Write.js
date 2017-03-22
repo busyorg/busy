@@ -209,7 +209,7 @@ export class RawNewPost extends Component {
   }
 
   render() {
-    const { user: { name: author }, editor: { loading, success } } = this.props;
+    const { user: { name: author }, editor: { loading, loadingImg, success } } = this.props;
     const { tags } = this.state;
     const categoryInputDisabled = tags.length === MAX_ALLOW_CATEGORIES;
     const publishText = success ? 'Continue' : 'Publish';
@@ -271,7 +271,7 @@ export class RawNewPost extends Component {
             <input name="author" type="hidden" value={author || ''} />
 
             <div className="form-group">
-              <button type="submit" disabled={!!loading} className="btn btn-success btn-lg">
+              <button type="submit" disabled={(!!loading || !!loadingImg)} className="btn btn-success btn-lg">
                 {loading ? <Loading color="white" className="my-0" /> : postText}
               </button>
             </div>

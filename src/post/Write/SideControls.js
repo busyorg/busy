@@ -122,6 +122,7 @@ class SideControls extends Component {
     const file = fileInput.files[0];
     const username = this.props.user.name;
     let entityKey;
+    let imageElement;
     const contentState = this.props.editorState.getCurrentContent();
     preloadFile({ file })
       .then((dataUrl) => {
@@ -129,10 +130,13 @@ class SideControls extends Component {
         const contentStateWithEntity = contentState.createEntity('IMAGE', 'IMMUTABLE', { src: dataUrl });
         entityKey = contentStateWithEntity.getLastCreatedEntityKey();
         this.props.onChange(addNewEntitiy(this.props.editorState, entityKey));
+        imageElement = global.document.querySelectorAll(`img[src="${dataUrl}"]`);
+        if (imageElement.length) { imageElement[0].style.opacity = 0.5; }
         return this.props.uploadFile({ username, file });
       })
       .then(({ value }) => {
         contentState.replaceEntityData(entityKey, { src: value.url });
+        if (imageElement.length) { imageElement[0].style.opacity = 1; }
       });
   };
 
