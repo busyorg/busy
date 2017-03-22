@@ -157,7 +157,12 @@ function makeConfig(options = {}) {
     devtool: isDevelopment ? 'eval-source-map' : 'source-map',
     entry: {
       main: (isDevelopment ? ['webpack-hot-middleware/client?reload=true'] : []).concat([
-        path.join(options.baseDir, 'src/index.js')
+        'react-hot-loader/patch',
+        // activate HMR for React
+        'webpack/hot/only-dev-server',
+        // bundle the client for hot reloading
+        // only- means to only hot reload for successful updates
+        path.join(options.baseDir, 'src/index.js'),
       ]),
     },
     output: {
@@ -171,7 +176,14 @@ function makeConfig(options = {}) {
         {
           test: /\.js?$/,
           exclude: /node_modules/,
-          loader: 'babel-loader',
+          use: [
+            {
+              loader: 'react-hot-loader/webpack',
+            },
+            {
+              loader: 'babel-loader',
+            },
+          ],
         },
         {
           test: /\.(eot|ttf|woff|woff2)(\?.+)?$/,

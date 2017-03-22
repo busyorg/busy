@@ -5,7 +5,7 @@ import Remarkable from 'remarkable';
 
 const remarkable = new Remarkable({ html: true });
 
-module.exports = React.createClass({
+export default React.createClass({
   getInitialState() {
     return { seeMore: false };
   },
