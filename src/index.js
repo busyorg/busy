@@ -40,12 +40,19 @@ browserHistory.listen(() => {
 const render = (Component) => {
   ReactDOM.render(
     <Provider store={store}>
-      <AppContainer>
+      { process.env.NODE_ENV !== 'production' ?
+        <AppContainer>
+          <Component
+            onUpdate={logPageView}
+            history={browserHistory}
+          />
+        </AppContainer>
+        :
         <Component
           onUpdate={logPageView}
           history={browserHistory}
         />
-      </AppContainer>
+      }
     </Provider>,
     document.getElementById('app')
   );

@@ -156,14 +156,16 @@ function makeConfig(options = {}) {
   return {
     devtool: isDevelopment ? 'eval-source-map' : 'source-map',
     entry: {
-      main: (isDevelopment ? ['webpack-hot-middleware/client?reload=true'] : []).concat([
+      main: (isDevelopment ? [
+        'webpack-hot-middleware/client?reload=true',
         'react-hot-loader/patch',
         // activate HMR for React
         'webpack/hot/only-dev-server',
         // bundle the client for hot reloading
         // only- means to only hot reload for successful updates
-        path.join(options.baseDir, 'src/index.js'),
-      ]),
+        ] : []).concat([
+        path.join(options.baseDir, 'src/index.js'),]
+      ),
     },
     output: {
       path: path.join(options.baseDir, '/public/js'),
@@ -176,21 +178,21 @@ function makeConfig(options = {}) {
         {
           test: /\.js?$/,
           exclude: /node_modules/,
-          use: [
-            {
-              loader: 'react-hot-loader/webpack',
-            },
-            {
-              loader: 'babel-loader',
-            },
-          ],
+          use: (options.isDevelopment ? [{ loader: 'react-hot-loader/webpack' }] : []).concat(
+            [
+              {
+                loader: 'babel-loader',
+              },
+            ]
+          )
         },
         {
           test: /\.(eot|ttf|woff|woff2)(\?.+)?$/,
           loader: 'url-loader',
           options: {
             name: '../fonts/[name].[ext]',
-            limit: 1,
+            // load fonts through data-url in development
+            limit: options.isDevelopment ? 5000000 : 1,
           },
         },
         {
