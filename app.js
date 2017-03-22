@@ -32,10 +32,16 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use(express.static(path.join(__dirname, 'public'), {
-  maxAge: OneWeek,
-  index: process.env.NODE_ENV !== 'production' ? '../templates/development_index.html' : 'index.html',
-}));
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, 'public'), {
+    maxAge: OneWeek,
+    index: 'index.html',
+  }));
+} else {
+  app.use(express.static(path.join(__dirname, 'assets'), {
+    index: '../templates/development_index.html',
+  }));
+}
 app.use(express.static(path.join(__dirname, 'node_modules')));
 
 app.use(cors());
