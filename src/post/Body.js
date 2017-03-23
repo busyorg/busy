@@ -20,7 +20,7 @@ const remarkable = new Remarkable({
 
 export function getHtml(body, jsonMetadata = {}) {
   const embeds = embedjs.getAll(body);
-  const jsonMetadata = jsonParse(props.jsonMetadata);
+  jsonMetadata = jsonParse(jsonMetadata);
   jsonMetadata.image = jsonMetadata.image || [];
 
   body = body.replace(/<!--([\s\S]+?)(-->|$)/g, '(html comment removed: $1)');
