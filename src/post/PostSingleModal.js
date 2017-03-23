@@ -76,29 +76,20 @@ export default class PostSingleModal extends Component {
         }
         ref={(c) => { this.DOMNode = c; }}
       >
-        <header>
-          <div className="top-nav">
-            <a className="left ml-2" onClick={this.handleClose}>
-              <Icon name="clear" className="Icon--menu" />
-            </a>
-            <div className="section-content top-head">
-              <div className="logo">
-                <Link to="/" onlyActiveOnIndex activeClassName="active">
-                  <img src="/img/logo.svg" />
-                </Link>
-              </div>
+        <div className="top-nav">
+          <a className="left ml-2" onClick={this.handleClose}>
+            <Icon name="clear" className="Icon--menu" />
+          </a>
+          {this.props.nextStory &&
+            <div className="right mr-3">
+              <SimpleTooltipOrigin message={this.props.nextStory.title}>
+                <a onClick={this.nextStory}>
+                  <Icon name="navigate_next" className="Icon--menu" />
+                </a>
+              </SimpleTooltipOrigin>
             </div>
-            {this.props.nextStory &&
-              <div className="right mr-3">
-                <SimpleTooltipOrigin message={this.props.nextStory.title}>
-                  <a onClick={this.nextStory}>
-                    <Icon name="navigate_next" className="Icon--menu" />
-                  </a>
-                </SimpleTooltipOrigin>
-              </div>
-            }
-          </div>
-        </header>
+          }
+        </div>
         <PostSingleContent
           content={this.props.content}
           bookmarks={this.props.bookmarks}

@@ -13,7 +13,6 @@ import {
 } from '../feed/feedActions';
 import { getAccountWithFollowingCount } from '../helpers/apiHelpers';
 import { getUserComments, getMoreUserComments } from './userActions';
-import Header from '../app/Header';
 import MenuUser from '../app/Menu/MenuUser';
 import { addUserFavorite, removeUserFavorite } from '../favorites/favoritesActions';
 import FavoriteButton from '../favorites/FavoriteButton';
@@ -190,7 +189,6 @@ export default class UserProfile extends React.Component {
     const { user, fetching } = this.state;
     return (
       <div className="main-panel">
-        <Header />
         {fetching ? <Loading /> : this.getUserView(user)}
       </div>
     );

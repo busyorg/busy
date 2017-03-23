@@ -10,6 +10,7 @@ import { getMessages, getLocale } from './translations/translationHelper';
 import { getStoredBookmarks } from './bookmarks/bookmarksActions';
 import { notify } from './app/Notification/notificationActions';
 import Notification from './app/Notification/Notification';
+import Header from './app/Header';
 import Sidebar from './app/Sidebar';
 import * as reblogActions from './app/Reblog/reblogActions';
 import config from '../config.json';
@@ -70,9 +71,10 @@ export default class Wrapper extends Component {
       <IntlProvider locale={locale} messages={translations}>
         <GatewayProvider>
           <div className={className}>
+            <Header />
             <Sidebar />
             <Notification />
-            { React.cloneElement(
+            {React.cloneElement(
               this.props.children,
               { auth, notify }
             )}

@@ -3,7 +3,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import steemAPI from '../steemAPI';
 import Loading from '../widgets/Loading';
-import Header from '../app/Header';
 import Tag from './Tag';
 import * as favoriteActions from '../favorites/favoritesActions';
 
@@ -44,7 +43,6 @@ export default class Tags extends Component {
 
     return (
       <div className="main-panel">
-        <Header />
         <ul>
           { sortedTags.map((tag, idx) => (tag.name ?
             <Tag

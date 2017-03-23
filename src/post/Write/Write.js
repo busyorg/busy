@@ -4,7 +4,6 @@ import formSerialize from 'form-serialize';
 import kebabCase from 'lodash/kebabCase';
 import _ from 'lodash';
 import TagsInput from 'react-tagsinput';
-import Header from '../../app/Header';
 import PostEditor from './PostEditor';
 import { createPost, saveDraft, newPost } from './EditorActions';
 import Icon from './../../widgets/Icon';
@@ -216,7 +215,6 @@ export class RawNewPost extends Component {
     const postText = this.state.isUpdating ? 'Update' : publishText;
     return (
       <div className="main-panel">
-        <Header />
         <div className="container my-5">
           <form
             action="/write"
