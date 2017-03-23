@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Header from '../app/Header';
 import Loading from '../widgets/Loading';
 import Error401 from '../statics/Error401';
 
@@ -18,7 +17,6 @@ export default class RequiredLogin extends React.Component {
     if (this.props.auth.isFetching) {
       return (
         <div className="main-panel">
-          <Header />
           <Loading />
         </div>
       );
