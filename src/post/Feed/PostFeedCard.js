@@ -3,8 +3,10 @@ import { Link } from 'react-router';
 import { FormattedMessage, FormattedRelative, injectIntl } from 'react-intl';
 import _ from 'lodash';
 import numeral from 'numeral';
-import BookmarkButton from '../../bookmarks/BookmarkButton';
+import { getHtml } from '../Body';
 import BodyShort from '../BodyShort';
+import PostFeedEmbed from '../PostFeedEmbed';
+import BookmarkButton from '../../bookmarks/BookmarkButton';
 import Comments from '../../comments/Comments';
 import PostActionButtons from '../PostActionButtons';
 import Icon from '../../widgets/Icon';
@@ -12,8 +14,16 @@ import Avatar from '../../widgets/Avatar';
 import LikesList from './../LikesList';
 import { ProfileTooltipOrigin } from '../../widgets/tooltip/ProfileTooltip';
 import Reactions from '../Reactions';
+
 import { calculatePayout } from '../../helpers/steemitHelpers';
-import PostFeedEmbed from '../PostFeedEmbed';
+import {
+  getPositions,
+  isPostStartsWithAPicture,
+  isPostStartsWithAnEmbed,
+  isPostWithPictureBeforeFirstHalf,
+  isPostWithEmbedBeforeFirstHalf
+} from './PostFeedCardHelper';
+
 import './PostFeedCard.scss';
 
 const AmountWithLabel = ({ label, amount }) => (
@@ -52,6 +62,7 @@ const PayoutDetail = ({ show, post }) => {
   return null;
 };
 
+
 const PostFeedCard = ({
   post,
   onCommentRequest,
@@ -73,6 +84,37 @@ const PostFeedCard = ({
   openPostModal,
 }) => {
   const isReplyPost = !!post.parent_author;
+  const preview = {
+    text: () => (<div key="text" className="PostFeedCard__cell PostFeedCard__cell--text">
+      <BodyShort body={post.body} />
+    </div>),
+    embed: () => (embeds && embeds[0]) && <PostFeedEmbed key="embed" post={post} />,
+    image: () => imagePath && <div key="image" className="PostFeedCard__thumbs">
+      <PostModalLink post={post} onClick={() => openPostModal(post.id)}>
+        <img alt="post" key={imagePath} src={imagePath} />
+      </PostModalLink>
+    </div>
+  };
+
+  const htmlBody = getHtml(post.body);
+  const tagPositions = getPositions(htmlBody);
+  const bodyData = [];
+
+  if (isPostStartsWithAPicture(tagPositions)) {
+    bodyData.push(preview.image());
+    bodyData.push(preview.text());
+  } else if (isPostStartsWithAnEmbed(tagPositions)) {
+    bodyData.push(preview.embed());
+    bodyData.push(preview.text());
+  } else if (isPostWithPictureBeforeFirstHalf(tagPositions)) {
+    bodyData.push(preview.text());
+    bodyData.push(preview.image());
+  } else if (isPostWithEmbedBeforeFirstHalf(tagPositions)) {
+    bodyData.push(preview.text());
+    bodyData.push(preview.embed());
+  } else {
+    bodyData.push(preview.text());
+  }
 
   const handlePostClick = (e) => {
     e.preventDefault();
@@ -81,8 +123,7 @@ const PostFeedCard = ({
 
   return (
     <div className="PostFeedCard">
-
-      { post.first_reblogged_by &&
+      {post.first_reblogged_by &&
         <div className="PostFeedCard__cell PostFeedCard__cell--top">
           <ul>
             <li>
@@ -107,7 +148,7 @@ const PostFeedCard = ({
             </ProfileTooltipOrigin>
 
             <span className="hidden-xs">
-              { ' ' }<FormattedMessage id="in" />{ ' ' }
+              {' '}<FormattedMessage id="in" />{' '}
               {isReplyPost ?
                 <Link to={`${post.url}`}>
                   {post.root_title}
@@ -135,21 +176,8 @@ const PostFeedCard = ({
             {post.title}
           </Link>
         </h2>
-
-        <BodyShort body={post.body} />
       </div>
-
-      {(embeds && embeds[0]) &&
-        <PostFeedEmbed post={post} />
-      }
-
-      {(imagePath && !_.has(embeds, '[0].embed')) &&
-        <div className="PostFeedCard__thumbs">
-          <Link to={post.url} onClick={e => handlePostClick(e)}>
-            <img key={imagePath} src={imagePath} />
-          </Link>
-        </div>
-      }
+      {bodyData}
 
       <div className="PostFeedCard__cell PostFeedCard__cell--bottom">
         <PostActionButtons

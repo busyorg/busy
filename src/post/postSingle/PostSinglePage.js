@@ -1,5 +1,4 @@
 import React from 'react';
-import Header from '../../app/Header';
 import PostSingleContent from './PostSingleContent';
 import Loading from '../../widgets/Loading';
 import PostSingleComments from './PostSingleComments';
@@ -13,7 +12,6 @@ export default class PostSinglePage extends React.Component {
     const { content, reblog, isReblogged, openCommentingDraft } = this.props;
     return (
       <div className="main-panel">
-        <Header />
         { content.author ?
           <PostSingleContent
             content={content}

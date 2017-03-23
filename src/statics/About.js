@@ -1,12 +1,10 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import Header from '../app/Header';
 import MenuHelp from '../app/Menu/MenuHelp';
 import './About.scss';
 
 export default () =>
   <div className="main-panel">
-    <Header />
     <MenuHelp />
     <div className="mt-5 text-center">
       <h1><FormattedMessage id="about" /></h1>

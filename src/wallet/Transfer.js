@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
+import classNames from 'classnames';
 import numeral from 'numeral';
+import Textarea from 'react-textarea-autosize';
 import Icon from '../widgets/Icon';
-import Header from '../app/Header';
 
 @connect(
   state => ({
@@ -43,13 +44,20 @@ export default class Transfer extends Component {
     const { from, to, amount, currency, memo } = this.state;
     const balance = currency === 'STEEM' ? account.balance : account.sbd_balance;
     const url = `https://steemjs.com/sign/transfer?from=${from}&to=${to}&memo=${memo}&amount=${amount}%20${currency}`;
+    const sbdBtnClass = classNames('btn btn-sm mr-2', {
+      'btn-primary': currency === 'SBD',
+      'btn-secondary': currency === 'STEEM',
+    });
+    const steemBtnClass = classNames('btn btn-sm mr-2', {
+      'btn-primary': currency === 'STEEM',
+      'btn-secondary': currency === 'SBD',
+    });
     return (
       <div className="main-panel">
-        <Header />
         <div className="my-5 container container-small text-center">
           <h1>Transfer</h1>
           <form>
-            <div className="form-group text-xs-left">
+            <div className="form-group">
               <div className="input-group">
                 <span className="input-group-addon">
                   <Icon name="perm_identity" sm />
@@ -75,30 +83,36 @@ export default class Transfer extends Component {
                   className="form-control form-control-lg"
                 />
                 <span className="input-group-addon">
-                  <a href="#">{ currency }</a>
-                  { ' ' }
-                  {
-                    currency === 'STEEM'
-                      ? <a onClick={() => this.setState({ currency: 'SBD' })}>SBD</a>
-                      : <a onClick={() => this.setState({ currency: 'STEEM' })}>STEEM</a>
-                  }
+                  <div>
+                    <a
+                      className={sbdBtnClass}
+                      onClick={() => this.setState({ currency: 'SBD' })}
+                    >
+                      SBD
+                    </a>
+                    <a
+                      className={steemBtnClass}
+                      onClick={() => this.setState({ currency: 'STEEM' })}
+                    >
+                      STEEM
+                    </a>
+                  </div>
                 </span>
               </div>
-              <p>
-                Balance{ ' ' }
+              <h4 className="my-2">
+                Balance{' '}
                 <a href="#" onClick={() => this.setState({ amount: numeral(balance).format('0.000') })}>
                   { numeral(balance).format('0,0.000') }
                 </a>
-                { ` ${currency}` }
-              </p>
+                {` ${currency}`}
+              </h4>
             </div>
-            <div className="form-group text-xs-left">
+            <div className="form-group">
               <blockquote>
-                <input
+                <Textarea
                   value={memo}
                   onChange={this.handleMemoChange}
                   placeholder="Memo"
-                  type="text"
                   className="form-control form-control-lg"
                 />
               </blockquote>

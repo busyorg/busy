@@ -3,7 +3,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import * as actions from '../actions';
-import Header from './Header';
 import Icon from '../widgets/Icon';
 import '../widgets/Flag.scss';
 
@@ -29,7 +28,6 @@ export default class AppSettings extends React.Component {
     } = this.props;
     return (
       <div className="main-panel">
-        <Header />
         <div className="container my-5 text-center">
           <h1><FormattedMessage id="settings" /></h1>
           <h2><FormattedMessage id="layout" /></h2>
@@ -69,6 +67,12 @@ export default class AppSettings extends React.Component {
               <a onClick={() => setLocale('zh')}>
                 <img className="Flag Flag--lg" alt="简体中文" src="/img/flag/zh.svg" />
                 <h2 className="my-2">简体中文</h2>
+              </a>
+            </div>
+            <div className="col col-lg-4 mb-3">
+              <a onClick={() => setLocale('es')}>
+                <img className="Flag Flag--lg" alt="Español" src="/img/flag/es.svg" />
+                <h2 className="my-2">Español</h2>
               </a>
             </div>
             <div className="col col-lg-4 mb-3">

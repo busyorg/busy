@@ -4,7 +4,7 @@ html, body {
 }
 
 body {
-  background-color: white;
+  background-color: #fafafa;
   font-family: $font-primary;
   font-size: 16px;
   color: $text-color;
@@ -155,12 +155,6 @@ ul, li {
 
 .see-more {
   color: $primary-color !important;
-}
-
-a.btn-primary {
-  &:visited {
-    color: white !important;
-  }
 }
 
 .text-info {

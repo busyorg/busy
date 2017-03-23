@@ -21,18 +21,19 @@
   }
 
   .MessageForm__input {
-    background: $input-background !important;
+    padding: 12px 10px !important;
+    border: 3px solid rgba(0, 0, 0, 0.1);
+    border-radius: 3px;
     width: 100%;
-    font-size: 1.2em;
+    font-size: 1em;
+    min-height: 1em;
     max-height: 150px;
-    min-height: 4em;
   }
 }
 
 .MessageForm__emojiButton {
   position: absolute;
-  margin-left: -30px;
-  margin-top: 5px;
+  right: 25px;
 }
 
 .MessageForm__emojiContainer {

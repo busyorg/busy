@@ -7,6 +7,8 @@ import Body from './../Body';
 import BodyShort from './../BodyShort';
 import AuthorBio from './../AuthorBio';
 import Avatar from '../../widgets/Avatar';
+import { jsonParse } from '../../helpers/formatter';
+
 import './PostSingleContent.scss';
 
 const Tag = ({ tag }) => {
@@ -37,12 +39,12 @@ const PostSingleContent = ({
   onEdit,
   location
 }) => {
-  let jsonMetadata = {};
-  try { jsonMetadata = JSON.parse(content.json_metadata); } catch (e) { }
+  const jsonMetadata = jsonParse(content.json_metadata);
   const hasAnchoredLink = !!location.hash;
   return (
-    <div className="PostSingleContent my-4">
+    <div className="PostSingleContent py-4">
       <div className="container">
+        <h1>{content.title}</h1>
         <div className="PostSingleContent__header mb-3">
           <Link to={`/@${content.author}`}>
             <Avatar sm username={content.author} />
@@ -62,14 +64,10 @@ const PostSingleContent = ({
           </span>
         </div>
         <div className="PostSingleContent__content mb-3">
-          <h1 className="mvl">{content.title}</h1>
-
-          { hasAnchoredLink ?
-            <BodyShort body={content.body} />
-            :
-            <Body body={content.body} jsonMetadata={content.json_metadata} />
+          {hasAnchoredLink
+            ? <BodyShort body={content.body} />
+            : <Body body={content.body} jsonMetadata={content.json_metadata} />
           }
-
         </div>
         {jsonMetadata.tags &&
           <div className="mb-3">

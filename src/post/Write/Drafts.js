@@ -2,8 +2,6 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import React from 'react';
 import _ from 'lodash';
-
-import Header from '../../app/Header';
 import Icon from '../../widgets/Icon';
 import { deleteDraft } from './EditorActions';
 
@@ -27,7 +25,6 @@ DraftRow = connect(() => ({}), { deleteDraft })(DraftRow);
 
 const DraftList = ({ editor: { draftPosts } }) =>
   <div className="main-panel">
-    <Header />
     <div className="my-5 container container-small">
       <h1 className="text-center">Drafts</h1>
       { _.size(draftPosts) === 0 &&

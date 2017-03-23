@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import steemAPI from '../steemAPI';
+import { jsonParse } from '../helpers/formatter';
 import Avatar from '../widgets/Avatar';
 import Loading from '../widgets/Loading';
 import Follow from '../widgets/Follow';
@@ -26,11 +27,7 @@ class AuthorBio extends Component {
     steemAPI.getAccounts([authorName], (err, result) => {
       if (result.length) {
         const author = result[0];
-        try {
-          author.json_metadata = JSON.parse(result[0].json_metadata);
-        } catch (e) {
-          author.json_metadata = {};
-        }
+        author.json_metadata = jsonParse(result[0].json_metadata);
         this.setState({ author });
       }
     });

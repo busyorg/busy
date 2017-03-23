@@ -1,18 +1,8 @@
 import React, { Component } from 'react';
 import embedjs from 'embedjs';
+import { jsonParse } from '../helpers/formatter';
 import PostFeedCard from './Feed/PostFeedCard';
 import PostFeedList from './Feed/PostFeedList';
-
-const getjsonMetadata = (props) => {
-  let jsonMetadata;
-  try {
-    jsonMetadata = JSON.parse(props.post.json_metadata);
-  } catch (e) {
-    jsonMetadata = {};
-  }
-  return jsonMetadata;
-};
-
 
 export default class PostFeed extends Component {
   constructor(props) {
@@ -57,7 +47,7 @@ export default class PostFeed extends Component {
       toggleBookmark,
       notify
     } = this.props;
-    const jsonMetadata = getjsonMetadata(this.props);
+    const jsonMetadata = jsonParse(this.props.post.json_metadata);
     const imagePath = jsonMetadata.image && jsonMetadata.image[0]
       ? `https://steemitimages.com/600x800/${jsonMetadata.image[0]}`
       : '';

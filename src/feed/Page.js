@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import steemconnect from 'steemconnect';
-import Header from '../app/Header';
 import MenuFeed from '../app/Menu/MenuFeed';
 import Feed from './Feed';
 import PageHOC from './PageHOC';
@@ -86,7 +85,6 @@ export default class Page extends React.Component {
 
     return (
       <div className="main-panel">
-        <Header />
         {!auth.isFetching && !auth.isAuthenticated && !category &&
           <div className="my-5 text-center">
             <div className="container">

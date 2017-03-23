@@ -1,6 +1,6 @@
 import Promise from 'bluebird';
-
 import steemAPI from '../steemAPI';
+import { jsonParse } from '../helpers/formatter';
 
 /** *
  * Get the path from URL and the API object of steem and return the correct API call based on path
@@ -38,11 +38,7 @@ export const getAccount = username =>
     .then((result) => {
       if (result.length) {
         const userAccount = result[0];
-        try {
-          userAccount.json_metadata = JSON.parse(result[0].json_metadata);
-        } catch (e) {
-          userAccount.json_metadata = {};
-        }
+        userAccount.json_metadata = jsonParse(result[0].json_metadata);
         return userAccount;
       }
       throw new Error('User Not Found');

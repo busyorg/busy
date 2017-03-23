@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import dispatchActions from '../helpers/dispatchActions';
-import Header from '../app/Header';
 import MessageForm from './MessageForm';
 import MessageList from './MessageList';
 import MenuFeed from '../app/Menu/MenuFeed';
@@ -57,7 +56,6 @@ export default class MessagesCategory extends Component {
 
     return (
       <div className="Messages main-panel">
-        <Header />
         <MenuFeed
           auth={this.props.auth}
           category={category === 'general' ? '' : category}
