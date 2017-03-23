@@ -85,15 +85,20 @@ const PostFeedCard = ({
 }) => {
   const isReplyPost = !!post.parent_author;
   const preview = {
-    text: () => (<div key="text" className="PostFeedCard__cell PostFeedCard__cell--text">
-      <BodyShort body={post.body} />
-    </div>),
+    text: () => (
+      <div key="text" className="PostFeedCard__cell PostFeedCard__cell--text">
+        <BodyShort body={post.body} />
+      </div>
+    ),
+
     embed: () => (embeds && embeds[0]) && <PostFeedEmbed key="embed" post={post} />,
-    image: () => imagePath && <div key="image" className="PostFeedCard__thumbs">
-      <PostModalLink post={post} onClick={() => openPostModal(post.id)}>
-        <img alt="post" key={imagePath} src={imagePath} />
-      </PostModalLink>
-    </div>
+
+    image: () => imagePath &&
+      <div key="image" className="PostFeedCard__thumbs">
+        <Link to={post.url} onClick={() => openPostModal(post.id)}>
+          <img alt="post" key={imagePath} src={imagePath} />
+        </Link>
+      </div>
   };
 
   const htmlBody = getHtml(post.body);
