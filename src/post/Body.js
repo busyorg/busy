@@ -5,7 +5,7 @@ import embedjs from 'embedjs';
 import sanitizeHtml from 'sanitize-html';
 import Remarkable from 'remarkable';
 import emojione from 'emojione';
-
+import { jsonParse } from '../helpers/formatter';
 import sanitizeConfig from '../helpers/SanitizeConfig';
 import { replaceAll, imageRegex } from '../helpers/regexHelpers';
 import htmlReady from '../helpers/steemitHtmlReady';
@@ -20,7 +20,7 @@ const remarkable = new Remarkable({
 
 export function getHtml(body, jsonMetadata = {}) {
   const embeds = embedjs.getAll(body);
-  try { jsonMetadata = JSON.parse(jsonMetadata); } catch (e) { }
+  jsonMetadata = jsonParse(jsonMetadata);
   jsonMetadata.image = jsonMetadata.image || [];
 
   body = body.replace(/<!--([\s\S]+?)(-->|$)/g, '(html comment removed: $1)');

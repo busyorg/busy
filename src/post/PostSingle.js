@@ -8,6 +8,7 @@ import PostSinglePage from './PostSinglePage';
 import * as reblogActions from '../app/Reblog/reblogActions';
 import * as commentsActions from '../comments/commentsActions';
 import * as bookmarkActions from '../bookmarks/bookmarksActions';
+import { jsonParse } from '../helpers/formatter';
 import { editPost } from '../post/Write/EditorActions';
 
 @connect(
@@ -58,8 +59,7 @@ export default class PostSingle extends React.Component {
     }
 
     if (content.author === auth.user.name) {
-      let jsonMetadata = {};
-      try { jsonMetadata = JSON.parse(content.json_metadata); } catch (e) { }
+      const jsonMetadata = jsonParse(content.json_metadata);
       // Support Only markdown edits
       if (jsonMetadata.format === 'markdown') { onEdit = () => { this.props.editPost(content); }; }
     }
