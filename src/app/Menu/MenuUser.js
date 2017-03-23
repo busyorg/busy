@@ -43,6 +43,12 @@ const MenuUser = ({ auth, username }) =>
       </Link>
     </li>
     <li>
+      <Link to={`/@${username}/replies`} activeClassName="active">
+        <Icon name="reply" />{' '}
+        <span className="hidden-xs"><FormattedMessage id="replies" defaultMessage="Replies" /></span>
+      </Link>
+    </li>
+    <li>
       <Link to={`/@${username}/transfers`} activeClassName="active">
         <Icon name="account_balance_wallet" />{' '}
         <span className="hidden-xs"><FormattedMessage id="wallet" /></span>

@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign,no-empty */
 import React from 'react';
 import _ from 'lodash';
 import embedjs from 'embedjs';
@@ -17,9 +18,8 @@ const remarkable = new Remarkable({
   quotes: '“”‘’'
 });
 
-export default (props) => {
-  const embeds = embedjs.getAll(props.body);
-  let body = props.body;
+export function getHtml(body, jsonMetadata = {}) {
+  const embeds = embedjs.getAll(body);
   const jsonMetadata = jsonParse(props.jsonMetadata);
   jsonMetadata.image = jsonMetadata.image || [];
 
@@ -45,7 +45,10 @@ export default (props) => {
   }
 
   body = sanitizeHtml(body, sanitizeConfig({}));
-  const bodyWithEmojis = emojione.shortnameToImage(body);
+  return emojione.shortnameToImage(body);
+}
 
+export default (props) => {
+  const bodyWithEmojis = getHtml(props.body, props.jsonMetadata);
   return <div dangerouslySetInnerHTML={{ __html: bodyWithEmojis }} />;
 };
