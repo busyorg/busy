@@ -214,7 +214,7 @@ export class RawNewPost extends Component {
     const publishText = success ? 'Continue' : 'Publish';
     const postText = this.state.isUpdating ? 'Update' : publishText;
     return (
-      <div className="main-panel">
+      <div className="Write main-panel">
         <div className="container my-5">
           <form
             action="/write"
