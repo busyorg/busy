@@ -1,6 +1,41 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router';
 import PostSingleContent from './PostSingleContent';
 import PostSingleComments from './PostSingleComments';
+import Icon from '../../widgets/Icon';
+import './PostSingleModal.scss';
+
+const NextButton = ({ content, onClick }) => (
+  <div className="NextButton">
+    {content &&
+      <Link
+        to={content.url}
+        onClick={(e) => {
+          e.preventDefault();
+          onClick();
+        }}
+      >
+        <Icon name="chevron_right" />
+      </Link>
+    }
+  </div>
+);
+
+const PrevButton = ({ content, onClick }) => (
+  <div className="PrevButton">
+    {content &&
+      <Link
+        to={content.url}
+        onClick={(e) => {
+          e.preventDefault();
+          onClick();
+        }}
+      >
+        <Icon name="chevron_left" />
+      </Link>
+    }
+  </div>
+);
 
 export default class PostSingleModal extends Component {
 
@@ -37,15 +72,30 @@ export default class PostSingleModal extends Component {
     window.history.pushState({}, content.title, content.url);
   };
 
-  nextStory = () => {
+  jumpToNextStory = () => {
     this.props.openPostModal(this.props.nextStory.id);
     this.pushUrlState(this.props.nextStory);
     this.scrollToTop();
   };
 
+  jumpToPrevStory = () => {
+    this.props.openPostModal(this.props.prevStory.id);
+    this.pushUrlState(this.props.prevStory);
+    this.scrollToTop();
+  };
+
   render() {
     return (
-      <div ref={(c) => { this.DOMNode = c; }}>
+      <div>
+        <NextButton
+          content={this.props.nextStory}
+          onClick={this.jumpToNextStory}
+        />
+        <PrevButton
+          content={this.props.prevStory}
+          onClick={this.jumpToPrevStory}
+        />
+
         <PostSingleContent {...this.props} />
 
         <PostSingleComments

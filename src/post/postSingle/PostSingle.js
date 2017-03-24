@@ -34,6 +34,7 @@ import Loading from '../../widgets/Loading';
     dislikePost: id => postActions.votePost(id, -1000),
     toggleBookmark: bookmarkActions.toggleBookmark,
     closePostModal: appActions.closePostModal,
+    openPostModal: appActions.openPostModal,
   }, dispatch)
 )
 export default class PostSingle extends Component {
@@ -48,6 +49,7 @@ export default class PostSingle extends Component {
   static defaultProps = {
     modal: false,
     contentList: [],
+    modalResetScroll: () => null,
   };
 
   componentWillMount() {
@@ -79,6 +81,7 @@ export default class PostSingle extends Component {
 
     const currentStoryIndex = contentList.indexOf(content);
     const nextStory = currentStoryIndex > -1 ? contentList[currentStoryIndex + 1] : undefined;
+    const prevStory = currentStoryIndex > -1 ? contentList[currentStoryIndex - 1] : undefined;
 
     const isPostLiked =
       auth.isAuthenticated &&
@@ -106,6 +109,10 @@ export default class PostSingle extends Component {
       bookmarks: this.props.bookmarks,
       toggleBookmark: this.props.toggleBookmark,
       onEdit,
+      nextStory,
+      prevStory,
+      openPostModal: this.props.openPostModal,
+      modalResetScroll: this.props.modalResetScroll,
     };
 
     return (

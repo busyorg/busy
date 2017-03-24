@@ -1,0 +1,35 @@
+@import '../../styles/colors';
+
+.NextButton {
+  position: fixed;
+  top: 50%;
+  right: calc(20% - 17px);
+  z-index: 1;
+  opacity: 0.3;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  .Icon {
+    font-size: 80px;
+    color: $normal-grey;
+  }
+}
+
+.PrevButton {
+  position: fixed;
+  top: 50%;
+  left: calc(20% - 17px);
+  z-index: 1;
+  opacity: 0.3;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  .Icon {
+    font-size: 80px;
+    color: $normal-grey;
+  }
+}
