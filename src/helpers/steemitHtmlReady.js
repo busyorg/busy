@@ -7,6 +7,7 @@
  */
 
 import xmldom from 'xmldom';
+import embedjs from 'embedjs';
 import linksRe from './steemitLinks';
 import { validateAccountName } from './ChainValidation';
 
@@ -190,6 +191,8 @@ function linkifyNode(child, state) {
     const { mutate } = state;
     if (!child.data) return;
 
+    if (embedable(child, state.links, state.images)) return;
+
     const data = XMLSerializer.serializeToString(child);
     const content = linkify(data, state.mutate, state.hashtags, state.usertags, state.images, state.links);
     if (mutate && content !== data) {
@@ -239,6 +242,25 @@ function linkify(content, mutate, hashtags, usertags, images, links) {
     return `<a href="${ln}">${ln}</a>`;
   });
   return content;
+}
+
+function embedable(child, links, images) {
+  try {
+    if (!child.data) return false;
+    const data = child.data;
+    const foundLinks = data.match(linksRe.any);
+    if (!foundLinks) return false;
+    const embed = embedjs.get(foundLinks[0] || '', { width: '100%', height: 400 });
+    if (embed && embed.id) {
+      const v = DOMParser.parseFromString(embed.embed);
+      child.parentNode.replaceChild(v, child);
+      // console.trace('embed.embed', v);
+      if (links) links.add(embed.url);
+      if (images) images.add(`https://img.youtube.com/vi/${embed.id}/0.jpg`);
+      return true;
+    }
+    return false;
+  } catch (error) { console.log(error); return false; }
 }
 
 /** @return {id, url} or <b>null</b> */
