@@ -4,6 +4,7 @@ import React from 'react';
 import focusScope from 'a11y-focus-scope';
 import focusStore from 'a11y-focus-store';
 import ExecutionEnvironment from 'exenv';
+import { connect } from 'react-redux';
 import _ from 'lodash';
 
 function setFocusOn(applicationElement, element) {
@@ -18,6 +19,11 @@ function resetFocus(applicationElement) {
   focusStore.restoreFocus();
 }
 
+@connect(
+  state => ({
+    lastPostId: state.app.lastPostId,
+  })
+)
 export default class ReactModal2 extends React.Component {
   static getApplicationElement() {
     console.warn('`ReactModal2.getApplicationElement` needs to be set for accessibility reasons');
@@ -46,6 +52,18 @@ export default class ReactModal2 extends React.Component {
       setFocusOn(ReactModal2.getApplicationElement(), this.modal);
       document.addEventListener('keydown', this.handleDocumentKeydown);
     }
+  }
+
+  componentDidUpdate(prevProps) {
+    // this is only used for the usage of modal in Post items in feed
+    // anytime a user change the post inside modal we need to reset the scroll for modal
+    if (prevProps.lastPostId !== this.props.lastPostId) {
+      this.resetScroll();
+    }
+  }
+
+  resetScroll() {
+    this.backdrop.scrollTop = 0;
   }
 
   componentWillUnmount() {

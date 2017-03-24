@@ -62,12 +62,6 @@ export default class PostSingleModal extends Component {
     /* eslint-enable */
   };
 
-  scrollToTop = () => {
-    if (this.DOMNode) {
-      this.DOMNode.scrollTop = 0;
-    }
-  };
-
   pushUrlState = (content) => {
     window.history.pushState({}, content.title, content.url);
   };
@@ -75,13 +69,11 @@ export default class PostSingleModal extends Component {
   jumpToNextStory = () => {
     this.props.openPostModal(this.props.nextStory.id);
     this.pushUrlState(this.props.nextStory);
-    this.scrollToTop();
   };
 
   jumpToPrevStory = () => {
     this.props.openPostModal(this.props.prevStory.id);
     this.pushUrlState(this.props.prevStory);
-    this.scrollToTop();
   };
 
   render() {
