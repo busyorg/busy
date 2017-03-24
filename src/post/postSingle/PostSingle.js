@@ -9,6 +9,7 @@ import * as commentsActions from '../../comments/commentsActions';
 import * as bookmarkActions from '../../bookmarks/bookmarksActions';
 import * as appActions from '../../actions';
 import { editPost } from '../Write/EditorActions';
+import Loading from '../../widgets/Loading';
 
 @connect(
   ({ posts, app, reblog, auth, bookmarks }) => ({
@@ -65,8 +66,8 @@ export default class PostSingle extends Component {
     let onEdit;
     const { contentList, reblog, reblogList, auth, content, modal } = this.props;
 
-    if (!content) {
-      return null;
+    if (!content || !content.author) {
+      return <div className="main-panel"><Loading /></div>;
     }
 
     if (content.author === auth.user.name) {

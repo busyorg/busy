@@ -46,21 +46,7 @@ export default class PostSingleModal extends Component {
   render() {
     return (
       <div ref={(c) => { this.DOMNode = c; }}>
-        <PostSingleContent
-          content={this.props.content}
-          bookmarks={this.props.bookmarks}
-          toggleBookmark={this.props.toggleBookmark}
-          reblog={this.props.reblog}
-          isReblogged={this.props.isReblogged}
-          canReblog={this.props.canReblog}
-          openCommentingDraft={this.props.openCommentingDraft}
-          likePost={this.props.likePost}
-          unlikePost={this.props.unlikePost}
-          dislikePost={this.props.dislikePost}
-          isPostLiked={this.props.isPostLiked}
-          isPostDisliked={this.props.isPostDisliked}
-          onEdit={this.props.onEdit}
-        />
+        <PostSingleContent {...this.props} />
 
         <PostSingleComments
           content={this.props.content}
