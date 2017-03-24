@@ -74,7 +74,7 @@ const PostFeedList = ({
             {' '}<FormattedMessage id="in" />
             {' '}<Link to={`/hot/${post.category}`}>#{post.category}</Link>{' '}
             <span className="text-info">
-              <FormattedRelative value={post.created} />
+              <FormattedRelative value={`${post.created}Z`} />
             </span>
           </span>
         </span>

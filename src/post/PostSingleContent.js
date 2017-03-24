@@ -55,7 +55,7 @@ const PostSingleContent = ({
             <Link to={`/hot/${content.category}`}>#{content.category}</Link>
           </span>
           <span className="pull-right">
-            <FormattedRelative value={content.created} />
+            <FormattedRelative value={`${content.created}Z`} />
             <BookmarkButton
               post={content}
               bookmarks={bookmarks}

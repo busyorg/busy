@@ -171,7 +171,7 @@ export default class CommentItem extends Component {
               </ProfileTooltipOrigin>
               {' '}
               <Link className="text-info" to={comment.url} onClick={this.updateCommentPostion}>
-                <FormattedRelative value={comment.created} />
+                <FormattedRelative value={`${comment.created}Z`} />
               </Link>
             </span>
             <Body body={comment.body} />
