@@ -13,9 +13,8 @@ module.exports = React.createClass({
     this.setState({ seeMore: true });
   },
   render() {
-    let body = striptags(remarkable.render(this.props.body));
+    let body = striptags(remarkable.render(this.props.body.replace(/&lt;/g, '<').replace(/&gt;/g, '>')));
     body = body.replace(/(?:https?|ftp):\/\/[\n\S]+/g, '');
-    const textLength = body.length;
     return (this.state.seeMore ?
       <span dangerouslySetInnerHTML={{ __html: striptags(remarkable.render(this.props.body), ['a', 'b', 'p']) }} /> :
       <span>
