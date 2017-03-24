@@ -1,6 +1,6 @@
 import React from 'react';
 import { Gateway } from 'react-gateway';
-import ReactModal2 from 'react-modal2';
+import ReactModal2 from './ReactModal2';
 import Icon from '../Icon';
 import './Modal.scss';
 
