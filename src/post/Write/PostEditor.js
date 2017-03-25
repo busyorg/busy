@@ -343,6 +343,7 @@ class PostEditor extends Component {
 
         <div className={className} ref={(c) => { this.editorContainer = c; }}>
           <Editor
+            spellCheck
             blockStyleFn={getBlockStyle}
             placeholder="Write your story…"
             customStyleMap={styleMap}
