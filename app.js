@@ -35,12 +35,21 @@ app.use(bodyParser.urlencoded({ extended: false }));
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, 'public'), {
     maxAge: OneWeek,
-    index: 'index.html',
   }));
+
+  app.get('/*', function (req, res) {
+    res.sendFile('index.html', {
+      root: __dirname + '/public/',
+    });
+  });
 } else {
-  app.use(express.static(path.join(__dirname, 'assets'), {
-    index: '../templates/development_index.html',
-  }));
+  app.use(express.static(path.join(__dirname, 'assets')));
+
+  app.get('/*', function (req, res) {
+    res.sendFile('development_index.html', {
+      root: path.resolve(__dirname + '/templates/'),
+    });
+  });
 }
 app.use(express.static(path.join(__dirname, 'node_modules')));
 
