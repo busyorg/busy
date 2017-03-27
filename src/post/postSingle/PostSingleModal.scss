@@ -33,3 +33,21 @@
     color: $normal-grey;
   }
 }
+
+@media (max-width: 1024px) {
+  .NextButton {
+    right: calc(10% - 17px);
+  }
+  .PrevButton {
+    left: calc(10% - 17px);
+  }
+}
+
+@media (max-width: 600px) {
+  .NextButton {
+    right: 10px;
+  }
+  .PrevButton {
+    left: 10px;
+  }
+}
