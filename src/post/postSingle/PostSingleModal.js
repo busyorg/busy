@@ -66,14 +66,18 @@ export default class PostSingleModal extends Component {
     window.history.pushState({}, content.title, content.url);
   };
 
+  replaceUrlState = (content) => {
+    window.history.replaceState({}, content.title, content.url);
+  };
+
   jumpToNextStory = () => {
     this.props.openPostModal(this.props.nextStory.id);
-    this.pushUrlState(this.props.nextStory);
+    this.replaceUrlState(this.props.nextStory);
   };
 
   jumpToPrevStory = () => {
     this.props.openPostModal(this.props.prevStory.id);
-    this.pushUrlState(this.props.prevStory);
+    this.replaceUrlState(this.props.prevStory);
   };
 
   render() {
