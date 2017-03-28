@@ -191,7 +191,7 @@ function linkifyNode(child, state) {
     const { mutate } = state;
     if (!child.data) return;
 
-    if (embedable(child, state.links, state.images)) return;
+    if (isEmbedable(child, state.links, state.images)) return;
 
     const data = XMLSerializer.serializeToString(child);
     const content = linkify(data, state.mutate, state.hashtags, state.usertags, state.images, state.links);
@@ -244,7 +244,7 @@ function linkify(content, mutate, hashtags, usertags, images, links) {
   return content;
 }
 
-function embedable(child, links, images) {
+function isEmbedable(child, links, images) {
   try {
     if (!child.data) return false;
     const data = child.data;

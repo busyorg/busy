@@ -5,6 +5,10 @@ import Remarkable from 'remarkable';
 
 const remarkable = new Remarkable({ html: true });
 
+function decodeEntities(body) {
+  return body.replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+}
+
 module.exports = React.createClass({
   getInitialState() {
     return { seeMore: false };
@@ -13,7 +17,7 @@ module.exports = React.createClass({
     this.setState({ seeMore: true });
   },
   render() {
-    let body = striptags(remarkable.render(this.props.body.replace(/&lt;/g, '<').replace(/&gt;/g, '>')));
+    let body = striptags(remarkable.render(decodeEntities(this.props.body)));
     body = body.replace(/(?:https?|ftp):\/\/[\n\S]+/g, '');
     return (this.state.seeMore ?
       <span dangerouslySetInnerHTML={{ __html: striptags(remarkable.render(this.props.body), ['a', 'b', 'p']) }} /> :
