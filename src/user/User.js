@@ -24,6 +24,7 @@ import { fetchChannelPresence } from '../messages/messagesActions';
 import getChannelName from '../helpers/getChannelName';
 import dispatchActions from '../helpers/dispatchActions';
 import UserNotFound from '../statics/UserNotFound';
+import Transfer from '../widgets/Transfer';
 
 @connect(
   state => ({
@@ -131,9 +132,7 @@ export default class UserProfile extends React.Component {
             />
           </h1>
           <Follow username={user.name} />
-          <Link to={`/transfer?to=${user.name}`} className="btn btn-sm btn-outline-secondary ml-2">
-            <FormattedMessage id="transfer" defaultMessage="Transfer" />
-          </Link>
+          <Transfer username={user.name} />
         </div>
       </section>
       <div className="profile">
