@@ -13,32 +13,6 @@ import { ProfileTooltipOrigin } from '../widgets/tooltip/ProfileTooltip';
 import CommentFormEmbedded from './CommentFormEmbedded';
 import './CommentItem.scss';
 
-const renderOptimisticComment = (comment, isSinglePage) =>
-  <div className="CommentItem">
-    <div className={`CommentItem__content CommentItem__content--level-${comment.depth}`}>
-      <div className="CommentUser">
-        <ProfileTooltipOrigin username={comment.author}>
-          <Link to={`/@${comment.author}`}>
-            <Avatar
-              className={isSinglePage ? 'Avatar--md' : 'Avatar--xs'}
-              username={comment.author}
-            />
-          </Link>
-        </ProfileTooltipOrigin>
-      </div>
-      <div className="CommentBody">
-        <span className="CommentBody__username">
-          <ProfileTooltipOrigin username={comment.author}>
-            <Link to={`/@${comment.author}`}>
-              {comment.author}
-            </Link>
-          </ProfileTooltipOrigin>
-        </span>
-        <Body body={comment.body} />
-      </div>
-    </div>
-  </div>;
-
 @withRouter
 export default class CommentItem extends Component {
   constructor(props) {
@@ -123,10 +97,6 @@ export default class CommentItem extends Component {
 
   render() {
     const { comment, likeComment, unlikeComment, dislikeComment, auth, allComments, sortOrder } = this.props;
-
-    if (comment.isOptimistic) {
-      return renderOptimisticComment(comment, this.props.isSinglePage);
-    }
 
     const pendingPayoutValue = parseFloat(comment.pending_payout_value);
     const totalPayoutValue = parseFloat(comment.total_payout_value);

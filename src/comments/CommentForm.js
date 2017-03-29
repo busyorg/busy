@@ -56,10 +56,10 @@ export default class CommentForm extends Component {
     e.stopPropagation();
   }
 
-  handleSubmit(e, commentDepth) {
+  handleSubmit(e) {
     e.stopPropagation();
     this.updateDraft();
-    this.props.sendComment(commentDepth);
+    this.props.sendComment();
   }
 
   componentWillUpdate(nextProps) {
