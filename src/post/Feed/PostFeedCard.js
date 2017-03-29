@@ -95,7 +95,7 @@ const PostFeedCard = ({
 
     image: () => imagePath &&
       <div key="image" className="PostFeedCard__thumbs">
-        <Link to={post.url} onClick={() => openPostModal(post.id)}>
+        <Link to={post.url} onClick={e => handlePostClick(e)}>
           <img alt="post" key={imagePath} src={imagePath} />
         </Link>
       </div>
