@@ -1,14 +1,14 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router';
 import { FormattedMessage, FormattedRelative } from 'react-intl';
-import BookmarkButton from '../bookmarks/BookmarkButton';
-import MenuPost from '../app/Menu/MenuPost';
-import Body from './Body';
-import BodyShort from './BodyShort';
-import AuthorBio from './AuthorBio';
-import Comments from '../comments/Comments';
-import Avatar from '../widgets/Avatar';
-import { jsonParse } from '../helpers/formatter';
+import BookmarkButton from '../../bookmarks/BookmarkButton';
+import MenuPost from '../../app/Menu/MenuPost';
+import Body from './../Body';
+import BodyShort from './../BodyShort';
+import AuthorBio from './../AuthorBio';
+import Avatar from '../../widgets/Avatar';
+import { jsonParse } from '../../helpers/formatter';
+
 import './PostSingleContent.scss';
 
 const Tag = ({ tag }) => {
@@ -91,30 +91,7 @@ const PostSingleContent = ({
       <div className="container">
         <AuthorBio authorName={content.author} />
       </div>
-      <div className="PostSingleContent__replies pt-5">
-        <div className="container">
-          <h1>
-            <FormattedMessage id="comments" />{' '}
-            <span className="text-info">{content.children}</span>
-          </h1>
-          <button
-            className="btn btn-small btn-primary mb-3"
-            onClick={(e) => {
-              e.stopPropagation();
-              openCommentingDraft();
-            }}
-          >
-            Write a comment
-          </button>
-          {content.children > 0 &&
-            <Comments
-              postId={content.id}
-              show
-              isSinglePage
-            />
-          }
-        </div>
-      </div>
+
     </div>
   );
 };

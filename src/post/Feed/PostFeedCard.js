@@ -11,7 +11,6 @@ import Comments from '../../comments/Comments';
 import PostActionButtons from '../PostActionButtons';
 import Icon from '../../widgets/Icon';
 import Avatar from '../../widgets/Avatar';
-import PostModalLink from './../PostModalLink';
 import LikesList from './../LikesList';
 import { ProfileTooltipOrigin } from '../../widgets/tooltip/ProfileTooltip';
 import Reactions from '../Reactions';
@@ -73,7 +72,6 @@ const PostFeedCard = ({
   jsonMetadata,
   imagePath,
   embeds,
-  openPostModal,
   reblog,
   isReblogged,
   showComments,
@@ -83,19 +81,24 @@ const PostFeedCard = ({
   handleShowLikesRequest,
   handleShowPayoutRequest,
   layout,
-  intl,
+  openPostModal,
 }) => {
   const isReplyPost = !!post.parent_author;
   const preview = {
-    text: () => (<div key="text" className="PostFeedCard__cell PostFeedCard__cell--text">
-      <BodyShort body={post.body} />
-    </div>),
+    text: () => (
+      <div key="text" className="PostFeedCard__cell PostFeedCard__cell--text">
+        <BodyShort body={post.body} />
+      </div>
+    ),
+
     embed: () => (embeds && embeds[0]) && <PostFeedEmbed key="embed" post={post} />,
-    image: () => imagePath && <div key="image" className="PostFeedCard__thumbs">
-      <PostModalLink post={post} onClick={() => openPostModal(post.id)}>
-        <img alt="post" key={imagePath} src={imagePath} />
-      </PostModalLink>
-    </div>
+
+    image: () => imagePath &&
+      <div key="image" className="PostFeedCard__thumbs">
+        <Link to={post.url} onClick={e => handlePostClick(e)}>
+          <img alt="post" key={imagePath} src={imagePath} />
+        </Link>
+      </div>
   };
 
   const htmlBody = getHtml(post.body);
@@ -117,6 +120,11 @@ const PostFeedCard = ({
   } else {
     bodyData.push(preview.text());
   }
+
+  const handlePostClick = (e) => {
+    e.preventDefault();
+    openPostModal(post.id);
+  };
 
   return (
     <div className="PostFeedCard">
@@ -169,12 +177,9 @@ const PostFeedCard = ({
 
       <div className="PostFeedCard__cell PostFeedCard__cell--body">
         <h2>
-          <PostModalLink
-            post={post}
-            onClick={() => openPostModal(post.id)}
-          >
+          <Link to={post.url} onClick={e => handlePostClick(e)}>
             {post.title}
-          </PostModalLink>
+          </Link>
         </h2>
       </div>
       {bodyData}
