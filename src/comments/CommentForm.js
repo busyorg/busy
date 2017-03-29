@@ -10,6 +10,7 @@ import keycode from 'keycode';
 import Icon from '../widgets/Icon';
 import Avatar from '../widgets/Avatar';
 import * as commentActions from './commentsActions';
+import { notify } from '../app/Notification/notificationActions';
 import './CommentForm.scss';
 
 @withRouter
@@ -24,6 +25,7 @@ import './CommentForm.scss';
     sendComment: depth => commentActions.sendComment(depth),
     updateCommentingDraft: commentActions.updateCommentingDraft,
     closeCommentingDraft: commentActions.closeCommentingDraft,
+    notify,
   }, dispatch)
 )
 export default class CommentForm extends Component {
@@ -59,7 +61,9 @@ export default class CommentForm extends Component {
   handleSubmit(e) {
     e.stopPropagation();
     this.updateDraft();
-    this.props.sendComment();
+    this.props.sendComment().then(() => {
+      this.props.notify('Comment submitted successfully');
+    });
   }
 
   componentWillUpdate(nextProps) {

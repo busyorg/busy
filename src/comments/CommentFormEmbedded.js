@@ -10,6 +10,7 @@ import Textarea from 'react-textarea-autosize';
 import Icon from '../widgets/Icon';
 import * as commentActions from './commentsActions';
 import Loading from '../widgets/Loading';
+import { notify } from '../app/Notification/notificationActions';
 import './CommentForm.scss';
 
 @withRouter
@@ -22,6 +23,7 @@ import './CommentForm.scss';
   dispatch => bindActionCreators({
     sendComment: (parentId) => commentActions.sendComment(parentId),
     updateCommentingDraft: commentActions.updateCommentingDraft,
+    notify,
   }, dispatch)
 )
 export default class CommentFormEmbedded extends Component {
@@ -105,6 +107,7 @@ export default class CommentFormEmbedded extends Component {
         id: this.props.parentId,
         body: '',
       });
+      this.props.notify('Comment submitted successfully');
       if (_.isFunction(this.props.onSubmit)) this.props.onSubmit();
     });
   }
