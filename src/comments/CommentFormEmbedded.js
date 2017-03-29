@@ -9,6 +9,7 @@ import classNames from 'classnames';
 import Textarea from 'react-textarea-autosize';
 import Icon from '../widgets/Icon';
 import * as commentActions from './commentsActions';
+import Loading from '../widgets/Loading';
 import './CommentForm.scss';
 
 @withRouter
@@ -19,7 +20,7 @@ import './CommentForm.scss';
     auth: state.auth,
   }),
   dispatch => bindActionCreators({
-    sendComment: (depth, parentId) => commentActions.sendComment(depth, parentId),
+    sendComment: (parentId) => commentActions.sendComment(parentId),
     updateCommentingDraft: commentActions.updateCommentingDraft,
   }, dispatch)
 )
@@ -28,6 +29,7 @@ export default class CommentFormEmbedded extends Component {
     super(props);
     this.state = {
       draftValue: '',
+      loading: false,
     };
   }
 
@@ -94,11 +96,15 @@ export default class CommentFormEmbedded extends Component {
     this.setState({ draftValue });
   }
 
-  handleSubmit(e, commentDepth) {
+  handleSubmit(e) {
     e.stopPropagation();
-    this.updateDraft();
-    this.props.sendComment(commentDepth, this.props.parentId).then(() => {
-      this.setState({ draftValue: '' });
+    this.setState({ draftValue: '', loading: true });
+    this.props.sendComment(this.props.parentId).then(() => {
+      this.setState({ draftValue: '', loading: false });
+      this.props.updateCommentingDraft({
+        id: this.props.parentId,
+        body: '',
+      });
       if (_.isFunction(this.props.onSubmit)) this.props.onSubmit();
     });
   }
@@ -111,6 +117,10 @@ export default class CommentFormEmbedded extends Component {
   render() {
     const { comments, posts, isReplyToComment, parentId } = this.props;
 
+    if (this.state.loading) {
+      return <Loading />;
+    }
+
     const commentsClass = classNames({
       CommentForm: true,
       'CommentForm--embedded': true,
@@ -119,17 +129,13 @@ export default class CommentFormEmbedded extends Component {
     });
 
     let parentTitle = '';
-    // will need depth in optimistic payload since it's used to style nested comments
-    let commentDepth;
     const commentsData = comments.comments;
 
     if (isReplyToComment) {
       const replyingComment = commentsData[parentId];
       parentTitle = `${replyingComment.author} in ${replyingComment.root_title}`;
-      commentDepth = commentsData[parentId].depth + 1;
     } else {
       parentTitle = posts[parentId].title;
-      commentDepth = 1;
     }
 
     return (
@@ -149,7 +155,7 @@ export default class CommentFormEmbedded extends Component {
             onChange={this.handleTextChange}
           />
           <button
-            onClick={e => this.handleSubmit(e, commentDepth)}
+            onClick={e => this.handleSubmit(e)}
             className="btn btn-success CommentForm__submit"
           >
             <Icon name="send" />
