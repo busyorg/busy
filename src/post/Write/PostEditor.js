@@ -280,9 +280,9 @@ class PostEditor extends Component {
 
     if (newState) {
       this.onChange(newState);
-      return true;
+      return 'handled';
     }
-    return false;
+    return 'not-handled';
   }
 
   toggleBlockType = (blockType) => {
@@ -343,6 +343,7 @@ class PostEditor extends Component {
 
         <div className={className} ref={(c) => { this.editorContainer = c; }}>
           <Editor
+            spellCheck
             blockStyleFn={getBlockStyle}
             placeholder="Write your story…"
             customStyleMap={styleMap}

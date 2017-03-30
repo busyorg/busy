@@ -228,6 +228,7 @@ export class RawNewPost extends Component {
                 name="title"
                 placeholder="Title"
                 required
+                spellCheck
                 type="text"
                 onChange={this.saveDraft}
                 ref={(c) => { this.title = c; }}

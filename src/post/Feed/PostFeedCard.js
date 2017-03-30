@@ -165,7 +165,7 @@ const PostFeedCard = ({
             </span>
           </li>
           <li className="pull-right">
-            <FormattedRelative value={post.created} />{' '}
+            <FormattedRelative value={`${post.created}Z`} />{' '}
             <BookmarkButton
               post={post}
               bookmarks={bookmarks}

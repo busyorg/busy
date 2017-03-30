@@ -22,7 +22,6 @@ const PostFeedList = ({
   layout,
   openPostModal
 }) => {
-
   const handlePostClick = (e) => {
     e.preventDefault();
     openPostModal(post.id);
@@ -48,7 +47,7 @@ const PostFeedList = ({
             {post.title}
           </Link>
         </h2>
-        <BodyShort body={post.body}/>
+        <BodyShort body={post.body} />
         <div className="PostFeedList__cell PostFeedList__cell--bottom">
           <PostActionButtons
             post={post}
@@ -61,18 +60,18 @@ const PostFeedList = ({
             layout={layout}
           />
           <span>
-            <FormattedMessage id="by"/>{' '}
+            <FormattedMessage id="by" />{' '}
             <ProfileTooltipOrigin username={post.author}>
               <Link to={`/@${post.author}`}>
-                <Avatar xs username={post.author}/>
+                <Avatar xs username={post.author} />
                 {` ${post.author}`}
               </Link>
             </ProfileTooltipOrigin>
             <span className="hidden-xs">
-              {' '}<FormattedMessage id="in"/>
+              {' '}<FormattedMessage id="in" />
               {' '}<Link to={`/hot/${post.category}`}>#{post.category}</Link>{' '}
               <span className="text-info">
-                <FormattedRelative value={post.created}/>
+                <FormattedRelative value={`${post.created}Z`} />
               </span>
             </span>
           </span>
@@ -80,6 +79,6 @@ const PostFeedList = ({
       </div>
     </div>
   );
-}
+};
 
 export default injectIntl(PostFeedList);
