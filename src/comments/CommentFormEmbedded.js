@@ -107,7 +107,7 @@ export default class CommentFormEmbedded extends Component {
         id: this.props.parentId,
         body: '',
       });
-      this.props.notify('Comment submitted successfully');
+      this.props.notify('Comment submitted successfully', 'success');
       if (_.isFunction(this.props.onSubmit)) this.props.onSubmit();
     });
   }

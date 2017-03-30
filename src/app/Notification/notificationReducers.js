@@ -7,6 +7,7 @@ const notifications = (state = [], action) => {
         {
           notifId: action.payload.notifId,
           text: action.payload.text,
+          context: action.payload.context
         },
         ...state,
       ];
