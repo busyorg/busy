@@ -10,33 +10,8 @@ import Avatar from '../widgets/Avatar';
 import Icon from '../widgets/Icon';
 import { sortCommentsFromSteem } from '../helpers/stateHelpers';
 import { ProfileTooltipOrigin } from '../widgets/tooltip/ProfileTooltip';
+import CommentFormEmbedded from './CommentFormEmbedded';
 import './CommentItem.scss';
-
-const renderOptimisticComment = (comment, isSinglePage) =>
-  <div className="CommentItem">
-    <div className={`CommentItem__content CommentItem__content--level-${comment.depth}`}>
-      <div className="CommentUser">
-        <ProfileTooltipOrigin username={comment.author}>
-          <Link to={`/@${comment.author}`}>
-            <Avatar
-              className={isSinglePage ? 'Avatar--md' : 'Avatar--xs'}
-              username={comment.author}
-            />
-          </Link>
-        </ProfileTooltipOrigin>
-      </div>
-      <div className="CommentBody">
-        <span className="CommentBody__username">
-          <ProfileTooltipOrigin username={comment.author}>
-            <Link to={`/@${comment.author}`}>
-              {comment.author}
-            </Link>
-          </ProfileTooltipOrigin>
-        </span>
-        <Body body={comment.body} />
-      </div>
-    </div>
-  </div>;
 
 @withRouter
 export default class CommentItem extends Component {
@@ -44,6 +19,8 @@ export default class CommentItem extends Component {
     super(props);
     this.state = {
       showReplies: props.isSinglePage,
+      showEmbeddedComment: false,
+      isEditing: false,
     };
   }
 
@@ -78,7 +55,13 @@ export default class CommentItem extends Component {
 
   handleReplyClick(e) {
     e.stopPropagation();
-    const { comment } = this.props;
+    const { comment, isSinglePage } = this.props;
+
+    if (isSinglePage) {
+      this.setState({ showEmbeddedComment: !this.state.showEmbeddedComment });
+      return;
+    }
+
     this.props.openCommentingDraft({
       parentAuthor: comment.author,
       parentPermlink: comment.permlink,
@@ -90,9 +73,18 @@ export default class CommentItem extends Component {
 
   handleEditClick(e) {
     e.stopPropagation();
-    const { comment } = this.props;
+    const { comment, isSinglePage } = this.props;
+
+    if (isSinglePage) {
+      this.setState({
+        showEmbeddedComment: !this.state.showEmbeddedComment,
+        isEditing: true,
+      });
+      return;
+    }
+
     this.props.openCommentingDraft({
-      parentAuthor: comment.author,
+      parentAuthor: comment.parent_author,
       category: comment.category,
       permlink: comment.permlink,
       parentPermlink: comment.parent_permlink,
@@ -105,10 +97,6 @@ export default class CommentItem extends Component {
 
   render() {
     const { comment, likeComment, unlikeComment, dislikeComment, auth, allComments, sortOrder } = this.props;
-
-    if (comment.isOptimistic) {
-      return renderOptimisticComment(comment, this.props.isSinglePage);
-    }
 
     const pendingPayoutValue = parseFloat(comment.pending_payout_value);
     const totalPayoutValue = parseFloat(comment.total_payout_value);
@@ -237,6 +225,16 @@ export default class CommentItem extends Component {
                 </a>
               }
             </div>
+
+            {this.state.showEmbeddedComment &&
+              <CommentFormEmbedded
+                parentId={comment.id}
+                isReplyToComment
+                isEditing={this.state.isEditing}
+                onSubmit={() => this.setState({ showEmbeddedComment: false, isEditing: false })}
+              />
+            }
+
           </div>
         </div>
         {this.state.showReplies && allComments.listByCommentId[comment.id] &&

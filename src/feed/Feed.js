@@ -2,7 +2,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import ReduxInfiniteScroll from 'redux-infinite-scroll';
-
+import Modal from '../widgets/modal/Modal';
 import Loading from '../widgets/Loading';
 import PostFeed from '../post/PostFeed';
 import CommentForm from '../comments/CommentForm';
@@ -10,8 +10,7 @@ import * as appActions from '../actions';
 import * as commentsActions from '../comments/commentsActions';
 import * as bookmarkActions from '../bookmarks/bookmarksActions';
 import * as reblogActions from '../app/Reblog/reblogActions';
-import PostSingle from '../post/PostSingle';
-
+import PostSingle from '../post/postSingle/PostSingle';
 import './Feed.scss';
 
 @connect(
@@ -24,8 +23,9 @@ import './Feed.scss';
     openCommentingDraft: commentsActions.openCommentingDraft,
     closeCommentingDraft: commentsActions.closeCommentingDraft,
     toggleBookmark: bookmarkActions.toggleBookmark,
-    openPostModal: appActions.openPostModal,
     reblog: reblogActions.reblog,
+    openPostModal: appActions.openPostModal,
+    closePostModal: appActions.closePostModal,
   }, dispatch)
 )
 export default class Feed extends React.Component {
@@ -78,30 +78,36 @@ export default class Feed extends React.Component {
                 if (this.props.username && post.author !== this.props.username) {
                   return false;
                 }
-                return (<ItemComponent
-                  key={key}
-                  post={post}
-                  replies={replies}
-                  toggleBookmark={toggleBookmark}
-                  app={app}
-                  bookmarks={bookmarks}
-                  onCommentRequest={e => this.handleCommentRequest(e)}
-                  openPostModal={this.props.openPostModal}
-                  notify={notify}
-                  reblog={reblog}
-                  isReblogged={reblogList.includes(post.id)}
-                />);
+
+                return (
+                  <ItemComponent
+                    key={key}
+                    post={post}
+                    replies={replies}
+                    toggleBookmark={toggleBookmark}
+                    app={app}
+                    bookmarks={bookmarks}
+                    onCommentRequest={e => this.handleCommentRequest(e)}
+                    notify={notify}
+                    reblog={reblog}
+                    isReblogged={reblogList.includes(post.id)}
+                    openPostModal={this.props.openPostModal}
+                  />
+                );
               })
             }
           </ReduxInfiniteScroll>
         </div>
-        <PostSingle
-          modal
-          contentList={content}
-          openPostModal={this.props.openPostModal}
-          route={this.props.route}
-        />
+
         <CommentForm />
+        {app.isPostModalOpen &&
+          <Modal onClose={this.props.closePostModal}>
+            <PostSingle
+              modal
+              contentList={content}
+            />
+          </Modal>
+        }
       </div>
     );
   }

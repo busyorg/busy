@@ -5,7 +5,6 @@ import BodyShort from '../BodyShort';
 import PostActionButtons from '../PostActionButtons';
 import Avatar from '../../widgets/Avatar';
 import BookmarkButton from '../../bookmarks/BookmarkButton';
-import PostModalLink from './../PostModalLink';
 import { ProfileTooltipOrigin } from '../../widgets/tooltip/ProfileTooltip';
 import './PostFeedList.scss';
 
@@ -15,71 +14,71 @@ const PostFeedList = ({
   bookmarks,
   toggleBookmark,
   notify,
-  jsonMetadata,
   imagePath,
-  openPostModal,
   reblog,
   isReblogged,
   handleShowCommentsRequest,
   handleShowLikesRequest,
   layout,
-  intl,
-}) =>
-  <div className="PostFeedList">
-    { imagePath &&
+  openPostModal
+}) => {
+  const handlePostClick = (e) => {
+    e.preventDefault();
+    openPostModal(post.id);
+  };
+
+  return (
+    <div className="PostFeedList">
+      { imagePath &&
       <div className="PostFeedList__thumbs">
-        <PostModalLink
-          post={post}
-          onClick={() => openPostModal(post.id)}
-        >
+        <Link to={post.url} onClick={e => handlePostClick(e)}>
           <img key={imagePath} src={imagePath} />
-        </PostModalLink>
+        </Link>
       </div>
-    }
-    <div className="PostFeedList__cell PostFeedList__cell--body">
-      <BookmarkButton
-        post={post}
-        bookmarks={bookmarks}
-        toggleBookmark={toggleBookmark}
-      />
-      <h2>
-        <PostModalLink
+      }
+      <div className="PostFeedList__cell PostFeedList__cell--body">
+        <BookmarkButton
           post={post}
-          onClick={() => openPostModal(post.id)}
-        >
-          {post.title}
-        </PostModalLink>
-      </h2>
-      <BodyShort body={post.body} />
-      <div className="PostFeedList__cell PostFeedList__cell--bottom">
-        <PostActionButtons
-          post={post}
-          notify={notify}
-          onCommentRequest={onCommentRequest}
-          onShowCommentsRequest={handleShowCommentsRequest}
-          onShowLikesRequest={handleShowLikesRequest}
-          reblog={reblog}
-          isReblogged={isReblogged}
-          layout={layout}
+          bookmarks={bookmarks}
+          toggleBookmark={toggleBookmark}
         />
-        <span>
-          <FormattedMessage id="by" />{' '}
-          <ProfileTooltipOrigin username={post.author} >
-            <Link to={`/@${post.author}`}>
-              <Avatar xs username={post.author} />
-              {` ${post.author}`}
-            </Link>
-          </ProfileTooltipOrigin>
-          <span className="hidden-xs">
-            {' '}<FormattedMessage id="in" />
-            {' '}<Link to={`/hot/${post.category}`}>#{post.category}</Link>{' '}
-            <span className="text-info">
-              <FormattedRelative value={`${post.created}Z`} />
+        <h2>
+          <Link to={post.url} onClick={e => handlePostClick(e)}>
+            {post.title}
+          </Link>
+        </h2>
+        <BodyShort body={post.body} />
+        <div className="PostFeedList__cell PostFeedList__cell--bottom">
+          <PostActionButtons
+            post={post}
+            notify={notify}
+            onCommentRequest={onCommentRequest}
+            onShowCommentsRequest={handleShowCommentsRequest}
+            onShowLikesRequest={handleShowLikesRequest}
+            reblog={reblog}
+            isReblogged={isReblogged}
+            layout={layout}
+          />
+          <span>
+            <FormattedMessage id="by" />{' '}
+            <ProfileTooltipOrigin username={post.author}>
+              <Link to={`/@${post.author}`}>
+                <Avatar xs username={post.author} />
+                {` ${post.author}`}
+              </Link>
+            </ProfileTooltipOrigin>
+            <span className="hidden-xs">
+              {' '}<FormattedMessage id="in" />
+              {' '}<Link to={`/hot/${post.category}`}>#{post.category}</Link>{' '}
+              <span className="text-info">
+                <FormattedRelative value={`${post.created}Z`} />
+              </span>
             </span>
           </span>
-        </span>
+        </div>
       </div>
     </div>
-  </div>;
+  );
+};
 
 export default injectIntl(PostFeedList);

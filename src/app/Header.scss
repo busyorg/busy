@@ -15,7 +15,7 @@
 }
 
 header {
-  z-index: 10;
+  z-index: 4;
   background: #fff;
   flex: 0 0 auto;
   position: fixed;
@@ -135,7 +135,6 @@ header {
 }
 
 .secondary-nav {
-  z-index: 9;
   height: 56px;
   line-height: 50px;
   position: relative;

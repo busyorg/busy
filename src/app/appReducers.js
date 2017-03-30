@@ -10,7 +10,6 @@ const initialState = {
   layout: 'card',
   locale: null,
   rate: 0,
-  isPostModalOpen: false,
   lastPostId: null,
 };
 
@@ -105,7 +104,6 @@ export default (state = initialState, action) => {
         ...state,
         rate: action.rate,
       };
-
     case appTypes.OPEN_POST_MODAL:
       return {
         ...state,

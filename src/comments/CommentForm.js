@@ -10,6 +10,7 @@ import keycode from 'keycode';
 import Icon from '../widgets/Icon';
 import Avatar from '../widgets/Avatar';
 import * as commentActions from './commentsActions';
+import { notify } from '../app/Notification/notificationActions';
 import './CommentForm.scss';
 
 @withRouter
@@ -24,12 +25,21 @@ import './CommentForm.scss';
     sendComment: depth => commentActions.sendComment(depth),
     updateCommentingDraft: commentActions.updateCommentingDraft,
     closeCommentingDraft: commentActions.closeCommentingDraft,
+    notify,
   }, dispatch)
 )
 export default class CommentForm extends Component {
   constructor(props) {
     super(props);
   }
+
+  static PropTypes = {
+    embedded: React.PropTypes.bool,
+  };
+
+  static defaultProps = {
+    embedded: false,
+  };
 
   updateDraft() {
     this.props.updateCommentingDraft({
@@ -48,10 +58,12 @@ export default class CommentForm extends Component {
     e.stopPropagation();
   }
 
-  handleSubmit(e, commentDepth) {
+  handleSubmit(e) {
     e.stopPropagation();
     this.updateDraft();
-    this.props.sendComment(commentDepth);
+    this.props.sendComment().then(() => {
+      this.props.notify('Comment submitted successfully');
+    });
   }
 
   componentWillUpdate(nextProps) {
@@ -122,6 +134,7 @@ export default class CommentForm extends Component {
           <a className="pull-right" onClick={() => closeCommentingDraft()}>
             <Icon name="clear" />
           </a>
+
           {comments.currentDraftId &&
             <div className="my-2">
               <i className="icon icon-sm material-icons">reply</i>

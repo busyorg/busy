@@ -2,10 +2,12 @@
   display: flex;
   width: 100%;
   max-width: 890px;
-  padding: 0 1em;
-  margin: 0 auto 1.5em;
+  padding: 1em;
+  margin: 0 auto 1em;
   table-layout: fixed;
   background-color: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
   clear: both;
   overflow: hidden;
 
