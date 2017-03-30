@@ -3,7 +3,7 @@
   z-index: 4;
   top: 0;
   left: 0;
-  background: rgba(0,0,0,0.4);
+  background: rgba(31, 35, 48, 0.6);
   width: 100%;
   height: 100%;
   overflow-y: scroll;
@@ -20,12 +20,14 @@
   position: relative;
   top: 0;
   background: #fff;
-  width: 60%;
+  width: 100%;
+  max-width: 800px;
   height: auto;
-  margin-top: 100px;
-  border-radius: 2px;
+  margin-top: 20px;
+  border-radius: 5px;
   padding: 15px;
   box-shadow: 0 0 4px rgba(0,0,0,.14),0 4px 8px rgba(0,0,0,.28);
+
   &--close {
     position: absolute;
     top: 10px;
@@ -33,17 +35,11 @@
   }
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 992px) {
   .BusyModal {
-    width: 80%;
+    max-width: 100%;
     margin-top: 0;
-  }
-}
-
-@media (max-width: 600px) {
-  .BusyModal {
-    width: 100%;
-    margin-top: 0;
+    border-radius: 0;
   }
 }
 
