@@ -6,14 +6,15 @@ export const CLOSE_NOTIFICATION = 'CLOSE_NOTIFICATION';
 export const showNotification = createAction(SHOW_NOTIFICATION);
 export const closeNotification = createAction(CLOSE_NOTIFICATION);
 
-export const notify = text => {
-  return (dispatch) => {
+export const notify = (text, context) =>
+  (dispatch) => {
     const notifId = `busy-notif${Date.now()}`;
 
     dispatch(
       showNotification({
         notifId,
         text,
+        context,
       })
     );
 
@@ -25,4 +26,3 @@ export const notify = text => {
       }
     , 4000);
   };
-};

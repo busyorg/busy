@@ -1,16 +1,24 @@
 .NotificationHolder {
   position: fixed;
   z-index: 100;
-  top: 56px;
-  line-height: 50px;
+  top: 0;
   left: 0;
   right: 0;
   text-align: center;
 }
 
 .Notification {
-  height: 56px;
-  opacity: 0.8;
+  font-weight: bold;
+  padding: 1.2em;
+  overflow: hidden;
   background: #3756a0;
-  color: #fff;
+
+  h3, .Icon {
+    color: #fff;
+    margin-bottom: 0;
+  }
+
+  &.success {
+    background-color: #8bcf93;
+  }
 }
