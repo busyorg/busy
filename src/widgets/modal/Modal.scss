@@ -6,19 +6,24 @@
   background: rgba(0,0,0,0.4);
   width: 100%;
   height: 100%;
+  overflow-y: scroll;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
 }
 
 .BusyModal {
+  position: relative;
+  top: 0;
   background: #fff;
-  width: 50%;
-  height: 400px;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  margin-top: -200px;
-  margin-left: -25%;
+  width: 60%;
+  height: auto;
+  margin-top: 100px;
   border-radius: 2px;
-  z-index: 100;
   padding: 15px;
   box-shadow: 0 0 4px rgba(0,0,0,.14),0 4px 8px rgba(0,0,0,.28);
   &--close {
@@ -27,3 +32,18 @@
     right: 10px;
   }
 }
+
+@media (max-width: 1024px) {
+  .BusyModal {
+    width: 80%;
+    margin-top: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .BusyModal {
+    width: 100%;
+    margin-top: 0;
+  }
+}
+

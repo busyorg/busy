@@ -33,19 +33,6 @@ const listByCommentId = (state = {}, action) => {
         ...state,
         ...action.payload.commentsChildrenList,
       };
-    case commentsTypes.SEND_COMMENT_START:
-      if (!action.meta.isReplyToComment || action.meta.isEditing) {
-        return state;
-      }
-
-      const listWithNewComment = [
-        action.meta.optimisticId,
-        ...state[action.meta.parentId]
-      ];
-      return {
-        ...state,
-        [action.meta.parentId]: listWithNewComment,
-      };
     default:
       return state;
   }
@@ -80,11 +67,13 @@ const listByPostIdItem = (state = initialCommentsList, action) => {
     case commentsTypes.SEND_COMMENT_START:
       return {
         ...state,
-        show: state.show + 1,
-        list: [
-          action.meta.optimisticId,
-          ...state.list,
-        ],
+        isFetching: true,
+      };
+    case commentsTypes.SEND_COMMENT_SUCCESS:
+    case commentsTypes.SEND_COMMENT_ERROR:
+      return {
+        ...state,
+        isFetching: false,
       };
     default:
       return state;
@@ -175,32 +164,7 @@ const commentsData = (state = {}, action) => {
         ...state,
         ...commentsMoreList,
       };
-    case commentsTypes.SEND_COMMENT_START:
-      if (action.meta.isEditing) {
-        const editedComment = state[action.meta.parentId];
-        editedComment.body = action.payload.body;
-        return {
-          ...state,
-          [action.meta.parentId]: editedComment,
-        };
-      }
-      if (!action.meta.isReplyToComment) {
-        return {
-          ...state,
-          [action.meta.optimisticId]: action.payload,
-        };
-      }
 
-      const newChildren = state[action.meta.parentId].children + 1;
-
-      return {
-        ...state,
-        [action.meta.optimisticId]: action.payload,
-        [action.meta.parentId]: {
-          ...state[action.meta.parentId],
-          children: newChildren,
-        },
-      };
     case commentsTypes.LIKE_COMMENT_START:
       return {
         ...state,
@@ -235,7 +199,7 @@ const commentingDraftItem = (state = initialCommentingDraftItem, action) => {
     case commentsTypes.UPDATE_COMMENTING_DRAFT:
       return {
         ...state,
-        body: action.payload.body,
+        ...action.payload,
       };
     default:
       return state;
@@ -264,7 +228,8 @@ const comments = (state = initialState, action) => {
     case userTypes.GET_MORE_USER_COMMENTS_SUCCESS:
     case commentsTypes.SHOW_MORE_COMMENTS:
     case commentsTypes.SEND_COMMENT_START:
-
+    case commentsTypes.SEND_COMMENT_SUCCESS:
+    case commentsTypes.SEND_COMMENT_ERROR:
       return {
         ...state,
         comments: commentsData(state.comments, action),

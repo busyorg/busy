@@ -1,0 +1,53 @@
+@import '../../styles/colors';
+
+.NextButton {
+  position: fixed;
+  top: 50%;
+  right: calc(20% - 17px);
+  z-index: 1;
+  opacity: 0.3;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  .Icon {
+    font-size: 80px;
+    color: $normal-grey;
+  }
+}
+
+.PrevButton {
+  position: fixed;
+  top: 50%;
+  left: calc(20% - 17px);
+  z-index: 1;
+  opacity: 0.3;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  .Icon {
+    font-size: 80px;
+    color: $normal-grey;
+  }
+}
+
+@media (max-width: 1024px) {
+  .NextButton {
+    right: calc(10% - 17px);
+  }
+  .PrevButton {
+    left: calc(10% - 17px);
+  }
+}
+
+@media (max-width: 600px) {
+  .NextButton {
+    right: 10px;
+  }
+  .PrevButton {
+    left: 10px;
+  }
+}

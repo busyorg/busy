@@ -3,27 +3,30 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 600px;
-  height: 480px;
   cursor: pointer;
-}
+  background-color: #000000;
 
-.PostFeedEmbed__playButton {
-  width: 100px;
-  height: 100px;
-  transition: 0.1s all;
-  & .Icon {
-    font-size: 100px;
-    transition: 0.1s all;
-    color: aliceblue;
-    text-shadow: 1px 1px #999;
-  }
   &:hover {
-    width: 120px;
-    height: 120px;
     & .Icon {
-      font-size: 120px;
+      font-size: 7em;
+      text-shadow: 0 0 140px rgba(0, 0, 0, 0.8) !important;
     }
   }
 }
 
+.PostFeedEmbed__playButton {
+  position: absolute;
+  display: flex;
+  transition: 0.2s all;
+  text-shadow: 0 0 100px rgba(0, 0, 0, 0.4) !important;
+
+  & .Icon {
+    font-size: 6em;
+    transition: 0.2s all;
+    color: white;
+  }
+}
+
+.PostFeedEmbed__preview {
+  width: 100%;
+}

@@ -5,7 +5,6 @@ import classNames from 'classnames';
 import numeral from 'numeral';
 import Textarea from 'react-textarea-autosize';
 import Icon from '../widgets/Icon';
-import Header from '../app/Header';
 
 @connect(
   state => ({
@@ -55,7 +54,6 @@ export default class Transfer extends Component {
     });
     return (
       <div className="main-panel">
-        <Header />
         <div className="my-5 container container-small text-center">
           <h1>Transfer</h1>
           <form>

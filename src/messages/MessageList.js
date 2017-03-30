@@ -87,7 +87,7 @@ class MessageList extends Component {
     );
 
     return (
-      <div className="MessageList messages-content media-list">
+      <div className="MessageList media-list">
 
         <InfiniteScroll
           loadMore={this.props.fetchMoreMessages}

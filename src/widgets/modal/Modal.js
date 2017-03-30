@@ -1,6 +1,6 @@
 import React from 'react';
 import { Gateway } from 'react-gateway';
-import ReactModal2 from 'react-modal2';
+import ReactModal2 from './ReactModal2';
 import Icon from '../Icon';
 import './Modal.scss';
 
@@ -40,6 +40,18 @@ import './Modal.scss';
  * more info: https://www.npmjs.com/package/react-modal2
  */
 
+const freezeTheScroll = () => {
+  // eslint-disable-next-line
+  const body = window.document.querySelector('body');
+  body.style.overflow = 'hidden';
+};
+
+const unfreezeTheScroll = () => {
+  // eslint-disable-next-line
+  const body = window.document.querySelector('body');
+  body.style.overflow = 'initial';
+};
+
 export default class Modal extends React.Component {
   static propTypes = {
     onClose: React.PropTypes.func.isRequired,
@@ -49,6 +61,20 @@ export default class Modal extends React.Component {
     closeOnEsc: true,
     closeOnBackdropClick: true,
   };
+
+  /* eslint-disable */
+  componentDidMount() {
+    if (window) {
+      freezeTheScroll();
+    }
+  }
+
+  componentWillUnmount() {
+    if (window) {
+      unfreezeTheScroll();
+    }
+  }
+  /* eslint-enable */
 
   render() {
     return (

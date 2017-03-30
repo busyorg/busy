@@ -13,7 +13,6 @@ import {
 } from '../feed/feedActions';
 import { getAccountWithFollowingCount } from '../helpers/apiHelpers';
 import { getUserComments, getMoreUserComments } from './userActions';
-import Header from '../app/Header';
 import MenuUser from '../app/Menu/MenuUser';
 import { addUserFavorite, removeUserFavorite } from '../favorites/favoritesActions';
 import FavoriteButton from '../favorites/FavoriteButton';
@@ -25,6 +24,7 @@ import { fetchChannelPresence } from '../messages/messagesActions';
 import getChannelName from '../helpers/getChannelName';
 import dispatchActions from '../helpers/dispatchActions';
 import UserNotFound from '../statics/UserNotFound';
+import Transfer from '../widgets/Transfer';
 
 @connect(
   state => ({
@@ -132,9 +132,7 @@ export default class UserProfile extends React.Component {
             />
           </h1>
           <Follow username={user.name} />
-          <Link to={`/transfer?to=${user.name}`} className="btn btn-sm btn-outline-secondary ml-2">
-            <FormattedMessage id="transfer" defaultMessage="Transfer" />
-          </Link>
+          <Transfer username={user.name} />
         </div>
       </section>
       <div className="profile">
@@ -190,7 +188,6 @@ export default class UserProfile extends React.Component {
     const { user, fetching } = this.state;
     return (
       <div className="main-panel">
-        <Header />
         {fetching ? <Loading /> : this.getUserView(user)}
       </div>
     );

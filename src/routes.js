@@ -15,7 +15,7 @@ import Transfer from './wallet/Transfer';
 import Tags from './tags/Tags';
 import Donors from './statics/Donors';
 import { Trending, Hot, Votes, Responses, Active, Created, Cashout } from './feed/PathMatching';
-import PostSingle from './post/PostSingle';
+import PostSingle from './post/postSingle/PostSingle';
 import Bookmarks from './bookmarks/Bookmarks';
 import Error404 from './statics/Error404';
 import Write from './post/Write/Write';

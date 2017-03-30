@@ -35,9 +35,6 @@ export default class Header extends Component {
               <Icon name="menu" className="Icon--menu" />
             </a>
           }
-          <div className="Header__title">
-            {this.props.title}
-          </div>
           <div className="section-content top-head">
             <div className="logo">
               <Link to="/" onlyActiveOnIndex activeClassName="active">
@@ -75,12 +72,6 @@ export default class Header extends Component {
             </div>
           }
         </div>
-
-        {this.props.children &&
-          <div className="app-nav">
-            {this.props.children}
-          </div>
-        }
       </header>
     );
   }

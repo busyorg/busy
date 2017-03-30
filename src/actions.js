@@ -18,6 +18,7 @@ export const GET_LOCALE = 'GET_LOCALE';
 
 export const OPEN_POST_MODAL = '@app/OPEN_POST_MODAL';
 export const CLOSE_POST_MODAL = '@app/CLOSE_POST_MODAL';
+
 export const openPostModal = createAction(OPEN_POST_MODAL);
 export const closePostModal = createAction(CLOSE_POST_MODAL);
 

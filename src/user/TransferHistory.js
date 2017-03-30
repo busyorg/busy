@@ -157,7 +157,7 @@ export default class TransferHistory extends Component {
               <h5>
                 <b>{renderReportFromOp(op, username)}</b>{' '}
                 <span className="pull-right">
-                  <FormattedRelative value={op[1].timestamp} />
+                  <FormattedRelative value={`${op[1].timestamp}Z`} />
                 </span>
               </h5>
               {op[1].op[1].memo &&
