@@ -69,7 +69,7 @@
     "lodash-webpack-plugin": "^0.11.2",
     "matchmedia": "^0.1.2",
     "morgan": "~1.6.1",
-    "node-sass": "^4.5.0",
+    "node-sass": "^4.0.0",
     "nodemon": "^1.9.2",
     "numeral": "^1.5.3",
     "object-assign": "^4.1.0",
