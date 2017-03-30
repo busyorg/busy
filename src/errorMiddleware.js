@@ -2,7 +2,7 @@ import _ from 'lodash';
 import { notify } from './app/Notification/notificationActions';
 
 function parseBlockChainError(error) {
-  let errorKey;
+  let errorKey = error.message || '';
   let errorStr = '';
   if (error.message) {
     // ref https://github.com/steemit/condenser/blob/320860b4a2df26a3e7c5764b5bd9d0a754de664a/app/redux/Transaction.js#L82
@@ -17,6 +17,8 @@ function parseBlockChainError(error) {
       } else {
         errorStr = `Transaction failed: ${errLines[1]}`;
       }
+    } else {
+      errorStr = errorKey;
     }
   }
   return errorStr;
