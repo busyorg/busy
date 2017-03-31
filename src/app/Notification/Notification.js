@@ -18,6 +18,9 @@ export default class Notification extends Component {
               {context === 'success' &&
                 <Icon name="check" className="mr-2" />
               }
+              {context === 'error' &&
+                <Icon name="warning" className="mr-2" />
+              }
               {text}
             </h3>
           </div>
