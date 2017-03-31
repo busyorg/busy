@@ -60,11 +60,18 @@ const getCommentsChildrenLists = (apiRes) => {
   return listsById;
 };
 
-export const getComments = (postId) => {
+export const getComments = (postId, isFromAnotherComment = false) => {
   return (dispatch, getState, { steemAPI }) => {
-    const { posts } = getState();
+    const { posts, comments } = getState();
 
-    const { author, permlink, category } = posts[postId];
+    let content;
+    if (isFromAnotherComment) {
+      content = comments.comments[postId];
+    } else {
+      content = posts[postId];
+    }
+
+    const { category, author, permlink } = content;
 
     dispatch({
       type: GET_COMMENTS,
@@ -79,13 +86,14 @@ export const getComments = (postId) => {
       },
       meta: {
         id: postId,
+        isReplyToComment: isFromAnotherComment,
       },
     });
   };
 };
 
-export const sendComment = (depth) => {
-  return (dispatch, getState) => {
+export const sendComment = (parentId = null) =>
+  (dispatch, getState) => {
     const { auth, comments } = getState();
 
     if (!auth.isAuthenticated) {
@@ -94,7 +102,8 @@ export const sendComment = (depth) => {
     }
 
     const author = auth.user.name;
-    const id = comments.currentDraftId;
+    const id = parentId || comments.currentDraftId;
+
     const {
       parentAuthor,
       parentPermlink,
@@ -102,22 +111,15 @@ export const sendComment = (depth) => {
       body,
       isReplyToComment,
       isEditing,
-    } = comments.commentingDraft[id];
+      } = comments.commentingDraft[id];
+
+    const rootCommentId = isReplyToComment ? comments.comments[id].root_comment : id;
 
     const permlink = isEditing ? comments.commentingDraft[id].permlink :
       createCommentPermlink(parentAuthor, parentPermlink);
     const jsonMetadata = { tags: [category], app: `busy/${version}` };
 
-    const optimisticData = {
-      author,
-      body,
-      isOptimistic: true,
-      depth,
-    };
-
-    const optimisticId = Date.now();
-
-    dispatch({
+    return dispatch({
       type: SEND_COMMENT,
       payload: {
         promise: SteemConnect.comment(
@@ -129,18 +131,15 @@ export const sendComment = (depth) => {
           body,
           jsonMetadata
         ),
-        data: optimisticData,
       },
       meta: {
-        optimisticId,
         parentId: id,
         isEditing,
         isReplyToComment,
       },
-    });
-    dispatch(closeCommentingDraft());
+    }).then(() => dispatch(closeCommentingDraft()))
+      .then(() => dispatch(getComments(rootCommentId)));
   };
-};
 
 export const likeComment = (commentId, weight = 10000, retryCount = 0) => {
   return (dispatch, getState, { steemAPI }) => {

@@ -4,7 +4,6 @@ import formSerialize from 'form-serialize';
 import kebabCase from 'lodash/kebabCase';
 import _ from 'lodash';
 import TagsInput from 'react-tagsinput';
-import Header from '../../app/Header';
 import PostEditor from './PostEditor';
 import { createPost, saveDraft, newPost } from './EditorActions';
 import Icon from './../../widgets/Icon';
@@ -209,14 +208,13 @@ export class RawNewPost extends Component {
   }
 
   render() {
-    const { user: { name: author }, editor: { loading, success } } = this.props;
+    const { user: { name: author }, editor: { loading, loadingImg, success } } = this.props;
     const { tags } = this.state;
     const categoryInputDisabled = tags.length === MAX_ALLOW_CATEGORIES;
     const publishText = success ? 'Continue' : 'Publish';
     const postText = this.state.isUpdating ? 'Update' : publishText;
     return (
-      <div className="main-panel">
-        <Header />
+      <div className="Write main-panel">
         <div className="container my-5">
           <form
             action="/write"
@@ -230,6 +228,7 @@ export class RawNewPost extends Component {
                 name="title"
                 placeholder="Title"
                 required
+                spellCheck
                 type="text"
                 onChange={this.saveDraft}
                 ref={(c) => { this.title = c; }}
@@ -271,7 +270,7 @@ export class RawNewPost extends Component {
             <input name="author" type="hidden" value={author || ''} />
 
             <div className="form-group">
-              <button type="submit" disabled={!!loading} className="btn btn-success btn-lg">
+              <button type="submit" disabled={(!!loading || !!loadingImg)} className="btn btn-success btn-lg">
                 {loading ? <Loading color="white" className="my-0" /> : postText}
               </button>
             </div>

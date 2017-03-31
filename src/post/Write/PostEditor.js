@@ -6,12 +6,12 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 
 // draft-js
+import 'draft-js-image2-plugin/lib/plugin.css';
+import 'draft-js-delete-img-btn-plugin/lib/plugin.css';
 import 'draft-js-plugins/draft-js-emoji-plugin/lib/plugin.css';
 import 'draft-js-plugins/draft-js-hashtag-plugin/lib/plugin.css';
 import 'draft-js-plugins/draft-js-linkify-plugin/lib/plugin.css';
-import 'draft-js-plugins/draft-js-image-plugin/lib/plugin.css';
 import 'draft-js-plugins/draft-js-focus-plugin/lib/plugin.css';
-import 'draft-js-delete-img-btn-plugin/lib/plugin.css';
 import {
   genKey,
   getVisibleSelectionRect as draftVSR,
@@ -28,9 +28,9 @@ import createEmojiPlugin from 'draft-js-plugins/draft-js-emoji-plugin';
 import createHashtagPlugin from 'draft-js-plugins/draft-js-hashtag-plugin';
 import { stateFromMarkdown } from 'draft-js-import-markdown';
 import { stateToMarkdown } from 'draft-js-export-markdown';
+import createImagePlugin from 'draft-js-image2-plugin';
 import createMarkdownShortcutsPlugin from 'draft-js-markdown-shortcuts-plugin';
 import createLinkifyPlugin from 'draft-js-plugins/draft-js-linkify-plugin';
-import createImagePlugin from 'draft-js-plugins/draft-js-image-plugin';
 import createFocusPlugin from 'draft-js-plugins/draft-js-focus-plugin';
 import createDndPlugin from 'draft-js-plugins/draft-js-drag-n-drop-plugin';
 import createDeleteImgPlugin from 'draft-js-delete-img-btn-plugin';
@@ -280,9 +280,9 @@ class PostEditor extends Component {
 
     if (newState) {
       this.onChange(newState);
-      return true;
+      return 'handled';
     }
-    return false;
+    return 'not-handled';
   }
 
   toggleBlockType = (blockType) => {
@@ -343,6 +343,7 @@ class PostEditor extends Component {
 
         <div className={className} ref={(c) => { this.editorContainer = c; }}>
           <Editor
+            spellCheck
             blockStyleFn={getBlockStyle}
             placeholder="Write your story…"
             customStyleMap={styleMap}

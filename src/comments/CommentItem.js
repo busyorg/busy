@@ -3,41 +3,15 @@ import { Link, withRouter } from 'react-router';
 import { FormattedRelative } from 'react-intl';
 import numeral from 'numeral';
 import _ from 'lodash';
-import { Tooltip } from 'pui-react-tooltip';
-import { OverlayTrigger } from 'pui-react-overlay-trigger';
+import { SimpleTooltipOrigin } from '../widgets/tooltip/SimpleTooltip';
 import { getUpvotes, getDownvotes, sortVotes } from '../helpers/voteHelpers';
 import Body from '../post/Body';
 import Avatar from '../widgets/Avatar';
 import Icon from '../widgets/Icon';
 import { sortCommentsFromSteem } from '../helpers/stateHelpers';
-import ProfileTooltipOrigin from '../user/profileTooltip/ProfileTooltipOrigin';
+import { ProfileTooltipOrigin } from '../widgets/tooltip/ProfileTooltip';
+import CommentFormEmbedded from './CommentFormEmbedded';
 import './CommentItem.scss';
-
-const renderOptimisticComment = (comment, isSinglePage) =>
-  <div className="CommentItem">
-    <div className={`CommentItem__content CommentItem__content--level-${comment.depth}`}>
-      <div className="CommentUser">
-        <ProfileTooltipOrigin username={comment.author}>
-          <Link to={`/@${comment.author}`}>
-            <Avatar
-              className={isSinglePage ? 'Avatar--md' : 'Avatar--xs'}
-              username={comment.author}
-            />
-          </Link>
-        </ProfileTooltipOrigin>
-      </div>
-      <div className="CommentBody">
-        <span className="CommentBody__username">
-          <ProfileTooltipOrigin username={comment.author}>
-            <Link to={`/@${comment.author}`}>
-              {comment.author}
-            </Link>
-          </ProfileTooltipOrigin>
-        </span>
-        <Body body={comment.body} />
-      </div>
-    </div>
-  </div>;
 
 @withRouter
 export default class CommentItem extends Component {
@@ -45,6 +19,8 @@ export default class CommentItem extends Component {
     super(props);
     this.state = {
       showReplies: props.isSinglePage,
+      showEmbeddedComment: false,
+      isEditing: false,
     };
   }
 
@@ -58,6 +34,11 @@ export default class CommentItem extends Component {
     if (window && location.hash) {
       this.scrollToAnchoredLink();
     }
+  }
+
+  updateCommentPostion = () => {
+    // should happen after react-router updated the route
+    setTimeout(() => this.checkHashLink());
   }
 
   scrollToAnchoredLink() {
@@ -74,7 +55,13 @@ export default class CommentItem extends Component {
 
   handleReplyClick(e) {
     e.stopPropagation();
-    const { comment } = this.props;
+    const { comment, isSinglePage } = this.props;
+
+    if (isSinglePage) {
+      this.setState({ showEmbeddedComment: !this.state.showEmbeddedComment });
+      return;
+    }
+
     this.props.openCommentingDraft({
       parentAuthor: comment.author,
       parentPermlink: comment.permlink,
@@ -86,9 +73,18 @@ export default class CommentItem extends Component {
 
   handleEditClick(e) {
     e.stopPropagation();
-    const { comment } = this.props;
+    const { comment, isSinglePage } = this.props;
+
+    if (isSinglePage) {
+      this.setState({
+        showEmbeddedComment: !this.state.showEmbeddedComment,
+        isEditing: true,
+      });
+      return;
+    }
+
     this.props.openCommentingDraft({
-      parentAuthor: comment.author,
+      parentAuthor: comment.parent_author,
       category: comment.category,
       permlink: comment.permlink,
       parentPermlink: comment.parent_permlink,
@@ -101,10 +97,6 @@ export default class CommentItem extends Component {
 
   render() {
     const { comment, likeComment, unlikeComment, dislikeComment, auth, allComments, sortOrder } = this.props;
-
-    if (comment.isOptimistic) {
-      return renderOptimisticComment(comment, this.props.isSinglePage);
-    }
 
     const pendingPayoutValue = parseFloat(comment.pending_payout_value);
     const totalPayoutValue = parseFloat(comment.total_payout_value);
@@ -121,12 +113,20 @@ export default class CommentItem extends Component {
     const isEditable = _.has(auth, 'user.name') ? comment.author === auth.user.name : false;
     const numberOfLikes = numeral(comment.active_votes.filter(vote => vote.percent > 0).length).format('0,0');
     const numberOfDislikes = numeral(comment.active_votes.filter(vote => vote.percent < 0).length).format('0,0');
-    const upvotes = sortVotes(getUpvotes(comment.active_votes), 'rshares')
+
+    const fiveLastUpvotes =
+      sortVotes(getUpvotes(comment.active_votes), 'rshares')
+        .reverse()
+        .slice(0, 5);
+    const likesTooltipMsg = fiveLastUpvotes.map(vote => `${vote.voter}\n`);
+    if (likesTooltipMsg.length === 5) likesTooltipMsg.push('...');
+
+    const fiveLastDownvotes =
+      sortVotes(getDownvotes(comment.active_votes), 'rshares')
       .reverse()
       .slice(0, 5);
-    const downvotes = sortVotes(getDownvotes(comment.active_votes), 'rshares')
-      .reverse()
-      .slice(0, 5);
+    const dislikesTooltipMsg = fiveLastDownvotes.map(vote => `${vote.voter}\n`);
+    if (dislikesTooltipMsg.length === 5) dislikesTooltipMsg.push('...');
 
     const anchoredLink = `#@${comment.author}/${comment.permlink}`;
 
@@ -134,8 +134,8 @@ export default class CommentItem extends Component {
       <div
         className={
           anchoredLink === this.props.location.hash
-          ? 'CommentItem CommentItem--highlight'
-          : 'CommentItem'
+            ? 'CommentItem CommentItem--highlight'
+            : 'CommentItem'
         }
         id={anchoredLink}
       >
@@ -158,9 +158,9 @@ export default class CommentItem extends Component {
                 </Link>
               </ProfileTooltipOrigin>
               {' '}
-              <span className="text-info">
-                <FormattedRelative value={comment.created} />
-              </span>
+              <Link className="text-info" to={comment.url} onClick={this.updateCommentPostion}>
+                <FormattedRelative value={`${comment.created}Z`} />
+              </Link>
             </span>
             <Body body={comment.body} />
             <div className="CommentActionButtons">
@@ -174,21 +174,12 @@ export default class CommentItem extends Component {
                   <Icon name="thumb_up" xs />
                 </a>
                 {' '}
-                {upvotes.length > 0
-                  ? <OverlayTrigger
-                    placement="top"
-                    overlay={
-                      <Tooltip>
-                        {upvotes.map(vote =>
-                          <div key={vote.voter}>{vote.voter}</div>
-                        )}
-                        {_.size(upvotes) === 5 && <div>…</div>}
-                      </Tooltip>
-                    }
-                  >
+                {fiveLastUpvotes.length > 0 ?
+                  <SimpleTooltipOrigin message={likesTooltipMsg}>
                     <a>{numberOfLikes}</a>
-                  </OverlayTrigger>
-                  : numberOfLikes
+                  </SimpleTooltipOrigin>
+                  :
+                  numberOfLikes
                 }
               </div>
 
@@ -202,21 +193,12 @@ export default class CommentItem extends Component {
                   <Icon name="thumb_down" xs />
                 </a>
                 {' '}
-                {downvotes.length > 0
-                  ? <OverlayTrigger
-                    placement="top"
-                    overlay={
-                      <Tooltip>
-                        {downvotes.map(vote =>
-                          <div key={vote.voter}>{vote.voter}</div>
-                        )}
-                        {_.size(downvotes) === 5 && <div>…</div>}
-                      </Tooltip>
-                    }
-                  >
+                {fiveLastDownvotes.length > 0 ?
+                  <SimpleTooltipOrigin message={dislikesTooltipMsg}>
                     <a>{numberOfDislikes}</a>
-                  </OverlayTrigger>
-                  : numberOfDislikes
+                  </SimpleTooltipOrigin>
+                  :
+                  numberOfDislikes
                 }
               </div>
 
@@ -243,6 +225,16 @@ export default class CommentItem extends Component {
                 </a>
               }
             </div>
+
+            {this.state.showEmbeddedComment &&
+              <CommentFormEmbedded
+                parentId={comment.id}
+                isReplyToComment
+                isEditing={this.state.isEditing}
+                onSubmit={() => this.setState({ showEmbeddedComment: false, isEditing: false })}
+              />
+            }
+
           </div>
         </div>
         {this.state.showReplies && allComments.listByCommentId[comment.id] &&

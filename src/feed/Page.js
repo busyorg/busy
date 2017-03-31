@@ -1,9 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { FormattedMessage } from 'react-intl';
-import steemconnect from 'steemconnect';
-import Header from '../app/Header';
 import MenuFeed from '../app/Menu/MenuFeed';
+import Hero from '../app/Hero';
 import Feed from './Feed';
 import PageHOC from './PageHOC';
 import {
@@ -22,7 +20,6 @@ import Loading from '../widgets/Loading';
 import FavoriteButton from '../favorites/FavoriteButton';
 import * as favoriteActions from '../favorites/favoritesActions';
 import EmptyFeed from '../statics/EmptyFeed';
-import Icon from '../widgets/Icon';
 
 @PageHOC
 @connect(
@@ -86,24 +83,8 @@ export default class Page extends React.Component {
 
     return (
       <div className="main-panel">
-        <Header />
         {!auth.isFetching && !auth.isAuthenticated && !category &&
-          <div className="my-5 text-center">
-            <div className="container">
-              <h1>Join Busy today.</h1>
-              <a
-                className="btn btn-success"
-                href="https://steemit.com/enter_email"
-                target="_blank"
-              >
-                <FormattedMessage id="signup" />
-              </a>
-              {' or '}
-              <a href={steemconnect.getLoginURL()}>
-                <FormattedMessage id="login" />
-              </a>
-            </div>
-          </div>
+          <Hero />
         }
         {!auth.isFetching &&
           <MenuFeed

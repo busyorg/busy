@@ -16,7 +16,8 @@ const editor = (state = defaultState, action) => {
         ...state,
         loading: false,
         error: null,
-        success: false
+        success: false,
+        loadingImg: false
       };
     case editorActions.CREATE_POST_START:
       return {
@@ -54,11 +55,11 @@ const editor = (state = defaultState, action) => {
       };
 
     case userActions.UPLOAD_FILE_START:
-      return { ...state, loading: true };
+      return { ...state, loadingImg: true };
 
     case userActions.UPLOAD_FILE_ERROR:
     case userActions.UPLOAD_FILE_SUCCESS:
-      return { ...state, loading: false };
+      return { ...state, loadingImg: false };
     default:
       return state;
   }

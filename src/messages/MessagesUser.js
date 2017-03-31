@@ -1,14 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-
-import './Messages.scss';
-import Header from '../app/Header';
 import MenuUser from '../app/Menu/MenuUser';
 import MessageForm from './MessageForm';
 import MessageList from './MessageList';
 import dispatchActions from '../helpers/dispatchActions';
 import getChannelName from '../helpers/getChannelName';
 import { fetchChannelPresence, joinChannel } from './messagesActions';
+import './Messages.scss';
 
 @connect(
   state => ({
@@ -68,7 +66,6 @@ export default class MessagesPage extends Component {
 
     return (
       <div className="Messages main-panel">
-        <Header />
         <MenuUser
           auth={this.props.auth}
           username={username}

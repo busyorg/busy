@@ -1,11 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { FormattedMessage } from 'react-intl';
-import Header from '../app/Header';
 
 const Error404 = () =>
   <div className="main-panel">
-    <Header />
     <div className="container my-5">
       <div className="ptl text-center">
         <h1><FormattedMessage id="page_not_found" /></h1>

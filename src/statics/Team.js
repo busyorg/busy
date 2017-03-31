@@ -1,6 +1,5 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import Header from '../app/Header';
 import MenuHelp from '../app/Menu/MenuHelp';
 import UserCard from '../widgets/UserCard';
 import team from '../helpers/team';
@@ -9,7 +8,6 @@ import contributors from '../helpers/contributors';
 
 export default () =>
   <div className="main-panel">
-    <Header />
     <MenuHelp />
     <div className="container text-center my-5">
       <h1><FormattedMessage id="team" /></h1>

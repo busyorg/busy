@@ -80,8 +80,8 @@ export default class UserProfile extends Component {
                 </p>
               }
               <p>
-                Joined <FormattedRelative value={user.created} />
-                , last activity <FormattedRelative value={user.last_vote_time} />
+                Joined <FormattedRelative value={`${user.created}Z`} />
+                , last activity <FormattedRelative value={`${user.last_vote_time}Z`} />
               </p>
             </div>
           </div>}

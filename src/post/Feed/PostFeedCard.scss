@@ -25,11 +25,10 @@
 .PostFeedCard__thumbs {
   background: white;
   width: 100%;
-  max-height: 600px;
   text-align: center;
   overflow: hidden;
-  line-height: 0;
   border-top: 1px solid rgba(0, 0, 0, 0.1);
+  position: relative;
 }
 
 .PostFeedCard__cell {
@@ -65,8 +64,17 @@
 }
 
 .PostFeedCard__cell--body {
-  padding: 1em 1em;
+  padding: 1em 1em 0em 1em;
 }
+
+.PostFeedCard__cell--text {
+  padding: 0em 1em 1em 1em;
+}
+
+.PostFeedCard__thumbs + .PostFeedCard__cell--text {
+  padding-top: 1em;
+}
+
 
 .PostFeedCard__cell--bottom {
   border-top: 1px solid rgba(0, 0, 0, 0.1);
