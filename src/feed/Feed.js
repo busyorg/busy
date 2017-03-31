@@ -47,6 +47,15 @@ export default class Feed extends React.Component {
     this.props.closeCommentingDraft();
   }
 
+  handlePostModalClose = () => {
+    this.props.closePostModal();
+    /* eslint-disable */
+    if (window && window.history) {
+      window.history.back();
+    }
+    /* eslint-enable */
+  };
+
   render() {
     const {
       content,
@@ -101,7 +110,7 @@ export default class Feed extends React.Component {
 
         <CommentForm />
         {app.isPostModalOpen &&
-          <Modal onClose={this.props.closePostModal}>
+          <Modal onClose={this.handlePostModalClose}>
             <PostSingle
               modal
               contentList={content}
