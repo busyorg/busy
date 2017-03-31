@@ -56,7 +56,6 @@ export default class PostSingleModal extends Component {
     // fix the manipulated URL
     /* eslint-disable */
     if (window && window.history) {
-      window.history.back();
       window.onpopstate = null;
     }
     /* eslint-enable */
