@@ -101,7 +101,7 @@ const PostFeedCard = ({
       </div>
   };
 
-  const htmlBody = getHtml(post.body);
+  const htmlBody = getHtml(post.body, {}, 'text');
   const tagPositions = getPositions(htmlBody);
   const bodyData = [];
 
