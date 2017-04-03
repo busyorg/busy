@@ -3,47 +3,19 @@ import createLogger from 'redux-logger';
 import promiseMiddleware from 'redux-promise-middleware';
 import persistState from 'redux-localstorage';
 import thunk from 'redux-thunk';
-import { combineReducers, applyMiddleware, createStore, compose } from 'redux';
+import { applyMiddleware, createStore, compose } from 'redux';
 import api from './steemAPI';
 
-import MessagesWorker, { messagesReducer } from './messages';
-import appReducers from './app/appReducers';
-import authReducers from './auth/authReducers';
-import commentsReducer from './comments/commentsReducer.js';
-import feedReducers from './feed/feedReducers';
-import postsReducers from './post/postsReducers';
-import userReducer from './user/userReducer';
-import notificationReducer from './app/Notification/notificationReducers';
-import bookmarksReducer from './bookmarks/bookmarksReducer';
-import favoritesReducer from './favorites/favoritesReducers';
-import editorReducer from './post/Write/EditorReducers';
-import { responsiveReducer, mountResponsive } from './helpers/responsive';
-import reblogReducers from './app/Reblog/reblogReducers';
-import walletReducer from './wallet/walletReducer';
+import MessagesWorker from './messages';
+import { mountResponsive } from './helpers/responsive';
 import errorMiddleware from './errorMiddleware';
+import reducers from './reducers';
 
 export const messagesWorker = new MessagesWorker();
 
 if (process.env.NODE_ENV !== 'production') {
   window.steemAPI = api;
 }
-
-const reducers = combineReducers({
-  app: appReducers,
-  auth: authReducers,
-  comments: commentsReducer,
-  editor: editorReducer,
-  posts: postsReducers,
-  feed: feedReducers,
-  user: userReducer,
-  responsive: responsiveReducer,
-  messages: messagesReducer,
-  notifications: notificationReducer,
-  bookmarks: bookmarksReducer,
-  favorites: favoritesReducer,
-  reblog: reblogReducers,
-  wallet: walletReducer,
-});
 
 const middleware = [
   errorMiddleware,
