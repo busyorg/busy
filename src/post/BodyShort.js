@@ -9,7 +9,7 @@ function decodeEntities(body) {
   return body.replace(/&lt;/g, '<').replace(/&gt;/g, '>');
 }
 
-module.exports = React.createClass({
+export default React.createClass({
   getInitialState() {
     return { seeMore: false };
   },

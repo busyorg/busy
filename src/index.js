@@ -1,14 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router, browserHistory, applyRouterMiddleware } from 'react-router';
-import useScroll from 'react-router-scroll/lib/useScroll';
+import { browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
 import steemconnect from 'steemconnect';
 import ReactGA from 'react-ga';
-import routes from './routes';
+import { AppContainer } from 'react-hot-loader';
 import store from './store';
 import { isSmall } from './helpers/responsive';
 import { HIDE_SIDEBAR } from './actions';
+import AppHost from './AppHost';
 
 ReactGA.initialize('UA-87507611-1');
 const logPageView = () => {
@@ -18,9 +18,7 @@ const logPageView = () => {
 
 if (process.env.SENTRY_PUBLIC_DSN) {
   const Raven = require('raven-js');
-  Raven
-    .config(process.env.SENTRY_PUBLIC_DSN)
-    .install();
+  Raven.config(process.env.SENTRY_PUBLIC_DSN).install();
 }
 
 if (process.env.STEEMCONNECT_HOST) {
@@ -39,18 +37,30 @@ browserHistory.listen(() => {
   }
 });
 
+const render = (Component) => {
+  ReactDOM.render(
+    <Provider store={store}>
+      { process.env.NODE_ENV !== 'production' ?
+        <AppContainer>
+          <Component
+            onUpdate={logPageView}
+            history={browserHistory}
+          />
+        </AppContainer>
+        :
+        <Component
+          onUpdate={logPageView}
+          history={browserHistory}
+        />
+      }
+    </Provider>,
+    document.getElementById('app')
+  );
+};
 
-// load the stylesheet
-require('./styles/base.scss');
+render(AppHost);
 
-ReactDOM.render(
-  <Provider store={store}>
-    <Router
-      routes={routes}
-      history={browserHistory}
-      onUpdate={logPageView}
-      render={applyRouterMiddleware(useScroll())}
-    />
-  </Provider>,
-  document.getElementById('app')
-);
+// Hot Module Replacement API
+if (module.hot) {
+  module.hot.accept('./AppHost', () => { render(AppHost); });
+}
