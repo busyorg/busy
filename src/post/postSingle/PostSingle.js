@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as postActions from './../postActions';
@@ -60,8 +61,19 @@ export default class PostSingle extends Component {
     }
   }
 
+  componentDidMount() {
+    const { modal } = this.props;
+
+    if (modal) {
+      this.unlisten = browserHistory.listen(() => {
+        this.props.closePostModal();
+      });
+    }
+  }
+
   componentWillUnmount() {
     this.props.closePostModal();
+    this.unlisten();
   }
 
   render() {
