@@ -1,5 +1,4 @@
-import React, { Component, PropTypes } from 'react';
-import embedjs from 'embedjs';
+import React, { Component } from 'react';
 import Icon from '../widgets/Icon';
 import './Feed/PostFeedCard.scss';
 import './PostFeedEmbed.scss';
@@ -11,10 +10,6 @@ export default class PostFeedEmbed extends Component {
       showIframe: false,
     };
   }
-
-  static propTypes = {
-    post: PropTypes.object.isRequired,
-  };
 
   renderThumbFirst(thumb) {
     return (
@@ -42,13 +37,13 @@ export default class PostFeedEmbed extends Component {
   }
 
   render() {
-    const { post } = this.props;
-    const embeds = embedjs.getAll(post.body);
+    const { embed } = this.props;
 
-    if (embeds[0].provider_name === 'YouTube' && !this.state.showIframe) {
-      return this.renderThumbFirst(embeds[0].thumbnail);
-    } else if (embeds[0].embed) {
-      return this.renderWithIframe(embeds[0].embed);
+    if (embed.provider_name === 'YouTube' && !this.state.showIframe) {
+      return this.renderThumbFirst(embed.thumbnail);
+    } else if (embed.embed) {
+      return this.renderWithIframe(embed.embed);
     }
+    return null;
   }
 }
