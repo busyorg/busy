@@ -39,4 +39,4 @@ build/Release
 node_modules
 .tern-port
 .envrc
-app.bundle.js
+busy.server.js

@@ -2,12 +2,13 @@ const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
 
+const isDevelopment = process.env.NODE_ENV !== 'production';
 module.exports = {
 
   entry: path.resolve(__dirname, './server/index.js'),
 
   output: {
-    filename: 'app.bundle.js'
+    filename: 'busy.server.js'
   },
 
   target: 'node',
@@ -25,6 +26,7 @@ module.exports = {
     __filename: true,
     __dirname: true
   },
+  watch: isDevelopment,
 
   module: {
     loaders: [
@@ -33,8 +35,7 @@ module.exports = {
         loader: 'url-loader',
         options: {
           name: '../fonts/[name].[ext]',
-          // load fonts through data-url in development
-          limit: 500000,
+          limit: isDevelopment ? 500000 : 1,
         },
       },
       {
