@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as notificationActions from './notificationActions';
+import Icon from '../../widgets/Icon';
 import './Notification.scss';
 
 @connect(
@@ -12,9 +12,17 @@ export default class Notification extends Component {
   render() {
     return (
       <div className="NotificationHolder">
-        { this.props.notifications.map(({ text }) =>
-          <div className="Notification">
-            { text }
+        { this.props.notifications.map(({ text, context = 'info' }) =>
+          <div className={`Notification ${context}`}>
+            <h3>
+              {context === 'success' &&
+                <Icon name="check" className="mr-2" />
+              }
+              {context === 'error' &&
+                <Icon name="warning" className="mr-2" />
+              }
+              {text}
+            </h3>
           </div>
           )
         }

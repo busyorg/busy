@@ -91,7 +91,7 @@ const PostFeedCard = ({
       </div>
     ),
 
-    embed: () => (embeds && embeds[0]) && <PostFeedEmbed key="embed" post={post} />,
+    embed: () => (embeds && embeds[0]) && <PostFeedEmbed key="embed" embed={embeds[0]} />,
 
     image: () => imagePath &&
       <div key="image" className="PostFeedCard__thumbs">
@@ -101,7 +101,7 @@ const PostFeedCard = ({
       </div>
   };
 
-  const htmlBody = getHtml(post.body);
+  const htmlBody = getHtml(post.body, {}, 'text');
   const tagPositions = getPositions(htmlBody);
   const bodyData = [];
 

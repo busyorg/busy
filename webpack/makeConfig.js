@@ -1,21 +1,27 @@
-
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const Visualizer = require('webpack-visualizer-plugin');
 const _ = require('lodash');
 const path = require('path');
 const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
 
 const DEFAULTS = {
   isDevelopment: process.env.NODE_ENV !== 'production',
   baseDir: path.join(__dirname, '..'),
 };
 
+function isVendor({ resource }) {
+  return resource &&
+    resource.indexOf('node_modules') >= 0 &&
+    resource.match(/\.jsx?$/);
+}
+
 function makePlugins(options) {
   const isDevelopment = options.isDevelopment;
 
   let plugins = [
-    new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
         // This has effect on the react lib size
@@ -51,21 +57,30 @@ function makePlugins(options) {
 
   if (isDevelopment) {
     plugins = plugins.concat([
-      new webpack.optimize.OccurenceOrderPlugin(),
       new webpack.HotModuleReplacementPlugin(),
-      new webpack.NoErrorsPlugin(),
+      new webpack.NoEmitOnErrorsPlugin(),
     ]);
   } else {
     plugins = plugins.concat([
-      new webpack.optimize.DedupePlugin(),
-      new webpack.optimize.UglifyJsPlugin({
-        minimize: true,
-        compress: {
-          warnings: false,
+      new webpack.optimize.CommonsChunkPlugin({
+        name: 'vendor',
+        minChunks(module) {
+          // this assumes your vendor imports exist in the node_modules directory
+          return isVendor(module);
         }
       }),
+      new webpack.optimize.CommonsChunkPlugin({
+        name: 'manifest',
+      }),
       new webpack.optimize.AggressiveMergingPlugin(),
-      new ExtractTextPlugin('../css/base.css'),
+      new ExtractTextPlugin({
+        filename: '../css/style.[contenthash].css',
+      }),
+      new HtmlWebpackPlugin({
+        title: 'Busy',
+        filename: '../index.html',
+        template: path.join(options.baseDir, '/templates/index.html'),
+      }),
     ]);
   }
 
@@ -76,12 +91,31 @@ function makeStyleLoaders(options) {
   if (options.isDevelopment) {
     return [
       {
-        test: /\.s?[ac]ss$/,
-        loaders: [
-          'style',
-          'css?sourceMap?importLoaders=1',
-          'autoprefixer-loader?browsers=last 2 version',
-          'sass?sourceMap&sourceMapContents',
+        test: /\.scss|.css$/,
+        use: [
+          {
+            loader: 'style-loader',
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              sourceMap: true,
+              importLoaders: 1,
+            },
+          },
+          {
+            loader: 'autoprefixer-loader',
+            options: {
+              browsers: 'last 2 version',
+            },
+          },
+          {
+            loader: 'sass-loader',
+            options: {
+              sourceMap: true,
+              sourceMapContents: true,
+            },
+          },
         ],
       },
     ];
@@ -89,52 +123,85 @@ function makeStyleLoaders(options) {
 
   return [
     {
-      test: /\.s?[ac]ss$/,
-      loader: ExtractTextPlugin.extract(
-        'style-loader',
-        'css?importLoaders=1!autoprefixer-loader?browsers=last 2 version!sass'
-      ),
+      test: /\.scss|.css$/,
+      loader: ExtractTextPlugin.extract({
+        fallback: 'style-loader',
+        use: [
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 1,
+            },
+          },
+          {
+            loader: 'autoprefixer-loader',
+            options: {
+              browsers: 'last 2 version',
+            },
+          },
+          {
+            loader: 'sass-loader',
+          },
+        ],
+      }),
     },
   ];
 }
 
-function makeConfig(options) {
-  if (!options) options = {};
+function makeConfig(options = {}) {
   _.defaults(options, DEFAULTS);
 
   const isDevelopment = options.isDevelopment;
 
   return {
     devtool: isDevelopment ? 'eval-source-map' : 'source-map',
-    entry: (isDevelopment ? [
-      'webpack-hot-middleware/client?reload=true',
-    ] : []).concat([
-      path.join(options.baseDir, 'src/index.js')
-    ]),
+    entry: {
+      main: (isDevelopment ? [
+        'webpack-hot-middleware/client?reload=true',
+        'react-hot-loader/patch',
+        // activate HMR for React
+        'webpack/hot/only-dev-server',
+        // bundle the client for hot reloading
+        // only- means to only hot reload for successful updates
+        ] : []).concat([
+        path.join(options.baseDir, 'src/index.js'),]
+      ),
+    },
     output: {
       path: path.join(options.baseDir, '/public/js'),
-      filename: 'app.min.js',
+      filename: options.isDevelopment ? 'busyapp-[name].js' : 'busyapp-[name].[chunkhash].js',
       publicPath: '/js/'
     },
     plugins: makePlugins(options),
     module: {
-      loaders: [
+      rules: [
         {
           test: /\.js?$/,
           exclude: /node_modules/,
-          loader: 'babel',
+          use: (options.isDevelopment ? [{ loader: 'react-hot-loader/webpack' }] : []).concat(
+            [
+              {
+                loader: 'babel-loader',
+              },
+            ]
+          )
         },
         {
-          test: /\.json?$/,
-          loader: 'json',
-        },
-        {
-          loader: 'url-loader?name=[name].[hash].[ext]&limit=1',
           test: /\.(eot|ttf|woff|woff2)(\?.+)?$/,
+          loader: 'url-loader',
+          options: {
+            name: '../fonts/[name].[ext]',
+            // load fonts through data-url in development
+            limit: options.isDevelopment ? 5000000 : 1,
+          },
         },
         {
           test: /\.png$/,
           loader: 'file-loader',
+        },
+        {
+          test: /\.html$/,
+          loader: 'html-loader'
         },
       ].concat(makeStyleLoaders(options)),
     },

@@ -80,8 +80,8 @@ const IMG_PROXY_PREFIX = 'https://steemitimages.com/0x0/';
 
 /** Embed videos, link mentions and hashtags, etc...
 */
-export default function (html, { mutate = true } = {}) {
-  const state = { mutate };
+export default function (html, { mutate = true, resolveIframe } = {}) {
+  const state = { mutate, resolveIframe };
   state.hashtags = new Set();
   state.usertags = new Set();
   state.htmltags = new Set();
@@ -137,22 +137,23 @@ function link(state, child) {
 // wrap iframes in div.videoWrapper to control size/aspect ratio
 function iframe(state, child) {
   const url = child.getAttribute('src');
-  if (url) {
+  let domString;
+  const embed = embedjs.get(url || '', { width: '100%', height: 400 });
+  if (embed && embed.id) {
     const { images, links } = state;
-    const yt = youTubeId(url);
-    if (yt && images && links) {
-      links.add(yt.url);
-      images.add(`https://img.youtube.com/vi/${yt.id}/0.jpg`);
-    }
+    links.add(embed.url);
+    images.add(`https://img.youtube.com/vi/${embed.id}/0.jpg`);
+    if (!resolveIframe) domString = `~~~ embed:${embed.id} ${embed.provider_name} ${embed.url} ~~~`;
   }
 
-  const { mutate } = state;
+  const { mutate, resolveIframe } = state;
   if (!mutate) return;
 
   const tag = child.parentNode.tagName ? child.parentNode.tagName.toLowerCase() : child.parentNode.tagName;
   if (tag === 'div' && child.parentNode.getAttribute('class') === 'videoWrapper') return;
   const html = XMLSerializer.serializeToString(child);
-  child.parentNode.replaceChild(DOMParser.parseFromString(`<div class="videoWrapper">${html}</div>`), child);
+  if (resolveIframe) domString = `<div class="videoWrapper">${html}</div>`;
+  child.parentNode.replaceChild(DOMParser.parseFromString(domString), child);
 }
 
 function img(state, child) {
@@ -191,7 +192,7 @@ function linkifyNode(child, state) {
     const { mutate } = state;
     if (!child.data) return;
 
-    if (isEmbedable(child, state.links, state.images)) return;
+    if (isEmbedable(child, state.links, state.images, state.resolveIframe)) return;
 
     const data = XMLSerializer.serializeToString(child);
     const content = linkify(data, state.mutate, state.hashtags, state.usertags, state.images, state.links);
@@ -244,7 +245,7 @@ function linkify(content, mutate, hashtags, usertags, images, links) {
   return content;
 }
 
-function isEmbedable(child, links, images) {
+function isEmbedable(child, links, images, resolveIframe) {
   try {
     if (!child.data) return false;
     const data = child.data;
@@ -252,7 +253,8 @@ function isEmbedable(child, links, images) {
     if (!foundLinks) return false;
     const embed = embedjs.get(foundLinks[0] || '', { width: '100%', height: 400 });
     if (embed && embed.id) {
-      const v = DOMParser.parseFromString(embed.embed);
+      const domString = resolveIframe ? embed.embed : `~~~ embed:${embed.id} ${embed.provider_name} ${embed.url} ~~~`;
+      const v = DOMParser.parseFromString(domString);
       child.parentNode.replaceChild(v, child);
       // console.trace('embed.embed', v);
       if (links) links.add(embed.url);

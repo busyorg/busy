@@ -62,7 +62,7 @@ export default class CommentForm extends Component {
     e.stopPropagation();
     this.updateDraft();
     this.props.sendComment().then(() => {
-      this.props.notify('Comment submitted successfully');
+      this.props.notify('Comment submitted successfully', 'success');
     });
   }
 

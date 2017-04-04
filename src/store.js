@@ -20,6 +20,7 @@ import editorReducer from './post/Write/EditorReducers';
 import { responsiveReducer, mountResponsive } from './helpers/responsive';
 import reblogReducers from './app/Reblog/reblogReducers';
 import walletReducer from './wallet/walletReducer';
+import errorMiddleware from './errorMiddleware';
 
 export const messagesWorker = new MessagesWorker();
 
@@ -45,6 +46,7 @@ const reducers = combineReducers({
 });
 
 const middleware = [
+  errorMiddleware,
   promiseMiddleware({
     promiseTypeSuffixes: [
       'START',

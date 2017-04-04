@@ -69,7 +69,7 @@ export function createPost(postData) {
                 browserHistory.push(`/${parentPermlink}/@${author}/${permlink}`);
                 return result;
               })
-          ).catch(err => err)
+          )
       },
     });
   };
