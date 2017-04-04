@@ -20,7 +20,10 @@ const initialState = {
  *     body and I can even use <Link to="/">react components</Link> inside it</p>
  *   }
  *   className="CustomClassname" // default will be .BusyPopover
- * />
+ *   appearOn="bottom-left" // default bottom. available options bottom, bottom-left, right
+ * >
+ *   children
+ * </Popover>
  */
 export default class Popover extends Component {
   constructor(props) {
