@@ -11,9 +11,8 @@ export default () =>
       <p className="container pb-5">
         <FormattedMessage
           id="@statics/busy_mission"
-          defaultMessage="The Busy project’s mission is to connect everyone to the next-gen decentralized social network that gives voice and value back to people, by building together a true sharing economy, a more free and trustworthy Internet without middleman"
+          defaultMessage="The Busy project’s mission is to connect everyone to the next-gen decentralized social network that gives voice and value back to people, by building together a true sharing economy, a more free and trustworthy Internet without middleman."
         />
-        .
       </p>
       <div className="About__1 hero">
         <div className="container">
