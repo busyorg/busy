@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
 
@@ -16,7 +17,7 @@ module.exports = {
     .concat([
       'react-dom/server', 'react/addons',
     ]).reduce((ext, mod) => {
-      ext[mod] = `commonjs ${mod}`;
+      ext[mod] = `commonjs ${mod}`; // eslint-disable-line
       return ext;
     }, {}),
 
@@ -51,7 +52,8 @@ module.exports = {
           loader: 'babel-loader',
           options: {
             presets: ['es2015', 'react', 'stage-2'],
-            plugins: ['transform-decorators-legacy', 'transform-runtime']
+            plugins: ['transform-decorators-legacy', 'transform-runtime'],
+            cacheDirectory: true
           }
         }
       },
@@ -60,6 +62,11 @@ module.exports = {
         use: ['isomorphic-style-loader', 'css-loader', 'autoprefixer-loader', 'sass-loader'],
       },
     ]
-  }
+  },
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env': { IS_BROWSER: JSON.stringify(false), },
+    }),
+  ]
 
 };
