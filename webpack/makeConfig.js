@@ -201,7 +201,10 @@ function makeConfig(options = {}) {
         },
         {
           test: /\.html$/,
-          loader: 'html-loader'
+          loader: 'html-loader',
+          options: {
+            removeComments: false
+          }
         },
       ].concat(makeStyleLoaders(options)),
     },
