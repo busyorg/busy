@@ -41,7 +41,7 @@ export default class Popover extends Component {
   static defaultProps = {
     className: 'BusyPopover',
     value: null,
-    appearOn: 'bottom',
+    appearOn: 'bottom-left',
   };
 
   showPopover = (e) => {
