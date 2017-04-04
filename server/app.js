@@ -1,14 +1,9 @@
 /* eslint-disable new-cap,global-require,no-param-reassign */
 import React from 'react';
-import thunk from 'redux-thunk';
-import promiseMiddleware from 'redux-promise-middleware';
-import { applyMiddleware, createStore, compose } from 'redux';
 import { renderToString } from 'react-dom/server';
 import { match, RouterContext } from 'react-router';
 import { Provider } from 'react-redux';
-import api from '../src/steemAPI';
-
-import reducers from '../src/reducers';
+import store from '../src/store';
 import routes from '../src/routes';
 
 const fs = require('fs');
@@ -77,18 +72,12 @@ function renderPage(appHtml, preloadedState) {
 
 app.get('/*', (req, res) => {
   match({ routes, location: req.url }, (err, redirect, props) => {
-    const middleware = [
-      promiseMiddleware({ promiseTypeSuffixes: ['START', 'SUCCESS', 'ERROR'] }),
-      thunk.withExtraArgument({ steemAPI: api })
-    ];
-    const store = createStore(reducers, compose(applyMiddleware(...middleware)));
+    const preloadedState = store.getState();
 
     const appHtml = renderToString(
       <Provider store={store}>
         <RouterContext {...props} />
       </Provider>);
-
-    const preloadedState = store.getState();
 
     res.send(renderPage(appHtml, preloadedState));
   });

@@ -13,7 +13,7 @@ import reducers from './reducers';
 
 export const messagesWorker = new MessagesWorker();
 
-if (process.env.NODE_ENV !== 'production') {
+if (process.env.IS_BROWSER && process.env.NODE_ENV !== 'production') {
   window.steemAPI = api;
 }
 
@@ -41,24 +41,29 @@ if (process.env.ENABLE_LOGGER &&
   }));
 }
 
-const enhancer = compose(
-  applyMiddleware(...middleware),
-  persistState(['app', 'favorites', 'editor', 'bookmarks'], {
-    slicer: () => state => ({
-      app: {
-        locale: state.app.locale,
-        layout: state.app.layout,
-      },
-      bookmarks: state.bookmarks,
-      favorites: state.favorites,
-      editor: state.editor,
-    }),
-  })
-);
+let enhancer;
+if (process.env.IS_BROWSER) {
+  enhancer = compose(
+    applyMiddleware(...middleware),
+    persistState(['app', 'favorites', 'editor', 'bookmarks'], {
+      slicer: () => state => ({
+        app: {
+          locale: state.app.locale,
+          layout: state.app.layout,
+        },
+        bookmarks: state.bookmarks,
+        favorites: state.favorites,
+        editor: state.editor,
+      }),
+    })
+  );
+} else {
+  enhancer = compose(applyMiddleware(...middleware));
+}
 
 const store = createStore(
   reducers,
-  window.devToolsExtension && window.devToolsExtension(),
+  process.env.IS_BROWSER && window.devToolsExtension && window.devToolsExtension(),
   enhancer
 );
 

@@ -103,7 +103,7 @@ export default class MessagesWorker {
         } else {
           const err = new Error(
             res.error ||
-              'Failed to emit payload'
+            'Failed to emit payload'
           );
           err.res = res;
           reject(err);

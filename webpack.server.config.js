@@ -65,7 +65,23 @@ module.exports = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      'process.env': { IS_BROWSER: JSON.stringify(false), },
+      'process.env': {
+        BUSYWS_HOST: JSON.stringify(process.env.BUSYWS_HOST || 'https://ws.busy.org'),
+        STEEMCONNECT_IMG_HOST: JSON.stringify(process.env.STEEMCONNECT_IMG_HOST || 'https://img.steemconnect.com'),
+        STEEMCONNECT_HOST: JSON.stringify(
+          process.env.STEEMCONNECT_HOST ||
+          'https://dev.steemconnect.com'
+        ),
+        STEEMCONNECT_REDIRECT_URL: JSON.stringify(
+          process.env.STEEMCONNECT_REDIRECT_URL ||
+          'http://localhost:3000'
+        ),
+        WS: JSON.stringify(
+          process.env.WS ||
+          'wss://steemd.steemit.com'
+        ),
+        IS_BROWSER: JSON.stringify(false),
+      },
     }),
   ]
 
