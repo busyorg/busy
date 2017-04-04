@@ -33,6 +33,7 @@ const rootDir = path.join(__dirname, '..');
 
 if (process.env.NODE_ENV !== 'production') { require('../webpack')(app); }
 
+app.locals.env = process.env;
 app.enable('trust proxy');
 app.set('view engine', 'ejs');
 
@@ -47,15 +48,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(rootDir, 'public'), {
-    maxAge: OneWeek,
-  }));
+  app.use(express.static(path.join(rootDir, 'public'), { maxAge: OneWeek }));
 } else {
   app.use(express.static(path.join(rootDir, 'assets')));
 }
+
 app.use(express.static(path.join(rootDir, 'node_modules')));
 
-app.locals.env = process.env;
 if (!process.env.IS_BROWSER) { global.window = {}; }
 
 const indexPath = process.env.NODE_ENV === 'production' ?
