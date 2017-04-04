@@ -1,8 +1,10 @@
 /* eslint-disable new-cap,global-require,no-param-reassign */
 import React from 'react';
+import { Helmet } from 'react-helmet';
+import { Provider } from 'react-redux';
 import { renderToString } from 'react-dom/server';
 import { match, RouterContext } from 'react-router';
-import { Provider } from 'react-redux';
+
 import store from '../src/store';
 import routes from '../src/routes';
 
@@ -58,8 +60,9 @@ const indexPath = process.env.NODE_ENV === 'production' ?
 
 const indexHtml = fs.readFileSync(indexPath, 'utf-8');
 
-function renderPage(appHtml, preloadedState) {
+function renderPage(appHtml, header, preloadedState) {
   return indexHtml
+    .replace('<!--server:header-->', header)
     .replace('<!--server:html-->', appHtml)
     .replace('<!--server:scripts-->',
     `<script>
@@ -78,8 +81,10 @@ app.get('/*', (req, res) => {
       <Provider store={store}>
         <RouterContext {...props} />
       </Provider>);
+    const helmet = Helmet.renderStatic();
+    const header = helmet.meta.toString() + helmet.title.toString() + helmet.link.toString();
 
-    res.send(renderPage(appHtml, preloadedState));
+    res.send(renderPage(appHtml, header, preloadedState));
   });
 });
 

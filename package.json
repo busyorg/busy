@@ -83,6 +83,7 @@
     "react-dom": "^15.3.2",
     "react-ga": "^2.1.2",
     "react-gateway": "^2.6.0",
+    "react-helmet": "^5.0.2",
     "react-hot-loader": "next",
     "react-intl": "^2.1.5",
     "react-is-scrolling": "^1.0.1",

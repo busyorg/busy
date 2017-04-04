@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { Helmet } from 'react-helmet';
 import { bindActionCreators } from 'redux';
 import * as postActions from './../postActions';
 import PostSinglePage from './PostSinglePage';
@@ -117,6 +118,11 @@ export default class PostSingle extends Component {
 
     return (
       <div>
+        <Helmet>
+          <meta property="og:type" content="article" />
+          <title>{content.title}</title>
+          <link rel="canonical" href={`https://busy.org${content.url}`} />
+        </Helmet>
         {content.author && !modal &&
           <PostSinglePage {...theProps} />
         }
