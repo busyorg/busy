@@ -10,6 +10,18 @@ const getPopoverOnBottomStyle = (position, popoverWidth) => ({
   left: `${(position.left + (position.width / 2)) - (popoverWidth / 2)}px`,
 });
 
+const getPopoverOnBottomLeftStyle = (position, popoverWidth) => ({
+  position: 'absolute',
+  top: `${position.bottom + TOOLTIP_MARGIN}px`,
+  left: `${(position.left - popoverWidth) + position.width}px`,
+});
+
+const getPopoverOnRightStyle = (position, popoverWidth, popoverHeight) => ({
+  position: 'absolute',
+  top: `${position.bottom - (popoverHeight / 2)}px`,
+  left: `${position.right + TOOLTIP_MARGIN}px`,
+});
+
 @OnClickOutside
 export default class SimplePopover extends Component {
   constructor(props) {
@@ -31,10 +43,19 @@ export default class SimplePopover extends Component {
   }
 
   render() {
-    const { pos, className, title, content } = this.props;
+    const { pos, className, title, content, appearOn } = this.props;
     const popoverWidth = this.state.el ? this.state.el.clientWidth : 0;
+    const popoverHeight = this.state.el ? this.state.el.clientHeight : 0;
 
-    const style = getPopoverOnBottomStyle(pos, popoverWidth);
+    let style;
+
+    if (appearOn === 'right') {
+      style = getPopoverOnRightStyle(pos, popoverWidth, popoverHeight);
+    } else if (appearOn === 'bottom-left') {
+      style = getPopoverOnBottomLeftStyle(pos, popoverWidth);
+    } else if(appearOn === 'bottom') {
+      style = getPopoverOnBottomStyle(pos, popoverWidth);
+    }
 
     return (
       <div className={className} style={style} ref={this.handleRef}>
