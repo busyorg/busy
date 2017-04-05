@@ -33,4 +33,5 @@ export default {
   stellabelle: 'bronze',
   pnc: 'bronze',
   lukestokes: 'bronze',
+  pharesim: 'bronze',
 };
