@@ -82,14 +82,16 @@ export default class PostSingleModal extends Component {
   render() {
     return (
       <div>
-        <NextButton
-          content={this.props.nextStory}
-          onClick={this.jumpToNextStory}
-        />
-        <PrevButton
-          content={this.props.prevStory}
-          onClick={this.jumpToPrevStory}
-        />
+        <div className="PostSingleModal__header">
+          <PrevButton
+            content={this.props.prevStory}
+            onClick={this.jumpToPrevStory}
+          />
+          <NextButton
+            content={this.props.nextStory}
+            onClick={this.jumpToNextStory}
+          />
+        </div>
 
         <PostSingleContent {...this.props} />
 

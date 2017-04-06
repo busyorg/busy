@@ -1,7 +1,7 @@
 .NextButton, .PrevButton {
   width: 100px;
   text-align: center;
-  position: fixed;
+  position: absolute;
   top: 0;
   bottom: 0;
   z-index: 1;
@@ -24,12 +24,20 @@
   }
 }
 
+.PostSingleModal__header {
+  width: 100%;
+  max-width: 800px;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+}
+
 .NextButton {
-  right: 0;
+  right: -100px;
 }
 
 .PrevButton {
-  left: 0;
+  left: -100px;
 }
 
 @media (max-width: 992px) {
