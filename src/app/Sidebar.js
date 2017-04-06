@@ -166,21 +166,21 @@ export default class Sidebar extends Component {
           {rate && props && menu === 'settings' &&
             <ul>
               <li className="title">
-                <a href="https://steemconnect.com/profile" target="_blank">
+                <a href="https://steemconnect.com/profile" target="_blank" rel="noopener noreferrer">
                   <Icon name="perm_identity" />{' '}
-                  <FormattedMessage id="profile" />
+                  <FormattedMessage id="profile" defaultMessage="Profile" />
                 </a>
               </li>
               <li className="title">
                 <Link to="/settings">
                   <Icon name="settings" />{' '}
-                  <FormattedMessage id="settings" />
+                  <FormattedMessage id="settings" defaultMessage="Settings" />
                 </Link>
               </li>
               <li className="title">
                 <a href={`${process.env.STEEMCONNECT_HOST}/logout`}>
                   <Icon name="lock_open" />{' '}
-                  <FormattedMessage id="logout" />
+                  <FormattedMessage id="logout" defaultMessage="Log Out" />
                 </a>
               </li>
             </ul>}
@@ -205,7 +205,14 @@ export default class Sidebar extends Component {
                     { this.renderSearchAsTag() }
                     { this.renderFavoritedTags() }
                     { this.renderTags() }
-                    <li><Link to="/tags" activeClassName="active"><FormattedMessage id="see_more" /></Link></li>
+                    <li>
+                      <Link to="/tags" activeClassName="active">
+                        <FormattedMessage
+                          id="see_more"
+                          defaultMessage="See More"
+                        />
+                      </Link>
+                    </li>
                   </ul>
                 </li>
               </ul>

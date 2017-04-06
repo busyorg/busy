@@ -6,7 +6,12 @@ const EmptyUserProfile = () =>
   <div className="text-center">
     <h3>
       <FormattedMessage id="empty_user_own_profile" />
-      <Link to="/write">Start now</Link>
+      <Link to="/write">
+        <FormattedMessage
+          id="@statics/start_now"
+          defaultMessage="Start now"
+        />
+      </Link>
     </h3>
   </div>;
 

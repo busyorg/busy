@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import numeral from 'numeral';
 import LikeButton from './actionButtons/LikeButton';
 import PayoutLabel from './actionButtons/PayoutLabel';
@@ -19,6 +19,7 @@ import ReblogButton from './actionButtons/ReblogButton';
     dislikePost: () => postActions.votePost(ownProps.post.id, -1000),
   }, dispatch)
 )
+@injectIntl
 export default class PostActionButtons extends Component {
   constructor(props) {
     super(props);
@@ -27,7 +28,11 @@ export default class PostActionButtons extends Component {
   handleCommentBoxClick(e) {
     e.stopPropagation();
     if (!this.props.auth.isAuthenticated) {
-      this.props.notify('You need to login in order to write comments.');
+      const msg = this.props.intl.formatMessage({
+        id: '@post/need_login',
+        defaultMessage: 'You need to login in order to write comments.',
+      });
+      this.props.notify(msg);
       return;
     }
 
@@ -54,7 +59,11 @@ export default class PostActionButtons extends Component {
     const { auth, post, reblog, notify } = this.props;
 
     if (!auth.isAuthenticated) {
-      notify('You need to login in order to reblog posts.');
+      const msg = this.props.intl.formatMessage({
+        id: '@post/login_to_reblog',
+        defaultMessage: 'You need to login in order to reblog posts.',
+      });
+      notify(msg);
       return;
     }
     reblog(post.id);

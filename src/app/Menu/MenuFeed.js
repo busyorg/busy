@@ -12,7 +12,7 @@ const MenuFeed = ({ auth, category }) => {
         <Link to={`/trending${categoryUrl}`} onlyActiveOnIndex activeClassName="active">
           <Icon name="show_chart" />
           <span className="hidden-xs">
-            {' '}<FormattedMessage id="trending" />
+            {' '}<FormattedMessage id="trending" defaultMessage="Trending" />
           </span>
         </Link>
       </li>
@@ -20,7 +20,7 @@ const MenuFeed = ({ auth, category }) => {
         <Link to={`/created${categoryUrl}`} activeClassName="active">
           <Icon name="fiber_new" />
           <span className="hidden-xs">
-            {' '}<FormattedMessage id="new" />
+            {' '}<FormattedMessage id="new" defaultMessage="New" />
           </span>
         </Link>
       </li>
@@ -28,7 +28,7 @@ const MenuFeed = ({ auth, category }) => {
         <Link to={`/hot${categoryUrl}`} activeClassName="active">
           <Icon name="whatshot" />
           <span className="hidden-xs">
-            {' '}<FormattedMessage id="hot" />
+            {' '}<FormattedMessage id="hot" defaultMessage="Hot" />
           </span>
         </Link>
       </li>
@@ -36,7 +36,7 @@ const MenuFeed = ({ auth, category }) => {
         <Link to={`/active${categoryUrl}`} activeClassName="active">
           <Icon name="track_changes" />
           <span className="hidden-xs">
-            {' '}<FormattedMessage id="active" />
+            {' '}<FormattedMessage id="active" defaultMessage="Active" />
           </span>
         </Link>
       </li>
@@ -45,7 +45,7 @@ const MenuFeed = ({ auth, category }) => {
           <Link to={`/messages/${channel}`} activeClassName="active">
             <Icon name="chat_bubble_outline" />
             <span className="hidden-xs">
-              {' '}<FormattedMessage id="chat" />
+              {' '}<FormattedMessage id="chat" defaultMessage="Chat" />
             </span>
           </Link>
         </li>

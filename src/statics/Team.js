@@ -12,8 +12,10 @@ export default () =>
     <div className="container text-center my-5">
       <h1><FormattedMessage id="team" /></h1>
       <p>
-        The Busy team draws on years of experience across multiple successful startup projects and
-        helps guide the foundation towards its strategic goals.
+        <FormattedMessage
+          id="@statics/busy_team"
+          defaultMessage="The Busy team draws on years of experience across multiple successful startup projects and helps guide the foundation towards its strategic goals."
+        />
       </p>
       <div className="row my-5">
         {team.map((user, idx) =>
