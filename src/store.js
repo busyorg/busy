@@ -60,8 +60,7 @@ const middleware = [
   })
 ];
 
-if (process.env.ENABLE_LOGGER &&
-  process.env.IS_BROWSER &&
+if (process.env.IS_BROWSER &&
   process.env.NODE_ENV !== 'production') {
   middleware.push(createLogger({
     collapsed: true,
