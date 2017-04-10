@@ -12,6 +12,11 @@ import errorMiddleware from './errorMiddleware';
 import reducers from './reducers';
 
 export const messagesWorker = new MessagesWorker();
+let preloadedState;
+if (process.env.IS_BROWSER) {
+  preloadedState = window.__PRELOADED_STATE__;
+  delete window.__PRELOADED_STATE__;
+}
 
 if (process.env.IS_BROWSER && process.env.NODE_ENV !== 'production') {
   window.steemAPI = api;
@@ -43,7 +48,8 @@ if (process.env.ENABLE_LOGGER &&
 
 let enhancer;
 if (process.env.IS_BROWSER) {
-  enhancer = compose(
+  const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+  enhancer = composeEnhancers(
     applyMiddleware(...middleware),
     persistState(['app', 'favorites', 'editor', 'bookmarks'], {
       slicer: () => state => ({
@@ -63,7 +69,7 @@ if (process.env.IS_BROWSER) {
 
 const store = createStore(
   reducers,
-  process.env.IS_BROWSER && window.devToolsExtension && window.devToolsExtension(),
+  preloadedState,
   enhancer
 );
 
