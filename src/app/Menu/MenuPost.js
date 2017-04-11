@@ -2,6 +2,7 @@ import React from 'react';
 import numeral from 'numeral';
 import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router';
+import { animateScroll } from 'react-scroll';
 import { SimpleTooltipOrigin } from '../../widgets/tooltip/SimpleTooltip';
 import { getUpvotes, getDownvotes, sortVotes } from '../../helpers/voteHelpers';
 import Icon from '../../widgets/Icon';
@@ -11,7 +12,6 @@ const MenuPost = ({
   reblog,
   isReblogged,
   canReblog,
-  openCommentingDraft,
   isPostLiked,
   isPostDisliked,
   likePost,
@@ -19,7 +19,23 @@ const MenuPost = ({
   dislikePost,
   content,
   onEdit,
+  modal
 }) => {
+  const handleReplyButtonClick = (e) => {
+    e.stopPropagation();
+    if (modal) {
+      animateScroll.scrollMore(400, { containerId: 'busyModal' });
+    } else {
+      animateScroll.scrollMore(400);
+    }
+
+    /* eslint-disable no-undef */
+    if (window && window.document) {
+      window.document.querySelector('#BusyEmbeddedCommentForm').focus();
+    }
+    /* eslint-enable no-undef */
+  };
+
   const pendingPayoutValue = parseFloat(content.pending_payout_value);
   const totalPayoutValue = parseFloat(content.total_payout_value);
   let payout = totalPayoutValue || pendingPayoutValue;
@@ -82,12 +98,7 @@ const MenuPost = ({
           {' '}{payout}
         </li>
         <li>
-          <a
-            onClick={(e) => {
-              e.stopPropagation();
-              openCommentingDraft();
-            }}
-          >
+          <a onClick={e => handleReplyButtonClick(e)}>
             <Icon name="reply" />
           </a>
           {` ${numberOfComments}`}

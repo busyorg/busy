@@ -37,7 +37,8 @@ const PostSingleContent = ({
   isPostLiked,
   isPostDisliked,
   onEdit,
-  location
+  location,
+  modal
 }) => {
   const jsonMetadata = jsonParse(content.json_metadata);
   const hasAnchoredLink = !!location.hash;
@@ -87,6 +88,7 @@ const PostSingleContent = ({
         isPostDisliked={isPostDisliked}
         content={content}
         onEdit={onEdit}
+        modal={modal}
       />
       <div className="container">
         <AuthorBio authorName={content.author} />

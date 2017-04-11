@@ -94,6 +94,7 @@ export default class ReactModal2 extends React.Component {
       <div ref={i => this.backdrop = i}
            className={this.props.backdropClassName}
            style={this.props.backdropStyles}
+           id="busyModal"
            onClick={this.handleBackdropClick}>
         <div ref={i => this.modal = i}
              className={this.props.modalClassName}

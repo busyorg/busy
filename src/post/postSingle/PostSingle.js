@@ -125,6 +125,7 @@ export default class PostSingle extends Component {
       prevStory,
       openPostModal: this.props.openPostModal,
       modalResetScroll: this.props.modalResetScroll,
+      modal,
     };
 
     return (
