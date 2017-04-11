@@ -156,6 +156,7 @@ export default class CommentFormEmbedded extends Component {
             placeholder={'Write a comment...'}
             value={this.state.draftValue}
             onChange={this.handleTextChange}
+            id="BusyEmbeddedCommentForm"
           />
           <button
             onClick={e => this.handleSubmit(e)}
