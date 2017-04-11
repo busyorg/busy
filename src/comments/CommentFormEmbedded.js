@@ -42,10 +42,11 @@ export default class CommentFormEmbedded extends Component {
 
   static defaultProps = {
     isReplyToComment: false,
+    focusOnMount: false,
   };
 
   componentDidMount() {
-    const { parentId, posts, comments, isReplyToComment, isEditing } = this.props;
+    const { parentId, posts, comments, isReplyToComment, isEditing, focusOnMount } = this.props;
     const content = isReplyToComment ? comments.comments[parentId] : posts[parentId];
     let payload;
 
@@ -69,6 +70,10 @@ export default class CommentFormEmbedded extends Component {
         category: content.category,
         isReplyToComment,
       };
+    }
+
+    if (focusOnMount) {
+      this._input.focus();
     }
 
     this.props.updateCommentingDraft(payload);
@@ -157,6 +162,7 @@ export default class CommentFormEmbedded extends Component {
             value={this.state.draftValue}
             onChange={this.handleTextChange}
             id="BusyEmbeddedCommentForm"
+            ref={(c) => { this._input = c }}
           />
           <button
             onClick={e => this.handleSubmit(e)}
