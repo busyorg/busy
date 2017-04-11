@@ -44,7 +44,7 @@ export default class CommentFormEmbedded extends Component {
     isReplyToComment: false,
   };
 
-  componentDidMount() {
+  componentWillMount() {
     const { parentId, posts, comments, isReplyToComment, isEditing } = this.props;
     const content = isReplyToComment ? comments.comments[parentId] : posts[parentId];
     let payload;

@@ -55,15 +55,10 @@ export default class PostSingle extends Component {
   };
 
   componentWillMount() {
-    const { content } = this.props;
-
+    const { content, modal } = this.props;
     if (!content) {
       this.props.getContent();
     }
-  }
-
-  componentDidMount() {
-    const { modal } = this.props;
 
     if (modal) {
       this.unlisten = browserHistory.listen(() => {

@@ -23,7 +23,7 @@ export default class Bookmarks extends Component {
     super(props);
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.props.getBookmarks();
   }
 
