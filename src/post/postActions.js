@@ -12,10 +12,7 @@ export const LIKE_POST_START = '@post/LIKE_POST_START';
 export const LIKE_POST_SUCCESS = '@post/LIKE_POST_SUCCESS';
 export const LIKE_POST_ERROR = '@post/LIKE_POST_ERROR';
 
-import steem from 'steem';
-
 steemConnect.vote = Promise.promisify(steemConnect.vote, { context: steemConnect });
-
 
 export const getContent = (postAuthor, postPermlink, omitAttributes = []) => {
   return (dispatch, getState, { steemAPI }) => {
@@ -31,7 +28,6 @@ export const getContent = (postAuthor, postPermlink, omitAttributes = []) => {
         ),
       },
     });
-
   };
 };
 
@@ -63,5 +59,5 @@ export const votePost = (postId, weight = 10000) => {
       },
       meta: { postId, voter, weight },
     });
-  }
+  };
 };

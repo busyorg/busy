@@ -66,7 +66,7 @@ export default class Comments extends Component {
   render() {
     const { postId, comments, className, show } = this.props;
     if (!show) {
-      return null;
+      return <div />;
     }
 
     const hasMore = (comments.listByPostId[postId] && comments.listByPostId[postId].hasMore);
