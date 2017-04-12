@@ -24,7 +24,7 @@ export default class CommentItem extends Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.checkHashLink();
   }
 
