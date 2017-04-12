@@ -3,6 +3,7 @@ import createLogger from 'redux-logger';
 import promiseMiddleware from 'redux-promise-middleware';
 import persistState from 'redux-localstorage';
 import thunk from 'redux-thunk';
+import { omit } from 'lodash/object';
 import { applyMiddleware, createStore, compose } from 'redux';
 import api from './steemAPI';
 
@@ -53,10 +54,7 @@ if (process.env.IS_BROWSER) {
     applyMiddleware(...middleware),
     persistState(['app', 'favorites', 'editor', 'bookmarks'], {
       slicer: () => state => ({
-        app: {
-          locale: state.app.locale,
-          layout: state.app.layout,
-        },
+        app: omit(state.app, ['errorMessage', 'isFetching', 'isLoaded']),
         bookmarks: state.bookmarks,
         favorites: state.favorites,
         editor: state.editor,

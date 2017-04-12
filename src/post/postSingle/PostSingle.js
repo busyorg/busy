@@ -60,7 +60,6 @@ export default class PostSingle extends Component {
 
   componentWillMount() {
     const { content } = this.props;
-
     if (!content) {
       this.props.getContent();
     }
