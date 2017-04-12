@@ -25,10 +25,10 @@ import Loading from '../../widgets/Loading';
   (dispatch, ownProps) => bindActionCreators({
     reblog: reblogActions.reblog,
     editPost,
-    getContent: () => postActions.getContent(
-      ownProps.params.author,
-      ownProps.params.permlink
-    ),
+    getContent: () => postActions.getContent({
+      author: ownProps.params.author,
+      permlink: ownProps.params.permlink
+    }),
     openCommentingDraft: commentsActions.openCommentingDraft,
     closeCommentingDraft: commentsActions.closeCommentingDraft,
     likePost: id => postActions.votePost(id),
@@ -48,6 +48,10 @@ export default class PostSingle extends Component {
     })),
   };
 
+  static needs = [
+    postActions.getContent
+  ]
+
   static defaultProps = {
     modal: false,
     contentList: [],
@@ -61,10 +65,8 @@ export default class PostSingle extends Component {
       this.props.getContent();
     }
   }
-
   componentDidMount() {
     const { modal } = this.props;
-
     if (modal) {
       this.unlisten = browserHistory.listen(() => {
         this.props.closePostModal();

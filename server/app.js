@@ -60,7 +60,28 @@ const indexPath = process.env.NODE_ENV === 'production' ?
 
 const indexHtml = fs.readFileSync(indexPath, 'utf-8');
 
-function renderPage(appHtml, header, preloadedState) {
+function fetchComponentData(dispatch, components, params) {
+  const needs = components.reduce((prev, current) => (current.needs || [])
+    .concat((current.WrappedComponent ? current.WrappedComponent.needs : []) || [])
+    .concat(prev), []);
+  const promises = needs.map((need) => {
+    const pros = dispatch(need(params));
+    // console.log('pros', pros);
+    return pros;
+  });
+  console.log('promises', needs, Date.now());
+  return Promise.all(promises);
+}
+function renderPage(props) {
+  console.log('renderPage', Date.now());
+  const appHtml = renderToString(
+    <Provider store={store}>
+      <RouterContext {...props} />
+    </Provider>);
+
+  const preloadedState = store.getState();
+  const helmet = Helmet.renderStatic();
+  const header = helmet.meta.toString() + helmet.title.toString() + helmet.link.toString();
   return indexHtml
     .replace('<!--server:header-->', header)
     .replace('<!--server:html-->', appHtml)
@@ -75,16 +96,10 @@ function renderPage(appHtml, header, preloadedState) {
 
 app.get('/*', (req, res) => {
   match({ routes, location: req.url }, (err, redirect, props) => {
-    const preloadedState = store.getState();
-
-    const appHtml = renderToString(
-      <Provider store={store}>
-        <RouterContext {...props} />
-      </Provider>);
-    const helmet = Helmet.renderStatic();
-    const header = helmet.meta.toString() + helmet.title.toString() + helmet.link.toString();
-
-    res.send(renderPage(appHtml, header, preloadedState));
+    fetchComponentData(store.dispatch, props.components, props.params)
+      .then(() => renderPage(props))
+      .then(html => res.end(html))
+      .catch(error => res.end(error.message));
   });
 });
 
