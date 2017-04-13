@@ -94,13 +94,17 @@ function renderPage(props) {
     );
 }
 
-app.get('/*', (req, res) => {
+app.get('/:category/@:author/:permlink', (req, res) => {
   match({ routes, location: req.url }, (err, redirect, props) => {
     fetchComponentData(store.dispatch, props.components, props.params)
       .then(() => renderPage(props))
       .then(html => res.end(html))
       .catch(error => res.end(error.message));
   });
+});
+
+app.get('/*', (req, res) => {
+  res.send(indexHtml);
 });
 
 module.exports = { app, server };
