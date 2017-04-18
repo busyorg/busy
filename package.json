@@ -12,9 +12,9 @@
     "eslint-autofix": "eslint --fix src/**/*.js *.js",
     "lint": "eslint src/**",
     "run:server": "nodemon --watch busy.server.js busy.server.js",
-    "build:server:dev": "NODE_ENV=development webpack --config webpack.server.config.js",
-    "build:server": "NODE_ENV=production webpack -p --config webpack.server.config.js",
-    "build:client": "npm run cleanup-public && mkdir -p public && cp -r ./assets/* ./public/ && webpack -p --config webpack.prod.config.js",
+    "build:server:dev": "NODE_ENV=development webpack --config ./webpack/webpack.server.config.js",
+    "build:server": "NODE_ENV=production webpack -p --config ./webpack/webpack.server.config.js",
+    "build:client": "npm run cleanup-public && mkdir -p public && cp -r ./assets/* ./public/ && webpack -p --config ./webpack/webpack.prod.config.js",
     "build": "NODE_ENV=production run-s build:client build:server",
     "postinstall": "npm run build",
     "cleanup-public": "rm -rf ./public/*"

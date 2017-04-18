@@ -14,18 +14,19 @@ export const LIKE_POST_ERROR = '@post/LIKE_POST_ERROR';
 
 steemConnect.vote = Promise.promisify(steemConnect.vote, { context: steemConnect });
 
-export const getContent = ({ author: postAuthor, permlink: postPermlink, omitAttributes = [] }) =>
-  (dispatch, getState, { steemAPI }) => {
-    if (!postAuthor || !postPermlink) { return null; }
-    return dispatch({
-      type: GET_CONTENT,
-      payload: {
-        promise: steemAPI.getContentAsync(postAuthor, postPermlink).then(
-          postData => omit(postData, omitAttributes)
-        ),
-      },
-    });
-  };
+export const getContent =
+  ({ author: postAuthor, permlink: postPermlink, omitAttributes = [] } = {}) =>
+    (dispatch, getState, { steemAPI }) => {
+      if (!postAuthor || !postPermlink) { return null; }
+      return dispatch({
+        type: GET_CONTENT,
+        payload: {
+          promise: steemAPI.getContentAsync(postAuthor, postPermlink).then(
+            postData => omit(postData, omitAttributes)
+          ),
+        },
+      });
+    };
 
 export const votePost = (postId, weight = 10000) => (dispatch, getState) => {
   const { auth, posts } = getState();

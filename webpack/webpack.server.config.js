@@ -3,9 +3,10 @@ const path = require('path');
 const webpack = require('webpack');
 
 const isDevelopment = process.env.NODE_ENV !== 'production';
+const baseDir = path.resolve(__dirname, '..');
 module.exports = {
 
-  entry: path.resolve(__dirname, './server/index.js'),
+  entry: path.resolve(baseDir, './server/index.js'),
 
   output: {
     filename: 'busy.server.js'
@@ -14,7 +15,7 @@ module.exports = {
   target: 'node',
 
   // keep node_module paths out of the bundle
-  externals: fs.readdirSync(path.resolve(__dirname, 'node_modules'))
+  externals: fs.readdirSync(path.resolve(baseDir, 'node_modules'))
     .concat([
       'react-dom/server', 'react/addons',
     ]).reduce((ext, mod) => {
