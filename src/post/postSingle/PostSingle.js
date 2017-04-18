@@ -12,6 +12,7 @@ import * as bookmarkActions from '../../bookmarks/bookmarksActions';
 import * as appActions from '../../actions';
 import { editPost } from '../Write/EditorActions';
 import Loading from '../../widgets/Loading';
+import { jsonParse } from '../../helpers/formatter';
 
 @connect(
   ({ posts, app, reblog, auth, bookmarks }) => ({
@@ -129,12 +130,17 @@ export default class PostSingle extends Component {
       modalResetScroll: this.props.modalResetScroll,
     };
 
+    const postMetaData = jsonParse(content.json_metadata);
+    let canonicalHost = 'https://busy.org';
+    if (postMetaData.app.indexOf('steemit') === 0) {
+      canonicalHost = 'https://steemit.com';
+    }
     return (
       <div>
         <Helmet>
           <meta property="og:type" content="article" />
           <title>{content.title}</title>
-          <link rel="canonical" href={`https://busy.org${content.url}`} />
+          <link rel="canonical" href={`${canonicalHost}${content.url}`} />
         </Helmet>
         {content.author && !modal &&
           <PostSinglePage {...theProps} />
