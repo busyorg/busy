@@ -3,6 +3,9 @@ import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { bindActionCreators } from 'redux';
+import sanitize from 'sanitize-html';
+
+import { getHtml } from '../Body';
 import * as postActions from './../postActions';
 import PostSinglePage from './PostSinglePage';
 import PostSingleModal from './PostSingleModal';
@@ -135,12 +138,36 @@ export default class PostSingle extends Component {
     if (postMetaData.app.indexOf('steemit') === 0) {
       canonicalHost = 'https://steemit.com';
     }
+
+    const { title, category, created, author, body } = content;
+    const postMetaImage = postMetaData.image && postMetaData.image[0];
+    const htmlBody = getHtml(body, {}, 'text');
+    const bodyText = sanitize(htmlBody, { allowedTags: [] });
+    const desc = `${bodyText.substring(0, 140)} by ${author}`;
+    const image = postMetaImage || `${process.env.STEEMCONNECT_IMG_HOST}/@${author}`;
+    const url = `${canonicalHost}${content.url}`;
+
     return (
       <div>
         <Helmet>
+          <title>{title}</title>
+          <link rel="canonical" href={url} />
+          <meta property="description" content={desc} />
+
+          <meta property="og:title" content={title} />
           <meta property="og:type" content="article" />
-          <title>{content.title}</title>
-          <link rel="canonical" href={`${canonicalHost}${content.url}`} />
+          <meta property="og:url" content={url} />
+          <meta property="og:image" content={image} />
+          <meta property="og:description" content={desc} />
+          <meta property="og:site_name" content="Busy" />
+          <meta property="article:tag" content={category} />
+          <meta property="article:published_time" content={created} />
+
+          <meta property="twitter:card" content={image ? 'summary_large_image' : 'summary'} />
+          <meta property="twitter:site" content={'@steemit'} />
+          <meta property="twitter:title" content={title} />
+          <meta property="twitter:description" content={desc} />
+          <meta property="twitter:image" content={image || 'https://steemit.com/images/steemit-twshare.png'} />
         </Helmet>
         {content.author && !modal &&
           <PostSinglePage {...theProps} />
