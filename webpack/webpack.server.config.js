@@ -78,7 +78,6 @@ module.exports = {
           process.env.STEEMCONNECT_REDIRECT_URL ||
           'http://localhost:3000'
         ),
-        PORT:JSON.stringify(process.env.PORT || '3000'),
         WS: JSON.stringify(
           process.env.WS ||
           'wss://steemd.steemit.com'

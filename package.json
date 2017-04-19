@@ -17,7 +17,6 @@
     "build:client": "npm run cleanup-public && mkdir -p public && cp -r ./assets/* ./public/ && webpack -p --config ./webpack/webpack.prod.config.js",
     "build": "NODE_ENV=production run-s build:client build:server",
     "postinstall": "npm rebuild node-sass && npm run build",
-    "heroku-postbuild":"npm run build:server",
     "cleanup-public": "rm -rf ./public/*"
   },
   "dependencies": {
@@ -42,6 +41,7 @@
     "bufferutil": "^1.2.1",
     "classnames": "^2.2.5",
     "coffeeify": "^2.0.1",
+    "config": "^1.25.1",
     "cors": "^2.7.1",
     "css-loader": "^0.28.0",
     "debug": "~2.2.0",
