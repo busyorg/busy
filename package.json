@@ -17,6 +17,7 @@
     "build:client": "npm run cleanup-public && mkdir -p public && cp -r ./assets/* ./public/ && webpack -p --config ./webpack/webpack.prod.config.js",
     "build": "NODE_ENV=production run-s build:client build:server",
     "postinstall": "npm rebuild node-sass && npm run build",
+    "heroku-postbuild":"npm run build:server",
     "cleanup-public": "rm -rf ./public/*"
   },
   "dependencies": {
