@@ -79,7 +79,10 @@ export default class PostSingle extends Component {
 
   componentWillUnmount() {
     this.props.closePostModal();
-    this.unlisten();
+    if (this.unlisten) { this.unlisten(); }
+    if (process.env.IS_BROWSER) {
+      global.document.title = 'Busy';
+    }
   }
 
   render() {
