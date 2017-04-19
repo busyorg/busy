@@ -30,8 +30,8 @@ import { jsonParse } from '../../helpers/formatter';
     reblog: reblogActions.reblog,
     editPost,
     getContent: () => postActions.getContent({
-      author: ownProps.params.author,
-      permlink: ownProps.params.permlink
+      author: ownProps.params ? ownProps.params.author : undefined,
+      permlink: ownProps.params ? ownProps.params.permlink : undefined,
     }),
     openCommentingDraft: commentsActions.openCommentingDraft,
     closeCommentingDraft: commentsActions.closeCommentingDraft,
