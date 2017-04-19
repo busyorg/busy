@@ -29,6 +29,7 @@ function normalizePort(val) {
  */
 
 const port = normalizePort(process.env.PORT || '3000');
+console.log('using port', port);
 app.set('port', port);
 
 /**
