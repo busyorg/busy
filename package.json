@@ -5,7 +5,7 @@
   "main": "./server",
   "private": true,
   "scripts": {
-    "start": "NODE_ENV=production npm run run:server",
+    "start": "NODE_ENV=production node busy.server.js",
     "dev": "NODE_ENV=development run-p build:server:dev run:server",
     "test": "BUSYWS_HOST=https://ws.busy.org BABEL_ENV=test mocha --require babel-register ./src/*/*-spec.js",
     "test-watch": "BUSYWS_HOST=https://ws.busy.org BABEL_ENV=test mocha --watch --require babel-register ./src/*/*-spec.js",
