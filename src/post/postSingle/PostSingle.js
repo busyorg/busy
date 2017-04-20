@@ -137,7 +137,8 @@ export default class PostSingle extends Component {
     };
 
     const postMetaData = jsonParse(content.json_metadata);
-    let canonicalHost = 'https://busy.org';
+    const busyHost = 'https://busy.org';
+    let canonicalHost = busyHost;
     if (postMetaData.app.indexOf('steemit') === 0) {
       canonicalHost = 'https://steemit.com';
     }
@@ -148,16 +149,18 @@ export default class PostSingle extends Component {
     const bodyText = sanitize(htmlBody, { allowedTags: [] });
     const desc = `${bodyText.substring(0, 140)} by ${author}`;
     const image = postMetaImage || `${process.env.STEEMCONNECT_IMG_HOST}/@${author}`;
-    const url = `${canonicalHost}${content.url}`;
+    const canonicalUrl = `${canonicalHost}${content.url}`;
+    const url = `${busyHost}${content.url}`;
+    const metaTitle = `${title} - Busy`;
 
     return (
       <div>
         <Helmet>
           <title>{title}</title>
-          <link rel="canonical" href={url} />
+          <link rel="canonical" href={canonicalUrl} />
           <meta property="description" content={desc} />
 
-          <meta property="og:title" content={title} />
+          <meta property="og:title" content={metaTitle} />
           <meta property="og:type" content="article" />
           <meta property="og:url" content={url} />
           <meta property="og:image" content={image} />
@@ -168,7 +171,7 @@ export default class PostSingle extends Component {
 
           <meta property="twitter:card" content={image ? 'summary_large_image' : 'summary'} />
           <meta property="twitter:site" content={'@steemit'} />
-          <meta property="twitter:title" content={title} />
+          <meta property="twitter:title" content={metaTitle} />
           <meta property="twitter:description" content={desc} />
           <meta property="twitter:image" content={image || 'https://steemit.com/images/steemit-twshare.png'} />
         </Helmet>
