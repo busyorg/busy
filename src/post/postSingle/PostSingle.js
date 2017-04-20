@@ -137,7 +137,7 @@ export default class PostSingle extends Component {
     };
 
     const postMetaData = jsonParse(content.json_metadata);
-    const busyHost = 'https://busy.org';
+    const busyHost = global.postOrigin || 'https://busy.org';
     let canonicalHost = busyHost;
     if (postMetaData.app.indexOf('steemit') === 0) {
       canonicalHost = 'https://steemit.com';

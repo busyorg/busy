@@ -95,6 +95,7 @@ function renderPage(props) {
 }
 
 app.get('/:category/@:author/:permlink', (req, res) => {
+  global.postOrigin = `${req.protocol}://${req.get('host')}`;
   match({ routes, location: req.url }, (err, redirect, props) => {
     fetchComponentData(store.dispatch, props.components, props.params)
       .then(() => renderPage(props))
