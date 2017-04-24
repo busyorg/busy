@@ -30,7 +30,21 @@ export const initPushpad = (uid, username, token) => {
 
         pushpad('init', PUSHPAD_PROJECT_ID);
         pushpad('uid', `${uid}`, signatureId);
-        pushpad('subscribe');
+        pushpad('subscribe', (isSubscribed) => {
+          if (!isSubscribed) {
+            return;
+          }
+
+          // subscribe username in busy-push to check for its activities in Steem blockchain
+          request
+            .post(`${BUSYPUSH_ENDPOINT}/api/subscribe`)
+            .send({
+              uid,
+              username,
+              token,
+            })
+            .end();
+        });
         /* eslint-enable */
       }
     });
