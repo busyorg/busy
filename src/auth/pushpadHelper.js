@@ -9,11 +9,11 @@ export const initPushpad = (uid, username, token) => {
   }
 
   request
-    .post(BUSYPUSH_ENDPOINT + '/api/getSignature')
+    .post(`${BUSYPUSH_ENDPOINT}/api/getSignature`)
     .send({
       uid,
       username,
-      token
+      token,
     })
     .end((err, res) => {
       if (err) {
