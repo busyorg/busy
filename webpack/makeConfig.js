@@ -47,6 +47,8 @@ function makePlugins(options) {
           'wss://steemd.steemit.com'
         ),
         IS_BROWSER: JSON.stringify(true),
+        PUSHPAD_PROJECT_ID: process.env.PUSHPAD_PROJECT_ID,
+        BUSYPUSH_ENDPOINT: process.env.BUSYPUSH_ENDPOINT,
       },
     }),
     new LodashModuleReplacementPlugin({ collections: true, paths: true, shorthands: true }),
