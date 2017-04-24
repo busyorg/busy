@@ -2,6 +2,7 @@ import Promise from 'bluebird';
 import steemConnect from 'steemconnect';
 import request from 'superagent';
 import { getFollowing } from '../user/userActions';
+import { initPushpad } from './pushpadHelper';
 
 Promise.promisifyAll(steemConnect);
 Promise.promisifyAll(request.Request.prototype);
@@ -41,6 +42,8 @@ export const login = () =>
           return;
         }
         dispatch(loginSuccess(users[0], result.token));
+        // init pushpad
+        initPushpad(users[0].id, result.username, result.token);
       });
     });
   };
