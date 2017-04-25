@@ -43,7 +43,7 @@ export default class Transfer extends Component {
     const account = this.props.auth.user;
     const { from, to, amount, currency, memo } = this.state;
     const balance = currency === 'STEEM' ? account.balance : account.sbd_balance;
-    const url = `https://steemjs.com/sign/transfer?from=${from}&to=${to}&memo=${memo}&amount=${amount}%20${currency}`;
+    const url = `https://v2.steemconnect.com/sign/transfer?from=${from}&to=${to}&memo=${memo}&amount=${amount}%20${currency}`;
     const sbdBtnClass = classNames('btn btn-sm mr-2', {
       'btn-primary': currency === 'SBD',
       'btn-secondary': currency === 'STEEM',
