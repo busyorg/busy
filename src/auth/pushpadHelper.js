@@ -62,5 +62,7 @@ export const initPushpad = (uid, username, token) => {
         })
       });
       /* eslint-enable */
+    }).catch((err) => {
+      console.log(err);
     });
 }
