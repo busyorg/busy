@@ -2,7 +2,7 @@ import fetch from 'isomorphic-fetch';
 
 export const initPushpad = (uid, username, token) => {
   const PUSHPAD_PROJECT_ID = process.env.PUSHPAD_PROJECT_ID;
-  const BUSYPUSH_ENDPOINT  = process.env.BUSYPUSH_ENDPOINT;
+  const BUSYPUSH_ENDPOINT = process.env.BUSYPUSH_ENDPOINT;
 
   if (!(window && window.Worker)) { // eslint-disable-line
     return;
