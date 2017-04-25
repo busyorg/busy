@@ -48,4 +48,4 @@ export const initPushpad = (uid, username, token) => {
         /* eslint-enable */
       }
     });
-};
+}
