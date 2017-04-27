@@ -44,6 +44,6 @@ export default class PostFeedEmbed extends Component {
     } else if (embed.embed) {
       return this.renderWithIframe(embed.embed);
     }
-    return null;
+    return <div />;
   }
 }

@@ -9,7 +9,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const DEFAULTS = {
   isDevelopment: process.env.NODE_ENV !== 'production',
-  baseDir: path.join(__dirname, '..'),
+  baseDir: path.resolve(__dirname, '..'),
 };
 
 function isVendor({ resource }) {
@@ -165,9 +165,9 @@ function makeConfig(options = {}) {
         'webpack/hot/only-dev-server',
         // bundle the client for hot reloading
         // only- means to only hot reload for successful updates
-        ] : []).concat([
-        path.join(options.baseDir, 'src/index.js'),]
-      ),
+      ] : []).concat([
+        path.join(options.baseDir, 'src/index.js')]
+        ),
     },
     output: {
       path: path.join(options.baseDir, '/public/js'),
@@ -203,7 +203,10 @@ function makeConfig(options = {}) {
         },
         {
           test: /\.html$/,
-          loader: 'html-loader'
+          loader: 'html-loader',
+          options: {
+            removeComments: false
+          }
         },
       ].concat(makeStyleLoaders(options)),
     },

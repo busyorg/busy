@@ -14,7 +14,7 @@ const CommentsList = ({
   sortOrder
 }) => {
   if (!comments.listByPostId[postId]) {
-    return null;
+    return <div />;
   }
 
   const { show, list } = comments.listByPostId[postId];

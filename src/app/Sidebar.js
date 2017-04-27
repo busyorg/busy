@@ -42,7 +42,7 @@ export default class Sidebar extends Component {
     };
   }
 
-  componentDidMount() {
+  componentWillMount() {
     api.getState('trending/busy', (err, result) => {
       let categories = (result.category_idx && result.category_idx.trending)
         || (result.tag_idx && result.tag_idx.trending);
