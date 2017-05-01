@@ -62,6 +62,7 @@ const indexHtml = fs.readFileSync(indexPath, 'utf-8');
 
 function fetchComponentData(dispatch, components, params) {
   const needs = components.reduce((prev, current) => (current.needs || [])
+    .concat((current.Wrapped ? current.Wrapped.needs : []) || [])
     .concat((current.WrappedComponent ? current.WrappedComponent.needs : []) || [])
     .concat(prev), []);
   const promises = needs.map((need) => {
@@ -94,15 +95,27 @@ function renderPage(props) {
     );
 }
 
-app.get('/:category/@:author/:permlink', (req, res) => {
+function serverSideResponse(req, res) {
   global.postOrigin = `${req.protocol}://${req.get('host')}`;
   match({ routes, location: req.url }, (err, redirect, props) => {
-    fetchComponentData(store.dispatch, props.components, props.params)
+    fetchComponentData(store.dispatch, props.components, req.params)
       .then(() => renderPage(props))
       .then(html => res.end(html))
       .catch(error => res.end(error.message));
   });
-});
+}
+app.get('/:category/@:author/:permlink', serverSideResponse);
+app.get('/@:name', (req, res, next) => {
+  req.params = {
+    ...req.params,
+    sortBy: 'blog',
+    category: req.params.name,
+    username: req.params.name,
+    limit: 5
+  };
+  console.log('req', req.params);
+  next();
+}, serverSideResponse);
 
 app.get('/*', (req, res) => {
   res.send(indexHtml);

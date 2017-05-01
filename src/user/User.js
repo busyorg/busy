@@ -58,7 +58,7 @@ import Transfer from '../widgets/Transfer';
     };
   }
 )
-export default class UserProfile extends React.Component {
+export default class User extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -66,6 +66,12 @@ export default class UserProfile extends React.Component {
       fetching: false
     };
   }
+
+  static needs = [
+    getFeedContent,
+    getUserFeedContent,
+    // getUserComments,
+  ]
 
   componentWillMount() {
     this.fetchUserData();
