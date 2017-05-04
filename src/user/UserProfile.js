@@ -93,6 +93,7 @@ export default class UserProfile extends Component {
             loadMoreContent={loadMoreContentAction}
             route={this.props.route}
             username={user.name}
+            hideReblogs
           />
 
           {(content.length === 0 && !isFetching && isOwnProfile) &&
