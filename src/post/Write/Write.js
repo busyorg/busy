@@ -232,7 +232,7 @@ export class RawNewPost extends Component {
                 type="text"
                 onChange={this.saveDraft}
                 ref={(c) => { this.title = c; }}
-                className="form-control form-control-xl"
+                className="form-control form-control-xl title-input"
               />
             </fieldset>
 
