@@ -104,6 +104,9 @@ const renderReportFromOp = (op, username) => {
       // data.open_owner filled my order
       descriptionStart += `Paid ${data.current_pays} for ${data.open_pays}`;
     }
+  } else if (type === 'claim_reward_balance') {
+    descriptionStart += `Claim rewards: ${renameToSd(data.reward_sbd)}, ${data.reward_steem}, and ${data.reward_vests}`;
+    descriptionEnd = '';
   } else {
     descriptionStart += JSON.stringify({ type, ...data }, null, 2);
   }
