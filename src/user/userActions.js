@@ -2,6 +2,7 @@ import Promise from 'bluebird';
 import fetch from 'isomorphic-fetch';
 import steemConnect from 'steemconnect';
 
+import { getUserCommentsFromState } from '../helpers/stateHelpers';
 import { getAllFollowing, mapAPIContentToId } from '../helpers/apiHelpers';
 
 export const GET_USER_COMMENTS = 'GET_USER_COMMENTS';
@@ -25,30 +26,29 @@ export const GET_MORE_USER_REPLIES_SUCCESS = '@user/GET_MORE_USER_REPLIES_SUCCES
 export const GET_MORE_USER_REPLIES_ERROR = '@user/GET_MORE_USER_REPLIES_ERROR';
 
 
-export const getUserComments = (username) => {
-  return (dispatch, getState, { steemAPI }) => {
+export const getUserComments = username =>
+  (dispatch, getState, { steemAPI }) => {
     const feed = getState().feed;
     if (feed.comments[username] && feed.comments[username].isLoaded) {
-      return;
+      return Promise.reject('User is not loaded');
     }
 
     const steemGetState = Promise.promisify(steemAPI.getState, { context: steemAPI });
 
-    dispatch({
-      type: actionTypes.GET_USER_COMMENTS,
+    return dispatch({
+      type: GET_USER_COMMENTS,
       payload: {
         promise: steemGetState(`@${username}/posts`),
       },
       meta: { username }
     });
   };
-};
 
-export const getMoreUserComments = (username, limit) => {
-  return (dispatch, getState, { steemAPI }) => {
+export const getMoreUserComments = (username, limit) =>
+  (dispatch, getState, { steemAPI }) => {
     const { feed, comments } = getState();
     if (feed.comments[username] && feed.comments[username].isLoaded) {
-      return;
+      return Promise.reject('User is not loaded');
     }
 
     const getDiscussionsByComments = Promise.promisify(
@@ -58,8 +58,8 @@ export const getMoreUserComments = (username, limit) => {
     const startAuthor = userComments[userComments.length - 1].author;
     const startPermlink = userComments[userComments.length - 1].permlink;
 
-    dispatch({
-      type: actionTypes.GET_MORE_USER_COMMENTS,
+    return dispatch({
+      type: GET_MORE_USER_COMMENTS,
       payload: {
         promise: getDiscussionsByComments({
           start_author: startAuthor,
@@ -70,7 +70,6 @@ export const getMoreUserComments = (username, limit) => {
       meta: { username }
     });
   };
-};
 
 /*!
  * busy-img actions
@@ -98,7 +97,7 @@ export function uploadFile({ username, file, fileInput }) {
     throw new TypeError('Missing one of `file` or `fileInput` to `uploadFile` call');
   }
 
-  return (dispatch) => dispatch({
+  return dispatch => dispatch({
     meta,
     type: UPLOAD_FILE,
     payload: {
@@ -126,7 +125,7 @@ export const FETCH_FILES_SUCCESS = 'FETCH_FILES_SUCCESS';
 export const FETCH_FILES_ERROR = 'FETCH_FILES_ERROR';
 
 export function fetchFiles({ username }) {
-  return (dispatch) => dispatch({
+  return dispatch => dispatch({
     type: FETCH_FILES,
     payload: {
       promise: fetch(`${process.env.STEEMCONNECT_IMG_HOST}/@${username}/uploads`)
@@ -143,23 +142,21 @@ export const FOLLOW_USER_START = '@user/FOLLOW_USER_START';
 export const FOLLOW_USER_SUCCESS = '@user/FOLLOW_USER_SUCCESS';
 export const FOLLOW_USER_ERROR = '@user/FOLLOW_USER_ERROR';
 
-export const followUser = (username) => {
-  return (dispatch, getState) => {
-    const { auth } = getState();
-    if (!auth.isAuthenticated) {
-      return;
-    }
-
-    dispatch({
-      type: FOLLOW_USER,
-      payload: {
-        promise: steemConnect.follow(auth.user.name, username),
-      },
-      meta: {
-        username
-      }
-    });
+export const followUser = username => (dispatch, getState) => {
+  const { auth } = getState();
+  if (!auth.isAuthenticated) {
+    return Promise.reject('User is not authenticated');
   }
+
+  return dispatch({
+    type: FOLLOW_USER,
+    payload: {
+      promise: steemConnect.follow(auth.user.name, username),
+    },
+    meta: {
+      username
+    }
+  });
 };
 
 export const UNFOLLOW_USER = '@user/UNFOLLOW_USER';
@@ -167,22 +164,20 @@ export const UNFOLLOW_USER_START = '@user/UNFOLLOW_USER_START';
 export const UNFOLLOW_USER_SUCCESS = '@user/UNFOLLOW_USER_SUCCESS';
 export const UNFOLLOW_USER_ERROR = '@user/UNFOLLOW_USER_ERROR';
 
-export const unfollowUser = (username) => {
-  return (dispatch, getState) => {
-    const { auth } = getState();
-    if (!auth.isAuthenticated) {
-      return;
-    }
-    dispatch({
-      type: UNFOLLOW_USER,
-      payload: {
-        promise: steemConnect.unfollow(auth.user.name, username),
-      },
-      meta: {
-        username
-      }
-    });
+export const unfollowUser = username => (dispatch, getState) => {
+  const { auth } = getState();
+  if (!auth.isAuthenticated) {
+    return Promise.reject('User is not authenticated');
   }
+  return dispatch({
+    type: UNFOLLOW_USER,
+    payload: {
+      promise: steemConnect.unfollow(auth.user.name, username),
+    },
+    meta: {
+      username
+    }
+  });
 };
 
 export const GET_FOLLOWING = '@user/GET_FOLLOWING';
@@ -191,28 +186,26 @@ export const GET_FOLLOWING_SUCCESS = '@user/GET_FOLLOWING_SUCCESS';
 export const GET_FOLLOWING_ERROR = '@user/GET_FOLLOWING_ERROR';
 
 
-export const getFollowing = (userName = '') => {
-  return (dispatch, getState) => {
-    const { auth } = getState();
+export const getFollowing = (userName = '') => (dispatch, getState) => {
+  const { auth } = getState();
 
-    if (!userName && !auth.isAuthenticated) {
-      return;
+  if (!userName && !auth.isAuthenticated) {
+    return Promise.reject('User is not authenticated');
+  }
+
+  const targetUsername = userName || auth.user.name;
+
+  return dispatch({
+    type: GET_FOLLOWING,
+    meta: targetUsername,
+    payload: {
+      promise: getAllFollowing(userName),
     }
-
-    const targetUsername = userName || auth.user.name;
-
-    dispatch({
-      type: GET_FOLLOWING,
-      meta: targetUsername,
-      payload: {
-        promise: getAllFollowing(userName),
-      }
-    });
-  };
+  });
 };
 
 export const getUserReplies = username =>
-  (dispatch, getState, { steemAPI }) => {
+  (dispatch, getState, { steemAPI }) =>
     dispatch({
       type: GET_USER_REPLIES,
       payload: {
@@ -222,27 +215,27 @@ export const getUserReplies = username =>
       },
       meta: { username },
     });
-  };
 
 export const getMoreUserReplies = username =>
   (dispatch, getState, { steemAPI }) => {
     const { feed, posts } = getState();
     const lastFetchedReplyId =
       feed.replies[username] &&
-      feed.replies[username].list[feed.replies[username].list.length -1];
+      feed.replies[username].list[feed.replies[username].list.length - 1];
 
     if (!lastFetchedReplyId) {
-      return;
+      return Promise.reject('lastFetchedReplyId not found');
     }
 
     const startAuthor = posts[lastFetchedReplyId].author;
     const startPermlink = posts[lastFetchedReplyId].permlink;
     const limit = 10;
 
-    dispatch({
+    return dispatch({
       type: GET_MORE_USER_REPLIES,
       payload: {
-        // for "more content" 1 item is always repeated from previous result and will be removed before returning the res
+        // for "more content" 1 item is always repeated from previous result
+        // and will be removed before returning the res
         promise: steemAPI.getRepliesByLastUpdateAsync(startAuthor, startPermlink, limit + 1).then(
           apiRes => apiRes.slice(1)
         ),
