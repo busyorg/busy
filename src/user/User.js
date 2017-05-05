@@ -11,7 +11,7 @@ import {
   getUserFeedContent,
   getMoreUserFeedContent,
 } from '../feed/feedActions';
-import { getAccountWithFollowingCount } from '../helpers/apiHelpers';
+import { getAccountWithFollowingCount } from './usersActions';
 import { getUserComments, getMoreUserComments } from './userActions';
 import MenuUser from '../app/Menu/MenuUser';
 import { addUserFavorite, removeUserFavorite } from '../favorites/favoritesActions';
@@ -33,6 +33,7 @@ import Transfer from '../widgets/Transfer';
     posts: state.posts,
     comments: state.comments,
     favorites: state.favorites.users,
+    users: state.users,
   }),
   dispatch => bindActionCreators({
     getFeedContent,
@@ -42,7 +43,8 @@ import Transfer from '../widgets/Transfer';
     getUserComments,
     getMoreUserComments,
     addUserFavorite,
-    removeUserFavorite
+    removeUserFavorite,
+    getAccountWithFollowingCount,
   }, dispatch)
 )
 @dispatchActions(
@@ -59,41 +61,21 @@ import Transfer from '../widgets/Transfer';
   }
 )
 export default class User extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      user: {},
-      fetching: false
-    };
-  }
-
   static needs = [
     getFeedContent,
     getUserFeedContent,
+    getAccountWithFollowingCount,
     // getUserComments,
   ]
 
   componentWillMount() {
-    this.fetchUserData();
+    this.props.getAccountWithFollowingCount({ username: this.props.params.name });
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.params.name !== this.props.params.name) {
-      this.fetchUserData();
+      this.props.getAccountWithFollowingCount({ username: this.props.params.name });
     }
-  }
-
-  fetchUserData() {
-    this.setState({ user: {}, fetching: true });
-    getAccountWithFollowingCount(this.props.params.name)
-      .then(user => this.setState({ user }))
-      .catch((e) => {
-        if (e.message === 'User Not Found') {
-          this.setState({ user: null });
-        }
-      }).finally(() => {
-        this.setState({ fetching: false });
-      });
   }
 
   isFavorited() {
@@ -191,10 +173,11 @@ export default class User extends React.Component {
   }
 
   render() {
-    const { user, fetching } = this.state;
+    console.log('users', this.props.users, this.props.params.name);
+    const { isFetching, ...user } = this.props.users[this.props.params.name] || {};
     return (
       <div className="main-panel">
-        {fetching ? <Loading /> : this.getUserView(user)}
+        {isFetching ? <Loading /> : this.getUserView(user)}
       </div>
     );
   }
