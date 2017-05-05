@@ -49,6 +49,12 @@ export default class Header extends Component {
                   <Icon name="add" className="Icon--menu" />
                 </Link>
               </SimpleTooltipOrigin>
+              
+              <SimpleTooltipOrigin appearOn="bottom" message="Open notifications">
+                <a>
+                  <Icon name="notifications" className="Icon--menu" />
+                </a>
+              </SimpleTooltipOrigin>
 
               <SimpleTooltipOrigin appearOn="bottom" message="Bookmarks">
                 <Link to="/bookmarks">
