@@ -63,22 +63,19 @@ import Transfer from '../widgets/Transfer';
 )
 export default class User extends React.Component {
   static needs = [
-    getFeedContent,
-    getUserFeedContent,
     getAccountWithFollowingCount,
-    // getUserComments,
   ]
 
   componentWillMount() {
     const user = this.props.users[this.props.params.name] || {};
     if (user.name !== undefined) {
-      this.props.getAccountWithFollowingCount({ username: this.props.params.name });
+      this.props.getAccountWithFollowingCount({ name: this.props.params.name });
     }
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.params.name !== this.props.params.name) {
-      this.props.getAccountWithFollowingCount({ username: this.props.params.name });
+      this.props.getAccountWithFollowingCount({ name: this.props.params.name });
     }
   }
 
@@ -177,7 +174,6 @@ export default class User extends React.Component {
   }
 
   render() {
-    console.log('users', this.props.users, this.props.params.name);
     const username = this.props.params.name;
     const { isFetching, ...user } = this.props.users[username] || {};
     const busyHost = global.postOrigin || 'https://busy.org';

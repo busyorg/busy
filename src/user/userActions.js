@@ -26,7 +26,7 @@ export const GET_MORE_USER_REPLIES_SUCCESS = '@user/GET_MORE_USER_REPLIES_SUCCES
 export const GET_MORE_USER_REPLIES_ERROR = '@user/GET_MORE_USER_REPLIES_ERROR';
 
 
-export const getUserComments = username =>
+export const getUserComments = ({ username }) =>
   (dispatch, getState, { steemAPI }) => {
     const feed = getState().feed;
     if (feed.comments[username] && feed.comments[username].isLoaded) {
@@ -204,7 +204,7 @@ export const getFollowing = (userName = '') => (dispatch, getState) => {
   });
 };
 
-export const getUserReplies = username =>
+export const getUserReplies = ({ username }) =>
   (dispatch, getState, { steemAPI }) =>
     dispatch({
       type: GET_USER_REPLIES,

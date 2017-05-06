@@ -29,8 +29,10 @@ import './Feed.scss';
   }, dispatch)
 )
 export default class Feed extends React.Component {
-  componentDidMount() {
-    this.props.loadContent();
+  componentWillMount() {
+    if (!this.props.content.length) {
+      this.props.loadContent();
+    }
   }
 
   componentDidUpdate() {

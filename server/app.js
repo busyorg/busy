@@ -16,6 +16,7 @@ const bodyParser = require('body-parser');
 const http = require('http');
 const https = require('https');
 const cors = require('cors');
+const debug = require('debug')('busy:serverApp');
 
 http.globalAgent.maxSockets = Infinity;
 https.globalAgent.maxSockets = Infinity;
@@ -67,14 +68,14 @@ function fetchComponentData(dispatch, components, params) {
     .concat(prev), []);
   const promises = needs.map((need) => {
     const pros = dispatch(need(params));
-    // console.log('pros', pros);
+    // debug('pros', pros);
     return pros;
   });
-  console.log('promises', needs, Date.now());
+  debug('promises', needs, Date.now());
   return Promise.all(promises);
 }
 function renderPage(props) {
-  console.log('renderPage', Date.now());
+  debug('renderPage', Date.now());
   const appHtml = renderToString(
     <Provider store={store}>
       <RouterContext {...props} />
@@ -98,24 +99,19 @@ function renderPage(props) {
 function serverSideResponse(req, res) {
   global.postOrigin = `${req.protocol}://${req.get('host')}`;
   match({ routes, location: req.url }, (err, redirect, props) => {
-    fetchComponentData(store.dispatch, props.components, req.params)
+    fetchComponentData(store.dispatch, props.components, props.params)
       .then(() => renderPage(props))
       .then(html => res.end(html))
       .catch(error => res.end(error.message));
   });
 }
-app.get('/:category/@:author/:permlink', serverSideResponse);
-app.get('/@:username', (req, res, next) => {
-  req.params = {
-    ...req.params,
-    sortBy: 'blog',
-    category: req.params.username,
-    limit: 5
-  };
-  console.log('params', req.params);
-  next();
-}, serverSideResponse);
 
+app.get('/@:name/posts', serverSideResponse);
+app.get('/@:name/feed', serverSideResponse);
+app.get('/@:name/replies', serverSideResponse);
+app.get('/@:name', serverSideResponse);
+
+app.get('/:category/@:author/:permlink', serverSideResponse);
 app.get('/*', (req, res) => {
   res.send(indexHtml);
 });
