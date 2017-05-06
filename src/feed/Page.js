@@ -53,10 +53,6 @@ import EmptyFeed from '../statics/EmptyFeed';
   }
 )
 export default class Page extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   isFavorited() {
     const { category, favorites } = this.props;
     return category && favorites.includes(category);

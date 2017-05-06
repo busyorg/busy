@@ -106,6 +106,15 @@ function serverSideResponse(req, res) {
   });
 }
 
+
+app.get('/trending(/:category)', serverSideResponse);
+app.get('/hot(/:category)', serverSideResponse);
+app.get('/cashout(/:category)', serverSideResponse);
+app.get('/created(/:category)', serverSideResponse);
+app.get('/active(/:category)', serverSideResponse);
+app.get('/responses(/:category)', serverSideResponse);
+app.get('/votes(/:category)', serverSideResponse);
+
 app.get('/@:name/posts', serverSideResponse);
 app.get('/@:name/feed', serverSideResponse);
 app.get('/@:name/replies', serverSideResponse);
