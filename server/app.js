@@ -105,15 +105,14 @@ function serverSideResponse(req, res) {
   });
 }
 app.get('/:category/@:author/:permlink', serverSideResponse);
-app.get('/@:name', (req, res, next) => {
+app.get('/@:username', (req, res, next) => {
   req.params = {
     ...req.params,
     sortBy: 'blog',
-    category: req.params.name,
-    username: req.params.name,
+    category: req.params.username,
     limit: 5
   };
-  console.log('req', req.params);
+  console.log('params', req.params);
   next();
 }, serverSideResponse);
 

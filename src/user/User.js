@@ -69,7 +69,10 @@ export default class User extends React.Component {
   ]
 
   componentWillMount() {
-    this.props.getAccountWithFollowingCount({ username: this.props.params.name });
+    const user = this.props.users[this.props.params.name] || {};
+    if (user.name !== undefined) {
+      this.props.getAccountWithFollowingCount({ username: this.props.params.name });
+    }
   }
 
   componentDidUpdate(prevProps) {
