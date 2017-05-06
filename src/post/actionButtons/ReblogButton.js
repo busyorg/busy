@@ -12,9 +12,9 @@ const ReblogButton = ({
     className={active ? 'active' : ''}
   >
     <Icon name="repeat" sm />
-    { layout === 'card' &&
+    {layout === 'card' &&
       <span className="hidden-xs">
-        { ' ' }<FormattedMessage id="reblog" />
+        {' '}<FormattedMessage id="reblog" defaultMessage="Reblog" />
       </span>
     }
   </a>;

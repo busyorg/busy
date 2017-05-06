@@ -9,7 +9,7 @@ export default () =>
       <Link to="/about" activeClassName="active">
         <Icon name="info_outline" />
         <span className="hidden-xs">
-          {' '}<FormattedMessage id="about" />
+          {' '}<FormattedMessage id="about" defaultMessage="About" />
         </span>
       </Link>
     </li>
@@ -17,7 +17,7 @@ export default () =>
       <Link to="/team" activeClassName="active">
         <Icon name="group_work" />
         <span className="hidden-xs">
-          {' '}<FormattedMessage id="team" />
+          {' '}<FormattedMessage id="team" defaultMessage="Team" />
         </span>
       </Link>
     </li>
@@ -25,7 +25,7 @@ export default () =>
       <Link to="/donors" activeClassName="active">
         <Icon name="favorite" />
         <span className="hidden-xs">
-          {' '}<FormattedMessage id="donors" />
+          {' '}<FormattedMessage id="donors" defaultMessage="Donors" />
         </span>
       </Link>
     </li>
@@ -33,7 +33,7 @@ export default () =>
       <Link to="/help" activeClassName="active">
         <Icon name="help_outline" />
         <span className="hidden-xs">
-          {' '}<FormattedMessage id="help" />
+          {' '}<FormattedMessage id="help" defaultMessage="Help" />
         </span>
       </Link>
     </li>

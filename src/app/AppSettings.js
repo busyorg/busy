@@ -29,8 +29,8 @@ export default class AppSettings extends React.Component {
     return (
       <div className="main-panel">
         <div className="container my-5 text-center">
-          <h1><FormattedMessage id="settings" /></h1>
-          <h2><FormattedMessage id="layout" /></h2>
+          <h1><FormattedMessage id="settings" defaultMessage="Settings" /></h1>
+          <h2><FormattedMessage id="layout" defaultMessage="Layout" /></h2>
           <div className="row mhl">
             <div className="col col-lg-4 mb-3">
               <a
@@ -39,7 +39,7 @@ export default class AppSettings extends React.Component {
               >
                 <Icon name="view_agenda" xl />
                 <h2 className="my-2">
-                  <FormattedMessage id="card" />
+                  <FormattedMessage id="card" defaultMessage="Card" />
                 </h2>
               </a>
             </div>
@@ -50,12 +50,12 @@ export default class AppSettings extends React.Component {
               >
                 <Icon name="view_list" xl />
                 <h2 className="my-2">
-                  <FormattedMessage id="list" />
+                  <FormattedMessage id="list" defaultMessage="List" />
                 </h2>
               </a>
             </div>
           </div>
-          <h2><FormattedMessage id="language" /></h2>
+          <h2><FormattedMessage id="language" defaultMessage="Language" /></h2>
           <div className="row mhl">
             <div className="col col-lg-4 mb-3">
               <a onClick={() => setLocale('en')}>

@@ -15,7 +15,7 @@ export default class PostSingleComments extends Component {
       <div className="PostSingleComments pt-5">
         <div className="container">
           <h1>
-            <FormattedMessage id="comments" />{' '}
+            <FormattedMessage id="comments" defaultMessage="Comments" />{' '}
             <span className="text-info">{content.children}</span>
           </h1>
 

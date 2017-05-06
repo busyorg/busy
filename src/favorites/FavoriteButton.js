@@ -6,9 +6,13 @@ import './FavoriteButton.scss';
 
 const FavoriteUserButton = ({ onClick, isFavorited, intl }) =>
   <SimpleTooltipOrigin
-    message={intl.formatMessage({ id: isFavorited
-    ? '@tooltip_remove_fav'
-    : '@tooltip_add_fav'
+    message={intl.formatMessage({
+      id: isFavorited
+        ? '@tooltip_remove_fav'
+        : '@tooltip_add_fav',
+      defaultMessage: isFavorited ?
+        'Remove from favorites' :
+        'Add in favorites',
     })}
   >
     <a

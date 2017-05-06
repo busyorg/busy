@@ -74,7 +74,7 @@ export default class Sidebar extends Component {
             <Icon name="star" xs />
           </Link>
         </li>
-    );
+      );
   }
 
   renderTags() {
@@ -142,7 +142,7 @@ export default class Sidebar extends Component {
 
     const dollar = rate
       ? (parseFloat(rate) * (parseFloat(user.balance) + parseFloat(power)))
-        + parseFloat(user.sbd_balance)
+      + parseFloat(user.sbd_balance)
       : 0;
 
     return (
@@ -202,9 +202,9 @@ export default class Sidebar extends Component {
                         />
                       </div>
                     </li>
-                    { this.renderSearchAsTag() }
-                    { this.renderFavoritedTags() }
-                    { this.renderTags() }
+                    {this.renderSearchAsTag()}
+                    {this.renderFavoritedTags()}
+                    {this.renderTags()}
                     <li>
                       <Link to="/tags" activeClassName="active">
                         <FormattedMessage
@@ -233,19 +233,19 @@ export default class Sidebar extends Component {
               <li className="title">
                 <Link to="/write">
                   <Icon name="add" />{' '}
-                  <FormattedMessage id="write" />
+                  <FormattedMessage id="write" defaultMessage="Write" />
                 </Link>
               </li>
               <li className="title">
                 <Link to="/drafts">
                   <Icon name="library_books" />{' '}
-                  <FormattedMessage id="drafts" />
+                  <FormattedMessage id="drafts" defaultMessage="Drafts" />
                 </Link>
               </li>
               <li className="title">
                 <Link to="/bookmarks">
                   <Icon name="bookmark" />{' '}
-                  <FormattedMessage id="bookmarks" />
+                  <FormattedMessage id="bookmarks" defaultMessage="Bookmarks" />
                 </Link>
               </li>
             </ul>}
@@ -255,11 +255,11 @@ export default class Sidebar extends Component {
               <li className="title">
                 <Link to={`/@${this.props.auth.user.name}/transfers`}>
                   <Icon name="account_balance_wallet" />{' '}
-                  <FormattedMessage id="wallet" />
+                  <FormattedMessage id="wallet" defaultMessage="Wallet" />
                 </Link>
                 <Link to="/transfer">
                   <Icon name="send" />{' '}
-                  <FormattedMessage id="transfer" />
+                  <FormattedMessage id="transfer" defaultMessage="Transfer" />
                 </Link>
               </li>
               <li>
@@ -271,7 +271,7 @@ export default class Sidebar extends Component {
                   <li><span className="menu-row"><FormattedMessage id="estimated_value" /> <span className="pull-right">{numeral(dollar).format('$0,0.00')}</span></span></li>
                 </ul>
               </li>
-              </ul>}
+            </ul>}
         </div>
       </nav>
     );

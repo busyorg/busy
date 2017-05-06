@@ -39,7 +39,7 @@ const MenuUser = ({ auth, username }) =>
     <li>
       <Link to={`/@${username}/feed`} activeClassName="active">
         <Icon name="subject" />{' '}
-        <span className="hidden-xs"><FormattedMessage id="feed" /></span>
+        <span className="hidden-xs"><FormattedMessage id="feed" defaultMessage="Feed" /></span>
       </Link>
     </li>
     <li>
@@ -51,7 +51,7 @@ const MenuUser = ({ auth, username }) =>
     <li>
       <Link to={`/@${username}/transfers`} activeClassName="active">
         <Icon name="account_balance_wallet" />{' '}
-        <span className="hidden-xs"><FormattedMessage id="wallet" /></span>
+        <span className="hidden-xs"><FormattedMessage id="wallet" defaultMessage="Wallet" /></span>
       </Link>
     </li>
     {auth.isAuthenticated &&
@@ -59,7 +59,7 @@ const MenuUser = ({ auth, username }) =>
         <Link to={`/messages/@${username}`} activeClassName="active">
           <Icon name="chat_bubble_outline" />{' '}
           <span className="hidden-xs">
-            <FormattedMessage id="messages" />
+            <FormattedMessage id="messages" defaultMessage="Messages" />
           </span>
         </Link>
       </li>

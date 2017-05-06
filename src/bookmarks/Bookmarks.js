@@ -40,7 +40,7 @@ export default class Bookmarks extends Component {
       <div className="main-panel">
         <div className="my-5">
           <h1 className="text-center">
-            <FormattedMessage id="bookmarks" />
+            <FormattedMessage id="bookmarks" defaultMessage="Bookmarks" />
           </h1>
           <Feed
             content={content}
@@ -53,7 +53,7 @@ export default class Bookmarks extends Component {
           { !isFetching && !content.length &&
             <div className="container">
               <h3 className="text-center">
-                <FormattedMessage id="empty_bookmarks" />
+                <FormattedMessage id="empty_bookmarks" defaultMessage="You don't have any story saved." />
               </h3>
             </div>
           }

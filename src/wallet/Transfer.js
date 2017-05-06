@@ -102,7 +102,7 @@ export default class Transfer extends Component {
               <h4 className="my-2">
                 Balance{' '}
                 <a href="#" onClick={() => this.setState({ amount: numeral(balance).format('0.000') })}>
-                  { numeral(balance).format('0,0.000') }
+                  {numeral(balance).format('0,0.000')}
                 </a>
                 {` ${currency}`}
               </h4>
@@ -122,7 +122,7 @@ export default class Transfer extends Component {
                 href={url}
                 className="btn btn-success btn-lg"
               >
-                <FormattedMessage id="continue" />
+                <FormattedMessage id="continue" defaultMessage="Continue" />
               </a>
             </div>
           </form>

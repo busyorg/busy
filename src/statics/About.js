@@ -7,7 +7,7 @@ export default () =>
   <div className="main-panel">
     <MenuHelp />
     <div className="mt-5 text-center">
-      <h1><FormattedMessage id="about" /></h1>
+      <h1><FormattedMessage id="about" defaultMessage="About" /></h1>
       <p className="container pb-5">
         <FormattedMessage
           id="@statics/busy_mission"

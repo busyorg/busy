@@ -66,7 +66,7 @@ export default class UserTransfers extends Component {
                 <h2>{numeral(account.sbd_balance).format('$0,0.00')}</h2>
               </li>
               <li className="col col-lg-3">
-                <h3><FormattedMessage id="estimated_value" /></h3>
+                <h3><FormattedMessage id="estimated_value" defaultMessage="Total ≈" /></h3>
                 <h2>{numeral(dollar).format('$0,0.00')}</h2>
               </li>
             </ul>
