@@ -5,6 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import _ from 'lodash';
 import numeral from 'numeral';
 import { Link } from 'react-router';
+import { Helmet } from 'react-helmet';
 import {
   getFeedContent,
   getMoreFeedContent,
@@ -177,9 +178,35 @@ export default class User extends React.Component {
 
   render() {
     console.log('users', this.props.users, this.props.params.name);
-    const { isFetching, ...user } = this.props.users[this.props.params.name] || {};
+    const username = this.props.params.name;
+    const { isFetching, ...user } = this.props.users[username] || {};
+    const busyHost = global.postOrigin || 'https://busy.org';
+    const desc = `Post by ${username}`;
+    const image = `${process.env.STEEMCONNECT_IMG_HOST}/@${username}`;
+    const canonicalUrl = `${busyHost}/@${username}`;
+    const url = `${busyHost}/@${username}`;
+    const title = `${username} - Busy`;
+
     return (
       <div className="main-panel">
+        <Helmet>
+          <title>{title}</title>
+          <link rel="canonical" href={canonicalUrl} />
+          <meta property="description" content={desc} />
+
+          <meta property="og:title" content={title} />
+          <meta property="og:type" content="article" />
+          <meta property="og:url" content={url} />
+          <meta property="og:image" content={image} />
+          <meta property="og:description" content={desc} />
+          <meta property="og:site_name" content="Busy" />
+
+          <meta property="twitter:card" content={image ? 'summary_large_image' : 'summary'} />
+          <meta property="twitter:site" content={'@steemit'} />
+          <meta property="twitter:title" content={title} />
+          <meta property="twitter:description" content={desc} />
+          <meta property="twitter:image" content={image || 'https://steemit.com/images/steemit-twshare.png'} />
+        </Helmet>
         {isFetching ? <Loading /> : this.getUserView(user)}
       </div>
     );
