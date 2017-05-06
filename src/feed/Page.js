@@ -16,7 +16,6 @@ import {
   getUserFeedContentFromState,
   getUserFeedLoadingFromState,
 } from '../helpers/stateHelpers';
-import Loading from '../widgets/Loading';
 import FavoriteButton from '../favorites/FavoriteButton';
 import * as favoriteActions from '../favorites/favoritesActions';
 import EmptyFeed from '../statics/EmptyFeed';
@@ -101,18 +100,15 @@ export default class Page extends React.Component {
             />
           </h2>
         }
-        {auth.isFetching && <Loading />}
-        {!auth.isFetching &&
-          <Feed
-            content={content}
-            isFetching={isFetching}
-            hasMore={hasMore}
-            loadContent={loadContentAction}
-            loadMoreContent={loadMoreContentAction}
-            notify={notify}
-            route={this.props.route}
-          />
-        }
+        <Feed
+          content={content}
+          isFetching={isFetching}
+          hasMore={hasMore}
+          loadContent={loadContentAction}
+          loadMoreContent={loadMoreContentAction}
+          notify={notify}
+          route={this.props.route}
+        />
         {(content.length === 0 && !isFetching) &&
           <EmptyFeed />
         }
