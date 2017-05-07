@@ -35,6 +35,7 @@ export default class Popover extends Component {
     title: PropTypes.string.isRequired,
     content: PropTypes.node,
     className: PropTypes.string,
+    containerClassName: PropTypes.string,
     appearOn: PropTypes.oneOf(['right', 'bottom', 'bottom-left']),
   };
 
@@ -61,7 +62,7 @@ export default class Popover extends Component {
   };
 
   renderPopover() {
-    const { className, title, content, appearOn } = this.props;
+    const { className, title, content, appearOn, containerClassName } = this.props;
     const { pos, posInBrowser, active } = this.state;
 
     if (!active) return null;
@@ -72,6 +73,7 @@ export default class Popover extends Component {
           pos={pos}
           posInBrowser={posInBrowser}
           className={className}
+          containerClassName={containerClassName}
           title={title}
           content={content}
           appearOn={appearOn}

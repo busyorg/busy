@@ -43,7 +43,7 @@ export default class SimplePopover extends Component {
   }
 
   render() {
-    const { pos, className, title, content, appearOn } = this.props;
+    const { pos, className, containerClassName, title, content, appearOn } = this.props;
     const popoverWidth = this.state.el ? this.state.el.clientWidth : 0;
     const popoverHeight = this.state.el ? this.state.el.clientHeight : 0;
 
@@ -58,7 +58,7 @@ export default class SimplePopover extends Component {
     }
 
     return (
-      <div className={className} style={style} ref={this.handleRef}>
+      <div className={`${className} ${containerClassName}`} style={style} ref={this.handleRef}>
         <p className={`${className}--title`}>{title}</p>
         {content}
       </div>
