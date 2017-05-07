@@ -37,12 +37,14 @@ export default class Popover extends Component {
     className: PropTypes.string,
     containerClassName: PropTypes.string,
     appearOn: PropTypes.oneOf(['right', 'bottom', 'bottom-left']),
+    fixedPosition: PropTypes.bool,
   };
 
   static defaultProps = {
     className: 'BusyPopover',
     value: null,
     appearOn: 'bottom-left',
+    fixedPosition: false,
   };
 
   showPopover = (e) => {
@@ -62,7 +64,7 @@ export default class Popover extends Component {
   };
 
   renderPopover() {
-    const { className, title, content, appearOn, containerClassName } = this.props;
+    const { className, title, content, appearOn, containerClassName, fixedPosition } = this.props;
     const { pos, posInBrowser, active } = this.state;
 
     if (!active) return null;
@@ -72,6 +74,7 @@ export default class Popover extends Component {
         <SimplePopover
           pos={pos}
           posInBrowser={posInBrowser}
+          fixedPosition={fixedPosition}
           className={className}
           containerClassName={containerClassName}
           title={title}

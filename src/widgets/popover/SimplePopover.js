@@ -43,18 +43,20 @@ export default class SimplePopover extends Component {
   }
 
   render() {
-    const { pos, className, containerClassName, title, content, appearOn } = this.props;
+    const { pos, posInBrowser, className, containerClassName, title, content, appearOn, fixedPosition } = this.props;
     const popoverWidth = this.state.el ? this.state.el.clientWidth : 0;
     const popoverHeight = this.state.el ? this.state.el.clientHeight : 0;
 
     let style;
 
+    const posRef = fixedPosition ? posInBrowser : pos;
+
     if (appearOn === 'right') {
-      style = getPopoverOnRightStyle(pos, popoverWidth, popoverHeight);
+      style = getPopoverOnRightStyle(posRef, popoverWidth, popoverHeight, fixedPosition);
     } else if (appearOn === 'bottom-left') {
-      style = getPopoverOnBottomLeftStyle(pos, popoverWidth);
+      style = getPopoverOnBottomLeftStyle(posRef, popoverWidth, fixedPosition);
     } else if(appearOn === 'bottom') {
-      style = getPopoverOnBottomStyle(pos, popoverWidth);
+      style = getPopoverOnBottomStyle(posRef, popoverWidth, fixedPosition);
     }
 
     return (
