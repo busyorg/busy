@@ -30,7 +30,7 @@ function makePlugins(options) {
           : JSON.stringify('production'),
         ENABLE_LOGGER: JSON.stringify(process.env.ENABLE_LOGGER),
         BUSYWS_HOST: JSON.stringify(process.env.BUSYWS_HOST || 'https://ws.busy.org'),
-        STEEMCONNECT_IMG_HOST: JSON.stringify(process.env.STEEMCONNECT_IMG_HOST || 'https://img.steemconnect.com'),
+        STEEMCONNECT_IMG_HOST: JSON.stringify(process.env.STEEMCONNECT_IMG_HOST || '//img.steemconnect.com'),
         SENTRY_PUBLIC_DSN: isDevelopment
           ? null
           : JSON.stringify(process.env.SENTRY_PUBLIC_DSN),
