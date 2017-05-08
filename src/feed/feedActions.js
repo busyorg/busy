@@ -1,5 +1,13 @@
 import { createAction } from 'redux-actions';
 
+import { getDiscussionsFromAPI } from '../helpers/apiHelpers';
+import {
+  getFeedContentFromState,
+  getFeedLoadingFromState,
+  getUserFeedLoadingFromState,
+  getUserFeedContentFromState
+} from '../helpers/stateHelpers';
+
 export const GET_FEED_CONTENT = '@feed/GET_FEED_CONTENT';
 export const GET_FEED_CONTENT_SUCCESS = '@feed/GET_FEED_CONTENT_SUCCESS';
 
@@ -13,15 +21,6 @@ export const GET_MORE_USER_FEED_CONTENT = '@feed/GET_MORE_USER_FEED_CONTENT';
 export const GET_MORE_USER_FEED_CONTENT_SUCCESS = '@feed/GET_MORE_USER_FEED_CONTENT_SUCCESS';
 
 export const FEED_HAS_NO_MORE = '@feed/FEED_HAS_NO_MORE';
-
-import { getDiscussionsFromAPI } from '../helpers/apiHelpers';
-import {
-  getFeedFromState,
-  getFeedContentFromState,
-  getFeedLoadingFromState,
-  getUserFeedLoadingFromState,
-  getUserFeedContentFromState
-} from '../helpers/stateHelpers';
 
 export const getFeedContentWithoutAPI = createAction(GET_FEED_CONTENT);
 export const getFeedContentSuccess = createAction(GET_FEED_CONTENT_SUCCESS);
@@ -37,11 +36,11 @@ export const getMoreUserFeedContentSuccess = createAction(GET_MORE_USER_FEED_CON
 
 export const feedHasNoMore = createAction(FEED_HAS_NO_MORE);
 
-export const getFeedContent = ({ sortBy, category, limit }) => {
-  return (dispatch, getState, { steemAPI }) => {
+export const getFeedContent = ({ sortBy, category, limit }) =>
+  (dispatch, getState, { steemAPI }) => {
     const feed = getState().feed;
     if (feed[sortBy][category] && feed[sortBy][category].isLoaded) {
-      return;
+      return null;
     }
 
     dispatch(getFeedContentWithoutAPI({
@@ -49,33 +48,28 @@ export const getFeedContent = ({ sortBy, category, limit }) => {
       category: category || 'all',
     }));
 
-    getDiscussionsFromAPI(sortBy, {
+    return getDiscussionsFromAPI(sortBy, {
       tag: category,
       limit,
-    },
-    steemAPI,
-    (err, postsData) => {
-      if (err) {
-        console.error(`error while loading ${sortBy}/${category}`, JSON.stringify(err));
-        return;
-      }
-
-      dispatch(
+    }, steemAPI)
+      .then(postsData => dispatch(
         getFeedContentSuccess({
           sortBy: sortBy || 'trending',
           category: category || 'all',
           postsData,
         })
-      );
-    });
+      ))
+      .catch((err) => {
+        console.error(`error while loading ${sortBy}/${category}`, JSON.stringify(err));
+        throw err;
+      });
   };
-};
 
-export const getUserFeedContent = ({ username, limit }) => {
-  return (dispatch, getState, { steemAPI }) => {
+export const getUserFeedContent = ({ username, limit }) =>
+  (dispatch, getState, { steemAPI }) => {
     const { feed } = getState();
     if (feed.feed[username] && feed.feed[username].isLoaded) {
-      return;
+      return null;
     }
 
     const sortBy = 'feed';
@@ -85,37 +79,32 @@ export const getUserFeedContent = ({ username, limit }) => {
       username,
     }));
 
-    getDiscussionsFromAPI(sortBy, {
+    return getDiscussionsFromAPI(sortBy, {
       tag: username,
       limit,
-    },
-    steemAPI,
-    (err, postsData) => {
-      if (err) {
-        console.error(`error while loading ${sortBy}/${username}`, JSON.stringify(err));
-        return;
-      }
-
-      dispatch(
+    }, steemAPI)
+      .then(postsData => dispatch(
         getUserFeedContentSuccess({
           sortBy,
           username,
           postsData,
         })
-      );
-    });
+      ))
+      .catch((err) => {
+        console.error(`error while loading ${sortBy}/${username}`, JSON.stringify(err));
+        throw err;
+      });
   };
-};
 
-export const getMoreFeedContent = ({ sortBy, category, limit }) => {
-  return (dispatch, getState, { steemAPI }) => {
+export const getMoreFeedContent = ({ sortBy, category, limit }) =>
+  (dispatch, getState, { steemAPI }) => {
     const feedContent = getFeedContentFromState(
-        sortBy, category, getState().feed, getState().posts);
+      sortBy, category, getState().feed, getState().posts);
     const isLoading = getFeedLoadingFromState(sortBy, category, getState().feed);
 
     if (!feedContent.length || isLoading) {
       // exit early
-      return;
+      return null;
     }
 
     dispatch(getMoreFeedContentWithoutAPI({
@@ -126,40 +115,37 @@ export const getMoreFeedContent = ({ sortBy, category, limit }) => {
     const startAuthor = feedContent[feedContent.length - 1].author;
     const startPermlink = feedContent[feedContent.length - 1].permlink;
 
-    getDiscussionsFromAPI(sortBy, {
+    return getDiscussionsFromAPI(sortBy, {
       tag: category,
       limit: limit + 1,
       start_author: startAuthor,
       start_permlink: startPermlink,
-    },
-    steemAPI,
-    (err, postsData) => {
-      if (err) {
-        console.error(`error while loading ${sortyBy}/${category}`, JSON.stringify(err));
-        return;
-      }
+    }, steemAPI)
+      .then((postsData) => {
+        // The feed is completely loaded
+        if (postsData.length === 1) {
+          return dispatch(feedHasNoMore({
+            sortBy,
+            category,
+          }));
+        }
 
-      // The feed is completely loaded
-      if (postsData.length === 1) {
-        dispatch(feedHasNoMore({
-          sortBy,
-          category,
-        }));
-      }
-
-      dispatch(
-        getMoreFeedContentSuccess({
-          sortBy: sortBy || 'trending',
-          category: category || 'all',
-          postsData,
-        })
-      );
-    });
+        return dispatch(
+          getMoreFeedContentSuccess({
+            sortBy: sortBy || 'trending',
+            category: category || 'all',
+            postsData,
+          })
+        );
+      })
+      .catch((err) => {
+        console.error(`error while loading ${sortBy}/${category}`, JSON.stringify(err));
+        throw err;
+      });
   };
-};
 
-export const getMoreUserFeedContent = ({ username, limit }) => {
-  return (dispatch, getState, { steemAPI }) => {
+export const getMoreUserFeedContent = ({ username, limit }) =>
+  (dispatch, getState, { steemAPI }) => {
     const sortBy = 'feed';
     const { feed, posts } = getState();
     const feedContent = getUserFeedContentFromState(username, feed, posts);
@@ -167,7 +153,7 @@ export const getMoreUserFeedContent = ({ username, limit }) => {
 
     if (!feedContent.length || isLoading) {
       // exit early
-      return;
+      return null;
     }
 
     dispatch(getMoreUserFeedContentWithoutAPI({
@@ -178,34 +164,31 @@ export const getMoreUserFeedContent = ({ username, limit }) => {
     const startAuthor = feedContent[feedContent.length - 1].author;
     const startPermlink = feedContent[feedContent.length - 1].permlink;
 
-    getDiscussionsFromAPI(sortBy, {
+    return getDiscussionsFromAPI(sortBy, {
       tag: username,
       limit: limit + 1,
       start_author: startAuthor,
       start_permlink: startPermlink,
-      },
-      steemAPI,
-      (err, postsData) => {
-        if (err) {
-          console.error(`error while loading ${sortyBy} for ${username}`, JSON.stringify(err));
-          return;
-        }
-
+    }, steemAPI)
+      .then((postsData) => {
         // The feed is completely loaded
         if (postsData.length === 1) {
-          dispatch(feedHasNoMore({
+          return dispatch(feedHasNoMore({
             sortBy,
             category: username,
           }));
         }
 
-        dispatch(
+        return dispatch(
           getMoreUserFeedContentSuccess({
             sortBy,
             username,
             postsData,
           })
         );
+      })
+      .catch((err) => {
+        console.error(`error while loading ${sortBy} for ${username}`, JSON.stringify(err));
+        throw err;
       });
   };
-};

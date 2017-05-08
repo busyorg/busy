@@ -8,6 +8,7 @@ import commentsReducer from './comments/commentsReducer.js';
 import feedReducers from './feed/feedReducers';
 import postsReducers from './post/postsReducers';
 import userReducer from './user/userReducer';
+import usersReducer from './user/usersReducer';
 import notificationReducer from './app/Notification/notificationReducers';
 import bookmarksReducer from './bookmarks/bookmarksReducer';
 import favoritesReducer from './favorites/favoritesReducers';
@@ -24,6 +25,7 @@ const reducers = combineReducers({
   posts: postsReducers,
   feed: feedReducers,
   user: userReducer,
+  users: usersReducer,
   responsive: responsiveReducer,
   messages: messagesReducer,
   notifications: notificationReducer,
