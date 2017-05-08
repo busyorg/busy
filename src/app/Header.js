@@ -5,6 +5,8 @@ import { Link } from 'react-router';
 import { SimpleTooltipOrigin } from '../widgets/tooltip/SimpleTooltip';
 import { showSidebar } from '../actions';
 import Icon from '../widgets/Icon';
+import Popover from '../widgets/popover/Popover';
+import ActivityNotification from '../activityNotification/ActivityNotification';
 import './Header.scss';
 
 @connect(
@@ -50,11 +52,19 @@ export default class Header extends Component {
                 </Link>
               </SimpleTooltipOrigin>
               
-              <SimpleTooltipOrigin appearOn="bottom" message="Open notifications">
-                <a>
-                  <Icon name="notifications" className="Icon--menu" />
-                </a>
-              </SimpleTooltipOrigin>
+              <Popover
+                title="Notifications"
+                content={<ActivityNotification />}
+                appearOn="bottom-left"
+                containerClassName="ActivityNotification"
+                fixedPosition
+              >
+                <SimpleTooltipOrigin appearOn="bottom" message="Open notifications">
+                  <a>3
+                    <Icon name="notifications" className="Icon--menu" />
+                  </a>
+                </SimpleTooltipOrigin>
+              </Popover>
 
               <SimpleTooltipOrigin appearOn="bottom" message="Bookmarks">
                 <Link to="/bookmarks">
