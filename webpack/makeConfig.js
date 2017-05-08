@@ -36,11 +36,13 @@ function makePlugins(options) {
           : JSON.stringify(process.env.SENTRY_PUBLIC_DSN),
         STEEMCONNECT_HOST: JSON.stringify(
           process.env.STEEMCONNECT_HOST ||
-          'https://dev.steemconnect.com'
+          'https://steemconnect.com'
         ),
         STEEMCONNECT_REDIRECT_URL: JSON.stringify(
           process.env.STEEMCONNECT_REDIRECT_URL ||
-          'http://localhost:3000'
+          isDevelopment
+            ? 'http://localhost:3000'
+            : 'https://busy.org'
         ),
         WS: JSON.stringify(
           process.env.WS ||

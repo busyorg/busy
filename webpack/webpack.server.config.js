@@ -72,11 +72,13 @@ module.exports = {
         STEEMCONNECT_IMG_HOST: JSON.stringify(process.env.STEEMCONNECT_IMG_HOST || 'https://img.steemconnect.com'),
         STEEMCONNECT_HOST: JSON.stringify(
           process.env.STEEMCONNECT_HOST ||
-          'https://dev.steemconnect.com'
+          'https://steemconnect.com'
         ),
         STEEMCONNECT_REDIRECT_URL: JSON.stringify(
           process.env.STEEMCONNECT_REDIRECT_URL ||
-          'http://localhost:3000'
+          isDevelopment
+            ? 'http://localhost:3000'
+            : 'https://busy.org'
         ),
         WS: JSON.stringify(
           process.env.WS ||
