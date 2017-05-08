@@ -9,6 +9,7 @@ import {
   getFeedLoadingFromState,
   getFeedHasMoreFromState
 } from '../helpers/stateHelpers';
+import { getFeedContent as getFeedContentStatic } from '../feed/feedActions';
 import Loading from '../widgets/Loading';
 import Icon from '../widgets/Icon';
 import Badge from '../widgets/Badge';
@@ -18,9 +19,9 @@ import EmptyUserProfile from '../statics/EmptyUserProfile';
 import EmptyUserOwnProfile from '../statics/EmptyUserOwnProfile';
 
 export default class UserProfile extends Component {
-  constructor(props) {
-    super(props);
-  }
+  static needs = [
+    ({ name }) => getFeedContentStatic({ sortBy: 'blog', category: name, limit: 10 }),
+  ]
 
   isFavorited() {
     const { favorites } = this.props;
@@ -93,6 +94,7 @@ export default class UserProfile extends Component {
             loadMoreContent={loadMoreContentAction}
             route={this.props.route}
             username={user.name}
+            hideReblogs
           />
 
           {(content.length === 0 && !isFetching && isOwnProfile) &&

@@ -7,27 +7,27 @@ import { jsonParse } from '../helpers/formatter';
  * @param path - as in URL like 'trending'
  * @param API - the { api } from steem npm package
  * @param query {Object} - the same query sending to Steem API
- * @param callback - The same callback giving to Steem API
+ * @param steemAPI - The same giving to Steem API
  * @returns {function}
  */
-export const getDiscussionsFromAPI = function (sortBy, query, steemAPI, callback) {
+export const getDiscussionsFromAPI = function getDiscussionsFromAPI(sortBy, query, steemAPI) {
   switch (sortBy) {
     case 'feed':
-      return steemAPI.getDiscussionsByFeed(query, callback);
+      return steemAPI.getDiscussionsByFeedAsync(query);
     case 'hot':
-      return steemAPI.getDiscussionsByHot(query, callback);
+      return steemAPI.getDiscussionsByHotAsync(query);
     case 'cashout':
-      return steemAPI.getDiscussionsByCashout(query, callback);
+      return steemAPI.getDiscussionsByCashoutAsync(query);
     case 'created':
-      return steemAPI.getDiscussionsByCreated(query, callback);
+      return steemAPI.getDiscussionsByCreatedAsync(query);
     case 'active':
-      return steemAPI.getDiscussionsByActive(query, callback);
+      return steemAPI.getDiscussionsByActiveAsync(query);
     case 'trending':
-      return steemAPI.getDiscussionsByTrending(query, callback);
+      return steemAPI.getDiscussionsByTrendingAsync(query);
     case 'blog':
-      return steemAPI.getDiscussionsByBlog(query, callback);
+      return steemAPI.getDiscussionsByBlogAsync(query);
     case 'comments':
-      return steemAPI.getDiscussionsByComments(query, callback);
+      return steemAPI.getDiscussionsByCommentsAsync(query);
     default:
       throw new Error('There is not API endpoint defined for this sorting');
   }

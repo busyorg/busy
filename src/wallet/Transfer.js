@@ -65,6 +65,7 @@ export default class Transfer extends Component {
                 <input
                   autoFocus
                   value={to}
+                  autoComplete="off"
                   onChange={this.handleToChange}
                   placeholder="To"
                   type="text"

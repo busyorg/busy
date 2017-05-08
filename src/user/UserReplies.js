@@ -20,9 +20,9 @@ import {
   }, dispatch)
 )
 export default class UserReplies extends Component {
-  constructor(props) {
-    super(props);
-  }
+  static needs = [
+    ({ name }) => userActions.getUserReplies({ username: name }),
+  ]
 
   render() {
     const { getUserReplies, getMoreUserReplies, feed, posts } = this.props;
@@ -31,7 +31,7 @@ export default class UserReplies extends Component {
     const content = getFeedContentFromState('replies', username, feed, posts);
     const isFetching = getFeedLoadingFromState('replies', username, feed);
     const hasMore = getFeedHasMoreFromState('replies', username, feed);
-    const loadContentAction = () => getUserReplies(username);
+    const loadContentAction = () => getUserReplies({ username });
     const loadMoreContentAction = () => getMoreUserReplies(username);
 
     return (

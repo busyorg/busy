@@ -15,7 +15,7 @@ const SidebarHeader = ({
 }) =>
   <div className="SidebarHeader">
     <a className="hide-sidebar hidden-lg-up" onClick={() => hideSidebar()}>
-      <Icon name="arrow_back" className="Icon--menu" />
+      <Icon name="arrow_back" className="p-2" />
     </a>
     <div className="SidebarHeader__log">
       {auth.isFetching &&

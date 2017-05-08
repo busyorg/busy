@@ -16,6 +16,7 @@ const bodyParser = require('body-parser');
 const http = require('http');
 const https = require('https');
 const cors = require('cors');
+const debug = require('debug')('busy:serverApp');
 
 http.globalAgent.maxSockets = Infinity;
 https.globalAgent.maxSockets = Infinity;
@@ -62,18 +63,19 @@ const indexHtml = fs.readFileSync(indexPath, 'utf-8');
 
 function fetchComponentData(dispatch, components, params) {
   const needs = components.reduce((prev, current) => (current.needs || [])
+    .concat((current.Wrapped ? current.Wrapped.needs : []) || [])
     .concat((current.WrappedComponent ? current.WrappedComponent.needs : []) || [])
     .concat(prev), []);
   const promises = needs.map((need) => {
     const pros = dispatch(need(params));
-    // console.log('pros', pros);
+    // debug('pros', pros);
     return pros;
   });
-  console.log('promises', needs, Date.now());
+  debug('promises', needs, Date.now());
   return Promise.all(promises);
 }
 function renderPage(props) {
-  console.log('renderPage', Date.now());
+  debug('renderPage', Date.now());
   const appHtml = renderToString(
     <Provider store={store}>
       <RouterContext {...props} />
@@ -94,7 +96,7 @@ function renderPage(props) {
     );
 }
 
-app.get('/:category/@:author/:permlink', (req, res) => {
+function serverSideResponse(req, res) {
   global.postOrigin = `${req.protocol}://${req.get('host')}`;
   match({ routes, location: req.url }, (err, redirect, props) => {
     fetchComponentData(store.dispatch, props.components, props.params)
@@ -102,8 +104,23 @@ app.get('/:category/@:author/:permlink', (req, res) => {
       .then(html => res.end(html))
       .catch(error => res.end(error.message));
   });
-});
+}
 
+
+app.get('/trending(/:category)', serverSideResponse);
+app.get('/hot(/:category)', serverSideResponse);
+app.get('/cashout(/:category)', serverSideResponse);
+app.get('/created(/:category)', serverSideResponse);
+app.get('/active(/:category)', serverSideResponse);
+app.get('/responses(/:category)', serverSideResponse);
+app.get('/votes(/:category)', serverSideResponse);
+
+app.get('/@:name/posts', serverSideResponse);
+app.get('/@:name/feed', serverSideResponse);
+app.get('/@:name/replies', serverSideResponse);
+app.get('/@:name', serverSideResponse);
+
+app.get('/:category/@:author/:permlink', serverSideResponse);
 app.get('/*', (req, res) => {
   res.send(indexHtml);
 });

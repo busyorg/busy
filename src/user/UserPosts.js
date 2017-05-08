@@ -5,12 +5,12 @@ import {
   getFeedLoadingFromState,
   getFeedHasMoreFromState
 } from '../helpers/stateHelpers';
+import { getUserComments as getUserCommentsStatic } from './userActions';
 
 export default class UserProfilePosts extends Component {
-  constructor(props) {
-    super(props);
-  }
-
+  static needs = [
+    ({ name }) => getUserCommentsStatic({ username: name }),
+  ]
   render() {
     const { feed, comments, getUserComments, getMoreUserComments, limit } = this.props;
     const username = this.props.params.name;
@@ -18,7 +18,7 @@ export default class UserProfilePosts extends Component {
     const content = getUserCommentsFromState(username, feed, comments);
     const isFetching = getFeedLoadingFromState('comments', username, feed);
     const hasMore = getFeedHasMoreFromState('comments', username, feed);
-    const loadContentAction = () => getUserComments(username);
+    const loadContentAction = () => getUserComments({ username });
     const loadMoreContentAction = () => getMoreUserComments(username, limit);
 
     return (
