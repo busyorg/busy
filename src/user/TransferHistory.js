@@ -94,6 +94,19 @@ const renderReportFromOp = (op, username) => {
     descriptionEnd = '';
   } else if (type === 'interest') {
     descriptionStart += `Receive interest of ${data.interest}`;
+  } else if (type === 'fill_convert_request') {
+    descriptionStart += `Fill convert request: ${data.amount_in} for ${data.amount_out}`;
+  } else if (type === 'fill_order') {
+    if (data.open_owner === username) {
+      // my order was filled by data.current_owner
+      descriptionStart += `Paid ${data.open_pays} for ${data.current_pays}`;
+    } else {
+      // data.open_owner filled my order
+      descriptionStart += `Paid ${data.current_pays} for ${data.open_pays}`;
+    }
+  } else if (type === 'claim_reward_balance') {
+    descriptionStart += `Claim rewards: ${renameToSd(data.reward_sbd)}, ${data.reward_steem}, and ${data.reward_vests}`;
+    descriptionEnd = '';
   } else {
     descriptionStart += JSON.stringify({ type, ...data }, null, 2);
   }
