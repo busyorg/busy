@@ -10,7 +10,7 @@ const Donors = () =>
   <div className="main-panel">
     <MenuHelp />
     <div className="container text-center my-5">
-      <h1><FormattedMessage id="donors" /></h1>
+      <h1><FormattedMessage id="donors" defaultMessage="Donors" /></h1>
       <p>
         <FormattedMessage
           id="@statics/our_donors"
@@ -19,7 +19,7 @@ const Donors = () =>
         .
       </p>
       <Link className="btn btn-primary my-4" to="/transfer?to=busy.org">
-        <FormattedMessage id="donate" />
+        <FormattedMessage id="donate" defaultMessage="Donate" />
       </Link>
       <div className="row my-5">
         {Object.keys(donors).map((user, idx) =>

@@ -51,7 +51,7 @@ export default class Reactions extends Component {
               </span>
               {' '}
               <a onClick={this.props.handleShowLikesRequest}>
-                {numeral(upvotes.length).format('0,0')} <FormattedMessage id="likes" />
+                {numeral(upvotes.length).format('0,0')} <FormattedMessage id="likes" defaultMessage="Likes" />
               </a>
             </span>
           }
@@ -70,7 +70,7 @@ export default class Reactions extends Component {
               </span>
               {' '}
               <a onClick={this.props.handleShowLikesRequest}>
-                {numeral(downvotes.length).format('0,0')} <FormattedMessage id="dislikes" />
+                {numeral(downvotes.length).format('0,0')} <FormattedMessage id="dislikes" defaultMessage="Dislikes" />
               </a>
             </span>
           }
@@ -79,7 +79,7 @@ export default class Reactions extends Component {
               <Icon name="reply" xs />
               {' '}
               <a onClick={this.props.handleShowCommentsRequest}>
-                {numeral(children).format('0,0')} <FormattedMessage id="comments" />
+                {numeral(children).format('0,0')} <FormattedMessage id="comments" defaultMessage="Comments" />
               </a>
             </span>
           }

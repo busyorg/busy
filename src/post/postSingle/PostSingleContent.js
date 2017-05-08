@@ -51,7 +51,7 @@ const PostSingleContent = ({
             {' '}<span>{content.author}</span>
           </Link>
           <span className="hidden-xs">
-            {' '}<FormattedMessage id="in" />{' '}
+            {' '}<FormattedMessage id="in" defaultMessage="in" />{' '}
             <Link to={`/hot/${content.category}`}>#{content.category}</Link>
           </span>
           <span className="pull-right">

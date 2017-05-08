@@ -24,7 +24,7 @@ const SidebarHeader = ({
       {!auth.isAuthenticated && !auth.isFetching &&
         <a href={steemconnect.getLoginURL()}>
           <Icon name="lock_outline" />
-          {' '}<FormattedMessage id="login" />
+          {' '}<FormattedMessage id="login" defaultMessage="Login" />
         </a>
       }
       {auth.isAuthenticated &&

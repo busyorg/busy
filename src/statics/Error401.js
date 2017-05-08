@@ -8,8 +8,8 @@ const Error401 = () =>
   <div className="main-panel">
     <div className="container my-5">
       <div className="ptl text-center">
-        <h1><FormattedMessage id="page_forbidden" /></h1>
-        <h2><FormattedMessage id="page_forbidden_message" /></h2>
+        <h1><FormattedMessage id="page_forbidden" defaultMessage="Page Requires Authentication" /></h1>
+        <h2><FormattedMessage id="page_forbidden_message" defaultMessage="Oops! Looks like you need to login to use this page." /></h2>
         <p>
           <FormattedMessage
             id="@statics/need_login"
@@ -18,7 +18,7 @@ const Error401 = () =>
           {' '}
           <a href={steemconnect.getLoginURL()}>
             <Icon name="lock_outline" />
-            {' '}<FormattedMessage id="login" />
+            {' '}<FormattedMessage id="login" defaultMessage="Login" />
           </a>
           <br />
           <FormattedMessage

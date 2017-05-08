@@ -29,12 +29,12 @@ const PostFeedList = ({
 
   return (
     <div className="PostFeedList">
-      { imagePath &&
-      <div className="PostFeedList__thumbs">
-        <Link to={post.url} onClick={e => handlePostClick(e)}>
-          <img key={imagePath} src={imagePath} />
-        </Link>
-      </div>
+      {imagePath &&
+        <div className="PostFeedList__thumbs">
+          <Link to={post.url} onClick={e => handlePostClick(e)}>
+            <img key={imagePath} src={imagePath} />
+          </Link>
+        </div>
       }
       <div className="PostFeedList__cell PostFeedList__cell--body">
         <BookmarkButton
@@ -60,7 +60,7 @@ const PostFeedList = ({
             layout={layout}
           />
           <span>
-            <FormattedMessage id="by" />{' '}
+            <FormattedMessage id="by" defaultMessage="by" />{' '}
             <ProfileTooltipOrigin username={post.author}>
               <Link to={`/@${post.author}`}>
                 <Avatar xs username={post.author} />
@@ -68,7 +68,7 @@ const PostFeedList = ({
               </Link>
             </ProfileTooltipOrigin>
             <span className="hidden-xs">
-              {' '}<FormattedMessage id="in" />
+              {' '}<FormattedMessage id="in" defaultMessage="in" />
               {' '}<Link to={`/hot/${post.category}`}>#{post.category}</Link>{' '}
               <span className="text-info">
                 <FormattedRelative value={`${post.created}Z`} />
