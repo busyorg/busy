@@ -31,8 +31,8 @@ export default class AppSettings extends React.Component {
         <div className="container my-5 text-center">
           <h1><FormattedMessage id="settings" defaultMessage="Settings" /></h1>
           <h2><FormattedMessage id="layout" defaultMessage="Layout" /></h2>
-          <div className="row mhl">
-            <div className="col col-lg-4 mb-3">
+          <div className="row my-4">
+            <div className="col-sm-4 mb-3">
               <a
                 onClick={() => setLayout('card')}
                 className={app.layout === 'card' && 'active'}
@@ -43,7 +43,7 @@ export default class AppSettings extends React.Component {
                 </h2>
               </a>
             </div>
-            <div className="col col-lg-4 mb-3">
+            <div className="col-sm-4 mb-3">
               <a
                 onClick={() => setLayout('list')}
                 className={app.layout === 'list' && 'active'}
@@ -56,56 +56,56 @@ export default class AppSettings extends React.Component {
             </div>
           </div>
           <h2><FormattedMessage id="language" defaultMessage="Language" /></h2>
-          <div className="row mhl">
-            <div className="col col-lg-4 mb-3">
+          <div className="row my-4">
+            <div className="col-sm-4 mb-3">
               <a onClick={() => setLocale('en')}>
                 <img className="Flag Flag--lg" alt="English" src="/img/flag/us.svg" />
-                <h2 className="my-2">English</h2>
+                <h2 className="my-2">AE</h2>
               </a>
             </div>
-            <div className="col col-lg-4 mb-3">
+            <div className="col-sm-4 mb-3">
               <a onClick={() => setLocale('zh')}>
                 <img className="Flag Flag--lg" alt="简体中文" src="/img/flag/zh.svg" />
                 <h2 className="my-2">简体中文</h2>
               </a>
             </div>
-            <div className="col col-lg-4 mb-3">
+            <div className="col-sm-4 mb-3">
               <a onClick={() => setLocale('es')}>
                 <img className="Flag Flag--lg" alt="Español" src="/img/flag/es.svg" />
                 <h2 className="my-2">Español</h2>
               </a>
             </div>
-            <div className="col col-lg-4 mb-3">
+            <div className="col-sm-4 mb-3">
               <a onClick={() => setLocale('fr')}>
                 <img className="Flag Flag--lg" alt="Français" src="/img/flag/fr.svg" />
                 <h2 className="my-2">Français</h2>
               </a>
             </div>
-            <div className="col col-lg-4 mb-3">
+            <div className="col-sm-4 mb-3">
               <a onClick={() => setLocale('de')}>
                 <img className="Flag Flag--lg" alt="Deutsch" src="/img/flag/de.svg" />
                 <h2 className="my-2">Deutsch</h2>
               </a>
             </div>
-            <div className="col col-lg-4 mb-3">
+            <div className="col-sm-4 mb-3">
               <a onClick={() => setLocale('ru')}>
                 <img className="Flag Flag--lg" alt="Русский" src="/img/flag/ru.svg" />
                 <h2 className="my-2">Русский</h2>
               </a>
             </div>
-            <div className="col col-lg-4 mb-3">
+            <div className="col-sm-4 mb-3">
               <a onClick={() => setLocale('ko')}>
                 <img className="Flag Flag--lg" alt="한국어" src="/img/flag/ko.svg" />
                 <h2 className="my-2">한국어</h2>
               </a>
             </div>
-            <div className="col col-lg-4 mb-3">
+            <div className="col-sm-4 mb-3">
               <a onClick={() => setLocale('nl')}>
                 <img className="Flag Flag--lg" alt="Nederlands" src="/img/flag/nl.svg" />
                 <h2 className="my-2">Nederlands</h2>
               </a>
             </div>
-            <div className="col col-lg-4 mb-3">
+            <div className="col-sm-4 mb-3">
               <a onClick={() => setLocale('se')}>
                 <img className="Flag Flag--lg" alt="Svenska" src="/img/flag/se.svg" />
                 <h2 className="my-2">Svenska</h2>
