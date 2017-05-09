@@ -1,6 +1,6 @@
 import fetch from 'isomorphic-fetch';
 
-export const initPushpad = (uid, username, token) => {
+export const initPushpad = (username, token) => {
   const PUSHPAD_PROJECT_ID = process.env.PUSHPAD_PROJECT_ID;
   const BUSYPUSH_ENDPOINT = process.env.BUSYPUSH_ENDPOINT;
 
@@ -33,7 +33,6 @@ export const initPushpad = (uid, username, token) => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        uid,
         username,
         token,
       }),
@@ -47,7 +46,7 @@ export const initPushpad = (uid, username, token) => {
         const { signatureId } = res;
 
         pushpad('init', PUSHPAD_PROJECT_ID);
-        pushpad('uid', `${uid}`, signatureId);
+        pushpad('uid', `${username}`, signatureId);
         pushpad('subscribe', (isSubscribed) => {
           if (!isSubscribed) {
             return;
@@ -61,7 +60,6 @@ export const initPushpad = (uid, username, token) => {
               'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-              uid,
               username,
               token,
             }),
