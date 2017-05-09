@@ -4,6 +4,7 @@ const webpack = require('webpack');
 
 const isDevelopment = process.env.NODE_ENV !== 'production';
 const baseDir = path.resolve(__dirname, '..');
+console.log('isDevelopment', isDevelopment, process.env);
 module.exports = {
 
   entry: path.resolve(baseDir, './server/index.js'),
@@ -66,6 +67,15 @@ module.exports = {
     ]
   },
   plugins: [
+    new webpack.EnvironmentPlugin([
+      'NODE_ENV',
+      'BUSYWS_HOST',
+      'STEEMCONNECT_IMG_HOST',
+      'STEEMCONNECT_HOST',
+      'STEEMCONNECT_REDIRECT_URL',
+      'WS',
+      'IS_BROWSER'
+    ]),
     new webpack.DefinePlugin({
       'process.env': {
         BUSYWS_HOST: JSON.stringify(process.env.BUSYWS_HOST || 'https://ws.busy.org'),
@@ -76,7 +86,7 @@ module.exports = {
         ),
         STEEMCONNECT_REDIRECT_URL: JSON.stringify(
           process.env.STEEMCONNECT_REDIRECT_URL ||
-          isDevelopment
+            isDevelopment
             ? 'http://localhost:3000'
             : 'https://busy.org'
         ),
