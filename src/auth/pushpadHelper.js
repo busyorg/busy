@@ -21,6 +21,7 @@ export const initPushpad = (username, token) => {
     h.appendChild(x);
   })(window,document, 'https://pushpad.xyz/pushpad.js');
 
+  pushpad('init', PUSHPAD_PROJECT_ID);
   pushpad('status', (isSubscribed) => {
     if (isSubscribed) {
       return;
@@ -44,8 +45,7 @@ export const initPushpad = (username, token) => {
         }
 
         const { signatureId } = res;
-
-        pushpad('init', PUSHPAD_PROJECT_ID);
+        
         pushpad('uid', `${username}`, signatureId);
         pushpad('subscribe', (isSubscribed) => {
           if (!isSubscribed) {
