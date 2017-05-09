@@ -70,20 +70,9 @@ module.exports = {
       'process.env': {
         BUSYWS_HOST: JSON.stringify(process.env.BUSYWS_HOST || 'https://ws.busy.org'),
         STEEMCONNECT_IMG_HOST: JSON.stringify(process.env.STEEMCONNECT_IMG_HOST || 'https://img.steemconnect.com'),
-        STEEMCONNECT_HOST: JSON.stringify(
-          process.env.STEEMCONNECT_HOST ||
-          'https://steemconnect.com'
-        ),
-        STEEMCONNECT_REDIRECT_URL: JSON.stringify(
-          process.env.STEEMCONNECT_REDIRECT_URL ||
-          isDevelopment
-            ? 'http://localhost:3000'
-            : 'https://busy.org'
-        ),
-        WS: JSON.stringify(
-          process.env.WS ||
-          'wss://steemd.steemit.com'
-        ),
+        STEEMCONNECT_HOST: JSON.stringify(process.env.STEEMCONNECT_HOST || 'https://steemconnect.com'),
+        STEEMCONNECT_REDIRECT_URL: JSON.stringify(process.env.STEEMCONNECT_REDIRECT_URL || 'https://busy.org'),
+        WS: JSON.stringify(process.env.WS || 'wss://steemd.steemit.com'),
         IS_BROWSER: JSON.stringify(false),
       },
     }),
