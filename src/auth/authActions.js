@@ -43,7 +43,7 @@ export const login = () =>
         }
         dispatch(loginSuccess(users[0], result.token));
         // init pushpad
-        initPushpad(users[0].id, result.username, result.token);
+        initPushpad(result.username, result.token);
       });
     });
   };
