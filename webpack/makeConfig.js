@@ -25,29 +25,14 @@ function makePlugins(options) {
     new webpack.DefinePlugin({
       'process.env': {
         // This has effect on the react lib size
-        NODE_ENV: isDevelopment
-          ? JSON.stringify('development')
-          : JSON.stringify('production'),
+        NODE_ENV: isDevelopment ? JSON.stringify('development') : JSON.stringify('production'),
         ENABLE_LOGGER: JSON.stringify(process.env.ENABLE_LOGGER),
         BUSYWS_HOST: JSON.stringify(process.env.BUSYWS_HOST || 'https://ws.busy.org'),
         STEEMCONNECT_IMG_HOST: JSON.stringify(process.env.STEEMCONNECT_IMG_HOST || 'https://img.steemconnect.com'),
-        SENTRY_PUBLIC_DSN: isDevelopment
-          ? null
-          : JSON.stringify(process.env.SENTRY_PUBLIC_DSN),
-        STEEMCONNECT_HOST: JSON.stringify(
-          process.env.STEEMCONNECT_HOST ||
-          'https://steemconnect.com'
-        ),
-        STEEMCONNECT_REDIRECT_URL: JSON.stringify(
-          process.env.STEEMCONNECT_REDIRECT_URL ||
-          isDevelopment
-            ? 'http://localhost:3000'
-            : 'https://busy.org'
-        ),
-        WS: JSON.stringify(
-          process.env.WS ||
-          'wss://steemd.steemit.com'
-        ),
+        SENTRY_PUBLIC_DSN: isDevelopment ? null : JSON.stringify(process.env.SENTRY_PUBLIC_DSN),
+        STEEMCONNECT_HOST: JSON.stringify(process.env.STEEMCONNECT_HOST || 'https://steemconnect.com'),
+        STEEMCONNECT_REDIRECT_URL: JSON.stringify(process.env.STEEMCONNECT_REDIRECT_URL || 'https://busy.org'),
+        WS: JSON.stringify(process.env.WS || 'wss://steemd.steemit.com'),
         IS_BROWSER: JSON.stringify(true),
         PUSHPAD_PROJECT_ID: process.env.PUSHPAD_PROJECT_ID,
         BUSYPUSH_ENDPOINT: process.env.BUSYPUSH_ENDPOINT,
