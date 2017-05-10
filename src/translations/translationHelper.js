@@ -44,9 +44,12 @@ export const getMessages = (replies) => {
 };
 
 export const getLocale = (appLocale, messages) => {
-  const browserLocale = navigator.language || navigator.userLanguage; // eslint-disable-line
-  let locale = appLocale || browserLocale;
-  locale = locale.substr(0, 2);
-  locale = messages[locale] ? locale : 'en';
+  let locale = 'en';
+  if (typeof navigator !== 'undefined') {
+    const browserLocale = navigator.language || navigator.userLanguage; // eslint-disable-line
+    locale = appLocale || browserLocale;
+    locale = locale.substr(0, 2);
+    locale = messages[locale] ? locale : 'en';
+  }
   return locale;
 };

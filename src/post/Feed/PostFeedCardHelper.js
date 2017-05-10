@@ -1,4 +1,4 @@
-const STARTWITHPERCENT = 5;
+const START_WITH_PERCENT = 5;
 
 const getPositions = (text) => {
   const imgPos = text.indexOf('<img');
@@ -9,24 +9,24 @@ const getPositions = (text) => {
   return { embed: firstEmbed, image: firstImage };
 };
 
-const postWithPicture = (tagPositions, searchPostion) => {
-  const result = (tagPositions.image && tagPositions.image < searchPostion);
+const postWithPicture = (tagPositions, searchPosition) => {
+  const result = (tagPositions.image && tagPositions.image < searchPosition);
   if (tagPositions.embed !== undefined) {
     return (tagPositions.embed > tagPositions.image) && result;
   }
   return result;
 };
 
-const postWithAnEmbed = (tagPositions, searchPostion) => {
-  const result = (tagPositions.embed && tagPositions.embed < searchPostion);
+const postWithAnEmbed = (tagPositions, searchPosition) => {
+  const result = (tagPositions.embed && tagPositions.embed < searchPosition);
   if (tagPositions.image !== undefined) {
     return (tagPositions.image > tagPositions.embed) && result;
   }
   return result;
 };
 
-const isPostStartsWithAPicture = tagPositions => postWithPicture(tagPositions, STARTWITHPERCENT);
-const isPostStartsWithAnEmbed = tagPositions => postWithAnEmbed(tagPositions, STARTWITHPERCENT);
+const isPostStartsWithAPicture = tagPositions => postWithPicture(tagPositions, START_WITH_PERCENT);
+const isPostStartsWithAnEmbed = tagPositions => postWithAnEmbed(tagPositions, START_WITH_PERCENT);
 const isPostWithPictureBeforeFirstHalf = tagPositions => postWithPicture(tagPositions, 50);
 const isPostWithEmbedBeforeFirstHalf = tagPositions => postWithAnEmbed(tagPositions, 50);
 

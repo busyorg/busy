@@ -20,7 +20,10 @@ const initialState = {
  *     body and I can even use <Link to="/">react components</Link> inside it</p>
  *   }
  *   className="CustomClassname" // default will be .BusyPopover
- * />
+ *   appearOn="bottom-left" // default bottom. available options bottom, bottom-left, right
+ * >
+ *   children
+ * </Popover>
  */
 export default class Popover extends Component {
   constructor(props) {
@@ -32,11 +35,13 @@ export default class Popover extends Component {
     title: PropTypes.string.isRequired,
     content: PropTypes.node,
     className: PropTypes.string,
+    appearOn: PropTypes.oneOf(['right', 'bottom', 'bottom-left']),
   };
 
   static defaultProps = {
     className: 'BusyPopover',
     value: null,
+    appearOn: 'bottom-left',
   };
 
   showPopover = (e) => {
@@ -56,7 +61,7 @@ export default class Popover extends Component {
   };
 
   renderPopover() {
-    const { className, title, content } = this.props;
+    const { className, title, content, appearOn } = this.props;
     const { pos, posInBrowser, active } = this.state;
 
     if (!active) return null;
@@ -69,6 +74,7 @@ export default class Popover extends Component {
           className={className}
           title={title}
           content={content}
+          appearOn={appearOn}
           removePopover={() => this.removePopover()}
         />
       </Gateway>

@@ -153,7 +153,7 @@ const PostFeedCard = ({
             </ProfileTooltipOrigin>
 
             <span className="hidden-xs">
-              {' '}<FormattedMessage id="in" />{' '}
+              {' '}<FormattedMessage id="in" defaultMessage="in" />{' '}
               {isReplyPost ?
                 <Link to={`${post.url}`}>
                   {post.root_title}

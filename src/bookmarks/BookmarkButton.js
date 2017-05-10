@@ -5,9 +5,14 @@ import Icon from '../widgets/Icon';
 
 const BookmarkButton = ({ post, bookmarks, toggleBookmark, intl }) =>
   <SimpleTooltipOrigin message={
-    intl.formatMessage({ id: bookmarks[post.id]
-    ? '@tooltip_remove_bookmark'
-    : '@tooltip_add_bookmark' })}
+    intl.formatMessage({
+      id: bookmarks[post.id]
+        ? '@tooltip_remove_bookmark'
+        : '@tooltip_add_bookmark',
+      defaultMessage: bookmarks[post.id] ?
+        'Remove from bookmarks' :
+        'Add in bookmarks',
+    })}
   >
     <a onClick={() => toggleBookmark(post.id)} className="PostFeedList__cell__bookmark">
       <Icon

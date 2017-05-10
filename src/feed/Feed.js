@@ -29,8 +29,10 @@ import './Feed.scss';
   }, dispatch)
 )
 export default class Feed extends React.Component {
-  componentDidMount() {
-    this.props.loadContent();
+  componentWillMount() {
+    if (!this.props.content.length) {
+      this.props.loadContent();
+    }
   }
 
   componentDidUpdate() {
@@ -84,8 +86,13 @@ export default class Feed extends React.Component {
           >
             {
               content.map((post, key) => {
-                if (this.props.username && post.author !== this.props.username) {
-                  return false;
+                if (this.props.username) {
+                  if (this.props.onlyReblogs && post.author === this.props.username) {
+                    return false;
+                  }
+                  if (this.props.hideReblogs && post.author !== this.props.username) {
+                    return false;
+                  }
                 }
 
                 return (

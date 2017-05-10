@@ -6,7 +6,7 @@ import * as userActions from '../user/userActions';
 
 const postItem = (state = {}, action) => {
   switch (action.type) {
-    case postsActions.LIKE_POST_START:
+    case postsActions.LIKE_POST_START: {
       let optimisticActiveVotes;
 
       if (action.meta.weight !== 0) {
@@ -24,14 +24,15 @@ const postItem = (state = {}, action) => {
       }
 
       const optimisticNetVotes = action.meta.weight > 0
-        ? parseInt(state.net_votes) + 1
-        : parseInt(state.net_votes) - 1;
+        ? parseInt(state.net_votes, 10) + 1
+        : parseInt(state.net_votes, 10) - 1;
 
       return {
         ...state,
         active_votes: optimisticActiveVotes,
         net_votes: optimisticNetVotes,
       };
+    }
     case commentsActions.SEND_COMMENT_START:
       if (action.meta.isReplyToComment) {
         return state;
@@ -39,7 +40,7 @@ const postItem = (state = {}, action) => {
 
       return {
         ...state,
-        children: parseInt(state.children) + 1,
+        children: parseInt(state.children, 10) + 1,
       };
     default:
       return state;

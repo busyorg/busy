@@ -43,7 +43,7 @@ export default class Transfer extends Component {
     const account = this.props.auth.user;
     const { from, to, amount, currency, memo } = this.state;
     const balance = currency === 'STEEM' ? account.balance : account.sbd_balance;
-    const url = `https://steemjs.com/sign/transfer?from=${from}&to=${to}&memo=${memo}&amount=${amount}%20${currency}`;
+    const url = `https://v2.steemconnect.com/sign/transfer?from=${from}&to=${to}&memo=${memo}&amount=${amount}%20${currency}`;
     const sbdBtnClass = classNames('btn btn-sm mr-2', {
       'btn-primary': currency === 'SBD',
       'btn-secondary': currency === 'STEEM',
@@ -65,6 +65,7 @@ export default class Transfer extends Component {
                 <input
                   autoFocus
                   value={to}
+                  autoComplete="off"
                   onChange={this.handleToChange}
                   placeholder="To"
                   type="text"
@@ -102,7 +103,7 @@ export default class Transfer extends Component {
               <h4 className="my-2">
                 Balance{' '}
                 <a href="#" onClick={() => this.setState({ amount: numeral(balance).format('0.000') })}>
-                  { numeral(balance).format('0,0.000') }
+                  {numeral(balance).format('0,0.000')}
                 </a>
                 {` ${currency}`}
               </h4>
@@ -122,7 +123,7 @@ export default class Transfer extends Component {
                 href={url}
                 className="btn btn-success btn-lg"
               >
-                <FormattedMessage id="continue" />
+                <FormattedMessage id="continue" defaultMessage="Continue" />
               </a>
             </div>
           </form>

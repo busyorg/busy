@@ -12,56 +12,48 @@ export const LIKE_POST_START = '@post/LIKE_POST_START';
 export const LIKE_POST_SUCCESS = '@post/LIKE_POST_SUCCESS';
 export const LIKE_POST_ERROR = '@post/LIKE_POST_ERROR';
 
-import steem from 'steem';
-
 steemConnect.vote = Promise.promisify(steemConnect.vote, { context: steemConnect });
 
+export const getContent =
+  ({ author: postAuthor, permlink: postPermlink, omitAttributes = [] } = {}) =>
+    (dispatch, getState, { steemAPI }) => {
+      if (!postAuthor || !postPermlink) { return null; }
+      return dispatch({
+        type: GET_CONTENT,
+        payload: {
+          promise: steemAPI.getContentAsync(postAuthor, postPermlink).then(
+            postData => omit(postData, omitAttributes)
+          ),
+        },
+      });
+    };
 
-export const getContent = (postAuthor, postPermlink, omitAttributes = []) => {
-  return (dispatch, getState, { steemAPI }) => {
-    if (!postAuthor || !postPermlink) {
-      return;
-    }
+export const votePost = (postId, weight = 10000) => (dispatch, getState) => {
+  const { auth, posts } = getState();
+  if (!auth.isAuthenticated) { return null; }
 
-    dispatch({
-      type: GET_CONTENT,
-      payload: {
-        promise: steemAPI.getContentAsync(postAuthor, postPermlink).then(
-          postData => omit(postData, omitAttributes)
-        ),
-      },
-    });
+  const voter = auth.user.name;
 
-  };
-};
-
-export const votePost = (postId, weight = 10000) => {
-  return (dispatch, getState) => {
-    const { auth, posts } = getState();
-
-    if (!auth.isAuthenticated) {
-      return;
-    }
-
-    const voter = auth.user.name;
-
-    dispatch({
-      type: LIKE_POST,
-      payload: {
-        promise: steemConnect.vote(voter, posts[postId].author, posts[postId].permlink, weight).then(
-          (res) => {
-            // Delay to make sure you get the latest data (unknown issue with API)
-            setTimeout(() =>
-              dispatch(
-                getContent(posts[postId].author, posts[postId].permlink, ['net_votes', 'active_votes'])
-              ),
-              1000
-            );
-            return res;
-          }
-        ),
-      },
-      meta: { postId, voter, weight },
-    });
-  }
+  return dispatch({
+    type: LIKE_POST,
+    payload: {
+      promise: steemConnect.vote(voter, posts[postId].author, posts[postId].permlink, weight).then(
+        (res) => {
+          // Delay to make sure you get the latest data (unknown issue with API)
+          setTimeout(() =>
+            dispatch(
+              getContent({
+                author: posts[postId].author,
+                permlink: posts[postId].permlink,
+                omitAttributes: ['net_votes', 'active_votes']
+              })
+            ),
+            1000
+          );
+          return res;
+        }
+      ),
+    },
+    meta: { postId, voter, weight },
+  });
 };

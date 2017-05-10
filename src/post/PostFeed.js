@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import embedjs from 'embedjs';
 import { jsonParse } from '../helpers/formatter';
+import { image } from '../helpers/steemitLinks';
 import PostFeedCard from './Feed/PostFeedCard';
 import PostFeedList from './Feed/PostFeedList';
 
@@ -48,9 +49,13 @@ export default class PostFeed extends Component {
       notify
     } = this.props;
     const jsonMetadata = jsonParse(this.props.post.json_metadata);
-    const imagePath = jsonMetadata.image && jsonMetadata.image[0]
-      ? `https://steemitimages.com/600x800/${jsonMetadata.image[0]}`
-      : '';
+    let imagePath = ''; let bodyImg;
+    if (jsonMetadata.image && jsonMetadata.image[0]) {
+      imagePath = `https://steemitimages.com/600x800/${jsonMetadata.image[0]}`;
+    } else if ((bodyImg = post.body.match(image())) && bodyImg.length) { // eslint-disable-line no-cond-assign
+      imagePath = `https://steemitimages.com/600x800/${bodyImg[0]}`;
+    }
+
     const embeds = embedjs.getAll(post.body);
     const ItemComponent = (app.layout === 'list')
       ? PostFeedList

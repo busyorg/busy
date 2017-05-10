@@ -17,11 +17,11 @@ const Hero = () =>
         href="https://steemit.com/enter_email"
         target="_blank"
       >
-        <FormattedMessage id="signup" />
+        <FormattedMessage id="signup" defaultMessage="Sign Up" />
       </a>
       {' or '}
       <a href={steemconnect.getLoginURL()}>
-        <FormattedMessage id="login" />
+        <FormattedMessage id="login" defaultMessage="Log In" />
       </a>
     </div>
   </div>;

@@ -66,7 +66,7 @@ export default class Comments extends Component {
   render() {
     const { postId, comments, className, show } = this.props;
     if (!show) {
-      return null;
+      return <div />;
     }
 
     const hasMore = (comments.listByPostId[postId] && comments.listByPostId[postId].hasMore);
@@ -118,7 +118,10 @@ export default class Comments extends Component {
             tabIndex="0"
             onClick={this.handleShowMore}
           >
-            <FormattedMessage id="see_more_comments" />
+            <FormattedMessage
+              id="see_more_comments"
+              defaultMessage="See More Comments"
+            />
           </a>
         }
 

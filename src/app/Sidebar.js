@@ -42,7 +42,7 @@ export default class Sidebar extends Component {
     };
   }
 
-  componentDidMount() {
+  componentWillMount() {
     api.getState('trending/busy', (err, result) => {
       let categories = (result.category_idx && result.category_idx.trending)
         || (result.tag_idx && result.tag_idx.trending);
@@ -74,7 +74,7 @@ export default class Sidebar extends Component {
             <Icon name="star" xs />
           </Link>
         </li>
-    );
+      );
   }
 
   renderTags() {
@@ -142,7 +142,7 @@ export default class Sidebar extends Component {
 
     const dollar = rate
       ? (parseFloat(rate) * (parseFloat(user.balance) + parseFloat(power)))
-        + parseFloat(user.sbd_balance)
+      + parseFloat(user.sbd_balance)
       : 0;
 
     return (
@@ -166,21 +166,21 @@ export default class Sidebar extends Component {
           {rate && props && menu === 'settings' &&
             <ul>
               <li className="title">
-                <a href="https://steemconnect.com/profile" target="_blank">
+                <a href="https://steemconnect.com/profile" target="_blank" rel="noopener noreferrer">
                   <Icon name="perm_identity" />{' '}
-                  <FormattedMessage id="profile" />
+                  <FormattedMessage id="profile" defaultMessage="Profile" />
                 </a>
               </li>
               <li className="title">
                 <Link to="/settings">
                   <Icon name="settings" />{' '}
-                  <FormattedMessage id="settings" />
+                  <FormattedMessage id="settings" defaultMessage="Settings" />
                 </Link>
               </li>
               <li className="title">
                 <a href={`${process.env.STEEMCONNECT_HOST}/logout`}>
                   <Icon name="lock_open" />{' '}
-                  <FormattedMessage id="logout" />
+                  <FormattedMessage id="logout" defaultMessage="Log Out" />
                 </a>
               </li>
             </ul>}
@@ -202,10 +202,17 @@ export default class Sidebar extends Component {
                         />
                       </div>
                     </li>
-                    { this.renderSearchAsTag() }
-                    { this.renderFavoritedTags() }
-                    { this.renderTags() }
-                    <li><Link to="/tags" activeClassName="active"><FormattedMessage id="see_more" /></Link></li>
+                    {this.renderSearchAsTag()}
+                    {this.renderFavoritedTags()}
+                    {this.renderTags()}
+                    <li>
+                      <Link to="/tags" activeClassName="active">
+                        <FormattedMessage
+                          id="see_more"
+                          defaultMessage="See More"
+                        />
+                      </Link>
+                    </li>
                   </ul>
                 </li>
               </ul>
@@ -226,19 +233,19 @@ export default class Sidebar extends Component {
               <li className="title">
                 <Link to="/write">
                   <Icon name="add" />{' '}
-                  <FormattedMessage id="write" />
+                  <FormattedMessage id="write" defaultMessage="Write" />
                 </Link>
               </li>
               <li className="title">
                 <Link to="/drafts">
                   <Icon name="library_books" />{' '}
-                  <FormattedMessage id="drafts" />
+                  <FormattedMessage id="drafts" defaultMessage="Drafts" />
                 </Link>
               </li>
               <li className="title">
                 <Link to="/bookmarks">
                   <Icon name="bookmark" />{' '}
-                  <FormattedMessage id="bookmarks" />
+                  <FormattedMessage id="bookmarks" defaultMessage="Bookmarks" />
                 </Link>
               </li>
             </ul>}
@@ -248,11 +255,11 @@ export default class Sidebar extends Component {
               <li className="title">
                 <Link to={`/@${this.props.auth.user.name}/transfers`}>
                   <Icon name="account_balance_wallet" />{' '}
-                  <FormattedMessage id="wallet" />
+                  <FormattedMessage id="wallet" defaultMessage="Wallet" />
                 </Link>
                 <Link to="/transfer">
                   <Icon name="send" />{' '}
-                  <FormattedMessage id="transfer" />
+                  <FormattedMessage id="transfer" defaultMessage="Transfer" />
                 </Link>
               </li>
               <li>
@@ -264,7 +271,7 @@ export default class Sidebar extends Component {
                   <li><span className="menu-row"><FormattedMessage id="estimated_value" /> <span className="pull-right">{numeral(dollar).format('$0,0.00')}</span></span></li>
                 </ul>
               </li>
-              </ul>}
+            </ul>}
         </div>
       </nav>
     );
