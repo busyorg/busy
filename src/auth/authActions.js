@@ -1,5 +1,6 @@
 import Promise from 'bluebird';
-import steemConnect from 'steemconnect';
+import steemConnect from 'sc2-sdk';
+import Cookie from 'js-cookie';
 import request from 'superagent';
 import { getFollowing } from '../user/userActions';
 import { initPushpad } from './pushpadHelper';
@@ -28,22 +29,18 @@ const loginSuccess = (user, token) =>
 const loginFail = () => ({ type: LOGIN_FAILURE });
 
 export const login = () =>
-  (dispatch, getState, { steemAPI }) => {
+  (dispatch) => {
     dispatch(requestLogin());
-    steemConnect.isAuthenticated((err, result) => {
-      if (err || !result || !result.isAuthenticated) {
+    steemConnect.me((err, result) => {
+      if (err || !result || !result.name) {
         dispatch(loginFail());
         return;
       }
-      dispatch(getFollowing(result.username));
-      steemAPI.getAccounts([result.username], (err, users) => { // eslint-disable-line no-shadow
-        if (err || !users || !users[0]) {
-          dispatch(loginFail());
-          return;
-        }
-        dispatch(loginSuccess(users[0], result.token));
-        // init pushpad
-        initPushpad(result.username, result.token);
-      });
+      dispatch(getFollowing(result.name));
+
+      const accessToken = Cookie.get('access_token');
+      dispatch(loginSuccess(result, accessToken));
+      // init pushpad
+      initPushpad(result.name, accessToken);
     });
   };

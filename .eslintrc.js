@@ -19,7 +19,8 @@ module.exports = {
     "comma-dangle": 0,
     "no-static-element-interactions": 0,
     "no-plusplus": 0,
-    "no-continue": 0
+    "no-continue": 0,
+    "camelcase": 0
   },
   "plugins": [
     "react",

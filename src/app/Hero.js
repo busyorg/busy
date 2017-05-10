@@ -1,5 +1,5 @@
 import React from 'react';
-import steemconnect from 'steemconnect';
+import steemconnect from 'sc2-sdk';
 import { FormattedMessage } from 'react-intl';
 import './Hero.scss';
 
