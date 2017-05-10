@@ -1,9 +1,6 @@
 import store from 'store';
-import SteemConnect from 'steemconnect';
-import Promise from 'bluebird';
+import SteemConnect from 'sc2-sdk';
 import { createAction } from 'redux-actions';
-
-SteemConnect.reblog = Promise.promisify(SteemConnect.reblog, { context: SteemConnect });
 
 export const GET_REBLOGGED_LIST = '@reblog/GET_REBLOGGED_LIST';
 
@@ -11,7 +8,7 @@ const getRebloggedListAction = createAction(GET_REBLOGGED_LIST);
 
 const storePostId = (postId) => {
   const reblogged = store.get('reblogged') || [];
-  const newReblogged = [ ...reblogged, postId ];
+  const newReblogged = [...reblogged, postId];
   store.set('reblogged', newReblogged);
   return newReblogged;
 };
@@ -29,7 +26,7 @@ export const reblog = (postId) => {
       const list = storePostId(postId);
       dispatch(getRebloggedListAction(list));
     }).catch(err => {
-      if(err.res && err.res.status === 500) {
+      if (err.res && err.res.status === 500) {
         // already reblogged
         const list = storePostId(postId);
         dispatch(getRebloggedListAction(list));
