@@ -4,6 +4,7 @@ import { FormattedMessage, FormattedRelative, injectIntl } from 'react-intl';
 import BodyShort from '../BodyShort';
 import PostActionButtons from '../PostActionButtons';
 import Avatar from '../../widgets/Avatar';
+import SteemPowerIcon from '../../widgets/SteemPowerIcon';
 import BookmarkButton from '../../bookmarks/BookmarkButton';
 import { ProfileTooltipOrigin } from '../../widgets/tooltip/ProfileTooltip';
 import './PostFeedList.scss';
@@ -45,6 +46,7 @@ const PostFeedList = ({
         <h2>
           <Link to={post.url} onClick={e => handlePostClick(e)}>
             {post.title}
+            <SteemPowerIcon className="ml-2" active={post.percent_steem_dollars === 0} />
           </Link>
         </h2>
         <BodyShort body={post.body} />
