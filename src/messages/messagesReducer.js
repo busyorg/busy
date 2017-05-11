@@ -163,7 +163,6 @@ export default function messagesReducer(state = initialState, action) {
         latest: [],
         nmembers: 0,
       };
-      console.log(channel)
 
       const latest = uniqBy((channel.latest || []).concat(action.payload.latest), 'uuid');
 
