@@ -5950,7 +5950,7 @@ sax@^1.1.4, sax@^1.2.1, sax@~1.2.1:
 
 sc2-sdk@adcpm/sc2-sdk:
   version "0.0.1"
-  resolved "https://codeload.github.com/adcpm/sc2-sdk/tar.gz/6495c7257554d7c66f80574ea645e8fefd1cb405"
+  resolved "https://codeload.github.com/adcpm/sc2-sdk/tar.gz/9f9283c3e7427f4b1f2643bf4fff214c6894b40a"
   dependencies:
     debug "^2.2.0"
     isomorphic-fetch "^2.2.1"
