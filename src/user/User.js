@@ -176,12 +176,13 @@ export default class User extends React.Component {
   render() {
     const username = this.props.params.name;
     const { isFetching, ...user } = this.props.users[username] || {};
+    const { profile = {} } = user.json_metadata || {};
     const busyHost = global.postOrigin || 'https://busy.org';
-    const desc = `Post by ${username}`;
+    const desc = profile.about || `Post by ${username}`;
     const image = `${process.env.STEEMCONNECT_IMG_HOST}/@${username}`;
     const canonicalUrl = `${busyHost}/@${username}`;
     const url = `${busyHost}/@${username}`;
-    const title = `${username} - Busy`;
+    const title = `${profile.name || username} - Busy`;
 
     return (
       <div className="main-panel">
