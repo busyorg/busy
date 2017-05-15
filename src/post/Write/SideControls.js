@@ -11,6 +11,27 @@ import { notify } from '../../app/Notification/notificationActions';
 
 const debug = newDebug('busy:PostEditor:SideControls');
 
+function getImageLoaderHTML() {
+  const loaderDiv = global.document.createElement('div');
+  loaderDiv.innerHTML =
+    `<div class="loader-container">
+        <div class="sk-circle">
+          <div class="sk-circle1 sk-child"></div>
+          <div class="sk-circle2 sk-child"></div>
+          <div class="sk-circle3 sk-child"></div>
+          <div class="sk-circle4 sk-child"></div>
+          <div class="sk-circle5 sk-child"></div>
+          <div class="sk-circle6 sk-child"></div>
+          <div class="sk-circle7 sk-child"></div>
+          <div class="sk-circle8 sk-child"></div>
+          <div class="sk-circle9 sk-child"></div>
+          <div class="sk-circle10 sk-child"></div>
+          <div class="sk-circle11 sk-child"></div>
+          <div class="sk-circle12 sk-child"></div>
+        </div>
+      </div>`;
+  return loaderDiv;
+}
 function getSelectedBlockNode(root) {
   const selection = root.getSelection();
   if (selection.rangeCount === 0) {
@@ -129,6 +150,7 @@ class SideControls extends Component {
       return this.props.notify('Max Image size is 8mb', 'error');
     }
     const contentState = this.props.editorState.getCurrentContent();
+    const loaderDiv = getImageLoaderHTML();
     return preloadFile({ file })
       .then((dataUrl) => {
         this.hide();
@@ -136,12 +158,18 @@ class SideControls extends Component {
         entityKey = contentStateWithEntity.getLastCreatedEntityKey();
         this.props.onChange(addNewEntitiy(this.props.editorState, entityKey));
         imageElement = global.document.querySelectorAll(`img[src="${dataUrl}"]`);
-        if (imageElement.length) { imageElement[0].style.opacity = 0.5; }
+        if (imageElement.length) {
+          imageElement[0].style.opacity = 0.5;
+          imageElement[0].parentNode.prepend(loaderDiv);
+        }
         return this.props.uploadFile({ username, file });
       })
       .then(({ value }) => {
         contentState.replaceEntityData(entityKey, { src: value.url });
-        if (imageElement.length) { imageElement[0].style.opacity = 1; }
+        if (imageElement.length) {
+          imageElement[0].style.opacity = 1;
+          loaderDiv.remove();
+        }
       });
   };
 
