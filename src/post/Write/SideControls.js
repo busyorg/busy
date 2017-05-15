@@ -7,6 +7,7 @@ import React, { Component } from 'react';
 import './PostEditor.scss';
 import Icon from '../../widgets/Icon';
 import { uploadFile } from '../../user/userActions';
+import { notify } from '../../app/Notification/notificationActions';
 
 const debug = newDebug('busy:PostEditor:SideControls');
 
@@ -123,8 +124,12 @@ class SideControls extends Component {
     const username = this.props.user.name;
     let entityKey;
     let imageElement;
+    const maxFileSize = 8 * 1024 * 1024 * 1024; // 8 mb in bytes
+    if (file.size > maxFileSize) {
+      return this.props.notify('Max Image size is 8mb', 'error');
+    }
     const contentState = this.props.editorState.getCurrentContent();
-    preloadFile({ file })
+    return preloadFile({ file })
       .then((dataUrl) => {
         this.hide();
         const contentStateWithEntity = contentState.createEntity('IMAGE', 'IMMUTABLE', { src: dataUrl });
@@ -173,6 +178,6 @@ class SideControls extends Component {
 
 SideControls = connect(state => ({
   files: state.user.files,
-}), { uploadFile })(SideControls);
+}), { uploadFile, notify })(SideControls);
 
 export default SideControls;
