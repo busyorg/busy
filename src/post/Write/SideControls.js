@@ -13,22 +13,9 @@ const debug = newDebug('busy:PostEditor:SideControls');
 
 function getImageLoaderHTML() {
   const loaderDiv = global.document.createElement('div');
-  loaderDiv.innerHTML =
-    `<div class="loader-container">
-        <div class="sk-circle">
-          <div class="sk-circle1 sk-child"></div>
-          <div class="sk-circle2 sk-child"></div>
-          <div class="sk-circle3 sk-child"></div>
-          <div class="sk-circle4 sk-child"></div>
-          <div class="sk-circle5 sk-child"></div>
-          <div class="sk-circle6 sk-child"></div>
-          <div class="sk-circle7 sk-child"></div>
-          <div class="sk-circle8 sk-child"></div>
-          <div class="sk-circle9 sk-child"></div>
-          <div class="sk-circle10 sk-child"></div>
-          <div class="sk-circle11 sk-child"></div>
-          <div class="sk-circle12 sk-child"></div>
-        </div>
+  loaderDiv.className = 'loader-container flex-center';
+  loaderDiv.innerHTML = `<div class="Loading flex-center">
+        <span>●</span><span>●</span><span>●</span>
       </div>`;
   return loaderDiv;
 }
@@ -160,7 +147,14 @@ class SideControls extends Component {
         imageElement = global.document.querySelectorAll(`img[src="${dataUrl}"]`);
         if (imageElement.length) {
           imageElement[0].style.opacity = 0.5;
-          imageElement[0].parentNode.prepend(loaderDiv);
+
+          // need to run after imageElement is drawn
+          setTimeout(() => {
+            loaderDiv.style.width = `${imageElement[0].width}px`;
+            loaderDiv.style.height = `${imageElement[0].height}px`;
+            loaderDiv.style.marginTop = `-${imageElement[0].height}px`;
+          });
+          imageElement[0].parentNode.append(loaderDiv);
         }
         return this.props.uploadFile({ username, file });
       })
