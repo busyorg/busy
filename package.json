@@ -135,6 +135,7 @@
   },
   "devDependencies": {
     "@kadira/storybook": "^2.21.0",
+    "@storybook/addon-info": "^3.0.0-alpha.0",
     "babel-preset-env": "^1.4.0",
     "babel-register": "^6.24.0",
     "chai": "^3.5.0",
