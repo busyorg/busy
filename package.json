@@ -17,7 +17,9 @@
     "build:client": "npm run cleanup-public && mkdir -p public && cp -r ./assets/* ./public/ && webpack -p --config ./webpack/webpack.prod.config.js",
     "build": "NODE_ENV=production run-s build:client build:server",
     "postinstall": "npm rebuild node-sass && npm run build",
-    "cleanup-public": "rm -rf ./public/*"
+    "cleanup-public": "rm -rf ./public/*",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "dependencies": {
     "autoprefixer-loader": "^3.2.0",
@@ -132,6 +134,8 @@
     "xmldom": "^0.1.27"
   },
   "devDependencies": {
+    "@kadira/storybook": "^2.21.0",
+    "babel-preset-env": "^1.4.0",
     "babel-register": "^6.24.0",
     "chai": "^3.5.0",
     "chai-enzyme": "^0.5.1",
