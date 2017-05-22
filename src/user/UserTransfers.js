@@ -71,7 +71,7 @@ export default class UserTransfers extends Component {
 
     const isMyAccount = account.name && (_.get(this.props.auth, 'user.name') === account.name);
 
-    let rewardsStr;
+    let rewardsStr; const rewards = [];
     const { claimStatus } = this.state;
     let claimBtnText = 'Claim Reward';
     if (claimStatus === CLAIMING) {
@@ -86,7 +86,6 @@ export default class UserTransfers extends Component {
       const rewardSbd = parseFloat(account.reward_sbd_balance.split(' ')[0]) > 0 ? account.reward_sbd_balance : null;
       const rewardSp = parseFloat(account.reward_vesting_steem.split(' ')[0]) > 0 ? account.reward_vesting_steem.replace('STEEM', 'SP') : null;
 
-      const rewards = [];
       if (rewardSteem) rewards.push(rewardSteem);
       if (rewardSbd) rewards.push(rewardSbd);
       if (rewardSp) rewards.push(rewardSp);
@@ -113,19 +112,21 @@ export default class UserTransfers extends Component {
 
     return (
       <div className="container my-5">
-        {isMyAccount && rewardsStr && <div style={{ textAlign: 'center', padding: '10px' }}>{rewardsStr}
-          <button
-            disabled={claimStatus === CLAIMING || claimStatus === CLAIMED}
-            style={{
-              margin: '0 10px',
-              borderRadius: '5px',
-              border: 'none',
-              padding: '5px 10px',
-              color: '#fff',
-              background: '#4275f4'
-            }} onClick={this.claimReward}
-          >{claimBtnText}</button>
-        </div>}
+        {isMyAccount && (rewards.length > 0) &&
+          <div className="text-center mb-5">{rewardsStr}
+            <button
+              disabled={claimStatus === CLAIMING || claimStatus === CLAIMED}
+              style={{
+                margin: '0 10px',
+                borderRadius: '5px',
+                border: 'none',
+                padding: '5px 10px',
+                color: '#fff',
+                background: '#4275f4'
+              }} onClick={this.claimReward}
+            >{claimBtnText}</button>
+          </div>
+        }
         {power ?
           <div className="ptl text-center">
             <ul className="row text-center">
