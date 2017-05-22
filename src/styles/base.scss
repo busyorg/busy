@@ -1,10 +1,13 @@
-@import "./colors.scss";
-@import "./fonts.scss";
-@import "modules/base";
-@import "modules/headings";
-@import "modules/form";
-@import "modules/buttons";
-@import "modules/user";
+@import './custom.scss';
+@import '~bootstrap/scss/bootstrap.scss';
+
+@import './colors.scss';
+@import './fonts.scss';
+@import 'modules/base';
+@import 'modules/headings';
+@import 'modules/form';
+@import 'modules/buttons';
+@import 'modules/user';
 
 @font-face {
   font-family: Whitney;
