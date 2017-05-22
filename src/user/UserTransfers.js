@@ -4,12 +4,15 @@ import { bindActionCreators } from 'redux';
 import { FormattedMessage } from 'react-intl';
 import numeral from 'numeral';
 import { formatter } from 'steem';
+import steemconnect from 'steemconnect';
 import { connect } from 'react-redux';
 import api from '../steemAPI';
 import Loading from '../widgets/Loading';
 import * as walletActions from '../wallet/walletActions';
 import TransferHistory from './TransferHistory';
 
+const CLAIMED = 'CLAIMED';
+const CLAIMING = 'CLAIMING';
 @connect(
   state => ({
     app: state.app,
@@ -36,6 +39,20 @@ export default class UserTransfers extends Component {
     });
   }
 
+  claimReward = () => {
+    const user = this.props.user;
+    const account = user.name;
+    const rewardSteem = user.reward_steem_balance;
+    const rewardSbd = user.reward_sbd_balance;
+    const rewardVests = user.reward_vesting_balance;
+    this.setState({ claimStatus: CLAIMING });
+    steemconnect
+      .send('claimRewardBalance', { account, rewardSteem, rewardSbd, rewardVests })
+      .then(() => {
+        this.setState({ claimStatus: CLAIMED });
+      });
+  }
+
   render() {
     const rate = this.props.app.rate;
     const username = this.props.params.name;
@@ -49,6 +66,14 @@ export default class UserTransfers extends Component {
       dollar = (parseFloat(rate) *
         (parseFloat(account.balance) + parseFloat(power)))
         + parseFloat(account.sbd_balance);
+    }
+
+    const { claimStatus } = this.state;
+    let claimBtnText = 'Claim Reward';
+    if (claimStatus === CLAIMING) {
+      claimBtnText = 'Claiming Reward';
+    } else if (claimStatus === CLAIMED) {
+      claimBtnText = 'Reward Claimed';
     }
 
     const isMyAccount = _.get(this.props.auth, 'user.name') === account.name;
@@ -78,11 +103,17 @@ export default class UserTransfers extends Component {
       default:
         rewardsStr = '';
     }
+    if (claimStatus === CLAIMED) {
+      rewardsStr = `Reward Claimed: ${rewardsStr}`;
+    } else {
+      rewardsStr = `Current reward: ${rewardsStr}`;
+    }
 
     return (
       <div className="container my-5">
-        {rewardsStr && <div style={{ textAlign: 'center', padding: '10px' }}>Current reward: {rewardsStr}
+        {rewardsStr && <div style={{ textAlign: 'center', padding: '10px' }}>{rewardsStr}
           {isMyAccount && <button
+            disabled={claimStatus === CLAIMING || claimStatus === CLAIMED}
             style={{
               margin: '0 10px',
               borderRadius: '5px',
@@ -90,8 +121,8 @@ export default class UserTransfers extends Component {
               padding: '5px 10px',
               color: '#fff',
               background: '#4275f4'
-            }}
-          >Claim Reward</button>}
+            }} onClick={this.claimReward}
+          >{claimBtnText}</button>}
         </div>}
         {power ?
           <div className="ptl text-center">
