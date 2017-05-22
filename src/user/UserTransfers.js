@@ -57,6 +57,7 @@ export default class UserTransfers extends Component {
     const rate = this.props.app.rate;
     const username = this.props.params.name;
     const account = this.props.user;
+    console.log('username', username, account);
     let power = 0;
     let dollar = 0;
     if (rate && account && this.state.props) {
@@ -68,6 +69,9 @@ export default class UserTransfers extends Component {
         + parseFloat(account.sbd_balance);
     }
 
+    const isMyAccount = account.name && (_.get(this.props.auth, 'user.name') === account.name);
+
+    let rewardsStr;
     const { claimStatus } = this.state;
     let claimBtnText = 'Claim Reward';
     if (claimStatus === CLAIMING) {
@@ -76,43 +80,41 @@ export default class UserTransfers extends Component {
       claimBtnText = 'Reward Claimed';
     }
 
-    const isMyAccount = _.get(this.props.auth, 'user.name') === account.name;
+    if (isMyAccount) {
+      // refer https://github.com/steemit/condenser/blob/b0fc795ed321d712a4c0b6656197d6f8ff952063/app/components/modules/UserWallet.jsx#L214
+      const rewardSteem = parseFloat(account.reward_steem_balance.split(' ')[0]) > 0 ? account.reward_steem_balance : null;
+      const rewardSbd = parseFloat(account.reward_sbd_balance.split(' ')[0]) > 0 ? account.reward_sbd_balance : null;
+      const rewardSp = parseFloat(account.reward_vesting_steem.split(' ')[0]) > 0 ? account.reward_vesting_steem.replace('STEEM', 'SP') : null;
 
-    // refer https://github.com/steemit/condenser/blob/b0fc795ed321d712a4c0b6656197d6f8ff952063/app/components/modules/UserWallet.jsx#L214
-    const rewardSteem = parseFloat(account.reward_steem_balance.split(' ')[0]) > 0 ? account.reward_steem_balance : null;
-    const rewardSbd = parseFloat(account.reward_sbd_balance.split(' ')[0]) > 0 ? account.reward_sbd_balance : null;
-    const rewardSp = parseFloat(account.reward_vesting_steem.split(' ')[0]) > 0 ? account.reward_vesting_steem.replace('STEEM', 'SP') : null;
+      const rewards = [];
+      if (rewardSteem) rewards.push(rewardSteem);
+      if (rewardSbd) rewards.push(rewardSbd);
+      if (rewardSp) rewards.push(rewardSp);
 
-
-    const rewards = [];
-    if (rewardSteem) rewards.push(rewardSteem);
-    if (rewardSbd) rewards.push(rewardSbd);
-    if (rewardSp) rewards.push(rewardSp);
-
-    let rewardsStr;
-    switch (rewards.length) {
-      case 3:
-        rewardsStr = `${rewards[0]}, ${rewards[1]} and ${rewards[2]}`;
-        break;
-      case 2:
-        rewardsStr = `${rewards[0]} and ${rewards[1]}`;
-        break;
-      case 1:
-        rewardsStr = `${rewards[0]}`;
-        break;
-      default:
-        rewardsStr = '';
-    }
-    if (claimStatus === CLAIMED) {
-      rewardsStr = `Reward Claimed: ${rewardsStr}`;
-    } else {
-      rewardsStr = `Current reward: ${rewardsStr}`;
+      switch (rewards.length) {
+        case 3:
+          rewardsStr = `${rewards[0]}, ${rewards[1]} and ${rewards[2]}`;
+          break;
+        case 2:
+          rewardsStr = `${rewards[0]} and ${rewards[1]}`;
+          break;
+        case 1:
+          rewardsStr = `${rewards[0]}`;
+          break;
+        default:
+          rewardsStr = '';
+      }
+      if (claimStatus === CLAIMED) {
+        rewardsStr = `Reward Claimed: ${rewardsStr}`;
+      } else {
+        rewardsStr = `Current reward: ${rewardsStr}`;
+      }
     }
 
     return (
       <div className="container my-5">
-        {rewardsStr && <div style={{ textAlign: 'center', padding: '10px' }}>{rewardsStr}
-          {isMyAccount && <button
+        {isMyAccount && rewardsStr && <div style={{ textAlign: 'center', padding: '10px' }}>{rewardsStr}
+          <button
             disabled={claimStatus === CLAIMING || claimStatus === CLAIMED}
             style={{
               margin: '0 10px',
@@ -122,7 +124,7 @@ export default class UserTransfers extends Component {
               color: '#fff',
               background: '#4275f4'
             }} onClick={this.claimReward}
-          >{claimBtnText}</button>}
+          >{claimBtnText}</button>
         </div>}
         {power ?
           <div className="ptl text-center">
