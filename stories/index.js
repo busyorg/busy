@@ -1,5 +1,6 @@
 import React from 'react';
 import { storiesOf, action, linkTo } from '@kadira/storybook'; // eslint-disable-line
+import '../src/styles/base.scss';
 import Button from './Button';
 import Welcome from './Welcome';
 import NeverWrotePost from '../src/components/NeverWrotePost';

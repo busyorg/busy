@@ -13,6 +13,21 @@ module.exports = function (storybookBaseConfig, configType) {
     include: path.resolve(__dirname, '../')
   });
 
+  storybookBaseConfig.module.loaders.push({
+    test: /\.(eot|ttf|woff|woff2)(\?.+)?$/,
+    loader: 'url-loader',
+    options: {
+      name: '../fonts/[name].[ext]',
+      // load fonts through data-url in development
+      limit: 5000000,
+    },
+  });
+
+  storybookBaseConfig.module.loaders.push({
+    test: /\.png$/,
+    loader: 'file-loader',
+  })
+
   // Return the altered config
   return storybookBaseConfig;
 };
