@@ -57,7 +57,7 @@ export default class UserTransfers extends Component {
     const rate = this.props.app.rate;
     const username = this.props.params.name;
     const account = this.props.user;
-    console.log('username', username, account);
+
     let power = 0;
     let dollar = 0;
     if (rate && account && this.state.props) {
@@ -113,19 +113,13 @@ export default class UserTransfers extends Component {
     return (
       <div className="container my-5">
         {isMyAccount && (rewards.length > 0) &&
-          <div className="text-center mb-5">{rewardsStr}
+          <h3 className="text-center mb-5">{rewardsStr}
             <button
               disabled={claimStatus === CLAIMING || claimStatus === CLAIMED}
-              style={{
-                margin: '0 10px',
-                borderRadius: '5px',
-                border: 'none',
-                padding: '5px 10px',
-                color: '#fff',
-                background: '#4275f4'
-              }} onClick={this.claimReward}
+              className="btn btn-sm btn-primary ml-2"
+              onClick={this.claimReward}
             >{claimBtnText}</button>
-          </div>
+          </h3>
         }
         {power ?
           <div className="ptl text-center">
