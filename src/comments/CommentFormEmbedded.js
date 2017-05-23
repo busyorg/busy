@@ -141,6 +141,10 @@ export default class CommentFormEmbedded extends Component {
       parentTitle = posts[parentId].title;
     }
 
+    if (!this.props.auth.isAuthenticated) {
+      return null;
+    }
+
     return (
       <div className={commentsClass}>
         <div className="container">
