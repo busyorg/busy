@@ -1,0 +1,37 @@
+@import './custom.scss';
+@import '~bootstrap/scss/bootstrap.scss';
+
+@font-face {
+  font-family: Whitney;
+  font-style: normal;
+  font-weight: 500;
+  src: url(../fonts/Whitney.woff) format('woff')
+}
+
+@font-face {
+  font-family: Whitney;
+  font-style: normal;
+  font-weight: 600;
+  src: url(../fonts/WhitneyMedium.woff) format('woff')
+}
+
+@font-face {
+  font-family: WhitneyBold;
+  font-style: normal;
+  font-weight: 600;
+  src: url(../fonts/WhitneyBold.woff) format('woff')
+}
+
+.btn {
+  font-family: $font-family-monospace;
+}
+
+.btn-outline-white {
+  border-color: $white;
+  background: transparent;
+  color: $white;
+}
+
+input {
+  font-family: $font-family-base;
+}
