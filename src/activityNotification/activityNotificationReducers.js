@@ -9,6 +9,7 @@ export const activityNotification = (state = initialState, action) => {
   switch (action.type) {
     case notificationActions.FETCH_ACTIVITY_NOTIFICATION_START:
       return {
+        ...state,
         isFetching: true,
       }
     case notificationActions.FETCH_ACTIVITY_NOTIFICATION_SUCCESS:
@@ -19,6 +20,7 @@ export const activityNotification = (state = initialState, action) => {
       }
     case notificationActions.FETCH_ACTIVITY_NOTIFICATION_ERROR:
       return {
+        ...state,
         isFetching: true,
       }
     default:
