@@ -6,7 +6,7 @@ import Follow from '../Button/Follow';
 const InterestingPeople = ({ users }) =>
   <div className="card rounded p-3 bg-white">
     <div>
-      <h4>Interesting People</h4>
+      <h4><span className="icon-eye" /> Interesting People</h4>
       <hr />
     </div>
     {users.map(user =>

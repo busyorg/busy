@@ -18,7 +18,9 @@ const Topnav = ({ username }) =>
               </Link>
             </li>
             <li className="nav-item align-self-center">
-              <Link className="nav-link" to="#">Notifications</Link>
+              <Link className="nav-link" to="#">
+                <span className="icon-beanie" />
+              </Link>
             </li>
             <li className="nav-item align-self-center">
               <Link className="nav-link" to="#">Settings</Link>

@@ -5,19 +5,29 @@ const Sidenav = () =>
   <nav className="Sidenav navbar">
     <ul className="navbar-nav">
       <li className="nav-item">
-        <Link className="nav-link" to="#">My Profile</Link>
+        <Link className="nav-link" to="#">
+          <span className="icon-smile" /> My Profile
+        </Link>
       </li>
       <li className="nav-item">
-        <Link className="nav-link" to="#">Timeline</Link>
+        <Link className="nav-link" to="#">
+          <span className="icon-timer" /> Timeline
+        </Link>
       </li>
       <li className="nav-item">
-        <Link className="nav-link" to="/trending">News</Link>
+        <Link className="nav-link" to="/trending">
+          <span className="icon-calendar" /> News
+        </Link>
       </li>
       <li className="nav-item">
-        <Link className="nav-link" to="/messages">Messages</Link>
+        <Link className="nav-link" to="/messages">
+          <span className="icon-chat" /> Messages
+        </Link>
       </li>
       <li className="nav-item">
-        <Link className="nav-link" to="/wallet">Wallet</Link>
+        <Link className="nav-link" to="/wallet">
+          <span className="icon-touch_id" /> Wallet
+        </Link>
       </li>
     </ul>
   </nav>;
