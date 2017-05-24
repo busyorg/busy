@@ -176,7 +176,7 @@ function makeConfig(options = {}) {
           )
         },
         {
-          test: /\.(eot|ttf|woff|woff2)(\?.+)?$/,
+          test: /\.(eot|ttf|woff|woff2|svg)(\?.+)?$/,
           loader: 'url-loader',
           options: {
             name: '../fonts/[name].[ext]',
