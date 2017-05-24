@@ -6,10 +6,12 @@ import steemconnect from 'sc2-sdk';
 import Cookie from 'js-cookie';
 import ReactGA from 'react-ga';
 import { AppContainer } from 'react-hot-loader';
-import store from './store';
+import getStore from './store';
 import { isSmall } from './helpers/responsive';
 import { HIDE_SIDEBAR } from './actions';
 import AppHost from './AppHost';
+
+const store = getStore();
 
 ReactGA.initialize('UA-87507611-1');
 const logPageView = () => {

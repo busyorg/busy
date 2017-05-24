@@ -11,6 +11,7 @@ import Comments from '../../comments/Comments';
 import PostActionButtons from '../PostActionButtons';
 import Icon from '../../widgets/Icon';
 import Avatar from '../../widgets/Avatar';
+import SteemPowerIcon from '../../widgets/SteemPowerIcon';
 import LikesList from './../LikesList';
 import { ProfileTooltipOrigin } from '../../widgets/tooltip/ProfileTooltip';
 import Reactions from '../Reactions';
@@ -179,6 +180,7 @@ const PostFeedCard = ({
         <h2>
           <Link to={post.url} onClick={e => handlePostClick(e)}>
             {post.title}
+            <SteemPowerIcon className="ml-2" active={post.percent_steem_dollars === 0} />
           </Link>
         </h2>
       </div>

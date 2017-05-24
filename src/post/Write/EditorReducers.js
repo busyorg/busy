@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import * as editorActions from './EditorActions';
 import * as userActions from '../../user/userActions';
 
@@ -48,12 +47,14 @@ const editor = (state = defaultState, action) => {
         draftPosts: { ...state.draftPosts, [id]: { postData, rawBody } }
       };
     }
-    case editorActions.DELETE_DRAFT:
+    case editorActions.DELETE_DRAFT: {
+      const draftPosts = state.draftPosts;
+      delete draftPosts[action.payload];
       return {
         ...state,
-        draftPosts: _.omit(state.draftPosts, action.payload)
+        ...draftPosts
       };
-
+    }
     case userActions.UPLOAD_FILE_START:
       return { ...state, loadingImg: true };
 

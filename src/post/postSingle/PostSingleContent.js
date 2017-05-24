@@ -7,6 +7,7 @@ import Body from './../Body';
 import BodyShort from './../BodyShort';
 import AuthorBio from './../AuthorBio';
 import Avatar from '../../widgets/Avatar';
+import SteemPowerIcon from '../../widgets/SteemPowerIcon';
 import { jsonParse } from '../../helpers/formatter';
 
 import './PostSingleContent.scss';
@@ -44,7 +45,10 @@ const PostSingleContent = ({
   return (
     <div className="PostSingleContent py-4">
       <div className="container">
-        <h1>{content.title}</h1>
+        <h1>
+          {content.title}
+          <SteemPowerIcon className="ml-2" active={content.percent_steem_dollars === 0} />
+        </h1>
         <div className="PostSingleContent__header mb-3">
           <Link to={`/@${content.author}`}>
             <Avatar sm username={content.author} />

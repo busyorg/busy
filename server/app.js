@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { renderToString } from 'react-dom/server';
 import { match, RouterContext } from 'react-router';
 
-import store from '../src/store';
+import getStore from '../src/store';
 import routes from '../src/routes';
 
 const fs = require('fs');
@@ -74,7 +74,7 @@ function fetchComponentData(dispatch, components, params) {
   debug('promises', needs, Date.now());
   return Promise.all(promises);
 }
-function renderPage(props) {
+function renderPage(store, props) {
   debug('renderPage', Date.now());
   const appHtml = renderToString(
     <Provider store={store}>
@@ -97,10 +97,11 @@ function renderPage(props) {
 }
 
 function serverSideResponse(req, res) {
+  const store = getStore();
   global.postOrigin = `${req.protocol}://${req.get('host')}`;
   match({ routes, location: req.url }, (err, redirect, props) => {
     fetchComponentData(store.dispatch, props.components, props.params)
-      .then(() => renderPage(props))
+      .then(() => renderPage(store, props))
       .then(html => res.end(html))
       .catch(error => res.end(error.message));
   });
