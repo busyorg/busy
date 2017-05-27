@@ -81,6 +81,7 @@
     "numeral": "^1.5.3",
     "object-assign": "^4.1.0",
     "raven-js": "^3.8.0",
+    "rc-slider": "^7.0.8",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
     "react-ga": "^2.1.2",
