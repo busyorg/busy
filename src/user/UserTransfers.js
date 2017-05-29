@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { FormattedMessage } from 'react-intl';
 import numeral from 'numeral';
 import { formatter } from 'steem';
-import steemconnect from 'steemconnect';
+import steemconnect from 'sc2-sdk';
 import { connect } from 'react-redux';
 import api from '../steemAPI';
 import Loading from '../widgets/Loading';
