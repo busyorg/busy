@@ -7,13 +7,13 @@ module.exports = function (storybookBaseConfig, configType) {
   // 'PRODUCTION' is used when building the static version of storybook.
 
   // Make whatever fine-grained changes you need
-  storybookBaseConfig.module.loaders.push({
+  storybookBaseConfig.module.rules.push({
     test: /\.scss$/,
-    loaders: ["style", "css", "sass"],
+    loaders: ["style-loader", "css-loader", "sass-loader"],
     include: path.resolve(__dirname, '../')
   });
 
-  storybookBaseConfig.module.loaders.push({
+  storybookBaseConfig.module.rules.push({
     test: /\.(eot|ttf|woff|woff2|svg)(\?.+)?$/,
     loader: 'url-loader',
     options: {
@@ -23,7 +23,7 @@ module.exports = function (storybookBaseConfig, configType) {
     },
   });
 
-  storybookBaseConfig.module.loaders.push({
+  storybookBaseConfig.module.rules.push({
     test: /\.png$/,
     loader: 'file-loader',
   })

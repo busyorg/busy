@@ -1,0 +1,404 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots Button Favored topic 1`] = `
+<div
+  className="btn btn-sm btn-outline-warning"
+>
+  photography
+</div>
+`;
+
+exports[`Storyshots Button Follow 1`] = `
+<button
+  className="btn btn-sm btn-primary"
+>
+  Follow
+</button>
+`;
+
+exports[`Storyshots Button Followed 1`] = `
+<button
+  className="btn btn-sm btn-primary"
+>
+  Following
+</button>
+`;
+
+exports[`Storyshots Button Topic 1`] = `
+<div
+  className="btn btn-sm btn-outline-success"
+>
+  travel
+</div>
+`;
+
+exports[`Storyshots Navigation Sidenav 1`] = `
+<nav
+  className="Sidenav navbar"
+>
+  <ul
+    className="navbar-nav"
+  >
+    <li
+      className="nav-item"
+    >
+      <a
+        className="nav-link"
+        onClick={[Function]}
+        style={Object {}}
+      >
+        <span
+          className="icon-smile"
+        />
+         My Profile
+      </a>
+    </li>
+    <li
+      className="nav-item"
+    >
+      <a
+        className="nav-link"
+        onClick={[Function]}
+        style={Object {}}
+      >
+        <span
+          className="icon-timer"
+        />
+         Timeline
+      </a>
+    </li>
+    <li
+      className="nav-item"
+    >
+      <a
+        className="nav-link"
+        onClick={[Function]}
+        style={Object {}}
+      >
+        <span
+          className="icon-calendar"
+        />
+         News
+      </a>
+    </li>
+    <li
+      className="nav-item"
+    >
+      <a
+        className="nav-link"
+        onClick={[Function]}
+        style={Object {}}
+      >
+        <span
+          className="icon-chat"
+        />
+         Messages
+      </a>
+    </li>
+    <li
+      className="nav-item"
+    >
+      <a
+        className="nav-link"
+        onClick={[Function]}
+        style={Object {}}
+      >
+        <span
+          className="icon-touch_id"
+        />
+         Wallet
+      </a>
+    </li>
+  </ul>
+</nav>
+`;
+
+exports[`Storyshots Navigation Topnav logged 1`] = `
+<nav
+  className="Topnav navbar navbar-toggleable-md navbar-light bg-white"
+>
+  <div
+    className="container"
+  >
+    <a
+      className="navbar-brand text-primary"
+      onClick={[Function]}
+      style={Object {}}
+    >
+      busy
+    </a>
+    <div
+      className="collapse navbar-collapse"
+      id="navbarSupportedContent"
+    >
+      <div
+        className="navbar-nav mr-auto"
+      />
+      <ul
+        className="navbar-nav"
+      >
+        <li
+          className="nav-item"
+        >
+          <a
+            className="nav-link text-primary"
+            onClick={[Function]}
+            style={Object {}}
+          >
+            <span
+              className="Avatar 34"
+            >
+              <img
+                className="rounded"
+                src="https://img.steemconnect.com/@guest123?s=34"
+              />
+            </span>
+            <span
+              className="ml-2"
+            >
+              guest123
+            </span>
+          </a>
+        </li>
+        <li
+          className="nav-item align-self-center"
+        >
+          <a
+            className="nav-link"
+            onClick={[Function]}
+            style={Object {}}
+          >
+            <span
+              className="icon-beanie"
+            />
+          </a>
+        </li>
+        <li
+          className="nav-item align-self-center"
+        >
+          <a
+            className="nav-link"
+            onClick={[Function]}
+            style={Object {}}
+          >
+            Settings
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+`;
+
+exports[`Storyshots Navigation Topnav unlogged 1`] = `
+<nav
+  className="Topnav navbar navbar-toggleable-md navbar-light bg-white"
+>
+  <div
+    className="container"
+  >
+    <a
+      className="navbar-brand text-primary"
+      onClick={[Function]}
+      style={Object {}}
+    >
+      busy
+    </a>
+    <div
+      className="collapse navbar-collapse"
+      id="navbarSupportedContent"
+    >
+      <div
+        className="navbar-nav mr-auto"
+      />
+      <ul
+        className="navbar-nav"
+      >
+        <li
+          className="nav-item"
+        >
+          <a
+            className="nav-link"
+            onClick={[Function]}
+            style={Object {}}
+          >
+            Sign Up
+          </a>
+        </li>
+        <li
+          className="nav-item"
+        >
+          <a
+            className="nav-link"
+            onClick={[Function]}
+            style={Object {}}
+          >
+            Log In
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+`;
+
+exports[`Storyshots Sidebar Interesting People 1`] = `
+<div
+  className="card rounded p-3 bg-white"
+>
+  <div>
+    <h4>
+      <span
+        className="icon-eye"
+      />
+       Interesting People
+    </h4>
+    <hr />
+  </div>
+  <div>
+    <span
+      className="mr-2"
+    >
+      <a
+        onClick={[Function]}
+        style={Object {}}
+      >
+        <span
+          className="Avatar 34"
+        >
+          <img
+            className="rounded"
+            src="https://img.steemconnect.com/@undefined?s=34"
+          />
+        </span>
+      </a>
+    </span>
+    <a
+      onClick={[Function]}
+      style={Object {}}
+    >
+      <b>
+        liondani
+      </b>
+    </a>
+    <span
+      className="float-right"
+    >
+      <button
+        className="btn btn-sm btn-primary"
+      >
+        Follow
+      </button>
+    </span>
+    <div
+      className="my-2"
+    >
+      Inch by Inch, Play by Play
+    </div>
+    <hr />
+  </div>
+  <div>
+    <span
+      className="mr-2"
+    >
+      <a
+        onClick={[Function]}
+        style={Object {}}
+      >
+        <span
+          className="Avatar 34"
+        >
+          <img
+            className="rounded"
+            src="https://img.steemconnect.com/@undefined?s=34"
+          />
+        </span>
+      </a>
+    </span>
+    <a
+      onClick={[Function]}
+      style={Object {}}
+    >
+      <b>
+        good-karma
+      </b>
+    </a>
+    <span
+      className="float-right"
+    >
+      <button
+        className="btn btn-sm btn-primary"
+      >
+        Follow
+      </button>
+    </span>
+    <div
+      className="my-2"
+    >
+      "Action expresses priorities!" / Witness - Developer of eSteem…
+    </div>
+    <hr />
+  </div>
+  <div>
+    <span
+      className="mr-2"
+    >
+      <a
+        onClick={[Function]}
+        style={Object {}}
+      >
+        <span
+          className="Avatar 34"
+        >
+          <img
+            className="rounded"
+            src="https://img.steemconnect.com/@undefined?s=34"
+          />
+        </span>
+      </a>
+    </span>
+    <a
+      onClick={[Function]}
+      style={Object {}}
+    >
+      <b>
+        furion
+      </b>
+    </a>
+    <span
+      className="float-right"
+    >
+      <button
+        className="btn btn-sm btn-primary"
+      >
+        Follow
+      </button>
+    </span>
+    <div
+      className="my-2"
+    >
+      I’ve developed SteemData and SteemSports. All things Python…
+    </div>
+    <hr />
+  </div>
+  <h5>
+    Discover More People
+  </h5>
+</div>
+`;
+
+exports[`Storyshots Sidebar Start now 1`] = `
+<div
+  className="rounded bg-primary text-center text-white p-4"
+>
+  <h3>
+    Never wrote a post?
+  </h3>
+  <button
+    className="btn btn-outline-white"
+    onClick={[Function]}
+  >
+    Start Now
+  </button>
+</div>
+`;

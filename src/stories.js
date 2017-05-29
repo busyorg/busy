@@ -1,5 +1,7 @@
 import React from 'react';
-import { storiesOf, action, linkTo } from '@kadira/storybook'; // eslint-disable-line
+import { storiesOf } from '@storybook/react';
+import { action } from '@storybook/addon-actions';
+import { link } from '@storybook/addon-links';
 import StartNow from '../src/components/Sidebar/StartNow';
 import InterestingPeople from '../src/components/Sidebar/InterestingPeople';
 import Topic from '../src/components/Button/Topic';
