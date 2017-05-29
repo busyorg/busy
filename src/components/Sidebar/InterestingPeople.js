@@ -10,7 +10,7 @@ const InterestingPeople = ({ users }) =>
       <hr />
     </div>
     {users.map(user =>
-      <div>
+      <div key={user.name}>
         <span className="mr-2">
           <Link to={`/${user.name}`}>
             <Avatar name={user.name} size="34" />
@@ -32,7 +32,7 @@ const InterestingPeople = ({ users }) =>
   </div>;
 
 InterestingPeople.propTypes = {
-  users: PropTypes.map,
+  users: PropTypes.arrayOf(PropTypes.shape()),
 };
 
 export default InterestingPeople;

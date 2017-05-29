@@ -8,6 +8,11 @@ module.exports = {
       "experimentalObjectRestSpread": true,
     },
   },
+  "env": {
+    "node": true,
+    "browser": true,
+    "jest": true,
+  },
   "extends": "airbnb",
   "rules": {
     "no-func-assign": 0,
@@ -24,6 +29,7 @@ module.exports = {
   },
   "plugins": [
     "react",
+    "jest",
     "jsx-a11y",
     "import"
   ]

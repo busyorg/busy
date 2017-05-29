@@ -1,4 +1,3 @@
-/* global describe, it, before */
 import Promise from 'bluebird';
 import React, { PropTypes } from 'react';
 import chai, { expect } from 'chai';
@@ -6,10 +5,10 @@ import chaiEnzyme from 'chai-enzyme';
 import { Provider, connect } from 'react-redux';
 import { mount } from 'enzyme';
 
-import * as appTypes from '../actions';
-import actionDecorator from './actionDecorator';
-import getStore from '../store';
-import { makeDOMEnvironment } from './testHelpers';
+import * as appTypes from '../../actions';
+import actionDecorator from './../actionDecorator';
+import getStore from '../../store';
+import { makeDOMEnvironment } from './../testHelpers';
 
 chai.use(chaiEnzyme);
 
@@ -31,7 +30,7 @@ function getConfigSuccess() {
 }
 
 describe('actionDecorator', () => {
-  before(() => {
+  beforeAll(() => {
     makeDOMEnvironment();
   });
 
@@ -39,7 +38,7 @@ describe('actionDecorator', () => {
     expect(actionDecorator([])).to.be.instanceOf(Function);
   });
 
-  describe('E2E test', () => {
+  describe.skip('E2E test', () => {
     it('wrapping actions dispatches them to the context\'s store', (done) => {
       function TestComponent({ isLoading, config }) {
         if (isLoading) {

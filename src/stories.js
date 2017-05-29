@@ -14,7 +14,7 @@ storiesOf('Button', module)
   .add('Topic', () => <Topic name="travel" />)
   .add('Favored topic', () => <Topic isFavorite name="photography" />)
   .add('Follow', () => <Follow />)
-  .add('Followed', () => <Follow isFollowed="true" />);
+  .add('Followed', () => <Follow isFollowed />);
 
 storiesOf('Navigation', module)
   .add('Topnav unlogged', () => <Topnav />)
