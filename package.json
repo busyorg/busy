@@ -23,6 +23,7 @@
     "build-storybook": "build-storybook"
   },
   "dependencies": {
+    "antd": "^2.10.2",
     "autoprefixer-loader": "^3.2.0",
     "babel-core": "^6.16.0",
     "babel-eslint": "^6.1.2",
@@ -135,12 +136,13 @@
     "xmldom": "^0.1.27"
   },
   "devDependencies": {
-    "@storybook/addon-actions": "^3.0.0-alpha.0",
-    "@storybook/addon-links": "^3.0.0-alpha.0",
-    "@storybook/addon-storyshots": "^3.0.0-alpha.0",
-    "@storybook/react": "3.0.0-rc.2",
-    "babel-preset-env": "^1.4.0",
-    "babel-register": "^6.24.0",
+    "@storybook/addon-actions": "^3.0.0",
+    "@storybook/addon-links": "^3.0.0",
+    "@storybook/addon-storyshots": "^3.0.0",
+    "@storybook/react": "^3.0.0",
+    "babel-plugin-import": "^1.2.0",
+    "babel-preset-env": "^1.5.1",
+    "babel-register": "^6.24.1",
     "chai": "^3.5.0",
     "chai-enzyme": "^0.5.1",
     "cheerio": "^0.20.0",

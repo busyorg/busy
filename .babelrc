@@ -18,6 +18,7 @@
   "plugins": [
     "transform-decorators-legacy",
     "transform-runtime",
-    "lodash"
+    "lodash",
+    ["import", { "libraryName": "antd", "style": true }]
   ]
 }
