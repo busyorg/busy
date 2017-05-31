@@ -3,5 +3,6 @@
     "author": "siol",
     "parent_permlink": "test",
     "permlink": "translations"
-  }
+  },
+  "api": "https://api.busy.org/v1"
 }

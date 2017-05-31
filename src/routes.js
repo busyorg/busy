@@ -24,6 +24,8 @@ import Drafts from './post/Write/Drafts';
 import About from './statics/About';
 import Help from './statics/Help';
 import Team from './statics/Team';
+import Signup from './auth/Signup';
+import Login from './auth/Login';
 import RequireLogin from './auth/RequireLogin';
 
 var MessagesUser = require('./messages/MessagesUser').default,
@@ -32,6 +34,8 @@ var MessagesUser = require('./messages/MessagesUser').default,
 export default (
   <Route path="/" component={Wrapper}>
     <IndexRoute component={Page} />
+    <Route path="/login" component={Login} />
+    <Route path="/signup" component={Signup} />
     <Route path="/help" component={Help} />
     <Route path="/about" component={About} />
     <Route path="/team" component={Team} />
