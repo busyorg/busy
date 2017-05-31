@@ -2,7 +2,7 @@ import React from 'react';
 import { SimpleTooltipOrigin } from '../widgets/tooltip/SimpleTooltip';
 import { injectIntl } from 'react-intl';
 import Icon from '../widgets/Icon';
-import './FavoriteButton.scss';
+import './FavoriteButton.less';
 
 const FavoriteUserButton = ({ onClick, isFavorited, intl }) =>
   <SimpleTooltipOrigin

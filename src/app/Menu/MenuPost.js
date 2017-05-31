@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 import { SimpleTooltipOrigin } from '../../widgets/tooltip/SimpleTooltip';
 import { getUpvotes, getDownvotes, sortVotes } from '../../helpers/voteHelpers';
 import Icon from '../../widgets/Icon';
-import './MenuPost.scss';
+import './MenuPost.less';
 
 const MenuPost = ({
   reblog,

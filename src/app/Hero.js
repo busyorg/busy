@@ -1,7 +1,7 @@
 import React from 'react';
 import steemconnect from 'sc2-sdk';
 import { FormattedMessage } from 'react-intl';
-import './Hero.scss';
+import './Hero.less';
 
 const Hero = () =>
   <div className="Hero">

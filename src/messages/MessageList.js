@@ -5,7 +5,7 @@ import debounce from 'lodash/debounce';
 import clone from 'lodash/clone';
 import { connect } from 'react-redux';
 
-import './MessageList.scss';
+import './MessageList.less';
 import InfiniteScroll from '../widgets/InfiniteScroll';
 import Loading from '../widgets/Loading';
 import MessageDateGroup from './MessageDateGroup';

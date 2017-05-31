@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import * as actions from '../actions';
 import Icon from '../widgets/Icon';
-import '../widgets/Flag.scss';
+import '../widgets/Flag.less';
 
 @connect(
   state => ({

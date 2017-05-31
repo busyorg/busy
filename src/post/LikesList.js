@@ -7,7 +7,7 @@ import {
   getUpvotes,
   getDownvotes,
 } from '../helpers/voteHelpers';
-import './LikesList.scss';
+import './LikesList.less';
 
 export default class LikesList extends Component {
   constructor(props) {

@@ -1,5 +1,5 @@
 import React from 'react';
-import './Loading.scss';
+import './Loading.less';
 
 export default ({ color, className, style }) =>
   <div

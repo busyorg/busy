@@ -8,7 +8,7 @@ import Topic from '../src/components/Button/Topic';
 import Follow from '../src/components/Button/Follow';
 import Topnav from './components/Navigation/Topnav';
 import Sidenav from './components/Navigation/Sidenav';
-import '../src/styles/common.scss';
+import '../src/styles/common.less';
 
 storiesOf('Button', module)
   .add('Topic', () => <Topic name="travel" />)

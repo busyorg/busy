@@ -6,7 +6,7 @@ import { jsonParse } from '../helpers/formatter';
 import Avatar from '../widgets/Avatar';
 import Loading from '../widgets/Loading';
 import Follow from '../widgets/Follow';
-import './AuthorBio.scss';
+import './AuthorBio.less';
 
 @connect(
   ({ user }) => ({ following: user.following })

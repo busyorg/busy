@@ -1,5 +1,5 @@
 import React from 'react';
-import './Icon.scss';
+import './Icon.less';
 
 const Icon = ({
   name,

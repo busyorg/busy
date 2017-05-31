@@ -7,7 +7,7 @@ import Avatar from '../../widgets/Avatar';
 import SteemPowerIcon from '../../widgets/SteemPowerIcon';
 import BookmarkButton from '../../bookmarks/BookmarkButton';
 import { ProfileTooltipOrigin } from '../../widgets/tooltip/ProfileTooltip';
-import './PostFeedList.scss';
+import './PostFeedList.less';
 
 const PostFeedList = ({
   post,

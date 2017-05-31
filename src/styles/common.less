@@ -1,6 +1,5 @@
-@import './custom.scss';
-@import './fontello.scss';
-@import '~bootstrap/scss/bootstrap.scss';
+@import './custom.less';
+@import './fontello.less';
 
 @font-face {
   font-family: Whitney;
@@ -24,15 +23,15 @@
 }
 
 .btn {
-  font-family: $font-family-monospace;
+  font-family: @font-family-monospace;
 }
 
 .btn-outline-white {
-  border-color: $white;
+  border-color: @white;
   background: transparent;
-  color: $white;
+  color: @white;
 }
 
 input {
-  font-family: $font-family-base;
+  font-family: @font-family-base;
 }

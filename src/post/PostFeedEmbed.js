@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Icon from '../widgets/Icon';
-import './Feed/PostFeedCard.scss';
-import './PostFeedEmbed.scss';
+import './Feed/PostFeedCard.less';
+import './PostFeedEmbed.less';
 
 export default class PostFeedEmbed extends Component {
   constructor(props) {

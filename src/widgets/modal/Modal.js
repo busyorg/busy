@@ -2,7 +2,7 @@ import React from 'react';
 import { Gateway } from 'react-gateway';
 import ReactModal2 from './ReactModal2';
 import Icon from '../Icon';
-import './Modal.scss';
+import './Modal.less';
 
 /**
  * This component is only created to facilitate the process of using react-modal2 with react gateway

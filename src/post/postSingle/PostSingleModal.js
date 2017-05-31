@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import PostSingleContent from './PostSingleContent';
 import PostSingleComments from './PostSingleComments';
 import Icon from '../../widgets/Icon';
-import './PostSingleModal.scss';
+import './PostSingleModal.less';
 
 const NextButton = ({ content, onClick }) => (
   <div className="NextButton">

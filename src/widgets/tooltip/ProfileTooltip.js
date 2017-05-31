@@ -12,7 +12,7 @@ import Badge from '../Badge';
 import { getAccountWithFollowingCount } from '../../helpers/apiHelpers';
 import Tooltip from './Tooltip';
 
-import './ProfileTooltip.scss';
+import './ProfileTooltip.less';
 
 const TOOLTIP_MARGIN = 10;
 

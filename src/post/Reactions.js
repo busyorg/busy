@@ -13,7 +13,7 @@ import {
 } from '../helpers/voteHelpers';
 import Avatar from '../widgets/Avatar';
 import Icon from '../widgets/Icon';
-import './Reactions.scss';
+import './Reactions.less';
 
 @connect(
   state => ({

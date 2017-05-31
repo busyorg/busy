@@ -11,7 +11,7 @@ import Icon from '../widgets/Icon';
 import Avatar from '../widgets/Avatar';
 import * as commentActions from './commentsActions';
 import { notify } from '../app/Notification/notificationActions';
-import './CommentForm.scss';
+import './CommentForm.less';
 
 @withRouter
 @connect(

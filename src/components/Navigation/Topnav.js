@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 import Avatar from '../Avatar';
-import './Topnav.scss';
+import './Topnav.less';
 
 const Topnav = ({ username }) =>
   <nav className="Topnav navbar navbar-toggleable-md navbar-light bg-white">

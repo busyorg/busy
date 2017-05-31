@@ -25,7 +25,7 @@ import {
   isPostWithEmbedBeforeFirstHalf
 } from './PostFeedCardHelper';
 
-import './PostFeedCard.scss';
+import './PostFeedCard.less';
 
 const AmountWithLabel = ({ label, amount }) => (
   _.isNumber(amount)

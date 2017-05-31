@@ -11,7 +11,7 @@ import Icon from '../widgets/Icon';
 import { sortCommentsFromSteem } from '../helpers/stateHelpers';
 import { ProfileTooltipOrigin } from '../widgets/tooltip/ProfileTooltip';
 import CommentFormEmbedded from './CommentFormEmbedded';
-import './CommentItem.scss';
+import './CommentItem.less';
 
 @withRouter
 export default class CommentItem extends Component {

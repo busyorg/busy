@@ -1,4 +1,4 @@
-@import "../../styles/colors.scss";
+@import "../../styles/colors.less";
 
 .PostEditor {
   font-size: 22px;
@@ -93,11 +93,11 @@
     user-select: none;
   }
 
-  $iconPaddingY: 4px;
-  $iconPaddingX: 2px;
+  @iconPaddingY: 4px;
+  @iconPaddingX: 2px;
   .PostEditor__styleButton {
     margin: 0;
-    padding: $iconPaddingY $iconPaddingX;
+    padding: @iconPaddingY @iconPaddingX;
     border: 0;
     vertical-align: baseline;
     display: inline-block;
@@ -118,7 +118,7 @@
   }
   
   .NewPost__toolbar{
-    background: $toolbarBackground;
+    background: @toolbarBackground;
     position: absolute;
     display: none;
     z-index: 10;
@@ -134,7 +134,7 @@
     }
 
     &__wrapper {
-      background-color: $toolbarBackground;
+      background-color: @toolbarBackground;
       border-radius: 4px;
       box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.4);
       left: -50%;
@@ -160,14 +160,14 @@
         margin-left: -8px;
         border-width: 8px;
         border-style: solid;
-        border-color: $toolbarBackground transparent transparent;
+        border-color: @toolbarBackground transparent transparent;
       }
     }
     
     .toolbar__item__separator{
       list-style: none;
       border-right: 1px solid #ddd;
-      margin-right: $iconPaddingX;
+      margin-right: @iconPaddingX;
       height: 1.5em;
       vertical-align: middle;
     }

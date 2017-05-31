@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import MenuHelp from '../app/Menu/MenuHelp';
-import './About.scss';
+import './About.less';
 
 export default () =>
   <div className="main-panel">

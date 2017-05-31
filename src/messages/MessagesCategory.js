@@ -6,7 +6,7 @@ import MessageForm from './MessageForm';
 import MessageList from './MessageList';
 import MenuFeed from '../app/Menu/MenuFeed';
 import { fetchChannelPresence, joinChannel } from './messagesActions';
-import './Messages.scss';
+import './Messages.less';
 
 @dispatchActions(
   {

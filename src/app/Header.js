@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 import { SimpleTooltipOrigin } from '../widgets/tooltip/SimpleTooltip';
 import { showSidebar } from '../actions';
 import Icon from '../widgets/Icon';
-import './Header.scss';
+import './Header.less';
 
 @connect(
   state => ({

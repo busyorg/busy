@@ -10,7 +10,7 @@ import Avatar from '../../widgets/Avatar';
 import SteemPowerIcon from '../../widgets/SteemPowerIcon';
 import { jsonParse } from '../../helpers/formatter';
 
-import './PostSingleContent.scss';
+import './PostSingleContent.less';
 
 const Tag = ({ tag }) => {
   if (tag.trim().length) {

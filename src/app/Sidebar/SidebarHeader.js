@@ -5,7 +5,7 @@ import steemconnect from 'sc2-sdk';
 import Loading from '../../widgets/Loading';
 import Icon from '../../widgets/Icon';
 import Avatar from '../../widgets/Avatar';
-import './SidebarHeader.scss';
+import './SidebarHeader.less';
 
 const SidebarHeader = ({
   auth,

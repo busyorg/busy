@@ -13,7 +13,7 @@ import Icon from '../widgets/Icon';
 import SidebarHeader from './Sidebar/SidebarHeader';
 import SidebarTabs from './Sidebar/SidebarTabs';
 import SidebarUsers from './Sidebar/SidebarUsers';
-import './Sidebar.scss';
+import './Sidebar.less';
 
 @connect(
   state => ({

@@ -6,7 +6,7 @@ import MessageList from './MessageList';
 import dispatchActions from '../helpers/dispatchActions';
 import getChannelName from '../helpers/getChannelName';
 import { fetchChannelPresence, joinChannel } from './messagesActions';
-import './Messages.scss';
+import './Messages.less';
 
 @connect(
   state => ({

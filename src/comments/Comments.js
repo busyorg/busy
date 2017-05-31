@@ -7,7 +7,7 @@ import 'react-select/dist/react-select.css';
 import CommentsList from './CommentsList';
 import * as commentsActions from './commentsActions';
 import Loading from '../widgets/Loading';
-import './Comments.scss';
+import './Comments.less';
 
 @connect(
   state => ({

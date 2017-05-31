@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import Tooltip from './Tooltip';
-import './SimpleTooltip.scss';
+import './SimpleTooltip.less';
 
 const TOOLTIP_MARGIN = 10;
 

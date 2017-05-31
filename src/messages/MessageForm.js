@@ -6,7 +6,7 @@ import EmojiPicker from 'emojione-picker';
 import 'emojione-picker/css/picker.css';
 import { sendMessage } from './messagesActions';
 import Icon from '../widgets/Icon';
-import './MessageForm.scss';
+import './MessageForm.less';
 
 
 @connect(

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { EditorState, AtomicBlockUtils, ContentState, SelectionState } from 'draft-js';
 import React, { Component } from 'react';
 
-import './PostEditor.scss';
+import './PostEditor.less';
 import Icon from '../../widgets/Icon';
 import { uploadFile } from '../../user/userActions';
 import { notify } from '../../app/Notification/notificationActions';

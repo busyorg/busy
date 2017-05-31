@@ -4,7 +4,7 @@ import striptags from 'striptags';
 import Remarkable from 'remarkable';
 import { Link } from 'react-router';
 
-import './Flag.scss';
+import './Flag.less';
 import { getCountryCode } from '../helpers/languages';
 
 const remarkable = new Remarkable({ html: true });

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import CommentFormEmbedded from '../../comments/CommentFormEmbedded';
 import Comments from '../../comments/Comments';
-import './PostSingleComments.scss';
+import './PostSingleComments.less';
 
 export default class PostSingleComments extends Component {
   constructor(props) {

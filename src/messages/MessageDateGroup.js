@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { FormattedDate, FormattedRelative } from 'react-intl';
 
-import './MessageList.scss';
+import './MessageList.less';
 import MessageGroup from './MessageGroup';
 import { diffDays } from '../helpers/dateHelpers';
 import { propMessageDateGroup } from './messageGroupHelpers';

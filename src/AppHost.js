@@ -4,7 +4,7 @@ import useScroll from 'react-router-scroll/lib/useScroll';
 import routes from './routes';
 
 // load the stylesheet
-import './styles/base.scss';
+import './styles/base.less';
 
 export default class AppHost extends Component {
   render() {

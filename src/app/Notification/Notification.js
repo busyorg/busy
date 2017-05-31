@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Icon from '../../widgets/Icon';
-import './Notification.scss';
+import './Notification.less';
 
 @connect(
   state => ({

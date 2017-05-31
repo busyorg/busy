@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import OnClickOutside from 'react-onclickoutside';
-import './SimplePopover.scss';
+import './SimplePopover.less';
 
 const TOOLTIP_MARGIN = 10;
 

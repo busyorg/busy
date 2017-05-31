@@ -8,7 +8,7 @@ import PostEditor from './PostEditor';
 import { createPost, saveDraft, newPost } from './EditorActions';
 import Icon from './../../widgets/Icon';
 import Loading from './../../widgets/Loading';
-import './Write.scss';
+import './Write.less';
 
 const version = require('../../../package.json').version;
 

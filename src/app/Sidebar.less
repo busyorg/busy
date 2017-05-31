@@ -1,5 +1,5 @@
-@import "../styles/colors.scss";
-@import "../styles/fonts.scss";
+@import "../styles/colors.less";
+@import "../styles/fonts.less";
 
 .full-width .Sidebar {
   left: -260px;
@@ -10,7 +10,7 @@
   background-color: #3756a0;
   display: flex;
   flex-direction: column;
-  font-family: $font-alt;
+  font-family: @font-alt;
   font-size: 15px;
   width: 260px;
   position: fixed;
@@ -104,7 +104,7 @@
     }
 
     ul {
-      font-family: $font-primary;
+      font-family: @font-primary;
       clear: both;
       background-color: rgba(255, 255, 255, 0.05);
       list-style-type: none;
@@ -154,7 +154,7 @@
   }
 
   .Sidebar {
-    background-color: $background-color;
+    background-color: @background-color;
     z-index: 999 !important;
     box-shadow: 0 0 40px rgba(0, 0, 0, 0.3) !important;
   }

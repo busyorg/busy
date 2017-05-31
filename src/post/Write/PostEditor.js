@@ -36,8 +36,8 @@ import createDndPlugin from 'draft-js-plugins/draft-js-drag-n-drop-plugin';
 import createDeleteImgPlugin from 'draft-js-delete-img-btn-plugin';
 
 
-import './Write.scss';
-import './PostEditor.scss';
+import './Write.less';
+import './PostEditor.less';
 import Icon from '../../widgets/Icon';
 import SideControls from './SideControls';
 
