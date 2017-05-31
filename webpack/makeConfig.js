@@ -1,3 +1,4 @@
+/* eslint-disable global-require */
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const Visualizer = require('webpack-visualizer-plugin');
@@ -12,6 +13,22 @@ const DEFAULTS = {
   baseDir: path.resolve(__dirname, '..'),
 };
 
+const POSTCSS_LOADER = {
+  loader: 'postcss-loader',
+  options: {
+    ident: 'postcss', // https://webpack.js.org/guides/migrating/#complex-options
+    plugins: () => [
+      require('autoprefixer')({
+        browsers: [
+          '>1%',
+          'last 4 versions',
+          'Firefox ESR',
+          'not ie < 9', // React doesn't support IE8 anyway
+        ],
+      }),
+    ],
+  },
+}
 function isVendor({ resource }) {
   return resource &&
     resource.indexOf('node_modules') >= 0 &&
@@ -76,11 +93,13 @@ function makePlugins(options) {
   return plugins;
 }
 
+
+
 function makeStyleLoaders(options) {
   if (options.isDevelopment) {
     return [
       {
-        test: /\.scss|.css$/,
+        test: /\.css|.less$/,
         use: [
           {
             loader: 'style-loader',
@@ -92,18 +111,9 @@ function makeStyleLoaders(options) {
               importLoaders: 1,
             },
           },
+          POSTCSS_LOADER,
           {
-            loader: 'autoprefixer-loader',
-            options: {
-              browsers: 'last 2 version',
-            },
-          },
-          {
-            loader: 'sass-loader',
-            options: {
-              sourceMap: true,
-              sourceMapContents: true,
-            },
+            loader: 'less-loader',
           },
         ],
       },
@@ -112,7 +122,7 @@ function makeStyleLoaders(options) {
 
   return [
     {
-      test: /\.scss|.css$/,
+      test: /\.css|.less$/,
       loader: ExtractTextPlugin.extract({
         fallback: 'style-loader',
         use: [
@@ -122,14 +132,9 @@ function makeStyleLoaders(options) {
               importLoaders: 1,
             },
           },
+          POSTCSS_LOADER,
           {
-            loader: 'autoprefixer-loader',
-            options: {
-              browsers: 'last 2 version',
-            },
-          },
-          {
-            loader: 'sass-loader',
+            loader: 'less-loader',
           },
         ],
       }),
@@ -208,3 +213,5 @@ if (!module.parent) {
 
 exports = module.exports = makeConfig;
 exports.DEFAULTS = DEFAULTS;
+exports.POSTCSS_LOADER = POSTCSS_LOADER;
+exports.makeStyleLoaders = makeStyleLoaders;

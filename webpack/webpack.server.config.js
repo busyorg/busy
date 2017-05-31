@@ -60,9 +60,30 @@ module.exports = {
         }
       },
       {
-        test: /\.scss|.css$/,
-        use: ['isomorphic-style-loader', 'css-loader', 'autoprefixer-loader', 'sass-loader'],
-      },
+        test: /\.css|.less$/,
+        use: [
+          'isomorphic-style-loader',
+          'css-loader',
+          {
+            loader: 'postcss-loader',
+            options: {
+              ident: 'postcss', // https://webpack.js.org/guides/migrating/#complex-options
+              plugins: () => [
+                require('postcss-flexbugs-fixes'),
+                require('autoprefixer')({
+                  browsers: [
+                    '>1%',
+                    'last 4 versions',
+                    'Firefox ESR',
+                    'not ie < 9', // React doesn't support IE8 anyway
+                  ],
+                }),
+              ],
+            },
+          },
+          'less-loader',
+        ],
+      }
     ]
   },
   plugins: [
