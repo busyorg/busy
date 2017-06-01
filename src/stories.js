@@ -1,5 +1,5 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
+import { addDecorator, storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { link } from '@storybook/addon-links';
 import StartNow from '../src/components/Sidebar/StartNow';
@@ -10,6 +10,13 @@ import Action from '../src/components/Button/Action';
 import Topnav from './components/Navigation/Topnav';
 import Sidenav from './components/Navigation/Sidenav';
 import '../src/styles/common.less';
+
+addDecorator(story => (
+  <div style={{ padding: '40px' }}>
+    {story()}
+  </div>
+));
+
 
 storiesOf('Button', module)
   .add('Topic', () => <Topic name="travel" />)
