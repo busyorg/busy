@@ -1,0 +1,30 @@
+@import "../../styles/custom.less";
+
+.colorize-ghost-button(@color) {
+  border-color: @color;
+  color: @color;
+
+  &:hover,
+  &:focus,
+  &:active,
+  &.active {
+    border-color: darken(@color, 15%, 'relative');
+    color: darken(@color, 15%, 'relative');
+  }
+}
+
+.Topic {
+  .btn;
+  .btn-primary;
+  .btn-ghost;
+
+  .colorize-ghost-button(@green);
+
+  font-size: 14px;
+  border-radius: @btn-height-base;
+  border-width: 2px;
+}
+
+.Topic--favorite {
+  .colorize-ghost-button(@orange)
+}
