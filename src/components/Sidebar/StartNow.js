@@ -1,10 +1,11 @@
 import React from 'react';
+import './StartNow.less';
 
 const StartNow = () =>
-  <div className="rounded bg-primary text-center text-white p-4">
-    <h3>Never wrote a post?</h3>
+  <div className="StartNow">
+    <h3 className="StartNow__title">Never wrote a post?</h3>
     <button
-      className="btn btn-outline-white"
+      className="StartNow__button"
       onClick={() => {
         console.log('onClick button TODO link to write page');
       }}
