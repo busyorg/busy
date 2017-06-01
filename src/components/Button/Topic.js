@@ -1,15 +1,10 @@
 import React, { PropTypes } from 'react';
-import className from 'classnames';
+import { Button } from 'antd';
 
 const Topic = ({ name, isFavorite }) =>
-  <div
-    className={className('btn btn-sm', {
-      'btn-outline-warning': isFavorite,
-      'btn-outline-success': !isFavorite
-    })}
-  >
+  <Button ghost type={(isFavorite) ? 'danger' : 'primary'} size="small">
     {name}
-  </div>;
+  </Button>;
 
 Topic.propTypes = {
   name: PropTypes.string,

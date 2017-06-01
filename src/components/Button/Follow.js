@@ -1,13 +1,13 @@
 import React, { PropTypes } from 'react';
-import className from 'classnames';
+import { Button } from 'antd';
 
 const Follow = ({ isFollowed }) =>
-  <button className="btn btn-sm btn-primary">
+  <Button type="primary">
     {isFollowed
       ? 'Following'
       : 'Follow'
     }
-  </button>;
+  </Button>;
 
 Follow.propTypes = {
   isFollowed: PropTypes.bool
