@@ -3,7 +3,8 @@ import './Avatar.less';
 
 const Avatar = ({ username, size = 34 }) =>
   <img
-    className={`Avatar Avatar--${size}`}
+    className="Avatar"
+    style={{ width: `${size}px`, height: `${size}px` }}
     alt={username}
     src={`https://img.steemconnect.com/@${username}?s=${size}`}
   />;
