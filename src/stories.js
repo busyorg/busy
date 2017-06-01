@@ -6,6 +6,7 @@ import StartNow from '../src/components/Sidebar/StartNow';
 import InterestingPeople from '../src/components/Sidebar/InterestingPeople';
 import Topic from '../src/components/Button/Topic';
 import Follow from '../src/components/Button/Follow';
+import Action from '../src/components/Button/Action';
 import Topnav from './components/Navigation/Topnav';
 import Sidenav from './components/Navigation/Sidenav';
 import '../src/styles/common.less';
@@ -14,7 +15,8 @@ storiesOf('Button', module)
   .add('Topic', () => <Topic name="travel" />)
   .add('Favored topic', () => <Topic isFavorite name="photography" />)
   .add('Follow', () => <Follow />)
-  .add('Followed', () => <Follow isFollowed />);
+  .add('Followed', () => <Follow isFollowed />)
+  .add('Action', () => <Action text="Transfer" />);
 
 storiesOf('Navigation', module)
   .add('Topnav unlogged', () => <Topnav />)
