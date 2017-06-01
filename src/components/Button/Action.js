@@ -1,10 +1,10 @@
 import React, { PropTypes } from 'react';
-import { Button } from 'antd';
+import './Action.less';
 
 const Action = ({ text }) =>
-  <Button size="large">
+  <button className="Action ant-btn-lg">
     {text}
-  </Button>;
+  </button>;
 
 Action.propTypes = {
   text: PropTypes.string

@@ -1,0 +1,18 @@
+@import "../../styles/custom.less";
+@import "../../styles/mixins.less";
+
+.Action {
+  .btn;
+  .btn-default;
+
+  .colorize-button(#c2ccd3, #99aab5);
+
+  color: @white;
+
+  &:hover,
+  &:focus,
+  &:active,
+  &.active {
+    color: @white;
+  }
+}
