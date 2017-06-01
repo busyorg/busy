@@ -1,17 +1,5 @@
 @import "../../styles/custom.less";
-
-.colorize-ghost-button(@color) {
-  border-color: @color;
-  color: @color;
-
-  &:hover,
-  &:focus,
-  &:active,
-  &.active {
-    border-color: darken(@color, 15%, 'relative');
-    color: darken(@color, 15%, 'relative');
-  }
-}
+@import "../../styles/mixins.less";
 
 .Topic {
   .btn;

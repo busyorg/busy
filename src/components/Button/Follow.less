@@ -1,17 +1,5 @@
 @import "../../styles/custom.less";
-
-.colorize-button(@color, @border-color) {
-  background: @color;
-  border-color: @border-color;
-
-  &:hover,
-  &:focus,
-  &:active,
-  &.active {
-    background: darken(@color, 15%, 'relative');
-    border-color: darken(@border-color, 15%, 'relative');
-  }
-}
+@import "../../styles/mixins.less";
 
 .Follow {
   .btn;
