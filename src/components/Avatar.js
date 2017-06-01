@@ -1,12 +1,11 @@
 import React from 'react';
+import './Avatar.less';
 
 const Avatar = ({ username, size = 34 }) =>
-  <span className={`Avatar ${size}`}>
-    <img
-      key={username}
-      className="rounded"
-      src={`https://img.steemconnect.com/@${username}?s=${size}`}
-    />
-  </span>;
+  <img
+    className={`Avatar Avatar--${size}`}
+    alt={username}
+    src={`https://img.steemconnect.com/@${username}?s=${size}`}
+  />;
 
 export default Avatar;
