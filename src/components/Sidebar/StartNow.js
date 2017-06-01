@@ -1,17 +1,15 @@
 import React from 'react';
-import { Button } from 'antd';
+import './StartNow.less';
 
 const StartNow = () =>
-  <div className="rounded bg-primary text-center text-white p-4">
-    <h3>Never wrote a post?</h3>
-    <Button
-      ghost
-      type="primary"
-      size="large"
+  <div className="StartNow">
+    <h3 className="StartNow__title">Never wrote a post?</h3>
+    <button
+      className="StartNow__button"
       onClick={() => {
         console.log('onClick button TODO link to write page');
       }}
-    >Start Now</Button>
+    >Start Now</button>
   </div>;
 
 StartNow.propTypes = {};
