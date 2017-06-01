@@ -3,7 +3,7 @@ export const FETCH_ACTIVITY_NOTIFICATION_START = '@activityNotifications/FETCH_A
 export const FETCH_ACTIVITY_NOTIFICATION_SUCCESS = '@activityNotifications/FETCH_ACTIVITY_NOTIFICATION_SUCCESS';
 export const FETCH_ACTIVITY_NOTIFICATION_ERROR = '@activityNotifications/FETCH_ACTIVITY_NOTIFICATION_ERROR';
 
-const fetchNotifications = (username, token) => {
+const fetchNotifications = (username, token, limit) => {
   console.log(process.env.BUSYPUSH_ENDPOINT);
   return fetch(`${process.env.BUSYPUSH_ENDPOINT}/api/getNotifications`, {
     method: 'POST',
@@ -14,12 +14,13 @@ const fetchNotifications = (username, token) => {
     body: JSON.stringify({
       username,
       token,
+      limit,
     }),
   })
   .then(jsonRes => jsonRes.json())
 }
 
-export const fetchActivityNotifications = () =>
+export const fetchActivityNotifications = (limit = 5) =>
   (dispatch, getState) => {
     const { auth } = getState();
     const username = auth.isAuthenticated && auth.user.name;
@@ -28,7 +29,7 @@ export const fetchActivityNotifications = () =>
     dispatch({
       type: FETCH_ACTIVITY_NOTIFICATION,
       payload: {
-        promise: fetchNotifications(username, token),
+        promise: fetchNotifications(username, token, limit),
       }
     });
   }

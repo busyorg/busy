@@ -12,7 +12,7 @@
   overflow: hidden;
   &__desc {
     float: left;
-    width: 220px;
+    width: 250px;
   }
   &__date {
     color: $normal-grey;
@@ -25,4 +25,12 @@
 }
 .ActivityNotifList__item:hover {
   background: #eee;
+}
+
+.ActivityNotifList--all {
+  & .ActivityNotifList__item {
+    background: #fff;
+    border: 1px solid #eee;
+    margin: 5px 20px;
+  }
 }

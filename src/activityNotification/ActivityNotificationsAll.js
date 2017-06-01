@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { FormattedRelative } from 'react-intl';
-import { withRouter, Link } from 'react-router';
+import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import fetch from 'isomorphic-fetch';
 import Avatar from '../widgets/Avatar';
@@ -20,11 +20,7 @@ import './ActivityNotification.scss';
 @withRouter
 export default class ActivityNotification extends Component {
   componentDidMount() {
-    const { activityNotification } = this.props;
-
-    if (!activityNotification.isFetching) {
-      this.props.fetchActivityNotifications();
-    }
+    this.props.fetchActivityNotifications(50);
   }
 
   handleClick = (e, notification) => {
@@ -36,9 +32,9 @@ export default class ActivityNotification extends Component {
     const { activityNotification } = this.props;
 
     return (
-      <div>
+      <div className="main-panel">
         {activityNotification.isFetching && <Loading />}
-        <div className="ActivityNotifList">
+        <div className="ActivityNotifList ActivityNotifList--all">
           {activityNotification.list && activityNotification.list.map((notification) =>
             <div className="ActivityNotifList__item" onClick={e => { this.handleClick(e, notification) }}>
               <Avatar
@@ -56,7 +52,6 @@ export default class ActivityNotification extends Component {
             </div>
           )}
         </div>
-        <Link to="/notifications" >See All</Link>
       </div>
     );
   }
