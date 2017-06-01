@@ -34,4 +34,5 @@ export default {
   pnc: 'bronze',
   lukestokes: 'bronze',
   pharesim: 'bronze',
+  buzzbeergeek: 'bronze',
 };
