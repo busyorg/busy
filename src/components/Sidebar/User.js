@@ -9,7 +9,7 @@ const User = ({ user }) =>
     <div className="User__top">
       <div className="User__links">
         <Link to={`/${user.name}`}>
-          <Avatar name={user.name} size="34" />
+          <Avatar username={user.name} size={34} />
         </Link>
         <Link to={`/${user.name}`}>
           <b className="User__name">{user.name}</b>
