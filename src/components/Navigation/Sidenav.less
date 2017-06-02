@@ -1,0 +1,20 @@
+@import "../../styles/custom.less";
+
+.Sidenav__item {
+  padding: 4px !important;
+
+  & > a {
+    color: #99aab5;
+    font-weight: 500;
+  }
+}
+
+.Sidenav__item--active {
+  & > a {
+    color: @purple;
+
+    & > [class^="icon-"]:before, [class*=" icon-"]:before {
+      color: @purple !important;
+    }
+  }
+}
