@@ -21,7 +21,6 @@ import { jsonParse } from '../../helpers/formatter';
   ({ posts, app, reblog, auth, bookmarks }) => ({
     content: posts[app.lastPostId] || null,
     lastPostId: app.lastPostId,
-    sidebarIsVisible: app.sidebarIsVisible,
     reblogList: reblog,
     bookmarks,
     auth,

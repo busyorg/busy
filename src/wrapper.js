@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { IntlProvider } from 'react-intl';
@@ -11,7 +11,6 @@ import { getStoredBookmarks } from './bookmarks/bookmarksActions';
 import { notify } from './app/Notification/notificationActions';
 import Notification from './app/Notification/Notification';
 import Header from './app/Header';
-import Sidebar from './app/Sidebar';
 import * as reblogActions from './app/Reblog/reblogActions';
 import config from '../config.json';
 import './translations/Translations';
@@ -62,7 +61,7 @@ export default class Wrapper extends Component {
     const { messages } = this.state;
     const { app, auth, notify } = this.props;
     const locale = getLocale(app.locale, messages);
-    const className = (!app.sidebarIsVisible) ? 'app-wrapper full-width' : 'app-wrapper';
+    const className = 'app-wrapper full-width';
     let translations = messages[app.locale || locale] || {};
     if (messages.en) {
       translations = { ...messages.en, ...translations };
@@ -72,7 +71,6 @@ export default class Wrapper extends Component {
         <GatewayProvider>
           <div className={className}>
             <Header />
-            <Sidebar />
             <Notification />
             {React.cloneElement(
               this.props.children,

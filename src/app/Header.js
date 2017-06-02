@@ -1,9 +1,7 @@
-import React, { Component, PropTypes } from 'react';
-import { bindActionCreators } from 'redux';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { SimpleTooltipOrigin } from '../widgets/tooltip/SimpleTooltip';
-import { showSidebar } from '../actions';
 import Icon from '../widgets/Icon';
 import './Header.less';
 
@@ -11,27 +9,15 @@ import './Header.less';
   state => ({
     app: state.app,
     auth: state.auth,
-  }),
-  dispatch => bindActionCreators({
-    showSidebar: showSidebar,
-  }, dispatch)
+  })
 )
 export default class Header extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  static propTypes = {
-    showSidebar: PropTypes.func,
-    title: PropTypes.string,
-  };
-
   render() {
     return (
       <header>
         <div className="top-nav">
           {!this.props.app.sidebarIsVisible &&
-            <a className="left ml-2" onClick={() => this.props.showSidebar()}>
+            <a className="left ml-2">
               <Icon name="menu" className="Icon--menu" />
             </a>
           }

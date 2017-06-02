@@ -27,13 +27,12 @@ import Team from './statics/Team';
 import Signup from './auth/Signup';
 import Login from './auth/Login';
 import RequireLogin from './auth/RequireLogin';
-
-var MessagesUser = require('./messages/MessagesUser').default,
-  MessagesCategory = require('./messages/MessagesCategory').default;
+import Sidebars from './app/Sidebar';
+import MessagesUser from './messages/MessagesUser';
+import MessagesCategory from './messages/MessagesCategory';
 
 export default (
   <Route path="/" component={Wrapper}>
-    <IndexRoute component={Page} />
     <Route path="/login" component={Login} />
     <Route path="/signup" component={Signup} />
     <Route path="/help" component={Help} />
@@ -41,6 +40,8 @@ export default (
     <Route path="/team" component={Team} />
     <Route path="/tags" component={Tags} />
     <Route path="/donors" component={Donors} />
+    {/*<Route component={Sidebars}>*/}
+    <IndexRoute component={Page} />
     <Route path="/trending(/:category)" component={Trending} />
     <Route path="/hot(/:category)" component={Hot} />
     <Route path="/cashout(/:category)" component={Cashout} />
@@ -48,6 +49,7 @@ export default (
     <Route path="/active(/:category)" component={Active} />
     <Route path="/responses(/:category)" component={Responses} />
     <Route path="/votes(/:category)" component={Votes} />
+    {/*</Route>*/}
     <Route component={RequireLogin}>
       <Route path="/transfer" component={Transfer} />
       <Route path="/messages/@:username" component={MessagesUser} />

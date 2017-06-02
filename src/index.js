@@ -7,8 +7,6 @@ import Cookie from 'js-cookie';
 import ReactGA from 'react-ga';
 import { AppContainer } from 'react-hot-loader';
 import getStore from './store';
-import { isSmall } from './helpers/responsive';
-import { HIDE_SIDEBAR } from './actions';
 import AppHost from './AppHost';
 
 const store = getStore();
@@ -35,14 +33,6 @@ if (process.env.STEEMCONNECT_HOST) {
     steemconnect.setAccessToken(accessToken);
   }
 }
-
-browserHistory.listen(() => {
-  if (isSmall()) {
-    store.dispatch({
-      type: HIDE_SIDEBAR,
-    });
-  }
-});
 
 const render = (Component) => {
   ReactDOM.render(
