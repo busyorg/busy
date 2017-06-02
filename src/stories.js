@@ -3,6 +3,7 @@ import { addDecorator, storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { link } from '@storybook/addon-links';
 import StartNow from '../src/components/Sidebar/StartNow';
+import Topics from '../src/components/Sidebar/Topics';
 import InterestingPeople from '../src/components/Sidebar/InterestingPeople';
 import Topic from '../src/components/Button/Topic';
 import Follow from '../src/components/Button/Follow';
@@ -32,6 +33,8 @@ storiesOf('Navigation', module)
 
 storiesOf('Sidebar', module)
   .add('Start now', () => <StartNow />)
+  .add('Favorite topics', () => <Topics favorite title="Favorite topics" topics={['funny', 'history', 'nature']} />)
+  .add('Trending topics', () => <Topics title="Trending topics" topics={['photography', 'steemit', 'introduceyourself', 'steem', 'story', 'blog']} />)
   .add('Interesting People', () => <InterestingPeople
     users={[
       { name: 'liondani', about: 'Inch by Inch, Play by Play' },
