@@ -4,7 +4,6 @@ export const FETCH_ACTIVITY_NOTIFICATION_SUCCESS = '@activityNotifications/FETCH
 export const FETCH_ACTIVITY_NOTIFICATION_ERROR = '@activityNotifications/FETCH_ACTIVITY_NOTIFICATION_ERROR';
 
 const fetchNotifications = (username, token, limit) => {
-  console.log(process.env.BUSYPUSH_ENDPOINT);
   return fetch(`${process.env.BUSYPUSH_ENDPOINT}/api/getNotifications`, {
     method: 'POST',
     headers: {
