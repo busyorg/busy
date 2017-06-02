@@ -26,6 +26,7 @@
   letter-spacing: 1px;
   color: @purple;
   text-align: center;
+  margin-right: @base-spacing;
 }
 
 .Topnav__input {
@@ -54,10 +55,17 @@
   flex-shrink: 0;
   height: 55px !important;
   line-height: 55px !important;
+  margin-left: @base-spacing;
 }
 
 .Topnav__item {
   height: 55px !important;
+  padding: 0 4px !important;
+
+  & > a {
+    color: @purple !important;
+    font-weight: 600 !important;
+  }
 }
 
 .Topnav__user {

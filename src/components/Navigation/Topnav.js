@@ -67,6 +67,9 @@ class Topnav extends React.Component {
                 Sign in
               </Link>
             </Menu.Item>
+            <Menu.Item key="divider" className="Topnav__item" disabled>
+              |
+            </Menu.Item>
             <Menu.Item key="signup" className="Topnav__item">
               <Link to="/signup">
                 Sign up
