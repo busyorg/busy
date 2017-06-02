@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Gateway } from 'react-gateway';
+import { browserHistory } from 'react-router';
 import { getElementPosition } from '../tooltip/tooltipHelpers';
 import SimplePopover from './SimplePopover';
 
@@ -46,6 +47,16 @@ export default class Popover extends Component {
     appearOn: 'bottom-left',
     fixedPosition: false,
   };
+
+  componentDidMount() {
+    this.unlistenHistory = browserHistory.listen(() => {
+      this.removePopover();
+    });
+  }
+
+  componentWillUnmount() {
+    this.unlistenHistory();
+  }
 
   showPopover = (e) => {
     e.preventDefault();
