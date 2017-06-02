@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
-import { Menu, Popover, Icon, Input } from 'antd';
+import { Menu, Popover, Input } from 'antd';
 import Avatar from '../Avatar';
 import './Topnav.less';
 
