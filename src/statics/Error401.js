@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import steemconnect from 'sc2-sdk';
 import { FormattedMessage } from 'react-intl';
 import Icon from '../widgets/Icon';

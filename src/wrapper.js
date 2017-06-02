@@ -1,35 +1,35 @@
-import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { IntlProvider } from 'react-intl';
 import { GatewayProvider, GatewayDest } from 'react-gateway';
+import { withRouter } from 'react-router-dom';
 import { login } from './auth/authActions';
 import { getConfig, getRate } from './actions';
 import steemAPI from './steemAPI';
 import { getMessages, getLocale } from './translations/translationHelper';
 import { getStoredBookmarks } from './bookmarks/bookmarksActions';
-import { notify } from './app/Notification/notificationActions';
 import Notification from './app/Notification/Notification';
+import { LeftSidebar, RightSidebar } from './app/Sidebar/index';
 import Header from './app/Header';
 import * as reblogActions from './app/Reblog/reblogActions';
 import config from '../config.json';
 import './translations/Translations';
 
+@withRouter
 @connect(
   state => ({
     app: state.app,
     auth: state.auth,
   }),
-  dispatch => bindActionCreators({
+  {
     login,
     getConfig,
-    notify,
     getRate,
     getStoredBookmarks,
     getRebloggedList: reblogActions.getRebloggedList,
-  }, dispatch)
+  }
 )
-export default class Wrapper extends Component {
+export default class Wrapper extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -59,7 +59,7 @@ export default class Wrapper extends Component {
 
   render() {
     const { messages } = this.state;
-    const { app, auth, notify } = this.props;
+    const { app, auth } = this.props;
     const locale = getLocale(app.locale, messages);
     const className = 'app-wrapper full-width';
     let translations = messages[app.locale || locale] || {};
@@ -72,10 +72,12 @@ export default class Wrapper extends Component {
           <div className={className}>
             <Header />
             <Notification />
+            <LeftSidebar />
             {React.cloneElement(
               this.props.children,
-              { auth, notify }
+              { auth }
             )}
+            <RightSidebar />
             <GatewayDest name="tooltip" />
             <GatewayDest name="popover" />
             <GatewayDest name="modal" />

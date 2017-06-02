@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormattedTime } from 'react-intl';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import Body from '../post/Body';
 import Avatar from '../widgets/Avatar';
 import { ProfileTooltipOrigin } from '../widgets/tooltip/ProfileTooltip';

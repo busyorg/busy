@@ -2,7 +2,7 @@ import 'babel-polyfill';
 import React, { Component } from 'react';
 import { FormattedRelative } from 'react-intl';
 import _ from 'lodash';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import Feed from '../feed/Feed';
 import {
   getFeedContentFromState,

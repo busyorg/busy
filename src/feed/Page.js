@@ -17,6 +17,7 @@ import {
   getUserFeedContentFromState,
   getUserFeedLoadingFromState,
 } from '../helpers/stateHelpers';
+import { notify } from '../app/Notification/notificationActions';
 import FavoriteButton from '../favorites/FavoriteButton';
 import * as favoriteActions from '../favorites/favoritesActions';
 import EmptyFeed from '../statics/EmptyFeed';
@@ -24,6 +25,7 @@ import EmptyFeed from '../statics/EmptyFeed';
 @PageHOC
 @connect(
   state => ({
+    auth: state.auth,
     feed: state.feed,
     posts: state.posts,
     favorites: state.favorites.categories,
@@ -49,6 +51,7 @@ import EmptyFeed from '../statics/EmptyFeed';
       removeCategoryFavorite: () => dispatch(
         favoriteActions.removeCategoryFavorite(category)
       ),
+      notify
     };
   }
 )

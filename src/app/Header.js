@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
+import { Link, NavLink } from 'react-router-dom';
 import { SimpleTooltipOrigin } from '../widgets/tooltip/SimpleTooltip';
 import Icon from '../widgets/Icon';
 import './Header.less';
@@ -23,9 +23,9 @@ export default class Header extends Component {
           }
           <div className="section-content top-head">
             <div className="logo">
-              <Link to="/" onlyActiveOnIndex activeClassName="active">
+              <NavLink to="/" activeClassName="active">
                 <img src="/img/logo.svg" />
-              </Link>
+              </NavLink>
             </div>
           </div>
           {this.props.auth.isAuthenticated ?

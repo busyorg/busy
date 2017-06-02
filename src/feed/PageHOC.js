@@ -1,16 +1,13 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 
 export default function PageHOC(ComposedComponent) {
-  return class PageHost extends Component {
-    constructor() {
-      super();
-    }
-
+  class PageHost extends Component {
     render() {
-      const { auth, route: { path }, params } = this.props;
-
-      let sortBy = (path && path.split('(')[0].substring(1)) || 'created';
-      const { category } = params;
+      const { auth, match: { path, params } } = this.props;
+      console.log('PageHOC', this.props);
+      let sortBy = (path && path.split('/:')[0].substring(1)) || 'created';
+      const { category } = params || {};
 
       if (!path && auth.isAuthenticated) {
         sortBy = 'feed';
@@ -28,5 +25,7 @@ export default function PageHOC(ComposedComponent) {
         />
       );
     }
-  };
+  }
+
+  return withRouter(PageHost);
 }
