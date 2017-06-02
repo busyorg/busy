@@ -1,10 +1,26 @@
+@import "../../styles/custom.less";
+
 .Topnav {
-  background-color: #ffffff;
-  border-bottom: 1px solid #e9e7e7;
-  height: 56px;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
+  background: #fff !important;
+  border: 1px solid #e9e7e7 !important;
+  height: 56px !important;
+  line-height: 56px !important;
 }
 
+.Topnav__item {
+  height: 56px !important;
+}
+
+.Topnav__user {
+  display: flex !important;
+  align-items: center;
+
+  & > span {
+    margin-left: 8px;
+    color: @purple;
+  }
+}
+
+.Topnav__notifications-menu {
+  border-bottom: none !important;
+}
