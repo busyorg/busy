@@ -1,10 +1,10 @@
 import React, { PropTypes } from 'react';
-import { Button } from 'antd';
+import './Topic.less';
 
 const Topic = ({ name, isFavorite }) =>
-  <Button ghost type={(isFavorite) ? 'danger' : 'primary'} size="small">
+  <button className={`Topic ${(isFavorite) ? 'Topic--favorite' : ''}`}>
     {name}
-  </Button>;
+  </button>;
 
 Topic.propTypes = {
   name: PropTypes.string,

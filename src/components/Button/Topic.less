@@ -1,0 +1,18 @@
+@import "../../styles/custom.less";
+@import "../../styles/mixins.less";
+
+.Topic {
+  .btn;
+  .btn-primary;
+  .btn-ghost;
+
+  .colorize-ghost-button(@green);
+
+  font-size: 14px;
+  border-radius: @btn-height-base;
+  border-width: 2px;
+}
+
+.Topic--favorite {
+  .colorize-ghost-button(@orange)
+}
