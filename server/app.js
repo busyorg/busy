@@ -107,6 +107,15 @@ function serverSideResponse(req, res) {
   });
 }
 
+app.get('/callback', (req, res) => {
+  const { access_token, expires_in } = req.query;
+  if (access_token && expires_in) {
+    res.cookie('access_token', access_token, { maxAge: expires_in * 1000 });
+    res.redirect('/');
+  } else {
+    res.status(401).send({ error: 'access_token or expires_in Missing' });
+  }
+});
 
 app.get('/trending(/:category)', serverSideResponse);
 app.get('/hot(/:category)', serverSideResponse);

@@ -3748,9 +3748,9 @@ js-base64@^2.1.9:
   version "2.1.9"
   resolved "https://registry.yarnpkg.com/js-base64/-/js-base64-2.1.9.tgz#f0e80ae039a4bd654b5f281fc93f04a914a7fcce"
 
-js-cookie@^2.1.3:
-  version "2.1.3"
-  resolved "https://registry.yarnpkg.com/js-cookie/-/js-cookie-2.1.3.tgz#48071625217ac9ecfab8c343a13d42ec09ff0526"
+js-cookie@^2.1.4:
+  version "2.1.4"
+  resolved "https://registry.yarnpkg.com/js-cookie/-/js-cookie-2.1.4.tgz#da4ec503866f149d164cf25f579ef31015025d8d"
 
 js-tokens@^3.0.0:
   version "3.0.1"
@@ -5277,7 +5277,7 @@ qs@4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/qs/-/qs-4.0.0.tgz#c31d9b74ec27df75e543a86c78728ed8d4623607"
 
-qs@^6.1.0, qs@^6.3.0, qs@~6.4.0:
+qs@^6.1.0, qs@~6.4.0:
   version "6.4.0"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.4.0.tgz#13e26d28ad6b0ffaa91312cd3bf708ed351e7233"
 
@@ -5948,6 +5948,13 @@ sax@^1.1.4, sax@^1.2.1, sax@~1.2.1:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.2.tgz#fd8631a23bc7826bef5d871bdb87378c95647828"
 
+sc2-sdk@adcpm/sc2-sdk:
+  version "0.0.1"
+  resolved "https://codeload.github.com/adcpm/sc2-sdk/tar.gz/9f9283c3e7427f4b1f2643bf4fff214c6894b40a"
+  dependencies:
+    debug "^2.2.0"
+    isomorphic-fetch "^2.2.1"
+
 scroll-behavior@^0.9.1:
   version "0.9.3"
   resolved "https://registry.yarnpkg.com/scroll-behavior/-/scroll-behavior-0.9.3.tgz#e48bcc8af364f3f07176e8dbca3968bd5e71557b"
@@ -6316,15 +6323,6 @@ steem@^0.5.1:
     lodash "^4.16.4"
     secure-random "^1.1.1"
     ws "^1.1.1"
-
-steemconnect@adcpm/steemconnect#dev:
-  version "0.0.33"
-  resolved "https://codeload.github.com/adcpm/steemconnect/tar.gz/a52419c3b0aee9e30deb99a759e6d3d2e12f6e20"
-  dependencies:
-    debug "^2.2.0"
-    isomorphic-fetch "^2.2.1"
-    js-cookie "^2.1.3"
-    qs "^6.3.0"
 
 store@^1.3.20:
   version "1.3.20"

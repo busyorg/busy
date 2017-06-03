@@ -1,4 +1,4 @@
-import steemConnect from 'steemconnect';
+import steemConnect from 'sc2-sdk';
 import Promise from 'bluebird';
 import { omit } from 'lodash/object';
 

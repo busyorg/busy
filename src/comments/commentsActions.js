@@ -1,11 +1,8 @@
-import Promise from 'bluebird';
 import { createAction } from 'redux-actions';
-import SteemConnect from 'steemconnect';
+import SteemConnect from 'sc2-sdk';
 import { createCommentPermlink } from '../helpers/steemitHelpers';
 
 const version = require('../../package.json').version;
-
-SteemConnect.comment = Promise.promisify(SteemConnect.comment, { context: SteemConnect });
 
 export const GET_COMMENTS = 'GET_COMMENTS';
 export const GET_COMMENTS_START = 'GET_COMMENTS_START';

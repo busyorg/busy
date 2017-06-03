@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
-import steemconnect from 'steemconnect';
+import steemconnect from 'sc2-sdk';
+import Cookie from 'js-cookie';
 import ReactGA from 'react-ga';
 import { AppContainer } from 'react-hot-loader';
 import getStore from './store';
@@ -25,10 +26,14 @@ if (process.env.SENTRY_PUBLIC_DSN) {
 
 if (process.env.STEEMCONNECT_HOST) {
   steemconnect.init({
-    app: 'busy.org',
-    baseURL: process.env.STEEMCONNECT_HOST,
+    app: 'busy.app',
     callbackURL: process.env.STEEMCONNECT_REDIRECT_URL
   });
+  const accessToken = Cookie.get('access_token');
+  steemconnect.setBaseURL(process.env.STEEMCONNECT_HOST);
+  if (accessToken) {
+    steemconnect.setAccessToken(accessToken);
+  }
 }
 
 browserHistory.listen(() => {
@@ -42,7 +47,7 @@ browserHistory.listen(() => {
 const render = (Component) => {
   ReactDOM.render(
     <Provider store={store}>
-      { process.env.NODE_ENV !== 'production' ?
+      {process.env.NODE_ENV !== 'production' ?
         <AppContainer>
           <Component
             onUpdate={logPageView}

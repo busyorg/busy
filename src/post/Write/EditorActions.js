@@ -5,7 +5,7 @@
 import Promise from 'bluebird';
 import assert from 'assert';
 import request from 'superagent';
-import SteemConnect from 'steemconnect';
+import SteemConnect from 'sc2-sdk';
 import { browserHistory } from 'react-router';
 import { createAction } from 'redux-actions';
 import { jsonParse } from '../../helpers/formatter';
@@ -63,7 +63,7 @@ export function createPost(postData) {
         promise: getPremLink
           .then(permlink =>
             SteemConnect
-              .commentAsync(parentAuthor, parentPermlink, author, permlink, title, body, jsonMetadata)
+              .comment(parentAuthor, parentPermlink, author, permlink, title, body, jsonMetadata)
               .then(({ result }) => {
                 if (draftId) { dispatch(deleteDraft(draftId)); }
                 browserHistory.push(`/${parentPermlink}/@${author}/${permlink}`);

@@ -1,6 +1,6 @@
 import Promise from 'bluebird';
 import fetch from 'isomorphic-fetch';
-import steemConnect from 'steemconnect';
+import steemConnect from 'sc2-sdk';
 
 import { getUserCommentsFromState } from '../helpers/stateHelpers';
 import { getAllFollowing, mapAPIContentToId } from '../helpers/apiHelpers';
@@ -133,9 +133,6 @@ export function fetchFiles({ username }) {
     },
   });
 }
-
-steemConnect.follow = Promise.promisify(steemConnect.follow, { context: steemConnect });
-steemConnect.unfollow = Promise.promisify(steemConnect.unfollow, { context: steemConnect });
 
 export const FOLLOW_USER = '@user/FOLLOW_USER';
 export const FOLLOW_USER_START = '@user/FOLLOW_USER_START';
