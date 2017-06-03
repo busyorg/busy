@@ -1,12 +1,14 @@
 /* eslint-disable new-cap,global-require,no-param-reassign */
+import _ from 'lodash';
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Provider } from 'react-redux';
 import { renderToString } from 'react-dom/server';
-import { match, RouterContext } from 'react-router';
+import { matchPath } from 'react-router-dom';
+import { StaticRouter } from 'react-router';
 
 import getStore from '../src/store';
-import routes from '../src/routes';
+import router from '../src/routes';
 
 const fs = require('fs');
 const express = require('express');
@@ -62,23 +64,24 @@ const indexPath = process.env.NODE_ENV === 'production' ?
 const indexHtml = fs.readFileSync(indexPath, 'utf-8');
 
 function fetchComponentData(dispatch, components, params) {
-  const needs = components.reduce((prev, current) => (current.needs || [])
-    .concat((current.Wrapped ? current.Wrapped.needs : []) || [])
-    .concat((current.WrappedComponent ? current.WrappedComponent.needs : []) || [])
-    .concat(prev), []);
+  const needs = (components.needs || [])
+    .concat((components.Wrapped ? components.Wrapped.needs : []) || [])
+    .concat((components.WrappedComponent ? components.WrappedComponent.needs : []) || []);
+
   const promises = needs.map((need) => {
     const pros = dispatch(need(params));
     // debug('pros', pros);
     return pros;
   });
   debug('promises', needs, Date.now());
-  return Promise.all(promises);
+  return Promise.all(promises).then(() => params);
 }
 function renderPage(store, props) {
+  const context = {};
   debug('renderPage', Date.now());
   const appHtml = renderToString(
     <Provider store={store}>
-      <RouterContext {...props} />
+      <StaticRouter context={context} {...props} />
     </Provider>);
 
   const preloadedState = store.getState();
@@ -99,12 +102,22 @@ function renderPage(store, props) {
 function serverSideResponse(req, res) {
   const store = getStore();
   global.postOrigin = `${req.protocol}://${req.get('host')}`;
-  match({ routes, location: req.url }, (err, redirect, props) => {
-    fetchComponentData(store.dispatch, props.components, props.params)
-      .then(() => renderPage(store, props))
-      .then(html => res.end(html))
-      .catch(error => res.end(error.message));
+  const promises = [];
+  const routes = router.props.children.props.children; // Get > Wrapper > Switch > [Childrens]
+  _.each(routes, (route) => {
+    // use `matchPath` here
+    const match = matchPath(req.url, route.props);
+    if (match && match.isExact) {
+      promises.push(fetchComponentData(store.dispatch, route.props.component, match.params));
+    }
+
+    return match;
   });
+
+  Promise.all(promises)
+    .then((data) => { renderPage(store, ...data); })
+    .then(html => res.end(html))
+    .catch(error => res.end(error.message));
 }
 
 app.get('/callback', (req, res) => {
