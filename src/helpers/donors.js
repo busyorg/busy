@@ -35,4 +35,5 @@ export default {
   lukestokes: 'bronze',
   pharesim: 'bronze',
   buzzbeergeek: 'bronze',
+  timcliff: 'bronze',
 };
