@@ -4,29 +4,29 @@ import './Sidenav.less';
 
 const Sidenav = () =>
   <ul className="Sidenav">
-    <li className="Sidenav__item">
+    <li>
       <Link to="#">
-        <i className="iconfont icon-mine Sidenav__icon" /> My Profile
+        <i className="iconfont icon-mine" /> My Profile
       </Link>
     </li>
-    <li className="Sidenav__item">
+    <li>
       <Link to="#">
-        <i className="iconfont icon-clock Sidenav__icon" /> Timeline
+        <i className="iconfont icon-clock" /> Timeline
       </Link>
     </li>
-    <li className="Sidenav__item Sidenav__item--active">
+    <li className="Sidenav__item--active">
       <Link to="/trending">
-        <i className="iconfont icon-headlines Sidenav__icon" /> News
+        <i className="iconfont icon-headlines" /> News
       </Link>
     </li>
-    <li className="Sidenav__item">
+    <li>
       <Link to="/messages">
-        <i className="iconfont icon-message Sidenav__icon" /> Messages
+        <i className="iconfont icon-message" /> Messages
       </Link>
     </li>
-    <li className="Sidenav__item">
+    <li>
       <Link to="/wallet">
-        <i className="iconfont icon-lock Sidenav__icon" /> Wallet
+        <i className="iconfont icon-lock" /> Wallet
       </Link>
     </li>
   </ul>;
