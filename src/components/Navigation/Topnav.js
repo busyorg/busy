@@ -50,11 +50,11 @@ class Topnav extends React.Component {
               className="Topnav__item Topnav__item--dropdown"
               title={
                 <Popover visible={this.state.notificationsVisible} content={<span>Notifications</span>} title="Notifications">
-                  <i className="iconfont icon-remind Topnav__menu__icon" />
+                  <i className="iconfont icon-remind" />
                 </Popover>
               }
             />
-            <SubMenu key="more" className="Topnav__item Topnav__item--dropdown" title={<i className="iconfont icon-switch Topnav__menu__icon" />}>
+            <SubMenu key="more" className="Topnav__item Topnav__item--dropdown" title={<i className="iconfont icon-switch" />}>
               <Menu.Item key="more:1">Option 1</Menu.Item>
               <Menu.Item key="more:2">Option 2</Menu.Item>
             </SubMenu>
