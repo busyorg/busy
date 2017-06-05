@@ -85,7 +85,10 @@ class Topnav extends React.Component {
       <div className="Topnav">
         <div className="Topnav__container">
           <span className="Topnav__brand">busy</span>
-          <Input placeholder="Search..." className="Topnav__input" />
+          <div className="Topnav__input-container">
+            <Input placeholder="Search..." />
+            <i className="iconfont icon-search" />
+          </div>
           {content}
         </div>
       </div>
