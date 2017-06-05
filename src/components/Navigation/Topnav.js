@@ -36,11 +36,10 @@ class Topnav extends React.Component {
       content = (
         <div className="Topnav__menu-container">
           <Menu
-            className="Topnav__menu"
             mode="horizontal"
             onOpenChange={openKeys => this.onNotificationChange(openKeys)}
           >
-            <Menu.Item key="user" className="Topnav__item">
+            <Menu.Item key="user" className="Topnav__item-user">
               <Link className="Topnav__user" to={`/@${username}`}>
                 <Avatar username={username} size={36} />
                 <span>{username}</span>
@@ -48,14 +47,14 @@ class Topnav extends React.Component {
             </Menu.Item>
             <SubMenu
               key="notifications"
-              className="Topnav__item Topnav__item--dropdown"
+              className="Topnav__item--dropdown"
               title={
                 <Popover visible={this.state.notificationsVisible} content={<span>Notifications</span>} title="Notifications">
                   <i className="iconfont icon-remind" />
                 </Popover>
               }
             />
-            <SubMenu key="more" className="Topnav__item Topnav__item--dropdown" title={<i className="iconfont icon-switch" />}>
+            <SubMenu key="more" className="Topnav__item--dropdown" title={<i className="iconfont icon-switch" />}>
               <Menu.Item key="more:1">Option 1</Menu.Item>
               <Menu.Item key="more:2">Option 2</Menu.Item>
             </SubMenu>
@@ -64,16 +63,16 @@ class Topnav extends React.Component {
     } else {
       content = (
         <div className="Topnav__menu-container">
-          <Menu className="Topnav__menu" mode="horizontal">
-            <Menu.Item key="signin" className="Topnav__item">
+          <Menu mode="horizontal">
+            <Menu.Item key="signin">
               <Link to="/signin">
                 Sign in
               </Link>
             </Menu.Item>
-            <Menu.Item key="divider" className="Topnav__item" disabled>
+            <Menu.Item key="divider" disabled>
               |
             </Menu.Item>
-            <Menu.Item key="signup" className="Topnav__item">
+            <Menu.Item key="signup">
               <Link to="/signup">
                 Sign up
               </Link>

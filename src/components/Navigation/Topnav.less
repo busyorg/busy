@@ -4,33 +4,37 @@
 
 .Topnav {
   background-color: @white;
-  border: 1px solid #e9e7e7;
+  border-bottom: 1px solid #e9e7e7;
   height: 56px;
   line-height: 56px;
-  padding: 0 @base-spacing;
+  margin: 0 -@base-spacing;
 }
 
 .Topnav__container {
   display: flex;
   justify-content: space-around;
   margin: 0 auto;
-  max-width: 1080px;
+  max-width: 990px;
 }
 
 .Topnav__brand {
+  padding: 0 @base-spacing;
   flex: 2;
   font-size: 28px;
   font-weight: bold;
   letter-spacing: 1px;
   color: @purple;
-  text-align: center;
-  margin-right: @base-spacing;
+  text-align: left;
 }
 
 .Topnav__input-container {
+  padding: 0 @base-spacing;
   flex: 3;
   position: relative;
   height: 54px;
+  max-width: 520px;
+  flex-basis: auto;
+  flex-grow: 1;
 
   &--logged-in {
     border-left: solid 1px #e9e7e7;
@@ -59,26 +63,35 @@
 }
 
 .Topnav__menu-container {
+  padding: 0 @base-spacing;
   flex: 2;
   display: flex;
-  justify-content: center;
-}
+  justify-content: flex-end;
 
-.Topnav__menu {
-  flex-shrink: 0;
-  height: 55px !important;
-  line-height: 55px !important;
-  margin-left: @base-spacing;
-}
+  & > ul {
+    flex-shrink: 0;
+    height: 55px !important;
+    line-height: 55px !important;
+    margin-left: @base-spacing;
 
-.Topnav__item {
-  height: 55px !important;
-  padding: 0 4px !important;
+    &:nth-child(1) {
+      padding-right: 20px;
+    }
+  
+    & > li {
+      height: 55px !important;
+      padding: 0 4px !important;
 
-  & > a {
-    color: @purple !important;
-    font-weight: 600 !important;
+      & > a {
+        color: @purple !important;
+        font-weight: 600 !important;
+      }
+    }
   }
+}
+
+.Topnav__item-user {
+  margin: 0 10px !important;
 }
 
 .Topnav__user {
@@ -93,4 +106,8 @@
 
 .Topnav__item--dropdown {
   border-bottom: none !important;
+
+  & > div {
+    padding: 0 2px !important;
+  }
 }
