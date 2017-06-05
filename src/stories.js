@@ -31,7 +31,7 @@ storiesOf('Navigation', module)
   .add('Topnav unlogged', () => <Topnav />)
   .add('Topnav logged', () => <Topnav username="guest123" />)
   .add('Sidenav', () => <Sidenav />)
-  .add('UserMenu', () => <UserMenu />);
+  .add('UserMenu', () => <UserMenu onChange={action('Section changed')} />);
 
 storiesOf('Sidebar', module)
   .add('Start now', () => <StartNow />)

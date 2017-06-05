@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { Menu } from 'antd';
 import './UserMenu.less';
 
 class UserMenu extends React.Component {
+  static propTypes = {
+    onChange: PropTypes.func,
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -13,6 +17,10 @@ class UserMenu extends React.Component {
   handleClick = (e) => {
     this.setState({
       current: e.key,
+    }, () => {
+      if (this.props.onChange) {
+        this.props.onChange(e.key);
+      }
     });
   }
 
