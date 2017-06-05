@@ -3,8 +3,9 @@ import { Menu } from 'antd';
 import './UserMenu.less';
 
 const UserMenu = () =>
-  <div>
+  <div className="UserMenu">
     <Menu
+      className="UserMenu__menu"
       selectedKeys={['discussions']}
       mode="horizontal"
     >
