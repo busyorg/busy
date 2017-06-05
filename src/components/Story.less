@@ -1,0 +1,55 @@
+@import "../styles/custom.less";
+
+.Story {
+  position: relative;
+  max-width: 520px;
+  border-radius: 4px;
+  background-color: @white;
+  color: #353535;
+  border: solid 1px #e9e7e7;
+  padding: 16px 16px 0 16px;
+
+  &__more {
+    position: absolute;
+    right: 16px;
+    top: 11px;
+    font-size: 20px !important;
+    color: #c2ccd3;
+  }
+
+  &__header {
+    display: flex;
+
+    &__text {
+      margin: 0 12px;
+    }
+  }
+
+  &__date {
+    position: relative;
+    top: -2px;
+    font-size: 14px;
+    color: #99aab5;
+  }
+
+  &__topics > button {
+    margin: 0 2px;
+  }
+
+  &__content {
+    padding-top: 16px;
+
+    &__title {
+      padding-bottom: 8px;
+    }
+
+    & > p {
+      line-height: 20px;
+    }
+
+    &__image {
+      display: block;
+      margin: 16px 0 0 -16px;
+    }
+  }
+}
