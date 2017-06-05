@@ -10,6 +10,7 @@ import Follow from '../src/components/Button/Follow';
 import Action from '../src/components/Button/Action';
 import Topnav from './components/Navigation/Topnav';
 import Sidenav from './components/Navigation/Sidenav';
+import UserMenu from './components/UserMenu';
 import '../src/styles/common.less';
 
 addDecorator(story => (
@@ -29,7 +30,8 @@ storiesOf('Button', module)
 storiesOf('Navigation', module)
   .add('Topnav unlogged', () => <Topnav />)
   .add('Topnav logged', () => <Topnav username="guest123" />)
-  .add('Sidenav', () => <Sidenav />);
+  .add('Sidenav', () => <Sidenav />)
+  .add('UserMenu', () => <UserMenu />);
 
 storiesOf('Sidebar', module)
   .add('Start now', () => <StartNow />)
