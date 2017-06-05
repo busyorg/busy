@@ -5,12 +5,13 @@ import './UserMenu.less';
 class UserMenu extends React.Component {
   static propTypes = {
     onChange: PropTypes.func,
+    defaultKey: PropTypes.string,
   }
 
   constructor(props) {
     super(props);
     this.state = {
-      current: 'discussions',
+      current: (props.defaultKey) ? props.defaultKey : 'discussions',
     };
   }
 
