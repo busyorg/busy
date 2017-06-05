@@ -34,7 +34,7 @@ storiesOf('Navigation', module)
   .add('Topnav unlogged', () => <Topnav />)
   .add('Topnav logged', () => <Topnav username="guest123" />)
   .add('Sidenav', () => <Sidenav />)
-  .add('UserMenu', () => <UserMenu onChange={action('Section changed')} />);
+  .add('UserMenu', () => <UserMenu discussions={1521} comments={21} following={244} onChange={action('Section changed')} />);
 
 storiesOf('Sidebar', module)
   .add('Start now', () => <StartNow />)
