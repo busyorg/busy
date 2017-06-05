@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import classNames from 'classnames';
 import { Link } from 'react-router';
 import { Menu, Popover, Input } from 'antd';
 import Avatar from '../Avatar';
@@ -85,9 +86,15 @@ class Topnav extends React.Component {
       <div className="Topnav">
         <div className="Topnav__container">
           <span className="Topnav__brand">busy</span>
-          <div className="Topnav__input-container">
-            <Input placeholder="Search..." />
-            <i className="iconfont icon-search" />
+          <div
+            className={
+              classNames('Topnav__input-container', {
+                'Topnav__input-container--logged-in': username,
+              })
+            }
+          >
+            {username && <Input placeholder="Search..." />}
+            {username && <i className="iconfont icon-search" />}
           </div>
           {content}
         </div>
