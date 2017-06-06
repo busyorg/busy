@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import { Link } from 'react-router';
 import { Menu, Popover, Input } from 'antd';
 import Avatar from '../Avatar';
+import Notifications from './Notifications';
 import './Topnav.less';
 
 const SubMenu = Menu.SubMenu;
@@ -50,7 +51,7 @@ class Topnav extends React.Component {
               key="notifications"
               className="Topnav__item--dropdown"
               title={
-                <Popover visible={this.state.notificationsVisible} content={<span>Notifications</span>} title="Notifications">
+                <Popover placement="bottomRight" visible={this.state.notificationsVisible} content={<Notifications />} title="Notifications">
                   <i className="iconfont icon-remind" />
                 </Popover>
               }
