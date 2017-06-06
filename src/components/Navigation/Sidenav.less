@@ -1,7 +1,6 @@
 @import "../../styles/custom.less";
 
 .Sidenav__item {
-  padding: 4px !important;
 
   & > a {
     color: #99aab5;
@@ -14,7 +13,11 @@
     color: @purple;
 
     & > [class^="icon-"]:before, [class*=" icon-"]:before {
-      color: @purple !important;
+      color: @purple;
     }
   }
+}
+
+.Sidenav__icon {
+  vertical-align: -4px;
 }

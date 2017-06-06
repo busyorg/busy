@@ -6,27 +6,27 @@ const Sidenav = () =>
   <ul className="Sidenav">
     <li className="Sidenav__item">
       <Link to="#">
-        <span className="icon-smile" /> My Profile
+        <i className="iconfont icon-mine Sidenav__icon" /> My Profile
       </Link>
     </li>
     <li className="Sidenav__item">
       <Link to="#">
-        <span className="icon-timer" /> Timeline
+        <i className="iconfont icon-clock Sidenav__icon" /> Timeline
       </Link>
     </li>
     <li className="Sidenav__item Sidenav__item--active">
       <Link to="/trending">
-        <span className="icon-calendar" /> News
+        <i className="iconfont icon-headlines Sidenav__icon" /> News
       </Link>
     </li>
     <li className="Sidenav__item">
       <Link to="/messages">
-        <span className="icon-chat" /> Messages
+        <i className="iconfont icon-message Sidenav__icon" /> Messages
       </Link>
     </li>
     <li className="Sidenav__item">
       <Link to="/wallet">
-        <span className="icon-touch_id" /> Wallet
+        <i className="iconfont icon-lock Sidenav__icon" /> Wallet
       </Link>
     </li>
   </ul>;

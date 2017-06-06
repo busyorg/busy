@@ -13,7 +13,7 @@ import Sidenav from './components/Navigation/Sidenav';
 import '../src/styles/common.less';
 
 addDecorator(story => (
-  <div style={{ padding: '40px' }}>
+  <div style={{ padding: '40px', background: '#f9f9f9' }}>
     {story()}
   </div>
 ));
