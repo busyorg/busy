@@ -13,6 +13,7 @@ export const NOTIFICATION_MENTION = 'NOTIFICATION_MENTION';
 
 const notificationFollowing = {
   type: NOTIFICATION_FOLLOWING,
+  id: 0,
   read: false,
   date: '2017-06-06T13:46:37Z',
   payload: {
@@ -23,6 +24,7 @@ const notificationFollowing = {
 
 const notificationReply = {
   type: NOTIFICATION_REPLY,
+  id: 1,
   read: false,
   date: '2017-06-06T13:46:37Z',
   payload: {
@@ -33,6 +35,7 @@ const notificationReply = {
 
 const notificationTransfer = {
   type: NOTIFICATION_TRANSFER,
+  id: 2,
   read: false,
   date: '2017-06-06T13:46:37Z',
   payload: {
@@ -44,6 +47,7 @@ const notificationTransfer = {
 
 const notificationMention = {
   type: NOTIFICATION_MENTION,
+  id: 3,
   read: true,
   date: '2017-06-06T13:46:37Z',
   payload: {
@@ -52,7 +56,14 @@ const notificationMention = {
   },
 };
 
-const NotificationFollowing = ({ read, date, user }) =>
+const notifications = [
+  notificationFollowing,
+  notificationReply,
+  notificationTransfer,
+  notificationMention,
+];
+
+const NotificationFollowing = ({ read, date, payload }) =>
   <div
     className={
       classNames('Notifications__notification', {
@@ -63,7 +74,7 @@ const NotificationFollowing = ({ read, date, user }) =>
     <Avatar username="guest123" size={40} />
     <div className="Notifications__notification__text">
       <div className="Notifications__notification__text__message">
-        <Link to={`/${user}`}>{user}</Link> is now following you.
+        <Link to={`/${payload.user}`}>{payload.user}</Link> is now following you.
       </div>
       <div className="Notifications__notification__text__date">
         <FormattedRelative value={date} />
@@ -71,7 +82,7 @@ const NotificationFollowing = ({ read, date, user }) =>
     </div>
   </div>;
 
-const NotificationReply = ({ read, date, user, post_url }) =>
+const NotificationReply = ({ read, date, payload }) =>
   <div
     className={
       classNames('Notifications__notification', {
@@ -82,7 +93,7 @@ const NotificationReply = ({ read, date, user, post_url }) =>
     <Avatar username="guest123" size={40} />
     <div className="Notifications__notification__text">
       <div className="Notifications__notification__text__message">
-        <Link to={`/${user}`}>{user}</Link> replied on your <Link to={post_url}>post</Link>.
+        <Link to={`/${payload.user}`}>{payload.user}</Link> replied on your <Link to={payload.post_url}>post</Link>.
       </div>
       <div className="Notifications__notification__text__date">
         <FormattedRelative value={date} />
@@ -90,7 +101,7 @@ const NotificationReply = ({ read, date, user, post_url }) =>
     </div>
   </div>;
 
-const NotificationTransfer = ({ read, date, user, amount }) =>
+const NotificationTransfer = ({ read, date, payload }) =>
   <div
     className={
       classNames('Notifications__notification', {
@@ -101,7 +112,7 @@ const NotificationTransfer = ({ read, date, user, amount }) =>
     <Avatar username="guest123" size={40} />
     <div className="Notifications__notification__text">
       <div className="Notifications__notification__text__message">
-        <Link to={`/${user}`}>{user}</Link> sent you {numeral(amount).format('0,0.000')} STEEM.
+        <Link to={`/${payload.user}`}>{payload.user}</Link> sent you {numeral(payload.amount).format('0,0.000')} STEEM.
       </div>
       <div className="Notifications__notification__text__date">
         <FormattedRelative value={date} />
@@ -109,7 +120,7 @@ const NotificationTransfer = ({ read, date, user, amount }) =>
     </div>
   </div>;
 
-const NotificationMention = ({ read, date, user, post_url }) =>
+const NotificationMention = ({ read, date, payload }) =>
   <div
     className={
       classNames('Notifications__notification', {
@@ -120,7 +131,7 @@ const NotificationMention = ({ read, date, user, post_url }) =>
     <Avatar username="guest123" size={40} />
     <div className="Notifications__notification__text">
       <div className="Notifications__notification__text__message">
-        <Link to={`/${user}`}>{user}</Link> mentioned you on his <Link to={post_url}>post</Link>.
+        <Link to={`/${payload.user}`}>{payload.user}</Link> mentioned you on his <Link to={payload.post_url}>post</Link>.
       </div>
       <div className="Notifications__notification__text__date">
         <FormattedRelative value={date} />
@@ -130,26 +141,21 @@ const NotificationMention = ({ read, date, user, post_url }) =>
 
 const Notifications = () =>
   <div className="Notifications">
-    <NotificationFollowing
-      read={notificationFollowing.read}
-      date={notificationFollowing.date}
-      {...notificationFollowing.payload}
-    />
-    <NotificationReply
-      read={notificationReply.read}
-      date={notificationReply.date}
-      {...notificationReply.payload}
-    />
-    <NotificationTransfer
-      read={notificationTransfer.read}
-      date={notificationTransfer.date}
-      {...notificationTransfer.payload}
-    />
-    <NotificationMention
-      read={notificationMention.read}
-      date={notificationMention.date}
-      {...notificationMention.payload}
-    />
+    {
+      notifications && notifications.map((notification) => {
+        if (notification.type === NOTIFICATION_FOLLOWING) {
+          return <NotificationFollowing key={notification.id} {...notification} />;
+        } else if (notification.type === NOTIFICATION_REPLY) {
+          return <NotificationReply key={notification.id} {...notification} />;
+        } else if (notification.type === NOTIFICATION_TRANSFER) {
+          return <NotificationTransfer key={notification.id} {...notification} />;
+        } else if (notification.type === NOTIFICATION_MENTION) {
+          return <NotificationMention key={notification.id} {...notification} />;
+        }
+
+        return null;
+      })
+    }
     <div className="Notifications__footer">
       <a>See All</a>
     </div>
