@@ -29,7 +29,8 @@ storiesOf('Button', module)
 storiesOf('Navigation', module)
   .add('Topnav unlogged', () => <Topnav />)
   .add('Topnav logged', () => <Topnav username="guest123" />)
-  .add('Sidenav', () => <Sidenav />);
+  .add('Sidenav unlogged', () => <Sidenav />)
+  .add('Sidenav logged', () => <Sidenav username="guest123" />);
 
 storiesOf('Sidebar', module)
   .add('Start now', () => <StartNow />)
