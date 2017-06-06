@@ -13,7 +13,7 @@ const NotificationReply = ({ onClick, id, read, date, payload }) =>
       })
     }
   >
-    <Avatar username="guest123" size={40} />
+    <Avatar username={payload.user} size={40} />
     <div className="Notifications__notification__text">
       <div className="Notifications__notification__text__message">
         <Link to={`/${payload.user}`}>{payload.user}</Link> replied on your <Link to={payload.post_url}>post</Link>.

@@ -14,7 +14,7 @@ const NotificationTransfer = ({ onClick, id, read, date, payload }) =>
       })
     }
   >
-    <Avatar username="guest123" size={40} />
+    <Avatar username={payload.user} size={40} />
     <div className="Notifications__notification__text">
       <div className="Notifications__notification__text__message">
         <Link to={`/${payload.user}`}>{payload.user}</Link> sent you {numeral(payload.amount).format('0,0.000')} STEEM.
