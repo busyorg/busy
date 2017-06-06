@@ -1,3 +1,34 @@
+@import "../../styles/custom.less";
+
 .Notifications {
+  margin: -8px -16px;
   width: 400px;
+
+  &__notification {
+    display: flex;
+    padding: 12px;
+    background-color: @white;
+    border-bottom: 1px solid #e5e8ec;
+
+    &--unread {
+      background-color: #f3f6fa;
+    }
+
+    &__text {
+      padding: 0 12px;
+
+      &__message {
+        color: #353535;
+
+        & > a {
+          font-weight: 500;
+        }
+      }
+
+      &__date {
+        font-size: 14px;
+        color: #9d9d9d;
+      }
+    }
+  }
 }
