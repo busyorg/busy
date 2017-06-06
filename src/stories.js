@@ -2,6 +2,7 @@ import React from 'react';
 import { addDecorator, storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { link } from '@storybook/addon-links';
+import { IntlProvider } from 'react-intl';
 import StartNow from '../src/components/Sidebar/StartNow';
 import Topics from '../src/components/Sidebar/Topics';
 import InterestingPeople from '../src/components/Sidebar/InterestingPeople';
@@ -10,12 +11,15 @@ import Follow from '../src/components/Button/Follow';
 import Action from '../src/components/Button/Action';
 import Topnav from './components/Navigation/Topnav';
 import Sidenav from './components/Navigation/Sidenav';
+import UserMenu from './components/UserMenu';
 import '../src/styles/common.less';
 
 addDecorator(story => (
-  <div style={{ padding: '40px', background: '#f9f9f9' }}>
-    {story()}
-  </div>
+  <IntlProvider locale="en">
+    <div style={{ padding: '40px', background: '#f9f9f9' }}>
+      {story()}
+    </div>
+  </IntlProvider>
 ));
 
 
@@ -29,7 +33,8 @@ storiesOf('Button', module)
 storiesOf('Navigation', module)
   .add('Topnav unlogged', () => <Topnav />)
   .add('Topnav logged', () => <Topnav username="guest123" />)
-  .add('Sidenav', () => <Sidenav />);
+  .add('Sidenav', () => <Sidenav />)
+  .add('UserMenu', () => <UserMenu discussions={1521} comments={21} following={244} onChange={action('Section changed')} />);
 
 storiesOf('Sidebar', module)
   .add('Start now', () => <StartNow />)
