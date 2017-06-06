@@ -4,22 +4,23 @@ import numeral from 'numeral';
 import { FormattedRelative } from 'react-intl';
 import { Link } from 'react-router';
 import Avatar from '../../Avatar';
+import './Notification.less';
 
 const NotificationTransfer = ({ onClick, id, read, date, payload }) =>
   <div
     onClick={() => onClick(id)}
     className={
-      classNames('Notifications__notification', {
-        'Notifications__notification--unread': !read,
+      classNames('Notification', {
+        'Notification--unread': !read,
       })
     }
   >
     <Avatar username={payload.user} size={40} />
-    <div className="Notifications__notification__text">
-      <div className="Notifications__notification__text__message">
+    <div className="Notification__text">
+      <div className="Notification__text__message">
         <Link to={`/${payload.user}`}>{payload.user}</Link> sent you {numeral(payload.amount).format('0,0.000')} STEEM.
       </div>
-      <div className="Notifications__notification__text__date">
+      <div className="Notification__text__date">
         <FormattedRelative value={date} />
       </div>
     </div>
