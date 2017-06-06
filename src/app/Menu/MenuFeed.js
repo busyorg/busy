@@ -9,7 +9,7 @@ const MenuFeed = ({ auth, category }) => {
   return (
     <ul className="app-nav">
       <li>
-        <NavLink to={`/trending${categoryUrl}`} onlyActiveOnIndex activeClassName="active">
+        <NavLink to={`/trending${categoryUrl}`} activeClassName="active">
           <Icon name="show_chart" />
           <span className="hidden-xs">
             {' '}<FormattedMessage id="trending" defaultMessage="Trending" />

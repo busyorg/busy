@@ -11,6 +11,7 @@ import { getStoredBookmarks } from './bookmarks/bookmarksActions';
 import Notification from './app/Notification/Notification';
 import { LeftSidebar, RightSidebar } from './app/Sidebar/index';
 import Header from './app/Header';
+import { notify } from './app/Notification/notificationActions';
 import * as reblogActions from './app/Reblog/reblogActions';
 import config from '../config.json';
 import './translations/Translations';
@@ -19,21 +20,22 @@ import './translations/Translations';
 @connect(
   state => ({
     app: state.app,
-    auth: state.auth,
+    auth: state.auth
   }),
   {
     login,
     getConfig,
     getRate,
+    notify,
     getStoredBookmarks,
-    getRebloggedList: reblogActions.getRebloggedList,
+    getRebloggedList: reblogActions.getRebloggedList
   }
 )
 export default class Wrapper extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      messages: {},
+      messages: {}
     };
   }
 
@@ -51,7 +53,8 @@ export default class Wrapper extends PureComponent {
    * https://busy.org/test/@siol/translations
    */
   loadMessages = () => {
-    const path = `/${config.translations.parent_permlink}/@${config.translations.author}/${config.translations.permlink}`;
+    const path = `/${config.translations.parent_permlink}/@${config.translations.author}/${config
+      .translations.permlink}`;
     steemAPI.getState(path, (err, result) => {
       this.setState({ messages: getMessages(result.content) });
     });
@@ -66,6 +69,7 @@ export default class Wrapper extends PureComponent {
     if (messages.en) {
       translations = { ...messages.en, ...translations };
     }
+
     return (
       <IntlProvider locale={locale} messages={translations}>
         <GatewayProvider>
@@ -73,10 +77,7 @@ export default class Wrapper extends PureComponent {
             <Header />
             <Notification />
             <LeftSidebar />
-            {React.cloneElement(
-              this.props.children,
-              { auth }
-            )}
+            {React.cloneElement(this.props.children, { auth, notify })}
             <RightSidebar />
             <GatewayDest name="tooltip" />
             <GatewayDest name="popover" />

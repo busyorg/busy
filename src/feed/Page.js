@@ -17,7 +17,6 @@ import {
   getUserFeedContentFromState,
   getUserFeedLoadingFromState,
 } from '../helpers/stateHelpers';
-import { notify } from '../app/Notification/notificationActions';
 import FavoriteButton from '../favorites/FavoriteButton';
 import * as favoriteActions from '../favorites/favoritesActions';
 import EmptyFeed from '../statics/EmptyFeed';
@@ -51,7 +50,6 @@ import EmptyFeed from '../statics/EmptyFeed';
       removeCategoryFavorite: () => dispatch(
         favoriteActions.removeCategoryFavorite(category)
       ),
-      notify
     };
   }
 )
@@ -63,7 +61,6 @@ export default class Page extends React.Component {
 
   render() {
     const { notify, category, sortBy, path, auth, feed, posts } = this.props;
-
     let content, isFetching, hasMore, loadContentAction, loadMoreContentAction;
 
     if (!path && auth.isAuthenticated) {

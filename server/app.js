@@ -1,14 +1,14 @@
 /* eslint-disable new-cap,global-require,no-param-reassign */
-import _ from 'lodash';
-import React from 'react';
-import { Helmet } from 'react-helmet';
-import { Provider } from 'react-redux';
-import { renderToString } from 'react-dom/server';
-import { matchPath } from 'react-router-dom';
-import { StaticRouter } from 'react-router';
+// import _ from 'lodash';
+// import React from 'react';
+// import { Helmet } from 'react-helmet';
+// import { Provider } from 'react-redux';
+// import { renderToString } from 'react-dom/server';
+// import { matchPath } from 'react-router-dom';
+// import { StaticRouter } from 'react-router';
 
-import getStore from '../src/store';
-import router from '../src/routes';
+// import getStore from '../src/store';
+// import router from '../src/routes';
 
 const fs = require('fs');
 const express = require('express');
@@ -63,7 +63,7 @@ const indexPath = process.env.NODE_ENV === 'production' ?
 
 const indexHtml = fs.readFileSync(indexPath, 'utf-8');
 
-function fetchComponentData(dispatch, components, params) {
+/* function fetchComponentData(dispatch, components, params) {
   const needs = (components.needs || [])
     .concat((components.Wrapped ? components.Wrapped.needs : []) || [])
     .concat((components.WrappedComponent ? components.WrappedComponent.needs : []) || []);
@@ -118,7 +118,7 @@ function serverSideResponse(req, res) {
     .then((data) => { renderPage(store, ...data); })
     .then(html => res.end(html))
     .catch(error => res.end(error.message));
-}
+}*/
 
 app.get('/callback', (req, res) => {
   const { access_token, expires_in } = req.query;
@@ -130,20 +130,20 @@ app.get('/callback', (req, res) => {
   }
 });
 
-app.get('/trending(/:category)', serverSideResponse);
-app.get('/hot(/:category)', serverSideResponse);
-app.get('/cashout(/:category)', serverSideResponse);
-app.get('/created(/:category)', serverSideResponse);
-app.get('/active(/:category)', serverSideResponse);
-app.get('/responses(/:category)', serverSideResponse);
-app.get('/votes(/:category)', serverSideResponse);
+// app.get('/trending(/:category)', serverSideResponse);
+// app.get('/hot(/:category)', serverSideResponse);
+// app.get('/cashout(/:category)', serverSideResponse);
+// app.get('/created(/:category)', serverSideResponse);
+// app.get('/active(/:category)', serverSideResponse);
+// app.get('/responses(/:category)', serverSideResponse);
+// app.get('/votes(/:category)', serverSideResponse);
 
-app.get('/@:name/posts', serverSideResponse);
-app.get('/@:name/feed', serverSideResponse);
-app.get('/@:name/replies', serverSideResponse);
-app.get('/@:name', serverSideResponse);
+// app.get('/@:name/posts', serverSideResponse);
+// app.get('/@:name/feed', serverSideResponse);
+// app.get('/@:name/replies', serverSideResponse);
+// app.get('/@:name', serverSideResponse);
 
-app.get('/:category/@:author/:permlink', serverSideResponse);
+// app.get('/:category/@:author/:permlink', serverSideResponse);
 app.get('/*', (req, res) => {
   res.send(indexHtml);
 });

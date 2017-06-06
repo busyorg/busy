@@ -4,22 +4,22 @@ import Wrapper from './wrapper';
 // import Settings from './app/AppSettings';
 
 import Page from './feed/Page';
-// import User from './user/User';
-// import Profile from './user/UserProfile';
-// import Followers from './user/UserFollowers';
-// import Following from './user/UserFollowing';
-// import Posts from './user/UserPosts';
-// import Reblogs from './user/UserReblogs';
-// import Replies from './user/UserReplies';
-// import Feed from './user/UserFeed';
-// import Transfers from './user/UserTransfers';
+import User from './user/User';
+import Profile from './user/UserProfile';
+import Followers from './user/UserFollowers';
+import Following from './user/UserFollowing';
+import Posts from './user/UserPosts';
+import Reblogs from './user/UserReblogs';
+import Replies from './user/UserReplies';
+import Feed from './user/UserFeed';
+import Transfers from './user/UserTransfers';
 // import Transfer from './wallet/Transfer';
 import Tags from './tags/Tags';
 import Donors from './statics/Donors';
 import { Trending, Hot, Votes, Responses, Active, Created, Cashout } from './feed/PathMatching';
-// import PostSingle from './post/postSingle/PostSingle';
+import PostSingle from './post/postSingle/PostSingle';
 // import Bookmarks from './bookmarks/Bookmarks';
-// import Error404 from './statics/Error404';
+import Error404 from './statics/Error404';
 // import Write from './post/Write/Write';
 // import Drafts from './post/Write/Drafts';
 import About from './statics/About';
@@ -32,9 +32,29 @@ import Login from './auth/Login';
 // import MessagesUser from './messages/MessagesUser';
 // import MessagesCategory from './messages/MessagesCategory';
 
+const renderMergedProps = (component, ...rest) => {
+  const finalProps = Object.assign({}, ...rest);
+  return React.createElement(component, finalProps);
+};
+
+const PropsRoute = ({ component, ...rest }) =>
+  <Route {...rest} render={routeProps => renderMergedProps(component, routeProps, rest)} />;
+
+const PropsSwitch = ({ children, ...restProps }) =>
+  <Switch>
+    {children.map(route =>
+      <PropsRoute
+        key={route.path}
+        component={route.props.component}
+        {...route.props}
+        {...restProps}
+      />
+    )}
+  </Switch>;
+
 export default (
   <Wrapper>
-    <Switch>
+    <PropsSwitch>
       <Route exact path="/" component={Page} />
       <Route path="/login" component={Login} />
       <Route path="/signup" component={Signup} />
@@ -50,7 +70,30 @@ export default (
       <Route path="/active/:category?" component={Active} />
       <Route path="/responses/:category?" component={Responses} />
       <Route path="/votes/:category?" component={Votes} />
-    </Switch>
+      {/* <Route
+        path="/@:name"
+        render={() =>
+          <Switch>
+            <User>
+              <Route path="/@:name" component={Profile} />
+            </User>
+          </Switch>}
+      />*/}
+      {/* </Route>*/}
+      {/* <User>*/}
+      {/* <Route path="/@:name/reblogs" component={Reblogs} />
+        <Route path="/@:name/posts" component={Posts} />
+        <Route path="/@:name/feed" component={Feed} />
+        <Route path="/@:name/replies" component={Replies} />
+        <Route path="/@:name/followers" component={Followers} />
+        <Route path="/@:name/followed" component={Following} />
+        <Route path="/@:name/transfers" component={Transfers} />*/}
+      {/* <Route path="/@:name" component={Profile} />*/}
+      {/* </User>*/}
+
+      {/* <Route path="/:category/@:author/:permlink" component={PostSingle} />*/}
+      <Route component={Error404} />
+    </PropsSwitch>
   </Wrapper>
 );
 
