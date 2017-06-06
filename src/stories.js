@@ -10,6 +10,7 @@ import Follow from '../src/components/Button/Follow';
 import Action from '../src/components/Button/Action';
 import Topnav from './components/Navigation/Topnav';
 import Sidenav from './components/Navigation/Sidenav';
+import UserHeader from './components/UserHeader';
 import '../src/styles/common.less';
 
 addDecorator(story => (
@@ -43,3 +44,6 @@ storiesOf('Sidebar', module)
       { name: 'furion', about: 'I’ve developed SteemData and SteemSports. All things Python…' },
     ]}
   />);
+
+storiesOf('Profile', module)
+  .add('UserHeader', () => <UserHeader username="roelandp" />);
