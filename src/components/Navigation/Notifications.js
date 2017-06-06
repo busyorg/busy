@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import classNames from 'classnames';
 import numeral from 'numeral';
 import { Link } from 'react-router';
@@ -63,8 +63,9 @@ const notifications = [
   notificationMention,
 ];
 
-const NotificationFollowing = ({ read, date, payload }) =>
+const NotificationFollowing = ({ onClick, id, read, date, payload }) =>
   <div
+    onClick={() => onClick(id)}
     className={
       classNames('Notifications__notification', {
         'Notifications__notification--unread': !read,
@@ -82,8 +83,9 @@ const NotificationFollowing = ({ read, date, payload }) =>
     </div>
   </div>;
 
-const NotificationReply = ({ read, date, payload }) =>
+const NotificationReply = ({ onClick, id, read, date, payload }) =>
   <div
+    onClick={() => onClick(id)}
     className={
       classNames('Notifications__notification', {
         'Notifications__notification--unread': !read,
@@ -101,8 +103,9 @@ const NotificationReply = ({ read, date, payload }) =>
     </div>
   </div>;
 
-const NotificationTransfer = ({ read, date, payload }) =>
+const NotificationTransfer = ({ onClick, id, read, date, payload }) =>
   <div
+    onClick={() => onClick(id)}
     className={
       classNames('Notifications__notification', {
         'Notifications__notification--unread': !read,
@@ -120,8 +123,9 @@ const NotificationTransfer = ({ read, date, payload }) =>
     </div>
   </div>;
 
-const NotificationMention = ({ read, date, payload }) =>
+const NotificationMention = ({ onClick, id, read, date, payload }) =>
   <div
+    onClick={() => onClick(id)}
     className={
       classNames('Notifications__notification', {
         'Notifications__notification--unread': !read,
@@ -139,18 +143,26 @@ const NotificationMention = ({ read, date, payload }) =>
     </div>
   </div>;
 
-const Notifications = () =>
+const Notifications = ({ onClick }) =>
   <div className="Notifications">
     {
       notifications && notifications.map((notification) => {
         if (notification.type === NOTIFICATION_FOLLOWING) {
-          return <NotificationFollowing key={notification.id} {...notification} />;
+          return (<NotificationFollowing
+            onClick={id => onClick(id)} key={notification.id} {...notification}
+          />);
         } else if (notification.type === NOTIFICATION_REPLY) {
-          return <NotificationReply key={notification.id} {...notification} />;
+          return (<NotificationReply
+            onClick={id => onClick(id)} key={notification.id} {...notification}
+          />);
         } else if (notification.type === NOTIFICATION_TRANSFER) {
-          return <NotificationTransfer key={notification.id} {...notification} />;
+          return (<NotificationTransfer
+            onClick={id => onClick(id)} key={notification.id} {...notification}
+          />);
         } else if (notification.type === NOTIFICATION_MENTION) {
-          return <NotificationMention key={notification.id} {...notification} />;
+          return (<NotificationMention
+            onClick={id => onClick(id)} key={notification.id} {...notification}
+          />);
         }
 
         return null;
@@ -160,5 +172,13 @@ const Notifications = () =>
       <a>See All</a>
     </div>
   </div>;
+
+Notifications.propTypes = {
+  onClick: PropTypes.func,
+};
+
+Notification.defaultProps = {
+  onClick: () => {},
+};
 
 export default Notifications;

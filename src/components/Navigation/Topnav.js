@@ -8,7 +8,7 @@ import './Topnav.less';
 
 const SubMenu = Menu.SubMenu;
 
-const Topnav = ({ username }) => {
+const Topnav = ({ username, onNotificationClick }) => {
   let content;
 
   if (username) {
@@ -28,7 +28,7 @@ const Topnav = ({ username }) => {
             key="notifications"
             className="Topnav__item--dropdown"
             title={
-              <Popover placement="bottomRight" trigger="click" content={<Notifications />} title="Notifications">
+              <Popover placement="bottomRight" trigger="click" content={<Notifications onClick={onNotificationClick} />} title="Notifications">
                 <i className="iconfont icon-remind" />
               </Popover>
             }
@@ -82,6 +82,11 @@ const Topnav = ({ username }) => {
 
 Topnav.propTypes = {
   username: PropTypes.string,
+  onNotificationClick: PropTypes.func,
+};
+
+Topnav.defaultProps = {
+  onNotificationClick: () => {},
 };
 
 export default Topnav;
