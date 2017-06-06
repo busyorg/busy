@@ -15,7 +15,7 @@ export default class UserFollowers extends Component {
 
   componentWillMount() {
     this.setState({ isLoading: true });
-    getAllFollowers(this.props.params.name)
+    getAllFollowers(this.props.match.params.name)
       .then(users => this.setState({
         isLoading: false,
         isLoaded: true,

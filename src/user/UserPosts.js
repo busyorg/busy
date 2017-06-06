@@ -13,7 +13,7 @@ export default class UserProfilePosts extends Component {
   ]
   render() {
     const { feed, comments, getUserComments, getMoreUserComments, limit } = this.props;
-    const username = this.props.params.name;
+    const username = this.props.match.params.name;
 
     const content = getUserCommentsFromState(username, feed, comments);
     const isFetching = getFeedLoadingFromState('comments', username, feed);

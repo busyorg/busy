@@ -32,7 +32,7 @@ export default class UserTransfers extends Component {
   }
 
   componentDidMount() {
-    const username = this.props.params.name;
+    const username = this.props.match.params.name;
     this.props.getWallet(username);
     api.getState('trending/busy', (err, result) => {
       this.setState({ props: result.props });
@@ -55,7 +55,7 @@ export default class UserTransfers extends Component {
 
   render() {
     const rate = this.props.app.rate;
-    const username = this.props.params.name;
+    const username = this.props.match.params.name;
     const account = this.props.user;
 
     let power = 0;

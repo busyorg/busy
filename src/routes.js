@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch, Link } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import Wrapper from './wrapper';
 // import Settings from './app/AppSettings';
 
@@ -32,20 +32,41 @@ import Sidebars from './app/Sidebar';
 import MessagesUser from './messages/MessagesUser';
 import MessagesCategory from './messages/MessagesCategory';
 
-const renderMergedProps = (component, ...rest) => {
+const renderMergedProps = (component, passableProps, ...rest) => {
   const finalProps = Object.assign({}, ...rest);
-  return React.createElement(component, finalProps);
+  return React.createElement(component, { passableProps, ...finalProps });
 };
 
-const PropsRoute = ({ component, ...rest }) =>
-  <Route {...rest} render={routeProps => renderMergedProps(component, routeProps, rest)} />;
+const PropsRoute = ({ component, passableProps, ...rest }) =>
+  <Route
+    {...rest}
+    render={routeProps => renderMergedProps(component, passableProps, routeProps, rest)}
+  />;
 
 const PropsSwitch = ({ children, ...restProps }) =>
   <Switch>
-    {children.map(route => React.cloneElement(route, restProps))}
+    {React.Children.map(children, route =>
+      React.cloneElement(route, {
+        ...restProps,
+        key: route.path || Math.random(),
+        passableProps: restProps
+      })
+    )}
   </Switch>;
 
-const Test = () => <div>Testttt</div>;
+const UserRoutes = ({ passableProps }) =>
+  <User>
+    <PropsSwitch {...passableProps}>
+      <PropsRoute exact path="/@:name" component={Profile} />
+      <PropsRoute path="/@:name/reblogs" component={Reblogs} />
+      <PropsRoute path="/@:name/posts" component={Posts} />
+      <PropsRoute path="/@:name/feed" component={Feed} />
+      <PropsRoute path="/@:name/replies" component={Replies} />
+      <PropsRoute path="/@:name/followers" component={Followers} />
+      <PropsRoute path="/@:name/followed" component={Following} />
+      <PropsRoute path="/@:name/transfers" component={Transfers} />
+    </PropsSwitch>
+  </User>;
 
 export default (
   <Wrapper>
@@ -76,23 +97,9 @@ export default (
         <PropsRoute path="/settings" component={Settings} />
       </PropsRoute>
       */}
-      {/* <Route path="/@:name" component={UsersRoute} />*/}
-      {/* </Route>*/}
-      {/* <User>*/}
-      <PropsRoute path="/@:name" component={User}>
-        {/* <PropsRoute path="/@:name/reblogs" component={Test} />*/}
-        {/* <PropsRoute path="/@:name/posts" component={Posts} />*/}
-        {/* <PropsRoute path="/@:name/feed" component={Feed} />*/}
-        {/* <PropsRoute path="/@:name/replies" component={Replies} />*/}
-        {/* <PropsRoute path="/@:name/followers" component={Followers} />*/}
-        {/* <PropsRoute path="/@:name/followed" component={Following} />*/}
-        {/* <PropsRoute path="/@:name/transfers" component={Transfers} />*/}
-        <PropsRoute exact path="/@:name" component={Profile} />
-      </PropsRoute>
-      {/* </User>*/}
-
-      <Route path="/:category/@:author/:permlink" component={PostSingle} />
-      <Route component={Error404} />
+      <PropsRoute path="/@:name" component={UserRoutes} />
+      <PropsRoute path="/:category/@:author/:permlink" component={PostSingle} />
+      <Route path="/*" component={Error404} />
     </PropsSwitch>
   </Wrapper>
 );
