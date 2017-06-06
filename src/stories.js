@@ -10,6 +10,7 @@ import Follow from '../src/components/Button/Follow';
 import Action from '../src/components/Button/Action';
 import Topnav from './components/Navigation/Topnav';
 import Sidenav from './components/Navigation/Sidenav';
+import Story from './components/Story';
 import '../src/styles/common.less';
 
 addDecorator(story => (
@@ -41,4 +42,19 @@ storiesOf('Sidebar', module)
       { name: 'good-karma', about: '"Action expresses priorities!" / Witness - Developer of eSteem…' },
       { name: 'furion', about: 'I’ve developed SteemData and SteemSports. All things Python…' },
     ]}
+  />);
+
+storiesOf('Story', module)
+  .add('Inline story', () => <Story
+    username="guest123"
+    topics={['food', 'bangkok']}
+    likes={135}
+    dislikes={24}
+    comments={85}
+    shares={16}
+    payout={85.21}
+    onLikeClick={action('Like click')}
+    onDislikeClick={action('Dislike click')}
+    onCommentClick={action('Comment click')}
+    onShareClick={action('Share click')}
   />);
