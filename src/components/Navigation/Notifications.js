@@ -26,6 +26,9 @@ const Notifications = () =>
         </div>
       </div>
     </div>
+    <div className="Notifications__footer">
+      <a>See All</a>
+    </div>
   </div>;
 
 export default Notifications;
