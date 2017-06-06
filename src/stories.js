@@ -45,4 +45,16 @@ storiesOf('Sidebar', module)
   />);
 
 storiesOf('Story', module)
-  .add('Inline story', () => <Story />);
+  .add('Inline story', () => <Story
+    username="guest123"
+    topics={['food', 'bangkok']}
+    likes={135}
+    dislikes={24}
+    comments={85}
+    shares={16}
+    payout={85.21}
+    onLikeClick={action('Like click')}
+    onDislikeClick={action('Dislike click')}
+    onCommentClick={action('Comment click')}
+    onShareClick={action('Share click')}
+  />);
