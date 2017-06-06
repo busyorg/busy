@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormattedRelative } from 'react-intl';
 import Avatar from '../Avatar';
 import './Notifications.less';
 
@@ -11,7 +12,7 @@ const Notifications = () =>
           <a>guest123</a> is now following you.
         </div>
         <div className="Notifications__notification__text__date">
-          2 days ago
+          <FormattedRelative value="2017-06-06T13:46:37Z" />
         </div>
       </div>
     </div>
@@ -22,7 +23,7 @@ const Notifications = () =>
           <a>guest123</a> is now following you.
         </div>
         <div className="Notifications__notification__text__date">
-          2 days ago
+          <FormattedRelative value="2017-06-06T13:46:37Z" />
         </div>
       </div>
     </div>
