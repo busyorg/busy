@@ -62,7 +62,7 @@ const notifications = [
   notificationMention,
 ];
 
-const Notifications = ({ onClick }) =>
+const Notifications = ({ onClick, onSeeAllClick }) =>
   <div className="Notifications">
     {
       notifications && notifications.map((notification) => {
@@ -88,16 +88,18 @@ const Notifications = ({ onClick }) =>
       })
     }
     <div className="Notifications__footer">
-      <a>See All</a>
+      <a onClick={onSeeAllClick}>See All</a>
     </div>
   </div>;
 
 Notifications.propTypes = {
   onClick: PropTypes.func,
+  onSeeAllClick: () => {},
 };
 
 Notification.defaultProps = {
   onClick: () => {},
+  onSeeAllClick: () => {},
 };
 
 export default Notifications;

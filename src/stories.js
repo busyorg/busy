@@ -32,7 +32,7 @@ storiesOf('Button', module)
 
 storiesOf('Navigation', module)
   .add('Topnav unlogged', () => <Topnav />)
-  .add('Topnav logged', () => <Topnav username="guest123" onNotificationClick={action('Notification click')} />)
+  .add('Topnav logged', () => <Topnav username="guest123" onNotificationClick={action('Notification click')} onSeeAllClick={action('SeeAll click')} />)
   .add('Sidenav unlogged', () => <Sidenav />)
   .add('Sidenav logged', () => <Sidenav username="guest123" />);
 
