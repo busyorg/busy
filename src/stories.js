@@ -12,6 +12,7 @@ import Action from '../src/components/Button/Action';
 import Topnav from './components/Navigation/Topnav';
 import Sidenav from './components/Navigation/Sidenav';
 import UserMenu from './components/UserMenu';
+import UserHeader from './components/UserHeader';
 import '../src/styles/common.less';
 
 addDecorator(story => (
@@ -33,7 +34,8 @@ storiesOf('Button', module)
 storiesOf('Navigation', module)
   .add('Topnav unlogged', () => <Topnav />)
   .add('Topnav logged', () => <Topnav username="guest123" />)
-  .add('Sidenav', () => <Sidenav />)
+  .add('Sidenav unlogged', () => <Sidenav />)
+  .add('Sidenav logged', () => <Sidenav username="guest123" />);
   .add('UserMenu', () => <UserMenu discussions={1521} comments={21} following={244} onChange={action('Section changed')} />);
 
 storiesOf('Sidebar', module)
@@ -47,3 +49,6 @@ storiesOf('Sidebar', module)
       { name: 'furion', about: 'I’ve developed SteemData and SteemSports. All things Python…' },
     ]}
   />);
+
+storiesOf('Profile', module)
+  .add('UserHeader', () => <UserHeader username="roelandp" />);
