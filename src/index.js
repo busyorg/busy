@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
 import steemconnect from 'sc2-sdk';
 import Cookie from 'js-cookie';
@@ -41,13 +40,11 @@ const render = (Component) => {
         <AppContainer>
           <Component
             onUpdate={logPageView}
-            history={browserHistory}
           />
         </AppContainer>
         :
         <Component
           onUpdate={logPageView}
-          history={browserHistory}
         />
       }
     </Provider>,

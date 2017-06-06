@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
+import { withRouter } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import { isSmall } from 'react-responsive-utils';
 import _ from 'lodash';
@@ -21,7 +21,7 @@ import './CommentForm.less';
     auth: state.auth,
   }),
   dispatch => bindActionCreators({
-    sendComment: (parentId) => commentActions.sendComment(parentId),
+    sendComment: parentId => commentActions.sendComment(parentId),
     updateCommentingDraft: commentActions.updateCommentingDraft,
     notify,
   }, dispatch)

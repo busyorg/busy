@@ -3,8 +3,7 @@ import React from 'react';
 // import User from '../../components/Sidebar/User';
 import { Route, Switch } from 'react-router-dom';
 
-
-export const LeftSidebar = () => (
+export const LeftSidebar = () =>
   <Switch>
     <Route exact path="/" render={() => <div>LeftPage</div>} />
     <Route path="/trending/:category?" render={() => <div>LeftTrending</div>} />
@@ -14,12 +13,10 @@ export const LeftSidebar = () => (
     <Route path="/active/:category?" render={() => <div>LeftActive</div>} />
     <Route path="/responses/:category?" render={() => <div>LeftResponses</div>} />
     <Route path="/votes/:category?" render={() => <div>LeftVotes</div>} />
-  </Switch>
-);
+  </Switch>;
 
-export const RightSidebar = (props) => {
-  console.log('RightSidebar', props);
-  return (<Switch>
+export const RightSidebar = props =>
+  <Switch>
     <Route exact path="/" render={() => <div>RightPage</div>} />
     <Route path="/trending/:category?" render={() => <div>RightTrending</div>} />
     <Route path="/hot/:category?" render={() => <div>RightHot</div>} />
@@ -28,5 +25,4 @@ export const RightSidebar = (props) => {
     <Route path="/active/:category?" render={() => <div>RightActive</div>} />
     <Route path="/responses/:category?" render={() => <div>RightResponses</div>} />
     <Route path="/votes/:category?" render={() => <div>RightVotes</div>} />
-  </Switch>);
-};
+  </Switch>;

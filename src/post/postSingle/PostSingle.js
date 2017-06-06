@@ -1,6 +1,7 @@
+import _ from 'lodash';
 import React, { Component, PropTypes } from 'react';
-import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { bindActionCreators } from 'redux';
 import sanitize from 'sanitize-html';
@@ -17,6 +18,7 @@ import { editPost } from '../Write/EditorActions';
 import Loading from '../../widgets/Loading';
 import { jsonParse } from '../../helpers/formatter';
 
+@withRouter
 @connect(
   ({ posts, app, reblog, auth, bookmarks }) => ({
     content: posts[app.lastPostId] || null,
@@ -29,8 +31,8 @@ import { jsonParse } from '../../helpers/formatter';
     reblog: reblogActions.reblog,
     editPost,
     getContent: () => postActions.getContent({
-      author: ownProps.params ? ownProps.params.author : undefined,
-      permlink: ownProps.params ? ownProps.params.permlink : undefined,
+      author: _.get(ownProps.match, 'params.author'),
+      permlink: _.get(ownProps.match, 'params.permlink'),
     }),
     openCommentingDraft: commentsActions.openCommentingDraft,
     closeCommentingDraft: commentsActions.closeCommentingDraft,
@@ -70,7 +72,7 @@ export default class PostSingle extends Component {
   componentDidMount() {
     const { modal } = this.props;
     if (modal) {
-      this.unlisten = browserHistory.listen(() => {
+      this.unlisten = this.props.history.listen(() => {
         this.props.closePostModal();
       });
     }
