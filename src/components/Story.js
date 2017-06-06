@@ -26,8 +26,16 @@ const Story = () =>
 As the temperature of the water begins to rise…</p>
       <img className="Story__content__image" src="https://placehold.it/520x400" alt="Bangkok" />
     </div>
-    <div>
-      Like
+    <div className="Story__footer">
+      <span className="Story__footer__payout">$55.25</span>
+      <i className="iconfont icon-praise_fill" />
+      <span className="Story__footer__number">521</span>
+      <i className="iconfont icon-praise_fill Story__footer__dislike" />
+      <span className="Story__footer__number">521</span>
+      <i className="iconfont icon-message_fill" />
+      <span className="Story__footer__number">521</span>
+      <i className="iconfont icon-share_fill" />
+      <span className="Story__footer__number">521</span>
     </div>
   </div>;
 

@@ -1,8 +1,10 @@
 @import "../styles/custom.less";
 
+@width: 520px;
+
 .Story {
   position: relative;
-  max-width: 520px;
+  max-width: @width;
   border-radius: 4px;
   background-color: @white;
   color: #353535;
@@ -39,17 +41,46 @@
   &__content {
     padding-top: 16px;
 
-    &__title {
-      padding-bottom: 8px;
-    }
-
     & > p {
+      padding: 8px 0;
       line-height: 20px;
     }
 
     &__image {
+      width: @width - 1px;
       display: block;
-      margin: 16px 0 0 -16px;
+      margin-left: -16px;
+    }
+  }
+
+  &__footer {
+    position: relative;
+    height: 46px;
+    line-height: 46px;
+    color: #99aab5;
+    font-weight: bold;
+    font-size: 14px;
+
+    &__payout {
+      font-size: 16px;
+      position: absolute;
+      right: 0;
+    }
+
+    &__number {
+      vertical-align: 3px;
+      margin-right: 16px;
+    }
+
+    &__dislike:before {
+      display: inline-block;
+      transform: rotate(180deg);
+    }
+
+    & > .iconfont {
+      margin-right: 4px;
+      font-size: 24px !important;
+      color: #c2ccd3;
     }
   }
 }
