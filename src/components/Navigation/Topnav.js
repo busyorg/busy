@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { Link } from 'react-router';
 import { Menu, Popover, Input } from 'antd';
 import Avatar from '../Avatar';
-import Notifications from './Notifications';
+import Notifications from './Notifications/Notifications';
 import './Topnav.less';
 
 const SubMenu = Menu.SubMenu;
