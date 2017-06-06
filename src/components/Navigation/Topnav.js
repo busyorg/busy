@@ -36,13 +36,14 @@ class Topnav extends React.Component {
       content = (
         <div className="Topnav__menu-container">
           <Menu
+            className="Topnav__menu-container__menu"
             mode="horizontal"
             onOpenChange={openKeys => this.onNotificationChange(openKeys)}
           >
             <Menu.Item key="user" className="Topnav__item-user">
               <Link className="Topnav__user" to={`/@${username}`}>
                 <Avatar username={username} size={36} />
-                <span>{username}</span>
+                <span className="Topnav__user__username">{username}</span>
               </Link>
             </Menu.Item>
             <SubMenu
@@ -63,7 +64,7 @@ class Topnav extends React.Component {
     } else {
       content = (
         <div className="Topnav__menu-container">
-          <Menu mode="horizontal">
+          <Menu className="Topnav__menu-container__menu" mode="horizontal" >
             <Menu.Item key="signin">
               <Link to="/signin">
                 Sign in
