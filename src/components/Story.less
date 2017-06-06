@@ -14,9 +14,22 @@
   &__more {
     position: absolute;
     right: 16px;
-    top: 11px;
-    font-size: 20px !important;
-    color: #c2ccd3;
+    top: 4px;
+    background-color: transparent !important;
+    border-bottom: none !important;
+
+    &__item {
+      border-bottom: none !important;
+
+      & > div {
+        padding: 0 2px !important;
+      }
+    }
+
+    &__icon {
+      font-size: 20px !important;
+      color: #c2ccd3;
+    }
   }
 
   &__header {

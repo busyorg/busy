@@ -1,12 +1,23 @@
 import React from 'react';
+import { Menu } from 'antd';
 import { Link } from 'react-router';
 import Avatar from './Avatar';
 import Topic from './Button/Topic';
 import './Story.less';
 
+const SubMenu = Menu.SubMenu;
+
 const Story = () =>
   <div className="Story">
-    <i className="iconfont icon-unfold Story__more" />
+    <Menu
+      className="Story__more"
+      mode="horizontal"
+    >
+      <SubMenu className="Story__more__item" title={<i className="iconfont icon-unfold Story__more__icon" />}>
+        <Menu.Item key="setting:1">Option 1</Menu.Item>
+        <Menu.Item key="setting:2">Option 2</Menu.Item>
+      </SubMenu>
+    </Menu>
     <div className="Story__header">
       <Avatar username="guest123" size={40} />
       <div className="Story__header__text">
