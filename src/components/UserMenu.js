@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { FormattedMessage } from 'react-intl';
+import numeral from 'numeral';
 import { Menu } from 'antd';
 import './UserMenu.less';
 
@@ -38,6 +38,11 @@ class UserMenu extends React.Component {
   }
 
   render() {
+    const discussionsValue = numeral(this.props.discussions).format('0,0');
+    const commentsValue = numeral(this.props.comments).format('0,0');
+    const followersValue = numeral(this.props.followers).format('0,0');
+    const followingValue = numeral(this.props.following).format('0,0');
+
     return (
       <div className="UserMenu">
         <Menu
@@ -49,22 +54,14 @@ class UserMenu extends React.Component {
           <Menu.Item key="discussions" className="UserMenu__item">
             Discussions
             <span className="UserMenu__badge">
-              <FormattedMessage
-                id="formatted_number"
-                defaultMessage="{count, number}"
-                values={{ count: this.props.discussions }}
-              />
+              {discussionsValue}
             </span>
           </Menu.Item>
           <Menu.Item key="comments" className="UserMenu__item">
             <strong>
               Comments
               <span className="UserMenu__badge">
-                <FormattedMessage
-                  id="formatted_number"
-                  defaultMessage="{count, number}"
-                  values={{ count: this.props.comments }}
-                />
+                {commentsValue}
               </span>
             </strong>
           </Menu.Item>
@@ -72,11 +69,7 @@ class UserMenu extends React.Component {
             <strong>
               Followers
               <span className="UserMenu__badge">
-                <FormattedMessage
-                  id="formatted_number"
-                  defaultMessage="{count, number}"
-                  values={{ count: this.props.followers }}
-                />
+                {followersValue}
               </span>
             </strong>
           </Menu.Item>
@@ -84,11 +77,7 @@ class UserMenu extends React.Component {
             <strong>
               Following
               <span className="UserMenu__badge">
-                <FormattedMessage
-                  id="formatted_number"
-                  defaultMessage="{count, number}"
-                  values={{ count: this.props.following }}
-                />
+                {followingValue}
               </span>
             </strong>
           </Menu.Item>
