@@ -11,6 +11,7 @@ const SubMenu = Menu.SubMenu;
 
 const Story = ({
   username,
+  userFollowed,
   topics,
   likes,
   dislikes,
@@ -35,8 +36,9 @@ const Story = ({
         mode="horizontal"
       >
         <SubMenu className="Story__more__item" title={<i className="iconfont icon-unfold Story__more__icon" />}>
-          <Menu.Item key="setting:1">Option 1</Menu.Item>
-          <Menu.Item key="setting:2">Option 2</Menu.Item>
+          <Menu.Item key="follow"><i className="iconfont icon-people Story__submenu__icon" /> {(!userFollowed) ? 'Follow' : 'Unfollow'} {username}</Menu.Item>
+          <Menu.Item key="save"><i className="iconfont icon-collection Story__submenu__icon" /> Save post</Menu.Item>
+          <Menu.Item key="report"><i className="iconfont icon-flag Story__submenu__icon" /> Report post</Menu.Item>
         </SubMenu>
       </Menu>
       <div className="Story__header">
@@ -80,6 +82,7 @@ const Story = ({
 };
 
 Story.propTypes = {
+  userFollowed: PropTypes.bool,
   onLikeClick: PropTypes.func,
   onDislikeClick: PropTypes.func,
   onCommentClick: PropTypes.func,
@@ -96,6 +99,7 @@ Story.defaultProps = {
   comments: 0,
   shares: 0,
   payout: 0,
+  userFollowed: false,
 };
 
 export default Story;
