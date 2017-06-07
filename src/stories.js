@@ -12,6 +12,7 @@ import Action from '../src/components/Button/Action';
 import Topnav from './components/Navigation/Topnav';
 import Sidenav from './components/Navigation/Sidenav';
 import Story from './components/Story';
+import UserHeader from './components/UserHeader';
 import '../src/styles/common.less';
 
 addDecorator(story => (
@@ -33,7 +34,8 @@ storiesOf('Button', module)
 storiesOf('Navigation', module)
   .add('Topnav unlogged', () => <Topnav />)
   .add('Topnav logged', () => <Topnav username="guest123" />)
-  .add('Sidenav', () => <Sidenav />);
+  .add('Sidenav unlogged', () => <Sidenav />)
+  .add('Sidenav logged', () => <Sidenav username="guest123" />);
 
 storiesOf('Sidebar', module)
   .add('Start now', () => <StartNow />)
@@ -57,3 +59,6 @@ storiesOf('Story', module)
     onCommentClick={action('Comment click')}
     onShareClick={action('Share click')}
   />);
+
+storiesOf('Profile', module)
+  .add('UserHeader', () => <UserHeader username="roelandp" />);

@@ -5,14 +5,14 @@ import Follow from '../Button/Follow';
 import './User.less';
 
 const User = ({ user }) =>
-  <div key={user.name}>
+  <div key={user.name} className="User">
     <div className="User__top">
       <div className="User__links">
         <Link to={`/${user.name}`}>
           <Avatar username={user.name} size={34} />
         </Link>
         <Link to={`/${user.name}`}>
-          <b className="User__name">{user.name}</b>
+          <span className="User__name">{user.name}</span>
         </Link>
       </div>
       <Follow username={user.name} />

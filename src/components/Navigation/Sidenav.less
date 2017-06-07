@@ -1,10 +1,16 @@
 @import "../../styles/custom.less";
 
-.Sidenav__item {
-
-  & > a {
-    color: #99aab5;
-    font-weight: 500;
+.Sidenav {
+  & > li {
+    & > a {
+      color: #99aab5;
+      font-weight: 500;
+    
+      & > i {
+        margin-right: 5px;
+        vertical-align: -4px;
+      }
+    }
   }
 }
 
@@ -12,12 +18,8 @@
   & > a {
     color: @purple;
 
-    & > [class^="icon-"]:before, [class*=" icon-"]:before {
+    & > i {
       color: @purple;
     }
   }
-}
-
-.Sidenav__icon {
-  vertical-align: -4px;
 }
