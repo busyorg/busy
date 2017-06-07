@@ -12,6 +12,7 @@ import Follow from '../src/components/Button/Follow';
 import Action from '../src/components/Button/Action';
 import Topnav from './components/Navigation/Topnav';
 import Sidenav from './components/Navigation/Sidenav';
+import UserMenu from './components/UserMenu';
 import UserHeader from './components/UserHeader';
 import '../src/styles/common.less';
 
@@ -55,4 +56,6 @@ storiesOf('Sidebar', module)
   />);
 
 storiesOf('Profile', module)
-  .add('UserHeader', () => <UserHeader username="roelandp" />);
+  .add('UserHeader', () => <UserHeader username="roelandp" />)
+  .add('UserMenu', () => <UserMenu discussions={1521} comments={21} following={244} onChange={action('Section changed')} />);
+           
