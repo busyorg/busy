@@ -70,6 +70,9 @@ storiesOf('Story', module)
   />)
   .add('Full story', () => <StoryFull
     post={post}
+    onFollowClick={action('Follow click')}
+    onSaveClick={action('Save click')}
+    onReportClick={action('Report click')}
     onLikeClick={action('Like click')}
     onDislikeClick={action('Dislike click')}
     onCommentClick={action('Comment click')}
