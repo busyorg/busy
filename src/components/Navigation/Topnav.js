@@ -25,28 +25,27 @@ const Topnav = ({ username, onNotificationClick, onSeeAllClick, notifications })
               <span className="Topnav__user__username">{username}</span>
             </Link>
           </Menu.Item>
-          <SubMenu
+          <Menu.Item
             key="notifications"
             className="Topnav__item--dropdown"
-            title={
-              <Popover
-                placement="bottomRight"
-                trigger="click"
-                content={
-                  <Notifications
-                    notifications={notifications}
-                    onClick={onNotificationClick}
-                    onSeeAllClick={onSeeAllClick}
-                  />
-                  }
-                title="Notifications"
-              >
-                <Tooltip className="Notifications__tooltip" placement="bottom" title="Notifications">
-                  <i className="iconfont icon-remind" />
-                </Tooltip>
-              </Popover>
-            }
-          />
+          >
+            <Popover
+              placement="bottomRight"
+              trigger="click"
+              content={
+                <Notifications
+                  notifications={notifications}
+                  onClick={onNotificationClick}
+                  onSeeAllClick={onSeeAllClick}
+                />
+                }
+              title="Notifications"
+            >
+              <Tooltip className="Notifications__tooltip" placement="bottom" title="Notifications">
+                <i className="iconfont icon-remind" />
+              </Tooltip>
+            </Popover>
+          </Menu.Item>
           <SubMenu key="more" className="Topnav__item--dropdown" title={<i className="iconfont icon-switch" />}>
             <Menu.Item className="Topnav__item__subitem" key="activity">Activity</Menu.Item>
             <Menu.Item className="Topnav__item__subitem" key="settings">Settings</Menu.Item>
