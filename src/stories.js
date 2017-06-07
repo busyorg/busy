@@ -12,7 +12,7 @@ import Follow from '../src/components/Button/Follow';
 import Action from '../src/components/Button/Action';
 import Topnav from './components/Navigation/Topnav';
 import Sidenav from './components/Navigation/Sidenav';
-import Story from './components/Story';
+import Story from './components/Story/Story';
 import UserHeader from './components/UserHeader';
 import '../src/styles/common.less';
 
