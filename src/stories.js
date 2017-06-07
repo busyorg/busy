@@ -13,6 +13,7 @@ import Action from '../src/components/Button/Action';
 import Topnav from './components/Navigation/Topnav';
 import Sidenav from './components/Navigation/Sidenav';
 import Story from './components/Story/Story';
+import StoryFull from './components/Story/StoryFull';
 import UserMenu from './components/UserMenu';
 import UserHeader from './components/UserHeader';
 import '../src/styles/common.less';
@@ -66,7 +67,8 @@ storiesOf('Story', module)
     onDislikeClick={action('Dislike click')}
     onCommentClick={action('Comment click')}
     onShareClick={action('Share click')}
-  />);
+  />)
+  .add('Full story', () => <StoryFull post={post} />);
 
 storiesOf('Profile', module)
   .add('UserHeader', () => <UserHeader username="roelandp" />)
