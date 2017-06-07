@@ -15,6 +15,7 @@ const Topnav = ({ username, onNotificationClick, onSeeAllClick, notifications })
     content = (
       <div className="Topnav__menu-container">
         <Menu
+          selectedKeys={[]}
           className="Topnav__menu-container__menu"
           mode="horizontal"
         >
@@ -45,8 +46,9 @@ const Topnav = ({ username, onNotificationClick, onSeeAllClick, notifications })
             }
           />
           <SubMenu key="more" className="Topnav__item--dropdown" title={<i className="iconfont icon-switch" />}>
-            <Menu.Item key="more:1">Option 1</Menu.Item>
-            <Menu.Item key="more:2">Option 2</Menu.Item>
+            <Menu.Item key="activity">Activity</Menu.Item>
+            <Menu.Item key="settings">Settings</Menu.Item>
+            <Menu.Item key="logout">Logout</Menu.Item>
           </SubMenu>
         </Menu>
       </div>);
