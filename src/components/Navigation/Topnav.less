@@ -91,6 +91,18 @@
   }
 }
 
+.Topnav__item__subitem {
+  font-size: 14px !important;
+  font-weight: bold !important;
+  color: #99aab5 !important;
+  height: 30px !important;
+  line-height: 30px !important;
+
+  &:hover {
+    color: @purple !important;
+  }
+}
+
 .Topnav__item-user {
   margin: 0 10px !important;
 }
@@ -107,6 +119,11 @@
 
 .Topnav__item--dropdown {
   border-bottom: none !important;
+
+  & > ul {
+    padding: 8px 0 !important;
+    left: -36px !important;
+  }
 
   & > div {
     padding: 0 2px !important;
