@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import classNames from 'classnames';
 import { Link } from 'react-router';
-import { Menu, Popover, Input } from 'antd';
+import { Menu, Popover, Tooltip, Input } from 'antd';
 import Avatar from '../Avatar';
 import Notifications from './Notifications/Notifications';
 import './Topnav.less';
@@ -41,7 +41,9 @@ const Topnav = ({ username, onNotificationClick, onSeeAllClick, notifications })
                   }
                 title="Notifications"
               >
-                <i className="iconfont icon-remind" />
+                <Tooltip className="Notifications__tooltip" placement="bottom" title="Notifications">
+                  <i className="iconfont icon-remind" />
+                </Tooltip>
               </Popover>
             }
           />
