@@ -31,73 +31,52 @@ import RequireLogin from './auth/RequireLogin';
 import MessagesUser from './messages/MessagesUser';
 import MessagesCategory from './messages/MessagesCategory';
 
-const renderMergedProps = (component, passableProps, ...rest) => {
-  const finalProps = Object.assign({}, ...rest);
-  return React.createElement(component, { passableProps, ...finalProps });
-};
-
-const PropsRoute = ({ component, passableProps, ...rest }) =>
-  <Route
-    {...rest}
-    render={routeProps => renderMergedProps(component, passableProps, routeProps, rest)}
-  />;
-
-const PropsSwitch = ({ children, ...restProps }) =>
+const UserRoutes = () =>
   <Switch>
-    {React.Children.map(children, route =>
-      React.cloneElement(route, {
-        ...restProps,
-        key: route.path || Math.random(),
-        passableProps: restProps
-      })
-    )}
+    <Route exact path="/@:name" render={() => <User><Profile /></User>} />
+    <Route path="/@:name/reblogs" render={() => <User><Reblogs /></User>} />
+    <Route path="/@:name/posts" render={() => <User><Posts /></User>} />
+    <Route path="/@:name/feed" render={() => <User><Feed /></User>} />
+    <Route path="/@:name/replies" render={() => <User><Replies /></User>} />
+    <Route path="/@:name/followers" render={() => <User><Followers /></User>} />
+    <Route path="/@:name/followed" render={() => <User><Following /></User>} />
+    <Route path="/@:name/transfers" render={() => <User><Transfers /></User>} />
   </Switch>;
-
-const UserRoutes = ({ passableProps }) =>
-  <User>
-    <PropsSwitch {...passableProps}>
-      <PropsRoute exact path="/@:name" component={Profile} />
-      <PropsRoute path="/@:name/reblogs" component={Reblogs} />
-      <PropsRoute path="/@:name/posts" component={Posts} />
-      <PropsRoute path="/@:name/feed" component={Feed} />
-      <PropsRoute path="/@:name/replies" component={Replies} />
-      <PropsRoute path="/@:name/followers" component={Followers} />
-      <PropsRoute path="/@:name/followed" component={Following} />
-      <PropsRoute path="/@:name/transfers" component={Transfers} />
-    </PropsSwitch>
-  </User>;
-
-const wrapWith = (parent, child) => ({ passableProps }) =>
-  React.createElement(parent, passableProps, React.createElement(child));
 
 export default (
   <Wrapper>
-    <PropsSwitch>
-      <PropsRoute exact path="/" component={Page} />
-      <PropsRoute path="/login" component={Login} />
-      <PropsRoute path="/signup" component={Signup} />
-      <PropsRoute path="/help" component={Help} />
-      <PropsRoute path="/about" component={About} />
-      <PropsRoute path="/team" component={Team} />
-      <PropsRoute path="/tags" component={Tags} />
-      <PropsRoute path="/donors" component={Donors} />
-      <PropsRoute path="/trending/:category?" component={Trending} />
-      <PropsRoute path="/hot/:category?" component={Hot} />
-      <PropsRoute path="/cashout/:category?" component={Cashout} />
-      <PropsRoute path="/created/:category?" component={Created} />
-      <PropsRoute path="/active/:category?" component={Active} />
-      <PropsRoute path="/responses/:category?" component={Responses} />
-      <PropsRoute path="/votes/:category?" component={Votes} />
-      <PropsRoute path="/transfer" component={wrapWith(RequireLogin, Transfer)} />
-      <PropsRoute path="/messages/@:username" component={wrapWith(RequireLogin, MessagesUser)} />
-      <PropsRoute path="/messages/:category" component={wrapWith(RequireLogin, MessagesCategory)} />
-      <PropsRoute path="/bookmarks" component={wrapWith(RequireLogin, Bookmarks)} />
-      <PropsRoute path="/write" component={wrapWith(RequireLogin, Write)} />
-      <PropsRoute path="/drafts" component={wrapWith(RequireLogin, Drafts)} />
-      <PropsRoute path="/settings" component={wrapWith(RequireLogin, Settings)} />
-      <PropsRoute path="/@:name" component={UserRoutes} />
-      <PropsRoute path="/:category/@:author/:permlink" component={PostSingle} />
+    <Switch>
+      <Route exact path="/" component={Page} />
+      <Route path="/login" component={Login} />
+      <Route path="/signup" component={Signup} />
+      <Route path="/help" component={Help} />
+      <Route path="/about" component={About} />
+      <Route path="/team" component={Team} />
+      <Route path="/tags" component={Tags} />
+      <Route path="/donors" component={Donors} />
+      <Route path="/trending/:category?" component={Trending} />
+      <Route path="/hot/:category?" component={Hot} />
+      <Route path="/cashout/:category?" component={Cashout} />
+      <Route path="/created/:category?" component={Created} />
+      <Route path="/active/:category?" component={Active} />
+      <Route path="/responses/:category?" component={Responses} />
+      <Route path="/votes/:category?" component={Votes} />
+      <Route path="/transfer" render={() => <RequireLogin><Transfer /></RequireLogin>} />
+      <Route
+        path="/messages/@:username"
+        render={() => <RequireLogin><MessagesUser /></RequireLogin>}
+      />
+      <Route
+        path="/messages/:category"
+        render={() => <RequireLogin><MessagesCategory /></RequireLogin>}
+      />
+      <Route path="/bookmarks" render={() => <RequireLogin><Bookmarks /></RequireLogin>} />
+      <Route path="/write" render={() => <RequireLogin><Write /></RequireLogin>} />
+      <Route path="/drafts" render={() => <RequireLogin><Drafts /></RequireLogin>} />
+      <Route path="/settings" render={() => <RequireLogin><Settings /></RequireLogin>} />
+      <Route path="/@:name" component={UserRoutes} />
+      <Route path="/:category/@:author/:permlink" component={PostSingle} />
       <Route path="/*" component={Error404} />
-    </PropsSwitch>
+    </Switch>
   </Wrapper>
 );

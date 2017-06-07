@@ -1,19 +1,20 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import Loading from '../widgets/Loading';
 import Error401 from '../statics/Error401';
 
-const RequiredLogin = ({ children, ...restProps }) => {
-  if (restProps.auth.isFetching) {
+const RequiredLogin = ({ children, auth }) => {
+  if (auth.isFetching) {
     return (
       <div className="main-panel">
         <Loading />
       </div>
     );
   }
-  if (!restProps.auth.isAuthenticated) {
+  if (!auth.isAuthenticated) {
     return <Error401 />;
   }
-  return React.cloneElement(children, restProps);
+  return children;
 };
 
-export default RequiredLogin;
+export default connect(({ auth }) => ({ auth }))(RequiredLogin);

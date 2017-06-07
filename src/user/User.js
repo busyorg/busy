@@ -89,7 +89,7 @@ export default class User extends React.Component {
   }
 
   getUserView(user) {
-    return user
+    return user.name
       ? <div>
         <MenuUser auth={this.props.auth} username={user.name} />
         <section

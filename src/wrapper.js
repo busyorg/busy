@@ -11,7 +11,6 @@ import { getStoredBookmarks } from './bookmarks/bookmarksActions';
 import Notification from './app/Notification/Notification';
 import { LeftSidebar, RightSidebar } from './app/Sidebar/index';
 import Header from './app/Header';
-import { notify } from './app/Notification/notificationActions';
 import * as reblogActions from './app/Reblog/reblogActions';
 import config from '../config.json';
 import './translations/Translations';
@@ -20,13 +19,11 @@ import './translations/Translations';
 @connect(
   state => ({
     app: state.app,
-    auth: state.auth
   }),
   {
     login,
     getConfig,
     getRate,
-    notify,
     getStoredBookmarks,
     getRebloggedList: reblogActions.getRebloggedList
   }
@@ -62,7 +59,7 @@ export default class Wrapper extends PureComponent {
 
   render() {
     const { messages } = this.state;
-    const { app, auth } = this.props;
+    const { app } = this.props;
     const locale = getLocale(app.locale, messages);
     const className = 'app-wrapper full-width';
     let translations = messages[app.locale || locale] || {};
@@ -77,7 +74,7 @@ export default class Wrapper extends PureComponent {
             <Header />
             <Notification />
             <LeftSidebar />
-            {React.cloneElement(this.props.children, { auth, notify })}
+            {this.props.children}
             <RightSidebar />
             <GatewayDest name="tooltip" />
             <GatewayDest name="popover" />
