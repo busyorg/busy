@@ -80,7 +80,7 @@ export default function actionDecorator(...actions) {
 
     componentDidUpdate(prevProps) {
       if (!this._dispatched ||
-          !isEqual(this.props.params, prevProps.params) ||
+          !isEqual(this.props.match.params, prevProps.match.params) ||
           !isEqual(this.props.location, prevProps.location)) {
         this.dispatchActions();
       }
@@ -100,13 +100,13 @@ export default function actionDecorator(...actions) {
         let ret;
         if (this.context.store) {
           ret = this.context.store.dispatch(action({
-            params: this.props.params,
+            params: this.props.match.params,
             location: this.props.location,
             props: this.props,
           }));
         } else {
           ret = action({
-            params: this.props.params,
+            params: this.props.match.params,
             location: this.props.location,
             props: this.props,
           });
