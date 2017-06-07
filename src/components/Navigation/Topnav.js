@@ -48,9 +48,9 @@ const Topnav = ({ username, onNotificationClick, onSeeAllClick, notifications })
             }
           />
           <SubMenu key="more" className="Topnav__item--dropdown" title={<i className="iconfont icon-switch" />}>
-            <Menu.Item key="activity">Activity</Menu.Item>
-            <Menu.Item key="settings">Settings</Menu.Item>
-            <Menu.Item key="logout">Logout</Menu.Item>
+            <Menu.Item className="Topnav__item__subitem" key="activity">Activity</Menu.Item>
+            <Menu.Item className="Topnav__item__subitem" key="settings">Settings</Menu.Item>
+            <Menu.Item className="Topnav__item__subitem" key="logout">Logout</Menu.Item>
           </SubMenu>
         </Menu>
       </div>);
