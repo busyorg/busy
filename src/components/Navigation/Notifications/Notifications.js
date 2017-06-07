@@ -10,59 +10,7 @@ export const NOTIFICATION_REPLY = 'NOTIFICATION_REPLY';
 export const NOTIFICATION_TRANSFER = 'NOTIFICATION_TRANSFER';
 export const NOTIFICATION_MENTION = 'NOTIFICATION_MENTION';
 
-const notificationFollowing = {
-  type: NOTIFICATION_FOLLOWING,
-  id: 0,
-  read: false,
-  date: '2017-06-06T13:46:37Z',
-  payload: {
-    user: 'metrox',
-  },
-};
-
-
-const notificationReply = {
-  type: NOTIFICATION_REPLY,
-  id: 1,
-  read: false,
-  date: '2017-06-06T13:46:37Z',
-  payload: {
-    user: 'good-karma',
-    post_url: 'https://google.com',
-  },
-};
-
-const notificationTransfer = {
-  type: NOTIFICATION_TRANSFER,
-  id: 2,
-  read: false,
-  date: '2017-06-06T13:46:37Z',
-  payload: {
-    user: 'stabe',
-    amount: 60.00,
-  },
-};
-
-
-const notificationMention = {
-  type: NOTIFICATION_MENTION,
-  id: 3,
-  read: true,
-  date: '2017-06-06T13:46:37Z',
-  payload: {
-    user: 'furion',
-    post_url: 'https://google.com',
-  },
-};
-
-const notifications = [
-  notificationFollowing,
-  notificationReply,
-  notificationTransfer,
-  notificationMention,
-];
-
-const Notifications = ({ onClick, onSeeAllClick }) =>
+const Notifications = ({ onClick, onSeeAllClick, notifications }) =>
   <div className="Notifications">
     {
       notifications && notifications.map((notification) => {
@@ -95,6 +43,9 @@ const Notifications = ({ onClick, onSeeAllClick }) =>
 Notifications.propTypes = {
   onClick: PropTypes.func,
   onSeeAllClick: () => {},
+  notifications: PropTypes.arrayOf(
+    PropTypes.shape(),
+  ),
 };
 
 Notification.defaultProps = {

@@ -3,6 +3,7 @@ import { addDecorator, storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { link } from '@storybook/addon-links';
 import { IntlProvider } from 'react-intl';
+import { notifications } from './stories.data';
 import StartNow from '../src/components/Sidebar/StartNow';
 import Topics from '../src/components/Sidebar/Topics';
 import InterestingPeople from '../src/components/Sidebar/InterestingPeople';
@@ -32,7 +33,12 @@ storiesOf('Button', module)
 
 storiesOf('Navigation', module)
   .add('Topnav unlogged', () => <Topnav />)
-  .add('Topnav logged', () => <Topnav username="guest123" onNotificationClick={action('Notification click')} onSeeAllClick={action('SeeAll click')} />)
+  .add('Topnav logged', () => <Topnav
+    username="guest123"
+    notifications={notifications}
+    onNotificationClick={action('Notification click')}
+    onSeeAllClick={action('SeeAll click')}
+  />)
   .add('Sidenav unlogged', () => <Sidenav />)
   .add('Sidenav logged', () => <Sidenav username="guest123" />);
 
