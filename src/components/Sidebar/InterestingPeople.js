@@ -5,7 +5,7 @@ import './InterestingPeople.less';
 const InterestingPeople = ({ users }) =>
   <div className="InterestingPeople">
     <div className="InterestingPeople__container">
-      <h4 className="InterestingPeople__title"><i className="InterestingPeople__icon icon-eye" /> Interesting People</h4>
+      <h4 className="InterestingPeople__title"><i className="iconfont icon-group InterestingPeople__icon" /> Interesting People</h4>
       <div className="InterestingPeople__divider" />
       {users.map(user =>
         <User key={user.name} user={user} />
