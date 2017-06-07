@@ -53,6 +53,9 @@ storiesOf('Story', module)
     comments={85}
     shares={16}
     payout={85.21}
+    onFollowClick={action('Follow click')}
+    onSaveClick={action('Save click')}
+    onReportClick={action('Report click')}
     onLikeClick={action('Like click')}
     onDislikeClick={action('Dislike click')}
     onCommentClick={action('Comment click')}

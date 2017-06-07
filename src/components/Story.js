@@ -12,6 +12,9 @@ const SubMenu = Menu.SubMenu;
 class Story extends React.Component {
   static propTypes = {
     userFollowed: PropTypes.bool,
+    onFollowClick: PropTypes.func,
+    onSaveClick: PropTypes.func,
+    onReportClick: PropTypes.func,
     onLikeClick: PropTypes.func,
     onDislikeClick: PropTypes.func,
     onCommentClick: PropTypes.func,
@@ -19,6 +22,9 @@ class Story extends React.Component {
   };
 
   static defaultProps = {
+    onFollowClick: () => {},
+    onSaveClick: () => {},
+    onReportClick: () => {},
     onLikeClick: () => {},
     onDislikeClick: () => {},
     onCommentClick: () => {},
@@ -30,6 +36,22 @@ class Story extends React.Component {
     payout: 0,
     userFollowed: false,
   };
+
+  handleClick = (e) => {
+    switch (e.key) {
+      case 'follow':
+        this.props.onFollowClick();
+        return;
+      case 'save':
+        this.props.onSaveClick();
+        return;
+      case 'report':
+        this.props.onReportClick();
+        return;
+      default:
+        return;
+    }
+  }
 
   render() {
     const {
@@ -56,6 +78,8 @@ class Story extends React.Component {
     return (
       <div className="Story">
         <Menu
+          onClick={this.handleClick}
+          selectedKeys={[]}
           className="Story__more"
           mode="horizontal"
         >
