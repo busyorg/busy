@@ -45,6 +45,26 @@ export const notifications = [
       post_url: 'https://google.com',
     },
   },
+  {
+    type: NOTIFICATION_TRANSFER,
+    id: 4,
+    read: false,
+    date: '2017-06-06T13:46:37Z',
+    payload: {
+      user: 'stabe',
+      amount: 60.00,
+    },
+  },
+  {
+    type: NOTIFICATION_MENTION,
+    id: 5,
+    read: true,
+    date: '2017-06-06T13:46:37Z',
+    payload: {
+      user: 'furion',
+      post_url: 'https://google.com',
+    },
+  },
 ];
 
 export default undefined;
