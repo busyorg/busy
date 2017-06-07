@@ -1,6 +1,13 @@
+@import "../../styles/custom.less";
+
 .StoryFull {
   max-width: 710px;
   margin: 0 auto;
+
+  &__submenu__icon {
+    font-size: 20px !important;
+    vertical-align: -1px;
+  }
 
   &__title {
     color: #353535;
@@ -9,6 +16,7 @@
   }
 
   &__header {
+    position: relative;
     display: flex;
     padding-top: 24px;
 
@@ -24,6 +32,31 @@
       &__date {
         color: #99aab5;
         font-size: 14px;
+      }
+    }
+
+    &__more {
+      position: absolute;
+      right: 0;
+      top: 24px;
+      background-color: transparent !important;
+      border-bottom: none !important;
+
+      &__item {
+        border-bottom: none !important;
+
+        & > ul {
+          left: -128px !important;
+        }
+
+        & > div {
+          padding: 0 2px !important;
+        }
+      }
+
+      &__icon {
+        font-size: 36px !important;
+        color: @purple;
       }
     }
   }
