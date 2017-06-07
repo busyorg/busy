@@ -2,6 +2,7 @@ import React from 'react';
 import { addDecorator, storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { link } from '@storybook/addon-links';
+import { IntlProvider } from 'react-intl';
 import StartNow from '../src/components/Sidebar/StartNow';
 import Topics from '../src/components/Sidebar/Topics';
 import InterestingPeople from '../src/components/Sidebar/InterestingPeople';
@@ -14,9 +15,11 @@ import Story from './components/Story';
 import '../src/styles/common.less';
 
 addDecorator(story => (
-  <div style={{ padding: '40px', background: '#f9f9f9' }}>
-    {story()}
-  </div>
+  <IntlProvider locale="en">
+    <div style={{ padding: '40px', background: '#f9f9f9' }}>
+      {story()}
+    </div>
+  </IntlProvider>
 ));
 
 
@@ -46,13 +49,6 @@ storiesOf('Sidebar', module)
 
 storiesOf('Story', module)
   .add('Inline story', () => <Story
-    username="guest123"
-    topics={['food', 'bangkok']}
-    likes={135}
-    dislikes={24}
-    comments={85}
-    shares={16}
-    payout={85.21}
     onFollowClick={action('Follow click')}
     onSaveClick={action('Save click')}
     onReportClick={action('Report click')}
