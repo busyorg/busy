@@ -27,6 +27,8 @@ import dispatchActions from '../helpers/dispatchActions';
 import UserNotFound from '../statics/UserNotFound';
 import Transfer from '../widgets/Transfer';
 
+export const needs = [getAccountWithFollowingCount];
+
 @withRouter
 @connect(
   state => ({
@@ -67,7 +69,7 @@ import Transfer from '../widgets/Transfer';
   }
 )
 export default class User extends React.Component {
-  static needs = [getAccountWithFollowingCount];
+  static needs = needs;
 
   componentWillMount() {
     const user = this.props.users[this.props.match.params.name] || {};

@@ -4,7 +4,7 @@ import Wrapper from './wrapper';
 import Settings from './app/AppSettings';
 
 import Page from './feed/Page';
-import User from './user/User';
+import User, { needs as UserNeeds } from './user/User';
 import Profile from './user/UserProfile';
 import Followers from './user/UserFollowers';
 import Following from './user/UserFollowing';
@@ -31,7 +31,7 @@ import RequireLogin from './auth/RequireLogin';
 import MessagesUser from './messages/MessagesUser';
 import MessagesCategory from './messages/MessagesCategory';
 
-const UserRoutes = () =>
+export const UserRoutes = () =>
   <Switch>
     <Route exact path="/@:name" render={() => <User><Profile /></User>} />
     <Route path="/@:name/reblogs" render={() => <User><Reblogs /></User>} />
@@ -42,6 +42,8 @@ const UserRoutes = () =>
     <Route path="/@:name/followed" render={() => <User><Following /></User>} />
     <Route path="/@:name/transfers" render={() => <User><Transfers /></User>} />
   </Switch>;
+
+UserRoutes.needs = UserNeeds;
 
 export default (
   <Wrapper>
