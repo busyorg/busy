@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Wrapper from './wrapper';
-// import Settings from './app/AppSettings';
+import Settings from './app/AppSettings';
 
 import Page from './feed/Page';
 import User from './user/User';
@@ -28,7 +28,6 @@ import Team from './statics/Team';
 import Signup from './auth/Signup';
 import Login from './auth/Login';
 import RequireLogin from './auth/RequireLogin';
-import Sidebars from './app/Sidebar';
 import MessagesUser from './messages/MessagesUser';
 import MessagesCategory from './messages/MessagesCategory';
 
@@ -68,6 +67,9 @@ const UserRoutes = ({ passableProps }) =>
     </PropsSwitch>
   </User>;
 
+const wrapWith = (parent, child) => ({ passableProps }) =>
+  React.createElement(parent, passableProps, React.createElement(child));
+
 export default (
   <Wrapper>
     <PropsSwitch>
@@ -86,61 +88,16 @@ export default (
       <PropsRoute path="/active/:category?" component={Active} />
       <PropsRoute path="/responses/:category?" component={Responses} />
       <PropsRoute path="/votes/:category?" component={Votes} />
-      {/*
-      <PropsRoute component={RequireLogin}>
-        <PropsRoute path="/transfer" component={Transfer} />
-        <PropsRoute path="/messages/@:username" component={MessagesUser} />
-        <PropsRoute path="/messages/:category" component={MessagesCategory} />
-        <PropsRoute path="/bookmarks" component={Bookmarks} />
-        <PropsRoute path="/write" component={Write} />
-        <PropsRoute path="/drafts" component={Drafts} />
-        <PropsRoute path="/settings" component={Settings} />
-      </PropsRoute>
-      */}
+      <PropsRoute path="/transfer" component={wrapWith(RequireLogin, Transfer)} />
+      <PropsRoute path="/messages/@:username" component={wrapWith(RequireLogin, MessagesUser)} />
+      <PropsRoute path="/messages/:category" component={wrapWith(RequireLogin, MessagesCategory)} />
+      <PropsRoute path="/bookmarks" component={wrapWith(RequireLogin, Bookmarks)} />
+      <PropsRoute path="/write" component={wrapWith(RequireLogin, Write)} />
+      <PropsRoute path="/drafts" component={wrapWith(RequireLogin, Drafts)} />
+      <PropsRoute path="/settings" component={wrapWith(RequireLogin, Settings)} />
       <PropsRoute path="/@:name" component={UserRoutes} />
       <PropsRoute path="/:category/@:author/:permlink" component={PostSingle} />
       <Route path="/*" component={Error404} />
     </PropsSwitch>
   </Wrapper>
 );
-
-/* export default (
-  <Route path="/" component={Wrapper}>
-    <IndexRoute component={Page} />
-    <Route path="/login" component={Login} />
-    <Route path="/signup" component={Signup} />
-    <Route path="/help" component={Help} />
-    <Route path="/about" component={About} />
-    <Route path="/team" component={Team} />
-    <Route path="/tags" component={Tags} />
-    <Route path="/donors" component={Donors} />
-    <Route path="/trending(/:category)" component={Trending} />
-    <Route path="/hot(/:category)" component={Hot} />
-    <Route path="/cashout(/:category)" component={Cashout} />
-    <Route path="/created(/:category)" component={Created} />
-    <Route path="/active(/:category)" component={Active} />
-    <Route path="/responses(/:category)" component={Responses} />
-    <Route path="/votes(/:category)" component={Votes} />
-    <Route component={RequireLogin}>
-      <Route path="/transfer" component={Transfer} />
-      <Route path="/messages/@:username" component={MessagesUser} />
-      <Route path="/messages/:category" component={MessagesCategory} />
-      <Route path="/bookmarks" component={Bookmarks} />
-      <Route path="/write" component={Write} />
-      <Route path="/drafts" component={Drafts} />
-      <Route path="/settings" component={Settings} />
-    </Route>
-    <Route component={User}>
-      <Route path="/@:name/reblogs" component={Reblogs} />
-      <Route path="/@:name/posts" component={Posts} />
-      <Route path="/@:name/feed" component={Feed} />
-      <Route path="/@:name/replies" component={Replies} />
-      <Route path="/@:name/followers" component={Followers} />
-      <Route path="/@:name/followed" component={Following} />
-      <Route path="/@:name/transfers" component={Transfers} />
-      <Route path="/@:name" component={Profile} />
-    </Route>
-    <Route path="/:category/@:author/:permlink" component={PostSingle} />
-    <Route path="/*" component={Error404} />
-  </Route>
-);*/
