@@ -6,7 +6,7 @@ import StoryFooter from './StoryFooter';
 import Avatar from '../Avatar';
 import './StoryFull.less';
 
-const StoryFull = ({ post }) =>
+const StoryFull = ({ post, onLikeClick, onDislikeClick, onCommentClick, onShareClick }) =>
   <div className="StoryFull">
     <h1 className="StoryFull__title">
       {post.title}
@@ -25,11 +25,28 @@ const StoryFull = ({ post }) =>
     <div className="StoryFull__content">
       <Body body={post.body} json_metadata={post.json_metadata} />
     </div>
-    <StoryFooter post={post} />
+    <StoryFooter
+      post={post}
+      onLikeClick={onLikeClick}
+      onDislikeClick={onDislikeClick}
+      onCommentClick={onCommentClick}
+      onShareClick={onShareClick}
+    />
   </div>;
 
 StoryFull.propTypes = {
   post: PropTypes.shape(),
+  onLikeClick: PropTypes.func,
+  onDislikeClick: PropTypes.func,
+  onCommentClick: PropTypes.func,
+  onShareClick: PropTypes.func,
+};
+
+StoryFull.defaultProps = {
+  onLikeClick: () => {},
+  onDislikeClick: () => {},
+  onCommentClick: () => {},
+  onShareClick: () => {},
 };
 
 export default StoryFull;

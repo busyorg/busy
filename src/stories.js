@@ -68,7 +68,13 @@ storiesOf('Story', module)
     onCommentClick={action('Comment click')}
     onShareClick={action('Share click')}
   />)
-  .add('Full story', () => <StoryFull post={post} />);
+  .add('Full story', () => <StoryFull
+    post={post}
+    onLikeClick={action('Like click')}
+    onDislikeClick={action('Dislike click')}
+    onCommentClick={action('Comment click')}
+    onShareClick={action('Share click')}
+  />);
 
 storiesOf('Profile', module)
   .add('UserHeader', () => <UserHeader username="roelandp" />)
