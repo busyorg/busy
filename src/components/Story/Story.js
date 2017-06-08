@@ -2,7 +2,6 @@ import React, { PropTypes } from 'react';
 import { FormattedRelative } from 'react-intl';
 import { Menu } from 'antd';
 import { Link } from 'react-router';
-import Lightbox from 'react-image-lightbox';
 import embedjs from 'embedjs';
 import PostFeedEmbed from '../../post/PostFeedEmbed';
 import StoryFooter from './StoryFooter';
@@ -47,32 +46,6 @@ class Story extends React.Component {
     userFollowed: false,
   };
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      lightbox: {
-        open: false,
-        index: 0,
-      },
-    };
-  }
-
-  onContentClick = (e) => {
-    if (e.target.tagName === 'IMG') {
-      const tags = this.contentDiv.getElementsByTagName('img');
-      for (let i = 0; i < tags.length; i++) {
-        if (tags[i] === e.target) {
-          this.setState({
-            lightbox: {
-              open: true,
-              index: i,
-            },
-          });
-        }
-      }
-    }
-  }
-
   handleClick = (e) => {
     switch (e.key) {
       case 'follow':
@@ -107,9 +80,6 @@ class Story extends React.Component {
       imagePath = `https://steemitimages.com/600x800/${bodyImg[0]}`;
     }
     const embeds = embedjs.getAll(post.body);
-
-    const { open, index } = this.state.lightbox;
-    const images = JSON.parse(post.json_metadata).image;
 
     const preview = {
       text: () => (
@@ -177,33 +147,6 @@ class Story extends React.Component {
           <h2 className="Story__content__title">{post.title}</h2>
           {bodyData}
         </div>
-        {
-          open && <Lightbox
-            mainSrc={images[index]}
-            nextSrc={images[(index + 1) % images.length]}
-            prevSrc={images[(index + (images.length - 1)) % images.length]}
-            onCloseRequest={() => {
-              this.setState({
-                lightbox: {
-                  ...this.state.lightbox,
-                  open: false,
-                },
-              });
-            }}
-            onMovePrevRequest={() => this.setState({
-              lightbox: {
-                ...this.state.lightbox,
-                index: (index + (images.length - 1)) % images.length,
-              },
-            })}
-            onMoveNextRequest={() => this.setState({
-              lightbox: {
-                ...this.state.lightbox,
-                index: (index + (images.length + 1)) % images.length,
-              },
-            })}
-          />
-        }
         <StoryFooter
           post={post}
           onLikeClick={onLikeClick}
