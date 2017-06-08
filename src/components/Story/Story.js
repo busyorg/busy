@@ -3,10 +3,22 @@ import { FormattedRelative } from 'react-intl';
 import { Menu } from 'antd';
 import { Link } from 'react-router';
 import Lightbox from 'react-image-lightbox';
+import embedjs from 'embedjs';
+import PostFeedEmbed from '../../post/PostFeedEmbed';
 import StoryFooter from './StoryFooter';
-import Body from '../../post/Body';
+import BodyShort from '../../post/BodyShort';
+import { jsonParse } from '../../helpers/formatter';
+import { image } from '../../helpers/steemitLinks';
 import Avatar from '../Avatar';
 import Topic from '../Button/Topic';
+import {
+  getPositions,
+  isPostStartsWithAPicture,
+  isPostStartsWithAnEmbed,
+  isPostWithPictureBeforeFirstHalf,
+  isPostWithEmbedBeforeFirstHalf
+} from '../../post/Feed/PostFeedCardHelper';
+import { getHtml } from '../../post/Body';
 import './Story.less';
 
 const SubMenu = Menu.SubMenu;
@@ -87,8 +99,49 @@ class Story extends React.Component {
       onShareClick
     } = this.props;
 
+    const jsonMetadata = jsonParse(this.props.post.json_metadata);
+    let imagePath = ''; let bodyImg;
+    if (jsonMetadata.image && jsonMetadata.image[0]) {
+      imagePath = `https://steemitimages.com/600x800/${jsonMetadata.image[0]}`;
+    } else if ((bodyImg = post.body.match(image())) && bodyImg.length) { // eslint-disable-line no-cond-assign
+      imagePath = `https://steemitimages.com/600x800/${bodyImg[0]}`;
+    }
+    const embeds = embedjs.getAll(post.body);
+
     const { open, index } = this.state.lightbox;
     const images = JSON.parse(post.json_metadata).image;
+
+    const preview = {
+      text: () => (
+        <div className="Story__body">
+          <BodyShort body={post.body} />
+        </div>
+      ),
+
+      embed: () => (embeds && embeds[0]) && <PostFeedEmbed key="embed" embed={embeds[0]} />,
+
+      image: () => <img alt="post" key={imagePath} src={imagePath} />
+    };
+
+    const htmlBody = getHtml(post.body, {}, 'text');
+    const tagPositions = getPositions(htmlBody);
+    const bodyData = [];
+
+    if (isPostStartsWithAPicture(tagPositions)) {
+      bodyData.push(preview.image());
+      bodyData.push(preview.text());
+    } else if (isPostStartsWithAnEmbed(tagPositions)) {
+      bodyData.push(preview.embed());
+      bodyData.push(preview.text());
+    } else if (isPostWithPictureBeforeFirstHalf(tagPositions)) {
+      bodyData.push(preview.text());
+      bodyData.push(preview.image());
+    } else if (isPostWithEmbedBeforeFirstHalf(tagPositions)) {
+      bodyData.push(preview.text());
+      bodyData.push(preview.embed());
+    } else {
+      bodyData.push(preview.text());
+    }
 
     return (
       <div className="Story">
@@ -122,7 +175,7 @@ class Story extends React.Component {
         </div>
         <div className="Story__content" ref={(div) => { this.contentDiv = div; }} onClick={this.onContentClick}>
           <h2 className="Story__content__title">{post.title}</h2>
-          <Body body={post.body} json_metadata={post.json_metadata} />
+          {bodyData}
         </div>
         {
           open && <Lightbox

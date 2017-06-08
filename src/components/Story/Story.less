@@ -60,19 +60,23 @@
     margin: 0 2px;
   }
 
+  &__body {
+    padding: 8px 0;
+  }
+
   &__content {
     &__title {
       font-size: 20px;
       margin: 8px 0;
     }
 
-    & p {
-      margin: 8px 0;
+    & p, & span {
       line-height: 20px;
     }
 
     & img {
-      max-width: 100%;
+      max-width: @width - 2px;
+      margin-left: -16px;
       display: block;
     }
   }
