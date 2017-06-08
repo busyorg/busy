@@ -55,21 +55,41 @@ const StoryFooter = ({ post, onLikeClick, onDislikeClick, onCommentClick, onShar
         {payoutValue}
       </Tooltip>
     </span>
-    <a className="StoryFooter__link" onClick={() => onLikeClick()}>
-      <i className="iconfont icon-praise_fill" />
-      <span className="StoryFooter__number">{likesValue}</span>
-    </a>
+    <Tooltip
+      title="Like"
+      placement="bottom"
+    >
+      <a className="StoryFooter__link" onClick={() => onLikeClick()}>
+        <i className="iconfont icon-praise_fill" />
+        <span className="StoryFooter__number">{likesValue}</span>
+      </a>
+    </Tooltip>
+    <Tooltip
+      title="Dislike"
+      placement="bottom"
+    >
     <a className="StoryFooter__link" onClick={() => onDislikeClick()}>
       <i className="iconfont icon-praise_fill StoryFooter__dislike" />
       <span className="StoryFooter__number">{dislikesValue}</span>
     </a>
+    </Tooltip>
+    <Tooltip
+      title="Comment"
+      placement="bottom"
+    >
     <a className="StoryFooter__link" onClick={() => onCommentClick()}>
       <i className="iconfont icon-message_fill" />
       <span className="StoryFooter__number">{commentsValue}</span>
     </a>
+    </Tooltip>
+    <Tooltip
+      title="Reblog"
+      placement="bottom"
+    >
     <a className="StoryFooter__link" onClick={() => onShareClick()}>
       <i className="iconfont icon-send StoryFooter__share" />
     </a>
+    </Tooltip>
   </div>);
 };
 
