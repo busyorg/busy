@@ -14,6 +14,7 @@ import Topnav from './components/Navigation/Topnav';
 import Sidenav from './components/Navigation/Sidenav';
 import Story from './components/Story/Story';
 import StoryFull from './components/Story/StoryFull';
+import Feed from './components/Feed';
 import UserMenu from './components/UserMenu';
 import UserHeader from './components/UserHeader';
 import '../src/styles/common.less';
@@ -57,7 +58,7 @@ storiesOf('Sidebar', module)
     ]}
   />);
 
-storiesOf('Story', module)
+storiesOf('Feed', module)
   .add('Inline story', () => <Story
     post={post}
     onFollowClick={action('Follow click')}
@@ -77,7 +78,8 @@ storiesOf('Story', module)
     onDislikeClick={action('Dislike click')}
     onCommentClick={action('Comment click')}
     onShareClick={action('Share click')}
-  />);
+  />)
+  .add('Feed', () => <Feed posts={[post, post]} />);
 
 storiesOf('Profile', module)
   .add('UserHeader', () => <UserHeader username="roelandp" />)
