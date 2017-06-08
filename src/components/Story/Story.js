@@ -83,7 +83,7 @@ class Story extends React.Component {
 
     const preview = {
       text: () => (
-        <div className="Story__body">
+        <div key="text" className="Story__body">
           <BodyShort body={post.body} />
         </div>
       ),
@@ -91,7 +91,7 @@ class Story extends React.Component {
       embed: () => (embeds && embeds[0]) && <PostFeedEmbed key="embed" embed={embeds[0]} />,
 
       image: () => (
-        <Link to={post.url}>
+        <Link key="image" to={post.url}>
           <img alt="post" key={imagePath} src={imagePath} />
         </Link>
       ),
