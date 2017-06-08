@@ -8,7 +8,6 @@ const StoryFooter = ({ post, onLikeClick, onDislikeClick, onCommentClick, onShar
   const likesValue = numeral(post.active_votes.filter(vote => vote.percent > 0).length).format('0,0');
   const dislikesValue = numeral(post.active_votes.filter(vote => vote.percent < 0).length).format('0,0');
   const commentsValue = numeral(post.children).format('0,0');
-  const sharesValue = 0;
 
   return (<div className="StoryFooter">
     <span className="StoryFooter__payout">{payoutValue}</span>
@@ -25,8 +24,7 @@ const StoryFooter = ({ post, onLikeClick, onDislikeClick, onCommentClick, onShar
       <span className="StoryFooter__number">{commentsValue}</span>
     </a>
     <a className="StoryFooter__link" onClick={() => onShareClick()}>
-      <i className="iconfont icon-share_fill StoryFooter__share" />
-      <span className="StoryFooter__number">{sharesValue}</span>
+      <i className="iconfont icon-send StoryFooter__share" />
     </a>
   </div>);
 };
