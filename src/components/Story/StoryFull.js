@@ -95,9 +95,11 @@ class StoryFull extends React.Component {
           {post.title}
         </h1>
         <div className="StoryFull__header">
-          <Avatar username={post.author} size={60} />
+          <Link to={`/@${post.author}`}>
+            <Avatar username={post.author} size={60} />
+          </Link>
           <div className="StoryFull__header__text">
-            <Link to={`/${post.author}`}>
+            <Link to={`/@${post.author}`}>
               {post.author}
             </Link>
             <span className="StoryFull__header__text__date">

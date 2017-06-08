@@ -105,9 +105,11 @@ class Story extends React.Component {
           </SubMenu>
         </Menu>
         <div className="Story__header">
-          <Avatar username={post.author} size={40} />
+          <Link to={`/@${post.author}`}>
+            <Avatar username={post.author} size={40} />
+          </Link>
           <div className="Story__header__text">
-            <Link to={`/${post.author}`}>
+            <Link to={`/@${post.author}`}>
               <h4>{post.author}</h4>
             </Link>
             <span className="Story__date">
