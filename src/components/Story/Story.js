@@ -90,7 +90,11 @@ class Story extends React.Component {
 
       embed: () => (embeds && embeds[0]) && <PostFeedEmbed key="embed" embed={embeds[0]} />,
 
-      image: () => <img alt="post" key={imagePath} src={imagePath} />
+      image: () => (
+        <Link to={post.url}>
+          <img alt="post" key={imagePath} src={imagePath} />
+        </Link>
+      ),
     };
 
     const htmlBody = getHtml(post.body, {}, 'text');
@@ -144,8 +148,13 @@ class Story extends React.Component {
           </div>
         </div>
         <div className="Story__content" ref={(div) => { this.contentDiv = div; }} onClick={this.onContentClick}>
-          <h2 className="Story__content__title">{post.title}</h2>
+          <Link to={post.url}>
+            <h2 className="Story__content__title">{post.title}</h2>
+          </Link>
           {bodyData}
+          <Link to={post.url}>
+            Read more
+          </Link>
         </div>
         <StoryFooter
           post={post}
