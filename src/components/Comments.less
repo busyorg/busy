@@ -1,0 +1,24 @@
+@import "../styles/custom.less";
+
+.Comments {
+  max-width: 990px;
+  margin: 0 auto;
+  
+  &__sort {
+    text-align: right;
+
+    & > a {
+      margin: 0 8px;
+      font-weight: bold;
+      color: #99aab5 !important;
+
+      &:hover {
+        color: @purple !important;
+      }
+
+      &.active {
+        color: @purple !important;
+      }
+    }
+  }
+}

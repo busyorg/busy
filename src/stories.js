@@ -14,6 +14,7 @@ import Topnav from './components/Navigation/Topnav';
 import Sidenav from './components/Navigation/Sidenav';
 import UserMenu from './components/UserMenu';
 import UserHeader from './components/UserHeader';
+import Comments from './components/Comments';
 import '../src/styles/common.less';
 
 addDecorator(story => (
@@ -58,4 +59,6 @@ storiesOf('Sidebar', module)
 storiesOf('Profile', module)
   .add('UserHeader', () => <UserHeader username="roelandp" />)
   .add('UserMenu', () => <UserMenu discussions={1521} comments={21} following={244} onChange={action('Section changed')} />);
-           
+
+storiesOf('Comments', module)
+  .add('Comments', () => <Comments />);
