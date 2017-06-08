@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import _ from 'lodash';
 import { FormattedRelative } from 'react-intl';
 import { Link } from 'react-router';
 import { Menu } from 'antd';
@@ -6,6 +7,7 @@ import Lightbox from 'react-image-lightbox';
 import Body from '../../post/Body';
 import StoryFooter from './StoryFooter';
 import Avatar from '../Avatar';
+import Topic from '../Button/Topic';
 import './StoryFull.less';
 
 const SubMenu = Menu.SubMenu;
@@ -88,6 +90,7 @@ class StoryFull extends React.Component {
 
     const { open, index } = this.state.lightbox;
     const images = JSON.parse(post.json_metadata).image;
+    const tags = _.union(JSON.parse(post.json_metadata).tags, [post.category]);
 
     return (
       <div className="StoryFull">
@@ -118,6 +121,11 @@ class StoryFull extends React.Component {
               <Menu.Item key="report"><i className="iconfont icon-flag StoryFull__submenu__icon" /> Report post</Menu.Item>
             </SubMenu>
           </Menu>
+        </div>
+        <div className="StoryFull__topics">
+          {
+            tags && tags.map((tag, i) => <Topic key={i} name={tag} />)
+          }
         </div>
         <div className="StoryFull__content" ref={(div) => { this.contentDiv = div; }} onClick={this.onContentClick}>
           <Body body={post.body} json_metadata={post.json_metadata} />
