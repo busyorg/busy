@@ -79,7 +79,7 @@ storiesOf('Feed', module)
     onCommentClick={action('Comment click')}
     onShareClick={action('Share click')}
   />)
-  .add('Feed', () => <Feed posts={[post, post]} />);
+  .add('Feed', () => <Feed />);
 
 storiesOf('Profile', module)
   .add('UserHeader', () => <UserHeader username="roelandp" />)
