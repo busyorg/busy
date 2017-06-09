@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import classNames from 'classnames';
 import Comment from './Comment';
 import './Comments.less';
@@ -21,6 +21,7 @@ class Comments extends React.Component {
   };
 
   render() {
+    const { comments } = this.props;
     return (
       <div className="Comments">
         <div className="Comments__sort" onClick={this.handleSortClick}>
@@ -28,9 +29,15 @@ class Comments extends React.Component {
           <a className={classNames({ active: this.state.sort === 'TRENDING' })} data-type="TRENDING">Trending</a>
           <a className={classNames({ active: this.state.sort === 'NEWEST' })} data-type="NEWEST">Newest</a>
         </div>
-        <Comment />
+        {
+          comments && comments.map(comment => <Comment key={comment.id} comment={comment} />)
+        }
       </div>);
   }
 }
+
+Comments.propTypes = {
+  comments: PropTypes.arrayOf(PropTypes.shape()),
+};
 
 export default Comments;

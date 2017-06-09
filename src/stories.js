@@ -3,7 +3,7 @@ import { addDecorator, storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { link } from '@storybook/addon-links';
 import { IntlProvider } from 'react-intl';
-import { post, postWithEmbed, notifications } from './stories.data';
+import { post, postWithEmbed, postState, notifications } from './stories.data';
 import StartNow from '../src/components/Sidebar/StartNow';
 import Topics from '../src/components/Sidebar/Topics';
 import InterestingPeople from '../src/components/Sidebar/InterestingPeople';
@@ -104,5 +104,9 @@ storiesOf('Profile', module)
   .add('UserHeader', () => <UserHeader username="roelandp" />)
   .add('UserMenu', () => <UserMenu discussions={1521} comments={21} following={244} onChange={action('Section changed')} />);
 
+const comments = Object.keys(postState.content)
+  .filter(key => postState.content[key].depth === 1)
+  .map(commentKey => postState.content[commentKey]);
+
 storiesOf('Comments', module)
-  .add('Comments', () => <Comments />);
+  .add('Comments', () => <Comments comments={comments} />);
