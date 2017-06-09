@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { Link } from 'react-router';
 import { FormattedRelative } from 'react-intl';
 import { Tooltip } from 'antd';
-import Avatar from './Avatar';
+import Avatar from '../Avatar';
 import './Comments.less';
 
 class Comments extends React.Component {
@@ -42,8 +42,8 @@ class Comments extends React.Component {
             </span>
             <div className="Comments__comment__content">
               Add the ability to raise and track funds directly through SteemPoll leveraging Steem’s escrow (multi-signature) features, establish fundraising deadlines, and returning of funds to donors in the event the minimum is not reached
-Please discuss this option below via comments.
-You can see results on www.steempoll.net
+              Please discuss this option below via comments.
+              You can see results on www.steempoll.net
             </div>
             <div className="Comments__comment__footer">
               <Tooltip title="Like" placement="bottom">

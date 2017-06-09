@@ -14,7 +14,7 @@ import Topnav from './components/Navigation/Topnav';
 import Sidenav from './components/Navigation/Sidenav';
 import UserMenu from './components/UserMenu';
 import UserHeader from './components/UserHeader';
-import Comments from './components/Comments';
+import Comments from './components/Comments/Comments';
 import '../src/styles/common.less';
 
 addDecorator(story => (
