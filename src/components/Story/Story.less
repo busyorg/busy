@@ -1,0 +1,84 @@
+@import "../../styles/custom.less";
+
+@width: 520px;
+
+.Story {
+  position: relative;
+  max-width: @width;
+  border-radius: 4px;
+  background-color: @white;
+  color: #353535;
+  border: solid 1px #e9e7e7;
+
+  &__submenu__icon {
+    font-size: 20px !important;
+    vertical-align: -1px;
+  }
+
+  &__more {
+    position: absolute;
+    right: 16px;
+    top: 4px;
+    background-color: transparent !important;
+    border-bottom: none !important;
+
+    &__item {
+      border-bottom: none !important;
+
+      & > ul {
+        left: -128px !important;
+      }
+
+      & > div {
+        padding: 0 2px !important;
+      }
+    }
+
+    &__icon {
+      font-size: 20px !important;
+      color: #c2ccd3;
+    }
+  }
+
+  &__header {
+    padding: 16px;
+    display: flex;
+
+    &__text {
+      margin: 0 12px;
+    }
+  }
+
+  &__date {
+    position: relative;
+    top: -2px;
+    font-size: 14px;
+    color: #99aab5;
+  }
+
+  &__topics > button {
+    margin: 0 2px;
+  }
+
+  &__content {
+    &__title {
+      font-size: 20px;
+      margin: 0 16px 8px;
+      color: #353535 !important;
+    }
+
+    &__body {
+      padding: 4px 16px;
+    }
+
+    & img {
+      width: 100%;
+      display: block;
+      margin: 4px 0;
+    }
+  }
+
+  &__footer {
+    padding: 0 16px;
+  }
+}
