@@ -9,7 +9,7 @@ import { jsonParse } from '../../helpers/formatter';
 import sanitizeConfig from '../../helpers/SanitizeConfig';
 import { imageRegex } from '../../helpers/regexHelpers';
 import htmlReady from '../../helpers/steemitHtmlReady';
-import PostFeedEmbed from '../../post/PostFeedEmbed';
+import PostFeedEmbed from './PostFeedEmbed';
 
 const remarkable = new Remarkable({
   html: true, // remarkable renders first then sanitize runs...
