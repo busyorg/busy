@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 import embedjs from 'embedjs';
 import PostFeedEmbed from '../../post/PostFeedEmbed';
 import StoryFooter from './StoryFooter';
-import BodyShort from '../../post/BodyShort';
+import BodyShort from './BodyShort';
 import { jsonParse } from '../../helpers/formatter';
 import { image } from '../../helpers/steemitLinks';
 import Avatar from '../Avatar';

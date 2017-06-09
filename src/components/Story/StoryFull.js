@@ -4,7 +4,7 @@ import { FormattedRelative } from 'react-intl';
 import { Link } from 'react-router';
 import { Menu } from 'antd';
 import Lightbox from 'react-image-lightbox';
-import Body from '../../post/Body';
+import Body from './Body';
 import StoryFooter from './StoryFooter';
 import Avatar from '../Avatar';
 import Topic from '../Button/Topic';
