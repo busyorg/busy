@@ -22,7 +22,9 @@ const Comment = ({ comment, commentsChildren }) => {
           {comment.author}
         </Link>
         <span className="Comment__date">
-          <FormattedRelative value={`${comment.created}Z`} />
+          <Link to={comment.permalink}>
+            <FormattedRelative value={`${comment.created}Z`} />
+          </Link>
         </span>
         <div className="Comment__content">
           {comment.body}
