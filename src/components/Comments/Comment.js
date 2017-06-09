@@ -24,13 +24,13 @@ const Comment = () =>
         <Tooltip title="Like" placement="bottom">
           <a className="Comment__footer__link">
             <i className="iconfont icon-praise_fill" />
-            <span className="Comment__footer__link__number">55</span>
+            55
           </a>
         </Tooltip>
         <Tooltip title="Dislike" placement="bottom">
           <a className="Comment__footer__link">
-            <i className="iconfont icon-praise_fill Comments__icon_dislike" />
-            <span className="Comment__footer__link__number">55</span>
+            <i className="iconfont icon-praise_fill Comment__icon_dislike" />
+            55
           </a>
         </Tooltip>
         <span className="Comment__footer__bullet" />
