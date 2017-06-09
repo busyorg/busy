@@ -87,12 +87,12 @@ export default class Page extends React.Component {
         {!auth.isFetching && !auth.isAuthenticated && !category &&
           <Hero />
         }
-        {!auth.isFetching &&
+        {/* {!auth.isFetching &&
           <MenuFeed
             auth={auth}
             category={category}
           />
-        }
+        }*/}
         {category &&
           <h2 className="mt-3 text-center">
             <span className="text-info">#</span>

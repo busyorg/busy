@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { IntlProvider } from 'react-intl';
+import { Layout } from 'antd';
 import { GatewayProvider, GatewayDest } from 'react-gateway';
 import { withRouter } from 'react-router-dom';
 import { login } from './auth/authActions';
@@ -10,15 +11,17 @@ import { getMessages, getLocale } from './translations/translationHelper';
 import { getStoredBookmarks } from './bookmarks/bookmarksActions';
 import Notification from './app/Notification/Notification';
 import { LeftSidebar, RightSidebar } from './app/Sidebar/index';
-import Header from './app/Header';
+import Topnav from './components/Navigation/Topnav';
 import * as reblogActions from './app/Reblog/reblogActions';
 import config from '../config.json';
 import './translations/Translations';
 
+const { Header, Content, Sider } = Layout;
 @withRouter
 @connect(
   state => ({
     app: state.app,
+    auth: state.auth
   }),
   {
     login,
@@ -59,9 +62,8 @@ export default class Wrapper extends PureComponent {
 
   render() {
     const { messages } = this.state;
-    const { app } = this.props;
+    const { app, auth } = this.props;
     const locale = getLocale(app.locale, messages);
-    const className = 'app-wrapper full-width';
     let translations = messages[app.locale || locale] || {};
     if (messages.en) {
       translations = { ...messages.en, ...translations };
@@ -70,16 +72,20 @@ export default class Wrapper extends PureComponent {
     return (
       <IntlProvider locale={locale} messages={translations}>
         <GatewayProvider>
-          <div className={className}>
-            <Header />
+          <Layout>
+            <Header>
+              <Topnav username={auth.user.name} />
+            </Header>
             <Notification />
-            <LeftSidebar />
-            {this.props.children}
-            <RightSidebar />
+            <Layout>
+              <Sider><LeftSidebar /></Sider>
+              <Content>{this.props.children}</Content>
+              <Sider><RightSidebar /></Sider>
+            </Layout>
             <GatewayDest name="tooltip" />
             <GatewayDest name="popover" />
             <GatewayDest name="modal" />
-          </div>
+          </Layout>
         </GatewayProvider>
       </IntlProvider>
     );

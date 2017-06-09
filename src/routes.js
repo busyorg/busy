@@ -1,5 +1,6 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+
+import { Route, Switch, Redirect } from 'react-router-dom';
 import Wrapper from './wrapper';
 import Settings from './app/AppSettings';
 
@@ -26,6 +27,7 @@ import About from './statics/About';
 import Help from './statics/Help';
 import Team from './statics/Team';
 import Signup from './auth/Signup';
+import Signin from './auth/Signin';
 import Login from './auth/Login';
 import RequireLogin from './auth/RequireLogin';
 import MessagesUser from './messages/MessagesUser';
@@ -49,7 +51,8 @@ export default (
   <Wrapper>
     <Switch>
       <Route exact path="/" component={Page} />
-      <Route path="/login" component={Login} />
+      {/* <Route path="/login" component={Login} />*/}
+      <Route path="/signin" component={Signin} />
       <Route path="/signup" component={Signup} />
       <Route path="/help" component={Help} />
       <Route path="/about" component={About} />
