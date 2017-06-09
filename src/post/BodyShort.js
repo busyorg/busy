@@ -11,7 +11,7 @@ function decodeEntities(body) {
 
 const BodyShort = (props) => {
   let body = striptags(remarkable.render(striptags(decodeEntities(props.body))));
-  body = body.replace(/(?:https?|ftp):\/\/[\n\S]+/g, '');
+  body = body.replace(/(?:https?|ftp):\/\/[\S]+/g, '');
   return (<span>
     <span dangerouslySetInnerHTML={{ __html: ellipsis(body, 140, { ellipsis: '…' }) }} />
   </span>);
