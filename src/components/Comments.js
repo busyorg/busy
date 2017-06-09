@@ -2,6 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import { Link } from 'react-router';
 import { FormattedRelative } from 'react-intl';
+import { Tooltip } from 'antd';
 import Avatar from './Avatar';
 import './Comments.less';
 
@@ -45,14 +46,18 @@ Please discuss this option below via comments.
 You can see results on www.steempoll.net
             </div>
             <div className="Comments__comment__footer">
-              <a className="Comments__comment__footer__link">
-                <i className="iconfont icon-praise_fill" />
-                <span className="Comments__comment__footer__link__number">55</span>
-              </a>
-              <a className="Comments__comment__footer__link">
-                <i className="iconfont icon-praise_fill Comments__icon_dislike" />
-                <span className="Comments__comment__footer__link__number">55</span>
-              </a>
+              <Tooltip title="Like" placement="bottom">
+                <a className="Comments__comment__footer__link">
+                  <i className="iconfont icon-praise_fill" />
+                  <span className="Comments__comment__footer__link__number">55</span>
+                </a>
+              </Tooltip>
+              <Tooltip title="Dislike" placement="bottom">
+                <a className="Comments__comment__footer__link">
+                  <i className="iconfont icon-praise_fill Comments__icon_dislike" />
+                  <span className="Comments__comment__footer__link__number">55</span>
+                </a>
+              </Tooltip>
               <span className="Comments__comment__footer__bullet" />
               <span className="Comments__comment__footer__payout">$51.22</span>
             </div>
