@@ -3,6 +3,7 @@ import numeral from 'numeral';
 import { Link } from 'react-router';
 import { FormattedRelative, FormattedDate, FormattedTime } from 'react-intl';
 import { Tooltip } from 'antd';
+import PayoutDetail from '../PayoutDetail';
 import Avatar from '../Avatar';
 import './Comment.less';
 
@@ -53,7 +54,11 @@ const Comment = ({ comment, commentsChildren }) => {
             </a>
           </Tooltip>
           <span className="Comment__footer__bullet" />
-          <span className="Comment__footer__payout">{payoutValue}</span>
+          <span className="Comment__footer__payout">
+            <Tooltip title={<PayoutDetail post={comment} />} placement="bottom">
+              {payoutValue}
+            </Tooltip>
+          </span>
         </div>
         <div className="Comment__replies">
           {
