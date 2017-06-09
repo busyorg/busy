@@ -122,11 +122,6 @@ class StoryFull extends React.Component {
             </SubMenu>
           </Menu>
         </div>
-        <div className="StoryFull__topics">
-          {
-            tags && tags.map((tag, i) => <Topic key={i} name={tag} />)
-          }
-        </div>
         <div className="StoryFull__content" ref={(div) => { this.contentDiv = div; }} onClick={this.onContentClick}>
           <Body body={post.body} json_metadata={post.json_metadata} />
         </div>
@@ -157,6 +152,11 @@ class StoryFull extends React.Component {
             })}
           />
         }
+        <div className="StoryFull__topics">
+          {
+            tags && tags.map((tag, i) => <Topic key={i} name={tag} />)
+          }
+        </div>
         <StoryFooter
           post={post}
           onLikeClick={onLikeClick}
