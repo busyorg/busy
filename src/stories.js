@@ -104,9 +104,16 @@ storiesOf('Profile', module)
   .add('UserHeader', () => <UserHeader username="roelandp" />)
   .add('UserMenu', () => <UserMenu discussions={1521} comments={21} following={244} onChange={action('Section changed')} />);
 
-const comments = Object.keys(postState.content)
+const rootComments = Object.keys(postState.content)
   .filter(key => postState.content[key].depth === 1)
   .map(commentKey => postState.content[commentKey]);
 
+const commentsChildren = {};
+Object.keys(postState.content)
+  .forEach((key) => {
+    commentsChildren[postState.content[key].id] = postState.content[key].replies
+      .map(childrenId => postState.content[childrenId]);
+  });
+
 storiesOf('Comments', module)
-  .add('Comments', () => <Comments comments={comments} />);
+  .add('Comments', () => <Comments comments={rootComments} commentsChildren={commentsChildren} />);

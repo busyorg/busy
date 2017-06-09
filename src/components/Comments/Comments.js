@@ -21,7 +21,8 @@ class Comments extends React.Component {
   };
 
   render() {
-    const { comments } = this.props;
+    const { comments, commentsChildren } = this.props;
+    
     return (
       <div className="Comments">
         <div className="Comments__sort" onClick={this.handleSortClick}>
@@ -30,7 +31,9 @@ class Comments extends React.Component {
           <a className={classNames({ active: this.state.sort === 'NEWEST' })} data-type="NEWEST">Newest</a>
         </div>
         {
-          comments && comments.map(comment => <Comment key={comment.id} comment={comment} />)
+          comments && comments.map(comment =>
+            <Comment key={comment.id} comment={comment} commentsChildren={commentsChildren} />
+          )
         }
       </div>);
   }
@@ -38,6 +41,7 @@ class Comments extends React.Component {
 
 Comments.propTypes = {
   comments: PropTypes.arrayOf(PropTypes.shape()),
+  commentsChildren: PropTypes.shape(),
 };
 
 export default Comments;

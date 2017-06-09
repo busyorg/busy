@@ -6,7 +6,7 @@ import { Tooltip } from 'antd';
 import Avatar from '../Avatar';
 import './Comment.less';
 
-const Comment = ({ comment }) => {
+const Comment = ({ comment, commentsChildren }) => {
   const pendingPayoutValue = parseFloat(comment.pending_payout_value);
   const totalPayoutValue = parseFloat(comment.total_payout_value);
   const payoutValue = numeral(totalPayoutValue || pendingPayoutValue).format('$0,0.000');
@@ -43,12 +43,21 @@ const Comment = ({ comment }) => {
           <span className="Comment__footer__bullet" />
           <span className="Comment__footer__payout">{payoutValue}</span>
         </div>
+        <div className="Comment__replies">
+          {
+            commentsChildren &&
+            commentsChildren[comment.id] &&
+            commentsChildren[comment.id]
+              .map(child => <Comment comment={child} commentsChildren={commentsChildren} />)
+          }
+        </div>
       </div>
     </div>);
 };
 
 Comment.propTypes = {
   comment: PropTypes.shape(),
+  commentsChildren: PropTypes.shape(),
 };
 
 export default Comment;
