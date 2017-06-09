@@ -87,6 +87,16 @@ storiesOf('Story', module)
     onDislikeClick={action('Dislike click')}
     onCommentClick={action('Comment click')}
     onShareClick={action('Share click')}
+  />)
+  .add('Full story with embed', () => <StoryFull
+    post={postWithEmbed}
+    onFollowClick={action('Follow click')}
+    onSaveClick={action('Save click')}
+    onReportClick={action('Report click')}
+    onLikeClick={action('Like click')}
+    onDislikeClick={action('Dislike click')}
+    onCommentClick={action('Comment click')}
+    onShareClick={action('Share click')}
   />);
 
 storiesOf('Profile', module)
