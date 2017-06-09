@@ -3,7 +3,7 @@ import { addDecorator, storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { link } from '@storybook/addon-links';
 import { IntlProvider } from 'react-intl';
-import { notifications } from './stories.data';
+import { post, postWithEmbed, notifications } from './stories.data';
 import StartNow from '../src/components/Sidebar/StartNow';
 import Topics from '../src/components/Sidebar/Topics';
 import InterestingPeople from '../src/components/Sidebar/InterestingPeople';
@@ -12,6 +12,8 @@ import Follow from '../src/components/Button/Follow';
 import Action from '../src/components/Button/Action';
 import Topnav from './components/Navigation/Topnav';
 import Sidenav from './components/Navigation/Sidenav';
+import Story from './components/Story/Story';
+import StoryFull from './components/Story/StoryFull';
 import UserMenu from './components/UserMenu';
 import UserHeader from './components/UserHeader';
 import Comments from './components/Comments/Comments';
@@ -54,6 +56,48 @@ storiesOf('Sidebar', module)
       { name: 'good-karma', about: '"Action expresses priorities!" / Witness - Developer of eSteem…' },
       { name: 'furion', about: 'I’ve developed SteemData and SteemSports. All things Python…' },
     ]}
+  />);
+
+storiesOf('Story', module)
+  .add('Inline story', () => <Story
+    post={post}
+    onFollowClick={action('Follow click')}
+    onSaveClick={action('Save click')}
+    onReportClick={action('Report click')}
+    onLikeClick={action('Like click')}
+    onDislikeClick={action('Dislike click')}
+    onCommentClick={action('Comment click')}
+    onShareClick={action('Share click')}
+  />)
+  .add('Inline story with embed', () => <Story
+    post={postWithEmbed}
+    onFollowClick={action('Follow click')}
+    onSaveClick={action('Save click')}
+    onReportClick={action('Report click')}
+    onLikeClick={action('Like click')}
+    onDislikeClick={action('Dislike click')}
+    onCommentClick={action('Comment click')}
+    onShareClick={action('Share click')}
+  />)
+  .add('Full story', () => <StoryFull
+    post={post}
+    onFollowClick={action('Follow click')}
+    onSaveClick={action('Save click')}
+    onReportClick={action('Report click')}
+    onLikeClick={action('Like click')}
+    onDislikeClick={action('Dislike click')}
+    onCommentClick={action('Comment click')}
+    onShareClick={action('Share click')}
+  />)
+  .add('Full story with embed', () => <StoryFull
+    post={postWithEmbed}
+    onFollowClick={action('Follow click')}
+    onSaveClick={action('Save click')}
+    onReportClick={action('Report click')}
+    onLikeClick={action('Like click')}
+    onDislikeClick={action('Dislike click')}
+    onCommentClick={action('Comment click')}
+    onShareClick={action('Share click')}
   />);
 
 storiesOf('Profile', module)

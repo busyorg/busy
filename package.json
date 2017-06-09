@@ -94,6 +94,7 @@
     "react-gateway": "^2.6.0",
     "react-helmet": "^5.0.2",
     "react-hot-loader": "next",
+    "react-image-lightbox": "^4.0.0",
     "react-intl": "^2.1.5",
     "react-is-scrolling": "^1.0.1",
     "react-modal2": "^3.1.0",

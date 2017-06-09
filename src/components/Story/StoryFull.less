@@ -1,0 +1,97 @@
+@import "../../styles/custom.less";
+
+.StoryFull {
+  max-width: 710px;
+  margin: 0 auto;
+
+  &__submenu__icon {
+    font-size: 20px !important;
+    vertical-align: -1px;
+  }
+
+  &__title {
+    color: #353535;
+    font-size: 26px;
+    font-weight: 500;
+  }
+
+  &__topics {
+    margin: 16px 0;
+
+    & > .Topic {
+      margin: 2px 4px 2px 0;
+    }
+  }
+
+  &__header {
+    position: relative;
+    display: flex;
+    padding: 24px 0 16px;
+
+    &__text {
+      margin-left: 16px;
+
+      & > a {
+        display: block;
+        font-size: 20px;
+        font-weight: bold;
+      }
+
+      &__date {
+        color: #99aab5;
+        font-size: 14px;
+      }
+    }
+
+    &__more {
+      position: absolute;
+      right: 0;
+      top: 24px;
+      background-color: transparent !important;
+      border-bottom: none !important;
+
+      &__item {
+        border-bottom: none !important;
+
+        & > ul {
+          left: -128px !important;
+        }
+
+        & > div {
+          padding: 0 2px !important;
+        }
+      }
+
+      &__icon {
+        font-size: 36px !important;
+        color: @purple;
+      }
+    }
+  }
+
+  &__content {
+    &__title {
+      font-size: 20px;
+      margin: 8px 0;
+    }
+
+    & h1, h2, h3, h4, h5, h6 {
+      margin: 8px 0;
+    }
+
+    & p:not(:empty) {
+      letter-spacing: 0.7px;
+      text-align: justify;
+      margin: 32px 0;
+      line-height: 30px;
+      font-size: 18px;
+    }
+
+
+    & img {
+      margin: 0 auto;
+      max-width: 100%;
+      display: block;
+    }
+  }
+}

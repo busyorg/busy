@@ -1,10 +1,11 @@
 import React, { PropTypes } from 'react';
+import { Link } from 'react-router';
 import './Topic.less';
 
 const Topic = ({ name, isFavorite }) =>
-  <button className={`Topic ${(isFavorite) ? 'Topic--favorite' : ''}`}>
+  <Link to={`/trending/${name}`} className={`Topic ${(isFavorite) ? 'Topic--favorite' : ''}`}>
     {name}
-  </button>;
+  </Link>;
 
 Topic.propTypes = {
   name: PropTypes.string,
