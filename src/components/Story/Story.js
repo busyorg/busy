@@ -153,13 +153,15 @@ class Story extends React.Component {
           </Link>
           {bodyData}
         </div>
-        <StoryFooter
-          post={post}
-          onLikeClick={onLikeClick}
-          onDislikeClick={onDislikeClick}
-          onCommentClick={onCommentClick}
-          onShareClick={onShareClick}
-        />
+        <div className="Story__footer">
+          <StoryFooter
+            post={post}
+            onLikeClick={onLikeClick}
+            onDislikeClick={onDislikeClick}
+            onCommentClick={onCommentClick}
+            onShareClick={onShareClick}
+          />
+        </div>
       </div>);
   }
 }
