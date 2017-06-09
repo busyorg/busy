@@ -65,7 +65,11 @@ const Comment = ({ comment, commentsChildren }) => {
             commentsChildren &&
             commentsChildren[comment.id] &&
             commentsChildren[comment.id]
-              .map(child => <Comment comment={child} commentsChildren={commentsChildren} />)
+              .map(child => <Comment
+                key={child.id}
+                comment={child}
+                commentsChildren={commentsChildren}
+              />)
           }
         </div>
       </div>
