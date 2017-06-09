@@ -41,7 +41,7 @@ export default class PostFeedEmbed extends Component {
     if (embed.provider_name === 'YouTube' && !this.state.showIframe) {
       return this.renderThumbFirst(embed.thumbnail);
     } else if (embed.embed) {
-      return this.renderWithIframe(embed.embed);
+      return PostFeedEmbed.renderWithIframe(embed.embed);
     }
     return <div />;
   }
