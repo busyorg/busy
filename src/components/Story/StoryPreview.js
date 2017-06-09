@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import embedjs from 'embedjs';
 import PostFeedEmbed from './PostFeedEmbed';
 import BodyShort from './BodyShort';

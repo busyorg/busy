@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import _ from 'lodash';
 import { FormattedRelative } from 'react-intl';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import { Menu } from 'antd';
 import Lightbox from 'react-image-lightbox';
 import Body from './Body';

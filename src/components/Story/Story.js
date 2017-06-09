@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { FormattedRelative } from 'react-intl';
 import { Menu } from 'antd';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import StoryPreview from './StoryPreview';
 import StoryFooter from './StoryFooter';
 import Avatar from '../Avatar';
