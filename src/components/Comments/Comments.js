@@ -9,13 +9,10 @@ const sortComments = (comments, sortType = 'BEST') => {
   switch (sortType) {
     case 'BEST':
       return sortedComments.sort((a, b) => a.net_votes - b.net_votes).reverse();
-    case 'TRENDING':
-      return sortedComments.sort((a, b) => {
-        const compareRes = parseFloat(a.pending_payout_value) - parseFloat(b.pending_payout_value);
-        return compareRes || a.net_votes - b.net_votes;
-      }).reverse();
     case 'NEWEST':
       return sortedComments.sort((a, b) => Date.parse(a.created) - Date.parse(b.created)).reverse();
+    case 'OLDEST':
+      return sortedComments.sort((a, b) => Date.parse(a.created) - Date.parse(b.created));
     default:
       return sortedComments;
   }
@@ -46,8 +43,8 @@ class Comments extends React.Component {
       <div className="Comments">
         <div className="Comments__sort" onClick={this.handleSortClick}>
           <a className={classNames({ active: sort === 'BEST' })} data-type="BEST">Best</a>
-          <a className={classNames({ active: sort === 'TRENDING' })} data-type="TRENDING">Trending</a>
           <a className={classNames({ active: sort === 'NEWEST' })} data-type="NEWEST">Newest</a>
+          <a className={classNames({ active: sort === 'OLDEST' })} data-type="OLDEST">Oldest</a>
         </div>
         {
           comments && sortComments(comments, sort).map(comment =>
