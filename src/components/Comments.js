@@ -40,7 +40,21 @@ class Comments extends React.Component {
               <FormattedRelative value="2017-06-06T13:46:37Z" />
             </span>
             <div className="Comments__comment__content">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              Add the ability to raise and track funds directly through SteemPoll leveraging Steem’s escrow (multi-signature) features, establish fundraising deadlines, and returning of funds to donors in the event the minimum is not reached
+Please discuss this option below via comments.
+You can see results on www.steempoll.net
+            </div>
+            <div className="Comments__comment__footer">
+              <a className="Comments__comment__footer__link">
+                <i className="iconfont icon-praise_fill" />
+                <span className="Comments__comment__footer__link__number">55</span>
+              </a>
+              <a className="Comments__comment__footer__link">
+                <i className="iconfont icon-praise_fill Comments__icon_dislike" />
+                <span className="Comments__comment__footer__link__number">55</span>
+              </a>
+              <span className="Comments__comment__footer__bullet" />
+              <span className="Comments__comment__footer__payout">$51.22</span>
             </div>
           </div>
         </div>
