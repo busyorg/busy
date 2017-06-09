@@ -3,7 +3,7 @@ import { FormattedRelative } from 'react-intl';
 import { Menu } from 'antd';
 import { Link } from 'react-router';
 import embedjs from 'embedjs';
-import PostFeedEmbed from '../../post/PostFeedEmbed';
+import PostFeedEmbed from './PostFeedEmbed';
 import StoryFooter from './StoryFooter';
 import BodyShort from './BodyShort';
 import { jsonParse } from '../../helpers/formatter';
@@ -83,7 +83,7 @@ class Story extends React.Component {
 
     const preview = {
       text: () => (
-        <div key="text" className="Story__body">
+        <div key="text" className="Story__content__body">
           <BodyShort body={post.body} />
         </div>
       ),
@@ -152,9 +152,6 @@ class Story extends React.Component {
             <h2 className="Story__content__title">{post.title}</h2>
           </Link>
           {bodyData}
-          <Link to={post.url}>
-            Read more
-          </Link>
         </div>
         <StoryFooter
           post={post}
