@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import numeral from 'numeral';
 import { Link } from 'react-router';
-import { FormattedRelative } from 'react-intl';
+import { FormattedRelative, FormattedDate, FormattedTime } from 'react-intl';
 import { Tooltip } from 'antd';
 import Avatar from '../Avatar';
 import './Comment.less';
@@ -22,9 +22,19 @@ const Comment = ({ comment, commentsChildren }) => {
           {comment.author}
         </Link>
         <span className="Comment__date">
-          <Link to={comment.permalink}>
-            <FormattedRelative value={`${comment.created}Z`} />
-          </Link>
+          <Tooltip
+            title={
+              <span>
+                <FormattedDate value={`${comment.created}Z`} />
+                {' '}
+                <FormattedTime value={`${comment.created}Z`} />
+              </span>
+            }
+          >
+            <Link to={comment.permalink}>
+              <FormattedRelative value={`${comment.created}Z`} />
+            </Link>
+          </Tooltip>
         </span>
         <div className="Comment__content">
           {comment.body}
