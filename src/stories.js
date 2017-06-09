@@ -1,4 +1,5 @@
 import React from 'react';
+import { MemoryRouter } from 'react-router';
 import { addDecorator, storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { link } from '@storybook/addon-links';
@@ -18,14 +19,15 @@ import UserMenu from './components/UserMenu';
 import UserHeader from './components/UserHeader';
 import '../src/styles/common.less';
 
-addDecorator(story => (
-  <IntlProvider locale="en">
-    <div style={{ padding: '40px', background: '#f9f9f9' }}>
-      {story()}
-    </div>
-  </IntlProvider>
-));
-
+addDecorator(story =>
+  <MemoryRouter initialEntries={['/']}>
+    <IntlProvider locale="en">
+      <div style={{ padding: '40px', background: '#f9f9f9' }}>
+        {story()}
+      </div>
+    </IntlProvider>
+  </MemoryRouter>
+);
 
 storiesOf('Button', module)
   .add('Topic', () => <Topic name="travel" />)
@@ -36,70 +38,98 @@ storiesOf('Button', module)
 
 storiesOf('Navigation', module)
   .add('Topnav unlogged', () => <Topnav />)
-  .add('Topnav logged', () => <Topnav
-    username="guest123"
-    notifications={notifications}
-    onNotificationClick={action('Notification click')}
-    onSeeAllClick={action('SeeAll click')}
-  />)
+  .add('Topnav logged', () =>
+    <Topnav
+      username="guest123"
+      notifications={notifications}
+      onNotificationClick={action('Notification click')}
+      onSeeAllClick={action('SeeAll click')}
+    />
+  )
   .add('Sidenav unlogged', () => <Sidenav />)
   .add('Sidenav logged', () => <Sidenav username="guest123" />);
 
 storiesOf('Sidebar', module)
   .add('Start now', () => <StartNow />)
-  .add('Favorite topics', () => <Topics favorite title="Favorite topics" topics={['funny', 'history', 'nature']} />)
-  .add('Trending topics', () => <Topics title="Trending topics" topics={['photography', 'steemit', 'introduceyourself', 'steem', 'story', 'blog']} />)
-  .add('Interesting People', () => <InterestingPeople
-    users={[
-      { name: 'liondani', about: 'Inch by Inch, Play by Play' },
-      { name: 'good-karma', about: '"Action expresses priorities!" / Witness - Developer of eSteem…' },
-      { name: 'furion', about: 'I’ve developed SteemData and SteemSports. All things Python…' },
-    ]}
-  />);
+  .add('Favorite topics', () =>
+    <Topics favorite title="Favorite topics" topics={['funny', 'history', 'nature']} />
+  )
+  .add('Trending topics', () =>
+    <Topics
+      title="Trending topics"
+      topics={['photography', 'steemit', 'introduceyourself', 'steem', 'story', 'blog']}
+    />
+  )
+  .add('Interesting People', () =>
+    <InterestingPeople
+      users={[
+        { name: 'liondani', about: 'Inch by Inch, Play by Play' },
+        {
+          name: 'good-karma',
+          about: '"Action expresses priorities!" / Witness - Developer of eSteem…'
+        },
+        { name: 'furion', about: 'I’ve developed SteemData and SteemSports. All things Python…' }
+      ]}
+    />
+  );
 
 storiesOf('Story', module)
-  .add('Inline story', () => <Story
-    post={post}
-    onFollowClick={action('Follow click')}
-    onSaveClick={action('Save click')}
-    onReportClick={action('Report click')}
-    onLikeClick={action('Like click')}
-    onDislikeClick={action('Dislike click')}
-    onCommentClick={action('Comment click')}
-    onShareClick={action('Share click')}
-  />)
-  .add('Inline story with embed', () => <Story
-    post={postWithEmbed}
-    onFollowClick={action('Follow click')}
-    onSaveClick={action('Save click')}
-    onReportClick={action('Report click')}
-    onLikeClick={action('Like click')}
-    onDislikeClick={action('Dislike click')}
-    onCommentClick={action('Comment click')}
-    onShareClick={action('Share click')}
-  />)
-  .add('Full story', () => <StoryFull
-    post={post}
-    onFollowClick={action('Follow click')}
-    onSaveClick={action('Save click')}
-    onReportClick={action('Report click')}
-    onLikeClick={action('Like click')}
-    onDislikeClick={action('Dislike click')}
-    onCommentClick={action('Comment click')}
-    onShareClick={action('Share click')}
-  />)
-  .add('Full story with embed', () => <StoryFull
-    post={postWithEmbed}
-    onFollowClick={action('Follow click')}
-    onSaveClick={action('Save click')}
-    onReportClick={action('Report click')}
-    onLikeClick={action('Like click')}
-    onDislikeClick={action('Dislike click')}
-    onCommentClick={action('Comment click')}
-    onShareClick={action('Share click')}
-  />);
+  .add('Inline story', () =>
+    <Story
+      post={post}
+      onFollowClick={action('Follow click')}
+      onSaveClick={action('Save click')}
+      onReportClick={action('Report click')}
+      onLikeClick={action('Like click')}
+      onDislikeClick={action('Dislike click')}
+      onCommentClick={action('Comment click')}
+      onShareClick={action('Share click')}
+    />
+  )
+  .add('Inline story with embed', () =>
+    <Story
+      post={postWithEmbed}
+      onFollowClick={action('Follow click')}
+      onSaveClick={action('Save click')}
+      onReportClick={action('Report click')}
+      onLikeClick={action('Like click')}
+      onDislikeClick={action('Dislike click')}
+      onCommentClick={action('Comment click')}
+      onShareClick={action('Share click')}
+    />
+  )
+  .add('Full story', () =>
+    <StoryFull
+      post={post}
+      onFollowClick={action('Follow click')}
+      onSaveClick={action('Save click')}
+      onReportClick={action('Report click')}
+      onLikeClick={action('Like click')}
+      onDislikeClick={action('Dislike click')}
+      onCommentClick={action('Comment click')}
+      onShareClick={action('Share click')}
+    />
+  )
+  .add('Full story with embed', () =>
+    <StoryFull
+      post={postWithEmbed}
+      onFollowClick={action('Follow click')}
+      onSaveClick={action('Save click')}
+      onReportClick={action('Report click')}
+      onLikeClick={action('Like click')}
+      onDislikeClick={action('Dislike click')}
+      onCommentClick={action('Comment click')}
+      onShareClick={action('Share click')}
+    />
+  );
 
 storiesOf('Profile', module)
   .add('UserHeader', () => <UserHeader username="roelandp" />)
-  .add('UserMenu', () => <UserMenu discussions={1521} comments={21} following={244} onChange={action('Section changed')} />);
-
+  .add('UserMenu', () =>
+    <UserMenu
+      discussions={1521}
+      comments={21}
+      following={244}
+      onChange={action('Section changed')}
+    />
+  );
