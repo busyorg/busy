@@ -1,37 +1,57 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router-dom';
+import './Sidenav.less';
 
-const Sidenav = () =>
-  <nav className="Sidenav navbar">
-    <ul className="navbar-nav">
-      <li className="nav-item">
-        <Link className="nav-link" to="#">
-          <span className="icon-smile" /> My Profile
+const Sidenav = ({ username }) =>
+  <div>
+    {(username) ? <ul className="Sidenav">
+      <li>
+        <Link to="#">
+          <i className="iconfont icon-mine" /> My Profile
         </Link>
       </li>
-      <li className="nav-item">
-        <Link className="nav-link" to="#">
-          <span className="icon-timer" /> Timeline
+      <li>
+        <Link to="#">
+          <i className="iconfont icon-clock" /> Timeline
         </Link>
       </li>
-      <li className="nav-item">
-        <Link className="nav-link" to="/trending">
-          <span className="icon-calendar" /> News
+      <li className="Sidenav__item--active">
+        <Link to="/trending">
+          <i className="iconfont icon-headlines" /> News
         </Link>
       </li>
-      <li className="nav-item">
-        <Link className="nav-link" to="/messages">
-          <span className="icon-chat" /> Messages
+      <li>
+        <Link to="/messages">
+          <i className="iconfont icon-message" /> Messages
         </Link>
       </li>
-      <li className="nav-item">
-        <Link className="nav-link" to="/wallet">
-          <span className="icon-touch_id" /> Wallet
+      <li>
+        <Link to="/wallet">
+          <i className="iconfont icon-lock" /> Wallet
+        </Link>
+      </li>
+    </ul> : <ul className="Sidenav">
+      <li className="Sidenav__item--active">
+        <Link to="#">
+          <i className="iconfont icon-headlines" /> News
+        </Link>
+      </li>
+      <li>
+        <Link to="#">
+          <i className="iconfont icon-group" /> Communities
+        </Link>
+      </li>
+      <li>
+        <Link to="/trending">
+          <i className="iconfont icon-service" /> Shopping
         </Link>
       </li>
     </ul>
-  </nav>;
+    }
+  </div>;
 
-Sidenav.propTypes = {};
+Sidenav.propTypes = {
+  username: PropTypes.string,
+};
 
 export default Sidenav;

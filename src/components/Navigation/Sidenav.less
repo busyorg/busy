@@ -1,0 +1,25 @@
+@import "../../styles/custom.less";
+
+.Sidenav {
+  & > li {
+    & > a {
+      color: #99aab5;
+      font-weight: 500;
+    
+      & > i {
+        margin-right: 5px;
+        vertical-align: -4px;
+      }
+    }
+  }
+}
+
+.Sidenav__item--active {
+  & > a {
+    color: @purple;
+
+    & > i {
+      color: @purple;
+    }
+  }
+}
