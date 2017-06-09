@@ -1,4 +1,6 @@
+import _ from 'lodash';
 import React from 'react';
+import { FormattedDate } from 'react-intl';
 // import { Route } from 'react-router-dom';
 // import User from '../../components/Sidebar/User';
 import { Route, Switch } from 'react-router-dom';
@@ -7,6 +9,8 @@ import { connect } from 'react-redux';
 import api from '../../steemAPI';
 import Topics from '../../components/Sidebar/Topics';
 import Sidenav from '../../components/Navigation/Sidenav';
+import Action from '../../components/Button/Action';
+import { jsonParse } from '../../helpers/formatter';
 
 class SidebarWithTopics extends React.PureComponent {
   constructor(props) {
@@ -55,7 +59,21 @@ const SidebarWrapper = ({ children }) =>
 export const LeftSidebar = connect(({ auth }) => ({ auth }))(({ auth }) =>
   <Switch>
     <Route
-      exact
+      path="/@:name"
+      render={() =>
+        <SidebarWrapper>
+          {auth.user.name &&
+            <div>
+              {_.get(jsonParse(auth.user.json_metadata), 'profile.about')}<br />
+              Joined
+              {' '}
+              <FormattedDate value={auth.user.created} year="numeric" month="long" day="numeric" />
+            </div>}
+          <Action text="Transfer" />
+          <Action text="Message" />
+        </SidebarWrapper>}
+    />
+    <Route
       path="/"
       render={() =>
         <SidebarWrapper>
