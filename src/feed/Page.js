@@ -1,8 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-import MenuFeed from '../app/Menu/MenuFeed';
-import Hero from '../app/Hero';
 import Feed from './Feed';
 import PageHOC from './PageHOC';
 import {
@@ -84,15 +82,6 @@ export default class Page extends React.Component {
         <Helmet>
           <title>Busy</title>
         </Helmet>
-        {!auth.isFetching && !auth.isAuthenticated && !category &&
-          <Hero />
-        }
-        {/* {!auth.isFetching &&
-          <MenuFeed
-            auth={auth}
-            category={category}
-          />
-        }*/}
         {category &&
           <h2 className="mt-3 text-center">
             <span className="text-info">#</span>
