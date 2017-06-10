@@ -93,6 +93,7 @@ export const LeftSidebar = ({ auth }) =>
           <Action text="Message" />
         </SidebarWrapper>}
     />
+    <Route path="/:category/@:author/:permlink" render={() => <div />} />
     <Route
       path="/"
       render={() =>
