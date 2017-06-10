@@ -80,11 +80,11 @@ export default class Wrapper extends PureComponent {
             <Notification />
             {auth.user.name === undefined ? <Hero /> : <div />}
             <Layout>
-              <Sider><LeftSidebar /></Sider>
+              <Sider><LeftSidebar auth={auth} /></Sider>
               <Content>
                 {this.props.children}
               </Content>
-              <Sider><RightSidebar /></Sider>
+              <Sider><RightSidebar auth={auth} /></Sider>
             </Layout>
             <GatewayDest name="tooltip" />
             <GatewayDest name="popover" />
