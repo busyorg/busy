@@ -80,6 +80,7 @@ function makePlugins(options) {
       }),
       new webpack.optimize.AggressiveMergingPlugin(),
       new ExtractTextPlugin({
+        allChunks: true,
         filename: '../css/style.[contenthash].css',
       }),
       new HtmlWebpackPlugin({
