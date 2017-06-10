@@ -3,12 +3,14 @@ import React from 'react';
 import { FormattedDate } from 'react-intl';
 // import { Route } from 'react-router-dom';
 // import User from '../../components/Sidebar/User';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import api from '../../steemAPI';
 import Topics from '../../components/Sidebar/Topics';
 import Sidenav from '../../components/Navigation/Sidenav';
+import InterestingPeople from '../../components/Sidebar/InterestingPeople';
+import StartNow from '../../components/Sidebar/StartNow';
 import Action from '../../components/Button/Action';
 import { jsonParse } from '../../helpers/formatter';
 
@@ -56,42 +58,73 @@ const SidebarWrapper = ({ children }) =>
     {children}
   </div>;
 
-export const LeftSidebar = connect(({ auth }) => ({ auth }))(({ auth }) =>
+const IntestingPeopleWithData = () =>
+  <InterestingPeople
+    users={[
+      { name: 'liondani', about: 'Inch by Inch, Play by Play' },
+      {
+        name: 'good-karma',
+        about: '"Action expresses priorities!" / Witness - Developer of eSteem…'
+      },
+      { name: 'furion', about: 'I’ve developed SteemData and SteemSports. All things Python…' }
+    ]}
+  />;
+
+@withRouter
+@connect(({ auth }) => ({ auth }))
+export class LeftSidebar extends React.PureComponent {
+  render() {
+    const { auth } = this.props;
+    return (
+      <Switch>
+        <Route
+          path="/@:name"
+          render={() =>
+            <SidebarWrapper>
+              {auth.user.name &&
+                <div>
+                  {_.get(jsonParse(auth.user.json_metadata), 'profile.about')}<br />
+                  Joined
+                  {' '}
+                  <FormattedDate
+                    value={auth.user.created}
+                    year="numeric"
+                    month="long"
+                    day="numeric"
+                  />
+                </div>}
+              <Action text="Transfer" />
+              <Action text="Message" />
+            </SidebarWrapper>}
+        />
+        <Route
+          path="/"
+          render={() =>
+            <SidebarWrapper>
+              <Sidenav username={auth.user.name} />
+              <SidebarWithTopics />
+            </SidebarWrapper>}
+        />
+      </Switch>
+    );
+  }
+}
+
+export const RightSidebar = () =>
   <Switch>
     <Route
       path="/@:name"
       render={() =>
         <SidebarWrapper>
-          {auth.user.name &&
-            <div>
-              {_.get(jsonParse(auth.user.json_metadata), 'profile.about')}<br />
-              Joined
-              {' '}
-              <FormattedDate value={auth.user.created} year="numeric" month="long" day="numeric" />
-            </div>}
-          <Action text="Transfer" />
-          <Action text="Message" />
+          <IntestingPeopleWithData />
         </SidebarWrapper>}
     />
     <Route
       path="/"
       render={() =>
         <SidebarWrapper>
-          <Sidenav username={auth.user.name} />
-          <SidebarWithTopics />
+          <StartNow />
+          <IntestingPeopleWithData />
         </SidebarWrapper>}
     />
-  </Switch>
-);
-
-export const RightSidebar = props =>
-  <Switch>
-    <Route exact path="/" render={() => <div>RightPage</div>} />
-    <Route path="/trending/:category?" render={() => <div>RightTrending</div>} />
-    <Route path="/hot/:category?" render={() => <div>RightHot</div>} />
-    <Route path="/cashout/:category?" render={() => <div>RightCashout</div>} />
-    <Route path="/created/:category?" render={() => <div>RightCreated</div>} />
-    <Route path="/active/:category?" render={() => <div>RightActive</div>} />
-    <Route path="/responses/:category?" render={() => <div>RightResponses</div>} />
-    <Route path="/votes/:category?" render={() => <div>RightVotes</div>} />
   </Switch>;
