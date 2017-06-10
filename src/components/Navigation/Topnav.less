@@ -14,7 +14,6 @@
   display: flex;
   justify-content: space-around;
   margin: 0 auto;
-  max-width: 990px;
 }
 
 .Topnav__brand {
@@ -47,8 +46,7 @@
     border: 0 !important;
     padding: 0 0 0 29px !important;
 
-    &:hover,
-    &:focus {
+    &:hover, &:focus {
       box-shadow: none !important;
       border-color: #e9e7e7 !important;
     }
@@ -62,11 +60,15 @@
   }
 }
 
-.Topnav__menu-container {
+.Topnav__sides {
   padding: 0 @base-spacing;
   flex: 2;
   display: flex;
   justify-content: flex-end;
+}
+
+.Topnav__menu-container {
+  justify-content: flex-start;
 
   &__menu {
     flex-shrink: 0;
@@ -78,7 +80,7 @@
     &:nth-child(1) {
       padding-right: 20px;
     }
-  
+
     & > li {
       height: 55px !important;
       padding: 0 4px !important;
