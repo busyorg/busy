@@ -1,0 +1,27 @@
+@import "../styles/custom.less";
+@import "../styles/mixins.less";
+.Hero {
+  padding: 2em 0;
+  text-align: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.hero-message {
+  font-family: @font-family-sans-serif;
+  font-size: 2em;
+  font-weight: 100;
+  text-align: center;
+  color: @primary-color;
+}
+
+.hero-signup {
+  .btn;
+  .btn-default;
+  .colorize-button(@primary-color, #2a3574);
+  padding: 0 3em;
+
+  color: @white;
+  &:hover, &:focus, &:active, &.active {
+    color: @white;
+  }
+}
