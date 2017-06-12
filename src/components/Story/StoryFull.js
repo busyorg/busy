@@ -100,7 +100,7 @@ class StoryFull extends React.Component {
         <h1 className="StoryFull__title">
           {post.title}
         </h1>
-        <h3 className="StoryFull__comments_title">Comments {commentCount}</h3>
+        <h3 className="StoryFull__comments_title">{commentCount} Comments</h3>
         <div className="StoryFull__header">
           <Link to={`/@${post.author}`}>
             <Avatar username={post.author} size={60} />

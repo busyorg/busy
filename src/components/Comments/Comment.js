@@ -54,9 +54,9 @@ class Comment extends React.Component {
 
     return (
       <div className="Comment">
-        <a className="Comment__visibility" onClick={() => this.handleCollapseClick()}>
-          {(this.state.collapsed) ? <i className="iconfont icon-unfold" /> : <i className="iconfont icon-packup" />}
-        </a>
+        <span className="Comment__visibility" onClick={() => this.handleCollapseClick()}>
+          {(this.state.collapsed) ? <i className="iconfont icon-addition" /> : <i className="iconfont icon-offline" />}
+        </span>
         <Avatar username={comment.author} size={(comment.depth === 1) ? 40 : 32} />
         <div className="Comment__text">
           <Link to={`/@${comment.author}`}>
