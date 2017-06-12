@@ -114,7 +114,7 @@ class Comment extends React.Component {
             </a>
           </div>
           {
-            this.state.replyOpen && <CommentForm />
+            this.state.replyOpen && <CommentForm isSmall={comment.depth !== 1} />
           }
           <div className="Comment__replies">
             {
