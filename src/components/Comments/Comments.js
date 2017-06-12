@@ -37,7 +37,7 @@ class Comments extends React.Component {
   };
 
   render() {
-    const { comments, commentsChildren, count, onLikeClick, onDislikeClick } = this.props;
+    const { comments, commentsChildren, onLikeClick, onDislikeClick } = this.props;
     const { sort } = this.state;
 
     return (
@@ -45,7 +45,6 @@ class Comments extends React.Component {
         <div className="Comments__header">
           <h2>
             Comments
-            <span className="Comments__header__count">{count}</span>
           </h2>
           <div className="Comments__header__sort" onClick={this.handleSortClick}>
             <a className={classNames({ active: sort === 'BEST' })} data-type="BEST">Best</a>
@@ -72,7 +71,6 @@ class Comments extends React.Component {
 Comments.propTypes = {
   comments: PropTypes.arrayOf(PropTypes.shape()),
   commentsChildren: PropTypes.shape(),
-  count: PropTypes.number,
   onLikeClick: PropTypes.func,
   onDislikeClick: PropTypes.func,
 };

@@ -27,6 +27,17 @@ addDecorator(story => (
   </IntlProvider>
 ));
 
+const rootComments = Object.keys(postState.content)
+  .filter(key => postState.content[key].depth === 1)
+  .map(commentKey => postState.content[commentKey]);
+
+const commentsChildren = {};
+Object.keys(postState.content)
+  .forEach((key) => {
+    commentsChildren[postState.content[key].id] = postState.content[key].replies
+      .map(childrenId => postState.content[childrenId]);
+  });
+
 
 storiesOf('Button', module)
   .add('Topic', () => <Topic name="travel" />)
@@ -81,6 +92,7 @@ storiesOf('Story', module)
   />)
   .add('Full story', () => <StoryFull
     post={post}
+    commentCount={Object.keys(postState.content).length}
     onFollowClick={action('Follow click')}
     onSaveClick={action('Save click')}
     onReportClick={action('Report click')}
@@ -91,6 +103,7 @@ storiesOf('Story', module)
   />)
   .add('Full story with embed', () => <StoryFull
     post={postWithEmbed}
+    commentCount={Object.keys(postState.content).length}
     onFollowClick={action('Follow click')}
     onSaveClick={action('Save click')}
     onReportClick={action('Report click')}
@@ -104,22 +117,10 @@ storiesOf('Profile', module)
   .add('UserHeader', () => <UserHeader username="roelandp" />)
   .add('UserMenu', () => <UserMenu discussions={1521} comments={21} following={244} onChange={action('Section changed')} />);
 
-const rootComments = Object.keys(postState.content)
-  .filter(key => postState.content[key].depth === 1)
-  .map(commentKey => postState.content[commentKey]);
-
-const commentsChildren = {};
-Object.keys(postState.content)
-  .forEach((key) => {
-    commentsChildren[postState.content[key].id] = postState.content[key].replies
-      .map(childrenId => postState.content[childrenId]);
-  });
-
 storiesOf('Comments', module)
   .add('Comments', () => <Comments
     comments={rootComments}
     commentsChildren={commentsChildren}
-    count={Object.keys(postState.content).length}
     onLikeClick={action('Like click')}
     onDislikeClick={action('Dislike click')}
   />);
