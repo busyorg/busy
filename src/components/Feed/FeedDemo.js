@@ -1,7 +1,7 @@
 import React from 'react';
 import Feed from './Feed';
 import { post } from '../../stories.data';
-
+import './FeedDemo.less';
 
 class FeedDemo extends React.Component {
   constructor(props) {
@@ -45,12 +45,14 @@ class FeedDemo extends React.Component {
   render() {
     const { posts, loading, hasMore } = this.state;
 
-    return (<Feed
-      posts={posts}
-      isLoading={loading}
-      hasMore={hasMore}
-      onLoadMore={() => this.loadMore()}
-    />);
+    return (<div className="FeedDemo">
+      <Feed
+        posts={posts}
+        isLoading={loading}
+        hasMore={hasMore}
+        onLoadMore={() => this.loadMore()}
+      />
+    </div>);
   }
 }
 
