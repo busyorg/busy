@@ -1,8 +1,27 @@
 @import "../../styles/custom.less";
 
 .Comment {
+  position: relative;
   display: flex;
   margin-top: 16px;
+
+  &__visibility {
+    visibility: hidden;
+    position: absolute;
+    top: -8px;
+    right: 0;
+    z-index: 1;
+
+    & > i {
+      font-size: 18px !important;
+    }
+  }
+
+  &:hover {
+    & > .Comment__visibility {
+      visibility: visible;
+    }
+  }
 
   &__text {
     position: relative;
@@ -19,6 +38,14 @@
     margin-left: 8px;
     font-size: 14px;
     color: #99aab5;
+  }
+
+  &__content {
+    &__collapsed {
+      font-weight: bold;
+      text-align: center;
+      color: #99aab5;
+    }
   }
 
   &__footer {

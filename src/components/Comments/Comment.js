@@ -26,12 +26,19 @@ class Comment extends React.Component {
     super(props);
     this.state = {
       replyOpen: false,
+      collapsed: false,
     };
   }
 
   handleReplyClick = () => {
     this.setState({
       replyOpen: !this.state.replyOpen,
+    });
+  }
+
+  handleCollapseClick = () => {
+    this.setState({
+      collapsed: !this.state.collapsed,
     });
   }
 
@@ -47,6 +54,9 @@ class Comment extends React.Component {
 
     return (
       <div className="Comment">
+        <a className="Comment__visibility" onClick={() => this.handleCollapseClick()}>
+          {(this.state.collapsed) ? <i className="iconfont icon-unfold" /> : <i className="iconfont icon-packup" />}
+        </a>
         <Avatar username={comment.author} size={(comment.depth === 1) ? 40 : 32} />
         <div className="Comment__text">
           <Link to={`/@${comment.author}`}>
@@ -68,7 +78,9 @@ class Comment extends React.Component {
             </Tooltip>
           </span>
           <div className="Comment__content">
-            {comment.body}
+            {
+              (this.state.collapsed) ? <div className="Comment__content__collapsed">Comment collapsed</div> : comment.body
+            }
           </div>
           <div className="Comment__footer">
             <Tooltip title="Like" placement="bottom">
@@ -106,6 +118,7 @@ class Comment extends React.Component {
           }
           <div className="Comment__replies">
             {
+              !this.state.collapsed &&
               commentsChildren &&
               commentsChildren[comment.id] &&
               commentsChildren[comment.id]
