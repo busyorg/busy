@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import classNames from 'classnames';
 import { Link } from 'react-router';
-import { Menu, Popover, Tooltip, Input } from 'antd';
+import { Menu, Popover, Tooltip, Input, Badge } from 'antd';
 import Avatar from '../Avatar';
 import Notifications from './Notifications/Notifications';
 import './Topnav.less';
@@ -10,6 +10,10 @@ const SubMenu = Menu.SubMenu;
 
 const Topnav = ({ username, onNotificationClick, onSeeAllClick, notifications }) => {
   let content;
+
+  const notificationsCount = notifications
+    .filter(notification => !notification.read)
+    .length;
 
   if (username) {
     content = (
@@ -27,7 +31,11 @@ const Topnav = ({ username, onNotificationClick, onSeeAllClick, notifications })
           </Menu.Item>
           <Menu.Item
             key="notifications"
-            className="Topnav__item--dropdown"
+            className={
+              classNames('Topnav__item--dropdown', {
+                'Topnav__item--badge': notifications !== 0,
+              })
+            }
           >
             <Popover
               placement="bottomRight"
@@ -42,7 +50,9 @@ const Topnav = ({ username, onNotificationClick, onSeeAllClick, notifications })
               title="Notifications"
             >
               <Tooltip className="Notifications__tooltip" placement="bottom" title="Notifications">
-                <i className="iconfont icon-remind" />
+                <Badge count={notificationsCount}>
+                  <i className="iconfont icon-remind" />
+                </Badge>
               </Tooltip>
             </Popover>
           </Menu.Item>
