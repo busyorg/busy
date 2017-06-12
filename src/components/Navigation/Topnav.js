@@ -11,7 +11,7 @@ const SubMenu = Menu.SubMenu;
 const Topnav = ({ username, onNotificationClick, onSeeAllClick, notifications }) => {
   let content;
 
-  const notificationsCount = notifications
+  const notificationsCount = notifications && notifications
     .filter(notification => !notification.read)
     .length;
 
