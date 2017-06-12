@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import classNames from 'classnames';
+import CommentForm from './CommentForm';
 import Comment from './Comment';
 import './Comments.less';
 
@@ -52,6 +53,7 @@ class Comments extends React.Component {
             <a className={classNames({ active: sort === 'OLDEST' })} data-type="OLDEST">Oldest</a>
           </div>
         </div>
+        <CommentForm />
         {
           comments && sortComments(comments, sort).map(comment =>
             <Comment key={comment.id} comment={comment} commentsChildren={commentsChildren} />
