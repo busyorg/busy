@@ -13,6 +13,7 @@ import Action from '../src/components/Button/Action';
 import Topnav from './components/Navigation/Topnav';
 import Sidenav from './components/Navigation/Sidenav';
 import Story from './components/Story/Story';
+import StoryLoading from './components/Story/StoryLoading';
 import StoryFull from './components/Story/StoryFull';
 import UserMenu from './components/UserMenu';
 import UserHeader from './components/UserHeader';
@@ -70,6 +71,7 @@ storiesOf('Sidebar', module)
   />);
 
 storiesOf('Story', module)
+  .add('Story loading', () => <StoryLoading />)
   .add('Inline story', () => <Story
     post={post}
     onFollowClick={action('Follow click')}

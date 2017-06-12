@@ -1,0 +1,31 @@
+@import "../../styles/custom.less";
+
+@width: 520px;
+
+.StoryLoading {
+  position: relative;
+  max-width: @width;
+  border-radius: 4px;
+  background-color: @white;
+  color: #353535;
+  border: solid 1px #e9e7e7;
+
+  &__header {
+    padding: 16px;
+    display: flex;
+
+    &__avatar {
+      min-width: 40px !important;
+      width: 40px !important;
+      height: 40px !important;
+    }
+
+    &__text {
+      margin: 0 12px;
+    }
+  }
+
+  &__content {
+    padding: 4px 16px 16px;
+  }
+}
