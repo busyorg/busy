@@ -7,7 +7,7 @@ import PayoutDetail from '../PayoutDetail';
 import Avatar from '../Avatar';
 import './Comment.less';
 
-const Comment = ({ comment, commentsChildren }) => {
+const Comment = ({ comment, commentsChildren, onLikeClick, onDislikeClick }) => {
   const pendingPayoutValue = parseFloat(comment.pending_payout_value);
   const totalPayoutValue = parseFloat(comment.total_payout_value);
   const payoutValue = numeral(totalPayoutValue || pendingPayoutValue).format('$0,0.000');
@@ -42,13 +42,13 @@ const Comment = ({ comment, commentsChildren }) => {
         </div>
         <div className="Comment__footer">
           <Tooltip title="Like" placement="bottom">
-            <a className="Comment__footer__link">
+            <a className="Comment__footer__link" onClick={() => onLikeClick(comment.id)}>
               <i className="iconfont icon-praise_fill" />
               {likesValue}
             </a>
           </Tooltip>
           <Tooltip title="Dislike" placement="bottom">
-            <a className="Comment__footer__link">
+            <a className="Comment__footer__link" onClick={() => onDislikeClick(comment.id)}>
               <i className="iconfont icon-praise_fill Comment__icon_dislike" />
               {dislikesValue}
             </a>
@@ -69,6 +69,8 @@ const Comment = ({ comment, commentsChildren }) => {
                 key={child.id}
                 comment={child}
                 commentsChildren={commentsChildren}
+                onLikeClick={onLikeClick}
+                onDislikeClick={onDislikeClick}
               />)
           }
         </div>
@@ -79,6 +81,13 @@ const Comment = ({ comment, commentsChildren }) => {
 Comment.propTypes = {
   comment: PropTypes.shape(),
   commentsChildren: PropTypes.shape(),
+  onLikeClick: PropTypes.func,
+  onDislikeClick: PropTypes.func,
+};
+
+Comment.defaultProps = {
+  onLikeClick: () => {},
+  onDislikeClick: () => {},
 };
 
 export default Comment;

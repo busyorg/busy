@@ -37,7 +37,7 @@ class Comments extends React.Component {
   };
 
   render() {
-    const { comments, commentsChildren, count } = this.props;
+    const { comments, commentsChildren, count, onLikeClick, onDislikeClick } = this.props;
     const { sort } = this.state;
 
     return (
@@ -56,7 +56,13 @@ class Comments extends React.Component {
         <CommentForm />
         {
           comments && sortComments(comments, sort).map(comment =>
-            <Comment key={comment.id} comment={comment} commentsChildren={commentsChildren} />
+            <Comment
+              key={comment.id}
+              comment={comment}
+              commentsChildren={commentsChildren}
+              onLikeClick={onLikeClick}
+              onDislikeClick={onDislikeClick}
+            />
           )
         }
       </div>);
@@ -67,10 +73,14 @@ Comments.propTypes = {
   comments: PropTypes.arrayOf(PropTypes.shape()),
   commentsChildren: PropTypes.shape(),
   count: PropTypes.number,
+  onLikeClick: PropTypes.func,
+  onDislikeClick: PropTypes.func,
 };
 
 Comments.defaultProps = {
   count: 0,
+  onLikeClick: () => {},
+  onDislikeClick: () => {},
 };
 
 export default Comments;

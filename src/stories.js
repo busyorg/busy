@@ -120,4 +120,6 @@ storiesOf('Comments', module)
     comments={rootComments}
     commentsChildren={commentsChildren}
     count={Object.keys(postState.content).length}
+    onLikeClick={action('Like click')}
+    onDislikeClick={action('Dislike click')}
   />);
