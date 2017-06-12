@@ -32,6 +32,10 @@ class FeedDemo extends React.Component {
       posts: [
         ...this.state.posts,
         post,
+        post,
+        post,
+        post,
+        post,
       ],
       loading: false,
       hasMore: this.state.posts.length < 4,
