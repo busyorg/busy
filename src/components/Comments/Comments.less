@@ -4,20 +4,32 @@
   max-width: 990px;
   margin: 0 auto;
 
-  &__sort {
-    text-align: right;
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 24px;
 
-    & > a {
-      margin: 0 8px;
-      font-weight: bold;
-      color: #99aab5 !important;
+    &__count {
+      color: #99aab5;
+      margin-left: 6px;
+    }
 
-      &:hover {
-        color: @purple !important;
-      }
+    &__sort {
+      text-align: right;
 
-      &.active {
-        color: @purple !important;
+      & > a {
+        margin: 0 8px;
+        font-weight: bold;
+        color: #99aab5 !important;
+
+        &:hover {
+          color: @purple !important;
+        }
+
+        &.active {
+          color: @purple !important;
+        }
       }
     }
   }

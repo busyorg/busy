@@ -116,4 +116,8 @@ Object.keys(postState.content)
   });
 
 storiesOf('Comments', module)
-  .add('Comments', () => <Comments comments={rootComments} commentsChildren={commentsChildren} />);
+  .add('Comments', () => <Comments
+    comments={rootComments}
+    commentsChildren={commentsChildren}
+    count={Object.keys(postState.content).length}
+  />);
