@@ -1,0 +1,22 @@
+@import "../../styles/custom.less";
+@import "../../styles/mixins.less";
+
+.CommentForm {
+  margin-top: 8px;
+  display: flex;
+
+  &__text {
+    width: 100%;
+    margin-left: 12px;
+
+    &__button {
+      .btn;
+      .btn-primary;
+
+      .colorize-button(@purple, #2a3574);
+
+      color: @white-darker;
+      margin-top: 4px;
+    }
+  }
+}
