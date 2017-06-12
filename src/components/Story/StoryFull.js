@@ -1,11 +1,13 @@
 import React, { PropTypes } from 'react';
+import _ from 'lodash';
 import { FormattedRelative } from 'react-intl';
 import { Link } from 'react-router';
 import { Menu } from 'antd';
 import Lightbox from 'react-image-lightbox';
-import Body from '../../post/Body';
+import Body from './Body';
 import StoryFooter from './StoryFooter';
 import Avatar from '../Avatar';
+import Topic from '../Button/Topic';
 import './StoryFull.less';
 
 const SubMenu = Menu.SubMenu;
@@ -88,6 +90,7 @@ class StoryFull extends React.Component {
 
     const { open, index } = this.state.lightbox;
     const images = JSON.parse(post.json_metadata).image;
+    const tags = _.union(JSON.parse(post.json_metadata).tags, [post.category]);
 
     return (
       <div className="StoryFull">
@@ -95,9 +98,11 @@ class StoryFull extends React.Component {
           {post.title}
         </h1>
         <div className="StoryFull__header">
-          <Avatar username={post.author} size={60} />
+          <Link to={`/@${post.author}`}>
+            <Avatar username={post.author} size={60} />
+          </Link>
           <div className="StoryFull__header__text">
-            <Link to={`/${post.author}`}>
+            <Link to={`/@${post.author}`}>
               {post.author}
             </Link>
             <span className="StoryFull__header__text__date">
@@ -147,6 +152,11 @@ class StoryFull extends React.Component {
             })}
           />
         }
+        <div className="StoryFull__topics">
+          {
+            tags && tags.map((tag, i) => <Topic key={i} name={tag} />)
+          }
+        </div>
         <StoryFooter
           post={post}
           onLikeClick={onLikeClick}

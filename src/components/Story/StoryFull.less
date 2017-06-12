@@ -15,10 +15,18 @@
     font-weight: 500;
   }
 
+  &__topics {
+    margin: 16px 0;
+
+    & > .Topic {
+      margin: 2px 4px 2px 0;
+    }
+  }
+
   &__header {
     position: relative;
     display: flex;
-    padding-top: 24px;
+    padding: 24px 0 16px;
 
     &__text {
       margin-left: 16px;
@@ -67,13 +75,18 @@
       margin: 8px 0;
     }
 
-    & p {
+    & h1, h2, h3, h4, h5, h6 {
+      margin: 8px 0;
+    }
+
+    & p:not(:empty) {
       letter-spacing: 0.7px;
       text-align: justify;
       margin: 32px 0;
       line-height: 30px;
       font-size: 18px;
     }
+
 
     & img {
       margin: 0 auto;
