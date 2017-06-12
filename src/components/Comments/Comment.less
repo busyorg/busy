@@ -28,12 +28,13 @@
     &__payout {
       font-weight: bold;
       font-size: 14px;
-      margin: 0 4px;
+      margin-right: 8px;
     }
 
     &__bullet:after {
       content: '\2022';
       font-size: 14px;
+      margin-right: 8px;
     }
 
     &__link {
@@ -41,6 +42,10 @@
       font-weight: bold;
       font-size: 14px;
       margin-right: 8px;
+
+      &--active {
+        color: @purple;
+      }
     
       & > .iconfont {
         margin-right: 4px;
