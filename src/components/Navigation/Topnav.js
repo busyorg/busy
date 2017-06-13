@@ -1,10 +1,10 @@
-import React, { PropTypes } from "react";
-import { Link } from "react-router-dom";
-import classNames from "classnames";
-import { Menu, Popover, Tooltip, Input } from "antd";
-import Avatar from "../Avatar";
-import Notifications from "./Notifications/Notifications";
-import "./Topnav.less";
+import React, { PropTypes } from 'react';
+import classNames from 'classnames';
+import { Link } from 'react-router-dom';
+import { Menu, Popover, Tooltip, Input, Badge } from 'antd';
+import Avatar from '../Avatar';
+import Notifications from './Notifications/Notifications';
+import './Topnav.less';
 
 const SubMenu = Menu.SubMenu;
 
@@ -15,6 +15,10 @@ const Topnav = ({
   notifications
 }) => {
   let content;
+
+  const notificationsCount = notifications && notifications
+    .filter(notification => !notification.read)
+    .length;
 
   if (username) {
     content = (
@@ -30,7 +34,14 @@ const Topnav = ({
               <span className="Topnav__user__username">{username}</span>
             </Link>
           </Menu.Item>
-          <Menu.Item key="notifications" className="Topnav__item--dropdown">
+          <Menu.Item
+            key="notifications"
+            className={
+              classNames('Topnav__item--dropdown', {
+                'Topnav__item--badge': notifications !== 0,
+              })
+            }
+          >
             <Popover
               placement="bottomRight"
               trigger="click"
@@ -43,12 +54,10 @@ const Topnav = ({
               }
               title="Notifications"
             >
-              <Tooltip
-                className="Notifications__tooltip"
-                placement="bottom"
-                title="Notifications"
-              >
-                <i className="iconfont icon-remind" />
+              <Tooltip className="Notifications__tooltip" placement="bottom" title="Notifications">
+                <Badge count={notificationsCount}>
+                  <i className="iconfont icon-remind" />
+                </Badge>
               </Tooltip>
             </Popover>
           </Menu.Item>

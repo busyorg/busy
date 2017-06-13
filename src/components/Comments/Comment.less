@@ -1,0 +1,97 @@
+@import "../../styles/custom.less";
+
+.Comment {
+  position: relative;
+  display: flex;
+  margin-top: 16px;
+
+  &__visibility {
+    visibility: hidden;
+    position: absolute;
+    top: -8px;
+    right: 0;
+    z-index: 1;
+
+    & > i {
+      color: #99aab5;
+      font-size: 20px !important;
+    }
+  }
+
+  &:hover {
+    & > .Comment__visibility {
+      visibility: visible;
+      cursor: pointer;
+    }
+  }
+
+  &__text {
+    position: relative;
+    top: -4px;
+    width: 100%;
+    margin-left: 12px;
+
+    & > a {
+      font-weight: bold;
+    }
+  }
+
+  &__date {
+    margin-left: 8px;
+    font-size: 14px;
+    color: #99aab5;
+  }
+
+  &__content {
+    &__collapsed {
+      font-weight: bold;
+      text-align: center;
+      color: #99aab5;
+    }
+  }
+
+  &__footer {
+    padding: 8px 0;
+    color: #99aab5;
+    line-height: 14px;
+
+    &__payout {
+      font-weight: bold;
+      font-size: 14px;
+      margin-right: 8px;
+    }
+
+    &__bullet:after {
+      content: '\2022';
+      font-size: 14px;
+      margin-right: 8px;
+    }
+
+    &__link {
+      color: #99aab5;
+      font-weight: bold;
+      font-size: 14px;
+      margin-right: 8px;
+
+      &--active {
+        color: @purple;
+      }
+    
+      & > .iconfont {
+        margin-right: 4px;
+        font-size: 18px !important;
+        color: #c2ccd3;
+        vertical-align: -1px;
+      }
+
+      &:hover > .iconfont {
+        color: @purple;
+      }
+    }
+  }
+
+  &__icon_dislike:before {
+    display: inline-block;
+    transform: rotate(180deg);
+  }
+}
