@@ -26,6 +26,7 @@ import getChannelName from '../helpers/getChannelName';
 import dispatchActions from '../helpers/dispatchActions';
 import UserNotFound from '../statics/UserNotFound';
 import Transfer from '../widgets/Transfer';
+import { LeftSidebar, RightSidebar } from '../app/Sidebar/index';
 
 export const needs = [getAccountWithFollowingCount];
 
@@ -92,89 +93,11 @@ export default class User extends React.Component {
 
   getUserView(user) {
     return user.name
-      ? <div>
-        <MenuUser auth={this.props.auth} username={user.name} />
-        <section
-          className="align-center bg-green profile-header"
-          style={{
-            backgroundImage: `url(${process.env.STEEMCONNECT_IMG_HOST}/@${user.name}/cover)`,
-            backgroundSize: 'cover',
-            position: 'relative'
-          }}
-        >
-          <div className="my-5">
-            <Avatar
-              xl
-              key={user.name}
-              username={user.name}
-              reputation={_.has(user, 'name') && user.reputation}
-            />
-            <h1>
-              {_.has(user.json_metadata, 'profile.name')
-                  ? user.json_metadata.profile.name
-                  : user.name}
-              {' '}
-              <FavoriteButton
-                isFavorited={this.isFavorited()}
-                onClick={
-                    this.isFavorited()
-                      ? () => this.props.removeUserFavorite(user.name)
-                      : () => this.props.addUserFavorite(user.name)
-                  }
-              />
-            </h1>
-            <Follow username={user.name} />
-            <Transfer username={user.name} />
-          </div>
-        </section>
-        <div className="profile">
-          {_.has(user, 'name') &&
-          <div>
-            <ul className="secondary-nav">
-              <li>
-                <Link to={`/@${user.name}`}>
-                  <Icon name="library_books" /> {numeral(user.post_count).format('0,0')}
-                  <span className="hidden-xs">
-                    {' '}<FormattedMessage id="posts" defaultMessage="Posts" />
-                  </span>
-                </Link>
-              </li>
-              <li>
-                <Icon name="gavel" />
-                {' '}{numeral(parseInt(user.voting_power, 10) / 10000).format('%0')}
-                <span className="hidden-xs">
-                  {' '}<FormattedMessage id="voting_power" defaultMessage="Voting Power" />
-                </span>
-              </li>
-              <li>
-                <Link to={`/@${user.name}/followers`}>
-                  <Icon name="people" />
-                  {' '}{numeral(parseInt(user.follower_count, 10)).format('0,0')}
-                  <span className="hidden-xs">
-                    {' '}<FormattedMessage id="followers" defaultMessage="Followers" />
-                  </span>
-                </Link>
-              </li>
-              <li>
-                <Link to={`/@${user.name}/followed`}>
-                  <Icon name="people" />
-                  {' '}{numeral(parseInt(user.following_count, 10)).format('0,0')}
-                  <span className="hidden-xs">
-                    {' '}<FormattedMessage id="followed" defaultMessage="Followed" />
-                  </span>
-                </Link>
-              </li>
-            </ul>
-          </div>}
-        </div>
-        <div>
-          {React.cloneElement(this.props.children, {
-            ...this.props,
-            user,
-            limit: 10
-          })}
-        </div>
-      </div>
+      ? React.cloneElement(this.props.children, {
+        ...this.props,
+        user,
+        limit: 10
+      })
       : <UserNotFound />;
   }
 
@@ -212,7 +135,9 @@ export default class User extends React.Component {
             content={image || 'https://steemit.com/images/steemit-twshare.png'}
           />
         </Helmet>
+        <LeftSidebar auth={this.props.auth} />
         {isFetching ? <Loading /> : this.getUserView(user)}
+        <RightSidebar auth={this.props.auth} />
       </div>
     );
   }

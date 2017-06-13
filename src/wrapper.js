@@ -10,7 +10,6 @@ import steemAPI from './steemAPI';
 import { getMessages, getLocale } from './translations/translationHelper';
 import { getStoredBookmarks } from './bookmarks/bookmarksActions';
 import Notification from './app/Notification/Notification';
-import { LeftSidebar, RightSidebar } from './app/Sidebar/index';
 import Topnav from './components/Navigation/Topnav';
 import HeroHeader from './app/HeroHeader';
 import * as reblogActions from './app/Reblog/reblogActions';
@@ -79,11 +78,7 @@ export default class Wrapper extends PureComponent {
             </Header>
             <Notification />
             <HeroHeader auth={auth} style={{ marginTop: 64 }} />
-            <div style={{ display: 'flex' }}>
-              <LeftSidebar auth={auth} />
-              <div style={{ flex: 2 }}>{this.props.children}</div>
-              <RightSidebar auth={auth} />
-            </div>
+            {this.props.children}
             <GatewayDest name="tooltip" />
             <GatewayDest name="popover" />
             <GatewayDest name="modal" />

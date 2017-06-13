@@ -34,7 +34,7 @@ import MessagesUser from './messages/MessagesUser';
 import MessagesCategory from './messages/MessagesCategory';
 
 export const UserRoutes = () =>
-  <Switch>
+  (<Switch>
     <Route exact path="/@:name" render={() => <User><Profile /></User>} />
     <Route path="/@:name/reblogs" render={() => <User><Reblogs /></User>} />
     <Route path="/@:name/posts" render={() => <User><Posts /></User>} />
@@ -43,7 +43,7 @@ export const UserRoutes = () =>
     <Route path="/@:name/followers" render={() => <User><Followers /></User>} />
     <Route path="/@:name/followed" render={() => <User><Following /></User>} />
     <Route path="/@:name/transfers" render={() => <User><Transfers /></User>} />
-  </Switch>;
+  </Switch>);
 
 UserRoutes.needs = UserNeeds;
 

@@ -7,48 +7,37 @@ import {
   getFeedContent,
   getMoreFeedContent,
   getUserFeedContent,
-  getMoreUserFeedContent,
+  getMoreUserFeedContent
 } from './feedActions';
 import {
   getFeedContentFromState,
   getFeedLoadingFromState,
   getUserFeedContentFromState,
-  getUserFeedLoadingFromState,
+  getUserFeedLoadingFromState
 } from '../helpers/stateHelpers';
 import FavoriteButton from '../favorites/FavoriteButton';
 import { notify } from '../app/Notification/notificationActions';
 import * as favoriteActions from '../favorites/favoritesActions';
 import EmptyFeed from '../statics/EmptyFeed';
-
+import { LeftSidebar, RightSidebar } from '../app/Sidebar/index';
 @PageHOC
 @connect(
   state => ({
     auth: state.auth,
     feed: state.feed,
     posts: state.posts,
-    favorites: state.favorites.categories,
+    favorites: state.favorites.categories
   }),
   (dispatch, ownProps) => {
     const { sortBy, category, auth, limit } = ownProps;
     return {
-      getFeedContent: () => dispatch(
-        getFeedContent({ sortBy, category, limit })
-      ),
-      getMoreFeedContent: () => dispatch(
-        getMoreFeedContent({ sortBy, category, limit })
-      ),
-      getUserFeedContent: () => dispatch(
-        getUserFeedContent({ username: auth.user.name, limit })
-      ),
-      getMoreUserFeedContent: () => dispatch(
-        getMoreUserFeedContent({ username: auth.user.name, limit })
-      ),
-      addCategoryFavorite: () => dispatch(
-        favoriteActions.addCategoryFavorite(category)
-      ),
-      removeCategoryFavorite: () => dispatch(
-        favoriteActions.removeCategoryFavorite(category)
-      ),
+      getFeedContent: () => dispatch(getFeedContent({ sortBy, category, limit })),
+      getMoreFeedContent: () => dispatch(getMoreFeedContent({ sortBy, category, limit })),
+      getUserFeedContent: () => dispatch(getUserFeedContent({ username: auth.user.name, limit })),
+      getMoreUserFeedContent: () =>
+        dispatch(getMoreUserFeedContent({ username: auth.user.name, limit })),
+      addCategoryFavorite: () => dispatch(favoriteActions.addCategoryFavorite(category)),
+      removeCategoryFavorite: () => dispatch(favoriteActions.removeCategoryFavorite(category)),
       notify
     };
   }
@@ -61,7 +50,11 @@ export default class Page extends React.Component {
 
   render() {
     const { notify, category, sortBy, path, auth, feed, posts } = this.props;
-    let content, isFetching, hasMore, loadContentAction, loadMoreContentAction;
+    let content,
+      isFetching,
+      hasMore,
+      loadContentAction,
+      loadMoreContentAction;
 
     if (!path && auth.isAuthenticated) {
       content = getUserFeedContentFromState(auth.user.name, feed, posts);
@@ -82,19 +75,20 @@ export default class Page extends React.Component {
         <Helmet>
           <title>Busy</title>
         </Helmet>
+        <LeftSidebar auth={auth} />
         {category &&
           <h2 className="mt-3 text-center">
             <span className="text-info">#</span>
             {' '}{category}{' '}
             <FavoriteButton
               isFavorited={this.isFavorited()}
-              onClick={this.isFavorited()
-                ? this.props.removeCategoryFavorite
-                : this.props.addCategoryFavorite
+              onClick={
+                this.isFavorited()
+                  ? this.props.removeCategoryFavorite
+                  : this.props.addCategoryFavorite
               }
             />
-          </h2>
-        }
+          </h2>}
         <Feed
           content={content}
           isFetching={isFetching}
@@ -104,9 +98,8 @@ export default class Page extends React.Component {
           notify={notify}
           route={this.props.route}
         />
-        {(content.length === 0 && !isFetching) &&
-          <EmptyFeed />
-        }
+        {content.length === 0 && !isFetching && <EmptyFeed />}
+        <RightSidebar auth={auth} />
       </div>
     );
   }
@@ -116,5 +109,5 @@ Page.propTypes = {
   category: React.PropTypes.string,
   sortBy: React.PropTypes.string,
   path: React.PropTypes.string,
-  limit: React.PropTypes.number,
+  limit: React.PropTypes.number
 };

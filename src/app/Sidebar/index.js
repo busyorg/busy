@@ -25,6 +25,7 @@ class SidebarWithTopics extends React.PureComponent {
   }
 
   componentWillMount() {
+    console.log('api', api);
     api.getState('trending/busy', (err, result) => {
       let categories =
         (result.category_idx && result.category_idx.trending) ||
@@ -43,14 +44,13 @@ class SidebarWithTopics extends React.PureComponent {
     return <Topics title="Trending topics" topics={this.state.categories} />;
   }
 }
-// align-items: flex-end;
-const SidebarWrapper = ({ children, style }) =>
+export const SidebarWrapper = ({ children, style }) =>
   (<div
     style={{
       flex: 1,
       display: 'flex',
       flexDirection: 'column',
-      paddingTop: '1em',
+      padding: '1em 2em 0 2em',
       ...style
     }}
   >
@@ -73,12 +73,11 @@ const InterestingPeopleWithData = () =>
   />);
 
 export const LeftSidebar = ({ auth }) =>
-  auth.user.name !== undefined &&
-  <Switch>
+  (<Switch>
     <Route
       path="/@:name"
       render={() =>
-        (<SidebarWrapper>
+        (<SidebarWrapper style={{ alignItems: 'center' }}>
           {auth.user.name && // TODO (nil151) fetch profile based on route and show
             <div>
               {_.get(jsonParse(auth.user.json_metadata), 'profile.about')}<br />
@@ -99,26 +98,27 @@ export const LeftSidebar = ({ auth }) =>
           <SidebarWithTopics />
         </SidebarWrapper>)}
     />
-  </Switch>;
+  </Switch>);
 
 export const RightSidebar = ({ auth }) =>
-  auth.user.name !== undefined &&
-  <Switch>
-    <Route
-      path="/@:name"
-      render={() =>
-        (<SidebarWrapper style={{ alignItems: 'flex-start' }}>
-          <InterestingPeopleWithData />
-        </SidebarWrapper>)}
-    />
-    <Route
-      path="/"
-      render={() =>
-        (<SidebarWrapper style={{ alignItems: 'flex-start' }}>
-          <div style={{ maxWidth: 260 }}>
-            <StartNow />
-            <InterestingPeopleWithData />
-          </div>
-        </SidebarWrapper>)}
-    />
-  </Switch>;
+  auth.user.name !== undefined
+    ? <Switch>
+      <Route
+        path="/@:name"
+        render={() =>
+            (<SidebarWrapper style={{ alignItems: 'flex-start' }}>
+              <InterestingPeopleWithData />
+            </SidebarWrapper>)}
+      />
+      <Route
+        path="/"
+        render={() =>
+            (<SidebarWrapper style={{ alignItems: 'flex-start' }}>
+              <div style={{ maxWidth: 260 }}>
+                <StartNow />
+                <InterestingPeopleWithData />
+              </div>
+            </SidebarWrapper>)}
+      />
+    </Switch>
+    : <SidebarWrapper />;
