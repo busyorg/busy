@@ -1,15 +1,16 @@
 import React, { PropTypes } from 'react';
 import './PopoverMenu.less';
 
-const PopoverMenuItem = ({ children, key, onClick }) =>
-  <li key={key} onClick={() => onClick(key)}>{children}</li>;
+const PopoverMenuItem = ({ itemKey, children, onClick }) =>
+  <li key={itemKey} onClick={() => onClick(itemKey)}>{children}</li>;
 
 PopoverMenuItem.propTypes = {
   children: PropTypes.oneOfType([
+    PropTypes.array,
     PropTypes.element,
     PropTypes.string,
   ]),
-  key: PropTypes.string.isRequired,
+  itemKey: PropTypes.string,
   onClick: PropTypes.func,
 };
 
@@ -21,14 +22,18 @@ const PopoverMenu = ({ children, onSelect }) =>
   <ul className="PopoverMenu">
     {
       children && Array.isArray(children) && children.map(child =>
-        <PopoverMenuItem key={child.key} onClick={() => onSelect(child.key)}>
+        <PopoverMenuItem key={child.key} itemKey={child.key} onClick={() => onSelect(child.key)}>
           {child.props.children}
         </PopoverMenuItem>)
     }
     {
       children
         && !Array.isArray(children)
-        && <PopoverMenuItem key={children.key} onClick={() => onSelect(children.key)}>
+        && <PopoverMenuItem
+          key={children.key}
+          itemKey={children.key}
+          onClick={() => onSelect(children.key)}
+        >
           {children.props.children}
         </PopoverMenuItem>
     }
@@ -36,7 +41,7 @@ const PopoverMenu = ({ children, onSelect }) =>
 
 PopoverMenu.propTypes = {
   children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.instanceOf(PopoverMenuItem)),
+    PropTypes.array,
     PropTypes.instanceOf(PopoverMenuItem),
   ]),
   onSelect: PropTypes.func,
