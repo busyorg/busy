@@ -1,14 +1,13 @@
 import React, { PropTypes } from 'react';
 import { FormattedRelative } from 'react-intl';
-import { Menu } from 'antd';
+import { Popover } from 'antd';
 import { Link } from 'react-router';
 import StoryPreview from './StoryPreview';
 import StoryFooter from './StoryFooter';
 import Avatar from '../Avatar';
 import Topic from '../Button/Topic';
+import PopoverMenu, { PopoverMenuItem } from '../PopoverMenu/PopoverMenu';
 import './Story.less';
-
-const SubMenu = Menu.SubMenu;
 
 class Story extends React.Component {
   static propTypes = {
@@ -34,8 +33,8 @@ class Story extends React.Component {
     userFollowed: false,
   };
 
-  handleClick = (e) => {
-    switch (e.key) {
+  handleClick = (key) => {
+    switch (key) {
       case 'follow':
         this.props.onFollowClick();
         return;
@@ -62,18 +61,24 @@ class Story extends React.Component {
 
     return (
       <div className="Story">
-        <Menu
-          onClick={this.handleClick}
-          selectedKeys={[]}
-          className="Story__more"
-          mode="horizontal"
+        <Popover
+          trigger="click"
+          content={
+            <PopoverMenu onSelect={this.handleClick}>
+              <PopoverMenuItem key="follow">
+                <i className="iconfont icon-people" /> {(!userFollowed) ? 'Follow' : 'Unfollow'} {post.author}
+              </PopoverMenuItem>
+              <PopoverMenuItem key="save">
+                <i className="iconfont icon-collection" /> Save post
+              </PopoverMenuItem>
+              <PopoverMenuItem key="report">
+                <i className="iconfont icon-flag" /> Report post
+              </PopoverMenuItem>
+            </PopoverMenu>
+          }
         >
-          <SubMenu className="Story__more__item" title={<i className="iconfont icon-unfold Story__more__icon" />}>
-            <Menu.Item key="follow"><i className="iconfont icon-people Story__submenu__icon" /> {(!userFollowed) ? 'Follow' : 'Unfollow'} {post.author}</Menu.Item>
-            <Menu.Item key="save"><i className="iconfont icon-collection Story__submenu__icon" /> Save post</Menu.Item>
-            <Menu.Item key="report"><i className="iconfont icon-flag Story__submenu__icon" /> Report post</Menu.Item>
-          </SubMenu>
-        </Menu>
+          <i className="iconfont icon-unfold Story__more" />
+        </Popover>
         <div className="Story__header">
           <Link to={`/@${post.author}`}>
             <Avatar username={post.author} size={40} />
