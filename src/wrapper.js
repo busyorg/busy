@@ -79,13 +79,11 @@ export default class Wrapper extends PureComponent {
             </Header>
             <Notification />
             <HeroHeader auth={auth} style={{ marginTop: 64 }} />
-            <Layout>
-              <Sider><LeftSidebar auth={auth} /></Sider>
-              <Content>
-                {this.props.children}
-              </Content>
-              <Sider><RightSidebar auth={auth} /></Sider>
-            </Layout>
+            <div style={{ display: 'flex' }}>
+              <LeftSidebar auth={auth} />
+              <div style={{ flex: 2 }}>{this.props.children}</div>
+              <RightSidebar auth={auth} />
+            </div>
             <GatewayDest name="tooltip" />
             <GatewayDest name="popover" />
             <GatewayDest name="modal" />

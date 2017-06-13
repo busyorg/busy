@@ -1,10 +1,10 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 // import embedjs from 'embedjs';
 // import { jsonParse } from '../helpers/formatter';
 // import { image } from '../helpers/steemitLinks';
 // import PostFeedCard from './Feed/PostFeedCard';
 // import PostFeedList from './Feed/PostFeedList';
-import Story from "../components/Story/Story";
+import Story from '../components/Story/Story';
 
 export default class PostFeed extends Component {
   // constructor(props) {
@@ -56,18 +56,18 @@ export default class PostFeed extends Component {
     // const embeds = embedjs.getAll(post.body);
     // const ItemComponent = app.layout === 'list' ? PostFeedList : PostFeedCard;
     return post
-      ? <div style={{ margin: "1em" }}>
-          <Story
-            post={post}
-            onFollowClick={() => console.log("Follow click")}
-            onSaveClick={() => console.log("Save click")}
-            onReportClick={() => console.log("Report click")}
-            onLikeClick={() => console.log("Like click")}
-            onDislikeClick={() => console.log("Dislike click")}
-            onCommentClick={() => console.log("Comment click")}
-            onShareClick={() => console.log("Share click")}
-          />
-        </div>
+      ? <div style={{ margin: '1em 0' }}>
+        <Story
+          post={post}
+          onFollowClick={() => console.log('Follow click')}
+          onSaveClick={() => console.log('Save click')}
+          onReportClick={() => console.log('Report click')}
+          onLikeClick={() => console.log('Like click')}
+          onDislikeClick={() => console.log('Dislike click')}
+          onCommentClick={() => console.log('Comment click')}
+          onShareClick={() => console.log('Share click')}
+        />
+      </div>
       : <div />;
     // <ItemComponent
     //   post={post}

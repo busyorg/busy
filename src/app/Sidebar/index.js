@@ -43,13 +43,15 @@ class SidebarWithTopics extends React.PureComponent {
     return <Topics title="Trending topics" topics={this.state.categories} />;
   }
 }
-const SidebarWrapper = ({ children }) =>
+// align-items: flex-end;
+const SidebarWrapper = ({ children, style }) =>
   (<div
     style={{
+      flex: 1,
       display: 'flex',
-      justifyContent: 'center',
       flexDirection: 'column',
-      alignItems: 'center'
+      paddingTop: '1em',
+      ...style
     }}
   >
     {children}
@@ -71,50 +73,52 @@ const InterestingPeopleWithData = () =>
   />);
 
 export const LeftSidebar = ({ auth }) =>
-  (<Switch>
+  auth.user.name !== undefined &&
+  <Switch>
     <Route
       path="/@:name"
       render={() =>
         (<SidebarWrapper>
-          {auth.user.name &&
+          {auth.user.name && // TODO (nil151) fetch profile based on route and show
             <div>
               {_.get(jsonParse(auth.user.json_metadata), 'profile.about')}<br />
               Joined
               {' '}
               <FormattedDate value={auth.user.created} year="numeric" month="long" day="numeric" />
             </div>}
-          <Action text="Transfer" />
-          <Action text="Message" />
+          {auth.user.name && <Action text="Transfer" />}
+          {auth.user.name && <Action text="Message" />}
         </SidebarWrapper>)}
     />
     <Route path="/:category/@:author/:permlink" render={() => <div />} />
     <Route
       path="/"
       render={() =>
-        (<SidebarWrapper>
+        (<SidebarWrapper style={{ alignItems: 'flex-end' }}>
           <Sidenav username={auth.user.name} />
           <SidebarWithTopics />
         </SidebarWrapper>)}
     />
-  </Switch>);
+  </Switch>;
 
 export const RightSidebar = ({ auth }) =>
-  auth.user.name
-    ? <Switch>
-      <Route
-        path="/@:name"
-        render={() =>
-            (<SidebarWrapper>
-              <InterestingPeopleWithData />
-            </SidebarWrapper>)}
-      />
-      <Route
-        path="/"
-        render={() =>
-            (<SidebarWrapper>
-              <StartNow />
-              <InterestingPeopleWithData />
-            </SidebarWrapper>)}
-      />
-    </Switch>
-    : <div />;
+  auth.user.name !== undefined &&
+  <Switch>
+    <Route
+      path="/@:name"
+      render={() =>
+        (<SidebarWrapper style={{ alignItems: 'flex-start' }}>
+          <InterestingPeopleWithData />
+        </SidebarWrapper>)}
+    />
+    <Route
+      path="/"
+      render={() =>
+        (<SidebarWrapper style={{ alignItems: 'flex-start' }}>
+          <div style={{ maxWidth: 260 }}>
+            <StartNow />
+            <InterestingPeopleWithData />
+          </div>
+        </SidebarWrapper>)}
+    />
+  </Switch>;
