@@ -4,9 +4,8 @@ import { Link } from 'react-router';
 import { Menu, Popover, Tooltip, Input, Badge } from 'antd';
 import Avatar from '../Avatar';
 import Notifications from './Notifications/Notifications';
+import PopoverMenu, { PopoverMenuItem } from '../PopoverMenu/PopoverMenu';
 import './Topnav.less';
-
-const SubMenu = Menu.SubMenu;
 
 const Topnav = ({ username, onNotificationClick, onSeeAllClick, notifications }) => {
   let content;
@@ -56,11 +55,21 @@ const Topnav = ({ username, onNotificationClick, onSeeAllClick, notifications })
               </Tooltip>
             </Popover>
           </Menu.Item>
-          <SubMenu key="more" className="Topnav__item--dropdown" title={<i className="iconfont icon-switch" />}>
-            <Menu.Item className="Topnav__item__subitem" key="activity">Activity</Menu.Item>
-            <Menu.Item className="Topnav__item__subitem" key="settings">Settings</Menu.Item>
-            <Menu.Item className="Topnav__item__subitem" key="logout">Logout</Menu.Item>
-          </SubMenu>
+          <Menu.Item key="more" className="Topnav__item--dropdown">
+            <Popover
+              placement="bottom"
+              trigger="click"
+              content={
+                <PopoverMenu>
+                  <PopoverMenuItem>Activity</PopoverMenuItem>
+                  <PopoverMenuItem>Settings</PopoverMenuItem>
+                  <PopoverMenuItem>Logout</PopoverMenuItem>
+                </PopoverMenu>
+              }
+            >
+              <i className="iconfont icon-switch" />
+            </Popover>
+          </Menu.Item>
         </Menu>
       </div>);
   } else {
