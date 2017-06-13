@@ -54,6 +54,7 @@ storiesOf('Navigation', module)
     notifications={notifications}
     onNotificationClick={action('Notification click')}
     onSeeAllClick={action('SeeAll click')}
+    onMenuItemClick={action('Menu item click')}
   />)
   .add('Sidenav unlogged', () => <Sidenav />)
   .add('Sidenav logged', () => <Sidenav username="guest123" />);

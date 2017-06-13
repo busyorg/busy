@@ -7,7 +7,7 @@ import Notifications from './Notifications/Notifications';
 import PopoverMenu, { PopoverMenuItem } from '../PopoverMenu/PopoverMenu';
 import './Topnav.less';
 
-const Topnav = ({ username, onNotificationClick, onSeeAllClick, notifications }) => {
+const Topnav = ({ username, onNotificationClick, onSeeAllClick, onMenuItemClick, notifications }) => {
   let content;
 
   const notificationsCount = notifications && notifications
@@ -60,10 +60,10 @@ const Topnav = ({ username, onNotificationClick, onSeeAllClick, notifications })
               placement="bottom"
               trigger="click"
               content={
-                <PopoverMenu>
-                  <PopoverMenuItem>Activity</PopoverMenuItem>
-                  <PopoverMenuItem>Settings</PopoverMenuItem>
-                  <PopoverMenuItem>Logout</PopoverMenuItem>
+                <PopoverMenu onSelect={onMenuItemClick}>
+                  <PopoverMenuItem key="activity">Activity</PopoverMenuItem>
+                  <PopoverMenuItem key="settings">Settings</PopoverMenuItem>
+                  <PopoverMenuItem key="logout">Logout</PopoverMenuItem>
                 </PopoverMenu>
               }
             >
@@ -117,6 +117,7 @@ Topnav.propTypes = {
   username: PropTypes.string,
   onNotificationClick: PropTypes.func,
   onSeeAllClick: PropTypes.func,
+  onMenuItemClick: PropTypes.func,
   notifications: PropTypes.arrayOf(
     PropTypes.shape(),
   ),
@@ -125,6 +126,7 @@ Topnav.propTypes = {
 Topnav.defaultProps = {
   onNotificationClick: () => {},
   onSeeAllClick: () => {},
+  onMenuItemClick: () => {},
 };
 
 export default Topnav;
