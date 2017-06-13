@@ -2,15 +2,14 @@ import React, { PropTypes } from 'react';
 import _ from 'lodash';
 import { FormattedRelative } from 'react-intl';
 import { Link } from 'react-router';
-import { Menu } from 'antd';
+import { Popover } from 'antd';
 import Lightbox from 'react-image-lightbox';
 import Body from './Body';
 import StoryFooter from './StoryFooter';
 import Avatar from '../Avatar';
 import Topic from '../Button/Topic';
+import PopoverMenu, { PopoverMenuItem } from '../PopoverMenu/PopoverMenu';
 import './StoryFull.less';
-
-const SubMenu = Menu.SubMenu;
 
 class StoryFull extends React.Component {
   static propTypes = {
@@ -48,8 +47,8 @@ class StoryFull extends React.Component {
     };
   }
 
-  handleClick = (e) => {
-    switch (e.key) {
+  handleClick = (key) => {
+    switch (key) {
       case 'follow':
         this.props.onFollowClick();
         return;
@@ -113,18 +112,25 @@ class StoryFull extends React.Component {
               <FormattedRelative value={`${post.created}Z`} />
             </span>
           </div>
-          <Menu
-            onClick={this.handleClick}
-            selectedKeys={[]}
-            className="StoryFull__header__more"
-            mode="horizontal"
+          <Popover
+            placement="bottom"
+            trigger="click"
+            content={
+              <PopoverMenu onSelect={this.handleClick}>
+                <PopoverMenuItem key="follow">
+                  <i className="iconfont icon-people" /> {(!userFollowed) ? 'Follow' : 'Unfollow'} {post.author}
+                </PopoverMenuItem>
+                <PopoverMenuItem key="save">
+                  <i className="iconfont icon-collection" /> Save post
+                </PopoverMenuItem>
+                <PopoverMenuItem key="report">
+                  <i className="iconfont icon-flag" /> Report post
+                </PopoverMenuItem>
+              </PopoverMenu>
+            }
           >
-            <SubMenu className="StoryFull__header__more__item" title={<i className="iconfont icon-more StoryFull__header__more__icon" />}>
-              <Menu.Item key="follow"><i className="iconfont icon-people StoryFull__submenu__icon" /> {(!userFollowed) ? 'Follow' : 'Unfollow'} {post.author}</Menu.Item>
-              <Menu.Item key="save"><i className="iconfont icon-collection StoryFull__submenu__icon" /> Save post</Menu.Item>
-              <Menu.Item key="report"><i className="iconfont icon-flag StoryFull__submenu__icon" /> Report post</Menu.Item>
-            </SubMenu>
-          </Menu>
+            <i className="iconfont icon-more StoryFull__header__more" />
+          </Popover>
         </div>
         <div className="StoryFull__content" ref={(div) => { this.contentDiv = div; }} onClick={this.onContentClick}>
           <Body body={post.body} json_metadata={post.json_metadata} />

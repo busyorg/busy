@@ -95,7 +95,7 @@ class Story extends React.Component {
             <Topic name={post.category} />
           </div>
         </div>
-        <div className="Story__content" ref={(div) => { this.contentDiv = div; }} onClick={this.onContentClick}>
+        <div className="Story__content">
           <Link to={post.url}>
             <h2 className="Story__content__title">{post.title}</h2>
           </Link>
