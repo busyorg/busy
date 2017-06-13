@@ -18,6 +18,14 @@
     height: 42px !important;
   }
 
+  &__toolbar {
+    margin-top: 4px;
+
+    & > &__button:not(:nth-child(1)) {
+      margin: 0 2px;
+    }
+  }
+
   &__submit {
     .ant-form-item-control {
       text-align: right !important;
