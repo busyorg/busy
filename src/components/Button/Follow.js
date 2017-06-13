@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import classNames from 'classnames';
 import './Follow.less';
 
 class Follow extends React.Component {
@@ -24,7 +25,16 @@ class Follow extends React.Component {
     const followingText = (isHovered ? 'Unfollow' : 'Following');
 
     return (
-      <button className="Follow" onMouseOver={this.onMouseOver} onMouseOut={this.onMouseOut}>
+      <button
+        className={
+          classNames({
+            Follow: !isFollowed || (isFollowed && !isHovered),
+            'Follow--danger': isFollowed && isHovered,
+          })
+        }
+        onMouseOver={this.onMouseOver}
+        onMouseOut={this.onMouseOut}
+      >
         {isFollowed
           ? followingText
           : 'Follow'
