@@ -1,16 +1,15 @@
-import _ from "lodash";
-import React from "react";
-import { FormattedDate } from "react-intl";
-import { Route, Switch, withRouter } from "react-router-dom";
-import { connect } from "react-redux";
+import _ from 'lodash';
+import React from 'react';
+import { FormattedDate } from 'react-intl';
+import { Route, Switch } from 'react-router-dom';
 
-import api from "../../steemAPI";
-import Topics from "../../components/Sidebar/Topics";
-import Sidenav from "../../components/Navigation/Sidenav";
-import InterestingPeople from "../../components/Sidebar/InterestingPeople";
-import StartNow from "../../components/Sidebar/StartNow";
-import Action from "../../components/Button/Action";
-import { jsonParse } from "../../helpers/formatter";
+import api from '../../steemAPI';
+import Topics from '../../components/Sidebar/Topics';
+import Sidenav from '../../components/Navigation/Sidenav';
+import InterestingPeople from '../../components/Sidebar/InterestingPeople';
+import StartNow from '../../components/Sidebar/StartNow';
+import Action from '../../components/Button/Action';
+import { jsonParse } from '../../helpers/formatter';
 
 class SidebarWithTopics extends React.PureComponent {
   constructor(props) {
@@ -21,12 +20,12 @@ class SidebarWithTopics extends React.PureComponent {
       isLoaded: false,
       categories: [],
       props: {},
-      menu: "categories"
+      menu: 'categories'
     };
   }
 
   componentWillMount() {
-    api.getState("trending/busy", (err, result) => {
+    api.getState('trending/busy', (err, result) => {
       let categories =
         (result.category_idx && result.category_idx.trending) ||
         (result.tag_idx && result.tag_idx.trending);
@@ -45,82 +44,77 @@ class SidebarWithTopics extends React.PureComponent {
   }
 }
 const SidebarWrapper = ({ children }) =>
-  <div
+  (<div
     style={{
-      display: "flex",
-      justifyContent: "center",
-      flexDirection: "column",
-      alignItems: "center"
+      display: 'flex',
+      justifyContent: 'center',
+      flexDirection: 'column',
+      alignItems: 'center'
     }}
   >
     {children}
-  </div>;
+  </div>);
 
 const InterestingPeopleWithData = () =>
-  <InterestingPeople
+  (<InterestingPeople
     users={[
-      { name: "liondani", about: "Inch by Inch, Play by Play" },
+      { name: 'liondani', about: 'Inch by Inch, Play by Play' },
       {
-        name: "good-karma",
+        name: 'good-karma',
         about: '"Action expresses priorities!" / Witness - Developer of eSteem…'
       },
       {
-        name: "furion",
-        about: "I’ve developed SteemData and SteemSports. All things Python…"
+        name: 'furion',
+        about: 'I’ve developed SteemData and SteemSports. All things Python…'
       }
     ]}
-  />;
+  />);
 
 export const LeftSidebar = ({ auth }) =>
-  <Switch>
+  (<Switch>
     <Route
       path="/@:name"
       render={() =>
-        <SidebarWrapper>
+        (<SidebarWrapper>
           {auth.user.name &&
             <div>
-              {_.get(jsonParse(auth.user.json_metadata), "profile.about")}<br />
+              {_.get(jsonParse(auth.user.json_metadata), 'profile.about')}<br />
               Joined
-              {" "}
-              <FormattedDate
-                value={auth.user.created}
-                year="numeric"
-                month="long"
-                day="numeric"
-              />
+              {' '}
+              <FormattedDate value={auth.user.created} year="numeric" month="long" day="numeric" />
             </div>}
           <Action text="Transfer" />
           <Action text="Message" />
-        </SidebarWrapper>}
+        </SidebarWrapper>)}
     />
     <Route path="/:category/@:author/:permlink" render={() => <div />} />
     <Route
       path="/"
       render={() =>
-        <SidebarWrapper>
+        (<SidebarWrapper>
           <Sidenav username={auth.user.name} />
           <SidebarWithTopics />
-        </SidebarWrapper>}
+        </SidebarWrapper>)}
     />
-  </Switch>;
+  </Switch>);
 
 export const RightSidebar = ({ auth }) =>
   auth.user.name
     ? <Switch>
-        <Route
-          path="/@:name"
-          render={() =>
-            <SidebarWrapper>
+      <Route
+        path="/@:name"
+        render={() =>
+            (<SidebarWrapper>
               <InterestingPeopleWithData />
-            </SidebarWrapper>}
-        />
-        <Route
-          path="/"
-          render={() =>
-            <SidebarWrapper>
+            </SidebarWrapper>)}
+      />
+      <Route
+        path="/"
+        render={() =>
+            (<SidebarWrapper>
               <StartNow />
               <InterestingPeopleWithData />
-            </SidebarWrapper>}
-        />
-      </Switch>
+            </SidebarWrapper>)}
+      />
+    </Switch>
     : <div />;
