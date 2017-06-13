@@ -5,6 +5,12 @@ import './Editor.less';
 
 class Editor extends React.Component {
   insertCode = (type) => {
+    const nativeInput = this.input && this.input.refs && this.input.refs.input;
+
+    if (!nativeInput) {
+      return;
+    }
+
     let addedText = '';
     let cursorDiff = 0;
 
@@ -54,9 +60,9 @@ class Editor extends React.Component {
         break;
     }
 
-    this.input.focus();
-    this.input.value = `${this.input.value}${addedText}`;
-    this.input.selectionEnd = this.input.selectionEnd - cursorDiff;
+    nativeInput.focus();
+    nativeInput.value = `${nativeInput.value}${addedText}`;
+    nativeInput.selectionEnd -= cursorDiff;
   }
 
   render() {
@@ -75,7 +81,7 @@ class Editor extends React.Component {
           <Input className="Editor__topics" placeholder="Add story topics here" />
         </Form.Item>
         <Form.Item label={<span className="Editor__label">Write your story</span>}>
-          <Input ref={(ref) => { this.input = ref.refs.input; }} type="textarea" placeholder="Write your story..." autosize={{ minRows: 2, maxRows: 10 }} />
+          <Input ref={(ref) => { this.input = ref; }} type="textarea" placeholder="Write your story..." autosize={{ minRows: 2, maxRows: 10 }} />
           <div className="Editor__toolbar">
             <Button className="Editor__toolbar__button" onClick={() => this.insertCode('h1')}>h1</Button>
             <Button className="Editor__toolbar__button" onClick={() => this.insertCode('h2')}>h2</Button>
