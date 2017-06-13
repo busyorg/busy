@@ -10,33 +10,17 @@
   color: #353535;
   border: solid 1px #e9e7e7;
 
-  &__submenu__icon {
-    font-size: 20px !important;
-    vertical-align: -1px;
-  }
-
   &__more {
     position: absolute;
     right: 16px;
-    top: 4px;
-    background-color: transparent !important;
-    border-bottom: none !important;
+    top: 20px;
+    font-size: 20px !important;
+    color: #c2ccd3;
+    line-height: 12px;
 
-    &__item {
-      border-bottom: none !important;
-
-      & > ul {
-        left: -128px !important;
-      }
-
-      & > div {
-        padding: 0 2px !important;
-      }
-    }
-
-    &__icon {
-      font-size: 20px !important;
-      color: #c2ccd3;
+    &:hover {
+      cursor: pointer;
+      color: darken(#c2ccd3, 15%);
     }
   }
 
