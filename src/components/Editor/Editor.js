@@ -57,63 +57,62 @@ class Editor extends React.Component {
     this.input = input && input.refs && input.refs.input;
   };
 
-  insertCode = (type) => {
-    if (!this.input) {
-      return;
-    }
+  insertAtCursor = (before, after, deltaStart = 0, deltaEnd = 0) => {
+    if (!this.input) return;
 
-    let addedText = '';
-    let cursorDiff = 0;
+    const startPos = this.input.selectionStart;
+    const endPos = this.input.selectionEnd;
+    this.input.value = this.input.value.substring(0, startPos)
+      + before
+      + this.input.value.substring(startPos, endPos)
+      + after
+      + this.input.value.substring(endPos, this.input.value.length);
+
+    this.input.selectionStart = startPos + deltaStart;
+    this.input.selectionEnd = endPos + deltaEnd;
+  }
+
+  insertCode = (type) => {
+    if (!this.input) return;
+    this.input.focus();
 
     switch (type) {
       case 'h1':
-        addedText = '# ';
+        this.insertAtCursor('# ', '', 2, 2);
         break;
       case 'h2':
-        addedText = '## ';
+        this.insertAtCursor('## ', '', 3, 3);
         break;
       case 'h3':
-        addedText = '### ';
+        this.insertAtCursor('### ', '', 4, 4);
         break;
       case 'h4':
-        addedText = '#### ';
+        this.insertAtCursor('#### ', '', 5, 5);
         break;
       case 'h5':
-        addedText = '##### ';
+        this.insertAtCursor('##### ', '', 6, 6);
         break;
       case 'h6':
-        addedText = '###### ';
+        this.insertAtCursor('###### ', '', 7, 7);
         break;
       case 'b':
-        addedText = '****';
-        cursorDiff = 2;
+        this.insertAtCursor('**', '**', 2, 2);
         break;
       case 'i':
-        addedText = '**';
-        cursorDiff = 1;
-        break;
-      case 'u':
-        addedText = '____';
-        cursorDiff = 2;
+        this.insertAtCursor('*', '*', 1, 1);
         break;
       case 'q':
-        addedText = '> ';
+        this.insertAtCursor('> ', '', 2, 2);
         break;
       case 'link':
-        addedText = '[](url)';
-        cursorDiff = 6;
+        this.insertAtCursor('[', '](url)', 1, 1);
         break;
       case 'image':
-        addedText = '![](url)';
-        cursorDiff = 6;
+        this.insertAtCursor('![', '](url)', 2, 2);
         break;
       default:
         break;
     }
-
-    this.input.focus();
-    this.input.value = `${this.input.value}${addedText}`;
-    this.input.selectionEnd -= cursorDiff;
   }
 
   render() {
@@ -165,7 +164,6 @@ class Editor extends React.Component {
             <Button className="Editor__toolbar__button" onClick={() => this.insertCode('h6')}>h6</Button>
             <Button className="Editor__toolbar__button" onClick={() => this.insertCode('b')}>B</Button>
             <Button className="Editor__toolbar__button" onClick={() => this.insertCode('i')}>I</Button>
-            <Button className="Editor__toolbar__button" onClick={() => this.insertCode('u')}>U</Button>
             <Button className="Editor__toolbar__button" onClick={() => this.insertCode('q')}>"</Button>
             <Button className="Editor__toolbar__button" onClick={() => this.insertCode('link')}>Link</Button>
             <Button className="Editor__toolbar__button" onClick={() => this.insertCode('image')}>Image</Button>
