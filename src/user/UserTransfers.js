@@ -50,6 +50,7 @@ export default class UserTransfers extends Component {
       .send('claimRewardBalance', { account, rewardSteem, rewardSbd, rewardVests })
       .then(() => {
         this.setState({ claimStatus: CLAIMED });
+        this.props.getWallet(user.name);
       });
   }
 
