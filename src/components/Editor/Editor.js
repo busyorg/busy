@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import Remarkable from 'remarkable';
 import { HotKeys } from 'react-hotkeys';
 import { throttle } from 'lodash';
-import { Form, Input, Select } from 'antd';
+import { Form, Input, Select, Tabs } from 'antd';
 import EditorToolbar from './EditorToolbar';
 import Action from '../Button/Action';
 import './Editor.less';
@@ -11,6 +11,7 @@ const remarkable = new Remarkable();
 
 const Option = Select.Option;
 const OptionGroup = Select.OptGroup;
+const TabPane = Tabs.TabPane;
 
 class Editor extends React.Component {
   static propTypes = {
@@ -57,6 +58,8 @@ class Editor extends React.Component {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
+        // NOTE: Access this.input.value directly.
+        // Using antd's decorator makes it impossible to control selection and makes editing slow.
         console.log('Received values of form: ', values);
       }
     });
@@ -164,11 +167,11 @@ class Editor extends React.Component {
     return (
       <Form className="Editor" layout="vertical" onSubmit={this.handleSubmit}>
         <Form.Item label={<span className="Editor__label">Title</span>}>
-          {getFieldDecorator('userName', {
+          {getFieldDecorator('title', {
             rules: [{ required: true, message: 'Please enter a title.' }],
           })(
             <Input className="Editor__title" placeholder="Add title" />
-          )}
+            )}
         </Form.Item>
         <Form.Item
           label={<span className="Editor__label">Topics</span>}
@@ -193,15 +196,21 @@ class Editor extends React.Component {
                 {popularTopics && popularTopics.map(topic => <Option key={topic}>{topic}</Option>)}
               </OptionGroup>
             </Select>
-          )}
+            )}
         </Form.Item>
-        <HotKeys keyMap={Editor.hotkeys} handlers={this.handlers}>
-          <Form.Item label={<span className="Editor__label">Write your story</span>}>
-            <Input ref={ref => this.setInput(ref)} type="textarea" placeholder="Write your story..." autosize={{ minRows: 2, maxRows: 10 }} />
-            <EditorToolbar onSelect={this.insertCode} />
-          </Form.Item>
-        </HotKeys>
-        <div dangerouslySetInnerHTML={{ __html: this.state.contentHtml }} />
+        <Form.Item label={<span className="Editor__label">Write your story</span>}>
+          <Tabs defaultActiveKey="1">
+            <TabPane tab="Editor" key="1">
+              <HotKeys keyMap={Editor.hotkeys} handlers={this.handlers}>
+                <Input ref={ref => this.setInput(ref)} type="textarea" placeholder="Write your story..." autosize={{ minRows: 2, maxRows: 10 }} />
+              </HotKeys>
+              <EditorToolbar onSelect={this.insertCode} />
+            </TabPane>
+            <TabPane tab="Preview" key="2">
+              <div dangerouslySetInnerHTML={{ __html: this.state.contentHtml }} />
+            </TabPane>
+          </Tabs>
+        </Form.Item>
         <Form.Item className="Editor__submit">
           <Action text="Submit" />
         </Form.Item>
