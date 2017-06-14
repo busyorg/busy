@@ -23,6 +23,10 @@ class Editor extends React.Component {
     popularTopics: [],
   }
 
+  state = {
+    contentHtml: '',
+  }
+
   static hotkeys = {
     h1: 'ctrl+shift+1',
     h2: 'ctrl+shift+2',
@@ -37,16 +41,17 @@ class Editor extends React.Component {
     image: 'ctrl+m',
   };
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      contentHtml: '',
-    };
-  }
-
   componentDidMount() {
     this.input.addEventListener('input', throttle(e => this.renderMarkdown(e.target.value), 500));
   }
+
+  setInput = (input) => {
+    this.input = input && input.refs && input.refs.input;
+  };
+
+  //
+  // Form validation and handling
+  //
 
   handleSubmit = (e) => {
     e.preventDefault();
@@ -65,9 +70,9 @@ class Editor extends React.Component {
     }
   }
 
-  setInput = (input) => {
-    this.input = input && input.refs && input.refs.input;
-  };
+  //
+  // Editor methods
+  //
 
   insertAtCursor = (before, after, deltaStart = 0, deltaEnd = 0) => {
     if (!this.input) return;
