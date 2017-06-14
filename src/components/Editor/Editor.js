@@ -1,9 +1,28 @@
 import React from 'react';
-import { Button, Form, Input } from 'antd';
+import { Button, Form, Input, Select } from 'antd';
 import Action from '../Button/Action';
 import './Editor.less';
 
+const Option = Select.Option;
+
 class Editor extends React.Component {
+  handleSubmit = (e) => {
+    e.preventDefault();
+    this.props.form.validateFieldsAndScroll((err, values) => {
+      if (!err) {
+        console.log('Received values of form: ', values);
+      }
+    });
+  }
+
+  checkTopics = (rule, value, callback) => {
+    if (value && value.length >= 1 && value.length <= 5) {
+      callback();
+    } else {
+      callback('You have to add 1 to 5 topics.');
+    }
+  }
+
   insertCode = (type) => {
     const nativeInput = this.input && this.input.refs && this.input.refs.input;
 
@@ -69,16 +88,35 @@ class Editor extends React.Component {
     const { getFieldDecorator } = this.props.form;
 
     return (
-      <Form className="Editor" layout="vertical">
+      <Form className="Editor" layout="vertical" onSubmit={this.handleSubmit}>
         <Form.Item label={<span className="Editor__label">Title</span>}>
           {getFieldDecorator('userName', {
-            rules: [{ required: true, message: 'Please enter a title' }],
+            rules: [{ required: true, message: 'Please enter a title.' }],
           })(
             <Input className="Editor__title" placeholder="Add title" />
           )}
         </Form.Item>
         <Form.Item label={<span className="Editor__label">Topics</span>}>
-          <Input className="Editor__topics" placeholder="Add story topics here" />
+          {getFieldDecorator('topics', {
+            rules: [
+              { required: true, message: 'Please enter topics.', type: 'array' },
+              { validator: this.checkTopics },
+            ],
+          })(
+            <Select
+              mode="tags"
+              placeholder="Add story topics here"
+              tokenSeparators={[' ', ',']}
+            >
+              <Option key="steemit">steemit</Option>
+              <Option key="life">life</Option>
+              <Option key="photography">photography</Option>
+              <Option key="bitcoin">bitcoin</Option>
+              <Option key="travel">travel</Option>
+              <Option key="gaming">gaming</Option>
+              <Option key="news">news</Option>
+            </Select>
+          )}
         </Form.Item>
         <Form.Item label={<span className="Editor__label">Write your story</span>}>
           <Input ref={(ref) => { this.input = ref; }} type="textarea" placeholder="Write your story..." autosize={{ minRows: 2, maxRows: 10 }} />
