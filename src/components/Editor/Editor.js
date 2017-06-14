@@ -29,11 +29,7 @@ class Editor extends React.Component {
   }
 
   componentDidMount() {
-    this.input.addEventListener('input', throttle((e) => {
-      this.setState({
-        contentHtml: remarkable.render(e.target.value),
-      });
-    }, 500));
+    this.input.addEventListener('input', throttle(e => this.renderMarkdown(e.target.value), 500));
   }
 
   handleSubmit = (e) => {
@@ -113,6 +109,14 @@ class Editor extends React.Component {
       default:
         break;
     }
+
+    this.renderMarkdown(this.input.value);
+  }
+
+  renderMarkdown = (value) => {
+    this.setState({
+      contentHtml: remarkable.render(value),
+    });
   }
 
   render() {
