@@ -48,6 +48,7 @@ class Editor extends React.Component {
 
   componentDidMount() {
     this.input.addEventListener('input', throttle(e => this.renderMarkdown(e.target.value), 500));
+    this.input.addEventListener('paste', this.handlePastedImage);
   }
 
   setInput = (input) => {
@@ -83,6 +84,22 @@ class Editor extends React.Component {
   //
   // Editor methods
   //
+
+  handlePastedImage = (e) => {
+    if (e.clipboardData && e.clipboardData.items) {
+      const items = e.clipboardData.items;
+      Array.from(items).forEach((item) => {
+        if (item.kind === 'file') {
+          const blob = item.getAsFile();
+          const reader = new FileReader();
+          reader.onload = (event) => {
+            console.log(event.target.result);
+          };
+          reader.readAsDataURL(blob);
+        }
+      });
+    }
+  };
 
   insertAtCursor = (before, after, deltaStart = 0, deltaEnd = 0) => {
     if (!this.input) return;
