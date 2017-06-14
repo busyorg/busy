@@ -17,11 +17,15 @@ class Editor extends React.Component {
   static propTypes = {
     recentTopics: PropTypes.arrayOf(PropTypes.string),
     popularTopics: PropTypes.arrayOf(PropTypes.string),
+    onSubmit: PropTypes.func,
+    onError: PropTypes.func,
   }
 
   static defaultProps = {
     recentTopics: [],
     popularTopics: [],
+    onSubmit: () => {},
+    onError: () => {},
   }
 
   state = {
@@ -58,9 +62,12 @@ class Editor extends React.Component {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
-        // NOTE: Access this.input.value directly.
-        // Using antd's decorator makes it impossible to control selection and makes editing slow.
-        console.log('Received values of form: ', values);
+        this.props.onSubmit({
+          ...values,
+          body: this.input.value,
+        });
+      } else {
+        this.props.onError(err);
       }
     });
   }
