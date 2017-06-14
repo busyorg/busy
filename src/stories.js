@@ -136,7 +136,8 @@ storiesOf('Editor', module)
     onError={action('Form error')}
     onImagePasted={
       (image, callback) => {
-        setTimeout(callback, 500);
+        // NOTE: Upload image to server.
+        setTimeout(() => callback('https://placehold.it/200x200'), 500);
       }
     }
   />);

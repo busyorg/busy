@@ -95,7 +95,7 @@ class Editor extends React.Component {
           const blob = item.getAsFile();
           const reader = new FileReader();
           reader.onload = (event) => {
-            this.props.onImagePasted(event.target.result, () => this.insertImage('https://placehold.it/200x200'));
+            this.props.onImagePasted(event.target.result, this.insertImage);
           };
           reader.readAsDataURL(blob);
         }
