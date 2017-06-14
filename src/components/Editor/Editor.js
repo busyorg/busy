@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import Remarkable from 'remarkable';
 import { HotKeys } from 'react-hotkeys';
 import { throttle } from 'lodash';
-import { Button, Form, Input, Select } from 'antd';
+import { Form, Input, Select } from 'antd';
 import EditorToolbar from './EditorToolbar';
 import Action from '../Button/Action';
 import './Editor.less';
