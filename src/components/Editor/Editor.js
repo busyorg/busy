@@ -19,6 +19,7 @@ class Editor extends React.Component {
     popularTopics: PropTypes.arrayOf(PropTypes.string),
     onSubmit: PropTypes.func,
     onError: PropTypes.func,
+    onImagePasted: PropTypes.func,
   }
 
   static defaultProps = {
@@ -26,6 +27,7 @@ class Editor extends React.Component {
     popularTopics: [],
     onSubmit: () => {},
     onError: () => {},
+    onImagePasted: () => {},
   }
 
   state = {
@@ -93,7 +95,7 @@ class Editor extends React.Component {
           const blob = item.getAsFile();
           const reader = new FileReader();
           reader.onload = (event) => {
-            console.log(event.target.result);
+            this.props.onImagePasted(event.target.result, () => this.insertImage('https://placehold.it/200x200'));
           };
           reader.readAsDataURL(blob);
         }
@@ -114,6 +116,16 @@ class Editor extends React.Component {
 
     this.input.selectionStart = startPos + deltaStart;
     this.input.selectionEnd = endPos + deltaEnd;
+  }
+
+  insertImage = (image) => {
+    if (!this.input) return;
+
+    const startPos = this.input.selectionStart;
+    const endPos = this.input.selectionEnd;
+    this.input.value = `${this.input.value.substring(0, startPos)}![image](${image})${this.input.value.substring(endPos, this.input.value.length)}`;
+
+    this.renderMarkdown(this.input.value);
   }
 
   insertCode = (type) => {

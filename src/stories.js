@@ -134,4 +134,9 @@ storiesOf('Editor', module)
     popularTopics={['life', 'travel', 'nature', 'money', 'story']}
     onSubmit={action('Form submit')}
     onError={action('Form error')}
+    onImagePasted={
+      (image, callback) => {
+        setTimeout(callback, 500);
+      }
+    }
   />);
