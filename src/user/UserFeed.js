@@ -15,8 +15,7 @@ export default class UserProfileFeed extends Component {
 
   render() {
     const { feed, posts, getUserFeedContent, getMoreUserFeedContent } = this.props;
-    const username = this.props.params.name;
-
+    const username = this.props.match.params.name;
     const content = getFeedContentFromState('feed', username, feed, posts);
     const isFetching = getFeedLoadingFromState('feed', username, feed);
     const hasMore = getFeedHasMoreFromState('feed', username, feed);

@@ -33,12 +33,6 @@ export const getConfig = () =>
     });
   };
 
-export const SHOW_SIDEBAR = '@app/SHOW_SIDEBAR';
-export const showSidebar = createAction(SHOW_SIDEBAR);
-
-export const HIDE_SIDEBAR = '@app/HIDE_SIDEBAR';
-export const hideSidebar = createAction(HIDE_SIDEBAR);
-
 export const SET_LAYOUT = '@app/SET_LAYOUT';
 export const setLayoutAction = createAction(SET_LAYOUT);
 

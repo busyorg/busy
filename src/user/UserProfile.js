@@ -2,7 +2,7 @@ import 'babel-polyfill';
 import React, { Component } from 'react';
 import { FormattedRelative } from 'react-intl';
 import _ from 'lodash';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import Feed from '../feed/Feed';
 import {
   getFeedContentFromState,
@@ -25,13 +25,13 @@ export default class UserProfile extends Component {
 
   isFavorited() {
     const { favorites } = this.props;
-    const username = this.props.params.name;
+    const username = this.props.match.params.name;
     return username && favorites.includes(username);
   }
 
   render() {
     const { feed, posts, getFeedContent, getMoreFeedContent, limit, auth } = this.props;
-    const username = this.props.params.name;
+    const username = this.props.match.params.name;
     const isOwnProfile = auth.isAuthenticated && username === auth.user.name;
     const content = getFeedContentFromState('blog', username, feed, posts);
     const isFetching = getFeedLoadingFromState('blog', username, feed);

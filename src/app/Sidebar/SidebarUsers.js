@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import _ from 'lodash';
-import { Link } from 'react-router';
+import { NavLink } from 'react-router-dom';
 import Icon from '../../widgets/Icon';
 import Avatar from '../../widgets/Avatar';
 
@@ -61,7 +61,7 @@ const renderUsers = (props, state) => {
   .slice(0, 20)
   .map((user, idx) => (
     <li key={idx} className="pb-1">
-      <Link
+      <NavLink
         to={
           user.hasUnread
             ? `/messages/@${user.username}`
@@ -73,7 +73,7 @@ const renderUsers = (props, state) => {
         {' '}
         {user.favorited && <Icon name="star" xs />}
         {user.hasUnread && <UnreadCount unread={user.unreadLength} />}
-      </Link>
+      </NavLink>
     </li>
   ));
 };

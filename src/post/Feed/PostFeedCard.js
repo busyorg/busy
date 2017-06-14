@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import { FormattedMessage, FormattedRelative, injectIntl } from 'react-intl';
 import _ from 'lodash';
 import numeral from 'numeral';

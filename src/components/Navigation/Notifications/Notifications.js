@@ -50,7 +50,7 @@ Notifications.propTypes = {
   ),
 };
 
-Notification.defaultProps = {
+Notifications.defaultProps = {
   onClick: () => {},
   onSeeAllClick: () => {},
 };

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReduxInfiniteScroll from 'redux-infinite-scroll';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import { FormattedRelative } from 'react-intl';
 
 import Avatar from '../widgets/Avatar';

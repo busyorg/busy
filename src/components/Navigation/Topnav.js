@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import classNames from 'classnames';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import { Menu, Popover, Tooltip, Input, Badge } from 'antd';
 import Avatar from '../Avatar';
 import Notifications from './Notifications/Notifications';
@@ -16,7 +16,7 @@ const Topnav = ({ username, onNotificationClick, onSeeAllClick, onMenuItemClick,
 
   if (username) {
     content = (
-      <div className="Topnav__menu-container">
+      <div className="Topnav__menu-container Topnav__sides">
         <Menu
           selectedKeys={[]}
           className="Topnav__menu-container__menu"
@@ -45,7 +45,7 @@ const Topnav = ({ username, onNotificationClick, onSeeAllClick, onMenuItemClick,
                   onClick={onNotificationClick}
                   onSeeAllClick={onSeeAllClick}
                 />
-                }
+              }
               title="Notifications"
             >
               <Tooltip className="Notifications__tooltip" placement="bottom" title="Notifications">
@@ -71,11 +71,12 @@ const Topnav = ({ username, onNotificationClick, onSeeAllClick, onMenuItemClick,
             </Popover>
           </Menu.Item>
         </Menu>
-      </div>);
+      </div>
+    );
   } else {
     content = (
-      <div className="Topnav__menu-container">
-        <Menu className="Topnav__menu-container__menu" mode="horizontal" >
+      <div className="Topnav__menu-container Topnav__sides">
+        <Menu className="Topnav__menu-container__menu" mode="horizontal">
           <Menu.Item key="signin">
             <Link to="/signin">
               Sign in
@@ -90,19 +91,18 @@ const Topnav = ({ username, onNotificationClick, onSeeAllClick, onMenuItemClick,
             </Link>
           </Menu.Item>
         </Menu>
-      </div>);
+      </div>
+    );
   }
 
   return (
     <div className="Topnav">
       <div className="Topnav__container">
-        <span className="Topnav__brand">busy</span>
+        <Link to="/" className="Topnav__sides"><span className="Topnav__brand">busy</span></Link>
         <div
-          className={
-            classNames('Topnav__input-container', {
-              'Topnav__input-container--logged-in': username,
-            })
-          }
+          className={classNames("Topnav__input-container", {
+            "Topnav__input-container--logged-in": username
+          })}
         >
           {username && <Input placeholder="Search..." />}
           {username && <i className="iconfont icon-search" />}

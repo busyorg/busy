@@ -1,6 +1,7 @@
+import _ from 'lodash';
 import React, { Component, PropTypes } from 'react';
-import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { bindActionCreators } from 'redux';
 import sanitize from 'sanitize-html';
@@ -16,51 +17,57 @@ import * as appActions from '../../actions';
 import { editPost } from '../Write/EditorActions';
 import Loading from '../../widgets/Loading';
 import { jsonParse } from '../../helpers/formatter';
-
+import StoryFull from '../../components/Story/StoryFull';
+import { RightSidebar } from '../../app/Sidebar/index';
+// reblogList: reblog,
+// bookmarks,
+// reblog: reblogActions.reblog,
+// editPost,
+// openCommentingDraft: commentsActions.openCommentingDraft,
+// closeCommentingDraft: commentsActions.closeCommentingDraft,
+// toggleBookmark: bookmarkActions.toggleBookmark,
+// closePostModal: appActions.closePostModal,
+// openPostModal: appActions.openPostModal
+@withRouter
 @connect(
   ({ posts, app, reblog, auth, bookmarks }) => ({
     content: posts[app.lastPostId] || null,
     lastPostId: app.lastPostId,
-    sidebarIsVisible: app.sidebarIsVisible,
-    reblogList: reblog,
-    bookmarks,
-    auth,
+    auth
   }),
-  (dispatch, ownProps) => bindActionCreators({
-    reblog: reblogActions.reblog,
-    editPost,
-    getContent: () => postActions.getContent({
-      author: ownProps.params ? ownProps.params.author : undefined,
-      permlink: ownProps.params ? ownProps.params.permlink : undefined,
-    }),
-    openCommentingDraft: commentsActions.openCommentingDraft,
-    closeCommentingDraft: commentsActions.closeCommentingDraft,
-    likePost: id => postActions.votePost(id),
-    unlikePost: id => postActions.votePost(id, 0),
-    dislikePost: id => postActions.votePost(id, -1000),
-    toggleBookmark: bookmarkActions.toggleBookmark,
-    closePostModal: appActions.closePostModal,
-    openPostModal: appActions.openPostModal,
-  }, dispatch)
+  (dispatch, ownProps) =>
+    bindActionCreators(
+      {
+        getContent: () =>
+          postActions.getContent({
+            author: _.get(ownProps.match, 'params.author'),
+            permlink: _.get(ownProps.match, 'params.permlink')
+          }),
+        likePost: id => postActions.votePost(id),
+        unlikePost: id => postActions.votePost(id, 0),
+        dislikePost: id => postActions.votePost(id, -1000)
+      },
+      dispatch
+    )
 )
 export default class PostSingle extends Component {
-  static propTypes = {
-    modal: PropTypes.bool,
-    contentList: PropTypes.arrayOf(PropTypes.shape({
-      // eslint-disable-next-line
-      author: PropTypes.string,
-    })),
-  };
+  // static propTypes = {
+  //   modal: PropTypes.bool,
+  //   contentList: PropTypes.arrayOf(
+  //     PropTypes.shape({
+  //       // eslint-disable-next-line
+  //       author: PropTypes.string
+  //     })
+  //   )
+  // };
 
-  static needs = [
-    postActions.getContent
-  ]
+  static needs = [postActions.getContent];
 
-  static defaultProps = {
-    modal: false,
-    contentList: [],
-    modalResetScroll: () => null,
-  };
+  // static defaultProps = {
+  //   modal: false,
+  //   contentList: [],
+  //   modalResetScroll: () => null
+  // };
 
   componentWillMount() {
     const { content } = this.props;
@@ -68,73 +75,73 @@ export default class PostSingle extends Component {
       this.props.getContent();
     }
   }
-  componentDidMount() {
-    const { modal } = this.props;
-    if (modal) {
-      this.unlisten = browserHistory.listen(() => {
-        this.props.closePostModal();
-      });
-    }
-  }
+  // componentDidMount() {
+  //   const { modal } = this.props;
+  //   if (modal) {
+  //     this.unlisten = this.props.history.listen(() => {
+  //       this.props.closePostModal();
+  //     });
+  //   }
+  // }
 
   componentWillUnmount() {
-    this.props.closePostModal();
-    if (this.unlisten) { this.unlisten(); }
+    // this.props.closePostModal();
+    // if (this.unlisten) { this.unlisten(); }
     if (process.env.IS_BROWSER) {
       global.document.title = 'Busy';
     }
   }
 
   render() {
-    let onEdit;
-    const { contentList, reblog, reblogList, auth, content, modal } = this.props;
+    // let onEdit;
+    const { content, dislikePost, likePost, auth } = this.props;
 
     if (!content || !content.author) {
       return <div className="main-panel"><Loading /></div>;
     }
 
-    if (content.author === auth.user.name) {
-      let jsonMetadata = {};
-      try { jsonMetadata = JSON.parse(content.json_metadata); } catch (e) { }
-      // Support Only markdown edits
-      if (jsonMetadata.format === 'markdown') { onEdit = () => { this.props.editPost(content); }; }
-    }
+    // if (content.author === auth.user.name) {
+    //   let jsonMetadata = {};
+    //   try { jsonMetadata = JSON.parse(content.json_metadata); } catch (e) { }
+    //   // Support Only markdown edits
+    //   if (jsonMetadata.format === 'markdown') { onEdit = () => { this.props.editPost(content); }; }
+    // }
 
-    const currentStoryIndex = contentList.indexOf(content);
-    const nextStory = currentStoryIndex > -1 ? contentList[currentStoryIndex + 1] : undefined;
-    const prevStory = currentStoryIndex > -1 ? contentList[currentStoryIndex - 1] : undefined;
+    // const currentStoryIndex = contentList.indexOf(content);
+    // const nextStory = currentStoryIndex > -1 ? contentList[currentStoryIndex + 1] : undefined;
+    // const prevStory = currentStoryIndex > -1 ? contentList[currentStoryIndex - 1] : undefined;
 
-    const isPostLiked =
-      auth.isAuthenticated &&
-      content.active_votes &&
-      content.active_votes.some(vote => vote.voter === auth.user.name && vote.percent > 0);
+    // const isPostLiked =
+    //   auth.isAuthenticated &&
+    //   content.active_votes &&
+    //   content.active_votes.some(vote => vote.voter === auth.user.name && vote.percent > 0);
 
-    const isPostDisliked =
-      auth.isAuthenticated &&
-      content.active_votes &&
-      content.active_votes.some(vote => vote.voter === auth.user.name && vote.percent < 0);
+    // const isPostDisliked =
+    //   auth.isAuthenticated &&
+    //   content.active_votes &&
+    //   content.active_votes.some(vote => vote.voter === auth.user.name && vote.percent < 0);
 
-    const canReblog = auth.isAuthenticated && auth.user.name !== content.author;
+    // const canReblog = auth.isAuthenticated && auth.user.name !== content.author;
 
-    const theProps = {
-      content,
-      reblog: () => reblog(content.id),
-      isReblogged: reblogList.includes(content.id),
-      canReblog,
-      likePost: () => this.props.likePost(content.id),
-      unlikePost: () => this.props.unlikePost(content.id),
-      dislikePost: () => this.props.dislikePost(content.id),
-      isPostLiked,
-      isPostDisliked,
-      contentList,
-      bookmarks: this.props.bookmarks,
-      toggleBookmark: this.props.toggleBookmark,
-      onEdit,
-      nextStory,
-      prevStory,
-      openPostModal: this.props.openPostModal,
-      modalResetScroll: this.props.modalResetScroll,
-    };
+    // const theProps = {
+    //   content,
+    //   reblog: () => reblog(content.id),
+    //   isReblogged: reblogList.includes(content.id),
+    //   canReblog,
+    //   likePost: () => this.props.likePost(content.id),
+    //   unlikePost: () => this.props.unlikePost(content.id),
+    //   dislikePost: () => this.props.dislikePost(content.id),
+    //   isPostLiked,
+    //   isPostDisliked,
+    //   contentList,
+    //   bookmarks: this.props.bookmarks,
+    //   toggleBookmark: this.props.toggleBookmark,
+    //   onEdit,
+    //   nextStory,
+    //   prevStory,
+    //   openPostModal: this.props.openPostModal,
+    //   modalResetScroll: this.props.modalResetScroll,
+    // };
 
     const postMetaData = jsonParse(content.json_metadata);
     const busyHost = global.postOrigin || 'https://busy.org';
@@ -154,7 +161,7 @@ export default class PostSingle extends Component {
     const metaTitle = `${title} - Busy`;
 
     return (
-      <div>
+      <div className="main-panel">
         <Helmet>
           <title>{title}</title>
           <link rel="canonical" href={canonicalUrl} />
@@ -173,15 +180,32 @@ export default class PostSingle extends Component {
           <meta property="twitter:site" content={'@steemit'} />
           <meta property="twitter:title" content={metaTitle} />
           <meta property="twitter:description" content={desc} />
-          <meta property="twitter:image" content={image || 'https://steemit.com/images/steemit-twshare.png'} />
+          <meta
+            property="twitter:image"
+            content={image || 'https://steemit.com/images/steemit-twshare.png'}
+          />
         </Helmet>
-        {content.author && !modal &&
+        <div style={{ flex: 3, paddingTop: '1em' }}>
+          <StoryFull
+            post={content}
+            onFollowClick={() => console.log('Follow click')}
+            onSaveClick={() => console.log('Save click')}
+            onReportClick={() => console.log('Report click')}
+            onLikeClick={likePost}
+            onDislikeClick={dislikePost}
+            onCommentClick={() => console.log('Comment click')}
+            onShareClick={() => console.log('Share click')}
+          />
+        </div>
+        
+        {auth.user.name && <RightSidebar auth={auth} />}
+        {/* {content.author && !modal &&
           <PostSinglePage {...theProps} />
         }
 
         {modal &&
           <PostSingleModal {...theProps} />
-        }
+        }*/}
       </div>
     );
   }

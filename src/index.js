@@ -1,14 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
 import steemconnect from 'sc2-sdk';
 import Cookie from 'js-cookie';
 import ReactGA from 'react-ga';
 import { AppContainer } from 'react-hot-loader';
 import getStore from './store';
-import { isSmall } from './helpers/responsive';
-import { HIDE_SIDEBAR } from './actions';
 import AppHost from './AppHost';
 
 const store = getStore();
@@ -36,14 +33,6 @@ if (process.env.STEEMCONNECT_HOST) {
   }
 }
 
-browserHistory.listen(() => {
-  if (isSmall()) {
-    store.dispatch({
-      type: HIDE_SIDEBAR,
-    });
-  }
-});
-
 const render = (Component) => {
   ReactDOM.render(
     <Provider store={store}>
@@ -51,13 +40,11 @@ const render = (Component) => {
         <AppContainer>
           <Component
             onUpdate={logPageView}
-            history={browserHistory}
           />
         </AppContainer>
         :
         <Component
           onUpdate={logPageView}
-          history={browserHistory}
         />
       }
     </Provider>,

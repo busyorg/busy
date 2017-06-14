@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import ReduxInfiniteScroll from 'redux-infinite-scroll';
 import { isNumber, take } from 'lodash';
 import UserCard from '../widgets/UserCard';

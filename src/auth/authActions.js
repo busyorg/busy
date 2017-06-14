@@ -32,15 +32,15 @@ export const login = () =>
   (dispatch) => {
     dispatch(requestLogin());
     steemConnect.me((err, result) => {
-      if (err || !result || !result.name) {
+      if (err || !result || !result.user) {
         dispatch(loginFail());
         return;
       }
-      dispatch(getFollowing(result.name));
+      dispatch(getFollowing(result.user));
 
       const accessToken = Cookie.get('access_token');
-      dispatch(loginSuccess(result, accessToken));
+      dispatch(loginSuccess(result.account, accessToken));
       // init pushpad
-      initPushpad(result.name, accessToken);
+      initPushpad(result.user, accessToken);
     });
   };

@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import embedjs from 'embedjs';
 import PostFeedEmbed from './PostFeedEmbed';
 import BodyShort from './BodyShort';
@@ -22,7 +22,7 @@ const StoryPreview = ({ post }) => {
     imagePath = `https://steemitimages.com/600x800/${jsonMetadata.image[0]}`;
   } else {
     const bodyImg = post.body.match(image());
-    if (bodyImg.length) {
+    if (bodyImg && bodyImg.length) {
       imagePath = `https://steemitimages.com/600x800/${bodyImg[0]}`;
     }
   }
@@ -30,19 +30,17 @@ const StoryPreview = ({ post }) => {
   const embeds = embedjs.getAll(post.body);
 
   const preview = {
-    text: () => (
+    text: () =>
       <div key="text" className="Story__content__body">
         <BodyShort body={post.body} />
-      </div>
-    ),
+      </div>,
 
-    embed: () => (embeds && embeds[0]) && <PostFeedEmbed key="embed" embed={embeds[0]} />,
+    embed: () => embeds && embeds[0] && <PostFeedEmbed key="embed" embed={embeds[0]} />,
 
-    image: () => (
+    image: () =>
       <Link key="image" to={post.url}>
         <img alt="post" key={imagePath} src={imagePath} />
       </Link>
-    ),
   };
 
   const htmlBody = getHtml(post.body, {}, 'text');
@@ -68,11 +66,12 @@ const StoryPreview = ({ post }) => {
   return (
     <div>
       {bodyData}
-    </div>);
+    </div>
+  );
 };
 
 StoryPreview.propTypes = {
-  post: PropTypes.shape(),
+  post: PropTypes.shape()
 };
 
 export default StoryPreview;
