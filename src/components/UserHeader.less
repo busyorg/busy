@@ -2,6 +2,16 @@
 
 .UserHeader {
   background-color: #f3f4f6;
+
+  &__more {
+    font-size: 36px !important;
+    color: @purple;
+
+    &:hover {
+      cursor: pointer;
+      color: darken(@purple, 15%);
+    }
+  }
 }
 
 .UserHeader__container {
@@ -44,25 +54,4 @@
   position: relative;
   top: 12px;
   margin-right: 10px;
-}
-
-.UserHeader__menu {
-  position: relative;
-  top: 3px;
-  background-color: transparent !important;
-  border-bottom: none !important;
-  height: 46px !important;
-}
-
-.UserHeader__menu__item {
-  border-bottom: none !important;
-
-  & > div {
-    padding: 0 2px !important;
-  }
-}
-
-.UserHeader__more {
-  color: @purple;
-  font-size: 36px !important;
 }

@@ -4,16 +4,10 @@ import { Link } from 'react-router-dom';
 import { Menu, Popover, Tooltip, Input, Badge } from 'antd';
 import Avatar from '../Avatar';
 import Notifications from './Notifications/Notifications';
+import PopoverMenu, { PopoverMenuItem } from '../PopoverMenu/PopoverMenu';
 import './Topnav.less';
 
-const SubMenu = Menu.SubMenu;
-
-const Topnav = ({
-  username,
-  onNotificationClick,
-  onSeeAllClick,
-  notifications
-}) => {
+const Topnav = ({ username, onNotificationClick, onSeeAllClick, onMenuItemClick, notifications }) => {
   let content;
 
   const notificationsCount = notifications && notifications
@@ -61,21 +55,21 @@ const Topnav = ({
               </Tooltip>
             </Popover>
           </Menu.Item>
-          <SubMenu
-            key="more"
-            className="Topnav__item--dropdown"
-            title={<i className="iconfont icon-switch" />}
-          >
-            <Menu.Item className="Topnav__item__subitem" key="activity">
-              Activity
-            </Menu.Item>
-            <Menu.Item className="Topnav__item__subitem" key="settings">
-              Settings
-            </Menu.Item>
-            <Menu.Item className="Topnav__item__subitem" key="logout">
-              Logout
-            </Menu.Item>
-          </SubMenu>
+          <Menu.Item key="more" className="Topnav__item--dropdown">
+            <Popover
+              placement="bottom"
+              trigger="click"
+              content={
+                <PopoverMenu onSelect={onMenuItemClick}>
+                  <PopoverMenuItem key="activity">Activity</PopoverMenuItem>
+                  <PopoverMenuItem key="settings">Settings</PopoverMenuItem>
+                  <PopoverMenuItem key="logout">Logout</PopoverMenuItem>
+                </PopoverMenu>
+              }
+            >
+              <i className="iconfont icon-switch" />
+            </Popover>
+          </Menu.Item>
         </Menu>
       </div>
     );
@@ -123,12 +117,16 @@ Topnav.propTypes = {
   username: PropTypes.string,
   onNotificationClick: PropTypes.func,
   onSeeAllClick: PropTypes.func,
-  notifications: PropTypes.arrayOf(PropTypes.shape())
+  onMenuItemClick: PropTypes.func,
+  notifications: PropTypes.arrayOf(
+    PropTypes.shape(),
+  ),
 };
 
 Topnav.defaultProps = {
   onNotificationClick: () => {},
-  onSeeAllClick: () => {}
+  onSeeAllClick: () => {},
+  onMenuItemClick: () => {},
 };
 
 export default Topnav;
