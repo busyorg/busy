@@ -1,11 +1,22 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { Button, Form, Input, Select } from 'antd';
 import Action from '../Button/Action';
 import './Editor.less';
 
 const Option = Select.Option;
+const OptionGroup = Select.OptGroup;
 
 class Editor extends React.Component {
+  static propTypes = {
+    recentTopics: PropTypes.arrayOf(PropTypes.string),
+    popularTopics: PropTypes.arrayOf(PropTypes.string),
+  }
+
+  static defaultProps = {
+    recentTopics: [],
+    popularTopics: [],
+  }
+
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
@@ -86,6 +97,7 @@ class Editor extends React.Component {
 
   render() {
     const { getFieldDecorator } = this.props.form;
+    const { recentTopics, popularTopics } = this.props;
 
     return (
       <Form className="Editor" layout="vertical" onSubmit={this.handleSubmit}>
@@ -96,7 +108,10 @@ class Editor extends React.Component {
             <Input className="Editor__title" placeholder="Add title" />
           )}
         </Form.Item>
-        <Form.Item label={<span className="Editor__label">Topics</span>}>
+        <Form.Item
+          label={<span className="Editor__label">Topics</span>}
+          extra="Separate topics with commas."
+        >
           {getFieldDecorator('topics', {
             rules: [
               { required: true, message: 'Please enter topics.', type: 'array' },
@@ -106,15 +121,15 @@ class Editor extends React.Component {
             <Select
               mode="tags"
               placeholder="Add story topics here"
+              notFoundContent="No such topic found. Just type your topics and separate them with commas."
               tokenSeparators={[' ', ',']}
             >
-              <Option key="steemit">steemit</Option>
-              <Option key="life">life</Option>
-              <Option key="photography">photography</Option>
-              <Option key="bitcoin">bitcoin</Option>
-              <Option key="travel">travel</Option>
-              <Option key="gaming">gaming</Option>
-              <Option key="news">news</Option>
+              <OptionGroup key="recent" label={<b>Recent</b>}>
+                {recentTopics && recentTopics.map(topic => <Option key={topic}>{topic}</Option>)}
+              </OptionGroup>
+              <OptionGroup key="popular" label={<b>Popular</b>}>
+                {popularTopics && popularTopics.map(topic => <Option key={topic}>{topic}</Option>)}
+              </OptionGroup>
             </Select>
           )}
         </Form.Item>

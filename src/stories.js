@@ -129,4 +129,7 @@ storiesOf('Comments', module)
   />);
 
 storiesOf('Editor', module)
-  .add('Editor', () => <Editor />);
+  .add('Editor', () => <Editor
+    recentTopics={['bitcoin', 'steemit', 'busy']}
+    popularTopics={['life', 'travel', 'nature', 'money', 'story']}
+  />);
