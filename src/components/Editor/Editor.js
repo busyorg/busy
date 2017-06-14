@@ -1,7 +1,11 @@
 import React, { PropTypes } from 'react';
+import Remarkable from 'remarkable';
+import { throttle } from 'lodash';
 import { Button, Form, Input, Select } from 'antd';
 import Action from '../Button/Action';
 import './Editor.less';
+
+const remarkable = new Remarkable();
 
 const Option = Select.Option;
 const OptionGroup = Select.OptGroup;
@@ -15,6 +19,21 @@ class Editor extends React.Component {
   static defaultProps = {
     recentTopics: [],
     popularTopics: [],
+  }
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      contentHtml: '',
+    };
+  }
+
+  componentDidMount() {
+    this.input.addEventListener('input', throttle((e) => {
+      this.setState({
+        contentHtml: remarkable.render(e.target.value),
+      });
+    }, 500));
   }
 
   handleSubmit = (e) => {
@@ -34,10 +53,12 @@ class Editor extends React.Component {
     }
   }
 
-  insertCode = (type) => {
-    const nativeInput = this.input && this.input.refs && this.input.refs.input;
+  setInput = (input) => {
+    this.input = input && input.refs && input.refs.input;
+  };
 
-    if (!nativeInput) {
+  insertCode = (type) => {
+    if (!this.input) {
       return;
     }
 
@@ -90,9 +111,9 @@ class Editor extends React.Component {
         break;
     }
 
-    nativeInput.focus();
-    nativeInput.value = `${nativeInput.value}${addedText}`;
-    nativeInput.selectionEnd -= cursorDiff;
+    this.input.focus();
+    this.input.value = `${this.input.value}${addedText}`;
+    this.input.selectionEnd -= cursorDiff;
   }
 
   render() {
@@ -134,7 +155,7 @@ class Editor extends React.Component {
           )}
         </Form.Item>
         <Form.Item label={<span className="Editor__label">Write your story</span>}>
-          <Input ref={(ref) => { this.input = ref; }} type="textarea" placeholder="Write your story..." autosize={{ minRows: 2, maxRows: 10 }} />
+          <Input ref={ref => this.setInput(ref)} type="textarea" placeholder="Write your story..." autosize={{ minRows: 2, maxRows: 10 }} />
           <div className="Editor__toolbar">
             <Button className="Editor__toolbar__button" onClick={() => this.insertCode('h1')}>h1</Button>
             <Button className="Editor__toolbar__button" onClick={() => this.insertCode('h2')}>h2</Button>
@@ -150,6 +171,7 @@ class Editor extends React.Component {
             <Button className="Editor__toolbar__button" onClick={() => this.insertCode('image')}>Image</Button>
           </div>
         </Form.Item>
+        <div dangerouslySetInnerHTML={{ __html: this.state.contentHtml }} />
         <Form.Item className="Editor__submit">
           <Action text="Submit" />
         </Form.Item>
