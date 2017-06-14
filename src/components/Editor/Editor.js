@@ -3,6 +3,7 @@ import Remarkable from 'remarkable';
 import { HotKeys } from 'react-hotkeys';
 import { throttle } from 'lodash';
 import { Button, Form, Input, Select } from 'antd';
+import EditorToolbar from './EditorToolbar';
 import Action from '../Button/Action';
 import './Editor.less';
 
@@ -192,19 +193,7 @@ class Editor extends React.Component {
         <HotKeys keyMap={Editor.hotkeys} handlers={this.handlers}>
           <Form.Item label={<span className="Editor__label">Write your story</span>}>
             <Input ref={ref => this.setInput(ref)} type="textarea" placeholder="Write your story..." autosize={{ minRows: 2, maxRows: 10 }} />
-            <div className="Editor__toolbar">
-              <Button className="Editor__toolbar__button" onClick={() => this.insertCode('h1')}>h1</Button>
-              <Button className="Editor__toolbar__button" onClick={() => this.insertCode('h2')}>h2</Button>
-              <Button className="Editor__toolbar__button" onClick={() => this.insertCode('h3')}>h3</Button>
-              <Button className="Editor__toolbar__button" onClick={() => this.insertCode('h4')}>h4</Button>
-              <Button className="Editor__toolbar__button" onClick={() => this.insertCode('h5')}>h5</Button>
-              <Button className="Editor__toolbar__button" onClick={() => this.insertCode('h6')}>h6</Button>
-              <Button className="Editor__toolbar__button" onClick={() => this.insertCode('b')}>B</Button>
-              <Button className="Editor__toolbar__button" onClick={() => this.insertCode('i')}>I</Button>
-              <Button className="Editor__toolbar__button" onClick={() => this.insertCode('q')}>"</Button>
-              <Button className="Editor__toolbar__button" onClick={() => this.insertCode('link')}>Link</Button>
-              <Button className="Editor__toolbar__button" onClick={() => this.insertCode('image')}>Image</Button>
-            </div>
+            <EditorToolbar onSelect={this.insertCode} />
           </Form.Item>
         </HotKeys>
         <div dangerouslySetInnerHTML={{ __html: this.state.contentHtml }} />
