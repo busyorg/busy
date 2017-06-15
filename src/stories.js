@@ -145,4 +145,9 @@ storiesOf('Comments', module)
   />);
 
 storiesOf('Topic selector', module)
-  .add('Topic selector', () => <TopicSelector onSortChange={action('Sort change')} />);
+  .add('Topic selector', () => (
+    <TopicSelector
+      topics={['photography', 'travel']}
+      onTopicClose={action('Topic close')}
+      onSortChange={action('Sort change')}
+    />));

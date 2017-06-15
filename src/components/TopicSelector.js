@@ -6,10 +6,14 @@ import './TopicSelector.less';
 
 class TopicSelector extends React.Component {
   static propTypes = {
+    topics: PropTypes.arrayOf(PropTypes.string),
+    onTopicClose: PropTypes.func,
     onSortChange: PropTypes.func
   }
 
   static defaultProps = {
+    topics: [],
+    onTopicClose: () => {},
     onSortChange: () => {},
   }
 
@@ -26,12 +30,19 @@ class TopicSelector extends React.Component {
   onVisibleChange = visible => this.setState({ popoverVisible: visible });
 
   render() {
+    const { topics, onTopicClose } = this.props;
     const { currentSort, popoverVisible } = this.state;
 
     return (
       <div className="TopicSelector">
         <div className="TopicSelector__topics">
-          <Topic closable name="photography" />
+          {topics && topics.map(topic => (
+            <Topic
+              key={topic}
+              closable
+              name={topic}
+              onClose={onTopicClose}
+            />))}
         </div>
         <div className="TopicSelector__sort">
           Sort by:

@@ -2,6 +2,14 @@
   display: flex;
   justify-content: space-between;
 
+  &__topics {
+    & > a {
+      &:not(:nth-child(1)) {
+        margin-left: 4px;
+      }
+    }
+  }
+
   &__sort {
     color: #99aab5;
 
