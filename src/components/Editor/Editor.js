@@ -234,7 +234,10 @@ class Editor extends React.Component {
             </Select>
             )}
         </Form.Item>
-        <Form.Item label={<span className="Editor__label">Write your story</span>}>
+        <Form.Item
+          label={<span className="Editor__label">Write your story</span>}
+          extra="You can upload images just by pasting them."
+        >
           <Tabs defaultActiveKey="1">
             <TabPane tab="Editor" key="1">
               <HotKeys keyMap={Editor.hotkeys} handlers={this.handlers}>
