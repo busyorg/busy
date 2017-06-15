@@ -6,12 +6,12 @@ const Sidenav = ({ username }) =>
   <div>
     {(username) ? <ul className="Sidenav">
       <li>
-        <Link to="#">
+        <Link to={`/@${username}`}>
           <i className="iconfont icon-mine" /> My Profile
         </Link>
       </li>
       <li>
-        <Link to="#">
+        <Link to="/">
           <i className="iconfont icon-clock" /> Timeline
         </Link>
       </li>
@@ -32,7 +32,7 @@ const Sidenav = ({ username }) =>
       </li>
     </ul> : <ul className="Sidenav">
       <li className="Sidenav__item--active">
-        <Link to="#">
+        <Link to="/trending">
           <i className="iconfont icon-headlines" /> News
         </Link>
       </li>
@@ -42,7 +42,7 @@ const Sidenav = ({ username }) =>
         </Link>
       </li>
       <li>
-        <Link to="/trending">
+        <Link to="#">
           <i className="iconfont icon-service" /> Shopping
         </Link>
       </li>

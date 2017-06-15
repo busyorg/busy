@@ -1,23 +1,19 @@
 import React, { Component } from 'react';
-import Icon from '../../widgets/Icon';
 import './PostFeedEmbed.less';
 
 export default class PostFeedEmbed extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showIframe: false,
+      showIframe: false
     };
   }
 
   renderThumbFirst(thumb) {
     return (
-      <a
-        className="PostFeedEmbed"
-        onClick={this.handleThumbClick}
-      >
+      <a className="PostFeedEmbed" onClick={this.handleThumbClick}>
         <div className="PostFeedEmbed__playButton">
-          <Icon name="play_circle_filled" xxl />
+          <i className="iconfont icon-group icon-playon_fill" />
         </div>
         <img className="PostFeedEmbed__preview" src={thumb} />
       </a>
@@ -30,9 +26,7 @@ export default class PostFeedEmbed extends Component {
   };
 
   static renderWithIframe(embed) {
-    return (
-      <div className="PostFeedCard__thumbs" dangerouslySetInnerHTML={{ __html: embed }} />
-    );
+    return <div className="PostFeedCard__thumbs" dangerouslySetInnerHTML={{ __html: embed }} />;
   }
 
   render() {
