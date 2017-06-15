@@ -1,3 +1,5 @@
+@import "../../styles/custom.less";
+
 .PostFeedEmbed {
   margin: 4px 0;
   display: flex;
@@ -7,9 +9,8 @@
   background-color: #000000;
 
   &:hover {
-    & .Icon {
+    & .iconfont {
       font-size: 7em;
-      text-shadow: 0 0 140px rgba(0, 0, 0, 0.8) !important;
     }
   }
 }
@@ -18,12 +19,11 @@
   position: absolute;
   display: flex;
   transition: 0.2s all;
-  text-shadow: 0 0 100px rgba(0, 0, 0, 0.4) !important;
 
-  & .Icon {
+  & .iconfont {
     font-size: 6em;
     transition: 0.2s all;
-    color: white;
+    color: @primary-color;
   }
 }
 

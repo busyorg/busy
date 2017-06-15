@@ -4,13 +4,15 @@ import './Topics.less';
 
 class Topics extends React.Component {
   static propTypes = {
-    title: PropTypes.string,
+    title: PropTypes.string.isRequired,
     favorite: PropTypes.bool,
     topics: PropTypes.arrayOf(PropTypes.string),
     maxItems: PropTypes.number,
   };
 
   static defaultProps = {
+    favorite: false,
+    topics: [],
     maxItems: 5,
   };
 
@@ -37,7 +39,7 @@ class Topics extends React.Component {
           {
             displayedTopics.map(topic =>
               <li key={topic}>
-                <Topic name={topic} isFavorite={favorite} />
+                <Topic name={topic} favorite={favorite} />
               </li>
             )
           }

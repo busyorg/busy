@@ -20,6 +20,7 @@ import UserMenu from './components/UserMenu';
 import UserHeader from './components/UserHeader';
 import Comments from './components/Comments/Comments';
 import Editor from './components/Editor/Editor';
+import TopicSelector from './components/TopicSelector';
 import '../src/styles/common.less';
 
 addDecorator(story => (
@@ -45,7 +46,8 @@ Object.keys(postState.content)
 
 storiesOf('Button', module)
   .add('Topic', () => <Topic name="travel" />)
-  .add('Favored topic', () => <Topic isFavorite name="photography" />)
+  .add('Favored topic', () => <Topic favorite name="photography" />)
+  .add('Closable topic', () => <Topic closable name="travel" onClose={action('Close')} />)
   .add('Follow', () => <Follow />)
   .add('Followed', () => <Follow isFollowed />)
   .add('Action', () => <Action text="Transfer" />);
@@ -156,3 +158,11 @@ storiesOf('Editor', module)
       }
     }
   />);
+
+storiesOf('Topic selector', module)
+  .add('Topic selector', () => (
+    <TopicSelector
+      topics={['photography', 'travel']}
+      onTopicClose={action('Topic close')}
+      onSortChange={action('Sort change')}
+    />));
