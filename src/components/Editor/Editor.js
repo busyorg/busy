@@ -5,6 +5,7 @@ import { throttle } from 'lodash';
 import { Form, Input, Select, Tabs } from 'antd';
 import EditorToolbar from './EditorToolbar';
 import Action from '../Button/Action';
+import Body from '../Story/Body';
 import './Editor.less';
 
 const remarkable = new Remarkable();
@@ -246,7 +247,7 @@ class Editor extends React.Component {
               <p>You can upload images just by pasting them.</p>
             </TabPane>
             <TabPane tab="Preview" key="2">
-              <div dangerouslySetInnerHTML={{ __html: this.state.contentHtml }} />
+              <Body body={this.state.contentHtml} />
             </TabPane>
           </Tabs>
         </Form.Item>
