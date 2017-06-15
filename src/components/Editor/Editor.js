@@ -33,6 +33,7 @@ class Editor extends React.Component {
 
   state = {
     contentHtml: '',
+    noContent: false,
   }
 
   static hotkeys = {
@@ -63,15 +64,32 @@ class Editor extends React.Component {
   //
 
   handleSubmit = (e) => {
+    // NOTE: Wrapping textarea in getFormDecorator makes it impossible to control its selection what is needed for markdown formatting.
+    // NOTE: This code adds requirement for body input to not be empty.
     e.preventDefault();
+    this.setState({ noContent: false });
     this.props.form.validateFieldsAndScroll((err, values) => {
-      if (!err) {
+      if (!err && this.input.value !== '') {
         this.props.onSubmit({
           ...values,
           body: this.input.value,
         });
       } else {
-        this.props.onError(err);
+        if (this.input.value === '') {
+          const errors = {
+            ...err,
+            body: {
+              errors: [{
+                field: 'body',
+                message: "Content can't be empty.",
+              }],
+            },
+          };
+          this.setState({ noContent: true });
+          this.props.onError(errors);
+        } else {
+          this.props.onError(err);
+        }
       }
     });
   }
@@ -237,6 +255,8 @@ class Editor extends React.Component {
         </Form.Item>
         <Form.Item
           label={<span className="Editor__label">Write your story</span>}
+          validateStatus={this.state.noContent ? 'error' : ''}
+          help={this.state.noContent ? "Story content can't be empty." : ''}
         >
           <Tabs defaultActiveKey="1">
             <TabPane tab="Editor" key="1">
