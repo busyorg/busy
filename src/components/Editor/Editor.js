@@ -239,6 +239,7 @@ class Editor extends React.Component {
             ],
           })(
             <Select
+              className="Editor__topics"
               mode="tags"
               placeholder="Add story topics here"
               notFoundContent="No such topic found. Just type your topics and separate them with commas."

@@ -1,3 +1,5 @@
+@import "../../styles/custom.less";
+
 .Editor {
   & .ant-form-item-label {
     position: relative;
@@ -15,12 +17,33 @@
   }
 
   &__topics {
-    height: 42px !important;
+    & > div {
+      padding-top: 5px !important;
+      height: 42px !important;
+    }
   }
 
   &__submit {
     .ant-form-item-control {
       text-align: right !important;
+    }
+  }
+
+  .ant-select-selection__choice {
+    font-weight: 500 !important;
+    border: 2px solid @green !important;
+    color: @green !important;
+    background-color: transparent !important;
+    border-radius: @btn-height-sm !important;
+
+    & > div {
+      position: relative;
+      top: -2px;
+      font-size: 14px;
+    }
+
+    & > span {
+      color: @green !important;
     }
   }
 }
