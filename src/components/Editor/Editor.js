@@ -241,7 +241,7 @@ class Editor extends React.Component {
           <Tabs defaultActiveKey="1">
             <TabPane tab="Editor" key="1">
               <HotKeys keyMap={Editor.hotkeys} handlers={this.handlers}>
-                <Input ref={ref => this.setInput(ref)} type="textarea" placeholder="Write your story..." autosize={{ minRows: 2, maxRows: 10 }} />
+                <Input ref={ref => this.setInput(ref)} type="textarea" placeholder="Write your story..." autosize={{ minRows: 3, maxRows: 10 }} />
               </HotKeys>
               <EditorToolbar onSelect={this.insertCode} />
             </TabPane>
