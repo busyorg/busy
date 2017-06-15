@@ -19,6 +19,7 @@ import StoryFull from './components/Story/StoryFull';
 import UserMenu from './components/UserMenu';
 import UserHeader from './components/UserHeader';
 import Comments from './components/Comments/Comments';
+import TopicSelector from './components/TopicSelector';
 import '../src/styles/common.less';
 
 addDecorator(story => (
@@ -141,3 +142,6 @@ storiesOf('Comments', module)
     onLikeClick={action('Like click')}
     onDislikeClick={action('Dislike click')}
   />);
+
+storiesOf('Topic selector', module)
+  .add('Topic selector', () => <TopicSelector />);
