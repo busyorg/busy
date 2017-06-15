@@ -45,7 +45,8 @@ Object.keys(postState.content)
 
 storiesOf('Button', module)
   .add('Topic', () => <Topic name="travel" />)
-  .add('Favored topic', () => <Topic isFavorite name="photography" />)
+  .add('Favored topic', () => <Topic favorite name="photography" />)
+  .add('Closable topic', () => <Topic closable name="travel" onClose={action('Close')} />)
   .add('Follow', () => <Follow />)
   .add('Followed', () => <Follow isFollowed />)
   .add('Action', () => <Action text="Transfer" />);
