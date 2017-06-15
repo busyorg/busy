@@ -95,11 +95,15 @@ class Editor extends React.Component {
   }
 
   checkTopics = (rule, value, callback) => {
-    if (value && value.length >= 1 && value.length <= 5) {
-      callback();
-    } else {
+    if (!value || value.length < 1 || value.length > 5) {
       callback('You have to add 1 to 5 topics');
     }
+
+    value.map(topic => ({ topic, valid: /^[a-z0-9]+(-[a-z0-9]+)*$/.test(topic) }))
+      .filter(topic => !topic.valid)
+      .map(topic => callback(`Topic ${topic.topic} is invalid`));
+
+    callback();
   }
 
   //
@@ -223,19 +227,22 @@ class Editor extends React.Component {
       <Form className="Editor" layout="vertical" onSubmit={this.handleSubmit}>
         <Form.Item label={<span className="Editor__label">Title</span>}>
           {getFieldDecorator('title', {
-            rules: [{ required: true, message: 'Please enter a title' }],
+            rules: [
+              { required: true, message: 'Please enter a title' },
+              { max: 255, message: "Title can't be longer than 255 characters" }
+            ]
           })(
             <Input className="Editor__title" placeholder="Add title" />
             )}
         </Form.Item>
         <Form.Item
           label={<span className="Editor__label">Topics</span>}
-          extra="Separate topics with commas"
+          extra="Separate topics with commas. Only lowercase letters, numbers and hyphen character is permited."
         >
           {getFieldDecorator('topics', {
             rules: [
               { required: true, message: 'Please enter topics', type: 'array' },
-              { validator: this.checkTopics },
+              { validator: this.checkTopics }
             ],
           })(
             <Select
