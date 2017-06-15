@@ -236,7 +236,6 @@ class Editor extends React.Component {
         </Form.Item>
         <Form.Item
           label={<span className="Editor__label">Write your story</span>}
-          extra="You can upload images just by pasting them."
         >
           <Tabs defaultActiveKey="1">
             <TabPane tab="Editor" key="1">
@@ -244,6 +243,7 @@ class Editor extends React.Component {
                 <Input ref={ref => this.setInput(ref)} type="textarea" placeholder="Write your story..." autosize={{ minRows: 3, maxRows: 10 }} />
               </HotKeys>
               <EditorToolbar onSelect={this.insertCode} />
+              <p>You can upload images just by pasting them.</p>
             </TabPane>
             <TabPane tab="Preview" key="2">
               <div dangerouslySetInnerHTML={{ __html: this.state.contentHtml }} />
