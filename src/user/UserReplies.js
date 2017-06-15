@@ -27,7 +27,7 @@ export default class UserReplies extends Component {
   render() {
     const { getUserReplies, getMoreUserReplies, feed, posts } = this.props;
 
-    const username = this.props.params.name;
+    const username = this.props.match.params.name;
     const content = getFeedContentFromState('replies', username, feed, posts);
     const isFetching = getFeedLoadingFromState('replies', username, feed);
     const hasMore = getFeedHasMoreFromState('replies', username, feed);

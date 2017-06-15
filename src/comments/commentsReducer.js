@@ -1,6 +1,5 @@
 import * as commentsTypes from './commentsActions';
 import * as userTypes from '../user/userActions';
-import * as appTypes from '../actions';
 
 const initialState = {
   listByPostId: {},
@@ -249,7 +248,6 @@ const comments = (state = initialState, action) => {
         commentingDraft: commentingDraft(state.commentingDraft, action),
       };
     case commentsTypes.CLOSE_COMMENTING_DRAFT:
-    case appTypes.SHOW_SIDEBAR:
       return {
         ...state,
         isCommenting: false,

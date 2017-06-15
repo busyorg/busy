@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import classNames from 'classnames';
 import numeral from 'numeral';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import { FormattedRelative, FormattedDate, FormattedTime } from 'react-intl';
 import { Tooltip } from 'antd';
 import CommentForm from './CommentForm';
@@ -72,7 +72,7 @@ class Comment extends React.Component {
                 </span>
               }
             >
-              <Link to={comment.permalink}>
+              <Link to={comment.permlink}>
                 <FormattedRelative value={`${comment.created}Z`} />
               </Link>
             </Tooltip>

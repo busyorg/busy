@@ -1,10 +1,9 @@
 import React, { PropTypes } from 'react';
-import { Menu } from 'antd';
+import { Popover } from 'antd';
 import Avatar from './Avatar';
 import Follow from './Button/Follow';
+import PopoverMenu, { PopoverMenuItem } from './PopoverMenu/PopoverMenu';
 import './UserHeader.less';
-
-const SubMenu = Menu.SubMenu;
 
 const UserHeader = ({ username }) =>
   <div className="UserHeader">
@@ -16,15 +15,19 @@ const UserHeader = ({ username }) =>
           <div className="UserHeader__user__button">
             <Follow />
           </div>
-          <Menu
-            className="UserHeader__menu"
-            mode="horizontal"
+          <Popover
+            placement="bottom"
+            trigger="click"
+            content={
+              <PopoverMenu>
+                <PopoverMenuItem key="option1">Option 1</PopoverMenuItem>
+                <PopoverMenuItem key="option2">Option 2</PopoverMenuItem>
+                <PopoverMenuItem key="option3">Option 3</PopoverMenuItem>
+              </PopoverMenu>
+            }
           >
-            <SubMenu className="UserHeader__menu__item" title={<i className="iconfont icon-more UserHeader__more" />}>
-              <Menu.Item key="setting:1">Option 1</Menu.Item>
-              <Menu.Item key="setting:2">Option 2</Menu.Item>
-            </SubMenu>
-          </Menu>
+            <i className="iconfont icon-more UserHeader__more" />
+          </Popover>
         </div>
         <div className="UserHeader__row UserHeader__handle">
           @{username}

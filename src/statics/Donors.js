@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import donors from '../helpers/donors';
 import MenuHelp from '../app/Menu/MenuHelp';
 import Donor from '../widgets/Donor';

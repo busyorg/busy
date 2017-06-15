@@ -1,6 +1,6 @@
 import React from 'react';
 import numeral from 'numeral';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import FavoriteButton from '../favorites/FavoriteButton';
 import Icon from '../widgets/Icon';
 

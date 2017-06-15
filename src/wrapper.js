@@ -1,40 +1,41 @@
-import React, { Component, PropTypes } from 'react';
-import { bindActionCreators } from 'redux';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { IntlProvider } from 'react-intl';
+import { Layout } from 'antd';
 import { GatewayProvider, GatewayDest } from 'react-gateway';
+import { withRouter } from 'react-router-dom';
 import { login } from './auth/authActions';
 import { getConfig, getRate } from './actions';
 import steemAPI from './steemAPI';
 import { getMessages, getLocale } from './translations/translationHelper';
 import { getStoredBookmarks } from './bookmarks/bookmarksActions';
-import { notify } from './app/Notification/notificationActions';
 import Notification from './app/Notification/Notification';
-import Header from './app/Header';
-import Sidebar from './app/Sidebar';
+import Topnav from './components/Navigation/Topnav';
+import HeroHeader from './app/HeroHeader';
 import * as reblogActions from './app/Reblog/reblogActions';
 import config from '../config.json';
 import './translations/Translations';
 
+const { Header, Content, Sider } = Layout;
+@withRouter
 @connect(
   state => ({
     app: state.app,
-    auth: state.auth,
+    auth: state.auth
   }),
-  dispatch => bindActionCreators({
+  {
     login,
     getConfig,
-    notify,
     getRate,
     getStoredBookmarks,
-    getRebloggedList: reblogActions.getRebloggedList,
-  }, dispatch)
+    getRebloggedList: reblogActions.getRebloggedList
+  }
 )
-export default class Wrapper extends Component {
+export default class Wrapper extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      messages: {},
+      messages: {}
     };
   }
 
@@ -52,7 +53,8 @@ export default class Wrapper extends Component {
    * https://busy.org/test/@siol/translations
    */
   loadMessages = () => {
-    const path = `/${config.translations.parent_permlink}/@${config.translations.author}/${config.translations.permlink}`;
+    const path = `/${config.translations.parent_permlink}/@${config.translations.author}/${config
+      .translations.permlink}`;
     steemAPI.getState(path, (err, result) => {
       this.setState({ messages: getMessages(result.content) });
     });
@@ -60,28 +62,27 @@ export default class Wrapper extends Component {
 
   render() {
     const { messages } = this.state;
-    const { app, auth, notify } = this.props;
+    const { app, auth } = this.props;
     const locale = getLocale(app.locale, messages);
-    const className = (!app.sidebarIsVisible) ? 'app-wrapper full-width' : 'app-wrapper';
     let translations = messages[app.locale || locale] || {};
     if (messages.en) {
       translations = { ...messages.en, ...translations };
     }
+
     return (
       <IntlProvider locale={locale} messages={translations}>
         <GatewayProvider>
-          <div className={className}>
-            <Header />
-            <Sidebar />
+          <Layout>
+            <Header style={{ position: 'fixed', width: '100%', zIndex: 5 }}>
+              <Topnav username={auth.user.name} />
+            </Header>
             <Notification />
-            {React.cloneElement(
-              this.props.children,
-              { auth, notify }
-            )}
+            <HeroHeader auth={auth} style={{ marginTop: 64 }} />
+            {this.props.children}
             <GatewayDest name="tooltip" />
             <GatewayDest name="popover" />
             <GatewayDest name="modal" />
-          </div>
+          </Layout>
         </GatewayProvider>
       </IntlProvider>
     );

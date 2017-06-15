@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import classNames from 'classnames';
 import numeral from 'numeral';
 import { FormattedRelative } from 'react-intl';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import Avatar from '../../Avatar';
 import './Notification.less';
 

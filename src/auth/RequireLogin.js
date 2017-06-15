@@ -3,29 +3,18 @@ import { connect } from 'react-redux';
 import Loading from '../widgets/Loading';
 import Error401 from '../statics/Error401';
 
-@connect(
-  state => ({
-    auth: state.auth,
-  })
-)
-export default class RequiredLogin extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    if (this.props.auth.isFetching) {
-      return (
-        <div className="main-panel">
-          <Loading />
-        </div>
-      );
-    }
-    if (!this.props.auth.isAuthenticated) {
-      return <Error401 />;
-    }
+const RequiredLogin = ({ children, auth }) => {
+  if (auth.isFetching) {
     return (
-      React.cloneElement(this.props.children, { ...this.props })
+      <div className="main-panel">
+        <Loading />
+      </div>
     );
   }
-}
+  if (!auth.isAuthenticated) {
+    return <Error401 />;
+  }
+  return children;
+};
+
+export default connect(({ auth }) => ({ auth }))(RequiredLogin);

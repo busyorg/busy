@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, withRouter } from 'react-router';
+import { Link, withRouter } from 'react-router-dom';
 import { FormattedMessage, FormattedRelative } from 'react-intl';
 import BookmarkButton from '../../bookmarks/BookmarkButton';
 import MenuPost from '../../app/Menu/MenuPost';

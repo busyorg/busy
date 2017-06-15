@@ -6,7 +6,6 @@ const initialState = {
   isFetching: false,
   isLoaded: false,
   errorMessage: '',
-  sidebarIsVisible: true,
   layout: 'card',
   locale: null,
   rate: 0,
@@ -56,24 +55,6 @@ export default (state = initialState, action) => {
       return Object.assign({}, state, {
         config: action.config
       });
-
-    case responsive.MEDIA_CHANGED: {
-      if (action.payload.isSmall == null) return state;
-      return Object.assign({}, state, {
-        sidebarIsVisible: !action.payload.isSmall,
-      });
-    }
-
-    case appTypes.SHOW_SIDEBAR:
-      return Object.assign({}, state, {
-        sidebarIsVisible: true
-      });
-
-    case appTypes.HIDE_SIDEBAR:
-      return {
-        ...state,
-        sidebarIsVisible: false,
-      };
 
     case appTypes.GET_LAYOUT:
       return {

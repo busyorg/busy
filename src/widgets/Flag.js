@@ -2,7 +2,7 @@ import React from 'react';
 import franc from 'franc';
 import striptags from 'striptags';
 import Remarkable from 'remarkable';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 import './Flag.less';
 import { getCountryCode } from '../helpers/languages';

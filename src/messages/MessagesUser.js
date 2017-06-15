@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import MenuUser from '../app/Menu/MenuUser';
 import MessageForm from './MessageForm';
 import MessageList from './MessageList';
@@ -8,6 +9,7 @@ import getChannelName from '../helpers/getChannelName';
 import { fetchChannelPresence, joinChannel } from './messagesActions';
 import './Messages.less';
 
+@withRouter
 @connect(
   state => ({
     auth: state.auth,
@@ -54,10 +56,10 @@ export default class MessagesPage extends Component {
   }
 
   render() {
-    const username = this.props.params.username;
+    const username = this.props.match.params.username;
     const channelName = [
       `@${this.props.auth.user && this.props.auth.user.name}`,
-      `@${this.props.params.username}`
+      `@${this.props.match.params.username}`
     ].sort();
     const channel = this.props.channels[channelName] || {
       latest: [],

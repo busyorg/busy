@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
+import { withRouter } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import { isSmall } from 'react-responsive-utils';
 import classNames from 'classnames';

@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
+import { Link, NavLink } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import formatter from 'steem/lib/formatter';
 import numeral from 'numeral';
@@ -69,10 +69,10 @@ export default class Sidebar extends Component {
       .slice(0, 20)
       .map((category, idx) =>
         <li key={idx}>
-          <Link to={`/hot/${category}`} activeClassName="active">
+          <NavLink to={`/hot/${category}`} activeClassName="active">
             # {category}{' '}
             <Icon name="star" xs />
-          </Link>
+          </NavLink>
         </li>
       );
   }
@@ -89,9 +89,9 @@ export default class Sidebar extends Component {
         .slice(0, 20 - favorites.categories.length)
         .map((category, idx) =>
           <li key={idx}>
-            <Link to={`/hot/${category}`} activeClassName="active">
+            <NavLink to={`/hot/${category}`} activeClassName="active">
               # {category}
-            </Link>
+            </NavLink>
           </li>
         );
     }
@@ -107,9 +107,9 @@ export default class Sidebar extends Component {
     ) {
       return (
         <li>
-          <Link to={`/hot/${search}`} activeClassName="active">
+          <NavLink to={`/hot/${search}`} activeClassName="active">
             # {search}
-          </Link>
+          </NavLink>
         </li>
       );
     }
@@ -206,12 +206,12 @@ export default class Sidebar extends Component {
                     {this.renderFavoritedTags()}
                     {this.renderTags()}
                     <li>
-                      <Link to="/tags" activeClassName="active">
+                      <NavLink to="/tags" activeClassName="active">
                         <FormattedMessage
                           id="see_more"
                           defaultMessage="See More"
                         />
-                      </Link>
+                      </NavLink>
                     </li>
                   </ul>
                 </li>

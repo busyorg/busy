@@ -4,11 +4,6 @@
   max-width: 710px;
   margin: 0 auto;
 
-  &__submenu__icon {
-    font-size: 20px !important;
-    vertical-align: -1px;
-  }
-
   &__title {
     color: #353535;
     font-size: 26px;
@@ -52,25 +47,14 @@
     &__more {
       position: absolute;
       right: 0;
-      top: 24px;
-      background-color: transparent !important;
-      border-bottom: none !important;
+      top: 36px;
+      line-height: 12px !important;
+      font-size: 36px !important;
+      color: @purple;
 
-      &__item {
-        border-bottom: none !important;
-
-        & > ul {
-          left: -128px !important;
-        }
-
-        & > div {
-          padding: 0 2px !important;
-        }
-      }
-
-      &__icon {
-        font-size: 36px !important;
-        color: @purple;
+      &:hover {
+        cursor: pointer;
+        color: darken(@purple, 15%);
       }
     }
   }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Link } from 'react-router';
+import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Icon from '../../widgets/Icon';
 import Avatar from '../../widgets/Avatar';
@@ -29,53 +29,53 @@ StatusIndicator = connect(
 const MenuUser = ({ auth, username }) =>
   <ul className="app-nav">
     <li>
-      <Link to={`/@${username}`} activeClassName="active">
+      <NavLink to={`/@${username}`} activeClassName="active">
         <Avatar username={username} xs />{' '}
         <span className="hidden-xs">{username}
           <StatusIndicator username={username} />
         </span>
-      </Link>
+      </NavLink>
     </li>
     <li>
-      <Link to={`/@${username}/reblogs`} activeClassName="active">
+      <NavLink to={`/@${username}/reblogs`} activeClassName="active">
         <Icon name="repeat" />{' '}
         <span className="hidden-xs">
           <FormattedMessage id="reblogs" defaultMessage="Reblogs" />
         </span>
-      </Link>
+      </NavLink>
     </li>
     <li>
-      <Link to={`/@${username}/feed`} activeClassName="active">
+      <NavLink to={`/@${username}/feed`} activeClassName="active">
         <Icon name="subject" />{' '}
         <span className="hidden-xs">
           <FormattedMessage id="feed" defaultMessage="Feed" />
         </span>
-      </Link>
+      </NavLink>
     </li>
     <li>
-      <Link to={`/@${username}/replies`} activeClassName="active">
+      <NavLink to={`/@${username}/replies`} activeClassName="active">
         <Icon name="reply" />{' '}
         <span className="hidden-xs">
           <FormattedMessage id="replies" defaultMessage="Replies" />
         </span>
-      </Link>
+      </NavLink>
     </li>
     <li>
-      <Link to={`/@${username}/transfers`} activeClassName="active">
+      <NavLink to={`/@${username}/transfers`} activeClassName="active">
         <Icon name="account_balance_wallet" />{' '}
         <span className="hidden-xs">
           <FormattedMessage id="wallet" defaultMessage="Wallet" />
         </span>
-      </Link>
+      </NavLink>
     </li>
     {auth.isAuthenticated &&
       <li>
-        <Link to={`/messages/@${username}`} activeClassName="active">
+        <NavLink to={`/messages/@${username}`} activeClassName="active">
           <Icon name="chat_bubble_outline" />{' '}
           <span className="hidden-xs">
             <FormattedMessage id="messages" defaultMessage="Messages" />
           </span>
-        </Link>
+        </NavLink>
       </li>
     }
   </ul>;

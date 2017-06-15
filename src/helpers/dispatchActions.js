@@ -32,7 +32,7 @@ export default function dispatchActions(options = {}, actions) {
 
     componentDidUpdate(prevProps) {
       if (!this._dispatched ||
-        !_.isEqual(this.props.params, prevProps.params) ||
+        !_.isEqual(this.props.match.params, prevProps.match.params) ||
         !_.isEqual(this.props.location, prevProps.location)) {
         this.dispatchActions();
       }
