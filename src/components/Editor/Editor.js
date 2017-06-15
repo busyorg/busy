@@ -81,7 +81,7 @@ class Editor extends React.Component {
             body: {
               errors: [{
                 field: 'body',
-                message: "Content can't be empty.",
+                message: "Content can't be empty",
               }],
             },
           };
@@ -98,7 +98,7 @@ class Editor extends React.Component {
     if (value && value.length >= 1 && value.length <= 5) {
       callback();
     } else {
-      callback('You have to add 1 to 5 topics.');
+      callback('You have to add 1 to 5 topics');
     }
   }
 
@@ -223,18 +223,18 @@ class Editor extends React.Component {
       <Form className="Editor" layout="vertical" onSubmit={this.handleSubmit}>
         <Form.Item label={<span className="Editor__label">Title</span>}>
           {getFieldDecorator('title', {
-            rules: [{ required: true, message: 'Please enter a title.' }],
+            rules: [{ required: true, message: 'Please enter a title' }],
           })(
             <Input className="Editor__title" placeholder="Add title" />
             )}
         </Form.Item>
         <Form.Item
           label={<span className="Editor__label">Topics</span>}
-          extra="Separate topics with commas."
+          extra="Separate topics with commas"
         >
           {getFieldDecorator('topics', {
             rules: [
-              { required: true, message: 'Please enter topics.', type: 'array' },
+              { required: true, message: 'Please enter topics', type: 'array' },
               { validator: this.checkTopics },
             ],
           })(
@@ -242,7 +242,7 @@ class Editor extends React.Component {
               className="Editor__topics"
               mode="tags"
               placeholder="Add story topics here"
-              notFoundContent="No such topic found. Just type your topics and separate them with commas."
+              notFoundContent="No such topic found. Just type your topics and separate them with commas"
               tokenSeparators={[' ', ',']}
             >
               <OptionGroup key="recent" label={<b>Recent</b>}>
@@ -257,7 +257,7 @@ class Editor extends React.Component {
         <Form.Item
           label={<span className="Editor__label">Write your story</span>}
           validateStatus={this.state.noContent ? 'error' : ''}
-          help={this.state.noContent ? "Story content can't be empty." : ''}
+          help={this.state.noContent ? "Story content can't be empty" : ''}
         >
           <Tabs defaultActiveKey="1">
             <TabPane tab="Editor" key="1">
