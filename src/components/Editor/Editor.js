@@ -239,10 +239,10 @@ class Editor extends React.Component {
         >
           <Tabs defaultActiveKey="1">
             <TabPane tab="Editor" key="1">
+              <EditorToolbar onSelect={this.insertCode} />
               <HotKeys keyMap={Editor.hotkeys} handlers={this.handlers}>
                 <Input ref={ref => this.setInput(ref)} type="textarea" placeholder="Write your story..." autosize={{ minRows: 3, maxRows: 10 }} />
               </HotKeys>
-              <EditorToolbar onSelect={this.insertCode} />
               <p>You can upload images just by pasting them.</p>
             </TabPane>
             <TabPane tab="Preview" key="2">
