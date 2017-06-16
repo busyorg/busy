@@ -1,13 +1,12 @@
 @import "../../styles/custom.less";
 
-@base-spacing: 16px;
+@base-spacing: 0;
 
 .Topnav {
   background-color: @white;
   border-bottom: 1px solid #e9e7e7;
   height: 56px;
   line-height: 56px;
-  margin: 0 -@base-spacing;
 }
 
 .Topnav__container {
@@ -17,23 +16,16 @@
 }
 
 .Topnav__brand {
-  box-sizing: border-box;
-  max-width: 190px;
-  padding: 0 @base-spacing;
-  flex: 2;
   font-size: 28px;
   font-weight: bold;
   letter-spacing: 1px;
   color: @purple;
-  text-align: left;
 }
 
 .Topnav__input-container {
   padding: 0 @base-spacing;
-  flex: 4;
   position: relative;
   height: 55px;
-  max-width: 520px;
 
   &--logged-in {
     border-left: solid 1px #e9e7e7;
@@ -44,7 +36,7 @@
     height: 55px !important;
     border-radius: 0 !important;
     border: 0 !important;
-    padding: 0 0 0 29px !important;
+    padding: 0 0 0 43px !important;
 
     &:hover, &:focus {
       box-shadow: none !important;
@@ -60,16 +52,7 @@
   }
 }
 
-.Topnav__sides {
-  padding: 0 @base-spacing;
-  flex: 2;
-  display: flex;
-  justify-content: flex-end;
-}
-
 .Topnav__menu-container {
-  justify-content: flex-start;
-
   &__menu {
     flex-shrink: 0;
     height: 55px !important;
