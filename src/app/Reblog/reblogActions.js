@@ -13,31 +13,29 @@ const storePostId = (postId) => {
   return newReblogged;
 };
 
-export const reblog = (postId) => {
-  return (dispatch, getState) => {
-    const { auth, posts } = getState();
-    const post = posts[postId];
+export const reblog = postId => (dispatch, getState) => {
+  const { auth, posts } = getState();
+  const post = posts[postId];
 
-    if (!auth.isAuthenticated || !post || auth.user.name === post.author) {
-      return;
-    }
+  if (!auth.isAuthenticated || !post || auth.user.name === post.author) {
+    return null;
+  }
 
-    SteemConnect.reblog(auth.user.name, post.author, post.permlink).then(() => {
+  return SteemConnect.reblog(auth.user.name, post.author, post.permlink)
+    .then(() => {
       const list = storePostId(postId);
       dispatch(getRebloggedListAction(list));
-    }).catch(err => {
+    })
+    .catch((err) => {
       if (err.res && err.res.status === 500) {
         // already reblogged
         const list = storePostId(postId);
         dispatch(getRebloggedListAction(list));
       }
     });
-  }
 };
 
-export const getRebloggedList = () => {
-  return (dispatch) => {
-    const list = store.get('reblogged') || [];
-    dispatch(getRebloggedListAction(list));
-  }
+export const getRebloggedList = () => (dispatch) => {
+  const list = store.get('reblogged') || [];
+  dispatch(getRebloggedListAction(list));
 };

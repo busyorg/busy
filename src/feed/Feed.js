@@ -1,38 +1,37 @@
 import React from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import ReduxInfiniteScroll from 'redux-infinite-scroll';
+import _ from 'lodash';
 // import Modal from '../widgets/modal/Modal';
 // import Loading from '../widgets/Loading';
 // import PostFeed from '../post/PostFeed';
 // import CommentForm from '../comments/CommentForm';
-import * as appActions from '../actions';
+// import * as appActions from '../actions';
 import * as commentsActions from '../comments/commentsActions';
 import * as bookmarkActions from '../bookmarks/bookmarksActions';
 import * as reblogActions from '../app/Reblog/reblogActions';
+import * as postActions from '../post/postActions';
 // import PostSingle from '../post/postSingle/PostSingle';
 import Story from '../components/Story/Story';
 import StoryLoading from '../components/Story/StoryLoading';
 import './Feed.less';
 
+// openPostModal: appActions.openPostModal,
+// closePostModal: appActions.closePostModal
 @connect(
   state => ({
+    auth: state.auth,
     app: state.app,
     bookmarks: state.bookmarks,
     reblogList: state.reblog
   }),
-  dispatch =>
-    bindActionCreators(
-      {
-        openCommentingDraft: commentsActions.openCommentingDraft,
-        closeCommentingDraft: commentsActions.closeCommentingDraft,
-        toggleBookmark: bookmarkActions.toggleBookmark,
-        reblog: reblogActions.reblog,
-        openPostModal: appActions.openPostModal,
-        closePostModal: appActions.closePostModal
-      },
-      dispatch
-    )
+  {
+    openCommentingDraft: commentsActions.openCommentingDraft,
+    closeCommentingDraft: commentsActions.closeCommentingDraft,
+    toggleBookmark: bookmarkActions.toggleBookmark,
+    votePost: postActions.votePost,
+    reblog: reblogActions.reblog
+  }
 )
 export default class Feed extends React.Component {
   componentWillMount() {
@@ -47,25 +46,26 @@ export default class Feed extends React.Component {
     }
   }
 
-  handleCommentRequest(draftProps) {
-    this.props.openCommentingDraft(draftProps);
-  }
+  // handleCommentRequest(draftProps) {
+  //   this.props.openCommentingDraft(draftProps);
+  // }
 
-  handleFeedClick() {
-    this.props.closeCommentingDraft();
-  }
+  // handleFeedClick() {
+  //   this.props.closeCommentingDraft();
+  // }
 
-  handlePostModalClose = () => {
-    this.props.closePostModal();
-    /* eslint-disable */
-    if (window && window.history) {
-      window.history.back();
-    }
-    /* eslint-enable */
-  };
+  // handlePostModalClose = () => {
+  //   this.props.closePostModal();
+  //   /* eslint-disable */
+  //   if (window && window.history) {
+  //     window.history.back();
+  //   }
+  //   /* eslint-enable */
+  // };
 
   render() {
     const {
+      auth,
       content,
       isFetching,
       hasMore,
@@ -75,12 +75,13 @@ export default class Feed extends React.Component {
       bookmarks,
       notify,
       reblog,
+      votePost,
       reblogList
     } = this.props;
 
     return (
       <div className="Feed">
-        <div className="Feed__content" onClick={() => this.handleFeedClick()}>
+        <div className="Feed__content">
           <ReduxInfiniteScroll
             loadMore={this.props.loadMoreContent}
             loader={<StoryLoading />}
@@ -89,7 +90,7 @@ export default class Feed extends React.Component {
             elementIsScrollable={false}
             threshold={200}
           >
-            {content.map((post, key) => {
+            {content.map((post) => {
               if (this.props.username) {
                 if (this.props.onlyReblogs && post.author === this.props.username) {
                   return false;
@@ -99,17 +100,33 @@ export default class Feed extends React.Component {
                 }
               }
 
+              const loggedInUser = auth.user;
+              const userVote = _.find(post.active_votes, { voter: loggedInUser.name }) || {};
+
+              const postState = {
+                isReblogged: reblogList.includes(post.id),
+                isSaved: bookmarks[post.id] !== undefined,
+                isLiked: userVote.percent > 0,
+                isReported: userVote.percent < 0,
+                userFollowed: false // Get Follower list for loggedIn User after login
+              };
+
+              const likePost = userVote.percent > 0
+                ? () => votePost(post.id, 0)
+                : () => votePost(post.id);
+              const reportPost = () => votePost(post.id, -1000);
+
               return (
-                <div style={{ margin: '1em 0' }}>
+                <div key={post.id} style={{ margin: '1em 0' }}>
                   <Story
                     post={post}
+                    postState={postState}
                     onFollowClick={() => console.log('Follow click')}
-                    onSaveClick={() => console.log('Save click')}
-                    onReportClick={() => console.log('Report click')}
-                    onLikeClick={() => console.log('Like click')}
-                    onDislikeClick={() => console.log('Dislike click')}
+                    onSaveClick={() => toggleBookmark(post.id)}
+                    onReportClick={reportPost}
+                    onLikeClick={likePost}
                     onCommentClick={() => console.log('Comment click')}
-                    onShareClick={() => console.log('Share click')}
+                    onShareClick={() => reblog(post.id)}
                   />
                 </div>
               );
@@ -126,20 +143,3 @@ export default class Feed extends React.Component {
     );
   }
 }
-// Feed.defaultProps = {
-//   ItemComponent: PostFeed
-// };
-
-//         <ItemComponent
-//                     key={key}
-//                     post={post}
-//                     replies={replies}
-//                     toggleBookmark={toggleBookmark}
-//                     app={app}
-//                     bookmarks={bookmarks}
-//                     onCommentRequest={e => this.handleCommentRequest(e)}
-//                     notify={notify}
-//                     reblog={reblog}
-//                     isReblogged={reblogList.includes(post.id)}
-//                     openPostModal={this.props.openPostModal}
-//                   />
