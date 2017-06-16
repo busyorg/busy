@@ -22,7 +22,7 @@ const Topnav = ({
 
   if (username) {
     content = (
-      <div className="Topnav__menu-container Topnav__sides">
+      <div className="Topnav__menu-container">
         <Menu
           selectedKeys={[]}
           className="Topnav__menu-container__menu"
@@ -81,7 +81,7 @@ const Topnav = ({
     );
   } else {
     content = (
-      <div className="Topnav__menu-container Topnav__sides">
+      <div className="Topnav__menu-container">
         <Menu className="Topnav__menu-container__menu" mode="horizontal">
           <Menu.Item key="signin">
             <Link to="/signin">

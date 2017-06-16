@@ -53,16 +53,15 @@
 }
 
 .Topnav__menu-container {
+  display: flex;
+  justify-content: flex-end;
+
   &__menu {
     flex-shrink: 0;
     height: 55px !important;
     border: 0 !important;
     line-height: 55px !important;
     margin-left: @base-spacing;
-
-    &:nth-child(1) {
-      padding-right: 20px;
-    }
 
     & > li {
       height: 55px !important;

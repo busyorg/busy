@@ -106,7 +106,7 @@ export const RightSidebar = ({ auth }) =>
         path="/"
         render={() =>
             (<SidebarWrapper>
-              <div style={{ maxWidth: 260 }}>
+              <div>
                 <StartNow />
                 <InterestingPeopleWithData />
               </div>
