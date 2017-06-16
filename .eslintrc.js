@@ -21,7 +21,7 @@ module.exports = {
     "react/sort-comp": 0,
     "react/prop-types": 0,
     "no-underscore-dangle": 0,
-    "comma-dangle": 0,
+    "comma-dangle": ["error", "always-multiline"],
     "no-static-element-interactions": 0,
     "no-plusplus": 0,
     "no-continue": 0,
