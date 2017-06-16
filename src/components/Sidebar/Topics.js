@@ -37,11 +37,11 @@ class Topics extends React.Component {
         <h4>{title}</h4>
         <ul className="Topics__list">
           {
-            displayedTopics.map(topic =>
+            displayedTopics.map(topic => (
               <li key={topic}>
                 <Topic name={topic} favorite={favorite} />
               </li>
-            )
+            ))
           }
         </ul>
         {(topics.length > maxItems && !this.state.showMore) ?

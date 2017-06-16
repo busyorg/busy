@@ -11,14 +11,13 @@ import './Story.less';
 
 class Story extends React.Component {
   static propTypes = {
-    post: PropTypes.shape(),
-    userFollowed: PropTypes.bool,
+    post: PropTypes.shape().isRequired,
     onFollowClick: PropTypes.func,
     onSaveClick: PropTypes.func,
     onReportClick: PropTypes.func,
     onLikeClick: PropTypes.func,
     onCommentClick: PropTypes.func,
-    onShareClick: PropTypes.func
+    onShareClick: PropTypes.func,
   };
 
   static defaultProps = {
@@ -28,8 +27,7 @@ class Story extends React.Component {
     onLikeClick: () => {},
     onCommentClick: () => {},
     onShareClick: () => {},
-    userFollowed: false,
-    postState: {}
+    postState: {},
   };
 
   handleClick = (key) => {
@@ -42,7 +40,7 @@ class Story extends React.Component {
         return;
       case 'report':
         this.props.onReportClick();
-
+        break;
       default:
     }
   };

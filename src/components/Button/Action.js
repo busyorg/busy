@@ -1,13 +1,13 @@
 import React, { PropTypes } from 'react';
 import './Action.less';
 
-const Action = ({ text }) =>
+const Action = ({ text }) => (
   <button className="Action ant-btn-lg">
     {text}
-  </button>;
+  </button>);
 
 Action.propTypes = {
-  text: PropTypes.string
+  text: PropTypes.string.isRequired,
 };
 
 export default Action;

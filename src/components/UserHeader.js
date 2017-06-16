@@ -5,7 +5,7 @@ import Follow from './Button/Follow';
 import PopoverMenu, { PopoverMenuItem } from './PopoverMenu/PopoverMenu';
 import './UserHeader.less';
 
-const UserHeader = ({ username }) =>
+const UserHeader = ({ username }) => (
   <div className="UserHeader">
     <div className="UserHeader__container">
       <Avatar username={username} size={100} />
@@ -34,10 +34,10 @@ const UserHeader = ({ username }) =>
         </div>
       </div>
     </div>
-  </div>;
+  </div>);
 
 UserHeader.propTypes = {
-  username: PropTypes.string,
+  username: PropTypes.string.isRequired,
 };
 
 export default UserHeader;

@@ -22,7 +22,7 @@ class Editor extends React.Component {
     onSubmit: PropTypes.func,
     onError: PropTypes.func,
     onImagePasted: PropTypes.func,
-  }
+  };
 
   static defaultProps = {
     recentTopics: [],
@@ -30,12 +30,12 @@ class Editor extends React.Component {
     onSubmit: () => {},
     onError: () => {},
     onImagePasted: () => {},
-  }
+  };
 
   state = {
     contentHtml: '',
     noContent: false,
-  }
+  };
 
   static hotkeys = {
     h1: 'ctrl+shift+1',
@@ -89,10 +89,12 @@ class Editor extends React.Component {
         const errors = {
           ...err,
           body: {
-            errors: [{
-              field: 'body',
-              message: "Content can't be empty",
-            }],
+            errors: [
+              {
+                field: 'body',
+                message: "Content can't be empty",
+              },
+            ],
           },
         };
         this.setState({ noContent: true });
@@ -101,19 +103,20 @@ class Editor extends React.Component {
         this.props.onError(err);
       }
     });
-  }
+  };
 
   checkTopics = (rule, value, callback) => {
     if (!value || value.length < 1 || value.length > 5) {
       callback('You have to add 1 to 5 topics');
     }
 
-    value.map(topic => ({ topic, valid: /^[a-z0-9]+(-[a-z0-9]+)*$/.test(topic) }))
+    value
+      .map(topic => ({ topic, valid: /^[a-z0-9]+(-[a-z0-9]+)*$/.test(topic) }))
       .filter(topic => !topic.valid)
       .map(topic => callback(`Topic ${topic.topic} is invalid`));
 
     callback();
-  }
+  };
 
   //
   // Editor methods
@@ -140,25 +143,29 @@ class Editor extends React.Component {
 
     const startPos = this.input.selectionStart;
     const endPos = this.input.selectionEnd;
-    this.input.value = this.input.value.substring(0, startPos)
-      + before
-      + this.input.value.substring(startPos, endPos)
-      + after
-      + this.input.value.substring(endPos, this.input.value.length);
+    this.input.value =
+      this.input.value.substring(0, startPos) +
+      before +
+      this.input.value.substring(startPos, endPos) +
+      after +
+      this.input.value.substring(endPos, this.input.value.length);
 
     this.input.selectionStart = startPos + deltaStart;
     this.input.selectionEnd = endPos + deltaEnd;
-  }
+  };
 
   insertImage = (image) => {
     if (!this.input) return;
 
     const startPos = this.input.selectionStart;
     const endPos = this.input.selectionEnd;
-    this.input.value = `${this.input.value.substring(0, startPos)}![image](${image})${this.input.value.substring(endPos, this.input.value.length)}`;
+    this.input.value = `${this.input.value.substring(
+      0,
+      startPos
+    )}![image](${image})${this.input.value.substring(endPos, this.input.value.length)}`;
 
     this.renderMarkdown(this.input.value);
-  }
+  };
 
   insertCode = (type) => {
     if (!this.input) return;
@@ -203,13 +210,13 @@ class Editor extends React.Component {
     }
 
     this.renderMarkdown(this.input.value);
-  }
+  };
 
   renderMarkdown = (value) => {
     this.setState({
       contentHtml: remarkable.render(value),
     });
-  }
+  };
 
   handlers = {
     h1: () => this.insertCode('h1'),
@@ -226,7 +233,7 @@ class Editor extends React.Component {
       this.insertCode('link');
     },
     image: () => this.insertCode('image'),
-  }
+  };
 
   render() {
     const { getFieldDecorator } = this.props.form;
@@ -238,11 +245,9 @@ class Editor extends React.Component {
           {getFieldDecorator('title', {
             rules: [
               { required: true, message: 'Please enter a title' },
-              { max: 255, message: "Title can't be longer than 255 characters" }
-            ]
-          })(
-            <Input className="Editor__title" placeholder="Add title" />
-            )}
+              { max: 255, message: "Title can't be longer than 255 characters" },
+            ],
+          })(<Input className="Editor__title" placeholder="Add title" />)}
         </Form.Item>
         <Form.Item
           label={<span className="Editor__label">Topics</span>}
@@ -251,11 +256,13 @@ class Editor extends React.Component {
           {getFieldDecorator('topics', {
             rules: [
               { required: true, message: 'Please enter topics', type: 'array' },
-              { validator: this.checkTopics }
+              { validator: this.checkTopics },
             ],
           })(
             <Select
-              ref={(ref) => { this.select = ref; }}
+              ref={(ref) => {
+                this.select = ref;
+              }}
               className="Editor__topics"
               mode="tags"
               placeholder="Add story topics here"
@@ -269,7 +276,7 @@ class Editor extends React.Component {
                 {popularTopics && popularTopics.map(topic => <Option key={topic}>{topic}</Option>)}
               </OptionGroup>
             </Select>
-            )}
+          )}
         </Form.Item>
         <Form.Item
           label={<span className="Editor__label">Write your story</span>}
@@ -280,7 +287,12 @@ class Editor extends React.Component {
             <TabPane tab="Editor" key="1">
               <EditorToolbar onSelect={this.insertCode} />
               <HotKeys keyMap={Editor.hotkeys} handlers={this.handlers}>
-                <Input ref={ref => this.setInput(ref)} type="textarea" placeholder="Write your story..." autosize={{ minRows: 3, maxRows: 10 }} />
+                <Input
+                  ref={ref => this.setInput(ref)}
+                  type="textarea"
+                  placeholder="Write your story..."
+                  autosize={{ minRows: 3, maxRows: 10 }}
+                />
               </HotKeys>
               <p>You can upload images just by pasting them.</p>
             </TabPane>

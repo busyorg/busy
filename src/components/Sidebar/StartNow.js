@@ -2,8 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './StartNow.less';
 
-const StartNow = () =>
-  (<div className="StartNow">
+const StartNow = () => (
+  <div className="StartNow">
     <h3 className="StartNow__title">Never wrote a post?</h3>
     <Link to="/write">
       <button
@@ -16,7 +16,5 @@ const StartNow = () =>
       </button>
     </Link>
   </div>);
-
-StartNow.propTypes = {};
 
 export default StartNow;

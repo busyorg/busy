@@ -11,13 +11,14 @@ import './Comment.less';
 
 class Comment extends React.Component {
   static propTypes = {
-    comment: PropTypes.shape(),
+    comment: PropTypes.shape().isRequired,
     commentsChildren: PropTypes.shape(),
     onLikeClick: PropTypes.func,
     onDislikeClick: PropTypes.func,
   };
 
   static defaultProps = {
+    commentsChildren: undefined,
     onLikeClick: () => {},
     onDislikeClick: () => {},
   };
@@ -122,13 +123,14 @@ class Comment extends React.Component {
               commentsChildren &&
               commentsChildren[comment.id] &&
               commentsChildren[comment.id]
-                .map(child => <Comment
-                  key={child.id}
-                  comment={child}
-                  commentsChildren={commentsChildren}
-                  onLikeClick={onLikeClick}
-                  onDislikeClick={onDislikeClick}
-                />)
+                .map(child => (
+                  <Comment
+                    key={child.id}
+                    comment={child}
+                    commentsChildren={commentsChildren}
+                    onLikeClick={onLikeClick}
+                    onDislikeClick={onDislikeClick}
+                  />))
             }
           </div>
         </div>

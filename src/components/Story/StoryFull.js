@@ -13,7 +13,7 @@ import './StoryFull.less';
 
 class StoryFull extends React.Component {
   static propTypes = {
-    post: PropTypes.shape(),
+    post: PropTypes.shape().isRequired,
     commentCount: PropTypes.number,
     userFollowed: PropTypes.bool,
     onFollowClick: PropTypes.func,
@@ -21,7 +21,7 @@ class StoryFull extends React.Component {
     onReportClick: PropTypes.func,
     onLikeClick: PropTypes.func,
     onCommentClick: PropTypes.func,
-    onShareClick: PropTypes.func
+    onShareClick: PropTypes.func,
   };
 
   static defaultProps = {
@@ -33,7 +33,7 @@ class StoryFull extends React.Component {
     onCommentClick: () => {},
     onShareClick: () => {},
     userFollowed: false,
-    postState: {}
+    postState: {},
   };
 
   constructor(props) {
@@ -41,8 +41,8 @@ class StoryFull extends React.Component {
     this.state = {
       lightbox: {
         open: false,
-        index: 0
-      }
+        index: 0,
+      },
     };
   }
 
@@ -56,7 +56,7 @@ class StoryFull extends React.Component {
         return;
       case 'report':
         this.props.onReportClick();
-
+        break;
       default:
     }
   };
@@ -69,8 +69,8 @@ class StoryFull extends React.Component {
           this.setState({
             lightbox: {
               open: true,
-              index: i
-            }
+              index: i,
+            },
           });
         }
       }
@@ -85,7 +85,7 @@ class StoryFull extends React.Component {
       userFollowed,
       onLikeClick,
       onCommentClick,
-      onShareClick
+      onShareClick,
     } = this.props;
 
     const { open, index } = this.state.lightbox;
@@ -149,27 +149,27 @@ class StoryFull extends React.Component {
               this.setState({
                 lightbox: {
                   ...this.state.lightbox,
-                  open: false
-                }
+                  open: false,
+                },
               });
             }}
             onMovePrevRequest={() =>
               this.setState({
                 lightbox: {
                   ...this.state.lightbox,
-                  index: (index + (images.length - 1)) % images.length
-                }
+                  index: (index + (images.length - 1)) % images.length,
+                },
               })}
             onMoveNextRequest={() =>
               this.setState({
                 lightbox: {
                   ...this.state.lightbox,
-                  index: (index + (images.length + 1)) % images.length
-                }
+                  index: (index + (images.length + 1)) % images.length,
+                },
               })}
           />}
         <div className="StoryFull__topics">
-          {tags && tags.map((tag, i) => <Topic key={i} name={tag} />)}
+          {tags && tags.map(tag => <Topic key={tag} name={tag} />)}
         </div>
         <StoryFooter
           post={post}
