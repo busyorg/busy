@@ -22,7 +22,7 @@ module.exports = {
     "react/prop-types": 0,
     "no-underscore-dangle": 0,
     "comma-dangle": ["error", "always-multiline"],
-    "no-static-element-interactions": 0,
+    "jsx-a11y/no-static-element-interactions": 0,
     "no-plusplus": 0,
     "no-continue": 0,
     "camelcase": 0
