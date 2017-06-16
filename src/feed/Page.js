@@ -89,15 +89,17 @@ export default class Page extends React.Component {
               }
             />
           </h2>}
-        <Feed
-          content={content}
-          isFetching={isFetching}
-          hasMore={hasMore}
-          loadContent={loadContentAction}
-          loadMoreContent={loadMoreContentAction}
-          notify={notify}
-          route={this.props.route}
-        />
+        <div style={{ flex: 2 }}>
+          <Feed
+            content={content}
+            isFetching={isFetching}
+            hasMore={hasMore}
+            loadContent={loadContentAction}
+            loadMoreContent={loadMoreContentAction}
+            notify={notify}
+            route={this.props.route}
+          />
+        </div>
         {content.length === 0 && !isFetching && <EmptyFeed />}
         <RightSidebar auth={auth} />
       </div>
