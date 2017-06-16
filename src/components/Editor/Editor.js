@@ -74,8 +74,9 @@ class Editor extends React.Component {
   //
 
   handleSubmit = (e) => {
-    // NOTE: Wrapping textarea in getFormDecorator makes it impossible to control its selection what is needed for markdown formatting.
-    // NOTE: This code adds requirement for body input to not be empty.
+    // NOTE: Wrapping textarea in getFormDecorator makes it impossible
+    // to control its selection what is needed for markdown formatting.
+    // This code adds requirement for body input to not be empty.
     e.preventDefault();
     this.setState({ noContent: false });
     this.props.form.validateFieldsAndScroll((err, values) => {
@@ -84,22 +85,20 @@ class Editor extends React.Component {
           ...values,
           body: this.input.value,
         });
+      } else if (this.input.value === '') {
+        const errors = {
+          ...err,
+          body: {
+            errors: [{
+              field: 'body',
+              message: "Content can't be empty",
+            }],
+          },
+        };
+        this.setState({ noContent: true });
+        this.props.onError(errors);
       } else {
-        if (this.input.value === '') {
-          const errors = {
-            ...err,
-            body: {
-              errors: [{
-                field: 'body',
-                message: "Content can't be empty",
-              }],
-            },
-          };
-          this.setState({ noContent: true });
-          this.props.onError(errors);
-        } else {
-          this.props.onError(err);
-        }
+        this.props.onError(err);
       }
     });
   }
