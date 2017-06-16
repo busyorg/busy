@@ -6,20 +6,10 @@ import classNames from 'classnames';
 import PayoutDetail from '../PayoutDetail';
 import './StoryFooter.less';
 
-const StoryFooter = ({
-  post,
-  postState,
-  onLikeClick,
-  onDislikeClick,
-  onCommentClick,
-  onShareClick
-}) => {
+const StoryFooter = ({ post, postState, onLikeClick, onCommentClick, onShareClick }) => {
   const payout = parseFloat(post.pending_payout_value) || parseFloat(post.total_payout_value);
   const payoutValue = numeral(payout).format('$0,0.00');
   const likesValue = numeral(post.active_votes.filter(vote => vote.percent > 0).length).format(
-    '0,0'
-  );
-  const dislikesValue = numeral(post.active_votes.filter(vote => vote.percent < 0).length).format(
     '0,0'
   );
   const commentsValue = numeral(post.children).format('0,0');
@@ -37,12 +27,6 @@ const StoryFooter = ({
         <a className={likeClass} onClick={() => onLikeClick()}>
           <i className="iconfont icon-praise_fill" />
           <span className="StoryFooter__number">{likesValue}</span>
-        </a>
-      </Tooltip>
-      <Tooltip title="Dislike" placement="bottom">
-        <a className="StoryFooter__link" onClick={() => onDislikeClick()}>
-          <i className="iconfont icon-praise_fill StoryFooter__dislike" />
-          <span className="StoryFooter__number">{dislikesValue}</span>
         </a>
       </Tooltip>
       <Tooltip title="Comment" placement="bottom">
