@@ -10,7 +10,7 @@ import {
   isPostStartsWithAPicture,
   isPostStartsWithAnEmbed,
   isPostWithPictureBeforeFirstHalf,
-  isPostWithEmbedBeforeFirstHalf
+  isPostWithEmbedBeforeFirstHalf,
 } from '../../post/Feed/PostFeedCardHelper';
 import { getHtml } from '../../post/Body';
 
@@ -30,17 +30,17 @@ const StoryPreview = ({ post }) => {
   const embeds = embedjs.getAll(post.body);
 
   const preview = {
-    text: () =>
+    text: () => (
       <div key="text" className="Story__content__body">
         <BodyShort body={post.body} />
-      </div>,
+      </div>),
 
     embed: () => embeds && embeds[0] && <PostFeedEmbed key="embed" embed={embeds[0]} />,
 
-    image: () =>
+    image: () => (
       <Link key="image" to={post.url}>
         <img alt="post" key={imagePath} src={imagePath} />
-      </Link>
+      </Link>),
   };
 
   const htmlBody = getHtml(post.body, {}, 'text');
@@ -71,7 +71,7 @@ const StoryPreview = ({ post }) => {
 };
 
 StoryPreview.propTypes = {
-  post: PropTypes.shape()
+  post: PropTypes.shape().isRequired,
 };
 
 export default StoryPreview;

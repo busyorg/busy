@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import Avatar from '../../Avatar';
 import './Notification.less';
 
-const NotificationMention = ({ onClick, id, read, date, payload }) =>
+const NotificationMention = ({ onClick, id, read, date, payload }) => (
   <div
     onClick={() => onClick(id)}
     className={
@@ -23,14 +23,14 @@ const NotificationMention = ({ onClick, id, read, date, payload }) =>
         <FormattedRelative value={date} />
       </div>
     </div>
-  </div>;
+  </div>);
 
 NotificationMention.propTypes = {
   onClick: PropTypes.func,
-  id: PropTypes.number,
-  read: PropTypes.bool,
-  date: PropTypes.string,
-  payload: PropTypes.shape(),
+  id: PropTypes.number.isRequired,
+  read: PropTypes.bool.isRequired,
+  date: PropTypes.string.isRequired,
+  payload: PropTypes.shape().isRequired,
 };
 
 NotificationMention.defaultProps = {

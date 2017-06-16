@@ -4,8 +4,12 @@ import './Follow.less';
 
 class Follow extends React.Component {
   static propTypes = {
-    isFollowed: PropTypes.bool
+    isFollowed: PropTypes.bool,
   };
+
+  static defaultProps = {
+    isFollowed: false,
+  }
 
   constructor(props) {
     super(props);

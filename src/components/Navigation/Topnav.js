@@ -7,7 +7,13 @@ import Notifications from './Notifications/Notifications';
 import PopoverMenu, { PopoverMenuItem } from '../PopoverMenu/PopoverMenu';
 import './Topnav.less';
 
-const Topnav = ({ username, onNotificationClick, onSeeAllClick, onMenuItemClick, notifications }) => {
+const Topnav = ({
+  username,
+  onNotificationClick,
+  onSeeAllClick,
+  onMenuItemClick,
+  notifications,
+  }) => {
   let content;
 
   const notificationsCount = notifications && notifications
@@ -100,8 +106,8 @@ const Topnav = ({ username, onNotificationClick, onSeeAllClick, onMenuItemClick,
       <div className="Topnav__container">
         <Link to="/" className="Topnav__sides"><span className="Topnav__brand">busy</span></Link>
         <div
-          className={classNames("Topnav__input-container", {
-            "Topnav__input-container--logged-in": username
+          className={classNames('Topnav__input-container', {
+            'Topnav__input-container--logged-in': username,
           })}
         >
           {username && <Input placeholder="Search..." />}
@@ -124,9 +130,11 @@ Topnav.propTypes = {
 };
 
 Topnav.defaultProps = {
+  username: undefined,
   onNotificationClick: () => {},
   onSeeAllClick: () => {},
   onMenuItemClick: () => {},
+  notifications: [],
 };
 
 export default Topnav;

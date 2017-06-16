@@ -5,7 +5,7 @@ export default class PostFeedEmbed extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showIframe: false
+      showIframe: false,
     };
   }
 
@@ -15,7 +15,7 @@ export default class PostFeedEmbed extends Component {
         <div className="PostFeedEmbed__playButton">
           <i className="iconfont icon-group icon-playon_fill" />
         </div>
-        <img className="PostFeedEmbed__preview" src={thumb} />
+        <img alt="thumbnail" className="PostFeedEmbed__preview" src={thumb} />
       </a>
     );
   }

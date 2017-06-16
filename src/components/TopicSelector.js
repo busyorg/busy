@@ -8,7 +8,7 @@ class TopicSelector extends React.Component {
   static propTypes = {
     topics: PropTypes.arrayOf(PropTypes.string),
     onTopicClose: PropTypes.func,
-    onSortChange: PropTypes.func
+    onSortChange: PropTypes.func,
   }
 
   static defaultProps = {
@@ -19,7 +19,7 @@ class TopicSelector extends React.Component {
 
   state = {
     currentSort: 'trending',
-    popoverVisible: false
+    popoverVisible: false,
   }
 
   onSelect = (key) => {

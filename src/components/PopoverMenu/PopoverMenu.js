@@ -9,8 +9,8 @@ PopoverMenuItem.propTypes = {
     PropTypes.array,
     PropTypes.element,
     PropTypes.string,
-  ]),
-  itemKey: PropTypes.string,
+  ]).isRequired,
+  itemKey: PropTypes.string.isRequired,
   onClick: PropTypes.func,
 };
 
@@ -18,13 +18,13 @@ PopoverMenuItem.defaultProps = {
   onClick: () => {},
 };
 
-const PopoverMenu = ({ children, onSelect }) =>
+const PopoverMenu = ({ children, onSelect }) => (
   <ul className="PopoverMenu">
     {
-      children && Array.isArray(children) && children.map(child =>
+      children && Array.isArray(children) && children.map(child => (
         <PopoverMenuItem key={child.key} itemKey={child.key} onClick={() => onSelect(child.key)}>
           {child.props.children}
-        </PopoverMenuItem>)
+        </PopoverMenuItem>))
     }
     {
       children
@@ -37,13 +37,13 @@ const PopoverMenu = ({ children, onSelect }) =>
           {children.props.children}
         </PopoverMenuItem>
     }
-  </ul>;
+  </ul>);
 
 PopoverMenu.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.instanceOf(PopoverMenuItem),
-  ]),
+  ]).isRequired,
   onSelect: PropTypes.func,
 };
 

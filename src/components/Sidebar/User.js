@@ -4,7 +4,7 @@ import Avatar from '../Avatar';
 import Follow from '../Button/Follow';
 import './User.less';
 
-const User = ({ user }) =>
+const User = ({ user }) => (
   <div key={user.name} className="User">
     <div className="User__top">
       <div className="User__links">
@@ -19,10 +19,10 @@ const User = ({ user }) =>
     </div>
     <div className="User__about">{user.about}</div>
     <div className="User__divider" />
-  </div>;
+  </div>);
 
 User.propTypes = {
-  user: PropTypes.shape(),
+  user: PropTypes.shape().isRequired,
 };
 
 export default User;

@@ -45,7 +45,7 @@ const StoryFooter = ({ post, postState, onLikeClick, onCommentClick, onShareClic
 };
 
 StoryFooter.propTypes = {
-  post: PropTypes.shape()
+  post: PropTypes.shape().isRequired,
 };
 
 export default StoryFooter;

@@ -54,15 +54,14 @@ class Comments extends React.Component {
         </div>
         <CommentForm />
         {
-          comments && sortComments(comments, sort).map(comment =>
+          comments && sortComments(comments, sort).map(comment => (
             <Comment
               key={comment.id}
               comment={comment}
               commentsChildren={commentsChildren}
               onLikeClick={onLikeClick}
               onDislikeClick={onDislikeClick}
-            />
-          )
+            />))
         }
       </div>);
   }
@@ -76,7 +75,8 @@ Comments.propTypes = {
 };
 
 Comments.defaultProps = {
-  count: 0,
+  comments: [],
+  commentsChildren: undefined,
   onLikeClick: () => {},
   onDislikeClick: () => {},
 };

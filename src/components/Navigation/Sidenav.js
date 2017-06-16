@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { Link } from 'react-router-dom';
 import './Sidenav.less';
 
-const Sidenav = ({ username }) =>
+const Sidenav = ({ username }) => (
   <div>
     {(username) ? <ul className="Sidenav">
       <li>
@@ -48,10 +48,14 @@ const Sidenav = ({ username }) =>
       </li>
     </ul>
     }
-  </div>;
+  </div>);
 
 Sidenav.propTypes = {
   username: PropTypes.string,
+};
+
+Sidenav.defaultProps = {
+  username: undefined,
 };
 
 export default Sidenav;

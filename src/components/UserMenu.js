@@ -14,6 +14,8 @@ class UserMenu extends React.Component {
   }
 
   static defaultProps = {
+    onChange: () => {},
+    defaultKey: 'discussions',
     discussions: 0,
     comments: 0,
     followers: 0,
