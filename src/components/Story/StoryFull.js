@@ -22,7 +22,7 @@ class StoryFull extends React.Component {
     onLikeClick: PropTypes.func,
     onDislikeClick: PropTypes.func,
     onCommentClick: PropTypes.func,
-    onShareClick: PropTypes.func,
+    onShareClick: PropTypes.func
   };
 
   static defaultProps = {
@@ -35,6 +35,7 @@ class StoryFull extends React.Component {
     onCommentClick: () => {},
     onShareClick: () => {},
     userFollowed: false,
+    postState: {}
   };
 
   constructor(props) {
@@ -42,8 +43,8 @@ class StoryFull extends React.Component {
     this.state = {
       lightbox: {
         open: false,
-        index: 0,
-      },
+        index: 0
+      }
     };
   }
 
@@ -57,11 +58,10 @@ class StoryFull extends React.Component {
         return;
       case 'report':
         this.props.onReportClick();
-        return;
+
       default:
-        return;
     }
-  }
+  };
 
   onContentClick = (e) => {
     if (e.target.tagName === 'IMG') {
@@ -71,17 +71,18 @@ class StoryFull extends React.Component {
           this.setState({
             lightbox: {
               open: true,
-              index: i,
-            },
+              index: i
+            }
           });
         }
       }
     }
-  }
+  };
 
   render() {
     const {
       post,
+      postState,
       commentCount,
       userFollowed,
       onLikeClick,
@@ -118,7 +119,8 @@ class StoryFull extends React.Component {
             content={
               <PopoverMenu onSelect={this.handleClick}>
                 <PopoverMenuItem key="follow">
-                  <i className="iconfont icon-people" /> {(!userFollowed) ? 'Follow' : 'Unfollow'} {post.author}
+                  <i className="iconfont icon-people" /> {!userFollowed ? 'Follow' : 'Unfollow'}
+                  {' '}{post.author}
                 </PopoverMenuItem>
                 <PopoverMenuItem key="save">
                   <i className="iconfont icon-collection" /> Save post
@@ -132,11 +134,17 @@ class StoryFull extends React.Component {
             <i className="iconfont icon-more StoryFull__header__more" />
           </Popover>
         </div>
-        <div className="StoryFull__content" ref={(div) => { this.contentDiv = div; }} onClick={this.onContentClick}>
+        <div
+          className="StoryFull__content"
+          ref={(div) => {
+            this.contentDiv = div;
+          }}
+          onClick={this.onContentClick}
+        >
           <Body body={post.body} json_metadata={post.json_metadata} />
         </div>
-        {
-          open && <Lightbox
+        {open &&
+          <Lightbox
             mainSrc={images[index]}
             nextSrc={images[(index + 1) % images.length]}
             prevSrc={images[(index + (images.length - 1)) % images.length]}
@@ -144,31 +152,31 @@ class StoryFull extends React.Component {
               this.setState({
                 lightbox: {
                   ...this.state.lightbox,
-                  open: false,
-                },
+                  open: false
+                }
               });
             }}
-            onMovePrevRequest={() => this.setState({
-              lightbox: {
-                ...this.state.lightbox,
-                index: (index + (images.length - 1)) % images.length,
-              },
-            })}
-            onMoveNextRequest={() => this.setState({
-              lightbox: {
-                ...this.state.lightbox,
-                index: (index + (images.length + 1)) % images.length,
-              },
-            })}
-          />
-        }
+            onMovePrevRequest={() =>
+              this.setState({
+                lightbox: {
+                  ...this.state.lightbox,
+                  index: (index + (images.length - 1)) % images.length
+                }
+              })}
+            onMoveNextRequest={() =>
+              this.setState({
+                lightbox: {
+                  ...this.state.lightbox,
+                  index: (index + (images.length + 1)) % images.length
+                }
+              })}
+          />}
         <div className="StoryFull__topics">
-          {
-            tags && tags.map((tag, i) => <Topic key={i} name={tag} />)
-          }
+          {tags && tags.map((tag, i) => <Topic key={i} name={tag} />)}
         </div>
         <StoryFooter
           post={post}
+          postState={postState}
           onLikeClick={onLikeClick}
           onDislikeClick={onDislikeClick}
           onCommentClick={onCommentClick}
