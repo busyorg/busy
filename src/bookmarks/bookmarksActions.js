@@ -1,7 +1,7 @@
 import { createAction } from 'redux-actions';
 import {
   getBookmarks as getBookmarksHelper,
-  toggleBookmark as toggleBookmarkHelper,
+  toggleBookmark as toggleBookmarkHelper
 } from '../helpers/localStorageHelpers';
 
 export const GET_BOOKMARKS = '@Bookmarks/GET_BOOKMARKS';
@@ -23,7 +23,7 @@ export const TOGGLE_BOOKMARK_FAIL = '@Bookmarks/TOGGLE_BOOKMARK_FAIL';
  * @returns Promise - bookmarksData
  */
 async function getBookmarksData(bookmarks, steemAPI) {
-  let bookmarksData = [];
+  const bookmarksData = [];
   for (let idx = 0; idx < Object.keys(bookmarks).length; idx++) {
     const postId = Object.keys(bookmarks)[idx];
 
@@ -36,54 +36,43 @@ async function getBookmarksData(bookmarks, steemAPI) {
   return bookmarksData.sort((a, b) => a.timestamp - b.timestamp).reverse();
 }
 
-export const getBookmarks = () => {
-  return (dispatch, getState, { steemAPI }) => {
-    const { auth } = getState();
-    const user = auth.isAuthenticated ? auth.user.name : 'guest';
+export const getBookmarks = () => (dispatch, getState, { steemAPI }) => {
+  const { auth } = getState();
+  const user = auth.isAuthenticated ? auth.user.name : 'guest';
 
-    const bookmarks = getBookmarksHelper(user);
+  const bookmarks = getBookmarksHelper(user);
 
-    dispatch({
-      type: GET_BOOKMARKS,
-      payload: {
-        promise: getBookmarksData(bookmarks, steemAPI).then(
-          bookmarksData => ({ postsData: bookmarksData })
-        ),
-        data: bookmarks,
-      }
-    });
-  };
+  dispatch({
+    type: GET_BOOKMARKS,
+    payload: {
+      promise: getBookmarksData(bookmarks, steemAPI).then(bookmarksData => ({
+        postsData: bookmarksData
+      })),
+      data: bookmarks
+    }
+  });
 };
-
 
 export const toggleBookmarkRequest = createAction(TOGGLE_BOOKMARK);
 export const toggleBookmarkSuccess = createAction(TOGGLE_BOOKMARK_SUCCESS);
 
-export const toggleBookmark = (postId) => {
-  return (dispatch, getState) => {
-    const { posts, auth } = getState();
-    const user = auth.isAuthenticated ? auth.user.name : 'guest';
+export const toggleBookmark = postId => (dispatch, getState) => {
+  const { posts, auth } = getState();
+  const user = auth.isAuthenticated ? auth.user.name : 'guest';
 
-    dispatch(toggleBookmarkRequest(postId));
+  dispatch(toggleBookmarkRequest(postId));
 
-    const { author, permlink } = posts[postId];
+  const { author, permlink } = posts[postId];
 
-    const bookmarks = toggleBookmarkHelper({ postId, author, permlink }, user);
+  const bookmarks = toggleBookmarkHelper({ postId, author, permlink }, user);
 
-    dispatch(
-      toggleBookmarkSuccess(bookmarks)
-    );
-  };
+  dispatch(toggleBookmarkSuccess(bookmarks));
 };
 
-export const getStoredBookmarks = () => {
-  return (dispatch, getState) => {
-    const { auth } = getState();
-    const user = auth.isAuthenticated ? auth.user.name : 'guest';
+export const getStoredBookmarks = () => (dispatch, getState) => {
+  const { auth } = getState();
+  const user = auth.isAuthenticated ? auth.user.name : 'guest';
 
-    const bookmarks = getBookmarksHelper(user);
-    dispatch(
-      createAction(GET_STORED_BOOKMARKS)(bookmarks)
-    );
-  }
+  const bookmarks = getBookmarksHelper(user);
+  dispatch(createAction(GET_STORED_BOOKMARKS)(bookmarks));
 };

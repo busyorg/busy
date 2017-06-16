@@ -96,7 +96,6 @@ storiesOf('Story', module)
     onSaveClick={action('Save click')}
     onReportClick={action('Report click')}
     onLikeClick={action('Like click')}
-    onDislikeClick={action('Dislike click')}
     onCommentClick={action('Comment click')}
     onShareClick={action('Share click')}
   />)
@@ -106,7 +105,6 @@ storiesOf('Story', module)
     onSaveClick={action('Save click')}
     onReportClick={action('Report click')}
     onLikeClick={action('Like click')}
-    onDislikeClick={action('Dislike click')}
     onCommentClick={action('Comment click')}
     onShareClick={action('Share click')}
   />)
@@ -117,7 +115,6 @@ storiesOf('Story', module)
     onSaveClick={action('Save click')}
     onReportClick={action('Report click')}
     onLikeClick={action('Like click')}
-    onDislikeClick={action('Dislike click')}
     onCommentClick={action('Comment click')}
     onShareClick={action('Share click')}
   />)
@@ -128,7 +125,6 @@ storiesOf('Story', module)
     onSaveClick={action('Save click')}
     onReportClick={action('Report click')}
     onLikeClick={action('Like click')}
-    onDislikeClick={action('Dislike click')}
     onCommentClick={action('Comment click')}
     onShareClick={action('Share click')}
   />);

@@ -17,9 +17,8 @@ class Story extends React.Component {
     onSaveClick: PropTypes.func,
     onReportClick: PropTypes.func,
     onLikeClick: PropTypes.func,
-    onDislikeClick: PropTypes.func,
     onCommentClick: PropTypes.func,
-    onShareClick: PropTypes.func,
+    onShareClick: PropTypes.func
   };
 
   static defaultProps = {
@@ -27,10 +26,10 @@ class Story extends React.Component {
     onSaveClick: () => {},
     onReportClick: () => {},
     onLikeClick: () => {},
-    onDislikeClick: () => {},
     onCommentClick: () => {},
     onShareClick: () => {},
     userFollowed: false,
+    postState: {}
   };
 
   handleClick = (key) => {
@@ -43,21 +42,13 @@ class Story extends React.Component {
         return;
       case 'report':
         this.props.onReportClick();
-        return;
+
       default:
-        return;
     }
-  }
+  };
 
   render() {
-    const {
-      post,
-      userFollowed,
-      onLikeClick,
-      onDislikeClick,
-      onCommentClick,
-      onShareClick
-    } = this.props;
+    const { post, postState, onLikeClick, onCommentClick, onShareClick } = this.props;
 
     return (
       <div className="Story">
@@ -66,7 +57,8 @@ class Story extends React.Component {
           content={
             <PopoverMenu onSelect={this.handleClick}>
               <PopoverMenuItem key="follow">
-                <i className="iconfont icon-people" /> {(!userFollowed) ? 'Follow' : 'Unfollow'} {post.author}
+                <i className="iconfont icon-people" />
+                {' '}{!postState.userFollowed ? 'Follow' : 'Unfollow'} {post.author}
               </PopoverMenuItem>
               <PopoverMenuItem key="save">
                 <i className="iconfont icon-collection" /> Save post
@@ -104,13 +96,14 @@ class Story extends React.Component {
         <div className="Story__footer">
           <StoryFooter
             post={post}
+            postState={postState}
             onLikeClick={onLikeClick}
-            onDislikeClick={onDislikeClick}
             onCommentClick={onCommentClick}
             onShareClick={onShareClick}
           />
         </div>
-      </div>);
+      </div>
+    );
   }
 }
 
