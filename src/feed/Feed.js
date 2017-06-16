@@ -117,18 +117,17 @@ export default class Feed extends React.Component {
               const reportPost = () => votePost(post.id, -1000);
 
               return (
-                <div key={post.id} style={{ margin: '1em 0' }}>
-                  <Story
-                    post={post}
-                    postState={postState}
-                    onFollowClick={() => console.log('Follow click')}
-                    onSaveClick={() => toggleBookmark(post.id)}
-                    onReportClick={reportPost}
-                    onLikeClick={likePost}
-                    onCommentClick={() => console.log('Comment click')}
-                    onShareClick={() => reblog(post.id)}
-                  />
-                </div>
+                <Story
+                  key={post.id}
+                  post={post}
+                  postState={postState}
+                  onFollowClick={() => console.log('Follow click')}
+                  onSaveClick={() => toggleBookmark(post.id)}
+                  onReportClick={reportPost}
+                  onLikeClick={likePost}
+                  onCommentClick={() => console.log('Comment click')}
+                  onShareClick={() => reblog(post.id)}
+                />
               );
             })}
           </ReduxInfiniteScroll>

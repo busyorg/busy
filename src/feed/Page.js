@@ -71,37 +71,45 @@ export default class Page extends React.Component {
     }
 
     return (
-      <div className="main-panel">
+      <div>
         <Helmet>
           <title>Busy</title>
         </Helmet>
-        <LeftSidebar auth={auth} />
-        {category &&
-          <h2 className="mt-3 text-center">
-            <span className="text-info">#</span>
-            {' '}{category}{' '}
-            <FavoriteButton
-              isFavorited={this.isFavorited()}
-              onClick={
-                this.isFavorited()
-                  ? this.props.removeCategoryFavorite
-                  : this.props.addCategoryFavorite
-              }
-            />
-          </h2>}
-        <div style={{ flex: 2 }}>
-          <Feed
-            content={content}
-            isFetching={isFetching}
-            hasMore={hasMore}
-            loadContent={loadContentAction}
-            loadMoreContent={loadMoreContentAction}
-            notify={notify}
-            route={this.props.route}
-          />
+        <div className="layout-container">
+          <div className="layout-row">
+            <div className="layout-col layout-left layout-hidden-sm">
+              <LeftSidebar auth={auth} />
+            </div>
+            <div className="layout-col layout-center">
+              {category &&
+                <h2 className="mt-3 text-center">
+                  <span className="text-info">#</span>
+                  {' '}{category}{' '}
+                  <FavoriteButton
+                    isFavorited={this.isFavorited()}
+                    onClick={
+                      this.isFavorited()
+                        ? this.props.removeCategoryFavorite
+                        : this.props.addCategoryFavorite
+                    }
+                  />
+                </h2>}
+              <Feed
+                content={content}
+                isFetching={isFetching}
+                hasMore={hasMore}
+                loadContent={loadContentAction}
+                loadMoreContent={loadMoreContentAction}
+                notify={notify}
+                route={this.props.route}
+              />
+              {content.length === 0 && !isFetching && <EmptyFeed />}
+            </div>
+            <div className="layout-col layout-right layout-hidden-xs">
+              <RightSidebar auth={auth} />
+            </div>
+          </div>
         </div>
-        {content.length === 0 && !isFetching && <EmptyFeed />}
-        <RightSidebar auth={auth} />
       </div>
     );
   }

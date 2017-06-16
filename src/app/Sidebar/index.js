@@ -44,16 +44,8 @@ class SidebarWithTopics extends React.PureComponent {
     return <Topics title="Trending topics" topics={this.state.categories} />;
   }
 }
-export const SidebarWrapper = ({ children, style }) =>
-  (<div
-    style={{
-      flex: 1,
-      display: 'flex',
-      flexDirection: 'column',
-      padding: '1em 2em 0 2em',
-      ...style
-    }}
-  >
+export const SidebarWrapper = ({ children }) => (
+  <div>
     {children}
   </div>);
 
@@ -77,7 +69,7 @@ export const LeftSidebar = ({ auth }) =>
     <Route
       path="/@:name"
       render={() =>
-        (<SidebarWrapper style={{ alignItems: 'center' }}>
+        (<SidebarWrapper>
           {auth.user.name && // TODO (nil151) fetch profile based on route and show
             <div>
               {_.get(jsonParse(auth.user.json_metadata), 'profile.about')}<br />
@@ -93,7 +85,7 @@ export const LeftSidebar = ({ auth }) =>
     <Route
       path="/"
       render={() =>
-        (<SidebarWrapper style={{ alignItems: 'flex-end' }}>
+        (<SidebarWrapper>
           <Sidenav username={auth.user.name} />
           <SidebarWithTopics />
         </SidebarWrapper>)}
@@ -106,14 +98,14 @@ export const RightSidebar = ({ auth }) =>
       <Route
         path="/@:name"
         render={() =>
-            (<SidebarWrapper style={{ alignItems: 'flex-start' }}>
+            (<SidebarWrapper>
               <InterestingPeopleWithData />
             </SidebarWrapper>)}
       />
       <Route
         path="/"
         render={() =>
-            (<SidebarWrapper style={{ alignItems: 'flex-start' }}>
+            (<SidebarWrapper>
               <div style={{ maxWidth: 260 }}>
                 <StartNow />
                 <InterestingPeopleWithData />

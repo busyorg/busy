@@ -1,0 +1,48 @@
+@layout-prefix: layout;
+
+.@{layout-prefix}-container {
+  max-width: 990px;
+  margin: 0 auto;
+}
+
+.@{layout-prefix}-row {
+  display: flex;
+}
+
+.@{layout-prefix}-col {
+  flex: 1;
+}
+
+.@{layout-prefix}-center {
+  flex: 5.3;
+}
+
+.@{layout-prefix}-left {
+  flex: 1.85;
+  margin-right: 20px;
+}
+
+.@{layout-prefix}-right {
+  flex: 2.55;
+  margin-left: 20px;
+}
+
+@media screen and (max-width: 991px) {
+  .@{layout-prefix}-hidden-sm {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .@{layout-prefix}-hidden-xs {
+    display: none;
+  }
+
+  .@{layout-prefix}-center {
+    flex: 1;
+  }
+
+  .@{layout-prefix}-col {
+    margin: 0;
+  }
+}
