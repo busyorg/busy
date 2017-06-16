@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import ReactDOM from 'react-dom';
 import Remarkable from 'remarkable';
 import { HotKeys } from 'react-hotkeys';
 import { throttle } from 'lodash';
@@ -53,6 +54,15 @@ class Editor extends React.Component {
   componentDidMount() {
     this.input.addEventListener('input', throttle(e => this.renderMarkdown(e.target.value), 500));
     this.input.addEventListener('paste', this.handlePastedImage);
+
+    // eslint-disable-next-line react/no-find-dom-node
+    const select = ReactDOM.findDOMNode(this.select);
+    const selectInput = select.querySelector('input,textarea,div[contentEditable]');
+
+    if (selectInput) {
+      selectInput.setAttribute('autocorrect', 'off');
+      selectInput.setAttribute('autocapitalize', 'none');
+    }
   }
 
   setInput = (input) => {
@@ -246,6 +256,7 @@ class Editor extends React.Component {
             ],
           })(
             <Select
+              ref={(ref) => { this.select = ref; }}
               className="Editor__topics"
               mode="tags"
               placeholder="Add story topics here"
