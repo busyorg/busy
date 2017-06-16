@@ -33,6 +33,8 @@ import { RightSidebar } from '../../app/Sidebar/index';
   ({ posts, app, reblog, auth, bookmarks }) => ({
     content: posts[app.lastPostId] || null,
     lastPostId: app.lastPostId,
+    reblogList: reblog,
+    bookmarks,
     auth
   }),
   (dispatch, ownProps) =>
@@ -43,9 +45,9 @@ import { RightSidebar } from '../../app/Sidebar/index';
             author: _.get(ownProps.match, 'params.author'),
             permlink: _.get(ownProps.match, 'params.permlink')
           }),
-        likePost: id => postActions.votePost(id),
-        unlikePost: id => postActions.votePost(id, 0),
-        dislikePost: id => postActions.votePost(id, -1000)
+        toggleBookmark: bookmarkActions.toggleBookmark,
+        votePost: postActions.votePost,
+        reblog: reblogActions.reblog
       },
       dispatch
     )
@@ -94,7 +96,7 @@ export default class PostSingle extends Component {
 
   render() {
     // let onEdit;
-    const { content, dislikePost, likePost, auth } = this.props;
+    const { content, auth, reblogList, bookmarks, votePost, reblog, toggleBookmark } = this.props;
 
     if (!content || !content.author) {
       return <div className="main-panel"><Loading /></div>;
@@ -150,6 +152,22 @@ export default class PostSingle extends Component {
       canonicalHost = 'https://steemit.com';
     }
 
+    const loggedInUser = auth.user;
+    const userVote = _.find(content.active_votes, { voter: loggedInUser.name }) || {};
+
+    const postState = {
+      isReblogged: reblogList.includes(content.id),
+      isSaved: bookmarks[content.id] !== undefined,
+      isLiked: userVote.percent > 0,
+      isReported: userVote.percent < 0,
+      userFollowed: false // Get Follower list for loggedIn User after login
+    };
+
+    const likePost = userVote.percent > 0
+      ? () => votePost(content.id, 0)
+      : () => votePost(content.id);
+    const reportPost = () => votePost(content.id, -1000);
+
     const { title, category, created, author, body } = content;
     const postMetaImage = postMetaData.image && postMetaData.image[0];
     const htmlBody = getHtml(body, {}, 'text');
@@ -188,16 +206,16 @@ export default class PostSingle extends Component {
         <div style={{ flex: 3, paddingTop: '1em' }}>
           <StoryFull
             post={content}
+            postState={postState}
             onFollowClick={() => console.log('Follow click')}
-            onSaveClick={() => console.log('Save click')}
-            onReportClick={() => console.log('Report click')}
+            onSaveClick={() => toggleBookmark(content.id)}
+            onReportClick={reportPost}
             onLikeClick={likePost}
-            onDislikeClick={dislikePost}
             onCommentClick={() => console.log('Comment click')}
-            onShareClick={() => console.log('Share click')}
+            onShareClick={() => reblog(content.id)}
           />
         </div>
-        
+
         {auth.user.name && <RightSidebar auth={auth} />}
         {/* {content.author && !modal &&
           <PostSinglePage {...theProps} />

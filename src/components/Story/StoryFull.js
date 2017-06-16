@@ -20,7 +20,6 @@ class StoryFull extends React.Component {
     onSaveClick: PropTypes.func,
     onReportClick: PropTypes.func,
     onLikeClick: PropTypes.func,
-    onDislikeClick: PropTypes.func,
     onCommentClick: PropTypes.func,
     onShareClick: PropTypes.func
   };
@@ -31,7 +30,6 @@ class StoryFull extends React.Component {
     onSaveClick: () => {},
     onReportClick: () => {},
     onLikeClick: () => {},
-    onDislikeClick: () => {},
     onCommentClick: () => {},
     onShareClick: () => {},
     userFollowed: false,
@@ -86,7 +84,6 @@ class StoryFull extends React.Component {
       commentCount,
       userFollowed,
       onLikeClick,
-      onDislikeClick,
       onCommentClick,
       onShareClick
     } = this.props;
@@ -178,7 +175,6 @@ class StoryFull extends React.Component {
           post={post}
           postState={postState}
           onLikeClick={onLikeClick}
-          onDislikeClick={onDislikeClick}
           onCommentClick={onCommentClick}
           onShareClick={onShareClick}
         />
