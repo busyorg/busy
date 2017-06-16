@@ -19,6 +19,7 @@ import StoryFull from './components/Story/StoryFull';
 import UserMenu from './components/UserMenu';
 import UserHeader from './components/UserHeader';
 import Comments from './components/Comments/Comments';
+import Editor from './components/Editor/Editor';
 import TopicSelector from './components/TopicSelector';
 import '../src/styles/common.less';
 
@@ -142,6 +143,20 @@ storiesOf('Comments', module)
     commentsChildren={commentsChildren}
     onLikeClick={action('Like click')}
     onDislikeClick={action('Dislike click')}
+  />);
+
+storiesOf('Editor', module)
+  .add('Editor', () => <Editor
+    recentTopics={['bitcoin', 'steemit', 'busy']}
+    popularTopics={['life', 'travel', 'nature', 'money', 'story']}
+    onSubmit={action('Form submit')}
+    onError={action('Form error')}
+    onImagePasted={
+      (image, callback) => {
+        // NOTE: Upload image to server.
+        setTimeout(() => callback('https://placehold.it/200x200'), 500);
+      }
+    }
   />);
 
 storiesOf('Topic selector', module)
