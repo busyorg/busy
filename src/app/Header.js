@@ -7,12 +7,14 @@ import { showSidebar } from '../actions';
 import Icon from '../widgets/Icon';
 import Popover from '../widgets/popover/Popover';
 import ActivityNotification from '../activityNotification/ActivityNotification';
+import * as activityNotificationsActions from '../activityNotification/activityNotificationActions';
 import './Header.scss';
 
 @connect(
   state => ({
     app: state.app,
     auth: state.auth,
+    activityNotification: state.activityNotification,
   }),
   dispatch => bindActionCreators({
     showSidebar: showSidebar,
@@ -60,7 +62,7 @@ export default class Header extends Component {
                 fixedPosition
               >
                 <SimpleTooltipOrigin appearOn="bottom" message="Open notifications">
-                  <a>3
+                  <a>{this.props.activityNotification.unseenCounter}
                     <Icon name="notifications" className="Icon--menu" />
                   </a>
                 </SimpleTooltipOrigin>
