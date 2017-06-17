@@ -55,7 +55,7 @@ export default class ActivityNotification extends Component {
                 <span>{makeNotificationTitle(notification, listByNotificationId)}</span>
                 <p>{notification.body}</p>
                 <i className="ActivityNotifList__item___date">
-                  1 minute ago
+                  <FormattedRelative value={new Date(parseInt(notification.created_at))} />
                 </i>
               </div>
             </div>
