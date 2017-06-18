@@ -29,8 +29,8 @@ const fetchNotifications = (username, token, limit) => {
 
 const markAsSeenPromise = (notificationId) =>
   fetch(`${process.env.BUSYPUSH_ENDPOINT}/api/seenNotification?notificationId=${notificationId}`);
-  
-export const fetchActivityNotifications = (limit = 5) =>
+
+export const fetchActivityNotifications = (limit = 10) =>
   (dispatch, getState) => {
     const { auth } = getState();
     const username = auth.isAuthenticated && auth.user.name;
