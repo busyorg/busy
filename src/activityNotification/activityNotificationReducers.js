@@ -6,9 +6,9 @@ const initialState = {
   list: [],
 };
 
-const getUnseenNotifs = (list) =>
+const getUnseenNotifsCounter = (list) =>
   uniqNotifications(list).reduce((prevItem, current) => {
-    if (current.seen) {
+    if (current.seen == 0) {
       return prevItem + 1;
     } else {
       return prevItem;
@@ -26,7 +26,7 @@ export const activityNotification = (state = initialState, action) => {
       return {
         ...state,
         list: action.payload.notifications,
-        unseenCounter: getUnseenNotifs(action.payload.notifications),
+        unseenCounter: getUnseenNotifsCounter(action.payload.notifications),
         isFetching: false,
       }
     case notificationActions.FETCH_ACTIVITY_NOTIFICATION_ERROR:
