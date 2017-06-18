@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 import { SimpleTooltipOrigin } from '../widgets/tooltip/SimpleTooltip';
 import { showSidebar } from '../actions';
 import Icon from '../widgets/Icon';
@@ -18,6 +18,7 @@ import './Header.scss';
   }),
   dispatch => bindActionCreators({
     showSidebar: showSidebar,
+    fetchActivityNotifications: activityNotificationsActions.fetchActivityNotifications,
   }, dispatch)
 )
 export default class Header extends Component {
@@ -29,6 +30,19 @@ export default class Header extends Component {
     showSidebar: PropTypes.func,
     title: PropTypes.string,
   };
+
+  componentDidMount() {
+    // TODO: should replace it with a websocket connection to busy-push to pull new notifications
+    this.unlisten = browserHistory.listen(() => {
+      this.props.fetchActivityNotifications();
+    });
+  }
+
+  componentWillMount() {
+    if (this.unlisten) {
+      this.unlisten();
+    }
+  }
 
   render() {
     return (
