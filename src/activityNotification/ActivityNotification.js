@@ -46,7 +46,7 @@ export default class ActivityNotification extends Component {
       <div>
         {isFetching && <Loading />}
         <div className="ActivityNotifList">
-          {list && uniqNotifications(list).map((notification) =>
+          {list && uniqNotifications(list).slice(0, 5).map((notification) =>
             <ActivityNotificationItem
               listByNotificationId={listByNotificationId}
               notification={notification}
