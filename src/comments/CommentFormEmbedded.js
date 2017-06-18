@@ -141,13 +141,17 @@ export default class CommentFormEmbedded extends Component {
       parentTitle = posts[parentId].title;
     }
 
+    if (!this.props.auth.isAuthenticated) {
+      return null;
+    }
+
     return (
       <div className={commentsClass}>
         <div className="container">
 
           <div className="my-2">
             <i className="icon icon-sm material-icons">reply</i>
-            {' '}<FormattedMessage id="reply_to" />{' '}
+            {' '}<FormattedMessage id="reply_to" defaultMessage="Reply To" />{' '}
             <b>{parentTitle}</b>
           </div>
 

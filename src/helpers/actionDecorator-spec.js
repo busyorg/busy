@@ -8,7 +8,7 @@ import { mount } from 'enzyme';
 
 import * as appTypes from '../actions';
 import actionDecorator from './actionDecorator';
-import store from '../store';
+import getStore from '../store';
 import { makeDOMEnvironment } from './testHelpers';
 
 chai.use(chaiEnzyme);
@@ -67,7 +67,7 @@ describe('actionDecorator', () => {
       }))(TestComponent);
 
       const wrapper = mount(
-        <Provider store={store}>
+        <Provider store={getStore()}>
           <TestComponent />
         </Provider>
       );

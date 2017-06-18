@@ -12,8 +12,8 @@ export default class Notification extends Component {
   render() {
     return (
       <div className="NotificationHolder">
-        { this.props.notifications.map(({ text, context = 'info' }) =>
-          <div className={`Notification ${context}`}>
+        {this.props.notifications.map(({ text, context = 'info' }, i) =>
+          <div key={`${i}-${text}-${context}`} className={`Notification ${context}`}>
             <h3>
               {context === 'success' &&
                 <Icon name="check" className="mr-2" />
@@ -24,7 +24,7 @@ export default class Notification extends Component {
               {text}
             </h3>
           </div>
-          )
+        )
         }
       </div>
     );

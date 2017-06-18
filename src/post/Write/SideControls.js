@@ -7,9 +7,18 @@ import React, { Component } from 'react';
 import './PostEditor.scss';
 import Icon from '../../widgets/Icon';
 import { uploadFile } from '../../user/userActions';
+import { notify } from '../../app/Notification/notificationActions';
 
 const debug = newDebug('busy:PostEditor:SideControls');
 
+function getImageLoaderHTML() {
+  const loaderDiv = global.document.createElement('div');
+  loaderDiv.className = 'loader-container flex-center';
+  loaderDiv.innerHTML = `<div class="Loading flex-center">
+        <span>●</span><span>●</span><span>●</span>
+      </div>`;
+  return loaderDiv;
+}
 function getSelectedBlockNode(root) {
   const selection = root.getSelection();
   if (selection.rangeCount === 0) {
@@ -123,20 +132,38 @@ class SideControls extends Component {
     const username = this.props.user.name;
     let entityKey;
     let imageElement;
+    const maxFileSize = 8 * 1024 * 1024 * 1024; // 8 mb in bytes
+    if (file.size > maxFileSize) {
+      return this.props.notify('Max Image size is 8mb', 'error');
+    }
     const contentState = this.props.editorState.getCurrentContent();
-    preloadFile({ file })
+    const loaderDiv = getImageLoaderHTML();
+    return preloadFile({ file })
       .then((dataUrl) => {
         this.hide();
         const contentStateWithEntity = contentState.createEntity('IMAGE', 'IMMUTABLE', { src: dataUrl });
         entityKey = contentStateWithEntity.getLastCreatedEntityKey();
         this.props.onChange(addNewEntitiy(this.props.editorState, entityKey));
         imageElement = global.document.querySelectorAll(`img[src="${dataUrl}"]`);
-        if (imageElement.length) { imageElement[0].style.opacity = 0.5; }
+        if (imageElement.length) {
+          imageElement[0].style.opacity = 0.5;
+
+          // need to run after imageElement is drawn
+          setTimeout(() => {
+            loaderDiv.style.width = `${imageElement[0].width}px`;
+            loaderDiv.style.height = `${imageElement[0].height}px`;
+            loaderDiv.style.marginTop = `-${imageElement[0].height}px`;
+          });
+          imageElement[0].parentNode.append(loaderDiv);
+        }
         return this.props.uploadFile({ username, file });
       })
       .then(({ value }) => {
         contentState.replaceEntityData(entityKey, { src: value.url });
-        if (imageElement.length) { imageElement[0].style.opacity = 1; }
+        if (imageElement.length) {
+          imageElement[0].style.opacity = 1;
+          loaderDiv.remove();
+        }
       });
   };
 
@@ -173,6 +200,6 @@ class SideControls extends Component {
 
 SideControls = connect(state => ({
   files: state.user.files,
-}), { uploadFile })(SideControls);
+}), { uploadFile, notify })(SideControls);
 
 export default SideControls;

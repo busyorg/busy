@@ -15,7 +15,7 @@ const LikeButton = ({ onClick, active, numberOfVotes, layout }) => {
         {isCardLayout &&
           <span>
             <span className="hidden-xs">
-              {' '}<FormattedMessage id="like" />
+              {' '}<FormattedMessage id="like" defaultMessage="Like" />
             </span>
           </span>
         }

@@ -6,11 +6,12 @@ import {
   getFeedHasMoreFromState
 } from '../helpers/stateHelpers';
 import EmptyFeed from '../statics/EmptyFeed';
+import { getUserFeedContent as getUserFeedContentStatic } from '../feed/feedActions';
 
 export default class UserProfileFeed extends Component {
-  constructor(props) {
-    super(props);
-  }
+  static needs = [
+    ({ name }) => getUserFeedContentStatic({ username: name, limit: 10 }),
+  ]
 
   render() {
     const { feed, posts, getUserFeedContent, getMoreUserFeedContent } = this.props;
@@ -41,7 +42,7 @@ export default class UserProfileFeed extends Component {
           route={this.props.route}
         />
 
-        { (content.length === 0 && !isFetching) &&
+        {(content.length === 0 && !isFetching) &&
           <EmptyFeed />
         }
       </div>

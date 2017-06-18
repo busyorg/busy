@@ -5,13 +5,14 @@ import { FormattedMessage } from 'react-intl';
 import _ from 'lodash';
 import numeral from 'numeral';
 import { Link } from 'react-router';
+import { Helmet } from 'react-helmet';
 import {
   getFeedContent,
   getMoreFeedContent,
   getUserFeedContent,
   getMoreUserFeedContent,
 } from '../feed/feedActions';
-import { getAccountWithFollowingCount } from '../helpers/apiHelpers';
+import { getAccountWithFollowingCount } from './usersActions';
 import { getUserComments, getMoreUserComments } from './userActions';
 import MenuUser from '../app/Menu/MenuUser';
 import { addUserFavorite, removeUserFavorite } from '../favorites/favoritesActions';
@@ -33,6 +34,7 @@ import Transfer from '../widgets/Transfer';
     posts: state.posts,
     comments: state.comments,
     favorites: state.favorites.users,
+    users: state.users,
   }),
   dispatch => bindActionCreators({
     getFeedContent,
@@ -42,7 +44,8 @@ import Transfer from '../widgets/Transfer';
     getUserComments,
     getMoreUserComments,
     addUserFavorite,
-    removeUserFavorite
+    removeUserFavorite,
+    getAccountWithFollowingCount,
   }, dispatch)
 )
 @dispatchActions(
@@ -58,36 +61,22 @@ import Transfer from '../widgets/Transfer';
     };
   }
 )
-export default class UserProfile extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      user: {},
-      fetching: false
-    };
-  }
+export default class User extends React.Component {
+  static needs = [
+    getAccountWithFollowingCount,
+  ]
 
   componentWillMount() {
-    this.fetchUserData();
+    const user = this.props.users[this.props.params.name] || {};
+    if (user.name === undefined) {
+      this.props.getAccountWithFollowingCount({ name: this.props.params.name });
+    }
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.params.name !== this.props.params.name) {
-      this.fetchUserData();
+      this.props.getAccountWithFollowingCount({ name: this.props.params.name });
     }
-  }
-
-  fetchUserData() {
-    this.setState({ user: {}, fetching: true });
-    getAccountWithFollowingCount(this.props.params.name)
-      .then(user => this.setState({ user }))
-      .catch((e) => {
-        if (e.message === 'User Not Found') {
-          this.setState({ user: null });
-        }
-      }).finally(() => {
-        this.setState({ fetching: false });
-      });
   }
 
   isFavorited() {
@@ -185,10 +174,37 @@ export default class UserProfile extends React.Component {
   }
 
   render() {
-    const { user, fetching } = this.state;
+    const username = this.props.params.name;
+    const { isFetching, ...user } = this.props.users[username] || {};
+    const { profile = {} } = user.json_metadata || {};
+    const busyHost = global.postOrigin || 'https://busy.org';
+    const desc = profile.about || `Post by ${username}`;
+    const image = `${process.env.STEEMCONNECT_IMG_HOST}/@${username}`;
+    const canonicalUrl = `${busyHost}/@${username}`;
+    const url = `${busyHost}/@${username}`;
+    const title = `${profile.name || username} - Busy`;
+
     return (
       <div className="main-panel">
-        {fetching ? <Loading /> : this.getUserView(user)}
+        <Helmet>
+          <title>{title}</title>
+          <link rel="canonical" href={canonicalUrl} />
+          <meta property="description" content={desc} />
+
+          <meta property="og:title" content={title} />
+          <meta property="og:type" content="article" />
+          <meta property="og:url" content={url} />
+          <meta property="og:image" content={image} />
+          <meta property="og:description" content={desc} />
+          <meta property="og:site_name" content="Busy" />
+
+          <meta property="twitter:card" content={image ? 'summary_large_image' : 'summary'} />
+          <meta property="twitter:site" content={'@steemit'} />
+          <meta property="twitter:title" content={title} />
+          <meta property="twitter:description" content={desc} />
+          <meta property="twitter:image" content={image || 'https://steemit.com/images/steemit-twshare.png'} />
+        </Helmet>
+        {isFetching ? <Loading /> : this.getUserView(user)}
       </div>
     );
   }

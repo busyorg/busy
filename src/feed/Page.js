@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Helmet } from 'react-helmet';
 import MenuFeed from '../app/Menu/MenuFeed';
 import Hero from '../app/Hero';
 import Feed from './Feed';
@@ -16,7 +17,6 @@ import {
   getUserFeedContentFromState,
   getUserFeedLoadingFromState,
 } from '../helpers/stateHelpers';
-import Loading from '../widgets/Loading';
 import FavoriteButton from '../favorites/FavoriteButton';
 import * as favoriteActions from '../favorites/favoritesActions';
 import EmptyFeed from '../statics/EmptyFeed';
@@ -53,10 +53,6 @@ import EmptyFeed from '../statics/EmptyFeed';
   }
 )
 export default class Page extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   isFavorited() {
     const { category, favorites } = this.props;
     return category && favorites.includes(category);
@@ -83,6 +79,9 @@ export default class Page extends React.Component {
 
     return (
       <div className="main-panel">
+        <Helmet>
+          <title>Busy</title>
+        </Helmet>
         {!auth.isFetching && !auth.isAuthenticated && !category &&
           <Hero />
         }
@@ -105,18 +104,15 @@ export default class Page extends React.Component {
             />
           </h2>
         }
-        {auth.isFetching && <Loading />}
-        {!auth.isFetching &&
-          <Feed
-            content={content}
-            isFetching={isFetching}
-            hasMore={hasMore}
-            loadContent={loadContentAction}
-            loadMoreContent={loadMoreContentAction}
-            notify={notify}
-            route={this.props.route}
-          />
-        }
+        <Feed
+          content={content}
+          isFetching={isFetching}
+          hasMore={hasMore}
+          loadContent={loadContentAction}
+          loadMoreContent={loadMoreContentAction}
+          notify={notify}
+          route={this.props.route}
+        />
         {(content.length === 0 && !isFetching) &&
           <EmptyFeed />
         }

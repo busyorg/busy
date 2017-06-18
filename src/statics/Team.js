@@ -10,7 +10,7 @@ export default () =>
   <div className="main-panel">
     <MenuHelp />
     <div className="container text-center my-5">
-      <h1><FormattedMessage id="team" /></h1>
+      <h1><FormattedMessage id="team" defaultMessage="Team" /></h1>
       <p>
         <FormattedMessage
           id="@statics/busy_team"
@@ -27,7 +27,7 @@ export default () =>
           />
         )}
       </div>
-      <h1><FormattedMessage id="advisors" /></h1>
+      <h1><FormattedMessage id="advisors" defaultMessage="Advisors" /></h1>
       <div className="row my-5">
         {advisors.map((user, idx) =>
           <UserCard
@@ -37,7 +37,7 @@ export default () =>
           />
         )}
       </div>
-      <h1><FormattedMessage id="contributors" /></h1>
+      <h1><FormattedMessage id="contributors" defaultMessage="Contributors" /></h1>
       <div className="row my-5">
         {contributors.map((user, idx) =>
           <UserCard

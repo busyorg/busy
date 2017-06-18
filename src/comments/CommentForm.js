@@ -138,7 +138,7 @@ export default class CommentForm extends Component {
           {comments.currentDraftId &&
             <div className="my-2">
               <i className="icon icon-sm material-icons">reply</i>
-              {' '}<FormattedMessage id="reply_to" />{' '}
+              {' '}<FormattedMessage id="reply_to" defaultMessage="Reply To" />{' '}
               <b>{parentTitle}</b>
             </div>
           }

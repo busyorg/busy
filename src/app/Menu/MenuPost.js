@@ -57,7 +57,7 @@ const MenuPost = ({
             <a>{numberOfLikes}</a>
           </SimpleTooltipOrigin>
           <span className="hidden-xs">
-            {' '}<FormattedMessage id="likes" />
+            {' '}<FormattedMessage id="likes" defaultMessage="Likes" />
           </span>
         </li>
 
@@ -73,7 +73,7 @@ const MenuPost = ({
             <a>{numberOfDislikes}</a>
           </SimpleTooltipOrigin>
           <span className="hidden-xs">
-            {' '}<FormattedMessage id="dislikes" />
+            {' '}<FormattedMessage id="dislikes" defaultMessage="Dislikes" />
           </span>
         </li>
 
@@ -92,7 +92,7 @@ const MenuPost = ({
           </a>
           {` ${numberOfComments}`}
           <span className="hidden-xs">
-            {' '}<FormattedMessage id="comments" />
+            {' '}<FormattedMessage id="comments" defaultMessage="Comments" />
           </span>
         </li>
         {canReblog &&
@@ -109,7 +109,7 @@ const MenuPost = ({
           <li>
             <a onClick={onEdit}>
               <Icon name="edit" />
-              {' '}<FormattedMessage id="edit" />
+              {' '}<FormattedMessage id="edit" defaultMessage="Edit" />
             </a>
           </li>
         }

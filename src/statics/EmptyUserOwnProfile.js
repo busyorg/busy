@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl';
 const EmptyUserProfile = () =>
   <div className="text-center">
     <h3>
-      <FormattedMessage id="empty_user_own_profile" />
+      <FormattedMessage id="empty_user_own_profile" defaultMessage="You didn't publish any stories yet." />
       <Link to="/write">
         <FormattedMessage
           id="@statics/start_now"

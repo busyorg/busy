@@ -8,6 +8,7 @@ import Profile from './user/UserProfile';
 import Followers from './user/UserFollowers';
 import Following from './user/UserFollowing';
 import Posts from './user/UserPosts';
+import Reblogs from './user/UserReblogs';
 import Replies from './user/UserReplies';
 import Feed from './user/UserFeed';
 import Transfers from './user/UserTransfers';
@@ -55,6 +56,7 @@ export default (
       <Route path="/notifications" component={ActivityNotificationsAll} />
     </Route>
     <Route component={User}>
+      <Route path="/@:name/reblogs" component={Reblogs} />
       <Route path="/@:name/posts" component={Posts} />
       <Route path="/@:name/feed" component={Feed} />
       <Route path="/@:name/replies" component={Replies} />

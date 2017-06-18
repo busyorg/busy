@@ -111,11 +111,6 @@ const INLINE_STYLES = [
 ];
 
 const BLOCK_TYPES = [
-  // {
-  //   label: 'H1',
-  //   style: 'header-one',
-  //   icon: () => <Icon name="code" />
-  // },
   {
     label: 'H2',
     style: 'header-two',
@@ -127,36 +122,11 @@ const BLOCK_TYPES = [
     icon: () => <Icon name="title" sm />
 
   },
-  // {
-  //   label: 'H4',
-  //   style: 'header-four',
-  //   icon: () => <Icon name="format_size" />
-  // },
-  // {
-  //   label: 'H5',
-  //   style: 'header-five',
-  //   icon: () => <Icon name="code" />
-  // },
-  // {
-  //   label: 'H6',
-  //   style: 'header-six',
-  //   icon: () => <Icon name="code" />
-  // },
   {
     label: 'Blockquote',
     style: 'blockquote',
     icon: () => <Icon name="format_quote" />
   },
-  // {
-  //   label: 'UL',
-  //   style: 'unordered-list-item',
-  //   icon: () => <Icon name="format_list_bulleted" />
-  // },
-  // {
-  //   label: 'OL',
-  //   style: 'ordered-list-item',
-  //   icon: () => <Icon name="format_list_numbered" />
-  // },
   {
     label: 'Code Block',
     style: 'code-block',
@@ -310,9 +280,9 @@ class PostEditor extends Component {
     if (lastBlock.getType() === 'code-block' || lastBlock.getType() === 'atomic') {
       const blockArray = contentState.getBlocksAsArray();
       const newBlock = new ContentBlock({ key: genKey(), type: 'unstyled', text: '' });
-      const newContntState = ContentState.createFromBlockArray([...blockArray, newBlock]);
+      const newContentState = ContentState.createFromBlockArray([...blockArray, newBlock]);
       const newSelectionState = SelectionState.createEmpty(newBlock.getKey());
-      editorState = EditorState.push(editorState, newContntState, 'insert-characters');
+      editorState = EditorState.push(editorState, newContentState, 'insert-characters');
       editorState = EditorState.forceSelection(editorState, newSelectionState);
       this.onChange(editorState);
     }

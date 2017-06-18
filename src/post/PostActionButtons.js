@@ -100,7 +100,7 @@ export default class PostActionButtons extends Component {
           <a onClick={e => this.handleCommentBoxClick(e)}>
             <Icon name="reply" sm />
             {isCardLayout &&
-              <span className="hidden-xs"> <FormattedMessage id="comment" /></span>
+              <span className="hidden-xs"> <FormattedMessage id="comment" defaultMessage="Comment" /></span>
             }
           </a>
           {isListLayout &&
