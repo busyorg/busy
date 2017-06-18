@@ -9,6 +9,7 @@ import Avatar from '../widgets/Avatar';
 import * as activityNotificationsActions from './activityNotificationActions';
 import Loading from '../widgets/Loading'
 import { makeNotificationTitle, uniqNotifications } from './activityNotificationHelpers';
+import ActivityNotificationItem from './ActivityNotificationItem';
 import './ActivityNotification.scss';
 
 @connect(
@@ -16,6 +17,7 @@ import './ActivityNotification.scss';
     activityNotification,
   }),
   (dispatch) => bindActionCreators({
+    markAsSeen: activityNotificationsActions.markAsSeen,
     fetchActivityNotifications: activityNotificationsActions.fetchActivityNotifications,
   }, dispatch)
 )
@@ -45,20 +47,12 @@ export default class ActivityNotification extends Component {
         {isFetching && <Loading />}
         <div className="ActivityNotifList">
           {list && uniqNotifications(list).map((notification) =>
-            <div className="ActivityNotifList__item" onClick={e => { this.handleClick(e, notification) }}>
-              <Avatar
-                username={notification.from_username}
-                sm
-                className="ActivityNotifList__item__photo"
-              />
-              <div className="ActivityNotifList__item__desc">
-                <span>{makeNotificationTitle(notification, listByNotificationId)}</span>
-                <p>{notification.body}</p>
-                <i className="ActivityNotifList__item___date">
-                  <FormattedRelative value={new Date(parseInt(notification.created_at))} />
-                </i>
-              </div>
-            </div>
+            <ActivityNotificationItem
+              listByNotificationId={listByNotificationId}
+              notification={notification}
+              markAsSeen={this.props.markAsSeen}
+              onClick={(e, notification) => this.handleClick(e, notification)}
+            />
           )}
         </div>
         <Link to="/notifications" >See All</Link>
