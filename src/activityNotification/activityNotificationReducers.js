@@ -23,6 +23,18 @@ export const activityNotification = (state = initialState, action) => {
         isFetching: true,
       }
     case notificationActions.FETCH_ACTIVITY_NOTIFICATION_SUCCESS:
+      // early exit in case of no new data
+      const isDataNew = state.list[0]
+        && state.list[0].id === action.payload.notifications[0].id
+        && state.list.length >= action.payload.notifications.length;
+
+      if (isDataNew) {
+        return {
+          ...state,
+          isFetching: false,
+        };
+      }
+
       return {
         ...state,
         list: action.payload.notifications,
