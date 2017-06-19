@@ -75,7 +75,7 @@ export default class Page extends React.Component {
         <Helmet>
           <title>Busy</title>
         </Helmet>
-        <div className="layout-container">
+        <div className="layout-container" style={{ marginTop: 21 }}>
           <div className="layout-row">
             <div className="layout-col layout-left layout-hidden-sm">
               <LeftSidebar auth={auth} />

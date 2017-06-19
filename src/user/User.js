@@ -135,7 +135,7 @@ export default class User extends React.Component {
             content={image || 'https://steemit.com/images/steemit-twshare.png'}
           />
         </Helmet>
-        <div className="layout-container">
+        <div className="layout-container" style={{ marginTop: 21 }}>
           <div className="layout-row">
             <div className="layout-col layout-left layout-hidden-sm">
               <LeftSidebar auth={this.props.auth} />

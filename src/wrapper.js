@@ -77,7 +77,7 @@ export default class Wrapper extends PureComponent {
               <Topnav username={auth.user.name} />
             </Header>
             <Notification />
-            <HeroHeader auth={auth} style={{ marginTop: 64 }} />
+            <HeroHeader auth={auth} style={{ marginTop: 56 }} />
             {this.props.children}
             <GatewayDest name="tooltip" />
             <GatewayDest name="popover" />
