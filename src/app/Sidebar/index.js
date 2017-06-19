@@ -72,10 +72,12 @@ export const LeftSidebar = ({ auth }) =>
         (<SidebarWrapper>
           {auth.user.name && // TODO (nil151) fetch profile based on route and show
             <div>
-              {_.get(jsonParse(auth.user.json_metadata), 'profile.about')}<br />
-              Joined
-              {' '}
-              <FormattedDate value={auth.user.created} year="numeric" month="long" day="numeric" />
+              {_.get(jsonParse(auth.user.json_metadata), 'profile.about')}
+              <div style={{ marginTop: 16, marginBottom: 16 }}>
+                Joined
+                {' '}
+                <FormattedDate value={auth.user.created} year="numeric" month="long" day="numeric" />
+              </div>
             </div>}
           {auth.user.name && <Action text="Transfer" />}
           {auth.user.name && <Action text="Message" />}
