@@ -135,9 +135,19 @@ export default class User extends React.Component {
             content={image || 'https://steemit.com/images/steemit-twshare.png'}
           />
         </Helmet>
-        <LeftSidebar auth={this.props.auth} />
-        {isFetching ? <Loading /> : this.getUserView(user)}
-        <RightSidebar auth={this.props.auth} />
+        <div className="layout-container">
+          <div className="layout-row">
+            <div className="layout-col layout-left layout-hidden-sm">
+              <LeftSidebar auth={this.props.auth} />
+            </div>
+            <div className="layout-col layout-center">
+              {isFetching ? <Loading /> : this.getUserView(user)}
+            </div>
+            <div className="layout-col layout-right layout-hidden-xs">
+              <RightSidebar auth={this.props.auth} />
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

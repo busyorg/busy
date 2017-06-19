@@ -53,7 +53,7 @@ export default class UserProfile extends Component {
       <div>
         <div className="profile">
           {!_.has(user, 'name') && <Loading />}
-          {_.has(user, 'name') && <div>
+          {/*{_.has(user, 'name') && <div>
             <div className="container container-small my-5 text-center">
               <h3><Badge vestingShares={user.vesting_shares} /></h3>
               {donors[username] &&
@@ -85,7 +85,7 @@ export default class UserProfile extends Component {
                 , last activity <FormattedRelative value={`${user.last_vote_time}Z`} />
               </p>
             </div>
-          </div>}
+          </div>}*/}
           <Feed
             content={content}
             isFetching={isFetching}
