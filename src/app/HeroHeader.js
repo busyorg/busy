@@ -27,23 +27,20 @@ class UserMenuImpl extends React.Component {
 
 const UserMenuWrapper = withRouter(UserMenuImpl);
 
-const HeroHeader = ({ auth, style }) => {
-  return (
-    <div style={style}>
-      <Switch>
-        <Route
-          path="/@:name"
-          render={({ match }) => (
-            <div>
-              <UserHeader username={match.params.name} />
-              <UserMenuWrapper />
-            </div>
-          )}
-        />
-        <Route render={() => (auth.user.name === undefined ? <Hero /> : <div />)} />
-      </Switch>
-    </div>
-  );
-};
+const HeroHeader = ({ auth, style }) => (
+  <div style={style}>
+    <Switch>
+      <Route
+        path="/@:name"
+        render={({ match }) => (
+          <div>
+            <UserHeader username={match.params.name} />
+            <UserMenuWrapper />
+          </div>
+        )}
+      />
+      <Route render={() => (auth.user.name === undefined ? <Hero /> : <div />)} />
+    </Switch>
+  </div>);
 
 export default HeroHeader;
