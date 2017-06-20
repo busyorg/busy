@@ -217,7 +217,7 @@ export default class PostSingle extends Component {
             />
           </div>
           {
-            auth.user.name && <div className="layout-col layout-right" style={{ maxWidth: 260 }}>
+            auth.user.name && <div className="layout-col layout-right layout-hidden-xs" style={{ maxWidth: 260 }}>
               <RightSidebar auth={auth} />
             </div>
           }
