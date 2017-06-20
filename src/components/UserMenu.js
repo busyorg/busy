@@ -77,7 +77,7 @@ class UserMenu extends React.Component {
                 </span>
               </strong>
             </Menu.Item>
-            <Menu.Item key="following" className="UserMenu__item">
+            <Menu.Item key="followed" className="UserMenu__item">
               <strong>
                 Following
                 <span className="UserMenu__badge">
