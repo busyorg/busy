@@ -80,6 +80,13 @@
   border-top: 1px solid rgba(0, 0, 0, 0.1);
   text-align: center;
   overflow: visible;
+
+  &:after {
+    content: ' ';
+    clear: both;
+    display: table;
+  }
+
   li {
     width: 25%;
     border-right: 1px solid rgba(0, 0, 0, 0.05);
