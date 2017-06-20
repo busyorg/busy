@@ -26,7 +26,7 @@ const Sidenav = ({ username }) => (
         </NavLink>
       </li>
       <li>
-        <NavLink to="/wallet" activeClassName="Sidenav__item--active">
+        <NavLink to={`/@${username}/transfers`} activeClassName="Sidenav__item--active">
           <i className="iconfont icon-lock" /> Wallet
         </NavLink>
       </li>
