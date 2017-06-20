@@ -79,6 +79,13 @@
 .PostFeedCard__cell--bottom {
   border-top: 1px solid rgba(0, 0, 0, 0.1);
   text-align: center;
+  overflow: visible;
+
+  &:after {
+    content: ' ';
+    clear: both;
+    display: table;
+  }
 
   li {
     width: 25%;

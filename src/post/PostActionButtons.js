@@ -14,7 +14,7 @@ import ReblogButton from './actionButtons/ReblogButton';
     auth: state.auth,
   }),
   (dispatch, ownProps) => bindActionCreators({
-    likePost: () => postActions.votePost(ownProps.post.id),
+    likePost: votePower => postActions.votePost(ownProps.post.id, votePower),
     unlikePost: () => postActions.votePost(ownProps.post.id, 0),
     dislikePost: () => postActions.votePost(ownProps.post.id, -1000),
   }, dispatch)
