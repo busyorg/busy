@@ -1,48 +1,109 @@
-@layout-prefix: layout;
+@gutter: 2.02020202%;
+@col1: 17.171717171%;
+@col2: 52.525252525%;
+@col3: 26.262626262%;
 
-.@{layout-prefix}-container {
+.container {
   max-width: 990px;
   margin: 0 auto;
+
+  &:after {
+    content: '';
+    clear: both;
+    display: table;
+  }
 }
 
-.@{layout-prefix}-row {
-  display: flex;
+[class*='col-'] {
+  float: left;
+  margin-right: @gutter;
+  
+  &:last-child {
+    margin-right: 0;
+  }
 }
 
-.@{layout-prefix}-col {
-  flex: 1;
+.col-3col-1 {
+  display: none;
 }
 
-.@{layout-prefix}-center {
-  flex: 5.3;
+.col-3col-offset {
+  margin-left: 0;
 }
 
-.@{layout-prefix}-left {
-  flex: 1.85;
-  margin-right: 20px;
+.col-3col-2 {
+  width: calc(@col1 + @col2 + @col3 + 2 * @gutter);
 }
 
-.@{layout-prefix}-right {
-  flex: 2.55;
-  margin-left: 20px;
+.col-3col-3 {
+  display: none;
 }
 
-@media screen and (max-width: 991px) {
-  .@{layout-prefix}-hidden-sm {
+.col-2col-1 {
+  width: calc(@col1 + @col2 + @col3 + 2 * @gutter);
+}
+
+.col-2col-2 {
+  display: none;
+}
+
+@media screen and (min-width: 768px) {
+  .col-3col-1 {
     display: none;
   }
+
+  .col-3col-offset {
+    margin-left: 0;
+  }
+
+  .col-3col-2 {
+    display: block;
+    width: calc(@col1 + @col2 + @gutter);
+  }
+
+  .col-3col-3 {
+    display: block;
+    width: @col3;
+  }
+
+  .col-2col-1 {
+    display: block;
+    width: calc(@col1 + @col2 + @gutter);
+  }
+
+  .col-2col-2 {
+    display: block;
+    width: @col3;
+  } 
 }
 
-@media screen and (max-width: 767px) {
-  .@{layout-prefix}-hidden-xs {
-    display: none;
+@media screen and (min-width: 992px) {
+  .col-3col-1 {
+    display: block;
+    width: @col1;
   }
 
-  .@{layout-prefix}-center {
-    flex: 1;
+  .col-3col-offset {
+    margin-left: calc(@col1 + @gutter);
   }
 
-  .@{layout-prefix}-col {
-    margin: 0;
+  .col-3col-2 {
+    display: block;
+    width: @col2;
   }
+
+  .col-3col-3 {
+    display: block;
+    width: @col3;
+  }
+
+  .col-2col-1 {
+    display: block;
+    width: calc(@col1 + @col2);
+  }
+
+  .col-2col-2 {
+    display: block;
+    width: @col3;
+  } 
 }

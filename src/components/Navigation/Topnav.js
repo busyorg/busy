@@ -103,22 +103,24 @@ const Topnav = ({
 
   return (
     <div className="Topnav">
-      <div className="layout-container">
-        <div className="layout-row">
-          <div className="layout-col layout-left layout-hidden-sm">
+      <div className="container">
+        <div className="row">
+          <div className="col-3col-1">
             <Link to="/">
               <span className="Topnav__brand">busy</span>
             </Link>
           </div>
-          <div
-            className={classNames('layout-col layout-center', 'Topnav__input-container', {
-              'Topnav__input-container--logged-in': username,
-            })}
-          >
-            {username && <Input placeholder="Search..." />}
-            {username && <i className="iconfont icon-search" />}
+          <div className="col-3col-2">
+            <div
+              className={classNames('Topnav__input-container', {
+                'Topnav__input-container--logged-in': username,
+              })}
+            >
+              {username && <Input placeholder="Search..." />}
+              {username && <i className="iconfont icon-search" />}
+            </div>
           </div>
-          <div className="layout-col layout-right layout-hidden-xs">
+          <div className="col-3col-3">
             {content}
           </div>
         </div>

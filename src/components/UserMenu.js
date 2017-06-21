@@ -47,10 +47,9 @@ class UserMenu extends React.Component {
 
     return (
       <div className="UserMenu">
-        <div className="layout-container layout-row">
-          <div className="layout-col layout-left layout-hidden-sm" />
+        <div className="container row">
           <Menu
-            className="UserMenu__menu layout-col layout-center"
+            className="UserMenu__menu col-3col-2 col-3col-offset"
             onClick={this.handleClick}
             selectedKeys={[this.state.current]}
             mode="horizontal"
@@ -86,7 +85,6 @@ class UserMenu extends React.Component {
               </strong>
             </Menu.Item>
           </Menu>
-          <div className="layout-col layout-right layout-hidden-xs" />
         </div>
       </div>
     );

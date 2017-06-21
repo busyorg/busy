@@ -203,8 +203,8 @@ export default class PostSingle extends Component {
             content={image || 'https://steemit.com/images/steemit-twshare.png'}
           />
         </Helmet>
-        <div className="layout-row layout-container" style={{ marginTop: 21 }}>
-          <div className="layout-col layout-center">
+        <div className="row container" style={{ marginTop: 21 }}>
+          <div className="col-2col-1">
             <StoryFull
               post={content}
               postState={postState}
@@ -217,7 +217,7 @@ export default class PostSingle extends Component {
             />
           </div>
           {
-            auth.user.name && <div className="layout-col layout-right layout-hidden-xs" style={{ maxWidth: 260 }}>
+            auth.user.name && <div className="col-2col-2">
               <RightSidebar auth={auth} />
             </div>
           }
