@@ -6,12 +6,14 @@ import './TopicSelector.less';
 
 class TopicSelector extends React.Component {
   static propTypes = {
+    isSingle: PropTypes.bool,
     topics: PropTypes.arrayOf(PropTypes.string),
     onTopicClose: PropTypes.func,
     onSortChange: PropTypes.func,
   }
 
   static defaultProps = {
+    isSingle: true,
     topics: [],
     onTopicClose: () => {},
     onSortChange: () => {},
@@ -30,7 +32,7 @@ class TopicSelector extends React.Component {
   onVisibleChange = visible => this.setState({ popoverVisible: visible });
 
   render() {
-    const { topics, onTopicClose } = this.props;
+    const { topics, isSingle, onTopicClose } = this.props;
     const { currentSort, popoverVisible } = this.state;
 
     return (
@@ -39,7 +41,7 @@ class TopicSelector extends React.Component {
           {topics && topics.map(topic => (
             <Topic
               key={topic}
-              closable
+              closable={!isSingle}
               name={topic}
               onClose={onTopicClose}
             />))}

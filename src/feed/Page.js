@@ -20,6 +20,8 @@ import { notify } from '../app/Notification/notificationActions';
 import * as favoriteActions from '../favorites/favoritesActions';
 import EmptyFeed from '../statics/EmptyFeed';
 import { LeftSidebar, RightSidebar } from '../app/Sidebar/index';
+import TopicSelector from '../components/TopicSelector';
+
 @PageHOC
 @connect(
   state => ({
@@ -81,7 +83,8 @@ export default class Page extends React.Component {
               <LeftSidebar auth={auth} />
             </div>
             <div className="col-3col-2">
-              {category &&
+              { category && <TopicSelector topics={[category]} />}
+              {/*{category &&
                 <h2 className="mt-3 text-center">
                   <span className="text-info">#</span>
                   {' '}{category}{' '}
@@ -93,7 +96,7 @@ export default class Page extends React.Component {
                         : this.props.addCategoryFavorite
                     }
                   />
-                </h2>}
+                </h2>}*/}
               <Feed
                 content={content}
                 isFetching={isFetching}
