@@ -138,12 +138,12 @@ export default class User extends React.Component {
             content={image || 'https://steemit.com/images/steemit-twshare.png'}
           />
         </Helmet>
-        <UserHero auth={auth} user={user} username={displayedUsername} />
+        {user && <UserHero auth={auth} user={user} username={displayedUsername} />}
         <div className="shifted">
           <div className="container">
             <div className="row">
               <div className="col-3col-1">
-                <LeftSidebar auth={this.props.auth} />
+                <LeftSidebar auth={auth} user={user} />
               </div>
               <div className="col-3col-2">
                 {isFetching ? <Loading /> : this.getUserView(user)}

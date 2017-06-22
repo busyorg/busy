@@ -37,8 +37,13 @@ const UserHeader = ({ username, handle }) => (
   </div>);
 
 UserHeader.propTypes = {
-  username: PropTypes.string.isRequired,
-  handle: PropTypes.string.isRequired,
+  username: PropTypes.string,
+  handle: PropTypes.string,
+};
+
+UserHeader.defaultProps = {
+  username: '',
+  handle: '',
 };
 
 export default UserHeader;

@@ -64,26 +64,25 @@ const InterestingPeopleWithData = () =>
     ]}
   />);
 
-export const LeftSidebar = ({ auth }) =>
+export const LeftSidebar = ({ auth, user }) =>
   (<Switch>
     <Route
       path="/@:name"
       render={() =>
         (<SidebarWrapper>
-          {auth.user.name && // TODO (nil151) fetch profile based on route and show
+          {user.name &&
             <div>
-              {_.get(jsonParse(auth.user.json_metadata), 'profile.about')}
+              {_.get(jsonParse(user.json_metadata), 'profile.about')}
               <div style={{ marginTop: 16, marginBottom: 16 }}>
                 Joined
                 {' '}
-                <FormattedDate value={auth.user.created} year="numeric" month="long" day="numeric" />
+                <FormattedDate value={user.created} year="numeric" month="long" day="numeric" />
               </div>
             </div>}
-          {auth.user.name && <Action text="Transfer" />}
-          {auth.user.name && <Action text="Message" />}
+          {user && <Action text="Transfer" />}
+          {user && <Action text="Message" />}
         </SidebarWrapper>)}
     />
-    <Route path="/:category/@:author/:permlink" render={() => <div />} />
     <Route
       path="/"
       render={() =>
