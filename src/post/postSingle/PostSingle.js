@@ -203,32 +203,34 @@ export default class PostSingle extends Component {
             content={image || 'https://steemit.com/images/steemit-twshare.png'}
           />
         </Helmet>
-        <div className="row container" style={{ marginTop: 21 }}>
-          <div className="col-2col-1">
-            <StoryFull
-              post={content}
-              postState={postState}
-              onFollowClick={() => console.log('Follow click')}
-              onSaveClick={() => toggleBookmark(content.id)}
-              onReportClick={reportPost}
-              onLikeClick={likePost}
-              onCommentClick={() => console.log('Comment click')}
-              onShareClick={() => reblog(content.id)}
-            />
-          </div>
-          {
-            auth.user.name && <div className="col-2col-2">
-              <RightSidebar auth={auth} />
+        <div className="shifted">
+          <div className="row container">
+            <div className="col-2col-1">
+              <StoryFull
+                post={content}
+                postState={postState}
+                onFollowClick={() => console.log('Follow click')}
+                onSaveClick={() => toggleBookmark(content.id)}
+                onReportClick={reportPost}
+                onLikeClick={likePost}
+                onCommentClick={() => console.log('Comment click')}
+                onShareClick={() => reblog(content.id)}
+              />
             </div>
+            {
+              auth.user.name && <div className="col-2col-2">
+                <RightSidebar auth={auth} />
+              </div>
+            }
+          </div>
+          {/* {content.author && !modal &&
+            <PostSinglePage {...theProps} />
           }
-        </div>
-        {/* {content.author && !modal &&
-          <PostSinglePage {...theProps} />
-        }
 
-        {modal &&
-          <PostSingleModal {...theProps} />
-        }*/}
+          {modal &&
+            <PostSingleModal {...theProps} />
+          }*/}
+        </div>
       </div>
     );
   }

@@ -135,16 +135,18 @@ export default class User extends React.Component {
             content={image || 'https://steemit.com/images/steemit-twshare.png'}
           />
         </Helmet>
-        <div className="container" style={{ marginTop: 21 }}>
-          <div className="row">
-            <div className="col-3col-1">
-              <LeftSidebar auth={this.props.auth} />
-            </div>
-            <div className="col-3col-2">
-              {isFetching ? <Loading /> : this.getUserView(user)}
-            </div>
-            <div className="col-3col-3">
-              <RightSidebar auth={this.props.auth} />
+        <div className="shifted">
+          <div className="container">
+            <div className="row">
+              <div className="col-3col-1">
+                <LeftSidebar auth={this.props.auth} />
+              </div>
+              <div className="col-3col-2">
+                {isFetching ? <Loading /> : this.getUserView(user)}
+              </div>
+              <div className="col-3col-3">
+                <RightSidebar auth={this.props.auth} />
+              </div>
             </div>
           </div>
         </div>
