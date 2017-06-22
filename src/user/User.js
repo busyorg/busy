@@ -17,7 +17,7 @@ import { getUserComments, getMoreUserComments } from './userActions';
 import MenuUser from '../app/Menu/MenuUser';
 import { addUserFavorite, removeUserFavorite } from '../favorites/favoritesActions';
 import FavoriteButton from '../favorites/FavoriteButton';
-import Loading from '../widgets/Loading';
+import Loading from '../components/Icon/Loading';
 import Follow from '../widgets/Follow';
 import Icon from '../widgets/Icon';
 import Avatar from '../widgets/Avatar';
