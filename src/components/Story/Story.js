@@ -53,7 +53,7 @@ class Story extends React.Component {
         <Popover
           trigger="click"
           content={
-            <PopoverMenu onSelect={this.handleClick}>
+            <PopoverMenu onSelect={this.handleClick} bold={false}>
               <PopoverMenuItem key="follow">
                 <i className="iconfont icon-people" />
                 {' '}{!postState.userFollowed ? 'Follow' : 'Unfollow'} {post.author}
