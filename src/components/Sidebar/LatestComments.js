@@ -1,23 +1,22 @@
 import React, { PropTypes } from 'react';
 import { FormattedRelative } from 'react-intl';
 import { Link } from 'react-router-dom';
+import BodyShort from '../Story/BodyShort';
 import './LatestComments.less';
 
-const renderComment = ({ text, author, created, id }) => (
+const renderComment = ({ text, author, created }) => (
   <div className="Comment">
     <div className="Comment__text">
       <div className="Comment__content">
-        {text}
+        <BodyShort body={text} length={80} />
       </div>
       <div className="Comment__footer">
-        <Link to={`/@${author}`}>
+        <Link to={`/@${author}`} className="LatestComment__author">
           {author}
         </Link>
         <span className="LatestComment__bullet" />
         <span className="LatestComment__date">
-          <Link to={id}>
-            <FormattedRelative value={`${created}Z`} />
-          </Link>
+          <FormattedRelative value={`${created}Z`} />
         </span>
       </div>
     </div>

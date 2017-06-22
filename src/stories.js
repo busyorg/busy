@@ -94,7 +94,7 @@ storiesOf('Sidebar', module)
         {
           id: '100a',
           author: 'ekitcho',
-          text: 'Great stuff. Looking forward to it.',
+          text: 'Great stuff. Looking forward to it. Although, here are a few things I feel we need to address.',
           created: '2017-06-07T17:26:21',
         },
         {
