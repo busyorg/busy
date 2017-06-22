@@ -1,0 +1,32 @@
+version: 2
+  jobs:
+    build:
+      working_directory: ~/busy
+      docker:
+        - image: circleci/node:6
+    steps:
+      - checkout
+      - run:
+          name: install yarn
+          command: 'sudo npm install -g yarn'
+      - restore_cache:
+          key: dependency-cache-{{ checksum "yarn.lock" }}
+      - run:
+          name: yarn install
+          command: yarn install
+      - save_cache:
+          key: dependency-cache-{{ checksum "yarn.lock" }}
+          paths:
+            - ./node_modules
+      - run:
+          name: test
+          command: yarn test
+      # - run:
+      #     name: lint
+      #     command: yarn lint
+      - run:
+          name: code-coverage
+          command: yarn test:coverage
+      - store_artifacts:
+          path: coverage
+          prefix: coverage
