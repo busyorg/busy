@@ -51,6 +51,7 @@ class Story extends React.Component {
     return (
       <div className="Story">
         <Popover
+          placement="bottomRight"
           trigger="click"
           content={
             <PopoverMenu onSelect={this.handleClick} bold={false}>
