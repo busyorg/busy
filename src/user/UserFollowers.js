@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import UserList from './UserList';
-import Loading from '../widgets/Loading';
+import Loading from '../components/Icon/Loading';
 import { getAllFollowers } from '../helpers/apiHelpers';
 
 export default class UserFollowers extends Component {
