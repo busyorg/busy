@@ -8,10 +8,10 @@ const User = ({ user }) => (
   <div key={user.name} className="User">
     <div className="User__top">
       <div className="User__links">
-        <Link to={`/${user.name}`}>
+        <Link to={`/@${user.name}`}>
           <Avatar username={user.name} size={34} />
         </Link>
-        <Link to={`/${user.name}`}>
+        <Link to={`/@${user.name}`}>
           <span className="User__name">{user.name}</span>
         </Link>
       </div>
