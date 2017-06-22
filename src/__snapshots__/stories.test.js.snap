@@ -7094,6 +7094,225 @@ exports[`Storyshots Comments Comments 1`] = `
 </div>
 `;
 
+exports[`Storyshots Editor Editor 1`] = `
+<div
+  style={
+    Object {
+      "background": "#f9f9f9",
+      "padding": "40px",
+    }
+  }
+>
+  <form
+    className="ant-form ant-form-vertical Editor"
+    onSubmit={[Function]}
+  >
+    <div
+      className="ant-row ant-form-item"
+      style={undefined}
+    >
+      <div
+        className="ant-form-item-label"
+      >
+        <label
+          className="ant-form-item-required"
+          htmlFor="title"
+          title=""
+        >
+          <span
+            className="Editor__label"
+          >
+            Title
+          </span>
+        </label>
+      </div>
+      <div
+        className="ant-form-item-control-wrapper"
+      >
+        <div
+          className="ant-form-item-control "
+        >
+          <input
+            className="ant-input ant-input-lg Editor__title"
+            data-__meta={
+              Object {
+                "leadingName": "title",
+                "name": "title",
+                "originalProps": Object {
+                  "autosize": false,
+                  "className": "Editor__title",
+                  "disabled": false,
+                  "placeholder": "Add title",
+                  "prefixCls": "ant-input",
+                  "type": "text",
+                },
+                "ref": null,
+                "rules": Array [
+                  Object {
+                    "message": "Please enter a title",
+                    "required": true,
+                  },
+                  Object {
+                    "max": 255,
+                    "message": "Title can't be longer than 255 characters",
+                  },
+                ],
+                "trigger": "onChange",
+                "validate": Array [
+                  Object {
+                    "rules": Array [
+                      Object {
+                        "message": "Please enter a title",
+                        "required": true,
+                      },
+                      Object {
+                        "max": 255,
+                        "message": "Title can't be longer than 255 characters",
+                      },
+                    ],
+                    "trigger": Array [
+                      "onChange",
+                    ],
+                  },
+                ],
+                "validateTrigger": "onChange",
+                "valuePropName": "value",
+              }
+            }
+            disabled={false}
+            id="title"
+            onChange={[Function]}
+            onKeyDown={[Function]}
+            placeholder="Add title"
+            size="large"
+            type="text"
+            value=""
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="ant-row ant-form-item"
+      style={undefined}
+    >
+      <div
+        className="ant-form-item-label"
+      >
+        <label
+          className="ant-form-item-required"
+          htmlFor="topics"
+          title=""
+        >
+          <span
+            className="Editor__label"
+          >
+            Topics
+          </span>
+        </label>
+      </div>
+      <div
+        className="ant-form-item-control-wrapper"
+      >
+        <div
+          className="ant-form-item-control "
+        >
+          <div
+            className="ant-select-lg Editor__topics ant-select ant-select-enabled"
+            onBlur={[Function]}
+            onClick={[Function]}
+            onFocus={[Function]}
+            onMouseDown={[Function]}
+            onMouseEnter={undefined}
+            onMouseLeave={undefined}
+            onTouchStart={[Function]}
+            style={undefined}
+          >
+            <div
+              aria-autocomplete="list"
+              aria-expanded={false}
+              aria-haspopup="true"
+              className="ant-select-selection
+                        ant-select-selection--multiple"
+              role="combobox"
+            >
+              <div
+                className="ant-select-selection__rendered"
+              >
+                <div
+                  className="ant-select-selection__placeholder"
+                  onClick={[Function]}
+                  onMouseDown={[Function]}
+                  style={
+                    Object {
+                      "WebkitUserSelect": "none",
+                      "display": "block",
+                      "userSelect": "none",
+                    }
+                  }
+                  unselectable="unselectable"
+                >
+                  Add story topics here
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="ant-form-extra"
+          >
+            Separate topics with commas. Only lowercase letters, numbers and hyphen character is permited.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="ant-row ant-form-item"
+      style={undefined}
+    >
+      <div
+        className="ant-form-item-label"
+      >
+        <label
+          className=""
+          htmlFor={null}
+          title=""
+        >
+          <span
+            className="Editor__label"
+          >
+            Write your story
+          </span>
+        </label>
+      </div>
+      <div
+        className="ant-form-item-control-wrapper"
+      >
+        <div
+          className="ant-form-item-control "
+        />
+      </div>
+    </div>
+    <div
+      className="ant-row ant-form-item Editor__submit"
+      style={undefined}
+    >
+      <div
+        className="ant-form-item-control-wrapper"
+      >
+        <div
+          className="ant-form-item-control "
+        >
+          <button
+            className="Action ant-btn-lg"
+          >
+            Submit
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+`;
+
 exports[`Storyshots Navigation Sidenav logged 1`] = `
 <div
   style={
@@ -7223,80 +7442,144 @@ exports[`Storyshots Navigation Sidenav unlogged 1`] = `
 `;
 
 exports[`Storyshots Navigation Topnav logged 1`] = `
-<nav
-  className="Topnav navbar navbar-toggleable-md navbar-light bg-white"
+<div
+  style={
+    Object {
+      "background": "#f9f9f9",
+      "padding": "40px",
+    }
+  }
 >
   <div
-    className="container"
+    className="Topnav"
   >
-    <a
-      className="navbar-brand text-primary"
-      onClick={[Function]}
-      style={Object {}}
-    >
-      busy
-    </a>
     <div
-      className="collapse navbar-collapse"
-      id="navbarSupportedContent"
+      className="Topnav__container"
     >
-      <div
-        className="navbar-nav mr-auto"
-      />
-      <ul
-        className="navbar-nav"
+      <a
+        className="Topnav__sides"
+        href="/"
+        onClick={[Function]}
       >
-        <li
-          className="nav-item"
+        <span
+          className="Topnav__brand"
         >
-          <a
-            className="nav-link text-primary"
+          busy
+        </span>
+      </a>
+      <div
+        className="Topnav__input-container Topnav__input-container--logged-in"
+      >
+        <input
+          className="ant-input"
+          disabled={false}
+          onKeyDown={[Function]}
+          placeholder="Search..."
+          type="text"
+        />
+        <i
+          className="iconfont icon-search"
+        />
+      </div>
+      <div
+        className="Topnav__menu-container Topnav__sides"
+      >
+        <ul
+          aria-activedescendant=""
+          className="ant-menu ant-menu-horizontal Topnav__menu-container__menu ant-menu-light ant-menu-root"
+          onKeyDown={[Function]}
+          role="menu"
+          style={Object {}}
+          tabIndex="0"
+        >
+          <li
+            aria-disabled={undefined}
+            aria-selected={false}
+            className="ant-menu-item Topnav__item-user"
             onClick={[Function]}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            role="menuitem"
             style={Object {}}
+            title={undefined}
           >
-            <span
-              className="Avatar 34"
+            <a
+              className="Topnav__user"
+              href="/@guest123"
+              onClick={[Function]}
             >
               <img
-                className="rounded"
-                src="https://img.steemconnect.com/@guest123?s=34"
+                alt="guest123"
+                className="Avatar"
+                src="https://img.steemconnect.com/@guest123?s=36"
+                style={
+                  Object {
+                    "height": "36px",
+                    "width": "36px",
+                  }
+                }
+              />
+              <span
+                className="Topnav__user__username"
+              >
+                guest123
+              </span>
+            </a>
+          </li>
+          <li
+            aria-disabled={undefined}
+            aria-selected={false}
+            className="ant-menu-item Topnav__item--dropdown Topnav__item--badge"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            role="menuitem"
+            style={Object {}}
+            title={undefined}
+          >
+            <span
+              className="ant-badge"
+              onBlur={undefined}
+              onClick={[Function]}
+              onFocus={undefined}
+              onMouseDown={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              onTouchStart={[Function]}
+              title={4}
+            >
+              <i
+                className="iconfont icon-remind"
               />
             </span>
-            <span
-              className="ml-2"
-            >
-              guest123
-            </span>
-          </a>
-        </li>
-        <li
-          className="nav-item align-self-center"
-        >
-          <a
-            className="nav-link"
+          </li>
+          <li
+            aria-disabled={undefined}
+            aria-selected={false}
+            className="ant-menu-item Topnav__item--dropdown"
             onClick={[Function]}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            role="menuitem"
             style={Object {}}
+            title={undefined}
           >
-            <span
-              className="icon-beanie"
+            <i
+              className="iconfont icon-switch"
+              onBlur={undefined}
+              onClick={[Function]}
+              onFocus={undefined}
+              onMouseDown={[Function]}
+              onMouseEnter={undefined}
+              onMouseLeave={undefined}
+              onTouchStart={[Function]}
             />
-          </a>
-        </li>
-        <li
-          className="nav-item align-self-center"
-        >
-          <a
-            className="nav-link"
-            onClick={[Function]}
-            style={Object {}}
-          >
-            Settings
-          </a>
-        </li>
-      </ul>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
-</nav>
+</div>
 `;
 
 exports[`Storyshots Navigation Topnav unlogged 1`] = `
