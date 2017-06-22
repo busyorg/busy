@@ -1,9 +1,9 @@
 version: 2
-  jobs:
-    build:
-      working_directory: ~/busy
-      docker:
-        - image: circleci/node:6
+jobs:
+  build:
+    working_directory: ~/busy
+    docker:
+      - image: circleci/node:6
     steps:
       - checkout
       - run:
