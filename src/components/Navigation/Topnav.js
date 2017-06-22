@@ -106,8 +106,8 @@ const Topnav = ({
       <div className="container">
         <div className="row">
           <div className="col-3col-1">
-            <Link to="/">
-              <span className="Topnav__brand">busy</span>
+            <Link className="Topnav__brand" to="/">
+              busy
             </Link>
           </div>
           <div className="col-3col-2">
