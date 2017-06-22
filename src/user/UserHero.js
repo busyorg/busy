@@ -19,23 +19,29 @@ class UserMenuImpl extends React.Component {
   }
 
   render() {
+    const { match, location, history, ...otherProps } = this.props;
     const current = this.props.location.pathname.split('/')[2];
     const currentKey = current || 'discussions';
-    return <UserMenu defaultKey={currentKey} onChange={this.onChange} />;
+    return <UserMenu defaultKey={currentKey} onChange={this.onChange} {...otherProps} />;
   }
 }
 
 const UserMenuWrapper = withRouter(UserMenuImpl);
 
-const HeroHeader = ({ auth, style }) => (
-  <div style={style}>
+const UserHero = ({ auth, user, username }) => (
+  <div>
     <Switch>
       <Route
         path="/@:name"
-        render={({ match }) => (
+        render={() => (
           <div>
-            <UserHeader username={match.params.name} />
-            <UserMenuWrapper />
+            <UserHeader username={username} handle={user.name} />
+            <UserMenuWrapper
+              discussions={user.post_count}
+              comments={0}
+              followers={user.follower_count}
+              following={user.following_count}
+            />
           </div>
         )}
       />
@@ -43,4 +49,4 @@ const HeroHeader = ({ auth, style }) => (
     </Switch>
   </div>);
 
-export default HeroHeader;
+export default UserHero;

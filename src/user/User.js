@@ -26,6 +26,7 @@ import getChannelName from '../helpers/getChannelName';
 import dispatchActions from '../helpers/dispatchActions';
 import UserNotFound from '../statics/UserNotFound';
 import Transfer from '../widgets/Transfer';
+import UserHero from './UserHero';
 import { LeftSidebar, RightSidebar } from '../app/Sidebar/index';
 
 export const needs = [getAccountWithFollowingCount];
@@ -102,6 +103,7 @@ export default class User extends React.Component {
   }
 
   render() {
+    const { auth } = this.props;
     const username = this.props.match.params.name;
     const { isFetching, ...user } = this.props.users[username] || {};
     const { profile = {} } = user.json_metadata || {};
@@ -110,7 +112,8 @@ export default class User extends React.Component {
     const image = `${process.env.STEEMCONNECT_IMG_HOST}/@${username}`;
     const canonicalUrl = `${busyHost}/@${username}`;
     const url = `${busyHost}/@${username}`;
-    const title = `${profile.name || username} - Busy`;
+    const displayedUsername = profile.name || username || '';
+    const title = `${displayedUsername} - Busy`;
 
     return (
       <div className="main-panel">
@@ -135,6 +138,7 @@ export default class User extends React.Component {
             content={image || 'https://steemit.com/images/steemit-twshare.png'}
           />
         </Helmet>
+        <UserHero auth={auth} user={user} username={displayedUsername} />
         <div className="shifted">
           <div className="container">
             <div className="row">

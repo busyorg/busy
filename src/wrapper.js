@@ -11,7 +11,6 @@ import { getMessages, getLocale } from './translations/translationHelper';
 import { getStoredBookmarks } from './bookmarks/bookmarksActions';
 import Notification from './app/Notification/Notification';
 import Topnav from './components/Navigation/Topnav';
-import HeroHeader from './app/HeroHeader';
 import * as reblogActions from './app/Reblog/reblogActions';
 import config from '../config.json';
 import './translations/Translations';
@@ -78,7 +77,6 @@ export default class Wrapper extends PureComponent {
             </Header>
             <Notification />
             <div className="content">
-              <HeroHeader auth={auth} />
               {this.props.children}
               <GatewayDest name="tooltip" />
               <GatewayDest name="popover" />
