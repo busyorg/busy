@@ -102,40 +102,40 @@ export default class Page extends React.Component {
           <title>Busy</title>
         </Helmet>
         <div className="shifted">
-          <div className="container">
-            <div className="row">
-              <div className="col-3col-1">
-                <LeftSidebar auth={auth} />
-              </div>
-              <div className="col-3col-2">
-                { category && <TopicSelectorWrapper category={category} /> }
-                {/*{category &&
-                  <h2 className="mt-3 text-center">
-                    <span className="text-info">#</span>
-                    {' '}{category}{' '}
-                    <FavoriteButton
-                      isFavorited={this.isFavorited()}
-                      onClick={
-                        this.isFavorited()
-                          ? this.props.removeCategoryFavorite
-                          : this.props.addCategoryFavorite
-                      }
-                    />
-                  </h2>}*/}
-                <Feed
-                  content={content}
-                  isFetching={isFetching}
-                  hasMore={hasMore}
-                  loadContent={loadContentAction}
-                  loadMoreContent={loadMoreContentAction}
-                  notify={notify}
-                  route={this.props.route}
-                />
-                {content.length === 0 && !isFetching && <EmptyFeed />}
-              </div>
-              <div className="col-3col-3">
+          <div className="feed-layout container">
+            <div className="left">
+              <LeftSidebar auth={auth} />
+            </div>
+            <div className="rightmarker">
+              <div className="right">
                 <RightSidebar auth={auth} />
               </div>
+            </div>
+            <div className="center">
+              { category && <TopicSelectorWrapper category={category} /> }
+              {/*{category &&
+                <h2 className="mt-3 text-center">
+                  <span className="text-info">#</span>
+                  {' '}{category}{' '}
+                  <FavoriteButton
+                    isFavorited={this.isFavorited()}
+                    onClick={
+                      this.isFavorited()
+                        ? this.props.removeCategoryFavorite
+                        : this.props.addCategoryFavorite
+                    }
+                  />
+                </h2>}*/}
+              <Feed
+                content={content}
+                isFetching={isFetching}
+                hasMore={hasMore}
+                loadContent={loadContentAction}
+                loadMoreContent={loadMoreContentAction}
+                notify={notify}
+                route={this.props.route}
+              />
+              {content.length === 0 && !isFetching && <EmptyFeed />}
             </div>
           </div>
         </div>

@@ -1,0 +1,26 @@
+.post-layout {
+  .rightmarker {
+    position: absolute;
+    right: 0;
+    width: @right-width;
+  }
+
+  .right {
+    display: none;
+    position: fixed;
+    width: @right-width;
+
+    @media @small {
+      display: block;
+    }  
+  }
+
+  .center {
+    width: 100%;
+
+    @media @small {
+      width: calc(100% ~"-" (@right-width + @margin)); 
+      margin-right: @right-width + @margin;
+    }
+  }
+}

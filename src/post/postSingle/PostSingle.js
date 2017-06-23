@@ -204,8 +204,15 @@ export default class PostSingle extends Component {
           />
         </Helmet>
         <div className="shifted">
-          <div className="row container">
-            <div className="col-2col-1">
+          <div className="post-layout container">
+            {
+              auth.user.name && <div className="rightmarker">
+                <div className="right">
+                  <RightSidebar auth={auth} />
+                </div>
+              </div>
+            }
+            <div className="center">
               <StoryFull
                 post={content}
                 postState={postState}
@@ -217,11 +224,6 @@ export default class PostSingle extends Component {
                 onShareClick={() => reblog(content.id)}
               />
             </div>
-            {
-              auth.user.name && <div className="col-2col-2">
-                <RightSidebar auth={auth} />
-              </div>
-            }
           </div>
           {/* {content.author && !modal &&
             <PostSinglePage {...theProps} />

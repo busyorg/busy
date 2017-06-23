@@ -140,17 +140,17 @@ export default class User extends React.Component {
         </Helmet>
         {user && <UserHero auth={auth} user={user} username={displayedUsername} />}
         <div className="shifted">
-          <div className="container">
-            <div className="row">
-              <div className="col-3col-1">
-                <LeftSidebar auth={auth} user={user} />
-              </div>
-              <div className="col-3col-2">
-                {isFetching ? <Loading /> : this.getUserView(user)}
-              </div>
-              <div className="col-3col-3">
+          <div className="feed-layout container">
+            <div className="left">
+              <LeftSidebar auth={auth} user={user} />
+            </div>
+            <div className="rightmarker">
+              <div className="right">
                 <RightSidebar auth={this.props.auth} />
               </div>
+            </div>
+            <div className="center">
+              {isFetching ? <Loading /> : this.getUserView(user)}
             </div>
           </div>
         </div>
