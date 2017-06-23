@@ -52,16 +52,19 @@ class Editor extends React.Component {
   };
 
   componentDidMount() {
-    this.input.addEventListener('input', throttle(e => this.renderMarkdown(e.target.value), 500));
-    this.input.addEventListener('paste', this.handlePastedImage);
+    if (this.input) {
+      this.input.addEventListener('input', throttle(e => this.renderMarkdown(e.target.value), 500));
+      this.input.addEventListener('paste', this.handlePastedImage);
+    }
 
     // eslint-disable-next-line react/no-find-dom-node
     const select = ReactDOM.findDOMNode(this.select);
-    const selectInput = select.querySelector('input,textarea,div[contentEditable]');
-
-    if (selectInput) {
-      selectInput.setAttribute('autocorrect', 'off');
-      selectInput.setAttribute('autocapitalize', 'none');
+    if (select) {
+      const selectInput = select.querySelector('input,textarea,div[contentEditable]');
+      if (selectInput) {
+        selectInput.setAttribute('autocorrect', 'off');
+        selectInput.setAttribute('autocapitalize', 'none');
+      }
     }
   }
 

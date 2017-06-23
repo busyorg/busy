@@ -8,7 +8,6 @@ import { mount } from 'enzyme';
 import * as appTypes from '../../actions';
 import actionDecorator from './../actionDecorator';
 import getStore from '../../store';
-import { makeDOMEnvironment } from './../testHelpers';
 
 chai.use(chaiEnzyme);
 
@@ -30,10 +29,6 @@ function getConfigSuccess() {
 }
 
 describe('actionDecorator', () => {
-  beforeAll(() => {
-    makeDOMEnvironment();
-  });
-
   it('returns a function', () => {
     expect(actionDecorator([])).to.be.instanceOf(Function);
   });
