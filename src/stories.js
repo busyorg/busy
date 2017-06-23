@@ -7,6 +7,7 @@ import { post, postWithEmbed, postState, notifications } from './stories.data';
 import StartNow from '../src/components/Sidebar/StartNow';
 import Topics from '../src/components/Sidebar/Topics';
 import InterestingPeople from '../src/components/Sidebar/InterestingPeople';
+import LatestComments from '../src/components/Sidebar/LatestComments';
 import Topic from '../src/components/Button/Topic';
 import Follow from '../src/components/Button/Follow';
 import Action from '../src/components/Button/Action';
@@ -84,6 +85,30 @@ storiesOf('Sidebar', module)
           about: '"Action expresses priorities!" / Witness - Developer of eSteem…',
         },
         { name: 'furion', about: 'I’ve developed SteemData and SteemSports. All things Python…' },
+      ]}
+    />)
+  )
+  .add('Latest Comments', () => (
+    <LatestComments
+      comments={[
+        {
+          id: '100a',
+          author: 'ekitcho',
+          text: 'Great stuff. Looking forward to it. Although, here are a few things I feel we need to address.',
+          created: '2017-06-07T17:26:21',
+        },
+        {
+          id: '100b',
+          author: 'fabien',
+          text: 'Thank you so much for sharing this post',
+          created: '2017-06-07T19:32:44',
+        },
+        {
+          id: '100c',
+          author: 'itsyogesh',
+          text: 'Ahh, I wish I heard that earlier',
+          created: '2017-06-07T19:32:44',
+        },
       ]}
     />)
   );
