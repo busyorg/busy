@@ -44,16 +44,8 @@ class SidebarWithTopics extends React.PureComponent {
     return <Topics title="Trending topics" topics={this.state.categories} />;
   }
 }
-export const SidebarWrapper = ({ children, style }) =>
-  (<div
-    style={{
-      flex: 1,
-      display: 'flex',
-      flexDirection: 'column',
-      padding: '1em 2em 0 2em',
-      ...style
-    }}
-  >
+export const SidebarWrapper = ({ children }) => (
+  <div>
     {children}
   </div>);
 
@@ -72,28 +64,29 @@ const InterestingPeopleWithData = () =>
     ]}
   />);
 
-export const LeftSidebar = ({ auth }) =>
+export const LeftSidebar = ({ auth, user }) =>
   (<Switch>
     <Route
       path="/@:name"
       render={() =>
-        (<SidebarWrapper style={{ alignItems: 'center' }}>
-          {auth.user.name && // TODO (nil151) fetch profile based on route and show
+        (<SidebarWrapper>
+          {user.name &&
             <div>
-              {_.get(jsonParse(auth.user.json_metadata), 'profile.about')}<br />
-              Joined
-              {' '}
-              <FormattedDate value={auth.user.created} year="numeric" month="long" day="numeric" />
+              {_.get(jsonParse(user.json_metadata), 'profile.about')}
+              <div style={{ marginTop: 16, marginBottom: 16 }}>
+                Joined
+                {' '}
+                <FormattedDate value={user.created} year="numeric" month="long" day="numeric" />
+              </div>
             </div>}
-          {auth.user.name && <Action text="Transfer" />}
-          {auth.user.name && <Action text="Message" />}
+          {user && <Action text="Transfer" />}
+          {user && <Action text="Message" />}
         </SidebarWrapper>)}
     />
-    <Route path="/:category/@:author/:permlink" render={() => <div />} />
     <Route
       path="/"
       render={() =>
-        (<SidebarWrapper style={{ alignItems: 'flex-end' }}>
+        (<SidebarWrapper>
           <Sidenav username={auth.user.name} />
           <SidebarWithTopics />
         </SidebarWrapper>)}
@@ -106,15 +99,15 @@ export const RightSidebar = ({ auth }) =>
       <Route
         path="/@:name"
         render={() =>
-            (<SidebarWrapper style={{ alignItems: 'flex-start' }}>
+            (<SidebarWrapper>
               <InterestingPeopleWithData />
             </SidebarWrapper>)}
       />
       <Route
         path="/"
         render={() =>
-            (<SidebarWrapper style={{ alignItems: 'flex-start' }}>
-              <div style={{ maxWidth: 260 }}>
+            (<SidebarWrapper>
+              <div>
                 <StartNow />
                 <InterestingPeopleWithData />
               </div>

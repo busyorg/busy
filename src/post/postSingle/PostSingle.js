@@ -203,27 +203,36 @@ export default class PostSingle extends Component {
             content={image || 'https://steemit.com/images/steemit-twshare.png'}
           />
         </Helmet>
-        <div style={{ flex: 3, paddingTop: '1em' }}>
-          <StoryFull
-            post={content}
-            postState={postState}
-            onFollowClick={() => console.log('Follow click')}
-            onSaveClick={() => toggleBookmark(content.id)}
-            onReportClick={reportPost}
-            onLikeClick={likePost}
-            onCommentClick={() => console.log('Comment click')}
-            onShareClick={() => reblog(content.id)}
-          />
+        <div className="shifted">
+          <div className="post-layout container">
+            {
+              auth.user.name && <div className="rightmarker">
+                <div className="right">
+                  <RightSidebar auth={auth} />
+                </div>
+              </div>
+            }
+            <div className="center">
+              <StoryFull
+                post={content}
+                postState={postState}
+                onFollowClick={() => console.log('Follow click')}
+                onSaveClick={() => toggleBookmark(content.id)}
+                onReportClick={reportPost}
+                onLikeClick={likePost}
+                onCommentClick={() => console.log('Comment click')}
+                onShareClick={() => reblog(content.id)}
+              />
+            </div>
+          </div>
+          {/* {content.author && !modal &&
+            <PostSinglePage {...theProps} />
+          }
+
+          {modal &&
+            <PostSingleModal {...theProps} />
+          }*/}
         </div>
-
-        {auth.user.name && <RightSidebar auth={auth} />}
-        {/* {content.author && !modal &&
-          <PostSinglePage {...theProps} />
-        }
-
-        {modal &&
-          <PostSingleModal {...theProps} />
-        }*/}
       </div>
     );
   }

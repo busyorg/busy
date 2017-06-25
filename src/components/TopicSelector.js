@@ -6,20 +6,27 @@ import './TopicSelector.less';
 
 class TopicSelector extends React.Component {
   static propTypes = {
+    defaultSort: PropTypes.string,
+    isSingle: PropTypes.bool,
     topics: PropTypes.arrayOf(PropTypes.string),
     onTopicClose: PropTypes.func,
     onSortChange: PropTypes.func,
   }
 
   static defaultProps = {
+    defaultSort: 'trending',
+    isSingle: true,
     topics: [],
     onTopicClose: () => {},
     onSortChange: () => {},
   }
 
-  state = {
-    currentSort: 'trending',
-    popoverVisible: false,
+  constructor(props) {
+    super(props);
+    this.state = {
+      currentSort: props.defaultSort,
+      popoverVisible: false,
+    };
   }
 
   onSelect = (key) => {
@@ -30,7 +37,7 @@ class TopicSelector extends React.Component {
   onVisibleChange = visible => this.setState({ popoverVisible: visible });
 
   render() {
-    const { topics, onTopicClose } = this.props;
+    const { topics, isSingle, onTopicClose } = this.props;
     const { currentSort, popoverVisible } = this.state;
 
     return (
@@ -39,7 +46,7 @@ class TopicSelector extends React.Component {
           {topics && topics.map(topic => (
             <Topic
               key={topic}
-              closable
+              closable={!isSingle}
               name={topic}
               onClose={onTopicClose}
             />))}
@@ -56,7 +63,7 @@ class TopicSelector extends React.Component {
                 <PopoverMenuItem key="created">Created</PopoverMenuItem>
                 <PopoverMenuItem key="active">Active</PopoverMenuItem>
                 <PopoverMenuItem key="cashout">Cashout</PopoverMenuItem>
-                <PopoverMenuItem key="votes">Votes</PopoverMenuItem>
+                {/*<PopoverMenuItem key="votes">Votes</PopoverMenuItem>*/}
                 <PopoverMenuItem key="children">Children</PopoverMenuItem>
                 <PopoverMenuItem key="hot">Hot</PopoverMenuItem>
                 <PopoverMenuItem key="comments">Comments</PopoverMenuItem>

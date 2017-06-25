@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
+import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import Feed from './Feed';
@@ -20,6 +21,31 @@ import { notify } from '../app/Notification/notificationActions';
 import * as favoriteActions from '../favorites/favoritesActions';
 import EmptyFeed from '../statics/EmptyFeed';
 import { LeftSidebar, RightSidebar } from '../app/Sidebar/index';
+import TopicSelector from '../components/TopicSelector';
+
+class TopicSelectorImpl extends React.Component {
+  static propTypes = {
+    history: PropTypes.shape().isRequired,
+    location: PropTypes.shape().isRequired,
+  }
+
+  onChange = (key) => {
+    const { location, history } = this.props;
+    history.push(`/${key}/${location.pathname.split('/')[2]}`);
+  }
+
+  render() {
+    const current = this.props.location.pathname.split('/')[1];
+    return (
+      <TopicSelector
+        defaultSort={current}
+        topics={[this.props.category]}
+        onSortChange={this.onChange}
+      />);
+  }
+}
+const TopicSelectorWrapper = withRouter(TopicSelectorImpl);
+
 @PageHOC
 @connect(
   state => ({
@@ -71,37 +97,48 @@ export default class Page extends React.Component {
     }
 
     return (
-      <div className="main-panel">
+      <div>
         <Helmet>
           <title>Busy</title>
         </Helmet>
-        <LeftSidebar auth={auth} />
-        {category &&
-          <h2 className="mt-3 text-center">
-            <span className="text-info">#</span>
-            {' '}{category}{' '}
-            <FavoriteButton
-              isFavorited={this.isFavorited()}
-              onClick={
-                this.isFavorited()
-                  ? this.props.removeCategoryFavorite
-                  : this.props.addCategoryFavorite
-              }
-            />
-          </h2>}
-        <div style={{ flex: 2 }}>
-          <Feed
-            content={content}
-            isFetching={isFetching}
-            hasMore={hasMore}
-            loadContent={loadContentAction}
-            loadMoreContent={loadMoreContentAction}
-            notify={notify}
-            route={this.props.route}
-          />
+        <div className="shifted">
+          <div className="feed-layout container">
+            <div className="left">
+              <LeftSidebar auth={auth} />
+            </div>
+            <div className="rightmarker">
+              <div className="right">
+                <RightSidebar auth={auth} />
+              </div>
+            </div>
+            <div className="center">
+              { category && <TopicSelectorWrapper category={category} /> }
+              {/*{category &&
+                <h2 className="mt-3 text-center">
+                  <span className="text-info">#</span>
+                  {' '}{category}{' '}
+                  <FavoriteButton
+                    isFavorited={this.isFavorited()}
+                    onClick={
+                      this.isFavorited()
+                        ? this.props.removeCategoryFavorite
+                        : this.props.addCategoryFavorite
+                    }
+                  />
+                </h2>}*/}
+              <Feed
+                content={content}
+                isFetching={isFetching}
+                hasMore={hasMore}
+                loadContent={loadContentAction}
+                loadMoreContent={loadMoreContentAction}
+                notify={notify}
+                route={this.props.route}
+              />
+              {content.length === 0 && !isFetching && <EmptyFeed />}
+            </div>
+          </div>
         </div>
-        {content.length === 0 && !isFetching && <EmptyFeed />}
-        <RightSidebar auth={auth} />
       </div>
     );
   }

@@ -1,50 +1,50 @@
 import React, { PropTypes } from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import './Sidenav.less';
 
 const Sidenav = ({ username }) => (
   <div>
     {(username) ? <ul className="Sidenav">
       <li>
-        <Link to={`/@${username}`}>
+        <NavLink to={`/@${username}`} activeClassName="Sidenav__item--active">
           <i className="iconfont icon-mine" /> My Profile
-        </Link>
+        </NavLink>
       </li>
       <li>
-        <Link to="/">
+        <NavLink to="/" activeClassName="Sidenav__item--active" exact>
           <i className="iconfont icon-clock" /> Timeline
-        </Link>
+        </NavLink>
       </li>
-      <li className="Sidenav__item--active">
-        <Link to="/trending">
+      <li>
+        <NavLink to="/trending" activeClassName="Sidenav__item--active">
           <i className="iconfont icon-headlines" /> News
-        </Link>
+        </NavLink>
       </li>
       <li>
-        <Link to="/messages">
+        <NavLink to="/messages" activeClassName="Sidenav__item--active">
           <i className="iconfont icon-message" /> Messages
-        </Link>
+        </NavLink>
       </li>
       <li>
-        <Link to="/wallet">
+        <NavLink to={`/@${username}/transfers`} activeClassName="Sidenav__item--active">
           <i className="iconfont icon-lock" /> Wallet
-        </Link>
+        </NavLink>
       </li>
     </ul> : <ul className="Sidenav">
-      <li className="Sidenav__item--active">
-        <Link to="/trending">
+      <li>
+        <NavLink to="/trending" activeClassName="Sidenav__item--active">
           <i className="iconfont icon-headlines" /> News
-        </Link>
+        </NavLink>
       </li>
       <li>
-        <Link to="#">
+        <NavLink to="#" activeClassName="Sidenav__item--active">
           <i className="iconfont icon-group" /> Communities
-        </Link>
+        </NavLink>
       </li>
       <li>
-        <Link to="#">
+        <NavLink to="#" activeClassName="Sidenav__item--active">
           <i className="iconfont icon-service" /> Shopping
-        </Link>
+        </NavLink>
       </li>
     </ul>
     }

@@ -22,7 +22,7 @@ const Topnav = ({
 
   if (username) {
     content = (
-      <div className="Topnav__menu-container Topnav__sides">
+      <div className="Topnav__menu-container">
         <Menu
           selectedKeys={[]}
           className="Topnav__menu-container__menu"
@@ -81,7 +81,7 @@ const Topnav = ({
     );
   } else {
     content = (
-      <div className="Topnav__menu-container Topnav__sides">
+      <div className="Topnav__menu-container">
         <Menu className="Topnav__menu-container__menu" mode="horizontal">
           <Menu.Item key="signin">
             <Link to="/signin">
@@ -103,17 +103,25 @@ const Topnav = ({
 
   return (
     <div className="Topnav">
-      <div className="Topnav__container">
-        <Link to="/" className="Topnav__sides"><span className="Topnav__brand">busy</span></Link>
-        <div
-          className={classNames('Topnav__input-container', {
-            'Topnav__input-container--logged-in': username,
-          })}
-        >
-          {username && <Input placeholder="Search..." />}
-          {username && <i className="iconfont icon-search" />}
+      <div className="topnav-layout container">
+        <div className="left">
+          <Link className="Topnav__brand" to="/">
+            busy
+          </Link>
         </div>
-        {content}
+        <div className="center">
+          <div
+            className={classNames('Topnav__input-container', {
+              'Topnav__input-container--logged-in': username,
+            })}
+          >
+            {username && <Input placeholder="Search..." />}
+            {username && <i className="iconfont icon-search" />}
+          </div>
+        </div>
+        <div className="right">
+          {content}
+        </div>
       </div>
     </div>
   );

@@ -1,27 +1,27 @@
 // Buttons
 .colorize-button(@color, @border-color) {
-  background: @color;
-  border-color: @border-color;
+  background: @color !important;
+  border-color: @border-color !important;
 
   &:hover,
   &:focus,
   &:active,
   &.active {
-    background: darken(@color, 15%, 'relative');
-    border-color: darken(@border-color, 15%, 'relative');
+    background: darken(@color, 15%, 'relative') !important;
+    border-color: darken(@border-color, 15%, 'relative') !important;
   }
 }
 
 .colorize-ghost-button(@color) {
-  border-color: @color;
-  color: @color;
+  border-color: @color !important;
+  color: @color !important;
 
   &:hover,
   &:focus,
   &:active,
   &.active {
-    border-color: @color;
-    background-color: @color;
-    color: white;
+    border-color: @color !important;
+    background-color: @color !important;
+    color: white !important;
   }
 }

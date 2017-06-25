@@ -47,43 +47,45 @@ class UserMenu extends React.Component {
 
     return (
       <div className="UserMenu">
-        <Menu
-          className="UserMenu__menu"
-          onClick={this.handleClick}
-          selectedKeys={[this.state.current]}
-          mode="horizontal"
-        >
-          <Menu.Item key="discussions" className="UserMenu__item">
-            Discussions
-            <span className="UserMenu__badge">
-              {discussionsValue}
-            </span>
-          </Menu.Item>
-          <Menu.Item key="comments" className="UserMenu__item">
-            <strong>
-              Comments
+        <div className="container row">
+          <Menu
+            className="UserMenu__menu col-3col-2 col-3col-offset"
+            onClick={this.handleClick}
+            selectedKeys={[this.state.current]}
+            mode="horizontal"
+          >
+            <Menu.Item key="discussions" className="UserMenu__item">
+              Discussions
               <span className="UserMenu__badge">
-                {commentsValue}
+                {discussionsValue}
               </span>
-            </strong>
-          </Menu.Item>
-          <Menu.Item key="followers" className="UserMenu__item">
-            <strong>
-              Followers
-              <span className="UserMenu__badge">
-                {followersValue}
-              </span>
-            </strong>
-          </Menu.Item>
-          <Menu.Item key="following" className="UserMenu__item">
-            <strong>
-              Following
-              <span className="UserMenu__badge">
-                {followingValue}
-              </span>
-            </strong>
-          </Menu.Item>
-        </Menu>
+            </Menu.Item>
+            <Menu.Item key="comments" className="UserMenu__item">
+              <strong>
+                Comments
+                <span className="UserMenu__badge">
+                  {commentsValue}
+                </span>
+              </strong>
+            </Menu.Item>
+            <Menu.Item key="followers" className="UserMenu__item">
+              <strong>
+                Followers
+                <span className="UserMenu__badge">
+                  {followersValue}
+                </span>
+              </strong>
+            </Menu.Item>
+            <Menu.Item key="followed" className="UserMenu__item">
+              <strong>
+                Following
+                <span className="UserMenu__badge">
+                  {followingValue}
+                </span>
+              </strong>
+            </Menu.Item>
+          </Menu>
+        </div>
       </div>
     );
   }

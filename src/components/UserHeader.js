@@ -5,10 +5,10 @@ import Follow from './Button/Follow';
 import PopoverMenu, { PopoverMenuItem } from './PopoverMenu/PopoverMenu';
 import './UserHeader.less';
 
-const UserHeader = ({ username }) => (
+const UserHeader = ({ username, handle }) => (
   <div className="UserHeader">
     <div className="UserHeader__container">
-      <Avatar username={username} size={100} />
+      <Avatar username={handle} size={100} />
       <div className="UserHeader__user">
         <div className="UserHeader__row">
           <h2 className="UserHeader__user__username">{username}</h2>
@@ -30,14 +30,20 @@ const UserHeader = ({ username }) => (
           </Popover>
         </div>
         <div className="UserHeader__row UserHeader__handle">
-          @{username}
+          @{handle}
         </div>
       </div>
     </div>
   </div>);
 
 UserHeader.propTypes = {
-  username: PropTypes.string.isRequired,
+  username: PropTypes.string,
+  handle: PropTypes.string,
+};
+
+UserHeader.defaultProps = {
+  username: '',
+  handle: '',
 };
 
 export default UserHeader;
