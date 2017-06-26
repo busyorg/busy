@@ -6411,9 +6411,9 @@ steem@^0.5.1:
     secure-random "^1.1.1"
     ws "^1.1.1"
 
-steemconnect@adcpm/steemconnect#dev:
-  version "0.0.33"
-  resolved "https://codeload.github.com/adcpm/steemconnect/tar.gz/a52419c3b0aee9e30deb99a759e6d3d2e12f6e20"
+steemconnect@^0.0.34:
+  version "0.0.34"
+  resolved "https://registry.yarnpkg.com/steemconnect/-/steemconnect-0.0.34.tgz#d91f429b18c9e9a9e922fdb26bf83d64286bd49a"
   dependencies:
     debug "^2.2.0"
     isomorphic-fetch "^2.2.1"
