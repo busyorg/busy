@@ -1,9 +1,11 @@
+/* eslint-disable import/no-extraneous-dependencies */
+
 import React from 'react';
 import { MemoryRouter } from 'react-router';
 import { addDecorator, storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { IntlProvider } from 'react-intl';
-import { post, postWithEmbed, postState, notifications } from './stories.data';
+import { post, postWithEmbed, postState, notifications } from './storiesData';
 import StartNow from '../src/components/Sidebar/StartNow';
 import Topics from '../src/components/Sidebar/Topics';
 import InterestingPeople from '../src/components/Sidebar/InterestingPeople';
