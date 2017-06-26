@@ -10,6 +10,7 @@ import StartNow from '../src/components/Sidebar/StartNow';
 import Topics from '../src/components/Sidebar/Topics';
 import InterestingPeople from '../src/components/Sidebar/InterestingPeople';
 import LatestComments from '../src/components/Sidebar/LatestComments';
+import LatestRecommendations from '../src/components/Sidebar/LatestRecommendations';
 import Topic from '../src/components/Button/Topic';
 import Follow from '../src/components/Button/Follow';
 import Action from '../src/components/Button/Action';
@@ -110,6 +111,30 @@ storiesOf('Sidebar', module)
           author: 'itsyogesh',
           text: 'Ahh, I wish I heard that earlier',
           created: '2017-06-07T19:32:44',
+        },
+      ]}
+    />)
+  )
+  .add('Latest Recommendations', () => (
+    <LatestRecommendations
+      posts={[
+        {
+          id: '100a',
+          title: 'Its a brave new world of steemit out there. You must try it out',
+          author: 'ekitcho',
+          created: '2017-06-07T17:26:21',
+        },
+        {
+          id: '100b',
+          title: 'My Momma always said to me that people with gaps in their teeth had something to hide',
+          author: 'blacktivity',
+          created: '2017-06-07T18:12:13',
+        },
+        {
+          id: '100c',
+          title: 'Ethereum price continued to trade lower against the US Dollar and Bitcoin, and it looks like ETH/USD may continue to face sellers as long as it is below $300',
+          author: 'pooldarbashi',
+          created: '2017-06-07T17:44:11',
         },
       ]}
     />)

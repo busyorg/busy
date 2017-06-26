@@ -4,7 +4,24 @@ import { Link } from 'react-router-dom';
 import BodyShort from '../Story/BodyShort';
 import './LatestRecommendations.less';
 
-const renderRecommendedPost = ({})
+const renderRecommendedPost = ({ title, author, created }) => (
+  <div className="Recommendation">
+    <div className="Recommendation__text">
+      <div className="Recommendation_title">
+        <BodyShort body={title} length={140} />
+      </div>
+      <div className="Recommendation__footer">
+        <Link to={`/@${author}`} className="Recommendation__author">
+          {author}
+        </Link>
+        <span className="Recommendation__bullet" />
+        <span className="Recommendation__date">
+          <FormattedRelative value={`${created}Z`} />
+        </span>
+      </div>
+    </div>
+  </div>
+);
 
 const LatestRecommendations = ({ posts }) => (
   <div className="LatestRecommendations">
