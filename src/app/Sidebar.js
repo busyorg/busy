@@ -67,14 +67,14 @@ export default class Sidebar extends Component {
     return this.filterTagsBySearch(favoritedCategories)
       .sort()
       .slice(0, 20)
-      .map((category, idx) =>
+      .map((category, idx) => (
         <li key={idx}>
           <NavLink to={`/hot/${category}`} activeClassName="active">
             # {category}{' '}
             <Icon name="star" xs />
           </NavLink>
         </li>
-      );
+      ));
   }
 
   renderTags() {
@@ -87,13 +87,13 @@ export default class Sidebar extends Component {
 
       return this.filterTagsBySearch(categoriesWithoutFavorites)
         .slice(0, 20 - favorites.categories.length)
-        .map((category, idx) =>
+        .map((category, idx) => (
           <li key={idx}>
             <NavLink to={`/hot/${category}`} activeClassName="active">
               # {category}
             </NavLink>
           </li>
-        );
+          ));
     }
     return [];
   }

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import UserList from './UserList';
 import Loading from '../components/Icon/Loading';
 import { getAllFollowers } from '../helpers/apiHelpers';
+import './UserFollowers.less';
 
 export default class UserFollowers extends Component {
   constructor(props) {
@@ -19,14 +20,14 @@ export default class UserFollowers extends Component {
       .then(users => this.setState({
         isLoading: false,
         isLoaded: true,
-        users: users.sort()
+        users: users.sort(),
       }));
   }
 
   render() {
     return (
-      <div>
-        <div className="container">
+      <div className="UserFollowers">
+        <div className="container UserFollowers__container">
           {this.state.users && <UserList users={this.state.users} />}
           {this.state.isLoading && <Loading />}
         </div>

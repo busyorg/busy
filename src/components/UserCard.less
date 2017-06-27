@@ -1,7 +1,17 @@
 .UserCard {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 12px;
+  padding-bottom: 14px;
+  padding-top: 14px;
+  border-bottom: 1px solid #e9e7e7;
+
+  &:first-child {
+    padding-top: 0px;
+  }
+
+  &:last-child {
+    border-bottom: 0;
+  }
 
   & > &__left {
     display: flex;
