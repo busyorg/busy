@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import { Link } from 'react-router-dom';
 import User from './User';
 import './InterestingPeople.less';
 
@@ -11,7 +12,9 @@ const InterestingPeople = ({ users }) => (
         <User key={user.name} user={user} />
       )}
       <h4 className="InterestingPeople__more">
-        Discover More People
+        <Link to={'/latest-comments'}>
+          Discover More People
+        </Link>
       </h4>
     </div>
   </div>);
