@@ -32,7 +32,7 @@ const LatestComments = ({ comments }) => (
       <div className="LatestComments__divider" />
       <h4 className="LatestComments__more">
         <Link to={'/latest-comments'}>
-          Discover More Comments
+          See All Comments
         </Link>
       </h4>
     </div>
