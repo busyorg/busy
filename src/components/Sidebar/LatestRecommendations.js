@@ -7,8 +7,8 @@ import './LatestRecommendations.less';
 const renderRecommendedPost = ({ title, author, created }) => (
   <div className="Recommendation">
     <div className="Recommendation__text">
-      <div className="Recommendation_title">
-        <BodyShort body={title} length={140} />
+      <div className="Recommendation__title">
+        <BodyShort body={title} length={80} />
       </div>
       <div className="Recommendation__footer">
         <Link to={`/@${author}`} className="Recommendation__author">
@@ -26,7 +26,7 @@ const renderRecommendedPost = ({ title, author, created }) => (
 const LatestRecommendations = ({ posts }) => (
   <div className="LatestRecommendations">
     <div className="LatestRecommendations__container">
-      <h4 className="LatestRecommendations__title"><i className="iconfont flashlight_fill LatestRecommendations__icon" /> Latest Recommendations</h4>
+      <h4 className="LatestRecommendations__title"><i className="iconfont icon-flashlight_fill LatestRecommendations__icon" /> Latest Recommendations</h4>
       <div className="LatestRecommendations__divider" />
       {posts && posts.map(post => renderRecommendedPost(post))}
     </div>
