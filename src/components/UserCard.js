@@ -8,7 +8,7 @@ const UserCard = ({ username }) => (
   <div className="UserCard">
     <div className="UserCard__left">
       <Link to={`/@${username}`}>
-        <Avatar username={username} size={34} />
+        <Avatar username={username} size={40} />
       </Link>
       <Link to={`/@${username}`}>
         {username}
