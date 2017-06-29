@@ -1,18 +1,23 @@
 import _ from 'lodash';
 import React from 'react';
 import Slider from 'rc-slider';
+import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import 'rc-slider/assets/index.css';
 
+import { updateVotePowerBar } from '../../user/userActions';
 import Icon from '../../widgets/Icon';
 
-class LikeButton extends React.PureComponent {
-  state = { showPowerBar: false, sliderValue: 50 }
+
+@connect(({ user }) => ({ user }), { updateVotePowerBar })
+class LikeButton extends React.Component {
+  state = { showPowerBar: false }
 
   showBar = () => this.setState({ showPowerBar: true });
   hideBar = _.debounce(() => { this.setState({ showPowerBar: false }); }, 350);
   render() {
-    const { showPowerBar, sliderValue } = this.state;
+    const { showPowerBar } = this.state;
+    const { votePower } = this.props.user;
     const { onClick, active, numberOfVotes, layout, likeBarEnabled } = this.props;
     const isCardLayout = layout === 'card';
     const isListLayout = layout === 'list';
@@ -37,15 +42,15 @@ class LikeButton extends React.PureComponent {
             borderRadius: '3px'
           }}
         >
-          <span style={{ lineHeight: '1.5' }}>Power: {sliderValue}%</span>
+          <span style={{ lineHeight: '1.5' }}>Power: {votePower}%</span>
           <Slider
-            defaultValue={sliderValue} min={1} tipTransitionName="rc-slider-tooltip-zoom-down"
-            onChange={(value) => { this.setState({ sliderValue: value }); }}
+            defaultValue={votePower} min={1} tipTransitionName="rc-slider-tooltip-zoom-down"
+            onChange={this.props.updateVotePowerBar}
           />
         </div>}
         <a
           onMouseEnter={(e) => { e.persist(); this.showBar(e); }}
-          onClick={() => { onClick(sliderValue * 100); }}
+          onClick={() => { onClick(votePower * 100); }}
           className={active ? 'active' : ''}
         >
           <Icon name="thumb_up" sm />
