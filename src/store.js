@@ -54,7 +54,7 @@ if (process.env.IS_BROWSER) {
     persistState(['app', 'favorites', 'editor', 'bookmarks', 'user'], {
       slicer: () => state => ({
         app: pick(state.app, ['locale', 'sidebarIsVisible', 'layout']),
-        user: pick(state.user, ['votePower']),
+        user: pick(state.user, ['votePower', 'following']),
         bookmarks: state.bookmarks,
         favorites: state.favorites,
         editor: state.editor,
