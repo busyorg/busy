@@ -1,0 +1,26 @@
+.LikeBar--container{
+  position: relative;
+  @media (min-width: 600px) {
+    display: flex; 
+    justify-content: center;
+  }
+}
+
+.LikeBar{
+  position: absolute;
+  display: flex;
+  align-items: center;
+  width: 200px;
+  flex-direction: column;
+  background: #fff;
+  box-shadow: 1px 0px 3px 0px rgba(0, 0, 0, 0.32);
+  padding: 0px 10px;
+  height: 55px;
+  top: -50px;
+  justify-content: center;
+  border-radius: 3px;
+}
+
+.LikeBar--text{
+  line-height: 1.5
+}

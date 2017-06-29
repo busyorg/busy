@@ -7,7 +7,7 @@ import 'rc-slider/assets/index.css';
 
 import { updateVotePowerBar } from '../../user/userActions';
 import Icon from '../../widgets/Icon';
-
+import './LikeButton.scss';
 
 @connect(({ user }) => ({ user }), { updateVotePowerBar })
 class LikeButton extends React.Component {
@@ -22,27 +22,9 @@ class LikeButton extends React.Component {
     const isCardLayout = layout === 'card';
     const isListLayout = layout === 'list';
     return (
-      <div
-        onMouseLeave={this.hideBar}
-        style={{ position: 'relative', display: 'flex', justifyContent: 'center' }}
-      >
-        {likeBarEnabled && !active && showPowerBar && <div
-          style={{
-            position: 'absolute',
-            display: 'flex',
-            alignItems: 'center',
-            width: '200px',
-            flexDirection: 'column',
-            background: '#fff',
-            boxShadow: '1px 0px 3px 0px rgba(0, 0, 0, 0.32)',
-            padding: '0px 10px',
-            height: '55px',
-            top: '-50px',
-            justifyContent: 'center',
-            borderRadius: '3px'
-          }}
-        >
-          <span style={{ lineHeight: '1.5' }}>Power: {votePower}%</span>
+      <div onMouseLeave={this.hideBar} className="LikeBar--container">
+        {likeBarEnabled && !active && showPowerBar && <div className="LikeBar">
+          <span className="LikeBar--text">Power: {votePower}%</span>
           <Slider
             defaultValue={votePower} min={1} tipTransitionName="rc-slider-tooltip-zoom-down"
             onChange={this.props.updateVotePowerBar}
