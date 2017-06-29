@@ -71,3 +71,18 @@ export const getRate = () =>
         });
       });
   };
+
+export const SIDEBAR_LOADING = '@app/SIDEBAR_LOADING';
+export const sidebarLoading = createAction(SIDEBAR_LOADING);
+export const SIDEBAR_LOADED = '@app/SIDEBAR_LOADED';
+export const sidebarLoaded = createAction(SIDEBAR_LOADED);
+
+export const getSidebarData = () => (dispatch, getState, { steemAPI }) => {
+  dispatch(sidebarLoading());
+  steemAPI.getState('trending/busy', (err, result) => {
+    let categories = (result.category_idx && result.category_idx.trending)
+        || (result.tag_idx && result.tag_idx.trending);
+    categories = categories.filter(Boolean);
+    dispatch(sidebarLoaded({ categories, props: result.props }));
+  });
+};
