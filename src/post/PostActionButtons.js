@@ -81,10 +81,11 @@ export default class PostActionButtons extends Component {
     const canReblog = auth.isAuthenticated && auth.user.name !== post.author;
     const isCardLayout = layout === 'card';
     const isListLayout = layout === 'list';
+    const props = app.props || {};
 
     const power = formatter.vestToSteem(auth.user.vesting_shares,
-        app.props.total_vesting_shares,
-        app.props.total_vesting_fund_steem);
+        props.total_vesting_shares,
+        props.total_vesting_fund_steem);
 
     const likeBarEnabled = power > LIKE_BAR_MIN_POWER;
     return (

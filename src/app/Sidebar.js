@@ -114,7 +114,7 @@ export default class Sidebar extends Component {
     const { search, menu } = this.state;
     const { auth, app, hideSidebar } = this.props;
     const { user } = auth;
-    const { rate, sidebarLoading, props, categories } = app;
+    const { rate, sidebarLoading, props = {}, categories } = app;
 
     const power = props
       ? formatter.vestToSteem(

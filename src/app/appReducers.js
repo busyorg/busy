@@ -11,9 +11,7 @@ const initialState = {
   locale: null,
   rate: 0,
   lastPostId: null,
-  sidebarLoading: false,
-  categories: null,
-  props: null
+  sidebarLoading: false
 };
 
 // TODO(p0o): some actionsTypes in this reducer are not defined anywhere, need to figure it out later
