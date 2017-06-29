@@ -13,7 +13,7 @@ class LikeButton extends React.PureComponent {
   hideBar = _.debounce(() => { this.setState({ showPowerBar: false }); }, 350);
   render() {
     const { showPowerBar, sliderValue } = this.state;
-    const { onClick, active, numberOfVotes, layout } = this.props;
+    const { onClick, active, numberOfVotes, layout, likeBarEnabled } = this.props;
     const isCardLayout = layout === 'card';
     const isListLayout = layout === 'list';
     return (
@@ -21,7 +21,7 @@ class LikeButton extends React.PureComponent {
         onMouseLeave={this.hideBar}
         style={{ position: 'relative', display: 'flex', justifyContent: 'center' }}
       >
-        {!active && showPowerBar && <div
+        {likeBarEnabled && !active && showPowerBar && <div
           style={{
             position: 'absolute',
             display: 'flex',
