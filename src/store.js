@@ -51,9 +51,10 @@ if (process.env.IS_BROWSER) {
   const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
   enhancer = composeEnhancers(
     applyMiddleware(...middleware),
-    persistState(['app', 'favorites', 'editor', 'bookmarks'], {
+    persistState(['app', 'favorites', 'editor', 'bookmarks', 'user'], {
       slicer: () => state => ({
         app: pick(state.app, ['locale', 'sidebarIsVisible', 'layout']),
+        user: pick(state.user, ['votePower']),
         bookmarks: state.bookmarks,
         favorites: state.favorites,
         editor: state.editor,
