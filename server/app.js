@@ -103,7 +103,7 @@ function serverSideResponse(req, res) {
     fetchComponentData(store.dispatch, props.components, props.params)
       .then(() => renderPage(store, props))
       .then(html => res.end(html))
-      .catch(error => res.end(error.message));
+      .catch(() => res.redirect('/404'));
   });
 }
 
