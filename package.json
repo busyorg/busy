@@ -16,6 +16,7 @@
     "build:server": "NODE_ENV=production webpack -p --config ./webpack/webpack.server.config.js",
     "build:client": "npm run cleanup-public && mkdir -p public && cp -r ./assets/* ./public/ && webpack -p --config ./webpack/webpack.prod.config.js",
     "build": "NODE_ENV=production run-s build:client build:server",
+    "preinstall": "npm i -g pm2 && pm2 install pm2-logrotate",
     "postinstall": "npm rebuild node-sass && npm run build",
     "cleanup-public": "rm -rf ./public/*"
   },
