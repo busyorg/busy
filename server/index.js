@@ -1,4 +1,3 @@
-require('newrelic');
 /**
  * Module dependencies.
  */
