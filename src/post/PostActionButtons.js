@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { FormattedMessage, injectIntl } from 'react-intl';
+import { formatter } from 'steem';
 import numeral from 'numeral';
 import LikeButton from './actionButtons/LikeButton';
 import PayoutLabel from './actionButtons/PayoutLabel';
@@ -9,8 +10,10 @@ import * as postActions from './postActions';
 import Icon from '../widgets/Icon';
 import ReblogButton from './actionButtons/ReblogButton';
 
+const LIKE_BAR_MIN_POWER = 125;
 @connect(
   state => ({
+    app: state.app,
     auth: state.auth,
   }),
   (dispatch, ownProps) => bindActionCreators({
@@ -70,7 +73,7 @@ export default class PostActionButtons extends Component {
   }
 
   render() {
-    const { post, auth, layout } = this.props;
+    const { post, auth, layout, app } = this.props;
 
     const isPostLiked =
       auth.isAuthenticated &&
@@ -78,7 +81,13 @@ export default class PostActionButtons extends Component {
     const canReblog = auth.isAuthenticated && auth.user.name !== post.author;
     const isCardLayout = layout === 'card';
     const isListLayout = layout === 'list';
+    const props = app.props || {};
 
+    const power = formatter.vestToSteem(auth.user.vesting_shares,
+        props.total_vesting_shares,
+        props.total_vesting_fund_steem);
+
+    const likeBarEnabled = power > LIKE_BAR_MIN_POWER;
     return (
       <ul>
         <li>
@@ -86,6 +95,7 @@ export default class PostActionButtons extends Component {
             onClick={isPostLiked ? this.props.unlikePost : this.props.likePost}
             onTextClick={e => this.handleLikesTextClick(e)}
             active={isPostLiked}
+            likeBarEnabled={likeBarEnabled}
             numberOfVotes={numeral(post.net_votes).format('0,0')}
             layout={layout}
           />

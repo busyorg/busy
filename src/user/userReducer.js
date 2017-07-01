@@ -16,6 +16,7 @@ const initialState = {
     list: [],
     isFetching: false,
   },
+  votePower: 100,
 };
 
 export default function userReducer(state = initialState, action) {
@@ -119,6 +120,8 @@ export default function userReducer(state = initialState, action) {
           list: newList,
         },
       };
+    case actions.UPDATE_VOTE_POWER_BAR:
+      return { ...state, votePower: action.payload };
     default: {
       return state;
     }

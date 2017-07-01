@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
@@ -6,8 +6,7 @@ import { FormattedMessage } from 'react-intl';
 import formatter from 'steem/lib/formatter';
 import numeral from 'numeral';
 import _ from 'lodash';
-import api from '../steemAPI';
-import { hideSidebar } from '../actions';
+import { hideSidebar, getSidebarData } from '../actions';
 import Loading from '../widgets/Loading';
 import Icon from '../widgets/Icon';
 import SidebarHeader from './Sidebar/SidebarHeader';
@@ -24,7 +23,7 @@ import './Sidebar.scss';
     favorites: state.favorites,
   }),
   dispatch => bindActionCreators({
-    hideSidebar,
+    hideSidebar, getSidebarData
   }, dispatch)
 )
 export default class Sidebar extends Component {
@@ -32,28 +31,13 @@ export default class Sidebar extends Component {
     super(props);
 
     this.state = {
-      isFetching: true,
-      isLoaded: false,
-      categories: [],
-      props: {},
-      price: '',
       menu: 'categories',
       search: '',
     };
   }
 
   componentWillMount() {
-    api.getState('trending/busy', (err, result) => {
-      let categories = (result.category_idx && result.category_idx.trending)
-        || (result.tag_idx && result.tag_idx.trending);
-      categories = categories.filter(Boolean);
-      this.setState({
-        isFetching: false,
-        isLoaded: true,
-        categories,
-        props: result.props,
-      });
-    });
+    this.props.getSidebarData();
   }
 
   filterTagsBySearch(tags = []) {
@@ -78,8 +62,7 @@ export default class Sidebar extends Component {
   }
 
   renderTags() {
-    const { categories } = this.state;
-    const { favorites } = this.props;
+    const { favorites, app: { categories } } = this.props;
 
     if (categories) {
       // excluding items in favorite to avoid repetition
@@ -99,8 +82,8 @@ export default class Sidebar extends Component {
   }
 
   renderSearchAsTag() {
-    const { search, categories } = this.state;
-    const { favorites } = this.props;
+    const { search } = this.state;
+    const { favorites, app: { categories } } = this.props;
     if (search
       && !categories.includes(search)
       && !favorites.categories.includes(search)
@@ -128,9 +111,10 @@ export default class Sidebar extends Component {
   };
 
   render() {
-    const { search, props, menu } = this.state;
-    const { auth, app: { rate }, hideSidebar } = this.props;
+    const { search, menu } = this.state;
+    const { auth, app, hideSidebar } = this.props;
     const { user } = auth;
+    const { rate, sidebarLoading, props = {}, categories } = app;
 
     const power = props
       ? formatter.vestToSteem(
@@ -162,7 +146,7 @@ export default class Sidebar extends Component {
         />
 
         <div className="sidebar-content">
-          {this.state.isFetching && <Loading color="white" />}
+          {sidebarLoading && <Loading color="white" />}
           {rate && props && menu === 'settings' &&
             <ul>
               <li className="title">
@@ -185,7 +169,7 @@ export default class Sidebar extends Component {
               </li>
             </ul>}
 
-          {_.size(this.state.categories) > 0 && menu === 'categories' &&
+          {_.size(categories) > 0 && menu === 'categories' &&
             <div>
               <ul>
                 <li>
