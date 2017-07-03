@@ -7,6 +7,11 @@ export const GET_CONTENT_START = 'GET_CONTENT_START';
 export const GET_CONTENT_SUCCESS = 'GET_CONTENT_SUCCESS';
 export const GET_CONTENT_ERROR = 'GET_CONTENT_ERROR';
 
+export const GET_CONTENT_REPLIES = 'GET_CONTENT_REPLIES';
+export const GET_CONTENT_REPLIES_START = 'GET_CONTENT_REPLIES_START';
+export const GET_CONTENT_REPLIES_SUCCESS = 'GET_CONTENT_REPLIES_SUCCESS';
+export const GET_CONTENT_REPLIES_ERROR = 'GET_CONTENT_REPLIES_ERROR';
+
 export const LIKE_POST = '@post/LIKE_POST';
 export const LIKE_POST_START = '@post/LIKE_POST_START';
 export const LIKE_POST_SUCCESS = '@post/LIKE_POST_SUCCESS';
@@ -25,8 +30,24 @@ export const getContent = (
     payload: {
       promise: steemAPI
         .getContentAsync(postAuthor, postPermlink)
-        .then(postData => omit(postData, omitAttributes))
-    }
+        .then(postData => omit(postData, omitAttributes)),
+    },
+  });
+};
+
+export const getContentReplies = (
+  { author: postAuthor, permlink: postPermlink, omitAttributes = [] } = {}
+) => (dispatch, getState, { steemAPI }) => {
+  if (!postAuthor || !postPermlink) {
+    return null;
+  }
+  return dispatch({
+    type: GET_CONTENT_REPLIES,
+    payload: {
+      promise: steemAPI
+        .getContentRepliesAsync(postAuthor, postPermlink)
+        .then(repliesData => omit(repliesData, omitAttributes)),
+    },
   });
 };
 
@@ -51,14 +72,14 @@ export const votePost = (postId, weight = 10000) => (dispatch, getState) => {
                 getContent({
                   author: posts[postId].author,
                   permlink: posts[postId].permlink,
-                  omitAttributes: ['net_votes', 'active_votes']
+                  omitAttributes: ['net_votes', 'active_votes'],
                 })
               ),
             1000
           );
           return res;
-        })
+        }),
     },
-    meta: { postId, voter, weight }
+    meta: { postId, voter, weight },
   });
 };

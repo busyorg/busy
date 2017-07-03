@@ -9,9 +9,10 @@ import sanitize from 'sanitize-html';
 import { getHtml } from '../Body';
 import * as postActions from './../postActions';
 import PostSinglePage from './PostSinglePage';
+import PostSingleComments from './PostSingleComments';
 import PostSingleModal from './PostSingleModal';
 import * as reblogActions from '../../app/Reblog/reblogActions';
-import * as commentsActions from '../../comments/commentsActions';
+import * as commentsActions from '../../comments/postRepliesActions';
 import * as bookmarkActions from '../../bookmarks/bookmarksActions';
 import * as appActions from '../../actions';
 import { editPost } from '../Write/EditorActions';
@@ -45,6 +46,11 @@ import { RightSidebar } from '../../app/Sidebar/index';
             author: _.get(ownProps.match, 'params.author'),
             permlink: _.get(ownProps.match, 'params.permlink')
           }),
+        getContentReplies: postId => commentsActions.getContentReplies({
+          author: _.get(ownProps.match, 'params.author'),
+          permlink: _.get(ownProps.match, 'params.permlink'),
+          postId
+        }),
         toggleBookmark: bookmarkActions.toggleBookmark,
         votePost: postActions.votePost,
         reblog: reblogActions.reblog
@@ -71,10 +77,13 @@ export default class PostSingle extends Component {
   //   modalResetScroll: () => null
   // };
 
-  componentWillMount() {
+  componentDidMount() {
     const { content } = this.props;
     if (!content) {
       this.props.getContent();
+      if (content && content.id) {
+        this.props.getContentReplies(content.id)
+      }
     }
   }
   // componentDidMount() {
@@ -85,6 +94,12 @@ export default class PostSingle extends Component {
   //     });
   //   }
   // }
+
+  componentDidUpdate(prevProps, nextProps) {
+    if (!nextProps.content || prevProps.content.id !== nextProps.content.id) {
+      this.props.getContent();
+    }
+  }
 
   componentWillUnmount() {
     // this.props.closePostModal();
@@ -223,6 +238,7 @@ export default class PostSingle extends Component {
                 onCommentClick={() => console.log('Comment click')}
                 onShareClick={() => reblog(content.id)}
               />
+              <PostSingleComments content={this.props.content} />
             </div>
           </div>
           {/* {content.author && !modal &&

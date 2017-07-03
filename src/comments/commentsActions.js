@@ -33,7 +33,7 @@ export const LIKE_COMMENT_ERROR = '@comments/LIKE_COMMENT_ERROR';
 export const showMoreComments = createAction(
   SHOW_MORE_COMMENTS,
   () => null,
-  meta => ({ id: meta, })
+  meta => ({ id: meta })
 );
 
 export const RELOAD_EXISTING_COMMENT = '@comments/RELOAD_EXISTING_COMMENT';
@@ -169,4 +169,3 @@ export const likeComment = (commentId, weight = 10000, retryCount = 0) => {
     });
   }
 };
-

@@ -5,9 +5,6 @@ import Comments from '../../comments/Comments';
 import './PostSingleComments.less';
 
 export default class PostSingleComments extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   render() {
     const { content } = this.props;
