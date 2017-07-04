@@ -9,7 +9,7 @@ import sanitize from 'sanitize-html';
 import { getHtml } from '../Body';
 import * as postActions from './../postActions';
 import PostSinglePage from './PostSinglePage';
-import PostSingleComments from './PostSingleComments';
+import Comments from '../../comments/Comments';
 import PostSingleModal from './PostSingleModal';
 import * as reblogActions from '../../app/Reblog/reblogActions';
 import * as commentsActions from '../../comments/postRepliesActions';
@@ -31,12 +31,12 @@ import { RightSidebar } from '../../app/Sidebar/index';
 // openPostModal: appActions.openPostModal
 @withRouter
 @connect(
-  ({ posts, app, reblog, auth, bookmarks }) => ({
-    content: posts[app.lastPostId] || null,
-    lastPostId: app.lastPostId,
+  ({ app, reblog, auth, bookmarks }) => ({
+    currentPost: app.currentPost,
+    isLoading: app.isLoading,
     reblogList: reblog,
     bookmarks,
-    auth
+    auth,
   }),
   (dispatch, ownProps) =>
     bindActionCreators(
@@ -76,14 +76,17 @@ export default class PostSingle extends Component {
   //   contentList: [],
   //   modalResetScroll: () => null
   // };
+  state = {
+    content: null,
+  }
 
   componentDidMount() {
-    const { content } = this.props;
-    if (!content) {
+    const { match, currentPost } = this.props;
+    if (!currentPost ||
+      match.params.author !== currentPost.author ||
+      match.params.permlink !== currentPost.permlink
+    ) {
       this.props.getContent();
-      if (content && content.id) {
-        this.props.getContentReplies(content.id)
-      }
     }
   }
   // componentDidMount() {
@@ -95,8 +98,10 @@ export default class PostSingle extends Component {
   //   }
   // }
 
-  componentDidUpdate(prevProps, nextProps) {
-    if (!nextProps.content || prevProps.content.id !== nextProps.content.id) {
+  componentWillReceiveProps(nextProps) {
+    if (this.props.currentPost &&
+      this.props.currentPost.id !== nextProps.currentPost.id
+    ) {
       this.props.getContent();
     }
   }
@@ -111,9 +116,10 @@ export default class PostSingle extends Component {
 
   render() {
     // let onEdit;
-    const { content, auth, reblogList, bookmarks, votePost, reblog, toggleBookmark } = this.props;
+    const { auth, reblogList, bookmarks, votePost, reblog, toggleBookmark } = this.props;
+    const content = this.props.currentPost;
 
-    if (!content || !content.author) {
+    if (this.props.isLoading && !content) {
       return <div className="main-panel"><Loading /></div>;
     }
 
@@ -238,7 +244,7 @@ export default class PostSingle extends Component {
                 onCommentClick={() => console.log('Comment click')}
                 onShareClick={() => reblog(content.id)}
               />
-              <PostSingleComments content={this.props.content} />
+              <Comments postId={content.id} show />
             </div>
           </div>
           {/* {content.author && !modal &&
