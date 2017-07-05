@@ -45,7 +45,7 @@ class Topics extends React.Component {
           }
         </ul>
         {(topics.length > maxItems && !this.state.showMore) ?
-          <h5 onClick={() => this.changeVisibility(true)}>View mores</h5>
+          <h5 onClick={() => this.changeVisibility(true)}>View more</h5>
           : null}
         {(topics.length > maxItems && this.state.showMore) ?
           <h5 onClick={() => this.changeVisibility(false)}>View less</h5>
