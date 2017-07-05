@@ -40,7 +40,7 @@ class Affix extends React.Component {
 
     const viewportOffset = this.container.getBoundingClientRect();
 
-    const fits = (windowHeight >= sidebarHeight + offsetParent.offsetTop);
+    const fits = (windowHeight >= sidebarHeight);
 
     if (fits) {
       if (scrollTop >= offsetParent.offsetTop - stickPosition) {
