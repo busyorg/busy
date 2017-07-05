@@ -28,6 +28,7 @@ import UserNotFound from '../statics/UserNotFound';
 import Transfer from '../widgets/Transfer';
 import UserHero from './UserHero';
 import { LeftSidebar, RightSidebar } from '../app/Sidebar/index';
+import Affix from '../components/Utils/Affix';
 
 export const needs = [getAccountWithFollowingCount];
 
@@ -141,14 +142,16 @@ export default class User extends React.Component {
         {user && <UserHero auth={auth} user={user} username={displayedUsername} />}
         <div className="shifted">
           <div className="feed-layout container">
-            <div className="left">
-              <LeftSidebar auth={auth} user={user} />
-            </div>
-            <div className="rightmarker">
+            <Affix stickPosition={72}>
+              <div className="left">
+                <LeftSidebar auth={auth} user={user} />
+              </div>
+            </Affix>
+            <Affix className="rightmarker" stickPosition={72}>
               <div className="right">
                 <RightSidebar auth={this.props.auth} />
               </div>
-            </div>
+            </Affix>
             <div className="center">
               {isFetching ? <Loading /> : this.getUserView(user)}
             </div>

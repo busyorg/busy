@@ -19,6 +19,8 @@ import Loading from '../../widgets/Loading';
 import { jsonParse } from '../../helpers/formatter';
 import StoryFull from '../../components/Story/StoryFull';
 import { RightSidebar } from '../../app/Sidebar/index';
+import Affix from '../../components/Utils/Affix';
+
 // reblogList: reblog,
 // bookmarks,
 // reblog: reblogActions.reblog,
@@ -206,11 +208,11 @@ export default class PostSingle extends Component {
         <div className="shifted">
           <div className="post-layout container">
             {
-              auth.user.name && <div className="rightmarker">
+              auth.user.name && <Affix className="rightmarker" stickPosition={72}>
                 <div className="right">
                   <RightSidebar auth={auth} />
                 </div>
-              </div>
+              </Affix>
             }
             <div className="center">
               <StoryFull

@@ -22,6 +22,7 @@ import * as favoriteActions from '../favorites/favoritesActions';
 import EmptyFeed from '../statics/EmptyFeed';
 import { LeftSidebar, RightSidebar } from '../app/Sidebar/index';
 import TopicSelector from '../components/TopicSelector';
+import Affix from '../components/Utils/Affix';
 
 class TopicSelectorImpl extends React.Component {
   static propTypes = {
@@ -103,14 +104,16 @@ export default class Page extends React.Component {
         </Helmet>
         <div className="shifted">
           <div className="feed-layout container">
-            <div className="left">
-              <LeftSidebar auth={auth} />
-            </div>
-            <div className="rightmarker">
+            <Affix stickPosition={72}>
+              <div className="left">
+                <LeftSidebar auth={auth} />
+              </div>
+            </Affix>
+            <Affix className="rightmarker" stickPosition={72}>
               <div className="right">
                 <RightSidebar auth={auth} />
               </div>
-            </div>
+            </Affix>
             <div className="center">
               { category && <TopicSelectorWrapper category={category} /> }
               {/*{category &&
