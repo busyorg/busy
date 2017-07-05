@@ -1,7 +1,7 @@
 import * as feedTypes from '../feed/feedActions';
 import * as bookmarksActions from '../bookmarks/bookmarksActions';
 import * as postsActions from './postActions';
-import * as commentsActions from '../comments/postRepliesActions';
+import * as commentsActions from '../comments/commentsActions';
 import * as userActions from '../user/userActions';
 
 const postItem = (state = {}, action) => {
@@ -79,17 +79,6 @@ const posts = (state = {}, action) => {
           ...action.payload,
         },
       };
-    case postsActions.GET_COMMENTS_SUCCESS: {
-      const parentPostId = action.payload.parent_post_id;
-      const replies = action.payload.replies;
-      state[parentPostId].replies = replies.map(reply => reply.id)
-      replies.forEach(reply => posts[reply.id] = reply)
-
-      return {
-        ...state,
-        ...posts,
-      }
-    }
     case postsActions.LIKE_POST_START:
       return {
         ...state,

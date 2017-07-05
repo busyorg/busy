@@ -106,7 +106,14 @@ export default (state = initialState, action) => {
       return Object.assign({}, state, {
         isFetching: false,
         isLoaded: true,
+      });
+    case appTypes.SET_CURRENT_CONTENT:
+      return Object.assign({}, state, {
         currentPost: action.payload,
+      });
+    case appTypes.REMOVE_CURRENT_CONTENT:
+      return Object.assign({}, state, {
+        currentPost: null
       });
     default:
       return state;

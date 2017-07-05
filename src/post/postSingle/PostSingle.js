@@ -12,7 +12,6 @@ import PostSinglePage from './PostSinglePage';
 import Comments from '../../comments/Comments';
 import PostSingleModal from './PostSingleModal';
 import * as reblogActions from '../../app/Reblog/reblogActions';
-import * as commentsActions from '../../comments/postRepliesActions';
 import * as bookmarkActions from '../../bookmarks/bookmarksActions';
 import * as appActions from '../../actions';
 import { editPost } from '../Write/EditorActions';
@@ -32,7 +31,7 @@ import { RightSidebar } from '../../app/Sidebar/index';
 @withRouter
 @connect(
   ({ app, reblog, auth, bookmarks }) => ({
-    currentPost: app.currentPost,
+    currentPost: app.currentPost || null,
     isLoading: app.isLoading,
     reblogList: reblog,
     bookmarks,
@@ -44,16 +43,12 @@ import { RightSidebar } from '../../app/Sidebar/index';
         getContent: () =>
           postActions.getContent({
             author: _.get(ownProps.match, 'params.author'),
-            permlink: _.get(ownProps.match, 'params.permlink')
+            permlink: _.get(ownProps.match, 'params.permlink'),
           }),
-        getContentReplies: postId => commentsActions.getContentReplies({
-          author: _.get(ownProps.match, 'params.author'),
-          permlink: _.get(ownProps.match, 'params.permlink'),
-          postId
-        }),
+        removeCurrentContent: appActions.removeCurrentContent,
         toggleBookmark: bookmarkActions.toggleBookmark,
         votePost: postActions.votePost,
-        reblog: reblogActions.reblog
+        reblog: reblogActions.reblog,
       },
       dispatch
     )
@@ -112,6 +107,7 @@ export default class PostSingle extends Component {
     if (process.env.IS_BROWSER) {
       global.document.title = 'Busy';
     }
+    this.props.removeCurrentContent();
   }
 
   render() {
@@ -119,7 +115,7 @@ export default class PostSingle extends Component {
     const { auth, reblogList, bookmarks, votePost, reblog, toggleBookmark } = this.props;
     const content = this.props.currentPost;
 
-    if (this.props.isLoading && !content) {
+    if (this.props.isLoading || !content) {
       return <div className="main-panel"><Loading /></div>;
     }
 

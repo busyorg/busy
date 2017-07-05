@@ -1,6 +1,7 @@
 import steemConnect from 'sc2-sdk';
 import Promise from 'bluebird';
 import { omit } from 'lodash/object';
+import { setCurrentContent } from '../actions'
 
 export const GET_CONTENT = 'GET_CONTENT';
 export const GET_CONTENT_START = 'GET_CONTENT_START';
@@ -30,23 +31,10 @@ export const getContent = (
     payload: {
       promise: steemAPI
         .getContentAsync(postAuthor, postPermlink)
-        .then(postData => omit(postData, omitAttributes)),
-    },
-  });
-};
-
-export const getContentReplies = (
-  { author: postAuthor, permlink: postPermlink, omitAttributes = [] } = {}
-) => (dispatch, getState, { steemAPI }) => {
-  if (!postAuthor || !postPermlink) {
-    return null;
-  }
-  return dispatch({
-    type: GET_CONTENT_REPLIES,
-    payload: {
-      promise: steemAPI
-        .getContentRepliesAsync(postAuthor, postPermlink)
-        .then(repliesData => omit(repliesData, omitAttributes)),
+        .then((postData) => {
+          dispatch(setCurrentContent(postData));
+          return omit(postData, omitAttributes);
+        }),
     },
   });
 };
