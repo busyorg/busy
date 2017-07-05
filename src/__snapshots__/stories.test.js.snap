@@ -8588,7 +8588,7 @@ exports[`Storyshots Sidebar Trending topics 1`] = `
     <h5
       onClick={[Function]}
     >
-      View mores
+      View more
     </h5>
   </div>
 </div>
