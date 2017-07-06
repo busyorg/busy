@@ -1,4 +1,17 @@
 .feed-layout {
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  .pull-left {
+    float: left;
+  }
+
+  .pull-right {
+    float: right;
+  }
   .left {
     display: none;
     width: @left-width;
@@ -9,7 +22,7 @@
   }
 
   .rightmarker {
-    position: absolute;
+    position: relative;
     right: 0;
     width: @right-width;
   }

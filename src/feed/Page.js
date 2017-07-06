@@ -104,12 +104,12 @@ export default class Page extends React.Component {
         </Helmet>
         <div className="shifted">
           <div className="feed-layout container">
-            <Affix stickPosition={77}>
+            <Affix className="pull-left" stickPosition={77}>
               <div className="left">
                 <LeftSidebar auth={auth} />
               </div>
             </Affix>
-            <Affix className="rightmarker" stickPosition={77}>
+            <Affix className="pull-right rightmarker" stickPosition={77}>
               <div className="right">
                 <RightSidebar auth={auth} />
               </div>

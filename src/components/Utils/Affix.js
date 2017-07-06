@@ -84,7 +84,7 @@ class Affix extends React.Component {
     return (
       <div
         className={this.props.className}
-        style={{ position: 'absolute' }}
+        style={{ position: 'relative' }}
         ref={(container) => { this.container = container; }}
       >
         {this.props.children}

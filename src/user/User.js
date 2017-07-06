@@ -142,12 +142,12 @@ export default class User extends React.Component {
         {user && <UserHero auth={auth} user={user} username={displayedUsername} />}
         <div className="shifted">
           <div className="feed-layout container">
-            <Affix stickPosition={72}>
+            <Affix className="pull-left" stickPosition={72}>
               <div className="left">
                 <LeftSidebar auth={auth} user={user} />
               </div>
             </Affix>
-            <Affix className="rightmarker" stickPosition={72}>
+            <Affix className="pull-right rightmarker" stickPosition={72}>
               <div className="right">
                 <RightSidebar auth={this.props.auth} />
               </div>

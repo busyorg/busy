@@ -208,7 +208,7 @@ export default class PostSingle extends Component {
         <div className="shifted">
           <div className="post-layout container">
             {
-              auth.user.name && <Affix className="rightmarker" stickPosition={77}>
+              auth.user.name && <Affix className="pull-right rightmarker" stickPosition={77}>
                 <div className="right">
                   <RightSidebar auth={auth} />
                 </div>
