@@ -37,7 +37,7 @@ class Affix extends React.Component {
 
     const windowHeight = document.body.clientHeight;
     const sidebarHeight = this.container.clientHeight;
-    const scrollTop = document.body.scrollTop;
+    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
     const scrollDiff = scrollTop - this.lastScroll;
     const scrollingDown = this.lastScroll < document.body.scrollTop;
     const offsetParent = this.container.offsetParent;
@@ -48,7 +48,7 @@ class Affix extends React.Component {
 
     if (fits) {
       if (scrollTop >= offsetParent.offsetTop - stickPosition) {
-        this.top = document.body.scrollTop + (stickPosition - offsetParent.offsetTop);
+        this.top = scrollTop + (stickPosition - offsetParent.offsetTop);
       } else {
         this.top = 0;
       }
