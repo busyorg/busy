@@ -46,6 +46,14 @@ class StoryFull extends React.Component {
     };
   }
 
+  componentDidMount() {
+    document.body.classList.add('white-bg');
+  }
+
+  componentWillUnmount() {
+    document.body.classList.remove('white-bg');
+  }
+
   handleClick = (key) => {
     switch (key) {
       case 'follow':
