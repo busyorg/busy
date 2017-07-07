@@ -80,8 +80,8 @@ export const LeftSidebar = ({ auth, user }) =>
                 <FormattedDate value={user.created} year="numeric" month="long" day="numeric" />
               </div>
             </div>}
-          {user && <Action text="Transfer" />}
-          {user && <Action text="Message" />}
+          {user && <Action style={{ margin: '5px 0' }} text="Transfer" />}
+          {user && <Action style={{ margin: '5px 0' }} text="Message" />}
         </SidebarWrapper>)}
     />
     <Route

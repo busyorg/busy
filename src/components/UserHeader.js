@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import { Button, Popover } from 'antd';
 import Avatar from './Avatar';
 import Follow from './Button/Follow';
+import Action from './Button/Action';
 import PopoverMenu, { PopoverMenuItem } from './PopoverMenu/PopoverMenu';
 import './UserHeader.less';
 
@@ -14,7 +15,7 @@ const UserHeader = ({ auth, username, handle, isSameUser }) => (
           <h2 className="UserHeader__user__username">{username}</h2>
           <div className="UserHeader__user__button">
             {(auth && auth.isAuthenticated)
-              && ((isSameUser) ? <Button>Edit profile</Button> : <Follow />)}
+              && ((isSameUser) ? <Action small text="Edit profile" /> : <Follow />)}
           </div>
           <Popover
             placement="bottom"
