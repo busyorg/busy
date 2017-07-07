@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import steemAPI from '../steemAPI';
-import Loading from '../widgets/Loading';
+import Loading from '../components/Icon/Loading';
 import Tag from './Tag';
 import * as favoriteActions from '../favorites/favoritesActions';
 

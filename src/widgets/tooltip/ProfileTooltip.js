@@ -6,7 +6,7 @@ import _ from 'lodash';
 import UserCoverImage from '../../user/UserCoverImage';
 import Avatar from '../Avatar';
 import Icon from '../Icon';
-import Loading from '../Loading';
+import Loading from '../../components/Icon/Loading';
 import Follow from '../Follow';
 import Badge from '../Badge';
 import { getAccountWithFollowingCount } from '../../helpers/apiHelpers';
