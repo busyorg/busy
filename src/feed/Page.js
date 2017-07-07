@@ -30,16 +30,24 @@ class TopicSelectorImpl extends React.Component {
   }
 
   onChange = (key) => {
-    const { location, history } = this.props;
-    history.push(`/${key}/${location.pathname.split('/')[2]}`);
+    const { category, history } = this.props;
+    if (category) {
+      history.push(`/${key}/${category}`);
+    } else {
+      history.push(`/${key}`);
+    }
   }
 
   render() {
-    const current = this.props.location.pathname.split('/')[1];
+    const { category, location } = this.props;
+    const current = location.pathname.split('/')[1] || 'created';
+
+    const topics = (category) ? [category] : [];
+
     return (
       <TopicSelector
         defaultSort={current}
-        topics={[this.props.category]}
+        topics={topics}
         onSortChange={this.onChange}
       />);
   }
@@ -112,7 +120,7 @@ export default class Page extends React.Component {
               </div>
             </div>
             <div className="center">
-              { category && <TopicSelectorWrapper category={category} /> }
+              <TopicSelectorWrapper category={category} />
               {/*{category &&
                 <h2 className="mt-3 text-center">
                   <span className="text-info">#</span>
