@@ -74,6 +74,7 @@ export const LeftSidebar = ({ auth, user }) =>
             <div>
               {_.get(jsonParse(user.json_metadata), 'profile.about')}
               <div style={{ marginTop: 16, marginBottom: 16 }}>
+                <i className="iconfont icon-time text-icon" />
                 Joined
                 {' '}
                 <FormattedDate value={user.created} year="numeric" month="long" day="numeric" />
