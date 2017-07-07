@@ -29,6 +29,12 @@ const LatestComments = ({ comments }) => (
       <h4 className="LatestComments__title"><i className="iconfont icon-time LatestComments__icon" /> Latest Comments</h4>
       <div className="LatestComments__divider" />
       {comments && comments.map(comment => renderComment(comment))}
+      <div className="LatestComments__divider" />
+      <h4 className="LatestComments__more">
+        <Link to={'/latest-comments'}>
+          See All Comments
+        </Link>
+      </h4>
     </div>
   </div>
 );

@@ -17,7 +17,8 @@
     "build:server": "NODE_ENV=production webpack -p --config ./webpack/webpack.server.config.js",
     "build:client": "npm run cleanup-public && mkdir -p public && cp -r ./assets/* ./public/ && webpack -p --config ./webpack/webpack.prod.config.js",
     "build": "NODE_ENV=production npm run build:client && npm run build:server",
-    "postinstall": "npm run build",
+    "heroku-prebuild": "npm i -g pm2 && pm2 install pm2-logrotate",
+    "heroku-postbuild": "npm run build",
     "cleanup-public": "rm -rf ./public/*",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
