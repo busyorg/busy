@@ -7,6 +7,7 @@ import { Tooltip } from 'antd';
 import CommentForm from './CommentForm';
 import PayoutDetail from '../PayoutDetail';
 import Avatar from '../Avatar';
+import Body from '../Story/Body'
 import './Comment.less';
 
 class Comment extends React.Component {
@@ -80,7 +81,7 @@ class Comment extends React.Component {
           </span>
           <div className="Comment__content">
             {
-              (this.state.collapsed) ? <div className="Comment__content__collapsed">Comment collapsed</div> : comment.body
+              (this.state.collapsed) ? <div className="Comment__content__collapsed">Comment collapsed</div> : <Body body={comment.body} />
             }
           </div>
           <div className="Comment__footer">

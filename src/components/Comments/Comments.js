@@ -53,7 +53,7 @@ class Comments extends React.Component {
           </div>
         </div>
 
-        {auth.isAuthenticated && <CommentForm username={auth.user.name} />}
+        {(auth && auth.isAuthenticated) && <CommentForm username={auth.user.name} />}
         {
           comments && sortComments(comments, sort).map(comment => (
             <Comment

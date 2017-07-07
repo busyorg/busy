@@ -23,23 +23,23 @@ export const openPostModal = createAction(OPEN_POST_MODAL);
 export const closePostModal = createAction(CLOSE_POST_MODAL);
 
 export const getConfig = () =>
-(dispatch, getState, { steemAPI }) => {
-  dispatch({ type: CONFIG_REQUEST });
-  steemAPI.getConfig((err, config) => {
-    dispatch({
-      type: CONFIG_SUCCESS,
-      config,
+  (dispatch, getState, { steemAPI }) => {
+    dispatch({ type: CONFIG_REQUEST });
+    steemAPI.getConfig((err, config) => {
+      dispatch({
+        type: CONFIG_SUCCESS,
+        config,
+      });
     });
-  });
-};
+  };
 
 export const SET_LAYOUT = '@app/SET_LAYOUT';
 export const setLayoutAction = createAction(SET_LAYOUT);
 
 export const setLayout = layout =>
-(dispatch) => {
-  dispatch(setLayoutAction({ layout }));
-};
+  (dispatch) => {
+    dispatch(setLayoutAction({ layout }));
+  };
 
 export const SET_CURRENT_CONTENT = '@app/SET_CURRENT_CONTENT';
 export const REMOVE_CURRENT_CONTENT = '@app/REMOVE_CURRENT_CONTENT';
@@ -52,33 +52,33 @@ export const setCurrentContent = content => (dispatch) => {
 };
 
 export const removeCurrentContent = () =>
-(dispatch) => {
-  dispatch({
-    type: REMOVE_CURRENT_CONTENT,
-  });
-};
+  (dispatch) => {
+    dispatch({
+      type: REMOVE_CURRENT_CONTENT,
+    });
+  };
 
 export const SET_LOCALE = '@app/SET_LOCALE';
 export const setLocaleAction = createAction(SET_LOCALE);
 
 export const setLocale = locale =>
-(dispatch) => {
-  dispatch(setLocaleAction({ locale }));
-};
+  (dispatch) => {
+    dispatch(setLocaleAction({ locale }));
+  };
 
 export const RATE_REQUEST = '@app/RATE_REQUEST';
 export const RATE_SUCCESS = '@app/RATE_SUCCESS';
 
 export const getRate = () =>
-(dispatch) => {
-  dispatch({ type: RATE_REQUEST });
-  fetch('https://api.cryptonator.com/api/ticker/steem-usd')
-  .then(res => res.json())
-  .then((json) => {
-    const rate = json.ticker.price;
-    dispatch({
-      type: RATE_SUCCESS,
-      rate,
+  (dispatch) => {
+    dispatch({ type: RATE_REQUEST });
+    fetch('https://api.cryptonator.com/api/ticker/steem-usd')
+    .then(res => res.json())
+    .then((json) => {
+      const rate = json.ticker.price;
+      dispatch({
+        type: RATE_SUCCESS,
+        rate,
+      });
     });
-  });
-};
+  };

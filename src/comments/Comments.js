@@ -74,6 +74,17 @@ export default class Comments extends Component {
       comments.listByPostId[postId].list.map(id => comments.comments[id]) :
       null;
 
+    let commentsChildren = {};
+
+    if (fetchedCommentsList && fetchedCommentsList.length) {
+      fetchedCommentsList.forEach((comment) => {
+        const commentsListById = comments.listByCommentId && comments.listByCommentId[comment.id];
+        if (commentsListById && commentsListById.length) {
+          commentsChildren[comment.id] = commentsListById.map(id => comments.comments[id]);
+        }
+      });
+    }
+
     if (isFetching || !fetchedCommentsList) {
       return (<Loading />);
     }
@@ -83,7 +94,7 @@ export default class Comments extends Component {
         <CommentsList
           comments={fetchedCommentsList}
           auth={this.props.auth}
-          commentsChildren={null}
+          commentsChildren={commentsChildren}
           onLikeClick={this.props.likeComment}
           onDislikeClick={this.props.dislikeComment}
         />

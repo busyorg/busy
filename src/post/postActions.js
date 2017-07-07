@@ -1,17 +1,12 @@
 import steemConnect from 'sc2-sdk';
 import Promise from 'bluebird';
 import { omit } from 'lodash/object';
-import { setCurrentContent } from '../actions'
+import { setCurrentContent } from '../actions';
 
 export const GET_CONTENT = 'GET_CONTENT';
 export const GET_CONTENT_START = 'GET_CONTENT_START';
 export const GET_CONTENT_SUCCESS = 'GET_CONTENT_SUCCESS';
 export const GET_CONTENT_ERROR = 'GET_CONTENT_ERROR';
-
-export const GET_CONTENT_REPLIES = 'GET_CONTENT_REPLIES';
-export const GET_CONTENT_REPLIES_START = 'GET_CONTENT_REPLIES_START';
-export const GET_CONTENT_REPLIES_SUCCESS = 'GET_CONTENT_REPLIES_SUCCESS';
-export const GET_CONTENT_REPLIES_ERROR = 'GET_CONTENT_REPLIES_ERROR';
 
 export const LIKE_POST = '@post/LIKE_POST';
 export const LIKE_POST_START = '@post/LIKE_POST_START';
