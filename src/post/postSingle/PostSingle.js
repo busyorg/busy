@@ -206,7 +206,7 @@ export default class PostSingle extends Component {
         <div className="shifted">
           <div className="post-layout container">
             {
-              auth.user.name && <div className="rightmarker">
+              <div className="rightmarker">
                 <div className="right">
                   <RightSidebar auth={auth} />
                 </div>
