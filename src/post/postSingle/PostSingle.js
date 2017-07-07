@@ -233,6 +233,7 @@ export default class PostSingle extends Component {
               <StoryFull
                 post={content}
                 postState={postState}
+                commentCount={content.children}
                 onFollowClick={() => console.log('Follow click')}
                 onSaveClick={() => toggleBookmark(content.id)}
                 onReportClick={reportPost}

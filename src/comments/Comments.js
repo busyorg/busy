@@ -1,10 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { FormattedMessage } from 'react-intl';
-import Select from 'react-select';
 import 'react-select/dist/react-select.css';
-import CommentsList from './CommentsList';
+import CommentsList from '../components/Comments/Comments';
 import * as commentsActions from './commentsActions';
 import Loading from '../widgets/Loading';
 import './Comments.less';
@@ -64,68 +62,36 @@ export default class Comments extends Component {
   };
 
   render() {
-    const { postId, comments, className, show } = this.props;
+    const { postId, comments, show } = this.props;
+
     if (!show) {
       return <div />;
     }
 
-    const hasMore = (comments.listByPostId[postId] && comments.listByPostId[postId].hasMore);
     const isFetching = (comments.listByPostId[postId] && comments.listByPostId[postId].isFetching);
 
-    const sortingOptions = [
-      { value: 'trending', label: 'Trending' },
-      { value: 'votes', label: 'Votes' },
-      { value: 'new', label: 'New' },
-    ];
+    const fetchedCommentsList = (isFetching === false) ?
+      comments.listByPostId[postId].list.map(id => comments.comments[id]) :
+      null;
 
-    const classNames = className ? `Comments ${className}` : 'Comments';
-    return (
-      <div className={classNames}>
+    if (isFetching || !fetchedCommentsList) {
+      return (<Loading />);
+    }
 
-        {this.props.isSinglePage &&
-          <div style={{ width: '200px' }}>
-            <span>
-              Sort by:
-            </span>
-            <Select
-              value={this.state.sortOrder}
-              options={sortingOptions}
-              onChange={this.handleSortChange}
-              clearable={false}
-            />
-          </div>
-        }
-
+    if (fetchedCommentsList && fetchedCommentsList.length) {
+      return (
         <CommentsList
-          postId={postId}
-          comments={comments}
-          likeComment={this.props.likeComment}
-          unlikeComment={this.props.unlikeComment}
-          dislikeComment={this.props.dislikeComment}
+          comments={fetchedCommentsList}
           auth={this.props.auth}
-          openCommentingDraft={this.props.openCommentingDraft}
-          isSinglePage={this.props.isSinglePage}
-          sortOrder={this.state.sortOrder}
+          commentsChildren={null}
+          onLikeClick={this.props.likeComment}
+          onDislikeClick={this.props.dislikeComment}
         />
+      );
+    }
 
-        {isFetching &&
-          <Loading />
-        }
-
-        {(hasMore && !this.props.isSinglePage) &&
-          <a
-            className="Comments__showMore"
-            tabIndex="0"
-            onClick={this.handleShowMore}
-          >
-            <FormattedMessage
-              id="see_more_comments"
-              defaultMessage="See More Comments"
-            />
-          </a>
-        }
-
-      </div>
+    return (
+      <div />
     );
   }
 }

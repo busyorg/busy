@@ -43,6 +43,11 @@
   }
 
   &__content {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+    hyphens: auto;
+
     &__collapsed {
       font-weight: bold;
       text-align: center;
@@ -76,7 +81,7 @@
       &--active {
         color: @purple;
       }
-    
+
       & > .iconfont {
         margin-right: 4px;
         font-size: 18px !important;

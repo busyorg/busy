@@ -37,7 +37,7 @@ class Comments extends React.Component {
   };
 
   render() {
-    const { comments, commentsChildren, onLikeClick, onDislikeClick } = this.props;
+    const { comments, commentsChildren, onLikeClick, onDislikeClick, auth } = this.props;
     const { sort } = this.state;
 
     return (
@@ -52,7 +52,8 @@ class Comments extends React.Component {
             <a className={classNames({ active: sort === 'OLDEST' })} data-type="OLDEST">Oldest</a>
           </div>
         </div>
-        <CommentForm />
+
+        {auth.isAuthenticated && <CommentForm username={auth.user.name} />}
         {
           comments && sortComments(comments, sort).map(comment => (
             <Comment
@@ -72,6 +73,7 @@ Comments.propTypes = {
   commentsChildren: PropTypes.shape(),
   onLikeClick: PropTypes.func,
   onDislikeClick: PropTypes.func,
+  auth: PropTypes.shape()
 };
 
 Comments.defaultProps = {
