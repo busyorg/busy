@@ -8,6 +8,7 @@ import Topics from '../../components/Sidebar/Topics';
 import Sidenav from '../../components/Navigation/Sidenav';
 import InterestingPeople from '../../components/Sidebar/InterestingPeople';
 import StartNow from '../../components/Sidebar/StartNow';
+import SignUp from '../../components/Sidebar/SignUp';
 import Action from '../../components/Button/Action';
 import { jsonParse } from '../../helpers/formatter';
 
@@ -115,4 +116,6 @@ export const RightSidebar = ({ auth }) =>
             </SidebarWrapper>)}
       />
     </Switch>
-    : <SidebarWrapper />;
+    : <SidebarWrapper>
+      <SignUp />
+    </SidebarWrapper>;
