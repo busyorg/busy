@@ -100,6 +100,8 @@ class Story extends React.Component {
         <div className="Story__content">
           <Link to={post.url} className="Story__content__title">
             <h2>{post.title}</h2>
+          </Link>
+          <Link to={post.url} className="Story__content__preview">
             <StoryPreview post={post} />
           </Link>
         </div>
