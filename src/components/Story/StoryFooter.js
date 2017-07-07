@@ -7,6 +7,7 @@ import PayoutDetail from '../PayoutDetail';
 import './StoryFooter.less';
 
 const StoryFooter = ({ post, postState, onLikeClick, onCommentClick, onShareClick }) => {
+  const maxPayout = parseFloat(post.max_accepted_payout) || 0;
   const payout = parseFloat(post.pending_payout_value) || parseFloat(post.total_payout_value);
   const payoutValue = numeral(payout).format('$0,0.00');
   const likesValue = numeral(post.active_votes.filter(vote => vote.percent > 0).length).format(
@@ -18,7 +19,7 @@ const StoryFooter = ({ post, postState, onLikeClick, onCommentClick, onShareClic
 
   return (
     <div className="StoryFooter">
-      <span className="StoryFooter__payout">
+      <span className={classNames('StoryFooter__payout', { 'StoryFooter__payout--rejected': maxPayout === 0 })}>
         <Tooltip title={<PayoutDetail post={post} />} placement="bottom">
           {payoutValue}
         </Tooltip>
