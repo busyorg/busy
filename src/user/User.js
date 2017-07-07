@@ -115,6 +115,8 @@ export default class User extends React.Component {
     const displayedUsername = profile.name || username || '';
     const title = `${displayedUsername} - Busy`;
 
+    const isSameUser = (auth && auth.isAuthenticated) && auth.user.name === username;
+
     return (
       <div className="main-panel">
         <Helmet>
@@ -138,7 +140,7 @@ export default class User extends React.Component {
             content={image || 'https://steemit.com/images/steemit-twshare.png'}
           />
         </Helmet>
-        {user && <UserHero auth={auth} user={user} username={displayedUsername} />}
+        {user && <UserHero auth={auth} user={user} username={displayedUsername} isSameUser={isSameUser} />}
         <div className="shifted">
           <div className="feed-layout container">
             <div className="left">

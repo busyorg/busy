@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Loading from '../widgets/Loading';
+import Loading from '../components/Icon/Loading';
 import Error401 from '../statics/Error401';
 
 const RequiredLogin = ({ children, auth }) => {

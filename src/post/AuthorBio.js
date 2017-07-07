@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import steemAPI from '../steemAPI';
 import { jsonParse } from '../helpers/formatter';
 import Avatar from '../widgets/Avatar';
-import Loading from '../widgets/Loading';
+import Loading from '../components/Icon/Loading';
 import Follow from '../widgets/Follow';
 import './AuthorBio.less';
 

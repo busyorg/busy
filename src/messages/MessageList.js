@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 
 import './MessageList.less';
 import InfiniteScroll from '../widgets/InfiniteScroll';
-import Loading from '../widgets/Loading';
+import Loading from '../components/Icon/Loading';
 import MessageDateGroup from './MessageDateGroup';
 import { getTopPosition, setTopPosition, getViewportHeight } from '../helpers/scrollHelpers';
 import { groupMessagesByDate } from './messageGroupHelpers';

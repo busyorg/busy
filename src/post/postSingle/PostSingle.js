@@ -15,7 +15,7 @@ import * as commentsActions from '../../comments/commentsActions';
 import * as bookmarkActions from '../../bookmarks/bookmarksActions';
 import * as appActions from '../../actions';
 import { editPost } from '../Write/EditorActions';
-import Loading from '../../widgets/Loading';
+import Loading from '../../components/Icon/Loading';
 import { jsonParse } from '../../helpers/formatter';
 import StoryFull from '../../components/Story/StoryFull';
 import { RightSidebar } from '../../app/Sidebar/index';
@@ -206,7 +206,7 @@ export default class PostSingle extends Component {
         <div className="shifted">
           <div className="post-layout container">
             {
-              auth.user.name && <div className="rightmarker">
+              <div className="rightmarker">
                 <div className="right">
                   <RightSidebar auth={auth} />
                 </div>

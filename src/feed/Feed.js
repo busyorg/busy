@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import ReduxInfiniteScroll from 'redux-infinite-scroll';
 import _ from 'lodash';
 // import Modal from '../widgets/modal/Modal';
-// import Loading from '../widgets/Loading';
 // import PostFeed from '../post/PostFeed';
 // import CommentForm from '../comments/CommentForm';
 // import * as appActions from '../actions';

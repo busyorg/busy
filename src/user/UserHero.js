@@ -28,14 +28,19 @@ class UserMenuImpl extends React.Component {
 
 const UserMenuWrapper = withRouter(UserMenuImpl);
 
-const UserHero = ({ auth, user, username }) => (
+const UserHero = ({ auth, user, username, isSameUser }) => (
   <div>
     <Switch>
       <Route
         path="/@:name"
         render={() => (
           <div>
-            <UserHeader username={username} handle={user.name} />
+            <UserHeader
+              auth={auth}
+              username={username}
+              handle={user.name}
+              isSameUser={isSameUser}
+            />
             <UserMenuWrapper
               discussions={user.post_count}
               comments={0}
