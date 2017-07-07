@@ -7175,7 +7175,6 @@ exports[`Storyshots Editor Editor 1`] = `
                     ],
                   },
                 ],
-                "validateTrigger": "onChange",
                 "valuePropName": "value",
               }
             }
