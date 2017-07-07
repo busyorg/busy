@@ -125,7 +125,7 @@ class StoryFull extends React.Component {
             placement="bottom"
             trigger="click"
             content={
-              <PopoverMenu onSelect={this.handleClick}>
+              <PopoverMenu onSelect={this.handleClick} bold={false}>
                 <PopoverMenuItem key="follow">
                   <i className="iconfont icon-people" /> {!userFollowed ? 'Follow' : 'Unfollow'}
                   {' '}{post.author}
