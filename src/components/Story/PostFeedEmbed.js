@@ -21,7 +21,7 @@ export default class PostFeedEmbed extends Component {
   }
 
   handleThumbClick = (e) => {
-    e.stopPropagation();
+    e.preventDefault();
     this.setState({ showIframe: true });
   };
 
