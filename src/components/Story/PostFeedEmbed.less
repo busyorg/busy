@@ -1,32 +1,27 @@
 @import "../../styles/custom.less";
 
 .PostFeedEmbed {
+  position: relative;
   margin: 4px 0;
   display: flex;
-  align-items: center;
-  justify-content: center;
   cursor: pointer;
   background-color: #000000;
 
-  &:hover {
+  &__playButton {
+    position: absolute;
+    display: flex;
+    height: 100%;
+    width: 100%;
+    background: fade(@primary-color, 20%);
+
     & .iconfont {
-      font-size: 7em;
+      margin: auto;
+      font-size: 6em;
+      color: @white;
     }
   }
-}
-
-.PostFeedEmbed__playButton {
-  position: absolute;
-  display: flex;
-  transition: 0.2s all;
-
-  & .iconfont {
-    font-size: 6em;
-    transition: 0.2s all;
-    color: @primary-color;
+  
+  &__preview {
+    width: 100%;
   }
-}
-
-.PostFeedEmbed__preview {
-  width: 100%;
 }
