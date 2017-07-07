@@ -53,9 +53,23 @@
     word-wrap: break-word;
 
     &__title {
-      font-size: 20px;
-      margin: 0 16px 8px;
-      color: #353535 !important;
+      color: #353535;
+
+      &:hover,
+      &:focus,
+      &:active {
+        color: #353535;
+        text-decoration: none;
+      }
+
+      &:visited {
+        color: @primary-color;
+      }
+
+      & > h2 {
+        font-size: 20px;
+        margin: 0 16px 8px;
+      }
     }
 
     &__body {
