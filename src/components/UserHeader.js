@@ -1,11 +1,12 @@
 import React, { PropTypes } from 'react';
-import { Popover } from 'antd';
+import { Button, Popover } from 'antd';
 import Avatar from './Avatar';
 import Follow from './Button/Follow';
+import Action from './Button/Action';
 import PopoverMenu, { PopoverMenuItem } from './PopoverMenu/PopoverMenu';
 import './UserHeader.less';
 
-const UserHeader = ({ username, handle }) => (
+const UserHeader = ({ auth, username, handle, isSameUser }) => (
   <div className="UserHeader">
     <div className="UserHeader__container">
       <Avatar username={handle} size={100} />
@@ -13,7 +14,8 @@ const UserHeader = ({ username, handle }) => (
         <div className="UserHeader__row">
           <h2 className="UserHeader__user__username">{username}</h2>
           <div className="UserHeader__user__button">
-            <Follow />
+            {(auth && auth.isAuthenticated)
+              && ((isSameUser) ? <Action small text="Edit profile" /> : <Follow />)}
           </div>
           <Popover
             placement="bottom"
@@ -37,13 +39,17 @@ const UserHeader = ({ username, handle }) => (
   </div>);
 
 UserHeader.propTypes = {
+  auth: PropTypes.shape(),
   username: PropTypes.string,
   handle: PropTypes.string,
+  isSameUser: PropTypes.bool,
 };
 
 UserHeader.defaultProps = {
+  auth: {},
   username: '',
   handle: '',
+  isSameUser: false,
 };
 
 export default UserHeader;

@@ -9,7 +9,7 @@ import classNames from 'classnames';
 import Textarea from 'react-textarea-autosize';
 import Icon from '../widgets/Icon';
 import * as commentActions from './commentsActions';
-import Loading from '../widgets/Loading';
+import Loading from '../components/Icon/Loading';
 import { notify } from '../app/Notification/notificationActions';
 import './CommentForm.less';
 

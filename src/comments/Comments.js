@@ -6,7 +6,7 @@ import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 import CommentsList from './CommentsList';
 import * as commentsActions from './commentsActions';
-import Loading from '../widgets/Loading';
+import Loading from '../components/Icon/Loading';
 import './Comments.less';
 
 @connect(

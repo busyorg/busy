@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
-import { FormattedRelative } from 'react-intl';
+import { FormattedRelative, FormattedDate, FormattedTime } from 'react-intl';
 import { Link } from 'react-router-dom';
-import { Popover } from 'antd';
+import { Popover, Tooltip } from 'antd';
 import StoryPreview from './StoryPreview';
 import StoryFooter from './StoryFooter';
 import Avatar from '../Avatar';
@@ -78,19 +78,32 @@ class Story extends React.Component {
             <Link to={`/@${post.author}`}>
               <h4>{post.author}</h4>
             </Link>
-            <span className="Story__date">
-              <FormattedRelative value={`${post.created}Z`} />
-            </span>
+            <Tooltip
+              placement="bottom"
+              title={
+                <span>
+                  <FormattedDate value={`${post.created}Z`} />
+                  {' '}
+                  <FormattedTime value={`${post.created}Z`} />
+                </span>
+              }
+            >
+              <span className="Story__date">
+                <FormattedRelative value={`${post.created}Z`} />
+              </span>
+            </Tooltip>
           </div>
           <div className="Story__topics">
             <Topic name={post.category} />
           </div>
         </div>
         <div className="Story__content">
-          <Link to={post.url}>
-            <h2 className="Story__content__title">{post.title}</h2>
+          <Link to={post.url} className="Story__content__title">
+            <h2>{post.title}</h2>
           </Link>
-          <StoryPreview post={post} />
+          <Link to={post.url} className="Story__content__preview">
+            <StoryPreview post={post} />
+          </Link>
         </div>
         <div className="Story__footer">
           <StoryFooter

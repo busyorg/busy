@@ -35,6 +35,10 @@
 
     &__text {
       margin: 0 12px;
+
+      a > h4 {
+        color: @primary-color;
+      }
     }
   }
 
@@ -53,9 +57,37 @@
     word-wrap: break-word;
 
     &__title {
-      font-size: 20px;
-      margin: 0 16px 8px;
-      color: #353535 !important;
+      color: #353535;
+
+      &:hover,
+      &:focus,
+      &:active {
+        color: #353535;
+        text-decoration: none;
+      }
+
+      &:visited {
+        h2 {
+          color: #99aab5;
+        }
+      }
+
+      & > h2 {
+        font-size: 20px;
+        margin: 0 16px 8px;
+      }
+    }
+
+    &__preview {
+      color: #353535;
+
+      &:hover,
+      &:focus,
+      &:active,
+      &:visited {
+        color: #353535;
+        text-decoration: none;
+      }
     }
 
     &__body {

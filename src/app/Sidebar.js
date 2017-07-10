@@ -8,7 +8,7 @@ import numeral from 'numeral';
 import _ from 'lodash';
 import api from '../steemAPI';
 import { hideSidebar } from '../actions';
-import Loading from '../widgets/Loading';
+import Loading from '../components/Icon/Loading';
 import Icon from '../widgets/Icon';
 import SidebarHeader from './Sidebar/SidebarHeader';
 import SidebarTabs from './Sidebar/SidebarTabs';

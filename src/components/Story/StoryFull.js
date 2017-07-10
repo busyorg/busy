@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react';
 import _ from 'lodash';
-import { FormattedRelative } from 'react-intl';
+import { FormattedRelative, FormattedDate, FormattedTime } from 'react-intl';
 import { Link } from 'react-router-dom';
-import { Popover } from 'antd';
+import { Popover, Tooltip } from 'antd';
 import Lightbox from 'react-image-lightbox';
 import Body from './Body';
 import StoryFooter from './StoryFooter';
@@ -44,6 +44,14 @@ class StoryFull extends React.Component {
         index: 0,
       },
     };
+  }
+
+  componentDidMount() {
+    document.body.classList.add('white-bg');
+  }
+
+  componentWillUnmount() {
+    document.body.classList.remove('white-bg');
   }
 
   handleClick = (key) => {
@@ -106,15 +114,26 @@ class StoryFull extends React.Component {
             <Link to={`/@${post.author}`}>
               {post.author}
             </Link>
-            <span className="StoryFull__header__text__date">
-              <FormattedRelative value={`${post.created}Z`} />
-            </span>
+            <Tooltip
+              placement="bottom"
+              title={
+                <span>
+                  <FormattedDate value={`${post.created}Z`} />
+                  {' '}
+                  <FormattedTime value={`${post.created}Z`} />
+                </span>
+              }
+            >
+              <span className="StoryFull__header__text__date">
+                <FormattedRelative value={`${post.created}Z`} />
+              </span>
+            </Tooltip>
           </div>
           <Popover
             placement="bottom"
             trigger="click"
             content={
-              <PopoverMenu onSelect={this.handleClick}>
+              <PopoverMenu onSelect={this.handleClick} bold={false}>
                 <PopoverMenuItem key="follow">
                   <i className="iconfont icon-people" /> {!userFollowed ? 'Follow' : 'Unfollow'}
                   {' '}{post.author}

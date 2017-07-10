@@ -8,6 +8,7 @@ import Topics from '../../components/Sidebar/Topics';
 import Sidenav from '../../components/Navigation/Sidenav';
 import InterestingPeople from '../../components/Sidebar/InterestingPeople';
 import StartNow from '../../components/Sidebar/StartNow';
+import SignUp from '../../components/Sidebar/SignUp';
 import Action from '../../components/Button/Action';
 import { jsonParse } from '../../helpers/formatter';
 
@@ -74,13 +75,14 @@ export const LeftSidebar = ({ auth, user }) =>
             <div>
               {_.get(jsonParse(user.json_metadata), 'profile.about')}
               <div style={{ marginTop: 16, marginBottom: 16 }}>
+                <i className="iconfont icon-time text-icon" />
                 Joined
                 {' '}
                 <FormattedDate value={user.created} year="numeric" month="long" day="numeric" />
               </div>
             </div>}
-          {user && <Action text="Transfer" />}
-          {user && <Action text="Message" />}
+          {user && <Action style={{ margin: '5px 0' }} text="Transfer" />}
+          {user && <Action style={{ margin: '5px 0' }} text="Message" />}
         </SidebarWrapper>)}
     />
     <Route
@@ -114,4 +116,6 @@ export const RightSidebar = ({ auth }) =>
             </SidebarWrapper>)}
       />
     </Switch>
-    : <SidebarWrapper />;
+    : <SidebarWrapper>
+      <SignUp />
+    </SidebarWrapper>;
