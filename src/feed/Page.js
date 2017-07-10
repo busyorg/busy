@@ -113,10 +113,14 @@ export default class Page extends React.Component {
         <div className="shifted">
           <div className="feed-layout container">
             <Affix className="leftContainer" stickPosition={77}>
-              <LeftSidebar auth={auth} />
+              <div className="left">
+                <LeftSidebar auth={auth} />
+              </div>
             </Affix>
             <Affix className="rightContainer" stickPosition={77}>
-              <RightSidebar auth={auth} />
+              <div className="right">
+                <RightSidebar auth={auth} />
+              </div>
             </Affix>
             <div className="center">
               <TopicSelectorWrapper category={category} />
