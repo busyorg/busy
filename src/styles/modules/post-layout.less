@@ -1,25 +1,18 @@
 .post-layout {
+  position: relative;
+
   &:after {
     content: "";
     display: table;
     clear: both;
   }
 
-  .pull-left {
-    float: left;
-  }
-
-  .pull-right {
-    float: right;
-  }
-
-  .rightmarker {
-    position: relative;
-    right: 0;
+  .right {
     width: @right-width;
   }
 
-  .right {
+  .rightContainer {
+    float: right;
     display: none;
     width: @right-width;
 
@@ -29,11 +22,11 @@
   }
 
   .center {
+    float: left;
     width: 100%;
 
     @media @small {
       width: calc(100% ~"-" (@right-width + @margin)); 
-      margin-right: @right-width + @margin;
     }
   }
 }

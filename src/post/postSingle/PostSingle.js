@@ -207,7 +207,7 @@ export default class PostSingle extends Component {
         </Helmet>
         <div className="shifted">
           <div className="post-layout container">
-            <Affix className="pull-right rightmarker" stickPosition={77}>
+            <Affix className="rightContainer" stickPosition={77}>
               <div className="right">
                 <RightSidebar auth={auth} />
               </div>
