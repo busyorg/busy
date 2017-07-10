@@ -7587,6 +7587,7 @@ exports[`Storyshots Editor Editor 1`] = `
                     ],
                   },
                 ],
+                "validateTrigger": "onChange",
                 "valuePropName": "value",
               }
             }
@@ -9017,6 +9018,7 @@ exports[`Storyshots Story Full story 1`] = `
     </h1>
     <h3
       className="StoryFull__comments_title"
+      onClick={[Function]}
     >
       58
        Comments
@@ -9252,6 +9254,7 @@ exports[`Storyshots Story Full story with embed 1`] = `
     </h1>
     <h3
       className="StoryFull__comments_title"
+      onClick={[Function]}
     >
       58
        Comments
