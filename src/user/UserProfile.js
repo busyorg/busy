@@ -10,7 +10,7 @@ import {
   getFeedHasMoreFromState
 } from '../helpers/stateHelpers';
 import { getFeedContent as getFeedContentStatic } from '../feed/feedActions';
-import Loading from '../widgets/Loading';
+import Loading from '../components/Icon/Loading';
 import Icon from '../widgets/Icon';
 import Badge from '../widgets/Badge';
 import Donor from '../widgets/Donor';

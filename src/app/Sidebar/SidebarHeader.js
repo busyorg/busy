@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import steemconnect from 'sc2-sdk';
-import Loading from '../../widgets/Loading';
+import Loading from '../../components/Icon/Loading';
 import Icon from '../../widgets/Icon';
 import Avatar from '../../widgets/Avatar';
 import './SidebarHeader.less';

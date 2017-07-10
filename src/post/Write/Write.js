@@ -7,7 +7,7 @@ import TagsInput from 'react-tagsinput';
 import PostEditor from './PostEditor';
 import { createPost, saveDraft, newPost } from './EditorActions';
 import Icon from './../../widgets/Icon';
-import Loading from './../../widgets/Loading';
+import Loading from './../../components/Icon/Loading';
 import './Write.less';
 
 const version = require('../../../package.json').version;

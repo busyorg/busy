@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import 'react-select/dist/react-select.css';
 import CommentsList from '../components/Comments/Comments';
 import * as commentsActions from './commentsActions';
-import Loading from '../widgets/Loading';
+import Loading from '../components/Icon/Loading';
 import './Comments.less';
 
 @connect(

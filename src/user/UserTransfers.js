@@ -7,7 +7,7 @@ import { formatter } from 'steem';
 import steemconnect from 'sc2-sdk';
 import { connect } from 'react-redux';
 import api from '../steemAPI';
-import Loading from '../widgets/Loading';
+import Loading from '../components/Icon/Loading';
 import * as walletActions from '../wallet/walletActions';
 import TransferHistory from './TransferHistory';
 
