@@ -1,19 +1,25 @@
 .feed-layout {
+  position: relative;
+
   &:after {
     content: "";
     display: table;
     clear: both;
   }
 
-  .pull-left {
-    float: left;
+  .left {
+    width: @left-width;
+    background: linear-gradient(red, yellow);
   }
 
-  .pull-right {
-    float: right;
+  .right {
+    width: @right-width;
+    background: linear-gradient(red, yellow);
   }
-  .left {
-    display: none;
+
+
+  .leftContainer {
+    float: left;
     width: @left-width;
 
     @media @medium {
@@ -21,32 +27,28 @@
     }
   }
 
-  .rightmarker {
-    position: relative;
-    right: 0;
-    width: @right-width;
-  }
-
-  .right {
+  .rightContainer {
+    float: right;
     display: none;
     width: @right-width;
 
     @media @small {
       display: block;
-    }  
+    }
   }
 
   .center {
+    float: left;
     width: 100%;
+    background: #efefef;
 
     @media @small {
       width: calc(100% ~"-" (@right-width + @margin)); 
-      margin-right: @right-width + @margin;
     }
 
     @media @medium {
       width: calc(100% ~"-" (@left-width + @right-width + 2 * @margin));
-      margin-left: @left-width + @margin;
+      margin-left: @margin;
     }
   }
 }

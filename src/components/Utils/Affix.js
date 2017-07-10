@@ -1,5 +1,21 @@
 import React, { PropTypes } from 'react';
+import ResizeObserver from 'resize-observer-polyfill';
 
+/**
+ * Affix component
+ * @description This component provides similar behavior to Facebook sidebar.
+ * Affix component wraps content with two elements. relativeContainer and affixContainer.
+ * <relativeContainer>
+ *  <affixContainer>
+ *    {children}
+ *  </affixContainer>
+ * </relativeContainer>
+ * affixContainer uses absolute and fixed positioning, so its height has to be
+ * observed and relativeContainer should be updated with that height.
+ * affixContainer should make use of absolute and fixed positioning in order to
+ * fix content in place when reaching edges, but also allow scrolling when user
+ * want to reach content inside of it.
+ */
 class Affix extends React.Component {
   static propTypes = {
     children: PropTypes.element.isRequired,
@@ -14,80 +30,110 @@ class Affix extends React.Component {
 
   constructor(props) {
     super(props);
-    this.initialized = false;
     this.lastScroll = document.body.scrollTop;
 
     this.top = 0;
+    this.bindedBottom = false;
+    this.bindedTop = false;
+
+    this.ro = new ResizeObserver((entries) => {
+      entries.forEach((entry) => {
+        const { height } = entry.contentRect;
+        this.relativeContainer.style.height = `${height}px`;
+      });
+    });
   }
 
   componentDidMount() {
     document.addEventListener('scroll', this.handleScroll.bind(this));
+    this.ro.observe(this.affixContainer);
   }
 
   componentWillUnmount() {
     document.removeEventListener('scroll', this.handleScroll.bind(this));
+    this.ro.unobserve(this.affixContainer);
   }
 
   handleScroll() {
-    if (!this.container) {
-      return;
-    }
-
     const { stickPosition } = this.props;
 
     const windowHeight = document.body.clientHeight;
-    const sidebarHeight = this.container.clientHeight;
+    const sidebarHeight = this.affixContainer.clientHeight;
     const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    const scrollBottom = scrollTop + windowHeight;
     const scrollDiff = scrollTop - this.lastScroll;
-    const scrollingDown = this.lastScroll < document.body.scrollTop;
-    const offsetParent = this.container.offsetParent;
+    const scrollingDown = scrollDiff > 0;
+    const parent = this.relativeContainer.offsetParent;
+    const parentSpace = parent.offsetTop - stickPosition;
 
-    const viewportOffset = this.container.getBoundingClientRect();
+    const viewportOffset = this.affixContainer.getBoundingClientRect();
 
     const fits = (windowHeight >= sidebarHeight);
+    const overlaps = (viewportOffset.top < parent.getBoundingClientRect().top);
+    const shouldBindTop = (viewportOffset.top >= stickPosition && !scrollingDown
+      && !overlaps && scrollTop >= parent.offsetTop);
+
+    console.log(parent.offsetTop);
 
     if (fits) {
-      if (scrollTop >= offsetParent.offsetTop - stickPosition) {
-        this.top = scrollTop + (stickPosition - offsetParent.offsetTop);
-      } else {
-        this.top = 0;
+      if (viewportOffset.top <= stickPosition) {
+        this.affixContainer.style.position = 'fixed';
+        this.affixContainer.style.top = `${stickPosition}px`;
+      }
+
+      if (overlaps) {
+        this.affixContainer.style.position = 'absolute';
+        this.affixContainer.style.top = 'auto';
       }
     } else {
-      if (scrollingDown && (viewportOffset.bottom <= windowHeight)) {
-        this.top += scrollDiff;
+      if (!this.bindedBottom && scrollingDown && viewportOffset.bottom <= windowHeight) {
+        console.log('bindBottom');
+        this.affixContainer.style.position = 'fixed';
+        this.affixContainer.style.top = `${windowHeight - sidebarHeight}px`;
+        this.bindedBottom = true;
       }
-
-      if (!scrollingDown && viewportOffset.top >= stickPosition) {
-        this.top += scrollDiff;
+      if (shouldBindTop) {
+        console.log('bindTop');
+        this.affixContainer.style.position = 'fixed';
+        this.affixContainer.style.top = `${stickPosition}px`;
+        this.bindedTop = true;
       }
-    }
-
-    if (this.top < 0) {
-      this.top = 0;
-    }
-
-    this.container.style.top = `${this.top}px`;
-
-    if (!this.initialized && !fits) {
-      if (this.container.getBoundingClientRect().top >= stickPosition
-        && offsetParent.getBoundingClientRect().top <= stickPosition) {
-        this.top -= offsetParent.offsetTop - stickPosition;
-        this.container.style.top = `${this.top}px`;
+      if (this.bindedBottom && !scrollingDown) {
+        console.log('unbindBottom');
+        this.affixContainer.style.position = 'absolute';
+        this.affixContainer.style.top = `${scrollBottom - (sidebarHeight + parentSpace)}px`;
+        this.bindedBottom = false;
       }
-      this.initialized = true;
+      if (this.bindedTop && scrollingDown) {
+        console.log('unbindTop');
+        this.affixContainer.style.position = 'absolute';
+        this.affixContainer.style.top = `${scrollTop - (parent.offsetTop - stickPosition)}px`;
+        this.bindedTop = false;
+      }
+      if (overlaps) {
+      // if (!scrollingDown && overlaps) {
+        console.log('fixTopPosition');
+        this.affixContainer.style.position = 'absolute';
+        this.affixContainer.style.top = 'auto';
+      }
     }
 
     this.lastScroll = scrollTop;
   }
 
   render() {
+    const { className } = this.props;
     return (
       <div
-        className={this.props.className}
-        style={{ position: 'relative' }}
-        ref={(container) => { this.container = container; }}
+        className={className}
+        ref={(relativeContainer) => { this.relativeContainer = relativeContainer; }}
       >
-        {this.props.children}
+        <div
+          style={{ position: 'absolute' }}
+          ref={(affixContainer) => { this.affixContainer = affixContainer; }}
+        >
+          {this.props.children}
+        </div>
       </div>
     );
   }
