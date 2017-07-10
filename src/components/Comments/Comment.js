@@ -7,7 +7,7 @@ import { Tooltip } from 'antd';
 import CommentForm from './CommentForm';
 import PayoutDetail from '../PayoutDetail';
 import Avatar from '../Avatar';
-import Body from '../Story/Body'
+import Body from '../Story/Body';
 import './Comment.less';
 
 class Comment extends React.Component {

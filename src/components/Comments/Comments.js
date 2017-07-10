@@ -73,7 +73,7 @@ Comments.propTypes = {
   commentsChildren: PropTypes.shape(),
   onLikeClick: PropTypes.func,
   onDislikeClick: PropTypes.func,
-  auth: PropTypes.shape()
+  auth: PropTypes.shape(),
 };
 
 Comments.defaultProps = {
@@ -81,6 +81,7 @@ Comments.defaultProps = {
   commentsChildren: undefined,
   onLikeClick: () => {},
   onDislikeClick: () => {},
+  auth: undefined,
 };
 
 export default Comments;
