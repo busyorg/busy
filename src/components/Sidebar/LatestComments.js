@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import BodyShort from '../Story/BodyShort';
 import './LatestComments.less';
 
-const renderComment = ({ text, author, created }) => (
+const RenderComment = ({ text, author, created }) => (
   <div className="Comment">
     <div className="Comment__text">
       <div className="Comment__content">
@@ -28,7 +28,7 @@ const LatestComments = ({ comments }) => (
     <div className="LatestComments__container">
       <h4 className="LatestComments__title"><i className="iconfont icon-time LatestComments__icon" /> Latest Comments</h4>
       <div className="LatestComments__divider" />
-      {comments && comments.map(comment => renderComment(comment))}
+      {comments && comments.map(comment => (<RenderComment key={comment.id} {...comment} />))}
       <div className="LatestComments__divider" />
       <h4 className="LatestComments__more">
         <Link to={'/latest-comments'}>
