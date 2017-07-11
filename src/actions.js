@@ -73,12 +73,12 @@ export const getRate = () =>
   (dispatch) => {
     dispatch({ type: RATE_REQUEST });
     fetch('https://api.cryptonator.com/api/ticker/steem-usd')
-    .then(res => res.json())
-    .then((json) => {
-      const rate = json.ticker.price;
-      dispatch({
-        type: RATE_SUCCESS,
-        rate,
+      .then(res => res.json())
+      .then((json) => {
+        const rate = json.ticker.price;
+        dispatch({
+          type: RATE_SUCCESS,
+          rate,
+        });
       });
-    });
   };
