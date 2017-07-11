@@ -28,13 +28,7 @@ const LatestComments = ({ comments }) => (
     <div className="LatestComments__container">
       <h4 className="LatestComments__title"><i className="iconfont icon-time LatestComments__icon" /> Latest Comments</h4>
       <div className="LatestComments__divider" />
-      {comments && comments.map(comment => (<RenderComment
-        key={comment.id}
-        text={comment.text}
-        author={comment.author}
-        created={comment.created}
-      />
-      ))}
+      {comments && comments.map(comment => (<RenderComment key={comment.id} {...comment} />))}
       <div className="LatestComments__divider" />
       <h4 className="LatestComments__more">
         <Link to={'/latest-comments'}>

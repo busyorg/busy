@@ -31,14 +31,7 @@ const LatestRecommendations = ({ posts }) => (
     <div className="LatestRecommendations__container">
       <h4 className="LatestRecommendations__title"><i className="iconfont icon-flashlight_fill LatestRecommendations__icon" /> Latest Recommendations</h4>
       <div className="LatestRecommendations__divider" />
-      {posts && posts.map(post => (<RenderRecommendedPost
-        key={post.id}
-        title={post.title}
-        author={post.author}
-        created={post.created}
-        permlink={post.permlink}
-      />
-      ))}
+      {posts && posts.map(post => (<RenderRecommendedPost key={post.id} {...post} />))}
       <div className="LatestRecommendations__divider" />
       <h4 className="LatestRecommendations__more">
         <Link to={'/latest-recommendations'}>
