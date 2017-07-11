@@ -1,13 +1,19 @@
 .post-layout {
-  .rightmarker {
-    position: absolute;
-    right: 0;
-    width: @right-width;
+  position: relative;
+
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
   }
 
   .right {
+    width: @right-width;
+  }
+
+  .rightContainer {
+    float: right;
     display: none;
-    position: fixed;
     width: @right-width;
 
     @media @small {
@@ -16,11 +22,11 @@
   }
 
   .center {
+    float: left;
     width: 100%;
 
     @media @small {
       width: calc(100% ~"-" (@right-width + @margin)); 
-      margin-right: @right-width + @margin;
     }
   }
 }
