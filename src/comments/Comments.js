@@ -61,6 +61,17 @@ export default class Comments extends Component {
     }
   };
 
+  getNestedComments = (commentsObj, commentsIdArray, nestedComments) => {
+    commentsIdArray.forEach((commentId) => {
+      const nestedCommentArray = commentsObj.listByCommentId[commentId];
+      if (nestedCommentArray.length) {
+        nestedComments[commentId] = nestedCommentArray.map(id => commentsObj.comments[id]);
+        this.getNestedComments(commentsObj, nestedCommentArray, nestedComments);
+      }
+    });
+    return nestedComments;
+  }
+
   render() {
     const { postId, comments, show } = this.props;
 
@@ -77,12 +88,7 @@ export default class Comments extends Component {
     let commentsChildren = {};
 
     if (fetchedCommentsList && fetchedCommentsList.length) {
-      fetchedCommentsList.forEach((comment) => {
-        const commentsListById = comments.listByCommentId && comments.listByCommentId[comment.id];
-        if (commentsListById && commentsListById.length) {
-          commentsChildren[comment.id] = commentsListById.map(id => comments.comments[id]);
-        }
-      });
+      commentsChildren = this.getNestedComments(comments, comments.listByPostId[postId].list, {});
     }
 
     if (isFetching || !fetchedCommentsList) {
