@@ -5,7 +5,7 @@ import BodyShort from '../Story/BodyShort';
 import './LatestRecommendations.less';
 
 
-const renderRecommendedPost = ({ title, author, created, permlink }) => (
+const RenderRecommendedPost = ({ title, author, created, permlink }) => (
   <div className="Recommendation">
     <div className="Recommendation__text">
       <div className="Recommendation__title">
@@ -31,7 +31,7 @@ const LatestRecommendations = ({ posts }) => (
     <div className="LatestRecommendations__container">
       <h4 className="LatestRecommendations__title"><i className="iconfont icon-flashlight_fill LatestRecommendations__icon" /> Latest Recommendations</h4>
       <div className="LatestRecommendations__divider" />
-      {posts && posts.map(post => renderRecommendedPost(post))}
+      {posts && posts.map(post => (<RenderRecommendedPost key={post.id} {...post} />))}
       <div className="LatestRecommendations__divider" />
       <h4 className="LatestRecommendations__more">
         <Link to={'/latest-recommendations'}>
