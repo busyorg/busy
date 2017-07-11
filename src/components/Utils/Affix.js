@@ -56,7 +56,6 @@ class Affix extends React.Component {
   }
 
   handleScroll = () => {
-    console.log('--BEGIN--');
     const { stickPosition } = this.props;
 
     const windowHeight = document.body.clientHeight;
@@ -89,39 +88,32 @@ class Affix extends React.Component {
       }
     } else {
       if (!this.bindedBottom && scrollingDown && viewportOffset.bottom <= windowHeight) {
-        console.log('bindBottom');
         this.affixContainer.style.position = 'fixed';
         this.affixContainer.style.top = `${windowHeight - sidebarHeight}px`;
         this.bindedBottom = true;
       }
       if (shouldFix || shouldBindTop) {
-        console.log('bindTop');
         this.affixContainer.style.position = 'fixed';
         this.affixContainer.style.top = `${stickPosition}px`;
         this.bindedTop = true;
       }
       if (this.bindedBottom && !scrollingDown) {
-        console.log('unbindBottom');
         this.affixContainer.style.position = 'absolute';
         this.affixContainer.style.top = `${scrollBottom - (sidebarHeight + parentSpace)}px`;
         this.bindedBottom = false;
       }
       if (this.bindedTop && scrollingDown) {
-        console.log('unbindTop');
         this.affixContainer.style.position = 'absolute';
         this.affixContainer.style.top = `${scrollTop - (parent.offsetTop - stickPosition)}px`;
         this.bindedTop = false;
       }
       if (overlaps) {
-      // if (!scrollingDown && overlaps) {
-        console.log('fixTopPosition');
         this.affixContainer.style.position = 'absolute';
         this.affixContainer.style.top = 'auto';
       }
     }
 
     this.lastScroll = scrollTop;
-    console.log('--END--');
   }
 
   render() {
