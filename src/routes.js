@@ -21,8 +21,6 @@ import { Trending, Hot, Votes, Responses, Active, Created, Cashout } from './fee
 import PostSingle from './post/postSingle/PostSingle';
 import Bookmarks from './bookmarks/Bookmarks';
 import Error404 from './statics/Error404';
-import Write from './post/Write/Write';
-import Drafts from './post/Write/Drafts';
 import About from './statics/About';
 import Help from './statics/Help';
 import Team from './statics/Team';
@@ -30,8 +28,6 @@ import Signup from './auth/Signup';
 import Signin from './auth/Signin';
 import Login from './auth/Login';
 import RequireLogin from './auth/RequireLogin';
-import MessagesUser from './messages/MessagesUser';
-import MessagesCategory from './messages/MessagesCategory';
 
 export const UserRoutes = () =>
   (<Switch>
@@ -67,17 +63,9 @@ export default (
       <Route path="/responses/:category?" component={Responses} />
       <Route path="/votes/:category?" component={Votes} />
       <Route path="/transfer" render={() => <RequireLogin><Transfer /></RequireLogin>} />
-      <Route
-        path="/messages/@:username"
-        render={() => <RequireLogin><MessagesUser /></RequireLogin>}
-      />
-      <Route
-        path="/messages/:category"
-        render={() => <RequireLogin><MessagesCategory /></RequireLogin>}
-      />
       <Route path="/bookmarks" render={() => <RequireLogin><Bookmarks /></RequireLogin>} />
-      <Route path="/write" render={() => <RequireLogin><Write /></RequireLogin>} />
-      <Route path="/drafts" render={() => <RequireLogin><Drafts /></RequireLogin>} />
+      <Route path="/write" render={() => <RequireLogin><h1>WIP</h1></RequireLogin>} />
+      <Route path="/drafts" render={() => <RequireLogin><h1>WIP</h1></RequireLogin>} />
       <Route path="/settings" render={() => <RequireLogin><Settings /></RequireLogin>} />
       <Route path="/@:name" component={UserRoutes} />
       <Route path="/:category/@:author/:permlink" component={PostSingle} />

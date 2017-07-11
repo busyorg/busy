@@ -40,16 +40,6 @@ const MenuFeed = ({ auth, category }) => {
           </span>
         </NavLink>
       </li>
-      {auth.isAuthenticated &&
-        <li>
-          <NavLink to={`/messages/${channel}`} activeClassName="active">
-            <Icon name="chat_bubble_outline" />
-            <span className="hidden-xs">
-              {' '}<FormattedMessage id="chat" defaultMessage="Chat" />
-            </span>
-          </NavLink>
-        </li>
-      }
     </ul>
   );
 };
