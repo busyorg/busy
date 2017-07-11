@@ -75,9 +75,7 @@ class Affix extends React.Component {
     const shouldBindTop = (viewportOffset.top >= stickPosition && !scrollingDown
       && !overlaps && scrollTop >= parent.offsetTop);
     const shouldFix = this.affixContainer.offsetTop > parent.offsetTop
-      && viewportOffset.top >= parentSpace;
-
-    // console.log('shouldFix', shouldFix);
+      && viewportOffset.top > parentSpace && !scrollingDown;
 
     if (fits) {
       if (viewportOffset.top <= stickPosition) {
