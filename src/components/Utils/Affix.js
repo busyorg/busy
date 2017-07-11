@@ -34,12 +34,13 @@ class Affix extends React.Component {
 
     this.top = 0;
     this.bindedBottom = false;
-    this.bindedTop = false;
+    this.bindedTop = true;
 
     this.ro = new ResizeObserver((entries) => {
       entries.forEach((entry) => {
         const { height } = entry.contentRect;
         this.relativeContainer.style.height = `${height}px`;
+        this.handleScroll();
       });
     });
   }
@@ -72,8 +73,6 @@ class Affix extends React.Component {
     const overlaps = (viewportOffset.top < parent.getBoundingClientRect().top);
     const shouldBindTop = (viewportOffset.top >= stickPosition && !scrollingDown
       && !overlaps && scrollTop >= parent.offsetTop);
-
-    console.log(parent.offsetTop);
 
     if (fits) {
       if (viewportOffset.top <= stickPosition) {
