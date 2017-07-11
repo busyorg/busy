@@ -21,8 +21,6 @@ import { Trending, Hot, Votes, Responses, Active, Created, Cashout } from './fee
 import PostSingle from './post/postSingle/PostSingle';
 import Bookmarks from './bookmarks/Bookmarks';
 import Error404 from './statics/Error404';
-import Write from './post/Write/Write';
-import Drafts from './post/Write/Drafts';
 import About from './statics/About';
 import Help from './statics/Help';
 import Team from './statics/Team';
@@ -66,8 +64,8 @@ export default (
       <Route path="/votes/:category?" component={Votes} />
       <Route path="/transfer" render={() => <RequireLogin><Transfer /></RequireLogin>} />
       <Route path="/bookmarks" render={() => <RequireLogin><Bookmarks /></RequireLogin>} />
-      <Route path="/write" render={() => <RequireLogin><Write /></RequireLogin>} />
-      <Route path="/drafts" render={() => <RequireLogin><Drafts /></RequireLogin>} />
+      <Route path="/write" render={() => <RequireLogin><h1>WIP</h1></RequireLogin>} />
+      <Route path="/drafts" render={() => <RequireLogin><h1>WIP</h1></RequireLogin>} />
       <Route path="/settings" render={() => <RequireLogin><Settings /></RequireLogin>} />
       <Route path="/@:name" component={UserRoutes} />
       <Route path="/:category/@:author/:permlink" component={PostSingle} />
