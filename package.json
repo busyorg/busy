@@ -55,8 +55,6 @@
     "diff-match-patch": "^1.0.0",
     "ejs": "^2.5.6",
     "embedjs": "^0.0.4",
-    "emojione": "^2.2.7",
-    "emojione-picker": "^1.1.0",
     "express": "~4.13.1",
     "extract-text-webpack-plugin": "^2.1.2",
     "file-loader": "^0.11.2",
