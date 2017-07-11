@@ -30,8 +30,6 @@ import Signup from './auth/Signup';
 import Signin from './auth/Signin';
 import Login from './auth/Login';
 import RequireLogin from './auth/RequireLogin';
-import MessagesUser from './messages/MessagesUser';
-import MessagesCategory from './messages/MessagesCategory';
 
 export const UserRoutes = () =>
   (<Switch>
@@ -67,14 +65,6 @@ export default (
       <Route path="/responses/:category?" component={Responses} />
       <Route path="/votes/:category?" component={Votes} />
       <Route path="/transfer" render={() => <RequireLogin><Transfer /></RequireLogin>} />
-      <Route
-        path="/messages/@:username"
-        render={() => <RequireLogin><MessagesUser /></RequireLogin>}
-      />
-      <Route
-        path="/messages/:category"
-        render={() => <RequireLogin><MessagesCategory /></RequireLogin>}
-      />
       <Route path="/bookmarks" render={() => <RequireLogin><Bookmarks /></RequireLogin>} />
       <Route path="/write" render={() => <RequireLogin><Write /></RequireLogin>} />
       <Route path="/drafts" render={() => <RequireLogin><Drafts /></RequireLogin>} />

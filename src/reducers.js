@@ -3,7 +3,6 @@ import { combineReducers } from 'redux';
 
 import appReducers from './app/appReducers';
 import authReducers from './auth/authReducers';
-import { messagesReducer } from './messages';
 import commentsReducer from './comments/commentsReducer.js';
 import feedReducers from './feed/feedReducers';
 import postsReducers from './post/postsReducers';
@@ -27,7 +26,6 @@ const reducers = combineReducers({
   user: userReducer,
   users: usersReducer,
   responsive: responsiveReducer,
-  messages: messagesReducer,
   notifications: notificationReducer,
   bookmarks: bookmarksReducer,
   favorites: favoritesReducer,
