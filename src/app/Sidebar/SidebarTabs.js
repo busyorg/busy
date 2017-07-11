@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import _ from 'lodash';
 import Icon from '../../widgets/Icon';
 
 export default class SidebarTabs extends Component {
@@ -8,31 +7,6 @@ export default class SidebarTabs extends Component {
     this.state = {
       showReplies: false,
     };
-  }
-
-  renderUnread() {
-    const nUnreadMessages = _.size(this.props.messages.unreadMessages);
-
-    if (!nUnreadMessages) return null;
-
-    return (
-      <div
-        className="SidebarIcons__unreadMessagesCount"
-        style={{
-          position: 'absolute',
-          top: '0',
-          right: '0',
-          lineHeight: '19px',
-          height: '20px',
-          width: '20px',
-          borderRadius: '100%',
-          backgroundColor: 'white',
-          color: 'black'
-        }}
-      >
-        {nUnreadMessages}
-      </div>
-    );
   }
 
   render() {
@@ -55,7 +29,6 @@ export default class SidebarTabs extends Component {
             onClick={() => this.props.onClickMenu({ menu: 'users' })}
             className={menu === 'users' && 'active'}
           >
-            {this.renderUnread()}
             <Icon name="chat_bubble_outline" lg />
           </a>
         </li>

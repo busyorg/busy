@@ -20,7 +20,6 @@ import './Sidebar.less';
     app: state.app,
     auth: state.auth,
     user: state.user,
-    messages: state.messages,
     favorites: state.favorites,
   }),
   dispatch => bindActionCreators({
@@ -158,7 +157,6 @@ export default class Sidebar extends Component {
           onClickMenu={this.onClickMenu}
           menu={menu}
           auth={this.props.auth}
-          messages={this.props.messages}
         />
 
         <div className="sidebar-content">
