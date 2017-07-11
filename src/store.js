@@ -1,5 +1,4 @@
 /* global window */
-import createLogger from 'redux-logger';
 import promiseMiddleware from 'redux-promise-middleware';
 import persistState from 'redux-localstorage';
 import thunk from 'redux-thunk';
@@ -37,14 +36,6 @@ const middleware = [
     steemAPI: api,
   })
 ];
-
-if (process.env.IS_BROWSER &&
-  process.env.NODE_ENV !== 'production') {
-  middleware.push(createLogger({
-    collapsed: true,
-    duration: true,
-  }));
-}
 
 let enhancer;
 if (process.env.IS_BROWSER) {
