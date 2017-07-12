@@ -95,7 +95,7 @@ export default class Comments extends Component {
       return (<Loading />);
     }
 
-    if (fetchedCommentsList && fetchedCommentsList.length) {
+    if (fetchedCommentsList) {
       return (
         <CommentsList
           comments={fetchedCommentsList}
