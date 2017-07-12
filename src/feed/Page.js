@@ -41,6 +41,15 @@ class TopicSelectorImpl extends React.Component {
     };
   }
 
+  componentWillReceiveProps(nextProps) {
+    const { location, category } = nextProps;
+
+    this.setState({
+      currentKey: location.pathname.split('/')[1] || 'created',
+      categories: (category) ? [category] : [],
+    });
+  }
+
   onChange = (key) => {
     this.setState({ currentKey: key });
 
