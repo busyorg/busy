@@ -30,26 +30,40 @@ class TopicSelectorImpl extends React.Component {
     location: PropTypes.shape().isRequired,
   }
 
+  constructor(props) {
+    super(props);
+
+    const { location, category } = this.props;
+
+    this.state = {
+      currentKey: location.pathname.split('/')[1] || 'created',
+      categories: (category) ? [category] : [],
+    };
+  }
+
   onChange = (key) => {
-    const { category, history } = this.props;
-    if (category) {
-      history.push(`/${key}/${category}`);
+    this.setState({ currentKey: key });
+
+    if (this.state.categories[0]) {
+      this.props.history.push(`/${key}/${this.state.categories[0]}`);
     } else {
-      history.push(`/${key}`);
+      this.props.history.push(`/${key}`);
     }
   }
 
+  onTopicClose = () => {
+    this.setState({ categories: [] });
+    this.props.history.push(`/${this.state.currentKey}`);
+  }
+
   render() {
-    const { category, location } = this.props;
-    const current = location.pathname.split('/')[1] || 'created';
-
-    const topics = (category) ? [category] : [];
-
     return (
       <TopicSelector
-        defaultSort={current}
-        topics={topics}
+        isSingle={false}
+        defaultSort={this.state.currentKey}
+        topics={this.state.categories}
         onSortChange={this.onChange}
+        onTopicClose={this.onTopicClose}
       />);
   }
 }
