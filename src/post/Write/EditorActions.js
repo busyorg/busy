@@ -39,7 +39,9 @@ export const editPost = post =>
       parentPermlink: post.parent_permlink,
     };
     dispatch(saveDraft({ postData: draft, id: post.id }));
-    browserHistory.push(`/write?draft=${post.id}`);
+    console.log('Post created', `/write?draft=${post.id}`);
+    // TODO: Handle redirect in react-router 4
+    // browserHistory.push(`/write?draft=${post.id}`);
   };
 
 const requiredFields = 'parentAuthor,parentPermlink,author,permlink,title,body,jsonMetadata'.split(',');
@@ -66,10 +68,12 @@ export function createPost(postData) {
               .comment(parentAuthor, parentPermlink, author, permlink, title, body, jsonMetadata)
               .then(({ result }) => {
                 if (draftId) { dispatch(deleteDraft(draftId)); }
-                browserHistory.push(`/${parentPermlink}/@${author}/${permlink}`);
+                console.log('Post created', `/${parentPermlink}/@${author}/${permlink}`);
+                // TODO: Handle redirect in react-router 4
+                // browserHistory.push(`/${parentPermlink}/@${author}/${permlink}`);
                 return result;
               })
-          )
+          ),
       },
     });
   };
