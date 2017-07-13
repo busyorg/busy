@@ -1,6 +1,8 @@
 /* global window */
 import { combineReducers } from 'redux';
 
+import { routerReducer } from 'react-router-redux';
+
 import appReducers from './app/appReducers';
 import authReducers from './auth/authReducers';
 import commentsReducer from './comments/commentsReducer.js';
@@ -31,6 +33,7 @@ const reducers = combineReducers({
   favorites: favoritesReducer,
   reblog: reblogReducers,
   wallet: walletReducer,
+  router: routerReducer,
 });
 
 export default reducers;

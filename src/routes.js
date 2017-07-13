@@ -1,5 +1,6 @@
 import React from 'react';
 
+import createHistory from 'history/createBrowserHistory';
 import { Route, Switch } from 'react-router-dom';
 import Wrapper from './wrapper';
 import Settings from './app/AppSettings';
@@ -74,3 +75,5 @@ export default (
     </Switch>
   </Wrapper>
 );
+
+export const history = createHistory();
