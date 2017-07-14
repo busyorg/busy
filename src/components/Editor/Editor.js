@@ -101,8 +101,10 @@ class Editor extends React.Component {
       title: post.title,
       topics: post.topics,
     });
-    this.input.value = post.body;
-    this.renderMarkdown(this.input.value);
+    if (this.input) {
+      this.input.value = post.body;
+      this.renderMarkdown(this.input.value);
+    }
   }
 
   getValues = e => ({
