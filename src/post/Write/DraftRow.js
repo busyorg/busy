@@ -15,10 +15,18 @@ class DraftRow extends React.Component {
     if (draftTitle.length === 0) {
       draftTitle = 'Untitled Draft';
     }
-    return (<h3>
-      <Link to={{ pathname: '/write', search: `?draft=${id}` }}>{draftTitle}</Link>
-      <a onClick={() => { this.props.deleteDraft(id); }}>DELETE</a>
-    </h3>);
+    return (
+      <div>
+        <Link to={{ pathname: '/write', search: `?draft=${id}` }}>
+          <h3>{draftTitle}</h3>
+        </Link>
+        <div>
+          <a onClick={() => { this.props.deleteDraft(id); }}>
+            Delete this draft
+          </a>
+        </div>
+      </div>
+    );
   }
 }
 
