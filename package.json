@@ -102,7 +102,7 @@
     "react-responsive-utils": "^1.0.2",
     "react-router": "^4.1.1",
     "react-router-dom": "^4.1.1",
-    "react-router-redux": "^4.0.8",
+    "react-router-redux": "^5.0.0-alpha.6",
     "react-select": "^1.0.0-rc.2",
     "react-sticky": "^5.0.5",
     "react-tagsinput": "^3.14.0",
