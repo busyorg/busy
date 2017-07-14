@@ -131,6 +131,7 @@
     "text-ellipsis": "^1.0.3",
     "ua-parser-js": "^0.7.10",
     "url-loader": "^0.5.7",
+    "url-search-params-polyfill": "^2.0.0",
     "validator": "^5.1.0",
     "warning": "^3.0.0",
     "webpack": "^2.6.1",

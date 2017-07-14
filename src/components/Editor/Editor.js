@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Remarkable from 'remarkable';
 import { HotKeys } from 'react-hotkeys';
 import { throttle } from 'lodash';
+import isArray from 'lodash/isArray';
 import { Form, Input, Select, Tabs } from 'antd';
 import EditorToolbar from './EditorToolbar';
 import Action from '../Button/Action';
@@ -17,16 +18,24 @@ const TabPane = Tabs.TabPane;
 
 class Editor extends React.Component {
   static propTypes = {
+    title: PropTypes.string,
+    topics: PropTypes.arrayOf(PropTypes.string),
+    body: PropTypes.string,
     recentTopics: PropTypes.arrayOf(PropTypes.string),
     popularTopics: PropTypes.arrayOf(PropTypes.string),
+    onUpdate: PropTypes.func,
     onSubmit: PropTypes.func,
     onError: PropTypes.func,
     onImagePasted: PropTypes.func,
   };
 
   static defaultProps = {
+    title: '',
+    topics: [],
+    body: '',
     recentTopics: [],
     popularTopics: [],
+    onUpdate: () => {},
     onSubmit: () => {},
     onError: () => {},
     onImagePasted: () => {},
@@ -57,6 +66,8 @@ class Editor extends React.Component {
       this.input.addEventListener('paste', this.handlePastedImage);
     }
 
+    this.setValues(this.props);
+
     // eslint-disable-next-line react/no-find-dom-node
     const select = ReactDOM.findDOMNode(this.select);
     if (select) {
@@ -68,9 +79,37 @@ class Editor extends React.Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    const { title, topics, body } = this.props;
+    if (title !== nextProps.title || topics !== nextProps.topics || body !== nextProps.body) {
+      this.setValues(nextProps);
+    }
+  }
+
   setInput = (input) => {
     this.input = input && input.refs && input.refs.input;
   };
+
+  onUpdate = (e) => {
+    // NOTE: antd select doesn't update field value on Select before firing onChange
+    // so we have to get value from event.
+    this.props.onUpdate(this.getValues(e));
+  }
+
+  setValues = (post) => {
+    this.props.form.setFieldsValue({
+      title: post.title,
+      topics: post.topics,
+    });
+    this.input.value = post.body;
+    this.renderMarkdown(this.input.value);
+  }
+
+  getValues = e => ({
+    ...this.props.form.getFieldsValue(['title']),
+    topics: (isArray(e)) ? e : this.props.form.getFieldValue('topics'),
+    body: this.input.value,
+  })
 
   //
   // Form validation and handling
@@ -168,6 +207,7 @@ class Editor extends React.Component {
     )}![image](${image})${this.input.value.substring(endPos, this.input.value.length)}`;
 
     this.renderMarkdown(this.input.value);
+    this.onUpdate();
   };
 
   insertCode = (type) => {
@@ -213,6 +253,7 @@ class Editor extends React.Component {
     }
 
     this.renderMarkdown(this.input.value);
+    this.onUpdate();
   };
 
   renderMarkdown = (value) => {
@@ -250,7 +291,12 @@ class Editor extends React.Component {
               { required: true, message: 'Please enter a title' },
               { max: 255, message: "Title can't be longer than 255 characters" },
             ],
-          })(<Input className="Editor__title" placeholder="Add title" />)}
+          })(<Input
+            ref={(title) => { this.title = title; }}
+            onChange={this.onUpdate}
+            className="Editor__title"
+            placeholder="Add title"
+          />)}
         </Form.Item>
         <Form.Item
           label={<span className="Editor__label">Topics</span>}
@@ -266,6 +312,7 @@ class Editor extends React.Component {
               ref={(ref) => {
                 this.select = ref;
               }}
+              onChange={this.onUpdate}
               className="Editor__topics"
               mode="tags"
               placeholder="Add story topics here"
@@ -291,6 +338,7 @@ class Editor extends React.Component {
               <EditorToolbar onSelect={this.insertCode} />
               <HotKeys keyMap={Editor.hotkeys} handlers={this.handlers}>
                 <Input
+                  onChange={this.onUpdate}
                   ref={ref => this.setInput(ref)}
                   type="textarea"
                   placeholder="Write your story..."

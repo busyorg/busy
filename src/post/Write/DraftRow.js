@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import { deleteDraft } from './EditorActions';
 
 @connect(null, { deleteDraft })
@@ -16,7 +16,7 @@ class DraftRow extends React.Component {
       draftTitle = 'Untitled Draft';
     }
     return (<h3>
-      <Link to={{ pathname: '/write', query: { draft: id } }}>{draftTitle}</Link>
+      <Link to={{ pathname: '/write', search: `?draft=${id}` }}>{draftTitle}</Link>
       <a onClick={() => { this.props.deleteDraft(id); }}>DELETE</a>
     </h3>);
   }
