@@ -91,7 +91,9 @@ export const getComments = (postId, isFromAnotherComment = false) => {
 
 export const sendCommentV2 = (parentPost, body) =>
   (dispatch, getState) => {
-    const { parent_author, parent_permlink, category, root_comment } = parentPost;
+    const { category, root_comment } = parentPost;
+    const parent_permlink = parentPost.permlink;
+    const parent_author = parentPost.author;
     const { auth } = getState();
 
     if (!auth.isAuthenticated) {
@@ -103,7 +105,7 @@ export const sendCommentV2 = (parentPost, body) =>
       // dispatch error
       return;
     }
-
+    debugger;
     const author = auth.user.name;
     const permlink = createCommentPermlink(parent_author, parent_permlink);
     const jsonMetadata = { tags: [category], app: `busy/${version}` };
