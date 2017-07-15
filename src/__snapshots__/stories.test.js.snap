@@ -278,12 +278,6 @@ exports[`Storyshots Comments Comments 1`] = `
           <span
             className="Comment__footer__bullet"
           />
-          <a
-            className="Comment__footer__link"
-            onClick={[Function]}
-          >
-            Reply
-          </a>
         </div>
         <div
           className="Comment__replies"
@@ -404,12 +398,6 @@ exports[`Storyshots Comments Comments 1`] = `
                 <span
                   className="Comment__footer__bullet"
                 />
-                <a
-                  className="Comment__footer__link"
-                  onClick={[Function]}
-                >
-                  Reply
-                </a>
               </div>
               <div
                 className="Comment__replies"
@@ -535,12 +523,6 @@ exports[`Storyshots Comments Comments 1`] = `
           <span
             className="Comment__footer__bullet"
           />
-          <a
-            className="Comment__footer__link"
-            onClick={[Function]}
-          >
-            Reply
-          </a>
         </div>
         <div
           className="Comment__replies"
@@ -661,12 +643,6 @@ exports[`Storyshots Comments Comments 1`] = `
                 <span
                   className="Comment__footer__bullet"
                 />
-                <a
-                  className="Comment__footer__link"
-                  onClick={[Function]}
-                >
-                  Reply
-                </a>
               </div>
               <div
                 className="Comment__replies"
@@ -792,12 +768,6 @@ exports[`Storyshots Comments Comments 1`] = `
           <span
             className="Comment__footer__bullet"
           />
-          <a
-            className="Comment__footer__link"
-            onClick={[Function]}
-          >
-            Reply
-          </a>
         </div>
         <div
           className="Comment__replies"
@@ -918,12 +888,6 @@ exports[`Storyshots Comments Comments 1`] = `
                 <span
                   className="Comment__footer__bullet"
                 />
-                <a
-                  className="Comment__footer__link"
-                  onClick={[Function]}
-                >
-                  Reply
-                </a>
               </div>
               <div
                 className="Comment__replies"
@@ -1049,12 +1013,6 @@ exports[`Storyshots Comments Comments 1`] = `
           <span
             className="Comment__footer__bullet"
           />
-          <a
-            className="Comment__footer__link"
-            onClick={[Function]}
-          >
-            Reply
-          </a>
         </div>
         <div
           className="Comment__replies"
@@ -1175,12 +1133,6 @@ exports[`Storyshots Comments Comments 1`] = `
                 <span
                   className="Comment__footer__bullet"
                 />
-                <a
-                  className="Comment__footer__link"
-                  onClick={[Function]}
-                >
-                  Reply
-                </a>
               </div>
               <div
                 className="Comment__replies"
@@ -1306,12 +1258,6 @@ exports[`Storyshots Comments Comments 1`] = `
           <span
             className="Comment__footer__bullet"
           />
-          <a
-            className="Comment__footer__link"
-            onClick={[Function]}
-          >
-            Reply
-          </a>
         </div>
         <div
           className="Comment__replies"
@@ -1432,12 +1378,6 @@ exports[`Storyshots Comments Comments 1`] = `
                 <span
                   className="Comment__footer__bullet"
                 />
-                <a
-                  className="Comment__footer__link"
-                  onClick={[Function]}
-                >
-                  Reply
-                </a>
               </div>
               <div
                 className="Comment__replies"
@@ -1564,12 +1504,6 @@ exports[`Storyshots Comments Comments 1`] = `
           <span
             className="Comment__footer__bullet"
           />
-          <a
-            className="Comment__footer__link"
-            onClick={[Function]}
-          >
-            Reply
-          </a>
         </div>
         <div
           className="Comment__replies"
@@ -1690,12 +1624,6 @@ exports[`Storyshots Comments Comments 1`] = `
                 <span
                   className="Comment__footer__bullet"
                 />
-                <a
-                  className="Comment__footer__link"
-                  onClick={[Function]}
-                >
-                  Reply
-                </a>
               </div>
               <div
                 className="Comment__replies"
@@ -1821,12 +1749,6 @@ exports[`Storyshots Comments Comments 1`] = `
           <span
             className="Comment__footer__bullet"
           />
-          <a
-            className="Comment__footer__link"
-            onClick={[Function]}
-          >
-            Reply
-          </a>
         </div>
         <div
           className="Comment__replies"
@@ -1947,12 +1869,6 @@ exports[`Storyshots Comments Comments 1`] = `
                 <span
                   className="Comment__footer__bullet"
                 />
-                <a
-                  className="Comment__footer__link"
-                  onClick={[Function]}
-                >
-                  Reply
-                </a>
               </div>
               <div
                 className="Comment__replies"
@@ -2078,12 +1994,6 @@ exports[`Storyshots Comments Comments 1`] = `
           <span
             className="Comment__footer__bullet"
           />
-          <a
-            className="Comment__footer__link"
-            onClick={[Function]}
-          >
-            Reply
-          </a>
         </div>
         <div
           className="Comment__replies"
@@ -2204,12 +2114,6 @@ exports[`Storyshots Comments Comments 1`] = `
                 <span
                   className="Comment__footer__bullet"
                 />
-                <a
-                  className="Comment__footer__link"
-                  onClick={[Function]}
-                >
-                  Reply
-                </a>
               </div>
               <div
                 className="Comment__replies"
@@ -2335,12 +2239,6 @@ exports[`Storyshots Comments Comments 1`] = `
           <span
             className="Comment__footer__bullet"
           />
-          <a
-            className="Comment__footer__link"
-            onClick={[Function]}
-          >
-            Reply
-          </a>
         </div>
         <div
           className="Comment__replies"
@@ -2461,12 +2359,6 @@ exports[`Storyshots Comments Comments 1`] = `
                 <span
                   className="Comment__footer__bullet"
                 />
-                <a
-                  className="Comment__footer__link"
-                  onClick={[Function]}
-                >
-                  Reply
-                </a>
               </div>
               <div
                 className="Comment__replies"
@@ -2587,12 +2479,6 @@ exports[`Storyshots Comments Comments 1`] = `
                       <span
                         className="Comment__footer__bullet"
                       />
-                      <a
-                        className="Comment__footer__link"
-                        onClick={[Function]}
-                      >
-                        Reply
-                      </a>
                     </div>
                     <div
                       className="Comment__replies"
@@ -2713,12 +2599,6 @@ exports[`Storyshots Comments Comments 1`] = `
                             <span
                               className="Comment__footer__bullet"
                             />
-                            <a
-                              className="Comment__footer__link"
-                              onClick={[Function]}
-                            >
-                              Reply
-                            </a>
                           </div>
                           <div
                             className="Comment__replies"
@@ -2839,12 +2719,6 @@ exports[`Storyshots Comments Comments 1`] = `
                                   <span
                                     className="Comment__footer__bullet"
                                   />
-                                  <a
-                                    className="Comment__footer__link"
-                                    onClick={[Function]}
-                                  >
-                                    Reply
-                                  </a>
                                 </div>
                                 <div
                                   className="Comment__replies"
@@ -2979,12 +2853,6 @@ exports[`Storyshots Comments Comments 1`] = `
           <span
             className="Comment__footer__bullet"
           />
-          <a
-            className="Comment__footer__link"
-            onClick={[Function]}
-          >
-            Reply
-          </a>
         </div>
         <div
           className="Comment__replies"
@@ -3105,12 +2973,6 @@ exports[`Storyshots Comments Comments 1`] = `
                 <span
                   className="Comment__footer__bullet"
                 />
-                <a
-                  className="Comment__footer__link"
-                  onClick={[Function]}
-                >
-                  Reply
-                </a>
               </div>
               <div
                 className="Comment__replies"
@@ -3236,12 +3098,6 @@ exports[`Storyshots Comments Comments 1`] = `
           <span
             className="Comment__footer__bullet"
           />
-          <a
-            className="Comment__footer__link"
-            onClick={[Function]}
-          >
-            Reply
-          </a>
         </div>
         <div
           className="Comment__replies"
@@ -3362,12 +3218,6 @@ exports[`Storyshots Comments Comments 1`] = `
                 <span
                   className="Comment__footer__bullet"
                 />
-                <a
-                  className="Comment__footer__link"
-                  onClick={[Function]}
-                >
-                  Reply
-                </a>
               </div>
               <div
                 className="Comment__replies"
@@ -3493,12 +3343,6 @@ exports[`Storyshots Comments Comments 1`] = `
           <span
             className="Comment__footer__bullet"
           />
-          <a
-            className="Comment__footer__link"
-            onClick={[Function]}
-          >
-            Reply
-          </a>
         </div>
         <div
           className="Comment__replies"
@@ -3619,12 +3463,6 @@ exports[`Storyshots Comments Comments 1`] = `
                 <span
                   className="Comment__footer__bullet"
                 />
-                <a
-                  className="Comment__footer__link"
-                  onClick={[Function]}
-                >
-                  Reply
-                </a>
               </div>
               <div
                 className="Comment__replies"
@@ -3750,12 +3588,6 @@ exports[`Storyshots Comments Comments 1`] = `
           <span
             className="Comment__footer__bullet"
           />
-          <a
-            className="Comment__footer__link"
-            onClick={[Function]}
-          >
-            Reply
-          </a>
         </div>
         <div
           className="Comment__replies"
@@ -3876,12 +3708,6 @@ exports[`Storyshots Comments Comments 1`] = `
                 <span
                   className="Comment__footer__bullet"
                 />
-                <a
-                  className="Comment__footer__link"
-                  onClick={[Function]}
-                >
-                  Reply
-                </a>
               </div>
               <div
                 className="Comment__replies"
@@ -4002,12 +3828,6 @@ exports[`Storyshots Comments Comments 1`] = `
                       <span
                         className="Comment__footer__bullet"
                       />
-                      <a
-                        className="Comment__footer__link"
-                        onClick={[Function]}
-                      >
-                        Reply
-                      </a>
                     </div>
                     <div
                       className="Comment__replies"
@@ -4136,12 +3956,6 @@ exports[`Storyshots Comments Comments 1`] = `
           <span
             className="Comment__footer__bullet"
           />
-          <a
-            className="Comment__footer__link"
-            onClick={[Function]}
-          >
-            Reply
-          </a>
         </div>
         <div
           className="Comment__replies"
@@ -4262,12 +4076,6 @@ exports[`Storyshots Comments Comments 1`] = `
                 <span
                   className="Comment__footer__bullet"
                 />
-                <a
-                  className="Comment__footer__link"
-                  onClick={[Function]}
-                >
-                  Reply
-                </a>
               </div>
               <div
                 className="Comment__replies"
@@ -4393,12 +4201,6 @@ exports[`Storyshots Comments Comments 1`] = `
           <span
             className="Comment__footer__bullet"
           />
-          <a
-            className="Comment__footer__link"
-            onClick={[Function]}
-          >
-            Reply
-          </a>
         </div>
         <div
           className="Comment__replies"
@@ -4519,12 +4321,6 @@ exports[`Storyshots Comments Comments 1`] = `
                 <span
                   className="Comment__footer__bullet"
                 />
-                <a
-                  className="Comment__footer__link"
-                  onClick={[Function]}
-                >
-                  Reply
-                </a>
               </div>
               <div
                 className="Comment__replies"
@@ -4650,12 +4446,6 @@ exports[`Storyshots Comments Comments 1`] = `
           <span
             className="Comment__footer__bullet"
           />
-          <a
-            className="Comment__footer__link"
-            onClick={[Function]}
-          >
-            Reply
-          </a>
         </div>
         <div
           className="Comment__replies"
@@ -4776,12 +4566,6 @@ exports[`Storyshots Comments Comments 1`] = `
                 <span
                   className="Comment__footer__bullet"
                 />
-                <a
-                  className="Comment__footer__link"
-                  onClick={[Function]}
-                >
-                  Reply
-                </a>
               </div>
               <div
                 className="Comment__replies"
@@ -4907,12 +4691,6 @@ exports[`Storyshots Comments Comments 1`] = `
           <span
             className="Comment__footer__bullet"
           />
-          <a
-            className="Comment__footer__link"
-            onClick={[Function]}
-          >
-            Reply
-          </a>
         </div>
         <div
           className="Comment__replies"
@@ -5033,12 +4811,6 @@ exports[`Storyshots Comments Comments 1`] = `
                 <span
                   className="Comment__footer__bullet"
                 />
-                <a
-                  className="Comment__footer__link"
-                  onClick={[Function]}
-                >
-                  Reply
-                </a>
               </div>
               <div
                 className="Comment__replies"
@@ -5164,12 +4936,6 @@ exports[`Storyshots Comments Comments 1`] = `
           <span
             className="Comment__footer__bullet"
           />
-          <a
-            className="Comment__footer__link"
-            onClick={[Function]}
-          >
-            Reply
-          </a>
         </div>
         <div
           className="Comment__replies"
@@ -5290,12 +5056,6 @@ exports[`Storyshots Comments Comments 1`] = `
                 <span
                   className="Comment__footer__bullet"
                 />
-                <a
-                  className="Comment__footer__link"
-                  onClick={[Function]}
-                >
-                  Reply
-                </a>
               </div>
               <div
                 className="Comment__replies"
@@ -5421,12 +5181,6 @@ exports[`Storyshots Comments Comments 1`] = `
           <span
             className="Comment__footer__bullet"
           />
-          <a
-            className="Comment__footer__link"
-            onClick={[Function]}
-          >
-            Reply
-          </a>
         </div>
         <div
           className="Comment__replies"
@@ -5547,12 +5301,6 @@ exports[`Storyshots Comments Comments 1`] = `
                 <span
                   className="Comment__footer__bullet"
                 />
-                <a
-                  className="Comment__footer__link"
-                  onClick={[Function]}
-                >
-                  Reply
-                </a>
               </div>
               <div
                 className="Comment__replies"
@@ -5678,12 +5426,6 @@ exports[`Storyshots Comments Comments 1`] = `
           <span
             className="Comment__footer__bullet"
           />
-          <a
-            className="Comment__footer__link"
-            onClick={[Function]}
-          >
-            Reply
-          </a>
         </div>
         <div
           className="Comment__replies"
@@ -5804,12 +5546,6 @@ exports[`Storyshots Comments Comments 1`] = `
                 <span
                   className="Comment__footer__bullet"
                 />
-                <a
-                  className="Comment__footer__link"
-                  onClick={[Function]}
-                >
-                  Reply
-                </a>
               </div>
               <div
                 className="Comment__replies"
@@ -5937,12 +5673,6 @@ exports[`Storyshots Comments Comments 1`] = `
           <span
             className="Comment__footer__bullet"
           />
-          <a
-            className="Comment__footer__link"
-            onClick={[Function]}
-          >
-            Reply
-          </a>
         </div>
         <div
           className="Comment__replies"
@@ -6063,12 +5793,6 @@ exports[`Storyshots Comments Comments 1`] = `
                 <span
                   className="Comment__footer__bullet"
                 />
-                <a
-                  className="Comment__footer__link"
-                  onClick={[Function]}
-                >
-                  Reply
-                </a>
               </div>
               <div
                 className="Comment__replies"
@@ -6194,12 +5918,6 @@ exports[`Storyshots Comments Comments 1`] = `
           <span
             className="Comment__footer__bullet"
           />
-          <a
-            className="Comment__footer__link"
-            onClick={[Function]}
-          >
-            Reply
-          </a>
         </div>
         <div
           className="Comment__replies"
@@ -6320,12 +6038,6 @@ exports[`Storyshots Comments Comments 1`] = `
                 <span
                   className="Comment__footer__bullet"
                 />
-                <a
-                  className="Comment__footer__link"
-                  onClick={[Function]}
-                >
-                  Reply
-                </a>
               </div>
               <div
                 className="Comment__replies"
@@ -6451,12 +6163,6 @@ exports[`Storyshots Comments Comments 1`] = `
           <span
             className="Comment__footer__bullet"
           />
-          <a
-            className="Comment__footer__link"
-            onClick={[Function]}
-          >
-            Reply
-          </a>
         </div>
         <div
           className="Comment__replies"
@@ -6577,12 +6283,6 @@ exports[`Storyshots Comments Comments 1`] = `
                 <span
                   className="Comment__footer__bullet"
                 />
-                <a
-                  className="Comment__footer__link"
-                  onClick={[Function]}
-                >
-                  Reply
-                </a>
               </div>
               <div
                 className="Comment__replies"
@@ -6708,12 +6408,6 @@ exports[`Storyshots Comments Comments 1`] = `
           <span
             className="Comment__footer__bullet"
           />
-          <a
-            className="Comment__footer__link"
-            onClick={[Function]}
-          >
-            Reply
-          </a>
         </div>
         <div
           className="Comment__replies"
@@ -6834,12 +6528,6 @@ exports[`Storyshots Comments Comments 1`] = `
                 <span
                   className="Comment__footer__bullet"
                 />
-                <a
-                  className="Comment__footer__link"
-                  onClick={[Function]}
-                >
-                  Reply
-                </a>
               </div>
               <div
                 className="Comment__replies"
@@ -6965,12 +6653,6 @@ exports[`Storyshots Comments Comments 1`] = `
           <span
             className="Comment__footer__bullet"
           />
-          <a
-            className="Comment__footer__link"
-            onClick={[Function]}
-          >
-            Reply
-          </a>
         </div>
         <div
           className="Comment__replies"
@@ -7091,12 +6773,6 @@ exports[`Storyshots Comments Comments 1`] = `
                 <span
                   className="Comment__footer__bullet"
                 />
-                <a
-                  className="Comment__footer__link"
-                  onClick={[Function]}
-                >
-                  Reply
-                </a>
               </div>
               <div
                 className="Comment__replies"
@@ -7217,12 +6893,6 @@ exports[`Storyshots Comments Comments 1`] = `
                       <span
                         className="Comment__footer__bullet"
                       />
-                      <a
-                        className="Comment__footer__link"
-                        onClick={[Function]}
-                      >
-                        Reply
-                      </a>
                     </div>
                     <div
                       className="Comment__replies"
@@ -7361,12 +7031,6 @@ exports[`Storyshots Comments Comments 1`] = `
           <span
             className="Comment__footer__bullet"
           />
-          <a
-            className="Comment__footer__link"
-            onClick={[Function]}
-          >
-            Reply
-          </a>
         </div>
         <div
           className="Comment__replies"
@@ -7487,12 +7151,6 @@ exports[`Storyshots Comments Comments 1`] = `
                 <span
                   className="Comment__footer__bullet"
                 />
-                <a
-                  className="Comment__footer__link"
-                  onClick={[Function]}
-                >
-                  Reply
-                </a>
               </div>
               <div
                 className="Comment__replies"
@@ -7587,7 +7245,6 @@ exports[`Storyshots Editor Editor 1`] = `
                     ],
                   },
                 ],
-                "validateTrigger": "onChange",
                 "valuePropName": "value",
               }
             }
