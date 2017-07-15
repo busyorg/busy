@@ -14,7 +14,6 @@ import PostSingleModal from './PostSingleModal';
 import * as reblogActions from '../../app/Reblog/reblogActions';
 import * as bookmarkActions from '../../bookmarks/bookmarksActions';
 import * as appActions from '../../actions';
-import { editPost } from '../Write/EditorActions';
 import Loading from '../../components/Icon/Loading';
 import { jsonParse } from '../../helpers/formatter';
 import StoryFull from '../../components/Story/StoryFull';

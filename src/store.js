@@ -1,5 +1,4 @@
 /* global window */
-import createLogger from 'redux-logger';
 import promiseMiddleware from 'redux-promise-middleware';
 import persistState from 'redux-localstorage';
 import thunk from 'redux-thunk';
@@ -7,12 +6,10 @@ import { pick } from 'lodash/object';
 import { applyMiddleware, createStore, compose } from 'redux';
 import api from './steemAPI';
 
-import MessagesWorker from './messages';
 import { mountResponsive } from './helpers/responsive';
 import errorMiddleware from './errorMiddleware';
 import reducers from './reducers';
 
-export const messagesWorker = new MessagesWorker();
 let preloadedState;
 if (process.env.IS_BROWSER) {
   preloadedState = window.__PRELOADED_STATE__;
@@ -33,18 +30,9 @@ const middleware = [
     ]
   }),
   thunk.withExtraArgument({
-    messagesWorker,
     steemAPI: api,
   })
 ];
-
-if (process.env.IS_BROWSER &&
-  process.env.NODE_ENV !== 'production') {
-  middleware.push(createLogger({
-    collapsed: true,
-    duration: true,
-  }));
-}
 
 let enhancer;
 if (process.env.IS_BROWSER) {
@@ -71,8 +59,6 @@ const getStore = () => {
     enhancer
   );
   mountResponsive(store);
-  messagesWorker.attachToStore(store);
-  messagesWorker.start();
   return store;
 };
 

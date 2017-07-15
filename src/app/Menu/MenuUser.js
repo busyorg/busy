@@ -21,8 +21,8 @@ function StatusIndicator({ isOnline }) {
 }
 
 StatusIndicator = connect(
-  (state, { username }) => ({
-    isOnline: state.messages.users[username],
+  () => ({
+    isOnline: true,
   })
 )(StatusIndicator);
 
@@ -68,16 +68,6 @@ const MenuUser = ({ auth, username }) =>
         </span>
       </NavLink>
     </li>
-    {auth.isAuthenticated &&
-      <li>
-        <NavLink to={`/messages/@${username}`} activeClassName="active">
-          <Icon name="chat_bubble_outline" />{' '}
-          <span className="hidden-xs">
-            <FormattedMessage id="messages" defaultMessage="Messages" />
-          </span>
-        </NavLink>
-      </li>
-    }
   </ul>;
 
 export default MenuUser;

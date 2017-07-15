@@ -3,7 +3,6 @@ import React from 'react';
 import _ from 'lodash';
 import sanitizeHtml from 'sanitize-html';
 import Remarkable from 'remarkable';
-import emojione from 'emojione';
 import embedjs from 'embedjs';
 import { jsonParse } from '../helpers/formatter';
 import sanitizeConfig from '../helpers/SanitizeConfig';
@@ -37,7 +36,6 @@ export function getHtml(body, jsonMetadata = {}, returnType = 'Object') {
   body = remarkable.render(body);
   body = htmlReady(body, htmlReadyOptions).html;
   body = sanitizeHtml(body, sanitizeConfig({}));
-  body = emojione.shortnameToImage(body);
   if (returnType === 'text') {
     return body;
   }

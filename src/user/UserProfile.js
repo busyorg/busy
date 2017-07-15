@@ -35,7 +35,6 @@ export default class UserProfile extends Component {
     const isOwnProfile = auth.isAuthenticated && username === auth.user.name;
     const content = getFeedContentFromState('blog', username, feed, posts);
     const isFetching = getFeedLoadingFromState('blog', username, feed);
-    console.log('Feed', feed);
     const hasMore = getFeedHasMoreFromState('blog', username, feed);
     const loadContentAction = () => getFeedContent({
       sortBy: 'blog',

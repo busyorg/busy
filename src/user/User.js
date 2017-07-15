@@ -21,8 +21,6 @@ import Loading from '../components/Icon/Loading';
 import Follow from '../widgets/Follow';
 import Icon from '../widgets/Icon';
 import Avatar from '../widgets/Avatar';
-import { fetchChannelPresence } from '../messages/messagesActions';
-import getChannelName from '../helpers/getChannelName';
 import dispatchActions from '../helpers/dispatchActions';
 import UserNotFound from '../statics/UserNotFound';
 import Transfer from '../widgets/Transfer';
@@ -61,14 +59,6 @@ export const needs = [getAccountWithFollowingCount];
 @dispatchActions(
   {
     waitFor: state => state.auth && state.auth.isAuthenticated
-  },
-  (ownProps) => {
-    const { auth, match } = ownProps;
-    const channelName = getChannelName(auth, match.params.name);
-
-    return {
-      fetchChannelPresence: () => fetchChannelPresence(channelName)
-    };
   }
 )
 export default class User extends React.Component {
