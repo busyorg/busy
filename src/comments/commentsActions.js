@@ -89,6 +89,46 @@ export const getComments = (postId, isFromAnotherComment = false) => {
   };
 };
 
+export const sendCommentV2 = (parentPost, body) =>
+  (dispatch, getState) => {
+    const { parent_author, parent_permlink, category, root_comment } = parentPost;
+    const { auth } = getState();
+
+    if (!auth.isAuthenticated) {
+      // dispatch error
+      return;
+    }
+
+    if (!body || !body.length) {
+      // dispatch error
+      return;
+    }
+
+    const author = auth.user.name;
+    const permlink = createCommentPermlink(parent_author, parent_permlink);
+    const jsonMetadata = { tags: [category], app: `busy/${version}` };
+
+    return dispatch({
+      type: SEND_COMMENT,
+      payload: {
+        promise: SteemConnect.comment(
+          parent_author,
+          parent_permlink,
+          author,
+          permlink,
+          '',
+          body,
+          jsonMetadata
+        ),
+      },
+      meta: {
+        parentId: parentPost.id,
+        isEditing: false,
+        isReplyToComment: (parentPost.id === root_comment) ? false: true,
+      },
+    }).then(() => dispatch(getComments(root_comment)));
+  };
+
 export const sendComment = (parentId = null) =>
   (dispatch, getState) => {
     const { auth, comments } = getState();

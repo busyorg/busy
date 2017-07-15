@@ -12,6 +12,7 @@ import './Comment.less';
 
 class Comment extends React.Component {
   static propTypes = {
+    auth: PropTypes.shape(),
     comment: PropTypes.shape().isRequired,
     commentsChildren: PropTypes.shape(),
     onLikeClick: PropTypes.func,
@@ -19,6 +20,7 @@ class Comment extends React.Component {
   };
 
   static defaultProps = {
+    auth: undefined,
     commentsChildren: undefined,
     onLikeClick: () => {},
     onDislikeClick: () => {},
@@ -45,7 +47,7 @@ class Comment extends React.Component {
   }
 
   render() {
-    const { comment, commentsChildren, onLikeClick, onDislikeClick } = this.props;
+    const { auth, comment, commentsChildren, onLikeClick, onDislikeClick } = this.props;
 
     const pendingPayoutValue = parseFloat(comment.pending_payout_value);
     const totalPayoutValue = parseFloat(comment.total_payout_value);
@@ -104,19 +106,26 @@ class Comment extends React.Component {
               </Tooltip>
             </span>
             <span className="Comment__footer__bullet" />
-            <a
-              className={
-                classNames('Comment__footer__link', {
-                  'Comment__footer__link--active': this.state.replyOpen,
-                })
-              }
-              onClick={() => this.handleReplyClick()}
-            >
-              Reply
-            </a>
+            {(auth && auth.isAuthenticated) &&
+              <a
+                className={
+                  classNames('Comment__footer__link', {
+                    'Comment__footer__link--active': this.state.replyOpen,
+                  })
+                }
+                onClick={() => this.handleReplyClick()}
+              >
+                Reply
+              </a>
+            }
           </div>
           {
-            this.state.replyOpen && <CommentForm isSmall={comment.depth !== 1} />
+            (this.state.replyOpen && auth && auth.isAuthenticated) &&
+            <CommentForm
+              username={auth.user.name}
+              parentPost={comment}
+              isSmall={comment.depth !== 1}
+            />
           }
           <div className="Comment__replies">
             {
@@ -126,6 +135,7 @@ class Comment extends React.Component {
               commentsChildren[comment.id]
                 .map(child => (
                   <Comment
+                    auth={auth}
                     key={child.id}
                     comment={child}
                     commentsChildren={commentsChildren}

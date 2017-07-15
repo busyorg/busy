@@ -241,7 +241,7 @@ export default class PostSingle extends Component {
                 onCommentClick={() => console.log('Comment click')}
                 onShareClick={() => reblog(content.id)}
               />
-              <Comments postId={content.id} show />
+              <Comments post={content} show />
             </div>
           </div>
           {/* {content.author && !modal &&

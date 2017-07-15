@@ -30,7 +30,7 @@ export default class Comments extends Component {
   }
 
   static propTypes = {
-    postId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+    post: PropTypes.object,
     comments: PropTypes.object,
     getComments: PropTypes.func,
     className: PropTypes.string,
@@ -38,21 +38,21 @@ export default class Comments extends Component {
 
   componentDidMount() {
     if (this.props.show) {
-      this.props.getComments(this.props.postId);
+      this.props.getComments(this.props.post.id);
     }
   }
 
   componentDidUpdate(prevProps) {
-    const postChanged = (this.props.postId && prevProps.postId !== this.props.postId);
+    const postChanged = (this.props.post.id && prevProps.post.id !== this.props.post.id);
     const showToggled = (this.props.show && prevProps.show !== this.props.show);
     if (showToggled || postChanged) {
-      this.props.getComments(this.props.postId);
+      this.props.getComments(this.props.post.id);
     }
   }
 
   handleShowMore = (e) => {
     e.stopPropagation();
-    this.props.showMoreComments(this.props.postId);
+    this.props.showMoreComments(this.props.post.id);
   };
 
   handleSortChange = ({ value }) => {
@@ -73,7 +73,8 @@ export default class Comments extends Component {
   }
 
   render() {
-    const { postId, comments, show } = this.props;
+    const { post, comments, show } = this.props;
+    const postId = post.id;
 
     if (!show) {
       return <div />;
@@ -98,6 +99,7 @@ export default class Comments extends Component {
     if (fetchedCommentsList) {
       return (
         <CommentsList
+          parentPost={post}
           comments={fetchedCommentsList}
           auth={this.props.auth}
           commentsChildren={commentsChildren}
