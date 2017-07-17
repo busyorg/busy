@@ -7143,11 +7143,12 @@ exports[`Storyshots Editor Editor 1`] = `
                   "autosize": false,
                   "className": "Editor__title",
                   "disabled": false,
+                  "onChange": [Function],
                   "placeholder": "Add title",
                   "prefixCls": "ant-input",
                   "type": "text",
                 },
-                "ref": null,
+                "ref": [Function],
                 "rules": Array [
                   Object {
                     "message": "Please enter a title",
@@ -7214,48 +7215,8 @@ exports[`Storyshots Editor Editor 1`] = `
         className="ant-form-item-control-wrapper"
       >
         <div
-          className="ant-form-item-control "
+          className="ant-form-item-control has-success"
         >
-          <div
-            className="ant-select-lg Editor__topics ant-select ant-select-enabled"
-            onBlur={[Function]}
-            onClick={[Function]}
-            onFocus={[Function]}
-            onMouseDown={[Function]}
-            onMouseEnter={undefined}
-            onMouseLeave={undefined}
-            onTouchStart={[Function]}
-            style={undefined}
-          >
-            <div
-              aria-autocomplete="list"
-              aria-expanded={false}
-              aria-haspopup="true"
-              className="ant-select-selection
-                        ant-select-selection--multiple"
-              role="combobox"
-            >
-              <div
-                className="ant-select-selection__rendered"
-              >
-                <div
-                  className="ant-select-selection__placeholder"
-                  onClick={[Function]}
-                  onMouseDown={[Function]}
-                  style={
-                    Object {
-                      "WebkitUserSelect": "none",
-                      "display": "block",
-                      "userSelect": "none",
-                    }
-                  }
-                  unselectable="unselectable"
-                >
-                  Add story topics here
-                </div>
-              </div>
-            </div>
-          </div>
           <div
             className="ant-form-extra"
           >
