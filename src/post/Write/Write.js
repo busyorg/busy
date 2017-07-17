@@ -31,7 +31,7 @@ class Write extends React.Component {
     const { editor: { draftPosts }, location: { search } } = this.props;
     const draftId = new URLSearchParams(search).get('draft');
     const draftPost = draftPosts[draftId];
-    const postData = draftPost.postData;
+    const postData = draftPost && draftPost.postData;
 
     if (postData) {
       const { jsonMetadata } = postData;
@@ -45,6 +45,7 @@ class Write extends React.Component {
       });
     }
   }
+
 
   onSubmit = (form) => {
     const data = this.getNewPostData(form);
@@ -142,6 +143,7 @@ class Write extends React.Component {
 
   render() {
     const { initialTitle, initialTopics, initialBody } = this.state;
+    const { editor: { loading } } = this.props;
 
     return (
       <div className="shifted">
@@ -151,6 +153,7 @@ class Write extends React.Component {
             title={initialTitle}
             topics={initialTopics}
             body={initialBody}
+            loading={loading}
             onUpdate={this.saveDraft}
             onSubmit={this.onSubmit}
             onImagePasted={this.onImagePasted}

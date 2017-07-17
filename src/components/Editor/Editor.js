@@ -23,6 +23,7 @@ class Editor extends React.Component {
     body: PropTypes.string,
     recentTopics: PropTypes.arrayOf(PropTypes.string),
     popularTopics: PropTypes.arrayOf(PropTypes.string),
+    loading: PropTypes.bool,
     onUpdate: PropTypes.func,
     onSubmit: PropTypes.func,
     onError: PropTypes.func,
@@ -35,6 +36,7 @@ class Editor extends React.Component {
     body: '',
     recentTopics: [],
     popularTopics: [],
+    loading: false,
     onUpdate: () => {},
     onSubmit: () => {},
     onError: () => {},
@@ -286,7 +288,7 @@ class Editor extends React.Component {
 
   render() {
     const { getFieldDecorator } = this.props.form;
-    const { recentTopics, popularTopics } = this.props;
+    const { recentTopics, popularTopics, loading } = this.props;
 
     return (
       <Form className="Editor" layout="vertical" onSubmit={this.handleSubmit}>
@@ -358,7 +360,7 @@ class Editor extends React.Component {
           </Tabs>
         </Form.Item>
         <Form.Item className="Editor__submit">
-          <Action text="Submit" />
+          <Action disabled={loading} text={(loading) ? 'Submitting' : 'Submit'} />
         </Form.Item>
       </Form>
     );
