@@ -25,6 +25,7 @@ class Write extends React.Component {
       initialBody: '',
     };
   }
+
   componentDidMount() {
     this.props.newPost();
     const { editor: { draftPosts }, location: { search } } = this.props;
@@ -53,6 +54,11 @@ class Write extends React.Component {
       data.draftId = id;
     }
     this.props.createPost(data);
+  }
+
+  onImagePasted = (image, callback) => {
+    // NOTE: Upload image to server.
+    setTimeout(() => callback('https://placehold.it/200x200'), 500);
   }
 
   getNewPostData = (form) => {
@@ -147,6 +153,7 @@ class Write extends React.Component {
             body={initialBody}
             onUpdate={this.saveDraft}
             onSubmit={this.onSubmit}
+            onImagePasted={this.onImagePasted}
           />
         </div>
       </div>
