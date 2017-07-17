@@ -22,10 +22,20 @@ export const NEW_POST = '@editor/NEW_POST';
 export const newPost = createAction(NEW_POST);
 
 export const SAVE_DRAFT = '@editor/SAVE_DRAFT';
-export const saveDraft = createAction(SAVE_DRAFT);
 
 export const DELETE_DRAFT = '@editor/DELETE_DRAFT';
 export const deleteDraft = createAction(DELETE_DRAFT);
+
+export const saveDraft = post =>
+  (dispatch) => {
+    dispatch(push(`/write?draft=${post.id}`));
+    dispatch({
+      type: SAVE_DRAFT,
+      payload: {
+        ...post,
+      },
+    });
+  };
 
 export const editPost = post =>
   (dispatch) => {
