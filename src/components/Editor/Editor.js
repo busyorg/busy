@@ -93,7 +93,6 @@ class Editor extends React.Component {
   onUpdate = (e) => {
     // NOTE: antd doesn't update field value on Select before firing onChange
     // so we have to get value from event.
-    console.log('event', e);
     this.props.onUpdate(this.getValues(e));
   }
 
