@@ -91,7 +91,7 @@ class Editor extends React.Component {
   };
 
   onUpdate = (e) => {
-    // NOTE: antd select doesn't update field value on Select before firing onChange
+    // NOTE: antd doesn't update field value on Select before firing onChange
     // so we have to get value from event.
     this.props.onUpdate(this.getValues(e));
   }
@@ -108,7 +108,10 @@ class Editor extends React.Component {
   }
 
   getValues = e => ({
-    ...this.props.form.getFieldsValue(['title']),
+    // NOTE: antd API is inconsistent and returns event or just value depending of input type.
+    // this code extracts value from event based of event type
+    // (array for Select, proxy event for inputs)
+    title: (!isArray(e)) ? e.target.value : this.props.form.getFieldValue('title'),
     topics: (isArray(e)) ? e : this.props.form.getFieldValue('topics'),
     body: this.input.value,
   })
