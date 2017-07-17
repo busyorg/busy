@@ -64,13 +64,13 @@ class Write extends React.Component {
     data.parentAuthor = '';
     data.author = this.props.user.name || '';
 
-    // TODO: Extract images
-
     const tags = form.topics;
     const users = [];
     const userRegex = /@([a-zA-Z.0-9-]+)/g;
     const links = [];
     const linkRegex = /\[.+?]\((.*?)\)/g;
+    const images = [];
+    const imageRegex = /!\[.+?]\((.*?)\)/g;
     let matches;
 
     const postBody = data.body;
@@ -89,6 +89,13 @@ class Write extends React.Component {
       }
     }
 
+    // eslint-disable-next-line
+    while (matches = imageRegex.exec(postBody)) {
+      if (images.indexOf(matches[1]) === -1 && matches[1].search(/https?:\/\//) === 0) {
+        images.push(matches[1]);
+      }
+    }
+
     if (data.title && !data.permalink) {
       data.permlink = kebabCase(data.title);
     }
@@ -101,7 +108,7 @@ class Write extends React.Component {
     if (tags.length) { metaData.tags = tags; }
     if (users.length) { metaData.users = users; }
     if (links.length) { metaData.links = links; }
-    // if (image.length) { metaData.image = image; }
+    if (images.length) { metaData.image = images; }
 
     data.parentPermlink = tags.length ? tags[0] : 'general';
     data.jsonMetadata = metaData;
