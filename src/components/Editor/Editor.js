@@ -89,7 +89,10 @@ class Editor extends React.Component {
   }
 
   setInput = (input) => {
-    this.input = input && input.refs && input.refs.input;
+    if (input && input.refs && input.refs.input) {
+      // eslint-disable-next-line react/no-find-dom-node
+      this.input = ReactDOM.findDOMNode(input.refs.input);
+    }
   };
 
   onUpdate = (e) => {
@@ -109,14 +112,26 @@ class Editor extends React.Component {
     }
   }
 
-  getValues = e => ({
+  getValues = (e) => {
     // NOTE: antd API is inconsistent and returns event or just value depending of input type.
     // this code extracts value from event based of event type
     // (array for Select, proxy event for inputs)
-    title: (!isArray(e)) ? e.target.value : this.props.form.getFieldValue('title'),
-    topics: (isArray(e)) ? e.slice(0, 5) : this.props.form.getFieldValue('topics'),
-    body: this.input.value,
-  })
+
+    const values = {
+      ...this.props.form.getFieldsValue(['title', 'topics']),
+      body: this.input.value,
+    };
+
+    if (isArray(e)) {
+      values.topics = e;
+    } else if (e.target.type === 'textarea') {
+      values.body = e.target.value;
+    } else if (e.target.type === 'text') {
+      values.title = e.target.value;
+    }
+
+    return values;
+  }
 
   //
   // Form validation and handling
