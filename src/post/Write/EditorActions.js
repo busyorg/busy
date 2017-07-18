@@ -74,7 +74,12 @@ export function createPost(postData) {
           .then(permlink =>
             SteemConnect
               .comment(parentAuthor, parentPermlink, author, permlink, title, body, jsonMetadata)
-              .then(({ result }) => {
+              .then((result) => {
+                if (result.errors) {
+                  const error = new Error('SteemConnect API call failed');
+                  error.errors = result.errors;
+                  return Promise.reject(error);
+                }
                 if (draftId) { dispatch(deleteDraft(draftId)); }
                 dispatch(push(`/${parentPermlink}/@${author}/${permlink}`));
                 return result;
