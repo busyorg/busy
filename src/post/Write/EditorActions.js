@@ -26,15 +26,18 @@ export const SAVE_DRAFT = '@editor/SAVE_DRAFT';
 export const DELETE_DRAFT = '@editor/DELETE_DRAFT';
 export const deleteDraft = createAction(DELETE_DRAFT);
 
-export const saveDraft = post =>
+export const saveDraft = (post, redirect) =>
   (dispatch) => {
-    dispatch(push(`/write?draft=${post.id}`));
     dispatch({
       type: SAVE_DRAFT,
       payload: {
         ...post,
       },
     });
+
+    if (redirect) {
+      dispatch(push(`/write?draft=${post.id}`));
+    }
   };
 
 export const editPost = post =>

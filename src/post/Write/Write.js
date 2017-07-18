@@ -134,11 +134,14 @@ class Write extends React.Component {
 
     if (isBodyEmpty) return;
 
+    let redirect = false;
+
     if (id === null) {
       id = Date.now().toString(16);
+      redirect = true;
     }
 
-    this.props.saveDraft({ postData: data, id });
+    this.props.saveDraft({ postData: data, id }, redirect);
   }, 400);
 
   render() {
