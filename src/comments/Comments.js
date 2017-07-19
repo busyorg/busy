@@ -14,11 +14,9 @@ import './Comments.less';
   }),
   dispatch => bindActionCreators({
     getComments: commentsActions.getComments,
-    showMoreComments: commentsActions.showMoreComments,
     likeComment: id => commentsActions.likeComment(id),
     unlikeComment: id => commentsActions.likeComment(id, 0),
     dislikeComment: id => commentsActions.likeComment(id, -1000),
-    openCommentingDraft: commentsActions.openCommentingDraft,
   }, dispatch)
 )
 export default class Comments extends Component {
@@ -30,10 +28,9 @@ export default class Comments extends Component {
   }
 
   static propTypes = {
-    post: PropTypes.object,
-    comments: PropTypes.object,
+    post: PropTypes.shape(),
+    comments: PropTypes.shape(),
     getComments: PropTypes.func,
-    className: PropTypes.string,
   };
 
   componentDidMount() {
@@ -41,25 +38,6 @@ export default class Comments extends Component {
       this.props.getComments(this.props.post.id);
     }
   }
-
-  componentDidUpdate(prevProps) {
-    const postChanged = (this.props.post.id && prevProps.post.id !== this.props.post.id);
-    const showToggled = (this.props.show && prevProps.show !== this.props.show);
-    if (showToggled || postChanged) {
-      this.props.getComments(this.props.post.id);
-    }
-  }
-
-  handleShowMore = (e) => {
-    e.stopPropagation();
-    this.props.showMoreComments(this.props.post.id);
-  };
-
-  handleSortChange = ({ value }) => {
-    if (value !== this.state.sortOrder) {
-      this.setState({ sortOrder: value });
-    }
-  };
 
   getNestedComments = (commentsObj, commentsIdArray, nestedComments) => {
     commentsIdArray.forEach((commentId) => {
@@ -80,9 +58,8 @@ export default class Comments extends Component {
       return <div />;
     }
 
-    const isFetching = (comments.listByPostId[postId] && comments.listByPostId[postId].isFetching);
-
-    const fetchedCommentsList = (isFetching === false) ?
+    const fetchedCommentsList = (comments.listByPostId[postId]
+      && comments.listByPostId[postId].list.length) ?
       comments.listByPostId[postId].list.map(id => comments.comments[id]) :
       null;
 
@@ -92,7 +69,7 @@ export default class Comments extends Component {
       commentsChildren = this.getNestedComments(comments, comments.listByPostId[postId].list, {});
     }
 
-    if (isFetching || !fetchedCommentsList) {
+    if (!fetchedCommentsList) {
       return (<Loading />);
     }
 
