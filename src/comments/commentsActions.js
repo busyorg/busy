@@ -105,7 +105,7 @@ export const sendCommentV2 = (parentPost, body) =>
       // dispatch error
       return;
     }
-    debugger;
+
     const author = auth.user.name;
     const permlink = createCommentPermlink(parent_author, parent_permlink);
     const jsonMetadata = { tags: [category], app: `busy/${version}` };

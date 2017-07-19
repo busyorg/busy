@@ -61,7 +61,7 @@ export default class Comments extends Component {
     const fetchedCommentsList = (comments.listByPostId[postId]
       && comments.listByPostId[postId].list.length) ?
       comments.listByPostId[postId].list.map(id => comments.comments[id]) :
-      null;
+      [];
 
     let commentsChildren = {};
 
@@ -69,7 +69,7 @@ export default class Comments extends Component {
       commentsChildren = this.getNestedComments(comments, comments.listByPostId[postId].list, {});
     }
 
-    if (!fetchedCommentsList) {
+    if (!fetchedCommentsList.length) {
       return (<Loading />);
     }
 

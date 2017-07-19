@@ -19,6 +19,7 @@ class CommentForm extends Component {
 
   state = {
     inputValue: '',
+    isDisabledSubmit: false,
   }
 
   handleCommentTextChange = (e) => {
@@ -27,15 +28,19 @@ class CommentForm extends Component {
 
   handleSubmit = (e) => {
     e.stopPropagation();
+    this.setState({ isDisabledSubmit: true });
     if (this.state.inputValue) {
       this.props.sendComment(this.props.parentPost, this.state.inputValue).then(() => {
         this.props.notify('Comment submitted successfully', 'success');
+        this.setState({ isDisabledSubmit: false, inputValue: '' });
       });
     }
   }
 
   render() {
     const { username, isSmall } = this.props;
+    const buttonClass = this.state.isDisabledSubmit ? 'CommentForm__button_disabled' :
+      'CommentForm__button_primary';
     return (
       <div className="CommentForm">
         <Avatar username={username} size={(!isSmall) ? 40 : 32} />
@@ -50,7 +55,7 @@ class CommentForm extends Component {
           />
           <button
             onClick={this.handleSubmit}
-            className="CommentForm__text__button"
+            className={`CommentForm__button ${buttonClass}`}
           >
             Comment
           </button>

@@ -9,15 +9,20 @@
   &__text {
     width: 100%;
     margin-left: 12px;
+  }
 
-    &__button {
-      .btn;
-      .btn-primary;
+  &__button {
+    color: @white-darker;
+    margin-top: 4px;
+    .btn;
+    .btn-primary;
 
+    &__primary {
       .colorize-button(@purple, #2a3574);
+    }
 
-      color: @white-darker;
-      margin-top: 4px;
+    &__disabled {
+      .colorize-button(@normal-grey, #5c5f63);
     }
   }
 }
