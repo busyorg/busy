@@ -15,18 +15,26 @@ class StoryFooter extends React.Component {
     super(props);
     this.state = {
       shareModalVisible: false,
+      shareModalLoading: false,
     };
   }
 
   handleShareClick = () => {
     this.setState({
-      shareModalVisible: !this.state.shareModalVisible,
+      shareModalVisible: true,
     });
   }
 
   handleShareOk = () => {
     this.setState({
-      shareModalVisible: false,
+      shareModalLoading: true,
+    }, () => {
+      setTimeout(() => {
+        this.setState({
+          shareModalVisible: false,
+          shareModalLoading: false,
+        });
+      }, 2000);
     });
   }
 
@@ -72,12 +80,14 @@ class StoryFooter extends React.Component {
             <i className="iconfont icon-send StoryFooter__share" />
           </a>
           <Modal
-            title="test"
+            title="Reblog this post?"
             visible={this.state.shareModalVisible}
+            confirmLoading={this.state.shareModalLoading}
+            okText="Reblog"
             onOk={this.handleShareOk}
             onCancel={this.handleShareCancel}
           >
-            Test
+            This post will appear on your personal feed.
           </Modal>
         </Tooltip>
       </div>
