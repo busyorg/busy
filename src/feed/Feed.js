@@ -22,7 +22,7 @@ import './Feed.less';
     auth: state.auth,
     app: state.app,
     bookmarks: state.bookmarks,
-    reblogList: state.reblog
+    reblogList: state.reblog.rebloggedList,
   }),
   {
     openCommentingDraft: commentsActions.openCommentingDraft,

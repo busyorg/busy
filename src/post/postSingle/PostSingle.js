@@ -34,7 +34,7 @@ import Affix from '../../components/Utils/Affix';
   ({ posts, app, reblog, auth, bookmarks }) => ({
     content: posts[app.lastPostId] || null,
     lastPostId: app.lastPostId,
-    reblogList: reblog,
+    reblogList: reblog.rebloggedList,
     bookmarks,
     auth
   }),
