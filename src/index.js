@@ -5,6 +5,8 @@ import steemconnect from 'sc2-sdk';
 import Cookie from 'js-cookie';
 import ReactGA from 'react-ga';
 import { AppContainer } from 'react-hot-loader';
+import { LocaleProvider } from 'antd';
+import enUS from 'antd/lib/locale-provider/en_US';
 import getStore from './store';
 import AppHost from './AppHost';
 
@@ -36,17 +38,19 @@ if (process.env.STEEMCONNECT_HOST) {
 const render = (Component) => {
   ReactDOM.render(
     <Provider store={store}>
-      {process.env.NODE_ENV !== 'production' ?
-        <AppContainer>
+      <LocaleProvider locale={enUS}>
+        {process.env.NODE_ENV !== 'production' ?
+          <AppContainer>
+            <Component
+              onUpdate={logPageView}
+            />
+          </AppContainer>
+          :
           <Component
             onUpdate={logPageView}
           />
-        </AppContainer>
-        :
-        <Component
-          onUpdate={logPageView}
-        />
-      }
+        }
+      </LocaleProvider>
     </Provider>,
     document.getElementById('app')
   );
