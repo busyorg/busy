@@ -19,6 +19,16 @@ class StoryFooter extends React.Component {
     };
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.postState.isReblogging !== this.props.postState.isReblogging) {
+      this.setState({
+        shareModalLoading: nextProps.postState.isReblogging,
+        shareModalVisible: (!(!nextProps.postState.isReblogging
+          && this.props.postState.isReblogging) && this.state.shareModalVisible),
+      });
+    }
+  }
+
   handleShareClick = (e) => {
     e.preventDefault();
     if (this.props.postState.isReblogged) {
@@ -31,17 +41,7 @@ class StoryFooter extends React.Component {
   }
 
   handleShareOk = () => {
-    this.setState({
-      shareModalLoading: true,
-    }, () => {
-      setTimeout(() => {
-        this.props.onShareClick();
-        this.setState({
-          shareModalVisible: false,
-          shareModalLoading: false,
-        });
-      }, 2000);
-    });
+    this.props.onShareClick();
   }
 
   handleShareCancel = () => {

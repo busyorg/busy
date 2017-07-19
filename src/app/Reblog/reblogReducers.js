@@ -1,11 +1,10 @@
-import omit from 'lodash/omit';
 import * as reblogActions from './reblogActions';
 
 // TODO: This should be refactored to more standard redux reducer
 
 const initialState = {
   rebloggedList: [],
-  pendingReblogs: {},
+  pendingReblogs: [],
 };
 
 const reblogReducer = (state = initialState, action) => {
@@ -18,15 +17,15 @@ const reblogReducer = (state = initialState, action) => {
     case reblogActions.START_REBLOGGING:
       return {
         ...state,
-        pendingReblogs: {
+        pendingReblogs: [
           ...state.pendingReblogs,
-          [action.payload]: true,
-        },
+          action.payload,
+        ],
       };
     case reblogActions.FINISH_REBLOGGING:
       return {
         ...state,
-        pendingReblogs: omit(state.pendingReblogs, action.payload),
+        pendingReblogs: state.pendingReblogs.filter(id => id !== action.payload),
       };
     default:
       return state;

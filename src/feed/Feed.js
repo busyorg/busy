@@ -23,6 +23,7 @@ import './Feed.less';
     app: state.app,
     bookmarks: state.bookmarks,
     reblogList: state.reblog.rebloggedList,
+    pendingReblogs: state.reblog.pendingReblogs,
   }),
   {
     openCommentingDraft: commentsActions.openCommentingDraft,
@@ -68,14 +69,12 @@ export default class Feed extends React.Component {
       content,
       isFetching,
       hasMore,
-      replies,
       toggleBookmark,
-      app,
       bookmarks,
-      notify,
+      pendingReblogs,
       reblog,
       votePost,
-      reblogList
+      reblogList,
     } = this.props;
 
     return (
@@ -104,11 +103,13 @@ export default class Feed extends React.Component {
 
               const postState = {
                 isReblogged: reblogList.includes(post.id),
+                isReblogging: pendingReblogs.includes(post.id),
                 isSaved: bookmarks[post.id] !== undefined,
                 isLiked: userVote.percent > 0,
                 isReported: userVote.percent < 0,
                 userFollowed: false // Get Follower list for loggedIn User after login
               };
+
 
               const likePost = userVote.percent > 0
                 ? () => votePost(post.id, 0)

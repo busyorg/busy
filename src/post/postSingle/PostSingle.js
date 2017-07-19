@@ -35,6 +35,7 @@ import Affix from '../../components/Utils/Affix';
     content: posts[app.lastPostId] || null,
     lastPostId: app.lastPostId,
     reblogList: reblog.rebloggedList,
+    pendingReblogs: reblog.pendingReblogs,
     bookmarks,
     auth
   }),
@@ -97,7 +98,7 @@ export default class PostSingle extends Component {
 
   render() {
     // let onEdit;
-    const { content, auth, reblogList, bookmarks, votePost, reblog, toggleBookmark } = this.props;
+    const { content, auth, reblogList, pendingReblogs, bookmarks, votePost, reblog, toggleBookmark } = this.props;
 
     if (!content || !content.author) {
       return <div className="main-panel"><Loading /></div>;
@@ -158,6 +159,7 @@ export default class PostSingle extends Component {
 
     const postState = {
       isReblogged: reblogList.includes(content.id),
+      isReblogging: pendingReblogs.includes(content.id),
       isSaved: bookmarks[content.id] !== undefined,
       isLiked: userVote.percent > 0,
       isReported: userVote.percent < 0,
