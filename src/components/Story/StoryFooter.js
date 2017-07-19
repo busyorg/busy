@@ -19,7 +19,12 @@ class StoryFooter extends React.Component {
     };
   }
 
-  handleShareClick = () => {
+  handleShareClick = (e) => {
+    e.preventDefault();
+    if (this.props.postState.isReblogged) {
+      return;
+    }
+
     this.setState({
       shareModalVisible: true,
     });
@@ -30,6 +35,7 @@ class StoryFooter extends React.Component {
       shareModalLoading: true,
     }, () => {
       setTimeout(() => {
+        this.props.onShareClick();
         this.setState({
           shareModalVisible: false,
           shareModalLoading: false,
@@ -45,7 +51,7 @@ class StoryFooter extends React.Component {
   }
 
   render() {
-    const { post, postState, onLikeClick, onCommentClick, onShareClick } = this.props;
+    const { post, postState, onLikeClick, onCommentClick } = this.props;
     const maxPayout = parseFloat(post.max_accepted_payout) || 0;
     const payout = parseFloat(post.pending_payout_value) || parseFloat(post.total_payout_value);
     const payoutValue = numeral(payout).format('$0,0.00');
@@ -75,10 +81,11 @@ class StoryFooter extends React.Component {
             <span className="StoryFooter__number">{commentsValue}</span>
           </a>
         </Tooltip>
-        <Tooltip title="Reblog" placement="top">
+        <Tooltip title={(postState.isReblogged) ? 'You already reblogged this post' : 'Reblog'} placement="top">
           <a className={rebloggedClass} onClick={this.handleShareClick}>
             <i className="iconfont icon-send StoryFooter__share" />
           </a>
+          {!postState.isReblogged &&
           <Modal
             title="Reblog this post?"
             visible={this.state.shareModalVisible}
@@ -87,8 +94,9 @@ class StoryFooter extends React.Component {
             onOk={this.handleShareOk}
             onCancel={this.handleShareCancel}
           >
-            This post will appear on your personal feed.
+            This post will appear on your personal feed. This action <b>cannot</b> be reversed.
           </Modal>
+          }
         </Tooltip>
       </div>
     );
