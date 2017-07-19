@@ -1,6 +1,7 @@
 import React from 'react';
 
-import createHistory from 'history/createBrowserHistory';
+import createBrowserHistory from 'history/createBrowserHistory';
+import createMemoryHistory from 'history/createMemoryHistory';
 import { Route, Switch } from 'react-router-dom';
 import Wrapper from './wrapper';
 import Settings from './app/AppSettings';
@@ -77,4 +78,4 @@ export default (
   </Wrapper>
 );
 
-export const history = createHistory();
+export const history = (typeof window === 'undefined') ? createMemoryHistory() : createBrowserHistory();
