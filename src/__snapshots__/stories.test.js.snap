@@ -8790,20 +8790,24 @@ exports[`Storyshots Story Full story 1`] = `
           18
         </span>
       </a>
-      <a
-        className="StoryFooter__link"
+      <span
         onBlur={undefined}
-        onClick={[Function]}
+        onClick={undefined}
         onFocus={undefined}
         onMouseDown={undefined}
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
         onTouchStart={undefined}
       >
-        <i
-          className="iconfont icon-send StoryFooter__share"
-        />
-      </a>
+        <a
+          className="StoryFooter__link"
+          onClick={[Function]}
+        >
+          <i
+            className="iconfont icon-send StoryFooter__share"
+          />
+        </a>
+      </span>
     </div>
   </div>
 </div>
@@ -9022,20 +9026,24 @@ exports[`Storyshots Story Full story with embed 1`] = `
           57
         </span>
       </a>
-      <a
-        className="StoryFooter__link"
+      <span
         onBlur={undefined}
-        onClick={[Function]}
+        onClick={undefined}
         onFocus={undefined}
         onMouseDown={undefined}
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
         onTouchStart={undefined}
       >
-        <i
-          className="iconfont icon-send StoryFooter__share"
-        />
-      </a>
+        <a
+          className="StoryFooter__link"
+          onClick={[Function]}
+        >
+          <i
+            className="iconfont icon-send StoryFooter__share"
+          />
+        </a>
+      </span>
     </div>
   </div>
 </div>
@@ -9223,20 +9231,24 @@ exports[`Storyshots Story Inline story 1`] = `
             18
           </span>
         </a>
-        <a
-          className="StoryFooter__link"
+        <span
           onBlur={undefined}
-          onClick={[Function]}
+          onClick={undefined}
           onFocus={undefined}
           onMouseDown={undefined}
           onMouseEnter={[Function]}
           onMouseLeave={[Function]}
           onTouchStart={undefined}
         >
-          <i
-            className="iconfont icon-send StoryFooter__share"
-          />
-        </a>
+          <a
+            className="StoryFooter__link"
+            onClick={[Function]}
+          >
+            <i
+              className="iconfont icon-send StoryFooter__share"
+            />
+          </a>
+        </span>
       </div>
     </div>
   </div>
@@ -9432,20 +9444,24 @@ exports[`Storyshots Story Inline story with embed 1`] = `
             57
           </span>
         </a>
-        <a
-          className="StoryFooter__link"
+        <span
           onBlur={undefined}
-          onClick={[Function]}
+          onClick={undefined}
           onFocus={undefined}
           onMouseDown={undefined}
           onMouseEnter={[Function]}
           onMouseLeave={[Function]}
           onTouchStart={undefined}
         >
-          <i
-            className="iconfont icon-send StoryFooter__share"
-          />
-        </a>
+          <a
+            className="StoryFooter__link"
+            onClick={[Function]}
+          >
+            <i
+              className="iconfont icon-send StoryFooter__share"
+            />
+          </a>
+        </span>
       </div>
     </div>
   </div>
