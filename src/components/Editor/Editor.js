@@ -12,8 +12,6 @@ import './Editor.less';
 
 const remarkable = new Remarkable();
 
-const Option = Select.Option;
-const OptionGroup = Select.OptGroup;
 const TabPane = Tabs.TabPane;
 
 class Editor extends React.Component {
@@ -21,8 +19,6 @@ class Editor extends React.Component {
     title: PropTypes.string,
     topics: PropTypes.arrayOf(PropTypes.string),
     body: PropTypes.string,
-    recentTopics: PropTypes.arrayOf(PropTypes.string),
-    popularTopics: PropTypes.arrayOf(PropTypes.string),
     loading: PropTypes.bool,
     onUpdate: PropTypes.func,
     onSubmit: PropTypes.func,
@@ -303,7 +299,7 @@ class Editor extends React.Component {
 
   render() {
     const { getFieldDecorator } = this.props.form;
-    const { recentTopics, popularTopics, loading } = this.props;
+    const { loading } = this.props;
 
     return (
       <Form className="Editor" layout="vertical" onSubmit={this.handleSubmit}>
@@ -338,16 +334,9 @@ class Editor extends React.Component {
               className="Editor__topics"
               mode="tags"
               placeholder="Add story topics here"
-              notFoundContent="No such topic found. Just type your topics and separate them with commas"
+              dropdownStyle={{ display: 'none' }}
               tokenSeparators={[' ', ',']}
-            >
-              <OptionGroup key="recent" label={<b>Recent</b>}>
-                {recentTopics && recentTopics.map(topic => <Option key={topic}>{topic}</Option>)}
-              </OptionGroup>
-              <OptionGroup key="popular" label={<b>Popular</b>}>
-                {popularTopics && popularTopics.map(topic => <Option key={topic}>{topic}</Option>)}
-              </OptionGroup>
-            </Select>
+            />
           )}
         </Form.Item>
         <Form.Item
