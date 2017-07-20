@@ -56,6 +56,10 @@ class Affix extends React.Component {
   }
 
   handleScroll = () => {
+    if (!this.relativeContainer || !this.affixContainer) {
+      return;
+    }
+
     const { stickPosition } = this.props;
 
     const windowHeight = document.body.clientHeight;
