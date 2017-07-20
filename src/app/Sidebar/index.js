@@ -26,7 +26,6 @@ class SidebarWithTopics extends React.PureComponent {
   }
 
   componentWillMount() {
-    console.log('api', api);
     api.getState('trending/busy', (err, result) => {
       let categories =
         (result.category_idx && result.category_idx.trending) ||
