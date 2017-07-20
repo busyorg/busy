@@ -37,10 +37,7 @@ const StoryPreview = ({ post }) => {
 
     embed: () => embeds && embeds[0] && <PostFeedEmbed key="embed" embed={embeds[0]} />,
 
-    image: () => (
-      <Link key="image" to={post.url}>
-        <img alt="post" key={imagePath} src={imagePath} />
-      </Link>),
+    image: () => <img alt="post" key={imagePath} src={imagePath} />,
   };
 
   const htmlBody = getHtml(post.body, {}, 'text');
