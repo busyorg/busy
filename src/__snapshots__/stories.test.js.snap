@@ -7230,21 +7230,6 @@ exports[`Storyshots Editor Editor 1`] = `
       style={undefined}
     >
       <div
-        className="ant-form-item-label"
-      >
-        <label
-          className=""
-          htmlFor={null}
-          title=""
-        >
-          <span
-            className="Editor__label"
-          >
-            Write your story
-          </span>
-        </label>
-      </div>
-      <div
         className="ant-form-item-control-wrapper"
       >
         <div
