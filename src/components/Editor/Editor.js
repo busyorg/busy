@@ -340,7 +340,6 @@ class Editor extends React.Component {
           )}
         </Form.Item>
         <Form.Item
-          label={<span className="Editor__label">Write your story</span>}
           validateStatus={this.state.noContent ? 'error' : ''}
           help={this.state.noContent ? "Story content can't be empty" : ''}
         >
