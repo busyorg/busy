@@ -8655,7 +8655,9 @@ exports[`Storyshots Story Full story 1`] = `
       className="StoryFull__content"
       onClick={[Function]}
     >
-      <div>
+      <div
+        className="Body"
+      >
         <div
           dangerouslySetInnerHTML={
             Object {
@@ -8890,7 +8892,9 @@ exports[`Storyshots Story Full story with embed 1`] = `
       className="StoryFull__content"
       onClick={[Function]}
     >
-      <div>
+      <div
+        className="Body"
+      >
         <div
           dangerouslySetInnerHTML={
             Object {
