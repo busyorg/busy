@@ -34,6 +34,7 @@ import ScrollToTop from '../../components/Utils/ScrollToTop';
 @connect(
   ({ posts, app, reblog, auth, bookmarks }) => ({
     content: posts[app.lastPostId] || null,
+    loading: posts.postLoading,
     lastPostId: app.lastPostId,
     reblogList: reblog,
     bookmarks,
@@ -95,7 +96,7 @@ export default class PostSingle extends Component {
 
   render() {
     // let onEdit;
-    const { content, auth, reblogList, bookmarks, votePost, reblog, toggleBookmark } = this.props;
+    const { content, loading, auth, reblogList, bookmarks, votePost, reblog, toggleBookmark } = this.props;
 
     if (!content || !content.author) {
       return <div className="main-panel"><Loading /></div>;
@@ -211,16 +212,19 @@ export default class PostSingle extends Component {
               </div>
             </Affix>
             <div className="center">
-              <StoryFull
-                post={content}
-                postState={postState}
-                onFollowClick={() => console.log('Follow click')}
-                onSaveClick={() => toggleBookmark(content.id)}
-                onReportClick={reportPost}
-                onLikeClick={likePost}
-                onCommentClick={() => console.log('Comment click')}
-                onShareClick={() => reblog(content.id)}
-              />
+              {
+                (loading) ? <Loading /> :
+                <StoryFull
+                  post={content}
+                  postState={postState}
+                  onFollowClick={() => console.log('Follow click')}
+                  onSaveClick={() => toggleBookmark(content.id)}
+                  onReportClick={reportPost}
+                  onLikeClick={likePost}
+                  onCommentClick={() => console.log('Comment click')}
+                  onShareClick={() => reblog(content.id)}
+                />
+              }
             </div>
           </div>
           {/* {content.author && !modal &&
