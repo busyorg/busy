@@ -7,6 +7,7 @@ import isArray from 'lodash/isArray';
 import 'url-search-params-polyfill';
 import { createPost, saveDraft, newPost } from './EditorActions';
 import Editor from '../../components/Editor/Editor';
+import Affix from '../../components/Utils/Affix';
 
 const version = require('../../../package.json').version;
 
@@ -150,17 +151,24 @@ class Write extends React.Component {
 
     return (
       <div className="shifted">
-        <div className="container">
-          <Editor
-            ref={this.setForm}
-            title={initialTitle}
-            topics={initialTopics}
-            body={initialBody}
-            loading={loading}
-            onUpdate={this.saveDraft}
-            onSubmit={this.onSubmit}
-            onImagePasted={this.onImagePasted}
-          />
+        <div className="post-layout container">
+          <Affix className="rightContainer" stickPosition={77}>
+            <div className="right">
+              WIP
+            </div>
+          </Affix>
+          <div className="center">
+            <Editor
+              ref={this.setForm}
+              title={initialTitle}
+              topics={initialTopics}
+              body={initialBody}
+              loading={loading}
+              onUpdate={this.saveDraft}
+              onSubmit={this.onSubmit}
+              onImagePasted={this.onImagePasted}
+            />
+          </div>
         </div>
       </div>
     );
