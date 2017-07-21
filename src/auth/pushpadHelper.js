@@ -4,7 +4,12 @@ export const initPushpad = (username, token) => {
   const PUSHPAD_PROJECT_ID = process.env.PUSHPAD_PROJECT_ID;
   const BUSYPUSH_ENDPOINT = process.env.BUSYPUSH_ENDPOINT;
 
-  if (!(window && window.Worker)) { // eslint-disable-line
+  // Do not try to init if Pushpad is not configured
+  if (!PUSHPAD_PROJECT_ID || !BUSYPUSH_ENDPOINT) {
+    return;
+  }
+
+  if (!(window && window.Worker)) {
     return;
   }
 

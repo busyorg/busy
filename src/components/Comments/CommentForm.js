@@ -65,6 +65,7 @@ CommentForm.propTypes = {
 };
 
 CommentForm.defaultProps = {
+  username: undefined,
   isSmall: false,
   isLoading: false,
 };

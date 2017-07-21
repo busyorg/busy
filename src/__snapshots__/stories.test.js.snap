@@ -7778,7 +7778,7 @@ exports[`Storyshots Profile UserHeader 1`] = `
       <img
         alt=""
         className="Avatar"
-        src="https://img.steemconnect.com/@?s=100"
+        src="https://img.steemconnect.com/@steemconnect?s=100"
         style={
           Object {
             "height": "100px",
@@ -7815,7 +7815,7 @@ exports[`Storyshots Profile UserHeader 1`] = `
           className="UserHeader__row UserHeader__handle"
         >
           @
-          
+
         </div>
       </div>
     </div>
