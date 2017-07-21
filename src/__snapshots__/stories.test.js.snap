@@ -168,7 +168,7 @@ exports[`Storyshots Comments Comments 1`] = `
       <img
         alt={undefined}
         className="Avatar"
-        src="https://img.steemconnect.com/@undefined?s=40"
+        src="https://img.steemconnect.com/@steemconnect?s=40"
         style={
           Object {
             "height": "40px",
@@ -7824,7 +7824,7 @@ exports[`Storyshots Profile UserHeader 1`] = `
       <img
         alt=""
         className="Avatar"
-        src="https://img.steemconnect.com/@?s=100"
+        src="https://img.steemconnect.com/@steemconnect?s=100"
         style={
           Object {
             "height": "100px",
@@ -8770,7 +8770,9 @@ exports[`Storyshots Story Full story 1`] = `
       className="StoryFull__content"
       onClick={[Function]}
     >
-      <div>
+      <div
+        className="Body"
+      >
         <div
           dangerouslySetInnerHTML={
             Object {
@@ -9005,7 +9007,9 @@ exports[`Storyshots Story Full story with embed 1`] = `
       className="StoryFull__content"
       onClick={[Function]}
     >
-      <div>
+      <div
+        className="Body"
+      >
         <div
           dangerouslySetInnerHTML={
             Object {

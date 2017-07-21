@@ -9,6 +9,7 @@ import sanitizeConfig from '../../helpers/SanitizeConfig';
 import { imageRegex } from '../../helpers/regexHelpers';
 import htmlReady from '../../helpers/steemitHtmlReady';
 import PostFeedEmbed from './PostFeedEmbed';
+import './Body.less';
 
 const remarkable = new Remarkable({
   html: true, // remarkable renders first then sanitize runs...
@@ -60,5 +61,5 @@ export function getHtml(body, jsonMetadata = {}, returnType = 'Object') {
 
 export default (props) => {
   const htmlSections = getHtml(props.body, props.jsonMetadata);
-  return <div>{htmlSections}</div>;
+  return <div className="Body">{htmlSections}</div>;
 };

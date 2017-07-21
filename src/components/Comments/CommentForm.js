@@ -13,11 +13,12 @@ const CommentForm = ({ username, isSmall }) => (
   </div>);
 
 CommentForm.propTypes = {
-  username: PropTypes.string.isRequired,
+  username: PropTypes.string,
   isSmall: PropTypes.bool,
 };
 
 CommentForm.defaultProps = {
+  username: undefined,
   isSmall: false,
 };
 

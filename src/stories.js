@@ -192,6 +192,7 @@ storiesOf('Profile', module)
 storiesOf('Comments', module)
   .add('Comments', () => (
     <Comments
+      username="steemconnect"
       comments={rootComments}
       commentsChildren={commentsChildren}
       onLikeClick={action('Like click')}
