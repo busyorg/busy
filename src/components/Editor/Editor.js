@@ -362,9 +362,12 @@ class Editor extends React.Component {
             </TabPane>
           </Tabs>
         </Form.Item>
-        <Form.Item className="Editor__submit">
-          <Action disabled={loading} text={(loading) ? 'Submitting' : 'Submit'} />
-        </Form.Item>
+        <div className="Editor__bottom">
+          <span className="Editor__bottom__info">Styling with markdown is supported</span>
+          <Form.Item className="Editor__bottom__submit">
+            <Action disabled={loading} text={(loading) ? 'Submitting' : 'Create new post'} />
+          </Form.Item>
+        </div>
       </Form>
     );
   }

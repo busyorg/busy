@@ -29,11 +29,23 @@
     }
   }
 
-  &__submit {
-    .ant-form-item-control {
-      text-align: right !important;
+  &__bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &__info {
+      font-weight: bold;
     }
-  }
+ 
+    &__submit {
+      margin-bottom: 0 !important;
+
+      .ant-form-item-control {
+        text-align: right !important;
+      }
+    }
+ }
 
   .ant-select-selection__choice {
     font-weight: 500 !important;

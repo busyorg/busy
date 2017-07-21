@@ -7238,22 +7238,31 @@ exports[`Storyshots Editor Editor 1`] = `
       </div>
     </div>
     <div
-      className="ant-row ant-form-item Editor__submit"
-      style={undefined}
+      className="Editor__bottom"
     >
+      <span
+        className="Editor__bottom__info"
+      >
+        Styling with markdown is supported
+      </span>
       <div
-        className="ant-form-item-control-wrapper"
+        className="ant-row ant-form-item Editor__bottom__submit"
+        style={undefined}
       >
         <div
-          className="ant-form-item-control "
+          className="ant-form-item-control-wrapper"
         >
-          <button
-            className="Action ant-btn-lg"
-            disabled={false}
-            style={Object {}}
+          <div
+            className="ant-form-item-control "
           >
-            Submit
-          </button>
+            <button
+              className="Action ant-btn-lg"
+              disabled={false}
+              style={Object {}}
+            >
+              Create new post
+            </button>
+          </div>
         </div>
       </div>
     </div>
