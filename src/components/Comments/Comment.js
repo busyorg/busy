@@ -11,12 +11,15 @@ import Body from '../Story/Body';
 import './Comment.less';
 
 class Comment extends React.Component {
+
   static propTypes = {
     auth: PropTypes.shape(),
     comment: PropTypes.shape().isRequired,
     commentsChildren: PropTypes.shape(),
     onLikeClick: PropTypes.func,
     onDislikeClick: PropTypes.func,
+    onSendComment: PropTypes.func,
+    notify: PropTypes.func,
   };
 
   static defaultProps = {
@@ -24,6 +27,8 @@ class Comment extends React.Component {
     commentsChildren: undefined,
     onLikeClick: () => {},
     onDislikeClick: () => {},
+    onSendComment: () => {},
+    notify: () => {},
   };
 
   constructor(props) {
@@ -31,6 +36,7 @@ class Comment extends React.Component {
     this.state = {
       replyOpen: false,
       collapsed: false,
+      showCommentFormLoading: false,
     };
   }
 
@@ -43,6 +49,14 @@ class Comment extends React.Component {
   handleCollapseClick = () => {
     this.setState({
       collapsed: !this.state.collapsed,
+    });
+  }
+
+  submitComment = (parentPost, commentValue) => {
+    this.setState({ showCommentFormLoading: true });
+    this.props.onSendComment(parentPost, commentValue).then(() => {
+      this.props.notify('Comment submitted successfully', 'success');
+      this.setState({ showCommentFormLoading: false, replyOpen: false });
     });
   }
 
@@ -125,6 +139,8 @@ class Comment extends React.Component {
               username={auth.user.name}
               parentPost={comment}
               isSmall={comment.depth !== 1}
+              onSubmit={this.submitComment}
+              isLoading={this.state.showCommentFormLoading}
             />
           }
           <div className="Comment__replies">

@@ -24,6 +24,7 @@ class Comments extends React.Component {
     super(props);
     this.state = {
       sort: 'BEST',
+      showCommentFormLoading: false,
     };
   }
 
@@ -35,6 +36,14 @@ class Comments extends React.Component {
       });
     }
   };
+
+  submitComment = (parentPost, commentValue) => {
+    this.setState({ showCommentFormLoading: true });
+    this.props.onSendComment(parentPost, commentValue).then(() => {
+      this.props.notify('Comment submitted successfully', 'success');
+      this.setState({ showCommentFormLoading: false });
+    });
+  }
 
   render() {
     const { comments, commentsChildren, onLikeClick, onDislikeClick, auth } = this.props;
@@ -54,7 +63,13 @@ class Comments extends React.Component {
         </div>
 
         {(auth && auth.isAuthenticated) &&
-          <CommentForm parentPost={this.props.parentPost} username={auth.user.name} />}
+          <CommentForm
+            parentPost={this.props.parentPost}
+            username={auth.user.name}
+            onSubmit={this.submitComment}
+            isLoading={this.state.showCommentFormLoading}
+          />
+        }
         {
           comments && sortComments(comments, sort).map(comment => (
             <Comment
@@ -64,6 +79,8 @@ class Comments extends React.Component {
               commentsChildren={commentsChildren}
               onLikeClick={onLikeClick}
               onDislikeClick={onDislikeClick}
+              onSendComment={this.props.onSendComment}
+              notify={this.props.notify}
             />))
         }
       </div>);

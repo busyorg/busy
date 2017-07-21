@@ -1,19 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { Input } from 'antd';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import Loading from '../Icon/Loading';
 import Avatar from '../Avatar';
-import * as commentActions from '../../comments/commentsActions';
-import { notify } from '../../app/Notification/notificationActions';
 import './CommentForm.less';
-
-@connect(
-  null,
-  dispatch => bindActionCreators({
-    sendComment: (parentPost, body) => commentActions.sendCommentV2(parentPost, body),
-    notify,
-  }, dispatch)
-)
 
 class CommentForm extends Component {
 
@@ -30,17 +19,20 @@ class CommentForm extends Component {
     e.stopPropagation();
     this.setState({ isDisabledSubmit: true });
     if (this.state.inputValue) {
-      this.props.sendComment(this.props.parentPost, this.state.inputValue).then(() => {
-        this.props.notify('Comment submitted successfully', 'success');
-        this.setState({ isDisabledSubmit: false, inputValue: '' });
-      });
+      this.props.onSubmit(this.props.parentPost, this.state.inputValue);
+      this.setState({ inputValue: '' });
     }
   }
 
   render() {
-    const { username, isSmall } = this.props;
+    const { username, isSmall, isLoading } = this.props;
     const buttonClass = this.state.isDisabledSubmit ? 'CommentForm__button_disabled' :
       'CommentForm__button_primary';
+
+    if (isLoading) {
+      return <Loading />;
+    }
+
     return (
       <div className="CommentForm">
         <Avatar username={username} size={(!isSmall) ? 40 : 32} />
@@ -69,10 +61,12 @@ CommentForm.propTypes = {
   parentPost: PropTypes.shape().isRequired,
   username: PropTypes.string.isRequired,
   isSmall: PropTypes.bool,
+  isLoading: PropTypes.bool,
 };
 
 CommentForm.defaultProps = {
   isSmall: false,
+  isLoading: false,
 };
 
 export default CommentForm;

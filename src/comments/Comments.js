@@ -5,6 +5,7 @@ import 'react-select/dist/react-select.css';
 import CommentsList from '../components/Comments/Comments';
 import * as commentsActions from './commentsActions';
 import Loading from '../components/Icon/Loading';
+import { notify } from '../app/Notification/notificationActions';
 import './Comments.less';
 
 @connect(
@@ -15,8 +16,10 @@ import './Comments.less';
   dispatch => bindActionCreators({
     getComments: commentsActions.getComments,
     likeComment: id => commentsActions.likeComment(id),
+    sendComment: (parentPost, body) => commentsActions.sendCommentV2(parentPost, body),
     unlikeComment: id => commentsActions.likeComment(id, 0),
     dislikeComment: id => commentsActions.likeComment(id, -1000),
+    notify,
   }, dispatch)
 )
 export default class Comments extends Component {
@@ -32,6 +35,12 @@ export default class Comments extends Component {
     comments: PropTypes.shape(),
     getComments: PropTypes.func,
   };
+
+  static defaultProps = {
+    post: {},
+    comments: {},
+    getComments: () => {},
+  }
 
   componentDidMount() {
     if (this.props.show) {
@@ -82,6 +91,8 @@ export default class Comments extends Component {
           commentsChildren={commentsChildren}
           onLikeClick={this.props.likeComment}
           onDislikeClick={this.props.dislikeComment}
+          onSendComment={this.props.sendComment}
+          notify={this.props.notify}
         />
       );
     }
