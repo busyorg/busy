@@ -19,6 +19,7 @@ import { jsonParse } from '../../helpers/formatter';
 import StoryFull from '../../components/Story/StoryFull';
 import { RightSidebar } from '../../app/Sidebar/index';
 import Affix from '../../components/Utils/Affix';
+import ScrollToTop from '../../components/Utils/ScrollToTop';
 
 // reblogList: reblog,
 // bookmarks,
@@ -201,6 +202,7 @@ export default class PostSingle extends Component {
             content={image || 'https://steemit.com/images/steemit-twshare.png'}
           />
         </Helmet>
+        <ScrollToTop />
         <div className="shifted">
           <div className="post-layout container">
             <Affix className="rightContainer" stickPosition={77}>
