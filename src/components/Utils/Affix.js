@@ -56,7 +56,7 @@ class Affix extends React.Component {
   }
 
   handleScroll = () => {
-    if (!this.relativeContainer || !this.affixContainer) {
+    if (!this.relativeContainer || !this.affixContainer || !this.relativeContainer.offsetParent) {
       return;
     }
 
