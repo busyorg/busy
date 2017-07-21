@@ -8903,7 +8903,7 @@ exports[`Storyshots Story Full story with embed 1`] = `
             }
           }
         />
-        <a
+        <div
           className="PostFeedEmbed"
           onClick={[Function]}
         >
@@ -8919,7 +8919,7 @@ exports[`Storyshots Story Full story with embed 1`] = `
             className="PostFeedEmbed__preview"
             src="https://i.ytimg.com/vi/YxFzGoDoLwU/hqdefault.jpg"
           />
-        </a>
+        </div>
         <div
           dangerouslySetInnerHTML={
             Object {
@@ -9142,15 +9142,10 @@ exports[`Storyshots Story Inline story 1`] = `
         onClick={[Function]}
       >
         <div>
-          <a
-            href="/bitcoin/@bitspace/the-cryptoeconomy-rally"
-            onClick={[Function]}
-          >
-            <img
-              alt="post"
-              src="https://steemitimages.com/600x800/http://www.kiplinger.com/kipimages/pages/15396.jpg"
-            />
-          </a>
+          <img
+            alt="post"
+            src="https://steemitimages.com/600x800/http://www.kiplinger.com/kipimages/pages/15396.jpg"
+          />
           <div
             className="Story__content__body"
           >
@@ -9357,7 +9352,7 @@ exports[`Storyshots Story Inline story with embed 1`] = `
               />
             </span>
           </div>
-          <a
+          <div
             className="PostFeedEmbed"
             onClick={[Function]}
           >
@@ -9373,7 +9368,7 @@ exports[`Storyshots Story Inline story with embed 1`] = `
               className="PostFeedEmbed__preview"
               src="https://i.ytimg.com/vi/YxFzGoDoLwU/hqdefault.jpg"
             />
-          </a>
+          </div>
         </div>
       </a>
     </div>
