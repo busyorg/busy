@@ -1,0 +1,23 @@
+@import "../../styles/custom.less";
+
+.PopoverMenuItem {
+  height: 30px !important;
+
+  & > a {
+    font-size: 14px !important;
+    font-weight: 500;
+    color: #99aab5 !important;
+    height: 30px !important;
+    line-height: 30px !important;
+
+    &:hover {
+      color: @purple !important;
+    }
+  }
+
+  &--bold {
+    & > a {
+      font-weight: bold !important;
+    }
+  }
+}
