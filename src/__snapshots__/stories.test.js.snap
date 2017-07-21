@@ -7815,7 +7815,7 @@ exports[`Storyshots Profile UserHeader 1`] = `
           className="UserHeader__row UserHeader__handle"
         >
           @
-
+          
         </div>
       </div>
     </div>
