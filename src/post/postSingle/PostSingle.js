@@ -73,10 +73,7 @@ export default class PostSingle extends Component {
   // };
 
   componentWillMount() {
-    const { content } = this.props;
-    if (!content) {
-      this.props.getContent();
-    }
+    this.props.getContent();
   }
   // componentDidMount() {
   //   const { modal } = this.props;
