@@ -23,6 +23,7 @@ module.exports = {
     "no-underscore-dangle": 0,
     "comma-dangle": ["error", "always-multiline"],
     "jsx-a11y/no-static-element-interactions": 0,
+    "react/forbid-prop-types": 0,
     "no-plusplus": 0,
     "no-continue": 0,
     "camelcase": 0

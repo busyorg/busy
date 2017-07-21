@@ -11,12 +11,12 @@ export default class PostFeedEmbed extends Component {
 
   renderThumbFirst(thumb) {
     return (
-      <a className="PostFeedEmbed" onClick={this.handleThumbClick}>
+      <div className="PostFeedEmbed" onClick={this.handleThumbClick}>
         <div className="PostFeedEmbed__playButton">
           <i className="iconfont icon-group icon-playon_fill" />
         </div>
         <img alt="thumbnail" className="PostFeedEmbed__preview" src={thumb} />
-      </a>
+      </div>
     );
   }
 

@@ -23,6 +23,7 @@ import EmptyFeed from '../statics/EmptyFeed';
 import { LeftSidebar, RightSidebar } from '../app/Sidebar/index';
 import TopicSelector from '../components/TopicSelector';
 import Affix from '../components/Utils/Affix';
+import ScrollToTop from '../components/Utils/ScrollToTop';
 
 class TopicSelectorImpl extends React.Component {
   static propTypes = {
@@ -133,6 +134,7 @@ export default class Page extends React.Component {
         <Helmet>
           <title>Busy</title>
         </Helmet>
+        <ScrollToTop />
         <div className="shifted">
           <div className="feed-layout container">
             <Affix className="leftContainer" stickPosition={77}>
