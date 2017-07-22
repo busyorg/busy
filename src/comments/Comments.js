@@ -27,6 +27,7 @@ export default class Comments extends Component {
     super(props);
     this.state = {
       sortOrder: 'trending',
+      isFetchedOnce: false,
     };
   }
 
@@ -45,6 +46,16 @@ export default class Comments extends Component {
   componentDidMount() {
     if (this.props.show) {
       this.props.getComments(this.props.post.id);
+    }
+  }
+
+  componentWillReceiveProps() {
+    const { comments, post } = this.props;
+
+    if (comments.listByPostId[post.id] && comments.listByPostId[post.id].isFetching) {
+      if (!this.state.isFetchedOnce) {
+        this.setState({ isFetchedOnce: true });
+      }
     }
   }
 
@@ -86,7 +97,9 @@ export default class Comments extends Component {
       commentsChildren = this.getNestedComments(comments, comments.listByPostId[postId].list, {});
     }
 
-    if (comments.listByPostId[postId] && comments.listByPostId[postId].isFetching) {
+    if (comments.listByPostId[post.id]
+      && comments.listByPostId[post.id].isFetching
+      && !this.state.isFetchedOnce) {
       return <Loading />;
     }
 
