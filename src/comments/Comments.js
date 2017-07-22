@@ -62,12 +62,20 @@ export default class Comments extends Component {
   render() {
     const { post, comments, show } = this.props;
     const postId = post.id;
+    let fetchedCommentsList = null;
 
     if (!show) {
       return <div />;
     }
 
-    const fetchedCommentsList = (comments.listByPostId[postId]
+    if (comments.listByPostId[postId] && comments.listByPostId[postId].list instanceof Array) {
+      if (comments.listByPostId[postId].list.length) {
+        fetchedCommentsList = comments.listByPostId[postId].list.map(id => comments.comments[id]);
+      } else {
+        fetchedCommentsList = [];
+      }
+    }
+    fetchedCommentsList = (comments.listByPostId[postId]
       && comments.listByPostId[postId].list.length) ?
       comments.listByPostId[postId].list.map(id => comments.comments[id]) :
       [];
@@ -78,11 +86,11 @@ export default class Comments extends Component {
       commentsChildren = this.getNestedComments(comments, comments.listByPostId[postId].list, {});
     }
 
-    if (!fetchedCommentsList.length) {
-      return (<Loading />);
+    if (comments.listByPostId[postId] && comments.listByPostId[postId].isFetching) {
+      return <Loading />;
     }
 
-    if (fetchedCommentsList) {
+    if (fetchedCommentsList instanceof Array) {
       return (
         <CommentsList
           parentPost={post}
@@ -97,8 +105,7 @@ export default class Comments extends Component {
       );
     }
 
-    return (
-      <div />
-    );
+    return <div />;
+    // Todo handle when comment fetch failed.
   }
 }
