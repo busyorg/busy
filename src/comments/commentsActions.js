@@ -1,6 +1,7 @@
 import { createAction } from 'redux-actions';
 import SteemConnect from 'sc2-sdk';
 import { createCommentPermlink } from '../helpers/steemitHelpers';
+import { notify } from '../app/Notification/notificationActions';
 
 const version = require('../../package.json').version;
 
@@ -128,7 +129,12 @@ export const sendCommentV2 = (parentPost, body) =>
         isEditing: false,
         isReplyToComment: (parentPost.id === root_comment) ? false: true,
       },
-    }).then(() => dispatch(getComments(root_comment)));
+    })
+    .then(() => {
+      dispatch(notify('Comment submitted successfully', 'success'));
+      dispatch(getComments(root_comment));
+    })
+    .catch(() => dispatch(notify('Unable to post comment', 'error')));
   };
 
 export const sendComment = (parentId = null) =>

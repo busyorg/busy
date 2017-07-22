@@ -40,7 +40,6 @@ class Comments extends React.Component {
   submitComment = (parentPost, commentValue) => {
     this.setState({ showCommentFormLoading: true });
     this.props.onSendComment(parentPost, commentValue).then(() => {
-      this.props.notify('Comment submitted successfully', 'success');
       this.setState({ showCommentFormLoading: false });
     });
   }
