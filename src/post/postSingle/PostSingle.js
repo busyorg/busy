@@ -134,6 +134,7 @@ export default class PostSingle extends Component {
       prevStory,
       openPostModal: this.props.openPostModal,
       modalResetScroll: this.props.modalResetScroll,
+      modal,
     };
 
     const postMetaData = jsonParse(content.json_metadata);

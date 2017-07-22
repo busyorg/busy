@@ -232,6 +232,7 @@ export default class CommentItem extends Component {
                 isReplyToComment
                 isEditing={this.state.isEditing}
                 onSubmit={() => this.setState({ showEmbeddedComment: false, isEditing: false })}
+                focusOnMount
               />
             }
 
