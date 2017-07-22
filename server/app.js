@@ -51,8 +51,6 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(rootDir, 'assets')));
 }
 
-app.use(express.static(path.join(rootDir, 'node_modules')));
-
 if (!process.env.IS_BROWSER) { global.window = {}; }
 
 const indexPath = process.env.NODE_ENV === 'production' ?
