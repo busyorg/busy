@@ -20,18 +20,19 @@ class CommentForm extends Component {
     this.setState({ isDisabledSubmit: true });
     if (this.state.inputValue) {
       this.props.onSubmit(this.props.parentPost, this.state.inputValue);
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (!nextProps.isLoading) {
       this.setState({ inputValue: '' });
     }
   }
 
   render() {
     const { username, isSmall, isLoading } = this.props;
-    const buttonClass = this.state.isDisabledSubmit ? 'CommentForm__button_disabled' :
+    const buttonClass = isLoading ? 'CommentForm__button_disabled' :
       'CommentForm__button_primary';
-
-    if (isLoading) {
-      return <Loading />;
-    }
 
     return (
       <div className="CommentForm">
@@ -44,6 +45,7 @@ class CommentForm extends Component {
             onChange={this.handleCommentTextChange}
             placeholder="Write a comment"
             autosize={{ minRows: 2, maxRows: 6 }}
+            disabled={isLoading}
           />
           <button
             onClick={this.handleSubmit}
