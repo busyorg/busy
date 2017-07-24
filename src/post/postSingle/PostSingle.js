@@ -40,6 +40,7 @@ import ScrollToTop from '../../components/Utils/ScrollToTop';
     reblogList: reblog.rebloggedList,
     pendingReblogs: reblog.pendingReblogs,
     followingList: user.following.list,
+    pendingFollows: user.following.pendingFollows,
     bookmarks,
     auth
   }),
@@ -110,7 +111,19 @@ export default class PostSingle extends Component {
 
   render() {
     // let onEdit;
-    const { content, loading, auth, reblogList, pendingReblogs, followingList, bookmarks, votePost, reblog, toggleBookmark } = this.props;
+    const {
+      content,
+      loading,
+      auth,
+      reblogList,
+      pendingReblogs,
+      followingList,
+      pendingFollows,
+      bookmarks,
+      votePost,
+      reblog,
+      toggleBookmark,
+    } = this.props;
 
     if (!content || !content.author) {
       return <div className="main-panel"><Loading /></div>;
@@ -232,6 +245,7 @@ export default class PostSingle extends Component {
                 <StoryFull
                   post={content}
                   postState={postState}
+                  pendingFollow={pendingFollows.includes(content.author)}
                   onFollowClick={this.handleFollowClick}
                   onSaveClick={() => toggleBookmark(content.id)}
                   onReportClick={reportPost}

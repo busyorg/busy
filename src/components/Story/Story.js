@@ -12,6 +12,7 @@ import './Story.less';
 class Story extends React.Component {
   static propTypes = {
     post: PropTypes.shape().isRequired,
+    pendingFollow: PropTypes.bool,
     onFollowClick: PropTypes.func,
     onSaveClick: PropTypes.func,
     onReportClick: PropTypes.func,
@@ -21,6 +22,7 @@ class Story extends React.Component {
   };
 
   static defaultProps = {
+    pendingFollow: false,
     onFollowClick: () => {},
     onSaveClick: () => {},
     onReportClick: () => {},
@@ -46,7 +48,27 @@ class Story extends React.Component {
   };
 
   render() {
-    const { post, postState, onLikeClick, onCommentClick, onShareClick } = this.props;
+    const {
+      post,
+      postState,
+      pendingFollow,
+      onLikeClick,
+      onCommentClick,
+      onShareClick,
+    } = this.props;
+
+    let followText = '';
+
+    if (postState.userFollowed && !pendingFollow) {
+      followText = 'Unfollow';
+    } else if (postState.userFollowed && pendingFollow) {
+      followText = 'Unfollowing';
+    } else if (!postState.userFollowed && !pendingFollow) {
+      followText = 'Follow';
+    } else if (!postState.userFollowed && pendingFollow) {
+      followText = 'Following';
+    }
+
 
     return (
       <div className="Story">
@@ -57,7 +79,7 @@ class Story extends React.Component {
             <PopoverMenu onSelect={this.handleClick} bold={false}>
               <PopoverMenuItem key="follow">
                 <i className="iconfont icon-people" />
-                {' '}{!postState.userFollowed ? 'Follow' : 'Unfollow'} {post.author}
+                {`${followText} ${post.author}`}
               </PopoverMenuItem>
               <PopoverMenuItem key="save">
                 <i className="iconfont icon-collection" /> Save post

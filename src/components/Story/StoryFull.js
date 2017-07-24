@@ -14,6 +14,7 @@ import './StoryFull.less';
 class StoryFull extends React.Component {
   static propTypes = {
     post: PropTypes.shape().isRequired,
+    pendingFollow: PropTypes.bool,
     commentCount: PropTypes.number,
     onFollowClick: PropTypes.func,
     onSaveClick: PropTypes.func,
@@ -24,6 +25,7 @@ class StoryFull extends React.Component {
   };
 
   static defaultProps = {
+    pendingFollow: false,
     commentCount: 0,
     onFollowClick: () => {},
     onSaveClick: () => {},
@@ -87,6 +89,7 @@ class StoryFull extends React.Component {
     const {
       post,
       postState,
+      pendingFollow,
       commentCount,
       onLikeClick,
       onCommentClick,
@@ -96,6 +99,18 @@ class StoryFull extends React.Component {
     const { open, index } = this.state.lightbox;
     const images = JSON.parse(post.json_metadata).image;
     const tags = _.union(JSON.parse(post.json_metadata).tags, [post.category]);
+
+    let followText = '';
+
+    if (postState.userFollowed && !pendingFollow) {
+      followText = 'Unfollow';
+    } else if (postState.userFollowed && pendingFollow) {
+      followText = 'Unfollowing';
+    } else if (!postState.userFollowed && !pendingFollow) {
+      followText = 'Follow';
+    } else if (!postState.userFollowed && pendingFollow) {
+      followText = 'Following';
+    }
 
     return (
       <div className="StoryFull">
@@ -132,8 +147,8 @@ class StoryFull extends React.Component {
             content={
               <PopoverMenu onSelect={this.handleClick} bold={false}>
                 <PopoverMenuItem key="follow">
-                  <i className="iconfont icon-people" /> {!postState.userFollowed ? 'Follow' : 'Unfollow'}
-                  {' '}{post.author}
+                  <i className="iconfont icon-people" />
+                  {`${followText} ${post.author}`}
                 </PopoverMenuItem>
                 <PopoverMenuItem key="save">
                   <i className="iconfont icon-collection" /> Save post

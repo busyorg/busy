@@ -26,6 +26,7 @@ import './Feed.less';
     reblogList: state.reblog.rebloggedList,
     pendingReblogs: state.reblog.pendingReblogs,
     followingList: state.user.following.list,
+    pendingFollows: state.user.following.pendingFollows,
   }),
   {
     openCommentingDraft: commentsActions.openCommentingDraft,
@@ -89,6 +90,7 @@ export default class Feed extends React.Component {
       votePost,
       reblogList,
       followingList,
+      pendingFollows,
     } = this.props;
 
     return (
@@ -135,6 +137,7 @@ export default class Feed extends React.Component {
                   key={post.id}
                   post={post}
                   postState={postState}
+                  pendingFollow={pendingFollows.includes(post.author)}
                   onFollowClick={this.handleFollowClick}
                   onSaveClick={() => toggleBookmark(post.id)}
                   onReportClick={reportPost}
