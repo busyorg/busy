@@ -79,7 +79,6 @@ class Comments extends React.Component {
               onLikeClick={onLikeClick}
               onDislikeClick={onDislikeClick}
               onSendComment={this.props.onSendComment}
-              notify={this.props.notify}
             />))
         }
       </div>);

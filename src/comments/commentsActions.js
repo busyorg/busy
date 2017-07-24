@@ -134,7 +134,10 @@ export const sendCommentV2 = (parentPost, body) =>
       dispatch(notify('Comment submitted successfully', 'success'));
       dispatch(getComments(root_comment));
     })
-    .catch(() => dispatch(notify('Unable to post comment', 'error')));
+    .catch((err) => {
+      dispatch(notify('Unable to post comment', 'error'));
+      return Promise.reject(err);
+    });
   };
 
 export const sendComment = (parentId = null) =>

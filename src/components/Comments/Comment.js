@@ -19,7 +19,6 @@ class Comment extends React.Component {
     onLikeClick: PropTypes.func,
     onDislikeClick: PropTypes.func,
     onSendComment: PropTypes.func,
-    notify: PropTypes.func,
   };
 
   static defaultProps = {
@@ -28,7 +27,6 @@ class Comment extends React.Component {
     onLikeClick: () => {},
     onDislikeClick: () => {},
     onSendComment: () => {},
-    notify: () => {},
   };
 
   constructor(props) {
@@ -54,8 +52,12 @@ class Comment extends React.Component {
 
   submitComment = (parentPost, commentValue) => {
     this.setState({ showCommentFormLoading: true });
+
     this.props.onSendComment(parentPost, commentValue).then(() => {
       this.setState({ showCommentFormLoading: false, replyOpen: false });
+    })
+    .catch(() => {
+      this.setState({ showCommentFormLoading: false, replyOpen: true });
     });
   }
 
@@ -156,6 +158,7 @@ class Comment extends React.Component {
                     commentsChildren={commentsChildren}
                     onLikeClick={onLikeClick}
                     onDislikeClick={onDislikeClick}
+                    onSendComment={this.props.onSendComment}
                   />))
             }
           </div>

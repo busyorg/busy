@@ -113,7 +113,6 @@ export default class Comments extends Component {
           onLikeClick={this.props.likeComment}
           onDislikeClick={this.props.dislikeComment}
           onSendComment={this.props.sendComment}
-          notify={this.props.notify}
         />
       );
     }

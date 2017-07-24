@@ -49,6 +49,7 @@ class CommentForm extends Component {
           />
           <button
             onClick={this.handleSubmit}
+            disabled={isLoading}
             className={`CommentForm__button ${buttonClass}`}
           >
             Comment
