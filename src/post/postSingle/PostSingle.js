@@ -13,6 +13,7 @@ import PostSingleModal from './PostSingleModal';
 import * as reblogActions from '../../app/Reblog/reblogActions';
 import * as commentsActions from '../../comments/commentsActions';
 import * as bookmarkActions from '../../bookmarks/bookmarksActions';
+import { followUser, unfollowUser } from '../../user/userActions';
 import * as appActions from '../../actions';
 import Loading from '../../components/Icon/Loading';
 import { jsonParse } from '../../helpers/formatter';
@@ -32,12 +33,13 @@ import ScrollToTop from '../../components/Utils/ScrollToTop';
 // openPostModal: appActions.openPostModal
 @withRouter
 @connect(
-  ({ posts, app, reblog, auth, bookmarks }) => ({
+  ({ posts, app, reblog, auth, bookmarks, user }) => ({
     content: posts[app.lastPostId] || null,
     loading: posts.postLoading,
     lastPostId: app.lastPostId,
     reblogList: reblog.rebloggedList,
     pendingReblogs: reblog.pendingReblogs,
+    followingList: user.following.list,
     bookmarks,
     auth
   }),
@@ -51,7 +53,9 @@ import ScrollToTop from '../../components/Utils/ScrollToTop';
           }),
         toggleBookmark: bookmarkActions.toggleBookmark,
         votePost: postActions.votePost,
-        reblog: reblogActions.reblog
+        reblog: reblogActions.reblog,
+        followUser,
+        unfollowUser,
       },
       dispatch
     )
@@ -95,9 +99,18 @@ export default class PostSingle extends Component {
     }
   }
 
+  handleFollowClick = (post) => {
+    const isFollowed = this.props.followingList.includes(post.author);
+    if (isFollowed) {
+      this.props.unfollowUser(post.author);
+    } else {
+      this.props.followUser(post.author);
+    }
+  }
+
   render() {
     // let onEdit;
-    const { content, loading, auth, reblogList, pendingReblogs, bookmarks, votePost, reblog, toggleBookmark } = this.props;
+    const { content, loading, auth, reblogList, pendingReblogs, followingList, bookmarks, votePost, reblog, toggleBookmark } = this.props;
 
     if (!content || !content.author) {
       return <div className="main-panel"><Loading /></div>;
@@ -162,7 +175,7 @@ export default class PostSingle extends Component {
       isSaved: bookmarks[content.id] !== undefined,
       isLiked: userVote.percent > 0,
       isReported: userVote.percent < 0,
-      userFollowed: false // Get Follower list for loggedIn User after login
+      userFollowed: followingList.includes(content.author),
     };
 
     const likePost = userVote.percent > 0
@@ -219,7 +232,7 @@ export default class PostSingle extends Component {
                 <StoryFull
                   post={content}
                   postState={postState}
-                  onFollowClick={() => console.log('Follow click')}
+                  onFollowClick={this.handleFollowClick}
                   onSaveClick={() => toggleBookmark(content.id)}
                   onReportClick={reportPost}
                   onLikeClick={likePost}

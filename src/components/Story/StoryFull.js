@@ -15,7 +15,6 @@ class StoryFull extends React.Component {
   static propTypes = {
     post: PropTypes.shape().isRequired,
     commentCount: PropTypes.number,
-    userFollowed: PropTypes.bool,
     onFollowClick: PropTypes.func,
     onSaveClick: PropTypes.func,
     onReportClick: PropTypes.func,
@@ -32,7 +31,6 @@ class StoryFull extends React.Component {
     onLikeClick: () => {},
     onCommentClick: () => {},
     onShareClick: () => {},
-    userFollowed: false,
     postState: {},
   };
 
@@ -57,7 +55,7 @@ class StoryFull extends React.Component {
   handleClick = (key) => {
     switch (key) {
       case 'follow':
-        this.props.onFollowClick();
+        this.props.onFollowClick(this.props.post);
         return;
       case 'save':
         this.props.onSaveClick();
@@ -90,7 +88,6 @@ class StoryFull extends React.Component {
       post,
       postState,
       commentCount,
-      userFollowed,
       onLikeClick,
       onCommentClick,
       onShareClick,
@@ -135,7 +132,7 @@ class StoryFull extends React.Component {
             content={
               <PopoverMenu onSelect={this.handleClick} bold={false}>
                 <PopoverMenuItem key="follow">
-                  <i className="iconfont icon-people" /> {!userFollowed ? 'Follow' : 'Unfollow'}
+                  <i className="iconfont icon-people" /> {!postState.userFollowed ? 'Follow' : 'Unfollow'}
                   {' '}{post.author}
                 </PopoverMenuItem>
                 <PopoverMenuItem key="save">
