@@ -1,13 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import { Input } from 'antd';
-import Loading from '../Icon/Loading';
 import Avatar from '../Avatar';
 import './CommentForm.less';
 
 class CommentForm extends Component {
 
   state = {
-    inputValue: '',
+    inputValue: this.props.inputValue,
     isDisabledSubmit: false,
   }
 
@@ -25,7 +24,7 @@ class CommentForm extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (!nextProps.isLoading) {
-      this.setState({ inputValue: '' });
+      this.setState({ inputValue: nextProps.inputValue || '' });
     }
   }
 
@@ -65,12 +64,14 @@ CommentForm.propTypes = {
   username: PropTypes.string.isRequired,
   isSmall: PropTypes.bool,
   isLoading: PropTypes.bool,
+  inputValue: PropTypes.string.isRequired,
 };
 
 CommentForm.defaultProps = {
   username: undefined,
   isSmall: false,
   isLoading: false,
+  inputValue: '',
 };
 
 export default CommentForm;

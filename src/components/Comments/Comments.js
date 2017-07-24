@@ -25,6 +25,7 @@ class Comments extends React.Component {
     this.state = {
       sort: 'BEST',
       showCommentFormLoading: false,
+      commentFormText: '',
     };
   }
 
@@ -40,7 +41,13 @@ class Comments extends React.Component {
   submitComment = (parentPost, commentValue) => {
     this.setState({ showCommentFormLoading: true });
     this.props.onSendComment(parentPost, commentValue).then(() => {
-      this.setState({ showCommentFormLoading: false });
+      this.setState({ showCommentFormLoading: false, commentFormText: '' });
+    })
+    .catch(() => {
+      this.setState({
+        showCommentFormLoading: false,
+        commentFormText: commentValue,
+      });
     });
   }
 
@@ -67,6 +74,7 @@ class Comments extends React.Component {
             username={auth.user.name}
             onSubmit={this.submitComment}
             isLoading={this.state.showCommentFormLoading}
+            inputValue={this.state.commentFormText}
           />
         }
         {

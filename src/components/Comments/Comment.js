@@ -35,6 +35,7 @@ class Comment extends React.Component {
       replyOpen: false,
       collapsed: false,
       showCommentFormLoading: false,
+      commentFormText: '',
     };
   }
 
@@ -54,10 +55,18 @@ class Comment extends React.Component {
     this.setState({ showCommentFormLoading: true });
 
     this.props.onSendComment(parentPost, commentValue).then(() => {
-      this.setState({ showCommentFormLoading: false, replyOpen: false });
+      this.setState({
+        showCommentFormLoading: false,
+        replyOpen: false,
+        commentFormText: '',
+      });
     })
     .catch(() => {
-      this.setState({ showCommentFormLoading: false, replyOpen: true });
+      this.setState({
+        showCommentFormLoading: false,
+        replyOpen: true,
+        commentFormText: commentValue,
+      });
     });
   }
 
@@ -142,6 +151,7 @@ class Comment extends React.Component {
               isSmall={comment.depth !== 1}
               onSubmit={this.submitComment}
               isLoading={this.state.showCommentFormLoading}
+              inputValue={this.state.commentFormText}
             />
           }
           <div className="Comment__replies">
