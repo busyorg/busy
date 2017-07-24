@@ -5,15 +5,19 @@ import './PopoverMenu.less';
 const PopoverMenu = ({ children, onSelect, bold }) => (
   <ul className="PopoverMenu">
     {
-      React.Children.map(children, child => (
-        <PopoverMenuItem
+      React.Children.map(children, (child) => {
+        const { children: itemChildren, ...otherProps } = child.props;
+
+        return (<PopoverMenuItem
           key={child.key}
+          {...otherProps}
           itemKey={child.key}
           bold={bold}
           onClick={() => onSelect(child.key)}
         >
           {child.props.children}
-        </PopoverMenuItem>))
+        </PopoverMenuItem>);
+      })
     }
   </ul>);
 
