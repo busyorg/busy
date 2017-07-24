@@ -10,6 +10,7 @@ import * as commentsActions from '../comments/commentsActions';
 import * as bookmarkActions from '../bookmarks/bookmarksActions';
 import * as reblogActions from '../app/Reblog/reblogActions';
 import * as postActions from '../post/postActions';
+import { followUser, unfollowUser } from '../user/userActions';
 // import PostSingle from '../post/postSingle/PostSingle';
 import Story from '../components/Story/Story';
 import StoryLoading from '../components/Story/StoryLoading';
@@ -31,7 +32,9 @@ import './Feed.less';
     closeCommentingDraft: commentsActions.closeCommentingDraft,
     toggleBookmark: bookmarkActions.toggleBookmark,
     votePost: postActions.votePost,
-    reblog: reblogActions.reblog
+    reblog: reblogActions.reblog,
+    followUser,
+    unfollowUser,
   }
 )
 export default class Feed extends React.Component {
@@ -63,6 +66,15 @@ export default class Feed extends React.Component {
   //   }
   //   /* eslint-enable */
   // };
+
+  handleFollowClick = (post) => {
+    const isFollowed = this.props.followingList.includes(post.author);
+    if (isFollowed) {
+      this.props.unfollowUser(post.author);
+    } else {
+      this.props.followUser(post.author);
+    }
+  }
 
   render() {
     const {
@@ -123,7 +135,7 @@ export default class Feed extends React.Component {
                   key={post.id}
                   post={post}
                   postState={postState}
-                  onFollowClick={() => console.log('Follow click')}
+                  onFollowClick={this.handleFollowClick}
                   onSaveClick={() => toggleBookmark(post.id)}
                   onReportClick={reportPost}
                   onLikeClick={likePost}

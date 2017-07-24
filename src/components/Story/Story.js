@@ -33,7 +33,7 @@ class Story extends React.Component {
   handleClick = (key) => {
     switch (key) {
       case 'follow':
-        this.props.onFollowClick();
+        this.props.onFollowClick(this.props.post);
         return;
       case 'save':
         this.props.onSaveClick();
