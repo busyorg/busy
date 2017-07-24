@@ -142,7 +142,7 @@ class StoryFull extends React.Component {
             </Tooltip>
           </div>
           <Popover
-            placement="bottom"
+            placement="bottomRight"
             trigger="click"
             content={
               <PopoverMenu onSelect={this.handleClick} bold={false}>
