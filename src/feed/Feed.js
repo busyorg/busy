@@ -24,6 +24,7 @@ import './Feed.less';
     bookmarks: state.bookmarks,
     reblogList: state.reblog.rebloggedList,
     pendingReblogs: state.reblog.pendingReblogs,
+    followingList: state.user.following.list,
   }),
   {
     openCommentingDraft: commentsActions.openCommentingDraft,
@@ -75,6 +76,7 @@ export default class Feed extends React.Component {
       reblog,
       votePost,
       reblogList,
+      followingList,
     } = this.props;
 
     return (
@@ -107,7 +109,7 @@ export default class Feed extends React.Component {
                 isSaved: bookmarks[post.id] !== undefined,
                 isLiked: userVote.percent > 0,
                 isReported: userVote.percent < 0,
-                userFollowed: false // Get Follower list for loggedIn User after login
+                userFollowed: followingList.includes(post.author),
               };
 
 
