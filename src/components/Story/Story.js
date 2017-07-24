@@ -77,7 +77,7 @@ class Story extends React.Component {
           trigger="click"
           content={
             <PopoverMenu onSelect={this.handleClick} bold={false}>
-              <PopoverMenuItem key="follow">
+              <PopoverMenuItem key="follow" disabled={pendingFollow}>
                 <i className="iconfont icon-people" />
                 {`${followText} ${post.author}`}
               </PopoverMenuItem>
