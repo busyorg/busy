@@ -19,6 +19,7 @@ import { jsonParse } from '../../helpers/formatter';
 import StoryFull from '../../components/Story/StoryFull';
 import { RightSidebar } from '../../app/Sidebar/index';
 import Affix from '../../components/Utils/Affix';
+import ScrollToTop from '../../components/Utils/ScrollToTop';
 
 // reblogList: reblog,
 // bookmarks,
@@ -33,6 +34,7 @@ import Affix from '../../components/Utils/Affix';
 @connect(
   ({ posts, app, reblog, auth, bookmarks }) => ({
     content: posts[app.lastPostId] || null,
+    loading: posts.postLoading,
     lastPostId: app.lastPostId,
     reblogList: reblog.rebloggedList,
     pendingReblogs: reblog.pendingReblogs,
@@ -74,10 +76,7 @@ export default class PostSingle extends Component {
   // };
 
   componentWillMount() {
-    const { content } = this.props;
-    if (!content) {
-      this.props.getContent();
-    }
+    this.props.getContent();
   }
   // componentDidMount() {
   //   const { modal } = this.props;
@@ -98,7 +97,7 @@ export default class PostSingle extends Component {
 
   render() {
     // let onEdit;
-    const { content, auth, reblogList, pendingReblogs, bookmarks, votePost, reblog, toggleBookmark } = this.props;
+    const { content, loading, auth, reblogList, pendingReblogs, bookmarks, votePost, reblog, toggleBookmark } = this.props;
 
     if (!content || !content.author) {
       return <div className="main-panel"><Loading /></div>;
@@ -206,6 +205,7 @@ export default class PostSingle extends Component {
             content={image || 'https://steemit.com/images/steemit-twshare.png'}
           />
         </Helmet>
+        <ScrollToTop />
         <div className="shifted">
           <div className="post-layout container">
             <Affix className="rightContainer" stickPosition={77}>
@@ -214,16 +214,19 @@ export default class PostSingle extends Component {
               </div>
             </Affix>
             <div className="center">
-              <StoryFull
-                post={content}
-                postState={postState}
-                onFollowClick={() => console.log('Follow click')}
-                onSaveClick={() => toggleBookmark(content.id)}
-                onReportClick={reportPost}
-                onLikeClick={likePost}
-                onCommentClick={() => console.log('Comment click')}
-                onShareClick={() => reblog(content.id)}
-              />
+              {
+                (loading) ? <Loading /> :
+                <StoryFull
+                  post={content}
+                  postState={postState}
+                  onFollowClick={() => console.log('Follow click')}
+                  onSaveClick={() => toggleBookmark(content.id)}
+                  onReportClick={reportPost}
+                  onLikeClick={likePost}
+                  onCommentClick={() => console.log('Comment click')}
+                  onShareClick={() => reblog(content.id)}
+                />
+              }
             </div>
           </div>
           {/* {content.author && !modal &&
