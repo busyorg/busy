@@ -57,36 +57,116 @@ export const editPost = post =>
 
 const requiredFields = 'parentAuthor,parentPermlink,author,permlink,title,body,jsonMetadata'.split(',');
 
+export const broadcastComment = (
+  parentAuthor,
+  parentPermlink,
+  author,
+  title,
+  body,
+  jsonMetadata,
+  reward,
+  upvote,
+  permlink
+) => {
+  const operations = [];
+
+  const commentOp = ['comment',
+    {
+      parent_author: parentAuthor,
+      parent_permlink: parentPermlink,
+      author,
+      permlink,
+      title,
+      body,
+      json_metadata: JSON.stringify(jsonMetadata),
+    },
+  ];
+  operations.push(commentOp);
+
+  const commentOptionsConfig = {
+    author,
+    permlink,
+    allow_votes: true,
+    allow_curation_rewards: true,
+  };
+
+  if (reward === '0') {
+    commentOptionsConfig.max_accepted_payout = '0.000 SBD';
+    commentOptionsConfig.percent_steem_dollars = 10000;
+  } else if (reward === '100') {
+    commentOptionsConfig.max_accepted_payout = '1000000.000 SBD';
+    commentOptionsConfig.percent_steem_dollars = 0;
+  }
+
+  if (reward !== '50') {
+    operations.push(['comment_options', commentOptionsConfig]);
+  }
+
+  if (upvote) {
+    operations.push(['vote',
+      {
+        voter: author,
+        author,
+        permlink,
+        weight: 10000,
+      },
+    ]);
+  }
+
+  return SteemConnect.broadcast(operations);
+};
+
 export function createPost(postData) {
   requiredFields.forEach((field) => {
     assert(postData[field] != null, `Developer Error: Missing required field ${field}`);
   });
 
   return (dispatch) => {
-    const { parentAuthor, parentPermlink, author, title, jsonMetadata, draftId, isUpdating } = postData;
+    const {
+      parentAuthor,
+      parentPermlink,
+      author,
+      title,
+      jsonMetadata,
+      reward,
+      upvote,
+      draftId,
+      isUpdating,
+    } = postData;
     const getPremLink = isUpdating ?
       Promise.resolve(postData.permlink) :
       createPermlink(title, author, parentAuthor, parentPermlink);
 
-    const body = isUpdating ? getBodyPatchIfSmaller(postData.originalBody, postData.body) : postData.body;
+    const body = isUpdating
+      ? getBodyPatchIfSmaller(postData.originalBody, postData.body)
+      : postData.body;
 
     dispatch({
       type: CREATE_POST,
       payload: {
         promise: getPremLink
           .then(permlink =>
-            SteemConnect
-              .comment(parentAuthor, parentPermlink, author, permlink, title, body, jsonMetadata)
-              .then((result) => {
-                if (result.errors) {
-                  const error = new Error('SteemConnect API call failed');
-                  error.errors = result.errors;
-                  return Promise.reject(error);
-                }
-                if (draftId) { dispatch(deleteDraft(draftId)); }
-                dispatch(push(`/${parentPermlink}/@${author}/${permlink}`));
-                return result;
-              })
+            broadcastComment(parentAuthor,
+              parentPermlink,
+              author,
+              title,
+              body,
+              jsonMetadata,
+              reward,
+              upvote,
+              permlink
+            )
+            .then((result) => {
+              if (result.error) {
+                const error = new Error('SDKError');
+                error.error = result.error;
+                error.error_description = result.error_description;
+                return Promise.reject(error);
+              }
+              if (draftId) { dispatch(deleteDraft(draftId)); }
+              dispatch(push(`/${parentPermlink}/@${author}/${permlink}`));
+              return result;
+            })
           ),
       },
     });
