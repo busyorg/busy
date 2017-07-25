@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import _ from 'lodash';
 import { FormattedRelative, FormattedDate, FormattedTime } from 'react-intl';
 import { Link } from 'react-router-dom';
-import { Popover, Tooltip } from 'antd';
+import { Icon, Popover, Tooltip } from 'antd';
 import Lightbox from 'react-image-lightbox';
 import Body from './Body';
 import StoryFooter from './StoryFooter';
@@ -147,7 +147,7 @@ class StoryFull extends React.Component {
             content={
               <PopoverMenu onSelect={this.handleClick} bold={false}>
                 <PopoverMenuItem key="follow" disabled={pendingFollow}>
-                  <i className="iconfont icon-people" />
+                  {(pendingFollow) ? <Icon type="loading" /> : <i className="iconfont icon-people" />}
                   {`${followText} ${post.author}`}
                 </PopoverMenuItem>
                 <PopoverMenuItem key="save">
