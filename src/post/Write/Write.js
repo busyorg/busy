@@ -75,8 +75,6 @@ class Write extends React.Component {
       upvote: form.upvote,
     };
 
-    console.log('setting to', data.upvote);
-
     data.parentAuthor = '';
     data.author = this.props.user.name || '';
 
@@ -156,8 +154,6 @@ class Write extends React.Component {
   render() {
     const { initialTitle, initialTopics, initialBody, initialReward, initialUpvote } = this.state;
     const { editor: { loading } } = this.props;
-
-    console.log('up', initialUpvote);
 
     return (
       <div className="shifted">
