@@ -24,6 +24,8 @@ class Write extends React.Component {
       initialTitle: '',
       initialTopics: [],
       initialBody: '',
+      initialReward: '50',
+      initialUpvote: true,
     };
   }
 
@@ -43,6 +45,8 @@ class Write extends React.Component {
         initialTitle: postData.title || '',
         initialTopics: tags || [],
         initialBody: postData.body || '',
+        initialReward: postData.reward || '50',
+        initialUpvote: postData.upvote,
       });
     }
   }
@@ -67,7 +71,11 @@ class Write extends React.Component {
     const data = {
       body: form.body,
       title: form.title,
+      reward: form.reward,
+      upvote: form.upvote,
     };
+
+    console.log('setting to', data.upvote);
 
     data.parentAuthor = '';
     data.author = this.props.user.name || '';
@@ -146,8 +154,10 @@ class Write extends React.Component {
   }, 400);
 
   render() {
-    const { initialTitle, initialTopics, initialBody } = this.state;
+    const { initialTitle, initialTopics, initialBody, initialReward, initialUpvote } = this.state;
     const { editor: { loading } } = this.props;
+
+    console.log('up', initialUpvote);
 
     return (
       <div className="shifted">
@@ -163,6 +173,8 @@ class Write extends React.Component {
               title={initialTitle}
               topics={initialTopics}
               body={initialBody}
+              reward={initialReward}
+              upvote={initialUpvote}
               loading={loading}
               onUpdate={this.saveDraft}
               onSubmit={this.onSubmit}

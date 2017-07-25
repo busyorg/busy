@@ -4,7 +4,7 @@ import Remarkable from 'remarkable';
 import { HotKeys } from 'react-hotkeys';
 import { throttle } from 'lodash';
 import isArray from 'lodash/isArray';
-import { Form, Input, Select, Tabs } from 'antd';
+import { Checkbox, Form, Input, Select, Tabs } from 'antd';
 import EditorToolbar from './EditorToolbar';
 import Action from '../Button/Action';
 import Body from '../Story/Body';
@@ -19,6 +19,8 @@ class Editor extends React.Component {
     title: PropTypes.string,
     topics: PropTypes.arrayOf(PropTypes.string),
     body: PropTypes.string,
+    reward: PropTypes.string,
+    upvote: PropTypes.bool,
     loading: PropTypes.bool,
     onUpdate: PropTypes.func,
     onSubmit: PropTypes.func,
@@ -30,6 +32,8 @@ class Editor extends React.Component {
     title: '',
     topics: [],
     body: '',
+    reward: '50',
+    upvote: true,
     recentTopics: [],
     popularTopics: [],
     loading: false,
@@ -78,8 +82,12 @@ class Editor extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { title, topics, body } = this.props;
-    if (title !== nextProps.title || topics !== nextProps.topics || body !== nextProps.body) {
+    const { title, topics, body, reward, upvote } = this.props;
+    if (title !== nextProps.title
+      || topics !== nextProps.topics
+      || body !== nextProps.body
+      || reward !== nextProps.reward
+      || upvote !== nextProps.upvote) {
       this.setValues(nextProps);
     }
   }
@@ -101,6 +109,8 @@ class Editor extends React.Component {
     this.props.form.setFieldsValue({
       title: post.title,
       topics: post.topics,
+      reward: post.reward,
+      upvote: post.upvote,
     });
     if (this.input) {
       this.input.value = post.body;
@@ -111,19 +121,23 @@ class Editor extends React.Component {
   getValues = (e) => {
     // NOTE: antd API is inconsistent and returns event or just value depending of input type.
     // this code extracts value from event based of event type
-    // (array for Select, proxy event for inputs)
+    // (array or just value for Select, proxy event for inputs and checkboxes)
 
     const values = {
-      ...this.props.form.getFieldsValue(['title', 'topics']),
+      ...this.props.form.getFieldsValue(['title', 'topics', 'reward', 'upvote']),
       body: this.input.value,
     };
 
     if (isArray(e)) {
       values.topics = e;
+    } else if (typeof e === 'string') {
+      values.reward = e;
     } else if (e.target.type === 'textarea') {
       values.body = e.target.value;
     } else if (e.target.type === 'text') {
       values.title = e.target.value;
+    } else if (e.target.type === 'checkbox') {
+      values.upvote = e.target.checked;
     }
 
     return values;
@@ -361,6 +375,22 @@ class Editor extends React.Component {
               <Body body={this.state.contentHtml} />
             </TabPane>
           </Tabs>
+        </Form.Item>
+        <Form.Item
+          label={<span className="Editor__label">Reward</span>}
+        >
+          {getFieldDecorator('reward', { initialValue: '50' })(
+            <Select onChange={this.onUpdate}>
+              <Select.Option value="100">100% Steem Power</Select.Option>
+              <Select.Option value="50">50% SBD and 50% SP</Select.Option>
+              <Select.Option value="0">Declined</Select.Option>
+            </Select>
+          )}
+        </Form.Item>
+        <Form.Item>
+          {getFieldDecorator('upvote', { valuePropName: 'checked', initialValue: true })(
+            <Checkbox onChange={this.onUpdate}>Upvote this post</Checkbox>
+          )}
         </Form.Item>
         <div className="Editor__bottom">
           <span className="Editor__bottom__info">Styling with markdown is supported</span>

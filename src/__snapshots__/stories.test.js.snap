@@ -7238,6 +7238,94 @@ exports[`Storyshots Editor Editor 1`] = `
       </div>
     </div>
     <div
+      className="ant-row ant-form-item"
+      style={undefined}
+    >
+      <div
+        className="ant-form-item-label"
+      >
+        <label
+          className=""
+          htmlFor="reward"
+          title=""
+        >
+          <span
+            className="Editor__label"
+          >
+            Reward
+          </span>
+        </label>
+      </div>
+      <div
+        className="ant-form-item-control-wrapper"
+      >
+        <div
+          className="ant-form-item-control has-success"
+        />
+      </div>
+    </div>
+    <div
+      className="ant-row ant-form-item"
+      style={undefined}
+    >
+      <div
+        className="ant-form-item-control-wrapper"
+      >
+        <div
+          className="ant-form-item-control has-success"
+        >
+          <label
+            className="ant-checkbox-wrapper"
+            onMouseEnter={undefined}
+            onMouseLeave={undefined}
+            style={undefined}
+          >
+            <span
+              className="ant-checkbox ant-checkbox-checked"
+              style={Object {}}
+            >
+              <input
+                checked={true}
+                className="ant-checkbox-input"
+                data-__meta={
+                  Object {
+                    "initialValue": true,
+                    "leadingName": "upvote",
+                    "name": "upvote",
+                    "originalProps": Object {
+                      "children": "Upvote this post",
+                      "indeterminate": false,
+                      "onChange": [Function],
+                      "prefixCls": "ant-checkbox",
+                    },
+                    "ref": null,
+                    "trigger": "onChange",
+                    "validate": Array [],
+                    "valuePropName": "checked",
+                  }
+                }
+                disabled={undefined}
+                name={undefined}
+                onBlur={[Function]}
+                onChange={[Function]}
+                onClick={undefined}
+                onFocus={[Function]}
+                readOnly={undefined}
+                tabIndex={undefined}
+                type="checkbox"
+              />
+              <span
+                className="ant-checkbox-inner"
+              />
+            </span>
+            <span>
+              Upvote this post
+            </span>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div
       className="Editor__bottom"
     >
       <span

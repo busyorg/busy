@@ -1,6 +1,9 @@
 @import "../../styles/custom.less";
 
 .Editor {
+
+  padding-bottom: 24px;
+
   & .ant-form-item-label {
     position: relative;
     top: 8px !important;
@@ -10,6 +13,10 @@
     &:before {
       content: '' !important;
     }
+  }
+
+  & .ant-checkbox-wrapper > :last-child {
+    vertical-align: -3px;
   }
 
   &__label {
