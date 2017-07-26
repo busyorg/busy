@@ -185,7 +185,8 @@ export default class PostSingle extends Component {
     const postState = {
       isReblogged: reblogList.includes(content.id),
       isReblogging: pendingReblogs.includes(content.id),
-      isSaved: bookmarks[content.id] !== undefined,
+      isSaved: bookmarks[loggedInUser.name]
+        && bookmarks[loggedInUser.name].filter(bookmark => bookmark.id === content.id).length > 0,
       isLiked: userVote.percent > 0,
       isReported: userVote.percent < 0,
       userFollowed: followingList.includes(content.author),
@@ -247,7 +248,7 @@ export default class PostSingle extends Component {
                   postState={postState}
                   pendingFollow={pendingFollows.includes(content.author)}
                   onFollowClick={this.handleFollowClick}
-                  onSaveClick={() => toggleBookmark(content.id)}
+                  onSaveClick={() => toggleBookmark(content.id, content.author, content.permlink)}
                   onReportClick={reportPost}
                   onLikeClick={likePost}
                   onCommentClick={() => console.log('Comment click')}

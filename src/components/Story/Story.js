@@ -82,7 +82,7 @@ class Story extends React.Component {
                 {`${followText} ${post.author}`}
               </PopoverMenuItem>
               <PopoverMenuItem key="save">
-                <i className="iconfont icon-collection" /> Save post
+                <i className="iconfont icon-collection" /> {(postState.isSaved) ? 'Remove from bookmarks' : 'Save post'}
               </PopoverMenuItem>
               <PopoverMenuItem key="report">
                 <i className="iconfont icon-flag" /> Report post

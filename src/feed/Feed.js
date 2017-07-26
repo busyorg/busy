@@ -120,7 +120,9 @@ export default class Feed extends React.Component {
               const postState = {
                 isReblogged: reblogList.includes(post.id),
                 isReblogging: pendingReblogs.includes(post.id),
-                isSaved: bookmarks[post.id] !== undefined,
+                isSaved: bookmarks[loggedInUser.name]
+                  && bookmarks[loggedInUser.name]
+                    .filter(bookmark => bookmark.id === post.id).length > 0,
                 isLiked: userVote.percent > 0,
                 isReported: userVote.percent < 0,
                 userFollowed: followingList.includes(post.author),
@@ -139,7 +141,7 @@ export default class Feed extends React.Component {
                   postState={postState}
                   pendingFollow={pendingFollows.includes(post.author)}
                   onFollowClick={this.handleFollowClick}
-                  onSaveClick={() => toggleBookmark(post.id)}
+                  onSaveClick={() => toggleBookmark(post.id, post.author, post.permlink)}
                   onReportClick={reportPost}
                   onLikeClick={likePost}
                   onCommentClick={() => console.log('Comment click')}
