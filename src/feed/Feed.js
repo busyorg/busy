@@ -22,6 +22,7 @@ import './Feed.less';
   state => ({
     auth: state.auth,
     app: state.app,
+    pendingLikes: state.posts.pendingLikes,
     bookmarks: state.bookmarks,
     reblogList: state.reblog.rebloggedList,
     pendingReblogs: state.reblog.pendingReblogs,
@@ -84,6 +85,7 @@ export default class Feed extends React.Component {
       isFetching,
       hasMore,
       toggleBookmark,
+      pendingLikes,
       bookmarks,
       pendingReblogs,
       reblog,
@@ -130,8 +132,8 @@ export default class Feed extends React.Component {
 
 
               const likePost = userVote.percent > 0
-                ? () => votePost(post.id, 0)
-                : () => votePost(post.id);
+                ? () => votePost(post.id, post.author, post.permlink, 0)
+                : () => votePost(post.id, post.author, post.permlink);
               const reportPost = () => votePost(post.id, -1000);
 
               return (
@@ -139,6 +141,7 @@ export default class Feed extends React.Component {
                   key={post.id}
                   post={post}
                   postState={postState}
+                  pendingLike={pendingLikes.includes(post.id)}
                   pendingFollow={pendingFollows.includes(post.author)}
                   onFollowClick={this.handleFollowClick}
                   onSaveClick={() => toggleBookmark(post.id, post.author, post.permlink)}

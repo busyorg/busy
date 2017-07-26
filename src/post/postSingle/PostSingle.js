@@ -37,6 +37,7 @@ import ScrollToTop from '../../components/Utils/ScrollToTop';
     content: posts[app.lastPostId] || null,
     loading: posts.postLoading,
     lastPostId: app.lastPostId,
+    pendingLikes: posts.pendingLikes,
     reblogList: reblog.rebloggedList,
     pendingReblogs: reblog.pendingReblogs,
     followingList: user.following.list,
@@ -115,6 +116,7 @@ export default class PostSingle extends Component {
       content,
       loading,
       auth,
+      pendingLikes,
       reblogList,
       pendingReblogs,
       followingList,
@@ -246,6 +248,7 @@ export default class PostSingle extends Component {
                 <StoryFull
                   post={content}
                   postState={postState}
+                  pendingLike={pendingLikes.includes(content.id)}
                   pendingFollow={pendingFollows.includes(content.author)}
                   onFollowClick={this.handleFollowClick}
                   onSaveClick={() => toggleBookmark(content.id, content.author, content.permlink)}

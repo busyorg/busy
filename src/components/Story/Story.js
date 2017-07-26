@@ -12,6 +12,7 @@ import './Story.less';
 class Story extends React.Component {
   static propTypes = {
     post: PropTypes.shape().isRequired,
+    pendingLike: PropTypes.bool,
     pendingFollow: PropTypes.bool,
     onFollowClick: PropTypes.func,
     onSaveClick: PropTypes.func,
@@ -22,6 +23,7 @@ class Story extends React.Component {
   };
 
   static defaultProps = {
+    pendingLike: false,
     pendingFollow: false,
     onFollowClick: () => {},
     onSaveClick: () => {},
@@ -51,6 +53,7 @@ class Story extends React.Component {
     const {
       post,
       postState,
+      pendingLike,
       pendingFollow,
       onLikeClick,
       onCommentClick,
@@ -82,7 +85,7 @@ class Story extends React.Component {
                 {`${followText} ${post.author}`}
               </PopoverMenuItem>
               <PopoverMenuItem key="save">
-                <i className="iconfont icon-collection" /> {(postState.isSaved) ? 'Remove from bookmarks' : 'Save post'}
+                <i className="iconfont icon-collection" /> {(postState.isSaved) ? 'Unsave post' : 'Save post'}
               </PopoverMenuItem>
               <PopoverMenuItem key="report">
                 <i className="iconfont icon-flag" /> Report post
@@ -131,6 +134,7 @@ class Story extends React.Component {
           <StoryFooter
             post={post}
             postState={postState}
+            pendingLike={pendingLike}
             onLikeClick={onLikeClick}
             onCommentClick={onCommentClick}
             onShareClick={onShareClick}

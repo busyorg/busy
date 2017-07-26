@@ -6,33 +6,6 @@ import * as userActions from '../user/userActions';
 
 const postItem = (state = {}, action) => {
   switch (action.type) {
-    case postsActions.LIKE_POST_START: {
-      let optimisticActiveVotes;
-
-      if (action.meta.weight !== 0) {
-        optimisticActiveVotes = [
-          ...state.active_votes.filter(vote => vote.voter !== action.meta.voter),
-          {
-            voter: action.meta.voter,
-            percent: action.meta.weight,
-          }
-        ];
-      } else {
-        optimisticActiveVotes = state.active_votes.filter(
-          vote => vote.voter !== action.meta.voter
-        );
-      }
-
-      const optimisticNetVotes = action.meta.weight > 0
-        ? parseInt(state.net_votes, 10) + 1
-        : parseInt(state.net_votes, 10) - 1;
-
-      return {
-        ...state,
-        active_votes: optimisticActiveVotes,
-        net_votes: optimisticNetVotes,
-      };
-    }
     case commentsActions.SEND_COMMENT_START:
       if (action.meta.isReplyToComment) {
         return state;
@@ -49,6 +22,7 @@ const postItem = (state = {}, action) => {
 
 const initialState = {
   postLoading: false,
+  pendingLikes: [],
 };
 
 const posts = (state = initialState, action) => {
@@ -81,6 +55,17 @@ const posts = (state = initialState, action) => {
         postLoading: true,
       };
     case postsActions.GET_CONTENT_SUCCESS:
+      if (action.meta.afterLike) {
+        return {
+          ...state,
+          postLoading: false,
+          pendingLikes: state.pendingLikes.filter(post => post !== action.payload.id),
+          [action.payload.id]: {
+            ...state[action.payload.id],
+            ...action.payload,
+          },
+        };
+      }
       return {
         ...state,
         postLoading: false,
@@ -97,7 +82,15 @@ const posts = (state = initialState, action) => {
     case postsActions.LIKE_POST_START:
       return {
         ...state,
-        [action.meta.postId]: postItem(state[action.meta.postId], action),
+        pendingLikes: [
+          ...state.pendingLikes,
+          action.meta.postId,
+        ],
+      };
+    case postsActions.LIKE_POST_ERROR:
+      return {
+        ...state,
+        pendingLikes: state.pendingLikes.filter(post => post !== action.meta.postId),
       };
     case commentsActions.SEND_COMMENT_START:
       return {

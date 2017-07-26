@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import numeral from 'numeral';
-import { Tooltip, Modal } from 'antd';
+import { Icon, Tooltip, Modal } from 'antd';
 import classNames from 'classnames';
 
 import PayoutDetail from '../PayoutDetail';
@@ -9,6 +9,11 @@ import './StoryFooter.less';
 class StoryFooter extends React.Component {
   static propTypes = {
     post: PropTypes.shape().isRequired,
+    pendingLike: PropTypes.bool,
+  }
+
+  static defaultProps = {
+    pendingLike: false,
   }
 
   constructor(props) {
@@ -51,7 +56,7 @@ class StoryFooter extends React.Component {
   }
 
   render() {
-    const { post, postState, onLikeClick, onCommentClick } = this.props;
+    const { post, postState, pendingLike, onLikeClick, onCommentClick } = this.props;
     const maxPayout = parseFloat(post.max_accepted_payout) || 0;
     const payout = parseFloat(post.pending_payout_value) || parseFloat(post.total_payout_value);
     const payoutValue = numeral(payout).format('$0,0.00');
@@ -71,7 +76,7 @@ class StoryFooter extends React.Component {
         </span>
         <Tooltip title="Like" placement="top">
           <a className={likeClass} onClick={() => onLikeClick()}>
-            <i className="iconfont icon-praise_fill" />
+            {(pendingLike) ? <Icon type="loading" /> : <i className="iconfont icon-praise_fill" />}
             <span className="StoryFooter__number">{likesValue}</span>
           </a>
         </Tooltip>
