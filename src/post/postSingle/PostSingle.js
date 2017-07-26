@@ -244,7 +244,7 @@ export default class PostSingle extends Component {
             </Affix>
             <div className="center">
               {
-                (loading) ? <Loading /> :
+                (loading && !pendingLikes.filter(post => post === content.id) > 0) ? <Loading /> :
                 <StoryFull
                   post={content}
                   postState={postState}
