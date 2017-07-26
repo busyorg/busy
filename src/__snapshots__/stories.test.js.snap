@@ -7348,7 +7348,7 @@ exports[`Storyshots Editor Editor 1`] = `
               disabled={false}
               style={Object {}}
             >
-              Create new post
+              Post
             </button>
           </div>
         </div>
