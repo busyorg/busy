@@ -395,7 +395,7 @@ class Editor extends React.Component {
         <div className="Editor__bottom">
           <span className="Editor__bottom__info">Styling with markdown is supported</span>
           <Form.Item className="Editor__bottom__submit">
-            <Action disabled={loading} text={(loading) ? 'Submitting' : 'Post'} />
+            <Action loading={loading} disabled={loading} text={(loading) ? 'Submitting' : 'Post'} />
           </Form.Item>
         </div>
       </Form>
