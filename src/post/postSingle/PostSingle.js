@@ -32,16 +32,10 @@ import ScrollToTop from '../../components/Utils/ScrollToTop';
 // openPostModal: appActions.openPostModal
 @withRouter
 @connect(
-<<<<<<< HEAD
-  ({ app, reblog, auth, bookmarks }) => ({
-    currentPost: app.currentPost || null,
-    isLoading: app.isLoading,
-=======
   ({ posts, app, reblog, auth, bookmarks }) => ({
     content: posts[app.lastPostId] || null,
     loading: posts.postLoading,
     lastPostId: app.lastPostId,
->>>>>>> new-design
     reblogList: reblog,
     bookmarks,
     auth,
@@ -84,19 +78,8 @@ export default class PostSingle extends Component {
     content: null,
   }
 
-<<<<<<< HEAD
-  componentDidMount() {
-    const { match, currentPost } = this.props;
-    if (!currentPost ||
-      match.params.author !== currentPost.author ||
-      match.params.permlink !== currentPost.permlink
-    ) {
-      this.props.getContent();
-    }
-=======
   componentWillMount() {
     this.props.getContent();
->>>>>>> new-design
   }
   // componentDidMount() {
   //   const { modal } = this.props;
@@ -126,12 +109,7 @@ export default class PostSingle extends Component {
 
   render() {
     // let onEdit;
-<<<<<<< HEAD
-    const { auth, reblogList, bookmarks, votePost, reblog, toggleBookmark } = this.props;
-    const content = this.props.currentPost;
-=======
     const { content, loading, auth, reblogList, bookmarks, votePost, reblog, toggleBookmark } = this.props;
->>>>>>> new-design
 
     if (this.props.isLoading || !content) {
       return <div className="main-panel"><Loading /></div>;
@@ -247,20 +225,6 @@ export default class PostSingle extends Component {
               </div>
             </Affix>
             <div className="center">
-<<<<<<< HEAD
-              <StoryFull
-                post={content}
-                postState={postState}
-                commentCount={content.children}
-                onFollowClick={() => console.log('Follow click')}
-                onSaveClick={() => toggleBookmark(content.id)}
-                onReportClick={reportPost}
-                onLikeClick={likePost}
-                onCommentClick={() => console.log('Comment click')}
-                onShareClick={() => reblog(content.id)}
-              />
-              <Comments post={content} show />
-=======
               {
                 (loading) ? <Loading /> :
                 <StoryFull
@@ -274,7 +238,6 @@ export default class PostSingle extends Component {
                   onShareClick={() => reblog(content.id)}
                 />
               }
->>>>>>> new-design
             </div>
           </div>
           {/* {content.author && !modal &&
