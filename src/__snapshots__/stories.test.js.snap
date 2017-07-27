@@ -73,6 +73,7 @@ exports[`Storyshots Button Follow 1`] = `
 >
   <button
     className="Follow"
+    onClick={[Function]}
     onMouseOut={[Function]}
     onMouseOver={[Function]}
   >
@@ -92,6 +93,7 @@ exports[`Storyshots Button Followed 1`] = `
 >
   <button
     className="Follow"
+    onClick={[Function]}
     onMouseOut={[Function]}
     onMouseOver={[Function]}
   >
@@ -7975,6 +7977,7 @@ exports[`Storyshots Sidebar Interesting People 1`] = `
           </div>
           <button
             className="Follow"
+            onClick={[Function]}
             onMouseOut={[Function]}
             onMouseOver={[Function]}
           >
@@ -8028,6 +8031,7 @@ exports[`Storyshots Sidebar Interesting People 1`] = `
           </div>
           <button
             className="Follow"
+            onClick={[Function]}
             onMouseOut={[Function]}
             onMouseOver={[Function]}
           >
@@ -8081,6 +8085,7 @@ exports[`Storyshots Sidebar Interesting People 1`] = `
           </div>
           <button
             className="Follow"
+            onClick={[Function]}
             onMouseOut={[Function]}
             onMouseOver={[Function]}
           >

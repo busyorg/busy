@@ -6,7 +6,7 @@ import Action from './Button/Action';
 import PopoverMenu, { PopoverMenuItem } from './PopoverMenu/PopoverMenu';
 import './UserHeader.less';
 
-const UserHeader = ({ auth, username, handle, isSameUser }) => (
+const UserHeader = ({ auth, username, handle, isSameUser, isFollowed, onFollowClick }) => (
   <div className="UserHeader">
     <div className="UserHeader__container">
       <Avatar username={handle} size={100} />
@@ -15,7 +15,7 @@ const UserHeader = ({ auth, username, handle, isSameUser }) => (
           <h2 className="UserHeader__user__username">{username}</h2>
           <div className="UserHeader__user__button">
             {(auth && auth.isAuthenticated)
-              && ((isSameUser) ? <Action small text="Edit profile" /> : <Follow />)}
+              && ((isSameUser) ? <Action small text="Edit profile" /> : <Follow isFollowed={isFollowed} onClick={onFollowClick} />)}
           </div>
           <Popover
             placement="bottom"
@@ -43,6 +43,8 @@ UserHeader.propTypes = {
   username: PropTypes.string,
   handle: PropTypes.string,
   isSameUser: PropTypes.bool,
+  isFollowed: PropTypes.bool,
+  onFollowClick: PropTypes.func,
 };
 
 UserHeader.defaultProps = {
@@ -50,6 +52,8 @@ UserHeader.defaultProps = {
   username: '',
   handle: '',
   isSameUser: false,
+  isFollowed: false,
+  onFollowClick: () => {},
 };
 
 export default UserHeader;

@@ -5,10 +5,12 @@ import './Follow.less';
 class Follow extends React.Component {
   static propTypes = {
     isFollowed: PropTypes.bool,
+    onClick: PropTypes.func,
   };
 
   static defaultProps = {
     isFollowed: false,
+    onClick: () => {},
   }
 
   constructor(props) {
@@ -16,6 +18,11 @@ class Follow extends React.Component {
     this.state = {
       isHovered: false,
     };
+  }
+
+  handleClick = (e) => {
+    e.preventDefault();
+    this.props.onClick(e);
   }
 
   onMouseOver = () => this.setState({ isHovered: true })
@@ -36,6 +43,7 @@ class Follow extends React.Component {
             'Follow--danger': isFollowed && isHovered,
           })
         }
+        onClick={this.handleClick}
         onMouseOver={this.onMouseOver}
         onMouseOut={this.onMouseOut}
       >

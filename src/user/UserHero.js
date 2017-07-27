@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
 import { Route, Switch, withRouter } from 'react-router-dom';
 
 import UserHeader from '../components/UserHeader';
@@ -28,7 +29,7 @@ class UserMenuImpl extends React.Component {
 
 const UserMenuWrapper = withRouter(UserMenuImpl);
 
-const UserHero = ({ auth, user, username, isSameUser }) => (
+const UserHero = ({ auth, user, username, isSameUser, isFollowed, onFollowClick }) => (
   <div>
     <Switch>
       <Route
@@ -40,6 +41,8 @@ const UserHero = ({ auth, user, username, isSameUser }) => (
               username={username}
               handle={user.name}
               isSameUser={isSameUser}
+              isFollowed={isFollowed}
+              onFollowClick={onFollowClick}
             />
             <UserMenuWrapper
               discussions={user.post_count}
