@@ -213,7 +213,9 @@ exports[`Storyshots Comments Comments 1`] = `
         <div
           className="Comment__content"
         >
-          <div>
+          <div
+            className="Body"
+          >
             <div
               dangerouslySetInnerHTML={
                 Object {
@@ -334,7 +336,9 @@ exports[`Storyshots Comments Comments 1`] = `
               <div
                 className="Comment__content"
               >
-                <div>
+                <div
+                  className="Body"
+                >
                   <div
                     dangerouslySetInnerHTML={
                       Object {
@@ -459,7 +463,9 @@ exports[`Storyshots Comments Comments 1`] = `
         <div
           className="Comment__content"
         >
-          <div>
+          <div
+            className="Body"
+          >
             <div
               dangerouslySetInnerHTML={
                 Object {
@@ -579,7 +585,9 @@ exports[`Storyshots Comments Comments 1`] = `
               <div
                 className="Comment__content"
               >
-                <div>
+                <div
+                  className="Body"
+                >
                   <div
                     dangerouslySetInnerHTML={
                       Object {
@@ -704,7 +712,9 @@ exports[`Storyshots Comments Comments 1`] = `
         <div
           className="Comment__content"
         >
-          <div>
+          <div
+            className="Body"
+          >
             <div
               dangerouslySetInnerHTML={
                 Object {
@@ -824,7 +834,9 @@ exports[`Storyshots Comments Comments 1`] = `
               <div
                 className="Comment__content"
               >
-                <div>
+                <div
+                  className="Body"
+                >
                   <div
                     dangerouslySetInnerHTML={
                       Object {
@@ -949,7 +961,9 @@ exports[`Storyshots Comments Comments 1`] = `
         <div
           className="Comment__content"
         >
-          <div>
+          <div
+            className="Body"
+          >
             <div
               dangerouslySetInnerHTML={
                 Object {
@@ -1069,7 +1083,9 @@ exports[`Storyshots Comments Comments 1`] = `
               <div
                 className="Comment__content"
               >
-                <div>
+                <div
+                  className="Body"
+                >
                   <div
                     dangerouslySetInnerHTML={
                       Object {
@@ -1194,7 +1210,9 @@ exports[`Storyshots Comments Comments 1`] = `
         <div
           className="Comment__content"
         >
-          <div>
+          <div
+            className="Body"
+          >
             <div
               dangerouslySetInnerHTML={
                 Object {
@@ -1314,7 +1332,9 @@ exports[`Storyshots Comments Comments 1`] = `
               <div
                 className="Comment__content"
               >
-                <div>
+                <div
+                  className="Body"
+                >
                   <div
                     dangerouslySetInnerHTML={
                       Object {
@@ -1439,7 +1459,9 @@ exports[`Storyshots Comments Comments 1`] = `
         <div
           className="Comment__content"
         >
-          <div>
+          <div
+            className="Body"
+          >
             <div
               dangerouslySetInnerHTML={
                 Object {
@@ -1560,7 +1582,9 @@ exports[`Storyshots Comments Comments 1`] = `
               <div
                 className="Comment__content"
               >
-                <div>
+                <div
+                  className="Body"
+                >
                   <div
                     dangerouslySetInnerHTML={
                       Object {
@@ -1685,7 +1709,9 @@ exports[`Storyshots Comments Comments 1`] = `
         <div
           className="Comment__content"
         >
-          <div>
+          <div
+            className="Body"
+          >
             <div
               dangerouslySetInnerHTML={
                 Object {
@@ -1805,7 +1831,9 @@ exports[`Storyshots Comments Comments 1`] = `
               <div
                 className="Comment__content"
               >
-                <div>
+                <div
+                  className="Body"
+                >
                   <div
                     dangerouslySetInnerHTML={
                       Object {
@@ -1930,7 +1958,9 @@ exports[`Storyshots Comments Comments 1`] = `
         <div
           className="Comment__content"
         >
-          <div>
+          <div
+            className="Body"
+          >
             <div
               dangerouslySetInnerHTML={
                 Object {
@@ -2050,7 +2080,9 @@ exports[`Storyshots Comments Comments 1`] = `
               <div
                 className="Comment__content"
               >
-                <div>
+                <div
+                  className="Body"
+                >
                   <div
                     dangerouslySetInnerHTML={
                       Object {
@@ -2175,7 +2207,9 @@ exports[`Storyshots Comments Comments 1`] = `
         <div
           className="Comment__content"
         >
-          <div>
+          <div
+            className="Body"
+          >
             <div
               dangerouslySetInnerHTML={
                 Object {
@@ -2295,7 +2329,9 @@ exports[`Storyshots Comments Comments 1`] = `
               <div
                 className="Comment__content"
               >
-                <div>
+                <div
+                  className="Body"
+                >
                   <div
                     dangerouslySetInnerHTML={
                       Object {
@@ -2415,7 +2451,9 @@ exports[`Storyshots Comments Comments 1`] = `
                     <div
                       className="Comment__content"
                     >
-                      <div>
+                      <div
+                        className="Body"
+                      >
                         <div
                           dangerouslySetInnerHTML={
                             Object {
@@ -2535,7 +2573,9 @@ exports[`Storyshots Comments Comments 1`] = `
                           <div
                             className="Comment__content"
                           >
-                            <div>
+                            <div
+                              className="Body"
+                            >
                               <div
                                 dangerouslySetInnerHTML={
                                   Object {
@@ -2655,7 +2695,9 @@ exports[`Storyshots Comments Comments 1`] = `
                                 <div
                                   className="Comment__content"
                                 >
-                                  <div>
+                                  <div
+                                    className="Body"
+                                  >
                                     <div
                                       dangerouslySetInnerHTML={
                                         Object {
@@ -2789,7 +2831,9 @@ exports[`Storyshots Comments Comments 1`] = `
         <div
           className="Comment__content"
         >
-          <div>
+          <div
+            className="Body"
+          >
             <div
               dangerouslySetInnerHTML={
                 Object {
@@ -2909,7 +2953,9 @@ exports[`Storyshots Comments Comments 1`] = `
               <div
                 className="Comment__content"
               >
-                <div>
+                <div
+                  className="Body"
+                >
                   <div
                     dangerouslySetInnerHTML={
                       Object {
@@ -3034,7 +3080,9 @@ exports[`Storyshots Comments Comments 1`] = `
         <div
           className="Comment__content"
         >
-          <div>
+          <div
+            className="Body"
+          >
             <div
               dangerouslySetInnerHTML={
                 Object {
@@ -3154,7 +3202,9 @@ exports[`Storyshots Comments Comments 1`] = `
               <div
                 className="Comment__content"
               >
-                <div>
+                <div
+                  className="Body"
+                >
                   <div
                     dangerouslySetInnerHTML={
                       Object {
@@ -3279,7 +3329,9 @@ exports[`Storyshots Comments Comments 1`] = `
         <div
           className="Comment__content"
         >
-          <div>
+          <div
+            className="Body"
+          >
             <div
               dangerouslySetInnerHTML={
                 Object {
@@ -3399,7 +3451,9 @@ exports[`Storyshots Comments Comments 1`] = `
               <div
                 className="Comment__content"
               >
-                <div>
+                <div
+                  className="Body"
+                >
                   <div
                     dangerouslySetInnerHTML={
                       Object {
@@ -3524,7 +3578,9 @@ exports[`Storyshots Comments Comments 1`] = `
         <div
           className="Comment__content"
         >
-          <div>
+          <div
+            className="Body"
+          >
             <div
               dangerouslySetInnerHTML={
                 Object {
@@ -3644,7 +3700,9 @@ exports[`Storyshots Comments Comments 1`] = `
               <div
                 className="Comment__content"
               >
-                <div>
+                <div
+                  className="Body"
+                >
                   <div
                     dangerouslySetInnerHTML={
                       Object {
@@ -3764,7 +3822,9 @@ exports[`Storyshots Comments Comments 1`] = `
                     <div
                       className="Comment__content"
                     >
-                      <div>
+                      <div
+                        className="Body"
+                      >
                         <div
                           dangerouslySetInnerHTML={
                             Object {
@@ -3892,7 +3952,9 @@ exports[`Storyshots Comments Comments 1`] = `
         <div
           className="Comment__content"
         >
-          <div>
+          <div
+            className="Body"
+          >
             <div
               dangerouslySetInnerHTML={
                 Object {
@@ -4012,7 +4074,9 @@ exports[`Storyshots Comments Comments 1`] = `
               <div
                 className="Comment__content"
               >
-                <div>
+                <div
+                  className="Body"
+                >
                   <div
                     dangerouslySetInnerHTML={
                       Object {
@@ -4137,7 +4201,9 @@ exports[`Storyshots Comments Comments 1`] = `
         <div
           className="Comment__content"
         >
-          <div>
+          <div
+            className="Body"
+          >
             <div
               dangerouslySetInnerHTML={
                 Object {
@@ -4257,7 +4323,9 @@ exports[`Storyshots Comments Comments 1`] = `
               <div
                 className="Comment__content"
               >
-                <div>
+                <div
+                  className="Body"
+                >
                   <div
                     dangerouslySetInnerHTML={
                       Object {
@@ -4382,7 +4450,9 @@ exports[`Storyshots Comments Comments 1`] = `
         <div
           className="Comment__content"
         >
-          <div>
+          <div
+            className="Body"
+          >
             <div
               dangerouslySetInnerHTML={
                 Object {
@@ -4502,7 +4572,9 @@ exports[`Storyshots Comments Comments 1`] = `
               <div
                 className="Comment__content"
               >
-                <div>
+                <div
+                  className="Body"
+                >
                   <div
                     dangerouslySetInnerHTML={
                       Object {
@@ -4627,7 +4699,9 @@ exports[`Storyshots Comments Comments 1`] = `
         <div
           className="Comment__content"
         >
-          <div>
+          <div
+            className="Body"
+          >
             <div
               dangerouslySetInnerHTML={
                 Object {
@@ -4747,7 +4821,9 @@ exports[`Storyshots Comments Comments 1`] = `
               <div
                 className="Comment__content"
               >
-                <div>
+                <div
+                  className="Body"
+                >
                   <div
                     dangerouslySetInnerHTML={
                       Object {
@@ -4872,7 +4948,9 @@ exports[`Storyshots Comments Comments 1`] = `
         <div
           className="Comment__content"
         >
-          <div>
+          <div
+            className="Body"
+          >
             <div
               dangerouslySetInnerHTML={
                 Object {
@@ -4992,7 +5070,9 @@ exports[`Storyshots Comments Comments 1`] = `
               <div
                 className="Comment__content"
               >
-                <div>
+                <div
+                  className="Body"
+                >
                   <div
                     dangerouslySetInnerHTML={
                       Object {
@@ -5117,7 +5197,9 @@ exports[`Storyshots Comments Comments 1`] = `
         <div
           className="Comment__content"
         >
-          <div>
+          <div
+            className="Body"
+          >
             <div
               dangerouslySetInnerHTML={
                 Object {
@@ -5237,7 +5319,9 @@ exports[`Storyshots Comments Comments 1`] = `
               <div
                 className="Comment__content"
               >
-                <div>
+                <div
+                  className="Body"
+                >
                   <div
                     dangerouslySetInnerHTML={
                       Object {
@@ -5362,7 +5446,9 @@ exports[`Storyshots Comments Comments 1`] = `
         <div
           className="Comment__content"
         >
-          <div>
+          <div
+            className="Body"
+          >
             <div
               dangerouslySetInnerHTML={
                 Object {
@@ -5482,7 +5568,9 @@ exports[`Storyshots Comments Comments 1`] = `
               <div
                 className="Comment__content"
               >
-                <div>
+                <div
+                  className="Body"
+                >
                   <div
                     dangerouslySetInnerHTML={
                       Object {
@@ -5607,7 +5695,9 @@ exports[`Storyshots Comments Comments 1`] = `
         <div
           className="Comment__content"
         >
-          <div>
+          <div
+            className="Body"
+          >
             <div
               dangerouslySetInnerHTML={
                 Object {
@@ -5729,7 +5819,9 @@ exports[`Storyshots Comments Comments 1`] = `
               <div
                 className="Comment__content"
               >
-                <div>
+                <div
+                  className="Body"
+                >
                   <div
                     dangerouslySetInnerHTML={
                       Object {
@@ -5854,7 +5946,9 @@ exports[`Storyshots Comments Comments 1`] = `
         <div
           className="Comment__content"
         >
-          <div>
+          <div
+            className="Body"
+          >
             <div
               dangerouslySetInnerHTML={
                 Object {
@@ -5974,7 +6068,9 @@ exports[`Storyshots Comments Comments 1`] = `
               <div
                 className="Comment__content"
               >
-                <div>
+                <div
+                  className="Body"
+                >
                   <div
                     dangerouslySetInnerHTML={
                       Object {
@@ -6099,7 +6195,9 @@ exports[`Storyshots Comments Comments 1`] = `
         <div
           className="Comment__content"
         >
-          <div>
+          <div
+            className="Body"
+          >
             <div
               dangerouslySetInnerHTML={
                 Object {
@@ -6219,7 +6317,9 @@ exports[`Storyshots Comments Comments 1`] = `
               <div
                 className="Comment__content"
               >
-                <div>
+                <div
+                  className="Body"
+                >
                   <div
                     dangerouslySetInnerHTML={
                       Object {
@@ -6344,7 +6444,9 @@ exports[`Storyshots Comments Comments 1`] = `
         <div
           className="Comment__content"
         >
-          <div>
+          <div
+            className="Body"
+          >
             <div
               dangerouslySetInnerHTML={
                 Object {
@@ -6464,7 +6566,9 @@ exports[`Storyshots Comments Comments 1`] = `
               <div
                 className="Comment__content"
               >
-                <div>
+                <div
+                  className="Body"
+                >
                   <div
                     dangerouslySetInnerHTML={
                       Object {
@@ -6589,7 +6693,9 @@ exports[`Storyshots Comments Comments 1`] = `
         <div
           className="Comment__content"
         >
-          <div>
+          <div
+            className="Body"
+          >
             <div
               dangerouslySetInnerHTML={
                 Object {
@@ -6709,7 +6815,9 @@ exports[`Storyshots Comments Comments 1`] = `
               <div
                 className="Comment__content"
               >
-                <div>
+                <div
+                  className="Body"
+                >
                   <div
                     dangerouslySetInnerHTML={
                       Object {
@@ -6829,7 +6937,9 @@ exports[`Storyshots Comments Comments 1`] = `
                     <div
                       className="Comment__content"
                     >
-                      <div>
+                      <div
+                        className="Body"
+                      >
                         <div
                           dangerouslySetInnerHTML={
                             Object {
@@ -6957,7 +7067,9 @@ exports[`Storyshots Comments Comments 1`] = `
         <div
           className="Comment__content"
         >
-          <div>
+          <div
+            className="Body"
+          >
             <div
               dangerouslySetInnerHTML={
                 Object {
@@ -7087,7 +7199,9 @@ exports[`Storyshots Comments Comments 1`] = `
               <div
                 className="Comment__content"
               >
-                <div>
+                <div
+                  className="Body"
+                >
                   <div
                     dangerouslySetInnerHTML={
                       Object {
