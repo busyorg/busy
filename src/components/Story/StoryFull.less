@@ -1,4 +1,5 @@
 @import "../../styles/custom.less";
+@import "../../styles/fonts.less";
 
 .StoryFull {
   margin: 12px 0;
@@ -60,21 +61,18 @@
   }
 
   &__content {
-    &__title {
-      font-size: 20px;
-      margin: 8px 0;
-    }
+    font-family: @font-text;
+    color: rgba(0, 0, 0, .8);
 
     & h1, h2, h3, h4, h5, h6 {
       margin: 8px 0;
     }
 
     & p:not(:empty) {
-      letter-spacing: 0.7px;
       text-align: justify;
       margin: 32px 0;
-      line-height: 30px;
-      font-size: 18px;
+      line-height: 1.6em;
+      font-size: 21px;
     }
 
 
