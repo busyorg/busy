@@ -47,7 +47,11 @@ const postItem = (state = {}, action) => {
   }
 };
 
-const posts = (state = {}, action) => {
+const initialState = {
+  postLoading: false,
+};
+
+const posts = (state = initialState, action) => {
   let posts = {};
   switch (action.type) {
     case feedTypes.GET_FEED_CONTENT_SUCCESS:
@@ -71,13 +75,24 @@ const posts = (state = {}, action) => {
         ...state,
         ...posts,
       };
+    case postsActions.GET_CONTENT_START:
+      return {
+        ...state,
+        postLoading: true,
+      };
     case postsActions.GET_CONTENT_SUCCESS:
       return {
         ...state,
+        postLoading: false,
         [action.payload.id]: {
           ...state[action.payload.id],
           ...action.payload,
         },
+      };
+    case postsActions.GET_CONTENT_ERROR:
+      return {
+        ...state,
+        postLoading: false,
       };
     case postsActions.LIKE_POST_START:
       return {

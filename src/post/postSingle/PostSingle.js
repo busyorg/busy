@@ -19,6 +19,7 @@ import { jsonParse } from '../../helpers/formatter';
 import StoryFull from '../../components/Story/StoryFull';
 import { RightSidebar } from '../../app/Sidebar/index';
 import Affix from '../../components/Utils/Affix';
+import ScrollToTop from '../../components/Utils/ScrollToTop';
 
 // reblogList: reblog,
 // bookmarks,
@@ -31,9 +32,16 @@ import Affix from '../../components/Utils/Affix';
 // openPostModal: appActions.openPostModal
 @withRouter
 @connect(
+<<<<<<< HEAD
   ({ app, reblog, auth, bookmarks }) => ({
     currentPost: app.currentPost || null,
     isLoading: app.isLoading,
+=======
+  ({ posts, app, reblog, auth, bookmarks }) => ({
+    content: posts[app.lastPostId] || null,
+    loading: posts.postLoading,
+    lastPostId: app.lastPostId,
+>>>>>>> new-design
     reblogList: reblog,
     bookmarks,
     auth,
@@ -76,6 +84,7 @@ export default class PostSingle extends Component {
     content: null,
   }
 
+<<<<<<< HEAD
   componentDidMount() {
     const { match, currentPost } = this.props;
     if (!currentPost ||
@@ -84,6 +93,10 @@ export default class PostSingle extends Component {
     ) {
       this.props.getContent();
     }
+=======
+  componentWillMount() {
+    this.props.getContent();
+>>>>>>> new-design
   }
   // componentDidMount() {
   //   const { modal } = this.props;
@@ -113,8 +126,12 @@ export default class PostSingle extends Component {
 
   render() {
     // let onEdit;
+<<<<<<< HEAD
     const { auth, reblogList, bookmarks, votePost, reblog, toggleBookmark } = this.props;
     const content = this.props.currentPost;
+=======
+    const { content, loading, auth, reblogList, bookmarks, votePost, reblog, toggleBookmark } = this.props;
+>>>>>>> new-design
 
     if (this.props.isLoading || !content) {
       return <div className="main-panel"><Loading /></div>;
@@ -221,6 +238,7 @@ export default class PostSingle extends Component {
             content={image || 'https://steemit.com/images/steemit-twshare.png'}
           />
         </Helmet>
+        <ScrollToTop />
         <div className="shifted">
           <div className="post-layout container">
             <Affix className="rightContainer" stickPosition={77}>
@@ -229,6 +247,7 @@ export default class PostSingle extends Component {
               </div>
             </Affix>
             <div className="center">
+<<<<<<< HEAD
               <StoryFull
                 post={content}
                 postState={postState}
@@ -241,6 +260,21 @@ export default class PostSingle extends Component {
                 onShareClick={() => reblog(content.id)}
               />
               <Comments post={content} show />
+=======
+              {
+                (loading) ? <Loading /> :
+                <StoryFull
+                  post={content}
+                  postState={postState}
+                  onFollowClick={() => console.log('Follow click')}
+                  onSaveClick={() => toggleBookmark(content.id)}
+                  onReportClick={reportPost}
+                  onLikeClick={likePost}
+                  onCommentClick={() => console.log('Comment click')}
+                  onShareClick={() => reblog(content.id)}
+                />
+              }
+>>>>>>> new-design
             </div>
           </div>
           {/* {content.author && !modal &&
