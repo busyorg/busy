@@ -5,7 +5,7 @@ import {
   NOTIFICATION_REPLY,
   NOTIFICATION_TRANSFER,
   NOTIFICATION_MENTION
-} from '../components/Navigation/Notifications/Notifications';
+} from '../../components/Navigation/Notifications/Notifications';
 
 export default [
   {
