@@ -29,7 +29,7 @@ class UserMenuImpl extends React.Component {
 
 const UserMenuWrapper = withRouter(UserMenuImpl);
 
-const UserHero = ({ auth, user, username, isSameUser, isFollowed, onFollowClick }) => (
+const UserHero = ({ auth, user, username, isSameUser, isFollowed, pendingFollow, onFollowClick }) => (
   <div>
     <Switch>
       <Route
@@ -42,6 +42,7 @@ const UserHero = ({ auth, user, username, isSameUser, isFollowed, onFollowClick 
               handle={user.name}
               isSameUser={isSameUser}
               isFollowed={isFollowed}
+              pendingFollow={pendingFollow}
               onFollowClick={onFollowClick}
             />
             <UserMenuWrapper

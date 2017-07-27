@@ -40,6 +40,7 @@ export const needs = [getAccountWithFollowingCount];
     favorites: state.favorites.users,
     users: state.users,
     followingList: state.user.following.list,
+    pendingFollows: state.user.following.pendingFollows,
   }),
   dispatch =>
     bindActionCreators(
@@ -107,7 +108,7 @@ export default class User extends React.Component {
   }
 
   render() {
-    const { auth, followingList } = this.props;
+    const { auth, followingList, pendingFollows } = this.props;
     const username = this.props.match.params.name;
     const { isFetching, ...user } = this.props.users[username] || {};
     const { profile = {} } = user.json_metadata || {};
@@ -122,6 +123,7 @@ export default class User extends React.Component {
     const isSameUser = (auth && auth.isAuthenticated) && auth.user.name === username;
 
     const isFollowed = followingList.includes(username);
+    const pendingFollow = pendingFollows.includes(username)
 
     return (
       <div className="main-panel">
@@ -147,7 +149,16 @@ export default class User extends React.Component {
           />
         </Helmet>
         {user &&
-          <UserHero auth={auth} user={user} username={displayedUsername} isSameUser={isSameUser} isFollowed={isFollowed} onFollowClick={this.handleFollowClick} />}
+          <UserHero
+            auth={auth}
+            user={user}
+            username={displayedUsername}
+            isSameUser={isSameUser}
+            isFollowed={isFollowed}
+            pendingFollow={pendingFollow}
+            onFollowClick={this.handleFollowClick}
+          />
+        }
         <div className="shifted">
           <div className="feed-layout container">
             <Affix className="leftContainer" stickPosition={72}>

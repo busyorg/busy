@@ -97,7 +97,7 @@ exports[`Storyshots Button Followed 1`] = `
     onMouseOut={[Function]}
     onMouseOver={[Function]}
   >
-    Following
+    Followed
   </button>
 </div>
 `;
