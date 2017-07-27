@@ -5,6 +5,7 @@ import steemconnect from 'sc2-sdk';
 import Cookie from 'js-cookie';
 import ReactGA from 'react-ga';
 import { AppContainer } from 'react-hot-loader';
+import { history } from './routes';
 import getStore from './store';
 import AppHost from './AppHost';
 
@@ -39,11 +40,13 @@ const render = (Component) => {
       {process.env.NODE_ENV !== 'production' ?
         <AppContainer>
           <Component
+            history={history}
             onUpdate={logPageView}
           />
         </AppContainer>
         :
         <Component
+          history={history}
           onUpdate={logPageView}
         />
       }

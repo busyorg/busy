@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom';
 import Remarkable from 'remarkable';
 import { HotKeys } from 'react-hotkeys';
 import { throttle } from 'lodash';
-import { Form, Input, Select, Tabs } from 'antd';
+import isArray from 'lodash/isArray';
+import { Checkbox, Form, Input, Select, Tabs } from 'antd';
 import EditorToolbar from './EditorToolbar';
 import Action from '../Button/Action';
 import Body from '../Story/Body';
@@ -11,22 +12,32 @@ import './Editor.less';
 
 const remarkable = new Remarkable();
 
-const Option = Select.Option;
-const OptionGroup = Select.OptGroup;
 const TabPane = Tabs.TabPane;
 
 class Editor extends React.Component {
   static propTypes = {
-    recentTopics: PropTypes.arrayOf(PropTypes.string),
-    popularTopics: PropTypes.arrayOf(PropTypes.string),
+    title: PropTypes.string,
+    topics: PropTypes.arrayOf(PropTypes.string),
+    body: PropTypes.string,
+    reward: PropTypes.string,
+    upvote: PropTypes.bool,
+    loading: PropTypes.bool,
+    onUpdate: PropTypes.func,
     onSubmit: PropTypes.func,
     onError: PropTypes.func,
     onImagePasted: PropTypes.func,
   };
 
   static defaultProps = {
+    title: '',
+    topics: [],
+    body: '',
+    reward: '50',
+    upvote: true,
     recentTopics: [],
     popularTopics: [],
+    loading: false,
+    onUpdate: () => {},
     onSubmit: () => {},
     onError: () => {},
     onImagePasted: () => {},
@@ -57,6 +68,8 @@ class Editor extends React.Component {
       this.input.addEventListener('paste', this.handlePastedImage);
     }
 
+    this.setValues(this.props);
+
     // eslint-disable-next-line react/no-find-dom-node
     const select = ReactDOM.findDOMNode(this.select);
     if (select) {
@@ -68,9 +81,67 @@ class Editor extends React.Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    const { title, topics, body, reward, upvote } = this.props;
+    if (title !== nextProps.title
+      || topics !== nextProps.topics
+      || body !== nextProps.body
+      || reward !== nextProps.reward
+      || upvote !== nextProps.upvote) {
+      this.setValues(nextProps);
+    }
+  }
+
   setInput = (input) => {
-    this.input = input && input.refs && input.refs.input;
+    if (input && input.refs && input.refs.input) {
+      // eslint-disable-next-line react/no-find-dom-node
+      this.input = ReactDOM.findDOMNode(input.refs.input);
+    }
   };
+
+  onUpdate = (e) => {
+    // NOTE: antd doesn't update field value on Select before firing onChange
+    // so we have to get value from event.
+    this.props.onUpdate(this.getValues(e));
+  }
+
+  setValues = (post) => {
+    this.props.form.setFieldsValue({
+      title: post.title,
+      topics: post.topics,
+      reward: post.reward,
+      upvote: post.upvote,
+    });
+    if (this.input) {
+      this.input.value = post.body;
+      this.renderMarkdown(this.input.value);
+    }
+  }
+
+  getValues = (e) => {
+    // NOTE: antd API is inconsistent and returns event or just value depending of input type.
+    // this code extracts value from event based of event type
+    // (array or just value for Select, proxy event for inputs and checkboxes)
+
+    const values = {
+      ...this.props.form.getFieldsValue(['title', 'topics', 'reward', 'upvote']),
+      body: this.input.value,
+    };
+
+    if (isArray(e)) {
+      values.topics = e;
+    } else if (typeof e === 'string') {
+      values.reward = e;
+    } else if (e.target.type === 'textarea') {
+      values.body = e.target.value;
+    } else if (e.target.type === 'text') {
+      values.title = e.target.value;
+    } else if (e.target.type === 'checkbox') {
+      values.upvote = e.target.checked;
+    }
+
+    return values;
+  }
 
   //
   // Form validation and handling
@@ -168,6 +239,7 @@ class Editor extends React.Component {
     )}![image](${image})${this.input.value.substring(endPos, this.input.value.length)}`;
 
     this.renderMarkdown(this.input.value);
+    this.onUpdate();
   };
 
   insertCode = (type) => {
@@ -213,6 +285,7 @@ class Editor extends React.Component {
     }
 
     this.renderMarkdown(this.input.value);
+    this.onUpdate();
   };
 
   renderMarkdown = (value) => {
@@ -240,7 +313,7 @@ class Editor extends React.Component {
 
   render() {
     const { getFieldDecorator } = this.props.form;
-    const { recentTopics, popularTopics } = this.props;
+    const { loading } = this.props;
 
     return (
       <Form className="Editor" layout="vertical" onSubmit={this.handleSubmit}>
@@ -250,7 +323,12 @@ class Editor extends React.Component {
               { required: true, message: 'Please enter a title' },
               { max: 255, message: "Title can't be longer than 255 characters" },
             ],
-          })(<Input className="Editor__title" placeholder="Add title" />)}
+          })(<Input
+            ref={(title) => { this.title = title; }}
+            onChange={this.onUpdate}
+            className="Editor__title"
+            placeholder="Add title"
+          />)}
         </Form.Item>
         <Form.Item
           label={<span className="Editor__label">Topics</span>}
@@ -266,23 +344,16 @@ class Editor extends React.Component {
               ref={(ref) => {
                 this.select = ref;
               }}
+              onChange={this.onUpdate}
               className="Editor__topics"
               mode="tags"
               placeholder="Add story topics here"
-              notFoundContent="No such topic found. Just type your topics and separate them with commas"
+              dropdownStyle={{ display: 'none' }}
               tokenSeparators={[' ', ',']}
-            >
-              <OptionGroup key="recent" label={<b>Recent</b>}>
-                {recentTopics && recentTopics.map(topic => <Option key={topic}>{topic}</Option>)}
-              </OptionGroup>
-              <OptionGroup key="popular" label={<b>Popular</b>}>
-                {popularTopics && popularTopics.map(topic => <Option key={topic}>{topic}</Option>)}
-              </OptionGroup>
-            </Select>
+            />
           )}
         </Form.Item>
         <Form.Item
-          label={<span className="Editor__label">Write your story</span>}
           validateStatus={this.state.noContent ? 'error' : ''}
           help={this.state.noContent ? "Story content can't be empty" : ''}
         >
@@ -291,6 +362,7 @@ class Editor extends React.Component {
               <EditorToolbar onSelect={this.insertCode} />
               <HotKeys keyMap={Editor.hotkeys} handlers={this.handlers}>
                 <Input
+                  onChange={this.onUpdate}
                   ref={ref => this.setInput(ref)}
                   type="textarea"
                   placeholder="Write your story..."
@@ -304,9 +376,28 @@ class Editor extends React.Component {
             </TabPane>
           </Tabs>
         </Form.Item>
-        <Form.Item className="Editor__submit">
-          <Action text="Submit" />
+        <Form.Item
+          label={<span className="Editor__label">Reward</span>}
+        >
+          {getFieldDecorator('reward', { initialValue: '50' })(
+            <Select onChange={this.onUpdate}>
+              <Select.Option value="100">100% Steem Power</Select.Option>
+              <Select.Option value="50">50% SBD and 50% SP</Select.Option>
+              <Select.Option value="0">Declined</Select.Option>
+            </Select>
+          )}
         </Form.Item>
+        <Form.Item>
+          {getFieldDecorator('upvote', { valuePropName: 'checked', initialValue: true })(
+            <Checkbox onChange={this.onUpdate}>Upvote this post</Checkbox>
+          )}
+        </Form.Item>
+        <div className="Editor__bottom">
+          <span className="Editor__bottom__info">Styling with markdown is supported</span>
+          <Form.Item className="Editor__bottom__submit">
+            <Action loading={loading} disabled={loading} text={(loading) ? 'Submitting' : 'Post'} />
+          </Form.Item>
+        </div>
       </Form>
     );
   }

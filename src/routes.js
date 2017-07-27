@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createBrowserHistory from 'history/createBrowserHistory';
+import createMemoryHistory from 'history/createMemoryHistory';
 import { Route, Switch } from 'react-router-dom';
 import Wrapper from './wrapper';
 import Settings from './app/AppSettings';
@@ -27,6 +29,8 @@ import Team from './statics/Team';
 import Signup from './auth/Signup';
 import Signin from './auth/Signin';
 import Login from './auth/Login';
+import Write from './post/Write/Write';
+import Drafts from './post/Write/Drafts';
 import RequireLogin from './auth/RequireLogin';
 
 export const UserRoutes = () =>
@@ -64,8 +68,8 @@ export default (
       <Route path="/votes/:category?" component={Votes} />
       <Route path="/transfer" render={() => <RequireLogin><Transfer /></RequireLogin>} />
       <Route path="/bookmarks" render={() => <RequireLogin><Bookmarks /></RequireLogin>} />
-      <Route path="/write" render={() => <RequireLogin><h1>WIP</h1></RequireLogin>} />
-      <Route path="/drafts" render={() => <RequireLogin><h1>WIP</h1></RequireLogin>} />
+      <Route path="/write" render={() => <RequireLogin><Write /></RequireLogin>} />
+      <Route path="/drafts" render={() => <RequireLogin><Drafts /></RequireLogin>} />
       <Route path="/settings" render={() => <RequireLogin><Settings /></RequireLogin>} />
       <Route path="/@:name" component={UserRoutes} />
       <Route path="/:category/@:author/:permlink" component={PostSingle} />
@@ -73,3 +77,5 @@ export default (
     </Switch>
   </Wrapper>
 );
+
+export const history = (typeof window === 'undefined') ? createMemoryHistory() : createBrowserHistory();

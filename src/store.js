@@ -4,8 +4,9 @@ import persistState from 'redux-localstorage';
 import thunk from 'redux-thunk';
 import { pick } from 'lodash/object';
 import { applyMiddleware, createStore, compose } from 'redux';
+import { routerMiddleware } from 'react-router-redux';
 import api from './steemAPI';
-
+import { history } from './routes';
 import { mountResponsive } from './helpers/responsive';
 import errorMiddleware from './errorMiddleware';
 import reducers from './reducers';
@@ -31,7 +32,8 @@ const middleware = [
   }),
   thunk.withExtraArgument({
     steemAPI: api,
-  })
+  }),
+  routerMiddleware(history),
 ];
 
 let enhancer;
