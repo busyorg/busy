@@ -38,28 +38,24 @@ class Page extends React.Component {
       });
     }
 
-    if (category) {
-      this.setState({
-        categories: [category],
-      });
-    }
+    this.setState({
+      categories: (category) ? [category] : [],
+    });
   }
 
   handleSortChange = (key) => {
     this.setState({
       currentKey: key,
     }, () => {
-      this.props.history.push(`/${key}`);
+      if (this.state.categories[0]) {
+        this.props.history.push(`/${key}/${this.state.categories[0]}`);
+      } else {
+        this.props.history.push(`/${key}`);
+      }
     });
   };
 
-  handleTopicClose = () => {
-    this.setState({
-      categories: [],
-    }, () => {
-      this.props.history.push(this.props.match.url);
-    });
-  }
+  handleTopicClose = () => this.props.history.push(this.props.match.url);
 
   render() {
     const { auth, match } = this.props;
