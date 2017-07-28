@@ -33,18 +33,6 @@ import './Feed.less';
   }
 )
 export default class Feed extends React.Component {
-  componentWillMount() {
-    if (!this.props.content.length) {
-      this.props.loadContent();
-    }
-  }
-
-  componentDidUpdate() {
-    if (!this.props.content.length && !this.props.isFetching) {
-      this.props.loadContent();
-    }
-  }
-
   // handleCommentRequest(draftProps) {
   //   this.props.openCommentingDraft(draftProps);
   // }
@@ -84,7 +72,7 @@ export default class Feed extends React.Component {
           <ReduxInfiniteScroll
             loadMore={this.props.loadMoreContent}
             loader={<StoryLoading />}
-            loadingMore={isFetching}
+            loadingMore={console.log()}
             hasMore={hasMore}
             elementIsScrollable={false}
             threshold={200}

@@ -6,7 +6,9 @@ export default function PageHOC(ComposedComponent) {
     let sortBy = (path && path.split('/:')[0].substring(1)) || 'created';
     const { category } = params || {};
 
-    if (!path && auth.isAuthenticated) {
+    console.log(props);
+
+    if (path === '/' && auth && auth.isAuthenticated) {
       sortBy = 'feed';
     } else if (!path) {
       sortBy = 'trending';
