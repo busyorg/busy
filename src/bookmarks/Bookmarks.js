@@ -7,7 +7,7 @@ import {
   getFeedLoadingFromState,
   getFeedHasMoreFromState
 } from '../helpers/stateHelpers';
-import * as bookmarksActions from './bookmarksActions';
+import { getBookmarks } from './bookmarksActions';
 
 @connect(
   state => ({
@@ -15,14 +15,10 @@ import * as bookmarksActions from './bookmarksActions';
     posts: state.posts,
   }),
   dispatch => ({
-    getBookmarks: () => dispatch(bookmarksActions.getBookmarks()),
+    getBookmarks: () => dispatch(getBookmarks()),
   })
 )
 export default class Bookmarks extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   componentDidMount() {
     this.props.getBookmarks();
   }

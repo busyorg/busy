@@ -13,7 +13,7 @@ import {
   getMoreUserFeedContent
 } from '../feed/feedActions';
 import { getAccountWithFollowingCount } from './usersActions';
-import { getUserComments, getMoreUserComments } from './userActions';
+import { getUserComments, getMoreUserComments, followUser, unfollowUser } from './userActions';
 import MenuUser from '../app/Menu/MenuUser';
 import { addUserFavorite, removeUserFavorite } from '../favorites/favoritesActions';
 import FavoriteButton from '../favorites/FavoriteButton';
@@ -38,7 +38,9 @@ export const needs = [getAccountWithFollowingCount];
     posts: state.posts,
     comments: state.comments,
     favorites: state.favorites.users,
-    users: state.users
+    users: state.users,
+    followingList: state.user.following.list,
+    pendingFollows: state.user.following.pendingFollows,
   }),
   dispatch =>
     bindActionCreators(
@@ -51,7 +53,9 @@ export const needs = [getAccountWithFollowingCount];
         getMoreUserComments,
         addUserFavorite,
         removeUserFavorite,
-        getAccountWithFollowingCount
+        getAccountWithFollowingCount,
+        followUser,
+        unfollowUser,
       },
       dispatch
     )
@@ -83,6 +87,16 @@ export default class User extends React.Component {
     return username && favorites.includes(username);
   }
 
+  handleFollowClick = () => {
+    const username = this.props.match.params.name;
+    const isFollowed = this.props.followingList.includes(username);
+    if (isFollowed) {
+      this.props.unfollowUser(username);
+    } else {
+      this.props.followUser(username);
+    }
+  }
+
   getUserView(user) {
     return user.name
       ? React.cloneElement(this.props.children, {
@@ -94,7 +108,7 @@ export default class User extends React.Component {
   }
 
   render() {
-    const { auth } = this.props;
+    const { auth, followingList, pendingFollows } = this.props;
     const username = this.props.match.params.name;
     const { isFetching, ...user } = this.props.users[username] || {};
     const { profile = {} } = user.json_metadata || {};
@@ -107,6 +121,9 @@ export default class User extends React.Component {
     const title = `${displayedUsername} - Busy`;
 
     const isSameUser = (auth && auth.isAuthenticated) && auth.user.name === username;
+
+    const isFollowed = followingList.includes(username);
+    const pendingFollow = pendingFollows.includes(username)
 
     return (
       <div className="main-panel">
@@ -131,7 +148,17 @@ export default class User extends React.Component {
             content={image || 'https://steemit.com/images/steemit-twshare.png'}
           />
         </Helmet>
-        {user && <UserHero auth={auth} user={user} username={displayedUsername} isSameUser={isSameUser} />}
+        {user &&
+          <UserHero
+            auth={auth}
+            user={user}
+            username={displayedUsername}
+            isSameUser={isSameUser}
+            isFollowed={isFollowed}
+            pendingFollow={pendingFollow}
+            onFollowClick={this.handleFollowClick}
+          />
+        }
         <div className="shifted">
           <div className="feed-layout container">
             <Affix className="leftContainer" stickPosition={72}>

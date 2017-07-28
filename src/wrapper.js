@@ -8,7 +8,6 @@ import { login } from './auth/authActions';
 import { getConfig, getRate } from './actions';
 import steemAPI from './steemAPI';
 import { getMessages, getLocale } from './translations/translationHelper';
-import { getStoredBookmarks } from './bookmarks/bookmarksActions';
 import Notification from './app/Notification/Notification';
 import Topnav from './components/Navigation/Topnav';
 import * as reblogActions from './app/Reblog/reblogActions';
@@ -25,7 +24,6 @@ import './translations/Translations';
     login,
     getConfig,
     getRate,
-    getStoredBookmarks,
     getRebloggedList: reblogActions.getRebloggedList
   }
 )
@@ -40,7 +38,6 @@ export default class Wrapper extends PureComponent {
   componentWillMount() {
     this.props.login();
     this.props.getConfig();
-    this.props.getStoredBookmarks();
     this.props.getRebloggedList();
     this.props.getRate();
     this.loadMessages();

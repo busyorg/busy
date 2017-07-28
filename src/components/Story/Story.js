@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { FormattedRelative, FormattedDate, FormattedTime } from 'react-intl';
 import { Link } from 'react-router-dom';
-import { Popover, Tooltip } from 'antd';
+import { Icon, Popover, Tooltip } from 'antd';
 import StoryPreview from './StoryPreview';
 import StoryFooter from './StoryFooter';
 import Avatar from '../Avatar';
@@ -12,6 +12,8 @@ import './Story.less';
 class Story extends React.Component {
   static propTypes = {
     post: PropTypes.shape().isRequired,
+    pendingLike: PropTypes.bool,
+    pendingFollow: PropTypes.bool,
     onFollowClick: PropTypes.func,
     onSaveClick: PropTypes.func,
     onReportClick: PropTypes.func,
@@ -21,6 +23,8 @@ class Story extends React.Component {
   };
 
   static defaultProps = {
+    pendingLike: false,
+    pendingFollow: false,
     onFollowClick: () => {},
     onSaveClick: () => {},
     onReportClick: () => {},
@@ -33,7 +37,7 @@ class Story extends React.Component {
   handleClick = (key) => {
     switch (key) {
       case 'follow':
-        this.props.onFollowClick();
+        this.props.onFollowClick(this.props.post);
         return;
       case 'save':
         this.props.onSaveClick();
@@ -46,7 +50,28 @@ class Story extends React.Component {
   };
 
   render() {
-    const { post, postState, onLikeClick, onCommentClick, onShareClick } = this.props;
+    const {
+      post,
+      postState,
+      pendingLike,
+      pendingFollow,
+      onLikeClick,
+      onCommentClick,
+      onShareClick,
+    } = this.props;
+
+    let followText = '';
+
+    if (postState.userFollowed && !pendingFollow) {
+      followText = 'Unfollow';
+    } else if (postState.userFollowed && pendingFollow) {
+      followText = 'Unfollowing';
+    } else if (!postState.userFollowed && !pendingFollow) {
+      followText = 'Follow';
+    } else if (!postState.userFollowed && pendingFollow) {
+      followText = 'Following';
+    }
+
 
     return (
       <div className="Story">
@@ -55,12 +80,12 @@ class Story extends React.Component {
           trigger="click"
           content={
             <PopoverMenu onSelect={this.handleClick} bold={false}>
-              <PopoverMenuItem key="follow">
-                <i className="iconfont icon-people" />
-                {' '}{!postState.userFollowed ? 'Follow' : 'Unfollow'} {post.author}
+              <PopoverMenuItem key="follow" disabled={pendingFollow}>
+                {(pendingFollow) ? <Icon type="loading" /> : <i className="iconfont icon-people" />}
+                {`${followText} ${post.author}`}
               </PopoverMenuItem>
               <PopoverMenuItem key="save">
-                <i className="iconfont icon-collection" /> Save post
+                <i className="iconfont icon-collection" /> {(postState.isSaved) ? 'Unsave post' : 'Save post'}
               </PopoverMenuItem>
               <PopoverMenuItem key="report">
                 <i className="iconfont icon-flag" /> Report post
@@ -109,6 +134,7 @@ class Story extends React.Component {
           <StoryFooter
             post={post}
             postState={postState}
+            pendingLike={pendingLike}
             onLikeClick={onLikeClick}
             onCommentClick={onCommentClick}
             onShareClick={onShareClick}

@@ -1,14 +1,19 @@
 import React, { PropTypes } from 'react';
 import classNames from 'classnames';
+import { Icon } from 'antd';
 import './Follow.less';
 
 class Follow extends React.Component {
   static propTypes = {
     isFollowed: PropTypes.bool,
+    pending: PropTypes.bool,
+    onClick: PropTypes.func,
   };
 
   static defaultProps = {
     isFollowed: false,
+    pending: false,
+    onClick: () => {},
   }
 
   constructor(props) {
@@ -18,31 +23,46 @@ class Follow extends React.Component {
     };
   }
 
+  handleClick = (e) => {
+    e.preventDefault();
+    if (this.props.pending) return;
+    this.props.onClick(e);
+  }
+
   onMouseOver = () => this.setState({ isHovered: true })
 
   onMouseOut = () => this.setState({ isHovered: false })
 
   render() {
-    const { isFollowed } = this.props;
+    const { isFollowed, pending } = this.props;
     const { isHovered } = this.state;
 
-    const followingText = (isHovered ? 'Unfollow' : 'Following');
+    let followingText = 'Follow'; // default text
+    if (isFollowed && !(isHovered || pending)) {
+      followingText = 'Followed';
+    } else if (isFollowed && isHovered && !pending) {
+      followingText = 'Unfollow';
+    } else if (isFollowed && pending) {
+      followingText = 'Unfollowing';
+    } else if (!isFollowed && isHovered && !pending) {
+      followingText = 'Follow';
+    } else if (!isFollowed && pending) {
+      followingText = 'Following';
+    }
 
     return (
       <button
         className={
-          classNames({
-            Follow: !isFollowed || (isFollowed && !isHovered),
-            'Follow--danger': isFollowed && isHovered,
+          classNames('Follow', {
+            'Follow--danger': isFollowed && (isHovered || pending),
           })
         }
+        onClick={this.handleClick}
         onMouseOver={this.onMouseOver}
         onMouseOut={this.onMouseOut}
       >
-        {isFollowed
-          ? followingText
-          : 'Follow'
-        }
+        {pending && <Icon type="loading" />}
+        {followingText}
       </button>
     );
   }
