@@ -98,23 +98,27 @@ export default (state = initialState, action) => {
         lastPostId: null,
       };
     case postActions.GET_CONTENT_START:
-      return Object.assign({}, state, {
+      return {
+        ...state,
         isFetching: true,
         isLoaded: false,
-      });
+      };
     case postActions.GET_CONTENT_SUCCESS:
-      return Object.assign({}, state, {
+      return {
+        ...state,
         isFetching: false,
         isLoaded: true,
-      });
+      };
     case appTypes.SET_CURRENT_CONTENT:
-      return Object.assign({}, state, {
+      return {
+        ...state,
         currentPost: action.payload,
-      });
+      };
     case appTypes.REMOVE_CURRENT_CONTENT:
-      return Object.assign({}, state, {
-        currentPost: null
-      });
+      return {
+        ...state,
+        currentPost: null,
+      };
     default:
       return state;
   }

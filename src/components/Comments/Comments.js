@@ -40,15 +40,16 @@ class Comments extends React.Component {
 
   submitComment = (parentPost, commentValue) => {
     this.setState({ showCommentFormLoading: true });
-    this.props.onSendComment(parentPost, commentValue).then(() => {
-      this.setState({ showCommentFormLoading: false, commentFormText: '' });
-    })
-    .catch(() => {
-      this.setState({
-        showCommentFormLoading: false,
-        commentFormText: commentValue,
+    this.props.onSendComment(parentPost, commentValue)
+      .then(() => {
+        this.setState({ showCommentFormLoading: false, commentFormText: '' });
+      })
+      .catch(() => {
+        this.setState({
+          showCommentFormLoading: false,
+          commentFormText: commentValue,
+        });
       });
-    });
   }
 
   render() {
@@ -68,7 +69,7 @@ class Comments extends React.Component {
           </div>
         </div>
 
-        {(auth && auth.isAuthenticated) &&
+        {auth && auth.isAuthenticated &&
           <CommentForm
             parentPost={this.props.parentPost}
             username={auth.user.name}

@@ -10,6 +10,12 @@ class CommentForm extends Component {
     isDisabledSubmit: false,
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (!nextProps.isLoading) {
+      this.setState({ inputValue: nextProps.inputValue || '' });
+    }
+  }
+
   handleCommentTextChange = (e) => {
     this.setState({ inputValue: e.target.value });
   }
@@ -19,12 +25,6 @@ class CommentForm extends Component {
     this.setState({ isDisabledSubmit: true });
     if (this.state.inputValue) {
       this.props.onSubmit(this.props.parentPost, this.state.inputValue);
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (!nextProps.isLoading) {
-      this.setState({ inputValue: nextProps.inputValue || '' });
     }
   }
 

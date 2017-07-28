@@ -26,10 +26,10 @@ export const getContent = (
     payload: {
       promise: steemAPI
         .getContentAsync(postAuthor, postPermlink)
-        .then((postData) => {
-          dispatch(setCurrentContent(postData));
-          return omit(postData, omitAttributes);
-        }),
+          .then((postData) => {
+            dispatch(setCurrentContent(postData));
+            return omit(postData, omitAttributes);
+          }),
     },
   });
 };

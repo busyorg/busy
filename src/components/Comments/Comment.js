@@ -54,20 +54,21 @@ class Comment extends React.Component {
   submitComment = (parentPost, commentValue) => {
     this.setState({ showCommentFormLoading: true });
 
-    this.props.onSendComment(parentPost, commentValue).then(() => {
-      this.setState({
-        showCommentFormLoading: false,
-        replyOpen: false,
-        commentFormText: '',
+    this.props.onSendComment(parentPost, commentValue)
+      .then(() => {
+        this.setState({
+          showCommentFormLoading: false,
+          replyOpen: false,
+          commentFormText: '',
+        });
+      })
+      .catch(() => {
+        this.setState({
+          showCommentFormLoading: false,
+          replyOpen: true,
+          commentFormText: commentValue,
+        });
       });
-    })
-    .catch(() => {
-      this.setState({
-        showCommentFormLoading: false,
-        replyOpen: true,
-        commentFormText: commentValue,
-      });
-    });
   }
 
   render() {
@@ -130,7 +131,7 @@ class Comment extends React.Component {
               </Tooltip>
             </span>
             <span className="Comment__footer__bullet" />
-            {(auth && auth.isAuthenticated) &&
+            {auth && auth.isAuthenticated &&
               <a
                 className={
                   classNames('Comment__footer__link', {
@@ -144,7 +145,7 @@ class Comment extends React.Component {
             }
           </div>
           {
-            (this.state.replyOpen && auth && auth.isAuthenticated) &&
+            this.state.replyOpen && auth && auth.isAuthenticated &&
             <CommentForm
               username={auth.user.name}
               parentPost={comment}
