@@ -27,6 +27,7 @@ import Transfer from '../widgets/Transfer';
 import UserHero from './UserHero';
 import { LeftSidebar, RightSidebar } from '../app/Sidebar/index';
 import Affix from '../components/Utils/Affix';
+import ScrollToTopOnMount from '../components/Utils/ScrollToTopOnMount';
 
 export const needs = [getAccountWithFollowingCount];
 
@@ -131,6 +132,7 @@ export default class User extends React.Component {
             content={image || 'https://steemit.com/images/steemit-twshare.png'}
           />
         </Helmet>
+        <ScrollToTopOnMount />
         {user && <UserHero auth={auth} user={user} username={displayedUsername} isSameUser={isSameUser} />}
         <div className="shifted">
           <div className="feed-layout container">
