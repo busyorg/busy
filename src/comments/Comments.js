@@ -3,7 +3,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import Select from 'react-select';
-import 'react-select/dist/react-select.css';
 import CommentsList from './CommentsList';
 import * as commentsActions from './commentsActions';
 import Loading from '../components/Icon/Loading';

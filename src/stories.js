@@ -202,8 +202,6 @@ storiesOf('Comments', module)
 storiesOf('Editor', module)
   .add('Editor', () => (
     <Editor
-      recentTopics={['bitcoin', 'steemit', 'busy']}
-      popularTopics={['life', 'travel', 'nature', 'money', 'story']}
       onSubmit={action('Form submit')}
       onError={action('Form error')}
       onImagePasted={

@@ -1,9 +1,22 @@
 @import "../../styles/custom.less";
 
 .Editor {
+
+  padding-bottom: 24px;
+
   & .ant-form-item-label {
     position: relative;
     top: 8px !important;
+  }
+
+  & .ant-form-item-required {
+    &:before {
+      content: '' !important;
+    }
+  }
+
+  & .ant-checkbox-wrapper > :last-child {
+    vertical-align: -3px;
   }
 
   &__label {
@@ -23,11 +36,23 @@
     }
   }
 
-  &__submit {
-    .ant-form-item-control {
-      text-align: right !important;
+  &__bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &__info {
+      font-weight: bold;
     }
-  }
+ 
+    &__submit {
+      margin-bottom: 0 !important;
+
+      .ant-form-item-control {
+        text-align: right !important;
+      }
+    }
+ }
 
   .ant-select-selection__choice {
     font-weight: 500 !important;

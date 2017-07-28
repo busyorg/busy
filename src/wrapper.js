@@ -14,7 +14,6 @@ import * as reblogActions from './app/Reblog/reblogActions';
 import config from '../config.json';
 import './translations/Translations';
 
-const { Header, Content, Sider } = Layout;
 @withRouter
 @connect(
   state => ({
@@ -69,9 +68,9 @@ export default class Wrapper extends PureComponent {
       <IntlProvider locale={locale} messages={translations}>
         <GatewayProvider>
           <Layout>
-            <Header style={{ position: 'fixed', width: '100%', zIndex: 5 }}>
+            <Layout.Header style={{ position: 'fixed', width: '100%', zIndex: 5 }}>
               <Topnav username={auth.user.name} />
-            </Header>
+            </Layout.Header>
             <Notification />
             <div className="content">
               {this.props.children}

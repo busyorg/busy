@@ -9,6 +9,11 @@
     background: darken(@color, 15%, 'relative') !important;
     border-color: darken(@border-color, 15%, 'relative') !important;
   }
+
+  &:disabled {
+    background: lighten(@color, 20%, 'relative') !important;
+    border-color: lighten(@border-color, 20%, 'relative') !important;
+  }
 }
 
 .colorize-ghost-button(@color) {
