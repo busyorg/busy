@@ -13,17 +13,20 @@ export default class UserProfileFeed extends Component {
     ({ name }) => getUserFeedContentStatic({ username: name, limit: 10 }),
   ]
 
+  componentWillMount() {
+    this.props.getUserFeedContent({
+      sortBy: 'feed',
+      username: this.props.match.params.name,
+      limit: this.props.limit,
+    });
+  }
+
   render() {
-    const { feed, posts, getUserFeedContent, getMoreUserFeedContent } = this.props;
+    const { feed, posts, getMoreUserFeedContent } = this.props;
     const username = this.props.match.params.name;
     const content = getFeedContentFromState('feed', username, feed, posts);
     const isFetching = getFeedLoadingFromState('feed', username, feed);
     const hasMore = getFeedHasMoreFromState('feed', username, feed);
-    const loadContentAction = () => getUserFeedContent({
-      sortBy: 'feed',
-      username,
-      limit: this.props.limit,
-    });
     const loadMoreContentAction = () => getMoreUserFeedContent({
       sortBy: 'feed',
       username,
@@ -36,7 +39,6 @@ export default class UserProfileFeed extends Component {
           content={content}
           isFetching={isFetching}
           hasMore={hasMore}
-          loadContent={loadContentAction}
           loadMoreContent={loadMoreContentAction}
           route={this.props.route}
         />

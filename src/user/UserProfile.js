@@ -23,6 +23,14 @@ export default class UserProfile extends Component {
     ({ name }) => getFeedContentStatic({ sortBy: 'blog', category: name, limit: 10 }),
   ]
 
+  componentWillMount() {
+    this.props.getFeedContent({
+      sortBy: 'blog',
+      category: this.props.match.params.name,
+      limit: this.props.limit,
+    });
+  }
+
   isFavorited() {
     const { favorites } = this.props;
     const username = this.props.match.params.name;
@@ -30,17 +38,12 @@ export default class UserProfile extends Component {
   }
 
   render() {
-    const { feed, posts, getFeedContent, getMoreFeedContent, limit, auth } = this.props;
+    const { feed, posts, getMoreFeedContent, limit, auth } = this.props;
     const username = this.props.match.params.name;
     const isOwnProfile = auth.isAuthenticated && username === auth.user.name;
     const content = getFeedContentFromState('blog', username, feed, posts);
     const isFetching = getFeedLoadingFromState('blog', username, feed);
     const hasMore = getFeedHasMoreFromState('blog', username, feed);
-    const loadContentAction = () => getFeedContent({
-      sortBy: 'blog',
-      category: username,
-      limit
-    });
     const loadMoreContentAction = () => getMoreFeedContent({
       sortBy: 'blog',
       category: username,
@@ -90,7 +93,6 @@ export default class UserProfile extends Component {
             content={content}
             isFetching={isFetching}
             hasMore={hasMore}
-            loadContent={loadContentAction}
             loadMoreContent={loadMoreContentAction}
             route={this.props.route}
             username={user.name}
