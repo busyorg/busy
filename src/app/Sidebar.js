@@ -115,7 +115,6 @@ export default class Sidebar extends Component {
     const { auth, app, hideSidebar } = this.props;
     const { user } = auth;
     const { rate, sidebarLoading, props = {}, categories } = app;
-    console.log(formatter);
     const power = props
       ? formatter.vestToSteem(
         user.vesting_shares,
