@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { FormattedMessage } from 'react-intl';
-import formatter from 'steem/lib/formatter';
+import { formatter } from 'steem';
 import numeral from 'numeral';
 import _ from 'lodash';
 import { hideSidebar, getSidebarData } from '../actions';
@@ -115,7 +115,7 @@ export default class Sidebar extends Component {
     const { auth, app, hideSidebar } = this.props;
     const { user } = auth;
     const { rate, sidebarLoading, props = {}, categories } = app;
-
+    console.log(formatter);
     const power = props
       ? formatter.vestToSteem(
         user.vesting_shares,
