@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import _ from 'lodash';
 import { FormattedRelative, FormattedDate, FormattedTime } from 'react-intl';
 import { Link } from 'react-router-dom';
-import { Popover, Tooltip } from 'antd';
+import { Icon, Popover, Tooltip } from 'antd';
 import Lightbox from 'react-image-lightbox';
 import Body from './Body';
 import StoryFooter from './StoryFooter';
@@ -14,8 +14,9 @@ import './StoryFull.less';
 class StoryFull extends React.Component {
   static propTypes = {
     post: PropTypes.shape().isRequired,
+    pendingLike: PropTypes.bool,
+    pendingFollow: PropTypes.bool,
     commentCount: PropTypes.number,
-    userFollowed: PropTypes.bool,
     onFollowClick: PropTypes.func,
     onSaveClick: PropTypes.func,
     onReportClick: PropTypes.func,
@@ -25,6 +26,8 @@ class StoryFull extends React.Component {
   };
 
   static defaultProps = {
+    pendingLike: false,
+    pendingFollow: false,
     commentCount: 0,
     onFollowClick: () => {},
     onSaveClick: () => {},
@@ -32,7 +35,6 @@ class StoryFull extends React.Component {
     onLikeClick: () => {},
     onCommentClick: () => {},
     onShareClick: () => {},
-    userFollowed: false,
     postState: {},
   };
 
@@ -57,7 +59,7 @@ class StoryFull extends React.Component {
   handleClick = (key) => {
     switch (key) {
       case 'follow':
-        this.props.onFollowClick();
+        this.props.onFollowClick(this.props.post);
         return;
       case 'save':
         this.props.onSaveClick();
@@ -89,8 +91,9 @@ class StoryFull extends React.Component {
     const {
       post,
       postState,
+      pendingLike,
+      pendingFollow,
       commentCount,
-      userFollowed,
       onLikeClick,
       onCommentClick,
       onShareClick,
@@ -99,6 +102,18 @@ class StoryFull extends React.Component {
     const { open, index } = this.state.lightbox;
     const images = JSON.parse(post.json_metadata).image;
     const tags = _.union(JSON.parse(post.json_metadata).tags, [post.category]);
+
+    let followText = '';
+
+    if (postState.userFollowed && !pendingFollow) {
+      followText = 'Unfollow';
+    } else if (postState.userFollowed && pendingFollow) {
+      followText = 'Unfollowing';
+    } else if (!postState.userFollowed && !pendingFollow) {
+      followText = 'Follow';
+    } else if (!postState.userFollowed && pendingFollow) {
+      followText = 'Following';
+    }
 
     return (
       <div className="StoryFull">
@@ -130,16 +145,16 @@ class StoryFull extends React.Component {
             </Tooltip>
           </div>
           <Popover
-            placement="bottom"
+            placement="bottomRight"
             trigger="click"
             content={
               <PopoverMenu onSelect={this.handleClick} bold={false}>
-                <PopoverMenuItem key="follow">
-                  <i className="iconfont icon-people" /> {!userFollowed ? 'Follow' : 'Unfollow'}
-                  {' '}{post.author}
+                <PopoverMenuItem key="follow" disabled={pendingFollow}>
+                  {(pendingFollow) ? <Icon type="loading" /> : <i className="iconfont icon-people" />}
+                  {`${followText} ${post.author}`}
                 </PopoverMenuItem>
                 <PopoverMenuItem key="save">
-                  <i className="iconfont icon-collection" /> Save post
+                  <i className="iconfont icon-collection" /> {(postState.isSaved) ? 'Unsave post' : 'Save post'}
                 </PopoverMenuItem>
                 <PopoverMenuItem key="report">
                   <i className="iconfont icon-flag" /> Report post
@@ -193,6 +208,7 @@ class StoryFull extends React.Component {
         <StoryFooter
           post={post}
           postState={postState}
+          pendingLike={pendingLike}
           onLikeClick={onLikeClick}
           onCommentClick={onCommentClick}
           onShareClick={onShareClick}

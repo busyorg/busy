@@ -14,6 +14,7 @@ const initialState = {
   filesFetchIsLoading: true,
   following: {
     list: [],
+    pendingFollows: [],
     isFetching: false,
   },
 };
@@ -21,60 +22,64 @@ const initialState = {
 export default function userReducer(state = initialState, action) {
   switch (action.type) {
     case actions.UPLOAD_FILE_START: {
-      return Object.assign({}, state, {
-        fileUploadIsLoading: Object.assign({}, state.fileUploadIsLoading, {
-          [`${action.meta.filename}`]: true,
-        }),
+      return {
+        ...state,
+        fileUploadIsLoading: {
+          ...state.fileUploadIsLoading,
+          [action.meta.filename]: true,
+        },
         fileUploadError: null,
-      });
+      };
     }
-
     case actions.UPLOAD_FILE_SUCCESS: {
-      return Object.assign({}, state, {
-        files: Object.assign({}, state.files, {
-          [`${action.payload.public_id}`]: action.payload,
-        }),
+      return {
+        ...state,
+        files: {
+          ...state.files,
+          [action.payload.public_id]: action.payload,
+        },
         fileUploadIsLoading: omit(state.fileUploadIsLoading, [
           action.meta.filename,
         ]),
         fileUploadError: null,
-      });
+      };
     }
-
     case actions.UPLOAD_FILE_ERROR: {
-      return Object.assign({}, state, {
+      return {
+        ...state,
         fileUploadIsLoading: omit(state.fileUploadIsLoading, [
           action.meta.filename,
         ]),
         fileUploadError: action.payload,
-      });
+      };
     }
-
     case actions.FETCH_FILES_START: {
-      return Object.assign({}, state, {
+      return {
+        ...state,
         filesFetchIsLoading: true,
         filesFetchError: null,
-      });
+      };
     }
-
     case actions.FETCH_FILES_SUCCESS: {
-      return Object.assign({}, state, {
+      return {
+        ...state,
         files: keyBy(action.payload, 'public_id'),
         filesFetchIsLoading: false,
         filesFetchError: null,
-      });
+      };
     }
-
     case actions.FETCH_FILES_ERROR: {
-      return Object.assign({}, state, {
+      return {
+        ...state,
         filesFetchIsLoading: false,
         filesFetchError: action.payload,
-      });
+      };
     }
     case actions.GET_FOLLOWING_START:
       return {
         ...state,
         following: {
+          ...state.following,
           list: [],
           isFetching: true,
         },
@@ -83,6 +88,7 @@ export default function userReducer(state = initialState, action) {
       return {
         ...state,
         following: {
+          ...state.following,
           list: [],
           isFetching: false,
         },
@@ -91,11 +97,24 @@ export default function userReducer(state = initialState, action) {
       return {
         ...state,
         following: {
+          ...state.following,
           list: action.payload,
           isFetching: false,
         },
       };
     case actions.FOLLOW_USER_START:
+    case actions.UNFOLLOW_USER_START:
+      return {
+        ...state,
+        following: {
+          ...state.following,
+          pendingFollows: [
+            ...state.following.pendingFollows,
+            action.meta.username,
+          ],
+        },
+      };
+    case actions.FOLLOW_USER_SUCCESS:
       return {
         ...state,
         following: {
@@ -104,19 +123,29 @@ export default function userReducer(state = initialState, action) {
             ...state.following.list,
             action.meta.username,
           ],
+          pendingFollows: state.following.pendingFollows
+            .filter(user => user !== action.meta.username),
         },
       };
-    case actions.UNFOLLOW_USER_START:
-      const targetIdx = state.following.list.indexOf(action.meta.username);
-      const newList = [
-        ...state.following.list.slice(0, targetIdx),
-        ...state.following.list.slice(targetIdx + 1),
-      ];
+    case actions.UNFOLLOW_USER_SUCCESS:
       return {
         ...state,
         following: {
           ...state.following,
-          list: newList,
+          list: state.following.list.filter(user => user !== action.meta.username),
+          pendingFollows: state.following.pendingFollows
+            .filter(user => user !== action.meta.username),
+        },
+      };
+
+    case actions.FOLLOW_USER_ERROR:
+    case actions.UNFOLLOW_USER_ERROR:
+      return {
+        ...state,
+        following: {
+          ...state.following,
+          pendingFollows: state.following.pendingFollows
+            .filter(user => user !== action.meta.username),
         },
       };
     default: {
