@@ -60,7 +60,6 @@ export default class Feed extends React.Component {
       toggleBookmark,
       app,
       bookmarks,
-      notify,
       reblog,
       votePost,
       reblogList
@@ -72,7 +71,7 @@ export default class Feed extends React.Component {
           <ReduxInfiniteScroll
             loadMore={this.props.loadMoreContent}
             loader={<StoryLoading />}
-            loadingMore={console.log()}
+            loadingMore={isFetching}
             hasMore={hasMore}
             elementIsScrollable={false}
             threshold={200}
