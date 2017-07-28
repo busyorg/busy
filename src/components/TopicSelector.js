@@ -6,7 +6,7 @@ import './TopicSelector.less';
 
 class TopicSelector extends React.Component {
   static propTypes = {
-    defaultSort: PropTypes.string,
+    sort: PropTypes.string,
     isSingle: PropTypes.bool,
     topics: PropTypes.arrayOf(PropTypes.string),
     onTopicClose: PropTypes.func,
@@ -14,7 +14,7 @@ class TopicSelector extends React.Component {
   }
 
   static defaultProps = {
-    defaultSort: 'trending',
+    sort: 'trending',
     isSingle: true,
     topics: [],
     onTopicClose: () => {},
@@ -24,21 +24,20 @@ class TopicSelector extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentSort: props.defaultSort,
       popoverVisible: false,
     };
   }
 
   onSelect = (key) => {
-    this.setState({ currentSort: key, popoverVisible: false }, () => {
+    this.setState({ popoverVisible: false }, () => {
       this.props.onSortChange(key);
     });
   };
   onVisibleChange = visible => this.setState({ popoverVisible: visible });
 
   render() {
-    const { topics, isSingle, onTopicClose } = this.props;
-    const { currentSort, popoverVisible } = this.state;
+    const { sort, topics, isSingle, onTopicClose } = this.props;
+    const { popoverVisible } = this.state;
 
     return (
       <div className="TopicSelector">
@@ -72,7 +71,7 @@ class TopicSelector extends React.Component {
             }
           >
             <span className="TopicSelector__sort__current">
-              {currentSort.charAt(0).toUpperCase() + currentSort.slice(1)}
+              {sort.charAt(0).toUpperCase() + sort.slice(1)}
               <i className="iconfont icon-unfold" />
             </span>
           </Popover>
