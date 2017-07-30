@@ -11,6 +11,7 @@ exports[`Storyshots Button Action 1`] = `
 >
   <button
     className="Action ant-btn-lg"
+    disabled={false}
     style={Object {}}
   >
     Transfer
@@ -73,6 +74,7 @@ exports[`Storyshots Button Follow 1`] = `
 >
   <button
     className="Follow"
+    onClick={[Function]}
     onMouseOut={[Function]}
     onMouseOver={[Function]}
   >
@@ -92,10 +94,11 @@ exports[`Storyshots Button Followed 1`] = `
 >
   <button
     className="Follow"
+    onClick={[Function]}
     onMouseOut={[Function]}
     onMouseOver={[Function]}
   >
-    Following
+    Followed
   </button>
 </div>
 `;
@@ -7323,14 +7326,14 @@ exports[`Storyshots Editor Editor 1`] = `
                 "leadingName": "title",
                 "name": "title",
                 "originalProps": Object {
-                  "autosize": false,
                   "className": "Editor__title",
                   "disabled": false,
+                  "onChange": [Function],
                   "placeholder": "Add title",
                   "prefixCls": "ant-input",
                   "type": "text",
                 },
-                "ref": null,
+                "ref": [Function],
                 "rules": Array [
                   Object {
                     "message": "Please enter a title",
@@ -7397,48 +7400,8 @@ exports[`Storyshots Editor Editor 1`] = `
         className="ant-form-item-control-wrapper"
       >
         <div
-          className="ant-form-item-control "
+          className="ant-form-item-control has-success"
         >
-          <div
-            className="ant-select-lg Editor__topics ant-select ant-select-enabled"
-            onBlur={[Function]}
-            onClick={[Function]}
-            onFocus={[Function]}
-            onMouseDown={[Function]}
-            onMouseEnter={undefined}
-            onMouseLeave={undefined}
-            onTouchStart={[Function]}
-            style={undefined}
-          >
-            <div
-              aria-autocomplete="list"
-              aria-expanded={false}
-              aria-haspopup="true"
-              className="ant-select-selection
-                        ant-select-selection--multiple"
-              role="combobox"
-            >
-              <div
-                className="ant-select-selection__rendered"
-              >
-                <div
-                  className="ant-select-selection__placeholder"
-                  onClick={[Function]}
-                  onMouseDown={[Function]}
-                  style={
-                    Object {
-                      "WebkitUserSelect": "none",
-                      "display": "block",
-                      "userSelect": "none",
-                    }
-                  }
-                  unselectable="unselectable"
-                >
-                  Add story topics here
-                </div>
-              </div>
-            </div>
-          </div>
           <div
             className="ant-form-extra"
           >
@@ -7452,21 +7415,6 @@ exports[`Storyshots Editor Editor 1`] = `
       style={undefined}
     >
       <div
-        className="ant-form-item-label"
-      >
-        <label
-          className=""
-          htmlFor={null}
-          title=""
-        >
-          <span
-            className="Editor__label"
-          >
-            Write your story
-          </span>
-        </label>
-      </div>
-      <div
         className="ant-form-item-control-wrapper"
       >
         <div
@@ -7475,21 +7423,119 @@ exports[`Storyshots Editor Editor 1`] = `
       </div>
     </div>
     <div
-      className="ant-row ant-form-item Editor__submit"
+      className="ant-row ant-form-item"
+      style={undefined}
+    >
+      <div
+        className="ant-form-item-label"
+      >
+        <label
+          className=""
+          htmlFor="reward"
+          title=""
+        >
+          <span
+            className="Editor__label"
+          >
+            Reward
+          </span>
+        </label>
+      </div>
+      <div
+        className="ant-form-item-control-wrapper"
+      >
+        <div
+          className="ant-form-item-control has-success"
+        />
+      </div>
+    </div>
+    <div
+      className="ant-row ant-form-item"
       style={undefined}
     >
       <div
         className="ant-form-item-control-wrapper"
       >
         <div
-          className="ant-form-item-control "
+          className="ant-form-item-control has-success"
         >
-          <button
-            className="Action ant-btn-lg"
-            style={Object {}}
+          <label
+            className="ant-checkbox-wrapper"
+            onMouseEnter={undefined}
+            onMouseLeave={undefined}
+            style={undefined}
           >
-            Submit
-          </button>
+            <span
+              className="ant-checkbox ant-checkbox-checked"
+              style={Object {}}
+            >
+              <input
+                checked={true}
+                className="ant-checkbox-input"
+                data-__meta={
+                  Object {
+                    "initialValue": true,
+                    "leadingName": "upvote",
+                    "name": "upvote",
+                    "originalProps": Object {
+                      "children": "Upvote this post",
+                      "indeterminate": false,
+                      "onChange": [Function],
+                      "prefixCls": "ant-checkbox",
+                    },
+                    "ref": null,
+                    "trigger": "onChange",
+                    "validate": Array [],
+                    "valuePropName": "checked",
+                  }
+                }
+                disabled={undefined}
+                name={undefined}
+                onBlur={[Function]}
+                onChange={[Function]}
+                onClick={undefined}
+                onFocus={[Function]}
+                readOnly={undefined}
+                tabIndex={undefined}
+                type="checkbox"
+              />
+              <span
+                className="ant-checkbox-inner"
+              />
+            </span>
+            <span>
+              Upvote this post
+            </span>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div
+      className="Editor__bottom"
+    >
+      <span
+        className="Editor__bottom__info"
+      >
+        Styling with markdown is supported
+      </span>
+      <div
+        className="ant-row ant-form-item Editor__bottom__submit"
+        style={undefined}
+      >
+        <div
+          className="ant-form-item-control-wrapper"
+        >
+          <div
+            className="ant-form-item-control "
+          >
+            <button
+              className="Action ant-btn-lg"
+              disabled={false}
+              style={Object {}}
+            >
+              Post
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -7741,6 +7787,174 @@ exports[`Storyshots Navigation Topnav logged 1`] = `
                 <i
                   className="iconfont icon-remind"
                 />
+                <sup
+                  className="ant-scroll-number ant-badge-count"
+                  data-show={true}
+                  style={undefined}
+                >
+                  <span
+                    className="ant-scroll-number-only"
+                    style={
+                      Object {
+                        "WebkitTransform": "translateY(-1400%)",
+                        "msTransform": "translateY(-1400%)",
+                        "transform": "translateY(-1400%)",
+                        "transition": "none",
+                      }
+                    }
+                  >
+                    <p
+                      className=""
+                    >
+                      0
+                    </p>
+                    <p
+                      className=""
+                    >
+                      1
+                    </p>
+                    <p
+                      className=""
+                    >
+                      2
+                    </p>
+                    <p
+                      className=""
+                    >
+                      3
+                    </p>
+                    <p
+                      className=""
+                    >
+                      4
+                    </p>
+                    <p
+                      className=""
+                    >
+                      5
+                    </p>
+                    <p
+                      className=""
+                    >
+                      6
+                    </p>
+                    <p
+                      className=""
+                    >
+                      7
+                    </p>
+                    <p
+                      className=""
+                    >
+                      8
+                    </p>
+                    <p
+                      className=""
+                    >
+                      9
+                    </p>
+                    <p
+                      className=""
+                    >
+                      0
+                    </p>
+                    <p
+                      className=""
+                    >
+                      1
+                    </p>
+                    <p
+                      className=""
+                    >
+                      2
+                    </p>
+                    <p
+                      className=""
+                    >
+                      3
+                    </p>
+                    <p
+                      className="current"
+                    >
+                      4
+                    </p>
+                    <p
+                      className=""
+                    >
+                      5
+                    </p>
+                    <p
+                      className=""
+                    >
+                      6
+                    </p>
+                    <p
+                      className=""
+                    >
+                      7
+                    </p>
+                    <p
+                      className=""
+                    >
+                      8
+                    </p>
+                    <p
+                      className=""
+                    >
+                      9
+                    </p>
+                    <p
+                      className=""
+                    >
+                      0
+                    </p>
+                    <p
+                      className=""
+                    >
+                      1
+                    </p>
+                    <p
+                      className=""
+                    >
+                      2
+                    </p>
+                    <p
+                      className=""
+                    >
+                      3
+                    </p>
+                    <p
+                      className=""
+                    >
+                      4
+                    </p>
+                    <p
+                      className=""
+                    >
+                      5
+                    </p>
+                    <p
+                      className=""
+                    >
+                      6
+                    </p>
+                    <p
+                      className=""
+                    >
+                      7
+                    </p>
+                    <p
+                      className=""
+                    >
+                      8
+                    </p>
+                    <p
+                      className=""
+                    >
+                      9
+                    </p>
+                  </span>
+                </sup>
               </span>
             </li>
             <li
@@ -8158,6 +8372,7 @@ exports[`Storyshots Sidebar Interesting People 1`] = `
           </div>
           <button
             className="Follow"
+            onClick={[Function]}
             onMouseOut={[Function]}
             onMouseOver={[Function]}
           >
@@ -8211,6 +8426,7 @@ exports[`Storyshots Sidebar Interesting People 1`] = `
           </div>
           <button
             className="Follow"
+            onClick={[Function]}
             onMouseOut={[Function]}
             onMouseOver={[Function]}
           >
@@ -8264,6 +8480,7 @@ exports[`Storyshots Sidebar Interesting People 1`] = `
           </div>
           <button
             className="Follow"
+            onClick={[Function]}
             onMouseOut={[Function]}
             onMouseOver={[Function]}
           >
@@ -8976,20 +9193,24 @@ exports[`Storyshots Story Full story 1`] = `
           18
         </span>
       </a>
-      <a
-        className="StoryFooter__link"
+      <span
         onBlur={undefined}
-        onClick={[Function]}
+        onClick={undefined}
         onFocus={undefined}
         onMouseDown={undefined}
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
         onTouchStart={undefined}
       >
-        <i
-          className="iconfont icon-send StoryFooter__share"
-        />
-      </a>
+        <a
+          className="StoryFooter__link"
+          onClick={[Function]}
+        >
+          <i
+            className="iconfont icon-send StoryFooter__share"
+          />
+        </a>
+      </span>
     </div>
   </div>
 </div>
@@ -9211,20 +9432,24 @@ exports[`Storyshots Story Full story with embed 1`] = `
           57
         </span>
       </a>
-      <a
-        className="StoryFooter__link"
+      <span
         onBlur={undefined}
-        onClick={[Function]}
+        onClick={undefined}
         onFocus={undefined}
         onMouseDown={undefined}
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
         onTouchStart={undefined}
       >
-        <i
-          className="iconfont icon-send StoryFooter__share"
-        />
-      </a>
+        <a
+          className="StoryFooter__link"
+          onClick={[Function]}
+        >
+          <i
+            className="iconfont icon-send StoryFooter__share"
+          />
+        </a>
+      </span>
     </div>
   </div>
 </div>
@@ -9407,20 +9632,24 @@ exports[`Storyshots Story Inline story 1`] = `
             18
           </span>
         </a>
-        <a
-          className="StoryFooter__link"
+        <span
           onBlur={undefined}
-          onClick={[Function]}
+          onClick={undefined}
           onFocus={undefined}
           onMouseDown={undefined}
           onMouseEnter={[Function]}
           onMouseLeave={[Function]}
           onTouchStart={undefined}
         >
-          <i
-            className="iconfont icon-send StoryFooter__share"
-          />
-        </a>
+          <a
+            className="StoryFooter__link"
+            onClick={[Function]}
+          >
+            <i
+              className="iconfont icon-send StoryFooter__share"
+            />
+          </a>
+        </span>
       </div>
     </div>
   </div>
@@ -9616,20 +9845,24 @@ exports[`Storyshots Story Inline story with embed 1`] = `
             57
           </span>
         </a>
-        <a
-          className="StoryFooter__link"
+        <span
           onBlur={undefined}
-          onClick={[Function]}
+          onClick={undefined}
           onFocus={undefined}
           onMouseDown={undefined}
           onMouseEnter={[Function]}
           onMouseLeave={[Function]}
           onTouchStart={undefined}
         >
-          <i
-            className="iconfont icon-send StoryFooter__share"
-          />
-        </a>
+          <a
+            className="StoryFooter__link"
+            onClick={[Function]}
+          >
+            <i
+              className="iconfont icon-send StoryFooter__share"
+            />
+          </a>
+        </span>
       </div>
     </div>
   </div>

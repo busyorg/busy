@@ -13,13 +13,14 @@ import Comments from '../../comments/Comments';
 import PostSingleModal from './PostSingleModal';
 import * as reblogActions from '../../app/Reblog/reblogActions';
 import * as bookmarkActions from '../../bookmarks/bookmarksActions';
+import { followUser, unfollowUser } from '../../user/userActions';
 import * as appActions from '../../actions';
 import Loading from '../../components/Icon/Loading';
 import { jsonParse } from '../../helpers/formatter';
 import StoryFull from '../../components/Story/StoryFull';
 import { RightSidebar } from '../../app/Sidebar/index';
 import Affix from '../../components/Utils/Affix';
-import ScrollToTop from '../../components/Utils/ScrollToTop';
+import ScrollToTopOnMount from '../../components/Utils/ScrollToTopOnMount';
 
 // reblogList: reblog,
 // bookmarks,
@@ -32,11 +33,15 @@ import ScrollToTop from '../../components/Utils/ScrollToTop';
 // openPostModal: appActions.openPostModal
 @withRouter
 @connect(
-  ({ posts, app, reblog, auth, bookmarks }) => ({
+  ({ posts, app, reblog, auth, bookmarks, user }) => ({
     content: posts[app.lastPostId] || null,
     loading: posts.postLoading,
     lastPostId: app.lastPostId,
-    reblogList: reblog,
+    pendingLikes: posts.pendingLikes,
+    reblogList: reblog.rebloggedList,
+    pendingReblogs: reblog.pendingReblogs,
+    followingList: user.following.list,
+    pendingFollows: user.following.pendingFollows,
     bookmarks,
     auth,
   }),
@@ -52,6 +57,8 @@ import ScrollToTop from '../../components/Utils/ScrollToTop';
         toggleBookmark: bookmarkActions.toggleBookmark,
         votePost: postActions.votePost,
         reblog: reblogActions.reblog,
+        followUser,
+        unfollowUser,
       },
       dispatch
     )
@@ -107,9 +114,31 @@ export default class PostSingle extends Component {
     this.props.removeCurrentContent();
   }
 
+  handleFollowClick = (post) => {
+    const isFollowed = this.props.followingList.includes(post.author);
+    if (isFollowed) {
+      this.props.unfollowUser(post.author);
+    } else {
+      this.props.followUser(post.author);
+    }
+  }
+
   render() {
     // let onEdit;
-    const { content, loading, auth, reblogList, bookmarks, votePost, reblog, toggleBookmark } = this.props;
+    const {
+      content,
+      loading,
+      auth,
+      pendingLikes,
+      reblogList,
+      pendingReblogs,
+      followingList,
+      pendingFollows,
+      bookmarks,
+      votePost,
+      reblog,
+      toggleBookmark,
+    } = this.props;
 
     if (this.props.isLoading || !content) {
       return <div className="main-panel"><Loading /></div>;
@@ -170,10 +199,12 @@ export default class PostSingle extends Component {
 
     const postState = {
       isReblogged: reblogList.includes(content.id),
-      isSaved: bookmarks[content.id] !== undefined,
+      isReblogging: pendingReblogs.includes(content.id),
+      isSaved: bookmarks[loggedInUser.name]
+        && bookmarks[loggedInUser.name].filter(bookmark => bookmark.id === content.id).length > 0,
       isLiked: userVote.percent > 0,
       isReported: userVote.percent < 0,
-      userFollowed: false // Get Follower list for loggedIn User after login
+      userFollowed: followingList.includes(content.author),
     };
 
     const likePost = userVote.percent > 0
@@ -216,7 +247,7 @@ export default class PostSingle extends Component {
             content={image || 'https://steemit.com/images/steemit-twshare.png'}
           />
         </Helmet>
-        <ScrollToTop />
+        <ScrollToTopOnMount />
         <div className="shifted">
           <div className="post-layout container">
             <Affix className="rightContainer" stickPosition={77}>
@@ -226,12 +257,14 @@ export default class PostSingle extends Component {
             </Affix>
             <div className="center">
               {
-                (loading) ? <Loading /> :
+                (loading && !pendingLikes.filter(post => post === content.id) > 0) ? <Loading /> :
                 <StoryFull
                   post={content}
                   postState={postState}
-                  onFollowClick={() => console.log('Follow click')}
-                  onSaveClick={() => toggleBookmark(content.id)}
+                  pendingLike={pendingLikes.includes(content.id)}
+                  pendingFollow={pendingFollows.includes(content.author)}
+                  onFollowClick={this.handleFollowClick}
+                  onSaveClick={() => toggleBookmark(content.id, content.author, content.permlink)}
                   onReportClick={reportPost}
                   onLikeClick={likePost}
                   onCommentClick={() => console.log('Comment click')}

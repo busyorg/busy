@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import 'react-select/dist/react-select.css';
+import { FormattedMessage } from 'react-intl';
+import Select from 'react-select';
 import CommentsList from '../components/Comments/Comments';
 import * as commentsActions from './commentsActions';
 import Loading from '../components/Icon/Loading';

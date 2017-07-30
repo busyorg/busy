@@ -8,14 +8,12 @@ import { login } from './auth/authActions';
 import { getConfig, getRate } from './actions';
 import steemAPI from './steemAPI';
 import { getMessages, getLocale } from './translations/translationHelper';
-import { getStoredBookmarks } from './bookmarks/bookmarksActions';
 import Notification from './app/Notification/Notification';
 import Topnav from './components/Navigation/Topnav';
 import * as reblogActions from './app/Reblog/reblogActions';
 import config from '../config.json';
 import './translations/Translations';
 
-const { Header, Content, Sider } = Layout;
 @withRouter
 @connect(
   state => ({
@@ -26,7 +24,6 @@ const { Header, Content, Sider } = Layout;
     login,
     getConfig,
     getRate,
-    getStoredBookmarks,
     getRebloggedList: reblogActions.getRebloggedList
   }
 )
@@ -41,7 +38,6 @@ export default class Wrapper extends PureComponent {
   componentWillMount() {
     this.props.login();
     this.props.getConfig();
-    this.props.getStoredBookmarks();
     this.props.getRebloggedList();
     this.props.getRate();
     this.loadMessages();
@@ -72,9 +68,9 @@ export default class Wrapper extends PureComponent {
       <IntlProvider locale={locale} messages={translations}>
         <GatewayProvider>
           <Layout>
-            <Header style={{ position: 'fixed', width: '100%', zIndex: 5 }}>
+            <Layout.Header style={{ position: 'fixed', width: '100%', zIndex: 5 }}>
               <Topnav username={auth.user.name} />
-            </Header>
+            </Layout.Header>
             <Notification />
             <div className="content">
               {this.props.children}

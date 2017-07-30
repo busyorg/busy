@@ -10,6 +10,7 @@ import * as commentsActions from '../comments/commentsActions';
 import * as bookmarkActions from '../bookmarks/bookmarksActions';
 import * as reblogActions from '../app/Reblog/reblogActions';
 import * as postActions from '../post/postActions';
+import { followUser, unfollowUser } from '../user/userActions';
 // import PostSingle from '../post/postSingle/PostSingle';
 import Story from '../components/Story/Story';
 import StoryLoading from '../components/Story/StoryLoading';
@@ -21,15 +22,21 @@ import './Feed.less';
   state => ({
     auth: state.auth,
     app: state.app,
+    pendingLikes: state.posts.pendingLikes,
     bookmarks: state.bookmarks,
-    reblogList: state.reblog
+    reblogList: state.reblog.rebloggedList,
+    pendingReblogs: state.reblog.pendingReblogs,
+    followingList: state.user.following.list,
+    pendingFollows: state.user.following.pendingFollows,
   }),
   {
     openCommentingDraft: commentsActions.openCommentingDraft,
     closeCommentingDraft: commentsActions.closeCommentingDraft,
     toggleBookmark: bookmarkActions.toggleBookmark,
     votePost: postActions.votePost,
-    reblog: reblogActions.reblog
+    reblog: reblogActions.reblog,
+    followUser,
+    unfollowUser,
   }
 )
 export default class Feed extends React.Component {
@@ -62,20 +69,30 @@ export default class Feed extends React.Component {
   //   /* eslint-enable */
   // };
 
+  handleFollowClick = (post) => {
+    const isFollowed = this.props.followingList.includes(post.author);
+    if (isFollowed) {
+      this.props.unfollowUser(post.author);
+    } else {
+      this.props.followUser(post.author);
+    }
+  }
+
   render() {
     const {
       auth,
       content,
       isFetching,
       hasMore,
-      replies,
       toggleBookmark,
-      app,
+      pendingLikes,
       bookmarks,
-      notify,
+      pendingReblogs,
       reblog,
       votePost,
-      reblogList
+      reblogList,
+      followingList,
+      pendingFollows,
     } = this.props;
 
     return (
@@ -104,15 +121,19 @@ export default class Feed extends React.Component {
 
               const postState = {
                 isReblogged: reblogList.includes(post.id),
-                isSaved: bookmarks[post.id] !== undefined,
+                isReblogging: pendingReblogs.includes(post.id),
+                isSaved: bookmarks[loggedInUser.name]
+                  && bookmarks[loggedInUser.name]
+                    .filter(bookmark => bookmark.id === post.id).length > 0,
                 isLiked: userVote.percent > 0,
                 isReported: userVote.percent < 0,
-                userFollowed: false // Get Follower list for loggedIn User after login
+                userFollowed: followingList.includes(post.author),
               };
 
+
               const likePost = userVote.percent > 0
-                ? () => votePost(post.id, 0)
-                : () => votePost(post.id);
+                ? () => votePost(post.id, post.author, post.permlink, 0)
+                : () => votePost(post.id, post.author, post.permlink);
               const reportPost = () => votePost(post.id, -1000);
 
               return (
@@ -120,8 +141,10 @@ export default class Feed extends React.Component {
                   key={post.id}
                   post={post}
                   postState={postState}
-                  onFollowClick={() => console.log('Follow click')}
-                  onSaveClick={() => toggleBookmark(post.id)}
+                  pendingLike={pendingLikes.includes(post.id)}
+                  pendingFollow={pendingFollows.includes(post.author)}
+                  onFollowClick={this.handleFollowClick}
+                  onSaveClick={() => toggleBookmark(post.id, post.author, post.permlink)}
                   onReportClick={reportPost}
                   onLikeClick={likePost}
                   onCommentClick={() => console.log('Comment click')}

@@ -1,15 +1,15 @@
 import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import { ConnectedRouter } from 'react-router-redux';
 
 import routes from './routes';
 
 // load the stylesheet
 import './styles/base.less';
 
-const AppHost = () => (
-  <BrowserRouter>
+const AppHost = ({ history }) => (
+  <ConnectedRouter history={history}>
     {routes}
-  </BrowserRouter>
+  </ConnectedRouter>
 );
 
 export default AppHost;

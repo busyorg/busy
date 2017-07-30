@@ -8,10 +8,13 @@
   .colorize-button(@purple, #2a3574);
 
   color: @white-darker;
+
+  & > .anticon {
+    margin-right: 12px;
+  }
 }
 
 .Follow--danger {
-  .btn;
-  .btn-default;
-  .btn-danger;
+  color: #fff !important;
+  .colorize-button(@red, @red);
 }
