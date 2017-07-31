@@ -7439,51 +7439,7 @@ exports[`Storyshots Navigation Sidenav unlogged 1`] = `
     }
   }
 >
-  <div>
-    <ul
-      className="Sidenav"
-    >
-      <li>
-        <a
-          className={undefined}
-          href="/trending"
-          onClick={[Function]}
-          style={undefined}
-        >
-          <i
-            className="iconfont icon-headlines"
-          />
-           News
-        </a>
-      </li>
-      <li>
-        <a
-          className={undefined}
-          href="#"
-          onClick={[Function]}
-          style={undefined}
-        >
-          <i
-            className="iconfont icon-group"
-          />
-           Communities
-        </a>
-      </li>
-      <li>
-        <a
-          className={undefined}
-          href="#"
-          onClick={[Function]}
-          style={undefined}
-        >
-          <i
-            className="iconfont icon-service"
-          />
-           Shopping
-        </a>
-      </li>
-    </ul>
-  </div>
+  <div />
 </div>
 `;
 

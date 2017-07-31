@@ -4,7 +4,7 @@ import './Sidenav.less';
 
 const Sidenav = ({ username }) => (
   <div>
-    {(username) ? <ul className="Sidenav">
+    {username && <ul className="Sidenav">
       <li>
         <NavLink to={`/@${username}`} activeClassName="Sidenav__item--active">
           <i className="iconfont icon-mine" /> My Profile
@@ -25,24 +25,7 @@ const Sidenav = ({ username }) => (
           <i className="iconfont icon-lock" /> Wallet
         </NavLink>
       </li>
-    </ul> : <ul className="Sidenav">
-      <li>
-        <NavLink to="/trending" activeClassName="Sidenav__item--active">
-          <i className="iconfont icon-headlines" /> News
-        </NavLink>
-      </li>
-      <li>
-        <NavLink to="#" activeClassName="Sidenav__item--active">
-          <i className="iconfont icon-group" /> Communities
-        </NavLink>
-      </li>
-      <li>
-        <NavLink to="#" activeClassName="Sidenav__item--active">
-          <i className="iconfont icon-service" /> Shopping
-        </NavLink>
-      </li>
-    </ul>
-    }
+    </ul>}
   </div>);
 
 Sidenav.propTypes = {
