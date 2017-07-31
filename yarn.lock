@@ -3786,8 +3786,8 @@ html-minifier@^3.0.1, html-minifier@^3.2.3:
     uglify-js "3.0.x"
 
 html-webpack-plugin@^2.28.0:
-  version "2.29.0"
-  resolved "https://registry.yarnpkg.com/html-webpack-plugin/-/html-webpack-plugin-2.29.0.tgz#e987f421853d3b6938c8c4c8171842e5fd17af23"
+  version "2.30.0"
+  resolved "https://registry.yarnpkg.com/html-webpack-plugin/-/html-webpack-plugin-2.30.0.tgz#079002176dff3659e471ded9c3be3a1ceb2960c7"
   dependencies:
     bluebird "^3.4.7"
     html-minifier "^3.2.3"
