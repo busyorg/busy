@@ -47,9 +47,10 @@ class UserMenu extends React.Component {
 
     return (
       <div className="UserMenu">
-        <div className="container row">
+        <div className="container topnav-layout">
+          <div className="left" />
           <Menu
-            className="UserMenu__menu col-3col-2 col-3col-offset"
+            className="UserMenu__menu center"
             onClick={this.handleClick}
             selectedKeys={[this.state.current]}
             mode="horizontal"
