@@ -7473,7 +7473,7 @@ exports[`Storyshots Navigation Topnav logged 1`] = `
         className="center"
       >
         <div
-          className="Topnav__input-container Topnav__input-container--logged-in"
+          className="Topnav__input-container"
         >
           <input
             className="ant-input"
@@ -7791,7 +7791,18 @@ exports[`Storyshots Navigation Topnav unlogged 1`] = `
       >
         <div
           className="Topnav__input-container"
-        />
+        >
+          <input
+            className="ant-input"
+            disabled={false}
+            onKeyDown={[Function]}
+            placeholder="Search..."
+            type="text"
+          />
+          <i
+            className="iconfont icon-search"
+          />
+        </div>
       </div>
       <div
         className="right"
