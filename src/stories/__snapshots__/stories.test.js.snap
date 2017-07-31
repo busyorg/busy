@@ -7948,11 +7948,14 @@ exports[`Storyshots Profile UserMenu 1`] = `
     className="UserMenu"
   >
     <div
-      className="container row"
+      className="container topnav-layout"
     >
+      <div
+        className="left"
+      />
       <ul
         aria-activedescendant=""
-        className="ant-menu ant-menu-horizontal UserMenu__menu col-3col-2 col-3col-offset ant-menu-light ant-menu-root"
+        className="ant-menu ant-menu-horizontal UserMenu__menu center ant-menu-light ant-menu-root"
         onKeyDown={[Function]}
         role="menu"
         style={Object {}}
