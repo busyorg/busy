@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
 import steemconnect from 'steemconnect';
+import steem from 'steem';
 import ReactGA from 'react-ga';
 import { AppContainer } from 'react-hot-loader';
 import getStore from './store';
@@ -28,6 +29,13 @@ if (process.env.STEEMCONNECT_HOST) {
     app: 'busy.org',
     baseURL: process.env.STEEMCONNECT_HOST,
     callbackURL: process.env.STEEMCONNECT_REDIRECT_URL
+  });
+}
+
+if (process.env.WS) {
+  steem.api.setOptions({
+    transport: 'ws',
+    websocket: process.env.WS,
   });
 }
 
