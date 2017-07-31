@@ -10,7 +10,6 @@ module.exports = {
   },
   "extends": "airbnb",
   "rules": {
-    "linebreak-style": 0,
     "no-func-assign": 0,
     "no-class-assign": 0,
     "react/jsx-filename-extension": 0,
@@ -20,7 +19,7 @@ module.exports = {
     "comma-dangle": 0,
     "no-static-element-interactions": 0,
     "no-plusplus": 0,
-    "no-continue": 0
+    "no-continue": 0,
   },
   "plugins": [
     "react",
