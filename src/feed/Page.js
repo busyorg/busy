@@ -70,6 +70,7 @@ class TopicSelectorImpl extends React.Component {
     return (
       <TopicSelector
         isSingle={false}
+        bold={false}
         defaultSort={this.state.currentKey}
         topics={this.state.categories}
         onSortChange={this.onChange}
