@@ -3,6 +3,7 @@ import * as types from './authActions';
 const initialState = {
   isAuthenticated: false,
   isFetching: false,
+  loaded: false,
   user: {},
   token: '',
 };
@@ -14,6 +15,7 @@ export default (state = initialState, action) => {
         ...state,
         isFetching: true,
         isAuthenticated: false,
+        loaded: false,
         user: {}
       };
     case types.LOGIN_SUCCESS:
@@ -21,6 +23,7 @@ export default (state = initialState, action) => {
         ...state,
         isFetching: false,
         isAuthenticated: true,
+        loaded: true,
         errorMessage: '',
         user: action.user,
         token: action.token,
@@ -30,6 +33,7 @@ export default (state = initialState, action) => {
         ...state,
         isFetching: false,
         isAuthenticated: false,
+        loaded: true,
         errorMessage: action.message
       };
     case types.LOGOUT_SUCCESS:

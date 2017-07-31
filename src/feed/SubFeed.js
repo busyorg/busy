@@ -33,16 +33,6 @@ import ScrollToTop from '../components/Utils/ScrollToTop';
   })
 )
 class SubFeed extends React.Component {
-  componentDidMount() {
-    const { auth, match } = this.props;
-    if (auth && auth.isAuthenticated && match.url === '/') {
-      this.props.getUserFeedContent(auth.user.name);
-    } else {
-      const sortBy = match.params.sortBy || 'trending';
-      this.props.getFeedContent(sortBy, match.params.category);
-    }
-  }
-
   componentWillReceiveProps(nextProps) {
     const { auth, match } = nextProps;
     const oldSortBy = this.props.match.params.sortBy || 'trending';
@@ -51,11 +41,15 @@ class SubFeed extends React.Component {
     const newCategory = match.params.category;
     const wasAuthenticated = this.props.auth && this.props.auth.isAuthenticated;
     const isAuthenticated = auth && auth.isAuthenticated;
+    const wasLoaded = this.props.auth && this.props.auth.loaded;
+    const isLoaded = nextProps.auth && nextProps.auth.loaded;
 
-    if (oldSortBy !== newSortBy || oldCategory !== newCategory) {
-      this.props.getFeedContent(newSortBy, match.params.category);
-    } else if (isAuthenticated && !wasAuthenticated) {
+    if (!auth.loaded) return;
+
+    if (match.url === '/' && isAuthenticated && !wasAuthenticated) {
       this.props.getUserFeedContent(auth.user.name);
+    } else if (oldSortBy !== newSortBy || oldCategory !== newCategory || (!wasLoaded && isLoaded)) {
+      this.props.getFeedContent(newSortBy, match.params.category);
     }
   }
 
@@ -89,7 +83,7 @@ class SubFeed extends React.Component {
           hasMore={hasMore}
           loadMoreContent={loadMoreContent}
         />
-        {!content.length && !isFetching && <EmptyFeed />}
+        {!content.length && !isFetching && auth.loaded && <EmptyFeed />}
       </div>
     );
   }
