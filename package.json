@@ -1,6 +1,9 @@
 {
   "name": "busy",
   "version": "2.0.0",
+  "engines": {
+    "node": ">=7.10.1"
+  },
   "bin": "./server",
   "main": "./server",
   "private": true,
