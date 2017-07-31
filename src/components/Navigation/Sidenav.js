@@ -12,7 +12,7 @@ const Sidenav = ({ username }) => (
       </li>
       <li>
         <NavLink to="/" activeClassName="Sidenav__item--active" exact>
-          <i className="iconfont icon-clock" /> Timeline
+          <i className="iconfont icon-clock" /> Feed
         </NavLink>
       </li>
       <li>

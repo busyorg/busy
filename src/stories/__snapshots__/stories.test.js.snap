@@ -7396,7 +7396,7 @@ exports[`Storyshots Navigation Sidenav logged 1`] = `
           <i
             className="iconfont icon-clock"
           />
-           Timeline
+           Feed
         </a>
       </li>
       <li>
