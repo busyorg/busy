@@ -6377,6 +6377,10 @@ postcss@^6.0.1, postcss@^6.x:
     source-map "^0.5.6"
     supports-color "^3.2.3"
 
+postinstall-build@^5.0.1:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/postinstall-build/-/postinstall-build-5.0.1.tgz#b917a9079b26178d9a24af5a5cd8cb4a991d11b9"
+
 prelude-ls@~1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/prelude-ls/-/prelude-ls-1.1.2.tgz#21932a549f5e52ffd9a827f570e04be62a97da54"
@@ -7648,12 +7652,13 @@ sax@^1.1.4, sax@^1.2.1, sax@~1.2.1:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.2.tgz#fd8631a23bc7826bef5d871bdb87378c95647828"
 
-sc2-sdk@adcpm/sc2-sdk:
-  version "0.0.1"
-  resolved "https://codeload.github.com/adcpm/sc2-sdk/tar.gz/110951b833d80e539e87ac50d4103b98a2eeeff0"
+sc2-sdk@^0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/sc2-sdk/-/sc2-sdk-0.0.3.tgz#7a51456f822de2a03ca39c0c18c41a35b853eadf"
   dependencies:
     debug "^2.2.0"
     isomorphic-fetch "^2.2.1"
+    postinstall-build "^5.0.1"
 
 schema-utils@^0.3.0, schema-utils@^0.x:
   version "0.3.0"
