@@ -5,7 +5,7 @@ import steemconnect from 'sc2-sdk';
 import Cookie from 'js-cookie';
 import ReactGA from 'react-ga';
 import { AppContainer } from 'react-hot-loader';
-import { LocaleProvider } from 'antd';
+import { LocaleProvider, message } from 'antd';
 import enUS from 'antd/lib/locale-provider/en_US';
 import { history } from './routes';
 import getStore from './store';
@@ -35,6 +35,11 @@ if (process.env.STEEMCONNECT_HOST) {
     steemconnect.setAccessToken(accessToken);
   }
 }
+
+message.config({
+  top: 62,
+  duration: 3,
+});
 
 const render = (Component) => {
   ReactDOM.render(
