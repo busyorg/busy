@@ -8,7 +8,6 @@ import { login } from './auth/authActions';
 import { getConfig, getRate } from './actions';
 import steemAPI from './steemAPI';
 import { getMessages, getLocale } from './translations/translationHelper';
-import Notification from './app/Notification/Notification';
 import Topnav from './components/Navigation/Topnav';
 import * as reblogActions from './app/Reblog/reblogActions';
 import config from '../config.json';
@@ -71,7 +70,6 @@ export default class Wrapper extends PureComponent {
             <Layout.Header style={{ position: 'fixed', width: '100%', zIndex: 5 }}>
               <Topnav username={auth.user.name} />
             </Layout.Header>
-            <Notification />
             <div className="content">
               {this.props.children}
               <GatewayDest name="tooltip" />
