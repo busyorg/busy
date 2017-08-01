@@ -46,7 +46,7 @@ class SubFeed extends React.Component {
 
     if (!auth.loaded) return;
 
-    if (match.url === '/' && isAuthenticated && !wasAuthenticated) {
+    if (match.url === '/' && (match.url !== this.props.match.url || (isAuthenticated && !wasAuthenticated))) {
       this.props.getUserFeedContent(auth.user.name);
     } else if (oldSortBy !== newSortBy || oldCategory !== newCategory || (!wasLoaded && isLoaded)) {
       this.props.getFeedContent(newSortBy, match.params.category);
