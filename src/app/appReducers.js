@@ -108,6 +108,7 @@ export default (state = initialState, action) => {
         ...state,
         isFetching: false,
         isLoaded: true,
+        lastPostId: action.payload ? action.payload.id : null,
       };
     case appTypes.SET_CURRENT_CONTENT:
       return {
