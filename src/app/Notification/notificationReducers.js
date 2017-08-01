@@ -1,18 +1,11 @@
-import { SHOW_NOTIFICATION, CLOSE_NOTIFICATION } from './notificationActions';
+import { message } from 'antd';
+import { SHOW_NOTIFICATION } from './notificationActions';
 
 const notifications = (state = [], action) => {
-  switch(action.type) {
+  switch (action.type) {
     case SHOW_NOTIFICATION:
-      return [
-        {
-          notifId: action.payload.notifId,
-          text: action.payload.text,
-          context: action.payload.context
-        },
-        ...state,
-      ];
-    case CLOSE_NOTIFICATION:
-      return state.filter(notif => notif.notifId !== action.payload.notifId);
+      message[action.payload.context](action.payload.text);
+      return state;
     default:
       return state;
   }

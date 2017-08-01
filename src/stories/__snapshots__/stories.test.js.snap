@@ -7396,7 +7396,7 @@ exports[`Storyshots Navigation Sidenav logged 1`] = `
           <i
             className="iconfont icon-clock"
           />
-           Timeline
+           Feed
         </a>
       </li>
       <li>
@@ -7439,51 +7439,7 @@ exports[`Storyshots Navigation Sidenav unlogged 1`] = `
     }
   }
 >
-  <div>
-    <ul
-      className="Sidenav"
-    >
-      <li>
-        <a
-          className={undefined}
-          href="/trending"
-          onClick={[Function]}
-          style={undefined}
-        >
-          <i
-            className="iconfont icon-headlines"
-          />
-           News
-        </a>
-      </li>
-      <li>
-        <a
-          className={undefined}
-          href="#"
-          onClick={[Function]}
-          style={undefined}
-        >
-          <i
-            className="iconfont icon-group"
-          />
-           Communities
-        </a>
-      </li>
-      <li>
-        <a
-          className={undefined}
-          href="#"
-          onClick={[Function]}
-          style={undefined}
-        >
-          <i
-            className="iconfont icon-service"
-          />
-           Shopping
-        </a>
-      </li>
-    </ul>
-  </div>
+  <div />
 </div>
 `;
 
@@ -7517,7 +7473,7 @@ exports[`Storyshots Navigation Topnav logged 1`] = `
         className="center"
       >
         <div
-          className="Topnav__input-container Topnav__input-container--logged-in"
+          className="Topnav__input-container"
         >
           <input
             className="ant-input"
@@ -7835,7 +7791,18 @@ exports[`Storyshots Navigation Topnav unlogged 1`] = `
       >
         <div
           className="Topnav__input-container"
-        />
+        >
+          <input
+            className="ant-input"
+            disabled={false}
+            onKeyDown={[Function]}
+            placeholder="Search..."
+            type="text"
+          />
+          <i
+            className="iconfont icon-search"
+          />
+        </div>
       </div>
       <div
         className="right"
@@ -7981,11 +7948,14 @@ exports[`Storyshots Profile UserMenu 1`] = `
     className="UserMenu"
   >
     <div
-      className="container row"
+      className="container topnav-layout"
     >
+      <div
+        className="left"
+      />
       <ul
         aria-activedescendant=""
-        className="ant-menu ant-menu-horizontal UserMenu__menu col-3col-2 col-3col-offset ant-menu-light ant-menu-root"
+        className="ant-menu ant-menu-horizontal UserMenu__menu center ant-menu-light ant-menu-root"
         onKeyDown={[Function]}
         role="menu"
         style={Object {}}

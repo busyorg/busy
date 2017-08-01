@@ -157,12 +157,6 @@ export function createPost(postData) {
               permlink
             )
             .then((result) => {
-              if (result.error) {
-                const error = new Error('SDKError');
-                error.error = result.error;
-                error.error_description = result.error_description;
-                return Promise.reject(error);
-              }
               if (draftId) { dispatch(deleteDraft(draftId)); }
               dispatch(push(`/${parentPermlink}/@${author}/${permlink}`));
               return result;

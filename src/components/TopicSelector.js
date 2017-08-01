@@ -8,6 +8,7 @@ class TopicSelector extends React.Component {
   static propTypes = {
     sort: PropTypes.string,
     isSingle: PropTypes.bool,
+    bold: PropTypes.bool,
     topics: PropTypes.arrayOf(PropTypes.string),
     onTopicClose: PropTypes.func,
     onSortChange: PropTypes.func,
@@ -16,6 +17,7 @@ class TopicSelector extends React.Component {
   static defaultProps = {
     sort: 'trending',
     isSingle: true,
+    bold: true,
     topics: [],
     onTopicClose: () => {},
     onSortChange: () => {},
@@ -33,10 +35,11 @@ class TopicSelector extends React.Component {
       this.props.onSortChange(key);
     });
   };
+
   onVisibleChange = visible => this.setState({ popoverVisible: visible });
 
   render() {
-    const { sort, topics, isSingle, onTopicClose } = this.props;
+    const { sort, topics, isSingle, bold, onTopicClose } = this.props;
     const { popoverVisible } = this.state;
 
     return (
@@ -57,7 +60,7 @@ class TopicSelector extends React.Component {
             visible={popoverVisible}
             onVisibleChange={this.onVisibleChange}
             content={
-              <PopoverMenu onSelect={this.onSelect}>
+              <PopoverMenu bold={bold} onSelect={this.onSelect}>
                 <PopoverMenuItem key="trending">Trending</PopoverMenuItem>
                 <PopoverMenuItem key="created">Created</PopoverMenuItem>
                 <PopoverMenuItem key="active">Active</PopoverMenuItem>

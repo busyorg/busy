@@ -110,13 +110,9 @@ const Topnav = ({
           </Link>
         </div>
         <div className="center">
-          <div
-            className={classNames('Topnav__input-container', {
-              'Topnav__input-container--logged-in': username,
-            })}
-          >
-            {username && <Input placeholder="Search..." />}
-            {username && <i className="iconfont icon-search" />}
+          <div className="Topnav__input-container">
+            <Input placeholder="Search..." />
+            <i className="iconfont icon-search" />
           </div>
         </div>
         <div className="right">
