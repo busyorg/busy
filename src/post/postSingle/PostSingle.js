@@ -271,6 +271,7 @@ export default class PostSingle extends Component {
                   onShareClick={() => reblog(content.id)}
                 />
               }
+              <Comments post={content} show />
             </div>
           </div>
           {/* {content.author && !modal &&
