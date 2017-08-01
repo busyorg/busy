@@ -96,10 +96,15 @@
       padding: 4px 16px;
     }
 
-    & img {
+    & &__img-container {
       width: 100%;
-      display: block;
-      margin: 4px 0;
+
+      & > img {
+        width: auto;
+        max-height: 700px;
+        margin: 4px auto;
+        display: block;
+      }
     }
   }
 
