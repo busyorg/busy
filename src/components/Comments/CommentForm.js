@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { Input } from 'antd';
+import { Input, Icon } from 'antd';
 import Avatar from '../Avatar';
 import './CommentForm.less';
 
@@ -51,7 +51,8 @@ class CommentForm extends Component {
             disabled={isLoading}
             className={`CommentForm__button ${buttonClass}`}
           >
-            Comment
+            {isLoading && <Icon type="loading" />}
+            {isLoading ? 'Commenting' : 'Comment'}
           </button>
         </div>
       </div>
