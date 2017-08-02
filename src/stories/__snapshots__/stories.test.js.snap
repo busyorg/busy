@@ -9337,10 +9337,14 @@ exports[`Storyshots Story Inline story 1`] = `
         onClick={[Function]}
       >
         <div>
-          <img
-            alt="post"
-            src="https://steemitimages.com/600x800/http://www.kiplinger.com/kipimages/pages/15396.jpg"
-          />
+          <div
+            className="Story__content__img-container"
+          >
+            <img
+              alt="post"
+              src="https://steemitimages.com/600x800/http://www.kiplinger.com/kipimages/pages/15396.jpg"
+            />
+          </div>
           <div
             className="Story__content__body"
           >
