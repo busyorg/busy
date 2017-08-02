@@ -7,20 +7,26 @@ import { Tooltip } from 'antd';
 import CommentForm from './CommentForm';
 import PayoutDetail from '../PayoutDetail';
 import Avatar from '../Avatar';
+import Body from '../Story/Body';
 import './Comment.less';
 
 class Comment extends React.Component {
+
   static propTypes = {
+    auth: PropTypes.shape(),
     comment: PropTypes.shape().isRequired,
     commentsChildren: PropTypes.shape(),
     onLikeClick: PropTypes.func,
     onDislikeClick: PropTypes.func,
+    onSendComment: PropTypes.func,
   };
 
   static defaultProps = {
+    auth: undefined,
     commentsChildren: undefined,
     onLikeClick: () => {},
     onDislikeClick: () => {},
+    onSendComment: () => {},
   };
 
   constructor(props) {
@@ -28,6 +34,8 @@ class Comment extends React.Component {
     this.state = {
       replyOpen: false,
       collapsed: false,
+      showCommentFormLoading: false,
+      commentFormText: '',
     };
   }
 
@@ -43,8 +51,28 @@ class Comment extends React.Component {
     });
   }
 
+  submitComment = (parentPost, commentValue) => {
+    this.setState({ showCommentFormLoading: true });
+
+    this.props.onSendComment(parentPost, commentValue)
+      .then(() => {
+        this.setState({
+          showCommentFormLoading: false,
+          replyOpen: false,
+          commentFormText: '',
+        });
+      })
+      .catch(() => {
+        this.setState({
+          showCommentFormLoading: false,
+          replyOpen: true,
+          commentFormText: commentValue,
+        });
+      });
+  }
+
   render() {
-    const { comment, commentsChildren, onLikeClick, onDislikeClick } = this.props;
+    const { auth, comment, commentsChildren, onLikeClick, onDislikeClick } = this.props;
 
     const pendingPayoutValue = parseFloat(comment.pending_payout_value);
     const totalPayoutValue = parseFloat(comment.total_payout_value);
@@ -80,7 +108,7 @@ class Comment extends React.Component {
           </span>
           <div className="Comment__content">
             {
-              (this.state.collapsed) ? <div className="Comment__content__collapsed">Comment collapsed</div> : comment.body
+              (this.state.collapsed) ? <div className="Comment__content__collapsed">Comment collapsed</div> : <Body body={comment.body} />
             }
           </div>
           <div className="Comment__footer">
@@ -103,19 +131,29 @@ class Comment extends React.Component {
               </Tooltip>
             </span>
             <span className="Comment__footer__bullet" />
-            <a
-              className={
-                classNames('Comment__footer__link', {
-                  'Comment__footer__link--active': this.state.replyOpen,
-                })
-              }
-              onClick={() => this.handleReplyClick()}
-            >
-              Reply
-            </a>
+            {auth && auth.isAuthenticated &&
+              <a
+                className={
+                  classNames('Comment__footer__link', {
+                    'Comment__footer__link--active': this.state.replyOpen,
+                  })
+                }
+                onClick={() => this.handleReplyClick()}
+              >
+                Reply
+              </a>
+            }
           </div>
           {
-            this.state.replyOpen && <CommentForm isSmall={comment.depth !== 1} />
+            this.state.replyOpen && auth && auth.isAuthenticated &&
+            <CommentForm
+              username={auth.user.name}
+              parentPost={comment}
+              isSmall={comment.depth !== 1}
+              onSubmit={this.submitComment}
+              isLoading={this.state.showCommentFormLoading}
+              inputValue={this.state.commentFormText}
+            />
           }
           <div className="Comment__replies">
             {
@@ -125,11 +163,13 @@ class Comment extends React.Component {
               commentsChildren[comment.id]
                 .map(child => (
                   <Comment
+                    auth={auth}
                     key={child.id}
                     comment={child}
                     commentsChildren={commentsChildren}
                     onLikeClick={onLikeClick}
                     onDislikeClick={onDislikeClick}
+                    onSendComment={this.props.onSendComment}
                   />))
             }
           </div>

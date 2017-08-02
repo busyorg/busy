@@ -5,13 +5,14 @@ import { withRouter } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { bindActionCreators } from 'redux';
 import sanitize from 'sanitize-html';
+import VisibilitySensor from 'react-visibility-sensor';
 
 import { getHtml } from '../Body';
 import * as postActions from './../postActions';
 import PostSinglePage from './PostSinglePage';
+import Comments from '../../comments/Comments';
 import PostSingleModal from './PostSingleModal';
 import * as reblogActions from '../../app/Reblog/reblogActions';
-import * as commentsActions from '../../comments/commentsActions';
 import * as bookmarkActions from '../../bookmarks/bookmarksActions';
 import { followUser, unfollowUser } from '../../user/userActions';
 import * as appActions from '../../actions';
@@ -43,7 +44,7 @@ import ScrollToTopOnMount from '../../components/Utils/ScrollToTopOnMount';
     followingList: user.following.list,
     pendingFollows: user.following.pendingFollows,
     bookmarks,
-    auth
+    auth,
   }),
   (dispatch, ownProps) =>
     bindActionCreators(
@@ -51,7 +52,7 @@ import ScrollToTopOnMount from '../../components/Utils/ScrollToTopOnMount';
         getContent: () =>
           postActions.getContent({
             author: _.get(ownProps.match, 'params.author'),
-            permlink: _.get(ownProps.match, 'params.permlink')
+            permlink: _.get(ownProps.match, 'params.permlink'),
           }),
         toggleBookmark: bookmarkActions.toggleBookmark,
         votePost: postActions.votePost,
@@ -80,6 +81,9 @@ export default class PostSingle extends Component {
   //   contentList: [],
   //   modalResetScroll: () => null
   // };
+  state = {
+    commentsVisible: false,
+  }
 
   componentWillMount() {
     this.props.getContent();
@@ -110,6 +114,14 @@ export default class PostSingle extends Component {
     }
   }
 
+  handleCommentsVisibility = (visible) => {
+    if (visible) {
+      this.setState({
+        commentsVisible: true,
+      });
+    }
+  }
+
   render() {
     // let onEdit;
     const {
@@ -127,7 +139,7 @@ export default class PostSingle extends Component {
       toggleBookmark,
     } = this.props;
 
-    if (!content || !content.author) {
+    if (this.props.isLoading || !content) {
       return <div className="main-panel"><Loading /></div>;
     }
 
@@ -242,12 +254,13 @@ export default class PostSingle extends Component {
                 <RightSidebar auth={auth} />
               </div>
             </Affix>
-            <div className="center">
+            <div className="center" style={{ paddingBottom: '24px' }}>
               {
                 (loading && !pendingLikes.filter(post => post === content.id) > 0) ? <Loading /> :
                 <StoryFull
                   post={content}
                   postState={postState}
+                  commentCount={content.children}
                   pendingLike={pendingLikes.includes(content.id)}
                   pendingFollow={pendingFollows.includes(content.author)}
                   onFollowClick={this.handleFollowClick}
@@ -258,6 +271,9 @@ export default class PostSingle extends Component {
                   onShareClick={() => reblog(content.id)}
                 />
               }
+              <VisibilitySensor onChange={this.handleCommentsVisibility} />
+              <div id="comments" />
+              <Comments show={this.state.commentsVisible} post={content} />
             </div>
           </div>
           {/* {content.author && !modal &&

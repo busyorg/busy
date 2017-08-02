@@ -3,9 +3,10 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import Select from 'react-select';
-import CommentsList from './CommentsList';
+import CommentsList from '../components/Comments/Comments';
 import * as commentsActions from './commentsActions';
 import Loading from '../components/Icon/Loading';
+import { notify } from '../app/Notification/notificationActions';
 import './Comments.less';
 
 @connect(
@@ -15,11 +16,11 @@ import './Comments.less';
   }),
   dispatch => bindActionCreators({
     getComments: commentsActions.getComments,
-    showMoreComments: commentsActions.showMoreComments,
     likeComment: id => commentsActions.likeComment(id),
+    sendComment: (parentPost, body) => commentsActions.sendCommentV2(parentPost, body),
     unlikeComment: id => commentsActions.likeComment(id, 0),
     dislikeComment: id => commentsActions.likeComment(id, -1000),
-    openCommentingDraft: commentsActions.openCommentingDraft,
+    notify,
   }, dispatch)
 )
 export default class Comments extends Component {
@@ -27,104 +28,101 @@ export default class Comments extends Component {
     super(props);
     this.state = {
       sortOrder: 'trending',
+      isFetchedOnce: false,
     };
   }
 
   static propTypes = {
-    postId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-    comments: PropTypes.object,
+    post: PropTypes.shape(),
+    comments: PropTypes.shape(),
     getComments: PropTypes.func,
-    className: PropTypes.string,
   };
+
+  static defaultProps = {
+    post: {},
+    comments: {},
+    getComments: () => {},
+  }
 
   componentDidMount() {
     if (this.props.show) {
-      this.props.getComments(this.props.postId);
+      this.props.getComments(this.props.post.id);
     }
   }
 
-  componentDidUpdate(prevProps) {
-    const postChanged = (this.props.postId && prevProps.postId !== this.props.postId);
-    const showToggled = (this.props.show && prevProps.show !== this.props.show);
-    if (showToggled || postChanged) {
-      this.props.getComments(this.props.postId);
+  componentWillReceiveProps(nextProps) {
+    const { comments, post, show } = this.props;
+
+    if (nextProps.show && (nextProps.post.id !== post.id || !show)) {
+      this.props.getComments(nextProps.post.id);
+    }
+
+    if (comments.listByPostId[post.id] && comments.listByPostId[post.id].isFetching) {
+      if (!this.state.isFetchedOnce) {
+        this.setState({ isFetchedOnce: true });
+      }
     }
   }
 
-  handleShowMore = (e) => {
-    e.stopPropagation();
-    this.props.showMoreComments(this.props.postId);
-  };
-
-  handleSortChange = ({ value }) => {
-    if (value !== this.state.sortOrder) {
-      this.setState({ sortOrder: value });
-    }
-  };
+  getNestedComments = (commentsObj, commentsIdArray, nestedComments) => {
+    commentsIdArray.forEach((commentId) => {
+      const nestedCommentArray = commentsObj.listByCommentId[commentId];
+      if (nestedCommentArray.length) {
+        nestedComments[commentId] = nestedCommentArray.map(id => commentsObj.comments[id]);
+        this.getNestedComments(commentsObj, nestedCommentArray, nestedComments);
+      }
+    });
+    return nestedComments;
+  }
 
   render() {
-    const { postId, comments, className, show } = this.props;
+    const { post, comments, show } = this.props;
+    const postId = post.id;
+    let fetchedCommentsList = null;
+
     if (!show) {
       return <div />;
     }
 
-    const hasMore = (comments.listByPostId[postId] && comments.listByPostId[postId].hasMore);
-    const isFetching = (comments.listByPostId[postId] && comments.listByPostId[postId].isFetching);
+    if (comments.listByPostId[postId] && comments.listByPostId[postId].list instanceof Array) {
+      if (comments.listByPostId[postId].list.length) {
+        fetchedCommentsList = comments.listByPostId[postId].list.map(id => comments.comments[id]);
+      } else {
+        fetchedCommentsList = [];
+      }
+    }
+    fetchedCommentsList = (comments.listByPostId[postId]
+      && comments.listByPostId[postId].list.length) ?
+      comments.listByPostId[postId].list.map(id => comments.comments[id]) :
+      [];
 
-    const sortingOptions = [
-      { value: 'trending', label: 'Trending' },
-      { value: 'votes', label: 'Votes' },
-      { value: 'new', label: 'New' }
-    ];
+    let commentsChildren = {};
 
-    const classNames = className ? `Comments ${className}` : 'Comments';
-    return (
-      <div className={classNames}>
+    if (fetchedCommentsList && fetchedCommentsList.length) {
+      commentsChildren = this.getNestedComments(comments, comments.listByPostId[postId].list, {});
+    }
 
-        {this.props.isSinglePage &&
-          <div style={{ width: '200px' }}>
-            <span>
-              Sort by:
-            </span>
-            <Select
-              value={this.state.sortOrder}
-              options={sortingOptions}
-              onChange={this.handleSortChange}
-              clearable={false}
-            />
-          </div>
-        }
+    if (comments.listByPostId[post.id]
+      && comments.listByPostId[post.id].isFetching
+      && !this.state.isFetchedOnce) {
+      return <Loading />;
+    }
 
+    if (fetchedCommentsList instanceof Array) {
+      return (
         <CommentsList
-          postId={postId}
-          comments={comments}
-          likeComment={this.props.likeComment}
-          unlikeComment={this.props.unlikeComment}
-          dislikeComment={this.props.dislikeComment}
+          parentPost={post}
+          comments={fetchedCommentsList}
           auth={this.props.auth}
-          openCommentingDraft={this.props.openCommentingDraft}
-          isSinglePage={this.props.isSinglePage}
-          sortOrder={this.state.sortOrder}
+          commentsChildren={commentsChildren}
+          onLikeClick={this.props.likeComment}
+          onDislikeClick={this.props.dislikeComment}
+          onSendComment={this.props.sendComment}
         />
+      );
+    }
 
-        {isFetching &&
-          <Loading />
-        }
-
-        {(hasMore && !this.props.isSinglePage) &&
-          <a
-            className="Comments__showMore"
-            tabIndex="0"
-            onClick={this.handleShowMore}
-          >
-            <FormattedMessage
-              id="see_more_comments"
-              defaultMessage="See More Comments"
-            />
-          </a>
-        }
-
-      </div>
-    );
+    return <div />;
+    // Todo handle when comment fetch failed.
   }
 }

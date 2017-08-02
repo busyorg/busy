@@ -71,6 +71,11 @@ class StoryFull extends React.Component {
     }
   };
 
+  onCommentsHeaderClick = () => {
+    this.footerRef.scrollIntoView({ behavior: 'smooth' });
+  }
+
+
   onContentClick = (e) => {
     if (e.target.tagName === 'IMG') {
       const tags = this.contentDiv.getElementsByTagName('img');
@@ -120,7 +125,11 @@ class StoryFull extends React.Component {
         <h1 className="StoryFull__title">
           {post.title}
         </h1>
-        <h3 className="StoryFull__comments_title">{commentCount} Comments</h3>
+        <h3 className="StoryFull__comments_title">
+          <a href="#comments">
+            {commentCount} Comments
+          </a>
+        </h3>
         <div className="StoryFull__header">
           <Link to={`/@${post.author}`}>
             <Avatar username={post.author} size={60} />
