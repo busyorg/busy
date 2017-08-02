@@ -58,7 +58,7 @@ class Page extends React.Component {
   handleTopicClose = () => this.props.history.push(this.props.match.url);
 
   render() {
-    const { auth, match } = this.props;
+    const { auth, match, location } = this.props;
 
     return (
       <div>
@@ -78,13 +78,13 @@ class Page extends React.Component {
               </div>
             </Affix>
             <div className="center">
-              <TopicSelector
+              {location.pathname !== '/' && <TopicSelector
                 isSingle={false}
                 sort={this.state.currentKey}
                 topics={this.state.categories}
                 onSortChange={this.handleSortChange}
                 onTopicClose={this.handleTopicClose}
-              />
+              />}
               <Route path={`${match.path}:sortBy?/:category?`} component={SubFeed} />
             </div>
           </div>
