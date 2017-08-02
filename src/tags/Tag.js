@@ -18,8 +18,8 @@ const Tag = ({
           name={tag.name}
           isFavorited={isFavorited}
           onClick={isFavorited
-            ? () => removeCategoryFavorite(tag.name)
-            : () => addCategoryFavorite(tag.name)
+            ? () => { removeCategoryFavorite(tag.name); }
+            : () => { addCategoryFavorite(tag.name); }
           }
         />
       </h1>

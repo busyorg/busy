@@ -31,7 +31,6 @@ module.exports = {
   "plugins": [
     "react",
     "jest",
-    "jsx-a11y",
     "import"
   ]
 };

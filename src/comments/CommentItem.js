@@ -167,8 +167,8 @@ export default class CommentItem extends Component {
               <div className="CommentActionButtons__button">
                 <a
                   onClick={isCommentLiked
-                    ? () => unlikeComment(comment.id)
-                    : () => likeComment(comment.id)}
+                    ? () => { unlikeComment(comment.id); }
+                    : () => { likeComment(comment.id); }}
                   className={isCommentLiked ? 'active' : ''}
                 >
                   <Icon name="thumb_up" xs />
@@ -186,8 +186,8 @@ export default class CommentItem extends Component {
               <div className="CommentActionButtons__button">
                 <a
                   onClick={isCommentDisliked
-                    ? () => unlikeComment(comment.id)
-                    : () => dislikeComment(comment.id)}
+                    ? () => { unlikeComment(comment.id); }
+                    : () => { dislikeComment(comment.id); }}
                   className={isCommentDisliked ? 'active' : ''}
                 >
                   <Icon name="thumb_down" xs />
@@ -254,4 +254,3 @@ export default class CommentItem extends Component {
     );
   }
 }
-
