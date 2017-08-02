@@ -28,6 +28,8 @@ export const getDiscussionsFromAPI = function getDiscussionsFromAPI(sortBy, quer
       return steemAPI.getDiscussionsByBlogAsync(query);
     case 'comments':
       return steemAPI.getDiscussionsByCommentsAsync(query);
+    case 'promoted':
+      return steemAPI.getDiscussionsByPromotedAsync(query);
     default:
       throw new Error('There is not API endpoint defined for this sorting');
   }

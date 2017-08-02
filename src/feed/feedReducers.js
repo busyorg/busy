@@ -14,6 +14,7 @@ const initialState = {
   blog: {},
   bookmarks: {},
   replies: {},
+  promoted: {},
 };
 
 const feedFetching = (state = false, action) => {
