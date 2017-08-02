@@ -50,8 +50,12 @@ export default class Comments extends Component {
     }
   }
 
-  componentWillReceiveProps() {
+  componentWillReceiveProps(nextProps) {
     const { comments, post } = this.props;
+
+    if (nextProps.show && nextProps.post.id !== post.id) {
+      this.props.getComments(nextProps.post.id);
+    }
 
     if (comments.listByPostId[post.id] && comments.listByPostId[post.id].isFetching) {
       if (!this.state.isFetchedOnce) {

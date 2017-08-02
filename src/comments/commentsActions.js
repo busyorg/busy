@@ -111,7 +111,7 @@ export const sendCommentV2 = (parentPost, body) =>
     const permlink = createCommentPermlink(parent_author, parent_permlink);
     const jsonMetadata = { tags: [category], app: `busy/${version}` };
 
-    dispatch({
+    return dispatch({
       type: SEND_COMMENT,
       payload: {
         promise: SteemConnect.comment(
