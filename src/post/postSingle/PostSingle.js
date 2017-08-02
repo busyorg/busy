@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { bindActionCreators } from 'redux';
 import sanitize from 'sanitize-html';
+import VisibilitySensor from 'react-visibility-sensor';
 
 import { getHtml } from '../Body';
 import * as postActions from './../postActions';
@@ -81,7 +82,7 @@ export default class PostSingle extends Component {
   //   modalResetScroll: () => null
   // };
   state = {
-    content: null,
+    commentsVisible: false,
   }
 
   componentWillMount() {
@@ -110,6 +111,15 @@ export default class PostSingle extends Component {
       this.props.unfollowUser(post.author);
     } else {
       this.props.followUser(post.author);
+    }
+  }
+
+  handleCommentsVisibility = (visible) => {
+    if (visible) {
+      console.log('load this shiet');
+      this.setState({
+        commentsVisible: true,
+      });
     }
   }
 
@@ -245,12 +255,13 @@ export default class PostSingle extends Component {
                 <RightSidebar auth={auth} />
               </div>
             </Affix>
-            <div className="center">
+            <div className="center" style={{ paddingBottom: '24px' }}>
               {
                 (loading && !pendingLikes.filter(post => post === content.id) > 0) ? <Loading /> :
                 <StoryFull
                   post={content}
                   postState={postState}
+                  commentCount={content.children}
                   pendingLike={pendingLikes.includes(content.id)}
                   pendingFollow={pendingFollows.includes(content.author)}
                   onFollowClick={this.handleFollowClick}
@@ -261,8 +272,9 @@ export default class PostSingle extends Component {
                   onShareClick={() => reblog(content.id)}
                 />
               }
+              <VisibilitySensor onChange={this.handleCommentsVisibility} />
               <div id="comments" />
-              <Comments post={content} show />
+              <Comments show={this.state.commentsVisible} post={content} />
             </div>
           </div>
           {/* {content.author && !modal &&

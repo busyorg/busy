@@ -51,9 +51,9 @@ export default class Comments extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { comments, post } = this.props;
+    const { comments, post, show } = this.props;
 
-    if (nextProps.show && nextProps.post.id !== post.id) {
+    if (nextProps.show && (nextProps.post.id !== post.id || !show)) {
       this.props.getComments(nextProps.post.id);
     }
 
