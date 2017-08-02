@@ -33,6 +33,20 @@ import ScrollToTop from '../components/Utils/ScrollToTop';
   })
 )
 class SubFeed extends React.Component {
+  componentDidMount() {
+    const { auth, match } = this.props;
+    const sortBy = match.params.sortBy || 'trending';
+    const category = match.params.category;
+
+    if (!auth.loaded) return;
+
+    if (match.url === '/' && auth.isAuthenticated) {
+      this.props.getUserFeedContent(auth.user.name);
+    } else {
+      this.props.getFeedContent(sortBy, category);
+    }
+  }
+
   componentWillReceiveProps(nextProps) {
     const { auth, match } = nextProps;
     const oldSortBy = this.props.match.params.sortBy || 'trending';
