@@ -16,8 +16,6 @@ export const getDiscussionsFromAPI = function getDiscussionsFromAPI(sortBy, quer
       return steemAPI.getDiscussionsByFeedAsync(query);
     case 'hot':
       return steemAPI.getDiscussionsByHotAsync(query);
-    case 'cashout':
-      return steemAPI.getDiscussionsByCashoutAsync(query);
     case 'created':
       return steemAPI.getDiscussionsByCreatedAsync(query);
     case 'active':
