@@ -41,23 +41,6 @@ export const setLayout = layout =>
     dispatch(setLayoutAction({ layout }));
   };
 
-export const SET_CURRENT_CONTENT = '@app/SET_CURRENT_CONTENT';
-export const REMOVE_CURRENT_CONTENT = '@app/REMOVE_CURRENT_CONTENT';
-
-export const setCurrentContent = content => (dispatch) => {
-  dispatch({
-    type: SET_CURRENT_CONTENT,
-    payload: content,
-  });
-};
-
-export const removeCurrentContent = () =>
-  (dispatch) => {
-    dispatch({
-      type: REMOVE_CURRENT_CONTENT,
-    });
-  };
-
 export const SET_LOCALE = '@app/SET_LOCALE';
 export const setLocaleAction = createAction(SET_LOCALE);
 

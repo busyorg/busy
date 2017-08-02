@@ -1,7 +1,6 @@
 import steemConnect from 'sc2-sdk';
 import Promise from 'bluebird';
 import { omit } from 'lodash/object';
-import { setCurrentContent } from '../actions';
 
 export const GET_CONTENT = 'GET_CONTENT';
 export const GET_CONTENT_START = 'GET_CONTENT_START';
@@ -26,10 +25,7 @@ export const getContent = (
     payload: {
       promise: steemAPI
         .getContentAsync(postAuthor, postPermlink)
-        .then((postData) => {
-          dispatch(setCurrentContent(postData));
-          return omit(postData, omitAttributes);
-        }),
+        .then(postData => omit(postData, omitAttributes)),
     },
     meta: {
       afterLike,

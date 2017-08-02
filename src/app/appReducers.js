@@ -9,7 +9,6 @@ const initialState = {
   layout: 'card',
   locale: null,
   rate: 0,
-  currentPost: null,
 };
 
 // TODO(p0o): some actionsTypes in this reducer are not defined anywhere, need to figure it out later
@@ -109,16 +108,6 @@ export default (state = initialState, action) => {
         isFetching: false,
         isLoaded: true,
         lastPostId: action.payload ? action.payload.id : null,
-      };
-    case appTypes.SET_CURRENT_CONTENT:
-      return {
-        ...state,
-        currentPost: action.payload,
-      };
-    case appTypes.REMOVE_CURRENT_CONTENT:
-      return {
-        ...state,
-        currentPost: null,
       };
     default:
       return state;

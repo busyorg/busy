@@ -53,7 +53,6 @@ import ScrollToTopOnMount from '../../components/Utils/ScrollToTopOnMount';
             author: _.get(ownProps.match, 'params.author'),
             permlink: _.get(ownProps.match, 'params.permlink'),
           }),
-        removeCurrentContent: appActions.removeCurrentContent,
         toggleBookmark: bookmarkActions.toggleBookmark,
         votePost: postActions.votePost,
         reblog: reblogActions.reblog,
@@ -97,21 +96,12 @@ export default class PostSingle extends Component {
   //   }
   // }
 
-  componentWillReceiveProps(nextProps) {
-    if (this.props.currentPost &&
-      this.props.currentPost.id !== nextProps.currentPost.id
-    ) {
-      this.props.getContent();
-    }
-  }
-
   componentWillUnmount() {
     // this.props.closePostModal();
     // if (this.unlisten) { this.unlisten(); }
     if (process.env.IS_BROWSER) {
       global.document.title = 'Busy';
     }
-    this.props.removeCurrentContent();
   }
 
   handleFollowClick = (post) => {
