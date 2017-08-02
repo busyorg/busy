@@ -98,12 +98,12 @@ export const sendCommentV2 = (parentPost, body) =>
     const { auth } = getState();
 
     if (!auth.isAuthenticated) {
-      // dispatch error
+      dispatch(notify('You have to be logged in to comment', 'error'));
       return;
     }
 
     if (!body || !body.length) {
-      // dispatch error
+      dispatch(notify("Message can't be empty", 'error'));
       return;
     }
 
@@ -111,7 +111,7 @@ export const sendCommentV2 = (parentPost, body) =>
     const permlink = createCommentPermlink(parent_author, parent_permlink);
     const jsonMetadata = { tags: [category], app: `busy/${version}` };
 
-    return dispatch({
+    dispatch({
       type: SEND_COMMENT,
       payload: {
         promise: SteemConnect.comment(
@@ -122,21 +122,17 @@ export const sendCommentV2 = (parentPost, body) =>
           '',
           body,
           jsonMetadata
-        ),
+        )
+        .then(() => {
+          dispatch(notify('Comment submitted successfully', 'success'));
+          dispatch(getComments(root_comment));
+        }),
       },
       meta: {
         parentId: parentPost.id,
         isEditing: false,
-        isReplyToComment: (parentPost.id === root_comment) ? false: true,
+        isReplyToComment: parentPost.id !== root_comment,
       },
-    })
-    .then(() => {
-      dispatch(notify('Comment submitted successfully', 'success'));
-      dispatch(getComments(root_comment));
-    })
-    .catch((err) => {
-      dispatch(notify('Unable to post comment', 'error'));
-      return Promise.reject(err);
     });
   };
 
