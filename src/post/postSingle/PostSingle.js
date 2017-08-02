@@ -116,7 +116,6 @@ export default class PostSingle extends Component {
 
   handleCommentsVisibility = (visible) => {
     if (visible) {
-      console.log('load this shiet');
       this.setState({
         commentsVisible: true,
       });

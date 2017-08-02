@@ -182,6 +182,7 @@ exports[`Storyshots Comments Comments 1`] = `
         style={
           Object {
             "height": "40px",
+            "minWidth": "40px",
             "width": "40px",
           }
         }
@@ -305,6 +306,7 @@ exports[`Storyshots Comments Comments 1`] = `
               style={
                 Object {
                   "height": "32px",
+                  "minWidth": "32px",
                   "width": "32px",
                 }
               }
@@ -432,6 +434,7 @@ exports[`Storyshots Comments Comments 1`] = `
         style={
           Object {
             "height": "40px",
+            "minWidth": "40px",
             "width": "40px",
           }
         }
@@ -554,6 +557,7 @@ exports[`Storyshots Comments Comments 1`] = `
               style={
                 Object {
                   "height": "32px",
+                  "minWidth": "32px",
                   "width": "32px",
                 }
               }
@@ -681,6 +685,7 @@ exports[`Storyshots Comments Comments 1`] = `
         style={
           Object {
             "height": "40px",
+            "minWidth": "40px",
             "width": "40px",
           }
         }
@@ -803,6 +808,7 @@ exports[`Storyshots Comments Comments 1`] = `
               style={
                 Object {
                   "height": "32px",
+                  "minWidth": "32px",
                   "width": "32px",
                 }
               }
@@ -930,6 +936,7 @@ exports[`Storyshots Comments Comments 1`] = `
         style={
           Object {
             "height": "40px",
+            "minWidth": "40px",
             "width": "40px",
           }
         }
@@ -1052,6 +1059,7 @@ exports[`Storyshots Comments Comments 1`] = `
               style={
                 Object {
                   "height": "32px",
+                  "minWidth": "32px",
                   "width": "32px",
                 }
               }
@@ -1179,6 +1187,7 @@ exports[`Storyshots Comments Comments 1`] = `
         style={
           Object {
             "height": "40px",
+            "minWidth": "40px",
             "width": "40px",
           }
         }
@@ -1301,6 +1310,7 @@ exports[`Storyshots Comments Comments 1`] = `
               style={
                 Object {
                   "height": "32px",
+                  "minWidth": "32px",
                   "width": "32px",
                 }
               }
@@ -1428,6 +1438,7 @@ exports[`Storyshots Comments Comments 1`] = `
         style={
           Object {
             "height": "40px",
+            "minWidth": "40px",
             "width": "40px",
           }
         }
@@ -1551,6 +1562,7 @@ exports[`Storyshots Comments Comments 1`] = `
               style={
                 Object {
                   "height": "32px",
+                  "minWidth": "32px",
                   "width": "32px",
                 }
               }
@@ -1678,6 +1690,7 @@ exports[`Storyshots Comments Comments 1`] = `
         style={
           Object {
             "height": "40px",
+            "minWidth": "40px",
             "width": "40px",
           }
         }
@@ -1800,6 +1813,7 @@ exports[`Storyshots Comments Comments 1`] = `
               style={
                 Object {
                   "height": "32px",
+                  "minWidth": "32px",
                   "width": "32px",
                 }
               }
@@ -1927,6 +1941,7 @@ exports[`Storyshots Comments Comments 1`] = `
         style={
           Object {
             "height": "40px",
+            "minWidth": "40px",
             "width": "40px",
           }
         }
@@ -2049,6 +2064,7 @@ exports[`Storyshots Comments Comments 1`] = `
               style={
                 Object {
                   "height": "32px",
+                  "minWidth": "32px",
                   "width": "32px",
                 }
               }
@@ -2176,6 +2192,7 @@ exports[`Storyshots Comments Comments 1`] = `
         style={
           Object {
             "height": "40px",
+            "minWidth": "40px",
             "width": "40px",
           }
         }
@@ -2298,6 +2315,7 @@ exports[`Storyshots Comments Comments 1`] = `
               style={
                 Object {
                   "height": "32px",
+                  "minWidth": "32px",
                   "width": "32px",
                 }
               }
@@ -2420,6 +2438,7 @@ exports[`Storyshots Comments Comments 1`] = `
                     style={
                       Object {
                         "height": "32px",
+                        "minWidth": "32px",
                         "width": "32px",
                       }
                     }
@@ -2542,6 +2561,7 @@ exports[`Storyshots Comments Comments 1`] = `
                           style={
                             Object {
                               "height": "32px",
+                              "minWidth": "32px",
                               "width": "32px",
                             }
                           }
@@ -2664,6 +2684,7 @@ exports[`Storyshots Comments Comments 1`] = `
                                 style={
                                   Object {
                                     "height": "32px",
+                                    "minWidth": "32px",
                                     "width": "32px",
                                   }
                                 }
@@ -2800,6 +2821,7 @@ exports[`Storyshots Comments Comments 1`] = `
         style={
           Object {
             "height": "40px",
+            "minWidth": "40px",
             "width": "40px",
           }
         }
@@ -2922,6 +2944,7 @@ exports[`Storyshots Comments Comments 1`] = `
               style={
                 Object {
                   "height": "32px",
+                  "minWidth": "32px",
                   "width": "32px",
                 }
               }
@@ -3049,6 +3072,7 @@ exports[`Storyshots Comments Comments 1`] = `
         style={
           Object {
             "height": "40px",
+            "minWidth": "40px",
             "width": "40px",
           }
         }
@@ -3171,6 +3195,7 @@ exports[`Storyshots Comments Comments 1`] = `
               style={
                 Object {
                   "height": "32px",
+                  "minWidth": "32px",
                   "width": "32px",
                 }
               }
@@ -3298,6 +3323,7 @@ exports[`Storyshots Comments Comments 1`] = `
         style={
           Object {
             "height": "40px",
+            "minWidth": "40px",
             "width": "40px",
           }
         }
@@ -3420,6 +3446,7 @@ exports[`Storyshots Comments Comments 1`] = `
               style={
                 Object {
                   "height": "32px",
+                  "minWidth": "32px",
                   "width": "32px",
                 }
               }
@@ -3547,6 +3574,7 @@ exports[`Storyshots Comments Comments 1`] = `
         style={
           Object {
             "height": "40px",
+            "minWidth": "40px",
             "width": "40px",
           }
         }
@@ -3669,6 +3697,7 @@ exports[`Storyshots Comments Comments 1`] = `
               style={
                 Object {
                   "height": "32px",
+                  "minWidth": "32px",
                   "width": "32px",
                 }
               }
@@ -3791,6 +3820,7 @@ exports[`Storyshots Comments Comments 1`] = `
                     style={
                       Object {
                         "height": "32px",
+                        "minWidth": "32px",
                         "width": "32px",
                       }
                     }
@@ -3921,6 +3951,7 @@ exports[`Storyshots Comments Comments 1`] = `
         style={
           Object {
             "height": "40px",
+            "minWidth": "40px",
             "width": "40px",
           }
         }
@@ -4043,6 +4074,7 @@ exports[`Storyshots Comments Comments 1`] = `
               style={
                 Object {
                   "height": "32px",
+                  "minWidth": "32px",
                   "width": "32px",
                 }
               }
@@ -4170,6 +4202,7 @@ exports[`Storyshots Comments Comments 1`] = `
         style={
           Object {
             "height": "40px",
+            "minWidth": "40px",
             "width": "40px",
           }
         }
@@ -4292,6 +4325,7 @@ exports[`Storyshots Comments Comments 1`] = `
               style={
                 Object {
                   "height": "32px",
+                  "minWidth": "32px",
                   "width": "32px",
                 }
               }
@@ -4419,6 +4453,7 @@ exports[`Storyshots Comments Comments 1`] = `
         style={
           Object {
             "height": "40px",
+            "minWidth": "40px",
             "width": "40px",
           }
         }
@@ -4541,6 +4576,7 @@ exports[`Storyshots Comments Comments 1`] = `
               style={
                 Object {
                   "height": "32px",
+                  "minWidth": "32px",
                   "width": "32px",
                 }
               }
@@ -4668,6 +4704,7 @@ exports[`Storyshots Comments Comments 1`] = `
         style={
           Object {
             "height": "40px",
+            "minWidth": "40px",
             "width": "40px",
           }
         }
@@ -4790,6 +4827,7 @@ exports[`Storyshots Comments Comments 1`] = `
               style={
                 Object {
                   "height": "32px",
+                  "minWidth": "32px",
                   "width": "32px",
                 }
               }
@@ -4917,6 +4955,7 @@ exports[`Storyshots Comments Comments 1`] = `
         style={
           Object {
             "height": "40px",
+            "minWidth": "40px",
             "width": "40px",
           }
         }
@@ -5039,6 +5078,7 @@ exports[`Storyshots Comments Comments 1`] = `
               style={
                 Object {
                   "height": "32px",
+                  "minWidth": "32px",
                   "width": "32px",
                 }
               }
@@ -5166,6 +5206,7 @@ exports[`Storyshots Comments Comments 1`] = `
         style={
           Object {
             "height": "40px",
+            "minWidth": "40px",
             "width": "40px",
           }
         }
@@ -5288,6 +5329,7 @@ exports[`Storyshots Comments Comments 1`] = `
               style={
                 Object {
                   "height": "32px",
+                  "minWidth": "32px",
                   "width": "32px",
                 }
               }
@@ -5415,6 +5457,7 @@ exports[`Storyshots Comments Comments 1`] = `
         style={
           Object {
             "height": "40px",
+            "minWidth": "40px",
             "width": "40px",
           }
         }
@@ -5537,6 +5580,7 @@ exports[`Storyshots Comments Comments 1`] = `
               style={
                 Object {
                   "height": "32px",
+                  "minWidth": "32px",
                   "width": "32px",
                 }
               }
@@ -5664,6 +5708,7 @@ exports[`Storyshots Comments Comments 1`] = `
         style={
           Object {
             "height": "40px",
+            "minWidth": "40px",
             "width": "40px",
           }
         }
@@ -5788,6 +5833,7 @@ exports[`Storyshots Comments Comments 1`] = `
               style={
                 Object {
                   "height": "32px",
+                  "minWidth": "32px",
                   "width": "32px",
                 }
               }
@@ -5915,6 +5961,7 @@ exports[`Storyshots Comments Comments 1`] = `
         style={
           Object {
             "height": "40px",
+            "minWidth": "40px",
             "width": "40px",
           }
         }
@@ -6037,6 +6084,7 @@ exports[`Storyshots Comments Comments 1`] = `
               style={
                 Object {
                   "height": "32px",
+                  "minWidth": "32px",
                   "width": "32px",
                 }
               }
@@ -6164,6 +6212,7 @@ exports[`Storyshots Comments Comments 1`] = `
         style={
           Object {
             "height": "40px",
+            "minWidth": "40px",
             "width": "40px",
           }
         }
@@ -6286,6 +6335,7 @@ exports[`Storyshots Comments Comments 1`] = `
               style={
                 Object {
                   "height": "32px",
+                  "minWidth": "32px",
                   "width": "32px",
                 }
               }
@@ -6413,6 +6463,7 @@ exports[`Storyshots Comments Comments 1`] = `
         style={
           Object {
             "height": "40px",
+            "minWidth": "40px",
             "width": "40px",
           }
         }
@@ -6535,6 +6586,7 @@ exports[`Storyshots Comments Comments 1`] = `
               style={
                 Object {
                   "height": "32px",
+                  "minWidth": "32px",
                   "width": "32px",
                 }
               }
@@ -6662,6 +6714,7 @@ exports[`Storyshots Comments Comments 1`] = `
         style={
           Object {
             "height": "40px",
+            "minWidth": "40px",
             "width": "40px",
           }
         }
@@ -6784,6 +6837,7 @@ exports[`Storyshots Comments Comments 1`] = `
               style={
                 Object {
                   "height": "32px",
+                  "minWidth": "32px",
                   "width": "32px",
                 }
               }
@@ -6906,6 +6960,7 @@ exports[`Storyshots Comments Comments 1`] = `
                     style={
                       Object {
                         "height": "32px",
+                        "minWidth": "32px",
                         "width": "32px",
                       }
                     }
@@ -7036,6 +7091,7 @@ exports[`Storyshots Comments Comments 1`] = `
         style={
           Object {
             "height": "40px",
+            "minWidth": "40px",
             "width": "40px",
           }
         }
@@ -7168,6 +7224,7 @@ exports[`Storyshots Comments Comments 1`] = `
               style={
                 Object {
                   "height": "32px",
+                  "minWidth": "32px",
                   "width": "32px",
                 }
               }
@@ -7707,6 +7764,7 @@ exports[`Storyshots Navigation Topnav logged 1`] = `
                   style={
                     Object {
                       "height": "36px",
+                      "minWidth": "36px",
                       "width": "36px",
                     }
                   }
@@ -8077,6 +8135,7 @@ exports[`Storyshots Profile UserHeader 1`] = `
         style={
           Object {
             "height": "100px",
+            "minWidth": "100px",
             "width": "100px",
           }
         }
@@ -8324,6 +8383,7 @@ exports[`Storyshots Sidebar Interesting People 1`] = `
                 style={
                   Object {
                     "height": "34px",
+                    "minWidth": "34px",
                     "width": "34px",
                   }
                 }
@@ -8378,6 +8438,7 @@ exports[`Storyshots Sidebar Interesting People 1`] = `
                 style={
                   Object {
                     "height": "34px",
+                    "minWidth": "34px",
                     "width": "34px",
                   }
                 }
@@ -8432,6 +8493,7 @@ exports[`Storyshots Sidebar Interesting People 1`] = `
                 style={
                   Object {
                     "height": "34px",
+                    "minWidth": "34px",
                     "width": "34px",
                   }
                 }
@@ -8985,6 +9047,7 @@ exports[`Storyshots Story Full story 1`] = `
           style={
             Object {
               "height": "60px",
+              "minWidth": "60px",
               "width": "60px",
             }
           }
@@ -9230,6 +9293,7 @@ exports[`Storyshots Story Full story with embed 1`] = `
           style={
             Object {
               "height": "60px",
+              "minWidth": "60px",
               "width": "60px",
             }
           }
@@ -9467,6 +9531,7 @@ exports[`Storyshots Story Inline story 1`] = `
           style={
             Object {
               "height": "40px",
+              "minWidth": "40px",
               "width": "40px",
             }
           }
@@ -9672,6 +9737,7 @@ exports[`Storyshots Story Inline story with embed 1`] = `
           style={
             Object {
               "height": "40px",
+              "minWidth": "40px",
               "width": "40px",
             }
           }
