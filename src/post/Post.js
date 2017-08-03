@@ -7,18 +7,18 @@ import { bindActionCreators } from 'redux';
 import sanitize from 'sanitize-html';
 import VisibilitySensor from 'react-visibility-sensor';
 
-import { getHtml } from '../../components/Story/Body';
-import Comments from '../../comments/Comments';
-import * as postActions from './../postActions';
-import * as reblogActions from '../../app/Reblog/reblogActions';
-import * as bookmarkActions from '../../bookmarks/bookmarksActions';
-import { followUser, unfollowUser } from '../../user/userActions';
-import Loading from '../../components/Icon/Loading';
-import { jsonParse } from '../../helpers/formatter';
-import StoryFull from '../../components/Story/StoryFull';
-import RightSidebar from '../../app/Sidebar/RightSidebar';
-import Affix from '../../components/Utils/Affix';
-import ScrollToTopOnMount from '../../components/Utils/ScrollToTopOnMount';
+import { getHtml } from '../components/Story/Body';
+import Comments from '../comments/Comments';
+import * as postActions from './postActions';
+import * as reblogActions from '../app/Reblog/reblogActions';
+import * as bookmarkActions from '../bookmarks/bookmarksActions';
+import { followUser, unfollowUser } from '../user/userActions';
+import Loading from '../components/Icon/Loading';
+import { jsonParse } from '../helpers/formatter';
+import StoryFull from '../components/Story/StoryFull';
+import RightSidebar from '../app/Sidebar/RightSidebar';
+import Affix from '../components/Utils/Affix';
+import ScrollToTopOnMount from '../components/Utils/ScrollToTopOnMount';
 
 @withRouter
 @connect(

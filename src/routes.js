@@ -20,7 +20,7 @@ import Transfer from './wallet/Transfer';
 import Tags from './tags/Tags';
 import Donors from './statics/Donors';
 import { Trending, Hot, Votes, Responses, Active, Created, Cashout } from './feed/PathMatching';
-import PostSingle from './post/postSingle/PostSingle';
+import Post from './post/Post';
 import Bookmarks from './bookmarks/Bookmarks';
 import Error404 from './statics/Error404';
 import About from './statics/About';
@@ -149,7 +149,7 @@ export default (
           </RequireLogin>)}
       />
       <Route path="/@:name" component={UserRoutes} />
-      <Route path="/:category/@:author/:permlink" component={PostSingle} />
+      <Route path="/:category/@:author/:permlink" component={Post} />
       <Route path="/*" component={Error404} />
     </Switch>
   </Wrapper>
