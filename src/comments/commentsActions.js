@@ -40,8 +40,9 @@ export const showMoreComments = createAction(
 export const RELOAD_EXISTING_COMMENT = '@comments/RELOAD_EXISTING_COMMENT';
 export const reloadExistingComment = createAction(RELOAD_EXISTING_COMMENT);
 
-const getRootCommentsList = apiRes => Object.keys(apiRes.content).filter(commentKey => apiRes.content[commentKey].depth === 1).map(commentKey => apiRes.content[commentKey].id);
-
+const getRootCommentsList = apiRes => Object.keys(apiRes.content)
+  .filter(commentKey => apiRes.content[commentKey].depth === 1)
+  .map(commentKey => apiRes.content[commentKey].id);
 
 const getCommentsChildrenLists = (apiRes) => {
   const listsById = {};
@@ -54,61 +55,60 @@ const getCommentsChildrenLists = (apiRes) => {
   return listsById;
 };
 
-export const getComments = (postId, isFromAnotherComment = false) => (dispatch, getState, { steemAPI }) => {
-  const { posts, comments } = getState();
+export const getComments = (postId, isFromAnotherComment = false) =>
+  (dispatch, getState, { steemAPI }) => {
+    const { posts, comments } = getState();
 
-  let content;
-  if (isFromAnotherComment) {
-    content = comments.comments[postId];
-  } else {
-    content = posts[postId];
-  }
+    let content;
+    if (isFromAnotherComment) {
+      content = comments.comments[postId];
+    } else {
+      content = posts[postId];
+    }
 
-  const { category, author, permlink } = content;
+    const { category, author, permlink } = content;
 
-  dispatch({
-    type: GET_COMMENTS,
-    payload: {
-      promise: steemAPI.getStateAsync(`/${category}/@${author}/${permlink}`).then(apiRes => ({
-        rootCommentsList: getRootCommentsList(apiRes),
-        commentsChildrenList: getCommentsChildrenLists(apiRes),
-        content: apiRes.content,
-      })),
-    },
-    meta: {
-      id: postId,
-      isReplyToComment: isFromAnotherComment,
-    },
-  });
-};
+    dispatch({
+      type: GET_COMMENTS,
+      payload: {
+        promise: steemAPI.getStateAsync(`/${category}/@${author}/${permlink}`).then(apiRes => ({
+          rootCommentsList: getRootCommentsList(apiRes),
+          commentsChildrenList: getCommentsChildrenLists(apiRes),
+          content: apiRes.content,
+        })),
+      },
+      meta: {
+        id: postId,
+        isReplyToComment: isFromAnotherComment,
+      },
+    });
+  };
 
 export const sendCommentV2 = (parentPost, body) =>
   (dispatch, getState) => {
-    const { category, root_comment } = parentPost;
-    const parent_permlink = parentPost.permlink;
-    const parent_author = parentPost.author;
+    const { category, root_comment: rootComment } = parentPost;
+    const parentPermlink = parentPost.permlink;
+    const parentAuthor = parentPost.author;
     const { auth } = getState();
 
     if (!auth.isAuthenticated) {
-      dispatch(notify('You have to be logged in to comment', 'error'));
-      return;
+      return dispatch(notify('You have to be logged in to comment', 'error'));
     }
 
     if (!body || !body.length) {
-      dispatch(notify("Message can't be empty", 'error'));
-      return;
+      return dispatch(notify("Message can't be empty", 'error'));
     }
 
     const author = auth.user.name;
-    const permlink = createCommentPermlink(parent_author, parent_permlink);
+    const permlink = createCommentPermlink(parentAuthor, parentPermlink);
     const jsonMetadata = { tags: [category], app: `busy/${version}` };
 
     return dispatch({
       type: SEND_COMMENT,
       payload: {
         promise: SteemConnect.comment(
-          parent_author,
-          parent_permlink,
+          parentAuthor,
+          parentPermlink,
           author,
           permlink,
           '',
@@ -117,13 +117,13 @@ export const sendCommentV2 = (parentPost, body) =>
         )
           .then(() => {
             dispatch(notify('Comment submitted successfully', 'success'));
-            dispatch(getComments(root_comment));
+            dispatch(getComments(rootComment));
           }),
       },
       meta: {
         parentId: parentPost.id,
         isEditing: false,
-        isReplyToComment: parentPost.id !== root_comment,
+        isReplyToComment: parentPost.id !== rootComment,
       },
     });
   };
@@ -133,8 +133,7 @@ export const sendComment = (parentId = null) =>
     const { auth, comments } = getState();
 
     if (!auth.isAuthenticated) {
-      // dispatch error
-      return;
+      return dispatch(notify('You have to be logged in to comment', 'error'));
     }
 
     const author = auth.user.name;
@@ -177,32 +176,33 @@ export const sendComment = (parentId = null) =>
       .then(() => dispatch(getComments(rootCommentId)));
   };
 
-export const likeComment = (commentId, weight = 10000, retryCount = 0) => (dispatch, getState, { steemAPI }) => {
-  const { auth, comments } = getState();
+export const likeComment = (commentId, weight = 10000, retryCount = 0) =>
+  (dispatch, getState, { steemAPI }) => {
+    const { auth, comments } = getState();
 
-  if (!auth.isAuthenticated) {
-    return;
-  }
-
-  const voter = auth.user.name;
-  const { author, permlink } = comments.comments[commentId];
-
-  dispatch({
-    type: LIKE_COMMENT,
-    payload: {
-      promise: SteemConnect.vote(voter, author, permlink, weight).then((res) => {
-        // reload comment data to fetch payout after vote
-        steemAPI.getContentAsync(author, permlink).then((data) => {
-          dispatch(reloadExistingComment(data));
-          return data;
-        });
-        return res;
-      }),
-    },
-    meta: { commentId, voter, weight, isRetry: retryCount > 0 },
-  }).catch((err) => {
-    if (err.res && err.res.status === 500 && retryCount <= 5) {
-      dispatch(likeComment(commentId, weight, retryCount + 1));
+    if (!auth.isAuthenticated) {
+      return;
     }
-  });
-};
+
+    const voter = auth.user.name;
+    const { author, permlink } = comments.comments[commentId];
+
+    dispatch({
+      type: LIKE_COMMENT,
+      payload: {
+        promise: SteemConnect.vote(voter, author, permlink, weight).then((res) => {
+          // reload comment data to fetch payout after vote
+          steemAPI.getContentAsync(author, permlink).then((data) => {
+            dispatch(reloadExistingComment(data));
+            return data;
+          });
+          return res;
+        }),
+      },
+      meta: { commentId, voter, weight, isRetry: retryCount > 0 },
+    }).catch((err) => {
+      if (err.res && err.res.status === 500 && retryCount <= 5) {
+        dispatch(likeComment(commentId, weight, retryCount + 1));
+      }
+    });
+  };
