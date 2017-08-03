@@ -1,7 +1,4 @@
-// NOTE: This file will be replaced with new version thus disabling eslint
-/* eslint-disable */
-
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import DraftRow from './DraftRow';
@@ -10,6 +7,10 @@ import DraftRow from './DraftRow';
   editor: state.editor,
 }))
 class Drafts extends React.Component {
+  static propTypes = {
+    editor: PropTypes.shape().isRequired,
+  };
+
   render() {
     const { editor: { draftPosts } } = this.props;
 
@@ -17,14 +18,11 @@ class Drafts extends React.Component {
       <div className="shifted">
         <div className="container">
           <h1>Drafts</h1>
-          { _.size(draftPosts) === 0 &&
+          {_.size(draftPosts) === 0 &&
             <h3 className="text-center">
-              You don{'\''}t have any draft saved.
-            </h3>
-          }
-          { _.map(draftPosts, (draft, key) =>
-            <DraftRow key={key} data={draft.postData} id={key} />)
-          }
+              You don{"'"}t have any draft saved.
+            </h3>}
+          {_.map(draftPosts, (draft, key) => <DraftRow key={key} data={draft.postData} id={key} />)}
         </div>
       </div>
     );

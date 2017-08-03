@@ -1,13 +1,20 @@
-// NOTE: This file will be replaced with new version thus disabling eslint
-/* eslint-disable */
-
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { deleteDraft } from './EditorActions';
+import { deleteDraft } from './editorActions';
 
 @connect(null, { deleteDraft })
 class DraftRow extends React.Component {
+  static propTypes = {
+    id: PropTypes.string.isRequired,
+    data: PropTypes.shape().isRequired,
+    deleteDraft: PropTypes.func,
+  };
+
+  static defaultProps = {
+    deleteDraft: () => {},
+  };
+
   render() {
     const { id, data } = this.props;
     let { title = '', body = '' } = data;
@@ -21,10 +28,17 @@ class DraftRow extends React.Component {
     return (
       <div>
         <Link to={{ pathname: '/write', search: `?draft=${id}` }}>
-          <h3>{draftTitle}</h3>
+          <h3>
+            {draftTitle}
+          </h3>
         </Link>
         <div>
-          <a onClick={() => { this.props.deleteDraft(id); }}>
+          <a
+            role="presentation"
+            onClick={() => {
+              this.props.deleteDraft(id);
+            }}
+          >
             Delete this draft
           </a>
         </div>
