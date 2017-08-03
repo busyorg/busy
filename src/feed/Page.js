@@ -16,7 +16,6 @@ import {
   getUserFeedContentFromState,
   getUserFeedLoadingFromState,
 } from '../helpers/stateHelpers';
-import FavoriteButton from '../favorites/FavoriteButton';
 import { notify } from '../app/Notification/notificationActions';
 import * as favoriteActions from '../favorites/favoritesActions';
 import EmptyFeed from '../statics/EmptyFeed';
