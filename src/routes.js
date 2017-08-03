@@ -34,14 +34,63 @@ import RequireLogin from './auth/RequireLogin';
 
 export const UserRoutes = () =>
   (<Switch>
-    <Route exact path="/@:name" render={() => <User><Profile /></User>} />
-    <Route path="/@:name/reblogs" render={() => <User><Reblogs /></User>} />
-    <Route path="/@:name/posts" render={() => <User><Posts /></User>} />
-    <Route path="/@:name/feed" render={() => <User><Feed /></User>} />
-    <Route path="/@:name/replies" render={() => <User><Replies /></User>} />
-    <Route path="/@:name/followers" render={() => <User><Followers /></User>} />
-    <Route path="/@:name/followed" render={() => <User><Following /></User>} />
-    <Route path="/@:name/transfers" render={() => <User><Transfers /></User>} />
+    <Route
+      exact
+      path="/@:name"
+      render={() =>
+        (<User>
+          <Profile />
+        </User>)}
+    />
+    <Route
+      path="/@:name/reblogs"
+      render={() =>
+        (<User>
+          <Reblogs />
+        </User>)}
+    />
+    <Route
+      path="/@:name/posts"
+      render={() =>
+        (<User>
+          <Posts />
+        </User>)}
+    />
+    <Route
+      path="/@:name/feed"
+      render={() =>
+        (<User>
+          <Feed />
+        </User>)}
+    />
+    <Route
+      path="/@:name/replies"
+      render={() =>
+        (<User>
+          <Replies />
+        </User>)}
+    />
+    <Route
+      path="/@:name/followers"
+      render={() =>
+        (<User>
+          <Followers />
+        </User>)}
+    />
+    <Route
+      path="/@:name/followed"
+      render={() =>
+        (<User>
+          <Following />
+        </User>)}
+    />
+    <Route
+      path="/@:name/transfers"
+      render={() =>
+        (<User>
+          <Transfers />
+        </User>)}
+    />
   </Switch>);
 
 UserRoutes.needs = UserNeeds;
@@ -64,11 +113,41 @@ export default (
       <Route path="/active/:category?" component={Active} />
       <Route path="/responses/:category?" component={Responses} />
       <Route path="/votes/:category?" component={Votes} />
-      <Route path="/transfer" render={() => <RequireLogin><Transfer /></RequireLogin>} />
-      <Route path="/bookmarks" render={() => <RequireLogin><Bookmarks /></RequireLogin>} />
-      <Route path="/write" render={() => <RequireLogin><Write /></RequireLogin>} />
-      <Route path="/drafts" render={() => <RequireLogin><Drafts /></RequireLogin>} />
-      <Route path="/settings" render={() => <RequireLogin><Settings /></RequireLogin>} />
+      <Route
+        path="/transfer"
+        render={() =>
+          (<RequireLogin>
+            <Transfer />
+          </RequireLogin>)}
+      />
+      <Route
+        path="/bookmarks"
+        render={() =>
+          (<RequireLogin>
+            <Bookmarks />
+          </RequireLogin>)}
+      />
+      <Route
+        path="/write"
+        render={() =>
+          (<RequireLogin>
+            <Write />
+          </RequireLogin>)}
+      />
+      <Route
+        path="/drafts"
+        render={() =>
+          (<RequireLogin>
+            <Drafts />
+          </RequireLogin>)}
+      />
+      <Route
+        path="/settings"
+        render={() =>
+          (<RequireLogin>
+            <Settings />
+          </RequireLogin>)}
+      />
       <Route path="/@:name" component={UserRoutes} />
       <Route path="/:category/@:author/:permlink" component={PostSingle} />
       <Route path="/*" component={Error404} />
@@ -76,4 +155,5 @@ export default (
   </Wrapper>
 );
 
-export const history = (typeof window === 'undefined') ? createMemoryHistory() : createBrowserHistory();
+export const history =
+  typeof window === 'undefined' ? createMemoryHistory() : createBrowserHistory();

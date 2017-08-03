@@ -19,28 +19,26 @@ export const LOGOUT_SUCCESS = '@auth/LOGOUT_SUCCESS';
 
 const requestLogin = () => ({ type: LOGIN_REQUEST });
 
-const loginSuccess = (user, token) =>
-  ({
-    type: LOGIN_SUCCESS,
-    user,
-    token,
-  });
+const loginSuccess = (user, token) => ({
+  type: LOGIN_SUCCESS,
+  user,
+  token,
+});
 
 const loginFail = () => ({ type: LOGIN_FAILURE });
 
-export const login = () =>
-  (dispatch) => {
-    dispatch(requestLogin());
-    steemConnect.me((err, result) => {
-      if (err || !result || !result.user) {
-        dispatch(loginFail());
-        return;
-      }
-      dispatch(getFollowing(result.user));
+export const login = () => (dispatch) => {
+  dispatch(requestLogin());
+  steemConnect.me((err, result) => {
+    if (err || !result || !result.user) {
+      dispatch(loginFail());
+      return;
+    }
+    dispatch(getFollowing(result.user));
 
-      const accessToken = Cookie.get('access_token');
-      dispatch(loginSuccess(result.account, accessToken));
-      // init pushpad
-      initPushpad(result.user, accessToken);
-    });
-  };
+    const accessToken = Cookie.get('access_token');
+    dispatch(loginSuccess(result.account, accessToken));
+    // init pushpad
+    initPushpad(result.user, accessToken);
+  });
+};
