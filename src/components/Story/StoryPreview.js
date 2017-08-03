@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react';
-import { Link } from 'react-router-dom';
 import embedjs from 'embedjs';
 import PostFeedEmbed from './PostFeedEmbed';
 import BodyShort from './BodyShort';
@@ -30,15 +29,15 @@ const StoryPreview = ({ post }) => {
   const embeds = embedjs.getAll(post.body);
 
   const preview = {
-    text: () => (
-      <div key="text" className="Story__content__body">
+    text: () =>
+      (<div key="text" className="Story__content__body">
         <BodyShort body={post.body} />
       </div>),
 
     embed: () => embeds && embeds[0] && <PostFeedEmbed key="embed" embed={embeds[0]} />,
 
-    image: () => (
-      <div key={imagePath} className="Story__content__img-container">
+    image: () =>
+      (<div key={imagePath} className="Story__content__img-container">
         <img alt="post" src={imagePath} />
       </div>),
   };

@@ -20,6 +20,15 @@ const sortComments = (comments, sortType = 'BEST') => {
 };
 
 class Comments extends React.Component {
+  static propTypes = {
+    parentPost: PropTypes.shape().isRequired,
+    onSendComment: PropTypes.func,
+  };
+
+  static defaultProps = {
+    onSendComment: () => {},
+  };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -40,7 +49,8 @@ class Comments extends React.Component {
 
   submitComment = (parentPost, commentValue) => {
     this.setState({ showCommentFormLoading: true });
-    this.props.onSendComment(parentPost, commentValue)
+    this.props
+      .onSendComment(parentPost, commentValue)
       .then(() => {
         this.setState({ showCommentFormLoading: false, commentFormText: '' });
       })
@@ -50,7 +60,7 @@ class Comments extends React.Component {
           commentFormText: commentValue,
         });
       });
-  }
+  };
 
   render() {
     const { comments, commentsChildren, onLikeClick, onDislikeClick, auth } = this.props;
@@ -59,28 +69,36 @@ class Comments extends React.Component {
     return (
       <div className="Comments">
         <div className="Comments__header">
-          <h2>
-            Comments
-          </h2>
-          <div className="Comments__header__sort" onClick={this.handleSortClick}>
-            <a className={classNames({ active: sort === 'BEST' })} data-type="BEST">Best</a>
-            <a className={classNames({ active: sort === 'NEWEST' })} data-type="NEWEST">Newest</a>
-            <a className={classNames({ active: sort === 'OLDEST' })} data-type="OLDEST">Oldest</a>
+          <h2>Comments</h2>
+          <div
+            role="presentation"
+            className="Comments__header__sort"
+            onClick={this.handleSortClick}
+          >
+            <a className={classNames({ active: sort === 'BEST' })} data-type="BEST">
+              Best
+            </a>
+            <a className={classNames({ active: sort === 'NEWEST' })} data-type="NEWEST">
+              Newest
+            </a>
+            <a className={classNames({ active: sort === 'OLDEST' })} data-type="OLDEST">
+              Oldest
+            </a>
           </div>
         </div>
 
-        {auth && auth.isAuthenticated &&
+        {auth &&
+          auth.isAuthenticated &&
           <CommentForm
             parentPost={this.props.parentPost}
             username={auth.user.name}
             onSubmit={this.submitComment}
             isLoading={this.state.showCommentFormLoading}
             inputValue={this.state.commentFormText}
-          />
-        }
-        {
-          comments && sortComments(comments, sort).map(comment => (
-            <Comment
+          />}
+        {comments &&
+          sortComments(comments, sort).map(comment =>
+            (<Comment
               auth={auth}
               key={comment.id}
               comment={comment}
@@ -88,9 +106,10 @@ class Comments extends React.Component {
               onLikeClick={onLikeClick}
               onDislikeClick={onDislikeClick}
               onSendComment={this.props.onSendComment}
-            />))
-        }
-      </div>);
+            />),
+          )}
+      </div>
+    );
   }
 }
 

@@ -61,5 +61,9 @@ export function getHtml(body, jsonMetadata = {}, returnType = 'Object') {
 
 export default (props) => {
   const htmlSections = getHtml(props.body, props.jsonMetadata);
-  return <div className="Body">{htmlSections}</div>;
+  return (
+    <div className="Body">
+      {htmlSections}
+    </div>
+  );
 };

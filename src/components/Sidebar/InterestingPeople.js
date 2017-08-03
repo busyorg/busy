@@ -3,18 +3,16 @@ import { Link } from 'react-router-dom';
 import User from './User';
 import './InterestingPeople.less';
 
-const InterestingPeople = ({ users }) => (
-  <div className="InterestingPeople">
+const InterestingPeople = ({ users }) =>
+  (<div className="InterestingPeople">
     <div className="InterestingPeople__container">
-      <h4 className="InterestingPeople__title"><i className="iconfont icon-group InterestingPeople__icon" /> Interesting People</h4>
+      <h4 className="InterestingPeople__title">
+        <i className="iconfont icon-group InterestingPeople__icon" /> Interesting People
+      </h4>
       <div className="InterestingPeople__divider" />
-      {users && users.map(user =>
-        <User key={user.name} user={user} />
-      )}
+      {users && users.map(user => <User key={user.name} user={user} />)}
       <h4 className="InterestingPeople__more">
-        <Link to={'/latest-comments'}>
-          Discover More People
-        </Link>
+        <Link to={'/latest-comments'}>Discover More People</Link>
       </h4>
     </div>
   </div>);

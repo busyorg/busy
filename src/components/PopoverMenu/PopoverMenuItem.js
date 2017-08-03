@@ -2,19 +2,26 @@ import React, { PropTypes } from 'react';
 import classNames from 'classnames';
 import './PopoverMenuItem.less';
 
-const PopoverMenuItem = ({ itemKey, children, onClick, bold, disabled }) => (
-  <li
+const PopoverMenuItem = ({ itemKey, children, onClick, bold, disabled }) =>
+  (<li
     className={classNames('PopoverMenuItem', {
       'PopoverMenuItem--bold': bold,
     })}
   >
-    <a disabled={disabled} onClick={(e) => { e.preventDefault(); onClick(itemKey); }}>
+    <a
+      role="presentation"
+      disabled={disabled}
+      onClick={(e) => {
+        e.preventDefault();
+        onClick(itemKey);
+      }}
+    >
       {children}
     </a>
   </li>);
 
 PopoverMenuItem.propTypes = {
-  children: PropTypes.any,
+  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
   itemKey: PropTypes.string,
   onClick: PropTypes.func,
   bold: PropTypes.bool,

@@ -4,9 +4,8 @@ import { Link } from 'react-router-dom';
 import BodyShort from '../Story/BodyShort';
 import './LatestRecommendations.less';
 
-
-const RenderRecommendedPost = ({ title, author, created, permlink }) => (
-  <div className="Recommendation">
+const RenderRecommendedPost = ({ title, author, created, permlink }) =>
+  (<div className="Recommendation">
     <div className="Recommendation__text">
       <div className="Recommendation__title">
         <Link to={`/@${author}/${permlink}`}>
@@ -23,24 +22,30 @@ const RenderRecommendedPost = ({ title, author, created, permlink }) => (
         </span>
       </div>
     </div>
-  </div>
-);
+  </div>);
 
-const LatestRecommendations = ({ posts }) => (
-  <div className="LatestRecommendations">
+RenderRecommendedPost.propTypes = {
+  title: PropTypes.string.isRequired,
+  author: PropTypes.string.isRequired,
+  created: PropTypes.string.isRequired,
+  permlink: PropTypes.string.isRequired,
+};
+
+const LatestRecommendations = ({ posts }) =>
+  (<div className="LatestRecommendations">
     <div className="LatestRecommendations__container">
-      <h4 className="LatestRecommendations__title"><i className="iconfont icon-flashlight_fill LatestRecommendations__icon" /> Latest Recommendations</h4>
+      <h4 className="LatestRecommendations__title">
+        <i className="iconfont icon-flashlight_fill LatestRecommendations__icon" /> Latest
+        Recommendations
+      </h4>
       <div className="LatestRecommendations__divider" />
-      {posts && posts.map(post => (<RenderRecommendedPost key={post.id} {...post} />))}
+      {posts && posts.map(post => <RenderRecommendedPost key={post.id} {...post} />)}
       <div className="LatestRecommendations__divider" />
       <h4 className="LatestRecommendations__more">
-        <Link to={'/latest-recommendations'}>
-          See All Recommendations
-        </Link>
+        <Link to={'/latest-recommendations'}>See All Recommendations</Link>
       </h4>
     </div>
-  </div>
-);
+  </div>);
 
 LatestRecommendations.propTypes = {
   posts: PropTypes.arrayOf(PropTypes.shape()),

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import ellipsis from 'text-ellipsis';
 import striptags from 'striptags';
 import Remarkable from 'remarkable';
@@ -12,11 +12,20 @@ function decodeEntities(body) {
 const BodyShort = (props) => {
   let body = striptags(remarkable.render(striptags(decodeEntities(props.body))));
   body = body.replace(/(?:https?|ftp):\/\/[\S]+/g, '');
-  return (<span>
-    <span dangerouslySetInnerHTML={{ __html: ellipsis(body, props.length, { ellipsis: '…' }) }} />
-  </span>);
+  /* eslint-disable react/no-danger */
+  return (
+    <span>
+      <span dangerouslySetInnerHTML={{ __html: ellipsis(body, props.length, { ellipsis: '…' }) }} />
+    </span>
+  );
+  /* eslint-enable react/no-danger */
 };
 
-BodyShort.defaultProps = { length: 140 };
+BodyShort.propTypes = {
+  body: PropTypes.string,
+  length: PropTypes.number,
+};
+
+BodyShort.defaultProps = { body: '', length: 140 };
 
 export default BodyShort;

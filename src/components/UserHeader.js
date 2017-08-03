@@ -1,29 +1,38 @@
 import React, { PropTypes } from 'react';
-import { Button, Popover } from 'antd';
+import { Popover } from 'antd';
 import Avatar from './Avatar';
 import Follow from './Button/Follow';
 import Action from './Button/Action';
 import PopoverMenu, { PopoverMenuItem } from './PopoverMenu/PopoverMenu';
 import './UserHeader.less';
 
-const UserHeader = ({ auth, username, handle, isSameUser, isFollowed, pendingFollow, onFollowClick }) => (
-  <div className="UserHeader">
+const UserHeader = ({
+  auth,
+  username,
+  handle,
+  isSameUser,
+  isFollowed,
+  pendingFollow,
+  onFollowClick,
+}) =>
+  (<div className="UserHeader">
     <div className="UserHeader__container">
       <Avatar username={handle} size={100} />
       <div className="UserHeader__user">
         <div className="UserHeader__row">
-          <h2 className="UserHeader__user__username">{username}</h2>
+          <h2 className="UserHeader__user__username">
+            {username}
+          </h2>
           <div className="UserHeader__user__button">
-            {(auth && auth.isAuthenticated)
-              && ((isSameUser) ?
-                <Action small text="Edit profile" /> :
-                <Follow
+            {auth &&
+              auth.isAuthenticated &&
+              (isSameUser
+                ? <Action small text="Edit profile" />
+                : <Follow
                   isFollowed={isFollowed}
                   pending={pendingFollow}
                   onClick={onFollowClick}
-                />
-              )
-            }
+                />)}
           </div>
           <Popover
             placement="bottom"

@@ -26,26 +26,26 @@ import Editor from '../components/Editor/Editor';
 import TopicSelector from '../components/TopicSelector';
 import '../styles/common.less';
 
-addDecorator(story => (
-  <MemoryRouter initialEntries={['/']}>
+addDecorator(story =>
+  (<MemoryRouter initialEntries={['/']}>
     <IntlProvider locale="en">
       <div style={{ padding: '40px', background: '#f9f9f9' }}>
         {story()}
       </div>
     </IntlProvider>
-  </MemoryRouter>
-));
+  </MemoryRouter>),
+);
 
 const rootComments = Object.keys(postState.content)
   .filter(key => postState.content[key].depth === 1)
   .map(commentKey => postState.content[commentKey]);
 
 const commentsChildren = {};
-Object.keys(postState.content)
-  .forEach((key) => {
-    commentsChildren[postState.content[key].id] = postState.content[key].replies
-      .map(childrenId => postState.content[childrenId]);
-  });
+Object.keys(postState.content).forEach((key) => {
+  commentsChildren[postState.content[key].id] = postState.content[key].replies.map(
+    childrenId => postState.content[childrenId],
+  );
+});
 
 storiesOf('Button', module)
   .add('Topic', () => <Topic name="travel" />)
@@ -57,14 +57,15 @@ storiesOf('Button', module)
 
 storiesOf('Navigation', module)
   .add('Topnav unlogged', () => <Topnav />)
-  .add('Topnav logged', () => (
-    <Topnav
+  .add('Topnav logged', () =>
+    (<Topnav
       username="guest123"
       notifications={notifications}
       onNotificationClick={action('Notification click')}
       onSeeAllClick={action('SeeAll click')}
       onMenuItemClick={action('Menu item click')}
-    />))
+    />),
+  )
   .add('Sidenav unlogged', () => <Sidenav />)
   .add('Sidenav logged', () => <Sidenav username="guest123" />);
 
@@ -73,14 +74,14 @@ storiesOf('Sidebar', module)
   .add('Favorite topics', () =>
     <Topics favorite title="Favorite topics" topics={['funny', 'history', 'nature']} />,
   )
-  .add('Trending topics', () => (
-    <Topics
+  .add('Trending topics', () =>
+    (<Topics
       title="Trending topics"
       topics={['photography', 'steemit', 'introduceyourself', 'steem', 'story', 'blog']}
     />),
   )
-  .add('Interesting People', () => (
-    <InterestingPeople
+  .add('Interesting People', () =>
+    (<InterestingPeople
       users={[
         { name: 'liondani', about: 'Inch by Inch, Play by Play' },
         {
@@ -91,13 +92,14 @@ storiesOf('Sidebar', module)
       ]}
     />),
   )
-  .add('Latest Comments', () => (
-    <LatestComments
+  .add('Latest Comments', () =>
+    (<LatestComments
       comments={[
         {
           id: '100a',
           author: 'ekitcho',
-          text: 'Great stuff. Looking forward to it. Although, here are a few things I feel we need to address.',
+          text:
+            'Great stuff. Looking forward to it. Although, here are a few things I feel we need to address.',
           created: '2017-06-07T17:26:21',
         },
         {
@@ -115,26 +117,31 @@ storiesOf('Sidebar', module)
       ]}
     />),
   )
-  .add('Latest Recommendations', () => (
-    <LatestRecommendations
+  .add('Latest Recommendations', () =>
+    (<LatestRecommendations
       posts={[
         {
           id: '100a',
           title: 'Its a brave new world of steemit out there. You must try it out',
           author: 'ekitcho',
           created: '2017-06-07T17:26:21',
+          permlink: 'hello',
         },
         {
           id: '100b',
-          title: 'My Momma always said to me that people with gaps in their teeth had something to hide',
+          title:
+            'My Momma always said to me that people with gaps in their teeth had something to hide',
           author: 'blacktivity',
           created: '2017-06-07T18:12:13',
+          permlink: 'hello',
         },
         {
           id: '100c',
-          title: 'Ethereum price continued to trade lower against the US Dollar and Bitcoin, and it looks like ETH/USD may continue to face sellers as long as it is below $300',
+          title:
+            'Ethereum price continued to trade lower against the US Dollar and Bitcoin, and it looks like ETH/USD may continue to face sellers as long as it is below $300',
           author: 'pooldarbashi',
           created: '2017-06-07T17:44:11',
+          permlink: 'hello',
         },
       ]}
     />),
@@ -142,8 +149,8 @@ storiesOf('Sidebar', module)
 
 storiesOf('Story', module)
   .add('Story loading', () => <StoryLoading />)
-  .add('Inline story', () => (
-    <Story
+  .add('Inline story', () =>
+    (<Story
       post={post}
       onFollowClick={action('Follow click')}
       onSaveClick={action('Save click')}
@@ -151,9 +158,10 @@ storiesOf('Story', module)
       onLikeClick={action('Like click')}
       onCommentClick={action('Comment click')}
       onShareClick={action('Share click')}
-    />))
-  .add('Inline story with embed', () => (
-    <Story
+    />),
+  )
+  .add('Inline story with embed', () =>
+    (<Story
       post={postWithEmbed}
       onFollowClick={action('Follow click')}
       onSaveClick={action('Save click')}
@@ -161,9 +169,10 @@ storiesOf('Story', module)
       onLikeClick={action('Like click')}
       onCommentClick={action('Comment click')}
       onShareClick={action('Share click')}
-    />))
-  .add('Full story', () => (
-    <StoryFull
+    />),
+  )
+  .add('Full story', () =>
+    (<StoryFull
       post={post}
       commentCount={Object.keys(postState.content).length}
       onFollowClick={action('Follow click')}
@@ -172,9 +181,10 @@ storiesOf('Story', module)
       onLikeClick={action('Like click')}
       onCommentClick={action('Comment click')}
       onShareClick={action('Share click')}
-    />))
-  .add('Full story with embed', () => (
-    <StoryFull
+    />),
+  )
+  .add('Full story with embed', () =>
+    (<StoryFull
       post={postWithEmbed}
       commentCount={Object.keys(postState.content).length}
       onFollowClick={action('Follow click')}
@@ -183,39 +193,45 @@ storiesOf('Story', module)
       onLikeClick={action('Like click')}
       onCommentClick={action('Comment click')}
       onShareClick={action('Share click')}
-    />));
+    />),
+  );
 
 storiesOf('Profile', module)
   .add('UserHeader', () => <UserHeader username="roelandp" />)
-  .add('UserMenu', () => <UserMenu discussions={1521} comments={21} following={244} onChange={action('Section changed')} />);
+  .add('UserMenu', () =>
+    (<UserMenu
+      discussions={1521}
+      comments={21}
+      following={244}
+      onChange={action('Section changed')}
+    />),
+  );
 
-storiesOf('Comments', module)
-  .add('Comments', () => (
-    <Comments
-      username="steemconnect"
-      comments={rootComments}
-      commentsChildren={commentsChildren}
-      onLikeClick={action('Like click')}
-      onDislikeClick={action('Dislike click')}
-    />));
+storiesOf('Comments', module).add('Comments', () =>
+  (<Comments
+    username="steemconnect"
+    comments={rootComments}
+    commentsChildren={commentsChildren}
+    onLikeClick={action('Like click')}
+    onDislikeClick={action('Dislike click')}
+  />),
+);
 
-storiesOf('Editor', module)
-  .add('Editor', () => (
-    <Editor
-      onSubmit={action('Form submit')}
-      onError={action('Form error')}
-      onImagePasted={
-        (image, callback) => {
-          // NOTE: Upload image to server.
-          setTimeout(() => callback('https://placehold.it/200x200'), 500);
-        }
-      }
-    />));
+storiesOf('Editor', module).add('Editor', () =>
+  (<Editor
+    onSubmit={action('Form submit')}
+    onError={action('Form error')}
+    onImagePasted={(image, callback) => {
+      // NOTE: Upload image to server.
+      setTimeout(() => callback('https://placehold.it/200x200'), 500);
+    }}
+  />),
+);
 
-storiesOf('Topic selector', module)
-  .add('Topic selector', () => (
-    <TopicSelector
-      topics={['photography', 'travel']}
-      onTopicClose={action('Topic close')}
-      onSortChange={action('Sort change')}
-    />));
+storiesOf('Topic selector', module).add('Topic selector', () =>
+  (<TopicSelector
+    topics={['photography', 'travel']}
+    onTopicClose={action('Topic close')}
+    onSortChange={action('Sort change')}
+  />),
+);
