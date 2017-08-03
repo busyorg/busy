@@ -1,11 +1,10 @@
-/* global window */
 import { combineReducers } from 'redux';
 
 import { routerReducer } from 'react-router-redux';
 
 import appReducers from './app/appReducers';
 import authReducers from './auth/authReducers';
-import commentsReducer from './comments/commentsReducer.js';
+import commentsReducer from './comments/commentsReducer';
 import feedReducers from './feed/feedReducers';
 import postsReducers from './post/postsReducers';
 import userReducer from './user/userReducer';

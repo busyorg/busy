@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { ConnectedRouter } from 'react-router-redux';
 
 import routes from './routes';
 
-// load the stylesheet
 import './styles/base.less';
 
 const AppHost = ({ history }) => (
@@ -11,5 +10,9 @@ const AppHost = ({ history }) => (
     {routes}
   </ConnectedRouter>
 );
+
+AppHost.propTypes = {
+  history: PropTypes.shape().isRequired,
+};
 
 export default AppHost;
