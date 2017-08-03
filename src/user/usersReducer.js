@@ -4,7 +4,7 @@ const initialState = {};
 
 export default function usersReducer(state = initialState, action) {
   switch (action.type) {
-    case `${actions.GET_FOLLOWING_COUNT}_START`:
+    case actions.GET_FOLLOWING_COUNT_START:
       return {
         ...state,
         [action.meta.username]: {
@@ -12,7 +12,7 @@ export default function usersReducer(state = initialState, action) {
           isFetching: true,
         },
       };
-    case `${actions.GET_FOLLOWING_COUNT}_SUCCESS`: {
+    case actions.GET_FOLLOWING_COUNT_SUCCESS: {
       return {
         ...state,
         [action.meta.username]: {

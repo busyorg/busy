@@ -38,18 +38,14 @@ export default function userReducer(state = initialState, action) {
           ...state.files,
           [action.payload.public_id]: action.payload,
         },
-        fileUploadIsLoading: omit(state.fileUploadIsLoading, [
-          action.meta.filename,
-        ]),
+        fileUploadIsLoading: omit(state.fileUploadIsLoading, [action.meta.filename]),
         fileUploadError: null,
       };
     }
     case actions.UPLOAD_FILE_ERROR: {
       return {
         ...state,
-        fileUploadIsLoading: omit(state.fileUploadIsLoading, [
-          action.meta.filename,
-        ]),
+        fileUploadIsLoading: omit(state.fileUploadIsLoading, [action.meta.filename]),
         fileUploadError: action.payload,
       };
     }
@@ -108,10 +104,7 @@ export default function userReducer(state = initialState, action) {
         ...state,
         following: {
           ...state.following,
-          pendingFollows: [
-            ...state.following.pendingFollows,
-            action.meta.username,
-          ],
+          pendingFollows: [...state.following.pendingFollows, action.meta.username],
         },
       };
     case actions.FOLLOW_USER_SUCCESS:
@@ -119,12 +112,10 @@ export default function userReducer(state = initialState, action) {
         ...state,
         following: {
           ...state.following,
-          list: [
-            ...state.following.list,
-            action.meta.username,
-          ],
-          pendingFollows: state.following.pendingFollows
-            .filter(user => user !== action.meta.username),
+          list: [...state.following.list, action.meta.username],
+          pendingFollows: state.following.pendingFollows.filter(
+            user => user !== action.meta.username,
+          ),
         },
       };
     case actions.UNFOLLOW_USER_SUCCESS:
@@ -133,8 +124,9 @@ export default function userReducer(state = initialState, action) {
         following: {
           ...state.following,
           list: state.following.list.filter(user => user !== action.meta.username),
-          pendingFollows: state.following.pendingFollows
-            .filter(user => user !== action.meta.username),
+          pendingFollows: state.following.pendingFollows.filter(
+            user => user !== action.meta.username,
+          ),
         },
       };
 
@@ -144,8 +136,9 @@ export default function userReducer(state = initialState, action) {
         ...state,
         following: {
           ...state.following,
-          pendingFollows: state.following.pendingFollows
-            .filter(user => user !== action.meta.username),
+          pendingFollows: state.following.pendingFollows.filter(
+            user => user !== action.meta.username,
+          ),
         },
       };
     default: {

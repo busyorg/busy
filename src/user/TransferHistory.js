@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PropTypes } from 'react';
 import ReduxInfiniteScroll from 'redux-infinite-scroll';
 import { Link } from 'react-router-dom';
 import { FormattedRelative } from 'react-intl';
@@ -17,19 +17,8 @@ const renderReportFromOp = (op, username) => {
   const type = op[1].op[0];
   const data = op[1].op[1];
 
-  let deposit = null;
-  let withdraw = null;
-
   const curationReward = data.reward;
   const authorReward = data.vesting_payout;
-
-  if (data.from !== username) {
-    deposit = data.amount;
-  }
-
-  if (data.to !== username) {
-    withdraw = data.amount;
-  }
 
   /*  all transfers involve up to 2 accounts, context and 1 other. */
   let descriptionStart = '';
@@ -53,10 +42,19 @@ const renderReportFromOp = (op, username) => {
     }
   } else if (/^transfer$|^transfer_to_savings$|^transfer_from_savings$/.test(type)) {
     // transfer_to_savings
-    const fromWhere =
-      type === 'transfer_to_savings'
-        ? 'to savings '
-        : type === 'transfer_from_savings' ? 'from savings ' : '';
+
+    let fromWhere;
+
+    switch (type) {
+      case 'transfer_to_savings':
+        fromWhere = 'to savings';
+        break;
+      case 'transfer_from_savings':
+        fromWhere = 'from savings';
+        break;
+      default:
+        return '';
+    }
 
     if (data.from === username) {
       descriptionStart += `Transfer ${fromWhere}${data.amount} to `;
@@ -139,13 +137,20 @@ const getOnlyViableTransfers = list =>
     return true;
   });
 
-export default class TransferHistory extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      visibleItems: defaultPageItems,
-    };
-  }
+export default class TransferHistory extends React.Component {
+  static propTypes = {
+    list: PropTypes.arrayOf(PropTypes.array),
+    username: PropTypes.string,
+  };
+
+  static defaultProps = {
+    list: [],
+    username: undefined,
+  };
+
+  state = {
+    visibleItems: defaultPageItems,
+  };
 
   handleNextPage() {
     this.setState({ visibleItems: this.state.visibleItems + defaultPageItems });
@@ -162,8 +167,8 @@ export default class TransferHistory extends Component {
           elementIsScrollable={false}
           hasMore={list.length > visibleItems}
         >
-          {getOnlyViableTransfers(list).reverse().slice(0, visibleItems).map((op, idx) =>
-            (<div key={idx} className="my-4">
+          {getOnlyViableTransfers(list).reverse().slice(0, visibleItems).map(op =>
+            (<div key={list.indexOf(op)} className="my-4">
               <hr />
               <h5>
                 <b>{renderReportFromOp(op, username)}</b>{' '}

@@ -1,27 +1,31 @@
-import React, { Component } from 'react';
+import React, { PropTypes } from 'react';
+import { withRouter } from 'react-router-dom';
 import UserList from './UserList';
 import Loading from '../components/Icon/Loading';
 import { getAllFollowing } from '../helpers/apiHelpers';
 import './UserFollowing.less';
 
-export default class UserFollowing extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isLoading: false,
-      isLoaded: false,
-      users: [],
-    };
-  }
+@withRouter
+export default class UserFollowing extends React.Component {
+  static propTypes = {
+    match: PropTypes.shape().isRequired,
+  };
+
+  state = {
+    isLoading: false,
+    isLoaded: false,
+    users: [],
+  };
 
   componentWillMount() {
     this.setState({ isLoading: true });
-    getAllFollowing(this.props.match.params.name)
-      .then(users => this.setState({
+    getAllFollowing(this.props.match.params.name).then(users =>
+      this.setState({
         isLoading: false,
         isLoaded: true,
         users: users.sort(),
-      }));
+      }),
+    );
   }
 
   render() {

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Feed from '../feed/Feed';
@@ -14,20 +14,39 @@ import {
     feed: state.feed,
     posts: state.posts,
   }),
-  dispatch => bindActionCreators({
-    getUserReplies: userActions.getUserReplies,
-    getMoreUserReplies: userActions.getMoreUserReplies,
-  }, dispatch),
+  dispatch =>
+    bindActionCreators(
+      {
+        getUserReplies: userActions.getUserReplies,
+        getMoreUserReplies: userActions.getMoreUserReplies,
+      },
+      dispatch,
+    ),
 )
-export default class UserReplies extends Component {
-  static needs = [
-    ({ name }) => userActions.getUserReplies({ username: name }),
-  ]
+export default class UserReplies extends React.Component {
+  static propTypes = {
+    feed: PropTypes.shape(),
+    posts: PropTypes.shape(),
+    match: PropTypes.shape(),
+    getUserReplies: PropTypes.func,
+    getMoreUserReplies: PropTypes.func,
+  };
+
+  static defaultProps = {
+    feed: {},
+    posts: {},
+    match: {},
+    limit: 10,
+    getUserReplies: () => {},
+    getMoreUserReplies: () => {},
+  };
+
+  static needs = [({ name }) => userActions.getUserReplies({ username: name })];
 
   render() {
-    const { getUserReplies, getMoreUserReplies, feed, posts } = this.props;
+    const { feed, posts, match, getUserReplies, getMoreUserReplies } = this.props;
 
-    const username = this.props.match.params.name;
+    const username = match.params.name;
     const content = getFeedContentFromState('replies', username, feed, posts);
     const isFetching = getFeedLoadingFromState('replies', username, feed);
     const hasMore = getFeedHasMoreFromState('replies', username, feed);
@@ -35,16 +54,13 @@ export default class UserReplies extends Component {
     const loadMoreContentAction = () => getMoreUserReplies(username);
 
     return (
-      <div>
-        <Feed
-          content={content}
-          isFetching={isFetching}
-          hasMore={hasMore}
-          loadContent={loadContentAction}
-          loadMoreContent={loadMoreContentAction}
-          route={this.props.route}
-        />
-      </div>
+      <Feed
+        content={content}
+        isFetching={isFetching}
+        hasMore={hasMore}
+        loadContent={loadContentAction}
+        loadMoreContent={loadMoreContentAction}
+      />
     );
   }
 }
