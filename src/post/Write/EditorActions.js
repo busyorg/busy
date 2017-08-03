@@ -1,6 +1,5 @@
-
-// TODO - Remove this from here
-// Couldn't find your standard state and action management
+// NOTE: This file will be replaced with new version thus disabling eslint
+/* eslint-disable */
 
 import Promise from 'bluebird';
 import assert from 'assert';

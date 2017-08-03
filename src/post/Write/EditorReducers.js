@@ -1,3 +1,6 @@
+// NOTE: This file will be replaced with new version thus disabling eslint
+/* eslint-disable */
+
 import * as editorActions from './EditorActions';
 import * as userActions from '../../user/userActions';
 

@@ -1,20 +1,16 @@
+import React, { PropTypes } from 'react';
 import _ from 'lodash';
-import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { bindActionCreators } from 'redux';
 import sanitize from 'sanitize-html';
 
-import { getHtml } from '../Body';
+import { getHtml } from '../../components/Story/Body';
 import * as postActions from './../postActions';
-import PostSinglePage from './PostSinglePage';
-import PostSingleModal from './PostSingleModal';
 import * as reblogActions from '../../app/Reblog/reblogActions';
-import * as commentsActions from '../../comments/commentsActions';
 import * as bookmarkActions from '../../bookmarks/bookmarksActions';
 import { followUser, unfollowUser } from '../../user/userActions';
-import * as appActions from '../../actions';
 import Loading from '../../components/Icon/Loading';
 import { jsonParse } from '../../helpers/formatter';
 import StoryFull from '../../components/Story/StoryFull';
@@ -22,28 +18,18 @@ import { RightSidebar } from '../../app/Sidebar/index';
 import Affix from '../../components/Utils/Affix';
 import ScrollToTopOnMount from '../../components/Utils/ScrollToTopOnMount';
 
-// reblogList: reblog,
-// bookmarks,
-// reblog: reblogActions.reblog,
-// editPost,
-// openCommentingDraft: commentsActions.openCommentingDraft,
-// closeCommentingDraft: commentsActions.closeCommentingDraft,
-// toggleBookmark: bookmarkActions.toggleBookmark,
-// closePostModal: appActions.closePostModal,
-// openPostModal: appActions.openPostModal
 @withRouter
 @connect(
   ({ posts, app, reblog, auth, bookmarks, user }) => ({
     content: posts[app.lastPostId] || null,
     loading: posts.postLoading,
-    lastPostId: app.lastPostId,
     pendingLikes: posts.pendingLikes,
     reblogList: reblog.rebloggedList,
     pendingReblogs: reblog.pendingReblogs,
-    followingList: user.following.list,
+    followList: user.following.list,
     pendingFollows: user.following.pendingFollows,
     bookmarks,
-    auth
+    auth,
   }),
   (dispatch, ownProps) =>
     bindActionCreators(
@@ -51,7 +37,7 @@ import ScrollToTopOnMount from '../../components/Utils/ScrollToTopOnMount';
         getContent: () =>
           postActions.getContent({
             author: _.get(ownProps.match, 'params.author'),
-            permlink: _.get(ownProps.match, 'params.permlink')
+            permlink: _.get(ownProps.match, 'params.permlink'),
           }),
         toggleBookmark: bookmarkActions.toggleBookmark,
         votePost: postActions.votePost,
@@ -59,50 +45,59 @@ import ScrollToTopOnMount from '../../components/Utils/ScrollToTopOnMount';
         followUser,
         unfollowUser,
       },
-      dispatch
-    )
+      dispatch,
+    ),
 )
-export default class PostSingle extends Component {
-  // static propTypes = {
-  //   modal: PropTypes.bool,
-  //   contentList: PropTypes.arrayOf(
-  //     PropTypes.shape({
-  //       // eslint-disable-next-line
-  //       author: PropTypes.string
-  //     })
-  //   )
-  // };
+export default class PostSingle extends React.Component {
+  static propTypes = {
+    auth: PropTypes.shape().isRequired,
+    content: PropTypes.shape(),
+    loading: PropTypes.bool,
+    pendingLikes: PropTypes.arrayOf(PropTypes.number),
+    reblogList: PropTypes.arrayOf(PropTypes.number),
+    pendingReblogs: PropTypes.arrayOf(PropTypes.number),
+    followList: PropTypes.arrayOf(PropTypes.string),
+    pendingFollows: PropTypes.arrayOf(PropTypes.string),
+    bookmarks: PropTypes.shape(),
+    getContent: PropTypes.func,
+    toggleBookmark: PropTypes.func,
+    votePost: PropTypes.func,
+    reblog: PropTypes.func,
+    followUser: PropTypes.func,
+    unfollowUser: PropTypes.func,
+  };
+
+  static defaultProps = {
+    content: {},
+    loading: false,
+    pendingLikes: [],
+    reblogList: [],
+    pendingReblogs: [],
+    followList: [],
+    pendingFollows: [],
+    bookmarks: {},
+    getContent: () => {},
+    toggleBookmark: () => {},
+    votePost: () => {},
+    reblog: () => {},
+    followUser: () => {},
+    unfollowUser: () => {},
+  };
 
   static needs = [postActions.getContent];
-
-  // static defaultProps = {
-  //   modal: false,
-  //   contentList: [],
-  //   modalResetScroll: () => null
-  // };
 
   componentWillMount() {
     this.props.getContent();
   }
-  // componentDidMount() {
-  //   const { modal } = this.props;
-  //   if (modal) {
-  //     this.unlisten = this.props.history.listen(() => {
-  //       this.props.closePostModal();
-  //     });
-  //   }
-  // }
 
   componentWillUnmount() {
-    // this.props.closePostModal();
-    // if (this.unlisten) { this.unlisten(); }
     if (process.env.IS_BROWSER) {
       global.document.title = 'Busy';
     }
   }
 
   handleFollowClick = (post) => {
-    const isFollowed = this.props.followingList.includes(post.author);
+    const isFollowed = this.props.followList.includes(post.author);
     if (isFollowed) {
       this.props.unfollowUser(post.author);
     } else {
@@ -111,15 +106,14 @@ export default class PostSingle extends Component {
   }
 
   render() {
-    // let onEdit;
     const {
       content,
-      loading,
       auth,
+      loading,
       pendingLikes,
       reblogList,
       pendingReblogs,
-      followingList,
+      followList,
       pendingFollows,
       bookmarks,
       votePost,
@@ -130,49 +124,6 @@ export default class PostSingle extends Component {
     if (!content || !content.author) {
       return <div className="main-panel"><Loading /></div>;
     }
-
-    // if (content.author === auth.user.name) {
-    //   let jsonMetadata = {};
-    //   try { jsonMetadata = JSON.parse(content.json_metadata); } catch (e) { }
-    //   // Support Only markdown edits
-    //   if (jsonMetadata.format === 'markdown') { onEdit = () => { this.props.editPost(content); }; }
-    // }
-
-    // const currentStoryIndex = contentList.indexOf(content);
-    // const nextStory = currentStoryIndex > -1 ? contentList[currentStoryIndex + 1] : undefined;
-    // const prevStory = currentStoryIndex > -1 ? contentList[currentStoryIndex - 1] : undefined;
-
-    // const isPostLiked =
-    //   auth.isAuthenticated &&
-    //   content.active_votes &&
-    //   content.active_votes.some(vote => vote.voter === auth.user.name && vote.percent > 0);
-
-    // const isPostDisliked =
-    //   auth.isAuthenticated &&
-    //   content.active_votes &&
-    //   content.active_votes.some(vote => vote.voter === auth.user.name && vote.percent < 0);
-
-    // const canReblog = auth.isAuthenticated && auth.user.name !== content.author;
-
-    // const theProps = {
-    //   content,
-    //   reblog: () => reblog(content.id),
-    //   isReblogged: reblogList.includes(content.id),
-    //   canReblog,
-    //   likePost: () => this.props.likePost(content.id),
-    //   unlikePost: () => this.props.unlikePost(content.id),
-    //   dislikePost: () => this.props.dislikePost(content.id),
-    //   isPostLiked,
-    //   isPostDisliked,
-    //   contentList,
-    //   bookmarks: this.props.bookmarks,
-    //   toggleBookmark: this.props.toggleBookmark,
-    //   onEdit,
-    //   nextStory,
-    //   prevStory,
-    //   openPostModal: this.props.openPostModal,
-    //   modalResetScroll: this.props.modalResetScroll,
-    // };
 
     const postMetaData = jsonParse(content.json_metadata);
     const busyHost = global.postOrigin || 'https://busy.org';
@@ -191,7 +142,7 @@ export default class PostSingle extends Component {
         && bookmarks[loggedInUser.name].filter(bookmark => bookmark.id === content.id).length > 0,
       isLiked: userVote.percent > 0,
       isReported: userVote.percent < 0,
-      userFollowed: followingList.includes(content.author),
+      userFollowed: followList.includes(content.author),
     };
 
     const likePost = userVote.percent > 0
@@ -244,29 +195,23 @@ export default class PostSingle extends Component {
             </Affix>
             <div className="center">
               {
-                (loading && !pendingLikes.filter(post => post === content.id) > 0) ? <Loading /> :
-                <StoryFull
-                  post={content}
-                  postState={postState}
-                  pendingLike={pendingLikes.includes(content.id)}
-                  pendingFollow={pendingFollows.includes(content.author)}
-                  onFollowClick={this.handleFollowClick}
-                  onSaveClick={() => toggleBookmark(content.id, content.author, content.permlink)}
-                  onReportClick={reportPost}
-                  onLikeClick={likePost}
-                  onCommentClick={() => console.log('Comment click')}
-                  onShareClick={() => reblog(content.id)}
-                />
+                (loading && !pendingLikes.filter(post => post === content.id) > 0)
+                  ? <Loading />
+                  : <StoryFull
+                    post={content}
+                    postState={postState}
+                    pendingLike={pendingLikes.includes(content.id)}
+                    pendingFollow={pendingFollows.includes(content.author)}
+                    onFollowClick={this.handleFollowClick}
+                    onSaveClick={() => toggleBookmark(content.id, content.author, content.permlink)}
+                    onReportClick={reportPost}
+                    onLikeClick={likePost}
+                    onCommentClick={() => {}}
+                    onShareClick={() => reblog(content.id)}
+                  />
               }
             </div>
           </div>
-          {/* {content.author && !modal &&
-            <PostSinglePage {...theProps} />
-          }
-
-          {modal &&
-            <PostSingleModal {...theProps} />
-          }*/}
         </div>
       </div>
     );

@@ -1,3 +1,6 @@
+// NOTE: This file will be replaced with new version thus disabling eslint
+/* eslint-disable */
+
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';

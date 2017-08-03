@@ -11,8 +11,8 @@ import {
   isPostStartsWithAnEmbed,
   isPostWithPictureBeforeFirstHalf,
   isPostWithEmbedBeforeFirstHalf,
-} from '../../post/Feed/PostFeedCardHelper';
-import { getHtml } from '../../post/Body';
+} from './StoryHelper';
+import { getHtml } from './Body';
 
 const StoryPreview = ({ post }) => {
   const jsonMetadata = jsonParse(post.json_metadata);

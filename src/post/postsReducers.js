@@ -26,17 +26,17 @@ const initialState = {
 };
 
 const posts = (state = initialState, action) => {
-  const posts = {};
+  const postsTemp = {};
   switch (action.type) {
     case feedTypes.GET_FEED_CONTENT_SUCCESS:
     case feedTypes.GET_MORE_FEED_CONTENT_SUCCESS:
     case feedTypes.GET_USER_FEED_CONTENT_SUCCESS:
     case feedTypes.GET_MORE_USER_FEED_CONTENT_SUCCESS:
     case bookmarksActions.GET_BOOKMARKS_SUCCESS:
-      action.payload.postsData.forEach(post => posts[post.id] = post);
+      action.payload.postsData.forEach((post) => { postsTemp[post.id] = post; });
       return {
         ...state,
-        ...posts,
+        ...postsTemp,
       };
     case userActions.GET_USER_REPLIES_SUCCESS:
       return {
