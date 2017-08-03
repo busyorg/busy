@@ -106,7 +106,7 @@ export function uploadFile({ username, file, fileInput }) {
     payload: {
       promise: new Promise((resolve, reject) => {
         const request = new global.XMLHttpRequest();
-        request.open('POST', `${process.env.STEEMCONNECT_IMG_HOST}/@${username}/uploads`, true);
+        request.open('POST', `https://6a43di1nk2.execute-api.us-east-1.amazonaws.com/prod/@${username}/uploads`, true);
         // Send the proper header information along with the request
         request.setRequestHeader('Content-Type', fileDetails.type);
         request.onreadystatechange = () => {
