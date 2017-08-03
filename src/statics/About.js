@@ -5,7 +5,9 @@ import './About.less';
 export default () =>
   (<div className="main-panel">
     <div className="mt-5 text-center">
-      <h1><FormattedMessage id="about" defaultMessage="About" /></h1>
+      <h1>
+        <FormattedMessage id="about" defaultMessage="About" />
+      </h1>
       <p className="container pb-5">
         <FormattedMessage
           id="@statics/busy_mission"
@@ -24,8 +26,7 @@ export default () =>
             <FormattedMessage
               id="@statics/busy_mission_2"
               defaultMessage="Artists and User-generated content create billions dollars worth of value absorbed by the shareholders of these intermediaries and centralized services."
-            />
-            {' '}
+            />{' '}
             <FormattedMessage
               id="@statics/busy_mission3"
               defaultMessage="As a non-profit and decentralized organization, Busy provides the power of cryptocurrency and blockchain innovations within a platform that returns much of its value to the creators ensuring fair compensation."
@@ -45,13 +46,11 @@ export default () =>
             <FormattedMessage
               id="@statics/sharing_economy_2"
               defaultMessage="Uber or Airbnb are often described as the sharing economy, a nice notion that peers create and share in value. But these businesses have little to do with sharing, they in fact simply aggregate as middleman through their centralized, proprietary platforms and do resell by taking huge commissions."
-            />
-            {' '}
+            />{' '}
             <FormattedMessage
               id="@statics/sharing_economy_3"
               defaultMessage="Today's big disrupters are about to get disrupted!"
-            />
-            {' '}
+            />{' '}
             <FormattedMessage
               id="@statics/sharing_economy_4"
               defaultMessage="Busy aims to create a true peer-to-peer sharing economy without middleman and zero transaction fee that allows people to transact safely and freely."
@@ -71,8 +70,7 @@ export default () =>
             <FormattedMessage
               id="@statics/money_transfer_2"
               defaultMessage="The largest flow of funds into the developing world is not foreign aid but remittance money repatriated to poor countries from their families living abroad."
-            />
-            {' '}
+            />{' '}
             <FormattedMessage
               id="@statics/money_transfer_3"
               defaultMessage="Using Western Union, Moneygram and other centralized services, the process takes time, patience and cost from 5 to 25% commission."

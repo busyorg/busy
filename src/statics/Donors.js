@@ -8,7 +8,9 @@ import UserCard from '../widgets/UserCard';
 const Donors = () =>
   (<div className="main-panel">
     <div className="container text-center my-5">
-      <h1><FormattedMessage id="donors" defaultMessage="Donors" /></h1>
+      <h1>
+        <FormattedMessage id="donors" defaultMessage="Donors" />
+      </h1>
       <p>
         <FormattedMessage
           id="@statics/our_donors"
@@ -20,11 +22,15 @@ const Donors = () =>
         <FormattedMessage id="donate" defaultMessage="Donate" />
       </Link>
       <div className="row my-5">
-        {Object.keys(donors).map((user, idx) =>
+        {Object.keys(donors).map(user =>
           (<UserCard
-            key={idx}
+            key={user}
             username={user}
-            label={<h4><Donor rank={donors[user]} /></h4>}
+            label={
+              <h4>
+                <Donor rank={donors[user]} />
+              </h4>
+            }
           />),
         )}
       </div>

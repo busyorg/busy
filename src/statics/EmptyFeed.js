@@ -8,13 +8,9 @@ const EmptyFeed = () =>
       <FormattedMessage
         id="@statics/empty_feed"
         defaultMessage="Oops! This feed empty, here's a link to the"
-      />
-      {' '}
+      />{' '}
       <Link to="/">
-        <FormattedMessage
-          id="@statics/homepage"
-          defaultMessage="home page"
-        />
+        <FormattedMessage id="@statics/homepage" defaultMessage="home page" />
       </Link>
       .
     </h3>
