@@ -165,39 +165,6 @@ exports[`Storyshots Comments Comments 1`] = `
       </div>
     </div>
     <div
-      className="CommentForm"
-    >
-      <img
-        alt={undefined}
-        className="Avatar"
-        src="https://img.steemconnect.com/@steemconnect?s=40"
-        style={
-          Object {
-            "height": "40px",
-            "width": "40px",
-          }
-        }
-      />
-      <div
-        className="CommentForm__text"
-      >
-        <textarea
-          className="ant-input"
-          disabled={false}
-          onChange={[Function]}
-          onKeyDown={[Function]}
-          placeholder="Write a comment"
-          style={Object {}}
-          type="textarea"
-        />
-        <button
-          className="CommentForm__text__button"
-        >
-          Comment
-        </button>
-      </div>
-    </div>
-    <div
       className="Comment"
     >
       <span
@@ -215,6 +182,7 @@ exports[`Storyshots Comments Comments 1`] = `
         style={
           Object {
             "height": "40px",
+            "minWidth": "40px",
             "width": "40px",
           }
         }
@@ -249,9 +217,18 @@ exports[`Storyshots Comments Comments 1`] = `
         <div
           className="Comment__content"
         >
-          Good article, I like how much the Nasdaq looks like btc when it broke 1000 for the second time.  Nasdaq to 15,000?
-          
-          I just want to point out that ripples real market cap is nearly 3 times higher.
+          <div
+            className="Body"
+          >
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "<p>Good article, I like how much the Nasdaq looks like btc when it broke 1000 for the second time.  Nasdaq to 15,000?</p>
+                <p>I just want to point out that ripples real market cap is nearly 3 times higher.</p>",
+                }
+              }
+            />
+          </div>
         </div>
         <div
           className="Comment__footer"
@@ -307,12 +284,6 @@ exports[`Storyshots Comments Comments 1`] = `
           <span
             className="Comment__footer__bullet"
           />
-          <a
-            className="Comment__footer__link"
-            onClick={[Function]}
-          >
-            Reply
-          </a>
         </div>
         <div
           className="Comment__replies"
@@ -335,6 +306,7 @@ exports[`Storyshots Comments Comments 1`] = `
               style={
                 Object {
                   "height": "32px",
+                  "minWidth": "32px",
                   "width": "32px",
                 }
               }
@@ -369,7 +341,17 @@ exports[`Storyshots Comments Comments 1`] = `
               <div
                 className="Comment__content"
               >
-                Thank you! Yeah, the stock market doesn't seem to have any resistance these days.
+                <div
+                  className="Body"
+                >
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "<p>Thank you! Yeah, the stock market doesn't seem to have any resistance these days.</p>",
+                      }
+                    }
+                  />
+                </div>
               </div>
               <div
                 className="Comment__footer"
@@ -425,12 +407,6 @@ exports[`Storyshots Comments Comments 1`] = `
                 <span
                   className="Comment__footer__bullet"
                 />
-                <a
-                  className="Comment__footer__link"
-                  onClick={[Function]}
-                >
-                  Reply
-                </a>
               </div>
               <div
                 className="Comment__replies"
@@ -458,6 +434,7 @@ exports[`Storyshots Comments Comments 1`] = `
         style={
           Object {
             "height": "40px",
+            "minWidth": "40px",
             "width": "40px",
           }
         }
@@ -492,7 +469,17 @@ exports[`Storyshots Comments Comments 1`] = `
         <div
           className="Comment__content"
         >
-          Amazing article, Ola. Great work!
+          <div
+            className="Body"
+          >
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "<p>Amazing article, Ola. Great work!</p>",
+                }
+              }
+            />
+          </div>
         </div>
         <div
           className="Comment__footer"
@@ -548,12 +535,6 @@ exports[`Storyshots Comments Comments 1`] = `
           <span
             className="Comment__footer__bullet"
           />
-          <a
-            className="Comment__footer__link"
-            onClick={[Function]}
-          >
-            Reply
-          </a>
         </div>
         <div
           className="Comment__replies"
@@ -576,6 +557,7 @@ exports[`Storyshots Comments Comments 1`] = `
               style={
                 Object {
                   "height": "32px",
+                  "minWidth": "32px",
                   "width": "32px",
                 }
               }
@@ -610,7 +592,17 @@ exports[`Storyshots Comments Comments 1`] = `
               <div
                 className="Comment__content"
               >
-                Obrigado!
+                <div
+                  className="Body"
+                >
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "<p>Obrigado!</p>",
+                      }
+                    }
+                  />
+                </div>
               </div>
               <div
                 className="Comment__footer"
@@ -666,12 +658,6 @@ exports[`Storyshots Comments Comments 1`] = `
                 <span
                   className="Comment__footer__bullet"
                 />
-                <a
-                  className="Comment__footer__link"
-                  onClick={[Function]}
-                >
-                  Reply
-                </a>
               </div>
               <div
                 className="Comment__replies"
@@ -699,6 +685,7 @@ exports[`Storyshots Comments Comments 1`] = `
         style={
           Object {
             "height": "40px",
+            "minWidth": "40px",
             "width": "40px",
           }
         }
@@ -733,7 +720,17 @@ exports[`Storyshots Comments Comments 1`] = `
         <div
           className="Comment__content"
         >
-          great article. upvoted followed resteemed
+          <div
+            className="Body"
+          >
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "<p>great article. upvoted followed resteemed</p>",
+                }
+              }
+            />
+          </div>
         </div>
         <div
           className="Comment__footer"
@@ -789,12 +786,6 @@ exports[`Storyshots Comments Comments 1`] = `
           <span
             className="Comment__footer__bullet"
           />
-          <a
-            className="Comment__footer__link"
-            onClick={[Function]}
-          >
-            Reply
-          </a>
         </div>
         <div
           className="Comment__replies"
@@ -817,6 +808,7 @@ exports[`Storyshots Comments Comments 1`] = `
               style={
                 Object {
                   "height": "32px",
+                  "minWidth": "32px",
                   "width": "32px",
                 }
               }
@@ -851,7 +843,17 @@ exports[`Storyshots Comments Comments 1`] = `
               <div
                 className="Comment__content"
               >
-                4 times thank you :)
+                <div
+                  className="Body"
+                >
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "<p>4 times thank you :)</p>",
+                      }
+                    }
+                  />
+                </div>
               </div>
               <div
                 className="Comment__footer"
@@ -907,12 +909,6 @@ exports[`Storyshots Comments Comments 1`] = `
                 <span
                   className="Comment__footer__bullet"
                 />
-                <a
-                  className="Comment__footer__link"
-                  onClick={[Function]}
-                >
-                  Reply
-                </a>
               </div>
               <div
                 className="Comment__replies"
@@ -940,6 +936,7 @@ exports[`Storyshots Comments Comments 1`] = `
         style={
           Object {
             "height": "40px",
+            "minWidth": "40px",
             "width": "40px",
           }
         }
@@ -974,7 +971,17 @@ exports[`Storyshots Comments Comments 1`] = `
         <div
           className="Comment__content"
         >
-          Great analysis! Followed. Upvoted!
+          <div
+            className="Body"
+          >
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "<p>Great analysis! Followed. Upvoted!</p>",
+                }
+              }
+            />
+          </div>
         </div>
         <div
           className="Comment__footer"
@@ -1030,12 +1037,6 @@ exports[`Storyshots Comments Comments 1`] = `
           <span
             className="Comment__footer__bullet"
           />
-          <a
-            className="Comment__footer__link"
-            onClick={[Function]}
-          >
-            Reply
-          </a>
         </div>
         <div
           className="Comment__replies"
@@ -1058,6 +1059,7 @@ exports[`Storyshots Comments Comments 1`] = `
               style={
                 Object {
                   "height": "32px",
+                  "minWidth": "32px",
                   "width": "32px",
                 }
               }
@@ -1092,7 +1094,17 @@ exports[`Storyshots Comments Comments 1`] = `
               <div
                 className="Comment__content"
               >
-                Appreciate that x3 ;)
+                <div
+                  className="Body"
+                >
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "<p>Appreciate that x3 ;)</p>",
+                      }
+                    }
+                  />
+                </div>
               </div>
               <div
                 className="Comment__footer"
@@ -1148,12 +1160,6 @@ exports[`Storyshots Comments Comments 1`] = `
                 <span
                   className="Comment__footer__bullet"
                 />
-                <a
-                  className="Comment__footer__link"
-                  onClick={[Function]}
-                >
-                  Reply
-                </a>
               </div>
               <div
                 className="Comment__replies"
@@ -1181,6 +1187,7 @@ exports[`Storyshots Comments Comments 1`] = `
         style={
           Object {
             "height": "40px",
+            "minWidth": "40px",
             "width": "40px",
           }
         }
@@ -1215,7 +1222,17 @@ exports[`Storyshots Comments Comments 1`] = `
         <div
           className="Comment__content"
         >
-          Great article. I appreciate an objective view when it comes to comparing the various coins. Followed.
+          <div
+            className="Body"
+          >
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "<p>Great article. I appreciate an objective view when it comes to comparing the various coins. Followed.</p>",
+                }
+              }
+            />
+          </div>
         </div>
         <div
           className="Comment__footer"
@@ -1271,12 +1288,6 @@ exports[`Storyshots Comments Comments 1`] = `
           <span
             className="Comment__footer__bullet"
           />
-          <a
-            className="Comment__footer__link"
-            onClick={[Function]}
-          >
-            Reply
-          </a>
         </div>
         <div
           className="Comment__replies"
@@ -1299,6 +1310,7 @@ exports[`Storyshots Comments Comments 1`] = `
               style={
                 Object {
                   "height": "32px",
+                  "minWidth": "32px",
                   "width": "32px",
                 }
               }
@@ -1333,7 +1345,17 @@ exports[`Storyshots Comments Comments 1`] = `
               <div
                 className="Comment__content"
               >
-                Thank you. Yes, although it may be a bit challenging these days, we try to stay calm!
+                <div
+                  className="Body"
+                >
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "<p>Thank you. Yes, although it may be a bit challenging these days, we try to stay calm!</p>",
+                      }
+                    }
+                  />
+                </div>
               </div>
               <div
                 className="Comment__footer"
@@ -1389,12 +1411,6 @@ exports[`Storyshots Comments Comments 1`] = `
                 <span
                   className="Comment__footer__bullet"
                 />
-                <a
-                  className="Comment__footer__link"
-                  onClick={[Function]}
-                >
-                  Reply
-                </a>
               </div>
               <div
                 className="Comment__replies"
@@ -1422,6 +1438,7 @@ exports[`Storyshots Comments Comments 1`] = `
         style={
           Object {
             "height": "40px",
+            "minWidth": "40px",
             "width": "40px",
           }
         }
@@ -1456,8 +1473,18 @@ exports[`Storyshots Comments Comments 1`] = `
         <div
           className="Comment__content"
         >
-          good analysis
-          useful for investment
+          <div
+            className="Body"
+          >
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "<p>good analysis<br />
+                useful for investment</p>",
+                }
+              }
+            />
+          </div>
         </div>
         <div
           className="Comment__footer"
@@ -1513,12 +1540,6 @@ exports[`Storyshots Comments Comments 1`] = `
           <span
             className="Comment__footer__bullet"
           />
-          <a
-            className="Comment__footer__link"
-            onClick={[Function]}
-          >
-            Reply
-          </a>
         </div>
         <div
           className="Comment__replies"
@@ -1541,6 +1562,7 @@ exports[`Storyshots Comments Comments 1`] = `
               style={
                 Object {
                   "height": "32px",
+                  "minWidth": "32px",
                   "width": "32px",
                 }
               }
@@ -1575,7 +1597,17 @@ exports[`Storyshots Comments Comments 1`] = `
               <div
                 className="Comment__content"
               >
-                Glad it helps!
+                <div
+                  className="Body"
+                >
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "<p>Glad it helps!</p>",
+                      }
+                    }
+                  />
+                </div>
               </div>
               <div
                 className="Comment__footer"
@@ -1631,12 +1663,6 @@ exports[`Storyshots Comments Comments 1`] = `
                 <span
                   className="Comment__footer__bullet"
                 />
-                <a
-                  className="Comment__footer__link"
-                  onClick={[Function]}
-                >
-                  Reply
-                </a>
               </div>
               <div
                 className="Comment__replies"
@@ -1664,6 +1690,7 @@ exports[`Storyshots Comments Comments 1`] = `
         style={
           Object {
             "height": "40px",
+            "minWidth": "40px",
             "width": "40px",
           }
         }
@@ -1698,7 +1725,17 @@ exports[`Storyshots Comments Comments 1`] = `
         <div
           className="Comment__content"
         >
-          Some great details and analysis - enjoyed this!
+          <div
+            className="Body"
+          >
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "<p>Some great details and analysis - enjoyed this!</p>",
+                }
+              }
+            />
+          </div>
         </div>
         <div
           className="Comment__footer"
@@ -1754,12 +1791,6 @@ exports[`Storyshots Comments Comments 1`] = `
           <span
             className="Comment__footer__bullet"
           />
-          <a
-            className="Comment__footer__link"
-            onClick={[Function]}
-          >
-            Reply
-          </a>
         </div>
         <div
           className="Comment__replies"
@@ -1782,6 +1813,7 @@ exports[`Storyshots Comments Comments 1`] = `
               style={
                 Object {
                   "height": "32px",
+                  "minWidth": "32px",
                   "width": "32px",
                 }
               }
@@ -1816,7 +1848,17 @@ exports[`Storyshots Comments Comments 1`] = `
               <div
                 className="Comment__content"
               >
-                Thank you very much :)
+                <div
+                  className="Body"
+                >
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "<p>Thank you very much :)</p>",
+                      }
+                    }
+                  />
+                </div>
               </div>
               <div
                 className="Comment__footer"
@@ -1872,12 +1914,6 @@ exports[`Storyshots Comments Comments 1`] = `
                 <span
                   className="Comment__footer__bullet"
                 />
-                <a
-                  className="Comment__footer__link"
-                  onClick={[Function]}
-                >
-                  Reply
-                </a>
               </div>
               <div
                 className="Comment__replies"
@@ -1905,6 +1941,7 @@ exports[`Storyshots Comments Comments 1`] = `
         style={
           Object {
             "height": "40px",
+            "minWidth": "40px",
             "width": "40px",
           }
         }
@@ -1939,7 +1976,17 @@ exports[`Storyshots Comments Comments 1`] = `
         <div
           className="Comment__content"
         >
-          Great post, deserves a follow!
+          <div
+            className="Body"
+          >
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "<p>Great post, deserves a follow!</p>",
+                }
+              }
+            />
+          </div>
         </div>
         <div
           className="Comment__footer"
@@ -1995,12 +2042,6 @@ exports[`Storyshots Comments Comments 1`] = `
           <span
             className="Comment__footer__bullet"
           />
-          <a
-            className="Comment__footer__link"
-            onClick={[Function]}
-          >
-            Reply
-          </a>
         </div>
         <div
           className="Comment__replies"
@@ -2023,6 +2064,7 @@ exports[`Storyshots Comments Comments 1`] = `
               style={
                 Object {
                   "height": "32px",
+                  "minWidth": "32px",
                   "width": "32px",
                 }
               }
@@ -2057,7 +2099,17 @@ exports[`Storyshots Comments Comments 1`] = `
               <div
                 className="Comment__content"
               >
-                Cheers liad242 :)
+                <div
+                  className="Body"
+                >
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "<p>Cheers liad242 :)</p>",
+                      }
+                    }
+                  />
+                </div>
               </div>
               <div
                 className="Comment__footer"
@@ -2113,12 +2165,6 @@ exports[`Storyshots Comments Comments 1`] = `
                 <span
                   className="Comment__footer__bullet"
                 />
-                <a
-                  className="Comment__footer__link"
-                  onClick={[Function]}
-                >
-                  Reply
-                </a>
               </div>
               <div
                 className="Comment__replies"
@@ -2146,6 +2192,7 @@ exports[`Storyshots Comments Comments 1`] = `
         style={
           Object {
             "height": "40px",
+            "minWidth": "40px",
             "width": "40px",
           }
         }
@@ -2180,7 +2227,17 @@ exports[`Storyshots Comments Comments 1`] = `
         <div
           className="Comment__content"
         >
-          Very interesting article mate . didn't understand all of it but I'm a bit new at this cryptocurrency
+          <div
+            className="Body"
+          >
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "<p>Very interesting article mate . didn't understand all of it but I'm a bit new at this cryptocurrency</p>",
+                }
+              }
+            />
+          </div>
         </div>
         <div
           className="Comment__footer"
@@ -2236,12 +2293,6 @@ exports[`Storyshots Comments Comments 1`] = `
           <span
             className="Comment__footer__bullet"
           />
-          <a
-            className="Comment__footer__link"
-            onClick={[Function]}
-          >
-            Reply
-          </a>
         </div>
         <div
           className="Comment__replies"
@@ -2264,6 +2315,7 @@ exports[`Storyshots Comments Comments 1`] = `
               style={
                 Object {
                   "height": "32px",
+                  "minWidth": "32px",
                   "width": "32px",
                 }
               }
@@ -2298,7 +2350,17 @@ exports[`Storyshots Comments Comments 1`] = `
               <div
                 className="Comment__content"
               >
-                Thanks. What exactly did you not grasp?
+                <div
+                  className="Body"
+                >
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "<p>Thanks. What exactly did you not grasp?</p>",
+                      }
+                    }
+                  />
+                </div>
               </div>
               <div
                 className="Comment__footer"
@@ -2354,12 +2416,6 @@ exports[`Storyshots Comments Comments 1`] = `
                 <span
                   className="Comment__footer__bullet"
                 />
-                <a
-                  className="Comment__footer__link"
-                  onClick={[Function]}
-                >
-                  Reply
-                </a>
               </div>
               <div
                 className="Comment__replies"
@@ -2382,6 +2438,7 @@ exports[`Storyshots Comments Comments 1`] = `
                     style={
                       Object {
                         "height": "32px",
+                        "minWidth": "32px",
                         "width": "32px",
                       }
                     }
@@ -2416,7 +2473,17 @@ exports[`Storyshots Comments Comments 1`] = `
                     <div
                       className="Comment__content"
                     >
-                      Icos ipos the is a lot of new language for me to understand but I will try cheers for the reply mate
+                      <div
+                        className="Body"
+                      >
+                        <div
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "<p>Icos ipos the is a lot of new language for me to understand but I will try cheers for the reply mate</p>",
+                            }
+                          }
+                        />
+                      </div>
                     </div>
                     <div
                       className="Comment__footer"
@@ -2472,12 +2539,6 @@ exports[`Storyshots Comments Comments 1`] = `
                       <span
                         className="Comment__footer__bullet"
                       />
-                      <a
-                        className="Comment__footer__link"
-                        onClick={[Function]}
-                      >
-                        Reply
-                      </a>
                     </div>
                     <div
                       className="Comment__replies"
@@ -2500,6 +2561,7 @@ exports[`Storyshots Comments Comments 1`] = `
                           style={
                             Object {
                               "height": "32px",
+                              "minWidth": "32px",
                               "width": "32px",
                             }
                           }
@@ -2534,7 +2596,17 @@ exports[`Storyshots Comments Comments 1`] = `
                           <div
                             className="Comment__content"
                           >
-                            What Snapchat did earlier this year was an IPO, when their stock became for the first time was offered to the public, like you and me, on a regular stock exchange. They issued a regular stock, but imagine if they had made SnapchatCoin instead, and you could buy SnapchatCoin on Poloniex. That would have been an ICO :)
+                            <div
+                              className="Body"
+                            >
+                              <div
+                                dangerouslySetInnerHTML={
+                                  Object {
+                                    "__html": "<p>What Snapchat did earlier this year was an IPO, when their stock became for the first time was offered to the public, like you and me, on a regular stock exchange. They issued a regular stock, but imagine if they had made SnapchatCoin instead, and you could buy SnapchatCoin on Poloniex. That would have been an ICO :)</p>",
+                                  }
+                                }
+                              />
+                            </div>
                           </div>
                           <div
                             className="Comment__footer"
@@ -2590,12 +2662,6 @@ exports[`Storyshots Comments Comments 1`] = `
                             <span
                               className="Comment__footer__bullet"
                             />
-                            <a
-                              className="Comment__footer__link"
-                              onClick={[Function]}
-                            >
-                              Reply
-                            </a>
                           </div>
                           <div
                             className="Comment__replies"
@@ -2618,6 +2684,7 @@ exports[`Storyshots Comments Comments 1`] = `
                                 style={
                                   Object {
                                     "height": "32px",
+                                    "minWidth": "32px",
                                     "width": "32px",
                                   }
                                 }
@@ -2652,7 +2719,17 @@ exports[`Storyshots Comments Comments 1`] = `
                                 <div
                                   className="Comment__content"
                                 >
-                                  Thanks that's a little bit easier to understand bite sizes for I think cheers mate
+                                  <div
+                                    className="Body"
+                                  >
+                                    <div
+                                      dangerouslySetInnerHTML={
+                                        Object {
+                                          "__html": "<p>Thanks that's a little bit easier to understand bite sizes for I think cheers mate</p>",
+                                        }
+                                      }
+                                    />
+                                  </div>
                                 </div>
                                 <div
                                   className="Comment__footer"
@@ -2708,12 +2785,6 @@ exports[`Storyshots Comments Comments 1`] = `
                                   <span
                                     className="Comment__footer__bullet"
                                   />
-                                  <a
-                                    className="Comment__footer__link"
-                                    onClick={[Function]}
-                                  >
-                                    Reply
-                                  </a>
                                 </div>
                                 <div
                                   className="Comment__replies"
@@ -2750,6 +2821,7 @@ exports[`Storyshots Comments Comments 1`] = `
         style={
           Object {
             "height": "40px",
+            "minWidth": "40px",
             "width": "40px",
           }
         }
@@ -2784,7 +2856,17 @@ exports[`Storyshots Comments Comments 1`] = `
         <div
           className="Comment__content"
         >
-          Up!😉
+          <div
+            className="Body"
+          >
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "<p>Up!😉</p>",
+                }
+              }
+            />
+          </div>
         </div>
         <div
           className="Comment__footer"
@@ -2840,12 +2922,6 @@ exports[`Storyshots Comments Comments 1`] = `
           <span
             className="Comment__footer__bullet"
           />
-          <a
-            className="Comment__footer__link"
-            onClick={[Function]}
-          >
-            Reply
-          </a>
         </div>
         <div
           className="Comment__replies"
@@ -2868,6 +2944,7 @@ exports[`Storyshots Comments Comments 1`] = `
               style={
                 Object {
                   "height": "32px",
+                  "minWidth": "32px",
                   "width": "32px",
                 }
               }
@@ -2902,7 +2979,17 @@ exports[`Storyshots Comments Comments 1`] = `
               <div
                 className="Comment__content"
               >
-                Cheers!
+                <div
+                  className="Body"
+                >
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "<p>Cheers!</p>",
+                      }
+                    }
+                  />
+                </div>
               </div>
               <div
                 className="Comment__footer"
@@ -2958,12 +3045,6 @@ exports[`Storyshots Comments Comments 1`] = `
                 <span
                   className="Comment__footer__bullet"
                 />
-                <a
-                  className="Comment__footer__link"
-                  onClick={[Function]}
-                >
-                  Reply
-                </a>
               </div>
               <div
                 className="Comment__replies"
@@ -2991,6 +3072,7 @@ exports[`Storyshots Comments Comments 1`] = `
         style={
           Object {
             "height": "40px",
+            "minWidth": "40px",
             "width": "40px",
           }
         }
@@ -3025,7 +3107,17 @@ exports[`Storyshots Comments Comments 1`] = `
         <div
           className="Comment__content"
         >
-          I think it can only grow and get better from here. More and more attention is paid into this space and with that, we have more funds and more talented people like Dan, who can create wonderful things with this technology.
+          <div
+            className="Body"
+          >
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "<p>I think it can only grow and get better from here. More and more attention is paid into this space and with that, we have more funds and more talented people like Dan, who can create wonderful things with this technology.</p>",
+                }
+              }
+            />
+          </div>
         </div>
         <div
           className="Comment__footer"
@@ -3081,12 +3173,6 @@ exports[`Storyshots Comments Comments 1`] = `
           <span
             className="Comment__footer__bullet"
           />
-          <a
-            className="Comment__footer__link"
-            onClick={[Function]}
-          >
-            Reply
-          </a>
         </div>
         <div
           className="Comment__replies"
@@ -3109,6 +3195,7 @@ exports[`Storyshots Comments Comments 1`] = `
               style={
                 Object {
                   "height": "32px",
+                  "minWidth": "32px",
                   "width": "32px",
                 }
               }
@@ -3143,7 +3230,17 @@ exports[`Storyshots Comments Comments 1`] = `
               <div
                 className="Comment__content"
               >
-                It's definitely hard to see a ceiling, but I am sure we'll experience hefty corrections along the way.
+                <div
+                  className="Body"
+                >
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "<p>It's definitely hard to see a ceiling, but I am sure we'll experience hefty corrections along the way.</p>",
+                      }
+                    }
+                  />
+                </div>
               </div>
               <div
                 className="Comment__footer"
@@ -3199,12 +3296,6 @@ exports[`Storyshots Comments Comments 1`] = `
                 <span
                   className="Comment__footer__bullet"
                 />
-                <a
-                  className="Comment__footer__link"
-                  onClick={[Function]}
-                >
-                  Reply
-                </a>
               </div>
               <div
                 className="Comment__replies"
@@ -3232,6 +3323,7 @@ exports[`Storyshots Comments Comments 1`] = `
         style={
           Object {
             "height": "40px",
+            "minWidth": "40px",
             "width": "40px",
           }
         }
@@ -3266,7 +3358,17 @@ exports[`Storyshots Comments Comments 1`] = `
         <div
           className="Comment__content"
         >
-          Yes, If you invested 2 bitcoin in ETH ICO and hold, you'll be millionaire now.
+          <div
+            className="Body"
+          >
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "<p>Yes, If you invested 2 bitcoin in ETH ICO and hold, you'll be millionaire now.</p>",
+                }
+              }
+            />
+          </div>
         </div>
         <div
           className="Comment__footer"
@@ -3322,12 +3424,6 @@ exports[`Storyshots Comments Comments 1`] = `
           <span
             className="Comment__footer__bullet"
           />
-          <a
-            className="Comment__footer__link"
-            onClick={[Function]}
-          >
-            Reply
-          </a>
         </div>
         <div
           className="Comment__replies"
@@ -3350,6 +3446,7 @@ exports[`Storyshots Comments Comments 1`] = `
               style={
                 Object {
                   "height": "32px",
+                  "minWidth": "32px",
                   "width": "32px",
                 }
               }
@@ -3384,7 +3481,17 @@ exports[`Storyshots Comments Comments 1`] = `
               <div
                 className="Comment__content"
               >
-                Damn! Even at bitcoin's low price at the time?
+                <div
+                  className="Body"
+                >
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "<p>Damn! Even at bitcoin's low price at the time?</p>",
+                      }
+                    }
+                  />
+                </div>
               </div>
               <div
                 className="Comment__footer"
@@ -3440,12 +3547,6 @@ exports[`Storyshots Comments Comments 1`] = `
                 <span
                   className="Comment__footer__bullet"
                 />
-                <a
-                  className="Comment__footer__link"
-                  onClick={[Function]}
-                >
-                  Reply
-                </a>
               </div>
               <div
                 className="Comment__replies"
@@ -3473,6 +3574,7 @@ exports[`Storyshots Comments Comments 1`] = `
         style={
           Object {
             "height": "40px",
+            "minWidth": "40px",
             "width": "40px",
           }
         }
@@ -3507,7 +3609,17 @@ exports[`Storyshots Comments Comments 1`] = `
         <div
           className="Comment__content"
         >
-          Great post, I upvoted. Cryptocurrency is very unknown, I'm from Belgium and studying Computer Science. But none of my friends do really know it. They think cryptocurrency = Bitcoin and that's it
+          <div
+            className="Body"
+          >
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "<p>Great post, I upvoted. Cryptocurrency is very unknown, I'm from Belgium and studying Computer Science. But none of my friends do really know it. They think cryptocurrency = Bitcoin and that's it</p>",
+                }
+              }
+            />
+          </div>
         </div>
         <div
           className="Comment__footer"
@@ -3563,12 +3675,6 @@ exports[`Storyshots Comments Comments 1`] = `
           <span
             className="Comment__footer__bullet"
           />
-          <a
-            className="Comment__footer__link"
-            onClick={[Function]}
-          >
-            Reply
-          </a>
         </div>
         <div
           className="Comment__replies"
@@ -3591,6 +3697,7 @@ exports[`Storyshots Comments Comments 1`] = `
               style={
                 Object {
                   "height": "32px",
+                  "minWidth": "32px",
                   "width": "32px",
                 }
               }
@@ -3625,7 +3732,17 @@ exports[`Storyshots Comments Comments 1`] = `
               <div
                 className="Comment__content"
               >
-                You would think a group of computer scientists would be very familiar with Bitcoin! But I guess that's just a sign it is still very early days.
+                <div
+                  className="Body"
+                >
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "<p>You would think a group of computer scientists would be very familiar with Bitcoin! But I guess that's just a sign it is still very early days.</p>",
+                      }
+                    }
+                  />
+                </div>
               </div>
               <div
                 className="Comment__footer"
@@ -3681,12 +3798,6 @@ exports[`Storyshots Comments Comments 1`] = `
                 <span
                   className="Comment__footer__bullet"
                 />
-                <a
-                  className="Comment__footer__link"
-                  onClick={[Function]}
-                >
-                  Reply
-                </a>
               </div>
               <div
                 className="Comment__replies"
@@ -3709,6 +3820,7 @@ exports[`Storyshots Comments Comments 1`] = `
                     style={
                       Object {
                         "height": "32px",
+                        "minWidth": "32px",
                         "width": "32px",
                       }
                     }
@@ -3743,7 +3855,17 @@ exports[`Storyshots Comments Comments 1`] = `
                     <div
                       className="Comment__content"
                     >
-                      I just thought they would know it's not just BTC but over 500 other currencies. But yeah you're right this proves that there is a big future for the cryptomarket
+                      <div
+                        className="Body"
+                      >
+                        <div
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "<p>I just thought they would know it's not just BTC but over 500 other currencies. But yeah you're right this proves that there is a big future for the cryptomarket</p>",
+                            }
+                          }
+                        />
+                      </div>
                     </div>
                     <div
                       className="Comment__footer"
@@ -3799,12 +3921,6 @@ exports[`Storyshots Comments Comments 1`] = `
                       <span
                         className="Comment__footer__bullet"
                       />
-                      <a
-                        className="Comment__footer__link"
-                        onClick={[Function]}
-                      >
-                        Reply
-                      </a>
                     </div>
                     <div
                       className="Comment__replies"
@@ -3835,6 +3951,7 @@ exports[`Storyshots Comments Comments 1`] = `
         style={
           Object {
             "height": "40px",
+            "minWidth": "40px",
             "width": "40px",
           }
         }
@@ -3869,7 +3986,17 @@ exports[`Storyshots Comments Comments 1`] = `
         <div
           className="Comment__content"
         >
-          I Prefer silver much more over any cryptocurrency at this moment.
+          <div
+            className="Body"
+          >
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "<p>I Prefer silver much more over any cryptocurrency at this moment.</p>",
+                }
+              }
+            />
+          </div>
         </div>
         <div
           className="Comment__footer"
@@ -3925,12 +4052,6 @@ exports[`Storyshots Comments Comments 1`] = `
           <span
             className="Comment__footer__bullet"
           />
-          <a
-            className="Comment__footer__link"
-            onClick={[Function]}
-          >
-            Reply
-          </a>
         </div>
         <div
           className="Comment__replies"
@@ -3953,6 +4074,7 @@ exports[`Storyshots Comments Comments 1`] = `
               style={
                 Object {
                   "height": "32px",
+                  "minWidth": "32px",
                   "width": "32px",
                 }
               }
@@ -3987,7 +4109,17 @@ exports[`Storyshots Comments Comments 1`] = `
               <div
                 className="Comment__content"
               >
-                Can't say I am opposed to silver either :) But how long before it seriously breaks out??
+                <div
+                  className="Body"
+                >
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "<p>Can't say I am opposed to silver either :) But how long before it seriously breaks out??</p>",
+                      }
+                    }
+                  />
+                </div>
               </div>
               <div
                 className="Comment__footer"
@@ -4043,12 +4175,6 @@ exports[`Storyshots Comments Comments 1`] = `
                 <span
                   className="Comment__footer__bullet"
                 />
-                <a
-                  className="Comment__footer__link"
-                  onClick={[Function]}
-                >
-                  Reply
-                </a>
               </div>
               <div
                 className="Comment__replies"
@@ -4076,6 +4202,7 @@ exports[`Storyshots Comments Comments 1`] = `
         style={
           Object {
             "height": "40px",
+            "minWidth": "40px",
             "width": "40px",
           }
         }
@@ -4110,7 +4237,17 @@ exports[`Storyshots Comments Comments 1`] = `
         <div
           className="Comment__content"
         >
-          Perfect explanation! Upvoted and resteemed!
+          <div
+            className="Body"
+          >
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "<p>Perfect explanation! Upvoted and resteemed!</p>",
+                }
+              }
+            />
+          </div>
         </div>
         <div
           className="Comment__footer"
@@ -4166,12 +4303,6 @@ exports[`Storyshots Comments Comments 1`] = `
           <span
             className="Comment__footer__bullet"
           />
-          <a
-            className="Comment__footer__link"
-            onClick={[Function]}
-          >
-            Reply
-          </a>
         </div>
         <div
           className="Comment__replies"
@@ -4194,6 +4325,7 @@ exports[`Storyshots Comments Comments 1`] = `
               style={
                 Object {
                   "height": "32px",
+                  "minWidth": "32px",
                   "width": "32px",
                 }
               }
@@ -4228,7 +4360,17 @@ exports[`Storyshots Comments Comments 1`] = `
               <div
                 className="Comment__content"
               >
-                Thanks a lot!
+                <div
+                  className="Body"
+                >
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "<p>Thanks a lot!</p>",
+                      }
+                    }
+                  />
+                </div>
               </div>
               <div
                 className="Comment__footer"
@@ -4284,12 +4426,6 @@ exports[`Storyshots Comments Comments 1`] = `
                 <span
                   className="Comment__footer__bullet"
                 />
-                <a
-                  className="Comment__footer__link"
-                  onClick={[Function]}
-                >
-                  Reply
-                </a>
               </div>
               <div
                 className="Comment__replies"
@@ -4317,6 +4453,7 @@ exports[`Storyshots Comments Comments 1`] = `
         style={
           Object {
             "height": "40px",
+            "minWidth": "40px",
             "width": "40px",
           }
         }
@@ -4351,7 +4488,17 @@ exports[`Storyshots Comments Comments 1`] = `
         <div
           className="Comment__content"
         >
-          I hope this is for real not just a pump and dump,good post!
+          <div
+            className="Body"
+          >
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "<p>I hope this is for real not just a pump and dump,good post!</p>",
+                }
+              }
+            />
+          </div>
         </div>
         <div
           className="Comment__footer"
@@ -4407,12 +4554,6 @@ exports[`Storyshots Comments Comments 1`] = `
           <span
             className="Comment__footer__bullet"
           />
-          <a
-            className="Comment__footer__link"
-            onClick={[Function]}
-          >
-            Reply
-          </a>
         </div>
         <div
           className="Comment__replies"
@@ -4435,6 +4576,7 @@ exports[`Storyshots Comments Comments 1`] = `
               style={
                 Object {
                   "height": "32px",
+                  "minWidth": "32px",
                   "width": "32px",
                 }
               }
@@ -4469,7 +4611,17 @@ exports[`Storyshots Comments Comments 1`] = `
               <div
                 className="Comment__content"
               >
-                Thank you, certainly not trying to pump anything :) There is very high risk, and there is actually no guarantee the SEC won't intervene and start considering ICOs as IPOs.
+                <div
+                  className="Body"
+                >
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "<p>Thank you, certainly not trying to pump anything :) There is very high risk, and there is actually no guarantee the SEC won't intervene and start considering ICOs as IPOs.</p>",
+                      }
+                    }
+                  />
+                </div>
               </div>
               <div
                 className="Comment__footer"
@@ -4525,12 +4677,6 @@ exports[`Storyshots Comments Comments 1`] = `
                 <span
                   className="Comment__footer__bullet"
                 />
-                <a
-                  className="Comment__footer__link"
-                  onClick={[Function]}
-                >
-                  Reply
-                </a>
               </div>
               <div
                 className="Comment__replies"
@@ -4558,6 +4704,7 @@ exports[`Storyshots Comments Comments 1`] = `
         style={
           Object {
             "height": "40px",
+            "minWidth": "40px",
             "width": "40px",
           }
         }
@@ -4592,7 +4739,17 @@ exports[`Storyshots Comments Comments 1`] = `
         <div
           className="Comment__content"
         >
-          Good content. For all those people who mind coins year ago. They are surely worth it now.
+          <div
+            className="Body"
+          >
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "<p>Good content. For all those people who mind coins year ago. They are surely worth it now.</p>",
+                }
+              }
+            />
+          </div>
         </div>
         <div
           className="Comment__footer"
@@ -4648,12 +4805,6 @@ exports[`Storyshots Comments Comments 1`] = `
           <span
             className="Comment__footer__bullet"
           />
-          <a
-            className="Comment__footer__link"
-            onClick={[Function]}
-          >
-            Reply
-          </a>
         </div>
         <div
           className="Comment__replies"
@@ -4676,6 +4827,7 @@ exports[`Storyshots Comments Comments 1`] = `
               style={
                 Object {
                   "height": "32px",
+                  "minWidth": "32px",
                   "width": "32px",
                 }
               }
@@ -4710,7 +4862,17 @@ exports[`Storyshots Comments Comments 1`] = `
               <div
                 className="Comment__content"
               >
-                Yes, everyone should have done that, but the second time to invest in (and mine) cryptocurrencies is always now ;)
+                <div
+                  className="Body"
+                >
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "<p>Yes, everyone should have done that, but the second time to invest in (and mine) cryptocurrencies is always now ;)</p>",
+                      }
+                    }
+                  />
+                </div>
               </div>
               <div
                 className="Comment__footer"
@@ -4766,12 +4928,6 @@ exports[`Storyshots Comments Comments 1`] = `
                 <span
                   className="Comment__footer__bullet"
                 />
-                <a
-                  className="Comment__footer__link"
-                  onClick={[Function]}
-                >
-                  Reply
-                </a>
               </div>
               <div
                 className="Comment__replies"
@@ -4799,6 +4955,7 @@ exports[`Storyshots Comments Comments 1`] = `
         style={
           Object {
             "height": "40px",
+            "minWidth": "40px",
             "width": "40px",
           }
         }
@@ -4833,7 +4990,17 @@ exports[`Storyshots Comments Comments 1`] = `
         <div
           className="Comment__content"
         >
-          good post and well explanatory
+          <div
+            className="Body"
+          >
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "<p>good post and well explanatory</p>",
+                }
+              }
+            />
+          </div>
         </div>
         <div
           className="Comment__footer"
@@ -4889,12 +5056,6 @@ exports[`Storyshots Comments Comments 1`] = `
           <span
             className="Comment__footer__bullet"
           />
-          <a
-            className="Comment__footer__link"
-            onClick={[Function]}
-          >
-            Reply
-          </a>
         </div>
         <div
           className="Comment__replies"
@@ -4917,6 +5078,7 @@ exports[`Storyshots Comments Comments 1`] = `
               style={
                 Object {
                   "height": "32px",
+                  "minWidth": "32px",
                   "width": "32px",
                 }
               }
@@ -4951,7 +5113,17 @@ exports[`Storyshots Comments Comments 1`] = `
               <div
                 className="Comment__content"
               >
-                Thanks
+                <div
+                  className="Body"
+                >
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "<p>Thanks</p>",
+                      }
+                    }
+                  />
+                </div>
               </div>
               <div
                 className="Comment__footer"
@@ -5007,12 +5179,6 @@ exports[`Storyshots Comments Comments 1`] = `
                 <span
                   className="Comment__footer__bullet"
                 />
-                <a
-                  className="Comment__footer__link"
-                  onClick={[Function]}
-                >
-                  Reply
-                </a>
               </div>
               <div
                 className="Comment__replies"
@@ -5040,6 +5206,7 @@ exports[`Storyshots Comments Comments 1`] = `
         style={
           Object {
             "height": "40px",
+            "minWidth": "40px",
             "width": "40px",
           }
         }
@@ -5074,7 +5241,17 @@ exports[`Storyshots Comments Comments 1`] = `
         <div
           className="Comment__content"
         >
-          Excellent article and analysis of the emerging cryptoeconomy many have yet to find that will grow to $500 B in less than 1 year.Following you and upvoted. Follow me @ptytrader
+          <div
+            className="Body"
+          >
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "<p>Excellent article and analysis of the emerging cryptoeconomy many have yet to find that will grow to $500 B in less than 1 year.Following you and upvoted. Follow me <a href=\\"/@ptytrader\\">@ptytrader</a></p>",
+                }
+              }
+            />
+          </div>
         </div>
         <div
           className="Comment__footer"
@@ -5130,12 +5307,6 @@ exports[`Storyshots Comments Comments 1`] = `
           <span
             className="Comment__footer__bullet"
           />
-          <a
-            className="Comment__footer__link"
-            onClick={[Function]}
-          >
-            Reply
-          </a>
         </div>
         <div
           className="Comment__replies"
@@ -5158,6 +5329,7 @@ exports[`Storyshots Comments Comments 1`] = `
               style={
                 Object {
                   "height": "32px",
+                  "minWidth": "32px",
                   "width": "32px",
                 }
               }
@@ -5192,7 +5364,17 @@ exports[`Storyshots Comments Comments 1`] = `
               <div
                 className="Comment__content"
               >
-                Thank you ;)
+                <div
+                  className="Body"
+                >
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "<p>Thank you ;)</p>",
+                      }
+                    }
+                  />
+                </div>
               </div>
               <div
                 className="Comment__footer"
@@ -5248,12 +5430,6 @@ exports[`Storyshots Comments Comments 1`] = `
                 <span
                   className="Comment__footer__bullet"
                 />
-                <a
-                  className="Comment__footer__link"
-                  onClick={[Function]}
-                >
-                  Reply
-                </a>
               </div>
               <div
                 className="Comment__replies"
@@ -5281,6 +5457,7 @@ exports[`Storyshots Comments Comments 1`] = `
         style={
           Object {
             "height": "40px",
+            "minWidth": "40px",
             "width": "40px",
           }
         }
@@ -5315,7 +5492,17 @@ exports[`Storyshots Comments Comments 1`] = `
         <div
           className="Comment__content"
         >
-          99% of the people dont know about cryptocurrency, all my friends know about bitcoin and they think that the name for  all coins is bitcoin :) . So the ceiling is high very high.
+          <div
+            className="Body"
+          >
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "<p>99% of the people dont know about cryptocurrency, all my friends know about bitcoin and they think that the name for  all coins is bitcoin :) . So the ceiling is high very high.</p>",
+                }
+              }
+            />
+          </div>
         </div>
         <div
           className="Comment__footer"
@@ -5371,12 +5558,6 @@ exports[`Storyshots Comments Comments 1`] = `
           <span
             className="Comment__footer__bullet"
           />
-          <a
-            className="Comment__footer__link"
-            onClick={[Function]}
-          >
-            Reply
-          </a>
         </div>
         <div
           className="Comment__replies"
@@ -5399,6 +5580,7 @@ exports[`Storyshots Comments Comments 1`] = `
               style={
                 Object {
                   "height": "32px",
+                  "minWidth": "32px",
                   "width": "32px",
                 }
               }
@@ -5433,7 +5615,17 @@ exports[`Storyshots Comments Comments 1`] = `
               <div
                 className="Comment__content"
               >
-                Exactly. Looks like there is a long way to go.
+                <div
+                  className="Body"
+                >
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "<p>Exactly. Looks like there is a long way to go.</p>",
+                      }
+                    }
+                  />
+                </div>
               </div>
               <div
                 className="Comment__footer"
@@ -5489,12 +5681,6 @@ exports[`Storyshots Comments Comments 1`] = `
                 <span
                   className="Comment__footer__bullet"
                 />
-                <a
-                  className="Comment__footer__link"
-                  onClick={[Function]}
-                >
-                  Reply
-                </a>
               </div>
               <div
                 className="Comment__replies"
@@ -5522,6 +5708,7 @@ exports[`Storyshots Comments Comments 1`] = `
         style={
           Object {
             "height": "40px",
+            "minWidth": "40px",
             "width": "40px",
           }
         }
@@ -5556,10 +5743,19 @@ exports[`Storyshots Comments Comments 1`] = `
         <div
           className="Comment__content"
         >
-          even if it was to crash. it's still brought value to their communities and awaiting the day it rises. but some are waiting for that dip too to get into it as well.
-          
-          asset class. good point.
-          That bull pic that looks like it's rises with arrows got my attention. Also when you said cryptocurrency rally, I thought someone was having a protest.
+          <div
+            className="Body"
+          >
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "<p>even if it was to crash. it's still brought value to their communities and awaiting the day it rises. but some are waiting for that dip too to get into it as well.</p>
+                <p>asset class. good point.<br />
+                That bull pic that looks like it's rises with arrows got my attention. Also when you said cryptocurrency rally, I thought someone was having a protest.</p>",
+                }
+              }
+            />
+          </div>
         </div>
         <div
           className="Comment__footer"
@@ -5615,12 +5811,6 @@ exports[`Storyshots Comments Comments 1`] = `
           <span
             className="Comment__footer__bullet"
           />
-          <a
-            className="Comment__footer__link"
-            onClick={[Function]}
-          >
-            Reply
-          </a>
         </div>
         <div
           className="Comment__replies"
@@ -5643,6 +5833,7 @@ exports[`Storyshots Comments Comments 1`] = `
               style={
                 Object {
                   "height": "32px",
+                  "minWidth": "32px",
                   "width": "32px",
                 }
               }
@@ -5677,7 +5868,17 @@ exports[`Storyshots Comments Comments 1`] = `
               <div
                 className="Comment__content"
               >
-                I am glad the angry mob will never be able to rally and attack the Bitcoin headquarters :)
+                <div
+                  className="Body"
+                >
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "<p>I am glad the angry mob will never be able to rally and attack the Bitcoin headquarters :)</p>",
+                      }
+                    }
+                  />
+                </div>
               </div>
               <div
                 className="Comment__footer"
@@ -5733,12 +5934,6 @@ exports[`Storyshots Comments Comments 1`] = `
                 <span
                   className="Comment__footer__bullet"
                 />
-                <a
-                  className="Comment__footer__link"
-                  onClick={[Function]}
-                >
-                  Reply
-                </a>
               </div>
               <div
                 className="Comment__replies"
@@ -5766,6 +5961,7 @@ exports[`Storyshots Comments Comments 1`] = `
         style={
           Object {
             "height": "40px",
+            "minWidth": "40px",
             "width": "40px",
           }
         }
@@ -5800,7 +5996,17 @@ exports[`Storyshots Comments Comments 1`] = `
         <div
           className="Comment__content"
         >
-          Excellent synopsis! Followed and upvoted.
+          <div
+            className="Body"
+          >
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "<p>Excellent synopsis! Followed and upvoted.</p>",
+                }
+              }
+            />
+          </div>
         </div>
         <div
           className="Comment__footer"
@@ -5856,12 +6062,6 @@ exports[`Storyshots Comments Comments 1`] = `
           <span
             className="Comment__footer__bullet"
           />
-          <a
-            className="Comment__footer__link"
-            onClick={[Function]}
-          >
-            Reply
-          </a>
         </div>
         <div
           className="Comment__replies"
@@ -5884,6 +6084,7 @@ exports[`Storyshots Comments Comments 1`] = `
               style={
                 Object {
                   "height": "32px",
+                  "minWidth": "32px",
                   "width": "32px",
                 }
               }
@@ -5918,7 +6119,17 @@ exports[`Storyshots Comments Comments 1`] = `
               <div
                 className="Comment__content"
               >
-                Appreciate that! You are thanked ;)
+                <div
+                  className="Body"
+                >
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "<p>Appreciate that! You are thanked ;)</p>",
+                      }
+                    }
+                  />
+                </div>
               </div>
               <div
                 className="Comment__footer"
@@ -5974,12 +6185,6 @@ exports[`Storyshots Comments Comments 1`] = `
                 <span
                   className="Comment__footer__bullet"
                 />
-                <a
-                  className="Comment__footer__link"
-                  onClick={[Function]}
-                >
-                  Reply
-                </a>
               </div>
               <div
                 className="Comment__replies"
@@ -6007,6 +6212,7 @@ exports[`Storyshots Comments Comments 1`] = `
         style={
           Object {
             "height": "40px",
+            "minWidth": "40px",
             "width": "40px",
           }
         }
@@ -6041,7 +6247,17 @@ exports[`Storyshots Comments Comments 1`] = `
         <div
           className="Comment__content"
         >
-          Very informative, thank you for that one.
+          <div
+            className="Body"
+          >
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "<p>Very informative, thank you for that one.</p>",
+                }
+              }
+            />
+          </div>
         </div>
         <div
           className="Comment__footer"
@@ -6097,12 +6313,6 @@ exports[`Storyshots Comments Comments 1`] = `
           <span
             className="Comment__footer__bullet"
           />
-          <a
-            className="Comment__footer__link"
-            onClick={[Function]}
-          >
-            Reply
-          </a>
         </div>
         <div
           className="Comment__replies"
@@ -6125,6 +6335,7 @@ exports[`Storyshots Comments Comments 1`] = `
               style={
                 Object {
                   "height": "32px",
+                  "minWidth": "32px",
                   "width": "32px",
                 }
               }
@@ -6159,7 +6370,17 @@ exports[`Storyshots Comments Comments 1`] = `
               <div
                 className="Comment__content"
               >
-                Glad it helped :)
+                <div
+                  className="Body"
+                >
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "<p>Glad it helped :)</p>",
+                      }
+                    }
+                  />
+                </div>
               </div>
               <div
                 className="Comment__footer"
@@ -6215,12 +6436,6 @@ exports[`Storyshots Comments Comments 1`] = `
                 <span
                   className="Comment__footer__bullet"
                 />
-                <a
-                  className="Comment__footer__link"
-                  onClick={[Function]}
-                >
-                  Reply
-                </a>
               </div>
               <div
                 className="Comment__replies"
@@ -6248,6 +6463,7 @@ exports[`Storyshots Comments Comments 1`] = `
         style={
           Object {
             "height": "40px",
+            "minWidth": "40px",
             "width": "40px",
           }
         }
@@ -6282,7 +6498,17 @@ exports[`Storyshots Comments Comments 1`] = `
         <div
           className="Comment__content"
         >
-          Crypto currencies are really making many millionaires. I am very hopeful, it will be accepted worldwide and we early adopters will be benefited from it.
+          <div
+            className="Body"
+          >
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "<p>Crypto currencies are really making many millionaires. I am very hopeful, it will be accepted worldwide and we early adopters will be benefited from it.</p>",
+                }
+              }
+            />
+          </div>
         </div>
         <div
           className="Comment__footer"
@@ -6338,12 +6564,6 @@ exports[`Storyshots Comments Comments 1`] = `
           <span
             className="Comment__footer__bullet"
           />
-          <a
-            className="Comment__footer__link"
-            onClick={[Function]}
-          >
-            Reply
-          </a>
         </div>
         <div
           className="Comment__replies"
@@ -6366,6 +6586,7 @@ exports[`Storyshots Comments Comments 1`] = `
               style={
                 Object {
                   "height": "32px",
+                  "minWidth": "32px",
                   "width": "32px",
                 }
               }
@@ -6400,7 +6621,17 @@ exports[`Storyshots Comments Comments 1`] = `
               <div
                 className="Comment__content"
               >
-                Hard to see how that could not happen!
+                <div
+                  className="Body"
+                >
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "<p>Hard to see how that could not happen!</p>",
+                      }
+                    }
+                  />
+                </div>
               </div>
               <div
                 className="Comment__footer"
@@ -6456,12 +6687,6 @@ exports[`Storyshots Comments Comments 1`] = `
                 <span
                   className="Comment__footer__bullet"
                 />
-                <a
-                  className="Comment__footer__link"
-                  onClick={[Function]}
-                >
-                  Reply
-                </a>
               </div>
               <div
                 className="Comment__replies"
@@ -6489,6 +6714,7 @@ exports[`Storyshots Comments Comments 1`] = `
         style={
           Object {
             "height": "40px",
+            "minWidth": "40px",
             "width": "40px",
           }
         }
@@ -6523,7 +6749,17 @@ exports[`Storyshots Comments Comments 1`] = `
         <div
           className="Comment__content"
         >
-          what a brilliant article. thank you, i am just a total amateur really in investing but crypto and it's need/use in the future is something that i'm focused on. just using exodus and the shapeshift exchange to buy/send/exchange between currencies feels, liberating! - thanks for providing additional context.
+          <div
+            className="Body"
+          >
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "<p>what a brilliant article. thank you, i am just a total amateur really in investing but crypto and it's need/use in the future is something that i'm focused on. just using exodus and the shapeshift exchange to buy/send/exchange between currencies feels, liberating! - thanks for providing additional context.</p>",
+                }
+              }
+            />
+          </div>
         </div>
         <div
           className="Comment__footer"
@@ -6579,12 +6815,6 @@ exports[`Storyshots Comments Comments 1`] = `
           <span
             className="Comment__footer__bullet"
           />
-          <a
-            className="Comment__footer__link"
-            onClick={[Function]}
-          >
-            Reply
-          </a>
         </div>
         <div
           className="Comment__replies"
@@ -6607,6 +6837,7 @@ exports[`Storyshots Comments Comments 1`] = `
               style={
                 Object {
                   "height": "32px",
+                  "minWidth": "32px",
                   "width": "32px",
                 }
               }
@@ -6641,7 +6872,17 @@ exports[`Storyshots Comments Comments 1`] = `
               <div
                 className="Comment__content"
               >
-                I very much appreciate that. I hope you're left more knowledgeable after reading the article :)
+                <div
+                  className="Body"
+                >
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "<p>I very much appreciate that. I hope you're left more knowledgeable after reading the article :)</p>",
+                      }
+                    }
+                  />
+                </div>
               </div>
               <div
                 className="Comment__footer"
@@ -6697,12 +6938,6 @@ exports[`Storyshots Comments Comments 1`] = `
                 <span
                   className="Comment__footer__bullet"
                 />
-                <a
-                  className="Comment__footer__link"
-                  onClick={[Function]}
-                >
-                  Reply
-                </a>
               </div>
               <div
                 className="Comment__replies"
@@ -6725,6 +6960,7 @@ exports[`Storyshots Comments Comments 1`] = `
                     style={
                       Object {
                         "height": "32px",
+                        "minWidth": "32px",
                         "width": "32px",
                       }
                     }
@@ -6759,7 +6995,17 @@ exports[`Storyshots Comments Comments 1`] = `
                     <div
                       className="Comment__content"
                     >
-                      absolutely, it all helps.
+                      <div
+                        className="Body"
+                      >
+                        <div
+                          dangerouslySetInnerHTML={
+                            Object {
+                              "__html": "<p>absolutely, it all helps.</p>",
+                            }
+                          }
+                        />
+                      </div>
                     </div>
                     <div
                       className="Comment__footer"
@@ -6815,12 +7061,6 @@ exports[`Storyshots Comments Comments 1`] = `
                       <span
                         className="Comment__footer__bullet"
                       />
-                      <a
-                        className="Comment__footer__link"
-                        onClick={[Function]}
-                      >
-                        Reply
-                      </a>
                     </div>
                     <div
                       className="Comment__replies"
@@ -6851,6 +7091,7 @@ exports[`Storyshots Comments Comments 1`] = `
         style={
           Object {
             "height": "40px",
+            "minWidth": "40px",
             "width": "40px",
           }
         }
@@ -6885,27 +7126,27 @@ exports[`Storyshots Comments Comments 1`] = `
         <div
           className="Comment__content"
         >
-          I thought i was getting myself ready, i realize tho, i am not mining bitcoins with asic miners, i am mining on an old laptop and a few android tablets, i need an asic miner!
-          
-          and everyone who tries to tell you mining cloud mining asic mining is a waste of time, they just dont want you figuring it out!
-          
-          lol even when the masses figure out about bitcoin mining, it wont be easy enough for them!
-          
-          but i wana help steemit users out! i wanna help my fellow steemians learn bitcin mining with me!
-          
-          i feel like those who know gaurd it and they should!
-          
-          because anyone can mine! my problem now is getting the right miner i think an avalon six will be good to start with three and a haf terahash and only 300 to 400 and i am having problems ordering one on amazon, amazon account locked i guess cuz i havent used it in so long
-          
-          i found another site www.gethashing.com with some cool prices, theni saw aliexpress might even have cheaper but might take loger to ship from china
-          
-          still everyay im not mining im loosing ot!
-          
-          i know i its hard to sell the little bit of bitcoin u have but i have to bite the bullet and just sell half my crypto savings to buy miners! it will pay off, fatser than we think it will, god i cant wait to have big miners just running like razy in my basement!
-          
-          hey so anyone here know if i can just use old PC psus (power supply units) on new asic miners like avalon six an do i NEED a rasberry pi can i just use my laptop?
-          
-          man i wish we had a good mining community here! maybe we do and i havent found it?
+          <div
+            className="Body"
+          >
+            <div
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "<p>I thought i was getting myself ready, i realize tho, i am not mining bitcoins with asic miners, i am mining on an old laptop and a few android tablets, i need an asic miner!</p>
+                <p>and everyone who tries to tell you mining cloud mining asic mining is a waste of time, they just dont want you figuring it out!</p>
+                <p>lol even when the masses figure out about bitcoin mining, it wont be easy enough for them!</p>
+                <p>but i wana help steemit users out! i wanna help my fellow steemians learn bitcin mining with me!</p>
+                <p>i feel like those who know gaurd it and they should!</p>
+                <p>because anyone can mine! my problem now is getting the right miner i think an avalon six will be good to start with three and a haf terahash and only 300 to 400 and i am having problems ordering one on amazon, amazon account locked i guess cuz i havent used it in so long</p>
+                <p>i found another site www.gethashing.com with some cool prices, theni saw aliexpress might even have cheaper but might take loger to ship from china</p>
+                <p>still everyay im not mining im loosing ot!</p>
+                <p>i know i its hard to sell the little bit of bitcoin u have but i have to bite the bullet and just sell half my crypto savings to buy miners! it will pay off, fatser than we think it will, god i cant wait to have big miners just running like razy in my basement!</p>
+                <p>hey so anyone here know if i can just use old PC psus (power supply units) on new asic miners like avalon six an do i NEED a rasberry pi can i just use my laptop?</p>
+                <p>man i wish we had a good mining community here! maybe we do and i havent found it?</p>",
+                }
+              }
+            />
+          </div>
         </div>
         <div
           className="Comment__footer"
@@ -6961,12 +7202,6 @@ exports[`Storyshots Comments Comments 1`] = `
           <span
             className="Comment__footer__bullet"
           />
-          <a
-            className="Comment__footer__link"
-            onClick={[Function]}
-          >
-            Reply
-          </a>
         </div>
         <div
           className="Comment__replies"
@@ -6989,6 +7224,7 @@ exports[`Storyshots Comments Comments 1`] = `
               style={
                 Object {
                   "height": "32px",
+                  "minWidth": "32px",
                   "width": "32px",
                 }
               }
@@ -7023,7 +7259,17 @@ exports[`Storyshots Comments Comments 1`] = `
               <div
                 className="Comment__content"
               >
-                Thanks for the comment. However, not sure I can help you out with mining as I have no experience with that.
+                <div
+                  className="Body"
+                >
+                  <div
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "<p>Thanks for the comment. However, not sure I can help you out with mining as I have no experience with that.</p>",
+                      }
+                    }
+                  />
+                </div>
               </div>
               <div
                 className="Comment__footer"
@@ -7079,12 +7325,6 @@ exports[`Storyshots Comments Comments 1`] = `
                 <span
                   className="Comment__footer__bullet"
                 />
-                <a
-                  className="Comment__footer__link"
-                  onClick={[Function]}
-                >
-                  Reply
-                </a>
               </div>
               <div
                 className="Comment__replies"
@@ -7524,6 +7764,7 @@ exports[`Storyshots Navigation Topnav logged 1`] = `
                   style={
                     Object {
                       "height": "36px",
+                      "minWidth": "36px",
                       "width": "36px",
                     }
                   }
@@ -7894,6 +8135,7 @@ exports[`Storyshots Profile UserHeader 1`] = `
         style={
           Object {
             "height": "100px",
+            "minWidth": "100px",
             "width": "100px",
           }
         }
@@ -8141,6 +8383,7 @@ exports[`Storyshots Sidebar Interesting People 1`] = `
                 style={
                   Object {
                     "height": "34px",
+                    "minWidth": "34px",
                     "width": "34px",
                   }
                 }
@@ -8195,6 +8438,7 @@ exports[`Storyshots Sidebar Interesting People 1`] = `
                 style={
                   Object {
                     "height": "34px",
+                    "minWidth": "34px",
                     "width": "34px",
                   }
                 }
@@ -8249,6 +8493,7 @@ exports[`Storyshots Sidebar Interesting People 1`] = `
                 style={
                   Object {
                     "height": "34px",
+                    "minWidth": "34px",
                     "width": "34px",
                   }
                 }
@@ -8781,8 +9026,12 @@ exports[`Storyshots Story Full story 1`] = `
     <h3
       className="StoryFull__comments_title"
     >
-      58
-       Comments
+      <a
+        href="#comments"
+      >
+        58
+         Comments
+      </a>
     </h3>
     <div
       className="StoryFull__header"
@@ -8798,6 +9047,7 @@ exports[`Storyshots Story Full story 1`] = `
           style={
             Object {
               "height": "60px",
+              "minWidth": "60px",
               "width": "60px",
             }
           }
@@ -9022,8 +9272,12 @@ exports[`Storyshots Story Full story with embed 1`] = `
     <h3
       className="StoryFull__comments_title"
     >
-      58
-       Comments
+      <a
+        href="#comments"
+      >
+        58
+         Comments
+      </a>
     </h3>
     <div
       className="StoryFull__header"
@@ -9039,6 +9293,7 @@ exports[`Storyshots Story Full story with embed 1`] = `
           style={
             Object {
               "height": "60px",
+              "minWidth": "60px",
               "width": "60px",
             }
           }
@@ -9276,6 +9531,7 @@ exports[`Storyshots Story Inline story 1`] = `
           style={
             Object {
               "height": "40px",
+              "minWidth": "40px",
               "width": "40px",
             }
           }
@@ -9481,6 +9737,7 @@ exports[`Storyshots Story Inline story with embed 1`] = `
           style={
             Object {
               "height": "40px",
+              "minWidth": "40px",
               "width": "40px",
             }
           }

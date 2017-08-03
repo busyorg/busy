@@ -5,7 +5,7 @@ import numeral from 'numeral';
 import _ from 'lodash';
 import { SimpleTooltipOrigin } from '../widgets/tooltip/SimpleTooltip';
 import { getUpvotes, getDownvotes, sortVotes } from '../helpers/voteHelpers';
-import Body from '../post/Body';
+import Body from '../components/Story/Body';
 import Avatar from '../widgets/Avatar';
 import Icon from '../widgets/Icon';
 import { sortCommentsFromSteem } from '../helpers/stateHelpers';

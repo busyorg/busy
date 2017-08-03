@@ -5,8 +5,10 @@ import { withRouter } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { bindActionCreators } from 'redux';
 import sanitize from 'sanitize-html';
+import VisibilitySensor from 'react-visibility-sensor';
 
 import { getHtml } from '../../components/Story/Body';
+import Comments from '../../comments/Comments';
 import * as postActions from './../postActions';
 import * as reblogActions from '../../app/Reblog/reblogActions';
 import * as bookmarkActions from '../../bookmarks/bookmarksActions';
@@ -86,6 +88,10 @@ export default class PostSingle extends React.Component {
 
   static needs = [postActions.getContent];
 
+  state = {
+    commentsVisible: false,
+  }
+
   componentWillMount() {
     this.props.getContent();
   }
@@ -105,6 +111,14 @@ export default class PostSingle extends React.Component {
     }
   }
 
+  handleCommentsVisibility = (visible) => {
+    if (visible) {
+      this.setState({
+        commentsVisible: true,
+      });
+    }
+  }
+
   render() {
     const {
       content,
@@ -121,7 +135,7 @@ export default class PostSingle extends React.Component {
       toggleBookmark,
     } = this.props;
 
-    if (!content || !content.author) {
+    if (this.props.loading || !content) {
       return <div className="main-panel"><Loading /></div>;
     }
 
@@ -193,13 +207,14 @@ export default class PostSingle extends React.Component {
                 <RightSidebar auth={auth} />
               </div>
             </Affix>
-            <div className="center">
+            <div className="center" style={{ paddingBottom: '24px' }}>
               {
                 (loading && !pendingLikes.filter(post => post === content.id) > 0)
                   ? <Loading />
                   : <StoryFull
                     post={content}
                     postState={postState}
+                    commentCount={content.children}
                     pendingLike={pendingLikes.includes(content.id)}
                     pendingFollow={pendingFollows.includes(content.author)}
                     onFollowClick={this.handleFollowClick}
@@ -210,6 +225,9 @@ export default class PostSingle extends React.Component {
                     onShareClick={() => reblog(content.id)}
                   />
               }
+              <VisibilitySensor onChange={this.handleCommentsVisibility} />
+              <div id="comments" />
+              <Comments show={this.state.commentsVisible} post={content} />
             </div>
           </div>
         </div>

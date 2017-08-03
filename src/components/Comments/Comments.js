@@ -24,6 +24,8 @@ class Comments extends React.Component {
     super(props);
     this.state = {
       sort: 'BEST',
+      showCommentFormLoading: false,
+      commentFormText: '',
     };
   }
 
@@ -36,8 +38,22 @@ class Comments extends React.Component {
     }
   };
 
+  submitComment = (parentPost, commentValue) => {
+    this.setState({ showCommentFormLoading: true });
+    this.props.onSendComment(parentPost, commentValue)
+      .then(() => {
+        this.setState({ showCommentFormLoading: false, commentFormText: '' });
+      })
+      .catch(() => {
+        this.setState({
+          showCommentFormLoading: false,
+          commentFormText: commentValue,
+        });
+      });
+  }
+
   render() {
-    const { comments, commentsChildren, onLikeClick, onDislikeClick } = this.props;
+    const { comments, commentsChildren, onLikeClick, onDislikeClick, auth } = this.props;
     const { sort } = this.state;
 
     return (
@@ -52,15 +68,26 @@ class Comments extends React.Component {
             <a className={classNames({ active: sort === 'OLDEST' })} data-type="OLDEST">Oldest</a>
           </div>
         </div>
-        <CommentForm />
+
+        {auth && auth.isAuthenticated &&
+          <CommentForm
+            parentPost={this.props.parentPost}
+            username={auth.user.name}
+            onSubmit={this.submitComment}
+            isLoading={this.state.showCommentFormLoading}
+            inputValue={this.state.commentFormText}
+          />
+        }
         {
           comments && sortComments(comments, sort).map(comment => (
             <Comment
+              auth={auth}
               key={comment.id}
               comment={comment}
               commentsChildren={commentsChildren}
               onLikeClick={onLikeClick}
               onDislikeClick={onDislikeClick}
+              onSendComment={this.props.onSendComment}
             />))
         }
       </div>);
@@ -72,6 +99,7 @@ Comments.propTypes = {
   commentsChildren: PropTypes.shape(),
   onLikeClick: PropTypes.func,
   onDislikeClick: PropTypes.func,
+  auth: PropTypes.shape(),
 };
 
 Comments.defaultProps = {
@@ -79,6 +107,7 @@ Comments.defaultProps = {
   commentsChildren: undefined,
   onLikeClick: () => {},
   onDislikeClick: () => {},
+  auth: undefined,
 };
 
 export default Comments;

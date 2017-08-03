@@ -29,10 +29,6 @@ import './CommentForm.less';
   }, dispatch),
 )
 export default class CommentForm extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   static PropTypes = {
     embedded: React.PropTypes.bool,
   };
@@ -40,31 +36,6 @@ export default class CommentForm extends Component {
   static defaultProps = {
     embedded: false,
   };
-
-  updateDraft() {
-    this.props.updateCommentingDraft({
-      id: this.props.comments.currentDraftId,
-      body: this._input.value,
-    });
-  }
-
-  handleKey(e) {
-    if (keycode(e) === 'enter' && !e.shiftKey) {
-      this.updateDraft();
-    }
-  }
-
-  handlePageClick(e) {
-    e.stopPropagation();
-  }
-
-  handleSubmit(e) {
-    e.stopPropagation();
-    this.updateDraft();
-    this.props.sendComment().then(() => {
-      this.props.notify('Comment submitted successfully', 'success');
-    });
-  }
 
   componentWillUpdate(nextProps) {
     const { comments } = this.props;
@@ -92,6 +63,31 @@ export default class CommentForm extends Component {
     if (this.props.location.pathname !== prevProps.location.pathname) {
       this.props.closeCommentingDraft();
     }
+  }
+
+  updateDraft() {
+    this.props.updateCommentingDraft({
+      id: this.props.comments.currentDraftId,
+      body: this._input.value,
+    });
+  }
+
+  handleKey(e) {
+    if (keycode(e) === 'enter' && !e.shiftKey) {
+      this.updateDraft();
+    }
+  }
+
+  handlePageClick(e) {
+    e.stopPropagation();
+  }
+
+  handleSubmit(e) {
+    e.stopPropagation();
+    this.updateDraft();
+    this.props.sendComment().then(() => {
+      this.props.notify('Comment submitted successfully', 'success');
+    });
   }
 
   render() {

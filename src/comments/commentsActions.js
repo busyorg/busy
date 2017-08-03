@@ -1,6 +1,7 @@
 import { createAction } from 'redux-actions';
 import SteemConnect from 'sc2-sdk';
 import { createCommentPermlink } from '../helpers/steemitHelpers';
+import { notify } from '../app/Notification/notificationActions';
 
 const version = require('../../package.json').version;
 
@@ -81,6 +82,52 @@ export const getComments = (postId, isFromAnotherComment = false) => (dispatch, 
   });
 };
 
+export const sendCommentV2 = (parentPost, body) =>
+  (dispatch, getState) => {
+    const { category, root_comment } = parentPost;
+    const parent_permlink = parentPost.permlink;
+    const parent_author = parentPost.author;
+    const { auth } = getState();
+
+    if (!auth.isAuthenticated) {
+      dispatch(notify('You have to be logged in to comment', 'error'));
+      return;
+    }
+
+    if (!body || !body.length) {
+      dispatch(notify("Message can't be empty", 'error'));
+      return;
+    }
+
+    const author = auth.user.name;
+    const permlink = createCommentPermlink(parent_author, parent_permlink);
+    const jsonMetadata = { tags: [category], app: `busy/${version}` };
+
+    return dispatch({
+      type: SEND_COMMENT,
+      payload: {
+        promise: SteemConnect.comment(
+          parent_author,
+          parent_permlink,
+          author,
+          permlink,
+          '',
+          body,
+          jsonMetadata,
+        )
+          .then(() => {
+            dispatch(notify('Comment submitted successfully', 'success'));
+            dispatch(getComments(root_comment));
+          }),
+      },
+      meta: {
+        parentId: parentPost.id,
+        isEditing: false,
+        isReplyToComment: parentPost.id !== root_comment,
+      },
+    });
+  };
+
 export const sendComment = (parentId = null) =>
   (dispatch, getState) => {
     const { auth, comments } = getState();
@@ -159,4 +206,3 @@ export const likeComment = (commentId, weight = 10000, retryCount = 0) => (dispa
     }
   });
 };
-
