@@ -14,7 +14,6 @@ import {
 } from '../feed/feedActions';
 import { getAccountWithFollowingCount } from './usersActions';
 import { getUserComments, getMoreUserComments, followUser, unfollowUser } from './userActions';
-import MenuUser from '../app/Menu/MenuUser';
 import { addUserFavorite, removeUserFavorite } from '../favorites/favoritesActions';
 import FavoriteButton from '../favorites/FavoriteButton';
 import Loading from '../components/Icon/Loading';
@@ -25,7 +24,8 @@ import dispatchActions from '../helpers/dispatchActions';
 import UserNotFound from '../statics/UserNotFound';
 import Transfer from '../widgets/Transfer';
 import UserHero from './UserHero';
-import { LeftSidebar, RightSidebar } from '../app/Sidebar/index';
+import LeftSidebar from '../app/Sidebar/LeftSidebar';
+import RightSidebar from '../app/Sidebar/RightSidebar';
 import Affix from '../components/Utils/Affix';
 
 export const needs = [getAccountWithFollowingCount];
@@ -60,11 +60,9 @@ export const needs = [getAccountWithFollowingCount];
       dispatch,
     ),
 )
-@dispatchActions(
-  {
-    waitFor: state => state.auth && state.auth.isAuthenticated,
-  },
-)
+@dispatchActions({
+  waitFor: state => state.auth && state.auth.isAuthenticated,
+})
 export default class User extends React.Component {
   static needs = needs;
 
@@ -95,7 +93,7 @@ export default class User extends React.Component {
     } else {
       this.props.followUser(username);
     }
-  }
+  };
 
   getUserView(user) {
     return user.name
@@ -120,7 +118,7 @@ export default class User extends React.Component {
     const displayedUsername = profile.name || username || '';
     const title = `${displayedUsername} - Busy`;
 
-    const isSameUser = (auth && auth.isAuthenticated) && auth.user.name === username;
+    const isSameUser = auth && auth.isAuthenticated && auth.user.name === username;
 
     const isFollowed = followingList.includes(username);
     const pendingFollow = pendingFollows.includes(username);
@@ -128,7 +126,9 @@ export default class User extends React.Component {
     return (
       <div className="main-panel">
         <Helmet>
-          <title>{title}</title>
+          <title>
+            {title}
+          </title>
           <link rel="canonical" href={canonicalUrl} />
           <meta property="description" content={desc} />
 
@@ -157,8 +157,7 @@ export default class User extends React.Component {
             isFollowed={isFollowed}
             pendingFollow={pendingFollow}
             onFollowClick={this.handleFollowClick}
-          />
-        }
+          />}
         <div className="shifted">
           <div className="feed-layout container">
             <Affix className="leftContainer" stickPosition={72}>

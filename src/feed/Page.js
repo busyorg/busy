@@ -20,7 +20,8 @@ import FavoriteButton from '../favorites/FavoriteButton';
 import { notify } from '../app/Notification/notificationActions';
 import * as favoriteActions from '../favorites/favoritesActions';
 import EmptyFeed from '../statics/EmptyFeed';
-import { LeftSidebar, RightSidebar } from '../app/Sidebar/index';
+import LeftSidebar from '../app/Sidebar/LeftSidebar';
+import RightSidebar from '../app/Sidebar/RightSidebar';
 import TopicSelector from '../components/TopicSelector';
 import Affix from '../components/Utils/Affix';
 import ScrollToTop from '../components/Utils/ScrollToTop';
@@ -30,7 +31,7 @@ class TopicSelectorImpl extends React.Component {
   static propTypes = {
     history: PropTypes.shape().isRequired,
     location: PropTypes.shape().isRequired,
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -39,7 +40,7 @@ class TopicSelectorImpl extends React.Component {
 
     this.state = {
       currentKey: location.pathname.split('/')[1] || 'created',
-      categories: (category) ? [category] : [],
+      categories: category ? [category] : [],
     };
   }
 
@@ -48,7 +49,7 @@ class TopicSelectorImpl extends React.Component {
 
     this.setState({
       currentKey: location.pathname.split('/')[1] || 'created',
-      categories: (category) ? [category] : [],
+      categories: category ? [category] : [],
     });
   }
 
@@ -60,12 +61,12 @@ class TopicSelectorImpl extends React.Component {
     } else {
       this.props.history.push(`/${key}`);
     }
-  }
+  };
 
   onTopicClose = () => {
     this.setState({ categories: [] });
     this.props.history.push(`/${this.state.currentKey}`);
-  }
+  };
 
   render() {
     return (
@@ -76,7 +77,8 @@ class TopicSelectorImpl extends React.Component {
         topics={this.state.categories}
         onSortChange={this.onChange}
         onTopicClose={this.onTopicClose}
-      />);
+      />
+    );
   }
 }
 const TopicSelectorWrapper = withRouter(TopicSelectorImpl);

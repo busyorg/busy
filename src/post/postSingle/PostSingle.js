@@ -16,7 +16,7 @@ import { followUser, unfollowUser } from '../../user/userActions';
 import Loading from '../../components/Icon/Loading';
 import { jsonParse } from '../../helpers/formatter';
 import StoryFull from '../../components/Story/StoryFull';
-import { RightSidebar } from '../../app/Sidebar/index';
+import RightSidebar from '../../app/Sidebar/RightSidebar';
 import Affix from '../../components/Utils/Affix';
 import ScrollToTopOnMount from '../../components/Utils/ScrollToTopOnMount';
 
@@ -90,7 +90,7 @@ export default class PostSingle extends React.Component {
 
   state = {
     commentsVisible: false,
-  }
+  };
 
   componentWillMount() {
     this.props.getContent();
@@ -109,7 +109,7 @@ export default class PostSingle extends React.Component {
     } else {
       this.props.followUser(post.author);
     }
-  }
+  };
 
   handleCommentsVisibility = (visible) => {
     if (visible) {
@@ -117,7 +117,7 @@ export default class PostSingle extends React.Component {
         commentsVisible: true,
       });
     }
-  }
+  };
 
   render() {
     const {
@@ -136,7 +136,11 @@ export default class PostSingle extends React.Component {
     } = this.props;
 
     if (this.props.loading || !content) {
-      return <div className="main-panel"><Loading /></div>;
+      return (
+        <div className="main-panel">
+          <Loading />
+        </div>
+      );
     }
 
     const postMetaData = jsonParse(content.json_metadata);
@@ -152,16 +156,16 @@ export default class PostSingle extends React.Component {
     const postState = {
       isReblogged: reblogList.includes(content.id),
       isReblogging: pendingReblogs.includes(content.id),
-      isSaved: bookmarks[loggedInUser.name]
-        && bookmarks[loggedInUser.name].filter(bookmark => bookmark.id === content.id).length > 0,
+      isSaved:
+        bookmarks[loggedInUser.name] &&
+        bookmarks[loggedInUser.name].filter(bookmark => bookmark.id === content.id).length > 0,
       isLiked: userVote.percent > 0,
       isReported: userVote.percent < 0,
       userFollowed: followList.includes(content.author),
     };
 
-    const likePost = userVote.percent > 0
-      ? () => votePost(content.id, 0)
-      : () => votePost(content.id);
+    const likePost =
+      userVote.percent > 0 ? () => votePost(content.id, 0) : () => votePost(content.id);
     const reportPost = () => votePost(content.id, -1000);
 
     const { title, category, created, author, body } = content;
@@ -177,7 +181,9 @@ export default class PostSingle extends React.Component {
     return (
       <div className="main-panel">
         <Helmet>
-          <title>{title}</title>
+          <title>
+            {title}
+          </title>
           <link rel="canonical" href={canonicalUrl} />
           <meta property="description" content={desc} />
 
@@ -208,23 +214,21 @@ export default class PostSingle extends React.Component {
               </div>
             </Affix>
             <div className="center" style={{ paddingBottom: '24px' }}>
-              {
-                (loading && !pendingLikes.filter(post => post === content.id) > 0)
-                  ? <Loading />
-                  : <StoryFull
-                    post={content}
-                    postState={postState}
-                    commentCount={content.children}
-                    pendingLike={pendingLikes.includes(content.id)}
-                    pendingFollow={pendingFollows.includes(content.author)}
-                    onFollowClick={this.handleFollowClick}
-                    onSaveClick={() => toggleBookmark(content.id, content.author, content.permlink)}
-                    onReportClick={reportPost}
-                    onLikeClick={likePost}
-                    onCommentClick={() => {}}
-                    onShareClick={() => reblog(content.id)}
-                  />
-              }
+              {loading && !pendingLikes.filter(post => post === content.id) > 0
+                ? <Loading />
+                : <StoryFull
+                  post={content}
+                  postState={postState}
+                  commentCount={content.children}
+                  pendingLike={pendingLikes.includes(content.id)}
+                  pendingFollow={pendingFollows.includes(content.author)}
+                  onFollowClick={this.handleFollowClick}
+                  onSaveClick={() => toggleBookmark(content.id, content.author, content.permlink)}
+                  onReportClick={reportPost}
+                  onLikeClick={likePost}
+                  onCommentClick={() => {}}
+                  onShareClick={() => reblog(content.id)}
+                />}
               <VisibilitySensor onChange={this.handleCommentsVisibility} />
               <div id="comments" />
               <Comments show={this.state.commentsVisible} post={content} />

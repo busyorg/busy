@@ -1,11 +1,9 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import MenuHelp from '../app/Menu/MenuHelp';
 import './About.less';
 
 export default () =>
   (<div className="main-panel">
-    <MenuHelp />
     <div className="mt-5 text-center">
       <h1><FormattedMessage id="about" defaultMessage="About" /></h1>
       <p className="container pb-5">

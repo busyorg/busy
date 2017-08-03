@@ -10,6 +10,6 @@ export const notify = (text, context) =>
       showNotification({
         text,
         context,
-      })
+      }),
     );
   };

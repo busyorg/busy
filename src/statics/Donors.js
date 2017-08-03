@@ -2,13 +2,11 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
 import donors from '../helpers/donors';
-import MenuHelp from '../app/Menu/MenuHelp';
 import Donor from '../widgets/Donor';
 import UserCard from '../widgets/UserCard';
 
 const Donors = () =>
   (<div className="main-panel">
-    <MenuHelp />
     <div className="container text-center my-5">
       <h1><FormattedMessage id="donors" defaultMessage="Donors" /></h1>
       <p>

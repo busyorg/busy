@@ -1,5 +1,4 @@
 import * as appTypes from '../actions';
-import * as responsive from '../helpers/responsive';
 import * as postActions from '../post/postActions';
 
 const initialState = {
@@ -10,8 +9,6 @@ const initialState = {
   locale: null,
   rate: 0,
 };
-
-// TODO(p0o): some actionsTypes in this reducer are not defined anywhere, need to figure it out later
 
 export default (state = initialState, action) => {
   switch (action.type) {
