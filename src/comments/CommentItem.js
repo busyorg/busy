@@ -91,7 +91,7 @@ export default class CommentItem extends Component {
       id: comment.id,
       isReplyToComment: true,
       isEditing: true,
-      body: comment.body
+      body: comment.body,
     });
   }
 
@@ -123,8 +123,8 @@ export default class CommentItem extends Component {
 
     const fiveLastDownvotes =
       sortVotes(getDownvotes(comment.active_votes), 'rshares')
-      .reverse()
-      .slice(0, 5);
+        .reverse()
+        .slice(0, 5);
     const dislikesTooltipMsg = fiveLastDownvotes.map(vote => `${vote.voter}\n`);
     if (dislikesTooltipMsg.length === 5) dislikesTooltipMsg.push('...');
 
@@ -241,14 +241,14 @@ export default class CommentItem extends Component {
           sortCommentsFromSteem(
             allComments.listByCommentId[comment.id],
             allComments,
-            sortOrder
+            sortOrder,
           ).map(commentId =>
-            <CommentItem
+            (<CommentItem
               {...this.props}
               key={commentId}
               comment={allComments.comments[commentId]}
-            />
-            )
+            />),
+          )
         }
       </div>
     );

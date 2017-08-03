@@ -4,4 +4,4 @@ export default function getChannelName(auth, otherUsername) {
     `@${auth.user.name}`,
     `@${otherUsername}`,
   ];
-};
+}

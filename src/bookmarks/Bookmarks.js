@@ -5,7 +5,7 @@ import Feed from '../feed/Feed';
 import {
   getFeedContentFromState,
   getFeedLoadingFromState,
-  getFeedHasMoreFromState
+  getFeedHasMoreFromState,
 } from '../helpers/stateHelpers';
 import { getBookmarks } from './bookmarksActions';
 
@@ -16,7 +16,7 @@ import { getBookmarks } from './bookmarksActions';
   }),
   dispatch => ({
     getBookmarks: () => dispatch(getBookmarks()),
-  })
+  }),
 )
 export default class Bookmarks extends Component {
   componentDidMount() {

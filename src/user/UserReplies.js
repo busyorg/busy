@@ -6,7 +6,7 @@ import * as userActions from './userActions';
 import {
   getFeedContentFromState,
   getFeedLoadingFromState,
-  getFeedHasMoreFromState
+  getFeedHasMoreFromState,
 } from '../helpers/stateHelpers';
 
 @connect(
@@ -17,7 +17,7 @@ import {
   dispatch => bindActionCreators({
     getUserReplies: userActions.getUserReplies,
     getMoreUserReplies: userActions.getMoreUserReplies,
-  }, dispatch)
+  }, dispatch),
 )
 export default class UserReplies extends Component {
   static needs = [

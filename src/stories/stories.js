@@ -71,13 +71,13 @@ storiesOf('Navigation', module)
 storiesOf('Sidebar', module)
   .add('Start now', () => <StartNow />)
   .add('Favorite topics', () =>
-    <Topics favorite title="Favorite topics" topics={['funny', 'history', 'nature']} />
+    <Topics favorite title="Favorite topics" topics={['funny', 'history', 'nature']} />,
   )
   .add('Trending topics', () => (
     <Topics
       title="Trending topics"
       topics={['photography', 'steemit', 'introduceyourself', 'steem', 'story', 'blog']}
-    />)
+    />),
   )
   .add('Interesting People', () => (
     <InterestingPeople
@@ -89,7 +89,7 @@ storiesOf('Sidebar', module)
         },
         { name: 'furion', about: 'I’ve developed SteemData and SteemSports. All things Python…' },
       ]}
-    />)
+    />),
   )
   .add('Latest Comments', () => (
     <LatestComments
@@ -113,7 +113,7 @@ storiesOf('Sidebar', module)
           created: '2017-06-07T19:32:44',
         },
       ]}
-    />)
+    />),
   )
   .add('Latest Recommendations', () => (
     <LatestRecommendations
@@ -137,7 +137,7 @@ storiesOf('Sidebar', module)
           created: '2017-06-07T17:44:11',
         },
       ]}
-    />)
+    />),
   );
 
 storiesOf('Story', module)

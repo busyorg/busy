@@ -24,7 +24,7 @@ export default class InfiniteScroll extends Component {
       setTopPosition(
         this.previousScrollPosition +
           heightDifference +
-          elementsCompensation
+          elementsCompensation,
       );
     }
 

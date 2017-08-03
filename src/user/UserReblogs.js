@@ -4,7 +4,7 @@ import Feed from '../feed/Feed';
 import {
   getFeedContentFromState,
   getFeedLoadingFromState,
-  getFeedHasMoreFromState
+  getFeedHasMoreFromState,
 } from '../helpers/stateHelpers';
 import EmptyUserProfile from '../statics/EmptyUserProfile';
 import EmptyUserOwnProfile from '../statics/EmptyUserOwnProfile';
@@ -27,13 +27,13 @@ export default class UserReblogs extends Component {
       getFeedContent({
         sortBy: 'blog',
         category: username,
-        limit
+        limit,
       });
     const loadMoreContentAction = () =>
       getMoreFeedContent({
         sortBy: 'blog',
         category: username,
-        limit
+        limit,
       });
     const user = this.props.user;
 

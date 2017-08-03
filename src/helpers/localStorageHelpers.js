@@ -1,9 +1,7 @@
 import store from 'store';
 import _ from 'lodash';
 
-export const getFavoriteUsers = () => {
-  return store.get('users') || {};
-};
+export const getFavoriteUsers = () => store.get('users') || {};
 
 export const toggleFavoriteUser = (username) => {
   const users = store.get('users') || {};
@@ -25,9 +23,7 @@ export const removeFavoriteUser = (username) => {
   return true;
 };
 
-export const getFavoriteCategories = () => {
-  return store.get('categories') || {};
-};
+export const getFavoriteCategories = () => store.get('categories') || {};
 
 export const toggleFavoriteCategory = (category) => {
   const categories = store.get('categories') || {};
@@ -57,7 +53,7 @@ export const setLayout = (layout) => {
 };
 
 export const getLocale = () =>
-store.get('locale') || 'en';
+  store.get('locale') || 'en';
 
 export const setLocale = (locale) => {
   store.set('locale', locale);

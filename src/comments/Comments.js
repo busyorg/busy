@@ -20,7 +20,7 @@ import './Comments.less';
     unlikeComment: id => commentsActions.likeComment(id, 0),
     dislikeComment: id => commentsActions.likeComment(id, -1000),
     openCommentingDraft: commentsActions.openCommentingDraft,
-  }, dispatch)
+  }, dispatch),
 )
 export default class Comments extends Component {
   constructor(props) {
@@ -74,7 +74,7 @@ export default class Comments extends Component {
     const sortingOptions = [
       { value: 'trending', label: 'Trending' },
       { value: 'votes', label: 'Votes' },
-      { value: 'new', label: 'New' }
+      { value: 'new', label: 'New' },
     ];
 
     const classNames = className ? `Comments ${className}` : 'Comments';

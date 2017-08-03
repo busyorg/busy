@@ -9,7 +9,7 @@ import Icon from '../widgets/Icon';
 @connect(
   state => ({
     auth: state.auth,
-  })
+  }),
 )
 export default class Transfer extends Component {
   constructor(props) {

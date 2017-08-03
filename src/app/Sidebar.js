@@ -24,7 +24,7 @@ import './Sidebar.less';
   }),
   dispatch => bindActionCreators({
     hideSidebar,
-  }, dispatch)
+  }, dispatch),
 )
 export default class Sidebar extends Component {
   constructor(props) {
@@ -92,7 +92,7 @@ export default class Sidebar extends Component {
               # {category}
             </NavLink>
           </li>
-          ));
+        ));
     }
     return [];
   }

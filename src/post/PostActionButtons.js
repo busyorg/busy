@@ -17,7 +17,7 @@ import ReblogButton from './actionButtons/ReblogButton';
     likePost: () => postActions.votePost(ownProps.post.id),
     unlikePost: () => postActions.votePost(ownProps.post.id, 0),
     dislikePost: () => postActions.votePost(ownProps.post.id, -1000),
-  }, dispatch)
+  }, dispatch),
 )
 @injectIntl
 export default class PostActionButtons extends Component {

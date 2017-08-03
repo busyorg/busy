@@ -9,7 +9,7 @@ import './Header.less';
   state => ({
     app: state.app,
     auth: state.auth,
-  })
+  }),
 )
 export default class Header extends Component {
   render() {

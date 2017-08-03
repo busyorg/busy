@@ -126,11 +126,11 @@ const commentItem = (state = {}, action) => {
           {
             voter: action.meta.voter,
             percent: action.meta.weight,
-          }
+          },
         ];
       } else {
         optimisticActiveVotes = state.active_votes.filter(
-          vote => vote.voter !== action.meta.voter
+          vote => vote.voter !== action.meta.voter,
         );
       }
 

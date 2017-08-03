@@ -8,9 +8,9 @@ const Tag = ({
   tag,
   removeCategoryFavorite,
   addCategoryFavorite,
-  isFavorited
+  isFavorited,
 }) =>
-  <div className="page">
+  (<div className="page">
     <div className="my-5 text-center">
       <h1>
         <Link to={`/hot/${tag.name}`}># {tag.name}</Link>{' '}
@@ -28,6 +28,6 @@ const Tag = ({
         <Icon name="attach_money" lg /> {numeral(tag.total_payouts).format('$0,0')}
       </h2>
     </div>
-  </div>;
+  </div>);
 
 export default Tag;

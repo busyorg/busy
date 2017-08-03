@@ -3,7 +3,7 @@ import Feed from '../feed/Feed';
 import {
   getFeedContentFromState,
   getFeedLoadingFromState,
-  getFeedHasMoreFromState
+  getFeedHasMoreFromState,
 } from '../helpers/stateHelpers';
 import EmptyFeed from '../statics/EmptyFeed';
 import { getUserFeedContent as getUserFeedContentStatic } from '../feed/feedActions';

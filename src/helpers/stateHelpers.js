@@ -98,6 +98,6 @@ export const sortCommentsFromSteem = (list, commentsState, sortBy = 'trending') 
   }
 
   return newList.sort((item1, item2) =>
-    compareFunc(commentsState.comments[item1], commentsState.comments[item2])
+    compareFunc(commentsState.comments[item1], commentsState.comments[item2]),
   ).reverse();
 };

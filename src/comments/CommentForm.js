@@ -26,7 +26,7 @@ import './CommentForm.less';
     updateCommentingDraft: commentActions.updateCommentingDraft,
     closeCommentingDraft: commentActions.closeCommentingDraft,
     notify,
-  }, dispatch)
+  }, dispatch),
 )
 export default class CommentForm extends Component {
   constructor(props) {

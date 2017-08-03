@@ -5,7 +5,7 @@ import Icon from '../widgets/Icon';
 import './FavoriteButton.less';
 
 const FavoriteUserButton = ({ onClick, isFavorited, intl }) =>
-  <SimpleTooltipOrigin
+  (<SimpleTooltipOrigin
     message={intl.formatMessage({
       id: isFavorited
         ? '@tooltip_remove_fav'
@@ -21,6 +21,6 @@ const FavoriteUserButton = ({ onClick, isFavorited, intl }) =>
     >
       <Icon name={isFavorited ? 'star' : 'star_border'} sm />
     </a>
-  </SimpleTooltipOrigin>;
+  </SimpleTooltipOrigin>);
 
 export default injectIntl(FavoriteUserButton);

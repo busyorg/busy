@@ -36,7 +36,7 @@ export default class UserList extends React.Component {
         className="row my-5"
       >
         {take(users, noOfItemsToShow).map(user =>
-          <UserCard key={user} username={user} />
+          <UserCard key={user} username={user} />,
         )}
       </ReduxInfiniteScroll>
     );

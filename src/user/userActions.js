@@ -40,7 +40,7 @@ export const getUserComments = ({ username }) =>
       payload: {
         promise: steemGetState(`@${username}/posts`),
       },
-      meta: { username }
+      meta: { username },
     });
   };
 
@@ -67,7 +67,7 @@ export const getMoreUserComments = (username, limit) =>
           limit,
         }),
       },
-      meta: { username }
+      meta: { username },
     });
   };
 
@@ -115,7 +115,7 @@ export function uploadFile({ username, file, fileInput }) {
         };
         request.send(fileDetails.file);
       }),
-    }
+    },
   });
 }
 
@@ -151,8 +151,8 @@ export const followUser = username => (dispatch, getState) => {
       promise: steemConnect.follow(auth.user.name, username),
     },
     meta: {
-      username
-    }
+      username,
+    },
   });
 };
 
@@ -172,8 +172,8 @@ export const unfollowUser = username => (dispatch, getState) => {
       promise: steemConnect.unfollow(auth.user.name, username),
     },
     meta: {
-      username
-    }
+      username,
+    },
   });
 };
 
@@ -197,7 +197,7 @@ export const getFollowing = (userName = '') => (dispatch, getState) => {
     meta: targetUsername,
     payload: {
       promise: getAllFollowing(userName),
-    }
+    },
   });
 };
 
@@ -207,7 +207,7 @@ export const getUserReplies = ({ username }) =>
       type: GET_USER_REPLIES,
       payload: {
         promise: steemAPI.getStateAsync(`/@${username}/recent-replies`).then(
-          apiRes => mapAPIContentToId(apiRes)
+          apiRes => mapAPIContentToId(apiRes),
         ),
       },
       meta: { username },
@@ -234,7 +234,7 @@ export const getMoreUserReplies = username =>
         // for "more content" 1 item is always repeated from previous result
         // and will be removed before returning the res
         promise: steemAPI.getRepliesByLastUpdateAsync(startAuthor, startPermlink, limit + 1).then(
-          apiRes => apiRes.slice(1)
+          apiRes => apiRes.slice(1),
         ),
       },
       meta: { username, limit },

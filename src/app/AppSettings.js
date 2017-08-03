@@ -13,7 +13,7 @@ import '../widgets/Flag.less';
   dispatch => bindActionCreators({
     setLocale: actions.setLocale,
     setLayout: actions.setLayout,
-  }, dispatch)
+  }, dispatch),
 )
 export default class AppSettings extends React.Component {
   constructor(props) {

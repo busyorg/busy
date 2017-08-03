@@ -8,13 +8,13 @@ import {
   getFeedContent,
   getMoreFeedContent,
   getUserFeedContent,
-  getMoreUserFeedContent
+  getMoreUserFeedContent,
 } from './feedActions';
 import {
   getFeedContentFromState,
   getFeedLoadingFromState,
   getUserFeedContentFromState,
-  getUserFeedLoadingFromState
+  getUserFeedLoadingFromState,
 } from '../helpers/stateHelpers';
 import FavoriteButton from '../favorites/FavoriteButton';
 import { notify } from '../app/Notification/notificationActions';
@@ -86,7 +86,7 @@ const TopicSelectorWrapper = withRouter(TopicSelectorImpl);
     auth: state.auth,
     feed: state.feed,
     posts: state.posts,
-    favorites: state.favorites.categories
+    favorites: state.favorites.categories,
   }),
   (dispatch, ownProps) => {
     const { sortBy, category, auth, limit } = ownProps;
@@ -98,9 +98,9 @@ const TopicSelectorWrapper = withRouter(TopicSelectorImpl);
         dispatch(getMoreUserFeedContent({ username: auth.user.name, limit })),
       addCategoryFavorite: () => dispatch(favoriteActions.addCategoryFavorite(category)),
       removeCategoryFavorite: () => dispatch(favoriteActions.removeCategoryFavorite(category)),
-      notify
+      notify,
     };
-  }
+  },
 )
 export default class Page extends React.Component {
   isFavorited() {
@@ -150,7 +150,7 @@ export default class Page extends React.Component {
             </Affix>
             <div className="center">
               <TopicSelectorWrapper category={category} />
-              {/*{category &&
+              {/* {category &&
                 <h2 className="mt-3 text-center">
                   <span className="text-info">#</span>
                   {' '}{category}{' '}
@@ -162,7 +162,7 @@ export default class Page extends React.Component {
                         : this.props.addCategoryFavorite
                     }
                   />
-                </h2>}*/}
+                </h2>} */}
               <Feed
                 content={content}
                 isFetching={isFetching}
@@ -185,5 +185,5 @@ Page.propTypes = {
   category: React.PropTypes.string,
   sortBy: React.PropTypes.string,
   path: React.PropTypes.string,
-  limit: React.PropTypes.number
+  limit: React.PropTypes.number,
 };

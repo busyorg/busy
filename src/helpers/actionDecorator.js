@@ -46,7 +46,7 @@ export default function actionDecorator(...actions) {
     static Wrapped = Wrapped;
 
     static contextTypes = {
-      store: PropTypes.object
+      store: PropTypes.object,
     };
 
     static propTypes = {
@@ -60,7 +60,7 @@ export default function actionDecorator(...actions) {
       this.state = {
         isLoading: !isEmpty(actions),
         isLoadingMap: this.getInitialResults(true),
-        results: this.getInitialResults()
+        results: this.getInitialResults(),
       };
     }
 
@@ -115,7 +115,7 @@ export default function actionDecorator(...actions) {
           const update = {};
           update[key] = false;
           this.setState({
-            isLoadingMap: extend(this.state.isLoadingMap, update)
+            isLoadingMap: extend(this.state.isLoadingMap, update),
           });
         });
         return ret;
@@ -133,13 +133,13 @@ export default function actionDecorator(...actions) {
           this.setState({
             results,
             isLoading: false,
-            loadedAt: new Date()
+            loadedAt: new Date(),
           });
         }, (err) => {
           this.setState({
             loadError: err,
             isLoading: false,
-            loadedAt: new Date()
+            loadedAt: new Date(),
           });
         });
     }

@@ -6,7 +6,7 @@ import { FormattedMessage } from 'react-intl';
 @connect(
   state => ({
     auth: state.auth,
-  })
+  }),
 )
 export default class TransferButton extends Component {
   static propTypes = {

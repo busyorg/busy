@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import MenuHelp from '../app/Menu/MenuHelp';
 
 export default () =>
-  <div className="main-panel">
+  (<div className="main-panel">
     <MenuHelp />
     <div className="container text-center my-5">
       <h1><FormattedMessage id="help" defaultMessage="Help" /></h1>
@@ -40,4 +40,4 @@ export default () =>
         </a>.
       </p>
     </div>
-  </div>;
+  </div>);

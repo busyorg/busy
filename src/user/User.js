@@ -10,7 +10,7 @@ import {
   getFeedContent,
   getMoreFeedContent,
   getUserFeedContent,
-  getMoreUserFeedContent
+  getMoreUserFeedContent,
 } from '../feed/feedActions';
 import { getAccountWithFollowingCount } from './usersActions';
 import { getUserComments, getMoreUserComments, followUser, unfollowUser } from './userActions';
@@ -57,13 +57,13 @@ export const needs = [getAccountWithFollowingCount];
         followUser,
         unfollowUser,
       },
-      dispatch
-    )
+      dispatch,
+    ),
 )
 @dispatchActions(
   {
-    waitFor: state => state.auth && state.auth.isAuthenticated
-  }
+    waitFor: state => state.auth && state.auth.isAuthenticated,
+  },
 )
 export default class User extends React.Component {
   static needs = needs;
@@ -102,7 +102,7 @@ export default class User extends React.Component {
       ? React.cloneElement(this.props.children, {
         ...this.props,
         user,
-        limit: 10
+        limit: 10,
       })
       : <UserNotFound />;
   }
@@ -123,7 +123,7 @@ export default class User extends React.Component {
     const isSameUser = (auth && auth.isAuthenticated) && auth.user.name === username;
 
     const isFollowed = followingList.includes(username);
-    const pendingFollow = pendingFollows.includes(username)
+    const pendingFollow = pendingFollows.includes(username);
 
     return (
       <div className="main-panel">

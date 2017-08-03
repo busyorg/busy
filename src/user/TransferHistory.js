@@ -8,8 +8,8 @@ import Avatar from '../widgets/Avatar';
 const defaultPageItems = 10;
 
 // Functions Borrowed from Steemit.com sourcecode for integrity
-const numberWithCommas = (x) => x.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-const renameToSd = (txt) => txt ? numberWithCommas(txt.replace('SBD', 'SD')) : txt;
+const numberWithCommas = x => x.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+const renameToSd = txt => (txt ? numberWithCommas(txt.replace('SBD', 'SD')) : txt);
 
 // Logic is copied from : https://github.com/steemit/steemit.com/blob/5e930d61781716e875d527ea89e625a38bea0436/app/components/cards/TransferHistoryRow.jsx#L8
 // changed slightly to fit within our coding style
@@ -44,22 +44,20 @@ const renderReportFromOp = (op, username) => {
         descriptionStart += `Transfer ${data.amount.split(' ')[0]} STEEM POWER to `;
         otherAccount = data.to;
       }
-    }
-    else if (data.to === username) {
+    } else if (data.to === username) {
       descriptionStart += `Receive ${data.amount.split(' ')[0]} STEEM POWER from `;
       otherAccount = data.from;
     } else {
       descriptionStart += `Transfer ${data.amount.split(' ')[0]} STEEM POWER from ${data.from} to `;
       otherAccount = data.to;
     }
-  }
-  else if(/^transfer$|^transfer_to_savings$|^transfer_from_savings$/.test(type)) {
+  } else if (/^transfer$|^transfer_to_savings$|^transfer_from_savings$/.test(type)) {
     // transfer_to_savings
     const fromWhere = type === 'transfer_to_savings'
       ? 'to savings '
       : type === 'transfer_from_savings'
-      ? 'from savings '
-      : '';
+        ? 'from savings '
+        : '';
 
     if (data.from === username) {
       descriptionStart += `Transfer ${fromWhere}${data.amount} to `;
@@ -85,10 +83,10 @@ const renderReportFromOp = (op, username) => {
     }
   } else if (type === 'curation_reward') {
     descriptionStart += `${curationReward} STEEM POWER for `;
-    otherAccount = data.comment_author + '/' + data.comment_permlink;
+    otherAccount = `${data.comment_author}/${data.comment_permlink}`;
   } else if (type === 'author_reward') {
     let steemPayout = '';
-    if(data.steem_payout !== '0.000 STEEM') steemPayout = ', ' + data.steem_payout;
+    if (data.steem_payout !== '0.000 STEEM') steemPayout = `, ${data.steem_payout}`;
     descriptionStart += `${renameToSd(data.sbd_payout)}${steemPayout}, and ${authorReward} STEEM POWER for ${data.author}/${data.permlink}`;
 
     descriptionEnd = '';
@@ -124,22 +122,20 @@ const renderReportFromOp = (op, username) => {
   );
 };
 
-const getOnlyViableTransfers = (list) => {
-  return list.filter((op) => {
-    // filtering out some types of transactions to integrate it with Steemit results
-    const type = op[1].op[0];
-    const data = op[1].op[1];
+const getOnlyViableTransfers = list => list.filter((op) => {
+  // filtering out some types of transactions to integrate it with Steemit results
+  const type = op[1].op[0];
+  const data = op[1].op[1];
 
-    if (type === 'curation_reward' || type === 'author_reward') {
-      return false;
-    }
+  if (type === 'curation_reward' || type === 'author_reward') {
+    return false;
+  }
 
-    if (data.sbd_payout === '0.000 SBD' && data.vesting_payout === '0.000000 VESTS') {
-      return false;
-    }
-    return true;
-  });
-};
+  if (data.sbd_payout === '0.000 SBD' && data.vesting_payout === '0.000000 VESTS') {
+    return false;
+  }
+  return true;
+});
 
 export default class TransferHistory extends Component {
   constructor(props) {
@@ -165,7 +161,7 @@ export default class TransferHistory extends Component {
           hasMore={list.length > visibleItems}
         >
           {getOnlyViableTransfers(list).reverse().slice(0, visibleItems).map((op, idx) =>
-            <div key={idx} className="my-4">
+            (<div key={idx} className="my-4">
               <hr />
               <h5>
                 <b>{renderReportFromOp(op, username)}</b>{' '}
@@ -178,7 +174,7 @@ export default class TransferHistory extends Component {
                   {op[1].op[1].memo}
                 </blockquote>
               }
-            </div>
+            </div>),
           )}
         </ReduxInfiniteScroll>
       </div>

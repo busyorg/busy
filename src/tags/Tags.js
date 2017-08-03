@@ -8,9 +8,9 @@ import * as favoriteActions from '../favorites/favoritesActions';
 
 const sortTags = tags =>
   Object.keys(tags)
-  .sort((key1, key2) => (tags[key1].comments - tags[key2].comments))
-  .reverse()
-  .map(tagKey => tags[tagKey]);
+    .sort((key1, key2) => (tags[key1].comments - tags[key2].comments))
+    .reverse()
+    .map(tagKey => tags[tagKey]);
 
 
 @connect(
@@ -20,7 +20,7 @@ const sortTags = tags =>
   dispatch => bindActionCreators({
     addCategoryFavorite: favoriteActions.addCategoryFavorite,
     removeCategoryFavorite: favoriteActions.removeCategoryFavorite,
-  }, dispatch)
+  }, dispatch),
 )
 export default class Tags extends Component {
   constructor(props) {

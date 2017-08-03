@@ -3,12 +3,12 @@ import { injectIntl } from 'react-intl';
 import { SimpleTooltipOrigin } from '../widgets/tooltip/SimpleTooltip';
 
 const SteemPowerIcon = ({ active = true, className = '', intl }) =>
-  active
+  (active
     ? <SimpleTooltipOrigin
       message={
         intl.formatMessage({
           id: 'full_steem_power',
-          defaultMessage: '100% Steem Power'
+          defaultMessage: '100% Steem Power',
         })}
     >
       <img
@@ -17,6 +17,6 @@ const SteemPowerIcon = ({ active = true, className = '', intl }) =>
         src="/img/steem.svg"
       />
     </SimpleTooltipOrigin>
-    : false;
+    : false);
 
 export default injectIntl(SteemPowerIcon);

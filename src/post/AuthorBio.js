@@ -9,7 +9,7 @@ import Follow from '../widgets/Follow';
 import './AuthorBio.less';
 
 @connect(
-  ({ user }) => ({ following: user.following })
+  ({ user }) => ({ following: user.following }),
 )
 class AuthorBio extends Component {
   constructor(props) {

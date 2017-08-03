@@ -4,7 +4,7 @@ import MenuHelp from '../app/Menu/MenuHelp';
 import './About.less';
 
 export default () =>
-  <div className="main-panel">
+  (<div className="main-panel">
     <MenuHelp />
     <div className="mt-5 text-center">
       <h1><FormattedMessage id="about" defaultMessage="About" /></h1>
@@ -87,4 +87,4 @@ export default () =>
         </div>
       </div>
     </div>
-  </div>;
+  </div>);

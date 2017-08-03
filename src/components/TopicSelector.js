@@ -65,7 +65,7 @@ class TopicSelector extends React.Component {
                 <PopoverMenuItem key="created">Created</PopoverMenuItem>
                 <PopoverMenuItem key="active">Active</PopoverMenuItem>
                 <PopoverMenuItem key="cashout">Cashout</PopoverMenuItem>
-                {/*<PopoverMenuItem key="votes">Votes</PopoverMenuItem>*/}
+                {/* <PopoverMenuItem key="votes">Votes</PopoverMenuItem> */}
                 <PopoverMenuItem key="children">Children</PopoverMenuItem>
                 <PopoverMenuItem key="hot">Hot</PopoverMenuItem>
                 <PopoverMenuItem key="comments">Comments</PopoverMenuItem>

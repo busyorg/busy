@@ -4,7 +4,7 @@ import {
   MEDIA_CHANGED,
   MEDIA_MOUNTED,
   reducer as responsiveReducer,
-  mediaQueryTracker
+  mediaQueryTracker,
 } from './responsive/redux-mediaquery';
 
 export { MEDIA_CHANGED };

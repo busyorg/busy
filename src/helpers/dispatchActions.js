@@ -15,7 +15,7 @@ export default function dispatchActions(options = {}, actions) {
     static Wrapped = Wrapped;
 
     static contextTypes = {
-      store: PropTypes.object
+      store: PropTypes.object,
     };
 
     constructor(props) {
@@ -65,13 +65,13 @@ export default function dispatchActions(options = {}, actions) {
           this.setState({
             results,
             isLoading: false,
-            loadedAt: new Date()
+            loadedAt: new Date(),
           });
         }, (err) => {
           this.setState({
             loadError: err,
             isLoading: false,
-            loadedAt: new Date()
+            loadedAt: new Date(),
           });
         });
     }

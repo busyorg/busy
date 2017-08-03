@@ -3,7 +3,7 @@ import Feed from '../feed/Feed';
 import {
   getUserCommentsFromState,
   getFeedLoadingFromState,
-  getFeedHasMoreFromState
+  getFeedHasMoreFromState,
 } from '../helpers/stateHelpers';
 import { getUserComments as getUserCommentsStatic } from './userActions';
 

@@ -11,7 +11,7 @@ const CommentsList = ({
   auth,
   openCommentingDraft,
   isSinglePage,
-  sortOrder
+  sortOrder,
 }) => {
   if (!comments.listByPostId[postId]) {
     return <div />;
@@ -25,7 +25,7 @@ const CommentsList = ({
   return (
     <div className="CommentsList">
       { visibleList.map(commentId =>
-        <CommentItem
+        (<CommentItem
           key={commentId}
           comment={comments.comments[commentId]}
           allComments={comments}
@@ -36,7 +36,7 @@ const CommentsList = ({
           openCommentingDraft={openCommentingDraft}
           isSinglePage={isSinglePage}
           sortOrder={sortOrder}
-        />
+        />),
       )}
     </div>
   );

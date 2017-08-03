@@ -4,7 +4,7 @@ import { SimpleTooltipOrigin } from '../widgets/tooltip/SimpleTooltip';
 import Icon from '../widgets/Icon';
 
 const BookmarkButton = ({ post, bookmarks, toggleBookmark, intl }) =>
-  <SimpleTooltipOrigin message={
+  (<SimpleTooltipOrigin message={
     intl.formatMessage({
       id: bookmarks[post.id]
         ? '@tooltip_remove_bookmark'
@@ -19,6 +19,6 @@ const BookmarkButton = ({ post, bookmarks, toggleBookmark, intl }) =>
         name={bookmarks[post.id] ? 'bookmark' : 'bookmark_border'}
       />
     </a>
-  </SimpleTooltipOrigin>;
+  </SimpleTooltipOrigin>);
 
 export default injectIntl(BookmarkButton);

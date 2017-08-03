@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 
 const EmptyFeed = () =>
-  <div className="text-center">
+  (<div className="text-center">
     <h3>
       <FormattedMessage
         id="@statics/empty_feed"
@@ -18,6 +18,6 @@ const EmptyFeed = () =>
       </Link>
       .
     </h3>
-  </div>;
+  </div>);
 
 export default EmptyFeed;

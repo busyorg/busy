@@ -13,7 +13,7 @@ import { validateAccountName } from './ChainValidation';
 
 const noop = () => { };
 const DOMParser = new xmldom.DOMParser({
-  errorHandler: { warning: noop, error: noop }
+  errorHandler: { warning: noop, error: noop },
 });
 const XMLSerializer = new xmldom.XMLSerializer();
 const IMG_PROXY_PREFIX = 'https://steemitimages.com/0x0/';

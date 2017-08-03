@@ -7,7 +7,7 @@ import Feed from '../feed/Feed';
 import {
   getFeedContentFromState,
   getFeedLoadingFromState,
-  getFeedHasMoreFromState
+  getFeedHasMoreFromState,
 } from '../helpers/stateHelpers';
 import { getFeedContent as getFeedContentStatic } from '../feed/feedActions';
 import Loading from '../components/Icon/Loading';
@@ -39,12 +39,12 @@ export default class UserProfile extends Component {
     const loadContentAction = () => getFeedContent({
       sortBy: 'blog',
       category: username,
-      limit
+      limit,
     });
     const loadMoreContentAction = () => getMoreFeedContent({
       sortBy: 'blog',
       category: username,
-      limit
+      limit,
     });
     const user = this.props.user;
     const jsonMetadata = user.json_metadata || {};
@@ -53,7 +53,7 @@ export default class UserProfile extends Component {
       <div>
         <div className="profile">
           {!_.has(user, 'name') && <Loading />}
-          {/*{_.has(user, 'name') && <div>
+          {/* {_.has(user, 'name') && <div>
             <div className="container container-small my-5 text-center">
               <h3><Badge vestingShares={user.vesting_shares} /></h3>
               {donors[username] &&
@@ -85,7 +85,7 @@ export default class UserProfile extends Component {
                 , last activity <FormattedRelative value={`${user.last_vote_time}Z`} />
               </p>
             </div>
-          </div>}*/}
+          </div>} */}
           <Feed
             content={content}
             isFetching={isFetching}

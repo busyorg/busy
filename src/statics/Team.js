@@ -7,7 +7,7 @@ import advisors from '../helpers/advisors';
 import contributors from '../helpers/contributors';
 
 export default () =>
-  <div className="main-panel">
+  (<div className="main-panel">
     <MenuHelp />
     <div className="container text-center my-5">
       <h1><FormattedMessage id="team" defaultMessage="Team" /></h1>
@@ -19,33 +19,33 @@ export default () =>
       </p>
       <div className="row my-5">
         {team.map((user, idx) =>
-          <UserCard
+          (<UserCard
             key={idx}
             name={user.name}
             username={user.username}
             label={<h4>{user.role}</h4>}
-          />
+          />),
         )}
       </div>
       <h1><FormattedMessage id="advisors" defaultMessage="Advisors" /></h1>
       <div className="row my-5">
         {advisors.map((user, idx) =>
-          <UserCard
+          (<UserCard
             key={idx}
             name={user.name}
             username={user.username}
-          />
+          />),
         )}
       </div>
       <h1><FormattedMessage id="contributors" defaultMessage="Contributors" /></h1>
       <div className="row my-5">
         {contributors.map((user, idx) =>
-          <UserCard
+          (<UserCard
             key={idx}
             name={user.name}
             username={user.username}
-          />
+          />),
         )}
       </div>
     </div>
-  </div>;
+  </div>);

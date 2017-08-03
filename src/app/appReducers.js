@@ -19,41 +19,41 @@ export default (state = initialState, action) => {
     case appTypes.FEED_REQUEST:
       return Object.assign({}, state, {
         isFetching: true,
-        isLoaded: false
+        isLoaded: false,
       });
     case appTypes.FEED_SUCCESS:
       return Object.assign({}, state, {
         isFetching: false,
-        isLoaded: true
+        isLoaded: true,
       });
     case appTypes.FEED_FAILURE:
       return Object.assign({}, state, {
         isFetching: false,
-        isLoaded: true
+        isLoaded: true,
       });
     case appTypes.CONTENT_REQUEST:
       return Object.assign({}, state, {
         isFetching: true,
-        isLoaded: false
+        isLoaded: false,
       });
     case appTypes.CONTENT_SUCCESS:
       return Object.assign({}, state, {
         isFetching: false,
-        isLoaded: true
+        isLoaded: true,
       });
     case appTypes.ACCOUNT_REQUEST:
       return Object.assign({}, state, {
         isFetching: true,
-        isLoaded: false
+        isLoaded: false,
       });
     case appTypes.ACCOUNT_SUCCESS:
       return Object.assign({}, state, {
         isFetching: false,
-        isLoaded: true
+        isLoaded: true,
       });
     case appTypes.CONFIG_SUCCESS:
       return Object.assign({}, state, {
-        config: action.config
+        config: action.config,
       });
 
     case appTypes.GET_LAYOUT:

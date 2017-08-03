@@ -13,11 +13,11 @@ const iframeWhitelist = [
       const m = src.match(/https:\/\/player\.vimeo\.com\/video\/([0-9]+)/);
       if (!m || m.length !== 2) return null;
       return `https://player.vimeo.com/video/${m[1]}`;
-    }
+    },
   },
   {
     re: /^(https?:)?\/\/www.youtube.com\/embed\/.*/i,
-    fn: src => src.replace(/\?.+$/, '') // strip query string (yt: autoplay=1,controls=0,showinfo=0, etc)
+    fn: src => src.replace(/\?.+$/, ''), // strip query string (yt: autoplay=1,controls=0,showinfo=0, etc)
   },
   {
     re: /^(https?:)?\/\/w.soundcloud.com\/player\/.*/i,
@@ -28,16 +28,16 @@ const iframeWhitelist = [
       if (!m || m.length !== 2) return null;
       return `https://w.soundcloud.com/player/?url=${m[1]}&auto_play=false&hide_related=false&show_comments=true` +
         '&show_user=true&show_reposts=false&visual=true';
-    }
+    },
   },
   {
     re: /^(https?:)?\/\/(?:www\.)?(?:periscope.tv\/)(.*)?$/i,
-    fn: src => src // handled by embedjs
+    fn: src => src, // handled by embedjs
   },
   {
     re: /^(https?:)?\/\/(?:www\.)?(?:(player.)?twitch.tv\/)(.*)?$/i,
-    fn: src => src // handled by embedjs
-  }
+    fn: src => src, // handled by embedjs
+  },
 ];
 export const noImageText = '(Image not shown due to low ratings)';
 export const allowedTags = `
@@ -48,7 +48,7 @@ export const allowedTags = `
 `.trim().split(/,\s*/);
 
 // Medium insert plugin uses: div, figure, figcaption, iframe
-export default ({ large = true, noImage = false, sanitizeErrors = []}) => ({
+export default ({ large = true, noImage = false, sanitizeErrors = [] }) => ({
   allowedTags,
   // figure, figcaption,
 
@@ -79,7 +79,7 @@ export default ({ large = true, noImage = false, sanitizeErrors = []}) => ({
               frameborder: '0',
               allowfullscreen: 'allowfullscreen',
               webkitallowfullscreen: 'webkitallowfullscreen', // deprecated but required for vimeo : https://vimeo.com/forums/help/topic:278181
-              mozallowfullscreen: 'mozallowfullscreen',       // deprecated but required for vimeo
+              mozallowfullscreen: 'mozallowfullscreen', // deprecated but required for vimeo
               src,
               width: large ? '640' : '480',
               height: large ? '360' : '270',
@@ -117,7 +117,7 @@ export default ({ large = true, noImage = false, sanitizeErrors = []}) => ({
       }
       return {
         tagName,
-        attribs: attys
+        attribs: attys,
       };
     },
     td: (tagName, attribs) => {
@@ -127,7 +127,7 @@ export default ({ large = true, noImage = false, sanitizeErrors = []}) => ({
       }
       return {
         tagName,
-        attribs: attys
+        attribs: attys,
       };
     },
     a: (tagName, attribs) => {
@@ -142,8 +142,8 @@ export default ({ large = true, noImage = false, sanitizeErrors = []}) => ({
       }
       return {
         tagName,
-        attribs: attys
+        attribs: attys,
       };
     },
-  }
+  },
 });

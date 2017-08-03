@@ -9,7 +9,7 @@ import {
   getUpvotes,
   getDownvotes,
   getFollowingUpvotes,
-  getFollowingDownvotes
+  getFollowingDownvotes,
 } from '../helpers/voteHelpers';
 import Avatar from '../widgets/Avatar';
 import Icon from '../widgets/Icon';
@@ -18,7 +18,7 @@ import './Reactions.less';
 @connect(
   state => ({
     following: state.user.following.list,
-  })
+  }),
 )
 export default class Reactions extends Component {
   constructor(props) {
@@ -42,11 +42,11 @@ export default class Reactions extends Component {
               {' '}
               <span className="hidden-xs">
                 {followingUpvotes.map((vote, idx) =>
-                  <span key={idx} className="mr-1">
+                  (<span key={idx} className="mr-1">
                     <SimpleTooltipOrigin message={vote.voter}>
                       <Link to={`/@${vote.voter}`}><Avatar username={vote.voter} xs /></Link>
                     </SimpleTooltipOrigin>
-                  </span>
+                  </span>),
                 )}
               </span>
               {' '}
@@ -61,11 +61,11 @@ export default class Reactions extends Component {
               {' '}
               <span className="hidden-xs">
                 {followingDownvotes.map((vote, idx) =>
-                  <span key={idx} className="mr-1">
+                  (<span key={idx} className="mr-1">
                     <SimpleTooltipOrigin message={vote.voter}>
                       <a><Avatar username={vote.voter} xs /></a>
                     </SimpleTooltipOrigin>
-                  </span>
+                  </span>),
                 )}
               </span>
               {' '}

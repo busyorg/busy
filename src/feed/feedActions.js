@@ -5,7 +5,7 @@ import {
   getFeedContentFromState,
   getFeedLoadingFromState,
   getUserFeedLoadingFromState,
-  getUserFeedContentFromState
+  getUserFeedContentFromState,
 } from '../helpers/stateHelpers';
 
 export const GET_FEED_CONTENT = '@feed/GET_FEED_CONTENT';
@@ -57,7 +57,7 @@ export const getFeedContent = ({ sortBy, category, limit }) =>
           sortBy: sortBy || 'trending',
           category: category || 'all',
           postsData,
-        })
+        }),
       ))
       .catch((err) => {
         console.error(`error while loading ${sortBy}/${category}`, JSON.stringify(err));
@@ -88,7 +88,7 @@ export const getUserFeedContent = ({ username, limit }) =>
           sortBy,
           username,
           postsData,
-        })
+        }),
       ))
       .catch((err) => {
         console.error(`error while loading ${sortBy}/${username}`, JSON.stringify(err));
@@ -135,7 +135,7 @@ export const getMoreFeedContent = ({ sortBy, category, limit }) =>
             sortBy: sortBy || 'trending',
             category: category || 'all',
             postsData,
-          })
+          }),
         );
       })
       .catch((err) => {
@@ -184,7 +184,7 @@ export const getMoreUserFeedContent = ({ username, limit }) =>
             sortBy,
             username,
             postsData,
-          })
+          }),
         );
       })
       .catch((err) => {

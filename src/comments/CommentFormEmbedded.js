@@ -24,7 +24,7 @@ import './CommentForm.less';
     sendComment: parentId => commentActions.sendComment(parentId),
     updateCommentingDraft: commentActions.updateCommentingDraft,
     notify,
-  }, dispatch)
+  }, dispatch),
 )
 export default class CommentFormEmbedded extends Component {
   constructor(props) {

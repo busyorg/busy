@@ -10,7 +10,7 @@ export default function usersReducer(state = initialState, action) {
         [action.meta.username]: {
           ...state[action.meta.username],
           isFetching: true,
-        }
+        },
       };
     case `${actions.GET_FOLLOWING_COUNT}_SUCCESS`: {
       return {
@@ -18,8 +18,8 @@ export default function usersReducer(state = initialState, action) {
         [action.meta.username]: {
           ...state[action.meta.username],
           isFetching: false,
-          ...action.payload
-        }
+          ...action.payload,
+        },
       };
     }
     default: {

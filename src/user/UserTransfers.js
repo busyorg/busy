@@ -21,7 +21,7 @@ const CLAIMING = 'CLAIMING';
   }),
   dispatch => bindActionCreators({
     getWallet: walletActions.getWallet,
-  }, dispatch)
+  }, dispatch),
 )
 export default class UserTransfers extends Component {
   constructor(props) {

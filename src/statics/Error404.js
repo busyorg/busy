@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 
 const Error404 = () =>
-  <div className="main-panel">
+  (<div className="main-panel">
     <div className="container my-5">
       <div className="ptl text-center">
         <h1><FormattedMessage id="page_not_found" defaultMessage="Page Not Found" /></h1>
@@ -40,6 +40,6 @@ const Error404 = () =>
         </p>
       </div>
     </div>
-  </div>;
+  </div>);
 
 export default Error404;

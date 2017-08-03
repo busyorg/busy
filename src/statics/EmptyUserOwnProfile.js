@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 
 const EmptyUserProfile = () =>
-  <div className="text-center">
+  (<div className="text-center">
     <h3>
       <FormattedMessage id="empty_user_own_profile" defaultMessage="You didn't publish any stories yet." />
       <Link to="/write">
@@ -13,6 +13,6 @@ const EmptyUserProfile = () =>
         />
       </Link>
     </h3>
-  </div>;
+  </div>);
 
 export default EmptyUserProfile;

@@ -5,7 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import Icon from '../widgets/Icon';
 
 const Error401 = () =>
-  <div className="main-panel">
+  (<div className="main-panel">
     <div className="container my-5">
       <div className="ptl text-center">
         <h1><FormattedMessage id="page_forbidden" defaultMessage="Page Requires Authentication" /></h1>
@@ -35,6 +35,6 @@ const Error401 = () =>
         </p>
       </div>
     </div>
-  </div>;
+  </div>);
 
 export default Error401;

@@ -33,7 +33,7 @@ export default class LikesList extends Component {
         <div className="row">
           <div className="col-6">
             {upvotes.slice(0, this.state.show).map(vote =>
-              <div className="LikesList__item" key={vote.voter}>
+              (<div className="LikesList__item" key={vote.voter}>
                 <ProfileTooltipOrigin username={vote.voter} >
                   <Link to={`/@${vote.voter}`}>
                     <Avatar xs username={vote.voter} />
@@ -48,12 +48,12 @@ export default class LikesList extends Component {
                     {numeral((vote.percent / 10000)).format('0%')}
                   </span>
                 </span>
-              </div>
+              </div>),
             )}
           </div>
           <div className="col-6">
             {downvotes.slice(0, this.state.show).map(vote =>
-              <div className="LikesList__item" key={vote.voter}>
+              (<div className="LikesList__item" key={vote.voter}>
                 <ProfileTooltipOrigin username={vote.voter} >
                   <Link to={`/@${vote.voter}`}>
                     <Avatar xs username={vote.voter} />
@@ -67,7 +67,7 @@ export default class LikesList extends Component {
                 <span className="text-info">
                   {numeral((vote.percent / 10000)).format('0%')}
                 </span>
-              </div>
+              </div>),
             )}
           </div>
         </div>

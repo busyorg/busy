@@ -26,7 +26,7 @@ const initialState = {
 };
 
 const posts = (state = initialState, action) => {
-  let posts = {};
+  const posts = {};
   switch (action.type) {
     case feedTypes.GET_FEED_CONTENT_SUCCESS:
     case feedTypes.GET_MORE_FEED_CONTENT_SUCCESS:

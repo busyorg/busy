@@ -15,7 +15,7 @@ const remarkable = new Remarkable({
   breaks: true,
   linkify: false, // linkify is done locally
   typographer: false, // https://github.com/jonschlinkert/remarkable/issues/142#issuecomment-221546793
-  quotes: '“”‘’'
+  quotes: '“”‘’',
 });
 
 // Should return text(html) if returnType is text

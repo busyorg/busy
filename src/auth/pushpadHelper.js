@@ -75,6 +75,4 @@ export const initPushpad = (username, token) => {
         console.log(err);
       });
   });
-
-  
-}
+};

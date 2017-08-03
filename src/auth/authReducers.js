@@ -14,7 +14,7 @@ export default (state = initialState, action) => {
         ...state,
         isFetching: true,
         isAuthenticated: false,
-        user: {}
+        user: {},
       };
     case types.LOGIN_SUCCESS:
       return {
@@ -30,13 +30,13 @@ export default (state = initialState, action) => {
         ...state,
         isFetching: false,
         isAuthenticated: false,
-        errorMessage: action.message
+        errorMessage: action.message,
       };
     case types.LOGOUT_SUCCESS:
       return {
         ...state,
         isFetching: true,
-        isAuthenticated: false
+        isAuthenticated: false,
       };
     default:
       return state;

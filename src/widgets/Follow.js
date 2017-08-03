@@ -12,7 +12,7 @@ import { followUser, unfollowUser } from '../user/userActions';
   dispatch => bindActionCreators({
     followUser,
     unfollowUser,
-  }, dispatch)
+  }, dispatch),
 )
 export default class FollowButton extends Component {
   static propTypes = {

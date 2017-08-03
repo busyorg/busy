@@ -25,7 +25,7 @@ async function getBookmarksData(bookmarks, steemAPI) {
 
     const postData = steemAPI.getContentAsync(
       bookmarks[postId].author,
-      bookmarks[postId].permlink
+      bookmarks[postId].permlink,
     );
     bookmarksData.push(postData);
   }
@@ -42,7 +42,7 @@ export const getBookmarks = () => (dispatch, getState, { steemAPI }) => {
     type: GET_BOOKMARKS,
     payload: {
       promise: getBookmarksData(userBookmarks, steemAPI).then(
-        bookmarksData => ({ postsData: bookmarksData })
+        bookmarksData => ({ postsData: bookmarksData }),
       ),
       data: bookmarks,
     },

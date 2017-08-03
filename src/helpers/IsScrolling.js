@@ -2,13 +2,13 @@
 import React from 'react';
 
 const IsScrollingHoC = TheComponent =>
-class IsScrolling extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isScrolling: false,
-    };
-  }
+  class IsScrolling extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        isScrolling: false,
+      };
+    }
 
   setScrollOn = () => {
     if (!this.state.isScrolling) {
@@ -44,6 +44,6 @@ class IsScrolling extends React.Component {
       />
     );
   }
-};
+  };
 
 export default IsScrollingHoC;
