@@ -1,3 +1,4 @@
+// NOTE: storybook installs to devDependencies and it should stay there
 /* eslint-disable import/no-extraneous-dependencies */
 
 import React from 'react';
