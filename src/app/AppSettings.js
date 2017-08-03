@@ -3,8 +3,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import * as actions from '../actions';
-import Icon from '../widgets/Icon';
-import '../widgets/Flag.less';
 
 @connect(
   state => ({
@@ -49,7 +47,6 @@ export default class AppSettings extends React.Component {
                 onClick={() => setLayout('card')}
                 className={app.layout === 'card' && 'active'}
               >
-                <Icon name="view_agenda" xl />
                 <h2 className="my-2">
                   <FormattedMessage id="card" defaultMessage="Card" />
                 </h2>
@@ -61,7 +58,6 @@ export default class AppSettings extends React.Component {
                 onClick={() => setLayout('list')}
                 className={app.layout === 'list' && 'active'}
               >
-                <Icon name="view_list" xl />
                 <h2 className="my-2">
                   <FormattedMessage id="list" defaultMessage="List" />
                 </h2>

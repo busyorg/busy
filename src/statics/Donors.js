@@ -2,8 +2,6 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
 import donors from '../helpers/donors';
-import Donor from '../widgets/Donor';
-import UserCard from '../widgets/UserCard';
 
 const Donors = () =>
   (<div className="main-panel">
@@ -23,15 +21,9 @@ const Donors = () =>
       </Link>
       <div className="row my-5">
         {Object.keys(donors).map(user =>
-          (<UserCard
-            key={user}
-            username={user}
-            label={
-              <h4>
-                <Donor rank={donors[user]} />
-              </h4>
-            }
-          />),
+          (<div>
+            {user}
+          </div>),
         )}
       </div>
     </div>

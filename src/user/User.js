@@ -1,10 +1,7 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { FormattedMessage } from 'react-intl';
-import _ from 'lodash';
-import numeral from 'numeral';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import {
   getFeedContent,
@@ -15,13 +12,8 @@ import {
 import { getAccountWithFollowingCount } from './usersActions';
 import { getUserComments, getMoreUserComments, followUser, unfollowUser } from './userActions';
 import { addUserFavorite, removeUserFavorite } from '../favorites/favoritesActions';
-import FavoriteButton from '../favorites/FavoriteButton';
 import Loading from '../components/Icon/Loading';
-import Follow from '../widgets/Follow';
-import Icon from '../widgets/Icon';
-import Avatar from '../widgets/Avatar';
 import UserNotFound from '../statics/UserNotFound';
-import Transfer from '../widgets/Transfer';
 import UserHero from './UserHero';
 import LeftSidebar from '../app/Sidebar/LeftSidebar';
 import RightSidebar from '../app/Sidebar/RightSidebar';

@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import steemconnect from 'sc2-sdk';
 import { FormattedMessage } from 'react-intl';
-import Icon from '../widgets/Icon';
 
 const Error401 = () =>
   (<div className="main-panel">
@@ -23,7 +22,7 @@ const Error401 = () =>
             defaultMessage="You need to login to use this feature, please"
           />{' '}
           <a href={steemconnect.getLoginURL()}>
-            <Icon name="lock_outline" /> <FormattedMessage id="login" defaultMessage="Login" />
+            <FormattedMessage id="login" defaultMessage="Login" />
           </a>
           <br />
           <FormattedMessage id="@statics/here_link" defaultMessage="Here's a link to the" />

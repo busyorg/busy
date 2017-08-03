@@ -3,7 +3,7 @@ import ReduxInfiniteScroll from 'redux-infinite-scroll';
 import { Link } from 'react-router-dom';
 import { FormattedRelative } from 'react-intl';
 
-import Avatar from '../widgets/Avatar';
+import Avatar from '../components/Avatar';
 
 const defaultPageItems = 10;
 
@@ -53,11 +53,10 @@ const renderReportFromOp = (op, username) => {
     }
   } else if (/^transfer$|^transfer_to_savings$|^transfer_from_savings$/.test(type)) {
     // transfer_to_savings
-    const fromWhere = type === 'transfer_to_savings'
-      ? 'to savings '
-      : type === 'transfer_from_savings'
-        ? 'from savings '
-        : '';
+    const fromWhere =
+      type === 'transfer_to_savings'
+        ? 'to savings '
+        : type === 'transfer_from_savings' ? 'from savings ' : '';
 
     if (data.from === username) {
       descriptionStart += `Transfer ${fromWhere}${data.amount} to `;
@@ -87,7 +86,9 @@ const renderReportFromOp = (op, username) => {
   } else if (type === 'author_reward') {
     let steemPayout = '';
     if (data.steem_payout !== '0.000 STEEM') steemPayout = `, ${data.steem_payout}`;
-    descriptionStart += `${renameToSd(data.sbd_payout)}${steemPayout}, and ${authorReward} STEEM POWER for ${data.author}/${data.permlink}`;
+    descriptionStart += `${renameToSd(
+      data.sbd_payout,
+    )}${steemPayout}, and ${authorReward} STEEM POWER for ${data.author}/${data.permlink}`;
 
     descriptionEnd = '';
   } else if (type === 'interest') {
@@ -103,39 +104,40 @@ const renderReportFromOp = (op, username) => {
       descriptionStart += `Paid ${data.current_pays} for ${data.open_pays}`;
     }
   } else if (type === 'claim_reward_balance') {
-    descriptionStart += `Claim rewards: ${renameToSd(data.reward_sbd)}, ${data.reward_steem}, and ${data.reward_vests}`;
+    descriptionStart += `Claim rewards: ${renameToSd(
+      data.reward_sbd,
+    )}, ${data.reward_steem}, and ${data.reward_vests}`;
     descriptionEnd = '';
   } else {
     descriptionStart += JSON.stringify({ type, ...data }, null, 2);
   }
   return (
     <span>
-      { descriptionStart }
-      { otherAccount &&
+      {descriptionStart}
+      {otherAccount &&
         <Link to={`/@${otherAccount}`}>
-          <Avatar username={otherAccount} xs />
-          {' '}{otherAccount}
-        </Link>
-      }
-      { descriptionEnd }
+          <Avatar username={otherAccount} /> {otherAccount}
+        </Link>}
+      {descriptionEnd}
     </span>
   );
 };
 
-const getOnlyViableTransfers = list => list.filter((op) => {
-  // filtering out some types of transactions to integrate it with Steemit results
-  const type = op[1].op[0];
-  const data = op[1].op[1];
+const getOnlyViableTransfers = list =>
+  list.filter((op) => {
+    // filtering out some types of transactions to integrate it with Steemit results
+    const type = op[1].op[0];
+    const data = op[1].op[1];
 
-  if (type === 'curation_reward' || type === 'author_reward') {
-    return false;
-  }
+    if (type === 'curation_reward' || type === 'author_reward') {
+      return false;
+    }
 
-  if (data.sbd_payout === '0.000 SBD' && data.vesting_payout === '0.000000 VESTS') {
-    return false;
-  }
-  return true;
-});
+    if (data.sbd_payout === '0.000 SBD' && data.vesting_payout === '0.000000 VESTS') {
+      return false;
+    }
+    return true;
+  });
 
 export default class TransferHistory extends Component {
   constructor(props) {
@@ -172,8 +174,7 @@ export default class TransferHistory extends Component {
               {op[1].op[1].memo &&
                 <blockquote>
                   {op[1].op[1].memo}
-                </blockquote>
-              }
+                </blockquote>}
             </div>),
           )}
         </ReduxInfiniteScroll>

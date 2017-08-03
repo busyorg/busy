@@ -1,8 +1,6 @@
 import 'babel-polyfill';
 import React, { Component } from 'react';
-import { FormattedRelative } from 'react-intl';
 import _ from 'lodash';
-import { Link } from 'react-router-dom';
 import Feed from '../feed/Feed';
 import {
   getFeedContentFromState,
@@ -11,17 +9,13 @@ import {
 } from '../helpers/stateHelpers';
 import { getFeedContent as getFeedContentStatic } from '../feed/feedActions';
 import Loading from '../components/Icon/Loading';
-import Icon from '../widgets/Icon';
-import Badge from '../widgets/Badge';
-import Donor from '../widgets/Donor';
-import donors from '../helpers/donors';
 import EmptyUserProfile from '../statics/EmptyUserProfile';
 import EmptyUserOwnProfile from '../statics/EmptyUserOwnProfile';
 
 export default class UserProfile extends Component {
   static needs = [
     ({ name }) => getFeedContentStatic({ sortBy: 'blog', category: name, limit: 10 }),
-  ]
+  ];
 
   isFavorited() {
     const { favorites } = this.props;
@@ -36,16 +30,18 @@ export default class UserProfile extends Component {
     const content = getFeedContentFromState('blog', username, feed, posts);
     const isFetching = getFeedLoadingFromState('blog', username, feed);
     const hasMore = getFeedHasMoreFromState('blog', username, feed);
-    const loadContentAction = () => getFeedContent({
-      sortBy: 'blog',
-      category: username,
-      limit,
-    });
-    const loadMoreContentAction = () => getMoreFeedContent({
-      sortBy: 'blog',
-      category: username,
-      limit,
-    });
+    const loadContentAction = () =>
+      getFeedContent({
+        sortBy: 'blog',
+        category: username,
+        limit,
+      });
+    const loadMoreContentAction = () =>
+      getMoreFeedContent({
+        sortBy: 'blog',
+        category: username,
+        limit,
+      });
     const user = this.props.user;
     const jsonMetadata = user.json_metadata || {};
 
@@ -97,13 +93,9 @@ export default class UserProfile extends Component {
             hideReblogs
           />
 
-          {(content.length === 0 && !isFetching && isOwnProfile) &&
-            <EmptyUserOwnProfile />
-          }
+          {content.length === 0 && !isFetching && isOwnProfile && <EmptyUserOwnProfile />}
 
-          {(content.length === 0 && !isFetching && !isOwnProfile) &&
-            <EmptyUserProfile />
-          }
+          {content.length === 0 && !isFetching && !isOwnProfile && <EmptyUserProfile />}
         </div>
       </div>
     );
