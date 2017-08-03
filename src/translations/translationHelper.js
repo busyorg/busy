@@ -1,7 +1,7 @@
 import _ from 'lodash';
 
-const isRootLocaleComment =
-  reply => (reply.depth === 1 && reply.body.length === 4 && reply.body.substring(0, 2) === '# ');
+const isRootLocaleComment = reply =>
+  reply.depth === 1 && reply.body.length === 4 && reply.body.substring(0, 2) === '# ';
 
 export const toObject = (body) => {
   const object = {};
