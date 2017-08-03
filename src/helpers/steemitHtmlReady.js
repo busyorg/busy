@@ -1,4 +1,4 @@
-/* eslint-disable no-use-before-define,curly,import/no-named-as-default-member,max-len,no-param-reassign,consistent-return,no-useless-escape */
+/* eslint-disable */
 
 /**
  * This function is extracted from steemit.com source code and does the same tasks with some slight-
@@ -11,7 +11,7 @@ import embedjs from 'embedjs';
 import linksRe from './steemitLinks';
 import { validateAccountName } from './ChainValidation';
 
-const noop = () => { };
+const noop = () => {};
 const DOMParser = new xmldom.DOMParser({
   errorHandler: { warning: noop, error: noop },
 });
@@ -80,7 +80,7 @@ const IMG_PROXY_PREFIX = 'https://steemitimages.com/0x0/';
 
 /** Embed videos, link mentions and hashtags, etc...
 */
-export default function (html, { mutate = true, resolveIframe } = {}) {
+export default function(html, { mutate = true, resolveIframe } = {}) {
   const state = { mutate, resolveIframe };
   state.hashtags = new Set();
   state.usertags = new Set();
@@ -93,7 +93,7 @@ export default function (html, { mutate = true, resolveIframe } = {}) {
     if (mutate) proxifyImages(doc);
     // console.log('state', state)
     if (!mutate) return state;
-    return { html: (doc) ? XMLSerializer.serializeToString(doc) : '', ...state };
+    return { html: doc ? XMLSerializer.serializeToString(doc) : '', ...state };
   } catch (error) {
     // Not Used, parseFromString might throw an error in the future
     console.error(error.toString());
@@ -103,19 +103,15 @@ export default function (html, { mutate = true, resolveIframe } = {}) {
 
 function traverse(node, state, depth = 0) {
   if (!node || !node.childNodes) return;
-  Array(...node.childNodes).forEach((child) => {
+  Array(...node.childNodes).forEach(child => {
     // console.log(depth, 'child.tag,data', child.tagName, child.data)
     const tag = child.tagName ? child.tagName.toLowerCase() : null;
     if (tag) state.htmltags.add(tag);
 
-    if (tag === 'img')
-      img(state, child);
-    else if (tag === 'iframe')
-      iframe(state, child);
-    else if (tag === 'a')
-      link(state, child);
-    else if (child.nodeName === '#text')
-      linkifyNode(child, state);
+    if (tag === 'img') img(state, child);
+    else if (tag === 'iframe') iframe(state, child);
+    else if (tag === 'a') link(state, child);
+    else if (child.nodeName === '#text') linkifyNode(child, state);
 
     traverse(child, state, depth + 1);
   });
@@ -149,7 +145,9 @@ function iframe(state, child) {
   const { mutate, resolveIframe } = state;
   if (!mutate) return;
 
-  const tag = child.parentNode.tagName ? child.parentNode.tagName.toLowerCase() : child.parentNode.tagName;
+  const tag = child.parentNode.tagName
+    ? child.parentNode.tagName.toLowerCase()
+    : child.parentNode.tagName;
   if (tag === 'div' && child.parentNode.getAttribute('class') === 'videoWrapper') return;
   const html = XMLSerializer.serializeToString(child);
   if (resolveIframe) domString = `<div class="videoWrapper">${html}</div>`;
@@ -177,15 +175,19 @@ function img(state, child) {
 function proxifyImages(doc) {
   if (!IMG_PROXY_PREFIX) return;
   if (!doc) return;
-  [...doc.getElementsByTagName('img')].forEach((node) => {
+  [...doc.getElementsByTagName('img')].forEach(node => {
     const url = node.getAttribute('src');
-    if (!linksRe.local.test(url)) { node.setAttribute('src', `${IMG_PROXY_PREFIX}0x0/${url}`); }
+    if (!linksRe.local.test(url)) {
+      node.setAttribute('src', `${IMG_PROXY_PREFIX}0x0/${url}`);
+    }
   });
 }
 
 function linkifyNode(child, state) {
   try {
-    const tag = child.parentNode.tagName ? child.parentNode.tagName.toLowerCase() : child.parentNode.tagName;
+    const tag = child.parentNode.tagName
+      ? child.parentNode.tagName.toLowerCase()
+      : child.parentNode.tagName;
     if (tag === 'code') return;
     if (tag === 'a') return;
 
@@ -195,18 +197,27 @@ function linkifyNode(child, state) {
     if (isEmbedable(child, state.links, state.images, state.resolveIframe)) return;
 
     const data = XMLSerializer.serializeToString(child);
-    const content = linkify(data, state.mutate, state.hashtags, state.usertags, state.images, state.links);
+    const content = linkify(
+      data,
+      state.mutate,
+      state.hashtags,
+      state.usertags,
+      state.images,
+      state.links,
+    );
     if (mutate && content !== data) {
       const newChild = DOMParser.parseFromString(`<span>${content}</span>`);
       child.parentNode.replaceChild(newChild, child);
       return newChild;
     }
-  } catch (error) { console.log(error); }
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 function linkify(content, mutate, hashtags, usertags, images, links) {
   // hashtag
-  content = content.replace(/(^|\s)(#[-a-z\d]+)/ig, (tag) => {
+  content = content.replace(/(^|\s)(#[-a-z\d]+)/gi, tag => {
     if (/#[\d]+$/.test(tag)) return tag; // Don't allow numbers to be tags
     const space = /^\s/.test(tag) ? tag[0] : '';
     const tag2 = tag.trim().substring(1);
@@ -217,20 +228,17 @@ function linkify(content, mutate, hashtags, usertags, images, links) {
   });
 
   // usertag (mention)
-  content = content.replace(/(^|\s)(@[a-z][-\.a-z\d]+[a-z\d])/ig, (user) => {
+  content = content.replace(/(^|\s)(@[a-z][-\.a-z\d]+[a-z\d])/gi, user => {
     const space = /^\s/.test(user) ? user[0] : '';
     const user2 = user.trim().substring(1);
     const userLower = user2.toLowerCase();
     const valid = validateAccountName(userLower) == null;
     if (valid && usertags) usertags.add(userLower);
     if (!mutate) return user;
-    return space + (valid ?
-      `<a href="/@${userLower}">@${user2}</a>` :
-      `@${user2}`
-    );
+    return space + (valid ? `<a href="/@${userLower}">@${user2}</a>` : `@${user2}`);
   });
 
-  content = content.replace(linksRe.any, (ln) => {
+  content = content.replace(linksRe.any, ln => {
     if (linksRe.image.test(ln)) {
       if (images) images.add(ln);
       return `<img src="${ln}" />`;
@@ -253,7 +261,9 @@ function isEmbedable(child, links, images, resolveIframe) {
     if (!foundLinks) return false;
     const embed = embedjs.get(foundLinks[0] || '', { width: '100%', height: 400 });
     if (embed && embed.id) {
-      const domString = resolveIframe ? embed.embed : `~~~ embed:${embed.id} ${embed.provider_name} ${embed.url} ~~~`;
+      const domString = resolveIframe
+        ? embed.embed
+        : `~~~ embed:${embed.id} ${embed.provider_name} ${embed.url} ~~~`;
       const v = DOMParser.parseFromString(domString);
       child.parentNode.replaceChild(v, child);
       // console.trace('embed.embed', v);
@@ -262,7 +272,10 @@ function isEmbedable(child, links, images, resolveIframe) {
       return true;
     }
     return false;
-  } catch (error) { console.log(error); return false; }
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
 }
 
 /** @return {id, url} or <b>null</b> */

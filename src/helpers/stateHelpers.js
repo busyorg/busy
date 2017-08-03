@@ -1,4 +1,3 @@
-// TODO(p0o): use a selector for these
 export const getFeedFromState = (sortBy, category = 'all', state) => {
   switch (sortBy) {
     case 'feed':
@@ -71,7 +70,6 @@ export const getUserFeedContentFromState = (username, feedState, postsState) =>
 export const getUserFeedLoadingFromState = (username, feedState) =>
   (feedState.feed[username] && feedState.feed[username].isFetching) || false;
 
-
 /**
  * Sort comments based on payout
  * @param {Array} list - list of IDs of comments
@@ -97,7 +95,9 @@ export const sortCommentsFromSteem = (list, commentsState, sortBy = 'trending') 
     compareFunc = (itemA, itemB) => Date.parse(itemA.created) - Date.parse(itemB.created);
   }
 
-  return newList.sort((item1, item2) =>
-    compareFunc(commentsState.comments[item1], commentsState.comments[item2]),
-  ).reverse();
+  return newList
+    .sort((item1, item2) =>
+      compareFunc(commentsState.comments[item1], commentsState.comments[item2]),
+    )
+    .reverse();
 };

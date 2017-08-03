@@ -1,4 +1,3 @@
-/* eslint-disable */
 /**
  * This function is extracted from steemit.com source code and does the same tasks with some slight-
  * adjustments to meet our needs. Refer to the main one in case of future problems:
@@ -6,18 +5,14 @@
  */
 
 export function validateAccountName(value) {
-  let i,
-    label,
-    len,
-    length,
-    ref,
-    suffix;
+  let label;
+  let suffix;
 
   suffix = 'Account name should ';
   if (!value) {
     return `${suffix}not be empty.`;
   }
-  length = value.length;
+  const length = value.length;
   if (length < 3) {
     return `${suffix}be longer.`;
   }
@@ -27,8 +22,8 @@ export function validateAccountName(value) {
   if (/\./.test(value)) {
     suffix = 'Each account segment should ';
   }
-  ref = value.split('.');
-  for (i = 0, len = ref.length; i < len; i++) {
+  const ref = value.split('.');
+  for (let i = 0, len = ref.length; i < len; i += 1) {
     label = ref[i];
     if (!/^[a-z]/.test(label)) {
       return `${suffix}start with a letter.`;
@@ -48,3 +43,5 @@ export function validateAccountName(value) {
   }
   return null;
 }
+
+export default null;

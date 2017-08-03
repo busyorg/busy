@@ -20,7 +20,6 @@ import Loading from '../components/Icon/Loading';
 import Follow from '../widgets/Follow';
 import Icon from '../widgets/Icon';
 import Avatar from '../widgets/Avatar';
-import dispatchActions from '../helpers/dispatchActions';
 import UserNotFound from '../statics/UserNotFound';
 import Transfer from '../widgets/Transfer';
 import UserHero from './UserHero';
@@ -60,9 +59,6 @@ export const needs = [getAccountWithFollowingCount];
       dispatch,
     ),
 )
-@dispatchActions({
-  waitFor: state => state.auth && state.auth.isAuthenticated,
-})
 export default class User extends React.Component {
   static needs = needs;
 

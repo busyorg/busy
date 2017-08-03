@@ -3,12 +3,6 @@ import _ from 'lodash';
 
 export const getFavoriteUsers = () => store.get('users') || {};
 
-export const toggleFavoriteUser = (username) => {
-  const users = store.get('users') || {};
-  return (_.has(users, username)) ?
-    removeFavoriteUser(username) : addFavoriteUser(username);
-};
-
 export const addFavoriteUser = (username) => {
   const users = store.get('users') || {};
   users[username] = {};
@@ -23,13 +17,12 @@ export const removeFavoriteUser = (username) => {
   return true;
 };
 
-export const getFavoriteCategories = () => store.get('categories') || {};
-
-export const toggleFavoriteCategory = (category) => {
-  const categories = store.get('categories') || {};
-  return (_.has(categories, category)) ?
-    removeFavoriteCategory(category) : addFavoriteCategory(category);
+export const toggleFavoriteUser = (username) => {
+  const users = store.get('users') || {};
+  return _.has(users, username) ? removeFavoriteUser(username) : addFavoriteUser(username);
 };
+
+export const getFavoriteCategories = () => store.get('categories') || {};
 
 export const addFavoriteCategory = (category) => {
   const categories = store.get('categories') || {};
@@ -45,15 +38,20 @@ export const removeFavoriteCategory = (category) => {
   return true;
 };
 
-export const getLayout = () =>
-  store.get('layout') || 'card';
+export const toggleFavoriteCategory = (category) => {
+  const categories = store.get('categories') || {};
+  return _.has(categories, category)
+    ? removeFavoriteCategory(category)
+    : addFavoriteCategory(category);
+};
+
+export const getLayout = () => store.get('layout') || 'card';
 
 export const setLayout = (layout) => {
   store.set('layout', layout);
 };
 
-export const getLocale = () =>
-  store.get('locale') || 'en';
+export const getLocale = () => store.get('locale') || 'en';
 
 export const setLocale = (locale) => {
   store.set('locale', locale);

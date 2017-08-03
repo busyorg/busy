@@ -1,3 +1,4 @@
+/* eslint-disable */
 /**
 This function is extracted from steemit.com source code and does the same tasks with some slight-
  * adjustments to meet our needs. Refer to the main one in case of future problems:
@@ -7,7 +8,7 @@ This function is extracted from steemit.com source code and does the same tasks 
 const iframeWhitelist = [
   {
     re: /^(https?:)?\/\/player.vimeo.com\/video\/.*/i,
-    fn: (src) => {
+    fn: src => {
       // <iframe src="https://player.vimeo.com/video/179213493" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
       if (!src) return null;
       const m = src.match(/https:\/\/player\.vimeo\.com\/video\/([0-9]+)/);
@@ -21,13 +22,15 @@ const iframeWhitelist = [
   },
   {
     re: /^(https?:)?\/\/w.soundcloud.com\/player\/.*/i,
-    fn: (src) => {
+    fn: src => {
       if (!src) return null;
       // <iframe width="100%" height="450" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/257659076&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true"></iframe>
       const m = src.match(/url=(.+?)[&?]/);
       if (!m || m.length !== 2) return null;
-      return `https://w.soundcloud.com/player/?url=${m[1]}&auto_play=false&hide_related=false&show_comments=true` +
-        '&show_user=true&show_reposts=false&visual=true';
+      return (
+        `https://w.soundcloud.com/player/?url=${m[1]}&auto_play=false&hide_related=false&show_comments=true` +
+        '&show_user=true&show_reposts=false&visual=true'
+      );
     },
   },
   {
@@ -45,7 +48,9 @@ export const allowedTags = `
     a, p, b, q, br, ul, li, ol, img, h1, h2, h3, h4, h5, h6, hr,
     blockquote, pre, code, em, strong, center, table, thead, tbody, tr, th, td,
     strike, sup, sub
-`.trim().split(/,\s*/);
+`
+  .trim()
+  .split(/,\s*/);
 
 // Medium insert plugin uses: div, figure, figcaption, iframe
 export default ({ large = true, noImage = false, sanitizeErrors = [] }) => ({
@@ -55,8 +60,15 @@ export default ({ large = true, noImage = false, sanitizeErrors = [] }) => ({
   // SEE https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet
   allowedAttributes: {
     // "src" MUST pass a whitelist (below)
-    iframe: ['src', 'width', 'height', 'frameborder', 'allowfullscreen',
-      'webkitallowfullscreen', 'mozallowfullscreen'],
+    iframe: [
+      'src',
+      'width',
+      'height',
+      'frameborder',
+      'allowfullscreen',
+      'webkitallowfullscreen',
+      'mozallowfullscreen',
+    ],
 
     // class attribute is strictly whitelisted (below)
     div: ['class'],
@@ -110,7 +122,15 @@ export default ({ large = true, noImage = false, sanitizeErrors = [] }) => ({
     },
     div: (tagName, attribs) => {
       const attys = {};
-      const classWhitelist = ['pull-right', 'pull-left', 'text-justify', 'text-rtl', 'text-center', 'text-right', 'videoWrapper'];
+      const classWhitelist = [
+        'pull-right',
+        'pull-left',
+        'text-justify',
+        'text-rtl',
+        'text-center',
+        'text-right',
+        'videoWrapper',
+      ];
       const validClass = classWhitelist.find(e => attribs.class === e);
       if (validClass) {
         attys.class = validClass;
