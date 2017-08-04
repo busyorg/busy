@@ -86,9 +86,7 @@ class SubFeed extends React.Component {
       loadMoreContent = () => this.props.getMoreUserFeedContent(auth.user.name);
     } else {
       const sortBy = match.params.sortBy || 'trending';
-      console.log('sortBy', sortBy);
       content = getFeedContentFromState(sortBy, match.params.category, feed, posts);
-      console.log(content);
       isFetching = getFeedLoadingFromState(sortBy, match.params.category, feed);
       hasMore = getFeedHasMoreFromState(sortBy, match.params.category, feed);
       loadMoreContent = () => this.props.getMoreFeedContent(sortBy, match.params.category);

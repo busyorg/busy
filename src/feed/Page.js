@@ -7,17 +7,15 @@ import { LeftSidebar, RightSidebar } from '../app/Sidebar/index';
 import TopicSelector from '../components/TopicSelector';
 import Affix from '../components/Utils/Affix';
 
-@connect(
-  state => ({
-    auth: state.auth,
-  }),
-)
+@connect(state => ({
+  auth: state.auth,
+}))
 class Page extends React.Component {
   static propTypes = {
     history: PropTypes.shape().isRequired,
     location: PropTypes.shape().isRequired,
     match: PropTypes.shape().isRequired,
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -39,26 +37,31 @@ class Page extends React.Component {
     }
 
     this.setState({
-      categories: (category) ? [category] : [],
+      categories: category ? [category] : [],
     });
   }
 
   handleSortChange = (key) => {
-    this.setState({
-      currentKey: key,
-    }, () => {
-      if (this.state.categories[0]) {
-        this.props.history.push(`/${key}/${this.state.categories[0]}`);
-      } else {
-        this.props.history.push(`/${key}`);
+    this.setState(
+      {
+        currentKey: key,
+      },
+      () => {
+        if (this.state.categories[0]) {
+          this.props.history.push(`/${key}/${this.state.categories[0]}`);
+        } else {
+          this.props.history.push(`/${key}`);
+        }
       }
-    });
+    );
   };
 
   handleTopicClose = () => this.props.history.push(this.props.match.url);
 
   render() {
     const { auth, match, location } = this.props;
+
+    const shouldDisplaySelector = location.pathname !== '/' || !auth.isAuthenticated;
 
     return (
       <div>
@@ -78,13 +81,14 @@ class Page extends React.Component {
               </div>
             </Affix>
             <div className="center">
-              {location.pathname !== '/' && <TopicSelector
-                isSingle={false}
-                sort={this.state.currentKey}
-                topics={this.state.categories}
-                onSortChange={this.handleSortChange}
-                onTopicClose={this.handleTopicClose}
-              />}
+              {shouldDisplaySelector &&
+                <TopicSelector
+                  isSingle={false}
+                  sort={this.state.currentKey}
+                  topics={this.state.categories}
+                  onSortChange={this.handleSortChange}
+                  onTopicClose={this.handleTopicClose}
+                />}
               <Route path={`${match.path}:sortBy?/:category?`} component={SubFeed} />
             </div>
           </div>
