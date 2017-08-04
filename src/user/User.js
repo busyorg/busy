@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -52,6 +52,24 @@ export const needs = [getAccountWithFollowingCount];
     ),
 )
 export default class User extends React.Component {
+  static propTypes = {
+    auth: PropTypes.shape().isRequired,
+    match: PropTypes.shape().isRequired,
+    users: PropTypes.shape().isRequired,
+    followingList: PropTypes.arrayOf(PropTypes.string).isRequired,
+    pendingFollows: PropTypes.arrayOf(PropTypes.string).isRequired,
+    children: PropTypes.element.isRequired,
+    getAccountWithFollowingCount: PropTypes.func,
+    followUser: PropTypes.func,
+    unfollowUser: PropTypes.func,
+  };
+
+  static defaultProps = {
+    getAccountWithFollowingCount: () => {},
+    followUser: () => {},
+    unfollowUser: () => {},
+  };
+
   static needs = needs;
 
   componentWillMount() {
@@ -67,10 +85,14 @@ export default class User extends React.Component {
     }
   }
 
-  isFavorited() {
-    const { favorites } = this.props;
-    const username = this.props.match.params.name;
-    return username && favorites.includes(username);
+  getUserView(user) {
+    return user.name
+      ? React.cloneElement(this.props.children, {
+        ...this.props,
+        user,
+        limit: 10,
+      })
+      : <UserNotFound />;
   }
 
   handleFollowClick = () => {
@@ -82,16 +104,6 @@ export default class User extends React.Component {
       this.props.followUser(username);
     }
   };
-
-  getUserView(user) {
-    return user.name
-      ? React.cloneElement(this.props.children, {
-        ...this.props,
-        user,
-        limit: 10,
-      })
-      : <UserNotFound />;
-  }
 
   render() {
     const { auth, followingList, pendingFollows } = this.props;

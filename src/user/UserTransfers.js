@@ -83,9 +83,8 @@ export default class UserTransfers extends React.Component {
         this.state.props.total_vesting_shares,
         this.state.props.total_vesting_fund_steem,
       );
-      dollar =
-        parseFloat(account.sbd_balance) +
-        parseFloat(rate) * (parseFloat(account.balance) + parseFloat(power));
+      dollar = parseFloat(rate) * (parseFloat(account.balance) + parseFloat(power));
+      dollar += parseFloat(account.sbd_balance);
     }
 
     const isMyAccount = account.name && _.get(this.props.auth, 'user.name') === account.name;
