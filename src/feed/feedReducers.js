@@ -2,7 +2,6 @@ import * as feedTypes from './feedActions';
 import * as userTypes from '../user/userActions';
 import * as bookmarksActions from '../bookmarks/bookmarksActions';
 
-
 const initialState = {
   feed: {},
   hot: {},
@@ -48,20 +47,17 @@ const feedIdsList = (state = [], action) => {
     case feedTypes.GET_USER_FEED_CONTENT_SUCCESS:
     case bookmarksActions.GET_BOOKMARKS_SUCCESS:
       postsIds = action.payload.postsData.map(post => post.id);
-      return [
-        ...postsIds,
-      ];
+      return [...postsIds];
     case feedTypes.GET_MORE_FEED_CONTENT_SUCCESS:
-    case feedTypes.GET_MORE_USER_FEED_CONTENT_SUCCESS:
+    case feedTypes.GET_MORE_USER_FEED_CONTENT_SUCCESS: {
       // first element of the array is the same element loaded in the previous chunk
       const morePostsIds = action.payload.postsData.map(post => post.id).slice(1);
       // add data only if it doesn't exist
       if (state[state.length - 1] !== morePostsIds[morePostsIds.length - 1]) {
-        return [
-          ...state,
-          ...morePostsIds,
-        ];
+        return [...state, ...morePostsIds];
       }
+      return state;
+    }
     case userTypes.GET_USER_COMMENTS_SUCCESS:
       return Object.keys(action.payload.content).map(key => action.payload.content[key].id);
     case userTypes.GET_MORE_USER_COMMENTS_SUCCESS:
@@ -70,10 +66,7 @@ const feedIdsList = (state = [], action) => {
       return Object.keys(action.payload).reverse();
     case userTypes.GET_MORE_USER_REPLIES_SUCCESS:
       postsIds = action.payload.map(reply => reply.id);
-      return [
-        ...state,
-        ...postsIds,
-      ];
+      return [...state, ...postsIds];
     default:
       return state;
   }
@@ -208,7 +201,7 @@ const feed = (state = initialState, action) => {
         ...state,
         replies: feedSortByItem(state.replies, action),
       };
-    case bookmarksActions.TOGGLE_BOOKMARK:
+    case bookmarksActions.TOGGLE_BOOKMARK: {
       const toggledId = action.payload;
       // remove from feed if toggled off
       if (state.bookmarks.all && state.bookmarks.all.list.includes(toggledId)) {
@@ -223,6 +216,8 @@ const feed = (state = initialState, action) => {
           },
         };
       }
+      return state;
+    }
     default:
       return state;
   }

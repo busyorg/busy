@@ -17,6 +17,7 @@ import ScrollToTopOnMount from '../components/Utils/ScrollToTopOnMount';
 )
 class Page extends React.Component {
   static propTypes = {
+    auth: PropTypes.shape().isRequired,
     history: PropTypes.shape().isRequired,
     location: PropTypes.shape().isRequired,
     match: PropTypes.shape().isRequired,
