@@ -16,6 +16,7 @@ const TabPane = Tabs.TabPane;
 
 class Editor extends React.Component {
   static propTypes = {
+    form: PropTypes.shape().isRequired,
     title: PropTypes.string,
     topics: PropTypes.arrayOf(PropTypes.string),
     body: PropTypes.string,
@@ -43,11 +44,6 @@ class Editor extends React.Component {
     onImagePasted: () => {},
   };
 
-  state = {
-    contentHtml: '',
-    noContent: false,
-  };
-
   static hotkeys = {
     h1: 'ctrl+shift+1',
     h2: 'ctrl+shift+2',
@@ -60,6 +56,11 @@ class Editor extends React.Component {
     quote: 'ctrl+q',
     link: 'ctrl+k',
     image: 'ctrl+m',
+  };
+
+  state = {
+    contentHtml: '',
+    noContent: false,
   };
 
   componentDidMount() {
@@ -83,14 +84,22 @@ class Editor extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     const { title, topics, body, reward, upvote } = this.props;
-    if (title !== nextProps.title
-      || topics !== nextProps.topics
-      || body !== nextProps.body
-      || reward !== nextProps.reward
-      || upvote !== nextProps.upvote) {
+    if (
+      title !== nextProps.title ||
+      topics !== nextProps.topics ||
+      body !== nextProps.body ||
+      reward !== nextProps.reward ||
+      upvote !== nextProps.upvote
+    ) {
       this.setValues(nextProps);
     }
   }
+
+  onUpdate = (e) => {
+    // NOTE: antd doesn't update field value on Select before firing onChange
+    // so we have to get value from event.
+    this.props.onUpdate(this.getValues(e));
+  };
 
   setInput = (input) => {
     if (input && input.refs && input.refs.input) {
@@ -98,12 +107,6 @@ class Editor extends React.Component {
       this.input = ReactDOM.findDOMNode(input.refs.input);
     }
   };
-
-  onUpdate = (e) => {
-    // NOTE: antd doesn't update field value on Select before firing onChange
-    // so we have to get value from event.
-    this.props.onUpdate(this.getValues(e));
-  }
 
   setValues = (post) => {
     this.props.form.setFieldsValue({
@@ -116,7 +119,7 @@ class Editor extends React.Component {
       this.input.value = post.body;
       this.renderMarkdown(this.input.value);
     }
-  }
+  };
 
   getValues = (e) => {
     // NOTE: antd API is inconsistent and returns event or just value depending of input type.
@@ -141,7 +144,7 @@ class Editor extends React.Component {
     }
 
     return values;
-  }
+  };
 
   //
   // Form validation and handling
@@ -235,7 +238,7 @@ class Editor extends React.Component {
     const endPos = this.input.selectionEnd;
     this.input.value = `${this.input.value.substring(
       0,
-      startPos
+      startPos,
     )}![image](${image})${this.input.value.substring(endPos, this.input.value.length)}`;
 
     this.renderMarkdown(this.input.value);
@@ -288,12 +291,6 @@ class Editor extends React.Component {
     this.onUpdate();
   };
 
-  renderMarkdown = (value) => {
-    this.setState({
-      contentHtml: remarkable.render(value),
-    });
-  };
-
   handlers = {
     h1: () => this.insertCode('h1'),
     h2: () => this.insertCode('h2'),
@@ -311,6 +308,12 @@ class Editor extends React.Component {
     image: () => this.insertCode('image'),
   };
 
+  renderMarkdown = (value) => {
+    this.setState({
+      contentHtml: remarkable.render(value),
+    });
+  };
+
   render() {
     const { getFieldDecorator } = this.props.form;
     const { loading } = this.props;
@@ -323,12 +326,16 @@ class Editor extends React.Component {
               { required: true, message: 'Please enter a title' },
               { max: 255, message: "Title can't be longer than 255 characters" },
             ],
-          })(<Input
-            ref={(title) => { this.title = title; }}
-            onChange={this.onUpdate}
-            className="Editor__title"
-            placeholder="Add title"
-          />)}
+          })(
+            <Input
+              ref={(title) => {
+                this.title = title;
+              }}
+              onChange={this.onUpdate}
+              className="Editor__title"
+              placeholder="Add title"
+            />,
+          )}
         </Form.Item>
         <Form.Item
           label={<span className="Editor__label">Topics</span>}
@@ -350,7 +357,7 @@ class Editor extends React.Component {
               placeholder="Add story topics here"
               dropdownStyle={{ display: 'none' }}
               tokenSeparators={[' ', ',']}
-            />
+            />,
           )}
         </Form.Item>
         <Form.Item
@@ -376,26 +383,24 @@ class Editor extends React.Component {
             </TabPane>
           </Tabs>
         </Form.Item>
-        <Form.Item
-          label={<span className="Editor__label">Reward</span>}
-        >
+        <Form.Item label={<span className="Editor__label">Reward</span>}>
           {getFieldDecorator('reward', { initialValue: '50' })(
             <Select onChange={this.onUpdate}>
               <Select.Option value="100">100% Steem Power</Select.Option>
               <Select.Option value="50">50% SBD and 50% SP</Select.Option>
               <Select.Option value="0">Declined</Select.Option>
-            </Select>
+            </Select>,
           )}
         </Form.Item>
         <Form.Item>
           {getFieldDecorator('upvote', { valuePropName: 'checked', initialValue: true })(
-            <Checkbox onChange={this.onUpdate}>Upvote this post</Checkbox>
+            <Checkbox onChange={this.onUpdate}>Upvote this post</Checkbox>,
           )}
         </Form.Item>
         <div className="Editor__bottom">
           <span className="Editor__bottom__info">Styling with markdown is supported</span>
           <Form.Item className="Editor__bottom__submit">
-            <Action loading={loading} disabled={loading} text={(loading) ? 'Submitting' : 'Post'} />
+            <Action loading={loading} disabled={loading} text={loading ? 'Submitting' : 'Post'} />
           </Form.Item>
         </div>
       </Form>

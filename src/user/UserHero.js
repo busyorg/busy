@@ -1,12 +1,12 @@
 import React, { PropTypes } from 'react';
-import { connect } from 'react-redux';
 import { Route, Switch, withRouter } from 'react-router-dom';
 
 import UserHeader from '../components/UserHeader';
 import UserMenu from '../components/UserMenu';
 import Hero from '../components/Hero';
 
-class UserMenuImpl extends React.Component {
+@withRouter
+class UserMenuWrapper extends React.Component {
   static propTypes = {
     match: PropTypes.shape().isRequired,
     location: PropTypes.shape().isRequired,
@@ -15,9 +15,9 @@ class UserMenuImpl extends React.Component {
 
   onChange = (key) => {
     const { match, history } = this.props;
-    const section = (key === 'discussions') ? '' : `/${key}`;
+    const section = key === 'discussions' ? '' : `/${key}`;
     history.push(`${match.url}${section}`);
-  }
+  };
 
   render() {
     const { match, location, history, ...otherProps } = this.props;
@@ -27,15 +27,13 @@ class UserMenuImpl extends React.Component {
   }
 }
 
-const UserMenuWrapper = withRouter(UserMenuImpl);
-
-const UserHero = ({ auth, user, username, isSameUser, isFollowed, pendingFollow, onFollowClick }) => (
-  <div>
+const UserHero = ({ auth, user, username, isSameUser, isFollowed, pendingFollow, onFollowClick }) =>
+  (<div>
     <Switch>
       <Route
         path="/@:name"
-        render={() => (
-          <div>
+        render={() =>
+          (<div>
             <UserHeader
               auth={auth}
               username={username}
@@ -51,11 +49,27 @@ const UserHero = ({ auth, user, username, isSameUser, isFollowed, pendingFollow,
               followers={user.follower_count}
               following={user.following_count}
             />
-          </div>
-        )}
+          </div>)}
       />
       <Route render={() => (auth.user.name === undefined ? <Hero /> : <div />)} />
     </Switch>
   </div>);
+
+UserHero.propTypes = {
+  auth: PropTypes.shape().isRequired,
+  user: PropTypes.shape().isRequired,
+  username: PropTypes.string.isRequired,
+  isSameUser: PropTypes.bool,
+  isFollowed: PropTypes.bool,
+  pendingFollow: PropTypes.bool,
+  onFollowClick: PropTypes.func,
+};
+
+UserHero.defaultProps = {
+  isSameUser: false,
+  isFollowed: false,
+  pendingFollow: false,
+  onFollowClick: () => {},
+};
 
 export default UserHero;

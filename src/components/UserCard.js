@@ -4,8 +4,8 @@ import Follow from '../components/Button/Follow';
 import Avatar from '../components/Avatar';
 import './UserCard.less';
 
-const UserCard = ({ username }) => (
-  <div className="UserCard">
+const UserCard = ({ username }) =>
+  (<div className="UserCard">
     <div className="UserCard__left">
       <Link to={`/@${username}`}>
         <Avatar username={username} size={40} />

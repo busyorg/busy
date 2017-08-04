@@ -5,7 +5,7 @@ import commentsReducers from '../commentsReducer';
 describe('commentsReducer', () => {
   it('is expected to return an object', () => {
     expect(
-      commentsReducers(undefined, {})
+      commentsReducers(undefined, {}),
     ).to.be.an('object');
   });
   describe(commentsTypes.GET_COMMENTS_SUCCESS, () => {
@@ -17,20 +17,20 @@ describe('commentsReducer', () => {
           commentsData: commentsDataMock,
           postId: 42,
           content: '',
-          rootCommentsList: []
+          rootCommentsList: [],
         },
         meta: {
-          id: 42
-        }
+          id: 42,
+        },
       };
 
       expect(
-        commentsReducers({ current: 'state' }, sampleAction)
+        commentsReducers({ current: 'state' }, sampleAction),
       ).to.deep.equal({
         current: 'state',
         comments: {},
         listByPostId: { 42: { list: [], show: 0, isFetching: false, hasMore: false } },
-        listByCommentId: {}
+        listByCommentId: {},
       });
     });
   });

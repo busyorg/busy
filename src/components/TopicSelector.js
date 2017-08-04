@@ -12,7 +12,7 @@ class TopicSelector extends React.Component {
     topics: PropTypes.arrayOf(PropTypes.string),
     onTopicClose: PropTypes.func,
     onSortChange: PropTypes.func,
-  }
+  };
 
   static defaultProps = {
     defaultSort: 'trending',
@@ -21,7 +21,7 @@ class TopicSelector extends React.Component {
     topics: [],
     onTopicClose: () => {},
     onSortChange: () => {},
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -45,13 +45,10 @@ class TopicSelector extends React.Component {
     return (
       <div className="TopicSelector">
         <div className="TopicSelector__topics">
-          {topics && topics.map(topic => (
-            <Topic
-              key={topic}
-              closable={!isSingle}
-              name={topic}
-              onClose={onTopicClose}
-            />))}
+          {topics &&
+            topics.map(topic =>
+              <Topic key={topic} closable={!isSingle} name={topic} onClose={onTopicClose} />,
+            )}
         </div>
         <div className="TopicSelector__sort">
           Sort by:
@@ -65,7 +62,7 @@ class TopicSelector extends React.Component {
                 <PopoverMenuItem key="created">Created</PopoverMenuItem>
                 <PopoverMenuItem key="active">Active</PopoverMenuItem>
                 <PopoverMenuItem key="cashout">Cashout</PopoverMenuItem>
-                {/*<PopoverMenuItem key="votes">Votes</PopoverMenuItem>*/}
+                {/* <PopoverMenuItem key="votes">Votes</PopoverMenuItem> */}
                 <PopoverMenuItem key="children">Children</PopoverMenuItem>
                 <PopoverMenuItem key="hot">Hot</PopoverMenuItem>
                 <PopoverMenuItem key="comments">Comments</PopoverMenuItem>

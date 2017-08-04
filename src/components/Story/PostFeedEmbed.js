@@ -1,7 +1,20 @@
-import React, { Component } from 'react';
+import React, { PropTypes } from 'react';
 import './PostFeedEmbed.less';
 
-export default class PostFeedEmbed extends Component {
+export default class PostFeedEmbed extends React.Component {
+  static propTypes = {
+    embed: PropTypes.shape({
+      provider_name: PropTypes.string,
+      thumbnail: PropTypes.string,
+      embed: PropTypes.string,
+    }).isRequired,
+  };
+
+  static renderWithIframe(embed) {
+    // eslint-disable-next-line react/no-danger
+    return <div className="PostFeedCard__thumbs" dangerouslySetInnerHTML={{ __html: embed }} />;
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -9,24 +22,20 @@ export default class PostFeedEmbed extends Component {
     };
   }
 
+  handleThumbClick = (e) => {
+    e.preventDefault();
+    this.setState({ showIframe: true });
+  };
+
   renderThumbFirst(thumb) {
     return (
-      <div className="PostFeedEmbed" onClick={this.handleThumbClick}>
+      <div role="presentation" className="PostFeedEmbed" onClick={this.handleThumbClick}>
         <div className="PostFeedEmbed__playButton">
           <i className="iconfont icon-group icon-playon_fill" />
         </div>
         <img alt="thumbnail" className="PostFeedEmbed__preview" src={thumb} />
       </div>
     );
-  }
-
-  handleThumbClick = (e) => {
-    e.preventDefault();
-    this.setState({ showIframe: true });
-  };
-
-  static renderWithIframe(embed) {
-    return <div className="PostFeedCard__thumbs" dangerouslySetInnerHTML={{ __html: embed }} />;
   }
 
   render() {

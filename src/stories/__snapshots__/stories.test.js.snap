@@ -39,6 +39,7 @@ exports[`Storyshots Button Closable topic 1`] = `
       onClick={[Function]}
       onMouseOut={[Function]}
       onMouseOver={[Function]}
+      role="presentation"
     />
   </a>
 </div>
@@ -143,6 +144,7 @@ exports[`Storyshots Comments Comments 1`] = `
       <div
         className="Comments__header__sort"
         onClick={[Function]}
+        role="presentation"
       >
         <a
           className="active"
@@ -170,6 +172,7 @@ exports[`Storyshots Comments Comments 1`] = `
       <span
         className="Comment__visibility"
         onClick={[Function]}
+        role="presentation"
       >
         <i
           className="iconfont icon-offline"
@@ -242,6 +245,7 @@ exports[`Storyshots Comments Comments 1`] = `
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
             onTouchStart={undefined}
+            role="presentation"
           >
             <i
               className="iconfont icon-praise_fill"
@@ -257,6 +261,7 @@ exports[`Storyshots Comments Comments 1`] = `
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
             onTouchStart={undefined}
+            role="presentation"
           >
             <i
               className="iconfont icon-praise_fill Comment__icon_dislike"
@@ -294,6 +299,7 @@ exports[`Storyshots Comments Comments 1`] = `
             <span
               className="Comment__visibility"
               onClick={[Function]}
+              role="presentation"
             >
               <i
                 className="iconfont icon-offline"
@@ -365,6 +371,7 @@ exports[`Storyshots Comments Comments 1`] = `
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
                   onTouchStart={undefined}
+                  role="presentation"
                 >
                   <i
                     className="iconfont icon-praise_fill"
@@ -380,6 +387,7 @@ exports[`Storyshots Comments Comments 1`] = `
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
                   onTouchStart={undefined}
+                  role="presentation"
                 >
                   <i
                     className="iconfont icon-praise_fill Comment__icon_dislike"
@@ -422,6 +430,7 @@ exports[`Storyshots Comments Comments 1`] = `
       <span
         className="Comment__visibility"
         onClick={[Function]}
+        role="presentation"
       >
         <i
           className="iconfont icon-offline"
@@ -493,6 +502,7 @@ exports[`Storyshots Comments Comments 1`] = `
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
             onTouchStart={undefined}
+            role="presentation"
           >
             <i
               className="iconfont icon-praise_fill"
@@ -508,6 +518,7 @@ exports[`Storyshots Comments Comments 1`] = `
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
             onTouchStart={undefined}
+            role="presentation"
           >
             <i
               className="iconfont icon-praise_fill Comment__icon_dislike"
@@ -545,6 +556,7 @@ exports[`Storyshots Comments Comments 1`] = `
             <span
               className="Comment__visibility"
               onClick={[Function]}
+              role="presentation"
             >
               <i
                 className="iconfont icon-offline"
@@ -616,6 +628,7 @@ exports[`Storyshots Comments Comments 1`] = `
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
                   onTouchStart={undefined}
+                  role="presentation"
                 >
                   <i
                     className="iconfont icon-praise_fill"
@@ -631,6 +644,7 @@ exports[`Storyshots Comments Comments 1`] = `
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
                   onTouchStart={undefined}
+                  role="presentation"
                 >
                   <i
                     className="iconfont icon-praise_fill Comment__icon_dislike"
@@ -673,6 +687,7 @@ exports[`Storyshots Comments Comments 1`] = `
       <span
         className="Comment__visibility"
         onClick={[Function]}
+        role="presentation"
       >
         <i
           className="iconfont icon-offline"
@@ -744,6 +759,7 @@ exports[`Storyshots Comments Comments 1`] = `
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
             onTouchStart={undefined}
+            role="presentation"
           >
             <i
               className="iconfont icon-praise_fill"
@@ -759,6 +775,7 @@ exports[`Storyshots Comments Comments 1`] = `
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
             onTouchStart={undefined}
+            role="presentation"
           >
             <i
               className="iconfont icon-praise_fill Comment__icon_dislike"
@@ -796,6 +813,7 @@ exports[`Storyshots Comments Comments 1`] = `
             <span
               className="Comment__visibility"
               onClick={[Function]}
+              role="presentation"
             >
               <i
                 className="iconfont icon-offline"
@@ -867,6 +885,7 @@ exports[`Storyshots Comments Comments 1`] = `
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
                   onTouchStart={undefined}
+                  role="presentation"
                 >
                   <i
                     className="iconfont icon-praise_fill"
@@ -882,6 +901,7 @@ exports[`Storyshots Comments Comments 1`] = `
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
                   onTouchStart={undefined}
+                  role="presentation"
                 >
                   <i
                     className="iconfont icon-praise_fill Comment__icon_dislike"
@@ -924,6 +944,7 @@ exports[`Storyshots Comments Comments 1`] = `
       <span
         className="Comment__visibility"
         onClick={[Function]}
+        role="presentation"
       >
         <i
           className="iconfont icon-offline"
@@ -995,6 +1016,7 @@ exports[`Storyshots Comments Comments 1`] = `
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
             onTouchStart={undefined}
+            role="presentation"
           >
             <i
               className="iconfont icon-praise_fill"
@@ -1010,6 +1032,7 @@ exports[`Storyshots Comments Comments 1`] = `
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
             onTouchStart={undefined}
+            role="presentation"
           >
             <i
               className="iconfont icon-praise_fill Comment__icon_dislike"
@@ -1047,6 +1070,7 @@ exports[`Storyshots Comments Comments 1`] = `
             <span
               className="Comment__visibility"
               onClick={[Function]}
+              role="presentation"
             >
               <i
                 className="iconfont icon-offline"
@@ -1118,6 +1142,7 @@ exports[`Storyshots Comments Comments 1`] = `
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
                   onTouchStart={undefined}
+                  role="presentation"
                 >
                   <i
                     className="iconfont icon-praise_fill"
@@ -1133,6 +1158,7 @@ exports[`Storyshots Comments Comments 1`] = `
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
                   onTouchStart={undefined}
+                  role="presentation"
                 >
                   <i
                     className="iconfont icon-praise_fill Comment__icon_dislike"
@@ -1175,6 +1201,7 @@ exports[`Storyshots Comments Comments 1`] = `
       <span
         className="Comment__visibility"
         onClick={[Function]}
+        role="presentation"
       >
         <i
           className="iconfont icon-offline"
@@ -1246,6 +1273,7 @@ exports[`Storyshots Comments Comments 1`] = `
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
             onTouchStart={undefined}
+            role="presentation"
           >
             <i
               className="iconfont icon-praise_fill"
@@ -1261,6 +1289,7 @@ exports[`Storyshots Comments Comments 1`] = `
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
             onTouchStart={undefined}
+            role="presentation"
           >
             <i
               className="iconfont icon-praise_fill Comment__icon_dislike"
@@ -1298,6 +1327,7 @@ exports[`Storyshots Comments Comments 1`] = `
             <span
               className="Comment__visibility"
               onClick={[Function]}
+              role="presentation"
             >
               <i
                 className="iconfont icon-offline"
@@ -1369,6 +1399,7 @@ exports[`Storyshots Comments Comments 1`] = `
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
                   onTouchStart={undefined}
+                  role="presentation"
                 >
                   <i
                     className="iconfont icon-praise_fill"
@@ -1384,6 +1415,7 @@ exports[`Storyshots Comments Comments 1`] = `
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
                   onTouchStart={undefined}
+                  role="presentation"
                 >
                   <i
                     className="iconfont icon-praise_fill Comment__icon_dislike"
@@ -1426,6 +1458,7 @@ exports[`Storyshots Comments Comments 1`] = `
       <span
         className="Comment__visibility"
         onClick={[Function]}
+        role="presentation"
       >
         <i
           className="iconfont icon-offline"
@@ -1498,6 +1531,7 @@ exports[`Storyshots Comments Comments 1`] = `
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
             onTouchStart={undefined}
+            role="presentation"
           >
             <i
               className="iconfont icon-praise_fill"
@@ -1513,6 +1547,7 @@ exports[`Storyshots Comments Comments 1`] = `
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
             onTouchStart={undefined}
+            role="presentation"
           >
             <i
               className="iconfont icon-praise_fill Comment__icon_dislike"
@@ -1550,6 +1585,7 @@ exports[`Storyshots Comments Comments 1`] = `
             <span
               className="Comment__visibility"
               onClick={[Function]}
+              role="presentation"
             >
               <i
                 className="iconfont icon-offline"
@@ -1621,6 +1657,7 @@ exports[`Storyshots Comments Comments 1`] = `
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
                   onTouchStart={undefined}
+                  role="presentation"
                 >
                   <i
                     className="iconfont icon-praise_fill"
@@ -1636,6 +1673,7 @@ exports[`Storyshots Comments Comments 1`] = `
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
                   onTouchStart={undefined}
+                  role="presentation"
                 >
                   <i
                     className="iconfont icon-praise_fill Comment__icon_dislike"
@@ -1678,6 +1716,7 @@ exports[`Storyshots Comments Comments 1`] = `
       <span
         className="Comment__visibility"
         onClick={[Function]}
+        role="presentation"
       >
         <i
           className="iconfont icon-offline"
@@ -1749,6 +1788,7 @@ exports[`Storyshots Comments Comments 1`] = `
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
             onTouchStart={undefined}
+            role="presentation"
           >
             <i
               className="iconfont icon-praise_fill"
@@ -1764,6 +1804,7 @@ exports[`Storyshots Comments Comments 1`] = `
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
             onTouchStart={undefined}
+            role="presentation"
           >
             <i
               className="iconfont icon-praise_fill Comment__icon_dislike"
@@ -1801,6 +1842,7 @@ exports[`Storyshots Comments Comments 1`] = `
             <span
               className="Comment__visibility"
               onClick={[Function]}
+              role="presentation"
             >
               <i
                 className="iconfont icon-offline"
@@ -1872,6 +1914,7 @@ exports[`Storyshots Comments Comments 1`] = `
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
                   onTouchStart={undefined}
+                  role="presentation"
                 >
                   <i
                     className="iconfont icon-praise_fill"
@@ -1887,6 +1930,7 @@ exports[`Storyshots Comments Comments 1`] = `
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
                   onTouchStart={undefined}
+                  role="presentation"
                 >
                   <i
                     className="iconfont icon-praise_fill Comment__icon_dislike"
@@ -1929,6 +1973,7 @@ exports[`Storyshots Comments Comments 1`] = `
       <span
         className="Comment__visibility"
         onClick={[Function]}
+        role="presentation"
       >
         <i
           className="iconfont icon-offline"
@@ -2000,6 +2045,7 @@ exports[`Storyshots Comments Comments 1`] = `
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
             onTouchStart={undefined}
+            role="presentation"
           >
             <i
               className="iconfont icon-praise_fill"
@@ -2015,6 +2061,7 @@ exports[`Storyshots Comments Comments 1`] = `
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
             onTouchStart={undefined}
+            role="presentation"
           >
             <i
               className="iconfont icon-praise_fill Comment__icon_dislike"
@@ -2052,6 +2099,7 @@ exports[`Storyshots Comments Comments 1`] = `
             <span
               className="Comment__visibility"
               onClick={[Function]}
+              role="presentation"
             >
               <i
                 className="iconfont icon-offline"
@@ -2123,6 +2171,7 @@ exports[`Storyshots Comments Comments 1`] = `
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
                   onTouchStart={undefined}
+                  role="presentation"
                 >
                   <i
                     className="iconfont icon-praise_fill"
@@ -2138,6 +2187,7 @@ exports[`Storyshots Comments Comments 1`] = `
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
                   onTouchStart={undefined}
+                  role="presentation"
                 >
                   <i
                     className="iconfont icon-praise_fill Comment__icon_dislike"
@@ -2180,6 +2230,7 @@ exports[`Storyshots Comments Comments 1`] = `
       <span
         className="Comment__visibility"
         onClick={[Function]}
+        role="presentation"
       >
         <i
           className="iconfont icon-offline"
@@ -2251,6 +2302,7 @@ exports[`Storyshots Comments Comments 1`] = `
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
             onTouchStart={undefined}
+            role="presentation"
           >
             <i
               className="iconfont icon-praise_fill"
@@ -2266,6 +2318,7 @@ exports[`Storyshots Comments Comments 1`] = `
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
             onTouchStart={undefined}
+            role="presentation"
           >
             <i
               className="iconfont icon-praise_fill Comment__icon_dislike"
@@ -2303,6 +2356,7 @@ exports[`Storyshots Comments Comments 1`] = `
             <span
               className="Comment__visibility"
               onClick={[Function]}
+              role="presentation"
             >
               <i
                 className="iconfont icon-offline"
@@ -2374,6 +2428,7 @@ exports[`Storyshots Comments Comments 1`] = `
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
                   onTouchStart={undefined}
+                  role="presentation"
                 >
                   <i
                     className="iconfont icon-praise_fill"
@@ -2389,6 +2444,7 @@ exports[`Storyshots Comments Comments 1`] = `
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
                   onTouchStart={undefined}
+                  role="presentation"
                 >
                   <i
                     className="iconfont icon-praise_fill Comment__icon_dislike"
@@ -2426,6 +2482,7 @@ exports[`Storyshots Comments Comments 1`] = `
                   <span
                     className="Comment__visibility"
                     onClick={[Function]}
+                    role="presentation"
                   >
                     <i
                       className="iconfont icon-offline"
@@ -2497,6 +2554,7 @@ exports[`Storyshots Comments Comments 1`] = `
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
                         onTouchStart={undefined}
+                        role="presentation"
                       >
                         <i
                           className="iconfont icon-praise_fill"
@@ -2512,6 +2570,7 @@ exports[`Storyshots Comments Comments 1`] = `
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
                         onTouchStart={undefined}
+                        role="presentation"
                       >
                         <i
                           className="iconfont icon-praise_fill Comment__icon_dislike"
@@ -2549,6 +2608,7 @@ exports[`Storyshots Comments Comments 1`] = `
                         <span
                           className="Comment__visibility"
                           onClick={[Function]}
+                          role="presentation"
                         >
                           <i
                             className="iconfont icon-offline"
@@ -2620,6 +2680,7 @@ exports[`Storyshots Comments Comments 1`] = `
                               onMouseEnter={[Function]}
                               onMouseLeave={[Function]}
                               onTouchStart={undefined}
+                              role="presentation"
                             >
                               <i
                                 className="iconfont icon-praise_fill"
@@ -2635,6 +2696,7 @@ exports[`Storyshots Comments Comments 1`] = `
                               onMouseEnter={[Function]}
                               onMouseLeave={[Function]}
                               onTouchStart={undefined}
+                              role="presentation"
                             >
                               <i
                                 className="iconfont icon-praise_fill Comment__icon_dislike"
@@ -2672,6 +2734,7 @@ exports[`Storyshots Comments Comments 1`] = `
                               <span
                                 className="Comment__visibility"
                                 onClick={[Function]}
+                                role="presentation"
                               >
                                 <i
                                   className="iconfont icon-offline"
@@ -2743,6 +2806,7 @@ exports[`Storyshots Comments Comments 1`] = `
                                     onMouseEnter={[Function]}
                                     onMouseLeave={[Function]}
                                     onTouchStart={undefined}
+                                    role="presentation"
                                   >
                                     <i
                                       className="iconfont icon-praise_fill"
@@ -2758,6 +2822,7 @@ exports[`Storyshots Comments Comments 1`] = `
                                     onMouseEnter={[Function]}
                                     onMouseLeave={[Function]}
                                     onTouchStart={undefined}
+                                    role="presentation"
                                   >
                                     <i
                                       className="iconfont icon-praise_fill Comment__icon_dislike"
@@ -2809,6 +2874,7 @@ exports[`Storyshots Comments Comments 1`] = `
       <span
         className="Comment__visibility"
         onClick={[Function]}
+        role="presentation"
       >
         <i
           className="iconfont icon-offline"
@@ -2880,6 +2946,7 @@ exports[`Storyshots Comments Comments 1`] = `
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
             onTouchStart={undefined}
+            role="presentation"
           >
             <i
               className="iconfont icon-praise_fill"
@@ -2895,6 +2962,7 @@ exports[`Storyshots Comments Comments 1`] = `
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
             onTouchStart={undefined}
+            role="presentation"
           >
             <i
               className="iconfont icon-praise_fill Comment__icon_dislike"
@@ -2932,6 +3000,7 @@ exports[`Storyshots Comments Comments 1`] = `
             <span
               className="Comment__visibility"
               onClick={[Function]}
+              role="presentation"
             >
               <i
                 className="iconfont icon-offline"
@@ -3003,6 +3072,7 @@ exports[`Storyshots Comments Comments 1`] = `
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
                   onTouchStart={undefined}
+                  role="presentation"
                 >
                   <i
                     className="iconfont icon-praise_fill"
@@ -3018,6 +3088,7 @@ exports[`Storyshots Comments Comments 1`] = `
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
                   onTouchStart={undefined}
+                  role="presentation"
                 >
                   <i
                     className="iconfont icon-praise_fill Comment__icon_dislike"
@@ -3060,6 +3131,7 @@ exports[`Storyshots Comments Comments 1`] = `
       <span
         className="Comment__visibility"
         onClick={[Function]}
+        role="presentation"
       >
         <i
           className="iconfont icon-offline"
@@ -3131,6 +3203,7 @@ exports[`Storyshots Comments Comments 1`] = `
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
             onTouchStart={undefined}
+            role="presentation"
           >
             <i
               className="iconfont icon-praise_fill"
@@ -3146,6 +3219,7 @@ exports[`Storyshots Comments Comments 1`] = `
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
             onTouchStart={undefined}
+            role="presentation"
           >
             <i
               className="iconfont icon-praise_fill Comment__icon_dislike"
@@ -3183,6 +3257,7 @@ exports[`Storyshots Comments Comments 1`] = `
             <span
               className="Comment__visibility"
               onClick={[Function]}
+              role="presentation"
             >
               <i
                 className="iconfont icon-offline"
@@ -3254,6 +3329,7 @@ exports[`Storyshots Comments Comments 1`] = `
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
                   onTouchStart={undefined}
+                  role="presentation"
                 >
                   <i
                     className="iconfont icon-praise_fill"
@@ -3269,6 +3345,7 @@ exports[`Storyshots Comments Comments 1`] = `
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
                   onTouchStart={undefined}
+                  role="presentation"
                 >
                   <i
                     className="iconfont icon-praise_fill Comment__icon_dislike"
@@ -3311,6 +3388,7 @@ exports[`Storyshots Comments Comments 1`] = `
       <span
         className="Comment__visibility"
         onClick={[Function]}
+        role="presentation"
       >
         <i
           className="iconfont icon-offline"
@@ -3382,6 +3460,7 @@ exports[`Storyshots Comments Comments 1`] = `
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
             onTouchStart={undefined}
+            role="presentation"
           >
             <i
               className="iconfont icon-praise_fill"
@@ -3397,6 +3476,7 @@ exports[`Storyshots Comments Comments 1`] = `
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
             onTouchStart={undefined}
+            role="presentation"
           >
             <i
               className="iconfont icon-praise_fill Comment__icon_dislike"
@@ -3434,6 +3514,7 @@ exports[`Storyshots Comments Comments 1`] = `
             <span
               className="Comment__visibility"
               onClick={[Function]}
+              role="presentation"
             >
               <i
                 className="iconfont icon-offline"
@@ -3505,6 +3586,7 @@ exports[`Storyshots Comments Comments 1`] = `
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
                   onTouchStart={undefined}
+                  role="presentation"
                 >
                   <i
                     className="iconfont icon-praise_fill"
@@ -3520,6 +3602,7 @@ exports[`Storyshots Comments Comments 1`] = `
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
                   onTouchStart={undefined}
+                  role="presentation"
                 >
                   <i
                     className="iconfont icon-praise_fill Comment__icon_dislike"
@@ -3562,6 +3645,7 @@ exports[`Storyshots Comments Comments 1`] = `
       <span
         className="Comment__visibility"
         onClick={[Function]}
+        role="presentation"
       >
         <i
           className="iconfont icon-offline"
@@ -3633,6 +3717,7 @@ exports[`Storyshots Comments Comments 1`] = `
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
             onTouchStart={undefined}
+            role="presentation"
           >
             <i
               className="iconfont icon-praise_fill"
@@ -3648,6 +3733,7 @@ exports[`Storyshots Comments Comments 1`] = `
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
             onTouchStart={undefined}
+            role="presentation"
           >
             <i
               className="iconfont icon-praise_fill Comment__icon_dislike"
@@ -3685,6 +3771,7 @@ exports[`Storyshots Comments Comments 1`] = `
             <span
               className="Comment__visibility"
               onClick={[Function]}
+              role="presentation"
             >
               <i
                 className="iconfont icon-offline"
@@ -3756,6 +3843,7 @@ exports[`Storyshots Comments Comments 1`] = `
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
                   onTouchStart={undefined}
+                  role="presentation"
                 >
                   <i
                     className="iconfont icon-praise_fill"
@@ -3771,6 +3859,7 @@ exports[`Storyshots Comments Comments 1`] = `
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
                   onTouchStart={undefined}
+                  role="presentation"
                 >
                   <i
                     className="iconfont icon-praise_fill Comment__icon_dislike"
@@ -3808,6 +3897,7 @@ exports[`Storyshots Comments Comments 1`] = `
                   <span
                     className="Comment__visibility"
                     onClick={[Function]}
+                    role="presentation"
                   >
                     <i
                       className="iconfont icon-offline"
@@ -3879,6 +3969,7 @@ exports[`Storyshots Comments Comments 1`] = `
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
                         onTouchStart={undefined}
+                        role="presentation"
                       >
                         <i
                           className="iconfont icon-praise_fill"
@@ -3894,6 +3985,7 @@ exports[`Storyshots Comments Comments 1`] = `
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
                         onTouchStart={undefined}
+                        role="presentation"
                       >
                         <i
                           className="iconfont icon-praise_fill Comment__icon_dislike"
@@ -3939,6 +4031,7 @@ exports[`Storyshots Comments Comments 1`] = `
       <span
         className="Comment__visibility"
         onClick={[Function]}
+        role="presentation"
       >
         <i
           className="iconfont icon-offline"
@@ -4010,6 +4103,7 @@ exports[`Storyshots Comments Comments 1`] = `
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
             onTouchStart={undefined}
+            role="presentation"
           >
             <i
               className="iconfont icon-praise_fill"
@@ -4025,6 +4119,7 @@ exports[`Storyshots Comments Comments 1`] = `
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
             onTouchStart={undefined}
+            role="presentation"
           >
             <i
               className="iconfont icon-praise_fill Comment__icon_dislike"
@@ -4062,6 +4157,7 @@ exports[`Storyshots Comments Comments 1`] = `
             <span
               className="Comment__visibility"
               onClick={[Function]}
+              role="presentation"
             >
               <i
                 className="iconfont icon-offline"
@@ -4133,6 +4229,7 @@ exports[`Storyshots Comments Comments 1`] = `
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
                   onTouchStart={undefined}
+                  role="presentation"
                 >
                   <i
                     className="iconfont icon-praise_fill"
@@ -4148,6 +4245,7 @@ exports[`Storyshots Comments Comments 1`] = `
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
                   onTouchStart={undefined}
+                  role="presentation"
                 >
                   <i
                     className="iconfont icon-praise_fill Comment__icon_dislike"
@@ -4190,6 +4288,7 @@ exports[`Storyshots Comments Comments 1`] = `
       <span
         className="Comment__visibility"
         onClick={[Function]}
+        role="presentation"
       >
         <i
           className="iconfont icon-offline"
@@ -4261,6 +4360,7 @@ exports[`Storyshots Comments Comments 1`] = `
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
             onTouchStart={undefined}
+            role="presentation"
           >
             <i
               className="iconfont icon-praise_fill"
@@ -4276,6 +4376,7 @@ exports[`Storyshots Comments Comments 1`] = `
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
             onTouchStart={undefined}
+            role="presentation"
           >
             <i
               className="iconfont icon-praise_fill Comment__icon_dislike"
@@ -4313,6 +4414,7 @@ exports[`Storyshots Comments Comments 1`] = `
             <span
               className="Comment__visibility"
               onClick={[Function]}
+              role="presentation"
             >
               <i
                 className="iconfont icon-offline"
@@ -4384,6 +4486,7 @@ exports[`Storyshots Comments Comments 1`] = `
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
                   onTouchStart={undefined}
+                  role="presentation"
                 >
                   <i
                     className="iconfont icon-praise_fill"
@@ -4399,6 +4502,7 @@ exports[`Storyshots Comments Comments 1`] = `
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
                   onTouchStart={undefined}
+                  role="presentation"
                 >
                   <i
                     className="iconfont icon-praise_fill Comment__icon_dislike"
@@ -4441,6 +4545,7 @@ exports[`Storyshots Comments Comments 1`] = `
       <span
         className="Comment__visibility"
         onClick={[Function]}
+        role="presentation"
       >
         <i
           className="iconfont icon-offline"
@@ -4512,6 +4617,7 @@ exports[`Storyshots Comments Comments 1`] = `
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
             onTouchStart={undefined}
+            role="presentation"
           >
             <i
               className="iconfont icon-praise_fill"
@@ -4527,6 +4633,7 @@ exports[`Storyshots Comments Comments 1`] = `
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
             onTouchStart={undefined}
+            role="presentation"
           >
             <i
               className="iconfont icon-praise_fill Comment__icon_dislike"
@@ -4564,6 +4671,7 @@ exports[`Storyshots Comments Comments 1`] = `
             <span
               className="Comment__visibility"
               onClick={[Function]}
+              role="presentation"
             >
               <i
                 className="iconfont icon-offline"
@@ -4635,6 +4743,7 @@ exports[`Storyshots Comments Comments 1`] = `
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
                   onTouchStart={undefined}
+                  role="presentation"
                 >
                   <i
                     className="iconfont icon-praise_fill"
@@ -4650,6 +4759,7 @@ exports[`Storyshots Comments Comments 1`] = `
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
                   onTouchStart={undefined}
+                  role="presentation"
                 >
                   <i
                     className="iconfont icon-praise_fill Comment__icon_dislike"
@@ -4692,6 +4802,7 @@ exports[`Storyshots Comments Comments 1`] = `
       <span
         className="Comment__visibility"
         onClick={[Function]}
+        role="presentation"
       >
         <i
           className="iconfont icon-offline"
@@ -4763,6 +4874,7 @@ exports[`Storyshots Comments Comments 1`] = `
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
             onTouchStart={undefined}
+            role="presentation"
           >
             <i
               className="iconfont icon-praise_fill"
@@ -4778,6 +4890,7 @@ exports[`Storyshots Comments Comments 1`] = `
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
             onTouchStart={undefined}
+            role="presentation"
           >
             <i
               className="iconfont icon-praise_fill Comment__icon_dislike"
@@ -4815,6 +4928,7 @@ exports[`Storyshots Comments Comments 1`] = `
             <span
               className="Comment__visibility"
               onClick={[Function]}
+              role="presentation"
             >
               <i
                 className="iconfont icon-offline"
@@ -4886,6 +5000,7 @@ exports[`Storyshots Comments Comments 1`] = `
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
                   onTouchStart={undefined}
+                  role="presentation"
                 >
                   <i
                     className="iconfont icon-praise_fill"
@@ -4901,6 +5016,7 @@ exports[`Storyshots Comments Comments 1`] = `
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
                   onTouchStart={undefined}
+                  role="presentation"
                 >
                   <i
                     className="iconfont icon-praise_fill Comment__icon_dislike"
@@ -4943,6 +5059,7 @@ exports[`Storyshots Comments Comments 1`] = `
       <span
         className="Comment__visibility"
         onClick={[Function]}
+        role="presentation"
       >
         <i
           className="iconfont icon-offline"
@@ -5014,6 +5131,7 @@ exports[`Storyshots Comments Comments 1`] = `
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
             onTouchStart={undefined}
+            role="presentation"
           >
             <i
               className="iconfont icon-praise_fill"
@@ -5029,6 +5147,7 @@ exports[`Storyshots Comments Comments 1`] = `
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
             onTouchStart={undefined}
+            role="presentation"
           >
             <i
               className="iconfont icon-praise_fill Comment__icon_dislike"
@@ -5066,6 +5185,7 @@ exports[`Storyshots Comments Comments 1`] = `
             <span
               className="Comment__visibility"
               onClick={[Function]}
+              role="presentation"
             >
               <i
                 className="iconfont icon-offline"
@@ -5137,6 +5257,7 @@ exports[`Storyshots Comments Comments 1`] = `
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
                   onTouchStart={undefined}
+                  role="presentation"
                 >
                   <i
                     className="iconfont icon-praise_fill"
@@ -5152,6 +5273,7 @@ exports[`Storyshots Comments Comments 1`] = `
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
                   onTouchStart={undefined}
+                  role="presentation"
                 >
                   <i
                     className="iconfont icon-praise_fill Comment__icon_dislike"
@@ -5194,6 +5316,7 @@ exports[`Storyshots Comments Comments 1`] = `
       <span
         className="Comment__visibility"
         onClick={[Function]}
+        role="presentation"
       >
         <i
           className="iconfont icon-offline"
@@ -5265,6 +5388,7 @@ exports[`Storyshots Comments Comments 1`] = `
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
             onTouchStart={undefined}
+            role="presentation"
           >
             <i
               className="iconfont icon-praise_fill"
@@ -5280,6 +5404,7 @@ exports[`Storyshots Comments Comments 1`] = `
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
             onTouchStart={undefined}
+            role="presentation"
           >
             <i
               className="iconfont icon-praise_fill Comment__icon_dislike"
@@ -5317,6 +5442,7 @@ exports[`Storyshots Comments Comments 1`] = `
             <span
               className="Comment__visibility"
               onClick={[Function]}
+              role="presentation"
             >
               <i
                 className="iconfont icon-offline"
@@ -5388,6 +5514,7 @@ exports[`Storyshots Comments Comments 1`] = `
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
                   onTouchStart={undefined}
+                  role="presentation"
                 >
                   <i
                     className="iconfont icon-praise_fill"
@@ -5403,6 +5530,7 @@ exports[`Storyshots Comments Comments 1`] = `
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
                   onTouchStart={undefined}
+                  role="presentation"
                 >
                   <i
                     className="iconfont icon-praise_fill Comment__icon_dislike"
@@ -5445,6 +5573,7 @@ exports[`Storyshots Comments Comments 1`] = `
       <span
         className="Comment__visibility"
         onClick={[Function]}
+        role="presentation"
       >
         <i
           className="iconfont icon-offline"
@@ -5516,6 +5645,7 @@ exports[`Storyshots Comments Comments 1`] = `
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
             onTouchStart={undefined}
+            role="presentation"
           >
             <i
               className="iconfont icon-praise_fill"
@@ -5531,6 +5661,7 @@ exports[`Storyshots Comments Comments 1`] = `
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
             onTouchStart={undefined}
+            role="presentation"
           >
             <i
               className="iconfont icon-praise_fill Comment__icon_dislike"
@@ -5568,6 +5699,7 @@ exports[`Storyshots Comments Comments 1`] = `
             <span
               className="Comment__visibility"
               onClick={[Function]}
+              role="presentation"
             >
               <i
                 className="iconfont icon-offline"
@@ -5639,6 +5771,7 @@ exports[`Storyshots Comments Comments 1`] = `
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
                   onTouchStart={undefined}
+                  role="presentation"
                 >
                   <i
                     className="iconfont icon-praise_fill"
@@ -5654,6 +5787,7 @@ exports[`Storyshots Comments Comments 1`] = `
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
                   onTouchStart={undefined}
+                  role="presentation"
                 >
                   <i
                     className="iconfont icon-praise_fill Comment__icon_dislike"
@@ -5696,6 +5830,7 @@ exports[`Storyshots Comments Comments 1`] = `
       <span
         className="Comment__visibility"
         onClick={[Function]}
+        role="presentation"
       >
         <i
           className="iconfont icon-offline"
@@ -5769,6 +5904,7 @@ exports[`Storyshots Comments Comments 1`] = `
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
             onTouchStart={undefined}
+            role="presentation"
           >
             <i
               className="iconfont icon-praise_fill"
@@ -5784,6 +5920,7 @@ exports[`Storyshots Comments Comments 1`] = `
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
             onTouchStart={undefined}
+            role="presentation"
           >
             <i
               className="iconfont icon-praise_fill Comment__icon_dislike"
@@ -5821,6 +5958,7 @@ exports[`Storyshots Comments Comments 1`] = `
             <span
               className="Comment__visibility"
               onClick={[Function]}
+              role="presentation"
             >
               <i
                 className="iconfont icon-offline"
@@ -5892,6 +6030,7 @@ exports[`Storyshots Comments Comments 1`] = `
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
                   onTouchStart={undefined}
+                  role="presentation"
                 >
                   <i
                     className="iconfont icon-praise_fill"
@@ -5907,6 +6046,7 @@ exports[`Storyshots Comments Comments 1`] = `
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
                   onTouchStart={undefined}
+                  role="presentation"
                 >
                   <i
                     className="iconfont icon-praise_fill Comment__icon_dislike"
@@ -5949,6 +6089,7 @@ exports[`Storyshots Comments Comments 1`] = `
       <span
         className="Comment__visibility"
         onClick={[Function]}
+        role="presentation"
       >
         <i
           className="iconfont icon-offline"
@@ -6020,6 +6161,7 @@ exports[`Storyshots Comments Comments 1`] = `
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
             onTouchStart={undefined}
+            role="presentation"
           >
             <i
               className="iconfont icon-praise_fill"
@@ -6035,6 +6177,7 @@ exports[`Storyshots Comments Comments 1`] = `
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
             onTouchStart={undefined}
+            role="presentation"
           >
             <i
               className="iconfont icon-praise_fill Comment__icon_dislike"
@@ -6072,6 +6215,7 @@ exports[`Storyshots Comments Comments 1`] = `
             <span
               className="Comment__visibility"
               onClick={[Function]}
+              role="presentation"
             >
               <i
                 className="iconfont icon-offline"
@@ -6143,6 +6287,7 @@ exports[`Storyshots Comments Comments 1`] = `
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
                   onTouchStart={undefined}
+                  role="presentation"
                 >
                   <i
                     className="iconfont icon-praise_fill"
@@ -6158,6 +6303,7 @@ exports[`Storyshots Comments Comments 1`] = `
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
                   onTouchStart={undefined}
+                  role="presentation"
                 >
                   <i
                     className="iconfont icon-praise_fill Comment__icon_dislike"
@@ -6200,6 +6346,7 @@ exports[`Storyshots Comments Comments 1`] = `
       <span
         className="Comment__visibility"
         onClick={[Function]}
+        role="presentation"
       >
         <i
           className="iconfont icon-offline"
@@ -6271,6 +6418,7 @@ exports[`Storyshots Comments Comments 1`] = `
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
             onTouchStart={undefined}
+            role="presentation"
           >
             <i
               className="iconfont icon-praise_fill"
@@ -6286,6 +6434,7 @@ exports[`Storyshots Comments Comments 1`] = `
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
             onTouchStart={undefined}
+            role="presentation"
           >
             <i
               className="iconfont icon-praise_fill Comment__icon_dislike"
@@ -6323,6 +6472,7 @@ exports[`Storyshots Comments Comments 1`] = `
             <span
               className="Comment__visibility"
               onClick={[Function]}
+              role="presentation"
             >
               <i
                 className="iconfont icon-offline"
@@ -6394,6 +6544,7 @@ exports[`Storyshots Comments Comments 1`] = `
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
                   onTouchStart={undefined}
+                  role="presentation"
                 >
                   <i
                     className="iconfont icon-praise_fill"
@@ -6409,6 +6560,7 @@ exports[`Storyshots Comments Comments 1`] = `
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
                   onTouchStart={undefined}
+                  role="presentation"
                 >
                   <i
                     className="iconfont icon-praise_fill Comment__icon_dislike"
@@ -6451,6 +6603,7 @@ exports[`Storyshots Comments Comments 1`] = `
       <span
         className="Comment__visibility"
         onClick={[Function]}
+        role="presentation"
       >
         <i
           className="iconfont icon-offline"
@@ -6522,6 +6675,7 @@ exports[`Storyshots Comments Comments 1`] = `
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
             onTouchStart={undefined}
+            role="presentation"
           >
             <i
               className="iconfont icon-praise_fill"
@@ -6537,6 +6691,7 @@ exports[`Storyshots Comments Comments 1`] = `
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
             onTouchStart={undefined}
+            role="presentation"
           >
             <i
               className="iconfont icon-praise_fill Comment__icon_dislike"
@@ -6574,6 +6729,7 @@ exports[`Storyshots Comments Comments 1`] = `
             <span
               className="Comment__visibility"
               onClick={[Function]}
+              role="presentation"
             >
               <i
                 className="iconfont icon-offline"
@@ -6645,6 +6801,7 @@ exports[`Storyshots Comments Comments 1`] = `
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
                   onTouchStart={undefined}
+                  role="presentation"
                 >
                   <i
                     className="iconfont icon-praise_fill"
@@ -6660,6 +6817,7 @@ exports[`Storyshots Comments Comments 1`] = `
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
                   onTouchStart={undefined}
+                  role="presentation"
                 >
                   <i
                     className="iconfont icon-praise_fill Comment__icon_dislike"
@@ -6702,6 +6860,7 @@ exports[`Storyshots Comments Comments 1`] = `
       <span
         className="Comment__visibility"
         onClick={[Function]}
+        role="presentation"
       >
         <i
           className="iconfont icon-offline"
@@ -6773,6 +6932,7 @@ exports[`Storyshots Comments Comments 1`] = `
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
             onTouchStart={undefined}
+            role="presentation"
           >
             <i
               className="iconfont icon-praise_fill"
@@ -6788,6 +6948,7 @@ exports[`Storyshots Comments Comments 1`] = `
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
             onTouchStart={undefined}
+            role="presentation"
           >
             <i
               className="iconfont icon-praise_fill Comment__icon_dislike"
@@ -6825,6 +6986,7 @@ exports[`Storyshots Comments Comments 1`] = `
             <span
               className="Comment__visibility"
               onClick={[Function]}
+              role="presentation"
             >
               <i
                 className="iconfont icon-offline"
@@ -6896,6 +7058,7 @@ exports[`Storyshots Comments Comments 1`] = `
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
                   onTouchStart={undefined}
+                  role="presentation"
                 >
                   <i
                     className="iconfont icon-praise_fill"
@@ -6911,6 +7074,7 @@ exports[`Storyshots Comments Comments 1`] = `
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
                   onTouchStart={undefined}
+                  role="presentation"
                 >
                   <i
                     className="iconfont icon-praise_fill Comment__icon_dislike"
@@ -6948,6 +7112,7 @@ exports[`Storyshots Comments Comments 1`] = `
                   <span
                     className="Comment__visibility"
                     onClick={[Function]}
+                    role="presentation"
                   >
                     <i
                       className="iconfont icon-offline"
@@ -7019,6 +7184,7 @@ exports[`Storyshots Comments Comments 1`] = `
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
                         onTouchStart={undefined}
+                        role="presentation"
                       >
                         <i
                           className="iconfont icon-praise_fill"
@@ -7034,6 +7200,7 @@ exports[`Storyshots Comments Comments 1`] = `
                         onMouseEnter={[Function]}
                         onMouseLeave={[Function]}
                         onTouchStart={undefined}
+                        role="presentation"
                       >
                         <i
                           className="iconfont icon-praise_fill Comment__icon_dislike"
@@ -7079,6 +7246,7 @@ exports[`Storyshots Comments Comments 1`] = `
       <span
         className="Comment__visibility"
         onClick={[Function]}
+        role="presentation"
       >
         <i
           className="iconfont icon-offline"
@@ -7160,6 +7328,7 @@ exports[`Storyshots Comments Comments 1`] = `
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
             onTouchStart={undefined}
+            role="presentation"
           >
             <i
               className="iconfont icon-praise_fill"
@@ -7175,6 +7344,7 @@ exports[`Storyshots Comments Comments 1`] = `
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
             onTouchStart={undefined}
+            role="presentation"
           >
             <i
               className="iconfont icon-praise_fill Comment__icon_dislike"
@@ -7212,6 +7382,7 @@ exports[`Storyshots Comments Comments 1`] = `
             <span
               className="Comment__visibility"
               onClick={[Function]}
+              role="presentation"
             >
               <i
                 className="iconfont icon-offline"
@@ -7283,6 +7454,7 @@ exports[`Storyshots Comments Comments 1`] = `
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
                   onTouchStart={undefined}
+                  role="presentation"
                 >
                   <i
                     className="iconfont icon-praise_fill"
@@ -7298,6 +7470,7 @@ exports[`Storyshots Comments Comments 1`] = `
                   onMouseEnter={[Function]}
                   onMouseLeave={[Function]}
                   onTouchStart={undefined}
+                  role="presentation"
                 >
                   <i
                     className="iconfont icon-praise_fill Comment__icon_dislike"
@@ -8751,7 +8924,7 @@ exports[`Storyshots Sidebar Latest Recommendations 1`] = `
             className="Recommendation__title"
           >
             <a
-              href="/@ekitcho/undefined"
+              href="/@ekitcho/hello"
               onClick={[Function]}
             >
               <span>
@@ -8799,7 +8972,7 @@ exports[`Storyshots Sidebar Latest Recommendations 1`] = `
             className="Recommendation__title"
           >
             <a
-              href="/@blacktivity/undefined"
+              href="/@blacktivity/hello"
               onClick={[Function]}
             >
               <span>
@@ -8846,7 +9019,7 @@ exports[`Storyshots Sidebar Latest Recommendations 1`] = `
             className="Recommendation__title"
           >
             <a
-              href="/@pooldarbashi/undefined"
+              href="/@pooldarbashi/hello"
               onClick={[Function]}
             >
               <span>
@@ -8924,7 +9097,6 @@ exports[`Storyshots Sidebar Start now 1`] = `
     >
       <button
         className="StartNow__button"
-        onClick={[Function]}
       >
         Start Now
       </button>
@@ -8999,6 +9171,7 @@ exports[`Storyshots Sidebar Trending topics 1`] = `
     </ul>
     <h5
       onClick={[Function]}
+      role="presentation"
     >
       View more
     </h5>
@@ -9091,6 +9264,7 @@ exports[`Storyshots Story Full story 1`] = `
     <div
       className="StoryFull__content"
       onClick={[Function]}
+      role="presentation"
     >
       <div
         className="Body"
@@ -9200,6 +9374,7 @@ exports[`Storyshots Story Full story 1`] = `
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
         onTouchStart={undefined}
+        role="presentation"
       >
         <i
           className="iconfont icon-praise_fill"
@@ -9219,6 +9394,7 @@ exports[`Storyshots Story Full story 1`] = `
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
         onTouchStart={undefined}
+        role="presentation"
       >
         <i
           className="iconfont icon-message_fill"
@@ -9241,6 +9417,7 @@ exports[`Storyshots Story Full story 1`] = `
         <a
           className="StoryFooter__link"
           onClick={[Function]}
+          role="presentation"
         >
           <i
             className="iconfont icon-send StoryFooter__share"
@@ -9337,6 +9514,7 @@ exports[`Storyshots Story Full story with embed 1`] = `
     <div
       className="StoryFull__content"
       onClick={[Function]}
+      role="presentation"
     >
       <div
         className="Body"
@@ -9352,6 +9530,7 @@ exports[`Storyshots Story Full story with embed 1`] = `
         <div
           className="PostFeedEmbed"
           onClick={[Function]}
+          role="presentation"
         >
           <div
             className="PostFeedEmbed__playButton"
@@ -9443,6 +9622,7 @@ exports[`Storyshots Story Full story with embed 1`] = `
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
         onTouchStart={undefined}
+        role="presentation"
       >
         <i
           className="iconfont icon-praise_fill"
@@ -9462,6 +9642,7 @@ exports[`Storyshots Story Full story with embed 1`] = `
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
         onTouchStart={undefined}
+        role="presentation"
       >
         <i
           className="iconfont icon-message_fill"
@@ -9484,6 +9665,7 @@ exports[`Storyshots Story Full story with embed 1`] = `
         <a
           className="StoryFooter__link"
           onClick={[Function]}
+          role="presentation"
         >
           <i
             className="iconfont icon-send StoryFooter__share"
@@ -9648,6 +9830,7 @@ exports[`Storyshots Story Inline story 1`] = `
           onMouseEnter={[Function]}
           onMouseLeave={[Function]}
           onTouchStart={undefined}
+          role="presentation"
         >
           <i
             className="iconfont icon-praise_fill"
@@ -9667,6 +9850,7 @@ exports[`Storyshots Story Inline story 1`] = `
           onMouseEnter={[Function]}
           onMouseLeave={[Function]}
           onTouchStart={undefined}
+          role="presentation"
         >
           <i
             className="iconfont icon-message_fill"
@@ -9689,6 +9873,7 @@ exports[`Storyshots Story Inline story 1`] = `
           <a
             className="StoryFooter__link"
             onClick={[Function]}
+            role="presentation"
           >
             <i
               className="iconfont icon-send StoryFooter__share"
@@ -9815,6 +10000,7 @@ exports[`Storyshots Story Inline story with embed 1`] = `
           <div
             className="PostFeedEmbed"
             onClick={[Function]}
+            role="presentation"
           >
             <div
               className="PostFeedEmbed__playButton"
@@ -9862,6 +10048,7 @@ exports[`Storyshots Story Inline story with embed 1`] = `
           onMouseEnter={[Function]}
           onMouseLeave={[Function]}
           onTouchStart={undefined}
+          role="presentation"
         >
           <i
             className="iconfont icon-praise_fill"
@@ -9881,6 +10068,7 @@ exports[`Storyshots Story Inline story with embed 1`] = `
           onMouseEnter={[Function]}
           onMouseLeave={[Function]}
           onTouchStart={undefined}
+          role="presentation"
         >
           <i
             className="iconfont icon-message_fill"
@@ -9903,6 +10091,7 @@ exports[`Storyshots Story Inline story with embed 1`] = `
           <a
             className="StoryFooter__link"
             onClick={[Function]}
+            role="presentation"
           >
             <i
               className="iconfont icon-send StoryFooter__share"

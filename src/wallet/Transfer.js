@@ -1,17 +1,23 @@
-import React, { Component } from 'react';
+import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import classNames from 'classnames';
 import numeral from 'numeral';
 import Textarea from 'react-textarea-autosize';
-import Icon from '../widgets/Icon';
 
-@connect(
-  state => ({
-    auth: state.auth,
-  })
-)
-export default class Transfer extends Component {
+@connect(state => ({
+  auth: state.auth,
+}))
+export default class Transfer extends React.Component {
+  static propTypes = {
+    auth: PropTypes.shape().isRequired,
+    location: PropTypes.shape(),
+  };
+
+  static defaultProps = {
+    location: {},
+  };
+
   constructor(props) {
     super(props);
     const { location: { query } } = props;
@@ -59,11 +65,7 @@ export default class Transfer extends Component {
           <form>
             <div className="form-group">
               <div className="input-group">
-                <span className="input-group-addon">
-                  <Icon name="perm_identity" sm />
-                </span>
                 <input
-                  autoFocus
                   value={to}
                   autoComplete="off"
                   onChange={this.handleToChange}
@@ -73,9 +75,6 @@ export default class Transfer extends Component {
                 />
               </div>
               <div className="input-group">
-                <span className="input-group-addon">
-                  <Icon name="attach_money" sm />
-                </span>
                 <input
                   value={amount}
                   onChange={this.handleAmountChange}
@@ -86,12 +85,14 @@ export default class Transfer extends Component {
                 <span className="input-group-addon">
                   <div>
                     <a
+                      role="presentation"
                       className={sbdBtnClass}
                       onClick={() => this.setState({ currency: 'SBD' })}
                     >
                       SBD
                     </a>
                     <a
+                      role="presentation"
                       className={steemBtnClass}
                       onClick={() => this.setState({ currency: 'STEEM' })}
                     >
@@ -102,7 +103,10 @@ export default class Transfer extends Component {
               </div>
               <h4 className="my-2">
                 Balance{' '}
-                <a href="#" onClick={() => this.setState({ amount: numeral(balance).format('0.000') })}>
+                <a
+                  role="presentation"
+                  onClick={() => this.setState({ amount: numeral(balance).format('0.000') })}
+                >
                   {numeral(balance).format('0,0.000')}
                 </a>
                 {` ${currency}`}
@@ -119,10 +123,7 @@ export default class Transfer extends Component {
               </blockquote>
             </div>
             <div className="form-group">
-              <a
-                href={url}
-                className="btn btn-success btn-lg"
-              >
+              <a href={url} className="btn btn-success btn-lg">
                 <FormattedMessage id="continue" defaultMessage="Continue" />
               </a>
             </div>

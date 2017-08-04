@@ -1,4 +1,3 @@
-/* global window */
 import promiseMiddleware from 'redux-promise-middleware';
 import persistState from 'redux-localstorage';
 import thunk from 'redux-thunk';
@@ -13,8 +12,10 @@ import reducers from './reducers';
 
 let preloadedState;
 if (process.env.IS_BROWSER) {
+  /* eslint-disable no-underscore-dangle */
   preloadedState = window.__PRELOADED_STATE__;
   delete window.__PRELOADED_STATE__;
+  /* eslint-enable no-underscore-dangle */
 }
 
 if (process.env.IS_BROWSER && process.env.NODE_ENV !== 'production') {
@@ -28,7 +29,7 @@ const middleware = [
       'START',
       'SUCCESS',
       'ERROR',
-    ]
+    ],
   }),
   thunk.withExtraArgument({
     steemAPI: api,
@@ -38,6 +39,7 @@ const middleware = [
 
 let enhancer;
 if (process.env.IS_BROWSER) {
+  // eslint-disable-next-line no-underscore-dangle
   const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
   enhancer = composeEnhancers(
     applyMiddleware(...middleware),
@@ -48,7 +50,7 @@ if (process.env.IS_BROWSER) {
         favorites: state.favorites,
         editor: state.editor,
       }),
-    })
+    }),
   );
 } else {
   enhancer = compose(applyMiddleware(...middleware));
@@ -58,7 +60,7 @@ const getStore = () => {
   const store = createStore(
     reducers,
     preloadedState,
-    enhancer
+    enhancer,
   );
   mountResponsive(store);
   return store;

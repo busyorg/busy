@@ -1,10 +1,8 @@
-/* eslint-disable comma-dangle */
-
 import {
   NOTIFICATION_FOLLOWING,
   NOTIFICATION_REPLY,
   NOTIFICATION_TRANSFER,
-  NOTIFICATION_MENTION
+  NOTIFICATION_MENTION,
 } from '../../components/Navigation/Notifications/Notifications';
 
 export default [
@@ -34,7 +32,7 @@ export default [
     date: '2017-06-06T13:46:37Z',
     payload: {
       user: 'stabe',
-      amount: 60.00,
+      amount: 60.0,
     },
   },
   {
@@ -54,7 +52,7 @@ export default [
     date: '2017-06-06T13:46:37Z',
     payload: {
       user: 'stabe',
-      amount: 60.00,
+      amount: 60.0,
     },
   },
   {

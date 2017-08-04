@@ -30,25 +30,29 @@ class Topics extends React.Component {
   render() {
     const { title, topics, favorite, maxItems } = this.props;
 
-    const displayedTopics = (this.state.showMore) ? topics : topics.slice(0, maxItems);
+    const displayedTopics = this.state.showMore ? topics : topics.slice(0, maxItems);
 
     return (
       <div className="Topics">
-        <h4>{title}</h4>
+        <h4>
+          {title}
+        </h4>
         <ul className="Topics__list">
-          {
-            displayedTopics.map(topic => (
-              <li key={topic}>
-                <Topic name={topic} favorite={favorite} />
-              </li>
-            ))
-          }
+          {displayedTopics.map(topic =>
+            (<li key={topic}>
+              <Topic name={topic} favorite={favorite} />
+            </li>),
+          )}
         </ul>
-        {(topics.length > maxItems && !this.state.showMore) ?
-          <h5 onClick={() => this.changeVisibility(true)}>View more</h5>
+        {topics.length > maxItems && !this.state.showMore
+          ? <h5 role="presentation" onClick={() => this.changeVisibility(true)}>
+              View more
+          </h5>
           : null}
-        {(topics.length > maxItems && this.state.showMore) ?
-          <h5 onClick={() => this.changeVisibility(false)}>View less</h5>
+        {topics.length > maxItems && this.state.showMore
+          ? <h5 role="presentation" onClick={() => this.changeVisibility(false)}>
+              View less
+          </h5>
           : null}
       </div>
     );

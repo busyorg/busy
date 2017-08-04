@@ -8,19 +8,19 @@ import {
   getFeedContent,
   getMoreFeedContent,
   getUserFeedContent,
-  getMoreUserFeedContent
+  getMoreUserFeedContent,
 } from './feedActions';
 import {
   getFeedContentFromState,
   getFeedLoadingFromState,
   getUserFeedContentFromState,
-  getUserFeedLoadingFromState
+  getUserFeedLoadingFromState,
 } from '../helpers/stateHelpers';
-import FavoriteButton from '../favorites/FavoriteButton';
 import { notify } from '../app/Notification/notificationActions';
 import * as favoriteActions from '../favorites/favoritesActions';
 import EmptyFeed from '../statics/EmptyFeed';
-import { LeftSidebar, RightSidebar } from '../app/Sidebar/index';
+import LeftSidebar from '../app/Sidebar/LeftSidebar';
+import RightSidebar from '../app/Sidebar/RightSidebar';
 import TopicSelector from '../components/TopicSelector';
 import Affix from '../components/Utils/Affix';
 import ScrollToTop from '../components/Utils/ScrollToTop';
@@ -30,7 +30,7 @@ class TopicSelectorImpl extends React.Component {
   static propTypes = {
     history: PropTypes.shape().isRequired,
     location: PropTypes.shape().isRequired,
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -39,7 +39,7 @@ class TopicSelectorImpl extends React.Component {
 
     this.state = {
       currentKey: location.pathname.split('/')[1] || 'created',
-      categories: (category) ? [category] : [],
+      categories: category ? [category] : [],
     };
   }
 
@@ -48,7 +48,7 @@ class TopicSelectorImpl extends React.Component {
 
     this.setState({
       currentKey: location.pathname.split('/')[1] || 'created',
-      categories: (category) ? [category] : [],
+      categories: category ? [category] : [],
     });
   }
 
@@ -60,12 +60,12 @@ class TopicSelectorImpl extends React.Component {
     } else {
       this.props.history.push(`/${key}`);
     }
-  }
+  };
 
   onTopicClose = () => {
     this.setState({ categories: [] });
     this.props.history.push(`/${this.state.currentKey}`);
-  }
+  };
 
   render() {
     return (
@@ -76,7 +76,8 @@ class TopicSelectorImpl extends React.Component {
         topics={this.state.categories}
         onSortChange={this.onChange}
         onTopicClose={this.onTopicClose}
-      />);
+      />
+    );
   }
 }
 const TopicSelectorWrapper = withRouter(TopicSelectorImpl);
@@ -87,7 +88,7 @@ const TopicSelectorWrapper = withRouter(TopicSelectorImpl);
     auth: state.auth,
     feed: state.feed,
     posts: state.posts,
-    favorites: state.favorites.categories
+    favorites: state.favorites.categories,
   }),
   (dispatch, ownProps) => {
     const { sortBy, category, auth, limit } = ownProps;
@@ -99,9 +100,9 @@ const TopicSelectorWrapper = withRouter(TopicSelectorImpl);
         dispatch(getMoreUserFeedContent({ username: auth.user.name, limit })),
       addCategoryFavorite: () => dispatch(favoriteActions.addCategoryFavorite(category)),
       removeCategoryFavorite: () => dispatch(favoriteActions.removeCategoryFavorite(category)),
-      notify
+      notify,
     };
-  }
+  },
 )
 export default class Page extends React.Component {
   isFavorited() {
@@ -152,7 +153,7 @@ export default class Page extends React.Component {
             </Affix>
             <div className="center">
               <TopicSelectorWrapper category={category} />
-              {/*{category &&
+              {/* {category &&
                 <h2 className="mt-3 text-center">
                   <span className="text-info">#</span>
                   {' '}{category}{' '}
@@ -164,7 +165,7 @@ export default class Page extends React.Component {
                         : this.props.addCategoryFavorite
                     }
                   />
-                </h2>}*/}
+                </h2>} */}
               <Feed
                 content={content}
                 isFetching={isFetching}
@@ -187,5 +188,5 @@ Page.propTypes = {
   category: React.PropTypes.string,
   sortBy: React.PropTypes.string,
   path: React.PropTypes.string,
-  limit: React.PropTypes.number
+  limit: React.PropTypes.number,
 };

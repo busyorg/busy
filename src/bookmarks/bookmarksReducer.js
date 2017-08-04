@@ -31,8 +31,9 @@ const bookmarks = (state = initialState, action) => {
     case bookmarksActions.REMOVE_BOOKMARK:
       return {
         ...state,
-        [action.payload.user]: state[action.payload.user]
-          .filter(bookmark => bookmark.id !== action.payload.postId),
+        [action.payload.user]: state[action.payload.user].filter(
+          bookmark => bookmark.id !== action.payload.postId,
+        ),
       };
     default:
       return state;

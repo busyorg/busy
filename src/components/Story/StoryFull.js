@@ -14,6 +14,7 @@ import './StoryFull.less';
 class StoryFull extends React.Component {
   static propTypes = {
     post: PropTypes.shape().isRequired,
+    postState: PropTypes.shape().isRequired,
     pendingLike: PropTypes.bool,
     pendingFollow: PropTypes.bool,
     commentCount: PropTypes.number,
@@ -71,15 +72,10 @@ class StoryFull extends React.Component {
     }
   };
 
-  onCommentsHeaderClick = () => {
-    this.footerRef.scrollIntoView({ behavior: 'smooth' });
-  }
-
-
-  onContentClick = (e) => {
+  handleContentClick = (e) => {
     if (e.target.tagName === 'IMG') {
       const tags = this.contentDiv.getElementsByTagName('img');
-      for (let i = 0; i < tags.length; i++) {
+      for (let i = 0; i < tags.length; i += 1) {
         if (tags[i] === e.target) {
           this.setState({
             lightbox: {
@@ -142,8 +138,7 @@ class StoryFull extends React.Component {
               placement="bottom"
               title={
                 <span>
-                  <FormattedDate value={`${post.created}Z`} />
-                  {' '}
+                  <FormattedDate value={`${post.created}Z`} />{' '}
                   <FormattedTime value={`${post.created}Z`} />
                 </span>
               }
@@ -159,11 +154,12 @@ class StoryFull extends React.Component {
             content={
               <PopoverMenu onSelect={this.handleClick} bold={false}>
                 <PopoverMenuItem key="follow" disabled={pendingFollow}>
-                  {(pendingFollow) ? <Icon type="loading" /> : <i className="iconfont icon-people" />}
+                  {pendingFollow ? <Icon type="loading" /> : <i className="iconfont icon-people" />}
                   {`${followText} ${post.author}`}
                 </PopoverMenuItem>
                 <PopoverMenuItem key="save">
-                  <i className="iconfont icon-collection" /> {(postState.isSaved) ? 'Unsave post' : 'Save post'}
+                  <i className="iconfont icon-collection" />{' '}
+                  {postState.isSaved ? 'Unsave post' : 'Save post'}
                 </PopoverMenuItem>
                 <PopoverMenuItem key="report">
                   <i className="iconfont icon-flag" /> Report post
@@ -175,11 +171,12 @@ class StoryFull extends React.Component {
           </Popover>
         </div>
         <div
+          role="presentation"
           className="StoryFull__content"
           ref={(div) => {
             this.contentDiv = div;
           }}
-          onClick={this.onContentClick}
+          onClick={this.handleContentClick}
         >
           <Body body={post.body} json_metadata={post.json_metadata} />
         </div>

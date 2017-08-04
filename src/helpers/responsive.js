@@ -4,7 +4,7 @@ import {
   MEDIA_CHANGED,
   MEDIA_MOUNTED,
   reducer as responsiveReducer,
-  mediaQueryTracker
+  mediaQueryTracker,
 } from './responsive/redux-mediaquery';
 
 export { MEDIA_CHANGED };
@@ -31,13 +31,11 @@ export const medium = '(min-width: 992px)';
 export const small = '(max-width: 992px)';
 
 export function isSmall() {
-  return matchMedia(small).matches &&
-    !matchMedia(medium).matches;
+  return matchMedia(small).matches && !matchMedia(medium).matches;
 }
 
 export function isMedium() {
-  return matchMedia(medium).matches &&
-    !matchMedia(large).matches;
+  return matchMedia(medium).matches && !matchMedia(large).matches;
 }
 
 export function isLarge() {

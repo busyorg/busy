@@ -6,19 +6,19 @@ import { Link } from 'react-router-dom';
 import Avatar from '../../Avatar';
 import './Notification.less';
 
-const NotificationTransfer = ({ onClick, id, read, date, payload }) => (
-  <div
+const NotificationTransfer = ({ onClick, id, read, date, payload }) =>
+  (<div
+    role="presentation"
     onClick={() => onClick(id)}
-    className={
-      classNames('Notification', {
-        'Notification--unread': !read,
-      })
-    }
+    className={classNames('Notification', {
+      'Notification--unread': !read,
+    })}
   >
     <Avatar username={payload.user} size={40} />
     <div className="Notification__text">
       <div className="Notification__text__message">
-        <Link to={`/${payload.user}`}>{payload.user}</Link> sent you {numeral(payload.amount).format('0,0.000')} STEEM.
+        <Link to={`/${payload.user}`}>{payload.user}</Link> sent you{' '}
+        {numeral(payload.amount).format('0,0.000')} STEEM.
       </div>
       <div className="Notification__text__date">
         <FormattedRelative value={date} />

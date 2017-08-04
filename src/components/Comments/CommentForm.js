@@ -4,11 +4,10 @@ import Avatar from '../Avatar';
 import './CommentForm.less';
 
 class CommentForm extends Component {
-
   state = {
     inputValue: this.props.inputValue,
     isDisabledSubmit: false,
-  }
+  };
 
   componentWillReceiveProps(nextProps) {
     if (!nextProps.isLoading) {
@@ -18,7 +17,7 @@ class CommentForm extends Component {
 
   handleCommentTextChange = (e) => {
     this.setState({ inputValue: e.target.value });
-  }
+  };
 
   handleSubmit = (e) => {
     e.stopPropagation();
@@ -26,19 +25,17 @@ class CommentForm extends Component {
     if (this.state.inputValue) {
       this.props.onSubmit(this.props.parentPost, this.state.inputValue);
     }
-  }
+  };
 
   render() {
     const { username, isSmall, isLoading } = this.props;
-    const buttonClass = isLoading ? 'CommentForm__button_disabled' :
-      'CommentForm__button_primary';
+    const buttonClass = isLoading ? 'CommentForm__button_disabled' : 'CommentForm__button_primary';
 
     return (
       <div className="CommentForm">
-        <Avatar username={username} size={(!isSmall) ? 40 : 32} />
+        <Avatar username={username} size={!isSmall ? 40 : 32} />
         <div className="CommentForm__text">
           <Input
-            ref={(c) => { this._input = c; }}
             type="textarea"
             value={this.state.inputValue}
             onChange={this.handleCommentTextChange}
@@ -66,6 +63,7 @@ CommentForm.propTypes = {
   isSmall: PropTypes.bool,
   isLoading: PropTypes.bool,
   inputValue: PropTypes.string.isRequired,
+  onSubmit: PropTypes.func,
 };
 
 CommentForm.defaultProps = {
@@ -73,6 +71,7 @@ CommentForm.defaultProps = {
   isSmall: false,
   isLoading: false,
   inputValue: '',
+  onSubmit: () => {},
 };
 
 export default CommentForm;

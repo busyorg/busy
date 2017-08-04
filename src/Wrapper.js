@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { IntlProvider } from 'react-intl';
 import { Layout } from 'antd';
@@ -17,21 +17,35 @@ import './translations/Translations';
 @connect(
   state => ({
     app: state.app,
-    auth: state.auth
+    auth: state.auth,
   }),
   {
     login,
     getConfig,
     getRate,
-    getRebloggedList: reblogActions.getRebloggedList
-  }
+    getRebloggedList: reblogActions.getRebloggedList,
+  },
 )
-export default class Wrapper extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      messages: {}
-    };
+export default class Wrapper extends React.PureComponent {
+  static propTypes = {
+    app: PropTypes.shape().isRequired,
+    auth: PropTypes.shape().isRequired,
+    children: PropTypes.element.isRequired,
+    login: PropTypes.func,
+    getConfig: PropTypes.func,
+    getRebloggedList: PropTypes.func,
+    getRate: PropTypes.func,
+  }
+
+  static defaultProps = {
+    login: () => {},
+    getConfig: () => {},
+    getRebloggedList: () => {},
+    getRate: () => {},
+  }
+
+  state = {
+    messages: {},
   }
 
   componentWillMount() {

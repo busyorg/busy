@@ -1,4 +1,3 @@
-
 export const jsonParse = (str) => {
   try {
     return jsonParse(JSON.parse(str));
@@ -6,3 +5,5 @@ export const jsonParse = (str) => {
     return str;
   }
 };
+
+export default jsonParse;

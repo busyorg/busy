@@ -1,17 +1,33 @@
-import React, { Component } from 'react';
+import React, { PropTypes } from 'react';
 import Feed from '../feed/Feed';
 import {
   getFeedContentFromState,
   getFeedLoadingFromState,
-  getFeedHasMoreFromState
+  getFeedHasMoreFromState,
 } from '../helpers/stateHelpers';
 import EmptyFeed from '../statics/EmptyFeed';
 import { getUserFeedContent as getUserFeedContentStatic } from '../feed/feedActions';
 
-export default class UserProfileFeed extends Component {
-  static needs = [
-    ({ name }) => getUserFeedContentStatic({ username: name, limit: 10 }),
-  ]
+export default class UserProfileFeed extends React.Component {
+  static propTypes = {
+    feed: PropTypes.shape(),
+    posts: PropTypes.shape(),
+    match: PropTypes.shape(),
+    limit: PropTypes.number,
+    getUserFeedContent: PropTypes.func,
+    getMoreUserFeedContent: PropTypes.func,
+  };
+
+  static defaultProps = {
+    feed: {},
+    posts: {},
+    match: {},
+    limit: 10,
+    getUserFeedContent: () => {},
+    getMoreUserFeedContent: () => {},
+  };
+
+  static needs = [({ name }) => getUserFeedContentStatic({ username: name, limit: 10 })];
 
   render() {
     const { feed, posts, getUserFeedContent, getMoreUserFeedContent } = this.props;
@@ -19,16 +35,18 @@ export default class UserProfileFeed extends Component {
     const content = getFeedContentFromState('feed', username, feed, posts);
     const isFetching = getFeedLoadingFromState('feed', username, feed);
     const hasMore = getFeedHasMoreFromState('feed', username, feed);
-    const loadContentAction = () => getUserFeedContent({
-      sortBy: 'feed',
-      username,
-      limit: this.props.limit,
-    });
-    const loadMoreContentAction = () => getMoreUserFeedContent({
-      sortBy: 'feed',
-      username,
-      limit: this.props.limit,
-    });
+    const loadContentAction = () =>
+      getUserFeedContent({
+        sortBy: 'feed',
+        username,
+        limit: this.props.limit,
+      });
+    const loadMoreContentAction = () =>
+      getMoreUserFeedContent({
+        sortBy: 'feed',
+        username,
+        limit: this.props.limit,
+      });
 
     return (
       <div>
@@ -38,12 +56,9 @@ export default class UserProfileFeed extends Component {
           hasMore={hasMore}
           loadContent={loadContentAction}
           loadMoreContent={loadMoreContentAction}
-          route={this.props.route}
         />
 
-        {(content.length === 0 && !isFetching) &&
-          <EmptyFeed />
-        }
+        {content.length === 0 && !isFetching && <EmptyFeed />}
       </div>
     );
   }

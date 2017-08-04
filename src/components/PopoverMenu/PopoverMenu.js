@@ -2,13 +2,13 @@ import React, { PropTypes } from 'react';
 import PopoverMenuItem, { popoverMenuItemType } from './PopoverMenuItem';
 import './PopoverMenu.less';
 
-const PopoverMenu = ({ children, onSelect, bold }) => (
-  <ul className="PopoverMenu">
-    {
-      React.Children.map(children, (child) => {
-        const { children: itemChildren, ...otherProps } = child.props;
+const PopoverMenu = ({ children, onSelect, bold }) =>
+  (<ul className="PopoverMenu">
+    {React.Children.map(children, (child) => {
+      const { children: itemChildren, ...otherProps } = child.props;
 
-        return (<PopoverMenuItem
+      return (
+        <PopoverMenuItem
           key={child.key}
           {...otherProps}
           itemKey={child.key}
@@ -16,16 +16,13 @@ const PopoverMenu = ({ children, onSelect, bold }) => (
           onClick={() => onSelect(child.key)}
         >
           {child.props.children}
-        </PopoverMenuItem>);
-      })
-    }
+        </PopoverMenuItem>
+      );
+    })}
   </ul>);
 
 PopoverMenu.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(popoverMenuItemType),
-    popoverMenuItemType,
-  ]),
+  children: PropTypes.oneOfType([PropTypes.arrayOf(popoverMenuItemType), popoverMenuItemType]),
   onSelect: PropTypes.func,
   bold: PropTypes.bool,
 };

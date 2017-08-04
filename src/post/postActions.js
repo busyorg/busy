@@ -15,7 +15,7 @@ export const LIKE_POST_ERROR = '@post/LIKE_POST_ERROR';
 steemConnect.vote = Promise.promisify(steemConnect.vote, { context: steemConnect });
 
 export const getContent = (
-  { author: postAuthor, permlink: postPermlink, afterLike, omitAttributes = [] } = {}
+  { author: postAuthor, permlink: postPermlink, afterLike, omitAttributes = [] } = {},
 ) => (dispatch, getState, { steemAPI }) => {
   if (!postAuthor || !postPermlink) {
     return null;
@@ -55,9 +55,9 @@ export const votePost = (postId, author, permlink, weight = 10000) => (dispatch,
                   author: posts[postId].author,
                   permlink: posts[postId].permlink,
                   afterLike: true,
-                })
+                }),
               ),
-            1000
+            1000,
           );
           return res;
         }),

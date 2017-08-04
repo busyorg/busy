@@ -1,5 +1,4 @@
-/* eslint-disable no-param-reassign,no-empty */
-import React from 'react';
+import React, { PropTypes } from 'react';
 import _ from 'lodash';
 import sanitizeHtml from 'sanitize-html';
 import Remarkable from 'remarkable';
@@ -22,44 +21,65 @@ const remarkable = new Remarkable({
 // Should return text(html) if returnType is text
 // Should return Object(React Compatible) if returnType is Object
 export function getHtml(body, jsonMetadata = {}, returnType = 'Object') {
-  jsonMetadata = jsonParse(jsonMetadata);
-  jsonMetadata.image = jsonMetadata.image || [];
+  const parsedJsonMetadata = jsonParse(jsonMetadata) || {};
+  parsedJsonMetadata.image = parsedJsonMetadata.image || [];
 
-  body = body.replace(/<!--([\s\S]+?)(-->|$)/g, '(html comment removed: $1)');
+  let parsedBody = body.replace(/<!--([\s\S]+?)(-->|$)/g, '(html comment removed: $1)');
 
-  body.replace(imageRegex, (img) => {
-    if (_.filter(jsonMetadata.image, i => i.indexOf(img) !== -1).length === 0) {
-      jsonMetadata.image.push(img);
+  parsedBody.replace(imageRegex, (img) => {
+    if (_.filter(parsedJsonMetadata.image, i => i.indexOf(img) !== -1).length === 0) {
+      parsedJsonMetadata.image.push(img);
     }
   });
 
   const htmlReadyOptions = { mutate: true, resolveIframe: returnType === 'text' };
-  body = remarkable.render(body);
-  body = htmlReady(body, htmlReadyOptions).html;
-  body = sanitizeHtml(body, sanitizeConfig({}));
+  parsedBody = remarkable.render(parsedBody);
+  parsedBody = htmlReady(parsedBody, htmlReadyOptions).html;
+  parsedBody = sanitizeHtml(parsedBody, sanitizeConfig({}));
   if (returnType === 'text') {
-    return body;
+    return parsedBody;
   }
 
   const sections = [];
-  let idx = 0;
-  for (let section of body.split('~~~ embed:')) {
+
+  const splittedBody = parsedBody.split('~~~ embed:');
+  for (let i = 0; i < splittedBody.length; i += 1) {
+    let section = splittedBody[i];
+
     const match = section.match(/^([A-Za-z0-9_-]+) ([A-Za-z]+) (\S+) ~~~/);
     if (match && match.length >= 4) {
       const id = match[1];
       const type = match[2];
       const link = match[3];
       const embed = embedjs.get(link, { width: '100%', height: 400, autoplay: true });
-      sections.push(<PostFeedEmbed key={idx++} embed={embed} />);
+      sections.push(<PostFeedEmbed key={`embed-a-${i}`} embed={embed} />);
       section = section.substring(`${id} ${type} ${link} ~~~`.length);
-      if (section === '') continue;
     }
-    sections.push(<div key={idx++} dangerouslySetInnerHTML={{ __html: section }} />);
+    if (section !== '') {
+      // eslint-disable-next-line react/no-danger
+      sections.push(<div key={`embed-b-${i}`} dangerouslySetInnerHTML={{ __html: section }} />);
+    }
   }
   return sections;
 }
 
-export default (props) => {
+const Body = (props) => {
   const htmlSections = getHtml(props.body, props.jsonMetadata);
-  return <div className="Body">{htmlSections}</div>;
+  return (
+    <div className="Body">
+      {htmlSections}
+    </div>
+  );
 };
+
+Body.propTypes = {
+  body: PropTypes.string,
+  jsonMetadata: PropTypes.string,
+};
+
+Body.defaultProps = {
+  body: '',
+  jsonMetadata: '',
+};
+
+export default Body;

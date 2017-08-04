@@ -11,7 +11,7 @@ class UserMenu extends React.Component {
     comments: PropTypes.number,
     followers: PropTypes.number,
     following: PropTypes.number,
-  }
+  };
 
   static defaultProps = {
     onChange: () => {},
@@ -20,24 +20,27 @@ class UserMenu extends React.Component {
     comments: 0,
     followers: 0,
     following: 0,
-  }
+  };
 
   constructor(props) {
     super(props);
     this.state = {
-      current: (props.defaultKey) ? props.defaultKey : 'discussions',
+      current: props.defaultKey ? props.defaultKey : 'discussions',
     };
   }
 
   handleClick = (e) => {
-    this.setState({
-      current: e.key,
-    }, () => {
-      if (this.props.onChange) {
-        this.props.onChange(e.key);
-      }
-    });
-  }
+    this.setState(
+      {
+        current: e.key,
+      },
+      () => {
+        if (this.props.onChange) {
+          this.props.onChange(e.key);
+        }
+      },
+    );
+  };
 
   render() {
     const discussionsValue = numeral(this.props.discussions).format('0,0');
@@ -57,32 +60,24 @@ class UserMenu extends React.Component {
           >
             <Menu.Item key="discussions" className="UserMenu__item">
               Discussions
-              <span className="UserMenu__badge">
-                {discussionsValue}
-              </span>
+              <span className="UserMenu__badge">{discussionsValue}</span>
             </Menu.Item>
             <Menu.Item key="comments" className="UserMenu__item">
               <strong>
                 Comments
-                <span className="UserMenu__badge">
-                  {commentsValue}
-                </span>
+                <span className="UserMenu__badge">{commentsValue}</span>
               </strong>
             </Menu.Item>
             <Menu.Item key="followers" className="UserMenu__item">
               <strong>
                 Followers
-                <span className="UserMenu__badge">
-                  {followersValue}
-                </span>
+                <span className="UserMenu__badge">{followersValue}</span>
               </strong>
             </Menu.Item>
             <Menu.Item key="followed" className="UserMenu__item">
               <strong>
                 Following
-                <span className="UserMenu__badge">
-                  {followingValue}
-                </span>
+                <span className="UserMenu__badge">{followingValue}</span>
               </strong>
             </Menu.Item>
           </Menu>

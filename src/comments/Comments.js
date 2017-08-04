@@ -1,8 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { FormattedMessage } from 'react-intl';
-import Select from 'react-select';
 import CommentsList from '../components/Comments/Comments';
 import * as commentsActions from './commentsActions';
 import Loading from '../components/Icon/Loading';
@@ -18,31 +16,36 @@ import './Comments.less';
     getComments: commentsActions.getComments,
     likeComment: id => commentsActions.likeComment(id),
     sendComment: (parentPost, body) => commentsActions.sendCommentV2(parentPost, body),
-    unlikeComment: id => commentsActions.likeComment(id, 0),
     dislikeComment: id => commentsActions.likeComment(id, -1000),
     notify,
-  }, dispatch)
+  }, dispatch),
 )
 export default class Comments extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      sortOrder: 'trending',
-      isFetchedOnce: false,
-    };
-  }
-
   static propTypes = {
+    auth: PropTypes.shape().isRequired,
     post: PropTypes.shape(),
     comments: PropTypes.shape(),
+    show: PropTypes.bool,
     getComments: PropTypes.func,
+    likeComment: PropTypes.func,
+    dislikeComment: PropTypes.func,
+    sendComment: PropTypes.func,
   };
 
   static defaultProps = {
     post: {},
     comments: {},
+    show: false,
     getComments: () => {},
+    likeComment: () => {},
+    dislikeComment: () => {},
+    sendComment: () => {},
   }
+
+  state = {
+    sortOrder: 'trending',
+    isFetchedOnce: false,
+  };
 
   componentDidMount() {
     if (this.props.show) {
@@ -65,14 +68,15 @@ export default class Comments extends Component {
   }
 
   getNestedComments = (commentsObj, commentsIdArray, nestedComments) => {
+    const newNestedComments = nestedComments;
     commentsIdArray.forEach((commentId) => {
       const nestedCommentArray = commentsObj.listByCommentId[commentId];
       if (nestedCommentArray.length) {
-        nestedComments[commentId] = nestedCommentArray.map(id => commentsObj.comments[id]);
-        this.getNestedComments(commentsObj, nestedCommentArray, nestedComments);
+        newNestedComments[commentId] = nestedCommentArray.map(id => commentsObj.comments[id]);
+        this.getNestedComments(commentsObj, nestedCommentArray, newNestedComments);
       }
     });
-    return nestedComments;
+    return newNestedComments;
   }
 
   render() {
@@ -123,6 +127,5 @@ export default class Comments extends Component {
     }
 
     return <div />;
-    // Todo handle when comment fetch failed.
   }
 }

@@ -1,5 +1,3 @@
-/* eslint-disable comma-dangle */
-
 export default {
   current_route: 'bitcoin/@bitspace/the-cryptoeconomy-rally',
   props: {
@@ -97,7 +95,8 @@ export default {
       parent_author: 'bitspace',
       parent_permlink: 'the-cryptoeconomy-rally',
       title: '',
-      body: 'I thought i was getting myself ready, i realize tho, i am not mining bitcoins with asic miners, i am mining on an old laptop and a few android tablets, i need an asic miner!\n\nand everyone who tries to tell you mining cloud mining asic mining is a waste of time, they just dont want you figuring it out!\n\nlol even when the masses figure out about bitcoin mining, it wont be easy enough for them!\n\nbut i wana help steemit users out! i wanna help my fellow steemians learn bitcin mining with me!\n\ni feel like those who know gaurd it and they should!\n\nbecause anyone can mine! my problem now is getting the right miner i think an avalon six will be good to start with three and a haf terahash and only 300 to 400 and i am having problems ordering one on amazon, amazon account locked i guess cuz i havent used it in so long\n\ni found another site www.gethashing.com with some cool prices, theni saw aliexpress might even have cheaper but might take loger to ship from china\n\nstill everyay im not mining im loosing ot!\n\ni know i its hard to sell the little bit of bitcoin u have but i have to bite the bullet and just sell half my crypto savings to buy miners! it will pay off, fatser than we think it will, god i cant wait to have big miners just running like razy in my basement!\n\nhey so anyone here know if i can just use old PC psus (power supply units) on new asic miners like avalon six an do i NEED a rasberry pi can i just use my laptop?\n\nman i wish we had a good mining community here! maybe we do and i havent found it?',
+      body:
+        'I thought i was getting myself ready, i realize tho, i am not mining bitcoins with asic miners, i am mining on an old laptop and a few android tablets, i need an asic miner!\n\nand everyone who tries to tell you mining cloud mining asic mining is a waste of time, they just dont want you figuring it out!\n\nlol even when the masses figure out about bitcoin mining, it wont be easy enough for them!\n\nbut i wana help steemit users out! i wanna help my fellow steemians learn bitcin mining with me!\n\ni feel like those who know gaurd it and they should!\n\nbecause anyone can mine! my problem now is getting the right miner i think an avalon six will be good to start with three and a haf terahash and only 300 to 400 and i am having problems ordering one on amazon, amazon account locked i guess cuz i havent used it in so long\n\ni found another site www.gethashing.com with some cool prices, theni saw aliexpress might even have cheaper but might take loger to ship from china\n\nstill everyay im not mining im loosing ot!\n\ni know i its hard to sell the little bit of bitcoin u have but i have to bite the bullet and just sell half my crypto savings to buy miners! it will pay off, fatser than we think it will, god i cant wait to have big miners just running like razy in my basement!\n\nhey so anyone here know if i can just use old PC psus (power supply units) on new asic miners like avalon six an do i NEED a rasberry pi can i just use my laptop?\n\nman i wish we had a good mining community here! maybe we do and i havent found it?',
       json_metadata: '{"tags":["bitcoin"],"app":"steemit/0.1"}',
       last_update: '2017-06-07T08:13:36',
       created: '2017-06-07T08:13:36',
@@ -124,14 +123,13 @@ export default {
       allow_votes: true,
       allow_curation_rewards: true,
       beneficiaries: [],
-      url: '/bitcoin/@bitspace/the-cryptoeconomy-rally#@ackza/re-bitspace-the-cryptoeconomy-rally-20170607t081315008z',
+      url:
+        '/bitcoin/@bitspace/the-cryptoeconomy-rally#@ackza/re-bitspace-the-cryptoeconomy-rally-20170607t081315008z',
       root_title: 'The Cryptoeconomy Rally',
       pending_payout_value: '0.000 SBD',
       total_pending_payout_value: '0.000 STEEM',
       active_votes: [],
-      replies: [
-        'ola-haukland/re-ackza-re-bitspace-the-cryptoeconomy-rally-20170607t115848841z',
-      ],
+      replies: ['ola-haukland/re-ackza-re-bitspace-the-cryptoeconomy-rally-20170607t115848841z'],
       author_reputation: '6498321326790',
       promoted: '0.000 SBD',
       body_length: 0,
@@ -145,7 +143,8 @@ export default {
       parent_author: 'bitspace',
       parent_permlink: 'the-cryptoeconomy-rally',
       title: '',
-      body: 'Great post, I upvoted. Cryptocurrency is very unknown, I\'m from Belgium and studying Computer Science. But none of my friends do really know it. They think cryptocurrency = Bitcoin and that\'s it',
+      body:
+        "Great post, I upvoted. Cryptocurrency is very unknown, I'm from Belgium and studying Computer Science. But none of my friends do really know it. They think cryptocurrency = Bitcoin and that's it",
       json_metadata: '{"tags":["bitcoin"],"app":"steemit/0.1"}',
       last_update: '2017-06-07T12:53:45',
       created: '2017-06-07T12:53:45',
@@ -172,14 +171,13 @@ export default {
       allow_votes: true,
       allow_curation_rewards: true,
       beneficiaries: [],
-      url: '/bitcoin/@bitspace/the-cryptoeconomy-rally#@antsonb/re-bitspace-the-cryptoeconomy-rally-20170607t125348009z',
+      url:
+        '/bitcoin/@bitspace/the-cryptoeconomy-rally#@antsonb/re-bitspace-the-cryptoeconomy-rally-20170607t125348009z',
       root_title: 'The Cryptoeconomy Rally',
       pending_payout_value: '0.000 SBD',
       total_pending_payout_value: '0.000 STEEM',
       active_votes: [],
-      replies: [
-        'ola-haukland/re-antsonb-re-bitspace-the-cryptoeconomy-rally-20170607t171127215z',
-      ],
+      replies: ['ola-haukland/re-antsonb-re-bitspace-the-cryptoeconomy-rally-20170607t171127215z'],
       author_reputation: '6965573973',
       promoted: '0.000 SBD',
       body_length: 0,
@@ -188,12 +186,14 @@ export default {
     'antsonb/re-ola-haukland-re-antsonb-re-bitspace-the-cryptoeconomy-rally-20170607t172623308z': {
       id: 3546210,
       author: 'antsonb',
-      permlink: 're-ola-haukland-re-antsonb-re-bitspace-the-cryptoeconomy-rally-20170607t172623308z',
+      permlink:
+        're-ola-haukland-re-antsonb-re-bitspace-the-cryptoeconomy-rally-20170607t172623308z',
       category: 'bitcoin',
       parent_author: 'ola-haukland',
       parent_permlink: 're-antsonb-re-bitspace-the-cryptoeconomy-rally-20170607t171127215z',
       title: '',
-      body: 'I just thought they would know it\'s not just BTC but over 500 other currencies. But yeah you\'re right this proves that there is a big future for the cryptomarket',
+      body:
+        "I just thought they would know it's not just BTC but over 500 other currencies. But yeah you're right this proves that there is a big future for the cryptomarket",
       json_metadata: '{"tags":["bitcoin"],"app":"steemit/0.1"}',
       last_update: '2017-06-07T17:26:21',
       created: '2017-06-07T17:26:21',
@@ -220,7 +220,8 @@ export default {
       allow_votes: true,
       allow_curation_rewards: true,
       beneficiaries: [],
-      url: '/bitcoin/@bitspace/the-cryptoeconomy-rally#@antsonb/re-ola-haukland-re-antsonb-re-bitspace-the-cryptoeconomy-rally-20170607t172623308z',
+      url:
+        '/bitcoin/@bitspace/the-cryptoeconomy-rally#@antsonb/re-ola-haukland-re-antsonb-re-bitspace-the-cryptoeconomy-rally-20170607t172623308z',
       root_title: 'The Cryptoeconomy Rally',
       pending_payout_value: '0.000 SBD',
       total_pending_payout_value: '0.000 STEEM',
@@ -239,7 +240,8 @@ export default {
       parent_author: 'bitspace',
       parent_permlink: 'the-cryptoeconomy-rally',
       title: '',
-      body: 'Crypto currencies are really making many millionaires. I am very hopeful, it will be accepted worldwide and we early adopters will be benefited from it.',
+      body:
+        'Crypto currencies are really making many millionaires. I am very hopeful, it will be accepted worldwide and we early adopters will be benefited from it.',
       json_metadata: '{"tags":["bitcoin"],"app":"steemit/0.1"}',
       last_update: '2017-06-08T06:49:54',
       created: '2017-06-08T06:49:54',
@@ -266,14 +268,13 @@ export default {
       allow_votes: true,
       allow_curation_rewards: true,
       beneficiaries: [],
-      url: '/bitcoin/@bitspace/the-cryptoeconomy-rally#@asolopreneur/re-bitspace-the-cryptoeconomy-rally-20170608t064946581z',
+      url:
+        '/bitcoin/@bitspace/the-cryptoeconomy-rally#@asolopreneur/re-bitspace-the-cryptoeconomy-rally-20170608t064946581z',
       root_title: 'The Cryptoeconomy Rally',
       pending_payout_value: '0.000 SBD',
       total_pending_payout_value: '0.000 STEEM',
       active_votes: [],
-      replies: [
-        'bitspace/re-asolopreneur-re-bitspace-the-cryptoeconomy-rally-20170608t143921073z',
-      ],
+      replies: ['bitspace/re-asolopreneur-re-bitspace-the-cryptoeconomy-rally-20170608t143921073z'],
       author_reputation: '3019140598773',
       promoted: '0.000 SBD',
       body_length: 0,
@@ -314,7 +315,8 @@ export default {
       allow_votes: true,
       allow_curation_rewards: true,
       beneficiaries: [],
-      url: '/bitcoin/@bitspace/the-cryptoeconomy-rally#@bitspace/re-asolopreneur-re-bitspace-the-cryptoeconomy-rally-20170608t143921073z',
+      url:
+        '/bitcoin/@bitspace/the-cryptoeconomy-rally#@bitspace/re-asolopreneur-re-bitspace-the-cryptoeconomy-rally-20170608t143921073z',
       root_title: 'The Cryptoeconomy Rally',
       pending_payout_value: '0.000 SBD',
       total_pending_payout_value: '0.000 STEEM',
@@ -328,12 +330,15 @@ export default {
     'bitspace/re-mikenevitt-re-ola-haukland-re-mikenevitt-re-bitspace-the-cryptoeconomy-rally-20170607t122533299z': {
       id: 3531452,
       author: 'bitspace',
-      permlink: 're-mikenevitt-re-ola-haukland-re-mikenevitt-re-bitspace-the-cryptoeconomy-rally-20170607t122533299z',
+      permlink:
+        're-mikenevitt-re-ola-haukland-re-mikenevitt-re-bitspace-the-cryptoeconomy-rally-20170607t122533299z',
       category: 'bitcoin',
       parent_author: 'mikenevitt',
-      parent_permlink: 're-ola-haukland-re-mikenevitt-re-bitspace-the-cryptoeconomy-rally-20170607t122057995z',
+      parent_permlink:
+        're-ola-haukland-re-mikenevitt-re-bitspace-the-cryptoeconomy-rally-20170607t122057995z',
       title: '',
-      body: 'What Snapchat did earlier this year was an IPO, when their stock became for the first time was offered to the public, like you and me, on a regular stock exchange. They issued a regular stock, but imagine if they had made SnapchatCoin instead, and you could buy SnapchatCoin on Poloniex. That would have been an ICO :)',
+      body:
+        'What Snapchat did earlier this year was an IPO, when their stock became for the first time was offered to the public, like you and me, on a regular stock exchange. They issued a regular stock, but imagine if they had made SnapchatCoin instead, and you could buy SnapchatCoin on Poloniex. That would have been an ICO :)',
       json_metadata: '{"tags":["bitcoin"],"app":"steemit/0.1"}',
       last_update: '2017-06-07T12:25:36',
       created: '2017-06-07T12:25:36',
@@ -360,7 +365,8 @@ export default {
       allow_votes: true,
       allow_curation_rewards: true,
       beneficiaries: [],
-      url: '/bitcoin/@bitspace/the-cryptoeconomy-rally#@bitspace/re-mikenevitt-re-ola-haukland-re-mikenevitt-re-bitspace-the-cryptoeconomy-rally-20170607t122533299z',
+      url:
+        '/bitcoin/@bitspace/the-cryptoeconomy-rally#@bitspace/re-mikenevitt-re-ola-haukland-re-mikenevitt-re-bitspace-the-cryptoeconomy-rally-20170607t122533299z',
       root_title: 'The Cryptoeconomy Rally',
       pending_payout_value: '0.004 SBD',
       total_pending_payout_value: '0.000 STEEM',
@@ -390,8 +396,10 @@ export default {
       parent_author: '',
       parent_permlink: 'bitcoin',
       title: 'The Cryptoeconomy Rally',
-      body: '<center>http://www.kiplinger.com/kipimages/pages/15396.jpg</center>\n\nThe recent growth in the cryptocurrency market has been breathtaking. In less than two months, the price of Bitcoin has doubled, but compared to many other cryptocurrencies, Bitcoin has almost been standing still. Since the altcoin rally started picking up the pace in mid-March, several major blockchain tokens have risen in value more than one thousand percent. Most notably Ripple (XRP), valued at $0.005 (half a cent) in the beginning of March, rose almost 10,000 % to a high of $0.42 (42 cent) on the 17th of May, seeing its total market cap surpassing 16 billion dollars on that day. If that was not enough, the cryptocurrencies Stratis and DigiByte received the public’s attention even more recently, reaching staggering price gains of 10,000 % and 20,000 %, respectively, from only three months prior.\n\n \nhttps://i.imgsafe.org/7ad0b784fd.png\n(source: coinmarketcap.com)\n \n \nThe staggering rise in price has obviously created massive attention towards the cryptocurrency space, and the massive coverage in turn creates even more demand this modern asset. In this article, we will take a closer look at some of the key factors behind the latest overwhelming increase in value. \n \n### A brand new asset class\nThe cryptocurrency market comprises different types of projects, with Bitcoin being the cornerstone. However, it is being challenged by an increasing number of new projects. Among these are other types of coins which focus on anonymity, storage distribution, solar energy and transaction capacity to name a few. There is also a new trend with startups issuing their own cryptocurrency or blockchain token, in addition to or instead of a traditional company share, when crowdfunding new projects. \n\nhttps://i.imgsafe.org/7adf806323.png \n(source: cryptocurrencybitcoinnews.com)\n \nMany of these cryptocurrencies are offered through so called ICOs (Initial Coin Offerings), similar to IPOs (Initial Public Offerings). Rather than shares, the company issues a cryptocurrency, which is often linked to the company’s own blockchain or decentralized application (Dapp). Another term for ICO is ITO (Initial Token Offering), but ICO is most commonly used. A “share” issued as a cryptocurrency is significantly more liquid than a traditional share since it can be easily traded as a currency. It is as if our paper bills were actual securities and we used Apple stocks as a medium exchange in the grocery store. Thus, many of these cryptocurrencies can be considered to be something in between financial instrument (security) and currency/money. \n \nOne of the most important differences between traditional financial instruments and cryptocurrencies/blockchain tokens is the extreme low barrier of entry. The world of crypto finance is almost completely unregulated across the planet. For instance, there are strict [requirements](https://www.investor.gov/additional-resources/news-alerts/alerts-bulletins/investor-bulletin-accredited-investors) in the United States to become an accredited investor. On the ICO market, however, there are no restrictions for retail investors as to how much one can invest in startup projects. This is because the cryptocurrencies do not have the status of financial instruments. Thus, the “stocks” can be traded freely without brokerage, fees, contracts or KYC requirement procedures, to name a few. \n \n### An insight into the liquid nature of cryptocurrencies\nThere is an ongoing race for developing solutions that facilitate Bitcoin/fiat currency trades. For the average person, acquiring Bitcoin can still be seen as a bit of a hassle. However, once you own Bitcoin, all of the other cryptocurrencies become readily accessible. It is very easy to transfer Bitcoin to trading platforms such as Poloniex and Bittrex, on which there is an unlimited supply and where trades can be executed almost without transaction fees. \n \nThe alternative cryptocurrencies (altcoins) are experiencing extreme runs and dips in price. However, this is nothing new in the world of Bitcoin. From being worth just a few cents back in its early days (2009/2010), Bitcoin has gone through several hype cycles seeing its value increase by orders of magnitude in the course of days or weeks. In relative measures, this year’s price increase of 100-200 % is not particularly sensational in Bitcoin standards. [Bitcoin’s volatility index](https://www.buybitcoinworldwide.com/volatility-index) is decreasing steadily, and day-to-day changes above 10 % are now rare.\n\nhttps://i.imgsafe.org/7aef0da102.png \n \nEnormous price movements in altcoins, however, do occur frequently, and the minds of people who regularly use the exchanges may be subject to desensitization. While daily moves of 10, 15, 20 % are considered dramatic on traditional stock exchanges, these numbers are nothing to get excited about in the crypto space. A token doubling its value in 24 hours is not particularly noteworthy. Over the last few years, with an increased frequency there have been coins shooting up several 100 % in just a matter of hours. In this highly volatile market, Bitcoin thus becomes the “boring” cryptocurrency that is the least attractive to speculation since it is the most stable one. \n\nhttps://i.imgsafe.org/7af195d454.png \n \nIn this very early cryptocurrency phase, which is regularly [compared to the internet in the early ‘90s](https://www.bloomberg.com/news/videos/b/754d07ec-00f0-4e5e-9aae-bab5db69073e), traders get incentivized by the low friction to spread their money across several cryptocurrency projects in the hope that maybe one of them goes viral. The cryptoeconomy is like a global casino where droves of new people from all over the world are continuously pouring in, and everyone is trying to be first in line to the newly opened tables. Tales of people who have earned a thousand times their initial investment lead to a self-perpetuating spiral of greed. In this environment there is not much room for the relatively slow and conservative Bitcoin. \n\nhttps://i.imgsafe.org/7af5428cf9.png \n\n\nIf one regularly checks in on the various cryptocurrencies and how they trade on exchanges, we typically find daily increases of 10 % or more, creating an expectation that this kind of volatility is normal. As long as most of the numbers remain green, the self-selected youth who like high-risk investments become even less risk averse and move into trades with even higher risk, at a faster pace. The boredom of “low-yield Bitcoin” and the hunger for newer, faster and riskier investments, frictionlessly pushes money over the low barrier into ever more risky cryptocurrencies. At the time of writing, [over 250 different cryptocurrencies are valued at over 1 million dollars.](http://coinmarketcap.com/)\n \n### Cryptocurrency in a global context\nSo far, we have explained cryptocurrency as a new type of asset class and how it is characterized by its extreme liquidity. But how does one explain why the market has skyrocketed in the past 6-12 months? In a global, unregulated market such as the Bitcoin market, no one can give a clear, unambiguous answer, but there are probably several factors at play. One is that, during the course of the year, Bitcoin has achieved recognition from governments in a number of countries, including Japan, where in April, the authorities stated that [the currency is now to be regarded as a legal payment method.](http://nordic.businessinsider.com/bitcoin-price-spikes-as-japan-recognizes-it-as-a-legal-payment-method-2017-4?r=US&IR=T)\n\nhttps://i.imgsafe.org/7afbc5aacb.png \n \nThe announcement was immediately followed by [a large spike in the price.](http://nordic.businessinsider.com/bitcoin-price-spikes-as-japan-recognizes-it-as-a-legal-payment-method-2017-4?r=US&IR=T) During the following weeks, the sharp rise in the demand for Bitcoin in Japan caused [the trading volume in JPY to  match the USD volume.](https://news.bitcoin.com/us-japanese-bitcoin-volumes-go-head-head/) In Norway as well, the year started out well for Bitcoin, when the tax authorities [officially removed sales tax from Bitcoin](https://www.dn.no/nyheter/2017/02/09/1353/Fremskrittspartiet/bitcoin-far-momsfritak), similar to EU regulations.\n \nAs mentioned earlier, blockchain technology is now said to be at the same stage as the Internet was back in the early ‘90s. At the moment ever more ICOs are launched, and and many consider purchasing blockchain stocks as once in a lifetime opportunities. We all know how the dot-com story played out, but still the market was bigger after the bubble burst than only three-four years before, not to mention that the technology-based Nasdaq Composite index as of today is higher than it was back at its high in the 2000 rally. It is not unthinkable that blockchain will go through a similar cycle, with a giant wave-top hitting in the not too distant future.\n\nhttps://i.imgsafe.org/7b11aa9d92.jpg \n \nMoreover, [Austrian School](https://en.wikipedia.org/wiki/Austrian_School) economists predict that today\'s debt-based monetary system is not sustainable and that a major global currency crisis will occur by the end of the decade. This is referred to by the passionate, precious metal enthusiast Mike Maloney as [the biggest wealth transfer in history.](https://www.youtube.com/watch?v=DyV0OfU3-FU&t=3s) It is expected that the faith in money issued by central banks will drastically fade away, as attempts are made to prop up the economy by interest rate stimulus as well as the purchase of government debt (quantitative easing), by creating ever more money out of thin air. Gold and silver are predicted to play a key role in this transition, and since Bitcoin is limited in its amount in addition to being outside the financial system, many people think Bitcoin will become a safe haven asset when the market tumbles.\n \nAdditionally, the limited supply makes Bitcoin a so-called deflationary currency, where the value per unit does not diminish over time, in contrast to today’s traditional inflationary currencies. As unprecedented low interest-rate policies have seem to become the new normal, it is difficult to find savings rates that exceed the rate of inflation. People who do not want immediate consumption, but who would prefer to save their money, are thus incentivized to get their money out of their savings accounts and into something. Real estate investments have traditionally been a safe bet, but housing bubbles tend to burst eventually. 2017 has also been an incredible year for global stock markets, but it is hard to say how long this can go on. Overall it is not entirely clear where one can place one’s money in the traditional market without taking a significant risk. With the current monetary policy, where market bubbles are abundant, money is withdrawn from savings accounts and placed wherever it might grow instead of eroding further. Thus, there is reason to believe people are considering Bitcoin as a viable saving strategy.\n \n### Conclusion\nIt is difficult to know just how early or late we are in the current cryptocurrency hype cycle. The question is: Are we already in a bubble, or is the recent run-up only a small foreshock of what is about to unfold?\n \nThe last weekend of May saw the first significant correction to the mind-blowing run-up that has been going on since March. However, considering the solid rebound the following week, it seems to have been just a quick breather. It is important to remember that the combined market cap of all cryptocurrencies is still only a drop in the ocean in the scale of global finance, and after 8 years, most people have barely heard of Bitcoin. In that respect, it is difficult to determine a ceiling for this market. Yet, as an investor, one must be aware of the high risk associated with trading cryptocurrencies; there is no guarantee they will survive their infancy and mature into established societal institutions.\n\n*Article by @ola-haukland for @bitspace*',
-      json_metadata: '{"tags":["bitcoin","market","cryptocurrency","cryptoeconomy","price"],"image":["http://www.kiplinger.com/kipimages/pages/15396.jpg","https://i.imgsafe.org/7ad0b784fd.png","https://i.imgsafe.org/7adf806323.png","https://i.imgsafe.org/7aef0da102.png","https://i.imgsafe.org/7af195d454.png","https://i.imgsafe.org/7af5428cf9.png","https://i.imgsafe.org/7afbc5aacb.png","https://i.imgsafe.org/7b11aa9d92.jpg"],"app":"steemit/0.1","format":"markdown","users":["ola-haukland","bitspace"],"links":["https://www.investor.gov/additional-resources/news-alerts/alerts-bulletins/investor-bulletin-accredited-investors","https://www.buybitcoinworldwide.com/volatility-index","https://www.bloomberg.com/news/videos/b/754d07ec-00f0-4e5e-9aae-bab5db69073e","http://coinmarketcap.com/","http://nordic.businessinsider.com/bitcoin-price-spikes-as-japan-recognizes-it-as-a-legal-payment-method-2017-4?r=US&IR=T","https://news.bitcoin.com/us-japanese-bitcoin-volumes-go-head-head/","https://www.dn.no/nyheter/2017/02/09/1353/Fremskrittspartiet/bitcoin-far-momsfritak","https://en.wikipedia.org/wiki/Austrian_School","https://www.youtube.com/watch?v=DyV0OfU3-FU&t=3s"]}',
+      body:
+        "<center>http://www.kiplinger.com/kipimages/pages/15396.jpg</center>\n\nThe recent growth in the cryptocurrency market has been breathtaking. In less than two months, the price of Bitcoin has doubled, but compared to many other cryptocurrencies, Bitcoin has almost been standing still. Since the altcoin rally started picking up the pace in mid-March, several major blockchain tokens have risen in value more than one thousand percent. Most notably Ripple (XRP), valued at $0.005 (half a cent) in the beginning of March, rose almost 10,000 % to a high of $0.42 (42 cent) on the 17th of May, seeing its total market cap surpassing 16 billion dollars on that day. If that was not enough, the cryptocurrencies Stratis and DigiByte received the public’s attention even more recently, reaching staggering price gains of 10,000 % and 20,000 %, respectively, from only three months prior.\n\n \nhttps://i.imgsafe.org/7ad0b784fd.png\n(source: coinmarketcap.com)\n \n \nThe staggering rise in price has obviously created massive attention towards the cryptocurrency space, and the massive coverage in turn creates even more demand this modern asset. In this article, we will take a closer look at some of the key factors behind the latest overwhelming increase in value. \n \n### A brand new asset class\nThe cryptocurrency market comprises different types of projects, with Bitcoin being the cornerstone. However, it is being challenged by an increasing number of new projects. Among these are other types of coins which focus on anonymity, storage distribution, solar energy and transaction capacity to name a few. There is also a new trend with startups issuing their own cryptocurrency or blockchain token, in addition to or instead of a traditional company share, when crowdfunding new projects. \n\nhttps://i.imgsafe.org/7adf806323.png \n(source: cryptocurrencybitcoinnews.com)\n \nMany of these cryptocurrencies are offered through so called ICOs (Initial Coin Offerings), similar to IPOs (Initial Public Offerings). Rather than shares, the company issues a cryptocurrency, which is often linked to the company’s own blockchain or decentralized application (Dapp). Another term for ICO is ITO (Initial Token Offering), but ICO is most commonly used. A “share” issued as a cryptocurrency is significantly more liquid than a traditional share since it can be easily traded as a currency. It is as if our paper bills were actual securities and we used Apple stocks as a medium exchange in the grocery store. Thus, many of these cryptocurrencies can be considered to be something in between financial instrument (security) and currency/money. \n \nOne of the most important differences between traditional financial instruments and cryptocurrencies/blockchain tokens is the extreme low barrier of entry. The world of crypto finance is almost completely unregulated across the planet. For instance, there are strict [requirements](https://www.investor.gov/additional-resources/news-alerts/alerts-bulletins/investor-bulletin-accredited-investors) in the United States to become an accredited investor. On the ICO market, however, there are no restrictions for retail investors as to how much one can invest in startup projects. This is because the cryptocurrencies do not have the status of financial instruments. Thus, the “stocks” can be traded freely without brokerage, fees, contracts or KYC requirement procedures, to name a few. \n \n### An insight into the liquid nature of cryptocurrencies\nThere is an ongoing race for developing solutions that facilitate Bitcoin/fiat currency trades. For the average person, acquiring Bitcoin can still be seen as a bit of a hassle. However, once you own Bitcoin, all of the other cryptocurrencies become readily accessible. It is very easy to transfer Bitcoin to trading platforms such as Poloniex and Bittrex, on which there is an unlimited supply and where trades can be executed almost without transaction fees. \n \nThe alternative cryptocurrencies (altcoins) are experiencing extreme runs and dips in price. However, this is nothing new in the world of Bitcoin. From being worth just a few cents back in its early days (2009/2010), Bitcoin has gone through several hype cycles seeing its value increase by orders of magnitude in the course of days or weeks. In relative measures, this year’s price increase of 100-200 % is not particularly sensational in Bitcoin standards. [Bitcoin’s volatility index](https://www.buybitcoinworldwide.com/volatility-index) is decreasing steadily, and day-to-day changes above 10 % are now rare.\n\nhttps://i.imgsafe.org/7aef0da102.png \n \nEnormous price movements in altcoins, however, do occur frequently, and the minds of people who regularly use the exchanges may be subject to desensitization. While daily moves of 10, 15, 20 % are considered dramatic on traditional stock exchanges, these numbers are nothing to get excited about in the crypto space. A token doubling its value in 24 hours is not particularly noteworthy. Over the last few years, with an increased frequency there have been coins shooting up several 100 % in just a matter of hours. In this highly volatile market, Bitcoin thus becomes the “boring” cryptocurrency that is the least attractive to speculation since it is the most stable one. \n\nhttps://i.imgsafe.org/7af195d454.png \n \nIn this very early cryptocurrency phase, which is regularly [compared to the internet in the early ‘90s](https://www.bloomberg.com/news/videos/b/754d07ec-00f0-4e5e-9aae-bab5db69073e), traders get incentivized by the low friction to spread their money across several cryptocurrency projects in the hope that maybe one of them goes viral. The cryptoeconomy is like a global casino where droves of new people from all over the world are continuously pouring in, and everyone is trying to be first in line to the newly opened tables. Tales of people who have earned a thousand times their initial investment lead to a self-perpetuating spiral of greed. In this environment there is not much room for the relatively slow and conservative Bitcoin. \n\nhttps://i.imgsafe.org/7af5428cf9.png \n\n\nIf one regularly checks in on the various cryptocurrencies and how they trade on exchanges, we typically find daily increases of 10 % or more, creating an expectation that this kind of volatility is normal. As long as most of the numbers remain green, the self-selected youth who like high-risk investments become even less risk averse and move into trades with even higher risk, at a faster pace. The boredom of “low-yield Bitcoin” and the hunger for newer, faster and riskier investments, frictionlessly pushes money over the low barrier into ever more risky cryptocurrencies. At the time of writing, [over 250 different cryptocurrencies are valued at over 1 million dollars.](http://coinmarketcap.com/)\n \n### Cryptocurrency in a global context\nSo far, we have explained cryptocurrency as a new type of asset class and how it is characterized by its extreme liquidity. But how does one explain why the market has skyrocketed in the past 6-12 months? In a global, unregulated market such as the Bitcoin market, no one can give a clear, unambiguous answer, but there are probably several factors at play. One is that, during the course of the year, Bitcoin has achieved recognition from governments in a number of countries, including Japan, where in April, the authorities stated that [the currency is now to be regarded as a legal payment method.](http://nordic.businessinsider.com/bitcoin-price-spikes-as-japan-recognizes-it-as-a-legal-payment-method-2017-4?r=US&IR=T)\n\nhttps://i.imgsafe.org/7afbc5aacb.png \n \nThe announcement was immediately followed by [a large spike in the price.](http://nordic.businessinsider.com/bitcoin-price-spikes-as-japan-recognizes-it-as-a-legal-payment-method-2017-4?r=US&IR=T) During the following weeks, the sharp rise in the demand for Bitcoin in Japan caused [the trading volume in JPY to  match the USD volume.](https://news.bitcoin.com/us-japanese-bitcoin-volumes-go-head-head/) In Norway as well, the year started out well for Bitcoin, when the tax authorities [officially removed sales tax from Bitcoin](https://www.dn.no/nyheter/2017/02/09/1353/Fremskrittspartiet/bitcoin-far-momsfritak), similar to EU regulations.\n \nAs mentioned earlier, blockchain technology is now said to be at the same stage as the Internet was back in the early ‘90s. At the moment ever more ICOs are launched, and and many consider purchasing blockchain stocks as once in a lifetime opportunities. We all know how the dot-com story played out, but still the market was bigger after the bubble burst than only three-four years before, not to mention that the technology-based Nasdaq Composite index as of today is higher than it was back at its high in the 2000 rally. It is not unthinkable that blockchain will go through a similar cycle, with a giant wave-top hitting in the not too distant future.\n\nhttps://i.imgsafe.org/7b11aa9d92.jpg \n \nMoreover, [Austrian School](https://en.wikipedia.org/wiki/Austrian_School) economists predict that today's debt-based monetary system is not sustainable and that a major global currency crisis will occur by the end of the decade. This is referred to by the passionate, precious metal enthusiast Mike Maloney as [the biggest wealth transfer in history.](https://www.youtube.com/watch?v=DyV0OfU3-FU&t=3s) It is expected that the faith in money issued by central banks will drastically fade away, as attempts are made to prop up the economy by interest rate stimulus as well as the purchase of government debt (quantitative easing), by creating ever more money out of thin air. Gold and silver are predicted to play a key role in this transition, and since Bitcoin is limited in its amount in addition to being outside the financial system, many people think Bitcoin will become a safe haven asset when the market tumbles.\n \nAdditionally, the limited supply makes Bitcoin a so-called deflationary currency, where the value per unit does not diminish over time, in contrast to today’s traditional inflationary currencies. As unprecedented low interest-rate policies have seem to become the new normal, it is difficult to find savings rates that exceed the rate of inflation. People who do not want immediate consumption, but who would prefer to save their money, are thus incentivized to get their money out of their savings accounts and into something. Real estate investments have traditionally been a safe bet, but housing bubbles tend to burst eventually. 2017 has also been an incredible year for global stock markets, but it is hard to say how long this can go on. Overall it is not entirely clear where one can place one’s money in the traditional market without taking a significant risk. With the current monetary policy, where market bubbles are abundant, money is withdrawn from savings accounts and placed wherever it might grow instead of eroding further. Thus, there is reason to believe people are considering Bitcoin as a viable saving strategy.\n \n### Conclusion\nIt is difficult to know just how early or late we are in the current cryptocurrency hype cycle. The question is: Are we already in a bubble, or is the recent run-up only a small foreshock of what is about to unfold?\n \nThe last weekend of May saw the first significant correction to the mind-blowing run-up that has been going on since March. However, considering the solid rebound the following week, it seems to have been just a quick breather. It is important to remember that the combined market cap of all cryptocurrencies is still only a drop in the ocean in the scale of global finance, and after 8 years, most people have barely heard of Bitcoin. In that respect, it is difficult to determine a ceiling for this market. Yet, as an investor, one must be aware of the high risk associated with trading cryptocurrencies; there is no guarantee they will survive their infancy and mature into established societal institutions.\n\n*Article by @ola-haukland for @bitspace*",
+      json_metadata:
+        '{"tags":["bitcoin","market","cryptocurrency","cryptoeconomy","price"],"image":["http://www.kiplinger.com/kipimages/pages/15396.jpg","https://i.imgsafe.org/7ad0b784fd.png","https://i.imgsafe.org/7adf806323.png","https://i.imgsafe.org/7aef0da102.png","https://i.imgsafe.org/7af195d454.png","https://i.imgsafe.org/7af5428cf9.png","https://i.imgsafe.org/7afbc5aacb.png","https://i.imgsafe.org/7b11aa9d92.jpg"],"app":"steemit/0.1","format":"markdown","users":["ola-haukland","bitspace"],"links":["https://www.investor.gov/additional-resources/news-alerts/alerts-bulletins/investor-bulletin-accredited-investors","https://www.buybitcoinworldwide.com/volatility-index","https://www.bloomberg.com/news/videos/b/754d07ec-00f0-4e5e-9aae-bab5db69073e","http://coinmarketcap.com/","http://nordic.businessinsider.com/bitcoin-price-spikes-as-japan-recognizes-it-as-a-legal-payment-method-2017-4?r=US&IR=T","https://news.bitcoin.com/us-japanese-bitcoin-volumes-go-head-head/","https://www.dn.no/nyheter/2017/02/09/1353/Fremskrittspartiet/bitcoin-far-momsfritak","https://en.wikipedia.org/wiki/Austrian_School","https://www.youtube.com/watch?v=DyV0OfU3-FU&t=3s"]}',
       last_update: '2017-06-08T14:37:57',
       created: '2017-06-07T08:00:48',
       active: '2017-06-08T14:39:27',
@@ -1939,7 +1947,8 @@ export default {
       allow_votes: true,
       allow_curation_rewards: true,
       beneficiaries: [],
-      url: '/bitcoin/@bitspace/the-cryptoeconomy-rally#@btcmillionaire/re-bitspace-the-cryptoeconomy-rally-20170607t090443759z',
+      url:
+        '/bitcoin/@bitspace/the-cryptoeconomy-rally#@btcmillionaire/re-bitspace-the-cryptoeconomy-rally-20170607t090443759z',
       root_title: 'The Cryptoeconomy Rally',
       pending_payout_value: '0.770 SBD',
       total_pending_payout_value: '0.000 STEEM',
@@ -2004,7 +2013,8 @@ export default {
       allow_votes: true,
       allow_curation_rewards: true,
       beneficiaries: [],
-      url: '/bitcoin/@bitspace/the-cryptoeconomy-rally#@cryptolololol/re-bitspace-the-cryptoeconomy-rally-20170607t084816816z',
+      url:
+        '/bitcoin/@bitspace/the-cryptoeconomy-rally#@cryptolololol/re-bitspace-the-cryptoeconomy-rally-20170607t084816816z',
       root_title: 'The Cryptoeconomy Rally',
       pending_payout_value: '0.000 SBD',
       total_pending_payout_value: '0.000 STEEM',
@@ -2025,7 +2035,8 @@ export default {
       parent_author: 'bitspace',
       parent_permlink: 'the-cryptoeconomy-rally',
       title: '',
-      body: 'even if it was to crash. it\'s still brought value to their communities and awaiting the day it rises. but some are waiting for that dip too to get into it as well.\n\nasset class. good point.\nThat bull pic that looks like it\'s rises with arrows got my attention. Also when you said cryptocurrency rally, I thought someone was having a protest.',
+      body:
+        "even if it was to crash. it's still brought value to their communities and awaiting the day it rises. but some are waiting for that dip too to get into it as well.\n\nasset class. good point.\nThat bull pic that looks like it's rises with arrows got my attention. Also when you said cryptocurrency rally, I thought someone was having a protest.",
       json_metadata: '{"tags":["bitcoin"],"app":"steemit/0.1"}',
       last_update: '2017-06-07T15:20:03',
       created: '2017-06-07T15:19:09',
@@ -2052,7 +2063,8 @@ export default {
       allow_votes: true,
       allow_curation_rewards: true,
       beneficiaries: [],
-      url: '/bitcoin/@bitspace/the-cryptoeconomy-rally#@cybercodetwins/re-bitspace-the-cryptoeconomy-rally-20170607t151907274z',
+      url:
+        '/bitcoin/@bitspace/the-cryptoeconomy-rally#@cybercodetwins/re-bitspace-the-cryptoeconomy-rally-20170607t151907274z',
       root_title: 'The Cryptoeconomy Rally',
       pending_payout_value: '0.000 SBD',
       total_pending_payout_value: '0.000 STEEM',
@@ -2073,7 +2085,8 @@ export default {
       parent_author: 'bitspace',
       parent_permlink: 'the-cryptoeconomy-rally',
       title: '',
-      body: '99% of the people dont know about cryptocurrency, all my friends know about bitcoin and they think that the name for  all coins is bitcoin :) . So the ceiling is high very high.',
+      body:
+        '99% of the people dont know about cryptocurrency, all my friends know about bitcoin and they think that the name for  all coins is bitcoin :) . So the ceiling is high very high.',
       json_metadata: '{"tags":["bitcoin"],"app":"steemit/0.1"}',
       last_update: '2017-06-07T08:54:45',
       created: '2017-06-07T08:54:45',
@@ -2100,7 +2113,8 @@ export default {
       allow_votes: true,
       allow_curation_rewards: true,
       beneficiaries: [],
-      url: '/bitcoin/@bitspace/the-cryptoeconomy-rally#@danlocks.com/re-bitspace-the-cryptoeconomy-rally-20170607t085445288z',
+      url:
+        '/bitcoin/@bitspace/the-cryptoeconomy-rally#@danlocks.com/re-bitspace-the-cryptoeconomy-rally-20170607t085445288z',
       root_title: 'The Cryptoeconomy Rally',
       pending_payout_value: '0.000 SBD',
       total_pending_payout_value: '0.000 STEEM',
@@ -2121,7 +2135,8 @@ export default {
       parent_author: 'bitspace',
       parent_permlink: 'the-cryptoeconomy-rally',
       title: '',
-      body: 'Good article, I like how much the Nasdaq looks like btc when it broke 1000 for the second time.  Nasdaq to 15,000?\n\nI just want to point out that ripples real market cap is nearly 3 times higher.',
+      body:
+        'Good article, I like how much the Nasdaq looks like btc when it broke 1000 for the second time.  Nasdaq to 15,000?\n\nI just want to point out that ripples real market cap is nearly 3 times higher.',
       json_metadata: '{"tags":["bitcoin"],"app":"steemit/0.1"}',
       last_update: '2017-06-07T09:08:48',
       created: '2017-06-07T09:08:48',
@@ -2148,7 +2163,8 @@ export default {
       allow_votes: true,
       allow_curation_rewards: true,
       beneficiaries: [],
-      url: '/bitcoin/@bitspace/the-cryptoeconomy-rally#@fiveboringgames/re-bitspace-the-cryptoeconomy-rally-20170607t090845296z',
+      url:
+        '/bitcoin/@bitspace/the-cryptoeconomy-rally#@fiveboringgames/re-bitspace-the-cryptoeconomy-rally-20170607t090845296z',
       root_title: 'The Cryptoeconomy Rally',
       pending_payout_value: '1.267 SBD',
       total_pending_payout_value: '0.000 STEEM',
@@ -2221,7 +2237,8 @@ export default {
       allow_votes: true,
       allow_curation_rewards: true,
       beneficiaries: [],
-      url: '/bitcoin/@bitspace/the-cryptoeconomy-rally#@flipstar/re-bitspace-the-cryptoeconomy-rally-20170607t085559753z',
+      url:
+        '/bitcoin/@bitspace/the-cryptoeconomy-rally#@flipstar/re-bitspace-the-cryptoeconomy-rally-20170607t085559753z',
       root_title: 'The Cryptoeconomy Rally',
       pending_payout_value: '1.338 SBD',
       total_pending_payout_value: '0.000 STEEM',
@@ -2251,9 +2268,7 @@ export default {
           time: '2017-06-07T17:45:15',
         },
       ],
-      replies: [
-        'ola-haukland/re-flipstar-re-bitspace-the-cryptoeconomy-rally-20170607t115522943z',
-      ],
+      replies: ['ola-haukland/re-flipstar-re-bitspace-the-cryptoeconomy-rally-20170607t115522943z'],
       author_reputation: '132786606530',
       promoted: '0.000 SBD',
       body_length: 0,
@@ -2267,7 +2282,8 @@ export default {
       parent_author: 'bitspace',
       parent_permlink: 'the-cryptoeconomy-rally',
       title: '',
-      body: 'Good content. For all those people who mind coins year ago. They are surely worth it now.',
+      body:
+        'Good content. For all those people who mind coins year ago. They are surely worth it now.',
       json_metadata: '{"tags":["bitcoin"],"app":"steemit/0.1"}',
       last_update: '2017-06-07T08:36:12',
       created: '2017-06-07T08:36:12',
@@ -2294,7 +2310,8 @@ export default {
       allow_votes: true,
       allow_curation_rewards: true,
       beneficiaries: [],
-      url: '/bitcoin/@bitspace/the-cryptoeconomy-rally#@fuckmylife/re-bitspace-the-cryptoeconomy-rally-20170607t083620729z',
+      url:
+        '/bitcoin/@bitspace/the-cryptoeconomy-rally#@fuckmylife/re-bitspace-the-cryptoeconomy-rally-20170607t083620729z',
       root_title: 'The Cryptoeconomy Rally',
       pending_payout_value: '0.000 SBD',
       total_pending_payout_value: '0.000 STEEM',
@@ -2342,7 +2359,8 @@ export default {
       allow_votes: true,
       allow_curation_rewards: true,
       beneficiaries: [],
-      url: '/bitcoin/@bitspace/the-cryptoeconomy-rally#@jhouck4828/re-bitspace-the-cryptoeconomy-rally-20170607t100456401z',
+      url:
+        '/bitcoin/@bitspace/the-cryptoeconomy-rally#@jhouck4828/re-bitspace-the-cryptoeconomy-rally-20170607t100456401z',
       root_title: 'The Cryptoeconomy Rally',
       pending_payout_value: '0.000 SBD',
       total_pending_payout_value: '0.000 STEEM',
@@ -2363,7 +2381,7 @@ export default {
       parent_author: 'bitspace',
       parent_permlink: 'the-cryptoeconomy-rally',
       title: '',
-      body: 'Yes, If you invested 2 bitcoin in ETH ICO and hold, you\'ll be millionaire now.',
+      body: "Yes, If you invested 2 bitcoin in ETH ICO and hold, you'll be millionaire now.",
       json_metadata: '{"tags":["bitcoin"],"app":"steemit/0.1"}',
       last_update: '2017-06-07T11:14:45',
       created: '2017-06-07T11:14:15',
@@ -2390,7 +2408,8 @@ export default {
       allow_votes: true,
       allow_curation_rewards: true,
       beneficiaries: [],
-      url: '/bitcoin/@bitspace/the-cryptoeconomy-rally#@joele/re-bitspace-the-cryptoeconomy-rally-20170607t111421373z',
+      url:
+        '/bitcoin/@bitspace/the-cryptoeconomy-rally#@joele/re-bitspace-the-cryptoeconomy-rally-20170607t111421373z',
       root_title: 'The Cryptoeconomy Rally',
       pending_payout_value: '0.944 SBD',
       total_pending_payout_value: '0.000 STEEM',
@@ -2404,9 +2423,7 @@ export default {
           time: '2017-06-09T03:04:27',
         },
       ],
-      replies: [
-        'ola-haukland/re-joele-re-bitspace-the-cryptoeconomy-rally-20170607t121447810z',
-      ],
+      replies: ['ola-haukland/re-joele-re-bitspace-the-cryptoeconomy-rally-20170607t121447810z'],
       author_reputation: '775370052009',
       promoted: '0.000 SBD',
       body_length: 0,
@@ -2447,7 +2464,8 @@ export default {
       allow_votes: true,
       allow_curation_rewards: true,
       beneficiaries: [],
-      url: '/bitcoin/@bitspace/the-cryptoeconomy-rally#@knarkworst/re-bitspace-the-cryptoeconomy-rally-20170607t103001414z',
+      url:
+        '/bitcoin/@bitspace/the-cryptoeconomy-rally#@knarkworst/re-bitspace-the-cryptoeconomy-rally-20170607t103001414z',
       root_title: 'The Cryptoeconomy Rally',
       pending_payout_value: '0.000 SBD',
       total_pending_payout_value: '0.000 STEEM',
@@ -2495,7 +2513,8 @@ export default {
       allow_votes: true,
       allow_curation_rewards: true,
       beneficiaries: [],
-      url: '/bitcoin/@bitspace/the-cryptoeconomy-rally#@liad242/re-bitspace-the-cryptoeconomy-rally-20170607t082547671z',
+      url:
+        '/bitcoin/@bitspace/the-cryptoeconomy-rally#@liad242/re-bitspace-the-cryptoeconomy-rally-20170607t082547671z',
       root_title: 'The Cryptoeconomy Rally',
       pending_payout_value: '0.695 SBD',
       total_pending_payout_value: '0.000 STEEM',
@@ -2517,9 +2536,7 @@ export default {
           time: '2017-06-07T08:25:48',
         },
       ],
-      replies: [
-        'ola-haukland/re-liad242-re-bitspace-the-cryptoeconomy-rally-20170607t115038547z',
-      ],
+      replies: ['ola-haukland/re-liad242-re-bitspace-the-cryptoeconomy-rally-20170607t115038547z'],
       author_reputation: '20284220373',
       promoted: '0.000 SBD',
       body_length: 0,
@@ -2560,14 +2577,13 @@ export default {
       allow_votes: true,
       allow_curation_rewards: true,
       beneficiaries: [],
-      url: '/bitcoin/@bitspace/the-cryptoeconomy-rally#@mahaji/re-bitspace-the-cryptoeconomy-rally-20170607t103340628z',
+      url:
+        '/bitcoin/@bitspace/the-cryptoeconomy-rally#@mahaji/re-bitspace-the-cryptoeconomy-rally-20170607t103340628z',
       root_title: 'The Cryptoeconomy Rally',
       pending_payout_value: '0.000 SBD',
       total_pending_payout_value: '0.000 STEEM',
       active_votes: [],
-      replies: [
-        'ola-haukland/re-mahaji-re-bitspace-the-cryptoeconomy-rally-20170607t121417198z',
-      ],
+      replies: ['ola-haukland/re-mahaji-re-bitspace-the-cryptoeconomy-rally-20170607t121417198z'],
       author_reputation: '38942299688',
       promoted: '0.000 SBD',
       body_length: 0,
@@ -2576,12 +2592,14 @@ export default {
     'mikenevitt/re-bitspace-re-mikenevitt-re-ola-haukland-re-mikenevitt-re-bitspace-the-cryptoeconomy-rally-20170607t122918792z': {
       id: 3531609,
       author: 'mikenevitt',
-      permlink: 're-bitspace-re-mikenevitt-re-ola-haukland-re-mikenevitt-re-bitspace-the-cryptoeconomy-rally-20170607t122918792z',
+      permlink:
+        're-bitspace-re-mikenevitt-re-ola-haukland-re-mikenevitt-re-bitspace-the-cryptoeconomy-rally-20170607t122918792z',
       category: 'bitcoin',
       parent_author: 'bitspace',
-      parent_permlink: 're-mikenevitt-re-ola-haukland-re-mikenevitt-re-bitspace-the-cryptoeconomy-rally-20170607t122533299z',
+      parent_permlink:
+        're-mikenevitt-re-ola-haukland-re-mikenevitt-re-bitspace-the-cryptoeconomy-rally-20170607t122533299z',
       title: '',
-      body: 'Thanks that\'s a little bit easier to understand bite sizes for I think cheers mate',
+      body: "Thanks that's a little bit easier to understand bite sizes for I think cheers mate",
       json_metadata: '{"tags":["bitcoin"],"app":"steemit/0.1"}',
       last_update: '2017-06-07T12:29:21',
       created: '2017-06-07T12:29:21',
@@ -2608,7 +2626,8 @@ export default {
       allow_votes: true,
       allow_curation_rewards: true,
       beneficiaries: [],
-      url: '/bitcoin/@bitspace/the-cryptoeconomy-rally#@mikenevitt/re-bitspace-re-mikenevitt-re-ola-haukland-re-mikenevitt-re-bitspace-the-cryptoeconomy-rally-20170607t122918792z',
+      url:
+        '/bitcoin/@bitspace/the-cryptoeconomy-rally#@mikenevitt/re-bitspace-re-mikenevitt-re-ola-haukland-re-mikenevitt-re-bitspace-the-cryptoeconomy-rally-20170607t122918792z',
       root_title: 'The Cryptoeconomy Rally',
       pending_payout_value: '0.000 SBD',
       total_pending_payout_value: '0.000 STEEM',
@@ -2627,7 +2646,8 @@ export default {
       parent_author: 'bitspace',
       parent_permlink: 'the-cryptoeconomy-rally',
       title: '',
-      body: 'Very interesting article mate . didn\'t understand all of it but I\'m a bit new at this cryptocurrency',
+      body:
+        "Very interesting article mate . didn't understand all of it but I'm a bit new at this cryptocurrency",
       json_metadata: '{"tags":["bitcoin"],"app":"steemit/0.1"}',
       last_update: '2017-06-07T10:24:57',
       created: '2017-06-07T10:24:57',
@@ -2654,7 +2674,8 @@ export default {
       allow_votes: true,
       allow_curation_rewards: true,
       beneficiaries: [],
-      url: '/bitcoin/@bitspace/the-cryptoeconomy-rally#@mikenevitt/re-bitspace-the-cryptoeconomy-rally-20170607t102457577z',
+      url:
+        '/bitcoin/@bitspace/the-cryptoeconomy-rally#@mikenevitt/re-bitspace-the-cryptoeconomy-rally-20170607t102457577z',
       root_title: 'The Cryptoeconomy Rally',
       pending_payout_value: '0.004 SBD',
       total_pending_payout_value: '0.000 STEEM',
@@ -2679,12 +2700,14 @@ export default {
     'mikenevitt/re-ola-haukland-re-mikenevitt-re-bitspace-the-cryptoeconomy-rally-20170607t122057995z': {
       id: 3531248,
       author: 'mikenevitt',
-      permlink: 're-ola-haukland-re-mikenevitt-re-bitspace-the-cryptoeconomy-rally-20170607t122057995z',
+      permlink:
+        're-ola-haukland-re-mikenevitt-re-bitspace-the-cryptoeconomy-rally-20170607t122057995z',
       category: 'bitcoin',
       parent_author: 'ola-haukland',
       parent_permlink: 're-mikenevitt-re-bitspace-the-cryptoeconomy-rally-20170607t121241957z',
       title: '',
-      body: 'Icos ipos the is a lot of new language for me to understand but I will try cheers for the reply mate',
+      body:
+        'Icos ipos the is a lot of new language for me to understand but I will try cheers for the reply mate',
       json_metadata: '{"tags":["bitcoin"],"app":"steemit/0.1"}',
       last_update: '2017-06-07T12:20:57',
       created: '2017-06-07T12:20:57',
@@ -2711,7 +2734,8 @@ export default {
       allow_votes: true,
       allow_curation_rewards: true,
       beneficiaries: [],
-      url: '/bitcoin/@bitspace/the-cryptoeconomy-rally#@mikenevitt/re-ola-haukland-re-mikenevitt-re-bitspace-the-cryptoeconomy-rally-20170607t122057995z',
+      url:
+        '/bitcoin/@bitspace/the-cryptoeconomy-rally#@mikenevitt/re-ola-haukland-re-mikenevitt-re-bitspace-the-cryptoeconomy-rally-20170607t122057995z',
       root_title: 'The Cryptoeconomy Rally',
       pending_payout_value: '0.000 SBD',
       total_pending_payout_value: '0.000 STEEM',
@@ -2732,7 +2756,8 @@ export default {
       parent_author: 'bitspace',
       parent_permlink: 'the-cryptoeconomy-rally',
       title: '',
-      body: 'I think it can only grow and get better from here. More and more attention is paid into this space and with that, we have more funds and more talented people like Dan, who can create wonderful things with this technology.',
+      body:
+        'I think it can only grow and get better from here. More and more attention is paid into this space and with that, we have more funds and more talented people like Dan, who can create wonderful things with this technology.',
       json_metadata: '{"tags":["bitcoin"],"app":"steemit/0.1"}',
       last_update: '2017-06-07T08:19:00',
       created: '2017-06-07T08:19:00',
@@ -2759,7 +2784,8 @@ export default {
       allow_votes: true,
       allow_curation_rewards: true,
       beneficiaries: [],
-      url: '/bitcoin/@bitspace/the-cryptoeconomy-rally#@mikewong/re-bitspace-the-cryptoeconomy-rally-20170607t081857222z',
+      url:
+        '/bitcoin/@bitspace/the-cryptoeconomy-rally#@mikewong/re-bitspace-the-cryptoeconomy-rally-20170607t081857222z',
       root_title: 'The Cryptoeconomy Rally',
       pending_payout_value: '0.002 SBD',
       total_pending_payout_value: '0.000 STEEM',
@@ -2773,9 +2799,7 @@ export default {
           time: '2017-06-07T08:53:36',
         },
       ],
-      replies: [
-        'ola-haukland/re-mikewong-re-bitspace-the-cryptoeconomy-rally-20170607t115420000z',
-      ],
+      replies: ['ola-haukland/re-mikewong-re-bitspace-the-cryptoeconomy-rally-20170607t115420000z'],
       author_reputation: '90698905582',
       promoted: '0.000 SBD',
       body_length: 0,
@@ -2816,7 +2840,8 @@ export default {
       allow_votes: true,
       allow_curation_rewards: true,
       beneficiaries: [],
-      url: '/bitcoin/@bitspace/the-cryptoeconomy-rally#@mikeyue/re-bitspace-the-cryptoeconomy-rally-20170607t092302015z',
+      url:
+        '/bitcoin/@bitspace/the-cryptoeconomy-rally#@mikeyue/re-bitspace-the-cryptoeconomy-rally-20170607t092302015z',
       root_title: 'The Cryptoeconomy Rally',
       pending_payout_value: '0.675 SBD',
       total_pending_payout_value: '0.000 STEEM',
@@ -2838,9 +2863,7 @@ export default {
           time: '2017-06-07T11:35:51',
         },
       ],
-      replies: [
-        'ola-haukland/re-mikeyue-re-bitspace-the-cryptoeconomy-rally-20170607t120028109z',
-      ],
+      replies: ['ola-haukland/re-mikeyue-re-bitspace-the-cryptoeconomy-rally-20170607t120028109z'],
       author_reputation: '21709887001',
       promoted: '0.000 SBD',
       body_length: 0,
@@ -2855,7 +2878,8 @@ export default {
       parent_permlink: 'the-cryptoeconomy-rally',
       title: '',
       body: 'Up!😉',
-      json_metadata: '{"tags":"bitcoin","app":"esteem/1.4.5","format":"markdown+html","community":"esteem"}',
+      json_metadata:
+        '{"tags":"bitcoin","app":"esteem/1.4.5","format":"markdown+html","community":"esteem"}',
       last_update: '2017-06-07T09:08:42',
       created: '2017-06-07T09:08:42',
       active: '2017-06-07T11:55:00',
@@ -2900,9 +2924,7 @@ export default {
           time: '2017-06-07T09:08:54',
         },
       ],
-      replies: [
-        'ola-haukland/re-mxzn-re-bitspace-201767t12840214z-20170607t115501514z',
-      ],
+      replies: ['ola-haukland/re-mxzn-re-bitspace-201767t12840214z-20170607t115501514z'],
       author_reputation: '6552493247',
       promoted: '0.000 SBD',
       body_length: 0,
@@ -2916,7 +2938,8 @@ export default {
       parent_author: 'ackza',
       parent_permlink: 're-bitspace-the-cryptoeconomy-rally-20170607t081315008z',
       title: '',
-      body: 'Thanks for the comment. However, not sure I can help you out with mining as I have no experience with that.',
+      body:
+        'Thanks for the comment. However, not sure I can help you out with mining as I have no experience with that.',
       json_metadata: '{"tags":["bitcoin"],"app":"steemit/0.1"}',
       last_update: '2017-06-07T11:58:51',
       created: '2017-06-07T11:58:51',
@@ -2943,7 +2966,8 @@ export default {
       allow_votes: true,
       allow_curation_rewards: true,
       beneficiaries: [],
-      url: '/bitcoin/@bitspace/the-cryptoeconomy-rally#@ola-haukland/re-ackza-re-bitspace-the-cryptoeconomy-rally-20170607t115848841z',
+      url:
+        '/bitcoin/@bitspace/the-cryptoeconomy-rally#@ola-haukland/re-ackza-re-bitspace-the-cryptoeconomy-rally-20170607t115848841z',
       root_title: 'The Cryptoeconomy Rally',
       pending_payout_value: '0.006 SBD',
       total_pending_payout_value: '0.000 STEEM',
@@ -2971,7 +2995,8 @@ export default {
       parent_author: 'antsonb',
       parent_permlink: 're-bitspace-the-cryptoeconomy-rally-20170607t125348009z',
       title: '',
-      body: 'You would think a group of computer scientists would be very familiar with Bitcoin! But I guess that\'s just a sign it is still very early days.',
+      body:
+        "You would think a group of computer scientists would be very familiar with Bitcoin! But I guess that's just a sign it is still very early days.",
       json_metadata: '{"tags":["bitcoin"],"app":"steemit/0.1"}',
       last_update: '2017-06-07T17:11:27',
       created: '2017-06-07T17:11:27',
@@ -2998,7 +3023,8 @@ export default {
       allow_votes: true,
       allow_curation_rewards: true,
       beneficiaries: [],
-      url: '/bitcoin/@bitspace/the-cryptoeconomy-rally#@ola-haukland/re-antsonb-re-bitspace-the-cryptoeconomy-rally-20170607t171127215z',
+      url:
+        '/bitcoin/@bitspace/the-cryptoeconomy-rally#@ola-haukland/re-antsonb-re-bitspace-the-cryptoeconomy-rally-20170607t171127215z',
       root_title: 'The Cryptoeconomy Rally',
       pending_payout_value: '0.002 SBD',
       total_pending_payout_value: '0.000 STEEM',
@@ -3055,7 +3081,8 @@ export default {
       allow_votes: true,
       allow_curation_rewards: true,
       beneficiaries: [],
-      url: '/bitcoin/@bitspace/the-cryptoeconomy-rally#@ola-haukland/re-btcmillionaire-re-bitspace-the-cryptoeconomy-rally-20170607t114943131z',
+      url:
+        '/bitcoin/@bitspace/the-cryptoeconomy-rally#@ola-haukland/re-btcmillionaire-re-bitspace-the-cryptoeconomy-rally-20170607t114943131z',
       root_title: 'The Cryptoeconomy Rally',
       pending_payout_value: '0.048 SBD',
       total_pending_payout_value: '0.000 STEEM',
@@ -3110,7 +3137,8 @@ export default {
       allow_votes: true,
       allow_curation_rewards: true,
       beneficiaries: [],
-      url: '/bitcoin/@bitspace/the-cryptoeconomy-rally#@ola-haukland/re-cryptolololol-re-bitspace-the-cryptoeconomy-rally-20170607t120007499z',
+      url:
+        '/bitcoin/@bitspace/the-cryptoeconomy-rally#@ola-haukland/re-cryptolololol-re-bitspace-the-cryptoeconomy-rally-20170607t120007499z',
       root_title: 'The Cryptoeconomy Rally',
       pending_payout_value: '0.000 SBD',
       total_pending_payout_value: '0.000 STEEM',
@@ -3129,7 +3157,8 @@ export default {
       parent_author: 'cybercodetwins',
       parent_permlink: 're-bitspace-the-cryptoeconomy-rally-20170607t151907274z',
       title: '',
-      body: 'I am glad the angry mob will never be able to rally and attack the Bitcoin headquarters :)',
+      body:
+        'I am glad the angry mob will never be able to rally and attack the Bitcoin headquarters :)',
       json_metadata: '{"tags":["bitcoin"],"app":"steemit/0.1"}',
       last_update: '2017-06-07T17:14:06',
       created: '2017-06-07T17:14:06',
@@ -3156,7 +3185,8 @@ export default {
       allow_votes: true,
       allow_curation_rewards: true,
       beneficiaries: [],
-      url: '/bitcoin/@bitspace/the-cryptoeconomy-rally#@ola-haukland/re-cybercodetwins-re-bitspace-the-cryptoeconomy-rally-20170607t171404989z',
+      url:
+        '/bitcoin/@bitspace/the-cryptoeconomy-rally#@ola-haukland/re-cybercodetwins-re-bitspace-the-cryptoeconomy-rally-20170607t171404989z',
       root_title: 'The Cryptoeconomy Rally',
       pending_payout_value: '0.001 SBD',
       total_pending_payout_value: '0.000 STEEM',
@@ -3211,7 +3241,8 @@ export default {
       allow_votes: true,
       allow_curation_rewards: true,
       beneficiaries: [],
-      url: '/bitcoin/@bitspace/the-cryptoeconomy-rally#@ola-haukland/re-danlockscom-re-bitspace-the-cryptoeconomy-rally-20170607t120315551z',
+      url:
+        '/bitcoin/@bitspace/the-cryptoeconomy-rally#@ola-haukland/re-danlockscom-re-bitspace-the-cryptoeconomy-rally-20170607t120315551z',
       root_title: 'The Cryptoeconomy Rally',
       pending_payout_value: '0.002 SBD',
       total_pending_payout_value: '0.000 STEEM',
@@ -3239,7 +3270,7 @@ export default {
       parent_author: 'fiveboringgames',
       parent_permlink: 're-bitspace-the-cryptoeconomy-rally-20170607t090845296z',
       title: '',
-      body: 'Thank you! Yeah, the stock market doesn\'t seem to have any resistance these days.',
+      body: "Thank you! Yeah, the stock market doesn't seem to have any resistance these days.",
       json_metadata: '{"tags":["bitcoin"],"app":"steemit/0.1"}',
       last_update: '2017-06-07T11:49:18',
       created: '2017-06-07T11:49:18',
@@ -3266,7 +3297,8 @@ export default {
       allow_votes: true,
       allow_curation_rewards: true,
       beneficiaries: [],
-      url: '/bitcoin/@bitspace/the-cryptoeconomy-rally#@ola-haukland/re-fiveboringgames-re-bitspace-the-cryptoeconomy-rally-20170607t114918480z',
+      url:
+        '/bitcoin/@bitspace/the-cryptoeconomy-rally#@ola-haukland/re-fiveboringgames-re-bitspace-the-cryptoeconomy-rally-20170607t114918480z',
       root_title: 'The Cryptoeconomy Rally',
       pending_payout_value: '0.000 SBD',
       total_pending_payout_value: '0.000 STEEM',
@@ -3312,7 +3344,8 @@ export default {
       allow_votes: true,
       allow_curation_rewards: true,
       beneficiaries: [],
-      url: '/bitcoin/@bitspace/the-cryptoeconomy-rally#@ola-haukland/re-flipstar-re-bitspace-the-cryptoeconomy-rally-20170607t115522943z',
+      url:
+        '/bitcoin/@bitspace/the-cryptoeconomy-rally#@ola-haukland/re-flipstar-re-bitspace-the-cryptoeconomy-rally-20170607t115522943z',
       root_title: 'The Cryptoeconomy Rally',
       pending_payout_value: '0.014 SBD',
       total_pending_payout_value: '0.000 STEEM',
@@ -3340,7 +3373,8 @@ export default {
       parent_author: 'fuckmylife',
       parent_permlink: 're-bitspace-the-cryptoeconomy-rally-20170607t083620729z',
       title: '',
-      body: 'Yes, everyone should have done that, but the second time to invest in (and mine) cryptocurrencies is always now ;)',
+      body:
+        'Yes, everyone should have done that, but the second time to invest in (and mine) cryptocurrencies is always now ;)',
       json_metadata: '{"tags":["bitcoin"],"app":"steemit/0.1"}',
       last_update: '2017-06-07T11:56:24',
       created: '2017-06-07T11:56:24',
@@ -3367,7 +3401,8 @@ export default {
       allow_votes: true,
       allow_curation_rewards: true,
       beneficiaries: [],
-      url: '/bitcoin/@bitspace/the-cryptoeconomy-rally#@ola-haukland/re-fuckmylife-re-bitspace-the-cryptoeconomy-rally-20170607t115623047z',
+      url:
+        '/bitcoin/@bitspace/the-cryptoeconomy-rally#@ola-haukland/re-fuckmylife-re-bitspace-the-cryptoeconomy-rally-20170607t115623047z',
       root_title: 'The Cryptoeconomy Rally',
       pending_payout_value: '0.000 SBD',
       total_pending_payout_value: '0.000 STEEM',
@@ -3386,7 +3421,8 @@ export default {
       parent_author: 'jhouck4828',
       parent_permlink: 're-bitspace-the-cryptoeconomy-rally-20170607t100456401z',
       title: '',
-      body: 'Thank you, certainly not trying to pump anything :) There is very high risk, and there is actually no guarantee the SEC won\'t intervene and start considering ICOs as IPOs.',
+      body:
+        "Thank you, certainly not trying to pump anything :) There is very high risk, and there is actually no guarantee the SEC won't intervene and start considering ICOs as IPOs.",
       json_metadata: '{"tags":["bitcoin"],"app":"steemit/0.1"}',
       last_update: '2017-06-07T12:09:09',
       created: '2017-06-07T12:09:09',
@@ -3413,7 +3449,8 @@ export default {
       allow_votes: true,
       allow_curation_rewards: true,
       beneficiaries: [],
-      url: '/bitcoin/@bitspace/the-cryptoeconomy-rally#@ola-haukland/re-jhouck4828-re-bitspace-the-cryptoeconomy-rally-20170607t120908159z',
+      url:
+        '/bitcoin/@bitspace/the-cryptoeconomy-rally#@ola-haukland/re-jhouck4828-re-bitspace-the-cryptoeconomy-rally-20170607t120908159z',
       root_title: 'The Cryptoeconomy Rally',
       pending_payout_value: '0.000 SBD',
       total_pending_payout_value: '0.000 STEEM',
@@ -3441,7 +3478,7 @@ export default {
       parent_author: 'joele',
       parent_permlink: 're-bitspace-the-cryptoeconomy-rally-20170607t111421373z',
       title: '',
-      body: 'Damn! Even at bitcoin\'s low price at the time?',
+      body: "Damn! Even at bitcoin's low price at the time?",
       json_metadata: '{"tags":["bitcoin"],"app":"steemit/0.1"}',
       last_update: '2017-06-07T12:14:48',
       created: '2017-06-07T12:14:48',
@@ -3468,7 +3505,8 @@ export default {
       allow_votes: true,
       allow_curation_rewards: true,
       beneficiaries: [],
-      url: '/bitcoin/@bitspace/the-cryptoeconomy-rally#@ola-haukland/re-joele-re-bitspace-the-cryptoeconomy-rally-20170607t121447810z',
+      url:
+        '/bitcoin/@bitspace/the-cryptoeconomy-rally#@ola-haukland/re-joele-re-bitspace-the-cryptoeconomy-rally-20170607t121447810z',
       root_title: 'The Cryptoeconomy Rally',
       pending_payout_value: '0.000 SBD',
       total_pending_payout_value: '0.000 STEEM',
@@ -3487,7 +3525,8 @@ export default {
       parent_author: 'knarkworst',
       parent_permlink: 're-bitspace-the-cryptoeconomy-rally-20170607t103001414z',
       title: '',
-      body: 'Can\'t say I am opposed to silver either :) But how long before it seriously breaks out??',
+      body:
+        "Can't say I am opposed to silver either :) But how long before it seriously breaks out??",
       json_metadata: '{"tags":["bitcoin"],"app":"steemit/0.1"}',
       last_update: '2017-06-07T12:13:51',
       created: '2017-06-07T12:13:51',
@@ -3514,7 +3553,8 @@ export default {
       allow_votes: true,
       allow_curation_rewards: true,
       beneficiaries: [],
-      url: '/bitcoin/@bitspace/the-cryptoeconomy-rally#@ola-haukland/re-knarkworst-re-bitspace-the-cryptoeconomy-rally-20170607t121352365z',
+      url:
+        '/bitcoin/@bitspace/the-cryptoeconomy-rally#@ola-haukland/re-knarkworst-re-bitspace-the-cryptoeconomy-rally-20170607t121352365z',
       root_title: 'The Cryptoeconomy Rally',
       pending_payout_value: '0.000 SBD',
       total_pending_payout_value: '0.000 STEEM',
@@ -3560,7 +3600,8 @@ export default {
       allow_votes: true,
       allow_curation_rewards: true,
       beneficiaries: [],
-      url: '/bitcoin/@bitspace/the-cryptoeconomy-rally#@ola-haukland/re-liad242-re-bitspace-the-cryptoeconomy-rally-20170607t115038547z',
+      url:
+        '/bitcoin/@bitspace/the-cryptoeconomy-rally#@ola-haukland/re-liad242-re-bitspace-the-cryptoeconomy-rally-20170607t115038547z',
       root_title: 'The Cryptoeconomy Rally',
       pending_payout_value: '0.000 SBD',
       total_pending_payout_value: '0.000 STEEM',
@@ -3606,7 +3647,8 @@ export default {
       allow_votes: true,
       allow_curation_rewards: true,
       beneficiaries: [],
-      url: '/bitcoin/@bitspace/the-cryptoeconomy-rally#@ola-haukland/re-mahaji-re-bitspace-the-cryptoeconomy-rally-20170607t121417198z',
+      url:
+        '/bitcoin/@bitspace/the-cryptoeconomy-rally#@ola-haukland/re-mahaji-re-bitspace-the-cryptoeconomy-rally-20170607t121417198z',
       root_title: 'The Cryptoeconomy Rally',
       pending_payout_value: '0.000 SBD',
       total_pending_payout_value: '0.000 STEEM',
@@ -3652,7 +3694,8 @@ export default {
       allow_votes: true,
       allow_curation_rewards: true,
       beneficiaries: [],
-      url: '/bitcoin/@bitspace/the-cryptoeconomy-rally#@ola-haukland/re-mikenevitt-re-bitspace-the-cryptoeconomy-rally-20170607t121241957z',
+      url:
+        '/bitcoin/@bitspace/the-cryptoeconomy-rally#@ola-haukland/re-mikenevitt-re-bitspace-the-cryptoeconomy-rally-20170607t121241957z',
       root_title: 'The Cryptoeconomy Rally',
       pending_payout_value: '0.000 SBD',
       total_pending_payout_value: '0.000 STEEM',
@@ -3673,7 +3716,8 @@ export default {
       parent_author: 'mikewong',
       parent_permlink: 're-bitspace-the-cryptoeconomy-rally-20170607t081857222z',
       title: '',
-      body: 'It\'s definitely hard to see a ceiling, but I am sure we\'ll experience hefty corrections along the way.',
+      body:
+        "It's definitely hard to see a ceiling, but I am sure we'll experience hefty corrections along the way.",
       json_metadata: '{"tags":["bitcoin"],"app":"steemit/0.1"}',
       last_update: '2017-06-07T11:54:21',
       created: '2017-06-07T11:54:21',
@@ -3700,7 +3744,8 @@ export default {
       allow_votes: true,
       allow_curation_rewards: true,
       beneficiaries: [],
-      url: '/bitcoin/@bitspace/the-cryptoeconomy-rally#@ola-haukland/re-mikewong-re-bitspace-the-cryptoeconomy-rally-20170607t115420000z',
+      url:
+        '/bitcoin/@bitspace/the-cryptoeconomy-rally#@ola-haukland/re-mikewong-re-bitspace-the-cryptoeconomy-rally-20170607t115420000z',
       root_title: 'The Cryptoeconomy Rally',
       pending_payout_value: '0.000 SBD',
       total_pending_payout_value: '0.000 STEEM',
@@ -3746,7 +3791,8 @@ export default {
       allow_votes: true,
       allow_curation_rewards: true,
       beneficiaries: [],
-      url: '/bitcoin/@bitspace/the-cryptoeconomy-rally#@ola-haukland/re-mikeyue-re-bitspace-the-cryptoeconomy-rally-20170607t120028109z',
+      url:
+        '/bitcoin/@bitspace/the-cryptoeconomy-rally#@ola-haukland/re-mikeyue-re-bitspace-the-cryptoeconomy-rally-20170607t120028109z',
       root_title: 'The Cryptoeconomy Rally',
       pending_payout_value: '0.001 SBD',
       total_pending_payout_value: '0.000 STEEM',
@@ -3801,7 +3847,8 @@ export default {
       allow_votes: true,
       allow_curation_rewards: true,
       beneficiaries: [],
-      url: '/bitcoin/@bitspace/the-cryptoeconomy-rally#@ola-haukland/re-mxzn-re-bitspace-201767t12840214z-20170607t115501514z',
+      url:
+        '/bitcoin/@bitspace/the-cryptoeconomy-rally#@ola-haukland/re-mxzn-re-bitspace-201767t12840214z-20170607t115501514z',
       root_title: 'The Cryptoeconomy Rally',
       pending_payout_value: '0.000 SBD',
       total_pending_payout_value: '0.000 STEEM',
@@ -3847,7 +3894,8 @@ export default {
       allow_votes: true,
       allow_curation_rewards: true,
       beneficiaries: [],
-      url: '/bitcoin/@bitspace/the-cryptoeconomy-rally#@ola-haukland/re-olafodio-re-bitspace-the-cryptoeconomy-rally-20170607t120100754z',
+      url:
+        '/bitcoin/@bitspace/the-cryptoeconomy-rally#@ola-haukland/re-olafodio-re-bitspace-the-cryptoeconomy-rally-20170607t120100754z',
       root_title: 'The Cryptoeconomy Rally',
       pending_payout_value: '0.000 SBD',
       total_pending_payout_value: '0.000 STEEM',
@@ -3893,7 +3941,8 @@ export default {
       allow_votes: true,
       allow_curation_rewards: true,
       beneficiaries: [],
-      url: '/bitcoin/@bitspace/the-cryptoeconomy-rally#@ola-haukland/re-ptytrader-re-bitspace-the-cryptoeconomy-rally-20170607t120952715z',
+      url:
+        '/bitcoin/@bitspace/the-cryptoeconomy-rally#@ola-haukland/re-ptytrader-re-bitspace-the-cryptoeconomy-rally-20170607t120952715z',
       root_title: 'The Cryptoeconomy Rally',
       pending_payout_value: '0.000 SBD',
       total_pending_payout_value: '0.000 STEEM',
@@ -3939,7 +3988,8 @@ export default {
       allow_votes: true,
       allow_curation_rewards: true,
       beneficiaries: [],
-      url: '/bitcoin/@bitspace/the-cryptoeconomy-rally#@ola-haukland/re-realcodysimon-re-bitspace-the-cryptoeconomy-rally-20170607t115130862z',
+      url:
+        '/bitcoin/@bitspace/the-cryptoeconomy-rally#@ola-haukland/re-realcodysimon-re-bitspace-the-cryptoeconomy-rally-20170607t115130862z',
       root_title: 'The Cryptoeconomy Rally',
       pending_payout_value: '0.000 SBD',
       total_pending_payout_value: '0.000 STEEM',
@@ -3985,7 +4035,8 @@ export default {
       allow_votes: true,
       allow_curation_rewards: true,
       beneficiaries: [],
-      url: '/bitcoin/@bitspace/the-cryptoeconomy-rally#@ola-haukland/re-rhino-re-bitspace-the-cryptoeconomy-rally-20170607t115008144z',
+      url:
+        '/bitcoin/@bitspace/the-cryptoeconomy-rally#@ola-haukland/re-rhino-re-bitspace-the-cryptoeconomy-rally-20170607t115008144z',
       root_title: 'The Cryptoeconomy Rally',
       pending_payout_value: '0.000 SBD',
       total_pending_payout_value: '0.000 STEEM',
@@ -4031,7 +4082,8 @@ export default {
       allow_votes: true,
       allow_curation_rewards: true,
       beneficiaries: [],
-      url: '/bitcoin/@bitspace/the-cryptoeconomy-rally#@ola-haukland/re-sandra0612-re-bitspace-the-cryptoeconomy-rally-20170607t121205325z',
+      url:
+        '/bitcoin/@bitspace/the-cryptoeconomy-rally#@ola-haukland/re-sandra0612-re-bitspace-the-cryptoeconomy-rally-20170607t121205325z',
       root_title: 'The Cryptoeconomy Rally',
       pending_payout_value: '0.000 SBD',
       total_pending_payout_value: '0.000 STEEM',
@@ -4077,7 +4129,8 @@ export default {
       allow_votes: true,
       allow_curation_rewards: true,
       beneficiaries: [],
-      url: '/bitcoin/@bitspace/the-cryptoeconomy-rally#@ola-haukland/re-spectral-re-bitspace-the-cryptoeconomy-rally-20170607t170817857z',
+      url:
+        '/bitcoin/@bitspace/the-cryptoeconomy-rally#@ola-haukland/re-spectral-re-bitspace-the-cryptoeconomy-rally-20170607t170817857z',
       root_title: 'The Cryptoeconomy Rally',
       pending_payout_value: '0.000 SBD',
       total_pending_payout_value: '0.000 STEEM',
@@ -4096,7 +4149,8 @@ export default {
       parent_author: 'teamhumble',
       parent_permlink: 're-bitspace-the-cryptoeconomy-rally-20170607t100423068z',
       title: '',
-      body: 'I very much appreciate that. I hope you\'re left more knowledgeable after reading the article :)',
+      body:
+        "I very much appreciate that. I hope you're left more knowledgeable after reading the article :)",
       json_metadata: '{"tags":["bitcoin"],"app":"steemit/0.1"}',
       last_update: '2017-06-07T12:02:30',
       created: '2017-06-07T12:02:30',
@@ -4123,7 +4177,8 @@ export default {
       allow_votes: true,
       allow_curation_rewards: true,
       beneficiaries: [],
-      url: '/bitcoin/@bitspace/the-cryptoeconomy-rally#@ola-haukland/re-teamhumble-re-bitspace-the-cryptoeconomy-rally-20170607t120229771z',
+      url:
+        '/bitcoin/@bitspace/the-cryptoeconomy-rally#@ola-haukland/re-teamhumble-re-bitspace-the-cryptoeconomy-rally-20170607t120229771z',
       root_title: 'The Cryptoeconomy Rally',
       pending_payout_value: '0.000 SBD',
       total_pending_payout_value: '0.000 STEEM',
@@ -4171,14 +4226,13 @@ export default {
       allow_votes: true,
       allow_curation_rewards: true,
       beneficiaries: [],
-      url: '/bitcoin/@bitspace/the-cryptoeconomy-rally#@olafodio/re-bitspace-the-cryptoeconomy-rally-20170607t094301279z',
+      url:
+        '/bitcoin/@bitspace/the-cryptoeconomy-rally#@olafodio/re-bitspace-the-cryptoeconomy-rally-20170607t094301279z',
       root_title: 'The Cryptoeconomy Rally',
       pending_payout_value: '0.000 SBD',
       total_pending_payout_value: '0.000 STEEM',
       active_votes: [],
-      replies: [
-        'ola-haukland/re-olafodio-re-bitspace-the-cryptoeconomy-rally-20170607t120100754z',
-      ],
+      replies: ['ola-haukland/re-olafodio-re-bitspace-the-cryptoeconomy-rally-20170607t120100754z'],
       author_reputation: 3071113377,
       promoted: '0.000 SBD',
       body_length: 0,
@@ -4192,7 +4246,8 @@ export default {
       parent_author: 'bitspace',
       parent_permlink: 'the-cryptoeconomy-rally',
       title: '',
-      body: 'Excellent article and analysis of the emerging cryptoeconomy many have yet to find that will grow to $500 B in less than 1 year.Following you and upvoted. Follow me @ptytrader',
+      body:
+        'Excellent article and analysis of the emerging cryptoeconomy many have yet to find that will grow to $500 B in less than 1 year.Following you and upvoted. Follow me @ptytrader',
       json_metadata: '{"tags":["bitcoin"],"users":["ptytrader"],"app":"steemit/0.1"}',
       last_update: '2017-06-07T10:06:12',
       created: '2017-06-07T10:06:12',
@@ -4219,7 +4274,8 @@ export default {
       allow_votes: true,
       allow_curation_rewards: true,
       beneficiaries: [],
-      url: '/bitcoin/@bitspace/the-cryptoeconomy-rally#@ptytrader/re-bitspace-the-cryptoeconomy-rally-20170607t100607045z',
+      url:
+        '/bitcoin/@bitspace/the-cryptoeconomy-rally#@ptytrader/re-bitspace-the-cryptoeconomy-rally-20170607t100607045z',
       root_title: 'The Cryptoeconomy Rally',
       pending_payout_value: '0.000 SBD',
       total_pending_payout_value: '0.000 STEEM',
@@ -4240,7 +4296,8 @@ export default {
       parent_author: 'bitspace',
       parent_permlink: 'the-cryptoeconomy-rally',
       title: '',
-      body: 'Great article. I appreciate an objective view when it comes to comparing the various coins. Followed.',
+      body:
+        'Great article. I appreciate an objective view when it comes to comparing the various coins. Followed.',
       json_metadata: '{"tags":["bitcoin"],"app":"steemit/0.1"}',
       last_update: '2017-06-07T10:04:54',
       created: '2017-06-07T10:04:54',
@@ -4267,7 +4324,8 @@ export default {
       allow_votes: true,
       allow_curation_rewards: true,
       beneficiaries: [],
-      url: '/bitcoin/@bitspace/the-cryptoeconomy-rally#@realcodysimon/re-bitspace-the-cryptoeconomy-rally-20170607t100841774z',
+      url:
+        '/bitcoin/@bitspace/the-cryptoeconomy-rally#@realcodysimon/re-bitspace-the-cryptoeconomy-rally-20170607t100841774z',
       root_title: 'The Cryptoeconomy Rally',
       pending_payout_value: '0.693 SBD',
       total_pending_payout_value: '0.000 STEEM',
@@ -4332,7 +4390,8 @@ export default {
       allow_votes: true,
       allow_curation_rewards: true,
       beneficiaries: [],
-      url: '/bitcoin/@bitspace/the-cryptoeconomy-rally#@rhino/re-bitspace-the-cryptoeconomy-rally-20170607t083816033z',
+      url:
+        '/bitcoin/@bitspace/the-cryptoeconomy-rally#@rhino/re-bitspace-the-cryptoeconomy-rally-20170607t083816033z',
       root_title: 'The Cryptoeconomy Rally',
       pending_payout_value: '0.699 SBD',
       total_pending_payout_value: '0.000 STEEM',
@@ -4354,9 +4413,7 @@ export default {
           time: '2017-06-07T08:38:24',
         },
       ],
-      replies: [
-        'ola-haukland/re-rhino-re-bitspace-the-cryptoeconomy-rally-20170607t115008144z',
-      ],
+      replies: ['ola-haukland/re-rhino-re-bitspace-the-cryptoeconomy-rally-20170607t115008144z'],
       author_reputation: '1145420263133',
       promoted: '0.000 SBD',
       body_length: 0,
@@ -4397,7 +4454,8 @@ export default {
       allow_votes: true,
       allow_curation_rewards: true,
       beneficiaries: [],
-      url: '/bitcoin/@bitspace/the-cryptoeconomy-rally#@sandra0612/re-bitspace-the-cryptoeconomy-rally-20170607t101657089z',
+      url:
+        '/bitcoin/@bitspace/the-cryptoeconomy-rally#@sandra0612/re-bitspace-the-cryptoeconomy-rally-20170607t101657089z',
       root_title: 'The Cryptoeconomy Rally',
       pending_payout_value: '0.000 SBD',
       total_pending_payout_value: '0.000 STEEM',
@@ -4445,7 +4503,8 @@ export default {
       allow_votes: true,
       allow_curation_rewards: true,
       beneficiaries: [],
-      url: '/bitcoin/@bitspace/the-cryptoeconomy-rally#@spectral/re-bitspace-the-cryptoeconomy-rally-20170607t152944003z',
+      url:
+        '/bitcoin/@bitspace/the-cryptoeconomy-rally#@spectral/re-bitspace-the-cryptoeconomy-rally-20170607t152944003z',
       root_title: 'The Cryptoeconomy Rally',
       pending_payout_value: '0.986 SBD',
       total_pending_payout_value: '0.000 STEEM',
@@ -4475,9 +4534,7 @@ export default {
           time: '2017-06-07T17:07:21',
         },
       ],
-      replies: [
-        'ola-haukland/re-spectral-re-bitspace-the-cryptoeconomy-rally-20170607t170817857z',
-      ],
+      replies: ['ola-haukland/re-spectral-re-bitspace-the-cryptoeconomy-rally-20170607t170817857z'],
       author_reputation: '12953178319684',
       promoted: '0.000 SBD',
       body_length: 0,
@@ -4491,7 +4548,8 @@ export default {
       parent_author: 'bitspace',
       parent_permlink: 'the-cryptoeconomy-rally',
       title: '',
-      body: 'what a brilliant article. thank you, i am just a total amateur really in investing but crypto and it\'s need/use in the future is something that i\'m focused on. just using exodus and the shapeshift exchange to buy/send/exchange between currencies feels, liberating! - thanks for providing additional context.',
+      body:
+        "what a brilliant article. thank you, i am just a total amateur really in investing but crypto and it's need/use in the future is something that i'm focused on. just using exodus and the shapeshift exchange to buy/send/exchange between currencies feels, liberating! - thanks for providing additional context.",
       json_metadata: '{"tags":["bitcoin"],"app":"steemit/0.1"}',
       last_update: '2017-06-07T10:00:00',
       created: '2017-06-07T10:00:00',
@@ -4518,7 +4576,8 @@ export default {
       allow_votes: true,
       allow_curation_rewards: true,
       beneficiaries: [],
-      url: '/bitcoin/@bitspace/the-cryptoeconomy-rally#@teamhumble/re-bitspace-the-cryptoeconomy-rally-20170607t100423068z',
+      url:
+        '/bitcoin/@bitspace/the-cryptoeconomy-rally#@teamhumble/re-bitspace-the-cryptoeconomy-rally-20170607t100423068z',
       root_title: 'The Cryptoeconomy Rally',
       pending_payout_value: '0.000 SBD',
       total_pending_payout_value: '0.000 STEEM',
@@ -4534,7 +4593,8 @@ export default {
     'teamhumble/re-ola-haukland-re-teamhumble-re-bitspace-the-cryptoeconomy-rally-20170607t123443062z': {
       id: 3531646,
       author: 'teamhumble',
-      permlink: 're-ola-haukland-re-teamhumble-re-bitspace-the-cryptoeconomy-rally-20170607t123443062z',
+      permlink:
+        're-ola-haukland-re-teamhumble-re-bitspace-the-cryptoeconomy-rally-20170607t123443062z',
       category: 'bitcoin',
       parent_author: 'ola-haukland',
       parent_permlink: 're-teamhumble-re-bitspace-the-cryptoeconomy-rally-20170607t120229771z',
@@ -4566,7 +4626,8 @@ export default {
       allow_votes: true,
       allow_curation_rewards: true,
       beneficiaries: [],
-      url: '/bitcoin/@bitspace/the-cryptoeconomy-rally#@teamhumble/re-ola-haukland-re-teamhumble-re-bitspace-the-cryptoeconomy-rally-20170607t123443062z',
+      url:
+        '/bitcoin/@bitspace/the-cryptoeconomy-rally#@teamhumble/re-ola-haukland-re-teamhumble-re-bitspace-the-cryptoeconomy-rally-20170607t123443062z',
       root_title: 'The Cryptoeconomy Rally',
       pending_payout_value: '0.019 SBD',
       total_pending_payout_value: '0.000 STEEM',
@@ -4594,35 +4655,21 @@ export default {
       owner: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM7YcvUmk9X2iVbGQsg9uN8LovT5R1YK9Kn9ht2Q8zX47g7cgxkq',
-            1,
-          ],
-        ],
+        key_auths: [['STM7YcvUmk9X2iVbGQsg9uN8LovT5R1YK9Kn9ht2Q8zX47g7cgxkq', 1]],
       },
       active: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM5SEyhaV53ArtLkEsyDZeBouFjQQsigH3KRAwpiPUJdoZq8YaaB',
-            1,
-          ],
-        ],
+        key_auths: [['STM5SEyhaV53ArtLkEsyDZeBouFjQQsigH3KRAwpiPUJdoZq8YaaB', 1]],
       },
       posting: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM8jiS816o2frFqYiFL8hwry3e14V1rdhGsSkCAaFShugDT6daq3',
-            1,
-          ],
-        ],
+        key_auths: [['STM8jiS816o2frFqYiFL8hwry3e14V1rdhGsSkCAaFShugDT6daq3', 1]],
       },
       memo_key: 'STM5MBHAa8LkEZSWw5u4hG9o3CXAxPAZPqHn2Peko4hXA4TTsCRj6',
-      json_metadata: '{"profile":{"name":"Zachary W. Williams","about":"Blockchain Enthusiast","location":"San Diego, CA","website":"http://www.instagram.com/ackza770","profile_image":"http://i.imgur.com/o4bG2sO.png"}}',
+      json_metadata:
+        '{"profile":{"name":"Zachary W. Williams","about":"Blockchain Enthusiast","location":"San Diego, CA","website":"http://www.instagram.com/ackza770","profile_image":"http://i.imgur.com/o4bG2sO.png"}}',
       proxy: '',
       last_owner_update: '1970-01-01T00:00:00',
       last_account_update: '2017-03-16T04:27:30',
@@ -4666,12 +4713,7 @@ export default {
       withdraw_routes: 0,
       curation_rewards: 1174,
       posting_rewards: 846416,
-      proxied_vsf_votes: [
-        0,
-        0,
-        0,
-        0,
-      ],
+      proxied_vsf_votes: [0, 0, 0, 0],
       witnesses_voted_for: 0,
       average_bandwidth: '897786753474',
       lifetime_bandwidth: '4983619000000',
@@ -4698,32 +4740,17 @@ export default {
       owner: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM6cUXc5NrFN4QayXCMAy2ZxQ92FUvqgZXiiiMYU3TC7WJJDa9f1',
-            1,
-          ],
-        ],
+        key_auths: [['STM6cUXc5NrFN4QayXCMAy2ZxQ92FUvqgZXiiiMYU3TC7WJJDa9f1', 1]],
       },
       active: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM72k9sP9X6VttAL5Z8SYivVRJfHqr1xaX8wwPfncGUsCT1mFTL8',
-            1,
-          ],
-        ],
+        key_auths: [['STM72k9sP9X6VttAL5Z8SYivVRJfHqr1xaX8wwPfncGUsCT1mFTL8', 1]],
       },
       posting: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM7EKVvuxEMSvo6iMfMqqWPNkYcHRzo8TZqV1a4S4DzgyF857iaL',
-            1,
-          ],
-        ],
+        key_auths: [['STM7EKVvuxEMSvo6iMfMqqWPNkYcHRzo8TZqV1a4S4DzgyF857iaL', 1]],
       },
       memo_key: 'STM7xB5eHuXmAzBmRAxBHocLfaXpYDAj6WjR5x31dMpngp17n8aWQ',
       json_metadata: '{"profile":{"name":"Björn","location":"Belgium"}}',
@@ -4770,12 +4797,7 @@ export default {
       withdraw_routes: 0,
       curation_rewards: 0,
       posting_rewards: 347,
-      proxied_vsf_votes: [
-        0,
-        0,
-        0,
-        0,
-      ],
+      proxied_vsf_votes: [0, 0, 0, 0],
       witnesses_voted_for: 0,
       average_bandwidth: '6650724271',
       lifetime_bandwidth: '18108000000',
@@ -4802,35 +4824,21 @@ export default {
       owner: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM7Jm4gswdgVjpsmpBLuZRHfLmRaDJ91xc4dAy64RrNHd4CTw4fF',
-            1,
-          ],
-        ],
+        key_auths: [['STM7Jm4gswdgVjpsmpBLuZRHfLmRaDJ91xc4dAy64RrNHd4CTw4fF', 1]],
       },
       active: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM7Nsb5rAG5G6RV5FuKNZc2bfbmMzGR9bATDTfckLxTQgdKJvGT3',
-            1,
-          ],
-        ],
+        key_auths: [['STM7Nsb5rAG5G6RV5FuKNZc2bfbmMzGR9bATDTfckLxTQgdKJvGT3', 1]],
       },
       posting: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM87SedLCYfRKF1fUEjU2LkMgTwnbKXQfndEwWojw1SaGUT5amFu',
-            1,
-          ],
-        ],
+        key_auths: [['STM87SedLCYfRKF1fUEjU2LkMgTwnbKXQfndEwWojw1SaGUT5amFu', 1]],
       },
       memo_key: 'STM7F5G4TRt3H5gLQXqUC1tnn6ZGTEkATzifBAFEJ6yYBt9XFHZfm',
-      json_metadata: '{"profile":{"name":"Yogesh Shinde","about":"I am a freelancer blogger and digital marketer. I am on Steemit to share my views on opinions. Enjoy!:)","location":"Aurangabad","website":"https://bitsforclicks.com/?r=6E9A6RL9GVL6BUO"}}',
+      json_metadata:
+        '{"profile":{"name":"Yogesh Shinde","about":"I am a freelancer blogger and digital marketer. I am on Steemit to share my views on opinions. Enjoy!:)","location":"Aurangabad","website":"https://bitsforclicks.com/?r=6E9A6RL9GVL6BUO"}}',
       proxy: '',
       last_owner_update: '1970-01-01T00:00:00',
       last_account_update: '2016-12-22T15:53:18',
@@ -4874,12 +4882,7 @@ export default {
       withdraw_routes: 0,
       curation_rewards: 9,
       posting_rewards: 362066,
-      proxied_vsf_votes: [
-        0,
-        0,
-        0,
-        0,
-      ],
+      proxied_vsf_votes: [0, 0, 0, 0],
       witnesses_voted_for: 0,
       average_bandwidth: '19261584056',
       lifetime_bandwidth: '244370000000',
@@ -4906,32 +4909,17 @@ export default {
       owner: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM5Sn83kz3xELdKAqemdYhGjPuWKQm4JvVBFxzAvEWMQ1qduN1nz',
-            1,
-          ],
-        ],
+        key_auths: [['STM5Sn83kz3xELdKAqemdYhGjPuWKQm4JvVBFxzAvEWMQ1qduN1nz', 1]],
       },
       active: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM7mekP494zi28pk7PZVGegcWs63TQ3QD8fykWm8hoL1pdMibt3x',
-            1,
-          ],
-        ],
+        key_auths: [['STM7mekP494zi28pk7PZVGegcWs63TQ3QD8fykWm8hoL1pdMibt3x', 1]],
       },
       posting: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM6C6srYDkC1FUtiBKotBjEVuqYZZPdjriYkX6972UQiy1hxDER1',
-            1,
-          ],
-        ],
+        key_auths: [['STM6C6srYDkC1FUtiBKotBjEVuqYZZPdjriYkX6972UQiy1hxDER1', 1]],
       },
       memo_key: 'STM7KB6ktLSjo5HhEppZe3bunhxrkZvPHkHyfUCbuFFqbwTTKArdP',
       json_metadata: '',
@@ -4978,12 +4966,7 @@ export default {
       withdraw_routes: 0,
       curation_rewards: 866,
       posting_rewards: 11563553,
-      proxied_vsf_votes: [
-        0,
-        0,
-        0,
-        0,
-      ],
+      proxied_vsf_votes: [0, 0, 0, 0],
       witnesses_voted_for: 0,
       average_bandwidth: '15618645136',
       lifetime_bandwidth: '351543000000',
@@ -5010,35 +4993,21 @@ export default {
       owner: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM5s7aczsdQ6ZiBdpiNjtz68FJxJPef5wS7Kg9v1Ho6j8qQJv1u4',
-            1,
-          ],
-        ],
+        key_auths: [['STM5s7aczsdQ6ZiBdpiNjtz68FJxJPef5wS7Kg9v1Ho6j8qQJv1u4', 1]],
       },
       active: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM7cQSSji7Ab8q7BQU9GPHWphjCwvh31wRUo2a99qif6jw83MCAg',
-            1,
-          ],
-        ],
+        key_auths: [['STM7cQSSji7Ab8q7BQU9GPHWphjCwvh31wRUo2a99qif6jw83MCAg', 1]],
       },
       posting: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM7VKe9sHvzJZDAVAW1MXffCwDMPz7haboQMsWtbS4i5dNyoWJya',
-            1,
-          ],
-        ],
+        key_auths: [['STM7VKe9sHvzJZDAVAW1MXffCwDMPz7haboQMsWtbS4i5dNyoWJya', 1]],
       },
       memo_key: 'STM7eejEQFrBHhxkErUgMauf4vitKwWbAcfr3yFXseL1DJPQfpD5m',
-      json_metadata: '{"profile":{"name":"Bitcoin Millionaire","about":"Writing about my Bitcoin Millionaire Journey!","website":"https://www.bitcoin-millionaire.com","profile_image":"https://pbs.twimg.com/profile_images/843339758046609408/a14gl4kH.jpg","location":"Blockchain"}}',
+      json_metadata:
+        '{"profile":{"name":"Bitcoin Millionaire","about":"Writing about my Bitcoin Millionaire Journey!","website":"https://www.bitcoin-millionaire.com","profile_image":"https://pbs.twimg.com/profile_images/843339758046609408/a14gl4kH.jpg","location":"Blockchain"}}',
       proxy: '',
       last_owner_update: '1970-01-01T00:00:00',
       last_account_update: '2017-04-14T10:47:27',
@@ -5082,12 +5051,7 @@ export default {
       withdraw_routes: 0,
       curation_rewards: 5908,
       posting_rewards: 110852,
-      proxied_vsf_votes: [
-        0,
-        0,
-        0,
-        0,
-      ],
+      proxied_vsf_votes: [0, 0, 0, 0],
       witnesses_voted_for: 0,
       average_bandwidth: '169745586816',
       lifetime_bandwidth: '921970000000',
@@ -5114,35 +5078,21 @@ export default {
       owner: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM7GRQrsnm2EMpyEtg7UwSt7DoP4xJz6hitKvS7gjMzvApGZwySn',
-            1,
-          ],
-        ],
+        key_auths: [['STM7GRQrsnm2EMpyEtg7UwSt7DoP4xJz6hitKvS7gjMzvApGZwySn', 1]],
       },
       active: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM7j3ooRqWA5Bb3SXFZqXfVSSEUQ1G7Lk66AeqaqeiZTZ7nFm4Kq',
-            1,
-          ],
-        ],
+        key_auths: [['STM7j3ooRqWA5Bb3SXFZqXfVSSEUQ1G7Lk66AeqaqeiZTZ7nFm4Kq', 1]],
       },
       posting: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM6gKgS8kh8JrWJxddAm4qosv11RbksGPg2xbyMfSph5YbK72dEt',
-            1,
-          ],
-        ],
+        key_auths: [['STM6gKgS8kh8JrWJxddAm4qosv11RbksGPg2xbyMfSph5YbK72dEt', 1]],
       },
       memo_key: 'STM5BaxHByXjL7xiLz2VgD4kScnFgexfMwXrRqLaUP5JZrZPjZgia',
-      json_metadata: '{"profile":{"profile_image":"https://scontent.fapa1-1.fna.fbcdn.net/v/t1.0-1/p160x160/14358806_585759844937998_8362305736990556322_n.jpg?oh=61d18c8b0394cff3953c37d5a72e71e6&oe=59E32FAB","location":"Colorado","name":"Cryptolololol","about":"I creep up on the cryptos and never let go.  I buy up those new coins at the ICO.","website":"https://www.facebook.com/ETHERKISSES/"}}',
+      json_metadata:
+        '{"profile":{"profile_image":"https://scontent.fapa1-1.fna.fbcdn.net/v/t1.0-1/p160x160/14358806_585759844937998_8362305736990556322_n.jpg?oh=61d18c8b0394cff3953c37d5a72e71e6&oe=59E32FAB","location":"Colorado","name":"Cryptolololol","about":"I creep up on the cryptos and never let go.  I buy up those new coins at the ICO.","website":"https://www.facebook.com/ETHERKISSES/"}}',
       proxy: '',
       last_owner_update: '1970-01-01T00:00:00',
       last_account_update: '2017-06-07T08:59:39',
@@ -5186,12 +5136,7 @@ export default {
       withdraw_routes: 0,
       curation_rewards: 0,
       posting_rewards: 0,
-      proxied_vsf_votes: [
-        0,
-        0,
-        0,
-        0,
-      ],
+      proxied_vsf_votes: [0, 0, 0, 0],
       witnesses_voted_for: 0,
       average_bandwidth: '27819213747',
       lifetime_bandwidth: '37793000000',
@@ -5218,32 +5163,17 @@ export default {
       owner: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM7ptugBLBUqQe8PKW1T3bJumhiSAbQsqutESrb65hcm7a9yXnGC',
-            1,
-          ],
-        ],
+        key_auths: [['STM7ptugBLBUqQe8PKW1T3bJumhiSAbQsqutESrb65hcm7a9yXnGC', 1]],
       },
       active: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM6tZLwFVjeNKKtx5Yu3rXoMs9ntnrUnzi7crJ8Dd3y7797zdDZy',
-            1,
-          ],
-        ],
+        key_auths: [['STM6tZLwFVjeNKKtx5Yu3rXoMs9ntnrUnzi7crJ8Dd3y7797zdDZy', 1]],
       },
       posting: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM6jnCsmQAYD1bEdJkj8GniejxF17xKTnitcCf6m9STBvEUxTZ9F',
-            1,
-          ],
-        ],
+        key_auths: [['STM6jnCsmQAYD1bEdJkj8GniejxF17xKTnitcCf6m9STBvEUxTZ9F', 1]],
       },
       memo_key: 'STM4wuoX1RpFBtDLGcY9dTXfAbEETZEvtVeBmxzZFbmRWcwGEDTNy',
       json_metadata: '',
@@ -5290,12 +5220,7 @@ export default {
       withdraw_routes: 0,
       curation_rewards: 43,
       posting_rewards: 31125,
-      proxied_vsf_votes: [
-        0,
-        0,
-        0,
-        0,
-      ],
+      proxied_vsf_votes: [0, 0, 0, 0],
       witnesses_voted_for: 2,
       average_bandwidth: '135046436549',
       lifetime_bandwidth: '732489000000',
@@ -5322,35 +5247,21 @@ export default {
       owner: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM5BhuC24vAMsUzsidR8nL3bd8q5rn5vtps8C4STZmdPd9PxU1ze',
-            1,
-          ],
-        ],
+        key_auths: [['STM5BhuC24vAMsUzsidR8nL3bd8q5rn5vtps8C4STZmdPd9PxU1ze', 1]],
       },
       active: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM6TvNaDGZF6tdzvQWH8vDEEHcrLkGnieZpwsDUc941kyjX8SyJ8',
-            1,
-          ],
-        ],
+        key_auths: [['STM6TvNaDGZF6tdzvQWH8vDEEHcrLkGnieZpwsDUc941kyjX8SyJ8', 1]],
       },
       posting: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM7qpDQu9k5wSvqLepSmtaJcWTkLwqBpuNEBAug3FZvkAVs2DKT7',
-            1,
-          ],
-        ],
+        key_auths: [['STM7qpDQu9k5wSvqLepSmtaJcWTkLwqBpuNEBAug3FZvkAVs2DKT7', 1]],
       },
       memo_key: 'STM85kJH1mLqpEQpfGNVc1zho43UjZqHprtapavjNWbtYdmLVpS2m',
-      json_metadata: '{"profile":{"profile_image":"https://s24.postimg.org/uz8cgs051/image.png","name":"Danlocks.com","website":"http://www.danlocks.com","about":"I like technology and i love to travel. I make 360 videos and photos"}}',
+      json_metadata:
+        '{"profile":{"profile_image":"https://s24.postimg.org/uz8cgs051/image.png","name":"Danlocks.com","website":"http://www.danlocks.com","about":"I like technology and i love to travel. I make 360 videos and photos"}}',
       proxy: '',
       last_owner_update: '1970-01-01T00:00:00',
       last_account_update: '2017-06-08T11:55:00',
@@ -5394,12 +5305,7 @@ export default {
       withdraw_routes: 0,
       curation_rewards: 0,
       posting_rewards: 0,
-      proxied_vsf_votes: [
-        0,
-        0,
-        0,
-        0,
-      ],
+      proxied_vsf_votes: [0, 0, 0, 0],
       witnesses_voted_for: 30,
       average_bandwidth: '83750511484',
       lifetime_bandwidth: '101706000000',
@@ -5426,40 +5332,21 @@ export default {
       owner: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM8ABAeovFJ9DxkMrw1mnw4J5HSvrx2nYv2k5fsc6N3cnWekuupN',
-            1,
-          ],
-        ],
+        key_auths: [['STM8ABAeovFJ9DxkMrw1mnw4J5HSvrx2nYv2k5fsc6N3cnWekuupN', 1]],
       },
       active: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM8hhZ4MEoS2oFA3rupYnTurybjQdf1jmxbv1QbiBqbdZXdWxjsQ',
-            1,
-          ],
-        ],
+        key_auths: [['STM8hhZ4MEoS2oFA3rupYnTurybjQdf1jmxbv1QbiBqbdZXdWxjsQ', 1]],
       },
       posting: {
         weight_threshold: 1,
-        account_auths: [
-          [
-            'streemian',
-            1,
-          ],
-        ],
-        key_auths: [
-          [
-            'STM6L8dg1wr6y23wLpcJUwo44eKAZfva8Zo7f2Nwfca2AmydWMuFa',
-            1,
-          ],
-        ],
+        account_auths: [['streemian', 1]],
+        key_auths: [['STM6L8dg1wr6y23wLpcJUwo44eKAZfva8Zo7f2Nwfca2AmydWMuFa', 1]],
       },
       memo_key: 'STM6Zg2mMMs3cdK3jEnkBS3aFUELqxZ5Kdf1xXi3XqtkSXUk2SqBh',
-      json_metadata: '{"profile":{"profile_image":"http://i.imgur.com/zOFPFq0.jpg?1","about":"Maths teacher and eternal student "}}',
+      json_metadata:
+        '{"profile":{"profile_image":"http://i.imgur.com/zOFPFq0.jpg?1","about":"Maths teacher and eternal student "}}',
       proxy: '',
       last_owner_update: '2016-07-24T11:40:54',
       last_account_update: '2017-01-20T23:55:54',
@@ -5503,12 +5390,7 @@ export default {
       withdraw_routes: 0,
       curation_rewards: 360638,
       posting_rewards: 428486,
-      proxied_vsf_votes: [
-        0,
-        0,
-        0,
-        0,
-      ],
+      proxied_vsf_votes: [0, 0, 0, 0],
       witnesses_voted_for: 2,
       average_bandwidth: '1671787201420',
       lifetime_bandwidth: '13647349000000',
@@ -5535,32 +5417,17 @@ export default {
       owner: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM85fYx1qvixw34tsn1L8Ze1Nbg3y8HccxCyxnHnqMQY3a1Gj49J',
-            1,
-          ],
-        ],
+        key_auths: [['STM85fYx1qvixw34tsn1L8Ze1Nbg3y8HccxCyxnHnqMQY3a1Gj49J', 1]],
       },
       active: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM5xA7VVTbbSQoQYGoyR1FHG51sGa6C128NAWCJd4CgdPS5jGTgX',
-            1,
-          ],
-        ],
+        key_auths: [['STM5xA7VVTbbSQoQYGoyR1FHG51sGa6C128NAWCJd4CgdPS5jGTgX', 1]],
       },
       posting: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM5Ce8H1LxNg1q9gsMWVX8g8ZcnL2iGCWWNJNhWP1VGEXRqTQ5ie',
-            1,
-          ],
-        ],
+        key_auths: [['STM5Ce8H1LxNg1q9gsMWVX8g8ZcnL2iGCWWNJNhWP1VGEXRqTQ5ie', 1]],
       },
       memo_key: 'STM5wcvDYRKr15TmEEdAHmZM9iokb1dL3fhceLM9stHve2mQWPJUG',
       json_metadata: '',
@@ -5607,12 +5474,7 @@ export default {
       withdraw_routes: 0,
       curation_rewards: 0,
       posting_rewards: 0,
-      proxied_vsf_votes: [
-        0,
-        0,
-        0,
-        0,
-      ],
+      proxied_vsf_votes: [0, 0, 0, 0],
       witnesses_voted_for: 0,
       average_bandwidth: '112162223995',
       lifetime_bandwidth: '161070000000',
@@ -5639,32 +5501,17 @@ export default {
       owner: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM67PRqgyhWMYxSKvYisZRnNfDUhs5VzcMSzoQPpcirAiPvBSeFR',
-            1,
-          ],
-        ],
+        key_auths: [['STM67PRqgyhWMYxSKvYisZRnNfDUhs5VzcMSzoQPpcirAiPvBSeFR', 1]],
       },
       active: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM6xDfK54xpVBGethsDGRSPmoGzi26zJKtDkAu5g1iSjR1msVyJQ',
-            1,
-          ],
-        ],
+        key_auths: [['STM6xDfK54xpVBGethsDGRSPmoGzi26zJKtDkAu5g1iSjR1msVyJQ', 1]],
       },
       posting: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM5wBFdAYEJt7iGnG9zShgWXZNGrbtKCGdkkn5jy9q6pii74aX7z',
-            1,
-          ],
-        ],
+        key_auths: [['STM5wBFdAYEJt7iGnG9zShgWXZNGrbtKCGdkkn5jy9q6pii74aX7z', 1]],
       },
       memo_key: 'STM7ip2ZCXYxFZUnSHAvPqCr9pM2c6gzG1PYUy5BVJyFAjAjMSq6w',
       json_metadata: '',
@@ -5711,12 +5558,7 @@ export default {
       withdraw_routes: 0,
       curation_rewards: 0,
       posting_rewards: 0,
-      proxied_vsf_votes: [
-        0,
-        0,
-        0,
-        0,
-      ],
+      proxied_vsf_votes: [0, 0, 0, 0],
       witnesses_voted_for: 0,
       average_bandwidth: '134461042824',
       lifetime_bandwidth: '182923000000',
@@ -5743,32 +5585,17 @@ export default {
       owner: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM585V7phFP121A5JrdWJbZtV6F677cVednCLiEmbMkAkA9rXsW6',
-            1,
-          ],
-        ],
+        key_auths: [['STM585V7phFP121A5JrdWJbZtV6F677cVednCLiEmbMkAkA9rXsW6', 1]],
       },
       active: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM4yJ3oQ2y8SwGrDasH9xCXSQy1Bqq6VYLPK6P5uky61bRqNsmCj',
-            1,
-          ],
-        ],
+        key_auths: [['STM4yJ3oQ2y8SwGrDasH9xCXSQy1Bqq6VYLPK6P5uky61bRqNsmCj', 1]],
       },
       posting: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM7P2pmzUtA2fAsxd6DTwRw63iW2fTmpkqd3iUaGcsXLdmeqsBvL',
-            1,
-          ],
-        ],
+        key_auths: [['STM7P2pmzUtA2fAsxd6DTwRw63iW2fTmpkqd3iUaGcsXLdmeqsBvL', 1]],
       },
       memo_key: 'STM5Yu1C3rVbj656wsEEeBowXk8wuCDTpmTpiCnYrpKM1mbhbfF5S',
       json_metadata: '',
@@ -5815,12 +5642,7 @@ export default {
       withdraw_routes: 0,
       curation_rewards: 0,
       posting_rewards: 608,
-      proxied_vsf_votes: [
-        0,
-        0,
-        0,
-        0,
-      ],
+      proxied_vsf_votes: [0, 0, 0, 0],
       witnesses_voted_for: 0,
       average_bandwidth: '16745678542',
       lifetime_bandwidth: '152854000000',
@@ -5847,32 +5669,17 @@ export default {
       owner: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM8HifHNQq5pCUjv8Lgwfqy5LbVAoPKWpciYTWSnwkaDecVok4Zx',
-            1,
-          ],
-        ],
+        key_auths: [['STM8HifHNQq5pCUjv8Lgwfqy5LbVAoPKWpciYTWSnwkaDecVok4Zx', 1]],
       },
       active: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM8Wu8qfWSHuntrbVo2x8Z6SmYGfPG51ppdhRkJyKQgNZL2soETA',
-            1,
-          ],
-        ],
+        key_auths: [['STM8Wu8qfWSHuntrbVo2x8Z6SmYGfPG51ppdhRkJyKQgNZL2soETA', 1]],
       },
       posting: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM6QN8KStmiF6ptEfDjzUjKLDcCmdPFm2EY86EDp7ihVVZWhE87Y',
-            1,
-          ],
-        ],
+        key_auths: [['STM6QN8KStmiF6ptEfDjzUjKLDcCmdPFm2EY86EDp7ihVVZWhE87Y', 1]],
       },
       memo_key: 'STM763CsV2VTJXe6zv6fbabAqf8t68PNXmJmvbWCZxR3jYEwAN4Nk',
       json_metadata: '{"profile":{"profile_image":"http://i.imgur.com/sb1WWBS.png"}}',
@@ -5919,12 +5726,7 @@ export default {
       withdraw_routes: 0,
       curation_rewards: 1841104,
       posting_rewards: 56687,
-      proxied_vsf_votes: [
-        0,
-        0,
-        0,
-        0,
-      ],
+      proxied_vsf_votes: [0, 0, 0, 0],
       witnesses_voted_for: 0,
       average_bandwidth: '57995556298',
       lifetime_bandwidth: '2026882000000',
@@ -5951,32 +5753,17 @@ export default {
       owner: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM5ppLEyGEBqEoVPScpE6hW5jAANCtmSLTqmvHyUBGTRq8EDnomZ',
-            1,
-          ],
-        ],
+        key_auths: [['STM5ppLEyGEBqEoVPScpE6hW5jAANCtmSLTqmvHyUBGTRq8EDnomZ', 1]],
       },
       active: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM61ZQnhVuJXbNXQ3RriFapJHEQ1rUhTtMtEFUBCDC71SDtSaFzu',
-            1,
-          ],
-        ],
+        key_auths: [['STM61ZQnhVuJXbNXQ3RriFapJHEQ1rUhTtMtEFUBCDC71SDtSaFzu', 1]],
       },
       posting: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM76Vj5NPcSwVZKsHV6UgB3dxxfoCGPGJkyUXbgP6zuKq4EKGagf',
-            1,
-          ],
-        ],
+        key_auths: [['STM76Vj5NPcSwVZKsHV6UgB3dxxfoCGPGJkyUXbgP6zuKq4EKGagf', 1]],
       },
       memo_key: 'STM5R5yCskUZxfbXUpVo2ELvx9HgcjrzdhSKPWgoPwECKDpBHmcJB',
       json_metadata: '{"profile":{"profile_image":"http://imgur.com/ofkBqeI","name":"Knarkworst"}}',
@@ -6023,12 +5810,7 @@ export default {
       withdraw_routes: 0,
       curation_rewards: 0,
       posting_rewards: 160,
-      proxied_vsf_votes: [
-        0,
-        0,
-        0,
-        0,
-      ],
+      proxied_vsf_votes: [0, 0, 0, 0],
       witnesses_voted_for: 0,
       average_bandwidth: 3562150603,
       lifetime_bandwidth: '20770000000',
@@ -6055,35 +5837,21 @@ export default {
       owner: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM7m6VzT2gB7Bhkm4X6eEpgricK1XTEPwcLvgMSycH3SYJasTNZj',
-            1,
-          ],
-        ],
+        key_auths: [['STM7m6VzT2gB7Bhkm4X6eEpgricK1XTEPwcLvgMSycH3SYJasTNZj', 1]],
       },
       active: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM6fRZ3j7DiV55e4h6kgjSQ85nSBoebgEQtjSJVevVhpJwBZm3oK',
-            1,
-          ],
-        ],
+        key_auths: [['STM6fRZ3j7DiV55e4h6kgjSQ85nSBoebgEQtjSJVevVhpJwBZm3oK', 1]],
       },
       posting: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM8RAJuSiSx8BZYNn29BUrFjZnZ5iyyTximYLYNoMJMAh4xUNV8T',
-            1,
-          ],
-        ],
+        key_auths: [['STM8RAJuSiSx8BZYNn29BUrFjZnZ5iyyTximYLYNoMJMAh4xUNV8T', 1]],
       },
       memo_key: 'STM7HcPQpzeKXJtvBiYekRDDu5gMtMubutDgyZmDk2rDJUyXKkeTF',
-      json_metadata: '{"profile":{"profile_image":"https://scontent-lht6-1.xx.fbcdn.net/v/t1.0-9/14595832_1473278399366012_8310990152141375681_n.jpg?oh=b033f0de55d5816d4ab778904327f7ff&oe=59AA3D0F"}}',
+      json_metadata:
+        '{"profile":{"profile_image":"https://scontent-lht6-1.xx.fbcdn.net/v/t1.0-9/14595832_1473278399366012_8310990152141375681_n.jpg?oh=b033f0de55d5816d4ab778904327f7ff&oe=59AA3D0F"}}',
       proxy: '',
       last_owner_update: '1970-01-01T00:00:00',
       last_account_update: '2017-05-28T10:56:54',
@@ -6127,12 +5895,7 @@ export default {
       withdraw_routes: 0,
       curation_rewards: 2,
       posting_rewards: 827,
-      proxied_vsf_votes: [
-        0,
-        0,
-        0,
-        0,
-      ],
+      proxied_vsf_votes: [0, 0, 0, 0],
       witnesses_voted_for: 0,
       average_bandwidth: '20929342520',
       lifetime_bandwidth: '50610000000',
@@ -6159,35 +5922,21 @@ export default {
       owner: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM8ef1LxGibXAB61ExYn7RtUe7TmzHaUEpdNBiduMtJ4BoHwKXLG',
-            1,
-          ],
-        ],
+        key_auths: [['STM8ef1LxGibXAB61ExYn7RtUe7TmzHaUEpdNBiduMtJ4BoHwKXLG', 1]],
       },
       active: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM5xhws2iKDNJTy6atr2FqpYBvk1HuW6vddQUHjtnh4XNb7x3yzz',
-            1,
-          ],
-        ],
+        key_auths: [['STM5xhws2iKDNJTy6atr2FqpYBvk1HuW6vddQUHjtnh4XNb7x3yzz', 1]],
       },
       posting: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM6tooTSwBg7WzEVpDwgiNGo1maEdRgG4xqygjTkfBR89CCtGfFK',
-            1,
-          ],
-        ],
+        key_auths: [['STM6tooTSwBg7WzEVpDwgiNGo1maEdRgG4xqygjTkfBR89CCtGfFK', 1]],
       },
       memo_key: 'STM58mFSo2dQoB4s9HKCBvJBLDHqdHStHYVLr3dPk4N5UquwR8p5x',
-      json_metadata: '{"profile":{"location":"Bulgaria","about":"Crypto enthusiast and dreamer.","profile_image":"https://goo.gl/photos/Ajrv3tLSo8AsteSQ6"}}',
+      json_metadata:
+        '{"profile":{"location":"Bulgaria","about":"Crypto enthusiast and dreamer.","profile_image":"https://goo.gl/photos/Ajrv3tLSo8AsteSQ6"}}',
       proxy: '',
       last_owner_update: '1970-01-01T00:00:00',
       last_account_update: '2017-05-28T22:36:39',
@@ -6231,12 +5980,7 @@ export default {
       withdraw_routes: 0,
       curation_rewards: 0,
       posting_rewards: 2748,
-      proxied_vsf_votes: [
-        0,
-        0,
-        0,
-        0,
-      ],
+      proxied_vsf_votes: [0, 0, 0, 0],
       witnesses_voted_for: 0,
       average_bandwidth: '21890083714',
       lifetime_bandwidth: '99187000000',
@@ -6263,32 +6007,17 @@ export default {
       owner: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM6iUGRdfrXXBUVbKnZ5Qfmd3EgCAdQv6yDy8bKEW7Szo1HcdLE7',
-            1,
-          ],
-        ],
+        key_auths: [['STM6iUGRdfrXXBUVbKnZ5Qfmd3EgCAdQv6yDy8bKEW7Szo1HcdLE7', 1]],
       },
       active: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM5bdefcrH8EokuFgakmgeRtrGcTJ1YxJvr3beRuUpC6x2Ya1ytZ',
-            1,
-          ],
-        ],
+        key_auths: [['STM5bdefcrH8EokuFgakmgeRtrGcTJ1YxJvr3beRuUpC6x2Ya1ytZ', 1]],
       },
       posting: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM6ULPR5fLVo2MZQovwd1BA6EiTBWUY2e2Pr4yCAGgRT1KWRWnXi',
-            1,
-          ],
-        ],
+        key_auths: [['STM6ULPR5fLVo2MZQovwd1BA6EiTBWUY2e2Pr4yCAGgRT1KWRWnXi', 1]],
       },
       memo_key: 'STM6MopzMZ2Z3b9oLyp1L534HWPbwYzK4QTPjM4pCCRv95Av7DWZk',
       json_metadata: '{"profile":{"name":"Mike nevitt","location":"England"}}',
@@ -6335,12 +6064,7 @@ export default {
       withdraw_routes: 0,
       curation_rewards: 45,
       posting_rewards: 4647,
-      proxied_vsf_votes: [
-        0,
-        0,
-        0,
-        0,
-      ],
+      proxied_vsf_votes: [0, 0, 0, 0],
       witnesses_voted_for: 0,
       average_bandwidth: '127378309793',
       lifetime_bandwidth: '315578000000',
@@ -6367,35 +6091,21 @@ export default {
       owner: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM6YPcoR9KnUK8iPCainibZHaT9DqC36nPvMYsVppot3tJY3PYXd',
-            1,
-          ],
-        ],
+        key_auths: [['STM6YPcoR9KnUK8iPCainibZHaT9DqC36nPvMYsVppot3tJY3PYXd', 1]],
       },
       active: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM7asNDVp29eGXB7tb2syjve6HhCf4AfW2nkUpJxxkvBYsR5DS2D',
-            1,
-          ],
-        ],
+        key_auths: [['STM7asNDVp29eGXB7tb2syjve6HhCf4AfW2nkUpJxxkvBYsR5DS2D', 1]],
       },
       posting: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM5m72aZp5fKeU6BeRLVU8fS3pjTva7TgjWzdzQNbFH8ZzPVirfF',
-            1,
-          ],
-        ],
+        key_auths: [['STM5m72aZp5fKeU6BeRLVU8fS3pjTva7TgjWzdzQNbFH8ZzPVirfF', 1]],
       },
       memo_key: 'STM8bbW61cs3KCdjQb51SthTTC6a4RgVDGocHA5A6gsA4agiXxsp3',
-      json_metadata: '{"profile":{"profile_image":"http://i.imgur.com/pTP7CQO.png","name":"Mike","about":"Pharmacist | Blogger| Internet Marketer | Investor","location":"Currently California"}}',
+      json_metadata:
+        '{"profile":{"profile_image":"http://i.imgur.com/pTP7CQO.png","name":"Mike","about":"Pharmacist | Blogger| Internet Marketer | Investor","location":"Currently California"}}',
       proxy: '',
       last_owner_update: '1970-01-01T00:00:00',
       last_account_update: '2017-06-09T05:56:24',
@@ -6439,12 +6149,7 @@ export default {
       withdraw_routes: 0,
       curation_rewards: 0,
       posting_rewards: 0,
-      proxied_vsf_votes: [
-        0,
-        0,
-        0,
-        0,
-      ],
+      proxied_vsf_votes: [0, 0, 0, 0],
       witnesses_voted_for: 0,
       average_bandwidth: '54308520997',
       lifetime_bandwidth: '67267000000',
@@ -6471,35 +6176,21 @@ export default {
       owner: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM8ZQGP6ZAQ8W4dM7gDpWUjbZrAKbbg8zLuNiWpDoz4Q6bASACH4',
-            1,
-          ],
-        ],
+        key_auths: [['STM8ZQGP6ZAQ8W4dM7gDpWUjbZrAKbbg8zLuNiWpDoz4Q6bASACH4', 1]],
       },
       active: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM7GBhpjqKH38pG6JNYE5oUFC9T32G7LJFxU3V3PjYpNPKCEk8aV',
-            1,
-          ],
-        ],
+        key_auths: [['STM7GBhpjqKH38pG6JNYE5oUFC9T32G7LJFxU3V3PjYpNPKCEk8aV', 1]],
       },
       posting: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM5ss9zMvNJyV8ae7P6qjUohLf5tSJDNLTgeuS1pfnXzCcjsVr6o',
-            1,
-          ],
-        ],
+        key_auths: [['STM5ss9zMvNJyV8ae7P6qjUohLf5tSJDNLTgeuS1pfnXzCcjsVr6o', 1]],
       },
       memo_key: 'STM6aA7EN3XfTqj2gfeybeF7zgsoX6U8Acyv4cSVUmraY9kBfpoRE',
-      json_metadata: '{"profile":{"cover_image":"","profile_image":"https://i.imgur.com/D6hXpsi.jpg","location":"HK"}}',
+      json_metadata:
+        '{"profile":{"cover_image":"","profile_image":"https://i.imgur.com/D6hXpsi.jpg","location":"HK"}}',
       proxy: '',
       last_owner_update: '1970-01-01T00:00:00',
       last_account_update: '2017-06-08T14:06:48',
@@ -6543,12 +6234,7 @@ export default {
       withdraw_routes: 0,
       curation_rewards: 0,
       posting_rewards: 0,
-      proxied_vsf_votes: [
-        0,
-        0,
-        0,
-        0,
-      ],
+      proxied_vsf_votes: [0, 0, 0, 0],
       witnesses_voted_for: 1,
       average_bandwidth: '99803302534',
       lifetime_bandwidth: '139329000000',
@@ -6575,32 +6261,17 @@ export default {
       owner: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM7iJcV5JThYfxUchUx9i7CRRNd8DjdDszu4my1smMwSpntSpYyx',
-            1,
-          ],
-        ],
+        key_auths: [['STM7iJcV5JThYfxUchUx9i7CRRNd8DjdDszu4my1smMwSpntSpYyx', 1]],
       },
       active: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM5qXvrSX5T2HqmjXUUTfZak8VP8Y4YZD85t9wnFBLya2mYToxyc',
-            1,
-          ],
-        ],
+        key_auths: [['STM5qXvrSX5T2HqmjXUUTfZak8VP8Y4YZD85t9wnFBLya2mYToxyc', 1]],
       },
       posting: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM5hWhFBCxqBh3U4sKzyMypQMQ1AvDReo9w9Zvu6mcudoUf4DqeK',
-            1,
-          ],
-        ],
+        key_auths: [['STM5hWhFBCxqBh3U4sKzyMypQMQ1AvDReo9w9Zvu6mcudoUf4DqeK', 1]],
       },
       memo_key: 'STM6Jt4NLhNjgXfCCRWWXSWqVxaGznQuu7AQ9THLKBFKbs17b7kaZ',
       json_metadata: '',
@@ -6647,12 +6318,7 @@ export default {
       withdraw_routes: 0,
       curation_rewards: 0,
       posting_rewards: 0,
-      proxied_vsf_votes: [
-        0,
-        0,
-        0,
-        0,
-      ],
+      proxied_vsf_votes: [0, 0, 0, 0],
       witnesses_voted_for: 4,
       average_bandwidth: '103891737360',
       lifetime_bandwidth: '134963000000',
@@ -6679,32 +6345,17 @@ export default {
       owner: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM7dkiiWZoLqPBuu28rUiDK1sw4Ftak72eJ8u2GQwqvRsStEjZmc',
-            1,
-          ],
-        ],
+        key_auths: [['STM7dkiiWZoLqPBuu28rUiDK1sw4Ftak72eJ8u2GQwqvRsStEjZmc', 1]],
       },
       active: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM8aNa9RexQfiMufrDRsTU7aGyRqA6Y88WC7hDBEYMcdeHKTAiJM',
-            1,
-          ],
-        ],
+        key_auths: [['STM8aNa9RexQfiMufrDRsTU7aGyRqA6Y88WC7hDBEYMcdeHKTAiJM', 1]],
       },
       posting: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM7X4Rb5GHxcWR61cTasBMueXLLFyjersZvVimk6FzAe4pS2MPKs',
-            1,
-          ],
-        ],
+        key_auths: [['STM7X4Rb5GHxcWR61cTasBMueXLLFyjersZvVimk6FzAe4pS2MPKs', 1]],
       },
       memo_key: 'STM7nzGLqWC3nGtqDm113fRm9rQqbKGzYyMTfLAR3hLL8Uk9P52BG',
       json_metadata: '',
@@ -6751,12 +6402,7 @@ export default {
       withdraw_routes: 0,
       curation_rewards: 374,
       posting_rewards: 463076,
-      proxied_vsf_votes: [
-        0,
-        0,
-        0,
-        0,
-      ],
+      proxied_vsf_votes: [0, 0, 0, 0],
       witnesses_voted_for: 0,
       average_bandwidth: '8369711989',
       lifetime_bandwidth: '177345000000',
@@ -6783,35 +6429,21 @@ export default {
       owner: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM6Rs2PB2TBerKivDQiCZdE7znfENHoaBZAuC9dMY29T6gsjUHGs',
-            1,
-          ],
-        ],
+        key_auths: [['STM6Rs2PB2TBerKivDQiCZdE7znfENHoaBZAuC9dMY29T6gsjUHGs', 1]],
       },
       active: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM6TpFqqQBP9r5ej85a9g9vRE4sEEczwbsbKd3cvkcxkKVmtm41F',
-            1,
-          ],
-        ],
+        key_auths: [['STM6TpFqqQBP9r5ej85a9g9vRE4sEEczwbsbKd3cvkcxkKVmtm41F', 1]],
       },
       posting: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM5Ujmtzer8geLmaPQiNWkejB8B7BbzSkE5zYqUvx9Grtc52x35k',
-            1,
-          ],
-        ],
+        key_auths: [['STM5Ujmtzer8geLmaPQiNWkejB8B7BbzSkE5zYqUvx9Grtc52x35k', 1]],
       },
       memo_key: 'STM8Pgrn8e5fnwgUcRsX8quXrkpfnWyPq6m49Hm3qDGuZHFJQJkXe',
-      json_metadata: '{"profile":{"profile_image":"https://scontent-lhr3-1.xx.fbcdn.net/v/t1.0-9/15665760_1809737605961036_3956377091984414940_n.jpg?oh=a0692dc7f0f2771984a5983a4b99e98c&oe=59E136CF","name":"Olafodio","about":"Electrical installation, Alternative energy ( solar and inverter installation) for urban, domestic, offices and  industrial   purposes","location":"Ibadan, Nigeria."}}',
+      json_metadata:
+        '{"profile":{"profile_image":"https://scontent-lhr3-1.xx.fbcdn.net/v/t1.0-9/15665760_1809737605961036_3956377091984414940_n.jpg?oh=a0692dc7f0f2771984a5983a4b99e98c&oe=59E136CF","name":"Olafodio","about":"Electrical installation, Alternative energy ( solar and inverter installation) for urban, domestic, offices and  industrial   purposes","location":"Ibadan, Nigeria."}}',
       proxy: '',
       last_owner_update: '1970-01-01T00:00:00',
       last_account_update: '2017-06-07T09:33:54',
@@ -6855,12 +6487,7 @@ export default {
       withdraw_routes: 0,
       curation_rewards: 4,
       posting_rewards: 50,
-      proxied_vsf_votes: [
-        0,
-        0,
-        0,
-        0,
-      ],
+      proxied_vsf_votes: [0, 0, 0, 0],
       witnesses_voted_for: 0,
       average_bandwidth: '33437412017',
       lifetime_bandwidth: '52018000000',
@@ -6887,35 +6514,21 @@ export default {
       owner: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM6CCDGpkBy7Z3uQWNb5dhMdG3jVuTxTVdDiv91tPCvmY5dR5TdZ',
-            1,
-          ],
-        ],
+        key_auths: [['STM6CCDGpkBy7Z3uQWNb5dhMdG3jVuTxTVdDiv91tPCvmY5dR5TdZ', 1]],
       },
       active: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM8HiDiB5Kzt8Qe63RtKS3yKZwAcYnWvQdobWpas5AZ829Gsintw',
-            1,
-          ],
-        ],
+        key_auths: [['STM8HiDiB5Kzt8Qe63RtKS3yKZwAcYnWvQdobWpas5AZ829Gsintw', 1]],
       },
       posting: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM6K7XwHuyC7TxbcTWSLAdftwk5rn1ww1mC9c9nEikm2L2Mwbhe6',
-            1,
-          ],
-        ],
+        key_auths: [['STM6K7XwHuyC7TxbcTWSLAdftwk5rn1ww1mC9c9nEikm2L2Mwbhe6', 1]],
       },
       memo_key: 'STM6BSSs7WAjthB2LD2E85TxZ4FwXyYZq7e2KLr57x2dgVv8g2uSV',
-      json_metadata: '{"profile":{"about":"From #Panama interest #bitcoin #cryptocurrency #photography #cars","location":"Panama"}}',
+      json_metadata:
+        '{"profile":{"about":"From #Panama interest #bitcoin #cryptocurrency #photography #cars","location":"Panama"}}',
       proxy: '',
       last_owner_update: '1970-01-01T00:00:00',
       last_account_update: '2017-06-04T12:05:33',
@@ -6959,12 +6572,7 @@ export default {
       withdraw_routes: 0,
       curation_rewards: 170,
       posting_rewards: 9436,
-      proxied_vsf_votes: [
-        0,
-        0,
-        0,
-        0,
-      ],
+      proxied_vsf_votes: [0, 0, 0, 0],
       witnesses_voted_for: 0,
       average_bandwidth: '143007010215',
       lifetime_bandwidth: '296949000000',
@@ -6991,35 +6599,21 @@ export default {
       owner: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM6gdCB9CGvxsu7fyREgUX2AgTWFLom5hKYuF7VGBvN18x3VezTs',
-            1,
-          ],
-        ],
+        key_auths: [['STM6gdCB9CGvxsu7fyREgUX2AgTWFLom5hKYuF7VGBvN18x3VezTs', 1]],
       },
       active: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM6qSx7g35dey3cFxj12d991QkoK8xNrossA3hwYSe6nHTNoX2zf',
-            1,
-          ],
-        ],
+        key_auths: [['STM6qSx7g35dey3cFxj12d991QkoK8xNrossA3hwYSe6nHTNoX2zf', 1]],
       },
       posting: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM8jNWxADGpMKZA8KYLVygCNp3d8GT84nKuKFDbh51npj6f8GCDe',
-            1,
-          ],
-        ],
+        key_auths: [['STM8jNWxADGpMKZA8KYLVygCNp3d8GT84nKuKFDbh51npj6f8GCDe', 1]],
       },
       memo_key: 'STM7nsM78NpBXQdXdnYy9jcuYuKSfwjMVhwvc4d6vBX9ZxDT6aHWZ',
-      json_metadata: '{"profile":{"profile_image":"https://scontent-iad3-1.xx.fbcdn.net/v/t1.0-9/12027643_10207318263617904_8447083961329607708_n.jpg?oh=f95cfe2c51664f713c417adf6751a83a&oe=59E79F9F","name":"RealCodySimon","location":"China"}}',
+      json_metadata:
+        '{"profile":{"profile_image":"https://scontent-iad3-1.xx.fbcdn.net/v/t1.0-9/12027643_10207318263617904_8447083961329607708_n.jpg?oh=f95cfe2c51664f713c417adf6751a83a&oe=59E79F9F","name":"RealCodySimon","location":"China"}}',
       proxy: '',
       last_owner_update: '1970-01-01T00:00:00',
       last_account_update: '2017-05-31T01:24:48',
@@ -7063,12 +6657,7 @@ export default {
       withdraw_routes: 0,
       curation_rewards: 0,
       posting_rewards: 4693,
-      proxied_vsf_votes: [
-        0,
-        0,
-        0,
-        0,
-      ],
+      proxied_vsf_votes: [0, 0, 0, 0],
       witnesses_voted_for: 0,
       average_bandwidth: '78041511645',
       lifetime_bandwidth: '133721000000',
@@ -7095,35 +6684,21 @@ export default {
       owner: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM7tX72j6S7AMFPLCfadjZepfqLSt8tUNU4tCErcLwGFcMwKk9kN',
-            1,
-          ],
-        ],
+        key_auths: [['STM7tX72j6S7AMFPLCfadjZepfqLSt8tUNU4tCErcLwGFcMwKk9kN', 1]],
       },
       active: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM7gzw9dgNn31Z4NbwtdrLdirdvfSf7X4n1Bhkyt9yf5SkBjpCuu',
-            1,
-          ],
-        ],
+        key_auths: [['STM7gzw9dgNn31Z4NbwtdrLdirdvfSf7X4n1Bhkyt9yf5SkBjpCuu', 1]],
       },
       posting: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM6o7mHRyYQwSiSzsvPspBGrsCtFuYtMS71kP4peq1aGm4dUa2bG',
-            1,
-          ],
-        ],
+        key_auths: [['STM6o7mHRyYQwSiSzsvPspBGrsCtFuYtMS71kP4peq1aGm4dUa2bG', 1]],
       },
       memo_key: 'STM6mpJiTwGpjQmJBXxGq5wfM8TcAwjmC1HBno7JuUMtbUgAuUjpD',
-      json_metadata: '{"profile":{"name":"Rhino","profile_image":"https://i.imgur.com/nfsxiyw.png","about":"Anarchist, Bitcoiner, Vegan, Animal Lover, Music Aficionado"}}',
+      json_metadata:
+        '{"profile":{"name":"Rhino","profile_image":"https://i.imgur.com/nfsxiyw.png","about":"Anarchist, Bitcoiner, Vegan, Animal Lover, Music Aficionado"}}',
       proxy: '',
       last_owner_update: '1970-01-01T00:00:00',
       last_account_update: '2017-05-16T23:00:33',
@@ -7167,12 +6742,7 @@ export default {
       withdraw_routes: 0,
       curation_rewards: 118,
       posting_rewards: 77287,
-      proxied_vsf_votes: [
-        0,
-        0,
-        0,
-        0,
-      ],
+      proxied_vsf_votes: [0, 0, 0, 0],
       witnesses_voted_for: 0,
       average_bandwidth: '211608296762',
       lifetime_bandwidth: '964400000000',
@@ -7199,35 +6769,21 @@ export default {
       owner: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM5ub81UendR4BnX6R2QvBKgBk7VVKYYwHFhqxcXCyxmEyZm7o5c',
-            1,
-          ],
-        ],
+        key_auths: [['STM5ub81UendR4BnX6R2QvBKgBk7VVKYYwHFhqxcXCyxmEyZm7o5c', 1]],
       },
       active: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM6Hn9Gt3ZA3YSBMAgRGrVNan9uRwhKbdTRf2St1XDuECshqXcCZ',
-            1,
-          ],
-        ],
+        key_auths: [['STM6Hn9Gt3ZA3YSBMAgRGrVNan9uRwhKbdTRf2St1XDuECshqXcCZ', 1]],
       },
       posting: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM8dcaongyphvcNchsGWxAEGK9fDYHBgWzbV8QwAMeQmKYH8VbLg',
-            1,
-          ],
-        ],
+        key_auths: [['STM8dcaongyphvcNchsGWxAEGK9fDYHBgWzbV8QwAMeQmKYH8VbLg', 1]],
       },
       memo_key: 'STM5pQvadKdSgP817GdASkmDF2YSCPXXb2FpWYNZgVdq4fKM7742v',
-      json_metadata: '{"profile":{"profile_image":"https://www.facebook.com/photo.php?fbid=10206106454086382&set=a.1618238781877.2091874.1413623556&type=3&theater","name":"Sandra","about":"passionate about indonesia // 4 years of traveling trough asia","location":"Bali"}}',
+      json_metadata:
+        '{"profile":{"profile_image":"https://www.facebook.com/photo.php?fbid=10206106454086382&set=a.1618238781877.2091874.1413623556&type=3&theater","name":"Sandra","about":"passionate about indonesia // 4 years of traveling trough asia","location":"Bali"}}',
       proxy: '',
       last_owner_update: '1970-01-01T00:00:00',
       last_account_update: '2017-06-06T00:17:27',
@@ -7271,12 +6827,7 @@ export default {
       withdraw_routes: 0,
       curation_rewards: 0,
       posting_rewards: 0,
-      proxied_vsf_votes: [
-        0,
-        0,
-        0,
-        0,
-      ],
+      proxied_vsf_votes: [0, 0, 0, 0],
       witnesses_voted_for: 0,
       average_bandwidth: '12567354231',
       lifetime_bandwidth: '19689000000',
@@ -7303,32 +6854,17 @@ export default {
       owner: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM5JmEuEZPdGnGwKh94yRWxwRBpG5rZQKRkaahmpW1Eu7F9Nn3V8',
-            1,
-          ],
-        ],
+        key_auths: [['STM5JmEuEZPdGnGwKh94yRWxwRBpG5rZQKRkaahmpW1Eu7F9Nn3V8', 1]],
       },
       active: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM5bDZjxL82GndS6S8FeQLj6YoXmiqrwpwcp8agTJiTYvoKxW8iJ',
-            1,
-          ],
-        ],
+        key_auths: [['STM5bDZjxL82GndS6S8FeQLj6YoXmiqrwpwcp8agTJiTYvoKxW8iJ', 1]],
       },
       posting: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM6UXgnjZUsizKHZtVJZb3ThzjB4auhbej9Ypav7WoCzhfuTPFs6',
-            1,
-          ],
-        ],
+        key_auths: [['STM6UXgnjZUsizKHZtVJZb3ThzjB4auhbej9Ypav7WoCzhfuTPFs6', 1]],
       },
       memo_key: 'STM8i1Q6rXSMWp4AyYbP9TocLKmrCMj1dP77oAyt5UUQ76u1xcF4N',
       json_metadata: '',
@@ -7375,12 +6911,7 @@ export default {
       withdraw_routes: 0,
       curation_rewards: 28834,
       posting_rewards: 9345879,
-      proxied_vsf_votes: [
-        0,
-        0,
-        0,
-        0,
-      ],
+      proxied_vsf_votes: [0, 0, 0, 0],
       witnesses_voted_for: 0,
       average_bandwidth: 1233643890,
       lifetime_bandwidth: '247736000000',
@@ -7407,35 +6938,21 @@ export default {
       owner: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM7YHEgMs7WMYvMJmNLShHEozMgcrtqbAgp9X9USx7XELkEcwFNW',
-            1,
-          ],
-        ],
+        key_auths: [['STM7YHEgMs7WMYvMJmNLShHEozMgcrtqbAgp9X9USx7XELkEcwFNW', 1]],
       },
       active: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM5f66SkdnccLhZJomE8xiRRnQNKekXYzYZAZZ7jcfu7vx9aoRTs',
-            1,
-          ],
-        ],
+        key_auths: [['STM5f66SkdnccLhZJomE8xiRRnQNKekXYzYZAZZ7jcfu7vx9aoRTs', 1]],
       },
       posting: {
         weight_threshold: 1,
         account_auths: [],
-        key_auths: [
-          [
-            'STM72j2d3AJ13vrVkL7g8PvWnsWWbLvDCLnNH6ddskaUQkz1r5mJW',
-            1,
-          ],
-        ],
+        key_auths: [['STM72j2d3AJ13vrVkL7g8PvWnsWWbLvDCLnNH6ddskaUQkz1r5mJW', 1]],
       },
       memo_key: 'STM71AYsoRV1CSTsmZp4WDkruNCkmpyJ713BKCFSFNDn1JpUmdxZQ',
-      json_metadata: '{"profile":{"profile_image":"https://d3vv6lp55qjaqc.cloudfront.net/items/0L140E0N2X2b1v3q021U/profile-picture.png","name":"Phil \'dm\' Campbell","about":"life is an iterative process ","location":"cloudbase-alpha","website":"http://sett.ee"}}',
+      json_metadata:
+        '{"profile":{"profile_image":"https://d3vv6lp55qjaqc.cloudfront.net/items/0L140E0N2X2b1v3q021U/profile-picture.png","name":"Phil \'dm\' Campbell","about":"life is an iterative process ","location":"cloudbase-alpha","website":"http://sett.ee"}}',
       proxy: '',
       last_owner_update: '2017-06-07T17:12:39',
       last_account_update: '2017-06-08T13:46:12',
@@ -7479,12 +6996,7 @@ export default {
       withdraw_routes: 0,
       curation_rewards: 1638,
       posting_rewards: 161494,
-      proxied_vsf_votes: [
-        0,
-        0,
-        0,
-        0,
-      ],
+      proxied_vsf_votes: [0, 0, 0, 0],
       witnesses_voted_for: 5,
       average_bandwidth: '147224480528',
       lifetime_bandwidth: '1269402000000',
@@ -7513,7 +7025,8 @@ export default {
     id: 0,
     current_virtual_time: '191813833130230408179045667',
     next_shuffle_block_num: 12670014,
-    current_shuffled_witnesses: '696e61646e6f696c0000000000000000000000617473656a00000000000000000000756f6b636177000000000000000061656872657669720000000000000064000000000067746700000000000000006d69736572616870000000000000000072616b2d646f6f67000000000000616d00006c61646c657800000000000000000000000078796e610000000000000000000000676168726100000000000000000000706f79616c630000000000000000756f736e657a696100000000000000007061637364616f7200000000000000650000006b6e75667000000000000000000000000074696261000000000000000070646e616c656f7200000000000000002e7373656e74697700000000006b7673000000007a75686200000000000000006666696c636d697400000000000000000000000065796c6b000000000000000000006e6f697275660000000000000000',
+    current_shuffled_witnesses:
+      '696e61646e6f696c0000000000000000000000617473656a00000000000000000000756f6b636177000000000000000061656872657669720000000000000064000000000067746700000000000000006d69736572616870000000000000000072616b2d646f6f67000000000000616d00006c61646c657800000000000000000000000078796e610000000000000000000000676168726100000000000000000000706f79616c630000000000000000756f736e657a696100000000000000007061637364616f7200000000000000650000006b6e75667000000000000000000000000074696261000000000000000070646e616c656f7200000000000000002e7373656e74697700000000006b7673000000007a75686200000000000000006666696c636d697400000000000000000000000065796c6b000000000000000000006e6f697275660000000000000000',
     num_scheduled_witnesses: 21,
     top19_weight: 1,
     timeshare_weight: 5,

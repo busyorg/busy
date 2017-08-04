@@ -25,51 +25,49 @@ export const GET_MORE_USER_REPLIES_START = '@user/GET_MORE_USER_REPLIES_START';
 export const GET_MORE_USER_REPLIES_SUCCESS = '@user/GET_MORE_USER_REPLIES_SUCCESS';
 export const GET_MORE_USER_REPLIES_ERROR = '@user/GET_MORE_USER_REPLIES_ERROR';
 
+export const getUserComments = ({ username }) => (dispatch, getState, { steemAPI }) => {
+  const feed = getState().feed;
+  if (feed.comments[username] && feed.comments[username].isLoaded) {
+    return Promise.reject('User is not loaded');
+  }
 
-export const getUserComments = ({ username }) =>
-  (dispatch, getState, { steemAPI }) => {
-    const feed = getState().feed;
-    if (feed.comments[username] && feed.comments[username].isLoaded) {
-      return Promise.reject('User is not loaded');
-    }
+  const steemGetState = Promise.promisify(steemAPI.getState, { context: steemAPI });
 
-    const steemGetState = Promise.promisify(steemAPI.getState, { context: steemAPI });
+  return dispatch({
+    type: GET_USER_COMMENTS,
+    payload: {
+      promise: steemGetState(`@${username}/posts`),
+    },
+    meta: { username },
+  });
+};
 
-    return dispatch({
-      type: GET_USER_COMMENTS,
-      payload: {
-        promise: steemGetState(`@${username}/posts`),
-      },
-      meta: { username }
-    });
-  };
+export const getMoreUserComments = (username, limit) => (dispatch, getState, { steemAPI }) => {
+  const { feed, comments } = getState();
+  if (feed.comments[username] && feed.comments[username].isLoaded) {
+    return Promise.reject('User is not loaded');
+  }
 
-export const getMoreUserComments = (username, limit) =>
-  (dispatch, getState, { steemAPI }) => {
-    const { feed, comments } = getState();
-    if (feed.comments[username] && feed.comments[username].isLoaded) {
-      return Promise.reject('User is not loaded');
-    }
+  const getDiscussionsByComments = Promise.promisify(steemAPI.getDiscussionsByComments, {
+    context: steemAPI,
+  });
 
-    const getDiscussionsByComments = Promise.promisify(
-      steemAPI.getDiscussionsByComments, { context: steemAPI });
+  const userComments = getUserCommentsFromState(username, feed, comments);
+  const startAuthor = userComments[userComments.length - 1].author;
+  const startPermlink = userComments[userComments.length - 1].permlink;
 
-    const userComments = getUserCommentsFromState(username, feed, comments);
-    const startAuthor = userComments[userComments.length - 1].author;
-    const startPermlink = userComments[userComments.length - 1].permlink;
-
-    return dispatch({
-      type: GET_MORE_USER_COMMENTS,
-      payload: {
-        promise: getDiscussionsByComments({
-          start_author: startAuthor,
-          start_permlink: startPermlink,
-          limit,
-        }),
-      },
-      meta: { username }
-    });
-  };
+  return dispatch({
+    type: GET_MORE_USER_COMMENTS,
+    payload: {
+      promise: getDiscussionsByComments({
+        start_author: startAuthor,
+        start_permlink: startPermlink,
+        limit,
+      }),
+    },
+    meta: { username },
+  });
+};
 
 /*!
  * busy-img actions
@@ -97,26 +95,26 @@ export function uploadFile({ username, file, fileInput }) {
     throw new TypeError('Missing one of `file` or `fileInput` to `uploadFile` call');
   }
 
-  return dispatch => dispatch({
-    meta,
-    type: UPLOAD_FILE,
-    payload: {
-      promise: new Promise((resolve, reject) => {
-        const request = new global.XMLHttpRequest();
-        request.open('POST', `${process.env.STEEMCONNECT_IMG_HOST}/@${username}/uploads`, true);
-        // Send the proper header information along with the request
-        request.setRequestHeader('Content-Type', fileDetails.type);
-        request.onreadystatechange = () => {
-          if (request.readyState === 4 && request.status === 201) {
-            return resolve(JSON.parse(request.response));
-          } else if (request.status >= 400) {
+  return dispatch =>
+    dispatch({
+      meta,
+      type: UPLOAD_FILE,
+      payload: {
+        promise: new Promise((resolve, reject) => {
+          const request = new global.XMLHttpRequest();
+          request.open('POST', `${process.env.STEEMCONNECT_IMG_HOST}/@${username}/uploads`, true);
+          // Send the proper header information along with the request
+          request.setRequestHeader('Content-Type', fileDetails.type);
+          request.onreadystatechange = () => {
+            if (request.readyState === 4 && request.status === 201) {
+              return resolve(JSON.parse(request.response));
+            }
             return reject(JSON.parse(request.response));
-          }
-        };
-        request.send(fileDetails.file);
-      }),
-    }
-  });
+          };
+          request.send(fileDetails.file);
+        }),
+      },
+    });
 }
 
 export const FETCH_FILES = 'FETCH_FILES';
@@ -125,13 +123,15 @@ export const FETCH_FILES_SUCCESS = 'FETCH_FILES_SUCCESS';
 export const FETCH_FILES_ERROR = 'FETCH_FILES_ERROR';
 
 export function fetchFiles({ username }) {
-  return dispatch => dispatch({
-    type: FETCH_FILES,
-    payload: {
-      promise: fetch(`${process.env.STEEMCONNECT_IMG_HOST}/@${username}/uploads`)
-        .then(res => res.json()),
-    },
-  });
+  return dispatch =>
+    dispatch({
+      type: FETCH_FILES,
+      payload: {
+        promise: fetch(`${process.env.STEEMCONNECT_IMG_HOST}/@${username}/uploads`).then(res =>
+          res.json(),
+        ),
+      },
+    });
 }
 
 export const FOLLOW_USER = '@user/FOLLOW_USER';
@@ -151,8 +151,8 @@ export const followUser = username => (dispatch, getState) => {
       promise: steemConnect.follow(auth.user.name, username),
     },
     meta: {
-      username
-    }
+      username,
+    },
   });
 };
 
@@ -172,8 +172,8 @@ export const unfollowUser = username => (dispatch, getState) => {
       promise: steemConnect.unfollow(auth.user.name, username),
     },
     meta: {
-      username
-    }
+      username,
+    },
   });
 };
 
@@ -181,7 +181,6 @@ export const GET_FOLLOWING = '@user/GET_FOLLOWING';
 export const GET_FOLLOWING_START = '@user/GET_FOLLOWING_START';
 export const GET_FOLLOWING_SUCCESS = '@user/GET_FOLLOWING_SUCCESS';
 export const GET_FOLLOWING_ERROR = '@user/GET_FOLLOWING_ERROR';
-
 
 export const getFollowing = (userName = '') => (dispatch, getState) => {
   const { auth } = getState();
@@ -197,46 +196,43 @@ export const getFollowing = (userName = '') => (dispatch, getState) => {
     meta: targetUsername,
     payload: {
       promise: getAllFollowing(userName),
-    }
+    },
   });
 };
 
-export const getUserReplies = ({ username }) =>
-  (dispatch, getState, { steemAPI }) =>
-    dispatch({
-      type: GET_USER_REPLIES,
-      payload: {
-        promise: steemAPI.getStateAsync(`/@${username}/recent-replies`).then(
-          apiRes => mapAPIContentToId(apiRes)
-        ),
-      },
-      meta: { username },
-    });
+export const getUserReplies = ({ username }) => (dispatch, getState, { steemAPI }) =>
+  dispatch({
+    type: GET_USER_REPLIES,
+    payload: {
+      promise: steemAPI
+        .getStateAsync(`/@${username}/recent-replies`)
+        .then(apiRes => mapAPIContentToId(apiRes)),
+    },
+    meta: { username },
+  });
 
-export const getMoreUserReplies = username =>
-  (dispatch, getState, { steemAPI }) => {
-    const { feed, posts } = getState();
-    const lastFetchedReplyId =
-      feed.replies[username] &&
-      feed.replies[username].list[feed.replies[username].list.length - 1];
+export const getMoreUserReplies = username => (dispatch, getState, { steemAPI }) => {
+  const { feed, posts } = getState();
+  const lastFetchedReplyId =
+    feed.replies[username] && feed.replies[username].list[feed.replies[username].list.length - 1];
 
-    if (!lastFetchedReplyId) {
-      return Promise.reject('lastFetchedReplyId not found');
-    }
+  if (!lastFetchedReplyId) {
+    return Promise.reject('lastFetchedReplyId not found');
+  }
 
-    const startAuthor = posts[lastFetchedReplyId].author;
-    const startPermlink = posts[lastFetchedReplyId].permlink;
-    const limit = 10;
+  const startAuthor = posts[lastFetchedReplyId].author;
+  const startPermlink = posts[lastFetchedReplyId].permlink;
+  const limit = 10;
 
-    return dispatch({
-      type: GET_MORE_USER_REPLIES,
-      payload: {
-        // for "more content" 1 item is always repeated from previous result
-        // and will be removed before returning the res
-        promise: steemAPI.getRepliesByLastUpdateAsync(startAuthor, startPermlink, limit + 1).then(
-          apiRes => apiRes.slice(1)
-        ),
-      },
-      meta: { username, limit },
-    });
-  };
+  return dispatch({
+    type: GET_MORE_USER_REPLIES,
+    payload: {
+      // for "more content" 1 item is always repeated from previous result
+      // and will be removed before returning the res
+      promise: steemAPI
+        .getRepliesByLastUpdateAsync(startAuthor, startPermlink, limit + 1)
+        .then(apiRes => apiRes.slice(1)),
+    },
+    meta: { username, limit },
+  });
+};

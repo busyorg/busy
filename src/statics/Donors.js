@@ -2,15 +2,13 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
 import donors from '../helpers/donors';
-import MenuHelp from '../app/Menu/MenuHelp';
-import Donor from '../widgets/Donor';
-import UserCard from '../widgets/UserCard';
 
 const Donors = () =>
-  <div className="main-panel">
-    <MenuHelp />
+  (<div className="main-panel">
     <div className="container text-center my-5">
-      <h1><FormattedMessage id="donors" defaultMessage="Donors" /></h1>
+      <h1>
+        <FormattedMessage id="donors" defaultMessage="Donors" />
+      </h1>
       <p>
         <FormattedMessage
           id="@statics/our_donors"
@@ -22,15 +20,13 @@ const Donors = () =>
         <FormattedMessage id="donate" defaultMessage="Donate" />
       </Link>
       <div className="row my-5">
-        {Object.keys(donors).map((user, idx) =>
-          <UserCard
-            key={idx}
-            username={user}
-            label={<h4><Donor rank={donors[user]} /></h4>}
-          />
+        {Object.keys(donors).map(user =>
+          (<div>
+            {user}
+          </div>),
         )}
       </div>
     </div>
-  </div>;
+  </div>);
 
 export default Donors;

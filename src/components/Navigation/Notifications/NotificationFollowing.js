@@ -5,8 +5,9 @@ import { Link } from 'react-router-dom';
 import Avatar from '../../Avatar';
 import './Notification.less';
 
-const NotificationFollowing = ({ onClick, id, read, date, payload }) => (
-  <div
+const NotificationFollowing = ({ onClick, id, read, date, payload }) =>
+  (<div
+    role="presentation"
     onClick={() => onClick(id)}
     className={classNames('Notification', {
       'Notification--unread': !read,

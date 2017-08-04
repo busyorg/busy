@@ -1,4 +1,4 @@
-/* eslint-disable camelcase,no-param-reassign,consistent-return,no-console,new-cap */
+/* eslint-disable */
 
 import base58 from 'bs58';
 import steem from 'steem';
@@ -41,13 +41,9 @@ export function parsePayoutAmount(amount) {
  * Calculates Payout Details Modified as needed
  * https://github.com/steemit/steemit.com/blob/47fd0e0846bd8c7c941ee4f95d5f971d3dc3981d/app/components/elements/Voting.jsx
  */
-export const calculatePayout = (post) => {
+export const calculatePayout = post => {
   const payoutDetails = {};
-  const {
-    active_votes,
-    parent_author,
-    cashout_time,
-  } = post;
+  const { active_votes, parent_author, cashout_time } = post;
 
   const max_payout = parsePayoutAmount(post.max_accepted_payout);
   const pending_payout = parsePayoutAmount(post.pending_payout_value);
@@ -63,7 +59,9 @@ export const calculatePayout = (post) => {
 
   // There is an "active cashout" if: (a) there is a pending payout, OR (b)
   // there is a valid cashout_time AND it's NOT a comment with 0 votes.
-  const cashout_active = pending_payout > 0 || (cashout_time.indexOf('1969') !== 0 && !(is_comment && active_votes.length === 0));
+  const cashout_active =
+    pending_payout > 0 ||
+    (cashout_time.indexOf('1969') !== 0 && !(is_comment && active_votes.length === 0));
 
   if (cashout_active) {
     payoutDetails.potentialPayout = pending_payout;
@@ -119,20 +117,23 @@ export function createPermlink(title, author, parent_author, parent_permlink) {
       s = base58.encode(secureRandom.randomBuffer(4));
     }
 
-    return steem.api.getContent(author, s).then((content) => {
-      let prefix;
-      if (content.body !== '') {
-        // make sure slug is unique
-        prefix = `${base58.encode(secureRandom.randomBuffer(4))}-`;
-      } else {
-        prefix = '';
-      }
-      permlink = prefix + s;
-      return checkPermLinkLength(permlink);
-    }).catch((err) => {
-      console.warn('Error while getting content', err);
-      return permlink;
-    });
+    return steem.api
+      .getContent(author, s)
+      .then(content => {
+        let prefix;
+        if (content.body !== '') {
+          // make sure slug is unique
+          prefix = `${base58.encode(secureRandom.randomBuffer(4))}-`;
+        } else {
+          prefix = '';
+        }
+        permlink = prefix + s;
+        return checkPermLinkLength(permlink);
+      })
+      .catch(err => {
+        console.warn('Error while getting content', err);
+        return permlink;
+      });
   }
   // comments: re-parentauthor-parentpermlink-time
   const timeStr = new Date().toISOString().replace(/[^a-zA-Z0-9]+/g, '');

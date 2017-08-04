@@ -137,7 +137,7 @@ const feedSortByItem = (state = {}, action) => {
     case feedTypes.FEED_HAS_NO_MORE:
       return {
         ...state,
-        [action.payload.category]: feedSortBySubItem(state[action.payload.category], action)
+        [action.payload.category]: feedSortBySubItem(state[action.payload.category], action),
       };
     case feedTypes.GET_USER_FEED_CONTENT:
     case feedTypes.GET_USER_FEED_CONTENT_SUCCESS:
@@ -145,7 +145,7 @@ const feedSortByItem = (state = {}, action) => {
     case feedTypes.GET_MORE_USER_FEED_CONTENT_SUCCESS:
       return {
         ...state,
-        [action.payload.username]: feedSortBySubItem(state[action.payload.username], action)
+        [action.payload.username]: feedSortBySubItem(state[action.payload.username], action),
       };
     case userTypes.GET_USER_COMMENTS_START:
     case userTypes.GET_USER_COMMENTS_SUCCESS:
@@ -157,7 +157,7 @@ const feedSortByItem = (state = {}, action) => {
     case userTypes.GET_MORE_USER_REPLIES_SUCCESS:
       return {
         ...state,
-        [action.meta.username]: feedSortBySubItem(state[action.meta.username], action)
+        [action.meta.username]: feedSortBySubItem(state[action.meta.username], action),
       };
     case bookmarksActions.GET_BOOKMARKS_START:
     case bookmarksActions.GET_BOOKMARKS_SUCCESS:
@@ -183,7 +183,7 @@ const feed = (state = initialState, action) => {
     case feedTypes.FEED_HAS_NO_MORE:
       return {
         ...state,
-        [action.payload.sortBy]: feedSortByItem(state[action.payload.sortBy], action)
+        [action.payload.sortBy]: feedSortByItem(state[action.payload.sortBy], action),
       };
     case userTypes.GET_USER_COMMENTS_START:
     case userTypes.GET_USER_COMMENTS_SUCCESS:
@@ -191,13 +191,13 @@ const feed = (state = initialState, action) => {
     case userTypes.GET_MORE_USER_COMMENTS_SUCCESS:
       return {
         ...state,
-        comments: feedSortByItem(state.comments, action)
+        comments: feedSortByItem(state.comments, action),
       };
     case bookmarksActions.GET_BOOKMARKS_START:
     case bookmarksActions.GET_BOOKMARKS_SUCCESS:
       return {
         ...state,
-        bookmarks: feedSortByItem(state.bookmarks, action)
+        bookmarks: feedSortByItem(state.bookmarks, action),
       };
     case userTypes.GET_USER_REPLIES_START:
     case userTypes.GET_USER_REPLIES_SUCCESS:

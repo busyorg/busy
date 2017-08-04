@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import './Hero.less';
 
-const Hero = () => (
-  <div className="Hero">
+const Hero = () =>
+  (<div className="Hero">
     <div className="container container-small">
       <h1 className="hero-message">
         <FormattedMessage
