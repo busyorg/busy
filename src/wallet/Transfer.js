@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import classNames from 'classnames';
@@ -8,7 +8,16 @@ import Textarea from 'react-textarea-autosize';
 @connect(state => ({
   auth: state.auth,
 }))
-export default class Transfer extends Component {
+export default class Transfer extends React.Component {
+  static propTypes = {
+    auth: PropTypes.shape().isRequired,
+    location: PropTypes.shape(),
+  };
+
+  static defaultProps = {
+    location: {},
+  };
+
   constructor(props) {
     super(props);
     const { location: { query } } = props;
@@ -57,10 +66,9 @@ export default class Transfer extends Component {
             <div className="form-group">
               <div className="input-group">
                 <input
-                  autoFocus
                   value={to}
                   autoComplete="off"
-                  onChange={thiss.handleToChange}
+                  onChange={this.handleToChange}
                   placeholder="To"
                   type="text"
                   className="form-control form-control-lg"
@@ -76,10 +84,15 @@ export default class Transfer extends Component {
                 />
                 <span className="input-group-addon">
                   <div>
-                    <a className={sbdBtnClass} onClick={() => this.setState({ currency: 'SBD' })}>
+                    <a
+                      role="presentation"
+                      className={sbdBtnClass}
+                      onClick={() => this.setState({ currency: 'SBD' })}
+                    >
                       SBD
                     </a>
                     <a
+                      role="presentation"
                       className={steemBtnClass}
                       onClick={() => this.setState({ currency: 'STEEM' })}
                     >
@@ -91,7 +104,7 @@ export default class Transfer extends Component {
               <h4 className="my-2">
                 Balance{' '}
                 <a
-                  href="#"
+                  role="presentation"
                   onClick={() => this.setState({ amount: numeral(balance).format('0.000') })}
                 >
                   {numeral(balance).format('0,0.000')}

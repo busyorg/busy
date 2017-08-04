@@ -9,9 +9,11 @@ export const getWallet = username => (dispatch, getState, { steemAPI }) => {
   dispatch({
     type: GET_WALLET,
     payload: {
-      promise: steemAPI.getStateAsync(`@${username}/transfers`).then(res => Promise.resolve({
-        history: res.accounts[username] ? res.accounts[username].transfer_history : [],
-      })),
+      promise: steemAPI.getStateAsync(`@${username}/transfers`).then(res =>
+        Promise.resolve({
+          history: res.accounts[username] ? res.accounts[username].transfer_history : [],
+        }),
+      ),
     },
     meta: { username },
   });
