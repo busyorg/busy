@@ -19,11 +19,11 @@ jobs:
           paths:
             - ./node_modules
       - run:
+          name: lint
+          command: yarn lint
+      - run:
           name: test
           command: yarn test
-      # - run:
-      #     name: lint
-      #     command: yarn lint
       - run:
           name: code-coverage
           command: yarn test:coverage
