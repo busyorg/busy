@@ -1,11 +1,11 @@
-import * as editorActions from './EditorActions';
+import * as editorActions from './editorActions';
 import * as userActions from '../../user/userActions';
 
 const defaultState = {
   loading: false,
   error: null,
   success: false,
-  draftPosts: {}
+  draftPosts: {},
 };
 
 const editor = (state = defaultState, action) => {
@@ -16,14 +16,14 @@ const editor = (state = defaultState, action) => {
         loading: false,
         error: null,
         success: false,
-        loadingImg: false
+        loadingImg: false,
       };
     case editorActions.CREATE_POST_START:
       return {
         ...state,
         loading: true,
         error: null,
-        success: false
+        success: false,
       };
     case editorActions.CREATE_POST_ERROR:
       return {
@@ -37,7 +37,7 @@ const editor = (state = defaultState, action) => {
         ...state,
         error: null,
         loading: false,
-        success: true
+        success: true,
       };
     case editorActions.SAVE_DRAFT: {
       const { postData } = action.payload;
@@ -52,7 +52,7 @@ const editor = (state = defaultState, action) => {
       delete draftPosts[action.payload];
       return {
         ...state,
-        ...draftPosts
+        ...draftPosts,
       };
     }
     case userActions.UPLOAD_FILE_START:

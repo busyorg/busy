@@ -7,20 +7,25 @@ import { Tooltip } from 'antd';
 import CommentForm from './CommentForm';
 import PayoutDetail from '../PayoutDetail';
 import Avatar from '../Avatar';
+import Body from '../Story/Body';
 import './Comment.less';
 
 class Comment extends React.Component {
   static propTypes = {
+    auth: PropTypes.shape(),
     comment: PropTypes.shape().isRequired,
     commentsChildren: PropTypes.shape(),
     onLikeClick: PropTypes.func,
     onDislikeClick: PropTypes.func,
+    onSendComment: PropTypes.func,
   };
 
   static defaultProps = {
+    auth: undefined,
     commentsChildren: undefined,
     onLikeClick: () => {},
     onDislikeClick: () => {},
+    onSendComment: () => {},
   };
 
   constructor(props) {
@@ -28,6 +33,8 @@ class Comment extends React.Component {
     this.state = {
       replyOpen: false,
       collapsed: false,
+      showCommentFormLoading: false,
+      commentFormText: '',
     };
   }
 
@@ -35,30 +42,61 @@ class Comment extends React.Component {
     this.setState({
       replyOpen: !this.state.replyOpen,
     });
-  }
+  };
 
   handleCollapseClick = () => {
     this.setState({
       collapsed: !this.state.collapsed,
     });
-  }
+  };
+
+  submitComment = (parentPost, commentValue) => {
+    this.setState({ showCommentFormLoading: true });
+
+    this.props
+      .onSendComment(parentPost, commentValue)
+      .then(() => {
+        this.setState({
+          showCommentFormLoading: false,
+          replyOpen: false,
+          commentFormText: '',
+        });
+      })
+      .catch(() => {
+        this.setState({
+          showCommentFormLoading: false,
+          replyOpen: true,
+          commentFormText: commentValue,
+        });
+      });
+  };
 
   render() {
-    const { comment, commentsChildren, onLikeClick, onDislikeClick } = this.props;
+    const { auth, comment, commentsChildren, onLikeClick, onDislikeClick } = this.props;
 
     const pendingPayoutValue = parseFloat(comment.pending_payout_value);
     const totalPayoutValue = parseFloat(comment.total_payout_value);
     const payoutValue = numeral(totalPayoutValue || pendingPayoutValue).format('$0,0.000');
 
-    const likesValue = numeral(comment.active_votes.filter(vote => vote.percent > 0).length).format('0,0');
-    const dislikesValue = numeral(comment.active_votes.filter(vote => vote.percent < 0).length).format('0,0');
+    const likesValue = numeral(comment.active_votes.filter(vote => vote.percent > 0).length).format(
+      '0,0',
+    );
+    const dislikesValue = numeral(
+      comment.active_votes.filter(vote => vote.percent < 0).length,
+    ).format('0,0');
 
     return (
       <div className="Comment">
-        <span className="Comment__visibility" onClick={() => this.handleCollapseClick()}>
-          {(this.state.collapsed) ? <i className="iconfont icon-addition" /> : <i className="iconfont icon-offline" />}
+        <span
+          role="presentation"
+          className="Comment__visibility"
+          onClick={() => this.handleCollapseClick()}
+        >
+          {this.state.collapsed
+            ? <i className="iconfont icon-addition" />
+            : <i className="iconfont icon-offline" />}
         </span>
-        <Avatar username={comment.author} size={(comment.depth === 1) ? 40 : 32} />
+        <Avatar username={comment.author} size={comment.depth === 1 ? 40 : 32} />
         <div className="Comment__text">
           <Link to={`/@${comment.author}`}>
             {comment.author}
@@ -67,8 +105,7 @@ class Comment extends React.Component {
             <Tooltip
               title={
                 <span>
-                  <FormattedDate value={`${comment.created}Z`} />
-                  {' '}
+                  <FormattedDate value={`${comment.created}Z`} />{' '}
                   <FormattedTime value={`${comment.created}Z`} />
                 </span>
               }
@@ -79,19 +116,27 @@ class Comment extends React.Component {
             </Tooltip>
           </span>
           <div className="Comment__content">
-            {
-              (this.state.collapsed) ? <div className="Comment__content__collapsed">Comment collapsed</div> : comment.body
-            }
+            {this.state.collapsed
+              ? <div className="Comment__content__collapsed">Comment collapsed</div>
+              : <Body body={comment.body} />}
           </div>
           <div className="Comment__footer">
             <Tooltip title="Like" placement="bottom">
-              <a className="Comment__footer__link" onClick={() => onLikeClick(comment.id)}>
+              <a
+                role="presentation"
+                className="Comment__footer__link"
+                onClick={() => onLikeClick(comment.id)}
+              >
                 <i className="iconfont icon-praise_fill" />
                 {likesValue}
               </a>
             </Tooltip>
             <Tooltip title="Dislike" placement="bottom">
-              <a className="Comment__footer__link" onClick={() => onDislikeClick(comment.id)}>
+              <a
+                role="presentation"
+                className="Comment__footer__link"
+                onClick={() => onDislikeClick(comment.id)}
+              >
                 <i className="iconfont icon-praise_fill Comment__icon_dislike" />
                 {dislikesValue}
               </a>
@@ -103,38 +148,48 @@ class Comment extends React.Component {
               </Tooltip>
             </span>
             <span className="Comment__footer__bullet" />
-            <a
-              className={
-                classNames('Comment__footer__link', {
+            {auth &&
+              auth.isAuthenticated &&
+              <a
+                role="presentation"
+                className={classNames('Comment__footer__link', {
                   'Comment__footer__link--active': this.state.replyOpen,
-                })
-              }
-              onClick={() => this.handleReplyClick()}
-            >
-              Reply
-            </a>
+                })}
+                onClick={() => this.handleReplyClick()}
+              >
+                Reply
+              </a>}
           </div>
-          {
-            this.state.replyOpen && <CommentForm isSmall={comment.depth !== 1} />
-          }
+          {this.state.replyOpen &&
+            auth &&
+            auth.isAuthenticated &&
+            <CommentForm
+              username={auth.user.name}
+              parentPost={comment}
+              isSmall={comment.depth !== 1}
+              onSubmit={this.submitComment}
+              isLoading={this.state.showCommentFormLoading}
+              inputValue={this.state.commentFormText}
+            />}
           <div className="Comment__replies">
-            {
-              !this.state.collapsed &&
+            {!this.state.collapsed &&
               commentsChildren &&
               commentsChildren[comment.id] &&
-              commentsChildren[comment.id]
-                .map(child => (
-                  <Comment
-                    key={child.id}
-                    comment={child}
-                    commentsChildren={commentsChildren}
-                    onLikeClick={onLikeClick}
-                    onDislikeClick={onDislikeClick}
-                  />))
-            }
+              commentsChildren[comment.id].map(child =>
+                (<Comment
+                  auth={auth}
+                  key={child.id}
+                  comment={child}
+                  commentsChildren={commentsChildren}
+                  onLikeClick={onLikeClick}
+                  onDislikeClick={onDislikeClick}
+                  onSendComment={this.props.onSendComment}
+                />),
+              )}
           </div>
         </div>
-      </div>);
+      </div>
+    );
   }
 }
 

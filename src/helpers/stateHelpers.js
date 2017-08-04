@@ -1,4 +1,3 @@
-// TODO(p0o): use a selector for these
 export const getFeedFromState = (sortBy, category = 'all', state) => {
   switch (sortBy) {
     case 'feed':
@@ -99,7 +98,7 @@ export const sortCommentsFromSteem = (list, commentsState, sortBy = 'trending') 
 
   return newList
     .sort((item1, item2) =>
-      compareFunc(commentsState.comments[item1], commentsState.comments[item2])
+      compareFunc(commentsState.comments[item1], commentsState.comments[item2]),
     )
     .reverse();
 };

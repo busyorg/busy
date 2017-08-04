@@ -1,3 +1,4 @@
+/* eslint-disable */
 /**
 This function is extracted from steemit.com source code and does the same tasks with some slight-
  * adjustments to meet our needs. Refer to the main one in case of future problems:
@@ -7,37 +8,39 @@ This function is extracted from steemit.com source code and does the same tasks 
 const iframeWhitelist = [
   {
     re: /^(https?:)?\/\/player.vimeo.com\/video\/.*/i,
-    fn: (src) => {
+    fn: src => {
       // <iframe src="https://player.vimeo.com/video/179213493" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
       if (!src) return null;
       const m = src.match(/https:\/\/player\.vimeo\.com\/video\/([0-9]+)/);
       if (!m || m.length !== 2) return null;
       return `https://player.vimeo.com/video/${m[1]}`;
-    }
+    },
   },
   {
     re: /^(https?:)?\/\/www.youtube.com\/embed\/.*/i,
-    fn: src => src.replace(/\?.+$/, '') // strip query string (yt: autoplay=1,controls=0,showinfo=0, etc)
+    fn: src => src.replace(/\?.+$/, ''), // strip query string (yt: autoplay=1,controls=0,showinfo=0, etc)
   },
   {
     re: /^(https?:)?\/\/w.soundcloud.com\/player\/.*/i,
-    fn: (src) => {
+    fn: src => {
       if (!src) return null;
       // <iframe width="100%" height="450" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/257659076&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true"></iframe>
       const m = src.match(/url=(.+?)[&?]/);
       if (!m || m.length !== 2) return null;
-      return `https://w.soundcloud.com/player/?url=${m[1]}&auto_play=false&hide_related=false&show_comments=true` +
-        '&show_user=true&show_reposts=false&visual=true';
-    }
+      return (
+        `https://w.soundcloud.com/player/?url=${m[1]}&auto_play=false&hide_related=false&show_comments=true` +
+        '&show_user=true&show_reposts=false&visual=true'
+      );
+    },
   },
   {
     re: /^(https?:)?\/\/(?:www\.)?(?:periscope.tv\/)(.*)?$/i,
-    fn: src => src // handled by embedjs
+    fn: src => src, // handled by embedjs
   },
   {
     re: /^(https?:)?\/\/(?:www\.)?(?:(player.)?twitch.tv\/)(.*)?$/i,
-    fn: src => src // handled by embedjs
-  }
+    fn: src => src, // handled by embedjs
+  },
 ];
 export const noImageText = '(Image not shown due to low ratings)';
 export const allowedTags = `
@@ -45,18 +48,27 @@ export const allowedTags = `
     a, p, b, q, br, ul, li, ol, img, h1, h2, h3, h4, h5, h6, hr,
     blockquote, pre, code, em, strong, center, table, thead, tbody, tr, th, td,
     strike, sup, sub
-`.trim().split(/,\s*/);
+`
+  .trim()
+  .split(/,\s*/);
 
 // Medium insert plugin uses: div, figure, figcaption, iframe
-export default ({ large = true, noImage = false, sanitizeErrors = []}) => ({
+export default ({ large = true, noImage = false, sanitizeErrors = [] }) => ({
   allowedTags,
   // figure, figcaption,
 
   // SEE https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet
   allowedAttributes: {
     // "src" MUST pass a whitelist (below)
-    iframe: ['src', 'width', 'height', 'frameborder', 'allowfullscreen',
-      'webkitallowfullscreen', 'mozallowfullscreen'],
+    iframe: [
+      'src',
+      'width',
+      'height',
+      'frameborder',
+      'allowfullscreen',
+      'webkitallowfullscreen',
+      'mozallowfullscreen',
+    ],
 
     // class attribute is strictly whitelisted (below)
     div: ['class'],
@@ -79,7 +91,7 @@ export default ({ large = true, noImage = false, sanitizeErrors = []}) => ({
               frameborder: '0',
               allowfullscreen: 'allowfullscreen',
               webkitallowfullscreen: 'webkitallowfullscreen', // deprecated but required for vimeo : https://vimeo.com/forums/help/topic:278181
-              mozallowfullscreen: 'mozallowfullscreen',       // deprecated but required for vimeo
+              mozallowfullscreen: 'mozallowfullscreen', // deprecated but required for vimeo
               src,
               width: large ? '640' : '480',
               height: large ? '360' : '270',
@@ -110,14 +122,22 @@ export default ({ large = true, noImage = false, sanitizeErrors = []}) => ({
     },
     div: (tagName, attribs) => {
       const attys = {};
-      const classWhitelist = ['pull-right', 'pull-left', 'text-justify', 'text-rtl', 'text-center', 'text-right', 'videoWrapper'];
+      const classWhitelist = [
+        'pull-right',
+        'pull-left',
+        'text-justify',
+        'text-rtl',
+        'text-center',
+        'text-right',
+        'videoWrapper',
+      ];
       const validClass = classWhitelist.find(e => attribs.class === e);
       if (validClass) {
         attys.class = validClass;
       }
       return {
         tagName,
-        attribs: attys
+        attribs: attys,
       };
     },
     td: (tagName, attribs) => {
@@ -127,7 +147,7 @@ export default ({ large = true, noImage = false, sanitizeErrors = []}) => ({
       }
       return {
         tagName,
-        attribs: attys
+        attribs: attys,
       };
     },
     a: (tagName, attribs) => {
@@ -142,8 +162,8 @@ export default ({ large = true, noImage = false, sanitizeErrors = []}) => ({
       }
       return {
         tagName,
-        attribs: attys
+        attribs: attys,
       };
     },
-  }
+  },
 });

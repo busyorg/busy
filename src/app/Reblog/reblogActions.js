@@ -25,23 +25,25 @@ export const reblog = postId => (dispatch, getState) => {
   const { auth, posts } = getState();
   const post = posts[postId];
 
-//  if (!auth.isAuthenticated) {
-//    dispatch(notify('You are not logged in', 'error'));
-//    dispatch(finishReblogging(postId));
-//    return null;
-//  }
-//
-//  if (!post) {
-//    dispatch(notify("Couldn't find this post", 'error'));
-//    dispatch(finishReblogging(postId));
-//    return null;
-//  }
-//
-//  if (auth.user.name === post.author) {
-//    dispatch(notify("You can't reblog your own post", 'error'));
-//    dispatch(finishReblogging(postId));
-//    return null;
-//  }
+  // if (!auth.isAuthenticated) {
+  //  dispatch(notify('You are not logged in', 'error'));
+  //  dispatch(finishReblogging(postId));
+  //  return null;
+  // }
+  //
+  // if (!post) {
+  //  dispatch(notify("Couldn't find this post", 'error'));
+  //  dispatch(finishReblogging(postId));
+  //  return null;
+  // }
+  //
+  // if (auth.user.name === post.author) {
+  //  dispatch(notify("You can't reblog your own post", 'error'));
+  //  dispatch(finishReblogging(postId));
+  //  return null;
+  // }
+
+  // TODO: Use redux-promise-middleware for handling reblogs.
 
   return SteemConnect.reblog(auth.user.name, post.author, post.permlink)
     .then((result) => {

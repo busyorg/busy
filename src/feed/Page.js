@@ -3,19 +3,24 @@ import { Route } from 'react-router';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import SubFeed from './SubFeed';
-import { LeftSidebar, RightSidebar } from '../app/Sidebar/index';
+import LeftSidebar from '../app/Sidebar/LeftSidebar';
+import RightSidebar from '../app/Sidebar/RightSidebar';
 import TopicSelector from '../components/TopicSelector';
 import Affix from '../components/Utils/Affix';
+import ScrollToTop from '../components/Utils/ScrollToTop';
+import ScrollToTopOnMount from '../components/Utils/ScrollToTopOnMount';
 
-@connect(state => ({
-  auth: state.auth,
-}))
+@connect(
+  state => ({
+    auth: state.auth,
+  }),
+)
 class Page extends React.Component {
   static propTypes = {
     history: PropTypes.shape().isRequired,
     location: PropTypes.shape().isRequired,
     match: PropTypes.shape().isRequired,
-  };
+  }
 
   constructor(props) {
     super(props);
@@ -37,23 +42,20 @@ class Page extends React.Component {
     }
 
     this.setState({
-      categories: category ? [category] : [],
+      categories: (category) ? [category] : [],
     });
   }
 
   handleSortChange = (key) => {
-    this.setState(
-      {
-        currentKey: key,
-      },
-      () => {
-        if (this.state.categories[0]) {
-          this.props.history.push(`/${key}/${this.state.categories[0]}`);
-        } else {
-          this.props.history.push(`/${key}`);
-        }
+    this.setState({
+      currentKey: key,
+    }, () => {
+      if (this.state.categories[0]) {
+        this.props.history.push(`/${key}/${this.state.categories[0]}`);
+      } else {
+        this.props.history.push(`/${key}`);
       }
-    );
+    });
   };
 
   handleTopicClose = () => this.props.history.push(this.props.match.url);
@@ -68,6 +70,8 @@ class Page extends React.Component {
         <Helmet>
           <title>Busy</title>
         </Helmet>
+        <ScrollToTop />
+        <ScrollToTopOnMount />
         <div className="shifted">
           <div className="feed-layout container">
             <Affix className="leftContainer" stickPosition={77}>
@@ -81,14 +85,13 @@ class Page extends React.Component {
               </div>
             </Affix>
             <div className="center">
-              {shouldDisplaySelector &&
-                <TopicSelector
-                  isSingle={false}
-                  sort={this.state.currentKey}
-                  topics={this.state.categories}
-                  onSortChange={this.handleSortChange}
-                  onTopicClose={this.handleTopicClose}
-                />}
+              {shouldDisplaySelector && <TopicSelector
+                isSingle={false}
+                sort={this.state.currentKey}
+                topics={this.state.categories}
+                onSortChange={this.handleSortChange}
+                onTopicClose={this.handleTopicClose}
+              />}
               <Route path={`${match.path}:sortBy?/:category?`} component={SubFeed} />
             </div>
           </div>

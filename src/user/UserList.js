@@ -1,13 +1,18 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import ReduxInfiniteScroll from 'redux-infinite-scroll';
 import { isNumber, take } from 'lodash';
 import UserCard from '../components/UserCard';
 
 export default class UserList extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { filterText: null, page: 1 };
-  }
+  static propTypes = {
+    users: PropTypes.arrayOf(PropTypes.string),
+  };
+
+  static defaultProps = {
+    users: [],
+  };
+
+  state = { filterText: null, page: 1 };
 
   search = (event) => {
     this.setState({
@@ -17,7 +22,7 @@ export default class UserList extends React.Component {
   };
 
   paginate = () => {
-    const page = isNumber(this.state.page) ? (this.state.page + 1) : 1;
+    const page = isNumber(this.state.page) ? this.state.page + 1 : 1;
     this.setState({ page });
   };
 
@@ -35,9 +40,7 @@ export default class UserList extends React.Component {
         hasMore={users.length > noOfItemsToShow}
         className="row my-5"
       >
-        {take(users, noOfItemsToShow).map(user =>
-          <UserCard key={user} username={user} />
-        )}
+        {take(users, noOfItemsToShow).map(user => <UserCard key={user} username={user} />)}
       </ReduxInfiniteScroll>
     );
   }

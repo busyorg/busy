@@ -1,7 +1,5 @@
 import * as reblogActions from './reblogActions';
 
-// TODO: This should be refactored to more standard redux reducer
-
 const initialState = {
   rebloggedList: [],
   pendingReblogs: [],

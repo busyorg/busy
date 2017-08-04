@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import steemAPI from '../steemAPI';
@@ -8,27 +8,39 @@ import * as favoriteActions from '../favorites/favoritesActions';
 
 const sortTags = tags =>
   Object.keys(tags)
-  .sort((key1, key2) => (tags[key1].comments - tags[key2].comments))
-  .reverse()
-  .map(tagKey => tags[tagKey]);
-
+    .sort((key1, key2) => tags[key1].comments - tags[key2].comments)
+    .reverse()
+    .map(tagKey => tags[tagKey]);
 
 @connect(
   state => ({
     favorites: state.favorites.categories,
   }),
-  dispatch => bindActionCreators({
-    addCategoryFavorite: favoriteActions.addCategoryFavorite,
-    removeCategoryFavorite: favoriteActions.removeCategoryFavorite,
-  }, dispatch)
+  dispatch =>
+    bindActionCreators(
+      {
+        addCategoryFavorite: favoriteActions.addCategoryFavorite,
+        removeCategoryFavorite: favoriteActions.removeCategoryFavorite,
+      },
+      dispatch,
+    ),
 )
-export default class Tags extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      tags: {},
-    };
-  }
+export default class Tags extends React.Component {
+  static propTypes = {
+    favorites: PropTypes.arrayOf(PropTypes.string),
+    addCategoryFavorite: PropTypes.func,
+    removeCategoryFavorite: PropTypes.func,
+  };
+
+  static defaultProps = {
+    favorites: [],
+    addCategoryFavorite: () => {},
+    removeCategoryFavorite: () => {},
+  };
+
+  state = {
+    tags: {},
+  };
 
   componentWillMount() {
     steemAPI.getState('tags', (err, result) => {
@@ -44,23 +56,24 @@ export default class Tags extends Component {
     return (
       <div className="main-panel">
         <ul>
-          { sortedTags.map((tag, idx) => (tag.name ?
-            <Tag
-              key={idx}
-              tag={tag}
-              isFavorited={this.props.favorites.includes(tag.name)}
-              addCategoryFavorite={this.props.addCategoryFavorite}
-              removeCategoryFavorite={this.props.removeCategoryFavorite}
-            />
-            : []
-          )) }
+          {sortedTags.map(
+            tag =>
+              (tag.name
+                ? <Tag
+                  key={tag.name}
+                  tag={tag}
+                  favorited={this.props.favorites.includes(tag.name)}
+                  addCategoryFavorite={this.props.addCategoryFavorite}
+                  removeCategoryFavorite={this.props.removeCategoryFavorite}
+                />
+                : []),
+          )}
         </ul>
 
-        { isFetching &&
+        {isFetching &&
           <div className="my-5">
             <Loading />
-          </div>
-        }
+          </div>}
       </div>
     );
   }

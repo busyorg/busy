@@ -4,7 +4,7 @@ import { withRouter } from 'react-router';
 class ScrollToTopOnMount extends React.Component {
   static propTypes = {
     location: PropTypes.shape().isRequired,
-  }
+  };
 
   componentDidMount() {
     if (window) {

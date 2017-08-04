@@ -1,15 +1,17 @@
-/* eslint-disable comma-dangle */
-
 export default {
   id: 3161883,
   author: 'fyrstikken',
-  permlink: 'ned-scott-ceo-of-steemit-inc-have-a-40-minute-conversation-with-the-steemspeak-com-community',
+  permlink:
+    'ned-scott-ceo-of-steemit-inc-have-a-40-minute-conversation-with-the-steemspeak-com-community',
   category: 'community-tokens',
   parent_author: '',
   parent_permlink: 'community-tokens',
-  title: 'Ned Scott, CEO of #Steemit Inc. Have a 40 minute conversation with the SteemSpeak.com Community!',
-  body: 'Lots of good stuff for STEEM as he talks about Community Tokens / User Issued Tokens & B2B Solutions, the Linear Reward Curve and many other important things you should not miss out on! \n---\n\nhttps://www.youtube.com/watch?v=YxFzGoDoLwU\n\n<center><h1>RESTEEM & TWEET</h1></center>\n<center>Join us at http://steemspeak.com 24/7 all year and connect with more people</center>',
-  json_metadata: '{"tags":["community-tokens","witnesses","witness-category","dev","development"],"image":["https://img.youtube.com/vi/YxFzGoDoLwU/0.jpg"],"links":["https://www.youtube.com/watch?v=YxFzGoDoLwU","http://steemspeak.com"],"app":"steemit/0.1","format":"markdown"}',
+  title:
+    'Ned Scott, CEO of #Steemit Inc. Have a 40 minute conversation with the SteemSpeak.com Community!',
+  body:
+    'Lots of good stuff for STEEM as he talks about Community Tokens / User Issued Tokens & B2B Solutions, the Linear Reward Curve and many other important things you should not miss out on! \n---\n\nhttps://www.youtube.com/watch?v=YxFzGoDoLwU\n\n<center><h1>RESTEEM & TWEET</h1></center>\n<center>Join us at http://steemspeak.com 24/7 all year and connect with more people</center>',
+  json_metadata:
+    '{"tags":["community-tokens","witnesses","witness-category","dev","development"],"image":["https://img.youtube.com/vi/YxFzGoDoLwU/0.jpg"],"links":["https://www.youtube.com/watch?v=YxFzGoDoLwU","http://steemspeak.com"],"app":"steemit/0.1","format":"markdown"}',
   last_update: '2017-05-29T04:48:12',
   created: '2017-05-29T04:48:12',
   active: '2017-06-06T11:29:15',
@@ -35,8 +37,10 @@ export default {
   allow_votes: true,
   allow_curation_rewards: true,
   beneficiaries: [],
-  url: '/community-tokens/@fyrstikken/ned-scott-ceo-of-steemit-inc-have-a-40-minute-conversation-with-the-steemspeak-com-community',
-  root_title: 'Ned Scott, CEO of #Steemit Inc. Have a 40 minute conversation with the SteemSpeak.com Community!',
+  url:
+    '/community-tokens/@fyrstikken/ned-scott-ceo-of-steemit-inc-have-a-40-minute-conversation-with-the-steemspeak-com-community',
+  root_title:
+    'Ned Scott, CEO of #Steemit Inc. Have a 40 minute conversation with the SteemSpeak.com Community!',
   pending_payout_value: '0.000 SBD',
   total_pending_payout_value: '0.000 STEEM',
   active_votes: [

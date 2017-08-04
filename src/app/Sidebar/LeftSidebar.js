@@ -1,15 +1,11 @@
+import React, { PropTypes } from 'react';
 import _ from 'lodash';
-import React from 'react';
-import { connect } from 'react-redux';
 import { FormattedDate } from 'react-intl';
 import { Route, Switch } from 'react-router-dom';
 
 import api from '../../steemAPI';
 import Topics from '../../components/Sidebar/Topics';
 import Sidenav from '../../components/Navigation/Sidenav';
-import InterestingPeople from '../../components/Sidebar/InterestingPeople';
-import StartNow from '../../components/Sidebar/StartNow';
-import SignUp from '../../components/Sidebar/SignUp';
 import Action from '../../components/Button/Action';
 import { jsonParse } from '../../helpers/formatter';
 
@@ -22,7 +18,7 @@ class SidebarWithTopics extends React.PureComponent {
       isLoaded: false,
       categories: [],
       props: {},
-      menu: 'categories'
+      menu: 'categories',
     };
   }
 
@@ -36,7 +32,7 @@ class SidebarWithTopics extends React.PureComponent {
         isFetching: false,
         isLoaded: true,
         categories,
-        props: result.props
+        props: result.props,
       });
     });
   }
@@ -45,77 +41,43 @@ class SidebarWithTopics extends React.PureComponent {
     return <Topics title="Trending topics" topics={this.state.categories} />;
   }
 }
-export const SidebarWrapper = ({ children }) => (
-  <div>
-    {children}
-  </div>);
 
-const InterestingPeopleWithData = () =>
-  (<InterestingPeople
-    users={[
-      { name: 'liondani', about: 'Inch by Inch, Play by Play' },
-      {
-        name: 'good-karma',
-        about: '"Action expresses priorities!" / Witness - Developer of eSteem…'
-      },
-      {
-        name: 'furion',
-        about: 'I’ve developed SteemData and SteemSports. All things Python…'
-      }
-    ]}
-  />);
-
-export const LeftSidebar = ({ auth, user }) =>
+const LeftSidebar = ({ auth, user }) =>
   (<Switch>
     <Route
       path="/@:name"
       render={() =>
-        (<SidebarWrapper>
+        (<div>
           {user.name &&
             <div>
               {_.get(jsonParse(user.json_metadata), 'profile.about')}
               <div style={{ marginTop: 16, marginBottom: 16 }}>
                 <i className="iconfont icon-time text-icon" />
-                Joined
-                {' '}
+                Joined{' '}
                 <FormattedDate value={user.created} year="numeric" month="long" day="numeric" />
               </div>
             </div>}
           {user && <Action style={{ margin: '5px 0' }} text="Transfer" />}
           {user && <Action style={{ margin: '5px 0' }} text="Message" />}
-        </SidebarWrapper>)}
+        </div>)}
     />
     <Route
       path="/"
       render={() =>
-        (<SidebarWrapper>
+        (<div>
           <Sidenav username={auth.user.name} />
           <SidebarWithTopics />
-        </SidebarWrapper>)}
+        </div>)}
     />
   </Switch>);
 
-export const RightSidebar = ({ auth }) =>
-  auth.user.name !== undefined
-    ? <Switch>
-      <Route
-        path="/@:name"
-        render={() =>
-            (<SidebarWrapper>
-              <InterestingPeopleWithData />
-            </SidebarWrapper>)}
-      />
-      <Route
-        path="/"
-        render={() =>
-            (<SidebarWrapper>
-              <div>
-                <StartNow />
-                <InterestingPeopleWithData />
-              </div>
-            </SidebarWrapper>)}
-      />
-    </Switch>
-    : <SidebarWrapper>
-      <SignUp />
-    </SidebarWrapper>;
+LeftSidebar.propTypes = {
+  auth: PropTypes.shape().isRequired,
+  user: PropTypes.shape(),
+};
+
+LeftSidebar.defaultProps = {
+  user: undefined,
+};
+
+export default LeftSidebar;

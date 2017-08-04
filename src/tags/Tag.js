@@ -1,33 +1,45 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import numeral from 'numeral';
 import { Link } from 'react-router-dom';
 import FavoriteButton from '../favorites/FavoriteButton';
-import Icon from '../widgets/Icon';
 
-const Tag = ({
-  tag,
-  removeCategoryFavorite,
-  addCategoryFavorite,
-  isFavorited
-}) =>
-  <div className="page">
+const Tag = ({ tag, favorited, addCategoryFavorite, removeCategoryFavorite }) =>
+  (<div className="page">
     <div className="my-5 text-center">
       <h1>
         <Link to={`/hot/${tag.name}`}># {tag.name}</Link>{' '}
         <FavoriteButton
           name={tag.name}
-          isFavorited={isFavorited}
-          onClick={isFavorited
-            ? () => removeCategoryFavorite(tag.name)
-            : () => addCategoryFavorite(tag.name)
+          isFavorited={favorited}
+          onClick={
+            favorited
+              ? () => {
+                removeCategoryFavorite(tag.name);
+              }
+              : () => {
+                addCategoryFavorite(tag.name);
+              }
           }
         />
       </h1>
       <h2>
-        <Icon name="library_books" lg /> {numeral(tag.comments).format('0,0')}{' '}
-        <Icon name="attach_money" lg /> {numeral(tag.total_payouts).format('$0,0')}
+        <i className="iconfont icon-activity" /> {numeral(tag.comments).format('0,0')}{' '}
+        <i className="iconfont icon-collection" /> {numeral(tag.total_payouts).format('$0,0')}
       </h2>
     </div>
-  </div>;
+  </div>);
+
+Tag.propTypes = {
+  tag: PropTypes.shape().isRequired,
+  favorited: PropTypes.bool,
+  addCategoryFavorite: PropTypes.func,
+  removeCategoryFavorite: PropTypes.func,
+};
+
+Tag.defaultProps = {
+  favorited: false,
+  addCategoryFavorite: () => {},
+  removeCategoryFavorite: () => {},
+};
 
 export default Tag;

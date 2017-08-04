@@ -37,7 +37,7 @@ import './Feed.less';
     reblog: reblogActions.reblog,
     followUser,
     unfollowUser,
-  }
+  },
 )
 export default class Feed extends React.Component {
   // handleCommentRequest(draftProps) {
@@ -147,7 +147,7 @@ export default class Feed extends React.Component {
         {app.isPostModalOpen &&
           <Modal onClose={this.handlePostModalClose}>
             <PostSingle modal contentList={content} />
-          </Modal>}*/}
+          </Modal>} */}
       </div>
     );
   }

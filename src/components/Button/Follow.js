@@ -14,7 +14,7 @@ class Follow extends React.Component {
     isFollowed: false,
     pending: false,
     onClick: () => {},
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -23,15 +23,15 @@ class Follow extends React.Component {
     };
   }
 
+  onMouseOver = () => this.setState({ isHovered: true });
+
+  onMouseOut = () => this.setState({ isHovered: false });
+
   handleClick = (e) => {
     e.preventDefault();
     if (this.props.pending) return;
     this.props.onClick(e);
-  }
-
-  onMouseOver = () => this.setState({ isHovered: true })
-
-  onMouseOut = () => this.setState({ isHovered: false })
+  };
 
   render() {
     const { isFollowed, pending } = this.props;
@@ -52,11 +52,9 @@ class Follow extends React.Component {
 
     return (
       <button
-        className={
-          classNames('Follow', {
-            'Follow--danger': isFollowed && (isHovered || pending),
-          })
-        }
+        className={classNames('Follow', {
+          'Follow--danger': isFollowed && (isHovered || pending),
+        })}
         onClick={this.handleClick}
         onMouseOver={this.onMouseOver}
         onMouseOut={this.onMouseOut}

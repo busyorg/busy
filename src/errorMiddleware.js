@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import { notify } from './app/Notification/notificationActions';
 
 function parseBlockChainError(error) {

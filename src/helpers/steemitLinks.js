@@ -1,4 +1,4 @@
-/* eslint-disable camelcase,no-param-reassign,consistent-return,no-console,new-cap,no-useless-escape,no-unneeded-ternary,max-len */
+/* eslint-disable */
 
 /**
  * This function is extracted from steemit.com source code and does the same tasks with some slight-
@@ -7,7 +7,7 @@
  */
 
 const urlChar = '[^\\s"<>\\]\\[\\(\\)]';
-const urlCharEnd = urlChar.replace(/\]$/, '.,\']'); // insert bad chars to end on
+const urlCharEnd = urlChar.replace(/\]$/, ".,']"); // insert bad chars to end on
 const imagePath = '(?:(?:\\.(?:tiff?|jpe?g|gif|png|svg|ico)|ipfs/[a-z\\d]{40,}))';
 const domainPath = '(?:[-a-zA-Z0-9\\._]*[-a-zA-Z0-9])';
 const urlChars = `(?:${urlChar}*${urlCharEnd})?`;
@@ -20,9 +20,15 @@ const urlSet = ({ domain = domainPath, path } = {}) =>
     Unless your using a 'g' (glob) flag you can store and re-use your regular expression.  Use the cache below.  If your using a glob (for example: replace all), the regex object becomes stateful and continues where it left off when called with the same string so naturally the regexp object can't be cached for long.
 */
 export const any = (flags = 'i') => new RegExp(urlSet(), flags);
-export const local = (flags = 'i') => new RegExp(urlSet({ domain: '(?:localhost|(?:.*\\.)?steemit.com|(?:.*\\.)?busy.org)' }), flags);
-export const remote = (flags = 'i') => new RegExp(urlSet({ domain: `(?!localhost|(?:.*\\.)?steemit.com|(?:.*\\.)?busy.org)${domainPath}` }), flags);
-export const youTube = (flags = 'i') => new RegExp(urlSet({ domain: '(?:(?:.*\.)?youtube.com|youtu.be)' }), flags);
+export const local = (flags = 'i') =>
+  new RegExp(urlSet({ domain: '(?:localhost|(?:.*\\.)?steemit.com|(?:.*\\.)?busy.org)' }), flags);
+export const remote = (flags = 'i') =>
+  new RegExp(
+    urlSet({ domain: `(?!localhost|(?:.*\\.)?steemit.com|(?:.*\\.)?busy.org)${domainPath}` }),
+    flags,
+  );
+export const youTube = (flags = 'i') =>
+  new RegExp(urlSet({ domain: '(?:(?:.*.)?youtube.com|youtu.be)' }), flags);
 export const image = (flags = 'i') => new RegExp(urlSet({ path: imagePath }), flags);
 export const imageFile = (flags = 'i') => new RegExp(imagePath, flags);
 // export const nonImage = (flags = 'i') => new RegExp(urlSet({path: '!' + imageFile}), flags)

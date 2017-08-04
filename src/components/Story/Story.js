@@ -12,6 +12,7 @@ import './Story.less';
 class Story extends React.Component {
   static propTypes = {
     post: PropTypes.shape().isRequired,
+    postState: PropTypes.shape().isRequired,
     pendingLike: PropTypes.bool,
     pendingFollow: PropTypes.bool,
     onFollowClick: PropTypes.func,
@@ -72,7 +73,6 @@ class Story extends React.Component {
       followText = 'Following';
     }
 
-
     return (
       <div className="Story">
         <Popover
@@ -81,11 +81,12 @@ class Story extends React.Component {
           content={
             <PopoverMenu onSelect={this.handleClick} bold={false}>
               <PopoverMenuItem key="follow" disabled={pendingFollow}>
-                {(pendingFollow) ? <Icon type="loading" /> : <i className="iconfont icon-people" />}
+                {pendingFollow ? <Icon type="loading" /> : <i className="iconfont icon-people" />}
                 {`${followText} ${post.author}`}
               </PopoverMenuItem>
               <PopoverMenuItem key="save">
-                <i className="iconfont icon-collection" /> {(postState.isSaved) ? 'Unsave post' : 'Save post'}
+                <i className="iconfont icon-collection" />{' '}
+                {postState.isSaved ? 'Unsave post' : 'Save post'}
               </PopoverMenuItem>
               <PopoverMenuItem key="report">
                 <i className="iconfont icon-flag" /> Report post
@@ -101,14 +102,15 @@ class Story extends React.Component {
           </Link>
           <div className="Story__header__text">
             <Link to={`/@${post.author}`}>
-              <h4>{post.author}</h4>
+              <h4>
+                {post.author}
+              </h4>
             </Link>
             <Tooltip
               placement="bottom"
               title={
                 <span>
-                  <FormattedDate value={`${post.created}Z`} />
-                  {' '}
+                  <FormattedDate value={`${post.created}Z`} />{' '}
                   <FormattedTime value={`${post.created}Z`} />
                 </span>
               }
@@ -124,7 +126,9 @@ class Story extends React.Component {
         </div>
         <div className="Story__content">
           <Link to={post.url} className="Story__content__title">
-            <h2>{post.title}</h2>
+            <h2>
+              {post.title}
+            </h2>
           </Link>
           <Link to={post.url} className="Story__content__preview">
             <StoryPreview post={post} />

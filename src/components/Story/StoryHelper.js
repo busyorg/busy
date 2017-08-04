@@ -10,17 +10,17 @@ const getPositions = (text) => {
 };
 
 const postWithPicture = (tagPositions, searchPosition) => {
-  const result = (tagPositions.image && tagPositions.image < searchPosition);
+  const result = tagPositions.image && tagPositions.image < searchPosition;
   if (tagPositions.embed !== undefined) {
-    return (tagPositions.embed > tagPositions.image) && result;
+    return tagPositions.embed > tagPositions.image && result;
   }
   return result;
 };
 
 const postWithAnEmbed = (tagPositions, searchPosition) => {
-  const result = (tagPositions.embed && tagPositions.embed < searchPosition);
+  const result = tagPositions.embed && tagPositions.embed < searchPosition;
   if (tagPositions.image !== undefined) {
-    return (tagPositions.image > tagPositions.embed) && result;
+    return tagPositions.image > tagPositions.embed && result;
   }
   return result;
 };
@@ -35,5 +35,5 @@ export {
   isPostStartsWithAPicture,
   isPostStartsWithAnEmbed,
   isPostWithPictureBeforeFirstHalf,
-  isPostWithEmbedBeforeFirstHalf
+  isPostWithEmbedBeforeFirstHalf,
 };

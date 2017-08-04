@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import steemconnect from 'sc2-sdk';
 import Cookie from 'js-cookie';
 import ReactGA from 'react-ga';
+import Raven from 'raven-js';
 import { AppContainer } from 'react-hot-loader';
 import { LocaleProvider, message } from 'antd';
 import enUS from 'antd/lib/locale-provider/en_US';
@@ -20,14 +21,13 @@ const logPageView = () => {
 };
 
 if (process.env.SENTRY_PUBLIC_DSN) {
-  const Raven = require('raven-js');
   Raven.config(process.env.SENTRY_PUBLIC_DSN).install();
 }
 
 if (process.env.STEEMCONNECT_HOST) {
   steemconnect.init({
     app: 'busy.app',
-    callbackURL: process.env.STEEMCONNECT_REDIRECT_URL
+    callbackURL: process.env.STEEMCONNECT_REDIRECT_URL,
   });
   const accessToken = Cookie.get('access_token');
   steemconnect.setBaseURL(process.env.STEEMCONNECT_HOST);
@@ -60,7 +60,7 @@ const render = (Component) => {
         }
       </LocaleProvider>
     </Provider>,
-    document.getElementById('app')
+    document.getElementById('app'),
   );
 };
 

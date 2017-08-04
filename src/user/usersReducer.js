@@ -4,22 +4,22 @@ const initialState = {};
 
 export default function usersReducer(state = initialState, action) {
   switch (action.type) {
-    case `${actions.GET_FOLLOWING_COUNT}_START`:
+    case actions.GET_FOLLOWING_COUNT_START:
       return {
         ...state,
         [action.meta.username]: {
           ...state[action.meta.username],
           isFetching: true,
-        }
+        },
       };
-    case `${actions.GET_FOLLOWING_COUNT}_SUCCESS`: {
+    case actions.GET_FOLLOWING_COUNT_SUCCESS: {
       return {
         ...state,
         [action.meta.username]: {
           ...state[action.meta.username],
           isFetching: false,
-          ...action.payload
-        }
+          ...action.payload,
+        },
       };
     }
     default: {

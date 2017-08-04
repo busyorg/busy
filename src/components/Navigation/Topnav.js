@@ -13,34 +13,29 @@ const Topnav = ({
   onSeeAllClick,
   onMenuItemClick,
   notifications,
-  }) => {
+}) => {
   let content;
 
-  const notificationsCount = notifications && notifications
-    .filter(notification => !notification.read)
-    .length;
+  const notificationsCount =
+    notifications && notifications.filter(notification => !notification.read).length;
 
   if (username) {
     content = (
       <div className="Topnav__menu-container">
-        <Menu
-          selectedKeys={[]}
-          className="Topnav__menu-container__menu"
-          mode="horizontal"
-        >
+        <Menu selectedKeys={[]} className="Topnav__menu-container__menu" mode="horizontal">
           <Menu.Item key="user" className="Topnav__item-user">
             <Link className="Topnav__user" to={`/@${username}`}>
               <Avatar username={username} size={36} />
-              <span className="Topnav__user__username">{username}</span>
+              <span className="Topnav__user__username">
+                {username}
+              </span>
             </Link>
           </Menu.Item>
           <Menu.Item
             key="notifications"
-            className={
-              classNames('Topnav__item--dropdown', {
-                'Topnav__item--badge': notifications !== 0,
-              })
-            }
+            className={classNames('Topnav__item--dropdown', {
+              'Topnav__item--badge': notifications !== 0,
+            })}
           >
             <Popover
               placement="bottomRight"
@@ -84,17 +79,13 @@ const Topnav = ({
       <div className="Topnav__menu-container">
         <Menu className="Topnav__menu-container__menu" mode="horizontal">
           <Menu.Item key="signin">
-            <Link to="/signin">
-              Sign in
-            </Link>
+            <Link to="/signin">Sign in</Link>
           </Menu.Item>
           <Menu.Item key="divider" disabled>
             |
           </Menu.Item>
           <Menu.Item key="signup">
-            <Link to="/signup">
-              Sign up
-            </Link>
+            <Link to="/signup">Sign up</Link>
           </Menu.Item>
         </Menu>
       </div>
@@ -128,9 +119,7 @@ Topnav.propTypes = {
   onNotificationClick: PropTypes.func,
   onSeeAllClick: PropTypes.func,
   onMenuItemClick: PropTypes.func,
-  notifications: PropTypes.arrayOf(
-    PropTypes.shape(),
-  ),
+  notifications: PropTypes.arrayOf(PropTypes.shape()),
 };
 
 Topnav.defaultProps = {

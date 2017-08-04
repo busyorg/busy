@@ -21,12 +21,12 @@ class Affix extends React.Component {
     children: PropTypes.element.isRequired,
     className: PropTypes.string,
     stickPosition: PropTypes.number,
-  }
+  };
 
   static defaultProps = {
     className: '',
     stickPosition: 0,
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -73,12 +73,17 @@ class Affix extends React.Component {
 
     const viewportOffset = this.affixContainer.getBoundingClientRect();
 
-    const fits = (windowHeight >= sidebarHeight);
-    const overlaps = (viewportOffset.top < parent.getBoundingClientRect().top);
-    const shouldBindTop = (viewportOffset.top >= stickPosition && !scrollingDown
-      && !overlaps && scrollTop >= parent.offsetTop);
-    const shouldFix = this.affixContainer.offsetTop > parent.offsetTop
-      && viewportOffset.top > parentSpace && !scrollingDown;
+    const fits = windowHeight >= sidebarHeight;
+    const overlaps = viewportOffset.top < parent.getBoundingClientRect().top;
+    const shouldBindTop =
+      viewportOffset.top >= stickPosition &&
+      !scrollingDown &&
+      !overlaps &&
+      scrollTop >= parent.offsetTop;
+    const shouldFix =
+      this.affixContainer.offsetTop > parent.offsetTop &&
+      viewportOffset.top > parentSpace &&
+      !scrollingDown;
 
     if (fits) {
       if (viewportOffset.top <= stickPosition) {
@@ -118,18 +123,22 @@ class Affix extends React.Component {
     }
 
     this.lastScroll = scrollTop;
-  }
+  };
 
   render() {
     const { className } = this.props;
     return (
       <div
         className={className}
-        ref={(relativeContainer) => { this.relativeContainer = relativeContainer; }}
+        ref={(relativeContainer) => {
+          this.relativeContainer = relativeContainer;
+        }}
       >
         <div
           style={{ position: 'absolute' }}
-          ref={(affixContainer) => { this.affixContainer = affixContainer; }}
+          ref={(affixContainer) => {
+            this.affixContainer = affixContainer;
+          }}
         >
           {this.props.children}
         </div>

@@ -40,21 +40,29 @@ const listByCommentId = (state = {}, action) => {
 const listByPostIdItem = (state = initialCommentsList, action) => {
   switch (action.type) {
     case commentsTypes.GET_COMMENTS_START:
+    {
+      if (state.list.length) {
+        return {
+          ...state,
+          isFetching: true,
+          show: defaultNumberOfCommentsToShow,
+        };
+      }
       return {
         ...state,
         isFetching: true,
         list: [],
         show: defaultNumberOfCommentsToShow,
       };
+    }
     case commentsTypes.GET_COMMENTS_SUCCESS:
-      const hasMore = action.payload.rootCommentsList.length > defaultNumberOfCommentsToShow;
       return {
         ...state,
         list: action.payload.rootCommentsList,
         isFetching: false,
-        hasMore,
+        hasMore: action.payload.rootCommentsList.length > defaultNumberOfCommentsToShow,
       };
-    case commentsTypes.SHOW_MORE_COMMENTS:
+    case commentsTypes.SHOW_MORE_COMMENTS: {
       const newShowValue = state.show === defaultNumberOfCommentsToShow
         ? defaultCommentsForPagination
         : state.show + defaultCommentsForPagination;
@@ -63,6 +71,7 @@ const listByPostIdItem = (state = initialCommentsList, action) => {
         show: newShowValue,
         hasMore: newShowValue < state.list.length,
       };
+    }
     case commentsTypes.SEND_COMMENT_START:
       return {
         ...state,
@@ -112,7 +121,7 @@ const mapCommentsBasedOnId = (data) => {
 
 const commentItem = (state = {}, action) => {
   switch (action.type) {
-    case commentsTypes.LIKE_COMMENT_START:
+    case commentsTypes.LIKE_COMMENT_START: {
       if (action.meta.isRetry) {
         // No optimistic change in case of retry
         return state;
@@ -126,11 +135,11 @@ const commentItem = (state = {}, action) => {
           {
             voter: action.meta.voter,
             percent: action.meta.weight,
-          }
+          },
         ];
       } else {
         optimisticActiveVotes = state.active_votes.filter(
-          vote => vote.voter !== action.meta.voter
+          vote => vote.voter !== action.meta.voter,
         );
       }
 
@@ -141,6 +150,7 @@ const commentItem = (state = {}, action) => {
         active_votes: optimisticActiveVotes,
         net_votes: optimisticNetVotes,
       };
+    }
     default:
       return state;
   }
@@ -154,7 +164,7 @@ const commentsData = (state = {}, action) => {
         ...state,
         ...mapCommentsBasedOnId(action.payload.content),
       };
-    case userTypes.GET_MORE_USER_COMMENTS_SUCCESS:
+    case userTypes.GET_MORE_USER_COMMENTS_SUCCESS: {
       const commentsMoreList = {};
       action.payload.result.forEach((comment) => {
         commentsMoreList[comment.id] = comment;
@@ -163,7 +173,7 @@ const commentsData = (state = {}, action) => {
         ...state,
         ...commentsMoreList,
       };
-
+    }
     case commentsTypes.LIKE_COMMENT_START:
       return {
         ...state,
@@ -209,10 +219,9 @@ const commentingDraft = (state = {}, action) => {
   switch (action.type) {
     case commentsTypes.OPEN_COMMENTING_DRAFT:
     case commentsTypes.UPDATE_COMMENTING_DRAFT:
-      const { id } = action.payload;
       return {
         ...state,
-        [id]: commentingDraftItem(state[id], action),
+        [action.payload.id]: commentingDraftItem(state[action.payload.id], action),
       };
     default:
       return state;
