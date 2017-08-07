@@ -8,7 +8,6 @@ import * as postActions from '../post/postActions';
 import { followUser, unfollowUser } from '../user/userActions';
 import Story from '../components/Story/Story';
 import StoryLoading from '../components/Story/StoryLoading';
-import './Feed.less';
 
 @connect(
   state => ({
@@ -87,65 +86,61 @@ export default class Feed extends React.Component {
     } = this.props;
 
     return (
-      <div className="Feed">
-        <div className="Feed__content">
-          <ReduxInfiniteScroll
-            loadMore={this.props.loadMoreContent}
-            loader={<StoryLoading />}
-            loadingMore={isFetching}
-            hasMore={hasMore}
-            elementIsScrollable={false}
-            threshold={200}
-          >
-            {content.map((post) => {
-              // if (this.props.username) {
-              //   if (this.props.onlyReblogs && post.author === this.props.username) {
-              //     return false;
-              //   }
-              //   if (this.props.hideReblogs && post.author !== this.props.username) {
-              //     return false;
-              //   }
-              // }
+      <ReduxInfiniteScroll
+        loadMore={this.props.loadMoreContent}
+        loader={<StoryLoading />}
+        loadingMore={isFetching}
+        hasMore={hasMore}
+        elementIsScrollable={false}
+        threshold={200}
+      >
+        {content.map((post) => {
+          // if (this.props.username) {
+          //   if (this.props.onlyReblogs && post.author === this.props.username) {
+          //     return false;
+          //   }
+          //   if (this.props.hideReblogs && post.author !== this.props.username) {
+          //     return false;
+          //   }
+          // }
 
-              const loggedInUser = auth.user;
-              const userVote = _.find(post.active_votes, { voter: loggedInUser.name }) || {};
+          const loggedInUser = auth.user;
+          const userVote = _.find(post.active_votes, { voter: loggedInUser.name }) || {};
 
-              const postState = {
-                isReblogged: reblogList.includes(post.id),
-                isReblogging: pendingReblogs.includes(post.id),
-                isSaved:
-                  bookmarks[loggedInUser.name] &&
-                  bookmarks[loggedInUser.name].filter(bookmark => bookmark.id === post.id).length >
-                    0,
-                isLiked: userVote.percent > 0,
-                isReported: userVote.percent < 0,
-                userFollowed: followingList.includes(post.author),
-              };
+          const postState = {
+            isReblogged: reblogList.includes(post.id),
+            isReblogging: pendingReblogs.includes(post.id),
+            isSaved:
+              bookmarks[loggedInUser.name] &&
+              bookmarks[loggedInUser.name].filter(bookmark => bookmark.id === post.id).length >
+                0,
+            isLiked: userVote.percent > 0,
+            isReported: userVote.percent < 0,
+            userFollowed: followingList.includes(post.author),
+          };
 
-              const likePost =
-                userVote.percent > 0
-                  ? () => votePost(post.id, post.author, post.permlink, 0)
-                  : () => votePost(post.id, post.author, post.permlink);
-              const reportPost = () => votePost(post.id, -1000);
+          const likePost =
+            userVote.percent > 0
+              ? () => votePost(post.id, post.author, post.permlink, 0)
+              : () => votePost(post.id, post.author, post.permlink);
+          const reportPost = () => votePost(post.id, -1000);
 
-              return (
-                <Story
-                  key={post.id}
-                  post={post}
-                  postState={postState}
-                  pendingLike={pendingLikes.includes(post.id)}
-                  pendingFollow={pendingFollows.includes(post.author)}
-                  onFollowClick={this.handleFollowClick}
-                  onSaveClick={() => toggleBookmark(post.id, post.author, post.permlink)}
-                  onReportClick={reportPost}
-                  onLikeClick={likePost}
-                  onShareClick={() => reblog(post.id)}
-                />
-              );
-            })}
-          </ReduxInfiniteScroll>
-        </div>
-      </div>
+          return (
+            <Story
+              key={post.id}
+              post={post}
+              postState={postState}
+              pendingLike={pendingLikes.includes(post.id)}
+              pendingFollow={pendingFollows.includes(post.author)}
+              onFollowClick={this.handleFollowClick}
+              onSaveClick={() => toggleBookmark(post.id, post.author, post.permlink)}
+              onReportClick={reportPost}
+              onLikeClick={likePost}
+              onShareClick={() => reblog(post.id)}
+            />
+          );
+        })}
+      </ReduxInfiniteScroll>
     );
   }
 }
