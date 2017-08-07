@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import {
   getFeedContent,
@@ -30,9 +30,27 @@ import ScrollToTop from '../components/Utils/ScrollToTop';
       dispatch(getMoreFeedContent({ sortBy, category, limit: 10 })),
     getUserFeedContent: username => dispatch(getUserFeedContent({ username, limit: 10 })),
     getMoreUserFeedContent: username => dispatch(getMoreUserFeedContent({ username, limit: 10 })),
-  })
+  }),
 )
 class SubFeed extends React.Component {
+  static propTypes = {
+    auth: PropTypes.shape().isRequired,
+    feed: PropTypes.shape().isRequired,
+    posts: PropTypes.shape().isRequired,
+    match: PropTypes.shape().isRequired,
+    getFeedContent: PropTypes.func,
+    getMoreFeedContent: PropTypes.func,
+    getUserFeedContent: PropTypes.func,
+    getMoreUserFeedContent: PropTypes.func,
+  };
+
+  static defaultProps = {
+    getFeedContent: () => {},
+    getMoreFeedContent: () => {},
+    getUserFeedContent: () => {},
+    getMoreUserFeedContent: () => {},
+  };
+
   componentDidMount() {
     const { auth, match } = this.props;
     const sortBy = match.params.sortBy || 'trending';
