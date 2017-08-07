@@ -49,8 +49,8 @@ class SubFeed extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     const { auth, match } = nextProps;
-    const oldSortBy = this.props.match.params.sortBy || 'trending';
-    const newSortBy = match.params.sortBy || 'trending';
+    const oldSortBy = this.props.match.params.sortBy;
+    const newSortBy = match.params.sortBy;
     const oldCategory = this.props.match.params.category;
     const newCategory = match.params.category;
     const wasAuthenticated = this.props.auth && this.props.auth.isAuthenticated;
@@ -67,7 +67,7 @@ class SubFeed extends React.Component {
     ) {
       this.props.getUserFeedContent(auth.user.name);
     } else if (oldSortBy !== newSortBy || oldCategory !== newCategory || (!wasLoaded && isLoaded)) {
-      this.props.getFeedContent(newSortBy, match.params.category);
+      this.props.getFeedContent(newSortBy || 'trending', match.params.category);
     }
   }
 
