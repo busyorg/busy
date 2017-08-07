@@ -42,3 +42,13 @@ export const login = () => (dispatch) => {
     initPushpad(result.user, accessToken);
   });
 };
+
+export const logout = () => (dispatch) => {
+  dispatch({
+    type: LOGOUT,
+    payload: {
+      promise: steemConnect.revokeToken()
+        .then(() => Cookie.remove('access_token')),
+    },
+  });
+};

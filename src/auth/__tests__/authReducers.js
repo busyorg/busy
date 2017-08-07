@@ -70,11 +70,6 @@ describe('authReducer', () => {
   });
 
   describe(`dispatching action ${authTypes.LOGOUT_SUCCESS}`, () => {
-    it('is expected to return isFetching as true', () => {
-      expect(authReducers(undefined, { type: authTypes.LOGOUT_SUCCESS })).to.have
-        .property('isFetching')
-        .and.equal(true);
-    });
     it('is expected to return isAuthenticated as false', () => {
       expect(authReducers(undefined, { type: authTypes.LOGOUT_SUCCESS })).to.have
         .property('isAuthenticated')

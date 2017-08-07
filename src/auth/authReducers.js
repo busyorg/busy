@@ -36,11 +36,20 @@ export default (state = initialState, action) => {
         loaded: true,
         errorMessage: action.message,
       };
-    case types.LOGOUT_SUCCESS:
+    case types.LOGOUT_START:
       return {
         ...state,
         isFetching: true,
+        loaded: false,
+      };
+    case types.LOGOUT_SUCCESS:
+      return {
+        ...state,
         isAuthenticated: false,
+        isFetching: false,
+        loaded: true,
+        user: {},
+        token: '',
       };
     default:
       return state;

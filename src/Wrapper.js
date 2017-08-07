@@ -4,7 +4,7 @@ import { IntlProvider } from 'react-intl';
 import { Layout } from 'antd';
 import { GatewayProvider, GatewayDest } from 'react-gateway';
 import { withRouter } from 'react-router-dom';
-import { login } from './auth/authActions';
+import { login, logout } from './auth/authActions';
 import { getConfig, getRate } from './actions';
 import steemAPI from './steemAPI';
 import { getMessages, getLocale } from './translations/translationHelper';
@@ -21,6 +21,7 @@ import './translations/Translations';
   }),
   {
     login,
+    logout,
     getConfig,
     getRate,
     getRebloggedList: reblogActions.getRebloggedList,
@@ -32,6 +33,7 @@ export default class Wrapper extends React.PureComponent {
     auth: PropTypes.shape().isRequired,
     children: PropTypes.element.isRequired,
     login: PropTypes.func,
+    logout: PropTypes.func,
     getConfig: PropTypes.func,
     getRebloggedList: PropTypes.func,
     getRate: PropTypes.func,
@@ -39,6 +41,7 @@ export default class Wrapper extends React.PureComponent {
 
   static defaultProps = {
     login: () => {},
+    logout: () => {},
     getConfig: () => {},
     getRebloggedList: () => {},
     getRate: () => {},
@@ -68,6 +71,12 @@ export default class Wrapper extends React.PureComponent {
     });
   };
 
+  handleMenuItemClick = (key) => {
+    if (key === 'logout') {
+      this.props.logout();
+    }
+  };
+
   render() {
     const { messages } = this.state;
     const { app, auth } = this.props;
@@ -82,7 +91,7 @@ export default class Wrapper extends React.PureComponent {
         <GatewayProvider>
           <Layout>
             <Layout.Header style={{ position: 'fixed', width: '100%', zIndex: 5 }}>
-              <Topnav username={auth.user.name} />
+              <Topnav username={auth.user.name} onMenuItemClick={this.handleMenuItemClick} />
             </Layout.Header>
             <div className="content">
               {this.props.children}
