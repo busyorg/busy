@@ -5,8 +5,6 @@ import { Route } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { getAccountWithFollowingCount } from './usersActions';
 import { followUser, unfollowUser } from './userActions';
-// import Loading from '../components/Icon/Loading';
-// import UserNotFound from '../statics/UserNotFound';
 import UserHero from './UserHero';
 import LeftSidebar from '../app/Sidebar/LeftSidebar';
 import RightSidebar from '../app/Sidebar/RightSidebar';

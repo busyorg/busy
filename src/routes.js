@@ -8,14 +8,6 @@ import Settings from './app/AppSettings';
 
 import Page from './feed/Page';
 import User from './user/User';
-// import Profile from './user/UserProfile';
-// import Followers from './user/UserFollowers';
-// import Following from './user/UserFollowing';
-// import Posts from './user/UserPosts';
-// import Reblogs from './user/UserReblogs';
-// import Replies from './user/UserReplies';
-// import Feed from './user/UserFeed';
-// import Transfers from './user/UserTransfers';
 import Transfer from './wallet/Transfer';
 import Tags from './tags/Tags';
 import Donors from './statics/Donors';
@@ -29,19 +21,6 @@ import Signin from './auth/Signin';
 import Write from './post/Write/Write';
 import Drafts from './post/Write/Drafts';
 import RequireLogin from './auth/RequireLogin';
-
-// export const UserRoutes = () =>
-//   (<Switch>
-//     <Route
-//       path="/@:name/transfers"
-//       render={() =>
-//         (<User>
-//           <Transfers />
-//         </User>)}
-//     />
-//   </Switch>);
-//
-// UserRoutes.needs = UserNeeds;
 
 export default (
   <Wrapper>
