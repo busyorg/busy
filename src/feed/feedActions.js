@@ -1,4 +1,5 @@
 import { createAction } from 'redux-actions';
+import Logger from 'js-logger';
 
 import { getDiscussionsFromAPI } from '../helpers/apiHelpers';
 import {
@@ -71,7 +72,7 @@ export const getFeedContent = ({ sortBy, category, limit }) => (
       ),
     )
     .catch((err) => {
-      console.error(`error while loading ${sortBy}/${category}`, JSON.stringify(err));
+      Logger.error(`error while loading ${sortBy}/${category}`, err);
       throw err;
     });
 };
@@ -109,7 +110,7 @@ export const getUserFeedContent = ({ username, limit }) => (dispatch, getState, 
       ),
     )
     .catch((err) => {
-      console.error(`error while loading ${sortBy}/${username}`, JSON.stringify(err));
+      Logger.error(`error while loading ${sortBy}/${username}`, err);
       throw err;
     });
 };
@@ -167,7 +168,7 @@ export const getMoreFeedContent = ({ sortBy, category, limit }) => (
       );
     })
     .catch((err) => {
-      console.error(`error while loading ${sortBy}/${category}`, JSON.stringify(err));
+      Logger.error(`error while loading ${sortBy}/${category}`, err);
       throw err;
     });
 };
@@ -227,7 +228,7 @@ export const getMoreUserFeedContent = ({ username, limit }) => (
       );
     })
     .catch((err) => {
-      console.error(`error while loading ${sortBy} for ${username}`, JSON.stringify(err));
+      Logger.error(`error while loading ${sortBy}/${username}`, err);
       throw err;
     });
 };

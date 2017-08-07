@@ -18,6 +18,7 @@ import UserHero from './UserHero';
 import LeftSidebar from '../app/Sidebar/LeftSidebar';
 import RightSidebar from '../app/Sidebar/RightSidebar';
 import Affix from '../components/Utils/Affix';
+import ScrollToTopOnMount from '../components/Utils/ScrollToTopOnMount';
 
 export const needs = [getAccountWithFollowingCount];
 
@@ -148,6 +149,7 @@ export default class User extends React.Component {
             content={image || 'https://steemit.com/images/steemit-twshare.png'}
           />
         </Helmet>
+        <ScrollToTopOnMount />
         {user &&
           <UserHero
             auth={auth}
