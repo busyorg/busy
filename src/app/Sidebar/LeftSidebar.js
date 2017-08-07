@@ -59,13 +59,13 @@ const LeftSidebar = ({ auth, user }) => {
                   Joined{' '}
                   <FormattedDate value={user.created} year="numeric" month="long" day="numeric" />
                 </div>
-                {location && <div>
-                  <i className="iconfont icon-coordinates text-icon" />
-                  {location}
-                </div>}
                 {website && <div>
                   <i className="iconfont icon-send text-icon" />
                   <a href={website}>{website}</a>
+                </div>}
+                {location && <div>
+                  <i className="iconfont icon-coordinates text-icon" />
+                  {location}
                 </div>}
               </div>
             </div>}
