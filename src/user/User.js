@@ -1,35 +1,31 @@
 import React, { PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-import {
-  getFeedContent,
-  getMoreFeedContent,
-  getUserFeedContent,
-  getMoreUserFeedContent,
-} from '../feed/feedActions';
 import { getAccountWithFollowingCount } from './usersActions';
-import { getUserComments, getMoreUserComments, followUser, unfollowUser } from './userActions';
-import { addUserFavorite, removeUserFavorite } from '../favorites/favoritesActions';
-import Loading from '../components/Icon/Loading';
-import UserNotFound from '../statics/UserNotFound';
+import { followUser, unfollowUser } from './userActions';
+// import Loading from '../components/Icon/Loading';
+// import UserNotFound from '../statics/UserNotFound';
 import UserHero from './UserHero';
 import LeftSidebar from '../app/Sidebar/LeftSidebar';
 import RightSidebar from '../app/Sidebar/RightSidebar';
 import Affix from '../components/Utils/Affix';
 import ScrollToTopOnMount from '../components/Utils/ScrollToTopOnMount';
 
+import UserProfile from './UserProfile';
+import UserComments from './UserComments';
+import UserFollowers from './UserFollowers';
+import UserFollowing from './UserFollowing';
+import UserReblogs from './UserReblogs';
+import UserFeed from './UserFeed';
+import UserTransfers from './UserTransfers';
+
 export const needs = [getAccountWithFollowingCount];
 
-@withRouter
 @connect(
   state => ({
     auth: state.auth,
-    feed: state.feed,
-    posts: state.posts,
-    comments: state.comments,
-    favorites: state.favorites.users,
     users: state.users,
     followingList: state.user.following.list,
     pendingFollows: state.user.following.pendingFollows,
@@ -37,14 +33,6 @@ export const needs = [getAccountWithFollowingCount];
   dispatch =>
     bindActionCreators(
       {
-        getFeedContent,
-        getMoreFeedContent,
-        getUserFeedContent,
-        getMoreUserFeedContent,
-        getUserComments,
-        getMoreUserComments,
-        addUserFavorite,
-        removeUserFavorite,
         getAccountWithFollowingCount,
         followUser,
         unfollowUser,
@@ -59,7 +47,6 @@ export default class User extends React.Component {
     users: PropTypes.shape().isRequired,
     followingList: PropTypes.arrayOf(PropTypes.string).isRequired,
     pendingFollows: PropTypes.arrayOf(PropTypes.string).isRequired,
-    children: PropTypes.element.isRequired,
     getAccountWithFollowingCount: PropTypes.func,
     followUser: PropTypes.func,
     unfollowUser: PropTypes.func,
@@ -86,16 +73,6 @@ export default class User extends React.Component {
     }
   }
 
-  getUserView(user) {
-    return user.name
-      ? React.cloneElement(this.props.children, {
-        ...this.props,
-        user,
-        limit: 10,
-      })
-      : <UserNotFound />;
-  }
-
   handleFollowClick = () => {
     const username = this.props.match.params.name;
     const isFollowed = this.props.followingList.includes(username);
@@ -107,7 +84,7 @@ export default class User extends React.Component {
   };
 
   render() {
-    const { auth, followingList, pendingFollows } = this.props;
+    const { auth, match, followingList, pendingFollows } = this.props;
     const username = this.props.match.params.name;
     const { isFetching, ...user } = this.props.users[username] || {};
     const { profile = {} } = user.json_metadata || {};
@@ -173,7 +150,13 @@ export default class User extends React.Component {
               </div>
             </Affix>
             <div className="center">
-              {isFetching ? <Loading /> : this.getUserView(user)}
+              <Route exact path={match.path} component={UserProfile} />
+              <Route path={`${match.path}/comments`} component={UserComments} />
+              <Route path={`${match.path}/followers`} component={UserFollowers} />
+              <Route path={`${match.path}/followed`} component={UserFollowing} />
+              <Route path={`${match.path}/reblogs`} component={UserReblogs} />
+              <Route path={`${match.path}/feed`} component={UserFeed} />
+              <Route path={`${match.path}/transfers`} component={UserTransfers} />
             </div>
           </div>
         </div>

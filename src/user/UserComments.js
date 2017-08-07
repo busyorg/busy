@@ -1,12 +1,20 @@
 import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
 import Feed from '../feed/Feed';
 import {
   getUserCommentsFromState,
   getFeedLoadingFromState,
   getFeedHasMoreFromState,
 } from '../helpers/stateHelpers';
-import { getUserComments as getUserCommentsStatic } from './userActions';
+import { getUserComments, getMoreUserComments } from './userActions';
 
+@connect(state => ({
+  feed: state.feed,
+  comments: state.comments,
+}), {
+  getUserComments,
+  getMoreUserComments,
+})
 export default class UserProfilePosts extends React.Component {
   static propTypes = {
     feed: PropTypes.shape().isRequired,
@@ -23,24 +31,28 @@ export default class UserProfilePosts extends React.Component {
     getMoreUserComments: () => {},
   };
 
-  static needs = [({ name }) => getUserCommentsStatic({ username: name })];
+  static needs = [({ name }) => this.props.getUserComments({ username: name })];
+
+  componentWillMount() {
+    this.props.getUserComments({
+      username: this.props.match.params.name,
+    });
+  }
 
   render() {
-    const { feed, comments, match, limit, getUserComments, getMoreUserComments } = this.props;
+    const { feed, comments, match, limit } = this.props;
     const username = match.params.name;
 
     const content = getUserCommentsFromState(username, feed, comments);
     const isFetching = getFeedLoadingFromState('comments', username, feed);
     const hasMore = getFeedHasMoreFromState('comments', username, feed);
-    const loadContentAction = () => getUserComments({ username });
-    const loadMoreContentAction = () => getMoreUserComments(username, limit);
+    const loadMoreContentAction = () => this.props.getMoreUserComments(username, limit);
 
     return (
       <Feed
         content={content}
         isFetching={isFetching}
         hasMore={hasMore}
-        loadContent={loadContentAction}
         loadMoreContent={loadMoreContentAction}
       />
     );

@@ -1,49 +1,57 @@
 import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
 import Feed from '../feed/Feed';
 import {
   getFeedContentFromState,
   getFeedLoadingFromState,
   getFeedHasMoreFromState,
 } from '../helpers/stateHelpers';
+import { getFeedContent, getMoreFeedContent } from '../feed/feedActions';
 import EmptyUserProfile from '../statics/EmptyUserProfile';
 import EmptyUserOwnProfile from '../statics/EmptyUserOwnProfile';
 
+@connect(state => ({
+  auth: state.auth,
+  feed: state.feed,
+  posts: state.posts,
+}), {
+  getFeedContent,
+  getMoreFeedContent,
+})
 export default class UserReblogs extends React.Component {
   static propTypes = {
-    feed: PropTypes.shape(),
-    posts: PropTypes.shape(),
-    auth: PropTypes.shape(),
-    match: PropTypes.shape(),
+    feed: PropTypes.shape().isRequired,
+    posts: PropTypes.shape().isRequired,
+    auth: PropTypes.shape().isRequired,
+    match: PropTypes.shape().isRequired,
     limit: PropTypes.number,
     getFeedContent: PropTypes.func,
     getMoreFeedContent: PropTypes.func,
   };
 
   static defaultProps = {
-    feed: {},
-    posts: {},
-    auth: {},
-    match: {},
     limit: 10,
     getFeedContent: () => {},
     getMoreFeedContent: () => {},
   };
 
+  componentWillMount() {
+    this.props.getFeedContent({
+      sortBy: 'blog',
+      category: this.props.match.params.name,
+      limit: this.props.limit,
+    });
+  }
+
   render() {
-    const { feed, posts, auth, limit, getFeedContent, getMoreFeedContent } = this.props;
+    const { feed, posts, auth, limit } = this.props;
     const username = this.props.match.params.name;
     const isOwnProfile = auth.isAuthenticated && username === auth.user.name;
     const content = getFeedContentFromState('blog', username, feed, posts);
     const isFetching = getFeedLoadingFromState('blog', username, feed);
     const hasMore = getFeedHasMoreFromState('blog', username, feed);
-    const loadContentAction = () =>
-      getFeedContent({
-        sortBy: 'blog',
-        category: username,
-        limit,
-      });
     const loadMoreContentAction = () =>
-      getMoreFeedContent({
+      this.props.getMoreFeedContent({
         sortBy: 'blog',
         category: username,
         limit,
@@ -55,12 +63,9 @@ export default class UserReblogs extends React.Component {
           content={content}
           isFetching={isFetching}
           hasMore={hasMore}
-          loadContent={loadContentAction}
           loadMoreContent={loadMoreContentAction}
         />
-
         {content.length === 0 && !isFetching && isOwnProfile && <EmptyUserOwnProfile />}
-
         {content.length === 0 && !isFetching && !isOwnProfile && <EmptyUserProfile />}
       </div>
     );
