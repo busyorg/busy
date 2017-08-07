@@ -29,6 +29,14 @@ export default class UserProfileFeed extends React.Component {
 
   static needs = [({ name }) => getUserFeedContentStatic({ username: name, limit: 10 })];
 
+  componentWillMount() {
+    this.props.getUserFeedContent({
+      sortBy: 'feed',
+      username: this.props.match.params.name,
+      limit: this.props.limit,
+    });
+  }
+
   render() {
     const { feed, posts, getUserFeedContent, getMoreUserFeedContent } = this.props;
     const username = this.props.match.params.name;

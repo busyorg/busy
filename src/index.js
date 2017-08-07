@@ -5,12 +5,15 @@ import steemconnect from 'sc2-sdk';
 import Cookie from 'js-cookie';
 import ReactGA from 'react-ga';
 import Raven from 'raven-js';
+import Logger from 'js-logger';
 import { AppContainer } from 'react-hot-loader';
 import { LocaleProvider, message } from 'antd';
 import enUS from 'antd/lib/locale-provider/en_US';
 import { history } from './routes';
 import getStore from './store';
 import AppHost from './AppHost';
+
+Logger.useDefaults();
 
 const store = getStore();
 

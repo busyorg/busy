@@ -36,36 +36,29 @@ export default class UserProfile extends React.Component {
 
   static needs = [
     ({ name }) => getFeedContentStatic({ sortBy: 'blog', category: name, limit: 10 }),
-  ];
+  ]
+
+  componentWillMount() {
+    this.props.getFeedContent({
+      sortBy: 'blog',
+      category: this.props.match.params.name,
+      limit: this.props.limit,
+    });
+  }
 
   render() {
-    const {
-      feed,
-      posts,
-      auth,
-      user,
-      match,
-      limit,
-      getFeedContent,
-      getMoreFeedContent,
-    } = this.props;
-    const username = match.params.name;
+    const { feed, posts, getMoreFeedContent, limit, auth } = this.props;
+    const username = this.props.match.params.name;
     const isOwnProfile = auth.isAuthenticated && username === auth.user.name;
     const content = getFeedContentFromState('blog', username, feed, posts);
     const isFetching = getFeedLoadingFromState('blog', username, feed);
     const hasMore = getFeedHasMoreFromState('blog', username, feed);
-    const loadContentAction = () =>
-      getFeedContent({
-        sortBy: 'blog',
-        category: username,
-        limit,
-      });
-    const loadMoreContentAction = () =>
-      getMoreFeedContent({
-        sortBy: 'blog',
-        category: username,
-        limit,
-      });
+    const loadMoreContentAction = () => getMoreFeedContent({
+      sortBy: 'blog',
+      category: username,
+      limit,
+    });
+    const user = this.props.user;
 
     return (
       <div>
@@ -75,7 +68,6 @@ export default class UserProfile extends React.Component {
             content={content}
             isFetching={isFetching}
             hasMore={hasMore}
-            loadContent={loadContentAction}
             loadMoreContent={loadMoreContentAction}
           />
 

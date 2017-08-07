@@ -19,10 +19,8 @@ import Transfers from './user/UserTransfers';
 import Transfer from './wallet/Transfer';
 import Tags from './tags/Tags';
 import Donors from './statics/Donors';
-import { Trending, Hot, Votes, Responses, Active, Created, Cashout } from './feed/PathMatching';
 import Post from './post/Post';
 import Bookmarks from './bookmarks/Bookmarks';
-import Error404 from './statics/Error404';
 import About from './statics/About';
 import Help from './statics/Help';
 import Team from './statics/Team';
@@ -106,13 +104,6 @@ export default (
       <Route path="/team" component={Team} />
       <Route path="/tags" component={Tags} />
       <Route path="/donors" component={Donors} />
-      <Route path="/trending/:category?" component={Trending} />
-      <Route path="/hot/:category?" component={Hot} />
-      <Route path="/cashout/:category?" component={Cashout} />
-      <Route path="/created/:category?" component={Created} />
-      <Route path="/active/:category?" component={Active} />
-      <Route path="/responses/:category?" component={Responses} />
-      <Route path="/votes/:category?" component={Votes} />
       <Route
         path="/transfer"
         render={() =>
@@ -150,7 +141,7 @@ export default (
       />
       <Route path="/@:name" component={UserRoutes} />
       <Route path="/:category/@:author/:permlink" component={Post} />
-      <Route path="/*" component={Error404} />
+      <Route path="/" component={Page} />
     </Switch>
   </Wrapper>
 );
