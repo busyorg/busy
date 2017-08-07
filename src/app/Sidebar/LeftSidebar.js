@@ -54,19 +54,19 @@ const LeftSidebar = ({ auth, user }) => {
             <div>
               {_.get(user && user.json_metadata, 'profile.about')}
               <div style={{ marginTop: 16, marginBottom: 16, overflowWrap: 'break-word' }}>
+                {location && <div>
+                  <i className="iconfont icon-coordinates text-icon" />
+                  {location}
+                </div>}
+                {website && <div>
+                  <i className="iconfont icon-send text-icon" />
+                  <a href={website}>{website}</a>
+                </div>}
                 <div>
                   <i className="iconfont icon-time text-icon" />
                   Joined{' '}
                   <FormattedDate value={user.created} year="numeric" month="long" day="numeric" />
                 </div>
-                {website && <div>
-                  <i className="iconfont icon-send text-icon" />
-                  <a href={website}>{website}</a>
-                </div>}
-                {location && <div>
-                  <i className="iconfont icon-coordinates text-icon" />
-                  {location}
-                </div>}
               </div>
             </div>}
           {user && <Action style={{ margin: '5px 0' }} text="Transfer" />}
