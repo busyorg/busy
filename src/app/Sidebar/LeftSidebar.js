@@ -7,7 +7,6 @@ import api from '../../steemAPI';
 import Topics from '../../components/Sidebar/Topics';
 import Sidenav from '../../components/Navigation/Sidenav';
 import Action from '../../components/Button/Action';
-import { jsonParse } from '../../helpers/formatter';
 
 class SidebarWithTopics extends React.PureComponent {
   constructor(props) {
@@ -42,19 +41,32 @@ class SidebarWithTopics extends React.PureComponent {
   }
 }
 
-const LeftSidebar = ({ auth, user }) =>
-  (<Switch>
+const LeftSidebar = ({ auth, user }) => {
+  const location = user && _.get(user.json_metadata, 'profile.location');
+  const website = user && _.get(user.json_metadata, 'profile.website');
+
+  return (<Switch>
     <Route
       path="/@:name"
       render={() =>
         (<div>
           {user.name &&
             <div>
-              {_.get(jsonParse(user.json_metadata), 'profile.about')}
-              <div style={{ marginTop: 16, marginBottom: 16 }}>
-                <i className="iconfont icon-time text-icon" />
-                Joined{' '}
-                <FormattedDate value={user.created} year="numeric" month="long" day="numeric" />
+              {_.get(user && user.json_metadata, 'profile.about')}
+              <div style={{ marginTop: 16, marginBottom: 16, overflowWrap: 'break-word' }}>
+                {location && <div>
+                  <i className="iconfont icon-coordinates text-icon" />
+                  {location}
+                </div>}
+                {website && <div>
+                  <i className="iconfont icon-send text-icon" />
+                  <a href={website}>{website}</a>
+                </div>}
+                <div>
+                  <i className="iconfont icon-time text-icon" />
+                  Joined{' '}
+                  <FormattedDate value={user.created} year="numeric" month="long" day="numeric" />
+                </div>
               </div>
             </div>}
           {user && <Action style={{ margin: '5px 0' }} text="Transfer" />}
@@ -70,6 +82,7 @@ const LeftSidebar = ({ auth, user }) =>
         </div>)}
     />
   </Switch>);
+};
 
 LeftSidebar.propTypes = {
   auth: PropTypes.shape().isRequired,
