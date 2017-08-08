@@ -8323,6 +8323,22 @@ exports[`Storyshots Profile UserHeader 1`] = `
             className="UserHeader__user__username"
           >
             roelandp
+            <div
+              className="ant-tag"
+              data-show={true}
+              style={
+                Object {
+                  "backgroundColor": null,
+                }
+              }
+            >
+              <span
+                className="ant-tag-text"
+              >
+                25
+              </span>
+              
+            </div>
           </h2>
           <div
             className="UserHeader__user__button"
@@ -9728,6 +9744,22 @@ exports[`Storyshots Story Inline story 1`] = `
         >
           <h4>
             bitspace
+            <div
+              className="ant-tag"
+              data-show={true}
+              style={
+                Object {
+                  "backgroundColor": null,
+                }
+              }
+            >
+              <span
+                className="ant-tag-text"
+              >
+                65
+              </span>
+              
+            </div>
           </h4>
         </a>
         <span
@@ -9937,6 +9969,22 @@ exports[`Storyshots Story Inline story with embed 1`] = `
         >
           <h4>
             fyrstikken
+            <div
+              className="ant-tag"
+              data-show={true}
+              style={
+                Object {
+                  "backgroundColor": null,
+                }
+              }
+            >
+              <span
+                className="ant-tag-text"
+              >
+                72
+              </span>
+              
+            </div>
           </h4>
         </a>
         <span

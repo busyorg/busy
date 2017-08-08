@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import { FormattedRelative, FormattedDate, FormattedTime } from 'react-intl';
 import { Link } from 'react-router-dom';
 import { Tag, Icon, Popover, Tooltip } from 'antd';
+import { formatter } from 'steem';
 import StoryPreview from './StoryPreview';
 import StoryFooter from './StoryFooter';
 import Avatar from '../Avatar';
@@ -104,6 +105,9 @@ class Story extends React.Component {
             <Link to={`/@${post.author}`}>
               <h4>
                 {post.author}
+                <Tag>
+                  {formatter.reputation(post.author_reputation)}
+                </Tag>
               </h4>
             </Link>
             <Tooltip

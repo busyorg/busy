@@ -38,6 +38,7 @@ const UserHero = ({ auth, user, username, isSameUser, isFollowed, pendingFollow,
               auth={auth}
               username={username}
               handle={user.name}
+              userReputation={user.reputation}
               isSameUser={isSameUser}
               isFollowed={isFollowed}
               pendingFollow={pendingFollow}
