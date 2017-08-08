@@ -6,6 +6,7 @@ import debounce from 'lodash/debounce';
 import isArray from 'lodash/isArray';
 import 'url-search-params-polyfill';
 import { createPost, saveDraft, newPost } from './editorActions';
+import { notify } from '../../app/Notification/notificationActions';
 import Editor from '../../components/Editor/Editor';
 import Affix from '../../components/Utils/Affix';
 
@@ -21,6 +22,7 @@ const version = require('../../../package.json').version;
     createPost,
     saveDraft,
     newPost,
+    notify,
   },
 )
 class Write extends React.Component {
@@ -31,12 +33,14 @@ class Write extends React.Component {
     newPost: PropTypes.func,
     createPost: PropTypes.func,
     saveDraft: PropTypes.func,
+    notify: PropTypes.func,
   };
 
   static defaultProps = {
     newPost: () => {},
     createPost: () => {},
     saveDraft: () => {},
+    notify: () => {},
   };
 
   constructor(props) {
@@ -85,6 +89,7 @@ class Write extends React.Component {
   };
 
   onImagePasted = (image, callback) => {
+    this.props.notify('Uploading image', 'info');
     const formData = new FormData();
     formData.append('files', this.dataURItoBlob(image));
 
@@ -93,7 +98,8 @@ class Write extends React.Component {
       body: formData,
     })
       .then(res => res.json())
-      .then(res => callback(res.secure_url));
+      .then(res => callback(res.secure_url))
+      .catch(() => this.props.notify("Couldn't upload image"));
   };
 
   getNewPostData = (form) => {
