@@ -26,6 +26,7 @@ const feedFetching = (state = false, action) => {
     case bookmarksActions.GET_BOOKMARKS_SUCCESS:
     case userTypes.GET_USER_REPLIES_SUCCESS:
     case userTypes.GET_MORE_USER_REPLIES_SUCCESS:
+    case userTypes.GET_USER_COMMENTS_SUCCESS:
       return false;
     case feedTypes.GET_FEED_CONTENT:
     case feedTypes.GET_MORE_FEED_CONTENT:
@@ -34,6 +35,7 @@ const feedFetching = (state = false, action) => {
     case bookmarksActions.GET_BOOKMARKS_START:
     case userTypes.GET_USER_REPLIES_START:
     case userTypes.GET_MORE_USER_REPLIES_START:
+    case userTypes.GET_USER_COMMENTS_START:
       return true;
     default:
       return state;

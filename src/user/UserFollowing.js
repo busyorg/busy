@@ -1,11 +1,9 @@
 import React, { PropTypes } from 'react';
-import { withRouter } from 'react-router-dom';
 import UserList from './UserList';
 import Loading from '../components/Icon/Loading';
 import { getAllFollowing } from '../helpers/apiHelpers';
 import './UserFollowing.less';
 
-@withRouter
 export default class UserFollowing extends React.Component {
   static propTypes = {
     match: PropTypes.shape().isRequired,

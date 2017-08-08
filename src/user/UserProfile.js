@@ -1,41 +1,42 @@
 import React, { PropTypes } from 'react';
-import _ from 'lodash';
+import { connect } from 'react-redux';
 import Feed from '../feed/Feed';
 import {
   getFeedContentFromState,
   getFeedLoadingFromState,
   getFeedHasMoreFromState,
 } from '../helpers/stateHelpers';
-import { getFeedContent as getFeedContentStatic } from '../feed/feedActions';
-import Loading from '../components/Icon/Loading';
+import { getFeedContent, getMoreFeedContent } from '../feed/feedActions';
 import EmptyUserProfile from '../statics/EmptyUserProfile';
 import EmptyUserOwnProfile from '../statics/EmptyUserOwnProfile';
 
+@connect(state => ({
+  auth: state.auth,
+  feed: state.feed,
+  posts: state.posts,
+}), {
+  getFeedContent,
+  getMoreFeedContent,
+})
 export default class UserProfile extends React.Component {
   static propTypes = {
-    feed: PropTypes.shape(),
-    posts: PropTypes.shape(),
-    auth: PropTypes.shape(),
-    user: PropTypes.shape(),
-    match: PropTypes.shape(),
+    feed: PropTypes.shape().isRequired,
+    posts: PropTypes.shape().isRequired,
+    auth: PropTypes.shape().isRequired,
+    match: PropTypes.shape().isRequired,
     limit: PropTypes.number,
     getFeedContent: PropTypes.func,
     getMoreFeedContent: PropTypes.func,
   };
 
   static defaultProps = {
-    feed: {},
-    posts: {},
-    auth: {},
-    user: {},
-    match: {},
     limit: 10,
     getFeedContent: () => {},
     getMoreFeedContent: () => {},
   };
 
   static needs = [
-    ({ name }) => getFeedContentStatic({ sortBy: 'blog', category: name, limit: 10 }),
+    ({ name }) => getFeedContent({ sortBy: 'blog', category: name, limit: 10 }),
   ]
 
   componentWillMount() {
@@ -47,23 +48,21 @@ export default class UserProfile extends React.Component {
   }
 
   render() {
-    const { feed, posts, getMoreFeedContent, limit, auth } = this.props;
+    const { feed, posts, limit, auth } = this.props;
     const username = this.props.match.params.name;
     const isOwnProfile = auth.isAuthenticated && username === auth.user.name;
     const content = getFeedContentFromState('blog', username, feed, posts);
     const isFetching = getFeedLoadingFromState('blog', username, feed);
     const hasMore = getFeedHasMoreFromState('blog', username, feed);
-    const loadMoreContentAction = () => getMoreFeedContent({
+    const loadMoreContentAction = () => this.props.getMoreFeedContent({
       sortBy: 'blog',
       category: username,
       limit,
     });
-    const user = this.props.user;
 
     return (
       <div>
         <div className="profile">
-          {!_.has(user, 'name') && <Loading />}
           <Feed
             content={content}
             isFetching={isFetching}
