@@ -374,7 +374,6 @@ class Editor extends React.Component {
                   ref={ref => this.setInput(ref)}
                   type="textarea"
                   placeholder="Write your story..."
-                  autosize={{ minRows: 3, maxRows: 10 }}
                 />
               </HotKeys>
               <p>You can upload images just by pasting them.</p>
