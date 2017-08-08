@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { Tag, Popover } from 'antd';
+import { Tag, Tooltip, Popover } from 'antd';
 import { formatter } from 'steem';
 import Avatar from './Avatar';
 import Follow from './Button/Follow';
@@ -24,9 +24,11 @@ const UserHeader = ({
         <div className="UserHeader__row">
           <h2 className="UserHeader__user__username">
             {username}
-            <Tag>
-              {formatter.reputation(userReputation)}
-            </Tag>
+            <Tooltip title="Reputation score" placement="bottom">
+              <Tag>
+                {formatter.reputation(userReputation)}
+              </Tag>
+            </Tooltip>
           </h2>
           <div className="UserHeader__user__button">
             {auth &&

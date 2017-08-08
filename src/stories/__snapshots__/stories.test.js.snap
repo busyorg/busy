@@ -8326,6 +8326,13 @@ exports[`Storyshots Profile UserHeader 1`] = `
             <div
               className="ant-tag"
               data-show={true}
+              onBlur={undefined}
+              onClick={undefined}
+              onFocus={undefined}
+              onMouseDown={undefined}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              onTouchStart={undefined}
               style={
                 Object {
                   "backgroundColor": null,
@@ -9747,6 +9754,13 @@ exports[`Storyshots Story Inline story 1`] = `
             <div
               className="ant-tag"
               data-show={true}
+              onBlur={undefined}
+              onClick={undefined}
+              onFocus={undefined}
+              onMouseDown={undefined}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              onTouchStart={undefined}
               style={
                 Object {
                   "backgroundColor": null,
@@ -9972,6 +9986,13 @@ exports[`Storyshots Story Inline story with embed 1`] = `
             <div
               className="ant-tag"
               data-show={true}
+              onBlur={undefined}
+              onClick={undefined}
+              onFocus={undefined}
+              onMouseDown={undefined}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              onTouchStart={undefined}
               style={
                 Object {
                   "backgroundColor": null,

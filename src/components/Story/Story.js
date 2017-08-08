@@ -105,9 +105,11 @@ class Story extends React.Component {
             <Link to={`/@${post.author}`}>
               <h4>
                 {post.author}
-                <Tag>
-                  {formatter.reputation(post.author_reputation)}
-                </Tag>
+                <Tooltip title="Reputation score" placement="bottom">
+                  <Tag>
+                    {formatter.reputation(post.author_reputation)}
+                  </Tag>
+                </Tooltip>
               </h4>
             </Link>
             <Tooltip
