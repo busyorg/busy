@@ -85,8 +85,15 @@ class Write extends React.Component {
   };
 
   onImagePasted = (image, callback) => {
-    // NOTE: Upload image to server.
-    setTimeout(() => callback('https://placehold.it/200x200'), 500);
+    const formData = new FormData();
+    formData.append('files', this.dataURItoBlob(image));
+
+    fetch(`https://busy-img.herokuapp.com/@${this.props.user.name}/uploads`, {
+      method: 'POST',
+      body: formData,
+    })
+      .then(res => res.json())
+      .then(res => callback(res.secure_url));
   };
 
   getNewPostData = (form) => {
@@ -158,6 +165,18 @@ class Write extends React.Component {
     data.jsonMetadata = metaData;
 
     return data;
+  };
+
+  dataURItoBlob = (dataURI) => {
+    const byteString = atob(dataURI.split(',')[1]);
+
+    const ab = new ArrayBuffer(byteString.length);
+    const ia = new Uint8Array(ab);
+    for (let i = 0; i < byteString.length; i += 1) {
+      ia[i] = byteString.charCodeAt(i);
+    }
+
+    return new Blob([ab]);
   };
 
   saveDraft = debounce((form) => {

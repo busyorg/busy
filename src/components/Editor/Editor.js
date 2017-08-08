@@ -204,6 +204,7 @@ class Editor extends React.Component {
       const items = e.clipboardData.items;
       Array.from(items).forEach((item) => {
         if (item.kind === 'file') {
+          e.preventDefault();
           const blob = item.getAsFile();
           const reader = new FileReader();
           reader.onload = (event) => {
