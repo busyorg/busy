@@ -131,6 +131,8 @@ class Editor extends React.Component {
       body: this.input.value,
     };
 
+    if (!e) return values;
+
     if (isArray(e)) {
       values.topics = e;
     } else if (typeof e === 'string') {
