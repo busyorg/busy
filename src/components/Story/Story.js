@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { FormattedRelative, FormattedDate, FormattedTime } from 'react-intl';
 import { Link } from 'react-router-dom';
-import { Icon, Popover, Tooltip } from 'antd';
+import { Tag, Icon, Popover, Tooltip } from 'antd';
 import StoryPreview from './StoryPreview';
 import StoryFooter from './StoryFooter';
 import Avatar from '../Avatar';
@@ -127,7 +127,12 @@ class Story extends React.Component {
         <div className="Story__content">
           <Link to={post.url} className="Story__content__title">
             <h2>
-              {post.title}
+              {post.title ||
+                <span>
+                  <Tag color="#4f545c">RE</Tag>
+                  {post.root_title}
+                </span>
+              }
             </h2>
           </Link>
           <Link to={post.url} className="Story__content__preview">
