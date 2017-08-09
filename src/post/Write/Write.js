@@ -159,7 +159,7 @@ class Write extends React.Component {
     return data;
   };
 
-  handleImageInserted = (blob, callback) => {
+  handleImageInserted = (blob, callback, errorCallback) => {
     this.props.notify('Uploading image', 'info');
     const formData = new FormData();
     formData.append('files', blob);
@@ -170,7 +170,10 @@ class Write extends React.Component {
     })
       .then(res => res.json())
       .then(res => callback(res.secure_url, blob.name))
-      .catch(() => this.props.notify("Couldn't upload image"));
+      .catch(() => {
+        errorCallback();
+        this.props.notify("Couldn't upload image");
+      });
   };
 
   saveDraft = debounce((form) => {

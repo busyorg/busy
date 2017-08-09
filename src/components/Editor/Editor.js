@@ -4,7 +4,7 @@ import Remarkable from 'remarkable';
 import { HotKeys } from 'react-hotkeys';
 import { throttle } from 'lodash';
 import isArray from 'lodash/isArray';
-import { Checkbox, Form, Input, Select, Tabs } from 'antd';
+import { Icon, Checkbox, Form, Input, Select, Tabs } from 'antd';
 import EditorToolbar from './EditorToolbar';
 import Action from '../Button/Action';
 import Body from '../Story/Body';
@@ -61,6 +61,7 @@ class Editor extends React.Component {
   state = {
     contentHtml: '',
     noContent: false,
+    imageUploading: false,
   };
 
   componentDidMount() {
@@ -207,8 +208,15 @@ class Editor extends React.Component {
       Array.from(items).forEach((item) => {
         if (item.kind === 'file') {
           e.preventDefault();
+
+          this.setState({
+            imageUploading: true,
+          });
+
           const blob = item.getAsFile();
-          this.props.onImageInserted(blob, this.insertImage);
+          this.props.onImageInserted(blob, this.insertImage, () => this.setState({
+            imageUploading: false,
+          }));
         }
       });
     }
@@ -216,7 +224,12 @@ class Editor extends React.Component {
 
   handleImageChange = (e) => {
     if (e.target.files && e.target.files[0]) {
-      this.props.onImageInserted(e.target.files[0], this.insertImage);
+      this.setState({
+        imageUploading: true,
+      });
+      this.props.onImageInserted(e.target.files[0], this.insertImage, () => this.setState({
+        imageUploading: false,
+      }));
     }
   }
 
@@ -237,6 +250,10 @@ class Editor extends React.Component {
   };
 
   insertImage = (image, imageName = 'image') => {
+    this.setState({
+      imageUploading: false,
+    });
+
     if (!this.input) return;
 
     const startPos = this.input.selectionStart;
@@ -383,8 +400,8 @@ class Editor extends React.Component {
               <p className="Editor__imagebox">
                 <input type="file" id="inputfile" onChange={this.handleImageChange} />
                 <label htmlFor="inputfile">
-                  <i className="iconfont icon-picture" />
-                  Select image or paste it from the clipboard.
+                  {(this.state.imageUploading) ? <Icon type="loading" /> : <i className="iconfont icon-picture" />}
+                  {(this.state.imageUploading) ? 'Uploading your image' : 'Select image or paste it from the clipboard.'}
                 </label>
               </p>
             </TabPane>
