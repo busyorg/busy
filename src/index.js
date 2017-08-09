@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import steemconnect from 'sc2-sdk';
 import Cookie from 'js-cookie';
+import steem from 'steem';
 import ReactGA from 'react-ga';
 import Raven from 'raven-js';
 import Logger from 'js-logger';
@@ -37,6 +38,13 @@ if (process.env.STEEMCONNECT_HOST) {
   if (accessToken) {
     steemconnect.setAccessToken(accessToken);
   }
+}
+
+if (process.env.WS) {
+  steem.api.setOptions({
+    transport: 'ws',
+    websocket: process.env.WS,
+  });
 }
 
 message.config({

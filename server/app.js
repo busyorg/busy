@@ -19,6 +19,7 @@ const http = require('http');
 const https = require('https');
 const cors = require('cors');
 const debug = require('debug')('busy:serverApp');
+const steem = require('steem');
 
 http.globalAgent.maxSockets = Infinity;
 https.globalAgent.maxSockets = Infinity;
@@ -33,6 +34,13 @@ const rootDir = path.join(__dirname, '..');
 
 if (process.env.NODE_ENV !== 'production') {
   require('../webpack')(app);
+}
+
+if (process.env.WS) {
+  steem.api.setOptions({
+    transport: 'ws',
+    websocket: process.env.WS,
+  });
 }
 
 app.locals.env = process.env;

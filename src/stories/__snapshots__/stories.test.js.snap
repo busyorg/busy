@@ -7969,179 +7969,10 @@ exports[`Storyshots Navigation Topnav logged 1`] = `
                 onMouseEnter={[Function]}
                 onMouseLeave={[Function]}
                 onTouchStart={[Function]}
-                title={4}
               >
                 <i
                   className="iconfont icon-remind"
                 />
-                <sup
-                  className="ant-scroll-number ant-badge-count"
-                  data-show={true}
-                  style={undefined}
-                >
-                  <span
-                    className="ant-scroll-number-only"
-                    style={
-                      Object {
-                        "WebkitTransform": "translateY(-1400%)",
-                        "msTransform": "translateY(-1400%)",
-                        "transform": "translateY(-1400%)",
-                        "transition": "none",
-                      }
-                    }
-                  >
-                    <p
-                      className=""
-                    >
-                      0
-                    </p>
-                    <p
-                      className=""
-                    >
-                      1
-                    </p>
-                    <p
-                      className=""
-                    >
-                      2
-                    </p>
-                    <p
-                      className=""
-                    >
-                      3
-                    </p>
-                    <p
-                      className=""
-                    >
-                      4
-                    </p>
-                    <p
-                      className=""
-                    >
-                      5
-                    </p>
-                    <p
-                      className=""
-                    >
-                      6
-                    </p>
-                    <p
-                      className=""
-                    >
-                      7
-                    </p>
-                    <p
-                      className=""
-                    >
-                      8
-                    </p>
-                    <p
-                      className=""
-                    >
-                      9
-                    </p>
-                    <p
-                      className=""
-                    >
-                      0
-                    </p>
-                    <p
-                      className=""
-                    >
-                      1
-                    </p>
-                    <p
-                      className=""
-                    >
-                      2
-                    </p>
-                    <p
-                      className=""
-                    >
-                      3
-                    </p>
-                    <p
-                      className="current"
-                    >
-                      4
-                    </p>
-                    <p
-                      className=""
-                    >
-                      5
-                    </p>
-                    <p
-                      className=""
-                    >
-                      6
-                    </p>
-                    <p
-                      className=""
-                    >
-                      7
-                    </p>
-                    <p
-                      className=""
-                    >
-                      8
-                    </p>
-                    <p
-                      className=""
-                    >
-                      9
-                    </p>
-                    <p
-                      className=""
-                    >
-                      0
-                    </p>
-                    <p
-                      className=""
-                    >
-                      1
-                    </p>
-                    <p
-                      className=""
-                    >
-                      2
-                    </p>
-                    <p
-                      className=""
-                    >
-                      3
-                    </p>
-                    <p
-                      className=""
-                    >
-                      4
-                    </p>
-                    <p
-                      className=""
-                    >
-                      5
-                    </p>
-                    <p
-                      className=""
-                    >
-                      6
-                    </p>
-                    <p
-                      className=""
-                    >
-                      7
-                    </p>
-                    <p
-                      className=""
-                    >
-                      8
-                    </p>
-                    <p
-                      className=""
-                    >
-                      9
-                    </p>
-                  </span>
-                </sup>
               </span>
             </li>
             <li
@@ -8323,29 +8154,6 @@ exports[`Storyshots Profile UserHeader 1`] = `
             className="UserHeader__user__username"
           >
             roelandp
-            <div
-              className="ant-tag"
-              data-show={true}
-              onBlur={undefined}
-              onClick={undefined}
-              onFocus={undefined}
-              onMouseDown={undefined}
-              onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
-              onTouchStart={undefined}
-              style={
-                Object {
-                  "backgroundColor": null,
-                }
-              }
-            >
-              <span
-                className="ant-tag-text"
-              >
-                25
-              </span>
-              
-            </div>
           </h2>
           <div
             className="UserHeader__user__button"
@@ -9751,29 +9559,6 @@ exports[`Storyshots Story Inline story 1`] = `
         >
           <h4>
             bitspace
-            <div
-              className="ant-tag"
-              data-show={true}
-              onBlur={undefined}
-              onClick={undefined}
-              onFocus={undefined}
-              onMouseDown={undefined}
-              onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
-              onTouchStart={undefined}
-              style={
-                Object {
-                  "backgroundColor": null,
-                }
-              }
-            >
-              <span
-                className="ant-tag-text"
-              >
-                65
-              </span>
-              
-            </div>
           </h4>
         </a>
         <span
@@ -9983,29 +9768,6 @@ exports[`Storyshots Story Inline story with embed 1`] = `
         >
           <h4>
             fyrstikken
-            <div
-              className="ant-tag"
-              data-show={true}
-              onBlur={undefined}
-              onClick={undefined}
-              onFocus={undefined}
-              onMouseDown={undefined}
-              onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
-              onTouchStart={undefined}
-              style={
-                Object {
-                  "backgroundColor": null,
-                }
-              }
-            >
-              <span
-                className="ant-tag-text"
-              >
-                72
-              </span>
-              
-            </div>
           </h4>
         </a>
         <span
