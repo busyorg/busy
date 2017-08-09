@@ -15,18 +15,18 @@ describe('<Loading />', function () {
     return expect(wrapper.find('div')).to.exist;
   });
   describe('<Loading color="white"/>', function () {
-    it('is expected to render .loading-white', function () {
+    it('is expected to render .Loading--white', function () {
       const wrapper = shallow(<Loading color="white" />);
       return expect(
-        wrapper.find('.loading-white')
+        wrapper.find('.Loading--white')
       ).to.exist;
     });
   });
   describe('<Loading color=""/>', function () {
-    it('is expected to render .loading', function () {
+    it('is expected to render .Loading', function () {
       const wrapper = shallow(<Loading color="" />);
       return expect(
-        wrapper.find('.loading')
+        wrapper.find('.Loading')
       ).to.exist;
     });
   });
