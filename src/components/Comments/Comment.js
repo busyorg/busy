@@ -50,6 +50,21 @@ class Comment extends React.Component {
     });
   };
 
+  handleImageInserted = (blob, callback, errorCallback) => {
+    const { auth } = this.props;
+    const username = auth && auth.user && auth.user.name;
+    const formData = new FormData();
+    formData.append('files', blob);
+
+    fetch(`https://busy-img.herokuapp.com/@${username}/uploads`, {
+      method: 'POST',
+      body: formData,
+    })
+      .then(res => res.json())
+      .then(res => callback(res.secure_url, blob.name))
+      .catch(() => errorCallback());
+  };
+
   submitComment = (parentPost, commentValue) => {
     this.setState({ showCommentFormLoading: true });
 
@@ -170,6 +185,7 @@ class Comment extends React.Component {
               onSubmit={this.submitComment}
               isLoading={this.state.showCommentFormLoading}
               inputValue={this.state.commentFormText}
+              onImageInserted={this.handleImageInserted}
             />}
           <div className="Comment__replies">
             {!this.state.collapsed &&
