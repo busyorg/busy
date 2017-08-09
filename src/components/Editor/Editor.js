@@ -26,7 +26,7 @@ class Editor extends React.Component {
     onUpdate: PropTypes.func,
     onSubmit: PropTypes.func,
     onError: PropTypes.func,
-    onImagePasted: PropTypes.func,
+    onImageInserted: PropTypes.func,
   };
 
   static defaultProps = {
@@ -41,7 +41,7 @@ class Editor extends React.Component {
     onUpdate: () => {},
     onSubmit: () => {},
     onError: () => {},
-    onImagePasted: () => {},
+    onImageInserted: () => {},
   };
 
   static hotkeys = {
@@ -208,15 +208,17 @@ class Editor extends React.Component {
         if (item.kind === 'file') {
           e.preventDefault();
           const blob = item.getAsFile();
-          const reader = new FileReader();
-          reader.onload = (event) => {
-            this.props.onImagePasted(event.target.result, this.insertImage);
-          };
-          reader.readAsDataURL(blob);
+          this.props.onImageInserted(blob, this.insertImage);
         }
       });
     }
   };
+
+  handleImageChange = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      this.props.onImageInserted(e.target.files[0], this.insertImage);
+    }
+  }
 
   insertAtCursor = (before, after, deltaStart = 0, deltaEnd = 0) => {
     if (!this.input) return;
@@ -378,7 +380,13 @@ class Editor extends React.Component {
                   placeholder="Write your story..."
                 />
               </HotKeys>
-              <p>You can upload images just by pasting them.</p>
+              <p className="Editor__imagebox">
+                <input type="file" id="inputfile" onChange={this.handleImageChange} />
+                <label htmlFor="inputfile">
+                  <i className="iconfont icon-picture" />
+                  Select image or paste it from the clipboard.
+                </label>
+              </p>
             </TabPane>
             <TabPane tab="Preview" key="2">
               <Body body={this.state.contentHtml} />

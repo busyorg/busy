@@ -88,20 +88,6 @@ class Write extends React.Component {
     this.props.createPost(data);
   };
 
-  onImagePasted = (image, callback) => {
-    this.props.notify('Uploading image', 'info');
-    const formData = new FormData();
-    formData.append('files', this.dataURItoBlob(image));
-
-    fetch(`https://busy-img.herokuapp.com/@${this.props.user.name}/uploads`, {
-      method: 'POST',
-      body: formData,
-    })
-      .then(res => res.json())
-      .then(res => callback(res.secure_url))
-      .catch(() => this.props.notify("Couldn't upload image"));
-  };
-
   getNewPostData = (form) => {
     const data = {
       body: form.body,
@@ -173,16 +159,18 @@ class Write extends React.Component {
     return data;
   };
 
-  dataURItoBlob = (dataURI) => {
-    const byteString = atob(dataURI.split(',')[1]);
+  handleImageInserted = (blob, callback) => {
+    this.props.notify('Uploading image', 'info');
+    const formData = new FormData();
+    formData.append('files', blob);
 
-    const ab = new ArrayBuffer(byteString.length);
-    const ia = new Uint8Array(ab);
-    for (let i = 0; i < byteString.length; i += 1) {
-      ia[i] = byteString.charCodeAt(i);
-    }
-
-    return new Blob([ab]);
+    fetch(`https://busy-img.herokuapp.com/@${this.props.user.name}/uploads`, {
+      method: 'POST',
+      body: formData,
+    })
+      .then(res => res.json())
+      .then(res => callback(res.secure_url))
+      .catch(() => this.props.notify("Couldn't upload image"));
   };
 
   saveDraft = debounce((form) => {
@@ -227,7 +215,7 @@ class Write extends React.Component {
               loading={loading}
               onUpdate={this.saveDraft}
               onSubmit={this.onSubmit}
-              onImagePasted={this.onImagePasted}
+              onImageInserted={this.handleImageInserted}
             />
           </div>
         </div>

@@ -39,6 +39,27 @@
     }
   }
 
+  &__imagebox {
+    input {
+      width: 0.1px;
+    	height: 0.1px;
+    	opacity: 0;
+    	overflow: hidden;
+    	position: absolute;
+    	z-index: -1;
+    }
+
+    label {
+      cursor: pointer;
+    }
+
+    .iconfont {
+      font-size: 22px !important;
+      margin-right: 4px;
+      vertical-align: -2px;
+    }
+  }
+
   &__bottom {
     display: flex;
     justify-content: space-between;
