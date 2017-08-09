@@ -169,7 +169,7 @@ class Write extends React.Component {
       body: formData,
     })
       .then(res => res.json())
-      .then(res => callback(res.secure_url))
+      .then(res => callback(res.secure_url, blob.name))
       .catch(() => this.props.notify("Couldn't upload image"));
   };
 

@@ -236,7 +236,7 @@ class Editor extends React.Component {
     this.input.selectionEnd = endPos + deltaEnd;
   };
 
-  insertImage = (image) => {
+  insertImage = (image, imageName = 'image') => {
     if (!this.input) return;
 
     const startPos = this.input.selectionStart;
@@ -244,7 +244,7 @@ class Editor extends React.Component {
     this.input.value = `${this.input.value.substring(
       0,
       startPos,
-    )}![image](${image})${this.input.value.substring(endPos, this.input.value.length)}`;
+    )}![${imageName}](${image})${this.input.value.substring(endPos, this.input.value.length)}`;
 
     this.renderMarkdown(this.input.value);
     this.onUpdate();
