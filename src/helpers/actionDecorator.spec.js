@@ -11,7 +11,7 @@ import actionDecorator from './actionDecorator';
 import getStore from '../store';
 import { makeDOMEnvironment } from './testHelpers';
 
-chai.use(chaiEnzyme);
+chai.use(chaiEnzyme());
 
 // Mock for actions.getConfig
 function getConfigSuccess() {
