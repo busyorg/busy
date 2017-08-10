@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import ReduxInfiniteScroll from 'redux-infinite-scroll';
 import { Link } from 'react-router-dom';
 import { FormattedRelative } from 'react-intl';

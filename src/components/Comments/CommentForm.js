@@ -1,10 +1,11 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import { Input, Icon } from 'antd';
 import Avatar from '../Avatar';
 import './CommentForm.less';
 
-class CommentForm extends Component {
+class CommentForm extends React.Component {
   static propTypes = {
     parentPost: PropTypes.shape().isRequired,
     username: PropTypes.string.isRequired,

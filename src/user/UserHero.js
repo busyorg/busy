@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Route, Switch, withRouter } from 'react-router-dom';
 
 import UserHeader from '../components/UserHeader';

@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import NotificationFollowing from './NotificationFollowing';
 import NotificationReply from './NotificationReply';
 import NotificationTransfer from './NotificationTransfer';
