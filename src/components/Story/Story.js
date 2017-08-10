@@ -21,7 +21,6 @@ class Story extends React.Component {
     onSaveClick: PropTypes.func,
     onReportClick: PropTypes.func,
     onLikeClick: PropTypes.func,
-    onCommentClick: PropTypes.func,
     onShareClick: PropTypes.func,
   };
 
@@ -32,7 +31,6 @@ class Story extends React.Component {
     onSaveClick: () => {},
     onReportClick: () => {},
     onLikeClick: () => {},
-    onCommentClick: () => {},
     onShareClick: () => {},
     postState: {},
   };
@@ -59,7 +57,6 @@ class Story extends React.Component {
       pendingLike,
       pendingFollow,
       onLikeClick,
-      onCommentClick,
       onShareClick,
     } = this.props;
 
@@ -152,7 +149,6 @@ class Story extends React.Component {
             postState={postState}
             pendingLike={pendingLike}
             onLikeClick={onLikeClick}
-            onCommentClick={onCommentClick}
             onShareClick={onShareClick}
           />
         </div>

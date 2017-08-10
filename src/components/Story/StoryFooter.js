@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import numeral from 'numeral';
 import { Icon, Tooltip, Modal } from 'antd';
 import classNames from 'classnames';
@@ -13,14 +14,12 @@ class StoryFooter extends React.Component {
     postState: PropTypes.shape().isRequired,
     pendingLike: PropTypes.bool,
     onLikeClick: PropTypes.func,
-    onCommentClick: PropTypes.func,
     onShareClick: PropTypes.func,
   };
 
   static defaultProps = {
     pendingLike: false,
     onLikeClick: () => {},
-    onCommentClick: () => {},
     onShareClick: () => {},
   };
 
@@ -65,7 +64,7 @@ class StoryFooter extends React.Component {
   };
 
   render() {
-    const { post, postState, pendingLike, onLikeClick, onCommentClick } = this.props;
+    const { post, postState, pendingLike, onLikeClick } = this.props;
     const maxPayout = parseFloat(post.max_accepted_payout) || 0;
     const payout = parseFloat(post.pending_payout_value) || parseFloat(post.total_payout_value);
     const payoutValue = numeral(payout).format('$0,0.00');
@@ -96,12 +95,18 @@ class StoryFooter extends React.Component {
           </a>
         </Tooltip>
         <Tooltip title="Comment" placement="top">
-          <a role="presentation" className="StoryFooter__link" onClick={() => onCommentClick()}>
+          <Link
+            className="StoryFooter__link"
+            to={{
+              pathname: post.url,
+              hash: '#comments',
+            }}
+          >
             <i className="iconfont icon-message_fill" />
             <span className="StoryFooter__number">
               {commentsValue}
             </span>
-          </a>
+          </Link>
         </Tooltip>
         <Tooltip
           title={postState.isReblogged ? 'You already reblogged this post' : 'Reblog'}

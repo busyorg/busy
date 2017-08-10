@@ -9245,6 +9245,7 @@ exports[`Storyshots Story Full story 1`] = `
       </a>
       <a
         className="StoryFooter__link"
+        href="/bitcoin/@bitspace/the-cryptoeconomy-rally#comments"
         onBlur={undefined}
         onClick={[Function]}
         onFocus={undefined}
@@ -9252,7 +9253,6 @@ exports[`Storyshots Story Full story 1`] = `
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
         onTouchStart={undefined}
-        role="presentation"
       >
         <i
           className="iconfont icon-message_fill"
@@ -9493,6 +9493,7 @@ exports[`Storyshots Story Full story with embed 1`] = `
       </a>
       <a
         className="StoryFooter__link"
+        href="/community-tokens/@fyrstikken/ned-scott-ceo-of-steemit-inc-have-a-40-minute-conversation-with-the-steemspeak-com-community#comments"
         onBlur={undefined}
         onClick={[Function]}
         onFocus={undefined}
@@ -9500,7 +9501,6 @@ exports[`Storyshots Story Full story with embed 1`] = `
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
         onTouchStart={undefined}
-        role="presentation"
       >
         <i
           className="iconfont icon-message_fill"
@@ -9701,6 +9701,7 @@ exports[`Storyshots Story Inline story 1`] = `
         </a>
         <a
           className="StoryFooter__link"
+          href="/bitcoin/@bitspace/the-cryptoeconomy-rally#comments"
           onBlur={undefined}
           onClick={[Function]}
           onFocus={undefined}
@@ -9708,7 +9709,6 @@ exports[`Storyshots Story Inline story 1`] = `
           onMouseEnter={[Function]}
           onMouseLeave={[Function]}
           onTouchStart={undefined}
-          role="presentation"
         >
           <i
             className="iconfont icon-message_fill"
@@ -9919,6 +9919,7 @@ exports[`Storyshots Story Inline story with embed 1`] = `
         </a>
         <a
           className="StoryFooter__link"
+          href="/community-tokens/@fyrstikken/ned-scott-ceo-of-steemit-inc-have-a-40-minute-conversation-with-the-steemspeak-com-community#comments"
           onBlur={undefined}
           onClick={[Function]}
           onFocus={undefined}
@@ -9926,7 +9927,6 @@ exports[`Storyshots Story Inline story with embed 1`] = `
           onMouseEnter={[Function]}
           onMouseLeave={[Function]}
           onTouchStart={undefined}
-          role="presentation"
         >
           <i
             className="iconfont icon-message_fill"
