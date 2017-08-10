@@ -24,6 +24,13 @@ const Topnav = ({
     content = (
       <div className="Topnav__menu-container">
         <Menu selectedKeys={[]} className="Topnav__menu-container__menu" mode="horizontal">
+          <Menu.Item key="write">
+            <Tooltip placement="bottom" title="Write post">
+              <Link to="/write" className="Topnav__link">
+                <i className="iconfont icon-brush_fill" />
+              </Link>
+            </Tooltip>
+          </Menu.Item>
           <Menu.Item key="user" className="Topnav__item-user">
             <Link className="Topnav__user" to={`/@${username}`}>
               <Avatar username={username} size={36} />
