@@ -18,6 +18,7 @@ const initialState = {
 
 const feedFetching = (state = false, action) => {
   switch (action.type) {
+    case feedTypes.FEED_HAS_NO_MORE:
     case feedTypes.GET_FEED_CONTENT_SUCCESS:
     case feedTypes.GET_MORE_FEED_CONTENT_SUCCESS:
     case feedTypes.GET_USER_FEED_CONTENT_SUCCESS:
@@ -120,6 +121,7 @@ const feedSortBySubItem = (state = {}, action) => {
       return {
         ...state,
         hasMore: false,
+        isFetching: feedFetching(undefined, action),
       };
     default:
       return state;

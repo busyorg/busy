@@ -1,6 +1,7 @@
 import Promise from 'bluebird';
 import fetch from 'isomorphic-fetch';
 import steemConnect from 'steemconnect';
+import { createAction } from 'redux-actions';
 
 import { getUserCommentsFromState } from '../helpers/stateHelpers';
 import { getAllFollowing, mapAPIContentToId } from '../helpers/apiHelpers';
@@ -25,6 +26,8 @@ export const GET_MORE_USER_REPLIES_START = '@user/GET_MORE_USER_REPLIES_START';
 export const GET_MORE_USER_REPLIES_SUCCESS = '@user/GET_MORE_USER_REPLIES_SUCCESS';
 export const GET_MORE_USER_REPLIES_ERROR = '@user/GET_MORE_USER_REPLIES_ERROR';
 
+export const UPDATE_VOTE_POWER_BAR = '@user/UPDATE_VOTE_POWER_BAR';
+export const updateVotePowerBar = createAction(UPDATE_VOTE_POWER_BAR);
 
 export const getUserComments = ({ username }) =>
   (dispatch, getState, { steemAPI }) => {
@@ -103,7 +106,7 @@ export function uploadFile({ username, file, fileInput }) {
     payload: {
       promise: new Promise((resolve, reject) => {
         const request = new global.XMLHttpRequest();
-        request.open('POST', `${process.env.STEEMCONNECT_IMG_HOST}/@${username}/uploads`, true);
+        request.open('POST', `https://6a43di1nk2.execute-api.us-east-1.amazonaws.com/prod/@${username}/uploads`, true);
         // Send the proper header information along with the request
         request.setRequestHeader('Content-Type', fileDetails.type);
         request.onreadystatechange = () => {

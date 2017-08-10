@@ -17,6 +17,7 @@ const http = require('http');
 const https = require('https');
 const cors = require('cors');
 const debug = require('debug')('busy:serverApp');
+const steem = require('steem');
 
 http.globalAgent.maxSockets = Infinity;
 https.globalAgent.maxSockets = Infinity;
@@ -30,6 +31,13 @@ const io = require('socket.io')(server);
 const rootDir = path.join(__dirname, '..');
 
 if (process.env.NODE_ENV !== 'production') { require('../webpack')(app); }
+
+if (process.env.WS) {
+  steem.api.setOptions({
+    transport: 'ws',
+    websocket: process.env.WS,
+  });
+}
 
 app.locals.env = process.env;
 app.enable('trust proxy');
@@ -50,8 +58,6 @@ if (process.env.NODE_ENV === 'production') {
 } else {
   app.use(express.static(path.join(rootDir, 'assets')));
 }
-
-app.use(express.static(path.join(rootDir, 'node_modules')));
 
 if (!process.env.IS_BROWSER) { global.window = {}; }
 

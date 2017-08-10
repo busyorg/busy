@@ -11,6 +11,7 @@ const initialState = {
   locale: null,
   rate: 0,
   lastPostId: null,
+  sidebarLoading: false
 };
 
 // TODO(p0o): some actionsTypes in this reducer are not defined anywhere, need to figure it out later
@@ -120,6 +121,19 @@ export default (state = initialState, action) => {
       return {
         ...state,
         lastPostId: action.payload ? action.payload.id : null,
+      };
+
+    case appTypes.SIDEBAR_LOADING:
+      return {
+        ...state,
+        sidebarLoading: true,
+      };
+    case appTypes.SIDEBAR_LOADED:
+      return {
+        ...state,
+        sidebarLoading: false,
+        categories: action.payload.categories,
+        props: action.payload.props,
       };
     default:
       return state;
