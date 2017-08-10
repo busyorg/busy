@@ -135,9 +135,11 @@ class StoryFull extends React.Component {
           <div className="StoryFull__header__text">
             <Link to={`/@${post.author}`}>
               {post.author}
-              <Tag>
-                {formatter.reputation(post.author_reputation)}
-              </Tag>
+              <Tooltip title="Reputation score" placement="top">
+                <Tag>
+                  {formatter.reputation(post.author_reputation)}
+                </Tag>
+              </Tooltip>
             </Link>
             <Tooltip
               placement="bottom"
