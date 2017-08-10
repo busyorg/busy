@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { FormattedRelative, FormattedDate, FormattedTime } from 'react-intl';
 import { Link } from 'react-router-dom';
-import { Icon, Popover, Tooltip } from 'antd';
+import { Tag, Icon, Popover, Tooltip } from 'antd';
 import Lightbox from 'react-image-lightbox';
+import { formatter } from 'steem';
 import Body from './Body';
 import StoryFooter from './StoryFooter';
 import Avatar from '../Avatar';
@@ -134,6 +135,11 @@ class StoryFull extends React.Component {
           <div className="StoryFull__header__text">
             <Link to={`/@${post.author}`}>
               {post.author}
+              <Tooltip title="Reputation score" placement="top">
+                <Tag>
+                  {formatter.reputation(post.author_reputation)}
+                </Tag>
+              </Tooltip>
             </Link>
             <Tooltip
               placement="bottom"

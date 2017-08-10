@@ -4,7 +4,8 @@ import classNames from 'classnames';
 import numeral from 'numeral';
 import { Link } from 'react-router-dom';
 import { FormattedRelative, FormattedDate, FormattedTime } from 'react-intl';
-import { Tooltip } from 'antd';
+import { Tag, Tooltip } from 'antd';
+import { formatter } from 'steem';
 import CommentForm from './CommentForm';
 import PayoutDetail from '../PayoutDetail';
 import Avatar from '../Avatar';
@@ -116,6 +117,11 @@ class Comment extends React.Component {
         <div className="Comment__text">
           <Link to={`/@${comment.author}`}>
             {comment.author}
+            <Tooltip title="Reputation score" placement="top">
+              <Tag>
+                {formatter.reputation(comment.author_reputation)}
+              </Tag>
+            </Tooltip>
           </Link>
           <span className="Comment__date">
             <Tooltip
