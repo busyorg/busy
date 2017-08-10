@@ -250,8 +250,12 @@ exports[`Storyshots Comments Comments 1`] = `
             <i
               className="iconfont icon-praise_fill"
             />
-            3
           </a>
+          <span
+            className="Comment__footer__count"
+          >
+            3
+          </span>
           <a
             className="Comment__footer__link"
             onBlur={undefined}
@@ -266,8 +270,12 @@ exports[`Storyshots Comments Comments 1`] = `
             <i
               className="iconfont icon-praise_fill Comment__icon_dislike"
             />
-            0
           </a>
+          <span
+            className="Comment__footer__count"
+          >
+            0
+          </span>
           <span
             className="Comment__footer__bullet"
           />
@@ -373,8 +381,12 @@ exports[`Storyshots Comments Comments 1`] = `
                   <i
                     className="iconfont icon-praise_fill"
                   />
-                  0
                 </a>
+                <span
+                  className="Comment__footer__count"
+                >
+                  0
+                </span>
                 <a
                   className="Comment__footer__link"
                   onBlur={undefined}
@@ -389,8 +401,12 @@ exports[`Storyshots Comments Comments 1`] = `
                   <i
                     className="iconfont icon-praise_fill Comment__icon_dislike"
                   />
-                  0
                 </a>
+                <span
+                  className="Comment__footer__count"
+                >
+                  0
+                </span>
                 <span
                   className="Comment__footer__bullet"
                 />
@@ -501,8 +517,12 @@ exports[`Storyshots Comments Comments 1`] = `
             <i
               className="iconfont icon-praise_fill"
             />
-            3
           </a>
+          <span
+            className="Comment__footer__count"
+          >
+            3
+          </span>
           <a
             className="Comment__footer__link"
             onBlur={undefined}
@@ -517,8 +537,12 @@ exports[`Storyshots Comments Comments 1`] = `
             <i
               className="iconfont icon-praise_fill Comment__icon_dislike"
             />
-            0
           </a>
+          <span
+            className="Comment__footer__count"
+          >
+            0
+          </span>
           <span
             className="Comment__footer__bullet"
           />
@@ -624,8 +648,12 @@ exports[`Storyshots Comments Comments 1`] = `
                   <i
                     className="iconfont icon-praise_fill"
                   />
-                  0
                 </a>
+                <span
+                  className="Comment__footer__count"
+                >
+                  0
+                </span>
                 <a
                   className="Comment__footer__link"
                   onBlur={undefined}
@@ -640,8 +668,12 @@ exports[`Storyshots Comments Comments 1`] = `
                   <i
                     className="iconfont icon-praise_fill Comment__icon_dislike"
                   />
-                  0
                 </a>
+                <span
+                  className="Comment__footer__count"
+                >
+                  0
+                </span>
                 <span
                   className="Comment__footer__bullet"
                 />
@@ -752,8 +784,12 @@ exports[`Storyshots Comments Comments 1`] = `
             <i
               className="iconfont icon-praise_fill"
             />
-            3
           </a>
+          <span
+            className="Comment__footer__count"
+          >
+            3
+          </span>
           <a
             className="Comment__footer__link"
             onBlur={undefined}
@@ -768,8 +804,12 @@ exports[`Storyshots Comments Comments 1`] = `
             <i
               className="iconfont icon-praise_fill Comment__icon_dislike"
             />
-            0
           </a>
+          <span
+            className="Comment__footer__count"
+          >
+            0
+          </span>
           <span
             className="Comment__footer__bullet"
           />
@@ -875,8 +915,12 @@ exports[`Storyshots Comments Comments 1`] = `
                   <i
                     className="iconfont icon-praise_fill"
                   />
-                  1
                 </a>
+                <span
+                  className="Comment__footer__count"
+                >
+                  1
+                </span>
                 <a
                   className="Comment__footer__link"
                   onBlur={undefined}
@@ -891,8 +935,12 @@ exports[`Storyshots Comments Comments 1`] = `
                   <i
                     className="iconfont icon-praise_fill Comment__icon_dislike"
                   />
-                  0
                 </a>
+                <span
+                  className="Comment__footer__count"
+                >
+                  0
+                </span>
                 <span
                   className="Comment__footer__bullet"
                 />
@@ -1003,8 +1051,12 @@ exports[`Storyshots Comments Comments 1`] = `
             <i
               className="iconfont icon-praise_fill"
             />
-            2
           </a>
+          <span
+            className="Comment__footer__count"
+          >
+            2
+          </span>
           <a
             className="Comment__footer__link"
             onBlur={undefined}
@@ -1019,8 +1071,12 @@ exports[`Storyshots Comments Comments 1`] = `
             <i
               className="iconfont icon-praise_fill Comment__icon_dislike"
             />
-            0
           </a>
+          <span
+            className="Comment__footer__count"
+          >
+            0
+          </span>
           <span
             className="Comment__footer__bullet"
           />
@@ -1126,8 +1182,12 @@ exports[`Storyshots Comments Comments 1`] = `
                   <i
                     className="iconfont icon-praise_fill"
                   />
-                  0
                 </a>
+                <span
+                  className="Comment__footer__count"
+                >
+                  0
+                </span>
                 <a
                   className="Comment__footer__link"
                   onBlur={undefined}
@@ -1142,8 +1202,12 @@ exports[`Storyshots Comments Comments 1`] = `
                   <i
                     className="iconfont icon-praise_fill Comment__icon_dislike"
                   />
-                  0
                 </a>
+                <span
+                  className="Comment__footer__count"
+                >
+                  0
+                </span>
                 <span
                   className="Comment__footer__bullet"
                 />
@@ -1254,8 +1318,12 @@ exports[`Storyshots Comments Comments 1`] = `
             <i
               className="iconfont icon-praise_fill"
             />
-            2
           </a>
+          <span
+            className="Comment__footer__count"
+          >
+            2
+          </span>
           <a
             className="Comment__footer__link"
             onBlur={undefined}
@@ -1270,8 +1338,12 @@ exports[`Storyshots Comments Comments 1`] = `
             <i
               className="iconfont icon-praise_fill Comment__icon_dislike"
             />
-            0
           </a>
+          <span
+            className="Comment__footer__count"
+          >
+            0
+          </span>
           <span
             className="Comment__footer__bullet"
           />
@@ -1377,8 +1449,12 @@ exports[`Storyshots Comments Comments 1`] = `
                   <i
                     className="iconfont icon-praise_fill"
                   />
-                  0
                 </a>
+                <span
+                  className="Comment__footer__count"
+                >
+                  0
+                </span>
                 <a
                   className="Comment__footer__link"
                   onBlur={undefined}
@@ -1393,8 +1469,12 @@ exports[`Storyshots Comments Comments 1`] = `
                   <i
                     className="iconfont icon-praise_fill Comment__icon_dislike"
                   />
-                  0
                 </a>
+                <span
+                  className="Comment__footer__count"
+                >
+                  0
+                </span>
                 <span
                   className="Comment__footer__bullet"
                 />
@@ -1506,8 +1586,12 @@ exports[`Storyshots Comments Comments 1`] = `
             <i
               className="iconfont icon-praise_fill"
             />
-            2
           </a>
+          <span
+            className="Comment__footer__count"
+          >
+            2
+          </span>
           <a
             className="Comment__footer__link"
             onBlur={undefined}
@@ -1522,8 +1606,12 @@ exports[`Storyshots Comments Comments 1`] = `
             <i
               className="iconfont icon-praise_fill Comment__icon_dislike"
             />
-            0
           </a>
+          <span
+            className="Comment__footer__count"
+          >
+            0
+          </span>
           <span
             className="Comment__footer__bullet"
           />
@@ -1629,8 +1717,12 @@ exports[`Storyshots Comments Comments 1`] = `
                   <i
                     className="iconfont icon-praise_fill"
                   />
-                  1
                 </a>
+                <span
+                  className="Comment__footer__count"
+                >
+                  1
+                </span>
                 <a
                   className="Comment__footer__link"
                   onBlur={undefined}
@@ -1645,8 +1737,12 @@ exports[`Storyshots Comments Comments 1`] = `
                   <i
                     className="iconfont icon-praise_fill Comment__icon_dislike"
                   />
-                  0
                 </a>
+                <span
+                  className="Comment__footer__count"
+                >
+                  0
+                </span>
                 <span
                   className="Comment__footer__bullet"
                 />
@@ -1757,8 +1853,12 @@ exports[`Storyshots Comments Comments 1`] = `
             <i
               className="iconfont icon-praise_fill"
             />
-            2
           </a>
+          <span
+            className="Comment__footer__count"
+          >
+            2
+          </span>
           <a
             className="Comment__footer__link"
             onBlur={undefined}
@@ -1773,8 +1873,12 @@ exports[`Storyshots Comments Comments 1`] = `
             <i
               className="iconfont icon-praise_fill Comment__icon_dislike"
             />
-            0
           </a>
+          <span
+            className="Comment__footer__count"
+          >
+            0
+          </span>
           <span
             className="Comment__footer__bullet"
           />
@@ -1880,8 +1984,12 @@ exports[`Storyshots Comments Comments 1`] = `
                   <i
                     className="iconfont icon-praise_fill"
                   />
-                  1
                 </a>
+                <span
+                  className="Comment__footer__count"
+                >
+                  1
+                </span>
                 <a
                   className="Comment__footer__link"
                   onBlur={undefined}
@@ -1896,8 +2004,12 @@ exports[`Storyshots Comments Comments 1`] = `
                   <i
                     className="iconfont icon-praise_fill Comment__icon_dislike"
                   />
-                  0
                 </a>
+                <span
+                  className="Comment__footer__count"
+                >
+                  0
+                </span>
                 <span
                   className="Comment__footer__bullet"
                 />
@@ -2008,8 +2120,12 @@ exports[`Storyshots Comments Comments 1`] = `
             <i
               className="iconfont icon-praise_fill"
             />
-            2
           </a>
+          <span
+            className="Comment__footer__count"
+          >
+            2
+          </span>
           <a
             className="Comment__footer__link"
             onBlur={undefined}
@@ -2024,8 +2140,12 @@ exports[`Storyshots Comments Comments 1`] = `
             <i
               className="iconfont icon-praise_fill Comment__icon_dislike"
             />
-            0
           </a>
+          <span
+            className="Comment__footer__count"
+          >
+            0
+          </span>
           <span
             className="Comment__footer__bullet"
           />
@@ -2131,8 +2251,12 @@ exports[`Storyshots Comments Comments 1`] = `
                   <i
                     className="iconfont icon-praise_fill"
                   />
-                  0
                 </a>
+                <span
+                  className="Comment__footer__count"
+                >
+                  0
+                </span>
                 <a
                   className="Comment__footer__link"
                   onBlur={undefined}
@@ -2147,8 +2271,12 @@ exports[`Storyshots Comments Comments 1`] = `
                   <i
                     className="iconfont icon-praise_fill Comment__icon_dislike"
                   />
-                  0
                 </a>
+                <span
+                  className="Comment__footer__count"
+                >
+                  0
+                </span>
                 <span
                   className="Comment__footer__bullet"
                 />
@@ -2259,8 +2387,12 @@ exports[`Storyshots Comments Comments 1`] = `
             <i
               className="iconfont icon-praise_fill"
             />
-            1
           </a>
+          <span
+            className="Comment__footer__count"
+          >
+            1
+          </span>
           <a
             className="Comment__footer__link"
             onBlur={undefined}
@@ -2275,8 +2407,12 @@ exports[`Storyshots Comments Comments 1`] = `
             <i
               className="iconfont icon-praise_fill Comment__icon_dislike"
             />
-            0
           </a>
+          <span
+            className="Comment__footer__count"
+          >
+            0
+          </span>
           <span
             className="Comment__footer__bullet"
           />
@@ -2382,8 +2518,12 @@ exports[`Storyshots Comments Comments 1`] = `
                   <i
                     className="iconfont icon-praise_fill"
                   />
-                  0
                 </a>
+                <span
+                  className="Comment__footer__count"
+                >
+                  0
+                </span>
                 <a
                   className="Comment__footer__link"
                   onBlur={undefined}
@@ -2398,8 +2538,12 @@ exports[`Storyshots Comments Comments 1`] = `
                   <i
                     className="iconfont icon-praise_fill Comment__icon_dislike"
                   />
-                  0
                 </a>
+                <span
+                  className="Comment__footer__count"
+                >
+                  0
+                </span>
                 <span
                   className="Comment__footer__bullet"
                 />
@@ -2505,8 +2649,12 @@ exports[`Storyshots Comments Comments 1`] = `
                         <i
                           className="iconfont icon-praise_fill"
                         />
-                        0
                       </a>
+                      <span
+                        className="Comment__footer__count"
+                      >
+                        0
+                      </span>
                       <a
                         className="Comment__footer__link"
                         onBlur={undefined}
@@ -2521,8 +2669,12 @@ exports[`Storyshots Comments Comments 1`] = `
                         <i
                           className="iconfont icon-praise_fill Comment__icon_dislike"
                         />
-                        0
                       </a>
+                      <span
+                        className="Comment__footer__count"
+                      >
+                        0
+                      </span>
                       <span
                         className="Comment__footer__bullet"
                       />
@@ -2628,8 +2780,12 @@ exports[`Storyshots Comments Comments 1`] = `
                               <i
                                 className="iconfont icon-praise_fill"
                               />
-                              1
                             </a>
+                            <span
+                              className="Comment__footer__count"
+                            >
+                              1
+                            </span>
                             <a
                               className="Comment__footer__link"
                               onBlur={undefined}
@@ -2644,8 +2800,12 @@ exports[`Storyshots Comments Comments 1`] = `
                               <i
                                 className="iconfont icon-praise_fill Comment__icon_dislike"
                               />
-                              0
                             </a>
+                            <span
+                              className="Comment__footer__count"
+                            >
+                              0
+                            </span>
                             <span
                               className="Comment__footer__bullet"
                             />
@@ -2751,8 +2911,12 @@ exports[`Storyshots Comments Comments 1`] = `
                                     <i
                                       className="iconfont icon-praise_fill"
                                     />
-                                    0
                                   </a>
+                                  <span
+                                    className="Comment__footer__count"
+                                  >
+                                    0
+                                  </span>
                                   <a
                                     className="Comment__footer__link"
                                     onBlur={undefined}
@@ -2767,8 +2931,12 @@ exports[`Storyshots Comments Comments 1`] = `
                                     <i
                                       className="iconfont icon-praise_fill Comment__icon_dislike"
                                     />
-                                    0
                                   </a>
+                                  <span
+                                    className="Comment__footer__count"
+                                  >
+                                    0
+                                  </span>
                                   <span
                                     className="Comment__footer__bullet"
                                   />
@@ -2888,8 +3056,12 @@ exports[`Storyshots Comments Comments 1`] = `
             <i
               className="iconfont icon-praise_fill"
             />
-            1
           </a>
+          <span
+            className="Comment__footer__count"
+          >
+            1
+          </span>
           <a
             className="Comment__footer__link"
             onBlur={undefined}
@@ -2904,8 +3076,12 @@ exports[`Storyshots Comments Comments 1`] = `
             <i
               className="iconfont icon-praise_fill Comment__icon_dislike"
             />
-            0
           </a>
+          <span
+            className="Comment__footer__count"
+          >
+            0
+          </span>
           <span
             className="Comment__footer__bullet"
           />
@@ -3011,8 +3187,12 @@ exports[`Storyshots Comments Comments 1`] = `
                   <i
                     className="iconfont icon-praise_fill"
                   />
-                  0
                 </a>
+                <span
+                  className="Comment__footer__count"
+                >
+                  0
+                </span>
                 <a
                   className="Comment__footer__link"
                   onBlur={undefined}
@@ -3027,8 +3207,12 @@ exports[`Storyshots Comments Comments 1`] = `
                   <i
                     className="iconfont icon-praise_fill Comment__icon_dislike"
                   />
-                  0
                 </a>
+                <span
+                  className="Comment__footer__count"
+                >
+                  0
+                </span>
                 <span
                   className="Comment__footer__bullet"
                 />
@@ -3139,8 +3323,12 @@ exports[`Storyshots Comments Comments 1`] = `
             <i
               className="iconfont icon-praise_fill"
             />
-            1
           </a>
+          <span
+            className="Comment__footer__count"
+          >
+            1
+          </span>
           <a
             className="Comment__footer__link"
             onBlur={undefined}
@@ -3155,8 +3343,12 @@ exports[`Storyshots Comments Comments 1`] = `
             <i
               className="iconfont icon-praise_fill Comment__icon_dislike"
             />
-            0
           </a>
+          <span
+            className="Comment__footer__count"
+          >
+            0
+          </span>
           <span
             className="Comment__footer__bullet"
           />
@@ -3262,8 +3454,12 @@ exports[`Storyshots Comments Comments 1`] = `
                   <i
                     className="iconfont icon-praise_fill"
                   />
-                  0
                 </a>
+                <span
+                  className="Comment__footer__count"
+                >
+                  0
+                </span>
                 <a
                   className="Comment__footer__link"
                   onBlur={undefined}
@@ -3278,8 +3474,12 @@ exports[`Storyshots Comments Comments 1`] = `
                   <i
                     className="iconfont icon-praise_fill Comment__icon_dislike"
                   />
-                  0
                 </a>
+                <span
+                  className="Comment__footer__count"
+                >
+                  0
+                </span>
                 <span
                   className="Comment__footer__bullet"
                 />
@@ -3390,8 +3590,12 @@ exports[`Storyshots Comments Comments 1`] = `
             <i
               className="iconfont icon-praise_fill"
             />
-            1
           </a>
+          <span
+            className="Comment__footer__count"
+          >
+            1
+          </span>
           <a
             className="Comment__footer__link"
             onBlur={undefined}
@@ -3406,8 +3610,12 @@ exports[`Storyshots Comments Comments 1`] = `
             <i
               className="iconfont icon-praise_fill Comment__icon_dislike"
             />
-            0
           </a>
+          <span
+            className="Comment__footer__count"
+          >
+            0
+          </span>
           <span
             className="Comment__footer__bullet"
           />
@@ -3513,8 +3721,12 @@ exports[`Storyshots Comments Comments 1`] = `
                   <i
                     className="iconfont icon-praise_fill"
                   />
-                  0
                 </a>
+                <span
+                  className="Comment__footer__count"
+                >
+                  0
+                </span>
                 <a
                   className="Comment__footer__link"
                   onBlur={undefined}
@@ -3529,8 +3741,12 @@ exports[`Storyshots Comments Comments 1`] = `
                   <i
                     className="iconfont icon-praise_fill Comment__icon_dislike"
                   />
-                  0
                 </a>
+                <span
+                  className="Comment__footer__count"
+                >
+                  0
+                </span>
                 <span
                   className="Comment__footer__bullet"
                 />
@@ -3641,8 +3857,12 @@ exports[`Storyshots Comments Comments 1`] = `
             <i
               className="iconfont icon-praise_fill"
             />
-            0
           </a>
+          <span
+            className="Comment__footer__count"
+          >
+            0
+          </span>
           <a
             className="Comment__footer__link"
             onBlur={undefined}
@@ -3657,8 +3877,12 @@ exports[`Storyshots Comments Comments 1`] = `
             <i
               className="iconfont icon-praise_fill Comment__icon_dislike"
             />
-            0
           </a>
+          <span
+            className="Comment__footer__count"
+          >
+            0
+          </span>
           <span
             className="Comment__footer__bullet"
           />
@@ -3764,8 +3988,12 @@ exports[`Storyshots Comments Comments 1`] = `
                   <i
                     className="iconfont icon-praise_fill"
                   />
-                  1
                 </a>
+                <span
+                  className="Comment__footer__count"
+                >
+                  1
+                </span>
                 <a
                   className="Comment__footer__link"
                   onBlur={undefined}
@@ -3780,8 +4008,12 @@ exports[`Storyshots Comments Comments 1`] = `
                   <i
                     className="iconfont icon-praise_fill Comment__icon_dislike"
                   />
-                  0
                 </a>
+                <span
+                  className="Comment__footer__count"
+                >
+                  0
+                </span>
                 <span
                   className="Comment__footer__bullet"
                 />
@@ -3887,8 +4119,12 @@ exports[`Storyshots Comments Comments 1`] = `
                         <i
                           className="iconfont icon-praise_fill"
                         />
-                        0
                       </a>
+                      <span
+                        className="Comment__footer__count"
+                      >
+                        0
+                      </span>
                       <a
                         className="Comment__footer__link"
                         onBlur={undefined}
@@ -3903,8 +4139,12 @@ exports[`Storyshots Comments Comments 1`] = `
                         <i
                           className="iconfont icon-praise_fill Comment__icon_dislike"
                         />
-                        0
                       </a>
+                      <span
+                        className="Comment__footer__count"
+                      >
+                        0
+                      </span>
                       <span
                         className="Comment__footer__bullet"
                       />
@@ -4018,8 +4258,12 @@ exports[`Storyshots Comments Comments 1`] = `
             <i
               className="iconfont icon-praise_fill"
             />
-            0
           </a>
+          <span
+            className="Comment__footer__count"
+          >
+            0
+          </span>
           <a
             className="Comment__footer__link"
             onBlur={undefined}
@@ -4034,8 +4278,12 @@ exports[`Storyshots Comments Comments 1`] = `
             <i
               className="iconfont icon-praise_fill Comment__icon_dislike"
             />
-            0
           </a>
+          <span
+            className="Comment__footer__count"
+          >
+            0
+          </span>
           <span
             className="Comment__footer__bullet"
           />
@@ -4141,8 +4389,12 @@ exports[`Storyshots Comments Comments 1`] = `
                   <i
                     className="iconfont icon-praise_fill"
                   />
-                  0
                 </a>
+                <span
+                  className="Comment__footer__count"
+                >
+                  0
+                </span>
                 <a
                   className="Comment__footer__link"
                   onBlur={undefined}
@@ -4157,8 +4409,12 @@ exports[`Storyshots Comments Comments 1`] = `
                   <i
                     className="iconfont icon-praise_fill Comment__icon_dislike"
                   />
-                  0
                 </a>
+                <span
+                  className="Comment__footer__count"
+                >
+                  0
+                </span>
                 <span
                   className="Comment__footer__bullet"
                 />
@@ -4269,8 +4525,12 @@ exports[`Storyshots Comments Comments 1`] = `
             <i
               className="iconfont icon-praise_fill"
             />
-            0
           </a>
+          <span
+            className="Comment__footer__count"
+          >
+            0
+          </span>
           <a
             className="Comment__footer__link"
             onBlur={undefined}
@@ -4285,8 +4545,12 @@ exports[`Storyshots Comments Comments 1`] = `
             <i
               className="iconfont icon-praise_fill Comment__icon_dislike"
             />
-            0
           </a>
+          <span
+            className="Comment__footer__count"
+          >
+            0
+          </span>
           <span
             className="Comment__footer__bullet"
           />
@@ -4392,8 +4656,12 @@ exports[`Storyshots Comments Comments 1`] = `
                   <i
                     className="iconfont icon-praise_fill"
                   />
-                  0
                 </a>
+                <span
+                  className="Comment__footer__count"
+                >
+                  0
+                </span>
                 <a
                   className="Comment__footer__link"
                   onBlur={undefined}
@@ -4408,8 +4676,12 @@ exports[`Storyshots Comments Comments 1`] = `
                   <i
                     className="iconfont icon-praise_fill Comment__icon_dislike"
                   />
-                  0
                 </a>
+                <span
+                  className="Comment__footer__count"
+                >
+                  0
+                </span>
                 <span
                   className="Comment__footer__bullet"
                 />
@@ -4520,8 +4792,12 @@ exports[`Storyshots Comments Comments 1`] = `
             <i
               className="iconfont icon-praise_fill"
             />
-            0
           </a>
+          <span
+            className="Comment__footer__count"
+          >
+            0
+          </span>
           <a
             className="Comment__footer__link"
             onBlur={undefined}
@@ -4536,8 +4812,12 @@ exports[`Storyshots Comments Comments 1`] = `
             <i
               className="iconfont icon-praise_fill Comment__icon_dislike"
             />
-            0
           </a>
+          <span
+            className="Comment__footer__count"
+          >
+            0
+          </span>
           <span
             className="Comment__footer__bullet"
           />
@@ -4643,8 +4923,12 @@ exports[`Storyshots Comments Comments 1`] = `
                   <i
                     className="iconfont icon-praise_fill"
                   />
-                  1
                 </a>
+                <span
+                  className="Comment__footer__count"
+                >
+                  1
+                </span>
                 <a
                   className="Comment__footer__link"
                   onBlur={undefined}
@@ -4659,8 +4943,12 @@ exports[`Storyshots Comments Comments 1`] = `
                   <i
                     className="iconfont icon-praise_fill Comment__icon_dislike"
                   />
-                  0
                 </a>
+                <span
+                  className="Comment__footer__count"
+                >
+                  0
+                </span>
                 <span
                   className="Comment__footer__bullet"
                 />
@@ -4771,8 +5059,12 @@ exports[`Storyshots Comments Comments 1`] = `
             <i
               className="iconfont icon-praise_fill"
             />
-            0
           </a>
+          <span
+            className="Comment__footer__count"
+          >
+            0
+          </span>
           <a
             className="Comment__footer__link"
             onBlur={undefined}
@@ -4787,8 +5079,12 @@ exports[`Storyshots Comments Comments 1`] = `
             <i
               className="iconfont icon-praise_fill Comment__icon_dislike"
             />
-            0
           </a>
+          <span
+            className="Comment__footer__count"
+          >
+            0
+          </span>
           <span
             className="Comment__footer__bullet"
           />
@@ -4894,8 +5190,12 @@ exports[`Storyshots Comments Comments 1`] = `
                   <i
                     className="iconfont icon-praise_fill"
                   />
-                  0
                 </a>
+                <span
+                  className="Comment__footer__count"
+                >
+                  0
+                </span>
                 <a
                   className="Comment__footer__link"
                   onBlur={undefined}
@@ -4910,8 +5210,12 @@ exports[`Storyshots Comments Comments 1`] = `
                   <i
                     className="iconfont icon-praise_fill Comment__icon_dislike"
                   />
-                  0
                 </a>
+                <span
+                  className="Comment__footer__count"
+                >
+                  0
+                </span>
                 <span
                   className="Comment__footer__bullet"
                 />
@@ -5022,8 +5326,12 @@ exports[`Storyshots Comments Comments 1`] = `
             <i
               className="iconfont icon-praise_fill"
             />
-            0
           </a>
+          <span
+            className="Comment__footer__count"
+          >
+            0
+          </span>
           <a
             className="Comment__footer__link"
             onBlur={undefined}
@@ -5038,8 +5346,12 @@ exports[`Storyshots Comments Comments 1`] = `
             <i
               className="iconfont icon-praise_fill Comment__icon_dislike"
             />
-            0
           </a>
+          <span
+            className="Comment__footer__count"
+          >
+            0
+          </span>
           <span
             className="Comment__footer__bullet"
           />
@@ -5145,8 +5457,12 @@ exports[`Storyshots Comments Comments 1`] = `
                   <i
                     className="iconfont icon-praise_fill"
                   />
-                  0
                 </a>
+                <span
+                  className="Comment__footer__count"
+                >
+                  0
+                </span>
                 <a
                   className="Comment__footer__link"
                   onBlur={undefined}
@@ -5161,8 +5477,12 @@ exports[`Storyshots Comments Comments 1`] = `
                   <i
                     className="iconfont icon-praise_fill Comment__icon_dislike"
                   />
-                  0
                 </a>
+                <span
+                  className="Comment__footer__count"
+                >
+                  0
+                </span>
                 <span
                   className="Comment__footer__bullet"
                 />
@@ -5273,8 +5593,12 @@ exports[`Storyshots Comments Comments 1`] = `
             <i
               className="iconfont icon-praise_fill"
             />
-            0
           </a>
+          <span
+            className="Comment__footer__count"
+          >
+            0
+          </span>
           <a
             className="Comment__footer__link"
             onBlur={undefined}
@@ -5289,8 +5613,12 @@ exports[`Storyshots Comments Comments 1`] = `
             <i
               className="iconfont icon-praise_fill Comment__icon_dislike"
             />
-            0
           </a>
+          <span
+            className="Comment__footer__count"
+          >
+            0
+          </span>
           <span
             className="Comment__footer__bullet"
           />
@@ -5396,8 +5724,12 @@ exports[`Storyshots Comments Comments 1`] = `
                   <i
                     className="iconfont icon-praise_fill"
                   />
-                  0
                 </a>
+                <span
+                  className="Comment__footer__count"
+                >
+                  0
+                </span>
                 <a
                   className="Comment__footer__link"
                   onBlur={undefined}
@@ -5412,8 +5744,12 @@ exports[`Storyshots Comments Comments 1`] = `
                   <i
                     className="iconfont icon-praise_fill Comment__icon_dislike"
                   />
-                  0
                 </a>
+                <span
+                  className="Comment__footer__count"
+                >
+                  0
+                </span>
                 <span
                   className="Comment__footer__bullet"
                 />
@@ -5524,8 +5860,12 @@ exports[`Storyshots Comments Comments 1`] = `
             <i
               className="iconfont icon-praise_fill"
             />
-            0
           </a>
+          <span
+            className="Comment__footer__count"
+          >
+            0
+          </span>
           <a
             className="Comment__footer__link"
             onBlur={undefined}
@@ -5540,8 +5880,12 @@ exports[`Storyshots Comments Comments 1`] = `
             <i
               className="iconfont icon-praise_fill Comment__icon_dislike"
             />
-            0
           </a>
+          <span
+            className="Comment__footer__count"
+          >
+            0
+          </span>
           <span
             className="Comment__footer__bullet"
           />
@@ -5647,8 +5991,12 @@ exports[`Storyshots Comments Comments 1`] = `
                   <i
                     className="iconfont icon-praise_fill"
                   />
-                  1
                 </a>
+                <span
+                  className="Comment__footer__count"
+                >
+                  1
+                </span>
                 <a
                   className="Comment__footer__link"
                   onBlur={undefined}
@@ -5663,8 +6011,12 @@ exports[`Storyshots Comments Comments 1`] = `
                   <i
                     className="iconfont icon-praise_fill Comment__icon_dislike"
                   />
-                  0
                 </a>
+                <span
+                  className="Comment__footer__count"
+                >
+                  0
+                </span>
                 <span
                   className="Comment__footer__bullet"
                 />
@@ -5777,8 +6129,12 @@ exports[`Storyshots Comments Comments 1`] = `
             <i
               className="iconfont icon-praise_fill"
             />
-            0
           </a>
+          <span
+            className="Comment__footer__count"
+          >
+            0
+          </span>
           <a
             className="Comment__footer__link"
             onBlur={undefined}
@@ -5793,8 +6149,12 @@ exports[`Storyshots Comments Comments 1`] = `
             <i
               className="iconfont icon-praise_fill Comment__icon_dislike"
             />
-            0
           </a>
+          <span
+            className="Comment__footer__count"
+          >
+            0
+          </span>
           <span
             className="Comment__footer__bullet"
           />
@@ -5900,8 +6260,12 @@ exports[`Storyshots Comments Comments 1`] = `
                   <i
                     className="iconfont icon-praise_fill"
                   />
-                  1
                 </a>
+                <span
+                  className="Comment__footer__count"
+                >
+                  1
+                </span>
                 <a
                   className="Comment__footer__link"
                   onBlur={undefined}
@@ -5916,8 +6280,12 @@ exports[`Storyshots Comments Comments 1`] = `
                   <i
                     className="iconfont icon-praise_fill Comment__icon_dislike"
                   />
-                  0
                 </a>
+                <span
+                  className="Comment__footer__count"
+                >
+                  0
+                </span>
                 <span
                   className="Comment__footer__bullet"
                 />
@@ -6028,8 +6396,12 @@ exports[`Storyshots Comments Comments 1`] = `
             <i
               className="iconfont icon-praise_fill"
             />
-            0
           </a>
+          <span
+            className="Comment__footer__count"
+          >
+            0
+          </span>
           <a
             className="Comment__footer__link"
             onBlur={undefined}
@@ -6044,8 +6416,12 @@ exports[`Storyshots Comments Comments 1`] = `
             <i
               className="iconfont icon-praise_fill Comment__icon_dislike"
             />
-            0
           </a>
+          <span
+            className="Comment__footer__count"
+          >
+            0
+          </span>
           <span
             className="Comment__footer__bullet"
           />
@@ -6151,8 +6527,12 @@ exports[`Storyshots Comments Comments 1`] = `
                   <i
                     className="iconfont icon-praise_fill"
                   />
-                  0
                 </a>
+                <span
+                  className="Comment__footer__count"
+                >
+                  0
+                </span>
                 <a
                   className="Comment__footer__link"
                   onBlur={undefined}
@@ -6167,8 +6547,12 @@ exports[`Storyshots Comments Comments 1`] = `
                   <i
                     className="iconfont icon-praise_fill Comment__icon_dislike"
                   />
-                  0
                 </a>
+                <span
+                  className="Comment__footer__count"
+                >
+                  0
+                </span>
                 <span
                   className="Comment__footer__bullet"
                 />
@@ -6279,8 +6663,12 @@ exports[`Storyshots Comments Comments 1`] = `
             <i
               className="iconfont icon-praise_fill"
             />
-            0
           </a>
+          <span
+            className="Comment__footer__count"
+          >
+            0
+          </span>
           <a
             className="Comment__footer__link"
             onBlur={undefined}
@@ -6295,8 +6683,12 @@ exports[`Storyshots Comments Comments 1`] = `
             <i
               className="iconfont icon-praise_fill Comment__icon_dislike"
             />
-            0
           </a>
+          <span
+            className="Comment__footer__count"
+          >
+            0
+          </span>
           <span
             className="Comment__footer__bullet"
           />
@@ -6402,8 +6794,12 @@ exports[`Storyshots Comments Comments 1`] = `
                   <i
                     className="iconfont icon-praise_fill"
                   />
-                  0
                 </a>
+                <span
+                  className="Comment__footer__count"
+                >
+                  0
+                </span>
                 <a
                   className="Comment__footer__link"
                   onBlur={undefined}
@@ -6418,8 +6814,12 @@ exports[`Storyshots Comments Comments 1`] = `
                   <i
                     className="iconfont icon-praise_fill Comment__icon_dislike"
                   />
-                  0
                 </a>
+                <span
+                  className="Comment__footer__count"
+                >
+                  0
+                </span>
                 <span
                   className="Comment__footer__bullet"
                 />
@@ -6530,8 +6930,12 @@ exports[`Storyshots Comments Comments 1`] = `
             <i
               className="iconfont icon-praise_fill"
             />
-            0
           </a>
+          <span
+            className="Comment__footer__count"
+          >
+            0
+          </span>
           <a
             className="Comment__footer__link"
             onBlur={undefined}
@@ -6546,8 +6950,12 @@ exports[`Storyshots Comments Comments 1`] = `
             <i
               className="iconfont icon-praise_fill Comment__icon_dislike"
             />
-            0
           </a>
+          <span
+            className="Comment__footer__count"
+          >
+            0
+          </span>
           <span
             className="Comment__footer__bullet"
           />
@@ -6653,8 +7061,12 @@ exports[`Storyshots Comments Comments 1`] = `
                   <i
                     className="iconfont icon-praise_fill"
                   />
-                  0
                 </a>
+                <span
+                  className="Comment__footer__count"
+                >
+                  0
+                </span>
                 <a
                   className="Comment__footer__link"
                   onBlur={undefined}
@@ -6669,8 +7081,12 @@ exports[`Storyshots Comments Comments 1`] = `
                   <i
                     className="iconfont icon-praise_fill Comment__icon_dislike"
                   />
-                  0
                 </a>
+                <span
+                  className="Comment__footer__count"
+                >
+                  0
+                </span>
                 <span
                   className="Comment__footer__bullet"
                 />
@@ -6781,8 +7197,12 @@ exports[`Storyshots Comments Comments 1`] = `
             <i
               className="iconfont icon-praise_fill"
             />
-            0
           </a>
+          <span
+            className="Comment__footer__count"
+          >
+            0
+          </span>
           <a
             className="Comment__footer__link"
             onBlur={undefined}
@@ -6797,8 +7217,12 @@ exports[`Storyshots Comments Comments 1`] = `
             <i
               className="iconfont icon-praise_fill Comment__icon_dislike"
             />
-            0
           </a>
+          <span
+            className="Comment__footer__count"
+          >
+            0
+          </span>
           <span
             className="Comment__footer__bullet"
           />
@@ -6904,8 +7328,12 @@ exports[`Storyshots Comments Comments 1`] = `
                   <i
                     className="iconfont icon-praise_fill"
                   />
-                  0
                 </a>
+                <span
+                  className="Comment__footer__count"
+                >
+                  0
+                </span>
                 <a
                   className="Comment__footer__link"
                   onBlur={undefined}
@@ -6920,8 +7348,12 @@ exports[`Storyshots Comments Comments 1`] = `
                   <i
                     className="iconfont icon-praise_fill Comment__icon_dislike"
                   />
-                  0
                 </a>
+                <span
+                  className="Comment__footer__count"
+                >
+                  0
+                </span>
                 <span
                   className="Comment__footer__bullet"
                 />
@@ -7027,8 +7459,12 @@ exports[`Storyshots Comments Comments 1`] = `
                         <i
                           className="iconfont icon-praise_fill"
                         />
-                        1
                       </a>
+                      <span
+                        className="Comment__footer__count"
+                      >
+                        1
+                      </span>
                       <a
                         className="Comment__footer__link"
                         onBlur={undefined}
@@ -7043,8 +7479,12 @@ exports[`Storyshots Comments Comments 1`] = `
                         <i
                           className="iconfont icon-praise_fill Comment__icon_dislike"
                         />
-                        0
                       </a>
+                      <span
+                        className="Comment__footer__count"
+                      >
+                        0
+                      </span>
                       <span
                         className="Comment__footer__bullet"
                       />
@@ -7168,8 +7608,12 @@ exports[`Storyshots Comments Comments 1`] = `
             <i
               className="iconfont icon-praise_fill"
             />
-            0
           </a>
+          <span
+            className="Comment__footer__count"
+          >
+            0
+          </span>
           <a
             className="Comment__footer__link"
             onBlur={undefined}
@@ -7184,8 +7628,12 @@ exports[`Storyshots Comments Comments 1`] = `
             <i
               className="iconfont icon-praise_fill Comment__icon_dislike"
             />
-            0
           </a>
+          <span
+            className="Comment__footer__count"
+          >
+            0
+          </span>
           <span
             className="Comment__footer__bullet"
           />
@@ -7291,8 +7739,12 @@ exports[`Storyshots Comments Comments 1`] = `
                   <i
                     className="iconfont icon-praise_fill"
                   />
-                  1
                 </a>
+                <span
+                  className="Comment__footer__count"
+                >
+                  1
+                </span>
                 <a
                   className="Comment__footer__link"
                   onBlur={undefined}
@@ -7307,8 +7759,12 @@ exports[`Storyshots Comments Comments 1`] = `
                   <i
                     className="iconfont icon-praise_fill Comment__icon_dislike"
                   />
-                  0
                 </a>
+                <span
+                  className="Comment__footer__count"
+                >
+                  0
+                </span>
                 <span
                   className="Comment__footer__bullet"
                 />

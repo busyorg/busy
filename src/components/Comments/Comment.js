@@ -164,9 +164,9 @@ class Comment extends React.Component {
                 onClick={() => onLikeClick(comment.id)}
               >
                 <i className="iconfont icon-praise_fill" />
-                {likesValue}
               </a>
             </Tooltip>
+            <span className="Comment__footer__count">{likesValue}</span>
             <Tooltip title="Dislike" placement="bottom">
               <a
                 role="presentation"
@@ -174,9 +174,9 @@ class Comment extends React.Component {
                 onClick={() => onDislikeClick(comment.id)}
               >
                 <i className="iconfont icon-praise_fill Comment__icon_dislike" />
-                {dislikesValue}
               </a>
             </Tooltip>
+            <span className="Comment__footer__count">{dislikesValue}</span>
             <span className="Comment__footer__bullet" />
             <span className="Comment__footer__payout">
               <Tooltip title={<PayoutDetail post={comment} />} placement="bottom">
