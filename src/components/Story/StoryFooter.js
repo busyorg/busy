@@ -89,11 +89,11 @@ class StoryFooter extends React.Component {
         <Tooltip title="Like" placement="top">
           <a role="presentation" className={likeClass} onClick={() => onLikeClick()}>
             {pendingLike ? <Icon type="loading" /> : <i className="iconfont icon-praise_fill" />}
-            <span className="StoryFooter__number">
-              {likesValue}
-            </span>
           </a>
         </Tooltip>
+        <span className="StoryFooter__number">
+          {likesValue}
+        </span>
         <Tooltip title="Comment" placement="top">
           <Link
             className="StoryFooter__link"
@@ -103,11 +103,11 @@ class StoryFooter extends React.Component {
             }}
           >
             <i className="iconfont icon-message_fill" />
-            <span className="StoryFooter__number">
-              {commentsValue}
-            </span>
           </Link>
         </Tooltip>
+        <span className="StoryFooter__number">
+          {commentsValue}
+        </span>
         <Tooltip
           title={postState.isReblogged ? 'You already reblogged this post' : 'Reblog'}
           placement="top"

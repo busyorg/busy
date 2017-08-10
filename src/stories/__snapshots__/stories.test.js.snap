@@ -9237,12 +9237,12 @@ exports[`Storyshots Story Full story 1`] = `
         <i
           className="iconfont icon-praise_fill"
         />
-        <span
-          className="StoryFooter__number"
-        >
-          133
-        </span>
       </a>
+      <span
+        className="StoryFooter__number"
+      >
+        133
+      </span>
       <a
         className="StoryFooter__link"
         href="/bitcoin/@bitspace/the-cryptoeconomy-rally#comments"
@@ -9257,12 +9257,12 @@ exports[`Storyshots Story Full story 1`] = `
         <i
           className="iconfont icon-message_fill"
         />
-        <span
-          className="StoryFooter__number"
-        >
-          18
-        </span>
       </a>
+      <span
+        className="StoryFooter__number"
+      >
+        18
+      </span>
       <span
         onBlur={undefined}
         onClick={undefined}
@@ -9485,12 +9485,12 @@ exports[`Storyshots Story Full story with embed 1`] = `
         <i
           className="iconfont icon-praise_fill"
         />
-        <span
-          className="StoryFooter__number"
-        >
-          658
-        </span>
       </a>
+      <span
+        className="StoryFooter__number"
+      >
+        658
+      </span>
       <a
         className="StoryFooter__link"
         href="/community-tokens/@fyrstikken/ned-scott-ceo-of-steemit-inc-have-a-40-minute-conversation-with-the-steemspeak-com-community#comments"
@@ -9505,12 +9505,12 @@ exports[`Storyshots Story Full story with embed 1`] = `
         <i
           className="iconfont icon-message_fill"
         />
-        <span
-          className="StoryFooter__number"
-        >
-          57
-        </span>
       </a>
+      <span
+        className="StoryFooter__number"
+      >
+        57
+      </span>
       <span
         onBlur={undefined}
         onClick={undefined}
@@ -9693,12 +9693,12 @@ exports[`Storyshots Story Inline story 1`] = `
           <i
             className="iconfont icon-praise_fill"
           />
-          <span
-            className="StoryFooter__number"
-          >
-            133
-          </span>
         </a>
+        <span
+          className="StoryFooter__number"
+        >
+          133
+        </span>
         <a
           className="StoryFooter__link"
           href="/bitcoin/@bitspace/the-cryptoeconomy-rally#comments"
@@ -9713,12 +9713,12 @@ exports[`Storyshots Story Inline story 1`] = `
           <i
             className="iconfont icon-message_fill"
           />
-          <span
-            className="StoryFooter__number"
-          >
-            18
-          </span>
         </a>
+        <span
+          className="StoryFooter__number"
+        >
+          18
+        </span>
         <span
           onBlur={undefined}
           onClick={undefined}
@@ -9911,12 +9911,12 @@ exports[`Storyshots Story Inline story with embed 1`] = `
           <i
             className="iconfont icon-praise_fill"
           />
-          <span
-            className="StoryFooter__number"
-          >
-            658
-          </span>
         </a>
+        <span
+          className="StoryFooter__number"
+        >
+          658
+        </span>
         <a
           className="StoryFooter__link"
           href="/community-tokens/@fyrstikken/ned-scott-ceo-of-steemit-inc-have-a-40-minute-conversation-with-the-steemspeak-com-community#comments"
@@ -9931,12 +9931,12 @@ exports[`Storyshots Story Inline story with embed 1`] = `
           <i
             className="iconfont icon-message_fill"
           />
-          <span
-            className="StoryFooter__number"
-          >
-            57
-          </span>
         </a>
+        <span
+          className="StoryFooter__number"
+        >
+          57
+        </span>
         <span
           onBlur={undefined}
           onClick={undefined}
