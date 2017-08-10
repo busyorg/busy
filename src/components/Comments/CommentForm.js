@@ -1,9 +1,10 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Input, Icon } from 'antd';
 import Avatar from '../Avatar';
 import './CommentForm.less';
 
-class CommentForm extends Component {
+class CommentForm extends React.Component {
   state = {
     inputValue: this.props.inputValue,
     isDisabledSubmit: false,

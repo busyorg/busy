@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import Remarkable from 'remarkable';
 import { HotKeys } from 'react-hotkeys';

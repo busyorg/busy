@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import CommentsList from '../components/Comments/Comments';
@@ -20,7 +21,7 @@ import './Comments.less';
     notify,
   }, dispatch),
 )
-export default class Comments extends Component {
+export default class Comments extends React.Component {
   static propTypes = {
     auth: PropTypes.shape().isRequired,
     post: PropTypes.shape(),
