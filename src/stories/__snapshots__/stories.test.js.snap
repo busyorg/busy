@@ -8102,8 +8102,7 @@ exports[`Storyshots Navigation Topnav unlogged 1`] = `
               title={undefined}
             >
               <a
-                href="/signin"
-                onClick={[Function]}
+                href="https://v2.steemconnect.com/oauth2/authorize?client_id=&redirect_uri=&scope="
               >
                 Sign in
               </a>

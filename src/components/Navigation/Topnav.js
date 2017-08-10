@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 import { Menu, Popover, Tooltip, Input, Badge } from 'antd';
+import steemconnect from 'sc2-sdk';
 import Avatar from '../Avatar';
 import Notifications from './Notifications/Notifications';
 import PopoverMenu, { PopoverMenuItem } from '../PopoverMenu/PopoverMenu';
@@ -87,7 +88,7 @@ const Topnav = ({
       <div className="Topnav__menu-container">
         <Menu className="Topnav__menu-container__menu" mode="horizontal">
           <Menu.Item key="signin">
-            <Link to="/signin">Sign in</Link>
+            <a href={steemconnect.getLoginURL()}>Sign in</a>
           </Menu.Item>
           <Menu.Item key="divider" disabled>
             |
