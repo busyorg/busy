@@ -1,11 +1,12 @@
 const webpack = require('webpack');
 const path = require('path');
 const autoprefixer = require('autoprefixer');
-const postcss_flexbugs = require('postcss-flexbugs-fixes');
+const postcssFlexbugs = require('postcss-flexbugs-fixes');
 
 const baseDir = path.resolve(__dirname, '..');
 
 module.exports = {
+  devtool: 'cheap-module-eval-source-map',
   entry: path.resolve(baseDir, './src/index.js'),
   output: {
     filename: 'bundle.js',
@@ -49,7 +50,7 @@ module.exports = {
             options: {
               ident: 'postcss', // https://webpack.js.org/guides/migrating/#complex-options
               plugins: () => [
-                postcss_flexbugs,
+                postcssFlexbugs,
                 autoprefixer({
                   browsers: [
                     '>1%',

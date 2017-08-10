@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import ReduxInfiniteScroll from 'redux-infinite-scroll';
 import { isNumber, take } from 'lodash';
 import UserCard from '../components/UserCard';

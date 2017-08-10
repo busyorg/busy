@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import UserList from './UserList';
 import Loading from '../components/Icon/Loading';
 import { getAllFollowing } from '../helpers/apiHelpers';

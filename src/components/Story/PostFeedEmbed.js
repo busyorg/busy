@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import './PostFeedEmbed.less';
 
 export default class PostFeedEmbed extends React.Component {

@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Popover } from 'antd';
 import PopoverMenu, { PopoverMenuItem } from './PopoverMenu/PopoverMenu';
 import Topic from './Button/Topic';
