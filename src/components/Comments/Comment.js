@@ -183,18 +183,20 @@ class Comment extends React.Component {
                 {payoutValue}
               </Tooltip>
             </span>
-            <span className="Comment__footer__bullet" />
             {auth &&
               auth.isAuthenticated &&
-              <a
-                role="presentation"
-                className={classNames('Comment__footer__link', {
-                  'Comment__footer__link--active': this.state.replyOpen,
-                })}
-                onClick={() => this.handleReplyClick()}
-              >
-                Reply
-              </a>}
+              <span>
+                <span className="Comment__footer__bullet" />
+                <a
+                  role="presentation"
+                  className={classNames('Comment__footer__link', {
+                    'Comment__footer__link--active': this.state.replyOpen,
+                  })}
+                  onClick={() => this.handleReplyClick()}
+                >
+                  Reply
+                </a>
+              </span>}
           </div>
           {this.state.replyOpen &&
             auth &&
