@@ -131,7 +131,11 @@ class Comment extends React.Component {
                 {formatter.reputation(comment.author_reputation)}
               </Tag>
             </Tooltip>
-            {(comment.author === rootPostAuthor) && <Tag color="#4f545c">OP</Tag>}
+            {(comment.author === rootPostAuthor) &&
+              <Tooltip title="Original poster" placement="top">
+                <Tag color="#4f545c">OP</Tag>
+              </Tooltip>
+            }
           </Link>
           <span className="Comment__date">
             <Tooltip
