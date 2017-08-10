@@ -119,6 +119,7 @@ class Comments extends React.Component {
               auth={auth}
               key={comment.id}
               comment={comment}
+              rootPostAuthor={this.props.parentPost && this.props.parentPost.author}
               commentsChildren={commentsChildren}
               onLikeClick={onLikeClick}
               onDislikeClick={onDislikeClick}

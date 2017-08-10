@@ -16,6 +16,7 @@ class Comment extends React.Component {
   static propTypes = {
     auth: PropTypes.shape(),
     comment: PropTypes.shape().isRequired,
+    rootPostAuthor: PropTypes.string,
     commentsChildren: PropTypes.shape(),
     onLikeClick: PropTypes.func,
     onDislikeClick: PropTypes.func,
@@ -24,6 +25,7 @@ class Comment extends React.Component {
 
   static defaultProps = {
     auth: undefined,
+    rootPostAuthor: undefined,
     commentsChildren: undefined,
     onLikeClick: () => {},
     onDislikeClick: () => {},
@@ -89,7 +91,14 @@ class Comment extends React.Component {
   };
 
   render() {
-    const { auth, comment, commentsChildren, onLikeClick, onDislikeClick } = this.props;
+    const {
+      auth,
+      comment,
+      rootPostAuthor,
+      commentsChildren,
+      onLikeClick,
+      onDislikeClick,
+    } = this.props;
 
     const pendingPayoutValue = parseFloat(comment.pending_payout_value);
     const totalPayoutValue = parseFloat(comment.total_payout_value);
@@ -122,6 +131,7 @@ class Comment extends React.Component {
                 {formatter.reputation(comment.author_reputation)}
               </Tag>
             </Tooltip>
+            {(comment.author === rootPostAuthor) && <Tag color="#4f545c">OP</Tag>}
           </Link>
           <span className="Comment__date">
             <Tooltip
@@ -203,6 +213,7 @@ class Comment extends React.Component {
                   auth={auth}
                   key={child.id}
                   comment={child}
+                  rootPostAuthor={rootPostAuthor}
                   commentsChildren={commentsChildren}
                   onLikeClick={onLikeClick}
                   onDislikeClick={onDislikeClick}
