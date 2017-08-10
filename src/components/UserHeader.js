@@ -67,7 +67,10 @@ UserHeader.propTypes = {
   auth: PropTypes.shape(),
   username: PropTypes.string,
   handle: PropTypes.string,
-  userReputation: PropTypes.string,
+  userReputation: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string,
+  ]),
   isSameUser: PropTypes.bool,
   isFollowed: PropTypes.bool,
   pendingFollow: PropTypes.bool,
