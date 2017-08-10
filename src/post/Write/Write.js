@@ -7,6 +7,7 @@ import debounce from 'lodash/debounce';
 import isArray from 'lodash/isArray';
 import 'url-search-params-polyfill';
 import { createPost, saveDraft, newPost } from './editorActions';
+import { notify } from '../../app/Notification/notificationActions';
 import Editor from '../../components/Editor/Editor';
 import Affix from '../../components/Utils/Affix';
 
@@ -22,6 +23,7 @@ const version = require('../../../package.json').version;
     createPost,
     saveDraft,
     newPost,
+    notify,
   },
 )
 class Write extends React.Component {
@@ -32,12 +34,14 @@ class Write extends React.Component {
     newPost: PropTypes.func,
     createPost: PropTypes.func,
     saveDraft: PropTypes.func,
+    notify: PropTypes.func,
   };
 
   static defaultProps = {
     newPost: () => {},
     createPost: () => {},
     saveDraft: () => {},
+    notify: () => {},
   };
 
   constructor(props) {
@@ -83,11 +87,6 @@ class Write extends React.Component {
       data.draftId = id;
     }
     this.props.createPost(data);
-  };
-
-  onImagePasted = (image, callback) => {
-    // NOTE: Upload image to server.
-    setTimeout(() => callback('https://placehold.it/200x200'), 500);
   };
 
   getNewPostData = (form) => {
@@ -161,6 +160,23 @@ class Write extends React.Component {
     return data;
   };
 
+  handleImageInserted = (blob, callback, errorCallback) => {
+    this.props.notify('Uploading image', 'info');
+    const formData = new FormData();
+    formData.append('files', blob);
+
+    fetch(`https://busy-img.herokuapp.com/@${this.props.user.name}/uploads`, {
+      method: 'POST',
+      body: formData,
+    })
+      .then(res => res.json())
+      .then(res => callback(res.secure_url, blob.name))
+      .catch(() => {
+        errorCallback();
+        this.props.notify("Couldn't upload image");
+      });
+  };
+
   saveDraft = debounce((form) => {
     const data = this.getNewPostData(form);
     const postBody = data.body;
@@ -203,7 +219,7 @@ class Write extends React.Component {
               loading={loading}
               onUpdate={this.saveDraft}
               onSubmit={this.onSubmit}
-              onImagePasted={this.onImagePasted}
+              onImageInserted={this.handleImageInserted}
             />
           </div>
         </div>

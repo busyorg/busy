@@ -222,7 +222,7 @@ storiesOf('Editor', module).add('Editor', () =>
   (<Editor
     onSubmit={action('Form submit')}
     onError={action('Form error')}
-    onImagePasted={(image, callback) => {
+    onImageInserted={(image, callback) => {
       // NOTE: Upload image to server.
       setTimeout(() => callback('https://placehold.it/200x200'), 500);
     }}
