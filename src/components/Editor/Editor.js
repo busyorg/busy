@@ -4,7 +4,7 @@ import Remarkable from 'remarkable';
 import { HotKeys } from 'react-hotkeys';
 import { throttle } from 'lodash';
 import isArray from 'lodash/isArray';
-import { Checkbox, Form, Input, Select, Tabs } from 'antd';
+import { Icon, Checkbox, Form, Input, Select, Tabs } from 'antd';
 import EditorToolbar from './EditorToolbar';
 import Action from '../Button/Action';
 import Body from '../Story/Body';
@@ -26,7 +26,7 @@ class Editor extends React.Component {
     onUpdate: PropTypes.func,
     onSubmit: PropTypes.func,
     onError: PropTypes.func,
-    onImagePasted: PropTypes.func,
+    onImageInserted: PropTypes.func,
   };
 
   static defaultProps = {
@@ -41,7 +41,7 @@ class Editor extends React.Component {
     onUpdate: () => {},
     onSubmit: () => {},
     onError: () => {},
-    onImagePasted: () => {},
+    onImageInserted: () => {},
   };
 
   static hotkeys = {
@@ -61,6 +61,7 @@ class Editor extends React.Component {
   state = {
     contentHtml: '',
     noContent: false,
+    imageUploading: false,
   };
 
   componentDidMount() {
@@ -130,6 +131,8 @@ class Editor extends React.Component {
       ...this.props.form.getFieldsValue(['title', 'topics', 'reward', 'upvote']),
       body: this.input.value,
     };
+
+    if (!e) return values;
 
     if (isArray(e)) {
       values.topics = e;
@@ -204,16 +207,31 @@ class Editor extends React.Component {
       const items = e.clipboardData.items;
       Array.from(items).forEach((item) => {
         if (item.kind === 'file') {
+          e.preventDefault();
+
+          this.setState({
+            imageUploading: true,
+          });
+
           const blob = item.getAsFile();
-          const reader = new FileReader();
-          reader.onload = (event) => {
-            this.props.onImagePasted(event.target.result, this.insertImage);
-          };
-          reader.readAsDataURL(blob);
+          this.props.onImageInserted(blob, this.insertImage, () => this.setState({
+            imageUploading: false,
+          }));
         }
       });
     }
   };
+
+  handleImageChange = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      this.setState({
+        imageUploading: true,
+      });
+      this.props.onImageInserted(e.target.files[0], this.insertImage, () => this.setState({
+        imageUploading: false,
+      }));
+    }
+  }
 
   insertAtCursor = (before, after, deltaStart = 0, deltaEnd = 0) => {
     if (!this.input) return;
@@ -231,7 +249,11 @@ class Editor extends React.Component {
     this.input.selectionEnd = endPos + deltaEnd;
   };
 
-  insertImage = (image) => {
+  insertImage = (image, imageName = 'image') => {
+    this.setState({
+      imageUploading: false,
+    });
+
     if (!this.input) return;
 
     const startPos = this.input.selectionStart;
@@ -239,7 +261,7 @@ class Editor extends React.Component {
     this.input.value = `${this.input.value.substring(
       0,
       startPos,
-    )}![image](${image})${this.input.value.substring(endPos, this.input.value.length)}`;
+    )}![${imageName}](${image})${this.input.value.substring(endPos, this.input.value.length)}`;
 
     this.renderMarkdown(this.input.value);
     this.onUpdate();
@@ -373,10 +395,15 @@ class Editor extends React.Component {
                   ref={ref => this.setInput(ref)}
                   type="textarea"
                   placeholder="Write your story..."
-                  autosize={{ minRows: 3, maxRows: 10 }}
                 />
               </HotKeys>
-              <p>You can upload images just by pasting them.</p>
+              <p className="Editor__imagebox">
+                <input type="file" id="inputfile" onChange={this.handleImageChange} />
+                <label htmlFor="inputfile">
+                  {(this.state.imageUploading) ? <Icon type="loading" /> : <i className="iconfont icon-picture" />}
+                  {(this.state.imageUploading) ? 'Uploading your image' : 'Select image or paste it from the clipboard.'}
+                </label>
+              </p>
             </TabPane>
             <TabPane tab="Preview" key="2">
               <Body body={this.state.contentHtml} />
