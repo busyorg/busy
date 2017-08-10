@@ -1,11 +1,40 @@
 import * as bookmarksActions from './bookmarksActions';
 
-const bookmarks = (state = {}, action) => {
+const initialState = {};
+
+const bookmarks = (state = initialState, action) => {
   switch (action.type) {
-    case bookmarksActions.GET_BOOKMARKS_START:
-    case bookmarksActions.GET_STORED_BOOKMARKS:
-    case bookmarksActions.TOGGLE_BOOKMARK_SUCCESS:
-      return action.payload;
+    case bookmarksActions.ADD_BOOKMARK:
+      if (state[action.payload.user]) {
+        return {
+          ...state,
+          [action.payload.user]: [
+            ...state[action.payload.user],
+            {
+              id: action.payload.postId,
+              author: action.payload.author,
+              permlink: action.payload.permlink,
+            },
+          ],
+        };
+      }
+      return {
+        ...state,
+        [action.payload.user]: [
+          {
+            id: action.payload.postId,
+            author: action.payload.author,
+            permlink: action.payload.permlink,
+          },
+        ],
+      };
+    case bookmarksActions.REMOVE_BOOKMARK:
+      return {
+        ...state,
+        [action.payload.user]: state[action.payload.user].filter(
+          bookmark => bookmark.id !== action.payload.postId,
+        ),
+      };
     default:
       return state;
   }

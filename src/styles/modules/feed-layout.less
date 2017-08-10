@@ -1,0 +1,51 @@
+.feed-layout {
+  position: relative;
+
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  .left {
+    width: @left-width;
+  }
+
+  .right {
+    width: @right-width;
+  }
+
+  .leftContainer {
+    float: left;
+    display: none;
+    width: @left-width;
+
+    @media @medium {
+      display: block;
+    }
+  }
+
+  .rightContainer {
+    float: right;
+    display: none;
+    width: @right-width;
+
+    @media @small {
+      display: block;
+    }
+  }
+
+  .center {
+    float: left;
+    width: 100%;
+
+    @media @small {
+      width: calc(100% ~"-" (@right-width + @margin)); 
+    }
+
+    @media @medium {
+      width: calc(100% ~"-" (@left-width + @right-width + 2 * @margin));
+      margin-left: @margin;
+    }
+  }
+}

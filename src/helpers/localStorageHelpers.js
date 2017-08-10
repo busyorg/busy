@@ -1,47 +1,7 @@
 import store from 'store';
 import _ from 'lodash';
 
-export const getBookmarks = (user) => {
-  const allBookmarks = store.get('bookmarks');
-  return allBookmarks && allBookmarks[user] ? allBookmarks[user] : {};
-};
-
-export const addBookmark = ({ postId, author, permlink }, user) => {
-  const bookmarks = getBookmarks(user);
-
-  bookmarks[postId] = { author, permlink, timestamp: Date.now() };
-  store.set('bookmarks', { [user]: bookmarks });
-  return bookmarks;
-};
-
-export const removeBookmark = (postId, user) => {
-  const bookmarks = getBookmarks(user);
-
-  if (bookmarks[postId]) {
-    delete bookmarks[postId];
-    store.set('bookmarks', { [user]: bookmarks });
-  }
-  return bookmarks;
-};
-
-export const toggleBookmark = ({ postId, author, permlink }, user) => {
-  const bookmarks = getBookmarks(user);
-  if (bookmarks[postId]) {
-    return removeBookmark(postId, user);
-  } else {
-    return addBookmark({ postId, author, permlink }, user);
-  }
-};
-
-export const getFavoriteUsers = () => {
-  return store.get('users') || {};
-};
-
-export const toggleFavoriteUser = (username) => {
-  const users = store.get('users') || {};
-  return (_.has(users, username)) ?
-    removeFavoriteUser(username) : addFavoriteUser(username);
-};
+export const getFavoriteUsers = () => store.get('users') || {};
 
 export const addFavoriteUser = (username) => {
   const users = store.get('users') || {};
@@ -57,15 +17,12 @@ export const removeFavoriteUser = (username) => {
   return true;
 };
 
-export const getFavoriteCategories = () => {
-  return store.get('categories') || {};
+export const toggleFavoriteUser = (username) => {
+  const users = store.get('users') || {};
+  return _.has(users, username) ? removeFavoriteUser(username) : addFavoriteUser(username);
 };
 
-export const toggleFavoriteCategory = (category) => {
-  const categories = store.get('categories') || {};
-  return (_.has(categories, category)) ?
-    removeFavoriteCategory(category) : addFavoriteCategory(category);
-};
+export const getFavoriteCategories = () => store.get('categories') || {};
 
 export const addFavoriteCategory = (category) => {
   const categories = store.get('categories') || {};
@@ -81,15 +38,20 @@ export const removeFavoriteCategory = (category) => {
   return true;
 };
 
-export const getLayout = () =>
-  store.get('layout') || 'card';
+export const toggleFavoriteCategory = (category) => {
+  const categories = store.get('categories') || {};
+  return _.has(categories, category)
+    ? removeFavoriteCategory(category)
+    : addFavoriteCategory(category);
+};
+
+export const getLayout = () => store.get('layout') || 'card';
 
 export const setLayout = (layout) => {
   store.set('layout', layout);
 };
 
-export const getLocale = () =>
-store.get('locale') || 'en';
+export const getLocale = () => store.get('locale') || 'en';
 
 export const setLocale = (locale) => {
   store.set('locale', locale);

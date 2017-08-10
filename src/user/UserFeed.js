@@ -1,51 +1,71 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import Feed from '../feed/Feed';
 import {
   getFeedContentFromState,
   getFeedLoadingFromState,
-  getFeedHasMoreFromState
+  getFeedHasMoreFromState,
 } from '../helpers/stateHelpers';
-import EmptyFeed from '../statics/EmptyFeed';
-import { getUserFeedContent as getUserFeedContentStatic } from '../feed/feedActions';
+import { getUserFeedContent, getMoreUserFeedContent } from '../feed/feedActions';
 
-export default class UserProfileFeed extends Component {
-  static needs = [
-    ({ name }) => getUserFeedContentStatic({ username: name, limit: 10 }),
-  ]
+@connect(state => ({
+  auth: state.auth,
+  feed: state.feed,
+  posts: state.posts,
+}), {
+  getUserFeedContent,
+  getMoreUserFeedContent,
+})
+export default class UserProfileFeed extends React.Component {
+  static propTypes = {
+    feed: PropTypes.shape(),
+    posts: PropTypes.shape(),
+    match: PropTypes.shape(),
+    limit: PropTypes.number,
+    getUserFeedContent: PropTypes.func,
+    getMoreUserFeedContent: PropTypes.func,
+  };
+
+  static defaultProps = {
+    feed: {},
+    posts: {},
+    match: {},
+    limit: 10,
+    getUserFeedContent: () => {},
+    getMoreUserFeedContent: () => {},
+  };
+
+  static needs = [({ name }) => getUserFeedContent({ username: name, limit: 10 })];
+
+  componentWillMount() {
+    this.props.getUserFeedContent({
+      sortBy: 'feed',
+      username: this.props.match.params.name,
+      limit: this.props.limit,
+    });
+  }
 
   render() {
-    const { feed, posts, getUserFeedContent, getMoreUserFeedContent } = this.props;
-    const username = this.props.params.name;
-
+    const { feed, posts } = this.props;
+    const username = this.props.match.params.name;
     const content = getFeedContentFromState('feed', username, feed, posts);
     const isFetching = getFeedLoadingFromState('feed', username, feed);
     const hasMore = getFeedHasMoreFromState('feed', username, feed);
-    const loadContentAction = () => getUserFeedContent({
-      sortBy: 'feed',
-      username,
-      limit: this.props.limit,
-    });
-    const loadMoreContentAction = () => getMoreUserFeedContent({
-      sortBy: 'feed',
-      username,
-      limit: this.props.limit,
-    });
+    const loadMoreContentAction = () =>
+      this.props.getMoreUserFeedContent({
+        sortBy: 'feed',
+        username,
+        limit: this.props.limit,
+      });
 
     return (
-      <div>
-        <Feed
-          content={content}
-          isFetching={isFetching}
-          hasMore={hasMore}
-          loadContent={loadContentAction}
-          loadMoreContent={loadMoreContentAction}
-          route={this.props.route}
-        />
-
-        {(content.length === 0 && !isFetching) &&
-          <EmptyFeed />
-        }
-      </div>
+      <Feed
+        content={content}
+        isFetching={isFetching}
+        hasMore={hasMore}
+        loadMoreContent={loadMoreContentAction}
+      />
     );
   }
 }

@@ -1,12 +1,14 @@
 /* eslint-disable new-cap,global-require,no-param-reassign */
+import _ from 'lodash';
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Provider } from 'react-redux';
 import { renderToString } from 'react-dom/server';
-import { match, RouterContext } from 'react-router';
+import { matchPath } from 'react-router-dom';
+import { StaticRouter } from 'react-router';
 
 import getStore from '../src/store';
-import routes from '../src/routes';
+import router, { UserRoutes } from '../src/routes';
 
 const fs = require('fs');
 const express = require('express');
@@ -30,7 +32,9 @@ const io = require('socket.io')(server);
 
 const rootDir = path.join(__dirname, '..');
 
-if (process.env.NODE_ENV !== 'production') { require('../webpack')(app); }
+if (process.env.NODE_ENV !== 'production') {
+  require('../webpack')(app);
+}
 
 if (process.env.WS) {
   steem.api.setOptions({
@@ -59,33 +63,37 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(rootDir, 'assets')));
 }
 
-if (!process.env.IS_BROWSER) { global.window = {}; }
+if (!process.env.IS_BROWSER) {
+  global.window = {};
+}
 
-const indexPath = process.env.NODE_ENV === 'production' ?
-  `${rootDir}/public/index.html` :
-  `${rootDir}/templates/development_index.html`;
+const indexPath = process.env.NODE_ENV === 'production'
+  ? `${rootDir}/public/index.html`
+  : `${rootDir}/templates/development_index.html`;
 
 const indexHtml = fs.readFileSync(indexPath, 'utf-8');
 
 function fetchComponentData(dispatch, components, params) {
-  const needs = components.reduce((prev, current) => (current.needs || [])
-    .concat((current.Wrapped ? current.Wrapped.needs : []) || [])
-    .concat((current.WrappedComponent ? current.WrappedComponent.needs : []) || [])
-    .concat(prev), []);
+  const needs = (components.needs || [])
+    .concat((components.Wrapped ? components.Wrapped.needs : []) || [])
+    .concat((components.WrappedComponent ? components.WrappedComponent.needs : []) || []);
+
   const promises = needs.map((need) => {
     const pros = dispatch(need(params));
     // debug('pros', pros);
     return pros;
   });
   debug('promises', needs, Date.now());
-  return Promise.all(promises);
+  return Promise.all(promises).then(() => params);
 }
 function renderPage(store, props) {
+  const context = {};
   debug('renderPage', Date.now());
   const appHtml = renderToString(
     <Provider store={store}>
-      <RouterContext {...props} />
-    </Provider>);
+      <StaticRouter context={context} {...props} />
+    </Provider>
+  );
 
   const preloadedState = store.getState();
   const helmet = Helmet.renderStatic();
@@ -93,8 +101,9 @@ function renderPage(store, props) {
   return indexHtml
     .replace('<!--server:header-->', header)
     .replace('<!--server:html-->', appHtml)
-    .replace('<!--server:scripts-->',
-    `<script>
+    .replace(
+      '<!--server:scripts-->',
+      `<script>
         // WARNING: See the following for security issues around embedding JSON in HTML:
         // http://redux.js.org/docs/recipes/ServerRendering.html#security-considerations
         window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(/</g, '\\u003c')}
@@ -105,14 +114,47 @@ function renderPage(store, props) {
 function serverSideResponse(req, res) {
   const store = getStore();
   global.postOrigin = `${req.protocol}://${req.get('host')}`;
-  match({ routes, location: req.url }, (err, redirect, props) => {
-    fetchComponentData(store.dispatch, props.components, props.params)
-      .then(() => renderPage(store, props))
-      .then(html => res.end(html))
-      .catch(() => res.redirect('/404'));
+  const promises = [];
+  let routes = [];
+  try {
+    const basicRoutes = router.props.children.props.children; // Get > Wrapper > Switch > [Childrens]
+    const userRoutes = UserRoutes().props.children;
+    routes = [...basicRoutes, ...userRoutes];
+  } catch (e) {
+    console.log('Could not evaluate routes for ssr');
+  }
+
+  _.each(routes, (route) => {
+    // use `matchPath` here
+    const match = matchPath(req.url, route.props);
+    if (match && match.isExact) {
+      promises.push(
+        fetchComponentData(
+          store.dispatch,
+          route.props.component || route.props.render().type,
+          match.params
+        )
+      );
+    }
+
+    return match;
   });
+
+  Promise.all(promises)
+    .then(data => renderPage(store, ...data))
+    .then(html => res.end(html))
+    .catch(error => res.end(error.message));
 }
 
+app.get('/callback', (req, res) => {
+  const { access_token, expires_in } = req.query;
+  if (access_token && expires_in) {
+    res.cookie('access_token', access_token, { maxAge: expires_in * 1000 });
+    res.redirect('/');
+  } else {
+    res.status(401).send({ error: 'access_token or expires_in Missing' });
+  }
+});
 
 app.get('/trending(/:category)', serverSideResponse);
 app.get('/hot(/:category)', serverSideResponse);

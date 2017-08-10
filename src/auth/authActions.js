@@ -1,5 +1,6 @@
 import Promise from 'bluebird';
-import steemConnect from 'steemconnect';
+import steemConnect from 'sc2-sdk';
+import Cookie from 'js-cookie';
 import request from 'superagent';
 import { getFollowing } from '../user/userActions';
 import { initPushpad } from './pushpadHelper';
@@ -18,32 +19,36 @@ export const LOGOUT_SUCCESS = '@auth/LOGOUT_SUCCESS';
 
 const requestLogin = () => ({ type: LOGIN_REQUEST });
 
-const loginSuccess = (user, token) =>
-  ({
-    type: LOGIN_SUCCESS,
-    user,
-    token,
-  });
+const loginSuccess = (user, token) => ({
+  type: LOGIN_SUCCESS,
+  user,
+  token,
+});
 
 const loginFail = () => ({ type: LOGIN_FAILURE });
 
-export const login = () =>
-  (dispatch, getState, { steemAPI }) => {
-    dispatch(requestLogin());
-    steemConnect.isAuthenticated((err, result) => {
-      if (err || !result || !result.isAuthenticated) {
-        dispatch(loginFail());
-        return;
-      }
-      dispatch(getFollowing(result.username));
-      steemAPI.getAccounts([result.username], (err, users) => { // eslint-disable-line no-shadow
-        if (err || !users || !users[0]) {
-          dispatch(loginFail());
-          return;
-        }
-        dispatch(loginSuccess(users[0], result.token));
-        // init pushpad
-        initPushpad(result.username, result.token);
-      });
-    });
-  };
+export const login = () => (dispatch) => {
+  dispatch(requestLogin());
+  steemConnect.me((err, result) => {
+    if (err || !result || !result.user) {
+      dispatch(loginFail());
+      return;
+    }
+    dispatch(getFollowing(result.user));
+
+    const accessToken = Cookie.get('access_token');
+    dispatch(loginSuccess(result.account, accessToken));
+    // init pushpad
+    initPushpad(result.user, accessToken);
+  });
+};
+
+export const logout = () => (dispatch) => {
+  dispatch({
+    type: LOGOUT,
+    payload: {
+      promise: steemConnect.revokeToken()
+        .then(() => Cookie.remove('access_token')),
+    },
+  });
+};

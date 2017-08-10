@@ -1,9 +1,7 @@
-// TODO(p0o): use a selector for these
 export const getFeedFromState = (sortBy, category = 'all', state) => {
   switch (sortBy) {
     case 'feed':
     case 'hot':
-    case 'cashout':
     case 'created':
     case 'active':
     case 'trending':
@@ -11,6 +9,7 @@ export const getFeedFromState = (sortBy, category = 'all', state) => {
     case 'blog':
     case 'bookmarks':
     case 'replies':
+    case 'promoted':
       return state[sortBy][category] ? state[sortBy][category].list : [];
     default:
       return [];
@@ -31,7 +30,6 @@ export const getFeedLoadingFromState = (sortBy, category = 'all', feedState) => 
   switch (sortBy) {
     case 'feed':
     case 'hot':
-    case 'cashout':
     case 'created':
     case 'active':
     case 'trending':
@@ -39,6 +37,7 @@ export const getFeedLoadingFromState = (sortBy, category = 'all', feedState) => 
     case 'blog':
     case 'bookmarks':
     case 'replies':
+    case 'promoted':
       return (feedState[sortBy][category] && feedState[sortBy][category].isFetching) || false;
     default:
       return false;
@@ -57,6 +56,7 @@ export const getFeedHasMoreFromState = (sortBy, listName = 'all', feedState) => 
     case 'blog':
     case 'bookmarks':
     case 'replies':
+    case 'promoted':
       return (feedState[sortBy][listName] && feedState[sortBy][listName].hasMore) || false;
     default:
       return false;
@@ -70,7 +70,6 @@ export const getUserFeedContentFromState = (username, feedState, postsState) =>
 
 export const getUserFeedLoadingFromState = (username, feedState) =>
   (feedState.feed[username] && feedState.feed[username].isFetching) || false;
-
 
 /**
  * Sort comments based on payout
@@ -97,7 +96,9 @@ export const sortCommentsFromSteem = (list, commentsState, sortBy = 'trending') 
     compareFunc = (itemA, itemB) => Date.parse(itemA.created) - Date.parse(itemB.created);
   }
 
-  return newList.sort((item1, item2) =>
-    compareFunc(commentsState.comments[item1], commentsState.comments[item2])
-  ).reverse();
+  return newList
+    .sort((item1, item2) =>
+      compareFunc(commentsState.comments[item1], commentsState.comments[item2]),
+    )
+    .reverse();
 };

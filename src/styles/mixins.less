@@ -1,0 +1,30 @@
+// Buttons
+.colorize-button(@color, @border-color) {
+  background: @color !important;
+  border-color: @border-color !important;
+
+  &:hover,
+  &:active,
+  &.active {
+    background: darken(@color, 15%, 'relative') !important;
+    border-color: darken(@border-color, 15%, 'relative') !important;
+  }
+
+  &:disabled {
+    background: lighten(@color, 20%, 'relative') !important;
+    border-color: lighten(@border-color, 20%, 'relative') !important;
+  }
+}
+
+.colorize-ghost-button(@color) {
+  border-color: @color !important;
+  color: @color !important;
+
+  &:hover,
+  &:active,
+  &.active {
+    border-color: @color !important;
+    background-color: @color !important;
+    color: white !important;
+  }
+}

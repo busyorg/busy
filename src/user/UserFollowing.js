@@ -1,32 +1,36 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import UserList from './UserList';
-import Loading from '../widgets/Loading';
+import Loading from '../components/Icon/Loading';
 import { getAllFollowing } from '../helpers/apiHelpers';
+import './UserFollowing.less';
 
-export default class UserFollowing extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isLoading: false,
-      isLoaded: false,
-      users: [],
-    };
-  }
+export default class UserFollowing extends React.Component {
+  static propTypes = {
+    match: PropTypes.shape().isRequired,
+  };
+
+  state = {
+    isLoading: false,
+    isLoaded: false,
+    users: [],
+  };
 
   componentWillMount() {
     this.setState({ isLoading: true });
-    getAllFollowing(this.props.params.name)
-      .then(users => this.setState({
+    getAllFollowing(this.props.match.params.name).then(users =>
+      this.setState({
         isLoading: false,
         isLoaded: true,
-        users: users.sort()
-      }));
+        users: users.sort(),
+      }),
+    );
   }
 
   render() {
     return (
-      <div>
-        <div className="container">
+      <div className="UserFollowing">
+        <div className="container UserFollowing__container">
           {this.state.users && <UserList users={this.state.users} />}
           {this.state.isLoading && <Loading />}
         </div>

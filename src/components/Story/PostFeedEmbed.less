@@ -1,0 +1,27 @@
+@import "../../styles/custom.less";
+
+.PostFeedEmbed {
+  position: relative;
+  margin: 4px 0;
+  display: flex;
+  cursor: pointer;
+  background-color: #000000;
+
+  &__playButton {
+    position: absolute;
+    display: flex;
+    height: 100%;
+    width: 100%;
+    background: fade(@primary-color, 60%);
+
+    & .iconfont {
+      margin: auto;
+      font-size: 6em;
+      color: @white;
+    }
+  }
+  
+  &__preview {
+    width: 100%;
+  }
+}

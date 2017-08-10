@@ -1,0 +1,29 @@
+.TopicSelector {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+
+  &__topics {
+    & > a {
+      &:not(:nth-child(1)) {
+        margin-left: 4px;
+      }
+    }
+  }
+
+  &__sort {
+    color: #99aab5;
+
+    &__current {
+      cursor: pointer;
+      margin-left: 8px;
+      font-weight: 500;
+
+      & > .iconfont {
+        margin-left: 4px;
+        font-size: 16px !important;
+        vertical-align: -1px;
+      }
+    }
+  }
+}

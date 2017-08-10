@@ -2,7 +2,6 @@ import * as feedTypes from './feedActions';
 import * as userTypes from '../user/userActions';
 import * as bookmarksActions from '../bookmarks/bookmarksActions';
 
-
 const initialState = {
   feed: {},
   hot: {},
@@ -14,6 +13,7 @@ const initialState = {
   blog: {},
   bookmarks: {},
   replies: {},
+  promoted: {},
 };
 
 const feedFetching = (state = false, action) => {
@@ -26,6 +26,7 @@ const feedFetching = (state = false, action) => {
     case bookmarksActions.GET_BOOKMARKS_SUCCESS:
     case userTypes.GET_USER_REPLIES_SUCCESS:
     case userTypes.GET_MORE_USER_REPLIES_SUCCESS:
+    case userTypes.GET_USER_COMMENTS_SUCCESS:
       return false;
     case feedTypes.GET_FEED_CONTENT:
     case feedTypes.GET_MORE_FEED_CONTENT:
@@ -34,6 +35,7 @@ const feedFetching = (state = false, action) => {
     case bookmarksActions.GET_BOOKMARKS_START:
     case userTypes.GET_USER_REPLIES_START:
     case userTypes.GET_MORE_USER_REPLIES_START:
+    case userTypes.GET_USER_COMMENTS_START:
       return true;
     default:
       return state;
@@ -47,20 +49,17 @@ const feedIdsList = (state = [], action) => {
     case feedTypes.GET_USER_FEED_CONTENT_SUCCESS:
     case bookmarksActions.GET_BOOKMARKS_SUCCESS:
       postsIds = action.payload.postsData.map(post => post.id);
-      return [
-        ...postsIds,
-      ];
+      return [...postsIds];
     case feedTypes.GET_MORE_FEED_CONTENT_SUCCESS:
-    case feedTypes.GET_MORE_USER_FEED_CONTENT_SUCCESS:
+    case feedTypes.GET_MORE_USER_FEED_CONTENT_SUCCESS: {
       // first element of the array is the same element loaded in the previous chunk
       const morePostsIds = action.payload.postsData.map(post => post.id).slice(1);
       // add data only if it doesn't exist
       if (state[state.length - 1] !== morePostsIds[morePostsIds.length - 1]) {
-        return [
-          ...state,
-          ...morePostsIds,
-        ];
+        return [...state, ...morePostsIds];
       }
+      return state;
+    }
     case userTypes.GET_USER_COMMENTS_SUCCESS:
       return Object.keys(action.payload.content).map(key => action.payload.content[key].id);
     case userTypes.GET_MORE_USER_COMMENTS_SUCCESS:
@@ -69,10 +68,7 @@ const feedIdsList = (state = [], action) => {
       return Object.keys(action.payload).reverse();
     case userTypes.GET_MORE_USER_REPLIES_SUCCESS:
       postsIds = action.payload.map(reply => reply.id);
-      return [
-        ...state,
-        ...postsIds,
-      ];
+      return [...state, ...postsIds];
     default:
       return state;
   }
@@ -137,7 +133,7 @@ const feedSortByItem = (state = {}, action) => {
     case feedTypes.FEED_HAS_NO_MORE:
       return {
         ...state,
-        [action.payload.category]: feedSortBySubItem(state[action.payload.category], action)
+        [action.payload.category]: feedSortBySubItem(state[action.payload.category], action),
       };
     case feedTypes.GET_USER_FEED_CONTENT:
     case feedTypes.GET_USER_FEED_CONTENT_SUCCESS:
@@ -145,7 +141,7 @@ const feedSortByItem = (state = {}, action) => {
     case feedTypes.GET_MORE_USER_FEED_CONTENT_SUCCESS:
       return {
         ...state,
-        [action.payload.username]: feedSortBySubItem(state[action.payload.username], action)
+        [action.payload.username]: feedSortBySubItem(state[action.payload.username], action),
       };
     case userTypes.GET_USER_COMMENTS_START:
     case userTypes.GET_USER_COMMENTS_SUCCESS:
@@ -157,7 +153,7 @@ const feedSortByItem = (state = {}, action) => {
     case userTypes.GET_MORE_USER_REPLIES_SUCCESS:
       return {
         ...state,
-        [action.meta.username]: feedSortBySubItem(state[action.meta.username], action)
+        [action.meta.username]: feedSortBySubItem(state[action.meta.username], action),
       };
     case bookmarksActions.GET_BOOKMARKS_START:
     case bookmarksActions.GET_BOOKMARKS_SUCCESS:
@@ -183,7 +179,7 @@ const feed = (state = initialState, action) => {
     case feedTypes.FEED_HAS_NO_MORE:
       return {
         ...state,
-        [action.payload.sortBy]: feedSortByItem(state[action.payload.sortBy], action)
+        [action.payload.sortBy]: feedSortByItem(state[action.payload.sortBy], action),
       };
     case userTypes.GET_USER_COMMENTS_START:
     case userTypes.GET_USER_COMMENTS_SUCCESS:
@@ -191,13 +187,13 @@ const feed = (state = initialState, action) => {
     case userTypes.GET_MORE_USER_COMMENTS_SUCCESS:
       return {
         ...state,
-        comments: feedSortByItem(state.comments, action)
+        comments: feedSortByItem(state.comments, action),
       };
     case bookmarksActions.GET_BOOKMARKS_START:
     case bookmarksActions.GET_BOOKMARKS_SUCCESS:
       return {
         ...state,
-        bookmarks: feedSortByItem(state.bookmarks, action)
+        bookmarks: feedSortByItem(state.bookmarks, action),
       };
     case userTypes.GET_USER_REPLIES_START:
     case userTypes.GET_USER_REPLIES_SUCCESS:
@@ -207,7 +203,7 @@ const feed = (state = initialState, action) => {
         ...state,
         replies: feedSortByItem(state.replies, action),
       };
-    case bookmarksActions.TOGGLE_BOOKMARK:
+    case bookmarksActions.TOGGLE_BOOKMARK: {
       const toggledId = action.payload;
       // remove from feed if toggled off
       if (state.bookmarks.all && state.bookmarks.all.list.includes(toggledId)) {
@@ -222,6 +218,8 @@ const feed = (state = initialState, action) => {
           },
         };
       }
+      return state;
+    }
     default:
       return state;
   }

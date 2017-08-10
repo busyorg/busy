@@ -1,0 +1,255 @@
+// https://raw.githubusercontent.com/twbs/bootstrap/v4-dev/scss/_variables.scss
+
+// Variables
+//
+// Copy settings from this file into the provided `custom.scss` to override
+// the Bootstrap defaults without modifying key, versioned files.
+
+// Spacing
+//
+// Control the default styling of most Bootstrap elements by modifying these
+// variables. Mostly focused on spacing.
+// You can add more entries to the @spacers map, should you need more variation.
+
+@spacer: 1rem;
+
+// This variable affects the `.h-*` and `.w-*` classes.
+@sizes: (
+  25: 25%,
+  50: 50%,
+  75: 75%,
+  100: 100%
+);
+
+// Colors
+//
+// Grayscale and brand colors for use across Bootstrap.
+
+// Start with assigning color names to specific hex values.
+@white:  #fff;
+@black:  #000;
+@red:    #d9534f;
+@orange: #F6A623;
+@yellow: #ffd500;
+@green:  #54d2a0;
+@blue:   #0275d8;
+@teal:   #5bc0de;
+@pink:   #ff5b77;
+@purple: #4757b2;
+
+// Create grayscale
+@gray-dark:                 #353535;
+@gray:                      #99aab5;
+@gray-light:                #9d9d9d;
+@gray-lighter:              #eceeef;
+@gray-lightest:             #f7f7f9;
+
+// Reassign color vars to semantic color scheme
+@brand-primary:             @purple;
+@brand-success:             @green;
+@brand-info:                @teal;
+@brand-warning:             @orange;
+@brand-danger:              @red;
+@brand-inverse:             @gray-dark;
+
+
+// Options
+//
+// Quickly modify global styling by enabling or disabling optional features.
+
+@enable-rounded:            true;
+@enable-shadows:            false;
+@enable-gradients:          false;
+@enable-transitions:        true;
+@enable-hover-media-query:  false;
+@enable-grid-classes:       true;
+@enable-print-styles:       true;
+
+// Body
+//
+// Settings for the `<body>` element.
+
+@body-bg:       #F9F9F9;
+@body-color:    @gray-dark;
+
+// Links
+//
+// Style anchor elements.
+
+@link-color:            @brand-primary;
+@link-decoration:       none;
+@link-hover-color:      darken(@link-color, 15%);
+@link-hover-decoration: underline;
+
+// Components
+//
+// Define common padding and border radius sizes and more.
+
+@line-height-lg:         1.5;
+@line-height-sm:         1.5;
+
+@border-width: 1px;
+
+@border-radius:          .25rem;
+@border-radius-lg:       .3rem;
+@border-radius-sm:       .2rem;
+
+@component-active-color: @white;
+@component-active-bg:    @brand-primary;
+
+@caret-width:            .3em;
+
+@transition-base:        all .2s ease-in-out;
+@transition-fade:        opacity .15s linear;
+@transition-collapse:    height .35s ease;
+
+
+// Fonts
+//
+// Font, line-height, and color for body text, headings, and more.
+
+@font-family-sans-serif: "Whitney", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+@font-family-monospace:  "WhitneyBold", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+@font-family-base:       @font-family-sans-serif;
+
+@font-size-base: 1rem; // Assumes the browser default, typically `16px`
+@font-size-lg:   1.25rem;
+@font-size-sm:   .875rem;
+@font-size-xs:   .75rem;
+
+@font-weight-normal: normal;
+@font-weight-bold: bold;
+
+@font-weight-base: @font-weight-normal;
+@line-height-base: 1.5;
+
+@font-size-h1: 2rem;
+@font-size-h2: 1.4rem;
+@font-size-h3: 1.2rem;
+@font-size-h4: 1.1rem;
+@font-size-h5: 1rem;
+@font-size-h6: 1rem;
+
+@headings-margin-bottom: (@spacer / 2);
+@headings-font-family:   @font-family-monospace;
+@headings-font-weight:   500;
+@headings-line-height:   1.1;
+@headings-color:         inherit;
+
+@display1-size: 6rem;
+@display2-size: 5.5rem;
+@display3-size: 4.5rem;
+@display4-size: 3.5rem;
+
+@display1-weight:     300;
+@display2-weight:     300;
+@display3-weight:     300;
+@display4-weight:     300;
+@display-line-height: @headings-line-height;
+
+@lead-font-size:   1.25rem;
+@lead-font-weight: 300;
+
+@small-font-size: 80%;
+
+@text-muted: @gray-light;
+
+@blockquote-small-color:  @gray-light;
+@blockquote-font-size:    (@font-size-base * 1.25);
+@blockquote-border-color: @gray-lighter;
+@blockquote-border-width: .25rem;
+
+@hr-border-color: rgba(@black,.1);
+@hr-border-width: @border-width;
+
+@mark-padding: .2em;
+
+@dt-font-weight: @font-weight-bold;
+
+@kbd-box-shadow:         inset 0 -.1rem 0 rgba(@black,.25);
+@nested-kbd-font-weight: @font-weight-bold;
+
+@list-inline-padding: 5px;
+
+
+// Tables
+//
+// Customizes the `.table` component with basic values, each used across all table variations.
+
+@table-cell-padding:            .75rem;
+@table-sm-cell-padding:         .3rem;
+
+@table-bg:                      transparent;
+@table-bg-accent:               rgba(@black,.05);
+@table-bg-hover:                rgba(@black,.075);
+@table-bg-active:               @table-bg-hover;
+
+@table-border-width:            @border-width;
+@table-border-color:            @gray-lighter;
+
+@table-head-bg:                 @gray-lighter;
+@table-head-color:              @gray;
+
+@table-inverse-bg:              @gray-dark;
+@table-inverse-bg-accent:       rgba(@white, .05);
+@table-inverse-bg-hover:        rgba(@white, .075);
+@table-inverse-border-color:    lighten(@gray-dark, 7.5%);
+@table-inverse-color:           @body-bg;
+
+
+// Buttons
+//
+// For each of Bootstrap's buttons, define text, background and border color.
+
+@input-btn-padding-y:       .5rem;
+@input-btn-padding-x:       1rem;
+@input-btn-line-height:     1.25;
+
+@input-btn-padding-y-sm:    .25rem;
+@input-btn-padding-x-sm:    .5rem;
+@input-btn-line-height-sm:  1.5;
+
+@input-btn-padding-y-lg:    .5rem;
+@input-btn-padding-x-lg:    1rem;
+@input-btn-line-height-lg:  1.5;
+
+@btn-font-weight:                @font-weight-normal;
+@btn-box-shadow:                 none;
+@btn-focus-box-shadow:           none;
+@btn-active-box-shadow:          none;
+
+@btn-primary-color:              @white;
+@btn-primary-bg:                 @brand-primary;
+@btn-primary-border-color:       @btn-primary-bg;
+
+@btn-secondary-color:            @gray-dark;
+@btn-secondary-bg:               @white;
+@btn-secondary-border-color:     #ccc;
+
+@btn-info-color:                 @white;
+@btn-info-bg:                    @brand-info;
+@btn-info-border-color:          @btn-info-bg;
+
+@btn-success-color:              @white;
+@btn-success-bg:                 @brand-success;
+@btn-success-border-color:       @btn-success-bg;
+
+@btn-warning-color:              @white;
+@btn-warning-bg:                 @brand-warning;
+@btn-warning-border-color:       @btn-warning-bg;
+
+@btn-danger-color:               @white;
+@btn-danger-bg:                  @brand-danger;
+@btn-danger-border-color:        @btn-danger-bg;
+
+@btn-link-disabled-color:        @gray-light;
+
+@btn-block-spacing-y:            .5rem;
+
+// Allows for customizing button radius independently from global border radius
+@btn-border-radius:              @border-radius;
+@btn-border-radius-lg:           @border-radius-lg;
+@btn-border-radius-sm:           @border-radius-sm;
+
+@btn-transition:                 all .2s ease-in-out;
+

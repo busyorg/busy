@@ -1,0 +1,24 @@
+@import "../../styles/custom.less";
+@import "../../styles/mixins.less";
+
+.Action {
+  .btn;
+  .btn-default;
+
+  .colorize-button(#c2ccd3, #99aab5);
+
+  color: @white;
+  width: 100%;
+
+  &:hover,
+  &:focus,
+  &:active,
+  &.active {
+    color: @white;
+  }
+
+  & .anticon {
+    vertical-align: -1px;
+    margin-right: 8px;
+  }
+}

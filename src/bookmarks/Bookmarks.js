@@ -1,13 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import Feed from '../feed/Feed';
 import {
   getFeedContentFromState,
   getFeedLoadingFromState,
-  getFeedHasMoreFromState
+  getFeedHasMoreFromState,
 } from '../helpers/stateHelpers';
-import * as bookmarksActions from './bookmarksActions';
+import { getBookmarks } from './bookmarksActions';
 
 @connect(
   state => ({
@@ -15,24 +16,30 @@ import * as bookmarksActions from './bookmarksActions';
     posts: state.posts,
   }),
   dispatch => ({
-    getBookmarks: () => dispatch(bookmarksActions.getBookmarks()),
-  })
+    getBookmarks: () => dispatch(getBookmarks()),
+  }),
 )
-export default class Bookmarks extends Component {
-  constructor(props) {
-    super(props);
-  }
+export default class Bookmarks extends React.Component {
+  static propTypes = {
+    feed: PropTypes.shape().isRequired,
+    posts: PropTypes.shape().isRequired,
+    getBookmarks: PropTypes.func,
+  };
+
+  static defaultProps = {
+    getBookmarks: () => {},
+  };
 
   componentDidMount() {
     this.props.getBookmarks();
   }
 
   render() {
-    const { sortBy, category, feed, posts, notify } = this.props;
+    const { feed, posts } = this.props;
 
-    const content = getFeedContentFromState(sortBy, category, feed, posts);
-    const isFetching = getFeedLoadingFromState(sortBy, category, feed);
-    const hasMore = false;
+    const content = getFeedContentFromState('bookmarks', 'all', feed, posts);
+    const isFetching = getFeedLoadingFromState('bookmarks', 'all', feed);
+    const hasMore = getFeedHasMoreFromState('bookmarks', 'all', feed);
     const loadContentAction = () => null;
     const loadMoreContentAction = () => null;
 
@@ -48,21 +55,19 @@ export default class Bookmarks extends Component {
             hasMore={hasMore}
             loadContent={loadContentAction}
             loadMoreContent={loadMoreContentAction}
-            notify={notify}
           />
-          { !isFetching && !content.length &&
+          {!isFetching &&
+            !content.length &&
             <div className="container">
               <h3 className="text-center">
-                <FormattedMessage id="empty_bookmarks" defaultMessage="You don't have any story saved." />
+                <FormattedMessage
+                  id="empty_bookmarks"
+                  defaultMessage="You don't have any story saved."
+                />
               </h3>
-            </div>
-          }
+            </div>}
         </div>
       </div>
     );
   }
 }
-Bookmarks.defaultProps = {
-  sortBy: 'bookmarks',
-  category: 'all',
-};

@@ -1,0 +1,28 @@
+@import "../../../styles/custom.less";
+
+@count: 5;
+
+.Notifications {
+  margin: -8px -16px;
+  width: 400px;
+
+  &__content {
+    overflow-y: hidden;
+
+    &:hover {
+      overflow-y: auto;
+    }
+  
+    max-height: @count * 70px;
+  }
+
+  &__footer {
+    text-align: center;
+    height: 35px;
+    line-height: 35px;
+
+    & > a {
+      font-weight: 500;
+    }
+  }
+}

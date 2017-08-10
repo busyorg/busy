@@ -1,0 +1,33 @@
+@import "../../styles/custom.less";
+@import "../../styles/mixins.less";
+
+.Topic {
+  .btn;
+  .btn-primary;
+  .btn-ghost;
+
+  .colorize-ghost-button(@green);
+
+  height: @btn-height-sm;
+  font-size: 14px;
+  border-radius: @btn-height-sm;
+  border-width: 2px;
+  padding: 0 10px;
+  line-height: 21px;
+
+  text-decoration: none !important;
+
+  & > &__close {
+    font-size: 14px !important;
+    vertical-align: -2px;
+    margin-left: 4px;
+  }
+}
+
+.Topic--favorite {
+  .colorize-ghost-button(@orange)
+}
+
+.Topic--closing {
+  .colorize-ghost-button(@red);
+}

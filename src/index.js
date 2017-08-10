@@ -1,15 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
-import steemconnect from 'steemconnect';
+import steemconnect from 'sc2-sdk';
+import Cookie from 'js-cookie';
 import steem from 'steem';
 import ReactGA from 'react-ga';
+import Raven from 'raven-js';
+import Logger from 'js-logger';
 import { AppContainer } from 'react-hot-loader';
+import { LocaleProvider, message } from 'antd';
+import enUS from 'antd/lib/locale-provider/en_US';
+import { history } from './routes';
 import getStore from './store';
-import { isSmall } from './helpers/responsive';
-import { HIDE_SIDEBAR } from './actions';
 import AppHost from './AppHost';
+
+Logger.useDefaults();
 
 const store = getStore();
 
@@ -20,16 +25,19 @@ const logPageView = () => {
 };
 
 if (process.env.SENTRY_PUBLIC_DSN) {
-  const Raven = require('raven-js');
   Raven.config(process.env.SENTRY_PUBLIC_DSN).install();
 }
 
 if (process.env.STEEMCONNECT_HOST) {
   steemconnect.init({
-    app: 'busy.org',
-    baseURL: process.env.STEEMCONNECT_HOST,
-    callbackURL: process.env.STEEMCONNECT_REDIRECT_URL
+    app: 'busy.app',
+    callbackURL: process.env.STEEMCONNECT_REDIRECT_URL,
   });
+  const accessToken = Cookie.get('access_token');
+  steemconnect.setBaseURL(process.env.STEEMCONNECT_HOST);
+  if (accessToken) {
+    steemconnect.setAccessToken(accessToken);
+  }
 }
 
 if (process.env.WS) {
@@ -39,32 +47,31 @@ if (process.env.WS) {
   });
 }
 
-browserHistory.listen(() => {
-  if (isSmall()) {
-    store.dispatch({
-      type: HIDE_SIDEBAR,
-    });
-  }
+message.config({
+  top: 62,
+  duration: 3,
 });
 
 const render = (Component) => {
   ReactDOM.render(
     <Provider store={store}>
-      { process.env.NODE_ENV !== 'production' ?
-        <AppContainer>
+      <LocaleProvider locale={enUS}>
+        {process.env.NODE_ENV !== 'production' ?
+          <AppContainer>
+            <Component
+              history={history}
+              onUpdate={logPageView}
+            />
+          </AppContainer>
+          :
           <Component
+            history={history}
             onUpdate={logPageView}
-            history={browserHistory}
           />
-        </AppContainer>
-        :
-        <Component
-          onUpdate={logPageView}
-          history={browserHistory}
-        />
-      }
+        }
+      </LocaleProvider>
     </Provider>,
-    document.getElementById('app')
+    document.getElementById('app'),
   );
 };
 

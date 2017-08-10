@@ -21,7 +21,7 @@ export function reducer(state = {}, action) {
 export function mediaChanged(data) {
   return {
     type: MEDIA_CHANGED,
-    payload: data
+    payload: data,
   };
 }
 
@@ -38,11 +38,12 @@ const getSizes = (data) => {
   }
 };
 
-const makeOnResize = dispatch => debounce(() => {
-  const data = {};
-  getSizes(data);
-  dispatch(mediaChanged(data));
-}, 500);
+const makeOnResize = dispatch =>
+  debounce(() => {
+    const data = {};
+    getSizes(data);
+    dispatch(mediaChanged(data));
+  }, 500);
 
 function trackMediaQuery(label, query, dispatch, initData) {
   // special queries
@@ -67,18 +68,20 @@ function trackMediaQuery(label, query, dispatch, initData) {
 
   const mq = matchMedia(query);
 
-  const listener = () => dispatch(mediaChanged({
-    [label]: mq.matches,
-  }));
+  const listener = () =>
+    dispatch(
+      mediaChanged({
+        [label]: mq.matches,
+      }),
+    );
 
   mq.addListener(listener);
 
   initData[label] = mq.matches; // eslint-disable-line
-  return;
 }
 
 export function mediaQueryTracker(queries) {
-  return dispatch => {
+  return (dispatch) => {
     const initData = {};
     if (matchMedia) {
       each(queries, (query, label) => {

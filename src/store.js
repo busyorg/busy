@@ -1,22 +1,21 @@
-/* global window */
-import createLogger from 'redux-logger';
 import promiseMiddleware from 'redux-promise-middleware';
 import persistState from 'redux-localstorage';
 import thunk from 'redux-thunk';
 import { pick } from 'lodash/object';
 import { applyMiddleware, createStore, compose } from 'redux';
+import { routerMiddleware } from 'react-router-redux';
 import api from './steemAPI';
-
-import MessagesWorker from './messages';
+import { history } from './routes';
 import { mountResponsive } from './helpers/responsive';
 import errorMiddleware from './errorMiddleware';
 import reducers from './reducers';
 
-export const messagesWorker = new MessagesWorker();
 let preloadedState;
 if (process.env.IS_BROWSER) {
+  /* eslint-disable no-underscore-dangle */
   preloadedState = window.__PRELOADED_STATE__;
   delete window.__PRELOADED_STATE__;
+  /* eslint-enable no-underscore-dangle */
 }
 
 if (process.env.IS_BROWSER && process.env.NODE_ENV !== 'production') {
@@ -30,36 +29,29 @@ const middleware = [
       'START',
       'SUCCESS',
       'ERROR',
-    ]
+    ],
   }),
   thunk.withExtraArgument({
-    messagesWorker,
     steemAPI: api,
-  })
+  }),
+  routerMiddleware(history),
 ];
-
-if (process.env.IS_BROWSER &&
-  process.env.NODE_ENV !== 'production') {
-  middleware.push(createLogger({
-    collapsed: true,
-    duration: true,
-  }));
-}
 
 let enhancer;
 if (process.env.IS_BROWSER) {
+  // eslint-disable-next-line no-underscore-dangle
   const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
   enhancer = composeEnhancers(
     applyMiddleware(...middleware),
     persistState(['app', 'favorites', 'editor', 'bookmarks', 'user'], {
       slicer: () => state => ({
         app: pick(state.app, ['locale', 'sidebarIsVisible', 'layout']),
-        user: pick(state.user, ['votePower', 'following']),
+        user: pick(state.user, ['following']),
         bookmarks: state.bookmarks,
         favorites: state.favorites,
         editor: state.editor,
       }),
-    })
+    }),
   );
 } else {
   enhancer = compose(applyMiddleware(...middleware));
@@ -69,11 +61,9 @@ const getStore = () => {
   const store = createStore(
     reducers,
     preloadedState,
-    enhancer
+    enhancer,
   );
   mountResponsive(store);
-  messagesWorker.attachToStore(store);
-  messagesWorker.start();
   return store;
 };
 

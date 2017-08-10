@@ -1,16 +1,15 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import MenuHelp from '../app/Menu/MenuHelp';
-import UserCard from '../widgets/UserCard';
 import team from '../helpers/team';
 import advisors from '../helpers/advisors';
 import contributors from '../helpers/contributors';
 
 export default () =>
-  <div className="main-panel">
-    <MenuHelp />
+  (<div className="main-panel">
     <div className="container text-center my-5">
-      <h1><FormattedMessage id="team" defaultMessage="Team" /></h1>
+      <h1>
+        <FormattedMessage id="team" defaultMessage="Team" />
+      </h1>
       <p>
         <FormattedMessage
           id="@statics/busy_team"
@@ -18,34 +17,31 @@ export default () =>
         />
       </p>
       <div className="row my-5">
-        {team.map((user, idx) =>
-          <UserCard
-            key={idx}
-            name={user.name}
-            username={user.username}
-            label={<h4>{user.role}</h4>}
-          />
+        {team.map(user =>
+          (<div>
+            {user.name} - {user.role}
+          </div>),
         )}
       </div>
-      <h1><FormattedMessage id="advisors" defaultMessage="Advisors" /></h1>
+      <h1>
+        <FormattedMessage id="advisors" defaultMessage="Advisors" />
+      </h1>
       <div className="row my-5">
-        {advisors.map((user, idx) =>
-          <UserCard
-            key={idx}
-            name={user.name}
-            username={user.username}
-          />
+        {advisors.map(user =>
+          (<div>
+            {user.name}
+          </div>),
         )}
       </div>
-      <h1><FormattedMessage id="contributors" defaultMessage="Contributors" /></h1>
+      <h1>
+        <FormattedMessage id="contributors" defaultMessage="Contributors" />
+      </h1>
       <div className="row my-5">
-        {contributors.map((user, idx) =>
-          <UserCard
-            key={idx}
-            name={user.name}
-            username={user.username}
-          />
+        {contributors.map(user =>
+          (<div>
+            {user.name}
+          </div>),
         )}
       </div>
     </div>
-  </div>;
+  </div>);

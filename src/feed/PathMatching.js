@@ -14,23 +14,23 @@ export const Votes = props => <Page {...props} />;
 
 
 Trending.needs = [
-  ({ category }) => getFeedContent({ sortBy: 'trending', category, limit: 10 })
+  ({ category }) => getFeedContent({ sortBy: 'trending', category, limit: 10 }),
 ];
 Hot.needs = [
-  ({ category }) => getFeedContent({ sortBy: 'hot', category, limit: 10 })
+  ({ category }) => getFeedContent({ sortBy: 'hot', category, limit: 10 }),
 ];
 Cashout.needs = [
-  ({ category }) => getFeedContent({ sortBy: 'cashout', category, limit: 10 })
+  ({ category }) => getFeedContent({ sortBy: 'cashout', category, limit: 10 }),
 ];
 Created.needs = [
-  ({ category }) => getFeedContent({ sortBy: 'created', category, limit: 10 })
+  ({ category }) => getFeedContent({ sortBy: 'created', category, limit: 10 }),
 ];
 Active.needs = [
-  ({ category }) => getFeedContent({ sortBy: 'active', category, limit: 10 })
+  ({ category }) => getFeedContent({ sortBy: 'active', category, limit: 10 }),
 ];
 Responses.needs = [
-  ({ category }) => getFeedContent({ sortBy: 'responses', category, limit: 10 })
+  ({ category }) => getFeedContent({ sortBy: 'responses', category, limit: 10 }),
 ];
 Votes.needs = [
-  ({ category }) => getFeedContent({ sortBy: 'votes', category, limit: 10 })
+  ({ category }) => getFeedContent({ sortBy: 'votes', category, limit: 10 }),
 ];

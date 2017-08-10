@@ -32,7 +32,7 @@ module.exports = {
   module: {
     loaders: [
       {
-        test: /\.(eot|ttf|woff|woff2)(\?.+)?$/,
+        test: /\.(eot|ttf|woff|woff2|svg)(\?.+)?$/,
         loader: 'url-loader',
         options: {
           name: '../fonts/[name].[ext]',
@@ -60,9 +60,30 @@ module.exports = {
         }
       },
       {
-        test: /\.scss|.css$/,
-        use: ['isomorphic-style-loader', 'css-loader', 'autoprefixer-loader', 'sass-loader'],
-      },
+        test: /\.css|.less$/,
+        use: [
+          'isomorphic-style-loader',
+          'css-loader',
+          {
+            loader: 'postcss-loader',
+            options: {
+              ident: 'postcss', // https://webpack.js.org/guides/migrating/#complex-options
+              plugins: () => [
+                require('postcss-flexbugs-fixes'),
+                require('autoprefixer')({
+                  browsers: [
+                    '>1%',
+                    'last 4 versions',
+                    'Firefox ESR',
+                    'not ie < 9', // React doesn't support IE8 anyway
+                  ],
+                }),
+              ],
+            },
+          },
+          'less-loader',
+        ],
+      }
     ]
   },
   plugins: [
@@ -70,8 +91,8 @@ module.exports = {
       'process.env': {
         BUSYWS_HOST: JSON.stringify(process.env.BUSYWS_HOST || 'https://ws.busy.org'),
         STEEMCONNECT_IMG_HOST: JSON.stringify(process.env.STEEMCONNECT_IMG_HOST || 'https://img.steemconnect.com'),
-        STEEMCONNECT_HOST: JSON.stringify(process.env.STEEMCONNECT_HOST || 'https://steemconnect.com'),
-        STEEMCONNECT_REDIRECT_URL: JSON.stringify(process.env.STEEMCONNECT_REDIRECT_URL || 'https://busy.org'),
+        STEEMCONNECT_HOST: JSON.stringify(process.env.STEEMCONNECT_HOST || 'https://v2.steemconnect.com'),
+        STEEMCONNECT_REDIRECT_URL: JSON.stringify(process.env.STEEMCONNECT_REDIRECT_URL || 'https://busy.org/callback'),
         WS: JSON.stringify(process.env.WS || 'wss://steemd-int.steemit.com'),
         IS_BROWSER: JSON.stringify(false),
       },

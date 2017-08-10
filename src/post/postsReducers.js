@@ -6,33 +6,6 @@ import * as userActions from '../user/userActions';
 
 const postItem = (state = {}, action) => {
   switch (action.type) {
-    case postsActions.LIKE_POST_START: {
-      let optimisticActiveVotes;
-
-      if (action.meta.weight !== 0) {
-        optimisticActiveVotes = [
-          ...state.active_votes.filter(vote => vote.voter !== action.meta.voter),
-          {
-            voter: action.meta.voter,
-            percent: action.meta.weight,
-          }
-        ];
-      } else {
-        optimisticActiveVotes = state.active_votes.filter(
-          vote => vote.voter !== action.meta.voter
-        );
-      }
-
-      const optimisticNetVotes = action.meta.weight > 0
-        ? parseInt(state.net_votes, 10) + 1
-        : parseInt(state.net_votes, 10) - 1;
-
-      return {
-        ...state,
-        active_votes: optimisticActiveVotes,
-        net_votes: optimisticNetVotes,
-      };
-    }
     case commentsActions.SEND_COMMENT_START:
       if (action.meta.isReplyToComment) {
         return state;
@@ -47,18 +20,23 @@ const postItem = (state = {}, action) => {
   }
 };
 
-const posts = (state = {}, action) => {
-  let posts = {};
+const initialState = {
+  postLoading: false,
+  pendingLikes: [],
+};
+
+const posts = (state = initialState, action) => {
+  const postsTemp = {};
   switch (action.type) {
     case feedTypes.GET_FEED_CONTENT_SUCCESS:
     case feedTypes.GET_MORE_FEED_CONTENT_SUCCESS:
     case feedTypes.GET_USER_FEED_CONTENT_SUCCESS:
     case feedTypes.GET_MORE_USER_FEED_CONTENT_SUCCESS:
     case bookmarksActions.GET_BOOKMARKS_SUCCESS:
-      action.payload.postsData.forEach(post => posts[post.id] = post);
+      action.payload.postsData.forEach((post) => { postsTemp[post.id] = post; });
       return {
         ...state,
-        ...posts,
+        ...postsTemp,
       };
     case userActions.GET_USER_REPLIES_SUCCESS:
       return {
@@ -71,18 +49,48 @@ const posts = (state = {}, action) => {
         ...state,
         ...posts,
       };
-    case postsActions.GET_CONTENT_SUCCESS:
+    case postsActions.GET_CONTENT_START:
       return {
         ...state,
+        postLoading: true,
+      };
+    case postsActions.GET_CONTENT_SUCCESS:
+      if (action.meta.afterLike) {
+        return {
+          ...state,
+          postLoading: false,
+          pendingLikes: state.pendingLikes.filter(post => post !== action.payload.id),
+          [action.payload.id]: {
+            ...state[action.payload.id],
+            ...action.payload,
+          },
+        };
+      }
+      return {
+        ...state,
+        postLoading: false,
         [action.payload.id]: {
           ...state[action.payload.id],
           ...action.payload,
         },
       };
+    case postsActions.GET_CONTENT_ERROR:
+      return {
+        ...state,
+        postLoading: false,
+      };
     case postsActions.LIKE_POST_START:
       return {
         ...state,
-        [action.meta.postId]: postItem(state[action.meta.postId], action),
+        pendingLikes: [
+          ...state.pendingLikes,
+          action.meta.postId,
+        ],
+      };
+    case postsActions.LIKE_POST_ERROR:
+      return {
+        ...state,
+        pendingLikes: state.pendingLikes.filter(post => post !== action.meta.postId),
       };
     case commentsActions.SEND_COMMENT_START:
       return {

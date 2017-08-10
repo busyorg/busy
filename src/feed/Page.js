@@ -1,129 +1,106 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { Route } from 'react-router';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-import MenuFeed from '../app/Menu/MenuFeed';
-import Hero from '../app/Hero';
-import Feed from './Feed';
-import PageHOC from './PageHOC';
-import {
-  getFeedContent,
-  getMoreFeedContent,
-  getUserFeedContent,
-  getMoreUserFeedContent,
-} from './feedActions';
-import {
-  getFeedContentFromState,
-  getFeedLoadingFromState,
-  getUserFeedContentFromState,
-  getUserFeedLoadingFromState,
-} from '../helpers/stateHelpers';
-import FavoriteButton from '../favorites/FavoriteButton';
-import * as favoriteActions from '../favorites/favoritesActions';
-import EmptyFeed from '../statics/EmptyFeed';
+import SubFeed from './SubFeed';
+import LeftSidebar from '../app/Sidebar/LeftSidebar';
+import RightSidebar from '../app/Sidebar/RightSidebar';
+import TopicSelector from '../components/TopicSelector';
+import Affix from '../components/Utils/Affix';
+import ScrollToTop from '../components/Utils/ScrollToTop';
+import ScrollToTopOnMount from '../components/Utils/ScrollToTopOnMount';
 
-@PageHOC
 @connect(
   state => ({
-    feed: state.feed,
-    posts: state.posts,
-    favorites: state.favorites.categories,
+    auth: state.auth,
   }),
-  (dispatch, ownProps) => {
-    const { sortBy, category, auth, limit } = ownProps;
-    return {
-      getFeedContent: () => dispatch(
-        getFeedContent({ sortBy, category, limit })
-      ),
-      getMoreFeedContent: () => dispatch(
-        getMoreFeedContent({ sortBy, category, limit })
-      ),
-      getUserFeedContent: () => dispatch(
-        getUserFeedContent({ username: auth.user.name, limit })
-      ),
-      getMoreUserFeedContent: () => dispatch(
-        getMoreUserFeedContent({ username: auth.user.name, limit })
-      ),
-      addCategoryFavorite: () => dispatch(
-        favoriteActions.addCategoryFavorite(category)
-      ),
-      removeCategoryFavorite: () => dispatch(
-        favoriteActions.removeCategoryFavorite(category)
-      ),
+)
+class Page extends React.Component {
+  static propTypes = {
+    auth: PropTypes.shape().isRequired,
+    history: PropTypes.shape().isRequired,
+    location: PropTypes.shape().isRequired,
+    match: PropTypes.shape().isRequired,
+  }
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      currentKey: 'trending',
+      categories: [],
     };
   }
-)
-export default class Page extends React.Component {
-  isFavorited() {
-    const { category, favorites } = this.props;
-    return category && favorites.includes(category);
-  }
 
-  render() {
-    const { notify, category, sortBy, path, auth, feed, posts } = this.props;
+  componentWillReceiveProps(nextProps) {
+    const { pathname } = nextProps.location;
+    const sortBy = pathname.split('/')[1];
+    const category = pathname.split('/')[2];
 
-    let content, isFetching, hasMore, loadContentAction, loadMoreContentAction;
-
-    if (!path && auth.isAuthenticated) {
-      content = getUserFeedContentFromState(auth.user.name, feed, posts);
-      isFetching = getUserFeedLoadingFromState(auth.user.name, feed);
-      hasMore = feed[sortBy][auth.user.name] ? feed[sortBy][auth.user.name].hasMore : true;
-      loadContentAction = this.props.getUserFeedContent;
-      loadMoreContentAction = this.props.getMoreUserFeedContent;
-    } else {
-      content = getFeedContentFromState(sortBy, category, feed, posts);
-      isFetching = getFeedLoadingFromState(sortBy, category, feed);
-      hasMore = feed[sortBy][category] ? feed[sortBy][category].hasMore : true;
-      loadContentAction = this.props.getFeedContent;
-      loadMoreContentAction = this.props.getMoreFeedContent;
+    if (sortBy) {
+      this.setState({
+        currentKey: sortBy,
+      });
     }
 
+    this.setState({
+      categories: (category) ? [category] : [],
+    });
+  }
+
+  handleSortChange = (key) => {
+    this.setState({
+      currentKey: key,
+    }, () => {
+      if (this.state.categories[0]) {
+        this.props.history.push(`/${key}/${this.state.categories[0]}`);
+      } else {
+        this.props.history.push(`/${key}`);
+      }
+    });
+  };
+
+  handleTopicClose = () => this.props.history.push(this.props.match.url);
+
+  render() {
+    const { auth, match, location } = this.props;
+
+    const shouldDisplaySelector = location.pathname !== '/' || !auth.isAuthenticated;
+
     return (
-      <div className="main-panel">
+      <div>
         <Helmet>
           <title>Busy</title>
         </Helmet>
-        {!auth.isFetching && !auth.isAuthenticated && !category &&
-          <Hero />
-        }
-        {!auth.isFetching &&
-          <MenuFeed
-            auth={auth}
-            category={category}
-          />
-        }
-        {category &&
-          <h2 className="mt-3 text-center">
-            <span className="text-info">#</span>
-            {' '}{category}{' '}
-            <FavoriteButton
-              isFavorited={this.isFavorited()}
-              onClick={this.isFavorited()
-                ? this.props.removeCategoryFavorite
-                : this.props.addCategoryFavorite
-              }
-            />
-          </h2>
-        }
-        <Feed
-          content={content}
-          isFetching={isFetching}
-          hasMore={hasMore}
-          loadContent={loadContentAction}
-          loadMoreContent={loadMoreContentAction}
-          notify={notify}
-          route={this.props.route}
-        />
-        {(content.length === 0 && !isFetching) &&
-          <EmptyFeed />
-        }
+        <ScrollToTop />
+        <ScrollToTopOnMount />
+        <div className="shifted">
+          <div className="feed-layout container">
+            <Affix className="leftContainer" stickPosition={77}>
+              <div className="left">
+                <LeftSidebar auth={auth} />
+              </div>
+            </Affix>
+            <Affix className="rightContainer" stickPosition={77}>
+              <div className="right">
+                <RightSidebar auth={auth} />
+              </div>
+            </Affix>
+            <div className="center">
+              {shouldDisplaySelector && <TopicSelector
+                isSingle={false}
+                sort={this.state.currentKey}
+                topics={this.state.categories}
+                onSortChange={this.handleSortChange}
+                onTopicClose={this.handleTopicClose}
+              />}
+              <Route path={`${match.path}:sortBy?/:category?`} component={SubFeed} />
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
 }
 
-Page.propTypes = {
-  category: React.PropTypes.string,
-  sortBy: React.PropTypes.string,
-  path: React.PropTypes.string,
-  limit: React.PropTypes.number,
-};
+export default Page;
