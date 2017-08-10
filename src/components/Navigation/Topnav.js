@@ -28,7 +28,7 @@ const Topnav = ({
           <Menu.Item key="write">
             <Tooltip placement="bottom" title="Write post">
               <Link to="/write" className="Topnav__link">
-                <i className="iconfont icon-brush_fill" />
+                <i className="iconfont icon-brush" />
               </Link>
             </Tooltip>
           </Menu.Item>
