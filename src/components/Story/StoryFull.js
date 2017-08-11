@@ -132,14 +132,13 @@ class StoryFull extends React.Component {
           <div className="StoryFull__header__text">
             <Link to={`/@${post.author}`}>
               {post.author}
-              <Tooltip title="Reputation score" placement="top">
+              <Tooltip title="Reputation score">
                 <Tag>
                   {formatter.reputation(post.author_reputation)}
                 </Tag>
               </Tooltip>
             </Link>
             <Tooltip
-              placement="bottom"
               title={
                 <span>
                   <FormattedDate value={`${post.created}Z`} />{' '}

@@ -78,7 +78,7 @@ class StoryFooter extends React.Component {
     return (
       <div className="StoryFooter">
         <span className="StoryFooter__payout">
-          <Tooltip title={<PayoutDetail post={post} />} placement="top">
+          <Tooltip title={<PayoutDetail post={post} />}>
             <span
               className={classNames({
                 'StoryFooter__payout--rejected': maxPayout === 0,
@@ -92,7 +92,7 @@ class StoryFooter extends React.Component {
               <i className="iconfont icon-flashlight" />
             </Tooltip>}
         </span>
-        <Tooltip title="Like" placement="top">
+        <Tooltip title="Like">
           <a role="presentation" className={likeClass} onClick={() => onLikeClick()}>
             {pendingLike ? <Icon type="loading" /> : <i className="iconfont icon-praise_fill" />}
           </a>
@@ -100,7 +100,7 @@ class StoryFooter extends React.Component {
         <span className="StoryFooter__number">
           {likesValue}
         </span>
-        <Tooltip title="Comment" placement="top">
+        <Tooltip title="Comment">
           <Link
             className="StoryFooter__link"
             to={{
@@ -116,7 +116,6 @@ class StoryFooter extends React.Component {
         </span>
         <Tooltip
           title={postState.isReblogged ? 'You already reblogged this post' : 'Reblog'}
-          placement="top"
         >
           <a role="presentation" className={rebloggedClass} onClick={this.handleShareClick}>
             <i className="iconfont icon-send StoryFooter__share" />

@@ -126,13 +126,13 @@ class Comment extends React.Component {
         <div className="Comment__text">
           <Link to={`/@${comment.author}`}>
             {comment.author}
-            <Tooltip title="Reputation score" placement="top">
+            <Tooltip title="Reputation score">
               <Tag>
                 {formatter.reputation(comment.author_reputation)}
               </Tag>
             </Tooltip>
             {(comment.author === rootPostAuthor) &&
-              <Tooltip title="Original poster" placement="top">
+              <Tooltip title="Original poster">
                 <Tag color="#4f545c">OP</Tag>
               </Tooltip>
             }
@@ -157,7 +157,7 @@ class Comment extends React.Component {
               : <Body body={comment.body} />}
           </div>
           <div className="Comment__footer">
-            <Tooltip title="Like" placement="bottom">
+            <Tooltip title="Like">
               <a
                 role="presentation"
                 className="Comment__footer__link"
@@ -167,7 +167,7 @@ class Comment extends React.Component {
               </a>
             </Tooltip>
             <span className="Comment__footer__count">{likesValue}</span>
-            <Tooltip title="Dislike" placement="bottom">
+            <Tooltip title="Dislike">
               <a
                 role="presentation"
                 className="Comment__footer__link"
@@ -179,7 +179,7 @@ class Comment extends React.Component {
             <span className="Comment__footer__count">{dislikesValue}</span>
             <span className="Comment__footer__bullet" />
             <span className="Comment__footer__payout">
-              <Tooltip title={<PayoutDetail post={comment} />} placement="bottom">
+              <Tooltip title={<PayoutDetail post={comment} />}>
                 {payoutValue}
               </Tooltip>
             </span>

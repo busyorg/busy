@@ -103,7 +103,7 @@ class Story extends React.Component {
             <Link to={`/@${post.author}`}>
               <h4>
                 {post.author}
-                <Tooltip title="Reputation score" placement="bottom">
+                <Tooltip title="Reputation score">
                   <Tag>
                     {formatter.reputation(post.author_reputation)}
                   </Tag>
@@ -111,7 +111,6 @@ class Story extends React.Component {
               </h4>
             </Link>
             <Tooltip
-              placement="bottom"
               title={
                 <span>
                   <FormattedDate value={`${post.created}Z`} />{' '}

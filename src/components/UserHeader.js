@@ -25,7 +25,7 @@ const UserHeader = ({
         <div className="UserHeader__row">
           <h2 className="UserHeader__user__username">
             {username}
-            <Tooltip title="Reputation score" placement="bottom">
+            <Tooltip title="Reputation score">
               <Tag>
                 {formatter.reputation(userReputation)}
               </Tag>
