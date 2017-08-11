@@ -4,7 +4,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import CommentsList from '../components/Comments/Comments';
 import * as commentsActions from './commentsActions';
-import Loading from '../components/Icon/Loading';
 import { notify } from '../app/Notification/notificationActions';
 import './Comments.less';
 
@@ -85,10 +84,6 @@ export default class Comments extends React.Component {
     const postId = post.id;
     let fetchedCommentsList = null;
 
-    if (!show) {
-      return <div />;
-    }
-
     if (comments.listByPostId[postId] && comments.listByPostId[postId].list instanceof Array) {
       if (comments.listByPostId[postId].list.length) {
         fetchedCommentsList = comments.listByPostId[postId].list.map(id => comments.comments[id]);
@@ -107,10 +102,12 @@ export default class Comments extends React.Component {
       commentsChildren = this.getNestedComments(comments, comments.listByPostId[postId].list, {});
     }
 
+    let loading = false;
+
     if (comments.listByPostId[post.id]
       && comments.listByPostId[post.id].isFetching
       && !this.state.isFetchedOnce) {
-      return <Loading />;
+      loading = true;
     }
 
     if (fetchedCommentsList instanceof Array) {
@@ -120,6 +117,8 @@ export default class Comments extends React.Component {
           comments={fetchedCommentsList}
           auth={this.props.auth}
           commentsChildren={commentsChildren}
+          loading={loading}
+          show={show}
           onLikeClick={this.props.likeComment}
           onDislikeClick={this.props.dislikeComment}
           onSendComment={this.props.sendComment}

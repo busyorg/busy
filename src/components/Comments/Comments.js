@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import Loading from '../Icon/Loading';
 import CommentForm from './CommentForm';
 import Comment from './Comment';
 import './Comments.less';
@@ -22,11 +23,26 @@ const sortComments = (comments, sortType = 'BEST') => {
 
 class Comments extends React.Component {
   static propTypes = {
-    parentPost: PropTypes.shape().isRequired,
+    auth: PropTypes.shape(),
+    parentPost: PropTypes.shape(),
+    comments: PropTypes.arrayOf(PropTypes.shape()),
+    commentsChildren: PropTypes.shape(),
+    loading: PropTypes.bool,
+    show: PropTypes.bool,
+    onLikeClick: PropTypes.func,
+    onDislikeClick: PropTypes.func,
     onSendComment: PropTypes.func,
   };
 
   static defaultProps = {
+    auth: {},
+    parentPost: undefined,
+    comments: [],
+    commentsChildren: undefined,
+    loading: false,
+    show: false,
+    onLikeClick: () => {},
+    onDislikeClick: () => {},
     onSendComment: () => {},
   };
 
@@ -79,7 +95,15 @@ class Comments extends React.Component {
   };
 
   render() {
-    const { comments, commentsChildren, onLikeClick, onDislikeClick, auth } = this.props;
+    const {
+      comments,
+      loading,
+      show,
+      commentsChildren,
+      onLikeClick,
+      onDislikeClick,
+      auth,
+    } = this.props;
     const { sort } = this.state;
 
     return (
@@ -113,7 +137,10 @@ class Comments extends React.Component {
             inputValue={this.state.commentFormText}
             onImageInserted={this.handleImageInserted}
           />}
-        {comments &&
+        {loading && <Loading />}
+        {!loading &&
+          show &&
+          comments &&
           sortComments(comments, sort).map(comment =>
             (<Comment
               auth={auth}
@@ -130,21 +157,5 @@ class Comments extends React.Component {
     );
   }
 }
-
-Comments.propTypes = {
-  comments: PropTypes.arrayOf(PropTypes.shape()),
-  commentsChildren: PropTypes.shape(),
-  onLikeClick: PropTypes.func,
-  onDislikeClick: PropTypes.func,
-  auth: PropTypes.shape(),
-};
-
-Comments.defaultProps = {
-  comments: [],
-  commentsChildren: undefined,
-  onLikeClick: () => {},
-  onDislikeClick: () => {},
-  auth: {},
-};
 
 export default Comments;
