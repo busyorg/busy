@@ -77,14 +77,20 @@ class StoryFooter extends React.Component {
 
     return (
       <div className="StoryFooter">
-        <span
-          className={classNames('StoryFooter__payout', {
-            'StoryFooter__payout--rejected': maxPayout === 0,
-          })}
-        >
+        <span className="StoryFooter__payout">
           <Tooltip title={<PayoutDetail post={post} />} placement="top">
-            {payoutValue}
+            <span
+              className={classNames({
+                'StoryFooter__payout--rejected': maxPayout === 0,
+              })}
+            >
+              {payoutValue}
+            </span>
           </Tooltip>
+          {post.percent_steem_dollars === 0 &&
+            <Tooltip title="100% Steem Power">
+              <i className="iconfont icon-flashlight" />
+            </Tooltip>}
         </span>
         <Tooltip title="Like" placement="top">
           <a role="presentation" className={likeClass} onClick={() => onLikeClick()}>

@@ -1864,6 +1864,7 @@ exports[`Storyshots Story Full story 1`] = `
         className="StoryFooter__payout"
       >
         <span
+          className=""
           onBlur={undefined}
           onClick={undefined}
           onFocus={undefined}
@@ -2112,6 +2113,7 @@ exports[`Storyshots Story Full story with embed 1`] = `
         className="StoryFooter__payout"
       >
         <span
+          className=""
           onBlur={undefined}
           onClick={undefined}
           onFocus={undefined}
@@ -2315,6 +2317,7 @@ exports[`Storyshots Story Inline story 1`] = `
           className="StoryFooter__payout"
         >
           <span
+            className=""
             onBlur={undefined}
             onClick={undefined}
             onFocus={undefined}
@@ -2528,6 +2531,7 @@ exports[`Storyshots Story Inline story with embed 1`] = `
           className="StoryFooter__payout"
         >
           <span
+            className=""
             onBlur={undefined}
             onClick={undefined}
             onFocus={undefined}
