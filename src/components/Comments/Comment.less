@@ -35,9 +35,16 @@
       font-weight: bold;
 
       .ant-tag {
-        margin-left: 4px;
         font-size: 12px;
         vertical-align: 1px;
+
+        &:first-of-type {
+          margin-left: 4px;
+        }
+
+        &:last-child {
+          margin-right: 0;
+        }
       }
     }
   }
@@ -87,7 +94,6 @@
       color: #99aab5;
       font-weight: bold;
       font-size: 14px;
-      margin-right: 8px;
 
       &--active {
         color: @purple;
@@ -103,6 +109,13 @@
       &:hover > .iconfont {
         color: @purple;
       }
+    }
+
+    &__count {
+      margin-right: 8px;
+      color: #99aab5;
+      font-weight: bold;
+      font-size: 14px;
     }
   }
 

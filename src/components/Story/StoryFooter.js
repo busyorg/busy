@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import numeral from 'numeral';
 import { Icon, Tooltip, Modal } from 'antd';
 import classNames from 'classnames';
@@ -13,14 +14,12 @@ class StoryFooter extends React.Component {
     postState: PropTypes.shape().isRequired,
     pendingLike: PropTypes.bool,
     onLikeClick: PropTypes.func,
-    onCommentClick: PropTypes.func,
     onShareClick: PropTypes.func,
   };
 
   static defaultProps = {
     pendingLike: false,
     onLikeClick: () => {},
-    onCommentClick: () => {},
     onShareClick: () => {},
   };
 
@@ -65,7 +64,7 @@ class StoryFooter extends React.Component {
   };
 
   render() {
-    const { post, postState, pendingLike, onLikeClick, onCommentClick } = this.props;
+    const { post, postState, pendingLike, onLikeClick } = this.props;
     const maxPayout = parseFloat(post.max_accepted_payout) || 0;
     const payout = parseFloat(post.pending_payout_value) || parseFloat(post.total_payout_value);
     const payoutValue = numeral(payout).format('$0,0.00');
@@ -78,34 +77,45 @@ class StoryFooter extends React.Component {
 
     return (
       <div className="StoryFooter">
-        <span
-          className={classNames('StoryFooter__payout', {
-            'StoryFooter__payout--rejected': maxPayout === 0,
-          })}
-        >
-          <Tooltip title={<PayoutDetail post={post} />} placement="top">
-            {payoutValue}
+        <span className="StoryFooter__payout">
+          <Tooltip title={<PayoutDetail post={post} />}>
+            <span
+              className={classNames({
+                'StoryFooter__payout--rejected': maxPayout === 0,
+              })}
+            >
+              {payoutValue}
+            </span>
           </Tooltip>
+          {post.percent_steem_dollars === 0 &&
+            <Tooltip title="100% Steem Power">
+              <i className="iconfont icon-flashlight" />
+            </Tooltip>}
         </span>
-        <Tooltip title="Like" placement="top">
+        <Tooltip title="Like">
           <a role="presentation" className={likeClass} onClick={() => onLikeClick()}>
             {pendingLike ? <Icon type="loading" /> : <i className="iconfont icon-praise_fill" />}
-            <span className="StoryFooter__number">
-              {likesValue}
-            </span>
           </a>
         </Tooltip>
-        <Tooltip title="Comment" placement="top">
-          <a role="presentation" className="StoryFooter__link" onClick={() => onCommentClick()}>
+        <span className="StoryFooter__number">
+          {likesValue}
+        </span>
+        <Tooltip title="Comment">
+          <Link
+            className="StoryFooter__link"
+            to={{
+              pathname: post.url,
+              hash: '#comments',
+            }}
+          >
             <i className="iconfont icon-message_fill" />
-            <span className="StoryFooter__number">
-              {commentsValue}
-            </span>
-          </a>
+          </Link>
         </Tooltip>
+        <span className="StoryFooter__number">
+          {commentsValue}
+        </span>
         <Tooltip
           title={postState.isReblogged ? 'You already reblogged this post' : 'Reblog'}
-          placement="top"
         >
           <a role="presentation" className={rebloggedClass} onClick={this.handleShareClick}>
             <i className="iconfont icon-send StoryFooter__share" />

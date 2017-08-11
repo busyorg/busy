@@ -16,6 +16,7 @@ class Comment extends React.Component {
   static propTypes = {
     auth: PropTypes.shape(),
     comment: PropTypes.shape().isRequired,
+    rootPostAuthor: PropTypes.string,
     commentsChildren: PropTypes.shape(),
     onLikeClick: PropTypes.func,
     onDislikeClick: PropTypes.func,
@@ -24,6 +25,7 @@ class Comment extends React.Component {
 
   static defaultProps = {
     auth: undefined,
+    rootPostAuthor: undefined,
     commentsChildren: undefined,
     onLikeClick: () => {},
     onDislikeClick: () => {},
@@ -89,7 +91,14 @@ class Comment extends React.Component {
   };
 
   render() {
-    const { auth, comment, commentsChildren, onLikeClick, onDislikeClick } = this.props;
+    const {
+      auth,
+      comment,
+      rootPostAuthor,
+      commentsChildren,
+      onLikeClick,
+      onDislikeClick,
+    } = this.props;
 
     const pendingPayoutValue = parseFloat(comment.pending_payout_value);
     const totalPayoutValue = parseFloat(comment.total_payout_value);
@@ -117,11 +126,16 @@ class Comment extends React.Component {
         <div className="Comment__text">
           <Link to={`/@${comment.author}`}>
             {comment.author}
-            <Tooltip title="Reputation score" placement="top">
+            <Tooltip title="Reputation score">
               <Tag>
                 {formatter.reputation(comment.author_reputation)}
               </Tag>
             </Tooltip>
+            {(comment.author === rootPostAuthor) &&
+              <Tooltip title="Original poster">
+                <Tag color="#4f545c">OP</Tag>
+              </Tooltip>
+            }
           </Link>
           <span className="Comment__date">
             <Tooltip
@@ -143,44 +157,46 @@ class Comment extends React.Component {
               : <Body body={comment.body} />}
           </div>
           <div className="Comment__footer">
-            <Tooltip title="Like" placement="bottom">
+            <Tooltip title="Like">
               <a
                 role="presentation"
                 className="Comment__footer__link"
                 onClick={() => onLikeClick(comment.id)}
               >
                 <i className="iconfont icon-praise_fill" />
-                {likesValue}
               </a>
             </Tooltip>
-            <Tooltip title="Dislike" placement="bottom">
+            <span className="Comment__footer__count">{likesValue}</span>
+            <Tooltip title="Dislike">
               <a
                 role="presentation"
                 className="Comment__footer__link"
                 onClick={() => onDislikeClick(comment.id)}
               >
                 <i className="iconfont icon-praise_fill Comment__icon_dislike" />
-                {dislikesValue}
               </a>
             </Tooltip>
+            <span className="Comment__footer__count">{dislikesValue}</span>
             <span className="Comment__footer__bullet" />
             <span className="Comment__footer__payout">
-              <Tooltip title={<PayoutDetail post={comment} />} placement="bottom">
+              <Tooltip title={<PayoutDetail post={comment} />}>
                 {payoutValue}
               </Tooltip>
             </span>
-            <span className="Comment__footer__bullet" />
             {auth &&
               auth.isAuthenticated &&
-              <a
-                role="presentation"
-                className={classNames('Comment__footer__link', {
-                  'Comment__footer__link--active': this.state.replyOpen,
-                })}
-                onClick={() => this.handleReplyClick()}
-              >
-                Reply
-              </a>}
+              <span>
+                <span className="Comment__footer__bullet" />
+                <a
+                  role="presentation"
+                  className={classNames('Comment__footer__link', {
+                    'Comment__footer__link--active': this.state.replyOpen,
+                  })}
+                  onClick={() => this.handleReplyClick()}
+                >
+                  Reply
+                </a>
+              </span>}
           </div>
           {this.state.replyOpen &&
             auth &&
@@ -203,6 +219,7 @@ class Comment extends React.Component {
                   auth={auth}
                   key={child.id}
                   comment={child}
+                  rootPostAuthor={rootPostAuthor}
                   commentsChildren={commentsChildren}
                   onLikeClick={onLikeClick}
                   onDislikeClick={onDislikeClick}

@@ -97,6 +97,17 @@ export default class PostSingle extends React.Component {
     this.props.getContent();
   }
 
+  componentDidUpdate() {
+    const { hash } = window.location;
+    if (hash !== '') {
+      setTimeout(() => {
+        const id = hash.replace('#', '');
+        const element = document.getElementById(id);
+        if (element) element.scrollIntoView();
+      }, 0);
+    }
+  }
+
   componentWillUnmount() {
     if (process.env.IS_BROWSER) {
       global.document.title = 'Busy';
@@ -227,7 +238,6 @@ export default class PostSingle extends React.Component {
                   onSaveClick={() => toggleBookmark(content.id, content.author, content.permlink)}
                   onReportClick={reportPost}
                   onLikeClick={likePost}
-                  onCommentClick={() => {}}
                   onShareClick={() => reblog(content.id)}
                 />}
               <VisibilitySensor onChange={this.handleCommentsVisibility} />
