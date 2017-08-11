@@ -30,10 +30,7 @@ const StoryPreview = ({ post }) => {
   const embeds = embedjs.getAll(post.body);
 
   const preview = {
-    text: () =>
-      (<div key="text" className="Story__content__body">
-        <BodyShort body={post.body} />
-      </div>),
+    text: () => <BodyShort key="text" className="Story__content__body" body={post.body} />,
 
     embed: () => embeds && embeds[0] && <PostFeedEmbed key="embed" embed={embeds[0]} />,
 

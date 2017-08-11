@@ -1267,15 +1267,14 @@ exports[`Storyshots Sidebar Latest Comments 1`] = `
           <div
             className="Comment__content"
           >
-            <span>
-              <span
-                dangerouslySetInnerHTML={
-                  Object {
-                    "__html": "Great stuff. Looking forward to it. Although, here are a few things I feel we n…",
-                  }
+            <div
+              className=""
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "Great stuff. Looking forward to it. Although, here are a few things I feel we n…",
                 }
-              />
-            </span>
+              }
+            />
           </div>
           <div
             className="Comment__footer"
@@ -1309,16 +1308,15 @@ exports[`Storyshots Sidebar Latest Comments 1`] = `
           <div
             className="Comment__content"
           >
-            <span>
-              <span
-                dangerouslySetInnerHTML={
-                  Object {
-                    "__html": "Thank you so much for sharing this post
-                  ",
-                  }
+            <div
+              className=""
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "Thank you so much for sharing this post
+                ",
                 }
-              />
-            </span>
+              }
+            />
           </div>
           <div
             className="Comment__footer"
@@ -1352,16 +1350,15 @@ exports[`Storyshots Sidebar Latest Comments 1`] = `
           <div
             className="Comment__content"
           >
-            <span>
-              <span
-                dangerouslySetInnerHTML={
-                  Object {
-                    "__html": "Ahh, I wish I heard that earlier
-                  ",
-                  }
+            <div
+              className=""
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "Ahh, I wish I heard that earlier
+                ",
                 }
-              />
-            </span>
+              }
+            />
           </div>
           <div
             className="Comment__footer"
@@ -1443,16 +1440,15 @@ exports[`Storyshots Sidebar Latest Recommendations 1`] = `
               href="/@ekitcho/hello"
               onClick={[Function]}
             >
-              <span>
-                <span
-                  dangerouslySetInnerHTML={
-                    Object {
-                      "__html": "Its a brave new world of steemit out there. You must try it out
-                    ",
-                    }
+              <div
+                className=""
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": "Its a brave new world of steemit out there. You must try it out
+                  ",
                   }
-                />
-              </span>
+                }
+              />
             </a>
           </div>
           <div
@@ -1491,15 +1487,14 @@ exports[`Storyshots Sidebar Latest Recommendations 1`] = `
               href="/@blacktivity/hello"
               onClick={[Function]}
             >
-              <span>
-                <span
-                  dangerouslySetInnerHTML={
-                    Object {
-                      "__html": "My Momma always said to me that people with gaps in their teeth had something t…",
-                    }
+              <div
+                className=""
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": "My Momma always said to me that people with gaps in their teeth had something t…",
                   }
-                />
-              </span>
+                }
+              />
             </a>
           </div>
           <div
@@ -1538,15 +1533,14 @@ exports[`Storyshots Sidebar Latest Recommendations 1`] = `
               href="/@pooldarbashi/hello"
               onClick={[Function]}
             >
-              <span>
-                <span
-                  dangerouslySetInnerHTML={
-                    Object {
-                      "__html": "Ethereum price continued to trade lower against the US Dollar and Bitcoin, and …",
-                    }
+              <div
+                className=""
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": "Ethereum price continued to trade lower against the US Dollar and Bitcoin, and …",
                   }
-                />
-              </span>
+                }
+              />
             </a>
           </div>
           <div
@@ -2301,18 +2295,13 @@ exports[`Storyshots Story Inline story 1`] = `
           </div>
           <div
             className="Story__content__body"
-          >
-            <span>
-              <span
-                dangerouslySetInnerHTML={
-                  Object {
-                    "__html": "
-                  The recent growth in the cryptocurrency market has been breathtaking. In less than two months, the price of Bitcoin has doubled, but compa…",
-                  }
-                }
-              />
-            </span>
-          </div>
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "
+              The recent growth in the cryptocurrency market has been breathtaking. In less than two months, the price of Bitcoin has doubled, but compa…",
+              }
+            }
+          />
         </div>
       </a>
     </div>
@@ -2502,17 +2491,12 @@ exports[`Storyshots Story Inline story with embed 1`] = `
         <div>
           <div
             className="Story__content__body"
-          >
-            <span>
-              <span
-                dangerouslySetInnerHTML={
-                  Object {
-                    "__html": "Lots of good stuff for STEEM as he talks about Community Tokens / User Issued Tokens &amp; B2B Solutions, the Linear Reward Curve and many …",
-                  }
-                }
-              />
-            </span>
-          </div>
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "Lots of good stuff for STEEM as he talks about Community Tokens / User Issued Tokens &amp; B2B Solutions, the Linear Reward Curve and many …",
+              }
+            }
+          />
           <div
             className="PostFeedEmbed"
             onClick={[Function]}

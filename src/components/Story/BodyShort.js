@@ -13,20 +13,32 @@ function decodeEntities(body) {
 const BodyShort = (props) => {
   let body = striptags(remarkable.render(striptags(decodeEntities(props.body))));
   body = body.replace(/(?:https?|ftp):\/\/[\S]+/g, '');
+
+  // If body consists of whitespace characters only skip it.
+  if (!body.replace(/\s/g, '').length) {
+    return null;
+  }
+
   /* eslint-disable react/no-danger */
   return (
-    <span>
-      <span dangerouslySetInnerHTML={{ __html: ellipsis(body, props.length, { ellipsis: '…' }) }} />
-    </span>
+    <div
+      className={props.className}
+      dangerouslySetInnerHTML={{ __html: ellipsis(body, props.length, { ellipsis: '…' }) }}
+    />
   );
   /* eslint-enable react/no-danger */
 };
 
 BodyShort.propTypes = {
+  className: PropTypes.string,
   body: PropTypes.string,
   length: PropTypes.number,
 };
 
-BodyShort.defaultProps = { body: '', length: 140 };
+BodyShort.defaultProps = {
+  className: '',
+  body: '',
+  length: 140,
+};
 
 export default BodyShort;
