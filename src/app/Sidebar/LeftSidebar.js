@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { FormattedDate } from 'react-intl';
 import { Route, Switch } from 'react-router-dom';
+import urlParse from 'url-parse';
 
 import api from '../../steemAPI';
 import Topics from '../../components/Sidebar/Topics';
@@ -44,7 +45,17 @@ class SidebarWithTopics extends React.PureComponent {
 
 const LeftSidebar = ({ auth, user }) => {
   const location = user && _.get(user.json_metadata, 'profile.location');
-  const website = user && _.get(user.json_metadata, 'profile.website');
+  let website = user && _.get(user.json_metadata, 'profile.website');
+
+  if (website && website.indexOf('http://') === -1 && website.indexOf('https://') === -1) {
+    website = `http://${website}`;
+  }
+  const url = urlParse(website);
+  let hostWithoutWWW = url.host;
+
+  if (hostWithoutWWW.indexOf('www.') === 0) {
+    hostWithoutWWW = hostWithoutWWW.slice(4);
+  }
 
   return (<Switch>
     <Route
@@ -61,7 +72,7 @@ const LeftSidebar = ({ auth, user }) => {
                 </div>}
                 {website && <div>
                   <i className="iconfont icon-send text-icon" />
-                  <a href={website}>{website}</a>
+                  <a href={website}>{`${hostWithoutWWW}${url.pathname}`}</a>
                 </div>}
                 <div>
                   <i className="iconfont icon-time text-icon" />
