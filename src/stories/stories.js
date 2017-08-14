@@ -198,7 +198,7 @@ storiesOf('Story', module)
   );
 
 storiesOf('Profile', module)
-  .add('UserHeader', () => <UserHeader username="roelandp" />)
+  .add('UserHeader', () => <UserHeader username="roelandp" authenticated={false} />)
   .add('UserMenu', () =>
     (<UserMenu
       discussions={1521}

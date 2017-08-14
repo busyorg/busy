@@ -9,7 +9,7 @@ import PopoverMenu, { PopoverMenuItem } from './PopoverMenu/PopoverMenu';
 import './UserHeader.less';
 
 const UserHeader = ({
-  auth,
+  authenticated,
   username,
   handle,
   userReputation,
@@ -32,8 +32,7 @@ const UserHeader = ({
             </Tooltip>
           </h2>
           <div className="UserHeader__user__button">
-            {auth &&
-              auth.isAuthenticated &&
+            {authenticated &&
               (isSameUser
                 ? <Action small text="Edit profile" />
                 : <Follow
@@ -64,7 +63,7 @@ const UserHeader = ({
   </div>);
 
 UserHeader.propTypes = {
-  auth: PropTypes.shape(),
+  authenticated: PropTypes.bool.isRequired,
   username: PropTypes.string,
   handle: PropTypes.string,
   userReputation: PropTypes.oneOfType([
@@ -78,7 +77,6 @@ UserHeader.propTypes = {
 };
 
 UserHeader.defaultProps = {
-  auth: {},
   username: '',
   handle: '',
   userReputation: '0',

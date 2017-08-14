@@ -7,13 +7,15 @@ import * as bookmarkActions from '../bookmarks/bookmarksActions';
 import * as reblogActions from '../app/Reblog/reblogActions';
 import * as postActions from '../post/postActions';
 import { followUser, unfollowUser } from '../user/userActions';
+
+import { getAuthenticatedUser } from '../reducers';
+
 import Story from '../components/Story/Story';
 import StoryLoading from '../components/Story/StoryLoading';
 
 @connect(
   state => ({
-    auth: state.auth,
-    app: state.app,
+    user: getAuthenticatedUser(state),
     pendingLikes: state.posts.pendingLikes,
     bookmarks: state.bookmarks,
     reblogList: state.reblog.rebloggedList,
@@ -31,7 +33,7 @@ import StoryLoading from '../components/Story/StoryLoading';
 )
 export default class Feed extends React.Component {
   static propTypes = {
-    auth: PropTypes.shape().isRequired,
+    user: PropTypes.shape().isRequired,
     content: PropTypes.arrayOf(PropTypes.shape()).isRequired,
     pendingLikes: PropTypes.arrayOf(PropTypes.number).isRequired,
     pendingFollows: PropTypes.arrayOf(PropTypes.string).isRequired,
@@ -71,7 +73,7 @@ export default class Feed extends React.Component {
 
   render() {
     const {
-      auth,
+      user,
       content,
       isFetching,
       hasMore,
@@ -105,15 +107,14 @@ export default class Feed extends React.Component {
           //   }
           // }
 
-          const loggedInUser = auth.user;
-          const userVote = _.find(post.active_votes, { voter: loggedInUser.name }) || {};
+          const userVote = _.find(post.active_votes, { voter: user.name }) || {};
 
           const postState = {
             isReblogged: reblogList.includes(post.id),
             isReblogging: pendingReblogs.includes(post.id),
             isSaved:
-              bookmarks[loggedInUser.name] &&
-              bookmarks[loggedInUser.name].filter(bookmark => bookmark.id === post.id).length >
+              bookmarks[user.name] &&
+              bookmarks[user.name].filter(bookmark => bookmark.id === post.id).length >
                 0,
             isLiked: userVote.percent > 0,
             isReported: userVote.percent < 0,

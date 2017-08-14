@@ -55,3 +55,8 @@ export default (state = initialState, action) => {
       return state;
   }
 };
+
+export const getIsAuthenticated = state => state.isAuthenticated;
+export const getIsAuthFetching = state => state.isFetching;
+export const getIsLoaded = state => state.loaded;
+export const getAuthenticatedUser = state => state.user;

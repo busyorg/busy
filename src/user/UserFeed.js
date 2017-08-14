@@ -10,7 +10,6 @@ import {
 import { getUserFeedContent, getMoreUserFeedContent } from '../feed/feedActions';
 
 @connect(state => ({
-  auth: state.auth,
   feed: state.feed,
   posts: state.posts,
 }), {

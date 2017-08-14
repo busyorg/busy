@@ -2,6 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Feed from '../feed/Feed';
+
+import { getIsAuthenticated, getAuthenticatedUser } from '../reducers';
+
 import {
   getFeedContentFromState,
   getFeedLoadingFromState,
@@ -12,7 +15,8 @@ import EmptyUserProfile from '../statics/EmptyUserProfile';
 import EmptyUserOwnProfile from '../statics/EmptyUserOwnProfile';
 
 @connect(state => ({
-  auth: state.auth,
+  authenticated: getIsAuthenticated(state),
+  authenticatedUser: getAuthenticatedUser(state),
   feed: state.feed,
   posts: state.posts,
 }), {
@@ -21,9 +25,10 @@ import EmptyUserOwnProfile from '../statics/EmptyUserOwnProfile';
 })
 export default class UserProfile extends React.Component {
   static propTypes = {
+    authenticated: PropTypes.bool.isRequired,
+    authenticatedUser: PropTypes.shape().isRequired,
     feed: PropTypes.shape().isRequired,
     posts: PropTypes.shape().isRequired,
-    auth: PropTypes.shape().isRequired,
     match: PropTypes.shape().isRequired,
     limit: PropTypes.number,
     getFeedContent: PropTypes.func,
@@ -49,9 +54,9 @@ export default class UserProfile extends React.Component {
   }
 
   render() {
-    const { feed, posts, limit, auth } = this.props;
+    const { authenticated, authenticatedUser, feed, posts, limit } = this.props;
     const username = this.props.match.params.name;
-    const isOwnProfile = auth.isAuthenticated && username === auth.user.name;
+    const isOwnProfile = authenticated && username === authenticatedUser.name;
     const content = getFeedContentFromState('blog', username, feed, posts);
     const isFetching = getFeedLoadingFromState('blog', username, feed);
     const hasMore = getFeedHasMoreFromState('blog', username, feed);

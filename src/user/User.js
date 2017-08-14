@@ -4,6 +4,9 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+
+import { getIsAuthenticated, getAuthenticatedUser } from '../reducers';
+
 import { getAccountWithFollowingCount } from './usersActions';
 import { followUser, unfollowUser } from './userActions';
 import UserHero from './UserHero';
@@ -24,7 +27,8 @@ export const needs = [getAccountWithFollowingCount];
 
 @connect(
   state => ({
-    auth: state.auth,
+    authenticated: getIsAuthenticated(state),
+    authenticatedUser: getAuthenticatedUser(state),
     users: state.users,
     followingList: state.user.following.list,
     pendingFollows: state.user.following.pendingFollows,
@@ -41,7 +45,8 @@ export const needs = [getAccountWithFollowingCount];
 )
 export default class User extends React.Component {
   static propTypes = {
-    auth: PropTypes.shape().isRequired,
+    authenticated: PropTypes.bool.isRequired,
+    authenticatedUser: PropTypes.shape().isRequired,
     match: PropTypes.shape().isRequired,
     users: PropTypes.shape().isRequired,
     followingList: PropTypes.arrayOf(PropTypes.string).isRequired,
@@ -83,7 +88,7 @@ export default class User extends React.Component {
   };
 
   render() {
-    const { auth, match, followingList, pendingFollows } = this.props;
+    const { authenticated, authenticatedUser, match, followingList, pendingFollows } = this.props;
     const username = this.props.match.params.name;
     const { isFetching, ...user } = this.props.users[username] || {};
     const { profile = {} } = user.json_metadata || {};
@@ -95,7 +100,7 @@ export default class User extends React.Component {
     const displayedUsername = profile.name || username || '';
     const title = `${displayedUsername} - Busy`;
 
-    const isSameUser = auth && auth.isAuthenticated && auth.user.name === username;
+    const isSameUser = authenticated && authenticatedUser.name === username;
 
     const isFollowed = followingList.includes(username);
     const pendingFollow = pendingFollows.includes(username);
@@ -128,7 +133,7 @@ export default class User extends React.Component {
         <ScrollToTopOnMount />
         {user &&
           <UserHero
-            auth={auth}
+            authenticated={authenticated}
             user={user}
             username={displayedUsername}
             isSameUser={isSameUser}
@@ -140,12 +145,12 @@ export default class User extends React.Component {
           <div className="feed-layout container">
             <Affix className="leftContainer" stickPosition={72}>
               <div className="left">
-                <LeftSidebar auth={auth} user={user} />
+                <LeftSidebar user={user} />
               </div>
             </Affix>
             <Affix className="rightContainer" stickPosition={72}>
               <div className="right">
-                <RightSidebar auth={this.props.auth} />
+                <RightSidebar />
               </div>
             </Affix>
             <div className="center">

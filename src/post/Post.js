@@ -8,6 +8,8 @@ import { bindActionCreators } from 'redux';
 import sanitize from 'sanitize-html';
 import VisibilitySensor from 'react-visibility-sensor';
 
+import { getAuthenticatedUser } from '../reducers';
+
 import { getHtml } from '../components/Story/Body';
 import Comments from '../comments/Comments';
 import * as postActions from './postActions';
@@ -23,16 +25,16 @@ import ScrollToTopOnMount from '../components/Utils/ScrollToTopOnMount';
 
 @withRouter
 @connect(
-  ({ posts, app, reblog, auth, bookmarks, user }) => ({
-    content: posts[app.lastPostId] || null,
-    loading: posts.postLoading,
-    pendingLikes: posts.pendingLikes,
-    reblogList: reblog.rebloggedList,
-    pendingReblogs: reblog.pendingReblogs,
-    followList: user.following.list,
-    pendingFollows: user.following.pendingFollows,
-    bookmarks,
-    auth,
+  state => ({
+    user: getAuthenticatedUser(state),
+    content: state.posts[state.app.lastPostId] || null,
+    loading: state.posts.postLoading,
+    pendingLikes: state.posts.pendingLikes,
+    reblogList: state.reblog.rebloggedList,
+    pendingReblogs: state.reblog.pendingReblogs,
+    followList: state.user.following.list,
+    pendingFollows: state.user.following.pendingFollows,
+    bookmarks: state.bookmarks,
   }),
   (dispatch, ownProps) =>
     bindActionCreators(
@@ -53,7 +55,7 @@ import ScrollToTopOnMount from '../components/Utils/ScrollToTopOnMount';
 )
 export default class PostSingle extends React.Component {
   static propTypes = {
-    auth: PropTypes.shape().isRequired,
+    user: PropTypes.shape().isRequired,
     content: PropTypes.shape(),
     loading: PropTypes.bool,
     pendingLikes: PropTypes.arrayOf(PropTypes.number),
@@ -133,8 +135,8 @@ export default class PostSingle extends React.Component {
 
   render() {
     const {
+      user,
       content,
-      auth,
       loading,
       pendingLikes,
       reblogList,
@@ -162,15 +164,14 @@ export default class PostSingle extends React.Component {
       canonicalHost = 'https://steemit.com';
     }
 
-    const loggedInUser = auth.user;
-    const userVote = _.find(content.active_votes, { voter: loggedInUser.name }) || {};
+    const userVote = _.find(content.active_votes, { voter: user.name }) || {};
 
     const postState = {
       isReblogged: reblogList.includes(content.id),
       isReblogging: pendingReblogs.includes(content.id),
       isSaved:
-        bookmarks[loggedInUser.name] &&
-        bookmarks[loggedInUser.name].filter(bookmark => bookmark.id === content.id).length > 0,
+        bookmarks[user.name] &&
+        bookmarks[user.name].filter(bookmark => bookmark.id === content.id).length > 0,
       isLiked: userVote.percent > 0,
       isReported: userVote.percent < 0,
       userFollowed: followList.includes(content.author),
@@ -222,7 +223,7 @@ export default class PostSingle extends React.Component {
           <div className="post-layout container">
             <Affix className="rightContainer" stickPosition={77}>
               <div className="right">
-                <RightSidebar auth={auth} />
+                <RightSidebar />
               </div>
             </Affix>
             <div className="center" style={{ paddingBottom: '24px' }}>

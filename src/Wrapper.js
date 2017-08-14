@@ -5,6 +5,9 @@ import { IntlProvider } from 'react-intl';
 import { Layout } from 'antd';
 import { GatewayProvider, GatewayDest } from 'react-gateway';
 import { withRouter } from 'react-router-dom';
+
+import { getAuthenticatedUser } from './reducers';
+
 import { login, logout } from './auth/authActions';
 import { getConfig, getRate } from './actions';
 import steemAPI from './steemAPI';
@@ -17,8 +20,8 @@ import './translations/Translations';
 @withRouter
 @connect(
   state => ({
+    user: getAuthenticatedUser(state),
     app: state.app,
-    auth: state.auth,
   }),
   {
     login,
@@ -30,8 +33,8 @@ import './translations/Translations';
 )
 export default class Wrapper extends React.PureComponent {
   static propTypes = {
+    user: PropTypes.shape().isRequired,
     app: PropTypes.shape().isRequired,
-    auth: PropTypes.shape().isRequired,
     children: PropTypes.element.isRequired,
     login: PropTypes.func,
     logout: PropTypes.func,
@@ -80,7 +83,7 @@ export default class Wrapper extends React.PureComponent {
 
   render() {
     const { messages } = this.state;
-    const { app, auth } = this.props;
+    const { app, user } = this.props;
     const locale = getLocale(app.locale, messages);
     let translations = messages[app.locale || locale] || {};
     if (messages.en) {
@@ -92,7 +95,7 @@ export default class Wrapper extends React.PureComponent {
         <GatewayProvider>
           <Layout>
             <Layout.Header style={{ position: 'fixed', width: '100%', zIndex: 5 }}>
-              <Topnav username={auth.user.name} onMenuItemClick={this.handleMenuItemClick} />
+              <Topnav username={user.name} onMenuItemClick={this.handleMenuItemClick} />
             </Layout.Header>
             <div className="content">
               {this.props.children}

@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
 import { bindActionCreators } from 'redux';
 import { FormattedMessage } from 'react-intl';
 import numeral from 'numeral';
@@ -8,6 +7,9 @@ import { formatter } from 'steem';
 import steemconnect from 'sc2-sdk';
 import { connect } from 'react-redux';
 import api from '../steemAPI';
+
+import { getIsAuthenticated, getAuthenticatedUser } from '../reducers';
+
 import Loading from '../components/Icon/Loading';
 import * as walletActions from '../wallet/walletActions';
 import TransferHistory from './TransferHistory';
@@ -16,8 +18,9 @@ const CLAIMED = 'CLAIMED';
 const CLAIMING = 'CLAIMING';
 @connect(
   state => ({
+    authenticated: getIsAuthenticated(state),
+    authenticatedUser: getAuthenticatedUser(state),
     app: state.app,
-    auth: state.auth,
     wallet: state.wallet,
   }),
   dispatch =>
@@ -30,10 +33,11 @@ const CLAIMING = 'CLAIMING';
 )
 export default class UserTransfers extends React.Component {
   static propTypes = {
+    authenticated: PropTypes.bool.isRequired,
+    authenticatedUser: PropTypes.shape().isRequired,
     app: PropTypes.shape().isRequired,
     match: PropTypes.shape().isRequired,
     wallet: PropTypes.shape().isRequired,
-    auth: PropTypes.shape(),
     user: PropTypes.shape(),
     getWallet: PropTypes.func,
   };
@@ -72,6 +76,7 @@ export default class UserTransfers extends React.Component {
   };
 
   render() {
+    const { authenticated, authenticatedUser } = this.props;
     const rate = this.props.app.rate;
     const username = this.props.match.params.name;
     const account = this.props.user;
@@ -88,7 +93,7 @@ export default class UserTransfers extends React.Component {
       dollar += parseFloat(account.sbd_balance);
     }
 
-    const isMyAccount = account.name && _.get(this.props.auth, 'user.name') === account.name;
+    const isMyAccount = authenticated && authenticatedUser.name === username;
 
     let rewardsStr;
     const rewards = [];

@@ -3,7 +3,7 @@ import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
 
 import appReducers from './app/appReducers';
-import authReducers from './auth/authReducers';
+import authReducers, * as fromAuth from './auth/authReducers';
 import commentsReducer from './comments/commentsReducer';
 import feedReducers from './feed/feedReducers';
 import postsReducers from './post/postsReducers';
@@ -36,3 +36,8 @@ const reducers = combineReducers({
 });
 
 export default reducers;
+
+export const getIsAuthenticated = state => fromAuth.getIsAuthenticated(state.auth);
+export const getIsAuthFetching = state => fromAuth.getIsAuthFetching(state.auth);
+export const getIsLoaded = state => fromAuth.getIsLoaded(state.auth);
+export const getAuthenticatedUser = state => fromAuth.getAuthenticatedUser(state.auth);

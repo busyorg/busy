@@ -6,6 +6,9 @@ import kebabCase from 'lodash/kebabCase';
 import debounce from 'lodash/debounce';
 import isArray from 'lodash/isArray';
 import 'url-search-params-polyfill';
+
+import { getAuthenticatedUser } from '../../reducers';
+
 import { createPost, saveDraft, newPost } from './editorActions';
 import { notify } from '../../app/Notification/notificationActions';
 import Editor from '../../components/Editor/Editor';
@@ -16,7 +19,7 @@ const version = require('../../../package.json').version;
 @withRouter
 @connect(
   state => ({
-    user: state.auth.user,
+    user: getAuthenticatedUser(state),
     editor: state.editor,
   }),
   {
