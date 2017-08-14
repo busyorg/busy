@@ -2,7 +2,7 @@ import Promise from 'bluebird';
 import assert from 'assert';
 import each from 'lodash/each';
 import io from 'socket.io-client';
-import uuid from 'uuid';
+// import uuid from 'uuid';
 
 import { fetchMessages } from './messagesActions';
 

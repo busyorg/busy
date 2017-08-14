@@ -5,8 +5,9 @@ import authReducers from './authReducers';
 
 const initialStateMock = {
   isAuthenticated: false,
+  isFetching: false,
   user: {},
-  following: [],
+  token: '',
 };
 
 
