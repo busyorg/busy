@@ -21,6 +21,7 @@ const postItem = (state = {}, action) => {
 };
 
 const initialState = {
+  lastPostId: null,
   postLoading: false,
   pendingLikes: [],
 };
@@ -58,6 +59,7 @@ const posts = (state = initialState, action) => {
       if (action.meta.afterLike) {
         return {
           ...state,
+          lastPostId: action.payload.id,
           postLoading: false,
           pendingLikes: state.pendingLikes.filter(post => post !== action.payload.id),
           [action.payload.id]: {
@@ -68,6 +70,7 @@ const posts = (state = initialState, action) => {
       }
       return {
         ...state,
+        lastPostId: action.payload.id,
         postLoading: false,
         [action.payload.id]: {
           ...state[action.payload.id],
@@ -102,5 +105,7 @@ const posts = (state = initialState, action) => {
   }
 };
 
-
 export default posts;
+
+export const getPostContent = state => state[state.lastPostId];
+export const getIsPostLoading = state => state.postLoading;

@@ -6,7 +6,7 @@ import appReducers from './app/appReducers';
 import authReducers, * as fromAuth from './auth/authReducers';
 import commentsReducer from './comments/commentsReducer';
 import feedReducers from './feed/feedReducers';
-import postsReducers from './post/postsReducers';
+import postsReducers, * as fromPosts from './post/postsReducers';
 import userReducer from './user/userReducer';
 import usersReducer from './user/usersReducer';
 import notificationReducer from './app/Notification/notificationReducers';
@@ -41,3 +41,6 @@ export const getIsAuthenticated = state => fromAuth.getIsAuthenticated(state.aut
 export const getIsAuthFetching = state => fromAuth.getIsAuthFetching(state.auth);
 export const getIsLoaded = state => fromAuth.getIsLoaded(state.auth);
 export const getAuthenticatedUser = state => fromAuth.getAuthenticatedUser(state.auth);
+
+export const getPostContent = state => fromPosts.getPostContent(state.posts);
+export const getIsPostLoading = state => fromPosts.getIsPostLoading(state.posts);

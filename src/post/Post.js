@@ -8,7 +8,7 @@ import { bindActionCreators } from 'redux';
 import sanitize from 'sanitize-html';
 import VisibilitySensor from 'react-visibility-sensor';
 
-import { getAuthenticatedUser } from '../reducers';
+import { getAuthenticatedUser, getPostContent, getIsPostLoading } from '../reducers';
 
 import { getHtml } from '../components/Story/Body';
 import Comments from '../comments/Comments';
@@ -27,8 +27,8 @@ import ScrollToTopOnMount from '../components/Utils/ScrollToTopOnMount';
 @connect(
   state => ({
     user: getAuthenticatedUser(state),
-    content: state.posts[state.app.lastPostId] || null,
-    loading: state.posts.postLoading,
+    content: getPostContent(state),
+    loading: getIsPostLoading(state),
     pendingLikes: state.posts.pendingLikes,
     reblogList: state.reblog.rebloggedList,
     pendingReblogs: state.reblog.pendingReblogs,
@@ -53,11 +53,11 @@ import ScrollToTopOnMount from '../components/Utils/ScrollToTopOnMount';
       dispatch,
     ),
 )
-export default class PostSingle extends React.Component {
+export default class Post extends React.Component {
   static propTypes = {
     user: PropTypes.shape().isRequired,
     content: PropTypes.shape(),
-    loading: PropTypes.bool,
+    loading: PropTypes.bool.isRequired,
     pendingLikes: PropTypes.arrayOf(PropTypes.number),
     reblogList: PropTypes.arrayOf(PropTypes.number),
     pendingReblogs: PropTypes.arrayOf(PropTypes.number),
@@ -73,8 +73,7 @@ export default class PostSingle extends React.Component {
   };
 
   static defaultProps = {
-    content: {},
-    loading: false,
+    content: undefined,
     pendingLikes: [],
     reblogList: [],
     pendingReblogs: [],
