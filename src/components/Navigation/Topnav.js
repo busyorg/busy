@@ -87,14 +87,14 @@ const Topnav = ({
     content = (
       <div className="Topnav__menu-container">
         <Menu className="Topnav__menu-container__menu" mode="horizontal">
-          <Menu.Item key="signin">
-            <a href={steemconnect.getLoginURL()}>Sign in</a>
+          <Menu.Item key="signup">
+            <Link to="/signup">Sign up</Link>
           </Menu.Item>
           <Menu.Item key="divider" disabled>
             |
           </Menu.Item>
-          <Menu.Item key="signup">
-            <Link to="/signup">Sign up</Link>
+          <Menu.Item key="login">
+            <a href={steemconnect.getLoginURL()}>Log in</a>
           </Menu.Item>
         </Menu>
       </div>
