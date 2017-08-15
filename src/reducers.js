@@ -12,7 +12,7 @@ import usersReducer from './user/usersReducer';
 import notificationReducer from './app/Notification/notificationReducers';
 import bookmarksReducer from './bookmarks/bookmarksReducer';
 import favoritesReducer from './favorites/favoritesReducer';
-import editorReducer from './post/Write/editorReducer';
+import editorReducer, * as fromEditor from './post/Write/editorReducer';
 import { responsiveReducer } from './vendor/responsive';
 import reblogReducers from './app/Reblog/reblogReducers';
 import walletReducer from './wallet/walletReducer';
@@ -44,3 +44,6 @@ export const getAuthenticatedUser = state => fromAuth.getAuthenticatedUser(state
 
 export const getPostContent = state => fromPosts.getPostContent(state.posts);
 export const getIsPostLoading = state => fromPosts.getIsPostLoading(state.posts);
+
+export const getDraftPosts = state => fromEditor.getDraftPosts(state.editor);
+export const getIsEditorLoading = state => fromEditor.getIsEditorLoading(state.editor);
