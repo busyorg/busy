@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 
 import { routerReducer } from 'react-router-redux';
 
-import appReducer from './app/appReducer';
+import appReducer, * as fromApp from './app/appReducer';
 import authReducer, * as fromAuth from './auth/authReducer';
 import commentsReducer from './comments/commentsReducer';
 import feedReducer from './feed/feedReducer';
@@ -47,3 +47,8 @@ export const getIsPostLoading = state => fromPosts.getIsPostLoading(state.posts)
 
 export const getDraftPosts = state => fromEditor.getDraftPosts(state.editor);
 export const getIsEditorLoading = state => fromEditor.getIsEditorLoading(state.editor);
+
+export const getLayout = state => fromApp.getLayout(state.editor);
+export const getLocale = state => fromApp.getLocale(state.editor);
+export const getRate = state => fromApp.getRate(state.editor);
+export const getLastPostId = state => fromApp.getLastPostId(state.editor);

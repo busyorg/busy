@@ -8,7 +8,7 @@ import steemconnect from 'sc2-sdk';
 import { connect } from 'react-redux';
 import api from '../steemAPI';
 
-import { getIsAuthenticated, getAuthenticatedUser } from '../reducers';
+import { getIsAuthenticated, getAuthenticatedUser, getRate } from '../reducers';
 
 import Loading from '../components/Icon/Loading';
 import * as walletActions from '../wallet/walletActions';
@@ -20,7 +20,7 @@ const CLAIMING = 'CLAIMING';
   state => ({
     authenticated: getIsAuthenticated(state),
     authenticatedUser: getAuthenticatedUser(state),
-    app: state.app,
+    rate: getRate(state),
     wallet: state.wallet,
   }),
   dispatch =>
@@ -35,7 +35,7 @@ export default class UserTransfers extends React.Component {
   static propTypes = {
     authenticated: PropTypes.bool.isRequired,
     authenticatedUser: PropTypes.shape().isRequired,
-    app: PropTypes.shape().isRequired,
+    rate: PropTypes.number.isRequired,
     match: PropTypes.shape().isRequired,
     wallet: PropTypes.shape().isRequired,
     user: PropTypes.shape(),
@@ -77,7 +77,7 @@ export default class UserTransfers extends React.Component {
 
   render() {
     const { authenticated, authenticatedUser } = this.props;
-    const rate = this.props.app.rate;
+    const rate = this.props.rate;
     const username = this.props.match.params.name;
     const account = this.props.user;
 
