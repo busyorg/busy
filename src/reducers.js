@@ -13,7 +13,7 @@ import notificationReducer from './app/Notification/notificationReducers';
 import bookmarksReducer from './bookmarks/bookmarksReducer';
 import favoritesReducer from './favorites/favoritesReducers';
 import editorReducer from './post/Write/editorReducers';
-import { responsiveReducer } from './helpers/responsive';
+import { responsiveReducer } from './vendor/responsive';
 import reblogReducers from './app/Reblog/reblogReducers';
 import walletReducer from './wallet/walletReducer';
 
