@@ -28,7 +28,6 @@ import ScrollToTop from '../components/Utils/ScrollToTop';
     authenticated: getIsAuthenticated(state),
     loaded: getIsLoaded(state),
     user: getAuthenticatedUser(state),
-    auth: state.auth,
     feed: state.feed,
     posts: state.posts,
   }),
