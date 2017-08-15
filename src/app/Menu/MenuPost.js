@@ -1,6 +1,7 @@
 import React from 'react';
 import numeral from 'numeral';
 import { FormattedMessage } from 'react-intl';
+import Slider from 'rc-slider';
 import { Link } from 'react-router';
 import { SimpleTooltipOrigin } from '../../widgets/tooltip/SimpleTooltip';
 import { getUpvotes, getDownvotes, sortVotes } from '../../helpers/voteHelpers';
@@ -19,6 +20,12 @@ const MenuPost = ({
   dislikePost,
   content,
   onEdit,
+  user,
+  updateVotePowerBar,
+  showVoteBar,
+  hideVoteBar,
+  voteBarEnabled,
+  showingVoteBar
 }) => {
   const pendingPayoutValue = parseFloat(content.pending_payout_value);
   const totalPayoutValue = parseFloat(content.total_payout_value);
@@ -41,24 +48,35 @@ const MenuPost = ({
     .slice(0, 5);
   const dislikesTooltipMsg = fiveLastDownvotes.map(vote => `${vote.voter}\n`);
   if (dislikesTooltipMsg.length === 5) dislikesTooltipMsg.push('...');
+  const { votePower } = user;
 
   return (
     <div className="secondary-nav">
       <ul className="container text-left">
         <li>
-          <a
-            className={isPostLiked ? 'active' : ''}
-            onClick={isPostLiked ? unlikePost : likePost}
-          >
-            <Icon name="thumb_up" />
-          </a>
-          {' '}
-          <SimpleTooltipOrigin message={likesTooltipMsg}>
-            <a>{numberOfLikes}</a>
-          </SimpleTooltipOrigin>
-          <span className="hidden-xs">
-            {' '}<FormattedMessage id="likes" defaultMessage="Likes" />
-          </span>
+          <div className="LikeBar--container LikeBar--comment-view" onMouseLeave={hideVoteBar}>
+            {!isPostLiked && voteBarEnabled && showingVoteBar && <div className="LikeBar">
+              <span className="LikeBar--text">Power: {votePower}%</span>
+              <Slider
+                defaultValue={votePower} min={1} tipTransitionName="rc-slider-tooltip-zoom-down"
+                onChange={updateVotePowerBar}
+              />
+            </div>}
+            <a
+              className={isPostLiked ? 'active' : ''}
+              onClick={isPostLiked ? unlikePost : likePost.bind(null, votePower * 100)}
+              onMouseEnter={showVoteBar}
+            >
+              <Icon name="thumb_up" />
+            </a>
+            {' '}
+            <SimpleTooltipOrigin message={likesTooltipMsg}>
+              <a>{numberOfLikes}</a>
+            </SimpleTooltipOrigin>
+            <span className="hidden-xs">
+              {' '}<FormattedMessage id="likes" defaultMessage="Likes" />
+            </span>
+          </div>
         </li>
 
         <li>
