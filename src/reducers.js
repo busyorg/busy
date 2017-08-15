@@ -2,28 +2,28 @@ import { combineReducers } from 'redux';
 
 import { routerReducer } from 'react-router-redux';
 
-import appReducers from './app/appReducers';
-import authReducers, * as fromAuth from './auth/authReducers';
+import appReducer from './app/appReducer';
+import authReducer, * as fromAuth from './auth/authReducer';
 import commentsReducer from './comments/commentsReducer';
-import feedReducers from './feed/feedReducers';
-import postsReducers, * as fromPosts from './post/postsReducers';
+import feedReducer from './feed/feedReducer';
+import postsReducer, * as fromPosts from './post/postsReducer';
 import userReducer from './user/userReducer';
 import usersReducer from './user/usersReducer';
 import notificationReducer from './app/Notification/notificationReducers';
 import bookmarksReducer from './bookmarks/bookmarksReducer';
-import favoritesReducer from './favorites/favoritesReducers';
-import editorReducer from './post/Write/editorReducers';
+import favoritesReducer from './favorites/favoritesReducer';
+import editorReducer from './post/Write/editorReducer';
 import { responsiveReducer } from './vendor/responsive';
 import reblogReducers from './app/Reblog/reblogReducers';
 import walletReducer from './wallet/walletReducer';
 
 const reducers = combineReducers({
-  app: appReducers,
-  auth: authReducers,
+  app: appReducer,
+  auth: authReducer,
   comments: commentsReducer,
   editor: editorReducer,
-  posts: postsReducers,
-  feed: feedReducers,
+  posts: postsReducer,
+  feed: feedReducer,
   user: userReducer,
   users: usersReducer,
   responsive: responsiveReducer,
