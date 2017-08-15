@@ -10,7 +10,7 @@ import {
 export { MEDIA_CHANGED };
 export { MEDIA_MOUNTED };
 
-let matchMedia; // eslint-disable-line
+let matchMedia;
 if (!process.env.IS_BROWSER) {
   matchMedia = function server$matchMedia() {
     return {
