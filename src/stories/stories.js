@@ -210,7 +210,8 @@ storiesOf('Profile', module)
 
 storiesOf('Comments', module).add('Comments', () =>
   (<Comments
-    username="steemconnect"
+    authenticated={false}
+    user={{}}
     comments={rootComments}
     commentsChildren={commentsChildren}
     onLikeClick={action('Like click')}

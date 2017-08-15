@@ -24,7 +24,7 @@ const sortComments = (comments, sortType = 'BEST') => {
 class Comments extends React.Component {
   static propTypes = {
     authenticated: PropTypes.bool.isRequired,
-    user: PropTypes.shape().isRequired,
+    username: PropTypes.string,
     parentPost: PropTypes.shape(),
     comments: PropTypes.arrayOf(PropTypes.shape()),
     commentsChildren: PropTypes.shape(),
@@ -36,6 +36,7 @@ class Comments extends React.Component {
   };
 
   static defaultProps = {
+    username: undefined,
     parentPost: undefined,
     comments: [],
     commentsChildren: undefined,
@@ -65,13 +66,13 @@ class Comments extends React.Component {
   };
 
   handleImageInserted = (blob, callback, errorCallback) => {
-    const { authenticated, user } = this.props;
+    const { authenticated, username } = this.props;
     if (!authenticated) return;
 
     const formData = new FormData();
     formData.append('files', blob);
 
-    fetch(`https://busy-img.herokuapp.com/@${user.name}/uploads`, {
+    fetch(`https://busy-img.herokuapp.com/@${username}/uploads`, {
       method: 'POST',
       body: formData,
     })
@@ -104,7 +105,7 @@ class Comments extends React.Component {
       onLikeClick,
       onDislikeClick,
       authenticated,
-      user,
+      username,
     } = this.props;
     const { sort } = this.state;
 
@@ -132,7 +133,7 @@ class Comments extends React.Component {
         {authenticated &&
           <CommentForm
             parentPost={this.props.parentPost}
-            username={user.name}
+            username={username}
             onSubmit={this.submitComment}
             isLoading={this.state.showCommentFormLoading}
             inputValue={this.state.commentFormText}
@@ -144,9 +145,9 @@ class Comments extends React.Component {
           comments &&
           sortComments(comments, sort).map(comment =>
             (<Comment
-              authenticated={authenticated}
-              user={user}
               key={comment.id}
+              authenticated={authenticated}
+              username={username}
               comment={comment}
               rootPostAuthor={this.props.parentPost && this.props.parentPost.author}
               commentsChildren={commentsChildren}

@@ -18,6 +18,8 @@ import {
   getIsAuthenticated,
   getIsLoaded,
   getAuthenticatedUser,
+  getFeed,
+  getPosts,
 } from '../reducers';
 import Feed from './Feed';
 import EmptyFeed from '../statics/EmptyFeed';
@@ -28,8 +30,8 @@ import ScrollToTop from '../components/Utils/ScrollToTop';
     authenticated: getIsAuthenticated(state),
     loaded: getIsLoaded(state),
     user: getAuthenticatedUser(state),
-    feed: state.feed,
-    posts: state.posts,
+    feed: getFeed(state),
+    posts: getPosts(state),
   }),
   dispatch => ({
     getFeedContent: (sortBy, category) => dispatch(getFeedContent({ sortBy, category, limit: 10 })),

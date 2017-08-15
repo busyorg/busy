@@ -2,9 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Feed from '../feed/Feed';
-
-import { getIsAuthenticated, getAuthenticatedUser } from '../reducers';
-
+import {
+  getIsAuthenticated,
+  getAuthenticatedUser,
+  getFeed,
+  getPosts,
+} from '../reducers';
 import {
   getFeedContentFromState,
   getFeedLoadingFromState,
@@ -17,8 +20,8 @@ import EmptyUserOwnProfile from '../statics/EmptyUserOwnProfile';
 @connect(state => ({
   authenticated: getIsAuthenticated(state),
   authenticatedUser: getAuthenticatedUser(state),
-  feed: state.feed,
-  posts: state.posts,
+  feed: getFeed(state),
+  posts: getPosts(state),
 }), {
   getFeedContent,
   getMoreFeedContent,

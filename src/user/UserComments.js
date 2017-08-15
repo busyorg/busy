@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Feed from '../feed/Feed';
+import { getFeed, getComments } from '../reducers';
 import {
   getUserCommentsFromState,
   getFeedLoadingFromState,
@@ -10,8 +11,8 @@ import {
 import { getUserComments, getMoreUserComments } from './userActions';
 
 @connect(state => ({
-  feed: state.feed,
-  comments: state.comments,
+  feed: getFeed(state),
+  comments: getComments(state),
 }), {
   getUserComments,
   getMoreUserComments,
