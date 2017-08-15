@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { getIsAuthenticated, getAuthenticatedUser } from '../reducers';
 import CommentsList from '../components/Comments/Comments';
 import * as commentsActions from './commentsActions';
 import { notify } from '../app/Notification/notificationActions';
@@ -10,7 +11,8 @@ import './Comments.less';
 @connect(
   state => ({
     comments: state.comments,
-    auth: state.auth,
+    authenticated: getIsAuthenticated(state),
+    user: getAuthenticatedUser(state),
   }),
   dispatch => bindActionCreators({
     getComments: commentsActions.getComments,
@@ -22,7 +24,8 @@ import './Comments.less';
 )
 export default class Comments extends React.Component {
   static propTypes = {
-    auth: PropTypes.shape().isRequired,
+    authenticated: PropTypes.bool.isRequired,
+    user: PropTypes.shape().isRequired,
     post: PropTypes.shape(),
     comments: PropTypes.shape(),
     show: PropTypes.bool,
@@ -115,7 +118,8 @@ export default class Comments extends React.Component {
         <CommentsList
           parentPost={post}
           comments={fetchedCommentsList}
-          auth={this.props.auth}
+          authenticated={this.props.authenticated}
+          user={this.props.user}
           commentsChildren={commentsChildren}
           loading={loading}
           show={show}

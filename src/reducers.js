@@ -48,7 +48,7 @@ export const getIsPostLoading = state => fromPosts.getIsPostLoading(state.posts)
 export const getDraftPosts = state => fromEditor.getDraftPosts(state.editor);
 export const getIsEditorLoading = state => fromEditor.getIsEditorLoading(state.editor);
 
-export const getLayout = state => fromApp.getLayout(state.editor);
-export const getLocale = state => fromApp.getLocale(state.editor);
-export const getRate = state => fromApp.getRate(state.editor);
-export const getLastPostId = state => fromApp.getLastPostId(state.editor);
+export const getLayout = state => fromApp.getLayout(state.app);
+export const getLocale = state => fromApp.getLocale(state.app);
+export const getRate = state => fromApp.getRate(state.app);
+export const getLastPostId = state => fromApp.getLastPostId(state.app);
