@@ -93,6 +93,7 @@ module.exports = {
         STEEMCONNECT_IMG_HOST: JSON.stringify(process.env.STEEMCONNECT_IMG_HOST || 'https://img.steemconnect.com'),
         STEEMCONNECT_HOST: JSON.stringify(process.env.STEEMCONNECT_HOST || 'https://v2.steemconnect.com'),
         STEEMCONNECT_REDIRECT_URL: JSON.stringify(process.env.STEEMCONNECT_REDIRECT_URL || 'https://busy.org/callback'),
+        PORT: JSON.stringify(process.env.PORT || '3000'),
         WS: JSON.stringify(process.env.WS || 'wss://steemd-int.steemit.com'),
         IS_BROWSER: JSON.stringify(false),
       },
