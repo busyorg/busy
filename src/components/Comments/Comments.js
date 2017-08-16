@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { getUpvotes, getDownvotes } from '../../helpers/voteHelpers';
 import Loading from '../Icon/Loading';
 import CommentForm from './CommentForm';
 import Comment from './Comment';
@@ -11,7 +12,11 @@ const sortComments = (comments, sortType = 'BEST') => {
 
   switch (sortType) {
     case 'BEST':
-      return sortedComments.sort((a, b) => a.net_votes - b.net_votes).reverse();
+      return sortedComments.sort((a, b) => {
+        const aVotes = getUpvotes(a.active_votes).length - getDownvotes(a.active_votes).length;
+        const bVotes = getUpvotes(b.active_votes).length - getDownvotes(b.active_votes).length;
+        return bVotes - aVotes;
+      });
     case 'NEWEST':
       return sortedComments.sort((a, b) => Date.parse(a.created) - Date.parse(b.created)).reverse();
     case 'OLDEST':
