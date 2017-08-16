@@ -4,6 +4,7 @@
 
 const app = require('./app').app;
 const debug = require('debug')('busy:server');
+const config = require('config');
 
 if (process.env.NODE_ENV === 'production') import('newrelic');
 
@@ -30,7 +31,7 @@ function normalizePort(val) {
  * Get port from environment and store in Express.
  */
 
-const port = normalizePort(process.env.PORT || 3000);
+const port = normalizePort(config.get('port'));
 app.set('port', port);
 
 /**
