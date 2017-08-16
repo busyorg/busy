@@ -15,7 +15,7 @@ import { getMessages, getLocale as getLocaleHelper } from './translations/transl
 import Topnav from './components/Navigation/Topnav';
 import * as reblogActions from './app/Reblog/reblogActions';
 import config from '../config.json';
-import './translations/Translations';
+import './translations';
 
 @withRouter
 @connect(
