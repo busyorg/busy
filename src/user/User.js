@@ -71,7 +71,7 @@ export default class User extends React.Component {
   static needs = needs;
 
   componentWillMount() {
-    if (this.props.user === {}) {
+    if (!this.props.user.name) {
       this.props.getAccountWithFollowingCount({ name: this.props.match.params.name });
     }
   }
