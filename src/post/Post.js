@@ -8,7 +8,17 @@ import { bindActionCreators } from 'redux';
 import sanitize from 'sanitize-html';
 import VisibilitySensor from 'react-visibility-sensor';
 
-import { getAuthenticatedUser, getPostContent, getIsPostLoading } from '../reducers';
+import {
+  getAuthenticatedUser,
+  getPostContent,
+  getIsPostLoading,
+  getBookmarks,
+  getPendingLikes,
+  getRebloggedList,
+  getPendingReblogs,
+  getFollowingList,
+  getPendingFollows,
+} from '../reducers';
 
 import { getHtml } from '../components/Story/Body';
 import Comments from '../comments/Comments';
@@ -29,12 +39,12 @@ import ScrollToTopOnMount from '../components/Utils/ScrollToTopOnMount';
     user: getAuthenticatedUser(state),
     content: getPostContent(state),
     loading: getIsPostLoading(state),
-    pendingLikes: state.posts.pendingLikes,
-    reblogList: state.reblog.rebloggedList,
-    pendingReblogs: state.reblog.pendingReblogs,
-    followList: state.user.following.list,
-    pendingFollows: state.user.following.pendingFollows,
-    bookmarks: state.bookmarks,
+    bookmarks: getBookmarks(state),
+    pendingLikes: getPendingLikes(state),
+    reblogList: getRebloggedList(state),
+    pendingReblogs: getPendingReblogs(state),
+    followingList: getFollowingList(state),
+    pendingFollows: getPendingFollows(state),
   }),
   (dispatch, ownProps) =>
     bindActionCreators(
