@@ -110,3 +110,4 @@ export default posts;
 export const getPosts = state => state;
 export const getPostContent = state => state[state.lastPostId];
 export const getIsPostLoading = state => state.postLoading;
+export const getPendingLikes = state => state.pendingLikes;

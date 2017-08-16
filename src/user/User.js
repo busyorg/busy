@@ -5,7 +5,12 @@ import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 
-import { getIsAuthenticated, getAuthenticatedUser } from '../reducers';
+import {
+  getIsAuthenticated,
+  getAuthenticatedUser,
+  getFollowingList,
+  getPendingFollows,
+} from '../reducers';
 
 import { getAccountWithFollowingCount } from './usersActions';
 import { followUser, unfollowUser } from './userActions';
@@ -30,8 +35,8 @@ export const needs = [getAccountWithFollowingCount];
     authenticated: getIsAuthenticated(state),
     authenticatedUser: getAuthenticatedUser(state),
     users: state.users,
-    followingList: state.user.following.list,
-    pendingFollows: state.user.following.pendingFollows,
+    followingList: getFollowingList(state),
+    pendingFollows: getPendingFollows(state),
   }),
   dispatch =>
     bindActionCreators(

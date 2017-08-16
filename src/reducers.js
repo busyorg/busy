@@ -7,14 +7,14 @@ import authReducer, * as fromAuth from './auth/authReducer';
 import commentsReducer, * as fromComments from './comments/commentsReducer';
 import feedReducer, * as fromFeed from './feed/feedReducer';
 import postsReducer, * as fromPosts from './post/postsReducer';
-import userReducer from './user/userReducer';
+import userReducer, * as fromUser from './user/userReducer';
 import usersReducer from './user/usersReducer';
 import notificationReducer from './app/Notification/notificationReducers';
-import bookmarksReducer from './bookmarks/bookmarksReducer';
-import favoritesReducer from './favorites/favoritesReducer';
+import bookmarksReducer, * as fromBookmarks from './bookmarks/bookmarksReducer';
+import favoritesReducer, * as fromFavorites from './favorites/favoritesReducer';
 import editorReducer, * as fromEditor from './post/Write/editorReducer';
 import { responsiveReducer } from './vendor/responsive';
-import reblogReducers from './app/Reblog/reblogReducers';
+import reblogReducers, * as fromReblog from './app/Reblog/reblogReducers';
 import walletReducer from './wallet/walletReducer';
 
 const reducers = combineReducers({
@@ -46,6 +46,7 @@ export const getAuthenticatedUserName = state => fromAuth.getAuthenticatedUserNa
 export const getPosts = state => fromPosts.getPosts(state.posts);
 export const getPostContent = state => fromPosts.getPostContent(state.posts);
 export const getIsPostLoading = state => fromPosts.getIsPostLoading(state.posts);
+export const getPendingLikes = state => fromPosts.getPendingLikes(state.posts);
 
 export const getDraftPosts = state => fromEditor.getDraftPosts(state.editor);
 export const getIsEditorLoading = state => fromEditor.getIsEditorLoading(state.editor);
@@ -58,3 +59,13 @@ export const getLastPostId = state => fromApp.getLastPostId(state.app);
 export const getFeed = state => fromFeed.getFeed(state.feed);
 
 export const getComments = state => fromComments.getComments(state.comments);
+
+export const getBookmarks = state => fromBookmarks.getBookmarks(state.bookmarks);
+
+export const getRebloggedList = state => fromReblog.getRebloggedList(state.reblog);
+export const getPendingReblogs = state => fromReblog.getPendingReblogs(state.reblog);
+
+export const getFollowingList = state => fromUser.getFollowingList(state.user);
+export const getPendingFollows = state => fromUser.getPendingFollows(state.user);
+
+export const getFavoriteCategories = state => fromFavorites.getFavoriteCategories(state.favorites);

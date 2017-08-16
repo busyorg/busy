@@ -8,7 +8,15 @@ import * as reblogActions from '../app/Reblog/reblogActions';
 import * as postActions from '../post/postActions';
 import { followUser, unfollowUser } from '../user/userActions';
 
-import { getAuthenticatedUser } from '../reducers';
+import {
+  getAuthenticatedUser,
+  getBookmarks,
+  getPendingLikes,
+  getRebloggedList,
+  getPendingReblogs,
+  getFollowingList,
+  getPendingFollows,
+} from '../reducers';
 
 import Story from '../components/Story/Story';
 import StoryLoading from '../components/Story/StoryLoading';
@@ -16,12 +24,12 @@ import StoryLoading from '../components/Story/StoryLoading';
 @connect(
   state => ({
     user: getAuthenticatedUser(state),
-    pendingLikes: state.posts.pendingLikes,
-    bookmarks: state.bookmarks,
-    reblogList: state.reblog.rebloggedList,
-    pendingReblogs: state.reblog.pendingReblogs,
-    followingList: state.user.following.list,
-    pendingFollows: state.user.following.pendingFollows,
+    bookmarks: getBookmarks(state),
+    pendingLikes: getPendingLikes(state),
+    reblogList: getRebloggedList(state),
+    pendingReblogs: getPendingReblogs(state),
+    followingList: getFollowingList(state),
+    pendingFollows: getPendingFollows(state),
   }),
   {
     toggleBookmark: bookmarkActions.toggleBookmark,
