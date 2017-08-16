@@ -8,7 +8,7 @@ import commentsReducer, * as fromComments from './comments/commentsReducer';
 import feedReducer, * as fromFeed from './feed/feedReducer';
 import postsReducer, * as fromPosts from './post/postsReducer';
 import userReducer, * as fromUser from './user/userReducer';
-import usersReducer from './user/usersReducer';
+import usersReducer, * as fromUsers from './user/usersReducer';
 import notificationReducer from './app/Notification/notificationReducers';
 import bookmarksReducer, * as fromBookmarks from './bookmarks/bookmarksReducer';
 import favoritesReducer, * as fromFavorites from './favorites/favoritesReducer';
@@ -67,5 +67,7 @@ export const getPendingReblogs = state => fromReblog.getPendingReblogs(state.reb
 
 export const getFollowingList = state => fromUser.getFollowingList(state.user);
 export const getPendingFollows = state => fromUser.getPendingFollows(state.user);
+
+export const getUser = (state, username) => fromUsers.getUser(state.users, username);
 
 export const getFavoriteCategories = state => fromFavorites.getFavoriteCategories(state.favorites);

@@ -8,6 +8,7 @@ import { Helmet } from 'react-helmet';
 import {
   getIsAuthenticated,
   getAuthenticatedUser,
+  getUser,
   getFollowingList,
   getPendingFollows,
 } from '../reducers';
@@ -31,10 +32,10 @@ import UserTransfers from './UserTransfers';
 export const needs = [getAccountWithFollowingCount];
 
 @connect(
-  state => ({
+  (state, ownProps) => ({
     authenticated: getIsAuthenticated(state),
     authenticatedUser: getAuthenticatedUser(state),
-    users: state.users,
+    user: getUser(state, ownProps.match.params.name),
     followingList: getFollowingList(state),
     pendingFollows: getPendingFollows(state),
   }),
@@ -53,7 +54,7 @@ export default class User extends React.Component {
     authenticated: PropTypes.bool.isRequired,
     authenticatedUser: PropTypes.shape().isRequired,
     match: PropTypes.shape().isRequired,
-    users: PropTypes.shape().isRequired,
+    user: PropTypes.shape().isRequired,
     followingList: PropTypes.arrayOf(PropTypes.string).isRequired,
     pendingFollows: PropTypes.arrayOf(PropTypes.string).isRequired,
     getAccountWithFollowingCount: PropTypes.func,
@@ -70,8 +71,7 @@ export default class User extends React.Component {
   static needs = needs;
 
   componentWillMount() {
-    const user = this.props.users[this.props.match.params.name] || {};
-    if (user.name === undefined) {
+    if (this.props.user === {}) {
       this.props.getAccountWithFollowingCount({ name: this.props.match.params.name });
     }
   }
@@ -95,7 +95,7 @@ export default class User extends React.Component {
   render() {
     const { authenticated, authenticatedUser, match, followingList, pendingFollows } = this.props;
     const username = this.props.match.params.name;
-    const { isFetching, ...user } = this.props.users[username] || {};
+    const { isFetching, ...user } = this.props.user;
     const { profile = {} } = user.json_metadata || {};
     const busyHost = global.postOrigin || 'https://busy.org';
     const desc = profile.about || `Post by ${username}`;
