@@ -54,6 +54,7 @@
     "bufferutil": "^1.2.1",
     "classnames": "^2.2.5",
     "coffeeify": "^2.0.1",
+    "config": "^1.26.2",
     "cors": "^2.7.1",
     "css-loader": "^0.28.0",
     "debug": "~2.2.0",
