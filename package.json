@@ -144,7 +144,7 @@
     "url-search-params-polyfill": "^2.0.0",
     "validator": "^5.1.0",
     "warning": "^3.0.0",
-    "webpack": "^2.6.1",
+    "webpack": "^3.5.4",
     "webpack-visualizer-plugin": "^0.1.5",
     "xmldom": "^0.1.27"
   },
