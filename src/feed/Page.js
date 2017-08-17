@@ -63,7 +63,7 @@ class Page extends React.Component {
     });
   };
 
-  handleTopicClose = () => this.props.history.push(this.props.match.url);
+  handleTopicClose = () => this.props.history.push(`${this.props.match.url}trending`);
 
   render() {
     const { authenticated, match, location } = this.props;
