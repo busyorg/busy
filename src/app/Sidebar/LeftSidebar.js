@@ -1,9 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import _ from 'lodash';
 import { FormattedDate } from 'react-intl';
 import { Route, Switch } from 'react-router-dom';
 import urlParse from 'url-parse';
+
+import { getAuthenticatedUser } from '../../reducers';
 
 import api from '../../steemAPI';
 import Topics from '../../components/Sidebar/Topics';
@@ -43,7 +46,7 @@ class SidebarWithTopics extends React.PureComponent {
   }
 }
 
-const LeftSidebar = ({ auth, user }) => {
+const LeftSidebar = ({ authenticatedUser, user }) => {
   const location = user && _.get(user.json_metadata, 'profile.location');
   let website = user && _.get(user.json_metadata, 'profile.website');
 
@@ -89,7 +92,7 @@ const LeftSidebar = ({ auth, user }) => {
       path="/"
       render={() =>
         (<div>
-          <Sidenav username={auth.user.name} />
+          <Sidenav username={authenticatedUser.name} />
           <SidebarWithTopics />
         </div>)}
     />
@@ -97,7 +100,7 @@ const LeftSidebar = ({ auth, user }) => {
 };
 
 LeftSidebar.propTypes = {
-  auth: PropTypes.shape().isRequired,
+  authenticatedUser: PropTypes.shape().isRequired,
   user: PropTypes.shape(),
 };
 
@@ -105,4 +108,8 @@ LeftSidebar.defaultProps = {
   user: undefined,
 };
 
-export default LeftSidebar;
+export default connect(
+  state => ({
+    authenticatedUser: getAuthenticatedUser(state),
+  }),
+)(LeftSidebar);

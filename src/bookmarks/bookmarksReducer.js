@@ -41,3 +41,5 @@ const bookmarks = (state = initialState, action) => {
 };
 
 export default bookmarks;
+
+export const getBookmarks = state => state;

@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import { Route } from 'react-router';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
+
+import { getIsAuthenticated } from '../reducers';
+
 import SubFeed from './SubFeed';
 import LeftSidebar from '../app/Sidebar/LeftSidebar';
 import RightSidebar from '../app/Sidebar/RightSidebar';
@@ -13,12 +16,12 @@ import ScrollToTopOnMount from '../components/Utils/ScrollToTopOnMount';
 
 @connect(
   state => ({
-    auth: state.auth,
+    authenticated: getIsAuthenticated(state),
   }),
 )
 class Page extends React.Component {
   static propTypes = {
-    auth: PropTypes.shape().isRequired,
+    authenticated: PropTypes.bool.isRequired,
     history: PropTypes.shape().isRequired,
     location: PropTypes.shape().isRequired,
     match: PropTypes.shape().isRequired,
@@ -63,9 +66,9 @@ class Page extends React.Component {
   handleTopicClose = () => this.props.history.push(this.props.match.url);
 
   render() {
-    const { auth, match, location } = this.props;
+    const { authenticated, match, location } = this.props;
 
-    const shouldDisplaySelector = location.pathname !== '/' || !auth.isAuthenticated;
+    const shouldDisplaySelector = location.pathname !== '/' || !authenticated;
 
     return (
       <div>
@@ -78,12 +81,12 @@ class Page extends React.Component {
           <div className="feed-layout container">
             <Affix className="leftContainer" stickPosition={77}>
               <div className="left">
-                <LeftSidebar auth={auth} />
+                <LeftSidebar />
               </div>
             </Affix>
             <Affix className="rightContainer" stickPosition={77}>
               <div className="right">
-                <RightSidebar auth={auth} />
+                <RightSidebar />
               </div>
             </Affix>
             <div className="center">

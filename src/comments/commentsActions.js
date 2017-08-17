@@ -1,6 +1,6 @@
 import { createAction } from 'redux-actions';
 import SteemConnect from 'sc2-sdk';
-import { createCommentPermlink } from '../helpers/steemitHelpers';
+import { createCommentPermlink } from '../vendor/steemitHelpers';
 import { notify } from '../app/Notification/notificationActions';
 
 const version = require('../../package.json').version;
