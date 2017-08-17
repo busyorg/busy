@@ -226,3 +226,5 @@ const feed = (state = initialState, action) => {
 };
 
 export default feed;
+
+export const getFeed = state => state;

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
+import { getFeed, getPosts } from '../reducers';
 import Feed from '../feed/Feed';
 import {
   getFeedContentFromState,
@@ -12,8 +13,8 @@ import { getBookmarks } from './bookmarksActions';
 
 @connect(
   state => ({
-    feed: state.feed,
-    posts: state.posts,
+    feed: getFeed(state),
+    posts: getPosts(state),
   }),
   dispatch => ({
     getBookmarks: () => dispatch(getBookmarks()),

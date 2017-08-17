@@ -2,18 +2,21 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import _ from 'lodash';
+
+import { getDraftPosts } from '../../reducers';
+
 import DraftRow from './DraftRow';
 
 @connect(state => ({
-  editor: state.editor,
+  draftPosts: getDraftPosts(state),
 }))
 class Drafts extends React.Component {
   static propTypes = {
-    editor: PropTypes.shape().isRequired,
+    draftPosts: PropTypes.shape().isRequired,
   };
 
   render() {
-    const { editor: { draftPosts } } = this.props;
+    const { draftPosts } = this.props;
 
     return (
       <div className="shifted">

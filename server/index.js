@@ -1,4 +1,3 @@
-process.env.NODE_ENV === 'production' && require('newrelic');
 /**
  * Module dependencies.
  */
@@ -6,6 +5,8 @@ process.env.NODE_ENV === 'production' && require('newrelic');
 const config = require('config');
 const app = require('./app').app;
 const debug = require('debug')('busy:server');
+
+if (process.env.NODE_ENV === 'production') import('newrelic');
 
 /**
  * Normalize a port into a number, string, or false.

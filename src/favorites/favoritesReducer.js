@@ -41,3 +41,5 @@ const favorites = (state = initialState, action) => {
 };
 
 export default favorites;
+
+export const getFavoriteCategories = state => state.categories;

@@ -6,12 +6,14 @@ import classNames from 'classnames';
 import numeral from 'numeral';
 import Textarea from 'react-textarea-autosize';
 
+import { getAuthenticatedUser } from '../reducers';
+
 @connect(state => ({
-  auth: state.auth,
+  user: getAuthenticatedUser(state),
 }))
 export default class Transfer extends React.Component {
   static propTypes = {
-    auth: PropTypes.shape().isRequired,
+    user: PropTypes.shape().isRequired,
     location: PropTypes.shape(),
   };
 
@@ -26,7 +28,7 @@ export default class Transfer extends React.Component {
     this.handleAmountChange = this.handleAmountChange.bind(this);
     this.handleMemoChange = this.handleMemoChange.bind(this);
     this.state = {
-      from: this.props.auth.user.name,
+      from: this.props.user.name,
       to: query.to || '',
       memo: query.memo || '',
       amount: query.amount || '',
@@ -47,7 +49,7 @@ export default class Transfer extends React.Component {
   };
 
   render() {
-    const account = this.props.auth.user;
+    const account = this.props.user;
     const { from, to, amount, currency, memo } = this.state;
     const balance = currency === 'STEEM' ? account.balance : account.sbd_balance;
     const url = `https://v2.steemconnect.com/sign/transfer?from=${from}&to=${to}&memo=${memo}&amount=${amount}%20${currency}`;

@@ -5,9 +5,9 @@ import sanitizeHtml from 'sanitize-html';
 import Remarkable from 'remarkable';
 import embedjs from 'embedjs';
 import { jsonParse } from '../../helpers/formatter';
-import sanitizeConfig from '../../helpers/SanitizeConfig';
+import sanitizeConfig from '../../vendor/SanitizeConfig';
 import { imageRegex } from '../../helpers/regexHelpers';
-import htmlReady from '../../helpers/steemitHtmlReady';
+import htmlReady from '../../vendor/steemitHtmlReady';
 import PostFeedEmbed from './PostFeedEmbed';
 import './Body.less';
 

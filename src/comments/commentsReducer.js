@@ -273,3 +273,5 @@ const comments = (state = initialState, action) => {
 };
 
 export default comments;
+
+export const getComments = state => state;

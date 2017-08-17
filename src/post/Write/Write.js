@@ -6,6 +6,9 @@ import kebabCase from 'lodash/kebabCase';
 import debounce from 'lodash/debounce';
 import isArray from 'lodash/isArray';
 import 'url-search-params-polyfill';
+
+import { getAuthenticatedUser, getDraftPosts, getIsEditorLoading } from '../../reducers';
+
 import { createPost, saveDraft, newPost } from './editorActions';
 import { notify } from '../../app/Notification/notificationActions';
 import Editor from '../../components/Editor/Editor';
@@ -16,8 +19,9 @@ const version = require('../../../package.json').version;
 @withRouter
 @connect(
   state => ({
-    user: state.auth.user,
-    editor: state.editor,
+    user: getAuthenticatedUser(state),
+    draftPosts: getDraftPosts(state),
+    loading: getIsEditorLoading(state),
   }),
   {
     createPost,
@@ -29,7 +33,8 @@ const version = require('../../../package.json').version;
 class Write extends React.Component {
   static propTypes = {
     user: PropTypes.shape().isRequired,
-    editor: PropTypes.shape().isRequired,
+    draftPosts: PropTypes.shape().isRequired,
+    loading: PropTypes.bool.isRequired,
     location: PropTypes.shape().isRequired,
     newPost: PropTypes.func,
     createPost: PropTypes.func,
@@ -57,7 +62,7 @@ class Write extends React.Component {
 
   componentDidMount() {
     this.props.newPost();
-    const { editor: { draftPosts }, location: { search } } = this.props;
+    const { draftPosts, location: { search } } = this.props;
     const draftId = new URLSearchParams(search).get('draft');
     const draftPost = draftPosts[draftId];
     const postData = draftPost && draftPost.postData;
@@ -200,7 +205,7 @@ class Write extends React.Component {
 
   render() {
     const { initialTitle, initialTopics, initialBody, initialReward, initialUpvote } = this.state;
-    const { editor: { loading } } = this.props;
+    const { loading } = this.props;
 
     return (
       <div className="shifted">

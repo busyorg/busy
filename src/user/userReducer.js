@@ -146,3 +146,6 @@ export default function userReducer(state = initialState, action) {
     }
   }
 }
+
+export const getFollowingList = state => state.following.list;
+export const getPendingFollows = state => state.following.pendingFollows;

@@ -31,10 +31,10 @@ let onResize;
 
 const getSizes = (data) => {
   if (trackInnerWidth) {
-    data.innerWidth = global.innerWidth; // eslint-disable-line
+    data.innerWidth = global.innerWidth;
   }
   if (trackInnerHeight) {
-    data.innerHeight = global.innerHeight; // eslint-disable-line
+    data.innerHeight = global.innerHeight;
   }
 };
 
@@ -77,7 +77,7 @@ function trackMediaQuery(label, query, dispatch, initData) {
 
   mq.addListener(listener);
 
-  initData[label] = mq.matches; // eslint-disable-line
+  initData[label] = mq.matches;
 }
 
 export function mediaQueryTracker(queries) {
