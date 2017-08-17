@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import numeral from 'numeral';
-import { Icon, Tooltip, Modal } from 'antd';
+import { Tabs, Icon, Tooltip, Modal } from 'antd';
 import classNames from 'classnames';
-
+import { getUpvotes, getDownvotes } from '../../helpers/voteHelpers';
 import PayoutDetail from '../PayoutDetail';
 import './StoryFooter.less';
 
@@ -28,6 +28,7 @@ class StoryFooter extends React.Component {
     this.state = {
       shareModalVisible: false,
       shareModalLoading: false,
+      reactionsModalVisible: false,
     };
   }
 
@@ -63,14 +64,30 @@ class StoryFooter extends React.Component {
     });
   };
 
+  handleShowReactions = () => this.setState({
+    reactionsModalVisible: true,
+  });
+
+  handleCloseReactions = () => this.setState({
+    reactionsModalVisible: false,
+  })
+
   render() {
     const { post, postState, pendingLike, onLikeClick } = this.props;
     const maxPayout = parseFloat(post.max_accepted_payout) || 0;
     const payout = parseFloat(post.pending_payout_value) || parseFloat(post.total_payout_value);
     const payoutValue = numeral(payout).format('$0,0.00');
-    const likesValue = numeral(post.active_votes.filter(vote => vote.percent > 0).length).format(
+
+    const upVotes = getUpvotes(post.active_votes);
+    const downVotes = getDownvotes(post.active_votes);
+
+    const likesValue = numeral(upVotes.length).format(
       '0,0',
     );
+    const dislikesValue = numeral(downVotes.length).format(
+      '0,0',
+    );
+
     const commentsValue = numeral(post.children).format('0,0');
     const likeClass = classNames({ active: postState.isLiked, StoryFooter__link: true });
     const rebloggedClass = classNames({ active: postState.isReblogged, StoryFooter__link: true });
@@ -97,7 +114,7 @@ class StoryFooter extends React.Component {
             {pendingLike ? <Icon type="loading" /> : <i className="iconfont icon-praise_fill" />}
           </a>
         </Tooltip>
-        <span className="StoryFooter__number">
+        <span className="StoryFooter__number" role="presentation" onClick={this.handleShowReactions}>
           {likesValue}
         </span>
         <Tooltip title="Comment">
@@ -131,6 +148,36 @@ class StoryFooter extends React.Component {
             >
               This post will appear on your personal feed. This action <b>cannot</b> be reversed.
             </Modal>}
+          <Modal
+            visible={this.state.reactionsModalVisible}
+            onOk={this.handleCloseReactions}
+            onCancel={this.handleCloseReactions}
+          >
+            <Tabs defaultActiveKey="1">
+              <Tabs.TabPane
+                tab={
+                  <span>
+                    <i className="iconfont icon-praise_fill" />
+                    <span className="StoryFooter__icon-text">{likesValue}</span>
+                  </span>
+                }
+                key="1"
+              >
+                {upVotes.map(vote => <p key={vote.voter}>{vote.voter}</p>)}
+              </Tabs.TabPane>
+              <Tabs.TabPane
+                tab={
+                  <span>
+                    <i className="iconfont icon-praise_fill StoryFooter__dislike" />
+                    <span className="StoryFooter__icon-text StoryFooter__icon-text-dislike">{dislikesValue}</span>
+                  </span>
+                }
+                key="2"
+              >
+                {downVotes.map(vote => <p key={vote.voter}>{vote.voter}</p>)}
+              </Tabs.TabPane>
+            </Tabs>
+          </Modal>
         </Tooltip>
       </div>
     );

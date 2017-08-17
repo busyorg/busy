@@ -1893,6 +1893,8 @@ exports[`Storyshots Story Full story 1`] = `
       </a>
       <span
         className="StoryFooter__number"
+        onClick={[Function]}
+        role="presentation"
       >
         133
       </span>
@@ -2142,6 +2144,8 @@ exports[`Storyshots Story Full story with embed 1`] = `
       </a>
       <span
         className="StoryFooter__number"
+        onClick={[Function]}
+        role="presentation"
       >
         658
       </span>
@@ -2346,6 +2350,8 @@ exports[`Storyshots Story Inline story 1`] = `
         </a>
         <span
           className="StoryFooter__number"
+          onClick={[Function]}
+          role="presentation"
         >
           133
         </span>
@@ -2560,6 +2566,8 @@ exports[`Storyshots Story Inline story with embed 1`] = `
         </a>
         <span
           className="StoryFooter__number"
+          onClick={[Function]}
+          role="presentation"
         >
           658
         </span>
