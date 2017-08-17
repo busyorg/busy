@@ -28,7 +28,15 @@ class UserMenuWrapper extends React.Component {
   }
 }
 
-const UserHero = ({ auth, user, username, isSameUser, isFollowed, pendingFollow, onFollowClick }) =>
+const UserHero = ({
+  authenticated,
+  user,
+  username,
+  isSameUser,
+  isFollowed,
+  pendingFollow,
+  onFollowClick,
+}) =>
   (<div>
     <Switch>
       <Route
@@ -36,7 +44,7 @@ const UserHero = ({ auth, user, username, isSameUser, isFollowed, pendingFollow,
         render={() =>
           (<div>
             <UserHeader
-              auth={auth}
+              authenticated={authenticated}
               username={username}
               handle={user.name}
               userReputation={user.reputation}
@@ -53,12 +61,12 @@ const UserHero = ({ auth, user, username, isSameUser, isFollowed, pendingFollow,
             />
           </div>)}
       />
-      <Route render={() => (auth.user.name === undefined ? <Hero /> : <div />)} />
+      <Route render={() => (authenticated ? <Hero /> : <div />)} />
     </Switch>
   </div>);
 
 UserHero.propTypes = {
-  auth: PropTypes.shape().isRequired,
+  authenticated: PropTypes.bool.isRequired,
   user: PropTypes.shape().isRequired,
   username: PropTypes.string.isRequired,
   isSameUser: PropTypes.bool,

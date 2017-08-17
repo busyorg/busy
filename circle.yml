@@ -1,4 +1,7 @@
 version: 2
+general:
+  artifacts:
+    - "npm-debug.log"
 jobs:
   build:
     working_directory: ~/busy

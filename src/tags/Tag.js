@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import numeral from 'numeral';
 import { Link } from 'react-router-dom';
-import FavoriteButton from '../favorites/FavoriteButton';
+import FavoriteButton from '../components/FavoriteButton';
 
 const Tag = ({ tag, favorited, addCategoryFavorite, removeCategoryFavorite }) =>
   (<div className="page">

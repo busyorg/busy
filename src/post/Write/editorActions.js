@@ -5,7 +5,7 @@ import SteemConnect from 'sc2-sdk';
 import { push } from 'react-router-redux';
 import { createAction } from 'redux-actions';
 import { jsonParse } from '../../helpers/formatter';
-import { createPermlink, getBodyPatchIfSmaller } from '../../helpers/steemitHelpers';
+import { createPermlink, getBodyPatchIfSmaller } from '../../vendor/steemitHelpers';
 
 Promise.promisifyAll(request.Request.prototype);
 

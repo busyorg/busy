@@ -3,7 +3,7 @@ import steemConnect from 'sc2-sdk';
 import Cookie from 'js-cookie';
 import request from 'superagent';
 import { getFollowing } from '../user/userActions';
-import { initPushpad } from './pushpadHelper';
+import { initPushpad } from '../helpers/pushpadHelper';
 
 Promise.promisifyAll(steemConnect);
 Promise.promisifyAll(request.Request.prototype);

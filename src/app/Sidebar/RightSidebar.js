@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
+
+import { getIsAuthenticated } from '../../reducers';
 
 import InterestingPeople from '../../components/Sidebar/InterestingPeople';
 import StartNow from '../../components/Sidebar/StartNow';
@@ -21,8 +24,8 @@ const InterestingPeopleWithData = () =>
     ]}
   />);
 
-const RightSidebar = ({ auth }) =>
-  (auth.user.name !== undefined
+const RightSidebar = ({ authenticated }) =>
+  (authenticated
     ? <Switch>
       <Route path="/@:name" render={() => <InterestingPeopleWithData />} />
       <Route
@@ -37,7 +40,11 @@ const RightSidebar = ({ auth }) =>
     : <SignUp />);
 
 RightSidebar.propTypes = {
-  auth: PropTypes.shape().isRequired,
+  authenticated: PropTypes.bool.isRequired,
 };
 
-export default RightSidebar;
+export default connect(
+  state => ({
+    authenticated: getIsAuthenticated(state),
+  }),
+)(RightSidebar);

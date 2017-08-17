@@ -67,3 +67,6 @@ const editor = (state = defaultState, action) => {
 };
 
 export default editor;
+
+export const getDraftPosts = state => state.draftPosts;
+export const getIsEditorLoading = state => state.loading;

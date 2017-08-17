@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import numeral from 'numeral';
 import { FormattedRelative } from 'react-intl';
-import { calculatePayout } from '../helpers/steemitHelpers';
+import { calculatePayout } from '../vendor/steemitHelpers';
 
 const AmountWithLabel = ({ label, amount }) =>
   (_.isNumber(amount)

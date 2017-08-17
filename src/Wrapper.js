@@ -5,20 +5,23 @@ import { IntlProvider } from 'react-intl';
 import { Layout } from 'antd';
 import { GatewayProvider, GatewayDest } from 'react-gateway';
 import { withRouter } from 'react-router-dom';
+
+import { getAuthenticatedUser, getLocale } from './reducers';
+
 import { login, logout } from './auth/authActions';
 import { getConfig, getRate } from './actions';
 import steemAPI from './steemAPI';
-import { getMessages, getLocale } from './translations/translationHelper';
+import { getMessages, getLocale as getLocaleHelper } from './translations/translationHelper';
 import Topnav from './components/Navigation/Topnav';
 import * as reblogActions from './app/Reblog/reblogActions';
 import config from '../config.json';
-import './translations/Translations';
+import './translations';
 
 @withRouter
 @connect(
   state => ({
-    app: state.app,
-    auth: state.auth,
+    user: getAuthenticatedUser(state),
+    locale: getLocale(state),
   }),
   {
     login,
@@ -30,8 +33,8 @@ import './translations/Translations';
 )
 export default class Wrapper extends React.PureComponent {
   static propTypes = {
-    app: PropTypes.shape().isRequired,
-    auth: PropTypes.shape().isRequired,
+    user: PropTypes.shape().isRequired,
+    locale: PropTypes.string.isRequired,
     children: PropTypes.element.isRequired,
     login: PropTypes.func,
     logout: PropTypes.func,
@@ -80,9 +83,9 @@ export default class Wrapper extends React.PureComponent {
 
   render() {
     const { messages } = this.state;
-    const { app, auth } = this.props;
-    const locale = getLocale(app.locale, messages);
-    let translations = messages[app.locale || locale] || {};
+    const { locale: appLocale, user } = this.props;
+    const locale = getLocaleHelper(appLocale, messages);
+    let translations = messages[appLocale || locale] || {};
     if (messages.en) {
       translations = { ...messages.en, ...translations };
     }
@@ -92,7 +95,7 @@ export default class Wrapper extends React.PureComponent {
         <GatewayProvider>
           <Layout>
             <Layout.Header style={{ position: 'fixed', width: '100%', zIndex: 5 }}>
-              <Topnav username={auth.user.name} onMenuItemClick={this.handleMenuItemClick} />
+              <Topnav username={user.name} onMenuItemClick={this.handleMenuItemClick} />
             </Layout.Header>
             <div className="content">
               {this.props.children}

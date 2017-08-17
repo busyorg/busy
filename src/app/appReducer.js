@@ -6,8 +6,9 @@ const initialState = {
   isLoaded: false,
   errorMessage: '',
   layout: 'card',
-  locale: null,
+  locale: 'en',
   rate: 0,
+  lastPostId: undefined,
 };
 
 export default (state = initialState, action) => {
@@ -110,3 +111,8 @@ export default (state = initialState, action) => {
       return state;
   }
 };
+
+export const getLayout = state => state.layout;
+export const getLocale = state => state.locale;
+export const getRate = state => state.rate;
+export const getLastPostId = state => state.lastPostId;
