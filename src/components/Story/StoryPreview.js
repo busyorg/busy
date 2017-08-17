@@ -4,7 +4,7 @@ import embedjs from 'embedjs';
 import PostFeedEmbed from './PostFeedEmbed';
 import BodyShort from './BodyShort';
 import { jsonParse } from '../../helpers/formatter';
-import { image } from '../../helpers/steemitLinks';
+import { image } from '../../vendor/steemitLinks';
 import {
   getPositions,
   isPostStartsWithAPicture,

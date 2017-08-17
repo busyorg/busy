@@ -27,3 +27,5 @@ export default function usersReducer(state = initialState, action) {
     }
   }
 }
+
+export const getUser = (state, username) => state[username] || {};

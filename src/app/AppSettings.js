@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
+import { getLayout } from '../reducers';
 import * as actions from '../actions';
 
 @connect(
   state => ({
-    app: state.app,
+    layout: getLayout(state),
   }),
   dispatch =>
     bindActionCreators(
@@ -20,7 +21,7 @@ import * as actions from '../actions';
 )
 export default class AppSettings extends React.Component {
   static propTypes = {
-    app: PropTypes.shape().isRequired,
+    layout: PropTypes.string.isRequired,
     setLayout: PropTypes.func,
     setLocale: PropTypes.func,
   };
@@ -31,7 +32,7 @@ export default class AppSettings extends React.Component {
   };
 
   render() {
-    const { app, setLayout, setLocale } = this.props;
+    const { layout, setLayout, setLocale } = this.props;
     return (
       <div className="main-panel">
         <div className="container my-5 text-center">
@@ -46,7 +47,7 @@ export default class AppSettings extends React.Component {
               <a
                 role="presentation"
                 onClick={() => setLayout('card')}
-                className={app.layout === 'card' && 'active'}
+                className={layout === 'card' && 'active'}
               >
                 <h2 className="my-2">
                   <FormattedMessage id="card" defaultMessage="Card" />
@@ -57,7 +58,7 @@ export default class AppSettings extends React.Component {
               <a
                 role="presentation"
                 onClick={() => setLayout('list')}
-                className={app.layout === 'list' && 'active'}
+                className={layout === 'list' && 'active'}
               >
                 <h2 className="my-2">
                   <FormattedMessage id="list" defaultMessage="List" />

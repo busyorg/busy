@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 import base58 from 'bs58';
 import steem from 'steem';
 import getSlug from 'speakingurl';

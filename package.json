@@ -54,7 +54,7 @@
     "bufferutil": "^1.2.1",
     "classnames": "^2.2.5",
     "coffeeify": "^2.0.1",
-    "config": "^1.25.1",
+    "config": "^1.26.2",
     "cors": "^2.7.1",
     "css-loader": "^0.28.0",
     "debug": "~2.2.0",
@@ -177,7 +177,7 @@
       "<rootDir>/.storybook/storyshots-setup.js"
     ],
     "moduleNameMapper": {
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/fileMock.js",
       "\\.((s)css|less)$": "identity-obj-proxy"
     }
   },

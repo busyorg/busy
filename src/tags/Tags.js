@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import steemAPI from '../steemAPI';
 import Loading from '../components/Icon/Loading';
 import Tag from './Tag';
+import { getFavoriteCategories } from '../reducers';
 import * as favoriteActions from '../favorites/favoritesActions';
 
 const sortTags = tags =>
@@ -15,7 +16,7 @@ const sortTags = tags =>
 
 @connect(
   state => ({
-    favorites: state.favorites.categories,
+    favorites: getFavoriteCategories(state),
   }),
   dispatch =>
     bindActionCreators(

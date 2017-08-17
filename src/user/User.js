@@ -4,6 +4,15 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+
+import {
+  getIsAuthenticated,
+  getAuthenticatedUser,
+  getUser,
+  getFollowingList,
+  getPendingFollows,
+} from '../reducers';
+
 import { getAccountWithFollowingCount } from './usersActions';
 import { followUser, unfollowUser } from './userActions';
 import UserHero from './UserHero';
@@ -23,11 +32,12 @@ import UserTransfers from './UserTransfers';
 export const needs = [getAccountWithFollowingCount];
 
 @connect(
-  state => ({
-    auth: state.auth,
-    users: state.users,
-    followingList: state.user.following.list,
-    pendingFollows: state.user.following.pendingFollows,
+  (state, ownProps) => ({
+    authenticated: getIsAuthenticated(state),
+    authenticatedUser: getAuthenticatedUser(state),
+    user: getUser(state, ownProps.match.params.name),
+    followingList: getFollowingList(state),
+    pendingFollows: getPendingFollows(state),
   }),
   dispatch =>
     bindActionCreators(
@@ -41,9 +51,10 @@ export const needs = [getAccountWithFollowingCount];
 )
 export default class User extends React.Component {
   static propTypes = {
-    auth: PropTypes.shape().isRequired,
+    authenticated: PropTypes.bool.isRequired,
+    authenticatedUser: PropTypes.shape().isRequired,
     match: PropTypes.shape().isRequired,
-    users: PropTypes.shape().isRequired,
+    user: PropTypes.shape().isRequired,
     followingList: PropTypes.arrayOf(PropTypes.string).isRequired,
     pendingFollows: PropTypes.arrayOf(PropTypes.string).isRequired,
     getAccountWithFollowingCount: PropTypes.func,
@@ -60,8 +71,7 @@ export default class User extends React.Component {
   static needs = needs;
 
   componentWillMount() {
-    const user = this.props.users[this.props.match.params.name] || {};
-    if (user.name === undefined) {
+    if (!this.props.user.name) {
       this.props.getAccountWithFollowingCount({ name: this.props.match.params.name });
     }
   }
@@ -83,9 +93,9 @@ export default class User extends React.Component {
   };
 
   render() {
-    const { auth, match, followingList, pendingFollows } = this.props;
+    const { authenticated, authenticatedUser, match, followingList, pendingFollows } = this.props;
     const username = this.props.match.params.name;
-    const { isFetching, ...user } = this.props.users[username] || {};
+    const { isFetching, ...user } = this.props.user;
     const { profile = {} } = user.json_metadata || {};
     const busyHost = global.postOrigin || 'https://busy.org';
     const desc = profile.about || `Post by ${username}`;
@@ -95,7 +105,7 @@ export default class User extends React.Component {
     const displayedUsername = profile.name || username || '';
     const title = `${displayedUsername} - Busy`;
 
-    const isSameUser = auth && auth.isAuthenticated && auth.user.name === username;
+    const isSameUser = authenticated && authenticatedUser.name === username;
 
     const isFollowed = followingList.includes(username);
     const pendingFollow = pendingFollows.includes(username);
@@ -128,7 +138,7 @@ export default class User extends React.Component {
         <ScrollToTopOnMount />
         {user &&
           <UserHero
-            auth={auth}
+            authenticated={authenticated}
             user={user}
             username={displayedUsername}
             isSameUser={isSameUser}
@@ -140,12 +150,12 @@ export default class User extends React.Component {
           <div className="feed-layout container">
             <Affix className="leftContainer" stickPosition={72}>
               <div className="left">
-                <LeftSidebar auth={auth} user={user} />
+                <LeftSidebar user={user} />
               </div>
             </Affix>
             <Affix className="rightContainer" stickPosition={72}>
               <div className="right">
-                <RightSidebar auth={this.props.auth} />
+                <RightSidebar />
               </div>
             </Affix>
             <div className="center">
