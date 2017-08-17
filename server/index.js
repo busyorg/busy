@@ -1,11 +1,11 @@
-process.env.NODE_ENV === 'production' && require('newrelic');
 /**
  * Module dependencies.
  */
 
-const config = require('config');
 const app = require('./app').app;
 const debug = require('debug')('busy:server');
+
+if (process.env.NODE_ENV === 'production') import('newrelic');
 
 /**
  * Normalize a port into a number, string, or false.
@@ -30,7 +30,7 @@ function normalizePort(val) {
  * Get port from environment and store in Express.
  */
 
-const port = normalizePort(config.get('port'));
+const port = normalizePort(process.env.PORT);
 app.set('port', port);
 
 /**

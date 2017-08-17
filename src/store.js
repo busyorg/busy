@@ -6,7 +6,7 @@ import { applyMiddleware, createStore, compose } from 'redux';
 import { routerMiddleware } from 'react-router-redux';
 import api from './steemAPI';
 import { history } from './routes';
-import { mountResponsive } from './helpers/responsive';
+import { mountResponsive } from './vendor/responsive';
 import errorMiddleware from './errorMiddleware';
 import reducers from './reducers';
 

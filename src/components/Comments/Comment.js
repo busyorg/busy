@@ -14,7 +14,8 @@ import './Comment.less';
 
 class Comment extends React.Component {
   static propTypes = {
-    auth: PropTypes.shape(),
+    authenticated: PropTypes.bool.isRequired,
+    username: PropTypes.string,
     comment: PropTypes.shape().isRequired,
     rootPostAuthor: PropTypes.string,
     commentsChildren: PropTypes.shape(),
@@ -24,7 +25,7 @@ class Comment extends React.Component {
   };
 
   static defaultProps = {
-    auth: undefined,
+    username: undefined,
     rootPostAuthor: undefined,
     commentsChildren: undefined,
     onLikeClick: () => {},
@@ -55,8 +56,9 @@ class Comment extends React.Component {
   };
 
   handleImageInserted = (blob, callback, errorCallback) => {
-    const { auth } = this.props;
-    const username = auth && auth.user && auth.user.name;
+    const { authenticated, username } = this.props;
+    if (!authenticated) return;
+
     const formData = new FormData();
     formData.append('files', blob);
 
@@ -92,7 +94,8 @@ class Comment extends React.Component {
 
   render() {
     const {
-      auth,
+      authenticated,
+      username,
       comment,
       rootPostAuthor,
       commentsChildren,
@@ -183,8 +186,7 @@ class Comment extends React.Component {
                 {payoutValue}
               </Tooltip>
             </span>
-            {auth &&
-              auth.isAuthenticated &&
+            {authenticated &&
               <span>
                 <span className="Comment__footer__bullet" />
                 <a
@@ -199,10 +201,9 @@ class Comment extends React.Component {
               </span>}
           </div>
           {this.state.replyOpen &&
-            auth &&
-            auth.isAuthenticated &&
+            authenticated &&
             <CommentForm
-              username={auth.user.name}
+              username={username}
               parentPost={comment}
               isSmall={comment.depth !== 1}
               onSubmit={this.submitComment}
@@ -216,8 +217,9 @@ class Comment extends React.Component {
               commentsChildren[comment.id] &&
               commentsChildren[comment.id].map(child =>
                 (<Comment
-                  auth={auth}
                   key={child.id}
+                  authenticated={authenticated}
+                  username={username}
                   comment={child}
                   rootPostAuthor={rootPostAuthor}
                   commentsChildren={commentsChildren}
