@@ -1,25 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { sortComments } from '../../helpers/sortHelpers';
 import Loading from '../Icon/Loading';
 import CommentForm from './CommentForm';
 import Comment from './Comment';
 import './Comments.less';
-
-const sortComments = (comments, sortType = 'BEST') => {
-  const sortedComments = [...comments];
-
-  switch (sortType) {
-    case 'BEST':
-      return sortedComments.sort((a, b) => a.net_votes - b.net_votes).reverse();
-    case 'NEWEST':
-      return sortedComments.sort((a, b) => Date.parse(a.created) - Date.parse(b.created)).reverse();
-    case 'OLDEST':
-      return sortedComments.sort((a, b) => Date.parse(a.created) - Date.parse(b.created));
-    default:
-      return sortedComments;
-  }
-};
 
 class Comments extends React.Component {
   static propTypes = {
@@ -149,6 +135,7 @@ class Comments extends React.Component {
               authenticated={authenticated}
               username={username}
               comment={comment}
+              sort={sort}
               rootPostAuthor={this.props.parentPost && this.props.parentPost.author}
               commentsChildren={commentsChildren}
               onLikeClick={onLikeClick}
