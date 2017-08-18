@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Scrollbars } from 'react-custom-scrollbars';
 import InfiniteSroll from 'react-infinite-scroller';
 import { take } from 'lodash';
 import UserCard from '../UserCard';
@@ -24,16 +25,18 @@ export default class UserList extends React.Component {
     const noOfItemsToShow = defaultPageItems * this.state.page;
 
     return (
-      <div className="ReactionsList">
+      <Scrollbars autoHide style={{ height: '400px' }}>
         <InfiniteSroll
           pageStart={0}
           loadMore={this.paginate}
           hasMore={users.length > noOfItemsToShow}
           useWindow={false}
         >
-          {take(users, noOfItemsToShow).map(user => <UserCard key={user} username={user} />)}
+          <div className="ReactionsList__content">
+            {take(users, noOfItemsToShow).map(user => <UserCard key={user} username={user} />)}
+          </div>
         </InfiniteSroll>
-      </div>
+      </Scrollbars>
     );
   }
 }
