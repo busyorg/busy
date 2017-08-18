@@ -5,7 +5,7 @@ import numeral from 'numeral';
 import { Tabs, Icon, Tooltip, Modal } from 'antd';
 import classNames from 'classnames';
 import { getUpvotes, getDownvotes } from '../../helpers/voteHelpers';
-import ReactionsList from './ReactionsList';
+import ReactionsList from '../ReactionsList/ReactionsList';
 import PayoutDetail from '../PayoutDetail';
 import './StoryFooter.less';
 
