@@ -4,8 +4,10 @@ import classNames from 'classnames';
 import numeral from 'numeral';
 import { Link } from 'react-router-dom';
 import { FormattedRelative, FormattedDate, FormattedTime } from 'react-intl';
-import { Tag, Tooltip } from 'antd';
+import { Tabs, Tag, Tooltip, Modal } from 'antd';
 import { formatter } from 'steem';
+import { getUpvotes, getDownvotes } from '../../helpers/voteHelpers';
+import ReactionsList from '../ReactionsList/ReactionsList';
 import CommentForm from './CommentForm';
 import PayoutDetail from '../PayoutDetail';
 import Avatar from '../Avatar';
@@ -40,8 +42,17 @@ class Comment extends React.Component {
       collapsed: false,
       showCommentFormLoading: false,
       commentFormText: '',
+      reactionsModalVisible: false,
     };
   }
+
+  handleShowReactions = () => this.setState({
+    reactionsModalVisible: true,
+  });
+
+  handleCloseReactions = () => this.setState({
+    reactionsModalVisible: false,
+  })
 
   handleReplyClick = () => {
     this.setState({
@@ -107,12 +118,15 @@ class Comment extends React.Component {
     const totalPayoutValue = parseFloat(comment.total_payout_value);
     const payoutValue = numeral(totalPayoutValue || pendingPayoutValue).format('$0,0.000');
 
-    const likesValue = numeral(comment.active_votes.filter(vote => vote.percent > 0).length).format(
+    const upVotes = getUpvotes(comment.active_votes);
+    const downVotes = getDownvotes(comment.active_votes);
+
+    const likesValue = numeral(upVotes.length).format(
       '0,0',
     );
-    const dislikesValue = numeral(
-      comment.active_votes.filter(vote => vote.percent < 0).length,
-    ).format('0,0');
+    const dislikesValue = numeral(downVotes.length).format(
+      '0,0',
+    );
 
     return (
       <div className="Comment">
@@ -169,7 +183,13 @@ class Comment extends React.Component {
                 <i className="iconfont icon-praise_fill" />
               </a>
             </Tooltip>
-            <span className="Comment__footer__count">{likesValue}</span>
+            <span
+              className="Comment__footer__count"
+              role="presentation"
+              onClick={this.handleShowReactions}
+            >
+              {likesValue}
+            </span>
             <Tooltip title="Dislike">
               <a
                 role="presentation"
@@ -179,7 +199,13 @@ class Comment extends React.Component {
                 <i className="iconfont icon-praise_fill Comment__icon_dislike" />
               </a>
             </Tooltip>
-            <span className="Comment__footer__count">{dislikesValue}</span>
+            <span
+              className="Comment__footer__count"
+              role="presentation"
+              onClick={this.handleShowReactions}
+            >
+              {dislikesValue}
+            </span>
             <span className="Comment__footer__bullet" />
             <span className="Comment__footer__payout">
               <Tooltip title={<PayoutDetail post={comment} />}>
@@ -199,7 +225,36 @@ class Comment extends React.Component {
                   Reply
                 </a>
               </span>}
-          </div>
+          </div><Modal
+            visible={this.state.reactionsModalVisible}
+            onOk={this.handleCloseReactions}
+            onCancel={this.handleCloseReactions}
+          >
+            <Tabs defaultActiveKey="1">
+              <Tabs.TabPane
+                tab={
+                  <span>
+                    <i className="iconfont icon-praise_fill" />
+                    <span className="StoryFooter__icon-text">{likesValue}</span>
+                  </span>
+                }
+                key="1"
+              >
+                <ReactionsList users={upVotes.map(vote => vote.voter)} />
+              </Tabs.TabPane>
+              <Tabs.TabPane
+                tab={
+                  <span>
+                    <i className="iconfont icon-praise_fill StoryFooter__dislike" />
+                    <span className="StoryFooter__icon-text StoryFooter__icon-text-dislike">{dislikesValue}</span>
+                  </span>
+                }
+                key="2"
+              >
+                <ReactionsList users={downVotes.map(vote => vote.voter)} />
+              </Tabs.TabPane>
+            </Tabs>
+          </Modal>
           {this.state.replyOpen &&
             authenticated &&
             <CommentForm
