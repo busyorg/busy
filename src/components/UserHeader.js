@@ -18,7 +18,10 @@ const UserHeader = ({
   pendingFollow,
   onFollowClick,
 }) =>
-  (<div className="UserHeader">
+  (<div
+    className="UserHeader"
+    style={{ backgroundImage: `url("${process.env.STEEMCONNECT_IMG_HOST}/@${handle}/cover")` }}
+  >
     <div className="UserHeader__container">
       <Avatar username={handle} size={100} />
       <div className="UserHeader__user">
