@@ -2,8 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import numeral from 'numeral';
+import { take } from 'lodash';
 import { Icon, Tooltip, Modal } from 'antd';
 import classNames from 'classnames';
+import { sortVotes } from '../../helpers/sortHelpers';
 import { getUpvotes, getDownvotes } from '../../helpers/voteHelpers';
 import ReactionsModal from '../Reactions/ReactionsModal';
 import PayoutDetail from '../PayoutDetail';
@@ -86,6 +88,11 @@ class StoryFooter extends React.Component {
       '0,0',
     );
 
+    const upVotesPreview = take(upVotes.sort(sortVotes), 10)
+      .map(vote => <p key={vote.voter}>{vote.voter}</p>);
+    const upVotesDiff = upVotes.length - upVotesPreview.length;
+    const upVotesMore = (upVotesDiff > 0) ? `and ${numeral(upVotesDiff).format('0,0')} more` : null;
+
     const commentsValue = numeral(post.children).format('0,0');
     const likeClass = classNames({ active: postState.isLiked, StoryFooter__link: true });
     const rebloggedClass = classNames({ active: postState.isReblogged, StoryFooter__link: true });
@@ -119,7 +126,17 @@ class StoryFooter extends React.Component {
           role="presentation"
           onClick={this.handleShowReactions}
         >
-          {likesValue}
+          <Tooltip
+            title={
+              <div>
+                {upVotesPreview}
+                {upVotesMore}
+                {upVotesPreview.length === 0 && 'No likes yet.'}
+              </div>
+            }
+          >
+            {likesValue}
+          </Tooltip>
         </span>
         <Tooltip title="Comment">
           <Link

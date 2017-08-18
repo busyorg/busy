@@ -2,12 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import numeral from 'numeral';
+import { take } from 'lodash';
 import { Link } from 'react-router-dom';
 import { FormattedRelative, FormattedDate, FormattedTime } from 'react-intl';
 import { Tag, Tooltip } from 'antd';
 import { formatter } from 'steem';
 import { getUpvotes, getDownvotes } from '../../helpers/voteHelpers';
-import { sortComments } from '../../helpers/sortHelpers';
+import { sortComments, sortVotes } from '../../helpers/sortHelpers';
 import ReactionsModal from '../Reactions/ReactionsModal';
 import CommentForm from './CommentForm';
 import PayoutDetail from '../PayoutDetail';
@@ -132,6 +133,16 @@ class Comment extends React.Component {
       '0,0',
     );
 
+    const upVotesPreview = take(upVotes.sort(sortVotes), 10)
+      .map(vote => <p key={vote.voter}>{vote.voter}</p>);
+    const upVotesDiff = upVotes.length - upVotesPreview.length;
+    const upVotesMore = (upVotesDiff > 0) ? `and ${numeral(upVotesDiff).format('0,0')} more` : null;
+
+    const downVotesPreview = take(downVotes.sort(sortVotes), 10)
+      .map(vote => <p key={vote.voter}>{vote.voter}</p>);
+    const downVotesDiff = downVotes.length - downVotesPreview.length;
+    const downVotesMore = (upVotesDiff > 0) ? `and ${numeral(downVotesDiff).format('0,0')} more` : null;
+
     return (
       <div className="Comment">
         <span
@@ -194,7 +205,17 @@ class Comment extends React.Component {
               role="presentation"
               onClick={this.handleShowReactions}
             >
-              {likesValue}
+              <Tooltip
+                title={
+                  <div>
+                    {upVotesPreview}
+                    {upVotesMore}
+                    {upVotesPreview.length === 0 && 'No likes yet.'}
+                  </div>
+                }
+              >
+                {likesValue}
+              </Tooltip>
             </span>
             <Tooltip title="Dislike">
               <a
@@ -212,7 +233,17 @@ class Comment extends React.Component {
               role="presentation"
               onClick={this.handleShowReactions}
             >
-              {dislikesValue}
+              <Tooltip
+                title={
+                  <div>
+                    {downVotesPreview}
+                    {downVotesMore}
+                    {downVotes.length === 0 && 'No dislikes!'}
+                  </div>
+                }
+              >
+                {dislikesValue}
+              </Tooltip>
             </span>
             <span className="Comment__footer__bullet" />
             <span className="Comment__footer__payout">

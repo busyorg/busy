@@ -1896,7 +1896,17 @@ exports[`Storyshots Story Full story 1`] = `
         onClick={[Function]}
         role="presentation"
       >
-        133
+        <span
+          onBlur={undefined}
+          onClick={undefined}
+          onFocus={undefined}
+          onMouseDown={undefined}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onTouchStart={undefined}
+        >
+          133
+        </span>
       </span>
       <a
         className="StoryFooter__link"
@@ -2143,7 +2153,17 @@ exports[`Storyshots Story Full story with embed 1`] = `
         onClick={[Function]}
         role="presentation"
       >
-        658
+        <span
+          onBlur={undefined}
+          onClick={undefined}
+          onFocus={undefined}
+          onMouseDown={undefined}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onTouchStart={undefined}
+        >
+          658
+        </span>
       </span>
       <a
         className="StoryFooter__link"
@@ -2345,7 +2365,17 @@ exports[`Storyshots Story Inline story 1`] = `
           onClick={[Function]}
           role="presentation"
         >
-          133
+          <span
+            onBlur={undefined}
+            onClick={undefined}
+            onFocus={undefined}
+            onMouseDown={undefined}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onTouchStart={undefined}
+          >
+            133
+          </span>
         </span>
         <a
           className="StoryFooter__link"
@@ -2557,7 +2587,17 @@ exports[`Storyshots Story Inline story with embed 1`] = `
           onClick={[Function]}
           role="presentation"
         >
-          658
+          <span
+            onBlur={undefined}
+            onClick={undefined}
+            onFocus={undefined}
+            onMouseDown={undefined}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onTouchStart={undefined}
+          >
+            658
+          </span>
         </span>
         <a
           className="StoryFooter__link"
