@@ -9,7 +9,7 @@ import PayoutLabel from './actionButtons/PayoutLabel';
 import * as postActions from './postActions';
 import Icon from '../widgets/Icon';
 import ReblogButton from './actionButtons/ReblogButton';
-import Constants from '../constants';
+import config from '../../config';
 
 @connect(
   state => ({
@@ -87,7 +87,7 @@ export default class PostActionButtons extends Component {
         props.total_vesting_shares,
         props.total_vesting_fund_steem);
 
-    const likeBarEnabled = power > Constants.LIKE_BAR_MIN_POWER;
+    const likeBarEnabled = power > config.constants.LIKE_BAR_MIN_POWER;
     return (
       <ul>
         <li>

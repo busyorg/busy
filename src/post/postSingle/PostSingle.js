@@ -5,7 +5,7 @@ import { Helmet } from 'react-helmet';
 import { bindActionCreators } from 'redux';
 import sanitize from 'sanitize-html';
 import { formatter } from 'steem';
-import Constants from '../../constants';
+import config from '../../../config';
 
 import { getHtml } from '../Body';
 import * as postActions from './../postActions';
@@ -129,11 +129,13 @@ export default class PostSingle extends Component {
       content.active_votes.some(vote => vote.voter === auth.user.name && vote.percent < 0);
 
     const { app } = this.props;
+    const totalVestingShares = app.props ? app.props.total_vesting_shares : 0;
+    const totalVestingFundSteem = app.props ? app.props.total_vesting_fund_steem : 0;
 
-    const power = formatter.vestToSteem(auth.user.vesting_shares, app.props.total_vesting_shares,
-      app.props.total_vesting_fund_steem);
+    const power = formatter.vestToSteem(auth.user.vesting_shares, totalVestingShares,
+      totalVestingFundSteem);
 
-    const voteBarEnabled = power > Constants.LIKE_BAR_MIN_POWER;
+    const voteBarEnabled = power > config.constants.LIKE_BAR_MIN_POWER;
 
     const canReblog = auth.isAuthenticated && auth.user.name !== content.author;
 
