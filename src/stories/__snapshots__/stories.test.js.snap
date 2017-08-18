@@ -1892,7 +1892,7 @@ exports[`Storyshots Story Full story 1`] = `
         />
       </a>
       <span
-        className="StoryFooter__number"
+        className="StoryFooter__number StoryFooter__reactions-count"
         onClick={[Function]}
         role="presentation"
       >
@@ -2143,7 +2143,7 @@ exports[`Storyshots Story Full story with embed 1`] = `
         />
       </a>
       <span
-        className="StoryFooter__number"
+        className="StoryFooter__number StoryFooter__reactions-count"
         onClick={[Function]}
         role="presentation"
       >
@@ -2349,7 +2349,7 @@ exports[`Storyshots Story Inline story 1`] = `
           />
         </a>
         <span
-          className="StoryFooter__number"
+          className="StoryFooter__number StoryFooter__reactions-count"
           onClick={[Function]}
           role="presentation"
         >
@@ -2565,7 +2565,7 @@ exports[`Storyshots Story Inline story with embed 1`] = `
           />
         </a>
         <span
-          className="StoryFooter__number"
+          className="StoryFooter__number StoryFooter__reactions-count"
           onClick={[Function]}
           role="presentation"
         >

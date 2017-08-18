@@ -115,7 +115,7 @@ class StoryFooter extends React.Component {
             {pendingLike ? <Icon type="loading" /> : <i className="iconfont icon-praise_fill" />}
           </a>
         </Tooltip>
-        <span className="StoryFooter__number" role="presentation" onClick={this.handleShowReactions}>
+        <span className="StoryFooter__number StoryFooter__reactions-count" role="presentation" onClick={this.handleShowReactions}>
           {likesValue}
         </span>
         <Tooltip title="Comment">
