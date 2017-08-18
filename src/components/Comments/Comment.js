@@ -7,6 +7,7 @@ import { FormattedRelative, FormattedDate, FormattedTime } from 'react-intl';
 import { Tabs, Tag, Tooltip, Modal } from 'antd';
 import { formatter } from 'steem';
 import { getUpvotes, getDownvotes } from '../../helpers/voteHelpers';
+import { sortComments } from '../../helpers/sortHelpers';
 import ReactionsList from '../ReactionsList/ReactionsList';
 import CommentForm from './CommentForm';
 import PayoutDetail from '../PayoutDetail';
@@ -19,6 +20,7 @@ class Comment extends React.Component {
     authenticated: PropTypes.bool.isRequired,
     username: PropTypes.string,
     comment: PropTypes.shape().isRequired,
+    sort: PropTypes.oneOf(['BEST', 'NEWEST', 'OLDEST']),
     rootPostAuthor: PropTypes.string,
     commentsChildren: PropTypes.shape(),
     onLikeClick: PropTypes.func,
@@ -28,6 +30,7 @@ class Comment extends React.Component {
 
   static defaultProps = {
     username: undefined,
+    sort: 'BEST',
     rootPostAuthor: undefined,
     commentsChildren: undefined,
     onLikeClick: () => {},
@@ -108,6 +111,7 @@ class Comment extends React.Component {
       authenticated,
       username,
       comment,
+      sort,
       rootPostAuthor,
       commentsChildren,
       onLikeClick,
@@ -270,7 +274,7 @@ class Comment extends React.Component {
             {!this.state.collapsed &&
               commentsChildren &&
               commentsChildren[comment.id] &&
-              commentsChildren[comment.id].map(child =>
+              sortComments(commentsChildren[comment.id], sort).map(child =>
                 (<Comment
                   key={child.id}
                   authenticated={authenticated}
