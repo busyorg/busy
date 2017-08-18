@@ -9,7 +9,6 @@ class ReactionsModal extends React.Component {
   static propTypes = {
     visible: PropTypes.bool,
     votes: PropTypes.arrayOf(PropTypes.shape()),
-    onOpen: PropTypes.func,
     onClose: PropTypes.func,
   }
 
@@ -70,7 +69,7 @@ class ReactionsModal extends React.Component {
     return (
       <Modal
         visible={this.props.visible && ((upVotes.length > 0) || (downVotes.length > 0))}
-        onOk={this.props.onOpen}
+        footer={null}
         onCancel={this.props.onClose}
       >
         <Tabs>

@@ -237,7 +237,6 @@ class Comment extends React.Component {
           <ReactionsModal
             visible={this.state.reactionsModalVisible}
             votes={comment.active_votes}
-            onOpen={this.handleCloseReactions}
             onClose={this.handleCloseReactions}
           />
           {this.state.replyOpen &&

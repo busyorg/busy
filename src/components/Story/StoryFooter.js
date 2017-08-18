@@ -156,7 +156,6 @@ class StoryFooter extends React.Component {
         <ReactionsModal
           visible={this.state.reactionsModalVisible}
           votes={post.active_votes}
-          onOpen={this.handleCloseReactions}
           onClose={this.handleCloseReactions}
         />
       </div>
