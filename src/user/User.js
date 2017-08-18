@@ -95,7 +95,7 @@ export default class User extends React.Component {
   render() {
     const { authenticated, authenticatedUser, match, followingList, pendingFollows } = this.props;
     const username = this.props.match.params.name;
-    const { isFetching, ...user } = this.props.user;
+    const { user } = this.props;
     const { profile = {} } = user.json_metadata || {};
     const busyHost = global.postOrigin || 'https://busy.org';
     const desc = profile.about || `Post by ${username}`;

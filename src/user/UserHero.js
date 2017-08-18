@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Route, Switch, withRouter } from 'react-router-dom';
 
 import UserHeader from '../components/UserHeader';
+import UserHeaderLoading from '../components/UserHeaderLoading';
 import UserMenu from '../components/UserMenu';
 import Hero from '../components/Hero';
 
@@ -43,16 +44,19 @@ const UserHero = ({
         path="/@:name"
         render={() =>
           (<div>
-            <UserHeader
-              authenticated={authenticated}
-              username={username}
-              handle={user.name}
-              userReputation={user.reputation}
-              isSameUser={isSameUser}
-              isFollowed={isFollowed}
-              pendingFollow={pendingFollow}
-              onFollowClick={onFollowClick}
-            />
+            {
+              (user.isFetching) ? <UserHeaderLoading />
+                : <UserHeader
+                  authenticated={authenticated}
+                  username={username}
+                  handle={user.name}
+                  userReputation={user.reputation}
+                  isSameUser={isSameUser}
+                  isFollowed={isFollowed}
+                  pendingFollow={pendingFollow}
+                  onFollowClick={onFollowClick}
+                />
+            }
             <UserMenuWrapper
               discussions={user.post_count}
               comments={0}
