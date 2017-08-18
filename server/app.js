@@ -17,7 +17,6 @@ const logger = require('morgan');
 const bodyParser = require('body-parser');
 const http = require('http');
 const https = require('https');
-const cors = require('cors');
 const debug = require('debug')('busy:serverApp');
 const steem = require('steem');
 
@@ -55,7 +54,6 @@ app.use((req, res, next) => {
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cors());
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(rootDir, 'public'), { maxAge: OneWeek }));
