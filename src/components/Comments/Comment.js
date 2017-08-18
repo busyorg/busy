@@ -123,8 +123,8 @@ class Comment extends React.Component {
     const totalPayoutValue = parseFloat(comment.total_payout_value);
     const payoutValue = numeral(totalPayoutValue || pendingPayoutValue).format('$0,0.000');
 
-    const upVotes = getUpvotes(comment.active_votes);
-    const downVotes = getDownvotes(comment.active_votes);
+    const upVotes = getUpvotes(comment.active_votes).sort(sortVotes);
+    const downVotes = getDownvotes(comment.active_votes).sort(sortVotes).reverse();
 
     const likesValue = numeral(upVotes.length).format(
       '0,0',
@@ -133,12 +133,12 @@ class Comment extends React.Component {
       '0,0',
     );
 
-    const upVotesPreview = take(upVotes.sort(sortVotes), 10)
+    const upVotesPreview = take(upVotes, 10)
       .map(vote => <p key={vote.voter}>{vote.voter}</p>);
     const upVotesDiff = upVotes.length - upVotesPreview.length;
     const upVotesMore = (upVotesDiff > 0) ? `and ${numeral(upVotesDiff).format('0,0')} more` : null;
 
-    const downVotesPreview = take(downVotes.sort(sortVotes), 10)
+    const downVotesPreview = take(downVotes, 10)
       .map(vote => <p key={vote.voter}>{vote.voter}</p>);
     const downVotesDiff = downVotes.length - downVotesPreview.length;
     const downVotesMore = (upVotesDiff > 0) ? `and ${numeral(downVotesDiff).format('0,0')} more` : null;
@@ -267,7 +267,8 @@ class Comment extends React.Component {
           </div>
           <ReactionsModal
             visible={this.state.reactionsModalVisible}
-            votes={comment.active_votes}
+            upVotes={upVotes}
+            downVotes={downVotes}
             onClose={this.handleCloseReactions}
           />
           {this.state.replyOpen &&

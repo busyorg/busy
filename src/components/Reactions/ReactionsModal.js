@@ -2,19 +2,20 @@ import React from 'react';
 import { PropTypes } from 'prop-types';
 import numeral from 'numeral';
 import { Tabs, Modal } from 'antd';
-import { getUpvotes, getDownvotes } from '../../helpers/voteHelpers';
 import ReactionsList from './ReactionsList';
 
 class ReactionsModal extends React.Component {
   static propTypes = {
     visible: PropTypes.bool,
-    votes: PropTypes.arrayOf(PropTypes.shape()),
+    upVotes: PropTypes.arrayOf(PropTypes.shape()),
+    downVotes: PropTypes.arrayOf(PropTypes.shape()),
     onClose: PropTypes.func,
   }
 
   static defaultProps = {
     visible: false,
-    votes: [],
+    upVotes: [],
+    downVotes: [],
     onOpen: () => {},
     onClose: () => {},
   }
@@ -24,10 +25,7 @@ class ReactionsModal extends React.Component {
   };
 
   render() {
-    const { votes } = this.props;
-
-    const upVotes = getUpvotes(votes) || [];
-    const downVotes = getDownvotes(votes) || [];
+    const { upVotes, downVotes } = this.props;
 
     const likesValue = numeral(upVotes.length).format(
       '0,0',
@@ -62,7 +60,7 @@ class ReactionsModal extends React.Component {
         }
         key="2"
       >
-        <ReactionsList reverse votes={downVotes} />
+        <ReactionsList votes={downVotes} />
       </Tabs.TabPane>);
     }
 

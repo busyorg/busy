@@ -81,8 +81,8 @@ class StoryFooter extends React.Component {
     const payout = parseFloat(post.pending_payout_value) || parseFloat(post.total_payout_value);
     const payoutValue = numeral(payout).format('$0,0.00');
 
-    const upVotes = getUpvotes(post.active_votes);
-    const downVotes = getDownvotes(post.active_votes);
+    const upVotes = getUpvotes(post.active_votes).sort(sortVotes);
+    const downVotes = getDownvotes(post.active_votes).sort(sortVotes).reverse();
 
     const likesValue = numeral(upVotes.length).format(
       '0,0',
@@ -172,7 +172,8 @@ class StoryFooter extends React.Component {
           </Modal>}
         <ReactionsModal
           visible={this.state.reactionsModalVisible}
-          votes={post.active_votes}
+          upVotes={upVotes}
+          downVotes={downVotes}
           onClose={this.handleCloseReactions}
         />
       </div>
