@@ -48,7 +48,7 @@ class ReactionsModal extends React.Component {
         }
         key="1"
       >
-        <ReactionsList users={upVotes.map(vote => vote.voter)} />
+        <ReactionsList votes={upVotes} />
       </Tabs.TabPane>);
     }
 
@@ -62,7 +62,7 @@ class ReactionsModal extends React.Component {
         }
         key="2"
       >
-        <ReactionsList users={downVotes.map(vote => vote.voter)} />
+        <ReactionsList reverse votes={downVotes} />
       </Tabs.TabPane>);
     }
 
