@@ -5,6 +5,7 @@ import numeral from 'numeral';
 import { Tabs, Icon, Tooltip, Modal } from 'antd';
 import classNames from 'classnames';
 import { getUpvotes, getDownvotes } from '../../helpers/voteHelpers';
+import ReactionsList from './ReactionsList';
 import PayoutDetail from '../PayoutDetail';
 import './StoryFooter.less';
 
@@ -163,7 +164,7 @@ class StoryFooter extends React.Component {
                 }
                 key="1"
               >
-                {upVotes.map(vote => <p key={vote.voter}>{vote.voter}</p>)}
+                <ReactionsList users={upVotes.map(vote => vote.voter)} />
               </Tabs.TabPane>
               <Tabs.TabPane
                 tab={
@@ -174,7 +175,7 @@ class StoryFooter extends React.Component {
                 }
                 key="2"
               >
-                {downVotes.map(vote => <p key={vote.voter}>{vote.voter}</p>)}
+                <ReactionsList users={downVotes.map(vote => vote.voter)} />
               </Tabs.TabPane>
             </Tabs>
           </Modal>
