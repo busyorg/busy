@@ -4,11 +4,11 @@ import classNames from 'classnames';
 import numeral from 'numeral';
 import { Link } from 'react-router-dom';
 import { FormattedRelative, FormattedDate, FormattedTime } from 'react-intl';
-import { Tabs, Tag, Tooltip, Modal } from 'antd';
+import { Tag, Tooltip } from 'antd';
 import { formatter } from 'steem';
 import { getUpvotes, getDownvotes } from '../../helpers/voteHelpers';
 import { sortComments } from '../../helpers/sortHelpers';
-import ReactionsList from '../ReactionsList/ReactionsList';
+import ReactionsModal from '../Reactions/ReactionsModal';
 import CommentForm from './CommentForm';
 import PayoutDetail from '../PayoutDetail';
 import Avatar from '../Avatar';
@@ -188,7 +188,9 @@ class Comment extends React.Component {
               </a>
             </Tooltip>
             <span
-              className="Comment__footer__count"
+              className={classNames('Comment__footer__count', {
+                'Comment__footer__count--clickable': (upVotes.length > 0) || (downVotes.length > 0),
+              })}
               role="presentation"
               onClick={this.handleShowReactions}
             >
@@ -204,7 +206,9 @@ class Comment extends React.Component {
               </a>
             </Tooltip>
             <span
-              className="Comment__footer__count"
+              className={classNames('Comment__footer__count', {
+                'Comment__footer__count--clickable': (upVotes.length > 0) || (downVotes.length > 0),
+              })}
               role="presentation"
               onClick={this.handleShowReactions}
             >
@@ -229,36 +233,13 @@ class Comment extends React.Component {
                   Reply
                 </a>
               </span>}
-          </div><Modal
+          </div>
+          <ReactionsModal
             visible={this.state.reactionsModalVisible}
-            onOk={this.handleCloseReactions}
-            onCancel={this.handleCloseReactions}
-          >
-            <Tabs defaultActiveKey="1">
-              <Tabs.TabPane
-                tab={
-                  <span>
-                    <i className="iconfont icon-praise_fill" />
-                    <span className="StoryFooter__icon-text">{likesValue}</span>
-                  </span>
-                }
-                key="1"
-              >
-                <ReactionsList users={upVotes.map(vote => vote.voter)} />
-              </Tabs.TabPane>
-              <Tabs.TabPane
-                tab={
-                  <span>
-                    <i className="iconfont icon-praise_fill StoryFooter__dislike" />
-                    <span className="StoryFooter__icon-text StoryFooter__icon-text-dislike">{dislikesValue}</span>
-                  </span>
-                }
-                key="2"
-              >
-                <ReactionsList users={downVotes.map(vote => vote.voter)} />
-              </Tabs.TabPane>
-            </Tabs>
-          </Modal>
+            votes={comment.active_votes}
+            onOpen={this.handleCloseReactions}
+            onClose={this.handleCloseReactions}
+          />
           {this.state.replyOpen &&
             authenticated &&
             <CommentForm

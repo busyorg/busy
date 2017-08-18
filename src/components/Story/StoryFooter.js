@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import numeral from 'numeral';
-import { Tabs, Icon, Tooltip, Modal } from 'antd';
+import { Icon, Tooltip, Modal } from 'antd';
 import classNames from 'classnames';
 import { getUpvotes, getDownvotes } from '../../helpers/voteHelpers';
-import ReactionsList from '../ReactionsList/ReactionsList';
+import ReactionsModal from '../Reactions/ReactionsModal';
 import PayoutDetail from '../PayoutDetail';
 import './StoryFooter.less';
 
@@ -85,9 +85,6 @@ class StoryFooter extends React.Component {
     const likesValue = numeral(upVotes.length).format(
       '0,0',
     );
-    const dislikesValue = numeral(downVotes.length).format(
-      '0,0',
-    );
 
     const commentsValue = numeral(post.children).format('0,0');
     const likeClass = classNames({ active: postState.isLiked, StoryFooter__link: true });
@@ -115,7 +112,13 @@ class StoryFooter extends React.Component {
             {pendingLike ? <Icon type="loading" /> : <i className="iconfont icon-praise_fill" />}
           </a>
         </Tooltip>
-        <span className="StoryFooter__number StoryFooter__reactions-count" role="presentation" onClick={this.handleShowReactions}>
+        <span
+          className={classNames('StoryFooter__number', {
+            'StoryFooter__reactions-count': (upVotes.length > 0) || (downVotes.length > 0),
+          })}
+          role="presentation"
+          onClick={this.handleShowReactions}
+        >
           {likesValue}
         </span>
         <Tooltip title="Comment">
@@ -150,36 +153,12 @@ class StoryFooter extends React.Component {
           >
             This post will appear on your personal feed. This action <b>cannot</b> be reversed.
           </Modal>}
-        <Modal
+        <ReactionsModal
           visible={this.state.reactionsModalVisible}
-          onOk={this.handleCloseReactions}
-          onCancel={this.handleCloseReactions}
-        >
-          <Tabs defaultActiveKey="1">
-            <Tabs.TabPane
-              tab={
-                <span>
-                  <i className="iconfont icon-praise_fill" />
-                  <span className="StoryFooter__icon-text">{likesValue}</span>
-                </span>
-              }
-              key="1"
-            >
-              <ReactionsList users={upVotes.map(vote => vote.voter)} />
-            </Tabs.TabPane>
-            <Tabs.TabPane
-              tab={
-                <span>
-                  <i className="iconfont icon-praise_fill StoryFooter__dislike" />
-                  <span className="StoryFooter__icon-text StoryFooter__icon-text-dislike">{dislikesValue}</span>
-                </span>
-              }
-              key="2"
-            >
-              <ReactionsList users={downVotes.map(vote => vote.voter)} />
-            </Tabs.TabPane>
-          </Tabs>
-        </Modal>
+          votes={post.active_votes}
+          onOpen={this.handleCloseReactions}
+          onClose={this.handleCloseReactions}
+        />
       </div>
     );
   }

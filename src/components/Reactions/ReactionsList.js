@@ -31,7 +31,6 @@ export default class UserList extends React.Component {
           hasMore={users.length > noOfItemsToShow}
           useWindow={false}
         >
-          {users.length === 0 && <div className="ReactionsList__empty">No users to show</div>}
           {take(users, noOfItemsToShow).map(user => <UserCard key={user} username={user} />)}
         </InfiniteSroll>
       </div>
