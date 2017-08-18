@@ -138,48 +138,48 @@ class StoryFooter extends React.Component {
           <a role="presentation" className={rebloggedClass} onClick={this.handleShareClick}>
             <i className="iconfont icon-send StoryFooter__share" />
           </a>
-          {!postState.isReblogged &&
-            <Modal
-              title="Reblog this post?"
-              visible={this.state.shareModalVisible}
-              confirmLoading={this.state.shareModalLoading}
-              okText="Reblog"
-              onOk={this.handleShareOk}
-              onCancel={this.handleShareCancel}
-            >
-              This post will appear on your personal feed. This action <b>cannot</b> be reversed.
-            </Modal>}
-          <Modal
-            visible={this.state.reactionsModalVisible}
-            onOk={this.handleCloseReactions}
-            onCancel={this.handleCloseReactions}
-          >
-            <Tabs defaultActiveKey="1">
-              <Tabs.TabPane
-                tab={
-                  <span>
-                    <i className="iconfont icon-praise_fill" />
-                    <span className="StoryFooter__icon-text">{likesValue}</span>
-                  </span>
-                }
-                key="1"
-              >
-                <ReactionsList users={upVotes.map(vote => vote.voter)} />
-              </Tabs.TabPane>
-              <Tabs.TabPane
-                tab={
-                  <span>
-                    <i className="iconfont icon-praise_fill StoryFooter__dislike" />
-                    <span className="StoryFooter__icon-text StoryFooter__icon-text-dislike">{dislikesValue}</span>
-                  </span>
-                }
-                key="2"
-              >
-                <ReactionsList users={downVotes.map(vote => vote.voter)} />
-              </Tabs.TabPane>
-            </Tabs>
-          </Modal>
         </Tooltip>
+        {!postState.isReblogged &&
+          <Modal
+            title="Reblog this post?"
+            visible={this.state.shareModalVisible}
+            confirmLoading={this.state.shareModalLoading}
+            okText="Reblog"
+            onOk={this.handleShareOk}
+            onCancel={this.handleShareCancel}
+          >
+            This post will appear on your personal feed. This action <b>cannot</b> be reversed.
+          </Modal>}
+        <Modal
+          visible={this.state.reactionsModalVisible}
+          onOk={this.handleCloseReactions}
+          onCancel={this.handleCloseReactions}
+        >
+          <Tabs defaultActiveKey="1">
+            <Tabs.TabPane
+              tab={
+                <span>
+                  <i className="iconfont icon-praise_fill" />
+                  <span className="StoryFooter__icon-text">{likesValue}</span>
+                </span>
+              }
+              key="1"
+            >
+              <ReactionsList users={upVotes.map(vote => vote.voter)} />
+            </Tabs.TabPane>
+            <Tabs.TabPane
+              tab={
+                <span>
+                  <i className="iconfont icon-praise_fill StoryFooter__dislike" />
+                  <span className="StoryFooter__icon-text StoryFooter__icon-text-dislike">{dislikesValue}</span>
+                </span>
+              }
+              key="2"
+            >
+              <ReactionsList users={downVotes.map(vote => vote.voter)} />
+            </Tabs.TabPane>
+          </Tabs>
+        </Modal>
       </div>
     );
   }
