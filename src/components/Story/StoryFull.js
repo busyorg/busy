@@ -102,6 +102,7 @@ class StoryFull extends React.Component {
     const { open, index } = this.state.lightbox;
     const images = JSON.parse(post.json_metadata).image;
     const tags = _.union(JSON.parse(post.json_metadata).tags, [post.category]);
+    const video = JSON.parse(post.json_metadata).video;
 
     let followText = '';
 
@@ -181,6 +182,15 @@ class StoryFull extends React.Component {
           }}
           onClick={this.handleContentClick}
         >
+          {_.has(video, 'content.videohash') && _.has(video, 'info.snaphash') &&
+            <video
+              controls
+              src={`https://ipfs.io/ipfs/${video.content.videohash}`}
+              poster={`https://ipfs.io/ipfs/${video.info.snaphash}`}
+            >
+              <track kind="captions" />
+            </video>
+          }
           <Body body={post.body} json_metadata={post.json_metadata} />
         </div>
         {open &&
