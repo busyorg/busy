@@ -9,7 +9,7 @@ module.exports = {
   entry: path.resolve(baseDir, './server/index.js'),
 
   output: {
-    filename: 'busy.server.js'
+    filename: 'busy.server.js',
   },
 
   target: 'node',
@@ -25,7 +25,7 @@ module.exports = {
 
   node: {
     __filename: true,
-    __dirname: true
+    __dirname: true,
   },
   watch: isDevelopment,
 
@@ -45,7 +45,7 @@ module.exports = {
       },
       {
         test: /\.html$/,
-        loader: 'html-loader'
+        loader: 'html-loader',
       },
       {
         test: /\.js$/,
@@ -55,9 +55,9 @@ module.exports = {
           options: {
             presets: ['es2015', 'react', 'stage-2'],
             plugins: ['transform-decorators-legacy', 'transform-runtime'],
-            cacheDirectory: true
-          }
-        }
+            cacheDirectory: true,
+          },
+        },
       },
       {
         test: /\.css|.less$/,
@@ -83,20 +83,19 @@ module.exports = {
           },
           'less-loader',
         ],
-      }
-    ]
+      },
+    ],
   },
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
-        BUSYWS_HOST: JSON.stringify(process.env.BUSYWS_HOST || 'https://ws.busy.org'),
-        STEEMCONNECT_IMG_HOST: JSON.stringify(process.env.STEEMCONNECT_IMG_HOST || 'https://img.steemconnect.com'),
+        STEEMCONNECT_IMG_HOST: JSON.stringify(process.env.STEEMCONNECT_IMG_HOST || 'https://img.busy.org'),
         STEEMCONNECT_HOST: JSON.stringify(process.env.STEEMCONNECT_HOST || 'https://v2.steemconnect.com'),
         STEEMCONNECT_REDIRECT_URL: JSON.stringify(process.env.STEEMCONNECT_REDIRECT_URL || 'https://busy.org/callback'),
-        WS: JSON.stringify(process.env.WS || 'wss://steemd-int.steemit.com'),
+        STEEMJS_URL: JSON.stringify(process.env.STEEMJS_URL),
         IS_BROWSER: JSON.stringify(false),
       },
     }),
-  ]
+  ],
 
 };

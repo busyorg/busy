@@ -40,11 +40,9 @@ if (process.env.STEEMCONNECT_HOST) {
   }
 }
 
-if (process.env.WS) {
-  steem.api.setOptions({
-    transport: 'ws',
-    websocket: process.env.WS,
-  });
+steem.api.setOptions({ transport: 'http' });
+if (process.env.STEEMJS_URL) {
+  steem.api.setOptions({ url: process.env.STEEMJS_URL });
 }
 
 message.config({

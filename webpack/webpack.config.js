@@ -1,5 +1,3 @@
-
 module.exports = require('./makeConfig')({
-  isDevelopment: true
+  isDevelopment: true,
 });
-
