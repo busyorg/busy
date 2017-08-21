@@ -236,7 +236,7 @@ export default class Post extends React.Component {
               </div>
             </Affix>
             <div className="center" style={{ paddingBottom: '24px' }}>
-              {loading && !pendingLikes.filter(post => post === content.id) > 0
+              {loading
                 ? <Loading />
                 : <StoryFull
                   post={content}
