@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import embedjs from 'embedjs';
+import _ from 'lodash';
 import PostFeedEmbed from './PostFeedEmbed';
 import BodyShort from './BodyShort';
 import { jsonParse } from '../../helpers/formatter';
@@ -28,6 +29,17 @@ const StoryPreview = ({ post }) => {
   }
 
   const embeds = embedjs.getAll(post.body);
+  const video = jsonMetadata.video;
+  let hasVideo = false;
+  if (_.has(video, 'content.videohash') && _.has(video, 'info.snaphash')) {
+    hasVideo = true;
+    embeds[0] = {
+      type: 'video',
+      provider_name: 'DTube',
+      embed: `<video controls="true" autoplay="true" src="https://ipfs.io/ipfs/${video.content.videohash}" poster="https://ipfs.io/ipfs/${video.info.snaphash}"><track kind="captions" /></video>`,
+      thumbnail: `https://steemitimages.com/600x800/https://ipfs.io/ipfs/${video.info.snaphash}`,
+    };
+  }
 
   const preview = {
     text: () => <BodyShort key="text" className="Story__content__body" body={post.body} />,
@@ -44,7 +56,10 @@ const StoryPreview = ({ post }) => {
   const tagPositions = getPositions(htmlBody);
   const bodyData = [];
 
-  if (isPostStartsWithAPicture(tagPositions)) {
+  if (hasVideo) {
+    bodyData.push(preview.embed());
+    bodyData.push(preview.text());
+  } else if (isPostStartsWithAPicture(tagPositions)) {
     bodyData.push(preview.image());
     bodyData.push(preview.text());
   } else if (isPostStartsWithAnEmbed(tagPositions)) {
