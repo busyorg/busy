@@ -28,7 +28,6 @@ const PayoutDetail = ({ post }) => {
     promotionCost,
     cashoutInTime,
     isPayoutDeclined,
-    maxAcceptedPayout,
     pastPayouts,
     authorPayouts,
     curatorPayouts,
@@ -45,7 +44,6 @@ const PayoutDetail = ({ post }) => {
           Will release <FormattedRelative value={cashoutInTime} />
         </div>}
       {isPayoutDeclined && <div>Declined Payout</div>}
-      <AmountWithLabel label="Max Accepted Payout" amount={maxAcceptedPayout} />
       <AmountWithLabel label="Total Past Payouts" amount={pastPayouts} />
       <AmountWithLabel label="Authors Payout" amount={authorPayouts} />
       <AmountWithLabel label="Curators Payout" amount={curatorPayouts} />
