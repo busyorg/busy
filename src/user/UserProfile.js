@@ -56,6 +56,19 @@ export default class UserProfile extends React.Component {
     });
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.match.url !== this.props.match.url) {
+      if (window) {
+        window.scrollTo(0, 0);
+      }
+      this.props.getFeedContent({
+        sortBy: 'blog',
+        category: nextProps.match.params.name,
+        limit: nextProps.limit,
+      });
+    }
+  }
+
   render() {
     const { authenticated, authenticatedUser, feed, posts, limit } = this.props;
     const username = this.props.match.params.name;
