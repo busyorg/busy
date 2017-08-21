@@ -56,10 +56,10 @@ const PayoutDetail = ({ post }) => {
   return (
     <div>
       {payoutLimitHit && <div>Payout limit reached on this post</div>}
-      <AmountWithLabel label="Potential Payout" amount={potentialPayout} />
       <AmountWithLabelNonZero label="Promoted" amount={promotionCost} />
       {cashoutInTime &&
         <div>
+          <AmountWithLabel label="Potential Payout" amount={potentialPayout} />
           Will release <FormattedRelative value={cashoutInTime} />
         </div>}
       <AmountWithLabel label="Total Past Payouts" amount={pastPayouts} />
