@@ -102,7 +102,7 @@ export const sendCommentV2 = (parentPost, body) =>
 
     const author = auth.user.name;
     const permlink = createCommentPermlink(parentAuthor, parentPermlink);
-    const jsonMetadata = { tags: [category], app: `busy/${version}` };
+    const jsonMetadata = { tags: [category], community: 'busy', app: `busy/${version}` };
 
     return dispatch({
       type: SEND_COMMENT,
@@ -159,7 +159,7 @@ export const sendComment = (parentId = null) =>
 
     const permlink = isEditing ? comments.commentingDraft[id].permlink :
       createCommentPermlink(parentAuthor, parentPermlink);
-    const jsonMetadata = { tags: [category], app: `busy/${version}` };
+    const jsonMetadata = { tags: [category], community: 'busy', app: `busy/${version}` };
 
     return dispatch({
       type: SEND_COMMENT,
