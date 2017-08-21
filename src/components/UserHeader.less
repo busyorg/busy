@@ -45,6 +45,15 @@
   color: #99aab5;
 }
 
+.UserHeader__rank {
+  margin-top: -4px;
+
+  & > i {
+    font-size: 18px !important;
+    vertical-align: -1px;
+  }
+}
+
 .UserHeader__user__username {
   margin-right: -8px;
   font-weight: 700;
@@ -52,8 +61,16 @@
   color: #353535;
 
   .ant-tag {
-    margin-left: 8px;
     vertical-align: 4px;
+
+    &:first-of-type {
+      margin-left: 8px;
+    }
+
+    &:last-of-type {
+      margin-right: -4px;
+    }
+
   }
 }
 

@@ -865,6 +865,15 @@ exports[`Storyshots Profile UserHeader 1`] = `
           @
           
         </div>
+        <div
+          className="UserHeader__rank"
+        >
+          <i
+            className="iconfont icon-select_fill"
+          />
+           
+          Minnow
+        </div>
       </div>
     </div>
   </div>
