@@ -49,21 +49,22 @@ const PayoutDetail = ({ post }) => {
     curatorPayouts,
   } = calculatePayout(post);
 
+  if (isPayoutDeclined) {
+    return <div>Declined Payout</div>;
+  }
+
   return (
     <div>
       {payoutLimitHit && <div>Payout limit reached on this post</div>}
       <AmountWithLabel label="Potential Payout" amount={potentialPayout} />
       <AmountWithLabelNonZero label="Promoted" amount={promotionCost} />
-      {!isPayoutDeclined &&
-        cashoutInTime &&
+      {cashoutInTime &&
         <div>
           Will release <FormattedRelative value={cashoutInTime} />
         </div>}
-      {isPayoutDeclined && <div>Declined Payout</div>}
       <AmountWithLabel label="Total Past Payouts" amount={pastPayouts} />
       <AmountWithLabel label="Authors Payout" amount={authorPayouts} />
       <AmountWithLabel label="Curators Payout" amount={curatorPayouts} />
-      {!pastPayouts && !potentialPayout ? 'No payout' : ''}
     </div>
   );
 };
