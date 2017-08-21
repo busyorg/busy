@@ -2,11 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import numeral from 'numeral';
+import { take } from 'lodash';
 import { Link } from 'react-router-dom';
 import { FormattedRelative, FormattedDate, FormattedTime } from 'react-intl';
 import { Tag, Tooltip } from 'antd';
 import { formatter } from 'steem';
-import { sortComments } from '../../helpers/sortHelpers';
+import { getUpvotes, getDownvotes } from '../../helpers/voteHelpers';
+import { sortComments, sortVotes } from '../../helpers/sortHelpers';
+import ReactionsModal from '../Reactions/ReactionsModal';
 import CommentForm from './CommentForm';
 import PayoutDetail from '../PayoutDetail';
 import Avatar from '../Avatar';
@@ -43,8 +46,17 @@ class Comment extends React.Component {
       collapsed: false,
       showCommentFormLoading: false,
       commentFormText: '',
+      reactionsModalVisible: false,
     };
   }
+
+  handleShowReactions = () => this.setState({
+    reactionsModalVisible: true,
+  });
+
+  handleCloseReactions = () => this.setState({
+    reactionsModalVisible: false,
+  })
 
   handleReplyClick = () => {
     this.setState({
@@ -111,12 +123,25 @@ class Comment extends React.Component {
     const totalPayoutValue = parseFloat(comment.total_payout_value);
     const payoutValue = numeral(totalPayoutValue || pendingPayoutValue).format('$0,0.000');
 
-    const likesValue = numeral(comment.active_votes.filter(vote => vote.percent > 0).length).format(
+    const upVotes = getUpvotes(comment.active_votes).sort(sortVotes);
+    const downVotes = getDownvotes(comment.active_votes).sort(sortVotes).reverse();
+
+    const likesValue = numeral(upVotes.length).format(
       '0,0',
     );
-    const dislikesValue = numeral(
-      comment.active_votes.filter(vote => vote.percent < 0).length,
-    ).format('0,0');
+    const dislikesValue = numeral(downVotes.length).format(
+      '0,0',
+    );
+
+    const upVotesPreview = take(upVotes, 10)
+      .map(vote => <p key={vote.voter}>{vote.voter}</p>);
+    const upVotesDiff = upVotes.length - upVotesPreview.length;
+    const upVotesMore = (upVotesDiff > 0) ? `and ${numeral(upVotesDiff).format('0,0')} more` : null;
+
+    const downVotesPreview = take(downVotes, 10)
+      .map(vote => <p key={vote.voter}>{vote.voter}</p>);
+    const downVotesDiff = downVotes.length - downVotesPreview.length;
+    const downVotesMore = (upVotesDiff > 0) ? `and ${numeral(downVotesDiff).format('0,0')} more` : null;
 
     return (
       <div className="Comment">
@@ -173,7 +198,25 @@ class Comment extends React.Component {
                 <i className="iconfont icon-praise_fill" />
               </a>
             </Tooltip>
-            <span className="Comment__footer__count">{likesValue}</span>
+            <span
+              className={classNames('Comment__footer__count', {
+                'Comment__footer__count--clickable': (upVotes.length > 0) || (downVotes.length > 0),
+              })}
+              role="presentation"
+              onClick={this.handleShowReactions}
+            >
+              <Tooltip
+                title={
+                  <div>
+                    {upVotesPreview}
+                    {upVotesMore}
+                    {upVotesPreview.length === 0 && 'No likes yet.'}
+                  </div>
+                }
+              >
+                {likesValue}
+              </Tooltip>
+            </span>
             <Tooltip title="Dislike">
               <a
                 role="presentation"
@@ -183,7 +226,25 @@ class Comment extends React.Component {
                 <i className="iconfont icon-praise_fill Comment__icon_dislike" />
               </a>
             </Tooltip>
-            <span className="Comment__footer__count">{dislikesValue}</span>
+            <span
+              className={classNames('Comment__footer__count', {
+                'Comment__footer__count--clickable': (upVotes.length > 0) || (downVotes.length > 0),
+              })}
+              role="presentation"
+              onClick={this.handleShowReactions}
+            >
+              <Tooltip
+                title={
+                  <div>
+                    {downVotesPreview}
+                    {downVotesMore}
+                    {downVotes.length === 0 && 'No dislikes!'}
+                  </div>
+                }
+              >
+                {dislikesValue}
+              </Tooltip>
+            </span>
             <span className="Comment__footer__bullet" />
             <span className="Comment__footer__payout">
               <Tooltip title={<PayoutDetail post={comment} />}>
@@ -204,6 +265,12 @@ class Comment extends React.Component {
                 </a>
               </span>}
           </div>
+          <ReactionsModal
+            visible={this.state.reactionsModalVisible}
+            upVotes={upVotes}
+            downVotes={downVotes}
+            onClose={this.handleCloseReactions}
+          />
           {this.state.replyOpen &&
             authenticated &&
             <CommentForm

@@ -11,6 +11,7 @@ import { AppContainer } from 'react-hot-loader';
 import { LocaleProvider, message } from 'antd';
 import enUS from 'antd/lib/locale-provider/en_US';
 import { history } from './routes';
+import pkg from '../package.json';
 import getStore from './store';
 import AppHost from './AppHost';
 
@@ -19,6 +20,7 @@ Logger.useDefaults();
 const store = getStore();
 
 ReactGA.initialize('UA-87507611-1');
+ReactGA.set({ appVersion: pkg.version });
 const logPageView = () => {
   ReactGA.set({ page: window.location.pathname });
   ReactGA.pageview(window.location.pathname);

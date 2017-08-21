@@ -1,5 +1,6 @@
 import { createAction } from 'redux-actions';
 import SteemConnect from 'sc2-sdk';
+import ReactGA from 'react-ga';
 import { createCommentPermlink } from '../vendor/steemitHelpers';
 import { notify } from '../app/Notification/notificationActions';
 
@@ -101,7 +102,7 @@ export const sendCommentV2 = (parentPost, body) =>
 
     const author = auth.user.name;
     const permlink = createCommentPermlink(parentAuthor, parentPermlink);
-    const jsonMetadata = { tags: [category], app: `busy/${version}` };
+    const jsonMetadata = { tags: [category], community: 'busy', app: `busy/${version}` };
 
     return dispatch({
       type: SEND_COMMENT,
@@ -118,6 +119,12 @@ export const sendCommentV2 = (parentPost, body) =>
           .then(() => {
             dispatch(notify('Comment submitted successfully', 'success'));
             dispatch(getComments(rootComment));
+
+            ReactGA.event({
+              category: 'comment',
+              action: 'submit',
+              value: 5,
+            });
           }),
       },
       meta: {
@@ -152,7 +159,7 @@ export const sendComment = (parentId = null) =>
 
     const permlink = isEditing ? comments.commentingDraft[id].permlink :
       createCommentPermlink(parentAuthor, parentPermlink);
-    const jsonMetadata = { tags: [category], app: `busy/${version}` };
+    const jsonMetadata = { tags: [category], community: 'busy', app: `busy/${version}` };
 
     return dispatch({
       type: SEND_COMMENT,

@@ -5,7 +5,6 @@ const initialState = {
   isFetching: false,
   isLoaded: false,
   errorMessage: '',
-  layout: 'card',
   locale: 'en',
   rate: 0,
   lastPostId: undefined,
@@ -53,18 +52,6 @@ export default (state = initialState, action) => {
         config: action.config,
       });
 
-    case appTypes.GET_LAYOUT:
-      return {
-        ...state,
-        layout: action.payload.layout,
-      };
-
-    case appTypes.SET_LAYOUT:
-      return {
-        ...state,
-        layout: action.payload.layout,
-      };
-
     case appTypes.GET_LOCALE:
       return {
         ...state,
@@ -82,18 +69,7 @@ export default (state = initialState, action) => {
         ...state,
         rate: action.rate,
       };
-    case appTypes.OPEN_POST_MODAL:
-      return {
-        ...state,
-        isPostModalOpen: true,
-        lastPostId: action.payload,
-      };
-    case appTypes.CLOSE_POST_MODAL:
-      return {
-        ...state,
-        isPostModalOpen: false,
-        lastPostId: null,
-      };
+
     case postActions.GET_CONTENT_START:
       return {
         ...state,
@@ -112,7 +88,6 @@ export default (state = initialState, action) => {
   }
 };
 
-export const getLayout = state => state.layout;
 export const getLocale = state => state.locale;
 export const getRate = state => state.rate;
 export const getLastPostId = state => state.lastPostId;

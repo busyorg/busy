@@ -42,7 +42,10 @@ export default class PostFeedEmbed extends React.Component {
   render() {
     const { embed } = this.props;
 
-    if (embed.provider_name === 'YouTube' && !this.state.showIframe) {
+    if (
+      (embed.provider_name === 'YouTube' || embed.provider_name === 'DTube')
+      && !this.state.showIframe
+    ) {
       return this.renderThumbFirst(embed.thumbnail);
     } else if (embed.embed) {
       return PostFeedEmbed.renderWithIframe(embed.embed);
