@@ -290,6 +290,8 @@ class PostEditor extends Component {
 
   render() {
     const { editorState } = this.state;
+    /* eslint-disable no-console */
+    console.log('render state', plugins);
 
     // If the user changes block type before entering any text, we can
     // either style the placeholder or hide it. Let's just hide it now.
@@ -320,7 +322,7 @@ class PostEditor extends Component {
             editorState={editorState}
             handleKeyCommand={this.handleKeyCommand}
             onChange={this.onChange}
-            plugins={plugins}
+            plugins={[plugins]}
           />
           <EmojiSuggestions />
           <DeleteImgBtn />
