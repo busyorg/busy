@@ -1892,9 +1892,21 @@ exports[`Storyshots Story Full story 1`] = `
         />
       </a>
       <span
-        className="StoryFooter__number"
+        className="StoryFooter__number StoryFooter__reactions-count"
+        onClick={[Function]}
+        role="presentation"
       >
-        133
+        <span
+          onBlur={undefined}
+          onClick={undefined}
+          onFocus={undefined}
+          onMouseDown={undefined}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onTouchStart={undefined}
+        >
+          133
+        </span>
       </span>
       <a
         className="StoryFooter__link"
@@ -1916,25 +1928,21 @@ exports[`Storyshots Story Full story 1`] = `
       >
         18
       </span>
-      <span
+      <a
+        className="StoryFooter__link"
         onBlur={undefined}
-        onClick={undefined}
+        onClick={[Function]}
         onFocus={undefined}
         onMouseDown={undefined}
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
         onTouchStart={undefined}
+        role="presentation"
       >
-        <a
-          className="StoryFooter__link"
-          onClick={[Function]}
-          role="presentation"
-        >
-          <i
-            className="iconfont icon-send StoryFooter__share"
-          />
-        </a>
-      </span>
+        <i
+          className="iconfont icon-send StoryFooter__share"
+        />
+      </a>
     </div>
   </div>
 </div>
@@ -2141,9 +2149,21 @@ exports[`Storyshots Story Full story with embed 1`] = `
         />
       </a>
       <span
-        className="StoryFooter__number"
+        className="StoryFooter__number StoryFooter__reactions-count"
+        onClick={[Function]}
+        role="presentation"
       >
-        658
+        <span
+          onBlur={undefined}
+          onClick={undefined}
+          onFocus={undefined}
+          onMouseDown={undefined}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onTouchStart={undefined}
+        >
+          658
+        </span>
       </span>
       <a
         className="StoryFooter__link"
@@ -2165,25 +2185,21 @@ exports[`Storyshots Story Full story with embed 1`] = `
       >
         57
       </span>
-      <span
+      <a
+        className="StoryFooter__link"
         onBlur={undefined}
-        onClick={undefined}
+        onClick={[Function]}
         onFocus={undefined}
         onMouseDown={undefined}
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
         onTouchStart={undefined}
+        role="presentation"
       >
-        <a
-          className="StoryFooter__link"
-          onClick={[Function]}
-          role="presentation"
-        >
-          <i
-            className="iconfont icon-send StoryFooter__share"
-          />
-        </a>
-      </span>
+        <i
+          className="iconfont icon-send StoryFooter__share"
+        />
+      </a>
     </div>
   </div>
 </div>
@@ -2345,9 +2361,21 @@ exports[`Storyshots Story Inline story 1`] = `
           />
         </a>
         <span
-          className="StoryFooter__number"
+          className="StoryFooter__number StoryFooter__reactions-count"
+          onClick={[Function]}
+          role="presentation"
         >
-          133
+          <span
+            onBlur={undefined}
+            onClick={undefined}
+            onFocus={undefined}
+            onMouseDown={undefined}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onTouchStart={undefined}
+          >
+            133
+          </span>
         </span>
         <a
           className="StoryFooter__link"
@@ -2369,25 +2397,21 @@ exports[`Storyshots Story Inline story 1`] = `
         >
           18
         </span>
-        <span
+        <a
+          className="StoryFooter__link"
           onBlur={undefined}
-          onClick={undefined}
+          onClick={[Function]}
           onFocus={undefined}
           onMouseDown={undefined}
           onMouseEnter={[Function]}
           onMouseLeave={[Function]}
           onTouchStart={undefined}
+          role="presentation"
         >
-          <a
-            className="StoryFooter__link"
-            onClick={[Function]}
-            role="presentation"
-          >
-            <i
-              className="iconfont icon-send StoryFooter__share"
-            />
-          </a>
-        </span>
+          <i
+            className="iconfont icon-send StoryFooter__share"
+          />
+        </a>
       </div>
     </div>
   </div>
@@ -2559,9 +2583,21 @@ exports[`Storyshots Story Inline story with embed 1`] = `
           />
         </a>
         <span
-          className="StoryFooter__number"
+          className="StoryFooter__number StoryFooter__reactions-count"
+          onClick={[Function]}
+          role="presentation"
         >
-          658
+          <span
+            onBlur={undefined}
+            onClick={undefined}
+            onFocus={undefined}
+            onMouseDown={undefined}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onTouchStart={undefined}
+          >
+            658
+          </span>
         </span>
         <a
           className="StoryFooter__link"
@@ -2583,25 +2619,21 @@ exports[`Storyshots Story Inline story with embed 1`] = `
         >
           57
         </span>
-        <span
+        <a
+          className="StoryFooter__link"
           onBlur={undefined}
-          onClick={undefined}
+          onClick={[Function]}
           onFocus={undefined}
           onMouseDown={undefined}
           onMouseEnter={[Function]}
           onMouseLeave={[Function]}
           onTouchStart={undefined}
+          role="presentation"
         >
-          <a
-            className="StoryFooter__link"
-            onClick={[Function]}
-            role="presentation"
-          >
-            <i
-              className="iconfont icon-send StoryFooter__share"
-            />
-          </a>
-        </span>
+          <i
+            className="iconfont icon-send StoryFooter__share"
+          />
+        </a>
       </div>
     </div>
   </div>

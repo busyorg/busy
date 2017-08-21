@@ -34,4 +34,10 @@ export const sortComments = (comments, sortType = 'BEST') => {
   }
 };
 
+export const sortVotes = (a, b) => {
+  const aShares = parseInt(a.rshares, 10);
+  const bShares = parseInt(b.rshares, 10);
+  return bShares - aShares;
+};
+
 export default null;
