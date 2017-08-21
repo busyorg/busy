@@ -28,7 +28,8 @@ const POSTCSS_LOADER = {
       }),
     ],
   },
-}
+};
+
 function isVendor({ resource }) {
   return resource &&
     resource.indexOf('node_modules') >= 0 &&
@@ -44,12 +45,11 @@ function makePlugins(options) {
         // This has effect on the react lib size
         NODE_ENV: isDevelopment ? JSON.stringify('development') : JSON.stringify('production'),
         ENABLE_LOGGER: JSON.stringify(process.env.ENABLE_LOGGER),
-        BUSYWS_HOST: JSON.stringify(process.env.BUSYWS_HOST || 'https://ws.busy.org'),
-        STEEMCONNECT_IMG_HOST: JSON.stringify(process.env.STEEMCONNECT_IMG_HOST || 'https://img.steemconnect.com'),
+        STEEMCONNECT_IMG_HOST: JSON.stringify(process.env.STEEMCONNECT_IMG_HOST || 'https://img.busy.org'),
         SENTRY_PUBLIC_DSN: isDevelopment ? null : JSON.stringify(process.env.SENTRY_PUBLIC_DSN),
         STEEMCONNECT_HOST: JSON.stringify(process.env.STEEMCONNECT_HOST || 'https://v2.steemconnect.com'),
         STEEMCONNECT_REDIRECT_URL: JSON.stringify(process.env.STEEMCONNECT_REDIRECT_URL || 'https://busy.org/callback'),
-        WS: JSON.stringify(process.env.WS || 'wss://steemd-int.steemit.com'),
+        STEEMJS_URL: JSON.stringify(process.env.STEEMJS_URL),
         IS_BROWSER: JSON.stringify(true),
         PUSHPAD_PROJECT_ID: process.env.PUSHPAD_PROJECT_ID,
         BUSYPUSH_ENDPOINT: process.env.BUSYPUSH_ENDPOINT,
@@ -57,7 +57,7 @@ function makePlugins(options) {
     }),
     new LodashModuleReplacementPlugin({ collections: true, paths: true, shorthands: true }),
     new Visualizer({
-      filename: './statistics.html'
+      filename: './statistics.html',
     }),
   ];
 
@@ -68,12 +68,13 @@ function makePlugins(options) {
     ]);
   } else {
     plugins = plugins.concat([
+      new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en|zh|es|fr|de|ru|ko|nl|se/),
       new webpack.optimize.CommonsChunkPlugin({
         name: 'vendor',
         minChunks(module) {
           // this assumes your vendor imports exist in the node_modules directory
           return isVendor(module);
-        }
+        },
       }),
       new webpack.optimize.CommonsChunkPlugin({
         name: 'manifest',
@@ -93,8 +94,6 @@ function makePlugins(options) {
 
   return plugins;
 }
-
-
 
 function makeStyleLoaders(options) {
   if (options.isDevelopment) {
@@ -159,13 +158,13 @@ function makeConfig(options = {}) {
         // bundle the client for hot reloading
         // only- means to only hot reload for successful updates
       ] : []).concat([
-        path.join(options.baseDir, 'src/index.js')]
-        ),
+        path.join(options.baseDir, 'src/index.js')],
+      ),
     },
     output: {
       path: path.join(options.baseDir, '/public/js'),
       filename: options.isDevelopment ? 'busyapp-[name].js' : 'busyapp-[name].[chunkhash].js',
-      publicPath: '/js/'
+      publicPath: '/js/',
     },
     plugins: makePlugins(options),
     module: {
@@ -178,8 +177,8 @@ function makeConfig(options = {}) {
               {
                 loader: 'babel-loader',
               },
-            ]
-          )
+            ],
+          ),
         },
         {
           test: /\.(eot|ttf|woff|woff2|svg)(\?.+)?$/,
@@ -198,8 +197,8 @@ function makeConfig(options = {}) {
           test: /\.html$/,
           loader: 'html-loader',
           options: {
-            removeComments: false
-          }
+            removeComments: false,
+          },
         },
       ].concat(makeStyleLoaders(options)),
     },

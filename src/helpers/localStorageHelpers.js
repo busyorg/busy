@@ -45,12 +45,6 @@ export const toggleFavoriteCategory = (category) => {
     : addFavoriteCategory(category);
 };
 
-export const getLayout = () => store.get('layout') || 'card';
-
-export const setLayout = (layout) => {
-  store.set('layout', layout);
-};
-
 export const getLocale = () => store.get('locale') || 'en';
 
 export const setLocale = (locale) => {

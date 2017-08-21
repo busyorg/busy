@@ -17,7 +17,6 @@ const logger = require('morgan');
 const bodyParser = require('body-parser');
 const http = require('http');
 const https = require('https');
-const cors = require('cors');
 const debug = require('debug')('busy:serverApp');
 const steem = require('steem');
 
@@ -36,11 +35,9 @@ if (process.env.NODE_ENV !== 'production') {
   require('../webpack')(app);
 }
 
-if (process.env.WS) {
-  steem.api.setOptions({
-    transport: 'ws',
-    websocket: process.env.WS,
-  });
+steem.api.setOptions({ transport: 'http' });
+if (process.env.STEEMJS_URL) {
+  steem.api.setOptions({ url: process.env.STEEMJS_URL });
 }
 
 app.locals.env = process.env;
@@ -55,7 +52,6 @@ app.use((req, res, next) => {
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cors());
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(rootDir, 'public'), { maxAge: OneWeek }));

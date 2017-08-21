@@ -142,6 +142,7 @@ class Write extends React.Component {
     }
 
     const metaData = {
+      community: 'busy',
       app: `busy/${version}`,
       format: 'markdown',
     };
