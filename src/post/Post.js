@@ -187,7 +187,9 @@ export default class Post extends React.Component {
     };
 
     const likePost =
-      userVote.percent > 0 ? () => votePost(content.id, 0) : () => votePost(content.id);
+      userVote.percent > 0
+        ? () => votePost(content.id, content.author, content.permlink, 0)
+        : () => votePost(content.id, content.author, content.permlink);
     const reportPost = () => votePost(content.id, -1000);
 
     const { title, category, created, author, body } = content;
