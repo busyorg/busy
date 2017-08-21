@@ -36,6 +36,7 @@ export default class Wrapper extends React.PureComponent {
     user: PropTypes.shape().isRequired,
     locale: PropTypes.string.isRequired,
     children: PropTypes.element.isRequired,
+    history: PropTypes.shape().isRequired,
     login: PropTypes.func,
     logout: PropTypes.func,
     getConfig: PropTypes.func,
@@ -76,8 +77,15 @@ export default class Wrapper extends React.PureComponent {
   };
 
   handleMenuItemClick = (key) => {
-    if (key === 'logout') {
-      this.props.logout();
+    switch (key) {
+      case 'logout':
+        this.props.logout();
+        break;
+      case 'settings':
+        this.props.history.push('/settings');
+        break;
+      default:
+        break;
     }
   };
 
