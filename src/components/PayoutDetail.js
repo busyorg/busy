@@ -64,7 +64,7 @@ const PayoutDetail = ({ post }) => {
         </div> :
         <div>
           <AmountWithLabel label="Total Past Payouts" amount={pastPayouts} />
-          <AmountWithLabel label="Authors Payout" amount={authorPayouts} />
+          <AmountWithLabel label="Author Payout" amount={authorPayouts} />
           <AmountWithLabel label="Curators Payout" amount={curatorPayouts} />
         </div>
       }
