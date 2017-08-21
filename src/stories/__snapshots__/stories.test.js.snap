@@ -619,7 +619,7 @@ exports[`Storyshots Navigation Topnav logged 1`] = `
                 <img
                   alt="guest123"
                   className="Avatar"
-                  src="https://img.steemconnect.com/@guest123?s=36"
+                  src="https://img.busy.org/@guest123?s=36"
                   style={
                     Object {
                       "height": "36px",
@@ -813,6 +813,11 @@ exports[`Storyshots Profile UserHeader 1`] = `
 >
   <div
     className="UserHeader"
+    style={
+      Object {
+        "backgroundImage": "url(\\"https://img.busy.org/@/cover\\")",
+      }
+    }
   >
     <div
       className="UserHeader__container"
@@ -820,7 +825,7 @@ exports[`Storyshots Profile UserHeader 1`] = `
       <img
         alt=""
         className="Avatar"
-        src="https://img.steemconnect.com/@steemconnect?s=100"
+        src="https://img.busy.org/@steemconnect?s=100"
         style={
           Object {
             "height": "100px",
@@ -1068,7 +1073,7 @@ exports[`Storyshots Sidebar Interesting People 1`] = `
               <img
                 alt="liondani"
                 className="Avatar"
-                src="https://img.steemconnect.com/@liondani?s=34"
+                src="https://img.busy.org/@liondani?s=34"
                 style={
                   Object {
                     "height": "34px",
@@ -1123,7 +1128,7 @@ exports[`Storyshots Sidebar Interesting People 1`] = `
               <img
                 alt="good-karma"
                 className="Avatar"
-                src="https://img.steemconnect.com/@good-karma?s=34"
+                src="https://img.busy.org/@good-karma?s=34"
                 style={
                   Object {
                     "height": "34px",
@@ -1178,7 +1183,7 @@ exports[`Storyshots Sidebar Interesting People 1`] = `
               <img
                 alt="furion"
                 className="Avatar"
-                src="https://img.steemconnect.com/@furion?s=34"
+                src="https://img.busy.org/@furion?s=34"
                 style={
                   Object {
                     "height": "34px",
@@ -1726,7 +1731,7 @@ exports[`Storyshots Story Full story 1`] = `
         <img
           alt="bitspace"
           className="Avatar"
-          src="https://img.steemconnect.com/@bitspace?s=60"
+          src="https://img.busy.org/@bitspace?s=60"
           style={
             Object {
               "height": "60px",
@@ -1892,9 +1897,21 @@ exports[`Storyshots Story Full story 1`] = `
         />
       </a>
       <span
-        className="StoryFooter__number"
+        className="StoryFooter__number StoryFooter__reactions-count"
+        onClick={[Function]}
+        role="presentation"
       >
-        133
+        <span
+          onBlur={undefined}
+          onClick={undefined}
+          onFocus={undefined}
+          onMouseDown={undefined}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onTouchStart={undefined}
+        >
+          133
+        </span>
       </span>
       <a
         className="StoryFooter__link"
@@ -1916,25 +1933,21 @@ exports[`Storyshots Story Full story 1`] = `
       >
         18
       </span>
-      <span
+      <a
+        className="StoryFooter__link"
         onBlur={undefined}
-        onClick={undefined}
+        onClick={[Function]}
         onFocus={undefined}
         onMouseDown={undefined}
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
         onTouchStart={undefined}
+        role="presentation"
       >
-        <a
-          className="StoryFooter__link"
-          onClick={[Function]}
-          role="presentation"
-        >
-          <i
-            className="iconfont icon-send StoryFooter__share"
-          />
-        </a>
-      </span>
+        <i
+          className="iconfont icon-send StoryFooter__share"
+        />
+      </a>
     </div>
   </div>
 </div>
@@ -1977,7 +1990,7 @@ exports[`Storyshots Story Full story with embed 1`] = `
         <img
           alt="fyrstikken"
           className="Avatar"
-          src="https://img.steemconnect.com/@fyrstikken?s=60"
+          src="https://img.busy.org/@fyrstikken?s=60"
           style={
             Object {
               "height": "60px",
@@ -2141,9 +2154,21 @@ exports[`Storyshots Story Full story with embed 1`] = `
         />
       </a>
       <span
-        className="StoryFooter__number"
+        className="StoryFooter__number StoryFooter__reactions-count"
+        onClick={[Function]}
+        role="presentation"
       >
-        658
+        <span
+          onBlur={undefined}
+          onClick={undefined}
+          onFocus={undefined}
+          onMouseDown={undefined}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onTouchStart={undefined}
+        >
+          658
+        </span>
       </span>
       <a
         className="StoryFooter__link"
@@ -2165,25 +2190,21 @@ exports[`Storyshots Story Full story with embed 1`] = `
       >
         57
       </span>
-      <span
+      <a
+        className="StoryFooter__link"
         onBlur={undefined}
-        onClick={undefined}
+        onClick={[Function]}
         onFocus={undefined}
         onMouseDown={undefined}
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
         onTouchStart={undefined}
+        role="presentation"
       >
-        <a
-          className="StoryFooter__link"
-          onClick={[Function]}
-          role="presentation"
-        >
-          <i
-            className="iconfont icon-send StoryFooter__share"
-          />
-        </a>
-      </span>
+        <i
+          className="iconfont icon-send StoryFooter__share"
+        />
+      </a>
     </div>
   </div>
 </div>
@@ -2221,7 +2242,7 @@ exports[`Storyshots Story Inline story 1`] = `
         <img
           alt="bitspace"
           className="Avatar"
-          src="https://img.steemconnect.com/@bitspace?s=40"
+          src="https://img.busy.org/@bitspace?s=40"
           style={
             Object {
               "height": "40px",
@@ -2345,9 +2366,21 @@ exports[`Storyshots Story Inline story 1`] = `
           />
         </a>
         <span
-          className="StoryFooter__number"
+          className="StoryFooter__number StoryFooter__reactions-count"
+          onClick={[Function]}
+          role="presentation"
         >
-          133
+          <span
+            onBlur={undefined}
+            onClick={undefined}
+            onFocus={undefined}
+            onMouseDown={undefined}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onTouchStart={undefined}
+          >
+            133
+          </span>
         </span>
         <a
           className="StoryFooter__link"
@@ -2369,25 +2402,21 @@ exports[`Storyshots Story Inline story 1`] = `
         >
           18
         </span>
-        <span
+        <a
+          className="StoryFooter__link"
           onBlur={undefined}
-          onClick={undefined}
+          onClick={[Function]}
           onFocus={undefined}
           onMouseDown={undefined}
           onMouseEnter={[Function]}
           onMouseLeave={[Function]}
           onTouchStart={undefined}
+          role="presentation"
         >
-          <a
-            className="StoryFooter__link"
-            onClick={[Function]}
-            role="presentation"
-          >
-            <i
-              className="iconfont icon-send StoryFooter__share"
-            />
-          </a>
-        </span>
+          <i
+            className="iconfont icon-send StoryFooter__share"
+          />
+        </a>
       </div>
     </div>
   </div>
@@ -2426,7 +2455,7 @@ exports[`Storyshots Story Inline story with embed 1`] = `
         <img
           alt="fyrstikken"
           className="Avatar"
-          src="https://img.steemconnect.com/@fyrstikken?s=40"
+          src="https://img.busy.org/@fyrstikken?s=40"
           style={
             Object {
               "height": "40px",
@@ -2559,9 +2588,21 @@ exports[`Storyshots Story Inline story with embed 1`] = `
           />
         </a>
         <span
-          className="StoryFooter__number"
+          className="StoryFooter__number StoryFooter__reactions-count"
+          onClick={[Function]}
+          role="presentation"
         >
-          658
+          <span
+            onBlur={undefined}
+            onClick={undefined}
+            onFocus={undefined}
+            onMouseDown={undefined}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onTouchStart={undefined}
+          >
+            658
+          </span>
         </span>
         <a
           className="StoryFooter__link"
@@ -2583,25 +2624,21 @@ exports[`Storyshots Story Inline story with embed 1`] = `
         >
           57
         </span>
-        <span
+        <a
+          className="StoryFooter__link"
           onBlur={undefined}
-          onClick={undefined}
+          onClick={[Function]}
           onFocus={undefined}
           onMouseDown={undefined}
           onMouseEnter={[Function]}
           onMouseLeave={[Function]}
           onTouchStart={undefined}
+          role="presentation"
         >
-          <a
-            className="StoryFooter__link"
-            onClick={[Function]}
-            role="presentation"
-          >
-            <i
-              className="iconfont icon-send StoryFooter__share"
-            />
-          </a>
-        </span>
+          <i
+            className="iconfont icon-send StoryFooter__share"
+          />
+        </a>
       </div>
     </div>
   </div>

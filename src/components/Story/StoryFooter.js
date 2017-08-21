@@ -2,9 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import numeral from 'numeral';
+import { take } from 'lodash';
 import { Icon, Tooltip, Modal } from 'antd';
 import classNames from 'classnames';
-
+import { sortVotes } from '../../helpers/sortHelpers';
+import { getUpvotes, getDownvotes } from '../../helpers/voteHelpers';
+import ReactionsModal from '../Reactions/ReactionsModal';
 import PayoutDetail from '../PayoutDetail';
 import './StoryFooter.less';
 
@@ -28,6 +31,7 @@ class StoryFooter extends React.Component {
     this.state = {
       shareModalVisible: false,
       shareModalLoading: false,
+      reactionsModalVisible: false,
     };
   }
 
@@ -63,14 +67,32 @@ class StoryFooter extends React.Component {
     });
   };
 
+  handleShowReactions = () => this.setState({
+    reactionsModalVisible: true,
+  });
+
+  handleCloseReactions = () => this.setState({
+    reactionsModalVisible: false,
+  })
+
   render() {
     const { post, postState, pendingLike, onLikeClick } = this.props;
     const maxPayout = parseFloat(post.max_accepted_payout) || 0;
     const payout = parseFloat(post.pending_payout_value) || parseFloat(post.total_payout_value);
     const payoutValue = numeral(payout).format('$0,0.00');
-    const likesValue = numeral(post.active_votes.filter(vote => vote.percent > 0).length).format(
+
+    const upVotes = getUpvotes(post.active_votes).sort(sortVotes);
+    const downVotes = getDownvotes(post.active_votes).sort(sortVotes).reverse();
+
+    const likesValue = numeral(upVotes.length).format(
       '0,0',
     );
+
+    const upVotesPreview = take(upVotes.sort(sortVotes), 10)
+      .map(vote => <p key={vote.voter}>{vote.voter}</p>);
+    const upVotesDiff = upVotes.length - upVotesPreview.length;
+    const upVotesMore = (upVotesDiff > 0) ? `and ${numeral(upVotesDiff).format('0,0')} more` : null;
+
     const commentsValue = numeral(post.children).format('0,0');
     const likeClass = classNames({ active: postState.isLiked, StoryFooter__link: true });
     const rebloggedClass = classNames({ active: postState.isReblogged, StoryFooter__link: true });
@@ -97,8 +119,24 @@ class StoryFooter extends React.Component {
             {pendingLike ? <Icon type="loading" /> : <i className="iconfont icon-praise_fill" />}
           </a>
         </Tooltip>
-        <span className="StoryFooter__number">
-          {likesValue}
+        <span
+          className={classNames('StoryFooter__number', {
+            'StoryFooter__reactions-count': (upVotes.length > 0) || (downVotes.length > 0),
+          })}
+          role="presentation"
+          onClick={this.handleShowReactions}
+        >
+          <Tooltip
+            title={
+              <div>
+                {upVotesPreview}
+                {upVotesMore}
+                {upVotesPreview.length === 0 && 'No likes yet.'}
+              </div>
+            }
+          >
+            {likesValue}
+          </Tooltip>
         </span>
         <Tooltip title="Comment">
           <Link
@@ -120,18 +158,24 @@ class StoryFooter extends React.Component {
           <a role="presentation" className={rebloggedClass} onClick={this.handleShareClick}>
             <i className="iconfont icon-send StoryFooter__share" />
           </a>
-          {!postState.isReblogged &&
-            <Modal
-              title="Reblog this post?"
-              visible={this.state.shareModalVisible}
-              confirmLoading={this.state.shareModalLoading}
-              okText="Reblog"
-              onOk={this.handleShareOk}
-              onCancel={this.handleShareCancel}
-            >
-              This post will appear on your personal feed. This action <b>cannot</b> be reversed.
-            </Modal>}
         </Tooltip>
+        {!postState.isReblogged &&
+          <Modal
+            title="Reblog this post?"
+            visible={this.state.shareModalVisible}
+            confirmLoading={this.state.shareModalLoading}
+            okText="Reblog"
+            onOk={this.handleShareOk}
+            onCancel={this.handleShareCancel}
+          >
+            This post will appear on your personal feed. This action <b>cannot</b> be reversed.
+          </Modal>}
+        <ReactionsModal
+          visible={this.state.reactionsModalVisible}
+          upVotes={upVotes}
+          downVotes={downVotes}
+          onClose={this.handleCloseReactions}
+        />
       </div>
     );
   }
