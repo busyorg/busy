@@ -1,13 +1,11 @@
 import Promise from 'bluebird';
 import assert from 'assert';
-import request from 'superagent';
 import SteemConnect from 'sc2-sdk';
+import ReactGA from 'react-ga';
 import { push } from 'react-router-redux';
 import { createAction } from 'redux-actions';
 import { jsonParse } from '../../helpers/formatter';
 import { createPermlink, getBodyPatchIfSmaller } from '../../vendor/steemitHelpers';
-
-Promise.promisifyAll(request.Request.prototype);
 
 export const CREATE_POST = '@editor/CREATE_POST';
 export const CREATE_POST_START = '@editor/CREATE_POST_START';
@@ -158,6 +156,12 @@ export function createPost(postData) {
               dispatch(deleteDraft(draftId));
             }
             dispatch(push(`/${parentPermlink}/@${author}/${permlink}`));
+
+            ReactGA.event({
+              category: 'post',
+              action: 'submit',
+              value: 10,
+            });
             return result;
           }),
         ),

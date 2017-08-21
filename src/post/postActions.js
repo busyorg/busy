@@ -1,4 +1,5 @@
 import steemConnect from 'sc2-sdk';
+import ReactGA from 'react-ga';
 import Promise from 'bluebird';
 import { omit } from 'lodash/object';
 
@@ -47,6 +48,12 @@ export const votePost = (postId, author, permlink, weight = 10000) => (dispatch,
       promise: steemConnect
         .vote(voter, posts[postId].author, posts[postId].permlink, weight)
         .then((res) => {
+          ReactGA.event({
+            category: 'vote',
+            action: 'submit',
+            value: 1,
+          });
+
           // Delay to make sure you get the latest data (unknown issue with API)
           setTimeout(
             () =>
