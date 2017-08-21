@@ -2135,7 +2135,7 @@ exports[`Storyshots Story Full story with embed 1`] = `
           onMouseLeave={[Function]}
           onTouchStart={undefined}
         >
-          $688.75
+          $737.54
         </span>
       </span>
       <a
@@ -2569,7 +2569,7 @@ exports[`Storyshots Story Inline story with embed 1`] = `
             onMouseLeave={[Function]}
             onTouchStart={undefined}
           >
-            $688.75
+            $737.54
           </span>
         </span>
         <a
