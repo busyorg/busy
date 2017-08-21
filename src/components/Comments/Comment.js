@@ -9,6 +9,7 @@ import { Tag, Tooltip } from 'antd';
 import { formatter } from 'steem';
 import { getUpvotes, getDownvotes } from '../../helpers/voteHelpers';
 import { sortComments, sortVotes } from '../../helpers/sortHelpers';
+import { calculatePayout } from '../../vendor/steemitHelpers';
 import ReactionsModal from '../Reactions/ReactionsModal';
 import CommentForm from './CommentForm';
 import PayoutDetail from '../PayoutDetail';
@@ -119,9 +120,15 @@ class Comment extends React.Component {
       onDislikeClick,
     } = this.props;
 
-    const pendingPayoutValue = parseFloat(comment.pending_payout_value);
-    const totalPayoutValue = parseFloat(comment.total_payout_value);
-    const payoutValue = numeral(totalPayoutValue || pendingPayoutValue).format('$0,0.000');
+    const payout = calculatePayout(comment);
+
+    let payoutValue = '';
+
+    if (payout.cashoutInTime) {
+      payoutValue = numeral(payout.potentialPayout).format('$0,0.00');
+    } else {
+      payoutValue = numeral(payout.pastPayouts).format('$0,0.00');
+    }
 
     const upVotes = getUpvotes(comment.active_votes).sort(sortVotes);
     const downVotes = getDownvotes(comment.active_votes).sort(sortVotes).reverse();
