@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { bindActionCreators } from 'redux';
 import sanitize from 'sanitize-html';
+import { formatter } from 'steem';
+import config from '../../../config';
 
 import { getHtml } from '../Body';
 import * as postActions from './../postActions';
@@ -17,6 +19,7 @@ import { editPost } from '../Write/EditorActions';
 import Loading from '../../widgets/Loading';
 import { jsonParse } from '../../helpers/formatter';
 
+
 @connect(
   ({ posts, app, reblog, auth, bookmarks }) => ({
     content: posts[app.lastPostId] || null,
@@ -25,6 +28,7 @@ import { jsonParse } from '../../helpers/formatter';
     reblogList: reblog,
     bookmarks,
     auth,
+    app
   }),
   (dispatch, ownProps) => bindActionCreators({
     reblog: reblogActions.reblog,
@@ -35,7 +39,7 @@ import { jsonParse } from '../../helpers/formatter';
     }),
     openCommentingDraft: commentsActions.openCommentingDraft,
     closeCommentingDraft: commentsActions.closeCommentingDraft,
-    likePost: id => postActions.votePost(id),
+    likePost: (id, power) => postActions.votePost(id, power),
     unlikePost: id => postActions.votePost(id, 0),
     dislikePost: id => postActions.votePost(id, -1000),
     toggleBookmark: bookmarkActions.toggleBookmark,
@@ -62,6 +66,8 @@ export default class PostSingle extends Component {
     modalResetScroll: () => null,
   };
 
+  state = { showingVoteBar: false }
+
   componentWillMount() {
     const { content } = this.props;
     if (!content) {
@@ -83,6 +89,14 @@ export default class PostSingle extends Component {
     if (process.env.IS_BROWSER) {
       global.document.title = 'Busy';
     }
+  }
+
+  showVoteBar = () => {
+    this.setState(() => ({ showingVoteBar: true }));
+  }
+
+  hideVoteBar = () => {
+    this.setState(() => ({ showingVoteBar: false }));
   }
 
   render() {
@@ -114,6 +128,15 @@ export default class PostSingle extends Component {
       content.active_votes &&
       content.active_votes.some(vote => vote.voter === auth.user.name && vote.percent < 0);
 
+    const { app } = this.props;
+    const totalVestingShares = app.props ? app.props.total_vesting_shares : 0;
+    const totalVestingFundSteem = app.props ? app.props.total_vesting_fund_steem : 0;
+
+    const power = formatter.vestToSteem(auth.user.vesting_shares, totalVestingShares,
+      totalVestingFundSteem);
+
+    const voteBarEnabled = power > config.constants.LIKE_BAR_MIN_POWER;
+
     const canReblog = auth.isAuthenticated && auth.user.name !== content.author;
 
     const theProps = {
@@ -121,7 +144,7 @@ export default class PostSingle extends Component {
       reblog: () => reblog(content.id),
       isReblogged: reblogList.includes(content.id),
       canReblog,
-      likePost: () => this.props.likePost(content.id),
+      likePost: votePower => this.props.likePost(content.id, votePower),
       unlikePost: () => this.props.unlikePost(content.id),
       dislikePost: () => this.props.dislikePost(content.id),
       isPostLiked,
@@ -134,6 +157,10 @@ export default class PostSingle extends Component {
       prevStory,
       openPostModal: this.props.openPostModal,
       modalResetScroll: this.props.modalResetScroll,
+      showVoteBar: this.showVoteBar,
+      hideVoteBar: this.hideVoteBar,
+      voteBarEnabled,
+      showingVoteBar: this.state.showingVoteBar
     };
 
     const postMetaData = jsonParse(content.json_metadata);
