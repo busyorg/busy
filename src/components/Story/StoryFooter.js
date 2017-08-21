@@ -7,6 +7,7 @@ import { Icon, Tooltip, Modal } from 'antd';
 import classNames from 'classnames';
 import { sortVotes } from '../../helpers/sortHelpers';
 import { getUpvotes, getDownvotes } from '../../helpers/voteHelpers';
+import { calculatePayout } from '../../vendor/steemitHelpers';
 import ReactionsModal from '../Reactions/ReactionsModal';
 import PayoutDetail from '../PayoutDetail';
 import './StoryFooter.less';
@@ -77,9 +78,16 @@ class StoryFooter extends React.Component {
 
   render() {
     const { post, postState, pendingLike, onLikeClick } = this.props;
-    const maxPayout = parseFloat(post.max_accepted_payout) || 0;
-    const payout = parseFloat(post.pending_payout_value) || parseFloat(post.total_payout_value);
-    const payoutValue = numeral(payout).format('$0,0.00');
+
+    const payout = calculatePayout(post);
+
+    let payoutValue = '';
+
+    if (payout.cashoutInTime) {
+      payoutValue = numeral(payout.potentialPayout).format('$0,0.00');
+    } else {
+      payoutValue = numeral(payout.pastPayouts).format('$0,0.00');
+    }
 
     const upVotes = getUpvotes(post.active_votes).sort(sortVotes);
     const downVotes = getDownvotes(post.active_votes).sort(sortVotes).reverse();
@@ -103,7 +111,7 @@ class StoryFooter extends React.Component {
           <Tooltip title={<PayoutDetail post={post} />}>
             <span
               className={classNames({
-                'StoryFooter__payout--rejected': maxPayout === 0,
+                'StoryFooter__payout--rejected': payout.isPayoutDeclined,
               })}
             >
               {payoutValue}

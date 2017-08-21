@@ -21,6 +21,22 @@ AmountWithLabel.defaultProps = {
   amount: 0,
 };
 
+const AmountWithLabelNonZero = ({ label, amount }) =>
+  (_.isNumber(amount) && amount !== 0
+    ? <div>
+      {label}: {numeral(amount).format('$0,0.00')}
+    </div>
+    : null);
+
+AmountWithLabelNonZero.propTypes = {
+  label: PropTypes.string.isRequired,
+  amount: PropTypes.number,
+};
+
+AmountWithLabelNonZero.defaultProps = {
+  amount: 0,
+};
+
 const PayoutDetail = ({ post }) => {
   const {
     payoutLimitHit,
@@ -28,28 +44,30 @@ const PayoutDetail = ({ post }) => {
     promotionCost,
     cashoutInTime,
     isPayoutDeclined,
-    maxAcceptedPayout,
     pastPayouts,
     authorPayouts,
     curatorPayouts,
   } = calculatePayout(post);
 
+  if (isPayoutDeclined) {
+    return <div>Declined Payout</div>;
+  }
+
   return (
     <div>
       {payoutLimitHit && <div>Payout limit reached on this post</div>}
-      <AmountWithLabel label="Potential Payout" amount={potentialPayout} />
-      <AmountWithLabel label="Promoted" amount={promotionCost} />
-      {!isPayoutDeclined &&
-        cashoutInTime &&
+      <AmountWithLabelNonZero label="Promoted" amount={promotionCost} />
+      {cashoutInTime ?
         <div>
+          <AmountWithLabel label="Potential Payout" amount={potentialPayout} />
           Will release <FormattedRelative value={cashoutInTime} />
-        </div>}
-      {isPayoutDeclined && <div>Declined Payout</div>}
-      <AmountWithLabel label="Max Accepted Payout" amount={maxAcceptedPayout} />
-      <AmountWithLabel label="Total Past Payouts" amount={pastPayouts} />
-      <AmountWithLabel label="Authors Payout" amount={authorPayouts} />
-      <AmountWithLabel label="Curators Payout" amount={curatorPayouts} />
-      {!pastPayouts && !potentialPayout ? 'No payout' : ''}
+        </div> :
+        <div>
+          <AmountWithLabel label="Total Past Payouts" amount={pastPayouts} />
+          <AmountWithLabel label="Author Payout" amount={authorPayouts} />
+          <AmountWithLabel label="Curators Payout" amount={curatorPayouts} />
+        </div>
+      }
     </div>
   );
 };
