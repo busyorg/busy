@@ -62,9 +62,12 @@ const PayoutDetail = ({ post }) => {
           <AmountWithLabel label="Potential Payout" amount={potentialPayout} />
           Will release <FormattedRelative value={cashoutInTime} />
         </div>}
-      <AmountWithLabel label="Total Past Payouts" amount={pastPayouts} />
-      <AmountWithLabel label="Authors Payout" amount={authorPayouts} />
-      <AmountWithLabel label="Curators Payout" amount={curatorPayouts} />
+      {!cashoutInTime &&
+        <div>
+          <AmountWithLabel label="Total Past Payouts" amount={pastPayouts} />
+          <AmountWithLabel label="Authors Payout" amount={authorPayouts} />
+          <AmountWithLabel label="Curators Payout" amount={curatorPayouts} />
+        </div>}
     </div>
   );
 };
