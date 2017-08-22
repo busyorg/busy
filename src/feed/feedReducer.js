@@ -27,6 +27,7 @@ const feedFetching = (state = false, action) => {
     case userTypes.GET_USER_REPLIES_SUCCESS:
     case userTypes.GET_MORE_USER_REPLIES_SUCCESS:
     case userTypes.GET_USER_COMMENTS_SUCCESS:
+    case userTypes.GET_MORE_USER_COMMENTS_SUCCESS:
       return false;
     case feedTypes.GET_FEED_CONTENT:
     case feedTypes.GET_MORE_FEED_CONTENT:
@@ -36,6 +37,7 @@ const feedFetching = (state = false, action) => {
     case userTypes.GET_USER_REPLIES_START:
     case userTypes.GET_MORE_USER_REPLIES_START:
     case userTypes.GET_USER_COMMENTS_START:
+    case userTypes.GET_MORE_USER_COMMENTS_START:
       return true;
     default:
       return state;
@@ -61,9 +63,11 @@ const feedIdsList = (state = [], action) => {
       return state;
     }
     case userTypes.GET_USER_COMMENTS_SUCCESS:
-      return Object.keys(action.payload.content).map(key => action.payload.content[key].id);
+      return [...state, ...action.payload.map(comment => comment.id)];
     case userTypes.GET_MORE_USER_COMMENTS_SUCCESS:
-      return action.payload.result.map(comment => comment.id);
+      // remove last element from current state because we used it as start_permlink
+      // for pagination
+      return [...state.slice(0, state.length - 1), ...action.payload.map(comment => comment.id)];
     case userTypes.GET_USER_REPLIES_SUCCESS:
       return Object.keys(action.payload).reverse();
     case userTypes.GET_MORE_USER_REPLIES_SUCCESS:

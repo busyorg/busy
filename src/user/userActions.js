@@ -2,7 +2,7 @@ import Promise from 'bluebird';
 import fetch from 'isomorphic-fetch';
 import steemConnect from 'sc2-sdk';
 
-import { getUserCommentsFromState } from '../helpers/stateHelpers';
+import { getUserCommentsFromState, getFeedLoadingFromState } from '../helpers/stateHelpers';
 import { getAllFollowing, mapAPIContentToId } from '../helpers/apiHelpers';
 
 export const GET_USER_COMMENTS = 'GET_USER_COMMENTS';
@@ -28,15 +28,20 @@ export const GET_MORE_USER_REPLIES_ERROR = '@user/GET_MORE_USER_REPLIES_ERROR';
 export const getUserComments = ({ username }) => (dispatch, getState, { steemAPI }) => {
   const feed = getState().feed;
   if (feed.comments[username] && feed.comments[username].isLoaded) {
-    return Promise.reject('User is not loaded');
+    return null;
   }
 
-  const steemGetState = Promise.promisify(steemAPI.getState, { context: steemAPI });
+  const getDiscussionsByComments = Promise.promisify(steemAPI.getDiscussionsByComments, {
+    context: steemAPI,
+  });
 
   return dispatch({
     type: GET_USER_COMMENTS,
     payload: {
-      promise: steemGetState(`@${username}/posts`),
+      promise: getDiscussionsByComments({
+        start_author: username,
+        limit: 10,
+      }),
     },
     meta: { username },
   });
@@ -44,8 +49,12 @@ export const getUserComments = ({ username }) => (dispatch, getState, { steemAPI
 
 export const getMoreUserComments = (username, limit) => (dispatch, getState, { steemAPI }) => {
   const { feed, comments } = getState();
-  if (feed.comments[username] && feed.comments[username].isLoaded) {
-    return Promise.reject('User is not loaded');
+
+  const feedContent = getUserCommentsFromState(username, feed, comments);
+  const isLoading = getFeedLoadingFromState('comments', username, feed);
+
+  if (!feedContent.length || isLoading) {
+    return null;
   }
 
   const getDiscussionsByComments = Promise.promisify(steemAPI.getDiscussionsByComments, {

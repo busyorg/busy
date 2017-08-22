@@ -160,13 +160,13 @@ class StoryFooter extends React.Component {
         <span className="StoryFooter__number">
           {commentsValue}
         </span>
-        <Tooltip
+        {post.parent_author === '' && <Tooltip
           title={postState.isReblogged ? 'You already reblogged this post' : 'Reblog'}
         >
           <a role="presentation" className={rebloggedClass} onClick={this.handleShareClick}>
             <i className="iconfont icon-send StoryFooter__share" />
           </a>
-        </Tooltip>
+        </Tooltip>}
         {!postState.isReblogged &&
           <Modal
             title="Reblog this post?"
