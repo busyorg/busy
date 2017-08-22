@@ -1103,14 +1103,6 @@ exports[`Storyshots Sidebar Interesting People 1`] = `
               </span>
             </a>
           </div>
-          <button
-            className="Follow"
-            onClick={[Function]}
-            onMouseOut={[Function]}
-            onMouseOver={[Function]}
-          >
-            Follow
-          </button>
         </div>
         <div
           className="User__about"
@@ -1158,14 +1150,6 @@ exports[`Storyshots Sidebar Interesting People 1`] = `
               </span>
             </a>
           </div>
-          <button
-            className="Follow"
-            onClick={[Function]}
-            onMouseOut={[Function]}
-            onMouseOver={[Function]}
-          >
-            Follow
-          </button>
         </div>
         <div
           className="User__about"
@@ -1213,14 +1197,6 @@ exports[`Storyshots Sidebar Interesting People 1`] = `
               </span>
             </a>
           </div>
-          <button
-            className="Follow"
-            onClick={[Function]}
-            onMouseOut={[Function]}
-            onMouseOver={[Function]}
-          >
-            Follow
-          </button>
         </div>
         <div
           className="User__about"

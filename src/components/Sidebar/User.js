@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Avatar from '../Avatar';
-import Follow from '../Button/Follow';
+import FollowButton from '../../widgets/FollowButton';
 import './User.less';
 
 const User = ({ user }) =>
@@ -18,7 +18,7 @@ const User = ({ user }) =>
           </span>
         </Link>
       </div>
-      <Follow username={user.name} />
+      <FollowButton username={user.name} />
     </div>
     <div className="User__about">
       {user.about}
