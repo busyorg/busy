@@ -95,10 +95,6 @@
       font-weight: bold;
       font-size: 14px;
 
-      &--active {
-        color: @purple;
-      }
-
       & > .iconfont {
         margin-right: 4px;
         font-size: 18px !important;
@@ -106,7 +102,7 @@
         vertical-align: -1px;
       }
 
-      &:hover > .iconfont {
+      &:hover > .iconfont, &--active > .iconfont {
         color: @purple;
       }
     }

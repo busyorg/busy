@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import numeral from 'numeral';
-import { take } from 'lodash';
+import { take, find } from 'lodash';
 import { Link } from 'react-router-dom';
 import { FormattedRelative, FormattedDate, FormattedTime } from 'react-intl';
 import { Tag, Tooltip } from 'antd';
@@ -150,6 +150,11 @@ class Comment extends React.Component {
     const downVotesDiff = downVotes.length - downVotesPreview.length;
     const downVotesMore = (upVotesDiff > 0) ? `and ${numeral(downVotesDiff).format('0,0')} more` : null;
 
+    const userVote = find(comment.active_votes, { voter: username });
+
+    const userUpVoted = userVote && userVote.percent > 0;
+    const userDownVoted = userVote && userVote.percent < 0;
+
     return (
       <div className="Comment">
         <span
@@ -199,7 +204,9 @@ class Comment extends React.Component {
             <Tooltip title="Like">
               <a
                 role="presentation"
-                className="Comment__footer__link"
+                className={classNames('Comment__footer__link', {
+                  'Comment__footer__link--active': userUpVoted,
+                })}
                 onClick={() => onLikeClick(comment.id)}
               >
                 <i className="iconfont icon-praise_fill" />
@@ -227,7 +234,9 @@ class Comment extends React.Component {
             <Tooltip title="Dislike">
               <a
                 role="presentation"
-                className="Comment__footer__link"
+                className={classNames('Comment__footer__link', {
+                  'Comment__footer__link--active': userDownVoted,
+                })}
                 onClick={() => onDislikeClick(comment.id)}
               >
                 <i className="iconfont icon-praise_fill Comment__icon_dislike" />
