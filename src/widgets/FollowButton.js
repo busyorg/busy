@@ -30,7 +30,6 @@ class FollowButton extends React.Component {
 
   static defaultProps = {
     authenticatedUserName: undefined,
-    getAccountWithFollowingCount: () => {},
     followUser: () => {},
     unfollowUser: () => {},
   };
