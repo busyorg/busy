@@ -39,7 +39,10 @@ export const showMoreComments = createAction(
 );
 
 export const RELOAD_EXISTING_COMMENT = '@comments/RELOAD_EXISTING_COMMENT';
-export const reloadExistingComment = createAction(RELOAD_EXISTING_COMMENT);
+export const reloadExistingComment = createAction(RELOAD_EXISTING_COMMENT,
+  undefined,
+  data => ({ commentId: data.id }),
+);
 
 const getRootCommentsList = apiRes => Object.keys(apiRes.content)
   .filter(commentKey => apiRes.content[commentKey].depth === 1)
