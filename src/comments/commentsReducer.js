@@ -159,14 +159,14 @@ const commentItem = (state = {}, action) => {
 const commentsData = (state = {}, action) => {
   switch (action.type) {
     case commentsTypes.GET_COMMENTS_SUCCESS:
-    case userTypes.GET_USER_COMMENTS_SUCCESS:
       return {
         ...state,
         ...mapCommentsBasedOnId(action.payload.content),
       };
+    case userTypes.GET_USER_COMMENTS_SUCCESS:
     case userTypes.GET_MORE_USER_COMMENTS_SUCCESS: {
       const commentsMoreList = {};
-      action.payload.result.forEach((comment) => {
+      action.payload.forEach((comment) => {
         commentsMoreList[comment.id] = comment;
       });
       return {
