@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Route, Switch, withRouter } from 'react-router-dom';
 
+import { getUserRank } from '../helpers/ranks';
 import UserHeader from '../components/UserHeader';
 import UserHeaderLoading from '../components/UserHeaderLoading';
 import UserMenu from '../components/UserMenu';
@@ -51,6 +52,7 @@ const UserHero = ({
                   username={username}
                   handle={user.name}
                   userReputation={user.reputation}
+                  rank={getUserRank(user.vesting_shares)}
                   isSameUser={isSameUser}
                   isFollowed={isFollowed}
                   pendingFollow={pendingFollow}

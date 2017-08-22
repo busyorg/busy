@@ -13,6 +13,7 @@ const UserHeader = ({
   username,
   handle,
   userReputation,
+  rank,
   isSameUser,
   isFollowed,
   pendingFollow,
@@ -61,6 +62,9 @@ const UserHeader = ({
         <div className="UserHeader__row UserHeader__handle">
           @{handle}
         </div>
+        <div className="UserHeader__rank">
+          <i className="iconfont icon-select_fill" /> {rank}
+        </div>
       </div>
     </div>
   </div>);
@@ -73,6 +77,7 @@ UserHeader.propTypes = {
     PropTypes.number,
     PropTypes.string,
   ]),
+  rank: PropTypes.string,
   isSameUser: PropTypes.bool,
   isFollowed: PropTypes.bool,
   pendingFollow: PropTypes.bool,
@@ -83,6 +88,7 @@ UserHeader.defaultProps = {
   username: '',
   handle: '',
   userReputation: '0',
+  rank: 'Minnow',
   isSameUser: false,
   isFollowed: false,
   pendingFollow: false,
