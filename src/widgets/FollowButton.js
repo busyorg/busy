@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
+  getAuthenticatedUserName,
   getFollowingList,
   getPendingFollows,
 } from '../reducers';
@@ -10,6 +11,7 @@ import { followUser, unfollowUser } from '../user/userActions';
 import Follow from '../components/Button/Follow';
 
 @connect(state => ({
+  authenticatedUserName: getAuthenticatedUserName(state),
   followingList: getFollowingList(state),
   pendingFollows: getPendingFollows(state),
 }), {
@@ -19,6 +21,7 @@ import Follow from '../components/Button/Follow';
 class FollowButton extends React.Component {
   static propTypes = {
     username: PropTypes.string.isRequired,
+    authenticatedUserName: PropTypes.string,
     followingList: PropTypes.arrayOf(PropTypes.string).isRequired,
     pendingFollows: PropTypes.arrayOf(PropTypes.string).isRequired,
     followUser: PropTypes.func,
@@ -26,6 +29,7 @@ class FollowButton extends React.Component {
   };
 
   static defaultProps = {
+    authenticatedUserName: undefined,
     getAccountWithFollowingCount: () => {},
     followUser: () => {},
     unfollowUser: () => {},
@@ -42,9 +46,11 @@ class FollowButton extends React.Component {
   };
 
   render() {
-    const { username, followingList, pendingFollows } = this.props;
+    const { authenticatedUserName, username, followingList, pendingFollows } = this.props;
     const followed = followingList.includes(username);
     const pending = pendingFollows.includes(username);
+
+    if (authenticatedUserName === username) return null;
 
     return <Follow isFollowed={followed} pending={pending} onClick={this.handleFollowClick} />;
   }
