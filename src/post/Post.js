@@ -187,7 +187,9 @@ export default class Post extends React.Component {
     };
 
     const likePost =
-      userVote.percent > 0 ? () => votePost(content.id, 0) : () => votePost(content.id);
+      userVote.percent > 0
+        ? () => votePost(content.id, content.author, content.permlink, 0)
+        : () => votePost(content.id, content.author, content.permlink);
     const reportPost = () => votePost(content.id, -1000);
 
     const { title, category, created, author, body } = content;
@@ -236,7 +238,7 @@ export default class Post extends React.Component {
               </div>
             </Affix>
             <div className="center" style={{ paddingBottom: '24px' }}>
-              {loading && !pendingLikes.filter(post => post === content.id) > 0
+              {loading
                 ? <Loading />
                 : <StoryFull
                   post={content}
