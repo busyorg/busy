@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import Follow from '../components/Button/Follow';
+import FollowButton from '../widgets/FollowButton';
 import Avatar from '../components/Avatar';
 import './UserCard.less';
 
@@ -15,7 +15,7 @@ const UserCard = ({ username }) =>
         {username}
       </Link>
     </div>
-    <Follow />
+    <FollowButton username={username} />
   </div>);
 
 UserCard.propTypes = {
