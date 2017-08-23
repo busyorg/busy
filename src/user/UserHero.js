@@ -44,7 +44,7 @@ const UserHero = ({
           (<div>
             {
               (user.isFetching) ? <UserHeaderLoading />
-                :  <UserHeader
+                : <UserHeader
                   authenticated={authenticated}
                   username={username}
                   handle={user.name}
