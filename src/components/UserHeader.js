@@ -57,7 +57,7 @@ const UserHeader = ({
           @{handle}
         </div>
         <div className="UserHeader__rank">
-          <i className="iconfont icon-select_fill" /> {rank}
+          <i className="iconfont icon-ranking" /> {rank}
         </div>
       </div>
     </div>

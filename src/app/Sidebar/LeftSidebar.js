@@ -74,8 +74,10 @@ const LeftSidebar = ({ authenticatedUser, user }) => {
                   {location}
                 </div>}
                 {website && <div>
-                  <i className="iconfont icon-send text-icon" />
-                  <a href={website}>{`${hostWithoutWWW}${url.pathname}`}</a>
+                  <i className="iconfont icon-link text-icon" />
+                  <a target="_blank" rel="noopener noreferrer" href={website}>
+                    {`${hostWithoutWWW}${url.pathname}`}
+                  </a>
                 </div>}
                 <div>
                   <i className="iconfont icon-time text-icon" />
