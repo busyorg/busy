@@ -58,7 +58,9 @@ export const getLastPostId = state => fromApp.getLastPostId(state.app);
 export const getFeed = state => fromFeed.getFeed(state.feed);
 
 export const getComments = state => fromComments.getComments(state.comments);
-export const getCommentsPendingVotes = state => fromComments.getCommentsPendingVotes(state.comments);
+export const getCommentsList = state => fromComments.getCommentsList(state.comments);
+export const getCommentsPendingVotes = state =>
+  fromComments.getCommentsPendingVotes(state.comments);
 
 export const getBookmarks = state => fromBookmarks.getBookmarks(state.bookmarks);
 

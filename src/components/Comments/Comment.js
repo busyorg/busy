@@ -110,6 +110,14 @@ class Comment extends React.Component {
       });
   };
 
+  handleLikeClick = () => {
+    this.props.onLikeClick(this.props.comment.id);
+  }
+
+  handleDisLikeClick = () => {
+    this.props.onDislikeClick(this.props.comment.id);
+  }
+
   render() {
     const {
       authenticated,
@@ -119,8 +127,6 @@ class Comment extends React.Component {
       rootPostAuthor,
       commentsChildren,
       pendingVotes,
-      onLikeClick,
-      onDislikeClick,
     } = this.props;
 
     const pending = pendingVotes.includes(comment.id);
@@ -212,7 +218,7 @@ class Comment extends React.Component {
                 className={classNames('Comment__footer__link', {
                   'Comment__footer__link--active': userUpVoted,
                 })}
-                onClick={() => onLikeClick(comment.id)}
+                onClick={this.handleLikeClick}
               >
                 {pending ? <Icon type="loading" /> : <i className="iconfont icon-praise_fill" />}
               </a>
@@ -242,7 +248,7 @@ class Comment extends React.Component {
                 className={classNames('Comment__footer__link', {
                   'Comment__footer__link--active': userDownVoted,
                 })}
-                onClick={() => onDislikeClick(comment.id)}
+                onClick={this.handleDisLikeClick}
               >
                 {pending ? <Icon type="loading" /> : <i className="iconfont icon-praise_fill Comment__icon_dislike" />}
               </a>
@@ -316,8 +322,8 @@ class Comment extends React.Component {
                   pendingVotes={pendingVotes}
                   rootPostAuthor={rootPostAuthor}
                   commentsChildren={commentsChildren}
-                  onLikeClick={onLikeClick}
-                  onDislikeClick={onDislikeClick}
+                  onLikeClick={this.handleLikeClick}
+                  onDislikeClick={this.handleDisLikeClick}
                   onSendComment={this.props.onSendComment}
                 />),
               )}

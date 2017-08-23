@@ -1,8 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { find } from 'lodash';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { getComments, getCommentsPendingVotes, getIsAuthenticated, getAuthenticatedUserName } from '../reducers';
+import {
+  getComments,
+  getCommentsList,
+  getCommentsPendingVotes,
+  getIsAuthenticated,
+  getAuthenticatedUserName,
+} from '../reducers';
 import CommentsList from '../components/Comments/Comments';
 import * as commentsActions from './commentsActions';
 import { notify } from '../app/Notification/notificationActions';
@@ -11,15 +18,15 @@ import './Comments.less';
 @connect(
   state => ({
     comments: getComments(state),
+    commentsList: getCommentsList(state),
     pendingVotes: getCommentsPendingVotes(state),
     authenticated: getIsAuthenticated(state),
     username: getAuthenticatedUserName(state),
   }),
   dispatch => bindActionCreators({
     getComments: commentsActions.getComments,
-    likeComment: id => commentsActions.likeComment(id),
+    voteComment: (id, percent) => commentsActions.likeComment(id, percent),
     sendComment: (parentPost, body) => commentsActions.sendCommentV2(parentPost, body),
-    dislikeComment: id => commentsActions.likeComment(id, -1000),
     notify,
   }, dispatch),
 )
@@ -29,11 +36,11 @@ export default class Comments extends React.Component {
     username: PropTypes.string,
     post: PropTypes.shape(),
     comments: PropTypes.shape(),
+    commentsList: PropTypes.shape(),
     pendingVotes: PropTypes.arrayOf(PropTypes.number),
     show: PropTypes.bool,
     getComments: PropTypes.func,
-    likeComment: PropTypes.func,
-    dislikeComment: PropTypes.func,
+    voteComment: PropTypes.func,
     sendComment: PropTypes.func,
   };
 
@@ -41,11 +48,11 @@ export default class Comments extends React.Component {
     username: undefined,
     post: {},
     comments: {},
+    commentsList: {},
     pendingVotes: [],
     show: false,
     getComments: () => {},
-    likeComment: () => {},
-    dislikeComment: () => {},
+    voteComment: () => {},
     sendComment: () => {},
   }
 
@@ -85,6 +92,33 @@ export default class Comments extends React.Component {
     });
     return newNestedComments;
   }
+
+  handleLikeClick = (id) => {
+    const { commentsList, pendingVotes, username } = this.props;
+    if (pendingVotes.includes(id)) return;
+
+    const userVote = find(commentsList[id].active_votes, { voter: username }) || {};
+
+    if (userVote.percent > 0) {
+      this.props.voteComment(id, 0);
+    } else {
+      this.props.voteComment(id, 10000);
+    }
+  }
+
+  handleDisLikeClick = (id) => {
+    const { commentsList, pendingVotes, username } = this.props;
+    if (pendingVotes.includes(id)) return;
+
+    const userVote = find(commentsList[id].active_votes, { voter: username }) || {};
+
+    if (userVote.percent < 0) {
+      this.props.voteComment(id, 0);
+    } else {
+      this.props.voteComment(id, -10000);
+    }
+  }
+
 
   render() {
     const { post, comments, pendingVotes, show } = this.props;
@@ -128,8 +162,8 @@ export default class Comments extends React.Component {
           pendingVotes={pendingVotes}
           loading={loading}
           show={show}
-          onLikeClick={this.props.likeComment}
-          onDislikeClick={this.props.dislikeComment}
+          onLikeClick={this.handleLikeClick}
+          onDislikeClick={this.handleDisLikeClick}
           onSendComment={this.props.sendComment}
         />
       );

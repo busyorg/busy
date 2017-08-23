@@ -247,4 +247,5 @@ const comments = (state = initialState, action) => {
 export default comments;
 
 export const getComments = state => state;
+export const getCommentsList = state => state.comments;
 export const getCommentsPendingVotes = state => state.pendingVotes;
