@@ -1,17 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
-import Remarkable from 'remarkable';
 import { HotKeys } from 'react-hotkeys';
 import { throttle } from 'lodash';
 import isArray from 'lodash/isArray';
 import { Icon, Checkbox, Form, Input, Select, Tabs } from 'antd';
 import EditorToolbar from './EditorToolbar';
 import Action from '../Button/Action';
-import Body from '../Story/Body';
+import Body, { remarkable } from '../Story/Body';
 import './Editor.less';
-
-const remarkable = new Remarkable();
 
 const TabPane = Tabs.TabPane;
 
@@ -407,7 +404,7 @@ class Editor extends React.Component {
               </p>
             </TabPane>
             <TabPane tab="Preview" key="2">
-              <Body body={this.state.contentHtml} />
+              <Body full body={this.state.contentHtml} />
             </TabPane>
           </Tabs>
         </Form.Item>

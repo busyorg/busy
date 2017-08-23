@@ -176,7 +176,6 @@ class StoryFull extends React.Component {
         </div>
         <div
           role="presentation"
-          className="StoryFull__content"
           ref={(div) => {
             this.contentDiv = div;
           }}
@@ -191,7 +190,7 @@ class StoryFull extends React.Component {
               <track kind="captions" />
             </video>
           }
-          <Body body={post.body} json_metadata={post.json_metadata} />
+          <Body full body={post.body} json_metadata={post.json_metadata} />
         </div>
         {open &&
           <Lightbox

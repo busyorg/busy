@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import classNames from 'classnames';
 import sanitizeHtml from 'sanitize-html';
 import Remarkable from 'remarkable';
 import embedjs from 'embedjs';
@@ -11,7 +12,7 @@ import htmlReady from '../../vendor/steemitHtmlReady';
 import PostFeedEmbed from './PostFeedEmbed';
 import './Body.less';
 
-const remarkable = new Remarkable({
+export const remarkable = new Remarkable({
   html: true, // remarkable renders first then sanitize runs...
   breaks: true,
   linkify: false, // linkify is done locally
@@ -67,7 +68,7 @@ export function getHtml(body, jsonMetadata = {}, returnType = 'Object') {
 const Body = (props) => {
   const htmlSections = getHtml(props.body, props.jsonMetadata);
   return (
-    <div className="Body">
+    <div className={classNames('Body', { 'Body--full': props.full })}>
       {htmlSections}
     </div>
   );
@@ -76,11 +77,13 @@ const Body = (props) => {
 Body.propTypes = {
   body: PropTypes.string,
   jsonMetadata: PropTypes.string,
+  full: PropTypes.bool,
 };
 
 Body.defaultProps = {
   body: '',
   jsonMetadata: '',
+  full: false,
 };
 
 export default Body;
