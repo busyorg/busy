@@ -327,8 +327,8 @@ class Comment extends React.Component {
                   pendingVotes={pendingVotes}
                   rootPostAuthor={rootPostAuthor}
                   commentsChildren={commentsChildren}
-                  onLikeClick={this.handleLikeClick}
-                  onDislikeClick={this.handleDisLikeClick}
+                  onLikeClick={this.props.onLikeClick}
+                  onDislikeClick={this.props.onDislikeClick}
                   onSendComment={this.props.onSendComment}
                 />),
               )}
