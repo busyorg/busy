@@ -599,7 +599,7 @@ exports[`Storyshots Navigation Topnav logged 1`] = `
                 onTouchStart={undefined}
               >
                 <i
-                  className="iconfont icon-daifacaigouxuqiu"
+                  className="iconfont icon-write"
                 />
               </a>
             </li>
