@@ -25,7 +25,7 @@ class Comment extends React.Component {
     sort: PropTypes.oneOf(['BEST', 'NEWEST', 'OLDEST']),
     rootPostAuthor: PropTypes.string,
     commentsChildren: PropTypes.shape(),
-    pending: PropTypes.bool,
+    pendingVotes: PropTypes.arrayOf(PropTypes.number),
     onLikeClick: PropTypes.func,
     onDislikeClick: PropTypes.func,
     onSendComment: PropTypes.func,
@@ -36,7 +36,7 @@ class Comment extends React.Component {
     sort: 'BEST',
     rootPostAuthor: undefined,
     commentsChildren: undefined,
-    pending: false,
+    pendingVotes: [],
     onLikeClick: () => {},
     onDislikeClick: () => {},
     onSendComment: () => {},
@@ -118,10 +118,12 @@ class Comment extends React.Component {
       sort,
       rootPostAuthor,
       commentsChildren,
-      pending,
+      pendingVotes,
       onLikeClick,
       onDislikeClick,
     } = this.props;
+
+    const pending = pendingVotes.includes(comment.id);
 
     const payout = calculatePayout(comment);
 
@@ -311,6 +313,7 @@ class Comment extends React.Component {
                   authenticated={authenticated}
                   username={username}
                   comment={child}
+                  pendingVotes={pendingVotes}
                   rootPostAuthor={rootPostAuthor}
                   commentsChildren={commentsChildren}
                   onLikeClick={onLikeClick}

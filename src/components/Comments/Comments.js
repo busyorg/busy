@@ -141,7 +141,7 @@ class Comments extends React.Component {
               sort={sort}
               rootPostAuthor={this.props.parentPost && this.props.parentPost.author}
               commentsChildren={commentsChildren}
-              pending={pendingVotes.includes(comment.id)}
+              pendingVotes={pendingVotes}
               onLikeClick={onLikeClick}
               onDislikeClick={onDislikeClick}
               onSendComment={this.props.onSendComment}
