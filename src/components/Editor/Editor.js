@@ -1,17 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
-import Remarkable from 'remarkable';
 import { HotKeys } from 'react-hotkeys';
 import { throttle } from 'lodash';
 import isArray from 'lodash/isArray';
 import { Icon, Checkbox, Form, Input, Select, Tabs } from 'antd';
 import EditorToolbar from './EditorToolbar';
 import Action from '../Button/Action';
-import Body from '../Story/Body';
+import Body, { remarkable } from '../Story/Body';
 import './Editor.less';
-
-const remarkable = new Remarkable();
 
 const TabPane = Tabs.TabPane;
 

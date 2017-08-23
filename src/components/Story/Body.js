@@ -12,7 +12,7 @@ import htmlReady from '../../vendor/steemitHtmlReady';
 import PostFeedEmbed from './PostFeedEmbed';
 import './Body.less';
 
-const remarkable = new Remarkable({
+export const remarkable = new Remarkable({
   html: true, // remarkable renders first then sanitize runs...
   breaks: true,
   linkify: false, // linkify is done locally
