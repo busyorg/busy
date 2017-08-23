@@ -33,7 +33,7 @@ const EditorToolbar = ({ onSelect }) => {
       </Dropdown>
       <Tooltip title={tooltip('Add bold', 'Ctrl+b')}>
         <Button className="EditorToolbar__button" onClick={() => onSelect('b')}>
-          <i className="iconfont icon-danye-" />
+          <i className="iconfont icon-bold" />
         </Button>
       </Tooltip>
       <Tooltip title={tooltip('Add italic', 'Ctrl+i')}>
