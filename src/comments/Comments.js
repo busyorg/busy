@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { getComments, getIsAuthenticated, getAuthenticatedUserName } from '../reducers';
+import { getComments, getCommentsPendingVotes, getIsAuthenticated, getAuthenticatedUserName } from '../reducers';
 import CommentsList from '../components/Comments/Comments';
 import * as commentsActions from './commentsActions';
 import { notify } from '../app/Notification/notificationActions';
@@ -11,6 +11,7 @@ import './Comments.less';
 @connect(
   state => ({
     comments: getComments(state),
+    pendingVotes: getCommentsPendingVotes(state),
     authenticated: getIsAuthenticated(state),
     username: getAuthenticatedUserName(state),
   }),
@@ -28,6 +29,7 @@ export default class Comments extends React.Component {
     username: PropTypes.string,
     post: PropTypes.shape(),
     comments: PropTypes.shape(),
+    pendingVotes: PropTypes.arrayOf(PropTypes.number),
     show: PropTypes.bool,
     getComments: PropTypes.func,
     likeComment: PropTypes.func,
@@ -39,6 +41,7 @@ export default class Comments extends React.Component {
     username: undefined,
     post: {},
     comments: {},
+    pendingVotes: [],
     show: false,
     getComments: () => {},
     likeComment: () => {},
@@ -84,7 +87,7 @@ export default class Comments extends React.Component {
   }
 
   render() {
-    const { post, comments, show } = this.props;
+    const { post, comments, pendingVotes, show } = this.props;
     const postId = post.id;
     let fetchedCommentsList = null;
 
@@ -122,6 +125,7 @@ export default class Comments extends React.Component {
           authenticated={this.props.authenticated}
           username={this.props.username}
           commentsChildren={commentsChildren}
+          pendingVotes={pendingVotes}
           loading={loading}
           show={show}
           onLikeClick={this.props.likeComment}

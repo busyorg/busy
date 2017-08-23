@@ -14,6 +14,7 @@ class Comments extends React.Component {
     parentPost: PropTypes.shape(),
     comments: PropTypes.arrayOf(PropTypes.shape()),
     commentsChildren: PropTypes.shape(),
+    pendingVotes: PropTypes.arrayOf(PropTypes.number),
     loading: PropTypes.bool,
     show: PropTypes.bool,
     onLikeClick: PropTypes.func,
@@ -26,6 +27,7 @@ class Comments extends React.Component {
     parentPost: undefined,
     comments: [],
     commentsChildren: undefined,
+    pendingVotes: [],
     loading: false,
     show: false,
     onLikeClick: () => {},
@@ -88,6 +90,7 @@ class Comments extends React.Component {
       loading,
       show,
       commentsChildren,
+      pendingVotes,
       onLikeClick,
       onDislikeClick,
       authenticated,
@@ -138,6 +141,7 @@ class Comments extends React.Component {
               sort={sort}
               rootPostAuthor={this.props.parentPost && this.props.parentPost.author}
               commentsChildren={commentsChildren}
+              pending={pendingVotes.includes(comment.id)}
               onLikeClick={onLikeClick}
               onDislikeClick={onDislikeClick}
               onSendComment={this.props.onSendComment}

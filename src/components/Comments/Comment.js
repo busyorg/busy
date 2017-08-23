@@ -5,7 +5,7 @@ import numeral from 'numeral';
 import { take, find } from 'lodash';
 import { Link } from 'react-router-dom';
 import { FormattedRelative, FormattedDate, FormattedTime } from 'react-intl';
-import { Tag, Tooltip } from 'antd';
+import { Icon, Tag, Tooltip } from 'antd';
 import { formatter } from 'steem';
 import { getUpvotes, getDownvotes } from '../../helpers/voteHelpers';
 import { sortComments, sortVotes } from '../../helpers/sortHelpers';
@@ -25,6 +25,7 @@ class Comment extends React.Component {
     sort: PropTypes.oneOf(['BEST', 'NEWEST', 'OLDEST']),
     rootPostAuthor: PropTypes.string,
     commentsChildren: PropTypes.shape(),
+    pending: PropTypes.bool,
     onLikeClick: PropTypes.func,
     onDislikeClick: PropTypes.func,
     onSendComment: PropTypes.func,
@@ -35,6 +36,7 @@ class Comment extends React.Component {
     sort: 'BEST',
     rootPostAuthor: undefined,
     commentsChildren: undefined,
+    pending: false,
     onLikeClick: () => {},
     onDislikeClick: () => {},
     onSendComment: () => {},
@@ -116,6 +118,7 @@ class Comment extends React.Component {
       sort,
       rootPostAuthor,
       commentsChildren,
+      pending,
       onLikeClick,
       onDislikeClick,
     } = this.props;
@@ -209,7 +212,7 @@ class Comment extends React.Component {
                 })}
                 onClick={() => onLikeClick(comment.id)}
               >
-                <i className="iconfont icon-praise_fill" />
+                {pending ? <Icon type="loading" /> : <i className="iconfont icon-praise_fill" />}
               </a>
             </Tooltip>
             <span
@@ -239,7 +242,7 @@ class Comment extends React.Component {
                 })}
                 onClick={() => onDislikeClick(comment.id)}
               >
-                <i className="iconfont icon-praise_fill Comment__icon_dislike" />
+                {pending ? <Icon type="loading" /> : <i className="iconfont icon-praise_fill Comment__icon_dislike" />}
               </a>
             </Tooltip>
             <span
