@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Tag, Tooltip, Popover } from 'antd';
 import { formatter } from 'steem';
 import Avatar from './Avatar';
-import Follow from './Button/Follow';
+import FollowButton from '../widgets/FollowButton';
 import Action from './Button/Action';
 import PopoverMenu, { PopoverMenuItem } from './PopoverMenu/PopoverMenu';
 import './UserHeader.less';
@@ -15,9 +15,6 @@ const UserHeader = ({
   userReputation,
   rank,
   isSameUser,
-  isFollowed,
-  pendingFollow,
-  onFollowClick,
 }) =>
   (<div
     className="UserHeader"
@@ -39,11 +36,8 @@ const UserHeader = ({
             {authenticated &&
               (isSameUser
                 ? <Action small text="Edit profile" />
-                : <Follow
-                  isFollowed={isFollowed}
-                  pending={pendingFollow}
-                  onClick={onFollowClick}
-                />)}
+                : <FollowButton username={username} />)
+            }
           </div>
           <Popover
             placement="bottom"
@@ -63,7 +57,7 @@ const UserHeader = ({
           @{handle}
         </div>
         <div className="UserHeader__rank">
-          <i className="iconfont icon-select_fill" /> {rank}
+          <i className="iconfont icon-ranking" /> {rank}
         </div>
       </div>
     </div>
@@ -79,9 +73,6 @@ UserHeader.propTypes = {
   ]),
   rank: PropTypes.string,
   isSameUser: PropTypes.bool,
-  isFollowed: PropTypes.bool,
-  pendingFollow: PropTypes.bool,
-  onFollowClick: PropTypes.func,
 };
 
 UserHeader.defaultProps = {
@@ -90,9 +81,6 @@ UserHeader.defaultProps = {
   userReputation: '0',
   rank: 'Minnow',
   isSameUser: false,
-  isFollowed: false,
-  pendingFollow: false,
-  onFollowClick: () => {},
 };
 
 export default UserHeader;

@@ -164,7 +164,7 @@ class StoryFooter extends React.Component {
           title={postState.isReblogged ? 'You already reblogged this post' : 'Reblog'}
         >
           <a role="presentation" className={rebloggedClass} onClick={this.handleShareClick}>
-            <i className="iconfont icon-send StoryFooter__share" />
+            <i className="iconfont icon-share1 StoryFooter__share" />
           </a>
         </Tooltip>}
         {!postState.isReblogged &&
