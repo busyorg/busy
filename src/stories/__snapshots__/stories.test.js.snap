@@ -405,7 +405,10 @@ exports[`Storyshots Editor Editor 1`] = `
       <span
         className="Editor__bottom__info"
       >
-        Styling with markdown is supported
+        <i
+          className="iconfont icon-markdown"
+        />
+         Styling with markdown is supported
       </span>
       <div
         className="ant-row ant-form-item Editor__bottom__submit"
@@ -492,7 +495,7 @@ exports[`Storyshots Navigation Sidenav logged 1`] = `
           style={undefined}
         >
           <i
-            className="iconfont icon-lock"
+            className="iconfont icon-wallet"
           />
            Wallet
         </a>
@@ -596,7 +599,7 @@ exports[`Storyshots Navigation Topnav logged 1`] = `
                 onTouchStart={undefined}
               >
                 <i
-                  className="iconfont icon-brush"
+                  className="iconfont icon-write"
                 />
               </a>
             </li>
@@ -869,7 +872,7 @@ exports[`Storyshots Profile UserHeader 1`] = `
           className="UserHeader__rank"
         >
           <i
-            className="iconfont icon-select_fill"
+            className="iconfont icon-ranking"
           />
            
           Minnow
@@ -1103,14 +1106,6 @@ exports[`Storyshots Sidebar Interesting People 1`] = `
               </span>
             </a>
           </div>
-          <button
-            className="Follow"
-            onClick={[Function]}
-            onMouseOut={[Function]}
-            onMouseOver={[Function]}
-          >
-            Follow
-          </button>
         </div>
         <div
           className="User__about"
@@ -1158,14 +1153,6 @@ exports[`Storyshots Sidebar Interesting People 1`] = `
               </span>
             </a>
           </div>
-          <button
-            className="Follow"
-            onClick={[Function]}
-            onMouseOut={[Function]}
-            onMouseOver={[Function]}
-          >
-            Follow
-          </button>
         </div>
         <div
           className="User__about"
@@ -1213,14 +1200,6 @@ exports[`Storyshots Sidebar Interesting People 1`] = `
               </span>
             </a>
           </div>
-          <button
-            className="Follow"
-            onClick={[Function]}
-            onMouseOut={[Function]}
-            onMouseOver={[Function]}
-          >
-            Follow
-          </button>
         </div>
         <div
           className="User__about"
@@ -1954,7 +1933,7 @@ exports[`Storyshots Story Full story 1`] = `
         role="presentation"
       >
         <i
-          className="iconfont icon-send StoryFooter__share"
+          className="iconfont icon-share1 StoryFooter__share"
         />
       </a>
     </div>
@@ -2211,7 +2190,7 @@ exports[`Storyshots Story Full story with embed 1`] = `
         role="presentation"
       >
         <i
-          className="iconfont icon-send StoryFooter__share"
+          className="iconfont icon-share1 StoryFooter__share"
         />
       </a>
     </div>
@@ -2423,7 +2402,7 @@ exports[`Storyshots Story Inline story 1`] = `
           role="presentation"
         >
           <i
-            className="iconfont icon-send StoryFooter__share"
+            className="iconfont icon-share1 StoryFooter__share"
           />
         </a>
       </div>
@@ -2645,7 +2624,7 @@ exports[`Storyshots Story Inline story with embed 1`] = `
           role="presentation"
         >
           <i
-            className="iconfont icon-send StoryFooter__share"
+            className="iconfont icon-share1 StoryFooter__share"
           />
         </a>
       </div>

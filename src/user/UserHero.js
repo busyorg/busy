@@ -35,9 +35,6 @@ const UserHero = ({
   user,
   username,
   isSameUser,
-  isFollowed,
-  pendingFollow,
-  onFollowClick,
 }) =>
   (<div>
     <Switch>
@@ -47,16 +44,13 @@ const UserHero = ({
           (<div>
             {
               (user.isFetching) ? <UserHeaderLoading />
-                : <UserHeader
+                :  <UserHeader
                   authenticated={authenticated}
                   username={username}
                   handle={user.name}
                   userReputation={user.reputation}
                   rank={getUserRank(user.vesting_shares)}
                   isSameUser={isSameUser}
-                  isFollowed={isFollowed}
-                  pendingFollow={pendingFollow}
-                  onFollowClick={onFollowClick}
                 />
             }
             <UserMenuWrapper
@@ -76,16 +70,10 @@ UserHero.propTypes = {
   user: PropTypes.shape().isRequired,
   username: PropTypes.string.isRequired,
   isSameUser: PropTypes.bool,
-  isFollowed: PropTypes.bool,
-  pendingFollow: PropTypes.bool,
-  onFollowClick: PropTypes.func,
 };
 
 UserHero.defaultProps = {
   isSameUser: false,
-  isFollowed: false,
-  pendingFollow: false,
-  onFollowClick: () => {},
 };
 
 export default UserHero;

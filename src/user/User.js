@@ -9,12 +9,9 @@ import {
   getIsAuthenticated,
   getAuthenticatedUser,
   getUser,
-  getFollowingList,
-  getPendingFollows,
 } from '../reducers';
 
 import { getAccountWithFollowingCount } from './usersActions';
-import { followUser, unfollowUser } from './userActions';
 import UserHero from './UserHero';
 import LeftSidebar from '../app/Sidebar/LeftSidebar';
 import RightSidebar from '../app/Sidebar/RightSidebar';
@@ -36,15 +33,11 @@ export const needs = [getAccountWithFollowingCount];
     authenticated: getIsAuthenticated(state),
     authenticatedUser: getAuthenticatedUser(state),
     user: getUser(state, ownProps.match.params.name),
-    followingList: getFollowingList(state),
-    pendingFollows: getPendingFollows(state),
   }),
   dispatch =>
     bindActionCreators(
       {
         getAccountWithFollowingCount,
-        followUser,
-        unfollowUser,
       },
       dispatch,
     ),
@@ -55,17 +48,11 @@ export default class User extends React.Component {
     authenticatedUser: PropTypes.shape().isRequired,
     match: PropTypes.shape().isRequired,
     user: PropTypes.shape().isRequired,
-    followingList: PropTypes.arrayOf(PropTypes.string).isRequired,
-    pendingFollows: PropTypes.arrayOf(PropTypes.string).isRequired,
     getAccountWithFollowingCount: PropTypes.func,
-    followUser: PropTypes.func,
-    unfollowUser: PropTypes.func,
   };
 
   static defaultProps = {
     getAccountWithFollowingCount: () => {},
-    followUser: () => {},
-    unfollowUser: () => {},
   };
 
   static needs = needs;
@@ -82,18 +69,8 @@ export default class User extends React.Component {
     }
   }
 
-  handleFollowClick = () => {
-    const username = this.props.match.params.name;
-    const isFollowed = this.props.followingList.includes(username);
-    if (isFollowed) {
-      this.props.unfollowUser(username);
-    } else {
-      this.props.followUser(username);
-    }
-  };
-
   render() {
-    const { authenticated, authenticatedUser, match, followingList, pendingFollows } = this.props;
+    const { authenticated, authenticatedUser, match } = this.props;
     const username = this.props.match.params.name;
     const { user } = this.props;
     const { profile = {} } = user.json_metadata || {};
@@ -106,9 +83,6 @@ export default class User extends React.Component {
     const title = `${displayedUsername} - Busy`;
 
     const isSameUser = authenticated && authenticatedUser.name === username;
-
-    const isFollowed = followingList.includes(username);
-    const pendingFollow = pendingFollows.includes(username);
 
     return (
       <div className="main-panel">
@@ -142,8 +116,6 @@ export default class User extends React.Component {
             user={user}
             username={displayedUsername}
             isSameUser={isSameUser}
-            isFollowed={isFollowed}
-            pendingFollow={pendingFollow}
             onFollowClick={this.handleFollowClick}
           />}
         <div className="shifted">
