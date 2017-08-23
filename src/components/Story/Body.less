@@ -1,5 +1,31 @@
+@import "../../styles/fonts.less";
+
 .Body {
-  word-wrap: break-word;
+  &--full {
+    font-family: @font-text;
+    color: rgba(0, 0, 0, .8);
+    line-height: 1.6em;
+    font-size: 21px;
+    word-wrap: break-word;
+
+    h1, h2, h3, h4, h5, h6 {
+      margin: 8px 0;
+    }
+
+    *:not(:empty) {
+      margin: 32px 0;
+    }
+
+    li p {
+      display: inline-block;
+    }
+
+    img {
+      margin: 0 auto;
+      max-width: 100%;
+      display: block;
+    }
+  }
 
   blockquote {
     padding: 10px 20px;

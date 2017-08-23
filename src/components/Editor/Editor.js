@@ -407,7 +407,7 @@ class Editor extends React.Component {
               </p>
             </TabPane>
             <TabPane tab="Preview" key="2">
-              <Body body={this.state.contentHtml} />
+              <Body full body={this.state.contentHtml} />
             </TabPane>
           </Tabs>
         </Form.Item>
