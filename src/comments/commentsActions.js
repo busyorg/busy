@@ -186,7 +186,7 @@ export const sendComment = (parentId = null) =>
       .then(() => dispatch(getComments(rootCommentId)));
   };
 
-export const likeComment = (commentId, weight = 10000, retryCount = 0) =>
+export const likeComment = (commentId, weight = 10000, vote = 'like', retryCount = 0) =>
   (dispatch, getState, { steemAPI }) => {
     const { auth, comments } = getState();
 
@@ -209,10 +209,10 @@ export const likeComment = (commentId, weight = 10000, retryCount = 0) =>
           return res;
         }),
       },
-      meta: { commentId, voter, weight, isRetry: retryCount > 0 },
+      meta: { commentId, voter, weight, vote, isRetry: retryCount > 0 },
     }).catch((err) => {
       if (err.res && err.res.status === 500 && retryCount <= 5) {
-        dispatch(likeComment(commentId, weight, retryCount + 1));
+        dispatch(likeComment(commentId, weight, vote, retryCount + 1));
       }
     });
   };

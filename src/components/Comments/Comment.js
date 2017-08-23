@@ -133,8 +133,8 @@ class Comment extends React.Component {
     } = this.props;
 
     const pendingVote = find(pendingVotes, { id: comment.id });
-    const pendingLike = pendingVote && pendingVote.percent > 0;
-    const pendingDisLike = pendingVote && pendingVote.percent < 0;
+    const pendingLike = pendingVote && (pendingVote.percent > 0 || pendingVote.vote === 'like');
+    const pendingDisLike = pendingVote && (pendingVote.percent < 0 || pendingVote.vote === 'dislike');
 
     const payout = calculatePayout(comment);
 

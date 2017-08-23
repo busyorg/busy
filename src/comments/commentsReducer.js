@@ -228,13 +228,14 @@ const comments = (state = initialState, action) => {
           {
             id: action.meta.commentId,
             percent: action.meta.weight,
+            vote: action.meta.vote,
           },
         ],
       };
     case commentsTypes.LIKE_COMMENT_ERROR:
       return {
         ...state,
-        pendingVotes: state.pendingVotes.filter(like => like !== action.meta.commentId),
+        pendingVotes: state.pendingVotes.filter(like => like.id !== action.meta.commentId),
       };
     case commentsTypes.RELOAD_EXISTING_COMMENT:
       return {

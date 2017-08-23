@@ -25,7 +25,7 @@ import './Comments.less';
   }),
   dispatch => bindActionCreators({
     getComments: commentsActions.getComments,
-    voteComment: (id, percent) => commentsActions.likeComment(id, percent),
+    voteComment: (id, percent, vote) => commentsActions.likeComment(id, percent, vote),
     sendComment: (parentPost, body) => commentsActions.sendCommentV2(parentPost, body),
     notify,
   }, dispatch),
@@ -103,9 +103,9 @@ export default class Comments extends React.Component {
     const userVote = find(commentsList[id].active_votes, { voter: username }) || {};
 
     if (userVote.percent > 0) {
-      this.props.voteComment(id, 0);
+      this.props.voteComment(id, 0, 'like');
     } else {
-      this.props.voteComment(id, 10000);
+      this.props.voteComment(id, 10000, 'like');
     }
   }
 
@@ -116,9 +116,9 @@ export default class Comments extends React.Component {
     const userVote = find(commentsList[id].active_votes, { voter: username }) || {};
 
     if (userVote.percent < 0) {
-      this.props.voteComment(id, 0);
+      this.props.voteComment(id, 0, 'dislike');
     } else {
-      this.props.voteComment(id, -10000);
+      this.props.voteComment(id, -10000, 'dislike');
     }
   }
 
