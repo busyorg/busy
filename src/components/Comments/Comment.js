@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import numeral from 'numeral';
-import { take } from 'lodash';
+import { take, find } from 'lodash';
 import { Link } from 'react-router-dom';
 import { FormattedRelative, FormattedDate, FormattedTime } from 'react-intl';
-import { Tag, Tooltip } from 'antd';
+import { Icon, Tag, Tooltip } from 'antd';
 import { formatter } from 'steem';
 import { getUpvotes, getDownvotes } from '../../helpers/voteHelpers';
 import { sortComments, sortVotes } from '../../helpers/sortHelpers';
@@ -25,6 +25,10 @@ class Comment extends React.Component {
     sort: PropTypes.oneOf(['BEST', 'NEWEST', 'OLDEST']),
     rootPostAuthor: PropTypes.string,
     commentsChildren: PropTypes.shape(),
+    pendingVotes: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.number,
+      percent: PropTypes.number,
+    })),
     onLikeClick: PropTypes.func,
     onDislikeClick: PropTypes.func,
     onSendComment: PropTypes.func,
@@ -35,6 +39,7 @@ class Comment extends React.Component {
     sort: 'BEST',
     rootPostAuthor: undefined,
     commentsChildren: undefined,
+    pendingVotes: [],
     onLikeClick: () => {},
     onDislikeClick: () => {},
     onSendComment: () => {},
@@ -108,6 +113,14 @@ class Comment extends React.Component {
       });
   };
 
+  handleLikeClick = () => {
+    this.props.onLikeClick(this.props.comment.id);
+  }
+
+  handleDisLikeClick = () => {
+    this.props.onDislikeClick(this.props.comment.id);
+  }
+
   render() {
     const {
       authenticated,
@@ -116,9 +129,12 @@ class Comment extends React.Component {
       sort,
       rootPostAuthor,
       commentsChildren,
-      onLikeClick,
-      onDislikeClick,
+      pendingVotes,
     } = this.props;
+
+    const pendingVote = find(pendingVotes, { id: comment.id });
+    const pendingLike = pendingVote && (pendingVote.percent > 0 || pendingVote.vote === 'like');
+    const pendingDisLike = pendingVote && (pendingVote.percent < 0 || pendingVote.vote === 'dislike');
 
     const payout = calculatePayout(comment);
 
@@ -149,6 +165,11 @@ class Comment extends React.Component {
       .map(vote => <p key={vote.voter}>{vote.voter}</p>);
     const downVotesDiff = downVotes.length - downVotesPreview.length;
     const downVotesMore = (upVotesDiff > 0) ? `and ${numeral(downVotesDiff).format('0,0')} more` : null;
+
+    const userVote = find(comment.active_votes, { voter: username });
+
+    const userUpVoted = userVote && userVote.percent > 0;
+    const userDownVoted = userVote && userVote.percent < 0;
 
     return (
       <div className="Comment">
@@ -199,10 +220,12 @@ class Comment extends React.Component {
             <Tooltip title="Like">
               <a
                 role="presentation"
-                className="Comment__footer__link"
-                onClick={() => onLikeClick(comment.id)}
+                className={classNames('Comment__footer__link', {
+                  'Comment__footer__link--active': userUpVoted,
+                })}
+                onClick={this.handleLikeClick}
               >
-                <i className="iconfont icon-praise_fill" />
+                {pendingLike ? <Icon type="loading" /> : <i className="iconfont icon-praise_fill" />}
               </a>
             </Tooltip>
             <span
@@ -227,10 +250,12 @@ class Comment extends React.Component {
             <Tooltip title="Dislike">
               <a
                 role="presentation"
-                className="Comment__footer__link"
-                onClick={() => onDislikeClick(comment.id)}
+                className={classNames('Comment__footer__link', {
+                  'Comment__footer__link--active': userDownVoted,
+                })}
+                onClick={this.handleDisLikeClick}
               >
-                <i className="iconfont icon-praise_fill Comment__icon_dislike" />
+                {pendingDisLike ? <Icon type="loading" /> : <i className="iconfont icon-praise_fill Comment__icon_dislike" />}
               </a>
             </Tooltip>
             <span
@@ -299,10 +324,11 @@ class Comment extends React.Component {
                   authenticated={authenticated}
                   username={username}
                   comment={child}
+                  pendingVotes={pendingVotes}
                   rootPostAuthor={rootPostAuthor}
                   commentsChildren={commentsChildren}
-                  onLikeClick={onLikeClick}
-                  onDislikeClick={onDislikeClick}
+                  onLikeClick={this.props.onLikeClick}
+                  onDislikeClick={this.props.onDislikeClick}
                   onSendComment={this.props.onSendComment}
                 />),
               )}
