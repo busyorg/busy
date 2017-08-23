@@ -4,6 +4,7 @@ import { Route, Switch, withRouter } from 'react-router-dom';
 
 import { getUserRank } from '../helpers/ranks';
 import UserHeader from '../components/UserHeader';
+import UserHeaderLoading from '../components/UserHeaderLoading';
 import UserMenu from '../components/UserMenu';
 import Hero from '../components/Hero';
 
@@ -41,14 +42,17 @@ const UserHero = ({
         path="/@:name"
         render={() =>
           (<div>
-            <UserHeader
-              authenticated={authenticated}
-              username={username}
-              handle={user.name}
-              userReputation={user.reputation}
-              rank={getUserRank(user.vesting_shares)}
-              isSameUser={isSameUser}
-            />
+            {
+              (user.isFetching) ? <UserHeaderLoading />
+                : <UserHeader
+                  authenticated={authenticated}
+                  username={username}
+                  handle={user.name}
+                  userReputation={user.reputation}
+                  rank={getUserRank(user.vesting_shares)}
+                  isSameUser={isSameUser}
+                />
+            }
             <UserMenuWrapper
               discussions={user.post_count}
               comments={0}
