@@ -37,7 +37,10 @@ export default class Comments extends React.Component {
     post: PropTypes.shape(),
     comments: PropTypes.shape(),
     commentsList: PropTypes.shape(),
-    pendingVotes: PropTypes.arrayOf(PropTypes.number),
+    pendingVotes: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.number,
+      percent: PropTypes.number,
+    })),
     show: PropTypes.bool,
     getComments: PropTypes.func,
     voteComment: PropTypes.func,
@@ -95,7 +98,7 @@ export default class Comments extends React.Component {
 
   handleLikeClick = (id) => {
     const { commentsList, pendingVotes, username } = this.props;
-    if (pendingVotes.includes(id)) return;
+    if (pendingVotes[id]) return;
 
     const userVote = find(commentsList[id].active_votes, { voter: username }) || {};
 
@@ -108,7 +111,7 @@ export default class Comments extends React.Component {
 
   handleDisLikeClick = (id) => {
     const { commentsList, pendingVotes, username } = this.props;
-    if (pendingVotes.includes(id)) return;
+    if (pendingVotes[id]) return;
 
     const userVote = find(commentsList[id].active_votes, { voter: username }) || {};
 

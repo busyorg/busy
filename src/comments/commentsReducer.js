@@ -225,7 +225,10 @@ const comments = (state = initialState, action) => {
         ...state,
         pendingVotes: [
           ...state.pendingVotes,
-          action.meta.commentId,
+          {
+            id: action.meta.commentId,
+            percent: action.meta.weight,
+          },
         ],
       };
     case commentsTypes.LIKE_COMMENT_ERROR:
@@ -237,7 +240,7 @@ const comments = (state = initialState, action) => {
       return {
         ...state,
         comments: commentsData(state.comments, action),
-        pendingVotes: state.pendingVotes.filter(like => like !== action.meta.commentId),
+        pendingVotes: state.pendingVotes.filter(like => like.id !== action.meta.commentId),
       };
     default:
       return state;

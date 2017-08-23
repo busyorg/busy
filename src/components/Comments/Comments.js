@@ -14,7 +14,10 @@ class Comments extends React.Component {
     parentPost: PropTypes.shape(),
     comments: PropTypes.arrayOf(PropTypes.shape()),
     commentsChildren: PropTypes.shape(),
-    pendingVotes: PropTypes.arrayOf(PropTypes.number),
+    pendingVotes: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.number,
+      percent: PropTypes.number,
+    })),
     loading: PropTypes.bool,
     show: PropTypes.bool,
     onLikeClick: PropTypes.func,

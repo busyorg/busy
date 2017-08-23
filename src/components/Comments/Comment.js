@@ -25,7 +25,10 @@ class Comment extends React.Component {
     sort: PropTypes.oneOf(['BEST', 'NEWEST', 'OLDEST']),
     rootPostAuthor: PropTypes.string,
     commentsChildren: PropTypes.shape(),
-    pendingVotes: PropTypes.arrayOf(PropTypes.number),
+    pendingVotes: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.number,
+      percent: PropTypes.number,
+    })),
     onLikeClick: PropTypes.func,
     onDislikeClick: PropTypes.func,
     onSendComment: PropTypes.func,
@@ -129,7 +132,9 @@ class Comment extends React.Component {
       pendingVotes,
     } = this.props;
 
-    const pending = pendingVotes.includes(comment.id);
+    const pendingVote = find(pendingVotes, { id: comment.id });
+    const pendingLike = pendingVote && pendingVote.percent > 0;
+    const pendingDisLike = pendingVote && pendingVote.percent < 0;
 
     const payout = calculatePayout(comment);
 
@@ -220,7 +225,7 @@ class Comment extends React.Component {
                 })}
                 onClick={this.handleLikeClick}
               >
-                {pending ? <Icon type="loading" /> : <i className="iconfont icon-praise_fill" />}
+                {pendingLike ? <Icon type="loading" /> : <i className="iconfont icon-praise_fill" />}
               </a>
             </Tooltip>
             <span
@@ -250,7 +255,7 @@ class Comment extends React.Component {
                 })}
                 onClick={this.handleDisLikeClick}
               >
-                {pending ? <Icon type="loading" /> : <i className="iconfont icon-praise_fill Comment__icon_dislike" />}
+                {pendingDisLike ? <Icon type="loading" /> : <i className="iconfont icon-praise_fill Comment__icon_dislike" />}
               </a>
             </Tooltip>
             <span
