@@ -9,7 +9,7 @@ import ko from 'react-intl/locale-data/ko';
 import nl from 'react-intl/locale-data/nl';
 import se from 'react-intl/locale-data/se';
 
-import enTranslations from './en/data.json';
+import enTranslations from '../locales/en.json';
 
 addLocaleData([...en, ...es, ...zh, ...fr, ...de, ...ru, ...ko, ...nl, ...se]);
 
