@@ -48,7 +48,7 @@ export default class Bookmarks extends React.Component {
       <div className="main-panel">
         <div className="my-5">
           <h1 className="text-center">
-            <FormattedMessage id="bookmarks" defaultMessage="Bookmarks" />
+            <FormattedMessage id="bookmarks" />
           </h1>
           <Feed
             content={content}
@@ -61,10 +61,7 @@ export default class Bookmarks extends React.Component {
             !content.length &&
             <div className="container">
               <h3 className="text-center">
-                <FormattedMessage
-                  id="empty_bookmarks"
-                  defaultMessage="You don't have any story saved."
-                />
+                <FormattedMessage id="bookmarks_empty" />
               </h3>
             </div>}
         </div>

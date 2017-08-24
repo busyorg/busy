@@ -11,6 +11,8 @@
   "feed": "Feed",
   "news": "News",
   "wallet": "Wallet",
+  "bookmarks": "Bookmarks",
+  "bookmarks_empty": "You don't have any story saved.",
   "notifications": "Notifications",
   "discussions": "Discussions",
   "comments": "Comments",
