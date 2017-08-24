@@ -76,7 +76,7 @@ const LeftSidebar = ({ authenticatedUser, user }) => {
                 {website && <div>
                   <i className="iconfont icon-link text-icon" />
                   <a target="_blank" rel="noopener noreferrer" href={website}>
-                    {`${hostWithoutWWW}${url.pathname}`}
+                    {`${hostWithoutWWW}${url.pathname.replace(/\/$/, '')}`}
                   </a>
                 </div>}
                 <div>
