@@ -99,7 +99,7 @@ exports[`Storyshots Button Followed 1`] = `
     onMouseOut={[Function]}
     onMouseOver={[Function]}
   >
-    Followed
+    Following
   </button>
 </div>
 `;
@@ -139,7 +139,9 @@ exports[`Storyshots Comments Comments 1`] = `
       className="Comments__header"
     >
       <h2>
-        Comments
+        <span>
+          Comments
+        </span>
       </h2>
       <div
         className="Comments__header__sort"
@@ -150,19 +152,25 @@ exports[`Storyshots Comments Comments 1`] = `
           className="active"
           data-type="BEST"
         >
-          Best
+          <span>
+            Best
+          </span>
         </a>
         <a
           className=""
           data-type="NEWEST"
         >
-          Newest
+          <span>
+            Newest
+          </span>
         </a>
         <a
           className=""
           data-type="OLDEST"
         >
-          Oldest
+          <span>
+            Oldest
+          </span>
         </a>
       </div>
     </div>

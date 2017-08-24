@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import numeral from 'numeral';
 import { take, find } from 'lodash';
 import { Link } from 'react-router-dom';
-import { FormattedRelative, FormattedDate, FormattedTime } from 'react-intl';
+import { injectIntl, FormattedRelative, FormattedDate, FormattedTime, FormattedMessage } from 'react-intl';
 import { Icon, Tag, Tooltip } from 'antd';
 import { formatter } from 'steem';
 import { getUpvotes, getDownvotes } from '../../helpers/voteHelpers';
@@ -17,8 +17,10 @@ import Avatar from '../Avatar';
 import Body from '../Story/Body';
 import './Comment.less';
 
+@injectIntl
 class Comment extends React.Component {
   static propTypes = {
+    intl: PropTypes.shape().isRequired,
     authenticated: PropTypes.bool.isRequired,
     username: PropTypes.string,
     comment: PropTypes.shape().isRequired,
@@ -123,6 +125,7 @@ class Comment extends React.Component {
 
   render() {
     const {
+      intl,
       authenticated,
       username,
       comment,
@@ -186,13 +189,13 @@ class Comment extends React.Component {
         <div className="Comment__text">
           <Link to={`/@${comment.author}`}>
             {comment.author}
-            <Tooltip title="Reputation score">
+            <Tooltip title={intl.formatMessage({ id: 'reputation_score' })}>
               <Tag>
                 {formatter.reputation(comment.author_reputation)}
               </Tag>
             </Tooltip>
             {(comment.author === rootPostAuthor) &&
-              <Tooltip title="Original poster">
+              <Tooltip title={intl.formatMessage({ id: 'original_poster' })}>
                 <Tag color="#4f545c">OP</Tag>
               </Tooltip>
             }
@@ -213,11 +216,13 @@ class Comment extends React.Component {
           </span>
           <div className="Comment__content">
             {this.state.collapsed
-              ? <div className="Comment__content__collapsed">Comment collapsed</div>
+              ? <div className="Comment__content__collapsed">
+                <FormattedMessage id="comment_collapsed" />
+              </div>
               : <Body body={comment.body} />}
           </div>
           <div className="Comment__footer">
-            <Tooltip title="Like">
+            <Tooltip title={intl.formatMessage({ id: 'like' })}>
               <a
                 role="presentation"
                 className={classNames('Comment__footer__link', {
@@ -240,14 +245,14 @@ class Comment extends React.Component {
                   <div>
                     {upVotesPreview}
                     {upVotesMore}
-                    {upVotesPreview.length === 0 && 'No likes yet.'}
+                    {upVotesPreview.length === 0 && <FormattedMessage id="no_likes" />}
                   </div>
                 }
               >
                 {likesValue}
               </Tooltip>
             </span>
-            <Tooltip title="Dislike">
+            <Tooltip title={intl.formatMessage({ id: 'dislike' })}>
               <a
                 role="presentation"
                 className={classNames('Comment__footer__link', {
@@ -270,7 +275,7 @@ class Comment extends React.Component {
                   <div>
                     {downVotesPreview}
                     {downVotesMore}
-                    {downVotes.length === 0 && 'No dislikes!'}
+                    {downVotes.length === 0 && <FormattedMessage id="no_dislikes" />}
                   </div>
                 }
               >
@@ -293,7 +298,7 @@ class Comment extends React.Component {
                   })}
                   onClick={() => this.handleReplyClick()}
                 >
-                  Reply
+                  <FormattedMessage id="reply" />
                 </a>
               </span>}
           </div>
@@ -321,6 +326,7 @@ class Comment extends React.Component {
               sortComments(commentsChildren[comment.id], sort).map(child =>
                 (<Comment
                   key={child.id}
+                  intl={this.props.intl}
                   authenticated={authenticated}
                   username={username}
                   comment={child}
