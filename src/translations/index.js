@@ -9,4 +9,27 @@ import ko from 'react-intl/locale-data/ko';
 import nl from 'react-intl/locale-data/nl';
 import se from 'react-intl/locale-data/se';
 
+import enTranslations from '../locales/en.json';
+
 addLocaleData([...en, ...es, ...zh, ...fr, ...de, ...ru, ...ko, ...nl, ...se]);
+
+export const translations = {
+  en: enTranslations,
+};
+
+export const getAvailableLocale = (appLocale) => {
+  let locale = 'en';
+  if (typeof navigator !== 'undefined') {
+    const browserLocale = navigator.language || navigator.userLanguage;
+    locale = appLocale || browserLocale;
+  }
+
+  if (translations[locale]) {
+    return locale;
+  }
+  return 'en';
+};
+
+const getTranslations = appLocale => translations[getAvailableLocale(appLocale)];
+
+export default getTranslations;
