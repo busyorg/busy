@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FormattedMessage } from 'react-intl';
 import Topic from '../Button/Topic';
 import './Topics.less';
 
 class Topics extends React.Component {
   static propTypes = {
-    title: PropTypes.string.isRequired,
     favorite: PropTypes.bool,
     topics: PropTypes.arrayOf(PropTypes.string),
     maxItems: PropTypes.number,
@@ -29,14 +29,14 @@ class Topics extends React.Component {
   }
 
   render() {
-    const { title, topics, favorite, maxItems } = this.props;
+    const { topics, favorite, maxItems } = this.props;
 
     const displayedTopics = this.state.showMore ? topics : topics.slice(0, maxItems);
 
     return (
       <div className="Topics">
         <h4>
-          {title}
+          <FormattedMessage id={favorite ? 'favorite_topics' : 'trending_topics'} />
         </h4>
         <ul className="Topics__list">
           {displayedTopics.map(topic =>
@@ -47,12 +47,12 @@ class Topics extends React.Component {
         </ul>
         {topics.length > maxItems && !this.state.showMore
           ? <h5 role="presentation" onClick={() => this.changeVisibility(true)}>
-              View more
+            <FormattedMessage id="show_more" />
           </h5>
           : null}
         {topics.length > maxItems && this.state.showMore
           ? <h5 role="presentation" onClick={() => this.changeVisibility(false)}>
-              View less
+            <FormattedMessage id="show_less" />
           </h5>
           : null}
       </div>

@@ -1014,7 +1014,9 @@ exports[`Storyshots Sidebar Favorite topics 1`] = `
     className="Topics"
   >
     <h4>
-      Favorite topics
+      <span>
+        Favorite topics
+      </span>
     </h4>
     <ul
       className="Topics__list"
@@ -1072,7 +1074,10 @@ exports[`Storyshots Sidebar Interesting People 1`] = `
         <i
           className="iconfont icon-group InterestingPeople__icon"
         />
-         Interesting People
+         
+        <span>
+          Interesting People
+        </span>
       </h4>
       <div
         className="InterestingPeople__divider"
@@ -1225,7 +1230,9 @@ exports[`Storyshots Sidebar Interesting People 1`] = `
           href="/latest-comments"
           onClick={[Function]}
         >
-          Discover More People
+          <span>
+            Discover More People
+          </span>
         </a>
       </h4>
     </div>
@@ -1600,7 +1607,9 @@ exports[`Storyshots Sidebar Start now 1`] = `
     <h3
       className="StartNow__title"
     >
-      Never wrote a post?
+      <span>
+        Never written a post?
+      </span>
     </h3>
     <a
       href="/write"
@@ -1609,7 +1618,9 @@ exports[`Storyshots Sidebar Start now 1`] = `
       <button
         className="StartNow__button"
       >
-        Start Now
+        <span>
+          Start Now
+        </span>
       </button>
     </a>
   </div>
@@ -1629,7 +1640,9 @@ exports[`Storyshots Sidebar Trending topics 1`] = `
     className="Topics"
   >
     <h4>
-      Trending topics
+      <span>
+        Trending topics
+      </span>
     </h4>
     <ul
       className="Topics__list"
@@ -1684,7 +1697,9 @@ exports[`Storyshots Sidebar Trending topics 1`] = `
       onClick={[Function]}
       role="presentation"
     >
-      View more
+      <span>
+        View more
+      </span>
     </h5>
   </div>
 </div>

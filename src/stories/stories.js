@@ -74,11 +74,10 @@ storiesOf('Navigation', module)
 storiesOf('Sidebar', module)
   .add('Start now', () => <StartNow />)
   .add('Favorite topics', () =>
-    <Topics favorite title="Favorite topics" topics={['funny', 'history', 'nature']} />,
+    <Topics favorite topics={['funny', 'history', 'nature']} />,
   )
   .add('Trending topics', () =>
     (<Topics
-      title="Trending topics"
       topics={['photography', 'steemit', 'introduceyourself', 'steem', 'story', 'blog']}
     />),
   )

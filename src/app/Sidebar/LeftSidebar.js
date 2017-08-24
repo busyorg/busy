@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { injectIntl, FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import { FormattedDate } from 'react-intl';
 import { Route, Switch } from 'react-router-dom';
 import urlParse from 'url-parse';
 
@@ -14,17 +14,13 @@ import Sidenav from '../../components/Navigation/Sidenav';
 import Action from '../../components/Button/Action';
 
 class SidebarWithTopics extends React.PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      isFetching: true,
-      isLoaded: false,
-      categories: [],
-      props: {},
-      menu: 'categories',
-    };
-  }
+  state = {
+    isFetching: true,
+    isLoaded: false,
+    categories: [],
+    props: {},
+    menu: 'categories',
+  };
 
   componentWillMount() {
     api.getState('trending/busy', (err, result) => {
@@ -42,11 +38,11 @@ class SidebarWithTopics extends React.PureComponent {
   }
 
   render() {
-    return <Topics title="Trending topics" topics={this.state.categories} />;
+    return <Topics topics={this.state.categories} />;
   }
 }
 
-const LeftSidebar = ({ authenticatedUser, user }) => {
+const LeftSidebar = injectIntl(({ authenticatedUser, user, intl }) => {
   const location = user && _.get(user.json_metadata, 'profile.location');
   let website = user && _.get(user.json_metadata, 'profile.website');
 
@@ -81,8 +77,16 @@ const LeftSidebar = ({ authenticatedUser, user }) => {
                 </div>}
                 <div>
                   <i className="iconfont icon-time text-icon" />
-                  Joined{' '}
-                  <FormattedDate value={user.created} year="numeric" month="long" day="numeric" />
+                  <FormattedMessage
+                    id="joined_date"
+                    values={{
+                      date: intl.formatDate(user.created, {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric',
+                      }),
+                    }}
+                  />
                 </div>
               </div>
             </div>}
@@ -99,7 +103,7 @@ const LeftSidebar = ({ authenticatedUser, user }) => {
         </div>)}
     />
   </Switch>);
-};
+});
 
 LeftSidebar.propTypes = {
   authenticatedUser: PropTypes.shape().isRequired,

@@ -33,10 +33,10 @@ export default class AppSettings extends React.Component {
       <div className="main-panel">
         <div className="container">
           <h1>
-            <FormattedMessage id="settings" defaultMessage="Settings" />
+            <FormattedMessage id="settings" />
           </h1>
           <h2>
-            <FormattedMessage id="language" defaultMessage="Language" />
+            <FormattedMessage id="language" />
           </h2>
           <div className="row my-4">
             <div>
