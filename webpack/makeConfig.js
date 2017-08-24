@@ -35,7 +35,7 @@ function makePlugins(options) {
         WS: JSON.stringify(process.env.WS || 'wss://steemd-int.steemit.com'),
         IS_BROWSER: JSON.stringify(true),
         PUSHPAD_PROJECT_ID: process.env.PUSHPAD_PROJECT_ID,
-        BUSYPUSH_ENDPOINT: process.env.BUSYPUSH_ENDPOINT,
+        BUSYPUSH_ENDPOINT: JSON.stringify(process.env.BUSYPUSH_ENDPOINT || 'https://busy-push.herokuapp.com'),
       },
     }),
     new LodashModuleReplacementPlugin({ collections: true, paths: true, shorthands: true }),

@@ -16,6 +16,7 @@ import editorReducer from './post/Write/EditorReducers';
 import { responsiveReducer } from './helpers/responsive';
 import reblogReducers from './app/Reblog/reblogReducers';
 import walletReducer from './wallet/walletReducer';
+import { activityNotification } from './activityNotification/activityNotificationReducers';
 
 const reducers = combineReducers({
   app: appReducers,
@@ -33,6 +34,7 @@ const reducers = combineReducers({
   favorites: favoritesReducer,
   reblog: reblogReducers,
   wallet: walletReducer,
+  activityNotification,
 });
 
 export default reducers;

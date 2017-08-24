@@ -25,6 +25,7 @@ import About from './statics/About';
 import Help from './statics/Help';
 import Team from './statics/Team';
 import RequireLogin from './auth/RequireLogin';
+import ActivityNotificationsAll from './activityNotification/ActivityNotificationsAll';
 
 var MessagesUser = require('./messages/MessagesUser').default,
   MessagesCategory = require('./messages/MessagesCategory').default;
@@ -52,6 +53,7 @@ export default (
       <Route path="/write" component={Write} />
       <Route path="/drafts" component={Drafts} />
       <Route path="/settings" component={Settings} />
+      <Route path="/notifications" component={ActivityNotificationsAll} />
     </Route>
     <Route component={User}>
       <Route path="/@:name/reblogs" component={Reblogs} />

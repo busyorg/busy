@@ -3,6 +3,7 @@ import steemConnect from 'steemconnect';
 import request from 'superagent';
 import { getFollowing } from '../user/userActions';
 import { initPushpad } from './pushpadHelper';
+import { fetchActivityNotifications } from '../activityNotification/activityNotificationActions'
 
 Promise.promisifyAll(steemConnect);
 Promise.promisifyAll(request.Request.prototype);
@@ -44,6 +45,7 @@ export const login = () =>
         dispatch(loginSuccess(users[0], result.token));
         // init pushpad
         initPushpad(result.username, result.token);
+        dispatch(fetchActivityNotifications());
       });
     });
   };

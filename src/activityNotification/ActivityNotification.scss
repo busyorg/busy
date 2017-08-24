@@ -1,0 +1,37 @@
+@import '../styles/colors';
+
+.ActivityNotification {
+  position: fixed!important;
+  z-index: 5;
+}
+
+.ActivityNotifList__item {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+  overflow: hidden;
+  &__desc {
+    float: left;
+    width: 250px;
+  }
+  &__date {
+    color: $normal-grey;
+    font-size: 0.8rem;
+  }
+  &__photo {
+    float: left;
+    margin-right: 10px;
+  }
+}
+.ActivityNotifList__item:hover {
+  background: #eee;
+}
+
+.ActivityNotifList--all {
+  & .ActivityNotifList__item {
+    cursor: auto;
+    background: #fff;
+    border: 1px solid #eee;
+    margin: 5px 20px;
+  }
+}

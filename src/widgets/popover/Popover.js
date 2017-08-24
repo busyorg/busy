@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Gateway } from 'react-gateway';
+import { browserHistory } from 'react-router';
 import { getElementPosition } from '../tooltip/tooltipHelpers';
 import SimplePopover from './SimplePopover';
 
@@ -35,14 +36,27 @@ export default class Popover extends Component {
     title: PropTypes.string.isRequired,
     content: PropTypes.node,
     className: PropTypes.string,
+    containerClassName: PropTypes.string,
     appearOn: PropTypes.oneOf(['right', 'bottom', 'bottom-left']),
+    fixedPosition: PropTypes.bool,
   };
 
   static defaultProps = {
     className: 'BusyPopover',
     value: null,
     appearOn: 'bottom-left',
+    fixedPosition: false,
   };
+
+  componentDidMount() {
+    this.unlistenHistory = browserHistory.listen(() => {
+      this.removePopover();
+    });
+  }
+
+  componentWillUnmount() {
+    this.unlistenHistory();
+  }
 
   showPopover = (e) => {
     e.preventDefault();
@@ -61,7 +75,7 @@ export default class Popover extends Component {
   };
 
   renderPopover() {
-    const { className, title, content, appearOn } = this.props;
+    const { className, title, content, appearOn, containerClassName, fixedPosition } = this.props;
     const { pos, posInBrowser, active } = this.state;
 
     if (!active) return null;
@@ -71,7 +85,9 @@ export default class Popover extends Component {
         <SimplePopover
           pos={pos}
           posInBrowser={posInBrowser}
+          fixedPosition={fixedPosition}
           className={className}
+          containerClassName={containerClassName}
           title={title}
           content={content}
           appearOn={appearOn}
