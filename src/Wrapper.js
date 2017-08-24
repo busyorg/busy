@@ -10,12 +10,9 @@ import { getAuthenticatedUser, getLocale } from './reducers';
 
 import { login, logout } from './auth/authActions';
 import { getConfig, getRate } from './actions';
-import steemAPI from './steemAPI';
-import { getMessages, getLocale as getLocaleHelper } from './translations/translationHelper';
 import Topnav from './components/Navigation/Topnav';
 import * as reblogActions from './app/Reblog/reblogActions';
-import config from '../config.json';
-import './translations';
+import getTranslations, { getAvailableLocale } from './translations';
 
 @withRouter
 @connect(
@@ -52,29 +49,12 @@ export default class Wrapper extends React.PureComponent {
     getRate: () => {},
   }
 
-  state = {
-    messages: {},
-  }
-
   componentWillMount() {
     this.props.login();
     this.props.getConfig();
     this.props.getRebloggedList();
     this.props.getRate();
-    this.loadMessages();
   }
-
-  /**
-   * Load translations messages stored on Steem blockchain using comments:
-   * https://busy.org/test/@siol/translations
-   */
-  loadMessages = () => {
-    const path = `/${config.translations.parent_permlink}/@${config.translations.author}/${config
-      .translations.permlink}`;
-    steemAPI.getState(path, (err, result) => {
-      this.setState({ messages: getMessages(result.content) });
-    });
-  };
 
   handleMenuItemClick = (key) => {
     switch (key) {
@@ -90,13 +70,10 @@ export default class Wrapper extends React.PureComponent {
   };
 
   render() {
-    const { messages } = this.state;
     const { locale: appLocale, user } = this.props;
-    const locale = getLocaleHelper(appLocale, messages);
-    let translations = messages[appLocale || locale] || {};
-    if (messages.en) {
-      translations = { ...messages.en, ...translations };
-    }
+
+    const locale = getAvailableLocale(appLocale);
+    const translations = getTranslations(appLocale);
 
     return (
       <IntlProvider locale={locale} messages={translations}>
