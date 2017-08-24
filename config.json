@@ -3,5 +3,8 @@
     "author": "siol",
     "parent_permlink": "test",
     "permlink": "translations"
+  },
+  "constants": {
+    "LIKE_BAR_MIN_POWER": 125
   }
 }

@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
+import { connect } from 'react-redux';
 import PostSingleContent from './PostSingleContent';
 import PostSingleComments from './PostSingleComments';
+import { updateVotePowerBar } from '../../user/userActions';
 import Icon from '../../widgets/Icon';
 import './PostSingleModal.scss';
 
@@ -37,6 +39,7 @@ const PrevButton = ({ content, onClick }) => (
   </div>
 );
 
+@connect(({ user }) => ({ user }), { updateVotePowerBar })
 export default class PostSingleModal extends Component {
 
   componentDidMount() {

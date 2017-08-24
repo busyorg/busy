@@ -45,7 +45,7 @@ export const initPushpad = (username, token) => {
         }
 
         const { signatureId } = res;
-        
+
         pushpad('uid', `${username}`, signatureId);
         pushpad('subscribe', (isSubscribed) => {
           if (!isSubscribed) {
@@ -71,5 +71,5 @@ export const initPushpad = (username, token) => {
       });
   });
 
-  
+
 }

@@ -1,7 +1,15 @@
 .LikeBar--container{
+  &.LikeBar--comment-view {
+    display: block;
+
+    .LikeBar {
+      left: -15%;
+    }
+  }
+
   position: relative;
   @media (min-width: 600px) {
-    display: flex; 
+    display: flex;
     justify-content: center;
   }
 }
