@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import { FormattedRelative, FormattedDate, FormattedTime } from 'react-intl';
+import { injectIntl, FormattedMessage, FormattedRelative, FormattedDate, FormattedTime } from 'react-intl';
 import { Link } from 'react-router-dom';
 import { Tag, Icon, Popover, Tooltip } from 'antd';
 import Lightbox from 'react-image-lightbox';
@@ -13,8 +13,10 @@ import Topic from '../Button/Topic';
 import PopoverMenu, { PopoverMenuItem } from '../PopoverMenu/PopoverMenu';
 import './StoryFull.less';
 
+@injectIntl
 class StoryFull extends React.Component {
   static propTypes = {
+    intl: PropTypes.shape().isRequired,
     post: PropTypes.shape().isRequired,
     postState: PropTypes.shape().isRequired,
     pendingLike: PropTypes.bool,
@@ -90,6 +92,7 @@ class StoryFull extends React.Component {
 
   render() {
     const {
+      intl,
       post,
       postState,
       pendingLike,
@@ -123,7 +126,11 @@ class StoryFull extends React.Component {
         </h1>
         <h3 className="StoryFull__comments_title">
           <a href="#comments">
-            {commentCount} Comments
+            <FormattedMessage
+              id="comments_count"
+              values={{ count: commentCount }}
+              defaultMessage="{count} comments"
+            />
           </a>
         </h3>
         <div className="StoryFull__header">
@@ -133,7 +140,7 @@ class StoryFull extends React.Component {
           <div className="StoryFull__header__text">
             <Link to={`/@${post.author}`}>
               {post.author}
-              <Tooltip title="Reputation score">
+              <Tooltip title={intl.formatMessage({ id: 'reputation_score', defaultMessage: 'Reputation score' })}>
                 <Tag>
                   {formatter.reputation(post.author_reputation)}
                 </Tag>
@@ -162,11 +169,17 @@ class StoryFull extends React.Component {
                   {`${followText} ${post.author}`}
                 </PopoverMenuItem>
                 <PopoverMenuItem key="save">
-                  <i className="iconfont icon-collection" />{' '}
-                  {postState.isSaved ? 'Unsave post' : 'Save post'}
+                  <i className="iconfont icon-collection" />
+                  {' '}
+                  <FormattedMessage
+                    id={postState.isSaved ? 'unsave_post' : 'save_post'}
+                    defaultMessage={postState.isSaved ? 'Unsave post' : 'Save post'}
+                  />
                 </PopoverMenuItem>
                 <PopoverMenuItem key="report">
-                  <i className="iconfont icon-flag" /> Report post
+                  <i className="iconfont icon-flag" />
+                  {' '}
+                  <FormattedMessage id="report_post" defaultMessage="Report post" />
                 </PopoverMenuItem>
               </PopoverMenu>
             }

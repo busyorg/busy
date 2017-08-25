@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { injectIntl } from 'react-intl';
 import { Tag, Tooltip, Popover } from 'antd';
 import { formatter } from 'steem';
 import Avatar from './Avatar';
@@ -9,6 +10,7 @@ import PopoverMenu, { PopoverMenuItem } from './PopoverMenu/PopoverMenu';
 import './UserHeader.less';
 
 const UserHeader = ({
+  intl,
   authenticated,
   username,
   handle,
@@ -26,7 +28,7 @@ const UserHeader = ({
         <div className="UserHeader__row">
           <h2 className="UserHeader__user__username">
             {username}
-            <Tooltip title="Reputation score">
+            <Tooltip title={intl.formatMessage({ id: 'reputation_score', defaultMessage: 'Reputation Score' })}>
               <Tag>
                 {formatter.reputation(userReputation)}
               </Tag>
@@ -35,7 +37,7 @@ const UserHeader = ({
           <div className="UserHeader__user__button">
             {authenticated &&
               (isSameUser
-                ? <Action small text="Edit profile" />
+                ? <Action small text={intl.formatMessage({ id: 'edit_profile', defaultMessage: 'Editr profile' })} />
                 : <FollowButton username={username} />)
             }
           </div>
@@ -64,6 +66,7 @@ const UserHeader = ({
   </div>);
 
 UserHeader.propTypes = {
+  intl: PropTypes.shape().isRequired,
   authenticated: PropTypes.bool.isRequired,
   username: PropTypes.string,
   handle: PropTypes.string,
@@ -83,4 +86,4 @@ UserHeader.defaultProps = {
   isSameUser: false,
 };
 
-export default UserHeader;
+export default injectIntl(UserHeader);

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FormattedMessage } from 'react-intl';
 import { Popover } from 'antd';
 import PopoverMenu, { PopoverMenuItem } from './PopoverMenu/PopoverMenu';
 import Topic from './Button/Topic';
@@ -52,18 +53,28 @@ class TopicSelector extends React.Component {
             )}
         </div>
         <div className="TopicSelector__sort">
-          Sort by:
+          <FormattedMessage id="sort_by" defaultMessage="Sort by" />
           <Popover
             trigger="click"
             visible={popoverVisible}
             onVisibleChange={this.onVisibleChange}
             content={
               <PopoverMenu bold={bold} onSelect={this.onSelect}>
-                <PopoverMenuItem key="trending">Trending</PopoverMenuItem>
-                <PopoverMenuItem key="created">Created</PopoverMenuItem>
-                <PopoverMenuItem key="active">Active</PopoverMenuItem>
-                <PopoverMenuItem key="hot">Hot</PopoverMenuItem>
-                <PopoverMenuItem key="promoted">Promoted</PopoverMenuItem>
+                <PopoverMenuItem key="trending">
+                  <FormattedMessage id="sort_trending" defaultMessage="Trending" />
+                </PopoverMenuItem>
+                <PopoverMenuItem key="created">
+                  <FormattedMessage id="sort_created" defaultMessage="Created" />
+                </PopoverMenuItem>
+                <PopoverMenuItem key="active">
+                  <FormattedMessage id="sort_active" defaultMessage="Active" />
+                </PopoverMenuItem>
+                <PopoverMenuItem key="hot">
+                  <FormattedMessage id="sort_hot" defaultMessage="Hot" />
+                </PopoverMenuItem>
+                <PopoverMenuItem key="promoted">
+                  <formatMessage id="sort_promoted" defaultMessage="Promoted" />
+                </PopoverMenuItem>
               </PopoverMenu>
             }
           >

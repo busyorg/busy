@@ -7,14 +7,11 @@ const Hero = () =>
   (<div className="Hero">
     <div className="container container-small">
       <h1 className="hero-message">
-        <FormattedMessage
-          id="hero"
-          defaultMessage="Ensuring compensation for the creators of value"
-        />
+        <FormattedMessage id="hero" defaultMessage="Ensuring compensation for the creators of value" />
       </h1>
       <Link to="/signup">
         <button className="ant-btn-lg hero-signup">
-          <FormattedMessage id="signup" defaultMessage="Sign Up" />
+          <FormattedMessage id="signup" defaultMessage="Sign up" />
         </button>
       </Link>
     </div>

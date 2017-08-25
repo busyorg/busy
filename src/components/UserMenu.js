@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FormattedMessage } from 'react-intl';
 import numeral from 'numeral';
 import { Menu } from 'antd';
 import './UserMenu.less';
@@ -60,26 +61,20 @@ class UserMenu extends React.Component {
             mode="horizontal"
           >
             <Menu.Item key="discussions" className="UserMenu__item">
-              Discussions
+              <FormattedMessage id="discussions" defaultMessage="Discussions" />
               <span className="UserMenu__badge">{discussionsValue}</span>
             </Menu.Item>
             <Menu.Item key="comments" className="UserMenu__item">
-              <strong>
-                Comments
-                <span className="UserMenu__badge">{commentsValue}</span>
-              </strong>
+              <FormattedMessage id="comments" defaultMessage="Comments" />
+              <span className="UserMenu__badge">{commentsValue}</span>
             </Menu.Item>
             <Menu.Item key="followers" className="UserMenu__item">
-              <strong>
-                Followers
-                <span className="UserMenu__badge">{followersValue}</span>
-              </strong>
+              <FormattedMessage id="followers" defaultMessage="Followers" />
+              <span className="UserMenu__badge">{followersValue}</span>
             </Menu.Item>
             <Menu.Item key="followed" className="UserMenu__item">
-              <strong>
-                Following
-                <span className="UserMenu__badge">{followingValue}</span>
-              </strong>
+              <FormattedMessage id="following" defaultMessage="Following" />
+              <span className="UserMenu__badge">{followingValue}</span>
             </Menu.Item>
           </Menu>
         </div>

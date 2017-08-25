@@ -6,6 +6,7 @@ import { MemoryRouter } from 'react-router';
 import { addDecorator, storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { IntlProvider } from 'react-intl';
+import getTranslations from '../translations';
 import { post, postWithEmbed, postState, notifications } from './data/index';
 import StartNow from '../components/Sidebar/StartNow';
 import Topics from '../components/Sidebar/Topics';
@@ -29,7 +30,7 @@ import '../styles/common.less';
 
 addDecorator(story =>
   (<MemoryRouter initialEntries={['/']}>
-    <IntlProvider locale="en">
+    <IntlProvider locale="en" messages={getTranslations('en')}>
       <div style={{ padding: '40px', background: '#f9f9f9' }}>
         {story()}
       </div>
@@ -73,11 +74,10 @@ storiesOf('Navigation', module)
 storiesOf('Sidebar', module)
   .add('Start now', () => <StartNow />)
   .add('Favorite topics', () =>
-    <Topics favorite title="Favorite topics" topics={['funny', 'history', 'nature']} />,
+    <Topics favorite topics={['funny', 'history', 'nature']} />,
   )
   .add('Trending topics', () =>
     (<Topics
-      title="Trending topics"
       topics={['photography', 'steemit', 'introduceyourself', 'steem', 'story', 'blog']}
     />),
   )

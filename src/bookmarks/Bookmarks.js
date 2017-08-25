@@ -61,10 +61,7 @@ export default class Bookmarks extends React.Component {
             !content.length &&
             <div className="container">
               <h3 className="text-center">
-                <FormattedMessage
-                  id="empty_bookmarks"
-                  defaultMessage="You don't have any story saved."
-                />
+                <FormattedMessage id="bookmarks_empty" defaultMessage="You don't have any story saved." />
               </h3>
             </div>}
         </div>

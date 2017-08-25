@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedRelative } from 'react-intl';
+import { FormattedMessage, FormattedRelative } from 'react-intl';
 import { Link } from 'react-router-dom';
 import BodyShort from '../Story/BodyShort';
 import './LatestComments.less';
@@ -33,13 +33,17 @@ const LatestComments = ({ comments }) =>
   (<div className="LatestComments">
     <div className="LatestComments__container">
       <h4 className="LatestComments__title">
-        <i className="iconfont icon-time LatestComments__icon" /> Latest Comments
+        <i className="iconfont icon-time LatestComments__icon" />
+        {' '}
+        <FormattedMessage id="latest_comments" defaultMessage="Latest Comments" />
       </h4>
       <div className="LatestComments__divider" />
       {comments && comments.map(comment => <RenderComment key={comment.id} {...comment} />)}
       <div className="LatestComments__divider" />
       <h4 className="LatestComments__more">
-        <Link to={'/latest-comments'}>See All Comments</Link>
+        <Link to={'/latest-comments'}>
+          <FormattedMessage id="see_all_comments" defaultMessage="See All Comments" />
+        </Link>
       </h4>
     </div>
   </div>);
