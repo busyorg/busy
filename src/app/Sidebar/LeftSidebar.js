@@ -79,6 +79,7 @@ const LeftSidebar = injectIntl(({ authenticatedUser, user, intl }) => {
                   <i className="iconfont icon-time text-icon" />
                   <FormattedMessage
                     id="joined_date"
+                    defaultMessage="Joined {date}"
                     values={{
                       date: intl.formatDate(user.created, {
                         year: 'numeric',
