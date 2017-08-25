@@ -77,7 +77,7 @@
   "start_now":"Démarrer maintenant",
   "select_or_past_image":"Sélectionnez une image ou collez la depuis le presse-papiers.",
   "image_uploading":"Upload de l'image en cours...",
-  "markdown_supported":"Styling with markdown supported",
+  "markdown_supported":"Le formatage de texte en Markdown est supporté",
   "title":"Titre",
   "title_placeholder":"Ajouter un titre",
   "title_error_empty":"Veuillez saisir un titre.",
