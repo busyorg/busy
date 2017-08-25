@@ -1,5 +1,5 @@
 {
-  "hero":"Ensuring compensation for the creators of value",
+  "hero":"Gagnez de l'argent en bloguant",
   "search":"Recherche",
   "search_placeholder":"Rechercher...",
   "cancel":"Annuler",
@@ -88,7 +88,7 @@
   "topics_error_empty":"Veuillez saisir des tags.",
   "topics_error_count":"Vous devez ajouter de 1 à 5 tags.",
   "topics_error_invalid_topic":"Le tag {topic} n’est pas valide.",
-  "story_placeholder":"Write your story...",
+  "story_placeholder":"Quoi de neuf ?",
   "story_error_empty":"Le contenu du post ne peut pas être vide.",
   "editor":"Éditeur",
   "preview":"Aperçu",
