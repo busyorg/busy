@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { injectIntl, FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
 import { Menu, Popover, Tooltip, Input, Badge } from 'antd';
 import steemconnect from 'sc2-sdk';
@@ -10,6 +11,7 @@ import PopoverMenu, { PopoverMenuItem } from '../PopoverMenu/PopoverMenu';
 import './Topnav.less';
 
 const Topnav = ({
+  intl,
   username,
   onNotificationClick,
   onSeeAllClick,
@@ -26,7 +28,7 @@ const Topnav = ({
       <div className="Topnav__menu-container">
         <Menu selectedKeys={[]} className="Topnav__menu-container__menu" mode="horizontal">
           <Menu.Item key="write">
-            <Tooltip placement="bottom" title="Write post">
+            <Tooltip placement="bottom" title={intl.formatMessage({ id: 'write_post', defaultMessage: 'Write post' })}>
               <Link to="/write" className="Topnav__link">
                 <i className="iconfont icon-write" />
               </Link>
@@ -56,9 +58,9 @@ const Topnav = ({
                   onSeeAllClick={onSeeAllClick}
                 />
               }
-              title="Notifications"
+              title={intl.formatMessage({ id: 'notifications', defaultMessage: 'Notifications' })}
             >
-              <Tooltip className="Notifications__tooltip" placement="bottom" title="Notifications">
+              <Tooltip className="Notifications__tooltip" placement="bottom" title={intl.formatMessage({ id: 'notifications', defaultMessage: 'Notifications' })}>
                 <Badge count={notificationsCount}>
                   <i className="iconfont icon-remind" />
                 </Badge>
@@ -71,9 +73,15 @@ const Topnav = ({
               trigger="click"
               content={
                 <PopoverMenu onSelect={onMenuItemClick}>
-                  <PopoverMenuItem key="activity">Activity</PopoverMenuItem>
-                  <PopoverMenuItem key="settings">Settings</PopoverMenuItem>
-                  <PopoverMenuItem key="logout">Logout</PopoverMenuItem>
+                  <PopoverMenuItem key="activity">
+                    <FormattedMessage id="activity" defaultMessage="Activity" />
+                  </PopoverMenuItem>
+                  <PopoverMenuItem key="settings">
+                    <FormattedMessage id="settings" defaultMessage="Settings" />
+                  </PopoverMenuItem>
+                  <PopoverMenuItem key="logout">
+                    <FormattedMessage id="logout" defaultMessage="Logout" />
+                  </PopoverMenuItem>
                 </PopoverMenu>
               }
             >
@@ -88,13 +96,17 @@ const Topnav = ({
       <div className="Topnav__menu-container">
         <Menu className="Topnav__menu-container__menu" mode="horizontal">
           <Menu.Item key="signup">
-            <Link to="/signup">Sign up</Link>
+            <Link to="/signup">
+              <FormattedMessage id="signup" defaultMessage="Sign up" />
+            </Link>
           </Menu.Item>
           <Menu.Item key="divider" disabled>
             |
           </Menu.Item>
           <Menu.Item key="login">
-            <a href={steemconnect.getLoginURL()}>Log in</a>
+            <a href={steemconnect.getLoginURL()}>
+              <FormattedMessage id="login" defaultMessage="Log in" />
+            </a>
           </Menu.Item>
         </Menu>
       </div>
@@ -111,7 +123,7 @@ const Topnav = ({
         </div>
         <div className="center">
           <div className="Topnav__input-container">
-            <Input placeholder="Search..." />
+            <Input placeholder={intl.formatMessage({ id: 'search_placeholder', defaultMessage: 'Search...' })} />
             <i className="iconfont icon-search" />
           </div>
         </div>
@@ -124,6 +136,7 @@ const Topnav = ({
 };
 
 Topnav.propTypes = {
+  intl: PropTypes.shape().isRequired,
   username: PropTypes.string,
   onNotificationClick: PropTypes.func,
   onSeeAllClick: PropTypes.func,
@@ -139,4 +152,4 @@ Topnav.defaultProps = {
   notifications: [],
 };
 
-export default Topnav;
+export default injectIntl(Topnav);

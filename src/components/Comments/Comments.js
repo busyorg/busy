@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { FormattedMessage } from 'react-intl';
 import { sortComments } from '../../helpers/sortHelpers';
 import Loading from '../Icon/Loading';
 import CommentForm from './CommentForm';
@@ -104,20 +105,22 @@ class Comments extends React.Component {
     return (
       <div className="Comments">
         <div className="Comments__header">
-          <h2>Comments</h2>
+          <h2>
+            <FormattedMessage id="comments" defaultMessage="Comments" />
+          </h2>
           <div
             role="presentation"
             className="Comments__header__sort"
             onClick={this.handleSortClick}
           >
             <a className={classNames({ active: sort === 'BEST' })} data-type="BEST">
-              Best
+              <FormattedMessage id="sort_best" defaultMessage="Best" />
             </a>
             <a className={classNames({ active: sort === 'NEWEST' })} data-type="NEWEST">
-              Newest
+              <FormattedMessage id="sort_newest" defaultMessage="Newest" />
             </a>
             <a className={classNames({ active: sort === 'OLDEST' })} data-type="OLDEST">
-              Oldest
+              <FormattedMessage id="sort_oldest" defaultMessage="Oldest" />
             </a>
           </div>
         </div>

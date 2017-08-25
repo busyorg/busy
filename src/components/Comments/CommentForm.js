@@ -1,12 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
+import { injectIntl, FormattedMessage } from 'react-intl';
 import { Input, Icon } from 'antd';
 import Avatar from '../Avatar';
 import './CommentForm.less';
 
+@injectIntl
 class CommentForm extends React.Component {
   static propTypes = {
+    intl: PropTypes.shape().isRequired,
     parentPost: PropTypes.shape().isRequired,
     username: PropTypes.string.isRequired,
     isSmall: PropTypes.bool,
@@ -109,7 +112,7 @@ class CommentForm extends React.Component {
   };
 
   render() {
-    const { username, isSmall, isLoading } = this.props;
+    const { intl, username, isSmall, isLoading } = this.props;
     const buttonClass = isLoading ? 'CommentForm__button_disabled' : 'CommentForm__button_primary';
 
     return (
@@ -121,14 +124,14 @@ class CommentForm extends React.Component {
             ref={ref => this.setInput(ref)}
             value={this.state.inputValue}
             onChange={this.handleCommentTextChange}
-            placeholder="Write a comment"
+            placeholder={intl.formatMessage({ id: 'comment_placeholder', defaultMessage: 'Write a comment' })}
             disabled={isLoading}
           />
           <p className="CommentForm__imagebox">
             <input type="file" id={`inputfile${this.props.parentPost.id}`} onChange={this.handleImageChange} />
             <label htmlFor={`inputfile${this.props.parentPost.id}`}>
               {(this.state.imageUploading) ? <Icon type="loading" /> : <i className="iconfont icon-picture" />}
-              {(this.state.imageUploading) ? 'Uploading your image' : 'Select image or paste it from the clipboard.'}
+              {(this.state.imageUploading) ? <FormattedMessage id="image_uploading" defaultMessage="Uploading your image..." /> : <FormattedMessage id="select_or_past_image" defaultMessage="Select image or paste it from the clipboard." />}
             </label>
           </p>
           <button
@@ -137,7 +140,7 @@ class CommentForm extends React.Component {
             className={`CommentForm__button ${buttonClass}`}
           >
             {isLoading && <Icon type="loading" />}
-            {isLoading ? 'Commenting' : 'Comment'}
+            {isLoading ? <FormattedMessage id="comment_send_progress" defaultMessage="Commenting" /> : <FormattedMessage id="comment_send" defaultMessage="Comment" />}
           </button>
         </div>
       </div>

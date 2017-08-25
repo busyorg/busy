@@ -1,11 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { injectIntl } from 'react-intl';
 import { Icon } from 'antd';
 import './Follow.less';
 
+@injectIntl
 class Follow extends React.Component {
   static propTypes = {
+    intl: PropTypes.shape().isRequired,
     isFollowed: PropTypes.bool,
     pending: PropTypes.bool,
     onClick: PropTypes.func,
@@ -35,20 +38,20 @@ class Follow extends React.Component {
   };
 
   render() {
-    const { isFollowed, pending } = this.props;
+    const { intl, isFollowed, pending } = this.props;
     const { isHovered } = this.state;
 
-    let followingText = 'Follow'; // default text
+    let followingText = intl.formatMessage({ id: 'follow' });
     if (isFollowed && !(isHovered || pending)) {
-      followingText = 'Followed';
+      followingText = intl.formatMessage({ id: 'following' });
     } else if (isFollowed && isHovered && !pending) {
-      followingText = 'Unfollow';
+      followingText = intl.formatMessage({ id: 'unfollow' });
     } else if (isFollowed && pending) {
-      followingText = 'Unfollowing';
+      followingText = intl.formatMessage({ id: 'unfollowing' });
     } else if (!isFollowed && isHovered && !pending) {
-      followingText = 'Follow';
+      followingText = intl.formatMessage({ id: 'follow' });
     } else if (!isFollowed && pending) {
-      followingText = 'Following';
+      followingText = intl.formatMessage({ id: 'following' });
     }
 
     return (

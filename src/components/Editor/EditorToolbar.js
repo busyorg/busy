@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { injectIntl } from 'react-intl';
 import { Button, Tooltip, Menu, Dropdown, Icon } from 'antd';
 import './EditorToolbar.less';
 
@@ -12,7 +13,7 @@ const tooltip = (description, shortcut) =>
     </b>
   </span>);
 
-const EditorToolbar = ({ onSelect }) => {
+const EditorToolbar = ({ intl, onSelect }) => {
   const menu = (
     <Menu onClick={e => onSelect(e.key)}>
       <Menu.Item key="h1"><h1>Heading 1</h1></Menu.Item>
@@ -31,27 +32,27 @@ const EditorToolbar = ({ onSelect }) => {
           <i className="iconfont icon-fontsize" /> <Icon type="down" />
         </Button>
       </Dropdown>
-      <Tooltip title={tooltip('Add bold', 'Ctrl+b')}>
+      <Tooltip title={tooltip(intl.formatMessage({ id: 'bold', defaultMessage: 'Add bold' }), 'Ctrl+b')}>
         <Button className="EditorToolbar__button" onClick={() => onSelect('b')}>
           <i className="iconfont icon-bold" />
         </Button>
       </Tooltip>
-      <Tooltip title={tooltip('Add italic', 'Ctrl+i')}>
+      <Tooltip title={tooltip(intl.formatMessage({ id: 'italic', defaultMessage: 'Add italic' }), 'Ctrl+i')}>
         <Button className="EditorToolbar__button" onClick={() => onSelect('i')}>
           <i className="iconfont icon-italic" />
         </Button>
       </Tooltip>
-      <Tooltip title={tooltip('Add quote', 'Ctrl+q')}>
+      <Tooltip title={tooltip(intl.formatMessage({ id: 'quote', defaultMessage: 'Add quote' }), 'Ctrl+q')}>
         <Button className="EditorToolbar__button" onClick={() => onSelect('q')}>
           <i className="iconfont icon-q1" />
         </Button>
       </Tooltip>
-      <Tooltip title={tooltip('Add link', 'Ctrl+k')}>
+      <Tooltip title={tooltip(intl.formatMessage({ id: 'link', defaultMessage: 'Add link' }), 'Ctrl+k')}>
         <Button className="EditorToolbar__button" onClick={() => onSelect('link')}>
           <i className="iconfont icon-link" />
         </Button>
       </Tooltip>
-      <Tooltip title={tooltip('Add image', 'Ctrl+m')}>
+      <Tooltip title={tooltip(intl.formatMessage({ id: 'image', defaultMessage: 'Add image' }), 'Ctrl+m')}>
         <Button className="EditorToolbar__button" onClick={() => onSelect('image')}>
           <i className="iconfont icon-picture" />
         </Button>
@@ -61,6 +62,7 @@ const EditorToolbar = ({ onSelect }) => {
 };
 
 EditorToolbar.propTypes = {
+  intl: PropTypes.shape().isRequired,
   onSelect: PropTypes.func,
 };
 
@@ -68,4 +70,4 @@ EditorToolbar.defaultProps = {
   onSelect: () => {},
 };
 
-export default EditorToolbar;
+export default injectIntl(EditorToolbar);

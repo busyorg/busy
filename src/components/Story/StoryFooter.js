@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { injectIntl, FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
 import numeral from 'numeral';
 import { take } from 'lodash';
@@ -12,8 +13,10 @@ import ReactionsModal from '../Reactions/ReactionsModal';
 import PayoutDetail from '../PayoutDetail';
 import './StoryFooter.less';
 
+@injectIntl
 class StoryFooter extends React.Component {
   static propTypes = {
+    intl: PropTypes.shape().isRequired,
     post: PropTypes.shape().isRequired,
     postState: PropTypes.shape().isRequired,
     pendingLike: PropTypes.bool,
@@ -27,14 +30,11 @@ class StoryFooter extends React.Component {
     onShareClick: () => {},
   };
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      shareModalVisible: false,
-      shareModalLoading: false,
-      reactionsModalVisible: false,
-    };
-  }
+  state = {
+    shareModalVisible: false,
+    shareModalLoading: false,
+    reactionsModalVisible: false,
+  };
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.postState.isReblogging !== this.props.postState.isReblogging) {
@@ -77,7 +77,7 @@ class StoryFooter extends React.Component {
   })
 
   render() {
-    const { post, postState, pendingLike, onLikeClick } = this.props;
+    const { intl, post, postState, pendingLike, onLikeClick } = this.props;
 
     const payout = calculatePayout(post);
 
@@ -118,11 +118,11 @@ class StoryFooter extends React.Component {
             </span>
           </Tooltip>
           {post.percent_steem_dollars === 0 &&
-            <Tooltip title="100% Steem Power">
+            <Tooltip title={intl.formatMessage({ id: 'reward_option_100', defaultMessage: '100% Steem Power' })}>
               <i className="iconfont icon-flashlight" />
             </Tooltip>}
         </span>
-        <Tooltip title="Like">
+        <Tooltip title={intl.formatMessage({ id: 'like' })}>
           <a role="presentation" className={likeClass} onClick={() => onLikeClick()}>
             {pendingLike ? <Icon type="loading" /> : <i className="iconfont icon-praise_fill" />}
           </a>
@@ -139,14 +139,14 @@ class StoryFooter extends React.Component {
               <div>
                 {upVotesPreview}
                 {upVotesMore}
-                {upVotesPreview.length === 0 && 'No likes yet.'}
+                {upVotesPreview.length === 0 && <FormattedMessage id="no_likes" defaultMessage="No likes yet" />}
               </div>
             }
           >
             {likesValue}
           </Tooltip>
         </span>
-        <Tooltip title="Comment">
+        <Tooltip title={intl.formatMessage({ id: 'comment', defaultMessage: 'Comment' })}>
           <Link
             className="StoryFooter__link"
             to={{
@@ -161,7 +161,10 @@ class StoryFooter extends React.Component {
           {commentsValue}
         </span>
         {post.parent_author === '' && <Tooltip
-          title={postState.isReblogged ? 'You already reblogged this post' : 'Reblog'}
+          title={intl.formatMessage({
+            id: postState.reblogged ? 'reblog_reblogged' : 'reblog',
+            defaultMessage: postState.reblogged ? 'You already reblogged this post' : 'Reblog',
+          })}
         >
           <a role="presentation" className={rebloggedClass} onClick={this.handleShareClick}>
             <i className="iconfont icon-share1 StoryFooter__share" />
@@ -169,14 +172,15 @@ class StoryFooter extends React.Component {
         </Tooltip>}
         {!postState.isReblogged &&
           <Modal
-            title="Reblog this post?"
+            title={intl.formatMessage({ id: 'reblog_modal_title', defaultMessage: 'Reblog this post?' })}
             visible={this.state.shareModalVisible}
             confirmLoading={this.state.shareModalLoading}
-            okText="Reblog"
+            okText={intl.formatMessage({ id: 'reblog', defaultMessage: 'Reblog' })}
+            cancelText={intl.formatMessage({ id: 'cancel', defaultMessage: 'Cancel' })}
             onOk={this.handleShareOk}
             onCancel={this.handleShareCancel}
           >
-            This post will appear on your personal feed. This action <b>cannot</b> be reversed.
+            <FormattedMessage id="reblog_modal_content" defaultMessage="This post will appear on your personal feed. This action cannot be reversed." />
           </Modal>}
         <ReactionsModal
           visible={this.state.reactionsModalVisible}
