@@ -189,13 +189,13 @@ class Comment extends React.Component {
         <div className="Comment__text">
           <Link to={`/@${comment.author}`}>
             {comment.author}
-            <Tooltip title={intl.formatMessage({ id: 'reputation_score' })}>
+            <Tooltip title={intl.formatMessage({ id: 'reputation_score', defaultMessage: 'Reputation score' })}>
               <Tag>
                 {formatter.reputation(comment.author_reputation)}
               </Tag>
             </Tooltip>
             {(comment.author === rootPostAuthor) &&
-              <Tooltip title={intl.formatMessage({ id: 'original_poster' })}>
+              <Tooltip title={intl.formatMessage({ id: 'original_poster', defaultMessage: 'Original poster' })}>
                 <Tag color="#4f545c">OP</Tag>
               </Tooltip>
             }
@@ -217,12 +217,12 @@ class Comment extends React.Component {
           <div className="Comment__content">
             {this.state.collapsed
               ? <div className="Comment__content__collapsed">
-                <FormattedMessage id="comment_collapsed" />
+                <FormattedMessage id="comment_collapsed" defaultMessage="Comment collapsed" />
               </div>
               : <Body body={comment.body} />}
           </div>
           <div className="Comment__footer">
-            <Tooltip title={intl.formatMessage({ id: 'like' })}>
+            <Tooltip title={intl.formatMessage({ id: 'like', defaultMessage: 'Like' })}>
               <a
                 role="presentation"
                 className={classNames('Comment__footer__link', {
@@ -245,14 +245,14 @@ class Comment extends React.Component {
                   <div>
                     {upVotesPreview}
                     {upVotesMore}
-                    {upVotesPreview.length === 0 && <FormattedMessage id="no_likes" />}
+                    {upVotesPreview.length === 0 && <FormattedMessage id="no_likes" defaultMessage="No likes yet" />}
                   </div>
                 }
               >
                 {likesValue}
               </Tooltip>
             </span>
-            <Tooltip title={intl.formatMessage({ id: 'dislike' })}>
+            <Tooltip title={intl.formatMessage({ id: 'dislike', defaultMessage: 'Dislike' })}>
               <a
                 role="presentation"
                 className={classNames('Comment__footer__link', {
@@ -275,7 +275,7 @@ class Comment extends React.Component {
                   <div>
                     {downVotesPreview}
                     {downVotesMore}
-                    {downVotes.length === 0 && <FormattedMessage id="no_dislikes" />}
+                    {downVotes.length === 0 && <FormattedMessage id="no_dislikes" defaultMessage="No dislikes" />}
                   </div>
                 }
               >
@@ -298,7 +298,7 @@ class Comment extends React.Component {
                   })}
                   onClick={() => this.handleReplyClick()}
                 >
-                  <FormattedMessage id="reply" />
+                  <FormattedMessage id="reply" defaultMessage="Reply" />
                 </a>
               </span>}
           </div>

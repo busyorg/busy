@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
+import { injectIntl, FormattedMessage } from 'react-intl';
 import { HotKeys } from 'react-hotkeys';
 import { throttle } from 'lodash';
 import isArray from 'lodash/isArray';
@@ -12,8 +13,10 @@ import './Editor.less';
 
 const TabPane = Tabs.TabPane;
 
+@injectIntl
 class Editor extends React.Component {
   static propTypes = {
+    intl: PropTypes.shape().isRequired,
     form: PropTypes.shape().isRequired,
     title: PropTypes.string,
     topics: PropTypes.arrayOf(PropTypes.string),
@@ -336,15 +339,15 @@ class Editor extends React.Component {
 
   render() {
     const { getFieldDecorator } = this.props.form;
-    const { loading } = this.props;
+    const { intl, loading } = this.props;
 
     return (
       <Form className="Editor" layout="vertical" onSubmit={this.handleSubmit}>
-        <Form.Item label={<span className="Editor__label">Title</span>}>
+        <Form.Item label={<span className="Editor__label"><FormattedMessage id="title" defaultMessage="Title" /></span>}>
           {getFieldDecorator('title', {
             rules: [
-              { required: true, message: 'Please enter a title' },
-              { max: 255, message: "Title can't be longer than 255 characters" },
+              { required: true, message: intl.formatMessage({ id: 'title_error_empty', defaultMessage: 'title_error_empty' }) },
+              { max: 255, message: intl.formatMessage({ id: 'title_error_too_long', defaultMessage: "Title can't be longer than 255 characters." }) },
             ],
           })(
             <Input
@@ -353,17 +356,17 @@ class Editor extends React.Component {
               }}
               onChange={this.onUpdate}
               className="Editor__title"
-              placeholder="Add title"
+              placeholder={intl.formatMessage({ id: 'title_placeholder', defaultMessage: 'Add title' })}
             />,
           )}
         </Form.Item>
         <Form.Item
-          label={<span className="Editor__label">Topics</span>}
-          extra="Separate topics with commas. Only lowercase letters, numbers and hyphen character is permited."
+          label={<span className="Editor__label"><FormattedMessage id="topics" defaultMessage="Topics" /></span>}
+          extra={intl.formatMessage({ id: 'topics_extra', defaultMessage: 'Separate topics with commas. Only lowercase letters, numbers and hyphen character is permited.' })}
         >
           {getFieldDecorator('topics', {
             rules: [
-              { required: true, message: 'Please enter topics', type: 'array' },
+              { required: true, message: intl.formatMessage({ id: 'topics_error_empty', defaultMessage: 'Please enter topics.' }), type: 'array' },
               { validator: this.checkTopics },
             ],
           })(
@@ -374,7 +377,7 @@ class Editor extends React.Component {
               onChange={this.onUpdate}
               className="Editor__topics"
               mode="tags"
-              placeholder="Add story topics here"
+              placeholder={intl.formatMessage({ id: 'topics_placeholder', defaultMessage: 'Add story topics here' })}
               dropdownStyle={{ display: 'none' }}
               tokenSeparators={[' ', ',']}
             />,
@@ -382,52 +385,72 @@ class Editor extends React.Component {
         </Form.Item>
         <Form.Item
           validateStatus={this.state.noContent ? 'error' : ''}
-          help={this.state.noContent ? "Story content can't be empty" : ''}
+          help={this.state.noContent && intl.formatMessage({ id: 'story_error_empty', defaultMessage: "Story content can't be empty." })}
         >
           <Tabs defaultActiveKey="1">
-            <TabPane tab="Editor" key="1">
+            <TabPane tab={intl.formatMessage({ id: 'editor', defaultMessage: 'Editor' })} key="1">
               <EditorToolbar onSelect={this.insertCode} />
               <HotKeys keyMap={Editor.hotkeys} handlers={this.handlers}>
                 <Input
                   onChange={this.onUpdate}
                   ref={ref => this.setInput(ref)}
                   type="textarea"
-                  placeholder="Write your story..."
+                  placeholder={intl.formatMessage({ id: 'story_placeholder', defaultMessage: 'Write your story...' })}
                 />
               </HotKeys>
               <p className="Editor__imagebox">
                 <input type="file" id="inputfile" onChange={this.handleImageChange} />
                 <label htmlFor="inputfile">
                   {(this.state.imageUploading) ? <Icon type="loading" /> : <i className="iconfont icon-picture" />}
-                  {(this.state.imageUploading) ? 'Uploading your image' : 'Select image or paste it from the clipboard.'}
+                  {(this.state.imageUploading) ?
+                    <FormattedMessage id="image_uploading" defaultMessage="Uploading your image..." /> :
+                    <FormattedMessage id="select_or_past_image" defaultMessage="Select image or paste it from the clipboard." />
+                  }
                 </label>
               </p>
             </TabPane>
-            <TabPane tab="Preview" key="2">
+            <TabPane tab={intl.formatMessage({ id: 'preview', defaultMessage: 'Preview' })} key="2">
               <Body full body={this.state.contentHtml} />
             </TabPane>
           </Tabs>
         </Form.Item>
-        <Form.Item label={<span className="Editor__label">Reward</span>}>
+        <Form.Item label={<span className="Editor__label"><FormattedMessage id="reward" defaultMessage="Rward" /></span>}>
           {getFieldDecorator('reward', { initialValue: '50' })(
             <Select onChange={this.onUpdate}>
-              <Select.Option value="100">100% Steem Power</Select.Option>
-              <Select.Option value="50">50% SBD and 50% SP</Select.Option>
-              <Select.Option value="0">Declined</Select.Option>
+              <Select.Option value="100">
+                <FormattedMessage id="reward_option_100" defaultMessage="100% Steem Power" />
+              </Select.Option>
+              <Select.Option value="50">
+                <FormattedMessage id="reward_option_50" defaultMessage="50% SBD and 50% SP" />
+              </Select.Option>
+              <Select.Option value="0">
+                <FormattedMessage id="reward_option_0" defaultMessage="Declined" />
+              </Select.Option>
             </Select>,
           )}
         </Form.Item>
         <Form.Item>
           {getFieldDecorator('upvote', { valuePropName: 'checked', initialValue: true })(
-            <Checkbox onChange={this.onUpdate}>Upvote this post</Checkbox>,
+            <Checkbox onChange={this.onUpdate}>
+              <FormattedMessage id="like_post" defaultMessage="Like this post" />
+            </Checkbox>,
           )}
         </Form.Item>
         <div className="Editor__bottom">
           <span className="Editor__bottom__info">
-            <i className="iconfont icon-markdown" /> Styling with markdown is supported
+            <i className="iconfont icon-markdown" />
+            {' '}
+            <FormattedMessage id="markdown_supported" defaultMessage="Styling with markdown supported" />
           </span>
           <Form.Item className="Editor__bottom__submit">
-            <Action loading={loading} disabled={loading} text={loading ? 'Submitting' : 'Post'} />
+            <Action
+              loading={loading}
+              disabled={loading}
+              text={intl.formatMessage({
+                id: loading ? 'post_send_progress' : 'post_send',
+                defaultMessage: loading ? 'Submitting' : 'Post',
+              })}
+            />
           </Form.Item>
         </div>
       </Form>

@@ -11,25 +11,25 @@ const Sidenav = ({ username }) =>
         <li>
           <NavLink to={`/@${username}`} activeClassName="Sidenav__item--active">
             <i className="iconfont icon-mine" />
-            <FormattedMessage id="my_profile" />
+            <FormattedMessage id="my_profile" defaultMessage="My profile" />
           </NavLink>
         </li>
         <li>
           <NavLink to="/" activeClassName="Sidenav__item--active" exact>
             <i className="iconfont icon-clock" />
-            <FormattedMessage id="feed" />
+            <FormattedMessage id="feed" defaultMessage="Feed" />
           </NavLink>
         </li>
         <li>
           <NavLink to="/trending" activeClassName="Sidenav__item--active">
             <i className="iconfont icon-headlines" />
-            <FormattedMessage id="news" />
+            <FormattedMessage id="news" defaultMessage="News" />
           </NavLink>
         </li>
         <li>
           <NavLink to={`/@${username}/transfers`} activeClassName="Sidenav__item--active">
             <i className="iconfont icon-wallet" />
-            <FormattedMessage id="wallet" />
+            <FormattedMessage id="wallet" defaultMessage="Wallet" />
           </NavLink>
         </li>
       </ul>}

@@ -206,7 +206,9 @@ exports[`Storyshots Editor Editor 1`] = `
           <span
             className="Editor__label"
           >
-            Title
+            <span>
+              Title
+            </span>
           </span>
         </label>
       </div>
@@ -233,12 +235,12 @@ exports[`Storyshots Editor Editor 1`] = `
                 "ref": [Function],
                 "rules": Array [
                   Object {
-                    "message": "Please enter a title",
+                    "message": "Please enter a title.",
                     "required": true,
                   },
                   Object {
                     "max": 255,
-                    "message": "Title can't be longer than 255 characters",
+                    "message": "Title can't be longer than 255 characters.",
                   },
                 ],
                 "trigger": "onChange",
@@ -246,12 +248,12 @@ exports[`Storyshots Editor Editor 1`] = `
                   Object {
                     "rules": Array [
                       Object {
-                        "message": "Please enter a title",
+                        "message": "Please enter a title.",
                         "required": true,
                       },
                       Object {
                         "max": 255,
-                        "message": "Title can't be longer than 255 characters",
+                        "message": "Title can't be longer than 255 characters.",
                       },
                     ],
                     "trigger": Array [
@@ -289,7 +291,9 @@ exports[`Storyshots Editor Editor 1`] = `
           <span
             className="Editor__label"
           >
-            Topics
+            <span>
+              Topics
+            </span>
           </span>
         </label>
       </div>
@@ -334,7 +338,9 @@ exports[`Storyshots Editor Editor 1`] = `
           <span
             className="Editor__label"
           >
-            Reward
+            <span>
+              Reward
+            </span>
           </span>
         </label>
       </div>
@@ -375,7 +381,11 @@ exports[`Storyshots Editor Editor 1`] = `
                     "leadingName": "upvote",
                     "name": "upvote",
                     "originalProps": Object {
-                      "children": "Upvote this post",
+                      "children": <FormattedMessage
+                        defaultMessage="Like this post"
+                        id="like_post"
+                        values={Object {}}
+                  />,
                       "indeterminate": false,
                       "onChange": [Function],
                       "prefixCls": "ant-checkbox",
@@ -401,7 +411,9 @@ exports[`Storyshots Editor Editor 1`] = `
               />
             </span>
             <span>
-              Upvote this post
+              <span>
+                Like this post
+              </span>
             </span>
           </label>
         </div>
@@ -416,7 +428,10 @@ exports[`Storyshots Editor Editor 1`] = `
         <i
           className="iconfont icon-markdown"
         />
-         Styling with markdown is supported
+         
+        <span>
+          Styling with markdown supported
+        </span>
       </span>
       <div
         className="ant-row ant-form-item Editor__bottom__submit"
@@ -783,7 +798,9 @@ exports[`Storyshots Navigation Topnav unlogged 1`] = `
                 href="/signup"
                 onClick={[Function]}
               >
-                Sign up
+                <span>
+                  Sign up
+                </span>
               </a>
             </li>
             <li
@@ -810,7 +827,9 @@ exports[`Storyshots Navigation Topnav unlogged 1`] = `
               <a
                 href="https://v2.steemconnect.com/oauth2/authorize?client_id=&redirect_uri=&scope="
               >
-                Log in
+                <span>
+                  Log in
+                </span>
               </a>
             </li>
           </ul>
@@ -936,7 +955,9 @@ exports[`Storyshots Profile UserMenu 1`] = `
           style={Object {}}
           title={undefined}
         >
-          Discussions
+          <span>
+            Discussions
+          </span>
           <span
             className="UserMenu__badge"
           >
@@ -954,14 +975,14 @@ exports[`Storyshots Profile UserMenu 1`] = `
           style={Object {}}
           title={undefined}
         >
-          <strong>
+          <span>
             Comments
-            <span
-              className="UserMenu__badge"
-            >
-              21
-            </span>
-          </strong>
+          </span>
+          <span
+            className="UserMenu__badge"
+          >
+            21
+          </span>
         </li>
         <li
           aria-disabled={undefined}
@@ -974,14 +995,14 @@ exports[`Storyshots Profile UserMenu 1`] = `
           style={Object {}}
           title={undefined}
         >
-          <strong>
+          <span>
             Followers
-            <span
-              className="UserMenu__badge"
-            >
-              0
-            </span>
-          </strong>
+          </span>
+          <span
+            className="UserMenu__badge"
+          >
+            0
+          </span>
         </li>
         <li
           aria-disabled={undefined}
@@ -994,14 +1015,14 @@ exports[`Storyshots Profile UserMenu 1`] = `
           style={Object {}}
           title={undefined}
         >
-          <strong>
+          <span>
             Following
-            <span
-              className="UserMenu__badge"
-            >
-              244
-            </span>
-          </strong>
+          </span>
+          <span
+            className="UserMenu__badge"
+          >
+            244
+          </span>
         </li>
       </ul>
     </div>
@@ -1269,7 +1290,10 @@ exports[`Storyshots Sidebar Latest Comments 1`] = `
         <i
           className="iconfont icon-time LatestComments__icon"
         />
-         Latest Comments
+         
+        <span>
+          Latest Comments
+        </span>
       </h4>
       <div
         className="LatestComments__divider"
@@ -1409,7 +1433,9 @@ exports[`Storyshots Sidebar Latest Comments 1`] = `
           href="/latest-comments"
           onClick={[Function]}
         >
-          See All Comments
+          <span>
+            See All Comments
+          </span>
         </a>
       </h4>
     </div>
@@ -1438,7 +1464,10 @@ exports[`Storyshots Sidebar Latest Recommendations 1`] = `
         <i
           className="iconfont icon-flashlight_fill LatestRecommendations__icon"
         />
-         Latest Recommendations
+         
+        <span>
+          Latest Recommendations
+        </span>
       </h4>
       <div
         className="LatestRecommendations__divider"
@@ -1592,7 +1621,9 @@ exports[`Storyshots Sidebar Latest Recommendations 1`] = `
           href="/latest-recommendations"
           onClick={[Function]}
         >
-          See All Recommendations
+          <span>
+            See All Recommendations
+          </span>
         </a>
       </h4>
     </div>
@@ -1736,8 +1767,9 @@ exports[`Storyshots Story Full story 1`] = `
       <a
         href="#comments"
       >
-        58
-         Comments
+        <span>
+          58 comments
+        </span>
       </a>
     </h3>
     <div
@@ -1994,8 +2026,9 @@ exports[`Storyshots Story Full story with embed 1`] = `
       <a
         href="#comments"
       >
-        58
-         Comments
+        <span>
+          58 comments
+        </span>
       </a>
     </h3>
     <div
@@ -2836,7 +2869,9 @@ exports[`Storyshots Topic selector Topic selector 1`] = `
     <div
       className="TopicSelector__sort"
     >
-      Sort by:
+      <span>
+        Sort by
+      </span>
       <span
         className="TopicSelector__sort__current"
         onBlur={undefined}

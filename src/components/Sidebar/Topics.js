@@ -36,7 +36,7 @@ class Topics extends React.Component {
     return (
       <div className="Topics">
         <h4>
-          <FormattedMessage id={favorite ? 'favorite_topics' : 'trending_topics'} />
+          <FormattedMessage id={favorite ? 'favorite_topics' : 'trending_topics'} defaultMessage={favorite ? 'Favorite topics' : 'Trending topics'} />
         </h4>
         <ul className="Topics__list">
           {displayedTopics.map(topic =>
@@ -47,12 +47,12 @@ class Topics extends React.Component {
         </ul>
         {topics.length > maxItems && !this.state.showMore
           ? <h5 role="presentation" onClick={() => this.changeVisibility(true)}>
-            <FormattedMessage id="show_more" />
+            <FormattedMessage id="show_more" defaultMessage="View more" />
           </h5>
           : null}
         {topics.length > maxItems && this.state.showMore
           ? <h5 role="presentation" onClick={() => this.changeVisibility(false)}>
-            <FormattedMessage id="show_less" />
+            <FormattedMessage id="show_less" defaultMessage="View less" />
           </h5>
           : null}
       </div>

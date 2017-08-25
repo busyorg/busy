@@ -124,14 +124,14 @@ class CommentForm extends React.Component {
             ref={ref => this.setInput(ref)}
             value={this.state.inputValue}
             onChange={this.handleCommentTextChange}
-            placeholder={intl.formatMessage({ id: 'comment_placeholder' })}
+            placeholder={intl.formatMessage({ id: 'comment_placeholder', defaultMessage: 'Write a comment' })}
             disabled={isLoading}
           />
           <p className="CommentForm__imagebox">
             <input type="file" id={`inputfile${this.props.parentPost.id}`} onChange={this.handleImageChange} />
             <label htmlFor={`inputfile${this.props.parentPost.id}`}>
               {(this.state.imageUploading) ? <Icon type="loading" /> : <i className="iconfont icon-picture" />}
-              {(this.state.imageUploading) ? <FormattedMessage id="image_uploading" /> : <FormattedMessage id="select_or_past_image" />}
+              {(this.state.imageUploading) ? <FormattedMessage id="image_uploading" defaultMessage="Uploading your image..." /> : <FormattedMessage id="select_or_past_image" defaultMessage="Select image or paste it from the clipboard." />}
             </label>
           </p>
           <button
@@ -140,7 +140,7 @@ class CommentForm extends React.Component {
             className={`CommentForm__button ${buttonClass}`}
           >
             {isLoading && <Icon type="loading" />}
-            {isLoading ? <FormattedMessage id="comment_send_progress" /> : <FormattedMessage id="comment_send" />}
+            {isLoading ? <FormattedMessage id="comment_send_progress" defaultMessage="Commenting" /> : <FormattedMessage id="comment_send" defaultMessage="Comment" />}
           </button>
         </div>
       </div>

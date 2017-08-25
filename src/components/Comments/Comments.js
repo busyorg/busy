@@ -106,7 +106,7 @@ class Comments extends React.Component {
       <div className="Comments">
         <div className="Comments__header">
           <h2>
-            <FormattedMessage id="comments" />
+            <FormattedMessage id="comments" defaultMessage="Comments" />
           </h2>
           <div
             role="presentation"
@@ -114,13 +114,13 @@ class Comments extends React.Component {
             onClick={this.handleSortClick}
           >
             <a className={classNames({ active: sort === 'BEST' })} data-type="BEST">
-              <FormattedMessage id="sort_best" />
+              <FormattedMessage id="sort_best" defaultMessage="Best" />
             </a>
             <a className={classNames({ active: sort === 'NEWEST' })} data-type="NEWEST">
-              <FormattedMessage id="sort_newest" />
+              <FormattedMessage id="sort_newest" defaultMessage="Newest" />
             </a>
             <a className={classNames({ active: sort === 'OLDEST' })} data-type="OLDEST">
-              <FormattedMessage id="sort_oldest" />
+              <FormattedMessage id="sort_oldest" defaultMessage="Oldest" />
             </a>
           </div>
         </div>

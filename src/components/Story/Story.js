@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedRelative, FormattedDate, FormattedTime } from 'react-intl';
+import { injectIntl, FormattedMessage, FormattedRelative, FormattedDate, FormattedTime } from 'react-intl';
 import { Link } from 'react-router-dom';
 import { Tag, Icon, Popover, Tooltip } from 'antd';
 import { formatter } from 'steem';
@@ -11,8 +11,10 @@ import Topic from '../Button/Topic';
 import PopoverMenu, { PopoverMenuItem } from '../PopoverMenu/PopoverMenu';
 import './Story.less';
 
+@injectIntl
 class Story extends React.Component {
   static propTypes = {
+    intl: PropTypes.shape().isRequired,
     post: PropTypes.shape().isRequired,
     postState: PropTypes.shape().isRequired,
     pendingLike: PropTypes.bool,
@@ -52,6 +54,7 @@ class Story extends React.Component {
 
   render() {
     const {
+      intl,
       post,
       postState,
       pendingLike,
@@ -84,11 +87,14 @@ class Story extends React.Component {
                 {`${followText} ${post.author}`}
               </PopoverMenuItem>
               <PopoverMenuItem key="save">
-                <i className="iconfont icon-collection" />{' '}
-                {postState.isSaved ? 'Unsave post' : 'Save post'}
+                <i className="iconfont icon-collection" />
+                {' '}
+                <FormattedMessage id={postState.isSaved ? 'unsave_post' : 'save_post'} defaultMessage={postState.isSaved ? 'Unsave post' : 'Save post'} />
               </PopoverMenuItem>
               <PopoverMenuItem key="report">
-                <i className="iconfont icon-flag" /> Report post
+                <i className="iconfont icon-flag" />
+                {' '}
+                <FormattedMessage id="report_post" defaultMessage="Report post" />
               </PopoverMenuItem>
             </PopoverMenu>
           }
@@ -103,7 +109,7 @@ class Story extends React.Component {
             <Link to={`/@${post.author}`}>
               <h4>
                 {post.author}
-                <Tooltip title="Reputation score">
+                <Tooltip title={intl.formatMessage({ id: 'reputation_score' })}>
                   <Tag>
                     {formatter.reputation(post.author_reputation)}
                   </Tag>

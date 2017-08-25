@@ -8,8 +8,8 @@ import './FavoriteButton.less';
 const FavoriteButton = ({ intl, isFavorited, onClick }) =>
   (<Tooltip
     title={intl.formatMessage({
-      id: isFavorited ? '@tooltip_remove_fav' : '@tooltip_add_fav',
-      defaultMessage: isFavorited ? 'Remove from favorites' : 'Add in favorites',
+      id: isFavorited ? 'remove_from_favorites' : 'add_to_favorites',
+      defaultMessage: isFavorited ? 'Remove from favorites' : 'Add to favorites',
     })}
   >
     <a
