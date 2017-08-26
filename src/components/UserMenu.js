@@ -9,8 +9,6 @@ class UserMenu extends React.Component {
   static propTypes = {
     onChange: PropTypes.func,
     defaultKey: PropTypes.string,
-    discussions: PropTypes.number,
-    comments: PropTypes.number,
     followers: PropTypes.number,
     following: PropTypes.number,
   };
@@ -18,8 +16,6 @@ class UserMenu extends React.Component {
   static defaultProps = {
     onChange: () => {},
     defaultKey: 'discussions',
-    discussions: 0,
-    comments: 0,
     followers: 0,
     following: 0,
   };
@@ -45,8 +41,6 @@ class UserMenu extends React.Component {
   };
 
   render() {
-    const discussionsValue = numeral(this.props.discussions).format('0,0');
-    const commentsValue = numeral(this.props.comments).format('0,0');
     const followersValue = numeral(this.props.followers).format('0,0');
     const followingValue = numeral(this.props.following).format('0,0');
 
@@ -62,11 +56,9 @@ class UserMenu extends React.Component {
           >
             <Menu.Item key="discussions" className="UserMenu__item">
               <FormattedMessage id="discussions" defaultMessage="Discussions" />
-              <span className="UserMenu__badge">{discussionsValue}</span>
             </Menu.Item>
             <Menu.Item key="comments" className="UserMenu__item">
               <FormattedMessage id="comments" defaultMessage="Comments" />
-              <span className="UserMenu__badge">{commentsValue}</span>
             </Menu.Item>
             <Menu.Item key="followers" className="UserMenu__item">
               <FormattedMessage id="followers" defaultMessage="Followers" />

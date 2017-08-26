@@ -54,8 +54,6 @@ const UserHero = ({
                 />
             }
             <UserMenuWrapper
-              discussions={user.post_count}
-              comments={0}
               followers={user.follower_count}
               following={user.following_count}
             />
