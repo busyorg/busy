@@ -519,7 +519,7 @@ exports[`Storyshots Navigation Sidenav logged 1`] = `
       <li>
         <a
           className={undefined}
-          href="/@guest123/transfers"
+          href="#wallet"
           onClick={[Function]}
           style={undefined}
         >
@@ -795,7 +795,7 @@ exports[`Storyshots Navigation Topnav unlogged 1`] = `
               title={undefined}
             >
               <a
-                href="/signup"
+                href="#signup"
                 onClick={[Function]}
               >
                 <span>
@@ -958,11 +958,6 @@ exports[`Storyshots Profile UserMenu 1`] = `
           <span>
             Discussions
           </span>
-          <span
-            className="UserMenu__badge"
-          >
-            1,521
-          </span>
         </li>
         <li
           aria-disabled={undefined}
@@ -977,11 +972,6 @@ exports[`Storyshots Profile UserMenu 1`] = `
         >
           <span>
             Comments
-          </span>
-          <span
-            className="UserMenu__badge"
-          >
-            21
           </span>
         </li>
         <li
@@ -2882,7 +2872,9 @@ exports[`Storyshots Topic selector Topic selector 1`] = `
         onMouseLeave={undefined}
         onTouchStart={[Function]}
       >
-        Trending
+        <span>
+          Trending
+        </span>
         <i
           className="iconfont icon-unfold"
         />

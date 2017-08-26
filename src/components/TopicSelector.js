@@ -73,13 +73,16 @@ class TopicSelector extends React.Component {
                   <FormattedMessage id="sort_hot" defaultMessage="Hot" />
                 </PopoverMenuItem>
                 <PopoverMenuItem key="promoted">
-                  <formatMessage id="sort_promoted" defaultMessage="Promoted" />
+                  <FormattedMessage id="sort_promoted" defaultMessage="Promoted" />
                 </PopoverMenuItem>
               </PopoverMenu>
             }
           >
             <span className="TopicSelector__sort__current">
-              {sort.charAt(0).toUpperCase() + sort.slice(1)}
+              <FormattedMessage
+                id={`sort_${sort}`}
+                defaultMessage={sort.charAt(0).toUpperCase() + sort.slice(1)}
+              />
               <i className="iconfont icon-unfold" />
             </span>
           </Popover>
