@@ -391,10 +391,10 @@ class Editor extends React.Component {
             <TabPane tab={intl.formatMessage({ id: 'editor', defaultMessage: 'Editor' })} key="1">
               <EditorToolbar onSelect={this.insertCode} />
               <HotKeys keyMap={Editor.hotkeys} handlers={this.handlers}>
-                <Input
+                <Input.TextArea
+                  autosize={{ minRows: 6 }}
                   onChange={this.onUpdate}
                   ref={ref => this.setInput(ref)}
-                  type="textarea"
                   placeholder={intl.formatMessage({ id: 'story_placeholder', defaultMessage: 'Write your story...' })}
                 />
               </HotKeys>
