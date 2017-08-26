@@ -1,15 +1,15 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
-import './SignUp.less';
+import './SidebarBlock.less';
 
 const SignUp = () =>
-  (<div className="SignUp">
-    <h3 className="SignUp__title">
+  (<div className="SidebarBlock">
+    <h3 className="SidebarBlock__title">
       <FormattedMessage id="new_to_busy" defaultMessage="New to Busy?" />
     </h3>
     <Link to="#signup">
-      <button className="SignUp__button">
+      <button className="SidebarBlock__button">
         <FormattedMessage id="signup" defaultMessage="Sign up" />
       </button>
     </Link>

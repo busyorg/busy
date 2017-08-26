@@ -6,6 +6,7 @@ import kebabCase from 'lodash/kebabCase';
 import debounce from 'lodash/debounce';
 import isArray from 'lodash/isArray';
 import 'url-search-params-polyfill';
+import GetBoost from '../../components/Sidebar/GetBoost';
 
 import { getAuthenticatedUser, getDraftPosts, getIsEditorLoading } from '../../reducers';
 
@@ -212,7 +213,9 @@ class Write extends React.Component {
       <div className="shifted">
         <div className="post-layout container">
           <Affix className="rightContainer" stickPosition={77}>
-            <div className="right">WIP</div>
+            <div className="right">
+              <GetBoost />
+            </div>
           </Affix>
           <div className="center">
             <Editor
