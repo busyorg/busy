@@ -10,11 +10,13 @@ import nl from 'react-intl/locale-data/nl';
 import se from 'react-intl/locale-data/se';
 
 import enTranslations from '../locales/en.json';
+import frTranslations from '../locales/fr.json';
 
 addLocaleData([...en, ...es, ...zh, ...fr, ...de, ...ru, ...ko, ...nl, ...se]);
 
 export const translations = {
   en: enTranslations,
+  fr: frTranslations,
 };
 
 export const getAvailableLocale = (appLocale) => {
