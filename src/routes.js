@@ -16,7 +16,6 @@ import Bookmarks from './bookmarks/Bookmarks';
 import About from './statics/About';
 import Help from './statics/Help';
 import Team from './statics/Team';
-import Signup from './auth/Signup';
 import Write from './post/Write/Write';
 import Drafts from './post/Write/Drafts';
 import RequireLogin from './auth/RequireLogin';
@@ -25,7 +24,6 @@ export default (
   <Wrapper>
     <Switch>
       <Route exact path="/" component={Page} />
-      <Route path="/signup" component={Signup} />
       <Route path="/help" component={Help} />
       <Route path="/about" component={About} />
       <Route path="/team" component={Team} />
