@@ -1631,10 +1631,10 @@ exports[`Storyshots Sidebar Start now 1`] = `
   }
 >
   <div
-    className="StartNow"
+    className="SidebarBlock"
   >
     <h3
-      className="StartNow__title"
+      className="SidebarBlock__title"
     >
       <span>
         Never written a post?
@@ -1645,7 +1645,7 @@ exports[`Storyshots Sidebar Start now 1`] = `
       onClick={[Function]}
     >
       <button
-        className="StartNow__button"
+        className="SidebarBlock__button"
       >
         <span>
           Start Now
