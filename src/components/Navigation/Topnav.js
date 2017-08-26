@@ -96,7 +96,7 @@ const Topnav = ({
       <div className="Topnav__menu-container">
         <Menu className="Topnav__menu-container__menu" mode="horizontal">
           <Menu.Item key="signup">
-            <Link to="/signup">
+            <Link to="#signup">
               <FormattedMessage id="signup" defaultMessage="Sign up" />
             </Link>
           </Menu.Item>

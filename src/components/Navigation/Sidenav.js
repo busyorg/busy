@@ -27,7 +27,7 @@ const Sidenav = ({ username }) =>
           </NavLink>
         </li>
         <li>
-          <NavLink to={`/@${username}/transfers`} activeClassName="Sidenav__item--active">
+          <NavLink to="#wallet" activeClassName="Sidenav__item--active">
             <i className="iconfont icon-wallet" />
             <FormattedMessage id="wallet" defaultMessage="Wallet" />
           </NavLink>
