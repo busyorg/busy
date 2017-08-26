@@ -23,6 +23,7 @@
   "follow":"Follow",
   "unfollow":"Unfollow",
   "following":"Following",
+  "followed":"Following",
   "unfollowing":"Unfollowing",
   "followers":"Followers",
   "follow_username":"Follow {username}",
