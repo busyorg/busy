@@ -19,7 +19,7 @@
   "discussions":"Discussions",
   "comments":"Commentaires",
   "comments_count":"{count} commentaires",
-  "joined_date":"Inscrit {date}",
+  "joined_date":"Inscrit le {date}",
   "follow":"Suivre",
   "unfollow":"Se désabonner",
   "following":"Abonnements",
