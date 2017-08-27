@@ -119,12 +119,13 @@ class CommentForm extends React.Component {
       <div className="CommentForm">
         <Avatar username={username} size={!isSmall ? 40 : 32} />
         <div className="CommentForm__text">
-          <Input.TextArea
+          <Input
             ref={ref => this.setInput(ref)}
             value={this.state.inputValue}
-            autosize={{ minRows: 2 }}
+            autosize={{ minRows: 2, maxRows: 6 }}
             onChange={this.handleCommentTextChange}
             placeholder={intl.formatMessage({ id: 'comment_placeholder', defaultMessage: 'Write a comment' })}
+            type="textarea"
             disabled={isLoading}
           />
           <p className="CommentForm__imagebox">
