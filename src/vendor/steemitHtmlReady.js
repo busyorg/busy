@@ -14,7 +14,7 @@ const DOMParser = new xmldom.DOMParser({
   errorHandler: { warning: noop, error: noop },
 });
 const XMLSerializer = new xmldom.XMLSerializer();
-const IMG_PROXY_PREFIX = 'https://steemitimages.com/0x0/';
+const IMG_PROXY_PREFIX = 'http://res.cloudinary.com/hpiynhbhq/image/fetch/w_720,c_limit/';
 
 /**
  * Functions performed by HTMLReady
@@ -176,7 +176,7 @@ function proxifyImages(doc) {
   [...doc.getElementsByTagName('img')].forEach(node => {
     const url = node.getAttribute('src');
     if (!linksRe.local.test(url)) {
-      node.setAttribute('src', `${IMG_PROXY_PREFIX}0x0/${url}`);
+      node.setAttribute('src', `${IMG_PROXY_PREFIX}${url}`);
     }
   });
 }

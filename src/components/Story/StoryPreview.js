@@ -15,16 +15,18 @@ import {
 } from './StoryHelper';
 import { getHtml } from './Body';
 
+const IMG_PROXY_PREFIX = 'http://res.cloudinary.com/hpiynhbhq/image/fetch/w_600,h_800,c_limit/';
+
 const StoryPreview = ({ post }) => {
   const jsonMetadata = jsonParse(post.json_metadata);
   let imagePath = '';
 
   if (jsonMetadata.image && jsonMetadata.image[0]) {
-    imagePath = `https://steemitimages.com/600x800/${jsonMetadata.image[0]}`;
+    imagePath = `${IMG_PROXY_PREFIX}${jsonMetadata.image[0]}`;
   } else {
     const bodyImg = post.body.match(image());
     if (bodyImg && bodyImg.length) {
-      imagePath = `https://steemitimages.com/600x800/${bodyImg[0]}`;
+      imagePath = `${IMG_PROXY_PREFIX}${bodyImg[0]}`;
     }
   }
 
@@ -37,7 +39,7 @@ const StoryPreview = ({ post }) => {
       type: 'video',
       provider_name: 'DTube',
       embed: `<video controls="true" autoplay="true" src="https://ipfs.io/ipfs/${video.content.videohash}" poster="https://ipfs.io/ipfs/${video.info.snaphash}"><track kind="captions" /></video>`,
-      thumbnail: `https://steemitimages.com/600x800/https://ipfs.io/ipfs/${video.info.snaphash}`,
+      thumbnail: `${IMG_PROXY_PREFIX}https://ipfs.io/ipfs/${video.info.snaphash}`,
     };
   }
 
