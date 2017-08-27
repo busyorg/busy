@@ -30,7 +30,7 @@ export default class AppSettings extends React.Component {
   render() {
     const { setLocale } = this.props;
     return (
-      <div className="main-panel">
+      <div className="shifted">
         <div className="container">
           <h1>
             <FormattedMessage id="settings" defaultMessage="Settings" />
