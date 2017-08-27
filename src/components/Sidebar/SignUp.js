@@ -8,11 +8,11 @@ const SignUp = () =>
     <h3 className="SignUp__title">
       <FormattedMessage id="new_to_busy" defaultMessage="New to Busy?" />
     </h3>
-    <Link to="#signup">
+    <a target="_blank" rel="noopener noreferrer" href="https://steemit.com/pick_account">
       <button className="SignUp__button">
         <FormattedMessage id="signup" defaultMessage="Sign up" />
       </button>
-    </Link>
+    </a>
   </div>);
 
 export default SignUp;
