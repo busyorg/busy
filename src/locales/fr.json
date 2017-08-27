@@ -23,6 +23,7 @@
   "follow":"Suivre",
   "unfollow":"Se désabonner",
   "following":"Abonnements",
+  "followed":"Abonné",
   "unfollowing":"Désabonnement",
   "followers":"Abonnés",
   "follow_username":"Suivre {username}",
