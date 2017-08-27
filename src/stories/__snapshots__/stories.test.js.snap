@@ -320,9 +320,146 @@ exports[`Storyshots Editor Editor 1`] = `
       >
         <div
           className="ant-form-item-control "
-        />
+        >
+          <div
+            className="EditorToolbar"
+          >
+            <button
+              className="ant-btn EditorToolbar__button ant-dropdown-trigger"
+              onBlur={undefined}
+              onClick={[Function]}
+              onFocus={undefined}
+              onMouseDown={undefined}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              onTouchStart={undefined}
+              type="button"
+            >
+              <i
+                className="iconfont icon-fontsize"
+              />
+              <span>
+                 
+              </span>
+              <i
+                className="anticon anticon-down"
+              />
+            </button>
+            <button
+              className="ant-btn EditorToolbar__button"
+              onBlur={undefined}
+              onClick={[Function]}
+              onFocus={undefined}
+              onMouseDown={undefined}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              onTouchStart={undefined}
+              type="button"
+            >
+              <i
+                className="iconfont icon-bold"
+              />
+            </button>
+            <button
+              className="ant-btn EditorToolbar__button"
+              onBlur={undefined}
+              onClick={[Function]}
+              onFocus={undefined}
+              onMouseDown={undefined}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              onTouchStart={undefined}
+              type="button"
+            >
+              <i
+                className="iconfont icon-italic"
+              />
+            </button>
+            <button
+              className="ant-btn EditorToolbar__button"
+              onBlur={undefined}
+              onClick={[Function]}
+              onFocus={undefined}
+              onMouseDown={undefined}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              onTouchStart={undefined}
+              type="button"
+            >
+              <i
+                className="iconfont icon-q1"
+              />
+            </button>
+            <button
+              className="ant-btn EditorToolbar__button"
+              onBlur={undefined}
+              onClick={[Function]}
+              onFocus={undefined}
+              onMouseDown={undefined}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              onTouchStart={undefined}
+              type="button"
+            >
+              <i
+                className="iconfont icon-link"
+              />
+            </button>
+            <button
+              className="ant-btn EditorToolbar__button"
+              onBlur={undefined}
+              onClick={[Function]}
+              onFocus={undefined}
+              onMouseDown={undefined}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              onTouchStart={undefined}
+              type="button"
+            >
+              <i
+                className="iconfont icon-picture"
+              />
+            </button>
+          </div>
+          <div
+            onBlur={[Function]}
+            onFocus={[Function]}
+            size="large"
+            tabIndex="-1"
+          >
+            <textarea
+              className="ant-input"
+              disabled={false}
+              onChange={[Function]}
+              onKeyDown={[Function]}
+              placeholder="Write your story..."
+              style={Object {}}
+              type="textarea"
+            />
+          </div>
+          <p
+            className="Editor__imagebox"
+          >
+            <input
+              id="inputfile"
+              onChange={[Function]}
+              type="file"
+            />
+            <label
+              htmlFor="inputfile"
+            >
+              <i
+                className="iconfont icon-picture"
+              />
+              <span>
+                Select image or paste it from the clipboard.
+              </span>
+            </label>
+          </p>
+        </div>
       </div>
     </div>
+    
     <div
       className="ant-row ant-form-item"
       style={undefined}
@@ -1632,10 +1769,10 @@ exports[`Storyshots Sidebar Start now 1`] = `
   }
 >
   <div
-    className="StartNow"
+    className="SidebarBlock"
   >
     <h3
-      className="StartNow__title"
+      className="SidebarBlock__title"
     >
       <span>
         Never written a post?
@@ -1646,7 +1783,7 @@ exports[`Storyshots Sidebar Start now 1`] = `
       onClick={[Function]}
     >
       <button
-        className="StartNow__button"
+        className="SidebarBlock__button"
       >
         <span>
           Start Now
