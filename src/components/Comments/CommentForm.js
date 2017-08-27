@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import { injectIntl, FormattedMessage } from 'react-intl';
-import { Input, Icon } from 'antd';
+import { Form, Input, Icon } from 'antd';
+import Body, { remarkable } from '../Story/Body';
 import Avatar from '../Avatar';
 import './CommentForm.less';
 
@@ -143,6 +144,12 @@ class CommentForm extends React.Component {
             {isLoading && <Icon type="loading" />}
             {isLoading ? <FormattedMessage id="comment_send_progress" defaultMessage="Commenting" /> : <FormattedMessage id="comment_send" defaultMessage="Comment" />}
           </button>
+          {this.state.inputValue &&
+            <div className="CommentForm__preview">
+              <span className="Editor__label"><FormattedMessage id="preview" defaultMessage="Preview" /></span>
+              <Body body={remarkable.render(this.state.inputValue)} />
+            </div>
+          }
         </div>
       </div>
     );
