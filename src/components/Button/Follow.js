@@ -43,7 +43,7 @@ class Follow extends React.Component {
 
     let followingText = intl.formatMessage({ id: 'follow' });
     if (isFollowed && !(isHovered || pending)) {
-      followingText = intl.formatMessage({ id: 'following' });
+      followingText = intl.formatMessage({ id: 'followed' });
     } else if (isFollowed && isHovered && !pending) {
       followingText = intl.formatMessage({ id: 'unfollow' });
     } else if (isFollowed && pending) {
@@ -51,7 +51,7 @@ class Follow extends React.Component {
     } else if (!isFollowed && isHovered && !pending) {
       followingText = intl.formatMessage({ id: 'follow' });
     } else if (!isFollowed && pending) {
-      followingText = intl.formatMessage({ id: 'following' });
+      followingText = intl.formatMessage({ id: 'followed' });
     }
 
     return (
