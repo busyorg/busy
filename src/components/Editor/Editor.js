@@ -5,13 +5,11 @@ import { injectIntl, FormattedMessage } from 'react-intl';
 import { HotKeys } from 'react-hotkeys';
 import { throttle } from 'lodash';
 import isArray from 'lodash/isArray';
-import { Icon, Checkbox, Form, Input, Select, Tabs } from 'antd';
+import { Icon, Checkbox, Form, Input, Select } from 'antd';
 import EditorToolbar from './EditorToolbar';
 import Action from '../Button/Action';
 import Body, { remarkable } from '../Story/Body';
 import './Editor.less';
-
-const TabPane = Tabs.TabPane;
 
 @injectIntl
 class Editor extends React.Component {
