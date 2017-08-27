@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import { injectIntl, FormattedMessage } from 'react-intl';
-import { Form, Input, Icon } from 'antd';
+import { Input, Icon } from 'antd';
 import Body, { remarkable } from '../Story/Body';
 import Avatar from '../Avatar';
 import './CommentForm.less';
