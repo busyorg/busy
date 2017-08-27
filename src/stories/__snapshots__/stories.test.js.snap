@@ -795,8 +795,9 @@ exports[`Storyshots Navigation Topnav unlogged 1`] = `
               title={undefined}
             >
               <a
-                href="#signup"
-                onClick={[Function]}
+                href="https://steemit.com/pick_account"
+                rel="noopener noreferrer"
+                target="_blank"
               >
                 <span>
                   Sign up

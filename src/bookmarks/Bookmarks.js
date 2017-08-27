@@ -45,8 +45,8 @@ export default class Bookmarks extends React.Component {
     const loadMoreContentAction = () => null;
 
     return (
-      <div className="main-panel">
-        <div className="my-5">
+      <div className="shifted">
+        <div className="container">
           <h1 className="text-center">
             <FormattedMessage id="bookmarks" defaultMessage="Bookmarks" />
           </h1>
