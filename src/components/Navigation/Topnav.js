@@ -76,6 +76,12 @@ const Topnav = ({
                   <PopoverMenuItem key="activity">
                     <FormattedMessage id="activity" defaultMessage="Activity" />
                   </PopoverMenuItem>
+                  <PopoverMenuItem key="bookmarks">
+                    <FormattedMessage id="bookmarks" defaultMessage="Bookmarks" />
+                  </PopoverMenuItem>
+                  <PopoverMenuItem key="drafts">
+                    <FormattedMessage id="drafts" defaultMessage="Drafts" />
+                  </PopoverMenuItem>
                   <PopoverMenuItem key="settings">
                     <FormattedMessage id="settings" defaultMessage="Settings" />
                   </PopoverMenuItem>
@@ -96,9 +102,9 @@ const Topnav = ({
       <div className="Topnav__menu-container">
         <Menu className="Topnav__menu-container__menu" mode="horizontal">
           <Menu.Item key="signup">
-            <Link to="#signup">
+            <a target="_blank" rel="noopener noreferrer" href="https://steemit.com/pick_account">
               <FormattedMessage id="signup" defaultMessage="Sign up" />
-            </Link>
+            </a>
           </Menu.Item>
           <Menu.Item key="divider" disabled>
             |
