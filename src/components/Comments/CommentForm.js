@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { Input, Icon } from 'antd';
+import Body, { remarkable } from '../Story/Body';
 import Avatar from '../Avatar';
 import './CommentForm.less';
 
@@ -120,11 +121,12 @@ class CommentForm extends React.Component {
         <Avatar username={username} size={!isSmall ? 40 : 32} />
         <div className="CommentForm__text">
           <Input
-            type="textarea"
             ref={ref => this.setInput(ref)}
             value={this.state.inputValue}
+            autosize={{ minRows: 2, maxRows: 6 }}
             onChange={this.handleCommentTextChange}
             placeholder={intl.formatMessage({ id: 'comment_placeholder', defaultMessage: 'Write a comment' })}
+            type="textarea"
             disabled={isLoading}
           />
           <p className="CommentForm__imagebox">
@@ -142,6 +144,12 @@ class CommentForm extends React.Component {
             {isLoading && <Icon type="loading" />}
             {isLoading ? <FormattedMessage id="comment_send_progress" defaultMessage="Commenting" /> : <FormattedMessage id="comment_send" defaultMessage="Comment" />}
           </button>
+          {this.state.inputValue &&
+            <div className="CommentForm__preview">
+              <span className="Editor__label"><FormattedMessage id="preview" defaultMessage="Preview" /></span>
+              <Body body={remarkable.render(this.state.inputValue)} />
+            </div>
+          }
         </div>
       </div>
     );

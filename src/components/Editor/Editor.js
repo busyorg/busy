@@ -5,13 +5,11 @@ import { injectIntl, FormattedMessage } from 'react-intl';
 import { HotKeys } from 'react-hotkeys';
 import { throttle } from 'lodash';
 import isArray from 'lodash/isArray';
-import { Icon, Checkbox, Form, Input, Select, Tabs } from 'antd';
+import { Icon, Checkbox, Form, Input, Select } from 'antd';
 import EditorToolbar from './EditorToolbar';
 import Action from '../Button/Action';
 import Body, { remarkable } from '../Story/Body';
 import './Editor.less';
-
-const TabPane = Tabs.TabPane;
 
 @injectIntl
 class Editor extends React.Component {
@@ -387,33 +385,32 @@ class Editor extends React.Component {
           validateStatus={this.state.noContent ? 'error' : ''}
           help={this.state.noContent && intl.formatMessage({ id: 'story_error_empty', defaultMessage: "Story content can't be empty." })}
         >
-          <Tabs defaultActiveKey="1">
-            <TabPane tab={intl.formatMessage({ id: 'editor', defaultMessage: 'Editor' })} key="1">
-              <EditorToolbar onSelect={this.insertCode} />
-              <HotKeys keyMap={Editor.hotkeys} handlers={this.handlers}>
-                <Input
-                  onChange={this.onUpdate}
-                  ref={ref => this.setInput(ref)}
-                  type="textarea"
-                  placeholder={intl.formatMessage({ id: 'story_placeholder', defaultMessage: 'Write your story...' })}
-                />
-              </HotKeys>
-              <p className="Editor__imagebox">
-                <input type="file" id="inputfile" onChange={this.handleImageChange} />
-                <label htmlFor="inputfile">
-                  {(this.state.imageUploading) ? <Icon type="loading" /> : <i className="iconfont icon-picture" />}
-                  {(this.state.imageUploading) ?
-                    <FormattedMessage id="image_uploading" defaultMessage="Uploading your image..." /> :
-                    <FormattedMessage id="select_or_past_image" defaultMessage="Select image or paste it from the clipboard." />
-                  }
-                </label>
-              </p>
-            </TabPane>
-            <TabPane tab={intl.formatMessage({ id: 'preview', defaultMessage: 'Preview' })} key="2">
-              <Body full body={this.state.contentHtml} />
-            </TabPane>
-          </Tabs>
+          <EditorToolbar onSelect={this.insertCode} />
+          <HotKeys keyMap={Editor.hotkeys} handlers={this.handlers}>
+            <Input
+              autosize={{ minRows: 6, maxRows: 12 }}
+              onChange={this.onUpdate}
+              ref={ref => this.setInput(ref)}
+              type="textarea"
+              placeholder={intl.formatMessage({ id: 'story_placeholder', defaultMessage: 'Write your story...' })}
+            />
+          </HotKeys>
+          <p className="Editor__imagebox">
+            <input type="file" id="inputfile" onChange={this.handleImageChange} />
+            <label htmlFor="inputfile">
+              {(this.state.imageUploading) ? <Icon type="loading" /> : <i className="iconfont icon-picture" />}
+              {(this.state.imageUploading) ?
+                <FormattedMessage id="image_uploading" defaultMessage="Uploading your image..." /> :
+                <FormattedMessage id="select_or_past_image" defaultMessage="Select image or paste it from the clipboard." />
+              }
+            </label>
+          </p>
         </Form.Item>
+        {this.state.contentHtml &&
+          <Form.Item label={<span className="Editor__label"><FormattedMessage id="preview" defaultMessage="Preview" /></span>}>
+            <Body full body={this.state.contentHtml} />
+          </Form.Item>
+        }
         <Form.Item label={<span className="Editor__label"><FormattedMessage id="reward" defaultMessage="Rward" /></span>}>
           {getFieldDecorator('reward', { initialValue: '50' })(
             <Select onChange={this.onUpdate}>
