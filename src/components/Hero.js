@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import './Hero.less';
 
@@ -9,11 +8,11 @@ const Hero = () =>
       <h1 className="hero-message">
         <FormattedMessage id="hero" defaultMessage="Ensuring compensation for the creators of value" />
       </h1>
-      <Link to="/signup">
+      <a target="_blank" rel="noopener noreferrer" href="https://steemit.com/pick_account">
         <button className="ant-btn-lg hero-signup">
           <FormattedMessage id="signup" defaultMessage="Sign up" />
         </button>
-      </Link>
+      </a>
     </div>
   </div>);
 
