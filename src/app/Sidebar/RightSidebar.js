@@ -3,7 +3,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 
-import { getIsAuthenticated } from '../../reducers';
+import {
+  getIsAuthenticated,
+  getAuthenticatedUser,
+} from '../../reducers';
 
 import InterestingPeople from '../../components/Sidebar/InterestingPeople';
 import StartNow from '../../components/Sidebar/StartNow';
@@ -24,7 +27,7 @@ const InterestingPeopleWithData = () =>
     ]}
   />);
 
-const RightSidebar = ({ authenticated }) =>
+const RightSidebar = ({ authenticated, authenticatedUser }) =>
   (authenticated
     ? <Switch>
       <Route path="/@:name" render={() => <InterestingPeopleWithData />} />
@@ -32,7 +35,9 @@ const RightSidebar = ({ authenticated }) =>
         path="/"
         render={() =>
           (<div>
-            <StartNow />
+            {authenticatedUser.last_root_post === '1970-01-01T00:00:00' &&
+              <StartNow />
+            }
             <InterestingPeopleWithData />
           </div>)}
       />
@@ -41,10 +46,12 @@ const RightSidebar = ({ authenticated }) =>
 
 RightSidebar.propTypes = {
   authenticated: PropTypes.bool.isRequired,
+  authenticatedUser: PropTypes.shape().isRequired,
 };
 
 export default connect(
   state => ({
     authenticated: getIsAuthenticated(state),
+    authenticatedUser: getAuthenticatedUser(state),
   }),
 )(RightSidebar);
