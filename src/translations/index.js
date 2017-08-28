@@ -8,15 +8,18 @@ import ru from 'react-intl/locale-data/ru';
 import ko from 'react-intl/locale-data/ko';
 import nl from 'react-intl/locale-data/nl';
 import se from 'react-intl/locale-data/se';
+import pl from 'react-intl/locale-data/pl';
 
 import enTranslations from '../locales/en.json';
 import frTranslations from '../locales/fr.json';
+import plTranslations from '../locales/pl.json';
 
-addLocaleData([...en, ...es, ...zh, ...fr, ...de, ...ru, ...ko, ...nl, ...se]);
+addLocaleData([...en, ...es, ...zh, ...fr, ...de, ...ru, ...ko, ...nl, ...se, ...pl]);
 
 export const translations = {
   en: enTranslations,
   fr: frTranslations,
+  pl: plTranslations,
 };
 
 export const getAvailableLocale = (appLocale) => {
