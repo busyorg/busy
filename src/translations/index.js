@@ -23,14 +23,16 @@ export const translations = {
 };
 
 export const getAvailableLocale = (appLocale) => {
-  let locale = 'en';
-  if (typeof navigator !== 'undefined') {
-    const browserLocale = navigator.language || navigator.userLanguage;
-    locale = appLocale || browserLocale;
+  let locale = appLocale;
+
+  if (typeof navigator !== 'undefined' && appLocale === 'auto') {
+    locale = navigator.languages
+      ? navigator.languages[0]
+      : (navigator.language || navigator.userLanguage || 'en');
   }
 
-  if (translations[locale]) {
-    return locale;
+  if (translations[locale.slice(0, 2)]) {
+    return locale.slice(0, 2);
   }
   return 'en';
 };
