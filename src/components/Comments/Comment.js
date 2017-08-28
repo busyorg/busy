@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import numeral from 'numeral';
 import { take, find } from 'lodash';
 import { Link } from 'react-router-dom';
-import { injectIntl, FormattedRelative, FormattedDate, FormattedTime, FormattedMessage } from 'react-intl';
+import { injectIntl, FormattedRelative, FormattedDate, FormattedTime, FormattedNumber, FormattedMessage } from 'react-intl';
 import { Icon, Tag, Tooltip } from 'antd';
 import { formatter } from 'steem';
 import { getUpvotes, getDownvotes } from '../../helpers/voteHelpers';
@@ -12,6 +11,7 @@ import { sortComments, sortVotes } from '../../helpers/sortHelpers';
 import { calculatePayout } from '../../vendor/steemitHelpers';
 import ReactionsModal from '../Reactions/ReactionsModal';
 import CommentForm from './CommentForm';
+import USDDisplay from '../Utils/USDDisplay';
 import PayoutDetail from '../PayoutDetail';
 import Avatar from '../Avatar';
 import Body from '../Story/Body';
@@ -141,33 +141,22 @@ class Comment extends React.Component {
 
     const payout = calculatePayout(comment);
 
-    let payoutValue = '';
-
-    if (payout.cashoutInTime) {
-      payoutValue = numeral(payout.potentialPayout).format('$0,0.00');
-    } else {
-      payoutValue = numeral(payout.pastPayouts).format('$0,0.00');
-    }
-
     const upVotes = getUpvotes(comment.active_votes).sort(sortVotes);
     const downVotes = getDownvotes(comment.active_votes).sort(sortVotes).reverse();
-
-    const likesValue = numeral(upVotes.length).format(
-      '0,0',
-    );
-    const dislikesValue = numeral(downVotes.length).format(
-      '0,0',
-    );
 
     const upVotesPreview = take(upVotes, 10)
       .map(vote => <p key={vote.voter}>{vote.voter}</p>);
     const upVotesDiff = upVotes.length - upVotesPreview.length;
-    const upVotesMore = (upVotesDiff > 0) ? `and ${numeral(upVotesDiff).format('0,0')} more` : null;
+    const upVotesMore = upVotesDiff > 0 &&
+      intl.formatMessage({ id: 'and_more_amount', defaultMessage: 'and {amount} more' },
+        { amount: upVotesDiff });
 
     const downVotesPreview = take(downVotes, 10)
       .map(vote => <p key={vote.voter}>{vote.voter}</p>);
     const downVotesDiff = downVotes.length - downVotesPreview.length;
-    const downVotesMore = (upVotesDiff > 0) ? `and ${numeral(downVotesDiff).format('0,0')} more` : null;
+    const downVotesMore = downVotesDiff > 0 &&
+      intl.formatMessage({ id: 'and_more_amount', defaultMessage: 'and {amount} more' },
+        { amount: downVotesDiff });
 
     const userVote = find(comment.active_votes, { voter: username });
 
@@ -249,7 +238,8 @@ class Comment extends React.Component {
                   </div>
                 }
               >
-                {likesValue}
+                <FormattedNumber value={upVotes.length} />
+                <span />
               </Tooltip>
             </span>
             <Tooltip title={intl.formatMessage({ id: 'dislike', defaultMessage: 'Dislike' })}>
@@ -279,13 +269,17 @@ class Comment extends React.Component {
                   </div>
                 }
               >
-                {dislikesValue}
+                <FormattedNumber value={downVotes.length} />
+                <span />
               </Tooltip>
             </span>
             <span className="Comment__footer__bullet" />
             <span className="Comment__footer__payout">
               <Tooltip title={<PayoutDetail post={comment} />}>
-                {payoutValue}
+                <USDDisplay
+                  value={payout.cashoutInTime ? payout.potentialPayout : payout.pastPayouts}
+                />
+                <span />
               </Tooltip>
             </span>
             {authenticated &&

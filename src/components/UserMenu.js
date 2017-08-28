@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
-import numeral from 'numeral';
+import { FormattedMessage, FormattedNumber } from 'react-intl';
 import { Menu } from 'antd';
 import './UserMenu.less';
 
@@ -41,9 +40,6 @@ class UserMenu extends React.Component {
   };
 
   render() {
-    const followersValue = numeral(this.props.followers).format('0,0');
-    const followingValue = numeral(this.props.following).format('0,0');
-
     return (
       <div className="UserMenu">
         <div className="container topnav-layout">
@@ -62,11 +58,15 @@ class UserMenu extends React.Component {
             </Menu.Item>
             <Menu.Item key="followers" className="UserMenu__item">
               <FormattedMessage id="followers" defaultMessage="Followers" />
-              <span className="UserMenu__badge">{followersValue}</span>
+              <span className="UserMenu__badge">
+                <FormattedNumber value={this.props.followers} />
+              </span>
             </Menu.Item>
             <Menu.Item key="followed" className="UserMenu__item">
               <FormattedMessage id="following" defaultMessage="Following" />
-              <span className="UserMenu__badge">{followingValue}</span>
+              <span className="UserMenu__badge">
+                <FormattedNumber value={this.props.following} />
+              </span>
             </Menu.Item>
           </Menu>
         </div>

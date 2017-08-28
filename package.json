@@ -81,7 +81,6 @@
     "newrelic": "^1.40.0",
     "nodemon": "^1.9.2",
     "npm-run-all": "^4.0.2",
-    "numeral": "^1.5.3",
     "postcss-flexbugs-fixes": "^3.0.0",
     "postcss-loader": "^2.0.5",
     "prop-types": "^15.5.10",
