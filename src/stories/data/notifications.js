@@ -23,6 +23,7 @@ export default [
     payload: {
       user: 'good-karma',
       post_url: 'https://google.com',
+      post_title: 'post title',
     },
   },
   {
@@ -43,6 +44,7 @@ export default [
     payload: {
       user: 'furion',
       post_url: 'https://google.com',
+      post_title: 'post title',
     },
   },
   {
@@ -63,6 +65,7 @@ export default [
     payload: {
       user: 'furion',
       post_url: 'https://google.com',
+      post_title: 'post title',
     },
   },
 ];
