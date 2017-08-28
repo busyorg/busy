@@ -2,7 +2,7 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import './SidebarBlock.less';
 
-const StartNow = () =>
+const GetBoost = () =>
   (<div className="SidebarBlock">
     <h3 className="SidebarBlock__title">
       <FormattedMessage id="get_boost" defaultMessage="Get the Busy boost!" />
@@ -12,4 +12,4 @@ const StartNow = () =>
     </p>
   </div>);
 
-export default StartNow;
+export default GetBoost;
