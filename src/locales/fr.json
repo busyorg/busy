@@ -111,6 +111,8 @@
   "quote":"Citation",
   "link":"Insérer un lien",
   "image":"Insérer une image",
+  "get_boost":"Besoin d'un coup de pouce ?",
+  "get_boost_content":"Ajoute le tag \"busy\" dans ton post et obtient un \"j'aime\" de notre part !",
   "drafts":"Brouillions",
   "drafts_empty":"Vous n’avez aucun brouillon enregistré",
   "draft_untitled":"Brouillon sans titre",
