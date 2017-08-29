@@ -15,7 +15,7 @@ import {
 } from './StoryHelper';
 import { getHtml } from './Body';
 
-const IMG_PROXY_PREFIX = 'http://res.cloudinary.com/hpiynhbhq/image/fetch/w_600,h_800,c_limit/';
+const IMG_PROXY_PREFIX = '//res.cloudinary.com/hpiynhbhq/image/fetch/w_600,h_800,c_limit/';
 
 const StoryPreview = ({ post }) => {
   const jsonMetadata = jsonParse(post.json_metadata);
