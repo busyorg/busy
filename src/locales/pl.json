@@ -35,6 +35,7 @@
   "remove_from_favorites":"Usuń z ulubionych",
   "like":"Lubię to",
   "dislike":"Nie lubię tego",
+  "and_more_amount":"and {amount} more",
   "comment":"Komentarz",
   "comment_placeholder":"Napisz swój komentarz",
   "comment_collapsed":"Komentarz ukryty",
