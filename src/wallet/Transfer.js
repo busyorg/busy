@@ -17,35 +17,29 @@ export default class Transfer extends React.Component {
   };
 
   state = {
-    from: this.props.user.name,
-    to: '',
-    memo: '',
-    amount: '',
     currency: 'STEEM',
   };
 
-  handleToChange = (event) => {
-    this.setState({ to: event.target.value.toLowerCase() });
-  };
+  handleBalanceClick = (event) => {
+    this.props.form.setFieldsValue({
+      amount: parseFloat(event.currentTarget.innerText),
+    });
+  }
 
-  handleAmountChange = (event) => {
-    this.setState({ amount: event.target.value });
-  };
-
-  handleMemoChange = (event) => {
-    this.setState({ memo: event.target.value });
+  handleCurrencyChange = (event) => {
+    this.setState({ currency: event.target.value });
   };
 
   render() {
-    // TODO: Show balance of selected currency
+    const { user } = this.props;
     const { getFieldDecorator } = this.props.form;
-    // const { from, to, amount, currency, memo } = this.state;
-    // const url = `https://v2.steemconnect.com/sign/transfer?from=${from}&to=${to}&memo=${memo}&amount=${amount}%20${currency}`;
+
+    const balance = this.state.currency === 'STEEM' ? user.balance : user.sbd_balance;
 
     const currencyPrefix = getFieldDecorator('currency', {
-      initialValue: 'SBD',
+      initialValue: this.state.currency,
     })(
-      <Radio.Group>
+      <Radio.Group onChange={this.handleCurrencyChange}>
         <Radio.Button value="STEEM">STEEM</Radio.Button>
         <Radio.Button value="SBD">SBD</Radio.Button>
       </Radio.Group>,
@@ -59,6 +53,7 @@ export default class Transfer extends React.Component {
           </Form.Item>
           <Form.Item label={<b>Amount</b>}>
             {getFieldDecorator('amount')(<Input addonAfter={currencyPrefix} placeholder="How much do you want to send" style={{ width: '100%' }} />)}
+            Your balance: <span role="presentation" onClick={this.handleBalanceClick} className="balance">{balance}</span>
           </Form.Item>
           <Form.Item label={<b>Memo</b>}>
             {getFieldDecorator('memo')(<Input.TextArea rows={3} placeholder="Additional message to include in this payment (optional)" />)}
