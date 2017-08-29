@@ -40,11 +40,6 @@ export default class AppSettings extends React.Component {
           </h2>
           <div className="row my-4">
             <div>
-              <a role="presentation" onClick={() => setLocale('auto')}>
-                <h3><FormattedMessage id="language_auto" defaultMessage="Use browser language" /></h3>
-              </a>
-            </div>
-            <div>
               <a role="presentation" onClick={() => setLocale('en')}>
                 <h3>English</h3>
               </a>
