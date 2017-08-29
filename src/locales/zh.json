@@ -35,6 +35,7 @@
   "remove_from_favorites":"Remove from favorites",
   "like":"Like",
   "dislike":"Dislike",
+  "and_more_amount":"and {amount} more",
   "comment":"Comment",
   "comment_placeholder":"Write a comment",
   "comment_collapsed":"Comment collapsed",
