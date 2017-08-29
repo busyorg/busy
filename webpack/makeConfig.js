@@ -68,7 +68,7 @@ function makePlugins(options) {
     ]);
   } else {
     plugins = plugins.concat([
-      new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en|zh|es|fr|de|ru|ko|nl|se/),
+      new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
       new webpack.optimize.CommonsChunkPlugin({
         name: 'vendor',
         minChunks(module) {

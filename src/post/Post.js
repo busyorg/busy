@@ -45,6 +45,7 @@ import ScrollToTopOnMount from '../components/Utils/ScrollToTopOnMount';
     pendingReblogs: getPendingReblogs(state),
     followingList: getFollowingList(state),
     pendingFollows: getPendingFollows(state),
+    state,
   }),
   (dispatch, ownProps) =>
     bindActionCreators(
@@ -71,7 +72,7 @@ export default class Post extends React.Component {
     pendingLikes: PropTypes.arrayOf(PropTypes.number),
     reblogList: PropTypes.arrayOf(PropTypes.number),
     pendingReblogs: PropTypes.arrayOf(PropTypes.number),
-    followList: PropTypes.arrayOf(PropTypes.string),
+    followingList: PropTypes.arrayOf(PropTypes.string),
     pendingFollows: PropTypes.arrayOf(PropTypes.string),
     bookmarks: PropTypes.shape(),
     getContent: PropTypes.func,
@@ -87,7 +88,7 @@ export default class Post extends React.Component {
     pendingLikes: [],
     reblogList: [],
     pendingReblogs: [],
-    followList: [],
+    followingList: [],
     pendingFollows: [],
     bookmarks: {},
     getContent: () => {},
@@ -126,7 +127,7 @@ export default class Post extends React.Component {
   }
 
   handleFollowClick = (post) => {
-    const isFollowed = this.props.followList.includes(post.author);
+    const isFollowed = this.props.followingList.includes(post.author);
     if (isFollowed) {
       this.props.unfollowUser(post.author);
     } else {
@@ -150,7 +151,7 @@ export default class Post extends React.Component {
       pendingLikes,
       reblogList,
       pendingReblogs,
-      followList,
+      followingList,
       pendingFollows,
       bookmarks,
       votePost,
@@ -183,7 +184,7 @@ export default class Post extends React.Component {
         bookmarks[user.name].filter(bookmark => bookmark.id === content.id).length > 0,
       isLiked: userVote.percent > 0,
       isReported: userVote.percent < 0,
-      userFollowed: followList.includes(content.author),
+      userFollowed: followingList.includes(content.author),
     };
 
     const likePost =
