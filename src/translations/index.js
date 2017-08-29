@@ -26,9 +26,7 @@ export const getAvailableLocale = (appLocale) => {
   let locale = appLocale;
 
   if (typeof navigator !== 'undefined' && appLocale === 'auto') {
-    locale = navigator.languages
-      ? navigator.languages[0]
-      : (navigator.language || navigator.userLanguage || 'en');
+    locale = navigator.userLanguage || navigator.language || navigator.languages[0] || 'en';
   }
 
   if (translations[locale.slice(0, 2)]) {
