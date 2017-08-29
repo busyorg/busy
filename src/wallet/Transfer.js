@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Form, Input, Radio } from 'antd';
+import { Form, Input, Radio, Modal } from 'antd';
 import './Transfer.less';
 
 import { getAuthenticatedUser } from '../reducers';
@@ -52,17 +52,23 @@ export default class Transfer extends React.Component {
     );
 
     return (
-      <Form className="Transfer container">
-        <Form.Item>
-          {getFieldDecorator('to')(<Input type="text" placeholder="To" />)}
-        </Form.Item>
-        <Form.Item>
-          {getFieldDecorator('amount')(<Input addonAfter={currencyPrefix} placeholder="Amount" style={{ width: '100%' }} />)}
-        </Form.Item>
-        <Form.Item>
-          {getFieldDecorator('memo')(<Input type="text" placeholder="Memo" />)}
-        </Form.Item>
-      </Form>
+      <Modal visible title="Send STEEM or SBD" okText="Continue">
+        <Form className="Transfer container">
+          <Form.Item label={<b>To</b>}>
+            {getFieldDecorator('to')(<Input type="text" placeholder="Payment recipient" />)}
+          </Form.Item>
+          <Form.Item label={<b>Amount</b>}>
+            {getFieldDecorator('amount')(<Input addonAfter={currencyPrefix} placeholder="How much do you want to send" style={{ width: '100%' }} />)}
+          </Form.Item>
+          <Form.Item label={<b>Memo</b>}>
+            {getFieldDecorator('memo')(<Input.TextArea rows={3} placeholder="Additional message to include in this payment (optional)" />)}
+          </Form.Item>
+        </Form>
+        <p>
+          Click the button below to be redirected to
+          SteemConnect to complete your transaction.
+        </p>
+      </Modal>
     );
   }
 }
