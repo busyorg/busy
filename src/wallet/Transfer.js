@@ -1,39 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { FormattedMessage } from 'react-intl';
-import classNames from 'classnames';
-import Textarea from 'react-textarea-autosize';
+import { Form, Input, Radio } from 'antd';
+import './Transfer.less';
 
 import { getAuthenticatedUser } from '../reducers';
 
 @connect(state => ({
   user: getAuthenticatedUser(state),
 }))
+@Form.create()
 export default class Transfer extends React.Component {
   static propTypes = {
     user: PropTypes.shape().isRequired,
-    location: PropTypes.shape(),
+    form: PropTypes.shape().isRequired,
   };
 
-  static defaultProps = {
-    location: {},
+  state = {
+    from: this.props.user.name,
+    to: '',
+    memo: '',
+    amount: '',
+    currency: 'STEEM',
   };
-
-  constructor(props) {
-    super(props);
-    const { location: { query } } = props;
-    this.handleToChange = this.handleToChange.bind(this);
-    this.handleAmountChange = this.handleAmountChange.bind(this);
-    this.handleMemoChange = this.handleMemoChange.bind(this);
-    this.state = {
-      from: this.props.user.name,
-      to: query.to || '',
-      memo: query.memo || '',
-      amount: query.amount || '',
-      currency: query.currency || 'STEEM',
-    };
-  }
 
   handleToChange = (event) => {
     this.setState({ to: event.target.value.toLowerCase() });
@@ -48,90 +37,32 @@ export default class Transfer extends React.Component {
   };
 
   render() {
-    const account = this.props.user;
-    const { from, to, amount, currency, memo } = this.state;
-    const balance = currency === 'STEEM' ? account.balance : account.sbd_balance;
-    const url = `https://v2.steemconnect.com/sign/transfer?from=${from}&to=${to}&memo=${memo}&amount=${amount}%20${currency}`;
-    const sbdBtnClass = classNames('btn btn-sm mr-2', {
-      'btn-primary': currency === 'SBD',
-      'btn-secondary': currency === 'STEEM',
-    });
-    const steemBtnClass = classNames('btn btn-sm mr-2', {
-      'btn-primary': currency === 'STEEM',
-      'btn-secondary': currency === 'SBD',
-    });
+    // TODO: Show balance of selected currency
+    const { getFieldDecorator } = this.props.form;
+    // const { from, to, amount, currency, memo } = this.state;
+    // const url = `https://v2.steemconnect.com/sign/transfer?from=${from}&to=${to}&memo=${memo}&amount=${amount}%20${currency}`;
+
+    const currencyPrefix = getFieldDecorator('currency', {
+      initialValue: 'SBD',
+    })(
+      <Radio.Group>
+        <Radio.Button value="STEEM">STEEM</Radio.Button>
+        <Radio.Button value="SBD">SBD</Radio.Button>
+      </Radio.Group>,
+    );
+
     return (
-      <div className="main-panel">
-        <div className="my-5 container container-small text-center">
-          <h1>Transfer</h1>
-          <form>
-            <div className="form-group">
-              <div className="input-group">
-                <input
-                  value={to}
-                  autoComplete="off"
-                  onChange={this.handleToChange}
-                  placeholder="To"
-                  type="text"
-                  className="form-control form-control-lg"
-                />
-              </div>
-              <div className="input-group">
-                <input
-                  value={amount}
-                  onChange={this.handleAmountChange}
-                  placeholder="Amount"
-                  type="text"
-                  className="form-control form-control-lg"
-                />
-                <span className="input-group-addon">
-                  <div>
-                    <a
-                      role="presentation"
-                      className={sbdBtnClass}
-                      onClick={() => this.setState({ currency: 'SBD' })}
-                    >
-                      SBD
-                    </a>
-                    <a
-                      role="presentation"
-                      className={steemBtnClass}
-                      onClick={() => this.setState({ currency: 'STEEM' })}
-                    >
-                      STEEM
-                    </a>
-                  </div>
-                </span>
-              </div>
-              <h4 className="my-2">
-                Balance{' '}
-                <a
-                  role="presentation"
-                  onClick={() => this.setState({ amount: balance })}
-                >
-                  {balance}
-                </a>
-                {` ${currency}`}
-              </h4>
-            </div>
-            <div className="form-group">
-              <blockquote>
-                <Textarea
-                  value={memo}
-                  onChange={this.handleMemoChange}
-                  placeholder="Memo"
-                  className="form-control form-control-lg"
-                />
-              </blockquote>
-            </div>
-            <div className="form-group">
-              <a href={url} className="btn btn-success btn-lg">
-                <FormattedMessage id="continue" defaultMessage="Continue" />
-              </a>
-            </div>
-          </form>
-        </div>
-      </div>
+      <Form className="Transfer container">
+        <Form.Item>
+          {getFieldDecorator('to')(<Input type="text" placeholder="To" />)}
+        </Form.Item>
+        <Form.Item>
+          {getFieldDecorator('amount')(<Input addonAfter={currencyPrefix} placeholder="Amount" style={{ width: '100%' }} />)}
+        </Form.Item>
+        <Form.Item>
+          {getFieldDecorator('memo')(<Input type="text" placeholder="Memo" />)}
+        </Form.Item>
+      </Form>
     );
   }
 }

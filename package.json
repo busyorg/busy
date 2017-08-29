@@ -107,7 +107,6 @@
     "react-select": "^1.0.0-rc.2",
     "react-sticky": "^5.0.5",
     "react-tagsinput": "^3.14.0",
-    "react-textarea-autosize": "^4.0.5",
     "react-visibility-sensor": "^3.10.1",
     "redux": "^3.5.2",
     "redux-actions": "^0.12.0",
