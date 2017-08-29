@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import classNames from 'classnames';
-import numeral from 'numeral';
 import Textarea from 'react-textarea-autosize';
 
 import { getAuthenticatedUser } from '../reducers';
@@ -108,9 +107,9 @@ export default class Transfer extends React.Component {
                 Balance{' '}
                 <a
                   role="presentation"
-                  onClick={() => this.setState({ amount: numeral(balance).format('0.000') })}
+                  onClick={() => this.setState({ amount: balance })}
                 >
-                  {numeral(balance).format('0,0.000')}
+                  {balance}
                 </a>
                 {` ${currency}`}
               </h4>

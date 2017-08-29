@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import numeral from 'numeral';
+import { FormattedNumber } from 'react-intl';
 import { Link } from 'react-router-dom';
+import USDDisplay from '../components/Utils/USDDisplay';
 import FavoriteButton from '../components/FavoriteButton';
 
 const Tag = ({ tag, favorited, addCategoryFavorite, removeCategoryFavorite }) =>
@@ -24,8 +25,8 @@ const Tag = ({ tag, favorited, addCategoryFavorite, removeCategoryFavorite }) =>
         />
       </h1>
       <h2>
-        <i className="iconfont icon-activity" /> {numeral(tag.comments).format('0,0')}{' '}
-        <i className="iconfont icon-collection" /> {numeral(tag.total_payouts).format('$0,0')}
+        <i className="iconfont icon-activity" /> <FormattedNumber value={tag.comments} />{' '}
+        <i className="iconfont icon-collection" /> <USDDisplay value={tag.total_payouts} />
       </h2>
     </div>
   </div>);

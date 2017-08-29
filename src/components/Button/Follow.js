@@ -41,17 +41,17 @@ class Follow extends React.Component {
     const { intl, isFollowed, pending } = this.props;
     const { isHovered } = this.state;
 
-    let followingText = intl.formatMessage({ id: 'follow' });
+    let followingText = intl.formatMessage({ id: 'follow', defaultMessage: 'Follow' });
     if (isFollowed && !(isHovered || pending)) {
-      followingText = intl.formatMessage({ id: 'followed' });
+      followingText = intl.formatMessage({ id: 'followed', defaultMessage: 'Following' });
     } else if (isFollowed && isHovered && !pending) {
-      followingText = intl.formatMessage({ id: 'unfollow' });
+      followingText = intl.formatMessage({ id: 'unfollow', defaultMessage: 'Unfollow' });
     } else if (isFollowed && pending) {
-      followingText = intl.formatMessage({ id: 'unfollowing' });
+      followingText = intl.formatMessage({ id: 'unfollowing', defaultMessage: 'Unfollowing' });
     } else if (!isFollowed && isHovered && !pending) {
-      followingText = intl.formatMessage({ id: 'follow' });
+      followingText = intl.formatMessage({ id: 'follow', defaultMessage: 'Follow' });
     } else if (!isFollowed && pending) {
-      followingText = intl.formatMessage({ id: 'followed' });
+      followingText = intl.formatMessage({ id: 'followed', defaultMessage: 'Following' });
     }
 
     return (

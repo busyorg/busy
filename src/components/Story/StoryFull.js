@@ -110,13 +110,13 @@ class StoryFull extends React.Component {
     let followText = '';
 
     if (postState.userFollowed && !pendingFollow) {
-      followText = 'Unfollow';
+      followText = intl.formatMessage({ id: 'unfollow_username', defaultMessage: 'Unfollow {username}' }, { username: post.author });
     } else if (postState.userFollowed && pendingFollow) {
-      followText = 'Unfollowing';
+      followText = intl.formatMessage({ id: 'unfollow_username', defaultMessage: 'Unfollow {username}' }, { username: post.author });
     } else if (!postState.userFollowed && !pendingFollow) {
-      followText = 'Follow';
+      followText = intl.formatMessage({ id: 'follow_username', defaultMessage: 'Follow {username}' }, { username: post.author });
     } else if (!postState.userFollowed && pendingFollow) {
-      followText = 'Following';
+      followText = intl.formatMessage({ id: 'follow_username', defaultMessage: 'Follow {username}' }, { username: post.author });
     }
 
     return (
@@ -166,11 +166,10 @@ class StoryFull extends React.Component {
               <PopoverMenu onSelect={this.handleClick} bold={false}>
                 <PopoverMenuItem key="follow" disabled={pendingFollow}>
                   {pendingFollow ? <Icon type="loading" /> : <i className="iconfont icon-people" />}
-                  {`${followText} ${post.author}`}
+                  {followText}
                 </PopoverMenuItem>
                 <PopoverMenuItem key="save">
                   <i className="iconfont icon-collection" />
-                  {' '}
                   <FormattedMessage
                     id={postState.isSaved ? 'unsave_post' : 'save_post'}
                     defaultMessage={postState.isSaved ? 'Unsave post' : 'Save post'}
@@ -178,7 +177,6 @@ class StoryFull extends React.Component {
                 </PopoverMenuItem>
                 <PopoverMenuItem key="report">
                   <i className="iconfont icon-flag" />
-                  {' '}
                   <FormattedMessage id="report_post" defaultMessage="Report post" />
                 </PopoverMenuItem>
               </PopoverMenu>

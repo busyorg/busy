@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import numeral from 'numeral';
-import { FormattedMessage, FormattedRelative } from 'react-intl';
+import { FormattedMessage, FormattedRelative, FormattedNumber } from 'react-intl';
 import { Link } from 'react-router-dom';
 import Avatar from '../../Avatar';
 import './Notification.less';
@@ -20,10 +19,10 @@ const NotificationTransfer = ({ onClick, id, read, date, payload }) =>
       <div className="Notification__text__message">
         <FormattedMessage
           id="notification_transfer_username_amount"
-          defaultMessage="{username} sent you {amount} STEEM."
+          defaultMessage="{username} sent you {amount}."
           values={{
             username: <Link to={`/${payload.user}`}>{payload.user}</Link>,
-            post: numeral(payload.amount).format('0,0.000'),
+            amount: <FormattedNumber value={payload.amount} />,
           }}
         />
       </div>
