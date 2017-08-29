@@ -5,7 +5,7 @@ const initialState = {
   isFetching: false,
   isLoaded: false,
   errorMessage: '',
-  locale: 'en',
+  locale: 'auto',
   rate: 0,
   lastPostId: undefined,
 };
