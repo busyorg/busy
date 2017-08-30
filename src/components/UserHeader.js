@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { injectIntl } from 'react-intl';
+import { injectIntl, FormattedMessage } from 'react-intl';
 import { Tag, Tooltip, Popover } from 'antd';
 import { formatter } from 'steem';
 import Avatar from './Avatar';
@@ -48,9 +48,12 @@ const UserHeader = ({
             trigger="click"
             content={
               <PopoverMenu>
-                <PopoverMenuItem key="option1">Option 1</PopoverMenuItem>
-                <PopoverMenuItem key="option2">Option 2</PopoverMenuItem>
-                <PopoverMenuItem key="option3">Option 3</PopoverMenuItem>
+                <PopoverMenuItem key="transfer">
+                  <FormattedMessage id="transfer" defaultMessage="Transfer" />
+                </PopoverMenuItem>
+                <PopoverMenuItem key="mute">
+                  <FormattedMessage id="block_user" defaultMessage="Block this user" />
+                </PopoverMenuItem>
               </PopoverMenu>
             }
           >
