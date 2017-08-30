@@ -23,7 +23,7 @@ export const translations = {
 };
 
 export const getAvailableLocale = (appLocale) => {
-  let locale = appLocale;
+  let locale = appLocale || 'auto';
 
   if (typeof navigator !== 'undefined' && appLocale === 'auto') {
     locale =
