@@ -8023,9 +8023,9 @@ sax@^1.2.1, sax@~1.2.1:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"
 
-sc2-sdk@^0.0.3:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/sc2-sdk/-/sc2-sdk-0.0.3.tgz#7a51456f822de2a03ca39c0c18c41a35b853eadf"
+sc2-sdk@^0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/sc2-sdk/-/sc2-sdk-0.0.4.tgz#46a8194e46683a6bbd7c6ee0e1299a92e47c4e5b"
   dependencies:
     debug "^2.2.0"
     isomorphic-fetch "^2.2.1"

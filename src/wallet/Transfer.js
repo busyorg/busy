@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import steemConnect from 'sc2-sdk';
 import { Form, Input, Radio, Modal } from 'antd';
 import './Transfer.less';
 
@@ -30,6 +31,21 @@ export default class Transfer extends React.Component {
     this.setState({ currency: event.target.value });
   };
 
+  handleContinueClick = () => {
+    const { form } = this.props;
+    form.validateFields((errors, values) => {
+      if (!errors) {
+        const link = steemConnect.sign('transfer', {
+          to: values.to,
+          amount: `${values.amount} ${values.currency}`,
+          memo: values.memo,
+        });
+        const win = window.open(link, '_blank');
+        win.focus();
+      }
+    });
+  }
+
   render() {
     const { user } = this.props;
     const { getFieldDecorator } = this.props.form;
@@ -46,13 +62,17 @@ export default class Transfer extends React.Component {
     );
 
     return (
-      <Modal visible title="Send STEEM or SBD" okText="Continue">
+      <Modal visible title="Send STEEM or SBD" okText="Continue" onOk={this.handleContinueClick}>
         <Form className="Transfer container">
           <Form.Item label={<b>To</b>}>
-            {getFieldDecorator('to')(<Input type="text" placeholder="Payment recipient" />)}
+            {getFieldDecorator('to', {
+              rules: [{ required: true, message: 'Recipient is required' }],
+            })(<Input type="text" placeholder="Payment recipient" />)}
           </Form.Item>
           <Form.Item label={<b>Amount</b>}>
-            {getFieldDecorator('amount')(<Input addonAfter={currencyPrefix} placeholder="How much do you want to send" style={{ width: '100%' }} />)}
+            {getFieldDecorator('amount', {
+              rules: [{ required: true, message: 'Amount is required' }],
+            })(<Input addonAfter={currencyPrefix} placeholder="How much do you want to send" style={{ width: '100%' }} />)}
             Your balance: <span role="presentation" onClick={this.handleBalanceClick} className="balance">{balance}</span>
           </Form.Item>
           <Form.Item label={<b>Memo</b>}>
