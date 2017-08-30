@@ -2509,7 +2509,7 @@ exports[`Storyshots Story Inline story 1`] = `
           >
             <img
               alt="post"
-              src="http://res.cloudinary.com/hpiynhbhq/image/fetch/w_600,h_800,c_limit/http://www.kiplinger.com/kipimages/pages/15396.jpg"
+              src="//res.cloudinary.com/hpiynhbhq/image/fetch/w_600,h_800,c_limit/http://www.kiplinger.com/kipimages/pages/15396.jpg"
             />
           </div>
           <div

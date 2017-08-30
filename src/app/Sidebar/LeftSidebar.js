@@ -91,8 +91,13 @@ const LeftSidebar = injectIntl(({ authenticatedUser, user, intl }) => {
                 </div>
               </div>
             </div>}
-          {user && <Action style={{ margin: '5px 0' }} text="Transfer" />}
-          {user && <Action style={{ margin: '5px 0' }} text="Message" />}
+          {user && <Action
+            style={{ margin: '5px 0' }}
+            text={intl.formatMessage({
+              id: 'transfer',
+              defaultMessage: 'Transfer',
+            })}
+          />}
         </div>)}
     />
     <Route
