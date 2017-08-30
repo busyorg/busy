@@ -57,12 +57,13 @@ export default class Transfer extends React.Component {
   }
 
   handleCurrencyChange = (event) => {
-    this.setState({ currency: event.target.value });
+    const { form } = this.props;
+    this.setState({ currency: event.target.value }, () => form.validateFields(['amount'], { force: true }));
   };
 
   handleContinueClick = () => {
     const { form } = this.props;
-    form.validateFields((errors, values) => {
+    form.validateFields({ force: true }, (errors, values) => {
       if (!errors) {
         const transferQuery = {
           to: values.to,
@@ -78,6 +79,21 @@ export default class Transfer extends React.Component {
   }
 
   handleCancelClick = () => this.props.closeTransfer();
+
+  validateBalance = (rule, value, callback) => {
+    const { user } = this.props;
+
+    const currentValue = parseFloat(value);
+    const selectedBalance = this.state.currency === 'STEEM' ? user.balance : user.sbd_balance;
+
+    if (currentValue !== 0 && currentValue > parseFloat(selectedBalance)) {
+      callback([
+        new Error('Insufficient funds'),
+      ]);
+    } else {
+      callback();
+    }
+  }
 
   render() {
     const { visible, user } = this.props;
@@ -107,6 +123,7 @@ export default class Transfer extends React.Component {
               rules: [
                 { required: true, message: 'Amount is required' },
                 { pattern: /^[0-9]*[.,]{0,1}[0-9]{0,3}$/, message: 'Incorrect format. Use comma or dot as decimal separator. Use at most 3 decimal places.' },
+                { validator: this.validateBalance },
               ],
             })(<Input addonAfter={currencyPrefix} placeholder="How much do you want to send" style={{ width: '100%' }} />)}
             Your balance: <span role="presentation" onClick={this.handleBalanceClick} className="balance">{balance}</span>
