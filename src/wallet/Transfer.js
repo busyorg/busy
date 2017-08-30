@@ -136,7 +136,7 @@ export default class Transfer extends React.Component {
               rules: [
                 { required: true, message: intl.formatMessage({ id: 'amount_error_empty', defaultMessage: 'Amount is required.' }) },
                 {
-                  pattern: /^[0-9]*[.,]{0,1}[0-9]{0,3}$/,
+                  pattern: /^[0-9]*\.?[0-9]{0,3}$/,
                   message: intl.formatMessage({
                     id: 'amount_error_format',
                     defaultMessage: 'Incorrect format. Use comma or dot as decimal separator. Use at most 3 decimal places.',
