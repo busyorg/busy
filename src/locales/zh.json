@@ -32,6 +32,8 @@
   "followers":"关注者",
   "follow_username":"关注 {username}",
   "unfollow_username":"取消关注 {username}",
+  "block_user":"Block this user",
+  "unblock_user":"Unblock this user",
   "save_post":"Save post",
   "unsave_post":"Unsave post",
   "report_post":"Report post",
