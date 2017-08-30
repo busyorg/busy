@@ -4,10 +4,9 @@ import { connect } from 'react-redux';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import steemConnect from 'sc2-sdk';
 import { Form, Input, Radio, Modal } from 'antd';
-import './Transfer.less';
-
 import { closeTransfer } from './walletActions';
 import { getIsAuthenticated, getAuthenticatedUser } from '../reducers';
+import './Transfer.less';
 
 @injectIntl
 @connect(state => ({
