@@ -1,6 +1,6 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
-import numeral from 'numeral';
+import { FormattedNumber } from 'react-intl';
 import { Tabs, Modal } from 'antd';
 import ReactionsList from './ReactionsList';
 
@@ -27,13 +27,6 @@ class ReactionsModal extends React.Component {
   render() {
     const { upVotes, downVotes } = this.props;
 
-    const likesValue = numeral(upVotes.length).format(
-      '0,0',
-    );
-    const dislikesValue = numeral(downVotes.length).format(
-      '0,0',
-    );
-
     const tabs = [];
 
     if (upVotes.length > 0) {
@@ -41,7 +34,9 @@ class ReactionsModal extends React.Component {
         tab={
           <span>
             <i className="iconfont icon-praise_fill" />
-            <span className="StoryFooter__icon-text">{likesValue}</span>
+            <span className="StoryFooter__icon-text">
+              <FormattedNumber value={upVotes.length} />
+            </span>
           </span>
         }
         key="1"
@@ -55,7 +50,9 @@ class ReactionsModal extends React.Component {
         tab={
           <span>
             <i className="iconfont icon-praise_fill StoryFooter__dislike" />
-            <span className="StoryFooter__icon-text StoryFooter__icon-text-dislike">{dislikesValue}</span>
+            <span className="StoryFooter__icon-text StoryFooter__icon-text-dislike">
+              <FormattedNumber value={downVotes.length} />
+            </span>
           </span>
         }
         key="2"

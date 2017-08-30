@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { FormattedMessage } from 'react-intl';
-import numeral from 'numeral';
 import { formatter } from 'steem';
 import steemconnect from 'sc2-sdk';
 import { connect } from 'react-redux';
@@ -164,19 +163,19 @@ export default class UserTransfers extends React.Component {
               <li className="col-lg-3">
                 <h3>Steem</h3>
                 <h2>
-                  {numeral(account.balance).format('0,0.00')}
+                  {account.balance}
                 </h2>
               </li>
               <li className="col-lg-3">
                 <h3>Steem Power</h3>
                 <h2>
-                  {numeral(power).format('0,0.00')}
+                  {power}
                 </h2>
               </li>
               <li className="col-lg-3">
                 <h3>Steem Dollars</h3>
                 <h2>
-                  {numeral(account.sbd_balance).format('$0,0.00')}
+                  {account.sbd_balance}
                 </h2>
               </li>
               <li className="col-lg-3">
@@ -184,7 +183,7 @@ export default class UserTransfers extends React.Component {
                   <FormattedMessage id="estimated_value" defaultMessage="Total ≈" />
                 </h3>
                 <h2>
-                  {numeral(dollar).format('$0,0.00')}
+                  {dollar}
                 </h2>
               </li>
             </ul>

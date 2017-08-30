@@ -1129,7 +1129,9 @@ exports[`Storyshots Profile UserMenu 1`] = `
           <span
             className="UserMenu__badge"
           >
-            0
+            <span>
+              0
+            </span>
           </span>
         </li>
         <li
@@ -1149,7 +1151,9 @@ exports[`Storyshots Profile UserMenu 1`] = `
           <span
             className="UserMenu__badge"
           >
-            244
+            <span>
+              244
+            </span>
           </span>
         </li>
       </ul>
@@ -2056,7 +2060,9 @@ exports[`Storyshots Story Full story 1`] = `
           onMouseLeave={[Function]}
           onTouchStart={undefined}
         >
-          $111.76
+          <span>
+            $111.76
+          </span>
         </span>
       </span>
       <a
@@ -2088,7 +2094,10 @@ exports[`Storyshots Story Full story 1`] = `
           onMouseLeave={[Function]}
           onTouchStart={undefined}
         >
-          133
+          <span>
+            133
+          </span>
+          <span />
         </span>
       </span>
       <a
@@ -2109,7 +2118,9 @@ exports[`Storyshots Story Full story 1`] = `
       <span
         className="StoryFooter__number"
       >
-        18
+        <span>
+          18
+        </span>
       </span>
       <a
         className="StoryFooter__link"
@@ -2313,7 +2324,9 @@ exports[`Storyshots Story Full story with embed 1`] = `
           onMouseLeave={[Function]}
           onTouchStart={undefined}
         >
-          $737.54
+          <span>
+            $737.54
+          </span>
         </span>
       </span>
       <a
@@ -2345,7 +2358,10 @@ exports[`Storyshots Story Full story with embed 1`] = `
           onMouseLeave={[Function]}
           onTouchStart={undefined}
         >
-          658
+          <span>
+            658
+          </span>
+          <span />
         </span>
       </span>
       <a
@@ -2366,7 +2382,9 @@ exports[`Storyshots Story Full story with embed 1`] = `
       <span
         className="StoryFooter__number"
       >
-        57
+        <span>
+          57
+        </span>
       </span>
       <a
         className="StoryFooter__link"
@@ -2491,7 +2509,7 @@ exports[`Storyshots Story Inline story 1`] = `
           >
             <img
               alt="post"
-              src="http://res.cloudinary.com/hpiynhbhq/image/fetch/w_600,h_800,c_limit/http://www.kiplinger.com/kipimages/pages/15396.jpg"
+              src="//res.cloudinary.com/hpiynhbhq/image/fetch/w_600,h_800,c_limit/http://www.kiplinger.com/kipimages/pages/15396.jpg"
             />
           </div>
           <div
@@ -2525,7 +2543,9 @@ exports[`Storyshots Story Inline story 1`] = `
             onMouseLeave={[Function]}
             onTouchStart={undefined}
           >
-            $111.76
+            <span>
+              $111.76
+            </span>
           </span>
         </span>
         <a
@@ -2557,7 +2577,10 @@ exports[`Storyshots Story Inline story 1`] = `
             onMouseLeave={[Function]}
             onTouchStart={undefined}
           >
-            133
+            <span>
+              133
+            </span>
+            <span />
           </span>
         </span>
         <a
@@ -2578,7 +2601,9 @@ exports[`Storyshots Story Inline story 1`] = `
         <span
           className="StoryFooter__number"
         >
-          18
+          <span>
+            18
+          </span>
         </span>
         <a
           className="StoryFooter__link"
@@ -2747,7 +2772,9 @@ exports[`Storyshots Story Inline story with embed 1`] = `
             onMouseLeave={[Function]}
             onTouchStart={undefined}
           >
-            $737.54
+            <span>
+              $737.54
+            </span>
           </span>
         </span>
         <a
@@ -2779,7 +2806,10 @@ exports[`Storyshots Story Inline story with embed 1`] = `
             onMouseLeave={[Function]}
             onTouchStart={undefined}
           >
-            658
+            <span>
+              658
+            </span>
+            <span />
           </span>
         </span>
         <a
@@ -2800,7 +2830,9 @@ exports[`Storyshots Story Inline story with embed 1`] = `
         <span
           className="StoryFooter__number"
         >
-          57
+          <span>
+            57
+          </span>
         </span>
         <a
           className="StoryFooter__link"

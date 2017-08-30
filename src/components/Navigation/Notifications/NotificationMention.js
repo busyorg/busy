@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { FormattedRelative } from 'react-intl';
+import { FormattedMessage, FormattedRelative } from 'react-intl';
 import { Link } from 'react-router-dom';
 import Avatar from '../../Avatar';
 import './Notification.less';
@@ -17,8 +17,14 @@ const NotificationMention = ({ onClick, id, read, date, payload }) =>
     <Avatar username={payload.user} size={40} />
     <div className="Notification__text">
       <div className="Notification__text__message">
-        <Link to={`/${payload.user}`}>{payload.user}</Link> mentioned you on his{' '}
-        <Link to={payload.post_url}>post</Link>.
+        <FormattedMessage
+          id="notification_mention_username_post"
+          defaultMessage="{username} mentioned you on this post {post}."
+          values={{
+            username: <Link to={`/${payload.user}`}>{payload.user}</Link>,
+            post: <Link to={payload.post_url}>{payload.post_title}</Link>,
+          }}
+        />
       </div>
       <div className="Notification__text__date">
         <FormattedRelative value={date} />

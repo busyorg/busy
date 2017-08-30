@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import _ from 'lodash';
-import numeral from 'numeral';
+import USDDisplay from './Utils/USDDisplay';
 import { calculatePayout } from '../vendor/steemitHelpers';
 
 const AmountWithLabel = ({ id, defaultMessage, nonzero, amount }) =>
@@ -11,7 +11,7 @@ const AmountWithLabel = ({ id, defaultMessage, nonzero, amount }) =>
       id={id}
       defaultMessage={defaultMessage}
       values={{
-        amount: numeral(amount).format('$0,0.00'),
+        amount: <USDDisplay value={amount} />,
       }}
     />
   </div>;
