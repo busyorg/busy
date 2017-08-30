@@ -30,11 +30,12 @@ export const getAvailableLocale = (appLocale) => {
       navigator.userLanguage ||
       navigator.language ||
       (navigator.languages && navigator.languages[0] ? navigator.languages[0] : 'en');
+
+    if (translations[locale.slice(0, 2)]) {
+      return locale.slice(0, 2);
+    }
   }
 
-  if (translations[locale.slice(0, 2)]) {
-    return locale.slice(0, 2);
-  }
   return 'en';
 };
 
