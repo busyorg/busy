@@ -32,6 +32,8 @@
   "followers":"Volgers",
   "follow_username":"Volg {username}",
   "unfollow_username":"Ontvolg {username}",
+  "block_user":"Block this user",
+  "unblock_user":"Unblock this user",
   "save_post":"Save post",
   "unsave_post":"Unsave post",
   "report_post":"Report post",
