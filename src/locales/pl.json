@@ -32,6 +32,8 @@
   "followers":"Obserwujący",
   "follow_username":"Obserwuj {username}",
   "unfollow_username":"Przestań obserwować {username}",
+  "block_user":"Zablokuj użytkownika",
+  "unblock_user":"Odblokuj użytkownika",
   "save_post":"Zapisz post",
   "unsave_post":"Usuń z zapisanych",
   "report_post":"Zgłoś post",
