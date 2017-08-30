@@ -17,6 +17,7 @@ const UserHeader = ({
   userReputation,
   rank,
   isSameUser,
+  onSelect,
 }) =>
   (<div
     className="UserHeader"
@@ -45,9 +46,9 @@ const UserHeader = ({
           </div>
           <Popover
             placement="bottom"
-            trigger="click"
+            trigger="hover"
             content={
-              <PopoverMenu>
+              <PopoverMenu onSelect={onSelect}>
                 <PopoverMenuItem key="transfer">
                   <FormattedMessage id="transfer" defaultMessage="Transfer" />
                 </PopoverMenuItem>
@@ -81,6 +82,7 @@ UserHeader.propTypes = {
   ]),
   rank: PropTypes.string,
   isSameUser: PropTypes.bool,
+  onSelect: PropTypes.func,
 };
 
 UserHeader.defaultProps = {
@@ -89,6 +91,7 @@ UserHeader.defaultProps = {
   userReputation: '0',
   rank: 'Minnow',
   isSameUser: false,
+  onSelect: () => {},
 };
 
 export default injectIntl(UserHeader);

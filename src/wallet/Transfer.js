@@ -5,21 +5,50 @@ import steemConnect from 'sc2-sdk';
 import { Form, Input, Radio, Modal } from 'antd';
 import './Transfer.less';
 
+import { closeTransfer } from './walletActions';
 import { getAuthenticatedUser } from '../reducers';
 
 @connect(state => ({
+  visible: state.wallet.transferVisible,
+  to: state.wallet.transferTo,
   user: getAuthenticatedUser(state),
-}))
+}), {
+  closeTransfer,
+})
 @Form.create()
 export default class Transfer extends React.Component {
   static propTypes = {
+    visible: PropTypes.bool,
+    to: PropTypes.string,
     user: PropTypes.shape().isRequired,
     form: PropTypes.shape().isRequired,
+    closeTransfer: PropTypes.func,
+  };
+
+  static defaultProps = {
+    to: '',
+    visible: false,
+    closeTransfer: () => {},
   };
 
   state = {
     currency: 'STEEM',
   };
+
+  componentWillReceiveProps(nextProps) {
+    const { form, to } = nextProps;
+    if (this.props.to !== to) {
+      form.setFieldsValue({
+        to,
+        amount: undefined,
+        currency: 'STEEM',
+        memo: undefined,
+      });
+      this.setState({
+        currency: 'STEEM',
+      });
+    }
+  }
 
   handleBalanceClick = (event) => {
     this.props.form.setFieldsValue({
@@ -35,19 +64,23 @@ export default class Transfer extends React.Component {
     const { form } = this.props;
     form.validateFields((errors, values) => {
       if (!errors) {
-        const link = steemConnect.sign('transfer', {
+        const transferQuery = {
           to: values.to,
           amount: `${values.amount} ${values.currency}`,
-          memo: values.memo,
-        });
-        const win = window.open(link, '_blank');
+        };
+        if (values.memo) transferQuery.memo = values.memo;
+
+        const win = window.open(steemConnect.sign('transfer', transferQuery), '_blank');
         win.focus();
+        this.props.closeTransfer();
       }
     });
   }
 
+  handleCancelClick = () => this.props.closeTransfer();
+
   render() {
-    const { user } = this.props;
+    const { visible, user } = this.props;
     const { getFieldDecorator } = this.props.form;
 
     const balance = this.state.currency === 'STEEM' ? user.balance : user.sbd_balance;
@@ -62,7 +95,7 @@ export default class Transfer extends React.Component {
     );
 
     return (
-      <Modal visible title="Send STEEM or SBD" okText="Continue" onOk={this.handleContinueClick}>
+      <Modal visible={visible} title="Send STEEM or SBD" okText="Continue" onOk={this.handleContinueClick} onCancel={this.handleCancelClick}>
         <Form className="Transfer container">
           <Form.Item label={<b>To</b>}>
             {getFieldDecorator('to', {
