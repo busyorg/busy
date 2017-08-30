@@ -32,6 +32,8 @@
   "followers":"Följare",
   "follow_username":"Följ {username}",
   "unfollow_username":"Sluta följ {username}",
+  "block_user":"Block this user",
+  "unblock_user":"Unblock this user",
   "save_post":"Save post",
   "unsave_post":"Unsave post",
   "report_post":"Report post",
