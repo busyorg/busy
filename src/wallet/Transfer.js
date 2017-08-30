@@ -7,12 +7,13 @@ import { Form, Input, Radio, Modal } from 'antd';
 import './Transfer.less';
 
 import { closeTransfer } from './walletActions';
-import { getAuthenticatedUser } from '../reducers';
+import { getIsAuthenticated, getAuthenticatedUser } from '../reducers';
 
 @injectIntl
 @connect(state => ({
   visible: state.wallet.transferVisible,
   to: state.wallet.transferTo,
+  authenticated: getIsAuthenticated(state),
   user: getAuthenticatedUser(state),
 }), {
   closeTransfer,
@@ -23,6 +24,7 @@ export default class Transfer extends React.Component {
     intl: PropTypes.shape().isRequired,
     visible: PropTypes.bool,
     to: PropTypes.string,
+    authenticated: PropTypes.bool.isRequired,
     user: PropTypes.shape().isRequired,
     form: PropTypes.shape().isRequired,
     closeTransfer: PropTypes.func,
@@ -84,12 +86,12 @@ export default class Transfer extends React.Component {
   handleCancelClick = () => this.props.closeTransfer();
 
   validateBalance = (rule, value, callback) => {
-    const { intl, user } = this.props;
+    const { intl, authenticated, user } = this.props;
 
     const currentValue = parseFloat(value);
     const selectedBalance = this.state.currency === 'STEEM' ? user.balance : user.sbd_balance;
 
-    if (currentValue !== 0 && currentValue > parseFloat(selectedBalance)) {
+    if (authenticated && currentValue !== 0 && currentValue > parseFloat(selectedBalance)) {
       callback([
         new Error(intl.formatMessage({ id: 'amount_error_funds', defaultMessage: 'Insufficient funds.' })),
       ]);
@@ -99,7 +101,7 @@ export default class Transfer extends React.Component {
   }
 
   render() {
-    const { intl, visible, user } = this.props;
+    const { intl, visible, authenticated, user } = this.props;
     const { getFieldDecorator } = this.props.form;
 
     const balance = this.state.currency === 'STEEM' ? user.balance : user.sbd_balance;
@@ -149,13 +151,13 @@ export default class Transfer extends React.Component {
               placeholder={intl.formatMessage({ id: 'amount_placeholder', defaultMessage: 'How much do you want to send' })}
               style={{ width: '100%' }}
             />)}
-            <FormattedMessage
+            {authenticated && <FormattedMessage
               id="balance_amount"
               defaultMessage="Your balance: {amount}"
               values={{
                 amount: <span role="presentation" onClick={this.handleBalanceClick} className="balance">{balance}</span>,
               }}
-            />
+            />}
           </Form.Item>
           <Form.Item label={<FormattedMessage id="memo" defaultMessage="Memo" />}>
             {getFieldDecorator('memo')(<Input.TextArea
