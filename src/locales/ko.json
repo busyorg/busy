@@ -32,6 +32,8 @@
   "followers":"팔로워",
   "follow_username":"팔로우 {username}",
   "unfollow_username":"언팔로우 {username}",
+  "block_user":"Block this user",
+  "unblock_user":"Unblock this user",
   "save_post":"Save post",
   "unsave_post":"Unsave post",
   "report_post":"Report post",
