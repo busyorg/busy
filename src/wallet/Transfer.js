@@ -104,7 +104,10 @@ export default class Transfer extends React.Component {
           </Form.Item>
           <Form.Item label={<b>Amount</b>}>
             {getFieldDecorator('amount', {
-              rules: [{ required: true, message: 'Amount is required' }],
+              rules: [
+                { required: true, message: 'Amount is required' },
+                { pattern: /^[0-9]*[.,]{0,1}[0-9]{0,3}$/, message: 'Incorrect format. Use comma or dot as decimal separator. Use at most 3 decimal places.' },
+              ],
             })(<Input addonAfter={currencyPrefix} placeholder="How much do you want to send" style={{ width: '100%' }} />)}
             Your balance: <span role="presentation" onClick={this.handleBalanceClick} className="balance">{balance}</span>
           </Form.Item>
