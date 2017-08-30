@@ -32,6 +32,8 @@
   "followers":"Seguidores",
   "follow_username":"Seguir {username}",
   "unfollow_username":"No seguir mas {username}",
+  "block_user":"Block this user",
+  "unblock_user":"Unblock this user",
   "save_post":"Recordar entrada",
   "unsave_post":"Unsave post",
   "report_post":"Report post",
