@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
@@ -11,6 +10,7 @@ import {
   getUser,
 } from '../reducers';
 
+import { openTransfer } from '../wallet/walletActions';
 import { getAccountWithFollowingCount } from './usersActions';
 import UserHero from './UserHero';
 import LeftSidebar from '../app/Sidebar/LeftSidebar';
@@ -24,7 +24,6 @@ import UserFollowers from './UserFollowers';
 import UserFollowing from './UserFollowing';
 import UserReblogs from './UserReblogs';
 import UserFeed from './UserFeed';
-import UserTransfers from './UserTransfers';
 
 export const needs = [getAccountWithFollowingCount];
 
@@ -33,15 +32,10 @@ export const needs = [getAccountWithFollowingCount];
     authenticated: getIsAuthenticated(state),
     authenticatedUser: getAuthenticatedUser(state),
     user: getUser(state, ownProps.match.params.name),
-  }),
-  dispatch =>
-    bindActionCreators(
-      {
-        getAccountWithFollowingCount,
-      },
-      dispatch,
-    ),
-)
+  }), {
+    getAccountWithFollowingCount,
+    openTransfer,
+  })
 export default class User extends React.Component {
   static propTypes = {
     authenticated: PropTypes.bool.isRequired,
@@ -49,10 +43,12 @@ export default class User extends React.Component {
     match: PropTypes.shape().isRequired,
     user: PropTypes.shape().isRequired,
     getAccountWithFollowingCount: PropTypes.func,
+    openTransfer: PropTypes.func,
   };
 
   static defaultProps = {
     getAccountWithFollowingCount: () => {},
+    openTransfer: () => {},
   };
 
   static needs = needs;
@@ -67,6 +63,10 @@ export default class User extends React.Component {
     if (prevProps.match.params.name !== this.props.match.params.name) {
       this.props.getAccountWithFollowingCount({ name: this.props.match.params.name });
     }
+  }
+
+  handleUserMenuSelect = (key) => {
+    if (key === 'transfer') this.props.openTransfer(this.props.match.params.name);
   }
 
   render() {
@@ -117,6 +117,7 @@ export default class User extends React.Component {
             username={displayedUsername}
             isSameUser={isSameUser}
             onFollowClick={this.handleFollowClick}
+            onSelect={this.handleUserMenuSelect}
           />}
         <div className="shifted">
           <div className="feed-layout container">
@@ -137,7 +138,6 @@ export default class User extends React.Component {
               <Route path={`${match.path}/followed`} component={UserFollowing} />
               <Route path={`${match.path}/reblogs`} component={UserReblogs} />
               <Route path={`${match.path}/feed`} component={UserFeed} />
-              <Route path={`${match.path}/transfers`} component={UserTransfers} />
             </div>
           </div>
         </div>

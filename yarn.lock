@@ -7531,12 +7531,6 @@ react-test-renderer@^15.6.1:
     fbjs "^0.8.9"
     object-assign "^4.1.0"
 
-react-textarea-autosize@^4.0.5:
-  version "4.3.2"
-  resolved "https://registry.yarnpkg.com/react-textarea-autosize/-/react-textarea-autosize-4.3.2.tgz#962a52c68caceae408c18acecec29049b81e42fa"
-  dependencies:
-    prop-types "^15.5.8"
-
 react-transform-catch-errors@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/react-transform-catch-errors/-/react-transform-catch-errors-1.0.2.tgz#1b4d4a76e97271896fc16fe3086c793ec88a9eeb"
@@ -8037,9 +8031,9 @@ sax@^1.2.1, sax@~1.2.1:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"
 
-sc2-sdk@^0.0.3:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/sc2-sdk/-/sc2-sdk-0.0.3.tgz#7a51456f822de2a03ca39c0c18c41a35b853eadf"
+sc2-sdk@^0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/sc2-sdk/-/sc2-sdk-0.0.4.tgz#46a8194e46683a6bbd7c6ee0e1299a92e47c4e5b"
   dependencies:
     debug "^2.2.0"
     isomorphic-fetch "^2.2.1"
