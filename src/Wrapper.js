@@ -11,6 +11,7 @@ import { getAuthenticatedUser, getLocale } from './reducers';
 import { login, logout } from './auth/authActions';
 import { getConfig, getRate } from './actions';
 import Topnav from './components/Navigation/Topnav';
+import Transfer from './wallet/Transfer';
 import * as reblogActions from './app/Reblog/reblogActions';
 import getTranslations, { getAvailableLocale } from './translations';
 
@@ -93,6 +94,7 @@ export default class Wrapper extends React.PureComponent {
             </Layout.Header>
             <div className="content">
               {this.props.children}
+              <Transfer />
               <GatewayDest name="tooltip" />
               <GatewayDest name="popover" />
               <GatewayDest name="modal" />

@@ -29,6 +29,10 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
+  "pre-commit": [
+    "test",
+    "lint"
+  ],
   "dependencies": {
     "antd": "^2.12.6",
     "autoprefixer": "^7.1.1",
@@ -107,7 +111,6 @@
     "react-select": "^1.0.0-rc.2",
     "react-sticky": "^5.0.5",
     "react-tagsinput": "^3.14.0",
-    "react-textarea-autosize": "^4.0.5",
     "react-visibility-sensor": "^3.10.1",
     "redux": "^3.5.2",
     "redux-actions": "^0.12.0",
@@ -118,7 +121,7 @@
     "remarkable": "^1.7.1",
     "resize-observer-polyfill": "^1.4.2",
     "sanitize-html": "^1.13.0",
-    "sc2-sdk": "^0.0.3",
+    "sc2-sdk": "^0.0.4",
     "secure-random": "^1.1.1",
     "serve-favicon": "~2.3.0",
     "socket.io": "^1.4.5",
@@ -156,6 +159,7 @@
     "eslint-plugin-react": "^7.1.0",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^20.0.4",
+    "pre-commit": "^1.2.2",
     "react-test-renderer": "^15.6.1",
     "redux-mock-store": "^1.2.3",
     "webpack-dev-server": "~2.6.1",

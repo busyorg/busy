@@ -1,20 +1,27 @@
-import * as walletActions from './walletActions';
+import { OPEN_TRANSFER, CLOSE_TRANSFER } from './walletActions';
 
 const initialState = {
-  history: {},
+  transferVisible: false,
+  transferTo: '',
 };
 
-const wallet = (state = initialState, action) => {
+export default function walletReducer(state = initialState, action) {
   switch (action.type) {
-    case walletActions.GET_WALLET_SUCCESS:
+    case OPEN_TRANSFER:
       return {
-        history: {
-          [action.meta.username]: action.payload.history,
-        },
+        ...state,
+        transferVisible: true,
+        transferTo: action.payload,
+      };
+    case CLOSE_TRANSFER:
+      return {
+        ...state,
+        transferVisible: false,
       };
     default:
       return state;
   }
-};
+}
 
-export default wallet;
+export const getIsTransferVisible = state => state.transferVisible;
+export const getTransferTo = state => state.transferTo;

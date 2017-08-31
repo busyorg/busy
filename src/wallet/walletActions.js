@@ -1,20 +1,7 @@
-import Promise from 'bluebird';
+import { createAction } from 'redux-actions';
 
-export const GET_WALLET = '@wallet/GET_WALLET';
-export const GET_WALLET_START = '@wallet/GET_WALLET_START';
-export const GET_WALLET_SUCCESS = '@wallet/GET_WALLET_SUCCESS';
-export const GET_WALLET_ERROR = '@wallet/GET_WALLET_ERROR';
+export const OPEN_TRANSFER = '@wallet/OPEN_TRANSFER';
+export const CLOSE_TRANSFER = '@wallet/CLOSE_TRANSFER';
 
-export const getWallet = username => (dispatch, getState, { steemAPI }) => {
-  dispatch({
-    type: GET_WALLET,
-    payload: {
-      promise: steemAPI.getStateAsync(`@${username}/transfers`).then(res =>
-        Promise.resolve({
-          history: res.accounts[username] ? res.accounts[username].transfer_history : [],
-        }),
-      ),
-    },
-    meta: { username },
-  });
-};
+export const openTransfer = createAction(OPEN_TRANSFER);
+export const closeTransfer = createAction(CLOSE_TRANSFER);
