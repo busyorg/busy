@@ -582,7 +582,7 @@ exports[`Storyshots Editor Editor 1`] = `
             className="ant-form-item-control "
           >
             <button
-              className="Action ant-btn-lg"
+              className="Action ant-btn-lg Action--primary"
               disabled={false}
               onClick={[Function]}
               style={Object {}}

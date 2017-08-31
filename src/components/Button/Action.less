@@ -10,6 +10,20 @@
   color: @white;
   width: 100%;
 
+  &--primary {
+    .colorize-button(@purple, #2a3574);
+
+    color: @white-darker;
+
+    &:disabled,
+    &:hover,
+    &:focus,
+    &:active,
+    &.active {
+      color: @white-darker !important;
+    }
+  }
+
   &:hover,
   &:focus,
   &:active,
