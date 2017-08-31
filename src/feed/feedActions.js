@@ -68,6 +68,7 @@ export const getFeedContent = ({ sortBy, category, limit }) => (
           sortBy: sortBy || 'trending',
           category: category || 'all',
           postsData,
+          limit,
         }),
       ),
     )
@@ -106,6 +107,7 @@ export const getUserFeedContent = ({ username, limit }) => (dispatch, getState, 
           sortBy,
           username,
           postsData,
+          limit,
         }),
       ),
     )
@@ -164,6 +166,7 @@ export const getMoreFeedContent = ({ sortBy, category, limit }) => (
           sortBy: sortBy || 'trending',
           category: category || 'all',
           postsData,
+          limit,
         }),
       );
     })
@@ -224,6 +227,7 @@ export const getMoreUserFeedContent = ({ username, limit }) => (
           sortBy,
           username,
           postsData,
+          limit,
         }),
       );
     })
