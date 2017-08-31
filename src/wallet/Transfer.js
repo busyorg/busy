@@ -102,6 +102,8 @@ export default class Transfer extends React.Component {
   }
 
   validateUsername = (rule, value, callback) => {
+    const { intl } = this.props;
+
     if (!value) {
       callback();
       return;
@@ -112,7 +114,9 @@ export default class Transfer extends React.Component {
         callback();
       } else {
         callback([
-          new Error(`Couldn't find user with name ${value}.`),
+          new Error(intl.formatMessage({ id: 'to_error_not_found_username', defaultMessage: "Couldn't find user with name {username}." }, {
+            username: value,
+          })),
         ]);
       }
     });
@@ -125,7 +129,7 @@ export default class Transfer extends React.Component {
 
     if (value && currentValue <= 0) {
       callback([
-        new Error('Amount has to be higher than 0.'),
+        new Error(intl.formatMessage({ id: 'amount_error_zero', defaultMessage: 'Amount has to be higher than 0.' })),
       ]);
       return;
     }
