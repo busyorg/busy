@@ -6,13 +6,13 @@ import steem from 'steem';
 import steemConnect from 'sc2-sdk';
 import { Form, Input, Radio, Modal } from 'antd';
 import { closeTransfer } from './walletActions';
-import { getIsAuthenticated, getAuthenticatedUser } from '../reducers';
+import { getIsAuthenticated, getAuthenticatedUser, getIsTransferVisible, getTransferTo } from '../reducers';
 import './Transfer.less';
 
 @injectIntl
 @connect(state => ({
-  visible: state.wallet.transferVisible,
-  to: state.wallet.transferTo,
+  visible: getIsTransferVisible(state),
+  to: getTransferTo(state),
   authenticated: getIsAuthenticated(state),
   user: getAuthenticatedUser(state),
 }), {

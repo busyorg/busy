@@ -22,3 +22,6 @@ export default function walletReducer(state = initialState, action) {
       return state;
   }
 }
+
+export const getIsTransferVisible = state => state.transferVisible;
+export const getTransferTo = state => state.transferTo;
