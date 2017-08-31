@@ -98,7 +98,7 @@ const LeftSidebar = injectIntl(({ authenticatedUser, user, intl, ...props }) => 
               id: 'transfer',
               defaultMessage: 'Transfer',
             })}
-            onClick={() => props.openTransfer({ to: user.name })}
+            onClick={() => props.openTransfer(user.name)}
           />}
         </div>)}
     />

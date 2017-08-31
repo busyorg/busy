@@ -11,7 +11,7 @@ export default function walletReducer(state = initialState, action) {
       return {
         ...state,
         transferVisible: true,
-        transferTo: action.payload.to,
+        transferTo: action.payload,
       };
     case CLOSE_TRANSFER:
       return {
