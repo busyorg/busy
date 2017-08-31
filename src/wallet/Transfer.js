@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { injectIntl, FormattedMessage } from 'react-intl';
+import steem from 'steem';
 import steemConnect from 'sc2-sdk';
 import { Form, Input, Radio, Modal } from 'antd';
 import { closeTransfer } from './walletActions';
@@ -84,6 +85,23 @@ export default class Transfer extends React.Component {
 
   handleCancelClick = () => this.props.closeTransfer();
 
+  validateUsername = (rule, value, callback) => {
+    if (!value) {
+      callback();
+      return;
+    }
+
+    steem.api.getAccounts([value], (err, result) => {
+      if (result[0]) {
+        callback();
+      } else {
+        callback([
+          new Error(`Couldn't find user with name ${value}.`),
+        ]);
+      }
+    });
+  }
+
   validateBalance = (rule, value, callback) => {
     const { intl, authenticated, user } = this.props;
 
@@ -126,7 +144,10 @@ export default class Transfer extends React.Component {
         <Form className="Transfer container">
           <Form.Item label={<FormattedMessage id="to" defaultMessage="To" />}>
             {getFieldDecorator('to', {
-              rules: [{ required: true, message: intl.formatMessage({ id: 'to_error_empty', defaultMessage: 'Recipient is required.' }) }],
+              rules: [
+                { required: true, message: intl.formatMessage({ id: 'to_error_empty', defaultMessage: 'Recipient is required.' }) },
+                { validator: this.validateUsername },
+              ],
             })(<Input
               type="text"
               placeholder={intl.formatMessage({ id: 'to_placeholder', defaultMessage: 'Payment recipient' })}
