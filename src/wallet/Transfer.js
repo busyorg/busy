@@ -211,7 +211,7 @@ export default class Transfer extends React.Component {
           </Form.Item>
           <Form.Item label={<FormattedMessage id="memo" defaultMessage="Memo" />}>
             {getFieldDecorator('memo')(<Input.TextArea
-              rows={3}
+              autosize={{ minRows: 2, maxRows: 6 }}
               placeholder={intl.formatMessage({ id: 'memo_placeholder', defaultMessage: 'Additional message to include in this payment (optional)' })}
             />)}
           </Form.Item>
