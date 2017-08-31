@@ -157,7 +157,7 @@ export default class Transfer extends React.Component {
         onOk={this.handleContinueClick}
         onCancel={this.handleCancelClick}
       >
-        <Form className="Transfer container">
+        <Form className="Transfer container" hideRequiredMark>
           <Form.Item label={<FormattedMessage id="to" defaultMessage="To" />}>
             {getFieldDecorator('to', {
               rules: [
