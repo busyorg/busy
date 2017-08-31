@@ -36,8 +36,11 @@ export default class Transfer extends React.Component {
     closeTransfer: () => {},
   };
 
+  static amountRegex = /^[0-9]*\.?[0-9]{0,3}$/;
+
   state = {
     currency: 'STEEM',
+    oldAmount: undefined,
   };
 
   componentWillReceiveProps(nextProps) {
@@ -84,6 +87,19 @@ export default class Transfer extends React.Component {
   }
 
   handleCancelClick = () => this.props.closeTransfer();
+
+  handleAmountChange = (event) => {
+    const { value } = event.target;
+    const { oldAmount } = this.state;
+
+    this.setState({
+      oldAmount: Transfer.amountRegex.test(value) ? value : oldAmount,
+    });
+    this.props.form.setFieldsValue({
+      amount: Transfer.amountRegex.test(value) ? value : oldAmount,
+    });
+    this.props.form.validateFields(['amount']);
+  }
 
   validateUsername = (rule, value, callback) => {
     if (!value) {
@@ -155,10 +171,11 @@ export default class Transfer extends React.Component {
           </Form.Item>
           <Form.Item label={<FormattedMessage id="amount" defaultMessage="Amount" />}>
             {getFieldDecorator('amount', {
+              trigger: '',
               rules: [
                 { required: true, message: intl.formatMessage({ id: 'amount_error_empty', defaultMessage: 'Amount is required.' }) },
                 {
-                  pattern: /^[0-9]*\.?[0-9]{0,3}$/,
+                  pattern: Transfer.amountRegex,
                   message: intl.formatMessage({
                     id: 'amount_error_format',
                     defaultMessage: 'Incorrect format. Use comma or dot as decimal separator. Use at most 3 decimal places.',
@@ -168,6 +185,7 @@ export default class Transfer extends React.Component {
               ],
             })(<Input
               addonAfter={currencyPrefix}
+              onChange={this.handleAmountChange}
               placeholder={intl.formatMessage({ id: 'amount_placeholder', defaultMessage: 'How much do you want to send' })}
               style={{ width: '100%' }}
             />)}
