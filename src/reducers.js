@@ -13,9 +13,9 @@ import notificationReducer from './app/Notification/notificationReducers';
 import bookmarksReducer, * as fromBookmarks from './bookmarks/bookmarksReducer';
 import favoritesReducer, * as fromFavorites from './favorites/favoritesReducer';
 import editorReducer, * as fromEditor from './post/Write/editorReducer';
+import walletReducer, * as fromWallet from './wallet/walletReducer';
 import { responsiveReducer } from './vendor/responsive';
 import reblogReducers, * as fromReblog from './app/Reblog/reblogReducers';
-import walletReducer from './wallet/walletReducer';
 
 const reducers = combineReducers({
   app: appReducer,
@@ -31,8 +31,8 @@ const reducers = combineReducers({
   bookmarks: bookmarksReducer,
   favorites: favoritesReducer,
   reblog: reblogReducers,
-  wallet: walletReducer,
   router: routerReducer,
+  wallet: walletReducer,
 });
 
 export default reducers;
@@ -73,3 +73,6 @@ export const getPendingFollows = state => fromUser.getPendingFollows(state.user)
 export const getUser = (state, username) => fromUsers.getUser(state.users, username);
 
 export const getFavoriteCategories = state => fromFavorites.getFavoriteCategories(state.favorites);
+
+export const getIsTransferVisible = state => fromWallet.getIsTransferVisible(state.wallet);
+export const getTransferTo = state => fromWallet.getTransferTo(state.wallet);

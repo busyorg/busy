@@ -12,6 +12,7 @@ exports[`Storyshots Button Action 1`] = `
   <button
     className="Action ant-btn-lg"
     disabled={false}
+    onClick={[Function]}
     style={Object {}}
   >
     Transfer
@@ -583,6 +584,7 @@ exports[`Storyshots Editor Editor 1`] = `
             <button
               className="Action ant-btn-lg Action--primary"
               disabled={false}
+              onClick={[Function]}
               style={Object {}}
             >
               Post
@@ -1027,12 +1029,12 @@ exports[`Storyshots Profile UserHeader 1`] = `
           <i
             className="iconfont icon-more UserHeader__more"
             onBlur={undefined}
-            onClick={[Function]}
+            onClick={undefined}
             onFocus={undefined}
-            onMouseDown={[Function]}
-            onMouseEnter={undefined}
-            onMouseLeave={undefined}
-            onTouchStart={[Function]}
+            onMouseDown={undefined}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onTouchStart={undefined}
           />
         </div>
         <div

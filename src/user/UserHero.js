@@ -35,6 +35,7 @@ const UserHero = ({
   user,
   username,
   isSameUser,
+  onSelect,
 }) =>
   (<div>
     <Switch>
@@ -51,6 +52,7 @@ const UserHero = ({
                   userReputation={user.reputation}
                   rank={getUserRank(user.vesting_shares)}
                   isSameUser={isSameUser}
+                  onSelect={onSelect}
                 />
             }
             <UserMenuWrapper
@@ -68,10 +70,12 @@ UserHero.propTypes = {
   user: PropTypes.shape().isRequired,
   username: PropTypes.string.isRequired,
   isSameUser: PropTypes.bool,
+  onSelect: PropTypes.func,
 };
 
 UserHero.defaultProps = {
   isSameUser: false,
+  onSelect: () => {},
 };
 
 export default UserHero;
