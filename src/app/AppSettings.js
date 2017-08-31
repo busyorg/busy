@@ -50,6 +50,11 @@ export default class AppSettings extends React.Component {
               </a>
             </div>
             <div>
+              <a role="presentation" onClick={() => setLocale('cs')}>
+                <h3>Čeština</h3>
+              </a>
+            </div>
+            <div>
               <a role="presentation" onClick={() => setLocale('es')}>
                 <h3>Español</h3>
               </a>
