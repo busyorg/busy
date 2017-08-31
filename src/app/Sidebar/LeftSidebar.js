@@ -6,6 +6,7 @@ import _ from 'lodash';
 import { Route, Switch } from 'react-router-dom';
 import urlParse from 'url-parse';
 
+import { openTransfer } from '../../wallet/walletActions';
 import { getAuthenticatedUser } from '../../reducers';
 
 import api from '../../steemAPI';
@@ -42,7 +43,7 @@ class SidebarWithTopics extends React.PureComponent {
   }
 }
 
-const LeftSidebar = injectIntl(({ authenticatedUser, user, intl }) => {
+const LeftSidebar = injectIntl(({ authenticatedUser, user, intl, ...props }) => {
   const location = user && _.get(user.json_metadata, 'profile.location');
   let website = user && _.get(user.json_metadata, 'profile.website');
 
@@ -97,6 +98,7 @@ const LeftSidebar = injectIntl(({ authenticatedUser, user, intl }) => {
               id: 'transfer',
               defaultMessage: 'Transfer',
             })}
+            onClick={() => props.openTransfer(user.name)}
           />}
         </div>)}
     />
@@ -123,5 +125,7 @@ LeftSidebar.defaultProps = {
 export default connect(
   state => ({
     authenticatedUser: getAuthenticatedUser(state),
-  }),
+  }), {
+    openTransfer,
+  },
 )(LeftSidebar);

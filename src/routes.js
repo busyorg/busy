@@ -8,7 +8,6 @@ import Settings from './app/AppSettings';
 
 import Page from './feed/Page';
 import User from './user/User';
-import Transfer from './wallet/Transfer';
 import Tags from './tags/Tags';
 import Donors from './statics/Donors';
 import Post from './post/Post';
@@ -29,13 +28,6 @@ export default (
       <Route path="/team" component={Team} />
       <Route path="/tags" component={Tags} />
       <Route path="/donors" component={Donors} />
-      <Route
-        path="/transfer"
-        render={() =>
-          (<RequireLogin>
-            <Transfer />
-          </RequireLogin>)}
-      />
       <Route
         path="/bookmarks"
         render={() =>
