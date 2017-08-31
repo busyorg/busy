@@ -122,6 +122,14 @@ export default class Transfer extends React.Component {
     const { intl, authenticated, user } = this.props;
 
     const currentValue = parseFloat(value);
+
+    if (value && currentValue <= 0) {
+      callback([
+        new Error('Amount has to be higher than 0.'),
+      ]);
+      return;
+    }
+
     const selectedBalance = this.state.currency === 'STEEM' ? user.balance : user.sbd_balance;
 
     if (authenticated && currentValue !== 0 && currentValue > parseFloat(selectedBalance)) {
