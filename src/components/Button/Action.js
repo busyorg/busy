@@ -4,8 +4,8 @@ import { Icon } from 'antd';
 import classNames from 'classnames';
 import './Action.less';
 
-const Action = ({ text, loading, disabled, style, small }) => (
-  <button disabled={disabled} style={style} className={classNames('Action', { 'ant-btn-lg': !small })}>
+const Action = ({ text, loading, disabled, primary, style, small }) => (
+  <button disabled={disabled} style={style} className={classNames('Action', { 'ant-btn-lg': !small, 'Action--primary': primary })}>
     {loading && <Icon type="loading" />}
     {text}
   </button>);
@@ -14,6 +14,7 @@ Action.propTypes = {
   text: PropTypes.string.isRequired,
   loading: PropTypes.bool,
   disabled: PropTypes.bool,
+  primary: PropTypes.bool,
   style: PropTypes.shape(),
   small: PropTypes.bool,
 };
@@ -21,6 +22,7 @@ Action.propTypes = {
 Action.defaultProps = {
   loading: false,
   disabled: false,
+  primary: false,
   style: {},
   small: false,
 };

@@ -441,6 +441,7 @@ class Editor extends React.Component {
           </span>
           <Form.Item className="Editor__bottom__submit">
             <Action
+              primary
               loading={loading}
               disabled={loading}
               text={intl.formatMessage({
