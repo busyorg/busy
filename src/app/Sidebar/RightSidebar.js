@@ -30,7 +30,7 @@ const InterestingPeopleWithData = () =>
 const RightSidebar = ({ authenticated, authenticatedUser }) =>
   (authenticated
     ? <Switch>
-      <Route path="/@:name" render={() => <InterestingPeopleWithData />} />
+      <Route path="/@:name" component={InterestingPeopleWithData} />
       <Route
         path="/"
         render={() =>
