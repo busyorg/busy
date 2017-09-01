@@ -12,7 +12,7 @@
       margin: 8px 0;
     }
 
-    *:not(:empty):not(li) {
+    *:not(:empty):not(li):not(.pull-left):not(.pull-right) {
       margin: 32px 0;
     }
 
@@ -67,6 +67,18 @@
 
   ul {
     list-style: disc inside;
+  }
+
+  div.pull-left {
+    float: left;
+    padding-right: 1rem;
+    max-width: 50%;
+  }
+
+  div.pull-right {
+    float: right;
+    padding-left: 1rem;
+    max-width: 50%;
   }
 
   img {
