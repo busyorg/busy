@@ -2814,9 +2814,9 @@ elliptic@^6.0.0:
     minimalistic-assert "^1.0.0"
     minimalistic-crypto-utils "^1.0.0"
 
-"embedjs@git://github.com/Sekhmet/embedjs#dev":
-  version "0.0.7"
-  resolved "git://github.com/Sekhmet/embedjs#b177e9998596b871bd8914d3ce8729bf8d7f52e2"
+embedjs@^0.0.6:
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/embedjs/-/embedjs-0.0.6.tgz#0e53e7ebb29960fb5bfe8b95336fb13304c9ce94"
   dependencies:
     get-urls "^5.0.1"
 
