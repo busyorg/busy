@@ -123,7 +123,7 @@ export default class User extends React.Component {
           <div className="feed-layout container">
             <Affix className="leftContainer" stickPosition={72}>
               <div className="left">
-                <LeftSidebar user={user} />
+                <LeftSidebar />
               </div>
             </Affix>
             <Affix className="rightContainer" stickPosition={72}>
