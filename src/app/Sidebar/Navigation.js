@@ -10,7 +10,7 @@ import Sidenav from '../../components/Navigation/Sidenav';
 class SidebarWithTopics extends React.PureComponent {
   state = {
     categories: [],
-    loading: false,
+    loading: true,
   };
 
   componentWillMount() {
