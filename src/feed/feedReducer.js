@@ -99,11 +99,18 @@ const feedSortBySubItem = (state = {}, action) => {
       };
     case feedTypes.GET_FEED_CONTENT_SUCCESS:
     case feedTypes.GET_USER_FEED_CONTENT_SUCCESS:
+      return {
+        ...state,
+        hasMore: action.payload.postsData.length === action.payload.limit,
+        isLoaded: true,
+        isFetching: feedFetching(undefined, action),
+        list: feedIdsList(state.list, action),
+      };
     case userTypes.GET_USER_COMMENTS_SUCCESS:
     case userTypes.GET_MORE_USER_COMMENTS_SUCCESS:
       return {
         ...state,
-        hasMore: true,
+        hasMore: action.payload.length === action.meta.limit,
         isLoaded: true,
         isFetching: feedFetching(undefined, action),
         list: feedIdsList(state.list, action),

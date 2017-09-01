@@ -25,7 +25,7 @@ export const GET_MORE_USER_REPLIES_START = '@user/GET_MORE_USER_REPLIES_START';
 export const GET_MORE_USER_REPLIES_SUCCESS = '@user/GET_MORE_USER_REPLIES_SUCCESS';
 export const GET_MORE_USER_REPLIES_ERROR = '@user/GET_MORE_USER_REPLIES_ERROR';
 
-export const getUserComments = ({ username }) => (dispatch, getState, { steemAPI }) => {
+export const getUserComments = ({ username, limit = 10 }) => (dispatch, getState, { steemAPI }) => {
   const feed = getState().feed;
   if (feed.comments[username] && feed.comments[username].isLoaded) {
     return null;
@@ -40,10 +40,10 @@ export const getUserComments = ({ username }) => (dispatch, getState, { steemAPI
     payload: {
       promise: getDiscussionsByComments({
         start_author: username,
-        limit: 10,
+        limit,
       }),
     },
-    meta: { username },
+    meta: { username, limit },
   });
 };
 
@@ -74,7 +74,7 @@ export const getMoreUserComments = (username, limit) => (dispatch, getState, { s
         limit,
       }),
     },
-    meta: { username },
+    meta: { username, limit },
   });
 };
 

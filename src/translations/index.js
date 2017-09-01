@@ -1,5 +1,6 @@
 import { addLocaleData } from 'react-intl';
 import en from 'react-intl/locale-data/en';
+import cs from 'react-intl/locale-data/cs';
 import es from 'react-intl/locale-data/es';
 import zh from 'react-intl/locale-data/zh';
 import fr from 'react-intl/locale-data/fr';
@@ -11,6 +12,7 @@ import sv from 'react-intl/locale-data/sv';
 import pl from 'react-intl/locale-data/pl';
 
 import enTranslations from '../locales/en.json';
+import csTranslations from '../locales/cs.json';
 import esTranslations from '../locales/es.json';
 import zhTranslations from '../locales/zh.json';
 import frTranslations from '../locales/fr.json';
@@ -21,10 +23,11 @@ import nlTranslations from '../locales/nl.json';
 import svTranslations from '../locales/sv.json';
 import plTranslations from '../locales/pl.json';
 
-addLocaleData([...en, ...es, ...zh, ...fr, ...de, ...ru, ...ko, ...nl, ...sv, ...pl]);
+addLocaleData([...en, ...cs, ...es, ...zh, ...fr, ...de, ...ru, ...ko, ...nl, ...sv, ...pl]);
 
 export const translations = {
   en: enTranslations,
+  cs: csTranslations,
   es: esTranslations,
   zh: zhTranslations,
   fr: frTranslations,
