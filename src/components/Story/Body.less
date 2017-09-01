@@ -12,18 +12,12 @@
       margin: 8px 0;
     }
 
-    *:not(:empty):not(li) {
+    *:not(:empty):not(li):not(.pull-left):not(.pull-right) {
       margin: 32px 0;
     }
 
     li p {
       display: inline-block;
-    }
-
-    img {
-      margin: 0 auto;
-      max-width: 100%;
-      display: block;
     }
   }
 
@@ -75,7 +69,24 @@
     list-style: disc inside;
   }
 
+  div.pull-left {
+    float: left;
+    padding-right: 1rem;
+    max-width: 50%;
+  }
+
+  div.pull-right {
+    float: right;
+    padding-left: 1rem;
+    max-width: 50%;
+  }
+
   img {
+    width: auto;
     max-width: 100%;
+    height: auto;
+    max-height: none;
+    display: inline-block;
+    vertical-align: middle;
   }
 }
