@@ -1,9 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedNumber } from 'react-intl';
+import { IntlProvider, FormattedNumber } from 'react-intl';
 
-// eslint-disable-next-line react/style-prop-object
-const USDDisplay = ({ value }) => <FormattedNumber value={value} style="currency" currency="USD" />;
+const USDDisplay = ({ value }) => (
+  <IntlProvider locale="en">
+    <FormattedNumber
+      value={value}
+      // eslint-disable-next-line react/style-prop-object
+      style="currency"
+      currency="USD"
+    />
+  </IntlProvider>
+);
 
 USDDisplay.propTypes = {
   value: PropTypes.number,
