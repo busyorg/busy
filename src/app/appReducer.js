@@ -1,4 +1,4 @@
-import * as appTypes from '../actions';
+import * as appTypes from './appActions';
 import * as postActions from '../post/postActions';
 
 const initialState = {

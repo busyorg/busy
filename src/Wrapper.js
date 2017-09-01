@@ -9,7 +9,7 @@ import { withRouter } from 'react-router-dom';
 import { getAuthenticatedUser, getLocale } from './reducers';
 
 import { login, logout } from './auth/authActions';
-import { getConfig, getRate } from './actions';
+import { getConfig, getRate } from './app/appActions';
 import Topnav from './components/Navigation/Topnav';
 import Transfer from './wallet/Transfer';
 import * as reblogActions from './app/Reblog/reblogActions';
