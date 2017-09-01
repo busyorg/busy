@@ -122,7 +122,8 @@ export const getMoreFeedContent = ({ sortBy, category, limit }) => (
   getState,
   { steemAPI },
 ) => {
-  const feedContent = getFeedContentFromState(sortBy, category, getState().feed, getState().posts);
+  const feedContent =
+    getFeedContentFromState(sortBy, category, getState().feed, getState().posts.list);
   const isLoading = getFeedLoadingFromState(sortBy, category, getState().feed);
 
   if (!feedContent.length || isLoading) {
@@ -183,7 +184,7 @@ export const getMoreUserFeedContent = ({ username, limit }) => (
 ) => {
   const sortBy = 'feed';
   const { feed, posts } = getState();
-  const feedContent = getUserFeedContentFromState(username, feed, posts);
+  const feedContent = getUserFeedContentFromState(username, feed, posts.list);
   const isLoading = getUserFeedLoadingFromState(username, feed);
 
   if (!feedContent.length || isLoading) {

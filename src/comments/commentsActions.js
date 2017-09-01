@@ -67,7 +67,7 @@ export const getComments = (postId, isFromAnotherComment = false) =>
     if (isFromAnotherComment) {
       content = comments.comments[postId];
     } else {
-      content = posts[postId];
+      content = posts.list[postId];
     }
 
     const { category, author, permlink } = content;
