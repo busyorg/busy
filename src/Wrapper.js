@@ -41,6 +41,7 @@ export default class Wrapper extends React.PureComponent {
     getConfig: PropTypes.func,
     getRebloggedList: PropTypes.func,
     getRate: PropTypes.func,
+    getTrendingTopics: PropTypes.func,
   }
 
   static defaultProps = {
@@ -49,6 +50,7 @@ export default class Wrapper extends React.PureComponent {
     getConfig: () => {},
     getRebloggedList: () => {},
     getRate: () => {},
+    getTrendingTopics: () => {},
   }
 
   componentWillMount() {
