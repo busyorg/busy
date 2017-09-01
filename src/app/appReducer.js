@@ -7,7 +7,6 @@ const initialState = {
   errorMessage: '',
   locale: 'auto',
   rate: 0,
-  lastPostId: undefined,
 };
 
 export default (state = initialState, action) => {
@@ -81,7 +80,6 @@ export default (state = initialState, action) => {
         ...state,
         isFetching: false,
         isLoaded: true,
-        lastPostId: action.payload ? action.payload.id : null,
       };
     default:
       return state;
@@ -90,4 +88,3 @@ export default (state = initialState, action) => {
 
 export const getLocale = state => state.locale;
 export const getRate = state => state.rate;
-export const getLastPostId = state => state.lastPostId;

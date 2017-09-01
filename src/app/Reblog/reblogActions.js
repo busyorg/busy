@@ -24,7 +24,7 @@ const storePostId = (postId) => {
 export const reblog = postId => (dispatch, getState) => {
   dispatch(startReblogging(postId));
   const { auth, posts } = getState();
-  const post = posts[postId];
+  const post = posts.list[postId];
 
   // if (!auth.isAuthenticated) {
   //  dispatch(notify('You are not logged in', 'error'));

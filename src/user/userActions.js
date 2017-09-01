@@ -229,8 +229,8 @@ export const getMoreUserReplies = username => (dispatch, getState, { steemAPI })
     return Promise.reject('lastFetchedReplyId not found');
   }
 
-  const startAuthor = posts[lastFetchedReplyId].author;
-  const startPermlink = posts[lastFetchedReplyId].permlink;
+  const startAuthor = posts.list[lastFetchedReplyId].author;
+  const startPermlink = posts.list[lastFetchedReplyId].permlink;
   const limit = 10;
 
   return dispatch({
