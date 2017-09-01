@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import api from '../../steemAPI';
+import steem from 'steem';
 import { getAuthenticatedUser } from '../../reducers';
 
 import Topics from '../../components/Sidebar/Topics';
@@ -9,25 +9,16 @@ import Sidenav from '../../components/Navigation/Sidenav';
 
 class SidebarWithTopics extends React.PureComponent {
   state = {
-    isFetching: true,
-    isLoaded: false,
     categories: [],
-    props: {},
-    menu: 'categories',
   };
 
   componentWillMount() {
-    api.getState('trending/busy', (err, result) => {
-      let categories =
-        (result.category_idx && result.category_idx.trending) ||
-        (result.tag_idx && result.tag_idx.trending);
-      categories = categories.filter(Boolean);
-      this.setState({
-        isFetching: false,
-        isLoaded: true,
-        categories,
-        props: result.props,
-      });
+    steem.api.getTrendingTags(undefined, 50, (err, result) => {
+      if (!err) {
+        this.setState({
+          categories: Object.values(result).map(tag => tag.name).filter(tag => tag !== ''),
+        });
+      }
     });
   }
 
