@@ -1,50 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import steem from 'steem';
-import { getAuthenticatedUser } from '../../reducers';
+import { getAuthenticatedUser, getIsTrendingTopicsLoading, getTrendingTopics } from '../../reducers';
 
 import Topics from '../../components/Sidebar/Topics';
 import Sidenav from '../../components/Navigation/Sidenav';
 
-class SidebarWithTopics extends React.PureComponent {
-  state = {
-    categories: [],
-    loading: true,
-  };
-
-  componentWillMount() {
-    steem.api.getTrendingTags(undefined, 50, (err, result) => {
-      this.setState({
-        loading: false,
-      });
-
-      if (!err) {
-        this.setState({
-          categories: Object.values(result).map(tag => tag.name).filter(tag => tag !== ''),
-        });
-      }
-    });
-  }
-
-  render() {
-    return <Topics loading={this.state.loading} topics={this.state.categories} />;
-  }
-}
-
-const Navigation = ({ authenticatedUser }) => (
+const Navigation = ({ authenticatedUser, trendingTopicsLoading, trendingTopics }) => (
   <div>
     <Sidenav username={authenticatedUser.name} />
-    <SidebarWithTopics />
+    <Topics loading={trendingTopicsLoading} topics={trendingTopics} />
   </div>
 );
 
 Navigation.propTypes = {
   authenticatedUser: PropTypes.shape().isRequired,
+  trendingTopicsLoading: PropTypes.bool.isRequired,
+  trendingTopics: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default connect(
   state => ({
     authenticatedUser: getAuthenticatedUser(state),
+    trendingTopicsLoading: getIsTrendingTopicsLoading(state),
+    trendingTopics: getTrendingTopics(state),
   }),
 )(Navigation);

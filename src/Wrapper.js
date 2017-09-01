@@ -9,7 +9,7 @@ import { withRouter } from 'react-router-dom';
 import { getAuthenticatedUser, getLocale } from './reducers';
 
 import { login, logout } from './auth/authActions';
-import { getConfig, getRate } from './app/appActions';
+import { getConfig, getRate, getTrendingTopics } from './app/appActions';
 import Topnav from './components/Navigation/Topnav';
 import Transfer from './wallet/Transfer';
 import * as reblogActions from './app/Reblog/reblogActions';
@@ -26,6 +26,7 @@ import getTranslations, { getAvailableLocale } from './translations';
     logout,
     getConfig,
     getRate,
+    getTrendingTopics,
     getRebloggedList: reblogActions.getRebloggedList,
   },
 )
@@ -55,6 +56,7 @@ export default class Wrapper extends React.PureComponent {
     this.props.getConfig();
     this.props.getRebloggedList();
     this.props.getRate();
+    this.props.getTrendingTopics();
   }
 
   handleMenuItemClick = (key) => {

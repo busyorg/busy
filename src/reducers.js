@@ -53,6 +53,9 @@ export const getIsEditorLoading = state => fromEditor.getIsEditorLoading(state.e
 
 export const getLocale = state => fromApp.getLocale(state.app);
 export const getRate = state => fromApp.getRate(state.app);
+export const getIsTrendingTopicsLoading = state => fromApp.getIsTrendingTopicsLoading(state.app);
+export const getTrendingTopics = state => fromApp.getTrendingTopics(state.app);
+
 
 export const getFeed = state => fromFeed.getFeed(state.feed);
 

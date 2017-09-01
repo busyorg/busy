@@ -7,6 +7,8 @@ const initialState = {
   errorMessage: '',
   locale: 'auto',
   rate: 0,
+  trendingTopicsLoading: false,
+  trendingTopics: [],
 };
 
 export default (state = initialState, action) => {
@@ -81,6 +83,23 @@ export default (state = initialState, action) => {
         isFetching: false,
         isLoaded: true,
       };
+    case appTypes.GET_TRENDING_TOPICS_START:
+      return {
+        ...state,
+        trendingTopicsLoading: true,
+      };
+    case appTypes.GET_TRENDING_TOPICS_SUCCESS:
+      return {
+        ...state,
+        trendingTopicsLoading: false,
+        trendingTopics: action.payload,
+      };
+    case appTypes.GET_TRENDING_TOPICS_ERROR:
+      return {
+        ...state,
+        trendingTopicsLoading: false,
+        trendingTopics: [],
+      };
     default:
       return state;
   }
@@ -88,3 +107,5 @@ export default (state = initialState, action) => {
 
 export const getLocale = state => state.locale;
 export const getRate = state => state.rate;
+export const getIsTrendingTopicsLoading = state => state.trendingTopicsLoading;
+export const getTrendingTopics = state => state.trendingTopics;
