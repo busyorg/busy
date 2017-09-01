@@ -10,10 +10,15 @@ import Sidenav from '../../components/Navigation/Sidenav';
 class SidebarWithTopics extends React.PureComponent {
   state = {
     categories: [],
+    loading: false,
   };
 
   componentWillMount() {
     steem.api.getTrendingTags(undefined, 50, (err, result) => {
+      this.setState({
+        loading: false,
+      });
+
       if (!err) {
         this.setState({
           categories: Object.values(result).map(tag => tag.name).filter(tag => tag !== ''),
@@ -23,7 +28,7 @@ class SidebarWithTopics extends React.PureComponent {
   }
 
   render() {
-    return <Topics topics={this.state.categories} />;
+    return <Topics loading={this.state.loading} topics={this.state.categories} />;
   }
 }
 
