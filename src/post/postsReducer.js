@@ -2,7 +2,6 @@ import * as feedTypes from '../feed/feedActions';
 import * as bookmarksActions from '../bookmarks/bookmarksActions';
 import * as postsActions from './postActions';
 import * as commentsActions from '../comments/commentsActions';
-import * as userActions from '../user/userActions';
 
 const postItem = (state = {}, action) => {
   switch (action.type) {
@@ -21,9 +20,8 @@ const postItem = (state = {}, action) => {
 };
 
 const initialState = {
-  lastPostId: null,
-  postLoading: false,
   pendingLikes: [],
+  list: {},
 };
 
 const posts = (state = initialState, action) => {
@@ -37,53 +35,34 @@ const posts = (state = initialState, action) => {
       action.payload.postsData.forEach((post) => { postsTemp[post.id] = post; });
       return {
         ...state,
-        ...postsTemp,
-      };
-    case userActions.GET_USER_REPLIES_SUCCESS:
-      return {
-        ...state,
-        ...action.payload,
-      };
-    case userActions.GET_MORE_USER_REPLIES_SUCCESS:
-      action.payload.forEach((post) => { posts[post.id] = post; });
-      return {
-        ...state,
-        ...posts,
-      };
-    case postsActions.GET_CONTENT_START:
-      if (action.meta.afterLike) {
-        return state;
-      }
-      return {
-        ...state,
-        postLoading: true,
+        list: {
+          ...state.list,
+          ...postsTemp,
+        },
       };
     case postsActions.GET_CONTENT_SUCCESS:
       if (action.meta.afterLike) {
         return {
           ...state,
-          lastPostId: action.payload.id,
-          postLoading: false,
           pendingLikes: state.pendingLikes.filter(post => post !== action.payload.id),
-          [action.payload.id]: {
-            ...state[action.payload.id],
-            ...action.payload,
+          list: {
+            ...state.list,
+            [action.payload.id]: {
+              ...state[action.payload.id],
+              ...action.payload,
+            },
           },
         };
       }
       return {
         ...state,
-        lastPostId: action.payload.id,
-        postLoading: false,
-        [action.payload.id]: {
-          ...state[action.payload.id],
-          ...action.payload,
+        list: {
+          ...state.list,
+          [action.payload.id]: {
+            ...state[action.payload.id],
+            ...action.payload,
+          },
         },
-      };
-    case postsActions.GET_CONTENT_ERROR:
-      return {
-        ...state,
-        postLoading: false,
       };
     case postsActions.LIKE_POST_START:
       return {
@@ -110,7 +89,11 @@ const posts = (state = initialState, action) => {
 
 export default posts;
 
-export const getPosts = state => state;
-export const getPostContent = state => state[state.lastPostId];
-export const getIsPostLoading = state => state.postLoading;
+export const getPosts = state => state.list;
+export const getPostContent = (state, author, permlink) =>
+  Object.values(state.list)
+    .find(post =>
+      post.author === author &&
+      post.permlink === permlink,
+    );
 export const getPendingLikes = state => state.pendingLikes;

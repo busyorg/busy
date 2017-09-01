@@ -46,7 +46,7 @@ export const votePost = (postId, author, permlink, weight = 10000) => (dispatch,
     type: LIKE_POST,
     payload: {
       promise: steemConnect
-        .vote(voter, posts[postId].author, posts[postId].permlink, weight)
+        .vote(voter, posts.list[postId].author, posts.list[postId].permlink, weight)
         .then((res) => {
           ReactGA.event({
             category: 'vote',
@@ -59,8 +59,8 @@ export const votePost = (postId, author, permlink, weight = 10000) => (dispatch,
             () =>
               dispatch(
                 getContent({
-                  author: posts[postId].author,
-                  permlink: posts[postId].permlink,
+                  author: posts.list[postId].author,
+                  permlink: posts.list[postId].permlink,
                   afterLike: true,
                 }),
               ),

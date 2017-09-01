@@ -44,8 +44,8 @@ export const getAuthenticatedUser = state => fromAuth.getAuthenticatedUser(state
 export const getAuthenticatedUserName = state => fromAuth.getAuthenticatedUserName(state.auth);
 
 export const getPosts = state => fromPosts.getPosts(state.posts);
-export const getPostContent = state => fromPosts.getPostContent(state.posts);
-export const getIsPostLoading = state => fromPosts.getIsPostLoading(state.posts);
+export const getPostContent = (state, author, permlink) =>
+  fromPosts.getPostContent(state.posts, author, permlink);
 export const getPendingLikes = state => fromPosts.getPendingLikes(state.posts);
 
 export const getDraftPosts = state => fromEditor.getDraftPosts(state.editor);
@@ -53,7 +53,6 @@ export const getIsEditorLoading = state => fromEditor.getIsEditorLoading(state.e
 
 export const getLocale = state => fromApp.getLocale(state.app);
 export const getRate = state => fromApp.getRate(state.app);
-export const getLastPostId = state => fromApp.getLastPostId(state.app);
 
 export const getFeed = state => fromFeed.getFeed(state.feed);
 
