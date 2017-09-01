@@ -11,7 +11,6 @@ import VisibilitySensor from 'react-visibility-sensor';
 import {
   getAuthenticatedUser,
   getPostContent,
-  getIsPostLoading,
   getBookmarks,
   getPendingLikes,
   getRebloggedList,
@@ -35,10 +34,9 @@ import ScrollToTopOnMount from '../components/Utils/ScrollToTopOnMount';
 
 @withRouter
 @connect(
-  state => ({
+  (state, ownProps) => ({
     user: getAuthenticatedUser(state),
-    content: getPostContent(state),
-    loading: getIsPostLoading(state),
+    content: getPostContent(state, ownProps.match.params.author, ownProps.match.params.permlink),
     bookmarks: getBookmarks(state),
     pendingLikes: getPendingLikes(state),
     reblogList: getRebloggedList(state),
@@ -68,7 +66,6 @@ export default class Post extends React.Component {
   static propTypes = {
     user: PropTypes.shape().isRequired,
     content: PropTypes.shape(),
-    loading: PropTypes.bool.isRequired,
     pendingLikes: PropTypes.arrayOf(PropTypes.number),
     reblogList: PropTypes.arrayOf(PropTypes.number),
     pendingReblogs: PropTypes.arrayOf(PropTypes.number),
@@ -106,7 +103,11 @@ export default class Post extends React.Component {
   };
 
   componentWillMount() {
-    this.props.getContent();
+    const { content } = this.props;
+
+    if (!content) {
+      this.props.getContent();
+    }
   }
 
   componentDidUpdate() {
@@ -147,7 +148,6 @@ export default class Post extends React.Component {
     const {
       user,
       content,
-      loading,
       pendingLikes,
       reblogList,
       pendingReblogs,
@@ -159,7 +159,7 @@ export default class Post extends React.Component {
       toggleBookmark,
     } = this.props;
 
-    if (this.props.loading || !content) {
+    if (!content) {
       return (
         <div className="main-panel">
           <Loading />
@@ -239,20 +239,18 @@ export default class Post extends React.Component {
               </div>
             </Affix>
             <div className="center" style={{ paddingBottom: '24px' }}>
-              {loading
-                ? <Loading />
-                : <StoryFull
-                  post={content}
-                  postState={postState}
-                  commentCount={content.children}
-                  pendingLike={pendingLikes.includes(content.id)}
-                  pendingFollow={pendingFollows.includes(content.author)}
-                  onFollowClick={this.handleFollowClick}
-                  onSaveClick={() => toggleBookmark(content.id, content.author, content.permlink)}
-                  onReportClick={reportPost}
-                  onLikeClick={likePost}
-                  onShareClick={() => reblog(content.id)}
-                />}
+              <StoryFull
+                post={content}
+                postState={postState}
+                commentCount={content.children}
+                pendingLike={pendingLikes.includes(content.id)}
+                pendingFollow={pendingFollows.includes(content.author)}
+                onFollowClick={this.handleFollowClick}
+                onSaveClick={() => toggleBookmark(content.id, content.author, content.permlink)}
+                onReportClick={reportPost}
+                onLikeClick={likePost}
+                onShareClick={() => reblog(content.id)}
+              />
               <VisibilitySensor onChange={this.handleCommentsVisibility} />
               <div id="comments" />
               <Comments show={this.state.commentsVisible} post={content} />
