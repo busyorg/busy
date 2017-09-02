@@ -210,7 +210,7 @@ export default class CommentItem extends Component {
                       >
                       <Icon name="thumb_up" xs />
                     </a>
-                  </div>
+                </div>
                 {' '}
                 {fiveLastUpvotes.length > 0 ?
                   <SimpleTooltipOrigin message={likesTooltipMsg}>
