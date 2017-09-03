@@ -6,6 +6,22 @@
 
 Blockchain-based social network where anyone can earn rewards 🚀
 
+## Preview
+![Preview](https://res.cloudinary.com/hpiynhbhq/image/upload/v1504423577/wft1ubbw2ozrbteril7u.png)
+
+## Setup
+
+```
+git clone https://github.com/busyorg/busy.git
+cd busy
+```
+
+```
+yarn install
+yarn build
+yarn dev-server
+```
+
 ## Contribution 
 So you found a bug? Or perhaps you just want to improve something? Patches are welcome! If you would like to contribute, but don't know what to work on, check the issues list.
 
