@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Topic from '../Button/Topic';
+import Loading from '../Icon/Loading';
 import './Topics.less';
 
 class Topics extends React.Component {
@@ -9,12 +10,14 @@ class Topics extends React.Component {
     favorite: PropTypes.bool,
     topics: PropTypes.arrayOf(PropTypes.string),
     maxItems: PropTypes.number,
+    loading: PropTypes.bool,
   };
 
   static defaultProps = {
     favorite: false,
     topics: [],
     maxItems: 5,
+    loading: false,
   };
 
   constructor(props) {
@@ -29,7 +32,7 @@ class Topics extends React.Component {
   }
 
   render() {
-    const { topics, favorite, maxItems } = this.props;
+    const { topics, favorite, maxItems, loading } = this.props;
 
     const displayedTopics = this.state.showMore ? topics : topics.slice(0, maxItems);
 
@@ -38,19 +41,20 @@ class Topics extends React.Component {
         <h4>
           <FormattedMessage id={favorite ? 'favorite_topics' : 'trending_topics'} defaultMessage={favorite ? 'Favorite topics' : 'Trending topics'} />
         </h4>
-        <ul className="Topics__list">
+        {loading && <Loading center={false} />}
+        {!loading && <ul className="Topics__list">
           {displayedTopics.map(topic =>
             (<li key={topic}>
               <Topic name={topic} favorite={favorite} />
             </li>),
           )}
-        </ul>
-        {topics.length > maxItems && !this.state.showMore
+        </ul>}
+        {!loading && topics.length > maxItems && !this.state.showMore
           ? <h5 role="presentation" onClick={() => this.changeVisibility(true)}>
             <FormattedMessage id="show_more" defaultMessage="View more" />
           </h5>
           : null}
-        {topics.length > maxItems && this.state.showMore
+        {!loading && topics.length > maxItems && this.state.showMore
           ? <h5 role="presentation" onClick={() => this.changeVisibility(false)}>
             <FormattedMessage id="show_less" defaultMessage="View less" />
           </h5>
