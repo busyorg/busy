@@ -1,6 +1,5 @@
 import { createAction } from 'redux-actions';
 import SteemConnect from 'sc2-sdk';
-import ReactGA from 'react-ga';
 import { createCommentPermlink } from '../vendor/steemitHelpers';
 import { notify } from '../app/Notification/notificationActions';
 
@@ -123,11 +122,9 @@ export const sendCommentV2 = (parentPost, body) =>
             dispatch(notify('Comment submitted successfully', 'success'));
             dispatch(getComments(rootComment));
 
-            ReactGA.event({
-              category: 'comment',
-              action: 'submit',
-              value: 5,
-            });
+            if (window.ga) {
+              window.ga('send', 'event', 'comment', 'submit', '', 5);
+            }
           }),
       },
       meta: {

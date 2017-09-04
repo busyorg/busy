@@ -1,6 +1,5 @@
 import Promise from 'bluebird';
 import steemConnect from 'sc2-sdk';
-import ReactGA from 'react-ga';
 import Cookie from 'js-cookie';
 import { getFollowing } from '../user/userActions';
 import { initPushpad } from '../helpers/pushpadHelper';
@@ -38,7 +37,9 @@ export const login = () => (dispatch) => {
     const accessToken = Cookie.get('access_token');
     dispatch(loginSuccess(result.account, accessToken));
 
-    ReactGA.set({ userId: result.user });
+    if (window.ga) {
+      window.ga('set', 'userId', result.user);
+    }
 
     initPushpad(result.user, accessToken);
   });
