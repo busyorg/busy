@@ -1,6 +1,5 @@
 import store from 'store';
 import SteemConnect from 'sc2-sdk';
-import ReactGA from 'react-ga';
 import { createAction } from 'redux-actions';
 import { notify } from '../Notification/notificationActions';
 import parseBlockchainError from '../../helpers/errors';
@@ -57,11 +56,9 @@ export const reblog = postId => (dispatch, getState) => {
       dispatch(getRebloggedListAction(list));
       dispatch(finishReblogging(postId));
 
-      ReactGA.event({
-        category: 'reblog',
-        action: 'submit',
-        value: 2,
-      });
+      if (window.ga) {
+        window.ga('send', 'event', 'reblog', 'submit', '', 2);
+      }
 
       return result;
     });

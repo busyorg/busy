@@ -4,7 +4,6 @@ import { Provider } from 'react-redux';
 import steemconnect from 'sc2-sdk';
 import Cookie from 'js-cookie';
 import steem from 'steem';
-import ReactGA from 'react-ga';
 import Raven from 'raven-js';
 import Logger from 'js-logger';
 import { AppContainer } from 'react-hot-loader';
@@ -19,11 +18,15 @@ Logger.useDefaults();
 
 const store = getStore();
 
-ReactGA.initialize('UA-87507611-1');
-ReactGA.set({ appVersion: pkg.version });
+if (window.ga) {
+  window.ga('set', 'appVersion', pkg.version);
+}
+
 const logPageView = () => {
-  ReactGA.set({ page: window.location.pathname });
-  ReactGA.pageview(window.location.pathname);
+  if (window.ga) {
+    window.ga('set', 'page', window.location.pathname);
+    window.ga('send', 'pageview');
+  }
 };
 
 if (process.env.SENTRY_PUBLIC_DSN) {
