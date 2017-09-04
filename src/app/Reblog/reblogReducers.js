@@ -12,18 +12,19 @@ const reblogReducer = (state = initialState, action) => {
         ...state,
         rebloggedList: action.payload,
       };
-    case reblogActions.START_REBLOGGING:
+    case reblogActions.REBLOG_POST_START:
       return {
         ...state,
         pendingReblogs: [
           ...state.pendingReblogs,
-          action.payload,
+          action.meta.postId,
         ],
       };
-    case reblogActions.FINISH_REBLOGGING:
+    case reblogActions.REBLOG_POST_SUCCESS:
+    case reblogActions.REBLOG_POST_ERROR:
       return {
         ...state,
-        pendingReblogs: state.pendingReblogs.filter(id => id !== action.payload),
+        pendingReblogs: state.pendingReblogs.filter(id => id !== action.meta.postId),
       };
     default:
       return state;
