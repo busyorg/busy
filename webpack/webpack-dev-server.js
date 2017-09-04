@@ -69,7 +69,9 @@ module.exports = {
   devServer: {
     port: 3000,
     contentBase: path.resolve(baseDir, 'dist'),
-    historyApiFallback: true,
+    historyApiFallback: {
+      disableDotRule: true,
+    },
     proxy: {
       '/callback': 'http://localhost:3001',
     },

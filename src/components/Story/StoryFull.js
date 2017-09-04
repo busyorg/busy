@@ -128,7 +128,7 @@ class StoryFull extends React.Component {
           <a href="#comments">
             <FormattedMessage
               id="comments_count"
-              values={{ count: commentCount }}
+              values={{ count: intl.formatNumber(commentCount) }}
               defaultMessage="{count} comments"
             />
           </a>

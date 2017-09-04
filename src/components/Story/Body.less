@@ -1,37 +1,38 @@
-@import "../../styles/fonts.less";
+@import (reference) "../../styles/fonts.less";
 
 .Body {
+  font-family: @font-text;
+  color: rgba(0, 0, 0, .8);
+  line-height: 1.6em;
+  word-wrap: break-word;
+
   &--full {
-    font-family: @font-text;
-    color: rgba(0, 0, 0, .8);
-    line-height: 1.6em;
     font-size: 21px;
-    word-wrap: break-word;
 
     h1, h2, h3, h4, h5, h6 {
       margin: 8px 0;
+      font-weight: 700;
+      line-height: 1.3em;
     }
 
-    *:not(:empty):not(li) {
-      margin: 32px 0;
-    }
-
-    li p {
-      display: inline-block;
-    }
-
-    img {
-      margin: 0 auto;
-      max-width: 100%;
-      display: block;
+    *:not(:empty):not(li):not(.pull-left):not(.pull-right) {
+      margin: 1.5rem 0;
     }
   }
 
+  h1 {
+    font-size: 140%;
+  }
+
+  p {
+    margin: 0.4rem 0;
+  }
+
   blockquote {
-    padding: 10px 20px;
-    margin: 0 0 20px;
-    font-size: 17.5px;
-    border-left: 5px solid #eee;
+    padding-left: 1rem;
+    margin: 0.4rem 0;
+    border-left: 1px solid rgba(0, 0, 0, .6);
+    color: rgba(0, 0, 0, .6);
   }
 
   :not(pre) > code {
@@ -72,10 +73,29 @@
   }
 
   ul {
-    list-style: disc inside;
+    margin: 1rem 0;
+    margin-left: 2rem !important;
+    list-style: disc outside;
+  }
+
+  div.pull-left {
+    float: left;
+    padding-right: 1rem;
+    max-width: 50%;
+  }
+
+  div.pull-right {
+    float: right;
+    padding-left: 1rem;
+    max-width: 50%;
   }
 
   img {
+    width: auto;
     max-width: 100%;
+    height: auto;
+    max-height: none;
+    display: inline-block;
+    vertical-align: middle;
   }
 }
