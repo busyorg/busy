@@ -64,6 +64,7 @@ import ScrollToTopOnMount from '../components/Utils/ScrollToTopOnMount';
 )
 export default class Post extends React.Component {
   static propTypes = {
+    location: PropTypes.shape().isRequired,
     user: PropTypes.shape().isRequired,
     content: PropTypes.shape(),
     pendingLikes: PropTypes.arrayOf(PropTypes.number),
@@ -110,20 +111,26 @@ export default class Post extends React.Component {
     }
   }
 
-  componentDidUpdate() {
-    const { hash } = window.location;
-    if (hash !== '') {
-      setTimeout(() => {
-        const id = hash.replace('#', '');
-        const element = document.getElementById(id);
-        if (element) element.scrollIntoView();
-      }, 0);
-    }
+  componentDidMount() {
+    const { hash } = this.props.location;
+    if (hash === '#comments') this.scrollToComments();
+  }
+
+  componentWillReceiveProps() {
+    const { hash } = this.props.location;
+    if (hash === '#comments') this.scrollToComments();
   }
 
   componentWillUnmount() {
     if (process.env.IS_BROWSER) {
       global.document.title = 'Busy';
+    }
+  }
+
+  scrollToComments = () => {
+    const element = document.getElementById('comments');
+    if (element) {
+      element.scrollIntoView();
     }
   }
 
