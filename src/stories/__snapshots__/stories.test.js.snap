@@ -202,6 +202,7 @@ exports[`Storyshots Editor Editor 1`] = `
         <label
           className="ant-form-item-required"
           htmlFor="title"
+          onClick={[Function]}
           title=""
         >
           <span
@@ -287,6 +288,7 @@ exports[`Storyshots Editor Editor 1`] = `
         <label
           className="ant-form-item-required"
           htmlFor="topics"
+          onClick={[Function]}
           title=""
         >
           <span
@@ -327,6 +329,7 @@ exports[`Storyshots Editor Editor 1`] = `
           >
             <button
               className="ant-btn EditorToolbar__button ant-dropdown-trigger"
+              disabled={undefined}
               onBlur={undefined}
               onClick={[Function]}
               onFocus={undefined}
@@ -471,6 +474,7 @@ exports[`Storyshots Editor Editor 1`] = `
         <label
           className=""
           htmlFor="reward"
+          onClick={[Function]}
           title=""
         >
           <span
@@ -612,6 +616,7 @@ exports[`Storyshots Navigation Sidenav logged 1`] = `
     >
       <li>
         <a
+          aria-current={false}
           className={undefined}
           href="/@guest123"
           onClick={[Function]}
@@ -627,6 +632,7 @@ exports[`Storyshots Navigation Sidenav logged 1`] = `
       </li>
       <li>
         <a
+          aria-current="true"
           className="Sidenav__item--active"
           href="/"
           onClick={[Function]}
@@ -642,6 +648,7 @@ exports[`Storyshots Navigation Sidenav logged 1`] = `
       </li>
       <li>
         <a
+          aria-current={false}
           className={undefined}
           href="/trending"
           onClick={[Function]}
@@ -657,6 +664,7 @@ exports[`Storyshots Navigation Sidenav logged 1`] = `
       </li>
       <li>
         <a
+          aria-current={false}
           className={undefined}
           href="#wallet"
           onClick={[Function]}

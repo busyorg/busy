@@ -3,13 +3,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { IntlProvider } from 'react-intl';
 import { Layout } from 'antd';
-import { GatewayProvider, GatewayDest } from 'react-gateway';
 import { withRouter } from 'react-router-dom';
 
 import { getAuthenticatedUser, getLocale } from './reducers';
 
 import { login, logout } from './auth/authActions';
-import { getConfig, getRate } from './actions';
+import { getConfig, getRate, getTrendingTopics } from './app/appActions';
 import Topnav from './components/Navigation/Topnav';
 import Transfer from './wallet/Transfer';
 import * as reblogActions from './app/Reblog/reblogActions';
@@ -26,6 +25,7 @@ import getTranslations, { getAvailableLocale } from './translations';
     logout,
     getConfig,
     getRate,
+    getTrendingTopics,
     getRebloggedList: reblogActions.getRebloggedList,
   },
 )
@@ -40,6 +40,7 @@ export default class Wrapper extends React.PureComponent {
     getConfig: PropTypes.func,
     getRebloggedList: PropTypes.func,
     getRate: PropTypes.func,
+    getTrendingTopics: PropTypes.func,
   }
 
   static defaultProps = {
@@ -48,6 +49,7 @@ export default class Wrapper extends React.PureComponent {
     getConfig: () => {},
     getRebloggedList: () => {},
     getRate: () => {},
+    getTrendingTopics: () => {},
   }
 
   componentWillMount() {
@@ -55,6 +57,7 @@ export default class Wrapper extends React.PureComponent {
     this.props.getConfig();
     this.props.getRebloggedList();
     this.props.getRate();
+    this.props.getTrendingTopics();
   }
 
   handleMenuItemClick = (key) => {
@@ -87,20 +90,15 @@ export default class Wrapper extends React.PureComponent {
 
     return (
       <IntlProvider locale={locale} messages={translations}>
-        <GatewayProvider>
-          <Layout>
-            <Layout.Header style={{ position: 'fixed', width: '100%', zIndex: 5 }}>
-              <Topnav username={user.name} onMenuItemClick={this.handleMenuItemClick} />
-            </Layout.Header>
-            <div className="content">
-              {this.props.children}
-              <Transfer />
-              <GatewayDest name="tooltip" />
-              <GatewayDest name="popover" />
-              <GatewayDest name="modal" />
-            </div>
-          </Layout>
-        </GatewayProvider>
+        <Layout>
+          <Layout.Header style={{ position: 'fixed', width: '100%', zIndex: 5 }}>
+            <Topnav username={user.name} onMenuItemClick={this.handleMenuItemClick} />
+          </Layout.Header>
+          <div className="content">
+            {this.props.children}
+            <Transfer />
+          </div>
+        </Layout>
       </IntlProvider>
     );
   }
