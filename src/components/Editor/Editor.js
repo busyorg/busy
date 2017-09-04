@@ -103,6 +103,7 @@ class Editor extends React.Component {
 
   setInput = (input) => {
     if (input && input.refs && input.refs.input) {
+      this.originalInput = input.refs.input;
       // eslint-disable-next-line react/no-find-dom-node
       this.input = ReactDOM.findDOMNode(input.refs.input);
     }
@@ -118,6 +119,7 @@ class Editor extends React.Component {
     if (this.input) {
       this.input.value = post.body;
       this.renderMarkdown(this.input.value);
+      this.originalInput.resizeTextarea();
     }
   };
 
