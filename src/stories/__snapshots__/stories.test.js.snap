@@ -2265,7 +2265,7 @@ exports[`Storyshots Story Full story with embed 1`] = `
           <img
             alt="thumbnail"
             className="PostFeedEmbed__preview"
-            src="https://i.ytimg.com/vi/YxFzGoDoLwU/hqdefault.jpg"
+            src="https://i.ytimg.com/vi_webp/YxFzGoDoLwU/sddefault.webp"
           />
         </div>
         <div
@@ -2757,7 +2757,7 @@ exports[`Storyshots Story Inline story with embed 1`] = `
             <img
               alt="thumbnail"
               className="PostFeedEmbed__preview"
-              src="https://i.ytimg.com/vi/YxFzGoDoLwU/hqdefault.jpg"
+              src="https://i.ytimg.com/vi_webp/YxFzGoDoLwU/sddefault.webp"
             />
           </div>
         </div>
