@@ -1,7 +1,6 @@
 import Promise from 'bluebird';
 import assert from 'assert';
 import SteemConnect from 'sc2-sdk';
-import ReactGA from 'react-ga';
 import { push } from 'react-router-redux';
 import { createAction } from 'redux-actions';
 import { jsonParse } from '../../helpers/formatter';
@@ -157,11 +156,10 @@ export function createPost(postData) {
             }
             dispatch(push(`/${parentPermlink}/@${author}/${permlink}`));
 
-            ReactGA.event({
-              category: 'post',
-              action: 'submit',
-              value: 10,
-            });
+            if (window.ga) {
+              window.ga('send', 'event', 'post', 'submit', '', 10);
+            }
+
             return result;
           }),
         ),
