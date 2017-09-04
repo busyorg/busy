@@ -320,7 +320,7 @@ class PostEditor extends Component {
             editorState={editorState}
             handleKeyCommand={this.handleKeyCommand}
             onChange={this.onChange}
-            plugins={[plugins]}
+            plugins={plugins}
           />
           <EmojiSuggestions />
           <DeleteImgBtn />

@@ -58,7 +58,7 @@
     "draft-js-export-markdown": "github:nil1511/draft-js-export-markdown#build",
     "draft-js-image2-plugin": "^1.0.0",
     "draft-js-import-markdown": "github:nil1511/draft-js-import-markdown#build",
-    "draft-js-markdown-shortcuts-plugin": "github:nil1511/draft-js-markdown-shortcuts-plugin#build",
+    "draft-js-markdown-shortcuts-plugin": "^0.3.0",
     "draft-js-plugins": "github:nil1511/draft-js-plugins#build",
     "ejs": "^2.5.6",
     "embedjs": "^0.0.4",
