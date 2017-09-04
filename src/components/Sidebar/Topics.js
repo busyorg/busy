@@ -41,7 +41,7 @@ class Topics extends React.Component {
         <h4>
           <FormattedMessage id={favorite ? 'favorite_topics' : 'trending_topics'} defaultMessage={favorite ? 'Favorite topics' : 'Trending topics'} />
         </h4>
-        {loading && <Loading />}
+        {loading && <Loading center={false} />}
         {!loading && <ul className="Topics__list">
           {displayedTopics.map(topic =>
             (<li key={topic}>
