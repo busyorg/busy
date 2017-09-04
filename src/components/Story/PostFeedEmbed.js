@@ -13,7 +13,7 @@ export default class PostFeedEmbed extends React.Component {
 
   static renderWithIframe(embed) {
     // eslint-disable-next-line react/no-danger
-    return <div className="PostFeedCard__thumbs" dangerouslySetInnerHTML={{ __html: embed }} />;
+    return <div dangerouslySetInnerHTML={{ __html: embed }} />;
   }
 
   constructor(props) {
