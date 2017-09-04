@@ -93,7 +93,6 @@
     "react": "^15.6.1",
     "react-custom-scrollbars": "^4.1.2",
     "react-dom": "^15.6.1",
-    "react-ga": "^2.1.2",
     "react-gateway": "^2.6.0",
     "react-helmet": "^5.0.2",
     "react-hot-loader": "next",
