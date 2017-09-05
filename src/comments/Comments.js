@@ -77,7 +77,7 @@ export default class Comments extends React.Component {
       this.props.getComments(nextProps.post.id);
     }
 
-    if (comments.listByPostId[post.id] && comments.listByPostId[post.id].isFetching) {
+    if (comments.listByCommentId[post.id] && comments.listByCommentId[post.id].isFetching) {
       if (!this.state.isFetchedOnce) {
         this.setState({ isFetchedOnce: true });
       }
@@ -126,24 +126,18 @@ export default class Comments extends React.Component {
   render() {
     const { post, comments, pendingVotes, show } = this.props;
     const postId = post.id;
-    let fetchedCommentsList = null;
+    let fetchedCommentsList = [];
 
-    if (comments.listByPostId[postId] && comments.listByPostId[postId].list instanceof Array) {
-      if (comments.listByPostId[postId].list.length) {
-        fetchedCommentsList = comments.listByPostId[postId].list.map(id => comments.comments[id]);
-      } else {
-        fetchedCommentsList = [];
-      }
+    const rootNode = comments.listByCommentId[postId];
+
+    if (rootNode instanceof Array) {
+      fetchedCommentsList = rootNode.map(id => comments.comments[id]);
     }
-    fetchedCommentsList = (comments.listByPostId[postId]
-      && comments.listByPostId[postId].list.length) ?
-      comments.listByPostId[postId].list.map(id => comments.comments[id]) :
-      [];
 
     let commentsChildren = {};
 
     if (fetchedCommentsList && fetchedCommentsList.length) {
-      commentsChildren = this.getNestedComments(comments, comments.listByPostId[postId].list, {});
+      commentsChildren = this.getNestedComments(comments, comments.listByCommentId[postId], {});
     }
 
     let loading = false;
@@ -154,24 +148,19 @@ export default class Comments extends React.Component {
       loading = true;
     }
 
-    if (fetchedCommentsList instanceof Array) {
-      return (
-        <CommentsList
-          parentPost={post}
-          comments={fetchedCommentsList}
-          authenticated={this.props.authenticated}
-          username={this.props.username}
-          commentsChildren={commentsChildren}
-          pendingVotes={pendingVotes}
-          loading={loading}
-          show={show}
-          onLikeClick={this.handleLikeClick}
-          onDislikeClick={this.handleDisLikeClick}
-          onSendComment={this.props.sendComment}
-        />
-      );
-    }
-
-    return <div />;
+    return fetchedCommentsList &&
+      <CommentsList
+        parentPost={post}
+        comments={fetchedCommentsList}
+        authenticated={this.props.authenticated}
+        username={this.props.username}
+        commentsChildren={commentsChildren}
+        pendingVotes={pendingVotes}
+        loading={loading}
+        show={show}
+        onLikeClick={this.handleLikeClick}
+        onDislikeClick={this.handleDisLikeClick}
+        onSendComment={this.props.sendComment}
+      />;
   }
 }
