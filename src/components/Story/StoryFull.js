@@ -123,8 +123,8 @@ class StoryFull extends React.Component {
 
     if (post.depth !== 0) {
       replyUI = (
-        <div>
-          <h3 className="StoryFull__root-title">This is reply to: {post.root_title}</h3>
+        <div className="StoryFull__reply">
+          <h3 className="StoryFull__reply__title">This is reply to: {post.root_title}</h3>
           <h4>
             <Link to={post.url}>
             Show original post
