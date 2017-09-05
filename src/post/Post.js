@@ -42,10 +42,14 @@ export default class Post extends React.Component {
     }
   }
 
-  componentWillUpdate(nextProps) {
+  componentWillReceiveProps(nextProps) {
     const { author, permlink } = nextProps.match.params;
     if (!nextProps.content && nextProps.match.params !== this.props.match.params) {
-      this.props.getContent(author, permlink);
+      this.setState({
+        commentsVisible: false,
+      }, () => {
+        this.props.getContent(author, permlink);
+      });
     }
   }
 
