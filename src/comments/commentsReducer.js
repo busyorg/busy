@@ -2,102 +2,18 @@ import * as commentsTypes from './commentsActions';
 import * as userTypes from '../user/userActions';
 
 const initialState = {
-  listByPostId: {},
-  listByCommentId: {},
+  childrenById: {},
   comments: {},
-  isCommenting: false,
-  currentDraftId: null,
   pendingVotes: [],
+  isFetching: false,
 };
 
-const initialCommentsList = {
-  list: [],
-  show: 0,
-};
-
-const defaultNumberOfCommentsToShow = 5;
-const defaultCommentsForPagination = 10;
-
-const listByCommentId = (state = {}, action) => {
+const childrenById = (state = {}, action) => {
   switch (action.type) {
     case commentsTypes.GET_COMMENTS_SUCCESS:
       return {
         ...state,
         ...action.payload.commentsChildrenList,
-      };
-    default:
-      return state;
-  }
-};
-
-const listByPostIdItem = (state = initialCommentsList, action) => {
-  switch (action.type) {
-    case commentsTypes.GET_COMMENTS_START:
-    {
-      if (state.list.length) {
-        return {
-          ...state,
-          isFetching: true,
-          show: defaultNumberOfCommentsToShow,
-        };
-      }
-      return {
-        ...state,
-        isFetching: true,
-        list: [],
-        show: defaultNumberOfCommentsToShow,
-      };
-    }
-    case commentsTypes.GET_COMMENTS_SUCCESS:
-      return {
-        ...state,
-        list: action.payload.rootCommentsList,
-        isFetching: false,
-        hasMore: action.payload.rootCommentsList.length > defaultNumberOfCommentsToShow,
-      };
-    case commentsTypes.SHOW_MORE_COMMENTS: {
-      const newShowValue = state.show === defaultNumberOfCommentsToShow
-        ? defaultCommentsForPagination
-        : state.show + defaultCommentsForPagination;
-      return {
-        ...state,
-        show: newShowValue,
-        hasMore: newShowValue < state.list.length,
-      };
-    }
-    case commentsTypes.SEND_COMMENT_START:
-      return {
-        ...state,
-        isFetching: true,
-      };
-    case commentsTypes.SEND_COMMENT_SUCCESS:
-    case commentsTypes.SEND_COMMENT_ERROR:
-      return {
-        ...state,
-        isFetching: false,
-      };
-    default:
-      return state;
-  }
-};
-
-const listByPostId = (state = {}, action) => {
-  switch (action.type) {
-    case commentsTypes.GET_COMMENTS_START:
-    case commentsTypes.GET_COMMENTS_SUCCESS:
-    case commentsTypes.SHOW_MORE_COMMENTS:
-      return {
-        ...state,
-        [action.meta.id]: listByPostIdItem(state[action.meta.id], action),
-      };
-    case commentsTypes.SEND_COMMENT_START:
-      if (action.meta.isReplyToComment) {
-        return state;
-      }
-
-      return {
-        ...state,
-        [action.meta.parentId]: listByPostIdItem(state[action.meta.parentId], action),
       };
     default:
       return state;
@@ -140,6 +56,21 @@ const commentsData = (state = {}, action) => {
   }
 };
 
+const isFetching = (state = initialState.isFetching, action) => {
+  switch (action.type) {
+    case commentsTypes.GET_COMMENTS_START:
+    case commentsTypes.SEND_COMMENT_START:
+      return false;
+    case commentsTypes.GET_COMMENTS_SUCCESS:
+    case commentsTypes.GET_COMMENTS_ERROR:
+    case commentsTypes.SEND_COMMENT_SUCCESS:
+    case commentsTypes.SEND_COMMENT_ERROR:
+      return false;
+    default:
+      return state;
+  }
+};
+
 const comments = (state = initialState, action) => {
   switch (action.type) {
     case commentsTypes.GET_COMMENTS_START:
@@ -153,8 +84,8 @@ const comments = (state = initialState, action) => {
       return {
         ...state,
         comments: commentsData(state.comments, action),
-        listByPostId: listByPostId(state.listByPostId, action),
-        listByCommentId: listByCommentId(state.listByCommentId, action),
+        childrenById: childrenById(state.childrenById, action),
+        isFetching: isFetching(state.isFetching, action),
       };
     case commentsTypes.LIKE_COMMENT_START:
       return {

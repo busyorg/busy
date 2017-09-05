@@ -10,8 +10,6 @@ export const GET_COMMENTS_START = 'GET_COMMENTS_START';
 export const GET_COMMENTS_SUCCESS = 'GET_COMMENTS_SUCCESS';
 export const GET_COMMENTS_ERROR = 'GET_COMMENTS_ERROR';
 
-export const SHOW_MORE_COMMENTS = 'SHOW_MORE_COMMENTS';
-
 export const SEND_COMMENT = 'SEND_COMMENT';
 export const SEND_COMMENT_START = 'SEND_COMMENT_START';
 export const SEND_COMMENT_SUCCESS = 'SEND_COMMENT_SUCCESS';
@@ -21,12 +19,6 @@ export const LIKE_COMMENT = '@comments/LIKE_COMMENT';
 export const LIKE_COMMENT_START = '@comments/LIKE_COMMENT_START';
 export const LIKE_COMMENT_SUCCESS = '@comments/LIKE_COMMENT_SUCCESS';
 export const LIKE_COMMENT_ERROR = '@comments/LIKE_COMMENT_ERROR';
-
-export const showMoreComments = createAction(
-  SHOW_MORE_COMMENTS,
-  () => null,
-  meta => ({ id: meta }),
-);
 
 export const RELOAD_EXISTING_COMMENT = '@comments/RELOAD_EXISTING_COMMENT';
 export const reloadExistingComment = createAction(RELOAD_EXISTING_COMMENT,
