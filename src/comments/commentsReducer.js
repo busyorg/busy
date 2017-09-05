@@ -5,17 +5,9 @@ const initialState = {
   listByPostId: {},
   listByCommentId: {},
   comments: {},
-  commentingDraft: {},
   isCommenting: false,
   currentDraftId: null,
   pendingVotes: [],
-};
-
-const initialCommentingDraftItem = {
-  parentAuthor: null,
-  parentPermlink: null,
-  category: null,
-  body: '',
 };
 
 const initialCommentsList = {
@@ -148,45 +140,6 @@ const commentsData = (state = {}, action) => {
   }
 };
 
-const commentingDraftItem = (state = initialCommentingDraftItem, action) => {
-  switch (action.type) {
-    case commentsTypes.OPEN_COMMENTING_DRAFT: {
-      const { parentAuthor, parentPermlink, category, isReplyToComment,
-        isEditing = false, body = '', permlink = '' } = action.payload;
-      return {
-        ...state,
-        parentAuthor,
-        parentPermlink,
-        category,
-        isEditing,
-        body,
-        permlink,
-        isReplyToComment: !!isReplyToComment,
-      };
-    }
-    case commentsTypes.UPDATE_COMMENTING_DRAFT:
-      return {
-        ...state,
-        ...action.payload,
-      };
-    default:
-      return state;
-  }
-};
-
-const commentingDraft = (state = {}, action) => {
-  switch (action.type) {
-    case commentsTypes.OPEN_COMMENTING_DRAFT:
-    case commentsTypes.UPDATE_COMMENTING_DRAFT:
-      return {
-        ...state,
-        [action.payload.id]: commentingDraftItem(state[action.payload.id], action),
-      };
-    default:
-      return state;
-  }
-};
-
 const comments = (state = initialState, action) => {
   switch (action.type) {
     case commentsTypes.GET_COMMENTS_START:
@@ -202,23 +155,6 @@ const comments = (state = initialState, action) => {
         comments: commentsData(state.comments, action),
         listByPostId: listByPostId(state.listByPostId, action),
         listByCommentId: listByCommentId(state.listByCommentId, action),
-      };
-    case commentsTypes.OPEN_COMMENTING_DRAFT:
-      return {
-        ...state,
-        commentingDraft: commentingDraft(state.commentingDraft, action),
-        isCommenting: true,
-        currentDraftId: action.payload.id,
-      };
-    case commentsTypes.UPDATE_COMMENTING_DRAFT:
-      return {
-        ...state,
-        commentingDraft: commentingDraft(state.commentingDraft, action),
-      };
-    case commentsTypes.CLOSE_COMMENTING_DRAFT:
-      return {
-        ...state,
-        isCommenting: false,
       };
     case commentsTypes.LIKE_COMMENT_START:
       return {
