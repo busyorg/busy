@@ -3,7 +3,7 @@ import { withRouter } from 'react-router';
 
 class ScrollToTopOnMount extends React.Component {
   componentDidMount() {
-    if (window) {
+    if (window && window.location.hash === '') {
       window.scrollTo(0, 0);
     }
   }
