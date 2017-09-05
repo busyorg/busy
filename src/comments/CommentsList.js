@@ -11,7 +11,12 @@ const CommentsList = ({
   auth,
   openCommentingDraft,
   isSinglePage,
-  sortOrder
+  sortOrder,
+  votePower,
+  updateVotePowerBar,
+  showVoteBar,
+  showingVoteBar,
+  voteBarEnabled
 }) => {
   if (!comments.listByPostId[postId]) {
     return <div />;
@@ -36,6 +41,11 @@ const CommentsList = ({
           openCommentingDraft={openCommentingDraft}
           isSinglePage={isSinglePage}
           sortOrder={sortOrder}
+          votePower={votePower}
+          updateVotePowerBar={updateVotePowerBar}
+          showVoteBar={showVoteBar}
+          showingVoteBar={showingVoteBar}
+          voteBarEnabled={voteBarEnabled}
         />
       )}
     </div>

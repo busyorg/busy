@@ -3,6 +3,7 @@ import { Link, withRouter } from 'react-router';
 import { FormattedRelative } from 'react-intl';
 import numeral from 'numeral';
 import _ from 'lodash';
+import Slider from 'rc-slider';
 import { SimpleTooltipOrigin } from '../widgets/tooltip/SimpleTooltip';
 import { getUpvotes, getDownvotes, sortVotes } from '../helpers/voteHelpers';
 import Body from '../post/Body';
@@ -13,6 +14,8 @@ import { ProfileTooltipOrigin } from '../widgets/tooltip/ProfileTooltip';
 import CommentFormEmbedded from './CommentFormEmbedded';
 import './CommentItem.scss';
 
+let timeout;
+
 @withRouter
 export default class CommentItem extends Component {
   constructor(props) {
@@ -21,11 +24,17 @@ export default class CommentItem extends Component {
       showReplies: props.isSinglePage,
       showEmbeddedComment: false,
       isEditing: false,
+      showingVoteBar: false,
+      votePower: this.props.votePower
     };
   }
 
   componentDidMount() {
     this.checkHashLink();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState(() => ({ votePower: nextProps.votePower }));
   }
 
   checkHashLink() {
@@ -92,6 +101,24 @@ export default class CommentItem extends Component {
       isReplyToComment: true,
       isEditing: true,
       body: comment.body
+    });
+  }
+
+  showVoteBar = () => {
+    this.setState(() => ({ showingVoteBar: true }));
+  }
+
+  hideVoteBar = () => {
+    this.setState(() => ({ showingVoteBar: false }));
+  }
+
+  handleVoteChange = (val) => {
+    this.setState(() => ({ votePower: val }), () => {
+      if (timeout) clearTimeout(timeout);
+
+      timeout = setTimeout(() => {
+        this.props.updateVotePowerBar(val);
+      }, 1000);
     });
   }
 
@@ -165,14 +192,25 @@ export default class CommentItem extends Component {
             <Body body={comment.body} />
             <div className="CommentActionButtons">
               <div className="CommentActionButtons__button">
-                <a
-                  onClick={isCommentLiked
-                    ? () => unlikeComment(comment.id)
-                    : () => likeComment(comment.id)}
-                  className={isCommentLiked ? 'active' : ''}
-                >
-                  <Icon name="thumb_up" xs />
-                </a>
+                <div className="LikeBar--container Likebar--single-comment" onMouseLeave={this.hideVoteBar}>
+                  {!isCommentLiked && this.state.showingVoteBar && this.props.voteBarEnabled &&
+                    <div className="LikeBar">
+                      <span className="LikeBar--text">Power: {this.state.votePower}%</span>
+                      <Slider
+                        defaultValue={this.state.votePower} min={1} tipTransitionName="rc-slider-tooltip-zoom-down"
+                        onChange={this.handleVoteChange}
+                      />
+                      </div>}
+                    <a
+                      onClick={isCommentLiked
+                      ? () => unlikeComment(comment.id)
+                      : () => likeComment(comment.id, this.state.votePower * 100)}
+                      className={isCommentLiked ? 'active' : ''}
+                      onMouseEnter={this.showVoteBar}
+                      >
+                      <Icon name="thumb_up" xs />
+                    </a>
+                </div>
                 {' '}
                 {fiveLastUpvotes.length > 0 ?
                   <SimpleTooltipOrigin message={likesTooltipMsg}>

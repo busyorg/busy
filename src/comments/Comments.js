@@ -7,20 +7,25 @@ import 'react-select/dist/react-select.css';
 import CommentsList from './CommentsList';
 import * as commentsActions from './commentsActions';
 import Loading from '../widgets/Loading';
+import { updateVotePowerBar } from '../user/userActions';
+import isVoteBarEnabled from '../helpers/isVoteBarEnabled';
 import './Comments.scss';
 
 @connect(
   state => ({
     comments: state.comments,
     auth: state.auth,
+    votePower: state.user.votePower,
+    app: state.app
   }),
   dispatch => bindActionCreators({
     getComments: commentsActions.getComments,
     showMoreComments: commentsActions.showMoreComments,
-    likeComment: id => commentsActions.likeComment(id),
+    likeComment: (id, weight = 10000) => commentsActions.likeComment(id, weight),
     unlikeComment: id => commentsActions.likeComment(id, 0),
     dislikeComment: id => commentsActions.likeComment(id, -1000),
     openCommentingDraft: commentsActions.openCommentingDraft,
+    updateVotePowerBar
   }, dispatch)
 )
 export default class Comments extends Component {
@@ -79,6 +84,9 @@ export default class Comments extends Component {
     ];
 
     const classNames = className ? `Comments ${className}` : 'Comments';
+
+    const voteBarEnabled = isVoteBarEnabled(this.props);
+
     return (
       <div className={classNames}>
 
@@ -106,6 +114,9 @@ export default class Comments extends Component {
           openCommentingDraft={this.props.openCommentingDraft}
           isSinglePage={this.props.isSinglePage}
           sortOrder={this.state.sortOrder}
+          votePower={this.props.votePower}
+          updateVotePowerBar={this.props.updateVotePowerBar}
+          voteBarEnabled={voteBarEnabled}
         />
 
         {isFetching &&

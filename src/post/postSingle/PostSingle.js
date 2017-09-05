@@ -4,8 +4,6 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { bindActionCreators } from 'redux';
 import sanitize from 'sanitize-html';
-import { formatter } from 'steem';
-import config from '../../../config';
 
 import { getHtml } from '../Body';
 import * as postActions from './../postActions';
@@ -18,7 +16,7 @@ import * as appActions from '../../actions';
 import { editPost } from '../Write/EditorActions';
 import Loading from '../../widgets/Loading';
 import { jsonParse } from '../../helpers/formatter';
-
+import isVoteBarEnabled from '../../helpers/isVoteBarEnabled';
 
 @connect(
   ({ posts, app, reblog, auth, bookmarks }) => ({
@@ -128,14 +126,7 @@ export default class PostSingle extends Component {
       content.active_votes &&
       content.active_votes.some(vote => vote.voter === auth.user.name && vote.percent < 0);
 
-    const { app } = this.props;
-    const totalVestingShares = app.props ? app.props.total_vesting_shares : 0;
-    const totalVestingFundSteem = app.props ? app.props.total_vesting_fund_steem : 0;
-
-    const power = formatter.vestToSteem(auth.user.vesting_shares, totalVestingShares,
-      totalVestingFundSteem);
-
-    const voteBarEnabled = power > config.constants.LIKE_BAR_MIN_POWER;
+    const voteBarEnabled = isVoteBarEnabled(this.props);
 
     const canReblog = auth.isAuthenticated && auth.user.name !== content.author;
 

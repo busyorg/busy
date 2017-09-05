@@ -7,6 +7,18 @@
     }
   }
 
+  &.Likebar--single-comment {
+    display: inline-block;
+
+    .LikeBar {
+      top: -55px;
+
+      .LikeBar--text {
+        font-size: 15px;
+      }
+    }
+  }
+
   position: relative;
   @media (min-width: 600px) {
     display: flex;
