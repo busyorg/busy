@@ -124,15 +124,17 @@ class StoryFull extends React.Component {
     if (post.depth !== 0) {
       replyUI = (
         <div className="StoryFull__reply">
-          <h3 className="StoryFull__reply__title">This is reply to: {post.root_title}</h3>
+          <h3 className="StoryFull__reply__title">
+            <FormattedMessage id="post_reply_title" defaultMessage="This is reply to: {title}" values={{ title: post.root_title }} />
+          </h3>
           <h4>
             <Link to={post.url}>
-            Show original post
+              <FormattedMessage id="post_reply_show_original_post" defaultMessage="Show original post" />
             </Link>
           </h4>
           {post.depth > 1 && <h4>
             <Link to={`/${post.category}/@${post.parent_author}/${post.parent_permlink}`}>
-              Show parent discussion
+              <FormattedMessage id="post_reply_show_parent_discussion" defaultMessage="Show parent discussion" />
             </Link>
           </h4>}
         </div>
