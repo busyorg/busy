@@ -119,8 +119,29 @@ class StoryFull extends React.Component {
       followText = intl.formatMessage({ id: 'follow_username', defaultMessage: 'Follow {username}' }, { username: post.author });
     }
 
+    let replyUI = null;
+
+    if (post.depth !== 0) {
+      replyUI = (
+        <div>
+          <h3 className="StoryFull__root-title">This is reply to: {post.root_title}</h3>
+          <h4>
+            <Link to={post.url}>
+            Show original post
+            </Link>
+          </h4>
+          {post.depth > 1 && <h4>
+            <Link to={`/${post.category}/@${post.parent_author}/${post.parent_permlink}`}>
+              Show parent discussion
+            </Link>
+          </h4>}
+        </div>
+      );
+    }
+
     return (
       <div className="StoryFull">
+        {replyUI}
         <h1 className="StoryFull__title">
           {post.title}
         </h1>
