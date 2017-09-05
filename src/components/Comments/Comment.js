@@ -198,7 +198,7 @@ class Comment extends React.Component {
                 </span>
               }
             >
-              <Link to={comment.permlink}>
+              <Link to={`/${comment.category}/@${comment.author}/${comment.permlink}`}>
                 <FormattedRelative value={`${comment.created}Z`} />
               </Link>
             </Tooltip>
