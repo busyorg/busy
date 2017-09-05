@@ -82,7 +82,7 @@ export default class Post extends React.Component {
             </Affix>
             <div className="center" style={{ paddingBottom: '24px' }}>
               {content ? <PostContent content={content} /> : <Loading />}
-              <VisibilitySensor onChange={this.handleCommentsVisibility} />
+              {content && <VisibilitySensor onChange={this.handleCommentsVisibility} />}
               <div id="comments">
                 {content && <Comments show={this.state.commentsVisible} post={content} />}
               </div>
