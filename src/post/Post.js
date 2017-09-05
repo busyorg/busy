@@ -45,13 +45,13 @@ import ScrollToTopOnMount from '../components/Utils/ScrollToTopOnMount';
     pendingFollows: getPendingFollows(state),
     state,
   }),
-  (dispatch, ownProps) =>
+  dispatch =>
     bindActionCreators(
       {
-        getContent: () =>
+        getContent: (author, permlink) =>
           postActions.getContent({
-            author: _.get(ownProps.match, 'params.author'),
-            permlink: _.get(ownProps.match, 'params.permlink'),
+            author,
+            permlink,
           }),
         toggleBookmark: bookmarkActions.toggleBookmark,
         votePost: postActions.votePost,
@@ -64,6 +64,7 @@ import ScrollToTopOnMount from '../components/Utils/ScrollToTopOnMount';
 )
 export default class Post extends React.Component {
   static propTypes = {
+    match: PropTypes.shape().isRequired,
     user: PropTypes.shape().isRequired,
     content: PropTypes.shape(),
     pendingLikes: PropTypes.arrayOf(PropTypes.number),
@@ -103,10 +104,15 @@ export default class Post extends React.Component {
   };
 
   componentWillMount() {
-    const { content } = this.props;
+    if (!this.props.content) {
+      this.props.getContent(this.props.match.params.author, this.props.match.params.permlink);
+    }
+  }
 
-    if (!content) {
-      this.props.getContent();
+  componentWillUpdate(nextProps) {
+    const { author, permlink } = nextProps.match.params;
+    if (!nextProps.content && nextProps.match.params !== this.props.match.params) {
+      this.props.getContent(author, permlink);
     }
   }
 
