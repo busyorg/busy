@@ -119,7 +119,7 @@ class Editor extends React.Component {
     if (this.input) {
       this.input.value = post.body;
       this.renderMarkdown(this.input.value);
-      this.originalInput.resizeTextarea();
+      this.resizeTextarea();
     }
   };
 
@@ -149,6 +149,10 @@ class Editor extends React.Component {
 
     return values;
   };
+
+  resizeTextarea = () => {
+    if (this.originalInput) this.originalInput.resizeTextarea();
+  }
 
   //
   // Form validation and handling
@@ -264,6 +268,7 @@ class Editor extends React.Component {
       startPos,
     )}![${imageName}](${image})${this.input.value.substring(endPos, this.input.value.length)}`;
 
+    this.resizeTextarea();
     this.renderMarkdown(this.input.value);
     this.onUpdate();
   };
@@ -310,6 +315,7 @@ class Editor extends React.Component {
         break;
     }
 
+    this.resizeTextarea();
     this.renderMarkdown(this.input.value);
     this.onUpdate();
   };
