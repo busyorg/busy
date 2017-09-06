@@ -63,10 +63,11 @@ class CommentForm extends React.Component {
 
     const startPos = this.input.selectionStart;
     const endPos = this.input.selectionEnd;
-    this.input.value = `${this.input.value.substring(
+    const newValue = `${this.input.value.substring(
       0,
       startPos,
     )}![${imageName}](${image})${this.input.value.substring(endPos, this.input.value.length)}`;
+    this.setState({ inputValue: newValue });
   };
 
   handleCommentTextChange = (e) => {
@@ -101,6 +102,9 @@ class CommentForm extends React.Component {
       this.props.onImageInserted(e.target.files[0], this.insertImage, () => this.setState({
         imageUploading: false,
       }));
+      // Input reacts on value change, so if user selects the same file nothing will happen.
+      // We have to reset its value, so if same image is selected it will emit onChange event. 
+      e.target.value = '';
     }
   };
 
