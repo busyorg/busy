@@ -23,7 +23,7 @@
     "build:server": "cross-env NODE_ENV=production webpack -p --config ./webpack/webpack.server.config.js",
     "build:client": "npm run cleanup-public && mkdir -p public && cp -r ./assets/* ./public/ && webpack -p --config ./webpack/webpack.prod.config.js",
     "build": "cross-env NODE_ENV=production npm run build:client && npm run build:server",
-    "heroku-prebuild": "npm i pm2 && pm2 install pm2-logrotate",
+    "heroku-prebuild": "npm i pm2",
     "heroku-postbuild": "npm run build",
     "cleanup-public": "gulp cleanup-public",
     "storybook": "start-storybook -p 6006",
