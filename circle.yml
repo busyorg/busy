@@ -10,26 +10,26 @@ jobs:
     steps:
       - checkout
       - run:
-          name: install yarn
-          command: 'sudo npm install -g yarn'
+          name: install npm
+          command: 'sudo npm install -g npm@5.3.0'
       - restore_cache:
-          key: dependency-cache-{{ checksum "yarn.lock" }}
+          key: dependency-cache-{{ checksum "package.json" }}
       - run:
-          name: yarn install
-          command: yarn install
+          name: npm install
+          command: npm install
       - save_cache:
-          key: dependency-cache-{{ checksum "yarn.lock" }}
+          key: dependency-cache-{{ checksum "package.json" }}
           paths:
             - ./node_modules
       - run:
           name: lint
-          command: yarn lint
+          command: npm lint
       - run:
           name: test
-          command: yarn test
+          command: npm test
       - run:
           name: code-coverage
-          command: yarn test:coverage
+          command: npm test:coverage
       - store_artifacts:
           path: coverage
           prefix: coverage
