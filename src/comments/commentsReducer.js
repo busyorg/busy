@@ -60,7 +60,7 @@ const isFetching = (state = initialState.isFetching, action) => {
   switch (action.type) {
     case commentsTypes.GET_COMMENTS_START:
     case commentsTypes.SEND_COMMENT_START:
-      return false;
+      return true;
     case commentsTypes.GET_COMMENTS_SUCCESS:
     case commentsTypes.GET_COMMENTS_ERROR:
     case commentsTypes.SEND_COMMENT_SUCCESS:
@@ -75,6 +75,7 @@ const comments = (state = initialState, action) => {
   switch (action.type) {
     case commentsTypes.GET_COMMENTS_START:
     case commentsTypes.GET_COMMENTS_SUCCESS:
+    case commentsTypes.GET_COMMENTS_ERROR:
     case userTypes.GET_USER_COMMENTS_SUCCESS:
     case userTypes.GET_MORE_USER_COMMENTS_SUCCESS:
     case commentsTypes.SHOW_MORE_COMMENTS:
