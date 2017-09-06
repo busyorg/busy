@@ -102,6 +102,9 @@ class CommentForm extends React.Component {
       this.props.onImageInserted(e.target.files[0], this.insertImage, () => this.setState({
         imageUploading: false,
       }));
+      // Input reacts on value change, so if user selects the same file nothing will happen.
+      // We have to reset its value, so if same image is selected it will emit onChange event. 
+      e.target.value = '';
     }
   };
 
