@@ -125,7 +125,7 @@ class StoryFull extends React.Component {
       replyUI = (
         <div className="StoryFull__reply">
           <h3 className="StoryFull__reply__title">
-            <FormattedMessage id="post_reply_title" defaultMessage="This is reply to: {title}" values={{ title: post.root_title }} />
+            <FormattedMessage id="post_reply_title" defaultMessage="This is a reply to: {title}" values={{ title: post.root_title }} />
           </h3>
           <h4>
             <Link to={post.url}>
