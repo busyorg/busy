@@ -26,7 +26,7 @@ import './Comments.less';
   dispatch => bindActionCreators({
     getComments: commentsActions.getComments,
     voteComment: (id, percent, vote) => commentsActions.likeComment(id, percent, vote),
-    sendComment: (parentPost, body) => commentsActions.sendCommentV2(parentPost, body),
+    sendComment: (parentPost, body) => commentsActions.sendComment(parentPost, body),
     notify,
   }, dispatch),
 )
@@ -61,7 +61,6 @@ export default class Comments extends React.Component {
 
   state = {
     sortOrder: 'trending',
-    isFetchedOnce: false,
   };
 
   componentDidMount() {
@@ -71,23 +70,17 @@ export default class Comments extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { comments, post, show } = this.props;
+    const { post, show } = this.props;
 
     if (nextProps.show && (nextProps.post.id !== post.id || !show)) {
       this.props.getComments(nextProps.post.id);
-    }
-
-    if (comments.listByPostId[post.id] && comments.listByPostId[post.id].isFetching) {
-      if (!this.state.isFetchedOnce) {
-        this.setState({ isFetchedOnce: true });
-      }
     }
   }
 
   getNestedComments = (commentsObj, commentsIdArray, nestedComments) => {
     const newNestedComments = nestedComments;
     commentsIdArray.forEach((commentId) => {
-      const nestedCommentArray = commentsObj.listByCommentId[commentId];
+      const nestedCommentArray = commentsObj.childrenById[commentId];
       if (nestedCommentArray.length) {
         newNestedComments[commentId] = nestedCommentArray.map(id => commentsObj.comments[id]);
         this.getNestedComments(commentsObj, nestedCommentArray, newNestedComments);
@@ -126,52 +119,33 @@ export default class Comments extends React.Component {
   render() {
     const { post, comments, pendingVotes, show } = this.props;
     const postId = post.id;
-    let fetchedCommentsList = null;
+    let fetchedCommentsList = [];
 
-    if (comments.listByPostId[postId] && comments.listByPostId[postId].list instanceof Array) {
-      if (comments.listByPostId[postId].list.length) {
-        fetchedCommentsList = comments.listByPostId[postId].list.map(id => comments.comments[id]);
-      } else {
-        fetchedCommentsList = [];
-      }
+    const rootNode = comments.childrenById[postId];
+
+    if (rootNode instanceof Array) {
+      fetchedCommentsList = rootNode.map(id => comments.comments[id]);
     }
-    fetchedCommentsList = (comments.listByPostId[postId]
-      && comments.listByPostId[postId].list.length) ?
-      comments.listByPostId[postId].list.map(id => comments.comments[id]) :
-      [];
 
     let commentsChildren = {};
 
     if (fetchedCommentsList && fetchedCommentsList.length) {
-      commentsChildren = this.getNestedComments(comments, comments.listByPostId[postId].list, {});
+      commentsChildren = this.getNestedComments(comments, comments.childrenById[postId], {});
     }
 
-    let loading = false;
-
-    if (comments.listByPostId[post.id]
-      && comments.listByPostId[post.id].isFetching
-      && !this.state.isFetchedOnce) {
-      loading = true;
-    }
-
-    if (fetchedCommentsList instanceof Array) {
-      return (
-        <CommentsList
-          parentPost={post}
-          comments={fetchedCommentsList}
-          authenticated={this.props.authenticated}
-          username={this.props.username}
-          commentsChildren={commentsChildren}
-          pendingVotes={pendingVotes}
-          loading={loading}
-          show={show}
-          onLikeClick={this.handleLikeClick}
-          onDislikeClick={this.handleDisLikeClick}
-          onSendComment={this.props.sendComment}
-        />
-      );
-    }
-
-    return <div />;
+    return fetchedCommentsList &&
+      <CommentsList
+        parentPost={post}
+        comments={fetchedCommentsList}
+        authenticated={this.props.authenticated}
+        username={this.props.username}
+        commentsChildren={commentsChildren}
+        pendingVotes={pendingVotes}
+        loading={comments.isFetching}
+        show={show}
+        onLikeClick={this.handleLikeClick}
+        onDislikeClick={this.handleDisLikeClick}
+        onSendComment={this.props.sendComment}
+      />;
   }
 }

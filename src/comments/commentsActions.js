@@ -10,32 +10,15 @@ export const GET_COMMENTS_START = 'GET_COMMENTS_START';
 export const GET_COMMENTS_SUCCESS = 'GET_COMMENTS_SUCCESS';
 export const GET_COMMENTS_ERROR = 'GET_COMMENTS_ERROR';
 
-export const SHOW_MORE_COMMENTS = 'SHOW_MORE_COMMENTS';
-
 export const SEND_COMMENT = 'SEND_COMMENT';
 export const SEND_COMMENT_START = 'SEND_COMMENT_START';
 export const SEND_COMMENT_SUCCESS = 'SEND_COMMENT_SUCCESS';
 export const SEND_COMMENT_ERROR = 'SEND_COMMENT_ERROR';
 
-export const OPEN_COMMENTING_DRAFT = 'OPEN_COMMENTING_DRAFT';
-export const UPDATE_COMMENTING_DRAFT = 'UPDATE_COMMENTING_DRAFT';
-export const CLOSE_COMMENTING_DRAFT = 'CLOSE_COMMENTING_DRAFT';
-
-
-export const openCommentingDraft = createAction(OPEN_COMMENTING_DRAFT);
-export const updateCommentingDraft = createAction(UPDATE_COMMENTING_DRAFT);
-export const closeCommentingDraft = createAction(CLOSE_COMMENTING_DRAFT);
-
 export const LIKE_COMMENT = '@comments/LIKE_COMMENT';
 export const LIKE_COMMENT_START = '@comments/LIKE_COMMENT_START';
 export const LIKE_COMMENT_SUCCESS = '@comments/LIKE_COMMENT_SUCCESS';
 export const LIKE_COMMENT_ERROR = '@comments/LIKE_COMMENT_ERROR';
-
-export const showMoreComments = createAction(
-  SHOW_MORE_COMMENTS,
-  () => null,
-  meta => ({ id: meta }),
-);
 
 export const RELOAD_EXISTING_COMMENT = '@comments/RELOAD_EXISTING_COMMENT';
 export const reloadExistingComment = createAction(RELOAD_EXISTING_COMMENT,
@@ -87,7 +70,7 @@ export const getComments = (postId, isFromAnotherComment = false) =>
     });
   };
 
-export const sendCommentV2 = (parentPost, body) =>
+export const sendComment = (parentPost, body) =>
   (dispatch, getState) => {
     const { category, root_comment: rootComment } = parentPost;
     const parentPermlink = parentPost.permlink;
@@ -133,54 +116,6 @@ export const sendCommentV2 = (parentPost, body) =>
         isReplyToComment: parentPost.id !== rootComment,
       },
     });
-  };
-
-export const sendComment = (parentId = null) =>
-  (dispatch, getState) => {
-    const { auth, comments } = getState();
-
-    if (!auth.isAuthenticated) {
-      return dispatch(notify('You have to be logged in to comment', 'error'));
-    }
-
-    const author = auth.user.name;
-    const id = parentId || comments.currentDraftId;
-
-    const {
-      parentAuthor,
-      parentPermlink,
-      category,
-      body,
-      isReplyToComment,
-      isEditing,
-    } = comments.commentingDraft[id];
-
-    const rootCommentId = isReplyToComment ? comments.comments[id].root_comment : id;
-
-    const permlink = isEditing ? comments.commentingDraft[id].permlink :
-      createCommentPermlink(parentAuthor, parentPermlink);
-    const jsonMetadata = { tags: [category], community: 'busy', app: `busy/${version}` };
-
-    return dispatch({
-      type: SEND_COMMENT,
-      payload: {
-        promise: SteemConnect.comment(
-          parentAuthor,
-          parentPermlink,
-          author,
-          permlink,
-          '',
-          body,
-          jsonMetadata,
-        ),
-      },
-      meta: {
-        parentId: id,
-        isEditing,
-        isReplyToComment,
-      },
-    }).then(() => dispatch(closeCommentingDraft()))
-      .then(() => dispatch(getComments(rootCommentId)));
   };
 
 export const likeComment = (commentId, weight = 10000, vote = 'like', retryCount = 0) =>

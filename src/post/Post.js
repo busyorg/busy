@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import get from 'lodash/get';
 import { connect } from 'react-redux';
 import VisibilitySensor from 'react-visibility-sensor';
-import { getPostContent } from '../reducers';
+import { getPostContent, getIsFetching } from '../reducers';
 import { getContent } from './postActions';
 import Comments from '../comments/Comments';
 import Loading from '../components/Icon/Loading';
@@ -15,24 +14,24 @@ import ScrollToTopOnMount from '../components/Utils/ScrollToTopOnMount';
 @connect(
   (state, ownProps) => ({
     content: getPostContent(state, ownProps.match.params.author, ownProps.match.params.permlink),
+    fetching: getIsFetching(state),
   }),
-  (dispatch, ownProps) =>
+  dispatch =>
     ({
-      getContent: () =>
-        dispatch(getContent({
-          author: get(ownProps.match, 'params.author'),
-          permlink: get(ownProps.match, 'params.permlink'),
-        })),
+      getContent: (author, permlink) => dispatch(getContent({ author, permlink })),
     }),
 )
 export default class Post extends React.Component {
   static propTypes = {
+    match: PropTypes.shape().isRequired,
     content: PropTypes.shape(),
+    fetching: PropTypes.bool,
     getContent: PropTypes.func,
   };
 
   static defaultProps = {
     content: undefined,
+    fetching: false,
     getContent: () => {},
   };
 
@@ -41,8 +40,21 @@ export default class Post extends React.Component {
   };
 
   componentWillMount() {
-    if (!this.props.content) {
-      this.props.getContent();
+    if (!this.props.content && !this.props.fetching) {
+      this.props.getContent(this.props.match.params.author, this.props.match.params.permlink);
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { author, permlink } = nextProps.match.params;
+    if (!nextProps.content
+      && nextProps.match.params !== this.props.match.params
+      && !nextProps.fetching) {
+      this.setState({
+        commentsVisible: false,
+      }, () => {
+        this.props.getContent(author, permlink);
+      });
     }
   }
 
@@ -75,7 +87,7 @@ export default class Post extends React.Component {
             </Affix>
             <div className="center" style={{ paddingBottom: '24px' }}>
               {content ? <PostContent content={content} /> : <Loading />}
-              <VisibilitySensor onChange={this.handleCommentsVisibility} />
+              {content && <VisibilitySensor onChange={this.handleCommentsVisibility} />}
               <div id="comments">
                 {content && <Comments show={this.state.commentsVisible} post={content} />}
               </div>
