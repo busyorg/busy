@@ -1,5 +1,5 @@
 [![CircleCI Build Status](https://circleci.com/gh/busyorg/busy.svg?style=shield&circle-token=:circle-token)](https://circleci.com/gh/busyorg/busy)
-[![Crowdin](https://d322cqt584bo4o.cloudfront.net/busy/localized.svg)](https://translate.busy.org/project/busy)
+[![Crowdin](http://d322cqt584bo4o.cloudfront.net/busy/localized.svg)](https://translate.busy.org/project/busy)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/busyorg/busy/new-design/LICENSE)
 [![Busy channel on Discord](https://img.shields.io/badge/chat-discord-738bd7.svg)](https://discord.gg/G95rNZs)
 
@@ -10,17 +10,14 @@ Blockchain-based social network where anyone can earn rewards 🚀
 ## Preview
 ![Preview](https://res.cloudinary.com/hpiynhbhq/image/upload/v1504423577/wft1ubbw2ozrbteril7u.png)
 
-## Setup
+## Usage
 
 ```
 git clone https://github.com/busyorg/busy.git
 cd busy
-```
 
-```
-yarn install
-yarn build
-yarn dev-server
+npm install
+npm run dev-server
 ```
 
 ## Contribution 
