@@ -109,3 +109,4 @@ export const getLocale = state => state.locale;
 export const getRate = state => state.rate;
 export const getIsTrendingTopicsLoading = state => state.trendingTopicsLoading;
 export const getTrendingTopics = state => state.trendingTopics;
+export const getIsFetching = state => state.isFetching;
