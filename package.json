@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "bin": "./server",
   "main": "./server",
+  "engines": {
+    "npm": "=5.3.0"
+  },
   "private": true,
   "scripts": {
     "start": "cross-env NODE_ENV=production && npm run run:server",
@@ -45,7 +48,7 @@
     "coffeeify": "^2.0.1",
     "config": "^1.25.1",
     "cors": "^2.7.1",
-    "cross-env": "^5.0.1",
+    "cross-env": "^5.0.5",
     "css-loader": "^0.28.0",
     "debug": "~2.2.0",
     "del": "^3.0.0",
