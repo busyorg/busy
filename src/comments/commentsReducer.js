@@ -59,12 +59,9 @@ const commentsData = (state = {}, action) => {
 const isFetching = (state = initialState.isFetching, action) => {
   switch (action.type) {
     case commentsTypes.GET_COMMENTS_START:
-    case commentsTypes.SEND_COMMENT_START:
-      return true;
+      return !action.meta.reload && true;
     case commentsTypes.GET_COMMENTS_SUCCESS:
     case commentsTypes.GET_COMMENTS_ERROR:
-    case commentsTypes.SEND_COMMENT_SUCCESS:
-    case commentsTypes.SEND_COMMENT_ERROR:
       return false;
     default:
       return state;
@@ -78,10 +75,6 @@ const comments = (state = initialState, action) => {
     case commentsTypes.GET_COMMENTS_ERROR:
     case userTypes.GET_USER_COMMENTS_SUCCESS:
     case userTypes.GET_MORE_USER_COMMENTS_SUCCESS:
-    case commentsTypes.SHOW_MORE_COMMENTS:
-    case commentsTypes.SEND_COMMENT_START:
-    case commentsTypes.SEND_COMMENT_SUCCESS:
-    case commentsTypes.SEND_COMMENT_ERROR:
       return {
         ...state,
         comments: commentsData(state.comments, action),

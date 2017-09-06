@@ -41,16 +41,17 @@ const getCommentsChildrenLists = (apiRes) => {
   return listsById;
 };
 
-export const getComments = (postId, isFromAnotherComment = false) =>
+/**
+ * Fetches comments from blockchain.
+ * @param {number} postId Id of post to fetch comments from
+ * @param {boolean} reload If set to true isFetching won't be set to true
+ * preventing loading icon to be dispalyed
+ */
+export const getComments = (postId, reload = false) =>
   (dispatch, getState, { steemAPI }) => {
-    const { posts, comments } = getState();
+    const { posts } = getState();
 
-    let content;
-    if (isFromAnotherComment) {
-      content = comments.comments[postId];
-    } else {
-      content = posts.list[postId];
-    }
+    const content = posts.list[postId];
 
     const { category, author, permlink } = content;
 
@@ -65,7 +66,7 @@ export const getComments = (postId, isFromAnotherComment = false) =>
       },
       meta: {
         id: postId,
-        isReplyToComment: isFromAnotherComment,
+        reload,
       },
     });
   };
@@ -103,7 +104,7 @@ export const sendComment = (parentPost, body) =>
         )
           .then(() => {
             dispatch(notify('Comment submitted successfully', 'success'));
-            dispatch(getComments(rootComment));
+            dispatch(getComments(rootComment, true));
 
             if (window.ga) {
               window.ga('send', 'event', 'comment', 'submit', '', 5);
