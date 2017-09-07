@@ -60,16 +60,20 @@ class Comment extends React.Component {
 
   componentDidMount() {
     const { comment } = this.props;
-    if (comment.focus && this.self && window) {
-      this.self.scrollIntoView(true);
-      document.body.scrollTop -= ((window.innerHeight / 2) - this.self.scrollHeight);
-      this.self.classList.add('Comment--focus');
-    }
+    if (comment.focus) this.focus();
   }
 
   setSelf = (c) => {
     this.self = c;
   };
+
+  focus = () => {
+    if (this.self && window) {
+      this.self.scrollIntoView(true);
+      document.body.scrollTop -= ((window.innerHeight / 2) - this.self.scrollHeight);
+      this.self.classList.add('Comment--focus');
+    }
+  }
 
   handleShowReactions = () => this.setState({
     reactionsModalVisible: true,
