@@ -54,17 +54,24 @@
   }
 
   table {
-    width: calc(100% ~'+' 20px) !important;
+    width: 100%;
     display: table;
-    border-collapse: collapse;
     table-layout: fixed;
-    margin-right: -20px !important;
 
-    td {
-      padding-right: 20px;
-      display: table-cell;
+    tr > th {
+      background-color: #f2f2f2;
+    }
+
+    tr > th, td {
+      padding: 4px 8px;
       word-wrap: break-word;
-      vertical-align: top;
+      vertical-align: middle;
+    }
+
+    tr:nth-child(even) {
+      td {
+        background-color: #f2f2f2;
+      }
     }
   }
 
