@@ -664,11 +664,9 @@ exports[`Storyshots Navigation Sidenav logged 1`] = `
       </li>
       <li>
         <a
-          aria-current={false}
-          className={undefined}
-          href="#wallet"
-          onClick={[Function]}
-          style={undefined}
+          href="https://steemit.com/@guest123/transfers"
+          rel="noopener noreferrer"
+          target="_blank"
         >
           <i
             className="iconfont icon-wallet"
