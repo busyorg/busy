@@ -49,7 +49,7 @@ class Comments extends React.Component {
   }
 
   handleSortClick = (e) => {
-    const type = e.target.dataset.type;
+    const type = e.target.parentNode && e.target.parentNode.dataset.type;
     if (type) {
       this.setState({
         sort: type,
