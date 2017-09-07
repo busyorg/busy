@@ -46,8 +46,9 @@ const getCommentsChildrenLists = (apiRes) => {
  * @param {number} postId Id of post to fetch comments from
  * @param {boolean} reload If set to true isFetching won't be set to true
  * preventing loading icon to be dispalyed
+ * @param {object} focusedComment Object with author and permlink to which focus after loading
  */
-export const getComments = (postId, reload = false) =>
+export const getComments = (postId, reload = false, focusedComment = undefined) =>
   (dispatch, getState, { steemAPI }) => {
     const { posts } = getState();
 
@@ -67,6 +68,7 @@ export const getComments = (postId, reload = false) =>
       meta: {
         id: postId,
         reload,
+        focusedComment,
       },
     });
   };
@@ -102,9 +104,13 @@ export const sendComment = (parentPost, body) =>
           body,
           jsonMetadata,
         )
-          .then(() => {
+          .then((resp) => {
+            const focusedComment = {
+              author: resp.result.operations[0][1].author,
+              permlink: resp.result.operations[0][1].permlink,
+            };
             dispatch(notify('Comment submitted successfully', 'success'));
-            dispatch(getComments(rootComment, true));
+            dispatch(getComments(rootComment, true, focusedComment));
 
             if (window.ga) {
               window.ga('send', 'event', 'comment', 'submit', '', 5);

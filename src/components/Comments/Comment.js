@@ -58,6 +58,17 @@ class Comment extends React.Component {
     };
   }
 
+  componentDidMount() {
+    const { comment } = this.props;
+    if (comment.focus && this.self && window) {
+      this.self.scrollIntoView(false);
+    }
+  }
+
+  setSelf = (c) => {
+    this.self = c;
+  };
+
   handleShowReactions = () => this.setState({
     reactionsModalVisible: true,
   });
@@ -164,7 +175,7 @@ class Comment extends React.Component {
     const userDownVoted = userVote && userVote.percent < 0;
 
     return (
-      <div className="Comment">
+      <div ref={this.setSelf} className="Comment">
         <span
           role="presentation"
           className="Comment__visibility"

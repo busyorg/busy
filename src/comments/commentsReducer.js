@@ -20,10 +20,16 @@ const childrenById = (state = {}, action) => {
   }
 };
 
-const mapCommentsBasedOnId = (data) => {
+const mapCommentsBasedOnId = (data, action) => {
   const commentsList = {};
   Object.keys(data).forEach((key) => {
-    commentsList[data[key].id] = data[key];
+    const comment = data[key];
+    if (action.meta.reload
+      && comment.author === action.meta.focusedComment.author
+      && comment.permlink === action.meta.focusedComment.permlink) {
+      comment.focus = true;
+    }
+    commentsList[data[key].id] = comment;
   });
   return commentsList;
 };
@@ -33,7 +39,7 @@ const commentsData = (state = {}, action) => {
     case commentsTypes.GET_COMMENTS_SUCCESS:
       return {
         ...state,
-        ...mapCommentsBasedOnId(action.payload.content),
+        ...mapCommentsBasedOnId(action.payload.content, action),
       };
     case userTypes.GET_USER_COMMENTS_SUCCESS:
     case userTypes.GET_MORE_USER_COMMENTS_SUCCESS: {
