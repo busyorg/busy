@@ -58,6 +58,14 @@ class Comment extends React.Component {
     };
   }
 
+  componentDidMount() {
+    const { comment } = this.props;
+    const anchorLink = `#@${comment.author}/${comment.permlink}`;
+    if (window.location.hash === anchorLink) {
+      this.focus();
+    }
+  }
+
   setSelf = (c) => {
     this.self = c;
   };
