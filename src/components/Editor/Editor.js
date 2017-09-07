@@ -371,7 +371,7 @@ class Editor extends React.Component {
         </Form.Item>
         <Form.Item
           label={<span className="Editor__label"><FormattedMessage id="topics" defaultMessage="Topics" /></span>}
-          extra={intl.formatMessage({ id: 'topics_extra', defaultMessage: 'Separate topics with commas. Only lowercase letters, numbers and hyphen character is permited.' })}
+          extra={intl.formatMessage({ id: 'topics_extra', defaultMessage: 'Separate topics with commas. Only lowercase letters, numbers and hyphen character is permitted.' })}
         >
           {getFieldDecorator('topics', {
             rules: [
