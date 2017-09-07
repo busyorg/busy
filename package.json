@@ -63,7 +63,7 @@
     "del": "^3.0.0",
     "diff-match-patch": "^1.0.0",
     "ejs": "^2.5.6",
-    "embedjs": "^0.0.7",
+    "embedjs": "^0.0.8",
     "express": "^4.15.4",
     "extract-text-webpack-plugin": "^2.1.2",
     "file-loader": "^0.11.2",
