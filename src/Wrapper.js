@@ -66,7 +66,7 @@ export default class Wrapper extends React.PureComponent {
         this.props.logout();
         break;
       case 'activity':
-        this.props.history.push('#activity');
+        window.open(`https://steemd.com/@${this.props.user.name}`);
         break;
       case 'bookmarks':
         this.props.history.push('/bookmarks');
