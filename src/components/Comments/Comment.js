@@ -62,6 +62,7 @@ class Comment extends React.Component {
     const { comment } = this.props;
     if (comment.focus && this.self && window) {
       this.self.scrollIntoView(false);
+      this.self.classList.add('Comment--focus');
     }
   }
 
