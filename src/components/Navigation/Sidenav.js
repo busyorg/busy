@@ -29,10 +29,10 @@ const Sidenav = ({ username }) =>
           </NavLink>
         </li>
         <li>
-          <NavLink to="#wallet" activeClassName="Sidenav__item--active">
+          <a target="_blank" rel="noopener noreferrer" href={`https://steemit.com/@${username}/transfers`}>
             <i className="iconfont icon-wallet" />
             <FormattedMessage id="wallet" defaultMessage="Wallet" />
-          </NavLink>
+          </a>
         </li>
       </ul>}
   </div>);
