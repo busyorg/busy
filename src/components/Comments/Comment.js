@@ -60,7 +60,10 @@ class Comment extends React.Component {
 
   componentDidMount() {
     const { comment } = this.props;
-    if (comment.focus) this.focus();
+    const anchorLink = `#@${comment.author}/${comment.permlink}`;
+    if (window.location.hash === anchorLink || comment.focus) {
+      this.focus();
+    }
   }
 
   setSelf = (c) => {
@@ -70,10 +73,12 @@ class Comment extends React.Component {
   focus = () => {
     if (this.self && window) {
       this.self.scrollIntoView(true);
-      document.body.scrollTop -= ((window.innerHeight / 2) - this.self.scrollHeight);
+      document.body.scrollTop -= 54 * 2; // twice the height of Topnav 
       this.self.classList.add('Comment--focus');
     }
   }
+
+  handleAnchorClick = () => this.focus();
 
   handleShowReactions = () => this.setState({
     reactionsModalVisible: true,
@@ -180,8 +185,11 @@ class Comment extends React.Component {
     const userUpVoted = userVote && userVote.percent > 0;
     const userDownVoted = userVote && userVote.percent < 0;
 
+    const anchorId = `@${comment.author}/${comment.permlink}`;
+    const anchorLink = `${comment.url.slice(0, comment.url.indexOf('#'))}#${anchorId}`;
+
     return (
-      <div ref={this.setSelf} className="Comment">
+      <div ref={this.setSelf} className="Comment" id={anchorId}>
         <span
           role="presentation"
           className="Comment__visibility"
@@ -215,7 +223,7 @@ class Comment extends React.Component {
                 </span>
               }
             >
-              <Link to={`/${comment.category}/@${comment.author}/${comment.permlink}`}>
+              <Link to={anchorLink} className="Comment__anchor" onClick={this.handleAnchorClick}>
                 <FormattedRelative value={`${comment.created}Z`} />
               </Link>
             </Tooltip>

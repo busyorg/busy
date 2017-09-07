@@ -73,8 +73,9 @@ class PostContent extends React.Component {
   };
 
   componentDidMount() {
+    const { hash } = window.location;
     // PostContent renders only when content is loaded so it's good moment to scroll to comments.
-    if (window.location.hash.indexOf('comments') !== -1) {
+    if (hash.indexOf('comments') !== -1 || /#@[a-zA-Z-.]+\/[a-zA-Z-]+/.test(hash)) {
       const el = document.getElementById('comments');
       if (el) el.scrollIntoView({ block: 'start' });
     }
