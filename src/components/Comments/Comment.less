@@ -1,9 +1,24 @@
 @import (reference) "../../styles/custom.less";
 
+@keyframes focus {
+  0%, 75% {
+    box-shadow: 4px 0 0px 0px #4757b2;
+  }
+
+  100% {
+    box-shadow: 4px 0 0px 0px transparent;
+  }
+}
+
 .Comment {
   position: relative;
   display: flex;
   margin-top: 16px;
+
+  &--focus {
+    animation-timing-function: ease-in-out;
+    animation: focus 3s 1;
+  }
 
   &__visibility {
     visibility: hidden;
