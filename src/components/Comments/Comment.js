@@ -183,6 +183,8 @@ class Comment extends React.Component {
     const userUpVoted = userVote && userVote.percent > 0;
     const userDownVoted = userVote && userVote.percent < 0;
 
+    const anchorLink = `${comment.url.slice(0, comment.url.indexOf('#'))}#@${comment.author}/${comment.permlink}`;
+
     return (
       <div ref={this.setSelf} className="Comment">
         <span
@@ -218,7 +220,7 @@ class Comment extends React.Component {
                 </span>
               }
             >
-              <Link to={`/${comment.category}/@${comment.author}/${comment.permlink}`}>
+              <Link to={anchorLink}>
                 <FormattedRelative value={`${comment.created}Z`} />
               </Link>
             </Tooltip>
