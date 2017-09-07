@@ -78,6 +78,8 @@ class Comment extends React.Component {
     }
   }
 
+  handleAnchorClick = () => this.focus();
+
   handleShowReactions = () => this.setState({
     reactionsModalVisible: true,
   });
@@ -183,10 +185,11 @@ class Comment extends React.Component {
     const userUpVoted = userVote && userVote.percent > 0;
     const userDownVoted = userVote && userVote.percent < 0;
 
-    const anchorLink = `${comment.url.slice(0, comment.url.indexOf('#'))}#@${comment.author}/${comment.permlink}`;
+    const anchorId = `@${comment.author}/${comment.permlink}`;
+    const anchorLink = `${comment.url.slice(0, comment.url.indexOf('#'))}#${anchorId}`;
 
     return (
-      <div ref={this.setSelf} className="Comment">
+      <div ref={this.setSelf} className="Comment" id={anchorId}>
         <span
           role="presentation"
           className="Comment__visibility"
@@ -220,7 +223,7 @@ class Comment extends React.Component {
                 </span>
               }
             >
-              <Link to={anchorLink}>
+              <Link to={anchorLink} className="Comment__anchor" onClick={this.handleAnchorClick}>
                 <FormattedRelative value={`${comment.created}Z`} />
               </Link>
             </Tooltip>
