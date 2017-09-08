@@ -855,8 +855,8 @@ exports[`Storyshots Navigation Topnav logged 1`] = `
               style={Object {}}
               title={undefined}
             >
-              <i
-                className="iconfont icon-switch"
+              <a
+                className="Topnav__link Topnav__link--light"
                 onBlur={undefined}
                 onClick={[Function]}
                 onFocus={undefined}
@@ -864,7 +864,11 @@ exports[`Storyshots Navigation Topnav logged 1`] = `
                 onMouseEnter={undefined}
                 onMouseLeave={undefined}
                 onTouchStart={[Function]}
-              />
+              >
+                <i
+                  className="iconfont icon-switch"
+                />
+              </a>
             </li>
           </ul>
         </div>

@@ -93,7 +93,9 @@ const Topnav = ({
                 </PopoverMenu>
               }
             >
-              <i className="iconfont icon-switch" />
+              <a className="Topnav__link Topnav__link--light">
+                <i className="iconfont icon-switch" />
+              </a>
             </Popover>
           </Menu.Item>
         </Menu>
