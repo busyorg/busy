@@ -141,6 +141,7 @@ class Comments extends React.Component {
           sortComments(comments, sort).map(comment =>
             (<Comment
               key={comment.id}
+              depth={0}
               authenticated={authenticated}
               username={username}
               comment={comment}
