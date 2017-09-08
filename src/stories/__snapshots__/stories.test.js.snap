@@ -817,7 +817,7 @@ exports[`Storyshots Navigation Topnav logged 1`] = `
             <li
               aria-disabled={undefined}
               aria-selected={false}
-              className="ant-menu-item Topnav__item--dropdown Topnav__item--badge"
+              className="ant-menu-item Topnav__item--badge"
               onClick={[Function]}
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
@@ -847,7 +847,7 @@ exports[`Storyshots Navigation Topnav logged 1`] = `
             <li
               aria-disabled={undefined}
               aria-selected={false}
-              className="ant-menu-item Topnav__item--dropdown"
+              className="ant-menu-item"
               onClick={[Function]}
               onMouseEnter={[Function]}
               onMouseLeave={[Function]}
