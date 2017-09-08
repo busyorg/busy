@@ -76,6 +76,11 @@ class StoryFooter extends React.Component {
     reactionsModalVisible: false,
   })
 
+  handleCommentClick = () => {
+    const form = document.getElementById('commentFormInput');
+    if (form) form.focus();
+  }
+
   render() {
     const { intl, post, postState, pendingLike, onLikeClick } = this.props;
 
@@ -145,6 +150,7 @@ class StoryFooter extends React.Component {
               pathname: post.url,
               hash: '#comments',
             }}
+            onClick={this.handleCommentClick}
           >
             <i className="iconfont icon-message_fill" />
           </Link>

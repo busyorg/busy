@@ -125,6 +125,7 @@ class CommentForm extends React.Component {
         <Avatar username={username} size={!isSmall ? 40 : 32} />
         <div className="CommentForm__text">
           <Input
+            id="commentFormInput"
             ref={ref => this.setInput(ref)}
             value={this.state.inputValue}
             autosize={{ minRows: 2, maxRows: 6 }}
