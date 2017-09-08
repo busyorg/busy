@@ -1,3 +1,4 @@
+@import (reference) "../../styles/modules/variables.less";
 @import (reference) "../../styles/custom.less";
 
 @keyframes focus {
@@ -151,6 +152,11 @@
   &__replies--no-indent {
     position: relative;
     left: -44px;
+
+    @media @small {
+      position: static;
+      left: auto;
+    }
   }
 
   &__icon_dislike:before {
