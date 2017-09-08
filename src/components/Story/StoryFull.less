@@ -1,3 +1,4 @@
+@import (reference) "../../styles/modules/variables.less";
 @import (reference) "../../styles/custom.less";
 @import (reference) "../../styles/fonts.less";
 
@@ -18,9 +19,13 @@
 
   &__title {
     color: #353535;
-    font-size: 34px;
     font-weight: 700;
     line-height: 1.3em;
+    font-size: 28px;
+
+    @media @small {
+      font-size: 34px;
+    }
   }
 
   &__comments_title {
