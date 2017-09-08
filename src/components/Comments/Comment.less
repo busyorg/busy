@@ -1,3 +1,4 @@
+@import (reference) "../../styles/modules/variables.less";
 @import (reference) "../../styles/custom.less";
 
 @keyframes focus {
@@ -145,6 +146,14 @@
           color: @purple;
         }
       }
+    }
+  }
+
+  &__replies--no-indent {
+    margin-left: -44px;
+
+    @media @small {
+      margin-left: 0;
     }
   }
 
