@@ -1,3 +1,5 @@
+@mobile-padding: 20px;
+
 .post-layout {
   position: relative;
 
@@ -9,6 +11,12 @@
 
   .right {
     width: @right-width;
+
+    padding-right: @mobile-padding;
+
+    @media @medium {
+      padding-right: 0;
+    }
   }
 
   .rightContainer {
@@ -24,9 +32,16 @@
   .center {
     float: left;
     width: 100%;
+    padding-right: @mobile-padding;
+    padding-left: @mobile-padding;
 
     @media @small {
-      width: calc(100% ~"-" (@right-width + @margin)); 
+      width: calc(100% ~"-" (@right-width + @margin));
+      padding-right: 0;
+    }
+
+    @media @medium {
+      padding-left: 0;
     }
   }
 }
