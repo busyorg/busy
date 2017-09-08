@@ -1,3 +1,4 @@
+@import (reference) "../../styles/modules/variables.less";
 @import (reference) "../../styles/fonts.less";
 
 .Body {
@@ -7,7 +8,11 @@
   word-wrap: break-word;
 
   &--full {
-    font-size: 21px;
+    font-size: 18px;
+
+    @media @small {
+      font-size: 21px;
+    }
 
     h1, h2, h3, h4, h5, h6 {
       margin: 8px 0;
