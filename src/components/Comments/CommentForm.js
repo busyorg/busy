@@ -38,6 +38,10 @@ class CommentForm extends React.Component {
   componentDidMount() {
     if (this.input) {
       this.input.addEventListener('paste', this.handlePastedImage);
+
+      if (this.props.parentPost.depth !== 0) {
+        this.input.focus();
+      }
     }
   }
 
