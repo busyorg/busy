@@ -38,6 +38,10 @@ class CommentForm extends React.Component {
   componentDidMount() {
     if (this.input) {
       this.input.addEventListener('paste', this.handlePastedImage);
+
+      if (this.props.parentPost.depth !== 0) {
+        this.input.focus();
+      }
     }
   }
 
@@ -125,6 +129,7 @@ class CommentForm extends React.Component {
         <Avatar username={username} size={!isSmall ? 40 : 32} />
         <div className="CommentForm__text">
           <Input
+            id="commentFormInput"
             ref={ref => this.setInput(ref)}
             value={this.state.inputValue}
             autosize={{ minRows: 2, maxRows: 6 }}
