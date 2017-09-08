@@ -1035,12 +1035,12 @@ exports[`Storyshots Profile UserHeader 1`] = `
           <i
             className="iconfont icon-more UserHeader__more"
             onBlur={undefined}
-            onClick={undefined}
+            onClick={[Function]}
             onFocus={undefined}
-            onMouseDown={undefined}
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-            onTouchStart={undefined}
+            onMouseDown={[Function]}
+            onMouseEnter={undefined}
+            onMouseLeave={undefined}
+            onTouchStart={[Function]}
           />
         </div>
         <div
