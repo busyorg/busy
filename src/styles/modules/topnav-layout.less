@@ -1,30 +1,32 @@
 .topnav-layout {
   .left {
-    display: none;
     position: absolute;
     width: @left-width;
+    margin-left: 16px;
 
-    @media @medium {
-      display: block;
+    @media @small {
+      margin-left: 0;
     }
   }
 
   .right {
-    display: none;
     position: absolute;
     top: 0;
     right: 0;
     width: @right-width;
+    margin-right: 16px;
 
     @media @small {
-      display: block;
-    }  
+      margin-right: 0;
+    }
   }
 
   .center {
+    display: none;
     width: 100%;
 
     @media @small {
+      display: block;
       width: calc(100% ~"-" (@right-width + @margin)); 
       margin-right: @right-width + @margin;
     }
