@@ -46,7 +46,7 @@ const UserHeader = ({
           </div>
           <Popover
             placement="bottom"
-            trigger="hover"
+            trigger="click"
             content={
               <PopoverMenu onSelect={onSelect}>
                 <PopoverMenuItem key="transfer">
