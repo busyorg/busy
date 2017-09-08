@@ -338,7 +338,11 @@ class Comment extends React.Component {
               inputValue={this.state.commentFormText}
               onImageInserted={this.handleImageInserted}
             />}
-          <div className="Comment__replies">
+          <div
+            className={classNames('Comment__replies', {
+              'Comment__replies--no-indent': comment.depth > 2,
+            })}
+          >
             {!this.state.collapsed &&
               commentsChildren &&
               commentsChildren[comment.id] &&
