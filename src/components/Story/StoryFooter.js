@@ -78,7 +78,11 @@ class StoryFooter extends React.Component {
 
   handleCommentClick = () => {
     const form = document.getElementById('commentFormInput');
-    if (form) form.focus();
+    if (form) {
+      form.scrollIntoView(true);
+      document.body.scrollTop -= 200;
+      form.focus();
+    }
   }
 
   render() {
