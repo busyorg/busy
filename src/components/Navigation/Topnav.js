@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
 import { Menu, Popover, Tooltip, Input, Badge } from 'antd';
@@ -44,30 +43,30 @@ const Topnav = ({
           </Menu.Item>
           <Menu.Item
             key="notifications"
-            className={classNames('Topnav__item--dropdown', {
-              'Topnav__item--badge': notifications !== 0,
-            })}
+            className="Topnav__item--badge"
           >
-            <Popover
-              placement="bottomRight"
-              trigger="click"
-              content={
-                <Notifications
-                  notifications={notifications}
-                  onClick={onNotificationClick}
-                  onSeeAllClick={onSeeAllClick}
-                />
-              }
-              title={intl.formatMessage({ id: 'notifications', defaultMessage: 'Notifications' })}
-            >
-              <Tooltip className="Notifications__tooltip" placement="bottom" title={intl.formatMessage({ id: 'notifications', defaultMessage: 'Notifications' })}>
-                <Badge count={notificationsCount}>
-                  <i className="iconfont icon-remind" />
-                </Badge>
-              </Tooltip>
-            </Popover>
+            <Tooltip placement="bottom" title={intl.formatMessage({ id: 'notifications', defaultMessage: 'Notifications' })}>
+              <Popover
+                placement="bottomRight"
+                trigger="click"
+                content={
+                  <Notifications
+                    notifications={notifications}
+                    onClick={onNotificationClick}
+                    onSeeAllClick={onSeeAllClick}
+                  />
+                }
+                title={intl.formatMessage({ id: 'notifications', defaultMessage: 'Notifications' })}
+              >
+                <a className="Topnav__link Topnav__link--light">
+                  <Badge count={notificationsCount}>
+                    <i className="iconfont icon-remind" />
+                  </Badge>
+                </a>
+              </Popover>
+            </Tooltip>
           </Menu.Item>
-          <Menu.Item key="more" className="Topnav__item--dropdown">
+          <Menu.Item key="more">
             <Popover
               placement="bottom"
               trigger="click"
@@ -91,7 +90,9 @@ const Topnav = ({
                 </PopoverMenu>
               }
             >
-              <i className="iconfont icon-switch" />
+              <a className="Topnav__link Topnav__link--light">
+                <i className="iconfont icon-switch" />
+              </a>
             </Popover>
           </Menu.Item>
         </Menu>
