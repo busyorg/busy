@@ -48,24 +48,26 @@ const Topnav = ({
               'Topnav__item--badge': notifications !== 0,
             })}
           >
-            <Popover
-              placement="bottomRight"
-              trigger="click"
-              content={
-                <Notifications
-                  notifications={notifications}
-                  onClick={onNotificationClick}
-                  onSeeAllClick={onSeeAllClick}
-                />
-              }
-              title={intl.formatMessage({ id: 'notifications', defaultMessage: 'Notifications' })}
-            >
-              <Tooltip className="Notifications__tooltip" placement="bottom" title={intl.formatMessage({ id: 'notifications', defaultMessage: 'Notifications' })}>
-                <Badge count={notificationsCount}>
-                  <i className="iconfont icon-remind" />
-                </Badge>
-              </Tooltip>
-            </Popover>
+            <Tooltip placement="bottom" title={intl.formatMessage({ id: 'notifications', defaultMessage: 'Notifications' })}>
+              <Popover
+                placement="bottomRight"
+                trigger="click"
+                content={
+                  <Notifications
+                    notifications={notifications}
+                    onClick={onNotificationClick}
+                    onSeeAllClick={onSeeAllClick}
+                  />
+                }
+                title={intl.formatMessage({ id: 'notifications', defaultMessage: 'Notifications' })}
+              >
+                <a className="Topnav__link Topnav__link--light">
+                  <Badge count={notificationsCount}>
+                    <i className="iconfont icon-remind" />
+                  </Badge>
+                </a>
+              </Popover>
+            </Tooltip>
           </Menu.Item>
           <Menu.Item key="more" className="Topnav__item--dropdown">
             <Popover

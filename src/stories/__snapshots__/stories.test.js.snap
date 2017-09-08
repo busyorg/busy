@@ -825,8 +825,8 @@ exports[`Storyshots Navigation Topnav logged 1`] = `
               style={Object {}}
               title={undefined}
             >
-              <span
-                className="ant-badge"
+              <a
+                className="Topnav__link Topnav__link--light"
                 onBlur={undefined}
                 onClick={[Function]}
                 onFocus={undefined}
@@ -835,10 +835,14 @@ exports[`Storyshots Navigation Topnav logged 1`] = `
                 onMouseLeave={[Function]}
                 onTouchStart={[Function]}
               >
-                <i
-                  className="iconfont icon-remind"
-                />
-              </span>
+                <span
+                  className="ant-badge"
+                >
+                  <i
+                    className="iconfont icon-remind"
+                  />
+                </span>
+              </a>
             </li>
             <li
               aria-disabled={undefined}
