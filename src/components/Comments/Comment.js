@@ -31,6 +31,7 @@ class Comment extends React.Component {
       id: PropTypes.number,
       percent: PropTypes.number,
     })),
+    depth: PropTypes.number,
     onLikeClick: PropTypes.func,
     onDislikeClick: PropTypes.func,
     onSendComment: PropTypes.func,
@@ -42,6 +43,7 @@ class Comment extends React.Component {
     rootPostAuthor: undefined,
     commentsChildren: undefined,
     pendingVotes: [],
+    depth: 0,
     onLikeClick: () => {},
     onDislikeClick: () => {},
     onSendComment: () => {},
@@ -155,6 +157,7 @@ class Comment extends React.Component {
       rootPostAuthor,
       commentsChildren,
       pendingVotes,
+      depth,
     } = this.props;
 
     const pendingVote = find(pendingVotes, { id: comment.id });
@@ -338,13 +341,18 @@ class Comment extends React.Component {
               inputValue={this.state.commentFormText}
               onImageInserted={this.handleImageInserted}
             />}
-          <div className="Comment__replies">
+          <div
+            className={classNames('Comment__replies', {
+              'Comment__replies--no-indent': depth >= 2,
+            })}
+          >
             {!this.state.collapsed &&
               commentsChildren &&
               commentsChildren[comment.id] &&
               sortComments(commentsChildren[comment.id], sort).map(child =>
                 (<Comment
                   key={child.id}
+                  depth={depth + 1}
                   intl={this.props.intl}
                   authenticated={authenticated}
                   username={username}
