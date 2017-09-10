@@ -80,6 +80,7 @@ export default class User extends React.Component {
     const canonicalUrl = `${busyHost}/@${username}`;
     const url = `${busyHost}/@${username}`;
     const displayedUsername = profile.name || username || '';
+    const hasCover = !!profile.cover_image;
     const title = `${displayedUsername} - Busy`;
 
     const isSameUser = authenticated && authenticatedUser.name === username;
@@ -116,6 +117,7 @@ export default class User extends React.Component {
             user={user}
             username={displayedUsername}
             isSameUser={isSameUser}
+            hasCover={hasCover}
             onFollowClick={this.handleFollowClick}
             onSelect={this.handleUserMenuSelect}
           />}
