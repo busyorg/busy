@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
+import people from '../../helpers/people';
 
 import {
   getIsAuthenticated,
@@ -12,20 +13,15 @@ import InterestingPeople from '../../components/Sidebar/InterestingPeople';
 import StartNow from '../../components/Sidebar/StartNow';
 import SignUp from '../../components/Sidebar/SignUp';
 
-const InterestingPeopleWithData = () =>
-  (<InterestingPeople
-    users={[
-      { name: 'liondani', about: 'Inch by Inch, Play by Play' },
-      {
-        name: 'good-karma',
-        about: '"Action expresses priorities!" / Witness - Developer of eSteem…',
-      },
-      {
-        name: 'furion',
-        about: 'I’ve developed SteemData and SteemSports. All things Python…',
-      },
-    ]}
-  />);
+const InterestingPeopleWithData = () => {
+  const randomPeople = people
+    .reduce((res, item) => {
+      res.push({ name: item });
+      return res;
+    }, [])
+    .sort(() => 0.5 - Math.random()).slice(0, 5);
+  return (<InterestingPeople users={randomPeople} />);
+};
 
 const RightSidebar = ({ authenticated, authenticatedUser }) =>
   (authenticated
