@@ -35,6 +35,7 @@ const UserHero = ({
   user,
   username,
   isSameUser,
+  hasCover,
   onSelect,
 }) =>
   (<div>
@@ -52,6 +53,7 @@ const UserHero = ({
                   userReputation={user.reputation}
                   rank={getUserRank(user.vesting_shares)}
                   isSameUser={isSameUser}
+                  hasCover={hasCover}
                   onSelect={onSelect}
                 />
             }
@@ -70,11 +72,13 @@ UserHero.propTypes = {
   user: PropTypes.shape().isRequired,
   username: PropTypes.string.isRequired,
   isSameUser: PropTypes.bool,
+  hasCover: PropTypes.bool,
   onSelect: PropTypes.func,
 };
 
 UserHero.defaultProps = {
   isSameUser: false,
+  hasCover: false,
   onSelect: () => {},
 };
 

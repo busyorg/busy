@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { Tag, Tooltip, Popover } from 'antd';
 import { formatter } from 'steem';
@@ -17,10 +18,11 @@ const UserHeader = ({
   userReputation,
   rank,
   isSameUser,
+  hasCover,
   onSelect,
 }) =>
   (<div
-    className="UserHeader"
+    className={classNames('UserHeader', { 'UserHeader--cover': hasCover })}
     style={{ backgroundImage: `url("${process.env.STEEMCONNECT_IMG_HOST}/@${handle}/cover")` }}
   >
     <div className="UserHeader__container">
@@ -82,6 +84,7 @@ UserHeader.propTypes = {
   ]),
   rank: PropTypes.string,
   isSameUser: PropTypes.bool,
+  hasCover: PropTypes.bool,
   onSelect: PropTypes.func,
 };
 
@@ -91,6 +94,7 @@ UserHeader.defaultProps = {
   userReputation: '0',
   rank: 'Minnow',
   isSameUser: false,
+  hasCover: false,
   onSelect: () => {},
 };
 
