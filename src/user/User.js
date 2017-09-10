@@ -67,7 +67,7 @@ export default class User extends React.Component {
 
   handleUserMenuSelect = (key) => {
     if (key === 'transfer') this.props.openTransfer(this.props.match.params.name);
-  }
+  };
 
   render() {
     const { authenticated, authenticatedUser, match } = this.props;
@@ -128,7 +128,9 @@ export default class User extends React.Component {
             </Affix>
             <Affix className="rightContainer" stickPosition={72}>
               <div className="right">
-                <RightSidebar />
+                {user && user.name &&
+                  <RightSidebar key={user.name} />
+                }
               </div>
             </Affix>
             <div className="center">
