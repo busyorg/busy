@@ -53,7 +53,7 @@ class Story extends React.Component {
         this.props.onReportClick();
         break;
       case 'edit':
-        this.props.onEditClick();
+        this.props.onEditClick(this.props.post);
         break;
       default:
     }

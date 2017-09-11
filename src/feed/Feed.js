@@ -8,6 +8,7 @@ import * as bookmarkActions from '../bookmarks/bookmarksActions';
 import * as reblogActions from '../app/Reblog/reblogActions';
 import * as postActions from '../post/postActions';
 import { followUser, unfollowUser } from '../user/userActions';
+import { editPost } from '../post/Write/editorActions';
 
 import {
   getAuthenticatedUser,
@@ -33,6 +34,7 @@ import StoryLoading from '../components/Story/StoryLoading';
     pendingFollows: getPendingFollows(state),
   }),
   {
+    editPost,
     toggleBookmark: bookmarkActions.toggleBookmark,
     votePost: postActions.votePost,
     reblog: reblogActions.reblog,
@@ -52,6 +54,7 @@ export default class Feed extends React.Component {
     reblogList: PropTypes.arrayOf(PropTypes.number).isRequired,
     isFetching: PropTypes.bool,
     hasMore: PropTypes.bool,
+    editPost: PropTypes.func,
     toggleBookmark: PropTypes.func,
     votePost: PropTypes.func,
     reblog: PropTypes.func,
@@ -63,6 +66,7 @@ export default class Feed extends React.Component {
   static defaultProps = {
     isFetching: false,
     hasMore: false,
+    editPost: () => {},
     toggleBookmark: () => {},
     votePost: () => {},
     reblog: () => {},
@@ -79,6 +83,8 @@ export default class Feed extends React.Component {
       this.props.followUser(post.author);
     }
   };
+
+  handleEditClick = post => this.props.editPost(post);
 
   render() {
     const {
@@ -154,6 +160,7 @@ export default class Feed extends React.Component {
               onReportClick={reportPost}
               onLikeClick={likePost}
               onShareClick={() => reblog(post.id)}
+              onEditClick={this.handleEditClick}
             />
           );
         })}

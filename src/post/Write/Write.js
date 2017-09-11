@@ -58,6 +58,7 @@ class Write extends React.Component {
       initialBody: '',
       initialReward: '50',
       initialUpvote: true,
+      isUpdating: false,
     };
   }
 
@@ -69,11 +70,16 @@ class Write extends React.Component {
     const postData = draftPost && draftPost.postData;
 
     if (postData) {
-      const { jsonMetadata } = postData;
+      const { jsonMetadata, isUpdating } = postData;
       let tags = [];
       if (isArray(jsonMetadata.tags)) {
         tags = jsonMetadata.tags;
       }
+
+      if (postData.permlink) {
+        this.permlink = postData.permlink;
+      }
+
       // eslint-disable-next-line
       this.setState({
         initialTitle: postData.title || '',
@@ -81,6 +87,7 @@ class Write extends React.Component {
         initialBody: postData.body || '',
         initialReward: postData.reward || '50',
         initialUpvote: postData.upvote,
+        isUpdating: isUpdating || false,
       });
     }
   }
@@ -138,9 +145,13 @@ class Write extends React.Component {
       }
     }
 
-    if (data.title && !data.permalink) {
+    if (data.title && !this.permlink) {
       data.permlink = kebabCase(data.title);
+    } else {
+      data.permlink = this.permlink;
     }
+
+    if (this.state.isUpdating) data.isUpdating = this.state.isUpdating;
 
     const metaData = {
       community: 'busy',
@@ -226,6 +237,7 @@ class Write extends React.Component {
               reward={initialReward}
               upvote={initialUpvote}
               loading={loading}
+              isUpdating={this.state.isUpdating}
               onUpdate={this.saveDraft}
               onSubmit={this.onSubmit}
               onImageInserted={this.handleImageInserted}

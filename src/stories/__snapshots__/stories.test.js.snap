@@ -528,6 +528,7 @@ exports[`Storyshots Editor Editor 1`] = `
                         id="like_post"
                         values={Object {}}
                       />,
+                      "disabled": false,
                       "indeterminate": false,
                       "onChange": [Function],
                       "prefixCls": "ant-checkbox",
@@ -538,7 +539,7 @@ exports[`Storyshots Editor Editor 1`] = `
                     "valuePropName": "checked",
                   }
                 }
-                disabled={undefined}
+                disabled={false}
                 name={undefined}
                 onBlur={[Function]}
                 onChange={[Function]}

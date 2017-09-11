@@ -13,6 +13,7 @@ import {
   getFollowingList,
   getPendingFollows,
 } from '../reducers';
+import { editPost } from './Write/editorActions';
 import { votePost } from './postActions';
 import { reblog } from '../app/Reblog/reblogActions';
 import { toggleBookmark } from '../bookmarks/bookmarksActions';
@@ -33,6 +34,7 @@ import StoryFull from '../components/Story/StoryFull';
     state,
   }),
   {
+    editPost,
     votePost,
     reblog,
     toggleBookmark,
@@ -50,6 +52,7 @@ class PostContent extends React.Component {
     followingList: PropTypes.arrayOf(PropTypes.string),
     pendingFollows: PropTypes.arrayOf(PropTypes.string),
     bookmarks: PropTypes.shape(),
+    editPost: PropTypes.func,
     toggleBookmark: PropTypes.func,
     votePost: PropTypes.func,
     reblog: PropTypes.func,
@@ -64,7 +67,7 @@ class PostContent extends React.Component {
     followingList: [],
     pendingFollows: [],
     bookmarks: {},
-    getContent: () => {},
+    editPost: () => {},
     toggleBookmark: () => {},
     votePost: () => {},
     reblog: () => {},
@@ -114,6 +117,10 @@ class PostContent extends React.Component {
       this.props.followUser(post.author);
     }
   };
+
+  handleEditClick = () => {
+    this.props.editPost(this.props.content);
+  }
 
   render() {
     const {
@@ -196,6 +203,7 @@ class PostContent extends React.Component {
           onShareClick={this.handleShareClick}
           onSaveClick={this.handleSaveClick}
           onFollowClick={this.handleFollowClick}
+          onEditClick={this.handleEditClick}
         />
       </div>
     );

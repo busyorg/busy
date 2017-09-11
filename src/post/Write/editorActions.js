@@ -4,7 +4,7 @@ import SteemConnect from 'sc2-sdk';
 import { push } from 'react-router-redux';
 import { createAction } from 'redux-actions';
 import { jsonParse } from '../../helpers/formatter';
-import { createPermlink, getBodyPatchIfSmaller } from '../../vendor/steemitHelpers';
+import { createPermlink } from '../../vendor/steemitHelpers';
 
 export const CREATE_POST = '@editor/CREATE_POST';
 export const CREATE_POST_START = '@editor/CREATE_POST_START';
@@ -36,11 +36,8 @@ export const editPost = post => (dispatch) => {
   const jsonMetadata = jsonParse(post.json_metadata);
   const draft = {
     ...post,
-    originalBody: post.body,
-    isUpdating: true,
     jsonMetadata,
-    parentAuthor: post.parent_author,
-    parentPermlink: post.parent_permlink,
+    isUpdating: true,
   };
   dispatch(saveDraft({ postData: draft, id: post.id }));
   dispatch(push(`/write?draft=${post.id}`));
@@ -122,24 +119,21 @@ export function createPost(postData) {
       parentPermlink,
       author,
       title,
+      body,
       jsonMetadata,
       reward,
       upvote,
       draftId,
       isUpdating,
     } = postData;
-    const getPremLink = isUpdating
+    const getPermLink = isUpdating
       ? Promise.resolve(postData.permlink)
       : createPermlink(title, author, parentAuthor, parentPermlink);
-
-    const body = isUpdating
-      ? getBodyPatchIfSmaller(postData.originalBody, postData.body)
-      : postData.body;
 
     dispatch({
       type: CREATE_POST,
       payload: {
-        promise: getPremLink.then(permlink =>
+        promise: getPermLink.then(permlink =>
           broadcastComment(
             parentAuthor,
             parentPermlink,
@@ -148,7 +142,7 @@ export function createPost(postData) {
             body,
             jsonMetadata,
             reward,
-            upvote,
+            !isUpdating && upvote,
             permlink,
           ).then((result) => {
             if (draftId) {

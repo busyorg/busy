@@ -22,6 +22,7 @@ class Editor extends React.Component {
     reward: PropTypes.string,
     upvote: PropTypes.bool,
     loading: PropTypes.bool,
+    isUpdating: PropTypes.bool,
     onUpdate: PropTypes.func,
     onSubmit: PropTypes.func,
     onError: PropTypes.func,
@@ -37,6 +38,7 @@ class Editor extends React.Component {
     recentTopics: [],
     popularTopics: [],
     loading: false,
+    isUpdating: false,
     onUpdate: () => {},
     onSubmit: () => {},
     onError: () => {},
@@ -348,7 +350,7 @@ class Editor extends React.Component {
 
   render() {
     const { getFieldDecorator } = this.props.form;
-    const { intl, loading } = this.props;
+    const { intl, loading, isUpdating } = this.props;
 
     return (
       <Form className="Editor" layout="vertical" onSubmit={this.handleSubmit}>
@@ -439,7 +441,7 @@ class Editor extends React.Component {
         </Form.Item>
         <Form.Item>
           {getFieldDecorator('upvote', { valuePropName: 'checked', initialValue: true })(
-            <Checkbox onChange={this.onUpdate}>
+            <Checkbox onChange={this.onUpdate} disabled={isUpdating}>
               <FormattedMessage id="like_post" defaultMessage="Like this post" />
             </Checkbox>,
           )}
