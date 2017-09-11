@@ -19,6 +19,12 @@ export const SAVE_DRAFT = '@editor/SAVE_DRAFT';
 export const DELETE_DRAFT = '@editor/DELETE_DRAFT';
 export const deleteDraft = createAction(DELETE_DRAFT);
 
+export const ADD_EDITED_POST = '@editor/ADD_EDITED_POST';
+export const addEditedPost = createAction(ADD_EDITED_POST);
+
+export const DELETE_EDITED_POST = '@editor/DELETE_EDITED_POST';
+export const deleteEditedPost = createAction(DELETE_EDITED_POST);
+
 export const saveDraft = (post, redirect) => (dispatch) => {
   dispatch({
     type: SAVE_DRAFT,
@@ -147,6 +153,7 @@ export function createPost(postData) {
           ).then((result) => {
             if (draftId) {
               dispatch(deleteDraft(draftId));
+              dispatch(addEditedPost(permlink));
             }
             dispatch(push(`/${parentPermlink}/@${author}/${permlink}`));
 

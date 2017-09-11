@@ -7,10 +7,24 @@ const defaultState = {
   error: null,
   success: false,
   draftPosts: {},
+  editedPosts: [],
 };
 
 const editor = (state = defaultState, action) => {
   switch (action.type) {
+    case editorActions.ADD_EDITED_POST:
+      return {
+        ...state,
+        editedPosts: [
+          ...state.editedPosts,
+          action.payload,
+        ],
+      };
+    case editorActions.DELETE_EDITED_POST:
+      return {
+        ...state,
+        editedPosts: state.editedPosts.filter(post => post !== action.payload),
+      };
     case editorActions.NEW_POST:
       return {
         ...state,
