@@ -147,7 +147,7 @@ class PostContent extends React.Component {
       userFollowed: followingList.includes(content.author),
     };
 
-    const { title, category, created, author, body } = content;
+    const { title, category, created, author, body, cashout_time: cashoutTime } = content;
     const postMetaImage = postMetaData.image && postMetaData.image[0];
     const htmlBody = getHtml(body, {}, 'text');
     const bodyText = sanitize(htmlBody, { allowedTags: [] });
@@ -156,6 +156,8 @@ class PostContent extends React.Component {
     const canonicalUrl = `${canonicalHost}${content.url}`;
     const url = `${busyHost}${content.url}`;
     const metaTitle = `${title} - Busy`;
+
+    const editable = postMetaData.format === 'markdown' && author === user.name && cashoutTime !== '1969-12-31T23:59:59';
 
     return (
       <div>
@@ -185,6 +187,7 @@ class PostContent extends React.Component {
         <StoryFull
           post={content}
           postState={postState}
+          editable={editable}
           commentCount={content.children}
           pendingLike={pendingLikes.includes(content.id)}
           pendingFollow={pendingFollows.includes(content.author)}

@@ -17,6 +17,7 @@ class Story extends React.Component {
     intl: PropTypes.shape().isRequired,
     post: PropTypes.shape().isRequired,
     postState: PropTypes.shape().isRequired,
+    editable: PropTypes.bool,
     pendingLike: PropTypes.bool,
     pendingFollow: PropTypes.bool,
     onFollowClick: PropTypes.func,
@@ -24,9 +25,11 @@ class Story extends React.Component {
     onReportClick: PropTypes.func,
     onLikeClick: PropTypes.func,
     onShareClick: PropTypes.func,
+    onEditClick: PropTypes.func,
   };
 
   static defaultProps = {
+    editable: false,
     pendingLike: false,
     pendingFollow: false,
     onFollowClick: () => {},
@@ -34,6 +37,7 @@ class Story extends React.Component {
     onReportClick: () => {},
     onLikeClick: () => {},
     onShareClick: () => {},
+    onEditClick: () => {},
     postState: {},
   };
 
@@ -48,6 +52,9 @@ class Story extends React.Component {
       case 'report':
         this.props.onReportClick();
         break;
+      case 'edit':
+        this.props.onEditClick();
+        break;
       default:
     }
   };
@@ -57,6 +64,7 @@ class Story extends React.Component {
       intl,
       post,
       postState,
+      editable,
       pendingLike,
       pendingFollow,
       onLikeClick,
@@ -75,6 +83,30 @@ class Story extends React.Component {
       followText = intl.formatMessage({ id: 'follow_username', defaultMessage: 'Follow {username}' }, { username: post.author });
     }
 
+    const popoverMenu = [
+      <PopoverMenuItem key="follow" disabled={pendingFollow}>
+        {pendingFollow ? <Icon type="loading" /> : <i className="iconfont icon-people" />}
+        {followText}
+      </PopoverMenuItem>,
+      <PopoverMenuItem key="save">
+        <i className="iconfont icon-collection" />
+        <FormattedMessage id={postState.isSaved ? 'unsave_post' : 'save_post'} defaultMessage={postState.isSaved ? 'Unsave post' : 'Save post'} />
+      </PopoverMenuItem>,
+      <PopoverMenuItem key="report">
+        <i className="iconfont icon-flag" />
+        <FormattedMessage id="report_post" defaultMessage="Report post" />
+      </PopoverMenuItem>,
+    ];
+
+    if (editable) {
+      popoverMenu.push(
+        <PopoverMenuItem key="edit">
+          <i className="iconfont icon-write" />
+          Edit post
+        </PopoverMenuItem>,
+      );
+    }
+
     return (
       <div className="Story">
         <Popover
@@ -82,18 +114,7 @@ class Story extends React.Component {
           trigger="click"
           content={
             <PopoverMenu onSelect={this.handleClick} bold={false}>
-              <PopoverMenuItem key="follow" disabled={pendingFollow}>
-                {pendingFollow ? <Icon type="loading" /> : <i className="iconfont icon-people" />}
-                {followText}
-              </PopoverMenuItem>
-              <PopoverMenuItem key="save">
-                <i className="iconfont icon-collection" />
-                <FormattedMessage id={postState.isSaved ? 'unsave_post' : 'save_post'} defaultMessage={postState.isSaved ? 'Unsave post' : 'Save post'} />
-              </PopoverMenuItem>
-              <PopoverMenuItem key="report">
-                <i className="iconfont icon-flag" />
-                <FormattedMessage id="report_post" defaultMessage="Report post" />
-              </PopoverMenuItem>
+              {popoverMenu}
             </PopoverMenu>
           }
         >

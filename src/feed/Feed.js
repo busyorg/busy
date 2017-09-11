@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ReduxInfiniteScroll from 'redux-infinite-scroll';
 import _ from 'lodash';
+import { jsonParse } from '../helpers/formatter';
 import * as bookmarkActions from '../bookmarks/bookmarksActions';
 import * as reblogActions from '../app/Reblog/reblogActions';
 import * as postActions from '../post/postActions';
@@ -135,11 +136,17 @@ export default class Feed extends React.Component {
               : () => votePost(post.id, post.author, post.permlink);
           const reportPost = () => votePost(post.id, -1000);
 
+          const postMetaData = jsonParse(post.json_metadata);
+
+          const editable = postMetaData.format === 'markdown' && post.author === user.name && post.cashout_time !== '1969-12-31T23:59:59';
+
+
           return (
             <Story
               key={post.id}
               post={post}
               postState={postState}
+              editable={editable}
               pendingLike={pendingLikes.includes(post.id)}
               pendingFollow={pendingFollows.includes(post.author)}
               onFollowClick={this.handleFollowClick}
