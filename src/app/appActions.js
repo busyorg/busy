@@ -1,8 +1,6 @@
 import Promise from 'bluebird';
-import SteemConnect from 'sc2-sdk';
 import fetch from 'isomorphic-fetch';
-
-const updateUserMetadata = Promise.promisify(SteemConnect.updateUserMetadata);
+import { setLocaleMetadata } from '../helpers/metadata';
 
 export const GET_LOCALE = '@app/GET_LOCALE';
 
@@ -24,8 +22,7 @@ export const setLocale = locale =>
     dispatch({
       type: SET_LOCALE,
       payload: {
-        promise: updateUserMetadata({ locale })
-          .then(resp => resp.user_metadata.locale),
+        promise: setLocaleMetadata(locale),
       },
     });
   };
