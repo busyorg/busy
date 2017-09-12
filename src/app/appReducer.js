@@ -1,4 +1,5 @@
 import * as appTypes from './appActions';
+import * as authActions from '../auth/authActions';
 import * as postActions from '../post/postActions';
 
 const initialState = {
@@ -13,6 +14,11 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case authActions.LOGIN_SUCCESS:
+      return {
+        ...state,
+        locale: action.payload.user_metadata.locale || initialState.locale,
+      };
     case appTypes.GET_LOCALE:
       return {
         ...state,

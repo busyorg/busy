@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { FormattedMessage } from 'react-intl';
+import { injectIntl, FormattedMessage } from 'react-intl';
 import { Select } from 'antd';
 import { getLocale, getIsLocaleLoading } from '../reducers';
 import { setLocale } from './appActions';
 
+// NOTE: We are using injectIntl because without it locale won't update: see https://github.com/yahoo/react-intl/issues/371
+@injectIntl
 @connect(
   state => ({
     locale: getLocale(state),
