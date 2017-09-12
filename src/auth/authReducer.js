@@ -5,12 +5,11 @@ const initialState = {
   isFetching: false,
   loaded: false,
   user: {},
-  token: '',
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case types.LOGIN_REQUEST:
+    case types.LOGIN_START:
       return {
         ...state,
         isFetching: true,
@@ -24,17 +23,14 @@ export default (state = initialState, action) => {
         isFetching: false,
         isAuthenticated: true,
         loaded: true,
-        errorMessage: '',
-        user: action.user,
-        token: action.token,
+        user: action.payload.account,
       };
-    case types.LOGIN_FAILURE:
+    case types.LOGIN_ERROR:
       return {
         ...state,
         isFetching: false,
         isAuthenticated: false,
         loaded: true,
-        errorMessage: action.message,
       };
     case types.LOGOUT_START:
       return {
@@ -49,7 +45,6 @@ export default (state = initialState, action) => {
         isFetching: false,
         loaded: true,
         user: {},
-        token: '',
       };
     default:
       return state;

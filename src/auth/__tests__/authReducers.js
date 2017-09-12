@@ -7,7 +7,6 @@ const initialStateMock = {
   isFetching: false,
   loaded: false,
   user: {},
-  token: '',
 };
 
 describe('authReducer', () => {
@@ -18,14 +17,14 @@ describe('authReducer', () => {
     expect(authReducer(undefined, {})).to.deep.equal(initialStateMock);
   });
 
-  describe(`dispatching action ${authTypes.LOGIN_REQUEST}`, () => {
+  describe(`dispatching action ${authTypes.LOGIN_START}`, () => {
     it('is expected to return isFetching as true', () => {
-      expect(authReducer(undefined, { type: authTypes.LOGIN_REQUEST })).to.have
+      expect(authReducer(undefined, { type: authTypes.LOGIN_START })).to.have
         .property('isFetching')
         .and.equal(true);
     });
     it('is expected to return isAuthenticated as false', () => {
-      expect(authReducer(undefined, { type: authTypes.LOGIN_REQUEST })).to.have
+      expect(authReducer(undefined, { type: authTypes.LOGIN_START })).to.have
         .property('isAuthenticated')
         .and.equal(false);
     });
@@ -33,39 +32,32 @@ describe('authReducer', () => {
 
   describe(`dispatching action ${authTypes.LOGIN_SUCCESS}`, () => {
     it('is expected to return isFetching as false', () => {
-      expect(authReducer(undefined, { type: authTypes.LOGIN_SUCCESS })).to.have
+      expect(authReducer(undefined, { type: authTypes.LOGIN_SUCCESS, payload: { account: 'testUser' } })).to.have
         .property('isFetching')
         .and.equal(false);
     });
     it('is expected to return isAuthenticated as true', () => {
-      expect(authReducer(undefined, { type: authTypes.LOGIN_SUCCESS })).to.have
+      expect(authReducer(undefined, { type: authTypes.LOGIN_SUCCESS, payload: { account: 'testUser' } })).to.have
         .property('isAuthenticated')
         .and.equal(true);
     });
     it('is expected to return user from the action', () => {
-      expect(authReducer(undefined, { type: authTypes.LOGIN_SUCCESS, user: 'testUser' })).to.have
+      expect(authReducer(undefined, { type: authTypes.LOGIN_SUCCESS, payload: { account: 'testUser' } })).to.have
         .property('user')
         .and.equal('testUser');
     });
   });
 
-  describe(`dispatching action ${authTypes.LOGIN_FAILURE}`, () => {
+  describe(`dispatching action ${authTypes.LOGIN_ERROR}`, () => {
     it('is expected to return isFetching as false', () => {
-      expect(authReducer(undefined, { type: authTypes.LOGIN_FAILURE })).to.have
+      expect(authReducer(undefined, { type: authTypes.LOGIN_ERROR })).to.have
         .property('isFetching')
         .and.equal(false);
     });
     it('is expected to return isAuthenticated as false', () => {
-      expect(authReducer(undefined, { type: authTypes.LOGIN_FAILURE })).to.have
+      expect(authReducer(undefined, { type: authTypes.LOGIN_ERROR })).to.have
         .property('isAuthenticated')
         .and.equal(false);
-    });
-    it('is expected to return errorMessage from action.message', () => {
-      expect(
-        authReducer(undefined, { type: authTypes.LOGIN_FAILURE, message: 'testMessage' }),
-      ).to.have
-        .property('errorMessage')
-        .and.equal('testMessage');
     });
   });
 
