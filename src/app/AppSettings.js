@@ -15,7 +15,7 @@ import { setLocale } from './appActions';
 )
 export default class AppSettings extends React.Component {
   static propTypes = {
-    locale: PropTypes.func,
+    locale: PropTypes.string,
     setLocale: PropTypes.func,
     localeLoading: PropTypes.bool,
   };
