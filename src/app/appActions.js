@@ -1,4 +1,5 @@
 import Promise from 'bluebird';
+import SteemConnect from 'sc2-sdk';
 import { createAction } from 'redux-actions';
 import fetch from 'isomorphic-fetch';
 
@@ -16,6 +17,8 @@ export const ACCOUNT_SUCCESS = '@app/ACCOUNT_SUCCESS';
 
 export const GET_LOCALE = 'GET_LOCALE';
 
+const updateUserMetadata = Promise.promisify(SteemConnect.updateUserMetadata);
+
 export const getConfig = () =>
   (dispatch, getState, { steemAPI }) => {
     dispatch({ type: CONFIG_REQUEST });
@@ -32,7 +35,8 @@ export const setLocaleAction = createAction(SET_LOCALE);
 
 export const setLocale = locale =>
   (dispatch) => {
-    dispatch(setLocaleAction({ locale }));
+    updateUserMetadata({ locale })
+      .then(resp => dispatch(setLocaleAction({ locale: resp.user_metadata.locale })));
   };
 
 export const RATE_REQUEST = '@app/RATE_REQUEST';
