@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
+import { Select } from 'antd';
 import { getLocale } from '../reducers';
 import { setLocale } from './appActions';
 
@@ -20,6 +21,8 @@ export default class AppSettings extends React.Component {
     setLocale: () => {},
   };
 
+  handleLocaleChange = locale => this.props.setLocale(locale);
+
   render() {
     return (
       <div className="shifted">
@@ -30,62 +33,20 @@ export default class AppSettings extends React.Component {
           <h2>
             <FormattedMessage id="language" defaultMessage="Language" />
           </h2>
-          <div className="row my-4">
-            <div>
-              <a role="presentation" onClick={() => this.props.setLocale('en')}>
-                <h3>English</h3>
-              </a>
-            </div>
-            <div>
-              <a role="presentation" onClick={() => this.props.setLocale('zh')}>
-                <h3>简体中文</h3>
-              </a>
-            </div>
-            <div>
-              <a role="presentation" onClick={() => this.props.setLocale('cs')}>
-                <h3>Čeština</h3>
-              </a>
-            </div>
-            <div>
-              <a role="presentation" onClick={() => this.props.setLocale('es')}>
-                <h3>Español</h3>
-              </a>
-            </div>
-            <div>
-              <a role="presentation" onClick={() => this.props.setLocale('fr')}>
-                <h3>Français</h3>
-              </a>
-            </div>
-            <div>
-              <a role="presentation" onClick={() => this.props.setLocale('pl')}>
-                <h3>Polski</h3>
-              </a>
-            </div>
-            <div>
-              <a role="presentation" onClick={() => this.props.setLocale('de')}>
-                <h3>Deutsch</h3>
-              </a>
-            </div>
-            <div>
-              <a role="presentation" onClick={() => this.props.setLocale('ru')}>
-                <h3>Русский</h3>
-              </a>
-            </div>
-            <div>
-              <a role="presentation" onClick={() => this.props.setLocale('ko')}>
-                <h3>한국어</h3>
-              </a>
-            </div>
-            <div>
-              <a role="presentation" onClick={() => this.props.setLocale('nl')}>
-                <h3>Nederlands</h3>
-              </a>
-            </div>
-            <div>
-              <a role="presentation" onClick={() => this.props.setLocale('sv')}>
-                <h3>Svenska</h3>
-              </a>
-            </div>
+          <div>
+            <Select defaultValue="en" style={{ width: '100%', maxWidth: 240 }} onChange={this.handleLocaleChange}>
+              <Select.Option value="en">English</Select.Option>
+              <Select.Option value="zh">简体中文</Select.Option>
+              <Select.Option value="cs">Čeština</Select.Option>
+              <Select.Option value="es">Español</Select.Option>
+              <Select.Option value="fr">Français</Select.Option>
+              <Select.Option value="pl">Polski</Select.Option>
+              <Select.Option value="de">Deutsch</Select.Option>
+              <Select.Option value="ru">Русский</Select.Option>
+              <Select.Option value="ko">한국어</Select.Option>
+              <Select.Option value="nl">Nederlands</Select.Option>
+              <Select.Option value="sv">Svenska</Select.Option>
+            </Select>
           </div>
         </div>
       </div>
