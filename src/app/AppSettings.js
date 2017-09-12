@@ -15,11 +15,13 @@ import { setLocale } from './appActions';
 )
 export default class AppSettings extends React.Component {
   static propTypes = {
+    locale: PropTypes.func,
     setLocale: PropTypes.func,
     localeLoading: PropTypes.bool,
   };
 
   static defaultProps = {
+    locale: 'auto',
     setLocale: () => {},
     localeLoading: false,
   };
@@ -27,7 +29,7 @@ export default class AppSettings extends React.Component {
   handleLocaleChange = locale => this.props.setLocale(locale);
 
   render() {
-    const { localeLoading } = this.props;
+    const { locale, localeLoading } = this.props;
     return (
       <div className="shifted">
         <div className="container">
@@ -38,7 +40,8 @@ export default class AppSettings extends React.Component {
             <FormattedMessage id="language" defaultMessage="Language" />
           </h2>
           <div>
-            <Select disabled={localeLoading} defaultValue="en" style={{ width: '100%', maxWidth: 240 }} onChange={this.handleLocaleChange}>
+            <Select disabled={localeLoading} value={locale} style={{ width: '100%', maxWidth: 240 }} onChange={this.handleLocaleChange}>
+              <Select.Option value="auto">Auto</Select.Option>
               <Select.Option value="en">English</Select.Option>
               <Select.Option value="zh">简体中文</Select.Option>
               <Select.Option value="cs">Čeština</Select.Option>
