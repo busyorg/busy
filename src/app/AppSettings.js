@@ -3,27 +3,31 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { Select } from 'antd';
-import { getLocale } from '../reducers';
+import { getLocale, getIsLocaleLoading } from '../reducers';
 import { setLocale } from './appActions';
 
 @connect(
   state => ({
     locale: getLocale(state),
+    localeLoading: getIsLocaleLoading(state),
   }),
   { setLocale },
 )
 export default class AppSettings extends React.Component {
   static propTypes = {
     setLocale: PropTypes.func,
+    localeLoading: PropTypes.bool,
   };
 
   static defaultProps = {
     setLocale: () => {},
+    localeLoading: false,
   };
 
   handleLocaleChange = locale => this.props.setLocale(locale);
 
   render() {
+    const { localeLoading } = this.props;
     return (
       <div className="shifted">
         <div className="container">
@@ -34,7 +38,7 @@ export default class AppSettings extends React.Component {
             <FormattedMessage id="language" defaultMessage="Language" />
           </h2>
           <div>
-            <Select defaultValue="en" style={{ width: '100%', maxWidth: 240 }} onChange={this.handleLocaleChange}>
+            <Select disabled={localeLoading} defaultValue="en" style={{ width: '100%', maxWidth: 240 }} onChange={this.handleLocaleChange}>
               <Select.Option value="en">English</Select.Option>
               <Select.Option value="zh">简体中文</Select.Option>
               <Select.Option value="cs">Čeština</Select.Option>
