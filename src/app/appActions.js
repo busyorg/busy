@@ -2,17 +2,7 @@ import Promise from 'bluebird';
 import SteemConnect from 'sc2-sdk';
 import fetch from 'isomorphic-fetch';
 
-export const CONFIG_REQUEST = '@app/CONFIG_REQUEST';
-export const CONFIG_SUCCESS = '@app/CONFIG_SUCCESS';
-export const CONFIG_FAILURE = '@app/CONFIG_FAILURE';
-
-export const FEED_REQUEST = '@app/FEED_REQUEST';
-export const FEED_SUCCESS = '@app/FEED_SUCCESS';
-export const FEED_FAILURE = '@app/FEED_FAILURE';
-export const CONTENT_REQUEST = '@app/CONTENT_REQUEST';
-export const CONTENT_SUCCESS = '@app/CONTENT_SUCCESS';
-export const ACCOUNT_REQUEST = '@app/ACCOUNT_REQUEST';
-export const ACCOUNT_SUCCESS = '@app/ACCOUNT_SUCCESS';
+const updateUserMetadata = Promise.promisify(SteemConnect.updateUserMetadata);
 
 export const GET_LOCALE = '@app/GET_LOCALE';
 
@@ -21,18 +11,13 @@ export const SET_LOCALE_START = '@app/SET_LOCALE_START';
 export const SET_LOCALE_SUCCESS = '@app/SET_LOCALE_SUCCESS';
 export const SET_LOCALE_ERROR = '@app/SET_LOCALE_ERROR';
 
-const updateUserMetadata = Promise.promisify(SteemConnect.updateUserMetadata);
+export const GET_TRENDING_TOPICS = '@app/GET_TRENDING_TOPICS';
+export const GET_TRENDING_TOPICS_START = '@app/GET_TRENDING_TOPICS_START';
+export const GET_TRENDING_TOPICS_SUCCESS = '@app/GET_TRENDING_TOPICS_SUCCESS';
+export const GET_TRENDING_TOPICS_ERROR = '@app/GET_TRENDING_TOPICS_ERROR';
 
-export const getConfig = () =>
-  (dispatch, getState, { steemAPI }) => {
-    dispatch({ type: CONFIG_REQUEST });
-    steemAPI.getConfig((err, config) => {
-      dispatch({
-        type: CONFIG_SUCCESS,
-        config,
-      });
-    });
-  };
+export const RATE_REQUEST = '@app/RATE_REQUEST';
+export const RATE_SUCCESS = '@app/RATE_SUCCESS';
 
 export const setLocale = locale =>
   (dispatch) => {
@@ -44,9 +29,6 @@ export const setLocale = locale =>
       },
     });
   };
-
-export const RATE_REQUEST = '@app/RATE_REQUEST';
-export const RATE_SUCCESS = '@app/RATE_SUCCESS';
 
 export const getRate = () =>
   (dispatch) => {
@@ -61,11 +43,6 @@ export const getRate = () =>
         });
       });
   };
-
-export const GET_TRENDING_TOPICS = '@app/GET_TRENDING_TOPICS';
-export const GET_TRENDING_TOPICS_START = '@app/GET_TRENDING_TOPICS_START';
-export const GET_TRENDING_TOPICS_SUCCESS = '@app/GET_TRENDING_TOPICS_SUCCESS';
-export const GET_TRENDING_TOPICS_ERROR = '@app/GET_TRENDING_TOPICS_ERROR';
 
 export const getTrendingTopics = () => (dispatch, getState, { steemAPI }) => {
   const getTrendingTagsAsync = Promise.promisify(steemAPI.getTrendingTags, { context: steemAPI });

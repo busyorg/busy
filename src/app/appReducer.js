@@ -4,7 +4,6 @@ import * as postActions from '../post/postActions';
 const initialState = {
   isFetching: false,
   isLoaded: false,
-  errorMessage: '',
   locale: 'auto',
   rate: 0,
   trendingTopicsLoading: false,
@@ -13,46 +12,6 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case appTypes.FEED_REQUEST:
-      return Object.assign({}, state, {
-        isFetching: true,
-        isLoaded: false,
-      });
-    case appTypes.FEED_SUCCESS:
-      return Object.assign({}, state, {
-        isFetching: false,
-        isLoaded: true,
-      });
-    case appTypes.FEED_FAILURE:
-      return Object.assign({}, state, {
-        isFetching: false,
-        isLoaded: true,
-      });
-    case appTypes.CONTENT_REQUEST:
-      return Object.assign({}, state, {
-        isFetching: true,
-        isLoaded: false,
-      });
-    case appTypes.CONTENT_SUCCESS:
-      return Object.assign({}, state, {
-        isFetching: false,
-        isLoaded: true,
-      });
-    case appTypes.ACCOUNT_REQUEST:
-      return Object.assign({}, state, {
-        isFetching: true,
-        isLoaded: false,
-      });
-    case appTypes.ACCOUNT_SUCCESS:
-      return Object.assign({}, state, {
-        isFetching: false,
-        isLoaded: true,
-      });
-    case appTypes.CONFIG_SUCCESS:
-      return Object.assign({}, state, {
-        config: action.config,
-      });
-
     case appTypes.GET_LOCALE:
       return {
         ...state,
