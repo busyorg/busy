@@ -59,10 +59,10 @@ export default (state = initialState, action) => {
         locale: action.payload.locale,
       };
 
-    case appTypes.SET_LOCALE:
+    case appTypes.SET_LOCALE_SUCCESS:
       return {
         ...state,
-        locale: action.payload.locale,
+        locale: action.payload,
       };
 
     case appTypes.RATE_SUCCESS:
