@@ -2,41 +2,44 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
-import { getFeed, getPosts } from '../reducers';
+import Loading from '../components/Icon/Loading';
+import { getFeed, getPosts, getIsReloading } from '../reducers';
 import Feed from '../feed/Feed';
 import {
   getFeedContentFromState,
   getFeedLoadingFromState,
   getFeedHasMoreFromState,
 } from '../helpers/stateHelpers';
+import { reload } from '../auth/authActions';
 import { getBookmarks } from './bookmarksActions';
 
 @connect(
   state => ({
     feed: getFeed(state),
     posts: getPosts(state),
-  }),
-  dispatch => ({
-    getBookmarks: () => dispatch(getBookmarks()),
-  }),
-)
+    reloading: getIsReloading(state),
+  }), { getBookmarks, reload })
 export default class Bookmarks extends React.Component {
   static propTypes = {
+    reloading: PropTypes.bool,
     feed: PropTypes.shape().isRequired,
     posts: PropTypes.shape().isRequired,
     getBookmarks: PropTypes.func,
+    reload: PropTypes.func,
   };
 
   static defaultProps = {
+    reloading: false,
     getBookmarks: () => {},
+    reload: () => {},
   };
 
   componentDidMount() {
-    this.props.getBookmarks();
+    this.props.reload().then(() => this.props.getBookmarks());
   }
 
   render() {
-    const { feed, posts } = this.props;
+    const { reloading, feed, posts } = this.props;
 
     const content = getFeedContentFromState('bookmarks', 'all', feed, posts);
     const isFetching = getFeedLoadingFromState('bookmarks', 'all', feed);
@@ -50,14 +53,15 @@ export default class Bookmarks extends React.Component {
           <h1 className="text-center">
             <FormattedMessage id="bookmarks" defaultMessage="Bookmarks" />
           </h1>
-          <Feed
+          {reloading && <Loading />}
+          {!reloading && <Feed
             content={content}
             isFetching={isFetching}
             hasMore={hasMore}
             loadContent={loadContentAction}
             loadMoreContent={loadMoreContentAction}
-          />
-          {!isFetching &&
+          />}
+          {!reloading && !isFetching &&
             !content.length &&
             <div className="container">
               <h3 className="text-center">
