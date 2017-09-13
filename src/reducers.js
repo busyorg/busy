@@ -40,6 +40,7 @@ export default reducers;
 export const getIsAuthenticated = state => fromAuth.getIsAuthenticated(state.auth);
 export const getIsAuthFetching = state => fromAuth.getIsAuthFetching(state.auth);
 export const getIsLoaded = state => fromAuth.getIsLoaded(state.auth);
+export const getIsReloading = state => fromAuth.getIsReloading(state.auth);
 export const getAuthenticatedUser = state => fromAuth.getAuthenticatedUser(state.auth);
 export const getAuthenticatedUserName = state => fromAuth.getAuthenticatedUserName(state.auth);
 

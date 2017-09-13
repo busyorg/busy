@@ -11,6 +11,11 @@ export const LOGIN_START = '@auth/LOGIN_START';
 export const LOGIN_SUCCESS = '@auth/LOGIN_SUCCESS';
 export const LOGIN_ERROR = '@auth/LOGIN_ERROR';
 
+export const RELOAD = '@auth/RELOAD';
+export const RELOAD_START = '@auth/RELOAD_START';
+export const RELOAD_SUCCESS = '@auth/RELOAD_SUCCESS';
+export const RELOAD_ERROR = '@auth/RELOAD_ERROR';
+
 export const LOGOUT = '@auth/LOGOUT';
 export const LOGOUT_START = '@auth/LOGOUT_START';
 export const LOGOUT_ERROR = '@auth/LOGOUT_ERROR';
@@ -34,6 +39,14 @@ export const login = () => (dispatch) => {
     },
   });
 };
+
+export const reload = () => dispatch =>
+  dispatch({
+    type: RELOAD,
+    payload: {
+      promise: steemConnect.me(),
+    },
+  });
 
 export const logout = () => (dispatch) => {
   dispatch({

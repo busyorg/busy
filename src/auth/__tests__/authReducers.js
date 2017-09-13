@@ -5,6 +5,7 @@ import authReducer from '../authReducer';
 const initialStateMock = {
   isAuthenticated: false,
   isFetching: false,
+  isReloading: false,
   loaded: false,
   user: {},
 };

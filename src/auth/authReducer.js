@@ -3,6 +3,7 @@ import * as types from './authActions';
 const initialState = {
   isAuthenticated: false,
   isFetching: false,
+  isReloading: false,
   loaded: false,
   user: {},
 };
@@ -32,6 +33,17 @@ export default (state = initialState, action) => {
         isAuthenticated: false,
         loaded: true,
       };
+    case types.RELOAD_START:
+      return {
+        ...state,
+        isReloading: true,
+      };
+    case types.RELOAD_SUCCESS:
+    case types.RELOAD_ERROR:
+      return {
+        ...state,
+        isReloading: false,
+      };
     case types.LOGOUT_START:
       return {
         ...state,
@@ -54,5 +66,6 @@ export default (state = initialState, action) => {
 export const getIsAuthenticated = state => state.isAuthenticated;
 export const getIsAuthFetching = state => state.isFetching;
 export const getIsLoaded = state => state.loaded;
+export const getIsReloading = state => state.isReloading;
 export const getAuthenticatedUser = state => state.user;
 export const getAuthenticatedUserName = state => state.user.name;
