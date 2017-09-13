@@ -1,9 +1,12 @@
+import * as authActions from '../auth/authActions';
 import * as bookmarksActions from './bookmarksActions';
 
 const initialState = {};
 
 const bookmarks = (state = initialState, action) => {
   switch (action.type) {
+    case authActions.LOGIN_SUCCESS:
+      return action.payload.user_metadata.bookmarks || initialState;
     case bookmarksActions.TOGGLE_BOOKMARK_SUCCESS:
       return action.payload;
     case bookmarksActions.REMOVE_BOOKMARK:
