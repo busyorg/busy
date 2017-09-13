@@ -1,4 +1,5 @@
 import { toggleBookmarkMetadata } from '../helpers/metadata';
+import { getBookmarks as getBookmarksSelector } from '../reducers';
 
 export const GET_BOOKMARKS = '@bookmarks/GET_BOOKMARKS';
 export const GET_BOOKMARKS_START = '@bookmarks/GET_BOOKMARKS_START';
@@ -29,7 +30,7 @@ async function getBookmarksData(bookmarks, steemAPI) {
 }
 
 export const getBookmarks = () => (dispatch, getState, { steemAPI }) => {
-  const { bookmarks } = getState();
+  const bookmarks = getBookmarksSelector(getState());
 
   dispatch({
     type: GET_BOOKMARKS,
@@ -48,4 +49,5 @@ export const toggleBookmark = (postId, author, permlink) => dispatch =>
     payload: {
       promise: toggleBookmarkMetadata(postId, author, permlink),
     },
+    meta: { id: postId },
   }).then(() => dispatch(getBookmarks()));
