@@ -14,4 +14,16 @@ export const setLocaleMetadata = locale => getMetadata()
   )
   .then(resp => resp.user_metadata.locale);
 
+export const addDraftMetadata = draft => getMetadata()
+  .then(metadata =>
+    SteemConnect.updateUserMetadata({
+      ...metadata,
+      drafts: {
+        ...metadata.drafts,
+        [draft.id]: draft.postData,
+      },
+    }),
+  )
+  .then(resp => resp.user_metadata.drafts[draft.id]);
+
 export default getMetadata;

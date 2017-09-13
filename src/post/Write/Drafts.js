@@ -27,7 +27,7 @@ class Drafts extends React.Component {
             <h3 className="text-center">
               <FormattedMessage id="drafts_empty" defaultMessage="You don't have any draft saved" />
             </h3>}
-          {_.map(draftPosts, (draft, key) => <DraftRow key={key} data={draft.postData} id={key} />)}
+          {_.map(draftPosts, (draft, key) => <DraftRow key={key} data={draft} id={key} />)}
         </div>
       </div>
     );

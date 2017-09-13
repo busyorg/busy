@@ -66,21 +66,20 @@ class Write extends React.Component {
     const { draftPosts, location: { search } } = this.props;
     const draftId = new URLSearchParams(search).get('draft');
     const draftPost = draftPosts[draftId];
-    const postData = draftPost && draftPost.postData;
 
-    if (postData) {
-      const { jsonMetadata } = postData;
+    if (draftPost) {
+      const { jsonMetadata } = draftPost;
       let tags = [];
       if (isArray(jsonMetadata.tags)) {
         tags = jsonMetadata.tags;
       }
       // eslint-disable-next-line
       this.setState({
-        initialTitle: postData.title || '',
+        initialTitle: draftPost.title || '',
         initialTopics: tags || [],
-        initialBody: postData.body || '',
-        initialReward: postData.reward || '50',
-        initialUpvote: postData.upvote,
+        initialBody: draftPost.body || '',
+        initialReward: draftPost.reward || '50',
+        initialUpvote: draftPost.upvote,
       });
     }
   }

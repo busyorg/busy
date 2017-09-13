@@ -40,12 +40,10 @@ const editor = (state = defaultState, action) => {
         loading: false,
         success: true,
       };
-    case editorActions.SAVE_DRAFT: {
-      const { postData } = action.payload;
-      const id = action.payload.id;
+    case editorActions.SAVE_DRAFT_SUCCESS: {
       return {
         ...state,
-        draftPosts: { ...state.draftPosts, [id]: { postData } },
+        draftPosts: { ...state.draftPosts, [action.meta.postId]: action.payload },
       };
     }
     case editorActions.DELETE_DRAFT: {
