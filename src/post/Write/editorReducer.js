@@ -1,4 +1,5 @@
 import omit from 'lodash/omit';
+import * as authActions from '../../auth/authActions';
 import * as editorActions from './editorActions';
 import * as userActions from '../../user/userActions';
 
@@ -11,6 +12,11 @@ const defaultState = {
 
 const editor = (state = defaultState, action) => {
   switch (action.type) {
+    case authActions.LOGIN_SUCCESS:
+      return {
+        ...state,
+        draftPosts: action.payload.user_metadata.drafts || defaultState.draftPosts,
+      };
     case editorActions.NEW_POST:
       return {
         ...state,
