@@ -1,4 +1,3 @@
-import omit from 'lodash/omit';
 import * as authActions from '../../auth/authActions';
 import * as editorActions from './editorActions';
 import * as userActions from '../../user/userActions';
@@ -52,10 +51,10 @@ const editor = (state = defaultState, action) => {
         draftPosts: { ...state.draftPosts, [action.meta.postId]: action.payload },
       };
     }
-    case editorActions.DELETE_DRAFT: {
+    case editorActions.DELETE_DRAFT_SUCCESS: {
       return {
         ...state,
-        draftPosts: omit(state.draftPosts, action.payload),
+        draftPosts: action.payload,
       };
     }
     case userActions.UPLOAD_FILE_START:

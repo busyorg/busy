@@ -3,7 +3,7 @@ import assert from 'assert';
 import SteemConnect from 'sc2-sdk';
 import { push } from 'react-router-redux';
 import { createAction } from 'redux-actions';
-import { addDraftMetadata } from '../../helpers/metadata';
+import { addDraftMetadata, deleteDraftMetadata } from '../../helpers/metadata';
 import { jsonParse } from '../../helpers/formatter';
 import { createPermlink, getBodyPatchIfSmaller } from '../../vendor/steemitHelpers';
 
@@ -21,7 +21,9 @@ export const SAVE_DRAFT_SUCCESS = '@editor/SAVE_DRAFT_SUCCESS';
 export const SAVE_DRAFT_ERROR = '@editor/SAVE_DRAFT_ERROR';
 
 export const DELETE_DRAFT = '@editor/DELETE_DRAFT';
-export const deleteDraft = createAction(DELETE_DRAFT);
+export const DELETE_DRAFT_START = '@editor/DELETE_DRAFT_START';
+export const DELETE_DRAFT_SUCCESS = '@editor/DELETE_DRAFT_SUCCESS';
+export const DELETE_DRAFT_ERROR = '@editor/DELETE_DRAFT_ERROR';
 
 export const saveDraft = (post, redirect) => (dispatch) => {
   dispatch({
@@ -36,6 +38,15 @@ export const saveDraft = (post, redirect) => (dispatch) => {
         }),
     },
     meta: { postId: post.id },
+  });
+};
+
+export const deleteDraft = draftId => (dispatch) => {
+  dispatch({
+    type: DELETE_DRAFT,
+    payload: {
+      promise: deleteDraftMetadata(draftId),
+    },
   });
 };
 

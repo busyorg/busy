@@ -1,5 +1,6 @@
 import Promise from 'bluebird';
 import SteemConnect from 'sc2-sdk';
+import omit from 'lodash/omit';
 
 Promise.promisifyAll(SteemConnect, { context: SteemConnect });
 
@@ -25,5 +26,14 @@ export const addDraftMetadata = draft => getMetadata()
     }),
   )
   .then(resp => resp.user_metadata.drafts[draft.id]);
+
+export const deleteDraftMetadata = draftId => getMetadata()
+  .then(metadata =>
+    SteemConnect.updateUserMetadata({
+      ...metadata,
+      drafts: omit(metadata.drafts, draftId),
+    }),
+  )
+  .then(resp => resp.user_metadata.drafts);
 
 export default getMetadata;
