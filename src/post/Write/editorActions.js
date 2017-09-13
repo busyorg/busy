@@ -47,6 +47,7 @@ export const deleteDraft = draftId => (dispatch) => {
     payload: {
       promise: deleteDraftMetadata(draftId),
     },
+    meta: { id: draftId },
   });
 };
 

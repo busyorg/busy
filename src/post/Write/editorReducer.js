@@ -7,6 +7,7 @@ const defaultState = {
   error: null,
   success: false,
   draftPosts: {},
+  pendingDrafts: [],
 };
 
 const editor = (state = defaultState, action) => {
@@ -51,12 +52,26 @@ const editor = (state = defaultState, action) => {
         draftPosts: { ...state.draftPosts, [action.meta.postId]: action.payload },
       };
     }
+    case editorActions.DELETE_DRAFT_START:
+      return {
+        ...state,
+        pendingDrafts: [
+          ...state.pendingDrafts,
+          action.meta.id,
+        ],
+      };
     case editorActions.DELETE_DRAFT_SUCCESS: {
       return {
         ...state,
         draftPosts: action.payload,
+        pendingDrafts: state.pendingDrafts.filter(id => id !== action.meta.id),
       };
     }
+    case editorActions.DELETE_DRAFT_ERROR:
+      return {
+        ...state,
+        pendingDrafts: state.pendingDrafts.filter(id => id !== action.meta.id),
+      };
     case userActions.UPLOAD_FILE_START:
       return { ...state, loadingImg: true };
 
@@ -72,3 +87,4 @@ export default editor;
 
 export const getDraftPosts = state => state.draftPosts;
 export const getIsEditorLoading = state => state.loading;
+export const getPendingDrafts = state => state.pendingDrafts;

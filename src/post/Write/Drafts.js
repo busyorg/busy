@@ -5,23 +5,26 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import Loading from '../../components/Icon/Loading';
 import { reload } from '../../auth/authActions';
-import { getDraftPosts, getIsReloading } from '../../reducers';
+import { getDraftPosts, getPendingDrafts, getIsReloading } from '../../reducers';
 
 import DraftRow from './DraftRow';
 
 @connect(state => ({
   reloading: getIsReloading(state),
   draftPosts: getDraftPosts(state),
+  pendingDrafts: getPendingDrafts(state),
 }), { reload })
 class Drafts extends React.Component {
   static propTypes = {
     reloading: PropTypes.bool,
     draftPosts: PropTypes.shape().isRequired,
+    pendingDrafts: PropTypes.arrayOf(PropTypes.string),
     reload: PropTypes.func,
   };
 
   static defaultProps = {
     reloading: false,
+    pendingDrafts: [],
     reload: () => {},
   };
 
@@ -30,7 +33,7 @@ class Drafts extends React.Component {
   }
 
   render() {
-    const { reloading, draftPosts } = this.props;
+    const { reloading, draftPosts, pendingDrafts } = this.props;
 
     return (
       <div className="shifted">
@@ -42,7 +45,7 @@ class Drafts extends React.Component {
               <FormattedMessage id="drafts_empty" defaultMessage="You don't have any draft saved" />
             </h3>}
           {!reloading && _.map(draftPosts, (draft, key) =>
-            <DraftRow key={key} data={draft} id={key} />)
+            <DraftRow key={key} data={draft} id={key} pending={pendingDrafts.includes(key)} />)
           }
         </div>
       </div>

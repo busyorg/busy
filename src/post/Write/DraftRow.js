@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Button } from 'antd';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -10,15 +11,19 @@ class DraftRow extends React.Component {
   static propTypes = {
     id: PropTypes.string.isRequired,
     data: PropTypes.shape().isRequired,
+    pending: PropTypes.bool,
     deleteDraft: PropTypes.func,
   };
 
   static defaultProps = {
+    pending: false,
     deleteDraft: () => {},
   };
 
+  handleDeleteClick = () => this.props.deleteDraft(this.props.id);
+
   render() {
-    const { id, data } = this.props;
+    const { id, data, pending } = this.props;
     let { title = '', body = '' } = data;
     title = title.trim();
     body = body.replace(/\r?\n|\r|[\u200B-\u200D\uFEFF]/g, ' ').substring(0, 50);
@@ -33,14 +38,9 @@ class DraftRow extends React.Component {
           </h3>
         </Link>
         <div>
-          <a
-            role="presentation"
-            onClick={() => {
-              this.props.deleteDraft(id);
-            }}
-          >
+          <Button loading={pending} type="danger" onClick={this.handleDeleteClick}>
             <FormattedMessage id="draft_delete" defaultMessage="Delete this draft" />
-          </a>
+          </Button>
         </div>
       </div>
     );
