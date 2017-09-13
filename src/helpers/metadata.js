@@ -36,4 +36,15 @@ export const deleteDraftMetadata = draftId => getMetadata()
   )
   .then(resp => resp.user_metadata.drafts);
 
+export const toggleBookmarkMetadata = (id, author, permlink) => getMetadata()
+  .then(metadata =>
+    SteemConnect.updateUserMetadata({
+      ...metadata,
+      bookmarks: (metadata.bookmarks && metadata.bookmarks[id])
+        ? omit(metadata.bookmarks, id)
+        : { ...metadata.bookmarks, [id]: { id, author, permlink } },
+    }),
+  )
+  .then(resp => resp.user_metadata.bookmarks);
+
 export default getMetadata;
