@@ -42,11 +42,10 @@ export const getBookmarks = () => (dispatch, getState, { steemAPI }) => {
   });
 };
 
-export const toggleBookmark = (postId, author, permlink) => (dispatch) => {
+export const toggleBookmark = (postId, author, permlink) => dispatch =>
   dispatch({
     type: TOGGLE_BOOKMARK,
     payload: {
       promise: toggleBookmarkMetadata(postId, author, permlink),
     },
-  });
-};
+  }).then(() => dispatch(getBookmarks()));
