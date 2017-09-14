@@ -79,6 +79,7 @@ class Story extends React.Component {
 
     if (post.first_reblogged_by) {
       rebloggedUI = (<div className="Story__reblog">
+        <i className="iconfont icon-share1" />
         <FormattedMessage
           id="reblogged_username"
           defaultMessage="{username} reblogged"
@@ -89,6 +90,7 @@ class Story extends React.Component {
       </div>);
     } else if (post.first_reblogged_on) {
       rebloggedUI = (<div className="Story__reblog">
+        <i className="iconfont icon-share1" />
         <FormattedMessage id="reblogged" defaultMessage="Reblogged" />
       </div>);
     }
