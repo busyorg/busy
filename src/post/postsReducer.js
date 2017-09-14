@@ -25,13 +25,13 @@ const initialState = {
 };
 
 const posts = (state = initialState, action) => {
-  const postsTemp = {};
   switch (action.type) {
     case feedTypes.GET_FEED_CONTENT_SUCCESS:
     case feedTypes.GET_MORE_FEED_CONTENT_SUCCESS:
     case feedTypes.GET_USER_FEED_CONTENT_SUCCESS:
     case feedTypes.GET_MORE_USER_FEED_CONTENT_SUCCESS:
-    case bookmarksActions.GET_BOOKMARKS_SUCCESS:
+    case bookmarksActions.GET_BOOKMARKS_SUCCESS: {
+      const postsTemp = {};
       action.payload.postsData.forEach((post) => { postsTemp[post.id] = post; });
       return {
         ...state,
@@ -40,6 +40,7 @@ const posts = (state = initialState, action) => {
           ...postsTemp,
         },
       };
+    }
     case postsActions.GET_CONTENT_SUCCESS:
       if (action.meta.afterLike) {
         return {
