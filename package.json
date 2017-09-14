@@ -105,7 +105,6 @@
     "redux": "^3.5.2",
     "redux-actions": "^0.12.0",
     "redux-infinite-scroll": "^1.0.9",
-    "redux-localstorage": "^0.4.1",
     "redux-promise-middleware": "^4.0.0",
     "redux-thunk": "^2.1.0",
     "remarkable": "^1.7.1",

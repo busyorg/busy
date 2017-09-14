@@ -19,6 +19,7 @@ class Story extends React.Component {
     postState: PropTypes.shape().isRequired,
     pendingLike: PropTypes.bool,
     pendingFollow: PropTypes.bool,
+    pendingBookmark: PropTypes.bool,
     onFollowClick: PropTypes.func,
     onSaveClick: PropTypes.func,
     onReportClick: PropTypes.func,
@@ -29,6 +30,7 @@ class Story extends React.Component {
   static defaultProps = {
     pendingLike: false,
     pendingFollow: false,
+    pendingBookmark: false,
     onFollowClick: () => {},
     onSaveClick: () => {},
     onReportClick: () => {},
@@ -59,6 +61,7 @@ class Story extends React.Component {
       postState,
       pendingLike,
       pendingFollow,
+      pendingBookmark,
       onLikeClick,
       onShareClick,
     } = this.props;
@@ -109,7 +112,7 @@ class Story extends React.Component {
                   {followText}
                 </PopoverMenuItem>
                 <PopoverMenuItem key="save">
-                  <i className="iconfont icon-collection" />
+                  {pendingBookmark ? <Icon type="loading" /> : <i className="iconfont icon-collection" />}
                   <FormattedMessage id={postState.isSaved ? 'unsave_post' : 'save_post'} defaultMessage={postState.isSaved ? 'Unsave post' : 'Save post'} />
                 </PopoverMenuItem>
                 <PopoverMenuItem key="report">

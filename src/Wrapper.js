@@ -9,7 +9,7 @@ import Cookie from 'js-cookie';
 import { getAuthenticatedUser, getLocale } from './reducers';
 
 import { login, logout } from './auth/authActions';
-import { getConfig, getRate, getTrendingTopics } from './app/appActions';
+import { getRate, getTrendingTopics } from './app/appActions';
 import Topnav from './components/Navigation/Topnav';
 import Transfer from './wallet/Transfer';
 import * as reblogActions from './app/Reblog/reblogActions';
@@ -24,7 +24,6 @@ import getTranslations, { getAvailableLocale } from './translations';
   {
     login,
     logout,
-    getConfig,
     getRate,
     getTrendingTopics,
     getRebloggedList: reblogActions.getRebloggedList,
@@ -38,7 +37,6 @@ export default class Wrapper extends React.PureComponent {
     history: PropTypes.shape().isRequired,
     login: PropTypes.func,
     logout: PropTypes.func,
-    getConfig: PropTypes.func,
     getRebloggedList: PropTypes.func,
     getRate: PropTypes.func,
     getTrendingTopics: PropTypes.func,
@@ -47,7 +45,6 @@ export default class Wrapper extends React.PureComponent {
   static defaultProps = {
     login: () => {},
     logout: () => {},
-    getConfig: () => {},
     getRebloggedList: () => {},
     getRate: () => {},
     getTrendingTopics: () => {},
@@ -57,7 +54,6 @@ export default class Wrapper extends React.PureComponent {
     if (Cookie.get('access_token')) {
       this.props.login();
     }
-    this.props.getConfig();
     this.props.getRebloggedList();
     this.props.getRate();
     this.props.getTrendingTopics();
