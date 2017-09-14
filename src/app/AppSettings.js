@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { Select } from 'antd';
 import Loading from '../components/Icon/Loading';
+import { getBrowserLocale } from '../translations';
 import { getLocale, getIsLocaleLoading, getIsReloading } from '../reducers';
 import { setLocale } from './appActions';
 import { reload } from '../auth/authActions';
@@ -39,10 +40,37 @@ export default class AppSettings extends React.Component {
     this.props.reload();
   }
 
+  languages = {
+    en: 'English',
+    zh: '简体中文',
+    cs: 'Čeština',
+    es: 'Español',
+    fr: 'Français',
+    pl: 'Polski',
+    de: 'Deutsch',
+    ru: 'Русский',
+    ko: '한국어',
+    nl: 'Nederlands',
+    sv: 'Svenska',
+  };
+
   handleLocaleChange = locale => this.props.setLocale(locale);
 
   render() {
     const { reloading, locale, localeLoading } = this.props;
+
+    const detectedLocale = getBrowserLocale();
+
+    const languageOptions = [];
+
+    Object.keys(this.languages).forEach((key) => {
+      languageOptions.push(
+        <Select.Option key={key} value={key}>
+          {this.languages[key]}
+          {detectedLocale === key && <span>{' '}<FormattedMessage id="detected" defaultMessage="(detected)" /></span> }
+        </Select.Option>);
+    });
+
     return (
       <div className="shifted">
         <div className="container">
@@ -59,17 +87,7 @@ export default class AppSettings extends React.Component {
                   <Select.Option disabled value="auto">
                     <FormattedMessage id="select_language" defaultMessage="Select your language" />
                   </Select.Option>
-                  <Select.Option value="en">English</Select.Option>
-                  <Select.Option value="zh">简体中文</Select.Option>
-                  <Select.Option value="cs">Čeština</Select.Option>
-                  <Select.Option value="es">Español</Select.Option>
-                  <Select.Option value="fr">Français</Select.Option>
-                  <Select.Option value="pl">Polski</Select.Option>
-                  <Select.Option value="de">Deutsch</Select.Option>
-                  <Select.Option value="ru">Русский</Select.Option>
-                  <Select.Option value="ko">한국어</Select.Option>
-                  <Select.Option value="nl">Nederlands</Select.Option>
-                  <Select.Option value="sv">Svenska</Select.Option>
+                  {languageOptions}
                 </Select>
               </div>
             </div>
