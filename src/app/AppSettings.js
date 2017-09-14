@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { Select } from 'antd';
 import Loading from '../components/Icon/Loading';
-import { getBrowserLocale } from '../translations';
 import { getLocale, getIsLocaleLoading, getIsReloading } from '../reducers';
 import { setLocale } from './appActions';
 import { reload } from '../auth/authActions';
@@ -59,8 +58,6 @@ export default class AppSettings extends React.Component {
   render() {
     const { reloading, locale, localeLoading } = this.props;
 
-    const detectedLocale = getBrowserLocale();
-
     const languageOptions = [];
 
     if (locale === 'auto') {
@@ -73,7 +70,6 @@ export default class AppSettings extends React.Component {
       languageOptions.push(
         <Select.Option key={key} value={key}>
           {this.languages[key]}
-          {detectedLocale === key && <span>{' '}<FormattedMessage id="detected" defaultMessage="(detected)" /></span> }
         </Select.Option>);
     });
 
