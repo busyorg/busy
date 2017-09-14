@@ -63,6 +63,12 @@ export default class AppSettings extends React.Component {
 
     const languageOptions = [];
 
+    if (locale === 'auto') {
+      languageOptions.push(<Select.Option disabled value="auto">
+        <FormattedMessage key="auto" id="select_language" defaultMessage="Select your language" />
+      </Select.Option>);
+    }
+
     Object.keys(this.languages).forEach((key) => {
       languageOptions.push(
         <Select.Option key={key} value={key}>
@@ -84,9 +90,6 @@ export default class AppSettings extends React.Component {
               </h2>
               <div>
                 <Select disabled={localeLoading} value={locale} style={{ width: '100%', maxWidth: 240 }} onChange={this.handleLocaleChange}>
-                  <Select.Option disabled value="auto">
-                    <FormattedMessage id="select_language" defaultMessage="Select your language" />
-                  </Select.Option>
                   {languageOptions}
                 </Select>
               </div>
