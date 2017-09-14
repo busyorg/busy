@@ -31,6 +31,8 @@
   "followed":"Following",
   "unfollowing":"Unfollowing",
   "followers":"Followers",
+  "reblogged":"Reblogged",
+  "reblogged_username":"{username} reblogged",
   "follow_username":"Follow {username}",
   "unfollow_username":"Unfollow {username}",
   "block_user":"Block this user",
