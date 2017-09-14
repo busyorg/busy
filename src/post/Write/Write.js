@@ -8,7 +8,7 @@ import isArray from 'lodash/isArray';
 import 'url-search-params-polyfill';
 import GetBoost from '../../components/Sidebar/GetBoost';
 
-import { getAuthenticatedUser, getDraftPosts, getIsEditorLoading } from '../../reducers';
+import { getAuthenticatedUser, getDraftPosts, getIsEditorLoading, getIsEditorSaving } from '../../reducers';
 
 import { createPost, saveDraft, newPost } from './editorActions';
 import { notify } from '../../app/Notification/notificationActions';
@@ -23,6 +23,7 @@ const version = require('../../../package.json').version;
     user: getAuthenticatedUser(state),
     draftPosts: getDraftPosts(state),
     loading: getIsEditorLoading(state),
+    saving: getIsEditorSaving(state),
   }),
   {
     createPost,
@@ -36,6 +37,7 @@ class Write extends React.Component {
     user: PropTypes.shape().isRequired,
     draftPosts: PropTypes.shape().isRequired,
     loading: PropTypes.bool.isRequired,
+    saving: PropTypes.bool,
     location: PropTypes.shape().isRequired,
     newPost: PropTypes.func,
     createPost: PropTypes.func,
@@ -44,6 +46,7 @@ class Write extends React.Component {
   };
 
   static defaultProps = {
+    saving: false,
     newPost: () => {},
     createPost: () => {},
     saveDraft: () => {},
@@ -206,7 +209,7 @@ class Write extends React.Component {
 
   render() {
     const { initialTitle, initialTopics, initialBody, initialReward, initialUpvote } = this.state;
-    const { loading } = this.props;
+    const { loading, saving } = this.props;
 
     return (
       <div className="shifted">
@@ -219,6 +222,7 @@ class Write extends React.Component {
           <div className="center">
             <Editor
               ref={this.setForm}
+              saving={saving}
               title={initialTitle}
               topics={initialTopics}
               body={initialBody}

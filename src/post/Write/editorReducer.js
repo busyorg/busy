@@ -6,6 +6,7 @@ const defaultState = {
   loading: false,
   error: null,
   success: false,
+  saving: false,
   draftPosts: {},
   pendingDrafts: [],
 };
@@ -46,12 +47,22 @@ const editor = (state = defaultState, action) => {
         loading: false,
         success: true,
       };
-    case editorActions.SAVE_DRAFT_SUCCESS: {
+    case editorActions.SAVE_DRAFT_START:
+      return {
+        ...state,
+        saving: true,
+      };
+    case editorActions.SAVE_DRAFT_SUCCESS:
       return {
         ...state,
         draftPosts: { ...state.draftPosts, [action.meta.postId]: action.payload },
+        saving: false,
       };
-    }
+    case editorActions.SAVE_DRAFT_ERROR:
+      return {
+        ...state,
+        saving: false,
+      };
     case editorActions.DELETE_DRAFT_START:
       return {
         ...state,
@@ -87,4 +98,5 @@ export default editor;
 
 export const getDraftPosts = state => state.draftPosts;
 export const getIsEditorLoading = state => state.loading;
+export const getIsEditorSaving = state => state.saving;
 export const getPendingDrafts = state => state.pendingDrafts;
