@@ -55,7 +55,12 @@ function makePlugins(options) {
         BUSYPUSH_ENDPOINT: process.env.BUSYPUSH_ENDPOINT,
       },
     }),
-    new LodashModuleReplacementPlugin({ collections: true, paths: true, shorthands: true }),
+    new LodashModuleReplacementPlugin({
+      collections: true,
+      paths: true,
+      shorthands: true,
+      flattening: true,
+    }),
     new Visualizer({
       filename: './statistics.html',
     }),
