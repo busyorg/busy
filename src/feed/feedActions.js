@@ -42,11 +42,6 @@ export const getFeedContent = ({ sortBy, category, limit }) => (
   getState,
   { steemAPI },
 ) => {
-  const feed = getState().feed;
-  if (feed[sortBy][category] && feed[sortBy][category].isLoaded) {
-    return null;
-  }
-
   dispatch(
     getFeedContentWithoutAPI({
       sortBy: sortBy || 'trending',
@@ -79,11 +74,6 @@ export const getFeedContent = ({ sortBy, category, limit }) => (
 };
 
 export const getUserFeedContent = ({ username, limit }) => (dispatch, getState, { steemAPI }) => {
-  const { feed } = getState();
-  if (feed.feed[username] && feed.feed[username].isLoaded) {
-    return null;
-  }
-
   const sortBy = 'feed';
 
   dispatch(
