@@ -50,4 +50,4 @@ export const toggleBookmark = (postId, author, permlink) => dispatch =>
       promise: toggleBookmarkMetadata(postId, author, permlink),
     },
     meta: { id: postId },
-  }).then(() => dispatch(getBookmarks()));
+  });

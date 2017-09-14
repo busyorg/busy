@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import Loading from '../components/Icon/Loading';
-import { getFeed, getPosts, getIsReloading } from '../reducers';
+import { getFeed, getPosts, getPendingBookmarks, getIsReloading } from '../reducers';
 import Feed from '../feed/Feed';
 import {
   getFeedContentFromState,
@@ -17,6 +17,7 @@ import { getBookmarks } from './bookmarksActions';
   state => ({
     feed: getFeed(state),
     posts: getPosts(state),
+    pendingBookmarks: getPendingBookmarks(state),
     reloading: getIsReloading(state),
   }), { getBookmarks, reload })
 export default class Bookmarks extends React.Component {
@@ -24,18 +25,26 @@ export default class Bookmarks extends React.Component {
     reloading: PropTypes.bool,
     feed: PropTypes.shape().isRequired,
     posts: PropTypes.shape().isRequired,
+    pendingBookmarks: PropTypes.arrayOf(PropTypes.number),
     getBookmarks: PropTypes.func,
     reload: PropTypes.func,
   };
 
   static defaultProps = {
     reloading: false,
+    pendingBookmarks: [],
     getBookmarks: () => {},
     reload: () => {},
   };
 
-  componentDidMount() {
+  componentWillMount() {
     this.props.reload().then(() => this.props.getBookmarks());
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.pendingBookmarks.length < this.props.pendingBookmarks.length) {
+      this.props.getBookmarks();
+    }
   }
 
   render() {
