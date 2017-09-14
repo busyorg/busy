@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { IntlProvider } from 'react-intl';
-import { Layout } from 'antd';
 import { withRouter } from 'react-router-dom';
+import { Layout } from 'antd';
+import Cookie from 'js-cookie';
 
 import { getAuthenticatedUser, getLocale } from './reducers';
 
@@ -50,7 +51,9 @@ export default class Wrapper extends React.PureComponent {
   }
 
   componentWillMount() {
-    this.props.login();
+    if (Cookie.get('access_token')) {
+      this.props.login();
+    }
     this.props.getRebloggedList();
     this.props.getRate();
     this.props.getTrendingTopics();
