@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import Cookie from 'js-cookie';
 import {
   getFeedContent,
   getMoreFeedContent,
@@ -67,7 +68,7 @@ class SubFeed extends React.Component {
     const sortBy = match.params.sortBy || 'trending';
     const category = match.params.category;
 
-    if (!loaded) return;
+    if (!loaded && Cookie.get('access_token')) return;
 
     if (match.url === '/' && authenticated) {
       this.props.getUserFeedContent(user.name);
@@ -87,7 +88,7 @@ class SubFeed extends React.Component {
     const wasLoaded = this.props.loaded;
     const isLoaded = loaded;
 
-    if (!isLoaded) return;
+    if (!isLoaded && Cookie.get('access_token')) return;
 
     if (
       match.url === '/' &&
