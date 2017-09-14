@@ -56,7 +56,9 @@ export default class AppSettings extends React.Component {
               </h2>
               <div>
                 <Select disabled={localeLoading} value={locale} style={{ width: '100%', maxWidth: 240 }} onChange={this.handleLocaleChange}>
-                  <Select.Option value="auto">Auto</Select.Option>
+                  <Select.Option disabled value="auto">
+                    <FormattedMessage id="select_language" defaultMessage="Select your language" />
+                  </Select.Option>
                   <Select.Option value="en">English</Select.Option>
                   <Select.Option value="zh">简体中文</Select.Option>
                   <Select.Option value="cs">Čeština</Select.Option>
