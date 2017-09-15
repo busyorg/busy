@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
+import classNames from 'classnames';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { HotKeys } from 'react-hotkeys';
 import { throttle } from 'lodash';
@@ -426,9 +427,12 @@ class Editor extends React.Component {
             <Body full body={this.state.contentHtml} />
           </Form.Item>
         }
-        <Form.Item label={<span className="Editor__label"><FormattedMessage id="reward" defaultMessage="Rward" /></span>}>
+        <Form.Item
+          className={classNames({ Editor__hidden: isUpdating })}
+          label={<span className="Editor__label"><FormattedMessage id="reward" defaultMessage="Rward" /></span>}
+        >
           {getFieldDecorator('reward', { initialValue: '50' })(
-            <Select onChange={this.onUpdate}>
+            <Select onChange={this.onUpdate} disabled={isUpdating}>
               <Select.Option value="100">
                 <FormattedMessage id="reward_option_100" defaultMessage="100% Steem Power" />
               </Select.Option>
@@ -441,7 +445,7 @@ class Editor extends React.Component {
             </Select>,
           )}
         </Form.Item>
-        <Form.Item>
+        <Form.Item className={classNames({ Editor__hidden: isUpdating })}>
           {getFieldDecorator('upvote', { valuePropName: 'checked', initialValue: true })(
             <Checkbox onChange={this.onUpdate} disabled={isUpdating}>
               <FormattedMessage id="like_post" defaultMessage="Like this post" />

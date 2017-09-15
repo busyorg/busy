@@ -113,7 +113,7 @@ export const broadcastComment = (
     commentOptionsConfig.percent_steem_dollars = 0;
   }
 
-  if (reward !== '50') {
+  if (reward === '0' || reward === '100') {
     operations.push(['comment_options', commentOptionsConfig]);
   }
 
@@ -165,7 +165,7 @@ export function createPost(postData) {
             title,
             body,
             jsonMetadata,
-            reward,
+            !isUpdating && reward,
             !isUpdating && upvote,
             permlink,
           ).then((result) => {
