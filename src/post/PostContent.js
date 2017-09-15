@@ -13,7 +13,9 @@ import {
   getPendingReblogs,
   getFollowingList,
   getPendingFollows,
+  getIsEditorSaving,
 } from '../reducers';
+import { editPost } from './Write/editorActions';
 import { votePost } from './postActions';
 import { reblog } from '../app/Reblog/reblogActions';
 import { toggleBookmark } from '../bookmarks/bookmarksActions';
@@ -32,9 +34,11 @@ import StoryFull from '../components/Story/StoryFull';
     pendingReblogs: getPendingReblogs(state),
     followingList: getFollowingList(state),
     pendingFollows: getPendingFollows(state),
+    saving: getIsEditorSaving(state),
     state,
   }),
   {
+    editPost,
     votePost,
     reblog,
     toggleBookmark,
@@ -53,6 +57,8 @@ class PostContent extends React.Component {
     pendingFollows: PropTypes.arrayOf(PropTypes.string),
     bookmarks: PropTypes.shape(),
     pendingBookmarks: PropTypes.arrayOf(PropTypes.number).isRequired,
+    saving: PropTypes.bool.isRequired,
+    editPost: PropTypes.func,
     toggleBookmark: PropTypes.func,
     votePost: PropTypes.func,
     reblog: PropTypes.func,
@@ -67,7 +73,7 @@ class PostContent extends React.Component {
     followingList: [],
     pendingFollows: [],
     bookmarks: {},
-    getContent: () => {},
+    editPost: () => {},
     toggleBookmark: () => {},
     votePost: () => {},
     reblog: () => {},
@@ -118,6 +124,10 @@ class PostContent extends React.Component {
     }
   };
 
+  handleEditClick = () => {
+    this.props.editPost(this.props.content);
+  }
+
   render() {
     const {
       user,
@@ -129,6 +139,7 @@ class PostContent extends React.Component {
       pendingFollows,
       bookmarks,
       pendingBookmarks,
+      saving,
     } = this.props;
 
     const postMetaData = jsonParse(content.json_metadata);
@@ -191,11 +202,14 @@ class PostContent extends React.Component {
           pendingLike={pendingLikes.includes(content.id)}
           pendingFollow={pendingFollows.includes(content.author)}
           pendingBookmark={pendingBookmarks.includes(content.id)}
+          saving={saving}
+          ownPost={author === user.name}
           onLikeClick={this.handleLikeClick}
           onReportClick={this.handleReportClick}
           onShareClick={this.handleShareClick}
           onSaveClick={this.handleSaveClick}
           onFollowClick={this.handleFollowClick}
+          onEditClick={this.handleEditClick}
         />
       </div>
     );

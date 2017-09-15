@@ -53,6 +53,8 @@ export const getDraftPosts = state => fromEditor.getDraftPosts(state.editor);
 export const getIsEditorLoading = state => fromEditor.getIsEditorLoading(state.editor);
 export const getIsEditorSaving = state => fromEditor.getIsEditorSaving(state.editor);
 export const getPendingDrafts = state => fromEditor.getPendingDrafts(state.editor);
+export const getIsPostEdited = (state, permlink) =>
+  fromEditor.getIsPostEdited(state.editor, permlink);
 
 export const getLocale = state => fromApp.getLocale(state.app);
 export const getIsLocaleLoading = state => fromApp.getIsLocaleLoading(state.app);

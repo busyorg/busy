@@ -25,7 +25,13 @@ export const DELETE_DRAFT_START = '@editor/DELETE_DRAFT_START';
 export const DELETE_DRAFT_SUCCESS = '@editor/DELETE_DRAFT_SUCCESS';
 export const DELETE_DRAFT_ERROR = '@editor/DELETE_DRAFT_ERROR';
 
-export const saveDraft = (post, redirect) => (dispatch) => {
+export const ADD_EDITED_POST = '@editor/ADD_EDITED_POST';
+export const addEditedPost = createAction(ADD_EDITED_POST);
+
+export const DELETE_EDITED_POST = '@editor/DELETE_EDITED_POST';
+export const deleteEditedPost = createAction(DELETE_EDITED_POST);
+
+export const saveDraft = (post, redirect) => dispatch =>
   dispatch({
     type: SAVE_DRAFT,
     payload: {
@@ -39,7 +45,6 @@ export const saveDraft = (post, redirect) => (dispatch) => {
     },
     meta: { postId: post.id },
   });
-};
 
 export const deleteDraft = draftId => (dispatch) => {
   dispatch({
@@ -56,13 +61,11 @@ export const editPost = post => (dispatch) => {
   const draft = {
     ...post,
     originalBody: post.body,
-    isUpdating: true,
     jsonMetadata,
-    parentAuthor: post.parent_author,
-    parentPermlink: post.parent_permlink,
+    isUpdating: true,
   };
-  dispatch(saveDraft({ postData: draft, id: post.id }));
-  dispatch(push(`/write?draft=${post.id}`));
+  dispatch(saveDraft({ postData: draft, id: post.id }))
+    .then(() => dispatch(push(`/write?draft=${post.id}`)));
 };
 
 const requiredFields = 'parentAuthor,parentPermlink,author,permlink,title,body,jsonMetadata'.split(
@@ -111,7 +114,7 @@ export const broadcastComment = (
     commentOptionsConfig.percent_steem_dollars = 0;
   }
 
-  if (reward !== '50') {
+  if (reward === '0' || reward === '100') {
     operations.push(['comment_options', commentOptionsConfig]);
   }
 
@@ -141,37 +144,37 @@ export function createPost(postData) {
       parentPermlink,
       author,
       title,
+      body,
       jsonMetadata,
       reward,
       upvote,
       draftId,
       isUpdating,
     } = postData;
-    const getPremLink = isUpdating
+    const getPermLink = isUpdating
       ? Promise.resolve(postData.permlink)
       : createPermlink(title, author, parentAuthor, parentPermlink);
 
-    const body = isUpdating
-      ? getBodyPatchIfSmaller(postData.originalBody, postData.body)
-      : postData.body;
+    const newBody = isUpdating ? getBodyPatchIfSmaller(postData.originalBody, body) : body;
 
     dispatch({
       type: CREATE_POST,
       payload: {
-        promise: getPremLink.then(permlink =>
+        promise: getPermLink.then(permlink =>
           broadcastComment(
             parentAuthor,
             parentPermlink,
             author,
             title,
-            body,
+            newBody,
             jsonMetadata,
-            reward,
-            upvote,
+            !isUpdating && reward,
+            !isUpdating && upvote,
             permlink,
           ).then((result) => {
             if (draftId) {
               dispatch(deleteDraft(draftId));
+              dispatch(addEditedPost(permlink));
             }
             dispatch(push(`/${parentPermlink}/@${author}/${permlink}`));
 

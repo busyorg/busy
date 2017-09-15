@@ -20,22 +20,28 @@ class Story extends React.Component {
     pendingLike: PropTypes.bool,
     pendingFollow: PropTypes.bool,
     pendingBookmark: PropTypes.bool,
+    saving: PropTypes.bool,
+    ownPost: PropTypes.bool,
     onFollowClick: PropTypes.func,
     onSaveClick: PropTypes.func,
     onReportClick: PropTypes.func,
     onLikeClick: PropTypes.func,
     onShareClick: PropTypes.func,
+    onEditClick: PropTypes.func,
   };
 
   static defaultProps = {
     pendingLike: false,
     pendingFollow: false,
     pendingBookmark: false,
+    saving: false,
+    ownPost: false,
     onFollowClick: () => {},
     onSaveClick: () => {},
     onReportClick: () => {},
     onLikeClick: () => {},
     onShareClick: () => {},
+    onEditClick: () => {},
     postState: {},
   };
 
@@ -50,6 +56,9 @@ class Story extends React.Component {
       case 'report':
         this.props.onReportClick();
         break;
+      case 'edit':
+        this.props.onEditClick(this.props.post);
+        break;
       default:
     }
   };
@@ -62,6 +71,8 @@ class Story extends React.Component {
       pendingLike,
       pendingFollow,
       pendingBookmark,
+      saving,
+      ownPost,
       onLikeClick,
       onShareClick,
     } = this.props;
@@ -77,6 +88,34 @@ class Story extends React.Component {
     } else if (!postState.userFollowed && pendingFollow) {
       followText = intl.formatMessage({ id: 'follow_username', defaultMessage: 'Follow {username}' }, { username: post.author });
     }
+
+    let popoverMenu = [];
+
+    if (ownPost && post.cashout_time !== '1969-12-31T23:59:59') {
+      popoverMenu = [...popoverMenu, <PopoverMenuItem key="edit">
+        {saving ? <Icon type="loading" /> : <i className="iconfont icon-write" />}
+        <FormattedMessage id="edit_post" defaultMessage="Edit post" />
+      </PopoverMenuItem>];
+    }
+
+    if (!ownPost) {
+      popoverMenu = [...popoverMenu, <PopoverMenuItem key="follow" disabled={pendingFollow}>
+        {pendingFollow ? <Icon type="loading" /> : <i className="iconfont icon-people" />}
+        {followText}
+      </PopoverMenuItem>];
+    }
+
+    popoverMenu = [
+      ...popoverMenu,
+      <PopoverMenuItem key="save">
+        {pendingBookmark ? <Icon type="loading" /> : <i className="iconfont icon-collection" />}
+        <FormattedMessage id={postState.isSaved ? 'unsave_post' : 'save_post'} defaultMessage={postState.isSaved ? 'Unsave post' : 'Save post'} />
+      </PopoverMenuItem>,
+      <PopoverMenuItem key="report">
+        <i className="iconfont icon-flag" />
+        <FormattedMessage id="report_post" defaultMessage="Report post" />
+      </PopoverMenuItem>,
+    ];
 
     let rebloggedUI = null;
 
@@ -107,18 +146,7 @@ class Story extends React.Component {
             trigger="click"
             content={
               <PopoverMenu onSelect={this.handleClick} bold={false}>
-                <PopoverMenuItem key="follow" disabled={pendingFollow}>
-                  {pendingFollow ? <Icon type="loading" /> : <i className="iconfont icon-people" />}
-                  {followText}
-                </PopoverMenuItem>
-                <PopoverMenuItem key="save">
-                  {pendingBookmark ? <Icon type="loading" /> : <i className="iconfont icon-collection" />}
-                  <FormattedMessage id={postState.isSaved ? 'unsave_post' : 'save_post'} defaultMessage={postState.isSaved ? 'Unsave post' : 'Save post'} />
-                </PopoverMenuItem>
-                <PopoverMenuItem key="report">
-                  <i className="iconfont icon-flag" />
-                  <FormattedMessage id="report_post" defaultMessage="Report post" />
-                </PopoverMenuItem>
+                {popoverMenu}
               </PopoverMenu>
             }
           >

@@ -7,6 +7,7 @@ import * as bookmarkActions from '../bookmarks/bookmarksActions';
 import * as reblogActions from '../app/Reblog/reblogActions';
 import * as postActions from '../post/postActions';
 import { followUser, unfollowUser } from '../user/userActions';
+import { editPost } from '../post/Write/editorActions';
 
 import {
   getAuthenticatedUser,
@@ -17,6 +18,7 @@ import {
   getPendingReblogs,
   getFollowingList,
   getPendingFollows,
+  getIsEditorSaving,
 } from '../reducers';
 
 import Story from '../components/Story/Story';
@@ -32,8 +34,10 @@ import StoryLoading from '../components/Story/StoryLoading';
     pendingReblogs: getPendingReblogs(state),
     followingList: getFollowingList(state),
     pendingFollows: getPendingFollows(state),
+    saving: getIsEditorSaving(state),
   }),
   {
+    editPost,
     toggleBookmark: bookmarkActions.toggleBookmark,
     votePost: postActions.votePost,
     reblog: reblogActions.reblog,
@@ -52,8 +56,10 @@ export default class Feed extends React.Component {
     pendingBookmarks: PropTypes.arrayOf(PropTypes.number).isRequired,
     followingList: PropTypes.arrayOf(PropTypes.string).isRequired,
     reblogList: PropTypes.arrayOf(PropTypes.number).isRequired,
+    saving: PropTypes.bool.isRequired,
     isFetching: PropTypes.bool,
     hasMore: PropTypes.bool,
+    editPost: PropTypes.func,
     toggleBookmark: PropTypes.func,
     votePost: PropTypes.func,
     reblog: PropTypes.func,
@@ -65,6 +71,7 @@ export default class Feed extends React.Component {
   static defaultProps = {
     isFetching: false,
     hasMore: false,
+    editPost: () => {},
     toggleBookmark: () => {},
     votePost: () => {},
     reblog: () => {},
@@ -82,6 +89,8 @@ export default class Feed extends React.Component {
     }
   };
 
+  handleEditClick = post => this.props.editPost(post);
+
   render() {
     const {
       user,
@@ -98,6 +107,7 @@ export default class Feed extends React.Component {
       toggleBookmark,
       reblog,
       votePost,
+      saving,
     } = this.props;
 
     return (
@@ -144,11 +154,14 @@ export default class Feed extends React.Component {
               pendingLike={pendingLikes.includes(post.id)}
               pendingFollow={pendingFollows.includes(post.author)}
               pendingBookmark={pendingBookmarks.includes(post.id)}
+              saving={saving}
+              ownPost={post.author === user.name}
               onFollowClick={this.handleFollowClick}
               onSaveClick={() => toggleBookmark(post.id, post.author, post.permlink)}
               onReportClick={reportPost}
               onLikeClick={likePost}
               onShareClick={() => reblog(post.id)}
+              onEditClick={this.handleEditClick}
             />
           );
         })}

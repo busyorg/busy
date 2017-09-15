@@ -1,6 +1,5 @@
 import steemConnect from 'sc2-sdk';
 import Promise from 'bluebird';
-import { omit } from 'lodash/object';
 
 export const GET_CONTENT = 'GET_CONTENT';
 export const GET_CONTENT_START = 'GET_CONTENT_START';
@@ -14,24 +13,22 @@ export const LIKE_POST_ERROR = '@post/LIKE_POST_ERROR';
 
 steemConnect.vote = Promise.promisify(steemConnect.vote, { context: steemConnect });
 
-export const getContent = (
-  { author: postAuthor, permlink: postPermlink, afterLike, omitAttributes = [] } = {},
-) => (dispatch, getState, { steemAPI }) => {
-  if (!postAuthor || !postPermlink) {
-    return null;
-  }
-  return dispatch({
-    type: GET_CONTENT,
-    payload: {
-      promise: steemAPI
-        .getContentAsync(postAuthor, postPermlink)
-        .then(postData => omit(postData, omitAttributes)),
-    },
-    meta: {
-      afterLike,
-    },
-  });
-};
+export const getContent = (postAuthor, postPermlink, afterLike) =>
+  (dispatch, getState, { steemAPI }) => {
+    if (!postAuthor || !postPermlink) {
+      return null;
+    }
+    return dispatch({
+      type: GET_CONTENT,
+      payload: {
+        promise: steemAPI
+          .getContentAsync(postAuthor, postPermlink),
+      },
+      meta: {
+        afterLike,
+      },
+    });
+  };
 
 export const votePost = (postId, author, permlink, weight = 10000) => (dispatch, getState) => {
   const { auth, posts } = getState();
@@ -55,11 +52,11 @@ export const votePost = (postId, author, permlink, weight = 10000) => (dispatch,
           setTimeout(
             () =>
               dispatch(
-                getContent({
-                  author: posts.list[postId].author,
-                  permlink: posts.list[postId].permlink,
-                  afterLike: true,
-                }),
+                getContent(
+                  posts.list[postId].author,
+                  posts.list[postId].permlink,
+                  true,
+                ),
               ),
             1000,
           );

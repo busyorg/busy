@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
+import classNames from 'classnames';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { HotKeys } from 'react-hotkeys';
 import { throttle } from 'lodash';
@@ -22,6 +23,7 @@ class Editor extends React.Component {
     reward: PropTypes.string,
     upvote: PropTypes.bool,
     loading: PropTypes.bool,
+    isUpdating: PropTypes.bool,
     saving: PropTypes.bool,
     onUpdate: PropTypes.func,
     onSubmit: PropTypes.func,
@@ -38,6 +40,7 @@ class Editor extends React.Component {
     recentTopics: [],
     popularTopics: [],
     loading: false,
+    isUpdating: false,
     saving: false,
     onUpdate: () => {},
     onSubmit: () => {},
@@ -350,7 +353,7 @@ class Editor extends React.Component {
 
   render() {
     const { getFieldDecorator } = this.props.form;
-    const { intl, loading, saving } = this.props;
+    const { intl, loading, isUpdating, saving } = this.props;
 
     return (
       <Form className="Editor" layout="vertical" onSubmit={this.handleSubmit}>
@@ -424,9 +427,12 @@ class Editor extends React.Component {
             <Body full body={this.state.contentHtml} />
           </Form.Item>
         }
-        <Form.Item label={<span className="Editor__label"><FormattedMessage id="reward" defaultMessage="Rward" /></span>}>
+        <Form.Item
+          className={classNames({ Editor__hidden: isUpdating })}
+          label={<span className="Editor__label"><FormattedMessage id="reward" defaultMessage="Reward" /></span>}
+        >
           {getFieldDecorator('reward', { initialValue: '50' })(
-            <Select onChange={this.onUpdate}>
+            <Select onChange={this.onUpdate} disabled={isUpdating}>
               <Select.Option value="100">
                 <FormattedMessage id="reward_option_100" defaultMessage="100% Steem Power" />
               </Select.Option>
@@ -439,9 +445,9 @@ class Editor extends React.Component {
             </Select>,
           )}
         </Form.Item>
-        <Form.Item>
+        <Form.Item className={classNames({ Editor__hidden: isUpdating })}>
           {getFieldDecorator('upvote', { valuePropName: 'checked', initialValue: true })(
-            <Checkbox onChange={this.onUpdate}>
+            <Checkbox onChange={this.onUpdate} disabled={isUpdating}>
               <FormattedMessage id="like_post" defaultMessage="Like this post" />
             </Checkbox>,
           )}
@@ -457,15 +463,25 @@ class Editor extends React.Component {
               <FormattedMessage id="saving" defaultMessage="Saving..." />
             </span>}
             <Form.Item className="Editor__bottom__submit">
-              <Action
-                primary
-                loading={loading}
-                disabled={loading}
-                text={intl.formatMessage({
-                  id: loading ? 'post_send_progress' : 'post_send',
-                  defaultMessage: loading ? 'Submitting' : 'Post',
-                })}
-              />
+              {isUpdating
+                ? <Action
+                  primary
+                  loading={loading}
+                  disabled={loading}
+                  text={intl.formatMessage({
+                    id: loading ? 'post_send_progress' : 'post_update_send',
+                    defaultMessage: loading ? 'Submitting' : 'Update post',
+                  })}
+                />
+                : <Action
+                  primary
+                  loading={loading}
+                  disabled={loading}
+                  text={intl.formatMessage({
+                    id: loading ? 'post_send_progress' : 'post_send',
+                    defaultMessage: loading ? 'Submitting' : 'Post',
+                  })}
+                />}
             </Form.Item>
           </div>
         </div>

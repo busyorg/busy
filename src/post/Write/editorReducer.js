@@ -9,10 +9,24 @@ const defaultState = {
   saving: false,
   draftPosts: {},
   pendingDrafts: [],
+  editedPosts: [],
 };
 
 const editor = (state = defaultState, action) => {
   switch (action.type) {
+    case editorActions.ADD_EDITED_POST:
+      return {
+        ...state,
+        editedPosts: [
+          ...state.editedPosts,
+          action.payload,
+        ],
+      };
+    case editorActions.DELETE_EDITED_POST:
+      return {
+        ...state,
+        editedPosts: state.editedPosts.filter(post => post !== action.payload),
+      };
     case authActions.LOGIN_SUCCESS:
       return {
         ...state,
@@ -100,3 +114,4 @@ export const getDraftPosts = state => state.draftPosts;
 export const getIsEditorLoading = state => state.loading;
 export const getIsEditorSaving = state => state.saving;
 export const getPendingDrafts = state => state.pendingDrafts;
+export const getIsPostEdited = (state, permlink) => state.editedPosts.includes(permlink);
