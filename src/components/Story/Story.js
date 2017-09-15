@@ -112,17 +112,17 @@ class Story extends React.Component {
       if (postMetaData.format !== 'markdown') {
         item = (<PopoverMenuItem key="edit" disabled>
           <i className="iconfont icon-write" />
-          {'Can\'t edit non Markdown post'}
+          <FormattedMessage id="edit_post_error_format" defaultMessage="Can't edit non-Markdown posts" />
         </PopoverMenuItem>);
       } else if (post.cashout_time === '1969-12-31T23:59:59') {
         item = (<PopoverMenuItem key="edit" disabled>
           <i className="iconfont icon-write" />
-          {'Can\'t edit posts older than 7 days'}
+          <FormattedMessage id="edit_post_error_time" defaultMessage="Can't edit posts older than a week" />
         </PopoverMenuItem>);
       } else {
         item = (<PopoverMenuItem key="edit">
           {saving ? <Icon type="loading" /> : <i className="iconfont icon-write" />}
-          Edit post
+          <FormattedMessage id="edit_post" defaultMessage="Edit post" />
         </PopoverMenuItem>);
       }
 
