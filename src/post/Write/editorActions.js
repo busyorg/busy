@@ -5,7 +5,7 @@ import { push } from 'react-router-redux';
 import { createAction } from 'redux-actions';
 import { addDraftMetadata, deleteDraftMetadata } from '../../helpers/metadata';
 import { jsonParse } from '../../helpers/formatter';
-import { createPermlink } from '../../vendor/steemitHelpers';
+import { createPermlink, getBodyPatchIfSmaller } from '../../vendor/steemitHelpers';
 
 export const CREATE_POST = '@editor/CREATE_POST';
 export const CREATE_POST_START = '@editor/CREATE_POST_START';
@@ -60,6 +60,7 @@ export const editPost = post => (dispatch) => {
   const jsonMetadata = jsonParse(post.json_metadata);
   const draft = {
     ...post,
+    originalBody: post.body,
     jsonMetadata,
     isUpdating: true,
   };
@@ -154,6 +155,8 @@ export function createPost(postData) {
       ? Promise.resolve(postData.permlink)
       : createPermlink(title, author, parentAuthor, parentPermlink);
 
+    const newBody = isUpdating ? getBodyPatchIfSmaller(postData.originalBody, body) : body;
+
     dispatch({
       type: CREATE_POST,
       payload: {
@@ -163,7 +166,7 @@ export function createPost(postData) {
             parentPermlink,
             author,
             title,
-            body,
+            newBody,
             jsonMetadata,
             !isUpdating && reward,
             !isUpdating && upvote,

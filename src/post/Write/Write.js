@@ -82,6 +82,10 @@ class Write extends React.Component {
         this.permlink = draftPost.permlink;
       }
 
+      if (draftPost.originalBody) {
+        this.originalBody = draftPost.originalBody;
+      }
+
       // eslint-disable-next-line
       this.setState({
         initialTitle: draftPost.title || '',
@@ -176,6 +180,10 @@ class Write extends React.Component {
 
     data.parentPermlink = tags.length ? tags[0] : 'general';
     data.jsonMetadata = metaData;
+
+    if (this.originalBody) {
+      data.originalBody = this.originalBody;
+    }
 
     return data;
   };
