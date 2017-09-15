@@ -14,19 +14,18 @@ import {
   isPostWithEmbedBeforeFirstHalf,
 } from './StoryHelper';
 import { getHtml } from './Body';
-
-const IMG_PROXY_PREFIX = '//res.cloudinary.com/hpiynhbhq/image/fetch/w_600,h_800,c_limit/';
+import { getProxyImageURL } from '../../helpers/image';
 
 const StoryPreview = ({ post }) => {
   const jsonMetadata = jsonParse(post.json_metadata);
   let imagePath = '';
 
   if (jsonMetadata.image && jsonMetadata.image[0]) {
-    imagePath = `${IMG_PROXY_PREFIX}${jsonMetadata.image[0]}`;
+    imagePath = getProxyImageURL(jsonMetadata.image[0], 'preview');
   } else {
     const bodyImg = post.body.match(image());
     if (bodyImg && bodyImg.length) {
-      imagePath = `${IMG_PROXY_PREFIX}${bodyImg[0]}`;
+      imagePath = getProxyImageURL(bodyImg[0], 'preview');
     }
   }
 
@@ -39,7 +38,7 @@ const StoryPreview = ({ post }) => {
       type: 'video',
       provider_name: 'DTube',
       embed: `<video controls="true" autoplay="true" src="https://ipfs.io/ipfs/${video.content.videohash}" poster="https://ipfs.io/ipfs/${video.info.snaphash}"><track kind="captions" /></video>`,
-      thumbnail: `${IMG_PROXY_PREFIX}https://ipfs.io/ipfs/${video.info.snaphash}`,
+      thumbnail: getProxyImageURL(`https://ipfs.io/ipfs/${video.info.snaphash}`, 'preview'),
     };
   }
 
