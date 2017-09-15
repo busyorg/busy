@@ -463,15 +463,25 @@ class Editor extends React.Component {
               <FormattedMessage id="saving" defaultMessage="Saving..." />
             </span>}
             <Form.Item className="Editor__bottom__submit">
-              <Action
-                primary
-                loading={loading}
-                disabled={loading}
-                text={intl.formatMessage({
-                  id: loading ? 'post_send_progress' : 'post_send',
-                  defaultMessage: loading ? 'Submitting' : 'Post',
-                })}
-              />
+              {isUpdating
+                ? <Action
+                  primary
+                  loading={loading}
+                  disabled={loading}
+                  text={intl.formatMessage({
+                    id: loading ? 'post_send_progress' : 'post_update_send',
+                    defaultMessage: loading ? 'Submitting' : 'Update post',
+                  })}
+                />
+                : <Action
+                  primary
+                  loading={loading}
+                  disabled={loading}
+                  text={intl.formatMessage({
+                    id: loading ? 'post_send_progress' : 'post_send',
+                    defaultMessage: loading ? 'Submitting' : 'Post',
+                  })}
+                />}
             </Form.Item>
           </div>
         </div>
