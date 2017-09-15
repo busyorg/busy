@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { Tag, Icon, Popover, Tooltip } from 'antd';
 import Lightbox from 'react-image-lightbox';
 import { formatter } from 'steem';
+import { jsonParse } from '../../helpers/formatter';
 import Body from './Body';
 import StoryFooter from './StoryFooter';
 import Avatar from '../Avatar';
@@ -19,12 +20,12 @@ class StoryFull extends React.Component {
     intl: PropTypes.shape().isRequired,
     post: PropTypes.shape().isRequired,
     postState: PropTypes.shape().isRequired,
-    editable: PropTypes.bool,
     pendingLike: PropTypes.bool,
     pendingFollow: PropTypes.bool,
     pendingBookmark: PropTypes.bool,
     commentCount: PropTypes.number,
     saving: PropTypes.bool,
+    ownPost: PropTypes.bool,
     onFollowClick: PropTypes.func,
     onSaveClick: PropTypes.func,
     onReportClick: PropTypes.func,
@@ -34,12 +35,12 @@ class StoryFull extends React.Component {
   };
 
   static defaultProps = {
-    editable: false,
     pendingLike: false,
     pendingFollow: false,
     pendingBookmark: false,
     commentCount: 0,
     saving: false,
+    ownPost: false,
     onFollowClick: () => {},
     onSaveClick: () => {},
     onReportClick: () => {},
@@ -106,12 +107,12 @@ class StoryFull extends React.Component {
       intl,
       post,
       postState,
-      editable,
       pendingLike,
       pendingFollow,
       pendingBookmark,
       commentCount,
       saving,
+      ownPost,
       onLikeClick,
       onShareClick,
     } = this.props;
@@ -173,14 +174,30 @@ class StoryFull extends React.Component {
       </PopoverMenuItem>,
     ];
 
-    if (editable) {
-      popoverMenu.push(
-        <PopoverMenuItem key="edit">
+    if (ownPost) {
+      const postMetaData = jsonParse(post.json_metadata);
+      let item = null;
+
+      if (postMetaData.format !== 'markdown') {
+        item = (<PopoverMenuItem key="edit" disabled>
+          <i className="iconfont icon-write" />
+          {'Can\'t edit non Markdown post'}
+        </PopoverMenuItem>);
+      } else if (post.cashout_time === '1969-12-31T23:59:59') {
+        item = (<PopoverMenuItem key="edit" disabled>
+          <i className="iconfont icon-write" />
+          {'Can\'t edit posts older than 7 days'}
+        </PopoverMenuItem>);
+      } else {
+        item = (<PopoverMenuItem key="edit">
           {saving ? <Icon type="loading" /> : <i className="iconfont icon-write" />}
           Edit post
-        </PopoverMenuItem>,
-      );
+        </PopoverMenuItem>);
+      }
+
+      popoverMenu.push(item);
     }
+
 
     return (
       <div className="StoryFull">
