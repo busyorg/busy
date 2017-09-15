@@ -22,6 +22,7 @@ class StoryFull extends React.Component {
     editable: PropTypes.bool,
     pendingLike: PropTypes.bool,
     pendingFollow: PropTypes.bool,
+    pendingBookmark: PropTypes.bool,
     commentCount: PropTypes.number,
     onFollowClick: PropTypes.func,
     onSaveClick: PropTypes.func,
@@ -35,6 +36,7 @@ class StoryFull extends React.Component {
     editable: false,
     pendingLike: false,
     pendingFollow: false,
+    pendingBookmark: false,
     commentCount: 0,
     onFollowClick: () => {},
     onSaveClick: () => {},
@@ -105,6 +107,7 @@ class StoryFull extends React.Component {
       editable,
       pendingLike,
       pendingFollow,
+      pendingBookmark,
       commentCount,
       onLikeClick,
       onShareClick,
@@ -155,7 +158,7 @@ class StoryFull extends React.Component {
         {followText}
       </PopoverMenuItem>,
       <PopoverMenuItem key="save">
-        <i className="iconfont icon-collection" />
+        {pendingBookmark ? <Icon type="loading" /> : <i className="iconfont icon-collection" />}
         <FormattedMessage
           id={postState.isSaved ? 'unsave_post' : 'save_post'}
           defaultMessage={postState.isSaved ? 'Unsave post' : 'Save post'}

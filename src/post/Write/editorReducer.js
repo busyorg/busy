@@ -1,4 +1,4 @@
-import omit from 'lodash/omit';
+import * as authActions from '../../auth/authActions';
 import * as editorActions from './editorActions';
 import * as userActions from '../../user/userActions';
 
@@ -6,7 +6,9 @@ const defaultState = {
   loading: false,
   error: null,
   success: false,
+  saving: false,
   draftPosts: {},
+  pendingDrafts: [],
   editedPosts: [],
 };
 
@@ -24,6 +26,11 @@ const editor = (state = defaultState, action) => {
       return {
         ...state,
         editedPosts: state.editedPosts.filter(post => post !== action.payload),
+      };
+    case authActions.LOGIN_SUCCESS:
+      return {
+        ...state,
+        draftPosts: action.payload.user_metadata.drafts || defaultState.draftPosts,
       };
     case editorActions.NEW_POST:
       return {
@@ -54,20 +61,42 @@ const editor = (state = defaultState, action) => {
         loading: false,
         success: true,
       };
-    case editorActions.SAVE_DRAFT: {
-      const { postData } = action.payload;
-      const id = action.payload.id;
+    case editorActions.SAVE_DRAFT_START:
       return {
         ...state,
-        draftPosts: { ...state.draftPosts, [id]: { postData } },
+        saving: true,
       };
-    }
-    case editorActions.DELETE_DRAFT: {
+    case editorActions.SAVE_DRAFT_SUCCESS:
       return {
         ...state,
-        draftPosts: omit(state.draftPosts, action.payload),
+        draftPosts: { ...state.draftPosts, [action.meta.postId]: action.payload },
+        saving: false,
+      };
+    case editorActions.SAVE_DRAFT_ERROR:
+      return {
+        ...state,
+        saving: false,
+      };
+    case editorActions.DELETE_DRAFT_START:
+      return {
+        ...state,
+        pendingDrafts: [
+          ...state.pendingDrafts,
+          action.meta.id,
+        ],
+      };
+    case editorActions.DELETE_DRAFT_SUCCESS: {
+      return {
+        ...state,
+        draftPosts: action.payload,
+        pendingDrafts: state.pendingDrafts.filter(id => id !== action.meta.id),
       };
     }
+    case editorActions.DELETE_DRAFT_ERROR:
+      return {
+        ...state,
+        pendingDrafts: state.pendingDrafts.filter(id => id !== action.meta.id),
+      };
     case userActions.UPLOAD_FILE_START:
       return { ...state, loadingImg: true };
 
@@ -83,3 +112,5 @@ export default editor;
 
 export const getDraftPosts = state => state.draftPosts;
 export const getIsEditorLoading = state => state.loading;
+export const getIsEditorSaving = state => state.saving;
+export const getPendingDrafts = state => state.pendingDrafts;

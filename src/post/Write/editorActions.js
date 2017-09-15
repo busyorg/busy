@@ -3,6 +3,7 @@ import assert from 'assert';
 import SteemConnect from 'sc2-sdk';
 import { push } from 'react-router-redux';
 import { createAction } from 'redux-actions';
+import { addDraftMetadata, deleteDraftMetadata } from '../../helpers/metadata';
 import { jsonParse } from '../../helpers/formatter';
 import { createPermlink } from '../../vendor/steemitHelpers';
 
@@ -15,9 +16,14 @@ export const NEW_POST = '@editor/NEW_POST';
 export const newPost = createAction(NEW_POST);
 
 export const SAVE_DRAFT = '@editor/SAVE_DRAFT';
+export const SAVE_DRAFT_START = '@editor/SAVE_DRAFT_START';
+export const SAVE_DRAFT_SUCCESS = '@editor/SAVE_DRAFT_SUCCESS';
+export const SAVE_DRAFT_ERROR = '@editor/SAVE_DRAFT_ERROR';
 
 export const DELETE_DRAFT = '@editor/DELETE_DRAFT';
-export const deleteDraft = createAction(DELETE_DRAFT);
+export const DELETE_DRAFT_START = '@editor/DELETE_DRAFT_START';
+export const DELETE_DRAFT_SUCCESS = '@editor/DELETE_DRAFT_SUCCESS';
+export const DELETE_DRAFT_ERROR = '@editor/DELETE_DRAFT_ERROR';
 
 export const ADD_EDITED_POST = '@editor/ADD_EDITED_POST';
 export const addEditedPost = createAction(ADD_EDITED_POST);
@@ -29,13 +35,26 @@ export const saveDraft = (post, redirect) => (dispatch) => {
   dispatch({
     type: SAVE_DRAFT,
     payload: {
-      ...post,
+      promise: addDraftMetadata(post)
+        .then((resp) => {
+          if (redirect) {
+            dispatch(push(`/write?draft=${post.id}`));
+          }
+          return resp;
+        }),
     },
+    meta: { postId: post.id },
   });
+};
 
-  if (redirect) {
-    dispatch(push(`/write?draft=${post.id}`));
-  }
+export const deleteDraft = draftId => (dispatch) => {
+  dispatch({
+    type: DELETE_DRAFT,
+    payload: {
+      promise: deleteDraftMetadata(draftId),
+    },
+    meta: { id: draftId },
+  });
 };
 
 export const editPost = post => (dispatch) => {

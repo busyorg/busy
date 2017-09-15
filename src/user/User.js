@@ -67,7 +67,7 @@ export default class User extends React.Component {
 
   handleUserMenuSelect = (key) => {
     if (key === 'transfer') this.props.openTransfer(this.props.match.params.name);
-  }
+  };
 
   render() {
     const { authenticated, authenticatedUser, match } = this.props;
@@ -80,6 +80,7 @@ export default class User extends React.Component {
     const canonicalUrl = `${busyHost}/@${username}`;
     const url = `${busyHost}/@${username}`;
     const displayedUsername = profile.name || username || '';
+    const hasCover = !!profile.cover_image;
     const title = `${displayedUsername} - Busy`;
 
     const isSameUser = authenticated && authenticatedUser.name === username;
@@ -116,6 +117,7 @@ export default class User extends React.Component {
             user={user}
             username={displayedUsername}
             isSameUser={isSameUser}
+            hasCover={hasCover}
             onFollowClick={this.handleFollowClick}
             onSelect={this.handleUserMenuSelect}
           />}
@@ -128,7 +130,9 @@ export default class User extends React.Component {
             </Affix>
             <Affix className="rightContainer" stickPosition={72}>
               <div className="right">
-                <RightSidebar />
+                {user && user.name &&
+                  <RightSidebar key={user.name} />
+                }
               </div>
             </Affix>
             <div className="center">

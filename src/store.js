@@ -1,7 +1,5 @@
 import promiseMiddleware from 'redux-promise-middleware';
-import persistState from 'redux-localstorage';
 import thunk from 'redux-thunk';
-import { pick } from 'lodash/object';
 import { applyMiddleware, createStore, compose } from 'redux';
 import { routerMiddleware } from 'react-router-redux';
 import api from './steemAPI';
@@ -41,17 +39,7 @@ let enhancer;
 if (process.env.IS_BROWSER) {
   // eslint-disable-next-line no-underscore-dangle
   const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-  enhancer = composeEnhancers(
-    applyMiddleware(...middleware),
-    persistState(['app', 'favorites', 'editor', 'bookmarks'], {
-      slicer: () => state => ({
-        app: pick(state.app, ['locale']),
-        bookmarks: state.bookmarks,
-        favorites: state.favorites,
-        editor: pick(state.editor, ['draftPosts']),
-      }),
-    }),
-  );
+  enhancer = composeEnhancers(applyMiddleware(...middleware));
 } else {
   enhancer = compose(applyMiddleware(...middleware));
 }

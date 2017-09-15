@@ -23,6 +23,7 @@ class Editor extends React.Component {
     upvote: PropTypes.bool,
     loading: PropTypes.bool,
     isUpdating: PropTypes.bool,
+    saving: PropTypes.bool,
     onUpdate: PropTypes.func,
     onSubmit: PropTypes.func,
     onError: PropTypes.func,
@@ -39,6 +40,7 @@ class Editor extends React.Component {
     popularTopics: [],
     loading: false,
     isUpdating: false,
+    saving: false,
     onUpdate: () => {},
     onSubmit: () => {},
     onError: () => {},
@@ -350,7 +352,7 @@ class Editor extends React.Component {
 
   render() {
     const { getFieldDecorator } = this.props.form;
-    const { intl, loading, isUpdating } = this.props;
+    const { intl, loading, isUpdating, saving } = this.props;
 
     return (
       <Form className="Editor" layout="vertical" onSubmit={this.handleSubmit}>
@@ -452,17 +454,22 @@ class Editor extends React.Component {
             {' '}
             <FormattedMessage id="markdown_supported" defaultMessage="Styling with markdown supported" />
           </span>
-          <Form.Item className="Editor__bottom__submit">
-            <Action
-              primary
-              loading={loading}
-              disabled={loading}
-              text={intl.formatMessage({
-                id: loading ? 'post_send_progress' : 'post_send',
-                defaultMessage: loading ? 'Submitting' : 'Post',
-              })}
-            />
-          </Form.Item>
+          <div className="Editor__bottom__right">
+            {saving && <span className="Editor__bottom__right__saving">
+              <FormattedMessage id="saving" defaultMessage="Saving..." />
+            </span>}
+            <Form.Item className="Editor__bottom__submit">
+              <Action
+                primary
+                loading={loading}
+                disabled={loading}
+                text={intl.formatMessage({
+                  id: loading ? 'post_send_progress' : 'post_send',
+                  defaultMessage: loading ? 'Submitting' : 'Post',
+                })}
+              />
+            </Form.Item>
+          </div>
         </div>
       </Form>
     );

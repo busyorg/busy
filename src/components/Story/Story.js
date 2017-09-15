@@ -20,6 +20,7 @@ class Story extends React.Component {
     editable: PropTypes.bool,
     pendingLike: PropTypes.bool,
     pendingFollow: PropTypes.bool,
+    pendingBookmark: PropTypes.bool,
     onFollowClick: PropTypes.func,
     onSaveClick: PropTypes.func,
     onReportClick: PropTypes.func,
@@ -32,6 +33,7 @@ class Story extends React.Component {
     editable: false,
     pendingLike: false,
     pendingFollow: false,
+    pendingBookmark: false,
     onFollowClick: () => {},
     onSaveClick: () => {},
     onReportClick: () => {},
@@ -67,6 +69,7 @@ class Story extends React.Component {
       editable,
       pendingLike,
       pendingFollow,
+      pendingBookmark,
       onLikeClick,
       onShareClick,
     } = this.props;
@@ -89,7 +92,7 @@ class Story extends React.Component {
         {followText}
       </PopoverMenuItem>,
       <PopoverMenuItem key="save">
-        <i className="iconfont icon-collection" />
+        {pendingBookmark ? <Icon type="loading" /> : <i className="iconfont icon-collection" />}
         <FormattedMessage id={postState.isSaved ? 'unsave_post' : 'save_post'} defaultMessage={postState.isSaved ? 'Unsave post' : 'Save post'} />
       </PopoverMenuItem>,
       <PopoverMenuItem key="report">
@@ -107,74 +110,97 @@ class Story extends React.Component {
       );
     }
 
+    let rebloggedUI = null;
+
+    if (post.first_reblogged_by) {
+      rebloggedUI = (<div className="Story__reblog">
+        <i className="iconfont icon-share1" />
+        <FormattedMessage
+          id="reblogged_username"
+          defaultMessage="{username} reblogged"
+          values={{
+            username: <Link to={`/@${post.first_reblogged_by}`}>{post.first_reblogged_by}</Link>,
+          }}
+        />
+      </div>);
+    } else if (post.first_reblogged_on) {
+      rebloggedUI = (<div className="Story__reblog">
+        <i className="iconfont icon-share1" />
+        <FormattedMessage id="reblogged" defaultMessage="Reblogged" />
+      </div>);
+    }
+
     return (
       <div className="Story">
-        <Popover
-          placement="bottomRight"
-          trigger="click"
-          content={
-            <PopoverMenu onSelect={this.handleClick} bold={false}>
-              {popoverMenu}
-            </PopoverMenu>
-          }
-        >
-          <i className="iconfont icon-unfold Story__more" />
-        </Popover>
-        <div className="Story__header">
-          <Link to={`/@${post.author}`}>
-            <Avatar username={post.author} size={40} />
-          </Link>
-          <div className="Story__header__text">
-            <Link to={`/@${post.author}`}>
-              <h4>
-                {post.author}
-                <Tooltip title={intl.formatMessage({ id: 'reputation_score' })}>
-                  <Tag>
-                    {formatter.reputation(post.author_reputation)}
-                  </Tag>
-                </Tooltip>
-              </h4>
-            </Link>
-            <Tooltip
-              title={
-                <span>
-                  <FormattedDate value={`${post.created}Z`} />{' '}
-                  <FormattedTime value={`${post.created}Z`} />
-                </span>
-              }
-            >
-              <span className="Story__date">
-                <FormattedRelative value={`${post.created}Z`} />
-              </span>
-            </Tooltip>
-          </div>
-          <div className="Story__topics">
-            <Topic name={post.category} />
-          </div>
-        </div>
+        {rebloggedUI}
         <div className="Story__content">
-          <Link to={post.url} className="Story__content__title">
-            <h2>
-              {post.title ||
-                <span>
-                  <Tag color="#4f545c">RE</Tag>
-                  {post.root_title}
+          <Popover
+            placement="bottomRight"
+            trigger="click"
+            content={
+              <PopoverMenu onSelect={this.handleClick} bold={false}>
+                {popoverMenu}
+              </PopoverMenu>
+            }
+          >
+            <i className="iconfont icon-unfold Story__more" />
+          </Popover>
+          <div className="Story__header">
+            <Link to={`/@${post.author}`}>
+              <Avatar username={post.author} size={40} />
+            </Link>
+            <div className="Story__header__text">
+              <Link to={`/@${post.author}`}>
+                <h4>
+                  {post.author}
+                  <Tooltip title={intl.formatMessage({ id: 'reputation_score' })}>
+                    <Tag>
+                      {formatter.reputation(post.author_reputation)}
+                    </Tag>
+                  </Tooltip>
+                </h4>
+              </Link>
+              <Tooltip
+                title={
+                  <span>
+                    <FormattedDate value={`${post.created}Z`} />{' '}
+                    <FormattedTime value={`${post.created}Z`} />
+                  </span>
+                }
+              >
+                <span className="Story__date">
+                  <FormattedRelative value={`${post.created}Z`} />
                 </span>
-              }
-            </h2>
-          </Link>
-          <Link to={post.url} className="Story__content__preview">
-            <StoryPreview post={post} />
-          </Link>
-        </div>
-        <div className="Story__footer">
-          <StoryFooter
-            post={post}
-            postState={postState}
-            pendingLike={pendingLike}
-            onLikeClick={onLikeClick}
-            onShareClick={onShareClick}
-          />
+              </Tooltip>
+            </div>
+            <div className="Story__topics">
+              <Topic name={post.category} />
+            </div>
+          </div>
+          <div className="Story__content">
+            <Link to={post.url} className="Story__content__title">
+              <h2>
+                {post.title ||
+                  <span>
+                    <Tag color="#4f545c">RE</Tag>
+                    {post.root_title}
+                  </span>
+                }
+              </h2>
+            </Link>
+            <Link to={post.url} className="Story__content__preview">
+              <StoryPreview post={post} />
+            </Link>
+          </div>
+          <div className="Story__footer">
+            <StoryFooter
+              post={post}
+              postState={postState}
+              pendingLike={pendingLike}
+              onLikeClick={onLikeClick}
+              onShareClick={onShareClick}
+            />
+          </div>
         </div>
       </div>
     );

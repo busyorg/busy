@@ -3,14 +3,14 @@ import * as types from './authActions';
 const initialState = {
   isAuthenticated: false,
   isFetching: false,
+  isReloading: false,
   loaded: false,
   user: {},
-  token: '',
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case types.LOGIN_REQUEST:
+    case types.LOGIN_START:
       return {
         ...state,
         isFetching: true,
@@ -24,17 +24,25 @@ export default (state = initialState, action) => {
         isFetching: false,
         isAuthenticated: true,
         loaded: true,
-        errorMessage: '',
-        user: action.user,
-        token: action.token,
+        user: action.payload.account,
       };
-    case types.LOGIN_FAILURE:
+    case types.LOGIN_ERROR:
       return {
         ...state,
         isFetching: false,
         isAuthenticated: false,
         loaded: true,
-        errorMessage: action.message,
+      };
+    case types.RELOAD_START:
+      return {
+        ...state,
+        isReloading: true,
+      };
+    case types.RELOAD_SUCCESS:
+    case types.RELOAD_ERROR:
+      return {
+        ...state,
+        isReloading: false,
       };
     case types.LOGOUT_START:
       return {
@@ -49,7 +57,6 @@ export default (state = initialState, action) => {
         isFetching: false,
         loaded: true,
         user: {},
-        token: '',
       };
     default:
       return state;
@@ -59,5 +66,6 @@ export default (state = initialState, action) => {
 export const getIsAuthenticated = state => state.isAuthenticated;
 export const getIsAuthFetching = state => state.isFetching;
 export const getIsLoaded = state => state.loaded;
+export const getIsReloading = state => state.isReloading;
 export const getAuthenticatedUser = state => state.user;
 export const getAuthenticatedUserName = state => state.user.name;

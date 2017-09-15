@@ -7,6 +7,7 @@ import sanitize from 'sanitize-html';
 import {
   getAuthenticatedUser,
   getBookmarks,
+  getPendingBookmarks,
   getPendingLikes,
   getRebloggedList,
   getPendingReblogs,
@@ -26,6 +27,7 @@ import StoryFull from '../components/Story/StoryFull';
   state => ({
     user: getAuthenticatedUser(state),
     bookmarks: getBookmarks(state),
+    pendingBookmarks: getPendingBookmarks(state),
     pendingLikes: getPendingLikes(state),
     reblogList: getRebloggedList(state),
     pendingReblogs: getPendingReblogs(state),
@@ -52,6 +54,7 @@ class PostContent extends React.Component {
     followingList: PropTypes.arrayOf(PropTypes.string),
     pendingFollows: PropTypes.arrayOf(PropTypes.string),
     bookmarks: PropTypes.shape(),
+    pendingBookmarks: PropTypes.arrayOf(PropTypes.number).isRequired,
     editPost: PropTypes.func,
     toggleBookmark: PropTypes.func,
     votePost: PropTypes.func,
@@ -132,6 +135,7 @@ class PostContent extends React.Component {
       followingList,
       pendingFollows,
       bookmarks,
+      pendingBookmarks,
     } = this.props;
 
     const postMetaData = jsonParse(content.json_metadata);
@@ -146,9 +150,7 @@ class PostContent extends React.Component {
     const postState = {
       isReblogged: reblogList.includes(content.id),
       isReblogging: pendingReblogs.includes(content.id),
-      isSaved:
-        bookmarks[user.name] &&
-        bookmarks[user.name].filter(bookmark => bookmark.id === content.id).length > 0,
+      isSaved: !!bookmarks[content.id],
       isLiked: userVote.percent > 0,
       isReported: userVote.percent < 0,
       userFollowed: followingList.includes(content.author),
@@ -198,6 +200,7 @@ class PostContent extends React.Component {
           commentCount={content.children}
           pendingLike={pendingLikes.includes(content.id)}
           pendingFollow={pendingFollows.includes(content.author)}
+          pendingBookmark={pendingBookmarks.includes(content.id)}
           onLikeClick={this.handleLikeClick}
           onReportClick={this.handleReportClick}
           onShareClick={this.handleShareClick}

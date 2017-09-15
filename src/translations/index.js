@@ -39,18 +39,29 @@ export const translations = {
   pl: plTranslations,
 };
 
+export const getBrowserLocale = () => {
+  let detectedLocale;
+  if (typeof navigator !== 'undefined') {
+    detectedLocale =
+      navigator.userLanguage ||
+      navigator.language ||
+      (navigator.languages && navigator.languages[0] ? navigator.languages[0] : undefined);
+  }
+  if (detectedLocale) {
+    return detectedLocale.slice(0, 2);
+  }
+  return undefined;
+};
+
 export const getAvailableLocale = (appLocale) => {
   let locale = appLocale || 'auto';
 
-  if (typeof navigator !== 'undefined' && appLocale === 'auto') {
-    locale =
-      navigator.userLanguage ||
-      navigator.language ||
-      (navigator.languages && navigator.languages[0] ? navigator.languages[0] : 'en');
+  if (appLocale === 'auto') {
+    locale = getBrowserLocale() || 'en';
   }
 
-  if (translations[locale.slice(0, 2)]) {
-    return locale.slice(0, 2);
+  if (translations[locale]) {
+    return locale;
   }
 
   return 'en';
