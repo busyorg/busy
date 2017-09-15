@@ -41,8 +41,6 @@
   "unsave_post":"Unsave post",
   "report_post":"Report post",
   "edit_post":"Edit post",
-  "edit_post_error_format":"Can't edit non-Markdown posts",
-  "edit_post_error_time":"Can't edit posts older than a week",
   "add_to_favorites":"Add to favorites",
   "remove_from_favorites":"Remove from favorites",
   "like":"Like",

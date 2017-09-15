@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 import { Tag, Icon, Popover, Tooltip } from 'antd';
 import Lightbox from 'react-image-lightbox';
 import { formatter } from 'steem';
-import { jsonParse } from '../../helpers/formatter';
 import Body from './Body';
 import StoryFooter from './StoryFooter';
 import Avatar from '../Avatar';
@@ -158,28 +157,11 @@ class StoryFull extends React.Component {
 
     let popoverMenu = [];
 
-    if (ownPost) {
-      const postMetaData = jsonParse(post.json_metadata);
-      let item = null;
-
-      if (postMetaData.format !== 'markdown') {
-        item = (<PopoverMenuItem key="edit" disabled>
-          <i className="iconfont icon-write" />
-          <FormattedMessage id="edit_post_error_format" defaultMessage="Can't edit non-Markdown posts" />
-        </PopoverMenuItem>);
-      } else if (post.cashout_time === '1969-12-31T23:59:59') {
-        item = (<PopoverMenuItem key="edit" disabled>
-          <i className="iconfont icon-write" />
-          <FormattedMessage id="edit_post_error_time" defaultMessage="Can't edit posts older than a week" />
-        </PopoverMenuItem>);
-      } else {
-        item = (<PopoverMenuItem key="edit">
-          {saving ? <Icon type="loading" /> : <i className="iconfont icon-write" />}
-          <FormattedMessage id="edit_post" defaultMessage="Edit post" />
-        </PopoverMenuItem>);
-      }
-
-      popoverMenu = [...popoverMenu, item];
+    if (ownPost && post.cashout_time !== '1969-12-31T23:59:59') {
+      popoverMenu = [...popoverMenu, <PopoverMenuItem key="edit">
+        {saving ? <Icon type="loading" /> : <i className="iconfont icon-write" />}
+        <FormattedMessage id="edit_post" defaultMessage="Edit post" />
+      </PopoverMenuItem>];
     }
 
     popoverMenu = [
