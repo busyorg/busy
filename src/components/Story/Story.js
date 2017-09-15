@@ -98,12 +98,15 @@ class Story extends React.Component {
       </PopoverMenuItem>];
     }
 
-    popoverMenu = [
-      ...popoverMenu,
-      <PopoverMenuItem key="follow" disabled={pendingFollow}>
+    if (!ownPost) {
+      popoverMenu = [...popoverMenu, <PopoverMenuItem key="follow" disabled={pendingFollow}>
         {pendingFollow ? <Icon type="loading" /> : <i className="iconfont icon-people" />}
         {followText}
-      </PopoverMenuItem>,
+      </PopoverMenuItem>];
+    }
+
+    popoverMenu = [
+      ...popoverMenu,
       <PopoverMenuItem key="save">
         {pendingBookmark ? <Icon type="loading" /> : <i className="iconfont icon-collection" />}
         <FormattedMessage id={postState.isSaved ? 'unsave_post' : 'save_post'} defaultMessage={postState.isSaved ? 'Unsave post' : 'Save post'} />
