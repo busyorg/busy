@@ -90,20 +90,7 @@ class Story extends React.Component {
       followText = intl.formatMessage({ id: 'follow_username', defaultMessage: 'Follow {username}' }, { username: post.author });
     }
 
-    const popoverMenu = [
-      <PopoverMenuItem key="follow" disabled={pendingFollow}>
-        {pendingFollow ? <Icon type="loading" /> : <i className="iconfont icon-people" />}
-        {followText}
-      </PopoverMenuItem>,
-      <PopoverMenuItem key="save">
-        {pendingBookmark ? <Icon type="loading" /> : <i className="iconfont icon-collection" />}
-        <FormattedMessage id={postState.isSaved ? 'unsave_post' : 'save_post'} defaultMessage={postState.isSaved ? 'Unsave post' : 'Save post'} />
-      </PopoverMenuItem>,
-      <PopoverMenuItem key="report">
-        <i className="iconfont icon-flag" />
-        <FormattedMessage id="report_post" defaultMessage="Report post" />
-      </PopoverMenuItem>,
-    ];
+    let popoverMenu = [];
 
     if (ownPost) {
       const postMetaData = jsonParse(post.json_metadata);
@@ -126,8 +113,24 @@ class Story extends React.Component {
         </PopoverMenuItem>);
       }
 
-      popoverMenu.push(item);
+      popoverMenu = [...popoverMenu, item];
     }
+
+    popoverMenu = [
+      ...popoverMenu,
+      <PopoverMenuItem key="follow" disabled={pendingFollow}>
+        {pendingFollow ? <Icon type="loading" /> : <i className="iconfont icon-people" />}
+        {followText}
+      </PopoverMenuItem>,
+      <PopoverMenuItem key="save">
+        {pendingBookmark ? <Icon type="loading" /> : <i className="iconfont icon-collection" />}
+        <FormattedMessage id={postState.isSaved ? 'unsave_post' : 'save_post'} defaultMessage={postState.isSaved ? 'Unsave post' : 'Save post'} />
+      </PopoverMenuItem>,
+      <PopoverMenuItem key="report">
+        <i className="iconfont icon-flag" />
+        <FormattedMessage id="report_post" defaultMessage="Report post" />
+      </PopoverMenuItem>,
+    ];
 
     let rebloggedUI = null;
 
