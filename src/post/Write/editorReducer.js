@@ -114,3 +114,4 @@ export const getDraftPosts = state => state.draftPosts;
 export const getIsEditorLoading = state => state.loading;
 export const getIsEditorSaving = state => state.saving;
 export const getPendingDrafts = state => state.pendingDrafts;
+export const getIsPostEdited = (state, permlink) => state.editedPosts.includes(permlink);
