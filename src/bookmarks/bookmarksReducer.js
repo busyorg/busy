@@ -1,39 +1,33 @@
+import * as authActions from '../auth/authActions';
 import * as bookmarksActions from './bookmarksActions';
 
-const initialState = {};
+const initialState = {
+  list: {},
+  pendingBookmarks: [],
+};
 
 const bookmarks = (state = initialState, action) => {
   switch (action.type) {
-    case bookmarksActions.ADD_BOOKMARK:
-      if (state[action.payload.user]) {
-        return {
-          ...state,
-          [action.payload.user]: [
-            ...state[action.payload.user],
-            {
-              id: action.payload.postId,
-              author: action.payload.author,
-              permlink: action.payload.permlink,
-            },
-          ],
-        };
-      }
+    case authActions.LOGIN_SUCCESS:
       return {
         ...state,
-        [action.payload.user]: [
-          {
-            id: action.payload.postId,
-            author: action.payload.author,
-            permlink: action.payload.permlink,
-          },
-        ],
+        list: action.payload.user_metadata.bookmarks || initialState.list,
       };
-    case bookmarksActions.REMOVE_BOOKMARK:
+    case bookmarksActions.TOGGLE_BOOKMARK_START:
       return {
         ...state,
-        [action.payload.user]: state[action.payload.user].filter(
-          bookmark => bookmark.id !== action.payload.postId,
-        ),
+        pendingBookmarks: [...state.pendingBookmarks, action.meta.id],
+      };
+    case bookmarksActions.TOGGLE_BOOKMARK_SUCCESS:
+      return {
+        ...state,
+        list: action.payload || initialState.list,
+        pendingBookmarks: state.pendingBookmarks.filter(bookmark => bookmark !== action.meta.id),
+      };
+    case bookmarksActions.TOGGLE_BOOKMARK_ERROR:
+      return {
+        ...state,
+        pendingBookmarks: state.pendingBookmarks.filter(bookmark => bookmark !== action.meta.id),
       };
     default:
       return state;
@@ -42,4 +36,5 @@ const bookmarks = (state = initialState, action) => {
 
 export default bookmarks;
 
-export const getBookmarks = state => state;
+export const getBookmarks = state => state.list;
+export const getPendingBookmarks = state => state.pendingBookmarks;

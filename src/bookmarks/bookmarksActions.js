@@ -1,15 +1,15 @@
-import { createAction } from 'redux-actions';
+import { toggleBookmarkMetadata } from '../helpers/metadata';
+import { getBookmarks as getBookmarksSelector } from '../reducers';
 
 export const GET_BOOKMARKS = '@bookmarks/GET_BOOKMARKS';
 export const GET_BOOKMARKS_START = '@bookmarks/GET_BOOKMARKS_START';
 export const GET_BOOKMARKS_SUCCESS = '@bookmarks/GET_BOOKMARKS_SUCCESS';
-export const GET_BOOKMARKS_FAIL = '@bookmarks/GET_BOOKMARKS_FAIL';
+export const GET_BOOKMARKS_ERROR = '@bookmarks/GET_BOOKMARKS_ERROR';
 
-export const ADD_BOOKMARK = '@bookmarks/ADD_BOOKMARK';
-export const REMOVE_BOOKMARK = '@bookmarks/REMOVE_BOOKMARK';
-
-export const addBookmark = createAction(ADD_BOOKMARK);
-export const removeBookmark = createAction(REMOVE_BOOKMARK);
+export const TOGGLE_BOOKMARK = '@bookmarks/TOGGLE_BOOKMARK';
+export const TOGGLE_BOOKMARK_START = '@bookmarks/TOGGLE_BOOKMARK_START';
+export const TOGGLE_BOOKMARK_SUCCESS = '@bookmarks/TOGGLE_BOOKMARK_SUCCESS';
+export const TOGGLE_BOOKMARK_ERROR = '@bookmarks/TOGGLE_BOOKMARK_ERROR';
 
 /**
  * Use async await to load all the posts of bookmarked from steemAPI and returns a Promise
@@ -30,15 +30,12 @@ async function getBookmarksData(bookmarks, steemAPI) {
 }
 
 export const getBookmarks = () => (dispatch, getState, { steemAPI }) => {
-  const { auth, bookmarks } = getState();
-  const user = auth.isAuthenticated ? auth.user.name : 'guest';
-
-  const userBookmarks = bookmarks[user] || {};
+  const bookmarks = getBookmarksSelector(getState());
 
   dispatch({
     type: GET_BOOKMARKS,
     payload: {
-      promise: getBookmarksData(userBookmarks, steemAPI).then(bookmarksData => ({
+      promise: getBookmarksData(bookmarks, steemAPI).then(bookmarksData => ({
         postsData: bookmarksData,
       })),
       data: bookmarks,
@@ -46,13 +43,11 @@ export const getBookmarks = () => (dispatch, getState, { steemAPI }) => {
   });
 };
 
-export const toggleBookmark = (postId, author, permlink) => (dispatch, getState) => {
-  const { auth, bookmarks } = getState();
-  const user = auth.isAuthenticated ? auth.user.name : 'guest';
-
-  if (bookmarks[user] && bookmarks[user].filter(bookmark => bookmark.id === postId).length > 0) {
-    dispatch(removeBookmark({ user, postId }));
-  } else {
-    dispatch(addBookmark({ user, postId, author, permlink }));
-  }
-};
+export const toggleBookmark = (postId, author, permlink) => dispatch =>
+  dispatch({
+    type: TOGGLE_BOOKMARK,
+    payload: {
+      promise: toggleBookmarkMetadata(postId, author, permlink),
+    },
+    meta: { id: postId },
+  });

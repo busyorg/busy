@@ -1,11 +1,30 @@
 @import (reference) "../../styles/custom.less";
 
 .Story {
-  position: relative;
   border-radius: 4px;
   background-color: @white;
   color: #353535;
   border: solid 1px #e9e7e7;
+
+  &__content {
+    position: relative;
+  }
+
+  &__reblog {
+    margin: 8px 0 -8px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #99aab5;
+
+    & > i {
+      font-size: 18px;
+      margin-right: 4px;
+    }
+
+    & > span {
+      vertical-align: 2px;
+    }
+  }
 
   &:not(:first-child) {
     margin-top: 12px;

@@ -1,100 +1,96 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { FormattedMessage } from 'react-intl';
-import { getLocale } from '../reducers';
-import * as actions from './appActions';
+import { injectIntl, FormattedMessage } from 'react-intl';
+import { Select } from 'antd';
+import Loading from '../components/Icon/Loading';
+import { getLocale, getIsLocaleLoading, getIsReloading } from '../reducers';
+import { setLocale } from './appActions';
+import { reload } from '../auth/authActions';
 
+// NOTE: We are using injectIntl because without it locale won't update: see https://github.com/yahoo/react-intl/issues/371
+@injectIntl
 @connect(
   state => ({
+    reloading: getIsReloading(state),
     locale: getLocale(state),
+    localeLoading: getIsLocaleLoading(state),
   }),
-  dispatch =>
-    bindActionCreators(
-      {
-        setLocale: actions.setLocale,
-      },
-      dispatch,
-    ),
+  { reload, setLocale },
 )
 export default class AppSettings extends React.Component {
   static propTypes = {
+    reloading: PropTypes.bool,
+    locale: PropTypes.string,
+    localeLoading: PropTypes.bool,
     setLocale: PropTypes.func,
+    reload: PropTypes.func,
   };
 
   static defaultProps = {
+    reloading: false,
+    locale: 'auto',
+    localeLoading: false,
     setLocale: () => {},
+    reload: () => {},
   };
 
+  componentDidMount() {
+    this.props.reload();
+  }
+
+  languages = {
+    en: 'English',
+    zh: '简体中文',
+    cs: 'Čeština',
+    es: 'Español',
+    fr: 'Français',
+    pl: 'Polski',
+    de: 'Deutsch',
+    ru: 'Русский',
+    ko: '한국어',
+    nl: 'Nederlands',
+    sv: 'Svenska',
+  };
+
+  handleLocaleChange = locale => this.props.setLocale(locale);
+
   render() {
-    const { setLocale } = this.props;
+    const { reloading, locale, localeLoading } = this.props;
+
+    const languageOptions = [];
+
+    if (locale === 'auto') {
+      languageOptions.push(<Select.Option disabled value="auto">
+        <FormattedMessage key="auto" id="select_language" defaultMessage="Select your language" />
+      </Select.Option>);
+    }
+
+    Object.keys(this.languages).forEach((key) => {
+      languageOptions.push(
+        <Select.Option key={key} value={key}>
+          {this.languages[key]}
+        </Select.Option>);
+    });
+
     return (
       <div className="shifted">
         <div className="container">
           <h1>
             <FormattedMessage id="settings" defaultMessage="Settings" />
           </h1>
-          <h2>
-            <FormattedMessage id="language" defaultMessage="Language" />
-          </h2>
-          <div className="row my-4">
-            <div>
-              <a role="presentation" onClick={() => setLocale('en')}>
-                <h3>English</h3>
-              </a>
+          {reloading ? <Loading />
+            : <div>
+              <h2>
+                <FormattedMessage id="language" defaultMessage="Language" />
+              </h2>
+              <div>
+                <Select disabled={localeLoading} value={locale} style={{ width: '100%', maxWidth: 240 }} onChange={this.handleLocaleChange}>
+                  {languageOptions}
+                </Select>
+              </div>
             </div>
-            <div>
-              <a role="presentation" onClick={() => setLocale('zh')}>
-                <h3>简体中文</h3>
-              </a>
-            </div>
-            <div>
-              <a role="presentation" onClick={() => setLocale('cs')}>
-                <h3>Čeština</h3>
-              </a>
-            </div>
-            <div>
-              <a role="presentation" onClick={() => setLocale('es')}>
-                <h3>Español</h3>
-              </a>
-            </div>
-            <div>
-              <a role="presentation" onClick={() => setLocale('fr')}>
-                <h3>Français</h3>
-              </a>
-            </div>
-            <div>
-              <a role="presentation" onClick={() => setLocale('pl')}>
-                <h3>Polski</h3>
-              </a>
-            </div>
-            <div>
-              <a role="presentation" onClick={() => setLocale('de')}>
-                <h3>Deutsch</h3>
-              </a>
-            </div>
-            <div>
-              <a role="presentation" onClick={() => setLocale('ru')}>
-                <h3>Русский</h3>
-              </a>
-            </div>
-            <div>
-              <a role="presentation" onClick={() => setLocale('ko')}>
-                <h3>한국어</h3>
-              </a>
-            </div>
-            <div>
-              <a role="presentation" onClick={() => setLocale('nl')}>
-                <h3>Nederlands</h3>
-              </a>
-            </div>
-            <div>
-              <a role="presentation" onClick={() => setLocale('sv')}>
-                <h3>Svenska</h3>
-              </a>
-            </div>
-          </div>
+          }
         </div>
       </div>
     );

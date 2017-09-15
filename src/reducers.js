@@ -40,6 +40,7 @@ export default reducers;
 export const getIsAuthenticated = state => fromAuth.getIsAuthenticated(state.auth);
 export const getIsAuthFetching = state => fromAuth.getIsAuthFetching(state.auth);
 export const getIsLoaded = state => fromAuth.getIsLoaded(state.auth);
+export const getIsReloading = state => fromAuth.getIsReloading(state.auth);
 export const getAuthenticatedUser = state => fromAuth.getAuthenticatedUser(state.auth);
 export const getAuthenticatedUserName = state => fromAuth.getAuthenticatedUserName(state.auth);
 
@@ -50,8 +51,11 @@ export const getPendingLikes = state => fromPosts.getPendingLikes(state.posts);
 
 export const getDraftPosts = state => fromEditor.getDraftPosts(state.editor);
 export const getIsEditorLoading = state => fromEditor.getIsEditorLoading(state.editor);
+export const getIsEditorSaving = state => fromEditor.getIsEditorSaving(state.editor);
+export const getPendingDrafts = state => fromEditor.getPendingDrafts(state.editor);
 
 export const getLocale = state => fromApp.getLocale(state.app);
+export const getIsLocaleLoading = state => fromApp.getIsLocaleLoading(state.app);
 export const getRate = state => fromApp.getRate(state.app);
 export const getIsTrendingTopicsLoading = state => fromApp.getIsTrendingTopicsLoading(state.app);
 export const getTrendingTopics = state => fromApp.getTrendingTopics(state.app);
@@ -65,6 +69,7 @@ export const getCommentsPendingVotes = state =>
   fromComments.getCommentsPendingVotes(state.comments);
 
 export const getBookmarks = state => fromBookmarks.getBookmarks(state.bookmarks);
+export const getPendingBookmarks = state => fromBookmarks.getPendingBookmarks(state.bookmarks);
 
 export const getRebloggedList = state => fromReblog.getRebloggedList(state.reblog);
 export const getPendingReblogs = state => fromReblog.getPendingReblogs(state.reblog);

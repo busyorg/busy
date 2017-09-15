@@ -11,6 +11,7 @@ import { followUser, unfollowUser } from '../user/userActions';
 import {
   getAuthenticatedUser,
   getBookmarks,
+  getPendingBookmarks,
   getPendingLikes,
   getRebloggedList,
   getPendingReblogs,
@@ -25,6 +26,7 @@ import StoryLoading from '../components/Story/StoryLoading';
   state => ({
     user: getAuthenticatedUser(state),
     bookmarks: getBookmarks(state),
+    pendingBookmarks: getPendingBookmarks(state),
     pendingLikes: getPendingLikes(state),
     reblogList: getRebloggedList(state),
     pendingReblogs: getPendingReblogs(state),
@@ -47,6 +49,7 @@ export default class Feed extends React.Component {
     pendingFollows: PropTypes.arrayOf(PropTypes.string).isRequired,
     pendingReblogs: PropTypes.arrayOf(PropTypes.number).isRequired,
     bookmarks: PropTypes.shape().isRequired,
+    pendingBookmarks: PropTypes.arrayOf(PropTypes.number).isRequired,
     followingList: PropTypes.arrayOf(PropTypes.string).isRequired,
     reblogList: PropTypes.arrayOf(PropTypes.number).isRequired,
     isFetching: PropTypes.bool,
@@ -87,6 +90,7 @@ export default class Feed extends React.Component {
       hasMore,
       pendingLikes,
       bookmarks,
+      pendingBookmarks,
       reblogList,
       followingList,
       pendingFollows,
@@ -120,10 +124,7 @@ export default class Feed extends React.Component {
           const postState = {
             isReblogged: reblogList.includes(post.id),
             isReblogging: pendingReblogs.includes(post.id),
-            isSaved:
-              bookmarks[user.name] &&
-              bookmarks[user.name].filter(bookmark => bookmark.id === post.id).length >
-                0,
+            isSaved: !!bookmarks[post.id],
             isLiked: userVote.percent > 0,
             isReported: userVote.percent < 0,
             userFollowed: followingList.includes(post.author),
@@ -142,6 +143,7 @@ export default class Feed extends React.Component {
               postState={postState}
               pendingLike={pendingLikes.includes(post.id)}
               pendingFollow={pendingFollows.includes(post.author)}
+              pendingBookmark={pendingBookmarks.includes(post.id)}
               onFollowClick={this.handleFollowClick}
               onSaveClick={() => toggleBookmark(post.id, post.author, post.permlink)}
               onReportClick={reportPost}
