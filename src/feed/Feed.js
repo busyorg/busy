@@ -19,6 +19,7 @@ import {
   getPendingReblogs,
   getFollowingList,
   getPendingFollows,
+  getIsEditorSaving,
 } from '../reducers';
 
 import Story from '../components/Story/Story';
@@ -34,6 +35,7 @@ import StoryLoading from '../components/Story/StoryLoading';
     pendingReblogs: getPendingReblogs(state),
     followingList: getFollowingList(state),
     pendingFollows: getPendingFollows(state),
+    saving: getIsEditorSaving(state),
   }),
   {
     editPost,
@@ -55,6 +57,7 @@ export default class Feed extends React.Component {
     pendingBookmarks: PropTypes.arrayOf(PropTypes.number).isRequired,
     followingList: PropTypes.arrayOf(PropTypes.string).isRequired,
     reblogList: PropTypes.arrayOf(PropTypes.number).isRequired,
+    saving: PropTypes.bool.isRequired,
     isFetching: PropTypes.bool,
     hasMore: PropTypes.bool,
     editPost: PropTypes.func,
@@ -105,6 +108,7 @@ export default class Feed extends React.Component {
       toggleBookmark,
       reblog,
       votePost,
+      saving,
     } = this.props;
 
     return (
@@ -157,6 +161,7 @@ export default class Feed extends React.Component {
               pendingLike={pendingLikes.includes(post.id)}
               pendingFollow={pendingFollows.includes(post.author)}
               pendingBookmark={pendingBookmarks.includes(post.id)}
+              saving={saving}
               onFollowClick={this.handleFollowClick}
               onSaveClick={() => toggleBookmark(post.id, post.author, post.permlink)}
               onReportClick={reportPost}

@@ -24,6 +24,7 @@ class StoryFull extends React.Component {
     pendingFollow: PropTypes.bool,
     pendingBookmark: PropTypes.bool,
     commentCount: PropTypes.number,
+    saving: PropTypes.bool,
     onFollowClick: PropTypes.func,
     onSaveClick: PropTypes.func,
     onReportClick: PropTypes.func,
@@ -38,6 +39,7 @@ class StoryFull extends React.Component {
     pendingFollow: false,
     pendingBookmark: false,
     commentCount: 0,
+    saving: false,
     onFollowClick: () => {},
     onSaveClick: () => {},
     onReportClick: () => {},
@@ -109,6 +111,7 @@ class StoryFull extends React.Component {
       pendingFollow,
       pendingBookmark,
       commentCount,
+      saving,
       onLikeClick,
       onShareClick,
     } = this.props;
@@ -173,7 +176,7 @@ class StoryFull extends React.Component {
     if (editable) {
       popoverMenu.push(
         <PopoverMenuItem key="edit">
-          <i className="iconfont icon-write" />
+          {saving ? <Icon type="loading" /> : <i className="iconfont icon-write" />}
           Edit post
         </PopoverMenuItem>,
       );

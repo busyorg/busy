@@ -13,6 +13,7 @@ import {
   getPendingReblogs,
   getFollowingList,
   getPendingFollows,
+  getIsEditorSaving,
 } from '../reducers';
 import { editPost } from './Write/editorActions';
 import { votePost } from './postActions';
@@ -33,6 +34,7 @@ import StoryFull from '../components/Story/StoryFull';
     pendingReblogs: getPendingReblogs(state),
     followingList: getFollowingList(state),
     pendingFollows: getPendingFollows(state),
+    saving: getIsEditorSaving(state),
     state,
   }),
   {
@@ -55,6 +57,7 @@ class PostContent extends React.Component {
     pendingFollows: PropTypes.arrayOf(PropTypes.string),
     bookmarks: PropTypes.shape(),
     pendingBookmarks: PropTypes.arrayOf(PropTypes.number).isRequired,
+    saving: PropTypes.bool.isRequired,
     editPost: PropTypes.func,
     toggleBookmark: PropTypes.func,
     votePost: PropTypes.func,
@@ -136,6 +139,7 @@ class PostContent extends React.Component {
       pendingFollows,
       bookmarks,
       pendingBookmarks,
+      saving,
     } = this.props;
 
     const postMetaData = jsonParse(content.json_metadata);
@@ -201,6 +205,7 @@ class PostContent extends React.Component {
           pendingLike={pendingLikes.includes(content.id)}
           pendingFollow={pendingFollows.includes(content.author)}
           pendingBookmark={pendingBookmarks.includes(content.id)}
+          saving={saving}
           onLikeClick={this.handleLikeClick}
           onReportClick={this.handleReportClick}
           onShareClick={this.handleShareClick}
