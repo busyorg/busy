@@ -76,7 +76,7 @@ export default class Post extends React.Component {
   };
 
   render() {
-    const { content } = this.props;
+    const { content, fetching } = this.props;
 
     return (
       <div className="main-panel">
@@ -89,10 +89,13 @@ export default class Post extends React.Component {
               </div>
             </Affix>
             <div className="center" style={{ paddingBottom: '24px' }}>
-              {content ? <PostContent content={content} /> : <Loading />}
-              {content && <VisibilitySensor onChange={this.handleCommentsVisibility} />}
+              {content && !fetching
+                ? <PostContent content={content} /> : <Loading />}
+              {content && !fetching
+                && <VisibilitySensor onChange={this.handleCommentsVisibility} />}
               <div id="comments">
-                {content && <Comments show={this.state.commentsVisible} post={content} />}
+                {content && !fetching
+                  && <Comments show={this.state.commentsVisible} post={content} />}
               </div>
             </div>
           </div>
