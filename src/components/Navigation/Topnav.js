@@ -22,6 +22,8 @@ const Topnav = ({
   const notificationsCount =
     notifications && notifications.filter(notification => !notification.read).length;
 
+  const next = window.location.pathname.length > 1 ? window.location.pathname : '';
+
   if (username) {
     content = (
       <div className="Topnav__menu-container">
@@ -111,7 +113,7 @@ const Topnav = ({
             |
           </Menu.Item>
           <Menu.Item key="login">
-            <a href={steemconnect.getLoginURL()}>
+            <a href={steemconnect.getLoginURL(next)}>
               <FormattedMessage id="login" defaultMessage="Log in" />
             </a>
           </Menu.Item>

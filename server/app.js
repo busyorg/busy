@@ -143,10 +143,13 @@ function serverSideResponse(req, res) {
 }
 
 app.get('/callback', (req, res) => {
-  const { access_token, expires_in } = req.query;
-  if (access_token && expires_in) {
-    res.cookie('access_token', access_token, { maxAge: expires_in * 1000 });
-    res.redirect('/');
+  const accessToken = req.query.access_token;
+  const expiresIn = req.query.expires_in;
+  const state = req.query.state;
+  const next = state && state[0] === '/' ? state : '/';
+  if (accessToken && expiresIn) {
+    res.cookie('access_token', accessToken, { maxAge: expiresIn * 1000 });
+    res.redirect(next);
   } else {
     res.status(401).send({ error: 'access_token or expires_in Missing' });
   }
