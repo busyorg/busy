@@ -429,7 +429,7 @@ class Editor extends React.Component {
         }
         <Form.Item
           className={classNames({ Editor__hidden: isUpdating })}
-          label={<span className="Editor__label"><FormattedMessage id="reward" defaultMessage="Rward" /></span>}
+          label={<span className="Editor__label"><FormattedMessage id="reward" defaultMessage="Reward" /></span>}
         >
           {getFieldDecorator('reward', { initialValue: '50' })(
             <Select onChange={this.onUpdate} disabled={isUpdating}>
