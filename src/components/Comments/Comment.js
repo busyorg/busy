@@ -227,6 +227,7 @@ class Comment extends React.Component {
         inputValue={comment.body}
         isLoading={this.state.showCommentFormLoading}
         onSubmit={this.handleEditComment}
+        onClose={this.handleEditClick}
         onImageInserted={this.handleImageInserted}
       />);
     } else {

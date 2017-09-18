@@ -15,6 +15,7 @@ class EmbeddedCommentForm extends React.Component {
     inputValue: PropTypes.string.isRequired,
     onImageInserted: PropTypes.func,
     onSubmit: PropTypes.func,
+    onClose: PropTypes.func,
   };
 
   static defaultProps = {
@@ -22,6 +23,7 @@ class EmbeddedCommentForm extends React.Component {
     inputValue: '',
     onImageInserted: () => {},
     onSubmit: () => {},
+    onClose: () => {},
   };
 
   state = {
@@ -146,6 +148,9 @@ class EmbeddedCommentForm extends React.Component {
           {isLoading && <Icon type="loading" />}
           {isLoading ? <FormattedMessage id="comment_update_progress" defaultMessage="Updating" /> : <FormattedMessage id="comment_update_send" defaultMessage="Update comment" />}
         </button>
+        <a role="presentation" className="EmbeddedCommentForm__close" onClick={this.props.onClose}>
+          <FormattedMessage id="close" defaultMessage="Close" />
+        </a>
         {this.state.inputValue &&
           <div className="EmbeddedCommentForm__preview">
             <span className="Editor__label"><FormattedMessage id="preview" defaultMessage="Preview" /></span>
