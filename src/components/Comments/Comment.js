@@ -216,6 +216,7 @@ class Comment extends React.Component {
     if (this.state.editOpen) {
       content = (<EmbeddedCommentForm
         parentPost={comment}
+        inputValue={comment.body}
       />);
     } else {
       content = this.state.collapsed
