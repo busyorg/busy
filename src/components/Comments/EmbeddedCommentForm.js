@@ -1,0 +1,160 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+import ReactDOM from 'react-dom';
+import { injectIntl, FormattedMessage } from 'react-intl';
+import { Input, Icon } from 'antd';
+import Body, { remarkable } from '../Story/Body';
+import './EmbeddedCommentForm.less';
+
+@injectIntl
+class EmbeddedCommentForm extends React.Component {
+  static propTypes = {
+    intl: PropTypes.shape().isRequired,
+    parentPost: PropTypes.shape().isRequired,
+    isLoading: PropTypes.bool,
+    inputValue: PropTypes.string.isRequired,
+    onImageInserted: PropTypes.func,
+    onSubmit: PropTypes.func,
+  };
+
+  static defaultProps = {
+    isLoading: false,
+    inputValue: '',
+    onImageInserted: () => {},
+    onSubmit: () => {},
+  };
+
+  state = {
+    inputValue: this.props.inputValue,
+    isDisabledSubmit: false,
+    imageUploading: false,
+  };
+
+  componentDidMount() {
+    if (this.input) {
+      this.input.addEventListener('paste', this.handlePastedImage);
+
+      if (this.props.parentPost.depth !== 0) {
+        this.input.focus();
+      }
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (!nextProps.isLoading) {
+      this.setState({ inputValue: nextProps.inputValue || '' });
+    }
+  }
+
+  setInput = (input) => {
+    if (input && input.refs && input.refs.input) {
+      // eslint-disable-next-line react/no-find-dom-node
+      this.input = ReactDOM.findDOMNode(input.refs.input);
+    }
+  };
+
+  insertImage = (image, imageName = 'image') => {
+    this.setState({
+      imageUploading: false,
+    });
+
+    if (!this.input) return;
+
+    const startPos = this.input.selectionStart;
+    const endPos = this.input.selectionEnd;
+    const newValue = `${this.input.value.substring(
+      0,
+      startPos,
+    )}![${imageName}](${image})${this.input.value.substring(endPos, this.input.value.length)}`;
+    this.setState({ inputValue: newValue });
+  };
+
+  handleCommentTextChange = (e) => {
+    this.setState({ inputValue: e.target.value });
+  };
+
+  handlePastedImage = (e) => {
+    if (e.clipboardData && e.clipboardData.items) {
+      const items = e.clipboardData.items;
+      Array.from(items).forEach((item) => {
+        if (item.kind === 'file') {
+          e.preventDefault();
+
+          this.setState({
+            imageUploading: true,
+          });
+
+          const blob = item.getAsFile();
+          this.props.onImageInserted(blob, this.insertImage, () => this.setState({
+            imageUploading: false,
+          }));
+        }
+      });
+    }
+  };
+
+  handleImageChange = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      this.setState({
+        imageUploading: true,
+      });
+      this.props.onImageInserted(e.target.files[0], this.insertImage, () => this.setState({
+        imageUploading: false,
+      }));
+      // Input reacts on value change, so if user selects the same file nothing will happen.
+      // We have to reset its value, so if same image is selected it will emit onChange event. 
+      e.target.value = '';
+    }
+  };
+
+  handleSubmit = (e) => {
+    e.stopPropagation();
+    this.setState({ isDisabledSubmit: true });
+    if (this.state.inputValue) {
+      this.props.onSubmit(this.props.parentPost, this.state.inputValue);
+    }
+  };
+
+  render() {
+    const { intl, isLoading } = this.props;
+    const buttonClass = isLoading ? 'EmbeddedCommentForm__button_disabled' : 'EmbeddedCommentForm__button_primary';
+
+    return (
+      <div className="EmbeddedCommentForm">
+        <Input
+          id="commentFormInput"
+          ref={ref => this.setInput(ref)}
+          value={this.state.inputValue}
+          autosize={{ minRows: 2, maxRows: 6 }}
+          onChange={this.handleCommentTextChange}
+          placeholder={intl.formatMessage({ id: 'comment_placeholder', defaultMessage: 'Write a comment' })}
+          type="textarea"
+          disabled={isLoading}
+        />
+        <p className="EmbeddedCommentForm__imagebox">
+          <input type="file" id={`inputfile${this.props.parentPost.id}`} onChange={this.handleImageChange} />
+          <label htmlFor={`inputfile${this.props.parentPost.id}`}>
+            {(this.state.imageUploading) ? <Icon type="loading" /> : <i className="iconfont icon-picture" />}
+            {(this.state.imageUploading) ? <FormattedMessage id="image_uploading" defaultMessage="Uploading your image..." /> : <FormattedMessage id="select_or_past_image" defaultMessage="Select image or paste it from the clipboard." />}
+          </label>
+        </p>
+        <button
+          onClick={this.handleSubmit}
+          disabled={isLoading}
+          className={`EmbeddedCommentForm__button ${buttonClass}`}
+        >
+          {isLoading && <Icon type="loading" />}
+          {isLoading ? <FormattedMessage id="comment_send_progress" defaultMessage="Commenting" /> : <FormattedMessage id="comment_send" defaultMessage="Comment" />}
+        </button>
+        {this.state.inputValue &&
+          <div className="EmbeddedCommentForm__preview">
+            <span className="Editor__label"><FormattedMessage id="preview" defaultMessage="Preview" /></span>
+            <Body body={remarkable.render(this.state.inputValue)} />
+          </div>
+        }
+      </div>
+    );
+  }
+}
+
+export default EmbeddedCommentForm;
