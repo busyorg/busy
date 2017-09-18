@@ -9,23 +9,25 @@ class ReactionsModal extends React.Component {
     visible: PropTypes.bool,
     upVotes: PropTypes.arrayOf(PropTypes.shape()),
     downVotes: PropTypes.arrayOf(PropTypes.shape()),
+    ratio: PropTypes.number,
     onClose: PropTypes.func,
-  }
+  };
 
   static defaultProps = {
     visible: false,
     upVotes: [],
     downVotes: [],
+    ratio: 0,
     onOpen: () => {},
     onClose: () => {},
-  }
+  };
 
   state = {
     visible: false,
   };
 
   render() {
-    const { upVotes, downVotes } = this.props;
+    const { upVotes, downVotes, ratio } = this.props;
 
     const tabs = [];
 
@@ -41,7 +43,7 @@ class ReactionsModal extends React.Component {
         }
         key="1"
       >
-        <ReactionsList votes={upVotes} />
+        <ReactionsList votes={upVotes} ratio={ratio} />
       </Tabs.TabPane>);
     }
 
