@@ -134,8 +134,8 @@ class EmbeddedCommentForm extends React.Component {
           disabled={isLoading}
         />
         <p className="EmbeddedCommentForm__imagebox">
-          <input type="file" id={`inputfile${this.props.parentPost.id}`} onChange={this.handleImageChange} />
-          <label htmlFor={`inputfile${this.props.parentPost.id}`}>
+          <input type="file" id={`inputfile-edit${this.props.parentPost.id}`} onChange={this.handleImageChange} />
+          <label htmlFor={`inputfile-edit${this.props.parentPost.id}`}>
             {(this.state.imageUploading) ? <Icon type="loading" /> : <i className="iconfont icon-picture" />}
             {(this.state.imageUploading) ? <FormattedMessage id="image_uploading" defaultMessage="Uploading your image..." /> : <FormattedMessage id="select_or_past_image" defaultMessage="Select image or paste it from the clipboard." />}
           </label>
