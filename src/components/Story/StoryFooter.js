@@ -74,7 +74,7 @@ class StoryFooter extends React.Component {
 
   handleCloseReactions = () => this.setState({
     reactionsModalVisible: false,
-  })
+  });
 
   handleCommentClick = () => {
     const form = document.getElementById('commentFormInput');
@@ -83,7 +83,7 @@ class StoryFooter extends React.Component {
       document.body.scrollTop -= 200;
       form.focus();
     }
-  }
+  };
 
   render() {
     const { intl, post, postState, pendingLike, onLikeClick } = this.props;
@@ -93,8 +93,19 @@ class StoryFooter extends React.Component {
     const upVotes = getUpvotes(post.active_votes).sort(sortVotes);
     const downVotes = getDownvotes(post.active_votes).sort(sortVotes).reverse();
 
-    const upVotesPreview = take(upVotes.sort(sortVotes), 10)
-      .map(vote => <p key={vote.voter}>{vote.voter}</p>);
+    const totalPayout = parseFloat(post.pending_payout_value)
+      + parseFloat(post.total_payout_value)
+      + parseFloat(post.curator_payout_value);
+    const voteRshares = post.active_votes.reduce((a, b) => a + parseFloat(b.rshares), 0);
+    const ratio = totalPayout / voteRshares;
+
+    const upVotesPreview = take(upVotes, 10)
+      .map(vote => (<p key={vote.voter}>
+        {vote.voter}
+        {vote.rshares * ratio > 0.01 &&
+          <span style={{ opacity: '0.5' }}> +<USDDisplay value={vote.rshares * ratio} /></span>
+        }
+      </p>));
     const upVotesDiff = upVotes.length - upVotesPreview.length;
     const upVotesMore = upVotesDiff > 0 &&
       intl.formatMessage({ id: 'and_more_amount', defaultMessage: 'and {amount} more' },
@@ -187,6 +198,7 @@ class StoryFooter extends React.Component {
         <ReactionsModal
           visible={this.state.reactionsModalVisible}
           upVotes={upVotes}
+          ratio={ratio}
           downVotes={downVotes}
           onClose={this.handleCloseReactions}
         />
