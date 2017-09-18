@@ -54,6 +54,8 @@
   "comment_collapsed":"Comment collapsed",
   "comment_send":"Comment",
   "comment_send_progress":"Commenting",
+  "comment_update_send":"Update comment",
+  "comment_update_progress":"Updating",
   "reblog":"Reblog",
   "reblog_reblogged":"You already reblogged this post",
   "reblog_modal_title":"Reblog this post?",

@@ -144,7 +144,7 @@ class EmbeddedCommentForm extends React.Component {
           className={`EmbeddedCommentForm__button ${buttonClass}`}
         >
           {isLoading && <Icon type="loading" />}
-          {isLoading ? <FormattedMessage id="comment_send_progress" defaultMessage="Commenting" /> : <FormattedMessage id="comment_send" defaultMessage="Comment" />}
+          {isLoading ? <FormattedMessage id="comment_update_progress" defaultMessage="Updating" /> : <FormattedMessage id="comment_update_send" defaultMessage="Update comment" />}
         </button>
         {this.state.inputValue &&
           <div className="EmbeddedCommentForm__preview">
