@@ -25,6 +25,7 @@ class Comment extends React.Component {
     authenticated: PropTypes.bool.isRequired,
     username: PropTypes.string,
     comment: PropTypes.shape().isRequired,
+    parent: PropTypes.shape().isRequired,
     sort: PropTypes.oneOf(['BEST', 'NEWEST', 'OLDEST']),
     rootPostAuthor: PropTypes.string,
     commentsChildren: PropTypes.shape(),
@@ -125,15 +126,16 @@ class Comment extends React.Component {
       .catch(() => errorCallback());
   };
 
-  submitComment = (parentPost, commentValue) => {
+  handleSubmitComment = (parentPost, commentValue, isUpdating, originalComment) => {
     this.setState({ showCommentFormLoading: true });
 
     this.props
-      .onSendComment(parentPost, commentValue)
+      .onSendComment(parentPost, commentValue, isUpdating, originalComment)
       .then(() => {
         this.setState({
           showCommentFormLoading: false,
           replyOpen: false,
+          editOpen: false,
           commentFormText: '',
         });
       })
@@ -141,9 +143,14 @@ class Comment extends React.Component {
         this.setState({
           showCommentFormLoading: false,
           replyOpen: true,
+          editOpen: false,
           commentFormText: commentValue,
         });
       });
+  };
+
+  handleEditComment = (parentPost, commentValue) => {
+    this.handleSubmitComment(parentPost, commentValue, true, this.props.comment);
   };
 
   handleLikeClick = () => {
@@ -160,6 +167,7 @@ class Comment extends React.Component {
       authenticated,
       username,
       comment,
+      parent,
       sort,
       rootPostAuthor,
       commentsChildren,
@@ -215,8 +223,11 @@ class Comment extends React.Component {
 
     if (this.state.editOpen) {
       content = (<EmbeddedCommentForm
-        parentPost={comment}
+        parentPost={parent}
         inputValue={comment.body}
+        isLoading={this.state.showCommentFormLoading}
+        onSubmit={this.handleEditComment}
+        onImageInserted={this.handleImageInserted}
       />);
     } else {
       content = this.state.collapsed
@@ -382,7 +393,7 @@ class Comment extends React.Component {
               username={username}
               parentPost={comment}
               isSmall={comment.depth !== 1}
-              onSubmit={this.submitComment}
+              onSubmit={this.handleSubmitComment}
               isLoading={this.state.showCommentFormLoading}
               inputValue={this.state.commentFormText}
               onImageInserted={this.handleImageInserted}
@@ -403,6 +414,7 @@ class Comment extends React.Component {
                   authenticated={authenticated}
                   username={username}
                   comment={child}
+                  parent={comment}
                   pendingVotes={pendingVotes}
                   rootPostAuthor={rootPostAuthor}
                   commentsChildren={commentsChildren}

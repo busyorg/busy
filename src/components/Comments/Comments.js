@@ -145,6 +145,7 @@ class Comments extends React.Component {
               authenticated={authenticated}
               username={username}
               comment={comment}
+              parent={this.props.parentPost}
               sort={sort}
               rootPostAuthor={this.props.parentPost && this.props.parentPost.author}
               commentsChildren={commentsChildren}
