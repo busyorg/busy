@@ -26,7 +26,8 @@ import './Comments.less';
   dispatch => bindActionCreators({
     getComments: commentsActions.getComments,
     voteComment: (id, percent, vote) => commentsActions.likeComment(id, percent, vote),
-    sendComment: (parentPost, body) => commentsActions.sendComment(parentPost, body),
+    sendComment: (parentPost, body, isUpdating, originalPost) =>
+      commentsActions.sendComment(parentPost, body, isUpdating, originalPost),
     notify,
   }, dispatch),
 )

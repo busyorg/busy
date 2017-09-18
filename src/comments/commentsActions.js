@@ -1,6 +1,6 @@
 import { createAction } from 'redux-actions';
 import SteemConnect from 'sc2-sdk';
-import { createCommentPermlink } from '../vendor/steemitHelpers';
+import { createCommentPermlink, getBodyPatchIfSmaller } from '../vendor/steemitHelpers';
 import { notify } from '../app/Notification/notificationActions';
 
 const version = require('../../package.json').version;
@@ -73,11 +73,14 @@ export const getComments = (postId, reload = false, focusedComment = undefined) 
     });
   };
 
-export const sendComment = (parentPost, body) =>
+export const sendComment = (parentPost, body, isUpdating = false, originalComment) =>
   (dispatch, getState) => {
-    const { category, root_comment: rootComment } = parentPost;
-    const parentPermlink = parentPost.permlink;
-    const parentAuthor = parentPost.author;
+    const {
+      category,
+      root_comment: rootComment,
+      permlink: parentPermlink,
+      author: parentAuthor,
+    } = parentPost;
     const { auth } = getState();
 
     if (!auth.isAuthenticated) {
@@ -89,8 +92,12 @@ export const sendComment = (parentPost, body) =>
     }
 
     const author = auth.user.name;
-    const permlink = createCommentPermlink(parentAuthor, parentPermlink);
+    const permlink = isUpdating
+      ? originalComment.permlink
+      : createCommentPermlink(parentAuthor, parentPermlink);
     const jsonMetadata = { tags: [category], community: 'busy', app: `busy/${version}` };
+
+    const newBody = isUpdating ? getBodyPatchIfSmaller(originalComment.body, body) : body;
 
     return dispatch({
       type: SEND_COMMENT,
@@ -101,7 +108,7 @@ export const sendComment = (parentPost, body) =>
           author,
           permlink,
           '',
-          body,
+          newBody,
           jsonMetadata,
         )
           .then((resp) => {

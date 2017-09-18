@@ -11,6 +11,7 @@ import { sortComments, sortVotes } from '../../helpers/sortHelpers';
 import { calculatePayout } from '../../vendor/steemitHelpers';
 import ReactionsModal from '../Reactions/ReactionsModal';
 import CommentForm from './CommentForm';
+import EmbeddedCommentForm from './EmbeddedCommentForm';
 import USDDisplay from '../Utils/USDDisplay';
 import PayoutDetail from '../PayoutDetail';
 import Avatar from '../Avatar';
@@ -24,6 +25,7 @@ class Comment extends React.Component {
     authenticated: PropTypes.bool.isRequired,
     username: PropTypes.string,
     comment: PropTypes.shape().isRequired,
+    parent: PropTypes.shape().isRequired,
     sort: PropTypes.oneOf(['BEST', 'NEWEST', 'OLDEST']),
     rootPostAuthor: PropTypes.string,
     commentsChildren: PropTypes.shape(),
@@ -53,6 +55,7 @@ class Comment extends React.Component {
     super(props);
     this.state = {
       replyOpen: false,
+      editOpen: false,
       collapsed: false,
       showCommentFormLoading: false,
       commentFormText: '',
@@ -90,11 +93,16 @@ class Comment extends React.Component {
     reactionsModalVisible: false,
   })
 
-  handleReplyClick = () => {
-    this.setState({
-      replyOpen: !this.state.replyOpen,
-    });
-  };
+  handleReplyClick = () => this.setState({
+    replyOpen: !this.state.replyOpen,
+    editOpen: !this.state.replyOpen ? false : this.state.editOpen,
+  });
+
+
+  handleEditClick = () => this.setState({
+    editOpen: !this.state.editOpen,
+    replyOpen: !this.state.editOpen ? false : this.state.replyOpen,
+  });
 
   handleCollapseClick = () => {
     this.setState({
@@ -118,15 +126,16 @@ class Comment extends React.Component {
       .catch(() => errorCallback());
   };
 
-  submitComment = (parentPost, commentValue) => {
+  handleSubmitComment = (parentPost, commentValue, isUpdating, originalComment) => {
     this.setState({ showCommentFormLoading: true });
 
     this.props
-      .onSendComment(parentPost, commentValue)
+      .onSendComment(parentPost, commentValue, isUpdating, originalComment)
       .then(() => {
         this.setState({
           showCommentFormLoading: false,
           replyOpen: false,
+          editOpen: false,
           commentFormText: '',
         });
       })
@@ -134,9 +143,14 @@ class Comment extends React.Component {
         this.setState({
           showCommentFormLoading: false,
           replyOpen: true,
+          editOpen: false,
           commentFormText: commentValue,
         });
       });
+  };
+
+  handleEditComment = (parentPost, commentValue) => {
+    this.handleSubmitComment(parentPost, commentValue, true, this.props.comment);
   };
 
   handleLikeClick = () => {
@@ -153,6 +167,7 @@ class Comment extends React.Component {
       authenticated,
       username,
       comment,
+      parent,
       sort,
       rootPostAuthor,
       commentsChildren,
@@ -202,6 +217,27 @@ class Comment extends React.Component {
     const anchorId = `@${comment.author}/${comment.permlink}`;
     const anchorLink = `${comment.url.slice(0, comment.url.indexOf('#'))}#${anchorId}`;
 
+    const editable = comment.author === username && comment.cashout_time !== '1969-12-31T23:59:59';
+
+    let content = null;
+
+    if (this.state.editOpen) {
+      content = (<EmbeddedCommentForm
+        parentPost={parent}
+        inputValue={comment.body}
+        isLoading={this.state.showCommentFormLoading}
+        onSubmit={this.handleEditComment}
+        onClose={this.handleEditClick}
+        onImageInserted={this.handleImageInserted}
+      />);
+    } else {
+      content = this.state.collapsed
+        ? (<div className="Comment__content__collapsed">
+          <FormattedMessage id="comment_collapsed" defaultMessage="Comment collapsed" />
+        </div>)
+        : <Body body={comment.body} />;
+    }
+
     return (
       <div ref={this.setSelf} className="Comment" id={anchorId}>
         <span
@@ -243,11 +279,7 @@ class Comment extends React.Component {
             </Tooltip>
           </span>
           <div className="Comment__content">
-            {this.state.collapsed
-              ? <div className="Comment__content__collapsed">
-                <FormattedMessage id="comment_collapsed" defaultMessage="Comment collapsed" />
-              </div>
-              : <Body body={comment.body} />}
+            {content}
           </div>
           <div className="Comment__footer">
             <Tooltip title={intl.formatMessage({ id: 'like', defaultMessage: 'Like' })}>
@@ -329,11 +361,25 @@ class Comment extends React.Component {
                   className={classNames('Comment__footer__link', {
                     'Comment__footer__link--active': this.state.replyOpen,
                   })}
-                  onClick={() => this.handleReplyClick()}
+                  onClick={this.handleReplyClick}
                 >
                   <FormattedMessage id="reply" defaultMessage="Reply" />
                 </a>
               </span>}
+            {editable &&
+              <span>
+                <span className="Comment__footer__bullet" />
+                <a
+                  role="presentation"
+                  className={classNames('Comment__footer__link', {
+                    'Comment__footer__link--active': this.state.editOpen,
+                  })}
+                  onClick={this.handleEditClick}
+                >
+                  <FormattedMessage id="edit" defaultMessage="Edit" />
+                </a>
+              </span>
+            }
           </div>
           <ReactionsModal
             visible={this.state.reactionsModalVisible}
@@ -348,7 +394,7 @@ class Comment extends React.Component {
               username={username}
               parentPost={comment}
               isSmall={comment.depth !== 1}
-              onSubmit={this.submitComment}
+              onSubmit={this.handleSubmitComment}
               isLoading={this.state.showCommentFormLoading}
               inputValue={this.state.commentFormText}
               onImageInserted={this.handleImageInserted}
@@ -369,6 +415,7 @@ class Comment extends React.Component {
                   authenticated={authenticated}
                   username={username}
                   comment={child}
+                  parent={comment}
                   pendingVotes={pendingVotes}
                   rootPostAuthor={rootPostAuthor}
                   commentsChildren={commentsChildren}
