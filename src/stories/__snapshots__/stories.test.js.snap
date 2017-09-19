@@ -1090,7 +1090,7 @@ exports[`Storyshots Profile UserMenu 1`] = `
     className="UserMenu"
   >
     <div
-      className="container topnav-layout"
+      className="container menu-layout"
     >
       <div
         className="left"

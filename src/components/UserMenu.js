@@ -42,7 +42,7 @@ class UserMenu extends React.Component {
   render() {
     return (
       <div className="UserMenu">
-        <div className="container topnav-layout">
+        <div className="container menu-layout">
           <div className="left" />
           <Menu
             className="UserMenu__menu center"
