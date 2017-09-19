@@ -7,6 +7,7 @@ import people from '../../helpers/people';
 import {
   getIsAuthenticated,
   getAuthenticatedUser,
+  getFollowingList,
 } from '../../reducers';
 
 import InterestingPeople from '../../components/Sidebar/InterestingPeople';
@@ -17,12 +18,14 @@ import SignUp from '../../components/Sidebar/SignUp';
   state => ({
     authenticated: getIsAuthenticated(state),
     authenticatedUser: getAuthenticatedUser(state),
+    followingList: getFollowingList(state),
   }),
 )
 export default class RightSidebar extends React.Component {
   static propTypes = {
     authenticated: PropTypes.bool.isRequired,
     authenticatedUser: PropTypes.shape().isRequired,
+    followingList: PropTypes.arrayOf(PropTypes.string).isRequired,
   };
 
   constructor(props) {
@@ -34,7 +37,9 @@ export default class RightSidebar extends React.Component {
 
   getRandomPeople = () => people
     .reduce((res, item) => {
-      res.push({ name: item });
+      if (!this.props.followingList.includes(item)) {
+        res.push({ name: item });
+      }
       return res;
     }, [])
     .sort(() => 0.5 - Math.random()).slice(0, 5);
