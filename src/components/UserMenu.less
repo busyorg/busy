@@ -2,21 +2,31 @@
 
 .UserMenu {
   height: 46px;
-  background: @white;
   border-top: solid 1px #e9e7e7;
   border-bottom: solid 1px #e9e7e7;
 
   &__menu {
-    height: 45px !important;
-    border-bottom: solid 1px #e9e7e7 !important;
+    height: 46px;
+    line-height: 46px;
+    white-space: nowrap;
   }
 
   &__item {
-    height: 45px !important;
+    display: inline-block;
+    height: 45px;
+    cursor: pointer;
     color: #99aab5;
     font-weight: bold;
-    padding: 0 !important;
-    margin-right: 16px !important;
+
+    &:not(:first-child) {
+      margin-left: 16px;
+    }
+
+    &--active, &:hover {
+      color: @purple;
+
+      border-bottom: 2px solid @purple;
+    }
   }
 
   &__badge {

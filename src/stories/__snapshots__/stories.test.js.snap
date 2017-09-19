@@ -1096,53 +1096,33 @@ exports[`Storyshots Profile UserMenu 1`] = `
         className="left"
       />
       <ul
-        aria-activedescendant=""
-        className="ant-menu ant-menu-horizontal UserMenu__menu center ant-menu-light ant-menu-root"
-        onKeyDown={[Function]}
-        role="menu"
-        style={Object {}}
-        tabIndex="0"
+        className="UserMenu__menu center"
       >
         <li
-          aria-disabled={undefined}
-          aria-selected={true}
-          className="ant-menu-item-selected ant-menu-item UserMenu__item"
+          className="UserMenu__item UserMenu__item--active"
+          data-key="discussions"
           onClick={[Function]}
-          onMouseEnter={[Function]}
-          onMouseLeave={[Function]}
-          role="menuitem"
-          style={Object {}}
-          title={undefined}
+          role="presentation"
         >
           <span>
             Discussions
           </span>
         </li>
         <li
-          aria-disabled={undefined}
-          aria-selected={false}
-          className="ant-menu-item UserMenu__item"
+          className="UserMenu__item"
+          data-key="comments"
           onClick={[Function]}
-          onMouseEnter={[Function]}
-          onMouseLeave={[Function]}
-          role="menuitem"
-          style={Object {}}
-          title={undefined}
+          role="presentation"
         >
           <span>
             Comments
           </span>
         </li>
         <li
-          aria-disabled={undefined}
-          aria-selected={false}
-          className="ant-menu-item UserMenu__item"
+          className="UserMenu__item"
+          data-key="followers"
           onClick={[Function]}
-          onMouseEnter={[Function]}
-          onMouseLeave={[Function]}
-          role="menuitem"
-          style={Object {}}
-          title={undefined}
+          role="presentation"
         >
           <span>
             Followers
@@ -1156,15 +1136,10 @@ exports[`Storyshots Profile UserMenu 1`] = `
           </span>
         </li>
         <li
-          aria-disabled={undefined}
-          aria-selected={false}
-          className="ant-menu-item UserMenu__item"
+          className="UserMenu__item"
+          data-key="followed"
           onClick={[Function]}
-          onMouseEnter={[Function]}
-          onMouseLeave={[Function]}
-          role="menuitem"
-          style={Object {}}
-          title={undefined}
+          role="presentation"
         >
           <span>
             Following
