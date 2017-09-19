@@ -1095,64 +1095,6 @@ exports[`Storyshots Profile UserMenu 1`] = `
       <div
         className="left"
       />
-      <ul
-        className="UserMenu__menu center"
-      >
-        <li
-          className="UserMenu__item UserMenu__item--active"
-          data-key="discussions"
-          onClick={[Function]}
-          role="presentation"
-        >
-          <span>
-            Discussions
-          </span>
-        </li>
-        <li
-          className="UserMenu__item"
-          data-key="comments"
-          onClick={[Function]}
-          role="presentation"
-        >
-          <span>
-            Comments
-          </span>
-        </li>
-        <li
-          className="UserMenu__item"
-          data-key="followers"
-          onClick={[Function]}
-          role="presentation"
-        >
-          <span>
-            Followers
-          </span>
-          <span
-            className="UserMenu__badge"
-          >
-            <span>
-              0
-            </span>
-          </span>
-        </li>
-        <li
-          className="UserMenu__item"
-          data-key="followed"
-          onClick={[Function]}
-          role="presentation"
-        >
-          <span>
-            Following
-          </span>
-          <span
-            className="UserMenu__badge"
-          >
-            <span>
-              244
-            </span>
-          </span>
-        </li>
-      </ul>
     </div>
   </div>
 </div>

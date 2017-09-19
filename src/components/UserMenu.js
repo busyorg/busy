@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { Scrollbars } from 'react-custom-scrollbars';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 import './UserMenu.less';
 
@@ -38,26 +39,28 @@ class UserMenu extends React.Component {
       <div className="UserMenu">
         <div className="container menu-layout">
           <div className="left" />
-          <ul className="UserMenu__menu center">
-            <li className={this.getItemClasses('discussions')} onClick={this.handleClick} role="presentation" data-key="discussions">
-              <FormattedMessage id="discussions" defaultMessage="Discussions" />
-            </li>
-            <li className={this.getItemClasses('comments')} onClick={this.handleClick} role="presentation" data-key="comments">
-              <FormattedMessage id="comments" defaultMessage="Comments" />
-            </li>
-            <li className={this.getItemClasses('followers')} onClick={this.handleClick} role="presentation" data-key="followers">
-              <FormattedMessage id="followers" defaultMessage="Followers" />
-              <span className="UserMenu__badge">
-                <FormattedNumber value={this.props.followers} />
-              </span>
-            </li>
-            <li className={this.getItemClasses('followed')} onClick={this.handleClick} role="presentation" data-key="followed">
-              <FormattedMessage id="following" defaultMessage="Following" />
-              <span className="UserMenu__badge">
-                <FormattedNumber value={this.props.following} />
-              </span>
-            </li>
-          </ul>
+          <Scrollbars autoHide style={{ width: '100%', height: 46 }}>
+            <ul className="UserMenu__menu center">
+              <li className={this.getItemClasses('discussions')} onClick={this.handleClick} role="presentation" data-key="discussions">
+                <FormattedMessage id="discussions" defaultMessage="Discussions" />
+              </li>
+              <li className={this.getItemClasses('comments')} onClick={this.handleClick} role="presentation" data-key="comments">
+                <FormattedMessage id="comments" defaultMessage="Comments" />
+              </li>
+              <li className={this.getItemClasses('followers')} onClick={this.handleClick} role="presentation" data-key="followers">
+                <FormattedMessage id="followers" defaultMessage="Followers" />
+                <span className="UserMenu__badge">
+                  <FormattedNumber value={this.props.followers} />
+                </span>
+              </li>
+              <li className={this.getItemClasses('followed')} onClick={this.handleClick} role="presentation" data-key="followed">
+                <FormattedMessage id="following" defaultMessage="Following" />
+                <span className="UserMenu__badge">
+                  <FormattedNumber value={this.props.following} />
+                </span>
+              </li>
+            </ul>
+          </Scrollbars>
         </div>
       </div>
     );
