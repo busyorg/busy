@@ -6,6 +6,7 @@ import kebabCase from 'lodash/kebabCase';
 import debounce from 'lodash/debounce';
 import isArray from 'lodash/isArray';
 import 'url-search-params-polyfill';
+import { injectIntl } from 'react-intl';
 import GetBoost from '../../components/Sidebar/GetBoost';
 
 import { getAuthenticatedUser, getDraftPosts, getIsEditorLoading, getIsEditorSaving } from '../../reducers';
@@ -17,6 +18,7 @@ import Affix from '../../components/Utils/Affix';
 
 const version = require('../../../package.json').version;
 
+@injectIntl
 @withRouter
 @connect(
   state => ({
@@ -34,6 +36,7 @@ const version = require('../../../package.json').version;
 )
 class Write extends React.Component {
   static propTypes = {
+    intl: PropTypes.shape().isRequired,
     user: PropTypes.shape().isRequired,
     draftPosts: PropTypes.shape().isRequired,
     loading: PropTypes.bool.isRequired,
@@ -189,7 +192,8 @@ class Write extends React.Component {
   };
 
   handleImageInserted = (blob, callback, errorCallback) => {
-    this.props.notify('Uploading image', 'info');
+    const { formatMessage } = this.props.intl;
+    this.props.notify(formatMessage({ id: 'notify_uploading_image', defaultMessage: 'Uploading image' }), 'info');
     const formData = new FormData();
     formData.append('files', blob);
 
@@ -201,7 +205,7 @@ class Write extends React.Component {
       .then(res => callback(res.secure_url, blob.name))
       .catch(() => {
         errorCallback();
-        this.props.notify("Couldn't upload image");
+        this.props.notify(formatMessage({ id: 'notify_uploading_iamge_error', defaultMessage: "Couldn't upload image" }));
       });
   };
 
