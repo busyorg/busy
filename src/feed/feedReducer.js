@@ -25,8 +25,8 @@ const feedFetching = (state = false, action) => {
     case feedTypes.GET_USER_FEED_CONTENT_SUCCESS:
     case feedTypes.GET_MORE_USER_FEED_CONTENT_SUCCESS:
     case bookmarksActions.GET_BOOKMARKS_SUCCESS:
-    case repliesTypes.GET_USER_REPLIES_SUCCESS:
-    case repliesTypes.GET_MORE_USER_REPLIES_SUCCESS:
+    case repliesTypes.GET_REPLIES_SUCCESS:
+    case repliesTypes.GET_MORE_REPLIES_SUCCESS:
     case userTypes.GET_USER_COMMENTS_SUCCESS:
     case userTypes.GET_MORE_USER_COMMENTS_SUCCESS:
       return false;
@@ -35,8 +35,8 @@ const feedFetching = (state = false, action) => {
     case feedTypes.GET_USER_FEED_CONTENT:
     case feedTypes.GET_MORE_USER_FEED_CONTENT:
     case bookmarksActions.GET_BOOKMARKS_START:
-    case repliesTypes.GET_USER_REPLIES_START:
-    case repliesTypes.GET_MORE_USER_REPLIES_START:
+    case repliesTypes.GET_REPLIES_START:
+    case repliesTypes.GET_MORE_REPLIES_START:
     case userTypes.GET_USER_COMMENTS_START:
     case userTypes.GET_MORE_USER_COMMENTS_START:
       return true;
@@ -69,9 +69,9 @@ const feedIdsList = (state = [], action) => {
       // remove last element from current state because we used it as start_permlink
       // for pagination
       return [...state.slice(0, state.length - 1), ...action.payload.map(comment => comment.id)];
-    case repliesTypes.GET_USER_REPLIES_SUCCESS:
+    case repliesTypes.GET_REPLIES_SUCCESS:
       return Object.keys(action.payload).reverse();
-    case repliesTypes.GET_MORE_USER_REPLIES_SUCCESS:
+    case repliesTypes.GET_MORE_REPLIES_SUCCESS:
       postsIds = action.payload.map(reply => reply.id);
       return [...state, ...postsIds];
     default:
@@ -91,8 +91,8 @@ const feedSortBySubItem = (state = {}, action) => {
     case userTypes.GET_MORE_USER_COMMENTS_START:
     case bookmarksActions.GET_BOOKMARKS_START:
     case bookmarksActions.GET_BOOKMARKS_SUCCESS:
-    case repliesTypes.GET_USER_REPLIES_START:
-    case repliesTypes.GET_MORE_USER_REPLIES_START:
+    case repliesTypes.GET_REPLIES_START:
+    case repliesTypes.GET_MORE_REPLIES_START:
       return {
         ...state,
         isFetching: feedFetching(undefined, action),
@@ -116,8 +116,8 @@ const feedSortBySubItem = (state = {}, action) => {
         isFetching: feedFetching(undefined, action),
         list: feedIdsList(state.list, action),
       };
-    case repliesTypes.GET_USER_REPLIES_SUCCESS:
-    case repliesTypes.GET_MORE_USER_REPLIES_SUCCESS:
+    case repliesTypes.GET_REPLIES_SUCCESS:
+    case repliesTypes.GET_MORE_REPLIES_SUCCESS:
       return {
         ...state,
         hasMore: action.payload.length === action.meta.limit,
@@ -159,10 +159,10 @@ const feedSortByItem = (state = {}, action) => {
     case userTypes.GET_USER_COMMENTS_SUCCESS:
     case userTypes.GET_MORE_USER_COMMENTS_START:
     case userTypes.GET_MORE_USER_COMMENTS_SUCCESS:
-    case repliesTypes.GET_USER_REPLIES_START:
-    case repliesTypes.GET_USER_REPLIES_SUCCESS:
-    case repliesTypes.GET_MORE_USER_REPLIES_START:
-    case repliesTypes.GET_MORE_USER_REPLIES_SUCCESS:
+    case repliesTypes.GET_REPLIES_START:
+    case repliesTypes.GET_REPLIES_SUCCESS:
+    case repliesTypes.GET_MORE_REPLIES_START:
+    case repliesTypes.GET_MORE_REPLIES_SUCCESS:
       return {
         ...state,
         [action.meta.username]: feedSortBySubItem(state[action.meta.username], action),
@@ -207,10 +207,10 @@ const feed = (state = initialState, action) => {
         ...state,
         bookmarks: feedSortByItem(state.bookmarks, action),
       };
-    case repliesTypes.GET_USER_REPLIES_START:
-    case repliesTypes.GET_USER_REPLIES_SUCCESS:
-    case repliesTypes.GET_MORE_USER_REPLIES_START:
-    case repliesTypes.GET_MORE_USER_REPLIES_SUCCESS:
+    case repliesTypes.GET_REPLIES_START:
+    case repliesTypes.GET_REPLIES_SUCCESS:
+    case repliesTypes.GET_MORE_REPLIES_START:
+    case repliesTypes.GET_MORE_REPLIES_SUCCESS:
       return {
         ...state,
         replies: feedSortByItem(state.replies, action),
