@@ -1177,6 +1177,11 @@ exports[`Storyshots Sidebar Interesting People 1`] = `
         <span>
           Interesting People
         </span>
+        <i
+          className="iconfont icon-refresh InterestingPeople__icon-refresh"
+          onClick={[Function]}
+          role="presentation"
+        />
       </h4>
       <div
         className="InterestingPeople__divider"
