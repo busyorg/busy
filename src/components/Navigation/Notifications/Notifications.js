@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FormattedMessage } from 'react-intl';
 import NotificationFollowing from './NotificationFollowing';
 import NotificationReply from './NotificationReply';
 import NotificationTransfer from './NotificationTransfer';
@@ -54,7 +55,7 @@ const Notifications = ({ onClick, onSeeAllClick, notifications }) =>
     </div>
     <div className="Notifications__footer">
       <a role="presentation" onClick={onSeeAllClick}>
-        See All
+        <FormattedMessage id="see_all" defaultMessage="See All" />
       </a>
     </div>
   </div>);
