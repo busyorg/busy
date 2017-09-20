@@ -22,6 +22,7 @@
   "notification_mention_username_post":"{username} mentioned you on this post {post}.",
   "notification_reply_username_post":"{username} replied you on your {post}.",
   "notification_transfer_username_amount":"{username} sent you {amount}.",
+  "see_all":"See All",
   "discussions":"Discussions",
   "comments":"Comments",
   "comments_count":"{count} comments",
