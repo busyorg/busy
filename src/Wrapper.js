@@ -40,7 +40,7 @@ export default class Wrapper extends React.PureComponent {
     getRebloggedList: PropTypes.func,
     getRate: PropTypes.func,
     getTrendingTopics: PropTypes.func,
-  }
+  };
 
   static defaultProps = {
     login: () => {},
@@ -48,7 +48,7 @@ export default class Wrapper extends React.PureComponent {
     getRebloggedList: () => {},
     getRate: () => {},
     getTrendingTopics: () => {},
-  }
+  };
 
   componentWillMount() {
     if (Cookie.get('access_token')) {
@@ -91,7 +91,7 @@ export default class Wrapper extends React.PureComponent {
     const translations = getTranslations(appLocale);
 
     return (
-      <IntlProvider locale={locale} messages={translations}>
+      <IntlProvider key={locale} locale={locale} messages={translations}>
         <Layout>
           <Layout.Header style={{ position: 'fixed', width: '100%', zIndex: 5 }}>
             <Topnav username={user.name} onMenuItemClick={this.handleMenuItemClick} />

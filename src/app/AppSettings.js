@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { injectIntl, FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import { Select } from 'antd';
 import { getLocale, getIsLocaleLoading, getIsReloading } from '../reducers';
 import { setLocale } from './appActions';
@@ -10,8 +10,6 @@ import Loading from '../components/Icon/Loading';
 import Affix from '../components/Utils/Affix';
 import LeftSidebar from '../app/Sidebar/LeftSidebar';
 
-// NOTE: We are using injectIntl because without it locale won't update: see https://github.com/yahoo/react-intl/issues/371
-@injectIntl
 @connect(
   state => ({
     reloading: getIsReloading(state),
