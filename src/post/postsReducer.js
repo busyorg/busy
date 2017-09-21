@@ -2,6 +2,7 @@ import * as feedTypes from '../feed/feedActions';
 import * as bookmarksActions from '../bookmarks/bookmarksActions';
 import * as postsActions from './postActions';
 import * as commentsActions from '../comments/commentsActions';
+import * as repliesTypes from '../replies/repliesActions';
 
 const postItem = (state = {}, action) => {
   switch (action.type) {
@@ -26,13 +27,24 @@ const initialState = {
 
 const posts = (state = initialState, action) => {
   switch (action.type) {
+    case repliesTypes.GET_REPLIES_SUCCESS:
+    case repliesTypes.GET_MORE_REPLIES_SUCCESS:
+      return {
+        ...state,
+        list: {
+          ...state.list,
+          ...action.payload,
+        },
+      };
     case feedTypes.GET_FEED_CONTENT_SUCCESS:
     case feedTypes.GET_MORE_FEED_CONTENT_SUCCESS:
     case feedTypes.GET_USER_FEED_CONTENT_SUCCESS:
     case feedTypes.GET_MORE_USER_FEED_CONTENT_SUCCESS:
     case bookmarksActions.GET_BOOKMARKS_SUCCESS: {
       const postsTemp = {};
-      action.payload.postsData.forEach((post) => { postsTemp[post.id] = post; });
+      action.payload.postsData.forEach((post) => {
+        postsTemp[post.id] = post;
+      });
       return {
         ...state,
         list: {
@@ -68,10 +80,7 @@ const posts = (state = initialState, action) => {
     case postsActions.LIKE_POST_START:
       return {
         ...state,
-        pendingLikes: [
-          ...state.pendingLikes,
-          action.meta.postId,
-        ],
+        pendingLikes: [...state.pendingLikes, action.meta.postId],
       };
     case postsActions.LIKE_POST_ERROR:
       return {
@@ -92,9 +101,5 @@ export default posts;
 
 export const getPosts = state => state.list;
 export const getPostContent = (state, author, permlink) =>
-  Object.values(state.list)
-    .find(post =>
-      post.author === author &&
-      post.permlink === permlink,
-    );
+  Object.values(state.list).find(post => post.author === author && post.permlink === permlink);
 export const getPendingLikes = state => state.pendingLikes;
