@@ -9,6 +9,7 @@ const LeftSidebar = () => (
   <Switch>
     <Route path="/@:name" component={UserInfo} />
     <Route path="/replies" component={SidenavUser} />
+    <Route path="/drafts" component={SidenavUser} />
     <Route path="/" component={Navigation} />
   </Switch>
 );
