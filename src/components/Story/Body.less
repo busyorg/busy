@@ -3,34 +3,32 @@
 
 .Body {
   font-family: @font-text;
-  color: rgba(0, 0, 0, .8);
+  color: rgba(0, 0, 0, 0.8);
   line-height: 1.6em;
   overflow-wrap: break-word;
   word-wrap: break-word;
   word-break: break-word;
   hyphens: none;
-
-  &--full {
-    font-size: 18px;
-
-    @media @small {
-      font-size: 21px;
-    }
-  }
+  margin: 4px 0;
 
   // Heading
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-weight: 700;
   }
 
   h1 {
-    margin: 2.5rem 0 .3rem;
-    font-size: 160%
+    margin: 2.5rem 0 0.3rem;
+    font-size: 160%;
   }
 
   h2 {
-    margin: 2.5rem 0 .3rem;
+    margin: 2.5rem 0 0.3rem;
     font-size: 140%;
   }
 
@@ -59,7 +57,10 @@
   p {
     font-size: 100%;
     line-height: 150%;
-    margin: 0 0 1.5rem 0;
+
+    &:not(:last-child) {
+      margin: 0 0 0.5rem 0;
+    }
   }
 
   // List
@@ -72,7 +73,8 @@
     list-style-type: disc;
   }
 
-  ol, ul {
+  ol,
+  ul {
     margin-left: 20px;
 
     li {
@@ -86,8 +88,8 @@
   blockquote {
     padding-left: 1rem;
     margin: 0.4rem 0;
-    border-left: 1px solid rgba(0, 0, 0, .6);
-    color: rgba(0, 0, 0, .6);
+    border-left: 1px solid rgba(0, 0, 0, 0.6);
+    color: rgba(0, 0, 0, 0.6);
   }
 
   :not(pre) > code {
@@ -120,7 +122,8 @@
       background-color: #f2f2f2;
     }
 
-    tr > th, td {
+    tr > th,
+    td {
       padding: 4px 12px;
       word-wrap: break-word;
       vertical-align: middle;
@@ -179,8 +182,21 @@
   }
 
   &:after {
-    content: '';
+    content: "";
     display: table;
     clear: both;
+  }
+
+  &--full {
+    margin: 0;
+    font-size: 18px;
+
+    @media @small {
+      font-size: 21px;
+    }
+
+    p:not(:last-child) {
+      margin: 0 0 1.5rem 0;
+    }
   }
 }
