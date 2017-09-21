@@ -57,12 +57,12 @@ export class IReplies extends React.Component {
     return (
       <div className="shifted">
         <div className="feed-layout container">
-          <Affix className="leftContainer" stickPosition={72}>
+          <Affix className="leftContainer" stickPosition={77}>
             <div className="left">
               <LeftSidebar />
             </div>
           </Affix>
-          <Affix className="rightContainer" stickPosition={72}>
+          <Affix className="rightContainer" stickPosition={77}>
             <div className="right">
               <RightSidebar />
             </div>
