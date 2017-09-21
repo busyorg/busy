@@ -13,7 +13,7 @@ const SidenavUser = () => (
     </li>
     <li>
       <NavLink to="/replies" activeClassName="Sidenav__item--active">
-        <i className="iconfont icon-message_fill" />
+        <i className="iconfont icon-message" />
         <FormattedMessage id="replies" defaultMessage="Replies" />
       </NavLink>
     </li>
