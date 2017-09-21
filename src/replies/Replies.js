@@ -1,8 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getReplies } from './repliesActions';
-import { getIsAuthenticated } from '../reducers';
+import { getIsAuthenticated, getAuthenticatedUserName, getFeed, getPosts } from '../reducers';
+import {
+  getFeedContentFromState,
+  getFeedLoadingFromState,
+  getFeedHasMoreFromState,
+} from '../helpers/stateHelpers';
+import { getReplies, getMoreReplies } from './repliesActions';
+import Feed from '../feed/Feed';
+import Loading from '../components/Icon/Loading';
 import Affix from '../components/Utils/Affix';
 import LeftSidebar from '../app/Sidebar/LeftSidebar';
 import RightSidebar from '../app/Sidebar/RightSidebar';
@@ -10,12 +17,20 @@ import RightSidebar from '../app/Sidebar/RightSidebar';
 export class IReplies extends React.Component {
   static propTypes = {
     authenticated: PropTypes.bool.isRequired,
-    getReplies: PropTypes.func.isRequired,
+    username: PropTypes.string,
+    feed: PropTypes.shape(),
+    posts: PropTypes.shape(),
+    getReplies: PropTypes.func,
+    getMoreReplies: PropTypes.func,
   };
 
   static defaultProps = {
     authenticated: false,
+    username: '',
+    feed: {},
+    posts: {},
     getReplies: () => {},
+    getMoreReplies: () => {},
   };
 
   componentWillMount() {
@@ -31,6 +46,14 @@ export class IReplies extends React.Component {
   }
 
   render() {
+    const { authenticated, username, feed, posts } = this.props;
+
+    if (!authenticated) return <Loading />;
+
+    const content = getFeedContentFromState('replies', username, feed, posts);
+    const fetching = getFeedLoadingFromState('replies', username, feed);
+    const hasMore = getFeedHasMoreFromState('replies', username, feed);
+
     return (
       <div className="shifted">
         <div className="feed-layout container">
@@ -45,13 +68,24 @@ export class IReplies extends React.Component {
             </div>
           </Affix>
           <div className="center">
-            <h1>User replies</h1>
+            <Feed
+              content={content}
+              isFetching={fetching}
+              hasMore={hasMore}
+              loadMoreContent={this.props.getMoreReplies}
+            />
           </div>
         </div>
-      </div>);
+      </div>
+    );
   }
 }
 
-const mapStateToProps = state => ({ authenticated: getIsAuthenticated(state) });
+const mapStateToProps = state => ({
+  authenticated: getIsAuthenticated(state),
+  username: getAuthenticatedUserName(state),
+  feed: getFeed(state),
+  posts: getPosts(state),
+});
 
-export default connect(mapStateToProps, { getReplies })(IReplies);
+export default connect(mapStateToProps, { getReplies, getMoreReplies })(IReplies);

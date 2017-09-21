@@ -24,7 +24,14 @@ export default (
   <Wrapper>
     <Switch>
       <Route exact path="/" component={Page} />
-      <Route path="/replies" component={Replies} />
+      <Route
+        path="/replies"
+        render={() => (
+          <RequireLogin>
+            <Replies />
+          </RequireLogin>
+        )}
+      />
       <Route path="/help" component={Help} />
       <Route path="/about" component={About} />
       <Route path="/team" component={Team} />
@@ -32,31 +39,35 @@ export default (
       <Route path="/donors" component={Donors} />
       <Route
         path="/bookmarks"
-        render={() =>
-          (<RequireLogin>
+        render={() => (
+          <RequireLogin>
             <Bookmarks />
-          </RequireLogin>)}
+          </RequireLogin>
+        )}
       />
       <Route
         path="/write"
-        render={() =>
-          (<RequireLogin>
+        render={() => (
+          <RequireLogin>
             <Write />
-          </RequireLogin>)}
+          </RequireLogin>
+        )}
       />
       <Route
         path="/drafts"
-        render={() =>
-          (<RequireLogin>
+        render={() => (
+          <RequireLogin>
             <Drafts />
-          </RequireLogin>)}
+          </RequireLogin>
+        )}
       />
       <Route
         path="/settings"
-        render={() =>
-          (<RequireLogin>
+        render={() => (
+          <RequireLogin>
             <Settings />
-          </RequireLogin>)}
+          </RequireLogin>
+        )}
       />
       <Route path="/@:name" component={User} />
       <Route path="/:category/@:author/:permlink" component={Post} />

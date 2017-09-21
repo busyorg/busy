@@ -23,6 +23,7 @@ import {
 
 import Story from '../components/Story/Story';
 import StoryLoading from '../components/Story/StoryLoading';
+import './Feed.less';
 
 @connect(
   state => ({
@@ -112,6 +113,7 @@ export default class Feed extends React.Component {
 
     return (
       <ReduxInfiniteScroll
+        className="Feed"
         loadMore={this.props.loadMoreContent}
         loader={<StoryLoading />}
         loadingMore={isFetching}

@@ -1,5 +1,5 @@
 import { getAuthenticatedUserName } from '../reducers';
-import { mapAPIContentToId } from '../helpers/apiHelpers';
+import { mapToId, mapAPIContentToId } from '../helpers/apiHelpers';
 
 export const GET_REPLIES = '@user/GET_REPLIES';
 export const GET_REPLIES_START = '@user/GET_REPLIES_START';
@@ -41,11 +41,10 @@ export const getMoreReplies = () => (dispatch, getState, { steemAPI }) => {
   return dispatch({
     type: GET_MORE_REPLIES,
     payload: {
-      // for "more content" 1 item is always repeated from previous result
-      // and will be removed before returning the res
       promise: steemAPI
         .getRepliesByLastUpdateAsync(startAuthor, startPermlink, limit + 1)
-        .then(apiRes => apiRes.slice(1)),
+        .then(apiRes => apiRes.slice(1))
+        .then(mapToId),
     },
     meta: { username, limit },
   });
