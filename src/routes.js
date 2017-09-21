@@ -5,6 +5,7 @@ import createMemoryHistory from 'history/createMemoryHistory';
 import { Route, Switch } from 'react-router-dom';
 import Wrapper from './Wrapper';
 import Settings from './app/AppSettings';
+import ProfileSettings from './app/ProfileSettings';
 
 import Page from './feed/Page';
 import Replies from './replies/Replies';
@@ -66,6 +67,14 @@ export default (
         render={() => (
           <RequireLogin>
             <Settings />
+          </RequireLogin>
+        )}
+      />
+      <Route
+        path="/edit-profile"
+        render={() => (
+          <RequireLogin>
+            <ProfileSettings />
           </RequireLogin>
         )}
       />
