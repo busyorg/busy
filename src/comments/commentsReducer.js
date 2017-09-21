@@ -24,9 +24,11 @@ const mapCommentsBasedOnId = (data, action) => {
   const commentsList = {};
   Object.keys(data).forEach((key) => {
     const comment = data[key];
-    if (action.meta.reload
-      && comment.author === action.meta.focusedComment.author
-      && comment.permlink === action.meta.focusedComment.permlink) {
+    if (
+      action.meta.reload &&
+      comment.author === action.meta.focusedComment.author &&
+      comment.permlink === action.meta.focusedComment.permlink
+    ) {
       comment.focus = true;
     }
     commentsList[data[key].id] = comment;
