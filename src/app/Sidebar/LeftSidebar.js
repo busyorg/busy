@@ -3,12 +3,12 @@ import { Route, Switch } from 'react-router-dom';
 
 import UserInfo from './UserInfo';
 import Navigation from './Navigation';
-import SidenavReplies from '../../components/Navigation/SidenavReplies';
+import SidenavUser from '../../components/Navigation/SidenavUser';
 
 const LeftSidebar = () => (
   <Switch>
     <Route path="/@:name" component={UserInfo} />
-    <Route path="/replies" component={SidenavReplies} />
+    <Route path="/replies" component={SidenavUser} />
     <Route path="/" component={Navigation} />
   </Switch>
 );
