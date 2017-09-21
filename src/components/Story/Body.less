@@ -10,18 +10,6 @@
   word-break: break-word;
   hyphens: none;
 
-  &--full {
-    font-size: 18px;
-
-    @media @small {
-      font-size: 21px;
-    }
-
-    p {
-      margin: 0 0 1.5rem 0;
-    }
-  }
-
   // Heading
 
   h1,
@@ -68,6 +56,10 @@
   p {
     font-size: 100%;
     line-height: 150%;
+
+    &:not(:last-child) {
+      margin: 0 0 0.5rem 0;
+    }
   }
 
   // List
@@ -192,5 +184,17 @@
     content: "";
     display: table;
     clear: both;
+  }
+
+  &--full {
+    font-size: 18px;
+
+    @media @small {
+      font-size: 21px;
+    }
+
+    p:not(:last-child) {
+      margin: 0 0 1.5rem 0;
+    }
   }
 }
