@@ -8,6 +8,7 @@ import SidenavUser from '../../components/Navigation/SidenavUser';
 const LeftSidebar = () => (
   <Switch>
     <Route path="/@:name" component={UserInfo} />
+    <Route path="/activity" component={SidenavUser} />
     <Route path="/replies" component={SidenavUser} />
     <Route path="/bookmarks" component={SidenavUser} />
     <Route path="/drafts" component={SidenavUser} />

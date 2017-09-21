@@ -6,6 +6,7 @@ import { Route, Switch } from 'react-router-dom';
 import Wrapper from './Wrapper';
 import Settings from './app/AppSettings';
 import ProfileSettings from './app/ProfileSettings';
+import Activity from './activity/Activity';
 
 import Page from './feed/Page';
 import Replies from './replies/Replies';
@@ -59,6 +60,14 @@ export default (
         render={() => (
           <RequireLogin>
             <Drafts />
+          </RequireLogin>
+        )}
+      />
+      <Route
+        path="/activity"
+        render={() => (
+          <RequireLogin>
+            <Activity />
           </RequireLogin>
         )}
       />
