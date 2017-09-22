@@ -131,6 +131,7 @@ class Affix extends React.Component {
     return (
       <div
         className={className}
+        style={{ height: 1 }}
         ref={(relativeContainer) => {
           this.relativeContainer = relativeContainer;
         }}
