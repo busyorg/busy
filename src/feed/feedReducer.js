@@ -70,8 +70,10 @@ const feedIdsList = (state = [], action) => {
       // for pagination
       return [...state.slice(0, state.length - 1), ...action.payload.map(comment => comment.id)];
     case repliesTypes.GET_REPLIES_SUCCESS:
-    case repliesTypes.GET_MORE_REPLIES_SUCCESS:
-      return [...state, ...Object.keys(action.payload).reverse()];
+    case repliesTypes.GET_MORE_REPLIES_SUCCESS: {
+      const replies = [...state, ...Object.keys(action.payload).reverse()];
+      return [...new Set(replies)];
+    }
     default:
       return state;
   }
