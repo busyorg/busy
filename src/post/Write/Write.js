@@ -9,7 +9,12 @@ import 'url-search-params-polyfill';
 import { injectIntl } from 'react-intl';
 import GetBoost from '../../components/Sidebar/GetBoost';
 
-import { getAuthenticatedUser, getDraftPosts, getIsEditorLoading, getIsEditorSaving } from '../../reducers';
+import {
+  getAuthenticatedUser,
+  getDraftPosts,
+  getIsEditorLoading,
+  getIsEditorSaving,
+} from '../../reducers';
 
 import { createPost, saveDraft, newPost } from './editorActions';
 import { notify } from '../../app/Notification/notificationActions';
@@ -193,7 +198,10 @@ class Write extends React.Component {
 
   handleImageInserted = (blob, callback, errorCallback) => {
     const { formatMessage } = this.props.intl;
-    this.props.notify(formatMessage({ id: 'notify_uploading_image', defaultMessage: 'Uploading image' }), 'info');
+    this.props.notify(
+      formatMessage({ id: 'notify_uploading_image', defaultMessage: 'Uploading image' }),
+      'info',
+    );
     const formData = new FormData();
     formData.append('files', blob);
 
@@ -205,7 +213,12 @@ class Write extends React.Component {
       .then(res => callback(res.secure_url, blob.name))
       .catch(() => {
         errorCallback();
-        this.props.notify(formatMessage({ id: 'notify_uploading_iamge_error', defaultMessage: "Couldn't upload image" }));
+        this.props.notify(
+          formatMessage({
+            id: 'notify_uploading_iamge_error',
+            defaultMessage: "Couldn't upload image",
+          }),
+        );
       });
   };
 

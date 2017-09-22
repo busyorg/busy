@@ -7,6 +7,7 @@ import { HotKeys } from 'react-hotkeys';
 import { throttle } from 'lodash';
 import isArray from 'lodash/isArray';
 import { Icon, Checkbox, Form, Input, Select } from 'antd';
+import Dropzone from 'react-dropzone';
 import EditorToolbar from './EditorToolbar';
 import Action from '../Button/Action';
 import Body, { remarkable } from '../Story/Body';
@@ -66,6 +67,7 @@ class Editor extends React.Component {
     contentHtml: '',
     noContent: false,
     imageUploading: false,
+    dropzoneActive: false,
   };
 
   componentDidMount() {
@@ -157,7 +159,7 @@ class Editor extends React.Component {
 
   resizeTextarea = () => {
     if (this.originalInput) this.originalInput.resizeTextarea();
-  }
+  };
 
   //
   // Form validation and handling
@@ -224,9 +226,11 @@ class Editor extends React.Component {
           });
 
           const blob = item.getAsFile();
-          this.props.onImageInserted(blob, this.insertImage, () => this.setState({
-            imageUploading: false,
-          }));
+          this.props.onImageInserted(blob, this.insertImage, () =>
+            this.setState({
+              imageUploading: false,
+            }),
+          );
         }
       });
     }
@@ -237,14 +241,47 @@ class Editor extends React.Component {
       this.setState({
         imageUploading: true,
       });
-      this.props.onImageInserted(e.target.files[0], this.insertImage, () => this.setState({
-        imageUploading: false,
-      }));
+      this.props.onImageInserted(e.target.files[0], this.insertImage, () =>
+        this.setState({
+          imageUploading: false,
+        }),
+      );
       // Input reacts on value change, so if user selects the same file nothing will happen.
-      // We have to reset its value, so if same image is selected it will emit onChange event. 
+      // We have to reset its value, so if same image is selected it will emit onChange event.
       e.target.value = '';
     }
-  }
+  };
+
+  handleDrop = (files) => {
+    this.setState({
+      dropzoneActive: false,
+      imageUploading: true,
+    });
+    let callbacksCount = 0;
+    Array.from(files).forEach((item) => {
+      this.props.onImageInserted(
+        item,
+        (image, imageName) => {
+          callbacksCount += 1;
+          this.insertImage(image, imageName);
+          if (callbacksCount === files.length) {
+            this.setState({
+              imageUploading: false,
+            });
+          }
+        },
+        () => {
+          this.setState({
+            imageUploading: false,
+          });
+        },
+      );
+    });
+  };
+
+  handleDragEnter = () => this.setState({ dropzoneActive: true });
+
+  handleDragLeave = () => this.setState({ dropzoneActive: false });
 
   insertAtCursor = (before, after, deltaStart = 0, deltaEnd = 0) => {
     if (!this.input) return;
@@ -263,10 +300,6 @@ class Editor extends React.Component {
   };
 
   insertImage = (image, imageName = 'image') => {
-    this.setState({
-      imageUploading: false,
-    });
-
     if (!this.input) return;
 
     const startPos = this.input.selectionStart;
@@ -274,7 +307,7 @@ class Editor extends React.Component {
     this.input.value = `${this.input.value.substring(
       0,
       startPos,
-    )}![${imageName}](${image})${this.input.value.substring(endPos, this.input.value.length)}`;
+    )}![${imageName}](${image})${this.input.value.substring(endPos, this.input.value.length)}\n`;
 
     this.resizeTextarea();
     this.renderMarkdown(this.input.value);
@@ -357,11 +390,29 @@ class Editor extends React.Component {
 
     return (
       <Form className="Editor" layout="vertical" onSubmit={this.handleSubmit}>
-        <Form.Item label={<span className="Editor__label"><FormattedMessage id="title" defaultMessage="Title" /></span>}>
+        <Form.Item
+          label={
+            <span className="Editor__label">
+              <FormattedMessage id="title" defaultMessage="Title" />
+            </span>
+          }
+        >
           {getFieldDecorator('title', {
             rules: [
-              { required: true, message: intl.formatMessage({ id: 'title_error_empty', defaultMessage: 'title_error_empty' }) },
-              { max: 255, message: intl.formatMessage({ id: 'title_error_too_long', defaultMessage: "Title can't be longer than 255 characters." }) },
+              {
+                required: true,
+                message: intl.formatMessage({
+                  id: 'title_error_empty',
+                  defaultMessage: 'title_error_empty',
+                }),
+              },
+              {
+                max: 255,
+                message: intl.formatMessage({
+                  id: 'title_error_too_long',
+                  defaultMessage: "Title can't be longer than 255 characters.",
+                }),
+              },
             ],
           })(
             <Input
@@ -370,17 +421,35 @@ class Editor extends React.Component {
               }}
               onChange={this.onUpdate}
               className="Editor__title"
-              placeholder={intl.formatMessage({ id: 'title_placeholder', defaultMessage: 'Add title' })}
+              placeholder={intl.formatMessage({
+                id: 'title_placeholder',
+                defaultMessage: 'Add title',
+              })}
             />,
           )}
         </Form.Item>
         <Form.Item
-          label={<span className="Editor__label"><FormattedMessage id="topics" defaultMessage="Topics" /></span>}
-          extra={intl.formatMessage({ id: 'topics_extra', defaultMessage: 'Separate topics with commas. Only lowercase letters, numbers and hyphen character is permitted.' })}
+          label={
+            <span className="Editor__label">
+              <FormattedMessage id="topics" defaultMessage="Topics" />
+            </span>
+          }
+          extra={intl.formatMessage({
+            id: 'topics_extra',
+            defaultMessage:
+              'Separate topics with commas. Only lowercase letters, numbers and hyphen character is permitted.',
+          })}
         >
           {getFieldDecorator('topics', {
             rules: [
-              { required: true, message: intl.formatMessage({ id: 'topics_error_empty', defaultMessage: 'Please enter topics.' }), type: 'array' },
+              {
+                required: true,
+                message: intl.formatMessage({
+                  id: 'topics_error_empty',
+                  defaultMessage: 'Please enter topics.',
+                }),
+                type: 'array',
+              },
               { validator: this.checkTopics },
             ],
           })(
@@ -391,7 +460,10 @@ class Editor extends React.Component {
               onChange={this.onUpdate}
               className="Editor__topics"
               mode="tags"
-              placeholder={intl.formatMessage({ id: 'topics_placeholder', defaultMessage: 'Add story topics here' })}
+              placeholder={intl.formatMessage({
+                id: 'topics_placeholder',
+                defaultMessage: 'Add story topics here',
+              })}
               dropdownStyle={{ display: 'none' }}
               tokenSeparators={[' ', ',']}
             />,
@@ -399,37 +471,82 @@ class Editor extends React.Component {
         </Form.Item>
         <Form.Item
           validateStatus={this.state.noContent ? 'error' : ''}
-          help={this.state.noContent && intl.formatMessage({ id: 'story_error_empty', defaultMessage: "Story content can't be empty." })}
+          help={
+            this.state.noContent &&
+            intl.formatMessage({
+              id: 'story_error_empty',
+              defaultMessage: "Story content can't be empty.",
+            })
+          }
         >
           <EditorToolbar onSelect={this.insertCode} />
-          <HotKeys keyMap={Editor.hotkeys} handlers={this.handlers}>
-            <Input
-              autosize={{ minRows: 6, maxRows: 12 }}
-              onChange={this.onUpdate}
-              ref={ref => this.setInput(ref)}
-              type="textarea"
-              placeholder={intl.formatMessage({ id: 'story_placeholder', defaultMessage: 'Write your story...' })}
-            />
-          </HotKeys>
+          <div className="Editor__dropzone-base">
+            <Dropzone
+              disableClick
+              style={{}}
+              onDrop={this.handleDrop}
+              onDragEnter={this.handleDragEnter}
+              onDragLeave={this.handleDragLeave}
+            >
+              {this.state.dropzoneActive && (
+                <div className="Editor__dropzone">
+                  <div>
+                    <i className="iconfont icon-picture" />
+                    <FormattedMessage id="drop_image" defaultMessage="Drop your images here" />
+                  </div>
+                </div>
+              )}
+              <HotKeys keyMap={Editor.hotkeys} handlers={this.handlers}>
+                <Input
+                  autosize={{ minRows: 6, maxRows: 12 }}
+                  onChange={this.onUpdate}
+                  ref={ref => this.setInput(ref)}
+                  type="textarea"
+                  placeholder={intl.formatMessage({
+                    id: 'story_placeholder',
+                    defaultMessage: 'Write your story...',
+                  })}
+                />
+              </HotKeys>
+            </Dropzone>
+          </div>
           <p className="Editor__imagebox">
             <input type="file" id="inputfile" onChange={this.handleImageChange} />
             <label htmlFor="inputfile">
-              {(this.state.imageUploading) ? <Icon type="loading" /> : <i className="iconfont icon-picture" />}
-              {(this.state.imageUploading) ?
-                <FormattedMessage id="image_uploading" defaultMessage="Uploading your image..." /> :
-                <FormattedMessage id="select_or_past_image" defaultMessage="Select image or paste it from the clipboard." />
-              }
+              {this.state.imageUploading ? (
+                <Icon type="loading" />
+              ) : (
+                <i className="iconfont icon-picture" />
+              )}
+              {this.state.imageUploading ? (
+                <FormattedMessage id="image_uploading" defaultMessage="Uploading your image..." />
+              ) : (
+                <FormattedMessage
+                  id="select_or_past_image"
+                  defaultMessage="Select image or paste it from the clipboard."
+                />
+              )}
             </label>
           </p>
         </Form.Item>
-        {this.state.contentHtml &&
-          <Form.Item label={<span className="Editor__label"><FormattedMessage id="preview" defaultMessage="Preview" /></span>}>
+        {this.state.contentHtml && (
+          <Form.Item
+            label={
+              <span className="Editor__label">
+                <FormattedMessage id="preview" defaultMessage="Preview" />
+              </span>
+            }
+          >
             <Body full body={this.state.contentHtml} />
           </Form.Item>
-        }
+        )}
         <Form.Item
           className={classNames({ Editor__hidden: isUpdating })}
-          label={<span className="Editor__label"><FormattedMessage id="reward" defaultMessage="Reward" /></span>}
+          label={
+            <span className="Editor__label">
+              <FormattedMessage id="reward" defaultMessage="Reward" />
+            </span>
+          }
         >
           {getFieldDecorator('reward', { initialValue: '50' })(
             <Select onChange={this.onUpdate} disabled={isUpdating}>
@@ -454,17 +571,21 @@ class Editor extends React.Component {
         </Form.Item>
         <div className="Editor__bottom">
           <span className="Editor__bottom__info">
-            <i className="iconfont icon-markdown" />
-            {' '}
-            <FormattedMessage id="markdown_supported" defaultMessage="Styling with markdown supported" />
+            <i className="iconfont icon-markdown" />{' '}
+            <FormattedMessage
+              id="markdown_supported"
+              defaultMessage="Styling with markdown supported"
+            />
           </span>
           <div className="Editor__bottom__right">
-            {saving && <span className="Editor__bottom__right__saving">
-              <FormattedMessage id="saving" defaultMessage="Saving..." />
-            </span>}
+            {saving && (
+              <span className="Editor__bottom__right__saving">
+                <FormattedMessage id="saving" defaultMessage="Saving..." />
+              </span>
+            )}
             <Form.Item className="Editor__bottom__submit">
-              {isUpdating
-                ? <Action
+              {isUpdating ? (
+                <Action
                   primary
                   loading={loading}
                   disabled={loading}
@@ -473,7 +594,8 @@ class Editor extends React.Component {
                     defaultMessage: loading ? 'Submitting' : 'Update post',
                   })}
                 />
-                : <Action
+              ) : (
+                <Action
                   primary
                   loading={loading}
                   disabled={loading}
@@ -481,7 +603,8 @@ class Editor extends React.Component {
                     id: loading ? 'post_send_progress' : 'post_send',
                     defaultMessage: loading ? 'Submitting' : 'Post',
                   })}
-                />}
+                />
+              )}
             </Form.Item>
           </div>
         </div>
