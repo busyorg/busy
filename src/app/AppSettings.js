@@ -89,7 +89,7 @@ export default class AppSettings extends React.Component {
               <FormattedMessage id="settings" defaultMessage="Settings" />
             </h1>
             {reloading ? (
-              <Loading />
+              <Loading center={false} />
             ) : (
               <div>
                 <h2>
