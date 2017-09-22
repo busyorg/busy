@@ -103,7 +103,7 @@ class StoryFooter extends React.Component {
       .map(vote => (<p key={vote.voter}>
         {vote.voter}
         {vote.rshares * ratio > 0.01 &&
-          <span style={{ opacity: '0.5' }}> +<USDDisplay value={vote.rshares * ratio} /></span>
+          <span style={{ opacity: '0.5' }}> <USDDisplay value={vote.rshares * ratio} /></span>
         }
       </p>));
     const upVotesDiff = upVotes.length - upVotesPreview.length;

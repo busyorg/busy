@@ -43,7 +43,7 @@ export default class UserList extends React.Component {
                 username={vote.voter}
                 alt={vote.rshares * ratio > 0.01 &&
                   <span>
-                    +<USDDisplay value={vote.rshares * ratio} />
+                    <USDDisplay value={vote.rshares * ratio} />
                     <span className="ReactionsList__bullet" />
                     <FormattedNumber
                       style="percent" // eslint-disable-line react/style-prop-object
