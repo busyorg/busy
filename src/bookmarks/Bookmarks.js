@@ -11,7 +11,6 @@ import {
 } from '../helpers/stateHelpers';
 import { reload } from '../auth/authActions';
 import { getBookmarks } from './bookmarksActions';
-import Loading from '../components/Icon/Loading';
 import Affix from '../components/Utils/Affix';
 import LeftSidebar from '../app/Sidebar/LeftSidebar';
 import RightSidebar from '../app/Sidebar/RightSidebar';
@@ -56,7 +55,7 @@ export default class Bookmarks extends React.Component {
     const { reloading, feed, posts } = this.props;
 
     const content = getFeedContentFromState('bookmarks', 'all', feed, posts);
-    const isFetching = getFeedLoadingFromState('bookmarks', 'all', feed);
+    const isFetching = getFeedLoadingFromState('bookmarks', 'all', feed) || reloading;
     const hasMore = getFeedHasMoreFromState('bookmarks', 'all', feed);
     const loadContentAction = () => null;
     const loadMoreContentAction = () => null;
@@ -77,16 +76,13 @@ export default class Bookmarks extends React.Component {
             </div>
           </Affix>
           <div className="center">
-            {reloading && <Loading />}
-            {!reloading && (
-              <Feed
-                content={content}
-                isFetching={isFetching}
-                hasMore={hasMore}
-                loadContent={loadContentAction}
-                loadMoreContent={loadMoreContentAction}
-              />
-            )}
+            <Feed
+              content={content}
+              isFetching={isFetching}
+              hasMore={hasMore}
+              loadContent={loadContentAction}
+              loadMoreContent={loadMoreContentAction}
+            />
             {noBookmarks && (
               <div className="container">
                 <h3 className="text-center">
