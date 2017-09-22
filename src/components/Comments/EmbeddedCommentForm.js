@@ -112,6 +112,13 @@ class EmbeddedCommentForm extends React.Component {
   };
 
   handleDrop = (files) => {
+    if (files.length === 0) {
+      this.setState({
+        dropzoneActive: false,
+      });
+      return;
+    }
+
     this.setState({
       dropzoneActive: false,
       imageUploading: true,
@@ -162,6 +169,7 @@ class EmbeddedCommentForm extends React.Component {
           <Dropzone
             disableClick
             style={{}}
+            accept="image/*"
             onDrop={this.handleDrop}
             onDragEnter={this.handleDragEnter}
             onDragLeave={this.handleDragLeave}
