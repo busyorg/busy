@@ -1,14 +1,11 @@
-const IMG_PROXY_PREFIX = '//res.cloudinary.com/hpiynhbhq/image/fetch/w_720,c_limit/';
-const IMG_PROXY_PREVIEW_PREFIX = '//res.cloudinary.com/hpiynhbhq/image/fetch/w_600,h_800,c_limit/';
-const IMG_PROXY_BACK = 'https://steemitimages.com/600x800/';
+const IMG_PROXY = 'https://steemitimages.com/0x0/';
+const IMG_PROXY_PREVIEW = 'https://steemitimages.com/600x800/';
 
 export const getProxyImageURL = (url, type) => {
-  if (url.length > 256) {
-    return `${IMG_PROXY_BACK}${url}`;
-  } else if (type === 'preview') {
-    return `${IMG_PROXY_PREVIEW_PREFIX}${url}`;
+  if (type === 'preview') {
+    return `${IMG_PROXY_PREVIEW}${url}`;
   }
-  return `${IMG_PROXY_PREFIX}${url}`;
+  return `${IMG_PROXY}${url}`;
 };
 
 export default null;
