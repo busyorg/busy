@@ -13,22 +13,24 @@ export const LIKE_POST_ERROR = '@post/LIKE_POST_ERROR';
 
 steemConnect.vote = Promise.promisify(steemConnect.vote, { context: steemConnect });
 
-export const getContent = (postAuthor, postPermlink, afterLike) =>
-  (dispatch, getState, { steemAPI }) => {
-    if (!postAuthor || !postPermlink) {
-      return null;
-    }
-    return dispatch({
-      type: GET_CONTENT,
-      payload: {
-        promise: steemAPI
-          .getContentAsync(postAuthor, postPermlink),
-      },
-      meta: {
-        afterLike,
-      },
-    });
-  };
+export const getContent = (postAuthor, postPermlink, afterLike) => (
+  dispatch,
+  getState,
+  { steemAPI },
+) => {
+  if (!postAuthor || !postPermlink) {
+    return null;
+  }
+  return dispatch({
+    type: GET_CONTENT,
+    payload: {
+      promise: steemAPI.getContentAsync(postAuthor, postPermlink),
+    },
+    meta: {
+      afterLike,
+    },
+  });
+};
 
 export const votePost = (postId, author, permlink, weight = 10000) => (dispatch, getState) => {
   const { auth, posts } = getState();
@@ -36,32 +38,21 @@ export const votePost = (postId, author, permlink, weight = 10000) => (dispatch,
     return null;
   }
 
+  const post = posts.list[postId];
   const voter = auth.user.name;
 
   return dispatch({
     type: LIKE_POST,
     payload: {
-      promise: steemConnect
-        .vote(voter, posts.list[postId].author, posts.list[postId].permlink, weight)
-        .then((res) => {
-          if (window.ga) {
-            window.ga('send', 'event', 'vote', 'submit', '', 1);
-          }
+      promise: steemConnect.vote(voter, post.author, post.permlink, weight).then((res) => {
+        if (window.ga) {
+          window.ga('send', 'event', 'vote', 'submit', '', 1);
+        }
 
-          // Delay to make sure you get the latest data (unknown issue with API)
-          setTimeout(
-            () =>
-              dispatch(
-                getContent(
-                  posts.list[postId].author,
-                  posts.list[postId].permlink,
-                  true,
-                ),
-              ),
-            1000,
-          );
-          return res;
-        }),
+        // Delay to make sure you get the latest data (unknown issue with API)
+        setTimeout(() => dispatch(getContent(post.author, post.permlink, true)), 1000);
+        return res;
+      }),
     },
     meta: { postId, voter, weight },
   });

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Feed from '../feed/Feed';
-import { getFeed, getComments } from '../reducers';
+import { getFeed, getPosts } from '../reducers';
 import {
   getUserCommentsFromState,
   getFeedLoadingFromState,
@@ -10,17 +10,20 @@ import {
 } from '../helpers/stateHelpers';
 import { getUserComments, getMoreUserComments } from './userActions';
 
-@connect(state => ({
-  feed: getFeed(state),
-  comments: getComments(state),
-}), {
-  getUserComments,
-  getMoreUserComments,
-})
+@connect(
+  state => ({
+    feed: getFeed(state),
+    posts: getPosts(state),
+  }),
+  {
+    getUserComments,
+    getMoreUserComments,
+  },
+)
 export default class UserProfilePosts extends React.Component {
   static propTypes = {
     feed: PropTypes.shape().isRequired,
-    comments: PropTypes.shape().isRequired,
+    posts: PropTypes.shape().isRequired,
     match: PropTypes.shape().isRequired,
     limit: PropTypes.number,
     getUserComments: PropTypes.func,
@@ -42,10 +45,10 @@ export default class UserProfilePosts extends React.Component {
   }
 
   render() {
-    const { feed, comments, match, limit } = this.props;
+    const { feed, posts, match, limit } = this.props;
     const username = match.params.name;
 
-    const content = getUserCommentsFromState(username, feed, comments);
+    const content = getUserCommentsFromState(username, feed, posts);
     const isFetching = getFeedLoadingFromState('comments', username, feed);
     const hasMore = getFeedHasMoreFromState('comments', username, feed);
     const loadMoreContentAction = () => this.props.getMoreUserComments(username, limit);
