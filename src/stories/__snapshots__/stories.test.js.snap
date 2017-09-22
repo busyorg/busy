@@ -426,21 +426,8 @@ exports[`Storyshots Editor Editor 1`] = `
             </button>
           </div>
           <div
-            onBlur={[Function]}
-            onFocus={[Function]}
-            size="large"
-            tabIndex="-1"
-          >
-            <textarea
-              className="ant-input"
-              disabled={false}
-              onChange={[Function]}
-              onKeyDown={[Function]}
-              placeholder="Write your story..."
-              style={Object {}}
-              type="textarea"
-            />
-          </div>
+            className="Editor__dropzone-base"
+          />
           <p
             className="Editor__imagebox"
           >
