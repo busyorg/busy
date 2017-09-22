@@ -11,14 +11,42 @@
     margin-left: 12px;
   }
 
+  &__dropzone-base {
+    position: relative;
+  }
+
+  &__dropzone {
+    display: flex;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+    border-radius: 4px;
+    background: fade(@purple, 60%);
+    color: white;
+
+    & > div {
+      margin: auto;
+      font-weight: 700;
+      font-size: 20px;
+
+      & > span {
+        margin-left: 8px;
+        vertical-align: 3px;
+      }
+    }
+  }
+
   &__imagebox {
     input {
       width: 0.1px;
-    	height: 0.1px;
-    	opacity: 0;
-    	overflow: hidden;
-    	position: absolute;
-    	z-index: -1;
+      height: 0.1px;
+      opacity: 0;
+      overflow: hidden;
+      position: absolute;
+      z-index: -1;
     }
 
     label {

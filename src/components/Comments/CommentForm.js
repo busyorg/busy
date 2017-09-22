@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { Input, Icon } from 'antd';
+import Dropzone from 'react-dropzone';
 import Body, { remarkable } from '../Story/Body';
 import Avatar from '../Avatar';
 import './CommentForm.less';
@@ -33,6 +34,7 @@ class CommentForm extends React.Component {
     inputValue: this.props.inputValue,
     isDisabledSubmit: false,
     imageUploading: false,
+    dropzoneActive: false,
   };
 
   componentDidMount() {
@@ -59,10 +61,6 @@ class CommentForm extends React.Component {
   };
 
   insertImage = (image, imageName = 'image') => {
-    this.setState({
-      imageUploading: false,
-    });
-
     if (!this.input) return;
 
     const startPos = this.input.selectionStart;
@@ -70,7 +68,7 @@ class CommentForm extends React.Component {
     const newValue = `${this.input.value.substring(
       0,
       startPos,
-    )}![${imageName}](${image})${this.input.value.substring(endPos, this.input.value.length)}`;
+    )}![${imageName}](${image})${this.input.value.substring(endPos, this.input.value.length)}\n`;
     this.setState({ inputValue: newValue });
   };
 
@@ -90,9 +88,11 @@ class CommentForm extends React.Component {
           });
 
           const blob = item.getAsFile();
-          this.props.onImageInserted(blob, this.insertImage, () => this.setState({
-            imageUploading: false,
-          }));
+          this.props.onImageInserted(blob, this.insertImage, () =>
+            this.setState({
+              imageUploading: false,
+            }),
+          );
         }
       });
     }
@@ -103,14 +103,47 @@ class CommentForm extends React.Component {
       this.setState({
         imageUploading: true,
       });
-      this.props.onImageInserted(e.target.files[0], this.insertImage, () => this.setState({
-        imageUploading: false,
-      }));
+      this.props.onImageInserted(e.target.files[0], this.insertImage, () =>
+        this.setState({
+          imageUploading: false,
+        }),
+      );
       // Input reacts on value change, so if user selects the same file nothing will happen.
-      // We have to reset its value, so if same image is selected it will emit onChange event. 
+      // We have to reset its value, so if same image is selected it will emit onChange event.
       e.target.value = '';
     }
   };
+
+  handleDrop = (files) => {
+    this.setState({
+      dropzoneActive: false,
+      imageUploading: true,
+    });
+    let callbacksCount = 0;
+    Array.from(files).forEach((item) => {
+      this.props.onImageInserted(
+        item,
+        (image, imageName) => {
+          callbacksCount += 1;
+          this.insertImage(image, imageName);
+          if (callbacksCount === files.length) {
+            this.setState({
+              imageUploading: false,
+            });
+          }
+        },
+        () => {
+          this.setState({
+            imageUploading: false,
+          });
+        },
+      );
+    });
+  };
+
+  handleDragEnter = () => this.setState({ dropzoneActive: true });
+
+  handleDragLeave = () => this.setState({ dropzoneActive: false });
 
   handleSubmit = (e) => {
     e.stopPropagation();
@@ -128,21 +161,57 @@ class CommentForm extends React.Component {
       <div className="CommentForm">
         <Avatar username={username} size={!isSmall ? 40 : 32} />
         <div className="CommentForm__text">
-          <Input
-            id="commentFormInput"
-            ref={ref => this.setInput(ref)}
-            value={this.state.inputValue}
-            autosize={{ minRows: 2, maxRows: 6 }}
-            onChange={this.handleCommentTextChange}
-            placeholder={intl.formatMessage({ id: 'comment_placeholder', defaultMessage: 'Write a comment' })}
-            type="textarea"
-            disabled={isLoading}
-          />
+          <div className="CommentForm__dropzone-base">
+            <Dropzone
+              disableClick
+              style={{}}
+              onDrop={this.handleDrop}
+              onDragEnter={this.handleDragEnter}
+              onDragLeave={this.handleDragLeave}
+            >
+              {this.state.dropzoneActive && (
+                <div className="CommentForm__dropzone">
+                  <div>
+                    <i className="iconfont icon-picture" />
+                    <FormattedMessage id="drop_image" defaultMessage="Drop your images here" />
+                  </div>
+                </div>
+              )}
+              <Input
+                id="commentFormInput"
+                ref={ref => this.setInput(ref)}
+                value={this.state.inputValue}
+                autosize={{ minRows: 2, maxRows: 6 }}
+                onChange={this.handleCommentTextChange}
+                placeholder={intl.formatMessage({
+                  id: 'comment_placeholder',
+                  defaultMessage: 'Write a comment',
+                })}
+                type="textarea"
+                disabled={isLoading}
+              />
+            </Dropzone>
+          </div>
           <p className="CommentForm__imagebox">
-            <input type="file" id={`inputfile${this.props.parentPost.id}`} onChange={this.handleImageChange} />
+            <input
+              type="file"
+              id={`inputfile${this.props.parentPost.id}`}
+              onChange={this.handleImageChange}
+            />
             <label htmlFor={`inputfile${this.props.parentPost.id}`}>
-              {(this.state.imageUploading) ? <Icon type="loading" /> : <i className="iconfont icon-picture" />}
-              {(this.state.imageUploading) ? <FormattedMessage id="image_uploading" defaultMessage="Uploading your image..." /> : <FormattedMessage id="select_or_past_image" defaultMessage="Select image or paste it from the clipboard." />}
+              {this.state.imageUploading ? (
+                <Icon type="loading" />
+              ) : (
+                <i className="iconfont icon-picture" />
+              )}
+              {this.state.imageUploading ? (
+                <FormattedMessage id="image_uploading" defaultMessage="Uploading your image..." />
+              ) : (
+                <FormattedMessage
+                  id="select_or_past_image"
+                  defaultMessage="Select image or paste it from the clipboard."
+                />
+              )}
             </label>
           </p>
           <button
@@ -151,14 +220,20 @@ class CommentForm extends React.Component {
             className={`CommentForm__button ${buttonClass}`}
           >
             {isLoading && <Icon type="loading" />}
-            {isLoading ? <FormattedMessage id="comment_send_progress" defaultMessage="Commenting" /> : <FormattedMessage id="comment_send" defaultMessage="Comment" />}
+            {isLoading ? (
+              <FormattedMessage id="comment_send_progress" defaultMessage="Commenting" />
+            ) : (
+              <FormattedMessage id="comment_send" defaultMessage="Comment" />
+            )}
           </button>
-          {this.state.inputValue &&
+          {this.state.inputValue && (
             <div className="CommentForm__preview">
-              <span className="Editor__label"><FormattedMessage id="preview" defaultMessage="Preview" /></span>
+              <span className="Editor__label">
+                <FormattedMessage id="preview" defaultMessage="Preview" />
+              </span>
               <Body body={remarkable.render(this.state.inputValue)} />
             </div>
-          }
+          )}
         </div>
       </div>
     );
