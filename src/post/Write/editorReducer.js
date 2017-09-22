@@ -1,5 +1,6 @@
 import * as authActions from '../../auth/authActions';
 import * as editorActions from './editorActions';
+import * as postActions from '../postActions';
 import * as userActions from '../../user/userActions';
 
 const defaultState = {
@@ -21,6 +22,11 @@ const editor = (state = defaultState, action) => {
           ...state.editedPosts,
           action.payload,
         ],
+      };
+    case postActions.GET_CONTENT_SUCCESS:
+      return {
+        ...state,
+        editedPosts: state.editedPosts.filter(post => post !== action.payload.permlink),
       };
     case editorActions.DELETE_EDITED_POST:
       return {

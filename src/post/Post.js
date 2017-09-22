@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import VisibilitySensor from 'react-visibility-sensor';
 import { getPostContent, getIsFetching, getIsPostEdited } from '../reducers';
-import { deleteEditedPost } from './Write/editorActions';
 import { getContent } from './postActions';
 import Comments from '../comments/Comments';
 import Loading from '../components/Icon/Loading';
@@ -17,7 +16,7 @@ import ScrollToTopOnMount from '../components/Utils/ScrollToTopOnMount';
     edited: getIsPostEdited(state, ownProps.match.params.permlink),
     content: getPostContent(state, ownProps.match.params.author, ownProps.match.params.permlink),
     fetching: getIsFetching(state),
-  }), { getContent, deleteEditedPost })
+  }), { getContent })
 export default class Post extends React.Component {
   static propTypes = {
     match: PropTypes.shape().isRequired,
@@ -25,7 +24,6 @@ export default class Post extends React.Component {
     content: PropTypes.shape(),
     fetching: PropTypes.bool,
     getContent: PropTypes.func,
-    deleteEditedPost: PropTypes.func,
   };
 
   static defaultProps = {
@@ -33,7 +31,6 @@ export default class Post extends React.Component {
     content: undefined,
     fetching: false,
     getContent: () => {},
-    deleteEditedPost: () => {},
   };
 
   state = {
@@ -43,7 +40,6 @@ export default class Post extends React.Component {
   componentWillMount() {
     if ((!this.props.content || this.props.edited) && !this.props.fetching) {
       this.props.getContent(this.props.match.params.author, this.props.match.params.permlink);
-      if (this.props.edited) this.props.deleteEditedPost(this.props.match.params.permlink);
     }
   }
 
@@ -52,12 +48,7 @@ export default class Post extends React.Component {
     if ((!nextProps.content || nextProps.edited)
       && nextProps.match.params !== this.props.match.params
       && !nextProps.fetching) {
-      this.setState({
-        commentsVisible: false,
-      }, () => {
-        this.props.getContent(author, permlink);
-        if (nextProps.edited) nextProps.deleteEditedPost(permlink);
-      });
+      this.setState({ commentsVisible: false }, () => this.props.getContent(author, permlink));
     }
   }
 
@@ -76,7 +67,8 @@ export default class Post extends React.Component {
   };
 
   render() {
-    const { content, fetching } = this.props;
+    const { content, fetching, edited } = this.props;
+    const loading = !content || (fetching && edited);
 
     return (
       <div className="main-panel">
@@ -89,12 +81,12 @@ export default class Post extends React.Component {
               </div>
             </Affix>
             <div className="center" style={{ paddingBottom: '24px' }}>
-              {content && !fetching
+              {!loading
                 ? <PostContent content={content} /> : <Loading />}
-              {content && !fetching
+              {!loading
                 && <VisibilitySensor onChange={this.handleCommentsVisibility} />}
               <div id="comments">
-                {content && !fetching
+                {!loading
                   && <Comments show={this.state.commentsVisible} post={content} />}
               </div>
             </div>

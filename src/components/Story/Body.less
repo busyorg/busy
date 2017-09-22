@@ -3,41 +3,93 @@
 
 .Body {
   font-family: @font-text;
-  color: rgba(0, 0, 0, .8);
+  color: rgba(0, 0, 0, 0.8);
   line-height: 1.6em;
+  overflow-wrap: break-word;
   word-wrap: break-word;
+  word-break: break-word;
+  hyphens: none;
+  margin: 4px 0;
 
-  &--full {
-    font-size: 18px;
+  // Heading
 
-    @media @small {
-      font-size: 21px;
-    }
-
-    h1, h2, h3, h4, h5, h6 {
-      margin: 8px 0;
-      font-weight: 700;
-      line-height: 1.3em;
-    }
-
-    *:not(:empty):not(li):not(.pull-left):not(.pull-right) {
-      margin: 1.5rem 0;
-    }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: 700;
   }
 
   h1 {
+    margin: 2.5rem 0 0.3rem;
+    font-size: 160%;
+  }
+
+  h2 {
+    margin: 2.5rem 0 0.3rem;
     font-size: 140%;
   }
 
-  p {
-    margin: 0.4rem 0;
+  h3 {
+    margin: 2rem 0 0.3rem;
+    font-size: 120%;
   }
+
+  h4 {
+    margin: 1.5rem 0 0.2rem;
+    font-size: 110%;
+  }
+
+  h5 {
+    margin: 1rem 0 0.2rem;
+    font-size: 100%;
+  }
+
+  h6 {
+    margin: 1rem 0 0.2rem;
+    font-size: 90%;
+  }
+
+  // Paragraph
+
+  p {
+    font-size: 100%;
+    line-height: 150%;
+
+    &:not(:last-child) {
+      margin: 0 0 0.5rem 0;
+    }
+  }
+
+  // List
+
+  ol {
+    list-style-type: decimal;
+  }
+
+  ul {
+    list-style-type: disc;
+  }
+
+  ol,
+  ul {
+    margin-left: 20px;
+
+    li {
+      list-style-position: outside;
+      margin: 8px 0;
+    }
+  }
+
+  // Quote and code
 
   blockquote {
     padding-left: 1rem;
     margin: 0.4rem 0;
-    border-left: 1px solid rgba(0, 0, 0, .6);
-    color: rgba(0, 0, 0, .6);
+    border-left: 1px solid rgba(0, 0, 0, 0.6);
+    color: rgba(0, 0, 0, 0.6);
   }
 
   :not(pre) > code {
@@ -58,6 +110,8 @@
     }
   }
 
+  // Table
+
   table {
     width: 100%;
     display: table;
@@ -68,7 +122,8 @@
       background-color: #f2f2f2;
     }
 
-    tr > th, td {
+    tr > th,
+    td {
       padding: 4px 12px;
       word-wrap: break-word;
       vertical-align: middle;
@@ -81,15 +136,7 @@
     }
   }
 
-  ol {
-    list-style: decimal inside;
-  }
-
-  ul {
-    margin: 1rem 0;
-    margin-left: 2rem !important;
-    list-style: disc outside;
-  }
+  // Position
 
   div.pull-left {
     float: left;
@@ -103,6 +150,24 @@
     max-width: 50%;
   }
 
+  div.text-justify {
+    text-align: justify;
+  }
+
+  div.text-right {
+    text-align: right;
+  }
+
+  div.text-center {
+    text-align: center;
+  }
+
+  div.text-rtl {
+    direction: rtl;
+  }
+
+  // Images
+
   img {
     width: auto;
     max-width: 100%;
@@ -110,5 +175,28 @@
     max-height: none;
     display: inline-block;
     vertical-align: middle;
+  }
+
+  hr {
+    clear: both;
+  }
+
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  &--full {
+    margin: 0;
+    font-size: 18px;
+
+    @media @small {
+      font-size: 21px;
+    }
+
+    p:not(:last-child) {
+      margin: 0 0 1.5rem 0;
+    }
   }
 }

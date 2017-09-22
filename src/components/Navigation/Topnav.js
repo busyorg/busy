@@ -77,6 +77,9 @@ const Topnav = ({
                   <PopoverMenuItem key="activity">
                     <FormattedMessage id="activity" defaultMessage="Activity" />
                   </PopoverMenuItem>
+                  <PopoverMenuItem key="replies">
+                    <FormattedMessage id="replies" defaultMessage="Replies" />
+                  </PopoverMenuItem>
                   <PopoverMenuItem key="bookmarks">
                     <FormattedMessage id="bookmarks" defaultMessage="Bookmarks" />
                   </PopoverMenuItem>
@@ -133,7 +136,7 @@ const Topnav = ({
         <div className="center">
           <div className="Topnav__input-container">
             <Input
-              onPressEnter={event => window.open(`https://www.google.com/search?q=${encodeURIComponent(`steemit:${event.target.value}`)}`)}
+              onPressEnter={event => window.open(`https://www.google.com/search?q=${encodeURIComponent(`site:steemit.com ${event.target.value}`)}`)}
               placeholder={intl.formatMessage({ id: 'search_placeholder', defaultMessage: 'Search...' })}
             />
             <i className="iconfont icon-search" />

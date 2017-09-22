@@ -66,41 +66,47 @@ export const getFollowers = (username, startForm = '', type = 'blog', limit = 10
   );
 
 export const getAllFollowing = username =>
-  getFollowingCount(username).get('following_count').then((followingCount) => {
-    const chunkSize = 100;
-    const limitArray = Array.fill(Array(Math.ceil(followingCount / chunkSize)), chunkSize);
-    return Promise.reduce(
-      limitArray,
-      (currentList, limit) => {
-        const startForm = currentList[currentList.length - 1] || '';
-        return getFollowing(username, startForm, 'blog', limit).then(following =>
-          currentList.slice(0, currentList.length - 1).concat(following),
-        );
-      },
-      [],
-    );
-  });
+  getFollowingCount(username)
+    .get('following_count')
+    .then((followingCount) => {
+      const chunkSize = 100;
+      const limitArray = Array.fill(Array(Math.ceil(followingCount / chunkSize)), chunkSize);
+      return Promise.reduce(
+        limitArray,
+        (currentList, limit) => {
+          const startForm = currentList[currentList.length - 1] || '';
+          return getFollowing(username, startForm, 'blog', limit).then(following =>
+            currentList.slice(0, currentList.length - 1).concat(following),
+          );
+        },
+        [],
+      );
+    });
 
 export const getAllFollowers = username =>
-  getFollowingCount(username).get('follower_count').then((followerCount) => {
-    const chunkSize = 100;
-    const limitArray = Array.fill(Array(Math.ceil(followerCount / chunkSize)), chunkSize);
-    return Promise.reduce(
-      limitArray,
-      (currentList, limit) => {
-        const startForm = currentList[currentList.length - 1] || '';
-        return getFollowers(username, startForm, 'blog', limit).then(following =>
-          currentList.slice(0, currentList.length - 1).concat(following),
-        );
-      },
-      [],
-    );
-  });
+  getFollowingCount(username)
+    .get('follower_count')
+    .then((followerCount) => {
+      const chunkSize = 100;
+      const limitArray = Array.fill(Array(Math.ceil(followerCount / chunkSize)), chunkSize);
+      return Promise.reduce(
+        limitArray,
+        (currentList, limit) => {
+          const startForm = currentList[currentList.length - 1] || '';
+          return getFollowers(username, startForm, 'blog', limit).then(following =>
+            currentList.slice(0, currentList.length - 1).concat(following),
+          );
+        },
+        [],
+      );
+    });
 
-export const mapAPIContentToId = (apiRes) => {
-  const listsById = {};
-  Object.keys(apiRes.content).forEach((contentKey) => {
-    listsById[apiRes.content[contentKey].id] = apiRes.content[contentKey];
+export const mapToId = (content) => {
+  const listById = {};
+  Object.values(content).forEach((value) => {
+    listById[value.id] = value;
   });
-  return listsById;
+  return listById;
 };
+
+export const mapAPIContentToId = apiRes => mapToId(apiRes.content);

@@ -27,9 +27,9 @@ const UserInfo = ({ intl, user, ...props }) => {
 
   return (<div>
     {user.name &&
-      <div>
+      <div style={{ wordBreak: 'break-word' }}>
         {_.get(user && user.json_metadata, 'profile.about')}
-        <div style={{ marginTop: 16, marginBottom: 16, overflowWrap: 'break-word' }}>
+        <div style={{ marginTop: 16, marginBottom: 16 }}>
           {location && <div>
             <i className="iconfont icon-coordinates text-icon" />
             {location}

@@ -1090,94 +1090,11 @@ exports[`Storyshots Profile UserMenu 1`] = `
     className="UserMenu"
   >
     <div
-      className="container topnav-layout"
+      className="container menu-layout"
     >
       <div
         className="left"
       />
-      <ul
-        aria-activedescendant=""
-        className="ant-menu ant-menu-horizontal UserMenu__menu center ant-menu-light ant-menu-root"
-        onKeyDown={[Function]}
-        role="menu"
-        style={Object {}}
-        tabIndex="0"
-      >
-        <li
-          aria-disabled={undefined}
-          aria-selected={true}
-          className="ant-menu-item-selected ant-menu-item UserMenu__item"
-          onClick={[Function]}
-          onMouseEnter={[Function]}
-          onMouseLeave={[Function]}
-          role="menuitem"
-          style={Object {}}
-          title={undefined}
-        >
-          <span>
-            Discussions
-          </span>
-        </li>
-        <li
-          aria-disabled={undefined}
-          aria-selected={false}
-          className="ant-menu-item UserMenu__item"
-          onClick={[Function]}
-          onMouseEnter={[Function]}
-          onMouseLeave={[Function]}
-          role="menuitem"
-          style={Object {}}
-          title={undefined}
-        >
-          <span>
-            Comments
-          </span>
-        </li>
-        <li
-          aria-disabled={undefined}
-          aria-selected={false}
-          className="ant-menu-item UserMenu__item"
-          onClick={[Function]}
-          onMouseEnter={[Function]}
-          onMouseLeave={[Function]}
-          role="menuitem"
-          style={Object {}}
-          title={undefined}
-        >
-          <span>
-            Followers
-          </span>
-          <span
-            className="UserMenu__badge"
-          >
-            <span>
-              0
-            </span>
-          </span>
-        </li>
-        <li
-          aria-disabled={undefined}
-          aria-selected={false}
-          className="ant-menu-item UserMenu__item"
-          onClick={[Function]}
-          onMouseEnter={[Function]}
-          onMouseLeave={[Function]}
-          role="menuitem"
-          style={Object {}}
-          title={undefined}
-        >
-          <span>
-            Following
-          </span>
-          <span
-            className="UserMenu__badge"
-          >
-            <span>
-              244
-            </span>
-          </span>
-        </li>
-      </ul>
     </div>
   </div>
 </div>
@@ -1260,6 +1177,11 @@ exports[`Storyshots Sidebar Interesting People 1`] = `
         <span>
           Interesting People
         </span>
+        <i
+          className="iconfont icon-refresh InterestingPeople__icon-refresh"
+          onClick={[Function]}
+          role="presentation"
+        />
       </h4>
       <div
         className="InterestingPeople__divider"

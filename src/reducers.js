@@ -14,8 +14,8 @@ import bookmarksReducer, * as fromBookmarks from './bookmarks/bookmarksReducer';
 import favoritesReducer, * as fromFavorites from './favorites/favoritesReducer';
 import editorReducer, * as fromEditor from './post/Write/editorReducer';
 import walletReducer, * as fromWallet from './wallet/walletReducer';
-import { responsiveReducer } from './vendor/responsive';
 import reblogReducers, * as fromReblog from './app/Reblog/reblogReducers';
+import { responsiveReducer } from './vendor/responsive';
 
 const reducers = combineReducers({
   app: appReducer,
