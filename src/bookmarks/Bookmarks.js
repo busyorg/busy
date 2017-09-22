@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
-import Loading from '../components/Icon/Loading';
 import { getFeed, getPosts, getPendingBookmarks, getIsReloading } from '../reducers';
 import Feed from '../feed/Feed';
 import {
@@ -12,6 +11,9 @@ import {
 } from '../helpers/stateHelpers';
 import { reload } from '../auth/authActions';
 import { getBookmarks } from './bookmarksActions';
+import Affix from '../components/Utils/Affix';
+import LeftSidebar from '../app/Sidebar/LeftSidebar';
+import RightSidebar from '../app/Sidebar/RightSidebar';
 
 @connect(
   state => ({
@@ -19,7 +21,9 @@ import { getBookmarks } from './bookmarksActions';
     posts: getPosts(state),
     pendingBookmarks: getPendingBookmarks(state),
     reloading: getIsReloading(state),
-  }), { getBookmarks, reload })
+  }),
+  { getBookmarks, reload },
+)
 export default class Bookmarks extends React.Component {
   static propTypes = {
     reloading: PropTypes.bool,
@@ -51,32 +55,45 @@ export default class Bookmarks extends React.Component {
     const { reloading, feed, posts } = this.props;
 
     const content = getFeedContentFromState('bookmarks', 'all', feed, posts);
-    const isFetching = getFeedLoadingFromState('bookmarks', 'all', feed);
+    const isFetching = getFeedLoadingFromState('bookmarks', 'all', feed) || reloading;
     const hasMore = getFeedHasMoreFromState('bookmarks', 'all', feed);
     const loadContentAction = () => null;
     const loadMoreContentAction = () => null;
 
+    const noBookmarks = !reloading && !isFetching && !content.length;
+
     return (
       <div className="shifted">
-        <div className="container">
-          <h1 className="text-center">
-            <FormattedMessage id="bookmarks" defaultMessage="Bookmarks" />
-          </h1>
-          {reloading && <Loading />}
-          {!reloading && <Feed
-            content={content}
-            isFetching={isFetching}
-            hasMore={hasMore}
-            loadContent={loadContentAction}
-            loadMoreContent={loadMoreContentAction}
-          />}
-          {!reloading && !isFetching &&
-            !content.length &&
-            <div className="container">
-              <h3 className="text-center">
-                <FormattedMessage id="bookmarks_empty" defaultMessage="You don't have any story saved." />
-              </h3>
-            </div>}
+        <div className="feed-layout container">
+          <Affix className="leftContainer" stickPosition={77}>
+            <div className="left">
+              <LeftSidebar />
+            </div>
+          </Affix>
+          <Affix className="rightContainer" stickPosition={77}>
+            <div className="right">
+              <RightSidebar />
+            </div>
+          </Affix>
+          <div className="center">
+            <Feed
+              content={content}
+              isFetching={isFetching}
+              hasMore={hasMore}
+              loadContent={loadContentAction}
+              loadMoreContent={loadMoreContentAction}
+            />
+            {noBookmarks && (
+              <div className="container">
+                <h3 className="text-center">
+                  <FormattedMessage
+                    id="bookmarks_empty"
+                    defaultMessage="You don't have any story saved."
+                  />
+                </h3>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     );
