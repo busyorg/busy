@@ -59,7 +59,7 @@ class Drafts extends React.Component {
             <h1>
               <FormattedMessage id="drafts" defaultMessage="Drafts" />
             </h1>
-            {reloading && <Loading />}
+            {reloading && <Loading center={false} />}
             {noDrafts && (
               <h3 className="text-center">
                 <FormattedMessage
