@@ -45,9 +45,9 @@ if (process.env.STEEMCONNECT_HOST) {
   }
 }
 
-steem.api.setOptions({ transport: 'http' });
+// steem.api.setOptions({ transport: 'wss' });
 if (process.env.STEEMJS_URL) {
-  steem.api.setOptions({ url: process.env.STEEMJS_URL });
+  steem.api.setOptions({ url: 'wss://steemd.privex.io' });
 }
 
 message.config({

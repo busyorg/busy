@@ -3,6 +3,7 @@ import * as bookmarksActions from '../bookmarks/bookmarksActions';
 import * as postsActions from './postActions';
 import * as commentsActions from '../comments/commentsActions';
 import * as repliesTypes from '../replies/repliesActions';
+import * as userTypes from '../user/userActions';
 
 const postItem = (state = {}, action) => {
   switch (action.type) {
@@ -36,6 +37,20 @@ const posts = (state = initialState, action) => {
           ...action.payload,
         },
       };
+    case userTypes.GET_USER_COMMENTS_SUCCESS:
+    case userTypes.GET_MORE_USER_COMMENTS_SUCCESS: {
+      const commentsMoreList = {};
+      action.payload.forEach((comment) => {
+        commentsMoreList[comment.id] = comment;
+      });
+      return {
+        ...state,
+        list: {
+          ...state.list,
+          ...commentsMoreList,
+        },
+      };
+    }
     case feedTypes.GET_FEED_CONTENT_SUCCESS:
     case feedTypes.GET_MORE_FEED_CONTENT_SUCCESS:
     case feedTypes.GET_USER_FEED_CONTENT_SUCCESS:
