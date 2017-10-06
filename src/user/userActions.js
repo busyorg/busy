@@ -1,7 +1,6 @@
 import Promise from 'bluebird';
-import fetch from 'isomorphic-fetch';
 import steemConnect from 'sc2-sdk';
-
+import { getFeed, getPosts } from '../reducers';
 import { getUserCommentsFromState, getFeedLoadingFromState } from '../helpers/stateHelpers';
 import { getAllFollowing } from '../helpers/apiHelpers';
 
@@ -16,7 +15,7 @@ export const GET_MORE_USER_COMMENTS_SUCCESS = 'GET_MORE_USER_COMMENTS_SUCCESS';
 export const GET_MORE_USER_COMMENTS_ERROR = 'GET_MORE_USER_COMMENTS_ERROR';
 
 export const getUserComments = ({ username, limit = 10 }) => (dispatch, getState, { steemAPI }) => {
-  const feed = getState().feed;
+  const feed = getFeed(getState());
   if (feed.comments[username] && feed.comments[username].isLoaded) {
     return null;
   }
@@ -38,9 +37,10 @@ export const getUserComments = ({ username, limit = 10 }) => (dispatch, getState
 };
 
 export const getMoreUserComments = (username, limit) => (dispatch, getState, { steemAPI }) => {
-  const { feed, comments } = getState();
+  const feed = getFeed(getState());
+  const posts = getPosts(getState());
 
-  const feedContent = getUserCommentsFromState(username, feed, comments);
+  const feedContent = getUserCommentsFromState(username, feed, posts);
   const isLoading = getFeedLoadingFromState('comments', username, feed);
 
   if (!feedContent.length || isLoading) {
@@ -51,7 +51,7 @@ export const getMoreUserComments = (username, limit) => (dispatch, getState, { s
     context: steemAPI,
   });
 
-  const userComments = getUserCommentsFromState(username, feed, comments);
+  const userComments = getUserCommentsFromState(username, feed, posts);
   const startAuthor = userComments[userComments.length - 1].author;
   const startPermlink = userComments[userComments.length - 1].permlink;
 
@@ -67,71 +67,6 @@ export const getMoreUserComments = (username, limit) => (dispatch, getState, { s
     meta: { username, limit },
   });
 };
-
-/*!
- * busy-img actions
- */
-
-export const UPLOAD_FILE = 'UPLOAD_FILE';
-export const UPLOAD_FILE_START = 'UPLOAD_FILE_START';
-export const UPLOAD_FILE_SUCCESS = 'UPLOAD_FILE_SUCCESS';
-export const UPLOAD_FILE_ERROR = 'UPLOAD_FILE_ERROR';
-
-export function uploadFile({ username, file, fileInput }) {
-  const meta = {};
-  const fileDetails = {};
-  if (file) {
-    fileDetails.file = file;
-    fileDetails.name = file.name;
-    fileDetails.type = file.type;
-    meta.filename = file.name;
-  } else if (fileInput) {
-    fileDetails.file = fileInput.files[0];
-    fileDetails.name = fileInput.files[0].name;
-    fileDetails.type = fileInput.files[0].type;
-    meta.filename = fileInput.files[0].name;
-  } else {
-    throw new TypeError('Missing one of `file` or `fileInput` to `uploadFile` call');
-  }
-
-  return dispatch =>
-    dispatch({
-      meta,
-      type: UPLOAD_FILE,
-      payload: {
-        promise: new Promise((resolve, reject) => {
-          const request = new global.XMLHttpRequest();
-          request.open('POST', `${process.env.STEEMCONNECT_IMG_HOST}/@${username}/uploads`, true);
-          // Send the proper header information along with the request
-          request.setRequestHeader('Content-Type', fileDetails.type);
-          request.onreadystatechange = () => {
-            if (request.readyState === 4 && request.status === 201) {
-              return resolve(JSON.parse(request.response));
-            }
-            return reject(JSON.parse(request.response));
-          };
-          request.send(fileDetails.file);
-        }),
-      },
-    });
-}
-
-export const FETCH_FILES = 'FETCH_FILES';
-export const FETCH_FILES_START = 'FETCH_FILES_START';
-export const FETCH_FILES_SUCCESS = 'FETCH_FILES_SUCCESS';
-export const FETCH_FILES_ERROR = 'FETCH_FILES_ERROR';
-
-export function fetchFiles({ username }) {
-  return dispatch =>
-    dispatch({
-      type: FETCH_FILES,
-      payload: {
-        promise: fetch(`${process.env.STEEMCONNECT_IMG_HOST}/@${username}/uploads`).then(res =>
-          res.json(),
-        ),
-      },
-    });
-}
 
 export const FOLLOW_USER = '@user/FOLLOW_USER';
 export const FOLLOW_USER_START = '@user/FOLLOW_USER_START';
