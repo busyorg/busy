@@ -14,18 +14,16 @@ import Affix from '../components/Utils/Affix';
 import ScrollToTop from '../components/Utils/ScrollToTop';
 import ScrollToTopOnMount from '../components/Utils/ScrollToTopOnMount';
 
-@connect(
-  state => ({
-    authenticated: getIsAuthenticated(state),
-  }),
-)
+@connect(state => ({
+  authenticated: getIsAuthenticated(state),
+}))
 class Page extends React.Component {
   static propTypes = {
     authenticated: PropTypes.bool.isRequired,
     history: PropTypes.shape().isRequired,
     location: PropTypes.shape().isRequired,
     match: PropTypes.shape().isRequired,
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -35,8 +33,15 @@ class Page extends React.Component {
     };
   }
 
+  componentWillMount() {
+    this.updateFromPath(this.props.location.pathname);
+  }
+
   componentWillReceiveProps(nextProps) {
-    const { pathname } = nextProps.location;
+    this.updateFromPath(nextProps.location.pathname);
+  }
+
+  updateFromPath = (pathname) => {
     const sortBy = pathname.split('/')[1];
     const category = pathname.split('/')[2];
 
@@ -47,20 +52,23 @@ class Page extends React.Component {
     }
 
     this.setState({
-      categories: (category) ? [category] : [],
+      categories: category ? [category] : [],
     });
-  }
+  };
 
   handleSortChange = (key) => {
-    this.setState({
-      currentKey: key,
-    }, () => {
-      if (this.state.categories[0]) {
-        this.props.history.push(`/${key}/${this.state.categories[0]}`);
-      } else {
-        this.props.history.push(`/${key}`);
-      }
-    });
+    this.setState(
+      {
+        currentKey: key,
+      },
+      () => {
+        if (this.state.categories[0]) {
+          this.props.history.push(`/${key}/${this.state.categories[0]}`);
+        } else {
+          this.props.history.push(`/${key}`);
+        }
+      },
+    );
   };
 
   handleTopicClose = () => this.props.history.push(`${this.props.match.url}trending`);
@@ -90,13 +98,15 @@ class Page extends React.Component {
               </div>
             </Affix>
             <div className="center">
-              {shouldDisplaySelector && <TopicSelector
-                isSingle={false}
-                sort={this.state.currentKey}
-                topics={this.state.categories}
-                onSortChange={this.handleSortChange}
-                onTopicClose={this.handleTopicClose}
-              />}
+              {shouldDisplaySelector && (
+                <TopicSelector
+                  isSingle={false}
+                  sort={this.state.currentKey}
+                  topics={this.state.categories}
+                  onSortChange={this.handleSortChange}
+                  onTopicClose={this.handleTopicClose}
+                />
+              )}
               <Route path={`${match.path}:sortBy?/:category?`} component={SubFeed} />
             </div>
           </div>
