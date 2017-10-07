@@ -16,6 +16,7 @@
   "logout":"Logout",
   "my_profile":"My profile",
   "feed":"Feed",
+  "feed_empty":"Oops! This feed empty",
   "news":"News",
   "wallet":"Wallet",
   "bookmarks":"Bookmarks",
