@@ -60,6 +60,13 @@ class CommentForm extends React.Component {
     }
   };
 
+  disableAndInsertImage = (image, imageName = 'image') => {
+    this.setState({
+      imageUploading: false,
+    });
+    this.insertImage(image, imageName);
+  };
+
   insertImage = (image, imageName = 'image') => {
     if (!this.input) return;
 
@@ -88,7 +95,7 @@ class CommentForm extends React.Component {
           });
 
           const blob = item.getAsFile();
-          this.props.onImageInserted(blob, this.insertImage, () =>
+          this.props.onImageInserted(blob, this.disableAndInsertImage, () =>
             this.setState({
               imageUploading: false,
             }),
@@ -103,7 +110,7 @@ class CommentForm extends React.Component {
       this.setState({
         imageUploading: true,
       });
-      this.props.onImageInserted(e.target.files[0], this.insertImage, () =>
+      this.props.onImageInserted(e.target.files[0], this.disableAndInsertImage, () =>
         this.setState({
           imageUploading: false,
         }),
