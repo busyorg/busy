@@ -9,12 +9,12 @@ export default class PostFeedEmbed extends React.Component {
       thumbnail: PropTypes.string,
       embed: PropTypes.string,
     }).isRequired,
+    inPost: PropTypes.bool,
   };
 
-  static renderWithIframe(embed) {
-    // eslint-disable-next-line react/no-danger
-    return <div dangerouslySetInnerHTML={{ __html: embed }} />;
-  }
+  static defaultProps = {
+    inPost: false,
+  };
 
   constructor(props) {
     super(props);
@@ -26,6 +26,15 @@ export default class PostFeedEmbed extends React.Component {
   handleThumbClick = (e) => {
     e.preventDefault();
     this.setState({ showIframe: true });
+  };
+
+  renderWithIframe = (embed) => {
+    let embedCode = embed.embed;
+    if (embed.provider_name === 'YouTube' && this.props.inPost) {
+      embedCode = embedCode.replace('autoplay=1', 'autoplay=0');
+    }
+    // eslint-disable-next-line react/no-danger
+    return <div dangerouslySetInnerHTML={{ __html: embedCode }} />;
   };
 
   renderThumbFirst(thumb) {
@@ -40,15 +49,16 @@ export default class PostFeedEmbed extends React.Component {
   }
 
   render() {
-    const { embed } = this.props;
+    const { embed, inPost } = this.props;
+    const shouldRenderThumb = inPost ? false : !this.state.showIframe;
 
     if (
-      (embed.provider_name === 'YouTube' || embed.provider_name === 'DTube')
-      && !this.state.showIframe
+      (embed.provider_name === 'YouTube' || embed.provider_name === 'DTube') &&
+      shouldRenderThumb
     ) {
       return this.renderThumbFirst(embed.thumbnail);
     } else if (embed.embed) {
-      return PostFeedEmbed.renderWithIframe(embed.embed);
+      return this.renderWithIframe(embed);
     }
     return <div />;
   }

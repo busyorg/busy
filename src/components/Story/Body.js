@@ -54,7 +54,7 @@ export function getHtml(body, jsonMetadata = {}, returnType = 'Object') {
       const type = match[2];
       const link = match[3];
       const embed = embedjs.get(link, { width: '100%', height: 400, autoplay: true });
-      sections.push(<PostFeedEmbed key={`embed-a-${i}`} embed={embed} />);
+      sections.push(<PostFeedEmbed key={`embed-a-${i}`} embed={embed} inPost />);
       section = section.substring(`${id} ${type} ${link} ~~~`.length);
     }
     if (section !== '') {
@@ -67,11 +67,7 @@ export function getHtml(body, jsonMetadata = {}, returnType = 'Object') {
 
 const Body = (props) => {
   const htmlSections = getHtml(props.body, props.jsonMetadata);
-  return (
-    <div className={classNames('Body', { 'Body--full': props.full })}>
-      {htmlSections}
-    </div>
-  );
+  return <div className={classNames('Body', { 'Body--full': props.full })}>{htmlSections}</div>;
 };
 
 Body.propTypes = {
