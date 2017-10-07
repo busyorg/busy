@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Route, Switch, withRouter } from 'react-router-dom';
 
-import { getUserRank } from '../helpers/ranks';
 import UserHeader from '../components/UserHeader';
 import UserHeaderLoading from '../components/UserHeaderLoading';
 import UserMenu from '../components/UserMenu';
@@ -30,42 +29,35 @@ class UserMenuWrapper extends React.Component {
   }
 }
 
-const UserHero = ({
-  authenticated,
-  user,
-  username,
-  isSameUser,
-  hasCover,
-  onSelect,
-}) =>
-  (<div>
+const UserHero = ({ authenticated, user, username, isSameUser, hasCover, onSelect }) => (
+  <div>
     <Switch>
       <Route
         path="/@:name"
-        render={() =>
-          (<div>
-            {
-              (user.isFetching) ? <UserHeaderLoading />
-                : <UserHeader
-                  authenticated={authenticated}
-                  username={username}
-                  handle={user.name}
-                  userReputation={user.reputation}
-                  rank={getUserRank(user.vesting_shares)}
-                  isSameUser={isSameUser}
-                  hasCover={hasCover}
-                  onSelect={onSelect}
-                />
-            }
-            <UserMenuWrapper
-              followers={user.follower_count}
-              following={user.following_count}
-            />
-          </div>)}
+        render={() => (
+          <div>
+            {user.isFetching ? (
+              <UserHeaderLoading />
+            ) : (
+              <UserHeader
+                authenticated={authenticated}
+                username={username}
+                handle={user.name}
+                userReputation={user.reputation}
+                vestingShares={parseFloat(user.vesting_shares)}
+                isSameUser={isSameUser}
+                hasCover={hasCover}
+                onSelect={onSelect}
+              />
+            )}
+            <UserMenuWrapper followers={user.follower_count} following={user.following_count} />
+          </div>
+        )}
       />
       <Route render={() => (authenticated ? <Hero /> : <div />)} />
     </Switch>
-  </div>);
+  </div>
+);
 
 UserHero.propTypes = {
   authenticated: PropTypes.bool.isRequired,
