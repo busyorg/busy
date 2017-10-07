@@ -1055,8 +1055,9 @@ exports[`Storyshots Profile UserHeader 1`] = `
           <i
             className="iconfont icon-ranking"
           />
-           
-          Minnow
+          <span>
+            Plankton
+          </span>
         </div>
       </div>
     </div>
