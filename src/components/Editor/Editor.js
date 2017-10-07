@@ -226,7 +226,7 @@ class Editor extends React.Component {
           });
 
           const blob = item.getAsFile();
-          this.props.onImageInserted(blob, this.insertImage, () =>
+          this.props.onImageInserted(blob, this.disableAndInsertImage, () =>
             this.setState({
               imageUploading: false,
             }),
@@ -241,7 +241,7 @@ class Editor extends React.Component {
       this.setState({
         imageUploading: true,
       });
-      this.props.onImageInserted(e.target.files[0], this.insertImage, () =>
+      this.props.onImageInserted(e.target.files[0], this.disableAndInsertImage, () =>
         this.setState({
           imageUploading: false,
         }),
@@ -304,6 +304,13 @@ class Editor extends React.Component {
 
     this.input.selectionStart = startPos + deltaStart;
     this.input.selectionEnd = endPos + deltaEnd;
+  };
+
+  disableAndInsertImage = (image, imageName = 'image') => {
+    this.setState({
+      imageUploading: false,
+    });
+    this.insertImage(image, imageName);
   };
 
   insertImage = (image, imageName = 'image') => {
