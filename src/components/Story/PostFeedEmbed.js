@@ -28,14 +28,10 @@ export default class PostFeedEmbed extends React.Component {
     this.setState({ showIframe: true });
   };
 
-  renderWithIframe = (embed) => {
-    let embedCode = embed.embed;
-    if (embed.provider_name === 'YouTube' && this.props.inPost) {
-      embedCode = embedCode.replace('autoplay=1', 'autoplay=0');
-    }
+  renderWithIframe = embed => (
     // eslint-disable-next-line react/no-danger
-    return <div dangerouslySetInnerHTML={{ __html: embedCode }} />;
-  };
+    <div dangerouslySetInnerHTML={{ __html: embed }} />
+  );
 
   renderThumbFirst(thumb) {
     return (
@@ -58,7 +54,7 @@ export default class PostFeedEmbed extends React.Component {
     ) {
       return this.renderThumbFirst(embed.thumbnail);
     } else if (embed.embed) {
-      return this.renderWithIframe(embed);
+      return this.renderWithIframe(embed.embed);
     }
     return <div />;
   }
