@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
+import marked from 'marked';
 import kebabCase from 'lodash/kebabCase';
 import debounce from 'lodash/debounce';
 import isArray from 'lodash/isArray';
@@ -131,9 +132,7 @@ class Write extends React.Component {
     const users = [];
     const userRegex = /@([a-zA-Z.0-9-]+)/g;
     const links = [];
-    const linkRegex = /\[.+?]\((.*?)\)/g;
     const images = [];
-    const imageRegex = /!\[.+?]\((.*?)\)/g;
     let matches;
 
     const postBody = data.body;
@@ -145,19 +144,19 @@ class Write extends React.Component {
       }
     }
 
-    // eslint-disable-next-line
-    while ((matches = linkRegex.exec(postBody))) {
-      if (links.indexOf(matches[1]) === -1 && matches[1].search(/https?:\/\//) === 0) {
-        links.push(matches[1]);
-      }
-    }
+    const renderer = new marked.Renderer();
 
-    // eslint-disable-next-line
-    while ((matches = imageRegex.exec(postBody))) {
-      if (images.indexOf(matches[1]) === -1 && matches[1].search(/https?:\/\//) === 0) {
-        images.push(matches[1]);
-      }
-    }
+    renderer.link = (href) => {
+      links.push(href);
+      return marked.Renderer.prototype.link.apply(renderer, arguments);
+    };
+
+    renderer.image = (href) => {
+      images.push(href);
+      return marked.Renderer.prototype.image.apply(renderer, arguments);
+    };
+
+    marked(postBody || '', { renderer });
 
     if (data.title && !this.permlink) {
       data.permlink = kebabCase(data.title);
