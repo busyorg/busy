@@ -16,6 +16,8 @@
   "logout":"Выйти",
   "my_profile":"Мой профиль",
   "feed":"Лента",
+  "feed_empty":"Oops! This feed empty",
+  "empty_user_profile":"This user doesn't have any story published yet.",
   "news":"Новости",
   "wallet":"Кошелек",
   "bookmarks":"Закладки",

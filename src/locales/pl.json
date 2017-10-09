@@ -16,6 +16,8 @@
   "logout":"Wyloguj się",
   "my_profile":"Mój profil",
   "feed":"Strona główna",
+  "feed_empty":"Oops! This feed empty",
+  "empty_user_profile":"This user doesn't have any story published yet.",
   "news":"Nowości",
   "wallet":"Portfel",
   "bookmarks":"Zakładki",
