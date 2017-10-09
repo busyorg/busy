@@ -16,6 +16,8 @@
   "logout":"登出",
   "my_profile":"My profile",
   "feed":"Feed",
+  "feed_empty":"Oops! This feed empty",
+  "empty_user_profile":"This user doesn't have any story published yet.",
   "news":"News",
   "wallet":"錢包",
   "bookmarks":"書籤",
