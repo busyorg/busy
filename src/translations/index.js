@@ -11,6 +11,7 @@ import nl from 'react-intl/locale-data/nl';
 import sv from 'react-intl/locale-data/sv';
 import pl from 'react-intl/locale-data/pl';
 import tr from 'react-intl/locale-data/tr';
+import ja from 'react-intl/locale-data/ja';
 import th from 'react-intl/locale-data/th';
 import lo from 'react-intl/locale-data/lo';
 import id from 'react-intl/locale-data/id';
@@ -27,6 +28,7 @@ import nlTranslations from '../locales/nl.json';
 import svTranslations from '../locales/sv.json';
 import plTranslations from '../locales/pl.json';
 import trTranslations from '../locales/tr.json';
+import jaTranslations from '../locales/ja.json';
 import thTranslations from '../locales/th.json';
 import loTranslations from '../locales/lo.json';
 import idTranslations from '../locales/id.json';
@@ -44,6 +46,7 @@ addLocaleData([
   ...sv,
   ...pl,
   ...tr,
+  ...ja,
   ...th,
   ...lo,
   ...id,
@@ -62,6 +65,7 @@ export const translations = {
   sv: svTranslations,
   pl: plTranslations,
   tr: trTranslations,
+  ja: jaTranslations,
   th: thTranslations,
   lo: loTranslations,
   id: idTranslations,
