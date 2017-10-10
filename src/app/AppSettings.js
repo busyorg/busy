@@ -51,6 +51,10 @@ export default class AppSettings extends React.Component {
     ko: '한국어',
     nl: 'Nederlands',
     sv: 'Svenska',
+    tr: 'Türkçe',
+    id: 'Bahasa Indonesia',
+    th: 'ภาษาไทย',
+    lo: 'ພາສາລາວ',
   };
 
   handleLocaleChange = locale => this.props.setLocale(locale);

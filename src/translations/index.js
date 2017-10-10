@@ -10,6 +10,10 @@ import ko from 'react-intl/locale-data/ko';
 import nl from 'react-intl/locale-data/nl';
 import sv from 'react-intl/locale-data/sv';
 import pl from 'react-intl/locale-data/pl';
+import tr from 'react-intl/locale-data/tr';
+import th from 'react-intl/locale-data/th';
+import lo from 'react-intl/locale-data/lo';
+import id from 'react-intl/locale-data/id';
 
 import enTranslations from '../locales/en.json';
 import csTranslations from '../locales/cs.json';
@@ -22,8 +26,28 @@ import koTranslations from '../locales/ko.json';
 import nlTranslations from '../locales/nl.json';
 import svTranslations from '../locales/sv.json';
 import plTranslations from '../locales/pl.json';
+import trTranslations from '../locales/tr.json';
+import thTranslations from '../locales/th.json';
+import loTranslations from '../locales/lo.json';
+import idTranslations from '../locales/id.json';
 
-addLocaleData([...en, ...cs, ...es, ...zh, ...fr, ...de, ...ru, ...ko, ...nl, ...sv, ...pl]);
+addLocaleData([
+  ...en,
+  ...cs,
+  ...es,
+  ...zh,
+  ...fr,
+  ...de,
+  ...ru,
+  ...ko,
+  ...nl,
+  ...sv,
+  ...pl,
+  ...tr,
+  ...th,
+  ...lo,
+  ...id,
+]);
 
 export const translations = {
   en: enTranslations,
@@ -37,6 +61,10 @@ export const translations = {
   nl: nlTranslations,
   sv: svTranslations,
   pl: plTranslations,
+  tr: trTranslations,
+  th: thTranslations,
+  lo: loTranslations,
+  id: idTranslations,
 };
 
 export const getBrowserLocale = () => {
