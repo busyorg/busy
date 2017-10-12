@@ -10,6 +10,7 @@ import ko from 'react-intl/locale-data/ko';
 import nl from 'react-intl/locale-data/nl';
 import sv from 'react-intl/locale-data/sv';
 import pl from 'react-intl/locale-data/pl';
+import ar from 'react-intl/locale-data/ar';
 import tr from 'react-intl/locale-data/tr';
 import ro from 'react-intl/locale-data/ro';
 import ja from 'react-intl/locale-data/ja';
@@ -29,6 +30,7 @@ import koTranslations from '../locales/ko.json';
 import nlTranslations from '../locales/nl.json';
 import svTranslations from '../locales/sv.json';
 import plTranslations from '../locales/pl.json';
+import arTranslations from '../locales/ar.json';
 import trTranslations from '../locales/tr.json';
 import roTranslations from '../locales/ro.json';
 import jaTranslations from '../locales/ja.json';
@@ -49,6 +51,7 @@ addLocaleData([
   ...nl,
   ...sv,
   ...pl,
+  ...ar,
   ...tr,
   ...ro,
   ...ja,
@@ -70,6 +73,7 @@ export const translations = {
   nl: nlTranslations,
   sv: svTranslations,
   pl: plTranslations,
+  ar: arTranslations,
   tr: trTranslations,
   ro: roTranslations,
   ja: jaTranslations,
