@@ -50,6 +50,7 @@ export default class AppSettings extends React.Component {
     ru: 'Русский',
     ko: '한국어',
     nl: 'Nederlands',
+    sl: 'Slovenščina',
     sv: 'Svenska',
     ar: '‏العربية‏',
     tr: 'Türkçe',
