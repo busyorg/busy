@@ -210,6 +210,7 @@ class CommentForm extends React.Component {
           <p className="CommentForm__imagebox">
             <input
               type="file"
+              accept="image/*"
               id={`inputfile${this.props.parentPost.id}`}
               onChange={this.handleImageChange}
             />
