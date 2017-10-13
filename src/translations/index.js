@@ -19,6 +19,17 @@ import fil from 'react-intl/locale-data/fil';
 import th from 'react-intl/locale-data/th';
 import lo from 'react-intl/locale-data/lo';
 import id from 'react-intl/locale-data/id';
+import ms from 'react-intl/locale-data/ms';
+import da from 'react-intl/locale-data/da';
+import it from 'react-intl/locale-data/it';
+import no from 'react-intl/locale-data/no';
+import pt from 'react-intl/locale-data/pt';
+import vi from 'react-intl/locale-data/vi';
+import el from 'react-intl/locale-data/el';
+import bg from 'react-intl/locale-data/bg';
+import uk from 'react-intl/locale-data/uk';
+import he from 'react-intl/locale-data/he';
+import hi from 'react-intl/locale-data/hi';
 
 import enTranslations from '../locales/en.json';
 import csTranslations from '../locales/cs.json';
@@ -40,6 +51,17 @@ import filTranslations from '../locales/fil.json';
 import thTranslations from '../locales/th.json';
 import loTranslations from '../locales/lo.json';
 import idTranslations from '../locales/id.json';
+import msTranslations from '../locales/ms.json';
+import daTranslations from '../locales/da.json';
+import itTranslations from '../locales/it.json';
+import noTranslations from '../locales/no.json';
+import ptTranslations from '../locales/pt.json';
+import viTranslations from '../locales/vi.json';
+import elTranslations from '../locales/el.json';
+import bgTranslations from '../locales/bg.json';
+import ukTranslations from '../locales/uk.json';
+import heTranslations from '../locales/he.json';
+import hiTranslations from '../locales/hi.json';
 
 addLocaleData([
   ...en,
@@ -62,6 +84,17 @@ addLocaleData([
   ...th,
   ...lo,
   ...id,
+  ...ms,
+  ...da,
+  ...it,
+  ...no,
+  ...pt,
+  ...vi,
+  ...el,
+  ...bg,
+  ...uk,
+  ...he,
+  ...hi,
 ]);
 
 export const translations = {
@@ -85,6 +118,17 @@ export const translations = {
   th: thTranslations,
   lo: loTranslations,
   id: idTranslations,
+  ms: msTranslations,
+  da: daTranslations,
+  it: itTranslations,
+  no: noTranslations,
+  pt: ptTranslations,
+  vi: viTranslations,
+  el: elTranslations,
+  bg: bgTranslations,
+  uk: ukTranslations,
+  he: heTranslations,
+  hi: hiTranslations,
 };
 
 export const getBrowserLocale = () => {
