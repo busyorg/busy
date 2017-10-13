@@ -132,6 +132,9 @@ const Topnav = ({
           <Link className="Topnav__brand" to="/">
             busy
           </Link>
+          <span className="Topnav__version">
+            beta
+          </span>
         </div>
         <div className="center">
           <div className="Topnav__input-container">
