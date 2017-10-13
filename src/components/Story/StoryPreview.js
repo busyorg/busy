@@ -8,6 +8,7 @@ import { jsonParse } from '../../helpers/formatter';
 import { image } from '../../vendor/steemitLinks';
 import {
   getPositions,
+  postWithAnEmbed,
   isPostStartsWithAPicture,
   isPostStartsWithAnEmbed,
   isPostWithPictureBeforeFirstHalf,
@@ -37,7 +38,9 @@ const StoryPreview = ({ post }) => {
     embeds[0] = {
       type: 'video',
       provider_name: 'DTube',
-      embed: `<video controls="true" autoplay="true" src="https://ipfs.io/ipfs/${video.content.videohash}" poster="https://ipfs.io/ipfs/${video.info.snaphash}"><track kind="captions" /></video>`,
+      embed: `<video controls="true" autoplay="true" src="https://ipfs.io/ipfs/${video.content
+        .videohash}" poster="https://ipfs.io/ipfs/${video.info
+        .snaphash}"><track kind="captions" /></video>`,
       thumbnail: getProxyImageURL(`https://ipfs.io/ipfs/${video.info.snaphash}`, 'preview'),
     };
   }
@@ -47,10 +50,11 @@ const StoryPreview = ({ post }) => {
 
     embed: () => embeds && embeds[0] && <PostFeedEmbed key="embed" embed={embeds[0]} />,
 
-    image: () =>
-      (<div key={imagePath} className="Story__content__img-container">
+    image: () => (
+      <div key={imagePath} className="Story__content__img-container">
         <img alt="post" src={imagePath} />
-      </div>),
+      </div>
+    ),
   };
 
   const htmlBody = getHtml(post.body, {}, 'text');
@@ -58,6 +62,9 @@ const StoryPreview = ({ post }) => {
   const bodyData = [];
 
   if (hasVideo) {
+    bodyData.push(preview.embed());
+    bodyData.push(preview.text());
+  } else if (htmlBody.length <= 1500 && postWithAnEmbed(tagPositions, 100)) {
     bodyData.push(preview.embed());
     bodyData.push(preview.text());
   } else if (isPostStartsWithAPicture(tagPositions)) {
@@ -76,11 +83,7 @@ const StoryPreview = ({ post }) => {
     bodyData.push(preview.text());
   }
 
-  return (
-    <div>
-      {bodyData}
-    </div>
-  );
+  return <div>{bodyData}</div>;
 };
 
 StoryPreview.propTypes = {
