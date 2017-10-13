@@ -2652,14 +2652,6 @@ exports[`Storyshots Story Inline story with embed 1`] = `
         >
           <div>
             <div
-              className="Story__content__body"
-              dangerouslySetInnerHTML={
-                Object {
-                  "__html": "Lots of good stuff for STEEM as he talks about Community Tokens / User Issued Tokens &amp; B2B Solutions, the Linear Reward Curve and many …",
-                }
-              }
-            />
-            <div
               className="PostFeedEmbed"
               onClick={[Function]}
               role="presentation"
@@ -2677,6 +2669,14 @@ exports[`Storyshots Story Inline story with embed 1`] = `
                 src="https://i.ytimg.com/vi/YxFzGoDoLwU/hqdefault.jpg"
               />
             </div>
+            <div
+              className="Story__content__body"
+              dangerouslySetInnerHTML={
+                Object {
+                  "__html": "Lots of good stuff for STEEM as he talks about Community Tokens / User Issued Tokens &amp; B2B Solutions, the Linear Reward Curve and many …",
+                }
+              }
+            />
           </div>
         </a>
       </div>
