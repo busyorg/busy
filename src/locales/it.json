@@ -79,7 +79,7 @@
   "amount_placeholder":"Quanto vuoi inviare",
   "amount_error_empty":"Importo richiesto.",
   "amount_error_format":"Formato non corretto. Utilizzare il punto come separatore (massimo 3 cifre decimali).",
-  "amount_error_zero":"Amount has to be higher than 0.",
+  "amount_error_zero":"L'importo deve essere maggiore di 0.",
   "amount_error_funds":"Insufficient funds.",
   "balance_amount":"Your balance: {amount}.",
   "memo":"Memo",
