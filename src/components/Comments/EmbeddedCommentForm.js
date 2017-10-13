@@ -200,6 +200,7 @@ class EmbeddedCommentForm extends React.Component {
         <p className="EmbeddedCommentForm__imagebox">
           <input
             type="file"
+            accept="image/*"
             id={`inputfile-edit${this.props.parentPost.id}`}
             onChange={this.handleImageChange}
           />

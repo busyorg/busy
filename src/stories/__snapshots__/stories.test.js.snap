@@ -432,6 +432,7 @@ exports[`Storyshots Editor Editor 1`] = `
             className="Editor__imagebox"
           >
             <input
+              accept="image/*"
               id="inputfile"
               onChange={[Function]}
               type="file"
