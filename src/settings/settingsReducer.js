@@ -10,6 +10,7 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case authTypes.LOGIN_SUCCESS:
+    case authTypes.RELOAD_SUCCESS:
       if (
         action.payload.user_metadata &&
         action.payload.user_metadata.settings &&

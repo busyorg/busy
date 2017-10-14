@@ -99,7 +99,7 @@ describe('settingsReducer', () => {
     expect(settingsReducer(stateBefore, action)).to.eql(stateAfter);
   });
 
-  it('should return previous state after logged in without settings', () => {
+  it('should return previous state after login success without settings', () => {
     const stateBefore = {
       ...initialState,
       locale: 'fr',
@@ -107,6 +107,44 @@ describe('settingsReducer', () => {
     };
     const action = {
       type: authTypes.LOGIN_SUCCESS,
+      payload: {
+        user_metadata: {},
+      },
+    };
+
+    expect(settingsReducer(stateBefore, action)).to.eql(stateBefore);
+  });
+
+  it('should set locale and voting power after reload success', () => {
+    const stateBefore = initialState;
+    const stateAfter = {
+      ...stateBefore,
+      locale: 'fr',
+      votingPower: 'off',
+    };
+    const action = {
+      type: authTypes.RELOAD_SUCCESS,
+      payload: {
+        user_metadata: {
+          settings: {
+            locale: 'fr',
+            votingPower: 'off',
+          },
+        },
+      },
+    };
+
+    expect(settingsReducer(stateBefore, action)).to.eql(stateAfter);
+  });
+
+  it('should return previous state after reload success without settings', () => {
+    const stateBefore = {
+      ...initialState,
+      locale: 'fr',
+      votingPower: 'off',
+    };
+    const action = {
+      type: authTypes.RELOAD_SUCCESS,
       payload: {
         user_metadata: {},
       },
