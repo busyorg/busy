@@ -119,7 +119,7 @@
   "drop_image":"Thả tệp hình ảnh của bạn vào đây",
   "select_or_past_image":"Chọn hoặc dán hình ảnh từ bản ghi tạm.",
   "image_uploading":"Hình ảnh của bạn đang tải lên...",
-  "markdown_supported":"Kiểu dáng với ngôn ngữ đánh dấu văn bản được hỗ trợ",
+  "markdown_supported":"Kiểu dáng với ngôn ngữ đánh dấu văn bản (markdown) được hỗ trợ",
   "title":"Tiêu đề",
   "title_placeholder":"Thêm tiêu đề",
   "title_error_empty":"Vui lòng nhập vào một tiêu đề.",
