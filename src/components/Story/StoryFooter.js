@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import steemconnect from 'sc2-sdk';
 import { injectIntl, FormattedMessage, FormattedNumber } from 'react-intl';
 import { Link } from 'react-router-dom';
 import { take } from 'lodash';
@@ -25,13 +24,11 @@ class StoryFooter extends React.Component {
     onShareClick: PropTypes.func,
     ownPost: PropTypes.bool,
     onEditClick: PropTypes.func,
-    isAuthenticated: PropTypes.bool,
   };
 
   static defaultProps = {
     pendingLike: false,
     ownPost: false,
-    isAuthenticated: false,
     onLikeClick: () => {},
     onShareClick: () => {},
     onEditClick: () => {},
@@ -58,12 +55,6 @@ class StoryFooter extends React.Component {
   handleShareClick = (e) => {
     e.preventDefault();
     if (this.props.postState.isReblogged) {
-      return;
-    }
-
-    if (!this.props.isAuthenticated) {
-      const next = window.location.pathname.length > 1 ? window.location.pathname : '';
-      window.location = steemconnect.getLoginURL(next);
       return;
     }
 
