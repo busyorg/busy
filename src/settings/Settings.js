@@ -175,12 +175,6 @@ export default class Settings extends React.Component {
                     <Radio value="on">
                       <FormattedMessage id="voting_power_on" defaultMessage="Enable slider" />
                     </Radio>
-                    <Radio value="auto">
-                      <FormattedMessage
-                        id="voting_power_auto"
-                        defaultMessage="Enable and disable slider depending on my Voting Power"
-                      />
-                    </Radio>
                   </Radio.Group>
                 </div>
                 <div className="Settings_section">
