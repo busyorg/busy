@@ -144,7 +144,7 @@ class PostContent extends React.Component {
       bookmarks,
       pendingBookmarks,
       saving,
-      isAuthenticated
+      isAuthenticated,
     } = this.props;
 
     const postMetaData = jsonParse(content.json_metadata);
