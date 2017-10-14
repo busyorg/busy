@@ -1,17 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { FormattedMessage } from 'react-intl';
+import { injectIntl, FormattedMessage } from 'react-intl';
 import { Select, Radio } from 'antd';
 import { getIsReloading, getLocale, getVotingPower, getIsSettingsLoading } from '../reducers';
 import { saveSettings } from './settingsActions';
 import { reload } from '../auth/authActions';
+import { notify } from '../app/Notification/notificationActions';
 import Action from '../components/Button/Action';
 import Loading from '../components/Icon/Loading';
 import Affix from '../components/Utils/Affix';
 import LeftSidebar from '../app/Sidebar/LeftSidebar';
 import './Settings.less';
 
+@injectIntl
 @connect(
   state => ({
     reloading: getIsReloading(state),
@@ -19,16 +21,18 @@ import './Settings.less';
     votingPower: getVotingPower(state),
     loading: getIsSettingsLoading(state),
   }),
-  { reload, saveSettings },
+  { reload, saveSettings, notify },
 )
 export default class Settings extends React.Component {
   static propTypes = {
+    intl: PropTypes.shape().isRequired,
     reloading: PropTypes.bool,
     locale: PropTypes.string,
     votingPower: PropTypes.string,
     loading: PropTypes.bool,
     reload: PropTypes.func,
     saveSettings: PropTypes.func,
+    notify: PropTypes.func,
   };
 
   static defaultProps = {
@@ -38,6 +42,7 @@ export default class Settings extends React.Component {
     loading: false,
     reload: () => {},
     saveSettings: () => {},
+    notify: () => {},
   };
 
   state = {
@@ -102,10 +107,17 @@ export default class Settings extends React.Component {
   };
 
   handleSave = () => {
-    this.props.saveSettings({
-      locale: this.state.locale,
-      votingPower: this.state.votingPower,
-    });
+    this.props
+      .saveSettings({
+        locale: this.state.locale,
+        votingPower: this.state.votingPower,
+      })
+      .then(() =>
+        this.props.notify(
+          this.props.intl.formatMessage({ id: 'saved', defaultMessage: 'Saved' }),
+          'success',
+        ),
+      );
   };
 
   handleLocaleChange = locale => this.setState({ locale });
