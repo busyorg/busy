@@ -98,6 +98,22 @@ describe('settingsReducer', () => {
 
     expect(settingsReducer(stateBefore, action)).to.eql(stateAfter);
   });
+
+  it('should return previous state after logged in without settings', () => {
+    const stateBefore = {
+      ...initialState,
+      locale: 'fr',
+      votingPower: 'off',
+    };
+    const action = {
+      type: authTypes.LOGIN_SUCCESS,
+      payload: {
+        user_metadata: {},
+      },
+    };
+
+    expect(settingsReducer(stateBefore, action)).to.eql(stateBefore);
+  });
 });
 
 describe('settingsReducer selectors', () => {

@@ -10,11 +10,20 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case authTypes.LOGIN_SUCCESS:
-      return {
-        ...state,
-        locale: action.payload.user_metadata.settings.locale || initialState.locale,
-        votingPower: action.payload.user_metadata.settings.votingPower || initialState.locale,
-      };
+      if (
+        action.payload.user_metadata &&
+        action.payload.user_metadata.settings &&
+        action.payload.user_metadata.settings.locale &&
+        action.payload.user_metadata.settings.votingPower
+      ) {
+        return {
+          ...state,
+          locale: action.payload.user_metadata.settings.locale,
+          votingPower: action.payload.user_metadata.settings.votingPower,
+        };
+      }
+      return state;
+
     case settingsTypes.SAVE_SETTINGS_START:
       return {
         ...state,
