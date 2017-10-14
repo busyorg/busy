@@ -114,6 +114,7 @@ class StoryFull extends React.Component {
       ownPost,
       onLikeClick,
       onShareClick,
+      onEditClick,
     } = this.props;
 
     const { open, index } = this.state.lightbox;
@@ -295,6 +296,8 @@ class StoryFull extends React.Component {
           pendingLike={pendingLike}
           onLikeClick={onLikeClick}
           onShareClick={onShareClick}
+          onEditClick={onEditClick}
+          ownPost={ownPost}
         />
       </div>
     );

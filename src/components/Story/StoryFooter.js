@@ -22,18 +22,23 @@ class StoryFooter extends React.Component {
     pendingLike: PropTypes.bool,
     onLikeClick: PropTypes.func,
     onShareClick: PropTypes.func,
+    ownPost: PropTypes.bool,
+    onEditClick: PropTypes.func,
   };
 
   static defaultProps = {
     pendingLike: false,
+    ownPost: false,
     onLikeClick: () => {},
     onShareClick: () => {},
+    onEditClick: () => {},
   };
 
   state = {
     shareModalVisible: false,
     shareModalLoading: false,
     reactionsModalVisible: false,
+    loadingEdit: false,
   };
 
   componentWillReceiveProps(nextProps) {
@@ -87,15 +92,20 @@ class StoryFooter extends React.Component {
     }
   };
 
+  handleEdit = () => {
+    this.setState({
+      loadingEdit: true,
+    });
+    this.props.onEditClick(this.props.post);
+  };
+
   render() {
-    const { intl, post, postState, pendingLike, onLikeClick } = this.props;
+    const { intl, post, postState, pendingLike, onLikeClick, ownPost } = this.props;
 
     const payout = calculatePayout(post);
 
     const upVotes = getUpvotes(post.active_votes).sort(sortVotes);
-    const downVotes = getDownvotes(post.active_votes)
-      .sort(sortVotes)
-      .reverse();
+    const downVotes = getDownvotes(post.active_votes).sort(sortVotes).reverse();
 
     const totalPayout =
       parseFloat(post.pending_payout_value) +
@@ -128,6 +138,7 @@ class StoryFooter extends React.Component {
 
     const commentsLink =
       post.url.indexOf('#') !== -1 ? post.url : { pathname: post.url, hash: '#comments' };
+    const showEditLink = ownPost && post.cashout_time !== '1969-12-31T23:59:59';
 
     return (
       <div className="StoryFooter">
@@ -199,8 +210,12 @@ class StoryFooter extends React.Component {
             <a role="presentation" className={rebloggedClass} onClick={this.handleShareClick}>
               <i className="iconfont icon-share1 StoryFooter__share" />
             </a>
-          </Tooltip>
-        )}
+          </Tooltip>)}
+        {showEditLink &&
+          <a role="presentation" className="StoryFooter__link" onClick={this.handleEdit}>
+            {this.state.loadingEdit ? <Icon type="loading" /> : <i className="iconfont icon-write" />}
+            <FormattedMessage id="edit" defaultMessage="Edit" />
+          </a>}
         {!postState.isReblogged && (
           <Modal
             title={intl.formatMessage({
