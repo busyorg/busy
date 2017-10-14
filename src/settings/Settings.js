@@ -4,12 +4,13 @@ import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { Select, Radio } from 'antd';
 import { getLocale, getIsLocaleLoading, getIsReloading } from '../reducers';
-import { setLocale } from './appActions';
+import { saveSettings } from './settingsActions';
 import { reload } from '../auth/authActions';
+import Action from '../components/Button/Action';
 import Loading from '../components/Icon/Loading';
 import Affix from '../components/Utils/Affix';
 import LeftSidebar from '../app/Sidebar/LeftSidebar';
-import './AppSettings.less';
+import './Settings.less';
 
 @connect(
   state => ({
@@ -17,26 +18,25 @@ import './AppSettings.less';
     locale: getLocale(state),
     localeLoading: getIsLocaleLoading(state),
   }),
-  { reload, setLocale },
+  { reload, saveSettings },
 )
-export default class AppSettings extends React.Component {
+export default class Settings extends React.Component {
   static propTypes = {
     reloading: PropTypes.bool,
-    locale: PropTypes.string,
-    localeLoading: PropTypes.bool,
-    setLocale: PropTypes.func,
     reload: PropTypes.func,
+    saveSettings: PropTypes.func,
   };
 
   static defaultProps = {
     reloading: false,
     locale: 'auto',
     localeLoading: false,
-    setLocale: () => {},
     reload: () => {},
+    saveSettings: () => {},
   };
 
   state = {
+    locale: 'auto',
     votingPower: 'auto',
   };
 
@@ -79,18 +79,26 @@ export default class AppSettings extends React.Component {
     // zh: '繁體中文 - Traditional Chinese',
   };
 
-  handleLocaleChange = locale => this.props.setLocale(locale);
+  handleSave = () => {
+    this.props.saveSettings({
+      locale: this.state.locale,
+      votingPower: this.state.votingPower,
+    });
+  };
+
+  handleLocaleChange = locale => this.setState({ locale });
   handleVotingPowerChange = event => this.setState({ votingPower: event.target.value });
 
   render() {
-    const { reloading, locale, localeLoading } = this.props;
+    const { reloading } = this.props;
+    const { votingPower, locale } = this.state;
 
     const languageOptions = [];
 
     if (locale === 'auto') {
       languageOptions.push(
-        <Select.Option disabled value="auto">
-          <FormattedMessage key="auto" id="select_language" defaultMessage="Select your language" />
+        <Select.Option disabled key="auto" value="auto">
+          <FormattedMessage id="select_language" defaultMessage="Select your language" />
         </Select.Option>,
       );
     }
@@ -118,8 +126,8 @@ export default class AppSettings extends React.Component {
             {reloading ? (
               <Loading center={false} />
             ) : (
-              <div className="AppSettings">
-                <div className="AppSettings_section">
+              <div className="Settings">
+                <div className="Settings_section">
                   <h3>
                     <FormattedMessage id="voting_power" defaultMessage="Voting Power" />
                   </h3>
@@ -129,10 +137,7 @@ export default class AppSettings extends React.Component {
                       defaultMessage="You can enable Voting Power slider to specify exact percentage of your Voting Power to use for upvote."
                     />
                   </p>
-                  <Radio.Group
-                    value={this.state.votingPower}
-                    onChange={this.handleVotingPowerChange}
-                  >
+                  <Radio.Group value={votingPower} onChange={this.handleVotingPowerChange}>
                     <Radio value="off">
                       <FormattedMessage id="voting_power_off" defaultMessage="Disable slider" />
                     </Radio>
@@ -147,7 +152,7 @@ export default class AppSettings extends React.Component {
                     </Radio>
                   </Radio.Group>
                 </div>
-                <div className="AppSettings_section">
+                <div className="Settings_section">
                   <h3>
                     <FormattedMessage id="language" defaultMessage="Language" />
                   </h3>
@@ -158,7 +163,6 @@ export default class AppSettings extends React.Component {
                     />
                   </p>
                   <Select
-                    disabled={localeLoading}
                     value={locale}
                     style={{ width: '100%', maxWidth: 240 }}
                     onChange={this.handleLocaleChange}
@@ -166,6 +170,7 @@ export default class AppSettings extends React.Component {
                     {languageOptions}
                   </Select>
                 </div>
+                <Action primary text="Save" onClick={this.handleSave} />
               </div>
             )}
           </div>

@@ -17,37 +17,38 @@ export const GET_TRENDING_TOPICS_ERROR = '@app/GET_TRENDING_TOPICS_ERROR';
 export const RATE_REQUEST = '@app/RATE_REQUEST';
 export const RATE_SUCCESS = '@app/RATE_SUCCESS';
 
-export const setLocale = locale =>
-  (dispatch) => {
-    dispatch({
-      type: SET_LOCALE,
-      payload: {
-        promise: setLocaleMetadata(locale),
-      },
-    });
-  };
+export const setLocale = locale => (dispatch) => {
+  dispatch({
+    type: SET_LOCALE,
+    payload: {
+      promise: setLocaleMetadata(locale),
+    },
+  });
+};
 
-export const getRate = () =>
-  (dispatch) => {
-    dispatch({ type: RATE_REQUEST });
-    fetch('https://api.cryptonator.com/api/ticker/steem-usd')
-      .then(res => res.json())
-      .then((json) => {
-        const rate = json.ticker.price;
-        dispatch({
-          type: RATE_SUCCESS,
-          rate,
-        });
+export const getRate = () => (dispatch) => {
+  dispatch({ type: RATE_REQUEST });
+  fetch('https://api.cryptonator.com/api/ticker/steem-usd')
+    .then(res => res.json())
+    .then((json) => {
+      const rate = json.ticker.price;
+      dispatch({
+        type: RATE_SUCCESS,
+        rate,
       });
-  };
+    });
+};
 
 export const getTrendingTopics = () => (dispatch, getState, { steemAPI }) => {
   const getTrendingTagsAsync = Promise.promisify(steemAPI.getTrendingTags, { context: steemAPI });
   dispatch({
     type: GET_TRENDING_TOPICS,
     payload: {
-      promise: getTrendingTagsAsync(undefined, 50)
-        .then(result => Object.values(result).map(tag => tag.name).filter(tag => tag !== '')),
+      promise: getTrendingTagsAsync(undefined, 50).then(result =>
+        Object.values(result)
+          .map(tag => tag.name)
+          .filter(tag => tag !== ''),
+      ),
     },
   });
 };

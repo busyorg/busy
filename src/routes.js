@@ -4,7 +4,7 @@ import createBrowserHistory from 'history/createBrowserHistory';
 import createMemoryHistory from 'history/createMemoryHistory';
 import { Route, Switch } from 'react-router-dom';
 import Wrapper from './Wrapper';
-import Settings from './app/AppSettings';
+import Settings from './settings/Settings';
 import ProfileSettings from './app/ProfileSettings';
 import Activity from './activity/Activity';
 

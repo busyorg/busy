@@ -15,6 +15,7 @@ import favoritesReducer, * as fromFavorites from './favorites/favoritesReducer';
 import editorReducer, * as fromEditor from './post/Write/editorReducer';
 import walletReducer, * as fromWallet from './wallet/walletReducer';
 import reblogReducers, * as fromReblog from './app/Reblog/reblogReducers';
+import settingsReducer from './settings/settingsReducer';
 import { responsiveReducer } from './vendor/responsive';
 
 const reducers = combineReducers({
@@ -33,6 +34,7 @@ const reducers = combineReducers({
   reblog: reblogReducers,
   router: routerReducer,
   wallet: walletReducer,
+  settings: settingsReducer,
 });
 
 export default reducers;
