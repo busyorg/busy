@@ -120,19 +120,30 @@ export default class AppSettings extends React.Component {
             ) : (
               <div className="AppSettings">
                 <div className="AppSettings_section">
-                  <h3>Voting Power</h3>
+                  <h3>
+                    <FormattedMessage id="voting_power" defaultMessage="Voting Power" />
+                  </h3>
                   <p>
-                    You can enable voting power slider to specify exact percentage of your voting
-                    power to use for upvote.
+                    <FormattedMessage
+                      id="voting_power_info"
+                      defaultMessage="You can enable Voting Power slider to specify exact percentage of your Voting Power to use for upvote."
+                    />
                   </p>
                   <Radio.Group
                     value={this.state.votingPower}
                     onChange={this.handleVotingPowerChange}
                   >
-                    <Radio value="off">Disable slider</Radio>
-                    <Radio value="on">Enable slider</Radio>
+                    <Radio value="off">
+                      <FormattedMessage id="voting_power_off" defaultMessage="Disable slider" />
+                    </Radio>
+                    <Radio value="on">
+                      <FormattedMessage id="voting_power_on" defaultMessage="Enable slider" />
+                    </Radio>
                     <Radio value="auto">
-                      Enable and disable slider depending on my voting power
+                      <FormattedMessage
+                        id="voting_power_auto"
+                        defaultMessage="Enable and disable slider depending on my Voting Power"
+                      />
                     </Radio>
                   </Radio.Group>
                 </div>
@@ -140,7 +151,12 @@ export default class AppSettings extends React.Component {
                   <h3>
                     <FormattedMessage id="language" defaultMessage="Language" />
                   </h3>
-                  <p>What language do you want to use on Busy?</p>
+                  <p>
+                    <FormattedMessage
+                      id="language_info"
+                      defaultMessage="What language do you want to use on Busy?"
+                    />
+                  </p>
                   <Select
                     disabled={localeLoading}
                     value={locale}
