@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { injectIntl } from 'react-intl';
+import { injectIntl, FormattedMessage } from 'react-intl';
 import { Button, Tooltip, Menu, Dropdown, Icon } from 'antd';
 import './EditorToolbar.less';
 
@@ -16,12 +16,24 @@ const tooltip = (description, shortcut) =>
 const EditorToolbar = ({ intl, onSelect }) => {
   const menu = (
     <Menu onClick={e => onSelect(e.key)}>
-      <Menu.Item key="h1"><h1>Heading 1</h1></Menu.Item>
-      <Menu.Item key="h2"><h2>Heading 2</h2></Menu.Item>
-      <Menu.Item key="h3"><h3>Heading 3</h3></Menu.Item>
-      <Menu.Item key="h4"><h4>Heading 4</h4></Menu.Item>
-      <Menu.Item key="h5"><h5>Heading 5</h5></Menu.Item>
-      <Menu.Item key="h6"><h6>Heading 6</h6></Menu.Item>
+      <Menu.Item key="h1">
+        <h1><FormattedMessage id="heading_1" defaultMessage="Heading 1" /></h1>
+      </Menu.Item>
+      <Menu.Item key="h2">
+        <h2><FormattedMessage id="heading_2" defaultMessage="Heading 2" /></h2>
+      </Menu.Item>
+      <Menu.Item key="h3">
+        <h3><FormattedMessage id="heading_3" defaultMessage="Heading 3" /></h3>
+      </Menu.Item>
+      <Menu.Item key="h4">
+        <h4><FormattedMessage id="heading_4" defaultMessage="Heading 4" /></h4>
+      </Menu.Item>
+      <Menu.Item key="h5">
+        <h5><FormattedMessage id="heading_5" defaultMessage="Heading 5" /></h5>
+      </Menu.Item>
+      <Menu.Item key="h6">
+        <h6><FormattedMessage id="heading_6" defaultMessage="Heading 6" /></h6>
+      </Menu.Item>
     </Menu>
   );
 
