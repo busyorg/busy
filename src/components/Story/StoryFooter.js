@@ -138,6 +138,7 @@ class StoryFooter extends React.Component {
 
     const commentsLink =
       post.url.indexOf('#') !== -1 ? post.url : { pathname: post.url, hash: '#comments' };
+    const showEditLink = ownPost && post.cashout_time !== '1969-12-31T23:59:59';
 
     return (
       <div className="StoryFooter">
@@ -210,11 +211,10 @@ class StoryFooter extends React.Component {
               <i className="iconfont icon-share1 StoryFooter__share" />
             </a>
           </Tooltip>)}
-        {ownPost &&
-          <a role="presentation" className={'StoryFooter__edit-link'} onClick={this.handleEdit}>
-            {this.state.loadingEdit
-              ? <Icon type="loading" />
-              : <FormattedMessage id="edit" defaultMessage="Edit" />}
+        {showEditLink &&
+          <a role="presentation" className="StoryFooter__link" onClick={this.handleEdit}>
+            {this.state.loadingEdit ? <Icon type="loading" /> : <i className="iconfont icon-write" />}
+            <FormattedMessage id="edit" defaultMessage="Edit" />
           </a>}
         {!postState.isReblogged && (
           <Modal
