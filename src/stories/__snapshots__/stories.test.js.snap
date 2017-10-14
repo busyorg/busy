@@ -712,6 +712,11 @@ exports[`Storyshots Navigation Topnav logged 1`] = `
         >
           busy
         </a>
+        <span
+          className="Topnav__version"
+        >
+          beta
+        </span>
       </div>
       <div
         className="center"
@@ -896,6 +901,11 @@ exports[`Storyshots Navigation Topnav unlogged 1`] = `
         >
           busy
         </a>
+        <span
+          className="Topnav__version"
+        >
+          beta
+        </span>
       </div>
       <div
         className="center"
