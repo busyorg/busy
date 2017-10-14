@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { Select, Radio } from 'antd';
-import { getIsReloading, getLocale, getVotingPower } from '../reducers';
+import { getIsReloading, getLocale, getVotingPower, getIsSettingsLoading } from '../reducers';
 import { saveSettings } from './settingsActions';
 import { reload } from '../auth/authActions';
 import Action from '../components/Button/Action';
@@ -17,6 +17,7 @@ import './Settings.less';
     reloading: getIsReloading(state),
     locale: getLocale(state),
     votingPower: getVotingPower(state),
+    loading: getIsSettingsLoading(state),
   }),
   { reload, saveSettings },
 )
@@ -25,6 +26,7 @@ export default class Settings extends React.Component {
     reloading: PropTypes.bool,
     locale: PropTypes.string,
     votingPower: PropTypes.string,
+    loading: PropTypes.bool,
     reload: PropTypes.func,
     saveSettings: PropTypes.func,
   };
@@ -33,6 +35,7 @@ export default class Settings extends React.Component {
     reloading: false,
     locale: 'auto',
     votingPower: 'auto',
+    loading: false,
     reload: () => {},
     saveSettings: () => {},
   };
@@ -42,8 +45,25 @@ export default class Settings extends React.Component {
     votingPower: 'auto',
   };
 
+  componentWillMount() {
+    this.setState({
+      locale: this.props.locale,
+      votingPower: this.props.votingPower,
+    });
+  }
+
   componentDidMount() {
     this.props.reload();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.locale !== this.props.locale) {
+      this.setState({ locale: nextProps.locale });
+    }
+
+    if (nextProps.votingPower !== this.props.votingPower) {
+      this.setState({ votingPower: nextProps.votingPower });
+    }
   }
 
   languages = {
@@ -92,7 +112,12 @@ export default class Settings extends React.Component {
   handleVotingPowerChange = event => this.setState({ votingPower: event.target.value });
 
   render() {
-    const { reloading, locale: initialLocale, votingPower: initialVotingPower } = this.props;
+    const {
+      reloading,
+      locale: initialLocale,
+      votingPower: initialVotingPower,
+      loading,
+    } = this.props;
     const { votingPower, locale } = this.state;
 
     const languageOptions = [];
@@ -177,7 +202,7 @@ export default class Settings extends React.Component {
                     {languageOptions}
                   </Select>
                 </div>
-                <Action primary text="Save" onClick={this.handleSave} />
+                <Action primary loading={loading} text="Save" onClick={this.handleSave} />
               </div>
             )}
           </div>
