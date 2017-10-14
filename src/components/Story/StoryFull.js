@@ -40,7 +40,6 @@ class StoryFull extends React.Component {
     commentCount: 0,
     saving: false,
     ownPost: false,
-    isAuthenticated: PropTypes.bool,
     onFollowClick: () => {},
     onSaveClick: () => {},
     onReportClick: () => {},
