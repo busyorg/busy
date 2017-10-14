@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { Select, Radio } from 'antd';
-import { getLocale, getIsLocaleLoading, getIsReloading } from '../reducers';
+import { getIsReloading, getLocale, getVotingPower } from '../reducers';
 import { saveSettings } from './settingsActions';
 import { reload } from '../auth/authActions';
 import Action from '../components/Button/Action';
@@ -16,13 +16,15 @@ import './Settings.less';
   state => ({
     reloading: getIsReloading(state),
     locale: getLocale(state),
-    localeLoading: getIsLocaleLoading(state),
+    votingPower: getVotingPower(state),
   }),
   { reload, saveSettings },
 )
 export default class Settings extends React.Component {
   static propTypes = {
     reloading: PropTypes.bool,
+    locale: PropTypes.string,
+    votingPower: PropTypes.string,
     reload: PropTypes.func,
     saveSettings: PropTypes.func,
   };
@@ -30,7 +32,7 @@ export default class Settings extends React.Component {
   static defaultProps = {
     reloading: false,
     locale: 'auto',
-    localeLoading: false,
+    votingPower: 'auto',
     reload: () => {},
     saveSettings: () => {},
   };
@@ -90,7 +92,7 @@ export default class Settings extends React.Component {
   handleVotingPowerChange = event => this.setState({ votingPower: event.target.value });
 
   render() {
-    const { reloading } = this.props;
+    const { reloading, locale: initialLocale, votingPower: initialVotingPower } = this.props;
     const { votingPower, locale } = this.state;
 
     const languageOptions = [];
@@ -137,7 +139,11 @@ export default class Settings extends React.Component {
                       defaultMessage="You can enable Voting Power slider to specify exact percentage of your Voting Power to use for upvote."
                     />
                   </p>
-                  <Radio.Group value={votingPower} onChange={this.handleVotingPowerChange}>
+                  <Radio.Group
+                    defaultValue={initialVotingPower}
+                    value={votingPower}
+                    onChange={this.handleVotingPowerChange}
+                  >
                     <Radio value="off">
                       <FormattedMessage id="voting_power_off" defaultMessage="Disable slider" />
                     </Radio>
@@ -163,6 +169,7 @@ export default class Settings extends React.Component {
                     />
                   </p>
                   <Select
+                    defaultValue={initialLocale}
                     value={locale}
                     style={{ width: '100%', maxWidth: 240 }}
                     onChange={this.handleLocaleChange}

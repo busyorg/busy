@@ -1,6 +1,7 @@
 import { expect } from 'chai';
-import settingsReducer from '../settingsReducer';
+import settingsReducer, { getIsLoading, getLocale, getVotingPower } from '../settingsReducer';
 import * as settingsTypes from '../settingsActions';
+import * as authTypes from '../../auth/authActions';
 
 describe('settingsReducer', () => {
   const initialState = {
@@ -74,5 +75,56 @@ describe('settingsReducer', () => {
     };
 
     expect(settingsReducer(stateBefore, action)).to.eql(stateAfter);
+  });
+
+  it('should set locale and voting power after login success', () => {
+    const stateBefore = initialState;
+    const stateAfter = {
+      ...stateBefore,
+      locale: 'fr',
+      votingPower: 'off',
+    };
+    const action = {
+      type: authTypes.LOGIN_SUCCESS,
+      payload: {
+        user_metadata: {
+          settings: {
+            locale: 'fr',
+            votingPower: 'off',
+          },
+        },
+      },
+    };
+
+    expect(settingsReducer(stateBefore, action)).to.eql(stateAfter);
+  });
+});
+
+describe('settingsReducer selectors', () => {
+  const stateVar1 = {
+    locale: 'auto',
+    votingPower: 'auto',
+    loading: false,
+  };
+
+  const stateVar2 = {
+    locale: 'pl',
+    votingPower: 'off',
+    loading: true,
+  };
+
+  it('should return locale', () => {
+    expect(getLocale(stateVar1)).to.equal('auto');
+    expect(getLocale(stateVar2)).to.equal('pl');
+  });
+
+  it('should return voting power', () => {
+    expect(getVotingPower(stateVar1)).to.equal('auto');
+    expect(getVotingPower(stateVar2)).to.equal('off');
+  });
+
+  it('should return loading', () => {
+    expect(getIsLoading(stateVar1)).to.equal(false);
+    expect(getIsLoading(stateVar2)).to.equal(true);
   });
 });
