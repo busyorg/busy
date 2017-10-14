@@ -2,13 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
-import { Select } from 'antd';
+import { Select, Radio } from 'antd';
 import { getLocale, getIsLocaleLoading, getIsReloading } from '../reducers';
 import { setLocale } from './appActions';
 import { reload } from '../auth/authActions';
 import Loading from '../components/Icon/Loading';
 import Affix from '../components/Utils/Affix';
 import LeftSidebar from '../app/Sidebar/LeftSidebar';
+import './AppSettings.less';
 
 @connect(
   state => ({
@@ -33,6 +34,10 @@ export default class AppSettings extends React.Component {
     localeLoading: false,
     setLocale: () => {},
     reload: () => {},
+  };
+
+  state = {
+    votingPower: 'auto',
   };
 
   componentDidMount() {
@@ -75,6 +80,7 @@ export default class AppSettings extends React.Component {
   };
 
   handleLocaleChange = locale => this.props.setLocale(locale);
+  handleVotingPowerChange = event => this.setState({ votingPower: event.target.value });
 
   render() {
     const { reloading, locale, localeLoading } = this.props;
@@ -112,11 +118,29 @@ export default class AppSettings extends React.Component {
             {reloading ? (
               <Loading center={false} />
             ) : (
-              <div>
-                <h2>
-                  <FormattedMessage id="language" defaultMessage="Language" />
-                </h2>
-                <div>
+              <div className="AppSettings">
+                <div className="AppSettings_section">
+                  <h3>Voting Power</h3>
+                  <p>
+                    You can enable voting power slider to specify exact percentage of your voting
+                    power to use for upvote.
+                  </p>
+                  <Radio.Group
+                    value={this.state.votingPower}
+                    onChange={this.handleVotingPowerChange}
+                  >
+                    <Radio value="off">Disable slider</Radio>
+                    <Radio value="on">Enable slider</Radio>
+                    <Radio value="auto">
+                      Enable and disable slider depending on my voting power
+                    </Radio>
+                  </Radio.Group>
+                </div>
+                <div className="AppSettings_section">
+                  <h3>
+                    <FormattedMessage id="language" defaultMessage="Language" />
+                  </h3>
+                  <p>What language do you want to use on Busy?</p>
                   <Select
                     disabled={localeLoading}
                     value={locale}
