@@ -75,6 +75,7 @@ class Story extends React.Component {
       ownPost,
       onLikeClick,
       onShareClick,
+      onEditClick,
     } = this.props;
 
     let followText = '';
@@ -206,6 +207,8 @@ class Story extends React.Component {
               pendingLike={pendingLike}
               onLikeClick={onLikeClick}
               onShareClick={onShareClick}
+              ownPost={ownPost}
+              onEditClick={onEditClick}
             />
           </div>
         </div>
