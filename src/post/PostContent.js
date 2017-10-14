@@ -6,6 +6,7 @@ import { Helmet } from 'react-helmet';
 import sanitize from 'sanitize-html';
 import {
   getAuthenticatedUser,
+  getIsAuthenticated,
   getBookmarks,
   getPendingBookmarks,
   getPendingLikes,
@@ -27,6 +28,7 @@ import StoryFull from '../components/Story/StoryFull';
 @connect(
   state => ({
     user: getAuthenticatedUser(state),
+    isAuthenticated: getIsAuthenticated(state),
     bookmarks: getBookmarks(state),
     pendingBookmarks: getPendingBookmarks(state),
     pendingLikes: getPendingLikes(state),
@@ -64,6 +66,7 @@ class PostContent extends React.Component {
     reblog: PropTypes.func,
     followUser: PropTypes.func,
     unfollowUser: PropTypes.func,
+    isAuthenticated: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -79,6 +82,7 @@ class PostContent extends React.Component {
     reblog: () => {},
     followUser: () => {},
     unfollowUser: () => {},
+    isAuthenticated: false,
   };
 
   componentDidMount() {
@@ -140,6 +144,7 @@ class PostContent extends React.Component {
       bookmarks,
       pendingBookmarks,
       saving,
+      isAuthenticated
     } = this.props;
 
     const postMetaData = jsonParse(content.json_metadata);
@@ -210,6 +215,7 @@ class PostContent extends React.Component {
           onSaveClick={this.handleSaveClick}
           onFollowClick={this.handleFollowClick}
           onEditClick={this.handleEditClick}
+          isAuthenticated={isAuthenticated}
         />
       </div>
     );

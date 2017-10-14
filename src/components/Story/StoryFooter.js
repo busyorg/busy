@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import steemconnect from 'sc2-sdk';
 import { injectIntl, FormattedMessage, FormattedNumber } from 'react-intl';
 import { Link } from 'react-router-dom';
 import { take } from 'lodash';
@@ -24,11 +25,13 @@ class StoryFooter extends React.Component {
     onShareClick: PropTypes.func,
     ownPost: PropTypes.bool,
     onEditClick: PropTypes.func,
+    isAuthenticated: PropTypes.bool,
   };
 
   static defaultProps = {
     pendingLike: false,
     ownPost: false,
+    isAuthenticated: false,
     onLikeClick: () => {},
     onShareClick: () => {},
     onEditClick: () => {},
@@ -55,6 +58,12 @@ class StoryFooter extends React.Component {
   handleShareClick = (e) => {
     e.preventDefault();
     if (this.props.postState.isReblogged) {
+      return;
+    }
+
+    if (!this.props.isAuthenticated) {
+      const next = window.location.pathname.length > 1 ? window.location.pathname : '';
+      window.location = steemconnect.getLoginURL(next);
       return;
     }
 
@@ -139,6 +148,7 @@ class StoryFooter extends React.Component {
     const commentsLink =
       post.url.indexOf('#') !== -1 ? post.url : { pathname: post.url, hash: '#comments' };
     const showEditLink = ownPost && post.cashout_time !== '1969-12-31T23:59:59';
+    const showReblogLink = !ownPost && post.parent_author === '';
 
     return (
       <div className="StoryFooter">
@@ -200,7 +210,7 @@ class StoryFooter extends React.Component {
         <span className="StoryFooter__number">
           <FormattedNumber value={post.children} />
         </span>
-        {post.parent_author === '' && (
+        {showReblogLink && (
           <Tooltip
             title={intl.formatMessage({
               id: postState.reblogged ? 'reblog_reblogged' : 'reblog',
