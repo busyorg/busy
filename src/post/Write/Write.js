@@ -217,6 +217,7 @@ class Write extends React.Component {
             id: 'notify_uploading_iamge_error',
             defaultMessage: "Couldn't upload image",
           }),
+          'error',
         );
       });
   };
