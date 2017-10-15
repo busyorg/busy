@@ -26,17 +26,15 @@ import UserHeader from '../components/UserHeader';
 import Comments from '../components/Comments/Comments';
 import Editor from '../components/Editor/Editor';
 import TopicSelector from '../components/TopicSelector';
-import '../styles/common.less';
+import '../styles/base.less';
 
-addDecorator(story =>
-  (<MemoryRouter initialEntries={['/']}>
+addDecorator(story => (
+  <MemoryRouter initialEntries={['/']}>
     <IntlProvider locale="en" messages={getTranslations('en')}>
-      <div style={{ padding: '40px', background: '#f9f9f9' }}>
-        {story()}
-      </div>
+      <div style={{ padding: '40px', background: '#f9f9f9' }}>{story()}</div>
     </IntlProvider>
-  </MemoryRouter>),
-);
+  </MemoryRouter>
+));
 
 const rootComments = Object.keys(postState.content)
   .filter(key => postState.content[key].depth === 1)
@@ -59,30 +57,26 @@ storiesOf('Button', module)
 
 storiesOf('Navigation', module)
   .add('Topnav unlogged', () => <Topnav />)
-  .add('Topnav logged', () =>
-    (<Topnav
+  .add('Topnav logged', () => (
+    <Topnav
       username="guest123"
       notifications={notifications}
       onNotificationClick={action('Notification click')}
       onSeeAllClick={action('SeeAll click')}
       onMenuItemClick={action('Menu item click')}
-    />),
-  )
+    />
+  ))
   .add('Sidenav unlogged', () => <Sidenav />)
   .add('Sidenav logged', () => <Sidenav username="guest123" />);
 
 storiesOf('Sidebar', module)
   .add('Start now', () => <StartNow />)
-  .add('Favorite topics', () =>
-    <Topics favorite topics={['funny', 'history', 'nature']} />,
-  )
-  .add('Trending topics', () =>
-    (<Topics
-      topics={['photography', 'steemit', 'introduceyourself', 'steem', 'story', 'blog']}
-    />),
-  )
-  .add('Interesting People', () =>
-    (<InterestingPeople
+  .add('Favorite topics', () => <Topics favorite topics={['funny', 'history', 'nature']} />)
+  .add('Trending topics', () => (
+    <Topics topics={['photography', 'steemit', 'introduceyourself', 'steem', 'story', 'blog']} />
+  ))
+  .add('Interesting People', () => (
+    <InterestingPeople
       users={[
         { name: 'liondani', about: 'Inch by Inch, Play by Play' },
         {
@@ -91,10 +85,10 @@ storiesOf('Sidebar', module)
         },
         { name: 'furion', about: 'I’ve developed SteemData and SteemSports. All things Python…' },
       ]}
-    />),
-  )
-  .add('Latest Comments', () =>
-    (<LatestComments
+    />
+  ))
+  .add('Latest Comments', () => (
+    <LatestComments
       comments={[
         {
           id: '100a',
@@ -116,10 +110,10 @@ storiesOf('Sidebar', module)
           created: '2017-06-07T19:32:44',
         },
       ]}
-    />),
-  )
-  .add('Latest Recommendations', () =>
-    (<LatestRecommendations
+    />
+  ))
+  .add('Latest Recommendations', () => (
+    <LatestRecommendations
       posts={[
         {
           id: '100a',
@@ -145,13 +139,13 @@ storiesOf('Sidebar', module)
           permlink: 'hello',
         },
       ]}
-    />),
-  );
+    />
+  ));
 
 storiesOf('Story', module)
   .add('Story loading', () => <StoryLoading />)
-  .add('Inline story', () =>
-    (<Story
+  .add('Inline story', () => (
+    <Story
       post={post}
       onFollowClick={action('Follow click')}
       onSaveClick={action('Save click')}
@@ -159,10 +153,10 @@ storiesOf('Story', module)
       onLikeClick={action('Like click')}
       onCommentClick={action('Comment click')}
       onShareClick={action('Share click')}
-    />),
-  )
-  .add('Inline story with embed', () =>
-    (<Story
+    />
+  ))
+  .add('Inline story with embed', () => (
+    <Story
       post={postWithEmbed}
       onFollowClick={action('Follow click')}
       onSaveClick={action('Save click')}
@@ -170,10 +164,10 @@ storiesOf('Story', module)
       onLikeClick={action('Like click')}
       onCommentClick={action('Comment click')}
       onShareClick={action('Share click')}
-    />),
-  )
-  .add('Full story', () =>
-    (<StoryFull
+    />
+  ))
+  .add('Full story', () => (
+    <StoryFull
       post={post}
       commentCount={Object.keys(postState.content).length}
       onFollowClick={action('Follow click')}
@@ -182,10 +176,10 @@ storiesOf('Story', module)
       onLikeClick={action('Like click')}
       onCommentClick={action('Comment click')}
       onShareClick={action('Share click')}
-    />),
-  )
-  .add('Full story with embed', () =>
-    (<StoryFull
+    />
+  ))
+  .add('Full story with embed', () => (
+    <StoryFull
       post={postWithEmbed}
       commentCount={Object.keys(postState.content).length}
       onFollowClick={action('Follow click')}
@@ -194,46 +188,46 @@ storiesOf('Story', module)
       onLikeClick={action('Like click')}
       onCommentClick={action('Comment click')}
       onShareClick={action('Share click')}
-    />),
-  );
+    />
+  ));
 
 storiesOf('Profile', module)
   .add('UserHeader', () => <UserHeader username="roelandp" authenticated={false} />)
-  .add('UserMenu', () =>
-    (<UserMenu
+  .add('UserMenu', () => (
+    <UserMenu
       discussions={1521}
       comments={21}
       following={244}
       onChange={action('Section changed')}
-    />),
-  );
+    />
+  ));
 
-storiesOf('Comments', module).add('Comments', () =>
-  (<Comments
+storiesOf('Comments', module).add('Comments', () => (
+  <Comments
     authenticated={false}
     user={{}}
     comments={rootComments}
     commentsChildren={commentsChildren}
     onLikeClick={action('Like click')}
     onDislikeClick={action('Dislike click')}
-  />),
-);
+  />
+));
 
-storiesOf('Editor', module).add('Editor', () =>
-  (<Editor
+storiesOf('Editor', module).add('Editor', () => (
+  <Editor
     onSubmit={action('Form submit')}
     onError={action('Form error')}
     onImageInserted={(image, callback) => {
       // NOTE: Upload image to server.
       setTimeout(() => callback('https://placehold.it/200x200'), 500);
     }}
-  />),
-);
+  />
+));
 
-storiesOf('Topic selector', module).add('Topic selector', () =>
-  (<TopicSelector
+storiesOf('Topic selector', module).add('Topic selector', () => (
+  <TopicSelector
     topics={['photography', 'travel']}
     onTopicClose={action('Topic close')}
     onSortChange={action('Sort change')}
-  />),
-);
+  />
+));
