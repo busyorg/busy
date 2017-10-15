@@ -173,7 +173,7 @@ export default class Settings extends React.Component {
                   <p>
                     <FormattedMessage
                       id="voting_power_info"
-                      defaultMessage="You can enable Voting Power slider to specify exact percentage of your Voting Power to use for upvote."
+                      defaultMessage="You can enable Voting Power slider to specify exact percentage of your Voting Power to use for like."
                     />
                   </p>
                   <Radio.Group
