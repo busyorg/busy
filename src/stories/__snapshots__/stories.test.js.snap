@@ -594,7 +594,7 @@ exports[`Storyshots Editor Editor 1`] = `
 </div>
 `;
 
-exports[`Storyshots Navigation Sidenav logged 1`] = `
+exports[`Storyshots Navigation Sidenav 1`] = `
 <div
   style={
     Object {
@@ -671,19 +671,6 @@ exports[`Storyshots Navigation Sidenav logged 1`] = `
       </li>
     </ul>
   </div>
-</div>
-`;
-
-exports[`Storyshots Navigation Sidenav unlogged 1`] = `
-<div
-  style={
-    Object {
-      "background": "#f9f9f9",
-      "padding": "40px",
-    }
-  }
->
-  <div />
 </div>
 `;
 
@@ -1010,7 +997,7 @@ exports[`Storyshots Profile UserHeader 1`] = `
     className="UserHeader"
     style={
       Object {
-        "backgroundImage": "url(\\"https://img.busy.org/@/cover\\")",
+        "backgroundImage": "url(\\"https://img.busy.org/@roelandp/cover\\")",
       }
     }
   >
@@ -1018,9 +1005,9 @@ exports[`Storyshots Profile UserHeader 1`] = `
       className="UserHeader__container"
     >
       <img
-        alt=""
+        alt="roelandp"
         className="Avatar"
-        src="https://img.busy.org/@steemconnect?s=100"
+        src="https://img.busy.org/@roelandp?s=100"
         style={
           Object {
             "height": "100px",
@@ -1058,7 +1045,7 @@ exports[`Storyshots Profile UserHeader 1`] = `
           className="UserHeader__row UserHeader__handle"
         >
           @
-          
+          roelandp
         </div>
         <div
           className="UserHeader__rank"

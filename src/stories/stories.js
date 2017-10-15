@@ -66,8 +66,7 @@ storiesOf('Navigation', module)
       onMenuItemClick={action('Menu item click')}
     />
   ))
-  .add('Sidenav unlogged', () => <Sidenav />)
-  .add('Sidenav logged', () => <Sidenav username="guest123" />);
+  .add('Sidenav', () => <Sidenav username="guest123" />);
 
 storiesOf('Sidebar', module)
   .add('Start now', () => <StartNow />)
@@ -192,7 +191,7 @@ storiesOf('Story', module)
   ));
 
 storiesOf('Profile', module)
-  .add('UserHeader', () => <UserHeader username="roelandp" authenticated={false} />)
+  .add('UserHeader', () => <UserHeader username="roelandp" handle="roelandp" authenticated={false} />)
   .add('UserMenu', () => (
     <UserMenu
       discussions={1521}
