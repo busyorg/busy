@@ -139,6 +139,7 @@ class StoryFooter extends React.Component {
     const commentsLink =
       post.url.indexOf('#') !== -1 ? post.url : { pathname: post.url, hash: '#comments' };
     const showEditLink = ownPost && post.cashout_time !== '1969-12-31T23:59:59';
+    const showReblogLink = !ownPost && post.parent_author === '';
 
     return (
       <div className="StoryFooter">
@@ -200,7 +201,7 @@ class StoryFooter extends React.Component {
         <span className="StoryFooter__number">
           <FormattedNumber value={post.children} />
         </span>
-        {post.parent_author === '' && (
+        {showReblogLink && (
           <Tooltip
             title={intl.formatMessage({
               id: postState.reblogged ? 'reblog_reblogged' : 'reblog',
