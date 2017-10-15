@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import find from 'lodash/find';
 import { Helmet } from 'react-helmet';
 import sanitize from 'sanitize-html';
+import getImage from '../helpers/getImage';
 import {
   getAuthenticatedUser,
   getBookmarks,
@@ -98,22 +99,22 @@ class PostContent extends React.Component {
     } else {
       this.props.votePost(content.id, content.author, content.permlink);
     }
-  }
+  };
 
   handleReportClick = () => {
     const { content } = this.props;
     this.props.votePost(content.id, content.author, content.permlink, -1000);
-  }
+  };
 
   handleShareClick = () => {
     const { content } = this.props;
     this.props.reblog(content.id);
-  }
+  };
 
   handleSaveClick = () => {
     const { content } = this.props;
     this.props.toggleBookmark(content.id, content.author, content.permlink);
-  }
+  };
 
   handleFollowClick = (post) => {
     const isFollowed = this.props.followingList.includes(post.author);
@@ -126,7 +127,7 @@ class PostContent extends React.Component {
 
   handleEditClick = () => {
     this.props.editPost(this.props.content);
-  }
+  };
 
   render() {
     const {
@@ -165,7 +166,7 @@ class PostContent extends React.Component {
     const htmlBody = getHtml(body, {}, 'text');
     const bodyText = sanitize(htmlBody, { allowedTags: [] });
     const desc = `${bodyText.substring(0, 140)} by ${author}`;
-    const image = postMetaImage || `${process.env.STEEMCONNECT_IMG_HOST}/@${author}`;
+    const image = postMetaImage || getImage(`@${author}`);
     const canonicalUrl = `${canonicalHost}${content.url}`;
     const url = `${busyHost}${content.url}`;
     const metaTitle = `${title} - Busy`;
@@ -173,9 +174,7 @@ class PostContent extends React.Component {
     return (
       <div>
         <Helmet>
-          <title>
-            {title}
-          </title>
+          <title>{title}</title>
           <link rel="canonical" href={canonicalUrl} />
           <meta property="description" content={desc} />
           <meta property="og:title" content={metaTitle} />

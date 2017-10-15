@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { Tag, Tooltip, Popover } from 'antd';
 import { formatter } from 'steem';
+import getImage from '../helpers/getImage';
 import { getUserRankKey, getUserRank } from '../helpers/ranks';
 import Avatar from './Avatar';
 import FollowButton from '../widgets/FollowButton';
@@ -24,7 +25,7 @@ const UserHeader = ({
 }) => (
   <div
     className={classNames('UserHeader', { 'UserHeader--cover': hasCover })}
-    style={{ backgroundImage: `url("${process.env.STEEMCONNECT_IMG_HOST}/@${handle}/cover")` }}
+    style={{ backgroundImage: `url("${getImage(`@${handle}/cover`)}")` }}
   >
     <div className="UserHeader__container">
       <Avatar username={handle} size={100} />

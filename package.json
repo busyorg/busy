@@ -27,8 +27,8 @@
     "heroku-prebuild": "npm i -g pm2 && pm2 install pm2-logrotate",
     "heroku-postbuild": "npm run build",
     "cleanup-public": "gulp cleanup-public",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "storybook": "cross-env STORYBOOK_STEEMCONNECT_IMG_HOST=https://img.busy.org start-storybook -p 6006",
+    "build-storybook": "cross-env STORYBOOKSTEEMCONNECT_IMG_HOST=https://img.busy.org build-storybook"
   },
   "pre-commit": [
     "test",

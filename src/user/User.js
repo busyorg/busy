@@ -3,12 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import getImage from '../helpers/getImage';
 
-import {
-  getIsAuthenticated,
-  getAuthenticatedUser,
-  getUser,
-} from '../reducers';
+import { getIsAuthenticated, getAuthenticatedUser, getUser } from '../reducers';
 
 import { openTransfer } from '../wallet/walletActions';
 import { getAccountWithFollowingCount } from './usersActions';
@@ -32,10 +29,12 @@ export const needs = [getAccountWithFollowingCount];
     authenticated: getIsAuthenticated(state),
     authenticatedUser: getAuthenticatedUser(state),
     user: getUser(state, ownProps.match.params.name),
-  }), {
+  }),
+  {
     getAccountWithFollowingCount,
     openTransfer,
-  })
+  },
+)
 export default class User extends React.Component {
   static propTypes = {
     authenticated: PropTypes.bool.isRequired,
@@ -76,7 +75,7 @@ export default class User extends React.Component {
     const { profile = {} } = user.json_metadata || {};
     const busyHost = global.postOrigin || 'https://busy.org';
     const desc = profile.about || `Post by ${username}`;
-    const image = `${process.env.STEEMCONNECT_IMG_HOST}/@${username}`;
+    const image = getImage(`@${username}`);
     const canonicalUrl = `${busyHost}/@${username}`;
     const url = `${busyHost}/@${username}`;
     const displayedUsername = profile.name || username || '';
@@ -88,9 +87,7 @@ export default class User extends React.Component {
     return (
       <div className="main-panel">
         <Helmet>
-          <title>
-            {title}
-          </title>
+          <title>{title}</title>
           <link rel="canonical" href={canonicalUrl} />
           <meta property="description" content={desc} />
 
@@ -111,7 +108,7 @@ export default class User extends React.Component {
           />
         </Helmet>
         <ScrollToTopOnMount />
-        {user &&
+        {user && (
           <UserHero
             authenticated={authenticated}
             user={user}
@@ -120,7 +117,8 @@ export default class User extends React.Component {
             hasCover={hasCover}
             onFollowClick={this.handleFollowClick}
             onSelect={this.handleUserMenuSelect}
-          />}
+          />
+        )}
         <div className="shifted">
           <div className="feed-layout container">
             <Affix className="leftContainer" stickPosition={72}>
@@ -129,11 +127,7 @@ export default class User extends React.Component {
               </div>
             </Affix>
             <Affix className="rightContainer" stickPosition={72}>
-              <div className="right">
-                {user && user.name &&
-                  <RightSidebar key={user.name} />
-                }
-              </div>
+              <div className="right">{user && user.name && <RightSidebar key={user.name} />}</div>
             </Affix>
             <div className="center">
               <Route exact path={match.path} component={UserProfile} />
