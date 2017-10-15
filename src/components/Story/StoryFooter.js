@@ -4,6 +4,7 @@ import { injectIntl, FormattedMessage, FormattedNumber } from 'react-intl';
 import { Link } from 'react-router-dom';
 import { take } from 'lodash';
 import { Icon, Tooltip, Modal } from 'antd';
+import steemconnect from 'sc2-sdk';
 import classNames from 'classnames';
 import { sortVotes } from '../../helpers/sortHelpers';
 import { getUpvotes, getDownvotes } from '../../helpers/voteHelpers';
@@ -23,12 +24,14 @@ class StoryFooter extends React.Component {
     onLikeClick: PropTypes.func,
     onShareClick: PropTypes.func,
     ownPost: PropTypes.bool,
+    isAuthenticated: PropTypes.bool,
     onEditClick: PropTypes.func,
   };
 
   static defaultProps = {
     pendingLike: false,
     ownPost: false,
+    isAuthenticated: false,
     onLikeClick: () => {},
     onShareClick: () => {},
     onEditClick: () => {},
@@ -36,6 +39,7 @@ class StoryFooter extends React.Component {
 
   state = {
     shareModalVisible: false,
+    loginModalVisible: false,
     shareModalLoading: false,
     reactionsModalVisible: false,
     loadingEdit: false,
@@ -58,6 +62,12 @@ class StoryFooter extends React.Component {
       return;
     }
 
+    if (!this.props.isAuthenticated) {
+      this.setState({
+        loginModalVisible: true,
+      });
+      return;
+    }
     this.setState({
       shareModalVisible: true,
     });
@@ -97,6 +107,21 @@ class StoryFooter extends React.Component {
       loadingEdit: true,
     });
     this.props.onEditClick(this.props.post);
+  };
+
+  handleLogin = () => {
+    const next = window.location.pathname.length > 1 ? window.location.pathname : '';
+    window.location.href = steemconnect.getLoginURL(next);
+  };
+
+  handleSignup = () => {
+    window.location.href = 'https://steemit.com/pick_account';
+  };
+
+  handleLoginModalClose = () => {
+    this.setState({
+      loginModalVisible: false,
+    });
   };
 
   render() {
@@ -234,8 +259,32 @@ class StoryFooter extends React.Component {
               id="reblog_modal_content"
               defaultMessage="This post will appear on your personal feed. This action cannot be reversed."
             />
+          </Modal>)}
+        {
+          <Modal
+            title={intl.formatMessage({
+              id: 'login_modal_title',
+              defaultMessage: 'Log in to Busy',
+            })}
+            okText={intl.formatMessage({
+              id: 'login_modal_steem_button',
+              defaultMessage: 'Log in with SteemConnect',
+            })}
+            cancelText={intl.formatMessage({
+              id: 'login_modal_signup_button',
+              defaultMessage: "Don't have an account? Sign up",
+            })}
+            onOk={this.handleLogin}
+            onCancel={this.handleSignup}
+            visible={this.state.loginModalVisible}
+            onClose={this.handleLoginModalClose}
+          >
+            <FormattedMessage
+              id="login_modal_message"
+              defaultMessage="You have a Steem account? Click on the button below to get redirected to SteemConnect for login to Busy."
+            />
           </Modal>
-        )}
+        }
         <ReactionsModal
           visible={this.state.reactionsModalVisible}
           upVotes={upVotes}
