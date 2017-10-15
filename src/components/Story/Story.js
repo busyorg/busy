@@ -22,6 +22,7 @@ class Story extends React.Component {
     pendingBookmark: PropTypes.bool,
     saving: PropTypes.bool,
     ownPost: PropTypes.bool,
+    isAuthenticated: PropTypes.bool,
     onFollowClick: PropTypes.func,
     onSaveClick: PropTypes.func,
     onReportClick: PropTypes.func,
@@ -36,6 +37,7 @@ class Story extends React.Component {
     pendingBookmark: false,
     saving: false,
     ownPost: false,
+    isAuthenticated: false,
     onFollowClick: () => {},
     onSaveClick: () => {},
     onReportClick: () => {},
@@ -76,6 +78,7 @@ class Story extends React.Component {
       onLikeClick,
       onShareClick,
       onEditClick,
+      isAuthenticated,
     } = this.props;
 
     let followText = '';
@@ -209,6 +212,7 @@ class Story extends React.Component {
               onShareClick={onShareClick}
               ownPost={ownPost}
               onEditClick={onEditClick}
+              isAuthenticated={isAuthenticated}
             />
           </div>
         </div>

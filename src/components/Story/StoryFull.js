@@ -25,6 +25,7 @@ class StoryFull extends React.Component {
     commentCount: PropTypes.number,
     saving: PropTypes.bool,
     ownPost: PropTypes.bool,
+    isAuthenticated: PropTypes.bool,
     onFollowClick: PropTypes.func,
     onSaveClick: PropTypes.func,
     onReportClick: PropTypes.func,
@@ -40,6 +41,7 @@ class StoryFull extends React.Component {
     commentCount: 0,
     saving: false,
     ownPost: false,
+    isAuthenticated: false,
     onFollowClick: () => {},
     onSaveClick: () => {},
     onReportClick: () => {},
@@ -115,6 +117,7 @@ class StoryFull extends React.Component {
       onLikeClick,
       onShareClick,
       onEditClick,
+      isAuthenticated,
     } = this.props;
 
     const { open, index } = this.state.lightbox;
@@ -298,6 +301,7 @@ class StoryFull extends React.Component {
           onShareClick={onShareClick}
           onEditClick={onEditClick}
           ownPost={ownPost}
+          isAuthenticated={isAuthenticated}
         />
       </div>
     );

@@ -11,6 +11,7 @@ import { editPost } from '../post/Write/editorActions';
 
 import {
   getAuthenticatedUser,
+  getIsAuthenticated,
   getBookmarks,
   getPendingBookmarks,
   getPendingLikes,
@@ -28,6 +29,7 @@ import './Feed.less';
 @connect(
   state => ({
     user: getAuthenticatedUser(state),
+    isAuthenticated: getIsAuthenticated(state),
     bookmarks: getBookmarks(state),
     pendingBookmarks: getPendingBookmarks(state),
     pendingLikes: getPendingLikes(state),
@@ -58,6 +60,7 @@ export default class Feed extends React.Component {
     followingList: PropTypes.arrayOf(PropTypes.string).isRequired,
     reblogList: PropTypes.arrayOf(PropTypes.number).isRequired,
     saving: PropTypes.bool.isRequired,
+    isAuthenticated: PropTypes.bool.isRequired,
     isFetching: PropTypes.bool,
     hasMore: PropTypes.bool,
     editPost: PropTypes.func,
@@ -71,6 +74,7 @@ export default class Feed extends React.Component {
 
   static defaultProps = {
     isFetching: false,
+    isAuthenticated: false,
     hasMore: false,
     editPost: () => {},
     toggleBookmark: () => {},
@@ -109,6 +113,7 @@ export default class Feed extends React.Component {
       reblog,
       votePost,
       saving,
+      isAuthenticated,
     } = this.props;
 
     return (
@@ -164,6 +169,7 @@ export default class Feed extends React.Component {
               onLikeClick={likePost}
               onShareClick={() => reblog(post.id)}
               onEditClick={this.handleEditClick}
+              isAuthenticated={isAuthenticated}
             />
           );
         })}
