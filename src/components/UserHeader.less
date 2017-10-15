@@ -37,11 +37,15 @@
   padding: 30px 0;
 }
 
-@media screen and (max-width: @medium-screen) {
+@media screen and (max-width: 990px) {
   .UserHeader__container {
     align-items: center;
     flex-direction: column;
     padding: 30px 16px;
+  }
+
+  .UserHeader__user {
+    padding-bottom: 20px;
   }
 
   .UserHeader__row {
@@ -52,6 +56,16 @@
   .UserHeader__rank {
     align-self: center;
     margin-top: 0;
+  }
+
+  .UserHeader__more {
+    position: absolute;
+    top: 0;
+    right: 25px;
+  }
+
+  .UserHeader__user__button {
+    top: 85px !important;
   }
 }
 
