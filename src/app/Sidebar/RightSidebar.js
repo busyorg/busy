@@ -13,6 +13,7 @@ import {
 import InterestingPeople from '../../components/Sidebar/InterestingPeople';
 import StartNow from '../../components/Sidebar/StartNow';
 import SignUp from '../../components/Sidebar/SignUp';
+import PostRecommendation from '../../components/Sidebar/PostRecommendation';
 
 @connect(
   state => ({
@@ -68,6 +69,7 @@ export default class RightSidebar extends React.Component {
                 <StartNow />
                 }
                 <InterestingPeopleWithData />
+                <PostRecommendation />
               </div>)}
           />
         </Switch>
