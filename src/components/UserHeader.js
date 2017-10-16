@@ -78,13 +78,15 @@ const UserHeader = ({
             <i className="iconfont icon-more UserHeader__more" />
           </Popover>
         </div>
-        <div className="UserHeader__row UserHeader__handle">@{handle}</div>
-        <div className="UserHeader__rank">
-          <i className="iconfont icon-ranking" />
-          <FormattedMessage
-            id={getUserRankKey(vestingShares)}
-            defaultMessage={getUserRank(vestingShares)}
-          />
+        <div className="UserHeader__handle-rank-container">
+          <div className="UserHeader__row UserHeader__handle">@{handle}</div>
+          <div className="UserHeader__rank">
+            <i className="iconfont icon-ranking" />
+            <FormattedMessage
+              id={getUserRankKey(vestingShares)}
+              defaultMessage={getUserRank(vestingShares)}
+            />
+          </div>
         </div>
       </div>
     </div>
