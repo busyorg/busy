@@ -30,6 +30,7 @@ import bg from 'react-intl/locale-data/bg';
 import uk from 'react-intl/locale-data/uk';
 import he from 'react-intl/locale-data/he';
 import hi from 'react-intl/locale-data/hi';
+import ca from 'react-intl/locale-data/ca';
 
 import enTranslations from '../locales/en.json';
 import csTranslations from '../locales/cs.json';
@@ -62,6 +63,7 @@ import bgTranslations from '../locales/bg.json';
 import ukTranslations from '../locales/uk.json';
 import heTranslations from '../locales/he.json';
 import hiTranslations from '../locales/hi.json';
+import caTranslations from '../locales/ca.json';
 
 addLocaleData([
   ...en,
@@ -95,6 +97,7 @@ addLocaleData([
   ...uk,
   ...he,
   ...hi,
+  ...ca,
 ]);
 
 export const translations = {
@@ -129,6 +132,7 @@ export const translations = {
   uk: ukTranslations,
   he: heTranslations,
   hi: hiTranslations,
+  ca: caTranslations,
 };
 
 export const getBrowserLocale = () => {
