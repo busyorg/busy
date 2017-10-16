@@ -168,9 +168,9 @@
   "payout_potential_payout_amount":"Potential Payout: {amount}",
   "payout_will_release_in_time":"จะปล่อย จะโอน {เวลา}",
   "payout_declined":"ปฏิเสธการจ่ายเงิน",
-  "rank_plankton":"Plankton",
-  "rank_minnow":"Minnow",
-  "rank_dolphin":"Dolphin",
-  "rank_orca":"Orca",
-  "rank_whale":"Whale"
+  "rank_plankton":"แพลงก์ตอนคือตัวเล็ก ตัวอ่อนๆของสัตว์ขนาดใหญ่",
+  "rank_minnow":"ปลาซิว ปลาตัวเล็ก",
+  "rank_dolphin":"เป็นปลาโลมา ตัวใหญ่ขึ้น",
+  "rank_orca":"ปลาวาฬ",
+  "rank_whale":"ปลาวาฬ"
 }
