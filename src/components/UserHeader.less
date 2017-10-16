@@ -1,4 +1,5 @@
 @import (reference) "../styles/custom.less";
+@import (reference) "../styles/modules/variables.less";
 
 .UserHeader {
   background-color: #f3f4f6;
@@ -37,7 +38,7 @@
   padding: 30px 0;
 }
 
-@media screen and (max-width: 768px) {
+@media @small-max-width {
   .UserHeader__container {
     align-items: center;
     flex-direction: column;
