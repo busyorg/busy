@@ -35,7 +35,6 @@ if (process.env.NODE_ENV !== 'production') {
   require('../webpack')(app);
 }
 
-steem.api.setOptions({ transport: 'http' });
 if (process.env.STEEMJS_URL) {
   steem.api.setOptions({ url: process.env.STEEMJS_URL });
 }
