@@ -1,4 +1,5 @@
 @import (reference) "../styles/custom.less";
+@import (reference) "../styles/modules/variables.less";
 
 .UserHeaderLoading {
   background-color: #f3f4f6;
@@ -6,7 +7,7 @@
   &__container {
     display: flex;
     margin: 0 auto;
-    max-width: 990px;
+    max-width: 1011px;
     padding: 30px 0;
   }
 
@@ -15,8 +16,32 @@
   }
 }
 
-@media screen and (max-width: 990px) {
-  .UserHeader__container {
-    padding: 30px 16px;
+@media @small-max-width {
+  .UserHeaderLoading__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-left: 20px !important;
+    height: 282px;
+
+    .ant-card-loading-block {
+      margin-bottom: 10px !important;
+    }
+  }
+
+  .UserHeaderLoading__avatar {
+    margin-right: 0 !important;
+  }
+
+  .UserHeaderLoading__user {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media @medium-max-width {
+  .UserHeaderLoading__container {
+    padding-left: 16px;
   }
 }

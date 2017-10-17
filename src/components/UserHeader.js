@@ -13,7 +13,6 @@ import './UserHeader.less';
 
 const UserHeader = ({
   intl,
-  authenticated,
   username,
   handle,
   userReputation,
@@ -42,24 +41,23 @@ const UserHeader = ({
             </Tooltip>
           </h2>
           <div className="UserHeader__user__button">
-            {authenticated &&
-              (isSameUser ? (
-                <a
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  href={`https://steemit.com/@${handle}/settings`}
-                >
-                  <Action
-                    small
-                    text={intl.formatMessage({
-                      id: 'edit_profile',
-                      defaultMessage: 'Edit profile',
-                    })}
-                  />
-                </a>
-              ) : (
-                <FollowButton username={handle} />
-              ))}
+            {isSameUser ? (
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                href={`https://steemit.com/@${handle}/settings`}
+              >
+                <Action
+                  small
+                  text={intl.formatMessage({
+                    id: 'edit_profile',
+                    defaultMessage: 'Edit profile',
+                  })}
+                />
+              </a>
+            ) : (
+              <FollowButton username={handle} />
+            )}
           </div>
           <Popover
             placement="bottom"
@@ -78,13 +76,15 @@ const UserHeader = ({
             <i className="iconfont icon-more UserHeader__more" />
           </Popover>
         </div>
-        <div className="UserHeader__row UserHeader__handle">@{handle}</div>
-        <div className="UserHeader__rank">
-          <i className="iconfont icon-ranking" />
-          <FormattedMessage
-            id={getUserRankKey(vestingShares)}
-            defaultMessage={getUserRank(vestingShares)}
-          />
+        <div className="UserHeader__handle-rank-container">
+          <div className="UserHeader__row UserHeader__handle">@{handle}</div>
+          <div className="UserHeader__rank">
+            <i className="iconfont icon-ranking" />
+            <FormattedMessage
+              id={getUserRankKey(vestingShares)}
+              defaultMessage={getUserRank(vestingShares)}
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -93,7 +93,6 @@ const UserHeader = ({
 
 UserHeader.propTypes = {
   intl: PropTypes.shape().isRequired,
-  authenticated: PropTypes.bool.isRequired,
   username: PropTypes.string,
   handle: PropTypes.string,
   userReputation: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
