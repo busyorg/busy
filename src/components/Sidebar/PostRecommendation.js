@@ -34,11 +34,11 @@ class PostRecommendation extends Component {
         .getUserFeedContent({
           sortBy: 'blog',
           username,
-          limit: 20,
+          limit: 6,
         })
         .then((result) => {
           const recommendedPosts = Array.isArray(result.payload.postsData)
-            ? result.payload.postsData.filter(post => post.author === username)
+            ? result.payload.postsData
             : [];
           this.setState({
             recommendedPosts,
@@ -74,9 +74,14 @@ class PostRecommendation extends Component {
           <a
             role="presentation"
             onClick={() => this.navigateToPost(post.category, post.author, post.permlink)}
+            className="PostRecommendation__link-title"
           >
             {post.title}
           </a>
+          <br />
+          {intl.formatMessage({ id: 'by', defaultMessage: 'By' })}
+          {' '}
+          <Link role="presentation" to={`/@${post.author}`}>{post.author}</Link>
           <br />
           {post.children > 0 &&
             <span>
@@ -88,7 +93,7 @@ class PostRecommendation extends Component {
   };
 
   render() {
-    const { location, intl } = this.props;
+    const { intl } = this.props;
     const { loading } = this.state;
     const filteredRecommendedPosts = this.getFilteredPosts();
 
@@ -100,14 +105,12 @@ class PostRecommendation extends Component {
       return <div />;
     }
 
-    const username = location.pathname.split('/')[2].replace('@', '');
     return (
       <div className="PostRecommendation">
         <h4 className="PostRecommendation__title SidebarBlock__content-title">
           <i className="iconfont icon-headlines PostRecommendation__icon" />
           {' '}
-          {intl.formatMessage({ id: 'more_from', defaultMessage: 'More from' })}
-          <Link to={`/@${username}`}>{` ${username}`}</Link>
+          {intl.formatMessage({ id: 'recommended_posts', defaultMessage: 'Recommended Posts' })}
         </h4>
         {this.renderPosts()}
       </div>
