@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { injectIntl } from 'react-intl';
 import './PostRecommendation.less';
 import { getUserFeedContent } from '../../feed/feedActions';
+import Loading from '../../components/Icon/Loading';
 
 @injectIntl
 @withRouter
@@ -14,40 +15,68 @@ class PostRecommendation extends Component {
     getUserFeedContent: PropTypes.func.isRequired,
     location: PropTypes.shape().isRequired,
     intl: PropTypes.shape().isRequired,
+    history: PropTypes.shape().isRequired,
   };
 
   state = {
     recommendedPosts: [],
+    loading: false,
   };
 
   componentWillMount() {
     const { location } = this.props;
     if (location.pathname !== '/') {
       const username = location.pathname.split('/')[2].replace('@', '');
+      this.setState({
+        loading: true,
+      });
       this.props
         .getUserFeedContent({
           sortBy: 'blog',
           username,
-          limit: 5,
+          limit: 20,
         })
         .then((result) => {
+          const recommendedPosts = Array.isArray(result.payload.postsData)
+            ? result.payload.postsData.filter(post => post.author === username)
+            : [];
           this.setState({
-            recommendedPosts: result.payload.postsData,
+            recommendedPosts,
+            loading: false,
           });
         });
     }
   }
 
+  getFilteredPosts = () => {
+    const currentPostPermlink = window.location.pathname.split('/')[3];
+    return this.state.recommendedPosts
+      .filter(post => post.permlink !== currentPostPermlink)
+      .slice(0, 5);
+  };
+
+  navigateToPost = (category, author, permlink) => {
+    this.props.history.push(`/${category}/@${author}/${permlink}`);
+    this.setState(this.state);
+  };
+
   renderPosts = () => {
     const { intl } = this.props;
+    const filteredRecommendedPosts = this.getFilteredPosts();
 
-    return this.state.recommendedPosts.map((post) => {
+    return filteredRecommendedPosts.map((post) => {
       const commentsText = post.children === 1
         ? intl.formatMessage({ id: 'comment', defaultMessage: 'Comment' })
         : intl.formatMessage({ id: 'comments', defaultMessage: 'Comments' });
       return (
         <div className="PostRecommendation__link" key={post.id}>
-          <Link to={`/${post.category}/@${post.author}/${post.permlink}`}>{post.title}</Link><br />
+          <a
+            role="presentation"
+            onClick={() => this.navigateToPost(post.category, post.author, post.permlink)}
+          >
+            {post.title}
+          </a>
+          <br />
           {post.children > 0 &&
             <span>
               {post.children} {commentsText}
@@ -59,8 +88,14 @@ class PostRecommendation extends Component {
 
   render() {
     const { location, intl } = this.props;
+    const { loading } = this.state;
+    const filteredRecommendedPosts = this.getFilteredPosts();
 
-    if (location.pathname === '/') {
+    if (loading) {
+      return <Loading />;
+    }
+
+    if (filteredRecommendedPosts.length === 0) {
       return <div />;
     }
 
