@@ -77,7 +77,7 @@ export default class Post extends React.Component {
           <div className="post-layout container">
             <Affix className="rightContainer" stickPosition={77}>
               <div className="right">
-                <RightSidebar />
+                <RightSidebar showPostRecommendation />
               </div>
             </Affix>
             <div className="center" style={{ paddingBottom: '24px' }}>

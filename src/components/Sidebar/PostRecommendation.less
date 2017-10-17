@@ -1,13 +1,21 @@
 @import (reference) "../../styles/custom.less";
 
 .PostRecommendation {
+  background: @white;
+  border: 1px solid @white-gainsboro;
+  border-radius: @border-radius-base;
+  padding: 8px 16px 16px 16px;
+
   &__title {
-    border-bottom: 1px solid #e9e7e7;
-    padding: 20px 10px 10px 10px;
+    border-bottom: 1px solid @white-gainsboro;
+    font-size: 18px;
+    font-weight: 500;
+    padding: 10px 0;
+    text-align: center;
   }
 
   &__link {
     padding: 10px;
-    border-bottom: 1px solid #e9e7e7;
+    border-bottom: 1px solid @white-gainsboro;
   }
 }

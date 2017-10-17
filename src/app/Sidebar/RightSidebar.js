@@ -27,6 +27,11 @@ export default class RightSidebar extends React.Component {
     authenticated: PropTypes.bool.isRequired,
     authenticatedUser: PropTypes.shape().isRequired,
     followingList: PropTypes.arrayOf(PropTypes.string).isRequired,
+    showPostRecommendation: PropTypes.bool,
+  };
+
+  static defaultProps = {
+    showPostRecommendation: false,
   };
 
   constructor(props) {
@@ -50,6 +55,7 @@ export default class RightSidebar extends React.Component {
   });
 
   render() {
+    const { authenticated, authenticatedUser, showPostRecommendation } = this.props;
     const InterestingPeopleWithData = () => (
       <InterestingPeople
         users={this.state.randomPeople}
@@ -58,18 +64,17 @@ export default class RightSidebar extends React.Component {
     );
 
     return (
-      (this.props.authenticated
+      (authenticated
         ? <Switch>
           <Route path="/@:name" component={InterestingPeopleWithData} />
           <Route
             path="/"
             render={() =>
               (<div>
-                {this.props.authenticatedUser.last_root_post === '1970-01-01T00:00:00' &&
+                {authenticatedUser.last_root_post === '1970-01-01T00:00:00' &&
                 <StartNow />
                 }
-                <InterestingPeopleWithData />
-                <PostRecommendation />
+                {showPostRecommendation ? <PostRecommendation /> : <InterestingPeopleWithData />}
               </div>)}
           />
         </Switch>
