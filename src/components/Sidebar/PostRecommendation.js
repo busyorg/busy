@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { injectIntl } from 'react-intl';
+import { injectIntl, FormattedMessage } from 'react-intl';
 import './PostRecommendation.less';
 import { getUserFeedContent } from '../../feed/feedActions';
 import Loading from '../../components/Icon/Loading';
@@ -79,9 +79,13 @@ class PostRecommendation extends Component {
             {post.title}
           </a>
           <br />
-          {intl.formatMessage({ id: 'by', defaultMessage: 'By' })}
-          {' '}
-          <Link role="presentation" to={`/@${post.author}`}>{post.author}</Link>
+          <FormattedMessage
+            id="by"
+            defaultMessage="By {username}"
+            values={{
+              username: <Link role="presentation" to={`/@${post.author}`}>{post.author}</Link>,
+            }}
+          />
           <br />
           {post.children > 0 &&
             <Link to={`/${post.category}/@${post.author}/${post.permlink}#comments`}>
