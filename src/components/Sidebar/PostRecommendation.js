@@ -34,7 +34,7 @@ class PostRecommendation extends Component {
         .getUserFeedContent({
           sortBy: 'blog',
           username,
-          limit: 6,
+          limit: 4,
         })
         .then((result) => {
           const recommendedPosts = Array.isArray(result.payload.postsData)
@@ -84,9 +84,11 @@ class PostRecommendation extends Component {
           <Link role="presentation" to={`/@${post.author}`}>{post.author}</Link>
           <br />
           {post.children > 0 &&
-            <span>
-              {post.children} {commentsText}
-            </span>}
+            <Link to={`/${post.category}/@${post.author}/${post.permlink}#comments`}>
+              {post.children}
+              {' '}
+              {commentsText}
+            </Link>}
         </div>
       );
     });
