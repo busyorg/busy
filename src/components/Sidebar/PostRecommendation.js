@@ -61,6 +61,11 @@ class PostRecommendation extends Component {
     this.setState(this.state);
   };
 
+  navigateToPostComments = (category, author, permlink) => {
+    this.props.history.push(`/${category}/@${author}/${permlink}#comments`);
+    this.setState(this.state);
+  };
+
   renderPosts = () => {
     const { intl } = this.props;
     const filteredRecommendedPosts = this.getFilteredPosts();
@@ -88,11 +93,15 @@ class PostRecommendation extends Component {
           />
           <br />
           {post.children > 0 &&
-            <Link to={`/${post.category}/@${post.author}/${post.permlink}#comments`}>
+            <a
+              role="presentation"
+              onClick={() => this.navigateToPostComments(post.category, post.author, post.permlink)}
+              className="PostRecommendation__comment-link"
+            >
               {post.children}
               {' '}
               {commentsText}
-            </Link>}
+            </a>}
         </div>
       );
     });
