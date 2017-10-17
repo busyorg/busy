@@ -63,22 +63,22 @@ export default class RightSidebar extends React.Component {
       />
     );
 
-    return (
-      (authenticated
-        ? <Switch>
-          <Route path="/@:name" component={InterestingPeopleWithData} />
-          <Route
-            path="/"
-            render={() =>
-              (<div>
-                {authenticatedUser.last_root_post === '1970-01-01T00:00:00' &&
-                <StartNow />
-                }
-                {showPostRecommendation ? <PostRecommendation /> : <InterestingPeopleWithData />}
-              </div>)}
-          />
-        </Switch>
-        : <SignUp />)
-    );
+    return authenticated
+      ? <Switch>
+        <Route path="/@:name" component={InterestingPeopleWithData} />
+        <Route
+          path="/"
+          render={() => (
+            <div>
+              {authenticatedUser.last_root_post === '1970-01-01T00:00:00' && <StartNow />}
+              {showPostRecommendation ? <PostRecommendation /> : <InterestingPeopleWithData />}
+            </div>
+          )}
+        />
+      </Switch>
+      : <div>
+        <SignUp />
+        {showPostRecommendation && <PostRecommendation />}
+      </div>;
   }
 }

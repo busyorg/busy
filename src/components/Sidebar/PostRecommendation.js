@@ -57,6 +57,7 @@ class PostRecommendation extends Component {
 
   navigateToPost = (category, author, permlink) => {
     this.props.history.push(`/${category}/@${author}/${permlink}`);
+    window.scrollTo(0, 0);
     this.setState(this.state);
   };
 
@@ -102,10 +103,12 @@ class PostRecommendation extends Component {
     const username = location.pathname.split('/')[2].replace('@', '');
     return (
       <div className="PostRecommendation">
-        <div className="PostRecommendation__title">
+        <h4 className="PostRecommendation__title">
+          <i className="iconfont icon-headlines PostRecommendation__icon" />
+          {' '}
           {intl.formatMessage({ id: 'more_from', defaultMessage: 'More from' })}
           <Link to={`/@${username}`}>{` ${username}`}</Link>
-        </div>
+        </h4>
         {this.renderPosts()}
       </div>
     );

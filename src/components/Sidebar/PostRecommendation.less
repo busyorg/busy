@@ -6,16 +6,25 @@
   border-radius: @border-radius-base;
   padding: 8px 16px 16px 16px;
 
+  &__icon {
+    color: @purple;
+    vertical-align: -2px;
+  }
+
   &__title {
     border-bottom: 1px solid @white-gainsboro;
+    color: #99aab5;
     font-size: 18px;
     font-weight: 500;
-    padding: 10px 0;
-    text-align: center;
+    padding-bottom: 12px;
   }
 
   &__link {
     padding: 10px;
     border-bottom: 1px solid @white-gainsboro;
+
+    &:last-of-type {
+      border-bottom: 0;
+    }
   }
 }
