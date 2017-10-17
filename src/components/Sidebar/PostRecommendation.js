@@ -52,7 +52,7 @@ class PostRecommendation extends Component {
     const currentPostPermlink = window.location.pathname.split('/')[3];
     return this.state.recommendedPosts
       .filter(post => post.permlink !== currentPostPermlink)
-      .slice(0, 5);
+      .slice(0, 3);
   };
 
   navigateToPost = (category, author, permlink) => {
