@@ -18,29 +18,35 @@ class PostRecommendation extends Component {
   state = {
     recommendedPosts: [],
     loading: false,
+    currentAuthor: '',
   };
 
   componentWillMount() {
     const { location } = this.props;
     if (location.pathname !== '/') {
-      const username = location.pathname.split('/')[2].replace('@', '');
+      const currentAuthor = location.pathname.split('/')[2].replace('@', '');
       this.setState({
         loading: true,
       });
-      steemAPI
-        .getDiscussionsByBlogAsync({
-          tag: username,
-          limit: 4,
-        })
-        .then((result) => {
-          const recommendedPosts = Array.isArray(result) ? result : [];
-          this.setState({
-            recommendedPosts,
-            loading: false,
-          });
-        });
+      this.getPostsByAuthor(currentAuthor);
     }
   }
+
+  getPostsByAuthor = (author) => {
+    steemAPI
+      .getDiscussionsByBlogAsync({
+        tag: author,
+        limit: 4,
+      })
+      .then((result) => {
+        const recommendedPosts = Array.isArray(result) ? result : [];
+        this.setState({
+          recommendedPosts,
+          loading: false,
+          currentAuthor: author,
+        });
+      });
+  };
 
   getFilteredPosts = () => {
     const currentPostPermlink = window.location.pathname.split('/')[3];
@@ -52,7 +58,12 @@ class PostRecommendation extends Component {
   navigateToPost = (category, author, permlink) => {
     this.props.history.push(`/${category}/@${author}/${permlink}`);
     window.scrollTo(0, 0);
-    this.setState(this.state);
+
+    if (author !== this.state.currentAuthor) {
+      this.getPostsByAuthor(author);
+    } else {
+      this.setState(this.state);
+    }
   };
 
   navigateToPostComments = (category, author, permlink) => {
