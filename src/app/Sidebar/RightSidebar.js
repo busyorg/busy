@@ -41,27 +41,21 @@ export default class RightSidebar extends React.Component {
     };
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    const diffAuthenticated = this.props.authenticated !== nextProps.authenticated;
-    const diffAuthenticatedUser =
-      JSON.stringify(this.props.authenticatedUser) !== JSON.stringify(nextProps.authenticatedUser);
-    const diffRandomPeople =
-      JSON.stringify(this.state.randomPeople) !== JSON.stringify(nextState.randomPeople);
-    return diffAuthenticated || diffAuthenticatedUser || diffRandomPeople;
-  }
+  getRandomPeople = () =>
+    people
+      .reduce((res, item) => {
+        if (!this.props.followingList.includes(item)) {
+          res.push({ name: item });
+        }
+        return res;
+      }, [])
+      .sort(() => 0.5 - Math.random())
+      .slice(0, 5);
 
-  getRandomPeople = () => people
-    .reduce((res, item) => {
-      if (!this.props.followingList.includes(item)) {
-        res.push({ name: item });
-      }
-      return res;
-    }, [])
-    .sort(() => 0.5 - Math.random()).slice(0, 5);
-
-  handleRefreshInterestingPeople = () => this.setState({
-    randomPeople: this.getRandomPeople(),
-  });
+  handleRefreshInterestingPeople = () =>
+    this.setState({
+      randomPeople: this.getRandomPeople(),
+    });
 
   render() {
     const { authenticated, authenticatedUser, showPostRecommendation } = this.props;
@@ -72,22 +66,24 @@ export default class RightSidebar extends React.Component {
       />
     );
 
-    return authenticated
-      ? <Switch>
-        <Route path="/@:name" component={InterestingPeopleWithData} />
-        <Route
-          path="/"
-          render={() => (
-            <div>
-              {authenticatedUser.last_root_post === '1970-01-01T00:00:00' && <StartNow />}
-              {showPostRecommendation ? <PostRecommendation /> : <InterestingPeopleWithData />}
-            </div>
-          )}
-        />
-      </Switch>
-      : <div>
-        <SignUp />
+    return (
+      <div>
+        {authenticated
+          ? <Switch>
+            <Route path="/@:name" component={InterestingPeopleWithData} />
+            <Route
+              path="/"
+              render={() => (
+                <div>
+                  {authenticatedUser.last_root_post === '1970-01-01T00:00:00' && <StartNow />}
+                  {!showPostRecommendation && <InterestingPeopleWithData />}
+                </div>
+              )}
+            />
+          </Switch>
+          : <SignUp />}
         {showPostRecommendation && <PostRecommendation />}
-      </div>;
+      </div>
+    );
   }
 }

@@ -1,18 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter, Link } from 'react-router-dom';
-import { connect } from 'react-redux';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import './PostRecommendation.less';
-import { getUserFeedContent } from '../../feed/feedActions';
 import Loading from '../../components/Icon/Loading';
+import steemAPI from '../../steemAPI';
 
 @injectIntl
 @withRouter
-@connect(null, { getUserFeedContent })
 class PostRecommendation extends Component {
   static propTypes = {
-    getUserFeedContent: PropTypes.func.isRequired,
     location: PropTypes.shape().isRequired,
     intl: PropTypes.shape().isRequired,
     history: PropTypes.shape().isRequired,
@@ -30,26 +27,19 @@ class PostRecommendation extends Component {
       this.setState({
         loading: true,
       });
-      this.getUserFeedAction = this.props
-        .getUserFeedContent({
-          sortBy: 'blog',
-          username,
+      steemAPI
+        .getDiscussionsByBlogAsync({
+          tag: username,
           limit: 4,
         })
         .then((result) => {
-          const recommendedPosts = Array.isArray(result.payload.postsData)
-            ? result.payload.postsData
-            : [];
+          const recommendedPosts = Array.isArray(result) ? result : [];
           this.setState({
             recommendedPosts,
             loading: false,
           });
         });
     }
-  }
-
-  componentWillUnmount() {
-    this.getUserFeedAction.cancel();
   }
 
   getFilteredPosts = () => {
