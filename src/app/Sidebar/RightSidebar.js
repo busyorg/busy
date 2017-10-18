@@ -41,11 +41,13 @@ export default class RightSidebar extends React.Component {
     };
   }
 
-  shouldComponentUpdate(nextProps) {
+  shouldComponentUpdate(nextProps, nextState) {
     const diffAuthenticated = this.props.authenticated !== nextProps.authenticated;
     const diffAuthenticatedUser =
       JSON.stringify(this.props.authenticatedUser) !== JSON.stringify(nextProps.authenticatedUser);
-    return diffAuthenticated && diffAuthenticatedUser;
+    const diffRandomPeople =
+      JSON.stringify(this.state.randomPeople) !== JSON.stringify(nextState.randomPeople);
+    return diffAuthenticated || diffAuthenticatedUser || diffRandomPeople;
   }
 
   getRandomPeople = () => people
