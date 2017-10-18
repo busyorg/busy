@@ -30,7 +30,7 @@ class PostRecommendation extends Component {
       this.setState({
         loading: true,
       });
-      this.props
+      this.getUserFeedAction = this.props
         .getUserFeedContent({
           sortBy: 'blog',
           username,
@@ -46,6 +46,10 @@ class PostRecommendation extends Component {
           });
         });
     }
+  }
+
+  componentWillUnmount() {
+    this.getUserFeedAction.cancel();
   }
 
   getFilteredPosts = () => {
