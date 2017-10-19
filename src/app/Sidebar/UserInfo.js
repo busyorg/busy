@@ -59,7 +59,7 @@ const UserInfo = ({ intl, authenticated, authenticatedUser, user, ...props }) =>
           </div>
         </div>
       </div>}
-    {(user && authenticated && !isSameUser) && <Action
+    {(user && !isSameUser) && <Action
       style={{ margin: '5px 0' }}
       text={intl.formatMessage({
         id: 'transfer',
