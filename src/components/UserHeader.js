@@ -59,7 +59,7 @@ const UserHeader = ({
               <FollowButton username={handle} />
             )}
           </div>
-          {(authenticated && !isSameUser) && <Popover
+          {!isSameUser && <Popover
             placement="bottom"
             trigger="click"
             content={
