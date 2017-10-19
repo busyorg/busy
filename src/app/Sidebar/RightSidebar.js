@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
+import people from '../../helpers/people';
 import {
   getIsAuthenticated,
   getAuthenticatedUser,
@@ -9,14 +10,15 @@ import {
   getRecommendations,
 } from '../../reducers';
 import { updateRecommendations } from '../../user/userActions';
-
+import {
+  getFollowingList,
+} from '../../reducers';
 import InterestingPeople from '../../components/Sidebar/InterestingPeople';
 import InterestingPeopleWithAPI from '../../components/Sidebar/InterestingPeopleWithAPI';
+import PostRecommendation from '../../components/Sidebar/PostRecommendation';
 import StartNow from '../../components/Sidebar/StartNow';
 import SignUp from '../../components/Sidebar/SignUp';
-import PostRecommendation from '../../components/Sidebar/PostRecommendation';
 
-@connect(
   state => ({
     authenticated: getIsAuthenticated(state),
     authenticatedUser: getAuthenticatedUser(state),
@@ -27,11 +29,18 @@ import PostRecommendation from '../../components/Sidebar/PostRecommendation';
     updateRecommendations,
   },
 )
+@connect(state => ({
+  authenticated: getIsAuthenticated(state),
+  authenticatedUser: getAuthenticatedUser(state),
+  authFetching: getIsAuthFetching(state),
+  followingList: getFollowingList(state),
 export default class RightSidebar extends React.Component {
   static propTypes = {
     authenticated: PropTypes.bool.isRequired,
     authenticatedUser: PropTypes.shape().isRequired,
     isAuthFetching: PropTypes.bool.isRequired,
+    authFetching: PropTypes.bool.isRequired,
+    followingList: PropTypes.arrayOf(PropTypes.string).isRequired,
     showPostRecommendation: PropTypes.bool,
     recommendations: PropTypes.arrayOf(PropTypes.shape({ name: PropTypes.string })).isRequired,
     updateRecommendations: PropTypes.func,
@@ -45,8 +54,7 @@ export default class RightSidebar extends React.Component {
   handleInterestingPeopleRefresh = () => this.props.updateRecommendations();
 
   render() {
-    const { authenticated, authenticatedUser, showPostRecommendation, isAuthFetching } = this.props;
-
+    const { authenticated, authenticatedUser, authFetching, showPostRecommendation } = this.props;
     return (
       <div>
         {!authenticated && <SignUp />}
@@ -69,12 +77,12 @@ export default class RightSidebar extends React.Component {
             component={() => (
               <InterestingPeopleWithAPI
                 authenticatedUser={authenticatedUser}
-                authFetching={isAuthFetching}
+                authFetching={authFetching}
               />
             )}
           />
         </Switch>
-        {showPostRecommendation && <PostRecommendation isAuthFetching={isAuthFetching} />}
+        {showPostRecommendation && <PostRecommendation isAuthFetching={authFetching} />}
       </div>
     );
   }
