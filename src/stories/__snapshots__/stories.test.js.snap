@@ -1055,20 +1055,24 @@ exports[`Storyshots Profile UserHeader 1`] = `
           />
         </div>
         <div
-          className="UserHeader__row UserHeader__handle"
+          className="UserHeader__handle-rank-container"
         >
-          @
-          
-        </div>
-        <div
-          className="UserHeader__rank"
-        >
-          <i
-            className="iconfont icon-ranking"
-          />
-          <span>
-            Plankton
-          </span>
+          <div
+            className="UserHeader__row UserHeader__handle"
+          >
+            @
+            
+          </div>
+          <div
+            className="UserHeader__rank"
+          >
+            <i
+              className="iconfont icon-ranking"
+            />
+            <span>
+              Plankton
+            </span>
+          </div>
         </div>
       </div>
     </div>

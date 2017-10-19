@@ -31,6 +31,11 @@ import uk from 'react-intl/locale-data/uk';
 import he from 'react-intl/locale-data/he';
 import hi from 'react-intl/locale-data/hi';
 import ca from 'react-intl/locale-data/ca';
+import et from 'react-intl/locale-data/et';
+import as from 'react-intl/locale-data/as';
+import ta from 'react-intl/locale-data/ta';
+import bn from 'react-intl/locale-data/bn';
+import ne from 'react-intl/locale-data/ne';
 
 import enTranslations from '../locales/en.json';
 import csTranslations from '../locales/cs.json';
@@ -64,6 +69,11 @@ import ukTranslations from '../locales/uk.json';
 import heTranslations from '../locales/he.json';
 import hiTranslations from '../locales/hi.json';
 import caTranslations from '../locales/ca.json';
+import etTranslations from '../locales/et.json';
+import asTranslations from '../locales/as.json';
+import taTranslations from '../locales/ta.json';
+import bnTranslations from '../locales/bn.json';
+import neTranslations from '../locales/ne.json';
 
 addLocaleData([
   ...en,
@@ -98,6 +108,11 @@ addLocaleData([
   ...he,
   ...hi,
   ...ca,
+  ...et,
+  ...as,
+  ...ta,
+  ...bn,
+  ...ne,
 ]);
 
 export const translations = {
@@ -133,6 +148,11 @@ export const translations = {
   he: heTranslations,
   hi: hiTranslations,
   ca: caTranslations,
+  et: etTranslations,
+  as: asTranslations,
+  ta: taTranslations,
+  bn: bnTranslations,
+  ne: neTranslations,
 };
 
 export const getBrowserLocale = () => {
