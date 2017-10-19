@@ -38,7 +38,10 @@ class Drafts extends React.Component {
 
   render() {
     const { reloading, draftPosts, pendingDrafts } = this.props;
-
+    const sortedDraftPosts = _.sortBy(
+      _.map(draftPosts, (draft, id) => ({ ...draft, id })),
+      draft => new Date(draft.lastUpdated),
+    ).reverse();
     const noDrafts = !reloading && _.size(draftPosts) === 0;
 
     return (
@@ -54,17 +57,21 @@ class Drafts extends React.Component {
               <FormattedMessage id="drafts" defaultMessage="Drafts" />
             </h1>
             {reloading && <Loading center={false} />}
-            {noDrafts && (
+            {noDrafts &&
               <h3 className="text-center">
                 <FormattedMessage
                   id="drafts_empty"
                   defaultMessage="You don't have any draft saved"
                 />
-              </h3>
-            )}
+              </h3>}
             {!reloading &&
-              _.map(draftPosts, (draft, key) => (
-                <DraftRow key={key} data={draft} id={key} pending={pendingDrafts.includes(key)} />
+              _.map(sortedDraftPosts, draft => (
+                <DraftRow
+                  key={draft.id}
+                  data={draft}
+                  id={draft.id}
+                  pending={pendingDrafts.includes(draft.id)}
+                />
               ))}
           </div>
         </div>
