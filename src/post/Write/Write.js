@@ -123,6 +123,7 @@ class Write extends React.Component {
       title: form.title,
       reward: form.reward,
       upvote: form.upvote,
+      lastUpdated: Date.now(),
     };
 
     data.parentAuthor = '';
