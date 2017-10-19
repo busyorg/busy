@@ -166,7 +166,7 @@
   "payout_author_payout_amount":"Autor Auszahlung: {amount}",
   "payout_curators_payout_amount":"Kuratoren-Auszahlung: {amount}",
   "payout_potential_payout_amount":"Mögliche Auszahlung: {amount}",
-  "payout_will_release_in_time":"Wird versendet in {time}",
+  "payout_will_release_in_time":"Wird ausgezahlt {time}",
   "payout_declined":"Auszahlung abgelehnt",
   "rank_plankton":"Plankton",
   "rank_minnow":"Kleiner Fisch",
