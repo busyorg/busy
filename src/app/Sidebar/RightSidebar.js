@@ -8,6 +8,7 @@ import {
   getIsAuthenticated,
   getAuthenticatedUser,
   getFollowingList,
+  getIsAuthFetching,
 } from '../../reducers';
 
 import InterestingPeople from '../../components/Sidebar/InterestingPeople';
@@ -20,6 +21,7 @@ import PostRecommendation from '../../components/Sidebar/PostRecommendation';
     authenticated: getIsAuthenticated(state),
     authenticatedUser: getAuthenticatedUser(state),
     followingList: getFollowingList(state),
+    isAuthFetching: getIsAuthFetching(state),
   }),
 )
 export default class RightSidebar extends React.Component {
@@ -27,6 +29,7 @@ export default class RightSidebar extends React.Component {
     authenticated: PropTypes.bool.isRequired,
     authenticatedUser: PropTypes.shape().isRequired,
     followingList: PropTypes.arrayOf(PropTypes.string).isRequired,
+    isAuthFetching: PropTypes.bool.isRequired,
     showPostRecommendation: PropTypes.bool,
   };
 
@@ -58,7 +61,7 @@ export default class RightSidebar extends React.Component {
     });
 
   render() {
-    const { authenticated, authenticatedUser, showPostRecommendation } = this.props;
+    const { authenticated, authenticatedUser, showPostRecommendation, isAuthFetching } = this.props;
     const InterestingPeopleWithData = () => (
       <InterestingPeople
         users={this.state.randomPeople}
@@ -82,7 +85,7 @@ export default class RightSidebar extends React.Component {
             />
           </Switch>
           : <SignUp />}
-        {showPostRecommendation && <PostRecommendation />}
+        {showPostRecommendation && <PostRecommendation isAuthFetching={isAuthFetching} />}
       </div>
     );
   }

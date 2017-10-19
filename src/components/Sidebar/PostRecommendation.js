@@ -13,6 +13,7 @@ class PostRecommendation extends Component {
     location: PropTypes.shape().isRequired,
     intl: PropTypes.shape().isRequired,
     history: PropTypes.shape().isRequired,
+    isAuthFetching: PropTypes.bool.isRequired,
   };
 
   state = {
@@ -22,9 +23,19 @@ class PostRecommendation extends Component {
   };
 
   componentWillMount() {
-    const { location } = this.props;
-    if (location.pathname !== '/') {
+    const { location, isAuthFetching } = this.props;
+    if (!isAuthFetching && location.pathname !== '/') {
       const currentAuthor = location.pathname.split('/')[2].replace('@', '');
+      this.setState({
+        loading: true,
+      });
+      this.getPostsByAuthor(currentAuthor);
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.isAuthFetching !== nextProps.isAuthFetching) {
+      const currentAuthor = this.props.location.pathname.split('/')[2].replace('@', '');
       this.setState({
         loading: true,
       });
