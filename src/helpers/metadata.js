@@ -42,7 +42,7 @@ export const toggleBookmarkMetadata = (id, author, permlink) => getMetadata()
       ...metadata,
       bookmarks: (metadata.bookmarks && metadata.bookmarks[id])
         ? omit(metadata.bookmarks, id)
-        : { ...metadata.bookmarks, [id]: { id, author, permlink } },
+        : { ...metadata.bookmarks, [id]: { id, author, permlink, bookmarkDate: Date.now() } },
     }),
   )
   .then(resp => resp.user_metadata.bookmarks);
