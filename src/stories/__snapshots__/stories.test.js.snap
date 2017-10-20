@@ -1167,13 +1167,14 @@ exports[`Storyshots Sidebar Interesting People 1`] = `
   }
 >
   <div
-    className="Loading Loading--center"
+    className="InterestingPeople"
   >
     <div
       className="InterestingPeople__container"
     >
       <h4
         className="InterestingPeople__title SidebarBlock__content-title"
+        className="InterestingPeople__title"
       >
         <i
           className="iconfont icon-group InterestingPeople__icon"

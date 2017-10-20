@@ -49,9 +49,31 @@ export default class RightSidebar extends React.Component {
   static defaultProps = {
     showPostRecommendation: false,
     updateRecommendations: () => {},
-  };
 
   handleInterestingPeopleRefresh = () => this.props.updateRecommendations();
+=======
+  constructor(props) {
+    super(props);
+    this.state = {
+      randomPeople: this.getRandomPeople(),
+    };
+  }
+
+  getRandomPeople = () =>
+    people
+      .reduce((res, item) => {
+        if (!this.props.followingList.includes(item)) {
+          res.push({ name: item });
+        }
+        return res;
+      }, [])
+      .sort(() => 0.5 - Math.random())
+      .slice(0, 5);
+
+  handleRefreshInterestingPeople = () =>
+    this.setState({
+      randomPeople: this.getRandomPeople(),
+    });
 
   render() {
     const { authenticated, authenticatedUser, authFetching, showPostRecommendation } = this.props;
