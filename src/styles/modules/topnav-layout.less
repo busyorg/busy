@@ -6,7 +6,7 @@
     width: @left-width;
     margin-left: 16px;
 
-    @media @small {
+    @media @medium {
       margin-left: 0;
     }
   }
@@ -18,7 +18,7 @@
     width: @right-width;
     margin-right: 16px;
 
-    @media @small {
+    @media @medium {
       margin-right: 0;
     }
   }
@@ -29,13 +29,9 @@
 
     @media @small {
       display: block;
-      width: calc(100% ~"-" (@right-width + @margin)); 
-      margin-right: @right-width + @margin;
-    }
-
-    @media @medium {
       width: calc(100% ~"-" (@left-width + @right-width + 2 * @margin));
       margin-left: @left-width + @margin;
+      margin-right: @right-width + @margin;
     }
   }
 }
