@@ -11,10 +11,10 @@ export const RATE_SUCCESS = '@app/RATE_SUCCESS';
 
 export const getRate = () => (dispatch) => {
   dispatch({ type: RATE_REQUEST });
-  fetch('https://api.cryptonator.com/api/ticker/steem-usd')
+  fetch('https://api.coinmarketcap.com/v1/ticker/steem/')
     .then(res => res.json())
     .then((json) => {
-      const rate = json.ticker.price;
+      const rate = json[0].price_usd;
       dispatch({
         type: RATE_SUCCESS,
         rate,

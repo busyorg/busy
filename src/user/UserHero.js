@@ -40,7 +40,6 @@ const UserHero = ({ authenticated, user, username, isSameUser, hasCover, onSelec
               <UserHeaderLoading />
             ) : (
               <UserHeader
-                authenticated={authenticated}
                 username={username}
                 handle={user.name}
                 userReputation={user.reputation}
