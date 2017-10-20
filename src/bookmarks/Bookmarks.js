@@ -2,7 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
-import { getFeed, getPosts, getPendingBookmarks, getIsReloading } from '../reducers';
+import _ from 'lodash';
+import {
+  getFeed,
+  getPosts,
+  getPendingBookmarks,
+  getIsReloading,
+  getBookmarks as getBookmarksState,
+} from '../reducers';
 import Feed from '../feed/Feed';
 import {
   getFeedContentFromState,
@@ -21,6 +28,7 @@ import RightSidebar from '../app/Sidebar/RightSidebar';
     posts: getPosts(state),
     pendingBookmarks: getPendingBookmarks(state),
     reloading: getIsReloading(state),
+    bookmarks: getBookmarksState(state),
   }),
   { getBookmarks, reload },
 )
@@ -32,6 +40,7 @@ export default class Bookmarks extends React.Component {
     pendingBookmarks: PropTypes.arrayOf(PropTypes.number),
     getBookmarks: PropTypes.func,
     reload: PropTypes.func,
+    bookmarks: PropTypes.shape().isRequired,
   };
 
   static defaultProps = {
@@ -61,6 +70,14 @@ export default class Bookmarks extends React.Component {
     const loadMoreContentAction = () => null;
 
     const noBookmarks = !reloading && !isFetching && !content.length;
+    const contentMap = content.reduce((postMap, post) => ({ ...postMap, [post.id]: post }), {});
+    const sortedBookmarks = _.sortBy(
+      this.props.bookmarks,
+      bookmark => new Date(bookmark.bookmarkDate),
+    ).reverse();
+    const mappedContentToBookmarks = content.length > 0
+      ? _.compact(_.map(sortedBookmarks, post => contentMap[post.id]))
+      : [];
 
     return (
       <div className="shifted">
@@ -77,13 +94,13 @@ export default class Bookmarks extends React.Component {
           </Affix>
           <div className="center">
             <Feed
-              content={content}
+              content={mappedContentToBookmarks}
               isFetching={isFetching}
               hasMore={hasMore}
               loadContent={loadContentAction}
               loadMoreContent={loadMoreContentAction}
             />
-            {noBookmarks && (
+            {noBookmarks &&
               <div className="container">
                 <h3 className="text-center">
                   <FormattedMessage
@@ -91,8 +108,7 @@ export default class Bookmarks extends React.Component {
                     defaultMessage="You don't have any story saved."
                   />
                 </h3>
-              </div>
-            )}
+              </div>}
           </div>
         </div>
       </div>
