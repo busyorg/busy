@@ -7,11 +7,13 @@ import urlParse from 'url-parse';
 
 import {
   getUser,
+  getIsAuthenticated,
+  getAuthenticatedUser,
 } from '../../reducers';
 import { openTransfer } from '../../wallet/walletActions';
 import Action from '../../components/Button/Action';
 
-const UserInfo = ({ intl, user, ...props }) => {
+const UserInfo = ({ intl, authenticated, authenticatedUser, user, ...props }) => {
   const location = user && _.get(user.json_metadata, 'profile.location');
   let website = user && _.get(user.json_metadata, 'profile.website');
 
@@ -25,6 +27,7 @@ const UserInfo = ({ intl, user, ...props }) => {
     hostWithoutWWW = hostWithoutWWW.slice(4);
   }
 
+  const isSameUser = authenticated && authenticatedUser.name === user.name;
   return (<div>
     {user.name &&
       <div style={{ wordBreak: 'break-word' }}>
@@ -56,7 +59,7 @@ const UserInfo = ({ intl, user, ...props }) => {
           </div>
         </div>
       </div>}
-    {user && <Action
+    {(user && !isSameUser) && <Action
       style={{ margin: '5px 0' }}
       text={intl.formatMessage({
         id: 'transfer',
@@ -69,6 +72,8 @@ const UserInfo = ({ intl, user, ...props }) => {
 
 UserInfo.propTypes = {
   intl: PropTypes.shape().isRequired,
+  authenticated: PropTypes.bool.isRequired,
+  authenticatedUser: PropTypes.shape().isRequired,
   user: PropTypes.shape().isRequired,
   openTransfer: PropTypes.func,
 };
@@ -79,5 +84,7 @@ UserInfo.defaultProps = {
 
 export default connect(
   (state, ownProps) => ({
+    authenticated: getIsAuthenticated(state),
+    authenticatedUser: getAuthenticatedUser(state),
     user: getUser(state, ownProps.match.params.name),
   }), { openTransfer })(injectIntl(UserInfo));
