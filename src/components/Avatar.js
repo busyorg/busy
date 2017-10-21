@@ -7,7 +7,7 @@ const Avatar = ({ username, size }) =>
     className="Avatar"
     style={{ minWidth: `${size}px`, width: `${size}px`, height: `${size}px` }}
     alt={username}
-    src={`${process.env.STEEMCONNECT_IMG_HOST}/@${username || 'steemconnect'}?s=${size}`}
+    src={`${process.env.IMG_HOST}/@${username || 'steemconnect'}?s=${size}`}
   />);
 
 Avatar.propTypes = {
