@@ -1,24 +1,34 @@
 {
-  "presets": [
-    [
-      "env", {
-        "es2015": {
-          "modules": false
-        }
-      }
+    "presets": [
+        [
+            "env",
+            {
+                "modules": false
+            }
+        ],
+        "react",
+        "stage-2"
     ],
-    "react",
-    "stage-2"
-  ],
-  "env": {
-    "development": {
-      "plugins": "react-hot-loader/babel"
-    }
-  },
-  "plugins": [
-    "transform-decorators-legacy",
-    "transform-runtime",
-    "lodash",
-    ["import", { "libraryName": "antd", "style": true }]
-  ]
+    "env": {
+        "development": {
+            "plugins": "react-hot-loader/babel"
+        },
+        "test": {
+            "plugins": [
+                "transform-es2015-modules-commonjs"
+            ]
+        }
+    },
+    "plugins": [
+        "transform-decorators-legacy",
+        "transform-runtime",
+        "lodash",
+        [
+            "import",
+            {
+                "libraryName": "antd",
+                "style": true
+            }
+        ]
+    ]
 }
