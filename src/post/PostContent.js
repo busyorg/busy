@@ -15,6 +15,7 @@ import {
   getFollowingList,
   getPendingFollows,
   getIsEditorSaving,
+  getVotingPower,
 } from '../reducers';
 import { editPost } from './Write/editorActions';
 import { votePost } from './postActions';
@@ -36,7 +37,7 @@ import StoryFull from '../components/Story/StoryFull';
     followingList: getFollowingList(state),
     pendingFollows: getPendingFollows(state),
     saving: getIsEditorSaving(state),
-    state,
+    sliderMode: getVotingPower(state),
   }),
   {
     editPost,
@@ -59,6 +60,7 @@ class PostContent extends React.Component {
     bookmarks: PropTypes.shape(),
     pendingBookmarks: PropTypes.arrayOf(PropTypes.number).isRequired,
     saving: PropTypes.bool.isRequired,
+    sliderMode: PropTypes.oneOf(['on', 'off', 'auto']),
     editPost: PropTypes.func,
     toggleBookmark: PropTypes.func,
     votePost: PropTypes.func,
@@ -74,6 +76,7 @@ class PostContent extends React.Component {
     followingList: [],
     pendingFollows: [],
     bookmarks: {},
+    sliderMode: 'auto',
     editPost: () => {},
     toggleBookmark: () => {},
     votePost: () => {},
@@ -91,30 +94,26 @@ class PostContent extends React.Component {
     }
   }
 
-  handleLikeClick = () => {
-    const { user, content } = this.props;
-    const userVote = find(content.active_votes, { voter: user.name }) || {};
-    if (userVote.percent > 0) {
-      this.props.votePost(content.id, content.author, content.permlink, 0);
+  handleLikeClick = (post, weight = 10000) => {
+    const { sliderMode, user } = this.props;
+    if (sliderMode === 'auto' && sliderMode === 'off') {
+      console.log('voting on', post.permlink, 'for auto');
+      const userVote = find(post.active_votes, { voter: user.name }) || {};
+      if (userVote.percent > 0) {
+        this.props.votePost(post.id, post.author, post.permlink, 0);
+      } else {
+        this.props.votePost(post.id, post.author, post.permlink);
+      }
     } else {
-      this.props.votePost(content.id, content.author, content.permlink);
+      this.props.votePost(post.id, post.author, post.permlink, weight);
     }
   };
 
-  handleReportClick = () => {
-    const { content } = this.props;
-    this.props.votePost(content.id, content.author, content.permlink, -1000);
-  };
+  handleReportClick = post => this.props.votePost(post.id, post.author, post.permlink, -10000);
 
-  handleShareClick = () => {
-    const { content } = this.props;
-    this.props.reblog(content.id);
-  };
+  handleShareClick = post => this.props.reblog(post.id);
 
-  handleSaveClick = () => {
-    const { content } = this.props;
-    this.props.toggleBookmark(content.id, content.author, content.permlink);
-  };
+  handleSaveClick = post => this.props.toggleBookmark(post.id, post.author, post.permlink);
 
   handleFollowClick = (post) => {
     const isFollowed = this.props.followingList.includes(post.author);
@@ -125,9 +124,7 @@ class PostContent extends React.Component {
     }
   };
 
-  handleEditClick = () => {
-    this.props.editPost(this.props.content);
-  };
+  handleEditClick = post => this.props.editPost(post);
 
   render() {
     const {
@@ -141,6 +138,7 @@ class PostContent extends React.Component {
       bookmarks,
       pendingBookmarks,
       saving,
+      sliderMode,
     } = this.props;
 
     const postMetaData = jsonParse(content.json_metadata);
@@ -203,6 +201,7 @@ class PostContent extends React.Component {
           pendingBookmark={pendingBookmarks.includes(content.id)}
           saving={saving}
           ownPost={author === user.name}
+          sliderMode={sliderMode}
           onLikeClick={this.handleLikeClick}
           onReportClick={this.handleReportClick}
           onShareClick={this.handleShareClick}

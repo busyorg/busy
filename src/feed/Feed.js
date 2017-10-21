@@ -19,6 +19,7 @@ import {
   getFollowingList,
   getPendingFollows,
   getIsEditorSaving,
+  getVotingPower,
 } from '../reducers';
 
 import Story from '../components/Story/Story';
@@ -36,6 +37,7 @@ import './Feed.less';
     followingList: getFollowingList(state),
     pendingFollows: getPendingFollows(state),
     saving: getIsEditorSaving(state),
+    sliderMode: getVotingPower(state),
   }),
   {
     editPost,
@@ -60,6 +62,7 @@ export default class Feed extends React.Component {
     saving: PropTypes.bool.isRequired,
     isFetching: PropTypes.bool,
     hasMore: PropTypes.bool,
+    sliderMode: PropTypes.oneOf(['on', 'off', 'auto']),
     editPost: PropTypes.func,
     toggleBookmark: PropTypes.func,
     votePost: PropTypes.func,
@@ -72,6 +75,7 @@ export default class Feed extends React.Component {
   static defaultProps = {
     isFetching: false,
     hasMore: false,
+    sliderMode: 'auto',
     editPost: () => {},
     toggleBookmark: () => {},
     votePost: () => {},
@@ -80,6 +84,27 @@ export default class Feed extends React.Component {
     unfollowUser: () => {},
     loadMoreContent: () => {},
   };
+
+  handleLikeClick = (post, weight = 10000) => {
+    const { sliderMode, user } = this.props;
+    if (sliderMode === 'auto' || sliderMode === 'off') {
+      console.log('voting on', post.permlink, 'for auto');
+      const userVote = find(post.active_votes, { voter: user.name }) || {};
+      if (userVote.percent > 0) {
+        this.props.votePost(post.id, post.author, post.permlink, 0);
+      } else {
+        this.props.votePost(post.id, post.author, post.permlink);
+      }
+    } else {
+      this.props.votePost(post.id, post.author, post.permlink, weight);
+    }
+  };
+
+  handleReportClick = post => this.props.votePost(post.id, post.author, post.permlink, -10000);
+
+  handleShareClick = post => this.props.reblog(post.id);
+
+  handleSaveClick = post => this.props.toggleBookmark(post.id, post.author, post.permlink);
 
   handleFollowClick = (post) => {
     const isFollowed = this.props.followingList.includes(post.author);
@@ -105,10 +130,8 @@ export default class Feed extends React.Component {
       followingList,
       pendingFollows,
       pendingReblogs,
-      toggleBookmark,
-      reblog,
-      votePost,
       saving,
+      sliderMode,
     } = this.props;
 
     return (
@@ -122,15 +145,6 @@ export default class Feed extends React.Component {
         threshold={200}
       >
         {content.map((post) => {
-          // if (this.props.username) {
-          //   if (this.props.onlyReblogs && post.author === this.props.username) {
-          //     return false;
-          //   }
-          //   if (this.props.hideReblogs && post.author !== this.props.username) {
-          //     return false;
-          //   }
-          // }
-
           const userVote = _.find(post.active_votes, { voter: user.name }) || {};
 
           const postState = {
@@ -142,12 +156,6 @@ export default class Feed extends React.Component {
             userFollowed: followingList.includes(post.author),
           };
 
-          const likePost =
-            userVote.percent > 0
-              ? () => votePost(post.id, post.author, post.permlink, 0)
-              : () => votePost(post.id, post.author, post.permlink);
-          const reportPost = () => votePost(post.id, -1000);
-
           return (
             <Story
               key={post.id}
@@ -158,11 +166,12 @@ export default class Feed extends React.Component {
               pendingBookmark={pendingBookmarks.includes(post.id)}
               saving={saving}
               ownPost={post.author === user.name}
+              sliderMode={sliderMode}
+              onLikeClick={this.handleLikeClick}
+              onReportClick={this.handleReportClick}
+              onShareClick={this.handleShareClick}
+              onSaveClick={this.handleSaveClick}
               onFollowClick={this.handleFollowClick}
-              onSaveClick={() => toggleBookmark(post.id, post.author, post.permlink)}
-              onReportClick={reportPost}
-              onLikeClick={likePost}
-              onShareClick={() => reblog(post.id)}
               onEditClick={this.handleEditClick}
             />
           );

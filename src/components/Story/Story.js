@@ -28,6 +28,7 @@ class Story extends React.Component {
     pendingBookmark: PropTypes.bool,
     saving: PropTypes.bool,
     ownPost: PropTypes.bool,
+    sliderMode: PropTypes.oneOf(['on', 'off', 'auto']),
     onFollowClick: PropTypes.func,
     onSaveClick: PropTypes.func,
     onReportClick: PropTypes.func,
@@ -42,6 +43,7 @@ class Story extends React.Component {
     pendingBookmark: false,
     saving: false,
     ownPost: false,
+    sliderMode: 'auto',
     onFollowClick: () => {},
     onSaveClick: () => {},
     onReportClick: () => {},
@@ -52,18 +54,20 @@ class Story extends React.Component {
   };
 
   handleClick = (key) => {
+    const { post } = this.props;
+
     switch (key) {
       case 'follow':
-        this.props.onFollowClick(this.props.post);
+        this.props.onFollowClick(post);
         return;
       case 'save':
-        this.props.onSaveClick();
+        this.props.onSaveClick(post);
         return;
       case 'report':
-        this.props.onReportClick();
+        this.props.onReportClick(post);
         break;
       case 'edit':
-        this.props.onEditClick(this.props.post);
+        this.props.onEditClick(post);
         break;
       default:
     }
@@ -79,6 +83,7 @@ class Story extends React.Component {
       pendingBookmark,
       saving,
       ownPost,
+      sliderMode,
       onLikeClick,
       onShareClick,
       onEditClick,
@@ -234,9 +239,10 @@ class Story extends React.Component {
               post={post}
               postState={postState}
               pendingLike={pendingLike}
+              ownPost={ownPost}
+              sliderMode={sliderMode}
               onLikeClick={onLikeClick}
               onShareClick={onShareClick}
-              ownPost={ownPost}
               onEditClick={onEditClick}
             />
           </div>

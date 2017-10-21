@@ -94,7 +94,7 @@ export default class Buttons extends React.Component {
     this.setState({
       loadingEdit: true,
     });
-    this.props.onEditClick(this.props.post);
+    this.props.onEditClick();
   };
 
   render() {

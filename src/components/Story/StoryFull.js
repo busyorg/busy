@@ -1,7 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import { injectIntl, FormattedMessage, FormattedRelative, FormattedDate, FormattedTime } from 'react-intl';
+import {
+  injectIntl,
+  FormattedMessage,
+  FormattedRelative,
+  FormattedDate,
+  FormattedTime,
+} from 'react-intl';
 import { Link } from 'react-router-dom';
 import { Tag, Icon, Popover, Tooltip } from 'antd';
 import Lightbox from 'react-image-lightbox';
@@ -25,6 +31,7 @@ class StoryFull extends React.Component {
     commentCount: PropTypes.number,
     saving: PropTypes.bool,
     ownPost: PropTypes.bool,
+    sliderMode: PropTypes.oneOf(['on', 'off', 'auto']),
     onFollowClick: PropTypes.func,
     onSaveClick: PropTypes.func,
     onReportClick: PropTypes.func,
@@ -40,6 +47,7 @@ class StoryFull extends React.Component {
     commentCount: 0,
     saving: false,
     ownPost: false,
+    sliderMode: 'auto',
     onFollowClick: () => {},
     onSaveClick: () => {},
     onReportClick: () => {},
@@ -76,7 +84,7 @@ class StoryFull extends React.Component {
         this.props.onSaveClick();
         return;
       case 'report':
-        this.props.onReportClick();
+        this.props.onReportClick(this.props.post);
         break;
       case 'edit':
         this.props.onEditClick();
@@ -112,6 +120,7 @@ class StoryFull extends React.Component {
       commentCount,
       saving,
       ownPost,
+      sliderMode,
       onLikeClick,
       onShareClick,
       onEditClick,
@@ -125,13 +134,25 @@ class StoryFull extends React.Component {
     let followText = '';
 
     if (postState.userFollowed && !pendingFollow) {
-      followText = intl.formatMessage({ id: 'unfollow_username', defaultMessage: 'Unfollow {username}' }, { username: post.author });
+      followText = intl.formatMessage(
+        { id: 'unfollow_username', defaultMessage: 'Unfollow {username}' },
+        { username: post.author },
+      );
     } else if (postState.userFollowed && pendingFollow) {
-      followText = intl.formatMessage({ id: 'unfollow_username', defaultMessage: 'Unfollow {username}' }, { username: post.author });
+      followText = intl.formatMessage(
+        { id: 'unfollow_username', defaultMessage: 'Unfollow {username}' },
+        { username: post.author },
+      );
     } else if (!postState.userFollowed && !pendingFollow) {
-      followText = intl.formatMessage({ id: 'follow_username', defaultMessage: 'Follow {username}' }, { username: post.author });
+      followText = intl.formatMessage(
+        { id: 'follow_username', defaultMessage: 'Follow {username}' },
+        { username: post.author },
+      );
     } else if (!postState.userFollowed && pendingFollow) {
-      followText = intl.formatMessage({ id: 'follow_username', defaultMessage: 'Follow {username}' }, { username: post.author });
+      followText = intl.formatMessage(
+        { id: 'follow_username', defaultMessage: 'Follow {username}' },
+        { username: post.author },
+      );
     }
 
     let replyUI = null;
@@ -140,18 +161,30 @@ class StoryFull extends React.Component {
       replyUI = (
         <div className="StoryFull__reply">
           <h3 className="StoryFull__reply__title">
-            <FormattedMessage id="post_reply_title" defaultMessage="This is a reply to: {title}" values={{ title: post.root_title }} />
+            <FormattedMessage
+              id="post_reply_title"
+              defaultMessage="This is a reply to: {title}"
+              values={{ title: post.root_title }}
+            />
           </h3>
           <h4>
             <Link to={post.url}>
-              <FormattedMessage id="post_reply_show_original_post" defaultMessage="Show original post" />
+              <FormattedMessage
+                id="post_reply_show_original_post"
+                defaultMessage="Show original post"
+              />
             </Link>
           </h4>
-          {post.depth > 1 && <h4>
-            <Link to={`/${post.category}/@${post.parent_author}/${post.parent_permlink}`}>
-              <FormattedMessage id="post_reply_show_parent_discussion" defaultMessage="Show parent discussion" />
-            </Link>
-          </h4>}
+          {post.depth > 1 && (
+            <h4>
+              <Link to={`/${post.category}/@${post.parent_author}/${post.parent_permlink}`}>
+                <FormattedMessage
+                  id="post_reply_show_parent_discussion"
+                  defaultMessage="Show parent discussion"
+                />
+              </Link>
+            </h4>
+          )}
         </div>
       );
     }
@@ -159,17 +192,23 @@ class StoryFull extends React.Component {
     let popoverMenu = [];
 
     if (ownPost && post.cashout_time !== '1969-12-31T23:59:59') {
-      popoverMenu = [...popoverMenu, <PopoverMenuItem key="edit">
-        {saving ? <Icon type="loading" /> : <i className="iconfont icon-write" />}
-        <FormattedMessage id="edit_post" defaultMessage="Edit post" />
-      </PopoverMenuItem>];
+      popoverMenu = [
+        ...popoverMenu,
+        <PopoverMenuItem key="edit">
+          {saving ? <Icon type="loading" /> : <i className="iconfont icon-write" />}
+          <FormattedMessage id="edit_post" defaultMessage="Edit post" />
+        </PopoverMenuItem>,
+      ];
     }
 
     if (!ownPost) {
-      popoverMenu = [...popoverMenu, <PopoverMenuItem key="follow" disabled={pendingFollow}>
-        {pendingFollow ? <Icon type="loading" /> : <i className="iconfont icon-people" />}
-        {followText}
-      </PopoverMenuItem>];
+      popoverMenu = [
+        ...popoverMenu,
+        <PopoverMenuItem key="follow" disabled={pendingFollow}>
+          {pendingFollow ? <Icon type="loading" /> : <i className="iconfont icon-people" />}
+          {followText}
+        </PopoverMenuItem>,
+      ];
     }
 
     popoverMenu = [
@@ -187,13 +226,10 @@ class StoryFull extends React.Component {
       </PopoverMenuItem>,
     ];
 
-
     return (
       <div className="StoryFull">
         {replyUI}
-        <h1 className="StoryFull__title">
-          {post.title}
-        </h1>
+        <h1 className="StoryFull__title">{post.title}</h1>
         <h3 className="StoryFull__comments_title">
           <a href="#comments">
             <FormattedMessage
@@ -210,10 +246,13 @@ class StoryFull extends React.Component {
           <div className="StoryFull__header__text">
             <Link to={`/@${post.author}`}>
               {post.author}
-              <Tooltip title={intl.formatMessage({ id: 'reputation_score', defaultMessage: 'Reputation score' })}>
-                <Tag>
-                  {formatter.reputation(post.author_reputation)}
-                </Tag>
+              <Tooltip
+                title={intl.formatMessage({
+                  id: 'reputation_score',
+                  defaultMessage: 'Reputation score',
+                })}
+              >
+                <Tag>{formatter.reputation(post.author_reputation)}</Tag>
               </Tooltip>
             </Link>
             <Tooltip
@@ -248,18 +287,19 @@ class StoryFull extends React.Component {
           }}
           onClick={this.handleContentClick}
         >
-          {_.has(video, 'content.videohash') && _.has(video, 'info.snaphash') &&
-            <video
-              controls
-              src={`https://ipfs.io/ipfs/${video.content.videohash}`}
-              poster={`https://ipfs.io/ipfs/${video.info.snaphash}`}
-            >
-              <track kind="captions" />
-            </video>
-          }
+          {_.has(video, 'content.videohash') &&
+            _.has(video, 'info.snaphash') && (
+              <video
+                controls
+                src={`https://ipfs.io/ipfs/${video.content.videohash}`}
+                poster={`https://ipfs.io/ipfs/${video.info.snaphash}`}
+              >
+                <track kind="captions" />
+              </video>
+            )}
           <Body full body={post.body} json_metadata={post.json_metadata} />
         </div>
-        {open &&
+        {open && (
           <Lightbox
             mainSrc={images[index]}
             nextSrc={images[(index + 1) % images.length]}
@@ -286,7 +326,8 @@ class StoryFull extends React.Component {
                   index: (index + (images.length + 1)) % images.length,
                 },
               })}
-          />}
+          />
+        )}
         <div className="StoryFull__topics">
           {tags && tags.map(tag => <Topic key={tag} name={tag} />)}
         </div>
@@ -294,10 +335,11 @@ class StoryFull extends React.Component {
           post={post}
           postState={postState}
           pendingLike={pendingLike}
+          ownPost={ownPost}
+          sliderMode={sliderMode}
           onLikeClick={onLikeClick}
           onShareClick={onShareClick}
           onEditClick={onEditClick}
-          ownPost={ownPost}
         />
       </div>
     );

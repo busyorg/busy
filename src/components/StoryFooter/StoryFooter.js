@@ -11,7 +11,9 @@ class StoryFooter extends React.Component {
     post: PropTypes.shape().isRequired,
     postState: PropTypes.shape().isRequired,
     ownPost: PropTypes.bool,
+    sliderMode: PropTypes.oneOf(['on', 'off', 'auto']),
     pendingLike: PropTypes.bool,
+    onLikeClick: PropTypes.func,
     onShareClick: PropTypes.func,
     onEditClick: PropTypes.func,
   };
@@ -19,6 +21,8 @@ class StoryFooter extends React.Component {
   static defaultProps = {
     pendingLike: false,
     ownPost: false,
+    sliderMode: 'auto',
+    onLikeClick: () => {},
     onShareClick: () => {},
     onEditClick: () => {},
   };
@@ -29,12 +33,24 @@ class StoryFooter extends React.Component {
   };
 
   handleLikeClick = () => {
-    if (!this.state.sliderVisible) {
-      this.setState(prevState => ({ sliderVisible: !prevState.sliderVisible }));
+    if (this.props.sliderMode === 'on') {
+      if (!this.state.sliderVisible) {
+        this.setState(prevState => ({ sliderVisible: !prevState.sliderVisible }));
+      }
+    } else {
+      this.props.onLikeClick(this.props.post, 10000);
     }
   };
 
-  handleLikeConfirm = () => {};
+  handleLikeConfirm = () => {
+    this.setState({ sliderVisible: false }, () => {
+      this.props.onLikeClick(this.props.post, this.state.sliderValue * 100);
+    });
+  };
+
+  handleShareClick = () => this.props.onShareClick(this.props.post);
+
+  handleEditClick = () => this.props.onEditClick(this.props.post);
 
   handleSliderCancel = () => this.setState({ sliderVisible: false });
 
@@ -57,8 +73,8 @@ class StoryFooter extends React.Component {
               pendingLike={pendingLike}
               ownPost={ownPost}
               onLikeClick={this.handleLikeClick}
-              onShareClick={this.props.onShareClick}
-              onEditClick={this.props.onEditClick}
+              onShareClick={this.handleShareClick}
+              onEditClick={this.handleEditClick}
             />
           )}
         </div>
