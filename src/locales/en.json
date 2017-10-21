@@ -52,6 +52,7 @@
   "add_to_favorites":"Add to favorites",
   "remove_from_favorites":"Remove from favorites",
   "like":"Like",
+  "like_slider_info":"Your vote will be worth {amount}.",
   "dislike":"Dislike",
   "and_more_amount":"and {amount} more",
   "post_reply_title":"This is a reply to: {title}",

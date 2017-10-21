@@ -7,7 +7,7 @@ import { Tag, Icon, Popover, Tooltip } from 'antd';
 import Lightbox from 'react-image-lightbox';
 import { formatter } from 'steem';
 import Body from './Body';
-import StoryFooter from './StoryFooter';
+import StoryFooter from '../StoryFooter/StoryFooter';
 import Avatar from '../Avatar';
 import Topic from '../Button/Topic';
 import PopoverMenu, { PopoverMenuItem } from '../PopoverMenu/PopoverMenu';

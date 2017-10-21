@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { injectIntl } from 'react-intl';
+import { injectIntl, FormattedMessage } from 'react-intl';
 import { Radio, Slider as AntSlider } from 'antd';
-import Action from '../Button/Action';
 import './Slider.less';
 
 const RadioButton = Radio.Button;
@@ -12,11 +11,34 @@ const RadioGroup = Radio.Group;
 export default class Slider extends React.Component {
   static propTypes = {
     intl: PropTypes.shape().isRequired,
+    value: PropTypes.number,
+    onChange: PropTypes.func,
+  };
+
+  static defaultProps = {
+    value: 100,
+    onChange: () => {},
   };
 
   state = {
-    value: 50,
+    value: 100,
   };
+
+  componentWillMount() {
+    if (this.props.value) {
+      this.setState({
+        value: this.props.value,
+      });
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.value !== this.props.value) {
+      this.setState({
+        value: nextProps.value,
+      });
+    }
+  }
 
   getCurrentValue = () => this.state.value * this.percentValue;
 
@@ -36,23 +58,33 @@ export default class Slider extends React.Component {
     100: '100%',
   };
 
-  handlePresetChange = event => this.setState({ value: event.target.value });
+  handlePresetChange = (event) => {
+    this.setState({ value: event.target.value }, () => {
+      this.props.onChange(event.target.value);
+    });
+  };
 
-  handleChange = value => this.setState({ value });
+  handleChange = (value) => {
+    this.setState({ value }, () => {
+      this.props.onChange(value);
+    });
+  };
 
   formatTip = value => `${value}% - ${this.getCurrentFormattedValue()}`;
 
   render() {
+    const { value } = this.state;
+
     return (
       <div className="Slider">
         <AntSlider
-          value={this.state.value}
+          value={value}
           marks={this.marks}
           tipFormatter={this.formatTip}
           onChange={this.handleChange}
         />
         <div className="Slider__presets">
-          <RadioGroup value={this.state.value} size="large" onChange={this.handlePresetChange}>
+          <RadioGroup value={value} size="large" onChange={this.handlePresetChange}>
             <RadioButton value={1}>1%</RadioButton>
             <RadioButton value={25}>25%</RadioButton>
             <RadioButton value={50}>50%</RadioButton>
@@ -60,7 +92,19 @@ export default class Slider extends React.Component {
             <RadioButton value={100}>100%</RadioButton>
           </RadioGroup>
         </div>
-        <Action primary text={`Like (${this.getCurrentFormattedValue()})`} />
+        <div className="Slider__info">
+          <h3>
+            <FormattedMessage
+              id="like_slider_info"
+              defaultMessage="Your vote will be worth {amount}."
+              values={{
+                amount: (
+                  <span className="Slider__info__amount">{this.getCurrentFormattedValue()}</span>
+                ),
+              }}
+            />
+          </h3>
+        </div>
       </div>
     );
   }
