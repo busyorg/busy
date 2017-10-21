@@ -148,6 +148,7 @@ storiesOf('Story', module)
   .add('Story loading', () => <StoryLoading />)
   .add('Inline story', () => (
     <Story
+      user={{}}
       post={post}
       onFollowClick={action('Follow click')}
       onSaveClick={action('Save click')}
@@ -159,6 +160,7 @@ storiesOf('Story', module)
   ))
   .add('Inline story with embed', () => (
     <Story
+      user={{}}
       post={postWithEmbed}
       onFollowClick={action('Follow click')}
       onSaveClick={action('Save click')}
@@ -170,6 +172,7 @@ storiesOf('Story', module)
   ))
   .add('Full story', () => (
     <StoryFull
+      user={{}}
       post={post}
       commentCount={Object.keys(postState.content).length}
       onFollowClick={action('Follow click')}
@@ -182,6 +185,7 @@ storiesOf('Story', module)
   ))
   .add('Full story with embed', () => (
     <StoryFull
+      user={{}}
       post={postWithEmbed}
       commentCount={Object.keys(postState.content).length}
       onFollowClick={action('Follow click')}

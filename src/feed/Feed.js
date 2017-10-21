@@ -157,6 +157,7 @@ export default class Feed extends React.Component {
 
           return (
             <Story
+              user={user}
               key={post.id}
               post={post}
               postState={postState}

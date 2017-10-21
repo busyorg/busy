@@ -23,6 +23,7 @@ import './StoryFull.less';
 class StoryFull extends React.Component {
   static propTypes = {
     intl: PropTypes.shape().isRequired,
+    user: PropTypes.shape().isRequired,
     post: PropTypes.shape().isRequired,
     postState: PropTypes.shape().isRequired,
     pendingLike: PropTypes.bool,
@@ -112,6 +113,7 @@ class StoryFull extends React.Component {
   render() {
     const {
       intl,
+      user,
       post,
       postState,
       pendingLike,
@@ -332,6 +334,7 @@ class StoryFull extends React.Component {
           {tags && tags.map(tag => <Topic key={tag} name={tag} />)}
         </div>
         <StoryFooter
+          user={user}
           post={post}
           postState={postState}
           pendingLike={pendingLike}

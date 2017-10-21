@@ -21,6 +21,7 @@ import './Story.less';
 class Story extends React.Component {
   static propTypes = {
     intl: PropTypes.shape().isRequired,
+    user: PropTypes.shape().isRequired,
     post: PropTypes.shape().isRequired,
     postState: PropTypes.shape().isRequired,
     pendingLike: PropTypes.bool,
@@ -76,6 +77,7 @@ class Story extends React.Component {
   render() {
     const {
       intl,
+      user,
       post,
       postState,
       pendingLike,
@@ -236,6 +238,7 @@ class Story extends React.Component {
           </div>
           <div className="Story__footer">
             <StoryFooter
+              user={user}
               post={post}
               postState={postState}
               pendingLike={pendingLike}

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import find from 'lodash/find';
 import Slider from '../Slider/Slider';
 import Payout from './Payout';
 import Buttons from './Buttons';
@@ -8,6 +9,7 @@ import './StoryFooter.less';
 
 class StoryFooter extends React.Component {
   static propTypes = {
+    user: PropTypes.shape().isRequired,
     post: PropTypes.shape().isRequired,
     postState: PropTypes.shape().isRequired,
     ownPost: PropTypes.bool,
@@ -31,6 +33,19 @@ class StoryFooter extends React.Component {
     sliderVisible: false,
     sliderValue: 100,
   };
+
+  componentWillMount() {
+    const { user, post } = this.props;
+    if (user) {
+      const userVote = find(post.active_votes, { voter: user.name }) || {};
+
+      if (userVote.percent && userVote.percent > 0) {
+        this.setState({
+          sliderValue: userVote.percent / 100,
+        });
+      }
+    }
+  }
 
   handleLikeClick = () => {
     if (this.props.sliderMode === 'on') {

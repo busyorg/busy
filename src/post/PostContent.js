@@ -192,6 +192,7 @@ class PostContent extends React.Component {
           />
         </Helmet>
         <StoryFull
+          user={user}
           post={content}
           postState={postState}
           commentCount={content.children}

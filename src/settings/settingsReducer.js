@@ -7,7 +7,7 @@ const initialState = {
   loading: false,
 };
 
-export default (state = initialState, action) => {
+const settings = (state = initialState, action) => {
   switch (action.type) {
     case authTypes.LOGIN_SUCCESS:
     case authTypes.RELOAD_SUCCESS:
@@ -46,6 +46,8 @@ export default (state = initialState, action) => {
       return state;
   }
 };
+
+export default settings;
 
 export const getIsLoading = state => state.loading;
 export const getLocale = state => state.locale;
