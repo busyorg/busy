@@ -165,7 +165,7 @@ class PostContent extends React.Component {
     const htmlBody = getHtml(body, {}, 'text');
     const bodyText = sanitize(htmlBody, { allowedTags: [] });
     const desc = `${bodyText.substring(0, 140)} by ${author}`;
-    const image = postMetaImage || `${process.env.STEEMCONNECT_IMG_HOST}/@${author}`;
+    const image = postMetaImage || `${process.env.IMG_HOST}/@${author}`;
     const canonicalUrl = `${canonicalHost}${content.url}`;
     const url = `${busyHost}${content.url}`;
     const metaTitle = `${title} - Busy`;
