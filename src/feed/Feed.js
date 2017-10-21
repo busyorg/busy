@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ReduxInfiniteScroll from 'redux-infinite-scroll';
 import _ from 'lodash';
+import { getHasDefaultSlider } from '../helpers/ranks';
 import * as bookmarkActions from '../bookmarks/bookmarksActions';
 import * as reblogActions from '../app/Reblog/reblogActions';
 import * as postActions from '../post/postActions';
@@ -87,15 +88,15 @@ export default class Feed extends React.Component {
 
   handleLikeClick = (post, weight = 10000) => {
     const { sliderMode, user } = this.props;
-    if (sliderMode === 'auto' || sliderMode === 'off') {
+    if (sliderMode === 'on' || (sliderMode === 'auto' && getHasDefaultSlider(user))) {
+      this.props.votePost(post.id, post.author, post.permlink, weight);
+    } else {
       const userVote = find(post.active_votes, { voter: user.name }) || {};
       if (userVote.percent > 0) {
         this.props.votePost(post.id, post.author, post.permlink, 0);
       } else {
         this.props.votePost(post.id, post.author, post.permlink);
       }
-    } else {
-      this.props.votePost(post.id, post.author, post.permlink, weight);
     }
   };
 

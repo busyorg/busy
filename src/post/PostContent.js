@@ -5,6 +5,7 @@ import find from 'lodash/find';
 import { Helmet } from 'react-helmet';
 import sanitize from 'sanitize-html';
 import getImage from '../helpers/getImage';
+import { getHasDefaultSlider } from '../helpers/ranks';
 import {
   getAuthenticatedUser,
   getBookmarks,
@@ -96,15 +97,15 @@ class PostContent extends React.Component {
 
   handleLikeClick = (post, weight = 10000) => {
     const { sliderMode, user } = this.props;
-    if (sliderMode === 'auto' && sliderMode === 'off') {
+    if (sliderMode === 'on' || (sliderMode === 'auto' && getHasDefaultSlider(user))) {
+      this.props.votePost(post.id, post.author, post.permlink, weight);
+    } else {
       const userVote = find(post.active_votes, { voter: user.name }) || {};
       if (userVote.percent > 0) {
         this.props.votePost(post.id, post.author, post.permlink, 0);
       } else {
         this.props.votePost(post.id, post.author, post.permlink);
       }
-    } else {
-      this.props.votePost(post.id, post.author, post.permlink, weight);
     }
   };
 

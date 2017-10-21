@@ -26,4 +26,13 @@ export const getUserRankKey = (vests) => {
   return `rank_${rank}`;
 };
 
+export const getHasDefaultSlider = (user) => {
+  const totalShares =
+    parseFloat(user.vesting_shares) +
+    parseFloat(user.received_vesting_shares) +
+    -parseFloat(user.delegated_vesting_shares);
+
+  return totalShares >= 10000000;
+};
+
 export default null;

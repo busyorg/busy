@@ -5,6 +5,7 @@ import Slider from '../Slider/Slider';
 import Payout from './Payout';
 import Buttons from './Buttons';
 import Confirmation from './Confirmation';
+import { getHasDefaultSlider } from '../../helpers/ranks';
 import './StoryFooter.less';
 
 class StoryFooter extends React.Component {
@@ -48,7 +49,8 @@ class StoryFooter extends React.Component {
   }
 
   handleLikeClick = () => {
-    if (this.props.sliderMode === 'on') {
+    const { sliderMode, user } = this.props;
+    if (sliderMode === 'on' || (sliderMode === 'auto' && getHasDefaultSlider(user))) {
       if (!this.state.sliderVisible) {
         this.setState(prevState => ({ sliderVisible: !prevState.sliderVisible }));
       }
