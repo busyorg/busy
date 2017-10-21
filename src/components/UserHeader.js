@@ -60,22 +60,24 @@ const UserHeader = ({
               <FollowButton username={handle} />
             )}
           </div>
-          {!isSameUser && <Popover
-            placement="bottom"
-            trigger="click"
-            content={
-              <PopoverMenu onSelect={onSelect}>
-                <PopoverMenuItem key="transfer">
-                  <FormattedMessage id="transfer" defaultMessage="Transfer" />
-                </PopoverMenuItem>
-                <PopoverMenuItem key="mute">
-                  <FormattedMessage id="block_user" defaultMessage="Block this user" />
-                </PopoverMenuItem>
-              </PopoverMenu>
-            }
-          >
-            <i className="iconfont icon-more UserHeader__more" />
-          </Popover>}
+          {!isSameUser && (
+            <Popover
+              placement="bottom"
+              trigger="click"
+              content={
+                <PopoverMenu onSelect={onSelect}>
+                  <PopoverMenuItem key="transfer">
+                    <FormattedMessage id="transfer" defaultMessage="Transfer" />
+                  </PopoverMenuItem>
+                  <PopoverMenuItem key="mute">
+                    <FormattedMessage id="block_user" defaultMessage="Block this user" />
+                  </PopoverMenuItem>
+                </PopoverMenu>
+              }
+            >
+              <i className="iconfont icon-more UserHeader__more" />
+            </Popover>
+          )}
         </div>
         <div className="UserHeader__handle-rank-container">
           <div className="UserHeader__row UserHeader__handle">@{handle}</div>
