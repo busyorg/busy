@@ -39,7 +39,7 @@
   "unfollowing":"Ontvolgen",
   "followers":"Volgers",
   "reblogged":"Gedeeld",
-  "reblogged_username":"{username} heeft dit bericht gedeeld",
+  "reblogged_username":"{username} heeft je bericht gedeeld",
   "follow_username":"Volg {username}",
   "unfollow_username":"Ontvolg {username}",
   "block_user":"Deze gebruiker blokkeren",
