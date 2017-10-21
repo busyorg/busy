@@ -88,7 +88,6 @@ export default class Feed extends React.Component {
   handleLikeClick = (post, weight = 10000) => {
     const { sliderMode, user } = this.props;
     if (sliderMode === 'auto' || sliderMode === 'off') {
-      console.log('voting on', post.permlink, 'for auto');
       const userVote = find(post.active_votes, { voter: user.name }) || {};
       if (userVote.percent > 0) {
         this.props.votePost(post.id, post.author, post.permlink, 0);
