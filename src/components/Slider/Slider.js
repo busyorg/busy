@@ -12,11 +12,13 @@ export default class Slider extends React.Component {
   static propTypes = {
     intl: PropTypes.shape().isRequired,
     value: PropTypes.number,
+    voteWorth: PropTypes.number,
     onChange: PropTypes.func,
   };
 
   static defaultProps = {
     value: 100,
+    voteWorth: 0,
     onChange: () => {},
   };
 
@@ -32,6 +34,10 @@ export default class Slider extends React.Component {
     }
   }
 
+  componentDidMount() {
+    this.props.onChange(this.state.value);
+  }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.value !== this.props.value) {
       this.setState({
@@ -40,15 +46,13 @@ export default class Slider extends React.Component {
     }
   }
 
-  getCurrentValue = () => this.state.value * this.percentValue;
+  getCurrentValue = () => this.props.voteWorth;
 
   getCurrentFormattedValue = () =>
-    this.props.intl.formatNumber(this.state.value * this.percentValue, {
+    this.props.intl.formatNumber(this.getCurrentValue(), {
       style: 'currency',
       currency: 'USD',
     });
-
-  percentValue = 0.4424;
 
   marks = {
     0: '0%',

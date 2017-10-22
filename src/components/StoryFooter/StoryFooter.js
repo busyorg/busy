@@ -5,7 +5,7 @@ import Slider from '../Slider/Slider';
 import Payout from './Payout';
 import Buttons from './Buttons';
 import Confirmation from './Confirmation';
-import { getHasDefaultSlider } from '../../helpers/ranks';
+import { getHasDefaultSlider, getVoteValue } from '../../helpers/user';
 import './StoryFooter.less';
 
 class StoryFooter extends React.Component {
@@ -13,6 +13,7 @@ class StoryFooter extends React.Component {
     user: PropTypes.shape().isRequired,
     post: PropTypes.shape().isRequired,
     postState: PropTypes.shape().isRequired,
+    rewardFund: PropTypes.shape().isRequired,
     ownPost: PropTypes.bool,
     sliderMode: PropTypes.oneOf(['on', 'off', 'auto']),
     pendingLike: PropTypes.bool,
@@ -33,6 +34,7 @@ class StoryFooter extends React.Component {
   state = {
     sliderVisible: false,
     sliderValue: 100,
+    voteWorth: 0,
   };
 
   componentWillMount() {
@@ -71,7 +73,16 @@ class StoryFooter extends React.Component {
 
   handleSliderCancel = () => this.setState({ sliderVisible: false });
 
-  handleSliderChange = value => this.setState({ sliderValue: value });
+  handleSliderChange = (value) => {
+    const { user, rewardFund } = this.props;
+    const voteWorth = getVoteValue(
+      user,
+      rewardFund.recent_claims,
+      rewardFund.reward_balance,
+      value * 100,
+    );
+    this.setState({ sliderValue: value, voteWorth });
+  };
 
   render() {
     const { post, postState, pendingLike, ownPost } = this.props;
@@ -96,7 +107,11 @@ class StoryFooter extends React.Component {
           )}
         </div>
         {this.state.sliderVisible && (
-          <Slider value={this.state.sliderValue} onChange={this.handleSliderChange} />
+          <Slider
+            value={this.state.sliderValue}
+            voteWorth={this.state.voteWorth}
+            onChange={this.handleSliderChange}
+          />
         )}
       </div>
     );

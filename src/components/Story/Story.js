@@ -24,6 +24,7 @@ class Story extends React.Component {
     user: PropTypes.shape().isRequired,
     post: PropTypes.shape().isRequired,
     postState: PropTypes.shape().isRequired,
+    rewardFund: PropTypes.shape().isRequired,
     pendingLike: PropTypes.bool,
     pendingFollow: PropTypes.bool,
     pendingBookmark: PropTypes.bool,
@@ -84,6 +85,7 @@ class Story extends React.Component {
       pendingFollow,
       pendingBookmark,
       saving,
+      rewardFund,
       ownPost,
       sliderMode,
       onLikeClick,
@@ -242,6 +244,7 @@ class Story extends React.Component {
               post={post}
               postState={postState}
               pendingLike={pendingLike}
+              rewardFund={rewardFund}
               ownPost={ownPost}
               sliderMode={sliderMode}
               onLikeClick={onLikeClick}

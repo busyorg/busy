@@ -6,6 +6,11 @@ export const GET_TRENDING_TOPICS_START = '@app/GET_TRENDING_TOPICS_START';
 export const GET_TRENDING_TOPICS_SUCCESS = '@app/GET_TRENDING_TOPICS_SUCCESS';
 export const GET_TRENDING_TOPICS_ERROR = '@app/GET_TRENDING_TOPICS_ERROR';
 
+export const GET_REWARD_FUND = '@app/GET_REWARD_FUND';
+export const GET_REWARD_FUND_START = '@app/GET_REWARD_FUND_START';
+export const GET_REWARD_FUND_SUCCESS = '@app/GET_REWARD_FUND_SUCCESS';
+export const GET_REWARD_FUND_ERROR = '@app/GET_REWARD_FUND_ERROR';
+
 export const RATE_REQUEST = '@app/RATE_REQUEST';
 export const RATE_SUCCESS = '@app/RATE_SUCCESS';
 
@@ -20,6 +25,14 @@ export const getRate = () => (dispatch) => {
         rate,
       });
     });
+};
+
+export const getRewardFund = () => (dispatch, getSelection, { steemAPI }) => {
+  const getRewardFundAsync = Promise.promisify(steemAPI.getRewardFund, { context: steemAPI });
+  return dispatch({
+    type: GET_REWARD_FUND,
+    payload: { promise: getRewardFundAsync('post') },
+  });
 };
 
 export const getTrendingTopics = () => (dispatch, getState, { steemAPI }) => {

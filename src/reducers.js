@@ -60,6 +60,7 @@ export const getIsPostEdited = (state, permlink) =>
 
 export const getRate = state => fromApp.getRate(state.app);
 export const getIsTrendingTopicsLoading = state => fromApp.getIsTrendingTopicsLoading(state.app);
+export const getRewardFund = state => fromApp.getRewardFund(state.app);
 export const getTrendingTopics = state => fromApp.getTrendingTopics(state.app);
 export const getIsFetching = state => fromApp.getIsFetching(state.app);
 

@@ -149,6 +149,7 @@ storiesOf('Story', module)
   .add('Inline story', () => (
     <Story
       user={{}}
+      rewardFund={{}}
       post={post}
       onFollowClick={action('Follow click')}
       onSaveClick={action('Save click')}
@@ -161,6 +162,7 @@ storiesOf('Story', module)
   .add('Inline story with embed', () => (
     <Story
       user={{}}
+      rewardFund={{}}
       post={postWithEmbed}
       onFollowClick={action('Follow click')}
       onSaveClick={action('Save click')}
@@ -173,6 +175,7 @@ storiesOf('Story', module)
   .add('Full story', () => (
     <StoryFull
       user={{}}
+      rewardFund={{}}
       post={post}
       commentCount={Object.keys(postState.content).length}
       onFollowClick={action('Follow click')}
@@ -186,6 +189,7 @@ storiesOf('Story', module)
   .add('Full story with embed', () => (
     <StoryFull
       user={{}}
+      rewardFund={{}}
       post={postWithEmbed}
       commentCount={Object.keys(postState.content).length}
       onFollowClick={action('Follow click')}

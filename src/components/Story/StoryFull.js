@@ -26,6 +26,7 @@ class StoryFull extends React.Component {
     user: PropTypes.shape().isRequired,
     post: PropTypes.shape().isRequired,
     postState: PropTypes.shape().isRequired,
+    rewardFund: PropTypes.shape().isRequired,
     pendingLike: PropTypes.bool,
     pendingFollow: PropTypes.bool,
     pendingBookmark: PropTypes.bool,
@@ -121,6 +122,7 @@ class StoryFull extends React.Component {
       pendingBookmark,
       commentCount,
       saving,
+      rewardFund,
       ownPost,
       sliderMode,
       onLikeClick,
@@ -339,6 +341,7 @@ class StoryFull extends React.Component {
           postState={postState}
           pendingLike={pendingLike}
           ownPost={ownPost}
+          rewardFund={rewardFund}
           sliderMode={sliderMode}
           onLikeClick={onLikeClick}
           onShareClick={onShareClick}

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ReduxInfiniteScroll from 'redux-infinite-scroll';
 import _ from 'lodash';
-import { getHasDefaultSlider } from '../helpers/ranks';
+import { getHasDefaultSlider } from '../helpers/user';
 import * as bookmarkActions from '../bookmarks/bookmarksActions';
 import * as reblogActions from '../app/Reblog/reblogActions';
 import * as postActions from '../post/postActions';
@@ -21,6 +21,7 @@ import {
   getPendingFollows,
   getIsEditorSaving,
   getVotingPower,
+  getRewardFund,
 } from '../reducers';
 
 import Story from '../components/Story/Story';
@@ -39,6 +40,7 @@ import './Feed.less';
     pendingFollows: getPendingFollows(state),
     saving: getIsEditorSaving(state),
     sliderMode: getVotingPower(state),
+    rewardFund: getRewardFund(state),
   }),
   {
     editPost,
@@ -61,6 +63,7 @@ export default class Feed extends React.Component {
     followingList: PropTypes.arrayOf(PropTypes.string).isRequired,
     reblogList: PropTypes.arrayOf(PropTypes.number).isRequired,
     saving: PropTypes.bool.isRequired,
+    rewardFund: PropTypes.shape().isRequired,
     isFetching: PropTypes.bool,
     hasMore: PropTypes.bool,
     sliderMode: PropTypes.oneOf(['on', 'off', 'auto']),
@@ -132,6 +135,7 @@ export default class Feed extends React.Component {
       pendingReblogs,
       saving,
       sliderMode,
+      rewardFund,
     } = this.props;
 
     return (
@@ -168,6 +172,7 @@ export default class Feed extends React.Component {
               saving={saving}
               ownPost={post.author === user.name}
               sliderMode={sliderMode}
+              rewardFund={rewardFund}
               onLikeClick={this.handleLikeClick}
               onReportClick={this.handleReportClick}
               onShareClick={this.handleShareClick}

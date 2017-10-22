@@ -8,6 +8,7 @@ const initialState = {
   rate: 0,
   trendingTopicsLoading: false,
   trendingTopics: [],
+  rewardFund: {},
 };
 
 export default (state = initialState, action) => {
@@ -34,6 +35,14 @@ export default (state = initialState, action) => {
         isFetching: false,
         isLoaded: true,
       };
+    case appTypes.GET_REWARD_FUND_SUCCESS:
+      return {
+        ...state,
+        rewardFund: {
+          ...state.rewardFund,
+          ...action.payload,
+        },
+      };
     case appTypes.GET_TRENDING_TOPICS_START:
       return {
         ...state,
@@ -58,5 +67,6 @@ export default (state = initialState, action) => {
 
 export const getRate = state => state.rate;
 export const getIsTrendingTopicsLoading = state => state.trendingTopicsLoading;
+export const getRewardFund = state => state.rewardFund;
 export const getTrendingTopics = state => state.trendingTopics;
 export const getIsFetching = state => state.isFetching;

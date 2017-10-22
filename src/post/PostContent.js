@@ -5,7 +5,7 @@ import find from 'lodash/find';
 import { Helmet } from 'react-helmet';
 import sanitize from 'sanitize-html';
 import getImage from '../helpers/getImage';
-import { getHasDefaultSlider } from '../helpers/ranks';
+import { getHasDefaultSlider } from '../helpers/user';
 import {
   getAuthenticatedUser,
   getBookmarks,
@@ -17,6 +17,7 @@ import {
   getPendingFollows,
   getIsEditorSaving,
   getVotingPower,
+  getRewardFund,
 } from '../reducers';
 import { editPost } from './Write/editorActions';
 import { votePost } from './postActions';
@@ -39,6 +40,7 @@ import StoryFull from '../components/Story/StoryFull';
     pendingFollows: getPendingFollows(state),
     saving: getIsEditorSaving(state),
     sliderMode: getVotingPower(state),
+    rewardFund: getRewardFund(state),
   }),
   {
     editPost,
@@ -58,9 +60,10 @@ class PostContent extends React.Component {
     pendingReblogs: PropTypes.arrayOf(PropTypes.number),
     followingList: PropTypes.arrayOf(PropTypes.string),
     pendingFollows: PropTypes.arrayOf(PropTypes.string),
-    bookmarks: PropTypes.shape(),
     pendingBookmarks: PropTypes.arrayOf(PropTypes.number).isRequired,
     saving: PropTypes.bool.isRequired,
+    rewardFund: PropTypes.shape().isRequired,
+    bookmarks: PropTypes.shape(),
     sliderMode: PropTypes.oneOf(['on', 'off', 'auto']),
     editPost: PropTypes.func,
     toggleBookmark: PropTypes.func,
@@ -139,6 +142,7 @@ class PostContent extends React.Component {
       pendingBookmarks,
       saving,
       sliderMode,
+      rewardFund,
     } = this.props;
 
     const postMetaData = jsonParse(content.json_metadata);
@@ -201,6 +205,7 @@ class PostContent extends React.Component {
           pendingFollow={pendingFollows.includes(content.author)}
           pendingBookmark={pendingBookmarks.includes(content.id)}
           saving={saving}
+          rewardFund={rewardFund}
           ownPost={author === user.name}
           sliderMode={sliderMode}
           onLikeClick={this.handleLikeClick}

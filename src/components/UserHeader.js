@@ -5,7 +5,7 @@ import { injectIntl, FormattedMessage } from 'react-intl';
 import { Tag, Tooltip, Popover } from 'antd';
 import { formatter } from 'steem';
 import getImage from '../helpers/getImage';
-import { getUserRankKey, getUserRank } from '../helpers/ranks';
+import { getUserRankKey, getUserRank } from '../helpers/user';
 import Avatar from './Avatar';
 import FollowButton from '../widgets/FollowButton';
 import Action from './Button/Action';
