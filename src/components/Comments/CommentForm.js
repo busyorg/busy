@@ -47,10 +47,6 @@ class CommentForm extends React.Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    
-  }
-
   setInput = (input) => {
     if (input && input.refs && input.refs.input) {
       // eslint-disable-next-line react/no-find-dom-node
