@@ -48,9 +48,7 @@ class CommentForm extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (!nextProps.isLoading) {
-      this.setState({ inputValue: nextProps.inputValue || '' });
-    }
+    
   }
 
   setInput = (input) => {
@@ -164,6 +162,7 @@ class CommentForm extends React.Component {
     this.setState({ isDisabledSubmit: true });
     if (this.state.inputValue) {
       this.props.onSubmit(this.props.parentPost, this.state.inputValue);
+      this.setState({ inputValue: '' });
     }
   };
 
