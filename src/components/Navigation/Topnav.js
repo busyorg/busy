@@ -24,10 +24,34 @@ const Topnav = ({
 
   const next = window.location.pathname.length > 1 ? window.location.pathname : '';
 
+  const search = (
+    <Menu.Item key="search" className="Topnav__item-search">
+      <Popover
+        placement="bottomRight"
+        trigger="click"
+        content={
+          <div className="Topnav__input-container">
+            <Input
+              onPressEnter={event => window.open(`https://www.google.com/search?q=${encodeURIComponent(`site:steemit.com ${event.target.value}`)}`)}
+              placeholder={intl.formatMessage({ id: 'search_placeholder', defaultMessage: 'Search...' })}
+            />
+            <i className="iconfont icon-search" />
+          </div>
+        }
+        title={intl.formatMessage({ id: 'search', defaultMessage: 'Search' })}
+      >
+        <a className="Topnav__search Topnav__link Topnav__link--light">
+          <i className="iconfont icon-search" />
+        </a>
+      </Popover>
+    </Menu.Item>
+  );
+
   if (username) {
     content = (
       <div className="Topnav__menu-container">
         <Menu selectedKeys={[]} className="Topnav__menu-container__menu" mode="horizontal">
+          {search}
           <Menu.Item key="write">
             <Tooltip placement="bottom" title={intl.formatMessage({ id: 'write_post', defaultMessage: 'Write post' })}>
               <Link to="/write" className="Topnav__link">
@@ -107,6 +131,7 @@ const Topnav = ({
     content = (
       <div className="Topnav__menu-container">
         <Menu className="Topnav__menu-container__menu" mode="horizontal">
+          {search}
           <Menu.Item key="signup">
             <a target="_blank" rel="noopener noreferrer" href="https://steemit.com/pick_account">
               <FormattedMessage id="signup" defaultMessage="Sign up" />

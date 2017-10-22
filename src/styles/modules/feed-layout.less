@@ -2,6 +2,10 @@
 
 .feed-layout {
   position: relative;
+  padding: 0 @mobile-padding;
+  @media @medium {
+    padding: 0;
+  }
 
   &:after {
     content: "";
