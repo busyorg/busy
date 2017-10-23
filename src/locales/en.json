@@ -174,5 +174,13 @@
   "rank_minnow":"Minnow",
   "rank_dolphin":"Dolphin",
   "rank_orca":"Orca",
-  "rank_whale":"Whale"
+  "rank_whale":"Whale",
+  "steem":"Steem",
+  "steem_dollar":"Steem Dollar",
+  "steem_power": "Steem Power",
+  "savings":"Savings",
+  "est_account_value": "Est. Account Value",
+  "transferred_to": "Transferred to {username}",
+  "received_from": "Received from {username}",
+  "claim_rewards": "Claim rewards"
 }

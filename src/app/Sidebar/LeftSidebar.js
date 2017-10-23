@@ -7,6 +7,7 @@ import NavigationUser from './NavigationUser';
 
 const LeftSidebar = () => (
   <Switch>
+    <Route path="/@:name/wallet" component={Navigation} />
     <Route path="/@:name" component={UserInfo} />
     <Route path="/activity" component={NavigationUser} />
     <Route path="/replies" component={NavigationUser} />

@@ -1,0 +1,54 @@
+@import (reference) "../styles/custom.less";
+
+.UserWalletTransactions {
+  border: 1px solid @white-gainsboro;
+  border-radius: @border-radius-base;
+  margin: 20px 0;
+
+  &__transaction {
+    color: @grey-night-rider;
+    display: flex;
+    padding: 10px;
+    margin: 0 15px;
+    border-bottom: 1px solid @white-gainsboro;
+  }
+
+  &__memo {
+    word-wrap: break-word;
+  }
+
+  &__avatar {
+    margin-top: 5px;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    padding-left: 10px;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  &__content-recipient {
+    display: flex;
+    flex-direction: row;
+  }
+
+  &__timestamp {
+    color: @blue-botticelli;
+  }
+
+  &__transfer {
+    color: @red;
+    margin-left: auto;
+  }
+
+  &__received {
+    color: @green;
+    margin-left: auto;
+  }
+
+  &__payout {
+    margin-left: auto;
+  }
+}
