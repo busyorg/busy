@@ -2,6 +2,9 @@
 
 .post-layout {
   position: relative;
+  @media @medium-max-width {
+    padding: 0 @mobile-padding
+  }
 
   &:after {
     content: "";
@@ -11,12 +14,6 @@
 
   .right {
     width: @right-width;
-
-    padding-right: @mobile-padding;
-
-    @media @medium {
-      padding-right: 0;
-    }
   }
 
   .rightContainer {
@@ -32,16 +29,9 @@
   .center {
     float: left;
     width: 100%;
-    padding-right: @mobile-padding;
-    padding-left: @mobile-padding;
 
     @media @small {
       width: calc(100% ~"-" (@right-width + @margin));
-      padding-right: 0;
-    }
-
-    @media @medium {
-      padding-left: 0;
     }
   }
 }
