@@ -1,6 +1,6 @@
 import keyBy from 'lodash/keyBy';
 import omit from 'lodash/omit';
-
+import people from '../helpers/people';
 import * as actions from './userActions';
 
 const initialState = {
@@ -12,11 +12,20 @@ const initialState = {
   fileUploadError: null,
   filesFetchError: null,
   filesFetchIsLoading: true,
+  recommendations: [],
   following: {
     list: [],
     pendingFollows: [],
     isFetching: false,
   },
+};
+
+// filterRecommendations generates a random list of `count` recommendations
+// include users followed by the current user.
+const filterRecommendations = (following, count = 5) => {
+  const usernames = Object.values(following);
+  const filtered = usernames.length > 0 ? people.filter(p => !usernames.includes(p)) : people;
+  return filtered.sort(() => 0.5 - Math.random()).slice(0, count).map(r => ({ name: r }));
 };
 
 export default function userReducer(state = initialState, action) {
@@ -92,6 +101,7 @@ export default function userReducer(state = initialState, action) {
     case actions.GET_FOLLOWING_SUCCESS:
       return {
         ...state,
+        recommendations: filterRecommendations(action.payload),
         following: {
           ...state.following,
           list: action.payload,
@@ -141,6 +151,13 @@ export default function userReducer(state = initialState, action) {
           ),
         },
       };
+
+    case actions.UPDATE_RECOMMENDATIONS:
+      return {
+        ...state,
+        recommendations: filterRecommendations(state.following.list),
+      };
+
     default: {
       return state;
     }
@@ -149,3 +166,4 @@ export default function userReducer(state = initialState, action) {
 
 export const getFollowingList = state => state.following.list;
 export const getPendingFollows = state => state.following.pendingFollows;
+export const getRecommendations = state => state.recommendations;

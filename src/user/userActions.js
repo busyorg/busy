@@ -133,3 +133,6 @@ export const getFollowing = (userName = '') => (dispatch, getState) => {
     },
   });
 };
+
+export const UPDATE_RECOMMENDATIONS = '@user/UPDATE_RECOMMENDATIONS';
+export const updateRecommendations = () => dispatch => dispatch({ type: UPDATE_RECOMMENDATIONS });
