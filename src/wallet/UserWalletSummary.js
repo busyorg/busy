@@ -19,7 +19,7 @@ const UserWalletSummary = ({ user, estAccountValue, loading, loadingAccountValue
       </div>
     </div>
     <div className="UserWalletSummary__item">
-      <i className="iconfont icon-flashlight_fill UserWalletSummary__icon" />
+      <i className="iconfont icon-Dollar UserWalletSummary__icon" />
       <div className="UserWalletSummary__label">
         <FormattedMessage id="steem_dollar" defaultMessage="Steem Dollar" />
       </div>
@@ -30,7 +30,7 @@ const UserWalletSummary = ({ user, estAccountValue, loading, loadingAccountValue
       </div>
     </div>
     <div className="UserWalletSummary__item">
-      <i className="iconfont icon-Dollar UserWalletSummary__icon" />
+      <i className="iconfont icon-flashlight_fill UserWalletSummary__icon" />
       <div className="UserWalletSummary__label">
         <FormattedMessage id="steem_power" defaultMessage="Steem Power" />
       </div>
@@ -52,7 +52,7 @@ const UserWalletSummary = ({ user, estAccountValue, loading, loadingAccountValue
         {loading
           ? <Loading />
           : <span>
-            <FormattedNumber value={parseFloat(user.savings_balance)} />{' STEEM'}<br />
+            <FormattedNumber value={parseFloat(user.savings_balance)} />{' STEEM, '}
             <FormattedNumber value={parseFloat(user.savings_sbd_balance)} />{' SBD'}
           </span>}
       </div>
