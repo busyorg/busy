@@ -59,6 +59,9 @@ class UserMenu extends React.Component {
                   <FormattedNumber value={this.props.following} />
                 </span>
               </li>
+              <li className={this.getItemClasses('transfers')} onClick={this.handleClick} role="presentation" data-key="transfers">
+                <FormattedMessage id="wallet" defaultMessage="Wallet" />
+              </li>
             </ul>
           </Scrollbars>
         </div>

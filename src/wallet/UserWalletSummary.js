@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, FormattedNumber } from 'react-intl';
 import Loading from '../components/Icon/Loading';
 import './UserWalletSummary.less';
+import USDDisplay from '../components/Utils/USDDisplay';
 
 const UserWalletSummary = ({ user, estAccountValue, loading, loadingAccountValue }) => (
   <div className="UserWalletSummary">
@@ -12,7 +13,9 @@ const UserWalletSummary = ({ user, estAccountValue, loading, loadingAccountValue
         <FormattedMessage id="steem" defaultMessage="Steem" />
       </div>
       <div className="UserWalletSummary__value">
-        {loading ? <Loading /> : user.balance}
+        {loading
+          ? <Loading />
+          : <span><FormattedNumber value={parseFloat(user.balance)} />{' STEEM'}</span>}
       </div>
     </div>
     <div className="UserWalletSummary__item">
@@ -21,7 +24,9 @@ const UserWalletSummary = ({ user, estAccountValue, loading, loadingAccountValue
         <FormattedMessage id="steem_dollar" defaultMessage="Steem Dollar" />
       </div>
       <div className="UserWalletSummary__value">
-        {loading ? <Loading /> : user.sbd_balance}
+        {loading
+          ? <Loading />
+          : <span><FormattedNumber value={parseFloat(user.sbd_balance)} />{' SBD'}</span>}
       </div>
     </div>
     <div className="UserWalletSummary__item">
@@ -30,7 +35,12 @@ const UserWalletSummary = ({ user, estAccountValue, loading, loadingAccountValue
         <FormattedMessage id="steem_power" defaultMessage="Steem Power" />
       </div>
       <div className="UserWalletSummary__value">
-        {loading ? <Loading /> : parseFloat(user.steem_power).toFixed(3)}
+        {loading
+          ? <Loading />
+          : <span>
+            <FormattedNumber value={parseFloat(user.steem_power)} />
+            {' SP'}
+          </span>}
       </div>
     </div>
     <div className="UserWalletSummary__item">
@@ -41,7 +51,10 @@ const UserWalletSummary = ({ user, estAccountValue, loading, loadingAccountValue
       <div className="UserWalletSummary__value">
         {loading
           ? <Loading />
-          : <span>{user.savings_balance}<br />{user.savings_sbd_balance}</span>}
+          : <span>
+            <FormattedNumber value={parseFloat(user.savings_balance)} />{' STEEM'}<br />
+            <FormattedNumber value={parseFloat(user.savings_sbd_balance)} />{' SBD'}
+          </span>}
       </div>
     </div>
     <div className="UserWalletSummary__item">
@@ -50,7 +63,7 @@ const UserWalletSummary = ({ user, estAccountValue, loading, loadingAccountValue
         <FormattedMessage id="est_account_value" defaultMessage="Est. Account Value" />
       </div>
       <div className="UserWalletSummary__value">
-        {loadingAccountValue ? <Loading /> : `$${estAccountValue}`}
+        {loadingAccountValue ? <Loading /> : <USDDisplay value={parseFloat(estAccountValue)} />}
       </div>
     </div>
   </div>

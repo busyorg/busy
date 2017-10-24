@@ -32,7 +32,7 @@ class SteemTrendingCharts extends Component {
     this.setState({
       loading: true,
     });
-    Promise.all([getSteemPriceHistory(), getSteemDollarPriceHistory()]).then(response => {
+    Promise.all([getSteemPriceHistory(), getSteemDollarPriceHistory()]).then((response) => {
       const steemPriceHistory = _.map(response[0].Data, data => data.close);
       const steemDollarPriceHistory = _.map(response[1].Data, data => data.close);
       this.setState({

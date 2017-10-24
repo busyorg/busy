@@ -4,8 +4,8 @@ import { FormattedMessage, FormattedRelative } from 'react-intl';
 
 const ClaimReward = ({ timestamp, rewardSteem, rewardSbd, rewardVests }) => (
   <div className="UserWalletTransactions__transaction">
-    <div className="UserWalletTransactions__icon">
-      <i className="iconfont icon-ranking" />
+    <div className="UserWalletTransactions__icon-container">
+      <i className="iconfont icon-ranking UserWalletTransactions__icon" />
     </div>
     <div className="UserWalletTransactions__content">
       <div className="UserWalletTransactions__content-recipient">
