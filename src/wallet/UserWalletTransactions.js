@@ -4,15 +4,11 @@ import './UserWalletSummary.less';
 import './UserWalletTransactions.less';
 import ReceiveTransaction from './ReceiveTransaction';
 import TransferTransaction from './TransferTransaction';
-import CurationReward from './CurationReward';
-import AuthorReward from './AuthorReward';
+import ClaimReward from './ClaimReward';
+import TransferToSavings from './TransferToSavings';
+import TransferFromSavings from './TransferFromSavings';
 
-const UserWalletTransactions = ({
-  transactions,
-  currentUsername,
-  totalVestingShares,
-  totalVestingFundSteem,
-}) => (
+const UserWalletTransactions = ({ transactions, currentUsername }) => (
   <div className="UserWalletTransactions">
     {transactions
       .map((transaction, index) => {
@@ -21,6 +17,7 @@ const UserWalletTransactions = ({
         const transactionDetails = transaction.op[1];
 
         switch (transactionType) {
+          case 'transfer_to_vesting':
           case 'transfer':
             if (transactionDetails.to === currentUsername) {
               return (
@@ -42,22 +39,34 @@ const UserWalletTransactions = ({
                 timestamp={transaction.timestamp}
               />
             );
-          case 'curation_reward':
+          case 'claim_reward_balance':
             return (
-              <CurationReward
+              <ClaimReward
                 key={key}
                 timestamp={transaction.timestamp}
-                reward={transactionDetails.reward}
-                totalVestingShares={totalVestingShares}
-                totalVestingFundSteem={totalVestingFundSteem}
+                rewardSteem={transactionDetails.reward_steem}
+                rewardSbd={transactionDetails.reward_sbd}
+                rewardVests={transactionDetails.reward_vests}
               />
             );
-          case 'author_reward':
+          case 'transfer_to_savings':
             return (
-              <AuthorReward
+              <TransferToSavings
                 key={key}
-                sbdPayout={transactionDetails.sbd_payout}
-                steemPayout={transactionDetails.steem_payout}
+                to={transactionDetails.to}
+                memo={transactionDetails.memo}
+                amount={transactionDetails.amount}
+                timestamp={transaction.timestamp}
+              />
+            );
+
+          case 'transfer_from_savings':
+            return (
+              <TransferFromSavings
+                key={key}
+                from={transactionDetails.from}
+                memo={transactionDetails.memo}
+                amount={transactionDetails.amount}
                 timestamp={transaction.timestamp}
               />
             );
@@ -72,15 +81,11 @@ const UserWalletTransactions = ({
 UserWalletTransactions.propTypes = {
   transactions: PropTypes.arrayOf(PropTypes.shape()),
   currentUsername: PropTypes.string,
-  totalVestingShares: PropTypes.string,
-  totalVestingFundSteem: PropTypes.string,
 };
 
 UserWalletTransactions.defaultProps = {
   transactions: [],
   currentUsername: '',
-  totalVestingShares: '',
-  totalVestingFundSteem: '',
 };
 
 export default UserWalletTransactions;

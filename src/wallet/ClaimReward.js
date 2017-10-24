@@ -1,19 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedRelative } from 'react-intl';
-import steem from 'steem';
 
-const CurationReward = ({ timestamp, reward, totalVestingShares, totalVestingFundSteem }) => (
+const ClaimReward = ({ timestamp, rewardSteem, rewardSbd, rewardVests }) => (
   <div className="UserWalletTransactions__transaction">
     <div className="UserWalletTransactions__icon">
       <i className="iconfont icon-ranking" />
     </div>
     <div className="UserWalletTransactions__content">
       <div className="UserWalletTransactions__content-recipient">
-        <FormattedMessage id="claim_rewards" defaultMessage="Claim rewards" />
-        <span className="UserWalletTransactions__payout">
-          {`${steem.formatter.vestToSteem(reward, totalVestingShares, totalVestingFundSteem)} SP`}
-        </span>
+        <FormattedMessage
+          id="claim_rewards"
+          defaultMessage="Claim rewards: {rewardSteem}, {rewardSteem}, and {rewardVests}"
+          values={{
+            rewardSteem,
+            rewardSbd,
+            rewardVests,
+          }}
+        />
       </div>
       <span className="UserWalletTransactions__timestamp">
         <FormattedRelative value={`${timestamp}Z`} />
@@ -22,11 +26,11 @@ const CurationReward = ({ timestamp, reward, totalVestingShares, totalVestingFun
   </div>
 );
 
-CurationReward.propTypes = {
+ClaimReward.propTypes = {
   timestamp: PropTypes.string.isRequired,
-  reward: PropTypes.string.isRequired,
-  totalVestingShares: PropTypes.string.isRequired,
-  totalVestingFundSteem: PropTypes.string.isRequired,
+  rewardSteem: PropTypes.string.isRequired,
+  rewardSbd: PropTypes.string.isRequired,
+  rewardVests: PropTypes.string.isRequired,
 };
 
-export default CurationReward;
+export default ClaimReward;

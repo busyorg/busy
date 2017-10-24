@@ -110,12 +110,14 @@ export const mapAPIContentToId = apiRes => mapToId(apiRes.content);
 
 const isWalletTransaction = actionType =>
   actionType === 'transfer' ||
-  actionType === 'interest' ||
+  actionType === 'transfer_to_vesting' ||
+  actionType === 'cancel_transfer_from_savings' ||
   actionType === 'transfer_from_savings' ||
-  actionType === 'curation_reward';
+  actionType === 'delegate_vesting_shares' ||
+  actionType === 'claim_reward_balance';
 
 export const getTransactionHistory = account =>
-  SteemAPI.getAccountHistory(account, -1, 1000).then(results =>
+  SteemAPI.getAccountHistory(account, -1, 5000).then(results =>
     _.compact(
       results.map((action) => {
         const actionDetails = action[1] || { op: [] };

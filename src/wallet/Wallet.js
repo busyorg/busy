@@ -27,8 +27,6 @@ import SteemTrendingCharts from '../components/Sidebar/SteemTrendingCharts';
     estAccountValue: '',
     loading: true,
     loadingAccountValue: true,
-    totalVestingShares: '',
-    totalVestingFundSteem: '',
   };
   componentDidMount() {
     const username = this.props.location.pathname.match(/@(.*)(.*?)\//)[1];
@@ -51,8 +49,6 @@ import SteemTrendingCharts from '../components/Sidebar/SteemTrendingCharts';
               globals.total_vesting_fund_steem,
             ),
           },
-          totalVestingShares: globals.total_vesting_shares,
-          totalVestingFundSteem: globals.total_vesting_fund_steem,
           loading: false,
         });
         steem.formatter.estimateAccountValue(user).then((result) => {
@@ -71,8 +67,6 @@ import SteemTrendingCharts from '../components/Sidebar/SteemTrendingCharts';
       loading,
       estAccountValue,
       loadingAccountValue,
-      totalVestingShares,
-      totalVestingFundSteem,
     } = this.state;
 
     return (
@@ -99,8 +93,6 @@ import SteemTrendingCharts from '../components/Sidebar/SteemTrendingCharts';
               <UserWalletTransactions
                 transactions={transactions}
                 currentUsername={user.name}
-                totalVestingShares={totalVestingShares}
-                totalVestingFundSteem={totalVestingFundSteem}
               />}
           </div>
         </div>

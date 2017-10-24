@@ -4,21 +4,21 @@ import { Link } from 'react-router-dom';
 import { FormattedMessage, FormattedRelative } from 'react-intl';
 import Avatar from '../components/Avatar';
 
-const ReceiveTransaction = ({ from, memo, amount, timestamp }) => (
+const TransferToSavings = ({ to, memo, amount, timestamp }) => (
   <div className="UserWalletTransactions__transaction">
     <div className="UserWalletTransactions__avatar">
-      <Avatar username={from} />
+      <Avatar username={to} />
     </div>
     <div className="UserWalletTransactions__content">
       <div className="UserWalletTransactions__content-recipient">
         <FormattedMessage
-          id="received_from"
-          defaultMessage="Received from {username}"
+          id="transfer_to_savings"
+          defaultMessage="Transfer to savings {amount} to {username}"
           values={{
-            username: <Link to={`/@${from}`}>{from}</Link>,
+            amount,
+            username: <Link to={`/@${to}`}>{to}</Link>,
           }}
         />
-        <span className="UserWalletTransactions__received">{`+ ${amount}`}</span>
       </div>
       <span className="UserWalletTransactions__timestamp">
         <FormattedRelative value={`${timestamp}Z`} />
@@ -30,18 +30,18 @@ const ReceiveTransaction = ({ from, memo, amount, timestamp }) => (
   </div>
 );
 
-ReceiveTransaction.propTypes = {
-  from: PropTypes.string,
+TransferToSavings.propTypes = {
+  to: PropTypes.string,
   memo: PropTypes.string,
   amount: PropTypes.string,
   timestamp: PropTypes.string,
 };
 
-ReceiveTransaction.defaultProps = {
-  from: '',
+TransferToSavings.defaultProps = {
+  to: '',
   memo: '',
   amount: '',
   timestamp: '',
 };
 
-export default ReceiveTransaction;
+export default TransferToSavings;

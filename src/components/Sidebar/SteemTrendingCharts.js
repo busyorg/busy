@@ -3,7 +3,9 @@ import Trend from 'react-trend';
 import fetch from 'isomorphic-fetch';
 import _ from 'lodash';
 import Promise from 'bluebird';
+import { FormattedMessage } from 'react-intl';
 import './SteemTrendingCharts.less';
+import Loading from '../Icon/Loading';
 
 const getSteemPriceHistory = () =>
   fetch('https://min-api.cryptocompare.com/data/histoday?fsym=USD&tsym=STEEM&limit=7').then(res =>
@@ -30,7 +32,7 @@ class SteemTrendingCharts extends Component {
     this.setState({
       loading: true,
     });
-    Promise.all([getSteemPriceHistory(), getSteemDollarPriceHistory()]).then((response) => {
+    Promise.all([getSteemPriceHistory(), getSteemDollarPriceHistory()]).then(response => {
       const steemPriceHistory = _.map(response[0].Data, data => data.close);
       const steemDollarPriceHistory = _.map(response[1].Data, data => data.close);
       this.setState({
@@ -42,7 +44,7 @@ class SteemTrendingCharts extends Component {
   };
 
   render() {
-    const { steemPriceHistory, steemDollarPriceHistory } = this.state;
+    const { steemPriceHistory, steemDollarPriceHistory, loading } = this.state;
     const currentSteemPrice = _.last(steemPriceHistory);
     const currentSteemDollarPrice = _.last(steemDollarPriceHistory);
     const previousSteemPrice = _.nth(steemPriceHistory, -2);
@@ -54,7 +56,7 @@ class SteemTrendingCharts extends Component {
       <div className="SteemTrendingCharts">
         <h4 className="SteemTrendingCharts__title">
           <i className="iconfont icon-chart SteemTrendingCharts__icon" />
-          {'Market'}
+          <FormattedMessage id="market" defaultMessage="Market" />
           <i
             role="presentation"
             onClick={this.getSteemPriceHistories}
@@ -63,7 +65,7 @@ class SteemTrendingCharts extends Component {
         </h4>
         <div className="SteemTrendingCharts__divider" />
         <div className="SteemTrendingCharts__chart-header">
-          {'Steem'}
+          <FormattedMessage id="steem" defaultMessage="Steem" />
           <span className="SteemTrendingCharts__chart-value">
             {`$${currentSteemPrice}`}
             {steemPriceIncrease
@@ -71,10 +73,12 @@ class SteemTrendingCharts extends Component {
               : <i className="iconfont icon-caretbottom SteemTrendingCharts__chart-caret-down" />}
           </span>
         </div>
-        <Trend data={steemPriceHistory} stroke={'#4757b2'} strokeWidth={5} />
+        {loading
+          ? <Loading />
+          : <Trend data={steemPriceHistory} stroke={'#4757b2'} strokeWidth={5} />}
         <div className="SteemTrendingCharts__divider" />
         <div className="SteemTrendingCharts__chart-header">
-          <span>{'Steem Dollar'}</span>
+          <FormattedMessage id="steem_dollar" defaultMessage="Steem Dollar" />
           <span className="SteemTrendingCharts__chart-value">
             {`$${currentSteemDollarPrice} `}
             {steemDollarPriceIncrease
@@ -82,7 +86,9 @@ class SteemTrendingCharts extends Component {
               : <i className="iconfont icon-caretbottom SteemTrendingCharts__chart-caret-down" />}
           </span>
         </div>
-        <Trend data={steemDollarPriceHistory} stroke={'#4757b2'} strokeWidth={5} />
+        {loading
+          ? <Loading />
+          : <Trend data={steemDollarPriceHistory} stroke={'#4757b2'} strokeWidth={5} />}
       </div>
     );
   }
