@@ -6,6 +6,8 @@ const _ = require('lodash');
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const DEFAULTS = {
   isDevelopment: process.env.NODE_ENV !== 'production',
@@ -75,6 +77,13 @@ function makePlugins(options) {
     ]);
   } else {
     plugins = plugins.concat([
+      new CleanWebpackPlugin([path.join(options.baseDir, '/public')], { allowExternal: true }),
+      new CopyWebpackPlugin([
+        {
+          from: path.join(options.baseDir, '/assets'),
+          to: path.join(options.baseDir, '/public'),
+        },
+      ]),
       new webpack.optimize.ModuleConcatenationPlugin(),
       new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
       new webpack.optimize.CommonsChunkPlugin({
