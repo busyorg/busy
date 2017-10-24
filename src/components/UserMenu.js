@@ -27,6 +27,12 @@ class UserMenu extends React.Component {
     };
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      current: nextProps.defaultKey ? nextProps.defaultKey : 'discussions',
+    });
+  }
+
   getItemClasses = key => classNames('UserMenu__item', { 'UserMenu__item--active': this.state.current === key });
 
   handleClick = (e) => {
