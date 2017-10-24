@@ -7,7 +7,6 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-
 const DEFAULTS = {
   isDevelopment: process.env.NODE_ENV !== 'production',
   baseDir: path.resolve(__dirname, '..'),
@@ -31,9 +30,7 @@ const POSTCSS_LOADER = {
 };
 
 function isVendor({ resource }) {
-  return resource &&
-    resource.indexOf('node_modules') >= 0 &&
-    resource.match(/\.jsx?$/);
+  return resource && resource.indexOf('node_modules') >= 0 && resource.match(/\.jsx?$/);
 }
 
 function makePlugins(options) {
@@ -48,8 +45,12 @@ function makePlugins(options) {
         IMG_HOST: JSON.stringify(process.env.IMG_HOST || 'https://img.busy.org'),
         SENTRY_PUBLIC_DSN: isDevelopment ? null : JSON.stringify(process.env.SENTRY_PUBLIC_DSN),
         STEEMCONNECT_CLIENT_ID: JSON.stringify(process.env.STEEMCONNECT_CLIENT_ID || 'busy.app'),
-        STEEMCONNECT_REDIRECT_URL: JSON.stringify(process.env.STEEMCONNECT_REDIRECT_URL || 'http://localhost:3000/callback'),
-        STEEMCONNECT_HOST: JSON.stringify(process.env.STEEMCONNECT_HOST || 'https://v2.steemconnect.com'),
+        STEEMCONNECT_REDIRECT_URL: JSON.stringify(
+          process.env.STEEMCONNECT_REDIRECT_URL || 'http://localhost:3000/callback',
+        ),
+        STEEMCONNECT_HOST: JSON.stringify(
+          process.env.STEEMCONNECT_HOST || 'https://v2.steemconnect.com',
+        ),
         STEEMJS_URL: JSON.stringify(process.env.STEEMJS_URL || 'https://api.steemit.com'),
         IS_BROWSER: JSON.stringify(true),
         PUSHPAD_PROJECT_ID: process.env.PUSHPAD_PROJECT_ID,
@@ -74,6 +75,7 @@ function makePlugins(options) {
     ]);
   } else {
     plugins = plugins.concat([
+      new webpack.optimize.ModuleConcatenationPlugin(),
       new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
       new webpack.optimize.CommonsChunkPlugin({
         name: 'vendor',
@@ -156,16 +158,17 @@ function makeConfig(options = {}) {
   return {
     devtool: isDevelopment ? 'eval-source-map' : 'source-map',
     entry: {
-      main: (isDevelopment ? [
-        'webpack-hot-middleware/client?reload=true',
-        'react-hot-loader/patch',
-        // activate HMR for React
-        'webpack/hot/only-dev-server',
-        // bundle the client for hot reloading
-        // only- means to only hot reload for successful updates
-      ] : []).concat([
-        path.join(options.baseDir, 'src/index.js')],
-      ),
+      main: (isDevelopment
+        ? [
+          'webpack-hot-middleware/client?reload=true',
+          'react-hot-loader/patch',
+          // activate HMR for React
+          'webpack/hot/only-dev-server',
+          // bundle the client for hot reloading
+          // only- means to only hot reload for successful updates
+        ]
+        : []
+      ).concat([path.join(options.baseDir, 'src/index.js')]),
     },
     output: {
       path: path.join(options.baseDir, '/public/js'),
@@ -178,13 +181,11 @@ function makeConfig(options = {}) {
         {
           test: /\.js?$/,
           exclude: /node_modules/,
-          use: (options.isDevelopment ? [{ loader: 'react-hot-loader/webpack' }] : []).concat(
-            [
-              {
-                loader: 'babel-loader',
-              },
-            ],
-          ),
+          use: (options.isDevelopment ? [{ loader: 'react-hot-loader/webpack' }] : []).concat([
+            {
+              loader: 'babel-loader',
+            },
+          ]),
         },
         {
           test: /\.(eot|ttf|woff|woff2|svg)(\?.+)?$/,
@@ -212,9 +213,11 @@ function makeConfig(options = {}) {
 }
 
 if (!module.parent) {
-  console.log(makeConfig({
-    isDevelopment: process.env.NODE_ENV !== 'production',
-  }));
+  console.log(
+    makeConfig({
+      isDevelopment: process.env.NODE_ENV !== 'production',
+    }),
+  );
 }
 
 exports = module.exports = makeConfig;
