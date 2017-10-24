@@ -7,7 +7,7 @@ import Avatar from '../components/Avatar';
 const TransferTransaction = ({ to, memo, amount, timestamp }) => (
   <div className="UserWalletTransactions__transaction">
     <div className="UserWalletTransactions__avatar">
-      <Avatar username={to} />
+      <Avatar username={to} size={40} />
     </div>
     <div className="UserWalletTransactions__content">
       <div className="UserWalletTransactions__content-recipient">

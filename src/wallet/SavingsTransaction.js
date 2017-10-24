@@ -51,6 +51,7 @@ const SavingsTransaction = ({ timestamp, transactionType, transactionDetails }) 
             ? transactionDetails.to
             : transactionDetails.from
         }
+        size={40}
       />
     </div>
     <div className="UserWalletTransactions__content">

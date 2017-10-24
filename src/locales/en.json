@@ -186,5 +186,6 @@
   "cancel_transfer_from_savings": "Cancel transfer from savings (request {requestId})",
   "received_from": "Received from {username}",
   "claim_rewards": "Claim rewards: {rewardSteem}, {rewardSteem}, and {rewardVests}",
+  "powered_up": "Powered up: {amount}",
   "market": "Market"
 }

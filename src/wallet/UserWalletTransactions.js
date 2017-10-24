@@ -5,6 +5,7 @@ import './UserWalletTransactions.less';
 import ReceiveTransaction from './ReceiveTransaction';
 import TransferTransaction from './TransferTransaction';
 import SavingsTransaction from './SavingsTransaction';
+import PowerUpTransaction from './PowerUpTransaction';
 import ClaimReward from './ClaimReward';
 
 const UserWalletTransactions = ({ transactions, currentUsername }) => (
@@ -17,6 +18,13 @@ const UserWalletTransactions = ({ transactions, currentUsername }) => (
 
         switch (transactionType) {
           case 'transfer_to_vesting':
+            return (
+              <PowerUpTransaction
+                key={key}
+                amount={transactionDetails.amount}
+                timestamp={transaction.timestamp}
+              />
+            );
           case 'transfer':
             if (transactionDetails.to === currentUsername) {
               return (
