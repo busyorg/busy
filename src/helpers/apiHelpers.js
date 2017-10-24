@@ -113,6 +113,7 @@ const isWalletTransaction = actionType =>
   actionType === 'transfer_to_vesting' ||
   actionType === 'cancel_transfer_from_savings' ||
   actionType === 'transfer_from_savings' ||
+  actionType === 'transfer_to_savings' ||
   actionType === 'delegate_vesting_shares' ||
   actionType === 'claim_reward_balance';
 

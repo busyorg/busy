@@ -4,9 +4,8 @@ import './UserWalletSummary.less';
 import './UserWalletTransactions.less';
 import ReceiveTransaction from './ReceiveTransaction';
 import TransferTransaction from './TransferTransaction';
+import SavingsTransaction from './SavingsTransaction';
 import ClaimReward from './ClaimReward';
-import TransferToSavings from './TransferToSavings';
-import TransferFromSavings from './TransferFromSavings';
 
 const UserWalletTransactions = ({ transactions, currentUsername }) => (
   <div className="UserWalletTransactions">
@@ -50,23 +49,13 @@ const UserWalletTransactions = ({ transactions, currentUsername }) => (
               />
             );
           case 'transfer_to_savings':
-            return (
-              <TransferToSavings
-                key={key}
-                to={transactionDetails.to}
-                memo={transactionDetails.memo}
-                amount={transactionDetails.amount}
-                timestamp={transaction.timestamp}
-              />
-            );
-
           case 'transfer_from_savings':
+          case 'cancel_transfer_from_savings':
             return (
-              <TransferFromSavings
+              <SavingsTransaction
                 key={key}
-                from={transactionDetails.from}
-                memo={transactionDetails.memo}
-                amount={transactionDetails.amount}
+                transactionDetails={transactionDetails}
+                transactionType={transactionType}
                 timestamp={transaction.timestamp}
               />
             );

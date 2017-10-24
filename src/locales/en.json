@@ -183,6 +183,7 @@
   "transferred_to": "Transferred to {username}",
   "transfer_to_savings": "Transfer to savings {amount} to {username}",
   "transfer_from_savings": "Transfer from savings {amount} to {username}",
+  "cancel_transfer_from_savings": "Cancel transfer from savings (request {requestId})",
   "received_from": "Received from {username}",
   "claim_rewards": "Claim rewards: {rewardSteem}, {rewardSteem}, and {rewardVests}",
   "market": "Market"
