@@ -1,11 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
+import steem from 'steem';
 import Loading from '../components/Icon/Loading';
 import './UserWalletSummary.less';
 import USDDisplay from '../components/Utils/USDDisplay';
 
-const UserWalletSummary = ({ user, estAccountValue, loading, loadingAccountValue }) => (
+const UserWalletSummary = ({
+  user,
+  estAccountValue,
+  loading,
+  totalVestingShares,
+  totalVestingFundSteem,
+}) => (
   <div className="UserWalletSummary">
     <div className="UserWalletSummary__item">
       <i className="iconfont icon-steem UserWalletSummary__icon" />
@@ -38,7 +45,15 @@ const UserWalletSummary = ({ user, estAccountValue, loading, loadingAccountValue
         {loading
           ? <Loading />
           : <span>
-            <FormattedNumber value={parseFloat(user.steem_power)} />
+            <FormattedNumber
+              value={parseFloat(
+                steem.formatter.vestToSteem(
+                  user.vesting_shares,
+                  totalVestingShares,
+                  totalVestingFundSteem,
+                ),
+              )}
+            />
             {' SP'}
           </span>}
       </div>
@@ -63,7 +78,7 @@ const UserWalletSummary = ({ user, estAccountValue, loading, loadingAccountValue
         <FormattedMessage id="est_account_value" defaultMessage="Est. Account Value" />
       </div>
       <div className="UserWalletSummary__value">
-        {loadingAccountValue ? <Loading /> : <USDDisplay value={parseFloat(estAccountValue)} />}
+        <USDDisplay value={parseFloat(estAccountValue)} />
       </div>
     </div>
   </div>
@@ -72,8 +87,13 @@ const UserWalletSummary = ({ user, estAccountValue, loading, loadingAccountValue
 UserWalletSummary.propTypes = {
   user: PropTypes.shape().isRequired,
   estAccountValue: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-  loading: PropTypes.bool.isRequired,
-  loadingAccountValue: PropTypes.bool.isRequired,
+  totalVestingShares: PropTypes.string.isRequired,
+  totalVestingFundSteem: PropTypes.string.isRequired,
+  loading: PropTypes.bool,
+};
+
+UserWalletSummary.defaultProps = {
+  loading: false,
 };
 
 export default UserWalletSummary;

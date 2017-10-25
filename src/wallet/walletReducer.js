@@ -1,8 +1,18 @@
-import { OPEN_TRANSFER, CLOSE_TRANSFER } from './walletActions';
+import {
+  OPEN_TRANSFER,
+  CLOSE_TRANSFER,
+  GET_GLOBAL_PROPERTIES,
+  GET_USER_TRANSACTIONS,
+  GET_USER_EST_ACCOUNT_VALUE,
+} from './walletActions';
 
 const initialState = {
   transferVisible: false,
   transferTo: '',
+  totalVestingShares: '',
+  totalVestingFundSteem: '',
+  usersTransactions: {},
+  usersEstAccountsValues: {},
 };
 
 export default function walletReducer(state = initialState, action) {
@@ -18,6 +28,34 @@ export default function walletReducer(state = initialState, action) {
         ...state,
         transferVisible: false,
       };
+    case GET_GLOBAL_PROPERTIES.SUCCESS: {
+      const { total_vesting_shares, total_vesting_fund_steem } = action.payload;
+      return {
+        ...state,
+        totalVestingFundSteem: total_vesting_fund_steem,
+        totalVestingShares: total_vesting_shares,
+      };
+    }
+    case GET_USER_TRANSACTIONS.SUCCESS: {
+      const { username, transactions } = action.payload;
+      return {
+        ...state,
+        usersTransactions: {
+          ...state.usersTransactions,
+          [username]: transactions,
+        },
+      };
+    }
+    case GET_USER_EST_ACCOUNT_VALUE.SUCCESS: {
+      const { username, value } = action.payload;
+      return {
+        ...state,
+        usersEstAccountsValues: {
+          ...state.usersEstAccountsValues,
+          [username]: value,
+        },
+      };
+    }
     default:
       return state;
   }
@@ -25,3 +63,7 @@ export default function walletReducer(state = initialState, action) {
 
 export const getIsTransferVisible = state => state.transferVisible;
 export const getTransferTo = state => state.transferTo;
+export const getTotalVestingShares = state => state.totalVestingShares;
+export const getTotalVestingFundSteem = state => state.totalVestingFundSteem;
+export const getUsersTransactions = state => state.usersTransactions;
+export const getUsersEstAccountsValues = state => state.usersEstAccountsValues;
