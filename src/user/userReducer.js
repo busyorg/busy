@@ -24,8 +24,11 @@ const initialState = {
 // include users followed by the current user.
 const filterRecommendations = (following, count = 5) => {
   const usernames = Object.values(following);
-  const filtered = usernames.length > 0 ? people.filter(p => !usernames.includes(p)) : people;
-  return filtered.sort(() => 0.5 - Math.random()).slice(0, count).map(r => ({ name: r }));
+  return people
+    .filter(p => !usernames.includes(p))
+    .sort(() => 0.5 - Math.random())
+    .slice(0, count)
+    .map(name => ({ name }));
 };
 
 export default function userReducer(state = initialState, action) {
