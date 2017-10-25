@@ -118,7 +118,7 @@ const isWalletTransaction = actionType =>
   actionType === 'claim_reward_balance';
 
 export const getTransactionHistory = account =>
-  SteemAPI.getAccountHistoryAsync(account, -1, 5000).then(results =>
+  SteemAPI.getAccountHistoryAsync(account, -1, 2500).then(results =>
     _.compact(
       results.map((action) => {
         const actionDetails = action[1] || { op: [] };

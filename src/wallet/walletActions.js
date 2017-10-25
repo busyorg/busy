@@ -32,10 +32,12 @@ export const getUserTransactionsSuccess = (username, transactions) => ({
   },
 });
 
-export const getUserTransactions = username => dispatch =>
-  getTransactionHistory(username).then((transactions) => {
+export const getUserTransactions = username => (dispatch) => {
+  dispatch({ type: GET_USER_TRANSACTIONS.PENDING });
+  return getTransactionHistory(username).then((transactions) => {
     dispatch(getUserTransactionsSuccess(username, transactions));
   });
+};
 
 export const getUserEstAccountValueSuccess = (username, value) => ({
   type: GET_USER_EST_ACCOUNT_VALUE.SUCCESS,

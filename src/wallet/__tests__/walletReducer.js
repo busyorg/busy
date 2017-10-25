@@ -6,6 +6,7 @@ const reducerInitialState = {
   totalVestingFundSteem: '',
   usersTransactions: {},
   usersEstAccountsValues: {},
+  usersTransactionsLoading: true,
 };
 
 describe('walletReducer', () => {

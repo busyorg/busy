@@ -5,11 +5,13 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import UserWalletSummary from '../wallet/UserWalletSummary';
 import UserWalletTransactions from '../wallet/UserWalletTransactions';
+import Loading from '../components/Icon/Loading';
 import {
   getUser,
   getTotalVestingShares,
   getTotalVestingFundSteem,
   getUsersTransactions,
+  getUsersTransactionsLoading,
   getUsersEstAccountsValues,
 } from '../reducers';
 import {
@@ -26,6 +28,7 @@ import { getAccountWithFollowingCount } from './usersActions';
     totalVestingShares: getTotalVestingShares(state),
     totalVestingFundSteem: getTotalVestingFundSteem(state),
     usersTransactions: getUsersTransactions(state),
+    usersTransactionsLoading: getUsersTransactionsLoading(state),
     usersEstAccountsValues: getUsersEstAccountsValues(state),
   }),
   dispatch => ({
@@ -48,6 +51,7 @@ class Wallet extends Component {
     getAccountWithFollowingCount: PropTypes.func.isRequired,
     usersTransactions: PropTypes.shape().isRequired,
     usersEstAccountsValues: PropTypes.shape().isRequired,
+    usersTransactionsLoading: PropTypes.bool.isRequired,
   };
 
   componentWillMount() {
@@ -72,7 +76,15 @@ class Wallet extends Component {
       this.props.getAccountWithFollowingCount(username);
     }
 
-    if (_.isEmpty(usersEstAccountsValues[username]) && !_.isEmpty(user)) {
+    if (_.isEmpty(usersEstAccountsValues[username]) && !_.isEmpty(user.name)) {
+      this.props.getUserEstAccountValue(user);
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const username = this.props.location.pathname.match(/@(.*)(.*?)\//)[1];
+    const { user } = this.props;
+    if (_.isEmpty(nextProps.usersEstAccountsValues[username]) && !_.isEmpty(user.name)) {
       this.props.getUserEstAccountValue(user);
     }
   }
@@ -83,6 +95,7 @@ class Wallet extends Component {
       totalVestingShares,
       totalVestingFundSteem,
       usersTransactions,
+      usersTransactionsLoading,
       usersEstAccountsValues,
     } = this.props;
     const transactions = usersTransactions[user.name] || [];
@@ -97,8 +110,9 @@ class Wallet extends Component {
           totalVestingShares={totalVestingShares}
           totalVestingFundSteem={totalVestingFundSteem}
         />
-        {transactions.length > 0 &&
-          <UserWalletTransactions
+        {transactions.length === 0 && usersTransactionsLoading
+          ? <Loading style={{ marginTop: '20px' }} />
+          : <UserWalletTransactions
             transactions={usersTransactions[user.name]}
             currentUsername={user.name}
           />}

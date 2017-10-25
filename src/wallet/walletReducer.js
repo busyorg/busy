@@ -13,6 +13,7 @@ const initialState = {
   totalVestingFundSteem: '',
   usersTransactions: {},
   usersEstAccountsValues: {},
+  usersTransactionsLoading: true,
 };
 
 export default function walletReducer(state = initialState, action) {
@@ -36,6 +37,11 @@ export default function walletReducer(state = initialState, action) {
         totalVestingShares: total_vesting_shares,
       };
     }
+    case GET_USER_TRANSACTIONS.PENDING:
+      return {
+        ...state,
+        usersTransactionsLoading: true,
+      };
     case GET_USER_TRANSACTIONS.SUCCESS: {
       const { username, transactions } = action.payload;
       return {
@@ -44,6 +50,7 @@ export default function walletReducer(state = initialState, action) {
           ...state.usersTransactions,
           [username]: transactions,
         },
+        usersTransactionsLoading: false,
       };
     }
     case GET_USER_EST_ACCOUNT_VALUE.SUCCESS: {
@@ -67,3 +74,4 @@ export const getTotalVestingShares = state => state.totalVestingShares;
 export const getTotalVestingFundSteem = state => state.totalVestingFundSteem;
 export const getUsersTransactions = state => state.usersTransactions;
 export const getUsersEstAccountsValues = state => state.usersEstAccountsValues;
+export const getUsersTransactionsLoading = state => state.usersTransactionsLoading;
