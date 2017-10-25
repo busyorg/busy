@@ -47,12 +47,6 @@ class CommentForm extends React.Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (!nextProps.isLoading) {
-      this.setState({ inputValue: nextProps.inputValue || '' });
-    }
-  }
-
   setInput = (input) => {
     if (input && input.refs && input.refs.input) {
       // eslint-disable-next-line react/no-find-dom-node
@@ -164,6 +158,7 @@ class CommentForm extends React.Component {
     this.setState({ isDisabledSubmit: true });
     if (this.state.inputValue) {
       this.props.onSubmit(this.props.parentPost, this.state.inputValue);
+      this.setState({ inputValue: '' });
     }
   };
 
