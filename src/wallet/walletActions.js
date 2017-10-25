@@ -20,7 +20,7 @@ export const getGlobalPropertiesSuccess = payload => ({
 });
 
 export const getGlobalProperties = () => dispatch =>
-  getDynamicGlobalProperties().then(result => {
+  getDynamicGlobalProperties().then((result) => {
     dispatch(getGlobalPropertiesSuccess(result));
   });
 
@@ -33,7 +33,7 @@ export const getUserTransactionsSuccess = (username, transactions) => ({
 });
 
 export const getUserTransactions = username => dispatch =>
-  getTransactionHistory(username).then(transactions => {
+  getTransactionHistory(username).then((transactions) => {
     dispatch(getUserTransactionsSuccess(username, transactions));
   });
 
@@ -46,6 +46,6 @@ export const getUserEstAccountValueSuccess = (username, value) => ({
 });
 
 export const getUserEstAccountValue = user => dispatch =>
-  steem.formatter.estimateAccountValue(user).then(value => {
+  steem.formatter.estimateAccountValue(user).then((value) => {
     dispatch(getUserEstAccountValueSuccess(user.name, value));
   });
