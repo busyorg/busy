@@ -17,7 +17,7 @@ import {
   getIsEditorSaving,
 } from '../../reducers';
 
-import { createPost, saveDraft, newPost } from './editorActions';
+import { createPost, saveDraft, deleteDraft, newPost } from './editorActions';
 import { notify } from '../../app/Notification/notificationActions';
 import Editor from '../../components/Editor/Editor';
 import Affix from '../../components/Utils/Affix';
@@ -38,6 +38,7 @@ const version = require('../../../package.json').version;
     saveDraft,
     newPost,
     notify,
+    deleteDraft,
   },
 )
 class Write extends React.Component {
@@ -51,6 +52,7 @@ class Write extends React.Component {
     newPost: PropTypes.func,
     createPost: PropTypes.func,
     saveDraft: PropTypes.func,
+    deleteDraft: PropTypes.func,
     notify: PropTypes.func,
   };
 
@@ -59,6 +61,7 @@ class Write extends React.Component {
     newPost: () => {},
     createPost: () => {},
     saveDraft: () => {},
+    deleteDraft: () => {},
     notify: () => {},
   };
 
@@ -106,6 +109,12 @@ class Write extends React.Component {
       });
     }
   }
+
+  onCancel = () => {
+    const { location: { search } } = this.props;
+    const id = new URLSearchParams(search).get('draft');
+    this.props.deleteDraft(id, true);
+  };
 
   onSubmit = (form) => {
     const data = this.getNewPostData(form);
@@ -269,6 +278,7 @@ class Write extends React.Component {
               isUpdating={this.state.isUpdating}
               onUpdate={this.saveDraft}
               onSubmit={this.onSubmit}
+              onCancel={this.onCancel}
               onImageInserted={this.handleImageInserted}
             />
           </div>

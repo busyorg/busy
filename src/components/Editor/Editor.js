@@ -27,6 +27,7 @@ class Editor extends React.Component {
     isUpdating: PropTypes.bool,
     saving: PropTypes.bool,
     onUpdate: PropTypes.func,
+    onCancel: PropTypes.func,
     onSubmit: PropTypes.func,
     onError: PropTypes.func,
     onImageInserted: PropTypes.func,
@@ -43,6 +44,7 @@ class Editor extends React.Component {
     loading: false,
     isUpdating: false,
     saving: false,
+    onCancel: () => {},
     onUpdate: () => {},
     onSubmit: () => {},
     onError: () => {},
@@ -605,6 +607,22 @@ class Editor extends React.Component {
                 <FormattedMessage id="saving" defaultMessage="Saving..." />
               </span>
             )}
+            <Form.Item className="Editor__bottom__cancel">
+              <Action
+                primary
+                loading={loading}
+                disabled={loading}
+                text={intl.formatMessage({
+                  id: 'cancel',
+                  defaultMessage: 'cancel',
+                })}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  e.preventDefault();
+                  this.props.onCancel();
+                }}
+              />
+            </Form.Item>
             <Form.Item className="Editor__bottom__submit">
               {isUpdating ? (
                 <Action
