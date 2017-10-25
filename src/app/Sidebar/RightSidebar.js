@@ -39,7 +39,7 @@ export default class RightSidebar extends React.Component {
     showPostRecommendation: false,
   };
 
-    recommendations: PropTypes.arrayOf(PropTypes.object).isRequired,
+    recommendations: PropTypes.arrayOf(PropTypes.shape({ name: PropTypes.string })).isRequired,
     updateRecommendations: PropTypes.func.isRequired,
   };
 
