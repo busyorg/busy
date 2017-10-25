@@ -1171,7 +1171,7 @@ exports[`Storyshots Sidebar Interesting People 1`] = `
       className="InterestingPeople__container"
     >
       <h4
-        className="InterestingPeople__title"
+        className="InterestingPeople__title SidebarBlock__content-title"
       >
         <i
           className="iconfont icon-group InterestingPeople__icon"
