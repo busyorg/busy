@@ -568,6 +568,27 @@ exports[`Storyshots Editor Editor 1`] = `
         className="Editor__bottom__right"
       >
         <div
+          className="ant-row ant-form-item Editor__bottom__cancel"
+          style={undefined}
+        >
+          <div
+            className="ant-form-item-control-wrapper"
+          >
+            <div
+              className="ant-form-item-control "
+            >
+              <button
+                className="Action ant-btn-lg Action--primary"
+                disabled={false}
+                onClick={[Function]}
+                style={Object {}}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+        <div
           className="ant-row ant-form-item Editor__bottom__submit"
           style={undefined}
         >
