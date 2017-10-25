@@ -21,7 +21,6 @@ import PostRecommendation from '../../components/Sidebar/PostRecommendation';
     authenticated: getIsAuthenticated(state),
     authenticatedUser: getAuthenticatedUser(state),
     isAuthFetching: getIsAuthFetching(state),
-  }),
     recommendations: getRecommendations(state),
   }), {
     updateRecommendations,
