@@ -124,7 +124,6 @@ class PostRecommendation extends Component {
   };
 
   render() {
-    const { intl } = this.props;
     const { loading } = this.state;
     const filteredRecommendedPosts = this.getFilteredPosts();
 
@@ -141,7 +140,7 @@ class PostRecommendation extends Component {
         <h4 className="PostRecommendation__title SidebarBlock__content-title">
           <i className="iconfont icon-headlines PostRecommendation__icon" />
           {' '}
-          {intl.formatMessage({ id: 'recommended_posts', defaultMessage: 'Recommended Posts' })}
+          <FormattedMessage id="recommended_posts" defaultMessage="Recommended Posts" />
         </h4>
         {this.renderPosts()}
       </div>
