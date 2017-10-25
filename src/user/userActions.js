@@ -1,5 +1,6 @@
 import Promise from 'bluebird';
 import steemConnect from 'sc2-sdk';
+import { createAction } from 'redux-actions';
 import { getFeed, getPosts } from '../reducers';
 import { getUserCommentsFromState, getFeedLoadingFromState } from '../helpers/stateHelpers';
 import { getAllFollowing } from '../helpers/apiHelpers';
@@ -135,4 +136,5 @@ export const getFollowing = (userName = '') => (dispatch, getState) => {
 };
 
 export const UPDATE_RECOMMENDATIONS = '@user/UPDATE_RECOMMENDATIONS';
-export const updateRecommendations = () => dispatch => dispatch({ type: UPDATE_RECOMMENDATIONS });
+const updateRecommendationsAction = createAction(UPDATE_RECOMMENDATIONS);
+export const updateRecommendations = () => dispatch => dispatch(updateRecommendationsAction());
