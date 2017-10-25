@@ -33,11 +33,12 @@ export default class RightSidebar extends React.Component {
     isAuthFetching: PropTypes.bool.isRequired,
     showPostRecommendation: PropTypes.bool,
     recommendations: PropTypes.arrayOf(PropTypes.shape({ name: PropTypes.string })).isRequired,
-    updateRecommendations: PropTypes.func.isRequired,
+    updateRecommendations: PropTypes.func,
   };
 
   static defaultProps = {
     showPostRecommendation: false,
+    updateRecommendations: () => {},
   };
 
 
