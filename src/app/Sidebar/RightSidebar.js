@@ -87,21 +87,29 @@ export default class RightSidebar extends React.Component {
             render={() => (
               <div>
                 {authenticatedUser.last_root_post === '1970-01-01T00:00:00' && <StartNow />}
+<<<<<<< 3aa813af336a1228402490e4ca53a76fb88b6ca9
                 <InterestingPeople
                   users={this.props.recommendations}
                   onRefresh={this.handleInterestingPeopleRefresh}
                 />
+=======
+                {authenticated &&
+                  <InterestingPeople
+                    users={this.state.randomPeople}
+                    onRefresh={this.handleRefreshInterestingPeople}
+                  />}
+>>>>>>> Hide Interesting People for unauthenticated users
               </div>
             )}
           />
           <Route
             path="/@:name"
-            component={() => (
+            component={() =>
+              authenticated &&
               <InterestingPeopleWithAPI
                 authenticatedUser={authenticatedUser}
                 authFetching={authFetching}
-              />
-            )}
+              />}
           />
         </Switch>
         {showPostRecommendation && <PostRecommendation isAuthFetching={authFetching} />}
