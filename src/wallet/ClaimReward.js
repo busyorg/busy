@@ -10,18 +10,33 @@ const getFormattedPayout = (rewardSteem, rewardSbd, rewardVests) => {
   const parsedRewardVests = parseFloat(rewardVests);
 
   if (parsedRewardSteem > 0) {
-    payouts.push(`${numberWithCommas(parsedRewardSteem.toFixed(3))} STEEM`);
+    payouts.push(
+      <span
+        key={'STEEM'}
+        className="UserWalletTransactions__payout-rewards"
+      >{`${numberWithCommas(parsedRewardSteem.toFixed(3))} STEEM`}</span>,
+    );
   }
 
   if (parsedRewardSbd > 0) {
-    payouts.push(`${numberWithCommas(parsedRewardSbd.toFixed(3))} SBD`);
+    payouts.push(
+      <span
+        key="SBD"
+        className="UserWalletTransactions__payout-rewards"
+      >{`${numberWithCommas(parsedRewardSbd.toFixed(3))} SBD`}</span>,
+    );
   }
 
   if (parsedRewardVests > 0) {
-    payouts.push(`${numberWithCommas(parsedRewardVests.toFixed(3))} SP`);
+    payouts.push(
+      <span
+        key="SP"
+        className="UserWalletTransactions__payout-rewards"
+      >{`${numberWithCommas(parsedRewardVests.toFixed(3))} SP`}</span>,
+    );
   }
 
-  return payouts.join(' - ');
+  return payouts;
 };
 
 const ClaimReward = ({ timestamp, rewardSteem, rewardSbd, rewardVests }) => (
