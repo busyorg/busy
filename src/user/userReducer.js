@@ -1,17 +1,7 @@
-import keyBy from 'lodash/keyBy';
-import omit from 'lodash/omit';
-import people from '../helpers/people';
 import * as actions from './userActions';
+import people from '../helpers/people';
 
 const initialState = {
-  // Map<FilePublicId, File>
-  files: {},
-  // Whether a file is uploading.
-  // Map<FileName, Bool>
-  fileUploadIsLoading: {},
-  fileUploadError: null,
-  filesFetchError: null,
-  filesFetchIsLoading: true,
   recommendations: [],
   following: {
     list: [],
@@ -33,56 +23,6 @@ const filterRecommendations = (following, count = 5) => {
 
 export default function userReducer(state = initialState, action) {
   switch (action.type) {
-    case actions.UPLOAD_FILE_START: {
-      return {
-        ...state,
-        fileUploadIsLoading: {
-          ...state.fileUploadIsLoading,
-          [action.meta.filename]: true,
-        },
-        fileUploadError: null,
-      };
-    }
-    case actions.UPLOAD_FILE_SUCCESS: {
-      return {
-        ...state,
-        files: {
-          ...state.files,
-          [action.payload.public_id]: action.payload,
-        },
-        fileUploadIsLoading: omit(state.fileUploadIsLoading, [action.meta.filename]),
-        fileUploadError: null,
-      };
-    }
-    case actions.UPLOAD_FILE_ERROR: {
-      return {
-        ...state,
-        fileUploadIsLoading: omit(state.fileUploadIsLoading, [action.meta.filename]),
-        fileUploadError: action.payload,
-      };
-    }
-    case actions.FETCH_FILES_START: {
-      return {
-        ...state,
-        filesFetchIsLoading: true,
-        filesFetchError: null,
-      };
-    }
-    case actions.FETCH_FILES_SUCCESS: {
-      return {
-        ...state,
-        files: keyBy(action.payload, 'public_id'),
-        filesFetchIsLoading: false,
-        filesFetchError: null,
-      };
-    }
-    case actions.FETCH_FILES_ERROR: {
-      return {
-        ...state,
-        filesFetchIsLoading: false,
-        filesFetchError: action.payload,
-      };
-    }
     case actions.GET_FOLLOWING_START:
       return {
         ...state,
