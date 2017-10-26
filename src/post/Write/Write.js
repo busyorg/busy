@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
+import { replace, goBack } from 'react-router-redux';
 import marked from 'marked';
 import kebabCase from 'lodash/kebabCase';
 import debounce from 'lodash/debounce';
@@ -27,11 +28,12 @@ const version = require('../../../package.json').version;
 @injectIntl
 @withRouter
 @connect(
-  state => ({
+  (state, props) => ({
     user: getAuthenticatedUser(state),
     draftPosts: getDraftPosts(state),
     loading: getIsEditorLoading(state),
     saving: getIsEditorSaving(state),
+    draftId: new URLSearchParams(props.location.search).get('draft'),
   }),
   {
     createPost,
@@ -39,6 +41,8 @@ const version = require('../../../package.json').version;
     newPost,
     notify,
     deleteDraft,
+    replace,
+    goBack,
   },
 )
 class Write extends React.Component {
@@ -48,12 +52,14 @@ class Write extends React.Component {
     draftPosts: PropTypes.shape().isRequired,
     loading: PropTypes.bool.isRequired,
     saving: PropTypes.bool,
-    location: PropTypes.shape().isRequired,
     newPost: PropTypes.func,
     createPost: PropTypes.func,
     saveDraft: PropTypes.func,
     deleteDraft: PropTypes.func,
     notify: PropTypes.func,
+    goBack: PropTypes.func,
+    replace: PropTypes.func,
+    draftId: PropTypes.string,
   };
 
   static defaultProps = {
@@ -63,6 +69,9 @@ class Write extends React.Component {
     saveDraft: () => {},
     deleteDraft: () => {},
     notify: () => {},
+    goBack: () => {},
+    replace: () => {},
+    draftId: null,
   };
 
   constructor(props) {
@@ -73,21 +82,20 @@ class Write extends React.Component {
       initialBody: '',
       initialReward: '50',
       initialUpvote: true,
+      initialUpdatedDate: Date.now(),
       isUpdating: false,
+      didExist: false,
     };
   }
 
   componentDidMount() {
     this.props.newPost();
-    const { draftPosts, location: { search } } = this.props;
-    const draftId = new URLSearchParams(search).get('draft');
+    const { draftPosts, draftId } = this.props;
     const draftPost = draftPosts[draftId];
-
     if (draftPost) {
-      const { jsonMetadata, isUpdating } = draftPost;
       let tags = [];
-      if (isArray(jsonMetadata.tags)) {
-        tags = jsonMetadata.tags;
+      if (isArray(draftPost.jsonMetadata.tags)) {
+        tags = draftPost.jsonMetadata.tags;
       }
 
       if (draftPost.permlink) {
@@ -105,23 +113,44 @@ class Write extends React.Component {
         initialBody: draftPost.body || '',
         initialReward: draftPost.reward || '50',
         initialUpvote: draftPost.upvote,
-        isUpdating: isUpdating || false,
+        initialUpdatedDate: draftPost.lastUpdated || Date.now(),
+        isUpdating: draftPost.isUpdating || false,
+        didExist: true,
       });
     }
   }
 
   onCancel = () => {
-    const { location: { search } } = this.props;
-    const id = new URLSearchParams(search).get('draft');
-    this.props.deleteDraft(id, true);
+    if (this.state.didExist) {
+      // If the draft Existed return it to previous state
+      const initalForm = {
+        body: this.state.initialBody,
+        title: this.state.initialTitle,
+        reward: this.state.initialReward,
+        upvote: this.state.initialUpvote,
+        lastUpdated: this.state.initialUpdatedDate,
+        topics: this.state.initialTopics,
+      };
+
+      this.props
+        .saveDraft({ postData: this.getNewPostData(initalForm), id: this.props.draftId })
+        .then(() => {
+          this.props.goBack();
+        });
+
+      // this.saveDraft(initalForm).then((e) => { console.log(e); });
+    } else {
+      // If didn't exist just delete it.
+      this.props.deleteDraft(this.props.draftId).then(() => {
+        this.props.replace('/');
+      });
+    }
   };
 
   onSubmit = (form) => {
     const data = this.getNewPostData(form);
-    const { location: { search } } = this.props;
-    const id = new URLSearchParams(search).get('draft');
-    if (id) {
-      data.draftId = id;
+    if (this.props.draftId) {
+      data.draftId = this.props.draftId;
     }
     this.props.createPost(data);
   };
@@ -235,9 +264,7 @@ class Write extends React.Component {
   saveDraft = debounce((form) => {
     const data = this.getNewPostData(form);
     const postBody = data.body;
-    const { location: { search } } = this.props;
-    let id = new URLSearchParams(search).get('draft');
-
+    let id = this.props.draftId;
     // Remove zero width space
     const isBodyEmpty = postBody.replace(/[\u200B-\u200D\uFEFF]/g, '').trim().length === 0;
 
