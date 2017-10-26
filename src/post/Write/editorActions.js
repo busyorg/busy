@@ -45,20 +45,14 @@ export const saveDraft = (post, redirect) => dispatch =>
     meta: { postId: post.id },
   });
 
-export const deleteDraft = (draftId, redirect) => (dispatch) => {
+export const deleteDraft = draftId => dispatch =>
   dispatch({
     type: DELETE_DRAFT,
     payload: {
-      promise: deleteDraftMetadata(draftId).then((resp) => {
-        if (redirect) {
-          dispatch(push('/'));
-        }
-        return resp;
-      }),
+      promise: deleteDraftMetadata(draftId),
     },
     meta: { id: draftId },
   });
-};
 
 export const editPost = post => (dispatch) => {
   const jsonMetadata = jsonParse(post.json_metadata);
