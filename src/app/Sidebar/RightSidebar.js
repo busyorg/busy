@@ -41,13 +41,14 @@ export default class RightSidebar extends React.Component {
     updateRecommendations: () => {},
   };
 
+  handleInterestingPeopleRefresh = () => this.props.updateRecommendations();
 
   render() {
     const { authenticated, authenticatedUser, showPostRecommendation, isAuthFetching } = this.props;
     const InterestingPeopleWithData = () => (
       <InterestingPeople
         users={this.props.recommendations}
-        onRefresh={this.props.updateRecommendations}
+        onRefresh={this.handleInterestingPeopleRefresh}
       />
     );
 
