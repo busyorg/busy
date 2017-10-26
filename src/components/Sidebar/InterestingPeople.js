@@ -29,7 +29,7 @@ const InterestingPeople = ({ users, onRefresh }) =>
   </div>);
 
 InterestingPeople.propTypes = {
-  users: PropTypes.arrayOf(PropTypes.shape()),
+  users: PropTypes.arrayOf(PropTypes.shape({ name: PropTypes.string })),
   onRefresh: PropTypes.func,
 };
 
