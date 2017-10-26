@@ -610,7 +610,6 @@ class Editor extends React.Component {
             <Form.Item className="Editor__bottom__cancel">
               <Action
                 primary
-                loading={loading}
                 disabled={loading}
                 text={intl.formatMessage({
                   id: 'cancel',
