@@ -2,6 +2,27 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedRelative } from 'react-intl';
 
+const getFormattedPayout = (rewardSteem, rewardSbd, rewardVests) => {
+  const payouts = [];
+  const parsedRewardSteem = parseFloat(rewardSteem);
+  const parsedRewardSbd = parseFloat(rewardSbd);
+  const parsedRewardVests = parseFloat(rewardVests);
+
+  if (parsedRewardSteem > 0) {
+    payouts.push(`${parsedRewardSteem.toFixed(3)} STEEM`);
+  }
+
+  if (parsedRewardSbd > 0) {
+    payouts.push(`${parsedRewardSbd.toFixed(3)} SBD`);
+  }
+
+  if (parsedRewardVests > 0) {
+    payouts.push(`${parsedRewardVests.toFixed(3)} SP`);
+  }
+
+  return payouts.join(', ');
+};
+
 const ClaimReward = ({ timestamp, rewardSteem, rewardSbd, rewardVests }) => (
   <div className="UserWalletTransactions__transaction">
     <div className="UserWalletTransactions__icon-container">
@@ -9,15 +30,10 @@ const ClaimReward = ({ timestamp, rewardSteem, rewardSbd, rewardVests }) => (
     </div>
     <div className="UserWalletTransactions__content">
       <div className="UserWalletTransactions__content-recipient">
-        <FormattedMessage
-          id="claim_rewards"
-          defaultMessage="Claim rewards: {rewardSteem}, {rewardSteem}, and {rewardVests}"
-          values={{
-            rewardSteem,
-            rewardSbd,
-            rewardVests,
-          }}
-        />
+        <FormattedMessage id="claim_rewards" defaultMessage="Claim rewards:" />
+        <span className="UserWalletTransactions__payout">
+          {getFormattedPayout(rewardSteem, rewardSbd, rewardVests)}
+        </span>
       </div>
       <span className="UserWalletTransactions__timestamp">
         <FormattedRelative value={`${timestamp}Z`} />

@@ -9,13 +9,10 @@ const PowerUpTransaction = ({ timestamp, amount }) => (
     </div>
     <div className="UserWalletTransactions__content">
       <div className="UserWalletTransactions__content-recipient">
-        <FormattedMessage
-          id="powered_up"
-          defaultMessage="Powered up: {amount}"
-          values={{
-            amount,
-          }}
-        />
+        <FormattedMessage id="powered_up" defaultMessage="Powered up: " />
+        <span className="UserWalletTransactions__payout">
+          {amount}
+        </span>
       </div>
       <span className="UserWalletTransactions__timestamp">
         <FormattedRelative value={`${timestamp}Z`} />
