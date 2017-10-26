@@ -6,6 +6,10 @@
   border-radius: @border-radius-base;
   margin: 20px 0;
 
+  &:empty {
+    display: none;
+  }
+
   &__transaction {
     color: @grey-night-rider;
     display: flex;
@@ -35,7 +39,7 @@
   }
 
   &__icon {
-    font-size: 30px !important;
+    font-size: 22px !important;
   }
 
   &__content {

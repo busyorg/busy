@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { FormattedMessage, FormattedRelative } from 'react-intl';
 import Avatar from '../components/Avatar';
+import { numberWithCommas } from '../helpers/regexHelpers';
 
 const ReceiveTransaction = ({ from, memo, amount, timestamp }) => (
   <div className="UserWalletTransactions__transaction">
@@ -18,7 +19,9 @@ const ReceiveTransaction = ({ from, memo, amount, timestamp }) => (
             username: <Link to={`/@${from}`}>{from}</Link>,
           }}
         />
-        <span className="UserWalletTransactions__received">{`+ ${amount}`}</span>
+        <span className="UserWalletTransactions__received">
+          {`+ ${numberWithCommas(amount)}`}
+        </span>
       </div>
       <span className="UserWalletTransactions__timestamp">
         <FormattedRelative value={`${timestamp}Z`} />

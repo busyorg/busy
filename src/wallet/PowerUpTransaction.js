@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedRelative } from 'react-intl';
+import { numberWithCommas } from '../helpers/regexHelpers';
 
 const PowerUpTransaction = ({ timestamp, amount }) => (
   <div className="UserWalletTransactions__transaction">
@@ -9,9 +10,9 @@ const PowerUpTransaction = ({ timestamp, amount }) => (
     </div>
     <div className="UserWalletTransactions__content">
       <div className="UserWalletTransactions__content-recipient">
-        <FormattedMessage id="powered_up" defaultMessage="Powered up: " />
+        <FormattedMessage id="powered_up" defaultMessage="Powered up " />
         <span className="UserWalletTransactions__payout">
-          {amount}
+          {numberWithCommas(amount)}
         </span>
       </div>
       <span className="UserWalletTransactions__timestamp">

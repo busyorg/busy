@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { FormattedMessage, FormattedRelative } from 'react-intl';
 import Avatar from '../components/Avatar';
+import { numberWithCommas } from '../helpers/regexHelpers';
 
 const getSavingsTransactionMessage = (transactionType, transactionDetails) => {
   switch (transactionType) {
@@ -22,7 +23,7 @@ const getSavingsTransactionMessage = (transactionType, transactionDetails) => {
           id="transfer_to_savings"
           defaultMessage="Transfer to savings {amount} to {username}"
           values={{
-            amount: transactionDetails.amount,
+            amount: numberWithCommas(transactionDetails.amount),
             username: <Link to={`/@${transactionDetails.to}`}>{transactionDetails.to}</Link>,
           }}
         />
@@ -34,7 +35,7 @@ const getSavingsTransactionMessage = (transactionType, transactionDetails) => {
           id="transfer_from_savings"
           defaultMessage="Transfer from savings {amount} to {username}"
           values={{
-            amount: transactionDetails.amount,
+            amount: numberWithCommas(transactionDetails.amount),
             username: <Link to={`/@${transactionDetails.from}`}>{transactionDetails.from}</Link>,
           }}
         />
