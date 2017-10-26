@@ -137,8 +137,6 @@ class Write extends React.Component {
         .then(() => {
           this.props.goBack();
         });
-
-      // this.saveDraft(initalForm).then((e) => { console.log(e); });
     } else {
       // If didn't exist just delete it.
       this.props.deleteDraft(this.props.draftId).then(() => {
