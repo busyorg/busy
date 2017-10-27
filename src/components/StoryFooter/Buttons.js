@@ -114,7 +114,10 @@ export default class Buttons extends React.Component {
 
     const upVotesPreview = take(upVotes, 10).map(vote => (
       <p key={vote.voter}>
-        {vote.voter}
+        <Link to={`/@${vote.voter}`}>
+          {vote.voter}
+        </Link>
+
         {vote.rshares * ratio > 0.01 && (
           <span style={{ opacity: '0.5' }}>
             {' '}

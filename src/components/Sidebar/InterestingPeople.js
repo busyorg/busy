@@ -8,7 +8,7 @@ import './InterestingPeople.less';
 const InterestingPeople = ({ users, onRefresh }) =>
   (<div className="InterestingPeople">
     <div className="InterestingPeople__container">
-      <h4 className="InterestingPeople__title">
+      <h4 className="InterestingPeople__title SidebarBlock__content-title">
         <i className="iconfont icon-group InterestingPeople__icon" />
         {' '}
         <FormattedMessage id="interesting_people" defaultMessage="Interesting People" />
@@ -29,7 +29,7 @@ const InterestingPeople = ({ users, onRefresh }) =>
   </div>);
 
 InterestingPeople.propTypes = {
-  users: PropTypes.arrayOf(PropTypes.shape()),
+  users: PropTypes.arrayOf(PropTypes.shape({ name: PropTypes.string })),
   onRefresh: PropTypes.func,
 };
 
