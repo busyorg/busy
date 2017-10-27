@@ -3,7 +3,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { Select, Radio } from 'antd';
-import { getIsReloading, getLocale, getVotingPower, getIsSettingsLoading } from '../reducers';
+import {
+  getIsReloading,
+  getLocale,
+  getVotingPower,
+  getIsSettingsLoading,
+  getVotePercent,
+} from '../reducers';
 import { saveSettings } from './settingsActions';
 import { reload } from '../auth/authActions';
 import { notify } from '../app/Notification/notificationActions';
@@ -20,6 +26,7 @@ import './Settings.less';
     reloading: getIsReloading(state),
     locale: getLocale(state),
     votingPower: getVotingPower(state),
+    votePercent: getVotePercent(state),
     loading: getIsSettingsLoading(state),
   }),
   { reload, saveSettings, notify },
@@ -30,6 +37,7 @@ export default class Settings extends React.Component {
     reloading: PropTypes.bool,
     locale: PropTypes.string,
     votingPower: PropTypes.string,
+    votePercent: PropTypes.number,
     loading: PropTypes.bool,
     reload: PropTypes.func,
     saveSettings: PropTypes.func,
@@ -40,6 +48,7 @@ export default class Settings extends React.Component {
     reloading: false,
     locale: 'auto',
     votingPower: 'auto',
+    votePercent: 10000,
     loading: false,
     reload: () => {},
     saveSettings: () => {},
@@ -49,12 +58,14 @@ export default class Settings extends React.Component {
   state = {
     locale: 'auto',
     votingPower: 'auto',
+    votePercent: 10000,
   };
 
   componentWillMount() {
     this.setState({
       locale: this.props.locale,
       votingPower: this.props.votingPower,
+      votePercent: this.props.votePercent / 100,
     });
   }
 
@@ -68,7 +79,11 @@ export default class Settings extends React.Component {
     }
 
     if (nextProps.votingPower !== this.props.votingPower) {
-      this.setState({ votingPower: nextProps.votingPower });
+      this.setState({ votingPower: nextProps.votingPower / 100 });
+    }
+
+    if (nextProps.votePercent !== this.props.votePercent) {
+      this.setState({ votePercent: nextProps.votePercent / 100 });
     }
   }
 
@@ -118,6 +133,7 @@ export default class Settings extends React.Component {
       .saveSettings({
         locale: this.state.locale,
         votingPower: this.state.votingPower,
+        votePercent: this.state.votePercent * 100,
       })
       .then(() =>
         this.props.notify(
@@ -129,6 +145,7 @@ export default class Settings extends React.Component {
 
   handleLocaleChange = locale => this.setState({ locale });
   handleVotingPowerChange = event => this.setState({ votingPower: event.target.value });
+  handleVotePercentChange = value => this.setState({ votePercent: value });
 
   render() {
     const {
@@ -201,10 +218,16 @@ export default class Settings extends React.Component {
                     <FormattedMessage id="vote_percent" defaultMessage="Default vote percent" />
                   </h3>
                   <p>
-                    <FormattedMessage id="vote_percent_info" defaultMessage="You can select your default vote value. It will be used as default value in voting slider and as value used for vote when voting slider is disabled." />
+                    <FormattedMessage
+                      id="vote_percent_info"
+                      defaultMessage="You can select your default vote value. It will be used as default value in voting slider and as value used for vote when voting slider is disabled."
+                    />
                   </p>
                   <div className="Settings__section__component">
-                    <RawSlider initialValue={75} />
+                    <RawSlider
+                      initialValue={this.state.votePercent}
+                      onChange={this.handleVotePercentChange}
+                    />
                   </div>
                 </div>
                 <div className="Settings__section">

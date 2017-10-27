@@ -7,6 +7,7 @@ describe('settingsReducer', () => {
   const initialState = {
     locale: 'auto',
     votingPower: 'auto',
+    votePercent: 10000,
     loading: false,
   };
 
@@ -55,7 +56,7 @@ describe('settingsReducer', () => {
     expect(settingsReducer(stateBefore, action)).to.eql(stateAfter);
   });
 
-  it('should set locale, voting power and loading after saving succeeded', () => {
+  it('should set locale, voting power, vote percent and loading after saving succeeded', () => {
     const stateBefore = {
       ...initialState,
       loading: true,
@@ -64,6 +65,7 @@ describe('settingsReducer', () => {
       ...stateBefore,
       loading: false,
       locale: 'pl',
+      votePercent: 10000,
       votingPower: 'on',
     };
     const action = {
@@ -71,6 +73,7 @@ describe('settingsReducer', () => {
       payload: {
         locale: 'pl',
         votingPower: 'on',
+        votePercent: 10000,
       },
     };
 

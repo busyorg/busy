@@ -91,3 +91,4 @@ export const getTransferTo = state => fromWallet.getTransferTo(state.wallet);
 export const getIsSettingsLoading = state => fromSettings.getIsLoading(state.settings);
 export const getLocale = state => fromSettings.getLocale(state.settings);
 export const getVotingPower = state => fromSettings.getVotingPower(state.settings);
+export const getVotePercent = state => fromSettings.getVotePercent(state.settings);
