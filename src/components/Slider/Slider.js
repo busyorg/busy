@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { injectIntl, FormattedMessage } from 'react-intl';
+import { injectIntl, FormattedMessage, FormattedNumber } from 'react-intl';
 import { Radio, Slider as AntSlider } from 'antd';
+import USDDisplay from '../Utils/USDDisplay';
 import './Slider.less';
 
 const RadioButton = Radio.Button;
@@ -74,7 +75,18 @@ export default class Slider extends React.Component {
     });
   };
 
-  formatTip = value => `${value}% - ${this.getCurrentFormattedValue()}`;
+  formatTip = value => (
+    <div>
+      <FormattedNumber
+        style="percent" // eslint-disable-line react/style-prop-object
+        value={value / 100}
+      />
+      <span style={{ opacity: '0.5' }}>
+        {' '}
+        <USDDisplay value={this.getCurrentValue()} />
+      </span>
+    </div>
+  );
 
   render() {
     const { value } = this.state;
