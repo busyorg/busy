@@ -66,7 +66,6 @@ class CommentForm extends React.Component {
     }
   }
 
-
   disableAndInsertImage = (image, imageName = 'image') => {
     this.setState({
       imageUploading: false,
@@ -80,14 +79,12 @@ class CommentForm extends React.Component {
     const startPos = this.input.selectionStart;
     const endPos = this.input.selectionEnd;
     const imageText = `![${imageName}](${image})\n`;
-    this.input.value = `${this.input.value.substring(
+    const newValue = `${this.input.value.substring(
       0,
       startPos,
     )}${imageText}${this.input.value.substring(endPos, this.input.value.length)}`;
-    this.resizeTextarea();
-    this.renderMarkdown(this.input.value);
     this.setInputCursorPosition(startPos + imageText.length);
-    this.onUpdate();
+    this.setState({ inputValue: newValue });
   };
 
   handleCommentTextChange = (e) => {
