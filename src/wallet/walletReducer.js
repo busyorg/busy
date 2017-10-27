@@ -1,10 +1,4 @@
-import {
-  OPEN_TRANSFER,
-  CLOSE_TRANSFER,
-  GET_GLOBAL_PROPERTIES,
-  GET_USER_TRANSACTIONS,
-  GET_USER_EST_ACCOUNT_VALUE,
-} from './walletActions';
+import * as walletActions from './walletActions';
 
 const initialState = {
   transferVisible: false,
@@ -18,31 +12,30 @@ const initialState = {
 
 export default function walletReducer(state = initialState, action) {
   switch (action.type) {
-    case OPEN_TRANSFER:
+    case walletActions.OPEN_TRANSFER:
       return {
         ...state,
         transferVisible: true,
         transferTo: action.payload,
       };
-    case CLOSE_TRANSFER:
+    case walletActions.CLOSE_TRANSFER:
       return {
         ...state,
         transferVisible: false,
       };
-    case GET_GLOBAL_PROPERTIES.SUCCESS: {
-      const { total_vesting_shares, total_vesting_fund_steem } = action.payload;
+    case walletActions.GET_GLOBAL_PROPERTIES.SUCCESS: {
       return {
         ...state,
-        totalVestingFundSteem: total_vesting_fund_steem,
-        totalVestingShares: total_vesting_shares,
+        totalVestingFundSteem: action.payload.total_vesting_fund_steem,
+        totalVestingShares: action.payload.total_vesting_shares,
       };
     }
-    case GET_USER_TRANSACTIONS.START:
+    case walletActions.GET_USER_TRANSACTIONS.START:
       return {
         ...state,
         usersTransactionsLoading: true,
       };
-    case GET_USER_TRANSACTIONS.SUCCESS: {
+    case walletActions.GET_USER_TRANSACTIONS.SUCCESS: {
       const { username, transactions } = action.payload;
       return {
         ...state,
@@ -53,7 +46,7 @@ export default function walletReducer(state = initialState, action) {
         usersTransactionsLoading: false,
       };
     }
-    case GET_USER_EST_ACCOUNT_VALUE.SUCCESS: {
+    case walletActions.GET_USER_EST_ACCOUNT_VALUE.SUCCESS: {
       const { username, value } = action.payload;
       return {
         ...state,

@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage, FormattedRelative } from 'react-intl';
-import { numberWithCommas } from '../helpers/regexHelpers';
+import { FormattedMessage, FormattedRelative, FormattedNumber } from 'react-intl';
 
 const getFormattedPayout = (rewardSteem, rewardSbd, rewardVests) => {
   const payouts = [];
@@ -11,28 +10,25 @@ const getFormattedPayout = (rewardSteem, rewardSbd, rewardVests) => {
 
   if (parsedRewardSteem > 0) {
     payouts.push(
-      <span
-        key={'STEEM'}
-        className="UserWalletTransactions__payout-rewards"
-      >{`${numberWithCommas(parsedRewardSteem.toFixed(3))} STEEM`}</span>,
+      <span key="STEEM" className="UserWalletTransactions__payout-rewards">
+        <FormattedNumber value={parsedRewardSteem} />{' STEEM'}
+      </span>,
     );
   }
 
   if (parsedRewardSbd > 0) {
     payouts.push(
-      <span
-        key="SBD"
-        className="UserWalletTransactions__payout-rewards"
-      >{`${numberWithCommas(parsedRewardSbd.toFixed(3))} SBD`}</span>,
+      <span key="SBD" className="UserWalletTransactions__payout-rewards">
+        <FormattedNumber value={parsedRewardSbd} />{' SBD'}
+      </span>,
     );
   }
 
   if (parsedRewardVests > 0) {
     payouts.push(
-      <span
-        key="SP"
-        className="UserWalletTransactions__payout-rewards"
-      >{`${numberWithCommas(parsedRewardVests.toFixed(3))} SP`}</span>,
+      <span key="SP" className="UserWalletTransactions__payout-rewards">
+        <FormattedNumber value={parsedRewardVests} />{' SP'}
+      </span>,
     );
   }
 

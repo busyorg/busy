@@ -14,10 +14,7 @@ export const GET_USER_EST_ACCOUNT_VALUE = createAsyncActionType(
 export const openTransfer = createAction(OPEN_TRANSFER);
 export const closeTransfer = createAction(CLOSE_TRANSFER);
 
-export const getGlobalPropertiesSuccess = payload => ({
-  type: GET_GLOBAL_PROPERTIES.SUCCESS,
-  payload,
-});
+export const getGlobalPropertiesSuccess = createAction(GET_GLOBAL_PROPERTIES.SUCCESS);
 
 export const getGlobalProperties = () => dispatch =>
   getDynamicGlobalProperties().then((result) => {
