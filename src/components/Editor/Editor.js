@@ -157,6 +157,12 @@ class Editor extends React.Component {
     return values;
   };
 
+  setInputCursorPosition = (pos) => {
+    if (this.input && this.input.setSelectionRange) {
+      this.input.setSelectionRange(pos, pos);
+    }
+  }
+
   resizeTextarea = () => {
     if (this.originalInput) this.originalInput.resizeTextarea();
   };
@@ -312,12 +318,6 @@ class Editor extends React.Component {
     });
     this.insertImage(image, imageName);
   };
-
-  setInputCursorPosition = (pos) => {
-    if (this.input && this.input.setSelectionRange) {
-      this.input.setSelectionRange(pos, pos);
-    }
-  }
 
   insertImage = (image, imageName = 'image') => {
     if (!this.input) return;

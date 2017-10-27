@@ -60,18 +60,19 @@ class CommentForm extends React.Component {
     }
   };
 
+  setInputCursorPosition = (pos) => {
+    if (this.input && this.input.setSelectionRange) {
+      this.input.setSelectionRange(pos, pos);
+    }
+  }
+
+
   disableAndInsertImage = (image, imageName = 'image') => {
     this.setState({
       imageUploading: false,
     });
     this.insertImage(image, imageName);
   };
-
-  setInputCursorPosition = (pos) => {
-    if (this.input && this.input.setSelectionRange) {
-      this.input.setSelectionRange(pos, pos);
-    }
-  }
 
   insertImage = (image, imageName = 'image') => {
     if (!this.input) return;
