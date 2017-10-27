@@ -14,6 +14,7 @@ class InterestingPeopleWithAPI extends Component {
       name: PropTypes.string,
     }),
     authFetching: PropTypes.bool,
+    followingList: PropTypes.array,
   };
 
   static defaultProps = {
@@ -21,6 +22,7 @@ class InterestingPeopleWithAPI extends Component {
       name: '',
     },
     authFetching: false,
+    followingList: [],
   };
 
   state = {
@@ -51,9 +53,11 @@ class InterestingPeopleWithAPI extends Component {
 
   getBlogAuthors = (username = '') =>
     steemAPI.getBlogAuthorsAsync(username).then((result) => {
+      const followers = this.props.followingList;
       const users = _.sortBy(result, user => user[1])
         .reverse()
         .slice(0, 5)
+        .filter(user => !followers.includes(user[0]))
         .map(user => ({ name: user[0] }));
       if (users.length > 0) {
         this.setState({
