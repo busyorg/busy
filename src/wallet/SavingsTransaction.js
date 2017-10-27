@@ -29,7 +29,6 @@ const getSavingsTransactionMessage = (transactionType, transactionDetails) => {
         />
       );
     case 'transfer_from_savings':
-    default:
       return (
         <FormattedMessage
           id="transfer_from_savings"
@@ -40,6 +39,8 @@ const getSavingsTransactionMessage = (transactionType, transactionDetails) => {
           }}
         />
       );
+    default:
+      return null;
   }
 };
 

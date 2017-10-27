@@ -24,16 +24,16 @@ export const getGlobalProperties = () => dispatch =>
     dispatch(getGlobalPropertiesSuccess(result));
   });
 
-export const getUserTransactionsSuccess = (username, transactions) => ({
-  type: GET_USER_TRANSACTIONS.SUCCESS,
-  payload: {
+export const getUserTransactionsSuccess = createAction(
+  GET_USER_TRANSACTIONS.SUCCESS,
+  (username, transactions) => ({
     username,
     transactions,
-  },
-});
+  }),
+);
 
 export const getUserTransactions = username => (dispatch) => {
-  dispatch({ type: GET_USER_TRANSACTIONS.PENDING });
+  dispatch({ type: GET_USER_TRANSACTIONS.START });
   return getTransactionHistory(username).then((transactions) => {
     dispatch(getUserTransactionsSuccess(username, transactions));
   });

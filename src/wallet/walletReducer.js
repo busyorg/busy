@@ -37,7 +37,7 @@ export default function walletReducer(state = initialState, action) {
         totalVestingShares: total_vesting_shares,
       };
     }
-    case GET_USER_TRANSACTIONS.PENDING:
+    case GET_USER_TRANSACTIONS.START:
       return {
         ...state,
         usersTransactionsLoading: true,

@@ -104,7 +104,7 @@ export const sortCommentsFromSteem = (list, commentsState, sortBy = 'trending') 
 };
 
 export const createAsyncActionType = type => ({
-  PENDING: `${type}_PENDING`,
+  START: `${type}_START`,
   SUCCESS: `${type}_SUCCESS`,
   ERROR: `${type}_ERROR`,
 });
