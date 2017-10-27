@@ -56,8 +56,8 @@ class InterestingPeopleWithAPI extends Component {
       const followers = this.props.followingList;
       const users = _.sortBy(result, user => user[1])
         .reverse()
-        .slice(0, 5)
         .filter(user => !followers.includes(user[0]))
+        .slice(0, 5)
         .map(user => ({ name: user[0] }));
       if (users.length > 0) {
         this.setState({
