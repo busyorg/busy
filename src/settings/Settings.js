@@ -11,6 +11,7 @@ import Action from '../components/Button/Action';
 import Loading from '../components/Icon/Loading';
 import Affix from '../components/Utils/Affix';
 import LeftSidebar from '../app/Sidebar/LeftSidebar';
+import RawSlider from '../components/Slider/RawSlider';
 import './Settings.less';
 
 @injectIntl
@@ -172,7 +173,7 @@ export default class Settings extends React.Component {
               <Loading center={false} />
             ) : (
               <div className="Settings">
-                <div className="Settings_section">
+                <div className="Settings__section">
                   <h3>
                     <FormattedMessage id="voting_power" defaultMessage="Voting Power" />
                   </h3>
@@ -195,7 +196,18 @@ export default class Settings extends React.Component {
                     </Radio>
                   </Radio.Group>
                 </div>
-                <div className="Settings_section">
+                <div className="Settings__section">
+                  <h3>
+                    <FormattedMessage id="vote_percent" defaultMessage="Default vote percent" />
+                  </h3>
+                  <p>
+                    <FormattedMessage id="vote_percent_info" defaultMessage="You can select your default vote value. It will be used as default value in voting slider and as value used for vote when voting slider is disabled." />
+                  </p>
+                  <div className="Settings__section__component">
+                    <RawSlider initialValue={75} />
+                  </div>
+                </div>
+                <div className="Settings__section">
                   <h3>
                     <FormattedMessage id="language" defaultMessage="Language" />
                   </h3>

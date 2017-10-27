@@ -1639,318 +1639,322 @@ exports[`Storyshots Slider Slider 1`] = `
     className="Slider"
   >
     <div
-      className="ant-slider ant-slider-with-marks"
-      onMouseDown={[Function]}
-      onTouchStart={[Function]}
-      style={undefined}
+      className="RawSlider"
     >
       <div
-        className="ant-slider-rail"
-        style={Object {}}
-      />
-      <div
-        className="ant-slider-track"
-        style={
-          Object {
-            "left": "0%",
-            "visibility": "visible",
-            "width": "100%",
-          }
-        }
-      />
-      <div
-        className="ant-slider-step"
-      >
-        <span
-          className="ant-slider-dot ant-slider-dot-active"
-          style={
-            Object {
-              "left": "0%",
-            }
-          }
-        />
-        <span
-          className="ant-slider-dot ant-slider-dot-active"
-          style={
-            Object {
-              "left": "25%",
-            }
-          }
-        />
-        <span
-          className="ant-slider-dot ant-slider-dot-active"
-          style={
-            Object {
-              "left": "50%",
-            }
-          }
-        />
-        <span
-          className="ant-slider-dot ant-slider-dot-active"
-          style={
-            Object {
-              "left": "75%",
-            }
-          }
-        />
-        <span
-          className="ant-slider-dot ant-slider-dot-active"
-          style={
-            Object {
-              "left": "100%",
-            }
-          }
-        />
-      </div>
-      <div
-        aria-disabled={false}
-        aria-valuemax={100}
-        aria-valuemin={0}
-        aria-valuenow={100}
-        className="ant-slider-handle"
-        onBlur={undefined}
-        onClick={undefined}
-        onFocus={undefined}
-        onMouseDown={undefined}
-        onMouseEnter={[Function]}
-        onMouseLeave={[Function]}
-        onTouchStart={undefined}
-        role="slider"
-        style={
-          Object {
-            "left": "100%",
-          }
-        }
-      />
-      <div
-        className="ant-slider-mark"
-      >
-        <span
-          className="ant-slider-mark-text ant-slider-mark-text-active"
-          style={
-            Object {
-              "left": "0%",
-              "marginLeft": "-11.25%",
-              "width": "22.5%",
-            }
-          }
-        >
-          0%
-        </span>
-        <span
-          className="ant-slider-mark-text ant-slider-mark-text-active"
-          style={
-            Object {
-              "left": "25%",
-              "marginLeft": "-11.25%",
-              "width": "22.5%",
-            }
-          }
-        >
-          25%
-        </span>
-        <span
-          className="ant-slider-mark-text ant-slider-mark-text-active"
-          style={
-            Object {
-              "left": "50%",
-              "marginLeft": "-11.25%",
-              "width": "22.5%",
-            }
-          }
-        >
-          50%
-        </span>
-        <span
-          className="ant-slider-mark-text ant-slider-mark-text-active"
-          style={
-            Object {
-              "left": "75%",
-              "marginLeft": "-11.25%",
-              "width": "22.5%",
-            }
-          }
-        >
-          75%
-        </span>
-        <span
-          className="ant-slider-mark-text ant-slider-mark-text-active"
-          style={
-            Object {
-              "left": "100%",
-              "marginLeft": "-11.25%",
-              "width": "22.5%",
-            }
-          }
-        >
-          100%
-        </span>
-      </div>
-    </div>
-    <div
-      className="Slider__presets"
-    >
-      <div
-        className="ant-radio-group ant-radio-group-large"
-        onMouseEnter={undefined}
-        onMouseLeave={undefined}
+        className="ant-slider ant-slider-with-marks"
+        onMouseDown={[Function]}
+        onTouchStart={[Function]}
         style={undefined}
       >
-        <label
-          className="ant-radio-button-wrapper"
-          onMouseEnter={undefined}
-          onMouseLeave={undefined}
-          style={undefined}
+        <div
+          className="ant-slider-rail"
+          style={Object {}}
+        />
+        <div
+          className="ant-slider-track"
+          style={
+            Object {
+              "left": "0%",
+              "visibility": "visible",
+              "width": "100%",
+            }
+          }
+        />
+        <div
+          className="ant-slider-step"
         >
           <span
-            className="ant-radio-button"
-            style={Object {}}
-          >
-            <input
-              checked={false}
-              className="ant-radio-button-input"
-              disabled={false}
-              name={undefined}
-              onBlur={[Function]}
-              onChange={[Function]}
-              onClick={undefined}
-              onFocus={[Function]}
-              readOnly={undefined}
-              tabIndex={undefined}
-              type="radio"
-            />
-            <span
-              className="ant-radio-button-inner"
-            />
-          </span>
-          <span>
-            1%
-          </span>
-        </label>
-        <label
-          className="ant-radio-button-wrapper"
-          onMouseEnter={undefined}
-          onMouseLeave={undefined}
-          style={undefined}
+            className="ant-slider-dot ant-slider-dot-active"
+            style={
+              Object {
+                "left": "0%",
+              }
+            }
+          />
+          <span
+            className="ant-slider-dot ant-slider-dot-active"
+            style={
+              Object {
+                "left": "25%",
+              }
+            }
+          />
+          <span
+            className="ant-slider-dot ant-slider-dot-active"
+            style={
+              Object {
+                "left": "50%",
+              }
+            }
+          />
+          <span
+            className="ant-slider-dot ant-slider-dot-active"
+            style={
+              Object {
+                "left": "75%",
+              }
+            }
+          />
+          <span
+            className="ant-slider-dot ant-slider-dot-active"
+            style={
+              Object {
+                "left": "100%",
+              }
+            }
+          />
+        </div>
+        <div
+          aria-disabled={false}
+          aria-valuemax={100}
+          aria-valuemin={0}
+          aria-valuenow={100}
+          className="ant-slider-handle"
+          onBlur={undefined}
+          onClick={undefined}
+          onFocus={undefined}
+          onMouseDown={undefined}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onTouchStart={undefined}
+          role="slider"
+          style={
+            Object {
+              "left": "100%",
+            }
+          }
+        />
+        <div
+          className="ant-slider-mark"
         >
           <span
-            className="ant-radio-button"
-            style={Object {}}
+            className="ant-slider-mark-text ant-slider-mark-text-active"
+            style={
+              Object {
+                "left": "0%",
+                "marginLeft": "-11.25%",
+                "width": "22.5%",
+              }
+            }
           >
-            <input
-              checked={false}
-              className="ant-radio-button-input"
-              disabled={false}
-              name={undefined}
-              onBlur={[Function]}
-              onChange={[Function]}
-              onClick={undefined}
-              onFocus={[Function]}
-              readOnly={undefined}
-              tabIndex={undefined}
-              type="radio"
-            />
-            <span
-              className="ant-radio-button-inner"
-            />
+            0%
           </span>
-          <span>
+          <span
+            className="ant-slider-mark-text ant-slider-mark-text-active"
+            style={
+              Object {
+                "left": "25%",
+                "marginLeft": "-11.25%",
+                "width": "22.5%",
+              }
+            }
+          >
             25%
           </span>
-        </label>
-        <label
-          className="ant-radio-button-wrapper"
-          onMouseEnter={undefined}
-          onMouseLeave={undefined}
-          style={undefined}
-        >
           <span
-            className="ant-radio-button"
-            style={Object {}}
+            className="ant-slider-mark-text ant-slider-mark-text-active"
+            style={
+              Object {
+                "left": "50%",
+                "marginLeft": "-11.25%",
+                "width": "22.5%",
+              }
+            }
           >
-            <input
-              checked={false}
-              className="ant-radio-button-input"
-              disabled={false}
-              name={undefined}
-              onBlur={[Function]}
-              onChange={[Function]}
-              onClick={undefined}
-              onFocus={[Function]}
-              readOnly={undefined}
-              tabIndex={undefined}
-              type="radio"
-            />
-            <span
-              className="ant-radio-button-inner"
-            />
-          </span>
-          <span>
             50%
           </span>
-        </label>
-        <label
-          className="ant-radio-button-wrapper"
-          onMouseEnter={undefined}
-          onMouseLeave={undefined}
-          style={undefined}
-        >
           <span
-            className="ant-radio-button"
-            style={Object {}}
+            className="ant-slider-mark-text ant-slider-mark-text-active"
+            style={
+              Object {
+                "left": "75%",
+                "marginLeft": "-11.25%",
+                "width": "22.5%",
+              }
+            }
           >
-            <input
-              checked={false}
-              className="ant-radio-button-input"
-              disabled={false}
-              name={undefined}
-              onBlur={[Function]}
-              onChange={[Function]}
-              onClick={undefined}
-              onFocus={[Function]}
-              readOnly={undefined}
-              tabIndex={undefined}
-              type="radio"
-            />
-            <span
-              className="ant-radio-button-inner"
-            />
-          </span>
-          <span>
             75%
           </span>
-        </label>
-        <label
-          className="ant-radio-button-wrapper ant-radio-button-wrapper-checked"
+          <span
+            className="ant-slider-mark-text ant-slider-mark-text-active"
+            style={
+              Object {
+                "left": "100%",
+                "marginLeft": "-11.25%",
+                "width": "22.5%",
+              }
+            }
+          >
+            100%
+          </span>
+        </div>
+      </div>
+      <div
+        className="RawSlider__presets"
+      >
+        <div
+          className="ant-radio-group ant-radio-group-large"
           onMouseEnter={undefined}
           onMouseLeave={undefined}
           style={undefined}
         >
-          <span
-            className="ant-radio-button ant-radio-button-checked"
-            style={Object {}}
+          <label
+            className="ant-radio-button-wrapper"
+            onMouseEnter={undefined}
+            onMouseLeave={undefined}
+            style={undefined}
           >
-            <input
-              checked={true}
-              className="ant-radio-button-input"
-              disabled={false}
-              name={undefined}
-              onBlur={[Function]}
-              onChange={[Function]}
-              onClick={undefined}
-              onFocus={[Function]}
-              readOnly={undefined}
-              tabIndex={undefined}
-              type="radio"
-            />
             <span
-              className="ant-radio-button-inner"
-            />
-          </span>
-          <span>
-            100%
-          </span>
-        </label>
+              className="ant-radio-button"
+              style={Object {}}
+            >
+              <input
+                checked={false}
+                className="ant-radio-button-input"
+                disabled={false}
+                name={undefined}
+                onBlur={[Function]}
+                onChange={[Function]}
+                onClick={undefined}
+                onFocus={[Function]}
+                readOnly={undefined}
+                tabIndex={undefined}
+                type="radio"
+              />
+              <span
+                className="ant-radio-button-inner"
+              />
+            </span>
+            <span>
+              1%
+            </span>
+          </label>
+          <label
+            className="ant-radio-button-wrapper"
+            onMouseEnter={undefined}
+            onMouseLeave={undefined}
+            style={undefined}
+          >
+            <span
+              className="ant-radio-button"
+              style={Object {}}
+            >
+              <input
+                checked={false}
+                className="ant-radio-button-input"
+                disabled={false}
+                name={undefined}
+                onBlur={[Function]}
+                onChange={[Function]}
+                onClick={undefined}
+                onFocus={[Function]}
+                readOnly={undefined}
+                tabIndex={undefined}
+                type="radio"
+              />
+              <span
+                className="ant-radio-button-inner"
+              />
+            </span>
+            <span>
+              25%
+            </span>
+          </label>
+          <label
+            className="ant-radio-button-wrapper"
+            onMouseEnter={undefined}
+            onMouseLeave={undefined}
+            style={undefined}
+          >
+            <span
+              className="ant-radio-button"
+              style={Object {}}
+            >
+              <input
+                checked={false}
+                className="ant-radio-button-input"
+                disabled={false}
+                name={undefined}
+                onBlur={[Function]}
+                onChange={[Function]}
+                onClick={undefined}
+                onFocus={[Function]}
+                readOnly={undefined}
+                tabIndex={undefined}
+                type="radio"
+              />
+              <span
+                className="ant-radio-button-inner"
+              />
+            </span>
+            <span>
+              50%
+            </span>
+          </label>
+          <label
+            className="ant-radio-button-wrapper"
+            onMouseEnter={undefined}
+            onMouseLeave={undefined}
+            style={undefined}
+          >
+            <span
+              className="ant-radio-button"
+              style={Object {}}
+            >
+              <input
+                checked={false}
+                className="ant-radio-button-input"
+                disabled={false}
+                name={undefined}
+                onBlur={[Function]}
+                onChange={[Function]}
+                onClick={undefined}
+                onFocus={[Function]}
+                readOnly={undefined}
+                tabIndex={undefined}
+                type="radio"
+              />
+              <span
+                className="ant-radio-button-inner"
+              />
+            </span>
+            <span>
+              75%
+            </span>
+          </label>
+          <label
+            className="ant-radio-button-wrapper ant-radio-button-wrapper-checked"
+            onMouseEnter={undefined}
+            onMouseLeave={undefined}
+            style={undefined}
+          >
+            <span
+              className="ant-radio-button ant-radio-button-checked"
+              style={Object {}}
+            >
+              <input
+                checked={true}
+                className="ant-radio-button-input"
+                disabled={false}
+                name={undefined}
+                onBlur={[Function]}
+                onChange={[Function]}
+                onClick={undefined}
+                onFocus={[Function]}
+                readOnly={undefined}
+                tabIndex={undefined}
+                type="radio"
+              />
+              <span
+                className="ant-radio-button-inner"
+              />
+            </span>
+            <span>
+              100%
+            </span>
+          </label>
+        </div>
       </div>
     </div>
     <div

@@ -97,6 +97,8 @@
   "voting_power_info":"You can enable Voting Power slider to specify exact percentage of your Voting Power to use for like.",
   "voting_power_off":"Disable slider",
   "voting_power_on":"Enable slider",
+  "vote_percent":"Default vote percent",
+  "vote_percent_info":"You can select your default vote value. It will be used as default value in voting slider and as value used for vote when voting slider is disabled.",
   "language":"Language",
   "language_info":"What language do you want to use on Busy?",
   "select_language":"Select your language",

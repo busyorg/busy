@@ -1,12 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl, FormattedMessage, FormattedNumber } from 'react-intl';
-import { Radio, Slider as AntSlider } from 'antd';
 import USDDisplay from '../Utils/USDDisplay';
+import RawSlider from './RawSlider';
 import './Slider.less';
-
-const RadioButton = Radio.Button;
-const RadioGroup = Radio.Group;
 
 @injectIntl
 export default class Slider extends React.Component {
@@ -55,20 +52,6 @@ export default class Slider extends React.Component {
       currency: 'USD',
     });
 
-  marks = {
-    0: '0%',
-    25: '25%',
-    50: '50%',
-    75: '75%',
-    100: '100%',
-  };
-
-  handlePresetChange = (event) => {
-    this.setState({ value: event.target.value }, () => {
-      this.props.onChange(event.target.value);
-    });
-  };
-
   handleChange = (value) => {
     this.setState({ value }, () => {
       this.props.onChange(value);
@@ -93,21 +76,11 @@ export default class Slider extends React.Component {
 
     return (
       <div className="Slider">
-        <AntSlider
-          value={value}
-          marks={this.marks}
-          tipFormatter={this.formatTip}
+        <RawSlider
+          initialValue={value}
           onChange={this.handleChange}
+          tipFormatter={this.formatTip}
         />
-        <div className="Slider__presets">
-          <RadioGroup value={value} size="large" onChange={this.handlePresetChange}>
-            <RadioButton value={1}>1%</RadioButton>
-            <RadioButton value={25}>25%</RadioButton>
-            <RadioButton value={50}>50%</RadioButton>
-            <RadioButton value={75}>75%</RadioButton>
-            <RadioButton value={100}>100%</RadioButton>
-          </RadioGroup>
-        </div>
         <div className="Slider__info">
           <h3>
             <FormattedMessage
