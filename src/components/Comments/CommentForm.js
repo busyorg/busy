@@ -83,8 +83,8 @@ class CommentForm extends React.Component {
       0,
       startPos,
     )}${imageText}${this.input.value.substring(endPos, this.input.value.length)}`;
-    this.setInputCursorPosition(startPos + imageText.length);
     this.setState({ inputValue: newValue });
+    this.setInputCursorPosition(startPos + imageText.length);
   };
 
   handleCommentTextChange = (e) => {
