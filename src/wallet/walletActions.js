@@ -14,37 +14,37 @@ export const GET_USER_EST_ACCOUNT_VALUE = createAsyncActionType(
 export const openTransfer = createAction(OPEN_TRANSFER);
 export const closeTransfer = createAction(CLOSE_TRANSFER);
 
-export const getGlobalPropertiesSuccess = createAction(GET_GLOBAL_PROPERTIES.SUCCESS);
-
-export const getGlobalProperties = () => dispatch =>
-  getDynamicGlobalProperties().then((result) => {
-    dispatch(getGlobalPropertiesSuccess(result));
-  });
-
-export const getUserTransactionsSuccess = createAction(
-  GET_USER_TRANSACTIONS.SUCCESS,
-  (username, transactions) => ({
-    username,
-    transactions,
-  }),
-);
-
-export const getUserTransactions = username => (dispatch) => {
-  dispatch({ type: GET_USER_TRANSACTIONS.START });
-  return getTransactionHistory(username).then((transactions) => {
-    dispatch(getUserTransactionsSuccess(username, transactions));
+export const getGlobalProperties = () => (dispatch) => {
+  dispatch({
+    type: GET_GLOBAL_PROPERTIES.ACTION,
+    payload: {
+      promise: getDynamicGlobalProperties().then(result => ({
+        ...result,
+      })),
+    },
   });
 };
 
-export const getUserEstAccountValueSuccess = (username, value) => ({
-  type: GET_USER_EST_ACCOUNT_VALUE.SUCCESS,
-  payload: {
-    username,
-    value,
-  },
-});
-
-export const getUserEstAccountValue = user => dispatch =>
-  steem.formatter.estimateAccountValue(user).then((value) => {
-    dispatch(getUserEstAccountValueSuccess(user.name, value));
+export const getUserTransactions = username => (dispatch) => {
+  dispatch({
+    type: GET_USER_TRANSACTIONS.ACTION,
+    payload: {
+      promise: getTransactionHistory(username).then(transactions => ({
+        username,
+        transactions,
+      })),
+    },
   });
+};
+
+export const getUserEstAccountValue = user => (dispatch) => {
+  dispatch({
+    type: GET_USER_EST_ACCOUNT_VALUE.ACTION,
+    payload: {
+      promise: steem.formatter.estimateAccountValue(user).then(value => ({
+        username: user.name,
+        value,
+      })),
+    },
+  });
+};

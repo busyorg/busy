@@ -35,27 +35,23 @@ export default function walletReducer(state = initialState, action) {
         ...state,
         usersTransactionsLoading: true,
       };
-    case walletActions.GET_USER_TRANSACTIONS.SUCCESS: {
-      const { username, transactions } = action.payload;
+    case walletActions.GET_USER_TRANSACTIONS.SUCCESS:
       return {
         ...state,
         usersTransactions: {
           ...state.usersTransactions,
-          [username]: transactions,
+          [action.payload.username]: action.payload.transactions,
         },
         usersTransactionsLoading: false,
       };
-    }
-    case walletActions.GET_USER_EST_ACCOUNT_VALUE.SUCCESS: {
-      const { username, value } = action.payload;
+    case walletActions.GET_USER_EST_ACCOUNT_VALUE.SUCCESS:
       return {
         ...state,
         usersEstAccountsValues: {
           ...state.usersEstAccountsValues,
-          [username]: value,
+          [action.payload.username]: action.payload.value,
         },
       };
-    }
     default:
       return state;
   }
