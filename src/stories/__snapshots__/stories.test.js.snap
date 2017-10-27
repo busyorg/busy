@@ -796,6 +796,7 @@ exports[`Storyshots Navigation Topnav logged 1`] = `
                 <img
                   alt="guest123"
                   className="Avatar"
+                  onError={[Function]}
                   src="https://img.busy.org/@guest123?s=36"
                   style={
                     Object {
@@ -1020,6 +1021,7 @@ exports[`Storyshots Profile UserHeader 1`] = `
       <img
         alt=""
         className="Avatar"
+        onError={[Function]}
         src="https://img.busy.org/@steemconnect?s=100"
         style={
           Object {
@@ -1205,6 +1207,7 @@ exports[`Storyshots Sidebar Interesting People 1`] = `
               <img
                 alt="liondani"
                 className="Avatar"
+                onError={[Function]}
                 src="https://img.busy.org/@liondani?s=34"
                 style={
                   Object {
@@ -1252,6 +1255,7 @@ exports[`Storyshots Sidebar Interesting People 1`] = `
               <img
                 alt="good-karma"
                 className="Avatar"
+                onError={[Function]}
                 src="https://img.busy.org/@good-karma?s=34"
                 style={
                   Object {
@@ -1299,6 +1303,7 @@ exports[`Storyshots Sidebar Interesting People 1`] = `
               <img
                 alt="furion"
                 className="Avatar"
+                onError={[Function]}
                 src="https://img.busy.org/@furion?s=34"
                 style={
                   Object {
@@ -1672,6 +1677,7 @@ exports[`Storyshots Story Full story 1`] = `
         <img
           alt="bitspace"
           className="Avatar"
+          onError={[Function]}
           src="https://img.busy.org/@bitspace?s=60"
           style={
             Object {
@@ -1938,6 +1944,7 @@ exports[`Storyshots Story Full story with embed 1`] = `
         <img
           alt="fyrstikken"
           className="Avatar"
+          onError={[Function]}
           src="https://img.busy.org/@fyrstikken?s=60"
           style={
             Object {
@@ -2188,6 +2195,7 @@ exports[`Storyshots Story Inline story 1`] = `
           <img
             alt="bitspace"
             className="Avatar"
+            onError={[Function]}
             src="https://img.busy.org/@bitspace?s=40"
             style={
               Object {
@@ -2412,6 +2420,7 @@ exports[`Storyshots Story Inline story with embed 1`] = `
           <img
             alt="fyrstikken"
             className="Avatar"
+            onError={[Function]}
             src="https://img.busy.org/@fyrstikken?s=40"
             style={
               Object {
