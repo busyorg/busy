@@ -67,16 +67,26 @@ class CommentForm extends React.Component {
     this.insertImage(image, imageName);
   };
 
+  setInputCursorPosition = (pos) => {
+    if (this.input && this.input.setSelectionRange) {
+      this.input.setSelectionRange(pos, pos);
+    }
+  }
+
   insertImage = (image, imageName = 'image') => {
     if (!this.input) return;
 
     const startPos = this.input.selectionStart;
     const endPos = this.input.selectionEnd;
-    const newValue = `${this.input.value.substring(
+    const imageText = `![${imageName}](${image})\n`;
+    this.input.value = `${this.input.value.substring(
       0,
       startPos,
-    )}![${imageName}](${image})\n${this.input.value.substring(endPos, this.input.value.length)}`;
-    this.setState({ inputValue: newValue });
+    )}${imageText}${this.input.value.substring(endPos, this.input.value.length)}`;
+    this.resizeTextarea();
+    this.renderMarkdown(this.input.value);
+    this.setInputCursorPosition(startPos + imageText.length);
+    this.onUpdate();
   };
 
   handleCommentTextChange = (e) => {
