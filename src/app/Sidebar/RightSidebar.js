@@ -15,6 +15,7 @@ import InterestingPeopleWithAPI from '../../components/Sidebar/InterestingPeople
 import StartNow from '../../components/Sidebar/StartNow';
 import SignUp from '../../components/Sidebar/SignUp';
 import PostRecommendation from '../../components/Sidebar/PostRecommendation';
+import Loading from '../../components/Icon/Loading';
 
 @connect(
   state => ({
@@ -55,13 +56,17 @@ export default class RightSidebar extends React.Component {
       followingList,
     } = this.props;
 
+    if (isAuthFetching) {
+      return <Loading />;
+    }
+
     return (
       <div>
         {!authenticated && <SignUp />}
         <Switch>
           <Route
             path="/@:name"
-            component={() =>
+            render={() =>
               authenticated &&
               <InterestingPeopleWithAPI
                 authenticatedUser={authenticatedUser}
