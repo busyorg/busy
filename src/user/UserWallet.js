@@ -31,13 +31,12 @@ import { getAccountWithFollowingCount } from './usersActions';
     usersTransactionsLoading: getUsersTransactionsLoading(state),
     usersEstAccountsValues: getUsersEstAccountsValues(state),
   }),
-  dispatch => ({
-    getGlobalProperties: () => dispatch(getGlobalProperties()),
-    getUserTransactions: username => dispatch(getUserTransactions(username)),
-    getAccountWithFollowingCount: username =>
-      dispatch(getAccountWithFollowingCount({ name: username })),
-    getUserEstAccountValue: user => dispatch(getUserEstAccountValue(user)),
-  }),
+  {
+    getGlobalProperties,
+    getUserTransactions,
+    getAccountWithFollowingCount,
+    getUserEstAccountValue,
+  },
 )
 class Wallet extends Component {
   static propTypes = {
@@ -73,7 +72,7 @@ class Wallet extends Component {
     }
 
     if (_.isEmpty(user)) {
-      this.props.getAccountWithFollowingCount(username);
+      this.props.getAccountWithFollowingCount({ name: username });
     }
 
     if (_.isEmpty(usersEstAccountsValues[username]) && !_.isEmpty(user.name)) {
