@@ -20,9 +20,6 @@ const User = ({ user }) =>
       </div>
       <FollowButton username={user.name} />
     </div>
-    <div className="User__about">
-      {user.about}
-    </div>
     <div className="User__divider" />
   </div>);
 
