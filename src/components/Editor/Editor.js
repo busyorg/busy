@@ -321,7 +321,7 @@ class Editor extends React.Component {
     this.input.value = `${this.input.value.substring(
       0,
       startPos,
-    )}![${imageName}](${image})${this.input.value.substring(endPos, this.input.value.length)}\n`;
+    )}![${imageName}](${image})\n${this.input.value.substring(endPos, this.input.value.length)}`;
 
     this.resizeTextarea();
     this.renderMarkdown(this.input.value);
