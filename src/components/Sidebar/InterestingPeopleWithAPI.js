@@ -13,7 +13,6 @@ class InterestingPeopleWithAPI extends Component {
     authenticatedUser: PropTypes.shape({
       name: PropTypes.string,
     }),
-    authFetching: PropTypes.bool,
     followingList: PropTypes.arrayOf(PropTypes.string),
   };
 
@@ -21,7 +20,6 @@ class InterestingPeopleWithAPI extends Component {
     authenticatedUser: {
       name: '',
     },
-    authFetching: false,
     followingList: [],
   };
 
@@ -32,45 +30,39 @@ class InterestingPeopleWithAPI extends Component {
   };
 
   componentWillMount() {
-    if (!this.props.authFetching) {
-      const authenticatedUsername = this.props.authenticatedUser.name;
-      const usernameValidator = window.location.pathname.match(/@(.*)/);
-      const username = usernameValidator ? usernameValidator[1] : authenticatedUsername;
-      this.getBlogAuthors(username);
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const diffAuthUser =
-      JSON.stringify(this.props.authenticatedUser) !== JSON.stringify(nextProps.authenticatedUser);
-
-    if (diffAuthUser) {
-      const usernameValidator = window.location.pathname.match(/@(.*)/);
-      const username = usernameValidator ? usernameValidator[1] : nextProps.authenticatedUser.name;
-      this.getBlogAuthors(username);
-    }
+    const authenticatedUsername = this.props.authenticatedUser.name;
+    const usernameValidator = window.location.pathname.match(/@(.*)/);
+    const username = usernameValidator ? usernameValidator[1] : authenticatedUsername;
+    this.getBlogAuthors(username);
   }
 
   getBlogAuthors = (username = '') =>
-    steemAPI.getBlogAuthorsAsync(username).then((result) => {
-      const followers = this.props.followingList;
-      const users = _.sortBy(result, user => user[1])
-        .reverse()
-        .filter(user => !followers.includes(user[0]))
-        .slice(0, 5)
-        .map(user => ({ name: user[0] }));
-      if (users.length > 0) {
-        this.setState({
-          users,
-          loading: false,
-          noUsers: false,
-        });
-      } else {
+    steemAPI
+      .getBlogAuthorsAsync(username)
+      .then((result) => {
+        const followers = this.props.followingList;
+        const users = _.sortBy(result, user => user[1])
+          .reverse()
+          .filter(user => !followers.includes(user[0]))
+          .slice(0, 5)
+          .map(user => ({ name: user[0] }));
+        if (users.length > 0) {
+          this.setState({
+            users,
+            loading: false,
+            noUsers: false,
+          });
+        } else {
+          this.setState({
+            noUsers: true,
+          });
+        }
+      })
+      .catch(() => {
         this.setState({
           noUsers: true,
         });
-      }
-    });
+      });
 
   render() {
     const { users, loading, noUsers } = this.state;

@@ -70,7 +70,6 @@ export default class RightSidebar extends React.Component {
               authenticated &&
               <InterestingPeopleWithAPI
                 authenticatedUser={authenticatedUser}
-                authFetching={isAuthFetching}
                 followingList={followingList}
               />}
           />
