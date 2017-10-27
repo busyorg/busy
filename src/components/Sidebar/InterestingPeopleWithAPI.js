@@ -14,7 +14,7 @@ class InterestingPeopleWithAPI extends Component {
       name: PropTypes.string,
     }),
     authFetching: PropTypes.bool,
-    followingList: PropTypes.array,
+    followingList: PropTypes.arrayOf(PropTypes.string),
   };
 
   static defaultProps = {
