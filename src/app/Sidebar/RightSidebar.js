@@ -2,84 +2,88 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
-import people from '../../helpers/people';
-
 import {
   getIsAuthenticated,
   getAuthenticatedUser,
-  getFollowingList,
   getIsAuthFetching,
+  getRecommendations,
+  getFollowingList,
 } from '../../reducers';
-
+import { updateRecommendations } from '../../user/userActions';
 import InterestingPeople from '../../components/Sidebar/InterestingPeople';
+import InterestingPeopleWithAPI from '../../components/Sidebar/InterestingPeopleWithAPI';
 import StartNow from '../../components/Sidebar/StartNow';
 import SignUp from '../../components/Sidebar/SignUp';
 import PostRecommendation from '../../components/Sidebar/PostRecommendation';
+import Loading from '../../components/Icon/Loading';
 
 @connect(
   state => ({
     authenticated: getIsAuthenticated(state),
     authenticatedUser: getAuthenticatedUser(state),
-    followingList: getFollowingList(state),
     isAuthFetching: getIsAuthFetching(state),
+    recommendations: getRecommendations(state),
+    followingList: getFollowingList(state),
   }),
+  {
+    updateRecommendations,
+  },
 )
 export default class RightSidebar extends React.Component {
   static propTypes = {
     authenticated: PropTypes.bool.isRequired,
     authenticatedUser: PropTypes.shape().isRequired,
-    followingList: PropTypes.arrayOf(PropTypes.string).isRequired,
     isAuthFetching: PropTypes.bool.isRequired,
     showPostRecommendation: PropTypes.bool,
+    recommendations: PropTypes.arrayOf(PropTypes.shape({ name: PropTypes.string })).isRequired,
+    updateRecommendations: PropTypes.func,
+    followingList: PropTypes.arrayOf(PropTypes.string).isRequired,
   };
 
   static defaultProps = {
     showPostRecommendation: false,
+    updateRecommendations: () => {},
   };
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      randomPeople: this.getRandomPeople(),
-    };
-  }
-
-  getRandomPeople = () =>
-    people
-      .reduce((res, item) => {
-        if (!this.props.followingList.includes(item)) {
-          res.push({ name: item });
-        }
-        return res;
-      }, [])
-      .sort(() => 0.5 - Math.random())
-      .slice(0, 5);
-
-  handleRefreshInterestingPeople = () =>
-    this.setState({
-      randomPeople: this.getRandomPeople(),
-    });
+  handleInterestingPeopleRefresh = () => this.props.updateRecommendations();
 
   render() {
-    const { authenticated, authenticatedUser, showPostRecommendation, isAuthFetching } = this.props;
-    const InterestingPeopleWithData = () => (
-      <InterestingPeople
-        users={this.state.randomPeople}
-        onRefresh={this.handleRefreshInterestingPeople}
-      />
-    );
+    const {
+      authenticated,
+      authenticatedUser,
+      showPostRecommendation,
+      isAuthFetching,
+      followingList,
+    } = this.props;
+
+    if (isAuthFetching) {
+      return <Loading />;
+    }
 
     return (
       <div>
         {!authenticated && <SignUp />}
         <Switch>
-          <Route path="/@:name" component={InterestingPeopleWithData} />
+          <Route
+            path="/@:name"
+            render={() =>
+              authenticated &&
+              <InterestingPeopleWithAPI
+                authenticatedUser={authenticatedUser}
+                followingList={followingList}
+              />}
+          />
           <Route
             path="/"
             render={() => (
               <div>
                 {authenticatedUser.last_root_post === '1970-01-01T00:00:00' && <StartNow />}
-                {!showPostRecommendation && <InterestingPeopleWithData />}
+                {authenticated && this.props.recommendations.length > 0
+                  ? <InterestingPeople
+                    users={this.props.recommendations}
+                    onRefresh={this.handleInterestingPeopleRefresh}
+                  />
+                  : <div />}
               </div>
             )}
           />

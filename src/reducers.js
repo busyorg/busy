@@ -78,6 +78,7 @@ export const getPendingReblogs = state => fromReblog.getPendingReblogs(state.reb
 
 export const getFollowingList = state => fromUser.getFollowingList(state.user);
 export const getPendingFollows = state => fromUser.getPendingFollows(state.user);
+export const getRecommendations = state => fromUser.getRecommendations(state.user);
 
 export const getUser = (state, username) => fromUsers.getUser(state.users, username);
 
