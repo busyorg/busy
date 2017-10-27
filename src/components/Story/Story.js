@@ -25,6 +25,7 @@ class Story extends React.Component {
     post: PropTypes.shape().isRequired,
     postState: PropTypes.shape().isRequired,
     rewardFund: PropTypes.shape().isRequired,
+    defaultVotePercent: PropTypes.number.isRequired,
     pendingLike: PropTypes.bool,
     pendingFollow: PropTypes.bool,
     pendingBookmark: PropTypes.bool,
@@ -88,6 +89,7 @@ class Story extends React.Component {
       rewardFund,
       ownPost,
       sliderMode,
+      defaultVotePercent,
       onLikeClick,
       onShareClick,
       onEditClick,
@@ -247,6 +249,7 @@ class Story extends React.Component {
               rewardFund={rewardFund}
               ownPost={ownPost}
               sliderMode={sliderMode}
+              defaultVotePercent={defaultVotePercent}
               onLikeClick={onLikeClick}
               onShareClick={onShareClick}
               onEditClick={onEditClick}

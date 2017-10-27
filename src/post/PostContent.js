@@ -18,6 +18,7 @@ import {
   getIsEditorSaving,
   getVotingPower,
   getRewardFund,
+  getVotePercent,
 } from '../reducers';
 import { editPost } from './Write/editorActions';
 import { votePost } from './postActions';
@@ -41,6 +42,7 @@ import StoryFull from '../components/Story/StoryFull';
     saving: getIsEditorSaving(state),
     sliderMode: getVotingPower(state),
     rewardFund: getRewardFund(state),
+    defaultVotePercent: getVotePercent(state),
   }),
   {
     editPost,
@@ -63,6 +65,7 @@ class PostContent extends React.Component {
     pendingBookmarks: PropTypes.arrayOf(PropTypes.number).isRequired,
     saving: PropTypes.bool.isRequired,
     rewardFund: PropTypes.shape().isRequired,
+    defaultVotePercent: PropTypes.number.isRequired,
     bookmarks: PropTypes.shape(),
     sliderMode: PropTypes.oneOf(['on', 'off', 'auto']),
     editPost: PropTypes.func,
@@ -99,7 +102,7 @@ class PostContent extends React.Component {
   }
 
   handleLikeClick = (post, weight = 10000) => {
-    const { sliderMode, user } = this.props;
+    const { sliderMode, user, defaultVotePercent } = this.props;
     if (sliderMode === 'on' || (sliderMode === 'auto' && getHasDefaultSlider(user))) {
       this.props.votePost(post.id, post.author, post.permlink, weight);
     } else {
@@ -107,7 +110,7 @@ class PostContent extends React.Component {
       if (userVote.percent > 0) {
         this.props.votePost(post.id, post.author, post.permlink, 0);
       } else {
-        this.props.votePost(post.id, post.author, post.permlink);
+        this.props.votePost(post.id, post.author, post.permlink, defaultVotePercent);
       }
     }
   };
@@ -143,6 +146,7 @@ class PostContent extends React.Component {
       saving,
       sliderMode,
       rewardFund,
+      defaultVotePercent,
     } = this.props;
 
     const postMetaData = jsonParse(content.json_metadata);
@@ -208,6 +212,7 @@ class PostContent extends React.Component {
           rewardFund={rewardFund}
           ownPost={author === user.name}
           sliderMode={sliderMode}
+          defaultVotePercent={defaultVotePercent}
           onLikeClick={this.handleLikeClick}
           onReportClick={this.handleReportClick}
           onShareClick={this.handleShareClick}

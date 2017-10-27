@@ -14,6 +14,7 @@ class StoryFooter extends React.Component {
     post: PropTypes.shape().isRequired,
     postState: PropTypes.shape().isRequired,
     rewardFund: PropTypes.shape().isRequired,
+    defaultVotePercent: PropTypes.number.isRequired,
     ownPost: PropTypes.bool,
     sliderMode: PropTypes.oneOf(['on', 'off', 'auto']),
     pendingLike: PropTypes.bool,
@@ -38,13 +39,17 @@ class StoryFooter extends React.Component {
   };
 
   componentWillMount() {
-    const { user, post } = this.props;
+    const { user, post, defaultVotePercent } = this.props;
     if (user) {
       const userVote = find(post.active_votes, { voter: user.name }) || {};
 
       if (userVote.percent && userVote.percent > 0) {
         this.setState({
           sliderValue: userVote.percent / 100,
+        });
+      } else {
+        this.setState({
+          sliderValue: defaultVotePercent / 100,
         });
       }
     }

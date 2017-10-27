@@ -27,6 +27,7 @@ class StoryFull extends React.Component {
     post: PropTypes.shape().isRequired,
     postState: PropTypes.shape().isRequired,
     rewardFund: PropTypes.shape().isRequired,
+    defaultVotePercent: PropTypes.number.isRequired,
     pendingLike: PropTypes.bool,
     pendingFollow: PropTypes.bool,
     pendingBookmark: PropTypes.bool,
@@ -125,6 +126,7 @@ class StoryFull extends React.Component {
       rewardFund,
       ownPost,
       sliderMode,
+      defaultVotePercent,
       onLikeClick,
       onShareClick,
       onEditClick,
@@ -343,6 +345,7 @@ class StoryFull extends React.Component {
           ownPost={ownPost}
           rewardFund={rewardFund}
           sliderMode={sliderMode}
+          defaultVotePercent={defaultVotePercent}
           onLikeClick={onLikeClick}
           onShareClick={onShareClick}
           onEditClick={onEditClick}

@@ -25,7 +25,6 @@ import UserHeader from '../components/UserHeader';
 import Comments from '../components/Comments/Comments';
 import Editor from '../components/Editor/Editor';
 import TopicSelector from '../components/TopicSelector';
-import Slider from '../components/Slider/Slider';
 import '../styles/base.less';
 
 addDecorator(story => (
@@ -46,8 +45,6 @@ Object.keys(postState.content).forEach((key) => {
     childrenId => postState.content[childrenId],
   );
 });
-
-storiesOf('Slider', module).add('Slider', () => <Slider />);
 
 storiesOf('Button', module)
   .add('Topic', () => <Topic name="travel" />)

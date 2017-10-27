@@ -22,6 +22,7 @@ import {
   getIsEditorSaving,
   getVotingPower,
   getRewardFund,
+  getVotePercent,
 } from '../reducers';
 
 import Story from '../components/Story/Story';
@@ -41,6 +42,7 @@ import './Feed.less';
     saving: getIsEditorSaving(state),
     sliderMode: getVotingPower(state),
     rewardFund: getRewardFund(state),
+    defaultVotePercent: getVotePercent(state),
   }),
   {
     editPost,
@@ -64,6 +66,7 @@ export default class Feed extends React.Component {
     reblogList: PropTypes.arrayOf(PropTypes.number).isRequired,
     saving: PropTypes.bool.isRequired,
     rewardFund: PropTypes.shape().isRequired,
+    defaultVotePercent: PropTypes.number.isRequired,
     isFetching: PropTypes.bool,
     hasMore: PropTypes.bool,
     sliderMode: PropTypes.oneOf(['on', 'off', 'auto']),
@@ -90,7 +93,7 @@ export default class Feed extends React.Component {
   };
 
   handleLikeClick = (post, weight = 10000) => {
-    const { sliderMode, user } = this.props;
+    const { sliderMode, user, defaultVotePercent } = this.props;
     if (sliderMode === 'on' || (sliderMode === 'auto' && getHasDefaultSlider(user))) {
       this.props.votePost(post.id, post.author, post.permlink, weight);
     } else {
@@ -98,7 +101,7 @@ export default class Feed extends React.Component {
       if (userVote.percent > 0) {
         this.props.votePost(post.id, post.author, post.permlink, 0);
       } else {
-        this.props.votePost(post.id, post.author, post.permlink);
+        this.props.votePost(post.id, post.author, post.permlink, defaultVotePercent);
       }
     }
   };
@@ -136,6 +139,7 @@ export default class Feed extends React.Component {
       saving,
       sliderMode,
       rewardFund,
+      defaultVotePercent,
     } = this.props;
 
     return (
@@ -173,6 +177,7 @@ export default class Feed extends React.Component {
               ownPost={post.author === user.name}
               sliderMode={sliderMode}
               rewardFund={rewardFund}
+              defaultVotePercent={defaultVotePercent}
               onLikeClick={this.handleLikeClick}
               onReportClick={this.handleReportClick}
               onShareClick={this.handleShareClick}
