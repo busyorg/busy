@@ -22,7 +22,7 @@ class Avatar extends Component {
 
   onError = () => {
     this.setState({
-      imgUrl: 'defaultImgUrl',
+      imgUrl: 'https://res.cloudinary.com/hpiynhbhq/image/fetch/s--hWKFE2sA--/c_fill,h_200,w_200/http://res.cloudinary.com/hpiynhbhq/image/upload/v1501526513/avatar_juzb7o.png',
     });
   };
 
