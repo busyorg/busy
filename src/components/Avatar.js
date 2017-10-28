@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import getImage from '../helpers/getImage';
 import './Avatar.less';
 
 class Avatar extends Component {
@@ -16,7 +17,7 @@ class Avatar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      imgUrl: `${process.env.IMG_HOST}/@${props.username || 'steemconnect'}?s=${props.size}`,
+      imgUrl: getImage(`@${props.username || 'steemconnect'}?s=${props.size}`),
     };
   }
 

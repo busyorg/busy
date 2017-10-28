@@ -4,7 +4,8 @@ import classNames from 'classnames';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { Tag, Tooltip, Popover } from 'antd';
 import { formatter } from 'steem';
-import { getUserRankKey, getUserRank } from '../helpers/ranks';
+import getImage from '../helpers/getImage';
+import { getUserRankKey, getUserRank } from '../helpers/user';
 import Avatar from './Avatar';
 import FollowButton from '../widgets/FollowButton';
 import Action from './Button/Action';
@@ -23,7 +24,7 @@ const UserHeader = ({
 }) => (
   <div
     className={classNames('UserHeader', { 'UserHeader--cover': hasCover })}
-    style={{ backgroundImage: `url("${process.env.IMG_HOST}/@${handle}/cover")` }}
+    style={{ backgroundImage: `url("${getImage(`@${handle}/cover`)}")` }}
   >
     <div className="UserHeader__container">
       <Avatar username={handle} size={100} />
@@ -59,22 +60,24 @@ const UserHeader = ({
               <FollowButton username={handle} />
             )}
           </div>
-          {!isSameUser && <Popover
-            placement="bottom"
-            trigger="click"
-            content={
-              <PopoverMenu onSelect={onSelect}>
-                <PopoverMenuItem key="transfer">
-                  <FormattedMessage id="transfer" defaultMessage="Transfer" />
-                </PopoverMenuItem>
-                <PopoverMenuItem key="mute">
-                  <FormattedMessage id="block_user" defaultMessage="Block this user" />
-                </PopoverMenuItem>
-              </PopoverMenu>
-            }
-          >
-            <i className="iconfont icon-more UserHeader__more" />
-          </Popover>}
+          {!isSameUser && (
+            <Popover
+              placement="bottom"
+              trigger="click"
+              content={
+                <PopoverMenu onSelect={onSelect}>
+                  <PopoverMenuItem key="transfer">
+                    <FormattedMessage id="transfer" defaultMessage="Transfer" />
+                  </PopoverMenuItem>
+                  <PopoverMenuItem key="mute">
+                    <FormattedMessage id="block_user" defaultMessage="Block this user" />
+                  </PopoverMenuItem>
+                </PopoverMenu>
+              }
+            >
+              <i className="iconfont icon-more UserHeader__more" />
+            </Popover>
+          )}
         </div>
         <div className="UserHeader__handle-rank-container">
           <div className="UserHeader__row UserHeader__handle">@{handle}</div>

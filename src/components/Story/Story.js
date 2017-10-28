@@ -1,11 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { injectIntl, FormattedMessage, FormattedRelative, FormattedDate, FormattedTime } from 'react-intl';
+import {
+  injectIntl,
+  FormattedMessage,
+  FormattedRelative,
+  FormattedDate,
+  FormattedTime,
+} from 'react-intl';
 import { Link } from 'react-router-dom';
 import { Tag, Icon, Popover, Tooltip } from 'antd';
 import { formatter } from 'steem';
 import StoryPreview from './StoryPreview';
-import StoryFooter from './StoryFooter';
+import StoryFooter from '../StoryFooter/StoryFooter';
 import Avatar from '../Avatar';
 import Topic from '../Button/Topic';
 import PopoverMenu, { PopoverMenuItem } from '../PopoverMenu/PopoverMenu';
@@ -15,13 +21,17 @@ import './Story.less';
 class Story extends React.Component {
   static propTypes = {
     intl: PropTypes.shape().isRequired,
+    user: PropTypes.shape().isRequired,
     post: PropTypes.shape().isRequired,
     postState: PropTypes.shape().isRequired,
+    rewardFund: PropTypes.shape().isRequired,
+    defaultVotePercent: PropTypes.number.isRequired,
     pendingLike: PropTypes.bool,
     pendingFollow: PropTypes.bool,
     pendingBookmark: PropTypes.bool,
     saving: PropTypes.bool,
     ownPost: PropTypes.bool,
+    sliderMode: PropTypes.oneOf(['on', 'off', 'auto']),
     onFollowClick: PropTypes.func,
     onSaveClick: PropTypes.func,
     onReportClick: PropTypes.func,
@@ -36,6 +46,7 @@ class Story extends React.Component {
     pendingBookmark: false,
     saving: false,
     ownPost: false,
+    sliderMode: 'auto',
     onFollowClick: () => {},
     onSaveClick: () => {},
     onReportClick: () => {},
@@ -46,18 +57,20 @@ class Story extends React.Component {
   };
 
   handleClick = (key) => {
+    const { post } = this.props;
+
     switch (key) {
       case 'follow':
-        this.props.onFollowClick(this.props.post);
-        return;
+        this.props.onFollowClick(post);
+        break;
       case 'save':
-        this.props.onSaveClick();
-        return;
+        this.props.onSaveClick(post);
+        break;
       case 'report':
-        this.props.onReportClick();
+        this.props.onReportClick(post);
         break;
       case 'edit':
-        this.props.onEditClick(this.props.post);
+        this.props.onEditClick(post);
         break;
       default:
     }
@@ -66,13 +79,17 @@ class Story extends React.Component {
   render() {
     const {
       intl,
+      user,
       post,
       postState,
       pendingLike,
       pendingFollow,
       pendingBookmark,
       saving,
+      rewardFund,
       ownPost,
+      sliderMode,
+      defaultVotePercent,
       onLikeClick,
       onShareClick,
       onEditClick,
@@ -81,36 +98,57 @@ class Story extends React.Component {
     let followText = '';
 
     if (postState.userFollowed && !pendingFollow) {
-      followText = intl.formatMessage({ id: 'unfollow_username', defaultMessage: 'Unfollow {username}' }, { username: post.author });
+      followText = intl.formatMessage(
+        { id: 'unfollow_username', defaultMessage: 'Unfollow {username}' },
+        { username: post.author },
+      );
     } else if (postState.userFollowed && pendingFollow) {
-      followText = intl.formatMessage({ id: 'unfollow_username', defaultMessage: 'Unfollow {username}' }, { username: post.author });
+      followText = intl.formatMessage(
+        { id: 'unfollow_username', defaultMessage: 'Unfollow {username}' },
+        { username: post.author },
+      );
     } else if (!postState.userFollowed && !pendingFollow) {
-      followText = intl.formatMessage({ id: 'follow_username', defaultMessage: 'Follow {username}' }, { username: post.author });
+      followText = intl.formatMessage(
+        { id: 'follow_username', defaultMessage: 'Follow {username}' },
+        { username: post.author },
+      );
     } else if (!postState.userFollowed && pendingFollow) {
-      followText = intl.formatMessage({ id: 'follow_username', defaultMessage: 'Follow {username}' }, { username: post.author });
+      followText = intl.formatMessage(
+        { id: 'follow_username', defaultMessage: 'Follow {username}' },
+        { username: post.author },
+      );
     }
 
     let popoverMenu = [];
 
     if (ownPost && post.cashout_time !== '1969-12-31T23:59:59') {
-      popoverMenu = [...popoverMenu, <PopoverMenuItem key="edit">
-        {saving ? <Icon type="loading" /> : <i className="iconfont icon-write" />}
-        <FormattedMessage id="edit_post" defaultMessage="Edit post" />
-      </PopoverMenuItem>];
+      popoverMenu = [
+        ...popoverMenu,
+        <PopoverMenuItem key="edit">
+          {saving ? <Icon type="loading" /> : <i className="iconfont icon-write" />}
+          <FormattedMessage id="edit_post" defaultMessage="Edit post" />
+        </PopoverMenuItem>,
+      ];
     }
 
     if (!ownPost) {
-      popoverMenu = [...popoverMenu, <PopoverMenuItem key="follow" disabled={pendingFollow}>
-        {pendingFollow ? <Icon type="loading" /> : <i className="iconfont icon-people" />}
-        {followText}
-      </PopoverMenuItem>];
+      popoverMenu = [
+        ...popoverMenu,
+        <PopoverMenuItem key="follow" disabled={pendingFollow}>
+          {pendingFollow ? <Icon type="loading" /> : <i className="iconfont icon-people" />}
+          {followText}
+        </PopoverMenuItem>,
+      ];
     }
 
     popoverMenu = [
       ...popoverMenu,
       <PopoverMenuItem key="save">
         {pendingBookmark ? <Icon type="loading" /> : <i className="iconfont icon-collection" />}
-        <FormattedMessage id={postState.isSaved ? 'unsave_post' : 'save_post'} defaultMessage={postState.isSaved ? 'Unsave post' : 'Save post'} />
+        <FormattedMessage
+          id={postState.isSaved ? 'unsave_post' : 'save_post'}
+          defaultMessage={postState.isSaved ? 'Unsave post' : 'Save post'}
+        />
       </PopoverMenuItem>,
       <PopoverMenuItem key="report">
         <i className="iconfont icon-flag" />
@@ -121,21 +159,25 @@ class Story extends React.Component {
     let rebloggedUI = null;
 
     if (post.first_reblogged_by) {
-      rebloggedUI = (<div className="Story__reblog">
-        <i className="iconfont icon-share1" />
-        <FormattedMessage
-          id="reblogged_username"
-          defaultMessage="{username} reblogged"
-          values={{
-            username: <Link to={`/@${post.first_reblogged_by}`}>{post.first_reblogged_by}</Link>,
-          }}
-        />
-      </div>);
+      rebloggedUI = (
+        <div className="Story__reblog">
+          <i className="iconfont icon-share1" />
+          <FormattedMessage
+            id="reblogged_username"
+            defaultMessage="{username} reblogged"
+            values={{
+              username: <Link to={`/@${post.first_reblogged_by}`}>{post.first_reblogged_by}</Link>,
+            }}
+          />
+        </div>
+      );
     } else if (post.first_reblogged_on) {
-      rebloggedUI = (<div className="Story__reblog">
-        <i className="iconfont icon-share1" />
-        <FormattedMessage id="reblogged" defaultMessage="Reblogged" />
-      </div>);
+      rebloggedUI = (
+        <div className="Story__reblog">
+          <i className="iconfont icon-share1" />
+          <FormattedMessage id="reblogged" defaultMessage="Reblogged" />
+        </div>
+      );
     }
 
     return (
@@ -162,9 +204,7 @@ class Story extends React.Component {
                 <h4>
                   {post.author}
                   <Tooltip title={intl.formatMessage({ id: 'reputation_score' })}>
-                    <Tag>
-                      {formatter.reputation(post.author_reputation)}
-                    </Tag>
+                    <Tag>{formatter.reputation(post.author_reputation)}</Tag>
                   </Tooltip>
                 </h4>
               </Link>
@@ -188,12 +228,12 @@ class Story extends React.Component {
           <div className="Story__content">
             <Link to={post.url} className="Story__content__title">
               <h2>
-                {post.title ||
+                {post.title || (
                   <span>
                     <Tag color="#4f545c">RE</Tag>
                     {post.root_title}
                   </span>
-                }
+                )}
               </h2>
             </Link>
             <Link to={post.url} className="Story__content__preview">
@@ -202,12 +242,16 @@ class Story extends React.Component {
           </div>
           <div className="Story__footer">
             <StoryFooter
+              user={user}
               post={post}
               postState={postState}
               pendingLike={pendingLike}
+              rewardFund={rewardFund}
+              ownPost={ownPost}
+              sliderMode={sliderMode}
+              defaultVotePercent={defaultVotePercent}
               onLikeClick={onLikeClick}
               onShareClick={onShareClick}
-              ownPost={ownPost}
               onEditClick={onEditClick}
             />
           </div>

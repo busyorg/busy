@@ -1,0 +1,20 @@
+@import (reference) "../../styles/custom.less";
+
+.Payout {
+  position: absolute;
+  right: 0;
+  color: @blue-botticelli;
+  font-size: 16px;
+  font-weight: bold;
+
+  & > .iconfont {
+    margin-left: 4px;
+    vertical-align: -3px;
+    font-size: 24px !important;
+    color: @blue-linkWater;
+  }
+
+  &--rejected {
+    text-decoration: line-through;
+  }
+}
