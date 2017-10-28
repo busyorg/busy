@@ -82,10 +82,10 @@ class StoryFull extends React.Component {
     switch (key) {
       case 'follow':
         this.props.onFollowClick(this.props.post);
-        return;
+        break;
       case 'save':
         this.props.onSaveClick();
-        return;
+        break;
       case 'report':
         this.props.onReportClick(this.props.post);
         break;

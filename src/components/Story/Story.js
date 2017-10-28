@@ -62,10 +62,10 @@ class Story extends React.Component {
     switch (key) {
       case 'follow':
         this.props.onFollowClick(post);
-        return;
+        break;
       case 'save':
         this.props.onSaveClick(post);
-        return;
+        break;
       case 'report':
         this.props.onReportClick(post);
         break;
