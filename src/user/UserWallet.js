@@ -8,6 +8,7 @@ import UserWalletTransactions from '../wallet/UserWalletTransactions';
 import Loading from '../components/Icon/Loading';
 import {
   getUser,
+  getAuthenticatedUser,
   getAuthenticatedUserName,
   getTotalVestingShares,
   getTotalVestingFundSteem,
@@ -26,7 +27,9 @@ import { getAccountWithFollowingCount } from './usersActions';
 @withRouter
 @connect(
   (state, ownProps) => ({
-    user: ownProps.isCurrentUser ? state.auth.user : getUser(state, ownProps.match.params.name),
+    user: ownProps.isCurrentUser
+      ? getAuthenticatedUser(state)
+      : getUser(state, ownProps.match.params.name),
     authenticatedUserName: getAuthenticatedUserName(state),
     totalVestingShares: getTotalVestingShares(state),
     totalVestingFundSteem: getTotalVestingFundSteem(state),
