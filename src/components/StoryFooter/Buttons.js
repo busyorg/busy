@@ -1,34 +1,33 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import take from 'lodash/take';
 import { injectIntl, FormattedMessage, FormattedNumber } from 'react-intl';
 import { Link } from 'react-router-dom';
-import { take } from 'lodash';
 import { Icon, Tooltip, Modal } from 'antd';
 import classNames from 'classnames';
-import { sortVotes } from '../../helpers/sortHelpers';
-import { getUpvotes, getDownvotes } from '../../helpers/voteHelpers';
-import { calculatePayout } from '../../vendor/steemitHelpers';
 import ReactionsModal from '../Reactions/ReactionsModal';
 import USDDisplay from '../Utils/USDDisplay';
-import PayoutDetail from '../PayoutDetail';
-import './StoryFooter.less';
+import { sortVotes } from '../../helpers/sortHelpers';
+import { getUpvotes, getDownvotes } from '../../helpers/voteHelpers';
+import './Buttons.less';
 
 @injectIntl
-class StoryFooter extends React.Component {
+export default class Buttons extends React.Component {
   static propTypes = {
     intl: PropTypes.shape().isRequired,
     post: PropTypes.shape().isRequired,
     postState: PropTypes.shape().isRequired,
+    defaultVotePercent: PropTypes.number.isRequired,
+    ownPost: PropTypes.bool,
     pendingLike: PropTypes.bool,
     onLikeClick: PropTypes.func,
     onShareClick: PropTypes.func,
-    ownPost: PropTypes.bool,
     onEditClick: PropTypes.func,
   };
 
   static defaultProps = {
-    pendingLike: false,
     ownPost: false,
+    pendingLike: false,
     onLikeClick: () => {},
     onShareClick: () => {},
     onEditClick: () => {},
@@ -96,16 +95,16 @@ class StoryFooter extends React.Component {
     this.setState({
       loadingEdit: true,
     });
-    this.props.onEditClick(this.props.post);
+    this.props.onEditClick();
   };
 
   render() {
-    const { intl, post, postState, pendingLike, onLikeClick, ownPost } = this.props;
-
-    const payout = calculatePayout(post);
+    const { intl, post, postState, pendingLike, ownPost, defaultVotePercent } = this.props;
 
     const upVotes = getUpvotes(post.active_votes).sort(sortVotes);
-    const downVotes = getDownvotes(post.active_votes).sort(sortVotes).reverse();
+    const downVotes = getDownvotes(post.active_votes)
+      .sort(sortVotes)
+      .reverse();
 
     const totalPayout =
       parseFloat(post.pending_payout_value) +
@@ -116,9 +115,7 @@ class StoryFooter extends React.Component {
 
     const upVotesPreview = take(upVotes, 10).map(vote => (
       <p key={vote.voter}>
-        <Link to={`/@${vote.voter}`}>
-          {vote.voter}
-        </Link>
+        <Link to={`/@${vote.voter}`}>{vote.voter}</Link>
 
         {vote.rshares * ratio > 0.01 && (
           <span style={{ opacity: '0.5' }}>
@@ -136,47 +133,46 @@ class StoryFooter extends React.Component {
         { amount: upVotesDiff },
       );
 
-    const likeClass = classNames({ active: postState.isLiked, StoryFooter__link: true });
-    const rebloggedClass = classNames({ active: postState.isReblogged, StoryFooter__link: true });
+    const likeClass = classNames({ active: postState.isLiked, Buttons__link: true });
+    const rebloggedClass = classNames({ active: postState.isReblogged, Buttons__link: true });
 
     const commentsLink =
       post.url.indexOf('#') !== -1 ? post.url : { pathname: post.url, hash: '#comments' };
     const showEditLink = ownPost && post.cashout_time !== '1969-12-31T23:59:59';
     const showReblogLink = !ownPost && post.parent_author === '';
 
-    return (
-      <div className="StoryFooter">
-        <span className="StoryFooter__payout">
-          <Tooltip title={<PayoutDetail post={post} />}>
-            <span
-              className={classNames({
-                'StoryFooter__payout--rejected': payout.isPayoutDeclined,
-              })}
-            >
-              <USDDisplay
-                value={payout.cashoutInTime ? payout.potentialPayout : payout.pastPayouts}
-              />
-            </span>
-          </Tooltip>
-          {post.percent_steem_dollars === 0 && (
-            <Tooltip
-              title={intl.formatMessage({
-                id: 'reward_option_100',
-                defaultMessage: '100% Steem Power',
-              })}
-            >
-              <i className="iconfont icon-flashlight" />
-            </Tooltip>
-          )}
+    let likeTooltip = <span>{intl.formatMessage({ id: 'like' })}</span>;
+    if (postState.isLiked) likeTooltip = <span>{intl.formatMessage({ id: 'dislike' })}</span>;
+    else if (defaultVotePercent !== 10000) {
+      likeTooltip = (
+        <span>
+          {intl.formatMessage({ id: 'like' })}{' '}
+          <span style={{ opacity: 0.5 }}>
+            <FormattedNumber
+              style="percent" // eslint-disable-line
+              value={defaultVotePercent / 10000}
+            />
+          </span>
         </span>
-        <Tooltip title={intl.formatMessage({ id: 'like' })}>
-          <a role="presentation" className={likeClass} onClick={() => onLikeClick()}>
-            {pendingLike ? <Icon type="loading" /> : <i className="iconfont icon-praise_fill" />}
+      );
+    }
+
+    return (
+      <div className="Buttons">
+        <Tooltip title={likeTooltip}>
+          <a role="presentation" className={likeClass} onClick={this.props.onLikeClick}>
+            {pendingLike ? (
+              <Icon type="loading" />
+            ) : (
+              <i
+                className={`iconfont icon-${this.state.sliderVisible ? 'right' : 'praise_fill'}`}
+              />
+            )}
           </a>
         </Tooltip>
         <span
-          className={classNames('StoryFooter__number', {
-            'StoryFooter__reactions-count': upVotes.length > 0 || downVotes.length > 0,
+          className={classNames('Buttons__number', {
+            'Buttons__reactions-count': upVotes.length > 0 || downVotes.length > 0,
           })}
           role="presentation"
           onClick={this.handleShowReactions}
@@ -197,11 +193,11 @@ class StoryFooter extends React.Component {
           </Tooltip>
         </span>
         <Tooltip title={intl.formatMessage({ id: 'comment', defaultMessage: 'Comment' })}>
-          <Link className="StoryFooter__link" to={commentsLink} onClick={this.handleCommentClick}>
+          <Link className="Buttons__link" to={commentsLink} onClick={this.handleCommentClick}>
             <i className="iconfont icon-message_fill" />
           </Link>
         </Tooltip>
-        <span className="StoryFooter__number">
+        <span className="Buttons__number">
           <FormattedNumber value={post.children} />
         </span>
         {showReblogLink && (
@@ -212,14 +208,20 @@ class StoryFooter extends React.Component {
             })}
           >
             <a role="presentation" className={rebloggedClass} onClick={this.handleShareClick}>
-              <i className="iconfont icon-share1 StoryFooter__share" />
+              <i className="iconfont icon-share1 Buttons__share" />
             </a>
-          </Tooltip>)}
-        {showEditLink &&
-          <a role="presentation" className="StoryFooter__link" onClick={this.handleEdit}>
-            {this.state.loadingEdit ? <Icon type="loading" /> : <i className="iconfont icon-write" />}
+          </Tooltip>
+        )}
+        {showEditLink && (
+          <a role="presentation" className="Buttons__link" onClick={this.handleEdit}>
+            {this.state.loadingEdit ? (
+              <Icon type="loading" />
+            ) : (
+              <i className="iconfont icon-write" />
+            )}
             <FormattedMessage id="edit" defaultMessage="Edit" />
-          </a>}
+          </a>
+        )}
         {!postState.isReblogged && (
           <Modal
             title={intl.formatMessage({
@@ -250,5 +252,3 @@ class StoryFooter extends React.Component {
     );
   }
 }
-
-export default StoryFooter;

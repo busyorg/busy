@@ -15,6 +15,7 @@ import favoritesReducer, * as fromFavorites from './favorites/favoritesReducer';
 import editorReducer, * as fromEditor from './post/Write/editorReducer';
 import walletReducer, * as fromWallet from './wallet/walletReducer';
 import reblogReducers, * as fromReblog from './app/Reblog/reblogReducers';
+import settingsReducer, * as fromSettings from './settings/settingsReducer';
 import { responsiveReducer } from './vendor/responsive';
 
 const reducers = combineReducers({
@@ -33,6 +34,7 @@ const reducers = combineReducers({
   reblog: reblogReducers,
   router: routerReducer,
   wallet: walletReducer,
+  settings: settingsReducer,
 });
 
 export default reducers;
@@ -56,10 +58,9 @@ export const getPendingDrafts = state => fromEditor.getPendingDrafts(state.edito
 export const getIsPostEdited = (state, permlink) =>
   fromEditor.getIsPostEdited(state.editor, permlink);
 
-export const getLocale = state => fromApp.getLocale(state.app);
-export const getIsLocaleLoading = state => fromApp.getIsLocaleLoading(state.app);
 export const getRate = state => fromApp.getRate(state.app);
 export const getIsTrendingTopicsLoading = state => fromApp.getIsTrendingTopicsLoading(state.app);
+export const getRewardFund = state => fromApp.getRewardFund(state.app);
 export const getTrendingTopics = state => fromApp.getTrendingTopics(state.app);
 export const getIsFetching = state => fromApp.getIsFetching(state.app);
 
@@ -86,6 +87,12 @@ export const getFavoriteCategories = state => fromFavorites.getFavoriteCategorie
 
 export const getIsTransferVisible = state => fromWallet.getIsTransferVisible(state.wallet);
 export const getTransferTo = state => fromWallet.getTransferTo(state.wallet);
+
+export const getIsSettingsLoading = state => fromSettings.getIsLoading(state.settings);
+export const getLocale = state => fromSettings.getLocale(state.settings);
+export const getVotingPower = state => fromSettings.getVotingPower(state.settings);
+export const getVotePercent = state => fromSettings.getVotePercent(state.settings);
+
 export const getTotalVestingShares = state => fromWallet.getTotalVestingShares(state.wallet);
 export const getTotalVestingFundSteem = state => fromWallet.getTotalVestingFundSteem(state.wallet);
 export const getUsersTransactions = state => fromWallet.getUsersTransactions(state.wallet);
