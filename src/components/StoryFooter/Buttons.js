@@ -17,6 +17,7 @@ export default class Buttons extends React.Component {
     intl: PropTypes.shape().isRequired,
     post: PropTypes.shape().isRequired,
     postState: PropTypes.shape().isRequired,
+    defaultVotePercent: PropTypes.number.isRequired,
     ownPost: PropTypes.bool,
     pendingLike: PropTypes.bool,
     onLikeClick: PropTypes.func,
@@ -98,7 +99,7 @@ export default class Buttons extends React.Component {
   };
 
   render() {
-    const { intl, post, postState, pendingLike, ownPost } = this.props;
+    const { intl, post, postState, pendingLike, ownPost, defaultVotePercent } = this.props;
 
     const upVotes = getUpvotes(post.active_votes).sort(sortVotes);
     const downVotes = getDownvotes(post.active_votes)
@@ -114,9 +115,7 @@ export default class Buttons extends React.Component {
 
     const upVotesPreview = take(upVotes, 10).map(vote => (
       <p key={vote.voter}>
-        <Link to={`/@${vote.voter}`}>
-          {vote.voter}
-        </Link>
+        <Link to={`/@${vote.voter}`}>{vote.voter}</Link>
 
         {vote.rshares * ratio > 0.01 && (
           <span style={{ opacity: '0.5' }}>
@@ -142,9 +141,25 @@ export default class Buttons extends React.Component {
     const showEditLink = ownPost && post.cashout_time !== '1969-12-31T23:59:59';
     const showReblogLink = !ownPost && post.parent_author === '';
 
+    let likeTooltip = <span>{intl.formatMessage({ id: 'like' })}</span>;
+    if (postState.isLiked) likeTooltip = <span>{intl.formatMessage({ id: 'dislike' })}</span>;
+    else if (defaultVotePercent !== 10000) {
+      likeTooltip = (
+        <span>
+          {intl.formatMessage({ id: 'like' })}{' '}
+          <span style={{ opacity: 0.5 }}>
+            <FormattedNumber
+              style="percent" // eslint-disable-line
+              value={defaultVotePercent / 10000}
+            />
+          </span>
+        </span>
+      );
+    }
+
     return (
       <div className="Buttons">
-        <Tooltip title={intl.formatMessage({ id: 'like' })}>
+        <Tooltip title={likeTooltip}>
           <a role="presentation" className={likeClass} onClick={this.props.onLikeClick}>
             {pendingLike ? (
               <Icon type="loading" />

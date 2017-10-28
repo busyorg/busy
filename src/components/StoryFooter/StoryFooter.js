@@ -90,7 +90,7 @@ class StoryFooter extends React.Component {
   };
 
   render() {
-    const { post, postState, pendingLike, ownPost } = this.props;
+    const { post, postState, pendingLike, ownPost, defaultVotePercent } = this.props;
 
     return (
       <div className="StoryFooter">
@@ -105,6 +105,7 @@ class StoryFooter extends React.Component {
               postState={postState}
               pendingLike={pendingLike}
               ownPost={ownPost}
+              defaultVotePercent={defaultVotePercent}
               onLikeClick={this.handleLikeClick}
               onShareClick={this.handleShareClick}
               onEditClick={this.handleEditClick}
