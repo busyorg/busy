@@ -18,9 +18,7 @@ export const getGlobalProperties = () => (dispatch) => {
   dispatch({
     type: GET_GLOBAL_PROPERTIES.ACTION,
     payload: {
-      promise: getDynamicGlobalProperties().then(result => ({
-        ...result,
-      })),
+      promise: getDynamicGlobalProperties().then(result => result),
     },
   });
 };

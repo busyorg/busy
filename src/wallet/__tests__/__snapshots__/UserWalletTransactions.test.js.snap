@@ -12,13 +12,31 @@ ShallowWrapper {
     className="UserWalletTransactions"
   >
     <TransferTransaction
-      amount="100 STEEM"
+      amount={
+        <span>
+          <FormattedNumber
+            maximumFractionDigits={3}
+            minimumFractionDigits={3}
+            value="100.000"
+          />
+           STEEM
+        </span>
+      }
       memo="transfer memo"
       timestamp="0"
       to=""
     />
     <PowerUpTransaction
-      amount="100 STEEM"
+      amount={
+        <span>
+          <FormattedNumber
+            maximumFractionDigits={3}
+            minimumFractionDigits={3}
+            value="100.000"
+          />
+           STEEM
+        </span>
+      }
       timestamp="0"
     />
   </div>,
@@ -27,13 +45,31 @@ ShallowWrapper {
       className="UserWalletTransactions"
     >
       <TransferTransaction
-        amount="100 STEEM"
+        amount={
+          <span>
+            <FormattedNumber
+              maximumFractionDigits={3}
+              minimumFractionDigits={3}
+              value="100.000"
+            />
+             STEEM
+          </span>
+        }
         memo="transfer memo"
         timestamp="0"
         to=""
       />
       <PowerUpTransaction
-        amount="100 STEEM"
+        amount={
+          <span>
+            <FormattedNumber
+              maximumFractionDigits={3}
+              minimumFractionDigits={3}
+              value="100.000"
+            />
+             STEEM
+          </span>
+        }
         timestamp="0"
       />
     </div>,
@@ -126,13 +162,31 @@ ShallowWrapper {
           className="UserWalletTransactions"
         >
           <TransferTransaction
-            amount="100 STEEM"
+            amount={
+              <span>
+                <FormattedNumber
+                  maximumFractionDigits={3}
+                  minimumFractionDigits={3}
+                  value="100.000"
+                />
+                 STEEM
+              </span>
+            }
             memo="transfer memo"
             timestamp="0"
             to=""
           />
           <PowerUpTransaction
-            amount="100 STEEM"
+            amount={
+              <span>
+                <FormattedNumber
+                  maximumFractionDigits={3}
+                  minimumFractionDigits={3}
+                  value="100.000"
+                />
+                 STEEM
+              </span>
+            }
             timestamp="0"
           />
         </div>,
@@ -141,13 +195,31 @@ ShallowWrapper {
           className="UserWalletTransactions"
         >
           <TransferTransaction
-            amount="100 STEEM"
+            amount={
+              <span>
+                <FormattedNumber
+                  maximumFractionDigits={3}
+                  minimumFractionDigits={3}
+                  value="100.000"
+                />
+                 STEEM
+              </span>
+            }
             memo="transfer memo"
             timestamp="0"
             to=""
           />
           <PowerUpTransaction
-            amount="100 STEEM"
+            amount={
+              <span>
+                <FormattedNumber
+                  maximumFractionDigits={3}
+                  minimumFractionDigits={3}
+                  value="100.000"
+                />
+                 STEEM
+              </span>
+            }
             timestamp="0"
           />
         </div>,

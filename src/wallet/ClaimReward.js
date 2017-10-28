@@ -11,7 +11,12 @@ const getFormattedPayout = (rewardSteem, rewardSbd, rewardVests) => {
   if (parsedRewardSteem > 0) {
     payouts.push(
       <span key="STEEM" className="UserWalletTransactions__payout-rewards">
-        <FormattedNumber value={parsedRewardSteem} />{' STEEM'}
+        <FormattedNumber
+          value={parsedRewardSteem}
+          minimumFractionDigits={3}
+          maximumFractionDigits={3}
+        />
+        {' STEEM'}
       </span>,
     );
   }
@@ -19,7 +24,12 @@ const getFormattedPayout = (rewardSteem, rewardSbd, rewardVests) => {
   if (parsedRewardSbd > 0) {
     payouts.push(
       <span key="SBD" className="UserWalletTransactions__payout-rewards">
-        <FormattedNumber value={parsedRewardSbd} />{' SBD'}
+        <FormattedNumber
+          value={parsedRewardSbd}
+          minimumFractionDigits={3}
+          maximumFractionDigits={3}
+        />
+        {' SBD'}
       </span>,
     );
   }
@@ -27,7 +37,12 @@ const getFormattedPayout = (rewardSteem, rewardSbd, rewardVests) => {
   if (parsedRewardVests > 0) {
     payouts.push(
       <span key="SP" className="UserWalletTransactions__payout-rewards">
-        <FormattedNumber value={parsedRewardVests} />{' SP'}
+        <FormattedNumber
+          value={parsedRewardVests}
+          minimumFractionDigits={3}
+          maximumFractionDigits={3}
+        />
+        {' SP'}
       </span>,
     );
   }

@@ -42,7 +42,8 @@ ShallowWrapper {
         <span
           className="UserWalletTransactions__transfer"
         >
-          - 100 STEEM
+          - 
+          100 STEEM
         </span>
       </div>
       <span
@@ -95,7 +96,8 @@ ShallowWrapper {
           <span
             className="UserWalletTransactions__transfer"
           >
-            - 100 STEEM
+            - 
+            100 STEEM
           </span>
         </div>
         <span
@@ -192,7 +194,8 @@ ShallowWrapper {
               <span
                 className="UserWalletTransactions__transfer"
               >
-                - 100 STEEM
+                - 
+                100 STEEM
               </span>
             </div>
             <span
@@ -245,7 +248,8 @@ ShallowWrapper {
               <span
                 className="UserWalletTransactions__transfer"
               >
-                - 100 STEEM
+                - 
+                100 STEEM
               </span>
             </div>
             <span

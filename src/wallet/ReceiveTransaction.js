@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { FormattedMessage, FormattedRelative } from 'react-intl';
 import Avatar from '../components/Avatar';
-import { numberWithCommas } from '../helpers/regexHelpers';
+
 
 const ReceiveTransaction = ({ from, memo, amount, timestamp }) => (
   <div className="UserWalletTransactions__transaction">
@@ -20,7 +20,7 @@ const ReceiveTransaction = ({ from, memo, amount, timestamp }) => (
           }}
         />
         <span className="UserWalletTransactions__received">
-          {`+ ${numberWithCommas(amount)}`}
+          {'+ '}{amount}
         </span>
       </div>
       <span className="UserWalletTransactions__timestamp">
@@ -36,14 +36,14 @@ const ReceiveTransaction = ({ from, memo, amount, timestamp }) => (
 ReceiveTransaction.propTypes = {
   from: PropTypes.string,
   memo: PropTypes.string,
-  amount: PropTypes.string,
+  amount: PropTypes.element,
   timestamp: PropTypes.string,
 };
 
 ReceiveTransaction.defaultProps = {
   from: '',
   memo: '',
-  amount: '',
+  amount: <span />,
   timestamp: '',
 };
 

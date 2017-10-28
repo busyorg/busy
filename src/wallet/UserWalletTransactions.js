@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FormattedNumber } from 'react-intl';
 import './UserWalletSummary.less';
 import './UserWalletTransactions.less';
 import ReceiveTransaction from './ReceiveTransaction';
@@ -7,6 +8,22 @@ import TransferTransaction from './TransferTransaction';
 import SavingsTransaction from './SavingsTransaction';
 import PowerUpTransaction from './PowerUpTransaction';
 import ClaimReward from './ClaimReward';
+
+const getFormattedTransactionAmount = (amount) => {
+  const transaction = amount.split(' ');
+  const transactionAmount = parseFloat(transaction[0]).toFixed(3);
+  const transactionCurrency = transaction[1];
+  return (
+    <span>
+      <FormattedNumber
+        value={transactionAmount}
+        minimumFractionDigits={3}
+        maximumFractionDigits={3}
+      />
+      {` ${transactionCurrency}`}
+    </span>
+  );
+};
 
 const UserWalletTransactions = ({ transactions, currentUsername }) => (
   <div className="UserWalletTransactions">
@@ -21,7 +38,7 @@ const UserWalletTransactions = ({ transactions, currentUsername }) => (
             return (
               <PowerUpTransaction
                 key={key}
-                amount={transactionDetails.amount}
+                amount={getFormattedTransactionAmount(transactionDetails.amount)}
                 timestamp={transaction.timestamp}
               />
             );
@@ -32,7 +49,7 @@ const UserWalletTransactions = ({ transactions, currentUsername }) => (
                   key={key}
                   from={transactionDetails.from}
                   memo={transactionDetails.memo}
-                  amount={transactionDetails.amount}
+                  amount={getFormattedTransactionAmount(transactionDetails.amount)}
                   timestamp={transaction.timestamp}
                 />
               );
@@ -42,7 +59,7 @@ const UserWalletTransactions = ({ transactions, currentUsername }) => (
                 key={key}
                 to={transactionDetails.to}
                 memo={transactionDetails.memo}
-                amount={transactionDetails.amount}
+                amount={getFormattedTransactionAmount(transactionDetails.amount)}
                 timestamp={transaction.timestamp}
               />
             );
@@ -64,6 +81,7 @@ const UserWalletTransactions = ({ transactions, currentUsername }) => (
                 key={key}
                 transactionDetails={transactionDetails}
                 transactionType={transactionType}
+                amount={getFormattedTransactionAmount(transactionDetails.amount)}
                 timestamp={transaction.timestamp}
               />
             );

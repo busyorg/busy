@@ -3,9 +3,8 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { FormattedMessage, FormattedRelative } from 'react-intl';
 import Avatar from '../components/Avatar';
-import { numberWithCommas } from '../helpers/regexHelpers';
 
-const getSavingsTransactionMessage = (transactionType, transactionDetails) => {
+const getSavingsTransactionMessage = (transactionType, transactionDetails, amount) => {
   switch (transactionType) {
     case 'cancel_transfer_from_savings':
       return (
@@ -23,7 +22,7 @@ const getSavingsTransactionMessage = (transactionType, transactionDetails) => {
           id="transfer_to_savings"
           defaultMessage="Transfer to savings {amount} to {username}"
           values={{
-            amount: numberWithCommas(transactionDetails.amount),
+            amount,
             username: <Link to={`/@${transactionDetails.to}`}>{transactionDetails.to}</Link>,
           }}
         />
@@ -34,7 +33,7 @@ const getSavingsTransactionMessage = (transactionType, transactionDetails) => {
           id="transfer_from_savings"
           defaultMessage="Transfer from savings {amount} to {username}"
           values={{
-            amount: numberWithCommas(transactionDetails.amount),
+            amount,
             username: <Link to={`/@${transactionDetails.from}`}>{transactionDetails.from}</Link>,
           }}
         />
@@ -44,7 +43,7 @@ const getSavingsTransactionMessage = (transactionType, transactionDetails) => {
   }
 };
 
-const SavingsTransaction = ({ timestamp, transactionType, transactionDetails }) => (
+const SavingsTransaction = ({ timestamp, transactionType, transactionDetails, amount }) => (
   <div className="UserWalletTransactions__transaction">
     <div className="UserWalletTransactions__avatar">
       <Avatar
@@ -58,7 +57,7 @@ const SavingsTransaction = ({ timestamp, transactionType, transactionDetails }) 
     </div>
     <div className="UserWalletTransactions__content">
       <div className="UserWalletTransactions__content-recipient">
-        {getSavingsTransactionMessage(transactionType, transactionDetails)}
+        {getSavingsTransactionMessage(transactionType, transactionDetails, amount)}
       </div>
       <span className="UserWalletTransactions__timestamp">
         <FormattedRelative value={`${timestamp}Z`} />
@@ -74,12 +73,14 @@ SavingsTransaction.propTypes = {
   timestamp: PropTypes.string,
   transactionDetails: PropTypes.shape(),
   transactionType: PropTypes.string,
+  amount: PropTypes.element,
 };
 
 SavingsTransaction.defaultProps = {
   timestamp: '',
   transactionDetails: {},
   transactionType: PropTypes.string,
+  amount: <span />,
 };
 
 export default SavingsTransaction;
