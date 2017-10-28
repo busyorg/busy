@@ -24,7 +24,12 @@ const getFormattedTransactionAmount = (amount, currency) => {
   );
 };
 
-const UserWalletTransactions = ({ transactions, currentUsername }) => (
+const UserWalletTransactions = ({
+  transactions,
+  currentUsername,
+  totalVestingShares,
+  totalVestingFundSteem,
+}) => (
   <div className="UserWalletTransactions">
     {transactions
       .map((transaction, index) => {
@@ -70,6 +75,8 @@ const UserWalletTransactions = ({ transactions, currentUsername }) => (
                 rewardSteem={transactionDetails.reward_steem}
                 rewardSbd={transactionDetails.reward_sbd}
                 rewardVests={transactionDetails.reward_vests}
+                totalVestingShares={totalVestingShares}
+                totalVestingFundSteem={totalVestingFundSteem}
               />
             );
           case 'transfer_to_savings':
@@ -95,6 +102,8 @@ const UserWalletTransactions = ({ transactions, currentUsername }) => (
 UserWalletTransactions.propTypes = {
   transactions: PropTypes.arrayOf(PropTypes.shape()),
   currentUsername: PropTypes.string,
+  totalVestingShares: PropTypes.string.isRequired,
+  totalVestingFundSteem: PropTypes.string.isRequired,
 };
 
 UserWalletTransactions.defaultProps = {
