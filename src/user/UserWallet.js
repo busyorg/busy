@@ -130,9 +130,9 @@ class Wallet extends Component {
         {transactions.length === 0 && usersTransactionsLoading
           ? <Loading style={{ marginTop: '20px' }} />
           : <UserWalletTransactions
-              transactions={usersTransactions[user.name]}
-              currentUsername={user.name}
-            />}
+            transactions={usersTransactions[user.name]}
+            currentUsername={user.name}
+          />}
       </div>
     );
   }
