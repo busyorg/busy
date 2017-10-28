@@ -139,7 +139,7 @@ const Topnav = ({
         <div className="center">
           <div className="Topnav__input-container">
             <Input
-              onPressEnter={event => window.open(`https://www.google.com/search?q=${encodeURIComponent(`site:steemit.com ${event.target.value}`)}`)}
+              onPressEnter={event => window.open(`https://www.google.com/search?q=${encodeURIComponent(`site:busy.org ${event.target.value}`)}`)}
               placeholder={intl.formatMessage({ id: 'search_placeholder', defaultMessage: 'Search...' })}
             />
             <i className="iconfont icon-search" />
