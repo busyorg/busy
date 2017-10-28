@@ -88,7 +88,14 @@ export default (
           </RequireLogin>
         )}
       />
-      <Route path="/@:name/wallet" component={Wallet} />
+      <Route
+        path="/wallet"
+        render={() => (
+          <RequireLogin>
+            <Wallet />
+          </RequireLogin>
+        )}
+      />
       <Route path="/@:name" component={User} />
       <Route path="/:category/@:author/:permlink" component={Post} />
       <Route path="/" component={Page} />

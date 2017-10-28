@@ -8,6 +8,7 @@ import UserWalletTransactions from '../wallet/UserWalletTransactions';
 import Loading from '../components/Icon/Loading';
 import {
   getUser,
+  getAuthenticatedUserName,
   getTotalVestingShares,
   getTotalVestingFundSteem,
   getUsersTransactions,
@@ -24,7 +25,11 @@ import { getAccountWithFollowingCount } from './usersActions';
 @withRouter
 @connect(
   (state, ownProps) => ({
-    user: getUser(state, ownProps.match.params.name),
+    user: getUser(
+      state,
+      ownProps.isCurrentUser ? state.auth.user.name : ownProps.match.params.name,
+    ),
+    authenticatedUserName: getAuthenticatedUserName(state),
     totalVestingShares: getTotalVestingShares(state),
     totalVestingFundSteem: getTotalVestingFundSteem(state),
     usersTransactions: getUsersTransactions(state),
@@ -51,17 +56,28 @@ class Wallet extends Component {
     usersTransactions: PropTypes.shape().isRequired,
     usersEstAccountsValues: PropTypes.shape().isRequired,
     usersTransactionsLoading: PropTypes.bool.isRequired,
+    isCurrentUser: PropTypes.bool,
+    authenticatedUserName: PropTypes.string,
+  };
+
+  static defaultProps = {
+    isCurrentUser: false,
+    authenticatedUserName: '',
   };
 
   componentWillMount() {
-    const username = this.props.location.pathname.match(/@(.*)(.*?)\//)[1];
     const {
       totalVestingShares,
       totalVestingFundSteem,
       usersEstAccountsValues,
       usersTransactions,
       user,
+      isCurrentUser,
+      authenticatedUserName,
     } = this.props;
+    const username = isCurrentUser
+      ? authenticatedUserName
+      : this.props.location.pathname.match(/@(.*)(.*?)\//)[1];
 
     if (_.isEmpty(totalVestingFundSteem) || _.isEmpty(totalVestingShares)) {
       this.props.getGlobalProperties();
@@ -81,8 +97,10 @@ class Wallet extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const username = this.props.location.pathname.match(/@(.*)(.*?)\//)[1];
-    const { user } = this.props;
+    const { user, isCurrentUser } = this.props;
+    const username = isCurrentUser
+      ? user.name
+      : this.props.location.pathname.match(/@(.*)(.*?)\//)[1];
     if (_.isEmpty(nextProps.usersEstAccountsValues[username]) && !_.isEmpty(user.name)) {
       this.props.getUserEstAccountValue(user);
     }
@@ -112,9 +130,9 @@ class Wallet extends Component {
         {transactions.length === 0 && usersTransactionsLoading
           ? <Loading style={{ marginTop: '20px' }} />
           : <UserWalletTransactions
-            transactions={usersTransactions[user.name]}
-            currentUsername={user.name}
-          />}
+              transactions={usersTransactions[user.name]}
+              currentUsername={user.name}
+            />}
       </div>
     );
   }

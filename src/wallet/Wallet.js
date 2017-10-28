@@ -18,7 +18,7 @@ const Wallet = () => (
         </div>
       </Affix>
       <div className="center">
-        <UserWallet />
+        <UserWallet isCurrentUser />
       </div>
     </div>
   </div>

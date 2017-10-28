@@ -659,7 +659,7 @@ exports[`Storyshots Navigation Sidenav logged 1`] = `
         <a
           aria-current={false}
           className={undefined}
-          href="/@guest123/wallet"
+          href="/wallet"
           onClick={[Function]}
           style={undefined}
         >

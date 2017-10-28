@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 import './Sidenav.less';
 
 const isNews = (match, location) => location.pathname.match(/trending/);
-const isUserWallet = (match, location) => location.pathname.match(/.@.+\/(wallet)/);
+const isWallet = (match, location) => location.pathname.match(/wallet/);
 
 const Sidenav = ({ username }) => (
   <div>
@@ -30,11 +30,7 @@ const Sidenav = ({ username }) => (
           </NavLink>
         </li>
         <li>
-          <NavLink
-            to={`/@${username}/wallet`}
-            activeClassName="Sidenav__item--active"
-            isActive={isUserWallet}
-          >
+          <NavLink to="/wallet" activeClassName="Sidenav__item--active" isActive={isWallet}>
             <i className="iconfont icon-wallet" />
             <FormattedMessage id="wallet" defaultMessage="Wallet" />
           </NavLink>
