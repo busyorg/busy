@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { replace, goBack } from 'react-router-redux';
+import { replace } from 'react-router-redux';
+import { Modal } from 'antd';
 import marked from 'marked';
 import kebabCase from 'lodash/kebabCase';
 import debounce from 'lodash/debounce';
@@ -42,7 +43,6 @@ const version = require('../../../package.json').version;
     notify,
     deleteDraft,
     replace,
-    goBack,
   },
 )
 class Write extends React.Component {
@@ -57,7 +57,6 @@ class Write extends React.Component {
     saveDraft: PropTypes.func,
     deleteDraft: PropTypes.func,
     notify: PropTypes.func,
-    goBack: PropTypes.func,
     replace: PropTypes.func,
     draftId: PropTypes.string,
   };
@@ -69,7 +68,6 @@ class Write extends React.Component {
     saveDraft: () => {},
     deleteDraft: () => {},
     notify: () => {},
-    goBack: () => {},
     replace: () => {},
     draftId: null,
   };
@@ -82,9 +80,8 @@ class Write extends React.Component {
       initialBody: '',
       initialReward: '50',
       initialUpvote: true,
-      initialUpdatedDate: Date.now(),
       isUpdating: false,
-      didExist: false,
+      showModalDelete: false,
     };
   }
 
@@ -113,36 +110,13 @@ class Write extends React.Component {
         initialBody: draftPost.body || '',
         initialReward: draftPost.reward || '50',
         initialUpvote: draftPost.upvote,
-        initialUpdatedDate: draftPost.lastUpdated || Date.now(),
         isUpdating: draftPost.isUpdating || false,
-        didExist: true,
       });
     }
   }
 
-  onCancel = () => {
-    if (this.state.didExist) {
-      // If the draft Existed return it to previous state
-      const initalForm = {
-        body: this.state.initialBody,
-        title: this.state.initialTitle,
-        reward: this.state.initialReward,
-        upvote: this.state.initialUpvote,
-        lastUpdated: this.state.initialUpdatedDate,
-        topics: this.state.initialTopics,
-      };
-
-      this.props
-        .saveDraft({ postData: this.getNewPostData(initalForm), id: this.props.draftId })
-        .then(() => {
-          this.props.goBack();
-        });
-    } else {
-      // If didn't exist just delete it.
-      this.props.deleteDraft(this.props.draftId).then(() => {
-        this.props.replace('/');
-      });
-    }
+  onDelete = () => {
+    this.setState({ showModalDelete: true });
   };
 
   onSubmit = (form) => {
@@ -232,6 +206,13 @@ class Write extends React.Component {
     return data;
   };
 
+  deleteDraft() {
+    this.props.deleteDraft(this.props.draftId).then(() => {
+      this.props.notify('Draft have been deleted', 'success');
+      this.props.replace('/drafts');
+    });
+  }
+
   handleImageInserted = (blob, callback, errorCallback) => {
     const { formatMessage } = this.props.intl;
     this.props.notify(
@@ -280,7 +261,7 @@ class Write extends React.Component {
 
   render() {
     const { initialTitle, initialTopics, initialBody, initialReward, initialUpvote } = this.state;
-    const { loading, saving } = this.props;
+    const { loading, saving, intl } = this.props;
 
     return (
       <div className="shifted">
@@ -303,10 +284,29 @@ class Write extends React.Component {
               isUpdating={this.state.isUpdating}
               onUpdate={this.saveDraft}
               onSubmit={this.onSubmit}
-              onCancel={this.onCancel}
+              onDelete={this.onDelete}
               onImageInserted={this.handleImageInserted}
             />
           </div>
+          {this.state.showModalDelete &&
+          <Modal
+            title={intl.formatMessage({
+              id: 'draft_delete',
+              defaultMessage: 'Delete this draft?',
+            })}
+            visible={this.state.showModalDelete}
+            confirmLoading={this.state.shareModalLoading}
+            okText={intl.formatMessage({ id: 'confirm', defaultMessage: 'Confirm' })}
+            cancelText={intl.formatMessage({ id: 'cancel', defaultMessage: 'Cancel' })}
+            onOk={() => {
+              this.deleteDraft();
+            }}
+            onCancel={() => {
+              this.setState({ showModalDelete: false });
+            }}
+          >
+            Deleted Drafts are gone forever. Are you Sure?
+          </Modal>}
         </div>
       </div>
     );
