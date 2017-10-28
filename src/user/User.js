@@ -76,7 +76,7 @@ export default class User extends React.Component {
     const { profile = {} } = user.json_metadata || {};
     const busyHost = global.postOrigin || 'https://busy.org';
     const desc = profile.about || `Post by ${username}`;
-    const image = `${process.env.STEEMCONNECT_IMG_HOST}/@${username}`;
+    const image = `${process.env.IMG_HOST}/@${username}`;
     const canonicalUrl = `${busyHost}/@${username}`;
     const url = `${busyHost}/@${username}`;
     const displayedUsername = profile.name || username || '';

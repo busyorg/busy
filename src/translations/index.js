@@ -36,6 +36,7 @@ import as from 'react-intl/locale-data/as';
 import ta from 'react-intl/locale-data/ta';
 import bn from 'react-intl/locale-data/bn';
 import ne from 'react-intl/locale-data/ne';
+import yo from 'react-intl/locale-data/yo';
 
 import enTranslations from '../locales/en.json';
 import csTranslations from '../locales/cs.json';
@@ -74,6 +75,7 @@ import asTranslations from '../locales/as.json';
 import taTranslations from '../locales/ta.json';
 import bnTranslations from '../locales/bn.json';
 import neTranslations from '../locales/ne.json';
+import yoTranslations from '../locales/yo.json';
 
 addLocaleData([
   ...en,
@@ -113,6 +115,7 @@ addLocaleData([
   ...ta,
   ...bn,
   ...ne,
+  ...yo,
 ]);
 
 export const translations = {
@@ -153,6 +156,7 @@ export const translations = {
   ta: taTranslations,
   bn: bnTranslations,
   ne: neTranslations,
+  yo: yoTranslations,
 };
 
 export const getBrowserLocale = () => {

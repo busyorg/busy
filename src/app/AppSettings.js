@@ -61,6 +61,7 @@ export default class AppSettings extends React.Component {
     sv: 'Svenska - Swedish',
     vi: 'Tiếng Việt - Vietnamese',
     tr: 'Türkçe - Turkish',
+    yo: 'Yorùbá - Yoruba',
     el: 'Ελληνικά - Greek',
     bg: 'Български език - Bulgarian',
     ru: 'Русский - Russian',

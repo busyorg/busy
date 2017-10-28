@@ -23,7 +23,7 @@ const UserHeader = ({
 }) => (
   <div
     className={classNames('UserHeader', { 'UserHeader--cover': hasCover })}
-    style={{ backgroundImage: `url("${process.env.STEEMCONNECT_IMG_HOST}/@${handle}/cover")` }}
+    style={{ backgroundImage: `url("${process.env.IMG_HOST}/@${handle}/cover")` }}
   >
     <div className="UserHeader__container">
       <Avatar username={handle} size={100} />

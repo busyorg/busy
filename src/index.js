@@ -33,9 +33,13 @@ if (process.env.SENTRY_PUBLIC_DSN) {
   Raven.config(process.env.SENTRY_PUBLIC_DSN).install();
 }
 
-if (process.env.STEEMCONNECT_HOST) {
+if (
+  process.env.STEEMCONNECT_CLIENT_ID
+  && process.env.STEEMCONNECT_REDIRECT_URL
+  && process.env.STEEMCONNECT_HOST
+) {
   steemconnect.init({
-    app: 'busy.app',
+    app: process.env.STEEMCONNECT_CLIENT_ID,
     callbackURL: process.env.STEEMCONNECT_REDIRECT_URL,
   });
   const accessToken = Cookie.get('access_token');

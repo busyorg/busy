@@ -796,6 +796,7 @@ exports[`Storyshots Navigation Topnav logged 1`] = `
                 <img
                   alt="guest123"
                   className="Avatar"
+                  onError={[Function]}
                   src="https://img.busy.org/@guest123?s=36"
                   style={
                     Object {
@@ -1020,6 +1021,7 @@ exports[`Storyshots Profile UserHeader 1`] = `
       <img
         alt=""
         className="Avatar"
+        onError={[Function]}
         src="https://img.busy.org/@steemconnect?s=100"
         style={
           Object {
@@ -1205,6 +1207,7 @@ exports[`Storyshots Sidebar Interesting People 1`] = `
               <img
                 alt="liondani"
                 className="Avatar"
+                onError={[Function]}
                 src="https://img.busy.org/@liondani?s=34"
                 style={
                   Object {
@@ -1228,11 +1231,6 @@ exports[`Storyshots Sidebar Interesting People 1`] = `
           </div>
         </div>
         <div
-          className="User__about"
-        >
-          Inch by Inch, Play by Play
-        </div>
-        <div
           className="User__divider"
         />
       </div>
@@ -1252,6 +1250,7 @@ exports[`Storyshots Sidebar Interesting People 1`] = `
               <img
                 alt="good-karma"
                 className="Avatar"
+                onError={[Function]}
                 src="https://img.busy.org/@good-karma?s=34"
                 style={
                   Object {
@@ -1275,11 +1274,6 @@ exports[`Storyshots Sidebar Interesting People 1`] = `
           </div>
         </div>
         <div
-          className="User__about"
-        >
-          "Action expresses priorities!" / Witness - Developer of eSteem…
-        </div>
-        <div
           className="User__divider"
         />
       </div>
@@ -1299,6 +1293,7 @@ exports[`Storyshots Sidebar Interesting People 1`] = `
               <img
                 alt="furion"
                 className="Avatar"
+                onError={[Function]}
                 src="https://img.busy.org/@furion?s=34"
                 style={
                   Object {
@@ -1320,11 +1315,6 @@ exports[`Storyshots Sidebar Interesting People 1`] = `
               </span>
             </a>
           </div>
-        </div>
-        <div
-          className="User__about"
-        >
-          I’ve developed SteemData and SteemSports. All things Python…
         </div>
         <div
           className="User__divider"
@@ -1521,194 +1511,6 @@ exports[`Storyshots Sidebar Latest Comments 1`] = `
 </div>
 `;
 
-exports[`Storyshots Sidebar Latest Recommendations 1`] = `
-<div
-  style={
-    Object {
-      "background": "#f9f9f9",
-      "padding": "40px",
-    }
-  }
->
-  <div
-    className="LatestRecommendations"
-  >
-    <div
-      className="LatestRecommendations__container"
-    >
-      <h4
-        className="LatestRecommendations__title"
-      >
-        <i
-          className="iconfont icon-flashlight_fill LatestRecommendations__icon"
-        />
-         
-        <span>
-          Latest Recommendations
-        </span>
-      </h4>
-      <div
-        className="LatestRecommendations__divider"
-      />
-      <div
-        className="Recommendation"
-      >
-        <div
-          className="Recommendation__text"
-        >
-          <div
-            className="Recommendation__title"
-          >
-            <a
-              href="/@ekitcho/hello"
-              onClick={[Function]}
-            >
-              <div
-                className=""
-                dangerouslySetInnerHTML={
-                  Object {
-                    "__html": "Its a brave new world of steemit out there. You must try it out
-",
-                  }
-                }
-              />
-            </a>
-          </div>
-          <div
-            className="Recommendation__footer"
-          >
-            <a
-              className="Recommendation__author"
-              href="/@ekitcho"
-              onClick={[Function]}
-            >
-              ekitcho
-            </a>
-            <span
-              className="Recommendation__bullet"
-            />
-            <span
-              className="Recommendation__date"
-            >
-              <span>
-                29 days ago
-              </span>
-            </span>
-          </div>
-        </div>
-      </div>
-      <div
-        className="Recommendation"
-      >
-        <div
-          className="Recommendation__text"
-        >
-          <div
-            className="Recommendation__title"
-          >
-            <a
-              href="/@blacktivity/hello"
-              onClick={[Function]}
-            >
-              <div
-                className=""
-                dangerouslySetInnerHTML={
-                  Object {
-                    "__html": "My Momma always said to me that people with gaps in their teeth had something t…",
-                  }
-                }
-              />
-            </a>
-          </div>
-          <div
-            className="Recommendation__footer"
-          >
-            <a
-              className="Recommendation__author"
-              href="/@blacktivity"
-              onClick={[Function]}
-            >
-              blacktivity
-            </a>
-            <span
-              className="Recommendation__bullet"
-            />
-            <span
-              className="Recommendation__date"
-            >
-              <span>
-                29 days ago
-              </span>
-            </span>
-          </div>
-        </div>
-      </div>
-      <div
-        className="Recommendation"
-      >
-        <div
-          className="Recommendation__text"
-        >
-          <div
-            className="Recommendation__title"
-          >
-            <a
-              href="/@pooldarbashi/hello"
-              onClick={[Function]}
-            >
-              <div
-                className=""
-                dangerouslySetInnerHTML={
-                  Object {
-                    "__html": "Ethereum price continued to trade lower against the US Dollar and Bitcoin, and …",
-                  }
-                }
-              />
-            </a>
-          </div>
-          <div
-            className="Recommendation__footer"
-          >
-            <a
-              className="Recommendation__author"
-              href="/@pooldarbashi"
-              onClick={[Function]}
-            >
-              pooldarbashi
-            </a>
-            <span
-              className="Recommendation__bullet"
-            />
-            <span
-              className="Recommendation__date"
-            >
-              <span>
-                29 days ago
-              </span>
-            </span>
-          </div>
-        </div>
-      </div>
-      <div
-        className="LatestRecommendations__divider"
-      />
-      <h4
-        className="LatestRecommendations__more"
-      >
-        <a
-          href="/latest-recommendations"
-          onClick={[Function]}
-        >
-          <span>
-            See All Recommendations
-          </span>
-        </a>
-      </h4>
-    </div>
-  </div>
-</div>
-`;
-
 exports[`Storyshots Sidebar Start now 1`] = `
 <div
   style={
@@ -1860,6 +1662,7 @@ exports[`Storyshots Story Full story 1`] = `
         <img
           alt="bitspace"
           className="Avatar"
+          onError={[Function]}
           src="https://img.busy.org/@bitspace?s=60"
           style={
             Object {
@@ -2126,6 +1929,7 @@ exports[`Storyshots Story Full story with embed 1`] = `
         <img
           alt="fyrstikken"
           className="Avatar"
+          onError={[Function]}
           src="https://img.busy.org/@fyrstikken?s=60"
           style={
             Object {
@@ -2376,6 +2180,7 @@ exports[`Storyshots Story Inline story 1`] = `
           <img
             alt="bitspace"
             className="Avatar"
+            onError={[Function]}
             src="https://img.busy.org/@bitspace?s=40"
             style={
               Object {
@@ -2600,6 +2405,7 @@ exports[`Storyshots Story Inline story with embed 1`] = `
           <img
             alt="fyrstikken"
             className="Avatar"
+            onError={[Function]}
             src="https://img.busy.org/@fyrstikken?s=40"
             style={
               Object {

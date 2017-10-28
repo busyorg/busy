@@ -2,6 +2,9 @@
 
 .settings-layout {
   position: relative;
+  @media only screen and (max-width: 998px) {
+    padding: 0 @mobile-padding
+  }
 
   &:after {
     content: "";

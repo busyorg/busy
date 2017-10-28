@@ -1,7 +1,6 @@
 import * as authActions from '../../auth/authActions';
 import * as editorActions from './editorActions';
 import * as postActions from '../postActions';
-import * as userActions from '../../user/userActions';
 
 const defaultState = {
   loading: false,
@@ -18,10 +17,7 @@ const editor = (state = defaultState, action) => {
     case editorActions.ADD_EDITED_POST:
       return {
         ...state,
-        editedPosts: [
-          ...state.editedPosts,
-          action.payload,
-        ],
+        editedPosts: [...state.editedPosts, action.payload],
       };
     case postActions.GET_CONTENT_SUCCESS:
       return {
@@ -86,10 +82,7 @@ const editor = (state = defaultState, action) => {
     case editorActions.DELETE_DRAFT_START:
       return {
         ...state,
-        pendingDrafts: [
-          ...state.pendingDrafts,
-          action.meta.id,
-        ],
+        pendingDrafts: [...state.pendingDrafts, action.meta.id],
       };
     case editorActions.DELETE_DRAFT_SUCCESS: {
       return {
@@ -103,12 +96,6 @@ const editor = (state = defaultState, action) => {
         ...state,
         pendingDrafts: state.pendingDrafts.filter(id => id !== action.meta.id),
       };
-    case userActions.UPLOAD_FILE_START:
-      return { ...state, loadingImg: true };
-
-    case userActions.UPLOAD_FILE_ERROR:
-    case userActions.UPLOAD_FILE_SUCCESS:
-      return { ...state, loadingImg: false };
     default:
       return state;
   }
