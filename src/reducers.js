@@ -86,3 +86,10 @@ export const getFavoriteCategories = state => fromFavorites.getFavoriteCategorie
 
 export const getIsTransferVisible = state => fromWallet.getIsTransferVisible(state.wallet);
 export const getTransferTo = state => fromWallet.getTransferTo(state.wallet);
+export const getTotalVestingShares = state => fromWallet.getTotalVestingShares(state.wallet);
+export const getTotalVestingFundSteem = state => fromWallet.getTotalVestingFundSteem(state.wallet);
+export const getUsersTransactions = state => fromWallet.getUsersTransactions(state.wallet);
+export const getUsersTransactionsLoading = state =>
+  fromWallet.getUsersTransactionsLoading(state.wallet);
+export const getUsersEstAccountsValues = state =>
+  fromWallet.getUsersEstAccountsValues(state.wallet);

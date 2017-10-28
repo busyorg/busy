@@ -1,4 +1,5 @@
 import Promise from 'bluebird';
+import _ from 'lodash';
 import SteemAPI from '../steemAPI';
 import { jsonParse } from '../helpers/formatter';
 
@@ -46,10 +47,10 @@ export const getAccount = username =>
 export const getFollowingCount = username => SteemAPI.getFollowCountAsync(username);
 
 export const getAccountWithFollowingCount = username =>
-  Promise.all([
-    getAccount(username),
-    getFollowingCount(username),
-  ]).then(([account, { following_count, follower_count }]) => ({
+  Promise.all([getAccount(username), getFollowingCount(username)]).then(([
+    account,
+    { following_count, follower_count },
+  ]) => ({
     ...account,
     following_count,
     follower_count,
@@ -66,40 +67,36 @@ export const getFollowers = (username, startForm = '', type = 'blog', limit = 10
   );
 
 export const getAllFollowing = username =>
-  getFollowingCount(username)
-    .get('following_count')
-    .then((followingCount) => {
-      const chunkSize = 100;
-      const limitArray = Array.fill(Array(Math.ceil(followingCount / chunkSize)), chunkSize);
-      return Promise.reduce(
-        limitArray,
-        (currentList, limit) => {
-          const startForm = currentList[currentList.length - 1] || '';
-          return getFollowing(username, startForm, 'blog', limit).then(following =>
-            currentList.slice(0, currentList.length - 1).concat(following),
-          );
-        },
-        [],
-      );
-    });
+  getFollowingCount(username).get('following_count').then((followingCount) => {
+    const chunkSize = 100;
+    const limitArray = Array.fill(Array(Math.ceil(followingCount / chunkSize)), chunkSize);
+    return Promise.reduce(
+      limitArray,
+      (currentList, limit) => {
+        const startForm = currentList[currentList.length - 1] || '';
+        return getFollowing(username, startForm, 'blog', limit).then(following =>
+          currentList.slice(0, currentList.length - 1).concat(following),
+        );
+      },
+      [],
+    );
+  });
 
 export const getAllFollowers = username =>
-  getFollowingCount(username)
-    .get('follower_count')
-    .then((followerCount) => {
-      const chunkSize = 100;
-      const limitArray = Array.fill(Array(Math.ceil(followerCount / chunkSize)), chunkSize);
-      return Promise.reduce(
-        limitArray,
-        (currentList, limit) => {
-          const startForm = currentList[currentList.length - 1] || '';
-          return getFollowers(username, startForm, 'blog', limit).then(following =>
-            currentList.slice(0, currentList.length - 1).concat(following),
-          );
-        },
-        [],
-      );
-    });
+  getFollowingCount(username).get('follower_count').then((followerCount) => {
+    const chunkSize = 100;
+    const limitArray = Array.fill(Array(Math.ceil(followerCount / chunkSize)), chunkSize);
+    return Promise.reduce(
+      limitArray,
+      (currentList, limit) => {
+        const startForm = currentList[currentList.length - 1] || '';
+        return getFollowers(username, startForm, 'blog', limit).then(following =>
+          currentList.slice(0, currentList.length - 1).concat(following),
+        );
+      },
+      [],
+    );
+  });
 
 export const mapToId = (content) => {
   const listById = {};
@@ -110,3 +107,30 @@ export const mapToId = (content) => {
 };
 
 export const mapAPIContentToId = apiRes => mapToId(apiRes.content);
+
+const isWalletTransaction = actionType =>
+  actionType === 'transfer' ||
+  actionType === 'transfer_to_vesting' ||
+  actionType === 'cancel_transfer_from_savings' ||
+  actionType === 'transfer_from_savings' ||
+  actionType === 'transfer_to_savings' ||
+  actionType === 'delegate_vesting_shares' ||
+  actionType === 'claim_reward_balance';
+
+export const getTransactionHistory = account =>
+  SteemAPI.getAccountHistoryAsync(account, -1, 2500).then(results =>
+    _.compact(
+      results.map((action) => {
+        const actionDetails = action[1] || { op: [] };
+        const actionType = actionDetails.op[0];
+
+        if (isWalletTransaction(actionType)) {
+          return actionDetails;
+        }
+
+        return null;
+      }),
+    ),
+  );
+
+export const getDynamicGlobalProperties = () => SteemAPI.getDynamicGlobalPropertiesAsync();
