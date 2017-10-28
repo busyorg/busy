@@ -1160,7 +1160,7 @@ exports[`Storyshots Sidebar Interesting People 1`] = `
       className="InterestingPeople__container"
     >
       <h4
-        className="InterestingPeople__title SidebarBlock__content-title"
+        className="InterestingPeople__title"
       >
         <i
           className="iconfont icon-group InterestingPeople__icon"
@@ -1218,11 +1218,6 @@ exports[`Storyshots Sidebar Interesting People 1`] = `
           </div>
         </div>
         <div
-          className="User__about"
-        >
-          Inch by Inch, Play by Play
-        </div>
-        <div
           className="User__divider"
         />
       </div>
@@ -1266,11 +1261,6 @@ exports[`Storyshots Sidebar Interesting People 1`] = `
           </div>
         </div>
         <div
-          className="User__about"
-        >
-          "Action expresses priorities!" / Witness - Developer of eSteem…
-        </div>
-        <div
           className="User__divider"
         />
       </div>
@@ -1312,11 +1302,6 @@ exports[`Storyshots Sidebar Interesting People 1`] = `
               </span>
             </a>
           </div>
-        </div>
-        <div
-          className="User__about"
-        >
-          I’ve developed SteemData and SteemSports. All things Python…
         </div>
         <div
           className="User__divider"

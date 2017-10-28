@@ -5,10 +5,10 @@ import { Link } from 'react-router-dom';
 import User from './User';
 import './InterestingPeople.less';
 
-const InterestingPeople = ({ users, onRefresh }) =>
-  (<div className="InterestingPeople">
+const InterestingPeople = ({ users, onRefresh }) => (
+  <div className="InterestingPeople">
     <div className="InterestingPeople__container">
-      <h4 className="InterestingPeople__title SidebarBlock__content-title">
+      <h4 className="InterestingPeople__title">
         <i className="iconfont icon-group InterestingPeople__icon" />
         {' '}
         <FormattedMessage id="interesting_people" defaultMessage="Interesting People" />
@@ -26,7 +26,8 @@ const InterestingPeople = ({ users, onRefresh }) =>
         </Link>
       </h4>
     </div>
-  </div>);
+  </div>
+);
 
 InterestingPeople.propTypes = {
   users: PropTypes.arrayOf(PropTypes.shape({ name: PropTypes.string })),
