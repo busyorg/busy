@@ -21,6 +21,7 @@ import Team from './statics/Team';
 import Write from './post/Write/Write';
 import Drafts from './post/Write/Drafts';
 import RequireLogin from './auth/RequireLogin';
+import Wallet from './wallet/Wallet';
 
 export default (
   <Wrapper>
@@ -84,6 +85,14 @@ export default (
         render={() => (
           <RequireLogin>
             <ProfileSettings />
+          </RequireLogin>
+        )}
+      />
+      <Route
+        path="/wallet"
+        render={() => (
+          <RequireLogin>
+            <Wallet />
           </RequireLogin>
         )}
       />

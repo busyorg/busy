@@ -1,0 +1,216 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`(Component) ClaimReward with default prop values renders and matches snapshot 1`] = `
+ShallowWrapper {
+  "complexSelector": ComplexSelector {
+    "buildPredicate": [Function],
+    "childrenOfNode": [Function],
+    "findWhereUnwrapped": [Function],
+  },
+  "length": 1,
+  "node": <div
+    className="UserWalletTransactions__transaction"
+  >
+    <div
+      className="UserWalletTransactions__icon-container"
+    >
+      <i
+        className="iconfont icon-success_fill UserWalletTransactions__icon"
+      />
+    </div>
+    <div
+      className="UserWalletTransactions__content"
+    >
+      <div
+        className="UserWalletTransactions__content-recipient"
+      >
+        <FormattedMessage
+          defaultMessage="Claim rewards"
+          id="claim_rewards"
+          values={Object {}}
+        />
+        <span
+          className="UserWalletTransactions__payout"
+        />
+      </div>
+      <span
+        className="UserWalletTransactions__timestamp"
+      >
+        <FormattedRelative
+          updateInterval={10000}
+          value="0Z"
+        />
+      </span>
+    </div>
+  </div>,
+  "nodes": Array [
+    <div
+      className="UserWalletTransactions__transaction"
+    >
+      <div
+        className="UserWalletTransactions__icon-container"
+      >
+        <i
+          className="iconfont icon-success_fill UserWalletTransactions__icon"
+        />
+      </div>
+      <div
+        className="UserWalletTransactions__content"
+      >
+        <div
+          className="UserWalletTransactions__content-recipient"
+        >
+          <FormattedMessage
+            defaultMessage="Claim rewards"
+            id="claim_rewards"
+            values={Object {}}
+          />
+          <span
+            className="UserWalletTransactions__payout"
+          />
+        </div>
+        <span
+          className="UserWalletTransactions__timestamp"
+        >
+          <FormattedRelative
+            updateInterval={10000}
+            value="0Z"
+          />
+        </span>
+      </div>
+    </div>,
+  ],
+  "options": Object {},
+  "renderer": ReactShallowRenderer {
+    "_instance": ShallowComponentWrapper {
+      "_calledComponentWillUnmount": false,
+      "_compositeType": 2,
+      "_context": Object {},
+      "_currentElement": <ClaimReward
+        rewardSbd="0 SBD"
+        rewardSteem="0 STEEM"
+        rewardVests="0 SP"
+        timestamp="0"
+      />,
+      "_debugID": 1,
+      "_hostContainerInfo": null,
+      "_hostParent": null,
+      "_instance": StatelessComponent {
+        "_reactInternalInstance": [Circular],
+        "context": Object {},
+        "props": Object {
+          "rewardSbd": "0 SBD",
+          "rewardSteem": "0 STEEM",
+          "rewardVests": "0 SP",
+          "timestamp": "0",
+        },
+        "refs": Object {},
+        "state": null,
+        "updater": Object {
+          "enqueueCallback": [Function],
+          "enqueueCallbackInternal": [Function],
+          "enqueueElementInternal": [Function],
+          "enqueueForceUpdate": [Function],
+          "enqueueReplaceState": [Function],
+          "enqueueSetState": [Function],
+          "isMounted": [Function],
+          "validateCallback": [Function],
+        },
+      },
+      "_mountOrder": 1,
+      "_pendingCallbacks": null,
+      "_pendingElement": null,
+      "_pendingForceUpdate": false,
+      "_pendingReplaceState": false,
+      "_pendingStateQueue": null,
+      "_renderedComponent": NoopInternalComponent {
+        "_currentElement": <div
+          className="UserWalletTransactions__transaction"
+        >
+          <div
+            className="UserWalletTransactions__icon-container"
+          >
+            <i
+              className="iconfont icon-success_fill UserWalletTransactions__icon"
+            />
+          </div>
+          <div
+            className="UserWalletTransactions__content"
+          >
+            <div
+              className="UserWalletTransactions__content-recipient"
+            >
+              <FormattedMessage
+                defaultMessage="Claim rewards"
+                id="claim_rewards"
+                values={Object {}}
+              />
+              <span
+                className="UserWalletTransactions__payout"
+              />
+            </div>
+            <span
+              className="UserWalletTransactions__timestamp"
+            >
+              <FormattedRelative
+                updateInterval={10000}
+                value="0Z"
+              />
+            </span>
+          </div>
+        </div>,
+        "_debugID": 2,
+        "_renderedOutput": <div
+          className="UserWalletTransactions__transaction"
+        >
+          <div
+            className="UserWalletTransactions__icon-container"
+          >
+            <i
+              className="iconfont icon-success_fill UserWalletTransactions__icon"
+            />
+          </div>
+          <div
+            className="UserWalletTransactions__content"
+          >
+            <div
+              className="UserWalletTransactions__content-recipient"
+            >
+              <FormattedMessage
+                defaultMessage="Claim rewards"
+                id="claim_rewards"
+                values={Object {}}
+              />
+              <span
+                className="UserWalletTransactions__payout"
+              />
+            </div>
+            <span
+              className="UserWalletTransactions__timestamp"
+            >
+              <FormattedRelative
+                updateInterval={10000}
+                value="0Z"
+              />
+            </span>
+          </div>
+        </div>,
+      },
+      "_renderedNodeType": 0,
+      "_rootNodeID": 0,
+      "_topLevelWrapper": null,
+      "_updateBatchNumber": null,
+      "_warnedAboutRefsInRender": false,
+    },
+    "getRenderOutput": [Function],
+    "render": [Function],
+  },
+  "root": [Circular],
+  "unrendered": <ClaimReward
+    rewardSbd="0 SBD"
+    rewardSteem="0 STEEM"
+    rewardVests="0 SP"
+    timestamp="0"
+  />,
+}
+`;

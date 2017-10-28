@@ -1,0 +1,288 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`(Component) TransferTransaction with default prop values renders and matches snapshot 1`] = `
+ShallowWrapper {
+  "complexSelector": ComplexSelector {
+    "buildPredicate": [Function],
+    "childrenOfNode": [Function],
+    "findWhereUnwrapped": [Function],
+  },
+  "length": 1,
+  "node": <div
+    className="UserWalletTransactions__transaction"
+  >
+    <div
+      className="UserWalletTransactions__avatar"
+    >
+      <Avatar
+        size={40}
+        username="hellosteem"
+      />
+    </div>
+    <div
+      className="UserWalletTransactions__content"
+    >
+      <div
+        className="UserWalletTransactions__content-recipient"
+      >
+        <FormattedMessage
+          defaultMessage="Transferred to {username}"
+          id="transferred_to"
+          values={
+            Object {
+              "username": <Link
+                replace={false}
+                to="/@hellosteem"
+              >
+                hellosteem
+              </Link>,
+            }
+          }
+        />
+        <span
+          className="UserWalletTransactions__transfer"
+        >
+          - 
+          100 STEEM
+        </span>
+      </div>
+      <span
+        className="UserWalletTransactions__timestamp"
+      >
+        <FormattedRelative
+          updateInterval={10000}
+          value="0Z"
+        />
+      </span>
+      <span
+        className="UserWalletTransactions__memo"
+      >
+        Test Transfer Transaction
+      </span>
+    </div>
+  </div>,
+  "nodes": Array [
+    <div
+      className="UserWalletTransactions__transaction"
+    >
+      <div
+        className="UserWalletTransactions__avatar"
+      >
+        <Avatar
+          size={40}
+          username="hellosteem"
+        />
+      </div>
+      <div
+        className="UserWalletTransactions__content"
+      >
+        <div
+          className="UserWalletTransactions__content-recipient"
+        >
+          <FormattedMessage
+            defaultMessage="Transferred to {username}"
+            id="transferred_to"
+            values={
+              Object {
+                "username": <Link
+                  replace={false}
+                  to="/@hellosteem"
+                >
+                  hellosteem
+                </Link>,
+              }
+            }
+          />
+          <span
+            className="UserWalletTransactions__transfer"
+          >
+            - 
+            100 STEEM
+          </span>
+        </div>
+        <span
+          className="UserWalletTransactions__timestamp"
+        >
+          <FormattedRelative
+            updateInterval={10000}
+            value="0Z"
+          />
+        </span>
+        <span
+          className="UserWalletTransactions__memo"
+        >
+          Test Transfer Transaction
+        </span>
+      </div>
+    </div>,
+  ],
+  "options": Object {},
+  "renderer": ReactShallowRenderer {
+    "_instance": ShallowComponentWrapper {
+      "_calledComponentWillUnmount": false,
+      "_compositeType": 2,
+      "_context": Object {},
+      "_currentElement": <TransferTransaction
+        amount="100 STEEM"
+        memo="Test Transfer Transaction"
+        timestamp="0"
+        to="hellosteem"
+      />,
+      "_debugID": 1,
+      "_hostContainerInfo": null,
+      "_hostParent": null,
+      "_instance": StatelessComponent {
+        "_reactInternalInstance": [Circular],
+        "context": Object {},
+        "props": Object {
+          "amount": "100 STEEM",
+          "memo": "Test Transfer Transaction",
+          "timestamp": "0",
+          "to": "hellosteem",
+        },
+        "refs": Object {},
+        "state": null,
+        "updater": Object {
+          "enqueueCallback": [Function],
+          "enqueueCallbackInternal": [Function],
+          "enqueueElementInternal": [Function],
+          "enqueueForceUpdate": [Function],
+          "enqueueReplaceState": [Function],
+          "enqueueSetState": [Function],
+          "isMounted": [Function],
+          "validateCallback": [Function],
+        },
+      },
+      "_mountOrder": 1,
+      "_pendingCallbacks": null,
+      "_pendingElement": null,
+      "_pendingForceUpdate": false,
+      "_pendingReplaceState": false,
+      "_pendingStateQueue": null,
+      "_renderedComponent": NoopInternalComponent {
+        "_currentElement": <div
+          className="UserWalletTransactions__transaction"
+        >
+          <div
+            className="UserWalletTransactions__avatar"
+          >
+            <Avatar
+              size={40}
+              username="hellosteem"
+            />
+          </div>
+          <div
+            className="UserWalletTransactions__content"
+          >
+            <div
+              className="UserWalletTransactions__content-recipient"
+            >
+              <FormattedMessage
+                defaultMessage="Transferred to {username}"
+                id="transferred_to"
+                values={
+                  Object {
+                    "username": <Link
+                      replace={false}
+                      to="/@hellosteem"
+                    >
+                      hellosteem
+                    </Link>,
+                  }
+                }
+              />
+              <span
+                className="UserWalletTransactions__transfer"
+              >
+                - 
+                100 STEEM
+              </span>
+            </div>
+            <span
+              className="UserWalletTransactions__timestamp"
+            >
+              <FormattedRelative
+                updateInterval={10000}
+                value="0Z"
+              />
+            </span>
+            <span
+              className="UserWalletTransactions__memo"
+            >
+              Test Transfer Transaction
+            </span>
+          </div>
+        </div>,
+        "_debugID": 2,
+        "_renderedOutput": <div
+          className="UserWalletTransactions__transaction"
+        >
+          <div
+            className="UserWalletTransactions__avatar"
+          >
+            <Avatar
+              size={40}
+              username="hellosteem"
+            />
+          </div>
+          <div
+            className="UserWalletTransactions__content"
+          >
+            <div
+              className="UserWalletTransactions__content-recipient"
+            >
+              <FormattedMessage
+                defaultMessage="Transferred to {username}"
+                id="transferred_to"
+                values={
+                  Object {
+                    "username": <Link
+                      replace={false}
+                      to="/@hellosteem"
+                    >
+                      hellosteem
+                    </Link>,
+                  }
+                }
+              />
+              <span
+                className="UserWalletTransactions__transfer"
+              >
+                - 
+                100 STEEM
+              </span>
+            </div>
+            <span
+              className="UserWalletTransactions__timestamp"
+            >
+              <FormattedRelative
+                updateInterval={10000}
+                value="0Z"
+              />
+            </span>
+            <span
+              className="UserWalletTransactions__memo"
+            >
+              Test Transfer Transaction
+            </span>
+          </div>
+        </div>,
+      },
+      "_renderedNodeType": 0,
+      "_rootNodeID": 0,
+      "_topLevelWrapper": null,
+      "_updateBatchNumber": null,
+      "_warnedAboutRefsInRender": false,
+    },
+    "getRenderOutput": [Function],
+    "render": [Function],
+  },
+  "root": [Circular],
+  "unrendered": <TransferTransaction
+    amount="100 STEEM"
+    memo="Test Transfer Transaction"
+    timestamp="0"
+    to="hellosteem"
+  />,
+}
+`;

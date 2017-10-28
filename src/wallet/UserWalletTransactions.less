@@ -1,0 +1,91 @@
+@import (reference) "../styles/custom.less";
+
+.UserWalletTransactions {
+  background-color: @white;
+  border: 1px solid @white-gainsboro;
+  border-radius: @border-radius-base;
+  margin: 20px 0;
+
+  &:empty {
+    display: none;
+  }
+
+  &__transaction {
+    color: @grey-nightRider;
+    display: flex;
+    padding: 10px 0;
+    margin: 0 15px;
+    border-bottom: 1px solid @white-gainsboro;
+  }
+
+  &__memo {
+    word-wrap: break-word;
+  }
+
+  &__avatar {
+    margin-top: 5px;
+  }
+
+  &__icon-container {
+    align-items: center;
+    color: @blue-heather;
+    background-color: @blue-solitude;
+    border-radius: 4px;
+    display: flex;
+    height: 40px;
+    justify-content: center;
+    margin-top: 4px;
+    width: 44px;
+  }
+
+  &__icon {
+    font-size: 22px !important;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    padding-left: 10px;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  &__content-recipient {
+    display: flex;
+    flex-direction: row;
+    font-weight: bold;
+    white-space: nowrap;
+  }
+
+  &__timestamp {
+    color: @blue-botticelli;
+    font-size: 14px;
+  }
+
+  &__transfer {
+    color: @red;
+    margin-left: auto;
+  }
+
+  &__received {
+    color: @green;
+    margin-left: auto;
+  }
+
+  &__payout {
+    margin-left: auto;
+  }
+
+  &__payout-rewards {
+    &:after {
+      content: ' - ';
+      color: @blue-botticelli;
+    }
+
+    &:last-of-type {
+      &:after {
+        content: '';
+      }
+    }
+  }
+}
