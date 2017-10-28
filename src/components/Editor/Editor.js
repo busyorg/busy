@@ -6,7 +6,7 @@ import { injectIntl, FormattedMessage } from 'react-intl';
 import { HotKeys } from 'react-hotkeys';
 import { throttle } from 'lodash';
 import isArray from 'lodash/isArray';
-import { Icon, Checkbox, Form, Input, Select } from 'antd';
+import { Icon, Checkbox, Form, Input, Select, Button } from 'antd';
 import Dropzone from 'react-dropzone';
 import EditorToolbar from './EditorToolbar';
 import Action from '../Button/Action';
@@ -27,7 +27,7 @@ class Editor extends React.Component {
     isUpdating: PropTypes.bool,
     saving: PropTypes.bool,
     onUpdate: PropTypes.func,
-    onCancel: PropTypes.func,
+    onDelete: PropTypes.func,
     onSubmit: PropTypes.func,
     onError: PropTypes.func,
     onImageInserted: PropTypes.func,
@@ -44,7 +44,7 @@ class Editor extends React.Component {
     loading: false,
     isUpdating: false,
     saving: false,
-    onCancel: () => {},
+    onDelete: () => {},
     onUpdate: () => {},
     onSubmit: () => {},
     onError: () => {},
@@ -601,19 +601,17 @@ class Editor extends React.Component {
               </span>
             )}
             <Form.Item className="Editor__bottom__cancel">
-              <Action
-                primary
+              <Button
+                type="danger"
                 disabled={loading}
-                text={intl.formatMessage({
-                  id: 'cancel',
-                  defaultMessage: 'cancel',
-                })}
                 onClick={(e) => {
                   e.stopPropagation();
                   e.preventDefault();
-                  this.props.onCancel();
+                  this.props.onDelete();
                 }}
-              />
+              >
+                <FormattedMessage id="draft_delete" defaultMessage="Delete this draft" />
+              </Button>
             </Form.Item>
             <Form.Item className="Editor__bottom__submit">
               {isUpdating ? (
