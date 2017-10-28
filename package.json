@@ -100,6 +100,7 @@
     "react-router": "^4.1.1",
     "react-router-dom": "^4.1.1",
     "react-router-redux": "^5.0.0-alpha.6",
+    "react-trend": "^1.2.4",
     "react-visibility-sensor": "^3.10.1",
     "redux": "^3.5.2",
     "redux-actions": "^0.12.0",

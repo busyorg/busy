@@ -183,5 +183,18 @@
   "rank_minnow":"Minnow",
   "rank_dolphin":"Dolphin",
   "rank_orca":"Orca",
-  "rank_whale":"Whale"
+  "rank_whale":"Whale",
+  "steem":"Steem",
+  "steem_dollar":"Steem Dollar",
+  "steem_power": "Steem Power",
+  "savings":"Savings",
+  "est_account_value": "Est. Account Value",
+  "transferred_to": "Transferred to {username}",
+  "transfer_to_savings": "Transfer to savings {amount} to {username}",
+  "transfer_from_savings": "Transfer from savings {amount} to {username}",
+  "cancel_transfer_from_savings": "Cancel transfer from savings (request {requestId})",
+  "received_from": "Received from {username}",
+  "claim_rewards": "Claim rewards ",
+  "powered_up": "Powered up ",
+  "market": "Market"
 }

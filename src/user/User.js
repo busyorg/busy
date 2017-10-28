@@ -21,6 +21,7 @@ import UserFollowers from './UserFollowers';
 import UserFollowing from './UserFollowing';
 import UserReblogs from './UserReblogs';
 import UserFeed from './UserFeed';
+import UserWallet from './UserWallet';
 
 export const needs = [getAccountWithFollowingCount];
 
@@ -136,6 +137,7 @@ export default class User extends React.Component {
               <Route path={`${match.path}/followed`} component={UserFollowing} />
               <Route path={`${match.path}/reblogs`} component={UserReblogs} />
               <Route path={`${match.path}/feed`} component={UserFeed} />
+              <Route path={`${match.path}/transfers`} component={UserWallet} />
             </div>
           </div>
         </div>
