@@ -45,6 +45,7 @@ class Editor extends React.Component {
     loading: false,
     isUpdating: false,
     saving: false,
+    draftId: null,
     onDelete: () => {},
     onUpdate: () => {},
     onSubmit: () => {},
