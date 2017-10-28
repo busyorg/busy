@@ -25,6 +25,7 @@ class Editor extends React.Component {
     upvote: PropTypes.bool,
     loading: PropTypes.bool,
     isUpdating: PropTypes.bool,
+    draftId: PropTypes.string,
     saving: PropTypes.bool,
     onUpdate: PropTypes.func,
     onDelete: PropTypes.func,
@@ -409,7 +410,7 @@ class Editor extends React.Component {
 
   render() {
     const { getFieldDecorator } = this.props.form;
-    const { intl, loading, isUpdating, saving } = this.props;
+    const { intl, loading, isUpdating, saving, draftId } = this.props;
 
     return (
       <Form className="Editor" layout="vertical" onSubmit={this.handleSubmit}>
@@ -608,6 +609,7 @@ class Editor extends React.Component {
               </span>
             )}
             <Form.Item className="Editor__bottom__cancel">
+              {draftId &&
               <Button
                 type="danger"
                 disabled={loading}
@@ -618,7 +620,7 @@ class Editor extends React.Component {
                 }}
               >
                 <FormattedMessage id="draft_delete" defaultMessage="Delete this draft" />
-              </Button>
+              </Button>}
             </Form.Item>
             <Form.Item className="Editor__bottom__submit">
               {isUpdating ? (
