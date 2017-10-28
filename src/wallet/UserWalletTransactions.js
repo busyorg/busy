@@ -1,13 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedNumber } from 'react-intl';
-import './UserWalletSummary.less';
-import './UserWalletTransactions.less';
 import ReceiveTransaction from './ReceiveTransaction';
 import TransferTransaction from './TransferTransaction';
 import SavingsTransaction from './SavingsTransaction';
 import PowerUpTransaction from './PowerUpTransaction';
 import ClaimReward from './ClaimReward';
+import './UserWalletTransactions.less';
 
 const getFormattedTransactionAmount = (amount) => {
   const transaction = amount.split(' ');

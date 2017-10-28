@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 import './Sidenav.less';
 
 const isNews = (match, location) => location.pathname.match(/trending/);
-const isUserWallet = (match, location) => location.pathname.match(/.@.*(wallet)/);
+const isUserWallet = (match, location) => location.pathname.match(/.@.+\/(wallet)/);
 
 const Sidenav = ({ username }) => (
   <div>

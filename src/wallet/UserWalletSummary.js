@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 import steem from 'steem';
 import Loading from '../components/Icon/Loading';
-import './UserWalletSummary.less';
 import USDDisplay from '../components/Utils/USDDisplay';
+import './UserWalletSummary.less';
 
 const UserWalletSummary = ({
   user,

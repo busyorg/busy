@@ -4,8 +4,8 @@ import fetch from 'isomorphic-fetch';
 import _ from 'lodash';
 import Promise from 'bluebird';
 import { FormattedMessage } from 'react-intl';
-import './SteemTrendingCharts.less';
 import Loading from '../Icon/Loading';
+import './SteemTrendingCharts.less';
 
 const getSteemPriceHistory = () =>
   fetch('https://min-api.cryptocompare.com/data/histoday?fsym=USD&tsym=STEEM&limit=7').then(res =>
