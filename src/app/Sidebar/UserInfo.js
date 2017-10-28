@@ -27,6 +27,8 @@ const UserInfo = ({ intl, authenticated, authenticatedUser, user, ...props }) =>
     hostWithoutWWW = hostWithoutWWW.slice(4);
   }
 
+  const currentVotingPower = Math.round(user.voting_power / 100);
+
   const isSameUser = authenticated && authenticatedUser.name === user.name;
   return (<div>
     {user.name &&
@@ -56,6 +58,13 @@ const UserInfo = ({ intl, authenticated, authenticatedUser, user, ...props }) =>
                 }),
               }}
             />
+          </div>
+          <div>
+            <i className="iconfont icon-flashlight text-icon" />
+            {intl.formatMessage({
+              id: 'voting_power',
+              defaultMessage: 'Voting Power',
+            })}: {currentVotingPower} %
           </div>
         </div>
       </div>}
