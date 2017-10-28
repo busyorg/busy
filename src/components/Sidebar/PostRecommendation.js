@@ -71,13 +71,13 @@ class PostRecommendation extends Component {
     if (author !== this.state.currentAuthor) {
       this.getPostsByAuthor(author);
     } else {
-      this.setState(this.state);
+      this.forceUpdate();
     }
   };
 
   navigateToPostComments = () => {
     document.getElementById('comments').scrollIntoView();
-    this.setState(this.state);
+    this.forceUpdate();
   };
 
   renderPosts = () => {
