@@ -5,11 +5,10 @@ import * as postActions from '../post/postActions';
 const initialState = {
   isFetching: false,
   isLoaded: false,
-  locale: 'auto',
-  localeLoading: false,
   rate: 0,
   trendingTopicsLoading: false,
   trendingTopics: [],
+  rewardFund: {},
 };
 
 export default (state = initialState, action) => {
@@ -18,27 +17,6 @@ export default (state = initialState, action) => {
       return {
         ...state,
         locale: action.payload.user_metadata.locale || initialState.locale,
-      };
-    case appTypes.GET_LOCALE:
-      return {
-        ...state,
-        locale: action.payload.locale,
-      };
-    case appTypes.SET_LOCALE_START:
-      return {
-        ...state,
-        localeLoading: true,
-      };
-    case appTypes.SET_LOCALE_SUCCESS:
-      return {
-        ...state,
-        locale: action.payload,
-        localeLoading: false,
-      };
-    case appTypes.SET_LOCALE_ERROR:
-      return {
-        ...state,
-        localeLoading: false,
       };
     case appTypes.RATE_SUCCESS:
       return {
@@ -56,6 +34,14 @@ export default (state = initialState, action) => {
         ...state,
         isFetching: false,
         isLoaded: true,
+      };
+    case appTypes.GET_REWARD_FUND_SUCCESS:
+      return {
+        ...state,
+        rewardFund: {
+          ...state.rewardFund,
+          ...action.payload,
+        },
       };
     case appTypes.GET_TRENDING_TOPICS_START:
       return {
@@ -79,9 +65,8 @@ export default (state = initialState, action) => {
   }
 };
 
-export const getLocale = state => state.locale;
-export const getIsLocaleLoading = state => state.localeLoading;
 export const getRate = state => state.rate;
 export const getIsTrendingTopicsLoading = state => state.trendingTopicsLoading;
+export const getRewardFund = state => state.rewardFund;
 export const getTrendingTopics = state => state.trendingTopics;
 export const getIsFetching = state => state.isFetching;

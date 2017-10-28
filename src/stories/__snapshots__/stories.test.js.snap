@@ -594,7 +594,7 @@ exports[`Storyshots Editor Editor 1`] = `
 </div>
 `;
 
-exports[`Storyshots Navigation Sidenav logged 1`] = `
+exports[`Storyshots Navigation Sidenav 1`] = `
 <div
   style={
     Object {
@@ -673,19 +673,6 @@ exports[`Storyshots Navigation Sidenav logged 1`] = `
       </li>
     </ul>
   </div>
-</div>
-`;
-
-exports[`Storyshots Navigation Sidenav unlogged 1`] = `
-<div
-  style={
-    Object {
-      "background": "#f9f9f9",
-      "padding": "40px",
-    }
-  }
->
-  <div />
 </div>
 `;
 
@@ -1013,7 +1000,7 @@ exports[`Storyshots Profile UserHeader 1`] = `
     className="UserHeader"
     style={
       Object {
-        "backgroundImage": "url(\\"https://img.busy.org/@/cover\\")",
+        "backgroundImage": "url(\\"https://img.busy.org/@roelandp/cover\\")",
       }
     }
   >
@@ -1021,10 +1008,10 @@ exports[`Storyshots Profile UserHeader 1`] = `
       className="UserHeader__container"
     >
       <img
-        alt=""
+        alt="roelandp"
         className="Avatar"
         onError={[Function]}
-        src="https://img.busy.org/@steemconnect?s=100"
+        src="https://img.busy.org/@roelandp?s=100"
         style={
           Object {
             "height": "100px",
@@ -1065,7 +1052,7 @@ exports[`Storyshots Profile UserHeader 1`] = `
             className="UserHeader__row UserHeader__handle"
           >
             @
-            
+            roelandp
           </div>
           <div
             className="UserHeader__rank"
@@ -1798,96 +1785,104 @@ exports[`Storyshots Story Full story 1`] = `
     <div
       className="StoryFooter"
     >
-      <span
-        className="StoryFooter__payout"
+      <div
+        className="StoryFooter__actions"
       >
         <span
-          className=""
-          onBlur={undefined}
-          onClick={undefined}
-          onFocus={undefined}
-          onMouseDown={undefined}
-          onMouseEnter={[Function]}
-          onMouseLeave={[Function]}
-          onTouchStart={undefined}
+          className="Payout"
         >
-          <span>
-            $111.76
+          <span
+            className=""
+            onBlur={undefined}
+            onClick={undefined}
+            onFocus={undefined}
+            onMouseDown={undefined}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onTouchStart={undefined}
+          >
+            <span>
+              $111.76
+            </span>
           </span>
         </span>
-      </span>
-      <a
-        className="StoryFooter__link"
-        onBlur={undefined}
-        onClick={[Function]}
-        onFocus={undefined}
-        onMouseDown={undefined}
-        onMouseEnter={[Function]}
-        onMouseLeave={[Function]}
-        onTouchStart={undefined}
-        role="presentation"
-      >
-        <i
-          className="iconfont icon-praise_fill"
-        />
-      </a>
-      <span
-        className="StoryFooter__number StoryFooter__reactions-count"
-        onClick={[Function]}
-        role="presentation"
-      >
-        <span
-          onBlur={undefined}
-          onClick={undefined}
-          onFocus={undefined}
-          onMouseDown={undefined}
-          onMouseEnter={[Function]}
-          onMouseLeave={[Function]}
-          onTouchStart={undefined}
+        <div
+          className="Buttons"
         >
-          <span>
-            133
+          <a
+            className="Buttons__link"
+            onBlur={undefined}
+            onClick={[Function]}
+            onFocus={undefined}
+            onMouseDown={undefined}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onTouchStart={undefined}
+            role="presentation"
+          >
+            <i
+              className="iconfont icon-praise_fill"
+            />
+          </a>
+          <span
+            className="Buttons__number Buttons__reactions-count"
+            onClick={[Function]}
+            role="presentation"
+          >
+            <span
+              onBlur={undefined}
+              onClick={undefined}
+              onFocus={undefined}
+              onMouseDown={undefined}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              onTouchStart={undefined}
+            >
+              <span>
+                133
+              </span>
+              <span />
+            </span>
           </span>
-          <span />
-        </span>
-      </span>
-      <a
-        className="StoryFooter__link"
-        href="/bitcoin/@bitspace/the-cryptoeconomy-rally#comments"
-        onBlur={undefined}
-        onClick={[Function]}
-        onFocus={undefined}
-        onMouseDown={undefined}
-        onMouseEnter={[Function]}
-        onMouseLeave={[Function]}
-        onTouchStart={undefined}
-      >
-        <i
-          className="iconfont icon-message_fill"
-        />
-      </a>
-      <span
-        className="StoryFooter__number"
-      >
-        <span>
-          18
-        </span>
-      </span>
-      <a
-        className="StoryFooter__link"
-        onBlur={undefined}
-        onClick={[Function]}
-        onFocus={undefined}
-        onMouseDown={undefined}
-        onMouseEnter={[Function]}
-        onMouseLeave={[Function]}
-        onTouchStart={undefined}
-        role="presentation"
-      >
-        <i
-          className="iconfont icon-share1 StoryFooter__share"
-        />
-      </a>
+          <a
+            className="Buttons__link"
+            href="/bitcoin/@bitspace/the-cryptoeconomy-rally#comments"
+            onBlur={undefined}
+            onClick={[Function]}
+            onFocus={undefined}
+            onMouseDown={undefined}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onTouchStart={undefined}
+          >
+            <i
+              className="iconfont icon-message_fill"
+            />
+          </a>
+          <span
+            className="Buttons__number"
+          >
+            <span>
+              18
+            </span>
+          </span>
+          <a
+            className="Buttons__link"
+            onBlur={undefined}
+            onClick={[Function]}
+            onFocus={undefined}
+            onMouseDown={undefined}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onTouchStart={undefined}
+            role="presentation"
+          >
+            <i
+              className="iconfont icon-share1 Buttons__share"
+            />
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -2052,96 +2047,104 @@ exports[`Storyshots Story Full story with embed 1`] = `
     <div
       className="StoryFooter"
     >
-      <span
-        className="StoryFooter__payout"
+      <div
+        className="StoryFooter__actions"
       >
         <span
-          className=""
-          onBlur={undefined}
-          onClick={undefined}
-          onFocus={undefined}
-          onMouseDown={undefined}
-          onMouseEnter={[Function]}
-          onMouseLeave={[Function]}
-          onTouchStart={undefined}
+          className="Payout"
         >
-          <span>
-            $737.54
+          <span
+            className=""
+            onBlur={undefined}
+            onClick={undefined}
+            onFocus={undefined}
+            onMouseDown={undefined}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onTouchStart={undefined}
+          >
+            <span>
+              $737.54
+            </span>
           </span>
         </span>
-      </span>
-      <a
-        className="StoryFooter__link"
-        onBlur={undefined}
-        onClick={[Function]}
-        onFocus={undefined}
-        onMouseDown={undefined}
-        onMouseEnter={[Function]}
-        onMouseLeave={[Function]}
-        onTouchStart={undefined}
-        role="presentation"
-      >
-        <i
-          className="iconfont icon-praise_fill"
-        />
-      </a>
-      <span
-        className="StoryFooter__number StoryFooter__reactions-count"
-        onClick={[Function]}
-        role="presentation"
-      >
-        <span
-          onBlur={undefined}
-          onClick={undefined}
-          onFocus={undefined}
-          onMouseDown={undefined}
-          onMouseEnter={[Function]}
-          onMouseLeave={[Function]}
-          onTouchStart={undefined}
+        <div
+          className="Buttons"
         >
-          <span>
-            658
+          <a
+            className="Buttons__link"
+            onBlur={undefined}
+            onClick={[Function]}
+            onFocus={undefined}
+            onMouseDown={undefined}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onTouchStart={undefined}
+            role="presentation"
+          >
+            <i
+              className="iconfont icon-praise_fill"
+            />
+          </a>
+          <span
+            className="Buttons__number Buttons__reactions-count"
+            onClick={[Function]}
+            role="presentation"
+          >
+            <span
+              onBlur={undefined}
+              onClick={undefined}
+              onFocus={undefined}
+              onMouseDown={undefined}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              onTouchStart={undefined}
+            >
+              <span>
+                658
+              </span>
+              <span />
+            </span>
           </span>
-          <span />
-        </span>
-      </span>
-      <a
-        className="StoryFooter__link"
-        href="/community-tokens/@fyrstikken/ned-scott-ceo-of-steemit-inc-have-a-40-minute-conversation-with-the-steemspeak-com-community#comments"
-        onBlur={undefined}
-        onClick={[Function]}
-        onFocus={undefined}
-        onMouseDown={undefined}
-        onMouseEnter={[Function]}
-        onMouseLeave={[Function]}
-        onTouchStart={undefined}
-      >
-        <i
-          className="iconfont icon-message_fill"
-        />
-      </a>
-      <span
-        className="StoryFooter__number"
-      >
-        <span>
-          57
-        </span>
-      </span>
-      <a
-        className="StoryFooter__link"
-        onBlur={undefined}
-        onClick={[Function]}
-        onFocus={undefined}
-        onMouseDown={undefined}
-        onMouseEnter={[Function]}
-        onMouseLeave={[Function]}
-        onTouchStart={undefined}
-        role="presentation"
-      >
-        <i
-          className="iconfont icon-share1 StoryFooter__share"
-        />
-      </a>
+          <a
+            className="Buttons__link"
+            href="/community-tokens/@fyrstikken/ned-scott-ceo-of-steemit-inc-have-a-40-minute-conversation-with-the-steemspeak-com-community#comments"
+            onBlur={undefined}
+            onClick={[Function]}
+            onFocus={undefined}
+            onMouseDown={undefined}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onTouchStart={undefined}
+          >
+            <i
+              className="iconfont icon-message_fill"
+            />
+          </a>
+          <span
+            className="Buttons__number"
+          >
+            <span>
+              57
+            </span>
+          </span>
+          <a
+            className="Buttons__link"
+            onBlur={undefined}
+            onClick={[Function]}
+            onFocus={undefined}
+            onMouseDown={undefined}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onTouchStart={undefined}
+            role="presentation"
+          >
+            <i
+              className="iconfont icon-share1 Buttons__share"
+            />
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -2275,96 +2278,104 @@ The recent growth in the cryptocurrency market has been breathtaking. In less th
         <div
           className="StoryFooter"
         >
-          <span
-            className="StoryFooter__payout"
+          <div
+            className="StoryFooter__actions"
           >
             <span
-              className=""
-              onBlur={undefined}
-              onClick={undefined}
-              onFocus={undefined}
-              onMouseDown={undefined}
-              onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
-              onTouchStart={undefined}
+              className="Payout"
             >
-              <span>
-                $111.76
+              <span
+                className=""
+                onBlur={undefined}
+                onClick={undefined}
+                onFocus={undefined}
+                onMouseDown={undefined}
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={undefined}
+              >
+                <span>
+                  $111.76
+                </span>
               </span>
             </span>
-          </span>
-          <a
-            className="StoryFooter__link"
-            onBlur={undefined}
-            onClick={[Function]}
-            onFocus={undefined}
-            onMouseDown={undefined}
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-            onTouchStart={undefined}
-            role="presentation"
-          >
-            <i
-              className="iconfont icon-praise_fill"
-            />
-          </a>
-          <span
-            className="StoryFooter__number StoryFooter__reactions-count"
-            onClick={[Function]}
-            role="presentation"
-          >
-            <span
-              onBlur={undefined}
-              onClick={undefined}
-              onFocus={undefined}
-              onMouseDown={undefined}
-              onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
-              onTouchStart={undefined}
+            <div
+              className="Buttons"
             >
-              <span>
-                133
+              <a
+                className="Buttons__link"
+                onBlur={undefined}
+                onClick={[Function]}
+                onFocus={undefined}
+                onMouseDown={undefined}
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={undefined}
+                role="presentation"
+              >
+                <i
+                  className="iconfont icon-praise_fill"
+                />
+              </a>
+              <span
+                className="Buttons__number Buttons__reactions-count"
+                onClick={[Function]}
+                role="presentation"
+              >
+                <span
+                  onBlur={undefined}
+                  onClick={undefined}
+                  onFocus={undefined}
+                  onMouseDown={undefined}
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  onTouchStart={undefined}
+                >
+                  <span>
+                    133
+                  </span>
+                  <span />
+                </span>
               </span>
-              <span />
-            </span>
-          </span>
-          <a
-            className="StoryFooter__link"
-            href="/bitcoin/@bitspace/the-cryptoeconomy-rally#comments"
-            onBlur={undefined}
-            onClick={[Function]}
-            onFocus={undefined}
-            onMouseDown={undefined}
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-            onTouchStart={undefined}
-          >
-            <i
-              className="iconfont icon-message_fill"
-            />
-          </a>
-          <span
-            className="StoryFooter__number"
-          >
-            <span>
-              18
-            </span>
-          </span>
-          <a
-            className="StoryFooter__link"
-            onBlur={undefined}
-            onClick={[Function]}
-            onFocus={undefined}
-            onMouseDown={undefined}
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-            onTouchStart={undefined}
-            role="presentation"
-          >
-            <i
-              className="iconfont icon-share1 StoryFooter__share"
-            />
-          </a>
+              <a
+                className="Buttons__link"
+                href="/bitcoin/@bitspace/the-cryptoeconomy-rally#comments"
+                onBlur={undefined}
+                onClick={[Function]}
+                onFocus={undefined}
+                onMouseDown={undefined}
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={undefined}
+              >
+                <i
+                  className="iconfont icon-message_fill"
+                />
+              </a>
+              <span
+                className="Buttons__number"
+              >
+                <span>
+                  18
+                </span>
+              </span>
+              <a
+                className="Buttons__link"
+                onBlur={undefined}
+                onClick={[Function]}
+                onFocus={undefined}
+                onMouseDown={undefined}
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={undefined}
+                role="presentation"
+              >
+                <i
+                  className="iconfont icon-share1 Buttons__share"
+                />
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -2509,96 +2520,104 @@ exports[`Storyshots Story Inline story with embed 1`] = `
         <div
           className="StoryFooter"
         >
-          <span
-            className="StoryFooter__payout"
+          <div
+            className="StoryFooter__actions"
           >
             <span
-              className=""
-              onBlur={undefined}
-              onClick={undefined}
-              onFocus={undefined}
-              onMouseDown={undefined}
-              onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
-              onTouchStart={undefined}
+              className="Payout"
             >
-              <span>
-                $737.54
+              <span
+                className=""
+                onBlur={undefined}
+                onClick={undefined}
+                onFocus={undefined}
+                onMouseDown={undefined}
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={undefined}
+              >
+                <span>
+                  $737.54
+                </span>
               </span>
             </span>
-          </span>
-          <a
-            className="StoryFooter__link"
-            onBlur={undefined}
-            onClick={[Function]}
-            onFocus={undefined}
-            onMouseDown={undefined}
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-            onTouchStart={undefined}
-            role="presentation"
-          >
-            <i
-              className="iconfont icon-praise_fill"
-            />
-          </a>
-          <span
-            className="StoryFooter__number StoryFooter__reactions-count"
-            onClick={[Function]}
-            role="presentation"
-          >
-            <span
-              onBlur={undefined}
-              onClick={undefined}
-              onFocus={undefined}
-              onMouseDown={undefined}
-              onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
-              onTouchStart={undefined}
+            <div
+              className="Buttons"
             >
-              <span>
-                658
+              <a
+                className="Buttons__link"
+                onBlur={undefined}
+                onClick={[Function]}
+                onFocus={undefined}
+                onMouseDown={undefined}
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={undefined}
+                role="presentation"
+              >
+                <i
+                  className="iconfont icon-praise_fill"
+                />
+              </a>
+              <span
+                className="Buttons__number Buttons__reactions-count"
+                onClick={[Function]}
+                role="presentation"
+              >
+                <span
+                  onBlur={undefined}
+                  onClick={undefined}
+                  onFocus={undefined}
+                  onMouseDown={undefined}
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  onTouchStart={undefined}
+                >
+                  <span>
+                    658
+                  </span>
+                  <span />
+                </span>
               </span>
-              <span />
-            </span>
-          </span>
-          <a
-            className="StoryFooter__link"
-            href="/community-tokens/@fyrstikken/ned-scott-ceo-of-steemit-inc-have-a-40-minute-conversation-with-the-steemspeak-com-community#comments"
-            onBlur={undefined}
-            onClick={[Function]}
-            onFocus={undefined}
-            onMouseDown={undefined}
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-            onTouchStart={undefined}
-          >
-            <i
-              className="iconfont icon-message_fill"
-            />
-          </a>
-          <span
-            className="StoryFooter__number"
-          >
-            <span>
-              57
-            </span>
-          </span>
-          <a
-            className="StoryFooter__link"
-            onBlur={undefined}
-            onClick={[Function]}
-            onFocus={undefined}
-            onMouseDown={undefined}
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-            onTouchStart={undefined}
-            role="presentation"
-          >
-            <i
-              className="iconfont icon-share1 StoryFooter__share"
-            />
-          </a>
+              <a
+                className="Buttons__link"
+                href="/community-tokens/@fyrstikken/ned-scott-ceo-of-steemit-inc-have-a-40-minute-conversation-with-the-steemspeak-com-community#comments"
+                onBlur={undefined}
+                onClick={[Function]}
+                onFocus={undefined}
+                onMouseDown={undefined}
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={undefined}
+              >
+                <i
+                  className="iconfont icon-message_fill"
+                />
+              </a>
+              <span
+                className="Buttons__number"
+              >
+                <span>
+                  57
+                </span>
+              </span>
+              <a
+                className="Buttons__link"
+                onBlur={undefined}
+                onClick={[Function]}
+                onFocus={undefined}
+                onMouseDown={undefined}
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
+                onTouchStart={undefined}
+                role="presentation"
+              >
+                <i
+                  className="iconfont icon-share1 Buttons__share"
+                />
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
