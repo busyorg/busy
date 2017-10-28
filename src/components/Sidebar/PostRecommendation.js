@@ -73,13 +73,13 @@ class PostRecommendation extends Component {
     if (author !== this.state.currentAuthor) {
       this.getPostsByAuthor(author);
     } else {
-      this.setState(this.state);
+      this.forceUpdate();
     }
   };
 
   navigateToPostComments = (category, author, permlink) => {
     this.props.history.push(`/${category}/@${author}/${permlink}#comments`);
-    this.setState(this.state);
+    this.forceUpdate();
   };
 
   renderPosts = () => {
