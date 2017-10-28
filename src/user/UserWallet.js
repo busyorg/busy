@@ -25,10 +25,7 @@ import { getAccountWithFollowingCount } from './usersActions';
 @withRouter
 @connect(
   (state, ownProps) => ({
-    user: getUser(
-      state,
-      ownProps.isCurrentUser ? state.auth.user.name : ownProps.match.params.name,
-    ),
+    user: ownProps.isCurrentUser ? state.auth.user : getUser(state, ownProps.match.params.name),
     authenticatedUserName: getAuthenticatedUserName(state),
     totalVestingShares: getTotalVestingShares(state),
     totalVestingFundSteem: getTotalVestingFundSteem(state),

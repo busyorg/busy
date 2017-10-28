@@ -78,7 +78,7 @@ const UserWalletSummary = ({
         <FormattedMessage id="est_account_value" defaultMessage="Est. Account Value" />
       </div>
       <div className="UserWalletSummary__value">
-        <USDDisplay value={parseFloat(estAccountValue)} />
+        {loading ? <Loading /> : <USDDisplay value={parseFloat(estAccountValue)} />}
       </div>
     </div>
   </div>
