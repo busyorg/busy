@@ -92,17 +92,14 @@ export default class Feed extends React.Component {
     loadMoreContent: () => {},
   };
 
-  handleLikeClick = (post, weight = 10000) => {
+  handleLikeClick = (post, postState, weight = 10000) => {
     const { sliderMode, user, defaultVotePercent } = this.props;
     if (sliderMode === 'on' || (sliderMode === 'auto' && getHasDefaultSlider(user))) {
       this.props.votePost(post.id, post.author, post.permlink, weight);
+    } else if (postState.isLiked) {
+      this.props.votePost(post.id, post.author, post.permlink, 0);
     } else {
-      const userVote = find(post.active_votes, { voter: user.name }) || {};
-      if (userVote.percent > 0) {
-        this.props.votePost(post.id, post.author, post.permlink, 0);
-      } else {
-        this.props.votePost(post.id, post.author, post.permlink, defaultVotePercent);
-      }
+      this.props.votePost(post.id, post.author, post.permlink, defaultVotePercent);
     }
   };
 

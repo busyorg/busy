@@ -62,13 +62,13 @@ class StoryFooter extends React.Component {
         this.setState(prevState => ({ sliderVisible: !prevState.sliderVisible }));
       }
     } else {
-      this.props.onLikeClick(this.props.post, 10000);
+      this.props.onLikeClick(this.props.post, this.props.postState);
     }
   };
 
   handleLikeConfirm = () => {
     this.setState({ sliderVisible: false }, () => {
-      this.props.onLikeClick(this.props.post, this.state.sliderValue * 100);
+      this.props.onLikeClick(this.props.post, this.props.postState, this.state.sliderValue * 100);
     });
   };
 
