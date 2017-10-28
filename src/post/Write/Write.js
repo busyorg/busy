@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { replace } from 'react-router-redux';
-import { Modal } from 'antd';
 import marked from 'marked';
 import kebabCase from 'lodash/kebabCase';
 import debounce from 'lodash/debounce';
@@ -11,6 +10,7 @@ import isArray from 'lodash/isArray';
 import 'url-search-params-polyfill';
 import { injectIntl } from 'react-intl';
 import GetBoost from '../../components/Sidebar/GetBoost';
+import DeleteDraftModal from './DeleteDraftModal';
 
 import {
   getAuthenticatedUser,
@@ -19,7 +19,7 @@ import {
   getIsEditorSaving,
 } from '../../reducers';
 
-import { createPost, saveDraft, deleteDraft, newPost } from './editorActions';
+import { createPost, saveDraft, newPost } from './editorActions';
 import { notify } from '../../app/Notification/notificationActions';
 import Editor from '../../components/Editor/Editor';
 import Affix from '../../components/Utils/Affix';
@@ -41,7 +41,6 @@ const version = require('../../../package.json').version;
     saveDraft,
     newPost,
     notify,
-    deleteDraft,
     replace,
   },
 )
@@ -55,7 +54,6 @@ class Write extends React.Component {
     newPost: PropTypes.func,
     createPost: PropTypes.func,
     saveDraft: PropTypes.func,
-    deleteDraft: PropTypes.func,
     notify: PropTypes.func,
     replace: PropTypes.func,
     draftId: PropTypes.string,
@@ -66,7 +64,6 @@ class Write extends React.Component {
     newPost: () => {},
     createPost: () => {},
     saveDraft: () => {},
-    deleteDraft: () => {},
     notify: () => {},
     replace: () => {},
     draftId: null,
@@ -80,6 +77,7 @@ class Write extends React.Component {
       initialBody: '',
       initialReward: '50',
       initialUpvote: true,
+      initialUpdatedDate: Date.now(),
       isUpdating: false,
       showModalDelete: false,
     };
@@ -110,14 +108,29 @@ class Write extends React.Component {
         initialBody: draftPost.body || '',
         initialReward: draftPost.reward || '50',
         initialUpvote: draftPost.upvote,
+        initialUpdatedDate: draftPost.lastUpdated || Date.now(),
         isUpdating: draftPost.isUpdating || false,
       });
     }
   }
 
+  onDeleteDraft = () => {
+    this.props.replace('/write');
+    this.setState({
+      initialTitle: '',
+      initialTopics: [],
+      initialBody: '',
+      initialReward: '50',
+      initialUpvote: true,
+      initialUpdatedDate: Date.now(),
+      isUpdating: false,
+      showModalDelete: false,
+    });
+  };
+
   onDelete = () => {
     this.setState({ showModalDelete: true });
-  };
+  }
 
   onSubmit = (form) => {
     const data = this.getNewPostData(form);
@@ -206,13 +219,6 @@ class Write extends React.Component {
     return data;
   };
 
-  deleteDraft() {
-    this.props.deleteDraft(this.props.draftId).then(() => {
-      this.props.notify('Draft have been deleted', 'success');
-      this.props.replace('/drafts');
-    });
-  }
-
   handleImageInserted = (blob, callback, errorCallback) => {
     const { formatMessage } = this.props.intl;
     this.props.notify(
@@ -261,7 +267,7 @@ class Write extends React.Component {
 
   render() {
     const { initialTitle, initialTopics, initialBody, initialReward, initialUpvote } = this.state;
-    const { loading, saving, intl } = this.props;
+    const { loading, saving, draftId } = this.props;
 
     return (
       <div className="shifted">
@@ -280,6 +286,7 @@ class Write extends React.Component {
               body={initialBody}
               reward={initialReward}
               upvote={initialUpvote}
+              draftId={draftId}
               loading={loading}
               isUpdating={this.state.isUpdating}
               onUpdate={this.saveDraft}
@@ -288,25 +295,15 @@ class Write extends React.Component {
               onImageInserted={this.handleImageInserted}
             />
           </div>
-          {this.state.showModalDelete &&
-          <Modal
-            title={intl.formatMessage({
-              id: 'draft_delete',
-              defaultMessage: 'Delete this draft?',
-            })}
-            visible={this.state.showModalDelete}
-            confirmLoading={this.state.shareModalLoading}
-            okText={intl.formatMessage({ id: 'confirm', defaultMessage: 'Confirm' })}
-            cancelText={intl.formatMessage({ id: 'cancel', defaultMessage: 'Cancel' })}
-            onOk={() => {
-              this.deleteDraft();
-            }}
-            onCancel={() => {
-              this.setState({ showModalDelete: false });
-            }}
-          >
-            Deleted Drafts are gone forever. Are you Sure?
-          </Modal>}
+          {this.state.showModalDelete && (
+            <DeleteDraftModal
+              draftId={draftId}
+              onDelete={this.onDeleteDraft}
+              onCancel={() => {
+                this.setState({ showModalDelete: false });
+              }}
+            />
+          )}
         </div>
       </div>
     );
