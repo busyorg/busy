@@ -8,10 +8,10 @@ import PowerUpTransaction from './PowerUpTransaction';
 import ClaimReward from './ClaimReward';
 import './UserWalletTransactions.less';
 
-const getFormattedTransactionAmount = (amount) => {
+const getFormattedTransactionAmount = (amount, currency) => {
   const transaction = amount.split(' ');
   const transactionAmount = parseFloat(transaction[0]).toFixed(3);
-  const transactionCurrency = transaction[1];
+  const transactionCurrency = currency || transaction[1];
   return (
     <span>
       <FormattedNumber
@@ -37,7 +37,7 @@ const UserWalletTransactions = ({ transactions, currentUsername }) => (
             return (
               <PowerUpTransaction
                 key={key}
-                amount={getFormattedTransactionAmount(transactionDetails.amount)}
+                amount={getFormattedTransactionAmount(transactionDetails.amount, 'SP')}
                 timestamp={transaction.timestamp}
               />
             );

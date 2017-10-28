@@ -34,7 +34,7 @@ ShallowWrapper {
             minimumFractionDigits={3}
             value="100.000"
           />
-           STEEM
+           SP
         </span>
       }
       timestamp="0"
@@ -67,7 +67,7 @@ ShallowWrapper {
               minimumFractionDigits={3}
               value="100.000"
             />
-             STEEM
+             SP
           </span>
         }
         timestamp="0"
@@ -184,7 +184,7 @@ ShallowWrapper {
                   minimumFractionDigits={3}
                   value="100.000"
                 />
-                 STEEM
+                 SP
               </span>
             }
             timestamp="0"
@@ -217,7 +217,7 @@ ShallowWrapper {
                   minimumFractionDigits={3}
                   value="100.000"
                 />
-                 STEEM
+                 SP
               </span>
             }
             timestamp="0"
