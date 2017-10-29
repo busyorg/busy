@@ -3,10 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Modal } from 'antd';
 import 'url-search-params-polyfill';
-import { injectIntl } from 'react-intl';
+import { injectIntl, FormattedMessage } from 'react-intl';
 import { deleteDraft } from './editorActions';
 import { notify } from '../../app/Notification/notificationActions';
-import Loading from '../../components/Icon/Loading';
 
 @injectIntl
 @connect(null, {
@@ -39,10 +38,17 @@ class DeleteDraftModal extends React.Component {
   }
 
   deleteDraft() {
+    const { intl, draftId, onDelete } = this.props;
     this.setState({ loading: true });
-    this.props.deleteDraft(this.props.draftId).then(() => {
-      this.props.notify('Draft have been deleted', 'success');
-      this.props.onDelete();
+    this.props.deleteDraft(draftId).then(() => {
+      this.props.notify(
+        intl.formatMessage({
+          id: 'draft_delete_success',
+          defaultMessage: 'Draft have been deleted',
+        }),
+        'success',
+      );
+      onDelete();
     });
   }
 
@@ -56,7 +62,7 @@ class DeleteDraftModal extends React.Component {
           defaultMessage: 'Delete this draft?',
         })}
         visible
-        confirmLoading={this.state.shareModalLoading}
+        confirmLoading={this.state.loading}
         okText={intl.formatMessage({ id: 'confirm', defaultMessage: 'Confirm' })}
         cancelText={intl.formatMessage({ id: 'cancel', defaultMessage: 'Cancel' })}
         onOk={() => {
@@ -66,7 +72,10 @@ class DeleteDraftModal extends React.Component {
           this.props.onCancel();
         }}
       >
-        {this.state.loading ? <Loading /> : 'Deleted Drafts are gone forever. Are you Sure?'}
+        <FormattedMessage
+          id="draft_delete_modal_content"
+          defaultMessage="Are you sure you want to delete this draft permanently?"
+        />
       </Modal>
     );
   }
