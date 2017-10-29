@@ -6,7 +6,7 @@ import { Tag, Tooltip, Popover } from 'antd';
 import { formatter } from 'steem';
 import getImage from '../helpers/getImage';
 import { getUserRankKey, getUserRank } from '../helpers/user';
-import Avatar from './Avatar';
+import AvatarLightbox from './AvatarLightbox';
 import FollowButton from '../widgets/FollowButton';
 import Action from './Button/Action';
 import PopoverMenu, { PopoverMenuItem } from './PopoverMenu/PopoverMenu';
@@ -27,7 +27,7 @@ const UserHeader = ({
     style={{ backgroundImage: `url("${getImage(`@${handle}/cover`)}")` }}
   >
     <div className="UserHeader__container">
-      <Avatar username={handle} size={100} />
+      <AvatarLightbox username={handle} size={100} previewSize={800} />
       <div className="UserHeader__user">
         <div className="UserHeader__row">
           <h2 className="UserHeader__user__username">
