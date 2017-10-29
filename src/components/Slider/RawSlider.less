@@ -1,3 +1,5 @@
+@import (reference) "../../styles/modules/variables";
+
 .RawSlider {
   max-width: 560px;
 
@@ -10,6 +12,10 @@
       & > .ant-radio-button-wrapper {
         min-width: 20%;
         text-align: center;
+
+        @media @small-max-width {
+          padding: 0 5px;
+        }
       }
     }
   }
