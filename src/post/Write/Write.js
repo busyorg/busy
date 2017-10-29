@@ -105,14 +105,16 @@ class Write extends React.Component {
         isUpdating: isUpdating || false,
       });
     }
+
+    if (draftId === null) {
+      this.draftId = Date.now().toString(16);
+    }
   }
 
   onSubmit = (form) => {
     const data = this.getNewPostData(form);
-    const { location: { search } } = this.props;
-    const id = new URLSearchParams(search).get('draft');
-    if (id) {
-      data.draftId = id;
+    if (this.draftId) {
+      data.draftId = this.draftId;
     }
     this.props.createPost(data);
   };
@@ -227,21 +229,16 @@ class Write extends React.Component {
     const data = this.getNewPostData(form);
     const postBody = data.body;
     const { location: { search } } = this.props;
-    let id = new URLSearchParams(search).get('draft');
+    const id = new URLSearchParams(search).get('draft');
 
     // Remove zero width space
     const isBodyEmpty = postBody.replace(/[\u200B-\u200D\uFEFF]/g, '').trim().length === 0;
 
     if (isBodyEmpty) return;
 
-    let redirect = false;
+    const redirect = id !== this.draftId;
 
-    if (id === null) {
-      id = Date.now().toString(16);
-      redirect = true;
-    }
-
-    this.props.saveDraft({ postData: data, id }, redirect);
+    this.props.saveDraft({ postData: data, id: this.draftId }, redirect);
   }, 400);
 
   render() {
