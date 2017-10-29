@@ -31,20 +31,16 @@ export const addEditedPost = createAction(ADD_EDITED_POST);
 export const DELETE_EDITED_POST = '@editor/DELETE_EDITED_POST';
 export const deleteEditedPost = createAction(DELETE_EDITED_POST);
 
-export const saveDraft = (post, redirect) => dispatch =>
+export const saveDraft = (post, redirect) => (dispatch) => {
+  if (redirect) dispatch(push(`/write?draft=${post.id}`));
   dispatch({
     type: SAVE_DRAFT,
     payload: {
-      promise: addDraftMetadata(post)
-        .then((resp) => {
-          if (redirect) {
-            dispatch(push(`/write?draft=${post.id}`));
-          }
-          return resp;
-        }),
+      promise: addDraftMetadata(post),
     },
     meta: { postId: post.id },
   });
+};
 
 export const deleteDraft = draftId => (dispatch) => {
   dispatch({
@@ -64,8 +60,9 @@ export const editPost = post => (dispatch) => {
     jsonMetadata,
     isUpdating: true,
   };
-  dispatch(saveDraft({ postData: draft, id: post.id }))
-    .then(() => dispatch(push(`/write?draft=${post.id}`)));
+  dispatch(saveDraft({ postData: draft, id: post.id })).then(() =>
+    dispatch(push(`/write?draft=${post.id}`)),
+  );
 };
 
 const requiredFields = 'parentAuthor,parentPermlink,author,permlink,title,body,jsonMetadata'.split(
