@@ -33,7 +33,7 @@ export const deleteEditedPost = createAction(DELETE_EDITED_POST);
 
 export const saveDraft = (post, redirect) => (dispatch) => {
   if (redirect) dispatch(push(`/write?draft=${post.id}`));
-  dispatch({
+  return dispatch({
     type: SAVE_DRAFT,
     payload: {
       promise: addDraftMetadata(post),
