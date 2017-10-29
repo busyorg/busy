@@ -805,36 +805,6 @@ exports[`Storyshots Navigation Topnav logged 1`] = `
             <li
               aria-disabled={undefined}
               aria-selected={false}
-              className="ant-menu-item Topnav__item--badge"
-              onClick={[Function]}
-              onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
-              role="menuitem"
-              style={Object {}}
-              title={undefined}
-            >
-              <a
-                className="Topnav__link Topnav__link--light"
-                onBlur={undefined}
-                onClick={[Function]}
-                onFocus={undefined}
-                onMouseDown={[Function]}
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                onTouchStart={[Function]}
-              >
-                <span
-                  className="ant-badge"
-                >
-                  <i
-                    className="iconfont icon-remind"
-                  />
-                </span>
-              </a>
-            </li>
-            <li
-              aria-disabled={undefined}
-              aria-selected={false}
               className="ant-menu-item"
               onClick={[Function]}
               onMouseEnter={[Function]}
