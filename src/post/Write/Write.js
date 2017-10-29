@@ -106,7 +106,9 @@ class Write extends React.Component {
       });
     }
 
-    if (draftId === null) {
+    if (draftId) {
+      this.draftId = draftId;
+    } else {
       this.draftId = Date.now().toString(16);
     }
   }
