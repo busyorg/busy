@@ -8,12 +8,14 @@ import UserWalletTransactions from '../wallet/UserWalletTransactions';
 import Loading from '../components/Icon/Loading';
 import {
   getUser,
+  getAuthenticatedUser,
   getAuthenticatedUserName,
   getTotalVestingShares,
   getTotalVestingFundSteem,
   getUsersTransactions,
   getUsersTransactionsLoading,
   getUsersEstAccountsValues,
+  getLoadingEstAccountValue,
 } from '../reducers';
 import {
   getGlobalProperties,
@@ -25,16 +27,16 @@ import { getAccountWithFollowingCount } from './usersActions';
 @withRouter
 @connect(
   (state, ownProps) => ({
-    user: getUser(
-      state,
-      ownProps.isCurrentUser ? state.auth.user.name : ownProps.match.params.name,
-    ),
+    user: ownProps.isCurrentUser
+      ? getAuthenticatedUser(state)
+      : getUser(state, ownProps.match.params.name),
     authenticatedUserName: getAuthenticatedUserName(state),
     totalVestingShares: getTotalVestingShares(state),
     totalVestingFundSteem: getTotalVestingFundSteem(state),
     usersTransactions: getUsersTransactions(state),
     usersTransactionsLoading: getUsersTransactionsLoading(state),
     usersEstAccountsValues: getUsersEstAccountsValues(state),
+    loadingEstAccountValue: getLoadingEstAccountValue(state),
   }),
   {
     getGlobalProperties,
@@ -56,6 +58,7 @@ class Wallet extends Component {
     usersTransactions: PropTypes.shape().isRequired,
     usersEstAccountsValues: PropTypes.shape().isRequired,
     usersTransactionsLoading: PropTypes.bool.isRequired,
+    loadingEstAccountValue: PropTypes.bool.isRequired,
     isCurrentUser: PropTypes.bool,
     authenticatedUserName: PropTypes.string,
   };
@@ -111,12 +114,13 @@ class Wallet extends Component {
       user,
       totalVestingShares,
       totalVestingFundSteem,
+      loadingEstAccountValue,
       usersTransactions,
       usersTransactionsLoading,
       usersEstAccountsValues,
     } = this.props;
     const transactions = usersTransactions[user.name] || [];
-    const estAccountValue = usersEstAccountsValues[user.name] || 0;
+    const estAccountValue = usersEstAccountsValues[user.name];
 
     return (
       <div>
@@ -124,6 +128,7 @@ class Wallet extends Component {
           user={user}
           estAccountValue={estAccountValue}
           loading={user.isFetching}
+          loadingEstAccountValue={loadingEstAccountValue}
           totalVestingShares={totalVestingShares}
           totalVestingFundSteem={totalVestingFundSteem}
         />
@@ -132,6 +137,8 @@ class Wallet extends Component {
           : <UserWalletTransactions
             transactions={usersTransactions[user.name]}
             currentUsername={user.name}
+            totalVestingShares={totalVestingShares}
+            totalVestingFundSteem={totalVestingFundSteem}
           />}
       </div>
     );

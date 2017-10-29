@@ -1,4 +1,5 @@
 @import (reference) "../styles/custom.less";
+@import (reference) "../styles/modules/variables.less";
 
 .UserWalletTransactions {
   background-color: @white;
@@ -16,6 +17,10 @@
     padding: 10px 0;
     margin: 0 15px;
     border-bottom: 1px solid @white-gainsboro;
+
+    &:last-of-type {
+      border-bottom: 0;
+    }
   }
 
   &__memo {
@@ -86,6 +91,33 @@
       &:after {
         content: '';
       }
+    }
+  }
+
+  @media @small-max-width {
+    border-left: 0;
+    border-right: 0;
+    border-radius: 0;
+  }
+
+  @media @very-small-max-width {
+    &__content-recipient {
+      flex-wrap: wrap;
+    }
+
+    &__transfer {
+      width: 100%;
+      margin-left: 0;
+    }
+
+    &__received {
+      width: 100%;
+      margin-left: 0;
+    }
+
+    &__payout {
+      width: 100%;
+      margin-left: 0;
     }
   }
 }
