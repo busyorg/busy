@@ -1,12 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import steem from 'steem';
 import { FormattedMessage, FormattedRelative, FormattedNumber } from 'react-intl';
 
-const getFormattedPayout = (rewardSteem, rewardSbd, rewardVests) => {
+const getFormattedPayout = (
+  rewardSteem,
+  rewardSbd,
+  rewardVests,
+  totalVestingShares,
+  totalVestingFundSteem,
+) => {
   const payouts = [];
   const parsedRewardSteem = parseFloat(rewardSteem);
   const parsedRewardSbd = parseFloat(rewardSbd);
-  const parsedRewardVests = parseFloat(rewardVests);
+  const parsedRewardVests = parseFloat(
+    steem.formatter.vestToSteem(rewardVests, totalVestingShares, totalVestingFundSteem),
+  );
 
   if (parsedRewardSteem > 0) {
     payouts.push(
@@ -50,7 +59,14 @@ const getFormattedPayout = (rewardSteem, rewardSbd, rewardVests) => {
   return payouts;
 };
 
-const ClaimReward = ({ timestamp, rewardSteem, rewardSbd, rewardVests }) => (
+const ClaimReward = ({
+  timestamp,
+  rewardSteem,
+  rewardSbd,
+  rewardVests,
+  totalVestingShares,
+  totalVestingFundSteem,
+}) => (
   <div className="UserWalletTransactions__transaction">
     <div className="UserWalletTransactions__icon-container">
       <i className="iconfont icon-success_fill UserWalletTransactions__icon" />
@@ -59,7 +75,13 @@ const ClaimReward = ({ timestamp, rewardSteem, rewardSbd, rewardVests }) => (
       <div className="UserWalletTransactions__content-recipient">
         <FormattedMessage id="claim_rewards" defaultMessage="Claim rewards" />
         <span className="UserWalletTransactions__payout">
-          {getFormattedPayout(rewardSteem, rewardSbd, rewardVests)}
+          {getFormattedPayout(
+            rewardSteem,
+            rewardSbd,
+            rewardVests,
+            totalVestingShares,
+            totalVestingFundSteem,
+          )}
         </span>
       </div>
       <span className="UserWalletTransactions__timestamp">
@@ -74,6 +96,8 @@ ClaimReward.propTypes = {
   rewardSteem: PropTypes.string.isRequired,
   rewardSbd: PropTypes.string.isRequired,
   rewardVests: PropTypes.string.isRequired,
+  totalVestingShares: PropTypes.string.isRequired,
+  totalVestingFundSteem: PropTypes.string.isRequired,
 };
 
 export default ClaimReward;

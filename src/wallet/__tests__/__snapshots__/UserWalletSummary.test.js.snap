@@ -289,6 +289,7 @@ ShallowWrapper {
       "_currentElement": <UserWalletSummary
         estAccountValue="100.00 STEEM"
         loading={false}
+        loadingEstAccountValue={false}
         totalVestingFundSteem="100 STEEM"
         totalVestingShares="100 STEEM"
         user={
@@ -309,6 +310,7 @@ ShallowWrapper {
         "props": Object {
           "estAccountValue": "100.00 STEEM",
           "loading": false,
+          "loadingEstAccountValue": false,
           "totalVestingFundSteem": "100 STEEM",
           "totalVestingShares": "100 STEEM",
           "user": Object {
@@ -623,6 +625,7 @@ ShallowWrapper {
   "unrendered": <UserWalletSummary
     estAccountValue="100.00 STEEM"
     loading={false}
+    loadingEstAccountValue={false}
     totalVestingFundSteem="100 STEEM"
     totalVestingShares="100 STEEM"
     user={

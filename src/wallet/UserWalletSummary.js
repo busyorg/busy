@@ -12,6 +12,7 @@ const UserWalletSummary = ({
   loading,
   totalVestingShares,
   totalVestingFundSteem,
+  loadingEstAccountValue,
 }) => (
   <div className="UserWalletSummary">
     <div className="UserWalletSummary__item">
@@ -78,7 +79,9 @@ const UserWalletSummary = ({
         <FormattedMessage id="est_account_value" defaultMessage="Est. Account Value" />
       </div>
       <div className="UserWalletSummary__value">
-        <USDDisplay value={parseFloat(estAccountValue)} />
+        {loadingEstAccountValue || !estAccountValue
+          ? <Loading />
+          : <USDDisplay value={parseFloat(estAccountValue)} />}
       </div>
     </div>
   </div>
@@ -86,14 +89,17 @@ const UserWalletSummary = ({
 
 UserWalletSummary.propTypes = {
   user: PropTypes.shape().isRequired,
-  estAccountValue: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+  estAccountValue: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   totalVestingShares: PropTypes.string.isRequired,
   totalVestingFundSteem: PropTypes.string.isRequired,
   loading: PropTypes.bool,
+  loadingEstAccountValue: PropTypes.bool,
 };
 
 UserWalletSummary.defaultProps = {
   loading: false,
+  loadingEstAccountValue: false,
+  estAccountValue: null,
 };
 
 export default UserWalletSummary;
