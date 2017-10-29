@@ -70,14 +70,20 @@ class Editor extends React.Component {
     dropzoneActive: false,
   };
 
+  filterBadData = (props) => {
+    return {
+      ...props,
+      topics: props.topics.filter(t => t).slice(0, 5),
+      title: props.title.slice(0, 254),
+    };
+  }
+
   componentDidMount() {
     if (this.input) {
       this.input.addEventListener('input', throttle(e => this.renderMarkdown(e.target.value), 500));
       this.input.addEventListener('paste', this.handlePastedImage);
     }
-
-    this.setValues(this.props);
-
+    
     // eslint-disable-next-line react/no-find-dom-node
     const select = ReactDOM.findDOMNode(this.select);
     if (select) {
@@ -90,10 +96,13 @@ class Editor extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { title, topics, body, reward, upvote } = this.props;
+    const curProps = this.filterBadData(this.props);
+    const { title, topics, body, reward, upvote } = curProps;
+    nextProps = this.filterBadData(nextProps);
+
     if (
       title !== nextProps.title ||
-      topics !== nextProps.topics ||
+      JSON.stringify(topics) !== JSON.stringify(nextProps.topics) ||
       body !== nextProps.body ||
       reward !== nextProps.reward ||
       upvote !== nextProps.upvote
