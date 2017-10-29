@@ -66,12 +66,13 @@ class SteemTrendingCharts extends Component {
         <div className="SteemTrendingCharts__divider" />
         <div className="SteemTrendingCharts__chart-header">
           <FormattedMessage id="steem" defaultMessage="Steem" />
-          <span className="SteemTrendingCharts__chart-value">
-            {`$${currentSteemPrice}`}
-            {steemPriceIncrease
-              ? <i className="iconfont icon-caret-up SteemTrendingCharts__chart-caret-up" />
-              : <i className="iconfont icon-caretbottom SteemTrendingCharts__chart-caret-down" />}
-          </span>
+          {!loading &&
+            <span className="SteemTrendingCharts__chart-value">
+              {`$${currentSteemPrice}`}
+              {steemPriceIncrease
+                ? <i className="iconfont icon-caret-up SteemTrendingCharts__chart-caret-up" />
+                : <i className="iconfont icon-caretbottom SteemTrendingCharts__chart-caret-down" />}
+            </span>}
         </div>
         {loading
           ? <Loading />
@@ -79,12 +80,13 @@ class SteemTrendingCharts extends Component {
         <div className="SteemTrendingCharts__divider" />
         <div className="SteemTrendingCharts__chart-header">
           <FormattedMessage id="steem_dollar" defaultMessage="Steem Dollar" />
-          <span className="SteemTrendingCharts__chart-value">
-            {`$${currentSteemDollarPrice} `}
-            {steemDollarPriceIncrease
-              ? <i className="iconfont icon-caret-up SteemTrendingCharts__chart-caret-up" />
-              : <i className="iconfont icon-caretbottom SteemTrendingCharts__chart-caret-down" />}
-          </span>
+          {!loading &&
+            <span className="SteemTrendingCharts__chart-value">
+              {`$${currentSteemDollarPrice} `}
+              {steemDollarPriceIncrease
+                ? <i className="iconfont icon-caret-up SteemTrendingCharts__chart-caret-up" />
+                : <i className="iconfont icon-caretbottom SteemTrendingCharts__chart-caret-down" />}
+            </span>}
         </div>
         {loading
           ? <Loading />

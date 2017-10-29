@@ -100,3 +100,5 @@ export const getUsersTransactionsLoading = state =>
   fromWallet.getUsersTransactionsLoading(state.wallet);
 export const getUsersEstAccountsValues = state =>
   fromWallet.getUsersEstAccountsValues(state.wallet);
+export const getLoadingEstAccountValue = state =>
+  fromWallet.getLoadingEstAccountValue(state.wallet);
