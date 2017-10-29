@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { injectIntl, FormattedMessage } from 'react-intl';
+import { injectIntl, FormattedMessage, FormattedNumber } from 'react-intl';
 import _ from 'lodash';
 import urlParse from 'url-parse';
 
@@ -26,8 +26,6 @@ const UserInfo = ({ intl, authenticated, authenticatedUser, user, ...props }) =>
   if (hostWithoutWWW.indexOf('www.') === 0) {
     hostWithoutWWW = hostWithoutWWW.slice(4);
   }
-
-  const currentVotingPower = Math.round(user.voting_power / 100);
 
   const isSameUser = authenticated && authenticatedUser.name === user.name;
   return (<div>
@@ -61,10 +59,11 @@ const UserInfo = ({ intl, authenticated, authenticatedUser, user, ...props }) =>
           </div>
           <div>
             <i className="iconfont icon-flashlight text-icon" />
-            {intl.formatMessage({
-              id: 'voting_power',
-              defaultMessage: 'Voting Power',
-            })}: {currentVotingPower} %
+            <FormattedMessage id="voting_power" defaultMessage="Voting Power" />: <FormattedNumber
+              style="percent" // eslint-disable-line react/style-prop-object
+              value={user.voting_power / 10000}
+              maximumFractionDigits={0}
+            />
           </div>
         </div>
       </div>}
