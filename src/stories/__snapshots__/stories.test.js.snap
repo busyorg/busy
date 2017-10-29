@@ -977,19 +977,26 @@ exports[`Storyshots Profile UserHeader 1`] = `
     <div
       className="UserHeader__container"
     >
-      <img
-        alt="roelandp"
-        className="Avatar"
-        onError={[Function]}
-        src="https://img.busy.org/@roelandp?s=100"
-        style={
-          Object {
-            "height": "100px",
-            "minWidth": "100px",
-            "width": "100px",
-          }
-        }
-      />
+      <div>
+        <a
+          onClick={[Function]}
+          role="presentation"
+        >
+          <img
+            alt="roelandp"
+            className="Avatar"
+            onError={[Function]}
+            src="https://img.busy.org/@roelandp?s=100"
+            style={
+              Object {
+                "height": "100px",
+                "minWidth": "100px",
+                "width": "100px",
+              }
+            }
+          />
+        </a>
+      </div>
       <div
         className="UserHeader__user"
       >
