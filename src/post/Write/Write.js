@@ -113,6 +113,21 @@ class Write extends React.Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    const oldDraftId = new URLSearchParams(this.props.location.search).get('draft');
+    const newDraftId = new URLSearchParams(nextProps.location.search).get('draft');
+    if (oldDraftId !== newDraftId && newDraftId === null) {
+      this.draftId = Date.now().toString(16);
+      this.setState({
+        initialTitle: '',
+        initialTopics: [],
+        initialBody: '',
+        initialReward: '50',
+        isUpdating: false,
+      });
+    }
+  }
+
   onSubmit = (form) => {
     const data = this.getNewPostData(form);
     if (this.draftId) {
