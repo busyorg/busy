@@ -35,7 +35,7 @@ export default class AvatarLightbox extends React.Component {
         </a>
         {this.state.open && (
           <Lightbox
-            mainSrc={getImage(`@${username}?s=${previewSize}`)}
+            mainSrc={getImage(`@${username}?crop=limit&s=${previewSize}`)}
             onCloseRequest={this.handleCloseRequest}
           />
         )}
