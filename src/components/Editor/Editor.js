@@ -102,6 +102,15 @@ class Editor extends React.Component {
     }
   }
 
+  onUpdateTopics = (e) => {
+    const errors = this.checkTopics(e);
+    if (errors.length < 1) {
+      // Get all values of the form for call to onUpdate
+      const values = this.getValues(e);
+      this.props.onUpdate(values);
+    }
+  }
+
   onUpdate = (e) => {
     // NOTE: antd doesn't update field value on Select before firing onChange
     // so we have to get value from event.
@@ -203,15 +212,23 @@ class Editor extends React.Component {
     });
   };
 
-  checkTopics = (rule, value, callback) => {
-    if (!value || value.length < 1 || value.length > 5) {
-      callback('You have to add 1 to 5 topics');
+  checkTopics = (topics) => {
+    const errors = [];
+    if (!topics || topics.length < 1 || topics.length > 5) {
+      errors.push(new Error('You have to add 1 to 5 topics'));
     }
 
-    value
+    topics
       .map(topic => ({ topic, valid: /^[a-z0-9]+(-[a-z0-9]+)*$/.test(topic) }))
       .filter(topic => !topic.valid)
-      .map(topic => callback(`Topic ${topic.topic} is invalid`));
+      .forEach(topic => errors.push(new Error(`Topic ${topic.topic} is invalid`)));
+
+    return errors;
+
+  };
+
+  checkTopicsValidator = (rule, value, callback) => {
+    this.checkTopics(value).map(err => callback(err));
 
     callback();
   };
@@ -471,14 +488,14 @@ class Editor extends React.Component {
                 }),
                 type: 'array',
               },
-              { validator: this.checkTopics },
+              { validator: this.checkTopicsValidator },
             ],
           })(
             <Select
               ref={(ref) => {
                 this.select = ref;
               }}
-              onChange={this.onUpdate}
+              onChange={this.onUpdateTopics}
               className="Editor__topics"
               mode="tags"
               placeholder={intl.formatMessage({
