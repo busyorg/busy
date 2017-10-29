@@ -8,6 +8,7 @@ import debounce from 'lodash/debounce';
 import isArray from 'lodash/isArray';
 import 'url-search-params-polyfill';
 import { injectIntl } from 'react-intl';
+import uuidv4 from 'uuid/v4';
 import GetBoost from '../../components/Sidebar/GetBoost';
 
 import {
@@ -109,7 +110,7 @@ class Write extends React.Component {
     if (draftId) {
       this.draftId = draftId;
     } else {
-      this.draftId = Date.now().toString(16);
+      this.draftId = uuidv4();
     }
   }
 
@@ -117,7 +118,7 @@ class Write extends React.Component {
     const oldDraftId = new URLSearchParams(this.props.location.search).get('draft');
     const newDraftId = new URLSearchParams(nextProps.location.search).get('draft');
     if (oldDraftId !== newDraftId && newDraftId === null) {
-      this.draftId = Date.now().toString(16);
+      this.draftId = uuidv4();
       this.setState({
         initialTitle: '',
         initialTopics: [],
