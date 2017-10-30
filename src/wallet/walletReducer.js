@@ -8,6 +8,7 @@ const initialState = {
   usersTransactions: {},
   usersEstAccountsValues: {},
   usersTransactionsLoading: true,
+  loadingEstAccountValue: true,
 };
 
 export default function walletReducer(state = initialState, action) {
@@ -44,6 +45,11 @@ export default function walletReducer(state = initialState, action) {
         },
         usersTransactionsLoading: false,
       };
+    case walletActions.GET_USER_EST_ACCOUNT_VALUE.START:
+      return {
+        ...state,
+        loadingEstAccountValue: true,
+      };
     case walletActions.GET_USER_EST_ACCOUNT_VALUE.SUCCESS:
       return {
         ...state,
@@ -51,6 +57,12 @@ export default function walletReducer(state = initialState, action) {
           ...state.usersEstAccountsValues,
           [action.payload.username]: action.payload.value,
         },
+        loadingEstAccountValue: false,
+      };
+    case walletActions.GET_USER_EST_ACCOUNT_VALUE.ERROR:
+      return {
+        ...state,
+        loadingEstAccountValue: false,
       };
     default:
       return state;
@@ -64,3 +76,4 @@ export const getTotalVestingFundSteem = state => state.totalVestingFundSteem;
 export const getUsersTransactions = state => state.usersTransactions;
 export const getUsersEstAccountsValues = state => state.usersEstAccountsValues;
 export const getUsersTransactionsLoading = state => state.usersTransactionsLoading;
+export const getLoadingEstAccountValue = state => state.loadingEstAccountValue;

@@ -805,36 +805,6 @@ exports[`Storyshots Navigation Topnav logged 1`] = `
             <li
               aria-disabled={undefined}
               aria-selected={false}
-              className="ant-menu-item Topnav__item--badge"
-              onClick={[Function]}
-              onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
-              role="menuitem"
-              style={Object {}}
-              title={undefined}
-            >
-              <a
-                className="Topnav__link Topnav__link--light"
-                onBlur={undefined}
-                onClick={[Function]}
-                onFocus={undefined}
-                onMouseDown={[Function]}
-                onMouseEnter={[Function]}
-                onMouseLeave={[Function]}
-                onTouchStart={[Function]}
-              >
-                <span
-                  className="ant-badge"
-                >
-                  <i
-                    className="iconfont icon-remind"
-                  />
-                </span>
-              </a>
-            </li>
-            <li
-              aria-disabled={undefined}
-              aria-selected={false}
               className="ant-menu-item"
               onClick={[Function]}
               onMouseEnter={[Function]}
@@ -1007,19 +977,26 @@ exports[`Storyshots Profile UserHeader 1`] = `
     <div
       className="UserHeader__container"
     >
-      <img
-        alt="roelandp"
-        className="Avatar"
-        onError={[Function]}
-        src="https://img.busy.org/@roelandp?s=100"
-        style={
-          Object {
-            "height": "100px",
-            "minWidth": "100px",
-            "width": "100px",
-          }
-        }
-      />
+      <div>
+        <a
+          onClick={[Function]}
+          role="presentation"
+        >
+          <img
+            alt="roelandp"
+            className="Avatar"
+            onError={[Function]}
+            src="https://img.busy.org/@roelandp?s=100"
+            style={
+              Object {
+                "height": "100px",
+                "minWidth": "100px",
+                "width": "100px",
+              }
+            }
+          />
+        </a>
+      </div>
       <div
         className="UserHeader__user"
       >
