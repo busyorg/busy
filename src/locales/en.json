@@ -196,7 +196,9 @@
   "transfer_from_savings": "Transfer from savings {amount} to {username}",
   "cancel_transfer_from_savings": "Cancel transfer from savings (request {requestId})",
   "received_from": "Received from {username}",
-  "claim_rewards": "Claim rewards ",
+  "claim_rewards": "Claim Rewards ",
+  "your_current_rewards": "Your current rewards",
+  "reward_claimed": "Reward Claimed",
   "powered_up": "Powered up ",
   "market": "Market"
 }
