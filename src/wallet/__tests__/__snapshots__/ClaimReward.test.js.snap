@@ -91,6 +91,8 @@ ShallowWrapper {
         rewardSteem="0 STEEM"
         rewardVests="0 SP"
         timestamp="0"
+        totalVestingFundSteem="0"
+        totalVestingShares="0"
       />,
       "_debugID": 1,
       "_hostContainerInfo": null,
@@ -103,6 +105,8 @@ ShallowWrapper {
           "rewardSteem": "0 STEEM",
           "rewardVests": "0 SP",
           "timestamp": "0",
+          "totalVestingFundSteem": "0",
+          "totalVestingShares": "0",
         },
         "refs": Object {},
         "state": null,
@@ -211,6 +215,8 @@ ShallowWrapper {
     rewardSteem="0 STEEM"
     rewardVests="0 SP"
     timestamp="0"
+    totalVestingFundSteem="0"
+    totalVestingShares="0"
   />,
 }
 `;

@@ -41,32 +41,6 @@ ShallowWrapper {
       className="UserWalletSummary__item"
     >
       <i
-        className="iconfont icon-Dollar UserWalletSummary__icon"
-      />
-      <div
-        className="UserWalletSummary__label"
-      >
-        <FormattedMessage
-          defaultMessage="Steem Dollar"
-          id="steem_dollar"
-          values={Object {}}
-        />
-      </div>
-      <div
-        className="UserWalletSummary__value"
-      >
-        <span>
-          <FormattedNumber
-            value={NaN}
-          />
-           SBD
-        </span>
-      </div>
-    </div>
-    <div
-      className="UserWalletSummary__item"
-    >
-      <i
         className="iconfont icon-flashlight_fill UserWalletSummary__icon"
       />
       <div
@@ -86,6 +60,32 @@ ShallowWrapper {
             value={0}
           />
            SP
+        </span>
+      </div>
+    </div>
+    <div
+      className="UserWalletSummary__item"
+    >
+      <i
+        className="iconfont icon-Dollar UserWalletSummary__icon"
+      />
+      <div
+        className="UserWalletSummary__label"
+      >
+        <FormattedMessage
+          defaultMessage="Steem Dollar"
+          id="steem_dollar"
+          values={Object {}}
+        />
+      </div>
+      <div
+        className="UserWalletSummary__value"
+      >
+        <span>
+          <FormattedNumber
+            value={NaN}
+          />
+           SBD
         </span>
       </div>
     </div>
@@ -177,32 +177,6 @@ ShallowWrapper {
         className="UserWalletSummary__item"
       >
         <i
-          className="iconfont icon-Dollar UserWalletSummary__icon"
-        />
-        <div
-          className="UserWalletSummary__label"
-        >
-          <FormattedMessage
-            defaultMessage="Steem Dollar"
-            id="steem_dollar"
-            values={Object {}}
-          />
-        </div>
-        <div
-          className="UserWalletSummary__value"
-        >
-          <span>
-            <FormattedNumber
-              value={NaN}
-            />
-             SBD
-          </span>
-        </div>
-      </div>
-      <div
-        className="UserWalletSummary__item"
-      >
-        <i
           className="iconfont icon-flashlight_fill UserWalletSummary__icon"
         />
         <div
@@ -222,6 +196,32 @@ ShallowWrapper {
               value={0}
             />
              SP
+          </span>
+        </div>
+      </div>
+      <div
+        className="UserWalletSummary__item"
+      >
+        <i
+          className="iconfont icon-Dollar UserWalletSummary__icon"
+        />
+        <div
+          className="UserWalletSummary__label"
+        >
+          <FormattedMessage
+            defaultMessage="Steem Dollar"
+            id="steem_dollar"
+            values={Object {}}
+          />
+        </div>
+        <div
+          className="UserWalletSummary__value"
+        >
+          <span>
+            <FormattedNumber
+              value={NaN}
+            />
+             SBD
           </span>
         </div>
       </div>
@@ -373,32 +373,6 @@ ShallowWrapper {
             className="UserWalletSummary__item"
           >
             <i
-              className="iconfont icon-Dollar UserWalletSummary__icon"
-            />
-            <div
-              className="UserWalletSummary__label"
-            >
-              <FormattedMessage
-                defaultMessage="Steem Dollar"
-                id="steem_dollar"
-                values={Object {}}
-              />
-            </div>
-            <div
-              className="UserWalletSummary__value"
-            >
-              <span>
-                <FormattedNumber
-                  value={NaN}
-                />
-                 SBD
-              </span>
-            </div>
-          </div>
-          <div
-            className="UserWalletSummary__item"
-          >
-            <i
               className="iconfont icon-flashlight_fill UserWalletSummary__icon"
             />
             <div
@@ -418,6 +392,32 @@ ShallowWrapper {
                   value={0}
                 />
                  SP
+              </span>
+            </div>
+          </div>
+          <div
+            className="UserWalletSummary__item"
+          >
+            <i
+              className="iconfont icon-Dollar UserWalletSummary__icon"
+            />
+            <div
+              className="UserWalletSummary__label"
+            >
+              <FormattedMessage
+                defaultMessage="Steem Dollar"
+                id="steem_dollar"
+                values={Object {}}
+              />
+            </div>
+            <div
+              className="UserWalletSummary__value"
+            >
+              <span>
+                <FormattedNumber
+                  value={NaN}
+                />
+                 SBD
               </span>
             </div>
           </div>
@@ -509,32 +509,6 @@ ShallowWrapper {
             className="UserWalletSummary__item"
           >
             <i
-              className="iconfont icon-Dollar UserWalletSummary__icon"
-            />
-            <div
-              className="UserWalletSummary__label"
-            >
-              <FormattedMessage
-                defaultMessage="Steem Dollar"
-                id="steem_dollar"
-                values={Object {}}
-              />
-            </div>
-            <div
-              className="UserWalletSummary__value"
-            >
-              <span>
-                <FormattedNumber
-                  value={NaN}
-                />
-                 SBD
-              </span>
-            </div>
-          </div>
-          <div
-            className="UserWalletSummary__item"
-          >
-            <i
               className="iconfont icon-flashlight_fill UserWalletSummary__icon"
             />
             <div
@@ -554,6 +528,32 @@ ShallowWrapper {
                   value={0}
                 />
                  SP
+              </span>
+            </div>
+          </div>
+          <div
+            className="UserWalletSummary__item"
+          >
+            <i
+              className="iconfont icon-Dollar UserWalletSummary__icon"
+            />
+            <div
+              className="UserWalletSummary__label"
+            >
+              <FormattedMessage
+                defaultMessage="Steem Dollar"
+                id="steem_dollar"
+                values={Object {}}
+              />
+            </div>
+            <div
+              className="UserWalletSummary__value"
+            >
+              <span>
+                <FormattedNumber
+                  value={NaN}
+                />
+                 SBD
               </span>
             </div>
           </div>

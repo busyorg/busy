@@ -2,9 +2,33 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 import steem from 'steem';
+import { calculateTotalDelegatedSP } from '../vendor/steemitHelpers';
 import Loading from '../components/Icon/Loading';
 import USDDisplay from '../components/Utils/USDDisplay';
 import './UserWalletSummary.less';
+
+const getFormattedTotalDelegatedSP = (user, totalVestingShares, totalVestingFundSteem) => {
+  const totalDelegatedSP = calculateTotalDelegatedSP(
+    user,
+    totalVestingShares,
+    totalVestingFundSteem,
+  );
+
+  if (totalDelegatedSP > 0) {
+    return (
+      <span>
+        {' (+'}
+        <FormattedNumber
+          value={calculateTotalDelegatedSP(user, totalVestingShares, totalVestingFundSteem)}
+        />
+        {' SP'}
+        {')'}
+      </span>
+    );
+  }
+
+  return null;
+};
 
 const UserWalletSummary = ({
   user,
@@ -27,17 +51,6 @@ const UserWalletSummary = ({
       </div>
     </div>
     <div className="UserWalletSummary__item">
-      <i className="iconfont icon-Dollar UserWalletSummary__icon" />
-      <div className="UserWalletSummary__label">
-        <FormattedMessage id="steem_dollar" defaultMessage="Steem Dollar" />
-      </div>
-      <div className="UserWalletSummary__value">
-        {loading
-          ? <Loading />
-          : <span><FormattedNumber value={parseFloat(user.sbd_balance)} />{' SBD'}</span>}
-      </div>
-    </div>
-    <div className="UserWalletSummary__item">
       <i className="iconfont icon-flashlight_fill UserWalletSummary__icon" />
       <div className="UserWalletSummary__label">
         <FormattedMessage id="steem_power" defaultMessage="Steem Power" />
@@ -56,7 +69,19 @@ const UserWalletSummary = ({
               )}
             />
             {' SP'}
+            {getFormattedTotalDelegatedSP(user, totalVestingShares, totalVestingFundSteem)}
           </span>}
+      </div>
+    </div>
+    <div className="UserWalletSummary__item">
+      <i className="iconfont icon-Dollar UserWalletSummary__icon" />
+      <div className="UserWalletSummary__label">
+        <FormattedMessage id="steem_dollar" defaultMessage="Steem Dollar" />
+      </div>
+      <div className="UserWalletSummary__value">
+        {loading
+          ? <Loading />
+          : <span><FormattedNumber value={parseFloat(user.sbd_balance)} />{' SBD'}</span>}
       </div>
     </div>
     <div className="UserWalletSummary__item">

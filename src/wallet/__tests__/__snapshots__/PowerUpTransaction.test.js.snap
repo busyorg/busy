@@ -32,7 +32,9 @@ ShallowWrapper {
         <span
           className="UserWalletTransactions__payout"
         >
-          0 STEEM
+          <span>
+            0 STEEM
+          </span>
         </span>
       </div>
       <span
@@ -70,7 +72,9 @@ ShallowWrapper {
           <span
             className="UserWalletTransactions__payout"
           >
-            0 STEEM
+            <span>
+              0 STEEM
+            </span>
           </span>
         </div>
         <span
@@ -91,7 +95,11 @@ ShallowWrapper {
       "_compositeType": 2,
       "_context": Object {},
       "_currentElement": <PowerUpTransaction
-        amount="0 STEEM"
+        amount={
+          <span>
+            0 STEEM
+          </span>
+        }
         timestamp="0"
       />,
       "_debugID": 1,
@@ -101,7 +109,9 @@ ShallowWrapper {
         "_reactInternalInstance": [Circular],
         "context": Object {},
         "props": Object {
-          "amount": "0 STEEM",
+          "amount": <span>
+            0 STEEM
+          </span>,
           "timestamp": "0",
         },
         "refs": Object {},
@@ -148,7 +158,9 @@ ShallowWrapper {
               <span
                 className="UserWalletTransactions__payout"
               >
-                0 STEEM
+                <span>
+                  0 STEEM
+                </span>
               </span>
             </div>
             <span
@@ -186,7 +198,9 @@ ShallowWrapper {
               <span
                 className="UserWalletTransactions__payout"
               >
-                0 STEEM
+                <span>
+                  0 STEEM
+                </span>
               </span>
             </div>
             <span
@@ -211,7 +225,11 @@ ShallowWrapper {
   },
   "root": [Circular],
   "unrendered": <PowerUpTransaction
-    amount="0 STEEM"
+    amount={
+      <span>
+        0 STEEM
+      </span>
+    }
     timestamp="0"
   />,
 }

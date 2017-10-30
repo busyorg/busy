@@ -43,7 +43,9 @@ ShallowWrapper {
           className="UserWalletTransactions__transfer"
         >
           - 
-          100 STEEM
+          <span>
+            0 STEEM
+          </span>
         </span>
       </div>
       <span
@@ -97,7 +99,9 @@ ShallowWrapper {
             className="UserWalletTransactions__transfer"
           >
             - 
-            100 STEEM
+            <span>
+              0 STEEM
+            </span>
           </span>
         </div>
         <span
@@ -123,7 +127,11 @@ ShallowWrapper {
       "_compositeType": 2,
       "_context": Object {},
       "_currentElement": <TransferTransaction
-        amount="100 STEEM"
+        amount={
+          <span>
+            0 STEEM
+          </span>
+        }
         memo="Test Transfer Transaction"
         timestamp="0"
         to="hellosteem"
@@ -135,7 +143,9 @@ ShallowWrapper {
         "_reactInternalInstance": [Circular],
         "context": Object {},
         "props": Object {
-          "amount": "100 STEEM",
+          "amount": <span>
+            0 STEEM
+          </span>,
           "memo": "Test Transfer Transaction",
           "timestamp": "0",
           "to": "hellosteem",
@@ -195,7 +205,9 @@ ShallowWrapper {
                 className="UserWalletTransactions__transfer"
               >
                 - 
-                100 STEEM
+                <span>
+                  0 STEEM
+                </span>
               </span>
             </div>
             <span
@@ -249,7 +261,9 @@ ShallowWrapper {
                 className="UserWalletTransactions__transfer"
               >
                 - 
-                100 STEEM
+                <span>
+                  0 STEEM
+                </span>
               </span>
             </div>
             <span
@@ -279,7 +293,11 @@ ShallowWrapper {
   },
   "root": [Circular],
   "unrendered": <TransferTransaction
-    amount="100 STEEM"
+    amount={
+      <span>
+        0 STEEM
+      </span>
+    }
     memo="Test Transfer Transaction"
     timestamp="0"
     to="hellosteem"
