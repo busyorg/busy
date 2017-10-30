@@ -17,12 +17,11 @@ const getFormattedTotalDelegatedSP = (user, totalVestingShares, totalVestingFund
   if (totalDelegatedSP > 0) {
     return (
       <span>
-        {' (+'}
+        {'(+'}
         <FormattedNumber
           value={calculateTotalDelegatedSP(user, totalVestingShares, totalVestingFundSteem)}
         />
-        {' SP'}
-        {')'}
+        {'SP)'}
       </span>
     );
   }
@@ -68,7 +67,7 @@ const UserWalletSummary = ({
                 ),
               )}
             />
-            {' SP'}
+            {' SP '}
             {getFormattedTotalDelegatedSP(user, totalVestingShares, totalVestingFundSteem)}
           </span>}
       </div>

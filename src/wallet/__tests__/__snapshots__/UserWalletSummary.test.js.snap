@@ -59,7 +59,7 @@ ShallowWrapper {
           <FormattedNumber
             value={0}
           />
-           SP
+           SP 
         </span>
       </div>
     </div>
@@ -195,7 +195,7 @@ ShallowWrapper {
             <FormattedNumber
               value={0}
             />
-             SP
+             SP 
           </span>
         </div>
       </div>
@@ -391,7 +391,7 @@ ShallowWrapper {
                 <FormattedNumber
                   value={0}
                 />
-                 SP
+                 SP 
               </span>
             </div>
           </div>
@@ -527,7 +527,7 @@ ShallowWrapper {
                 <FormattedNumber
                   value={0}
                 />
-                 SP
+                 SP 
               </span>
             </div>
           </div>
