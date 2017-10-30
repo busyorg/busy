@@ -82,6 +82,8 @@ ShallowWrapper {
       "_context": Object {},
       "_currentElement": <UserWalletTransactions
         currentUsername="hellosteem"
+        totalVestingFundSteem="0"
+        totalVestingShares="0"
         transactions={
           Array [
             Object {
@@ -115,6 +117,8 @@ ShallowWrapper {
         "context": Object {},
         "props": Object {
           "currentUsername": "hellosteem",
+          "totalVestingFundSteem": "0",
+          "totalVestingShares": "0",
           "transactions": Array [
             Object {
               "op": Array [
@@ -236,6 +240,8 @@ ShallowWrapper {
   "root": [Circular],
   "unrendered": <UserWalletTransactions
     currentUsername="hellosteem"
+    totalVestingFundSteem="0"
+    totalVestingShares="0"
     transactions={
       Array [
         Object {
