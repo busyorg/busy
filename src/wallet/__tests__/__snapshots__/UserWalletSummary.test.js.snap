@@ -60,13 +60,32 @@ ShallowWrapper {
             value={0}
           />
            SP 
-          <span>
-            (
-            <FormattedNumber
-              value={NaN}
-            />
-             SP)
-          </span>
+          <Tooltip
+            arrowPointAtCenter={false}
+            autoAdjustOverflow={true}
+            mouseEnterDelay={0.1}
+            mouseLeaveDelay={0.1}
+            placement="top"
+            prefixCls="ant-tooltip"
+            title={
+              <span>
+                <FormattedMessage
+                  defaultMessage="Steem Power delegated to this account"
+                  id="steem_power_delegated_to_account_tooltip"
+                  values={Object {}}
+                />
+              </span>
+            }
+            transitionName="zoom-big-fast"
+          >
+            <span>
+              (
+              <FormattedNumber
+                value={NaN}
+              />
+               SP)
+            </span>
+          </Tooltip>
         </span>
       </div>
     </div>
@@ -203,13 +222,32 @@ ShallowWrapper {
               value={0}
             />
              SP 
-            <span>
-              (
-              <FormattedNumber
-                value={NaN}
-              />
-               SP)
-            </span>
+            <Tooltip
+              arrowPointAtCenter={false}
+              autoAdjustOverflow={true}
+              mouseEnterDelay={0.1}
+              mouseLeaveDelay={0.1}
+              placement="top"
+              prefixCls="ant-tooltip"
+              title={
+                <span>
+                  <FormattedMessage
+                    defaultMessage="Steem Power delegated to this account"
+                    id="steem_power_delegated_to_account_tooltip"
+                    values={Object {}}
+                  />
+                </span>
+              }
+              transitionName="zoom-big-fast"
+            >
+              <span>
+                (
+                <FormattedNumber
+                  value={NaN}
+                />
+                 SP)
+              </span>
+            </Tooltip>
           </span>
         </div>
       </div>
@@ -406,13 +444,32 @@ ShallowWrapper {
                   value={0}
                 />
                  SP 
-                <span>
-                  (
-                  <FormattedNumber
-                    value={NaN}
-                  />
-                   SP)
-                </span>
+                <Tooltip
+                  arrowPointAtCenter={false}
+                  autoAdjustOverflow={true}
+                  mouseEnterDelay={0.1}
+                  mouseLeaveDelay={0.1}
+                  placement="top"
+                  prefixCls="ant-tooltip"
+                  title={
+                    <span>
+                      <FormattedMessage
+                        defaultMessage="Steem Power delegated to this account"
+                        id="steem_power_delegated_to_account_tooltip"
+                        values={Object {}}
+                      />
+                    </span>
+                  }
+                  transitionName="zoom-big-fast"
+                >
+                  <span>
+                    (
+                    <FormattedNumber
+                      value={NaN}
+                    />
+                     SP)
+                  </span>
+                </Tooltip>
               </span>
             </div>
           </div>
@@ -549,13 +606,32 @@ ShallowWrapper {
                   value={0}
                 />
                  SP 
-                <span>
-                  (
-                  <FormattedNumber
-                    value={NaN}
-                  />
-                   SP)
-                </span>
+                <Tooltip
+                  arrowPointAtCenter={false}
+                  autoAdjustOverflow={true}
+                  mouseEnterDelay={0.1}
+                  mouseLeaveDelay={0.1}
+                  placement="top"
+                  prefixCls="ant-tooltip"
+                  title={
+                    <span>
+                      <FormattedMessage
+                        defaultMessage="Steem Power delegated to this account"
+                        id="steem_power_delegated_to_account_tooltip"
+                        values={Object {}}
+                      />
+                    </span>
+                  }
+                  transitionName="zoom-big-fast"
+                >
+                  <span>
+                    (
+                    <FormattedNumber
+                      value={NaN}
+                    />
+                     SP)
+                  </span>
+                </Tooltip>
               </span>
             </div>
           </div>

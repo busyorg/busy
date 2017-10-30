@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 import steem from 'steem';
+import { Tooltip } from 'antd';
 import { calculateTotalDelegatedSP } from '../vendor/steemitHelpers';
 import Loading from '../components/Icon/Loading';
 import USDDisplay from '../components/Utils/USDDisplay';
@@ -16,13 +17,24 @@ const getFormattedTotalDelegatedSP = (user, totalVestingShares, totalVestingFund
 
   if (totalDelegatedSP !== 0) {
     return (
-      <span>
-        {totalDelegatedSP > 0 ? '(+' : '('}
-        <FormattedNumber
-          value={calculateTotalDelegatedSP(user, totalVestingShares, totalVestingFundSteem)}
-        />
-        {' SP)'}
-      </span>
+      <Tooltip
+        title={
+          <span>
+            <FormattedMessage
+              id="steem_power_delegated_to_account_tooltip"
+              defaultMessage="Steem Power delegated to this account"
+            />
+          </span>
+        }
+      >
+        <span>
+          {totalDelegatedSP > 0 ? '(+' : '('}
+          <FormattedNumber
+            value={calculateTotalDelegatedSP(user, totalVestingShares, totalVestingFundSteem)}
+          />
+          {' SP)'}
+        </span>
+      </Tooltip>
     );
   }
 
