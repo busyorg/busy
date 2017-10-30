@@ -36,10 +36,33 @@ ShallowWrapper {
       <span
         className="UserWalletTransactions__timestamp"
       >
-        <FormattedRelative
-          updateInterval={10000}
-          value="0Z"
-        />
+        <Tooltip
+          arrowPointAtCenter={false}
+          autoAdjustOverflow={true}
+          mouseEnterDelay={0.1}
+          mouseLeaveDelay={0.1}
+          placement="top"
+          prefixCls="ant-tooltip"
+          title={
+            <span>
+              <FormattedDate
+                value="0Z"
+              />
+               
+              <FormattedTime
+                value="0Z"
+              />
+            </span>
+          }
+          transitionName="zoom-big-fast"
+        >
+          <span>
+            <FormattedRelative
+              updateInterval={10000}
+              value="0Z"
+            />
+          </span>
+        </Tooltip>
       </span>
     </div>
   </div>,
@@ -72,10 +95,33 @@ ShallowWrapper {
         <span
           className="UserWalletTransactions__timestamp"
         >
-          <FormattedRelative
-            updateInterval={10000}
-            value="0Z"
-          />
+          <Tooltip
+            arrowPointAtCenter={false}
+            autoAdjustOverflow={true}
+            mouseEnterDelay={0.1}
+            mouseLeaveDelay={0.1}
+            placement="top"
+            prefixCls="ant-tooltip"
+            title={
+              <span>
+                <FormattedDate
+                  value="0Z"
+                />
+                 
+                <FormattedTime
+                  value="0Z"
+                />
+              </span>
+            }
+            transitionName="zoom-big-fast"
+          >
+            <span>
+              <FormattedRelative
+                updateInterval={10000}
+                value="0Z"
+              />
+            </span>
+          </Tooltip>
         </span>
       </div>
     </div>,
@@ -156,10 +202,33 @@ ShallowWrapper {
             <span
               className="UserWalletTransactions__timestamp"
             >
-              <FormattedRelative
-                updateInterval={10000}
-                value="0Z"
-              />
+              <Tooltip
+                arrowPointAtCenter={false}
+                autoAdjustOverflow={true}
+                mouseEnterDelay={0.1}
+                mouseLeaveDelay={0.1}
+                placement="top"
+                prefixCls="ant-tooltip"
+                title={
+                  <span>
+                    <FormattedDate
+                      value="0Z"
+                    />
+                     
+                    <FormattedTime
+                      value="0Z"
+                    />
+                  </span>
+                }
+                transitionName="zoom-big-fast"
+              >
+                <span>
+                  <FormattedRelative
+                    updateInterval={10000}
+                    value="0Z"
+                  />
+                </span>
+              </Tooltip>
             </span>
           </div>
         </div>,
@@ -192,10 +261,33 @@ ShallowWrapper {
             <span
               className="UserWalletTransactions__timestamp"
             >
-              <FormattedRelative
-                updateInterval={10000}
-                value="0Z"
-              />
+              <Tooltip
+                arrowPointAtCenter={false}
+                autoAdjustOverflow={true}
+                mouseEnterDelay={0.1}
+                mouseLeaveDelay={0.1}
+                placement="top"
+                prefixCls="ant-tooltip"
+                title={
+                  <span>
+                    <FormattedDate
+                      value="0Z"
+                    />
+                     
+                    <FormattedTime
+                      value="0Z"
+                    />
+                  </span>
+                }
+                transitionName="zoom-big-fast"
+              >
+                <span>
+                  <FormattedRelative
+                    updateInterval={10000}
+                    value="0Z"
+                  />
+                </span>
+              </Tooltip>
             </span>
           </div>
         </div>,

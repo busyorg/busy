@@ -60,6 +60,13 @@ ShallowWrapper {
             value={0}
           />
            SP 
+          <span>
+            (
+            <FormattedNumber
+              value={NaN}
+            />
+             SP)
+          </span>
         </span>
       </div>
     </div>
@@ -196,6 +203,13 @@ ShallowWrapper {
               value={0}
             />
              SP 
+            <span>
+              (
+              <FormattedNumber
+                value={NaN}
+              />
+               SP)
+            </span>
           </span>
         </div>
       </div>
@@ -392,6 +406,13 @@ ShallowWrapper {
                   value={0}
                 />
                  SP 
+                <span>
+                  (
+                  <FormattedNumber
+                    value={NaN}
+                  />
+                   SP)
+                </span>
               </span>
             </div>
           </div>
@@ -528,6 +549,13 @@ ShallowWrapper {
                   value={0}
                 />
                  SP 
+                <span>
+                  (
+                  <FormattedNumber
+                    value={NaN}
+                  />
+                   SP)
+                </span>
               </span>
             </div>
           </div>

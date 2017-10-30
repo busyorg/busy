@@ -14,14 +14,14 @@ const getFormattedTotalDelegatedSP = (user, totalVestingShares, totalVestingFund
     totalVestingFundSteem,
   );
 
-  if (totalDelegatedSP > 0) {
+  if (totalDelegatedSP !== 0) {
     return (
       <span>
-        {'(+'}
+        {totalDelegatedSP > 0 ? '(+' : '('}
         <FormattedNumber
           value={calculateTotalDelegatedSP(user, totalVestingShares, totalVestingFundSteem)}
         />
-        {'SP)'}
+        {' SP)'}
       </span>
     );
   }
