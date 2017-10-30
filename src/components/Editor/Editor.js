@@ -13,6 +13,14 @@ import Action from '../Button/Action';
 import Body, { remarkable } from '../Story/Body';
 import './Editor.less';
 
+
+const filterBadData = props => ({
+  ...props,
+  topics: props.topics.filter(t => t).slice(0, 5),
+  title: props.title.slice(0, 254),
+});
+
+
 @injectIntl
 class Editor extends React.Component {
   static propTypes = {
@@ -70,14 +78,6 @@ class Editor extends React.Component {
     dropzoneActive: false,
   };
 
-  filterBadData = (props) => {
-    return {
-      ...props,
-      topics: props.topics.filter(t => t).slice(0, 5),
-      title: props.title.slice(0, 254),
-    };
-  }
-
   componentDidMount() {
     if (this.input) {
       this.input.addEventListener('input', throttle(e => this.renderMarkdown(e.target.value), 500));
@@ -96,25 +96,25 @@ class Editor extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const curProps = this.filterBadData(this.props);
+    const curProps = filterBadData(this.props);
     const { title, topics, body, reward, upvote } = curProps;
-    nextProps = this.filterBadData(nextProps);
+    const filteredNext = filterBadData(nextProps);
 
     if (
-      title !== nextProps.title ||
-      JSON.stringify(topics) !== JSON.stringify(nextProps.topics) ||
-      body !== nextProps.body ||
-      reward !== nextProps.reward ||
-      upvote !== nextProps.upvote
+      title !== filteredNext.title ||
+      JSON.stringify(topics) !== JSON.stringify(filteredNext.topics) ||
+      body !== filteredNext.body ||
+      reward !== filteredNext.reward ||
+      upvote !== filteredNext.upvote
     ) {
-      this.setValues(nextProps);
+      this.setValues(filteredNext);
     }
   }
 
   onUpdate = (e) => {
     // NOTE: antd doesn't update field value on Select before firing onChange
     // so we have to get value from event.
-    const values = this.getValues(e)
+    const values = this.getValues(e);
     const { topics, title } = values;
 
     const topicErrors = this.checkTopics(topics);
@@ -231,7 +231,6 @@ class Editor extends React.Component {
       .forEach(topic => errors.push(new Error(`Topic ${topic.topic} is invalid`)));
 
     return errors;
-
   };
 
   checkTopicsValidator = (rule, value, callback) => {
