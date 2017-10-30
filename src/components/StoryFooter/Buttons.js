@@ -142,8 +142,9 @@ export default class Buttons extends React.Component {
     const showReblogLink = !ownPost && post.parent_author === '';
 
     let likeTooltip = <span>{intl.formatMessage({ id: 'like' })}</span>;
-    if (postState.isLiked) likeTooltip = <span>{intl.formatMessage({ id: 'dislike' })}</span>;
-    else if (defaultVotePercent !== 10000) {
+    if (postState.isLiked) {
+      likeTooltip = <span>{intl.formatMessage({ id: 'unlike', defaultMessage: 'Unlike' })}</span>;
+    } else if (defaultVotePercent !== 10000) {
       likeTooltip = (
         <span>
           {intl.formatMessage({ id: 'like' })}{' '}
