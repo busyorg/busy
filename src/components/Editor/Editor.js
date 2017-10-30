@@ -83,7 +83,7 @@ class Editor extends React.Component {
       this.input.addEventListener('input', throttle(e => this.renderMarkdown(e.target.value), 500));
       this.input.addEventListener('paste', this.handlePastedImage);
     }
-    
+
     // eslint-disable-next-line react/no-find-dom-node
     const select = ReactDOM.findDOMNode(this.select);
     if (select) {
@@ -111,19 +111,17 @@ class Editor extends React.Component {
     }
   }
 
-  onUpdateTopics = (e) => {
-    const errors = this.checkTopics(e);
-    if (errors.length < 1) {
-      // Get all values of the form for call to onUpdate
-      const values = this.getValues(e);
-      this.props.onUpdate(values);
-    }
-  }
-
   onUpdate = (e) => {
     // NOTE: antd doesn't update field value on Select before firing onChange
     // so we have to get value from event.
-    this.props.onUpdate(this.getValues(e));
+    const values = this.getValues(e)
+    const { topics, title } = values;
+
+    const topicErrors = this.checkTopics(topics);
+
+    if (title.length <= 255 && topicErrors.length < 1) {
+      this.props.onUpdate(values);
+    }
   };
 
   setInput = (input) => {
@@ -504,7 +502,7 @@ class Editor extends React.Component {
               ref={(ref) => {
                 this.select = ref;
               }}
-              onChange={this.onUpdateTopics}
+              onChange={this.onUpdate}
               className="Editor__topics"
               mode="tags"
               placeholder={intl.formatMessage({
