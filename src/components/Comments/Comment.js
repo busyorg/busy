@@ -282,7 +282,13 @@ class Comment extends React.Component {
             {content}
           </div>
           <div className="Comment__footer">
-            <Tooltip title={intl.formatMessage({ id: 'like', defaultMessage: 'Like' })}>
+            <Tooltip
+              title={
+                userUpVoted
+                  ? intl.formatMessage({ id: 'unlike', defaultMessage: 'Unlike' })
+                  : intl.formatMessage({ id: 'like', defaultMessage: 'Like' })
+              }
+            >
               <a
                 role="presentation"
                 className={classNames('Comment__footer__link', {

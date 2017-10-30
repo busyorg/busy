@@ -32,16 +32,41 @@ ShallowWrapper {
         <span
           className="UserWalletTransactions__payout"
         >
-          0 STEEM
+          <span>
+            0 STEEM
+          </span>
         </span>
       </div>
       <span
         className="UserWalletTransactions__timestamp"
       >
-        <FormattedRelative
-          updateInterval={10000}
-          value="0Z"
-        />
+        <Tooltip
+          arrowPointAtCenter={false}
+          autoAdjustOverflow={true}
+          mouseEnterDelay={0.1}
+          mouseLeaveDelay={0.1}
+          placement="top"
+          prefixCls="ant-tooltip"
+          title={
+            <span>
+              <FormattedDate
+                value="0Z"
+              />
+               
+              <FormattedTime
+                value="0Z"
+              />
+            </span>
+          }
+          transitionName="zoom-big-fast"
+        >
+          <span>
+            <FormattedRelative
+              updateInterval={10000}
+              value="0Z"
+            />
+          </span>
+        </Tooltip>
       </span>
     </div>
   </div>,
@@ -70,16 +95,41 @@ ShallowWrapper {
           <span
             className="UserWalletTransactions__payout"
           >
-            0 STEEM
+            <span>
+              0 STEEM
+            </span>
           </span>
         </div>
         <span
           className="UserWalletTransactions__timestamp"
         >
-          <FormattedRelative
-            updateInterval={10000}
-            value="0Z"
-          />
+          <Tooltip
+            arrowPointAtCenter={false}
+            autoAdjustOverflow={true}
+            mouseEnterDelay={0.1}
+            mouseLeaveDelay={0.1}
+            placement="top"
+            prefixCls="ant-tooltip"
+            title={
+              <span>
+                <FormattedDate
+                  value="0Z"
+                />
+                 
+                <FormattedTime
+                  value="0Z"
+                />
+              </span>
+            }
+            transitionName="zoom-big-fast"
+          >
+            <span>
+              <FormattedRelative
+                updateInterval={10000}
+                value="0Z"
+              />
+            </span>
+          </Tooltip>
         </span>
       </div>
     </div>,
@@ -91,7 +141,11 @@ ShallowWrapper {
       "_compositeType": 2,
       "_context": Object {},
       "_currentElement": <PowerUpTransaction
-        amount="0 STEEM"
+        amount={
+          <span>
+            0 STEEM
+          </span>
+        }
         timestamp="0"
       />,
       "_debugID": 1,
@@ -101,7 +155,9 @@ ShallowWrapper {
         "_reactInternalInstance": [Circular],
         "context": Object {},
         "props": Object {
-          "amount": "0 STEEM",
+          "amount": <span>
+            0 STEEM
+          </span>,
           "timestamp": "0",
         },
         "refs": Object {},
@@ -148,16 +204,41 @@ ShallowWrapper {
               <span
                 className="UserWalletTransactions__payout"
               >
-                0 STEEM
+                <span>
+                  0 STEEM
+                </span>
               </span>
             </div>
             <span
               className="UserWalletTransactions__timestamp"
             >
-              <FormattedRelative
-                updateInterval={10000}
-                value="0Z"
-              />
+              <Tooltip
+                arrowPointAtCenter={false}
+                autoAdjustOverflow={true}
+                mouseEnterDelay={0.1}
+                mouseLeaveDelay={0.1}
+                placement="top"
+                prefixCls="ant-tooltip"
+                title={
+                  <span>
+                    <FormattedDate
+                      value="0Z"
+                    />
+                     
+                    <FormattedTime
+                      value="0Z"
+                    />
+                  </span>
+                }
+                transitionName="zoom-big-fast"
+              >
+                <span>
+                  <FormattedRelative
+                    updateInterval={10000}
+                    value="0Z"
+                  />
+                </span>
+              </Tooltip>
             </span>
           </div>
         </div>,
@@ -186,16 +267,41 @@ ShallowWrapper {
               <span
                 className="UserWalletTransactions__payout"
               >
-                0 STEEM
+                <span>
+                  0 STEEM
+                </span>
               </span>
             </div>
             <span
               className="UserWalletTransactions__timestamp"
             >
-              <FormattedRelative
-                updateInterval={10000}
-                value="0Z"
-              />
+              <Tooltip
+                arrowPointAtCenter={false}
+                autoAdjustOverflow={true}
+                mouseEnterDelay={0.1}
+                mouseLeaveDelay={0.1}
+                placement="top"
+                prefixCls="ant-tooltip"
+                title={
+                  <span>
+                    <FormattedDate
+                      value="0Z"
+                    />
+                     
+                    <FormattedTime
+                      value="0Z"
+                    />
+                  </span>
+                }
+                transitionName="zoom-big-fast"
+              >
+                <span>
+                  <FormattedRelative
+                    updateInterval={10000}
+                    value="0Z"
+                  />
+                </span>
+              </Tooltip>
             </span>
           </div>
         </div>,
@@ -211,7 +317,11 @@ ShallowWrapper {
   },
   "root": [Circular],
   "unrendered": <PowerUpTransaction
-    amount="0 STEEM"
+    amount={
+      <span>
+        0 STEEM
+      </span>
+    }
     timestamp="0"
   />,
 }
