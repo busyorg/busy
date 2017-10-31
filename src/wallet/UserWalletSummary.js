@@ -49,7 +49,7 @@ const getRewards = (user) => {
   return (
     <span>
       {rewardSteem > 0 &&
-        <span key="STEEM" className="UserWalletSummary__reward">
+        <span className="UserWalletSummary__reward">
           <FormattedNumber
             value={rewardSteem}
             minimumFractionDigits={3}
@@ -58,7 +58,7 @@ const getRewards = (user) => {
           {' STEEM'}
         </span>}
       {rewardSbd > 0 &&
-        <span key="SBD" className="UserWalletSummary__reward">
+        <span className="UserWalletSummary__reward">
           <FormattedNumber
             value={rewardSbd}
             minimumFractionDigits={3}
@@ -67,7 +67,7 @@ const getRewards = (user) => {
           {' SBD'}
         </span>}
       {rewardSP > 0 &&
-        <span key="SP" className="UserWalletSummary__reward">
+        <span className="UserWalletSummary__reward">
           <FormattedNumber value={rewardSP} minimumFractionDigits={3} maximumFractionDigits={3} />
           {' SP'}
         </span>}
