@@ -13,14 +13,6 @@ import Action from '../Button/Action';
 import Body, { remarkable } from '../Story/Body';
 import './Editor.less';
 
-
-const filterBadData = props => ({
-  ...props,
-  topics: props.topics.filter(t => t).slice(0, 5),
-  title: props.title.slice(0, 254),
-});
-
-
 @injectIntl
 class Editor extends React.Component {
   static propTypes = {
@@ -96,18 +88,16 @@ class Editor extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const curProps = filterBadData(this.props);
-    const { title, topics, body, reward, upvote } = curProps;
-    const filteredNext = filterBadData(nextProps);
+    const { title, topics, body, reward, upvote } = this.props;
 
     if (
-      title !== filteredNext.title ||
-      JSON.stringify(topics) !== JSON.stringify(filteredNext.topics) ||
-      body !== filteredNext.body ||
-      reward !== filteredNext.reward ||
-      upvote !== filteredNext.upvote
+      title !== nextProps.title ||
+      JSON.stringify(topics) !== JSON.stringify(nextProps.topics) ||
+      body !== nextProps.body ||
+      reward !== nextProps.reward ||
+      upvote !== nextProps.upvote
     ) {
-      this.setValues(filteredNext);
+      this.setValues(nextProps);
     }
   }
 
