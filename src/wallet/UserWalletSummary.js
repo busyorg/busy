@@ -48,6 +48,7 @@ const UserWalletSummary = ({
   totalVestingShares,
   totalVestingFundSteem,
   loadingEstAccountValue,
+  loadingGlobalProperties,
 }) => (
   <div className="UserWalletSummary">
     <div className="UserWalletSummary__item">
@@ -67,7 +68,7 @@ const UserWalletSummary = ({
         <FormattedMessage id="steem_power" defaultMessage="Steem Power" />
       </div>
       <div className="UserWalletSummary__value">
-        {loading
+        {loading || loadingGlobalProperties
           ? <Loading />
           : <span>
             <FormattedNumber
@@ -130,6 +131,7 @@ UserWalletSummary.propTypes = {
   totalVestingFundSteem: PropTypes.string.isRequired,
   loading: PropTypes.bool,
   loadingEstAccountValue: PropTypes.bool,
+  loadingGlobalProperties: PropTypes.bool.isRequired,
 };
 
 UserWalletSummary.defaultProps = {
