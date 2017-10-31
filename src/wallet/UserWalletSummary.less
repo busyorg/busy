@@ -41,6 +41,19 @@
     text-align: right;
   }
 
+  &__reward {
+    &:after {
+      color: @blue-botticelli;
+      content: ' - ';
+    }
+
+    &:last-of-type {
+      &:after {
+        content: '';
+      }
+    }
+  }
+
   @media @small-max-width {
     border-left: 0;
     border-right: 0;

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 import steem from 'steem';
 import { Tooltip } from 'antd';
-import { calculateTotalDelegatedSP } from '../vendor/steemitHelpers';
+import { calculateTotalDelegatedSP, userHasRewards } from '../vendor/steemitHelpers';
 import Loading from '../components/Icon/Loading';
 import USDDisplay from '../components/Utils/USDDisplay';
 import './UserWalletSummary.less';
@@ -41,6 +41,40 @@ const getFormattedTotalDelegatedSP = (user, totalVestingShares, totalVestingFund
   return null;
 };
 
+const getRewards = (user) => {
+  const rewardSteem = parseFloat(user.reward_steem_balance);
+  const rewardSbd = parseFloat(user.reward_sbd_balance);
+  const rewardSP = parseFloat(user.reward_vesting_steem);
+
+  return (
+    <span>
+      {rewardSteem > 0 &&
+        <span key="STEEM" className="UserWalletSummary__reward">
+          <FormattedNumber
+            value={rewardSteem}
+            minimumFractionDigits={3}
+            maximumFractionDigits={3}
+          />
+          {' STEEM'}
+        </span>}
+      {rewardSbd > 0 &&
+        <span key="SBD" className="UserWalletSummary__reward">
+          <FormattedNumber
+            value={rewardSbd}
+            minimumFractionDigits={3}
+            maximumFractionDigits={3}
+          />
+          {' SBD'}
+        </span>}
+      {rewardSP > 0 &&
+        <span key="SP" className="UserWalletSummary__reward">
+          <FormattedNumber value={rewardSP} minimumFractionDigits={3} maximumFractionDigits={3} />
+          {' SP'}
+        </span>}
+    </span>
+  );
+};
+
 const UserWalletSummary = ({
   user,
   estAccountValue,
@@ -49,6 +83,7 @@ const UserWalletSummary = ({
   totalVestingFundSteem,
   loadingEstAccountValue,
   loadingGlobalProperties,
+  isCurrentUser,
 }) => (
   <div className="UserWalletSummary">
     <div className="UserWalletSummary__item">
@@ -110,6 +145,16 @@ const UserWalletSummary = ({
           </span>}
       </div>
     </div>
+    {(isCurrentUser && userHasRewards(user)) &&
+      <div className="UserWalletSummary__item">
+        <i className="iconfont icon-ranking UserWalletSummary__icon" />
+        <div className="UserWalletSummary__label">
+          <FormattedMessage id="rewards" defaultMessage="Rewards" />
+        </div>
+        <div className="UserWalletSummary__value">
+          {loading ? <Loading /> : getRewards(user)}
+        </div>
+      </div>}
     <div className="UserWalletSummary__item">
       <i className="iconfont icon-people_fill UserWalletSummary__icon" />
       <div className="UserWalletSummary__label">
@@ -132,12 +177,14 @@ UserWalletSummary.propTypes = {
   loading: PropTypes.bool,
   loadingEstAccountValue: PropTypes.bool,
   loadingGlobalProperties: PropTypes.bool.isRequired,
+  isCurrentUser: PropTypes.bool,
 };
 
 UserWalletSummary.defaultProps = {
   loading: false,
   loadingEstAccountValue: false,
   estAccountValue: null,
+  isCurrentUser: false,
 };
 
 export default UserWalletSummary;

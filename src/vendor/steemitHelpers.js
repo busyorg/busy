@@ -190,3 +190,8 @@ export const calculateTotalDelegatedSP = (user, totalVestingShares, totalVesting
   );
   return receivedSP - delegatedSP;
 };
+
+export const userHasRewards = user =>
+  parseFloat(user.reward_steem_balance) > 0 ||
+  parseFloat(user.reward_sbd_balance) > 0 ||
+  parseFloat(user.reward_vesting_steem) > 0;
