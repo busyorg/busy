@@ -1,0 +1,49 @@
+@import (reference) "../styles/custom.less";
+@import (reference) "../styles/modules/variables.less";
+
+.UserWalletSummary {
+  border: 1px solid @white-gainsboro;
+  border-radius: @border-radius-base;
+  background-color: @white;
+
+  &__item {
+    display: flex;
+    border-bottom: 1px solid @white-gainsboro;
+    align-items: center;
+    margin: 0 15px;
+    flex-direction: row;
+    padding: 10px 0;
+
+    &:last-of-type {
+      border-bottom: 0;
+    }
+  }
+
+  &__icon {
+    color: @blue-baliHai;
+    margin-right: 10px;
+  }
+
+  &__label {
+    align-items: center;
+    color: @black;
+    display: flex;
+    font-size: 18px;
+  }
+
+  &__value {
+    align-items: center;
+    color: @purple;
+    display: flex;
+    font-size: 18px;
+    font-weight: bold;
+    margin-left: auto;
+    text-align: right;
+  }
+
+  @media @small-max-width {
+    border-left: 0;
+    border-right: 0;
+    border-radius: 0;
+  }
+}

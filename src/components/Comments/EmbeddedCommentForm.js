@@ -57,16 +57,24 @@ class EmbeddedCommentForm extends React.Component {
     }
   };
 
+  setInputCursorPosition = (pos) => {
+    if (this.input && this.input.setSelectionRange) {
+      this.input.setSelectionRange(pos, pos);
+    }
+  }
+
   insertImage = (image, imageName = 'image') => {
     if (!this.input) return;
 
     const startPos = this.input.selectionStart;
     const endPos = this.input.selectionEnd;
+    const imageText = `![${imageName}](${image})\n`;
     const newValue = `${this.input.value.substring(
       0,
       startPos,
-    )}![${imageName}](${image})${this.input.value.substring(endPos, this.input.value.length)}\n`;
+    )}${imageText}${this.input.value.substring(endPos, this.input.value.length)}`;
     this.setState({ inputValue: newValue });
+    this.setInputCursorPosition(startPos + imageText.length);
   };
 
   handleCommentTextChange = (e) => {

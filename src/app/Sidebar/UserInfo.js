@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { injectIntl, FormattedMessage } from 'react-intl';
+import { injectIntl, FormattedMessage, FormattedNumber } from 'react-intl';
 import _ from 'lodash';
 import urlParse from 'url-parse';
 
@@ -55,6 +55,14 @@ const UserInfo = ({ intl, authenticated, authenticatedUser, user, ...props }) =>
                   day: 'numeric',
                 }),
               }}
+            />
+          </div>
+          <div>
+            <i className="iconfont icon-flashlight text-icon" />
+            <FormattedMessage id="voting_power" defaultMessage="Voting Power" />: <FormattedNumber
+              style="percent" // eslint-disable-line react/style-prop-object
+              value={user.voting_power / 10000}
+              maximumFractionDigits={0}
             />
           </div>
         </div>

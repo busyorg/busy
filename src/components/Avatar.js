@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import getImage from '../helpers/getImage';
 import './Avatar.less';
+
+const defaultImage =
+  'https://res.cloudinary.com/hpiynhbhq/image/upload/v1506948447/p72avlprkfariyti7q2l.png';
 
 class Avatar extends Component {
   static propTypes = {
@@ -13,22 +17,27 @@ class Avatar extends Component {
     size: 34,
   };
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      imgUrl: `${process.env.IMG_HOST}/@${props.username || 'steemconnect'}?s=${props.size}`,
-    };
+  state = {
+    imageUrl: defaultImage,
+  };
+
+  componentWillMount() {
+    const { username, size } = this.props;
+    if (username) {
+      this.setState({
+        imageUrl: getImage(`@${username}?s=${size}`),
+      });
+    }
   }
 
-  onError = () => {
+  onError = () =>
     this.setState({
-      imgUrl: 'https://res.cloudinary.com/hpiynhbhq/image/upload/v1506948447/p72avlprkfariyti7q2l.png',
+      imageUrl: defaultImage,
     });
-  };
 
   render() {
     const { username, size } = this.props;
-    const { imgUrl } = this.state;
+    const { imageUrl } = this.state;
 
     return (
       <img
@@ -36,7 +45,7 @@ class Avatar extends Component {
         style={{ minWidth: `${size}px`, width: `${size}px`, height: `${size}px` }}
         onError={this.onError}
         alt={username}
-        src={imgUrl}
+        src={imageUrl}
       />
     );
   }

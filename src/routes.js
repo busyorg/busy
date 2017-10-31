@@ -4,7 +4,7 @@ import createBrowserHistory from 'history/createBrowserHistory';
 import createMemoryHistory from 'history/createMemoryHistory';
 import { Route, Switch } from 'react-router-dom';
 import Wrapper from './Wrapper';
-import Settings from './app/AppSettings';
+import Settings from './settings/Settings';
 import ProfileSettings from './app/ProfileSettings';
 import Activity from './activity/Activity';
 
@@ -21,6 +21,7 @@ import Team from './statics/Team';
 import Write from './post/Write/Write';
 import Drafts from './post/Write/Drafts';
 import RequireLogin from './auth/RequireLogin';
+import Wallet from './wallet/Wallet';
 
 export default (
   <Wrapper>
@@ -84,6 +85,14 @@ export default (
         render={() => (
           <RequireLogin>
             <ProfileSettings />
+          </RequireLogin>
+        )}
+      />
+      <Route
+        path="/wallet"
+        render={() => (
+          <RequireLogin>
+            <Wallet />
           </RequireLogin>
         )}
       />

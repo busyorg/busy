@@ -12,7 +12,6 @@ class PostRecommendation extends Component {
   static propTypes = {
     location: PropTypes.shape().isRequired,
     intl: PropTypes.shape().isRequired,
-    history: PropTypes.shape().isRequired,
     isAuthFetching: PropTypes.bool.isRequired,
   };
 
@@ -66,20 +65,19 @@ class PostRecommendation extends Component {
       .slice(0, 3);
   };
 
-  navigateToPost = (category, author, permlink) => {
-    this.props.history.push(`/${category}/@${author}/${permlink}`);
+  navigateToPost = (author) => {
     window.scrollTo(0, 0);
 
     if (author !== this.state.currentAuthor) {
       this.getPostsByAuthor(author);
     } else {
-      this.setState(this.state);
+      this.forceUpdate();
     }
   };
 
-  navigateToPostComments = (category, author, permlink) => {
-    this.props.history.push(`/${category}/@${author}/${permlink}#comments`);
-    this.setState(this.state);
+  navigateToPostComments = () => {
+    document.getElementById('comments').scrollIntoView();
+    this.forceUpdate();
   };
 
   renderPosts = () => {
@@ -92,13 +90,13 @@ class PostRecommendation extends Component {
         : intl.formatMessage({ id: 'comments', defaultMessage: 'Comments' });
       return (
         <div className="PostRecommendation__link" key={post.id}>
-          <a
-            role="presentation"
-            onClick={() => this.navigateToPost(post.category, post.author, post.permlink)}
+          <Link
+            to={`/${post.category}/@${post.author}/${post.permlink}`}
+            onClick={() => this.navigateToPost(post.author)}
             className="PostRecommendation__link-title"
           >
             {post.title}
-          </a>
+          </Link>
           <br />
           <FormattedMessage
             id="by"
@@ -109,15 +107,15 @@ class PostRecommendation extends Component {
           />
           <br />
           {post.children > 0 &&
-            <a
-              role="presentation"
-              onClick={() => this.navigateToPostComments(post.category, post.author, post.permlink)}
+            <Link
+              to={`/${post.category}/@${post.author}/${post.permlink}#comments`}
+              onClick={() => this.navigateToPostComments()}
               className="PostRecommendation__comment-link"
             >
               {post.children}
               {' '}
               {commentsText}
-            </a>}
+            </Link>}
         </div>
       );
     });

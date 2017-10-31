@@ -8,6 +8,7 @@ import debounce from 'lodash/debounce';
 import isArray from 'lodash/isArray';
 import 'url-search-params-polyfill';
 import { injectIntl } from 'react-intl';
+import uuidv4 from 'uuid/v4';
 import GetBoost from '../../components/Sidebar/GetBoost';
 
 import {
@@ -105,14 +106,33 @@ class Write extends React.Component {
         isUpdating: isUpdating || false,
       });
     }
+
+    if (draftId) {
+      this.draftId = draftId;
+    } else {
+      this.draftId = uuidv4();
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const oldDraftId = new URLSearchParams(this.props.location.search).get('draft');
+    const newDraftId = new URLSearchParams(nextProps.location.search).get('draft');
+    if (oldDraftId !== newDraftId && newDraftId === null) {
+      this.draftId = uuidv4();
+      this.setState({
+        initialTitle: '',
+        initialTopics: [],
+        initialBody: '',
+        initialReward: '50',
+        isUpdating: false,
+      });
+    }
   }
 
   onSubmit = (form) => {
     const data = this.getNewPostData(form);
-    const { location: { search } } = this.props;
-    const id = new URLSearchParams(search).get('draft');
-    if (id) {
-      data.draftId = id;
+    if (this.draftId) {
+      data.draftId = this.draftId;
     }
     this.props.createPost(data);
   };
@@ -218,6 +238,7 @@ class Write extends React.Component {
             id: 'notify_uploading_iamge_error',
             defaultMessage: "Couldn't upload image",
           }),
+          'error',
         );
       });
   };
@@ -226,21 +247,16 @@ class Write extends React.Component {
     const data = this.getNewPostData(form);
     const postBody = data.body;
     const { location: { search } } = this.props;
-    let id = new URLSearchParams(search).get('draft');
+    const id = new URLSearchParams(search).get('draft');
 
     // Remove zero width space
     const isBodyEmpty = postBody.replace(/[\u200B-\u200D\uFEFF]/g, '').trim().length === 0;
 
     if (isBodyEmpty) return;
 
-    let redirect = false;
+    const redirect = id !== this.draftId;
 
-    if (id === null) {
-      id = Date.now().toString(16);
-      redirect = true;
-    }
-
-    this.props.saveDraft({ postData: data, id }, redirect);
+    this.props.saveDraft({ postData: data, id: this.draftId }, redirect);
   }, 400);
 
   render() {

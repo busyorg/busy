@@ -6,45 +6,63 @@ Promise.promisifyAll(SteemConnect, { context: SteemConnect });
 
 const getMetadata = () => SteemConnect.me().then(resp => resp.user_metadata);
 
-export const setLocaleMetadata = locale => getMetadata()
-  .then(metadata =>
-    SteemConnect.updateUserMetadata({
-      ...metadata,
-      locale,
-    }),
-  )
-  .then(resp => resp.user_metadata.locale);
+export const saveSettingsMetadata = settings =>
+  getMetadata()
+    .then(metadata =>
+      SteemConnect.updateUserMetadata({
+        ...metadata,
+        settings: {
+          ...metadata.settings,
+          ...settings,
+        },
+      }),
+    )
+    .then(resp => resp.user_metadata.settings);
 
-export const addDraftMetadata = draft => getMetadata()
-  .then(metadata =>
-    SteemConnect.updateUserMetadata({
-      ...metadata,
-      drafts: {
-        ...metadata.drafts,
-        [draft.id]: draft.postData,
-      },
-    }),
-  )
-  .then(resp => resp.user_metadata.drafts[draft.id]);
+export const setLocaleMetadata = locale =>
+  getMetadata()
+    .then(metadata =>
+      SteemConnect.updateUserMetadata({
+        ...metadata,
+        locale,
+      }),
+    )
+    .then(resp => resp.user_metadata.locale);
 
-export const deleteDraftMetadata = draftId => getMetadata()
-  .then(metadata =>
-    SteemConnect.updateUserMetadata({
-      ...metadata,
-      drafts: omit(metadata.drafts, draftId),
-    }),
-  )
-  .then(resp => resp.user_metadata.drafts);
+export const addDraftMetadata = draft =>
+  getMetadata()
+    .then(metadata =>
+      SteemConnect.updateUserMetadata({
+        ...metadata,
+        drafts: {
+          ...metadata.drafts,
+          [draft.id]: draft.postData,
+        },
+      }),
+    )
+    .then(resp => resp.user_metadata.drafts[draft.id]);
 
-export const toggleBookmarkMetadata = (id, author, permlink) => getMetadata()
-  .then(metadata =>
-    SteemConnect.updateUserMetadata({
-      ...metadata,
-      bookmarks: (metadata.bookmarks && metadata.bookmarks[id])
-        ? omit(metadata.bookmarks, id)
-        : { ...metadata.bookmarks, [id]: { id, author, permlink, bookmarkDate: Date.now() } },
-    }),
-  )
-  .then(resp => resp.user_metadata.bookmarks);
+export const deleteDraftMetadata = draftId =>
+  getMetadata()
+    .then(metadata =>
+      SteemConnect.updateUserMetadata({
+        ...metadata,
+        drafts: omit(metadata.drafts, draftId),
+      }),
+    )
+    .then(resp => resp.user_metadata.drafts);
+
+export const toggleBookmarkMetadata = (id, author, permlink) =>
+  getMetadata()
+    .then(metadata =>
+      SteemConnect.updateUserMetadata({
+        ...metadata,
+        bookmarks:
+          metadata.bookmarks && metadata.bookmarks[id]
+            ? omit(metadata.bookmarks, id)
+            : { ...metadata.bookmarks, [id]: { id, author, permlink } },
+      }),
+    )
+    .then(resp => resp.user_metadata.bookmarks);
 
 export default getMetadata;

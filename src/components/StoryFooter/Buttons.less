@@ -1,29 +1,9 @@
 @import (reference) "../../styles/custom.less";
 
-.StoryFooter {
-  position: relative;
-  height: 46px;
-  line-height: 46px;
-  color: #99aab5;
-  font-weight: bold;
+.Buttons {
+  color: @blue-botticelli;
   font-size: 14px;
-
-  &__payout {
-    font-size: 16px;
-    position: absolute;
-    right: 0;
-
-    & > .iconfont {
-      font-size: 24px !important;
-      color: #c2ccd3;
-      margin-left: 4px;
-      vertical-align: -3px;
-    }
-  }
-
-  &__payout--rejected {
-    text-decoration: line-through;
-  }
+  font-weight: bold;
 
   &__reactions-count {
     cursor: pointer;
@@ -33,19 +13,18 @@
   }
 
   &__link {
-    color: #99aab5;
-    font-weight: bold;
-    font-size: 14px;
+    color: @blue-botticelli;
+    transition: none;
 
     & > .iconfont {
       margin-right: 4px;
       font-size: 24px !important;
-      color: #c2ccd3;
+      color: @blue-linkWater;
     }
 
     & > .anticon {
       margin-right: 8px;
-      color: #c2ccd3;
+      color: @blue-linkWater;
       vertical-align: 3px;
     }
 
@@ -57,7 +36,8 @@
       color: @purple;
     }
 
-    &:hover > .iconfont, &.active > .iconfont {
+    &:hover > .iconfont,
+    &.active > .iconfont {
       color: @purple;
     }
   }

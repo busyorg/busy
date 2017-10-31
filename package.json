@@ -26,8 +26,8 @@
     "build": "cross-env NODE_ENV=production npm run build:client && npm run build:server",
     "heroku-prebuild": "npm i -g pm2 && pm2 install pm2-logrotate",
     "heroku-postbuild": "npm run build",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "storybook": "cross-env STORYBOOK_IMG_HOST=https://img.busy.org start-storybook -p 6006",
+    "build-storybook": "cross-env STORYBOOK_IMG_HOST=https://img.busy.org build-storybook"
   },
   "pre-commit": [
     "test",
@@ -100,10 +100,12 @@
     "react-router": "^4.1.1",
     "react-router-dom": "^4.1.1",
     "react-router-redux": "^5.0.0-alpha.6",
+    "react-trend": "^1.2.4",
     "react-visibility-sensor": "^3.10.1",
     "redux": "^3.5.2",
     "redux-actions": "^0.12.0",
     "redux-infinite-scroll": "^1.0.9",
+    "redux-mock-store": "^1.3.0",
     "redux-promise-middleware": "^4.0.0",
     "redux-thunk": "^2.1.0",
     "remarkable": "^1.7.1",
@@ -121,6 +123,7 @@
     "url-loader": "^0.6.2",
     "url-parse": "^1.1.9",
     "url-search-params-polyfill": "^2.0.0",
+    "uuid": "^3.1.0",
     "webpack": "^3.8.1",
     "webpack-visualizer-plugin": "^0.1.11",
     "xmldom": "^0.1.27"
