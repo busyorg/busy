@@ -16,6 +16,7 @@ import {
   getUsersTransactionsLoading,
   getUsersEstAccountsValues,
   getLoadingEstAccountValue,
+  getLoadingGlobalProperties,
 } from '../reducers';
 import {
   getGlobalProperties,
@@ -37,6 +38,7 @@ import { getAccountWithFollowingCount } from './usersActions';
     usersTransactionsLoading: getUsersTransactionsLoading(state),
     usersEstAccountsValues: getUsersEstAccountsValues(state),
     loadingEstAccountValue: getLoadingEstAccountValue(state),
+    loadingGlobalProperties: getLoadingGlobalProperties(state),
   }),
   {
     getGlobalProperties,
@@ -59,6 +61,7 @@ class Wallet extends Component {
     usersEstAccountsValues: PropTypes.shape().isRequired,
     usersTransactionsLoading: PropTypes.bool.isRequired,
     loadingEstAccountValue: PropTypes.bool.isRequired,
+    loadingGlobalProperties: PropTypes.bool.isRequired,
     isCurrentUser: PropTypes.bool,
     authenticatedUserName: PropTypes.string,
   };
@@ -115,6 +118,7 @@ class Wallet extends Component {
       totalVestingShares,
       totalVestingFundSteem,
       loadingEstAccountValue,
+      loadingGlobalProperties,
       usersTransactions,
       usersTransactionsLoading,
       usersEstAccountsValues,
@@ -131,6 +135,7 @@ class Wallet extends Component {
           loadingEstAccountValue={loadingEstAccountValue}
           totalVestingShares={totalVestingShares}
           totalVestingFundSteem={totalVestingFundSteem}
+          loadingGlobalProperties={loadingGlobalProperties}
         />
         {transactions.length === 0 && usersTransactionsLoading
           ? <Loading style={{ marginTop: '20px' }} />

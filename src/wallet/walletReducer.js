@@ -9,6 +9,7 @@ const initialState = {
   usersEstAccountsValues: {},
   usersTransactionsLoading: true,
   loadingEstAccountValue: true,
+  loadingGlobalProperties: true,
 };
 
 export default function walletReducer(state = initialState, action) {
@@ -24,11 +25,23 @@ export default function walletReducer(state = initialState, action) {
         ...state,
         transferVisible: false,
       };
+    case walletActions.GET_GLOBAL_PROPERTIES.START:
+      return {
+        ...state,
+        loadingGlobalProperties: true,
+      };
     case walletActions.GET_GLOBAL_PROPERTIES.SUCCESS: {
       return {
         ...state,
         totalVestingFundSteem: action.payload.total_vesting_fund_steem,
         totalVestingShares: action.payload.total_vesting_shares,
+        loadingGlobalProperties: false,
+      };
+    }
+    case walletActions.GET_GLOBAL_PROPERTIES.ERROR: {
+      return {
+        ...state,
+        loadingGlobalProperties: false,
       };
     }
     case walletActions.GET_USER_TRANSACTIONS.START:
@@ -77,3 +90,4 @@ export const getUsersTransactions = state => state.usersTransactions;
 export const getUsersEstAccountsValues = state => state.usersEstAccountsValues;
 export const getUsersTransactionsLoading = state => state.usersTransactionsLoading;
 export const getLoadingEstAccountValue = state => state.loadingEstAccountValue;
+export const getLoadingGlobalProperties = state => state.loadingGlobalProperties;
