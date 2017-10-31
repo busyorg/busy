@@ -193,6 +193,5 @@ export const calculateTotalDelegatedSP = (user, totalVestingShares, totalVesting
 
 export const calculateVotingPower = (user) => {
   const secondsago = (new Date().getTime() - new Date(user.last_vote_time + "Z").getTime()) / 1000;
-  debugger;
   return Math.min(10000, (user.voting_power + (10000 * secondsago / 432000))) / 100;
 };
