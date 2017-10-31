@@ -41,6 +41,58 @@ ShallowWrapper {
       className="UserWalletSummary__item"
     >
       <i
+        className="iconfont icon-flashlight_fill UserWalletSummary__icon"
+      />
+      <div
+        className="UserWalletSummary__label"
+      >
+        <FormattedMessage
+          defaultMessage="Steem Power"
+          id="steem_power"
+          values={Object {}}
+        />
+      </div>
+      <div
+        className="UserWalletSummary__value"
+      >
+        <span>
+          <FormattedNumber
+            value={0}
+          />
+           SP 
+          <Tooltip
+            arrowPointAtCenter={false}
+            autoAdjustOverflow={true}
+            mouseEnterDelay={0.1}
+            mouseLeaveDelay={0.1}
+            placement="top"
+            prefixCls="ant-tooltip"
+            title={
+              <span>
+                <FormattedMessage
+                  defaultMessage="Steem Power delegated to this account"
+                  id="steem_power_delegated_to_account_tooltip"
+                  values={Object {}}
+                />
+              </span>
+            }
+            transitionName="zoom-big-fast"
+          >
+            <span>
+              (
+              <FormattedNumber
+                value={NaN}
+              />
+               SP)
+            </span>
+          </Tooltip>
+        </span>
+      </div>
+    </div>
+    <div
+      className="UserWalletSummary__item"
+    >
+      <i
         className="iconfont icon-Dollar UserWalletSummary__icon"
       />
       <div
@@ -60,32 +112,6 @@ ShallowWrapper {
             value={NaN}
           />
            SBD
-        </span>
-      </div>
-    </div>
-    <div
-      className="UserWalletSummary__item"
-    >
-      <i
-        className="iconfont icon-flashlight_fill UserWalletSummary__icon"
-      />
-      <div
-        className="UserWalletSummary__label"
-      >
-        <FormattedMessage
-          defaultMessage="Steem Power"
-          id="steem_power"
-          values={Object {}}
-        />
-      </div>
-      <div
-        className="UserWalletSummary__value"
-      >
-        <span>
-          <FormattedNumber
-            value={0}
-          />
-           SP
         </span>
       </div>
     </div>
@@ -177,6 +203,58 @@ ShallowWrapper {
         className="UserWalletSummary__item"
       >
         <i
+          className="iconfont icon-flashlight_fill UserWalletSummary__icon"
+        />
+        <div
+          className="UserWalletSummary__label"
+        >
+          <FormattedMessage
+            defaultMessage="Steem Power"
+            id="steem_power"
+            values={Object {}}
+          />
+        </div>
+        <div
+          className="UserWalletSummary__value"
+        >
+          <span>
+            <FormattedNumber
+              value={0}
+            />
+             SP 
+            <Tooltip
+              arrowPointAtCenter={false}
+              autoAdjustOverflow={true}
+              mouseEnterDelay={0.1}
+              mouseLeaveDelay={0.1}
+              placement="top"
+              prefixCls="ant-tooltip"
+              title={
+                <span>
+                  <FormattedMessage
+                    defaultMessage="Steem Power delegated to this account"
+                    id="steem_power_delegated_to_account_tooltip"
+                    values={Object {}}
+                  />
+                </span>
+              }
+              transitionName="zoom-big-fast"
+            >
+              <span>
+                (
+                <FormattedNumber
+                  value={NaN}
+                />
+                 SP)
+              </span>
+            </Tooltip>
+          </span>
+        </div>
+      </div>
+      <div
+        className="UserWalletSummary__item"
+      >
+        <i
           className="iconfont icon-Dollar UserWalletSummary__icon"
         />
         <div
@@ -196,32 +274,6 @@ ShallowWrapper {
               value={NaN}
             />
              SBD
-          </span>
-        </div>
-      </div>
-      <div
-        className="UserWalletSummary__item"
-      >
-        <i
-          className="iconfont icon-flashlight_fill UserWalletSummary__icon"
-        />
-        <div
-          className="UserWalletSummary__label"
-        >
-          <FormattedMessage
-            defaultMessage="Steem Power"
-            id="steem_power"
-            values={Object {}}
-          />
-        </div>
-        <div
-          className="UserWalletSummary__value"
-        >
-          <span>
-            <FormattedNumber
-              value={0}
-            />
-             SP
           </span>
         </div>
       </div>
@@ -373,6 +425,58 @@ ShallowWrapper {
             className="UserWalletSummary__item"
           >
             <i
+              className="iconfont icon-flashlight_fill UserWalletSummary__icon"
+            />
+            <div
+              className="UserWalletSummary__label"
+            >
+              <FormattedMessage
+                defaultMessage="Steem Power"
+                id="steem_power"
+                values={Object {}}
+              />
+            </div>
+            <div
+              className="UserWalletSummary__value"
+            >
+              <span>
+                <FormattedNumber
+                  value={0}
+                />
+                 SP 
+                <Tooltip
+                  arrowPointAtCenter={false}
+                  autoAdjustOverflow={true}
+                  mouseEnterDelay={0.1}
+                  mouseLeaveDelay={0.1}
+                  placement="top"
+                  prefixCls="ant-tooltip"
+                  title={
+                    <span>
+                      <FormattedMessage
+                        defaultMessage="Steem Power delegated to this account"
+                        id="steem_power_delegated_to_account_tooltip"
+                        values={Object {}}
+                      />
+                    </span>
+                  }
+                  transitionName="zoom-big-fast"
+                >
+                  <span>
+                    (
+                    <FormattedNumber
+                      value={NaN}
+                    />
+                     SP)
+                  </span>
+                </Tooltip>
+              </span>
+            </div>
+          </div>
+          <div
+            className="UserWalletSummary__item"
+          >
+            <i
               className="iconfont icon-Dollar UserWalletSummary__icon"
             />
             <div
@@ -392,32 +496,6 @@ ShallowWrapper {
                   value={NaN}
                 />
                  SBD
-              </span>
-            </div>
-          </div>
-          <div
-            className="UserWalletSummary__item"
-          >
-            <i
-              className="iconfont icon-flashlight_fill UserWalletSummary__icon"
-            />
-            <div
-              className="UserWalletSummary__label"
-            >
-              <FormattedMessage
-                defaultMessage="Steem Power"
-                id="steem_power"
-                values={Object {}}
-              />
-            </div>
-            <div
-              className="UserWalletSummary__value"
-            >
-              <span>
-                <FormattedNumber
-                  value={0}
-                />
-                 SP
               </span>
             </div>
           </div>
@@ -509,6 +587,58 @@ ShallowWrapper {
             className="UserWalletSummary__item"
           >
             <i
+              className="iconfont icon-flashlight_fill UserWalletSummary__icon"
+            />
+            <div
+              className="UserWalletSummary__label"
+            >
+              <FormattedMessage
+                defaultMessage="Steem Power"
+                id="steem_power"
+                values={Object {}}
+              />
+            </div>
+            <div
+              className="UserWalletSummary__value"
+            >
+              <span>
+                <FormattedNumber
+                  value={0}
+                />
+                 SP 
+                <Tooltip
+                  arrowPointAtCenter={false}
+                  autoAdjustOverflow={true}
+                  mouseEnterDelay={0.1}
+                  mouseLeaveDelay={0.1}
+                  placement="top"
+                  prefixCls="ant-tooltip"
+                  title={
+                    <span>
+                      <FormattedMessage
+                        defaultMessage="Steem Power delegated to this account"
+                        id="steem_power_delegated_to_account_tooltip"
+                        values={Object {}}
+                      />
+                    </span>
+                  }
+                  transitionName="zoom-big-fast"
+                >
+                  <span>
+                    (
+                    <FormattedNumber
+                      value={NaN}
+                    />
+                     SP)
+                  </span>
+                </Tooltip>
+              </span>
+            </div>
+          </div>
+          <div
+            className="UserWalletSummary__item"
+          >
+            <i
               className="iconfont icon-Dollar UserWalletSummary__icon"
             />
             <div
@@ -528,32 +658,6 @@ ShallowWrapper {
                   value={NaN}
                 />
                  SBD
-              </span>
-            </div>
-          </div>
-          <div
-            className="UserWalletSummary__item"
-          >
-            <i
-              className="iconfont icon-flashlight_fill UserWalletSummary__icon"
-            />
-            <div
-              className="UserWalletSummary__label"
-            >
-              <FormattedMessage
-                defaultMessage="Steem Power"
-                id="steem_power"
-                values={Object {}}
-              />
-            </div>
-            <div
-              className="UserWalletSummary__value"
-            >
-              <span>
-                <FormattedNumber
-                  value={0}
-                />
-                 SP
               </span>
             </div>
           </div>

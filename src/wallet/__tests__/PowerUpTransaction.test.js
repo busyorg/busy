@@ -7,7 +7,7 @@ describe('(Component) PowerUpTransaction', () => {
     it('renders and matches snapshot', () => {
       const props = {
         timestamp: '0',
-        amount: '0 STEEM',
+        amount: <span>{'0 STEEM'}</span>,
       };
       const wrapper = shallow(<PowerUpTransaction {...props} />);
       expect(wrapper).toMatchSnapshot();
