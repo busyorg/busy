@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedNumber } from 'react-intl';
+import ReduxInfiniteScroll from 'redux-infinite-scroll';
 import ReceiveTransaction from './ReceiveTransaction';
 import TransferTransaction from './TransferTransaction';
 import SavingsTransaction from './SavingsTransaction';
 import PowerUpTransaction from './PowerUpTransaction';
 import ClaimReward from './ClaimReward';
 import './UserWalletTransactions.less';
+
+const defaultPageItems = 10;
 
 const getFormattedTransactionAmount = (amount, currency) => {
   const transaction = amount.split(' ');
@@ -24,91 +27,108 @@ const getFormattedTransactionAmount = (amount, currency) => {
   );
 };
 
-const UserWalletTransactions = ({
-  transactions,
-  currentUsername,
-  totalVestingShares,
-  totalVestingFundSteem,
-}) => (
-  <div className="UserWalletTransactions">
-    {transactions
-      .map((transaction, index) => {
-        const key = `${transaction.trx_id}${index}`;
-        const transactionType = transaction.op[0];
-        const transactionDetails = transaction.op[1];
+class UserWalletTransactions extends Component {
+  static propTypes = {
+    transactions: PropTypes.arrayOf(PropTypes.shape()),
+    currentUsername: PropTypes.string,
+    totalVestingShares: PropTypes.string.isRequired,
+    totalVestingFundSteem: PropTypes.string.isRequired,
+  };
 
-        switch (transactionType) {
-          case 'transfer_to_vesting':
-            return (
-              <PowerUpTransaction
-                key={key}
-                amount={getFormattedTransactionAmount(transactionDetails.amount, 'SP')}
-                timestamp={transaction.timestamp}
-              />
-            );
-          case 'transfer':
-            if (transactionDetails.to === currentUsername) {
-              return (
-                <ReceiveTransaction
-                  key={key}
-                  from={transactionDetails.from}
-                  memo={transactionDetails.memo}
-                  amount={getFormattedTransactionAmount(transactionDetails.amount)}
-                  timestamp={transaction.timestamp}
-                />
-              );
-            }
-            return (
-              <TransferTransaction
-                key={key}
-                to={transactionDetails.to}
-                memo={transactionDetails.memo}
-                amount={getFormattedTransactionAmount(transactionDetails.amount)}
-                timestamp={transaction.timestamp}
-              />
-            );
-          case 'claim_reward_balance':
-            return (
-              <ClaimReward
-                key={key}
-                timestamp={transaction.timestamp}
-                rewardSteem={transactionDetails.reward_steem}
-                rewardSbd={transactionDetails.reward_sbd}
-                rewardVests={transactionDetails.reward_vests}
-                totalVestingShares={totalVestingShares}
-                totalVestingFundSteem={totalVestingFundSteem}
-              />
-            );
-          case 'transfer_to_savings':
-          case 'transfer_from_savings':
-          case 'cancel_transfer_from_savings':
-            return (
-              <SavingsTransaction
-                key={key}
-                transactionDetails={transactionDetails}
-                transactionType={transactionType}
-                amount={getFormattedTransactionAmount(transactionDetails.amount)}
-                timestamp={transaction.timestamp}
-              />
-            );
-          default:
-            return null;
-        }
-      })
-      .reverse()}
-  </div>
-);
+  static defaultProps = {
+    transactions: [],
+    currentUsername: '',
+  };
 
-UserWalletTransactions.propTypes = {
-  transactions: PropTypes.arrayOf(PropTypes.shape()),
-  currentUsername: PropTypes.string,
-  totalVestingShares: PropTypes.string.isRequired,
-  totalVestingFundSteem: PropTypes.string.isRequired,
-};
+  state = {
+    visibleItems: defaultPageItems,
+  };
 
-UserWalletTransactions.defaultProps = {
-  transactions: [],
-  currentUsername: '',
-};
+  handleNextPage = () => {
+    this.setState({ visibleItems: this.state.visibleItems + defaultPageItems });
+  };
+
+  render() {
+    const { transactions, currentUsername, totalVestingShares, totalVestingFundSteem } = this.props;
+    const { visibleItems } = this.state;
+
+    return (
+      <div className="UserWalletTransactions">
+        <ReduxInfiniteScroll
+          loadMore={this.handleNextPage}
+          elementIsScrollable={false}
+          hasMore={transactions.length > visibleItems}
+        >
+          {transactions.reverse()
+            .slice(0, visibleItems)
+            .map((transaction, index) => {
+              const key = `${transaction.trx_id}${index}`;
+              const transactionType = transaction.op[0];
+              const transactionDetails = transaction.op[1];
+
+              switch (transactionType) {
+                case 'transfer_to_vesting':
+                  return (
+                    <PowerUpTransaction
+                      key={key}
+                      amount={getFormattedTransactionAmount(transactionDetails.amount, 'SP')}
+                      timestamp={transaction.timestamp}
+                    />
+                  );
+                case 'transfer':
+                  if (transactionDetails.to === currentUsername) {
+                    return (
+                      <ReceiveTransaction
+                        key={key}
+                        from={transactionDetails.from}
+                        memo={transactionDetails.memo}
+                        amount={getFormattedTransactionAmount(transactionDetails.amount)}
+                        timestamp={transaction.timestamp}
+                      />
+                    );
+                  }
+                  return (
+                    <TransferTransaction
+                      key={key}
+                      to={transactionDetails.to}
+                      memo={transactionDetails.memo}
+                      amount={getFormattedTransactionAmount(transactionDetails.amount)}
+                      timestamp={transaction.timestamp}
+                    />
+                  );
+                case 'claim_reward_balance':
+                  return (
+                    <ClaimReward
+                      key={key}
+                      timestamp={transaction.timestamp}
+                      rewardSteem={transactionDetails.reward_steem}
+                      rewardSbd={transactionDetails.reward_sbd}
+                      rewardVests={transactionDetails.reward_vests}
+                      totalVestingShares={totalVestingShares}
+                      totalVestingFundSteem={totalVestingFundSteem}
+                    />
+                  );
+                case 'transfer_to_savings':
+                case 'transfer_from_savings':
+                case 'cancel_transfer_from_savings':
+                  return (
+                    <SavingsTransaction
+                      key={key}
+                      transactionDetails={transactionDetails}
+                      transactionType={transactionType}
+                      amount={getFormattedTransactionAmount(transactionDetails.amount)}
+                      timestamp={transaction.timestamp}
+                    />
+                  );
+                default:
+                  return null;
+              }
+            })
+          }
+        </ReduxInfiniteScroll>
+      </div>
+    );
+  }
+}
 
 export default UserWalletTransactions;
