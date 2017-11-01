@@ -11,18 +11,13 @@ class DraftRow extends React.Component {
     data: PropTypes.shape().isRequired,
   };
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      showModalDelete: false,
-    };
-  }
-  showModal = () => {
-    this.setState({ showModalDelete: true });
+  state = {
+    showModalDelete: false,
   };
-  hideModal = () => {
-    this.setState({ showModalDelete: false });
-  };
+
+  showModal = () => this.setState({ showModalDelete: true });
+
+  hideModal = () => this.setState({ showModalDelete: false });
 
   render() {
     const { id, data } = this.props;

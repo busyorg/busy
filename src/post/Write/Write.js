@@ -246,6 +246,8 @@ class Write extends React.Component {
       });
   };
 
+  handleCancelDeleteDraft = () => this.setState({ showModalDelete: false });
+
   saveDraft = debounce((form) => {
     const data = this.getNewPostData(form);
     const postBody = data.body;
@@ -299,9 +301,7 @@ class Write extends React.Component {
             <DeleteDraftModal
               draftId={draftId}
               onDelete={this.onDeleteDraft}
-              onCancel={() => {
-                this.setState({ showModalDelete: false });
-              }}
+              onCancel={this.handleCancelDeleteDraft}
             />
           )}
         </div>

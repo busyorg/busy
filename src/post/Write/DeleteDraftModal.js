@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Modal } from 'antd';
-import 'url-search-params-polyfill';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { deleteDraft } from './editorActions';
 import { notify } from '../../app/Notification/notificationActions';
@@ -15,29 +14,26 @@ import { notify } from '../../app/Notification/notificationActions';
 class DeleteDraftModal extends React.Component {
   static propTypes = {
     intl: PropTypes.shape().isRequired,
+    draftId: PropTypes.string,
     deleteDraft: PropTypes.func,
     notify: PropTypes.func,
-    draftId: PropTypes.string,
     onDelete: PropTypes.func,
     onCancel: PropTypes.func,
   };
 
   static defaultProps = {
+    draftId: null,
     deleteDraft: () => {},
     notify: () => {},
     onDelete: () => {},
     onCancel: () => {},
-    draftId: null,
   };
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      loading: false,
-    };
-  }
+  state = {
+    loading: false,
+  };
 
-  deleteDraft() {
+  deleteDraft = () => {
     const { intl, draftId, onDelete } = this.props;
     this.setState({ loading: true });
     this.props.deleteDraft(draftId).then(() => {
@@ -50,10 +46,10 @@ class DeleteDraftModal extends React.Component {
       );
       onDelete();
     });
-  }
+  };
 
   render() {
-    const { intl } = this.props;
+    const { intl, onCancel } = this.props;
 
     return (
       <Modal
@@ -65,12 +61,8 @@ class DeleteDraftModal extends React.Component {
         confirmLoading={this.state.loading}
         okText={intl.formatMessage({ id: 'confirm', defaultMessage: 'Confirm' })}
         cancelText={intl.formatMessage({ id: 'cancel', defaultMessage: 'Cancel' })}
-        onOk={() => {
-          this.deleteDraft();
-        }}
-        onCancel={() => {
-          this.props.onCancel();
-        }}
+        onOk={this.deleteDraft}
+        onCancel={onCancel}
       >
         <FormattedMessage
           id="draft_delete_modal_content"

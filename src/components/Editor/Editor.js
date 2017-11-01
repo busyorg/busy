@@ -300,6 +300,12 @@ class Editor extends React.Component {
 
   handleDragLeave = () => this.setState({ dropzoneActive: false });
 
+  handleDelete = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+    this.props.onDelete();
+  }
+
   insertAtCursor = (before, after, deltaStart = 0, deltaEnd = 0) => {
     if (!this.input) return;
 
@@ -614,11 +620,7 @@ class Editor extends React.Component {
               <Button
                 type="danger"
                 disabled={loading}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  e.preventDefault();
-                  this.props.onDelete();
-                }}
+                onClick={this.handleDelete}
               >
                 <FormattedMessage id="draft_delete" defaultMessage="Delete this draft" />
               </Button>}
