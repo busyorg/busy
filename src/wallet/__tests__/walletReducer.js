@@ -8,6 +8,7 @@ const reducerInitialState = {
   usersEstAccountsValues: {},
   usersTransactionsLoading: true,
   loadingEstAccountValue: true,
+  loadingGlobalProperties: true,
 };
 
 describe('walletReducer', () => {
