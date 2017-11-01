@@ -138,7 +138,7 @@
   "topics": "Теми",
   "topics_placeholder": "Додати теми посту сюди",
   "topics_extra": "Розділяйте теми комами. Дозволяються тільки малі літери, цифри і символ дефісу.",
-  "topics_error_empty": "Будь ласка, введіть тему.",
+  "topics_error_empty": "Будь ласка, введіть тему",
   "topics_error_count": "Ви повинні вказати від 1 до 5 тем.",
   "topics_error_invalid_topic": "Тема {topic} є неприпустимa.",
   "story_placeholder": "Напишіть свою історію...",

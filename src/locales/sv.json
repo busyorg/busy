@@ -138,7 +138,7 @@
   "topics": "Ämnen",
   "topics_placeholder": "Lägg till inläggets ämnen här",
   "topics_extra": "Separera ämnen med kommatecken. Bara små bokstäver, siffror och bindestreck är tillåtet.",
-  "topics_error_empty": "Var vänlig ange ämnen.",
+  "topics_error_empty": "Var vänlig ange ämnen",
   "topics_error_count": "Du måste lägga till 1 till 5 ämnen.",
   "topics_error_invalid_topic": "Ämnet {topic} är ogiltigt.",
   "story_placeholder": "Skriv ditt inlägg...",

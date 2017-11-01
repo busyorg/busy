@@ -139,7 +139,7 @@
   "topics_placeholder": "Put tori topic here",
   "topics_extra": "Separate topic wit coma. Na only small letters, numbers and hyphen you fit use.",
   "topics_error_empty": "Abeg, enter topic.",
-  "topics_error_count": "You go add 1 to 5 topics.",
+  "topics_error_count": "You go add 1 to 5 topics",
   "topics_error_invalid_topic": "Topic {topic} no valid.",
   "story_placeholder": "Write your tori...",
   "story_error_empty": "Tori no fit dey empty.",
