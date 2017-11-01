@@ -24,6 +24,20 @@
     }
   }
 
+  &--secondary {
+    .colorize-button(@green, @green);
+
+    color: @white-darker;
+
+    &:disabled,
+    &:hover,
+    &:focus,
+    &:active,
+    &.active {
+      color: @white-darker !important;
+    }
+  }
+
   &:hover,
   &:focus,
   &:active,

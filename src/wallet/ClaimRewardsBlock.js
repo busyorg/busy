@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import steemConnect from 'sc2-sdk';
 import _ from 'lodash';
 import { injectIntl, FormattedMessage, FormattedNumber } from 'react-intl';
-import { userHasRewards } from '../vendor/steemitHelpers';
 import { getAuthenticatedUser } from '../reducers';
 import { getUserTransactions } from './walletActions';
 import Action from '../components/Button/Action';
@@ -83,6 +82,7 @@ class ClaimRewardsBlock extends Component {
     const rewardSteem = parseFloat(user.reward_steem_balance);
     const rewardSbd = parseFloat(user.reward_sbd_balance);
     const rewardSP = parseFloat(user.reward_vesting_steem);
+    const userHasRewards = rewardSteem > 0 || rewardSbd > 0 || rewardSP > 0;
 
     const buttonText = rewardClaimed
       ? intl.formatMessage({
@@ -94,7 +94,7 @@ class ClaimRewardsBlock extends Component {
         defaultMessage: 'Claim Rewards',
       });
 
-    if (!userHasRewards(user)) return null;
+    if (!userHasRewards) return null;
 
     return (
       <div className="ClaimRewardsBlock">
@@ -111,7 +111,7 @@ class ClaimRewardsBlock extends Component {
           disabled={rewardClaimed}
           onClick={this.handleClaimRewards}
           loading={this.state.loading}
-          style={{ backgroundColor: '#54d2a0' }}
+          secondary
         />
       </div>
     );
