@@ -51,22 +51,22 @@ class Write extends React.Component {
     draftPosts: PropTypes.shape().isRequired,
     loading: PropTypes.bool.isRequired,
     saving: PropTypes.bool,
+    draftId: PropTypes.string,
     newPost: PropTypes.func,
     createPost: PropTypes.func,
     saveDraft: PropTypes.func,
     notify: PropTypes.func,
     replace: PropTypes.func,
-    draftId: PropTypes.string,
   };
 
   static defaultProps = {
     saving: false,
+    draftId: null,
     newPost: () => {},
     createPost: () => {},
     saveDraft: () => {},
     notify: () => {},
     replace: () => {},
-    draftId: null,
   };
 
   constructor(props) {
