@@ -138,7 +138,7 @@
   "topics": "Emner",
   "topics_placeholder": "Legg til emner her",
   "topics_extra": "Separer emner med komma. Kun tillatt med bruk av små bokstaver, tall og bindestrek.",
-  "topics_error_empty": "Vennligst skriv inn emner.",
+  "topics_error_empty": "Vennligst skriv inn emner",
   "topics_error_count": "Du kan legge til 1 til 5 emner.",
   "topics_error_invalid_topic": "Emnet {topic} er ikke gyldig.",
   "story_placeholder": "Skriv innholdet ditt...",

@@ -138,7 +138,7 @@
   "topics": "Témata",
   "topics_placeholder": "Přidejte témata příspěvku",
   "topics_extra": "Oddělte témata čárkou. Povoleny jsou pouze malá písmena, čísla a spojovník.",
-  "topics_error_empty": "Zadejte témata.",
+  "topics_error_empty": "Zadejte témata",
   "topics_error_count": "Musíte zadat 1 až 5 témat.",
   "topics_error_invalid_topic": "Téma {topic} je neplatné.",
   "story_placeholder": "Napište svůj článek...",
