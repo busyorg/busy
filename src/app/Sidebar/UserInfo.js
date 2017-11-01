@@ -12,6 +12,7 @@ import {
 } from '../../reducers';
 import { openTransfer } from '../../wallet/walletActions';
 import Action from '../../components/Button/Action';
+import { calculateVotingPower } from '../../vendor/steemitHelpers';
 
 const UserInfo = ({ intl, authenticated, authenticatedUser, user, ...props }) => {
   const location = user && _.get(user.json_metadata, 'profile.location');
@@ -61,7 +62,7 @@ const UserInfo = ({ intl, authenticated, authenticatedUser, user, ...props }) =>
             <i className="iconfont icon-flashlight text-icon" />
             <FormattedMessage id="voting_power" defaultMessage="Voting Power" />: <FormattedNumber
               style="percent" // eslint-disable-line react/style-prop-object
-              value={user.voting_power / 10000}
+              value={calculateVotingPower(user)}
               maximumFractionDigits={0}
             />
           </div>
