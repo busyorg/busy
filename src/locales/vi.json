@@ -138,7 +138,7 @@
   "topics": "Những chủ đề",
   "topics_placeholder": "Thêm các thẻ chủ đề về câu chuyện ở đây",
   "topics_extra": "Các thẻ chủ đề là riêng biệt cách nhau bởi dấu phẩy. Chỉ duy nhất ký tự là chữ thường, số và dấu nối được cho phép.",
-  "topics_error_empty": "Vui lòng nhập vào một chủ đề.",
+  "topics_error_empty": "Vui lòng nhập vào một chủ đề",
   "topics_error_count": "Bạn phải thêm từ 1 đến 5 thẻ chủ đề",
   "topics_error_invalid_topic": "Chủ đề {topic} không hợp lệ.",
   "story_placeholder": "Viết câu chuyện của bạn...",

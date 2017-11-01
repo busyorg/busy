@@ -138,7 +138,7 @@
   "topics": "Etiquetas",
   "topics_placeholder": "Añade etiquetas relacionadas aquí",
   "topics_extra": "Separa las etiquetas con comas. Usa solo letras minúsculas, números y guiones están permitidos.",
-  "topics_error_empty": "Por favor añade etiquetas.",
+  "topics_error_empty": "Por favor añade etiquetas",
   "topics_error_count": "Tienes que añadir entre 1 a 5 etiquetas.",
   "topics_error_invalid_topic": "Tema {topic} no es válido.",
   "story_placeholder": "Escribe tu historia...",

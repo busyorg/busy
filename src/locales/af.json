@@ -138,7 +138,7 @@
   "topics": "Onderwerpe",
   "topics_placeholder": "Voeg storie onderwerpe hier",
   "topics_extra": "Afsonderlike onderwerpe met kommas. Slegs kleinletters, syfers en koppeltekens word toegelaat.",
-  "topics_error_empty": "Vul asseblief onderwerpe in.",
+  "topics_error_empty": "Vul asseblief onderwerpe in",
   "topics_error_count": "Jy moet 1 tot 5 onderwerpe byvoeg.",
   "topics_error_invalid_topic": "Onderwerp {topic} is ongeldig.",
   "story_placeholder": "Skryf jou storie...",

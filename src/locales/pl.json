@@ -138,7 +138,7 @@
   "topics": "Tematy",
   "topics_placeholder": "Dodaj tematy posta",
   "topics_extra": "Oddziel tematy przecinkiem. Jedynie małe litery, cyfry i myślniki są dozwolone.",
-  "topics_error_empty": "Musisz podać tematy.",
+  "topics_error_empty": "Musisz podać tematy",
   "topics_error_count": "Musisz dodać od 1 do 5 tematów.",
   "topics_error_invalid_topic": "Temat {topic} jest nieprawidłowy.",
   "story_placeholder": "Napisz swojego posta...",
