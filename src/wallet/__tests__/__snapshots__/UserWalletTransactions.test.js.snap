@@ -11,38 +11,28 @@ ShallowWrapper {
   "node": <div
     className="UserWalletTransactions"
   >
-    <TransferTransaction
-      amount={
-        <span>
-          <FormattedNumber
-            maximumFractionDigits={3}
-            minimumFractionDigits={3}
-            value="100.000"
-          />
-           STEEM
-        </span>
+    <ReduxInfiniteScroll
+      className=""
+      containerHeight="100%"
+      elementIsScrollable={false}
+      hasMore={false}
+      holderType="div"
+      items={Array []}
+      loadMore={[Function]}
+      loader={
+        <div
+          style={
+            Object {
+              "textAlign": "center",
+            }
+          }
+        >
+          Loading...
+        </div>
       }
-      memo="transfer memo"
-      timestamp="0"
-      to=""
-    />
-    <PowerUpTransaction
-      amount={
-        <span>
-          <FormattedNumber
-            maximumFractionDigits={3}
-            minimumFractionDigits={3}
-            value="100.000"
-          />
-           SP
-        </span>
-      }
-      timestamp="0"
-    />
-  </div>,
-  "nodes": Array [
-    <div
-      className="UserWalletTransactions"
+      loadingMore={false}
+      showLoader={true}
+      threshold={100}
     >
       <TransferTransaction
         amount={
@@ -72,13 +62,71 @@ ShallowWrapper {
         }
         timestamp="0"
       />
+    </ReduxInfiniteScroll>
+  </div>,
+  "nodes": Array [
+    <div
+      className="UserWalletTransactions"
+    >
+      <ReduxInfiniteScroll
+        className=""
+        containerHeight="100%"
+        elementIsScrollable={false}
+        hasMore={false}
+        holderType="div"
+        items={Array []}
+        loadMore={[Function]}
+        loader={
+          <div
+            style={
+              Object {
+                "textAlign": "center",
+              }
+            }
+          >
+            Loading...
+          </div>
+        }
+        loadingMore={false}
+        showLoader={true}
+        threshold={100}
+      >
+        <TransferTransaction
+          amount={
+            <span>
+              <FormattedNumber
+                maximumFractionDigits={3}
+                minimumFractionDigits={3}
+                value="100.000"
+              />
+               STEEM
+            </span>
+          }
+          memo="transfer memo"
+          timestamp="0"
+          to=""
+        />
+        <PowerUpTransaction
+          amount={
+            <span>
+              <FormattedNumber
+                maximumFractionDigits={3}
+                minimumFractionDigits={3}
+                value="100.000"
+              />
+               SP
+            </span>
+          }
+          timestamp="0"
+        />
+      </ReduxInfiniteScroll>
     </div>,
   ],
   "options": Object {},
   "renderer": ReactShallowRenderer {
     "_instance": ShallowComponentWrapper {
       "_calledComponentWillUnmount": false,
-      "_compositeType": 2,
+      "_compositeType": 0,
       "_context": Object {},
       "_currentElement": <UserWalletTransactions
         currentUsername="hellosteem"
@@ -88,20 +136,20 @@ ShallowWrapper {
           Array [
             Object {
               "op": Array [
-                "transfer_to_vesting",
+                "transfer",
                 Object {
                   "amount": "100 STEEM",
+                  "from": "hellosteem1",
+                  "memo": "transfer memo",
                 },
               ],
               "timestamp": "0",
             },
             Object {
               "op": Array [
-                "transfer",
+                "transfer_to_vesting",
                 Object {
                   "amount": "100 STEEM",
-                  "from": "hellosteem1",
-                  "memo": "transfer memo",
                 },
               ],
               "timestamp": "0",
@@ -112,23 +160,15 @@ ShallowWrapper {
       "_debugID": 1,
       "_hostContainerInfo": null,
       "_hostParent": null,
-      "_instance": StatelessComponent {
+      "_instance": UserWalletTransactions {
         "_reactInternalInstance": [Circular],
         "context": Object {},
+        "handleNextPage": [Function],
         "props": Object {
           "currentUsername": "hellosteem",
           "totalVestingFundSteem": "0",
           "totalVestingShares": "0",
           "transactions": Array [
-            Object {
-              "op": Array [
-                "transfer_to_vesting",
-                Object {
-                  "amount": "100 STEEM",
-                },
-              ],
-              "timestamp": "0",
-            },
             Object {
               "op": Array [
                 "transfer",
@@ -140,10 +180,21 @@ ShallowWrapper {
               ],
               "timestamp": "0",
             },
+            Object {
+              "op": Array [
+                "transfer_to_vesting",
+                Object {
+                  "amount": "100 STEEM",
+                },
+              ],
+              "timestamp": "0",
+            },
           ],
         },
         "refs": Object {},
-        "state": null,
+        "state": Object {
+          "visibleItems": 10,
+        },
         "updater": Object {
           "enqueueCallback": [Function],
           "enqueueCallbackInternal": [Function],
@@ -165,67 +216,115 @@ ShallowWrapper {
         "_currentElement": <div
           className="UserWalletTransactions"
         >
-          <TransferTransaction
-            amount={
-              <span>
-                <FormattedNumber
-                  maximumFractionDigits={3}
-                  minimumFractionDigits={3}
-                  value="100.000"
-                />
-                 STEEM
-              </span>
+          <ReduxInfiniteScroll
+            className=""
+            containerHeight="100%"
+            elementIsScrollable={false}
+            hasMore={false}
+            holderType="div"
+            items={Array []}
+            loadMore={[Function]}
+            loader={
+              <div
+                style={
+                  Object {
+                    "textAlign": "center",
+                  }
+                }
+              >
+                Loading...
+              </div>
             }
-            memo="transfer memo"
-            timestamp="0"
-            to=""
-          />
-          <PowerUpTransaction
-            amount={
-              <span>
-                <FormattedNumber
-                  maximumFractionDigits={3}
-                  minimumFractionDigits={3}
-                  value="100.000"
-                />
-                 SP
-              </span>
-            }
-            timestamp="0"
-          />
+            loadingMore={false}
+            showLoader={true}
+            threshold={100}
+          >
+            <TransferTransaction
+              amount={
+                <span>
+                  <FormattedNumber
+                    maximumFractionDigits={3}
+                    minimumFractionDigits={3}
+                    value="100.000"
+                  />
+                   STEEM
+                </span>
+              }
+              memo="transfer memo"
+              timestamp="0"
+              to=""
+            />
+            <PowerUpTransaction
+              amount={
+                <span>
+                  <FormattedNumber
+                    maximumFractionDigits={3}
+                    minimumFractionDigits={3}
+                    value="100.000"
+                  />
+                   SP
+                </span>
+              }
+              timestamp="0"
+            />
+          </ReduxInfiniteScroll>
         </div>,
         "_debugID": 2,
         "_renderedOutput": <div
           className="UserWalletTransactions"
         >
-          <TransferTransaction
-            amount={
-              <span>
-                <FormattedNumber
-                  maximumFractionDigits={3}
-                  minimumFractionDigits={3}
-                  value="100.000"
-                />
-                 STEEM
-              </span>
+          <ReduxInfiniteScroll
+            className=""
+            containerHeight="100%"
+            elementIsScrollable={false}
+            hasMore={false}
+            holderType="div"
+            items={Array []}
+            loadMore={[Function]}
+            loader={
+              <div
+                style={
+                  Object {
+                    "textAlign": "center",
+                  }
+                }
+              >
+                Loading...
+              </div>
             }
-            memo="transfer memo"
-            timestamp="0"
-            to=""
-          />
-          <PowerUpTransaction
-            amount={
-              <span>
-                <FormattedNumber
-                  maximumFractionDigits={3}
-                  minimumFractionDigits={3}
-                  value="100.000"
-                />
-                 SP
-              </span>
-            }
-            timestamp="0"
-          />
+            loadingMore={false}
+            showLoader={true}
+            threshold={100}
+          >
+            <TransferTransaction
+              amount={
+                <span>
+                  <FormattedNumber
+                    maximumFractionDigits={3}
+                    minimumFractionDigits={3}
+                    value="100.000"
+                  />
+                   STEEM
+                </span>
+              }
+              memo="transfer memo"
+              timestamp="0"
+              to=""
+            />
+            <PowerUpTransaction
+              amount={
+                <span>
+                  <FormattedNumber
+                    maximumFractionDigits={3}
+                    minimumFractionDigits={3}
+                    value="100.000"
+                  />
+                   SP
+                </span>
+              }
+              timestamp="0"
+            />
+          </ReduxInfiniteScroll>
         </div>,
       },
       "_renderedNodeType": 0,
@@ -246,20 +345,20 @@ ShallowWrapper {
       Array [
         Object {
           "op": Array [
-            "transfer_to_vesting",
+            "transfer",
             Object {
               "amount": "100 STEEM",
+              "from": "hellosteem1",
+              "memo": "transfer memo",
             },
           ],
           "timestamp": "0",
         },
         Object {
           "op": Array [
-            "transfer",
+            "transfer_to_vesting",
             Object {
               "amount": "100 STEEM",
-              "from": "hellosteem1",
-              "memo": "transfer memo",
             },
           ],
           "timestamp": "0",

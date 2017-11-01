@@ -118,9 +118,12 @@ const isWalletTransaction = actionType =>
   actionType === 'claim_reward_balance';
 
 export const getTransactionHistory = account =>
-  SteemAPI.getAccountHistoryAsync(account, -1, 2500).then(results =>
-    _.compact(
-      results.map((action) => {
+  SteemAPI.getStateAsync(`@${account}/transfers`).then((results) => {
+    const transferHistory = results.accounts[account]
+      ? results.accounts[account].transfer_history
+      : [];
+    return _.compact(
+      transferHistory.map((action) => {
         const actionDetails = action[1] || { op: [] };
         const actionType = actionDetails.op[0];
 
@@ -130,7 +133,8 @@ export const getTransactionHistory = account =>
 
         return null;
       }),
-    ),
+    );
+  },
   );
 
 export const getDynamicGlobalProperties = () => SteemAPI.getDynamicGlobalPropertiesAsync();
