@@ -138,7 +138,7 @@
   "topics": "Tópicos",
   "topics_placeholder": "Adicionar tópicos da história aqui",
   "topics_extra": "Separa os tópicos com virgula. Apenas letras minúsculas, números e hífen são permitidos.",
-  "topics_error_empty": "Por favor insere tópicos.",
+  "topics_error_empty": "Por favor insere tópicos",
   "topics_error_count": "Adiciona de 1 até 5 tópicos.",
   "topics_error_invalid_topic": "Tópico {topic} é inválido.",
   "story_placeholder": "Escreve a tua história...",

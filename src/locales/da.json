@@ -138,7 +138,7 @@
   "topics": "Emner",
   "topics_placeholder": "Tilføj emner til indlægget her",
   "topics_extra": "Adskil emner med kommaer. Kun små bogstaver, tal og bindestreger er tilladt.",
-  "topics_error_empty": "Indtast venligst et emne.",
+  "topics_error_empty": "Indtast venligst et emne",
   "topics_error_count": "Du skal tilføje 1-5 emner.",
   "topics_error_invalid_topic": "Emnet {topic} er ugyldigt.",
   "story_placeholder": "Skriv dit indlæg...",

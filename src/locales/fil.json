@@ -138,7 +138,7 @@
   "topics": "Mga Paksa",
   "topics_placeholder": "Idagdag ang mga paksa ng lathala rito",
   "topics_extra": "Paghiwalayin ang mga paksa ng kuwit. Ang maliliit na letra, mga numero at gitling lamang ang puwedeng gamitin.",
-  "topics_error_empty": "Pakilagyan ang mga paksa.",
+  "topics_error_empty": "Pakilagyan ang mga paksa",
   "topics_error_count": "Kailangan mong maglagay ng 1 hanggang 5 paksa.",
   "topics_error_invalid_topic": "Topic {topic} ay imbalido.",
   "story_placeholder": "Isulat ang iyong istorya...",

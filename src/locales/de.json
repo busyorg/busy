@@ -138,7 +138,7 @@
   "topics": "Themen",
   "topics_placeholder": "Themenschlagwörter hier einfügen",
   "topics_extra": "Themen mit Kommas trennen. Nur Kleinbuchstaben, Zahlen und Bindestriche sind zulässig.",
-  "topics_error_empty": "Bitte Themen eingeben.",
+  "topics_error_empty": "Bitte Themen eingeben",
   "topics_error_count": "Sie müssen 1 bis 5 Themen hinzufügen.",
   "topics_error_invalid_topic": "Thema {topic} ist ungültig.",
   "story_placeholder": "Hier den Beitrag verfassen...",
