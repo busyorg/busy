@@ -108,9 +108,10 @@ class Editor extends React.Component {
     const { topics, title } = values;
 
     const topicErrors = this.checkTopics(topics);
-
-    if (title.length <= 255 && topicErrors.length < 1) {
+    if ((!title || (title && title.length <= 255)) && topicErrors.length < 1) {
       this.props.onUpdate(values);
+    } else {
+      this.props.form.validateFields();
     }
   };
 
@@ -215,10 +216,12 @@ class Editor extends React.Component {
       errors.push(new Error('You have to add 1 to 5 topics'));
     }
 
-    topics
-      .map(topic => ({ topic, valid: /^[a-z0-9]+(-[a-z0-9]+)*$/.test(topic) }))
-      .filter(topic => !topic.valid)
-      .forEach(topic => errors.push(new Error(`Topic ${topic.topic} is invalid`)));
+    if (topics) {
+      topics
+        .map(topic => ({ topic, valid: /^[a-z0-9]+(-[a-z0-9]+)*$/.test(topic) }))
+        .filter(topic => !topic.valid)
+        .forEach(topic => errors.push(new Error(`Topic ${topic.topic} is invalid`)));
+    }
 
     return errors;
   };
