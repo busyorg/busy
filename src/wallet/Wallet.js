@@ -20,15 +20,16 @@ const Wallet = props => (
       </Affix>
       <Affix className="rightContainer" stickPosition={77}>
         <div className="right">
-          <SteemTrendingCharts />
           <Action
-            style={{ margin: '10px 0' }}
+            style={{ marginBottom: '10px' }}
             text={props.intl.formatMessage({
               id: 'transfer',
               defaultMessage: 'Transfer',
             })}
             onClick={() => props.openTransfer('')}
+            primary
           />
+          <SteemTrendingCharts />
           <ClaimRewardsBlock />
         </div>
       </Affix>

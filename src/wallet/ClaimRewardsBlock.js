@@ -103,15 +103,17 @@ class ClaimRewardsBlock extends Component {
           {' '}
           <FormattedMessage id="rewards" defaultMessage="Rewards" />
         </h4>
-        {rewardSteem > 0 && this.renderReward(rewardSteem, 'STEEM', 'steem')}
-        {rewardSbd > 0 && this.renderReward(rewardSbd, 'SBD', 'steem_dollar')}
-        {rewardSP > 0 && this.renderReward(rewardSP, 'SP', 'steem_power')}
+        {!rewardClaimed &&
+          <div>
+            {rewardSteem > 0 && this.renderReward(rewardSteem, 'STEEM', 'steem')}
+            {rewardSbd > 0 && this.renderReward(rewardSbd, 'SBD', 'steem_dollar')}
+            {rewardSP > 0 && this.renderReward(rewardSP, 'SP', 'steem_power')}
+          </div>}
         <Action
           text={buttonText}
           disabled={rewardClaimed}
           onClick={this.handleClaimRewards}
           loading={this.state.loading}
-          secondary
         />
       </div>
     );

@@ -75,6 +75,7 @@ const UserInfo = ({ intl, authenticated, authenticatedUser, user, ...props }) =>
         defaultMessage: 'Transfer',
       })}
       onClick={() => props.openTransfer(user.name)}
+      primary
     />}
   </div>);
 };
