@@ -138,7 +138,7 @@
   "topics": "Hasashe",
   "topics_placeholder": "Ƙara labarin labaru a nan",
   "topics_extra": "Mahimman batutuwa tare da rikici. Kawai haruffan ƙananan haruffa, lambobi da halayen haruffa an halatta.",
-  "topics_error_empty": "Da fatan a shigar da batutuwa.",
+  "topics_error_empty": "Da fatan a shigar da batutuwa",
   "topics_error_count": "Dole ku ƙara abubuwa daya zuwa biyar.",
   "topics_error_invalid_topic": "Hasashe{hasashe} ba daidai ba ne.",
   "story_placeholder": "Rubuta labarinka...",

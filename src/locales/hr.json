@@ -138,7 +138,7 @@
   "topics": "Teme",
   "topics_placeholder": "Dodajte naslove priča ovdje",
   "topics_extra": "Odvojite teme zarezima. Dozvoljeni su samo slova, brojevi i crtice.",
-  "topics_error_empty": "Molimo unesite teme.",
+  "topics_error_empty": "Molimo unesite teme",
   "topics_error_count": "Morate dodati 1 do 5 tema.",
   "topics_error_invalid_topic": "Tema {topic} nije valjana.",
   "story_placeholder": "Napiši svoju priču...",

@@ -467,7 +467,7 @@ class Editor extends React.Component {
                 required: true,
                 message: intl.formatMessage({
                   id: 'topics_error_empty',
-                  defaultMessage: 'Please enter topics.',
+                  defaultMessage: 'Please enter topics',
                 }),
                 type: 'array',
               },

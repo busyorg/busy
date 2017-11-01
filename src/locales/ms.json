@@ -138,7 +138,7 @@
   "topics": "Topik",
   "topics_placeholder": "Tambah tajuk-tajuk cerita di sini",
   "topics_extra": "Sila saingkan topik-topik dengan koma. Hanya huruf huruf, huruf nombor dan sengkang adalah dibenarkan.",
-  "topics_error_empty": "Sila masukkan tajuk anda.",
+  "topics_error_empty": "Sila masukkan tajuk anda",
   "topics_error_count": "Anda boleh memasukkan 1 hingga 5 topik.",
   "topics_error_invalid_topic": "Topik {topic} tidak sah.",
   "story_placeholder": "Menulis cerita anda...",
