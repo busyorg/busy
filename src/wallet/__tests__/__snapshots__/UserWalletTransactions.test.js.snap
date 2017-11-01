@@ -8,39 +8,18 @@ ShallowWrapper {
     "findWhereUnwrapped": [Function],
   },
   "length": 1,
-  "node": <div
-    className="UserWalletTransactions"
+  "node": <InfiniteScroll
+    element="div"
+    hasMore={true}
+    initialLoad={true}
+    isReverse={false}
+    loadMore={[Function]}
+    loader={null}
+    pageStart={0}
+    threshold={250}
+    useCapture={false}
+    useWindow={true}
   >
-    <TransferTransaction
-      amount={
-        <span>
-          <FormattedNumber
-            maximumFractionDigits={3}
-            minimumFractionDigits={3}
-            value="100.000"
-          />
-           STEEM
-        </span>
-      }
-      memo="transfer memo"
-      timestamp="0"
-      to=""
-    />
-    <PowerUpTransaction
-      amount={
-        <span>
-          <FormattedNumber
-            maximumFractionDigits={3}
-            minimumFractionDigits={3}
-            value="100.000"
-          />
-           SP
-        </span>
-      }
-      timestamp="0"
-    />
-  </div>,
-  "nodes": Array [
     <div
       className="UserWalletTransactions"
     >
@@ -72,7 +51,54 @@ ShallowWrapper {
         }
         timestamp="0"
       />
-    </div>,
+    </div>
+  </InfiniteScroll>,
+  "nodes": Array [
+    <InfiniteScroll
+      element="div"
+      hasMore={true}
+      initialLoad={true}
+      isReverse={false}
+      loadMore={[Function]}
+      loader={null}
+      pageStart={0}
+      threshold={250}
+      useCapture={false}
+      useWindow={true}
+    >
+      <div
+        className="UserWalletTransactions"
+      >
+        <TransferTransaction
+          amount={
+            <span>
+              <FormattedNumber
+                maximumFractionDigits={3}
+                minimumFractionDigits={3}
+                value="100.000"
+              />
+               STEEM
+            </span>
+          }
+          memo="transfer memo"
+          timestamp="0"
+          to=""
+        />
+        <PowerUpTransaction
+          amount={
+            <span>
+              <FormattedNumber
+                maximumFractionDigits={3}
+                minimumFractionDigits={3}
+                value="100.000"
+              />
+               SP
+            </span>
+          }
+          timestamp="0"
+        />
+      </div>
+    </InfiniteScroll>,
   ],
   "options": Object {},
   "renderer": ReactShallowRenderer {
@@ -88,20 +114,20 @@ ShallowWrapper {
           Array [
             Object {
               "op": Array [
-                "transfer_to_vesting",
+                "transfer",
                 Object {
                   "amount": "100 STEEM",
+                  "from": "hellosteem1",
+                  "memo": "transfer memo",
                 },
               ],
               "timestamp": "0",
             },
             Object {
               "op": Array [
-                "transfer",
+                "transfer_to_vesting",
                 Object {
                   "amount": "100 STEEM",
-                  "from": "hellosteem1",
-                  "memo": "transfer memo",
                 },
               ],
               "timestamp": "0",
@@ -122,20 +148,20 @@ ShallowWrapper {
           "transactions": Array [
             Object {
               "op": Array [
-                "transfer_to_vesting",
+                "transfer",
                 Object {
                   "amount": "100 STEEM",
+                  "from": "hellosteem1",
+                  "memo": "transfer memo",
                 },
               ],
               "timestamp": "0",
             },
             Object {
               "op": Array [
-                "transfer",
+                "transfer_to_vesting",
                 Object {
                   "amount": "100 STEEM",
-                  "from": "hellosteem1",
-                  "memo": "transfer memo",
                 },
               ],
               "timestamp": "0",
@@ -162,73 +188,99 @@ ShallowWrapper {
       "_pendingReplaceState": false,
       "_pendingStateQueue": null,
       "_renderedComponent": NoopInternalComponent {
-        "_currentElement": <div
-          className="UserWalletTransactions"
+        "_currentElement": <InfiniteScroll
+          element="div"
+          hasMore={true}
+          initialLoad={true}
+          isReverse={false}
+          loadMore={[Function]}
+          loader={null}
+          pageStart={0}
+          threshold={250}
+          useCapture={false}
+          useWindow={true}
         >
-          <TransferTransaction
-            amount={
-              <span>
-                <FormattedNumber
-                  maximumFractionDigits={3}
-                  minimumFractionDigits={3}
-                  value="100.000"
-                />
-                 STEEM
-              </span>
-            }
-            memo="transfer memo"
-            timestamp="0"
-            to=""
-          />
-          <PowerUpTransaction
-            amount={
-              <span>
-                <FormattedNumber
-                  maximumFractionDigits={3}
-                  minimumFractionDigits={3}
-                  value="100.000"
-                />
-                 SP
-              </span>
-            }
-            timestamp="0"
-          />
-        </div>,
+          <div
+            className="UserWalletTransactions"
+          >
+            <TransferTransaction
+              amount={
+                <span>
+                  <FormattedNumber
+                    maximumFractionDigits={3}
+                    minimumFractionDigits={3}
+                    value="100.000"
+                  />
+                   STEEM
+                </span>
+              }
+              memo="transfer memo"
+              timestamp="0"
+              to=""
+            />
+            <PowerUpTransaction
+              amount={
+                <span>
+                  <FormattedNumber
+                    maximumFractionDigits={3}
+                    minimumFractionDigits={3}
+                    value="100.000"
+                  />
+                   SP
+                </span>
+              }
+              timestamp="0"
+            />
+          </div>
+        </InfiniteScroll>,
         "_debugID": 2,
-        "_renderedOutput": <div
-          className="UserWalletTransactions"
+        "_renderedOutput": <InfiniteScroll
+          element="div"
+          hasMore={true}
+          initialLoad={true}
+          isReverse={false}
+          loadMore={[Function]}
+          loader={null}
+          pageStart={0}
+          threshold={250}
+          useCapture={false}
+          useWindow={true}
         >
-          <TransferTransaction
-            amount={
-              <span>
-                <FormattedNumber
-                  maximumFractionDigits={3}
-                  minimumFractionDigits={3}
-                  value="100.000"
-                />
-                 STEEM
-              </span>
-            }
-            memo="transfer memo"
-            timestamp="0"
-            to=""
-          />
-          <PowerUpTransaction
-            amount={
-              <span>
-                <FormattedNumber
-                  maximumFractionDigits={3}
-                  minimumFractionDigits={3}
-                  value="100.000"
-                />
-                 SP
-              </span>
-            }
-            timestamp="0"
-          />
-        </div>,
+          <div
+            className="UserWalletTransactions"
+          >
+            <TransferTransaction
+              amount={
+                <span>
+                  <FormattedNumber
+                    maximumFractionDigits={3}
+                    minimumFractionDigits={3}
+                    value="100.000"
+                  />
+                   STEEM
+                </span>
+              }
+              memo="transfer memo"
+              timestamp="0"
+              to=""
+            />
+            <PowerUpTransaction
+              amount={
+                <span>
+                  <FormattedNumber
+                    maximumFractionDigits={3}
+                    minimumFractionDigits={3}
+                    value="100.000"
+                  />
+                   SP
+                </span>
+              }
+              timestamp="0"
+            />
+          </div>
+        </InfiniteScroll>,
       },
-      "_renderedNodeType": 0,
+      "_renderedNodeType": 1,
       "_rootNodeID": 0,
       "_topLevelWrapper": null,
       "_updateBatchNumber": null,
@@ -246,20 +298,20 @@ ShallowWrapper {
       Array [
         Object {
           "op": Array [
-            "transfer_to_vesting",
+            "transfer",
             Object {
               "amount": "100 STEEM",
+              "from": "hellosteem1",
+              "memo": "transfer memo",
             },
           ],
           "timestamp": "0",
         },
         Object {
           "op": Array [
-            "transfer",
+            "transfer_to_vesting",
             Object {
               "amount": "100 STEEM",
-              "from": "hellosteem1",
-              "memo": "transfer memo",
             },
           ],
           "timestamp": "0",

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedNumber } from 'react-intl';
+import InfiniteScroll from 'react-infinite-scroller';
 import ReceiveTransaction from './ReceiveTransaction';
 import TransferTransaction from './TransferTransaction';
 import SavingsTransaction from './SavingsTransaction';
@@ -24,15 +25,19 @@ const getFormattedTransactionAmount = (amount, currency) => {
   );
 };
 
+const getMoreTransactions = () => {
+  console.log('GET MORE TRANSACTIONS');
+};
+
 const UserWalletTransactions = ({
   transactions,
   currentUsername,
   totalVestingShares,
   totalVestingFundSteem,
 }) => (
-  <div className="UserWalletTransactions">
-    {transactions
-      .map((transaction, index) => {
+  <InfiniteScroll pageStart={0} loadMore={getMoreTransactions} hasMore useWindow>
+    <div className="UserWalletTransactions">
+      {transactions.reverse().map((transaction, index) => {
         const key = `${transaction.trx_id}${index}`;
         const transactionType = transaction.op[0];
         const transactionDetails = transaction.op[1];
@@ -94,9 +99,9 @@ const UserWalletTransactions = ({
           default:
             return null;
         }
-      })
-      .reverse()}
-  </div>
+      })}
+    </div>
+  </InfiniteScroll>
 );
 
 UserWalletTransactions.propTypes = {
