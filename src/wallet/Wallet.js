@@ -8,7 +8,7 @@ import LeftSidebar from '../app/Sidebar/LeftSidebar';
 import Action from '../components/Button/Action';
 import SteemTrendingCharts from '../components/Sidebar/SteemTrendingCharts';
 import UserWallet from '../user/UserWallet';
-import ClaimRewardsButton from './ClaimRewardsButton';
+import ClaimRewardsBlock from './ClaimRewardsBlock';
 
 const Wallet = props => (
   <div className="shifted">
@@ -29,7 +29,7 @@ const Wallet = props => (
             })}
             onClick={() => props.openTransfer('')}
           />
-          <ClaimRewardsButton />
+          <ClaimRewardsBlock />
         </div>
       </Affix>
       <div className="center">

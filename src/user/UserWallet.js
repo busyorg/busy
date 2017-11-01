@@ -122,7 +122,6 @@ class Wallet extends Component {
       usersTransactions,
       usersTransactionsLoading,
       usersEstAccountsValues,
-      isCurrentUser,
     } = this.props;
     const transactions = usersTransactions[user.name] || [];
     const estAccountValue = usersEstAccountsValues[user.name];
@@ -137,7 +136,6 @@ class Wallet extends Component {
           totalVestingShares={totalVestingShares}
           totalVestingFundSteem={totalVestingFundSteem}
           loadingGlobalProperties={loadingGlobalProperties}
-          isCurrentUser={isCurrentUser}
         />
         {transactions.length === 0 && usersTransactionsLoading
           ? <Loading style={{ marginTop: '20px' }} />

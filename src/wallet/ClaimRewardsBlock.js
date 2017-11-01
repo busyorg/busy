@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import steemConnect from 'sc2-sdk';
-import { injectIntl } from 'react-intl';
+import _ from 'lodash';
+import { injectIntl, FormattedMessage, FormattedNumber } from 'react-intl';
 import { userHasRewards } from '../vendor/steemitHelpers';
 import { getAuthenticatedUser } from '../reducers';
 import { getUserTransactions } from './walletActions';
 import Action from '../components/Button/Action';
+import './ClaimRewardsBlock.less';
 
 @injectIntl
 @connect(
@@ -17,7 +19,7 @@ import Action from '../components/Button/Action';
     getUserTransactions,
   },
 )
-class ClaimRewardsButton extends Component {
+class ClaimRewardsBlock extends Component {
   static propTypes = {
     user: PropTypes.shape(),
     intl: PropTypes.shape().isRequired,
@@ -60,9 +62,28 @@ class ClaimRewardsButton extends Component {
     );
   };
 
+  renderReward = (value, currency, rewardField) => (
+    <div className="ClaimRewardsBlock__reward">
+      <span className="ClaimRewardsBlock__reward__field">
+        <FormattedMessage
+          id={rewardField}
+          defaultMessage={_.startCase(rewardField.replace('_', ''))}
+        />
+      </span>
+      <span className="ClaimRewardsBlock__reward__value">
+        <FormattedNumber value={value} minimumFractionDigits={3} maximumFractionDigits={3} />
+        {` ${currency}`}
+      </span>
+    </div>
+  );
+
   render() {
     const { user, intl } = this.props;
     const { rewardClaimed } = this.state;
+    const rewardSteem = parseFloat(user.reward_steem_balance);
+    const rewardSbd = parseFloat(user.reward_sbd_balance);
+    const rewardSP = parseFloat(user.reward_vesting_steem);
+
     const buttonText = rewardClaimed
       ? intl.formatMessage({
         id: 'reward_claimed',
@@ -76,14 +97,25 @@ class ClaimRewardsButton extends Component {
     if (!userHasRewards(user)) return null;
 
     return (
-      <Action
-        text={buttonText}
-        disabled={rewardClaimed}
-        onClick={this.handleClaimRewards}
-        loading={this.state.loading}
-      />
+      <div className="ClaimRewardsBlock">
+        <h4 className="ClaimRewardsBlock__title SidebarBlock__content-title">
+          <i className="iconfont icon-ranking ClaimRewardsBlock__icon" />
+          {' '}
+          <FormattedMessage id="rewards" defaultMessage="Rewards" />
+        </h4>
+        {rewardSteem > 0 && this.renderReward(rewardSteem, 'STEEM', 'steem')}
+        {rewardSbd > 0 && this.renderReward(rewardSbd, 'SBD', 'steem_dollar')}
+        {rewardSP > 0 && this.renderReward(rewardSP, 'SP', 'steem_power')}
+        <Action
+          text={buttonText}
+          disabled={rewardClaimed}
+          onClick={this.handleClaimRewards}
+          loading={this.state.loading}
+          style={{ backgroundColor: '#54d2a0' }}
+        />
+      </div>
     );
   }
 }
 
-export default ClaimRewardsButton;
+export default ClaimRewardsBlock;

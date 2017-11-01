@@ -340,7 +340,6 @@ ShallowWrapper {
       "_context": Object {},
       "_currentElement": <UserWalletSummary
         estAccountValue="100.00 STEEM"
-        isCurrentUser={false}
         loading={false}
         loadingEstAccountValue={false}
         totalVestingFundSteem="100 STEEM"
@@ -362,7 +361,6 @@ ShallowWrapper {
         "context": Object {},
         "props": Object {
           "estAccountValue": "100.00 STEEM",
-          "isCurrentUser": false,
           "loading": false,
           "loadingEstAccountValue": false,
           "totalVestingFundSteem": "100 STEEM",
@@ -730,7 +728,6 @@ ShallowWrapper {
   "root": [Circular],
   "unrendered": <UserWalletSummary
     estAccountValue="100.00 STEEM"
-    isCurrentUser={false}
     loading={false}
     loadingEstAccountValue={false}
     totalVestingFundSteem="100 STEEM"
