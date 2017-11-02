@@ -107,7 +107,9 @@ export const mapToId = (content) => {
 
 export const mapAPIContentToId = apiRes => mapToId(apiRes.content);
 
-export const getAccountHistory = (account, from = -1, limit = 2500) =>
+export const defaultAccountLimit = 2500;
+
+export const getAccountHistory = (account, from = -1, limit = defaultAccountLimit) =>
   SteemAPI.getAccountHistoryAsync(account, from, limit);
 
 export const getDynamicGlobalProperties = () => SteemAPI.getDynamicGlobalPropertiesAsync();

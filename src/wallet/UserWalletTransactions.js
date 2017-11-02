@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { FormattedNumber } from 'react-intl';
 import ReduxInfiniteScroll from 'redux-infinite-scroll';
+import { defaultAccountLimit } from '../helpers/apiHelpers';
 import Loading from '../components/Icon/Loading';
 import ReceiveTransaction from './ReceiveTransaction';
 import TransferTransaction from './TransferTransaction';
@@ -29,7 +30,7 @@ class UserWalletTransactions extends Component {
     super(props);
     const firstTransaction = _.head(props.transactions);
     this.state = {
-      userHasMoreTransactions: firstTransaction.actionCount > 2500,
+      userHasMoreTransactions: firstTransaction.actionCount > defaultAccountLimit,
       lastActionCount: firstTransaction ? firstTransaction.actionCount : 0,
       loadingMoreTransactions: false,
     };
@@ -54,7 +55,7 @@ class UserWalletTransactions extends Component {
   handleLoadMore = () => {
     const { currentUsername } = this.props;
     const { lastActionCount } = this.state;
-    const limit = lastActionCount < 2500 ? lastActionCount : 2500;
+    const limit = lastActionCount < defaultAccountLimit ? lastActionCount : defaultAccountLimit;
     this.setState({
       loadingMoreTransactions: true,
     });
