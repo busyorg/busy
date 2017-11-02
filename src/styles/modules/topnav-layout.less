@@ -30,12 +30,12 @@
     @media @small {
       display: block;
       width: calc(100% ~"-" (@right-width + 2 * @margin));
+      margin-left: @left-width + @margin;
       margin-right: @right-width + @margin;
     }
 
     @media @medium {
       width: calc(100% ~"-" (@left-width + @right-width + 2 * @margin));
-      margin-left: @left-width + @margin;
     }
   }
 }
