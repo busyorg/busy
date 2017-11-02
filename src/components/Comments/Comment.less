@@ -12,11 +12,11 @@
 }
 
 .Comments > .Comment {
-    overflow:hidden;
+    overflow: hidden;
 }
 
 .Comments > .Comment > .Comment__text {
-    width:calc(~'100% - 52px');
+    width: calc(~'100% - @{comment-text-offset-default}');
 }
 
 .Comment {
@@ -58,12 +58,12 @@
   &__text {
     position: relative;
     top: -4px;
-    width: calc(~'100% - 44px');
-    margin-left: 12px;
+    width: calc(~'100% - @{comment-text-offset-small}');
+    margin-left: @comment-text-left-margin;
     overflow: unset;
 
     @media @small {
-      width:100%;
+      width: 100%;
       overflow: hidden;
     }
 
