@@ -35,8 +35,6 @@ class UserWalletTransactions extends Component {
     };
   }
 
-  componentWillReceiveProps() {}
-
   getFormattedTransactionAmount = (amount, currency) => {
     const transaction = amount.split(' ');
     const transactionAmount = parseFloat(transaction[0]).toFixed(3);
