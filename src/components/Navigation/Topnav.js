@@ -42,9 +42,6 @@ const Topnav = ({ intl, username, onMenuItemClick }) => {
                   <PopoverMenuItem key="activity">
                     <FormattedMessage id="activity" defaultMessage="Activity" />
                   </PopoverMenuItem>
-                  <PopoverMenuItem key="replies">
-                    <FormattedMessage id="replies" defaultMessage="Replies" />
-                  </PopoverMenuItem>
                   <PopoverMenuItem key="bookmarks">
                     <FormattedMessage id="bookmarks" defaultMessage="Bookmarks" />
                   </PopoverMenuItem>
