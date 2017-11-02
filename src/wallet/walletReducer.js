@@ -66,15 +66,14 @@ export default function walletReducer(state = initialState, action) {
       };
     case walletActions.GET_MORE_USER_TRANSACTIONS.SUCCESS: {
       const userTransactions = state.usersTransactions[action.payload.username] || [];
-      const usersLastTransactions =
-        action.payload.lastActionId === _.head(action.payload.transactions).actionId;
+      const usersLastTransactions = action.payload.actionCount < 2500;
       return {
         ...state,
         usersTransactions: {
           ...state.usersTransactions,
           [action.payload.username]: usersLastTransactions
             ? userTransactions
-            : _.uniqBy(userTransactions.concat(action.payload.transactions), 'actionId'),
+            : _.uniqBy(userTransactions.concat(action.payload.transactions.reverse()), 'actionCount'),
         },
       };
     }

@@ -35,17 +35,19 @@ export const getUserTransactions = username => dispatch =>
     },
   });
 
-export const getMoreUserTransactions = (username, start) => dispatch =>
+export const getMoreUserTransactions = (username, start, limit) => dispatch =>
   dispatch({
     type: GET_MORE_USER_TRANSACTIONS.ACTION,
     payload: {
-      promise: getTransactionHistory(username, start).then(transactions => ({
-        username,
-        transactions,
-        lastActionId: start,
-      })).catch((error) => {
-        console.log(error);
-      }),
+      promise: getTransactionHistory(username, start, limit)
+        .then(transactions => ({
+          username,
+          transactions,
+          currentActionCount: start,
+        }))
+        .catch((error) => {
+          console.log(error);
+        }),
     },
   });
 

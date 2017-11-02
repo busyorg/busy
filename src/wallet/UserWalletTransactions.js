@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { FormattedNumber } from 'react-intl';
-import InfiniteScroll from 'react-infinite-scroller';
+import ReduxInfiniteScroll from 'redux-infinite-scroll';
+import Loading from '../components/Icon/Loading';
 import ReceiveTransaction from './ReceiveTransaction';
 import TransferTransaction from './TransferTransaction';
 import SavingsTransaction from './SavingsTransaction';
@@ -28,14 +29,13 @@ class UserWalletTransactions extends Component {
     super(props);
     const firstTransaction = _.head(props.transactions);
     this.state = {
-      userHasMoreTransactions: true,
-      lastActionId: firstTransaction ? firstTransaction.actionId : 0,
+      userHasMoreTransactions: firstTransaction.actionCount > 2500,
+      lastActionCount: firstTransaction ? firstTransaction.actionCount : 0,
+      loadingMoreTransactions: false,
     };
   }
 
-  componentWillReceiveProps() {
-
-  }
+  componentWillReceiveProps() {}
 
   getFormattedTransactionAmount = (amount, currency) => {
     const transaction = amount.split(' ');
@@ -54,20 +54,27 @@ class UserWalletTransactions extends Component {
   };
 
   handleLoadMore = () => {
+    console.log('~~!@W!~@!@!~@~!@~ HANDLE LOAD MORE ENABLED ~~!@W!~@!@!~@~!@~');
     const { currentUsername } = this.props;
-    const { lastActionId } = this.state;
-    console.log('HANDLE LOAD MORE ENABLED');
+    const { lastActionCount } = this.state;
+    const limit = lastActionCount < 2500 ? lastActionCount : 2500;
+    this.setState({
+      loadingMoreTransactions: true,
+    });
     this.props
-      .getMoreUserTransactions(currentUsername, lastActionId)
+      .getMoreUserTransactions(currentUsername, lastActionCount, limit)
       .then((result) => {
-        const newLastActionID = _.head(result.value.transactions).actionId;
-        if (lastActionId === newLastActionID) {
+        const newLastActionCount = _.last(result.value.transactions).actionCount;
+        console.log('NEW LAST ACTION COUNT', newLastActionCount);
+        if (newLastActionCount === lastActionCount) {
           this.setState({
             userHasMoreTransactions: false,
+            loadingMoreTransactions: false,
           });
         } else {
           this.setState({
-            lastActionId: newLastActionID,
+            lastActionCount: newLastActionCount,
+            loadingMoreTransactions: false,
           });
         }
       })
@@ -75,20 +82,27 @@ class UserWalletTransactions extends Component {
         console.log('CAUGHT USER WALLET TRANSACTIONS ERROR LOADING');
         this.setState({
           userHasMoreTransactions: false,
+          loadingMoreTransactions: false,
         });
       });
   };
 
   render() {
     const { transactions, currentUsername, totalVestingShares, totalVestingFundSteem } = this.props;
+    // console.table(transactions);
+    const { loadingMoreTransactions } = this.state;
+    console.log('RENDER -- LAST ACTION ID', this.state.lastActionCount);
+
     return (
-      <InfiniteScroll
-        pageStart={0}
-        loadMore={this.handleLoadMore}
-        hasMore={this.state.userHasMoreTransactions}
-        useWindow
-      >
-        <div className="UserWalletTransactions">
+      <div className="UserWalletTransactions">
+        <ReduxInfiniteScroll
+          loadMore={this.handleLoadMore}
+          hasMore={this.state.userHasMoreTransactions}
+          elementIsScrollable={false}
+          threshold={200}
+          loader={<div style={{ margin: '20px' }}><Loading /></div>}
+          loadingMore={loadingMoreTransactions}
+        >
           {transactions.map((transaction, index) => {
             const key = `${transaction.trx_id}${index}`;
             const transactionType = transaction.op[0];
@@ -152,8 +166,8 @@ class UserWalletTransactions extends Component {
                 return null;
             }
           })}
-        </div>
-      </InfiniteScroll>
+        </ReduxInfiniteScroll>
+      </div>
     );
   }
 }

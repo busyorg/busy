@@ -117,18 +117,18 @@ const isWalletTransaction = actionType =>
   actionType === 'delegate_vesting_shares' ||
   actionType === 'claim_reward_balance';
 
-export const getTransactionHistory = (account, from = -1) =>
-  SteemAPI.getAccountHistoryAsync(account, from, 2500).then(results =>
+export const getTransactionHistory = (account, from = -1, limit = 2500) =>
+  SteemAPI.getAccountHistoryAsync(account, from, limit).then(results =>
     _.compact(
       results.map((action) => {
-        const actionId = action[0];
+        const actionCount = action[0];
         const actionDetails = action[1] || { op: [] };
         const actionType = actionDetails.op[0];
 
         if (isWalletTransaction(actionType)) {
           return {
             ...actionDetails,
-            actionId,
+            actionCount,
           };
         }
 

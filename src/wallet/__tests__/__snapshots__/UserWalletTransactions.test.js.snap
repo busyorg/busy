@@ -8,20 +8,34 @@ ShallowWrapper {
     "findWhereUnwrapped": [Function],
   },
   "length": 1,
-  "node": <InfiniteScroll
-    element="div"
-    hasMore={true}
-    initialLoad={true}
-    isReverse={false}
-    loadMore={[Function]}
-    loader={null}
-    pageStart={0}
-    threshold={250}
-    useCapture={false}
-    useWindow={true}
+  "node": <div
+    className="UserWalletTransactions"
   >
-    <div
-      className="UserWalletTransactions"
+    <ReduxInfiniteScroll
+      className=""
+      containerHeight="100%"
+      elementIsScrollable={false}
+      hasMore={false}
+      holderType="div"
+      items={Array []}
+      loadMore={[Function]}
+      loader={
+        <div
+          style={
+            Object {
+              "margin": "20px",
+            }
+          }
+        >
+          <Loading
+            center={true}
+            style={Object {}}
+          />
+        </div>
+      }
+      loadingMore={false}
+      showLoader={true}
+      threshold={200}
     >
       <PowerUpTransaction
         amount={
@@ -51,23 +65,37 @@ ShallowWrapper {
         timestamp="0"
         to=""
       />
-    </div>
-  </InfiniteScroll>,
+    </ReduxInfiniteScroll>
+  </div>,
   "nodes": Array [
-    <InfiniteScroll
-      element="div"
-      hasMore={true}
-      initialLoad={true}
-      isReverse={false}
-      loadMore={[Function]}
-      loader={null}
-      pageStart={0}
-      threshold={250}
-      useCapture={false}
-      useWindow={true}
+    <div
+      className="UserWalletTransactions"
     >
-      <div
-        className="UserWalletTransactions"
+      <ReduxInfiniteScroll
+        className=""
+        containerHeight="100%"
+        elementIsScrollable={false}
+        hasMore={false}
+        holderType="div"
+        items={Array []}
+        loadMore={[Function]}
+        loader={
+          <div
+            style={
+              Object {
+                "margin": "20px",
+              }
+            }
+          >
+            <Loading
+              center={true}
+              style={Object {}}
+            />
+          </div>
+        }
+        loadingMore={false}
+        showLoader={true}
+        threshold={200}
       >
         <PowerUpTransaction
           amount={
@@ -97,8 +125,8 @@ ShallowWrapper {
           timestamp="0"
           to=""
         />
-      </div>
-    </InfiniteScroll>,
+      </ReduxInfiniteScroll>
+    </div>,
   ],
   "options": Object {},
   "renderer": ReactShallowRenderer {
@@ -172,8 +200,9 @@ ShallowWrapper {
         },
         "refs": Object {},
         "state": Object {
-          "lastActionId": undefined,
-          "userHasMoreTransactions": true,
+          "lastActionCount": undefined,
+          "loadingMoreTransactions": false,
+          "userHasMoreTransactions": false,
         },
         "updater": Object {
           "enqueueCallback": [Function],
@@ -193,20 +222,34 @@ ShallowWrapper {
       "_pendingReplaceState": false,
       "_pendingStateQueue": null,
       "_renderedComponent": NoopInternalComponent {
-        "_currentElement": <InfiniteScroll
-          element="div"
-          hasMore={true}
-          initialLoad={true}
-          isReverse={false}
-          loadMore={[Function]}
-          loader={null}
-          pageStart={0}
-          threshold={250}
-          useCapture={false}
-          useWindow={true}
+        "_currentElement": <div
+          className="UserWalletTransactions"
         >
-          <div
-            className="UserWalletTransactions"
+          <ReduxInfiniteScroll
+            className=""
+            containerHeight="100%"
+            elementIsScrollable={false}
+            hasMore={false}
+            holderType="div"
+            items={Array []}
+            loadMore={[Function]}
+            loader={
+              <div
+                style={
+                  Object {
+                    "margin": "20px",
+                  }
+                }
+              >
+                <Loading
+                  center={true}
+                  style={Object {}}
+                />
+              </div>
+            }
+            loadingMore={false}
+            showLoader={true}
+            threshold={200}
           >
             <PowerUpTransaction
               amount={
@@ -236,23 +279,37 @@ ShallowWrapper {
               timestamp="0"
               to=""
             />
-          </div>
-        </InfiniteScroll>,
+          </ReduxInfiniteScroll>
+        </div>,
         "_debugID": 2,
-        "_renderedOutput": <InfiniteScroll
-          element="div"
-          hasMore={true}
-          initialLoad={true}
-          isReverse={false}
-          loadMore={[Function]}
-          loader={null}
-          pageStart={0}
-          threshold={250}
-          useCapture={false}
-          useWindow={true}
+        "_renderedOutput": <div
+          className="UserWalletTransactions"
         >
-          <div
-            className="UserWalletTransactions"
+          <ReduxInfiniteScroll
+            className=""
+            containerHeight="100%"
+            elementIsScrollable={false}
+            hasMore={false}
+            holderType="div"
+            items={Array []}
+            loadMore={[Function]}
+            loader={
+              <div
+                style={
+                  Object {
+                    "margin": "20px",
+                  }
+                }
+              >
+                <Loading
+                  center={true}
+                  style={Object {}}
+                />
+              </div>
+            }
+            loadingMore={false}
+            showLoader={true}
+            threshold={200}
           >
             <PowerUpTransaction
               amount={
@@ -282,10 +339,10 @@ ShallowWrapper {
               timestamp="0"
               to=""
             />
-          </div>
-        </InfiniteScroll>,
+          </ReduxInfiniteScroll>
+        </div>,
       },
-      "_renderedNodeType": 1,
+      "_renderedNodeType": 0,
       "_rootNodeID": 0,
       "_topLevelWrapper": null,
       "_updateBatchNumber": null,
