@@ -138,7 +138,7 @@
   "topics": "Argomenti",
   "topics_placeholder": "Inserisci qui gli argomenti",
   "topics_extra": "Separa gli argomenti con delle virgole. Usa solo caratteri minuscoli, numeri e trattino.",
-  "topics_error_empty": "Inserisci un argomento.",
+  "topics_error_empty": "Inserisci un argomento",
   "topics_error_count": "Inserisci da 1 a 5 argomenti.",
   "topics_error_invalid_topic": "L'argomento {topic} non è valido.",
   "story_placeholder": "Scrivi la tua storia...",

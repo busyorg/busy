@@ -138,7 +138,7 @@
   "topics": "Etiquetes",
   "topics_placeholder": "Afegeix les etiquetes de la història aquí",
   "topics_extra": "Separa les etiquetes amb comes. Sols minúscules, números i el caràcter de guió permès.",
-  "topics_error_empty": "Si us play, introdueix les etiquetes.",
+  "topics_error_empty": "Si us play, introdueix les etiquetes",
   "topics_error_count": "Has d'afegir entre una i cinc etiquetes.",
   "topics_error_invalid_topic": "Etiqueta {topic} no vàlida.",
   "story_placeholder": "Escriu la teva història...",

@@ -138,7 +138,7 @@
   "topics": "Tags",
   "topics_placeholder": "tags hier toevoegen",
   "topics_extra": "Tags scheiden met komma's. Alleen kleine letters, cijfers en\/of afbreekstreepje zijn toegestaan.",
-  "topics_error_empty": "Tag(s) invullen.",
+  "topics_error_empty": "Tag(s) invullen",
   "topics_error_count": "U moet 1 tot 5 tags toevoegen.",
   "topics_error_invalid_topic": "Tag {topic} is ongeldig.",
   "story_placeholder": "Schrijf je verhaal...",

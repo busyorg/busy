@@ -138,7 +138,7 @@
   "topics": "Teemad",
   "topics_placeholder": "Lisage loo teemad siia",
   "topics_extra": "Eraldage teemad komadega. Ainult väiksed tähed, numbrid ja sidekriips on lubatud.",
-  "topics_error_empty": "Palun sisestage teema.",
+  "topics_error_empty": "Palun sisestage teema",
   "topics_error_count": "Te peate lisama 1 kuni 5 teemat.",
   "topics_error_invalid_topic": "Teema {topic} on vigane.",
   "story_placeholder": "Kirjutage oma lugu...",
