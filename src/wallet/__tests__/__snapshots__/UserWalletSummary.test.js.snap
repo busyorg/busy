@@ -163,9 +163,12 @@ ShallowWrapper {
       <div
         className="UserWalletSummary__value"
       >
-        <USDDisplay
-          value={100}
-        />
+        <span>
+          $
+          <FormattedNumber
+            value={100}
+          />
+        </span>
       </div>
     </div>
   </div>,
@@ -325,9 +328,12 @@ ShallowWrapper {
         <div
           className="UserWalletSummary__value"
         >
-          <USDDisplay
-            value={100}
-          />
+          <span>
+            $
+            <FormattedNumber
+              value={100}
+            />
+          </span>
         </div>
       </div>
     </div>,
@@ -547,9 +553,12 @@ ShallowWrapper {
             <div
               className="UserWalletSummary__value"
             >
-              <USDDisplay
-                value={100}
-              />
+              <span>
+                $
+                <FormattedNumber
+                  value={100}
+                />
+              </span>
             </div>
           </div>
         </div>,
@@ -709,9 +718,12 @@ ShallowWrapper {
             <div
               className="UserWalletSummary__value"
             >
-              <USDDisplay
-                value={100}
-              />
+              <span>
+                $
+                <FormattedNumber
+                  value={100}
+                />
+              </span>
             </div>
           </div>
         </div>,

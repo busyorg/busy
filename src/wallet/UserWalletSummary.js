@@ -5,7 +5,6 @@ import steem from 'steem';
 import { Tooltip } from 'antd';
 import { calculateTotalDelegatedSP } from '../vendor/steemitHelpers';
 import Loading from '../components/Icon/Loading';
-import USDDisplay from '../components/Utils/USDDisplay';
 import './UserWalletSummary.less';
 
 const getFormattedTotalDelegatedSP = (user, totalVestingShares, totalVestingFundSteem) => {
@@ -118,7 +117,7 @@ const UserWalletSummary = ({
       <div className="UserWalletSummary__value">
         {loadingEstAccountValue || !estAccountValue
           ? <Loading />
-          : <USDDisplay value={parseFloat(estAccountValue)} />}
+          : <span>$<FormattedNumber value={parseFloat(estAccountValue)} /></span>}
       </div>
     </div>
   </div>
