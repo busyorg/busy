@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import * as walletActions from './walletActions';
 
 const initialState = {
@@ -54,10 +55,29 @@ export default function walletReducer(state = initialState, action) {
         ...state,
         usersTransactions: {
           ...state.usersTransactions,
-          [action.payload.username]: action.payload.transactions,
+          [action.payload.username]: action.payload.transactions.reverse(),
         },
         usersTransactionsLoading: false,
       };
+    case walletActions.GET_MORE_USER_TRANSACTIONS.START:
+      return {
+        ...state,
+        moreUsersTransactionsLoading: true,
+      };
+    case walletActions.GET_MORE_USER_TRANSACTIONS.SUCCESS: {
+      const userTransactions = state.usersTransactions[action.payload.username] || [];
+      const usersLastTransactions =
+        action.payload.lastActionId === _.head(action.payload.transactions).actionId;
+      return {
+        ...state,
+        usersTransactions: {
+          ...state.usersTransactions,
+          [action.payload.username]: usersLastTransactions
+            ? userTransactions
+            : _.uniqBy(userTransactions.concat(action.payload.transactions), 'actionId'),
+        },
+      };
+    }
     case walletActions.GET_USER_EST_ACCOUNT_VALUE.START:
       return {
         ...state,

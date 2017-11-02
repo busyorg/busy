@@ -7,23 +7,24 @@ export const OPEN_TRANSFER = '@wallet/OPEN_TRANSFER';
 export const CLOSE_TRANSFER = '@wallet/CLOSE_TRANSFER';
 export const GET_GLOBAL_PROPERTIES = createAsyncActionType('@wallet/GET_GLOBAL_PROPERTIES');
 export const GET_USER_TRANSACTIONS = createAsyncActionType('@users/GET_USER_TRANSACTIONS');
+export const GET_MORE_USER_TRANSACTIONS = createAsyncActionType(
+  '@users/GET_MORE_USER_TRANSACTIONS',
+);
 export const GET_USER_EST_ACCOUNT_VALUE = createAsyncActionType(
   '@users/GET_USER_EST_ACCOUNT_VALUE',
 );
-
 export const openTransfer = createAction(OPEN_TRANSFER);
 export const closeTransfer = createAction(CLOSE_TRANSFER);
 
-export const getGlobalProperties = () => (dispatch) => {
+export const getGlobalProperties = () => dispatch =>
   dispatch({
     type: GET_GLOBAL_PROPERTIES.ACTION,
     payload: {
       promise: getDynamicGlobalProperties(),
     },
   });
-};
 
-export const getUserTransactions = username => (dispatch) => {
+export const getUserTransactions = username => dispatch =>
   dispatch({
     type: GET_USER_TRANSACTIONS.ACTION,
     payload: {
@@ -33,9 +34,22 @@ export const getUserTransactions = username => (dispatch) => {
       })),
     },
   });
-};
 
-export const getUserEstAccountValue = user => (dispatch) => {
+export const getMoreUserTransactions = (username, start) => dispatch =>
+  dispatch({
+    type: GET_MORE_USER_TRANSACTIONS.ACTION,
+    payload: {
+      promise: getTransactionHistory(username, start).then(transactions => ({
+        username,
+        transactions,
+        lastActionId: start,
+      })).catch((error) => {
+        console.log(error);
+      }),
+    },
+  });
+
+export const getUserEstAccountValue = user => dispatch =>
   dispatch({
     type: GET_USER_EST_ACCOUNT_VALUE.ACTION,
     payload: {
@@ -45,4 +59,3 @@ export const getUserEstAccountValue = user => (dispatch) => {
       })),
     },
   });
-};

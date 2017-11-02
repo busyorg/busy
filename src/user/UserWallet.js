@@ -22,6 +22,7 @@ import {
   getGlobalProperties,
   getUserTransactions,
   getUserEstAccountValue,
+  getMoreUserTransactions,
 } from '../wallet/walletActions';
 import { getAccountWithFollowingCount } from './usersActions';
 
@@ -43,6 +44,7 @@ import { getAccountWithFollowingCount } from './usersActions';
   {
     getGlobalProperties,
     getUserTransactions,
+    getMoreUserTransactions,
     getAccountWithFollowingCount,
     getUserEstAccountValue,
   },
@@ -55,6 +57,7 @@ class Wallet extends Component {
     user: PropTypes.shape().isRequired,
     getGlobalProperties: PropTypes.func.isRequired,
     getUserTransactions: PropTypes.func.isRequired,
+    getMoreUserTransactions: PropTypes.func.isRequired,
     getUserEstAccountValue: PropTypes.func.isRequired,
     getAccountWithFollowingCount: PropTypes.func.isRequired,
     usersTransactions: PropTypes.shape().isRequired,
@@ -64,6 +67,7 @@ class Wallet extends Component {
     loadingGlobalProperties: PropTypes.bool.isRequired,
     isCurrentUser: PropTypes.bool,
     authenticatedUserName: PropTypes.string,
+
   };
 
   static defaultProps = {
@@ -144,6 +148,7 @@ class Wallet extends Component {
             currentUsername={user.name}
             totalVestingShares={totalVestingShares}
             totalVestingFundSteem={totalVestingFundSteem}
+            getMoreUserTransactions={this.props.getMoreUserTransactions}
           />}
       </div>
     );
