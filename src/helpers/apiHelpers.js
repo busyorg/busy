@@ -108,33 +108,7 @@ export const mapToId = (content) => {
 
 export const mapAPIContentToId = apiRes => mapToId(apiRes.content);
 
-const isWalletTransaction = actionType =>
-  actionType === 'transfer' ||
-  actionType === 'transfer_to_vesting' ||
-  actionType === 'cancel_transfer_from_savings' ||
-  actionType === 'transfer_from_savings' ||
-  actionType === 'transfer_to_savings' ||
-  actionType === 'delegate_vesting_shares' ||
-  actionType === 'claim_reward_balance';
-
-export const getTransactionHistory = (account, from = -1, limit = 2500) =>
-  SteemAPI.getAccountHistoryAsync(account, from, limit).then(results =>
-    _.compact(
-      results.map((action) => {
-        const actionCount = action[0];
-        const actionDetails = action[1] || { op: [] };
-        const actionType = actionDetails.op[0];
-
-        if (isWalletTransaction(actionType)) {
-          return {
-            ...actionDetails,
-            actionCount,
-          };
-        }
-
-        return null;
-      }),
-    ),
-  );
+export const getAccountHistory = (account, from = -1, limit = 2500) =>
+  SteemAPI.getAccountHistoryAsync(account, from, limit);
 
 export const getDynamicGlobalProperties = () => SteemAPI.getDynamicGlobalPropertiesAsync();

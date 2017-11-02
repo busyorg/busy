@@ -14,7 +14,7 @@ import './UserWalletTransactions.less';
 class UserWalletTransactions extends Component {
   static propTypes = {
     transactions: PropTypes.arrayOf(PropTypes.shape()),
-    getMoreUserTransactions: PropTypes.func.isRequired,
+    getMoreUserAccountHistory: PropTypes.func.isRequired,
     currentUsername: PropTypes.string,
     totalVestingShares: PropTypes.string.isRequired,
     totalVestingFundSteem: PropTypes.string.isRequired,
@@ -54,7 +54,6 @@ class UserWalletTransactions extends Component {
   };
 
   handleLoadMore = () => {
-    console.log('~~!@W!~@!@!~@~!@~ HANDLE LOAD MORE ENABLED ~~!@W!~@!@!~@~!@~');
     const { currentUsername } = this.props;
     const { lastActionCount } = this.state;
     const limit = lastActionCount < 2500 ? lastActionCount : 2500;
@@ -62,11 +61,10 @@ class UserWalletTransactions extends Component {
       loadingMoreTransactions: true,
     });
     this.props
-      .getMoreUserTransactions(currentUsername, lastActionCount, limit)
+      .getMoreUserAccountHistory(currentUsername, lastActionCount, limit)
       .then((result) => {
-        const newLastActionCount = _.last(result.value.transactions).actionCount;
-        console.log('NEW LAST ACTION COUNT', newLastActionCount);
-        if (newLastActionCount === lastActionCount) {
+        const newLastActionCount = _.last(result.value.userAccountHistory).actionCount;
+        if (newLastActionCount === 0) {
           this.setState({
             userHasMoreTransactions: false,
             loadingMoreTransactions: false,
@@ -79,7 +77,6 @@ class UserWalletTransactions extends Component {
         }
       })
       .catch(() => {
-        console.log('CAUGHT USER WALLET TRANSACTIONS ERROR LOADING');
         this.setState({
           userHasMoreTransactions: false,
           loadingMoreTransactions: false,
@@ -89,9 +86,7 @@ class UserWalletTransactions extends Component {
 
   render() {
     const { transactions, currentUsername, totalVestingShares, totalVestingFundSteem } = this.props;
-    // console.table(transactions);
     const { loadingMoreTransactions } = this.state;
-    console.log('RENDER -- LAST ACTION ID', this.state.lastActionCount);
 
     return (
       <div className="UserWalletTransactions">

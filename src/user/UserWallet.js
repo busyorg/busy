@@ -13,6 +13,7 @@ import {
   getTotalVestingShares,
   getTotalVestingFundSteem,
   getUsersTransactions,
+  getUsersAccountHistory,
   getUsersTransactionsLoading,
   getUsersEstAccountsValues,
   getLoadingEstAccountValue,
@@ -20,9 +21,9 @@ import {
 } from '../reducers';
 import {
   getGlobalProperties,
-  getUserTransactions,
   getUserEstAccountValue,
-  getMoreUserTransactions,
+  getUserAccountHistory,
+  getMoreUserAccountHistory,
 } from '../wallet/walletActions';
 import { getAccountWithFollowingCount } from './usersActions';
 
@@ -36,6 +37,7 @@ import { getAccountWithFollowingCount } from './usersActions';
     totalVestingShares: getTotalVestingShares(state),
     totalVestingFundSteem: getTotalVestingFundSteem(state),
     usersTransactions: getUsersTransactions(state),
+    usersAccountHistory: getUsersAccountHistory(state),
     usersTransactionsLoading: getUsersTransactionsLoading(state),
     usersEstAccountsValues: getUsersEstAccountsValues(state),
     loadingEstAccountValue: getLoadingEstAccountValue(state),
@@ -43,8 +45,8 @@ import { getAccountWithFollowingCount } from './usersActions';
   }),
   {
     getGlobalProperties,
-    getUserTransactions,
-    getMoreUserTransactions,
+    getUserAccountHistory,
+    getMoreUserAccountHistory,
     getAccountWithFollowingCount,
     getUserEstAccountValue,
   },
@@ -56,8 +58,8 @@ class Wallet extends Component {
     totalVestingFundSteem: PropTypes.string.isRequired,
     user: PropTypes.shape().isRequired,
     getGlobalProperties: PropTypes.func.isRequired,
-    getUserTransactions: PropTypes.func.isRequired,
-    getMoreUserTransactions: PropTypes.func.isRequired,
+    getUserAccountHistory: PropTypes.func.isRequired,
+    getMoreUserAccountHistory: PropTypes.func.isRequired,
     getUserEstAccountValue: PropTypes.func.isRequired,
     getAccountWithFollowingCount: PropTypes.func.isRequired,
     usersTransactions: PropTypes.shape().isRequired,
@@ -94,7 +96,7 @@ class Wallet extends Component {
     }
 
     if (_.isEmpty(usersTransactions[username])) {
-      this.props.getUserTransactions(username);
+      this.props.getUserAccountHistory(username);
     }
 
     if (_.isEmpty(user)) {
@@ -148,7 +150,7 @@ class Wallet extends Component {
             currentUsername={user.name}
             totalVestingShares={totalVestingShares}
             totalVestingFundSteem={totalVestingFundSteem}
-            getMoreUserTransactions={this.props.getMoreUserTransactions}
+            getMoreUserAccountHistory={this.props.getMoreUserAccountHistory}
           />}
       </div>
     );
