@@ -3,6 +3,7 @@
 .TopicSelector {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin-bottom: 16px;
   padding: 0 @mobile-padding;
 
@@ -20,11 +21,18 @@
 
   &__sort {
     color: #99aab5;
+    text-align: right;
+
+    span:first-of-type {
+      display: inline-block;
+      white-space: nowrap;
+    }
 
     &__current {
       cursor: pointer;
       margin-left: 8px;
       font-weight: 500;
+      white-space: nowrap;
 
       & > .iconfont {
         margin-left: 4px;
