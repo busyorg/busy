@@ -21,10 +21,10 @@ module.exports = {
         SENTRY_PUBLIC_DSN: null,
         STEEMCONNECT_CLIENT_ID: JSON.stringify(process.env.STEEMCONNECT_CLIENT_ID || 'busy.app'),
         STEEMCONNECT_REDIRECT_URL: JSON.stringify(
-          process.env.STEEMCONNECT_REDIRECT_URL || 'http://localhost:3000/callback',
+          process.env.STEEMCONNECT_REDIRECT_URL || 'http://localhost:3000/callback'
         ),
         STEEMCONNECT_HOST: JSON.stringify(
-          process.env.STEEMCONNECT_HOST || 'https://v2.steemconnect.com',
+          process.env.STEEMCONNECT_HOST || 'https://v2.steemconnect.com'
         ),
         STEEMJS_URL: JSON.stringify(process.env.STEEMJS_URL || 'https://api.steemit.com'),
         IS_BROWSER: JSON.stringify(true),
