@@ -8,12 +8,12 @@ import Loading from '../Icon/Loading';
 import './SteemTrendingCharts.less';
 
 const getSteemPriceHistory = () =>
-  fetch('https://min-api.cryptocompare.com/data/histoday?fsym=USD&tsym=STEEM&limit=7').then(res =>
+  fetch('https://min-api.cryptocompare.com/data/histoday?fsym=STEEM&tsym=USD&limit=7').then(res =>
     res.json(),
   );
 
 const getSteemDollarPriceHistory = () =>
-  fetch('https://min-api.cryptocompare.com/data/histoday?fsym=USD&tsym=SBD&limit=7').then(res =>
+  fetch('https://min-api.cryptocompare.com/data/histoday?fsym=SBD&tsym=USD&limit=7').then(res =>
     res.json(),
   );
 

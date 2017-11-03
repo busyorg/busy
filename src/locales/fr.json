@@ -138,7 +138,7 @@
   "topics": "Tags",
   "topics_placeholder": "Ajoutez des tags",
   "topics_extra": "Veuillez séparer les tags par des virgules. Seulement les lettres minuscules, chiffres et les traits d'union sont autorisés.",
-  "topics_error_empty": "Veuillez saisir des tags.",
+  "topics_error_empty": "Veuillez saisir des tags",
   "topics_error_count": "Vous devez ajouter de 1 à 5 tags.",
   "topics_error_invalid_topic": "Le tag {topic} n’est pas valide.",
   "story_placeholder": "Quoi de neuf ?",

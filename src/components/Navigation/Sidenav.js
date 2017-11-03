@@ -6,6 +6,7 @@ import './Sidenav.less';
 
 const isNews = (match, location) => location.pathname.match(/trending/);
 const isWallet = (match, location) => location.pathname.match(/wallet/);
+const isReplies = (match, location) => location.pathname.match(/replies/);
 
 const Sidenav = ({ username }) => (
   <div>
@@ -27,6 +28,12 @@ const Sidenav = ({ username }) => (
           <NavLink to="/trending" activeClassName="Sidenav__item--active" isActive={isNews}>
             <i className="iconfont icon-headlines" />
             <FormattedMessage id="news" defaultMessage="News" />
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/replies" activeClassName="Sidenav__item--active" isActive={isReplies}>
+            <i className="iconfont icon-message" />
+            <FormattedMessage id="replies" defaultMessage="Replies" />
           </NavLink>
         </li>
         <li>

@@ -13,12 +13,6 @@ const SidenavUser = ({ username }) => (
       </a>
     </li>
     <li>
-      <NavLink to="/replies" activeClassName="Sidenav__item--active">
-        <i className="iconfont icon-message" />
-        <FormattedMessage id="replies" defaultMessage="Replies" />
-      </NavLink>
-    </li>
-    <li>
       <NavLink to="/bookmarks" activeClassName="Sidenav__item--active">
         <i className="iconfont icon-collection" />
         <FormattedMessage id="bookmarks" defaultMessage="Bookmarks" />

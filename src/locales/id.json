@@ -138,7 +138,7 @@
   "topics": "Topik",
   "topics_placeholder": "Tambahkan topik tulisan di sini",
   "topics_extra": "Pisahkan topik dengan tanda koma. Hanya huruf kecil, angka dan tanda hubung yang diperbolehkan.",
-  "topics_error_empty": "Mohon masukan topik.",
+  "topics_error_empty": "Mohon masukan topik",
   "topics_error_count": "Anda harus menambahkan 1 sampai 5 topik.",
   "topics_error_invalid_topic": "Topik {topic} tidak valid.",
   "story_placeholder": "Tulis cerita Anda...",

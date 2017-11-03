@@ -138,7 +138,7 @@
   "topics": "Isiokwu",
   "topics_placeholder": "Tinye isiokwu akụkọ ebe a",
   "topics_extra": "Iche iche iche na commas. Naanị mkpụrụedemede ukwu, nọmba na ụdị ụdị na-akwado.",
-  "topics_error_empty": "Biko tinye aha.",
+  "topics_error_empty": "Biko tinye aha",
   "topics_error_count": "Ị ga-agbakwunye isiokwu 1 ruo 5.",
   "topics_error_invalid_topic": "Ebube {isiokwu} ezighi ezi.",
   "story_placeholder": "Dee akụkọ gị...",
