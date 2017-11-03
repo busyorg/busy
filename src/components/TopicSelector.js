@@ -53,7 +53,9 @@ class TopicSelector extends React.Component {
             )}
         </div>
         <div className="TopicSelector__sort">
-          <FormattedMessage id="sort_by" defaultMessage="Sort by" />
+          <span className="TopicSelector__sort__title">
+            <FormattedMessage id="sort_by" defaultMessage="Sort by" />
+          </span>
           <Popover
             trigger="click"
             visible={popoverVisible}
