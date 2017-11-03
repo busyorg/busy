@@ -304,7 +304,7 @@ exports[`Storyshots Editor Editor 1`] = `
         className="ant-form-item-control-wrapper"
       >
         <div
-          className="ant-form-item-control "
+          className="ant-form-item-control has-success"
         >
           <div
             className="ant-form-extra"

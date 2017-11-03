@@ -76,6 +76,8 @@ class Editor extends React.Component {
       this.input.addEventListener('paste', this.handlePastedImage);
     }
 
+    this.setValues(this.props);
+
     // eslint-disable-next-line react/no-find-dom-node
     const select = ReactDOM.findDOMNode(this.select);
     if (select) {
@@ -108,11 +110,11 @@ class Editor extends React.Component {
     const topics = values.topics || [];
     const title = values.title || '';
 
-    if (title.length > 255 || topics.length > 5) {
-      this.props.form.validateFields();
-    } else {
-      this.props.onUpdate(values);
-    }
+    this.props.onUpdate({
+      ...values,
+      topics: topics.slice(0, 5),
+      title: title.slice(0, 255),
+    });
   };
 
   setInput = (input) => {
@@ -210,24 +212,15 @@ class Editor extends React.Component {
     });
   };
 
-  checkTopics = (topics) => {
-    const errors = [];
-    if (!topics || topics.length < 1 || topics.length > 5) {
-      errors.push(new Error('You have to add 1 to 5 topics'));
+  checkTopics = (rule, value, callback) => {
+    if (!value || value.length < 1 || value.length > 5) {
+      callback('You have to add 1 to 5 topics');
     }
 
-    if (topics) {
-      topics
-        .map(topic => ({ topic, valid: /^[a-z0-9]+(-[a-z0-9]+)*$/.test(topic) }))
-        .filter(topic => !topic.valid)
-        .forEach(topic => errors.push(new Error(`Topic ${topic.topic} is invalid`)));
-    }
-
-    return errors;
-  };
-
-  checkTopicsValidator = (rule, value, callback) => {
-    this.checkTopics(value).map(err => callback(err));
+    value
+      .map(topic => ({ topic, valid: /^[a-z0-9]+(-[a-z0-9]+)*$/.test(topic) }))
+      .filter(topic => !topic.valid)
+      .map(topic => callback(`Topic ${topic.topic} is invalid`));
 
     callback();
   };
@@ -487,7 +480,7 @@ class Editor extends React.Component {
                 }),
                 type: 'array',
               },
-              { validator: this.checkTopicsValidator },
+              { validator: this.checkTopics },
             ],
           })(
             <Select
