@@ -43,7 +43,7 @@ ShallowWrapper {
             <FormattedNumber
               maximumFractionDigits={3}
               minimumFractionDigits={3}
-              value="100.000"
+              value={100}
             />
              SP
           </span>
@@ -56,7 +56,7 @@ ShallowWrapper {
             <FormattedNumber
               maximumFractionDigits={3}
               minimumFractionDigits={3}
-              value="100.000"
+              value={100}
             />
              STEEM
           </span>
@@ -103,7 +103,7 @@ ShallowWrapper {
               <FormattedNumber
                 maximumFractionDigits={3}
                 minimumFractionDigits={3}
-                value="100.000"
+                value={100}
               />
                SP
             </span>
@@ -116,7 +116,7 @@ ShallowWrapper {
               <FormattedNumber
                 maximumFractionDigits={3}
                 minimumFractionDigits={3}
-                value="100.000"
+                value={100}
               />
                STEEM
             </span>
@@ -257,7 +257,7 @@ ShallowWrapper {
                   <FormattedNumber
                     maximumFractionDigits={3}
                     minimumFractionDigits={3}
-                    value="100.000"
+                    value={100}
                   />
                    SP
                 </span>
@@ -270,7 +270,7 @@ ShallowWrapper {
                   <FormattedNumber
                     maximumFractionDigits={3}
                     minimumFractionDigits={3}
-                    value="100.000"
+                    value={100}
                   />
                    STEEM
                 </span>
@@ -317,7 +317,7 @@ ShallowWrapper {
                   <FormattedNumber
                     maximumFractionDigits={3}
                     minimumFractionDigits={3}
-                    value="100.000"
+                    value={100}
                   />
                    SP
                 </span>
@@ -330,7 +330,7 @@ ShallowWrapper {
                   <FormattedNumber
                     maximumFractionDigits={3}
                     minimumFractionDigits={3}
-                    value="100.000"
+                    value={100}
                   />
                    STEEM
                 </span>

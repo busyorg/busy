@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { FormattedNumber } from 'react-intl';
@@ -12,7 +12,7 @@ import PowerUpTransaction from './PowerUpTransaction';
 import ClaimReward from './ClaimReward';
 import './UserWalletTransactions.less';
 
-class UserWalletTransactions extends Component {
+class UserWalletTransactions extends React.Component {
   static propTypes = {
     transactions: PropTypes.arrayOf(PropTypes.shape()),
     getMoreUserAccountHistory: PropTypes.func.isRequired,
@@ -38,7 +38,7 @@ class UserWalletTransactions extends Component {
 
   getFormattedTransactionAmount = (amount, currency) => {
     const transaction = amount.split(' ');
-    const transactionAmount = parseFloat(transaction[0]).toFixed(3);
+    const transactionAmount = parseFloat(transaction[0]);
     const transactionCurrency = currency || transaction[1];
     return (
       <span>
