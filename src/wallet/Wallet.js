@@ -10,41 +10,51 @@ import SteemTrendingCharts from '../components/Sidebar/SteemTrendingCharts';
 import UserWallet from '../user/UserWallet';
 import ClaimRewardsBlock from './ClaimRewardsBlock';
 
-const Wallet = props => (
-  <div className="shifted">
-    <div className="feed-layout container">
-      <Affix className="leftContainer" stickPosition={77}>
-        <div className="left">
-          <LeftSidebar />
-        </div>
-      </Affix>
-      <Affix className="rightContainer" stickPosition={77}>
-        <div className="right">
-          <Action
-            style={{ marginBottom: '10px' }}
-            text={props.intl.formatMessage({
-              id: 'transfer',
-              defaultMessage: 'Transfer',
-            })}
-            onClick={() => props.openTransfer('')}
-            primary
-          />
-          <SteemTrendingCharts />
-          <ClaimRewardsBlock />
-        </div>
-      </Affix>
-      <div className="center">
-        <UserWallet isCurrentUser />
-      </div>
-    </div>
-  </div>
-);
-
-Wallet.propTypes = {
-  openTransfer: PropTypes.func.isRequired,
-  intl: PropTypes.shape().isRequired,
-};
-
-export default connect(null, {
+@injectIntl
+@connect(null, {
   openTransfer,
-})(injectIntl(Wallet));
+})
+class Wallet extends React.Component {
+  static propTypes = {
+    openTransfer: PropTypes.func.isRequired,
+    intl: PropTypes.shape().isRequired,
+  };
+
+  handleOpenTransfer = () => {
+    this.props.openTransfer('');
+  };
+
+  render() {
+    return (
+      <div className="shifted">
+        <div className="feed-layout container">
+          <Affix className="leftContainer" stickPosition={77}>
+            <div className="left">
+              <LeftSidebar />
+            </div>
+          </Affix>
+          <Affix className="rightContainer" stickPosition={77}>
+            <div className="right">
+              <Action
+                primary
+                style={{ marginBottom: '10px' }}
+                text={this.props.intl.formatMessage({
+                  id: 'transfer',
+                  defaultMessage: 'Transfer',
+                })}
+                onClick={this.handleOpenTransfer}
+              />
+              <SteemTrendingCharts />
+              <ClaimRewardsBlock />
+            </div>
+          </Affix>
+          <div className="center">
+            <UserWallet isCurrentUser />
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
+
+export default Wallet;
