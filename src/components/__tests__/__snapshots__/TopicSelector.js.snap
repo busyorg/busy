@@ -36,11 +36,15 @@ ShallowWrapper {
     <div
       className="TopicSelector__sort"
     >
-      <FormattedMessage
-        defaultMessage="Sort by"
-        id="sort_by"
-        values={Object {}}
-      />
+      <span
+        className="TopicSelector__sort__title"
+      >
+        <FormattedMessage
+          defaultMessage="Sort by"
+          id="sort_by"
+          values={Object {}}
+        />
+      </span>
       <Popover
         content={
           <PopoverMenu
@@ -163,11 +167,15 @@ ShallowWrapper {
       <div
         className="TopicSelector__sort"
       >
-        <FormattedMessage
-          defaultMessage="Sort by"
-          id="sort_by"
-          values={Object {}}
-        />
+        <span
+          className="TopicSelector__sort__title"
+        >
+          <FormattedMessage
+            defaultMessage="Sort by"
+            id="sort_by"
+            values={Object {}}
+          />
+        </span>
         <Popover
           content={
             <PopoverMenu
@@ -352,11 +360,15 @@ ShallowWrapper {
           <div
             className="TopicSelector__sort"
           >
-            <FormattedMessage
-              defaultMessage="Sort by"
-              id="sort_by"
-              values={Object {}}
-            />
+            <span
+              className="TopicSelector__sort__title"
+            >
+              <FormattedMessage
+                defaultMessage="Sort by"
+                id="sort_by"
+                values={Object {}}
+              />
+            </span>
             <Popover
               content={
                 <PopoverMenu
@@ -479,11 +491,15 @@ ShallowWrapper {
           <div
             className="TopicSelector__sort"
           >
-            <FormattedMessage
-              defaultMessage="Sort by"
-              id="sort_by"
-              values={Object {}}
-            />
+            <span
+              className="TopicSelector__sort__title"
+            >
+              <FormattedMessage
+                defaultMessage="Sort by"
+                id="sort_by"
+                values={Object {}}
+              />
+            </span>
             <Popover
               content={
                 <PopoverMenu
