@@ -5,8 +5,7 @@ import { injectIntl } from 'react-intl';
 import { Icon } from 'antd';
 import './Follow.less';
 
-@injectIntl
-class Follow extends React.Component {
+export class FollowPure extends React.Component {
   static propTypes = {
     intl: PropTypes.shape().isRequired,
     isFollowed: PropTypes.bool,
@@ -70,4 +69,4 @@ class Follow extends React.Component {
   }
 }
 
-export default Follow;
+export default injectIntl(FollowPure);
