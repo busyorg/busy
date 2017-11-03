@@ -138,7 +138,7 @@
   "topics": "Topics",
   "topics_placeholder": "Add story topics here",
   "topics_extra": "Separate topics with commas. Only lowercase letters, numbers and hyphen character is permitted.",
-  "topics_error_empty": "Please enter topics.",
+  "topics_error_empty": "Please enter topics",
   "topics_error_count": "You have to add 1 to 5 topics.",
   "topics_error_invalid_topic": "Topic {topic} is invalid.",
   "story_placeholder": "Write your story...",
@@ -198,5 +198,7 @@
   "received_from": "Received from {username}",
   "claim_rewards": "Claim rewards ",
   "powered_up": "Powered up ",
-  "market": "Market"
+  "market": "Market",
+  "page_forbidden": "Page Requires Authentication",
+  "page_forbidden_message": "Oops! Looks like you need to login to use this page."
 }

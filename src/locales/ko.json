@@ -138,7 +138,7 @@
   "topics": "주제",
   "topics_placeholder": "여기에 이야기 주제를 추가하세요.",
   "topics_extra": "주제들은 쉼표로 구분하세요. 영문 소문자, 숫자, 하이픈(-)만 허용됩니다.",
-  "topics_error_empty": "주제를 입력하세요.",
+  "topics_error_empty": "주제를 입력하세요",
   "topics_error_count": "1~5개의 주제를 추가해야 합니다.",
   "topics_error_invalid_topic": "주제 {topic}은(는) 유효하지 않습니다.",
   "story_placeholder": "당신의 이야기를 작성하세요.",

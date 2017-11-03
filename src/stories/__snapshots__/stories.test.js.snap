@@ -659,6 +659,22 @@ exports[`Storyshots Navigation Sidenav 1`] = `
         <a
           aria-current={false}
           className={undefined}
+          href="/replies"
+          onClick={[Function]}
+          style={undefined}
+        >
+          <i
+            className="iconfont icon-message"
+          />
+          <span>
+            Replies
+          </span>
+        </a>
+      </li>
+      <li>
+        <a
+          aria-current={false}
+          className={undefined}
           href="/wallet"
           onClick={[Function]}
           style={undefined}
