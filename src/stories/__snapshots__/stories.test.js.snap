@@ -2792,8 +2792,12 @@ exports[`Storyshots Topic selector Topic selector 1`] = `
     <div
       className="TopicSelector__sort"
     >
-      <span>
-        Sort by
+      <span
+        className="TopicSelector__sort__title"
+      >
+        <span>
+          Sort by
+        </span>
       </span>
       <span
         className="TopicSelector__sort__current"
