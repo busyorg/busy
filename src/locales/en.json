@@ -200,5 +200,7 @@
   "claim_rewards": "Claim Rewards ",
   "reward_claimed": "Reward Claimed",
   "powered_up": "Powered up ",
-  "market": "Market"
+  "market": "Market",
+  "page_forbidden": "Page Requires Authentication",
+  "page_forbidden_message": "Oops! Looks like you need to login to use this page."
 }
