@@ -105,13 +105,13 @@ class Editor extends React.Component {
     // NOTE: antd doesn't update field value on Select before firing onChange
     // so we have to get value from event.
     const values = this.getValues(e);
-    const { topics, title } = values;
+    const topics = values.topics || [];
+    const title = values.title || '';
 
-    const topicErrors = this.checkTopics(topics);
-    if ((!title || (title && title.length <= 255)) && topicErrors.length < 1) {
-      this.props.onUpdate(values);
-    } else {
+    if (title.length > 255 || topics.length > 5) {
       this.props.form.validateFields();
+    } else {
+      this.props.onUpdate(values);
     }
   };
 
