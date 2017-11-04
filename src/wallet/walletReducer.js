@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import * as walletActions from './walletActions';
 
 const initialState = {
@@ -6,9 +7,12 @@ const initialState = {
   totalVestingShares: '',
   totalVestingFundSteem: '',
   usersTransactions: {},
+  usersAccountHistory: {},
   usersEstAccountsValues: {},
   usersTransactionsLoading: true,
   loadingEstAccountValue: true,
+  loadingGlobalProperties: true,
+  moreUsersAccountHistoryLoading: true,
 };
 
 export default function walletReducer(state = initialState, action) {
@@ -24,26 +28,76 @@ export default function walletReducer(state = initialState, action) {
         ...state,
         transferVisible: false,
       };
+    case walletActions.GET_GLOBAL_PROPERTIES.START:
+      return {
+        ...state,
+        loadingGlobalProperties: true,
+      };
     case walletActions.GET_GLOBAL_PROPERTIES.SUCCESS: {
       return {
         ...state,
         totalVestingFundSteem: action.payload.total_vesting_fund_steem,
         totalVestingShares: action.payload.total_vesting_shares,
+        loadingGlobalProperties: false,
       };
     }
-    case walletActions.GET_USER_TRANSACTIONS.START:
+    case walletActions.GET_GLOBAL_PROPERTIES.ERROR: {
       return {
         ...state,
-        usersTransactionsLoading: true,
+        loadingGlobalProperties: false,
       };
-    case walletActions.GET_USER_TRANSACTIONS.SUCCESS:
+    }
+
+    case walletActions.GET_USER_ACCOUNT_HISTORY.START:
+      return {
+        ...state,
+        usersAccountHistoryLoading: true,
+      };
+    case walletActions.GET_USER_ACCOUNT_HISTORY.SUCCESS:
       return {
         ...state,
         usersTransactions: {
           ...state.usersTransactions,
-          [action.payload.username]: action.payload.transactions,
+          [action.payload.username]: action.payload.userWalletTransactions,
         },
-        usersTransactionsLoading: false,
+        usersAccountHistory: {
+          ...state.usersAccountHistory,
+          [action.payload.username]: action.payload.userAccountHistory,
+        },
+        usersAccountHistoryLoading: false,
+      };
+    case walletActions.GET_MORE_USER_ACCOUNT_HISTORY.START:
+      return {
+        ...state,
+        moreUsersAccountHistoryLoading: true,
+      };
+    case walletActions.GET_MORE_USER_ACCOUNT_HISTORY.SUCCESS: {
+      const userCurrentWalletTransactions = state.usersTransactions[action.payload.username] || [];
+      const userCurrentAccountHistory = state.usersAccountHistory[action.payload.username] || [];
+
+      return {
+        ...state,
+        usersTransactions: {
+          ...state.usersTransactions,
+          [action.payload.username]: _.uniqBy(
+            userCurrentWalletTransactions.concat(action.payload.userWalletTransactions),
+            'actionCount',
+          ),
+        },
+        usersAccountHistory: {
+          ...state.usersAccountHistory,
+          [action.payload.username]: _.uniqBy(
+            userCurrentAccountHistory.concat(action.payload.userAccountHistory),
+            'actionCount',
+          ),
+        },
+        moreUsersAccountHistoryLoading: false,
+      };
+    }
+    case walletActions.GET_MORE_USER_ACCOUNT_HISTORY.ERROR:
+      return {
+        ...state,
+        moreUsersAccountHistoryLoading: false,
       };
     case walletActions.GET_USER_EST_ACCOUNT_VALUE.START:
       return {
@@ -77,3 +131,5 @@ export const getUsersTransactions = state => state.usersTransactions;
 export const getUsersEstAccountsValues = state => state.usersEstAccountsValues;
 export const getUsersTransactionsLoading = state => state.usersTransactionsLoading;
 export const getLoadingEstAccountValue = state => state.loadingEstAccountValue;
+export const getLoadingGlobalProperties = state => state.loadingGlobalProperties;
+export const getUsersAccountHistory = state => state.usersAccountHistory;

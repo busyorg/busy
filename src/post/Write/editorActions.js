@@ -31,19 +31,16 @@ export const addEditedPost = createAction(ADD_EDITED_POST);
 export const DELETE_EDITED_POST = '@editor/DELETE_EDITED_POST';
 export const deleteEditedPost = createAction(DELETE_EDITED_POST);
 
-export const saveDraft = (post, redirect) => dispatch =>
-  dispatch({
+export const saveDraft = (post, redirect) => (dispatch) => {
+  if (redirect) dispatch(push(`/write?draft=${post.id}`));
+  return dispatch({
     type: SAVE_DRAFT,
     payload: {
-      promise: addDraftMetadata(post).then((resp) => {
-        if (redirect) {
-          dispatch(push(`/write?draft=${post.id}`));
-        }
-        return resp;
-      }),
+      promise: addDraftMetadata(post),
     },
     meta: { postId: post.id },
   });
+};
 
 export const deleteDraft = draftId => dispatch =>
   dispatch({

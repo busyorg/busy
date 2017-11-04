@@ -1,7 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import steem from 'steem';
-import { FormattedMessage, FormattedRelative, FormattedNumber } from 'react-intl';
+import {
+  FormattedMessage,
+  FormattedRelative,
+  FormattedNumber,
+  FormattedDate,
+  FormattedTime,
+} from 'react-intl';
+import { Tooltip } from 'antd';
 
 const getFormattedPayout = (
   rewardSteem,
@@ -85,7 +92,16 @@ const ClaimReward = ({
         </span>
       </div>
       <span className="UserWalletTransactions__timestamp">
-        <FormattedRelative value={`${timestamp}Z`} />
+        <Tooltip
+          title={
+            <span>
+              <FormattedDate value={`${timestamp}Z`} />{' '}
+              <FormattedTime value={`${timestamp}Z`} />
+            </span>
+          }
+        >
+          <span><FormattedRelative value={`${timestamp}Z`} /></span>
+        </Tooltip>
       </span>
     </div>
   </div>

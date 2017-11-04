@@ -99,7 +99,9 @@ export default class Settings extends React.Component {
     es: 'Español - Spanish',
     fil: 'Filipino',
     fr: 'Français - French',
+    hr: 'Hrvatski - Croatian',
     it: 'Italiano - Italian',
+    hu: 'Magyar - Hungarian',
     nl: 'Nederlands - Dutch',
     no: 'Norsk - Norwegian',
     pl: 'Polski - Polish',
@@ -109,6 +111,7 @@ export default class Settings extends React.Component {
     sv: 'Svenska - Swedish',
     vi: 'Tiếng Việt - Vietnamese',
     tr: 'Türkçe - Turkish',
+    yo: 'Yorùbá - Yoruba',
     el: 'Ελληνικά - Greek',
     bg: 'Български език - Bulgarian',
     ru: 'Русский - Russian',
@@ -249,9 +252,13 @@ export default class Settings extends React.Component {
                     {languageOptions}
                   </Select>
                 </div>
-                <Action primary loading={loading} text="Save" onClick={this.handleSave} />
-              </div>
-            )}
+                <Action
+                  primary
+                  loading={loading}
+                  text={this.props.intl.formatMessage({ id: 'save', defaultMessage: 'Save' })}
+                  onClick={this.handleSave}
+                />
+              </div>)}
           </div>
         </div>
       </div>

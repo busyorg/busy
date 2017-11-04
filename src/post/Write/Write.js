@@ -9,6 +9,7 @@ import debounce from 'lodash/debounce';
 import isArray from 'lodash/isArray';
 import 'url-search-params-polyfill';
 import { injectIntl } from 'react-intl';
+import uuidv4 from 'uuid/v4';
 import GetBoost from '../../components/Sidebar/GetBoost';
 import DeleteDraftModal from './DeleteDraftModal';
 
@@ -112,25 +113,33 @@ class Write extends React.Component {
         isUpdating: draftPost.isUpdating || false,
       });
     }
+
+    if (draftId) {
+      this.draftId = draftId;
+    } else {
+      this.draftId = uuidv4();
+    }
   }
 
-  onDeleteDraft = () => {
-    this.props.replace('/write');
-    this.setState({
-      initialTitle: '',
-      initialTopics: [],
-      initialBody: '',
-      initialReward: '50',
-      initialUpvote: true,
-      initialUpdatedDate: Date.now(),
-      isUpdating: false,
-      showModalDelete: false,
-    });
-  };
-
-  onDelete = () => {
-    this.setState({ showModalDelete: true });
+  componentWillReceiveProps(nextProps) {
+    if (this.props.draftId !== nextProps.draftId && nextProps.draftId === null) {
+      this.draftId = uuidv4();
+      this.setState({
+        initialTitle: '',
+        initialTopics: [],
+        initialBody: '',
+        initialReward: '50',
+        initialUpvote: true,
+        initialUpdatedDate: Date.now(),
+        isUpdating: false,
+        showModalDelete: false,
+      });
+    }
   }
+
+  onDeleteDraft = () => this.props.replace('/write');
+
+  onDelete = () => this.setState({ showModalDelete: true });
 
   onSubmit = (form) => {
     const data = this.getNewPostData(form);
@@ -190,11 +199,20 @@ class Write extends React.Component {
 
     if (this.state.isUpdating) data.isUpdating = this.state.isUpdating;
 
-    const metaData = {
+    let metaData = {
       community: 'busy',
       app: `busy/${version}`,
       format: 'markdown',
     };
+
+    // Merging jsonMetadata makes sure that users don't lose any metadata when they edit post using
+    // Busy (like video data from DTube)
+    if (this.props.draftPosts[this.draftId] && this.props.draftPosts[this.draftId].jsonMetadata) {
+      metaData = {
+        ...metaData,
+        ...this.props.draftPosts[this.draftId].jsonMetadata,
+      };
+    }
 
     if (tags.length) {
       metaData.tags = tags;
@@ -251,20 +269,15 @@ class Write extends React.Component {
   saveDraft = debounce((form) => {
     const data = this.getNewPostData(form);
     const postBody = data.body;
-    let id = this.props.draftId;
+    const id = this.props.draftId;
     // Remove zero width space
     const isBodyEmpty = postBody.replace(/[\u200B-\u200D\uFEFF]/g, '').trim().length === 0;
 
     if (isBodyEmpty) return;
 
-    let redirect = false;
+    const redirect = id !== this.draftId;
 
-    if (id === null) {
-      id = Date.now().toString(16);
-      redirect = true;
-    }
-
-    this.props.saveDraft({ postData: data, id }, redirect);
+    this.props.saveDraft({ postData: data, id: this.draftId }, redirect);
   }, 400);
 
   render() {

@@ -109,7 +109,6 @@ class Editor extends React.Component {
   onUpdate = (e) => {
     // NOTE: antd doesn't update field value on Select before firing onChange
     // so we have to get value from event.
-
     const values = this.getValues(e);
     const topics = values.topics || [];
     const title = values.title || '';
@@ -486,7 +485,7 @@ class Editor extends React.Component {
                 required: true,
                 message: intl.formatMessage({
                   id: 'topics_error_empty',
-                  defaultMessage: 'Please enter topics.',
+                  defaultMessage: 'Please enter topics',
                 }),
                 type: 'array',
               },

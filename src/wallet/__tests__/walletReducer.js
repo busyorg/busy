@@ -5,9 +5,12 @@ const reducerInitialState = {
   totalVestingShares: '',
   totalVestingFundSteem: '',
   usersTransactions: {},
+  usersAccountHistory: {},
   usersEstAccountsValues: {},
   usersTransactionsLoading: true,
   loadingEstAccountValue: true,
+  loadingGlobalProperties: true,
+  moreUsersAccountHistoryLoading: true,
 };
 
 describe('walletReducer', () => {

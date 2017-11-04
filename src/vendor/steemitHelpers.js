@@ -172,3 +172,26 @@ export const calculateVoteValue = (vests, recentClaims, rewardBalance, vp = 1000
   const rshares = (power * vestingShares) / 10000;
   return rshares / recentClaims * rewardBalance;
 };
+
+export const calculateTotalDelegatedSP = (user, totalVestingShares, totalVestingFundSteem) => {
+  const receivedSP = parseFloat(
+    steem.formatter.vestToSteem(
+      user.received_vesting_shares,
+      totalVestingShares,
+      totalVestingFundSteem,
+    ),
+  );
+  const delegatedSP = parseFloat(
+    steem.formatter.vestToSteem(
+      user.delegated_vesting_shares,
+      totalVestingShares,
+      totalVestingFundSteem,
+    ),
+  );
+  return receivedSP - delegatedSP;
+};
+
+export const calculateVotingPower = (user) => {
+  const secondsago = (new Date().getTime() - new Date(user.last_vote_time + "Z").getTime()) / 1000;
+  return Math.min(10000, (user.voting_power + (10000 * secondsago / 432000))) / 10000;
+};

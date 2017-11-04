@@ -2,6 +2,7 @@
   "hero": "Ensuring compensation for the creators of value",
   "search": "Search",
   "search_placeholder": "Search...",
+  "save": "Save",
   "saved": "Saved",
   "cancel": "Cancel",
   "confirm": "Confirm",
@@ -55,6 +56,7 @@
   "like": "Like",
   "like_slider_info": "Your vote will be worth {amount}.",
   "dislike": "Dislike",
+  "unlike": "Unlike",
   "and_more_amount": "and {amount} more",
   "post_reply_title": "This is a reply to: {title}",
   "post_reply_show_original_post": "Show original post",
@@ -145,7 +147,7 @@
   "topics_placeholder": "Add story topics here",
   "topics_extra":
     "Separate topics with commas. Only lowercase letters, numbers and hyphen character is permitted.",
-  "topics_error_empty": "Please enter topics.",
+  "topics_error_empty": "Please enter topics",
   "topics_error_count": "You have to add 1 to 5 topics.",
   "topics_error_invalid_topic": "Topic {topic} is invalid.",
   "story_placeholder": "Write your story...",
@@ -199,6 +201,8 @@
   "steem": "Steem",
   "steem_dollar": "Steem Dollar",
   "steem_power": "Steem Power",
+  "steem_power_delegated_to_account_tooltip":
+    "Steem Power delegated to this account",
   "savings": "Savings",
   "est_account_value": "Est. Account Value",
   "transferred_to": "Transferred to {username}",
@@ -209,5 +213,8 @@
   "received_from": "Received from {username}",
   "claim_rewards": "Claim rewards ",
   "powered_up": "Powered up ",
-  "market": "Market"
+  "market": "Market",
+  "page_forbidden": "Page Requires Authentication",
+  "page_forbidden_message":
+    "Oops! Looks like you need to login to use this page."
 }

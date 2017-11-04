@@ -25,16 +25,14 @@
     "build:client": "webpack -p --config ./webpack/webpack.prod.config.js",
     "build": "cross-env NODE_ENV=production npm run build:client && npm run build:server",
     "heroku-prebuild": "npm i -g pm2 && pm2 install pm2-logrotate",
-    "heroku-postbuild": "npm run build",
-    "storybook": "cross-env STORYBOOK_IMG_HOST=https://img.busy.org start-storybook -p 6006",
-    "build-storybook": "cross-env STORYBOOK_IMG_HOST=https://img.busy.org build-storybook"
+    "heroku-postbuild": "npm run build"
   },
   "pre-commit": [
     "test",
     "lint"
   ],
   "dependencies": {
-    "antd": "^2.12.6",
+    "antd": "^2.13.8",
     "autoprefixer": "^7.1.1",
     "babel-core": "^6.25.0",
     "babel-eslint": "^8.0.1",
@@ -123,15 +121,12 @@
     "url-loader": "^0.6.2",
     "url-parse": "^1.1.9",
     "url-search-params-polyfill": "^2.0.0",
+    "uuid": "^3.1.0",
     "webpack": "^3.8.1",
     "webpack-visualizer-plugin": "^0.1.11",
     "xmldom": "^0.1.27"
   },
   "devDependencies": {
-    "@storybook/addon-actions": "^3.1.5",
-    "@storybook/addon-links": "^3.1.5",
-    "@storybook/addon-storyshots": "^3.1.5",
-    "@storybook/react": "^3.1.5",
     "babel-register": "^6.24.1",
     "chai": "^3.5.0",
     "enzyme": "^2.9.1",
@@ -150,11 +145,7 @@
     "webpack-hot-middleware": "^2.20.0"
   },
   "jest": {
-    "setupFiles": [
-      "<rootDir>/.storybook/storyshots-setup.js"
-    ],
     "moduleNameMapper": {
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/fileMock.js",
       "\\.((s)css|less)$": "identity-obj-proxy"
     }
   },

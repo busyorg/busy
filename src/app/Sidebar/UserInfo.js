@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { injectIntl, FormattedMessage } from 'react-intl';
+import { injectIntl, FormattedMessage, FormattedNumber } from 'react-intl';
 import _ from 'lodash';
 import urlParse from 'url-parse';
 
@@ -12,6 +12,7 @@ import {
 } from '../../reducers';
 import { openTransfer } from '../../wallet/walletActions';
 import Action from '../../components/Button/Action';
+import { calculateVotingPower } from '../../vendor/steemitHelpers';
 
 const UserInfo = ({ intl, authenticated, authenticatedUser, user, ...props }) => {
   const location = user && _.get(user.json_metadata, 'profile.location');
@@ -55,6 +56,14 @@ const UserInfo = ({ intl, authenticated, authenticatedUser, user, ...props }) =>
                   day: 'numeric',
                 }),
               }}
+            />
+          </div>
+          <div>
+            <i className="iconfont icon-flashlight text-icon" />
+            <FormattedMessage id="voting_power" defaultMessage="Voting Power" />: <FormattedNumber
+              style="percent" // eslint-disable-line react/style-prop-object
+              value={calculateVotingPower(user)}
+              maximumFractionDigits={0}
             />
           </div>
         </div>
