@@ -12,6 +12,14 @@
   }
 }
 
+.Comments > .Comment {
+    overflow: hidden;
+}
+
+.Comments > .Comment > .Comment__text {
+    width: calc(~'100% - @{comment-text-offset-default}');
+}
+
 .Comment {
   position: relative;
   display: flex;
@@ -51,9 +59,14 @@
   &__text {
     position: relative;
     top: -4px;
-    width: 100%;
-    margin-left: 12px;
-    overflow: hidden;
+    width: calc(~'100% - @{comment-text-offset-small}');
+    margin-left: @comment-text-left-margin;
+    overflow: unset;
+
+    @media @small {
+      width: 100%;
+      overflow: hidden;
+    }
 
     & > a {
       font-weight: bold;

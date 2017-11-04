@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { HotKeys } from 'react-hotkeys';
-import { throttle } from 'lodash';
+import { throttle, isEqual } from 'lodash';
 import isArray from 'lodash/isArray';
 import { Icon, Checkbox, Form, Input, Select } from 'antd';
 import Dropzone from 'react-dropzone';
@@ -93,7 +93,7 @@ class Editor extends React.Component {
     const { title, topics, body, reward, upvote } = this.props;
     if (
       title !== nextProps.title ||
-      topics !== nextProps.topics ||
+      !isEqual(topics, nextProps.topics) ||
       body !== nextProps.body ||
       reward !== nextProps.reward ||
       upvote !== nextProps.upvote
@@ -105,7 +105,15 @@ class Editor extends React.Component {
   onUpdate = (e) => {
     // NOTE: antd doesn't update field value on Select before firing onChange
     // so we have to get value from event.
-    this.props.onUpdate(this.getValues(e));
+    const values = this.getValues(e);
+    const topics = values.topics || [];
+    const title = values.title || '';
+
+    this.props.onUpdate({
+      ...values,
+      topics: topics.slice(0, 5),
+      title: title.slice(0, 255),
+    });
   };
 
   setInput = (input) => {
