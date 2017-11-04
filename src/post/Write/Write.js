@@ -187,11 +187,20 @@ class Write extends React.Component {
 
     if (this.state.isUpdating) data.isUpdating = this.state.isUpdating;
 
-    const metaData = {
+    let metaData = {
       community: 'busy',
       app: `busy/${version}`,
       format: 'markdown',
     };
+
+    // Merging jsonMetadata makes sure that users don't lose any metadata when they edit post using
+    // Busy (like video data from DTube)
+    if (this.props.draftPosts[this.draftId] && this.props.draftPosts[this.draftId].jsonMetadata) {
+      metaData = {
+        ...metaData,
+        ...this.props.draftPosts[this.draftId].jsonMetadata,
+      };
+    }
 
     if (tags.length) {
       metaData.tags = tags;
