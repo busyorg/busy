@@ -2,7 +2,7 @@ import steem from 'steem';
 import _ from 'lodash';
 import { createAction } from 'redux-actions';
 import { createAsyncActionType } from '../helpers/stateHelpers';
-import { getAccountHistory, getDynamicGlobalProperties } from '../helpers/apiHelpers';
+import { getAccountHistory, getDynamicGlobalProperties, isWalletTransaction } from '../helpers/apiHelpers';
 
 export const OPEN_TRANSFER = '@wallet/OPEN_TRANSFER';
 export const CLOSE_TRANSFER = '@wallet/CLOSE_TRANSFER';
@@ -17,14 +17,6 @@ export const GET_USER_EST_ACCOUNT_VALUE = createAsyncActionType(
 export const openTransfer = createAction(OPEN_TRANSFER);
 export const closeTransfer = createAction(CLOSE_TRANSFER);
 
-const isWalletTransaction = actionType =>
-  actionType === 'transfer' ||
-  actionType === 'transfer_to_vesting' ||
-  actionType === 'cancel_transfer_from_savings' ||
-  actionType === 'transfer_from_savings' ||
-  actionType === 'transfer_to_savings' ||
-  actionType === 'delegate_vesting_shares' ||
-  actionType === 'claim_reward_balance';
 
 const getParsedUserActions = (userActions) => {
   const userWalletTransactions = [];

@@ -1,15 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import { FormattedNumber } from 'react-intl';
 import ReduxInfiniteScroll from 'redux-infinite-scroll';
 import { defaultAccountLimit } from '../helpers/apiHelpers';
 import Loading from '../components/Icon/Loading';
-import ReceiveTransaction from './ReceiveTransaction';
-import TransferTransaction from './TransferTransaction';
-import SavingsTransaction from './SavingsTransaction';
-import PowerUpTransaction from './PowerUpTransaction';
-import ClaimReward from './ClaimReward';
+import WalletTransaction from './WalletTransaction';
 import './UserWalletTransactions.less';
 
 class UserWalletTransactions extends React.Component {
@@ -35,22 +30,6 @@ class UserWalletTransactions extends React.Component {
       loadingMoreTransactions: false,
     };
   }
-
-  getFormattedTransactionAmount = (amount, currency) => {
-    const transaction = amount.split(' ');
-    const transactionAmount = parseFloat(transaction[0]);
-    const transactionCurrency = currency || transaction[1];
-    return (
-      <span>
-        <FormattedNumber
-          value={transactionAmount}
-          minimumFractionDigits={3}
-          maximumFractionDigits={3}
-        />
-        {` ${transactionCurrency}`}
-      </span>
-    );
-  };
 
   handleLoadMore = () => {
     const { currentUsername } = this.props;
@@ -97,69 +76,15 @@ class UserWalletTransactions extends React.Component {
           loader={<div style={{ margin: '20px' }}><Loading /></div>}
           loadingMore={loadingMoreTransactions}
         >
-          {transactions.map((transaction, index) => {
-            const key = `${transaction.trx_id}${index}`;
-            const transactionType = transaction.op[0];
-            const transactionDetails = transaction.op[1];
-
-            switch (transactionType) {
-              case 'transfer_to_vesting':
-                return (
-                  <PowerUpTransaction
-                    key={key}
-                    amount={this.getFormattedTransactionAmount(transactionDetails.amount, 'SP')}
-                    timestamp={transaction.timestamp}
-                  />
-                );
-              case 'transfer':
-                if (transactionDetails.to === currentUsername) {
-                  return (
-                    <ReceiveTransaction
-                      key={key}
-                      from={transactionDetails.from}
-                      memo={transactionDetails.memo}
-                      amount={this.getFormattedTransactionAmount(transactionDetails.amount)}
-                      timestamp={transaction.timestamp}
-                    />
-                  );
-                }
-                return (
-                  <TransferTransaction
-                    key={key}
-                    to={transactionDetails.to}
-                    memo={transactionDetails.memo}
-                    amount={this.getFormattedTransactionAmount(transactionDetails.amount)}
-                    timestamp={transaction.timestamp}
-                  />
-                );
-              case 'claim_reward_balance':
-                return (
-                  <ClaimReward
-                    key={key}
-                    timestamp={transaction.timestamp}
-                    rewardSteem={transactionDetails.reward_steem}
-                    rewardSbd={transactionDetails.reward_sbd}
-                    rewardVests={transactionDetails.reward_vests}
-                    totalVestingShares={totalVestingShares}
-                    totalVestingFundSteem={totalVestingFundSteem}
-                  />
-                );
-              case 'transfer_to_savings':
-              case 'transfer_from_savings':
-              case 'cancel_transfer_from_savings':
-                return (
-                  <SavingsTransaction
-                    key={key}
-                    transactionDetails={transactionDetails}
-                    transactionType={transactionType}
-                    amount={this.getFormattedTransactionAmount(transactionDetails.amount)}
-                    timestamp={transaction.timestamp}
-                  />
-                );
-              default:
-                return null;
-            }
-          })}
+          {transactions.map(transaction => (
+            <WalletTransaction
+              key={`${transaction.trx_id}${transaction.actionCount}`}
+              transaction={transaction}
+              currentUsername={currentUsername}
+              totalVestingShares={totalVestingShares}
+              totalVestingFundSteem={totalVestingFundSteem}
+            />
+          ))}
         </ReduxInfiniteScroll>
       </div>
     );

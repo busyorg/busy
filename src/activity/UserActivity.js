@@ -1,11 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import UserWalletSummary from '../wallet/UserWalletSummary';
-import UserWalletTransactions from '../wallet/UserWalletTransactions';
-import Loading from '../components/Icon/Loading';
 import {
   getUser,
   getAuthenticatedUser,
@@ -13,6 +10,7 @@ import {
   getTotalVestingShares,
   getTotalVestingFundSteem,
   getUsersTransactions,
+  getUsersAccountHistory,
   getUsersTransactionsLoading,
   getUsersEstAccountsValues,
   getLoadingEstAccountValue,
@@ -24,7 +22,9 @@ import {
   getUserAccountHistory,
   getMoreUserAccountHistory,
 } from '../wallet/walletActions';
-import { getAccountWithFollowingCount } from './usersActions';
+import { getAccountWithFollowingCount } from '../user/usersActions';
+import Loading from '../components/Icon/Loading';
+import UserActivityActions from './UserActivityActions';
 
 @withRouter
 @connect(
@@ -36,6 +36,7 @@ import { getAccountWithFollowingCount } from './usersActions';
     totalVestingShares: getTotalVestingShares(state),
     totalVestingFundSteem: getTotalVestingFundSteem(state),
     usersTransactions: getUsersTransactions(state),
+    usersAccountHistory: getUsersAccountHistory(state),
     usersTransactionsLoading: getUsersTransactionsLoading(state),
     usersEstAccountsValues: getUsersEstAccountsValues(state),
     loadingEstAccountValue: getLoadingEstAccountValue(state),
@@ -49,7 +50,7 @@ import { getAccountWithFollowingCount } from './usersActions';
     getUserEstAccountValue,
   },
 )
-class Wallet extends Component {
+class UserActivity extends React.Component {
   static propTypes = {
     location: PropTypes.shape().isRequired,
     totalVestingShares: PropTypes.string.isRequired,
@@ -60,14 +61,11 @@ class Wallet extends Component {
     getMoreUserAccountHistory: PropTypes.func.isRequired,
     getUserEstAccountValue: PropTypes.func.isRequired,
     getAccountWithFollowingCount: PropTypes.func.isRequired,
-    usersTransactions: PropTypes.shape().isRequired,
+    usersAccountHistory: PropTypes.shape().isRequired,
     usersEstAccountsValues: PropTypes.shape().isRequired,
     usersTransactionsLoading: PropTypes.bool.isRequired,
-    loadingEstAccountValue: PropTypes.bool.isRequired,
-    loadingGlobalProperties: PropTypes.bool.isRequired,
     isCurrentUser: PropTypes.bool,
     authenticatedUserName: PropTypes.string,
-
   };
 
   static defaultProps = {
@@ -80,7 +78,7 @@ class Wallet extends Component {
       totalVestingShares,
       totalVestingFundSteem,
       usersEstAccountsValues,
-      usersTransactions,
+      usersAccountHistory,
       user,
       isCurrentUser,
       authenticatedUserName,
@@ -93,7 +91,7 @@ class Wallet extends Component {
       this.props.getGlobalProperties();
     }
 
-    if (_.isEmpty(usersTransactions[username])) {
+    if (_.isEmpty(usersAccountHistory[username])) {
       this.props.getUserAccountHistory(username);
     }
 
@@ -106,53 +104,30 @@ class Wallet extends Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { user, isCurrentUser } = this.props;
-    const username = isCurrentUser
-      ? user.name
-      : this.props.location.pathname.match(/@(.*)(.*?)\//)[1];
-    if (_.isEmpty(nextProps.usersEstAccountsValues[username]) && !_.isEmpty(user.name)) {
-      this.props.getUserEstAccountValue(user);
-    }
-  }
-
   render() {
     const {
       user,
+      usersAccountHistory,
       totalVestingShares,
       totalVestingFundSteem,
-      loadingEstAccountValue,
-      loadingGlobalProperties,
-      usersTransactions,
       usersTransactionsLoading,
-      usersEstAccountsValues,
     } = this.props;
-    const transactions = usersTransactions[user.name] || [];
-    const estAccountValue = usersEstAccountsValues[user.name];
+    const actions = usersAccountHistory[user.name] || [];
 
     return (
       <div>
-        <UserWalletSummary
-          user={user}
-          estAccountValue={estAccountValue}
-          loading={user.isFetching}
-          loadingEstAccountValue={loadingEstAccountValue}
-          totalVestingShares={totalVestingShares}
-          totalVestingFundSteem={totalVestingFundSteem}
-          loadingGlobalProperties={loadingGlobalProperties}
-        />
-        {transactions.length === 0 && usersTransactionsLoading
+        {actions.length === 0 && usersTransactionsLoading
           ? <Loading style={{ marginTop: '20px' }} />
-          : <UserWalletTransactions
-            transactions={usersTransactions[user.name]}
+          : <UserActivityActions
+            actions={actions}
             currentUsername={user.name}
+            getMoreUserAccountHistory={this.props.getMoreUserAccountHistory}
             totalVestingShares={totalVestingShares}
             totalVestingFundSteem={totalVestingFundSteem}
-            getMoreUserAccountHistory={this.props.getMoreUserAccountHistory}
           />}
       </div>
     );
   }
 }
 
-export default Wallet;
+export default UserActivity;

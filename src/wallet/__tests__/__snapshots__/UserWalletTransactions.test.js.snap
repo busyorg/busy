@@ -37,33 +37,39 @@ ShallowWrapper {
       showLoader={true}
       threshold={200}
     >
-      <PowerUpTransaction
-        amount={
-          <span>
-            <FormattedNumber
-              maximumFractionDigits={3}
-              minimumFractionDigits={3}
-              value={100}
-            />
-             SP
-          </span>
+      <WalletTransaction
+        currentUsername="hellosteem"
+        totalVestingFundSteem="0"
+        totalVestingShares="0"
+        transaction={
+          Object {
+            "op": Array [
+              "transfer_to_vesting",
+              Object {
+                "amount": "100 STEEM",
+              },
+            ],
+            "timestamp": "0",
+          }
         }
-        timestamp="0"
       />
-      <TransferTransaction
-        amount={
-          <span>
-            <FormattedNumber
-              maximumFractionDigits={3}
-              minimumFractionDigits={3}
-              value={100}
-            />
-             STEEM
-          </span>
+      <WalletTransaction
+        currentUsername="hellosteem"
+        totalVestingFundSteem="0"
+        totalVestingShares="0"
+        transaction={
+          Object {
+            "op": Array [
+              "transfer",
+              Object {
+                "amount": "100 STEEM",
+                "from": "hellosteem1",
+                "memo": "transfer memo",
+              },
+            ],
+            "timestamp": "0",
+          }
         }
-        memo="transfer memo"
-        timestamp="0"
-        to=""
       />
     </ReduxInfiniteScroll>
   </div>,
@@ -97,33 +103,39 @@ ShallowWrapper {
         showLoader={true}
         threshold={200}
       >
-        <PowerUpTransaction
-          amount={
-            <span>
-              <FormattedNumber
-                maximumFractionDigits={3}
-                minimumFractionDigits={3}
-                value={100}
-              />
-               SP
-            </span>
+        <WalletTransaction
+          currentUsername="hellosteem"
+          totalVestingFundSteem="0"
+          totalVestingShares="0"
+          transaction={
+            Object {
+              "op": Array [
+                "transfer_to_vesting",
+                Object {
+                  "amount": "100 STEEM",
+                },
+              ],
+              "timestamp": "0",
+            }
           }
-          timestamp="0"
         />
-        <TransferTransaction
-          amount={
-            <span>
-              <FormattedNumber
-                maximumFractionDigits={3}
-                minimumFractionDigits={3}
-                value={100}
-              />
-               STEEM
-            </span>
+        <WalletTransaction
+          currentUsername="hellosteem"
+          totalVestingFundSteem="0"
+          totalVestingShares="0"
+          transaction={
+            Object {
+              "op": Array [
+                "transfer",
+                Object {
+                  "amount": "100 STEEM",
+                  "from": "hellosteem1",
+                  "memo": "transfer memo",
+                },
+              ],
+              "timestamp": "0",
+            }
           }
-          memo="transfer memo"
-          timestamp="0"
-          to=""
         />
       </ReduxInfiniteScroll>
     </div>,
@@ -169,7 +181,6 @@ ShallowWrapper {
       "_instance": UserWalletTransactions {
         "_reactInternalInstance": [Circular],
         "context": Object {},
-        "getFormattedTransactionAmount": [Function],
         "handleLoadMore": [Function],
         "props": Object {
           "currentUsername": "hellosteem",
@@ -251,33 +262,39 @@ ShallowWrapper {
             showLoader={true}
             threshold={200}
           >
-            <PowerUpTransaction
-              amount={
-                <span>
-                  <FormattedNumber
-                    maximumFractionDigits={3}
-                    minimumFractionDigits={3}
-                    value={100}
-                  />
-                   SP
-                </span>
+            <WalletTransaction
+              currentUsername="hellosteem"
+              totalVestingFundSteem="0"
+              totalVestingShares="0"
+              transaction={
+                Object {
+                  "op": Array [
+                    "transfer_to_vesting",
+                    Object {
+                      "amount": "100 STEEM",
+                    },
+                  ],
+                  "timestamp": "0",
+                }
               }
-              timestamp="0"
             />
-            <TransferTransaction
-              amount={
-                <span>
-                  <FormattedNumber
-                    maximumFractionDigits={3}
-                    minimumFractionDigits={3}
-                    value={100}
-                  />
-                   STEEM
-                </span>
+            <WalletTransaction
+              currentUsername="hellosteem"
+              totalVestingFundSteem="0"
+              totalVestingShares="0"
+              transaction={
+                Object {
+                  "op": Array [
+                    "transfer",
+                    Object {
+                      "amount": "100 STEEM",
+                      "from": "hellosteem1",
+                      "memo": "transfer memo",
+                    },
+                  ],
+                  "timestamp": "0",
+                }
               }
-              memo="transfer memo"
-              timestamp="0"
-              to=""
             />
           </ReduxInfiniteScroll>
         </div>,
@@ -311,33 +328,39 @@ ShallowWrapper {
             showLoader={true}
             threshold={200}
           >
-            <PowerUpTransaction
-              amount={
-                <span>
-                  <FormattedNumber
-                    maximumFractionDigits={3}
-                    minimumFractionDigits={3}
-                    value={100}
-                  />
-                   SP
-                </span>
+            <WalletTransaction
+              currentUsername="hellosteem"
+              totalVestingFundSteem="0"
+              totalVestingShares="0"
+              transaction={
+                Object {
+                  "op": Array [
+                    "transfer_to_vesting",
+                    Object {
+                      "amount": "100 STEEM",
+                    },
+                  ],
+                  "timestamp": "0",
+                }
               }
-              timestamp="0"
             />
-            <TransferTransaction
-              amount={
-                <span>
-                  <FormattedNumber
-                    maximumFractionDigits={3}
-                    minimumFractionDigits={3}
-                    value={100}
-                  />
-                   STEEM
-                </span>
+            <WalletTransaction
+              currentUsername="hellosteem"
+              totalVestingFundSteem="0"
+              totalVestingShares="0"
+              transaction={
+                Object {
+                  "op": Array [
+                    "transfer",
+                    Object {
+                      "amount": "100 STEEM",
+                      "from": "hellosteem1",
+                      "memo": "transfer memo",
+                    },
+                  ],
+                  "timestamp": "0",
+                }
               }
-              memo="transfer memo"
-              timestamp="0"
-              to=""
             />
           </ReduxInfiniteScroll>
         </div>,
