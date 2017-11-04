@@ -63,7 +63,12 @@ class UserActivityActions extends React.Component {
   };
 
   render() {
-    const { actions, currentUsername, totalVestingShares, totalVestingFundSteem } = this.props;
+    const {
+      actions,
+      currentUsername,
+      totalVestingShares,
+      totalVestingFundSteem,
+    } = this.props;
     const { loadingMoreActions } = this.state;
     return (
       <div className="UserActivityActions">
@@ -85,7 +90,12 @@ class UserActivityActions extends React.Component {
                   totalVestingShares={totalVestingShares}
                   totalVestingFundSteem={totalVestingFundSteem}
                 />
-                : <UserAction key={`${action.trx_id}${action.actionCount}`} action={action} />),
+                : <UserAction
+                  key={`${action.trx_id}${action.actionCount}`}
+                  action={action}
+                  totalVestingShares={totalVestingShares}
+                  totalVestingFundSteem={totalVestingFundSteem}
+                />),
           )}
         </ReduxInfiniteScroll>
       </div>

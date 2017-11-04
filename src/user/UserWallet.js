@@ -13,7 +13,7 @@ import {
   getTotalVestingShares,
   getTotalVestingFundSteem,
   getUsersTransactions,
-  getUsersTransactionsLoading,
+  getUsersAccountHistoryLoading,
   getUsersEstAccountsValues,
   getLoadingEstAccountValue,
   getLoadingGlobalProperties,
@@ -36,7 +36,7 @@ import { getAccountWithFollowingCount } from './usersActions';
     totalVestingShares: getTotalVestingShares(state),
     totalVestingFundSteem: getTotalVestingFundSteem(state),
     usersTransactions: getUsersTransactions(state),
-    usersTransactionsLoading: getUsersTransactionsLoading(state),
+    usersAccountHistoryLoading: getUsersAccountHistoryLoading(state),
     usersEstAccountsValues: getUsersEstAccountsValues(state),
     loadingEstAccountValue: getLoadingEstAccountValue(state),
     loadingGlobalProperties: getLoadingGlobalProperties(state),
@@ -62,7 +62,7 @@ class Wallet extends Component {
     getAccountWithFollowingCount: PropTypes.func.isRequired,
     usersTransactions: PropTypes.shape().isRequired,
     usersEstAccountsValues: PropTypes.shape().isRequired,
-    usersTransactionsLoading: PropTypes.bool.isRequired,
+    usersAccountHistoryLoading: PropTypes.bool.isRequired,
     loadingEstAccountValue: PropTypes.bool.isRequired,
     loadingGlobalProperties: PropTypes.bool.isRequired,
     isCurrentUser: PropTypes.bool,
@@ -124,7 +124,7 @@ class Wallet extends Component {
       loadingEstAccountValue,
       loadingGlobalProperties,
       usersTransactions,
-      usersTransactionsLoading,
+      usersAccountHistoryLoading,
       usersEstAccountsValues,
     } = this.props;
     const transactions = usersTransactions[user.name] || [];
@@ -141,7 +141,7 @@ class Wallet extends Component {
           totalVestingFundSteem={totalVestingFundSteem}
           loadingGlobalProperties={loadingGlobalProperties}
         />
-        {transactions.length === 0 && usersTransactionsLoading
+        {transactions.length === 0 && usersAccountHistoryLoading
           ? <Loading style={{ marginTop: '20px' }} />
           : <UserWalletTransactions
             transactions={usersTransactions[user.name]}

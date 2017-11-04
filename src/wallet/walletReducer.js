@@ -9,7 +9,7 @@ const initialState = {
   usersTransactions: {},
   usersAccountHistory: {},
   usersEstAccountsValues: {},
-  usersTransactionsLoading: true,
+  usersAccountHistoryLoading: true,
   loadingEstAccountValue: true,
   loadingGlobalProperties: true,
   moreUsersAccountHistoryLoading: true,
@@ -64,6 +64,11 @@ export default function walletReducer(state = initialState, action) {
           ...state.usersAccountHistory,
           [action.payload.username]: action.payload.userAccountHistory,
         },
+        usersAccountHistoryLoading: false,
+      };
+    case walletActions.GET_USER_ACCOUNT_HISTORY.ERROR:
+      return {
+        ...state,
         usersAccountHistoryLoading: false,
       };
     case walletActions.GET_MORE_USER_ACCOUNT_HISTORY.START:
@@ -129,7 +134,7 @@ export const getTotalVestingShares = state => state.totalVestingShares;
 export const getTotalVestingFundSteem = state => state.totalVestingFundSteem;
 export const getUsersTransactions = state => state.usersTransactions;
 export const getUsersEstAccountsValues = state => state.usersEstAccountsValues;
-export const getUsersTransactionsLoading = state => state.usersTransactionsLoading;
+export const getUsersAccountHistoryLoading = state => state.usersAccountHistoryLoading;
 export const getLoadingEstAccountValue = state => state.loadingEstAccountValue;
 export const getLoadingGlobalProperties = state => state.loadingGlobalProperties;
 export const getUsersAccountHistory = state => state.usersAccountHistory;

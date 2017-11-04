@@ -23,7 +23,7 @@ class UserWalletTransactions extends React.Component {
 
   constructor(props) {
     super(props);
-    const firstTransaction = _.head(props.transactions);
+    const firstTransaction = _.head(props.transactions) || {};
     this.state = {
       userHasMoreTransactions: firstTransaction.actionCount > defaultAccountLimit,
       lastActionCount: firstTransaction ? firstTransaction.actionCount : 0,
@@ -65,6 +65,10 @@ class UserWalletTransactions extends React.Component {
   render() {
     const { transactions, currentUsername, totalVestingShares, totalVestingFundSteem } = this.props;
     const { loadingMoreTransactions } = this.state;
+
+    if (transactions.length === 0) {
+      return null;
+    }
 
     return (
       <div className="UserWalletTransactions">

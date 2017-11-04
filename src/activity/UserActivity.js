@@ -11,7 +11,7 @@ import {
   getTotalVestingFundSteem,
   getUsersTransactions,
   getUsersAccountHistory,
-  getUsersTransactionsLoading,
+  getUsersAccountHistoryLoading,
   getUsersEstAccountsValues,
   getLoadingEstAccountValue,
   getLoadingGlobalProperties,
@@ -37,7 +37,7 @@ import UserActivityActions from './UserActivityActions';
     totalVestingFundSteem: getTotalVestingFundSteem(state),
     usersTransactions: getUsersTransactions(state),
     usersAccountHistory: getUsersAccountHistory(state),
-    usersTransactionsLoading: getUsersTransactionsLoading(state),
+    usersAccountHistoryLoading: getUsersAccountHistoryLoading(state),
     usersEstAccountsValues: getUsersEstAccountsValues(state),
     loadingEstAccountValue: getLoadingEstAccountValue(state),
     loadingGlobalProperties: getLoadingGlobalProperties(state),
@@ -63,7 +63,8 @@ class UserActivity extends React.Component {
     getAccountWithFollowingCount: PropTypes.func.isRequired,
     usersAccountHistory: PropTypes.shape().isRequired,
     usersEstAccountsValues: PropTypes.shape().isRequired,
-    usersTransactionsLoading: PropTypes.bool.isRequired,
+    usersAccountHistoryLoading: PropTypes.bool.isRequired,
+    loadingGlobalProperties: PropTypes.bool.isRequired,
     isCurrentUser: PropTypes.bool,
     authenticatedUserName: PropTypes.string,
   };
@@ -110,13 +111,14 @@ class UserActivity extends React.Component {
       usersAccountHistory,
       totalVestingShares,
       totalVestingFundSteem,
-      usersTransactionsLoading,
+      usersAccountHistoryLoading,
+      loadingGlobalProperties,
     } = this.props;
     const actions = usersAccountHistory[user.name] || [];
 
     return (
       <div>
-        {actions.length === 0 && usersTransactionsLoading
+        {actions.length === 0 || usersAccountHistoryLoading || loadingGlobalProperties
           ? <Loading style={{ marginTop: '20px' }} />
           : <UserActivityActions
             actions={actions}

@@ -6,6 +6,8 @@ export const COMMENT = 'comment';
 export const CUSTOM_JSON = 'custom_json';
 export const FOLLOW = 'follow';
 export const REBLOG = 'reblog';
+export const CURATION_REWARD = 'curation_reward';
+export const AUTHOR_REWARD = 'author_reward';
 
 // Wallet Action Types
 export const TRANSFER = 'transfer';
