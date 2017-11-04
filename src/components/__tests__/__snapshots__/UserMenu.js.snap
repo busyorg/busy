@@ -117,6 +117,18 @@ ShallowWrapper {
               values={Object {}}
             />
           </li>
+          <li
+            className="UserMenu__item"
+            data-key="activity"
+            onClick={[Function]}
+            role="presentation"
+          >
+            <FormattedMessage
+              defaultMessage="Activity"
+              id="activity"
+              values={Object {}}
+            />
+          </li>
         </ul>
       </Scrollbars>
     </div>
@@ -228,6 +240,18 @@ ShallowWrapper {
               <FormattedMessage
                 defaultMessage="Wallet"
                 id="wallet"
+                values={Object {}}
+              />
+            </li>
+            <li
+              className="UserMenu__item"
+              data-key="activity"
+              onClick={[Function]}
+              role="presentation"
+            >
+              <FormattedMessage
+                defaultMessage="Activity"
+                id="activity"
                 values={Object {}}
               />
             </li>
@@ -393,6 +417,18 @@ ShallowWrapper {
                     values={Object {}}
                   />
                 </li>
+                <li
+                  className="UserMenu__item"
+                  data-key="activity"
+                  onClick={[Function]}
+                  role="presentation"
+                >
+                  <FormattedMessage
+                    defaultMessage="Activity"
+                    id="activity"
+                    values={Object {}}
+                  />
+                </li>
               </ul>
             </Scrollbars>
           </div>
@@ -504,6 +540,18 @@ ShallowWrapper {
                   <FormattedMessage
                     defaultMessage="Wallet"
                     id="wallet"
+                    values={Object {}}
+                  />
+                </li>
+                <li
+                  className="UserMenu__item"
+                  data-key="activity"
+                  onClick={[Function]}
+                  role="presentation"
+                >
+                  <FormattedMessage
+                    defaultMessage="Activity"
+                    id="activity"
                     values={Object {}}
                   />
                 </li>

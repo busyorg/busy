@@ -69,7 +69,7 @@ class UserActivityActions extends React.Component {
       <div className="UserActivityActions">
         <ReduxInfiniteScroll
           loadMore={this.handleLoadMore}
-          hasMore={this.state.userHasMoreTransactions}
+          hasMore={this.state.userHasMoreActions}
           elementIsScrollable={false}
           threshold={200}
           loader={<div style={{ margin: '20px' }}><Loading /></div>}
