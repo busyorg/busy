@@ -64,7 +64,7 @@ if (!process.env.IS_BROWSER) {
 
 const indexPath = process.env.NODE_ENV === 'production'
   ? `${rootDir}/public/index.html`
-  : `${rootDir}/templates/development_index.html`;
+  : `${rootDir}/templates/index.html`;
 
 const indexHtml = fs.readFileSync(indexPath, 'utf-8');
 
