@@ -10,7 +10,7 @@ module.exports = {
   entry: path.resolve(baseDir, './src/index.js'),
   output: {
     filename: 'bundle.js',
-    path: path.resolve(baseDir, 'dist'),
+    publicPath: '/js/',
   },
   plugins: [
     new webpack.DefinePlugin({
@@ -73,7 +73,7 @@ module.exports = {
   },
   devServer: {
     port: 3000,
-    contentBase: [path.resolve(baseDir, 'dist'), path.resolve(baseDir, 'assets')],
+    contentBase: [path.resolve(baseDir, 'templates'), path.resolve(baseDir, 'assets')],
     historyApiFallback: {
       disableDotRule: true,
     },
