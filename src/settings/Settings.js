@@ -252,9 +252,13 @@ export default class Settings extends React.Component {
                     {languageOptions}
                   </Select>
                 </div>
-                <Action primary loading={loading} text="Save" onClick={this.handleSave} />
-              </div>
-            )}
+                <Action
+                  primary
+                  loading={loading}
+                  text={this.props.intl.formatMessage({ id: 'save', defaultMessage: 'Save' })}
+                  onClick={this.handleSave}
+                />
+              </div>)}
           </div>
         </div>
       </div>
