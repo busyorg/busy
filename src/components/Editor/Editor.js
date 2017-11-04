@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { HotKeys } from 'react-hotkeys';
-import { throttle } from 'lodash';
+import { throttle, isEqual } from 'lodash';
 import isArray from 'lodash/isArray';
 import { Icon, Checkbox, Form, Input, Select } from 'antd';
 import Dropzone from 'react-dropzone';
@@ -91,10 +91,9 @@ class Editor extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     const { title, topics, body, reward, upvote } = this.props;
-
     if (
       title !== nextProps.title ||
-      JSON.stringify(topics) !== JSON.stringify(nextProps.topics) ||
+      !isEqual(topics, nextProps.topics) ||
       body !== nextProps.body ||
       reward !== nextProps.reward ||
       upvote !== nextProps.upvote
