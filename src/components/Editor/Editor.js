@@ -94,13 +94,14 @@ class Editor extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { title, topics, body, reward, upvote } = this.props;
+    const { title, topics, body, reward, upvote, draftId } = this.props;
     if (
       title !== nextProps.title ||
       !isEqual(topics, nextProps.topics) ||
       body !== nextProps.body ||
       reward !== nextProps.reward ||
-      upvote !== nextProps.upvote
+      upvote !== nextProps.upvote ||
+      (draftId && nextProps.draftId === null)
     ) {
       this.setValues(nextProps);
     }
