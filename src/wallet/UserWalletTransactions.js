@@ -37,6 +37,10 @@ class UserWalletTransactions extends React.Component {
   }
 
   getFormattedTransactionAmount = (amount, currency) => {
+    if (_.isEmpty(amount)) {
+      return null;
+    }
+
     const transaction = amount.split(' ');
     const transactionAmount = parseFloat(transaction[0]);
     const transactionCurrency = currency || transaction[1];
