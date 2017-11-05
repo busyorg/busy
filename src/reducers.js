@@ -96,6 +96,7 @@ export const getVotePercent = state => fromSettings.getVotePercent(state.setting
 export const getTotalVestingShares = state => fromWallet.getTotalVestingShares(state.wallet);
 export const getTotalVestingFundSteem = state => fromWallet.getTotalVestingFundSteem(state.wallet);
 export const getUsersTransactions = state => fromWallet.getUsersTransactions(state.wallet);
+export const getUsersAccountHistory = state => fromWallet.getUsersAccountHistory(state.wallet);
 export const getUsersTransactionsLoading = state =>
   fromWallet.getUsersTransactionsLoading(state.wallet);
 export const getUsersEstAccountsValues = state =>
