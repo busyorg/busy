@@ -1,15 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { FormattedMessage } from 'react-intl';
+import { injectIntl, FormattedMessage } from 'react-intl';
+import { MAXIMUM_UPLOAD_SIZE_HUMAN } from '../../helpers/image';
 import { sortComments } from '../../helpers/sortHelpers';
 import Loading from '../Icon/Loading';
 import CommentForm from './CommentForm';
 import Comment from './Comment';
 import './Comments.less';
 
+@injectIntl
 class Comments extends React.Component {
   static propTypes = {
+    intl: PropTypes.shape().isRequired,
     authenticated: PropTypes.bool.isRequired,
     username: PropTypes.string,
     parentPost: PropTypes.shape(),
@@ -21,6 +24,7 @@ class Comments extends React.Component {
     })),
     loading: PropTypes.bool,
     show: PropTypes.bool,
+    notify: PropTypes.func,
     onLikeClick: PropTypes.func,
     onDislikeClick: PropTypes.func,
     onSendComment: PropTypes.func,
@@ -34,6 +38,7 @@ class Comments extends React.Component {
     pendingVotes: [],
     loading: false,
     show: false,
+    notify: () => {},
     onLikeClick: () => {},
     onDislikeClick: () => {},
     onSendComment: () => {},
@@ -71,6 +76,21 @@ class Comments extends React.Component {
       .then(res => res.json())
       .then(res => callback(res.secure_url, blob.name))
       .catch(() => errorCallback());
+  };
+
+  handleImageInvalid = () => {
+    const { formatMessage } = this.props.intl;
+    this.props.notify(
+      formatMessage(
+        {
+          id: 'notify_uploading_image_invalid',
+          defaultMessage:
+            'This file is invalid. Only image files with maximum size of {size} are supported',
+        },
+        { size: MAXIMUM_UPLOAD_SIZE_HUMAN },
+      ),
+      'error',
+    );
   };
 
   submitComment = (parentPost, commentValue) => {
@@ -133,6 +153,7 @@ class Comments extends React.Component {
             isLoading={this.state.showCommentFormLoading}
             inputValue={this.state.commentFormText}
             onImageInserted={this.handleImageInserted}
+            onImageInvalid={this.handleImageInvalid}
           />}
         {loading && <Loading />}
         {!loading &&
@@ -150,6 +171,7 @@ class Comments extends React.Component {
               rootPostAuthor={this.props.parentPost && this.props.parentPost.author}
               commentsChildren={commentsChildren}
               pendingVotes={pendingVotes}
+              notify={this.props.notify}
               onLikeClick={onLikeClick}
               onDislikeClick={onDislikeClick}
               onSendComment={this.props.onSendComment}

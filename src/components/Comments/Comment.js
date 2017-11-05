@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { injectIntl, FormattedRelative, FormattedDate, FormattedTime, FormattedNumber, FormattedMessage } from 'react-intl';
 import { Icon, Tag, Tooltip } from 'antd';
 import { formatter } from 'steem';
+import { MAXIMUM_UPLOAD_SIZE_HUMAN } from '../../helpers/image';
 import { getUpvotes, getDownvotes } from '../../helpers/voteHelpers';
 import { sortComments, sortVotes } from '../../helpers/sortHelpers';
 import { calculatePayout } from '../../vendor/steemitHelpers';
@@ -34,6 +35,7 @@ class Comment extends React.Component {
       percent: PropTypes.number,
     })),
     depth: PropTypes.number,
+    notify: PropTypes.func,
     onLikeClick: PropTypes.func,
     onDislikeClick: PropTypes.func,
     onSendComment: PropTypes.func,
@@ -46,6 +48,7 @@ class Comment extends React.Component {
     commentsChildren: undefined,
     pendingVotes: [],
     depth: 0,
+    notify: () => {},
     onLikeClick: () => {},
     onDislikeClick: () => {},
     onSendComment: () => {},
@@ -125,6 +128,21 @@ class Comment extends React.Component {
       .then(res => callback(res.secure_url, blob.name))
       .catch(() => errorCallback());
   };
+
+    handleImageInvalid = () => {
+      const { formatMessage } = this.props.intl;
+      this.props.notify(
+        formatMessage(
+          {
+            id: 'notify_uploading_image_invalid',
+            defaultMessage:
+              'This file is invalid. Only image files with maximum size of {size} are supported',
+          },
+          { size: MAXIMUM_UPLOAD_SIZE_HUMAN },
+        ),
+        'error',
+      );
+    };
 
   handleSubmitComment = (parentPost, commentValue, isUpdating, originalComment) => {
     this.setState({ showCommentFormLoading: true });
@@ -404,6 +422,7 @@ class Comment extends React.Component {
               isLoading={this.state.showCommentFormLoading}
               inputValue={this.state.commentFormText}
               onImageInserted={this.handleImageInserted}
+              onImageInvalid={this.handleImageInvalid}
             />}
           <div
             className={classNames('Comment__replies', {
