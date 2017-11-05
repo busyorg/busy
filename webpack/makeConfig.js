@@ -104,7 +104,7 @@ function makePlugins(options) {
       new HtmlWebpackPlugin({
         title: 'Busy',
         filename: '../index.html',
-        template: path.join(options.baseDir, '/templates/index.html'),
+        template: path.join(options.baseDir, '/templates/production_index.html'),
       }),
     ]);
   }
@@ -181,7 +181,7 @@ function makeConfig(options = {}) {
     },
     output: {
       path: path.join(options.baseDir, '/public/js'),
-      filename: options.isDevelopment ? 'busyapp-[name].js' : 'busyapp-[name].[chunkhash].js',
+      filename: options.isDevelopment ? 'bundle.js' : 'busyapp-[name].[chunkhash].js',
       publicPath: '/js/',
     },
     plugins: makePlugins(options),
