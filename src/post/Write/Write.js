@@ -9,6 +9,7 @@ import isArray from 'lodash/isArray';
 import 'url-search-params-polyfill';
 import { injectIntl } from 'react-intl';
 import uuidv4 from 'uuid/v4';
+import { MAXIMUM_UPLOAD_SIZE_HUMAN } from '../../helpers/image';
 import GetBoost from '../../components/Sidebar/GetBoost';
 
 import {
@@ -252,6 +253,21 @@ class Write extends React.Component {
       });
   };
 
+  handleImageInvalid = () => {
+    const { formatMessage } = this.props.intl;
+    this.props.notify(
+      formatMessage(
+        {
+          id: 'notify_uploading_image_invalid',
+          defaultMessage:
+            'This file is invalid. Only image files with maximum size of {size} are supported',
+        },
+        { size: MAXIMUM_UPLOAD_SIZE_HUMAN },
+      ),
+      'error',
+    );
+  };
+
   saveDraft = debounce((form) => {
     const data = this.getNewPostData(form);
     const postBody = data.body;
@@ -294,6 +310,7 @@ class Write extends React.Component {
               onUpdate={this.saveDraft}
               onSubmit={this.onSubmit}
               onImageInserted={this.handleImageInserted}
+              onImageInvalid={this.handleImageInvalid}
             />
           </div>
         </div>

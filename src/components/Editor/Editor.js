@@ -8,6 +8,7 @@ import { throttle, isEqual } from 'lodash';
 import isArray from 'lodash/isArray';
 import { Icon, Checkbox, Form, Input, Select } from 'antd';
 import Dropzone from 'react-dropzone';
+import { isValidImage, MAXIMUM_UPLOAD_SIZE } from '../../helpers/image';
 import EditorToolbar from './EditorToolbar';
 import Action from '../Button/Action';
 import Body, { remarkable } from '../Story/Body';
@@ -30,6 +31,7 @@ class Editor extends React.Component {
     onSubmit: PropTypes.func,
     onError: PropTypes.func,
     onImageInserted: PropTypes.func,
+    onImageInvalid: PropTypes.func,
   };
 
   static defaultProps = {
@@ -47,6 +49,7 @@ class Editor extends React.Component {
     onSubmit: () => {},
     onError: () => {},
     onImageInserted: () => {},
+    onImageInvalid: () => {},
   };
 
   static hotkeys = {
@@ -169,7 +172,7 @@ class Editor extends React.Component {
     if (this.input && this.input.setSelectionRange) {
       this.input.setSelectionRange(pos, pos);
     }
-  }
+  };
 
   resizeTextarea = () => {
     if (this.originalInput) this.originalInput.resizeTextarea();
@@ -235,11 +238,17 @@ class Editor extends React.Component {
         if (item.kind === 'file') {
           e.preventDefault();
 
+          const blob = item.getAsFile();
+
+          if (!isValidImage(blob)) {
+            this.props.onImageInvalid();
+            return;
+          }
+
           this.setState({
             imageUploading: true,
           });
 
-          const blob = item.getAsFile();
           this.props.onImageInserted(blob, this.disableAndInsertImage, () =>
             this.setState({
               imageUploading: false,
@@ -252,6 +261,11 @@ class Editor extends React.Component {
 
   handleImageChange = (e) => {
     if (e.target.files && e.target.files[0]) {
+      if (!isValidImage(e.target.files[0])) {
+        this.props.onImageInvalid();
+        return;
+      }
+
       this.setState({
         imageUploading: true,
       });
@@ -514,6 +528,8 @@ class Editor extends React.Component {
               disableClick
               style={{}}
               accept="image/*"
+              maxSize={MAXIMUM_UPLOAD_SIZE}
+              onDropRejected={this.props.onImageInvalid}
               onDrop={this.handleDrop}
               onDragEnter={this.handleDragEnter}
               onDragLeave={this.handleDragLeave}
