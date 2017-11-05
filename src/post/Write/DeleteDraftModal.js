@@ -40,7 +40,7 @@ class DeleteDraftModal extends React.Component {
       this.props.notify(
         intl.formatMessage({
           id: 'draft_delete_success',
-          defaultMessage: 'Draft have been deleted',
+          defaultMessage: 'Draft has been deleted',
         }),
         'success',
       );
