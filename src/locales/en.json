@@ -155,6 +155,7 @@
   "editor": "Editor",
   "preview": "Preview",
   "reward": "Reward",
+  "rewards": "Rewards",
   "reward_option_100": "100% Steem Power",
   "reward_option_50": "50% SBD and 50% SP",
   "reward_option_0": "Declined",
@@ -211,7 +212,8 @@
   "cancel_transfer_from_savings":
     "Cancel transfer from savings (request {requestId})",
   "received_from": "Received from {username}",
-  "claim_rewards": "Claim rewards ",
+  "claim_rewards": "Claim Rewards ",
+  "reward_claimed": "Reward Claimed",
   "powered_up": "Powered up ",
   "market": "Market",
   "page_forbidden": "Page Requires Authentication",
