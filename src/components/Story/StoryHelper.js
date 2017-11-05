@@ -32,6 +32,7 @@ const isPostWithEmbedBeforeFirstHalf = tagPositions => postWithAnEmbed(tagPositi
 
 export {
   getPositions,
+  postWithPicture,
   postWithAnEmbed,
   isPostStartsWithAPicture,
   isPostStartsWithAnEmbed,

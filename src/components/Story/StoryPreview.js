@@ -8,6 +8,7 @@ import { jsonParse } from '../../helpers/formatter';
 import { image } from '../../vendor/steemitLinks';
 import {
   getPositions,
+  postWithPicture,
   postWithAnEmbed,
   isPostStartsWithAPicture,
   isPostStartsWithAnEmbed,
@@ -63,6 +64,9 @@ const StoryPreview = ({ post }) => {
 
   if (hasVideo) {
     bodyData.push(preview.embed());
+    bodyData.push(preview.text());
+  } else if (htmlBody.length <= 1500 && postWithPicture(tagPositions, 100)) {
+    bodyData.push(preview.image());
     bodyData.push(preview.text());
   } else if (htmlBody.length <= 1500 && postWithAnEmbed(tagPositions, 100)) {
     bodyData.push(preview.embed());
