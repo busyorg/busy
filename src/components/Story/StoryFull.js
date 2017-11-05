@@ -84,13 +84,13 @@ class StoryFull extends React.Component {
         this.props.onFollowClick(this.props.post);
         break;
       case 'save':
-        this.props.onSaveClick();
+        this.props.onSaveClick(this.props.post);
         break;
       case 'report':
         this.props.onReportClick(this.props.post);
         break;
       case 'edit':
-        this.props.onEditClick();
+        this.props.onEditClick(this.props.post);
         break;
       default:
     }
