@@ -42,11 +42,7 @@ class DraftRow extends React.Component {
           <FormattedMessage id="draft_delete" defaultMessage="Delete this draft" />
         </Button>
         {this.state.showModalDelete && (
-          <DeleteDraftModal
-            draftId={this.props.id}
-            onDelete={this.hideModal}
-            onCancel={this.hideModal}
-          />
+          <DeleteDraftModal draftId={this.props.id} onCancel={this.hideModal} />
         )}
       </div>
     );
