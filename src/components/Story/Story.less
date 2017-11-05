@@ -58,7 +58,11 @@
     display: flex;
 
     &__text {
-      margin: 0 12px;
+      margin: 0 6px;
+
+      @media @small {
+        margin-left: 0 12px;
+      }
 
       a > h4 {
         font-weight: bold;
@@ -68,6 +72,11 @@
           margin-left: 6px;
           font-size: 12px;
           vertical-align: 1px;
+          padding: 0 4px;
+
+          @media @small {
+            padding: 0 8px;
+          }
         }
       }
     }

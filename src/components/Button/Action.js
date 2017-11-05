@@ -5,10 +5,19 @@ import classNames from 'classnames';
 import './Action.less';
 
 const Action = ({ text, loading, disabled, primary, style, small, onClick }) => (
-  <button disabled={disabled} style={style} className={classNames('Action', { 'ant-btn-lg': !small, 'Action--primary': primary })} onClick={onClick}>
+  <button
+    disabled={disabled}
+    style={style}
+    className={classNames('Action', {
+      'ant-btn-lg': !small,
+      'Action--primary': primary,
+    })}
+    onClick={onClick}
+  >
     {loading && <Icon type="loading" />}
     {text}
-  </button>);
+  </button>
+);
 
 Action.propTypes = {
   text: PropTypes.string.isRequired,
