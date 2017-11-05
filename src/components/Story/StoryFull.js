@@ -12,7 +12,9 @@ import { Link } from 'react-router-dom';
 import { Tag, Icon, Popover, Tooltip } from 'antd';
 import Lightbox from 'react-image-lightbox';
 import { formatter } from 'steem';
+import { isPostDeleted } from '../../helpers/postHelpers';
 import Body from './Body';
+import StoryDeleted from './StoryDeleted';
 import StoryFooter from '../StoryFooter/StoryFooter';
 import Avatar from '../Avatar';
 import Topic from '../Button/Topic';
@@ -232,6 +234,33 @@ class StoryFull extends React.Component {
       </PopoverMenuItem>,
     ];
 
+    let content = null;
+    if (isPostDeleted(post)) {
+      content = <StoryDeleted />;
+    } else {
+      content = (
+        <div
+          role="presentation"
+          ref={(div) => {
+            this.contentDiv = div;
+          }}
+          onClick={this.handleContentClick}
+        >
+          {_.has(video, 'content.videohash') &&
+            _.has(video, 'info.snaphash') && (
+              <video
+                controls
+                src={`https://ipfs.io/ipfs/${video.content.videohash}`}
+                poster={`https://ipfs.io/ipfs/${video.info.snaphash}`}
+              >
+                <track kind="captions" />
+              </video>
+            )}
+          <Body full body={post.body} json_metadata={post.json_metadata} />
+        </div>
+      );
+    }
+
     return (
       <div className="StoryFull">
         {replyUI}
@@ -286,25 +315,7 @@ class StoryFull extends React.Component {
             <i className="iconfont icon-more StoryFull__header__more" />
           </Popover>
         </div>
-        <div
-          role="presentation"
-          ref={(div) => {
-            this.contentDiv = div;
-          }}
-          onClick={this.handleContentClick}
-        >
-          {_.has(video, 'content.videohash') &&
-            _.has(video, 'info.snaphash') && (
-              <video
-                controls
-                src={`https://ipfs.io/ipfs/${video.content.videohash}`}
-                poster={`https://ipfs.io/ipfs/${video.info.snaphash}`}
-              >
-                <track kind="captions" />
-              </video>
-            )}
-          <Body full body={post.body} json_metadata={post.json_metadata} />
-        </div>
+        {content}
         {open && (
           <Lightbox
             mainSrc={images[index]}

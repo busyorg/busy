@@ -60,6 +60,7 @@
   "post_reply_title": "This is a reply to: {title}",
   "post_reply_show_original_post": "Show original post",
   "post_reply_show_parent_discussion": "Show parent discussion",
+  "post_deleted": "This post has been deleted",
   "comment": "Comment",
   "comment_placeholder": "Write a comment",
   "comment_collapsed": "Comment collapsed",
