@@ -6,7 +6,7 @@ import { injectIntl, FormattedMessage } from 'react-intl';
 import { HotKeys } from 'react-hotkeys';
 import { throttle, isEqual } from 'lodash';
 import isArray from 'lodash/isArray';
-import { Icon, Checkbox, Form, Input, Select } from 'antd';
+import { Icon, Checkbox, Form, Input, Select, Button } from 'antd';
 import Dropzone from 'react-dropzone';
 import EditorToolbar from './EditorToolbar';
 import Action from '../Button/Action';
@@ -25,8 +25,10 @@ class Editor extends React.Component {
     upvote: PropTypes.bool,
     loading: PropTypes.bool,
     isUpdating: PropTypes.bool,
+    draftId: PropTypes.string,
     saving: PropTypes.bool,
     onUpdate: PropTypes.func,
+    onDelete: PropTypes.func,
     onSubmit: PropTypes.func,
     onError: PropTypes.func,
     onImageInserted: PropTypes.func,
@@ -43,6 +45,8 @@ class Editor extends React.Component {
     loading: false,
     isUpdating: false,
     saving: false,
+    draftId: null,
+    onDelete: () => {},
     onUpdate: () => {},
     onSubmit: () => {},
     onError: () => {},
@@ -90,13 +94,14 @@ class Editor extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { title, topics, body, reward, upvote } = this.props;
+    const { title, topics, body, reward, upvote, draftId } = this.props;
     if (
       title !== nextProps.title ||
       !isEqual(topics, nextProps.topics) ||
       body !== nextProps.body ||
       reward !== nextProps.reward ||
-      upvote !== nextProps.upvote
+      upvote !== nextProps.upvote ||
+      (draftId && nextProps.draftId === null)
     ) {
       this.setValues(nextProps);
     }
@@ -304,6 +309,12 @@ class Editor extends React.Component {
 
   handleDragLeave = () => this.setState({ dropzoneActive: false });
 
+  handleDelete = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+    this.props.onDelete();
+  }
+
   insertAtCursor = (before, after, deltaStart = 0, deltaEnd = 0) => {
     if (!this.input) return;
 
@@ -415,7 +426,7 @@ class Editor extends React.Component {
 
   render() {
     const { getFieldDecorator } = this.props.form;
-    const { intl, loading, isUpdating, saving } = this.props;
+    const { intl, loading, isUpdating, saving, draftId } = this.props;
 
     return (
       <Form className="Editor" layout="vertical" onSubmit={this.handleSubmit}>
@@ -613,6 +624,16 @@ class Editor extends React.Component {
                 <FormattedMessage id="saving" defaultMessage="Saving..." />
               </span>
             )}
+            <Form.Item className="Editor__bottom__cancel">
+              {draftId &&
+              <Button
+                type="danger"
+                disabled={loading}
+                onClick={this.handleDelete}
+              >
+                <FormattedMessage id="draft_delete" defaultMessage="Delete this draft" />
+              </Button>}
+            </Form.Item>
             <Form.Item className="Editor__bottom__submit">
               {isUpdating ? (
                 <Action
