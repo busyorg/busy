@@ -129,20 +129,20 @@ class Comment extends React.Component {
       .catch(() => errorCallback());
   };
 
-    handleImageInvalid = () => {
-      const { formatMessage } = this.props.intl;
-      this.props.notify(
-        formatMessage(
-          {
-            id: 'notify_uploading_image_invalid',
-            defaultMessage:
-              'This file is invalid. Only image files with maximum size of {size} are supported',
-          },
-          { size: MAXIMUM_UPLOAD_SIZE_HUMAN },
-        ),
-        'error',
-      );
-    };
+  handleImageInvalid = () => {
+    const { formatMessage } = this.props.intl;
+    this.props.notify(
+      formatMessage(
+        {
+          id: 'notify_uploading_image_invalid',
+          defaultMessage:
+            'This file is invalid. Only image files with maximum size of {size} are supported',
+        },
+        { size: MAXIMUM_UPLOAD_SIZE_HUMAN },
+      ),
+      'error',
+    );
+  };
 
   handleSubmitComment = (parentPost, commentValue, isUpdating, originalComment) => {
     this.setState({ showCommentFormLoading: true });
@@ -247,6 +247,7 @@ class Comment extends React.Component {
         onSubmit={this.handleEditComment}
         onClose={this.handleEditClick}
         onImageInserted={this.handleImageInserted}
+        onImageInvalid={this.handleImageInvalid}
       />);
     } else {
       content = this.state.collapsed
@@ -444,6 +445,7 @@ class Comment extends React.Component {
                   pendingVotes={pendingVotes}
                   rootPostAuthor={rootPostAuthor}
                   commentsChildren={commentsChildren}
+                  notify={this.props.notify}
                   onLikeClick={this.props.onLikeClick}
                   onDislikeClick={this.props.onDislikeClick}
                   onSendComment={this.props.onSendComment}
