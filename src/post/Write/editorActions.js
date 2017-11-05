@@ -42,7 +42,7 @@ export const saveDraft = (post, redirect) => (dispatch) => {
   });
 };
 
-export const deleteDraft = draftId => (dispatch) => {
+export const deleteDraft = draftId => dispatch =>
   dispatch({
     type: DELETE_DRAFT,
     payload: {
@@ -50,7 +50,6 @@ export const deleteDraft = draftId => (dispatch) => {
     },
     meta: { id: draftId },
   });
-};
 
 export const editPost = post => (dispatch) => {
   const jsonMetadata = jsonParse(post.json_metadata);
