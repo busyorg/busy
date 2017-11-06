@@ -27,8 +27,14 @@ class UserWalletTransactions extends React.Component {
 
   handleLoadMore = () => {
     const { currentUsername, actions } = this.props;
-    const lastActionCount = _.last(actions).actionCount;
-    const limit = lastActionCount < defaultAccountLimit ? lastActionCount : defaultAccountLimit;
+    const lastAction = _.last(actions);
+    const lastActionCount = lastAction ? lastAction.actionCount : -1;
+    let limit = lastActionCount < defaultAccountLimit ? lastActionCount : defaultAccountLimit;
+
+    if (lastActionCount === -1) {
+      limit = defaultAccountLimit;
+    }
+
     this.props.getMoreUserAccountHistory(currentUsername, lastActionCount, limit);
   };
 

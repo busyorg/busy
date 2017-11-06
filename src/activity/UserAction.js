@@ -4,12 +4,9 @@ import { FormattedDate, FormattedTime, FormattedRelative } from 'react-intl';
 import { Tooltip } from 'antd';
 import UserActionIcon from './UserActionIcon';
 import UserActionMessage from './UserActionMessage';
+import UserActionContents from './UserActionContents';
 
-const UserAction = ({
-  action,
-  totalVestingShares,
-  totalVestingFundSteem,
-}) => {
+const UserAction = ({ action, totalVestingShares, totalVestingFundSteem }) => {
   const actionType = action.op[0];
   const actionDetails = action.op[1];
   return (
@@ -36,6 +33,7 @@ const UserAction = ({
             </span>
           </Tooltip>
         </span>
+        <UserActionContents actionType={actionType} actionDetails={actionDetails} />
       </div>
     </div>
   );

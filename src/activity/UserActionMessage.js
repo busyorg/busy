@@ -2,16 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import steem from 'steem';
 import _ from 'lodash';
-import { FormattedMessage, FormattedNumber } from 'react-intl';
+import { injectIntl, FormattedMessage, FormattedNumber } from 'react-intl';
 import { Link } from 'react-router-dom';
 import * as accountHistory from '../constants/accountHistory';
 
+@injectIntl
 class UserActionMessage extends React.Component {
   static propTypes = {
     actionType: PropTypes.string.isRequired,
     actionDetails: PropTypes.shape().isRequired,
     totalVestingShares: PropTypes.string.isRequired,
     totalVestingFundSteem: PropTypes.string.isRequired,
+    intl: PropTypes.shape().isRequired,
   };
 
   renderVoteMessage() {
@@ -79,38 +81,15 @@ class UserActionMessage extends React.Component {
     return null;
   }
 
-  renderAccountUpdated() {
-    const { actionDetails } = this.props;
-    const accountUpdatedMessages = [];
-
-    if (_.has(actionDetails, 'posting.account_auths')) {
-      accountUpdatedMessages.push(
-        <span key="authorized_apps">
-          <FormattedMessage
-            id="authorized_apps"
-            defaultMessage="Authorized Apps: {apps}"
-            values={{
-              apps: _.reduce(
-                actionDetails.posting.account_auths,
-                (apps, authApp) => apps.concat(authApp[0]),
-                [],
-              ).join(', '),
-            }}
-          /><br />
-        </span>,
-      );
-    }
-
-    return (
-      <div>
-        <FormattedMessage id="account_updated" defaultMessage="Account updated" /><br />
-        {accountUpdatedMessages}
-      </div>
-    );
-  }
-
   renderFormattedMessage() {
-    const { actionType, actionDetails, totalVestingShares, totalVestingFundSteem } = this.props;
+    const {
+      actionType,
+      actionDetails,
+      totalVestingShares,
+      totalVestingFundSteem,
+      intl,
+    } = this.props;
+
     switch (actionType) {
       case accountHistory.ACCOUNT_CREATE_WITH_DELEGATION:
         return (
@@ -152,9 +131,7 @@ class UserActionMessage extends React.Component {
             values={{
               username: <Link to={`/@${actionDetails.author}`}>{actionDetails.author}</Link>,
               postLink: _.isEmpty(actionDetails.parent_author)
-                ? <Link
-                  to={`/p/@${actionDetails.author}/${actionDetails.permlink}`}
-                >
+                ? <Link to={`/p/@${actionDetails.author}/${actionDetails.permlink}`}>
                   {`${actionDetails.author}/${actionDetails.permlink}`}
                 </Link>
                 : <Link
@@ -168,7 +145,43 @@ class UserActionMessage extends React.Component {
       case accountHistory.CUSTOM_JSON:
         return this.renderCustomJSONMessage();
       case accountHistory.ACCOUNT_UPDATE:
-        return this.renderAccountUpdated();
+        return <FormattedMessage id="account_updated" defaultMessage="Account Updated" />;
+      case accountHistory.AUTHOR_REWARD: {
+        const rewards = [
+          { payout: actionDetails.sbd_payout, currency: 'SBD' },
+          { payout: actionDetails.steem_payout, currency: 'STEEM' },
+          { payout: actionDetails.vesting_payout, currency: 'SP' },
+        ];
+
+        const parsedRewards = _.reduce(rewards, (array, reward) => {
+          const parsedPayout = parseFloat(reward.payout);
+
+          if (parsedPayout > 0) {
+            const rewardsStr = intl.formatNumber(parsedPayout, {
+              minimumFractionDigits: 3,
+              maximumFractionDigits: 3,
+            });
+            array.push(`${rewardsStr} ${reward.currency}`);
+          }
+
+          return array;
+        }, []);
+
+        return (
+          <FormattedMessage
+            id="author_reward_for_post"
+            defaultMessage="Author Reward: {rewards} for {postLink}"
+            values={{
+              rewards: parsedRewards.join(', '),
+              postLink: (
+                <Link to={`/p/@${actionDetails.author}/${actionDetails.permlink}`}>
+                  {`${actionDetails.author}/${actionDetails.permlink}`}
+                </Link>
+              ),
+            }}
+          />
+        );
+      }
       case accountHistory.CURATION_REWARD:
         return (
           <FormattedMessage

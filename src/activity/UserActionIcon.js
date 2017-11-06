@@ -32,6 +32,7 @@ class UserActionIcon extends React.Component {
 
         return null;
       }
+      case accountHistory.AUTHOR_REWARD:
       case accountHistory.CURATION_REWARD:
         return 'icon-ranking';
       default:

@@ -27,7 +27,6 @@ class UserActivityActions extends React.Component {
     const { currentUsername, actions } = this.props;
     const lastActionCount = _.last(actions).actionCount;
     const limit = lastActionCount < defaultAccountLimit ? lastActionCount : defaultAccountLimit;
-    console.log('HANDLE LOAD MORE');
     this.props.getMoreUserAccountHistory(currentUsername, lastActionCount, limit);
   };
 
@@ -41,9 +40,6 @@ class UserActivityActions extends React.Component {
       loadingMoreUsersAccountHistory,
     } = this.props;
 
-    console.log('USER_HAS_MORE_ACTIONS', userHasMoreActions);
-    console.log('LOADING_MORE_USERS_ACCOUNT_HISTORY', loadingMoreUsersAccountHistory);
-    console.log('ACTION COUNT', actions.length);
     return (
       <div className="UserActivityActions">
         <ReduxInfiniteScroll
