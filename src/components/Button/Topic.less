@@ -1,4 +1,5 @@
 @import (reference) "../../styles/custom.less";
+@import (reference) "../../styles/modules/variables.less";
 @import (reference) "../../styles/mixins.less";
 
 .Topic {
@@ -12,10 +13,14 @@
   font-size: 14px;
   border-radius: @btn-height-sm;
   border-width: 2px;
-  padding: 0 10px;
+  padding: 0 8px;
   line-height: 21px;
 
   text-decoration: none !important;
+
+  @media @small {
+    padding: 0 10px;
+  }
 
   & > &__close {
     font-size: 14px !important;

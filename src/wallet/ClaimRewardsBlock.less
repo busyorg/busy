@@ -1,0 +1,37 @@
+@import (reference) "../styles/custom.less";
+
+.ClaimRewardsBlock {
+  background: @white;
+  border-radius: @border-radius-base;
+  border: 1px solid @white-gainsboro;
+  margin-top: 10px;
+  padding: 10px 16px 16px;
+
+  &__title {
+    border-bottom: 1px solid @white-gainsboro;
+    padding-bottom: 8px;
+  }
+
+  &__icon {
+    color: @purple;
+    vertical-align: -2px;
+  }
+
+  &__reward {
+    border-bottom: 1px solid @white-gainsboro;
+    color: @grey-nightRider;
+    display: flex;
+    font-size: 16px;
+    font-weight: 700;
+    padding: 10px 0;
+
+    &__value {
+      margin-left: auto;
+    }
+
+    &:last-of-type {
+      margin-bottom: 10px;
+      border-bottom: 0;
+    }
+  }
+}
