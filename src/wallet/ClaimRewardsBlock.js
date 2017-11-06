@@ -5,7 +5,7 @@ import steemConnect from 'sc2-sdk';
 import _ from 'lodash';
 import { injectIntl, FormattedMessage, FormattedNumber } from 'react-intl';
 import { getAuthenticatedUser } from '../reducers';
-import { getUserTransactions } from './walletActions';
+import { getUserAccountHistory } from './walletActions';
 import Action from '../components/Button/Action';
 import './ClaimRewardsBlock.less';
 
@@ -15,14 +15,14 @@ import './ClaimRewardsBlock.less';
     user: getAuthenticatedUser(state),
   }),
   {
-    getUserTransactions,
+    getUserAccountHistory,
   },
 )
 class ClaimRewardsBlock extends Component {
   static propTypes = {
     user: PropTypes.shape(),
     intl: PropTypes.shape().isRequired,
-    getUserTransactions: PropTypes.func.isRequired,
+    getUserAccountHistory: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -51,7 +51,7 @@ class ClaimRewardsBlock extends Component {
             loading: false,
             rewardClaimed: true,
           });
-          this.props.getUserTransactions(name);
+          this.props.getUserAccountHistory(name);
         } else {
           this.setState({
             loading: false,
