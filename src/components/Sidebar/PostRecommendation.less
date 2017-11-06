@@ -1,0 +1,39 @@
+@import (reference) "../../styles/custom.less";
+
+.PostRecommendation {
+  background: @white;
+  border: 1px solid @white-gainsboro;
+  border-radius: @border-radius-base;
+  padding: 8px 16px 16px 16px;
+
+  &__icon {
+    color: @purple;
+    vertical-align: -2px;
+  }
+
+  &__title {
+    border-bottom: 1px solid @white-gainsboro;
+    padding-bottom: 8px;
+  }
+
+  &__link {
+    border-bottom: 1px solid @white-gainsboro;
+    font-size: 15px;
+    padding: 10px 0;
+    overflow-wrap: break-word;
+
+    &:last-of-type {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+  }
+
+  &__link-title {
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  &__comment-link {
+    color: @grey-mortar;
+  }
+}

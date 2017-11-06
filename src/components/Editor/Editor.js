@@ -4,9 +4,9 @@ import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { HotKeys } from 'react-hotkeys';
-import { throttle } from 'lodash';
+import { throttle, isEqual } from 'lodash';
 import isArray from 'lodash/isArray';
-import { Icon, Checkbox, Form, Input, Select } from 'antd';
+import { Icon, Checkbox, Form, Input, Select, Button } from 'antd';
 import Dropzone from 'react-dropzone';
 import EditorToolbar from './EditorToolbar';
 import Action from '../Button/Action';
@@ -25,8 +25,10 @@ class Editor extends React.Component {
     upvote: PropTypes.bool,
     loading: PropTypes.bool,
     isUpdating: PropTypes.bool,
+    draftId: PropTypes.string,
     saving: PropTypes.bool,
     onUpdate: PropTypes.func,
+    onDelete: PropTypes.func,
     onSubmit: PropTypes.func,
     onError: PropTypes.func,
     onImageInserted: PropTypes.func,
@@ -43,6 +45,8 @@ class Editor extends React.Component {
     loading: false,
     isUpdating: false,
     saving: false,
+    draftId: null,
+    onDelete: () => {},
     onUpdate: () => {},
     onSubmit: () => {},
     onError: () => {},
@@ -90,13 +94,14 @@ class Editor extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { title, topics, body, reward, upvote } = this.props;
+    const { title, topics, body, reward, upvote, draftId } = this.props;
     if (
       title !== nextProps.title ||
-      topics !== nextProps.topics ||
+      !isEqual(topics, nextProps.topics) ||
       body !== nextProps.body ||
       reward !== nextProps.reward ||
-      upvote !== nextProps.upvote
+      upvote !== nextProps.upvote ||
+      (draftId && nextProps.draftId === null)
     ) {
       this.setValues(nextProps);
     }
@@ -105,7 +110,15 @@ class Editor extends React.Component {
   onUpdate = (e) => {
     // NOTE: antd doesn't update field value on Select before firing onChange
     // so we have to get value from event.
-    this.props.onUpdate(this.getValues(e));
+    const values = this.getValues(e);
+    const topics = values.topics || [];
+    const title = values.title || '';
+
+    this.props.onUpdate({
+      ...values,
+      topics: topics.slice(0, 5),
+      title: title.slice(0, 255),
+    });
   };
 
   setInput = (input) => {
@@ -156,6 +169,12 @@ class Editor extends React.Component {
 
     return values;
   };
+
+  setInputCursorPosition = (pos) => {
+    if (this.input && this.input.setSelectionRange) {
+      this.input.setSelectionRange(pos, pos);
+    }
+  }
 
   resizeTextarea = () => {
     if (this.originalInput) this.originalInput.resizeTextarea();
@@ -290,6 +309,12 @@ class Editor extends React.Component {
 
   handleDragLeave = () => this.setState({ dropzoneActive: false });
 
+  handleDelete = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+    this.props.onDelete();
+  }
+
   insertAtCursor = (before, after, deltaStart = 0, deltaEnd = 0) => {
     if (!this.input) return;
 
@@ -318,13 +343,14 @@ class Editor extends React.Component {
 
     const startPos = this.input.selectionStart;
     const endPos = this.input.selectionEnd;
+    const imageText = `![${imageName}](${image})\n`;
     this.input.value = `${this.input.value.substring(
       0,
       startPos,
-    )}![${imageName}](${image})${this.input.value.substring(endPos, this.input.value.length)}\n`;
-
+    )}${imageText}${this.input.value.substring(endPos, this.input.value.length)}`;
     this.resizeTextarea();
     this.renderMarkdown(this.input.value);
+    this.setInputCursorPosition(startPos + imageText.length);
     this.onUpdate();
   };
 
@@ -400,7 +426,7 @@ class Editor extends React.Component {
 
   render() {
     const { getFieldDecorator } = this.props.form;
-    const { intl, loading, isUpdating, saving } = this.props;
+    const { intl, loading, isUpdating, saving, draftId } = this.props;
 
     return (
       <Form className="Editor" layout="vertical" onSubmit={this.handleSubmit}>
@@ -460,7 +486,7 @@ class Editor extends React.Component {
                 required: true,
                 message: intl.formatMessage({
                   id: 'topics_error_empty',
-                  defaultMessage: 'Please enter topics.',
+                  defaultMessage: 'Please enter topics',
                 }),
                 type: 'array',
               },
@@ -598,6 +624,16 @@ class Editor extends React.Component {
                 <FormattedMessage id="saving" defaultMessage="Saving..." />
               </span>
             )}
+            <Form.Item className="Editor__bottom__cancel">
+              {draftId &&
+              <Button
+                type="danger"
+                disabled={loading}
+                onClick={this.handleDelete}
+              >
+                <FormattedMessage id="draft_delete" defaultMessage="Delete this draft" />
+              </Button>}
+            </Form.Item>
             <Form.Item className="Editor__bottom__submit">
               {isUpdating ? (
                 <Action

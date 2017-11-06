@@ -4,14 +4,16 @@ import { FormattedMessage } from 'react-intl';
 import { NavLink } from 'react-router-dom';
 import './Sidenav.less';
 
-const isNews = (match, location) => location.pathname !== '/';
+const isNews = (match, location) => location.pathname.match(/trending/);
+const isWallet = (match, location) => location.pathname.match(/wallet/);
+const isReplies = (match, location) => location.pathname.match(/replies/);
 
-const Sidenav = ({ username }) =>
-  (<div>
+const Sidenav = ({ username }) => (
+  <div>
     {username &&
       <ul className="Sidenav">
         <li>
-          <NavLink to={`/@${username}`} activeClassName="Sidenav__item--active">
+          <NavLink to={`/@${username}`}>
             <i className="iconfont icon-mine" />
             <FormattedMessage id="my_profile" defaultMessage="My profile" />
           </NavLink>
@@ -29,13 +31,20 @@ const Sidenav = ({ username }) =>
           </NavLink>
         </li>
         <li>
-          <a target="_blank" rel="noopener noreferrer" href={`https://steemit.com/@${username}/transfers`}>
+          <NavLink to="/replies" activeClassName="Sidenav__item--active" isActive={isReplies}>
+            <i className="iconfont icon-message" />
+            <FormattedMessage id="replies" defaultMessage="Replies" />
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/wallet" activeClassName="Sidenav__item--active" isActive={isWallet}>
             <i className="iconfont icon-wallet" />
             <FormattedMessage id="wallet" defaultMessage="Wallet" />
-          </a>
+          </NavLink>
         </li>
       </ul>}
-  </div>);
+  </div>
+);
 
 Sidenav.propTypes = {
   username: PropTypes.string,

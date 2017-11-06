@@ -73,9 +73,11 @@ export const getFeedContent = ({ sortBy, category, limit }) => (
     });
 };
 
-export const getUserFeedContent = ({ username, limit }) => (dispatch, getState, { steemAPI }) => {
-  const sortBy = 'feed';
-
+export const getUserFeedContent = ({ username, limit, sortBy = 'feed' }) => (
+  dispatch,
+  getState,
+  { steemAPI },
+) => {
   dispatch(
     getUserFeedContentWithoutAPI({
       sortBy,

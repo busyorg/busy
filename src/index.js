@@ -1,3 +1,4 @@
+import 'babel-polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
@@ -33,9 +34,13 @@ if (process.env.SENTRY_PUBLIC_DSN) {
   Raven.config(process.env.SENTRY_PUBLIC_DSN).install();
 }
 
-if (process.env.STEEMCONNECT_HOST) {
+if (
+  process.env.STEEMCONNECT_CLIENT_ID &&
+  process.env.STEEMCONNECT_REDIRECT_URL &&
+  process.env.STEEMCONNECT_HOST
+) {
   steemconnect.init({
-    app: 'busy.app',
+    app: process.env.STEEMCONNECT_CLIENT_ID,
     callbackURL: process.env.STEEMCONNECT_REDIRECT_URL,
   });
   const accessToken = Cookie.get('access_token');
@@ -58,19 +63,13 @@ const render = (Component) => {
   ReactDOM.render(
     <Provider store={store}>
       <LocaleProvider locale={enUS}>
-        {process.env.NODE_ENV !== 'production' ?
+        {process.env.NODE_ENV !== 'production' ? (
           <AppContainer>
-            <Component
-              history={history}
-              onUpdate={logPageView}
-            />
+            <Component history={history} onUpdate={logPageView} />
           </AppContainer>
-          :
-          <Component
-            history={history}
-            onUpdate={logPageView}
-          />
-        }
+        ) : (
+          <Component history={history} onUpdate={logPageView} />
+        )}
       </LocaleProvider>
     </Provider>,
     document.getElementById('app'),
@@ -81,5 +80,7 @@ render(AppHost);
 
 // Hot Module Replacement API
 if (module.hot) {
-  module.hot.accept('./AppHost', () => { render(AppHost); });
+  module.hot.accept('./AppHost', () => {
+    render(AppHost);
+  });
 }

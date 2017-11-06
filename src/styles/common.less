@@ -24,8 +24,16 @@ body {
   overflow: hidden;
 }
 
-.ant-tooltip-content {
-  font-weight: 500;
+.ant-tooltip {
+  z-index: 999;
+
+  &-content {
+    font-weight: 500;
+
+    a {
+      color: @white;
+    }
+  }
 }
 
 .ant-popover-title {

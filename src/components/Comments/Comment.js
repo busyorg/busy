@@ -78,7 +78,7 @@ class Comment extends React.Component {
   focus = () => {
     if (this.self && window) {
       this.self.scrollIntoView(true);
-      document.body.scrollTop -= 54 * 2; // twice the height of Topnav 
+      document.body.scrollTop -= 54 * 2; // twice the height of Topnav
       this.self.classList.add('Comment--focus');
     }
   }
@@ -282,7 +282,13 @@ class Comment extends React.Component {
             {content}
           </div>
           <div className="Comment__footer">
-            <Tooltip title={intl.formatMessage({ id: 'like', defaultMessage: 'Like' })}>
+            <Tooltip
+              title={
+                userUpVoted
+                  ? intl.formatMessage({ id: 'unlike', defaultMessage: 'Unlike' })
+                  : intl.formatMessage({ id: 'like', defaultMessage: 'Like' })
+              }
+            >
               <a
                 role="presentation"
                 className={classNames('Comment__footer__link', {

@@ -10,18 +10,23 @@ module.exports = {
   entry: path.resolve(baseDir, './src/index.js'),
   output: {
     filename: 'bundle.js',
-    path: path.resolve(baseDir, 'dist'),
+    publicPath: '/js/',
   },
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify('development'),
         ENABLE_LOGGER: JSON.stringify(process.env.ENABLE_LOGGER),
-        STEEMCONNECT_IMG_HOST: JSON.stringify(process.env.STEEMCONNECT_IMG_HOST || 'https://img.busy.org'),
+        IMG_HOST: JSON.stringify(process.env.IMG_HOST || 'https://img.busy.org'),
         SENTRY_PUBLIC_DSN: null,
-        STEEMCONNECT_HOST: JSON.stringify(process.env.STEEMCONNECT_HOST || 'https://v2.steemconnect.com'),
-        STEEMCONNECT_REDIRECT_URL: JSON.stringify(process.env.STEEMCONNECT_REDIRECT_URL || 'https://busy.org/callback'),
-        STEEMJS_URL: JSON.stringify(process.env.STEEMJS_URL),
+        STEEMCONNECT_CLIENT_ID: JSON.stringify(process.env.STEEMCONNECT_CLIENT_ID || 'busy.app'),
+        STEEMCONNECT_REDIRECT_URL: JSON.stringify(
+          process.env.STEEMCONNECT_REDIRECT_URL || 'http://localhost:3000/callback',
+        ),
+        STEEMCONNECT_HOST: JSON.stringify(
+          process.env.STEEMCONNECT_HOST || 'https://v2.steemconnect.com',
+        ),
+        STEEMJS_URL: JSON.stringify(process.env.STEEMJS_URL || 'https://api.steemit.com'),
         IS_BROWSER: JSON.stringify(true),
         PUSHPAD_PROJECT_ID: process.env.PUSHPAD_PROJECT_ID,
         BUSYPUSH_ENDPOINT: process.env.BUSYPUSH_ENDPOINT,
@@ -68,7 +73,7 @@ module.exports = {
   },
   devServer: {
     port: 3000,
-    contentBase: path.resolve(baseDir, 'dist'),
+    contentBase: [path.resolve(baseDir, 'templates'), path.resolve(baseDir, 'assets')],
     historyApiFallback: {
       disableDotRule: true,
     },

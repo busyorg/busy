@@ -6,7 +6,8 @@ const _ = require('lodash');
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const DEFAULTS = {
   isDevelopment: process.env.NODE_ENV !== 'production',
@@ -31,9 +32,7 @@ const POSTCSS_LOADER = {
 };
 
 function isVendor({ resource }) {
-  return resource &&
-    resource.indexOf('node_modules') >= 0 &&
-    resource.match(/\.jsx?$/);
+  return resource && resource.indexOf('node_modules') >= 0 && resource.match(/\.jsx?$/);
 }
 
 function makePlugins(options) {
@@ -45,11 +44,16 @@ function makePlugins(options) {
         // This has effect on the react lib size
         NODE_ENV: isDevelopment ? JSON.stringify('development') : JSON.stringify('production'),
         ENABLE_LOGGER: JSON.stringify(process.env.ENABLE_LOGGER),
-        STEEMCONNECT_IMG_HOST: JSON.stringify(process.env.STEEMCONNECT_IMG_HOST || 'https://img.busy.org'),
+        IMG_HOST: JSON.stringify(process.env.IMG_HOST || 'https://img.busy.org'),
         SENTRY_PUBLIC_DSN: isDevelopment ? null : JSON.stringify(process.env.SENTRY_PUBLIC_DSN),
-        STEEMCONNECT_HOST: JSON.stringify(process.env.STEEMCONNECT_HOST || 'https://v2.steemconnect.com'),
-        STEEMCONNECT_REDIRECT_URL: JSON.stringify(process.env.STEEMCONNECT_REDIRECT_URL || 'https://busy.org/callback'),
-        STEEMJS_URL: JSON.stringify(process.env.STEEMJS_URL),
+        STEEMCONNECT_CLIENT_ID: JSON.stringify(process.env.STEEMCONNECT_CLIENT_ID || 'busy.app'),
+        STEEMCONNECT_REDIRECT_URL: JSON.stringify(
+          process.env.STEEMCONNECT_REDIRECT_URL || 'http://localhost:3000/callback',
+        ),
+        STEEMCONNECT_HOST: JSON.stringify(
+          process.env.STEEMCONNECT_HOST || 'https://v2.steemconnect.com',
+        ),
+        STEEMJS_URL: JSON.stringify(process.env.STEEMJS_URL || 'https://api.steemit.com'),
         IS_BROWSER: JSON.stringify(true),
         PUSHPAD_PROJECT_ID: process.env.PUSHPAD_PROJECT_ID,
         BUSYPUSH_ENDPOINT: process.env.BUSYPUSH_ENDPOINT,
@@ -73,6 +77,14 @@ function makePlugins(options) {
     ]);
   } else {
     plugins = plugins.concat([
+      new CleanWebpackPlugin([path.join(options.baseDir, '/public')], { allowExternal: true }),
+      new CopyWebpackPlugin([
+        {
+          from: path.join(options.baseDir, '/assets'),
+          to: path.join(options.baseDir, '/public'),
+        },
+      ]),
+      new webpack.optimize.ModuleConcatenationPlugin(),
       new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
       new webpack.optimize.CommonsChunkPlugin({
         name: 'vendor',
@@ -92,7 +104,7 @@ function makePlugins(options) {
       new HtmlWebpackPlugin({
         title: 'Busy',
         filename: '../index.html',
-        template: path.join(options.baseDir, '/templates/index.html'),
+        template: path.join(options.baseDir, '/templates/production_index.html'),
       }),
     ]);
   }
@@ -155,20 +167,21 @@ function makeConfig(options = {}) {
   return {
     devtool: isDevelopment ? 'eval-source-map' : 'source-map',
     entry: {
-      main: (isDevelopment ? [
-        'webpack-hot-middleware/client?reload=true',
-        'react-hot-loader/patch',
-        // activate HMR for React
-        'webpack/hot/only-dev-server',
-        // bundle the client for hot reloading
-        // only- means to only hot reload for successful updates
-      ] : []).concat([
-        path.join(options.baseDir, 'src/index.js')],
-      ),
+      main: (isDevelopment
+        ? [
+          'webpack-hot-middleware/client?reload=true',
+          'react-hot-loader/patch',
+          // activate HMR for React
+          'webpack/hot/only-dev-server',
+          // bundle the client for hot reloading
+          // only- means to only hot reload for successful updates
+        ]
+        : []
+      ).concat([path.join(options.baseDir, 'src/index.js')]),
     },
     output: {
       path: path.join(options.baseDir, '/public/js'),
-      filename: options.isDevelopment ? 'busyapp-[name].js' : 'busyapp-[name].[chunkhash].js',
+      filename: options.isDevelopment ? 'bundle.js' : 'busyapp-[name].[chunkhash].js',
       publicPath: '/js/',
     },
     plugins: makePlugins(options),
@@ -177,13 +190,11 @@ function makeConfig(options = {}) {
         {
           test: /\.js?$/,
           exclude: /node_modules/,
-          use: (options.isDevelopment ? [{ loader: 'react-hot-loader/webpack' }] : []).concat(
-            [
-              {
-                loader: 'babel-loader',
-              },
-            ],
-          ),
+          use: (options.isDevelopment ? [{ loader: 'react-hot-loader/webpack' }] : []).concat([
+            {
+              loader: 'babel-loader',
+            },
+          ]),
         },
         {
           test: /\.(eot|ttf|woff|woff2|svg)(\?.+)?$/,
@@ -211,9 +222,11 @@ function makeConfig(options = {}) {
 }
 
 if (!module.parent) {
-  console.log(makeConfig({
-    isDevelopment: process.env.NODE_ENV !== 'production',
-  }));
+  console.log(
+    makeConfig({
+      isDevelopment: process.env.NODE_ENV !== 'production',
+    }),
+  );
 }
 
 exports = module.exports = makeConfig;

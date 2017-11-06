@@ -1,4 +1,4 @@
-@import (reference) "../../styles/custom.less";
+@import (reference) '../../styles/custom.less';
 
 .Editor {
   padding-bottom: 24px;
@@ -19,7 +19,7 @@
 
   & .ant-form-item-required {
     &:before {
-      content: "" !important;
+      content: '' !important;
     }
   }
 
@@ -40,7 +40,8 @@
   &__topics {
     & > div {
       padding-top: 5px !important;
-      height: 42px !important;
+      padding-bottom: 8px !important;
+      height: auto !important;
     }
   }
 
@@ -128,6 +129,18 @@
 
       .ant-form-item-control {
         text-align: right !important;
+      }
+    }
+
+    &__cancel {
+      margin-bottom: 0 !important;
+      padding-right: 10px;
+      .ant-form-item-control {
+        text-align: right !important;
+      }
+
+      .Action {
+        background-color: @red !important;
       }
     }
   }
