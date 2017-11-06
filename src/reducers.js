@@ -105,3 +105,7 @@ export const getLoadingEstAccountValue = state =>
   fromWallet.getLoadingEstAccountValue(state.wallet);
 export const getLoadingGlobalProperties = state =>
   fromWallet.getLoadingGlobalProperties(state.wallet);
+export const getLoadingMoreUsersAccountHistory = state =>
+  fromWallet.getLoadingMoreUsersAccountHistory(state.wallet);
+export const getUserHasMoreAccountHistory = (state, username) =>
+  fromWallet.getUserHasMoreAccountHistory(state.wallet, username);

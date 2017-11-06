@@ -15,51 +15,20 @@ class UserActivityActions extends React.Component {
     totalVestingShares: PropTypes.string.isRequired,
     totalVestingFundSteem: PropTypes.string.isRequired,
     getMoreUserAccountHistory: PropTypes.func.isRequired,
+    userHasMoreActions: PropTypes.bool.isRequired,
+    loadingMoreUsersAccountHistory: PropTypes.bool.isRequired,
   };
 
   static defaultProps = {
     actions: [],
   };
 
-  constructor(props) {
-    super(props);
-    const firstAction = _.head(props.actions);
-    this.state = {
-      userHasMoreActions: firstAction.actionCount > defaultAccountLimit,
-      lastActionCount: firstAction ? firstAction.actionCount : 0,
-      loadingMoreActions: false,
-    };
-  }
-
   handleLoadMore = () => {
-    const { currentUsername } = this.props;
-    const { lastActionCount } = this.state;
+    const { currentUsername, actions } = this.props;
+    const lastActionCount = _.last(actions).actionCount;
     const limit = lastActionCount < defaultAccountLimit ? lastActionCount : defaultAccountLimit;
-    this.setState({
-      loadingMoreActions: true,
-    });
-    this.props
-      .getMoreUserAccountHistory(currentUsername, lastActionCount, limit)
-      .then((result) => {
-        const newLastActionCount = _.last(result.value.userAccountHistory).actionCount;
-        if (newLastActionCount === 0) {
-          this.setState({
-            userHasMoreActions: false,
-            loadingMoreActions: false,
-          });
-        } else {
-          this.setState({
-            lastActionCount: newLastActionCount,
-            loadingMoreActions: false,
-          });
-        }
-      })
-      .catch(() => {
-        this.setState({
-          userHasMoreActions: false,
-          loadingMoreActions: false,
-        });
-      });
+    console.log('HANDLE LOAD MORE');
+    this.props.getMoreUserAccountHistory(currentUsername, lastActionCount, limit);
   };
 
   render() {
@@ -68,17 +37,22 @@ class UserActivityActions extends React.Component {
       currentUsername,
       totalVestingShares,
       totalVestingFundSteem,
+      userHasMoreActions,
+      loadingMoreUsersAccountHistory,
     } = this.props;
-    const { loadingMoreActions } = this.state;
+
+    console.log('USER_HAS_MORE_ACTIONS', userHasMoreActions);
+    console.log('LOADING_MORE_USERS_ACCOUNT_HISTORY', loadingMoreUsersAccountHistory);
+    console.log('ACTION COUNT', actions.length);
     return (
       <div className="UserActivityActions">
         <ReduxInfiniteScroll
           loadMore={this.handleLoadMore}
-          hasMore={this.state.userHasMoreActions}
+          hasMore={userHasMoreActions}
           elementIsScrollable={false}
           threshold={200}
           loader={<div style={{ margin: '20px' }}><Loading /></div>}
-          loadingMore={loadingMoreActions}
+          loadingMore={loadingMoreUsersAccountHistory}
         >
           {actions.map(
             action =>

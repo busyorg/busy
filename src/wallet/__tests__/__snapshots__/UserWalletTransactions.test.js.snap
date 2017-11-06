@@ -15,7 +15,7 @@ ShallowWrapper {
       className=""
       containerHeight="100%"
       elementIsScrollable={false}
-      hasMore={false}
+      hasMore={true}
       holderType="div"
       items={Array []}
       loadMore={[Function]}
@@ -35,8 +35,9 @@ ShallowWrapper {
       }
       loadingMore={false}
       showLoader={true}
-      threshold={200}
+      threshold={500}
     >
+      <div />
       <WalletTransaction
         currentUsername="hellosteem"
         totalVestingFundSteem="0"
@@ -81,7 +82,7 @@ ShallowWrapper {
         className=""
         containerHeight="100%"
         elementIsScrollable={false}
-        hasMore={false}
+        hasMore={true}
         holderType="div"
         items={Array []}
         loadMore={[Function]}
@@ -101,8 +102,9 @@ ShallowWrapper {
         }
         loadingMore={false}
         showLoader={true}
-        threshold={200}
+        threshold={500}
       >
+        <div />
         <WalletTransaction
           currentUsername="hellosteem"
           totalVestingFundSteem="0"
@@ -147,6 +149,7 @@ ShallowWrapper {
       "_compositeType": 0,
       "_context": Object {},
       "_currentElement": <UserWalletTransactions
+        actions={Array []}
         currentUsername="hellosteem"
         totalVestingFundSteem="0"
         totalVestingShares="0"
@@ -183,6 +186,7 @@ ShallowWrapper {
         "context": Object {},
         "handleLoadMore": [Function],
         "props": Object {
+          "actions": Array [],
           "currentUsername": "hellosteem",
           "totalVestingFundSteem": "0",
           "totalVestingShares": "0",
@@ -210,11 +214,7 @@ ShallowWrapper {
           ],
         },
         "refs": Object {},
-        "state": Object {
-          "lastActionCount": undefined,
-          "loadingMoreTransactions": false,
-          "userHasMoreTransactions": false,
-        },
+        "state": null,
         "updater": Object {
           "enqueueCallback": [Function],
           "enqueueCallbackInternal": [Function],
@@ -240,7 +240,7 @@ ShallowWrapper {
             className=""
             containerHeight="100%"
             elementIsScrollable={false}
-            hasMore={false}
+            hasMore={true}
             holderType="div"
             items={Array []}
             loadMore={[Function]}
@@ -260,8 +260,9 @@ ShallowWrapper {
             }
             loadingMore={false}
             showLoader={true}
-            threshold={200}
+            threshold={500}
           >
+            <div />
             <WalletTransaction
               currentUsername="hellosteem"
               totalVestingFundSteem="0"
@@ -306,7 +307,7 @@ ShallowWrapper {
             className=""
             containerHeight="100%"
             elementIsScrollable={false}
-            hasMore={false}
+            hasMore={true}
             holderType="div"
             items={Array []}
             loadMore={[Function]}
@@ -326,8 +327,9 @@ ShallowWrapper {
             }
             loadingMore={false}
             showLoader={true}
-            threshold={200}
+            threshold={500}
           >
+            <div />
             <WalletTransaction
               currentUsername="hellosteem"
               totalVestingFundSteem="0"
@@ -376,6 +378,7 @@ ShallowWrapper {
   },
   "root": [Circular],
   "unrendered": <UserWalletTransactions
+    actions={Array []}
     currentUsername="hellosteem"
     totalVestingFundSteem="0"
     totalVestingShares="0"

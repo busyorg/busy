@@ -13,10 +13,13 @@ import {
   getTotalVestingShares,
   getTotalVestingFundSteem,
   getUsersTransactions,
+  getUsersAccountHistory,
   getUsersAccountHistoryLoading,
   getUsersEstAccountsValues,
   getLoadingEstAccountValue,
   getLoadingGlobalProperties,
+  getLoadingMoreUsersAccountHistory,
+  getUserHasMoreAccountHistory,
 } from '../reducers';
 import {
   getGlobalProperties,
@@ -36,10 +39,18 @@ import { getAccountWithFollowingCount } from './usersActions';
     totalVestingShares: getTotalVestingShares(state),
     totalVestingFundSteem: getTotalVestingFundSteem(state),
     usersTransactions: getUsersTransactions(state),
+    usersAccountHistory: getUsersAccountHistory(state),
     usersAccountHistoryLoading: getUsersAccountHistoryLoading(state),
     usersEstAccountsValues: getUsersEstAccountsValues(state),
     loadingEstAccountValue: getLoadingEstAccountValue(state),
     loadingGlobalProperties: getLoadingGlobalProperties(state),
+    loadingMoreUsersAccountHistory: getLoadingMoreUsersAccountHistory(state),
+    userHasMoreActions: getUserHasMoreAccountHistory(
+      state,
+      ownProps.isCurrentUser
+        ? getAuthenticatedUser(state).name
+        : getUser(state, ownProps.match.params.name).name,
+    ),
   }),
   {
     getGlobalProperties,
@@ -61,13 +72,15 @@ class Wallet extends Component {
     getUserEstAccountValue: PropTypes.func.isRequired,
     getAccountWithFollowingCount: PropTypes.func.isRequired,
     usersTransactions: PropTypes.shape().isRequired,
+    usersAccountHistory: PropTypes.shape().isRequired,
     usersEstAccountsValues: PropTypes.shape().isRequired,
     usersAccountHistoryLoading: PropTypes.bool.isRequired,
     loadingEstAccountValue: PropTypes.bool.isRequired,
     loadingGlobalProperties: PropTypes.bool.isRequired,
+    loadingMoreUsersAccountHistory: PropTypes.bool.isRequired,
+    userHasMoreActions: PropTypes.bool.isRequired,
     isCurrentUser: PropTypes.bool,
     authenticatedUserName: PropTypes.string,
-
   };
 
   static defaultProps = {
@@ -126,8 +139,12 @@ class Wallet extends Component {
       usersTransactions,
       usersAccountHistoryLoading,
       usersEstAccountsValues,
+      loadingMoreUsersAccountHistory,
+      userHasMoreActions,
+      usersAccountHistory,
     } = this.props;
     const transactions = usersTransactions[user.name] || [];
+    const actions = usersAccountHistory[user.name] || [];
     const estAccountValue = usersEstAccountsValues[user.name];
 
     return (
@@ -144,11 +161,14 @@ class Wallet extends Component {
         {transactions.length === 0 && usersAccountHistoryLoading
           ? <Loading style={{ marginTop: '20px' }} />
           : <UserWalletTransactions
-            transactions={usersTransactions[user.name]}
+            transactions={transactions}
+            actions={actions}
             currentUsername={user.name}
             totalVestingShares={totalVestingShares}
             totalVestingFundSteem={totalVestingFundSteem}
             getMoreUserAccountHistory={this.props.getMoreUserAccountHistory}
+            loadingMoreUsersAccountHistory={loadingMoreUsersAccountHistory}
+            userHasMoreActions={userHasMoreActions}
           />}
       </div>
     );

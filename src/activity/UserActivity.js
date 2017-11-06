@@ -15,6 +15,8 @@ import {
   getUsersEstAccountsValues,
   getLoadingEstAccountValue,
   getLoadingGlobalProperties,
+  getLoadingMoreUsersAccountHistory,
+  getUserHasMoreAccountHistory,
 } from '../reducers';
 import {
   getGlobalProperties,
@@ -41,6 +43,13 @@ import UserActivityActions from './UserActivityActions';
     usersEstAccountsValues: getUsersEstAccountsValues(state),
     loadingEstAccountValue: getLoadingEstAccountValue(state),
     loadingGlobalProperties: getLoadingGlobalProperties(state),
+    loadingMoreUsersAccountHistory: getLoadingMoreUsersAccountHistory(state),
+    userHasMoreActions: getUserHasMoreAccountHistory(
+      state,
+      ownProps.isCurrentUser
+        ? getAuthenticatedUser(state).name
+        : getUser(state, ownProps.match.params.name).name,
+    ),
   }),
   {
     getGlobalProperties,
@@ -64,6 +73,8 @@ class UserActivity extends React.Component {
     usersAccountHistory: PropTypes.shape().isRequired,
     usersEstAccountsValues: PropTypes.shape().isRequired,
     usersAccountHistoryLoading: PropTypes.bool.isRequired,
+    loadingMoreUsersAccountHistory: PropTypes.bool.isRequired,
+    userHasMoreActions: PropTypes.bool.isRequired,
     loadingGlobalProperties: PropTypes.bool.isRequired,
     isCurrentUser: PropTypes.bool,
     authenticatedUserName: PropTypes.string,
@@ -113,6 +124,8 @@ class UserActivity extends React.Component {
       totalVestingFundSteem,
       usersAccountHistoryLoading,
       loadingGlobalProperties,
+      loadingMoreUsersAccountHistory,
+      userHasMoreActions,
     } = this.props;
     const actions = usersAccountHistory[user.name] || [];
 
@@ -126,6 +139,8 @@ class UserActivity extends React.Component {
             getMoreUserAccountHistory={this.props.getMoreUserAccountHistory}
             totalVestingShares={totalVestingShares}
             totalVestingFundSteem={totalVestingFundSteem}
+            userHasMoreActions={userHasMoreActions}
+            loadingMoreUsersAccountHistory={loadingMoreUsersAccountHistory}
           />}
       </div>
     );

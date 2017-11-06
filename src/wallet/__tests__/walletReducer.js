@@ -10,7 +10,7 @@ const reducerInitialState = {
   usersAccountHistoryLoading: true,
   loadingEstAccountValue: true,
   loadingGlobalProperties: true,
-  moreUsersAccountHistoryLoading: true,
+  loadingMoreUsersAccountHistory: false,
 };
 
 describe('walletReducer', () => {

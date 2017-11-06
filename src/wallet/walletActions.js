@@ -74,7 +74,6 @@ export const getMoreUserAccountHistory = (username, start, limit) => dispatch =>
       promise: getAccountHistory(username, start, limit)
         .then((userActions) => {
           const parsedUserActions = getParsedUserActions(userActions);
-
           return {
             username,
             userWalletTransactions: parsedUserActions.userWalletTransactions,

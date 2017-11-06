@@ -12,7 +12,7 @@ const initialState = {
   usersAccountHistoryLoading: true,
   loadingEstAccountValue: true,
   loadingGlobalProperties: true,
-  moreUsersAccountHistoryLoading: true,
+  loadingMoreUsersAccountHistory: false,
 };
 
 export default function walletReducer(state = initialState, action) {
@@ -74,7 +74,7 @@ export default function walletReducer(state = initialState, action) {
     case walletActions.GET_MORE_USER_ACCOUNT_HISTORY.START:
       return {
         ...state,
-        moreUsersAccountHistoryLoading: true,
+        loadingMoreUsersAccountHistory: true,
       };
     case walletActions.GET_MORE_USER_ACCOUNT_HISTORY.SUCCESS: {
       const userCurrentWalletTransactions = state.usersTransactions[action.payload.username] || [];
@@ -96,13 +96,13 @@ export default function walletReducer(state = initialState, action) {
             'actionCount',
           ),
         },
-        moreUsersAccountHistoryLoading: false,
+        loadingMoreUsersAccountHistory: false,
       };
     }
     case walletActions.GET_MORE_USER_ACCOUNT_HISTORY.ERROR:
       return {
         ...state,
-        moreUsersAccountHistoryLoading: false,
+        loadingMoreUsersAccountHistory: false,
       };
     case walletActions.GET_USER_EST_ACCOUNT_VALUE.START:
       return {
@@ -138,3 +138,8 @@ export const getUsersAccountHistoryLoading = state => state.usersAccountHistoryL
 export const getLoadingEstAccountValue = state => state.loadingEstAccountValue;
 export const getLoadingGlobalProperties = state => state.loadingGlobalProperties;
 export const getUsersAccountHistory = state => state.usersAccountHistory;
+export const getLoadingMoreUsersAccountHistory = state => state.loadingMoreUsersAccountHistory;
+export const getUserHasMoreAccountHistory = (state, username) => {
+  const lastAction = _.last(state.usersAccountHistory[username]) || {};
+  return lastAction.actionCount !== 0;
+}
