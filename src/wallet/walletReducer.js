@@ -142,4 +142,4 @@ export const getLoadingMoreUsersAccountHistory = state => state.loadingMoreUsers
 export const getUserHasMoreAccountHistory = (state, username) => {
   const lastAction = _.last(state.usersAccountHistory[username]) || {};
   return lastAction.actionCount !== 0;
-}
+};
