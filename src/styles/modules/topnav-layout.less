@@ -4,10 +4,14 @@
   .left {
     position: absolute;
     width: @left-width;
-    margin-left: 16px;
+    padding-left: 16px;
 
     @media @small {
-      margin-left: 0;
+      padding-left: @mobile-padding;
+    }
+
+    @media @medium {
+      padding-left: 0;
     }
   }
 
