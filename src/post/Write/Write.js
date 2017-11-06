@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
+import { replace } from 'react-router-redux';
 import marked from 'marked';
 import kebabCase from 'lodash/kebabCase';
 import debounce from 'lodash/debounce';
@@ -10,6 +11,7 @@ import 'url-search-params-polyfill';
 import { injectIntl } from 'react-intl';
 import uuidv4 from 'uuid/v4';
 import GetBoost from '../../components/Sidebar/GetBoost';
+import DeleteDraftModal from './DeleteDraftModal';
 
 import {
   getAuthenticatedUser,
@@ -28,17 +30,19 @@ const version = require('../../../package.json').version;
 @injectIntl
 @withRouter
 @connect(
-  state => ({
+  (state, props) => ({
     user: getAuthenticatedUser(state),
     draftPosts: getDraftPosts(state),
     loading: getIsEditorLoading(state),
     saving: getIsEditorSaving(state),
+    draftId: new URLSearchParams(props.location.search).get('draft'),
   }),
   {
     createPost,
     saveDraft,
     newPost,
     notify,
+    replace,
   },
 )
 class Write extends React.Component {
@@ -48,19 +52,22 @@ class Write extends React.Component {
     draftPosts: PropTypes.shape().isRequired,
     loading: PropTypes.bool.isRequired,
     saving: PropTypes.bool,
-    location: PropTypes.shape().isRequired,
+    draftId: PropTypes.string,
     newPost: PropTypes.func,
     createPost: PropTypes.func,
     saveDraft: PropTypes.func,
     notify: PropTypes.func,
+    replace: PropTypes.func,
   };
 
   static defaultProps = {
     saving: false,
+    draftId: null,
     newPost: () => {},
     createPost: () => {},
     saveDraft: () => {},
     notify: () => {},
+    replace: () => {},
   };
 
   constructor(props) {
@@ -71,21 +78,20 @@ class Write extends React.Component {
       initialBody: '',
       initialReward: '50',
       initialUpvote: true,
+      initialUpdatedDate: Date.now(),
       isUpdating: false,
+      showModalDelete: false,
     };
   }
 
   componentDidMount() {
     this.props.newPost();
-    const { draftPosts, location: { search } } = this.props;
-    const draftId = new URLSearchParams(search).get('draft');
+    const { draftPosts, draftId } = this.props;
     const draftPost = draftPosts[draftId];
-
     if (draftPost) {
-      const { jsonMetadata, isUpdating } = draftPost;
       let tags = [];
-      if (isArray(jsonMetadata.tags)) {
-        tags = jsonMetadata.tags;
+      if (isArray(draftPost.jsonMetadata.tags)) {
+        tags = draftPost.jsonMetadata.tags;
       }
 
       if (draftPost.permlink) {
@@ -103,7 +109,8 @@ class Write extends React.Component {
         initialBody: draftPost.body || '',
         initialReward: draftPost.reward || '50',
         initialUpvote: draftPost.upvote,
-        isUpdating: isUpdating || false,
+        initialUpdatedDate: draftPost.lastUpdated || Date.now(),
+        isUpdating: draftPost.isUpdating || false,
       });
     }
 
@@ -115,24 +122,29 @@ class Write extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const oldDraftId = new URLSearchParams(this.props.location.search).get('draft');
-    const newDraftId = new URLSearchParams(nextProps.location.search).get('draft');
-    if (oldDraftId !== newDraftId && newDraftId === null) {
+    if (this.props.draftId !== nextProps.draftId && nextProps.draftId === null) {
       this.draftId = uuidv4();
       this.setState({
         initialTitle: '',
         initialTopics: [],
         initialBody: '',
         initialReward: '50',
+        initialUpvote: true,
+        initialUpdatedDate: Date.now(),
         isUpdating: false,
+        showModalDelete: false,
       });
     }
   }
 
+  onDeleteDraft = () => this.props.replace('/write');
+
+  onDelete = () => this.setState({ showModalDelete: true });
+
   onSubmit = (form) => {
     const data = this.getNewPostData(form);
-    if (this.draftId) {
-      data.draftId = this.draftId;
+    if (this.props.draftId) {
+      data.draftId = this.props.draftId;
     }
     this.props.createPost(data);
   };
@@ -187,11 +199,20 @@ class Write extends React.Component {
 
     if (this.state.isUpdating) data.isUpdating = this.state.isUpdating;
 
-    const metaData = {
+    let metaData = {
       community: 'busy',
       app: `busy/${version}`,
       format: 'markdown',
     };
+
+    // Merging jsonMetadata makes sure that users don't lose any metadata when they edit post using
+    // Busy (like video data from DTube)
+    if (this.props.draftPosts[this.draftId] && this.props.draftPosts[this.draftId].jsonMetadata) {
+      metaData = {
+        ...metaData,
+        ...this.props.draftPosts[this.draftId].jsonMetadata,
+      };
+    }
 
     if (tags.length) {
       metaData.tags = tags;
@@ -243,12 +264,12 @@ class Write extends React.Component {
       });
   };
 
+  handleCancelDeleteDraft = () => this.setState({ showModalDelete: false });
+
   saveDraft = debounce((form) => {
     const data = this.getNewPostData(form);
     const postBody = data.body;
-    const { location: { search } } = this.props;
-    const id = new URLSearchParams(search).get('draft');
-
+    const id = this.props.draftId;
     // Remove zero width space
     const isBodyEmpty = postBody.replace(/[\u200B-\u200D\uFEFF]/g, '').trim().length === 0;
 
@@ -261,7 +282,7 @@ class Write extends React.Component {
 
   render() {
     const { initialTitle, initialTopics, initialBody, initialReward, initialUpvote } = this.state;
-    const { loading, saving } = this.props;
+    const { loading, saving, draftId } = this.props;
 
     return (
       <div className="shifted">
@@ -280,13 +301,22 @@ class Write extends React.Component {
               body={initialBody}
               reward={initialReward}
               upvote={initialUpvote}
+              draftId={draftId}
               loading={loading}
               isUpdating={this.state.isUpdating}
               onUpdate={this.saveDraft}
               onSubmit={this.onSubmit}
+              onDelete={this.onDelete}
               onImageInserted={this.handleImageInserted}
             />
           </div>
+          {this.state.showModalDelete && (
+            <DeleteDraftModal
+              draftId={draftId}
+              onDelete={this.onDeleteDraft}
+              onCancel={this.handleCancelDeleteDraft}
+            />
+          )}
         </div>
       </div>
     );

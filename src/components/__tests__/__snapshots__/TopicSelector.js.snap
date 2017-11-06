@@ -1,0 +1,622 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<TopicSelector /> renders without exploding 1`] = `
+ShallowWrapper {
+  "complexSelector": ComplexSelector {
+    "buildPredicate": [Function],
+    "childrenOfNode": [Function],
+    "findWhereUnwrapped": [Function],
+  },
+  "length": 1,
+  "node": <div
+    className="TopicSelector"
+  >
+    <div
+      className="TopicSelector__topics"
+    >
+      <Topic
+        closable={false}
+        favorite={false}
+        name="busy"
+        onClose={[Function]}
+      />
+      <Topic
+        closable={false}
+        favorite={false}
+        name="introduceyourself"
+        onClose={[Function]}
+      />
+      <Topic
+        closable={false}
+        favorite={false}
+        name="steemfest"
+        onClose={[Function]}
+      />
+    </div>
+    <div
+      className="TopicSelector__sort"
+    >
+      <span
+        className="TopicSelector__sort__title"
+      >
+        <FormattedMessage
+          defaultMessage="Sort by"
+          id="sort_by"
+          values={Object {}}
+        />
+      </span>
+      <Popover
+        content={
+          <PopoverMenu
+            bold={true}
+            onSelect={[Function]}
+          >
+            <PopoverMenuItem
+              bold={true}
+              disabled={false}
+              itemKey=""
+              onClick={[Function]}
+            >
+              <FormattedMessage
+                defaultMessage="Trending"
+                id="sort_trending"
+                values={Object {}}
+              />
+            </PopoverMenuItem>
+            <PopoverMenuItem
+              bold={true}
+              disabled={false}
+              itemKey=""
+              onClick={[Function]}
+            >
+              <FormattedMessage
+                defaultMessage="Created"
+                id="sort_created"
+                values={Object {}}
+              />
+            </PopoverMenuItem>
+            <PopoverMenuItem
+              bold={true}
+              disabled={false}
+              itemKey=""
+              onClick={[Function]}
+            >
+              <FormattedMessage
+                defaultMessage="Active"
+                id="sort_active"
+                values={Object {}}
+              />
+            </PopoverMenuItem>
+            <PopoverMenuItem
+              bold={true}
+              disabled={false}
+              itemKey=""
+              onClick={[Function]}
+            >
+              <FormattedMessage
+                defaultMessage="Hot"
+                id="sort_hot"
+                values={Object {}}
+              />
+            </PopoverMenuItem>
+            <PopoverMenuItem
+              bold={true}
+              disabled={false}
+              itemKey=""
+              onClick={[Function]}
+            >
+              <FormattedMessage
+                defaultMessage="Promoted"
+                id="sort_promoted"
+                values={Object {}}
+              />
+            </PopoverMenuItem>
+          </PopoverMenu>
+        }
+        mouseEnterDelay={0.1}
+        mouseLeaveDelay={0.1}
+        onVisibleChange={[Function]}
+        overlayStyle={Object {}}
+        placement="top"
+        prefixCls="ant-popover"
+        transitionName="zoom-big"
+        trigger="click"
+        visible={false}
+      >
+        <span
+          className="TopicSelector__sort__current"
+        >
+          <FormattedMessage
+            defaultMessage="Active"
+            id="sort_active"
+            values={Object {}}
+          />
+          <i
+            className="iconfont icon-unfold"
+          />
+        </span>
+      </Popover>
+    </div>
+  </div>,
+  "nodes": Array [
+    <div
+      className="TopicSelector"
+    >
+      <div
+        className="TopicSelector__topics"
+      >
+        <Topic
+          closable={false}
+          favorite={false}
+          name="busy"
+          onClose={[Function]}
+        />
+        <Topic
+          closable={false}
+          favorite={false}
+          name="introduceyourself"
+          onClose={[Function]}
+        />
+        <Topic
+          closable={false}
+          favorite={false}
+          name="steemfest"
+          onClose={[Function]}
+        />
+      </div>
+      <div
+        className="TopicSelector__sort"
+      >
+        <span
+          className="TopicSelector__sort__title"
+        >
+          <FormattedMessage
+            defaultMessage="Sort by"
+            id="sort_by"
+            values={Object {}}
+          />
+        </span>
+        <Popover
+          content={
+            <PopoverMenu
+              bold={true}
+              onSelect={[Function]}
+            >
+              <PopoverMenuItem
+                bold={true}
+                disabled={false}
+                itemKey=""
+                onClick={[Function]}
+              >
+                <FormattedMessage
+                  defaultMessage="Trending"
+                  id="sort_trending"
+                  values={Object {}}
+                />
+              </PopoverMenuItem>
+              <PopoverMenuItem
+                bold={true}
+                disabled={false}
+                itemKey=""
+                onClick={[Function]}
+              >
+                <FormattedMessage
+                  defaultMessage="Created"
+                  id="sort_created"
+                  values={Object {}}
+                />
+              </PopoverMenuItem>
+              <PopoverMenuItem
+                bold={true}
+                disabled={false}
+                itemKey=""
+                onClick={[Function]}
+              >
+                <FormattedMessage
+                  defaultMessage="Active"
+                  id="sort_active"
+                  values={Object {}}
+                />
+              </PopoverMenuItem>
+              <PopoverMenuItem
+                bold={true}
+                disabled={false}
+                itemKey=""
+                onClick={[Function]}
+              >
+                <FormattedMessage
+                  defaultMessage="Hot"
+                  id="sort_hot"
+                  values={Object {}}
+                />
+              </PopoverMenuItem>
+              <PopoverMenuItem
+                bold={true}
+                disabled={false}
+                itemKey=""
+                onClick={[Function]}
+              >
+                <FormattedMessage
+                  defaultMessage="Promoted"
+                  id="sort_promoted"
+                  values={Object {}}
+                />
+              </PopoverMenuItem>
+            </PopoverMenu>
+          }
+          mouseEnterDelay={0.1}
+          mouseLeaveDelay={0.1}
+          onVisibleChange={[Function]}
+          overlayStyle={Object {}}
+          placement="top"
+          prefixCls="ant-popover"
+          transitionName="zoom-big"
+          trigger="click"
+          visible={false}
+        >
+          <span
+            className="TopicSelector__sort__current"
+          >
+            <FormattedMessage
+              defaultMessage="Active"
+              id="sort_active"
+              values={Object {}}
+            />
+            <i
+              className="iconfont icon-unfold"
+            />
+          </span>
+        </Popover>
+      </div>
+    </div>,
+  ],
+  "options": Object {},
+  "renderer": ReactShallowRenderer {
+    "_instance": ShallowComponentWrapper {
+      "_calledComponentWillUnmount": false,
+      "_compositeType": 0,
+      "_context": Object {},
+      "_currentElement": <TopicSelector
+        bold={true}
+        isSingle={true}
+        onSortChange={[Function]}
+        onTopicClose={[Function]}
+        sort="active"
+        topics={
+          Array [
+            "busy",
+            "introduceyourself",
+            "steemfest",
+          ]
+        }
+      />,
+      "_debugID": 1,
+      "_hostContainerInfo": null,
+      "_hostParent": null,
+      "_instance": TopicSelector {
+        "_reactInternalInstance": [Circular],
+        "context": Object {},
+        "onSelect": [Function],
+        "onVisibleChange": [Function],
+        "props": Object {
+          "bold": true,
+          "isSingle": true,
+          "onSortChange": [Function],
+          "onTopicClose": [Function],
+          "sort": "active",
+          "topics": Array [
+            "busy",
+            "introduceyourself",
+            "steemfest",
+          ],
+        },
+        "refs": Object {},
+        "state": Object {
+          "popoverVisible": false,
+        },
+        "updater": Object {
+          "enqueueCallback": [Function],
+          "enqueueCallbackInternal": [Function],
+          "enqueueElementInternal": [Function],
+          "enqueueForceUpdate": [Function],
+          "enqueueReplaceState": [Function],
+          "enqueueSetState": [Function],
+          "isMounted": [Function],
+          "validateCallback": [Function],
+        },
+      },
+      "_mountOrder": 1,
+      "_pendingCallbacks": null,
+      "_pendingElement": null,
+      "_pendingForceUpdate": false,
+      "_pendingReplaceState": false,
+      "_pendingStateQueue": null,
+      "_renderedComponent": NoopInternalComponent {
+        "_currentElement": <div
+          className="TopicSelector"
+        >
+          <div
+            className="TopicSelector__topics"
+          >
+            <Topic
+              closable={false}
+              favorite={false}
+              name="busy"
+              onClose={[Function]}
+            />
+            <Topic
+              closable={false}
+              favorite={false}
+              name="introduceyourself"
+              onClose={[Function]}
+            />
+            <Topic
+              closable={false}
+              favorite={false}
+              name="steemfest"
+              onClose={[Function]}
+            />
+          </div>
+          <div
+            className="TopicSelector__sort"
+          >
+            <span
+              className="TopicSelector__sort__title"
+            >
+              <FormattedMessage
+                defaultMessage="Sort by"
+                id="sort_by"
+                values={Object {}}
+              />
+            </span>
+            <Popover
+              content={
+                <PopoverMenu
+                  bold={true}
+                  onSelect={[Function]}
+                >
+                  <PopoverMenuItem
+                    bold={true}
+                    disabled={false}
+                    itemKey=""
+                    onClick={[Function]}
+                  >
+                    <FormattedMessage
+                      defaultMessage="Trending"
+                      id="sort_trending"
+                      values={Object {}}
+                    />
+                  </PopoverMenuItem>
+                  <PopoverMenuItem
+                    bold={true}
+                    disabled={false}
+                    itemKey=""
+                    onClick={[Function]}
+                  >
+                    <FormattedMessage
+                      defaultMessage="Created"
+                      id="sort_created"
+                      values={Object {}}
+                    />
+                  </PopoverMenuItem>
+                  <PopoverMenuItem
+                    bold={true}
+                    disabled={false}
+                    itemKey=""
+                    onClick={[Function]}
+                  >
+                    <FormattedMessage
+                      defaultMessage="Active"
+                      id="sort_active"
+                      values={Object {}}
+                    />
+                  </PopoverMenuItem>
+                  <PopoverMenuItem
+                    bold={true}
+                    disabled={false}
+                    itemKey=""
+                    onClick={[Function]}
+                  >
+                    <FormattedMessage
+                      defaultMessage="Hot"
+                      id="sort_hot"
+                      values={Object {}}
+                    />
+                  </PopoverMenuItem>
+                  <PopoverMenuItem
+                    bold={true}
+                    disabled={false}
+                    itemKey=""
+                    onClick={[Function]}
+                  >
+                    <FormattedMessage
+                      defaultMessage="Promoted"
+                      id="sort_promoted"
+                      values={Object {}}
+                    />
+                  </PopoverMenuItem>
+                </PopoverMenu>
+              }
+              mouseEnterDelay={0.1}
+              mouseLeaveDelay={0.1}
+              onVisibleChange={[Function]}
+              overlayStyle={Object {}}
+              placement="top"
+              prefixCls="ant-popover"
+              transitionName="zoom-big"
+              trigger="click"
+              visible={false}
+            >
+              <span
+                className="TopicSelector__sort__current"
+              >
+                <FormattedMessage
+                  defaultMessage="Active"
+                  id="sort_active"
+                  values={Object {}}
+                />
+                <i
+                  className="iconfont icon-unfold"
+                />
+              </span>
+            </Popover>
+          </div>
+        </div>,
+        "_debugID": 2,
+        "_renderedOutput": <div
+          className="TopicSelector"
+        >
+          <div
+            className="TopicSelector__topics"
+          >
+            <Topic
+              closable={false}
+              favorite={false}
+              name="busy"
+              onClose={[Function]}
+            />
+            <Topic
+              closable={false}
+              favorite={false}
+              name="introduceyourself"
+              onClose={[Function]}
+            />
+            <Topic
+              closable={false}
+              favorite={false}
+              name="steemfest"
+              onClose={[Function]}
+            />
+          </div>
+          <div
+            className="TopicSelector__sort"
+          >
+            <span
+              className="TopicSelector__sort__title"
+            >
+              <FormattedMessage
+                defaultMessage="Sort by"
+                id="sort_by"
+                values={Object {}}
+              />
+            </span>
+            <Popover
+              content={
+                <PopoverMenu
+                  bold={true}
+                  onSelect={[Function]}
+                >
+                  <PopoverMenuItem
+                    bold={true}
+                    disabled={false}
+                    itemKey=""
+                    onClick={[Function]}
+                  >
+                    <FormattedMessage
+                      defaultMessage="Trending"
+                      id="sort_trending"
+                      values={Object {}}
+                    />
+                  </PopoverMenuItem>
+                  <PopoverMenuItem
+                    bold={true}
+                    disabled={false}
+                    itemKey=""
+                    onClick={[Function]}
+                  >
+                    <FormattedMessage
+                      defaultMessage="Created"
+                      id="sort_created"
+                      values={Object {}}
+                    />
+                  </PopoverMenuItem>
+                  <PopoverMenuItem
+                    bold={true}
+                    disabled={false}
+                    itemKey=""
+                    onClick={[Function]}
+                  >
+                    <FormattedMessage
+                      defaultMessage="Active"
+                      id="sort_active"
+                      values={Object {}}
+                    />
+                  </PopoverMenuItem>
+                  <PopoverMenuItem
+                    bold={true}
+                    disabled={false}
+                    itemKey=""
+                    onClick={[Function]}
+                  >
+                    <FormattedMessage
+                      defaultMessage="Hot"
+                      id="sort_hot"
+                      values={Object {}}
+                    />
+                  </PopoverMenuItem>
+                  <PopoverMenuItem
+                    bold={true}
+                    disabled={false}
+                    itemKey=""
+                    onClick={[Function]}
+                  >
+                    <FormattedMessage
+                      defaultMessage="Promoted"
+                      id="sort_promoted"
+                      values={Object {}}
+                    />
+                  </PopoverMenuItem>
+                </PopoverMenu>
+              }
+              mouseEnterDelay={0.1}
+              mouseLeaveDelay={0.1}
+              onVisibleChange={[Function]}
+              overlayStyle={Object {}}
+              placement="top"
+              prefixCls="ant-popover"
+              transitionName="zoom-big"
+              trigger="click"
+              visible={false}
+            >
+              <span
+                className="TopicSelector__sort__current"
+              >
+                <FormattedMessage
+                  defaultMessage="Active"
+                  id="sort_active"
+                  values={Object {}}
+                />
+                <i
+                  className="iconfont icon-unfold"
+                />
+              </span>
+            </Popover>
+          </div>
+        </div>,
+      },
+      "_renderedNodeType": 0,
+      "_rootNodeID": 0,
+      "_topLevelWrapper": null,
+      "_updateBatchNumber": null,
+      "_warnedAboutRefsInRender": false,
+    },
+    "getRenderOutput": [Function],
+    "render": [Function],
+  },
+  "root": [Circular],
+  "unrendered": <TopicSelector
+    bold={true}
+    isSingle={true}
+    onSortChange={[Function]}
+    onTopicClose={[Function]}
+    sort="active"
+    topics={
+      Array [
+        "busy",
+        "introduceyourself",
+        "steemfest",
+      ]
+    }
+  />,
+}
+`;
