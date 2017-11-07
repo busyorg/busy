@@ -49,7 +49,7 @@ export default (
         )}
       />
       <Route
-        path="/write"
+        path="/editor"
         render={() => (
           <RequireLogin>
             <Write />
