@@ -30,6 +30,14 @@ class Avatar extends Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.username) {
+      this.setState({
+        imageUrl: getImage(`@${nextProps.username}?s=${nextProps.size}`),
+      });
+    }
+  }
+
   onError = () =>
     this.setState({
       imageUrl: defaultImage,
