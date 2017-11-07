@@ -24,7 +24,9 @@ import RequireLogin from './auth/RequireLogin';
 import Wallet from './wallet/Wallet';
 
 const logPageView = () => {
-  window.analytics.page({ url: window.location.pathname });
+  if (window.analytics) {
+    window.analytics.page({ url: window.location.pathname });
+  }
   return null;
 };
 
