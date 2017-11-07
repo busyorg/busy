@@ -28,12 +28,7 @@ export const login = () => (dispatch) => {
       promise: steemConnect.me()
         .then((resp) => {
           dispatch(getFollowing(resp.user));
-          if (window.ga) {
-            window.ga('set', 'userId', resp.user);
-          }
-
           initPushpad(resp.user, Cookie.get('access_token'));
-
           return resp;
         }),
     },

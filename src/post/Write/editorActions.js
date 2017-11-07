@@ -174,8 +174,12 @@ export function createPost(postData) {
             }
             dispatch(push(`/${parentPermlink}/@${author}/${permlink}`));
 
-            if (window.ga) {
-              window.ga('send', 'event', 'post', 'submit', '', 10);
+            if (window.analytics) {
+              window.analytics.track('Post', {
+                category: 'post',
+                label: 'submit',
+                value: 10,
+              });
             }
 
             return result;
