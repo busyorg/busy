@@ -130,10 +130,7 @@ export default class Buttons extends React.Component {
       upVotesDiff > 0 && (
         <p>
           <a role="presentation" onClick={this.handleShowReactions}>
-            {intl.formatMessage(
-              { id: 'and_more_amount', defaultMessage: 'and {amount} more' },
-              { amount: upVotesDiff },
-            )}
+            <FormattedMessage id="and_more_amount" defaultMessage="and {amount} more" values={{ amount: upVotesDiff }} />
           </a>
         </p>
       );
