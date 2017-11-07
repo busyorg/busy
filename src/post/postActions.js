@@ -45,8 +45,12 @@ export const votePost = (postId, author, permlink, weight = 10000) => (dispatch,
     type: LIKE_POST,
     payload: {
       promise: steemConnect.vote(voter, post.author, post.permlink, weight).then((res) => {
-        if (window.ga) {
-          window.ga('send', 'event', 'vote', 'submit', '', 1);
+        if (window.analytics) {
+          window.analytics.track('Vote', {
+            category: 'vote',
+            label: 'submit',
+            value: 1,
+          });
         }
 
         // Delay to make sure you get the latest data (unknown issue with API)
