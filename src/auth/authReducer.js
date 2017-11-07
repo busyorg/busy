@@ -58,6 +58,15 @@ export default (state = initialState, action) => {
         loaded: true,
         user: {},
       };
+    case types.UPDATE_AUTH_USER.SUCCESS:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          ...action.payload,
+        },
+        loadingUpdateAuthUser: false,
+      };
     default:
       return state;
   }
