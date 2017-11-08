@@ -1,17 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter, Link } from 'react-router-dom';
-import { injectIntl, FormattedMessage } from 'react-intl';
+import { FormattedMessage, FormattedNumber } from 'react-intl';
 import './PostRecommendation.less';
 import Loading from '../../components/Icon/Loading';
 import steemAPI from '../../steemAPI';
 
-@injectIntl
 @withRouter
 class PostRecommendation extends Component {
   static propTypes = {
     location: PropTypes.shape().isRequired,
-    intl: PropTypes.shape().isRequired,
     isAuthFetching: PropTypes.bool.isRequired,
   };
 
@@ -81,13 +79,9 @@ class PostRecommendation extends Component {
   };
 
   renderPosts = () => {
-    const { intl } = this.props;
     const filteredRecommendedPosts = this.getFilteredPosts();
 
     return filteredRecommendedPosts.map((post) => {
-      const commentsText = post.children === 1
-        ? intl.formatMessage({ id: 'comment', defaultMessage: 'Comment' })
-        : intl.formatMessage({ id: 'comments', defaultMessage: 'Comments' });
       return (
         <div className="PostRecommendation__link" key={post.id}>
           <Link
@@ -112,9 +106,17 @@ class PostRecommendation extends Component {
               onClick={() => this.navigateToPostComments()}
               className="PostRecommendation__comment-link"
             >
-              {post.children}
-              {' '}
-              {commentsText}
+              {post.children === 1
+                ? <FormattedMessage
+                  id="comment_count"
+                  values={{ count: <FormattedNumber value={post.children} />}}
+                  defaultMessage="{count} comment"
+                />
+                : <FormattedMessage
+                  id="comments_count"
+                  values={{ count: <FormattedNumber value={post.children} /> }}
+                  defaultMessage="{count} comments"
+                />}
             </Link>}
         </div>
       );
