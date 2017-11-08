@@ -31,7 +31,7 @@ class Avatar extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.username) {
+    if (this.props.username !== nextProps.username) {
       this.setState({
         imageUrl: getImage(`@${nextProps.username}?s=${nextProps.size}`),
       });
