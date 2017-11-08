@@ -2,84 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import steem from 'steem';
 import _ from 'lodash';
-import { injectIntl, FormattedMessage, FormattedNumber } from 'react-intl';
+import { FormattedMessage, FormattedNumber } from 'react-intl';
 import { Link } from 'react-router-dom';
 import * as accountHistory from '../constants/accountHistory';
+import VoteActionMessage from './VoteActionMessage';
+import CustomJSONMessage from './CustomJSONMessage';
+import AuthorRewardMessage from './AuthorRewardMessage';
 
-@injectIntl
 class UserActionMessage extends React.Component {
   static propTypes = {
     actionType: PropTypes.string.isRequired,
     actionDetails: PropTypes.shape().isRequired,
     totalVestingShares: PropTypes.string.isRequired,
     totalVestingFundSteem: PropTypes.string.isRequired,
-    intl: PropTypes.shape().isRequired,
   };
-
-  renderVoteMessage() {
-    const { actionDetails } = this.props;
-    const postLink = `@${actionDetails.author}/${actionDetails.permlink}`;
-    let voteType = 'unvoted';
-    if (actionDetails.weight > 0) {
-      voteType = 'upvoted';
-    } else if (actionDetails.weight < 0) {
-      voteType = 'downvoted';
-    }
-
-    return (
-      <FormattedMessage
-        id={`user_${voteType}_post`}
-        defaultMessage={`{username} ${voteType} {postLink}`}
-        values={{
-          username: <Link to={`/@${actionDetails.voter}`}>{actionDetails.voter}</Link>,
-          postLink: <Link to={`/p/${postLink}`}>{postLink}</Link>,
-        }}
-      />
-    );
-  }
-
-  renderCustomJSONMessage() {
-    const { actionDetails } = this.props;
-    const actionJSON = JSON.parse(actionDetails.json);
-    const customActionType = actionJSON[0];
-    const customActionDetails = actionJSON[1];
-
-    if (customActionType === accountHistory.FOLLOW) {
-      const followAction = _.isEmpty(customActionDetails.what) ? 'unfollowed' : 'followed';
-      return (
-        <FormattedMessage
-          id={`user_${followAction}`}
-          defaultMessage={`{follower} ${followAction} {following}`}
-          values={{
-            follower: (
-              <Link to={`/@${customActionDetails.follower}`}>{customActionDetails.follower}</Link>
-            ),
-            following: (
-              <Link to={`/@${customActionDetails.following}`}>{customActionDetails.following}</Link>
-            ),
-          }}
-        />
-      );
-    } else if (customActionType === accountHistory.REBLOG) {
-      return (
-        <FormattedMessage
-          id="user_reblogged_post"
-          defaultMessage="{username} reblogged {postLink}"
-          values={{
-            username: (
-              <Link to={`/@${customActionDetails.account}`}>{customActionDetails.account}</Link>
-            ),
-            postLink: (
-              <Link
-                to={`/p/@${customActionDetails.author}/${customActionDetails.permlink}`}
-              >{`@${customActionDetails.author}/${customActionDetails.permlink}`}</Link>
-            ),
-          }}
-        />
-      );
-    }
-    return null;
-  }
 
   renderFormattedMessage() {
     const {
@@ -87,7 +23,6 @@ class UserActionMessage extends React.Component {
       actionDetails,
       totalVestingShares,
       totalVestingFundSteem,
-      intl,
     } = this.props;
 
     switch (actionType) {
@@ -122,7 +57,7 @@ class UserActionMessage extends React.Component {
           />
         );
       case accountHistory.VOTE:
-        return this.renderVoteMessage();
+        return <VoteActionMessage actionDetails={actionDetails} />;
       case accountHistory.COMMENT:
         return (
           <FormattedMessage
@@ -143,45 +78,11 @@ class UserActionMessage extends React.Component {
           />
         );
       case accountHistory.CUSTOM_JSON:
-        return this.renderCustomJSONMessage();
+        return <CustomJSONMessage actionDetails={actionDetails} />;
       case accountHistory.ACCOUNT_UPDATE:
         return <FormattedMessage id="account_updated" defaultMessage="Account Updated" />;
-      case accountHistory.AUTHOR_REWARD: {
-        const rewards = [
-          { payout: actionDetails.sbd_payout, currency: 'SBD' },
-          { payout: actionDetails.steem_payout, currency: 'STEEM' },
-          { payout: actionDetails.vesting_payout, currency: 'SP' },
-        ];
-
-        const parsedRewards = _.reduce(rewards, (array, reward) => {
-          const parsedPayout = parseFloat(reward.payout);
-
-          if (parsedPayout > 0) {
-            const rewardsStr = intl.formatNumber(parsedPayout, {
-              minimumFractionDigits: 3,
-              maximumFractionDigits: 3,
-            });
-            array.push(`${rewardsStr} ${reward.currency}`);
-          }
-
-          return array;
-        }, []);
-
-        return (
-          <FormattedMessage
-            id="author_reward_for_post"
-            defaultMessage="Author Reward: {rewards} for {postLink}"
-            values={{
-              rewards: parsedRewards.join(', '),
-              postLink: (
-                <Link to={`/p/@${actionDetails.author}/${actionDetails.permlink}`}>
-                  {`${actionDetails.author}/${actionDetails.permlink}`}
-                </Link>
-              ),
-            }}
-          />
-        );
-      }
+      case accountHistory.AUTHOR_REWARD:
+        return <AuthorRewardMessage actionDetails={actionDetails} />;
       case accountHistory.CURATION_REWARD:
         return (
           <FormattedMessage
@@ -209,7 +110,45 @@ class UserActionMessage extends React.Component {
             }}
           />
         );
-
+      case accountHistory.ACCOUNT_WITNESS_VOTE:
+        if (actionDetails.approve) {
+          return (
+            <FormattedMessage
+              id="account_approve_witness"
+              defaultMessage="{account} approve witness {witness}"
+              values={{
+                account: (
+                  <Link to={`/@${actionDetails.account}`}>
+                    {actionDetails.account}
+                  </Link>
+                ),
+                witness: (
+                  <Link to={`/@${actionDetails.witness}`}>
+                    {actionDetails.witness}
+                  </Link>
+                ),
+              }}
+            />
+          );
+        }
+        return (
+          <FormattedMessage
+            id="account_unapprove_witness"
+            defaultMessage="{account} unapprove witness {witness}"
+            values={{
+              account: (
+                <Link to={`/@${actionDetails.account}`}>
+                  {actionDetails.account}
+                </Link>
+              ),
+              witness: (
+                <Link to={`/@${actionDetails.witness}`}>
+                  {actionDetails.witness}
+                </Link>
+              ),
+            }}
+          />
+        );
       default:
         return <FormattedMessage id={actionType} defaultMessage={actionType} />;
     }

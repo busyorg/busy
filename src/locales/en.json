@@ -220,14 +220,17 @@
   "page_forbidden_message": "Oops! Looks like you need to login to use this page.",
   "account_created_with_delegation": "{creator} created account with delegation {account}",
   "account_created": "{creator} created account {account}",
-  "user_upvoted_post": "{username} upvoted {postLink}",
-  "user_downvoted_post": "{username} downvoted {postLink}",
-  "user_unvoted_post": "{username} unvoted {postLink}",
+  "user_upvoted": "{username} upvoted",
+  "user_downvoted": "{username} downvoted",
+  "user_unvoted": "{username} unvoted",
   "user_replied_to": "{username} replied to {postLink}",
   "user_followed": "{follower} followed {following}",
   "user_unfollowed": "{follower} unfollowed {following}",
   "account_updated": "Account Updated",
   "curation_reward_for_post": "Curation Reward: {steemPower} SP for {postLink}",
   "author_reward_for_post": "Author Reward: {rewards} for {postLink}",
-  "authorized_apps": "Authorized Apps: {apps}"
+  "authorized_apps": "Authorized Apps: {apps}",
+  "account_approve_witness": "{account} approve witness {witness}",
+  "account_unapprove_witness": "{account} unapprove witness {witness}",
+  "vote_weight": "Vote Weight"
 }

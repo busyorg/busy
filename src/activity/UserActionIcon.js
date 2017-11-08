@@ -56,6 +56,7 @@ class UserActionIcon extends React.Component {
 
         return null;
       }
+      case accountHistory.ACCOUNT_WITNESS_VOTE:
       case accountHistory.ACCOUNT_UPDATE:
         return actionDetails.account;
       default:
