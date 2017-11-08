@@ -6,6 +6,7 @@ import Promise from 'bluebird';
 import { FormattedMessage } from 'react-intl';
 import Loading from '../Icon/Loading';
 import './SteemTrendingCharts.less';
+import USDDisplay from '../../components/Utils/USDDisplay';
 
 const getSteemPriceHistory = () =>
   fetch('https://min-api.cryptocompare.com/data/histoday?fsym=STEEM&tsym=USD&limit=7').then(res =>
@@ -68,7 +69,7 @@ class SteemTrendingCharts extends Component {
           <FormattedMessage id="steem" defaultMessage="Steem" />
           {!loading &&
             <span className="SteemTrendingCharts__chart-value">
-              {`$${currentSteemPrice}`}
+              <USDDisplay value={currentSteemPrice} />
               {steemPriceIncrease
                 ? <i className="iconfont icon-caret-up SteemTrendingCharts__chart-caret-up" />
                 : <i className="iconfont icon-caretbottom SteemTrendingCharts__chart-caret-down" />}
@@ -82,7 +83,7 @@ class SteemTrendingCharts extends Component {
           <FormattedMessage id="steem_dollar" defaultMessage="Steem Dollar" />
           {!loading &&
             <span className="SteemTrendingCharts__chart-value">
-              {`$${currentSteemDollarPrice} `}
+              <USDDisplay value={currentSteemDollarPrice} />
               {steemDollarPriceIncrease
                 ? <i className="iconfont icon-caret-up SteemTrendingCharts__chart-caret-up" />
                 : <i className="iconfont icon-caretbottom SteemTrendingCharts__chart-caret-down" />}
