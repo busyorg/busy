@@ -1,19 +1,21 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Link, withRouter } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
-import { Link } from 'react-router-dom';
 import _ from 'lodash';
 import User from './User';
 import Loading from '../../components/Icon/Loading';
 import './InterestingPeople.less';
 import steemAPI from '../../steemAPI';
 
+@withRouter
 class InterestingPeopleWithAPI extends Component {
   static propTypes = {
     authenticatedUser: PropTypes.shape({
       name: PropTypes.string,
     }),
     followingList: PropTypes.arrayOf(PropTypes.string),
+    match: PropTypes.shape().isRequired,
   };
 
   static defaultProps = {
@@ -31,8 +33,17 @@ class InterestingPeopleWithAPI extends Component {
 
   componentWillMount() {
     const authenticatedUsername = this.props.authenticatedUser.name;
-    const usernameValidator = window.location.pathname.match(/@(.*)/);
-    const username = usernameValidator ? usernameValidator[1] : authenticatedUsername;
+    const username = _.has(this.props, 'match.params.name')
+      ? this.props.match.params.name
+      : authenticatedUsername;
+    this.getBlogAuthors(username);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const authenticatedUsername = nextProps.authenticatedUser.name;
+    const username = _.has(this.props, 'match.params.name')
+      ? this.props.match.params.name
+      : authenticatedUsername;
     this.getBlogAuthors(username);
   }
 
