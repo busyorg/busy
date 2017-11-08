@@ -28,9 +28,15 @@ export const reblog = postId => (dispatch, getState) => {
         .then((result) => {
           const list = storePostId(postId);
           dispatch(getRebloggedListAction(list));
-          if (window.ga) {
-            window.ga('send', 'event', 'reblog', 'submit', '', 2);
+
+          if (window.analytics) {
+            window.analytics.track('Reblog', {
+              category: 'reblog',
+              label: 'submit',
+              value: 2,
+            });
           }
+
           return result;
         }),
     },
