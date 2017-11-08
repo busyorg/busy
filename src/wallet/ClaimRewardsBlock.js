@@ -6,6 +6,7 @@ import _ from 'lodash';
 import { injectIntl, FormattedMessage, FormattedNumber } from 'react-intl';
 import { getAuthenticatedUser } from '../reducers';
 import { getUserAccountHistory } from './walletActions';
+import { updateAuthUser } from '../auth/authActions';
 import Action from '../components/Button/Action';
 import './ClaimRewardsBlock.less';
 
@@ -16,6 +17,7 @@ import './ClaimRewardsBlock.less';
   }),
   {
     getUserAccountHistory,
+    updateAuthUser,
   },
 )
 class ClaimRewardsBlock extends Component {
@@ -23,6 +25,7 @@ class ClaimRewardsBlock extends Component {
     user: PropTypes.shape(),
     intl: PropTypes.shape().isRequired,
     getUserAccountHistory: PropTypes.func.isRequired,
+    updateAuthUser: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -52,6 +55,7 @@ class ClaimRewardsBlock extends Component {
             rewardClaimed: true,
           });
           this.props.getUserAccountHistory(name);
+          this.props.updateAuthUser(name);
         } else {
           this.setState({
             loading: false,
