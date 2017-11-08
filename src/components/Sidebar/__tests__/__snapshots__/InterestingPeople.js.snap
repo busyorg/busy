@@ -41,11 +41,27 @@ ShallowWrapper {
             "name": "sekhmet",
           }
         }
+        usernameStyles={
+          Object {
+            "overflow": "hidden",
+            "textOverflow": "ellipsis",
+            "whiteSpace": "nowrap",
+            "width": "120px",
+          }
+        }
       />
       <User
         user={
           Object {
             "name": "fabien",
+          }
+        }
+        usernameStyles={
+          Object {
+            "overflow": "hidden",
+            "textOverflow": "ellipsis",
+            "whiteSpace": "nowrap",
+            "width": "120px",
           }
         }
       />
@@ -55,11 +71,27 @@ ShallowWrapper {
             "name": "ekitcho",
           }
         }
+        usernameStyles={
+          Object {
+            "overflow": "hidden",
+            "textOverflow": "ellipsis",
+            "whiteSpace": "nowrap",
+            "width": "120px",
+          }
+        }
       />
       <User
         user={
           Object {
             "name": "jm90mm",
+          }
+        }
+        usernameStyles={
+          Object {
+            "overflow": "hidden",
+            "textOverflow": "ellipsis",
+            "whiteSpace": "nowrap",
+            "width": "120px",
           }
         }
       />
@@ -113,11 +145,27 @@ ShallowWrapper {
               "name": "sekhmet",
             }
           }
+          usernameStyles={
+            Object {
+              "overflow": "hidden",
+              "textOverflow": "ellipsis",
+              "whiteSpace": "nowrap",
+              "width": "120px",
+            }
+          }
         />
         <User
           user={
             Object {
               "name": "fabien",
+            }
+          }
+          usernameStyles={
+            Object {
+              "overflow": "hidden",
+              "textOverflow": "ellipsis",
+              "whiteSpace": "nowrap",
+              "width": "120px",
             }
           }
         />
@@ -127,11 +175,27 @@ ShallowWrapper {
               "name": "ekitcho",
             }
           }
+          usernameStyles={
+            Object {
+              "overflow": "hidden",
+              "textOverflow": "ellipsis",
+              "whiteSpace": "nowrap",
+              "width": "120px",
+            }
+          }
         />
         <User
           user={
             Object {
               "name": "jm90mm",
+            }
+          }
+          usernameStyles={
+            Object {
+              "overflow": "hidden",
+              "textOverflow": "ellipsis",
+              "whiteSpace": "nowrap",
+              "width": "120px",
             }
           }
         />
@@ -253,11 +317,27 @@ ShallowWrapper {
                   "name": "sekhmet",
                 }
               }
+              usernameStyles={
+                Object {
+                  "overflow": "hidden",
+                  "textOverflow": "ellipsis",
+                  "whiteSpace": "nowrap",
+                  "width": "120px",
+                }
+              }
             />
             <User
               user={
                 Object {
                   "name": "fabien",
+                }
+              }
+              usernameStyles={
+                Object {
+                  "overflow": "hidden",
+                  "textOverflow": "ellipsis",
+                  "whiteSpace": "nowrap",
+                  "width": "120px",
                 }
               }
             />
@@ -267,11 +347,27 @@ ShallowWrapper {
                   "name": "ekitcho",
                 }
               }
+              usernameStyles={
+                Object {
+                  "overflow": "hidden",
+                  "textOverflow": "ellipsis",
+                  "whiteSpace": "nowrap",
+                  "width": "120px",
+                }
+              }
             />
             <User
               user={
                 Object {
                   "name": "jm90mm",
+                }
+              }
+              usernameStyles={
+                Object {
+                  "overflow": "hidden",
+                  "textOverflow": "ellipsis",
+                  "whiteSpace": "nowrap",
+                  "width": "120px",
                 }
               }
             />
@@ -325,11 +421,27 @@ ShallowWrapper {
                   "name": "sekhmet",
                 }
               }
+              usernameStyles={
+                Object {
+                  "overflow": "hidden",
+                  "textOverflow": "ellipsis",
+                  "whiteSpace": "nowrap",
+                  "width": "120px",
+                }
+              }
             />
             <User
               user={
                 Object {
                   "name": "fabien",
+                }
+              }
+              usernameStyles={
+                Object {
+                  "overflow": "hidden",
+                  "textOverflow": "ellipsis",
+                  "whiteSpace": "nowrap",
+                  "width": "120px",
                 }
               }
             />
@@ -339,11 +451,27 @@ ShallowWrapper {
                   "name": "ekitcho",
                 }
               }
+              usernameStyles={
+                Object {
+                  "overflow": "hidden",
+                  "textOverflow": "ellipsis",
+                  "whiteSpace": "nowrap",
+                  "width": "120px",
+                }
+              }
             />
             <User
               user={
                 Object {
                   "name": "jm90mm",
+                }
+              }
+              usernameStyles={
+                Object {
+                  "overflow": "hidden",
+                  "textOverflow": "ellipsis",
+                  "whiteSpace": "nowrap",
+                  "width": "120px",
                 }
               }
             />

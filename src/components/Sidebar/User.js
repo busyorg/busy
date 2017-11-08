@@ -5,14 +5,14 @@ import Avatar from '../Avatar';
 import FollowButton from '../../widgets/FollowButton';
 import './User.less';
 
-const User = ({ user }) =>
+const User = ({ user, usernameStyles }) =>
   (<div key={user.name} className="User">
     <div className="User__top">
       <div className="User__links">
         <Link to={`/@${user.name}`}>
           <Avatar username={user.name} size={34} />
         </Link>
-        <Link to={`/@${user.name}`}>
+        <Link to={`/@${user.name}`} style={usernameStyles} title={user.name}>
           <span className="User__name">
             {user.name}
           </span>
@@ -25,6 +25,11 @@ const User = ({ user }) =>
 
 User.propTypes = {
   user: PropTypes.shape().isRequired,
+  usernameStyles: PropTypes.shape(),
+};
+
+User.defaultProps = {
+  usernameStyles: {},
 };
 
 export default User;
