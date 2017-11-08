@@ -6,8 +6,7 @@ import './PostRecommendation.less';
 import Loading from '../../components/Icon/Loading';
 import steemAPI from '../../steemAPI';
 
-@withRouter
-class PostRecommendation extends Component {
+@withRouter class PostRecommendation extends Component {
   static propTypes = {
     location: PropTypes.shape().isRequired,
     isAuthFetching: PropTypes.bool.isRequired,
@@ -81,46 +80,44 @@ class PostRecommendation extends Component {
   renderPosts = () => {
     const filteredRecommendedPosts = this.getFilteredPosts();
 
-    return filteredRecommendedPosts.map((post) => {
-      return (
-        <div className="PostRecommendation__link" key={post.id}>
+    return filteredRecommendedPosts.map(post => (
+      <div className="PostRecommendation__link" key={post.id}>
+        <Link
+          to={`/${post.category}/@${post.author}/${post.permlink}`}
+          onClick={() => this.navigateToPost(post.author)}
+          className="PostRecommendation__link-title"
+        >
+          {post.title}
+        </Link>
+        <br />
+        <FormattedMessage
+          id="by"
+          defaultMessage="By {username}"
+          values={{
+            username: <Link role="presentation" to={`/@${post.author}`}>{post.author}</Link>,
+          }}
+        />
+        <br />
+        {post.children > 0 &&
           <Link
-            to={`/${post.category}/@${post.author}/${post.permlink}`}
-            onClick={() => this.navigateToPost(post.author)}
-            className="PostRecommendation__link-title"
+            to={`/${post.category}/@${post.author}/${post.permlink}#comments`}
+            onClick={() => this.navigateToPostComments()}
+            className="PostRecommendation__comment-link"
           >
-            {post.title}
-          </Link>
-          <br />
-          <FormattedMessage
-            id="by"
-            defaultMessage="By {username}"
-            values={{
-              username: <Link role="presentation" to={`/@${post.author}`}>{post.author}</Link>,
-            }}
-          />
-          <br />
-          {post.children > 0 &&
-            <Link
-              to={`/${post.category}/@${post.author}/${post.permlink}#comments`}
-              onClick={() => this.navigateToPostComments()}
-              className="PostRecommendation__comment-link"
-            >
-              {post.children === 1
-                ? <FormattedMessage
-                  id="comment_count"
-                  values={{ count: <FormattedNumber value={post.children} />}}
-                  defaultMessage="{count} comment"
-                />
-                : <FormattedMessage
-                  id="comments_count"
-                  values={{ count: <FormattedNumber value={post.children} /> }}
-                  defaultMessage="{count} comments"
-                />}
-            </Link>}
-        </div>
-      );
-    });
+            {post.children === 1
+              ? <FormattedMessage
+                id="comment_count"
+                values={{ count: <FormattedNumber value={post.children} /> }}
+                defaultMessage="{count} comment"
+              />
+              : <FormattedMessage
+                id="comments_count"
+                values={{ count: <FormattedNumber value={post.children} /> }}
+                defaultMessage="{count} comments"
+              />}
+          </Link>}
+      </div>
+    ));
   };
 
   render() {
