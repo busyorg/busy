@@ -23,83 +23,93 @@ import Drafts from './post/Write/Drafts';
 import RequireLogin from './auth/RequireLogin';
 import Wallet from './wallet/Wallet';
 
+const logPageView = () => {
+  if (window.analytics) {
+    window.analytics.page({ url: window.location.pathname });
+  }
+  return null;
+};
+
 export default (
   <Wrapper>
-    <Switch>
-      <Route exact path="/" component={Page} />
-      <Route
-        path="/replies"
-        render={() => (
-          <RequireLogin>
-            <Replies />
-          </RequireLogin>
-        )}
-      />
-      <Route path="/help" component={Help} />
-      <Route path="/about" component={About} />
-      <Route path="/team" component={Team} />
-      <Route path="/tags" component={Tags} />
-      <Route path="/donors" component={Donors} />
-      <Route
-        path="/bookmarks"
-        render={() => (
-          <RequireLogin>
-            <Bookmarks />
-          </RequireLogin>
-        )}
-      />
-      <Route
-        path="/write"
-        render={() => (
-          <RequireLogin>
-            <Write />
-          </RequireLogin>
-        )}
-      />
-      <Route
-        path="/drafts"
-        render={() => (
-          <RequireLogin>
-            <Drafts />
-          </RequireLogin>
-        )}
-      />
-      <Route
-        path="/activity"
-        render={() => (
-          <RequireLogin>
-            <Activity />
-          </RequireLogin>
-        )}
-      />
-      <Route
-        path="/settings"
-        render={() => (
-          <RequireLogin>
-            <Settings />
-          </RequireLogin>
-        )}
-      />
-      <Route
-        path="/edit-profile"
-        render={() => (
-          <RequireLogin>
-            <ProfileSettings />
-          </RequireLogin>
-        )}
-      />
-      <Route
-        path="/wallet"
-        render={() => (
-          <RequireLogin>
-            <Wallet />
-          </RequireLogin>
-        )}
-      />
-      <Route path="/@:name" component={User} />
-      <Route path="/:category/@:author/:permlink" component={Post} />
-      <Route path="/" component={Page} />
-    </Switch>
+    <div>
+      <Route component={logPageView} />
+      <Switch>
+        <Route exact path="/" component={Page} />
+        <Route
+          path="/replies"
+          render={() => (
+            <RequireLogin>
+              <Replies />
+            </RequireLogin>
+          )}
+        />
+        <Route path="/help" component={Help} />
+        <Route path="/about" component={About} />
+        <Route path="/team" component={Team} />
+        <Route path="/tags" component={Tags} />
+        <Route path="/donors" component={Donors} />
+        <Route
+          path="/bookmarks"
+          render={() => (
+            <RequireLogin>
+              <Bookmarks />
+            </RequireLogin>
+          )}
+        />
+        <Route
+          path="/write"
+          render={() => (
+            <RequireLogin>
+              <Write />
+            </RequireLogin>
+          )}
+        />
+        <Route
+          path="/drafts"
+          render={() => (
+            <RequireLogin>
+              <Drafts />
+            </RequireLogin>
+          )}
+        />
+        <Route
+          path="/activity"
+          render={() => (
+            <RequireLogin>
+              <Activity />
+            </RequireLogin>
+          )}
+        />
+        <Route
+          path="/settings"
+          render={() => (
+            <RequireLogin>
+              <Settings />
+            </RequireLogin>
+          )}
+        />
+        <Route
+          path="/edit-profile"
+          render={() => (
+            <RequireLogin>
+              <ProfileSettings />
+            </RequireLogin>
+          )}
+        />
+        <Route
+          path="/wallet"
+          render={() => (
+            <RequireLogin>
+              <Wallet />
+            </RequireLogin>
+          )}
+        />
+        <Route path="/@:name" component={User} />
+        <Route path="/:category/@:author/:permlink" component={Post} />
+        <Route path="/" component={Page} />
+      </Switch>
+    </div>
   </Wrapper>
 );
 
