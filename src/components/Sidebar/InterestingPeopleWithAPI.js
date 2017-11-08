@@ -16,6 +16,7 @@ class InterestingPeopleWithAPI extends Component {
     }),
     followingList: PropTypes.arrayOf(PropTypes.string),
     match: PropTypes.shape().isRequired,
+    isFetchingFollowingList: PropTypes.bool.isRequired,
   };
 
   static defaultProps = {
@@ -36,15 +37,24 @@ class InterestingPeopleWithAPI extends Component {
     const username = _.has(this.props, 'match.params.name')
       ? this.props.match.params.name
       : authenticatedUsername;
-    this.getBlogAuthors(username);
+    if (!this.props.isFetchingFollowingList) {
+      this.getBlogAuthors(username);
+    }
   }
 
   componentWillReceiveProps(nextProps) {
-    const authenticatedUsername = nextProps.authenticatedUser.name;
+    const authenticatedUsername = this.props.authenticatedUser.name;
     const username = _.has(this.props, 'match.params.name')
       ? this.props.match.params.name
       : authenticatedUsername;
-    this.getBlogAuthors(username);
+    const nextUsername = _.has(nextProps, 'match.params.name')
+      ? nextProps.match.params.name
+      : authenticatedUsername;
+    if (
+      username !== nextUsername || !nextProps.isFetchingFollowingList
+    ) {
+      this.getBlogAuthors(nextUsername);
+    }
   }
 
   getBlogAuthors = (username = '') =>
