@@ -23,6 +23,7 @@ class Avatar extends Component {
 
   componentWillMount() {
     const { username, size } = this.props;
+
     this.setState({
       imageUrl: getImage(`@${username}?s=${size}`),
     });
