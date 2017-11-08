@@ -68,7 +68,7 @@ ShallowWrapper {
       >
         <Link
           replace={false}
-          to="/latest-comments"
+          to="/discover-more-people"
         >
           <FormattedMessage
             defaultMessage="Discover More People"
@@ -140,7 +140,7 @@ ShallowWrapper {
         >
           <Link
             replace={false}
-            to="/latest-comments"
+            to="/discover-more-people"
           >
             <FormattedMessage
               defaultMessage="Discover More People"
@@ -280,7 +280,7 @@ ShallowWrapper {
             >
               <Link
                 replace={false}
-                to="/latest-comments"
+                to="/discover-more-people"
               >
                 <FormattedMessage
                   defaultMessage="Discover More People"
@@ -352,7 +352,7 @@ ShallowWrapper {
             >
               <Link
                 replace={false}
-                to="/latest-comments"
+                to="/discover-more-people"
               >
                 <FormattedMessage
                   defaultMessage="Discover More People"

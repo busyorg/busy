@@ -22,6 +22,7 @@ import Write from './post/Write/Write';
 import Drafts from './post/Write/Drafts';
 import RequireLogin from './auth/RequireLogin';
 import Wallet from './wallet/Wallet';
+import DiscoverMorePeople from './components/DiscoverMorePeople';
 
 const logPageView = () => {
   if (window.analytics) {
@@ -102,6 +103,14 @@ export default (
           render={() => (
             <RequireLogin>
               <Wallet />
+            </RequireLogin>
+          )}
+        />
+        <Route
+          path="/discover-more-people"
+          render={() => (
+            <RequireLogin>
+              <DiscoverMorePeople />
             </RequireLogin>
           )}
         />
