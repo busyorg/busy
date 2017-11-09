@@ -13,7 +13,6 @@ import './DiscoverMorePeople.less';
 const DiscoverMorePeople = ({ fetchingFollowingList, followingList }) => {
   const randomizedPeople = people
     .filter(p => !followingList.includes(p))
-    .sort(() => 0.5 - Math.random())
     .slice(0, 50)
     .map(name => ({ name }));
   const content = randomizedPeople.length > 0
