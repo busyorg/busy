@@ -89,12 +89,6 @@ class InterestingPeopleWithAPI extends Component {
               <User
                 key={user.name}
                 user={user}
-                usernameStyles={{
-                  width: '120px',
-                  whiteSpace: 'nowrap',
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                }}
               />
             ))}
           <h4 className="InterestingPeople__more">

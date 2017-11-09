@@ -12,9 +12,12 @@
 .User__links {
   display: flex;
   align-items: center;
+  overflow: hidden;
 
   & > a {
     font-weight: bold;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 }
 
