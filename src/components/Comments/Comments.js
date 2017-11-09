@@ -10,15 +10,21 @@ import './Comments.less';
 
 class Comments extends React.Component {
   static propTypes = {
+    user: PropTypes.shape().isRequired,
     authenticated: PropTypes.bool.isRequired,
     username: PropTypes.string,
     parentPost: PropTypes.shape(),
     comments: PropTypes.arrayOf(PropTypes.shape()),
     commentsChildren: PropTypes.shape(),
-    pendingVotes: PropTypes.arrayOf(PropTypes.shape({
-      id: PropTypes.number,
-      percent: PropTypes.number,
-    })),
+    pendingVotes: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number,
+        percent: PropTypes.number,
+      }),
+    ),
+    rewardFund: PropTypes.shape().isRequired,
+    defaultVotePercent: PropTypes.number.isRequired,
+    sliderMode: PropTypes.oneOf(['on', 'off', 'auto']),
     loading: PropTypes.bool,
     show: PropTypes.bool,
     onLikeClick: PropTypes.func,
@@ -32,6 +38,7 @@ class Comments extends React.Component {
     comments: [],
     commentsChildren: undefined,
     pendingVotes: [],
+    sliderMode: 'auto',
     loading: false,
     show: false,
     onLikeClick: () => {},
@@ -90,6 +97,7 @@ class Comments extends React.Component {
 
   render() {
     const {
+      user,
       comments,
       loading,
       show,
@@ -99,6 +107,9 @@ class Comments extends React.Component {
       onDislikeClick,
       authenticated,
       username,
+      sliderMode,
+      rewardFund,
+      defaultVotePercent,
     } = this.props;
     const { sort } = this.state;
 
@@ -125,7 +136,7 @@ class Comments extends React.Component {
           </div>
         </div>
 
-        {authenticated &&
+        {authenticated && (
           <CommentForm
             parentPost={this.props.parentPost}
             username={username}
@@ -133,14 +144,16 @@ class Comments extends React.Component {
             isLoading={this.state.showCommentFormLoading}
             inputValue={this.state.commentFormText}
             onImageInserted={this.handleImageInserted}
-          />}
+          />
+        )}
         {loading && <Loading />}
         {!loading &&
           show &&
           comments &&
-          sortComments(comments, sort).map(comment =>
-            (<Comment
+          sortComments(comments, sort).map(comment => (
+            <Comment
               key={comment.id}
+              user={user}
               depth={0}
               authenticated={authenticated}
               username={username}
@@ -150,11 +163,14 @@ class Comments extends React.Component {
               rootPostAuthor={this.props.parentPost && this.props.parentPost.author}
               commentsChildren={commentsChildren}
               pendingVotes={pendingVotes}
+              rewardFund={rewardFund}
+              sliderMode={sliderMode}
+              defaultVotePercent={defaultVotePercent}
               onLikeClick={onLikeClick}
               onDislikeClick={onDislikeClick}
               onSendComment={this.props.onSendComment}
-            />),
-          )}
+            />
+          ))}
       </div>
     );
   }
