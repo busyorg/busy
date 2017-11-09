@@ -106,14 +106,7 @@ export default (
             </RequireLogin>
           )}
         />
-        <Route
-          path="/discover-more-people"
-          render={() => (
-            <RequireLogin>
-              <DiscoverMorePeople />
-            </RequireLogin>
-          )}
-        />
+        <Route path="/discover-more-people" render={() => <DiscoverMorePeople />} />
         <Route path="/@:name" component={User} />
         <Route path="/:category/@:author/:permlink" component={Post} />
         <Route path="/" component={Page} />
