@@ -1,5 +1,12 @@
+@import (reference) "../../styles/modules/variables.less";
+
 .RawSlider {
   max-width: 560px;
+  padding-top: 8px;
+
+  @media @small {
+    padding-top: 4px;
+  }
 
   &__presets {
     padding: 16px 0;
