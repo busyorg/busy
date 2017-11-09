@@ -34,30 +34,30 @@ class WalletSidebar extends React.Component {
   };
 
   handleOpenTransfer = () => {
-    this.props.openTransfer('');
+    const { match, user, isCurrentUser } = this.props;
+    const username = match.params.name === user.name || isCurrentUser ? '' : match.params.name;
+    this.props.openTransfer(username);
   };
 
   render() {
     const { match, user, isCurrentUser } = this.props;
-    if (match.params.name === user.name || isCurrentUser) {
-      return (
-        <div>
-          <Action
-            primary
-            style={{ marginBottom: '10px' }}
-            text={this.props.intl.formatMessage({
-              id: 'transfer',
-              defaultMessage: 'Transfer',
-            })}
-            onClick={this.handleOpenTransfer}
-          />
-          <SteemTrendingCharts />
-          <ClaimRewardsBlock />
-        </div>
-      );
-    }
+    const displayClaimRewards = match.params.name === user.name || isCurrentUser;
 
-    return <SteemTrendingCharts />;
+    return (
+      <div>
+        <Action
+          primary
+          style={{ marginBottom: '10px' }}
+          text={this.props.intl.formatMessage({
+            id: 'transfer',
+            defaultMessage: 'Transfer',
+          })}
+          onClick={this.handleOpenTransfer}
+        />
+        <SteemTrendingCharts />
+        {displayClaimRewards && <ClaimRewardsBlock />}
+      </div>
+    );
   }
 }
 
