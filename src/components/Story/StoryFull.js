@@ -7,6 +7,7 @@ import {
   FormattedRelative,
   FormattedDate,
   FormattedTime,
+  FormattedNumber,
 } from 'react-intl';
 import { Link } from 'react-router-dom';
 import { Tag, Icon, Popover, Tooltip } from 'antd';
@@ -267,11 +268,18 @@ class StoryFull extends React.Component {
         <h1 className="StoryFull__title">{post.title}</h1>
         <h3 className="StoryFull__comments_title">
           <a href="#comments">
-            <FormattedMessage
-              id="comments_count"
-              values={{ count: intl.formatNumber(commentCount) }}
-              defaultMessage="{count} comments"
-            />
+            {commentCount === 1 ?
+              <FormattedMessage
+                id="comment_count"
+                values={{ count: <FormattedNumber value={commentCount} /> }}
+                defaultMessage="{count} comment"
+              />
+              : <FormattedMessage
+                id="comments_count"
+                values={{ count: <FormattedNumber value={commentCount} /> }}
+                defaultMessage="{count} comments"
+              />
+            }
           </a>
         </h3>
         <div className="StoryFull__header">

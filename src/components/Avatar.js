@@ -23,9 +23,16 @@ class Avatar extends Component {
 
   componentWillMount() {
     const { username, size } = this.props;
-    if (username) {
+
+    this.setState({
+      imageUrl: getImage(`@${username}?s=${size}`),
+    });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.username !== nextProps.username) {
       this.setState({
-        imageUrl: getImage(`@${username}?s=${size}`),
+        imageUrl: getImage(`@${nextProps.username}?s=${nextProps.size}`),
       });
     }
   }

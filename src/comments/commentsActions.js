@@ -117,8 +117,13 @@ export const sendComment = (parentPost, body, isUpdating = false, originalCommen
         };
         dispatch(notify('Comment submitted successfully', 'success'));
         dispatch(getComments(id, true, focusedComment));
-        if (window.ga) {
-          window.ga('send', 'event', 'comment', 'submit', '', 5);
+
+        if (window.analytics) {
+          window.analytics.track('Comment', {
+            category: 'comment',
+            label: 'submit',
+            value: 3,
+          });
         }
       }),
     },
