@@ -14,7 +14,6 @@ class InterestingPeopleWithAPI extends Component {
     authenticatedUser: PropTypes.shape({
       name: PropTypes.string,
     }),
-    followingList: PropTypes.arrayOf(PropTypes.string),
     match: PropTypes.shape().isRequired,
     isFetchingFollowingList: PropTypes.bool.isRequired,
   };
@@ -61,10 +60,8 @@ class InterestingPeopleWithAPI extends Component {
     steemAPI
       .getBlogAuthorsAsync(username)
       .then((result) => {
-        const followers = this.props.followingList;
         const users = _.sortBy(result, user => user[1])
           .reverse()
-          .filter(user => !followers.includes(user[0]))
           .slice(0, 5)
           .map(user => ({ name: user[0] }));
         if (users.length > 0) {
@@ -102,7 +99,7 @@ class InterestingPeopleWithAPI extends Component {
           <h4 className="InterestingPeople__title">
             <i className="iconfont icon-group InterestingPeople__icon" />
             {' '}
-            <FormattedMessage id="interesting_people" defaultMessage="Interesting People" />
+            <FormattedMessage id="top_reblogged_users" defaultMessage="Top Reblogged Users" />
           </h4>
           <div className="InterestingPeople__divider" />
           {users && users.map(user => <User key={user.name} user={user} />)}
