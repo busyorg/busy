@@ -122,7 +122,7 @@ export default class User extends React.Component {
         )}
         <div className="shifted">
           <div className="feed-layout container">
-            <Affix className="leftContainer" stickPosition={72}>
+            <Affix className="leftContainer leftContainer__user" stickPosition={72}>
               <div className="left">
                 <LeftSidebar />
               </div>
