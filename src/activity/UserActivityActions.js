@@ -98,6 +98,7 @@ class UserActivityActions extends React.Component {
                   action={action}
                   totalVestingShares={totalVestingShares}
                   totalVestingFundSteem={totalVestingFundSteem}
+                  currentUsername={currentUsername}
                 />),
           )}
         </ReduxInfiniteScroll>

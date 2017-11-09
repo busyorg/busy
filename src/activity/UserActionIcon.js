@@ -7,21 +7,25 @@ class UserActionIcon extends React.Component {
   static propTypes = {
     actionType: PropTypes.string.isRequired,
     actionDetails: PropTypes.shape().isRequired,
+    currentUsername: PropTypes.string.isRequired,
   };
 
   getIcon() {
-    const { actionType, actionDetails } = this.props;
+    const { actionType, actionDetails, currentUsername } = this.props;
     switch (actionType) {
       case accountHistory.ACCOUNT_CREATE_WITH_DELEGATION:
       case accountHistory.ACCOUNT_CREATE:
         return 'icon-people_fill';
       case accountHistory.VOTE:
-        if (actionDetails.weight > 0) {
-          return 'icon-praise_fill';
-        } else if (actionDetails.weight < 0) {
-          return 'icon-praise_fill UserActivityActions__icon__dislike';
+        if (currentUsername === actionDetails.voter) {
+          if (actionDetails.weight > 0) {
+            return 'icon-praise_fill';
+          } else if (actionDetails.weight < 0) {
+            return 'icon-praise_fill UserActivityActions__icon__dislike';
+          }
+          return 'icon-praise';
         }
-        return 'icon-praise';
+        return null;
       case accountHistory.CUSTOM_JSON: {
         const actionJSON = JSON.parse(actionDetails.json);
         const customActionType = actionJSON[0];
@@ -56,6 +60,8 @@ class UserActionIcon extends React.Component {
 
         return null;
       }
+      case accountHistory.VOTE:
+        return actionDetails.voter;
       case accountHistory.ACCOUNT_WITNESS_VOTE:
       case accountHistory.ACCOUNT_UPDATE:
         return actionDetails.account;

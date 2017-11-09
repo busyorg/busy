@@ -6,12 +6,16 @@ import UserActionIcon from './UserActionIcon';
 import UserActionMessage from './UserActionMessage';
 import UserActionContents from './UserActionContents';
 
-const UserAction = ({ action, totalVestingShares, totalVestingFundSteem }) => {
+const UserAction = ({ action, totalVestingShares, totalVestingFundSteem, currentUsername }) => {
   const actionType = action.op[0];
   const actionDetails = action.op[1];
   return (
     <div className="UserActivityActions__action">
-      <UserActionIcon actionType={actionType} actionDetails={actionDetails} />
+      <UserActionIcon
+        actionType={actionType}
+        actionDetails={actionDetails}
+        currentUsername={currentUsername}
+      />
       <div className="UserActivityActions__content">
         <UserActionMessage
           actionType={actionType}
@@ -43,6 +47,7 @@ UserAction.propTypes = {
   action: PropTypes.shape(),
   totalVestingShares: PropTypes.string.isRequired,
   totalVestingFundSteem: PropTypes.string.isRequired,
+  currentUsername: PropTypes.string.isRequired,
 };
 
 UserAction.defaultProps = {
