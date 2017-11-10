@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
@@ -12,7 +12,7 @@ const ENTER_KEY = 13;
 @connect(null, {
   updateAccountHistoryFilter,
 })
-class UserActivitySearch extends Component {
+class UserActivitySearch extends React.Component {
   static propTypes = {
     updateAccountHistoryFilter: PropTypes.func.isRequired,
     intl: PropTypes.shape().isRequired,
@@ -56,7 +56,7 @@ class UserActivitySearch extends Component {
             placeholder={`${this.props.intl.formatMessage({
               id: 'search_activity_placeholder',
               defaultMessage: 'Search for activities',
-            })}...`}
+            })}`}
           />
           <button className="UserActivitySearch__icon" onClick={this.handleSearch}>
             <i className="iconfont icon-search" />
