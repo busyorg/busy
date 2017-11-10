@@ -228,14 +228,14 @@
   "user_followed": "{follower} followed {following}",
   "user_unfollowed": "{follower} unfollowed {following}",
   "account_updated": "Account Updated",
-  "curation_reward_for_post": "Curation Reward: {steemPower} SP for {postLink}",
+  "curation_reward_for_post": "Curation Reward: {steemPower} SP for {author} ({postLink})",
   "author_reward_for_post": "Author Reward: {rewards} for {postLink}",
   "authorized_apps": "Authorized Apps: {apps}",
   "account_approve_witness": "{account} approve witness {witness}",
   "account_unapprove_witness": "{account} unapprove witness {witness}",
   "vote_weight": "Vote Weight",
-  "search_users_activity": "Search Users Activity",
+  "filter_activities": "Filter Activities",
   "no_results_found_for_search": "No results were found for your search input",
   "loading_more_account_history_for_search": "Loading more of this user's account history for your search",
-  "search_activity_placeholder": "Search for activities"
+  "search_activity_placeholder": "upvoted, downvoted, etc"
 }

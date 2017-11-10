@@ -44,7 +44,7 @@ class UserActivitySearch extends Component {
       <div className="UserActivitySearch">
         <h4 className="UserActivitySearch__title">
           <i className="iconfont icon-trysearchlist UserActivitySearch__title__icon" />
-          <FormattedMessage id="search_users_activity" defaultValue="Search Users Activity" />
+          <FormattedMessage id="filter_activities" defaultValue="Filter Activities" />
         </h4>
         <div className="UserActivitySearch__divider" />
         <div className="UserActivitySearch__input">

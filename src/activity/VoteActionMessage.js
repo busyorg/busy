@@ -32,7 +32,8 @@ const VoteActionMessage = ({ actionDetails }) => {
         : <Tooltip title={<FormattedMessage id="voting_weight" defaultMessage="Vote Weight" />}>
           {' ('}{voteWeight}{') '}
         </Tooltip>}
-      <Link to={`/p/${postLink}`}>{postLink}</Link>
+      <Link to={`/@${actionDetails.author}`}>{actionDetails.author}</Link>
+      {' ('}<Link to={`/p/${postLink}`}>{actionDetails.permlink}</Link>{')'}
     </span>
   );
 };

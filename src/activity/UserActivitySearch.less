@@ -6,8 +6,8 @@
   border: 1px solid @white-gainsboro;
   color: @purple;
   margin-bottom: 1em;
-  padding: 25px 15px;
-  text-align: center;
+  padding: 8px 16px 16px;
+  text-align: left;
   width: 270px;
 
   &__title {
@@ -36,7 +36,7 @@
     width: 240px;
 
     > input {
-      width: 170px;
+      width: 198px;
       height: 40px;
       border: 0;
 
@@ -65,15 +65,6 @@
     border-bottom: 1px solid @purple;
     border-right: 1px solid @purple;
 
-    &:before {
-      content: '';
-      position: absolute;
-      border-width: 8px 8px 8px 0;
-      border-style: solid solid solid none;
-      border-color: transparent @purple transparent;
-      top: 12px;
-      left: -6px;
-    }
 
     &:hover {
       background: darken(@purple, 25%);
@@ -82,15 +73,6 @@
     &:active,
     &:focus {
       background: darken(@purple, 25%);
-    }
-
-
-    &:hover:before {
-      border-right-color: darken(@purple, 25%);
-    }
-
-    &:focus:before {
-      border-right-color: darken(@purple, 25%);
     }
   }
 }

@@ -98,22 +98,24 @@ export const getMessageForActionType = (intl, currentUsername, actionType, actio
       return intl.formatMessage(
         {
           id: 'author_reward_for_post',
-          defaultMessage: 'Author Reward: {rewards} for {postLink}',
+          defaultMessage: 'Author Reward: {rewards} for {author} ({postLink})',
         },
         {
           rewards: 'SBD, STEEM, SP',
-          postLink: `${actionDetails.author}/${actionDetails.permlink}`,
+          author: actionDetails.author,
+          postLink: actionDetails.permlink,
         },
       );
     case accountHistoryConstants.CURATION_REWARD:
       return intl.formatMessage(
         {
           id: 'curation_reward_for_post',
-          defaultMessage: 'Curation Reward: {steemPower} SP for {postLink}',
+          defaultMessage: 'Curation Reward: {steemPower} SP for {author} ({postLink})',
         },
         {
           steemPower: 'SP',
-          postLink: `${actionDetails.comment_author}/${actionDetails.comment_permlink}`,
+          author: actionDetails.comment_author,
+          postLink: actionDetails.comment_permlink,
         },
       );
     case accountHistoryConstants.ACCOUNT_WITNESS_VOTE:

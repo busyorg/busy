@@ -87,7 +87,7 @@ class UserActionMessage extends React.Component {
         return (
           <FormattedMessage
             id="curation_reward_for_post"
-            defaultMessage="Curation Reward: {steemPower} SP for {postLink}"
+            defaultMessage="Curation Reward: {steemPower} SP for {author} ({postLink})"
             values={{
               steemPower: (
                 <FormattedNumber
@@ -100,11 +100,14 @@ class UserActionMessage extends React.Component {
                   )}
                 />
               ),
+              author: <Link to={`/@${actionDetails.comment_author}`}>
+                {actionDetails.comment_author}
+              </Link>,
               postLink: (
                 <Link
                   to={`/p/@${actionDetails.comment_author}/${actionDetails.comment_permlink}#@${actionDetails.comment_author}/${actionDetails.comment_permlink}`}
                 >
-                  {`${actionDetails.comment_author}/${actionDetails.comment_permlink}`}
+                  {actionDetails.comment_permlink}
                 </Link>
               ),
             }}
