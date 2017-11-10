@@ -138,7 +138,7 @@ class Write extends React.Component {
     }
   }
 
-  onDeleteDraft = () => this.props.replace('/write');
+  onDeleteDraft = () => this.props.replace('/editor');
 
   onDelete = () => this.setState({ showModalDelete: true });
 

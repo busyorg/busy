@@ -29,7 +29,7 @@ class DraftRow extends React.Component {
 
     return (
       <div>
-        <Link to={{ pathname: '/write', search: `?draft=${id}` }}>
+        <Link to={{ pathname: '/editor', search: `?draft=${id}` }}>
           <h3>
             {draftTitle.length === 0 ? (
               <FormattedMessage id="draft_untitled" defaultMessage="Untitled draft" />

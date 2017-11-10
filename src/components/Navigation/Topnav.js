@@ -22,7 +22,7 @@ const Topnav = ({ intl, username, onMenuItemClick }) => {
               placement="bottom"
               title={intl.formatMessage({ id: 'write_post', defaultMessage: 'Write post' })}
             >
-              <Link to="/write" className="Topnav__link">
+              <Link to="/editor" className="Topnav__link">
                 <i className="iconfont icon-write" />
               </Link>
             </Tooltip>
