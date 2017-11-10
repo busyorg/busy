@@ -62,17 +62,26 @@ class UserActionMessage extends React.Component {
         return (
           <FormattedMessage
             id="user_replied_to"
-            defaultMessage="{username} replied to {postLink}"
+            defaultMessage="{username} replied to {author} ({postLink})"
             values={{
               username: <Link to={`/@${actionDetails.author}`}>{actionDetails.author}</Link>,
+              author: _.isEmpty(actionDetails.parent_author)
+                ? <Link to={`/@${actionDetails.author}`}>
+                  {actionDetails.author}
+                </Link>
+                : <Link
+                  to={`/@${actionDetails.parent_author}`}
+                >
+                  {actionDetails.parent_author}
+                </Link>,
               postLink: _.isEmpty(actionDetails.parent_author)
                 ? <Link to={`/p/@${actionDetails.author}/${actionDetails.permlink}`}>
-                  {`${actionDetails.author}/${actionDetails.permlink}`}
+                  {actionDetails.permlink}
                 </Link>
                 : <Link
                   to={`/p/@${actionDetails.parent_author}/${actionDetails.parent_permlink}#@${actionDetails.author}/${actionDetails.permlink}`}
                 >
-                  {`${actionDetails.parent_author}/${actionDetails.parent_permlink}`}
+                  {actionDetails.parent_permlink}
                 </Link>,
             }}
           />

@@ -78,10 +78,13 @@ export const getMessageForActionType = (intl, currentUsername, actionType, actio
       return intl.formatMessage(
         {
           id: 'user_replied_to',
-          defaultMessage: '{username} replied to {postLink}',
+          defaultMessage: '{username} replied to {author} ({postLink})',
         },
         {
           username: actionDetails.author,
+          author: _.isEmpty(actionDetails.parent_author)
+            ? actionDetails.author
+            : actionDetails.parent_author,
           postLink: _.isEmpty(actionDetails.parent_author)
             ? `${actionDetails.author}/${actionDetails.permlink}`
             : `${actionDetails.parent_author}/${actionDetails.parent_permlink}`,

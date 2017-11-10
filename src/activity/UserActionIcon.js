@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 import * as accountHistory from '../constants/accountHistory';
 import Avatar from '../components/Avatar';
 
@@ -29,9 +30,15 @@ class UserActionIcon extends React.Component {
       case accountHistory.CUSTOM_JSON: {
         const actionJSON = JSON.parse(actionDetails.json);
         const customActionType = actionJSON[0];
+        const customActionDetails = actionJSON[1];
 
         if (customActionType === accountHistory.REBLOG) {
           return 'icon-share1';
+        } else if (
+          customActionType === accountHistory.FOLLOW &&
+          currentUsername === customActionDetails.follower
+        ) {
+          return _.isEmpty(customActionDetails.what) ? 'icon-addpeople' : 'icon-addpeople_fill';
         }
 
         return null;
