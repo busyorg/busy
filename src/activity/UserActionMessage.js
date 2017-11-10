@@ -4,7 +4,7 @@ import steem from 'steem';
 import _ from 'lodash';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 import { Link } from 'react-router-dom';
-import * as accountHistory from '../constants/accountHistory';
+import * as accountHistoryConstants from '../constants/accountHistory';
 import VoteActionMessage from './VoteActionMessage';
 import CustomJSONMessage from './CustomJSONMessage';
 import AuthorRewardMessage from './AuthorRewardMessage';
@@ -15,6 +15,7 @@ class UserActionMessage extends React.Component {
     actionDetails: PropTypes.shape().isRequired,
     totalVestingShares: PropTypes.string.isRequired,
     totalVestingFundSteem: PropTypes.string.isRequired,
+    currentUsername: PropTypes.string.isRequired,
   };
 
   renderFormattedMessage() {
@@ -23,10 +24,11 @@ class UserActionMessage extends React.Component {
       actionDetails,
       totalVestingShares,
       totalVestingFundSteem,
+      currentUsername,
     } = this.props;
 
     switch (actionType) {
-      case accountHistory.ACCOUNT_CREATE_WITH_DELEGATION:
+      case accountHistoryConstants.ACCOUNT_CREATE_WITH_DELEGATION:
         return (
           <FormattedMessage
             id="account_created_with_delegation"
@@ -41,7 +43,7 @@ class UserActionMessage extends React.Component {
             }}
           />
         );
-      case accountHistory.ACCOUNT_CREATE:
+      case accountHistoryConstants.ACCOUNT_CREATE:
         return (
           <FormattedMessage
             id="account_created"
@@ -56,43 +58,80 @@ class UserActionMessage extends React.Component {
             }}
           />
         );
-      case accountHistory.VOTE:
-        return <VoteActionMessage actionDetails={actionDetails} />;
-      case accountHistory.COMMENT:
+      case accountHistoryConstants.VOTE:
+        return (
+          <VoteActionMessage
+            actionDetails={actionDetails}
+            currentUsername={currentUsername}
+          />
+        );
+      case accountHistoryConstants.COMMENT: {
+        const author = _.isEmpty(actionDetails.parent_author)
+          ? (<Link to={`/@${actionDetails.author}`}>
+            {actionDetails.author}
+          </Link>)
+          : (<Link to={`/@${actionDetails.parent_author}`}>
+            {actionDetails.parent_author}
+          </Link>);
+        const postLink = _.isEmpty(actionDetails.parent_author)
+          ? (<Link to={`/p/@${actionDetails.author}/${actionDetails.permlink}`}>
+            {actionDetails.permlink}
+          </Link>)
+          : (<Link
+            to={`/p/@${actionDetails.parent_author}/${actionDetails.parent_permlink}#@${actionDetails.author}/${actionDetails.permlink}`}
+          >
+            {actionDetails.parent_permlink}
+          </Link>);
+        if (currentUsername === actionDetails.author) {
+          return (
+            <FormattedMessage
+              id="replied_to"
+              defaultMessage="Replied to {author} ({postLink})"
+              values={{
+                author,
+                postLink,
+              }}
+            />
+          );
+        }
         return (
           <FormattedMessage
             id="user_replied_to"
             defaultMessage="{username} replied to {author} ({postLink})"
             values={{
               username: <Link to={`/@${actionDetails.author}`}>{actionDetails.author}</Link>,
-              author: _.isEmpty(actionDetails.parent_author)
-                ? <Link to={`/@${actionDetails.author}`}>
-                  {actionDetails.author}
-                </Link>
-                : <Link
-                  to={`/@${actionDetails.parent_author}`}
-                >
-                  {actionDetails.parent_author}
-                </Link>,
-              postLink: _.isEmpty(actionDetails.parent_author)
-                ? <Link to={`/p/@${actionDetails.author}/${actionDetails.permlink}`}>
-                  {actionDetails.permlink}
-                </Link>
-                : <Link
-                  to={`/p/@${actionDetails.parent_author}/${actionDetails.parent_permlink}#@${actionDetails.author}/${actionDetails.permlink}`}
-                >
-                  {actionDetails.parent_permlink}
-                </Link>,
+              author,
+              postLink,
             }}
           />
         );
-      case accountHistory.CUSTOM_JSON:
-        return <CustomJSONMessage actionDetails={actionDetails} />;
-      case accountHistory.ACCOUNT_UPDATE:
+      }
+      case accountHistoryConstants.DELETE_COMMENT:
+        return (
+          <FormattedMessage
+            id="deleted_comment"
+            defaultMessage="Deleted comment ({link})"
+            values={{
+              link: (
+                <Link to={`/p/@${actionDetails.author}/${actionDetails.permlink}`}>
+                  {actionDetails.permlink}
+                </Link>
+              ),
+            }}
+          />
+        );
+      case accountHistoryConstants.CUSTOM_JSON:
+        return (
+          <CustomJSONMessage
+            actionDetails={actionDetails}
+            currentUsername={currentUsername}
+          />
+        );
+      case accountHistoryConstants.ACCOUNT_UPDATE:
         return <FormattedMessage id="account_updated" defaultMessage="Account Updated" />;
-      case accountHistory.AUTHOR_REWARD:
+      case accountHistoryConstants.AUTHOR_REWARD:
         return <AuthorRewardMessage actionDetails={actionDetails} />;
-      case accountHistory.CURATION_REWARD:
+      case accountHistoryConstants.CURATION_REWARD:
         return (
           <FormattedMessage
             id="curation_reward_for_post"
@@ -109,9 +148,11 @@ class UserActionMessage extends React.Component {
                   )}
                 />
               ),
-              author: <Link to={`/@${actionDetails.comment_author}`}>
-                {actionDetails.comment_author}
-              </Link>,
+              author: (
+                <Link to={`/@${actionDetails.comment_author}`}>
+                  {actionDetails.comment_author}
+                </Link>
+              ),
               postLink: (
                 <Link
                   to={`/p/@${actionDetails.comment_author}/${actionDetails.comment_permlink}#@${actionDetails.comment_author}/${actionDetails.comment_permlink}`}
@@ -122,7 +163,7 @@ class UserActionMessage extends React.Component {
             }}
           />
         );
-      case accountHistory.ACCOUNT_WITNESS_VOTE:
+      case accountHistoryConstants.ACCOUNT_WITNESS_VOTE:
         if (actionDetails.approve) {
           return (
             <FormattedMessage

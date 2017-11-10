@@ -22,6 +22,7 @@ const UserAction = ({ action, totalVestingShares, totalVestingFundSteem, current
           actionDetails={actionDetails}
           totalVestingShares={totalVestingShares}
           totalVestingFundSteem={totalVestingFundSteem}
+          currentUsername={currentUsername}
         />
         <span className="UserActivityActions__timestamp">
           <Tooltip

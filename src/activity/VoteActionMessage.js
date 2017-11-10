@@ -4,10 +4,11 @@ import { Link } from 'react-router-dom';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 import { Tooltip } from 'antd';
 
-const VoteActionMessage = ({ actionDetails }) => {
+const VoteActionMessage = ({ actionDetails, currentUsername }) => {
   const postLink = `@${actionDetails.author}/${actionDetails.permlink}`;
   let voteType = 'unvoted';
   let voteWeight = '';
+
   if (actionDetails.weight > 0) {
     voteType = 'upvoted';
     // eslint-disable-next-line react/style-prop-object
@@ -20,13 +21,17 @@ const VoteActionMessage = ({ actionDetails }) => {
 
   return (
     <span>
-      <FormattedMessage
-        id={`user_${voteType}_post`}
-        defaultMessage={`{username} ${voteType}`}
-        values={{
-          username: <Link to={`/@${actionDetails.voter}`}>{actionDetails.voter}</Link>,
-        }}
-      />
+      {currentUsername === actionDetails.voter
+        ? <span className="capitalize-text">
+          <FormattedMessage id={voteType} defaultMessage={voteType} />
+        </span>
+        : <FormattedMessage
+          id={`user_${voteType}_post`}
+          defaultMessage={`{username} ${voteType}`}
+          values={{
+            username: <Link to={`/@${actionDetails.voter}`}>{actionDetails.voter}</Link>,
+          }}
+        />}
       {actionDetails.weight === 0
         ? ' '
         : <Tooltip title={<FormattedMessage id="voting_weight" defaultMessage="Vote Weight" />}>
@@ -40,6 +45,7 @@ const VoteActionMessage = ({ actionDetails }) => {
 
 VoteActionMessage.propTypes = {
   actionDetails: PropTypes.shape().isRequired,
+  currentUsername: PropTypes.string.isRequired,
 };
 
 export default VoteActionMessage;

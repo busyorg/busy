@@ -221,12 +221,20 @@
   "page_forbidden_message": "Oops! Looks like you need to login to use this page.",
   "account_created_with_delegation": "{creator} created account with delegation {account}",
   "account_created": "{creator} created account {account}",
+  "upvoted": "upvoted",
+  "downvoted": "downvoted",
+  "unvoted": "unvoted",
   "user_upvoted": "{username} upvoted",
   "user_downvoted": "{username} downvoted",
   "user_unvoted": "{username} unvoted",
   "user_replied_to": "{username} replied to {author} ({postLink})",
+  "replied_to": "Replied to {author} ({postLink})",
   "user_followed": "{follower} followed {following}",
   "user_unfollowed": "{follower} unfollowed {following}",
+  "followed_user": "followed {following}",
+  "unfollowed_user": "unfollowed {following}",
+  "user_reblogged_post":"{username} reblogged {postLink}",
+  "reblogged_post":"reblogged {postLink}",
   "account_updated": "Account Updated",
   "curation_reward_for_post": "Curation Reward: {steemPower} SP for {author} ({postLink})",
   "author_reward_for_post": "Author Reward: {rewards} for {postLink}",
@@ -237,5 +245,6 @@
   "filter_activities": "Filter Activities",
   "no_results_found_for_search": "No results were found for your search input",
   "loading_more_account_history_for_search": "Loading more of this user's account history for your search",
-  "search_activity_placeholder": "upvoted, downvoted, etc"
+  "search_activity_placeholder": "upvoted, downvoted, etc",
+  "deleted_comment": "Deleted comment ({link})"
 }

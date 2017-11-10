@@ -17,6 +17,8 @@ class UserActionIcon extends React.Component {
       case accountHistoryConstants.ACCOUNT_CREATE_WITH_DELEGATION:
       case accountHistoryConstants.ACCOUNT_CREATE:
         return 'icon-people_fill';
+      case accountHistoryConstants.ACCOUNT_UPDATE:
+        return 'icon-businesscard_fill';
       case accountHistoryConstants.VOTE:
         if (currentUsername === actionDetails.voter) {
           if (actionDetails.weight > 0) {
@@ -32,7 +34,10 @@ class UserActionIcon extends React.Component {
         const customActionType = actionJSON[0];
         const customActionDetails = actionJSON[1];
 
-        if (customActionType === accountHistoryConstants.REBLOG) {
+        if (
+          customActionType === accountHistoryConstants.REBLOG &&
+          currentUsername === customActionDetails.account
+        ) {
           return 'icon-share1';
         } else if (
           customActionType === accountHistoryConstants.FOLLOW &&
@@ -51,6 +56,8 @@ class UserActionIcon extends React.Component {
           return 'icon-message_fill';
         }
         return null;
+      case accountHistoryConstants.DELETE_COMMENT:
+        return 'icon-message';
       default:
         return null;
     }
@@ -66,7 +73,9 @@ class UserActionIcon extends React.Component {
         const customActionType = actionJSON[0];
         const customActionDetails = actionJSON[1];
 
-        if (customActionType === accountHistoryConstants.FOLLOW) {
+        if (customActionType === accountHistoryConstants.REBLOG) {
+          return customActionDetails.account;
+        } else if (customActionType === accountHistoryConstants.FOLLOW) {
           return customActionDetails.follower;
         }
 
