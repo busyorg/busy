@@ -64,7 +64,7 @@ class CommentForm extends React.Component {
     if (this.input && this.input.setSelectionRange) {
       this.input.setSelectionRange(pos, pos);
     }
-  }
+  };
 
   disableAndInsertImage = (image, imageName = 'image') => {
     this.setState({
