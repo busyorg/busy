@@ -1,0 +1,37 @@
+@import (reference) "../styles/custom.less";
+
+.UserActivitySearch {
+  padding: 25px 15px;
+  border-radius: 4px;
+  text-align: center;
+  color: @white;
+  background-color: @purple;
+  margin-bottom: 1em;
+
+  &__input {
+    display: flex;
+    margin-top: 10px;
+
+    > input {
+      height: 35px;
+    }
+  }
+
+  &__icon {
+    cursor: pointer;
+    align-items: center;
+    background-color: @white;
+    border-left: 0;
+    border-radius: 4px;
+    color: @purple;
+    display: flex;
+    height: 35px;
+    justify-content: center;
+    margin-left: 4px;
+    width: 40px;
+
+    &:hover {
+      opacity: .5;
+    }
+  }
+}

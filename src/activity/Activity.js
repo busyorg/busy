@@ -1,8 +1,8 @@
 import React from 'react';
 import Affix from '../components/Utils/Affix';
 import LeftSidebar from '../app/Sidebar/LeftSidebar';
-import RightSidebar from '../app/Sidebar/RightSidebar';
 import UserActivity from './UserActivity';
+import RightSidebar from '../app/Sidebar/RightSidebar';
 
 const Activity = () => (
   <div className="shifted">

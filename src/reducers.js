@@ -109,3 +109,4 @@ export const getLoadingMoreUsersAccountHistory = state =>
   fromWallet.getLoadingMoreUsersAccountHistory(state.wallet);
 export const getUserHasMoreAccountHistory = (state, username) =>
   fromWallet.getUserHasMoreAccountHistory(state.wallet, username);
+export const getAccountHistoryFilter = state => fromWallet.getAccountHistoryFilter(state.wallet);

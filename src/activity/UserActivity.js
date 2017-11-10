@@ -17,12 +17,14 @@ import {
   getLoadingGlobalProperties,
   getLoadingMoreUsersAccountHistory,
   getUserHasMoreAccountHistory,
+  getAccountHistoryFilter,
 } from '../reducers';
 import {
   getGlobalProperties,
   getUserEstAccountValue,
   getUserAccountHistory,
   getMoreUserAccountHistory,
+  updateAccountHistoryFilter,
 } from '../wallet/walletActions';
 import { getAccountWithFollowingCount } from '../user/usersActions';
 import Loading from '../components/Icon/Loading';
@@ -50,6 +52,7 @@ import UserActivityActions from './UserActivityActions';
         ? getAuthenticatedUser(state).name
         : getUser(state, ownProps.match.params.name).name,
     ),
+    accountHistoryFilter: getAccountHistoryFilter(state),
   }),
   {
     getGlobalProperties,
@@ -57,6 +60,7 @@ import UserActivityActions from './UserActivityActions';
     getMoreUserAccountHistory,
     getAccountWithFollowingCount,
     getUserEstAccountValue,
+    updateAccountHistoryFilter,
   },
 )
 class UserActivity extends React.Component {
@@ -78,6 +82,8 @@ class UserActivity extends React.Component {
     loadingGlobalProperties: PropTypes.bool.isRequired,
     isCurrentUser: PropTypes.bool,
     authenticatedUserName: PropTypes.string,
+    accountHistoryFilter: PropTypes.string.isRequired,
+    updateAccountHistoryFilter: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -114,6 +120,8 @@ class UserActivity extends React.Component {
     if (_.isEmpty(usersEstAccountsValues[username]) && !_.isEmpty(user.name)) {
       this.props.getUserEstAccountValue(user);
     }
+
+    this.props.updateAccountHistoryFilter('');
   }
 
   render() {
@@ -126,6 +134,7 @@ class UserActivity extends React.Component {
       loadingGlobalProperties,
       loadingMoreUsersAccountHistory,
       userHasMoreActions,
+      accountHistoryFilter,
     } = this.props;
     const actions = usersAccountHistory[user.name] || [];
 
@@ -141,6 +150,7 @@ class UserActivity extends React.Component {
             totalVestingFundSteem={totalVestingFundSteem}
             userHasMoreActions={userHasMoreActions}
             loadingMoreUsersAccountHistory={loadingMoreUsersAccountHistory}
+            accountHistoryFilter={accountHistoryFilter}
           />}
       </div>
     );

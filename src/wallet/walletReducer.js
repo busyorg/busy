@@ -13,6 +13,7 @@ const initialState = {
   loadingEstAccountValue: true,
   loadingGlobalProperties: true,
   loadingMoreUsersAccountHistory: false,
+  accountHistoryFilter: '',
 };
 
 export default function walletReducer(state = initialState, action) {
@@ -123,6 +124,12 @@ export default function walletReducer(state = initialState, action) {
         ...state,
         loadingEstAccountValue: false,
       };
+
+    case walletActions.UPDATE_ACCOUNT_HISTORY_FILTER:
+      return {
+        ...state,
+        accountHistoryFilter: action.payload,
+      };
     default:
       return state;
   }
@@ -143,3 +150,4 @@ export const getUserHasMoreAccountHistory = (state, username) => {
   const lastAction = _.last(state.usersAccountHistory[username]) || {};
   return lastAction.actionCount !== 0;
 };
+export const getAccountHistoryFilter = state => state.accountHistoryFilter;
