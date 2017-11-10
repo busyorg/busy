@@ -10,6 +10,8 @@
   "close": "Close",
   "notify_uploading_image": "Uploading image",
   "notify_uploading_iamge_error": "Couldn't upload image",
+  "notify_uploading_image_invalid":
+    "This file is invalid. Only image files with maximum size of {size} are supported",
   "signup": "Sign up",
   "login": "Log in",
   "activity": "Activity",
