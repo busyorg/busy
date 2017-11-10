@@ -1,16 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { IntlProvider, FormattedNumber } from 'react-intl';
+import { FormattedNumber } from 'react-intl';
 
 const USDDisplay = ({ value }) => (
-  <IntlProvider locale="en">
-    <FormattedNumber
-      value={value}
-      // eslint-disable-next-line react/style-prop-object
-      style="currency"
-      currency="USD"
-    />
-  </IntlProvider>
+  <span>
+    {'$'}
+    <FormattedNumber value={value} minimumFractionDigits={2} maximumFractionDigits={2} />
+  </span>
 );
 
 USDDisplay.propTypes = {
