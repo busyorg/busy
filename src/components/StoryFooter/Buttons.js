@@ -127,10 +127,12 @@ export default class Buttons extends React.Component {
     ));
     const upVotesDiff = upVotes.length - upVotesPreview.length;
     const upVotesMore =
-      upVotesDiff > 0 &&
-      intl.formatMessage(
-        { id: 'and_more_amount', defaultMessage: 'and {amount} more' },
-        { amount: upVotesDiff },
+      upVotesDiff > 0 && (
+        <p>
+          <a role="presentation" onClick={this.handleShowReactions}>
+            <FormattedMessage id="and_more_amount" defaultMessage="and {amount} more" values={{ amount: upVotesDiff }} />
+          </a>
+        </p>
       );
 
     const likeClass = classNames({ active: postState.isLiked, Buttons__link: true });
