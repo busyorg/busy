@@ -55,7 +55,11 @@ class UserActivitySearch extends Component {
             })}...`}
           />
           <div className="UserActivitySearch__icon">
-            <i onClick={this.handleSearch} className="iconfont icon-search" />
+            <i
+              role="presentation"
+              onClick={this.handleSearch}
+              className="iconfont icon-search"
+            />
           </div>
         </div>
       </div>
