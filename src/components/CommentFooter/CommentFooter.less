@@ -1,0 +1,58 @@
+@import (reference) "../../styles/custom.less";
+
+.CommentFooter {
+  padding: 8px 0;
+  color: @blue-botticelli;
+  line-height: 14px;
+
+  &__payout {
+    font-weight: bold;
+    font-size: 14px;
+  }
+
+  &__bullet:after {
+    content: "\2022";
+    font-size: 14px;
+    margin: 0 8px;
+  }
+
+  &__link {
+    color: @blue-botticelli;
+    font-weight: bold;
+    font-size: 14px;
+
+    & > .iconfont {
+      margin-right: 4px;
+      font-size: 18px !important;
+      color: @blue-linkWater;
+      vertical-align: -1px;
+    }
+
+    & > .anticon {
+      margin-right: 8px !important;
+    }
+
+    &:hover,
+    &--active {
+      color: @purple;
+      & > .iconfont {
+        color: @purple;
+      }
+    }
+  }
+
+  &__count {
+    margin-right: 8px;
+    color: @blue-botticelli;
+    font-weight: bold;
+    font-size: 14px;
+
+    &--clickable {
+      cursor: pointer;
+
+      &:hover {
+        color: @purple;
+      }
+    }
+  }
+}

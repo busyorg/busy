@@ -1,0 +1,32 @@
+@import (reference) "../../styles/custom.less";
+
+.Confirmation {
+  a {
+    color: @blue-botticelli;
+    font-size: 14px;
+    font-weight: bold;
+    user-select: none;
+
+    &:not(:last-child) {
+      margin-right: 12px;
+    }
+
+    .iconfont {
+      transition: color 0.3s ease;
+      margin-right: 4px;
+      font-size: 24px !important;
+      color: @blue-linkWater;
+    }
+
+    span {
+      vertical-align: top;
+    }
+
+    &:hover {
+      color: @purple;
+      .iconfont {
+        color: @purple;
+      }
+    }
+  }
+}
