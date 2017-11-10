@@ -41,8 +41,12 @@ class UserActivitySearch extends Component {
 
   render() {
     return (
-      <div className="SidebarBlock UserActivitySearch">
-        <FormattedMessage id="search_users_activity" defaultValue="Search Users Activity" />
+      <div className="UserActivitySearch">
+        <h4 className="UserActivitySearch__title">
+          <i className="iconfont icon-trysearchlist UserActivitySearch__title__icon" />
+          <FormattedMessage id="search_users_activity" defaultValue="Search Users Activity" />
+        </h4>
+        <div className="UserActivitySearch__divider" />
         <div className="UserActivitySearch__input">
           <Input
             type="text"
@@ -54,13 +58,9 @@ class UserActivitySearch extends Component {
               defaultMessage: 'Search for activities',
             })}...`}
           />
-          <div className="UserActivitySearch__icon">
-            <i
-              role="presentation"
-              onClick={this.handleSearch}
-              className="iconfont icon-search"
-            />
-          </div>
+          <button className="UserActivitySearch__icon" onClick={this.handleSearch}>
+            <i className="iconfont icon-search" />
+          </button>
         </div>
       </div>
     );

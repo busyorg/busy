@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import ReduxInfiniteScroll from 'redux-infinite-scroll';
-import * as accountHistory from '../constants/accountHistory';
 import { isWalletTransaction, defaultAccountLimit } from '../helpers/apiHelpers';
+import { getMessageForActionType } from '../helpers/accountHistoryHelper';
 import WalletTransaction from '../wallet/WalletTransaction';
 import Loading from '../components/Icon/Loading';
 import UserAction from './UserAction';
@@ -51,140 +51,6 @@ const displayLimit = 10;
     }
   }
 
-  getMessageForActionType = (actionType, actionDetails) => {
-    switch (actionType) {
-      case accountHistory.ACCOUNT_CREATE_WITH_DELEGATION:
-        return this.props.intl.formatMessage(
-          {
-            id: 'account_created_with_delegation',
-            defaultMessage: '{creator} created account with delegation {account}',
-          },
-          {
-            creator: actionDetails.creator,
-            account: actionDetails.new_account_name,
-          },
-        );
-      case accountHistory.ACCOUNT_CREATE:
-        return this.props.intl.formatMessage(
-          {
-            id: 'account_created',
-            defaultMessage: '{creator} created account {account}',
-          },
-          {
-            creator: actionDetails.creator,
-            account: actionDetails.new_account_name,
-          },
-        );
-      case accountHistory.VOTE: {
-        let voteType = 'unvoted';
-        if (actionDetails.weight > 0) {
-          voteType = 'upvoted';
-        } else if (actionDetails.weight < 0) {
-          voteType = 'downvoted';
-        }
-        return this.props.intl.formatMessage(
-          {
-            id: `user_${voteType}_post`,
-            defaultMessage: `{username }${voteType}`,
-          },
-          { username: actionDetails.voter },
-        );
-      }
-      case accountHistory.COMMENT:
-        return this.props.intl.formatMessage(
-          {
-            id: 'user_replied_to',
-            defaultMessage: '{username} replied to {postLink}',
-          },
-          {
-            username: actionDetails.author,
-            postLink: _.isEmpty(actionDetails.parent_author)
-              ? `${actionDetails.author}/${actionDetails.permlink}`
-              : `${actionDetails.parent_author}/${actionDetails.parent_permlink}`,
-          },
-        );
-      case accountHistory.CUSTOM_JSON: {
-        const actionJSON = JSON.parse(actionDetails.json);
-        const customActionType = actionJSON[0];
-        const customActionDetails = actionJSON[1];
-        if (customActionType === accountHistory.FOLLOW) {
-          const followAction = _.isEmpty(customActionDetails.what) ? 'unfollowed' : 'followed';
-          return this.props.intl.formatMessage(
-            {
-              id: `user_${followAction}`,
-              defaultMessage: `{follower} ${followAction} {following}`,
-            },
-            {
-              follower: customActionDetails.follower,
-              following: customActionDetails.following,
-            },
-          );
-        } else if (customActionType === accountHistory.REBLOG) {
-          return this.props.intl.formatMessage(
-            {
-              id: 'user_reblogged_post',
-              defaultMessage: '{username} reblogged {postLink}',
-            },
-            {
-              username: customActionDetails.account,
-              postLink: `@${customActionDetails.author}/${customActionDetails.permlink}`,
-            },
-          );
-        }
-        return '';
-      }
-      case accountHistory.ACCOUNT_UPDATE:
-        return this.props.intl.formatMessage({
-          id: 'account_updated',
-          defaultMessage: 'Account Updated',
-        });
-      case accountHistory.AUTHOR_REWARD:
-        return this.props.intl.formatMessage(
-          {
-            id: 'author_reward_for_post',
-            defaultMessage: 'Author Reward: {rewards} for {postLink}',
-          },
-          {
-            rewards: 'SBD, STEEM, SP',
-            postLink: `${actionDetails.author}/${actionDetails.permlink}`,
-          },
-        );
-      case accountHistory.CURATION_REWARD:
-        return this.props.intl.formatMessage(
-          {
-            id: 'curation_reward_for_post',
-            defaultMessage: 'Curation Reward: {steemPower} SP for {postLink}',
-          },
-          {
-            steemPower: 'SP',
-            postLink: `${actionDetails.comment_author}/${actionDetails.comment_permlink}`,
-          },
-        );
-      case accountHistory.ACCOUNT_WITNESS_VOTE:
-        if (actionDetails.approve) {
-          return this.props.intl.formatMessage(
-            {
-              id: 'account_approve_witness',
-              defaultMessage: '{account} approve witness {witness}',
-            },
-            { account: actionDetails.account, witness: actionDetails.witness },
-          );
-        }
-        return this.props.intl.formatMessage(
-          {
-            id: 'account_unapprove_witness',
-            defaultMessage: '{account} unapprove witness {witness}',
-          },
-          {
-            account: actionDetails.account,
-            witness: actionDetails.witness,
-          },
-        );
-      default:
-        return '';
-    }
-  };
-
   handleLoadMore = () => {
     const { currentUsername, actions } = this.props;
     const { displayedActions } = this.state;
@@ -212,7 +78,7 @@ const displayLimit = 10;
   };
 
   actionsFilter = (action) => {
-    const { accountHistoryFilter } = this.props;
+    const { accountHistoryFilter, intl, currentUsername } = this.props;
     const formattedFilter = accountHistoryFilter.toLowerCase();
     const actionType = action.op[0];
     const formattedActionType = actionType.replace('_', ' ').toLowerCase();
@@ -226,7 +92,7 @@ const displayLimit = 10;
       accountHistoryFilter,
     );
     const filterMatchesMessage = _.includes(
-      this.getMessageForActionType(actionType, actionDetails),
+      _.lowerCase(getMessageForActionType(intl, currentUsername, actionType, actionDetails)),
       formattedFilter,
     );
 
