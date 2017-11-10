@@ -10,7 +10,7 @@ import Loading from '../components/Icon/Loading';
 import UserAction from './UserAction';
 import './UserActivityActions.less';
 
-const displayLimit = 10;
+const displayLimit = 100;
 
 @injectIntl class UserActivityActions extends React.Component {
   static propTypes = {
