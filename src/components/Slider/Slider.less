@@ -1,13 +1,23 @@
 @import (reference) "../../styles/custom.less";
+@import (reference) "../../styles/modules/variables.less";
 
 .Slider {
   margin: 0 auto;
-  padding: 0 16px;
+  padding: 0;
   max-width: 560px;
+
+  @media @small {
+    padding: 0 16px;
+  }
 
   &__info {
     margin-bottom: 12px;
     text-align: center;
+    font-size: 14px;
+
+    @media @small {
+      font-size: 16px;
+    }
 
     &__amount {
       font-family: @font-family-monospace;

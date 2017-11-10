@@ -11,24 +11,12 @@ import { AppContainer } from 'react-hot-loader';
 import { LocaleProvider, message } from 'antd';
 import enUS from 'antd/lib/locale-provider/en_US';
 import { history } from './routes';
-import pkg from '../package.json';
 import getStore from './store';
 import AppHost from './AppHost';
 
 Logger.useDefaults();
 
 const store = getStore();
-
-if (window.ga) {
-  window.ga('set', 'appVersion', pkg.version);
-}
-
-const logPageView = () => {
-  if (window.ga) {
-    window.ga('set', 'page', window.location.pathname);
-    window.ga('send', 'pageview');
-  }
-};
 
 if (process.env.SENTRY_PUBLIC_DSN) {
   Raven.config(process.env.SENTRY_PUBLIC_DSN).install();
@@ -65,10 +53,10 @@ const render = (Component) => {
       <LocaleProvider locale={enUS}>
         {process.env.NODE_ENV !== 'production' ? (
           <AppContainer>
-            <Component history={history} onUpdate={logPageView} />
+            <Component history={history} />
           </AppContainer>
         ) : (
-          <Component history={history} onUpdate={logPageView} />
+          <Component history={history} />
         )}
       </LocaleProvider>
     </Provider>,
