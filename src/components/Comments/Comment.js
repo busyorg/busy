@@ -11,6 +11,7 @@ import {
 } from 'react-intl';
 import { Tag, Tooltip } from 'antd';
 import { formatter } from 'steem';
+import { MAXIMUM_UPLOAD_SIZE_HUMAN } from '../../helpers/image';
 import { sortComments } from '../../helpers/sortHelpers';
 import CommentForm from './CommentForm';
 import EmbeddedCommentForm from './EmbeddedCommentForm';
@@ -39,6 +40,7 @@ class Comment extends React.Component {
       }),
     ),
     depth: PropTypes.number,
+    notify: PropTypes.func,
     onLikeClick: PropTypes.func,
     onDislikeClick: PropTypes.func,
     onSendComment: PropTypes.func,
@@ -51,6 +53,7 @@ class Comment extends React.Component {
     commentsChildren: undefined,
     pendingVotes: [],
     depth: 0,
+    notify: () => {},
     onLikeClick: () => {},
     onDislikeClick: () => {},
     onSendComment: () => {},
@@ -122,6 +125,21 @@ class Comment extends React.Component {
       .catch(() => errorCallback());
   };
 
+  handleImageInvalid = () => {
+    const { formatMessage } = this.props.intl;
+    this.props.notify(
+      formatMessage(
+        {
+          id: 'notify_uploading_image_invalid',
+          defaultMessage:
+            'This file is invalid. Only image files with maximum size of {size} are supported',
+        },
+        { size: MAXIMUM_UPLOAD_SIZE_HUMAN },
+      ),
+      'error',
+    );
+  };
+
   handleSubmitComment = (parentPost, commentValue, isUpdating, originalComment) => {
     this.setState({ showCommentFormLoading: true });
 
@@ -181,6 +199,7 @@ class Comment extends React.Component {
           onSubmit={this.handleEditComment}
           onClose={this.handleEditClick}
           onImageInserted={this.handleImageInserted}
+          onImageInvalid={this.handleImageInvalid}
         />
       );
     } else {
@@ -269,6 +288,7 @@ class Comment extends React.Component {
                 isLoading={this.state.showCommentFormLoading}
                 inputValue={this.state.commentFormText}
                 onImageInserted={this.handleImageInserted}
+                onImageInvalid={this.handleImageInvalid}
               />
             )}
           <div
@@ -290,6 +310,7 @@ class Comment extends React.Component {
                   pendingVotes={pendingVotes}
                   rootPostAuthor={rootPostAuthor}
                   commentsChildren={commentsChildren}
+                  notify={this.props.notify}
                   rewardFund={rewardFund}
                   sliderMode={sliderMode}
                   defaultVotePercent={defaultVotePercent}
