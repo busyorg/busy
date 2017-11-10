@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import * as accountHistory from '../constants/accountHistory';
+import * as accountHistoryConstants from '../constants/accountHistory';
 import Avatar from '../components/Avatar';
 
 class UserActionIcon extends React.Component {
@@ -14,10 +14,10 @@ class UserActionIcon extends React.Component {
   getIcon() {
     const { actionType, actionDetails, currentUsername } = this.props;
     switch (actionType) {
-      case accountHistory.ACCOUNT_CREATE_WITH_DELEGATION:
-      case accountHistory.ACCOUNT_CREATE:
+      case accountHistoryConstants.ACCOUNT_CREATE_WITH_DELEGATION:
+      case accountHistoryConstants.ACCOUNT_CREATE:
         return 'icon-people_fill';
-      case accountHistory.VOTE:
+      case accountHistoryConstants.VOTE:
         if (currentUsername === actionDetails.voter) {
           if (actionDetails.weight > 0) {
             return 'icon-praise_fill';
@@ -27,15 +27,15 @@ class UserActionIcon extends React.Component {
           return 'icon-praise';
         }
         return null;
-      case accountHistory.CUSTOM_JSON: {
+      case accountHistoryConstants.CUSTOM_JSON: {
         const actionJSON = JSON.parse(actionDetails.json);
         const customActionType = actionJSON[0];
         const customActionDetails = actionJSON[1];
 
-        if (customActionType === accountHistory.REBLOG) {
+        if (customActionType === accountHistoryConstants.REBLOG) {
           return 'icon-share1';
         } else if (
-          customActionType === accountHistory.FOLLOW &&
+          customActionType === accountHistoryConstants.FOLLOW &&
           currentUsername === customActionDetails.follower
         ) {
           return _.isEmpty(customActionDetails.what) ? 'icon-addpeople' : 'icon-addpeople_fill';
@@ -43,9 +43,14 @@ class UserActionIcon extends React.Component {
 
         return null;
       }
-      case accountHistory.AUTHOR_REWARD:
-      case accountHistory.CURATION_REWARD:
+      case accountHistoryConstants.AUTHOR_REWARD:
+      case accountHistoryConstants.CURATION_REWARD:
         return 'icon-ranking';
+      case accountHistoryConstants.COMMENT:
+        if (currentUsername === actionDetails.author) {
+          return 'icon-message_fill';
+        }
+        return null;
       default:
         return null;
     }
@@ -54,23 +59,23 @@ class UserActionIcon extends React.Component {
   getAvatarUsername() {
     const { actionType, actionDetails } = this.props;
     switch (actionType) {
-      case accountHistory.COMMENT:
+      case accountHistoryConstants.COMMENT:
         return actionDetails.author;
-      case accountHistory.CUSTOM_JSON: {
+      case accountHistoryConstants.CUSTOM_JSON: {
         const actionJSON = JSON.parse(actionDetails.json);
         const customActionType = actionJSON[0];
         const customActionDetails = actionJSON[1];
 
-        if (customActionType === accountHistory.FOLLOW) {
+        if (customActionType === accountHistoryConstants.FOLLOW) {
           return customActionDetails.follower;
         }
 
         return null;
       }
-      case accountHistory.VOTE:
+      case accountHistoryConstants.VOTE:
         return actionDetails.voter;
-      case accountHistory.ACCOUNT_WITNESS_VOTE:
-      case accountHistory.ACCOUNT_UPDATE:
+      case accountHistoryConstants.ACCOUNT_WITNESS_VOTE:
+      case accountHistoryConstants.ACCOUNT_UPDATE:
         return actionDetails.account;
       default:
         return null;
