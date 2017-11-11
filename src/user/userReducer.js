@@ -109,5 +109,6 @@ export default function userReducer(state = initialState, action) {
 
 export const getFollowingList = state => state.following.list;
 export const getPendingFollows = state => state.following.pendingFollows;
+export const getIsFetchingFollowingList = state => state.following.isFetching;
 export const getRecommendations = state => state.recommendations;
 export const getIsFetchingFollowingList = state => state.following.isFetching;
