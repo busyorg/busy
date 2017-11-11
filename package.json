@@ -62,6 +62,7 @@
     "express": "^4.15.4",
     "extract-text-webpack-plugin": "^3.0.1",
     "file-loader": "^1.1.5",
+    "filesize": "^3.5.11",
     "history": "^4.6.3",
     "html-loader": "^0.5.1",
     "html-webpack-plugin": "^2.30.1",
