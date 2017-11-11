@@ -9,7 +9,7 @@ const EmptyUserProfile = () =>
         id="empty_user_own_profile"
         defaultMessage="You didn't publish any stories yet."
       />
-      <Link to="/write">
+      <Link to="/editor">
         <FormattedMessage id="@statics/start_now" defaultMessage="Start now" />
       </Link>
     </h3>

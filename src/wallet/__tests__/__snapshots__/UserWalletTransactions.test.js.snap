@@ -2,12 +2,8 @@
 
 exports[`(Component) UserWalletTransactions with default prop values renders and matches snapshot 1`] = `
 ShallowWrapper {
-  "complexSelector": ComplexSelector {
-    "buildPredicate": [Function],
-    "childrenOfNode": [Function],
-    "findWhereUnwrapped": [Function],
-  },
   "length": 1,
+
   "node": <div
     className="UserWalletTransactions"
   >
@@ -79,11 +75,58 @@ ShallowWrapper {
       className="UserWalletTransactions"
     >
       <ReduxInfiniteScroll
+=======
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <UserWalletTransactions
+    currentUsername="hellosteem"
+    totalVestingFundSteem="0"
+    totalVestingShares="0"
+    transactions={
+      Array [
+        Object {
+          "op": Array [
+            "transfer_to_vesting",
+            Object {
+              "amount": "100 STEEM",
+            },
+          ],
+          "timestamp": "0",
+        },
+        Object {
+          "op": Array [
+            "transfer",
+            Object {
+              "amount": "100 STEEM",
+              "from": "hellosteem1",
+              "memo": "transfer memo",
+            },
+          ],
+          "timestamp": "0",
+        },
+      ]
+    }
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": <ReduxInfiniteScroll
+        animateItems={false}
+
         className=""
         containerHeight="100%"
         elementIsScrollable={false}
         hasMore={true}
         holderType="div"
+        horizontal={false}
         items={Array []}
         loadMore={[Function]}
         loader={
@@ -102,7 +145,18 @@ ShallowWrapper {
         }
         loadingMore={false}
         showLoader={true}
+
         threshold={500}
+
+        threshold={200}
+        transitionAppear={true}
+        transitionAppearTimeout={2000}
+        transitionEnter={true}
+        transitionEnterTimeout={2000}
+        transitionLeave={true}
+        transitionLeaveTimeout={1000}
+        transitionName="redux-infinite-scroll"
+
       >
         <div />
         <WalletTransaction
@@ -139,6 +193,7 @@ ShallowWrapper {
             }
           }
         />
+
       </ReduxInfiniteScroll>
     </div>,
   ],
@@ -322,9 +377,179 @@ ShallowWrapper {
                 <Loading
                   center={true}
                   style={Object {}}
+
+      </ReduxInfiniteScroll>,
+      "className": "UserWalletTransactions",
+    },
+    "ref": null,
+    "rendered": Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "class",
+      "props": Object {
+        "animateItems": false,
+        "children": Array [
+          <PowerUpTransaction
+            amount={
+              <span>
+                <FormattedNumber
+                  maximumFractionDigits={3}
+                  minimumFractionDigits={3}
+                  value={100}
                 />
-              </div>
+                 SP
+              </span>
             }
+            timestamp="0"
+          />,
+          <TransferTransaction
+            amount={
+              <span>
+                <FormattedNumber
+                  maximumFractionDigits={3}
+                  minimumFractionDigits={3}
+                  value={100}
+                />
+                 STEEM
+              </span>
+            }
+            memo="transfer memo"
+            timestamp="0"
+            to=""
+          />,
+        ],
+        "className": "",
+        "containerHeight": "100%",
+        "elementIsScrollable": false,
+        "hasMore": false,
+        "holderType": "div",
+        "horizontal": false,
+        "items": Array [],
+        "loadMore": [Function],
+        "loader": <div
+          style={
+            Object {
+              "margin": "20px",
+            }
+          }
+        >
+          <Loading
+            center={true}
+            style={Object {}}
+          />
+        </div>,
+        "loadingMore": false,
+        "showLoader": true,
+        "threshold": 200,
+        "transitionAppear": true,
+        "transitionAppearTimeout": 2000,
+        "transitionEnter": true,
+        "transitionEnterTimeout": 2000,
+        "transitionLeave": true,
+        "transitionLeaveTimeout": 1000,
+        "transitionName": "redux-infinite-scroll",
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": "undefined0",
+          "nodeType": "function",
+          "props": Object {
+            "amount": <span>
+              <FormattedNumber
+                maximumFractionDigits={3}
+                minimumFractionDigits={3}
+                value={100}
+              />
+               SP
+            </span>,
+            "timestamp": "0",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": "undefined1",
+          "nodeType": "function",
+          "props": Object {
+            "amount": <span>
+              <FormattedNumber
+                maximumFractionDigits={3}
+                minimumFractionDigits={3}
+                value={100}
+              />
+               STEEM
+            </span>,
+            "memo": "transfer memo",
+            "timestamp": "0",
+            "to": "",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+      ],
+      "type": [Function],
+    },
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": <ReduxInfiniteScroll
+          animateItems={false}
+          className=""
+          containerHeight="100%"
+          elementIsScrollable={false}
+          hasMore={false}
+          holderType="div"
+          horizontal={false}
+          items={Array []}
+          loadMore={[Function]}
+          loader={
+            <div
+              style={
+                Object {
+                  "margin": "20px",
+                }
+              }
+            >
+              <Loading
+                center={true}
+                style={Object {}}
+              />
+            </div>
+          }
+          loadingMore={false}
+          showLoader={true}
+          threshold={200}
+          transitionAppear={true}
+          transitionAppearTimeout={2000}
+          transitionEnter={true}
+          transitionEnterTimeout={2000}
+          transitionLeave={true}
+          transitionLeaveTimeout={1000}
+          transitionName="redux-infinite-scroll"
+        >
+          <PowerUpTransaction
+            amount={
+              <span>
+                <FormattedNumber
+                  maximumFractionDigits={3}
+                  minimumFractionDigits={3}
+                  value={100}
+
+                />
+                 SP
+              </span>
+            }
+
             loadingMore={false}
             showLoader={true}
             threshold={500}
@@ -390,22 +615,150 @@ ShallowWrapper {
             Object {
               "amount": "100 STEEM",
             },
+
+            timestamp="0"
+          />
+          <TransferTransaction
+            amount={
+              <span>
+                <FormattedNumber
+                  maximumFractionDigits={3}
+                  minimumFractionDigits={3}
+                  value={100}
+                />
+                 STEEM
+              </span>
+            }
+            memo="transfer memo"
+            timestamp="0"
+            to=""
+          />
+        </ReduxInfiniteScroll>,
+        "className": "UserWalletTransactions",
+      },
+      "ref": null,
+      "rendered": Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "animateItems": false,
+          "children": Array [
+            <PowerUpTransaction
+              amount={
+                <span>
+                  <FormattedNumber
+                    maximumFractionDigits={3}
+                    minimumFractionDigits={3}
+                    value={100}
+                  />
+                   SP
+                </span>
+              }
+              timestamp="0"
+            />,
+            <TransferTransaction
+              amount={
+                <span>
+                  <FormattedNumber
+                    maximumFractionDigits={3}
+                    minimumFractionDigits={3}
+                    value={100}
+                  />
+                   STEEM
+                </span>
+              }
+              memo="transfer memo"
+              timestamp="0"
+              to=""
+            />,
+
           ],
-          "timestamp": "0",
+          "className": "",
+          "containerHeight": "100%",
+          "elementIsScrollable": false,
+          "hasMore": false,
+          "holderType": "div",
+          "horizontal": false,
+          "items": Array [],
+          "loadMore": [Function],
+          "loader": <div
+            style={
+              Object {
+                "margin": "20px",
+              }
+            }
+          >
+            <Loading
+              center={true}
+              style={Object {}}
+            />
+          </div>,
+          "loadingMore": false,
+          "showLoader": true,
+          "threshold": 200,
+          "transitionAppear": true,
+          "transitionAppearTimeout": 2000,
+          "transitionEnter": true,
+          "transitionEnterTimeout": 2000,
+          "transitionLeave": true,
+          "transitionLeaveTimeout": 1000,
+          "transitionName": "redux-infinite-scroll",
         },
-        Object {
-          "op": Array [
-            "transfer",
-            Object {
-              "amount": "100 STEEM",
-              "from": "hellosteem1",
-              "memo": "transfer memo",
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": "undefined0",
+            "nodeType": "function",
+            "props": Object {
+              "amount": <span>
+                <FormattedNumber
+                  maximumFractionDigits={3}
+                  minimumFractionDigits={3}
+                  value={100}
+                />
+                 SP
+              </span>,
+              "timestamp": "0",
             },
-          ],
-          "timestamp": "0",
-        },
-      ]
-    }
-  />,
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+          Object {
+            "instance": null,
+            "key": "undefined1",
+            "nodeType": "function",
+            "props": Object {
+              "amount": <span>
+                <FormattedNumber
+                  maximumFractionDigits={3}
+                  minimumFractionDigits={3}
+                  value={100}
+                />
+                 STEEM
+              </span>,
+              "memo": "transfer memo",
+              "timestamp": "0",
+              "to": "",
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+        ],
+        "type": [Function],
+      },
+      "type": "div",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
 }
 `;
