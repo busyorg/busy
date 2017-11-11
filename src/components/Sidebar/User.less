@@ -3,26 +3,51 @@
 }
 
 .User__top {
-  display: flex;
+  display: table;
+  table-layout: fixed;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 8px;
+  width: 100%;
+  white-space: nowrap;
+
 }
 
 .User__links {
-  display: flex;
-  align-items: center;
-  overflow: hidden;
+  display: table-cell;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 100%;
 
   & > a {
+    display: inline-block;
     font-weight: bold;
     text-overflow: ellipsis;
+    overflow: hidden;
     white-space: nowrap;
+    vertical-align: middle;
+    max-width: 100%;
+  }
+}
+
+.User__link {
+  padding-right: 10px;
+}
+
+.User__follow {
+  display: table-cell;
+  vertical-align: middle;
+
+  & > button {
+    float: right;
   }
 }
 
 .User__name {
   margin-left: 8px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .User__about {
