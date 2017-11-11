@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { injectIntl, FormattedMessage } from 'react-intl';
-import ReduxInfiniteScroll from 'redux-infinite-scroll';
+import ReduxInfiniteScroll from '../vendor/ReduxInfiniteScroll';
 import { isWalletTransaction, defaultAccountLimit } from '../helpers/apiHelpers';
 import { getMessageForActionType } from '../helpers/accountHistoryHelper';
 import WalletTransaction from '../wallet/WalletTransaction';
