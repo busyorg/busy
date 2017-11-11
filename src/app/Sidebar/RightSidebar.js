@@ -16,7 +16,7 @@ import StartNow from '../../components/Sidebar/StartNow';
 import SignUp from '../../components/Sidebar/SignUp';
 import PostRecommendation from '../../components/Sidebar/PostRecommendation';
 import Loading from '../../components/Icon/Loading';
-import SteemTrendingCharts from '../../components/Sidebar/SteemTrendingCharts';
+import WalletSidebar from '../../components/Sidebar/WalletSidebar';
 
 @withRouter
 @connect(
@@ -66,7 +66,7 @@ export default class RightSidebar extends React.Component {
       <div>
         {!authenticated && <SignUp />}
         <Switch>
-          <Route path="/@:name/transfers" render={() => <SteemTrendingCharts />} />
+          <Route path="/@:name/transfers" render={() => <WalletSidebar />} />
           <Route
             path="/@:name"
             render={() =>
