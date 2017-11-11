@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import ReduxInfiniteScroll from 'redux-infinite-scroll';
 import _ from 'lodash';
+import ReduxInfiniteScroll from '../vendor/ReduxInfiniteScroll';
 import { getHasDefaultSlider } from '../helpers/user';
 import { isPostDeleted } from '../helpers/postHelpers';
 import * as bookmarkActions from '../bookmarks/bookmarksActions';
