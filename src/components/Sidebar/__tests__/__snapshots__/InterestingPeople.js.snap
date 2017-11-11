@@ -3,83 +3,6 @@
 exports[`<InterestingPeople /> renders without exploding 1`] = `
 ShallowWrapper {
   "length": 1,
-  "node": <div
-    className="InterestingPeople"
-  >
-    <div
-      className="InterestingPeople__container"
-    >
-      <h4
-        className="InterestingPeople__title"
-      >
-        <i
-          className="iconfont icon-group InterestingPeople__icon"
-        />
-         
-        <FormattedMessage
-          defaultMessage="Interesting People"
-          id="interesting_people"
-          values={Object {}}
-        />
-        <i
-          className="iconfont icon-refresh InterestingPeople__icon-refresh"
-          onClick={[Function]}
-          role="presentation"
-        />
-      </h4>
-      <div
-        className="InterestingPeople__divider"
-      />
-      <User
-        user={
-          Object {
-            "name": "sekhmet",
-          }
-        }
-      />
-      <User
-        user={
-          Object {
-            "name": "fabien",
-          }
-        }
-      />
-      <User
-        user={
-          Object {
-            "name": "ekitcho",
-          }
-        }
-      />
-      <User
-        user={
-          Object {
-            "name": "jm90mm",
-          }
-        }
-      />
-      <h4
-        className="InterestingPeople__more"
-      >
-        <Link
-          replace={false}
-          to="/discover-more-people"
-        >
-          <FormattedMessage
-            defaultMessage="Discover More People"
-            id="discover_more_people"
-            values={Object {}}
-          />
-        </Link>
-      </h4>
-    </div>
-  </div>,
-  "nodes": Array [
-    <div
-      className="InterestingPeople"
-    >
-      <div
-=======
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <InterestingPeople
     onRefresh={[Function]}
@@ -113,7 +36,6 @@ ShallowWrapper {
     "nodeType": "host",
     "props": Object {
       "children": <div
-
         className="InterestingPeople__container"
       >
         <h4
@@ -170,7 +92,7 @@ ShallowWrapper {
         >
           <Link
             replace={false}
-            to="/discover-more-people"
+            to="/discover"
           >
             <FormattedMessage
               defaultMessage="Discover More People"
@@ -245,26 +167,8 @@ ShallowWrapper {
           >
             <Link
               replace={false}
-              to="/latest-comments"
+              to="/discover"
             >
-
-              <Link
-                replace={false}
-                to="/discover-more-people"
-              >
-                <FormattedMessage
-                  defaultMessage="Discover More People"
-                  id="discover_more_people"
-                  values={Object {}}
-                />
-              </Link>
-            </h4>
-          </div>
-        </div>,
-        "_debugID": 2,
-        "_renderedOutput": <div
-          className="InterestingPeople"
-
               <FormattedMessage
                 defaultMessage="Discover More People"
                 id="discover_more_people"
@@ -413,7 +317,7 @@ ShallowWrapper {
           "props": Object {
             "children": <Link
               replace={false}
-              to="/latest-comments"
+              to="/discover"
             >
               <FormattedMessage
                 defaultMessage="Discover More People"
@@ -435,7 +339,7 @@ ShallowWrapper {
                 values={Object {}}
               />,
               "replace": false,
-              "to": "/latest-comments",
+              "to": "/discover",
             },
             "ref": null,
             "rendered": Object {
@@ -468,7 +372,6 @@ ShallowWrapper {
       "props": Object {
         "children": <div
           className="InterestingPeople__container"
-
         >
           <h4
             className="InterestingPeople__title"
@@ -524,7 +427,7 @@ ShallowWrapper {
           >
             <Link
               replace={false}
-              to="/latest-comments"
+              to="/discover"
             >
               <FormattedMessage
                 defaultMessage="Discover More People"
@@ -599,7 +502,7 @@ ShallowWrapper {
             >
               <Link
                 replace={false}
-                to="/discover-more-people"
+                to="/discover"
               >
                 <FormattedMessage
                   defaultMessage="Discover More People"
@@ -749,7 +652,7 @@ ShallowWrapper {
             "props": Object {
               "children": <Link
                 replace={false}
-                to="/latest-comments"
+                to="/discover"
               >
                 <FormattedMessage
                   defaultMessage="Discover More People"
@@ -771,7 +674,7 @@ ShallowWrapper {
                   values={Object {}}
                 />,
                 "replace": false,
-                "to": "/latest-comments",
+                "to": "/discover",
               },
               "ref": null,
               "rendered": Object {

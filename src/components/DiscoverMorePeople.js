@@ -12,9 +12,7 @@ import Affix from './Utils/Affix';
 import './DiscoverMorePeople.less';
 
 const DiscoverMorePeople = ({ fetchingFollowingList, followingList, authenticated }) => {
-  const randomizedPeople = people
-    .filter(p => !followingList.includes(p))
-    .map(name => ({ name }));
+  const randomizedPeople = people.filter(p => !followingList.includes(p)).map(name => ({ name }));
   const content = randomizedPeople.length > 0
     ? randomizedPeople.map(user => <User key={user.name} user={user} />)
     : <FormattedMessage id="more_people_not_found" defaultMessage="No more people were found" />;
@@ -42,12 +40,10 @@ const DiscoverMorePeople = ({ fetchingFollowingList, followingList, authenticate
             </div>
           </Affix>
           <div className="center">
-            <h1>
-              <span>
-                <FormattedMessage id="discover_more_people" defaultMessage="Discover More People" />
-              </span>
+            <h1 className="DiscoverMorePeople__title">
+              <FormattedMessage id="discover_more_people" defaultMessage="Discover More People" />
             </h1>
-            <div className="DiscoverMorePeople">
+            <div className="DiscoverMorePeople__content">
               {fetchingFollowingList ? <Loading /> : content}
             </div>
           </div>
