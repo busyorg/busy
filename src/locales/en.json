@@ -10,6 +10,8 @@
   "close": "Close",
   "notify_uploading_image": "Uploading image",
   "notify_uploading_iamge_error": "Couldn't upload image",
+  "notify_uploading_image_invalid":
+    "This file is invalid. Only image files with maximum size of {size} are supported",
   "signup": "Sign up",
   "login": "Log in",
   "activity": "Activity",
@@ -62,6 +64,7 @@
   "post_reply_title": "This is a reply to: {title}",
   "post_reply_show_original_post": "Show original post",
   "post_reply_show_parent_discussion": "Show parent discussion",
+  "post_deleted": "This post has been deleted",
   "comment": "Comment",
   "comment_placeholder": "Write a comment",
   "comment_collapsed": "Comment collapsed",

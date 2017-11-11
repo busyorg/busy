@@ -5,39 +5,21 @@ import { injectIntl, FormattedMessage, FormattedNumber } from 'react-intl';
 import _ from 'lodash';
 import urlParse from 'url-parse';
 
-import { getUser, getIsAuthenticated, getAuthenticatedUser } from '../../reducers';
-import { openTransfer } from '../../wallet/walletActions';
-import Action from '../../components/Button/Action';
+import { getUser } from '../../reducers';
 import { calculateVotingPower } from '../../vendor/steemitHelpers';
 
 @injectIntl
-@connect(
-  (state, ownProps) => ({
-    authenticated: getIsAuthenticated(state),
-    authenticatedUser: getAuthenticatedUser(state),
-    user: getUser(state, ownProps.match.params.name),
-  }),
-  { openTransfer },
-)
+@connect((state, ownProps) => ({
+  user: getUser(state, ownProps.match.params.name),
+}))
 class UserInfo extends React.Component {
   static propTypes = {
     intl: PropTypes.shape().isRequired,
-    authenticated: PropTypes.bool.isRequired,
-    authenticatedUser: PropTypes.shape().isRequired,
     user: PropTypes.shape().isRequired,
-    openTransfer: PropTypes.func,
-  };
-
-  static defaultProps = {
-    openTransfer: () => {},
-  };
-
-  handleOpenTransfer = () => {
-    this.props.openTransfer(this.props.user.name);
   };
 
   render() {
-    const { intl, authenticated, authenticatedUser, user } = this.props;
+    const { intl, user } = this.props;
     const location = user && _.get(user.json_metadata, 'profile.location');
     let website = user && _.get(user.json_metadata, 'profile.website');
 
@@ -51,7 +33,6 @@ class UserInfo extends React.Component {
       hostWithoutWWW = hostWithoutWWW.slice(4);
     }
 
-    const isSameUser = authenticated && authenticatedUser.name === user.name;
     return (
       <div>
         {user.name &&
@@ -97,17 +78,6 @@ class UserInfo extends React.Component {
               </div>
             </div>
           </div>}
-        {user &&
-          !isSameUser &&
-          <Action
-            primary
-            style={{ margin: '5px 0' }}
-            text={intl.formatMessage({
-              id: 'transfer',
-              defaultMessage: 'Transfer',
-            })}
-            onClick={this.handleOpenTransfer}
-          />}
       </div>
     );
   }
