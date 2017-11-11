@@ -30,7 +30,7 @@ import { getAccountWithFollowingCount } from './usersActions';
 @withRouter
 @connect(
   (state, ownProps) => ({
-    user: ownProps.isCurrentUser
+    user: ownProps.isCurrentUser || ownProps.match.params.name === getAuthenticatedUserName(state)
       ? getAuthenticatedUser(state)
       : getUser(state, ownProps.match.params.name),
     authenticatedUserName: getAuthenticatedUserName(state),
