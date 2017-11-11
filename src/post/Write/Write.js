@@ -10,6 +10,7 @@ import isArray from 'lodash/isArray';
 import 'url-search-params-polyfill';
 import { injectIntl } from 'react-intl';
 import uuidv4 from 'uuid/v4';
+import { MAXIMUM_UPLOAD_SIZE_HUMAN } from '../../helpers/image';
 import GetBoost from '../../components/Sidebar/GetBoost';
 import DeleteDraftModal from './DeleteDraftModal';
 
@@ -137,7 +138,7 @@ class Write extends React.Component {
     }
   }
 
-  onDeleteDraft = () => this.props.replace('/write');
+  onDeleteDraft = () => this.props.replace('/editor');
 
   onDelete = () => this.setState({ showModalDelete: true });
 
@@ -264,6 +265,21 @@ class Write extends React.Component {
       });
   };
 
+  handleImageInvalid = () => {
+    const { formatMessage } = this.props.intl;
+    this.props.notify(
+      formatMessage(
+        {
+          id: 'notify_uploading_image_invalid',
+          defaultMessage:
+            'This file is invalid. Only image files with maximum size of {size} are supported',
+        },
+        { size: MAXIMUM_UPLOAD_SIZE_HUMAN },
+      ),
+      'error',
+    );
+  };
+
   handleCancelDeleteDraft = () => this.setState({ showModalDelete: false });
 
   saveDraft = debounce((form) => {
@@ -308,6 +324,7 @@ class Write extends React.Component {
               onSubmit={this.onSubmit}
               onDelete={this.onDelete}
               onImageInserted={this.handleImageInserted}
+              onImageInvalid={this.handleImageInvalid}
             />
           </div>
           {this.state.showModalDelete && (
