@@ -48,7 +48,7 @@ import { getAccountWithFollowingCount } from './usersActions';
     userHasMoreActions: getUserHasMoreAccountHistory(
       state,
       ownProps.isCurrentUser
-        ? getAuthenticatedUser(state).name
+        ? getAuthenticatedUserName(state)
         : getUser(state, ownProps.match.params.name).name,
     ),
   }),
