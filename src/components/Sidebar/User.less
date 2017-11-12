@@ -3,8 +3,8 @@
 }
 
 .User__top {
-  display: table;
-  table-layout: fixed;
+  display: flex;
+  flex-wrap: nowrap;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 8px;
@@ -14,33 +14,24 @@
 }
 
 .User__links {
-  display: table-cell;
+  display: flex;
   white-space: nowrap;
   text-overflow: ellipsis;
   max-width: 100%;
+  overflow: hidden;
+  align-items: center;
 
   & > a {
-    display: inline-block;
     font-weight: bold;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
     vertical-align: middle;
     max-width: 100%;
   }
 }
 
-.User__link {
-  padding-right: 10px;
-}
-
 .User__follow {
-  display: table-cell;
+  display: flex;
   vertical-align: middle;
-
-  & > button {
-    float: right;
-  }
+  margin-left: auto;
 }
 
 .User__name {

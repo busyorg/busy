@@ -12,10 +12,8 @@ const User = ({ user }) => (
         <Link to={`/@${user.name}`}>
           <Avatar username={user.name} size={34} />
         </Link>
-        <Link to={`/@${user.name}`} title={user.name} className="User__link">
-          <span className="User__name">
-            {user.name}
-          </span>
+        <Link to={`/@${user.name}`} title={user.name} className="User__name">
+          {user.name}
         </Link>
       </div>
       <div className="User__follow">
