@@ -104,13 +104,19 @@ export default class Transfer extends React.Component {
   validateUsername = (rule, value, callback) => {
     const { intl } = this.props;
 
+    var exchanges = /^(bittrex|blocktrades|poloniex|changelly|openledge|shapeshiftio)$/;
+    const recipientIsExchange = exchanges.test(value);
+
     if (!value) {
       callback();
       return;
     }
 
-    steem.api.getAccounts([value], (err, result) => {
+    steem.api.getAccounts([value], (err, result) => {    
       if (result[0]) {
+        if (recipientIsExchange) {
+          this.props.form.validateFields(['memo']);
+        }
         callback();
       } else {
         callback([
@@ -140,6 +146,22 @@ export default class Transfer extends React.Component {
       callback([
         new Error(intl.formatMessage({ id: 'amount_error_funds', defaultMessage: 'Insufficient funds.' })),
       ]);
+    } else {
+      callback();
+    }
+  }
+
+  validateMemo = (rule, value, callback) => {
+    const { intl, authenticated, user } = this.props;
+
+    var exchanges = /^(bittrex|blocktrades|poloniex|changelly|openledge|shapeshiftio)$/;
+    const recipientIsExchange = exchanges.test(this.props.form.getFieldValue('to'));
+
+    if (recipientIsExchange && (!value || value == '')) {
+      callback([
+        new Error(intl.formatMessage({ id: 'memo_error_exchange', defaultMessage: 'Memo is required when sending to an exchange.' })),
+      ]);
+      return;
     } else {
       callback();
     }
@@ -210,7 +232,11 @@ export default class Transfer extends React.Component {
             />}
           </Form.Item>
           <Form.Item label={<FormattedMessage id="memo" defaultMessage="Memo" />}>
-            {getFieldDecorator('memo')(<Input.TextArea
+            {getFieldDecorator('memo', {
+              rules: [
+                { validator: this.validateMemo },
+              ],
+            })(<Input.TextArea
               autosize={{ minRows: 2, maxRows: 6 }}
               placeholder={intl.formatMessage({ id: 'memo_placeholder', defaultMessage: 'Additional message to include in this payment (optional)' })}
             />)}
