@@ -41,7 +41,7 @@ const DiscoverMorePeople = ({ fetchingFollowingList, followingList, authenticate
           </Affix>
           <div className="center">
             <h1 className="DiscoverMorePeople__title">
-              <FormattedMessage id="discover_more_people" defaultMessage="Discover More People" />
+              <FormattedMessage id="discover_more_people" defaultMessage="Discover more people" />
             </h1>
             <div className="DiscoverMorePeople__content">
               {fetchingFollowingList ? <Loading /> : content}
