@@ -29,21 +29,22 @@ const DiscoverMorePeople = ({ fetchingFollowingList, followingList, authenticate
           <Affix className="rightContainer" stickPosition={77}>
             <div className="right">
               {!authenticated && <SignUp />}
-              <div className="SidebarBlock">
-                <h3 className="SidebarBlock__title">
-                  <FormattedMessage
-                    id="discover_more_people_info"
-                    defaultMessage="These people are the top contributors on Steem"
-                  />
-                </h3>
-              </div>
             </div>
           </Affix>
           <div className="center">
-            <h1 className="DiscoverMorePeople__title">
-              <FormattedMessage id="discover_more_people" defaultMessage="Discover more people" />
-            </h1>
             <div className="DiscoverMorePeople__content">
+              <div className="DiscoverMorePeople__title">
+                <h1>
+                  <FormattedMessage
+                    id="discover_more_people"
+                    defaultMessage="Discover more people"
+                  />
+                </h1>
+                <FormattedMessage
+                  id="discover_more_people_info"
+                  defaultMessage="These people are the top contributors on Steem"
+                />
+              </div>
               {fetchingFollowingList ? <Loading /> : content}
             </div>
           </div>
