@@ -32,6 +32,7 @@ class CommentForm extends React.Component {
     onImageInserted: () => {},
     onImageInvalid: () => {},
     onSubmit: () => {},
+    commentSubmitted: false,
   };
 
   state = {
@@ -54,7 +55,7 @@ class CommentForm extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (!nextProps.isLoading && nextProps.inputValue !== '') {
       this.setState({ inputValue: nextProps.inputValue });
-    }else if(nextProps.commentSubmitted){
+    } else if (nextProps.commentSubmitted) {
       this.setState({ inputValue: nextProps.inputValue });
     }
   }

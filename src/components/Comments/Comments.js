@@ -57,7 +57,7 @@ class Comments extends React.Component {
       sort: 'BEST',
       showCommentFormLoading: false,
       commentFormText: '',
-      commentSubmitted:false,
+      commentSubmitted: false,
     };
   }
 
@@ -106,7 +106,7 @@ class Comments extends React.Component {
     this.props
       .onSendComment(parentPost, commentValue)
       .then(() => {
-        this.setState({ showCommentFormLoading: false, commentFormText: '',commentSubmitted: true });
+        this.setState({ showCommentFormLoading: false, commentFormText: '', commentSubmitted: true });
       })
       .catch(() => {
         this.setState({
