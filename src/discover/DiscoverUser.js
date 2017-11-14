@@ -37,13 +37,16 @@ const DiscoverUser = ({ user }) => {
             <Avatar username={user.name} size={40} />
           </Link>
           <div className="Discover__user__profile">
-            <div>
+            <div className="Discover__user__profile__header">
               <Link to={`/@${user.name}`}>
                 <span className="Discover__user__name">
                   {name || user.name}
                 </span>
               </Link>
               <Tag>{reputation}</Tag>
+              <div className="Discover__user__follow">
+                <FollowButton username={user.name} />
+              </div>
             </div>
             <div className="Discover__user__location">
               {location &&
@@ -60,9 +63,6 @@ const DiscoverUser = ({ user }) => {
               {about}
             </div>
           </div>
-        </div>
-        <div className="Discover__user__follow">
-          <FollowButton username={user.name} />
         </div>
       </div>
       <div className="Discover__user__divider" />
