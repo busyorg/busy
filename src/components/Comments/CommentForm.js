@@ -21,6 +21,7 @@ class CommentForm extends React.Component {
     onImageInserted: PropTypes.func,
     onImageInvalid: PropTypes.func,
     onSubmit: PropTypes.func,
+    commentSubmitted: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -52,7 +53,9 @@ class CommentForm extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (!nextProps.isLoading && nextProps.inputValue !== '') {
-      this.setState({ inputValue: nextProps.inputValue});
+      this.setState({ inputValue: nextProps.inputValue });
+    }else if(nextProps.commentSubmitted){
+      this.setState({ inputValue: nextProps.inputValue });
     }
   }
 
@@ -186,7 +189,6 @@ class CommentForm extends React.Component {
     this.setState({ isDisabledSubmit: true });
     if (this.state.inputValue) {
       this.props.onSubmit(this.props.parentPost, this.state.inputValue);
-      this.setState({ inputValue: ''});
     }
   };
 
