@@ -34,7 +34,7 @@ const DiscoverUser = ({ user }) => {
       <div className="Discover__user__content">
         <div className="Discover__user__links">
           <Link to={`/@${user.name}`}>
-            <Avatar username={user.name} size={34} />
+            <Avatar username={user.name} size={40} />
           </Link>
           <div className="Discover__user__profile">
             <div>
@@ -56,7 +56,7 @@ const DiscoverUser = ({ user }) => {
                   </a>
                 </span>}
             </div>
-            <div>
+            <div className="Discover__user__about">
               {about}
             </div>
           </div>
