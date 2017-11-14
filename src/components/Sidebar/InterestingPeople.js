@@ -19,7 +19,13 @@ const InterestingPeople = ({ users, onRefresh }) => (
         />
       </h4>
       <div className="InterestingPeople__divider" />
-      {users && users.map(user => <User key={user.name} user={user} />)}
+      {users &&
+        users.map(user => (
+          <User
+            key={user.name}
+            user={user}
+          />
+        ))}
       <h4 className="InterestingPeople__more">
         <Link to={'/latest-comments'}>
           <FormattedMessage id="discover_more_people" defaultMessage="Discover More People" />
