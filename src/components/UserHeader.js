@@ -107,6 +107,8 @@ UserHeader.propTypes = {
   isSameUser: PropTypes.bool,
   hasCover: PropTypes.bool,
   onSelect: PropTypes.func,
+  isPopoverVisible: PropTypes.bool,
+  handleVisibleChange: PropTypes.func,
 };
 
 UserHeader.defaultProps = {
@@ -117,6 +119,8 @@ UserHeader.defaultProps = {
   isSameUser: false,
   hasCover: false,
   onSelect: () => {},
+  isPopoverVisible: false,
+  handleVisibleChange: () => {},
 };
 
 export default injectIntl(UserHeader);

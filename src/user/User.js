@@ -37,10 +37,6 @@ export const needs = [getAccountWithFollowingCount];
   },
 )
 export default class User extends React.Component {
-  state = {
-    popoverVisible: false,
-  };
-
   static propTypes = {
     authenticated: PropTypes.bool.isRequired,
     authenticatedUser: PropTypes.shape().isRequired,
@@ -56,6 +52,10 @@ export default class User extends React.Component {
   };
 
   static needs = needs;
+
+  state = {
+    popoverVisible: false,
+  };
 
   componentWillMount() {
     if (!this.props.user.name) {
