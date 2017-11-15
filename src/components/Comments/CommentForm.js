@@ -53,9 +53,7 @@ class CommentForm extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (!nextProps.isLoading && nextProps.inputValue !== '') {
-      this.setState({ inputValue: nextProps.inputValue });
-    } else if (nextProps.commentSubmitted) {
+    if ((!nextProps.isLoading && nextProps.inputValue !== '') || nextProps.commentSubmitted) {
       this.setState({ inputValue: nextProps.inputValue });
     }
   }
