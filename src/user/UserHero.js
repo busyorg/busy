@@ -37,7 +37,7 @@ const UserHero = ({
   hasCover,
   onSelect,
   isPopoverVisible,
-  handleVisibleChange
+  handleVisibleChange,
 }) => (
   <div>
     <Switch>
