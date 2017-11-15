@@ -29,15 +29,15 @@ class UserMenuWrapper extends React.Component {
   }
 }
 
-const UserHero = ({ 
-  authenticated, 
-  user, 
-  username, 
-  isSameUser, 
-  hasCover, 
-  onSelect, 
-  isPopoverVisible, 
-  handleVisibleChange 
+const UserHero = ({
+  authenticated,
+  user,
+  username,
+  isSameUser,
+  hasCover,
+  onSelect,
+  isPopoverVisible,
+  handleVisibleChange
 }) => (
   <div>
     <Switch>
