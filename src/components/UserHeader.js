@@ -21,6 +21,8 @@ const UserHeader = ({
   isSameUser,
   hasCover,
   onSelect,
+  isPopoverVisible,
+  handleVisibleChange,
 }) => (
   <div
     className={classNames('UserHeader', { 'UserHeader--cover': hasCover })}
@@ -64,6 +66,8 @@ const UserHeader = ({
             <Popover
               placement="bottom"
               trigger="click"
+              visible={isPopoverVisible}
+              onVisibleChange={handleVisibleChange}
               content={
                 <PopoverMenu onSelect={onSelect}>
                   <PopoverMenuItem key="transfer">

@@ -29,7 +29,7 @@ class UserMenuWrapper extends React.Component {
   }
 }
 
-const UserHero = ({ authenticated, user, username, isSameUser, hasCover, onSelect }) => (
+const UserHero = ({ authenticated, user, username, isSameUser, hasCover, onSelect, isPopoverVisible, handleVisibleChange }) => (
   <div>
     <Switch>
       <Route
@@ -47,6 +47,8 @@ const UserHero = ({ authenticated, user, username, isSameUser, hasCover, onSelec
                 isSameUser={isSameUser}
                 hasCover={hasCover}
                 onSelect={onSelect}
+                isPopoverVisible={isPopoverVisible}
+                handleVisibleChange={handleVisibleChange}
               />
             )}
             <UserMenuWrapper followers={user.follower_count} following={user.following_count} />
@@ -65,12 +67,16 @@ UserHero.propTypes = {
   isSameUser: PropTypes.bool,
   hasCover: PropTypes.bool,
   onSelect: PropTypes.func,
+  isPopoverVisible: PropTypes.bool,
+  handleVisibleChange: PropTypes.func,
 };
 
 UserHero.defaultProps = {
   isSameUser: false,
   hasCover: false,
   onSelect: () => {},
+  isPopoverVisible: false,
+  handleVisibleChange: () => {},
 };
 
 export default UserHero;
