@@ -5,6 +5,8 @@
 
 # Busy
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/busyorg/busy.svg)](https://greenkeeper.io/)
+
 Blockchain-based social network where anyone can earn rewards 🚀
 
 ## Preview
