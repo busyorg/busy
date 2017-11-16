@@ -3,9 +3,7 @@ import PropTypes from 'prop-types';
 import { Scrollbars } from 'react-custom-scrollbars';
 import InfiniteSroll from 'react-infinite-scroller';
 import { take } from 'lodash';
-import { FormattedNumber } from 'react-intl';
 import UserCard from '../UserCard';
-import USDDisplay from '../Utils/USDDisplay';
 import './ReactionsList.less';
 
 export default class UserList extends React.Component {
@@ -41,16 +39,8 @@ export default class UserList extends React.Component {
               <UserCard
                 key={vote.voter}
                 username={vote.voter}
-                alt={vote.rshares * ratio > 0.01 &&
-                  <span>
-                    <USDDisplay value={vote.rshares * ratio} />
-                    <span className="ReactionsList__bullet" />
-                    <FormattedNumber
-                      style="percent" // eslint-disable-line react/style-prop-object
-                      value={vote.percent / 10000}
-                    />
-                  </span>
-                }
+                voteUsd={vote.rshares * ratio}
+                votePercent={vote.percent / 10000}
               />
             ))}
           </div>
