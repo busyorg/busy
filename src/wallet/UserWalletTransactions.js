@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { FormattedNumber } from 'react-intl';
-import ReduxInfiniteScroll from 'redux-infinite-scroll';
+import ReduxInfiniteScroll from '../vendor/ReduxInfiniteScroll';
 import { defaultAccountLimit } from '../helpers/apiHelpers';
 import Loading from '../components/Icon/Loading';
 import ReceiveTransaction from './ReceiveTransaction';

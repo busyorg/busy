@@ -4,22 +4,40 @@
 
 .User__top {
   display: flex;
+  flex-wrap: nowrap;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 8px;
+  width: 100%;
+  white-space: nowrap;
 }
 
 .User__links {
   display: flex;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  overflow: hidden;
   align-items: center;
 
   & > a {
     font-weight: bold;
+    vertical-align: middle;
+    max-width: 100%;
   }
+}
+
+.User__follow {
+  display: flex;
+  vertical-align: middle;
+  margin-left: auto;
 }
 
 .User__name {
   margin-left: 8px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .User__about {

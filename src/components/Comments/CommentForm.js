@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { Input, Icon } from 'antd';
 import Dropzone from 'react-dropzone';
+import { isValidImage, MAXIMUM_UPLOAD_SIZE } from '../../helpers/image';
 import Body, { remarkable } from '../Story/Body';
 import Avatar from '../Avatar';
 import './CommentForm.less';
@@ -18,6 +19,7 @@ class CommentForm extends React.Component {
     isLoading: PropTypes.bool,
     inputValue: PropTypes.string.isRequired,
     onImageInserted: PropTypes.func,
+    onImageInvalid: PropTypes.func,
     onSubmit: PropTypes.func,
   };
 
@@ -27,6 +29,7 @@ class CommentForm extends React.Component {
     isLoading: false,
     inputValue: '',
     onImageInserted: () => {},
+    onImageInvalid: () => {},
     onSubmit: () => {},
   };
 
@@ -98,11 +101,17 @@ class CommentForm extends React.Component {
         if (item.kind === 'file') {
           e.preventDefault();
 
+          const blob = item.getAsFile();
+
+          if (!isValidImage(blob)) {
+            this.props.onImageInvalid();
+            return;
+          }
+
           this.setState({
             imageUploading: true,
           });
 
-          const blob = item.getAsFile();
           this.props.onImageInserted(blob, this.disableAndInsertImage, () =>
             this.setState({
               imageUploading: false,
@@ -115,6 +124,11 @@ class CommentForm extends React.Component {
 
   handleImageChange = (e) => {
     if (e.target.files && e.target.files[0]) {
+      if (!isValidImage(e.target.files[0])) {
+        this.props.onImageInvalid();
+        return;
+      }
+
       this.setState({
         imageUploading: true,
       });
@@ -188,6 +202,8 @@ class CommentForm extends React.Component {
               disableClick
               style={{}}
               accept="image/*"
+              maxSize={MAXIMUM_UPLOAD_SIZE}
+              onDropRejected={this.props.onImageInvalid}
               onDrop={this.handleDrop}
               onDragEnter={this.handleDragEnter}
               onDragLeave={this.handleDragLeave}

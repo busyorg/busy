@@ -114,7 +114,8 @@
 
   table {
     width: 100%;
-    display: table;
+    display: block;
+    overflow: auto;
 
     tr > th {
       text-align: left;
@@ -126,6 +127,7 @@
       padding: 4px 12px;
       word-wrap: break-word;
       vertical-align: middle;
+      word-break: normal;
     }
 
     tr:nth-child(even) {
