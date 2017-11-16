@@ -53,6 +53,10 @@ export default class Wrapper extends React.PureComponent {
     getTrendingTopics: () => {},
   };
 
+  state = {
+    searchBarActive: false,
+  }
+
   componentWillMount() {
     if (Cookie.get('access_token')) {
       this.props.login();
@@ -88,8 +92,14 @@ export default class Wrapper extends React.PureComponent {
     }
   };
 
+  handleMobileSearchButtonClick = () => {
+    const { searchBarActive } = this.state;
+    this.setState({ searchBarActive: !searchBarActive });
+  }
+
   render() {
     const { locale: appLocale, user } = this.props;
+    const { searchBarActive } = this.state;
 
     const locale = getAvailableLocale(appLocale);
     const translations = getTranslations(appLocale);
@@ -98,7 +108,12 @@ export default class Wrapper extends React.PureComponent {
       <IntlProvider key={locale} locale={locale} messages={translations}>
         <Layout>
           <Layout.Header style={{ position: 'fixed', width: '100%', zIndex: 5 }}>
-            <Topnav username={user.name} onMenuItemClick={this.handleMenuItemClick} />
+            <Topnav
+              username={user.name}
+              onMenuItemClick={this.handleMenuItemClick}
+              onMobileSearchButtonClick={this.handleMobileSearchButtonClick}
+              isMobileSearchActive={searchBarActive}
+            />
           </Layout.Header>
           <div className="content">
             {this.props.children}

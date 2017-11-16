@@ -4,11 +4,14 @@ import { injectIntl, FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
 import { Menu, Popover, Tooltip, Input } from 'antd';
 import steemconnect from 'sc2-sdk';
+import classNames from 'classnames';
 import Avatar from '../Avatar';
 import PopoverMenu, { PopoverMenuItem } from '../PopoverMenu/PopoverMenu';
 import './Topnav.less';
 
-const Topnav = ({ intl, username, onMenuItemClick }) => {
+const Topnav = ({
+  intl, username, onMenuItemClick, isMobileSearchActive, onMobileSearchButtonClick,
+}) => {
   let content;
 
   const next = window.location.pathname.length > 1 ? window.location.pathname : '';
@@ -96,7 +99,9 @@ const Topnav = ({ intl, username, onMenuItemClick }) => {
           </Link>
           <span className="Topnav__version">beta</span>
         </div>
-        <div className="center">
+        <div
+          className={classNames('center', { mobileVisible: isMobileSearchActive })}
+        >
           <div className="Topnav__input-container">
             <Input
               onPressEnter={event =>
@@ -113,7 +118,20 @@ const Topnav = ({ intl, username, onMenuItemClick }) => {
             <i className="iconfont icon-search" />
           </div>
         </div>
-        <div className="right">{content}</div>
+        <div className="right">
+          {content}
+          <button
+            className="Topnav__mobile-search"
+            onClick={onMobileSearchButtonClick}
+          >
+            <i className={
+              classNames('iconfont', {
+                'icon-close': isMobileSearchActive,
+                'icon-search': !isMobileSearchActive,
+              })}
+            />
+          </button>
+        </div>
       </div>
     </div>
   );
@@ -121,6 +139,8 @@ const Topnav = ({ intl, username, onMenuItemClick }) => {
 
 Topnav.propTypes = {
   intl: PropTypes.shape().isRequired,
+  isMobileSearchActive: PropTypes.bool.isRequired,
+  onMobileSearchButtonClick: PropTypes.func.isRequired,
   username: PropTypes.string,
   onMenuItemClick: PropTypes.func,
 };
