@@ -2,42 +2,121 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import _ from 'lodash';
-import { Checkbox } from 'antd';
 import { connect } from 'react-redux';
+import { Checkbox } from 'antd';
+import * as accountHistoryConstants from '../constants/accountHistory';
 import { updateAccountHistoryFilter } from '../wallet/walletActions';
 import './UserActivitySearch.less';
 
-const checkboxValues = {
-  upvoted: 'upvoted',
-  downvoted: 'downvoted',
-  unvoted: 'unvoted',
-  followed: ' followed',
-  unfollowed: ' unfollowed',
-  replied: 'replied',
-  reblogged: 'reblogged',
-  claimRewards: 'claim_reward_balance',
-  poweredUp: 'transfer_to_vesting',
-  received: 'received',
-  transfer: 'transfer',
-  savings: 'savings',
+const filterValues = {
+  [accountHistoryConstants.UPVOTED]: {
+    id: accountHistoryConstants.UPVOTED,
+    messageId: accountHistoryConstants.UPVOTED,
+    defaultMessage: accountHistoryConstants.UPVOTED,
+    value: [accountHistoryConstants.UPVOTED],
+  },
+  [accountHistoryConstants.DOWNVOTED]: {
+    id: accountHistoryConstants.DOWNVOTED,
+    messageId: accountHistoryConstants.DOWNVOTED,
+    defaultMessage: accountHistoryConstants.DOWNVOTED,
+    value: [accountHistoryConstants.DOWNVOTED],
+  },
+  [accountHistoryConstants.UNVOTED]: {
+    id: accountHistoryConstants.UNVOTED,
+    messageId: accountHistoryConstants.UNVOTED,
+    defaultMessage: accountHistoryConstants.UNVOTED,
+    value: [accountHistoryConstants.UNVOTED],
+  },
+  [accountHistoryConstants.FOLLOWED]: {
+    id: accountHistoryConstants.FOLLOWED,
+    messageId: 'followed_filter',
+    defaultMessage: accountHistoryConstants.FOLLOWED,
+    value: [` ${accountHistoryConstants.FOLLOWED}`],
+  },
+  [accountHistoryConstants.UNFOLLOWED]: {
+    id: accountHistoryConstants.UNFOLLOWED,
+    messageId: 'unfollowed_filter',
+    defaultMessage: accountHistoryConstants.UNFOLLOWED,
+    value: [` ${accountHistoryConstants.UNFOLLOWED}`],
+  },
+  [accountHistoryConstants.REPLIED]: {
+    id: accountHistoryConstants.REPLIED,
+    messageId: 'replied_filter',
+    defaultMessage: accountHistoryConstants.REPLIED,
+    value: [accountHistoryConstants.REPLIED],
+  },
+  [accountHistoryConstants.REBLOGGED]: {
+    id: accountHistoryConstants.REBLOGGED,
+    messageId: 'reblogged_filter',
+    defaultMessage: accountHistoryConstants.REBLOGGED,
+    value: [accountHistoryConstants.REBLOGGED],
+  },
+  [accountHistoryConstants.AUTHOR_REWARD]: {
+    id: accountHistoryConstants.AUTHOR_REWARD,
+    messageId: accountHistoryConstants.AUTHOR_REWARD,
+    defaultMessage: 'Author Reward',
+    value: [accountHistoryConstants.AUTHOR_REWARD],
+  },
+  [accountHistoryConstants.CURATION_REWARD]: {
+    id: accountHistoryConstants.CURATION_REWARD,
+    messageId: accountHistoryConstants.CURATION_REWARD,
+    defaultMessage: 'Curation Reward',
+    value: [accountHistoryConstants.CURATION_REWARD],
+  },
+  [accountHistoryConstants.CLAIM_REWARDS]: {
+    id: accountHistoryConstants.CLAIM_REWARDS,
+    messageId: accountHistoryConstants.CLAIM_REWARDS,
+    defaultMessage: 'Claim Rewards',
+    value: [accountHistoryConstants.CLAIM_REWARDS, accountHistoryConstants.CLAIM_REWARD_BALANCE],
+  },
+  [accountHistoryConstants.POWERED_UP]: {
+    id: accountHistoryConstants.POWERED_UP,
+    messageId: accountHistoryConstants.POWERED_UP,
+    defaultMessage: 'Powered up',
+    value: [accountHistoryConstants.POWERED_UP, accountHistoryConstants.TRANSFER_TO_VESTING],
+  },
+  [accountHistoryConstants.RECEIVED]: {
+    id: accountHistoryConstants.RECEIVED,
+    messageId: accountHistoryConstants.RECEIVED,
+    defaultMessage: 'Received',
+    value: [accountHistoryConstants.RECEIVED],
+  },
+  [accountHistoryConstants.TRANSFER]: {
+    id: accountHistoryConstants.TRANSFER,
+    messageId: accountHistoryConstants.TRANSFER,
+    defaultMessage: 'Transfer',
+    value: [accountHistoryConstants.TRANSFERRED],
+  },
+  [accountHistoryConstants.SAVINGS]: {
+    id: accountHistoryConstants.SAVINGS,
+    messageId: accountHistoryConstants.SAVINGS,
+    defaultMessage: 'Savings',
+    value: [
+      accountHistoryConstants.CANCEL_TRANSFER_FROM_SAVINGS,
+      accountHistoryConstants.TRANSFER_FROM_SAVINGS,
+      accountHistoryConstants.TRANSFER_TO_SAVINGS,
+    ],
+  },
 };
 
 const generalFilters = [
-  { id: 'upvoted', defaultMessage: 'upvoted', value: checkboxValues.upvoted },
-  { id: 'downvoted', defaultMessage: 'downvoted', value: checkboxValues.downvoted },
-  { id: 'unvoted', defaultMessage: 'unvoted', value: checkboxValues.unvoted },
-  { id: 'followed_filter', defaultMessage: 'followed', value: checkboxValues.followed },
-  { id: 'unfollowed_filter', defaultMessage: 'unfollowed', value: checkboxValues.unfollowed },
-  { id: 'replied_filter', defaultMessage: 'replied', value: checkboxValues.replied },
-  { id: 'reblogged_filter', defaultMessage: 'Reblogged', value: checkboxValues.reblogged },
+  filterValues[accountHistoryConstants.UPVOTED],
+  filterValues[accountHistoryConstants.DOWNVOTED],
+  filterValues[accountHistoryConstants.UNVOTED],
+  filterValues[accountHistoryConstants.FOLLOWED],
+  filterValues[accountHistoryConstants.UNFOLLOWED],
+  filterValues[accountHistoryConstants.REPLIED],
+  filterValues[accountHistoryConstants.REBLOGGED],
+  filterValues[accountHistoryConstants.AUTHOR_REWARD],
+  filterValues[accountHistoryConstants.CURATION_REWARD],
 ];
 
 const financeFilters = [
-  { id: 'claim_rewards', defaultMessage: 'Claim Rewards', value: checkboxValues.claimRewards },
-  { id: 'powered_up', defaultMessage: 'Powered up', value: checkboxValues.poweredUp },
-  { id: 'received', defaultMessage: 'Received', value: checkboxValues.received },
-  { id: 'transfer', defaultMessage: 'Transfer', value: checkboxValues.transfer },
-  { id: 'savings', defaultMessage: 'Savings', value: checkboxValues.savings },
+  filterValues[accountHistoryConstants.CLAIM_REWARDS],
+  filterValues[accountHistoryConstants.POWERED_UP],
+  filterValues[accountHistoryConstants.RECEIVED],
+  filterValues[accountHistoryConstants.TRANSFER],
+  filterValues[accountHistoryConstants.SAVINGS],
 ];
 
 @connect(null, {
@@ -51,18 +130,20 @@ class UserActivitySearch extends React.Component {
   state = {
     value: '',
     checked: {
-      [checkboxValues.upvoted]: false,
-      [checkboxValues.downvoted]: false,
-      [checkboxValues.unvoted]: false,
-      [checkboxValues.followed]: false,
-      [checkboxValues.unfollowed]: false,
-      [checkboxValues.replied]: false,
-      [checkboxValues.reblogged]: false,
-      [checkboxValues.claimRewards]: false,
-      [checkboxValues.poweredUp]: false,
-      [checkboxValues.received]: false,
-      [checkboxValues.transfer]: false,
-      [checkboxValues.savings]: false,
+      [filterValues[accountHistoryConstants.UPVOTED].id]: false,
+      [filterValues[accountHistoryConstants.DOWNVOTED].id]: false,
+      [filterValues[accountHistoryConstants.UNVOTED].id]: false,
+      [filterValues[accountHistoryConstants.FOLLOWED].id]: false,
+      [filterValues[accountHistoryConstants.UNFOLLOWED].id]: false,
+      [filterValues[accountHistoryConstants.REPLIED].id]: false,
+      [filterValues[accountHistoryConstants.REBLOGGED].id]: false,
+      [filterValues[accountHistoryConstants.AUTHOR_REWARD].id]: false,
+      [filterValues[accountHistoryConstants.CURATION_REWARD].id]: false,
+      [filterValues[accountHistoryConstants.CLAIM_REWARDS].id]: false,
+      [filterValues[accountHistoryConstants.POWERED_UP].id]: false,
+      [filterValues[accountHistoryConstants.RECEIVED].id]: false,
+      [filterValues[accountHistoryConstants.TRANSFER].id]: false,
+      [filterValues[accountHistoryConstants.SAVINGS].id]: false,
     },
     showGeneral: true,
     showFinance: true,
@@ -71,8 +152,9 @@ class UserActivitySearch extends React.Component {
   handleOnChangeCheckbox = (e) => {
     const checked = {
       ...this.state.checked,
-      [e.target.value]: e.target.checked,
+      [e.target.name]: e.target.checked,
     };
+
     this.setState({
       checked,
     });
@@ -80,7 +162,7 @@ class UserActivitySearch extends React.Component {
       checked,
       (filterArray, isChecked, filter) => {
         if (isChecked) {
-          filterArray.push(filter);
+          return filterArray.concat(filterValues[filter].value);
         }
         return filterArray;
       },
@@ -98,11 +180,12 @@ class UserActivitySearch extends React.Component {
     _.map(filterTypes, filter => (
       <div key={filter.id} className="UserActivitySearch__filters__item">
         <Checkbox
+          name={filter.id}
           value={filter.value}
           onChange={this.handleOnChangeCheckbox}
-          checked={this.state.checked[filter.value]}
+          checked={this.state.checked[filter.id]}
         />
-        <FormattedMessage id={filter.id} defaultMessage={filter.defaultMessage} />
+        <FormattedMessage id={filter.messageId} defaultMessage={filter.defaultMessage} />
       </div>
     ));
 

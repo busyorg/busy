@@ -20,6 +20,22 @@ export const TRANSFER_TO_SAVINGS = 'transfer_to_savings';
 export const DELEGATE_VESTING_SHARES = 'delegate_vesting_shares';
 export const CLAIM_REWARD_BALANCE = 'claim_reward_balance';
 
+// Filter Types - General
+export const DOWNVOTED = 'downvoted';
+export const UPVOTED = 'upvoted';
+export const UNVOTED = 'unvoted';
+export const FOLLOWED = 'followed';
+export const UNFOLLOWED = 'unfollowed';
+export const REPLIED = 'replied';
+export const REBLOGGED = 'reblogged';
+
+// Filter Types - Finance
+export const POWERED_UP = 'powered_up';
+export const RECEIVED = 'received';
+export const TRANSFERRED = 'transferred';
+export const SAVINGS = 'savings';
+export const CLAIM_REWARDS = 'claim_rewards';
+
 export const PARSED_PROPERTIES = [
   ACCOUNT_CREATE,
   ACCOUNT_CREATE_WITH_DELEGATION,
