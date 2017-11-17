@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /**
  * Express.js server used for handling callback request after loging in.
  */

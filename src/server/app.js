@@ -1,4 +1,4 @@
-/* eslint-disable new-cap,global-require,no-param-reassign */
+/* eslint-disable no-console */
 import _ from 'lodash';
 import React from 'react';
 import { Helmet } from 'react-helmet';
@@ -7,8 +7,8 @@ import { renderToString } from 'react-dom/server';
 import { matchPath } from 'react-router-dom';
 import { StaticRouter } from 'react-router';
 
-import getStore from '../src/store';
-import router, { UserRoutes } from '../src/routes';
+import getStore from '../client/store';
+import router, { UserRoutes } from '../client/routes';
 
 const fs = require('fs');
 const express = require('express');
@@ -29,11 +29,7 @@ const app = express();
 const server = http.Server(app);
 const io = require('socket.io')(server);
 
-const rootDir = path.join(__dirname, '..');
-
-if (process.env.NODE_ENV !== 'production') {
-  require('../webpack')(app);
-}
+const rootDir = path.join(__dirname, '../..');
 
 if (process.env.STEEMJS_URL) {
   steem.api.setOptions({ url: process.env.STEEMJS_URL });
@@ -87,7 +83,7 @@ function renderPage(store, props) {
   const appHtml = renderToString(
     <Provider store={store}>
       <StaticRouter context={context} {...props} />
-    </Provider>
+    </Provider>,
   );
 
   const preloadedState = store.getState();
@@ -102,7 +98,7 @@ function renderPage(store, props) {
         // WARNING: See the following for security issues around embedding JSON in HTML:
         // http://redux.js.org/docs/recipes/ServerRendering.html#security-considerations
         window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(/</g, '\\u003c')}
-    </script>`
+    </script>`,
     );
 }
 
@@ -112,7 +108,7 @@ function serverSideResponse(req, res) {
   const promises = [];
   let routes = [];
   try {
-    const basicRoutes = router.props.children.props.children; // Get > Wrapper > Switch > [Childrens]
+    const basicRoutes = router.props.children.props.children;
     const userRoutes = UserRoutes().props.children;
     routes = [...basicRoutes, ...userRoutes];
   } catch (e) {
@@ -127,8 +123,8 @@ function serverSideResponse(req, res) {
         fetchComponentData(
           store.dispatch,
           route.props.component || route.props.render().type,
-          match.params
-        )
+          match.params,
+        ),
       );
     }
 

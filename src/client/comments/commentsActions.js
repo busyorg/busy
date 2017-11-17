@@ -3,7 +3,7 @@ import SteemConnect from 'sc2-sdk';
 import { createCommentPermlink, getBodyPatchIfSmaller } from '../vendor/steemitHelpers';
 import { notify } from '../app/Notification/notificationActions';
 
-const version = require('../../package.json').version;
+const version = require('../../../package.json').version;
 
 export const GET_COMMENTS = 'GET_COMMENTS';
 export const GET_COMMENTS_START = 'GET_COMMENTS_START';

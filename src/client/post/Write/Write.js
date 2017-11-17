@@ -26,7 +26,7 @@ import { notify } from '../../app/Notification/notificationActions';
 import Editor from '../../components/Editor/Editor';
 import Affix from '../../components/Utils/Affix';
 
-const version = require('../../../package.json').version;
+const version = require('../../../../package.json').version;
 
 @injectIntl
 @withRouter
