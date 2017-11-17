@@ -5,12 +5,6 @@
   color: @blue-botticelli;
   line-height: 14px;
   
-  span:nth-child(7) > span{
-		display: block;
-		visibility: hidden;
-		line-height: 0.5;
-	  }
-
   &__payout {
     font-weight: bold;
     font-size: 14px;
@@ -22,6 +16,21 @@
     margin: 0 8px;
   }
 
+  &__bullet_br:after {
+    content: "\2022";
+    font-size: 14px;
+    margin: 0 8px;
+	  display: block;
+	  visibility: hidden;
+  	line-height: 0.5;
+	
+	  @media only screen and (min-width: 468px){
+      display: unset;
+      visibility: unset;
+      line-height: 0.5;
+    }
+  }
+  
   &__link {
     color: @blue-botticelli;
     font-weight: bold;
