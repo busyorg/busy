@@ -20,8 +20,8 @@ const UserHeader = ({
   vestingShares,
   isSameUser,
   hasCover,
-  onSelect,
   isPopoverVisible,
+  onSelect,
   handleVisibleChange,
 }) => (
   <div
@@ -106,8 +106,8 @@ UserHeader.propTypes = {
   vestingShares: PropTypes.number,
   isSameUser: PropTypes.bool,
   hasCover: PropTypes.bool,
-  onSelect: PropTypes.func,
   isPopoverVisible: PropTypes.bool,
+  onSelect: PropTypes.func,
   handleVisibleChange: PropTypes.func,
 };
 
@@ -118,8 +118,8 @@ UserHeader.defaultProps = {
   vestingShares: 0,
   isSameUser: false,
   hasCover: false,
-  onSelect: () => {},
   isPopoverVisible: false,
+  onSelect: () => {},
   handleVisibleChange: () => {},
 };
 

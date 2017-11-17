@@ -35,8 +35,8 @@ const UserHero = ({
   username,
   isSameUser,
   hasCover,
-  onSelect,
   isPopoverVisible,
+  onSelect,
   handleVisibleChange,
 }) => (
   <div>
@@ -55,8 +55,8 @@ const UserHero = ({
                 vestingShares={parseFloat(user.vesting_shares)}
                 isSameUser={isSameUser}
                 hasCover={hasCover}
-                onSelect={onSelect}
                 isPopoverVisible={isPopoverVisible}
+                onSelect={onSelect}
                 handleVisibleChange={handleVisibleChange}
               />
             )}
@@ -75,16 +75,16 @@ UserHero.propTypes = {
   username: PropTypes.string.isRequired,
   isSameUser: PropTypes.bool,
   hasCover: PropTypes.bool,
-  onSelect: PropTypes.func,
   isPopoverVisible: PropTypes.bool,
+  onSelect: PropTypes.func,
   handleVisibleChange: PropTypes.func,
 };
 
 UserHero.defaultProps = {
   isSameUser: false,
   hasCover: false,
-  onSelect: () => {},
   isPopoverVisible: false,
+  onSelect: () => {},
   handleVisibleChange: () => {},
 };
 

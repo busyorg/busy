@@ -130,8 +130,8 @@ export default class User extends React.Component {
             isSameUser={isSameUser}
             hasCover={hasCover}
             onFollowClick={this.handleFollowClick}
-            onSelect={this.handleUserMenuSelect}
             isPopoverVisible={this.state.popoverVisible}
+            onSelect={this.handleUserMenuSelect}
             handleVisibleChange={this.handleVisibleChange}
           />
         )}
