@@ -17,22 +17,22 @@ class CommentForm extends React.Component {
     username: PropTypes.string.isRequired,
     isSmall: PropTypes.bool,
     isLoading: PropTypes.bool,
+    submitted: PropTypes.bool,
     inputValue: PropTypes.string.isRequired,
     onImageInserted: PropTypes.func,
     onImageInvalid: PropTypes.func,
     onSubmit: PropTypes.func,
-    commentSubmitted: PropTypes.bool,
   };
 
   static defaultProps = {
     username: undefined,
     isSmall: false,
     isLoading: false,
+    submitted: false,
     inputValue: '',
     onImageInserted: () => {},
     onImageInvalid: () => {},
     onSubmit: () => {},
-    commentSubmitted: false,
   };
 
   state = {
@@ -53,7 +53,7 @@ class CommentForm extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if ((!nextProps.isLoading && nextProps.inputValue !== '') || nextProps.commentSubmitted) {
+    if ((!nextProps.isLoading && nextProps.inputValue !== '') || nextProps.submitted) {
       this.setState({ inputValue: nextProps.inputValue });
     }
   }
