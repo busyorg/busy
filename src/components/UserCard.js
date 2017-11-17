@@ -12,7 +12,7 @@ const UserCard = ({ username, alt }) => (
         <Avatar username={username} size={40} />
       </Link>
       <Link to={`/@${username}`}>{username}</Link>
-      <span className="UserCard__alt">{alt}</span>
+      {alt && <span className="UserCard__alt">{alt}</span>}
     </div>
     <FollowButton username={username} />
   </div>
@@ -20,7 +20,7 @@ const UserCard = ({ username, alt }) => (
 
 UserCard.propTypes = {
   username: PropTypes.string.isRequired,
-  alt: PropTypes.element,
+  alt: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
 };
 
 UserCard.defaultProps = {
