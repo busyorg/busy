@@ -17,6 +17,7 @@ class CommentForm extends React.Component {
     username: PropTypes.string.isRequired,
     isSmall: PropTypes.bool,
     isLoading: PropTypes.bool,
+    submitted: PropTypes.bool,
     inputValue: PropTypes.string.isRequired,
     onImageInserted: PropTypes.func,
     onImageInvalid: PropTypes.func,
@@ -27,6 +28,7 @@ class CommentForm extends React.Component {
     username: undefined,
     isSmall: false,
     isLoading: false,
+    submitted: false,
     inputValue: '',
     onImageInserted: () => {},
     onImageInvalid: () => {},
@@ -51,8 +53,8 @@ class CommentForm extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (!nextProps.isLoading) {
-      this.setState({ inputValue: nextProps.inputValue || '' });
+    if ((!nextProps.isLoading && nextProps.inputValue !== '') || nextProps.submitted) {
+      this.setState({ inputValue: nextProps.inputValue });
     }
   }
 
