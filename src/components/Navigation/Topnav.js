@@ -109,7 +109,9 @@ class Topnav extends Component {
 
   handleMobileSearchButtonClick = () => {
     const { searchBarActive } = this.state;
-    this.setState({ searchBarActive: !searchBarActive });
+    this.setState({ searchBarActive: !searchBarActive }, () => {
+      this.searchInputRef.refs.input.focus();
+    });
   }
 
   render() {
@@ -130,6 +132,7 @@ class Topnav extends Component {
           >
             <div className="Topnav__input-container">
               <Input
+                ref={(ref) => { this.searchInputRef = ref; }}
                 onPressEnter={event =>
                   window.open(
                     `https://www.google.com/search?q=${encodeURIComponent(
