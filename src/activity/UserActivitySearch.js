@@ -112,7 +112,7 @@ class UserActivitySearch extends React.Component {
       <div className="UserActivitySearch">
         <h4 className="UserActivitySearch__title">
           <i className="iconfont icon-trysearchlist UserActivitySearch__title__icon" />
-          <FormattedMessage id="filter_activities" defaultValue="Filter Activities" />
+          <FormattedMessage id="filter_activities" defaultMessage="Filter Activities" />
         </h4>
         <div className="UserActivitySearch__filters__divider" />
         <div className="UserActivitySearch__filters">
@@ -124,7 +124,9 @@ class UserActivitySearch extends React.Component {
             >
               <FormattedMessage id="general" defaultMessage="general" />
               <span className="UserActivitySearch__filters__title__icon">
-                {showGeneral ? '-' : '+'}
+                {showGeneral
+                  ? <i className="iconfont icon-minus" />
+                  : <i className="iconfont icon-add" />}
               </span>
             </div>
             {showGeneral &&
@@ -141,7 +143,9 @@ class UserActivitySearch extends React.Component {
             >
               <FormattedMessage id="finance" defaultMessage="finance" />
               <span className="UserActivitySearch__filters__title__icon">
-                {showFinance ? '-' : '+'}
+                {showFinance
+                  ? <i className="iconfont icon-minus" />
+                  : <i className="iconfont icon-add" />}
               </span>
             </div>
             {showFinance &&

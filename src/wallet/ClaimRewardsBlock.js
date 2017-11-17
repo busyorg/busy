@@ -55,7 +55,7 @@ class ClaimRewardsBlock extends Component {
             rewardClaimed: true,
           });
           this.props.getUserAccountHistory(name);
-          this.props.updateAuthUser(name);
+          setTimeout(() => this.props.updateAuthUser(name), 2000);
         } else {
           this.setState({
             loading: false,
