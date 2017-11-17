@@ -29,8 +29,7 @@ class Affix extends React.Component {
     stickPosition: 0,
   };
 
-  constructor(props) {
-    super(props);
+  componentDidMount() {
     this.lastScroll = document.body.scrollTop;
 
     this.top = 0;
@@ -44,9 +43,7 @@ class Affix extends React.Component {
         this.handleScroll();
       });
     });
-  }
 
-  componentDidMount() {
     document.addEventListener('scroll', this.handleScroll);
     this.ro.observe(this.affixContainer);
   }

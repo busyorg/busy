@@ -1,17 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl, FormattedMessage } from 'react-intl';
-import { Link } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import { Menu, Popover, Tooltip, Input } from 'antd';
 import steemconnect from 'sc2-sdk';
 import Avatar from '../Avatar';
 import PopoverMenu, { PopoverMenuItem } from '../PopoverMenu/PopoverMenu';
 import './Topnav.less';
 
-const Topnav = ({ intl, username, onMenuItemClick }) => {
+const Topnav = ({ intl, location, username, onMenuItemClick }) => {
   let content;
-
-  const next = window.location.pathname.length > 1 ? window.location.pathname : '';
+  const next = location.pathname.length > 1 ? location.pathname : '';
 
   if (username) {
     content = (
@@ -121,6 +120,7 @@ const Topnav = ({ intl, username, onMenuItemClick }) => {
 
 Topnav.propTypes = {
   intl: PropTypes.shape().isRequired,
+  location: PropTypes.shape().isRequired,
   username: PropTypes.string,
   onMenuItemClick: PropTypes.func,
 };
@@ -130,4 +130,4 @@ Topnav.defaultProps = {
   onMenuItemClick: () => {},
 };
 
-export default injectIntl(Topnav);
+export default withRouter(injectIntl(Topnav));

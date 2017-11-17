@@ -8,8 +8,7 @@ import steem from 'steem';
 import Raven from 'raven-js';
 import Logger from 'js-logger';
 import { AppContainer } from 'react-hot-loader';
-import { LocaleProvider, message } from 'antd';
-import enUS from 'antd/lib/locale-provider/en_US';
+import { message } from 'antd';
 import { history } from './routes';
 import getStore from './store';
 import AppHost from './AppHost';
@@ -48,17 +47,15 @@ message.config({
 });
 
 const render = (Component) => {
-  ReactDOM.render(
+  ReactDOM.hydrate(
     <Provider store={store}>
-      <LocaleProvider locale={enUS}>
-        {process.env.NODE_ENV !== 'production' ? (
-          <AppContainer>
-            <Component history={history} />
-          </AppContainer>
-        ) : (
+      {process.env.NODE_ENV !== 'production' ? (
+        <AppContainer>
           <Component history={history} />
-        )}
-      </LocaleProvider>
+        </AppContainer>
+      ) : (
+        <Component history={history} />
+      )}
     </Provider>,
     document.getElementById('app'),
   );

@@ -27,7 +27,6 @@ module.exports = {
     __filename: true,
     __dirname: true,
   },
-  watch: isDevelopment,
 
   module: {
     loaders: [

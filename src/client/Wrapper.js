@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { IntlProvider } from 'react-intl';
 import { withRouter } from 'react-router-dom';
-import { Layout } from 'antd';
+import { renderRoutes } from 'react-router-config';
+import { LocaleProvider, Layout } from 'antd';
+import enUS from 'antd/lib/locale-provider/en_US';
 import Cookie from 'js-cookie';
 
 import { getAuthenticatedUser, getLocale } from './reducers';
@@ -32,9 +34,9 @@ import getTranslations, { getAvailableLocale } from './translations';
 )
 export default class Wrapper extends React.PureComponent {
   static propTypes = {
+    route: PropTypes.shape().isRequired,
     user: PropTypes.shape().isRequired,
     locale: PropTypes.string.isRequired,
-    children: PropTypes.element.isRequired,
     history: PropTypes.shape().isRequired,
     login: PropTypes.func,
     logout: PropTypes.func,
@@ -96,15 +98,17 @@ export default class Wrapper extends React.PureComponent {
 
     return (
       <IntlProvider key={locale} locale={locale} messages={translations}>
-        <Layout>
-          <Layout.Header style={{ position: 'fixed', width: '100%', zIndex: 5 }}>
-            <Topnav username={user.name} onMenuItemClick={this.handleMenuItemClick} />
-          </Layout.Header>
-          <div className="content">
-            {this.props.children}
-            <Transfer />
-          </div>
-        </Layout>
+        <LocaleProvider locale={enUS}>
+          <Layout>
+            <Layout.Header style={{ position: 'fixed', width: '100%', zIndex: 5 }}>
+              <Topnav username={user.name} onMenuItemClick={this.handleMenuItemClick} />
+            </Layout.Header>
+            <div className="content">
+              {renderRoutes(this.props.route.routes)}
+              <Transfer />
+            </div>
+          </Layout>
+        </LocaleProvider>
       </IntlProvider>
     );
   }

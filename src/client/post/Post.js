@@ -16,7 +16,9 @@ import ScrollToTopOnMount from '../components/Utils/ScrollToTopOnMount';
     edited: getIsPostEdited(state, ownProps.match.params.permlink),
     content: getPostContent(state, ownProps.match.params.author, ownProps.match.params.permlink),
     fetching: getIsFetching(state),
-  }), { getContent })
+  }),
+  { getContent },
+)
 export default class Post extends React.Component {
   static propTypes = {
     match: PropTypes.shape().isRequired,
@@ -37,7 +39,7 @@ export default class Post extends React.Component {
     commentsVisible: false,
   };
 
-  componentWillMount() {
+  componentDidMount() {
     if ((!this.props.content || this.props.edited) && !this.props.fetching) {
       this.props.getContent(this.props.match.params.author, this.props.match.params.permlink);
     }
@@ -45,9 +47,11 @@ export default class Post extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     const { author, permlink } = nextProps.match.params;
-    if ((!nextProps.content || nextProps.edited)
-      && nextProps.match.params !== this.props.match.params
-      && !nextProps.fetching) {
+    if (
+      (!nextProps.content || nextProps.edited) &&
+      nextProps.match.params !== this.props.match.params &&
+      !nextProps.fetching
+    ) {
       this.setState({ commentsVisible: false }, () => this.props.getContent(author, permlink));
     }
   }
@@ -81,13 +85,10 @@ export default class Post extends React.Component {
               </div>
             </Affix>
             <div className="center" style={{ paddingBottom: '24px' }}>
-              {!loading
-                ? <PostContent content={content} /> : <Loading />}
-              {!loading
-                && <VisibilitySensor onChange={this.handleCommentsVisibility} />}
+              {!loading ? <PostContent content={content} /> : <Loading />}
+              {!loading && <VisibilitySensor onChange={this.handleCommentsVisibility} />}
               <div id="comments">
-                {!loading
-                  && <Comments show={this.state.commentsVisible} post={content} />}
+                {!loading && <Comments show={this.state.commentsVisible} post={content} />}
               </div>
             </div>
           </div>

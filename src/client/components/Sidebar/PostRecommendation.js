@@ -6,7 +6,8 @@ import './PostRecommendation.less';
 import Loading from '../../components/Icon/Loading';
 import steemAPI from '../../steemAPI';
 
-@withRouter class PostRecommendation extends Component {
+@withRouter
+class PostRecommendation extends Component {
   static propTypes = {
     location: PropTypes.shape().isRequired,
     isAuthFetching: PropTypes.bool.isRequired,
@@ -56,7 +57,7 @@ import steemAPI from '../../steemAPI';
   };
 
   getFilteredPosts = () => {
-    const currentPostPermlink = window.location.pathname.split('/')[3];
+    const currentPostPermlink = this.props.location.pathname.split('/')[3];
     return this.state.recommendedPosts
       .filter(post => post.permlink !== currentPostPermlink)
       .slice(0, 3);
@@ -94,28 +95,35 @@ import steemAPI from '../../steemAPI';
           id="by"
           defaultMessage="By {username}"
           values={{
-            username: <Link role="presentation" to={`/@${post.author}`}>{post.author}</Link>,
+            username: (
+              <Link role="presentation" to={`/@${post.author}`}>
+                {post.author}
+              </Link>
+            ),
           }}
         />
         <br />
-        {post.children > 0 &&
+        {post.children > 0 && (
           <Link
             to={`/${post.category}/@${post.author}/${post.permlink}#comments`}
             onClick={() => this.navigateToPostComments()}
             className="PostRecommendation__comment-link"
           >
-            {post.children === 1
-              ? <FormattedMessage
+            {post.children === 1 ? (
+              <FormattedMessage
                 id="comment_count"
                 values={{ count: <FormattedNumber value={post.children} /> }}
                 defaultMessage="{count} comment"
               />
-              : <FormattedMessage
+            ) : (
+              <FormattedMessage
                 id="comments_count"
                 values={{ count: <FormattedNumber value={post.children} /> }}
                 defaultMessage="{count} comments"
-              />}
-          </Link>}
+              />
+            )}
+          </Link>
+        )}
       </div>
     ));
   };
@@ -135,8 +143,7 @@ import steemAPI from '../../steemAPI';
     return (
       <div className="PostRecommendation">
         <h4 className="PostRecommendation__title SidebarBlock__content-title">
-          <i className="iconfont icon-headlines PostRecommendation__icon" />
-          {' '}
+          <i className="iconfont icon-headlines PostRecommendation__icon" />{' '}
           <FormattedMessage id="recommended_posts" defaultMessage="Recommended Posts" />
         </h4>
         {this.renderPosts()}
