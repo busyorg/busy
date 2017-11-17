@@ -35,6 +35,10 @@ export default class Post extends React.Component {
     getContent: () => {},
   };
 
+  static fetchData(store, match) {
+    return store.dispatch(getContent(match.params.author, match.params.permlink));
+  }
+
   state = {
     commentsVisible: false,
   };

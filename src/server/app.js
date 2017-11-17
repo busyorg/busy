@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet';
 import { Provider } from 'react-redux';
 import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router';
-import { renderRoutes } from 'react-router-config';
+import { matchRoutes, renderRoutes } from 'react-router-config';
 
 import getStore from '../client/store';
 import routes from '../common/routes';
@@ -66,16 +66,28 @@ function renderPage(store, html) {
 
 function serverSideResponse(req, res) {
   const store = getStore();
-  const context = {};
-  const content = renderToString(
-    <Provider store={store}>
-      <StaticRouter location={req.url} context={context}>
-        {renderRoutes(routes)}
-      </StaticRouter>
-    </Provider>,
-  );
 
-  res.send(renderPage(store, content));
+  const branch = matchRoutes(routes, req.url);
+  const promises = branch.map(({ route, match }) => {
+    const fetchData = route.component.fetchData;
+    if (fetchData instanceof Function) {
+      return fetchData(store, match);
+    }
+    return Promise.resolve(null);
+  });
+
+  return Promise.all(promises).then(() => {
+    const context = {};
+    const content = renderToString(
+      <Provider store={store}>
+        <StaticRouter location={req.url} context={context}>
+          {renderRoutes(routes)}
+        </StaticRouter>
+      </Provider>,
+    );
+
+    res.send(renderPage(store, content));
+  });
 }
 
 // List of routes to use SSR for
