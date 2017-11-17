@@ -21,7 +21,7 @@ const displayLimit = 100;
     getMoreUserAccountHistory: PropTypes.func.isRequired,
     userHasMoreActions: PropTypes.bool.isRequired,
     loadingMoreUsersAccountHistory: PropTypes.bool.isRequired,
-    accountHistoryFilter: PropTypes.string.isRequired,
+    accountHistoryFilter: PropTypes.arrayOf(PropTypes.string).isRequired,
     intl: PropTypes.shape().isRequired,
   };
 
@@ -43,7 +43,7 @@ const displayLimit = 100;
     const displayedActions = this.props.actions.slice(0, displayLimit);
     const lastAction = _.last(displayedActions);
 
-    if (this.props.accountHistoryFilter !== nextProps.accountHistoryFilter) {
+    if (!_.isEqual(this.props.accountHistoryFilter, nextProps.accountHistoryFilter)) {
       this.setState({
         displayedActions,
         lastActionCount: lastAction ? lastAction.actionCount : 0,
@@ -77,31 +77,42 @@ const displayLimit = 100;
     }
   };
 
+  stringMatchesFilters = (string, filters = []) => {
+    let filterMatches = false;
+    for (let i = 0; i < filters.length; i += 1) {
+      const currentFilter = filters[i];
+      if (_.includes(string, currentFilter)) {
+        filterMatches = true;
+        break;
+      }
+    }
+    return filterMatches;
+  };
+
   actionsFilter = (action) => {
     const { accountHistoryFilter, intl, currentUsername } = this.props;
-    const formattedFilter = accountHistoryFilter.toLowerCase();
     const actionType = action.op[0];
     const formattedActionType = actionType.replace('_', ' ').toLowerCase();
     const actionDetails = action.op[1];
     const activitySearchIsEmpty = _.isEmpty(accountHistoryFilter);
+
+    if (activitySearchIsEmpty) {
+      return true;
+    }
+
     const actionTypeMatchesFilter =
-      _.includes(actionType, accountHistoryFilter) ||
-      _.includes(formattedActionType, formattedFilter);
-    const actionDetailsMatchesFilter = _.includes(
-      Object.values(actionDetails),
-      accountHistoryFilter,
-    );
-    const filterMatchesMessage = _.includes(
-      _.lowerCase(getMessageForActionType(intl, currentUsername, actionType, actionDetails)),
-      formattedFilter,
+      this.stringMatchesFilters(actionType, accountHistoryFilter) ||
+      this.stringMatchesFilters(formattedActionType, accountHistoryFilter);
+
+    if (actionTypeMatchesFilter) {
+      return true;
+    }
+
+    const messageForActionType = _.lowerCase(
+      getMessageForActionType(intl, currentUsername, actionType, actionDetails),
     );
 
-    return (
-      activitySearchIsEmpty ||
-      actionTypeMatchesFilter ||
-      actionDetailsMatchesFilter ||
-      filterMatchesMessage
-    );
+    return this.stringMatchesFilters(messageForActionType, accountHistoryFilter);
   };
 
   renderSearchMessage(filteredActions) {
@@ -110,8 +121,8 @@ const displayLimit = 100;
       return (
         <div className="UserActivityActions__search__container">
           <FormattedMessage
-            id="loading_more_account_history_for_search"
-            defaultMessage="Loading more of this user's account history for your search"
+            id="loading_more_account_history_for_filters"
+            defaultMessage="Loading more of this user's account history for your filters"
           />
         </div>
       );

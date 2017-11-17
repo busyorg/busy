@@ -13,7 +13,7 @@ const initialState = {
   loadingEstAccountValue: true,
   loadingGlobalProperties: true,
   loadingMoreUsersAccountHistory: false,
-  accountHistoryFilter: '',
+  accountHistoryFilter: [],
 };
 
 export default function walletReducer(state = initialState, action) {

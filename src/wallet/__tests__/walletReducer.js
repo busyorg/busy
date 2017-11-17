@@ -11,7 +11,7 @@ const reducerInitialState = {
   loadingEstAccountValue: true,
   loadingGlobalProperties: true,
   loadingMoreUsersAccountHistory: false,
-  accountHistoryFilter: '',
+  accountHistoryFilter: [],
 };
 
 describe('walletReducer', () => {

@@ -82,7 +82,7 @@ class UserActivity extends React.Component {
     loadingGlobalProperties: PropTypes.bool.isRequired,
     isCurrentUser: PropTypes.bool,
     authenticatedUserName: PropTypes.string,
-    accountHistoryFilter: PropTypes.string.isRequired,
+    accountHistoryFilter: PropTypes.arrayOf(PropTypes.string).isRequired,
     updateAccountHistoryFilter: PropTypes.func.isRequired,
   };
 
@@ -121,7 +121,7 @@ class UserActivity extends React.Component {
       this.props.getUserEstAccountValue(user);
     }
 
-    this.props.updateAccountHistoryFilter('');
+    this.props.updateAccountHistoryFilter([]);
   }
 
   render() {

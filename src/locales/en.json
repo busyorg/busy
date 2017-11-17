@@ -216,6 +216,7 @@
   "cancel_transfer_from_savings":
     "Cancel transfer from savings (request {requestId})",
   "received_from": "Received from {username}",
+  "received": "received",
   "claim_rewards": "Claim Rewards ",
   "reward_claimed": "Reward Claimed",
   "powered_up": "Powered up ",
@@ -235,6 +236,10 @@
   "user_followed": "{follower} followed {following}",
   "user_unfollowed": "{follower} unfollowed {following}",
   "followed_user": "followed {following}",
+  "followed_filter": "followed",
+  "unfollowed_filter": "unfollowed",
+  "reblogged_filter": "reblogged",
+  "replied_filter": "replied",
   "unfollowed_user": "unfollowed {following}",
   "user_reblogged_post":"{username} reblogged {postLink}",
   "reblogged_post":"reblogged {postLink}",
@@ -247,7 +252,9 @@
   "vote_weight": "Vote Weight",
   "filter_activities": "Filter Activities",
   "no_results_found_for_search": "No results were found for your search input",
-  "loading_more_account_history_for_search": "Loading more of this user's account history for your search",
+  "loading_more_account_history_for_filters": "Loading more of this user's account history for your filters",
   "search_activity_placeholder": "upvoted, downvoted, etc...",
-  "deleted_comment": "Deleted comment ({link})"
+  "deleted_comment": "Deleted comment ({link})",
+  "general": "general",
+  "finance": "finance"
 }
