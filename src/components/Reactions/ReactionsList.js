@@ -41,7 +41,7 @@ export default class UserList extends React.Component {
               <UserCard
                 key={vote.voter}
                 username={vote.voter}
-                alt={vote.rshares * ratio > 0.01 &&
+                alt={
                   <span>
                     <USDDisplay value={vote.rshares * ratio} />
                     <span className="ReactionsList__bullet" />
