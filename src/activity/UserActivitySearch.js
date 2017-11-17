@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import _ from 'lodash';
+import { Checkbox } from 'antd';
 import { connect } from 'react-redux';
 import { updateAccountHistoryFilter } from '../wallet/walletActions';
 import './UserActivitySearch.less';
@@ -96,8 +97,7 @@ class UserActivitySearch extends React.Component {
   renderFilters = filterTypes =>
     _.map(filterTypes, filter => (
       <div key={filter.id} className="UserActivitySearch__filters__item">
-        <input
-          type="checkbox"
+        <Checkbox
           value={filter.value}
           onChange={this.handleOnChangeCheckbox}
           checked={this.state.checked[filter.value]}
