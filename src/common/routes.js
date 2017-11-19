@@ -16,6 +16,7 @@ import ProfileSettings from '../client/app/ProfileSettings';
 import User from '../client/user/User';
 import Post from '../client/post/Post';
 import Page from '../client/feed/Page';
+import Discover from '../client/discover/Discover';
 
 const routes = [
   {
@@ -83,6 +84,11 @@ const routes = [
       {
         path: '/@:name',
         component: User,
+      },
+      {
+        path: '/discover',
+        exact: true,
+        component: Discover,
       },
       {
         path: '/:category/@:author/:permlink',
