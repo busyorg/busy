@@ -3,12 +3,22 @@
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/busyorg/busy/new-design/LICENSE)
 [![Busy channel on Discord](https://img.shields.io/badge/chat-discord-738bd7.svg)](https://discord.gg/G95rNZs)
 
-# Busy
+# Busy 🚀
 
-Blockchain-based social network where anyone can earn rewards 🚀
+Busy is an Open Source social network and communications platform which extends itself to a variety of rich features and functionality including free digital payments and a marketplace for goods and services. 
+
+Our goal is to connect billions of people to the steem blockchain to bring back value to the people. The stated aim of Busy is:
+1. Ensuring compensation to creators of value.
+2. Creating a true sharing economy.
+3. Ending the remittance ripoff.
+
+For more info: https://steemit.com/busy/@busy.org/busy-your-next-gen-social-network-platform-based-on-steem-blockchain
 
 ## Preview
 ![Preview](https://res.cloudinary.com/hpiynhbhq/image/upload/v1504423577/wft1ubbw2ozrbteril7u.png)
+![Preview](http://res.cloudinary.com/shreyasgune1/image/upload/v1511095714/preview3_ai34jm.png)
+![Preview](http://res.cloudinary.com/shreyasgune1/image/upload/v1511095713/preview2_czglcz.png)
+
 
 ## Usage
 
