@@ -1,11 +1,18 @@
 @import (reference) "../styles/custom.less";
+@import (reference) "../styles/modules/variables";
 
 .Discover {
+  display: inline-block;
+  width: 80%;
+
+  @media @medium-max-width {
+    width: 100%;
+  }
+
   &__title {
     margin-bottom: 8px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid @white-gainsboro;
-    text-align: center;
+    padding-bottom: 8px;
+    text-align: left;
   }
 
   &__content {
