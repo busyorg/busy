@@ -10,13 +10,16 @@ import {
 } from '../helpers/stateHelpers';
 import { getUserFeedContent, getMoreUserFeedContent } from '../feed/feedActions';
 
-@connect(state => ({
-  feed: getFeed(state),
-  posts: getPosts(state),
-}), {
-  getUserFeedContent,
-  getMoreUserFeedContent,
-})
+@connect(
+  state => ({
+    feed: getFeed(state),
+    posts: getPosts(state),
+  }),
+  {
+    getUserFeedContent,
+    getMoreUserFeedContent,
+  },
+)
 export default class UserProfileFeed extends React.Component {
   static propTypes = {
     feed: PropTypes.shape(),
@@ -36,7 +39,9 @@ export default class UserProfileFeed extends React.Component {
     getMoreUserFeedContent: () => {},
   };
 
-  static needs = [({ name }) => getUserFeedContent({ username: name, limit: 10 })];
+  static fetchData(store, match) {
+    return store.dispatch(getUserFeedContent({ username: match.params.name, limit: 10 }));
+  }
 
   componentWillMount() {
     this.props.getUserFeedContent({

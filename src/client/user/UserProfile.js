@@ -2,12 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Feed from '../feed/Feed';
-import {
-  getIsAuthenticated,
-  getAuthenticatedUser,
-  getFeed,
-  getPosts,
-} from '../reducers';
+import { getIsAuthenticated, getAuthenticatedUser, getFeed, getPosts } from '../reducers';
 import {
   getFeedContentFromState,
   getFeedLoadingFromState,
@@ -17,15 +12,18 @@ import { getFeedContent, getMoreFeedContent } from '../feed/feedActions';
 import EmptyUserProfile from '../statics/EmptyUserProfile';
 import EmptyUserOwnProfile from '../statics/EmptyUserOwnProfile';
 
-@connect(state => ({
-  authenticated: getIsAuthenticated(state),
-  authenticatedUser: getAuthenticatedUser(state),
-  feed: getFeed(state),
-  posts: getPosts(state),
-}), {
-  getFeedContent,
-  getMoreFeedContent,
-})
+@connect(
+  state => ({
+    authenticated: getIsAuthenticated(state),
+    authenticatedUser: getAuthenticatedUser(state),
+    feed: getFeed(state),
+    posts: getPosts(state),
+  }),
+  {
+    getFeedContent,
+    getMoreFeedContent,
+  },
+)
 export default class UserProfile extends React.Component {
   static propTypes = {
     authenticated: PropTypes.bool.isRequired,
@@ -43,10 +41,6 @@ export default class UserProfile extends React.Component {
     getFeedContent: () => {},
     getMoreFeedContent: () => {},
   };
-
-  static needs = [
-    ({ name }) => getFeedContent({ sortBy: 'blog', category: name, limit: 10 }),
-  ]
 
   componentWillMount() {
     this.props.getFeedContent({
@@ -76,11 +70,12 @@ export default class UserProfile extends React.Component {
     const content = getFeedContentFromState('blog', username, feed, posts);
     const isFetching = getFeedLoadingFromState('blog', username, feed);
     const hasMore = getFeedHasMoreFromState('blog', username, feed);
-    const loadMoreContentAction = () => this.props.getMoreFeedContent({
-      sortBy: 'blog',
-      category: username,
-      limit,
-    });
+    const loadMoreContentAction = () =>
+      this.props.getMoreFeedContent({
+        sortBy: 'blog',
+        category: username,
+        limit,
+      });
 
     return (
       <div>

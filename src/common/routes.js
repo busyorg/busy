@@ -14,6 +14,13 @@ import Editor from '../client/post/Write/Write';
 import Settings from '../client/settings/Settings';
 import ProfileSettings from '../client/app/ProfileSettings';
 import User from '../client/user/User';
+import UserProfile from '../client/user/UserProfile';
+import UserComments from '../client/user/UserComments';
+import UserFollowers from '../client/user/UserFollowers';
+import UserFollowing from '../client/user/UserFollowing';
+import UserReblogs from '../client/user/UserReblogs';
+import UserFeed from '../client/user/UserFeed';
+import UserWallet from '../client/user/UserWallet';
 import Post from '../client/post/Post';
 import Page from '../client/feed/Page';
 import Discover from '../client/discover/Discover';
@@ -84,6 +91,43 @@ const routes = [
       {
         path: '/@:name',
         component: User,
+        routes: [
+          {
+            path: '/@:name',
+            exact: true,
+            component: UserProfile,
+          },
+          {
+            path: '/@:name/comments',
+            exact: true,
+            component: UserComments,
+          },
+          {
+            path: '/@:name/followers',
+            exact: true,
+            component: UserFollowers,
+          },
+          {
+            path: '/@:name/followed',
+            exact: true,
+            component: UserFollowing,
+          },
+          {
+            path: '/@:name/reblogs',
+            exact: true,
+            component: UserReblogs,
+          },
+          {
+            path: '/@:name/feed',
+            exact: true,
+            component: UserFeed,
+          },
+          {
+            path: '/@:name/transfers',
+            exact: true,
+            component: UserWallet,
+          },
+        ],
       },
       {
         path: '/discover',

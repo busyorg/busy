@@ -91,7 +91,10 @@ function serverSideResponse(req, res) {
 }
 
 // List of routes to use SSR for
-app.get('/:category/@:author/:permlink', serverSideResponse);
+
+const ssrRoutes = ['/:category/@:author/:permlink', '/@:name*'];
+
+app.get(ssrRoutes, serverSideResponse);
 
 app.get('/*', (req, res) => {
   res.send(indexHtml);
