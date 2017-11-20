@@ -194,7 +194,7 @@ import HiddenCommentMessage from './HiddenCommentMessage';
 
     const editable = comment.author === user.name && comment.cashout_time !== '1969-12-31T23:59:59';
     const commentAuthorReputation = formatter.reputation(comment.author_reputation);
-    const showCommentContent = commentAuthorReputation > 0 || showHiddenComment;
+    const showCommentContent = commentAuthorReputation >= 0 || showHiddenComment;
 
     let content = null;
 

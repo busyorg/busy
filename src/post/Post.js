@@ -84,7 +84,7 @@ export default class Post extends React.Component {
     const { showHiddenPost } = this.state;
     const loading = !content || (fetching && edited);
     const reputation = loading ? 0 : formatter.reputation(content.author_reputation);
-    const showPost = reputation > 0 || showHiddenPost;
+    const showPost = reputation >= 0 || showHiddenPost;
 
     return (
       <div className="main-panel">

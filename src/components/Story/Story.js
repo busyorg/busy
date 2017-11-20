@@ -106,7 +106,7 @@ import './Story.less';
     } = this.props;
     const { showHiddenStoryPreview } = this.state;
     const postAuthorReputation = formatter.reputation(post.author_reputation);
-    const showStoryPreview = postAuthorReputation > 0 || showHiddenStoryPreview;
+    const showStoryPreview = postAuthorReputation >= 0 || showHiddenStoryPreview;
 
     let followText = '';
 
