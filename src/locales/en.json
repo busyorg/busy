@@ -211,5 +211,9 @@
   "powered_up": "Powered up ",
   "market": "Market",
   "page_forbidden": "Page Requires Authentication",
-  "page_forbidden_message": "Oops! Looks like you need to login to use this page."
+  "page_forbidden_message": "Oops! Looks like you need to login to use this page.",
+  "post_hidden_for_low_ratings": "This post is currently hidden for low ratings",
+  "post_preview_hidden_for_low_ratings": "This post preview is hidden for low ratings",
+  "display_post": "Display post",
+  "display_post_preview": "Display post preview"
 }
