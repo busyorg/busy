@@ -2,136 +2,109 @@
 
 exports[`<Topic /> renders without exploding 1`] = `
 ShallowWrapper {
-  "complexSelector": ComplexSelector {
-    "buildPredicate": [Function],
-    "childrenOfNode": [Function],
-    "findWhereUnwrapped": [Function],
-  },
   "length": 1,
-  "node": <Link
-    className="Topic Topic--favorite"
-    replace={false}
-    to="/trending/exampletopic"
-  >
-    exampletopic
-    <i
-      className="iconfont icon-close Topic__close"
-      onClick={[Function]}
-      onMouseOut={[Function]}
-      onMouseOver={[Function]}
-      role="presentation"
-    />
-  </Link>,
-  "nodes": Array [
-    <Link
-      className="Topic Topic--favorite"
-      replace={false}
-      to="/trending/exampletopic"
-    >
-      exampletopic
-      <i
-        className="iconfont icon-close Topic__close"
-        onClick={[Function]}
-        onMouseOut={[Function]}
-        onMouseOver={[Function]}
-        role="presentation"
-      />
-    </Link>,
-  ],
-  "options": Object {},
-  "renderer": ReactShallowRenderer {
-    "_instance": ShallowComponentWrapper {
-      "_calledComponentWillUnmount": false,
-      "_compositeType": 0,
-      "_context": Object {},
-      "_currentElement": <Topic
-        closable={true}
-        favorite={true}
-        name="exampletopic"
-        onClose={[Function]}
-      />,
-      "_debugID": 1,
-      "_hostContainerInfo": null,
-      "_hostParent": null,
-      "_instance": Topic {
-        "_reactInternalInstance": [Circular],
-        "context": Object {},
-        "onCloseClick": [Function],
-        "onCloseOut": [Function],
-        "onCloseOver": [Function],
-        "props": Object {
-          "closable": true,
-          "favorite": true,
-          "name": "exampletopic",
-          "onClose": [Function],
-        },
-        "refs": Object {},
-        "state": Object {
-          "closing": false,
-        },
-        "updater": Object {
-          "enqueueCallback": [Function],
-          "enqueueCallbackInternal": [Function],
-          "enqueueElementInternal": [Function],
-          "enqueueForceUpdate": [Function],
-          "enqueueReplaceState": [Function],
-          "enqueueSetState": [Function],
-          "isMounted": [Function],
-          "validateCallback": [Function],
-        },
-      },
-      "_mountOrder": 1,
-      "_pendingCallbacks": null,
-      "_pendingElement": null,
-      "_pendingForceUpdate": false,
-      "_pendingReplaceState": false,
-      "_pendingStateQueue": null,
-      "_renderedComponent": NoopInternalComponent {
-        "_currentElement": <Link
-          className="Topic Topic--favorite"
-          replace={false}
-          to="/trending/exampletopic"
-        >
-          exampletopic
-          <i
-            className="iconfont icon-close Topic__close"
-            onClick={[Function]}
-            onMouseOut={[Function]}
-            onMouseOver={[Function]}
-            role="presentation"
-          />
-        </Link>,
-        "_debugID": 2,
-        "_renderedOutput": <Link
-          className="Topic Topic--favorite"
-          replace={false}
-          to="/trending/exampletopic"
-        >
-          exampletopic
-          <i
-            className="iconfont icon-close Topic__close"
-            onClick={[Function]}
-            onMouseOut={[Function]}
-            onMouseOver={[Function]}
-            role="presentation"
-          />
-        </Link>,
-      },
-      "_renderedNodeType": 1,
-      "_rootNodeID": 0,
-      "_topLevelWrapper": null,
-      "_updateBatchNumber": null,
-      "_warnedAboutRefsInRender": false,
-    },
-    "getRenderOutput": [Function],
-    "render": [Function],
-  },
-  "root": [Circular],
-  "unrendered": <Topic
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <Topic
     closable={true}
     favorite={true}
     name="exampletopic"
     onClose={[Function]}
   />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "class",
+    "props": Object {
+      "children": Array [
+        "exampletopic",
+        <i
+          className="iconfont icon-close Topic__close"
+          onClick={[Function]}
+          onMouseOut={[Function]}
+          onMouseOver={[Function]}
+          role="presentation"
+        />,
+      ],
+      "className": "Topic Topic--favorite",
+      "replace": false,
+      "to": "/trending/exampletopic",
+    },
+    "ref": null,
+    "rendered": Array [
+      "exampletopic",
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "className": "iconfont icon-close Topic__close",
+          "onClick": [Function],
+          "onMouseOut": [Function],
+          "onMouseOver": [Function],
+          "role": "presentation",
+        },
+        "ref": null,
+        "rendered": null,
+        "type": "i",
+      },
+    ],
+    "type": [Function],
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "class",
+      "props": Object {
+        "children": Array [
+          "exampletopic",
+          <i
+            className="iconfont icon-close Topic__close"
+            onClick={[Function]}
+            onMouseOut={[Function]}
+            onMouseOver={[Function]}
+            role="presentation"
+          />,
+        ],
+        "className": "Topic Topic--favorite",
+        "replace": false,
+        "to": "/trending/exampletopic",
+      },
+      "ref": null,
+      "rendered": Array [
+        "exampletopic",
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "className": "iconfont icon-close Topic__close",
+            "onClick": [Function],
+            "onMouseOut": [Function],
+            "onMouseOver": [Function],
+            "role": "presentation",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": "i",
+        },
+      ],
+      "type": [Function],
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
 }
 `;

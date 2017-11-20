@@ -22,6 +22,7 @@ import Write from './post/Write/Write';
 import Drafts from './post/Write/Drafts';
 import RequireLogin from './auth/RequireLogin';
 import Wallet from './wallet/Wallet';
+import Discover from './discover/Discover';
 
 const logPageView = () => {
   if (window.analytics) {
@@ -58,7 +59,7 @@ export default (
           )}
         />
         <Route
-          path="/write"
+          path="/editor"
           render={() => (
             <RequireLogin>
               <Write />
@@ -105,6 +106,7 @@ export default (
             </RequireLogin>
           )}
         />
+        <Route path="/discover" render={() => <Discover />} />
         <Route path="/@:name" component={User} />
         <Route path="/:category/@:author/:permlink" component={Post} />
         <Route path="/" component={Page} />

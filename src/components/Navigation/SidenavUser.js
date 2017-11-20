@@ -7,10 +7,10 @@ import './Sidenav.less';
 const SidenavUser = ({ username }) => (
   <ul className="Sidenav">
     <li>
-      <a href={`https://steemd.com/@${username}`} target="_blank">
+      <NavLink to="/activity" activeClassName="Sidenav__item--active">
         <i className="iconfont icon-dynamic" />
         <FormattedMessage id="activity" defaultMessage="Activity" />
-      </a>
+      </NavLink>
     </li>
     <li>
       <NavLink to="/bookmarks" activeClassName="Sidenav__item--active">

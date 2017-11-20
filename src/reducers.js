@@ -79,6 +79,7 @@ export const getPendingReblogs = state => fromReblog.getPendingReblogs(state.reb
 
 export const getFollowingList = state => fromUser.getFollowingList(state.user);
 export const getPendingFollows = state => fromUser.getPendingFollows(state.user);
+export const getIsFetchingFollowingList = state => fromUser.getIsFetchingFollowingList(state.user);
 export const getRecommendations = state => fromUser.getRecommendations(state.user);
 
 export const getUser = (state, username) => fromUsers.getUser(state.users, username);
@@ -97,11 +98,16 @@ export const getTotalVestingShares = state => fromWallet.getTotalVestingShares(s
 export const getTotalVestingFundSteem = state => fromWallet.getTotalVestingFundSteem(state.wallet);
 export const getUsersTransactions = state => fromWallet.getUsersTransactions(state.wallet);
 export const getUsersAccountHistory = state => fromWallet.getUsersAccountHistory(state.wallet);
-export const getUsersTransactionsLoading = state =>
-  fromWallet.getUsersTransactionsLoading(state.wallet);
+export const getUsersAccountHistoryLoading = state =>
+  fromWallet.getUsersAccountHistoryLoading(state.wallet);
 export const getUsersEstAccountsValues = state =>
   fromWallet.getUsersEstAccountsValues(state.wallet);
 export const getLoadingEstAccountValue = state =>
   fromWallet.getLoadingEstAccountValue(state.wallet);
 export const getLoadingGlobalProperties = state =>
   fromWallet.getLoadingGlobalProperties(state.wallet);
+export const getLoadingMoreUsersAccountHistory = state =>
+  fromWallet.getLoadingMoreUsersAccountHistory(state.wallet);
+export const getUserHasMoreAccountHistory = (state, username) =>
+  fromWallet.getUserHasMoreAccountHistory(state.wallet, username);
+export const getAccountHistoryFilter = state => fromWallet.getAccountHistoryFilter(state.wallet);

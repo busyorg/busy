@@ -22,6 +22,7 @@ import UserFollowing from './UserFollowing';
 import UserReblogs from './UserReblogs';
 import UserFeed from './UserFeed';
 import UserWallet from './UserWallet';
+import UserActivity from '../activity/UserActivity';
 
 export const needs = [getAccountWithFollowingCount];
 
@@ -137,7 +138,7 @@ export default class User extends React.Component {
         )}
         <div className="shifted">
           <div className="feed-layout container">
-            <Affix className="leftContainer" stickPosition={72}>
+            <Affix className="leftContainer leftContainer__user" stickPosition={72}>
               <div className="left">
                 <LeftSidebar />
               </div>
@@ -153,6 +154,7 @@ export default class User extends React.Component {
               <Route path={`${match.path}/reblogs`} component={UserReblogs} />
               <Route path={`${match.path}/feed`} component={UserFeed} />
               <Route path={`${match.path}/transfers`} component={UserWallet} />
+              <Route path={`${match.path}/activity`} component={UserActivity} />
             </div>
           </div>
         </div>

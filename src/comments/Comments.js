@@ -62,6 +62,7 @@ export default class Comments extends React.Component {
       }),
     ),
     show: PropTypes.bool,
+    notify: PropTypes.func,
     getComments: PropTypes.func,
     voteComment: PropTypes.func,
     sendComment: PropTypes.func,
@@ -75,6 +76,7 @@ export default class Comments extends React.Component {
     commentsList: {},
     pendingVotes: [],
     show: false,
+    notify: () => {},
     getComments: () => {},
     voteComment: () => {},
     sendComment: () => {},
@@ -174,6 +176,7 @@ export default class Comments extends React.Component {
           pendingVotes={pendingVotes}
           loading={comments.isFetching}
           show={show}
+          notify={this.props.notify}
           rewardFund={rewardFund}
           sliderMode={sliderMode}
           defaultVotePercent={defaultVotePercent}
