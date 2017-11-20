@@ -188,8 +188,11 @@ class UserActivitySearch extends React.Component {
           value={filter.value}
           onChange={this.handleOnChangeCheckbox}
           checked={this.state.checked[filter.id]}
-        />
-        <FormattedMessage id={filter.messageId} defaultMessage={filter.defaultMessage} />
+        >
+          <span className="UserActivitySearch__filters__item__label">
+            <FormattedMessage id={filter.messageId} defaultMessage={filter.defaultMessage} />
+          </span>
+        </Checkbox>
       </div>
     ));
 
@@ -253,9 +256,9 @@ class UserActivitySearch extends React.Component {
               </span>
             </div>
             {showRewards &&
-            <div className="UserActivitySearch__filters__content">
-              {this.renderFilters(rewardsFilters)}
-            </div>}
+              <div className="UserActivitySearch__filters__content">
+                {this.renderFilters(rewardsFilters)}
+              </div>}
           </div>
         </div>
       </div>
