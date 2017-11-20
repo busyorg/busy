@@ -8,7 +8,7 @@ const HiddenCommentMessage = ({ onClick }) => (
       id="comment_hidden_message"
       defaultMessage="This comment is hidden because the author has a low reputation score."
     />
-    {' '}
+    <br />
     <a role="presentation" onClick={onClick}>
       <FormattedMessage id="reveal_comment" defaultMessage="Reveal comment" />
     </a>
