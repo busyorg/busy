@@ -221,7 +221,6 @@ class UserActivitySearch extends React.Component {
                 {this.renderFilters(generalFilters)}
               </div>}
           </div>
-          <div className="UserActivitySearch__filters__divider" />
           <div className="UserActivitySearch__filters__container">
             <div
               role="presentation"
