@@ -104,7 +104,7 @@ export default class Transfer extends React.Component {
   validateUsername = (rule, value, callback) => {
     const { intl } = this.props;
 
-    var exchanges = /^(bittrex|blocktrades|poloniex|changelly|openledge|shapeshiftio)$/;
+    const exchanges = /^(bittrex|blocktrades|poloniex|changelly|openledge|shapeshiftio)$/;
     const recipientIsExchange = exchanges.test(value);
 
     if (!value) {
@@ -112,7 +112,7 @@ export default class Transfer extends React.Component {
       return;
     }
 
-    steem.api.getAccounts([value], (err, result) => {    
+    steem.api.getAccounts([value], (err, result) => {
       if (result[0]) {
         if (recipientIsExchange) {
           this.props.form.validateFields(['memo']);
@@ -154,14 +154,13 @@ export default class Transfer extends React.Component {
   validateMemo = (rule, value, callback) => {
     const { intl, authenticated, user } = this.props;
 
-    var exchanges = /^(bittrex|blocktrades|poloniex|changelly|openledge|shapeshiftio)$/;
+    const exchanges = /^(bittrex|blocktrades|poloniex|changelly|openledge|shapeshiftio)$/;
     const recipientIsExchange = exchanges.test(this.props.form.getFieldValue('to'));
 
-    if (recipientIsExchange && (!value || value == '')) {
+    if (recipientIsExchange && (!value || value === '')) {
       callback([
         new Error(intl.formatMessage({ id: 'memo_error_exchange', defaultMessage: 'Memo is required when sending to an exchange.' })),
       ]);
-      return;
     } else {
       callback();
     }
