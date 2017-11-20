@@ -92,7 +92,7 @@ ShallowWrapper {
         >
           <Link
             replace={false}
-            to="/latest-comments"
+            to="/discover"
           >
             <FormattedMessage
               defaultMessage="Discover More People"
@@ -167,7 +167,7 @@ ShallowWrapper {
           >
             <Link
               replace={false}
-              to="/latest-comments"
+              to="/discover"
             >
               <FormattedMessage
                 defaultMessage="Discover More People"
@@ -317,7 +317,7 @@ ShallowWrapper {
           "props": Object {
             "children": <Link
               replace={false}
-              to="/latest-comments"
+              to="/discover"
             >
               <FormattedMessage
                 defaultMessage="Discover More People"
@@ -339,7 +339,7 @@ ShallowWrapper {
                 values={Object {}}
               />,
               "replace": false,
-              "to": "/latest-comments",
+              "to": "/discover",
             },
             "ref": null,
             "rendered": Object {
@@ -427,7 +427,7 @@ ShallowWrapper {
           >
             <Link
               replace={false}
-              to="/latest-comments"
+              to="/discover"
             >
               <FormattedMessage
                 defaultMessage="Discover More People"
@@ -502,7 +502,7 @@ ShallowWrapper {
             >
               <Link
                 replace={false}
-                to="/latest-comments"
+                to="/discover"
               >
                 <FormattedMessage
                   defaultMessage="Discover More People"
@@ -652,7 +652,7 @@ ShallowWrapper {
             "props": Object {
               "children": <Link
                 replace={false}
-                to="/latest-comments"
+                to="/discover"
               >
                 <FormattedMessage
                   defaultMessage="Discover More People"
@@ -674,7 +674,7 @@ ShallowWrapper {
                   values={Object {}}
                 />,
                 "replace": false,
-                "to": "/latest-comments",
+                "to": "/discover",
               },
               "ref": null,
               "rendered": Object {
