@@ -46,39 +46,20 @@ const CustomJSONMessage = ({ actionDetails, currentUsername }) => {
       />
     );
   } else if (customActionType === accountHistoryConstants.REBLOG) {
-    if (currentUsername === customActionDetails.account) {
-      return (
-        <span className="capitalize-text">
-          <FormattedMessage
-            id="reblogged_post"
-            defaultMessage="reblogged {postLink}"
-            values={{
-              postLink: (
-                <Link
-                  to={`/p/@${customActionDetails.author}/${customActionDetails.permlink}`}
-                >{`@${customActionDetails.author}/${customActionDetails.permlink}`}</Link>
-              ),
-            }}
-          />
-        </span>
-      );
-    }
-
     return (
-      <FormattedMessage
-        id="user_reblogged_post"
-        defaultMessage="{username} reblogged {postLink}"
-        values={{
-          username: (
-            <Link to={`/@${customActionDetails.account}`}>{customActionDetails.account}</Link>
-          ),
-          postLink: (
-            <Link
-              to={`/p/@${customActionDetails.author}/${customActionDetails.permlink}`}
-            >{`@${customActionDetails.author}/${customActionDetails.permlink}`}</Link>
-          ),
-        }}
-      />
+      <span className="capitalize-text">
+        <FormattedMessage
+          id="reblogged_post"
+          defaultMessage="reblogged {postLink}"
+          values={{
+            postLink: (
+              <Link
+                to={`/p/@${customActionDetails.author}/${customActionDetails.permlink}`}
+              >{`@${customActionDetails.author}/${customActionDetails.permlink}`}</Link>
+            ),
+          }}
+        />
+      </span>
     );
   }
   return null;

@@ -48,7 +48,6 @@ export default function walletReducer(state = initialState, action) {
         loadingGlobalProperties: false,
       };
     }
-
     case walletActions.GET_USER_ACCOUNT_HISTORY.START:
       return {
         ...state,
@@ -124,7 +123,6 @@ export default function walletReducer(state = initialState, action) {
         ...state,
         loadingEstAccountValue: false,
       };
-
     case walletActions.UPDATE_ACCOUNT_HISTORY_FILTER:
       return {
         ...state,
