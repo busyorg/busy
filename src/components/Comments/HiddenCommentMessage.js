@@ -6,10 +6,11 @@ const HiddenCommentMessage = ({ onClick }) => (
   <div className="Comment__hidden__message">
     <FormattedMessage
       id="comment_hidden_message"
-      defaultMessage="This comment is hidden because the author has a low reputation score"
+      defaultMessage="This comment is hidden because the author has a low reputation score."
     />
+    {' '}
     <a role="presentation" onClick={onClick}>
-      <FormattedMessage id="reveal_comment" defaultMessage="reveal comment" />
+      <FormattedMessage id="reveal_comment" defaultMessage="Reveal comment" />
     </a>
   </div>
 );

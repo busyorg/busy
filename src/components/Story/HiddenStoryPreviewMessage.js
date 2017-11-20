@@ -1,24 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button } from 'antd';
 import { FormattedMessage } from 'react-intl';
 
-const StoryPreviewHiddenMessage = ({ onClick }) => (
+const HiddenStoryPreviewMessage = ({ onClick }) => (
   <div className="Story__warning__message">
     <h4>
       <FormattedMessage
         id="post_preview_hidden_for_low_ratings"
-        defaultMessage="This post preview is hidden for low ratings"
+        defaultMessage="This post preview is hidden for low ratings."
       />
-      <Button type="danger" onClick={onClick} className="float-right">
+      {' '}
+      <a role="presentation" onClick={onClick}>
         <FormattedMessage id="display_post_preview" defaultMessage="Display post preview" />
-      </Button>
+      </a>
     </h4>
   </div>
 );
 
-StoryPreviewHiddenMessage.propTypes = {
+HiddenStoryPreviewMessage.propTypes = {
   onClick: PropTypes.func.isRequired,
 };
 
-export default StoryPreviewHiddenMessage;
+export default HiddenStoryPreviewMessage;

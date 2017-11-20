@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button } from 'antd';
 import { FormattedMessage } from 'react-intl';
 
 const HiddenPostMessage = ({ onClick }) => (
@@ -8,11 +7,12 @@ const HiddenPostMessage = ({ onClick }) => (
     <h3>
       <FormattedMessage
         id="post_hidden_for_low_ratings"
-        defaultMessage="This post is currently hidden for low ratings"
+        defaultMessage="This post is currently hidden for low ratings."
       />
-      <Button type="danger" onClick={onClick} className="float-right">
+      {' '}
+      <a role="presentation" onClick={onClick}>
         <FormattedMessage id="display_post" defaultMessage="Display post" />
-      </Button>
+      </a>
     </h3>
   </div>
 );
