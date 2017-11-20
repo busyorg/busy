@@ -15,7 +15,7 @@ import StoryFooter from '../StoryFooter/StoryFooter';
 import Avatar from '../Avatar';
 import Topic from '../Button/Topic';
 import PopoverMenu, { PopoverMenuItem } from '../PopoverMenu/PopoverMenu';
-import StoryPreviewHiddenMessage from './StoryPreviewHiddenMessage';
+import HiddenStoryPreviewMessage from './HiddenStoryPreviewMessage';
 import './Story.less';
 
 @injectIntl class Story extends React.Component {
@@ -252,7 +252,7 @@ import './Story.less';
               ? <Link to={post.url} className="Story__content__preview">
                 <StoryPreview post={post} />
               </Link>
-              : <StoryPreviewHiddenMessage onClick={this.handleShowStoryPreview} />}
+              : <HiddenStoryPreviewMessage onClick={this.handleShowStoryPreview} />}
           </div>
           <div className="Story__footer">
             <StoryFooter

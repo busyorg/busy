@@ -215,5 +215,7 @@
   "post_hidden_for_low_ratings": "This post is currently hidden for low ratings",
   "post_preview_hidden_for_low_ratings": "This post preview is hidden for low ratings",
   "display_post": "Display post",
-  "display_post_preview": "Display post preview"
+  "display_post_preview": "Display post preview",
+  "comment_hidden_message": "This comment is hidden because the author has a low reputation score",
+  "reveal_comment": "reveal comment"
 }
