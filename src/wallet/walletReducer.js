@@ -9,10 +9,11 @@ const initialState = {
   usersTransactions: {},
   usersAccountHistory: {},
   usersEstAccountsValues: {},
-  usersTransactionsLoading: true,
+  usersAccountHistoryLoading: true,
   loadingEstAccountValue: true,
   loadingGlobalProperties: true,
-  moreUsersAccountHistoryLoading: true,
+  loadingMoreUsersAccountHistory: false,
+  accountHistoryFilter: [],
 };
 
 export default function walletReducer(state = initialState, action) {
@@ -47,7 +48,6 @@ export default function walletReducer(state = initialState, action) {
         loadingGlobalProperties: false,
       };
     }
-
     case walletActions.GET_USER_ACCOUNT_HISTORY.START:
       return {
         ...state,
@@ -66,10 +66,15 @@ export default function walletReducer(state = initialState, action) {
         },
         usersAccountHistoryLoading: false,
       };
+    case walletActions.GET_USER_ACCOUNT_HISTORY.ERROR:
+      return {
+        ...state,
+        usersAccountHistoryLoading: false,
+      };
     case walletActions.GET_MORE_USER_ACCOUNT_HISTORY.START:
       return {
         ...state,
-        moreUsersAccountHistoryLoading: true,
+        loadingMoreUsersAccountHistory: true,
       };
     case walletActions.GET_MORE_USER_ACCOUNT_HISTORY.SUCCESS: {
       const userCurrentWalletTransactions = state.usersTransactions[action.payload.username] || [];
@@ -91,13 +96,13 @@ export default function walletReducer(state = initialState, action) {
             'actionCount',
           ),
         },
-        moreUsersAccountHistoryLoading: false,
+        loadingMoreUsersAccountHistory: false,
       };
     }
     case walletActions.GET_MORE_USER_ACCOUNT_HISTORY.ERROR:
       return {
         ...state,
-        moreUsersAccountHistoryLoading: false,
+        loadingMoreUsersAccountHistory: false,
       };
     case walletActions.GET_USER_EST_ACCOUNT_VALUE.START:
       return {
@@ -118,6 +123,11 @@ export default function walletReducer(state = initialState, action) {
         ...state,
         loadingEstAccountValue: false,
       };
+    case walletActions.UPDATE_ACCOUNT_HISTORY_FILTER:
+      return {
+        ...state,
+        accountHistoryFilter: action.payload,
+      };
     default:
       return state;
   }
@@ -129,7 +139,13 @@ export const getTotalVestingShares = state => state.totalVestingShares;
 export const getTotalVestingFundSteem = state => state.totalVestingFundSteem;
 export const getUsersTransactions = state => state.usersTransactions;
 export const getUsersEstAccountsValues = state => state.usersEstAccountsValues;
-export const getUsersTransactionsLoading = state => state.usersTransactionsLoading;
+export const getUsersAccountHistoryLoading = state => state.usersAccountHistoryLoading;
 export const getLoadingEstAccountValue = state => state.loadingEstAccountValue;
 export const getLoadingGlobalProperties = state => state.loadingGlobalProperties;
 export const getUsersAccountHistory = state => state.usersAccountHistory;
+export const getLoadingMoreUsersAccountHistory = state => state.loadingMoreUsersAccountHistory;
+export const getUserHasMoreAccountHistory = (state, username) => {
+  const lastAction = _.last(state.usersAccountHistory[username]) || {};
+  return lastAction.actionCount !== 0;
+};
+export const getAccountHistoryFilter = state => state.accountHistoryFilter;
