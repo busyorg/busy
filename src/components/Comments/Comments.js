@@ -57,6 +57,7 @@ class Comments extends React.Component {
       sort: 'BEST',
       showCommentFormLoading: false,
       commentFormText: '',
+      commentSubmitted: false,
     };
   }
 
@@ -105,7 +106,7 @@ class Comments extends React.Component {
     this.props
       .onSendComment(parentPost, commentValue)
       .then(() => {
-        this.setState({ showCommentFormLoading: false, commentFormText: '' });
+        this.setState({ showCommentFormLoading: false, commentFormText: '', commentSubmitted: true });
       })
       .catch(() => {
         this.setState({
@@ -163,6 +164,7 @@ class Comments extends React.Component {
             onSubmit={this.submitComment}
             isLoading={this.state.showCommentFormLoading}
             inputValue={this.state.commentFormText}
+            submitted={this.state.commentSubmitted}
             onImageInserted={this.handleImageInserted}
             onImageInvalid={this.handleImageInvalid}
           />)}
