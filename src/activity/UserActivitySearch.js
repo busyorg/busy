@@ -107,16 +107,19 @@ const generalFilters = [
   filterValues[accountHistoryConstants.UNFOLLOWED],
   filterValues[accountHistoryConstants.REPLIED],
   filterValues[accountHistoryConstants.REBLOGGED],
-  filterValues[accountHistoryConstants.AUTHOR_REWARD],
-  filterValues[accountHistoryConstants.CURATION_REWARD],
 ];
 
 const financeFilters = [
-  filterValues[accountHistoryConstants.CLAIM_REWARDS],
   filterValues[accountHistoryConstants.POWERED_UP],
   filterValues[accountHistoryConstants.RECEIVED],
   filterValues[accountHistoryConstants.TRANSFER],
   filterValues[accountHistoryConstants.SAVINGS],
+];
+
+const rewardsFilters = [
+  filterValues[accountHistoryConstants.AUTHOR_REWARD],
+  filterValues[accountHistoryConstants.CURATION_REWARD],
+  filterValues[accountHistoryConstants.CLAIM_REWARDS],
 ];
 
 @connect(null, {
@@ -147,6 +150,7 @@ class UserActivitySearch extends React.Component {
     },
     showGeneral: true,
     showFinance: true,
+    showRewards: true,
   };
 
   handleOnChangeCheckbox = (e) => {
@@ -190,7 +194,7 @@ class UserActivitySearch extends React.Component {
     ));
 
   render() {
-    const { showGeneral, showFinance } = this.state;
+    const { showGeneral, showFinance, showRewards } = this.state;
     return (
       <div className="UserActivitySearch">
         <h4 className="UserActivitySearch__title">
@@ -208,8 +212,8 @@ class UserActivitySearch extends React.Component {
               <FormattedMessage id="general" defaultMessage="general" />
               <span className="UserActivitySearch__filters__title__icon">
                 {showGeneral
-                  ? <i className="iconfont icon-minus" />
-                  : <i className="iconfont icon-add" />}
+                  ? <i className="iconfont icon-offline" />
+                  : <i className="iconfont icon-addition" />}
               </span>
             </div>
             {showGeneral &&
@@ -227,14 +231,32 @@ class UserActivitySearch extends React.Component {
               <FormattedMessage id="finance" defaultMessage="finance" />
               <span className="UserActivitySearch__filters__title__icon">
                 {showFinance
-                  ? <i className="iconfont icon-minus" />
-                  : <i className="iconfont icon-add" />}
+                  ? <i className="iconfont icon-offline" />
+                  : <i className="iconfont icon-addition" />}
               </span>
             </div>
             {showFinance &&
               <div className="UserActivitySearch__filters__content">
                 {this.renderFilters(financeFilters)}
               </div>}
+          </div>
+          <div className="UserActivitySearch__filters__container">
+            <div
+              role="presentation"
+              className="UserActivitySearch__filters__title"
+              onClick={() => this.toggleFilterSection('showRewards')}
+            >
+              <FormattedMessage id="rewards" defaultMessage="Rewards" />
+              <span className="UserActivitySearch__filters__title__icon">
+                {showRewards
+                  ? <i className="iconfont icon-offline" />
+                  : <i className="iconfont icon-addition" />}
+              </span>
+            </div>
+            {showRewards &&
+            <div className="UserActivitySearch__filters__content">
+              {this.renderFilters(rewardsFilters)}
+            </div>}
           </div>
         </div>
       </div>
