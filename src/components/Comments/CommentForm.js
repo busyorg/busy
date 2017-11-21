@@ -221,21 +221,21 @@ class CommentForm extends React.Component {
                   </div>
                 </div>
               )}
-              <Element name="commentFormInputScrollerElement">
-              <Input
-                id="commentFormInput"
-                ref={ref => this.setInput(ref)}
-                value={this.state.inputValue}
-                autosize={{ minRows: 2, maxRows: 6 }}
-                onChange={this.handleCommentTextChange}
-                placeholder={intl.formatMessage({
-                  id: 'comment_placeholder',
-                  defaultMessage: 'Write a comment',
-                })}
-                type="textarea"
-                disabled={isLoading}
-              />
-              </Element>
+                <Element name="commentFormInputScrollerElement">
+                  <Input
+                    id="commentFormInput"
+                    ref={ref => this.setInput(ref)}
+                    value={this.state.inputValue}
+                    autosize={{ minRows: 2, maxRows: 6 }}
+                    onChange={this.handleCommentTextChange}
+                    placeholder={intl.formatMessage({
+                      id: 'comment_placeholder',
+                      defaultMessage: 'Write a comment',
+                    })}
+                    type="textarea"
+                    disabled={isLoading}
+                  />
+                </Element>
             </Dropzone>
           </div>
           <p className="CommentForm__imagebox">
