@@ -36,10 +36,6 @@ export default class UserProfilePosts extends React.Component {
     getMoreUserComments: () => {},
   };
 
-  static fetchData(store, match) {
-    return store.dispatch(getUserComments({ username: match.params.name }));
-  }
-
   componentWillMount() {
     this.props.getUserComments({
       username: this.props.match.params.name,

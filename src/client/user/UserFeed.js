@@ -39,10 +39,6 @@ export default class UserProfileFeed extends React.Component {
     getMoreUserFeedContent: () => {},
   };
 
-  static fetchData(store, match) {
-    return store.dispatch(getUserFeedContent({ username: match.params.name, limit: 10 }));
-  }
-
   componentWillMount() {
     this.props.getUserFeedContent({
       sortBy: 'feed',
