@@ -171,14 +171,12 @@ describe('settingsReducer selectors', () => {
     locale: 'auto',
     votingPower: 'auto',
     loading: false,
-    wordCount: 'on',
   };
 
   const stateVar2 = {
     locale: 'pl',
     votingPower: 'off',
     loading: true,
-    wordCount: 'off',
   };
 
   it('should return locale', () => {
@@ -194,10 +192,5 @@ describe('settingsReducer selectors', () => {
   it('should return loading', () => {
     expect(getIsLoading(stateVar1)).to.equal(false);
     expect(getIsLoading(stateVar2)).to.equal(true);
-  });
-
-  it('should return word count', () => {
-    expect(getWordCount(stateVar1)).to.equal('on');
-    expect(getWordCount(stateVar2)).to.equal('off');
   });
 });
