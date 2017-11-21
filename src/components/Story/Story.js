@@ -10,10 +10,12 @@ import {
 import { Link } from 'react-router-dom';
 import { Tag, Icon, Popover, Tooltip } from 'antd';
 import { formatter } from 'steem';
+import { isPostTaggedNSFW } from '../../helpers/postHelpers';
 import StoryPreview from './StoryPreview';
 import StoryFooter from '../StoryFooter/StoryFooter';
 import Avatar from '../Avatar';
 import Topic from '../Button/Topic';
+import NSFWStoryPreviewMessage from './NSFWStoryPreviewMessage';
 import PopoverMenu, { PopoverMenuItem } from '../PopoverMenu/PopoverMenu';
 import './Story.less';
 
@@ -26,6 +28,7 @@ class Story extends React.Component {
     postState: PropTypes.shape().isRequired,
     rewardFund: PropTypes.shape().isRequired,
     defaultVotePercent: PropTypes.number.isRequired,
+    showNSFWPosts: PropTypes.bool.isRequired,
     pendingLike: PropTypes.bool,
     pendingFollow: PropTypes.bool,
     pendingBookmark: PropTypes.bool,
@@ -56,6 +59,10 @@ class Story extends React.Component {
     postState: {},
   };
 
+  state = {
+    showHiddenStoryPreview: false,
+  };
+
   handleClick = (key) => {
     const { post } = this.props;
 
@@ -76,6 +83,12 @@ class Story extends React.Component {
     }
   };
 
+  handleShowStoryPreview = () => {
+    this.setState({
+      showHiddenStoryPreview: true,
+    });
+  };
+
   render() {
     const {
       intl,
@@ -93,9 +106,11 @@ class Story extends React.Component {
       onLikeClick,
       onShareClick,
       onEditClick,
+      showNSFWPosts,
     } = this.props;
-
+    const { showHiddenStoryPreview } = this.state;
     let followText = '';
+    const showStoryPreview = showNSFWPosts || !isPostTaggedNSFW(post) || showHiddenStoryPreview;
 
     if (postState.userFollowed && !pendingFollow) {
       followText = intl.formatMessage(
@@ -236,9 +251,11 @@ class Story extends React.Component {
                 )}
               </h2>
             </Link>
-            <Link to={post.url} className="Story__content__preview">
-              <StoryPreview post={post} />
-            </Link>
+            {showStoryPreview
+              ? <Link to={post.url} className="Story__content__preview">
+                <StoryPreview post={post} />
+              </Link>
+              : <NSFWStoryPreviewMessage onClick={this.handleShowStoryPreview} />}
           </div>
           <div className="Story__footer">
             <StoryFooter
