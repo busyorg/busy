@@ -10,7 +10,7 @@ import Body, { remarkable } from '../Story/Body';
 import Avatar from '../Avatar';
 import './CommentForm.less';
 
-let Element = Scroll.Element;
+const Element = Scroll.Element;
 
 @injectIntl
 class CommentForm extends React.Component {
@@ -221,7 +221,7 @@ class CommentForm extends React.Component {
                   </div>
                 </div>
               )}
-              <Element name="commentFormInputScrollerElement" className="element">
+              <Element name="commentFormInputScrollerElement">
               <Input
                 id="commentFormInput"
                 ref={ref => this.setInput(ref)}
