@@ -323,8 +323,8 @@ class StoryFull extends React.Component {
                   </span>
                 }
               >
-              <span className="StoryFull__header__reading__time">
-                <span className="CommentFooter__bullet"></span>
+                <span className="StoryFull__header__reading__time">
+                  <span className="CommentFooter__bullet" />
                   <FormattedMessage
                     id="reading_time"
                     defaultMessage={'{min} min read'}
