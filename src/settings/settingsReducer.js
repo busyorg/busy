@@ -6,6 +6,7 @@ const initialState = {
   votingPower: 'auto',
   votePercent: 10000,
   loading: false,
+  wordCount: 'off',
 };
 
 const settings = (state = initialState, action) => {
@@ -20,6 +21,8 @@ const settings = (state = initialState, action) => {
             action.payload.user_metadata.settings.votingPower || initialState.votingPower,
           votePercent:
             action.payload.user_metadata.settings.votePercent || initialState.votePercent,
+          wordCount:
+            action.payload.user_metadata.settings.wordCount || initialState.wordCount,
         };
       }
       return state;
@@ -36,6 +39,7 @@ const settings = (state = initialState, action) => {
         locale: action.payload.locale,
         votingPower: action.payload.votingPower,
         votePercent: action.payload.votePercent,
+        wordCount: action.payload.wordCount,
       };
     case settingsTypes.SAVE_SETTINGS_ERROR:
       return {
@@ -53,3 +57,4 @@ export const getIsLoading = state => state.loading;
 export const getLocale = state => state.locale;
 export const getVotingPower = state => state.votingPower;
 export const getVotePercent = state => state.votePercent;
+export const getWordCount = state => state.wordCount;
