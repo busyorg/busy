@@ -259,5 +259,8 @@
   "display_nsfw_posts_details": "You can enable all posts tagged with NSFW to be shown as default.",
   "display_nsfw_posts": "Display NSFW Posts",
   "post_preview_hidden_for_nsfw": "This post preview is currently hidden since it is tagged NSFW.",
-  "display_post_preview": "Display post preview"
+  "display_post_preview": "Display post preview",
+  "reading_time": "{words} words / {min} min read",
+  "reading_time_post": "{min} min read",
+  "words_tooltip": "{words} words"
 }
