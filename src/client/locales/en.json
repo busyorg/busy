@@ -213,6 +213,12 @@
   "market": "Market",
   "page_forbidden": "Page Requires Authentication",
   "page_forbidden_message": "Oops! Looks like you need to login to use this page.",
+  "post_hidden_for_low_ratings": "This post is currently hidden due to the author's low reputation or low post rating.",
+  "post_preview_hidden_for_low_ratings": "This post preview is currently hidden due to the author's low reputation or low post rating.",
+  "display_post": "Display post",
+  "display_post_preview": "Display post preview",
+  "comment_hidden_message": "This comment is currently hidden due to the author's low reputation or low comment rating.",
+  "reveal_comment": "Reveal comment",
   "account_created_with_delegation": "{creator} created account with delegation {account}",
   "account_created": "{creator} created account {account}",
   "upvoted": "upvoted",
@@ -248,5 +254,13 @@
   "search_activity_placeholder": "upvoted, downvoted, etc...",
   "deleted_comment": "Deleted comment ({link})",
   "general": "general",
-  "finance": "finance"
+  "finance": "finance",
+  "nsfw_posts": "NSFW Posts",
+  "display_nsfw_posts_details": "You can enable all posts tagged with NSFW to be shown as default.",
+  "display_nsfw_posts": "Display NSFW Posts",
+  "post_preview_hidden_for_nsfw": "This post preview is currently hidden since it is tagged NSFW.",
+  "display_post_preview": "Display post preview",
+  "reading_time": "{words} words / {min} min read",
+  "reading_time_post": "{min} min read",
+  "words_tooltip": "{words} words"
 }

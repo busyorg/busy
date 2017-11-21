@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
+import readingTime from 'reading-time';
 import classNames from 'classnames';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { HotKeys } from 'react-hotkeys';
@@ -583,6 +584,16 @@ class Editor extends React.Component {
                   defaultMessage="Select image or paste it from the clipboard."
                 />
               )}
+            </label>
+            <label htmlFor="reading_time" className="Editor__reading_time">
+              <FormattedMessage
+                id="reading_time"
+                defaultMessage={'{words} words / {min} min read'}
+                values={{
+                  words: readingTime(this.state.contentHtml).words,
+                  min: Math.ceil(readingTime(this.state.contentHtml).minutes),
+                }}
+              />
             </label>
           </p>
         </Form.Item>
