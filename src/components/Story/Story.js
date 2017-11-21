@@ -63,6 +63,22 @@ import './Story.less';
     showHiddenStoryPreview: false,
   };
 
+  getDisplayStoryPreview = () => {
+    const { post, showNSFWPosts } = this.props;
+    const { showHiddenStoryPreview } = this.state;
+    const postAuthorReputation = formatter.reputation(post.author_reputation);
+
+    if (showHiddenStoryPreview) return true;
+
+    if (postAuthorReputation >= 0 && isPostTaggedNSFW(post)) {
+      return showNSFWPosts;
+    } else if (postAuthorReputation < 0) {
+      return false;
+    }
+
+    return true;
+  };
+
   handleClick = (key) => {
     const { post } = this.props;
 
@@ -106,15 +122,9 @@ import './Story.less';
       onLikeClick,
       onShareClick,
       onEditClick,
-      showNSFWPosts,
     } = this.props;
-    const { showHiddenStoryPreview } = this.state;
     const postAuthorReputation = formatter.reputation(post.author_reputation);
-    const showStoryPreview =
-      postAuthorReputation >= 0 ||
-      showHiddenStoryPreview ||
-      showNSFWPosts ||
-      !isPostTaggedNSFW(post);
+    const showStoryPreview = this.getDisplayStoryPreview();
     const hiddenStoryPreviewMessage = isPostTaggedNSFW(post)
       ? <NSFWStoryPreviewMessage onClick={this.handleShowStoryPreview} />
       : <HiddenStoryPreviewMessage onClick={this.handleShowStoryPreview} />;
