@@ -15,10 +15,10 @@ import StoryFooter from '../StoryFooter/StoryFooter';
 import Avatar from '../Avatar';
 import Topic from '../Button/Topic';
 import PopoverMenu, { PopoverMenuItem } from '../PopoverMenu/PopoverMenu';
+import HiddenStoryPreviewMessage from './HiddenStoryPreviewMessage';
 import './Story.less';
 
-@injectIntl
-class Story extends React.Component {
+@injectIntl class Story extends React.Component {
   static propTypes = {
     intl: PropTypes.shape().isRequired,
     user: PropTypes.shape().isRequired,
@@ -56,6 +56,10 @@ class Story extends React.Component {
     postState: {},
   };
 
+  state = {
+    showHiddenStoryPreview: false,
+  };
+
   handleClick = (key) => {
     const { post } = this.props;
 
@@ -76,6 +80,12 @@ class Story extends React.Component {
     }
   };
 
+  handleShowStoryPreview = () => {
+    this.setState({
+      showHiddenStoryPreview: true,
+    });
+  };
+
   render() {
     const {
       intl,
@@ -94,6 +104,9 @@ class Story extends React.Component {
       onShareClick,
       onEditClick,
     } = this.props;
+    const { showHiddenStoryPreview } = this.state;
+    const postAuthorReputation = formatter.reputation(post.author_reputation);
+    const showStoryPreview = postAuthorReputation >= 0 || showHiddenStoryPreview;
 
     let followText = '';
 
@@ -204,7 +217,7 @@ class Story extends React.Component {
                 <h4>
                   {post.author}
                   <Tooltip title={intl.formatMessage({ id: 'reputation_score' })}>
-                    <Tag>{formatter.reputation(post.author_reputation)}</Tag>
+                    <Tag>{postAuthorReputation}</Tag>
                   </Tooltip>
                 </h4>
               </Link>
@@ -228,17 +241,18 @@ class Story extends React.Component {
           <div className="Story__content">
             <Link to={post.url} className="Story__content__title">
               <h2>
-                {post.title || (
+                {post.title ||
                   <span>
                     <Tag color="#4f545c">RE</Tag>
                     {post.root_title}
-                  </span>
-                )}
+                  </span>}
               </h2>
             </Link>
-            <Link to={post.url} className="Story__content__preview">
-              <StoryPreview post={post} />
-            </Link>
+            {showStoryPreview
+              ? <Link to={post.url} className="Story__content__preview">
+                <StoryPreview post={post} />
+              </Link>
+              : <HiddenStoryPreviewMessage onClick={this.handleShowStoryPreview} />}
           </div>
           <div className="Story__footer">
             <StoryFooter
