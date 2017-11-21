@@ -267,13 +267,6 @@ class StoryFull extends React.Component {
       <div className="StoryFull">
         {replyUI}
         <h1 className="StoryFull__title">{post.title}</h1>
-        <h2 className="StoryFull__readting_time">
-          <FormattedMessage
-            id="reading_time"
-            defaultMessage={'{min} min read'}
-            values={{ min: Math.ceil(readingTime(post.body).minutes) }}
-          />
-        </h2>
         <h3 className="StoryFull__comments_title">
           <a href="#comments">
             {commentCount === 1 ?
@@ -318,6 +311,28 @@ class StoryFull extends React.Component {
                 <FormattedRelative value={`${post.created}Z`} />
               </span>
             </Tooltip>
+              { Math.ceil(readingTime(post.body).minutes) > 1 &&
+                <Tooltip
+                title={
+                  <span>
+                    <FormattedMessage
+                      id="words_tooltip"
+                      defaultMessage={'{words} words'}
+                      values={{ words: readingTime(post.body).words }}
+                    />
+                  </span>
+                }
+              >
+                <span className="StoryFull__header__reading__time">
+                  <span className="CommentFooter__bullet"></span>
+                  <FormattedMessage
+                    id="reading_time"
+                    defaultMessage={'{min} min read'}
+                    values={{ min: Math.ceil(readingTime(post.body).minutes) }}
+                  />
+                </span>
+              </Tooltip>
+            }
           </div>
           <Popover
             placement="bottomRight"
