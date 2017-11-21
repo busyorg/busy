@@ -593,7 +593,7 @@ class Editor extends React.Component {
                   words: readingTime(this.state.contentHtml).words,
                   min: Math.ceil(readingTime(this.state.contentHtml).minutes),
                 }}
-                />
+              />
             </label>
           </p>
         </Form.Item>
