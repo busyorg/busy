@@ -311,8 +311,8 @@ class StoryFull extends React.Component {
                 <FormattedRelative value={`${post.created}Z`} />
               </span>
             </Tooltip>
-              { Math.ceil(readingTime(post.body).minutes) > 1 &&
-                <Tooltip
+            { Math.ceil(readingTime(post.body).minutes) > 1 &&
+              <Tooltip
                 title={
                   <span>
                     <FormattedMessage
@@ -323,8 +323,8 @@ class StoryFull extends React.Component {
                   </span>
                 }
               >
-                <span className="StoryFull__header__reading__time">
-                  <span className="CommentFooter__bullet"></span>
+              <span className="StoryFull__header__reading__time">
+                <span className="CommentFooter__bullet"></span>
                   <FormattedMessage
                     id="reading_time"
                     defaultMessage={'{min} min read'}
