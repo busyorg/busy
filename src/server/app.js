@@ -65,29 +65,34 @@ function renderPage(store, html) {
 }
 
 function serverSideResponse(req, res) {
-  const store = getStore();
+  try {
+    const store = getStore();
 
-  const branch = matchRoutes(routes, req.url);
-  const promises = branch.map(({ route, match }) => {
-    const fetchData = route.component.fetchData;
-    if (fetchData instanceof Function) {
-      return fetchData(store, match);
-    }
-    return Promise.resolve(null);
-  });
+    const branch = matchRoutes(routes, req.url);
+    const promises = branch.map(({ route, match }) => {
+      const fetchData = route.component.fetchData;
+      if (fetchData instanceof Function) {
+        return fetchData(store, match);
+      }
+      return Promise.resolve(null);
+    });
 
-  return Promise.all(promises).then(() => {
-    const context = {};
-    const content = renderToString(
-      <Provider store={store}>
-        <StaticRouter location={req.url} context={context}>
-          {renderRoutes(routes)}
-        </StaticRouter>
-      </Provider>,
-    );
+    return Promise.all(promises).then(() => {
+      const context = {};
+      const content = renderToString(
+        <Provider store={store}>
+          <StaticRouter location={req.url} context={context}>
+            {renderRoutes(routes)}
+          </StaticRouter>
+        </Provider>,
+      );
 
-    res.send(renderPage(store, content));
-  });
+      res.send(renderPage(store, content));
+    });
+  } catch (err) {
+    console.error('SSR error occured, falling back to bundled application instead', err);
+    return res.send(indexHtml);
+  }
 }
 
 // List of routes to use SSR for
