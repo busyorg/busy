@@ -21,6 +21,7 @@ import UserFollowing from '../client/user/UserFollowing';
 import UserReblogs from '../client/user/UserReblogs';
 import UserFeed from '../client/user/UserFeed';
 import UserWallet from '../client/user/UserWallet';
+import UserActivity from '../client/activity/UserActivity';
 import Post from '../client/post/Post';
 import Page from '../client/feed/Page';
 import Discover from '../client/discover/Discover';
@@ -126,6 +127,11 @@ const routes = [
             path: '/@:name/transfers',
             exact: true,
             component: UserWallet,
+          },
+          {
+            path: '/@:name/activity',
+            exact: true,
+            component: UserActivity,
           },
         ],
       },

@@ -294,6 +294,7 @@ class Comment extends React.Component {
           <div
             className={classNames('Comment__replies', {
               'Comment__replies--no-indent': depth >= 1,
+              'Comment__replies--never-indent': depth >= 5,
             })}
           >
             {!this.state.collapsed &&
