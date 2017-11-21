@@ -10,7 +10,7 @@ import Body, { remarkable } from '../Story/Body';
 import Avatar from '../Avatar';
 import './CommentForm.less';
 
-var Element    = Scroll.Element;
+let Element = Scroll.Element;
 
 @injectIntl
 class CommentForm extends React.Component {
