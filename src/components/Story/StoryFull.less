@@ -5,6 +5,12 @@
 .StoryFull {
   margin: 12px 0;
 
+  &__bullet:after {
+    content: "\2022";
+    font-size: 14px;
+    margin: 0 8px;
+  }
+
   &__reply {
     border-radius: 5px;
     border: solid 1px #e9e7e7;
@@ -65,6 +71,11 @@
         color: #99aab5;
         font-size: 14px;
       }
+    }
+
+    &__reading__time {
+      color: #99aab5;
+      font-size: 14px;
     }
 
     &__more {
