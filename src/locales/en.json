@@ -254,5 +254,10 @@
   "search_activity_placeholder": "upvoted, downvoted, etc...",
   "deleted_comment": "Deleted comment ({link})",
   "general": "general",
-  "finance": "finance"
+  "finance": "finance",
+  "nsfw_posts": "NSFW Posts",
+  "display_nsfw_posts_details": "You can enable all posts tagged with NSFW to be shown as default.",
+  "display_nsfw_posts": "Display NSFW Posts",
+  "post_preview_hidden_for_nsfw": "This post preview is currently hidden since it is tagged NSFW.",
+  "display_post_preview": "Display post preview"
 }
