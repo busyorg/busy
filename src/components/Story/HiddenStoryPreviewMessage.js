@@ -21,4 +21,8 @@ HiddenStoryPreviewMessage.propTypes = {
   onClick: PropTypes.func.isRequired,
 };
 
+HiddenStoryPreviewMessage.defaultProps = {
+  onClick: () => {},
+};
+
 export default HiddenStoryPreviewMessage;

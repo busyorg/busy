@@ -57,7 +57,7 @@ import './Story.less';
   };
 
   state = {
-    showHiddenPost: false,
+    showHiddenStoryPreview: false,
   };
 
   handleClick = (key) => {

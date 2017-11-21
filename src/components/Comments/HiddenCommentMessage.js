@@ -16,7 +16,11 @@ const HiddenCommentMessage = ({ onClick }) => (
 );
 
 HiddenCommentMessage.propTypes = {
-  onClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func,
+};
+
+HiddenCommentMessage.defaultProps = {
+  onClick: () => {},
 };
 
 export default HiddenCommentMessage;

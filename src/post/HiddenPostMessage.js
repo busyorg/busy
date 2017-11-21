@@ -21,4 +21,8 @@ HiddenPostMessage.propTypes = {
   onClick: PropTypes.func.isRequired,
 };
 
+HiddenPostMessage.defaultProps = {
+  onClick: () => {},
+};
+
 export default HiddenPostMessage;

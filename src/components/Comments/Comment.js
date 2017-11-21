@@ -18,8 +18,8 @@ import EmbeddedCommentForm from './EmbeddedCommentForm';
 import Avatar from '../Avatar';
 import Body from '../Story/Body';
 import CommentFooter from '../CommentFooter/CommentFooter';
-import './Comment.less';
 import HiddenCommentMessage from './HiddenCommentMessage';
+import './Comment.less';
 
 @injectIntl class Comment extends React.Component {
   static propTypes = {
