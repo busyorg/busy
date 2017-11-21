@@ -198,6 +198,6 @@ describe('settingsReducer selectors', () => {
 
   it('should return word count', () => {
     expect(getWordCount(stateVar1)).to.equal('on');
-    expect(getWordCount(stateVar2)).to.equal('true');
+    expect(getWordCount(stateVar2)).to.equal('off');
   });
 });
