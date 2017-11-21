@@ -9,6 +9,7 @@ import {
   getVotingPower,
   getIsSettingsLoading,
   getVotePercent,
+  getWordCount
 } from '../reducers';
 import { saveSettings } from './settingsActions';
 import { reload } from '../auth/authActions';
@@ -28,6 +29,7 @@ import './Settings.less';
     votingPower: getVotingPower(state),
     votePercent: getVotePercent(state),
     loading: getIsSettingsLoading(state),
+    wordCount: getWordCount(state),
   }),
   { reload, saveSettings, notify },
 )
@@ -42,6 +44,7 @@ export default class Settings extends React.Component {
     reload: PropTypes.func,
     saveSettings: PropTypes.func,
     notify: PropTypes.func,
+    wordCount: PropTypes.string
   };
 
   static defaultProps = {
@@ -53,12 +56,14 @@ export default class Settings extends React.Component {
     reload: () => {},
     saveSettings: () => {},
     notify: () => {},
+    wordCount: 'off',
   };
 
   state = {
     locale: 'auto',
     votingPower: 'auto',
     votePercent: 10000,
+    wordCount: 'off',
   };
 
   componentWillMount() {
@@ -66,6 +71,7 @@ export default class Settings extends React.Component {
       locale: this.props.locale,
       votingPower: this.props.votingPower,
       votePercent: this.props.votePercent / 100,
+      wordCount: this.props.wordCount || "off",
     });
   }
 
@@ -84,6 +90,10 @@ export default class Settings extends React.Component {
 
     if (nextProps.votePercent !== this.props.votePercent) {
       this.setState({ votePercent: nextProps.votePercent / 100 });
+    }
+
+    if (nextProps.wordCount !== this.props.wordCount) {
+      this.setState({ wordCount: nextProps.wordCount });
     }
   }
 
@@ -137,6 +147,7 @@ export default class Settings extends React.Component {
         locale: this.state.locale,
         votingPower: this.state.votingPower,
         votePercent: this.state.votePercent * 100,
+        wordCount: this.state.wordCount,
       })
       .then(() =>
         this.props.notify(
@@ -149,6 +160,7 @@ export default class Settings extends React.Component {
   handleLocaleChange = locale => this.setState({ locale });
   handleVotingPowerChange = event => this.setState({ votingPower: event.target.value });
   handleVotePercentChange = value => this.setState({ votePercent: value });
+  handleWordCountChange = event => this.setState({ wordCount: event.target.value });
 
   render() {
     const {
@@ -156,8 +168,9 @@ export default class Settings extends React.Component {
       locale: initialLocale,
       votingPower: initialVotingPower,
       loading,
+      wordCount: initialWordCount,
     } = this.props;
-    const { votingPower, locale } = this.state;
+    const { votingPower, locale, wordCount } = this.state;
 
     const languageOptions = [];
 
@@ -193,6 +206,29 @@ export default class Settings extends React.Component {
               <Loading center={false} />
             ) : (
               <div className="Settings">
+                <div className="Settings__section">
+                  <h3>
+                    <FormattedMessage id="word_count" defaultMessage="Word Count" />
+                  </h3>
+                  <p>
+                    <FormattedMessage
+                      id="word_count_info"
+                      defaultMessage="You can enable Word Count for the Editor."
+                    />
+                  </p>
+                  <Radio.Group
+                    defaultValue={initialWordCount}
+                    value={wordCount}
+                    onChange={this.handleWordCountChange}
+                  >
+                    <Radio value="off">
+                      <FormattedMessage id="word_change_off" defaultMessage="Disable Word Count" />
+                    </Radio>
+                    <Radio value="on">
+                      <FormattedMessage id="word_change_on" defaultMessage="Enable Word Count" />
+                    </Radio>
+                  </Radio.Group>
+                </div>
                 <div className="Settings__section">
                   <h3>
                     <FormattedMessage id="voting_power" defaultMessage="Voting Power" />
