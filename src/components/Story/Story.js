@@ -10,10 +10,12 @@ import {
 import { Link } from 'react-router-dom';
 import { Tag, Icon, Popover, Tooltip } from 'antd';
 import { formatter } from 'steem';
+import { isPostTaggedNSFW } from '../../helpers/postHelpers';
 import StoryPreview from './StoryPreview';
 import StoryFooter from '../StoryFooter/StoryFooter';
 import Avatar from '../Avatar';
 import Topic from '../Button/Topic';
+import NSFWStoryPreviewMessage from './NSFWStoryPreviewMessage';
 import PopoverMenu, { PopoverMenuItem } from '../PopoverMenu/PopoverMenu';
 import HiddenStoryPreviewMessage from './HiddenStoryPreviewMessage';
 import './Story.less';
@@ -26,6 +28,7 @@ import './Story.less';
     postState: PropTypes.shape().isRequired,
     rewardFund: PropTypes.shape().isRequired,
     defaultVotePercent: PropTypes.number.isRequired,
+    showNSFWPosts: PropTypes.bool.isRequired,
     pendingLike: PropTypes.bool,
     pendingFollow: PropTypes.bool,
     pendingBookmark: PropTypes.bool,
@@ -58,6 +61,22 @@ import './Story.less';
 
   state = {
     showHiddenStoryPreview: false,
+  };
+
+  getDisplayStoryPreview = () => {
+    const { post, showNSFWPosts } = this.props;
+    const { showHiddenStoryPreview } = this.state;
+    const postAuthorReputation = formatter.reputation(post.author_reputation);
+
+    if (showHiddenStoryPreview) return true;
+
+    if (postAuthorReputation >= 0 && isPostTaggedNSFW(post)) {
+      return showNSFWPosts;
+    } else if (postAuthorReputation < 0) {
+      return false;
+    }
+
+    return true;
   };
 
   handleClick = (key) => {
@@ -104,9 +123,11 @@ import './Story.less';
       onShareClick,
       onEditClick,
     } = this.props;
-    const { showHiddenStoryPreview } = this.state;
     const postAuthorReputation = formatter.reputation(post.author_reputation);
-    const showStoryPreview = postAuthorReputation >= 0 || showHiddenStoryPreview;
+    const showStoryPreview = this.getDisplayStoryPreview();
+    const hiddenStoryPreviewMessage = isPostTaggedNSFW(post)
+      ? <NSFWStoryPreviewMessage onClick={this.handleShowStoryPreview} />
+      : <HiddenStoryPreviewMessage onClick={this.handleShowStoryPreview} />;
 
     let followText = '';
 
@@ -252,7 +273,7 @@ import './Story.less';
               ? <Link to={post.url} className="Story__content__preview">
                 <StoryPreview post={post} />
               </Link>
-              : <HiddenStoryPreviewMessage onClick={this.handleShowStoryPreview} />}
+              : hiddenStoryPreviewMessage}
           </div>
           <div className="Story__footer">
             <StoryFooter
