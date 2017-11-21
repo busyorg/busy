@@ -9,7 +9,7 @@ import {
   getVotingPower,
   getIsSettingsLoading,
   getVotePercent,
-  getWordCount
+  getWordCount,
 } from '../reducers';
 import { saveSettings } from './settingsActions';
 import { reload } from '../auth/authActions';
@@ -44,7 +44,7 @@ export default class Settings extends React.Component {
     reload: PropTypes.func,
     saveSettings: PropTypes.func,
     notify: PropTypes.func,
-    wordCount: PropTypes.string
+    wordCount: PropTypes.string,
   };
 
   static defaultProps = {
@@ -71,7 +71,7 @@ export default class Settings extends React.Component {
       locale: this.props.locale,
       votingPower: this.props.votingPower,
       votePercent: this.props.votePercent / 100,
-      wordCount: this.props.wordCount || "off",
+      wordCount: this.props.wordCount || 'off',
     });
   }
 
