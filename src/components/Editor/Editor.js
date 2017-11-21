@@ -29,7 +29,6 @@ class Editor extends React.Component {
     isUpdating: PropTypes.bool,
     draftId: PropTypes.string,
     saving: PropTypes.bool,
-    wordCount: PropTypes.oneOf(['on', 'off']),
     onUpdate: PropTypes.func,
     onDelete: PropTypes.func,
     onSubmit: PropTypes.func,
@@ -56,7 +55,6 @@ class Editor extends React.Component {
     onError: () => {},
     onImageInserted: () => {},
     onImageInvalid: () => {},
-    wordCount: 'off',
   };
 
   static hotkeys = {
@@ -587,18 +585,16 @@ class Editor extends React.Component {
                 />
               )}
             </label>
-            {this.props.wordCount === 'on' &&
-              <label htmlFor="reading_time" className="Editor__readingTime">
-                <FormattedMessage
-                  id="reading_time"
-                  defaultMessage={'{words} Words / {min} min read'}
-                  values={{
-                    words: readingTime(this.state.contentHtml).words,
-                    min: Math.ceil(readingTime(this.state.contentHtml).minutes),
-                  }}
+            <label htmlFor="reading_time" className="Editor__readingTime">
+              <FormattedMessage
+                id="reading_time"
+                defaultMessage={'{words} Words / {min} min read'}
+                values={{
+                  words: readingTime(this.state.contentHtml).words,
+                  min: Math.ceil(readingTime(this.state.contentHtml).minutes),
+                }}
                 />
-              </label>
-            }
+            </label>
           </p>
         </Form.Item>
         {this.state.contentHtml && (
