@@ -18,7 +18,7 @@ const HiddenStoryPreviewMessage = ({ onClick }) => (
 );
 
 HiddenStoryPreviewMessage.propTypes = {
-  onClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func,
 };
 
 HiddenStoryPreviewMessage.defaultProps = {
