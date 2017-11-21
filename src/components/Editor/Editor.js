@@ -594,7 +594,7 @@ class Editor extends React.Component {
                   defaultMessage={'{words} Words / {min} min read'}
                   values={{
                     words: readingTime(this.state.contentHtml).words,
-                    min: Math.ceil(readingTime(this.state.contentHtml).minutes)
+                    min: Math.ceil(readingTime(this.state.contentHtml).minutes),
                   }}
                 />
               </label>
