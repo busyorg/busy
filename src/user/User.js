@@ -54,6 +54,10 @@ export default class User extends React.Component {
 
   static needs = needs;
 
+  state = {
+    popoverVisible: false,
+  };
+
   componentWillMount() {
     if (!this.props.user.name) {
       this.props.getAccountWithFollowingCount({ name: this.props.match.params.name });
@@ -67,8 +71,17 @@ export default class User extends React.Component {
   }
 
   handleUserMenuSelect = (key) => {
-    if (key === 'transfer') this.props.openTransfer(this.props.match.params.name);
+    if (key === 'transfer') {
+      this.props.openTransfer(this.props.match.params.name);
+      this.setState({
+        popoverVisible: false,
+      });
+    }
   };
+
+  handleVisibleChange = (visible) => {
+    this.setState({ popoverVisible: visible });
+  }
 
   render() {
     const { authenticated, authenticatedUser, match } = this.props;
@@ -118,7 +131,9 @@ export default class User extends React.Component {
             isSameUser={isSameUser}
             hasCover={hasCover}
             onFollowClick={this.handleFollowClick}
+            isPopoverVisible={this.state.popoverVisible}
             onSelect={this.handleUserMenuSelect}
+            handleVisibleChange={this.handleVisibleChange}
           />
         )}
         <div className="shifted">

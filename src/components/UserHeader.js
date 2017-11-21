@@ -20,7 +20,9 @@ const UserHeader = ({
   vestingShares,
   isSameUser,
   hasCover,
+  isPopoverVisible,
   onSelect,
+  handleVisibleChange,
 }) => (
   <div
     className={classNames('UserHeader', { 'UserHeader--cover': hasCover })}
@@ -64,6 +66,8 @@ const UserHeader = ({
             <Popover
               placement="bottom"
               trigger="click"
+              visible={isPopoverVisible}
+              onVisibleChange={handleVisibleChange}
               content={
                 <PopoverMenu onSelect={onSelect}>
                   <PopoverMenuItem key="transfer">
@@ -102,7 +106,9 @@ UserHeader.propTypes = {
   vestingShares: PropTypes.number,
   isSameUser: PropTypes.bool,
   hasCover: PropTypes.bool,
+  isPopoverVisible: PropTypes.bool,
   onSelect: PropTypes.func,
+  handleVisibleChange: PropTypes.func,
 };
 
 UserHeader.defaultProps = {
@@ -112,7 +118,9 @@ UserHeader.defaultProps = {
   vestingShares: 0,
   isSameUser: false,
   hasCover: false,
+  isPopoverVisible: false,
   onSelect: () => {},
+  handleVisibleChange: () => {},
 };
 
 export default injectIntl(UserHeader);
