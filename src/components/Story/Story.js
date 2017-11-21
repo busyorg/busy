@@ -110,10 +110,14 @@ import './Story.less';
     } = this.props;
     const { showHiddenStoryPreview } = this.state;
     const postAuthorReputation = formatter.reputation(post.author_reputation);
-    const showStoryPreview = postAuthorReputation >= 0 || showHiddenStoryPreview || showNSFWPosts || !isPostTaggedNSFW(post);
-    const hiddenStoryPreviewMessage = isPostTaggedNSFW(post) ? 
-          <NSFWStoryPreviewMessage onClick={this.handleShowStoryPreview} /> :
-          <HiddenStoryPreviewMessage onClick={this.handleShowStoryPreview} /> 
+    const showStoryPreview =
+      postAuthorReputation >= 0 ||
+      showHiddenStoryPreview ||
+      showNSFWPosts ||
+      !isPostTaggedNSFW(post);
+    const hiddenStoryPreviewMessage = isPostTaggedNSFW(post)
+      ? <NSFWStoryPreviewMessage onClick={this.handleShowStoryPreview} />
+      : <HiddenStoryPreviewMessage onClick={this.handleShowStoryPreview} />;
 
     let followText = '';
 

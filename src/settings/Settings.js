@@ -42,10 +42,10 @@ export default class Settings extends React.Component {
     votingPower: PropTypes.string,
     votePercent: PropTypes.number,
     loading: PropTypes.bool,
+    showNSFWPosts: PropTypes.bool,
     reload: PropTypes.func,
     saveSettings: PropTypes.func,
     notify: PropTypes.func,
-    showNSFWPosts: PropTypes.bool,
   };
 
   static defaultProps = {
