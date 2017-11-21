@@ -326,7 +326,7 @@ class StoryFull extends React.Component {
                 <span className="StoryFull__header__reading__time">
                   <span className="CommentFooter__bullet" />
                   <FormattedMessage
-                    id="reading_time"
+                    id="reading_time_post"
                     defaultMessage={'{min} min read'}
                     values={{ min: Math.ceil(readingTime(post.body).minutes) }}
                   />
