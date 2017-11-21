@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
+import { connect } from 'react-redux';
 import classNames from 'classnames';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { HotKeys } from 'react-hotkeys';
@@ -13,8 +14,15 @@ import EditorToolbar from './EditorToolbar';
 import Action from '../Button/Action';
 import Body, { remarkable } from '../Story/Body';
 import './Editor.less';
+import readingTime from 'reading-time';
+import { getWordCount } from '../../reducers';
 
 @injectIntl
+@connect(
+  state => ({
+    wordCount: getWordCount(state),
+  }),
+)
 class Editor extends React.Component {
   static propTypes = {
     intl: PropTypes.shape().isRequired,
@@ -34,6 +42,7 @@ class Editor extends React.Component {
     onError: PropTypes.func,
     onImageInserted: PropTypes.func,
     onImageInvalid: PropTypes.func,
+    wordCount: PropTypes.oneOf(['on', 'off']),
   };
 
   static defaultProps = {
@@ -54,6 +63,7 @@ class Editor extends React.Component {
     onError: () => {},
     onImageInserted: () => {},
     onImageInvalid: () => {},
+    wordCount: 'off',
   };
 
   static hotkeys = {
@@ -235,6 +245,10 @@ class Editor extends React.Component {
   //
   // Editor methods
   //
+
+  getReadingTime = (t) => {
+    return readingTime(t);
+  }
 
   handlePastedImage = (e) => {
     if (e.clipboardData && e.clipboardData.items) {
@@ -584,6 +598,11 @@ class Editor extends React.Component {
                 />
               )}
             </label>
+            {this.props.wordCount == "on" && 
+              <label className="Editor__readingTime">
+                <FormattedMessage id="reading_time" defaultMessage={`${this.getReadingTime(this.state.contentHtml).words} Words / ${this.getReadingTime(this.state.contentHtml).text}`} />
+              </label>
+            }
           </p>
         </Form.Item>
         {this.state.contentHtml && (
