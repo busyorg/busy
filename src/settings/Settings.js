@@ -85,10 +85,6 @@ export default class Settings extends React.Component {
     if (nextProps.votePercent !== this.props.votePercent) {
       this.setState({ votePercent: nextProps.votePercent / 100 });
     }
-
-    if (nextProps.wordCount !== this.props.wordCount) {
-      this.setState({ wordCount: nextProps.wordCount });
-    }
   }
 
   languages = {
@@ -162,9 +158,8 @@ export default class Settings extends React.Component {
       locale: initialLocale,
       votingPower: initialVotingPower,
       loading,
-      wordCount: initialWordCount,
     } = this.props;
-    const { votingPower, locale, wordCount } = this.state;
+    const { votingPower, locale } = this.state;
 
     const languageOptions = [];
 
