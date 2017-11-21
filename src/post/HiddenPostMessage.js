@@ -7,9 +7,9 @@ const HiddenPostMessage = ({ onClick }) => (
     <h3>
       <FormattedMessage
         id="post_hidden_for_low_ratings"
-        defaultMessage="This post is currently hidden for low ratings."
+        defaultMessage="This post is currently hidden due to the author's low reputation or low post rating."
       />
-      {' '}
+      <br />
       <a role="presentation" onClick={onClick}>
         <FormattedMessage id="display_post" defaultMessage="Display post" />
       </a>
