@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
+import readingTime from 'reading-time';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 import { injectIntl, FormattedMessage } from 'react-intl';
@@ -14,7 +15,6 @@ import EditorToolbar from './EditorToolbar';
 import Action from '../Button/Action';
 import Body, { remarkable } from '../Story/Body';
 import './Editor.less';
-import readingTime from 'reading-time';
 import { getWordCount } from '../../reducers';
 
 @injectIntl
@@ -245,10 +245,6 @@ class Editor extends React.Component {
   //
   // Editor methods
   //
-
-  getReadingTime = (t) => {
-    return readingTime(t);
-  }
 
   handlePastedImage = (e) => {
     if (e.clipboardData && e.clipboardData.items) {
@@ -598,9 +594,9 @@ class Editor extends React.Component {
                 />
               )}
             </label>
-            {this.props.wordCount == "on" && 
-              <label className="Editor__readingTime">
-                <FormattedMessage id="reading_time" defaultMessage={`${this.getReadingTime(this.state.contentHtml).words} Words / ${this.getReadingTime(this.state.contentHtml).text}`} />
+            {this.props.wordCount === 'on' &&
+              <label htmlFor="reading_time" className="Editor__readingTime">
+                <FormattedMessage id="reading_time" defaultMessage={`${readingTime(this.state.contentHtml).words} Words / ${readingTime(this.state.contentHtml).text}`} />
               </label>
             }
           </p>
