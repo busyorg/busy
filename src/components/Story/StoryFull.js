@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import readingTime from 'reading-time';
 import {
   injectIntl,
   FormattedMessage,
@@ -266,6 +267,7 @@ class StoryFull extends React.Component {
       <div className="StoryFull">
         {replyUI}
         <h1 className="StoryFull__title">{post.title}</h1>
+        <h2 className="StoryFull__readting_time">{`${readingTime(post.body).text}`}</h2>
         <h3 className="StoryFull__comments_title">
           <a href="#comments">
             {commentCount === 1 ?
