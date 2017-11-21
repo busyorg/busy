@@ -110,7 +110,7 @@ class InterestingPeopleWithAPI extends Component {
               />
             ))}
           <h4 className="InterestingPeople__more">
-            <Link to={'/latest-comments'}>
+            <Link to={'/discover'}>
               <FormattedMessage id="discover_more_people" defaultMessage="Discover More People" />
             </Link>
           </h4>

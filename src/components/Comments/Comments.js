@@ -164,7 +164,7 @@ class Comments extends React.Component {
             onSubmit={this.submitComment}
             isLoading={this.state.showCommentFormLoading}
             inputValue={this.state.commentFormText}
-            commentSubmitted={this.state.commentSubmitted}
+            submitted={this.state.commentSubmitted}
             onImageInserted={this.handleImageInserted}
             onImageInvalid={this.handleImageInvalid}
           />)}
