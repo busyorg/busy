@@ -271,7 +271,7 @@ class StoryFull extends React.Component {
           <FormattedMessage
             id="reading_time"
             defaultMessage={'{min} min read'}
-            values={ {min: Math.ceil(readingTime(post.body).minutes)} }
+            values={{ min: Math.ceil(readingTime(post.body).minutes) }}
           /></h2>
         <h3 className="StoryFull__comments_title">
           <a href="#comments">
