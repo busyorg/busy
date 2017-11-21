@@ -19,6 +19,7 @@ import {
   getDraftPosts,
   getIsEditorLoading,
   getIsEditorSaving,
+  getWordCount,
 } from '../../reducers';
 
 import { createPost, saveDraft, newPost } from './editorActions';
@@ -37,6 +38,7 @@ const version = require('../../../package.json').version;
     loading: getIsEditorLoading(state),
     saving: getIsEditorSaving(state),
     draftId: new URLSearchParams(props.location.search).get('draft'),
+    wordCount: getWordCount(state),
   }),
   {
     createPost,
@@ -54,6 +56,7 @@ class Write extends React.Component {
     loading: PropTypes.bool.isRequired,
     saving: PropTypes.bool,
     draftId: PropTypes.string,
+    wordCount: PropTypes.string,
     newPost: PropTypes.func,
     createPost: PropTypes.func,
     saveDraft: PropTypes.func,
@@ -69,6 +72,7 @@ class Write extends React.Component {
     saveDraft: () => {},
     notify: () => {},
     replace: () => {},
+    wordCount: 'off',
   };
 
   constructor(props) {
@@ -325,6 +329,7 @@ class Write extends React.Component {
               onDelete={this.onDelete}
               onImageInserted={this.handleImageInserted}
               onImageInvalid={this.handleImageInvalid}
+              wordCount={this.props.wordCount}
             />
           </div>
           {this.state.showModalDelete && (
