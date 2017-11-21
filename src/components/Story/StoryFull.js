@@ -267,7 +267,12 @@ class StoryFull extends React.Component {
       <div className="StoryFull">
         {replyUI}
         <h1 className="StoryFull__title">{post.title}</h1>
-        <h2 className="StoryFull__readting_time">{`${readingTime(post.body).text}`}</h2>
+        <h2 className="StoryFull__readting_time">
+          <FormattedMessage
+            id="reading_time"
+            defaultMessage={`{min} min read`}
+            values={{min: Math.ceil(readingTime(post.body).minutes)}} 
+          /></h2>
         <h3 className="StoryFull__comments_title">
           <a href="#comments">
             {commentCount === 1 ?
