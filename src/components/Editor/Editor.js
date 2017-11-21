@@ -585,7 +585,7 @@ class Editor extends React.Component {
                 />
               )}
             </label>
-            <label htmlFor="reading_time" className="Editor__readingTime">
+            <label htmlFor="reading_time" className="Editor__reading_time">
               <FormattedMessage
                 id="reading_time"
                 defaultMessage={'{words} words / {min} min read'}
