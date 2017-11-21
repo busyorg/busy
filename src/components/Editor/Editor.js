@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import readingTime from 'reading-time';
-import { connect } from 'react-redux';
 import classNames from 'classnames';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { HotKeys } from 'react-hotkeys';
@@ -592,8 +591,8 @@ class Editor extends React.Component {
               <label htmlFor="reading_time" className="Editor__readingTime">
                 <FormattedMessage
                   id="reading_time"
-                  defaultMessage={`{words} Words / {min} min read`}
-                  values={{words: readingTime(this.state.contentHtml).words, min: Math.ceil(readingTime(this.state.contentHtml).minutes)}} 
+                  defaultMessage={'{words} Words / {min} min read'}
+                  values={ {words: readingTime(this.state.contentHtml).words, min: Math.ceil(readingTime(this.state.contentHtml).minutes)} }
                 />
               </label>
             }
