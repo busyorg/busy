@@ -15,14 +15,8 @@ import EditorToolbar from './EditorToolbar';
 import Action from '../Button/Action';
 import Body, { remarkable } from '../Story/Body';
 import './Editor.less';
-import { getWordCount } from '../../reducers';
 
 @injectIntl
-@connect(
-  state => ({
-    wordCount: getWordCount(state),
-  }),
-)
 class Editor extends React.Component {
   static propTypes = {
     intl: PropTypes.shape().isRequired,
@@ -36,13 +30,13 @@ class Editor extends React.Component {
     isUpdating: PropTypes.bool,
     draftId: PropTypes.string,
     saving: PropTypes.bool,
+    wordCount: PropTypes.oneOf(['on', 'off']),
     onUpdate: PropTypes.func,
     onDelete: PropTypes.func,
     onSubmit: PropTypes.func,
     onError: PropTypes.func,
     onImageInserted: PropTypes.func,
     onImageInvalid: PropTypes.func,
-    wordCount: PropTypes.oneOf(['on', 'off']),
   };
 
   static defaultProps = {
@@ -596,7 +590,11 @@ class Editor extends React.Component {
             </label>
             {this.props.wordCount === 'on' &&
               <label htmlFor="reading_time" className="Editor__readingTime">
-                <FormattedMessage id="reading_time" defaultMessage={`${readingTime(this.state.contentHtml).words} Words / ${readingTime(this.state.contentHtml).text}`} />
+                <FormattedMessage
+                  id="reading_time"
+                  defaultMessage={`{words} Words / {min} min read`}
+                  values={{words: readingTime(this.state.contentHtml).words, min: Math.ceil(readingTime(this.state.contentHtml).minutes)}} 
+                />
               </label>
             }
           </p>
