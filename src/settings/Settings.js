@@ -1,14 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import _ from 'lodash';
 import { injectIntl, FormattedMessage } from 'react-intl';
-import { Select, Radio } from 'antd';
+import { Select, Radio, Checkbox } from 'antd';
 import {
   getIsReloading,
   getLocale,
   getVotingPower,
   getIsSettingsLoading,
   getVotePercent,
+  getShowNSFWPosts,
 } from '../reducers';
 import { saveSettings } from './settingsActions';
 import { reload } from '../auth/authActions';
@@ -27,6 +29,7 @@ import './Settings.less';
     locale: getLocale(state),
     votingPower: getVotingPower(state),
     votePercent: getVotePercent(state),
+    showNSFWPosts: getShowNSFWPosts(state),
     loading: getIsSettingsLoading(state),
   }),
   { reload, saveSettings, notify },
@@ -39,6 +42,7 @@ export default class Settings extends React.Component {
     votingPower: PropTypes.string,
     votePercent: PropTypes.number,
     loading: PropTypes.bool,
+    showNSFWPosts: PropTypes.bool,
     reload: PropTypes.func,
     saveSettings: PropTypes.func,
     notify: PropTypes.func,
@@ -50,6 +54,7 @@ export default class Settings extends React.Component {
     votingPower: 'auto',
     votePercent: 10000,
     loading: false,
+    showNSFWPosts: false,
     reload: () => {},
     saveSettings: () => {},
     notify: () => {},
@@ -59,6 +64,7 @@ export default class Settings extends React.Component {
     locale: 'auto',
     votingPower: 'auto',
     votePercent: 10000,
+    showNSFWPosts: null,
   };
 
   componentWillMount() {
@@ -84,6 +90,10 @@ export default class Settings extends React.Component {
 
     if (nextProps.votePercent !== this.props.votePercent) {
       this.setState({ votePercent: nextProps.votePercent / 100 });
+    }
+
+    if (nextProps.showNSFWPosts !== this.props.showNSFWPosts) {
+      this.setState({ showNSFWPosts: nextProps.showNSFWPosts });
     }
   }
 
@@ -137,6 +147,7 @@ export default class Settings extends React.Component {
         locale: this.state.locale,
         votingPower: this.state.votingPower,
         votePercent: this.state.votePercent * 100,
+        showNSFWPosts: this.state.showNSFWPosts,
       })
       .then(() =>
         this.props.notify(
@@ -149,15 +160,17 @@ export default class Settings extends React.Component {
   handleLocaleChange = locale => this.setState({ locale });
   handleVotingPowerChange = event => this.setState({ votingPower: event.target.value });
   handleVotePercentChange = value => this.setState({ votePercent: value });
+  handleShowNSFWPosts = event => this.setState({ showNSFWPosts: event.target.checked });
 
   render() {
     const {
       reloading,
       locale: initialLocale,
       votingPower: initialVotingPower,
+      showNSFWPosts: initialShowNSFWPosts,
       loading,
     } = this.props;
-    const { votingPower, locale } = this.state;
+    const { votingPower, locale, showNSFWPosts } = this.state;
 
     const languageOptions = [];
 
@@ -251,6 +264,30 @@ export default class Settings extends React.Component {
                   >
                     {languageOptions}
                   </Select>
+                </div>
+                <div className="Settings__section">
+                  <h3>
+                    <FormattedMessage id="nsfw_posts" defaultMessage="NSFW Posts" />
+                  </h3>
+                  <p>
+                    <FormattedMessage
+                      id="display_nsfw_posts_details"
+                      defaultMessage="You can enable all posts tagged with NSFW to be shown as default."
+                    />
+                  </p>
+                  <div className="Settings__section__nsfw">
+                    <Checkbox
+                      name="nsfw_posts"
+                      defaultChecked={initialShowNSFWPosts}
+                      checked={_.isBoolean(showNSFWPosts) ? showNSFWPosts : initialShowNSFWPosts}
+                      onChange={this.handleShowNSFWPosts}
+                    >
+                      <FormattedMessage
+                        id="display_nsfw_posts"
+                        defaultMessage="Display NSFW Posts"
+                      />
+                    </Checkbox>
+                  </div>
                 </div>
                 <Action
                   primary
