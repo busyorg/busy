@@ -9,6 +9,7 @@ describe('settingsReducer', () => {
     votingPower: 'auto',
     votePercent: 10000,
     loading: false,
+    wordCount: 'off',
   };
 
   it('should return initial state', () => {
@@ -56,7 +57,7 @@ describe('settingsReducer', () => {
     expect(settingsReducer(stateBefore, action)).to.eql(stateAfter);
   });
 
-  it('should set locale, voting power, vote percent and loading after saving succeeded', () => {
+  it('should set locale, voting power, vote percent, loading, and word count after saving succeeded', () => {
     const stateBefore = {
       ...initialState,
       loading: true,
@@ -67,6 +68,7 @@ describe('settingsReducer', () => {
       locale: 'pl',
       votePercent: 10000,
       votingPower: 'on',
+      wordCount: 'off',
     };
     const action = {
       type: settingsTypes.SAVE_SETTINGS_SUCCESS,
@@ -74,6 +76,7 @@ describe('settingsReducer', () => {
         locale: 'pl',
         votingPower: 'on',
         votePercent: 10000,
+        wordCount: 'off',
       },
     };
 
@@ -86,6 +89,7 @@ describe('settingsReducer', () => {
       ...stateBefore,
       locale: 'fr',
       votingPower: 'off',
+      wordCount: 'off',
     };
     const action = {
       type: authTypes.LOGIN_SUCCESS,
@@ -94,6 +98,7 @@ describe('settingsReducer', () => {
           settings: {
             locale: 'fr',
             votingPower: 'off',
+            wordCount: 'off',
           },
         },
       },
@@ -107,6 +112,7 @@ describe('settingsReducer', () => {
       ...initialState,
       locale: 'fr',
       votingPower: 'off',
+      wordCount: 'off',
     };
     const action = {
       type: authTypes.LOGIN_SUCCESS,
@@ -124,6 +130,7 @@ describe('settingsReducer', () => {
       ...stateBefore,
       locale: 'fr',
       votingPower: 'off',
+      wordCount: 'off',
     };
     const action = {
       type: authTypes.RELOAD_SUCCESS,
@@ -132,6 +139,7 @@ describe('settingsReducer', () => {
           settings: {
             locale: 'fr',
             votingPower: 'off',
+            wordCount: 'off',
           },
         },
       },
@@ -145,6 +153,7 @@ describe('settingsReducer', () => {
       ...initialState,
       locale: 'fr',
       votingPower: 'off',
+      wordCount: 'off',
     };
     const action = {
       type: authTypes.RELOAD_SUCCESS,
@@ -162,12 +171,14 @@ describe('settingsReducer selectors', () => {
     locale: 'auto',
     votingPower: 'auto',
     loading: false,
+    wordCount: 'on',
   };
 
   const stateVar2 = {
     locale: 'pl',
     votingPower: 'off',
     loading: true,
+    wordCount: 'off',
   };
 
   it('should return locale', () => {
@@ -183,5 +194,10 @@ describe('settingsReducer selectors', () => {
   it('should return loading', () => {
     expect(getIsLoading(stateVar1)).to.equal(false);
     expect(getIsLoading(stateVar2)).to.equal(true);
+  });
+
+  it('should return word count', () => {
+    expect(getWordCount(stateVar1)).to.equal('on');
+    expect(getWordCount(stateVar2)).to.equal('off');
   });
 });
