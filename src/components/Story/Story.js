@@ -17,10 +17,10 @@ import Avatar from '../Avatar';
 import Topic from '../Button/Topic';
 import NSFWStoryPreviewMessage from './NSFWStoryPreviewMessage';
 import PopoverMenu, { PopoverMenuItem } from '../PopoverMenu/PopoverMenu';
+import HiddenStoryPreviewMessage from './HiddenStoryPreviewMessage';
 import './Story.less';
 
-@injectIntl
-class Story extends React.Component {
+@injectIntl class Story extends React.Component {
   static propTypes = {
     intl: PropTypes.shape().isRequired,
     user: PropTypes.shape().isRequired,
@@ -109,8 +109,13 @@ class Story extends React.Component {
       showNSFWPosts,
     } = this.props;
     const { showHiddenStoryPreview } = this.state;
+    const postAuthorReputation = formatter.reputation(post.author_reputation);
+    const showStoryPreview = postAuthorReputation >= 0 || showHiddenStoryPreview || showNSFWPosts || !isPostTaggedNSFW(post);
+    const hiddenStoryPreviewMessage = isPostTaggedNSFW(post) ? 
+          <NSFWStoryPreviewMessage onClick={this.handleShowStoryPreview} /> :
+          <HiddenStoryPreviewMessage onClick={this.handleShowStoryPreview} /> 
+
     let followText = '';
-    const showStoryPreview = showNSFWPosts || !isPostTaggedNSFW(post) || showHiddenStoryPreview;
 
     if (postState.userFollowed && !pendingFollow) {
       followText = intl.formatMessage(
@@ -219,7 +224,7 @@ class Story extends React.Component {
                 <h4>
                   {post.author}
                   <Tooltip title={intl.formatMessage({ id: 'reputation_score' })}>
-                    <Tag>{formatter.reputation(post.author_reputation)}</Tag>
+                    <Tag>{postAuthorReputation}</Tag>
                   </Tooltip>
                 </h4>
               </Link>
@@ -243,19 +248,18 @@ class Story extends React.Component {
           <div className="Story__content">
             <Link to={post.url} className="Story__content__title">
               <h2>
-                {post.title || (
+                {post.title ||
                   <span>
                     <Tag color="#4f545c">RE</Tag>
                     {post.root_title}
-                  </span>
-                )}
+                  </span>}
               </h2>
             </Link>
             {showStoryPreview
               ? <Link to={post.url} className="Story__content__preview">
                 <StoryPreview post={post} />
               </Link>
-              : <NSFWStoryPreviewMessage onClick={this.handleShowStoryPreview} />}
+              : hiddenStoryPreviewMessage}
           </div>
           <div className="Story__footer">
             <StoryFooter
