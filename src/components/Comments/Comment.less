@@ -58,15 +58,9 @@
 
   &__text {
     position: relative;
-    top: -4px;
     width: calc(~'100% - @{comment-text-offset-small}');
     margin-left: @comment-text-left-margin;
     overflow: unset;
-
-    @media @small {
-      width: 100%;
-      overflow: hidden;
-    }
 
     & > a {
       font-weight: bold;
@@ -105,21 +99,30 @@
 
     &__collapsed {
       font-weight: bold;
-      text-align: center;
       color: @blue-botticelli;
+      margin: 4px 0;
     }
   }
 
   &__replies--no-indent {
-    margin-left: -44px;
+    margin-left: -@comment-text-offset-small;
 
     @media @small {
       margin-left: 0;
     }
   }
 
+  &__replies--never-indent {
+    margin-left: -@comment-text-offset-small !important;
+  }
+
   &__icon_dislike:before {
     display: inline-block;
     transform: rotate(180deg);
+  }
+
+  &__hidden__message {
+    color: @blue-botticelli;
+    font-weight: bold;
   }
 }

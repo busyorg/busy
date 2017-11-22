@@ -1,3 +1,4 @@
+@import (reference) "../../styles/modules/variables.less";
 @import (reference) "../../styles/custom.less";
 
 @base-spacing: 0;
@@ -114,6 +115,25 @@
       i {
         font-weight: normal !important;
       }
+    }
+  }
+
+  &__mobile-search {
+    background: transparent;
+    border: 0;
+    color: @purple;
+    display: none;
+    height: 55px;
+    margin-right: -16px;
+    outline: none;
+    width: 55px;
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    @media @small-max-width {
+      display: block;
     }
   }
 }

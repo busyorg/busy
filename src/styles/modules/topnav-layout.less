@@ -4,10 +4,14 @@
   .left {
     position: absolute;
     width: @left-width;
-    margin-left: 16px;
+    padding-left: 16px;
 
     @media @small {
-      margin-left: 0;
+      padding-left: @mobile-padding;
+    }
+
+    @media @medium {
+      padding-left: 0;
     }
   }
 
@@ -18,8 +22,13 @@
     width: @right-width;
     margin-right: 16px;
 
-    @media @small {
+    @media @medium {
       margin-right: 0;
+    }
+
+    @media @small-max-width {
+      display: flex;
+      justify-content: flex-end;
     }
   }
 
@@ -29,13 +38,24 @@
 
     @media @small {
       display: block;
-      width: calc(100% ~"-" (@right-width + 2 * @margin));
+      width: calc(100% ~"-" (@left-width + @right-width + 2 * @margin));
+      margin-left: @left-width;
       margin-right: @right-width + @margin;
     }
 
     @media @medium {
       width: calc(100% ~"-" (@left-width + @right-width + 2 * @margin));
       margin-left: @left-width + @margin;
+    }
+
+    @media @small-max-width {
+      position: absolute;
+      width: calc(100% ~"-" 55px);
+      z-index: 1;
+    }
+
+    &.mobileVisible {
+      display: block;
     }
   }
 }
