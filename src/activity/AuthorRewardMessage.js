@@ -32,7 +32,7 @@ const AuthorRewardMessage = ({ actionDetails, intl }) => {
   return (
     <FormattedMessage
       id="author_reward_for_post"
-      defaultMessage="Author Reward: {rewards} for {author} ({postLink})"
+      defaultMessage="Author reward: {rewards} for {author} ({postLink})"
       values={{
         rewards: parsedRewards.join(', '),
         author: actionDetails.author,
