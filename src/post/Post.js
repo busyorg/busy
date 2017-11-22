@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { formatter } from 'steem';
 import VisibilitySensor from 'react-visibility-sensor';
 import { getPostContent, getIsFetching, getIsPostEdited } from '../reducers';
 import { getContent } from './postActions';
@@ -9,6 +10,7 @@ import Loading from '../components/Icon/Loading';
 import PostContent from './PostContent';
 import RightSidebar from '../app/Sidebar/RightSidebar';
 import Affix from '../components/Utils/Affix';
+import HiddenPostMessage from './HiddenPostMessage';
 import ScrollToTopOnMount from '../components/Utils/ScrollToTopOnMount';
 
 @connect(
@@ -16,7 +18,9 @@ import ScrollToTopOnMount from '../components/Utils/ScrollToTopOnMount';
     edited: getIsPostEdited(state, ownProps.match.params.permlink),
     content: getPostContent(state, ownProps.match.params.author, ownProps.match.params.permlink),
     fetching: getIsFetching(state),
-  }), { getContent })
+  }),
+  { getContent },
+)
 export default class Post extends React.Component {
   static propTypes = {
     match: PropTypes.shape().isRequired,
@@ -35,6 +39,7 @@ export default class Post extends React.Component {
 
   state = {
     commentsVisible: false,
+    showHiddenPost: false,
   };
 
   componentWillMount() {
@@ -45,9 +50,11 @@ export default class Post extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     const { author, permlink } = nextProps.match.params;
-    if ((!nextProps.content || nextProps.edited)
-      && nextProps.match.params !== this.props.match.params
-      && !nextProps.fetching) {
+    if (
+      (!nextProps.content || nextProps.edited) &&
+      nextProps.match.params !== this.props.match.params &&
+      !nextProps.fetching
+    ) {
       this.setState({ commentsVisible: false }, () => this.props.getContent(author, permlink));
     }
   }
@@ -66,9 +73,18 @@ export default class Post extends React.Component {
     }
   };
 
+  handleShowPost = () => {
+    this.setState({
+      showHiddenPost: true,
+    });
+  };
+
   render() {
     const { content, fetching, edited } = this.props;
+    const { showHiddenPost } = this.state;
     const loading = !content || (fetching && edited);
+    const reputation = loading ? 0 : formatter.reputation(content.author_reputation);
+    const showPost = reputation >= 0 || showHiddenPost;
 
     return (
       <div className="main-panel">
@@ -80,16 +96,15 @@ export default class Post extends React.Component {
                 <RightSidebar showPostRecommendation />
               </div>
             </Affix>
-            <div className="center" style={{ paddingBottom: '24px' }}>
-              {!loading
-                ? <PostContent content={content} /> : <Loading />}
-              {!loading
-                && <VisibilitySensor onChange={this.handleCommentsVisibility} />}
-              <div id="comments">
-                {!loading
-                  && <Comments show={this.state.commentsVisible} post={content} />}
+            {showPost
+              ? <div className="center" style={{ paddingBottom: '24px' }}>
+                {!loading ? <PostContent content={content} /> : <Loading />}
+                {!loading && <VisibilitySensor onChange={this.handleCommentsVisibility} />}
+                <div id="comments">
+                  {!loading && <Comments show={this.state.commentsVisible} post={content} />}
+                </div>
               </div>
-            </div>
+              : <HiddenPostMessage onClick={this.handleShowPost} />}
           </div>
         </div>
       </div>

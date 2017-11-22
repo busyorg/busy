@@ -68,6 +68,9 @@ class UserMenu extends React.Component {
               <li className={this.getItemClasses('transfers')} onClick={this.handleClick} role="presentation" data-key="transfers">
                 <FormattedMessage id="wallet" defaultMessage="Wallet" />
               </li>
+              <li className={this.getItemClasses('activity')} onClick={this.handleClick} role="presentation" data-key="activity">
+                <FormattedMessage id="activity" defaultMessage="Activity" />
+              </li>
             </ul>
           </Scrollbars>
         </div>

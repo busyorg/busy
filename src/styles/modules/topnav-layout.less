@@ -25,6 +25,11 @@
     @media @medium {
       margin-right: 0;
     }
+
+    @media @small-max-width {
+      display: flex;
+      justify-content: flex-end;
+    }
   }
 
   .center {
@@ -41,6 +46,16 @@
     @media @medium {
       width: calc(100% ~"-" (@left-width + @right-width + 2 * @margin));
       margin-left: @left-width + @margin;
+    }
+
+    @media @small-max-width {
+      position: absolute;
+      width: calc(100% ~"-" 55px);
+      z-index: 1;
+    }
+
+    &.mobileVisible {
+      display: block;
     }
   }
 }

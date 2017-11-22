@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import readingTime from 'reading-time';
 import {
   injectIntl,
   FormattedMessage,
@@ -310,6 +311,28 @@ class StoryFull extends React.Component {
                 <FormattedRelative value={`${post.created}Z`} />
               </span>
             </Tooltip>
+            { Math.ceil(readingTime(post.body).minutes) > 1 &&
+              <Tooltip
+                title={
+                  <span>
+                    <FormattedMessage
+                      id="words_tooltip"
+                      defaultMessage={'{words} words'}
+                      values={{ words: readingTime(post.body).words }}
+                    />
+                  </span>
+                }
+              >
+                <span className="StoryFull__header__reading__time">
+                  <span className="CommentFooter__bullet" />
+                  <FormattedMessage
+                    id="reading_time_post"
+                    defaultMessage={'{min} min read'}
+                    values={{ min: Math.ceil(readingTime(post.body).minutes) }}
+                  />
+                </span>
+              </Tooltip>
+            }
           </div>
           <Popover
             placement="bottomRight"
