@@ -136,12 +136,18 @@ function iframe(state, child) {
   if (embed && embed.id) {
     const { images, links } = state;
     links.add(embed.url);
-    images.add(`https://img.youtube.com/vi/${embed.id}/0.jpg`);
+    images.add(embed.thumbnail);
     if (!resolveIframe) domString = `~~~ embed:${embed.id} ${embed.provider_name} ${embed.url} ~~~`;
   }
 
   const { mutate, resolveIframe } = state;
   if (!mutate) return;
+
+  if(child.parentNode === null) {
+    var parent = document.createElement("div");
+    parent.appendChild(child.cloneNode(true));
+    child.parentNode.replaceChild(parent, child);
+  }
 
   const tag = child.parentNode.tagName
     ? child.parentNode.tagName.toLowerCase()
