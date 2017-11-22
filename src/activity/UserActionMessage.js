@@ -141,7 +141,7 @@ class UserActionMessage extends React.Component {
         return (
           <FormattedMessage
             id="curation_reward_for_post"
-            defaultMessage="Curation Reward: {steemPower} SP for {author} ({postLink})"
+            defaultMessage="Curation reward: {steemPower} SP for {author} ({postLink})"
             values={{
               steemPower: (
                 <FormattedNumber
@@ -205,6 +205,16 @@ class UserActionMessage extends React.Component {
                   {actionDetails.witness}
                 </Link>
               ),
+            }}
+          />
+        );
+      case accountHistoryConstants.FILL_VESTING_WITHDRAW:
+        return (
+          <FormattedMessage
+            id="power_down_message"
+            defaultMessage="Started power down: {value}"
+            values={{
+              value: actionDetails.deposited,
             }}
           />
         );
