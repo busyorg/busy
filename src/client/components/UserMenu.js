@@ -45,7 +45,7 @@ class UserMenu extends React.Component {
       <div className="UserMenu">
         <div className="container menu-layout">
           <div className="left" />
-          <Scrollbars autoHide style={{ width: '100%', height: 46 }}>
+          <Scrollbars universal autoHide style={{ width: '100%', height: 46 }}>
             <ul className="UserMenu__menu center">
               <li className={this.getItemClasses('discussions')} onClick={this.handleClick} role="presentation" data-key="discussions">
                 <FormattedMessage id="discussions" defaultMessage="Discussions" />
