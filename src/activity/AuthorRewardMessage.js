@@ -1,10 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import steem from 'steem';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
 
-const AuthorRewardMessage = ({ actionDetails, intl }) => {
+const AuthorRewardMessage = ({
+  actionDetails,
+  intl,
+  totalVestingShares,
+  totalVestingFundSteem,
+}) => {
   const rewards = [
     { payout: actionDetails.sbd_payout, currency: 'SBD' },
     { payout: actionDetails.steem_payout, currency: 'STEEM' },
@@ -17,10 +23,24 @@ const AuthorRewardMessage = ({ actionDetails, intl }) => {
       const parsedPayout = parseFloat(reward.payout);
 
       if (parsedPayout > 0) {
-        const rewardsStr = intl.formatNumber(parsedPayout, {
-          minimumFractionDigits: 3,
-          maximumFractionDigits: 3,
-        });
+        let rewardsStr;
+        if (reward.currency === 'SP') {
+          const vestsToSP = steem.formatter.vestToSteem(
+            parsedPayout,
+            totalVestingShares,
+            totalVestingFundSteem,
+          );
+          rewardsStr = intl.formatNumber(vestsToSP, {
+            minimumFractionDigits: 3,
+            maximumFractionDigits: 3,
+          });
+        } else {
+          rewardsStr = intl.formatNumber(parsedPayout, {
+            minimumFractionDigits: 3,
+            maximumFractionDigits: 3,
+          });
+        }
+
         array.push(`${rewardsStr} ${reward.currency}`);
       }
 
@@ -49,6 +69,8 @@ const AuthorRewardMessage = ({ actionDetails, intl }) => {
 AuthorRewardMessage.propTypes = {
   actionDetails: PropTypes.shape().isRequired,
   intl: PropTypes.shape().isRequired,
+  totalVestingShares: PropTypes.string.isRequired,
+  totalVestingFundSteem: PropTypes.string.isRequired,
 };
 
 export default injectIntl(AuthorRewardMessage);

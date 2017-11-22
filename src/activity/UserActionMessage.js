@@ -130,7 +130,13 @@ class UserActionMessage extends React.Component {
       case accountHistoryConstants.ACCOUNT_UPDATE:
         return <FormattedMessage id="account_updated" defaultMessage="Account Updated" />;
       case accountHistoryConstants.AUTHOR_REWARD:
-        return <AuthorRewardMessage actionDetails={actionDetails} />;
+        return (
+          <AuthorRewardMessage
+            actionDetails={actionDetails}
+            totalVestingShares={totalVestingShares}
+            totalVestingFundSteem={totalVestingFundSteem}
+          />
+        );
       case accountHistoryConstants.CURATION_REWARD:
         return (
           <FormattedMessage
