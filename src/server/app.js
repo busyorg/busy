@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router';
 import { matchRoutes, renderRoutes } from 'react-router-config';
+import steemconnect from 'sc2-sdk';
 
 import getStore from '../client/store';
 import routes from '../common/routes';
@@ -26,6 +27,18 @@ const app = express();
 const server = http.Server(app);
 
 const rootDir = path.join(__dirname, '../..');
+
+if (
+  process.env.STEEMCONNECT_CLIENT_ID &&
+  process.env.STEEMCONNECT_REDIRECT_URL &&
+  process.env.STEEMCONNECT_HOST
+) {
+  steemconnect.init({
+    app: process.env.STEEMCONNECT_CLIENT_ID,
+    callbackURL: process.env.STEEMCONNECT_REDIRECT_URL,
+  });
+  steemconnect.setBaseURL(process.env.STEEMCONNECT_HOST);
+}
 
 if (process.env.STEEMJS_URL) {
   steem.api.setOptions({ url: process.env.STEEMJS_URL });
@@ -101,10 +114,6 @@ const ssrRoutes = ['/:category/@:author/:permlink', '/@:name*'];
 
 app.get(ssrRoutes, serverSideResponse);
 
-app.get('/*', (req, res) => {
-  res.send(indexHtml);
-});
-
 app.get('/callback', (req, res) => {
   const accessToken = req.query.access_token;
   const expiresIn = req.query.expires_in;
@@ -116,6 +125,10 @@ app.get('/callback', (req, res) => {
   } else {
     res.status(401).send({ error: 'access_token or expires_in Missing' });
   }
+});
+
+app.get('/*', (req, res) => {
+  res.send(indexHtml);
 });
 
 module.exports = { app, server };
