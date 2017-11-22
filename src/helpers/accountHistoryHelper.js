@@ -41,7 +41,7 @@ export const getCustomJSONMessage = (intl, actionDetails) => {
       },
       {
         username: customActionDetails.account,
-        postLink: `@${customActionDetails.author}/${customActionDetails.permlink}`,
+        postLink: '',
       },
     );
   }
@@ -81,13 +81,9 @@ export const getMessageForActionType = (intl, currentUsername, actionType, actio
           defaultMessage: '{username} replied to {author} ({postLink})',
         },
         {
-          username: actionDetails.author,
-          author: _.isEmpty(actionDetails.parent_author)
-            ? actionDetails.author
-            : actionDetails.parent_author,
-          postLink: _.isEmpty(actionDetails.parent_author)
-            ? `${actionDetails.author}/${actionDetails.permlink}`
-            : `${actionDetails.parent_author}/${actionDetails.parent_permlink}`,
+          username: '',
+          author: '',
+          postLink: '',
         },
       );
     case accountHistoryConstants.CUSTOM_JSON:
@@ -105,8 +101,8 @@ export const getMessageForActionType = (intl, currentUsername, actionType, actio
         },
         {
           rewards: 'SBD, STEEM, SP',
-          author: actionDetails.author,
-          postLink: actionDetails.permlink,
+          author: '',
+          postLink: '',
         },
       );
     case accountHistoryConstants.CURATION_REWARD:
@@ -117,8 +113,8 @@ export const getMessageForActionType = (intl, currentUsername, actionType, actio
         },
         {
           steemPower: 'SP',
-          author: actionDetails.comment_author,
-          postLink: actionDetails.comment_permlink,
+          author: '',
+          postLink: '',
         },
       );
     case accountHistoryConstants.ACCOUNT_WITNESS_VOTE:
