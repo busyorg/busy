@@ -240,7 +240,7 @@
   "user_reblogged_post":"{username} sdílí {postLink}",
   "reblogged_post":"reblogged {postLink}",
   "account_updated": "Účet aktualizován",
-  "curation_reward_for_post": "Kurátosrká odměna: {steemPower} SP za {author} ({postLink})",
+  "curation_reward_for_post": "Kurátorská odměna: {steemPower} SP za {author} ({postLink})",
   "curation_reward": "Kurátorská odměna",
   "author_reward_for_post": "Autorská odměna: {rewards} za {postLink}",
   "author_reward": "Autorská odměna",
