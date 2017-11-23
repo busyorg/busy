@@ -2,7 +2,8 @@ import promiseMiddleware from 'redux-promise-middleware';
 import thunk from 'redux-thunk';
 import { applyMiddleware, createStore, compose } from 'redux';
 import { routerMiddleware } from 'react-router-redux';
-import api from './steemAPI';
+import steemAPI from './steemAPI';
+import steemConnectAPI from './steemConnectAPI';
 import { history } from './routes';
 import { mountResponsive } from './vendor/responsive';
 import errorMiddleware from './errorMiddleware';
@@ -17,7 +18,7 @@ if (process.env.IS_BROWSER) {
 }
 
 if (process.env.IS_BROWSER && process.env.NODE_ENV !== 'production') {
-  window.steemAPI = api;
+  window.steemAPI = steemAPI;
 }
 
 const middleware = [
@@ -30,7 +31,8 @@ const middleware = [
     ],
   }),
   thunk.withExtraArgument({
-    steemAPI: api,
+    steemAPI,
+    steemConnectAPI,
   }),
   routerMiddleware(history),
 ];

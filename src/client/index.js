@@ -22,7 +22,6 @@ if (process.env.SENTRY_PUBLIC_DSN) {
 }
 
 const accessToken = Cookie.get('access_token');
-SteemConnect.setBaseURL(process.env.STEEMCONNECT_HOST);
 if (accessToken) {
   SteemConnect.setAccessToken(accessToken);
 }

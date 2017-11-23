@@ -1,6 +1,5 @@
 import Promise from 'bluebird';
 import { createAction } from 'redux-actions';
-import SteemConnect from '../steemConnectAPI';
 import { getFeed, getPosts } from '../reducers';
 import { getUserCommentsFromState, getFeedLoadingFromState } from '../helpers/stateHelpers';
 import { getAllFollowing } from '../helpers/apiHelpers';
@@ -74,7 +73,7 @@ export const FOLLOW_USER_START = '@user/FOLLOW_USER_START';
 export const FOLLOW_USER_SUCCESS = '@user/FOLLOW_USER_SUCCESS';
 export const FOLLOW_USER_ERROR = '@user/FOLLOW_USER_ERROR';
 
-export const followUser = username => (dispatch, getState) => {
+export const followUser = username => (dispatch, getState, { steemConnectAPI }) => {
   const { auth } = getState();
   if (!auth.isAuthenticated) {
     return Promise.reject('User is not authenticated');
@@ -83,7 +82,7 @@ export const followUser = username => (dispatch, getState) => {
   return dispatch({
     type: FOLLOW_USER,
     payload: {
-      promise: SteemConnect.follow(auth.user.name, username),
+      promise: steemConnectAPI.follow(auth.user.name, username),
     },
     meta: {
       username,
@@ -96,7 +95,7 @@ export const UNFOLLOW_USER_START = '@user/UNFOLLOW_USER_START';
 export const UNFOLLOW_USER_SUCCESS = '@user/UNFOLLOW_USER_SUCCESS';
 export const UNFOLLOW_USER_ERROR = '@user/UNFOLLOW_USER_ERROR';
 
-export const unfollowUser = username => (dispatch, getState) => {
+export const unfollowUser = username => (dispatch, getState, { steemConnectAPI }) => {
   const { auth } = getState();
   if (!auth.isAuthenticated) {
     return Promise.reject('User is not authenticated');
@@ -104,7 +103,7 @@ export const unfollowUser = username => (dispatch, getState) => {
   return dispatch({
     type: UNFOLLOW_USER,
     payload: {
-      promise: SteemConnect.unfollow(auth.user.name, username),
+      promise: steemConnectAPI.unfollow(auth.user.name, username),
     },
     meta: {
       username,

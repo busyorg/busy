@@ -1,7 +1,6 @@
 import { createAction } from 'redux-actions';
 import { createCommentPermlink, getBodyPatchIfSmaller } from '../vendor/steemitHelpers';
 import { notify } from '../app/Notification/notificationActions';
-import SteemConnect from '../steemConnectAPI';
 
 const version = require('../../../package.json').version;
 
@@ -79,6 +78,7 @@ export const getComments = (postId, reload = false, focusedComment = undefined) 
 export const sendComment = (parentPost, body, isUpdating = false, originalComment) => (
   dispatch,
   getState,
+  { steemConnectAPI },
 ) => {
   const { category, id, permlink: parentPermlink, author: parentAuthor } = parentPost;
   const { auth } = getState();
@@ -102,30 +102,24 @@ export const sendComment = (parentPost, body, isUpdating = false, originalCommen
   return dispatch({
     type: SEND_COMMENT,
     payload: {
-      promise: SteemConnect.comment(
-        parentAuthor,
-        parentPermlink,
-        author,
-        permlink,
-        '',
-        newBody,
-        jsonMetadata,
-      ).then((resp) => {
-        const focusedComment = {
-          author: resp.result.operations[0][1].author,
-          permlink: resp.result.operations[0][1].permlink,
-        };
-        dispatch(notify('Comment submitted successfully', 'success'));
-        dispatch(getComments(id, true, focusedComment));
+      promise: steemConnectAPI
+        .comment(parentAuthor, parentPermlink, author, permlink, '', newBody, jsonMetadata)
+        .then((resp) => {
+          const focusedComment = {
+            author: resp.result.operations[0][1].author,
+            permlink: resp.result.operations[0][1].permlink,
+          };
+          dispatch(notify('Comment submitted successfully', 'success'));
+          dispatch(getComments(id, true, focusedComment));
 
-        if (window.analytics) {
-          window.analytics.track('Comment', {
-            category: 'comment',
-            label: 'submit',
-            value: 3,
-          });
-        }
-      }),
+          if (window.analytics) {
+            window.analytics.track('Comment', {
+              category: 'comment',
+              label: 'submit',
+              value: 3,
+            });
+          }
+        }),
     },
     meta: {
       parentId: parentPost.id,
@@ -138,7 +132,7 @@ export const sendComment = (parentPost, body, isUpdating = false, originalCommen
 export const likeComment = (commentId, weight = 10000, vote = 'like', retryCount = 0) => (
   dispatch,
   getState,
-  { steemAPI },
+  { steemAPI, steemConnectAPI },
 ) => {
   const { auth, comments } = getState();
 
@@ -152,7 +146,7 @@ export const likeComment = (commentId, weight = 10000, vote = 'like', retryCount
   dispatch({
     type: LIKE_COMMENT,
     payload: {
-      promise: SteemConnect.vote(voter, author, permlink, weight).then((res) => {
+      promise: steemConnectAPI.vote(voter, author, permlink, weight).then((res) => {
         // reload comment data to fetch payout after vote
         steemAPI.getContentAsync(author, permlink).then((data) => {
           dispatch(reloadExistingComment(data));

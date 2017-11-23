@@ -2,7 +2,6 @@ import Promise from 'bluebird';
 import assert from 'assert';
 import { push } from 'react-router-redux';
 import { createAction } from 'redux-actions';
-import SteemConnect from '../../steemConnectAPI';
 import { addDraftMetadata, deleteDraftMetadata } from '../../helpers/metadata';
 import { jsonParse } from '../../helpers/formatter';
 import { createPermlink, getBodyPatchIfSmaller } from '../../vendor/steemitHelpers';
@@ -68,7 +67,8 @@ const requiredFields = 'parentAuthor,parentPermlink,author,permlink,title,body,j
   ',',
 );
 
-export const broadcastComment = (
+const broadcastComment = (
+  steemConnectAPI,
   parentAuthor,
   parentPermlink,
   author,
@@ -126,7 +126,7 @@ export const broadcastComment = (
     ]);
   }
 
-  return SteemConnect.broadcast(operations);
+  return steemConnectAPI.broadcast(operations);
 };
 
 export function createPost(postData) {
@@ -134,7 +134,7 @@ export function createPost(postData) {
     assert(postData[field] != null, `Developer Error: Missing required field ${field}`);
   });
 
-  return (dispatch) => {
+  return (dispatch, getState, { steemConnectAPI }) => {
     const {
       parentAuthor,
       parentPermlink,
@@ -158,6 +158,7 @@ export function createPost(postData) {
       payload: {
         promise: getPermLink.then(permlink =>
           broadcastComment(
+            steemConnectAPI,
             parentAuthor,
             parentPermlink,
             author,

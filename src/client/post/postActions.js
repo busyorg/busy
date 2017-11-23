@@ -1,6 +1,3 @@
-import Promise from 'bluebird';
-import SteemConnect from '../steemConnectAPI';
-
 export const GET_CONTENT = 'GET_CONTENT';
 export const GET_CONTENT_START = 'GET_CONTENT_START';
 export const GET_CONTENT_SUCCESS = 'GET_CONTENT_SUCCESS';
@@ -10,8 +7,6 @@ export const LIKE_POST = '@post/LIKE_POST';
 export const LIKE_POST_START = '@post/LIKE_POST_START';
 export const LIKE_POST_SUCCESS = '@post/LIKE_POST_SUCCESS';
 export const LIKE_POST_ERROR = '@post/LIKE_POST_ERROR';
-
-SteemConnect.vote = Promise.promisify(SteemConnect.vote, { context: SteemConnect });
 
 export const getContent = (postAuthor, postPermlink, afterLike) => (
   dispatch,
@@ -32,7 +27,11 @@ export const getContent = (postAuthor, postPermlink, afterLike) => (
   });
 };
 
-export const votePost = (postId, author, permlink, weight = 10000) => (dispatch, getState) => {
+export const votePost = (postId, author, permlink, weight = 10000) => (
+  dispatch,
+  getState,
+  { steemConnectAPI },
+) => {
   const { auth, posts } = getState();
   if (!auth.isAuthenticated) {
     return null;
@@ -44,7 +43,7 @@ export const votePost = (postId, author, permlink, weight = 10000) => (dispatch,
   return dispatch({
     type: LIKE_POST,
     payload: {
-      promise: SteemConnect.vote(voter, post.author, post.permlink, weight).then((res) => {
+      promise: steemConnectAPI.vote(voter, post.author, post.permlink, weight).then((res) => {
         if (window.analytics) {
           window.analytics.track('Vote', {
             category: 'vote',
