@@ -128,6 +128,18 @@ ShallowWrapper {
                 values={Object {}}
               />
             </li>
+            <li
+              className="UserMenu__item"
+              data-key="activity"
+              onClick={[Function]}
+              role="presentation"
+            >
+              <FormattedMessage
+                defaultMessage="Activity"
+                id="activity"
+                values={Object {}}
+              />
+            </li>
           </ul>
         </Scrollbars>
       </div>,
@@ -243,6 +255,18 @@ ShallowWrapper {
                   values={Object {}}
                 />
               </li>
+              <li
+                className="UserMenu__item"
+                data-key="activity"
+                onClick={[Function]}
+                role="presentation"
+              >
+                <FormattedMessage
+                  defaultMessage="Activity"
+                  id="activity"
+                  values={Object {}}
+                />
+              </li>
             </ul>
           </Scrollbars>,
         ],
@@ -349,6 +373,18 @@ ShallowWrapper {
                   values={Object {}}
                 />
               </li>
+              <li
+                className="UserMenu__item"
+                data-key="activity"
+                onClick={[Function]}
+                role="presentation"
+              >
+                <FormattedMessage
+                  defaultMessage="Activity"
+                  id="activity"
+                  values={Object {}}
+                />
+              </li>
             </ul>,
             "hideTracksWhenNotNeeded": false,
             "renderThumbHorizontal": [Function],
@@ -442,6 +478,18 @@ ShallowWrapper {
                   <FormattedMessage
                     defaultMessage="Wallet"
                     id="wallet"
+                    values={Object {}}
+                  />
+                </li>,
+                <li
+                  className="UserMenu__item"
+                  data-key="activity"
+                  onClick={[Function]}
+                  role="presentation"
+                >
+                  <FormattedMessage
+                    defaultMessage="Activity"
+                    id="activity"
                     values={Object {}}
                   />
                 </li>,
@@ -675,6 +723,37 @@ ShallowWrapper {
                 },
                 "type": "li",
               },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": <FormattedMessage
+                    defaultMessage="Activity"
+                    id="activity"
+                    values={Object {}}
+                  />,
+                  "className": "UserMenu__item",
+                  "data-key": "activity",
+                  "onClick": [Function],
+                  "role": "presentation",
+                },
+                "ref": null,
+                "rendered": Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "class",
+                  "props": Object {
+                    "defaultMessage": "Activity",
+                    "id": "activity",
+                    "values": Object {},
+                  },
+                  "ref": null,
+                  "rendered": null,
+                  "type": [Function],
+                },
+                "type": "li",
+              },
             ],
             "type": "ul",
           },
@@ -797,6 +876,18 @@ ShallowWrapper {
                   values={Object {}}
                 />
               </li>
+              <li
+                className="UserMenu__item"
+                data-key="activity"
+                onClick={[Function]}
+                role="presentation"
+              >
+                <FormattedMessage
+                  defaultMessage="Activity"
+                  id="activity"
+                  values={Object {}}
+                />
+              </li>
             </ul>
           </Scrollbars>
         </div>,
@@ -912,6 +1003,18 @@ ShallowWrapper {
                     values={Object {}}
                   />
                 </li>
+                <li
+                  className="UserMenu__item"
+                  data-key="activity"
+                  onClick={[Function]}
+                  role="presentation"
+                >
+                  <FormattedMessage
+                    defaultMessage="Activity"
+                    id="activity"
+                    values={Object {}}
+                  />
+                </li>
               </ul>
             </Scrollbars>,
           ],
@@ -1018,6 +1121,18 @@ ShallowWrapper {
                     values={Object {}}
                   />
                 </li>
+                <li
+                  className="UserMenu__item"
+                  data-key="activity"
+                  onClick={[Function]}
+                  role="presentation"
+                >
+                  <FormattedMessage
+                    defaultMessage="Activity"
+                    id="activity"
+                    values={Object {}}
+                  />
+                </li>
               </ul>,
               "hideTracksWhenNotNeeded": false,
               "renderThumbHorizontal": [Function],
@@ -1111,6 +1226,18 @@ ShallowWrapper {
                     <FormattedMessage
                       defaultMessage="Wallet"
                       id="wallet"
+                      values={Object {}}
+                    />
+                  </li>,
+                  <li
+                    className="UserMenu__item"
+                    data-key="activity"
+                    onClick={[Function]}
+                    role="presentation"
+                  >
+                    <FormattedMessage
+                      defaultMessage="Activity"
+                      id="activity"
                       values={Object {}}
                     />
                   </li>,
@@ -1336,6 +1463,37 @@ ShallowWrapper {
                     "props": Object {
                       "defaultMessage": "Wallet",
                       "id": "wallet",
+                      "values": Object {},
+                    },
+                    "ref": null,
+                    "rendered": null,
+                    "type": [Function],
+                  },
+                  "type": "li",
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": <FormattedMessage
+                      defaultMessage="Activity"
+                      id="activity"
+                      values={Object {}}
+                    />,
+                    "className": "UserMenu__item",
+                    "data-key": "activity",
+                    "onClick": [Function],
+                    "role": "presentation",
+                  },
+                  "ref": null,
+                  "rendered": Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "class",
+                    "props": Object {
+                      "defaultMessage": "Activity",
+                      "id": "activity",
                       "values": Object {},
                     },
                     "ref": null,

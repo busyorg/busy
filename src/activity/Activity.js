@@ -1,7 +1,7 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
 import Affix from '../components/Utils/Affix';
 import LeftSidebar from '../app/Sidebar/LeftSidebar';
+import UserActivity from './UserActivity';
 import RightSidebar from '../app/Sidebar/RightSidebar';
 
 const Activity = () => (
@@ -18,9 +18,7 @@ const Activity = () => (
         </div>
       </Affix>
       <div className="center">
-        <h1>
-          <FormattedMessage id="activity" defaultMessage="Activity" />
-        </h1>
+        <UserActivity isCurrentUser />
       </div>
     </div>
   </div>

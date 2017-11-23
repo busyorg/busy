@@ -9,6 +9,7 @@ describe('settingsReducer', () => {
     votingPower: 'auto',
     votePercent: 10000,
     loading: false,
+    showNSFWPosts: false,
   };
 
   it('should return initial state', () => {
@@ -56,7 +57,7 @@ describe('settingsReducer', () => {
     expect(settingsReducer(stateBefore, action)).to.eql(stateAfter);
   });
 
-  it('should set locale, voting power, vote percent and loading after saving succeeded', () => {
+  it('should set locale, voting power, vote percent, loading, and showNSFWPosts after saving succeeded', () => {
     const stateBefore = {
       ...initialState,
       loading: true,
@@ -67,6 +68,7 @@ describe('settingsReducer', () => {
       locale: 'pl',
       votePercent: 10000,
       votingPower: 'on',
+      showNSFWPosts: true,
     };
     const action = {
       type: settingsTypes.SAVE_SETTINGS_SUCCESS,
@@ -74,6 +76,7 @@ describe('settingsReducer', () => {
         locale: 'pl',
         votingPower: 'on',
         votePercent: 10000,
+        showNSFWPosts: true,
       },
     };
 

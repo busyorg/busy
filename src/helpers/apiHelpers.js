@@ -1,6 +1,7 @@
 import Promise from 'bluebird';
 import SteemAPI from '../steemAPI';
 import { jsonParse } from '../helpers/formatter';
+import * as accountHistoryConstants from '../constants/accountHistory';
 
 /** *
  * Get the path from URL and the API object of steem and return the correct API call based on path
@@ -107,9 +108,18 @@ export const mapToId = (content) => {
 
 export const mapAPIContentToId = apiRes => mapToId(apiRes.content);
 
-export const defaultAccountLimit = 2500;
+export const defaultAccountLimit = 500;
 
 export const getAccountHistory = (account, from = -1, limit = defaultAccountLimit) =>
   SteemAPI.getAccountHistoryAsync(account, from, limit);
 
 export const getDynamicGlobalProperties = () => SteemAPI.getDynamicGlobalPropertiesAsync();
+
+export const isWalletTransaction = actionType =>
+  actionType === accountHistoryConstants.TRANSFER ||
+  actionType === accountHistoryConstants.TRANSFER_TO_VESTING ||
+  actionType === accountHistoryConstants.CANCEL_TRANSFER_FROM_SAVINGS ||
+  actionType === accountHistoryConstants.TRANSFER_FROM_SAVINGS ||
+  actionType === accountHistoryConstants.TRANSFER_TO_SAVINGS ||
+  actionType === accountHistoryConstants.DELEGATE_VESTING_SHARES ||
+  actionType === accountHistoryConstants.CLAIM_REWARD_BALANCE;

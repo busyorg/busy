@@ -24,6 +24,7 @@ import {
   getVotingPower,
   getRewardFund,
   getVotePercent,
+  getShowNSFWPosts,
 } from '../reducers';
 
 import Story from '../components/Story/Story';
@@ -44,6 +45,7 @@ import './Feed.less';
     sliderMode: getVotingPower(state),
     rewardFund: getRewardFund(state),
     defaultVotePercent: getVotePercent(state),
+    showNSFWPosts: getShowNSFWPosts(state),
   }),
   {
     editPost,
@@ -68,6 +70,7 @@ export default class Feed extends React.Component {
     saving: PropTypes.bool.isRequired,
     rewardFund: PropTypes.shape().isRequired,
     defaultVotePercent: PropTypes.number.isRequired,
+    showNSFWPosts: PropTypes.bool.isRequired,
     isFetching: PropTypes.bool,
     hasMore: PropTypes.bool,
     sliderMode: PropTypes.oneOf(['on', 'off', 'auto']),
@@ -138,6 +141,7 @@ export default class Feed extends React.Component {
       sliderMode,
       rewardFund,
       defaultVotePercent,
+      showNSFWPosts,
     } = this.props;
 
     return (
@@ -184,6 +188,7 @@ export default class Feed extends React.Component {
               onSaveClick={this.handleSaveClick}
               onFollowClick={this.handleFollowClick}
               onEditClick={this.handleEditClick}
+              showNSFWPosts={showNSFWPosts}
             />
           );
         })}
