@@ -12,12 +12,10 @@ Our goal is to connect billions of people to the steem blockchain to bring back 
 2. Creating a true sharing economy.
 3. Ending the remittance ripoff.
 
-For more info: https://steemit.com/busy/@busy.org/busy-your-next-gen-social-network-platform-based-on-steem-blockchain
+For more info: https://busy.org/busy/@busy.org/busy-your-next-gen-social-network-platform-based-on-steem-blockchain
 
 ## Preview
 ![Preview](https://res.cloudinary.com/hpiynhbhq/image/upload/v1504423577/wft1ubbw2ozrbteril7u.png)
-![Preview](http://res.cloudinary.com/shreyasgune1/image/upload/v1511095714/preview3_ai34jm.png)
-![Preview](http://res.cloudinary.com/shreyasgune1/image/upload/v1511095713/preview2_czglcz.png)
 
 
 ## Usage
