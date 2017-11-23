@@ -1,4 +1,5 @@
 import Cookie from 'js-cookie';
+import { getIsAuthenticated } from '../reducers';
 import { getAccountWithFollowingCount } from '../helpers/apiHelpers';
 import { getFollowing } from '../user/userActions';
 import { initPushpad } from '../helpers/pushpadHelper';
@@ -21,8 +22,10 @@ export const LOGOUT_SUCCESS = '@auth/LOGOUT_SUCCESS';
 
 export const UPDATE_AUTH_USER = createAsyncActionType('@auth/UPDATE_AUTH_USER');
 
-export const login = () => (dispatch, getState, { steemConnectAPI }) => {
-  dispatch({
+export const login = accessToken => (dispatch, getState, { steemConnectAPI }) => {
+  if (accessToken) steemConnectAPI.setAccessToken(accessToken);
+  if (getIsAuthenticated(getState())) return Promise.resolve(null);
+  return dispatch({
     type: LOGIN,
     payload: {
       promise: steemConnectAPI.me().then((resp) => {
