@@ -29,7 +29,7 @@ ShallowWrapper {
           className="UserWalletTransactions__icon-container"
         >
           <i
-            className="iconfont icon-flashlight UserWalletTransactions__icon"
+            className="iconfont icon-flashlight_fill UserWalletTransactions__icon"
           />
         </div>,
         <div
@@ -94,7 +94,7 @@ ShallowWrapper {
         "nodeType": "host",
         "props": Object {
           "children": <i
-            className="iconfont icon-flashlight UserWalletTransactions__icon"
+            className="iconfont icon-flashlight_fill UserWalletTransactions__icon"
           />,
           "className": "UserWalletTransactions__icon-container",
         },
@@ -104,7 +104,7 @@ ShallowWrapper {
           "key": undefined,
           "nodeType": "host",
           "props": Object {
-            "className": "iconfont icon-flashlight UserWalletTransactions__icon",
+            "className": "iconfont icon-flashlight_fill UserWalletTransactions__icon",
           },
           "ref": null,
           "rendered": null,
@@ -343,7 +343,7 @@ ShallowWrapper {
             className="UserWalletTransactions__icon-container"
           >
             <i
-              className="iconfont icon-flashlight UserWalletTransactions__icon"
+              className="iconfont icon-flashlight_fill UserWalletTransactions__icon"
             />
           </div>,
           <div
@@ -408,7 +408,7 @@ ShallowWrapper {
           "nodeType": "host",
           "props": Object {
             "children": <i
-              className="iconfont icon-flashlight UserWalletTransactions__icon"
+              className="iconfont icon-flashlight_fill UserWalletTransactions__icon"
             />,
             "className": "UserWalletTransactions__icon-container",
           },
@@ -418,7 +418,7 @@ ShallowWrapper {
             "key": undefined,
             "nodeType": "host",
             "props": Object {
-              "className": "iconfont icon-flashlight UserWalletTransactions__icon",
+              "className": "iconfont icon-flashlight_fill UserWalletTransactions__icon",
             },
             "ref": null,
             "rendered": null,
