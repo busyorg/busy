@@ -8,7 +8,7 @@ import { LocaleProvider, Layout } from 'antd';
 import enUS from 'antd/lib/locale-provider/en_US';
 import Cookie from 'js-cookie';
 
-import { getAuthenticatedUser, getLocale } from './reducers';
+import { getIsAuthenticated, getAuthenticatedUser, getLocale } from './reducers';
 
 import { login, logout } from './auth/authActions';
 import { getRate, getRewardFund, getTrendingTopics } from './app/appActions';
@@ -20,6 +20,7 @@ import getTranslations, { getAvailableLocale } from './translations';
 @withRouter
 @connect(
   state => ({
+    authenticated: getIsAuthenticated(state),
     user: getAuthenticatedUser(state),
     locale: getLocale(state),
   }),
@@ -38,6 +39,7 @@ export default class Wrapper extends React.PureComponent {
     user: PropTypes.shape().isRequired,
     locale: PropTypes.string.isRequired,
     history: PropTypes.shape().isRequired,
+    authenticated: PropTypes.bool,
     login: PropTypes.func,
     logout: PropTypes.func,
     getRewardFund: PropTypes.func,
@@ -47,6 +49,7 @@ export default class Wrapper extends React.PureComponent {
   };
 
   static defaultProps = {
+    authenticated: false,
     login: () => {},
     logout: () => {},
     getRewardFund: () => {},
@@ -55,8 +58,12 @@ export default class Wrapper extends React.PureComponent {
     getTrendingTopics: () => {},
   };
 
-  componentWillMount() {
-    if (Cookie.get('access_token')) {
+  static fetchData(store, match) {
+    console.log('Wrapper', match);
+  }
+
+  componentDidMount() {
+    if (!this.props.authenticated && Cookie.get('access_token')) {
       this.props.login();
     }
     this.props.getRewardFund();

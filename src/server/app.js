@@ -5,7 +5,6 @@ import { Provider } from 'react-redux';
 import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router';
 import { matchRoutes, renderRoutes } from 'react-router-config';
-import steemconnect from 'sc2-sdk';
 
 import getStore from '../client/store';
 import routes from '../common/routes';
@@ -27,18 +26,6 @@ const app = express();
 const server = http.Server(app);
 
 const rootDir = path.join(__dirname, '../..');
-
-if (
-  process.env.STEEMCONNECT_CLIENT_ID &&
-  process.env.STEEMCONNECT_REDIRECT_URL &&
-  process.env.STEEMCONNECT_HOST
-) {
-  steemconnect.init({
-    app: process.env.STEEMCONNECT_CLIENT_ID,
-    callbackURL: process.env.STEEMCONNECT_REDIRECT_URL,
-  });
-  steemconnect.setBaseURL(process.env.STEEMCONNECT_HOST);
-}
 
 if (process.env.STEEMJS_URL) {
   steem.api.setOptions({ url: process.env.STEEMJS_URL });
@@ -85,7 +72,7 @@ function serverSideResponse(req, res) {
     const promises = branch.map(({ route, match }) => {
       const fetchData = route.component.fetchData;
       if (fetchData instanceof Function) {
-        return fetchData(store, match);
+        return fetchData(store, match, req);
       }
       return Promise.resolve(null);
     });
@@ -108,12 +95,6 @@ function serverSideResponse(req, res) {
   }
 }
 
-// List of routes to use SSR for
-
-const ssrRoutes = ['/:category/@:author/:permlink', '/@:name*'];
-
-app.get(ssrRoutes, serverSideResponse);
-
 app.get('/callback', (req, res) => {
   const accessToken = req.query.access_token;
   const expiresIn = req.query.expires_in;
@@ -127,8 +108,6 @@ app.get('/callback', (req, res) => {
   }
 });
 
-app.get('/*', (req, res) => {
-  res.send(indexHtml);
-});
+app.get('/*', serverSideResponse);
 
 module.exports = { app, server };

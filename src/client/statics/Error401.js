@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import steemconnect from 'sc2-sdk';
 import { FormattedMessage } from 'react-intl';
+import SteemConnect from '../steemConnectAPI';
 
-const Error401 = () =>
-  (<div className="main-panel">
+const Error401 = () => (
+  <div className="main-panel">
     <div className="container my-5">
       <div className="ptl text-center">
         <h1>
@@ -21,7 +21,7 @@ const Error401 = () =>
             id="@statics/need_login"
             defaultMessage="You need to login to use this feature, please"
           />{' '}
-          <a href={steemconnect.getLoginURL()}>
+          <a href={SteemConnect.getLoginURL()}>
             <FormattedMessage id="login" defaultMessage="Login" />
           </a>
           <br />
@@ -33,6 +33,7 @@ const Error401 = () =>
         </p>
       </div>
     </div>
-  </div>);
+  </div>
+);
 
 export default Error401;

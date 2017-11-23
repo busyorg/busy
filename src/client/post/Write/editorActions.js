@@ -1,8 +1,8 @@
 import Promise from 'bluebird';
 import assert from 'assert';
-import SteemConnect from 'sc2-sdk';
 import { push } from 'react-router-redux';
 import { createAction } from 'redux-actions';
+import SteemConnect from '../../steemConnectAPI';
 import { addDraftMetadata, deleteDraftMetadata } from '../../helpers/metadata';
 import { jsonParse } from '../../helpers/formatter';
 import { createPermlink, getBodyPatchIfSmaller } from '../../vendor/steemitHelpers';

@@ -1,6 +1,6 @@
 import store from 'store';
-import SteemConnect from 'sc2-sdk';
 import { createAction } from 'redux-actions';
+import SteemConnect from '../../steemConnectAPI';
 
 export const REBLOG_POST = '@reblog/REBLOG_POST';
 export const REBLOG_POST_START = '@reblog/REBLOG_POST_START';
@@ -24,21 +24,20 @@ export const reblog = postId => (dispatch, getState) => {
   dispatch({
     type: REBLOG_POST,
     payload: {
-      promise: SteemConnect.reblog(auth.user.name, post.author, post.permlink)
-        .then((result) => {
-          const list = storePostId(postId);
-          dispatch(getRebloggedListAction(list));
+      promise: SteemConnect.reblog(auth.user.name, post.author, post.permlink).then((result) => {
+        const list = storePostId(postId);
+        dispatch(getRebloggedListAction(list));
 
-          if (window.analytics) {
-            window.analytics.track('Reblog', {
-              category: 'reblog',
-              label: 'submit',
-              value: 2,
-            });
-          }
+        if (window.analytics) {
+          window.analytics.track('Reblog', {
+            category: 'reblog',
+            label: 'submit',
+            value: 2,
+          });
+        }
 
-          return result;
-        }),
+        return result;
+      }),
     },
     meta: { postId },
   });

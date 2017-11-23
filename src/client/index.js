@@ -2,13 +2,13 @@ import 'babel-polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import steemconnect from 'sc2-sdk';
 import Cookie from 'js-cookie';
 import steem from 'steem';
 import Raven from 'raven-js';
 import Logger from 'js-logger';
 import { AppContainer } from 'react-hot-loader';
 import { message } from 'antd';
+import SteemConnect from './steemConnectAPI';
 import { history } from './routes';
 import getStore from './store';
 import AppHost from './AppHost';
@@ -21,20 +21,10 @@ if (process.env.SENTRY_PUBLIC_DSN) {
   Raven.config(process.env.SENTRY_PUBLIC_DSN).install();
 }
 
-if (
-  process.env.STEEMCONNECT_CLIENT_ID &&
-  process.env.STEEMCONNECT_REDIRECT_URL &&
-  process.env.STEEMCONNECT_HOST
-) {
-  steemconnect.init({
-    app: process.env.STEEMCONNECT_CLIENT_ID,
-    callbackURL: process.env.STEEMCONNECT_REDIRECT_URL,
-  });
-  const accessToken = Cookie.get('access_token');
-  steemconnect.setBaseURL(process.env.STEEMCONNECT_HOST);
-  if (accessToken) {
-    steemconnect.setAccessToken(accessToken);
-  }
+const accessToken = Cookie.get('access_token');
+SteemConnect.setBaseURL(process.env.STEEMCONNECT_HOST);
+if (accessToken) {
+  SteemConnect.setAccessToken(accessToken);
 }
 
 if (process.env.STEEMJS_URL) {

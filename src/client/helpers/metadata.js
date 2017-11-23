@@ -1,6 +1,6 @@
 import Promise from 'bluebird';
-import SteemConnect from 'sc2-sdk';
 import omit from 'lodash/omit';
+import SteemConnect from '../steemConnectAPI';
 
 Promise.promisifyAll(SteemConnect, { context: SteemConnect });
 

@@ -1,5 +1,5 @@
-import steemConnect from 'sc2-sdk';
 import Promise from 'bluebird';
+import SteemConnect from '../steemConnectAPI';
 
 export const GET_CONTENT = 'GET_CONTENT';
 export const GET_CONTENT_START = 'GET_CONTENT_START';
@@ -11,7 +11,7 @@ export const LIKE_POST_START = '@post/LIKE_POST_START';
 export const LIKE_POST_SUCCESS = '@post/LIKE_POST_SUCCESS';
 export const LIKE_POST_ERROR = '@post/LIKE_POST_ERROR';
 
-steemConnect.vote = Promise.promisify(steemConnect.vote, { context: steemConnect });
+SteemConnect.vote = Promise.promisify(SteemConnect.vote, { context: SteemConnect });
 
 export const getContent = (postAuthor, postPermlink, afterLike) => (
   dispatch,
@@ -44,7 +44,7 @@ export const votePost = (postId, author, permlink, weight = 10000) => (dispatch,
   return dispatch({
     type: LIKE_POST,
     payload: {
-      promise: steemConnect.vote(voter, post.author, post.permlink, weight).then((res) => {
+      promise: SteemConnect.vote(voter, post.author, post.permlink, weight).then((res) => {
         if (window.analytics) {
           window.analytics.track('Vote', {
             category: 'vote',

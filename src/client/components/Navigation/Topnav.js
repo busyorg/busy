@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { withRouter, Link } from 'react-router-dom';
 import { Menu, Popover, Tooltip, Input } from 'antd';
-import steemconnect from 'sc2-sdk';
 import classNames from 'classnames';
+import SteemConnect from '../../steemConnectAPI';
 import Avatar from '../Avatar';
 import PopoverMenu, { PopoverMenuItem } from '../PopoverMenu/PopoverMenu';
 import './Topnav.less';
@@ -44,7 +44,7 @@ class Topnav extends React.Component {
             |
           </Menu.Item>
           <Menu.Item key="login">
-            <a href={steemconnect.getLoginURL(next)}>
+            <a href={SteemConnect.getLoginURL(next)}>
               <FormattedMessage id="login" defaultMessage="Log in" />
             </a>
           </Menu.Item>
@@ -142,7 +142,8 @@ class Topnav extends React.Component {
                     `https://www.google.com/search?q=${encodeURIComponent(
                       `site:steemit.com ${event.target.value}`,
                     )}`,
-                  )}
+                  )
+                }
                 placeholder={intl.formatMessage({
                   id: 'search_placeholder',
                   defaultMessage: 'Search...',

@@ -1,6 +1,6 @@
 import Promise from 'bluebird';
-import steemConnect from 'sc2-sdk';
 import { createAction } from 'redux-actions';
+import SteemConnect from '../steemConnectAPI';
 import { getFeed, getPosts } from '../reducers';
 import { getUserCommentsFromState, getFeedLoadingFromState } from '../helpers/stateHelpers';
 import { getAllFollowing } from '../helpers/apiHelpers';
@@ -83,7 +83,7 @@ export const followUser = username => (dispatch, getState) => {
   return dispatch({
     type: FOLLOW_USER,
     payload: {
-      promise: steemConnect.follow(auth.user.name, username),
+      promise: SteemConnect.follow(auth.user.name, username),
     },
     meta: {
       username,
@@ -104,7 +104,7 @@ export const unfollowUser = username => (dispatch, getState) => {
   return dispatch({
     type: UNFOLLOW_USER,
     payload: {
-      promise: steemConnect.unfollow(auth.user.name, username),
+      promise: SteemConnect.unfollow(auth.user.name, username),
     },
     meta: {
       username,

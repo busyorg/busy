@@ -1,12 +1,12 @@
 import Promise from 'bluebird';
-import steemConnect from 'sc2-sdk';
 import Cookie from 'js-cookie';
 import { getAccountWithFollowingCount } from '../helpers/apiHelpers';
 import { getFollowing } from '../user/userActions';
 import { initPushpad } from '../helpers/pushpadHelper';
 import { createAsyncActionType } from '../helpers/stateHelpers';
+import SteemConnect from '../steemConnectAPI';
 
-Promise.promisifyAll(steemConnect);
+Promise.promisifyAll(SteemConnect);
 
 export const LOGIN = '@auth/LOGIN';
 export const LOGIN_START = '@auth/LOGIN_START';
@@ -29,12 +29,11 @@ export const login = () => (dispatch) => {
   dispatch({
     type: LOGIN,
     payload: {
-      promise: steemConnect.me()
-        .then((resp) => {
-          dispatch(getFollowing(resp.user));
-          initPushpad(resp.user, Cookie.get('access_token'));
-          return resp;
-        }),
+      promise: SteemConnect.me().then((resp) => {
+        dispatch(getFollowing(resp.user));
+        initPushpad(resp.user, Cookie.get('access_token'));
+        return resp;
+      }),
     },
   });
 };
@@ -43,7 +42,7 @@ export const reload = () => dispatch =>
   dispatch({
     type: RELOAD,
     payload: {
-      promise: steemConnect.me(),
+      promise: SteemConnect.me(),
     },
   });
 
@@ -51,15 +50,15 @@ export const logout = () => (dispatch) => {
   dispatch({
     type: LOGOUT,
     payload: {
-      promise: steemConnect.revokeToken()
-        .then(() => Cookie.remove('access_token')),
+      promise: SteemConnect.revokeToken().then(() => Cookie.remove('access_token')),
     },
   });
 };
 
-export const updateAuthUser = username => dispatch => dispatch({
-  type: UPDATE_AUTH_USER.ACTION,
-  payload: {
-    promise: getAccountWithFollowingCount(username),
-  },
-});
+export const updateAuthUser = username => dispatch =>
+  dispatch({
+    type: UPDATE_AUTH_USER.ACTION,
+    payload: {
+      promise: getAccountWithFollowingCount(username),
+    },
+  });
