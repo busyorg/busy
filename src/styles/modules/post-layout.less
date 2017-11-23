@@ -2,8 +2,10 @@
 
 .post-layout {
   position: relative;
-  @media @medium-max-width {
-    padding: 0 @mobile-padding
+  padding: 0 @mobile-padding;
+
+  @media @medium {
+    padding: 0;
   }
 
   &:after {
@@ -23,7 +25,7 @@
 
     @media @small {
       display: block;
-    }  
+    }
   }
 
   .center {

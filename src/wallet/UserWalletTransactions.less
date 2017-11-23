@@ -4,7 +4,9 @@
 .UserWalletTransactions {
   background-color: @white;
   border: 1px solid @white-gainsboro;
-  border-radius: @border-radius-base;
+  border-right: 0;
+  border-left: 0;
+  border-radius: 0;
   margin: 20px 0;
 
   &:empty {
@@ -94,10 +96,9 @@
     }
   }
 
-  @media @small-max-width {
-    border-left: 0;
-    border-right: 0;
-    border-radius: 0;
+  @media @small {
+    border: 1px solid @white-gainsboro;
+    border-radius: @border-radius-base;
   }
 
   @media @very-small-max-width {

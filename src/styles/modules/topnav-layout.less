@@ -21,37 +21,37 @@
     right: 0;
     width: @right-width;
     margin-right: 16px;
+    justify-content: flex-end;
+    display: flex;
+
+    @media @small {
+      display: block;
+      justify-content: initial;
+    }
 
     @media @medium {
       margin-right: 0;
     }
 
-    @media @small-max-width {
-      display: flex;
-      justify-content: flex-end;
-    }
   }
 
   .center {
+    width: calc(100% ~"-" 55px);
+    position: absolute;
     display: none;
-    width: 100%;
+    z-index: 1;
 
     @media @small {
-      display: block;
       width: calc(100% ~"-" (@left-width + @right-width + 2 * @margin));
+      position: static;
       margin-left: @left-width;
       margin-right: @right-width + @margin;
+      display: block;
     }
 
     @media @medium {
       width: calc(100% ~"-" (@left-width + @right-width + 2 * @margin));
       margin-left: @left-width + @margin;
-    }
-
-    @media @small-max-width {
-      position: absolute;
-      width: calc(100% ~"-" 55px);
-      z-index: 1;
     }
 
     &.mobileVisible {
