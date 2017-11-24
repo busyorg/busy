@@ -13,8 +13,10 @@ import { isValidImage, MAXIMUM_UPLOAD_SIZE } from '../../helpers/image';
 import EditorToolbar from './EditorToolbar';
 import Action from '../Button/Action';
 import Body, { remarkable } from '../Story/Body';
+import requiresLogin from '../../auth/requiresLogin';
 import './Editor.less';
 
+@requiresLogin
 @injectIntl
 class Editor extends React.Component {
   static propTypes = {

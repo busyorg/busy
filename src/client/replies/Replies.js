@@ -13,6 +13,7 @@ import Loading from '../components/Icon/Loading';
 import Affix from '../components/Utils/Affix';
 import LeftSidebar from '../app/Sidebar/LeftSidebar';
 import RightSidebar from '../app/Sidebar/RightSidebar';
+import requiresLogin from '../auth/requiresLogin';
 
 export class IReplies extends React.Component {
   static propTypes = {
@@ -88,4 +89,4 @@ const mapStateToProps = state => ({
   posts: getPosts(state),
 });
 
-export default connect(mapStateToProps, { getReplies, getMoreReplies })(IReplies);
+export default requiresLogin(connect(mapStateToProps, { getReplies, getMoreReplies })(IReplies));

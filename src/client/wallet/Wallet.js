@@ -3,6 +3,7 @@ import Affix from '../components/Utils/Affix';
 import LeftSidebar from '../app/Sidebar/LeftSidebar';
 import WalletSidebar from '../components/Sidebar/WalletSidebar';
 import UserWallet from '../user/UserWallet';
+import requiresLogin from '../auth/requiresLogin';
 
 const Wallet = () => (
   <div className="shifted">
@@ -24,4 +25,4 @@ const Wallet = () => (
   </div>
 );
 
-export default Wallet;
+export default requiresLogin(Wallet);

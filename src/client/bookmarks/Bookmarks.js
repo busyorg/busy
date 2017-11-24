@@ -21,7 +21,9 @@ import { getBookmarks } from './bookmarksActions';
 import Affix from '../components/Utils/Affix';
 import LeftSidebar from '../app/Sidebar/LeftSidebar';
 import RightSidebar from '../app/Sidebar/RightSidebar';
+import requiresLogin from '../auth/requiresLogin';
 
+@requiresLogin
 @connect(
   state => ({
     feed: getFeed(state),

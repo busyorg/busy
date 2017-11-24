@@ -3,6 +3,7 @@ import Affix from '../components/Utils/Affix';
 import LeftSidebar from '../app/Sidebar/LeftSidebar';
 import UserActivity from './UserActivity';
 import RightSidebar from '../app/Sidebar/RightSidebar';
+import requiresLogin from '../auth/requiresLogin';
 
 const Activity = () => (
   <div className="shifted">
@@ -24,4 +25,4 @@ const Activity = () => (
   </div>
 );
 
-export default Activity;
+export default requiresLogin(Activity);

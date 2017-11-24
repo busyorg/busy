@@ -9,7 +9,9 @@ import { getDraftPosts, getPendingDrafts, getIsReloading } from '../../reducers'
 import Affix from '../../components/Utils/Affix';
 import LeftSidebar from '../../app/Sidebar/LeftSidebar';
 import DraftRow from './DraftRow';
+import requiresLogin from '../../auth/requiresLogin';
 
+@requiresLogin
 @connect(
   state => ({
     reloading: getIsReloading(state),
@@ -57,13 +59,14 @@ class Drafts extends React.Component {
               <FormattedMessage id="drafts" defaultMessage="Drafts" />
             </h1>
             {reloading && <Loading center={false} />}
-            {noDrafts &&
+            {noDrafts && (
               <h3 className="text-center">
                 <FormattedMessage
                   id="drafts_empty"
                   defaultMessage="You don't have any draft saved"
                 />
-              </h3>}
+              </h3>
+            )}
             {!reloading &&
               _.map(sortedDraftPosts, draft => (
                 <DraftRow
