@@ -5,8 +5,8 @@ import { FormattedMessage } from 'react-intl';
 import _ from 'lodash';
 import User from './User';
 import Loading from '../../components/Icon/Loading';
-import './InterestingPeople.less';
 import steemAPI from '../../steemAPI';
+import './InterestingPeople.less';
 
 @withRouter
 class InterestingPeopleWithAPI extends Component {
@@ -31,7 +31,7 @@ class InterestingPeopleWithAPI extends Component {
     noUsers: false,
   };
 
-  componentWillMount() {
+  componentDidMount() {
     const authenticatedUsername = this.props.authenticatedUser.name;
     const username = _.has(this.props, 'match.params.name')
       ? this.props.match.params.name
@@ -49,9 +49,7 @@ class InterestingPeopleWithAPI extends Component {
     const nextUsername = _.has(nextProps, 'match.params.name')
       ? nextProps.match.params.name
       : authenticatedUsername;
-    if (
-      username !== nextUsername || !nextProps.isFetchingFollowingList
-    ) {
+    if (username !== nextUsername || !nextProps.isFetchingFollowingList) {
       this.getBlogAuthors(nextUsername);
     }
   }
@@ -97,18 +95,11 @@ class InterestingPeopleWithAPI extends Component {
       <div className="InterestingPeople">
         <div className="InterestingPeople__container">
           <h4 className="InterestingPeople__title">
-            <i className="iconfont icon-group InterestingPeople__icon" />
-            {' '}
+            <i className="iconfont icon-group InterestingPeople__icon" />{' '}
             <FormattedMessage id="top_reblogged_users" defaultMessage="Top Reblogged Users" />
           </h4>
           <div className="InterestingPeople__divider" />
-          {users &&
-            users.map(user => (
-              <User
-                key={user.name}
-                user={user}
-              />
-            ))}
+          {users && users.map(user => <User key={user.name} user={user} />)}
           <h4 className="InterestingPeople__more">
             <Link to={'/discover'}>
               <FormattedMessage id="discover_more_people" defaultMessage="Discover More People" />

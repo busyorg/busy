@@ -29,13 +29,14 @@ export const login = accessToken => (dispatch, getState, { steemConnectAPI }) =>
     type: LOGIN,
     payload: {
       promise: steemConnectAPI.me().then((resp) => {
-        dispatch(getFollowing(resp.user));
         initPushpad(resp.user, Cookie.get('access_token'));
         return resp;
       }),
     },
   });
 };
+
+export const getCurrentUserFollowing = () => dispatch => dispatch(getFollowing());
 
 export const reload = () => (dispatch, getState, { steemConnectAPI }) =>
   dispatch({

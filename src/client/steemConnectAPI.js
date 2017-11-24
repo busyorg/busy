@@ -1,4 +1,4 @@
-import sc2 from 'sc2-sdk';
+import sc2 from '../common/sc2';
 
 const api = sc2.Initialize({
   app: process.env.STEEMCONNECT_CLIENT_ID,

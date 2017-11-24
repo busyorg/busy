@@ -7,13 +7,14 @@ import Raven from 'raven-js';
 import Logger from 'js-logger';
 import { AppContainer } from 'react-hot-loader';
 import { message } from 'antd';
+import steemConnectAPI from './steemConnectAPI';
 import { history } from './routes';
 import getStore from './store';
 import AppHost from './AppHost';
 
 Logger.useDefaults();
 
-const store = getStore();
+const store = getStore(steemConnectAPI);
 
 if (process.env.SENTRY_PUBLIC_DSN) {
   Raven.config(process.env.SENTRY_PUBLIC_DSN).install();

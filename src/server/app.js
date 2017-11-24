@@ -6,6 +6,7 @@ import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router';
 import { matchRoutes, renderRoutes } from 'react-router-config';
 
+import sc2 from '../common/sc2';
 import getStore from '../client/store';
 import routes from '../common/routes';
 
@@ -13,6 +14,7 @@ const fs = require('fs');
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 const http = require('http');
 const https = require('https');
 const steem = require('steem');
@@ -34,13 +36,14 @@ if (process.env.STEEMJS_URL) {
 app.locals.env = process.env;
 app.enable('trust proxy');
 
+app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(rootDir, 'public'), { maxAge: OneWeek }));
+  app.use(express.static(path.join(rootDir, 'public'), { maxAge: OneWeek, index: false }));
 } else {
-  app.use(express.static(path.join(rootDir, 'public')));
+  app.use(express.static(path.join(rootDir, 'public'), { index: false }));
 }
 
 const indexPath = `${rootDir}/public/index.html`;
@@ -66,7 +69,12 @@ function renderPage(store, html) {
 
 function serverSideResponse(req, res) {
   try {
-    const store = getStore();
+    const api = sc2.Initialize({
+      app: process.env.STEEMCONNECT_CLIENT_ID,
+      baseURL: process.env.STEEMCONNECT_HOST,
+      callbackURL: process.env.STEEMCONNECT_REDIRECT_URL,
+    });
+    const store = getStore(api);
 
     const branch = matchRoutes(routes, req.url);
     const promises = branch.map(({ route, match }) => {
@@ -77,18 +85,20 @@ function serverSideResponse(req, res) {
       return Promise.resolve(null);
     });
 
-    return Promise.all(promises).then(() => {
-      const context = {};
-      const content = renderToString(
-        <Provider store={store}>
-          <StaticRouter location={req.url} context={context}>
-            {renderRoutes(routes)}
-          </StaticRouter>
-        </Provider>,
-      );
+    return Promise.all(promises)
+      .then(() => {
+        const context = {};
+        const content = renderToString(
+          <Provider store={store}>
+            <StaticRouter location={req.url} context={context}>
+              {renderRoutes(routes)}
+            </StaticRouter>
+          </Provider>,
+        );
 
-      res.send(renderPage(store, content));
-    });
+        res.send(renderPage(store, content));
+      })
+      .catch(err => console.error(err, err.stack));
   } catch (err) {
     console.error('SSR error occured, falling back to bundled application instead', err);
     return res.send(indexHtml);
