@@ -69,9 +69,8 @@ export default class Wrapper extends React.PureComponent {
   componentDidMount() {
     const accessToken = Cookie.get('access_token');
     if (accessToken) {
-      this.props.login(accessToken);
+      this.props.login(accessToken).then(() => this.props.getCurrentUserFollowing());
     }
-    this.props.getCurrentUserFollowing();
     this.props.getRewardFund();
     this.props.getRebloggedList();
     this.props.getRate();
