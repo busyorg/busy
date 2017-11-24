@@ -32,9 +32,10 @@ import { getAccountWithFollowingCount } from './usersActions';
 @withRouter
 @connect(
   (state, ownProps) => ({
-    user: ownProps.isCurrentUser || ownProps.match.params.name === getAuthenticatedUserName(state)
-      ? getAuthenticatedUser(state)
-      : getUser(state, ownProps.match.params.name),
+    user:
+      ownProps.isCurrentUser || ownProps.match.params.name === getAuthenticatedUserName(state)
+        ? getAuthenticatedUser(state)
+        : getUser(state, ownProps.match.params.name),
     authenticatedUserName: getAuthenticatedUserName(state),
     totalVestingShares: getTotalVestingShares(state),
     totalVestingFundSteem: getTotalVestingFundSteem(state),
@@ -88,7 +89,7 @@ class Wallet extends Component {
     authenticatedUserName: '',
   };
 
-  componentWillMount() {
+  componentDidMount() {
     const {
       totalVestingShares,
       totalVestingFundSteem,
@@ -158,9 +159,10 @@ class Wallet extends Component {
           totalVestingFundSteem={totalVestingFundSteem}
           loadingGlobalProperties={loadingGlobalProperties}
         />
-        {transactions.length === 0 && usersAccountHistoryLoading
-          ? <Loading style={{ marginTop: '20px' }} />
-          : <UserWalletTransactions
+        {transactions.length === 0 && usersAccountHistoryLoading ? (
+          <Loading style={{ marginTop: '20px' }} />
+        ) : (
+          <UserWalletTransactions
             transactions={transactions}
             actions={actions}
             currentUsername={user.name}
@@ -169,7 +171,8 @@ class Wallet extends Component {
             getMoreUserAccountHistory={this.props.getMoreUserAccountHistory}
             loadingMoreUsersAccountHistory={loadingMoreUsersAccountHistory}
             userHasMoreActions={userHasMoreActions}
-          />}
+          />
+        )}
       </div>
     );
   }

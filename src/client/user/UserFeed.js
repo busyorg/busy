@@ -39,7 +39,7 @@ export default class UserProfileFeed extends React.Component {
     getMoreUserFeedContent: () => {},
   };
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.getUserFeedContent({
       sortBy: 'feed',
       username: this.props.match.params.name,

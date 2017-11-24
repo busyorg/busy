@@ -1,6 +1,6 @@
 import Promise from 'bluebird';
 import { createAction } from 'redux-actions';
-import { getFeed, getPosts } from '../reducers';
+import { getFeed, getPosts, getIsAuthenticated, getAuthenticatedUserName } from '../reducers';
 import { getUserCommentsFromState, getFeedLoadingFromState } from '../helpers/stateHelpers';
 import { getAllFollowing } from '../helpers/apiHelpers';
 
@@ -74,15 +74,16 @@ export const FOLLOW_USER_SUCCESS = '@user/FOLLOW_USER_SUCCESS';
 export const FOLLOW_USER_ERROR = '@user/FOLLOW_USER_ERROR';
 
 export const followUser = username => (dispatch, getState, { steemConnectAPI }) => {
-  const { auth } = getState();
-  if (!auth.isAuthenticated) {
+  const state = getState();
+
+  if (!getIsAuthenticated(state)) {
     return Promise.reject('User is not authenticated');
   }
 
   return dispatch({
     type: FOLLOW_USER,
     payload: {
-      promise: steemConnectAPI.follow(auth.user.name, username),
+      promise: steemConnectAPI.follow(getAuthenticatedUserName(state), username),
     },
     meta: {
       username,
@@ -96,14 +97,16 @@ export const UNFOLLOW_USER_SUCCESS = '@user/UNFOLLOW_USER_SUCCESS';
 export const UNFOLLOW_USER_ERROR = '@user/UNFOLLOW_USER_ERROR';
 
 export const unfollowUser = username => (dispatch, getState, { steemConnectAPI }) => {
-  const { auth } = getState();
-  if (!auth.isAuthenticated) {
+  const state = getState();
+
+  if (!getIsAuthenticated(state)) {
     return Promise.reject('User is not authenticated');
   }
+
   return dispatch({
     type: UNFOLLOW_USER,
     payload: {
-      promise: steemConnectAPI.unfollow(auth.user.name, username),
+      promise: steemConnectAPI.unfollow(getAuthenticatedUserName(state), username),
     },
     meta: {
       username,
@@ -116,20 +119,20 @@ export const GET_FOLLOWING_START = '@user/GET_FOLLOWING_START';
 export const GET_FOLLOWING_SUCCESS = '@user/GET_FOLLOWING_SUCCESS';
 export const GET_FOLLOWING_ERROR = '@user/GET_FOLLOWING_ERROR';
 
-export const getFollowing = (userName = '') => (dispatch, getState) => {
-  const { auth } = getState();
+export const getFollowing = username => (dispatch, getState) => {
+  const state = getState();
 
-  if (!userName && !auth.isAuthenticated) {
-    return Promise.reject('User is not authenticated');
+  if (!username && !getIsAuthenticated(state)) {
+    return Promise.reject(new Error('User is not authenticated'));
   }
 
-  const targetUsername = userName || auth.user.name;
+  const targetUsername = username || getAuthenticatedUserName(state);
 
   return dispatch({
     type: GET_FOLLOWING,
     meta: targetUsername,
     payload: {
-      promise: getAllFollowing(userName),
+      promise: getAllFollowing(username),
     },
   });
 };

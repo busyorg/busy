@@ -33,7 +33,7 @@ export class IReplies extends React.Component {
     getMoreReplies: () => {},
   };
 
-  componentWillMount() {
+  componentDidMount() {
     if (this.props.authenticated) {
       this.props.getReplies();
     }

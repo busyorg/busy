@@ -50,7 +50,7 @@ export default class Bookmarks extends React.Component {
     reload: () => {},
   };
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.reload().then(() => this.props.getBookmarks());
   }
 
@@ -75,9 +75,8 @@ export default class Bookmarks extends React.Component {
       this.props.bookmarks,
       bookmark => new Date(bookmark.bookmarkDate),
     ).reverse();
-    const mappedContentToBookmarks = content.length > 0
-      ? _.compact(_.map(sortedBookmarks, post => contentMap[post.id]))
-      : [];
+    const mappedContentToBookmarks =
+      content.length > 0 ? _.compact(_.map(sortedBookmarks, post => contentMap[post.id])) : [];
 
     return (
       <div className="shifted">
@@ -100,7 +99,7 @@ export default class Bookmarks extends React.Component {
               loadContent={loadContentAction}
               loadMoreContent={loadMoreContentAction}
             />
-            {noBookmarks &&
+            {noBookmarks && (
               <div className="container">
                 <h3 className="text-center">
                   <FormattedMessage
@@ -108,7 +107,8 @@ export default class Bookmarks extends React.Component {
                     defaultMessage="You don't have any story saved."
                   />
                 </h3>
-              </div>}
+              </div>
+            )}
           </div>
         </div>
       </div>

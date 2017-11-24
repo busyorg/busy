@@ -36,7 +36,7 @@ export default class UserProfilePosts extends React.Component {
     getMoreUserComments: () => {},
   };
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.getUserComments({
       username: this.props.match.params.name,
     });

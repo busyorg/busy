@@ -3,12 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Feed from '../feed/Feed';
 
-import {
-  getIsAuthenticated,
-  getAuthenticatedUser,
-  getFeed,
-  getPosts,
-} from '../reducers';
+import { getIsAuthenticated, getAuthenticatedUser, getFeed, getPosts } from '../reducers';
 
 import {
   getFeedContentFromState,
@@ -19,15 +14,18 @@ import { getFeedContent, getMoreFeedContent } from '../feed/feedActions';
 import EmptyUserProfile from '../statics/EmptyUserProfile';
 import EmptyUserOwnProfile from '../statics/EmptyUserOwnProfile';
 
-@connect(state => ({
-  authenticated: getIsAuthenticated(state),
-  authenticatedUser: getAuthenticatedUser(state),
-  feed: getFeed(state),
-  posts: getPosts(state),
-}), {
-  getFeedContent,
-  getMoreFeedContent,
-})
+@connect(
+  state => ({
+    authenticated: getIsAuthenticated(state),
+    authenticatedUser: getAuthenticatedUser(state),
+    feed: getFeed(state),
+    posts: getPosts(state),
+  }),
+  {
+    getFeedContent,
+    getMoreFeedContent,
+  },
+)
 export default class UserReblogs extends React.Component {
   static propTypes = {
     authenticated: PropTypes.bool.isRequired,
@@ -46,7 +44,7 @@ export default class UserReblogs extends React.Component {
     getMoreFeedContent: () => {},
   };
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.getFeedContent({
       sortBy: 'blog',
       category: this.props.match.params.name,

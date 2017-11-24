@@ -91,7 +91,7 @@ class UserActivity extends React.Component {
     authenticatedUserName: '',
   };
 
-  componentWillMount() {
+  componentDidMount() {
     const {
       totalVestingShares,
       totalVestingFundSteem,
@@ -140,9 +140,10 @@ class UserActivity extends React.Component {
 
     return (
       <div>
-        {actions.length === 0 || usersAccountHistoryLoading || loadingGlobalProperties
-          ? <Loading style={{ marginTop: '20px' }} />
-          : <UserActivityActions
+        {actions.length === 0 || usersAccountHistoryLoading || loadingGlobalProperties ? (
+          <Loading style={{ marginTop: '20px' }} />
+        ) : (
+          <UserActivityActions
             actions={actions}
             currentUsername={user.name}
             getMoreUserAccountHistory={this.props.getMoreUserAccountHistory}
@@ -151,7 +152,8 @@ class UserActivity extends React.Component {
             userHasMoreActions={userHasMoreActions}
             loadingMoreUsersAccountHistory={loadingMoreUsersAccountHistory}
             accountHistoryFilter={accountHistoryFilter}
-          />}
+          />
+        )}
       </div>
     );
   }
