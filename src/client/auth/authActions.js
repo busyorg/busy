@@ -22,8 +22,8 @@ export const LOGOUT_SUCCESS = '@auth/LOGOUT_SUCCESS';
 
 export const UPDATE_AUTH_USER = createAsyncActionType('@auth/UPDATE_AUTH_USER');
 
-export const login = accessToken => (dispatch, getState, { steemConnectAPI }) => {
-  if (accessToken) steemConnectAPI.setAccessToken(accessToken);
+export const login = () => (dispatch, getState, { steemConnectAPI }) => {
+  if (!steemConnectAPI.options.accessToken) return Promise.resolve(null);
   if (getIsAuthenticated(getState())) return Promise.resolve(null);
   return dispatch({
     type: LOGIN,

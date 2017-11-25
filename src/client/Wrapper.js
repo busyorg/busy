@@ -6,7 +6,6 @@ import { withRouter } from 'react-router-dom';
 import { renderRoutes } from 'react-router-config';
 import { LocaleProvider, Layout } from 'antd';
 import enUS from 'antd/lib/locale-provider/en_US';
-import Cookie from 'js-cookie';
 
 import { getAuthenticatedUser, getLocale } from './reducers';
 
@@ -58,19 +57,12 @@ export default class Wrapper extends React.PureComponent {
     getTrendingTopics: () => {},
   };
 
-  static fetchData(store, match, req) {
-    const accessToken = req.cookies && req.cookies.access_token;
-    if (accessToken) {
-      return store.dispatch(login(accessToken));
-    }
-    return null;
+  static fetchData(store) {
+    return store.dispatch(login());
   }
 
   componentDidMount() {
-    const accessToken = Cookie.get('access_token');
-    if (accessToken) {
-      this.props.login(accessToken).then(() => this.props.getCurrentUserFollowing());
-    }
+    this.props.login().then(() => this.props.getCurrentUserFollowing());
     this.props.getRewardFund();
     this.props.getRebloggedList();
     this.props.getRate();

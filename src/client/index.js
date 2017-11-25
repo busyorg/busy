@@ -7,12 +7,18 @@ import Raven from 'raven-js';
 import Logger from 'js-logger';
 import { AppContainer } from 'react-hot-loader';
 import { message } from 'antd';
+import Cookie from 'js-cookie';
 import steemConnectAPI from './steemConnectAPI';
 import { history } from './routes';
 import getStore from './store';
 import AppHost from './AppHost';
 
 Logger.useDefaults();
+
+const accessToken = Cookie.get('access_token');
+if (accessToken) {
+  steemConnectAPI.setAccessToken(accessToken);
+}
 
 const store = getStore(steemConnectAPI);
 

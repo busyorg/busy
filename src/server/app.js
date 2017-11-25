@@ -74,13 +74,18 @@ function serverSideResponse(req, res) {
       baseURL: process.env.STEEMCONNECT_HOST,
       callbackURL: process.env.STEEMCONNECT_REDIRECT_URL,
     });
+
+    if (req.cookies.access_token) {
+      api.setAccessToken(req.cookies.access_token);
+    }
+
     const store = getStore(api);
 
     const branch = matchRoutes(routes, req.url);
     const promises = branch.map(({ route, match }) => {
       const fetchData = route.component.fetchData;
       if (fetchData instanceof Function) {
-        return fetchData(store, match, req);
+        return fetchData(store, match);
       }
       return Promise.resolve(null);
     });
