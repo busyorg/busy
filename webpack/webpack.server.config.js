@@ -6,7 +6,7 @@ const isDevelopment = process.env.NODE_ENV !== 'production';
 const baseDir = path.resolve(__dirname, '..');
 module.exports = {
 
-  entry: path.resolve(baseDir, './server/index.js'),
+  entry: path.resolve(baseDir, './src/server/index.js'),
 
   output: {
     filename: 'busy.server.js',
@@ -27,7 +27,6 @@ module.exports = {
     __filename: true,
     __dirname: true,
   },
-  watch: isDevelopment,
 
   module: {
     loaders: [
