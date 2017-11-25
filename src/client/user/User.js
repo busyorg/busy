@@ -73,7 +73,7 @@ export default class User extends React.Component {
 
   handleVisibleChange = (visible) => {
     this.setState({ popoverVisible: visible });
-  }
+  };
 
   render() {
     const { authenticated, authenticatedUser } = this.props;
@@ -82,7 +82,7 @@ export default class User extends React.Component {
     const { profile = {} } = user.json_metadata || {};
     const busyHost = global.postOrigin || 'https://busy.org';
     const desc = profile.about || `Post by ${username}`;
-    const image = getImage(`@${username}`);
+    const image = getImage(`@${username}`) || '/images/logo.png';
     const canonicalUrl = `${busyHost}/@${username}`;
     const url = `${busyHost}/@${username}`;
     const displayedUsername = profile.name || username || '';

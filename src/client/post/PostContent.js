@@ -169,7 +169,7 @@ class PostContent extends React.Component {
     const htmlBody = getHtml(body, {}, 'text');
     const bodyText = sanitize(htmlBody, { allowedTags: [] });
     const desc = `${bodyText.substring(0, 140)} by ${author}`;
-    const image = postMetaImage || getImage(`@${author}`);
+    const image = postMetaImage || getImage(`@${author}`) || '/images/logo.png';
     const canonicalUrl = `${canonicalHost}${content.url}`;
     const url = `${busyHost}${content.url}`;
     const metaTitle = `${title} - Busy`;
@@ -192,10 +192,7 @@ class PostContent extends React.Component {
           <meta property="twitter:site" content={'@steemit'} />
           <meta property="twitter:title" content={metaTitle} />
           <meta property="twitter:description" content={desc} />
-          <meta
-            property="twitter:image"
-            content={image || 'https://steemit.com/images/steemit-twshare.png'}
-          />
+          <meta property="twitter:image" content={image} />
         </Helmet>
         <StoryFull
           user={user}
