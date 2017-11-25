@@ -5,6 +5,10 @@ import { getIsAuthFetching, getIsAuthenticated } from '../reducers';
 import Loading from '../components/Icon/Loading';
 import Error401 from '../statics/Error401';
 
+function getDisplayName(WrappedComponent) {
+  return WrappedComponent.displayName || WrappedComponent.name || 'Component';
+}
+
 export default function requiresLogin(WrappedComponent) {
   const Component = ({ authenticated, fetching, ...props }) => {
     if (fetching) {
@@ -19,6 +23,8 @@ export default function requiresLogin(WrappedComponent) {
     }
     return <WrappedComponent {...props} />;
   };
+
+  Component.displayName = `RequiresLogin(${getDisplayName(WrappedComponent)})`;
 
   Component.propTypes = {
     authenticated: PropTypes.bool.isRequired,
