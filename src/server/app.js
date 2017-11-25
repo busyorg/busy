@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router';
 import { matchRoutes, renderRoutes } from 'react-router-config';
+import Raven from 'raven-js';
 
 import sc2 from 'sc2-sdk';
 import getStore from '../client/store';
@@ -31,6 +32,10 @@ const rootDir = path.join(__dirname, '../..');
 
 if (process.env.STEEMJS_URL) {
   steem.api.setOptions({ url: process.env.STEEMJS_URL });
+}
+
+if (process.env.SENTRY_PUBLIC_DSN) {
+  Raven.config(process.env.SENTRY_PUBLIC_DSN).install();
 }
 
 app.locals.env = process.env;
@@ -103,6 +108,7 @@ function serverSideResponse(req, res) {
       res.send(renderPage(store, content));
     })
     .catch((err) => {
+      Raven.captureException(err);
       console.error('SSR error occured, falling back to bundled application instead', err);
       res.send(indexHtml);
     });
