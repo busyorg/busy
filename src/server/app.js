@@ -127,6 +127,20 @@ app.get('/callback', (req, res) => {
   }
 });
 
+app.get('/i/@:referral', (req, res) => {
+  const { referral } = req.params;
+  steem.api.getAccountsAsync([referral]).then((accounts) => {
+    if (accounts[0]) {
+      res.cookie('referral', referral, { maxAge: 86400 * 30 * 1000 });
+      res.redirect(`/@${referral}`);
+    } else {
+      res.redirect('/');
+    }
+  }).catch(() => {
+    res.redirect('/');
+  });
+});
+
 app.get('/*', serverSideResponse);
 
 module.exports = { app, server };
