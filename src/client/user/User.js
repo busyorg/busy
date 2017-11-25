@@ -81,7 +81,7 @@ export default class User extends React.Component {
     const { user } = this.props;
     const { profile = {} } = user.json_metadata || {};
     const busyHost = global.postOrigin || 'https://busy.org';
-    const desc = profile.about || `Post by ${username}`;
+    const desc = profile.about || `Posts by ${username}`;
     const image = getImage(`@${username}`) || '/images/logo.png';
     const canonicalUrl = `${busyHost}/@${username}`;
     const url = `${busyHost}/@${username}`;
