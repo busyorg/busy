@@ -7,16 +7,19 @@ import { Tooltip } from 'antd';
 const VoteActionMessage = ({ actionDetails, currentUsername }) => {
   const postLink = `@${actionDetails.author}/${actionDetails.permlink}`;
   let voteType = 'unvoted';
-  let voteWeight = '';
+  const voteWeight = (
+    <FormattedNumber
+      // eslint-disable-next-line react/style-prop-object
+      style="percent"
+      value={Math.abs(actionDetails.weight) / 10000}
+      maximumFractionDigits={2}
+    />
+  );
 
   if (actionDetails.weight > 0) {
     voteType = 'upvoted';
-    // eslint-disable-next-line react/style-prop-object
-    voteWeight = <FormattedNumber style="percent" value={actionDetails.weight / 10000} />;
   } else if (actionDetails.weight < 0) {
     voteType = 'downvoted';
-    // eslint-disable-next-line react/style-prop-object
-    voteWeight = <FormattedNumber style="percent" value={Math.abs(actionDetails.weight) / 10000} />;
   }
 
   return (

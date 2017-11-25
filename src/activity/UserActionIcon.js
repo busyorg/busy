@@ -58,6 +58,8 @@ class UserActionIcon extends React.Component {
         return null;
       case accountHistoryConstants.DELETE_COMMENT:
         return 'icon-message';
+      case accountHistoryConstants.FILL_VESTING_WITHDRAW:
+        return 'icon-flashlight';
       default:
         return null;
     }

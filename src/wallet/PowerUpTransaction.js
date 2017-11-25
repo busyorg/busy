@@ -6,7 +6,7 @@ import { Tooltip } from 'antd';
 const PowerUpTransaction = ({ timestamp, amount }) => (
   <div className="UserWalletTransactions__transaction">
     <div className="UserWalletTransactions__icon-container">
-      <i className="iconfont icon-flashlight UserWalletTransactions__icon" />
+      <i className="iconfont icon-flashlight_fill UserWalletTransactions__icon" />
     </div>
     <div className="UserWalletTransactions__content">
       <div className="UserWalletTransactions__content-recipient">
