@@ -222,7 +222,7 @@ class Buttons extends React.Component {
         </span>
         {user.name && (
           <span>
-            <span className="CommentFooter__bullet" />
+            <span className="CommentFooter__bullet_br" />
             <a
               role="presentation"
               className={classNames('CommentFooter__link', {
