@@ -68,46 +68,44 @@ function renderPage(store, html) {
 }
 
 function serverSideResponse(req, res) {
-  try {
-    const api = sc2.Initialize({
-      app: process.env.STEEMCONNECT_CLIENT_ID,
-      baseURL: process.env.STEEMCONNECT_HOST,
-      callbackURL: process.env.STEEMCONNECT_REDIRECT_URL,
-    });
+  const api = sc2.Initialize({
+    app: process.env.STEEMCONNECT_CLIENT_ID,
+    baseURL: process.env.STEEMCONNECT_HOST,
+    callbackURL: process.env.STEEMCONNECT_REDIRECT_URL,
+  });
 
-    if (req.cookies.access_token) {
-      api.setAccessToken(req.cookies.access_token);
-    }
-
-    const store = getStore(api);
-
-    const branch = matchRoutes(routes, req.url);
-    const promises = branch.map(({ route, match }) => {
-      const fetchData = route.component.fetchData;
-      if (fetchData instanceof Function) {
-        return fetchData(store, match);
-      }
-      return Promise.resolve(null);
-    });
-
-    return Promise.all(promises)
-      .then(() => {
-        const context = {};
-        const content = renderToString(
-          <Provider store={store}>
-            <StaticRouter location={req.url} context={context}>
-              {renderRoutes(routes)}
-            </StaticRouter>
-          </Provider>,
-        );
-
-        res.send(renderPage(store, content));
-      })
-      .catch(err => console.error(err, err.stack));
-  } catch (err) {
-    console.error('SSR error occured, falling back to bundled application instead', err);
-    return res.send(indexHtml);
+  if (req.cookies.access_token) {
+    api.setAccessToken(req.cookies.access_token);
   }
+
+  const store = getStore(api);
+
+  const branch = matchRoutes(routes, req.url);
+  const promises = branch.map(({ route, match }) => {
+    const fetchData = route.component.fetchData;
+    if (fetchData instanceof Function) {
+      return fetchData(store, match);
+    }
+    return Promise.resolve(null);
+  });
+
+  return Promise.all(promises)
+    .then(() => {
+      const context = {};
+      const content = renderToString(
+        <Provider store={store}>
+          <StaticRouter location={req.url} context={context}>
+            {renderRoutes(routes)}
+          </StaticRouter>
+        </Provider>,
+      );
+
+      res.send(renderPage(store, content));
+    })
+    .catch((err) => {
+      console.error('SSR error occured, falling back to bundled application instead', err);
+      res.send(indexHtml);
+    });
 }
 
 app.get('/callback', (req, res) => {
