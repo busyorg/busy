@@ -312,8 +312,8 @@ class StoryFull extends React.Component {
               </span>
             </Tooltip>
             { Math.ceil(readingTime(post.body).minutes) > 1 &&
-              <div className="inline-block">
-                <span className="CommentFooter__bullet" />
+              <span>
+                <span className="StoryFull__bullet" />
                 <Tooltip
                   title={
                     <span>
@@ -334,7 +334,7 @@ class StoryFull extends React.Component {
                     />
                   </span>
                 </Tooltip>
-              </div>
+              </span>
             }
           </div>
           <Popover
