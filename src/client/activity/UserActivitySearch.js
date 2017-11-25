@@ -54,19 +54,19 @@ const filterValues = {
   [accountHistoryConstants.AUTHOR_REWARD]: {
     id: accountHistoryConstants.AUTHOR_REWARD,
     messageId: accountHistoryConstants.AUTHOR_REWARD,
-    defaultMessage: 'Author Reward',
+    defaultMessage: 'Author reward',
     value: [accountHistoryConstants.AUTHOR_REWARD],
   },
   [accountHistoryConstants.CURATION_REWARD]: {
     id: accountHistoryConstants.CURATION_REWARD,
     messageId: accountHistoryConstants.CURATION_REWARD,
-    defaultMessage: 'Curation Reward',
+    defaultMessage: 'Curation reward',
     value: [accountHistoryConstants.CURATION_REWARD],
   },
   [accountHistoryConstants.CLAIM_REWARDS]: {
     id: accountHistoryConstants.CLAIM_REWARDS,
     messageId: accountHistoryConstants.CLAIM_REWARDS,
-    defaultMessage: 'Claim Rewards',
+    defaultMessage: 'Claim rewards',
     value: [accountHistoryConstants.CLAIM_REWARDS, accountHistoryConstants.CLAIM_REWARD_BALANCE],
   },
   [accountHistoryConstants.POWERED_UP]: {

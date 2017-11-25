@@ -10,6 +10,7 @@ export const REBLOG = 'reblog';
 export const CURATION_REWARD = 'curation_reward';
 export const AUTHOR_REWARD = 'author_reward';
 export const ACCOUNT_WITNESS_VOTE = 'account_witness_vote';
+export const FILL_VESTING_WITHDRAW = 'fill_vesting_withdraw';
 
 // Wallet Action Types
 export const TRANSFER = 'transfer';
@@ -52,4 +53,5 @@ export const PARSED_PROPERTIES = [
   DELEGATE_VESTING_SHARES,
   CLAIM_REWARD_BALANCE,
   ACCOUNT_WITNESS_VOTE,
+  FILL_VESTING_WITHDRAW,
 ];

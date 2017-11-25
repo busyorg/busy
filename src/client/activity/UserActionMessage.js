@@ -124,12 +124,18 @@ class UserActionMessage extends React.Component {
       case accountHistoryConstants.ACCOUNT_UPDATE:
         return <FormattedMessage id="account_updated" defaultMessage="Account Updated" />;
       case accountHistoryConstants.AUTHOR_REWARD:
-        return <AuthorRewardMessage actionDetails={actionDetails} />;
+        return (
+          <AuthorRewardMessage
+            actionDetails={actionDetails}
+            totalVestingShares={totalVestingShares}
+            totalVestingFundSteem={totalVestingFundSteem}
+          />
+        );
       case accountHistoryConstants.CURATION_REWARD:
         return (
           <FormattedMessage
             id="curation_reward_for_post"
-            defaultMessage="Curation Reward: {steemPower} SP for {author} ({postLink})"
+            defaultMessage="Curation reward: {steemPower} SP for {author} ({postLink})"
             values={{
               steemPower: (
                 <FormattedNumber
@@ -175,6 +181,16 @@ class UserActionMessage extends React.Component {
             values={{
               account: <Link to={`/@${actionDetails.account}`}>{actionDetails.account}</Link>,
               witness: <Link to={`/@${actionDetails.witness}`}>{actionDetails.witness}</Link>,
+            }}
+          />
+        );
+      case accountHistoryConstants.FILL_VESTING_WITHDRAW:
+        return (
+          <FormattedMessage
+            id="power_down_message"
+            defaultMessage="Started power down: {value}"
+            values={{
+              value: actionDetails.deposited,
             }}
           />
         );
