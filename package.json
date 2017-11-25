@@ -112,7 +112,7 @@
     "remarkable": "^1.7.1",
     "resize-observer-polyfill": "^1.4.2",
     "sanitize-html": "^1.13.0",
-    "sc2-sdk": "^1.0.0",
+    "sc2-sdk": "^1.0.1",
     "secure-random": "^1.1.1",
     "socket.io": "^1.4.5",
     "speakingurl": "^11.0.0",

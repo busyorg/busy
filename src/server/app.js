@@ -6,7 +6,7 @@ import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router';
 import { matchRoutes, renderRoutes } from 'react-router-config';
 
-import sc2 from '../common/sc2';
+import sc2 from 'sc2-sdk';
 import getStore from '../client/store';
 import routes from '../common/routes';
 
