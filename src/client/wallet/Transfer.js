@@ -119,6 +119,39 @@ export default class Transfer extends React.Component {
       return;
     }
 
+    if (value.length < 3) {
+      callback([
+        new Error(
+          intl.formatMessage(
+            {
+              id: 'to_error_not_found_username',
+              defaultMessage: "Username {username} is too short.",
+            },
+            {
+              username: value,
+            },
+          ),
+        ),
+      ]);
+    }
+    
+    
+    if (value.length > 16) {
+      callback([
+        new Error(
+          intl.formatMessage(
+            {
+              id: 'to_error_not_found_username',
+              defaultMessage: "Username {username} is too long.",
+            },
+            {
+              username: value,
+            },
+          ),
+        ),
+      ]);
+    }
+    
     steem.api.getAccounts([value], (err, result) => {
       if (result[0]) {
         callback();
