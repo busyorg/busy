@@ -141,6 +141,20 @@ app.get('/i/@:referral', (req, res) => {
   });
 });
 
+app.get('/i/:parent/@:referral/:permlink', (req, res) => {
+  const { parent, referral, permlink } = req.params;
+  steem.api.getContentAsync(referral, permlink).then((content) => {
+    if (content.author) {
+      res.cookie('referral', referral, { maxAge: 86400 * 30 * 1000 });
+      res.redirect(`/${parent}/@${referral}/${permlink}`);
+    } else {
+      res.redirect('/');
+    }
+  }).catch(() => {
+    res.redirect('/');
+  });
+});
+
 app.get('/*', serverSideResponse);
 
 module.exports = { app, server };
