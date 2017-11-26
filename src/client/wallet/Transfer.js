@@ -125,7 +125,7 @@ export default class Transfer extends React.Component {
           intl.formatMessage(
             {
               id: 'username_too_short',
-              defaultMessage: "Username {username} is too short.",
+              defaultMessage: 'Username {username} is too short.',
             },
             {
               username: value,
@@ -134,14 +134,13 @@ export default class Transfer extends React.Component {
         ),
       ]);
     }
-    
     if (value.length > 16) {
       callback([
         new Error(
           intl.formatMessage(
             {
               id: 'username_too_long',
-              defaultMessage: "Username {username} is too long.",
+              defaultMessage: 'Username {username} is too long.',
             },
             {
               username: value,
@@ -150,7 +149,6 @@ export default class Transfer extends React.Component {
         ),
       ]);
     }
-    
     steem.api.getAccounts([value], (err, result) => {
       if (result[0]) {
         callback();
