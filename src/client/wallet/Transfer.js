@@ -124,7 +124,7 @@ export default class Transfer extends React.Component {
         new Error(
           intl.formatMessage(
             {
-              id: 'to_error_not_found_username',
+              id: 'username_too_short',
               defaultMessage: "Username {username} is too short.",
             },
             {
@@ -141,7 +141,7 @@ export default class Transfer extends React.Component {
         new Error(
           intl.formatMessage(
             {
-              id: 'to_error_not_found_username',
+              id: 'username_too_long',
               defaultMessage: "Username {username} is too long.",
             },
             {
