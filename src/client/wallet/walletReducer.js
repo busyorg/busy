@@ -157,11 +157,17 @@ export default function walletReducer(state = initialState, action) {
           state.currentFilteredActions,
           action.payload.filteredMoreActions,
         ),
+        loadingMoreUsersAccountHistory: false,
       };
     case walletActions.UPDATE_FILTERED_ACTIONS:
       return {
         ...state,
         currentFilteredActions: action.payload,
+      };
+    case walletActions.LOADING_MORE_USERS_ACCOUNT_HISTORY:
+      return {
+        ...state,
+        loadingMoreUsersAccountHistory: true,
       };
     default:
       return state;

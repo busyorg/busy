@@ -24,7 +24,7 @@ const UserActivitySearchMessage = ({
       <div className="UserActivityActions__search__container">
         <FormattedMessage
           id="loading_more_account_history_for_filters"
-          defaultMessage="Loading more of this user's account history for your filters"
+          defaultMessage="Loading more of this user's account history for your filters..."
         />
       </div>
     );
@@ -33,7 +33,7 @@ const UserActivitySearchMessage = ({
       <div className="UserActivityActions__search__container">
         <FormattedMessage
           id="no_results_found_for_search"
-          defaultMessage="No results were found for your search input"
+          defaultMessage="No results were found for your filters."
         />
       </div>
     );
