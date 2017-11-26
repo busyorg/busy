@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import _ from 'lodash';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 import { Checkbox } from 'antd';
 import { getUser, getAuthenticatedUser } from '../reducers';
 import * as accountHistoryConstants from '../../common/constants/accountHistory';
@@ -124,10 +123,9 @@ const rewardsFilters = [
   filterValues[accountHistoryConstants.CLAIM_REWARDS],
 ];
 
-@withRouter
 @connect(
   (state, ownProps) => ({
-    user: ownProps.isCurrentUser
+    user: ownProps.location.pathname === '/activity'
       ? getAuthenticatedUser(state)
       : getUser(state, ownProps.match.params.name),
   }),
@@ -137,13 +135,8 @@ const rewardsFilters = [
 )
 class UserActivitySearch extends React.Component {
   static propTypes = {
-    isCurrentUser: PropTypes.bool, // eslint-disable-line react/no-unused-prop-types
     updateAccountHistoryFilter: PropTypes.func.isRequired,
     user: PropTypes.shape().isRequired,
-  };
-
-  static defaultProps = {
-    isCurrentUser: false,
   };
 
   state = {
