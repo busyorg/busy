@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import {
@@ -35,9 +36,10 @@ import Loading from '../components/Icon/Loading';
 class UserActivityActionsLoader extends React.Component {
   static propTypes = {
     currentDisplayedActions: PropTypes.arrayOf(PropTypes.shape()),
+    accountHistoryFilter: PropTypes.arrayOf(PropTypes.string),
     userHasMoreActions: PropTypes.bool.isRequired,
-    usersAccountHistory: PropTypes.shape().isRequired,
     loadingMoreUsersAccountHistory: PropTypes.bool.isRequired,
+    usersAccountHistory: PropTypes.shape().isRequired,
   };
 
   static defaultProps = {
@@ -51,8 +53,12 @@ class UserActivityActionsLoader extends React.Component {
     const actions = nextProps.usersAccountHistory[currentUsername];
     const hasMore =
       nextProps.userHasMoreActions || actions.length !== nextProps.currentDisplayedActions.length;
+    const diffActivityFilter = !_.isEqual(
+      this.props.accountHistoryFilter,
+      nextProps.accountHistoryFilter,
+    );
 
-    return nextProps.loadingMoreUsersAccountHistory || !hasMore;
+    return nextProps.loadingMoreUsersAccountHistory || !hasMore || diffActivityFilter;
   }
 
   render() {
