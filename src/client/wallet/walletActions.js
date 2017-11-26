@@ -125,6 +125,12 @@ export const loadMoreCurrentUsersActions = username => (dispatch, getState) => {
   const { usersAccountHistory, currentDisplayedActions, accountHistoryFilter } = wallet;
   const currentUsersActions = usersAccountHistory[username];
   const lastDisplayedAction = _.last(currentDisplayedActions);
+
+  if (_.isEmpty(lastDisplayedAction)) {
+    dispatch(setInitialCurrentDisplayedActions(username));
+    return;
+  }
+
   const lastDisplayedActionCount = lastDisplayedAction.actionCount;
   const lastDisplayedActionIndex = _.findIndex(
     currentUsersActions,

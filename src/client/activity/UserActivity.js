@@ -14,6 +14,7 @@ import {
   getUsersEstAccountsValues,
   getLoadingGlobalProperties,
   getAccountHistoryFilter,
+  getCurrentDisplayedActions,
 } from '../reducers';
 import {
   getGlobalProperties,
@@ -21,6 +22,7 @@ import {
   getUserAccountHistory,
   getMoreUserAccountHistory,
   updateAccountHistoryFilter,
+  setInitialCurrentDisplayedActions,
 } from '../wallet/walletActions';
 import { getAccountWithFollowingCount } from '../user/usersActions';
 import Loading from '../components/Icon/Loading';
@@ -40,6 +42,7 @@ import UserActivityActions from './UserActivityActions';
     usersEstAccountsValues: getUsersEstAccountsValues(state),
     loadingGlobalProperties: getLoadingGlobalProperties(state),
     accountHistoryFilter: getAccountHistoryFilter(state),
+    currentDisplayedActions: getCurrentDisplayedActions(state),
   }),
   {
     getGlobalProperties,
@@ -48,33 +51,37 @@ import UserActivityActions from './UserActivityActions';
     getAccountWithFollowingCount,
     getUserEstAccountValue,
     updateAccountHistoryFilter,
+    setInitialCurrentDisplayedActions,
   },
 )
 class UserActivity extends React.Component {
   static propTypes = {
-    location: PropTypes.shape().isRequired,
-    totalVestingShares: PropTypes.string.isRequired,
-    totalVestingFundSteem: PropTypes.string.isRequired,
-    user: PropTypes.shape().isRequired,
+    currentDisplayedActions: PropTypes.arrayOf(PropTypes.shape()),
+    usersAccountHistoryLoading: PropTypes.bool.isRequired,
+    loadingGlobalProperties: PropTypes.bool.isRequired,
+    isCurrentUser: PropTypes.bool,
     getGlobalProperties: PropTypes.func.isRequired,
     getUserAccountHistory: PropTypes.func.isRequired,
     getUserEstAccountValue: PropTypes.func.isRequired,
     getAccountWithFollowingCount: PropTypes.func.isRequired,
+    updateAccountHistoryFilter: PropTypes.func.isRequired,
+    setInitialCurrentDisplayedActions: PropTypes.func.isRequired,
+    location: PropTypes.shape().isRequired,
+    user: PropTypes.shape().isRequired,
     usersAccountHistory: PropTypes.shape().isRequired,
     usersEstAccountsValues: PropTypes.shape().isRequired,
-    usersAccountHistoryLoading: PropTypes.bool.isRequired,
-    loadingGlobalProperties: PropTypes.bool.isRequired,
-    isCurrentUser: PropTypes.bool,
+    totalVestingShares: PropTypes.string.isRequired,
+    totalVestingFundSteem: PropTypes.string.isRequired,
     authenticatedUserName: PropTypes.string,
-    updateAccountHistoryFilter: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
+    currentDisplayedActions: [],
     isCurrentUser: false,
     authenticatedUserName: '',
   };
 
-  componentWillMount() {
+  componentDidMount() {
     const {
       totalVestingShares,
       totalVestingFundSteem,
@@ -83,6 +90,7 @@ class UserActivity extends React.Component {
       user,
       isCurrentUser,
       authenticatedUserName,
+      currentDisplayedActions,
     } = this.props;
     const username = isCurrentUser
       ? authenticatedUserName
@@ -104,7 +112,14 @@ class UserActivity extends React.Component {
       this.props.getUserEstAccountValue(user);
     }
 
-    this.props.updateAccountHistoryFilter([]);
+    if (_.isEmpty(currentDisplayedActions)) {
+      this.props.setInitialCurrentDisplayedActions(user.name);
+    }
+
+    this.props.updateAccountHistoryFilter({
+      username: user.name,
+      accountHistoryFilter: [],
+    });
   }
 
   render() {
