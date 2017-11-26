@@ -134,9 +134,10 @@ export const loadMoreCurrentUsersActions = username => (dispatch, getState) => {
     lastDisplayedActionIndex + 1,
     lastDisplayedActionIndex + 1 + ACTIONS_DISPLAY_LIMIT,
   );
-  const lastMoreActionsCount = _.last(moreActions).actionCount;
+  const lastMoreAction = _.last(moreActions);
+  const lastMoreActionCount = _.isEmpty(lastMoreAction) ? 0 : lastMoreAction.actionCount;
 
-  if (moreActions.length === ACTIONS_DISPLAY_LIMIT || lastMoreActionsCount === 0) {
+  if (moreActions.length === ACTIONS_DISPLAY_LIMIT || lastMoreActionCount === 0) {
     const filteredMoreActions = _.filter(moreActions, userAction =>
       actionsFilter(userAction, accountHistoryFilter, username),
     );
