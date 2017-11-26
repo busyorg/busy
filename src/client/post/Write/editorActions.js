@@ -168,7 +168,7 @@ export function createPost(postData) {
     let referral;
     if (Cookie.get('referral')) {
       const accountCreatedDaysAgo = (new Date().getTime() - new Date(`${getState().auth.user.created}Z`).getTime()) / 1000 / 60 / 60 / 24;
-      if (accountCreatedDaysAgo < 600) {
+      if (accountCreatedDaysAgo < 30) {
         referral = Cookie.get('referral');
       }
     }
