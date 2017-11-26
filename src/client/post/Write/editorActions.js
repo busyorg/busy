@@ -79,9 +79,9 @@ const broadcastComment = (
   reward,
   upvote,
   permlink,
+  referral,
 ) => {
   const operations = [];
-  const referral = Cookie.get('referral');
   const commentOp = [
     'comment',
     {
@@ -165,6 +165,14 @@ export function createPost(postData) {
 
     const newBody = isUpdating ? getBodyPatchIfSmaller(postData.originalBody, body) : body;
 
+    let referral;
+    if (Cookie.get('referral')) {
+      const accountCreatedDaysAgo = (new Date().getTime() - new Date(`${getState().auth.user.created}Z`).getTime()) / 1000 / 60 / 60 / 24;
+      if (accountCreatedDaysAgo < 600) {
+        referral = Cookie.get('referral');
+      }
+    }
+
     dispatch({
       type: CREATE_POST,
       payload: {
@@ -180,6 +188,7 @@ export function createPost(postData) {
             !isUpdating && reward,
             !isUpdating && upvote,
             permlink,
+            referral,
           ).then((result) => {
             if (draftId) {
               dispatch(deleteDraft(draftId));
@@ -194,7 +203,6 @@ export function createPost(postData) {
                 value: 10,
               });
             }
-
             return result;
           }),
         ),
