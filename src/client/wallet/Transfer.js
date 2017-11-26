@@ -135,7 +135,6 @@ export default class Transfer extends React.Component {
       ]);
     }
     
-    
     if (value.length > 16) {
       callback([
         new Error(
