@@ -79,7 +79,7 @@ module.exports = {
     },
     proxy: {
       '/callback': 'http://localhost:3001',
-      '/i/*': 'http://localhost:3001',
+      '/i/**': 'http://localhost:3001',
     },
   },
 };
