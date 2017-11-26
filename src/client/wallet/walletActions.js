@@ -6,7 +6,9 @@ import {
   getAccountHistory,
   getDynamicGlobalProperties,
   isWalletTransaction,
+  defaultAccountLimit,
 } from '../helpers/apiHelpers';
+import { ACTIONS_DISPLAY_LIMIT, actionsFilter } from '../helpers/accountHistoryHelper';
 
 export const OPEN_TRANSFER = '@wallet/OPEN_TRANSFER';
 export const CLOSE_TRANSFER = '@wallet/CLOSE_TRANSFER';
@@ -19,6 +21,10 @@ export const GET_USER_EST_ACCOUNT_VALUE = createAsyncActionType(
   '@users/GET_USER_EST_ACCOUNT_VALUE',
 );
 export const UPDATE_ACCOUNT_HISTORY_FILTER = '@users/UPDATE_ACCOUNT_HISTORY_FILTER';
+export const SET_INITIAL_CURRENT_DISPLAYED_ACTIONS = '@users/SET_INITIAL_CURRENT_DISPLAYED_ACTIONS';
+export const ADD_MORE_ACTIONS_TO_CURRENT_DISPLAYED_ACTIONS =
+  '@users/ADD_MORE_ACTIONS_TO_CURRENT_DISPLAYED_ACTIONS';
+export const UPDATE_FILTERED_ACTIONS = '@users/UPDATE_FILTERED_ACTIONS';
 
 export const openTransfer = createAction(OPEN_TRANSFER);
 export const closeTransfer = createAction(CLOSE_TRANSFER);
@@ -99,3 +105,42 @@ export const getUserEstAccountValue = user => dispatch =>
   });
 
 export const updateAccountHistoryFilter = createAction(UPDATE_ACCOUNT_HISTORY_FILTER);
+
+export const setInitialCurrentDisplayedActions = createAction(
+  SET_INITIAL_CURRENT_DISPLAYED_ACTIONS,
+);
+
+export const addMoreActionsToCurrentDisplayedActions = createAction(
+  ADD_MORE_ACTIONS_TO_CURRENT_DISPLAYED_ACTIONS,
+);
+
+export const loadMoreCurrentUsersActions = username => (dispatch, getState) => {
+  const { wallet } = getState();
+  const { usersAccountHistory, currentDisplayedActions, accountHistoryFilter } = wallet;
+  const currentUsersActions = usersAccountHistory[username];
+  const lastDisplayedAction = _.last(currentDisplayedActions);
+  const lastDisplayedActionCount = lastDisplayedAction.actionCount;
+  const lastDisplayedActionIndex = _.findIndex(
+    currentUsersActions,
+    userAction => userAction.actionCount === lastDisplayedActionCount,
+  );
+  const moreActions = currentUsersActions.slice(
+    lastDisplayedActionIndex + 1,
+    lastDisplayedActionIndex + 1 + ACTIONS_DISPLAY_LIMIT,
+  );
+  const lastMoreActionsCount = _.last(moreActions).actionCount;
+
+  if (moreActions.length === ACTIONS_DISPLAY_LIMIT || lastMoreActionsCount === 0) {
+    const filteredMoreActions = _.filter(moreActions, userAction =>
+      actionsFilter(userAction, accountHistoryFilter, username),
+    );
+    dispatch(addMoreActionsToCurrentDisplayedActions({
+      moreActions,
+      filteredMoreActions,
+    }));
+  } else {
+    const lastActionCount = _.last(currentUsersActions).actionCount;
+    const limit = lastActionCount < defaultAccountLimit ? lastActionCount : defaultAccountLimit;
+    dispatch(getMoreUserAccountHistory(username, lastActionCount, limit));
+  }
+};

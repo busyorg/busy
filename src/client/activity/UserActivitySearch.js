@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import _ from 'lodash';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { Checkbox } from 'antd';
+import { getUser, getAuthenticatedUser } from '../reducers';
 import * as accountHistoryConstants from '../../common/constants/accountHistory';
 import { updateAccountHistoryFilter } from '../wallet/walletActions';
 import './UserActivitySearch.less';
@@ -31,13 +33,13 @@ const filterValues = {
     id: accountHistoryConstants.FOLLOWED,
     messageId: 'followed_filter',
     defaultMessage: accountHistoryConstants.FOLLOWED,
-    value: [` ${accountHistoryConstants.FOLLOWED}`],
+    value: [`+${accountHistoryConstants.FOLLOWED}`],
   },
   [accountHistoryConstants.UNFOLLOWED]: {
     id: accountHistoryConstants.UNFOLLOWED,
     messageId: 'unfollowed_filter',
     defaultMessage: accountHistoryConstants.UNFOLLOWED,
-    value: [` ${accountHistoryConstants.UNFOLLOWED}`],
+    value: [`-${accountHistoryConstants.UNFOLLOWED}`],
   },
   [accountHistoryConstants.REPLIED]: {
     id: accountHistoryConstants.REPLIED,
@@ -122,12 +124,26 @@ const rewardsFilters = [
   filterValues[accountHistoryConstants.CLAIM_REWARDS],
 ];
 
-@connect(null, {
-  updateAccountHistoryFilter,
-})
+@withRouter
+@connect(
+  (state, ownProps) => ({
+    user: ownProps.isCurrentUser
+      ? getAuthenticatedUser(state)
+      : getUser(state, ownProps.match.params.name),
+  }),
+  {
+    updateAccountHistoryFilter,
+  },
+)
 class UserActivitySearch extends React.Component {
   static propTypes = {
+    isCurrentUser: PropTypes.bool, // eslint-disable-line react/no-unused-prop-types
     updateAccountHistoryFilter: PropTypes.func.isRequired,
+    user: PropTypes.shape().isRequired,
+  };
+
+  static defaultProps = {
+    isCurrentUser: false,
   };
 
   state = {
@@ -158,11 +174,7 @@ class UserActivitySearch extends React.Component {
       ...this.state.checked,
       [e.target.name]: e.target.checked,
     };
-
-    this.setState({
-      checked,
-    });
-    const formattedCheckedValues = _.reduce(
+    const accountHistoryFilter = _.reduce(
       checked,
       (filterArray, isChecked, filter) => {
         if (isChecked) {
@@ -172,7 +184,17 @@ class UserActivitySearch extends React.Component {
       },
       [],
     );
-    this.props.updateAccountHistoryFilter(formattedCheckedValues);
+
+    this.setState(
+      {
+        checked,
+      },
+      () =>
+        this.props.updateAccountHistoryFilter({
+          username: this.props.user.name,
+          accountHistoryFilter,
+        }),
+    );
   };
 
   toggleFilterSection = showFilter =>
@@ -198,6 +220,7 @@ class UserActivitySearch extends React.Component {
 
   render() {
     const { showGeneral, showFinance, showRewards } = this.state;
+
     return (
       <div className="UserActivitySearch">
         <h4 className="UserActivitySearch__title">
@@ -214,18 +237,15 @@ class UserActivitySearch extends React.Component {
             >
               <FormattedMessage id="general" defaultMessage="general" />
               <span className="UserActivitySearch__filters__title__icon">
-                {showGeneral ? (
-                  <i className="iconfont icon-offline" />
-                ) : (
-                  <i className="iconfont icon-addition" />
-                )}
+                {showGeneral
+                  ? <i className="iconfont icon-offline" />
+                  : <i className="iconfont icon-addition" />}
               </span>
             </div>
-            {showGeneral && (
+            {showGeneral &&
               <div className="UserActivitySearch__filters__content">
                 {this.renderFilters(generalFilters)}
-              </div>
-            )}
+              </div>}
           </div>
           <div className="UserActivitySearch__filters__container">
             <div
@@ -235,18 +255,15 @@ class UserActivitySearch extends React.Component {
             >
               <FormattedMessage id="finance" defaultMessage="finance" />
               <span className="UserActivitySearch__filters__title__icon">
-                {showFinance ? (
-                  <i className="iconfont icon-offline" />
-                ) : (
-                  <i className="iconfont icon-addition" />
-                )}
+                {showFinance
+                  ? <i className="iconfont icon-offline" />
+                  : <i className="iconfont icon-addition" />}
               </span>
             </div>
-            {showFinance && (
+            {showFinance &&
               <div className="UserActivitySearch__filters__content">
                 {this.renderFilters(financeFilters)}
-              </div>
-            )}
+              </div>}
           </div>
           <div className="UserActivitySearch__filters__container">
             <div
@@ -256,18 +273,15 @@ class UserActivitySearch extends React.Component {
             >
               <FormattedMessage id="rewards" defaultMessage="Rewards" />
               <span className="UserActivitySearch__filters__title__icon">
-                {showRewards ? (
-                  <i className="iconfont icon-offline" />
-                ) : (
-                  <i className="iconfont icon-addition" />
-                )}
+                {showRewards
+                  ? <i className="iconfont icon-offline" />
+                  : <i className="iconfont icon-addition" />}
               </span>
             </div>
-            {showRewards && (
+            {showRewards &&
               <div className="UserActivitySearch__filters__content">
                 {this.renderFilters(rewardsFilters)}
-              </div>
-            )}
+              </div>}
           </div>
         </div>
       </div>

@@ -71,7 +71,7 @@ export default class RightSidebar extends React.Component {
       <div>
         {!authenticated && <SignUp />}
         <Switch>
-          <Route path="/activity" render={() => <UserActivitySearch />} />
+          <Route path="/activity" render={() => <UserActivitySearch isCurrentUser />} />
           <Route path="/@:name/activity" render={() => <UserActivitySearch />} />
           <Route path="/@:name/transfers" render={() => <WalletSidebar />} />
           <Route

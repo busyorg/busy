@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import * as walletActions from './walletActions';
+import { actionsFilter, ACTIONS_DISPLAY_LIMIT } from '../helpers/accountHistoryHelper';
 
 const initialState = {
   transferVisible: false,
@@ -14,6 +15,8 @@ const initialState = {
   loadingGlobalProperties: true,
   loadingMoreUsersAccountHistory: false,
   accountHistoryFilter: [],
+  currentDisplayedActions: [],
+  currentFilteredActions: [],
 };
 
 export default function walletReducer(state = initialState, action) {
@@ -123,10 +126,42 @@ export default function walletReducer(state = initialState, action) {
         ...state,
         loadingEstAccountValue: false,
       };
-    case walletActions.UPDATE_ACCOUNT_HISTORY_FILTER:
+    case walletActions.UPDATE_ACCOUNT_HISTORY_FILTER: {
+      const currentUserActions = state.usersAccountHistory[action.payload.username];
+      const initialActions = _.slice(currentUserActions, 0, ACTIONS_DISPLAY_LIMIT);
+      const initialFilteredActions = _.filter(initialActions, userAction =>
+        actionsFilter(userAction, action.payload.accountHistoryFilter, action.payload.username),
+      );
       return {
         ...state,
-        accountHistoryFilter: action.payload,
+        accountHistoryFilter: action.payload.accountHistoryFilter,
+        currentDisplayedActions: initialActions,
+        currentFilteredActions: initialFilteredActions,
+      };
+    }
+    case walletActions.SET_INITIAL_CURRENT_DISPLAYED_ACTIONS: {
+      const currentUserActions = state.usersAccountHistory[action.payload];
+      return {
+        ...state,
+        currentDisplayedActions: _.slice(currentUserActions, 0, ACTIONS_DISPLAY_LIMIT),
+      };
+    }
+    case walletActions.ADD_MORE_ACTIONS_TO_CURRENT_DISPLAYED_ACTIONS:
+      return {
+        ...state,
+        currentDisplayedActions: _.concat(
+          state.currentDisplayedActions,
+          action.payload.moreActions,
+        ),
+        currentFilteredActions: _.concat(
+          state.currentFilteredActions,
+          action.payload.filteredMoreActions,
+        ),
+      };
+    case walletActions.UPDATE_FILTERED_ACTIONS:
+      return {
+        ...state,
+        currentFilteredActions: action.payload,
       };
     default:
       return state;
@@ -149,3 +184,5 @@ export const getUserHasMoreAccountHistory = (state, username) => {
   return lastAction.actionCount !== 0;
 };
 export const getAccountHistoryFilter = state => state.accountHistoryFilter;
+export const getCurrentDisplayedActions = state => state.currentDisplayedActions;
+export const getCurrentFilteredActions = state => state.currentFilteredActions;
