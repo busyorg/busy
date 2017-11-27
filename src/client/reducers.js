@@ -57,6 +57,8 @@ export const getIsEditorSaving = state => fromEditor.getIsEditorSaving(state.edi
 export const getPendingDrafts = state => fromEditor.getPendingDrafts(state.editor);
 export const getIsPostEdited = (state, permlink) =>
   fromEditor.getIsPostEdited(state.editor, permlink);
+export const getUpvoteSetting = state => fromEditor.getUpvoteSetting(state.editor);
+export const getRewardSetting = state => fromEditor.getRewardSetting(state.editor);
 
 export const getRate = state => fromApp.getRate(state.app);
 export const getIsTrendingTopicsLoading = state => fromApp.getIsTrendingTopicsLoading(state.app);

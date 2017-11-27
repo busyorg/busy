@@ -10,6 +10,8 @@ const defaultState = {
   draftPosts: {},
   pendingDrafts: [],
   editedPosts: [],
+  upvoteSetting: true,
+  rewardSetting: '50',
 };
 
 const editor = (state = defaultState, action) => {
@@ -33,6 +35,9 @@ const editor = (state = defaultState, action) => {
       return {
         ...state,
         draftPosts: action.payload.user_metadata.drafts || defaultState.draftPosts,
+        upvoteSetting: action.payload.user_metadata.settings.upvoteSetting || false,
+        rewardSetting: action.payload.user_metadata.settings.rewardSetting
+          || defaultState.rewardSetting,
       };
     case editorActions.NEW_POST:
       return {
@@ -96,6 +101,23 @@ const editor = (state = defaultState, action) => {
         ...state,
         pendingDrafts: state.pendingDrafts.filter(id => id !== action.meta.id),
       };
+    case editorActions.UPDATE_LAST_SETTINGS_START:
+      return {
+        ...state,
+        saving: true,
+      };
+    case editorActions.UPDATE_LAST_SETTINGS_SUCCESS:
+      return {
+        ...state,
+        upvoteSetting: action.payload.upvoteSetting,
+        rewardSetting: action.payload.rewardSetting,
+        saving: false,
+      };
+    case editorActions.UPDATE_LAST_SETTINGS_ERROR:
+      return {
+        ...state,
+        saving: false,
+      };
     default:
       return state;
   }
@@ -108,3 +130,5 @@ export const getIsEditorLoading = state => state.loading;
 export const getIsEditorSaving = state => state.saving;
 export const getPendingDrafts = state => state.pendingDrafts;
 export const getIsPostEdited = (state, permlink) => state.editedPosts.includes(permlink);
+export const getUpvoteSetting = state => state.upvoteSetting;
+export const getRewardSetting = state => state.rewardSetting;
