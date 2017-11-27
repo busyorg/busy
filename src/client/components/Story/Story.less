@@ -1,0 +1,166 @@
+@import (reference) "../../styles/custom.less";
+@import (reference) "../../styles/modules/variables.less";
+
+.Story {
+  background-color: @white;
+  color: #353535;
+  border-top: solid 1px #e9e7e7;
+  border-bottom: solid 1px #e9e7e7;
+  @media @small {
+    border-radius: 4px;
+    border: solid 1px #e9e7e7;
+  }
+
+  &__content {
+    position: relative;
+  }
+
+  &__reblog {
+    margin: 8px 0 -8px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #99aab5;
+
+    & > i {
+      font-size: 18px;
+      margin-right: 4px;
+    }
+
+    & > span {
+      vertical-align: 2px;
+    }
+  }
+
+  &:not(:first-child) {
+    margin-top: 12px;
+  }
+
+  &:last-child {
+    margin-bottom: 12px;
+  }
+
+  &__more {
+    position: absolute;
+    right: 16px;
+    top: 20px;
+    font-size: 20px !important;
+    color: #c2ccd3;
+    line-height: 12px;
+
+    &:hover {
+      cursor: pointer;
+      color: darken(#c2ccd3, 15%);
+    }
+  }
+
+  &__header {
+    padding: 16px;
+    display: flex;
+
+    &__text {
+      margin: 0 6px;
+
+      @media @small {
+        margin-left: 0 12px;
+      }
+
+      a > h4 {
+        font-weight: bold;
+        color: @primary-color;
+
+        .ant-tag {
+          margin-left: 6px;
+          font-size: 12px;
+          vertical-align: 1px;
+          padding: 0 4px;
+
+          @media @small {
+            padding: 0 8px;
+          }
+        }
+      }
+    }
+  }
+
+  &__date {
+    position: relative;
+    top: -2px;
+    font-size: 14px;
+    color: #99aab5;
+  }
+
+  &__topics > button {
+    margin: 0 2px;
+  }
+
+  &__content {
+    word-wrap: break-word;
+
+    &__title {
+      color: #353535;
+
+      &:hover,
+      &:focus,
+      &:active {
+        color: #353535;
+        text-decoration: none;
+      }
+
+      &:visited {
+        h2 {
+          color: #99aab5;
+        }
+      }
+
+      & > h2 {
+        font-weight: bold;
+        font-size: 20px;
+        margin: 0 16px 8px;
+
+        .ant-tag {
+          vertical-align: 1px;
+        }
+      }
+    }
+
+    &__preview {
+      color: #353535;
+
+      &:hover,
+      &:focus,
+      &:active,
+      &:visited {
+        color: #353535;
+        text-decoration: none;
+      }
+
+      video {
+        width: 100%;
+        max-height: 400px;
+      }
+    }
+
+    &__body {
+      padding: 4px 16px;
+    }
+
+    & &__img-container {
+      width: 100%;
+
+      & > img {
+        display: block;
+        max-width: 100%;
+        max-height: 400px;
+        margin: 4px auto;
+      }
+    }
+  }
+
+  &__footer {
+    padding: 0 16px;
+  }
+
+  &__warning__message {
+    padding: 10px 16px;
+  }
+}

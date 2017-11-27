@@ -1,0 +1,95 @@
+@import (reference) "../../styles/modules/variables.less";
+@import (reference) "../../styles/custom.less";
+@import (reference) "../../styles/fonts.less";
+
+.StoryFull {
+  margin: 12px 0;
+
+  &__bullet:after {
+    content: "\2022";
+    font-size: 14px;
+    margin: 0 8px;
+  }
+
+  &__reply {
+    border-radius: 5px;
+    border: solid 1px #e9e7e7;
+    padding: 16px 12px;
+
+    & > &__title {
+      color: #353535;
+      font-weight: 700;
+      line-height: 1.3em;
+    }
+  }
+
+  &__title {
+    color: #353535;
+    font-weight: 700;
+    line-height: 1.3em;
+    font-size: 28px;
+
+    @media @small {
+      font-size: 34px;
+    }
+  }
+
+  &__comments_title {
+    color: @purple;
+    font-weight: 500;
+    margin-top: 8px;
+    cursor: pointer;
+  }
+
+  &__topics {
+    margin: 16px 0;
+
+    & > .Topic {
+      margin: 2px 4px 2px 0;
+    }
+  }
+
+  &__header {
+    position: relative;
+    display: flex;
+    padding: 16px 0;
+
+    &__text {
+      margin-left: 16px;
+
+      & > a {
+        display: block;
+        font-size: 20px;
+        font-weight: bold;
+
+        .ant-tag {
+          margin-left: 8px;
+        }
+      }
+
+      &__date {
+        color: #99aab5;
+        font-size: 14px;
+      }
+    }
+
+    &__reading__time {
+      color: #99aab5;
+      font-size: 14px;
+    }
+
+    &__more {
+      position: absolute;
+      right: 8px;
+      top: 36px;
+      line-height: 12px !important;
+      font-size: 36px !important;
+      color: @purple;
+
+      &:hover {
+        cursor: pointer;
+        color: darken(@purple, 15%);
+      }
+    }
+  }
+}

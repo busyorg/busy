@@ -1,0 +1,42 @@
+.Settings {
+  &__section {
+    &:not(:first-child) {
+      margin-top: 16px;
+    }
+
+    h3:not(:first-of-type) {
+      margin-top: 16px;
+    }
+
+    p {
+      color: #99aab5;
+      &:last-of-type {
+        margin-bottom: 4px;
+      }
+    }
+
+    .ant-radio-wrapper {
+      display: block;
+
+      :nth-child(2) {
+        vertical-align: middle;
+      }
+    }
+
+    &__component {
+      margin-top: 16px;
+    }
+
+    &__nsfw {
+      .ant-checkbox-wrapper {
+        display: flex;
+        align-items: center;
+      }
+    }
+  }
+
+  .Action {
+    margin-top: 16px;
+    width: auto;
+  }
+}

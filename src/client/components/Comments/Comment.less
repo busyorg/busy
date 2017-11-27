@@ -1,0 +1,128 @@
+@import (reference) "../../styles/modules/variables.less";
+@import (reference) "../../styles/custom.less";
+
+@keyframes focus {
+  0%,
+  75% {
+    box-shadow: 4px 0 0px 0px @purple;
+  }
+
+  100% {
+    box-shadow: 4px 0 0px 0px transparent;
+  }
+}
+
+.Comments > .Comment {
+    overflow: hidden;
+}
+
+.Comments > .Comment > .Comment__text {
+    width: calc(~'100% - @{comment-text-offset-default}');
+}
+
+.Comment {
+  position: relative;
+  display: flex;
+  margin-top: 16px;
+
+  &--focus {
+    animation-timing-function: ease-in-out;
+    animation: focus 3s 1;
+  }
+
+  &__anchor {
+    &:focus {
+      text-decoration: none !important;
+    }
+  }
+
+  &__visibility {
+    visibility: hidden;
+    position: absolute;
+    top: -8px;
+    right: 0;
+    z-index: 1;
+
+    & > i {
+      color: @blue-botticelli;
+      font-size: 20px !important;
+    }
+  }
+
+  &:hover {
+    & > .Comment__visibility {
+      visibility: visible;
+      cursor: pointer;
+    }
+  }
+
+  &__text {
+    position: relative;
+    width: calc(~'100% - @{comment-text-offset-small}');
+    margin-left: @comment-text-left-margin;
+    overflow: unset;
+
+    & > a {
+      font-weight: bold;
+
+      .ant-tag {
+        font-size: 12px;
+        vertical-align: 1px;
+
+        &:first-of-type {
+          margin-left: 4px;
+        }
+
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+
+  &__date {
+    margin-left: 8px;
+    font-size: 14px;
+    color: @blue-botticelli;
+  }
+
+  &__content {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+    hyphens: auto;
+
+    img {
+      padding: 5px;
+      max-width: 100%;
+    }
+
+    &__collapsed {
+      font-weight: bold;
+      color: @blue-botticelli;
+      margin: 4px 0;
+    }
+  }
+
+  &__replies--no-indent {
+    margin-left: -@comment-text-offset-small;
+
+    @media @small {
+      margin-left: 0;
+    }
+  }
+
+  &__replies--never-indent {
+    margin-left: -@comment-text-offset-small !important;
+  }
+
+  &__icon_dislike:before {
+    display: inline-block;
+    transform: rotate(180deg);
+  }
+
+  &__hidden__message {
+    color: @blue-botticelli;
+    font-weight: bold;
+  }
+}
