@@ -1,0 +1,1524 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<UserMenu /> renders without exploding 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <UserMenu
+    defaultKey="comments"
+    followers={42}
+    following={21}
+    onChange={[Function]}
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": <div
+        className="container menu-layout"
+      >
+        <div
+          className="left"
+        />
+        <Scrollbars
+          autoHeight={false}
+          autoHeightMax={200}
+          autoHeightMin={0}
+          autoHide={true}
+          autoHideDuration={200}
+          autoHideTimeout={1000}
+          hideTracksWhenNotNeeded={false}
+          renderThumbHorizontal={[Function]}
+          renderThumbVertical={[Function]}
+          renderTrackHorizontal={[Function]}
+          renderTrackVertical={[Function]}
+          renderView={[Function]}
+          style={
+            Object {
+              "height": 46,
+              "width": "100%",
+            }
+          }
+          tagName="div"
+          thumbMinSize={30}
+          universal={true}
+        >
+          <ul
+            className="UserMenu__menu center"
+          >
+            <li
+              className="UserMenu__item"
+              data-key="discussions"
+              onClick={[Function]}
+              role="presentation"
+            >
+              <FormattedMessage
+                defaultMessage="Discussions"
+                id="discussions"
+                values={Object {}}
+              />
+            </li>
+            <li
+              className="UserMenu__item UserMenu__item--active"
+              data-key="comments"
+              onClick={[Function]}
+              role="presentation"
+            >
+              <FormattedMessage
+                defaultMessage="Comments"
+                id="comments"
+                values={Object {}}
+              />
+            </li>
+            <li
+              className="UserMenu__item"
+              data-key="followers"
+              onClick={[Function]}
+              role="presentation"
+            >
+              <FormattedMessage
+                defaultMessage="Followers"
+                id="followers"
+                values={Object {}}
+              />
+              <span
+                className="UserMenu__badge"
+              >
+                <FormattedNumber
+                  value={42}
+                />
+              </span>
+            </li>
+            <li
+              className="UserMenu__item"
+              data-key="followed"
+              onClick={[Function]}
+              role="presentation"
+            >
+              <FormattedMessage
+                defaultMessage="Following"
+                id="following"
+                values={Object {}}
+              />
+              <span
+                className="UserMenu__badge"
+              >
+                <FormattedNumber
+                  value={21}
+                />
+              </span>
+            </li>
+            <li
+              className="UserMenu__item"
+              data-key="transfers"
+              onClick={[Function]}
+              role="presentation"
+            >
+              <FormattedMessage
+                defaultMessage="Wallet"
+                id="wallet"
+                values={Object {}}
+              />
+            </li>
+            <li
+              className="UserMenu__item"
+              data-key="activity"
+              onClick={[Function]}
+              role="presentation"
+            >
+              <FormattedMessage
+                defaultMessage="Activity"
+                id="activity"
+                values={Object {}}
+              />
+            </li>
+          </ul>
+        </Scrollbars>
+      </div>,
+      "className": "UserMenu",
+    },
+    "ref": null,
+    "rendered": Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <div
+            className="left"
+          />,
+          <Scrollbars
+            autoHeight={false}
+            autoHeightMax={200}
+            autoHeightMin={0}
+            autoHide={true}
+            autoHideDuration={200}
+            autoHideTimeout={1000}
+            hideTracksWhenNotNeeded={false}
+            renderThumbHorizontal={[Function]}
+            renderThumbVertical={[Function]}
+            renderTrackHorizontal={[Function]}
+            renderTrackVertical={[Function]}
+            renderView={[Function]}
+            style={
+              Object {
+                "height": 46,
+                "width": "100%",
+              }
+            }
+            tagName="div"
+            thumbMinSize={30}
+            universal={true}
+          >
+            <ul
+              className="UserMenu__menu center"
+            >
+              <li
+                className="UserMenu__item"
+                data-key="discussions"
+                onClick={[Function]}
+                role="presentation"
+              >
+                <FormattedMessage
+                  defaultMessage="Discussions"
+                  id="discussions"
+                  values={Object {}}
+                />
+              </li>
+              <li
+                className="UserMenu__item UserMenu__item--active"
+                data-key="comments"
+                onClick={[Function]}
+                role="presentation"
+              >
+                <FormattedMessage
+                  defaultMessage="Comments"
+                  id="comments"
+                  values={Object {}}
+                />
+              </li>
+              <li
+                className="UserMenu__item"
+                data-key="followers"
+                onClick={[Function]}
+                role="presentation"
+              >
+                <FormattedMessage
+                  defaultMessage="Followers"
+                  id="followers"
+                  values={Object {}}
+                />
+                <span
+                  className="UserMenu__badge"
+                >
+                  <FormattedNumber
+                    value={42}
+                  />
+                </span>
+              </li>
+              <li
+                className="UserMenu__item"
+                data-key="followed"
+                onClick={[Function]}
+                role="presentation"
+              >
+                <FormattedMessage
+                  defaultMessage="Following"
+                  id="following"
+                  values={Object {}}
+                />
+                <span
+                  className="UserMenu__badge"
+                >
+                  <FormattedNumber
+                    value={21}
+                  />
+                </span>
+              </li>
+              <li
+                className="UserMenu__item"
+                data-key="transfers"
+                onClick={[Function]}
+                role="presentation"
+              >
+                <FormattedMessage
+                  defaultMessage="Wallet"
+                  id="wallet"
+                  values={Object {}}
+                />
+              </li>
+              <li
+                className="UserMenu__item"
+                data-key="activity"
+                onClick={[Function]}
+                role="presentation"
+              >
+                <FormattedMessage
+                  defaultMessage="Activity"
+                  id="activity"
+                  values={Object {}}
+                />
+              </li>
+            </ul>
+          </Scrollbars>,
+        ],
+        "className": "container menu-layout",
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "className": "left",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": "div",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "autoHeight": false,
+            "autoHeightMax": 200,
+            "autoHeightMin": 0,
+            "autoHide": true,
+            "autoHideDuration": 200,
+            "autoHideTimeout": 1000,
+            "children": <ul
+              className="UserMenu__menu center"
+            >
+              <li
+                className="UserMenu__item"
+                data-key="discussions"
+                onClick={[Function]}
+                role="presentation"
+              >
+                <FormattedMessage
+                  defaultMessage="Discussions"
+                  id="discussions"
+                  values={Object {}}
+                />
+              </li>
+              <li
+                className="UserMenu__item UserMenu__item--active"
+                data-key="comments"
+                onClick={[Function]}
+                role="presentation"
+              >
+                <FormattedMessage
+                  defaultMessage="Comments"
+                  id="comments"
+                  values={Object {}}
+                />
+              </li>
+              <li
+                className="UserMenu__item"
+                data-key="followers"
+                onClick={[Function]}
+                role="presentation"
+              >
+                <FormattedMessage
+                  defaultMessage="Followers"
+                  id="followers"
+                  values={Object {}}
+                />
+                <span
+                  className="UserMenu__badge"
+                >
+                  <FormattedNumber
+                    value={42}
+                  />
+                </span>
+              </li>
+              <li
+                className="UserMenu__item"
+                data-key="followed"
+                onClick={[Function]}
+                role="presentation"
+              >
+                <FormattedMessage
+                  defaultMessage="Following"
+                  id="following"
+                  values={Object {}}
+                />
+                <span
+                  className="UserMenu__badge"
+                >
+                  <FormattedNumber
+                    value={21}
+                  />
+                </span>
+              </li>
+              <li
+                className="UserMenu__item"
+                data-key="transfers"
+                onClick={[Function]}
+                role="presentation"
+              >
+                <FormattedMessage
+                  defaultMessage="Wallet"
+                  id="wallet"
+                  values={Object {}}
+                />
+              </li>
+              <li
+                className="UserMenu__item"
+                data-key="activity"
+                onClick={[Function]}
+                role="presentation"
+              >
+                <FormattedMessage
+                  defaultMessage="Activity"
+                  id="activity"
+                  values={Object {}}
+                />
+              </li>
+            </ul>,
+            "hideTracksWhenNotNeeded": false,
+            "renderThumbHorizontal": [Function],
+            "renderThumbVertical": [Function],
+            "renderTrackHorizontal": [Function],
+            "renderTrackVertical": [Function],
+            "renderView": [Function],
+            "style": Object {
+              "height": 46,
+              "width": "100%",
+            },
+            "tagName": "div",
+            "thumbMinSize": 30,
+            "universal": true,
+          },
+          "ref": null,
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": Array [
+                <li
+                  className="UserMenu__item"
+                  data-key="discussions"
+                  onClick={[Function]}
+                  role="presentation"
+                >
+                  <FormattedMessage
+                    defaultMessage="Discussions"
+                    id="discussions"
+                    values={Object {}}
+                  />
+                </li>,
+                <li
+                  className="UserMenu__item UserMenu__item--active"
+                  data-key="comments"
+                  onClick={[Function]}
+                  role="presentation"
+                >
+                  <FormattedMessage
+                    defaultMessage="Comments"
+                    id="comments"
+                    values={Object {}}
+                  />
+                </li>,
+                <li
+                  className="UserMenu__item"
+                  data-key="followers"
+                  onClick={[Function]}
+                  role="presentation"
+                >
+                  <FormattedMessage
+                    defaultMessage="Followers"
+                    id="followers"
+                    values={Object {}}
+                  />
+                  <span
+                    className="UserMenu__badge"
+                  >
+                    <FormattedNumber
+                      value={42}
+                    />
+                  </span>
+                </li>,
+                <li
+                  className="UserMenu__item"
+                  data-key="followed"
+                  onClick={[Function]}
+                  role="presentation"
+                >
+                  <FormattedMessage
+                    defaultMessage="Following"
+                    id="following"
+                    values={Object {}}
+                  />
+                  <span
+                    className="UserMenu__badge"
+                  >
+                    <FormattedNumber
+                      value={21}
+                    />
+                  </span>
+                </li>,
+                <li
+                  className="UserMenu__item"
+                  data-key="transfers"
+                  onClick={[Function]}
+                  role="presentation"
+                >
+                  <FormattedMessage
+                    defaultMessage="Wallet"
+                    id="wallet"
+                    values={Object {}}
+                  />
+                </li>,
+                <li
+                  className="UserMenu__item"
+                  data-key="activity"
+                  onClick={[Function]}
+                  role="presentation"
+                >
+                  <FormattedMessage
+                    defaultMessage="Activity"
+                    id="activity"
+                    values={Object {}}
+                  />
+                </li>,
+              ],
+              "className": "UserMenu__menu center",
+            },
+            "ref": null,
+            "rendered": Array [
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": <FormattedMessage
+                    defaultMessage="Discussions"
+                    id="discussions"
+                    values={Object {}}
+                  />,
+                  "className": "UserMenu__item",
+                  "data-key": "discussions",
+                  "onClick": [Function],
+                  "role": "presentation",
+                },
+                "ref": null,
+                "rendered": Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "class",
+                  "props": Object {
+                    "defaultMessage": "Discussions",
+                    "id": "discussions",
+                    "values": Object {},
+                  },
+                  "ref": null,
+                  "rendered": null,
+                  "type": [Function],
+                },
+                "type": "li",
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": <FormattedMessage
+                    defaultMessage="Comments"
+                    id="comments"
+                    values={Object {}}
+                  />,
+                  "className": "UserMenu__item UserMenu__item--active",
+                  "data-key": "comments",
+                  "onClick": [Function],
+                  "role": "presentation",
+                },
+                "ref": null,
+                "rendered": Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "class",
+                  "props": Object {
+                    "defaultMessage": "Comments",
+                    "id": "comments",
+                    "values": Object {},
+                  },
+                  "ref": null,
+                  "rendered": null,
+                  "type": [Function],
+                },
+                "type": "li",
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": Array [
+                    <FormattedMessage
+                      defaultMessage="Followers"
+                      id="followers"
+                      values={Object {}}
+                    />,
+                    <span
+                      className="UserMenu__badge"
+                    >
+                      <FormattedNumber
+                        value={42}
+                      />
+                    </span>,
+                  ],
+                  "className": "UserMenu__item",
+                  "data-key": "followers",
+                  "onClick": [Function],
+                  "role": "presentation",
+                },
+                "ref": null,
+                "rendered": Array [
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "class",
+                    "props": Object {
+                      "defaultMessage": "Followers",
+                      "id": "followers",
+                      "values": Object {},
+                    },
+                    "ref": null,
+                    "rendered": null,
+                    "type": [Function],
+                  },
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": <FormattedNumber
+                        value={42}
+                      />,
+                      "className": "UserMenu__badge",
+                    },
+                    "ref": null,
+                    "rendered": Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "class",
+                      "props": Object {
+                        "value": 42,
+                      },
+                      "ref": null,
+                      "rendered": null,
+                      "type": [Function],
+                    },
+                    "type": "span",
+                  },
+                ],
+                "type": "li",
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": Array [
+                    <FormattedMessage
+                      defaultMessage="Following"
+                      id="following"
+                      values={Object {}}
+                    />,
+                    <span
+                      className="UserMenu__badge"
+                    >
+                      <FormattedNumber
+                        value={21}
+                      />
+                    </span>,
+                  ],
+                  "className": "UserMenu__item",
+                  "data-key": "followed",
+                  "onClick": [Function],
+                  "role": "presentation",
+                },
+                "ref": null,
+                "rendered": Array [
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "class",
+                    "props": Object {
+                      "defaultMessage": "Following",
+                      "id": "following",
+                      "values": Object {},
+                    },
+                    "ref": null,
+                    "rendered": null,
+                    "type": [Function],
+                  },
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": <FormattedNumber
+                        value={21}
+                      />,
+                      "className": "UserMenu__badge",
+                    },
+                    "ref": null,
+                    "rendered": Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "class",
+                      "props": Object {
+                        "value": 21,
+                      },
+                      "ref": null,
+                      "rendered": null,
+                      "type": [Function],
+                    },
+                    "type": "span",
+                  },
+                ],
+                "type": "li",
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": <FormattedMessage
+                    defaultMessage="Wallet"
+                    id="wallet"
+                    values={Object {}}
+                  />,
+                  "className": "UserMenu__item",
+                  "data-key": "transfers",
+                  "onClick": [Function],
+                  "role": "presentation",
+                },
+                "ref": null,
+                "rendered": Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "class",
+                  "props": Object {
+                    "defaultMessage": "Wallet",
+                    "id": "wallet",
+                    "values": Object {},
+                  },
+                  "ref": null,
+                  "rendered": null,
+                  "type": [Function],
+                },
+                "type": "li",
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": <FormattedMessage
+                    defaultMessage="Activity"
+                    id="activity"
+                    values={Object {}}
+                  />,
+                  "className": "UserMenu__item",
+                  "data-key": "activity",
+                  "onClick": [Function],
+                  "role": "presentation",
+                },
+                "ref": null,
+                "rendered": Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "class",
+                  "props": Object {
+                    "defaultMessage": "Activity",
+                    "id": "activity",
+                    "values": Object {},
+                  },
+                  "ref": null,
+                  "rendered": null,
+                  "type": [Function],
+                },
+                "type": "li",
+              },
+            ],
+            "type": "ul",
+          },
+          "type": [Function],
+        },
+      ],
+      "type": "div",
+    },
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": <div
+          className="container menu-layout"
+        >
+          <div
+            className="left"
+          />
+          <Scrollbars
+            autoHeight={false}
+            autoHeightMax={200}
+            autoHeightMin={0}
+            autoHide={true}
+            autoHideDuration={200}
+            autoHideTimeout={1000}
+            hideTracksWhenNotNeeded={false}
+            renderThumbHorizontal={[Function]}
+            renderThumbVertical={[Function]}
+            renderTrackHorizontal={[Function]}
+            renderTrackVertical={[Function]}
+            renderView={[Function]}
+            style={
+              Object {
+                "height": 46,
+                "width": "100%",
+              }
+            }
+            tagName="div"
+            thumbMinSize={30}
+            universal={true}
+          >
+            <ul
+              className="UserMenu__menu center"
+            >
+              <li
+                className="UserMenu__item"
+                data-key="discussions"
+                onClick={[Function]}
+                role="presentation"
+              >
+                <FormattedMessage
+                  defaultMessage="Discussions"
+                  id="discussions"
+                  values={Object {}}
+                />
+              </li>
+              <li
+                className="UserMenu__item UserMenu__item--active"
+                data-key="comments"
+                onClick={[Function]}
+                role="presentation"
+              >
+                <FormattedMessage
+                  defaultMessage="Comments"
+                  id="comments"
+                  values={Object {}}
+                />
+              </li>
+              <li
+                className="UserMenu__item"
+                data-key="followers"
+                onClick={[Function]}
+                role="presentation"
+              >
+                <FormattedMessage
+                  defaultMessage="Followers"
+                  id="followers"
+                  values={Object {}}
+                />
+                <span
+                  className="UserMenu__badge"
+                >
+                  <FormattedNumber
+                    value={42}
+                  />
+                </span>
+              </li>
+              <li
+                className="UserMenu__item"
+                data-key="followed"
+                onClick={[Function]}
+                role="presentation"
+              >
+                <FormattedMessage
+                  defaultMessage="Following"
+                  id="following"
+                  values={Object {}}
+                />
+                <span
+                  className="UserMenu__badge"
+                >
+                  <FormattedNumber
+                    value={21}
+                  />
+                </span>
+              </li>
+              <li
+                className="UserMenu__item"
+                data-key="transfers"
+                onClick={[Function]}
+                role="presentation"
+              >
+                <FormattedMessage
+                  defaultMessage="Wallet"
+                  id="wallet"
+                  values={Object {}}
+                />
+              </li>
+              <li
+                className="UserMenu__item"
+                data-key="activity"
+                onClick={[Function]}
+                role="presentation"
+              >
+                <FormattedMessage
+                  defaultMessage="Activity"
+                  id="activity"
+                  values={Object {}}
+                />
+              </li>
+            </ul>
+          </Scrollbars>
+        </div>,
+        "className": "UserMenu",
+      },
+      "ref": null,
+      "rendered": Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": Array [
+            <div
+              className="left"
+            />,
+            <Scrollbars
+              autoHeight={false}
+              autoHeightMax={200}
+              autoHeightMin={0}
+              autoHide={true}
+              autoHideDuration={200}
+              autoHideTimeout={1000}
+              hideTracksWhenNotNeeded={false}
+              renderThumbHorizontal={[Function]}
+              renderThumbVertical={[Function]}
+              renderTrackHorizontal={[Function]}
+              renderTrackVertical={[Function]}
+              renderView={[Function]}
+              style={
+                Object {
+                  "height": 46,
+                  "width": "100%",
+                }
+              }
+              tagName="div"
+              thumbMinSize={30}
+              universal={true}
+            >
+              <ul
+                className="UserMenu__menu center"
+              >
+                <li
+                  className="UserMenu__item"
+                  data-key="discussions"
+                  onClick={[Function]}
+                  role="presentation"
+                >
+                  <FormattedMessage
+                    defaultMessage="Discussions"
+                    id="discussions"
+                    values={Object {}}
+                  />
+                </li>
+                <li
+                  className="UserMenu__item UserMenu__item--active"
+                  data-key="comments"
+                  onClick={[Function]}
+                  role="presentation"
+                >
+                  <FormattedMessage
+                    defaultMessage="Comments"
+                    id="comments"
+                    values={Object {}}
+                  />
+                </li>
+                <li
+                  className="UserMenu__item"
+                  data-key="followers"
+                  onClick={[Function]}
+                  role="presentation"
+                >
+                  <FormattedMessage
+                    defaultMessage="Followers"
+                    id="followers"
+                    values={Object {}}
+                  />
+                  <span
+                    className="UserMenu__badge"
+                  >
+                    <FormattedNumber
+                      value={42}
+                    />
+                  </span>
+                </li>
+                <li
+                  className="UserMenu__item"
+                  data-key="followed"
+                  onClick={[Function]}
+                  role="presentation"
+                >
+                  <FormattedMessage
+                    defaultMessage="Following"
+                    id="following"
+                    values={Object {}}
+                  />
+                  <span
+                    className="UserMenu__badge"
+                  >
+                    <FormattedNumber
+                      value={21}
+                    />
+                  </span>
+                </li>
+                <li
+                  className="UserMenu__item"
+                  data-key="transfers"
+                  onClick={[Function]}
+                  role="presentation"
+                >
+                  <FormattedMessage
+                    defaultMessage="Wallet"
+                    id="wallet"
+                    values={Object {}}
+                  />
+                </li>
+                <li
+                  className="UserMenu__item"
+                  data-key="activity"
+                  onClick={[Function]}
+                  role="presentation"
+                >
+                  <FormattedMessage
+                    defaultMessage="Activity"
+                    id="activity"
+                    values={Object {}}
+                  />
+                </li>
+              </ul>
+            </Scrollbars>,
+          ],
+          "className": "container menu-layout",
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "className": "left",
+            },
+            "ref": null,
+            "rendered": null,
+            "type": "div",
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "autoHeight": false,
+              "autoHeightMax": 200,
+              "autoHeightMin": 0,
+              "autoHide": true,
+              "autoHideDuration": 200,
+              "autoHideTimeout": 1000,
+              "children": <ul
+                className="UserMenu__menu center"
+              >
+                <li
+                  className="UserMenu__item"
+                  data-key="discussions"
+                  onClick={[Function]}
+                  role="presentation"
+                >
+                  <FormattedMessage
+                    defaultMessage="Discussions"
+                    id="discussions"
+                    values={Object {}}
+                  />
+                </li>
+                <li
+                  className="UserMenu__item UserMenu__item--active"
+                  data-key="comments"
+                  onClick={[Function]}
+                  role="presentation"
+                >
+                  <FormattedMessage
+                    defaultMessage="Comments"
+                    id="comments"
+                    values={Object {}}
+                  />
+                </li>
+                <li
+                  className="UserMenu__item"
+                  data-key="followers"
+                  onClick={[Function]}
+                  role="presentation"
+                >
+                  <FormattedMessage
+                    defaultMessage="Followers"
+                    id="followers"
+                    values={Object {}}
+                  />
+                  <span
+                    className="UserMenu__badge"
+                  >
+                    <FormattedNumber
+                      value={42}
+                    />
+                  </span>
+                </li>
+                <li
+                  className="UserMenu__item"
+                  data-key="followed"
+                  onClick={[Function]}
+                  role="presentation"
+                >
+                  <FormattedMessage
+                    defaultMessage="Following"
+                    id="following"
+                    values={Object {}}
+                  />
+                  <span
+                    className="UserMenu__badge"
+                  >
+                    <FormattedNumber
+                      value={21}
+                    />
+                  </span>
+                </li>
+                <li
+                  className="UserMenu__item"
+                  data-key="transfers"
+                  onClick={[Function]}
+                  role="presentation"
+                >
+                  <FormattedMessage
+                    defaultMessage="Wallet"
+                    id="wallet"
+                    values={Object {}}
+                  />
+                </li>
+                <li
+                  className="UserMenu__item"
+                  data-key="activity"
+                  onClick={[Function]}
+                  role="presentation"
+                >
+                  <FormattedMessage
+                    defaultMessage="Activity"
+                    id="activity"
+                    values={Object {}}
+                  />
+                </li>
+              </ul>,
+              "hideTracksWhenNotNeeded": false,
+              "renderThumbHorizontal": [Function],
+              "renderThumbVertical": [Function],
+              "renderTrackHorizontal": [Function],
+              "renderTrackVertical": [Function],
+              "renderView": [Function],
+              "style": Object {
+                "height": 46,
+                "width": "100%",
+              },
+              "tagName": "div",
+              "thumbMinSize": 30,
+              "universal": true,
+            },
+            "ref": null,
+            "rendered": Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": Array [
+                  <li
+                    className="UserMenu__item"
+                    data-key="discussions"
+                    onClick={[Function]}
+                    role="presentation"
+                  >
+                    <FormattedMessage
+                      defaultMessage="Discussions"
+                      id="discussions"
+                      values={Object {}}
+                    />
+                  </li>,
+                  <li
+                    className="UserMenu__item UserMenu__item--active"
+                    data-key="comments"
+                    onClick={[Function]}
+                    role="presentation"
+                  >
+                    <FormattedMessage
+                      defaultMessage="Comments"
+                      id="comments"
+                      values={Object {}}
+                    />
+                  </li>,
+                  <li
+                    className="UserMenu__item"
+                    data-key="followers"
+                    onClick={[Function]}
+                    role="presentation"
+                  >
+                    <FormattedMessage
+                      defaultMessage="Followers"
+                      id="followers"
+                      values={Object {}}
+                    />
+                    <span
+                      className="UserMenu__badge"
+                    >
+                      <FormattedNumber
+                        value={42}
+                      />
+                    </span>
+                  </li>,
+                  <li
+                    className="UserMenu__item"
+                    data-key="followed"
+                    onClick={[Function]}
+                    role="presentation"
+                  >
+                    <FormattedMessage
+                      defaultMessage="Following"
+                      id="following"
+                      values={Object {}}
+                    />
+                    <span
+                      className="UserMenu__badge"
+                    >
+                      <FormattedNumber
+                        value={21}
+                      />
+                    </span>
+                  </li>,
+                  <li
+                    className="UserMenu__item"
+                    data-key="transfers"
+                    onClick={[Function]}
+                    role="presentation"
+                  >
+                    <FormattedMessage
+                      defaultMessage="Wallet"
+                      id="wallet"
+                      values={Object {}}
+                    />
+                  </li>,
+                  <li
+                    className="UserMenu__item"
+                    data-key="activity"
+                    onClick={[Function]}
+                    role="presentation"
+                  >
+                    <FormattedMessage
+                      defaultMessage="Activity"
+                      id="activity"
+                      values={Object {}}
+                    />
+                  </li>,
+                ],
+                "className": "UserMenu__menu center",
+              },
+              "ref": null,
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": <FormattedMessage
+                      defaultMessage="Discussions"
+                      id="discussions"
+                      values={Object {}}
+                    />,
+                    "className": "UserMenu__item",
+                    "data-key": "discussions",
+                    "onClick": [Function],
+                    "role": "presentation",
+                  },
+                  "ref": null,
+                  "rendered": Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "class",
+                    "props": Object {
+                      "defaultMessage": "Discussions",
+                      "id": "discussions",
+                      "values": Object {},
+                    },
+                    "ref": null,
+                    "rendered": null,
+                    "type": [Function],
+                  },
+                  "type": "li",
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": <FormattedMessage
+                      defaultMessage="Comments"
+                      id="comments"
+                      values={Object {}}
+                    />,
+                    "className": "UserMenu__item UserMenu__item--active",
+                    "data-key": "comments",
+                    "onClick": [Function],
+                    "role": "presentation",
+                  },
+                  "ref": null,
+                  "rendered": Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "class",
+                    "props": Object {
+                      "defaultMessage": "Comments",
+                      "id": "comments",
+                      "values": Object {},
+                    },
+                    "ref": null,
+                    "rendered": null,
+                    "type": [Function],
+                  },
+                  "type": "li",
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": Array [
+                      <FormattedMessage
+                        defaultMessage="Followers"
+                        id="followers"
+                        values={Object {}}
+                      />,
+                      <span
+                        className="UserMenu__badge"
+                      >
+                        <FormattedNumber
+                          value={42}
+                        />
+                      </span>,
+                    ],
+                    "className": "UserMenu__item",
+                    "data-key": "followers",
+                    "onClick": [Function],
+                    "role": "presentation",
+                  },
+                  "ref": null,
+                  "rendered": Array [
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "class",
+                      "props": Object {
+                        "defaultMessage": "Followers",
+                        "id": "followers",
+                        "values": Object {},
+                      },
+                      "ref": null,
+                      "rendered": null,
+                      "type": [Function],
+                    },
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": <FormattedNumber
+                          value={42}
+                        />,
+                        "className": "UserMenu__badge",
+                      },
+                      "ref": null,
+                      "rendered": Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "class",
+                        "props": Object {
+                          "value": 42,
+                        },
+                        "ref": null,
+                        "rendered": null,
+                        "type": [Function],
+                      },
+                      "type": "span",
+                    },
+                  ],
+                  "type": "li",
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": Array [
+                      <FormattedMessage
+                        defaultMessage="Following"
+                        id="following"
+                        values={Object {}}
+                      />,
+                      <span
+                        className="UserMenu__badge"
+                      >
+                        <FormattedNumber
+                          value={21}
+                        />
+                      </span>,
+                    ],
+                    "className": "UserMenu__item",
+                    "data-key": "followed",
+                    "onClick": [Function],
+                    "role": "presentation",
+                  },
+                  "ref": null,
+                  "rendered": Array [
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "class",
+                      "props": Object {
+                        "defaultMessage": "Following",
+                        "id": "following",
+                        "values": Object {},
+                      },
+                      "ref": null,
+                      "rendered": null,
+                      "type": [Function],
+                    },
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": <FormattedNumber
+                          value={21}
+                        />,
+                        "className": "UserMenu__badge",
+                      },
+                      "ref": null,
+                      "rendered": Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "class",
+                        "props": Object {
+                          "value": 21,
+                        },
+                        "ref": null,
+                        "rendered": null,
+                        "type": [Function],
+                      },
+                      "type": "span",
+                    },
+                  ],
+                  "type": "li",
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": <FormattedMessage
+                      defaultMessage="Wallet"
+                      id="wallet"
+                      values={Object {}}
+                    />,
+                    "className": "UserMenu__item",
+                    "data-key": "transfers",
+                    "onClick": [Function],
+                    "role": "presentation",
+                  },
+                  "ref": null,
+                  "rendered": Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "class",
+                    "props": Object {
+                      "defaultMessage": "Wallet",
+                      "id": "wallet",
+                      "values": Object {},
+                    },
+                    "ref": null,
+                    "rendered": null,
+                    "type": [Function],
+                  },
+                  "type": "li",
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": <FormattedMessage
+                      defaultMessage="Activity"
+                      id="activity"
+                      values={Object {}}
+                    />,
+                    "className": "UserMenu__item",
+                    "data-key": "activity",
+                    "onClick": [Function],
+                    "role": "presentation",
+                  },
+                  "ref": null,
+                  "rendered": Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "class",
+                    "props": Object {
+                      "defaultMessage": "Activity",
+                      "id": "activity",
+                      "values": Object {},
+                    },
+                    "ref": null,
+                    "rendered": null,
+                    "type": [Function],
+                  },
+                  "type": "li",
+                },
+              ],
+              "type": "ul",
+            },
+            "type": [Function],
+          },
+        ],
+        "type": "div",
+      },
+      "type": "div",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;
