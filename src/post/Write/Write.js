@@ -19,6 +19,8 @@ import {
   getDraftPosts,
   getIsEditorLoading,
   getIsEditorSaving,
+  getUpvoteSetting,
+  getRewardSetting,
 } from '../../reducers';
 
 import { createPost, saveDraft, newPost } from './editorActions';
@@ -37,6 +39,8 @@ const version = require('../../../package.json').version;
     loading: getIsEditorLoading(state),
     saving: getIsEditorSaving(state),
     draftId: new URLSearchParams(props.location.search).get('draft'),
+    upvoteSetting: getUpvoteSetting(state),
+    rewardSetting: getRewardSetting(state),
   }),
   {
     createPost,
@@ -53,7 +57,9 @@ class Write extends React.Component {
     draftPosts: PropTypes.shape().isRequired,
     loading: PropTypes.bool.isRequired,
     saving: PropTypes.bool,
+    upvoteSetting: PropTypes.bool,
     draftId: PropTypes.string,
+    rewardSetting: PropTypes.string,
     newPost: PropTypes.func,
     createPost: PropTypes.func,
     saveDraft: PropTypes.func,
@@ -64,6 +70,8 @@ class Write extends React.Component {
   static defaultProps = {
     saving: false,
     draftId: null,
+    upvoteSetting: true,
+    rewardSetting: '50',
     newPost: () => {},
     createPost: () => {},
     saveDraft: () => {},
@@ -77,8 +85,8 @@ class Write extends React.Component {
       initialTitle: '',
       initialTopics: [],
       initialBody: '',
-      initialReward: '50',
-      initialUpvote: true,
+      initialReward: this.props.rewardSetting || '50',
+      initialUpvote: this.props.upvoteSetting || true,
       initialUpdatedDate: Date.now(),
       isUpdating: false,
       showModalDelete: false,

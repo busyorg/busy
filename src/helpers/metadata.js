@@ -19,6 +19,20 @@ export const saveSettingsMetadata = settings =>
     )
     .then(resp => resp.user_metadata.settings);
 
+export const saveUpvoteRewardsSettingsMetadata = (upvote, rewards) =>
+  getMetadata()
+    .then(metadata =>
+      SteemConnect.updateUserMetadata({
+        ...metadata,
+        settings: {
+          ...metadata.settings,
+          upvoteSetting: upvote,
+          rewardSetting: rewards,
+        },
+      }),
+    )
+    .then(resp => resp.user_metadata.settings);
+
 export const setLocaleMetadata = locale =>
   getMetadata()
     .then(metadata =>

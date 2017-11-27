@@ -3,7 +3,7 @@ import assert from 'assert';
 import SteemConnect from 'sc2-sdk';
 import { push } from 'react-router-redux';
 import { createAction } from 'redux-actions';
-import { addDraftMetadata, deleteDraftMetadata } from '../../helpers/metadata';
+import { addDraftMetadata, deleteDraftMetadata, saveUpvoteRewardsSettingsMetadata } from '../../helpers/metadata';
 import { jsonParse } from '../../helpers/formatter';
 import { createPermlink, getBodyPatchIfSmaller } from '../../vendor/steemitHelpers';
 
@@ -30,6 +30,11 @@ export const addEditedPost = createAction(ADD_EDITED_POST);
 
 export const DELETE_EDITED_POST = '@editor/DELETE_EDITED_POST';
 export const deleteEditedPost = createAction(DELETE_EDITED_POST);
+
+export const UPDATE_LAST_SETTINGS = '@editor/UPDATE_LAST_SETTINGS';
+export const UPDATE_LAST_SETTINGS_START = '@editor/UPDATE_LAST_SETTINGS_START';
+export const UPDATE_LAST_SETTINGS_SUCCESS = '@editor/UPDATE_LAST_SETTINGS_SUCCESS';
+export const UPDATE_LAST_SETTINGS_ERROR = '@editor/UPDATE_LAST_SETTINGS_ERROR';
 
 export const saveDraft = (post, redirect) => (dispatch) => {
   if (redirect) dispatch(push(`/editor?draft=${post.id}`));
@@ -152,6 +157,13 @@ export function createPost(postData) {
       : createPermlink(title, author, parentAuthor, parentPermlink);
 
     const newBody = isUpdating ? getBodyPatchIfSmaller(postData.originalBody, body) : body;
+
+    dispatch({
+      type: UPDATE_LAST_SETTINGS,
+      payload: {
+        promise: saveUpvoteRewardsSettingsMetadata(upvote, reward),
+      },
+    });
 
     dispatch({
       type: CREATE_POST,
