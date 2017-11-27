@@ -177,7 +177,7 @@ function makeConfig(options = {}) {
           // only- means to only hot reload for successful updates
         ]
         : []
-      ).concat([path.join(options.baseDir, 'src/index.js')]),
+      ).concat([path.join(options.baseDir, 'src/client/index.js')]),
     },
     output: {
       path: path.join(options.baseDir, '/public/js'),
