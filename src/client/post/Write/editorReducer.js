@@ -47,56 +47,56 @@ const editor = (state = defaultState, action) => {
         success: false,
         loadingImg: false,
       };
-    case editorActions.CREATE_POST_START:
+    case editorActions.CREATE_POST.START:
       return {
         ...state,
         loading: true,
         error: null,
         success: false,
       };
-    case editorActions.CREATE_POST_ERROR:
+    case editorActions.CREATE_POST.ERROR:
       return {
         ...state,
         error: action.payload.result,
         loading: false,
         success: false,
       };
-    case editorActions.CREATE_POST_SUCCESS:
+    case editorActions.CREATE_POST.SUCCESS:
       return {
         ...state,
         error: null,
         loading: false,
         success: true,
       };
-    case editorActions.SAVE_DRAFT_START:
+    case editorActions.SAVE_DRAFT.START:
       return {
         ...state,
         saving: true,
       };
-    case editorActions.SAVE_DRAFT_SUCCESS:
+    case editorActions.SAVE_DRAFT.SUCCESS:
       return {
         ...state,
         draftPosts: { ...state.draftPosts, [action.meta.postId]: action.payload },
         saving: false,
       };
-    case editorActions.SAVE_DRAFT_ERROR:
+    case editorActions.SAVE_DRAFT.ERROR:
       return {
         ...state,
         saving: false,
       };
-    case editorActions.DELETE_DRAFT_START:
+    case editorActions.DELETE_DRAFT.START:
       return {
         ...state,
         pendingDrafts: [...state.pendingDrafts, action.meta.id],
       };
-    case editorActions.DELETE_DRAFT_SUCCESS: {
+    case editorActions.DELETE_DRAFT.SUCCESS: {
       return {
         ...state,
         draftPosts: action.payload,
         pendingDrafts: state.pendingDrafts.filter(id => id !== action.meta.id),
       };
     }
-    case editorActions.DELETE_DRAFT_ERROR:
+    case editorActions.DELETE_DRAFT.ERROR:
       return {
         ...state,
         pendingDrafts: state.pendingDrafts.filter(id => id !== action.meta.id),

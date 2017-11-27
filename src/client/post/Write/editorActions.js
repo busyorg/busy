@@ -7,23 +7,14 @@ import { jsonParse } from '../../helpers/formatter';
 import { createPermlink, getBodyPatchIfSmaller } from '../../vendor/steemitHelpers';
 import { createAsyncActionType } from '../../helpers/stateHelpers';
 
-export const CREATE_POST = '@editor/CREATE_POST';
-export const CREATE_POST_START = '@editor/CREATE_POST_START';
-export const CREATE_POST_SUCCESS = '@editor/CREATE_POST_SUCCESS';
-export const CREATE_POST_ERROR = '@editor/CREATE_POST_ERROR';
+export const CREATE_POST = createAsyncActionType('@editor/CREATE_POST');
 
 export const NEW_POST = '@editor/NEW_POST';
 export const newPost = createAction(NEW_POST);
 
-export const SAVE_DRAFT = '@editor/SAVE_DRAFT';
-export const SAVE_DRAFT_START = '@editor/SAVE_DRAFT_START';
-export const SAVE_DRAFT_SUCCESS = '@editor/SAVE_DRAFT_SUCCESS';
-export const SAVE_DRAFT_ERROR = '@editor/SAVE_DRAFT_ERROR';
+export const SAVE_DRAFT = createAsyncActionType('@editor/SAVE_DRAFT');
 
-export const DELETE_DRAFT = '@editor/DELETE_DRAFT';
-export const DELETE_DRAFT_START = '@editor/DELETE_DRAFT_START';
-export const DELETE_DRAFT_SUCCESS = '@editor/DELETE_DRAFT_SUCCESS';
-export const DELETE_DRAFT_ERROR = '@editor/DELETE_DRAFT_ERROR';
+export const DELETE_DRAFT = createAsyncActionType('@editor/DELETE_DRAFT');
 
 export const ADD_EDITED_POST = '@editor/ADD_EDITED_POST';
 export const addEditedPost = createAction(ADD_EDITED_POST);
@@ -36,7 +27,7 @@ export const UPDATE_LAST_SETTINGS = createAsyncActionType('@editor/UPDATE_LAST_S
 export const saveDraft = (post, redirect) => (dispatch) => {
   if (redirect) dispatch(push(`/editor?draft=${post.id}`));
   return dispatch({
-    type: SAVE_DRAFT,
+    type: SAVE_DRAFT.ACTION,
     payload: {
       promise: addDraftMetadata(post),
     },
@@ -46,7 +37,7 @@ export const saveDraft = (post, redirect) => (dispatch) => {
 
 export const deleteDraft = draftId => dispatch =>
   dispatch({
-    type: DELETE_DRAFT,
+    type: DELETE_DRAFT.ACTION,
     payload: {
       promise: deleteDraftMetadata(draftId),
     },
@@ -164,7 +155,7 @@ export function createPost(postData) {
     });
 
     dispatch({
-      type: CREATE_POST,
+      type: CREATE_POST.ACTION,
       payload: {
         promise: getPermLink.then(permlink =>
           broadcastComment(
