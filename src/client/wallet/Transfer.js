@@ -46,6 +46,9 @@ export default class Transfer extends React.Component {
 
   static amountRegex = /^[0-9]*\.?[0-9]{0,3}$/;
 
+  static minAccountLength = 3;
+  static maxAccountLength = 16;
+
   state = {
     currency: 'STEEM',
     oldAmount: undefined,
@@ -119,7 +122,7 @@ export default class Transfer extends React.Component {
       return;
     }
 
-    if (value.length < 3) {
+    if (value.length < minAccountLength) {
       callback([
         new Error(
           intl.formatMessage(
@@ -134,7 +137,7 @@ export default class Transfer extends React.Component {
         ),
       ]);
     }
-    if (value.length > 16) {
+    if (value.length > maxAccountLength) {
       callback([
         new Error(
           intl.formatMessage(
