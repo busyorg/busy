@@ -101,19 +101,19 @@ const editor = (state = defaultState, action) => {
         ...state,
         pendingDrafts: state.pendingDrafts.filter(id => id !== action.meta.id),
       };
-    case editorActions.UPDATE_LAST_SETTINGS_START:
+    case editorActions.UPDATE_LAST_SETTINGS.START:
       return {
         ...state,
         saving: true,
       };
-    case editorActions.UPDATE_LAST_SETTINGS_SUCCESS:
+    case editorActions.UPDATE_LAST_SETTINGS.SUCCESS:
       return {
         ...state,
         upvoteSetting: action.payload.upvoteSetting,
         rewardSetting: action.payload.rewardSetting,
         saving: false,
       };
-    case editorActions.UPDATE_LAST_SETTINGS_ERROR:
+    case editorActions.UPDATE_LAST_SETTINGS.ERROR:
       return {
         ...state,
         saving: false,

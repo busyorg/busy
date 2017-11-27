@@ -6,6 +6,7 @@ import { createAction } from 'redux-actions';
 import { addDraftMetadata, deleteDraftMetadata, saveUpvoteRewardsSettingsMetadata } from '../../helpers/metadata';
 import { jsonParse } from '../../helpers/formatter';
 import { createPermlink, getBodyPatchIfSmaller } from '../../vendor/steemitHelpers';
+import { createAsyncActionType } from '../../helpers/stateHelpers';
 
 export const CREATE_POST = '@editor/CREATE_POST';
 export const CREATE_POST_START = '@editor/CREATE_POST_START';
@@ -31,10 +32,7 @@ export const addEditedPost = createAction(ADD_EDITED_POST);
 export const DELETE_EDITED_POST = '@editor/DELETE_EDITED_POST';
 export const deleteEditedPost = createAction(DELETE_EDITED_POST);
 
-export const UPDATE_LAST_SETTINGS = '@editor/UPDATE_LAST_SETTINGS';
-export const UPDATE_LAST_SETTINGS_START = '@editor/UPDATE_LAST_SETTINGS_START';
-export const UPDATE_LAST_SETTINGS_SUCCESS = '@editor/UPDATE_LAST_SETTINGS_SUCCESS';
-export const UPDATE_LAST_SETTINGS_ERROR = '@editor/UPDATE_LAST_SETTINGS_ERROR';
+export const UPDATE_LAST_SETTINGS = createAsyncActionType('@editor/UPDATE_LAST_SETTINGS');
 
 export const saveDraft = (post, redirect) => (dispatch) => {
   if (redirect) dispatch(push(`/editor?draft=${post.id}`));
@@ -159,7 +157,7 @@ export function createPost(postData) {
     const newBody = isUpdating ? getBodyPatchIfSmaller(postData.originalBody, body) : body;
 
     dispatch({
-      type: UPDATE_LAST_SETTINGS,
+      type: UPDATE_LAST_SETTINGS.ACTION,
       payload: {
         promise: saveUpvoteRewardsSettingsMetadata(upvote, reward),
       },
