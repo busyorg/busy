@@ -122,7 +122,7 @@ export default class Transfer extends React.Component {
       return;
     }
 
-    if (value.length < minAccountLength) {
+    if (value.length < Transfer.minAccountLength) {
       callback([
         new Error(
           intl.formatMessage(
@@ -137,7 +137,7 @@ export default class Transfer extends React.Component {
         ),
       ]);
     }
-    if (value.length > maxAccountLength) {
+    if (value.length > Transfer.maxAccountLength) {
       callback([
         new Error(
           intl.formatMessage(
