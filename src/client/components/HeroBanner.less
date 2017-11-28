@@ -1,0 +1,58 @@
+@import (reference) "../styles/custom.less";
+@import (reference) "../styles/modules/variables.less";
+
+.HeroBanner {
+  position: relative;
+  height: 240px;
+  border-radius: 5px;
+  margin-bottom: 16px;
+  background: url('/images/banner.png');
+
+  @media @small-max-width {
+    margin: 0 8px 16px 8px;
+  }
+
+  &__close {
+    position: absolute;
+    top: 8px;
+    right: 16px;
+    color: white;
+  }
+
+  .container {
+    height: 100%;
+  }
+
+  &__container {
+    display: flex;
+    height: 100%;
+    padding: 16px 0;
+
+    @media @small-max-width {
+      padding: 16px;
+    }
+
+    &__content {
+      margin: auto;
+
+      h1 {
+        font-size: 24px;
+        font-weight: bolder;
+        color: @white;
+      }
+
+      &__buttons {
+        margin-top: 8px;
+        
+        a > {
+          color: @white;
+        }
+
+        &__spacer {
+          color: @white;
+          margin: 0 8px;
+        }
+      }
+    }
+  }
+}

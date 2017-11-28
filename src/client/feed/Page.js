@@ -7,6 +7,7 @@ import { Helmet } from 'react-helmet';
 import { getIsAuthenticated } from '../reducers';
 
 import SubFeed from './SubFeed';
+import HeroBanner from '../components/HeroBanner';
 import LeftSidebar from '../app/Sidebar/LeftSidebar';
 import RightSidebar from '../app/Sidebar/RightSidebar';
 import TopicSelector from '../components/TopicSelector';
@@ -87,6 +88,7 @@ class Page extends React.Component {
         <ScrollToTopOnMount />
         <div className="shifted">
           <div className="feed-layout container">
+            <HeroBanner />
             <Affix className="leftContainer" stickPosition={77}>
               <div className="left">
                 <LeftSidebar />
