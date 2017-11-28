@@ -11,6 +11,13 @@
     border: solid 1px #e9e7e7;
   }
 
+  &__bullet:after {
+    content: "\2022";
+    font-size: 14px;
+    margin: 0 8px;
+    color: #99aab5;
+  }
+
   &__content {
     position: relative;
   }
@@ -82,7 +89,7 @@
     }
   }
 
-  &__date {
+  &__date, &__post_from {
     position: relative;
     top: -2px;
     font-size: 14px;
