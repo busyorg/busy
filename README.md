@@ -7,16 +7,10 @@
 
 Busy is an Open Source social network and communications platform which extends itself to a variety of rich features and functionality including free digital payments and a marketplace for goods and services. 
 
-Our goal is to connect billions of people to the steem blockchain to bring back value to the people. The stated aim of Busy is:
-1. Ensuring compensation to creators of value.
-2. Creating a true sharing economy.
-3. Ending the remittance ripoff.
-
 For more info: https://busy.org/@busy.org
 
 ## Preview
 ![Preview](https://res.cloudinary.com/hpiynhbhq/image/upload/v1504423577/wft1ubbw2ozrbteril7u.png)
-
 
 ## Usage
 
