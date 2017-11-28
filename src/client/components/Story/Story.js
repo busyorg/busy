@@ -224,7 +224,8 @@ import './Story.less';
       }
       const version = app[1];
       postedFrom = (
-        <div className="Story__post_from">
+        <span className="Story__header__post_from">
+          <span className="StoryFull__bullet" />
           <Tooltip
             title={
               <span>
@@ -244,7 +245,7 @@ import './Story.less';
               />
             </span>
           </Tooltip>
-        </div>
+        </span>
       );
     } catch (e) {
       postedFrom = (
@@ -272,30 +273,34 @@ import './Story.less';
               <Avatar username={post.author} size={40} />
             </Link>
             <div className="Story__header__text">
-              <Link to={`/@${post.author}`}>
-                <h4>
-                  {post.author}
-                  <Tooltip title={intl.formatMessage({ id: 'reputation_score' })}>
-                    <Tag>{postAuthorReputation}</Tag>
-                  </Tooltip>
-                </h4>
-              </Link>
-              <Tooltip
-                title={
-                  <span>
-                    <FormattedDate value={`${post.created}Z`} />{' '}
-                    <FormattedTime value={`${post.created}Z`} />
-                  </span>
-                }
-              >
-                <span className="Story__date">
-                  <FormattedRelative value={`${post.created}Z`} />
+              <span className="Story__header__flex">
+                <Link to={`/@${post.author}`}>
+                  <h4>
+                    {post.author}
+                    <Tooltip title={intl.formatMessage({ id: 'reputation_score' })}>
+                      <Tag>{postAuthorReputation}</Tag>
+                    </Tooltip>
+                  </h4>
+                </Link>
+                <span className="Story__topics">
+                  <Topic name={post.category} />
                 </span>
-              </Tooltip>
-            </div>
-            { postedFrom }
-            <div className="Story__topics">
-              <Topic name={post.category} />
+              </span>
+              <span>
+                <Tooltip
+                  title={
+                    <span>
+                      <FormattedDate value={`${post.created}Z`} />{' '}
+                      <FormattedTime value={`${post.created}Z`} />
+                    </span>
+                  }
+                >
+                  <span className="Story__date">
+                    <FormattedRelative value={`${post.created}Z`} />
+                  </span>
+                </Tooltip>
+                { postedFrom }
+              </span>
             </div>
           </div>
           <div className="Story__content">
