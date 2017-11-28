@@ -265,5 +265,5 @@
   "words_tooltip": "{words} words",
   "power_down_message": "Started power down: {value}",
   "posted_from_tooltip": "Version: {version}",
-  "posted_from": "Posted from {app}"
+  "posted_from": "{from}"
 }
