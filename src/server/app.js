@@ -132,8 +132,6 @@ app.get('/i/@:referral', (req, res) => {
   steem.api.getAccountsAsync([referral]).then((accounts) => {
     if (accounts[0]) {
       res.cookie('referral', referral, { maxAge: 86400 * 30 * 1000 });
-      res.redirect(`/@${referral}`);
-    } else {
       res.redirect('/');
     }
   }).catch(() => {
