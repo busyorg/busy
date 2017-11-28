@@ -116,7 +116,7 @@ const broadcastComment = (
     commentOptionsConfig.extensions = [
       [0, {
         beneficiaries: [
-          { account: referral, weight: 2000 },
+          { account: referral, weight: 1000 },
         ],
       }],
     ];
