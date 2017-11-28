@@ -1,0 +1,7 @@
+export default {
+  steemit: 'Steemit',
+  busy: 'Busy',
+  esteem: 'eSteem',
+  chainbb: 'chainBB',
+  utopian: 'Utopian',
+};
