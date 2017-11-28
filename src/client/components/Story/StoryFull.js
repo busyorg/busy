@@ -350,8 +350,8 @@ class StoryFull extends React.Component {
               </span>
             </Tooltip>
             <span className="StoryFull__bullet" />
-            { postedFrom }
-            { Math.ceil(readingTime(post.body).minutes) > 1 &&
+            {postedFrom}
+            {Math.ceil(readingTime(post.body).minutes) > 1 &&
               <span>
                 <span className="StoryFull__bullet" />
                 <Tooltip
