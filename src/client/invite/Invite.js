@@ -26,8 +26,10 @@ export default class Invite extends React.Component {
 
   render() {
     const { authenticatedUserName } = this.props;
-    const port = window.location.port ? `:${window.location.port}` : '';
-    const baseURL = `${window.location.protocol}//${window.location.hostname}${port}`;
+    let inviteURL;
+    if (typeof window !== 'undefined') {
+      inviteURL = `${location.protocol}//${location.host}/i/@${authenticatedUserName}`;
+    }
     return (
       <div className="shifted">
         <div className="settings-layout container">
@@ -55,7 +57,8 @@ export default class Invite extends React.Component {
               <Form.Item>
                 <Input
                   className="Invite__input"
-                  value={`${baseURL}/i/@${authenticatedUserName}`}
+                  value={inviteURL}
+                  readOnly
                 />
               </Form.Item>
             </div>
