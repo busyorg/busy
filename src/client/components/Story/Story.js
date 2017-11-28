@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom';
 import { Tag, Icon, Popover, Tooltip } from 'antd';
 import { formatter } from 'steem';
 import { isPostTaggedNSFW } from '../../helpers/postHelpers';
+import apps from '../../helpers/apps';
 import StoryPreview from './StoryPreview';
 import StoryFooter from '../StoryFooter/StoryFooter';
 import Avatar from '../Avatar';
@@ -214,6 +215,43 @@ import './Story.less';
       );
     }
 
+    let postedFrom;
+    try {
+      const app = JSON.parse(post.json_metadata).app.split('/');
+      let from = app[0];
+      if (apps[from]) {
+        from = apps[from];
+      }
+      const version = app[1];
+      postedFrom = (
+        <div className="Story__post_from">
+          <Tooltip
+            title={
+              <span>
+                <FormattedMessage
+                  id="posted_from_tooltip"
+                  defaultMessage={'Version: {version}'}
+                  values={{ version }}
+                />
+              </span>
+            }
+          >
+            <span className="Story__post_from_span">
+              <FormattedMessage
+                id="posted_from"
+                defaultMessage={'{from}'}
+                values={{ from }}
+              />
+            </span>
+          </Tooltip>
+        </div>
+      );
+    } catch (e) {
+      postedFrom = (
+        <div />
+      );
+    }
+
     return (
       <div className="Story">
         {rebloggedUI}
@@ -254,31 +292,8 @@ import './Story.less';
                   <FormattedRelative value={`${post.created}Z`} />
                 </span>
               </Tooltip>
-              <span className="Story__bullet" />
-              <Tooltip
-                title={
-                  <span>
-                    <FormattedMessage
-                      id="posted_from_tooltip"
-                      defaultMessage={'Version: {version}'}
-                      values={{
-                        version: JSON.parse(post.json_metadata).app.split('/')[1],
-                      }}
-                    />
-                  </span>
-                }
-              >
-                <span className="Story__post_from">
-                  <FormattedMessage
-                    id="posted_from"
-                    defaultMessage={'Posted from {app}'}
-                    values={{
-                      app: JSON.parse(post.json_metadata).app.split('/')[0],
-                    }}
-                  />
-                </span>
-              </Tooltip>
             </div>
+            { postedFrom }
             <div className="Story__topics">
               <Topic name={post.category} />
             </div>
