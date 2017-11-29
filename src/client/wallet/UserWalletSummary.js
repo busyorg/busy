@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 import steem from 'steem';
 import { Tooltip } from 'antd';
-import { calculateTotalDelegatedSP } from '../vendor/steemitHelpers';
+import { calculateTotalDelegatedSP, calculateEstAccountValue } from '../vendor/steemitHelpers';
 import Loading from '../components/Icon/Loading';
 import USDDisplay from '../components/Utils/USDDisplay';
 import './UserWalletSummary.less';
@@ -43,12 +43,11 @@ const getFormattedTotalDelegatedSP = (user, totalVestingShares, totalVestingFund
 
 const UserWalletSummary = ({
   user,
-  estAccountValue,
   loading,
   totalVestingShares,
   totalVestingFundSteem,
-  loadingEstAccountValue,
   loadingGlobalProperties,
+  steemRate,
 }) => (
   <div className="UserWalletSummary">
     <div className="UserWalletSummary__item">
@@ -116,28 +115,32 @@ const UserWalletSummary = ({
         <FormattedMessage id="est_account_value" defaultMessage="Est. Account Value" />
       </div>
       <div className="UserWalletSummary__value">
-        {loadingEstAccountValue || !estAccountValue
+        {loading
           ? <Loading />
-          : <USDDisplay value={parseFloat(estAccountValue)} />}
+          : <USDDisplay
+            value={calculateEstAccountValue(
+              user,
+              totalVestingShares,
+              totalVestingFundSteem,
+              steemRate,
+            )}
+          />}
       </div>
     </div>
   </div>
 );
 
 UserWalletSummary.propTypes = {
+  loadingGlobalProperties: PropTypes.bool.isRequired,
   user: PropTypes.shape().isRequired,
-  estAccountValue: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   totalVestingShares: PropTypes.string.isRequired,
   totalVestingFundSteem: PropTypes.string.isRequired,
   loading: PropTypes.bool,
-  loadingEstAccountValue: PropTypes.bool,
-  loadingGlobalProperties: PropTypes.bool.isRequired,
+  steemRate: PropTypes.number.isRequired,
 };
 
 UserWalletSummary.defaultProps = {
   loading: false,
-  loadingEstAccountValue: false,
-  estAccountValue: null,
 };
 
 export default UserWalletSummary;
