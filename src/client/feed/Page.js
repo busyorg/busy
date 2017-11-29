@@ -4,7 +4,7 @@ import { Route } from 'react-router';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 
-import { getIsAuthenticated } from '../reducers';
+import { getIsAuthenticated, getIsLoaded } from '../reducers';
 
 import SubFeed from './SubFeed';
 import HeroBanner from '../components/HeroBanner';
@@ -17,10 +17,12 @@ import ScrollToTopOnMount from '../components/Utils/ScrollToTopOnMount';
 
 @connect(state => ({
   authenticated: getIsAuthenticated(state),
+  authLoaded: getIsLoaded(state),
 }))
 class Page extends React.Component {
   static propTypes = {
     authenticated: PropTypes.bool.isRequired,
+    authLoaded: PropTypes.bool.isRequired,
     history: PropTypes.shape().isRequired,
     location: PropTypes.shape().isRequired,
     match: PropTypes.shape().isRequired,
@@ -75,9 +77,11 @@ class Page extends React.Component {
   handleTopicClose = () => this.props.history.push(`${this.props.match.url}trending`);
 
   render() {
-    const { authenticated, match, location } = this.props;
+    const { authenticated, authLoaded, match, location } = this.props;
 
     const shouldDisplaySelector = location.pathname !== '/' || !authenticated;
+
+    const showBanner = !authenticated && authLoaded;
 
     return (
       <div>
@@ -88,7 +92,7 @@ class Page extends React.Component {
         <ScrollToTopOnMount />
         <div className="shifted">
           <div className="feed-layout container">
-            <HeroBanner />
+            {showBanner && <HeroBanner />}
             <Affix className="leftContainer" stickPosition={77}>
               <div className="left">
                 <LeftSidebar />
