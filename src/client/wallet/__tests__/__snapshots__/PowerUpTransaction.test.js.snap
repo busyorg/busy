@@ -1,0 +1,658 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`(Component) PowerUpTransaction with default prop values renders and matches snapshot 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <PowerUpTransaction
+    amount={
+      <span>
+        0 STEEM
+      </span>
+    }
+    timestamp="0"
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": Array [
+        <div
+          className="UserWalletTransactions__icon-container"
+        >
+          <i
+            className="iconfont icon-flashlight_fill UserWalletTransactions__icon"
+          />
+        </div>,
+        <div
+          className="UserWalletTransactions__content"
+        >
+          <div
+            className="UserWalletTransactions__content-recipient"
+          >
+            <FormattedMessage
+              defaultMessage="Powered up "
+              id="powered_up"
+              values={Object {}}
+            />
+            <span
+              className="UserWalletTransactions__payout"
+            >
+              <span>
+                0 STEEM
+              </span>
+            </span>
+          </div>
+          <span
+            className="UserWalletTransactions__timestamp"
+          >
+            <Tooltip
+              arrowPointAtCenter={false}
+              autoAdjustOverflow={true}
+              mouseEnterDelay={0.1}
+              mouseLeaveDelay={0.1}
+              placement="top"
+              prefixCls="ant-tooltip"
+              title={
+                <span>
+                  <FormattedDate
+                    value="0Z"
+                  />
+                   
+                  <FormattedTime
+                    value="0Z"
+                  />
+                </span>
+              }
+              transitionName="zoom-big-fast"
+            >
+              <span>
+                <FormattedRelative
+                  updateInterval={10000}
+                  value="0Z"
+                />
+              </span>
+            </Tooltip>
+          </span>
+        </div>,
+      ],
+      "className": "UserWalletTransactions__transaction",
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": <i
+            className="iconfont icon-flashlight_fill UserWalletTransactions__icon"
+          />,
+          "className": "UserWalletTransactions__icon-container",
+        },
+        "ref": null,
+        "rendered": Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "className": "iconfont icon-flashlight_fill UserWalletTransactions__icon",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": "i",
+        },
+        "type": "div",
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": Array [
+            <div
+              className="UserWalletTransactions__content-recipient"
+            >
+              <FormattedMessage
+                defaultMessage="Powered up "
+                id="powered_up"
+                values={Object {}}
+              />
+              <span
+                className="UserWalletTransactions__payout"
+              >
+                <span>
+                  0 STEEM
+                </span>
+              </span>
+            </div>,
+            <span
+              className="UserWalletTransactions__timestamp"
+            >
+              <Tooltip
+                arrowPointAtCenter={false}
+                autoAdjustOverflow={true}
+                mouseEnterDelay={0.1}
+                mouseLeaveDelay={0.1}
+                placement="top"
+                prefixCls="ant-tooltip"
+                title={
+                  <span>
+                    <FormattedDate
+                      value="0Z"
+                    />
+                     
+                    <FormattedTime
+                      value="0Z"
+                    />
+                  </span>
+                }
+                transitionName="zoom-big-fast"
+              >
+                <span>
+                  <FormattedRelative
+                    updateInterval={10000}
+                    value="0Z"
+                  />
+                </span>
+              </Tooltip>
+            </span>,
+          ],
+          "className": "UserWalletTransactions__content",
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": Array [
+                <FormattedMessage
+                  defaultMessage="Powered up "
+                  id="powered_up"
+                  values={Object {}}
+                />,
+                <span
+                  className="UserWalletTransactions__payout"
+                >
+                  <span>
+                    0 STEEM
+                  </span>
+                </span>,
+              ],
+              "className": "UserWalletTransactions__content-recipient",
+            },
+            "ref": null,
+            "rendered": Array [
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {
+                  "defaultMessage": "Powered up ",
+                  "id": "powered_up",
+                  "values": Object {},
+                },
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": <span>
+                    0 STEEM
+                  </span>,
+                  "className": "UserWalletTransactions__payout",
+                },
+                "ref": null,
+                "rendered": Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": "0 STEEM",
+                  },
+                  "ref": null,
+                  "rendered": "0 STEEM",
+                  "type": "span",
+                },
+                "type": "span",
+              },
+            ],
+            "type": "div",
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": <Tooltip
+                arrowPointAtCenter={false}
+                autoAdjustOverflow={true}
+                mouseEnterDelay={0.1}
+                mouseLeaveDelay={0.1}
+                placement="top"
+                prefixCls="ant-tooltip"
+                title={
+                  <span>
+                    <FormattedDate
+                      value="0Z"
+                    />
+                     
+                    <FormattedTime
+                      value="0Z"
+                    />
+                  </span>
+                }
+                transitionName="zoom-big-fast"
+              >
+                <span>
+                  <FormattedRelative
+                    updateInterval={10000}
+                    value="0Z"
+                  />
+                </span>
+              </Tooltip>,
+              "className": "UserWalletTransactions__timestamp",
+            },
+            "ref": null,
+            "rendered": Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "arrowPointAtCenter": false,
+                "autoAdjustOverflow": true,
+                "children": <span>
+                  <FormattedRelative
+                    updateInterval={10000}
+                    value="0Z"
+                  />
+                </span>,
+                "mouseEnterDelay": 0.1,
+                "mouseLeaveDelay": 0.1,
+                "placement": "top",
+                "prefixCls": "ant-tooltip",
+                "title": <span>
+                  <FormattedDate
+                    value="0Z"
+                  />
+                   
+                  <FormattedTime
+                    value="0Z"
+                  />
+                </span>,
+                "transitionName": "zoom-big-fast",
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": <FormattedRelative
+                    updateInterval={10000}
+                    value="0Z"
+                  />,
+                },
+                "ref": null,
+                "rendered": Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "class",
+                  "props": Object {
+                    "updateInterval": 10000,
+                    "value": "0Z",
+                  },
+                  "ref": null,
+                  "rendered": null,
+                  "type": [Function],
+                },
+                "type": "span",
+              },
+              "type": [Function],
+            },
+            "type": "span",
+          },
+        ],
+        "type": "div",
+      },
+    ],
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <div
+            className="UserWalletTransactions__icon-container"
+          >
+            <i
+              className="iconfont icon-flashlight_fill UserWalletTransactions__icon"
+            />
+          </div>,
+          <div
+            className="UserWalletTransactions__content"
+          >
+            <div
+              className="UserWalletTransactions__content-recipient"
+            >
+              <FormattedMessage
+                defaultMessage="Powered up "
+                id="powered_up"
+                values={Object {}}
+              />
+              <span
+                className="UserWalletTransactions__payout"
+              >
+                <span>
+                  0 STEEM
+                </span>
+              </span>
+            </div>
+            <span
+              className="UserWalletTransactions__timestamp"
+            >
+              <Tooltip
+                arrowPointAtCenter={false}
+                autoAdjustOverflow={true}
+                mouseEnterDelay={0.1}
+                mouseLeaveDelay={0.1}
+                placement="top"
+                prefixCls="ant-tooltip"
+                title={
+                  <span>
+                    <FormattedDate
+                      value="0Z"
+                    />
+                     
+                    <FormattedTime
+                      value="0Z"
+                    />
+                  </span>
+                }
+                transitionName="zoom-big-fast"
+              >
+                <span>
+                  <FormattedRelative
+                    updateInterval={10000}
+                    value="0Z"
+                  />
+                </span>
+              </Tooltip>
+            </span>
+          </div>,
+        ],
+        "className": "UserWalletTransactions__transaction",
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": <i
+              className="iconfont icon-flashlight_fill UserWalletTransactions__icon"
+            />,
+            "className": "UserWalletTransactions__icon-container",
+          },
+          "ref": null,
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "className": "iconfont icon-flashlight_fill UserWalletTransactions__icon",
+            },
+            "ref": null,
+            "rendered": null,
+            "type": "i",
+          },
+          "type": "div",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": Array [
+              <div
+                className="UserWalletTransactions__content-recipient"
+              >
+                <FormattedMessage
+                  defaultMessage="Powered up "
+                  id="powered_up"
+                  values={Object {}}
+                />
+                <span
+                  className="UserWalletTransactions__payout"
+                >
+                  <span>
+                    0 STEEM
+                  </span>
+                </span>
+              </div>,
+              <span
+                className="UserWalletTransactions__timestamp"
+              >
+                <Tooltip
+                  arrowPointAtCenter={false}
+                  autoAdjustOverflow={true}
+                  mouseEnterDelay={0.1}
+                  mouseLeaveDelay={0.1}
+                  placement="top"
+                  prefixCls="ant-tooltip"
+                  title={
+                    <span>
+                      <FormattedDate
+                        value="0Z"
+                      />
+                       
+                      <FormattedTime
+                        value="0Z"
+                      />
+                    </span>
+                  }
+                  transitionName="zoom-big-fast"
+                >
+                  <span>
+                    <FormattedRelative
+                      updateInterval={10000}
+                      value="0Z"
+                    />
+                  </span>
+                </Tooltip>
+              </span>,
+            ],
+            "className": "UserWalletTransactions__content",
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": Array [
+                  <FormattedMessage
+                    defaultMessage="Powered up "
+                    id="powered_up"
+                    values={Object {}}
+                  />,
+                  <span
+                    className="UserWalletTransactions__payout"
+                  >
+                    <span>
+                      0 STEEM
+                    </span>
+                  </span>,
+                ],
+                "className": "UserWalletTransactions__content-recipient",
+              },
+              "ref": null,
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "class",
+                  "props": Object {
+                    "defaultMessage": "Powered up ",
+                    "id": "powered_up",
+                    "values": Object {},
+                  },
+                  "ref": null,
+                  "rendered": null,
+                  "type": [Function],
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": <span>
+                      0 STEEM
+                    </span>,
+                    "className": "UserWalletTransactions__payout",
+                  },
+                  "ref": null,
+                  "rendered": Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": "0 STEEM",
+                    },
+                    "ref": null,
+                    "rendered": "0 STEEM",
+                    "type": "span",
+                  },
+                  "type": "span",
+                },
+              ],
+              "type": "div",
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": <Tooltip
+                  arrowPointAtCenter={false}
+                  autoAdjustOverflow={true}
+                  mouseEnterDelay={0.1}
+                  mouseLeaveDelay={0.1}
+                  placement="top"
+                  prefixCls="ant-tooltip"
+                  title={
+                    <span>
+                      <FormattedDate
+                        value="0Z"
+                      />
+                       
+                      <FormattedTime
+                        value="0Z"
+                      />
+                    </span>
+                  }
+                  transitionName="zoom-big-fast"
+                >
+                  <span>
+                    <FormattedRelative
+                      updateInterval={10000}
+                      value="0Z"
+                    />
+                  </span>
+                </Tooltip>,
+                "className": "UserWalletTransactions__timestamp",
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {
+                  "arrowPointAtCenter": false,
+                  "autoAdjustOverflow": true,
+                  "children": <span>
+                    <FormattedRelative
+                      updateInterval={10000}
+                      value="0Z"
+                    />
+                  </span>,
+                  "mouseEnterDelay": 0.1,
+                  "mouseLeaveDelay": 0.1,
+                  "placement": "top",
+                  "prefixCls": "ant-tooltip",
+                  "title": <span>
+                    <FormattedDate
+                      value="0Z"
+                    />
+                     
+                    <FormattedTime
+                      value="0Z"
+                    />
+                  </span>,
+                  "transitionName": "zoom-big-fast",
+                },
+                "ref": null,
+                "rendered": Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": <FormattedRelative
+                      updateInterval={10000}
+                      value="0Z"
+                    />,
+                  },
+                  "ref": null,
+                  "rendered": Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "class",
+                    "props": Object {
+                      "updateInterval": 10000,
+                      "value": "0Z",
+                    },
+                    "ref": null,
+                    "rendered": null,
+                    "type": [Function],
+                  },
+                  "type": "span",
+                },
+                "type": [Function],
+              },
+              "type": "span",
+            },
+          ],
+          "type": "div",
+        },
+      ],
+      "type": "div",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;
