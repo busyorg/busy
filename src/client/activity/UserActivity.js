@@ -56,10 +56,8 @@ import UserActivityActions from './UserActivityActions';
 )
 class UserActivity extends React.Component {
   static propTypes = {
-    currentDisplayedActions: PropTypes.arrayOf(PropTypes.shape()),
     usersAccountHistoryLoading: PropTypes.bool.isRequired,
     loadingGlobalProperties: PropTypes.bool.isRequired,
-    isCurrentUser: PropTypes.bool,
     getGlobalProperties: PropTypes.func.isRequired,
     getUserAccountHistory: PropTypes.func.isRequired,
     getUserEstAccountValue: PropTypes.func.isRequired,
@@ -72,6 +70,8 @@ class UserActivity extends React.Component {
     usersEstAccountsValues: PropTypes.shape().isRequired,
     totalVestingShares: PropTypes.string.isRequired,
     totalVestingFundSteem: PropTypes.string.isRequired,
+    currentDisplayedActions: PropTypes.arrayOf(PropTypes.shape()),
+    isCurrentUser: PropTypes.bool,
     authenticatedUserName: PropTypes.string,
   };
 

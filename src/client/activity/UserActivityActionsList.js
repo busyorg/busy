@@ -54,18 +54,18 @@ import UserAction from './UserAction';
 )
 class UserActivityActionsList extends Component {
   static propTypes = {
-    currentDisplayedActions: PropTypes.arrayOf(PropTypes.shape()),
-    currentFilteredActions: PropTypes.arrayOf(PropTypes.shape()),
-    accountHistoryFilter: PropTypes.arrayOf(PropTypes.string),
     userHasMoreActions: PropTypes.bool.isRequired,
     loadingMoreUsersAccountHistory: PropTypes.bool.isRequired,
-    isCurrentUser: PropTypes.bool, // eslint-disable-line react/no-unused-prop-types
     setInitialCurrentDisplayedActions: PropTypes.func.isRequired,
     loadMoreCurrentUsersActions: PropTypes.func.isRequired,
     user: PropTypes.shape().isRequired,
     usersAccountHistory: PropTypes.shape().isRequired,
     totalVestingShares: PropTypes.string.isRequired,
     totalVestingFundSteem: PropTypes.string.isRequired,
+    currentDisplayedActions: PropTypes.arrayOf(PropTypes.shape()),
+    currentFilteredActions: PropTypes.arrayOf(PropTypes.shape()),
+    accountHistoryFilter: PropTypes.arrayOf(PropTypes.string),
+    isCurrentUser: PropTypes.bool, // eslint-disable-line react/no-unused-prop-types
   };
 
   static defaultProps = {
