@@ -6,7 +6,7 @@
   height: 240px;
   border-radius: 5px;
   margin-bottom: 16px;
-  background: url('/images/banner.png');
+  background: url("/images/banner.png");
 
   @media @small-max-width {
     margin: 0 8px 16px 8px;
@@ -19,6 +19,14 @@
     color: @white;
     z-index: 1;
     cursor: pointer;
+
+    &:link,
+    &:visited,
+    &:hover,
+    &:focus,
+    &:active {
+      text-decoration: none;
+    }
 
     &:hover {
       color: @white-gainsboro;
@@ -49,8 +57,8 @@
 
       &__buttons {
         margin-top: 8px;
-        
-        a > {
+
+        a >  {
           color: @white;
         }
 
