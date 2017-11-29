@@ -11,7 +11,6 @@ import { Link } from 'react-router-dom';
 import { Tag, Icon, Popover, Tooltip } from 'antd';
 import { formatter } from 'steem';
 import { isPostTaggedNSFW } from '../../helpers/postHelpers';
-import apps from '../../helpers/apps';
 import StoryPreview from './StoryPreview';
 import StoryFooter from '../StoryFooter/StoryFooter';
 import Avatar from '../Avatar';
@@ -19,6 +18,7 @@ import Topic from '../Button/Topic';
 import NSFWStoryPreviewMessage from './NSFWStoryPreviewMessage';
 import PopoverMenu, { PopoverMenuItem } from '../PopoverMenu/PopoverMenu';
 import HiddenStoryPreviewMessage from './HiddenStoryPreviewMessage';
+import PostedFromEmbed from './PostedFromEmbed';
 import './Story.less';
 
 @injectIntl class Story extends React.Component {
@@ -215,44 +215,6 @@ import './Story.less';
       );
     }
 
-    let postedFrom;
-    try {
-      const app = JSON.parse(post.json_metadata).app.split('/');
-      let from = app[0];
-      if (apps[from]) {
-        from = apps[from];
-      }
-      const version = app[1];
-      postedFrom = (
-        <span className="Story__header__post_from">
-          <span className="StoryFull__bullet" />
-          <Tooltip
-            title={
-              <span>
-                <FormattedMessage
-                  id="posted_from_tooltip"
-                  defaultMessage={'Version: {version}'}
-                  values={{ version }}
-                />
-              </span>
-            }
-          >
-            <span className="Story__post_from_span">
-              <FormattedMessage
-                id="posted_from"
-                defaultMessage={'{from}'}
-                values={{ from }}
-              />
-            </span>
-          </Tooltip>
-        </span>
-      );
-    } catch (e) {
-      postedFrom = (
-        <div />
-      );
-    }
-
     return (
       <div className="Story">
         {rebloggedUI}
@@ -299,7 +261,9 @@ import './Story.less';
                     <FormattedRelative value={`${post.created}Z`} />
                   </span>
                 </Tooltip>
-                { postedFrom }
+                <PostedFromEmbed
+                  post={post}
+                />
               </span>
             </div>
           </div>
