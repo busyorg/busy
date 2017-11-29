@@ -33,6 +33,52 @@
     }
   }
 
+  &__primary >  {
+    border-radius: 5px;
+    font-weight: bolder;
+    font-size: 14px;
+    padding: 8px 12px;
+    background-color: @green;
+    transition: background-color 0.5s ease-in-out;
+
+    &:link,
+    &:visited,
+    &:focus,
+    &:active {
+      color: @white;
+      text-decoration: none;
+    }
+
+    &:hover {
+      color: @white;
+      text-decoration: none;
+      background-color: darken(@green, 10%);
+    }
+  }
+
+  &__secondary >  {
+    border-radius: 5px;
+    font-weight: bolder;
+    font-size: 14px;
+    padding: 6px 10px;
+    border: 2px solid @white;
+    transition: all 0.5s ease-in-out;
+
+    &:link,
+    &:visited,
+    &:focus,
+    &:active {
+      color: @white;
+      text-decoration: none;
+    }
+
+    &:hover {
+      color: @blue-linkWater;
+      text-decoration: none;
+      border-color: @blue-linkWater;
+    }
+  }
+
   .container {
     height: 100%;
   }
@@ -56,11 +102,7 @@
       }
 
       &__buttons {
-        margin-top: 8px;
-
-        a >  {
-          color: @white;
-        }
+        margin-top: 16px;
 
         &__spacer {
           color: @white;
