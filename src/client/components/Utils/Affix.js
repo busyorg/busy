@@ -39,6 +39,13 @@ class Affix extends React.Component {
 
     this.baseTopPosition = this.relativeContainer.getBoundingClientRect().top + this.lastScroll;
 
+    if (this.relativeContainer.parentElement) {
+      this.mo = new MutationObserver(() => {
+        this.baseTopPosition = this.relativeContainer.getBoundingClientRect().top + this.lastScroll;
+      });
+      this.mo.observe(this.relativeContainer.parentElement, { childList: true });
+    }
+
     this.ro = new ResizeObserver((entries) => {
       entries.forEach((entry) => {
         const { height } = entry.contentRect;
@@ -53,7 +60,8 @@ class Affix extends React.Component {
 
   componentWillUnmount() {
     document.removeEventListener('scroll', this.handleScroll);
-    this.ro.unobserve(this.affixContainer);
+    if (this.ro) this.ro.unobserve(this.affixContainer);
+    if (this.mo) this.mo.disconnect();
   }
 
   handleScroll = () => {
