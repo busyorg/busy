@@ -5,7 +5,9 @@ import { FormattedMessage } from 'react-intl';
 import SteemConnect from '../steemConnectAPI';
 import './HeroBanner.less';
 
-const HeroBanner = ({ location, handleCloseClick }) => {
+const HeroBanner = ({ visible, location, handleCloseClick }) => {
+  if (!visible) return null;
+
   const next = location.pathname.length > 1 ? location.pathname : '';
   return (
     <div className="HeroBanner">
@@ -40,10 +42,12 @@ const HeroBanner = ({ location, handleCloseClick }) => {
 
 HeroBanner.propTypes = {
   location: PropTypes.shape().isRequired,
+  visible: PropTypes.bool,
   handleCloseClick: PropTypes.func,
 };
 
 HeroBanner.defaultProps = {
+  visible: true,
   handleCloseClick: () => {},
 };
 
