@@ -2,19 +2,27 @@ import Promise from 'bluebird';
 import assert from 'assert';
 import { push } from 'react-router-redux';
 import { createAction } from 'redux-actions';
-import { addDraftMetadata, deleteDraftMetadata, saveUpvoteRewardsSettingsMetadata } from '../../helpers/metadata';
+import { addDraftMetadata, deleteDraftMetadata, saveSettingsMetadata } from '../../helpers/metadata';
 import { jsonParse } from '../../helpers/formatter';
 import { createPermlink, getBodyPatchIfSmaller } from '../../vendor/steemitHelpers';
-import { createAsyncActionType } from '../../helpers/stateHelpers';
 
-export const CREATE_POST = createAsyncActionType('@editor/CREATE_POST');
+export const CREATE_POST = '@editor/CREATE_POST';
+export const CREATE_POST_START = '@editor/CREATE_POST_START';
+export const CREATE_POST_SUCCESS = '@editor/CREATE_POST_SUCCESS';
+export const CREATE_POST_ERROR = '@editor/CREATE_POST_ERROR';
 
 export const NEW_POST = '@editor/NEW_POST';
 export const newPost = createAction(NEW_POST);
 
-export const SAVE_DRAFT = createAsyncActionType('@editor/SAVE_DRAFT');
+export const SAVE_DRAFT = '@editor/SAVE_DRAFT';
+export const SAVE_DRAFT_START = '@editor/SAVE_DRAFT_START';
+export const SAVE_DRAFT_SUCCESS = '@editor/SAVE_DRAFT_SUCCESS';
+export const SAVE_DRAFT_ERROR = '@editor/SAVE_DRAFT_ERROR';
 
-export const DELETE_DRAFT = createAsyncActionType('@editor/DELETE_DRAFT');
+export const DELETE_DRAFT = '@editor/DELETE_DRAFT';
+export const DELETE_DRAFT_START = '@editor/DELETE_DRAFT_START';
+export const DELETE_DRAFT_SUCCESS = '@editor/DELETE_DRAFT_SUCCESS';
+export const DELETE_DRAFT_ERROR = '@editor/DELETE_DRAFT_ERROR';
 
 export const ADD_EDITED_POST = '@editor/ADD_EDITED_POST';
 export const addEditedPost = createAction(ADD_EDITED_POST);
@@ -27,7 +35,7 @@ export const UPDATE_LAST_SETTINGS = createAsyncActionType('@editor/UPDATE_LAST_S
 export const saveDraft = (post, redirect) => (dispatch) => {
   if (redirect) dispatch(push(`/editor?draft=${post.id}`));
   return dispatch({
-    type: SAVE_DRAFT.ACTION,
+    type: SAVE_DRAFT,
     payload: {
       promise: addDraftMetadata(post),
     },
@@ -37,7 +45,7 @@ export const saveDraft = (post, redirect) => (dispatch) => {
 
 export const deleteDraft = draftId => dispatch =>
   dispatch({
-    type: DELETE_DRAFT.ACTION,
+    type: DELETE_DRAFT,
     payload: {
       promise: deleteDraftMetadata(draftId),
     },
@@ -150,12 +158,12 @@ export function createPost(postData) {
     dispatch({
       type: UPDATE_LAST_SETTINGS.ACTION,
       payload: {
-        promise: saveUpvoteRewardsSettingsMetadata(upvote, reward),
+        promise: saveSettingsMetadata({ upvoteSetting: upvote, rewardSetting: reward }),
       },
     });
 
     dispatch({
-      type: CREATE_POST.ACTION,
+      type: CREATE_POST,
       payload: {
         promise: getPermLink.then(permlink =>
           broadcastComment(
