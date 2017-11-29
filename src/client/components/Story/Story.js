@@ -18,7 +18,7 @@ import Topic from '../Button/Topic';
 import NSFWStoryPreviewMessage from './NSFWStoryPreviewMessage';
 import PopoverMenu, { PopoverMenuItem } from '../PopoverMenu/PopoverMenu';
 import HiddenStoryPreviewMessage from './HiddenStoryPreviewMessage';
-import PostedFromEmbed from './PostedFromEmbed';
+import PostedFrom from './PostedFrom';
 import './Story.less';
 
 @injectIntl class Story extends React.Component {
@@ -261,9 +261,7 @@ import './Story.less';
                     <FormattedRelative value={`${post.created}Z`} />
                   </span>
                 </Tooltip>
-                <PostedFromEmbed
-                  post={post}
-                />
+                <PostedFrom post={post} />
               </span>
             </div>
           </div>
