@@ -15,13 +15,13 @@ import { Tag, Icon, Popover, Tooltip } from 'antd';
 import Lightbox from 'react-image-lightbox';
 import { formatter } from 'steem';
 import { isPostDeleted } from '../../helpers/postHelpers';
-import apps from '../../helpers/apps';
 import Body from './Body';
 import StoryDeleted from './StoryDeleted';
 import StoryFooter from '../StoryFooter/StoryFooter';
 import Avatar from '../Avatar';
 import Topic from '../Button/Topic';
 import PopoverMenu, { PopoverMenuItem } from '../PopoverMenu/PopoverMenu';
+import PostedFromEmbed from './PostedFromEmbed';
 import './StoryFull.less';
 
 @injectIntl
@@ -264,43 +264,6 @@ class StoryFull extends React.Component {
       );
     }
 
-    let postedFrom;
-    try {
-      const app = JSON.parse(post.json_metadata).app.split('/');
-      let from = app[0];
-      if (apps[from]) {
-        from = apps[from];
-      }
-      const version = app[1];
-      postedFrom = (
-        <span className="StoryFull__header__post_from">
-          <Tooltip
-            title={
-              <span>
-                <FormattedMessage
-                  id="posted_from_tooltip"
-                  defaultMessage={'Version: {version}'}
-                  values={{ version }}
-                />
-              </span>
-            }
-          >
-            <span className="Story__header__post_from_span">
-              <FormattedMessage
-                id="posted_from"
-                defaultMessage={'{from}'}
-                values={{ from }}
-              />
-            </span>
-          </Tooltip>
-        </span>
-      );
-    } catch (e) {
-      postedFrom = (
-        <div />
-      );
-    }
-
     return (
       <div className="StoryFull">
         {replyUI}
@@ -349,8 +312,9 @@ class StoryFull extends React.Component {
                 <FormattedRelative value={`${post.created}Z`} />
               </span>
             </Tooltip>
-            <span className="StoryFull__bullet" />
-            {postedFrom}
+            <PostedFromEmbed
+              post={post}
+            />
             {Math.ceil(readingTime(post.body).minutes) > 1 &&
               <span>
                 <span className="StoryFull__bullet" />
