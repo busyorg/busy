@@ -63,6 +63,7 @@ export const getIsTrendingTopicsLoading = state => fromApp.getIsTrendingTopicsLo
 export const getRewardFund = state => fromApp.getRewardFund(state.app);
 export const getTrendingTopics = state => fromApp.getTrendingTopics(state.app);
 export const getIsFetching = state => fromApp.getIsFetching(state.app);
+export const getIsBannerClosed = state => fromApp.getIsBannerClosed(state.app);
 
 export const getFeed = state => fromFeed.getFeed(state.feed);
 

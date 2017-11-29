@@ -9,6 +9,7 @@ const initialState = {
   trendingTopicsLoading: false,
   trendingTopics: [],
   rewardFund: {},
+  bannerClosed: false,
 };
 
 export default (state = initialState, action) => {
@@ -60,6 +61,11 @@ export default (state = initialState, action) => {
         trendingTopicsLoading: false,
         trendingTopics: [],
       };
+    case appTypes.CLOSE_BANNER:
+      return {
+        ...state,
+        bannerClosed: true,
+      };
     default:
       return state;
   }
@@ -70,3 +76,4 @@ export const getIsTrendingTopicsLoading = state => state.trendingTopicsLoading;
 export const getRewardFund = state => state.rewardFund;
 export const getTrendingTopics = state => state.trendingTopics;
 export const getIsFetching = state => state.isFetching;
+export const getIsBannerClosed = state => state.bannerClosed;

@@ -5,13 +5,13 @@ import { FormattedMessage } from 'react-intl';
 import SteemConnect from '../steemConnectAPI';
 import './HeroBanner.less';
 
-const HeroBanner = ({ visible, location, handleCloseClick }) => {
+const HeroBanner = ({ visible, location, onCloseClick }) => {
   if (!visible) return null;
 
   const next = location.pathname.length > 1 ? location.pathname : '';
   return (
     <div className="HeroBanner">
-      <a onClick={handleCloseClick} role="button" tabIndex="0" className="HeroBanner__close">
+      <a onClick={onCloseClick} role="button" tabIndex="0" className="HeroBanner__close">
         <i className="iconfont icon-close" />
       </a>
       <div className="feed-layout container">
@@ -43,12 +43,12 @@ const HeroBanner = ({ visible, location, handleCloseClick }) => {
 HeroBanner.propTypes = {
   location: PropTypes.shape().isRequired,
   visible: PropTypes.bool,
-  handleCloseClick: PropTypes.func,
+  onCloseClick: PropTypes.func,
 };
 
 HeroBanner.defaultProps = {
   visible: true,
-  handleCloseClick: () => {},
+  onCloseClick: () => {},
 };
 
 export default withRouter(HeroBanner);
