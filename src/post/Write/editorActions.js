@@ -3,6 +3,7 @@ import assert from 'assert';
 import { push } from 'react-router-redux';
 import { createAction } from 'redux-actions';
 import { addDraftMetadata, deleteDraftMetadata, saveSettingsMetadata } from '../../helpers/metadata';
+import { createAsyncActionType } from '../../helpers/stateHelpers';
 import { jsonParse } from '../../helpers/formatter';
 import { createPermlink, getBodyPatchIfSmaller } from '../../vendor/steemitHelpers';
 
