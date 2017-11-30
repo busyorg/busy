@@ -13,7 +13,9 @@ const UserActionContents = ({ actionType, actionDetails }) => {
       <tbody>
         {_.map(actionDetails, (details, property) => (
           <tr className="UserActivityActions__contents__item" key={property}>
-            <td className="UserActivityActions__contents__label">{property}</td>
+            <td className="UserActivityActions__contents__label">
+              <div>{property}</div>
+            </td>
             <td className="UserActivityActions__contents__value">
               {_.isObject(details) ? (
                 <pre>
