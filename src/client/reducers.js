@@ -112,3 +112,7 @@ export const getLoadingMoreUsersAccountHistory = state =>
 export const getUserHasMoreAccountHistory = (state, username) =>
   fromWallet.getUserHasMoreAccountHistory(state.wallet, username);
 export const getAccountHistoryFilter = state => fromWallet.getAccountHistoryFilter(state.wallet);
+export const getCurrentDisplayedActions = state =>
+  fromWallet.getCurrentDisplayedActions(state.wallet);
+export const getCurrentFilteredActions = state =>
+  fromWallet.getCurrentFilteredActions(state.wallet);
