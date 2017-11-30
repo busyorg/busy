@@ -29,15 +29,23 @@ export default class Invite extends React.Component {
     super(props);
     this.state = {
       copied: false,
+      inviteURL: '',
     };
   }
 
-  render() {
+  componentDidMount() {
+    this.createInviteURL();
+  }
+
+  createInviteURL() {
     const { authenticatedUserName } = this.props;
-    let inviteURL;
     if (typeof window !== 'undefined') {
-      inviteURL = `${window.location.protocol}//${window.location.host}/i/@${authenticatedUserName}`;
+      const inviteURL = `${window.location.protocol}//${window.location.host}/i/@${authenticatedUserName}`;
+      this.setState({ inviteURL });
     }
+  }
+
+  render() {
     const buttonLabel = this.state.copied ? 'Copied' : 'Copy link';
     return (
       <div className="shifted">
@@ -67,11 +75,11 @@ export default class Invite extends React.Component {
                 <Form.Item>
                   <Input
                     className="Invite__input"
-                    value={inviteURL}
+                    value={this.state.inviteURL}
                     readOnly
                   />
                   <CopyToClipboard
-                    text={inviteURL}
+                    text={this.state.inviteURL}
                     onCopy={() => this.setState({ copied: true })}
                   >
                     <button className="Action ant-btn-lg Action--primary">{buttonLabel}</button>
