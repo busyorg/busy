@@ -115,7 +115,7 @@ const UserWalletSummary = ({
         <FormattedMessage id="est_account_value" defaultMessage="Est. Account Value" />
       </div>
       <div className="UserWalletSummary__value">
-        {loading
+        {loading || loadingGlobalProperties
           ? <Loading />
           : <USDDisplay
             value={calculateEstAccountValue(
