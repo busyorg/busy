@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { Form, Input } from 'antd';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 import Affix from '../components/Utils/Affix';
 import LeftSidebar from '../app/Sidebar/LeftSidebar';
 import requiresLogin from '../auth/requiresLogin';
@@ -24,12 +25,20 @@ export default class Invite extends React.Component {
     authenticatedUserName: '',
   };
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      copied: false,
+    };
+  }
+
   render() {
     const { authenticatedUserName } = this.props;
     let inviteURL;
     if (typeof window !== 'undefined') {
       inviteURL = `${window.location.protocol}//${window.location.host}/i/@${authenticatedUserName}`;
     }
+    const buttonLabel = this.state.copied ? 'Copied' : 'Copy link';
     return (
       <div className="shifted">
         <div className="settings-layout container">
@@ -54,13 +63,21 @@ export default class Invite extends React.Component {
               </p>
             </div>
             <div className="Invite__content">
-              <Form.Item>
-                <Input
-                  className="Invite__input"
-                  value={inviteURL}
-                  readOnly
-                />
-              </Form.Item>
+              <div className="">
+                <Form.Item>
+                  <Input
+                    className="Invite__input"
+                    value={inviteURL}
+                    readOnly
+                  />
+                  <CopyToClipboard
+                    text={inviteURL}
+                    onCopy={() => this.setState({ copied: true })}
+                  >
+                    <button className="Action ant-btn-lg Action--primary">{buttonLabel}</button>
+                  </CopyToClipboard>
+                </Form.Item>
+              </div>
             </div>
           </div>
         </div>
