@@ -1,0 +1,35 @@
+@import (reference) "../styles/custom.less";
+
+.Witnesses {
+  .ant-table-wrapper {
+    margin-bottom: 20px !important;
+  }
+
+  .ant-input-group-wrapper {
+    margin-bottom: 20px !important;
+  }
+
+  &__link {
+    color: @blue-botticelli;
+    transition: none;
+
+    & > .iconfont {
+      margin-right: 4px;
+      font-size: 24px !important;
+      color: @blue-linkWater;
+    }
+
+    & > span {
+      vertical-align: top;
+    }
+
+    &:hover {
+      color: @purple;
+    }
+
+    &:hover > .iconfont,
+    &.active > .iconfont {
+      color: @purple;
+    }
+  }
+}

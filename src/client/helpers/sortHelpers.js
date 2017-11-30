@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 export const sortComments = (comments, sortType = 'BEST') => {
   const sortedComments = [...comments];
 
@@ -35,5 +37,8 @@ export const sortComments = (comments, sortType = 'BEST') => {
 };
 
 export const sortVotes = (a, b) => b.rshares - a.rshares;
+
+export const sortWitnesses = witnesses =>
+  _.sortBy(witnesses.witnesses, [o => o.votes]).reverse();
 
 export default null;

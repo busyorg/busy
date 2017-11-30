@@ -127,3 +127,7 @@ export const isWalletTransaction = actionType =>
   actionType === accountHistoryConstants.TRANSFER_TO_SAVINGS ||
   actionType === accountHistoryConstants.DELEGATE_VESTING_SHARES ||
   actionType === accountHistoryConstants.CLAIM_REWARD_BALANCE;
+
+export const getWitnessesList = () => SteemAPI.getStateAsync('/~witnesses');
+
+export const getAccountWitnessVotes = username => SteemAPI.getAccountsAsync([username]);
