@@ -25,6 +25,7 @@ import UserActivity from '../client/activity/UserActivity';
 import Post from '../client/post/Post';
 import Page from '../client/feed/Page';
 import Discover from '../client/discover/Discover';
+import Witnesses from '../client/witnesses/Witnesses';
 
 const routes = [
   {
@@ -88,6 +89,11 @@ const routes = [
         path: '/edit-profile',
         exact: true,
         component: ProfileSettings,
+      },
+      {
+        path: '/~witnesses',
+        exact: true,
+        component: Witnesses,
       },
       {
         path: '/@:name',

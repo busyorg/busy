@@ -17,6 +17,7 @@ import walletReducer, * as fromWallet from './wallet/walletReducer';
 import reblogReducers, * as fromReblog from './app/Reblog/reblogReducers';
 import settingsReducer, * as fromSettings from './settings/settingsReducer';
 import { responsiveReducer } from './vendor/responsive';
+import witnessesReducer, * as fromWitnesses from './witnesses/witnessesReducer';
 
 const reducers = combineReducers({
   app: appReducer,
@@ -35,6 +36,7 @@ const reducers = combineReducers({
   router: routerReducer,
   wallet: walletReducer,
   settings: settingsReducer,
+  witnesses: witnessesReducer,
 });
 
 export default reducers;
@@ -112,3 +114,7 @@ export const getLoadingMoreUsersAccountHistory = state =>
 export const getUserHasMoreAccountHistory = (state, username) =>
   fromWallet.getUserHasMoreAccountHistory(state.wallet, username);
 export const getAccountHistoryFilter = state => fromWallet.getAccountHistoryFilter(state.wallet);
+
+export const getLoading = state => fromWitnesses.getLoading(state.witnesses);
+export const getWitnessesList = state => fromWitnesses.getWitnessesList(state.witnesses);
+export const getVotes = state => fromWitnesses.getVotes(state.witnesses);
