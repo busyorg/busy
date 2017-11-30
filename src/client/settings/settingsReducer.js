@@ -7,6 +7,8 @@ const initialState = {
   votePercent: 10000,
   showNSFWPosts: false,
   loading: false,
+  upvoteSetting: true,
+  rewardSetting: '50',
 };
 
 const settings = (state = initialState, action) => {
@@ -23,6 +25,10 @@ const settings = (state = initialState, action) => {
             initialState.votePercent,
           showNSFWPosts: action.payload.user_metadata.settings.showNSFWPosts ||
             initialState.showNSFWPosts,
+          upvoteSetting: action.payload.user_metadata.settings.upvoteSetting ||
+            initialState.upvoteSetting,
+          rewardSetting: action.payload.user_metadata.settings.rewardSetting ||
+            initialState.rewardSetting,
         };
       }
       return state;
@@ -40,6 +46,8 @@ const settings = (state = initialState, action) => {
         votingPower: action.payload.votingPower,
         votePercent: action.payload.votePercent,
         showNSFWPosts: action.payload.showNSFWPosts,
+        upvoteSetting: action.payload.upvoteSetting,
+        rewardSetting: action.payload.rewardSetting,
       };
     case settingsTypes.SAVE_SETTINGS_ERROR:
       return {
@@ -58,3 +66,5 @@ export const getLocale = state => state.locale;
 export const getVotingPower = state => state.votingPower;
 export const getVotePercent = state => state.votePercent;
 export const getShowNSFWPosts = state => state.showNSFWPosts;
+export const getUpvoteSetting = state => state.upvoteSetting;
+export const getRewardSetting = state => state.rewardSetting;
