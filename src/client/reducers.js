@@ -122,4 +122,4 @@ export const getVotes = state => fromWitnesses.getVotes(state.witnesses);
 export const getCurrentDisplayedActions = state =>
   fromWallet.getCurrentDisplayedActions(state.wallet);
 export const getCurrentFilteredActions = state =>
-  fromWallet.getCurrentFilteredActions(state.wallet
+  fromWallet.getCurrentFilteredActions(state.wallet);
