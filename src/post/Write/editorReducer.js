@@ -10,8 +10,6 @@ const defaultState = {
   draftPosts: {},
   pendingDrafts: [],
   editedPosts: [],
-  upvoteSetting: true,
-  rewardSetting: '50',
 };
 
 const editor = (state = defaultState, action) => {
@@ -35,9 +33,6 @@ const editor = (state = defaultState, action) => {
       return {
         ...state,
         draftPosts: action.payload.user_metadata.drafts || defaultState.draftPosts,
-        upvoteSetting: action.payload.user_metadata.settings.upvoteSetting || false,
-        rewardSetting: action.payload.user_metadata.settings.rewardSetting
-          || defaultState.rewardSetting,
       };
     case editorActions.NEW_POST:
       return {
@@ -47,76 +42,59 @@ const editor = (state = defaultState, action) => {
         success: false,
         loadingImg: false,
       };
-    case editorActions.CREATE_POST.START:
+    case editorActions.CREATE_POST_START:
       return {
         ...state,
         loading: true,
         error: null,
         success: false,
       };
-    case editorActions.CREATE_POST.ERROR:
+    case editorActions.CREATE_POST_ERROR:
       return {
         ...state,
         error: action.payload.result,
         loading: false,
         success: false,
       };
-    case editorActions.CREATE_POST.SUCCESS:
+    case editorActions.CREATE_POST_SUCCESS:
       return {
         ...state,
         error: null,
         loading: false,
         success: true,
       };
-    case editorActions.SAVE_DRAFT.START:
+    case editorActions.SAVE_DRAFT_START:
       return {
         ...state,
         saving: true,
       };
-    case editorActions.SAVE_DRAFT.SUCCESS:
+    case editorActions.SAVE_DRAFT_SUCCESS:
       return {
         ...state,
         draftPosts: { ...state.draftPosts, [action.meta.postId]: action.payload },
         saving: false,
       };
-    case editorActions.SAVE_DRAFT.ERROR:
+    case editorActions.SAVE_DRAFT_ERROR:
       return {
         ...state,
         saving: false,
       };
-    case editorActions.DELETE_DRAFT.START:
+    case editorActions.DELETE_DRAFT_START:
       return {
         ...state,
         pendingDrafts: [...state.pendingDrafts, action.meta.id],
       };
-    case editorActions.DELETE_DRAFT.SUCCESS: {
+    case editorActions.DELETE_DRAFT_SUCCESS: {
       return {
         ...state,
         draftPosts: action.payload,
         pendingDrafts: state.pendingDrafts.filter(id => id !== action.meta.id),
       };
     }
-    case editorActions.DELETE_DRAFT.ERROR:
+    case editorActions.DELETE_DRAFT_ERROR:
       return {
         ...state,
         pendingDrafts: state.pendingDrafts.filter(id => id !== action.meta.id),
-      };
-    case editorActions.UPDATE_LAST_SETTINGS.START:
-      return {
-        ...state,
-        saving: true,
-      };
-    case editorActions.UPDATE_LAST_SETTINGS.SUCCESS:
-      return {
-        ...state,
-        upvoteSetting: action.payload.upvoteSetting,
-        rewardSetting: action.payload.rewardSetting,
-        saving: false,
-      };
-    case editorActions.UPDATE_LAST_SETTINGS.ERROR:
-      return {
-        ...state,
-        saving: false,
       };
     default:
       return state;
@@ -130,5 +108,3 @@ export const getIsEditorLoading = state => state.loading;
 export const getIsEditorSaving = state => state.saving;
 export const getPendingDrafts = state => state.pendingDrafts;
 export const getIsPostEdited = (state, permlink) => state.editedPosts.includes(permlink);
-export const getUpvoteSetting = state => state.upvoteSetting;
-export const getRewardSetting = state => state.rewardSetting;

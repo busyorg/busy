@@ -57,8 +57,6 @@ export const getIsEditorSaving = state => fromEditor.getIsEditorSaving(state.edi
 export const getPendingDrafts = state => fromEditor.getPendingDrafts(state.editor);
 export const getIsPostEdited = (state, permlink) =>
   fromEditor.getIsPostEdited(state.editor, permlink);
-export const getUpvoteSetting = state => fromEditor.getUpvoteSetting(state.editor);
-export const getRewardSetting = state => fromEditor.getRewardSetting(state.editor);
 
 export const getRate = state => fromApp.getRate(state.app);
 export const getIsTrendingTopicsLoading = state => fromApp.getIsTrendingTopicsLoading(state.app);
@@ -96,6 +94,8 @@ export const getLocale = state => fromSettings.getLocale(state.settings);
 export const getVotingPower = state => fromSettings.getVotingPower(state.settings);
 export const getVotePercent = state => fromSettings.getVotePercent(state.settings);
 export const getShowNSFWPosts = state => fromSettings.getShowNSFWPosts(state.settings);
+export const getUpvoteSetting = state => fromSettings.getUpvoteSetting(state.settings);
+export const getRewardSetting = state => fromSettings.getRewardSetting(state.settings);
 
 export const getTotalVestingShares = state => fromWallet.getTotalVestingShares(state.wallet);
 export const getTotalVestingFundSteem = state => fromWallet.getTotalVestingFundSteem(state.wallet);

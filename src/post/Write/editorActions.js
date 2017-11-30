@@ -2,10 +2,10 @@ import Promise from 'bluebird';
 import assert from 'assert';
 import { push } from 'react-router-redux';
 import { createAction } from 'redux-actions';
-import { addDraftMetadata, deleteDraftMetadata, saveSettingsMetadata } from '../../helpers/metadata';
-import { createAsyncActionType } from '../../helpers/stateHelpers';
+import { addDraftMetadata, deleteDraftMetadata } from '../../helpers/metadata';
 import { jsonParse } from '../../helpers/formatter';
 import { createPermlink, getBodyPatchIfSmaller } from '../../vendor/steemitHelpers';
+import { saveSettings } from '../../settings/settingsActions';
 
 export const CREATE_POST = '@editor/CREATE_POST';
 export const CREATE_POST_START = '@editor/CREATE_POST_START';
@@ -30,8 +30,6 @@ export const addEditedPost = createAction(ADD_EDITED_POST);
 
 export const DELETE_EDITED_POST = '@editor/DELETE_EDITED_POST';
 export const deleteEditedPost = createAction(DELETE_EDITED_POST);
-
-export const UPDATE_LAST_SETTINGS = createAsyncActionType('@editor/UPDATE_LAST_SETTINGS');
 
 export const saveDraft = (post, redirect) => (dispatch) => {
   if (redirect) dispatch(push(`/editor?draft=${post.id}`));
@@ -156,12 +154,7 @@ export function createPost(postData) {
 
     const newBody = isUpdating ? getBodyPatchIfSmaller(postData.originalBody, body) : body;
 
-    dispatch({
-      type: UPDATE_LAST_SETTINGS.ACTION,
-      payload: {
-        promise: saveSettingsMetadata({ upvoteSetting: upvote, rewardSetting: reward }),
-      },
-    });
+    saveSettings({ upvoteSetting: upvote, rewardSetting: reward });
 
     dispatch({
       type: CREATE_POST,
