@@ -118,3 +118,8 @@ export const getAccountHistoryFilter = state => fromWallet.getAccountHistoryFilt
 export const getLoading = state => fromWitnesses.getLoading(state.witnesses);
 export const getWitnessesList = state => fromWitnesses.getWitnessesList(state.witnesses);
 export const getVotes = state => fromWitnesses.getVotes(state.witnesses);
+
+export const getCurrentDisplayedActions = state =>
+  fromWallet.getCurrentDisplayedActions(state.wallet);
+export const getCurrentFilteredActions = state =>
+  fromWallet.getCurrentFilteredActions(state.wallet

@@ -312,26 +312,29 @@ class StoryFull extends React.Component {
               </span>
             </Tooltip>
             { Math.ceil(readingTime(post.body).minutes) > 1 &&
-              <Tooltip
-                title={
-                  <span>
+              <span>
+                <span className="StoryFull__bullet" />
+                <Tooltip
+                  title={
+                    <span>
+                      <FormattedMessage
+                        id="words_tooltip"
+                        defaultMessage={'{words} words'}
+                        values={{ words: readingTime(post.body).words }}
+                      />
+                    </span>
+                  }
+                >
+                  <span className="StoryFull__header__reading__time">
+
                     <FormattedMessage
-                      id="words_tooltip"
-                      defaultMessage={'{words} words'}
-                      values={{ words: readingTime(post.body).words }}
+                      id="reading_time_post"
+                      defaultMessage={'{min} min read'}
+                      values={{ min: Math.ceil(readingTime(post.body).minutes) }}
                     />
                   </span>
-                }
-              >
-                <span className="StoryFull__header__reading__time">
-                  <span className="CommentFooter__bullet" />
-                  <FormattedMessage
-                    id="reading_time_post"
-                    defaultMessage={'{min} min read'}
-                    values={{ min: Math.ceil(readingTime(post.body).minutes) }}
-                  />
-                </span>
-              </Tooltip>
+                </Tooltip>
+              </span>
             }
           </div>
           <Popover
