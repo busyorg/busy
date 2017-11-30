@@ -80,9 +80,12 @@ class Topnav extends React.Component {
               placement="bottom"
               trigger="click"
               content={
-                <PopoverMenu onSelect={onMenuItemClick}>
+                <PopoverMenu onSelect={onMenuItemClick} className="PopoverMenu Topnav__popover">
                   <PopoverMenuItem key="activity">
                     <FormattedMessage id="activity" defaultMessage="Activity" />
+                  </PopoverMenuItem>
+                  <PopoverMenuItem key="replies">
+                    <FormattedMessage id="replies" defaultMessage="Replies" />
                   </PopoverMenuItem>
                   <PopoverMenuItem key="bookmarks">
                     <FormattedMessage id="bookmarks" defaultMessage="Bookmarks" />

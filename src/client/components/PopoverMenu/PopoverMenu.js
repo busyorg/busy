@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import PopoverMenuItem, { popoverMenuItemType } from './PopoverMenuItem';
 import './PopoverMenu.less';
 
-const PopoverMenu = ({ children, onSelect, bold }) =>
-  (<ul className="PopoverMenu">
+const PopoverMenu = ({ children, onSelect, bold, className }) =>
+  (<ul className={className}>
     {React.Children.map(children, (child) => {
       const { children: itemChildren, ...otherProps } = child.props;
 
@@ -26,12 +26,14 @@ PopoverMenu.propTypes = {
   children: PropTypes.oneOfType([PropTypes.arrayOf(popoverMenuItemType), popoverMenuItemType]),
   onSelect: PropTypes.func,
   bold: PropTypes.bool,
+  className: PropTypes.string,
 };
 
 PopoverMenu.defaultProps = {
   children: null,
   onSelect: () => {},
   bold: true,
+  className: "PopoverMenu",
 };
 
 export default PopoverMenu;
