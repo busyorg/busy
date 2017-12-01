@@ -9,15 +9,12 @@ import {
   getAuthenticatedUserName,
   getTotalVestingShares,
   getTotalVestingFundSteem,
-  getUsersTransactions,
   getUsersAccountHistory,
   getUsersAccountHistoryLoading,
   getUsersEstAccountsValues,
-  getLoadingEstAccountValue,
   getLoadingGlobalProperties,
-  getLoadingMoreUsersAccountHistory,
-  getUserHasMoreAccountHistory,
   getAccountHistoryFilter,
+  getCurrentDisplayedActions,
 } from '../reducers';
 import {
   getGlobalProperties,
@@ -25,6 +22,7 @@ import {
   getUserAccountHistory,
   getMoreUserAccountHistory,
   updateAccountHistoryFilter,
+  setInitialCurrentDisplayedActions,
 } from '../wallet/walletActions';
 import { getAccountWithFollowingCount } from '../user/usersActions';
 import Loading from '../components/Icon/Loading';
@@ -39,20 +37,12 @@ import UserActivityActions from './UserActivityActions';
     authenticatedUserName: getAuthenticatedUserName(state),
     totalVestingShares: getTotalVestingShares(state),
     totalVestingFundSteem: getTotalVestingFundSteem(state),
-    usersTransactions: getUsersTransactions(state),
     usersAccountHistory: getUsersAccountHistory(state),
     usersAccountHistoryLoading: getUsersAccountHistoryLoading(state),
     usersEstAccountsValues: getUsersEstAccountsValues(state),
-    loadingEstAccountValue: getLoadingEstAccountValue(state),
     loadingGlobalProperties: getLoadingGlobalProperties(state),
-    loadingMoreUsersAccountHistory: getLoadingMoreUsersAccountHistory(state),
-    userHasMoreActions: getUserHasMoreAccountHistory(
-      state,
-      ownProps.isCurrentUser
-        ? getAuthenticatedUserName(state)
-        : getUser(state, ownProps.match.params.name).name,
-    ),
     accountHistoryFilter: getAccountHistoryFilter(state),
+    currentDisplayedActions: getCurrentDisplayedActions(state),
   }),
   {
     getGlobalProperties,
@@ -61,32 +51,32 @@ import UserActivityActions from './UserActivityActions';
     getAccountWithFollowingCount,
     getUserEstAccountValue,
     updateAccountHistoryFilter,
+    setInitialCurrentDisplayedActions,
   },
 )
 class UserActivity extends React.Component {
   static propTypes = {
-    location: PropTypes.shape().isRequired,
-    totalVestingShares: PropTypes.string.isRequired,
-    totalVestingFundSteem: PropTypes.string.isRequired,
-    user: PropTypes.shape().isRequired,
+    usersAccountHistoryLoading: PropTypes.bool.isRequired,
+    loadingGlobalProperties: PropTypes.bool.isRequired,
     getGlobalProperties: PropTypes.func.isRequired,
     getUserAccountHistory: PropTypes.func.isRequired,
-    getMoreUserAccountHistory: PropTypes.func.isRequired,
     getUserEstAccountValue: PropTypes.func.isRequired,
     getAccountWithFollowingCount: PropTypes.func.isRequired,
+    updateAccountHistoryFilter: PropTypes.func.isRequired,
+    setInitialCurrentDisplayedActions: PropTypes.func.isRequired,
+    location: PropTypes.shape().isRequired,
+    user: PropTypes.shape().isRequired,
     usersAccountHistory: PropTypes.shape().isRequired,
     usersEstAccountsValues: PropTypes.shape().isRequired,
-    usersAccountHistoryLoading: PropTypes.bool.isRequired,
-    loadingMoreUsersAccountHistory: PropTypes.bool.isRequired,
-    userHasMoreActions: PropTypes.bool.isRequired,
-    loadingGlobalProperties: PropTypes.bool.isRequired,
+    totalVestingShares: PropTypes.string.isRequired,
+    totalVestingFundSteem: PropTypes.string.isRequired,
+    currentDisplayedActions: PropTypes.arrayOf(PropTypes.shape()),
     isCurrentUser: PropTypes.bool,
     authenticatedUserName: PropTypes.string,
-    accountHistoryFilter: PropTypes.arrayOf(PropTypes.string).isRequired,
-    updateAccountHistoryFilter: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
+    currentDisplayedActions: [],
     isCurrentUser: false,
     authenticatedUserName: '',
   };
@@ -100,6 +90,7 @@ class UserActivity extends React.Component {
       user,
       isCurrentUser,
       authenticatedUserName,
+      currentDisplayedActions,
     } = this.props;
     const username = isCurrentUser
       ? authenticatedUserName
@@ -121,39 +112,31 @@ class UserActivity extends React.Component {
       this.props.getUserEstAccountValue(user);
     }
 
-    this.props.updateAccountHistoryFilter([]);
+    if (_.isEmpty(currentDisplayedActions)) {
+      this.props.setInitialCurrentDisplayedActions(user.name);
+    }
+
+    this.props.updateAccountHistoryFilter({
+      username: user.name,
+      accountHistoryFilter: [],
+    });
   }
 
   render() {
     const {
       user,
       usersAccountHistory,
-      totalVestingShares,
-      totalVestingFundSteem,
       usersAccountHistoryLoading,
       loadingGlobalProperties,
-      loadingMoreUsersAccountHistory,
-      userHasMoreActions,
-      accountHistoryFilter,
+      isCurrentUser,
     } = this.props;
     const actions = usersAccountHistory[user.name] || [];
 
     return (
       <div>
-        {actions.length === 0 || usersAccountHistoryLoading || loadingGlobalProperties ? (
-          <Loading style={{ marginTop: '20px' }} />
-        ) : (
-          <UserActivityActions
-            actions={actions}
-            currentUsername={user.name}
-            getMoreUserAccountHistory={this.props.getMoreUserAccountHistory}
-            totalVestingShares={totalVestingShares}
-            totalVestingFundSteem={totalVestingFundSteem}
-            userHasMoreActions={userHasMoreActions}
-            loadingMoreUsersAccountHistory={loadingMoreUsersAccountHistory}
-            accountHistoryFilter={accountHistoryFilter}
-          />
-        )}
+        {actions.length === 0 || usersAccountHistoryLoading || loadingGlobalProperties
+          ? <Loading style={{ marginTop: '20px' }} />
+          : <UserActivityActions isCurrentUser={isCurrentUser} />}
       </div>
     );
   }
