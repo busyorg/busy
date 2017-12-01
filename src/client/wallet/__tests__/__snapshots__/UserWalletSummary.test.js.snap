@@ -7,7 +7,6 @@ ShallowWrapper {
   Symbol(enzyme.__unrendered__): <UserWalletSummary
     estAccountValue="100.00 STEEM"
     loading={false}
-    loadingEstAccountValue={false}
     totalVestingFundSteem="100 STEEM"
     totalVestingShares="100 STEEM"
     user={
@@ -185,7 +184,7 @@ ShallowWrapper {
             className="UserWalletSummary__value"
           >
             <USDDisplay
-              value={100}
+              value={NaN}
             />
           </div>
         </div>,
@@ -859,7 +858,7 @@ ShallowWrapper {
               className="UserWalletSummary__value"
             >
               <USDDisplay
-                value={100}
+                value={NaN}
               />
             </div>,
           ],
@@ -912,7 +911,7 @@ ShallowWrapper {
             "nodeType": "host",
             "props": Object {
               "children": <USDDisplay
-                value={100}
+                value={NaN}
               />,
               "className": "UserWalletSummary__value",
             },
@@ -922,7 +921,7 @@ ShallowWrapper {
               "key": undefined,
               "nodeType": "function",
               "props": Object {
-                "value": 100,
+                "value": NaN,
               },
               "ref": null,
               "rendered": null,
@@ -1096,7 +1095,7 @@ ShallowWrapper {
               className="UserWalletSummary__value"
             >
               <USDDisplay
-                value={100}
+                value={NaN}
               />
             </div>
           </div>,
@@ -1770,7 +1769,7 @@ ShallowWrapper {
                 className="UserWalletSummary__value"
               >
                 <USDDisplay
-                  value={100}
+                  value={NaN}
                 />
               </div>,
             ],
@@ -1823,7 +1822,7 @@ ShallowWrapper {
               "nodeType": "host",
               "props": Object {
                 "children": <USDDisplay
-                  value={100}
+                  value={NaN}
                 />,
                 "className": "UserWalletSummary__value",
               },
@@ -1833,7 +1832,7 @@ ShallowWrapper {
                 "key": undefined,
                 "nodeType": "function",
                 "props": Object {
-                  "value": 100,
+                  "value": NaN,
                 },
                 "ref": null,
                 "rendered": null,
