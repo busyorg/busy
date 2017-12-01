@@ -17,7 +17,9 @@ export default (state = initialState, action) => {
     case authActions.LOGIN_SUCCESS:
       return {
         ...state,
-        locale: action.payload.user_metadata.locale || initialState.locale,
+        locale:
+          (action.payload.user_metadata && action.payload.user_metadata.locale) ||
+          initialState.locale,
       };
     case appTypes.RATE_SUCCESS:
       return {
