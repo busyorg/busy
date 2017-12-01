@@ -8,6 +8,9 @@
   position: relative;
 
   &__more {
+    position: absolute;
+    top: 5px;
+    right: 25px;
     font-size: 36px !important;
     color: @purple;
 
@@ -35,81 +38,40 @@
   display: flex;
   margin: 0 auto;
   max-width: 1011px;
-  padding: 30px 0;
+  padding: 30px 16px;
+  align-items: center;
+  flex-direction: column;
 }
 
-@media @small-max-width {
-  .UserHeader__container {
-    align-items: center;
-    flex-direction: column;
-    padding: 30px 16px;
-  }
+.UserHeader__user {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 20px;
+  margin: 0;
+}
 
-  .UserHeader__user {
-    padding-bottom: 20px;
-    margin: 0 !important;
+.UserHeader__row {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
 
-    &__username {
-      font-size: 28px !important;
-    }
-  }
+.UserHeader__handle {
+  position: relative;
+  top: -30px;
+  color: #99aab5;
 
-  .UserHeader__row {
-    align-items: center;
-    flex-direction: column;
-  }
-
-  .UserHeader__rank {
-    align-self: center;
-    margin-top: -62px !important;
-    margin-left: 15px;
-  }
-
-  .UserHeader__handle {
-    top: -30px !important;
-  }
-
-  .UserHeader__more {
-    position: absolute;
-    top: 5px;
-    right: 25px;
-  }
-
-  .UserHeader__user__button {
-    top: 40px !important;
-  }
-
-  .UserHeader__handle-rank-container {
+  &-rank-container {
     display: flex;
     flex-direction: row;
     justify-content: center;
   }
 }
 
-@media @medium-max-width {
-  .UserHeader__container {
-    padding-left: 16px;
-  }
-}
-
-.UserHeader__user {
-  display: flex;
-  flex-direction: column;
-  margin: 0 20px;
-}
-
-.UserHeader__row {
-  display: flex;
-}
-
-.UserHeader__handle {
-  position: relative;
-  top: -8px;
-  color: #99aab5;
-}
-
 .UserHeader__rank {
-  margin-top: -4px;
+  align-self: center;
+  margin-top: -62px;
+  margin-left: 15px;
 
   & > i {
     font-size: 18px !important;
@@ -121,7 +83,7 @@
 .UserHeader__user__username {
   margin-right: -8px;
   font-weight: 700;
-  font-size: 32px;
+  font-size: 28px;
   color: #353535;
 
   .ant-tag {
@@ -133,6 +95,57 @@
 
 .UserHeader__user__button {
   position: relative;
-  top: 12px;
+  top: 40px;
   margin: 0 10px;
+}
+
+@media @small {
+  .UserHeader__container {
+    padding: 30px 0 30px 16px;
+    align-items: initial;
+    flex-direction: initial;
+  }
+
+  .UserHeader__user {
+    padding-bottom: 0;
+    margin: 0 20px;
+
+    &__username {
+      font-size: 32px;
+    }
+  }
+
+  .UserHeader__row {
+    align-items: initial;
+    flex-direction: initial;
+  }
+
+  .UserHeader__rank {
+    margin-top: -4px;
+    margin-left: 0;
+  }
+
+  .UserHeader__handle {
+    top: -8px;
+
+    &-rank-container {
+      display: block;
+      flex-direction: initial;
+      justify-content: initial;
+    }
+  }
+
+  .UserHeader__more {
+    position: static;
+  }
+
+  .UserHeader__user__button {
+    top: 12px;
+  }
+}
+
+@media @large {
+  .UserHeader__container {
+    padding: 30px 0;
+  }
 }
