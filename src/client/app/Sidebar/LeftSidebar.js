@@ -15,6 +15,7 @@ const LeftSidebar = () => (
     <Route path="/drafts" component={NavigationUser} />
     <Route path="/edit-profile" component={NavigationUser} />
     <Route path="/settings" component={NavigationUser} />
+    <Route path="/invite" component={NavigationUser} />
     <Route path="/" component={Navigation} />
   </Switch>
 );
