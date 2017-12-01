@@ -31,6 +31,12 @@ const SidenavUser = ({ username }) => (
       </a>
     </li>
     <li>
+      <NavLink to="/invite" activeClassName="Sidenav__item--active">
+        <i className="iconfont icon-share" />
+        <FormattedMessage id="invite" defaultMessage="Invite" />
+      </NavLink>
+    </li>
+    <li>
       <NavLink to="/settings" activeClassName="Sidenav__item--active">
         <i className="iconfont icon-setup" />
         <FormattedMessage id="settings" defaultMessage="Settings" />

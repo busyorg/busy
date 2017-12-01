@@ -1,5 +1,6 @@
 import Promise from 'bluebird';
 import assert from 'assert';
+import Cookie from 'js-cookie';
 import { push } from 'react-router-redux';
 import { createAction } from 'redux-actions';
 import { addDraftMetadata, deleteDraftMetadata } from '../../helpers/metadata';
@@ -79,9 +80,9 @@ const broadcastComment = (
   reward,
   upvote,
   permlink,
+  referral,
 ) => {
   const operations = [];
-
   const commentOp = [
     'comment',
     {
@@ -101,17 +102,28 @@ const broadcastComment = (
     permlink,
     allow_votes: true,
     allow_curation_rewards: true,
+    max_accepted_payout: '1000000.000 SBD',
+    percent_steem_dollars: 5000,
   };
 
   if (reward === '0') {
     commentOptionsConfig.max_accepted_payout = '0.000 SBD';
     commentOptionsConfig.percent_steem_dollars = 10000;
   } else if (reward === '100') {
-    commentOptionsConfig.max_accepted_payout = '1000000.000 SBD';
     commentOptionsConfig.percent_steem_dollars = 0;
   }
 
-  if (reward === '0' || reward === '100') {
+  if (referral) {
+    commentOptionsConfig.extensions = [
+      [0, {
+        beneficiaries: [
+          { account: referral, weight: 1000 },
+        ],
+      }],
+    ];
+  }
+
+  if (reward === '0' || reward === '100' || referral) {
     operations.push(['comment_options', commentOptionsConfig]);
   }
 
@@ -156,6 +168,14 @@ export function createPost(postData) {
 
     saveSettings({ upvoteSetting: upvote, rewardSetting: reward });
 
+    let referral;
+    if (Cookie.get('referral')) {
+      const accountCreatedDaysAgo = (new Date().getTime() - new Date(`${getState().auth.user.created}Z`).getTime()) / 1000 / 60 / 60 / 24;
+      if (accountCreatedDaysAgo < 30) {
+        referral = Cookie.get('referral');
+      }
+    }
+
     dispatch({
       type: CREATE_POST,
       payload: {
@@ -171,6 +191,7 @@ export function createPost(postData) {
             !isUpdating && reward,
             !isUpdating && upvote,
             permlink,
+            referral,
           ).then((result) => {
             if (draftId) {
               dispatch(deleteDraft(draftId));
@@ -185,7 +206,6 @@ export function createPost(postData) {
                 value: 10,
               });
             }
-
             return result;
           }),
         ),

@@ -4,10 +4,13 @@ import ReactDOM from 'react-dom';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { Input, Icon } from 'antd';
 import Dropzone from 'react-dropzone';
+import Scroll from 'react-scroll';
 import { isValidImage, MAXIMUM_UPLOAD_SIZE } from '../../helpers/image';
 import Body, { remarkable } from '../Story/Body';
 import Avatar from '../Avatar';
 import './CommentForm.less';
+
+const Element = Scroll.Element;
 
 @injectIntl
 class CommentForm extends React.Component {
@@ -218,19 +221,21 @@ class CommentForm extends React.Component {
                   </div>
                 </div>
               )}
-              <Input
-                id="commentFormInput"
-                ref={ref => this.setInput(ref)}
-                value={this.state.inputValue}
-                autosize={{ minRows: 2, maxRows: 6 }}
-                onChange={this.handleCommentTextChange}
-                placeholder={intl.formatMessage({
-                  id: 'comment_placeholder',
-                  defaultMessage: 'Write a comment',
-                })}
-                type="textarea"
-                disabled={isLoading}
-              />
+              <Element name="commentFormInputScrollerElement">
+                <Input
+                  id="commentFormInput"
+                  ref={ref => this.setInput(ref)}
+                  value={this.state.inputValue}
+                  autosize={{ minRows: 2, maxRows: 6 }}
+                  onChange={this.handleCommentTextChange}
+                  placeholder={intl.formatMessage({
+                    id: 'comment_placeholder',
+                    defaultMessage: 'Write a comment',
+                  })}
+                  type="textarea"
+                  disabled={isLoading}
+                />
+              </Element>
             </Dropzone>
           </div>
           <p className="CommentForm__imagebox">
