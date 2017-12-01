@@ -1,0 +1,125 @@
+@import (reference) "../../styles/custom.less";
+@import (reference) "../../styles/modules/variables.less";
+
+.QuickPostEditor {
+  border: 1px solid @white-gainsboro;
+  background-color: @white;
+  border-radius: @border-radius-base;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+
+  &__contents {
+    background: @white;
+    display: flex;
+    flex-direction: row;
+    padding: 0 10px;
+    padding-top: 8px;
+
+    .ant-input {
+      border: 0 !important;
+      box-shadow: 0 0 !important;
+      resize: none;
+    }
+  }
+
+  &__avatar {
+    margin-right: 5px;
+  }
+
+  &__header {
+    border-bottom: 1px solid @white-gainsboro;
+    font-size: 16px;
+    padding: 0 10px;
+    font-weight: 500;
+
+    &__item {
+      padding: 0 4px;
+
+      &__selected {
+        > a {
+          color: @grey-mortar !important;
+        }
+      }
+    }
+
+    &__icon {
+      font-size: 20px !important;
+      margin-right: 3px;
+      vertical-align: -2px;
+    }
+  }
+
+  &__footer {
+    align-items: center;
+    border-top: 1px solid @white-gainsboro;
+    display: flex;
+    justify-content: space-between;
+    padding-right: 10px;
+    padding-left: 5px;
+
+    > button {
+      width: auto !important;
+    }
+  }
+
+  &__dropzone-base {
+    position: relative;
+    width: 100%;
+  }
+
+  &__dropzone {
+    display: flex;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+    border-radius: 4px;
+    background: fade(@purple, 60%);
+    color: white;
+
+    & > div {
+      margin: auto;
+      font-weight: 700;
+      font-size: 20px;
+
+      & > span {
+        margin-left: 8px;
+        vertical-align: 3px;
+      }
+    }
+  }
+
+  &__preview {
+    min-height: 100px;
+    padding: 10px;
+  }
+
+  &__imagebox {
+    input {
+      width: 0.1px;
+      height: 0.1px;
+      opacity: 0;
+      overflow: hidden;
+      position: absolute;
+      z-index: -1;
+    }
+
+    label {
+      cursor: pointer;
+    }
+
+    .iconfont {
+      font-size: 32px !important;
+      color: @blue-botticelli;
+    }
+
+    .anticon {
+      font-size: 16px !important;
+      margin-right: 8px !important;
+      vertical-align: 1px;
+    }
+  }
+}

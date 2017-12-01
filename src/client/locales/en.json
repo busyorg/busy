@@ -75,6 +75,7 @@
   "reblog_modal_title": "Reblog this post?",
   "reblog_modal_content": "This post will appear on your personal feed. This action cannot be reversed.",
   "write_post": "Write post",
+  "write_quick_post": "Write quick post",
   "transfer": "Transfer",
   "transfer_modal_title": "Transfer funds",
   "transfer_modal_info": "Click the button below to be redirected to SteemConnect to complete your transaction.",
@@ -163,6 +164,7 @@
   "post_send": "Post",
   "post_update_send": "Update post",
   "post_send_progress": "Submitting",
+  "post_error_empty": "Post content cannot be empty.",
   "heading_1": "Heading 1",
   "heading_2": "Heading 2",
   "heading_3": "Heading 3",
@@ -263,5 +265,6 @@
   "reading_time": "{words} words / {min} min read",
   "reading_time_post": "{min} min read",
   "words_tooltip": "{words} words",
-  "power_down_message": "Started power down: {value}"
+  "power_down_message": "Started power down: {value}",
+  "create_post": "Create post"
 }
