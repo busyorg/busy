@@ -39,12 +39,10 @@ class Affix extends React.Component {
 
     this.baseTopPosition = this.relativeContainer.getBoundingClientRect().top + this.lastScroll;
 
-    if (this.relativeContainer.parentElement) {
-      this.mo = new MutationObserver(() => {
-        this.baseTopPosition = this.relativeContainer.getBoundingClientRect().top + this.lastScroll;
-      });
-      this.mo.observe(this.relativeContainer.parentElement, { childList: true });
-    }
+    this.mo = new MutationObserver(() => {
+      this.baseTopPosition = this.relativeContainer.getBoundingClientRect().top + this.lastScroll;
+    });
+    this.mo.observe(document.body, { childList: true });
 
     this.ro = new ResizeObserver((entries) => {
       entries.forEach((entry) => {
