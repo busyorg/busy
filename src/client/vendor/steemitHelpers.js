@@ -70,7 +70,8 @@ export const calculatePayout = post => {
   }
 
   if (cashout_active) {
-    payoutDetails.cashoutInTime = cashout_time;
+    // Append ".000Z" to make it ISO format (YYYY-MM-DDTHH:mm:ss.sssZ).
+    payoutDetails.cashoutInTime = cashout_time + ".000Z";
   }
 
   if (max_payout === 0) {
