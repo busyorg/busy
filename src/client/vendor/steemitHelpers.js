@@ -70,7 +70,8 @@ export const calculatePayout = post => {
   }
 
   if (cashout_active) {
-    payoutDetails.cashoutInTime = cashout_time;
+    // Append ".000Z" to make it ISO format (YYYY-MM-DDTHH:mm:ss.sssZ).
+    payoutDetails.cashoutInTime = cashout_time + ".000Z";
   }
 
   if (max_payout === 0) {
@@ -194,4 +195,15 @@ export const calculateTotalDelegatedSP = (user, totalVestingShares, totalVesting
 export const calculateVotingPower = (user) => {
   const secondsago = (new Date().getTime() - new Date(user.last_vote_time + "Z").getTime()) / 1000;
   return Math.min(10000, (user.voting_power + (10000 * secondsago / 432000))) / 10000;
+};
+
+
+export const calculateEstAccountValue = (user, totalVestingShares, totalVestingFundSteem, steemRate) => {
+  const steemPower = steem.formatter.vestToSteem(
+    user.vesting_shares,
+    totalVestingShares,
+    totalVestingFundSteem,
+  );
+  return parseFloat(steemRate) * (parseFloat(user.balance) + parseFloat(steemPower)) +
+    parseFloat(user.sbd_balance);
 };
