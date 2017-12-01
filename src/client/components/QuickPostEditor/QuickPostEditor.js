@@ -5,8 +5,6 @@ import Dropzone from 'react-dropzone';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import _ from 'lodash';
-import marked from 'marked';
-import { HotKeys } from 'react-hotkeys';
 import { Input } from 'antd';
 import uuidv4 from 'uuid/v4';
 import { injectIntl, FormattedMessage } from 'react-intl';
@@ -15,8 +13,6 @@ import { isValidImage, MAXIMUM_UPLOAD_SIZE, MAXIMUM_UPLOAD_SIZE_HUMAN } from '..
 import { notify } from '../../app/Notification/notificationActions';
 import { createPost } from '../../post/Write/editorActions';
 import Avatar from '../Avatar';
-import Body, { remarkable } from '../Story/Body';
-import QuickPostEditorHeader from './QuickPostEditorHeader';
 import QuickPostEditorFooter from './QuickPostEditorFooter';
 import './QuickPostEditor.less';
 
@@ -64,12 +60,14 @@ class QuickPostEditor extends React.Component {
   };
 
   state = {
-    contentHtml: '',
     noContent: false,
     imageUploading: false,
     dropzoneActive: false,
     selectedPreview: false,
     currentInputValue: '',
+    currentPostBody: '',
+    currentImages: [],
+    focusedInput: false,
   };
 
   setInput = (input) => {
@@ -91,55 +89,31 @@ class QuickPostEditor extends React.Component {
     const busyTag = 'busy';
     const tag = currentPaths[2];
     const tags = [busyTag];
-    const users = [];
-    const userRegex = /@([a-zA-Z.0-9-]+)/g;
-    const links = [];
-    const images = [];
-    const postBody = this.state.currentInputValue;
+    const images = _.map(this.state.currentImages, image => image.src);
+    const postBody = _.reduce(
+      this.state.currentImages,
+      (str, image) => {
+        const imageText = `![${image.name}](${image.src})\n`;
+        return `${str}${imageText}`;
+      },
+      '',
+    );
+    const postTitle = this.state.currentInputValue;
     const data = {
       body: postBody,
-      title: ' ',
+      title: postTitle,
       reward: '50',
       author: this.props.user.name,
       parentAuthor: '',
       lastUpdated: Date.now(),
       upvote: true,
     };
-    const renderer = new marked.Renderer();
-    let matches;
-
-    // eslint-disable-next-line
-    while ((matches = userRegex.exec(postBody))) {
-      if (users.indexOf(matches[1]) === -1) {
-        users.push(matches[1]);
-      }
-    }
-
-    renderer.link = (href) => {
-      links.push(href);
-      return marked.Renderer.prototype.link.apply(renderer, arguments);
-    };
-
-    renderer.image = (href) => {
-      images.push(href);
-      return marked.Renderer.prototype.image.apply(renderer, arguments);
-    };
-
-    marked(postBody || '', { renderer });
 
     const metaData = {
       community: 'busy',
       app: `busy/${version}`,
       format: 'markdown',
     };
-
-    if (users.length) {
-      metaData.users = users;
-    }
-
-    if (links.length) {
-      metaData.links = links;
-    }
 
     if (images.length) {
       metaData.image = images;
@@ -152,27 +126,10 @@ class QuickPostEditor extends React.Component {
     metaData.tags = _.uniq(tags);
 
     data.parentPermlink = _.isEmpty(tag) ? busyTag : tag;
-    data.permlink = `busy-quick-post-${uuidv4()}`;
+    data.permlink = _.kebabCase(postTitle);
     data.jsonMetadata = metaData;
 
     return data;
-  };
-
-  handlers = {
-    h1: () => this.insertCode('h1'),
-    h2: () => this.insertCode('h2'),
-    h3: () => this.insertCode('h3'),
-    h4: () => this.insertCode('h4'),
-    h5: () => this.insertCode('h5'),
-    h6: () => this.insertCode('h6'),
-    bold: () => this.insertCode('b'),
-    italic: () => this.insertCode('i'),
-    quote: () => this.insertCode('q'),
-    link: (e) => {
-      e.preventDefault();
-      this.insertCode('link');
-    },
-    image: () => this.insertCode('image'),
   };
 
   resizeTextarea = () => {
@@ -181,18 +138,15 @@ class QuickPostEditor extends React.Component {
 
   insertImage = (image, imageName = 'image') => {
     if (!this.input) return;
-
-    const startPos = this.input.selectionStart;
-    const endPos = this.input.selectionEnd;
-    const imageText = `![${imageName}](${image})\n`;
-    const currentInputValue = this.state.currentInputValue;
-    const newInputValue = `${currentInputValue.substring(0, startPos)}${imageText}${currentInputValue.substring(endPos, currentInputValue.length)}`;
+    const newImage = {
+      src: image,
+      name: imageName,
+      id: uuidv4(),
+    };
     this.setState({
-      currentInputValue: newInputValue,
-      contentHtml: remarkable.render(newInputValue),
+      currentImages: _.concat(this.state.currentImages, newImage),
+      focusedInput: true,
     });
-    this.resizeTextarea();
-    this.setInputCursorPosition(startPos + imageText.length);
   };
 
   handleDrop = (files) => {
@@ -272,6 +226,9 @@ class QuickPostEditor extends React.Component {
   };
 
   handleImageChange = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+
     if (e.target.files && e.target.files[0]) {
       if (!isValidImage(e.target.files[0])) {
         this.handleImageInvalid();
@@ -294,6 +251,12 @@ class QuickPostEditor extends React.Component {
 
   handleDragEnter = () => this.setState({ dropzoneActive: true });
   handleDragLeave = () => this.setState({ dropzoneActive: false });
+  handleFocusInput = () => this.setState({ focusedInput: true });
+  handleUnfocusInput = () => {
+    if (_.isEmpty(this.state.currentInputValue) && _.isEmpty(this.state.currentImages)) {
+      this.setState({ focusedInput: false });
+    }
+  };
 
   disableAndInsertImage = (image, imageName = 'image') => {
     this.setState({
@@ -306,8 +269,8 @@ class QuickPostEditor extends React.Component {
     if (_.isEmpty(this.state.currentInputValue)) {
       this.props.notify(
         this.props.intl.formatMessage({
-          id: 'post_error_empty',
-          defaultMessage: 'Post content cannot be empty.',
+          id: 'quick_post_error_empty_title',
+          defaultMessage: 'Post title cannot be empty.',
         }),
         'error',
       );
@@ -320,10 +283,14 @@ class QuickPostEditor extends React.Component {
   handleUpdateCurrentInputValue = e =>
     this.setState({
       currentInputValue: e.target.value,
-      contentHtml: remarkable.render(e.target.value),
     });
 
-  toggleSelectedPreview = selectedPreview => this.setState({ selectedPreview });
+  handleRemoveImage = (currentImage) => {
+    const imageIndex = _.findIndex(this.state.currentImages, image => image.id === currentImage.id);
+    const currentImages = [...this.state.currentImages];
+    currentImages.splice(imageIndex, 1);
+    this.setState({ currentImages });
+  };
 
   renderCreatePostInput = () => {
     const { user, intl } = this.props;
@@ -351,19 +318,20 @@ class QuickPostEditor extends React.Component {
                     <FormattedMessage id="drop_image" defaultMessage="Drop your images here" />
                   </div>
                 </div>}
-              <HotKeys keyMap={QuickPostEditor.hotkeys} handlers={this.handlers}>
-                <Input
-                  autosize={{ minRows: 2, maxRows: 12 }}
-                  onChange={this.handleUpdateCurrentInputValue}
-                  ref={ref => this.setInput(ref)}
-                  type="textarea"
-                  placeholder={intl.formatMessage({
-                    id: 'write_quick_post',
-                    defaultMessage: 'Write quick post',
-                  })}
-                  value={this.state.currentInputValue}
-                />
-              </HotKeys>
+              <Input
+                autosize={{ minRows: 2, maxRows: 12 }}
+                onChange={this.handleUpdateCurrentInputValue}
+                onBlur={this.handleUnfocusInput}
+                onFocus={this.handleFocusInput}
+                ref={ref => this.setInput(ref)}
+                type="textarea"
+                placeholder={intl.formatMessage({
+                  id: 'write_quick_post',
+                  defaultMessage: 'Write quick post',
+                })}
+                value={this.state.currentInputValue}
+                maxLength="255"
+              />
             </Dropzone>
           </div>
         </div>
@@ -374,36 +342,29 @@ class QuickPostEditor extends React.Component {
   };
 
   render() {
-    const { selectedPreview, imageUploading, contentHtml } = this.state;
+    const { imageUploading, focusedInput, currentImages } = this.state;
     const { postCreationLoading, intl } = this.props;
-    const displayPreviewOption = !_.isEmpty(contentHtml);
 
     return (
       <div className="QuickPostEditor">
-        <QuickPostEditorHeader
-          selectedPreview={selectedPreview}
-          displayPreviewOption={displayPreviewOption}
-          toggleSelectedPreview={this.toggleSelectedPreview}
-        />
         {this.renderCreatePostInput()}
-        {selectedPreview &&
-          <div className="QuickPostEditor__preview">
-            <Body full body={this.state.contentHtml} />
-          </div>}
-        <QuickPostEditorFooter
-          imageUploading={imageUploading}
-          postCreationLoading={postCreationLoading}
-          handleCreatePost={this.handleCreatePost}
-          handleImageChange={this.handleImageChange}
-          postText={intl.formatMessage({
-            id: 'post_send',
-            defaultMessage: 'Post',
-          })}
-          submittingPostText={intl.formatMessage({
-            id: 'post_send_progress',
-            defaultMessage: 'Submitting',
-          })}
-        />
+        {focusedInput &&
+          <QuickPostEditorFooter
+            imageUploading={imageUploading}
+            postCreationLoading={postCreationLoading}
+            handleCreatePost={this.handleCreatePost}
+            handleImageChange={this.handleImageChange}
+            postText={intl.formatMessage({
+              id: 'post_send',
+              defaultMessage: 'Post',
+            })}
+            submittingPostText={intl.formatMessage({
+              id: 'post_send_progress',
+              defaultMessage: 'Submitting',
+            })}
+            currentImages={currentImages}
+            onRemoveImage={this.handleRemoveImage}
+          />}
       </div>
     );
   }
