@@ -5,6 +5,7 @@ import { createAction } from 'redux-actions';
 import { addDraftMetadata, deleteDraftMetadata } from '../../helpers/metadata';
 import { jsonParse } from '../../helpers/formatter';
 import { createPermlink, getBodyPatchIfSmaller } from '../../vendor/steemitHelpers';
+import { saveSettings } from '../../settings/settingsActions';
 
 export const CREATE_POST = '@editor/CREATE_POST';
 export const CREATE_POST_START = '@editor/CREATE_POST_START';
@@ -152,6 +153,8 @@ export function createPost(postData) {
       : createPermlink(title, author, parentAuthor, parentPermlink);
 
     const newBody = isUpdating ? getBodyPatchIfSmaller(postData.originalBody, body) : body;
+
+    saveSettings({ upvoteSetting: upvote, rewardSetting: reward });
 
     dispatch({
       type: CREATE_POST,

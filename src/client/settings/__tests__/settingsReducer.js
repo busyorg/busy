@@ -10,6 +10,8 @@ describe('settingsReducer', () => {
     votePercent: 10000,
     loading: false,
     showNSFWPosts: false,
+    upvoteSetting: true,
+    rewardSetting: '50',
   };
 
   it('should return initial state', () => {
@@ -77,6 +79,8 @@ describe('settingsReducer', () => {
         votingPower: 'on',
         votePercent: 10000,
         showNSFWPosts: true,
+        upvoteSetting: true,
+        rewardSetting: '50',
       },
     };
 
@@ -89,6 +93,8 @@ describe('settingsReducer', () => {
       ...stateBefore,
       locale: 'fr',
       votingPower: 'off',
+      upvoteSetting: true,
+      rewardSetting: '50',
     };
     const action = {
       type: authTypes.LOGIN_SUCCESS,
@@ -97,6 +103,8 @@ describe('settingsReducer', () => {
           settings: {
             locale: 'fr',
             votingPower: 'off',
+            upvoteSetting: true,
+            rewardSetting: '50',
           },
         },
       },
@@ -135,6 +143,8 @@ describe('settingsReducer', () => {
           settings: {
             locale: 'fr',
             votingPower: 'off',
+            upvoteSetting: true,
+            rewardSetting: '50',
           },
         },
       },
