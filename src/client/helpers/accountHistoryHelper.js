@@ -1,206 +1,85 @@
 import _ from 'lodash';
 import * as accountHistoryConstants from '../../common/constants/accountHistory';
 
-export const getVoteMessage = (intl, actionDetails) => {
-  let voteType = 'unvoted';
+export const ACTIONS_DISPLAY_LIMIT = 100;
+
+export const getVoteFilterType = (actionDetails) => {
+  let voteType = accountHistoryConstants.UNVOTED;
   if (actionDetails.weight > 0) {
-    voteType = 'upvoted';
+    voteType = accountHistoryConstants.UPVOTED;
   } else if (actionDetails.weight < 0) {
-    voteType = 'downvoted';
+    voteType = accountHistoryConstants.DOWNVOTED;
   }
-  return intl.formatMessage(
-    {
-      id: `user_${voteType}_post`,
-      defaultMessage: `{username} ${voteType}`,
-    },
-    { username: actionDetails.voter },
-  );
+  return voteType;
 };
 
-export const getCustomJSONMessage = (intl, actionDetails) => {
+export const getCustomJSONFilterType = (actionDetails) => {
   const actionJSON = JSON.parse(actionDetails.json);
   const customActionType = actionJSON[0];
   const customActionDetails = actionJSON[1];
   if (customActionType === accountHistoryConstants.FOLLOW) {
-    const followAction = _.isEmpty(customActionDetails.what) ? 'unfollowed' : 'followed';
-    return intl.formatMessage(
-      {
-        id: `user_${followAction}`,
-        defaultMessage: `{follower} ${followAction} {following}`,
-      },
-      {
-        follower: customActionDetails.follower,
-        following: customActionDetails.following,
-      },
-    );
+    return _.isEmpty(customActionDetails.what)
+      ? `-${accountHistoryConstants.UNFOLLOWED}`
+      : `+${accountHistoryConstants.FOLLOWED}`;
   } else if (customActionType === accountHistoryConstants.REBLOG) {
-    return intl.formatMessage(
-      {
-        id: 'user_reblogged_post',
-        defaultMessage: '{username} reblogged {postLink}',
-      },
-      {
-        username: customActionDetails.account,
-        postLink: '',
-      },
-    );
+    return accountHistoryConstants.REBLOGGED;
   }
   return '';
 };
 
-export const getMessageForActionType = (intl, currentUsername, actionType, actionDetails) => {
+export const getMessageForSearchFilter = (currentUsername, actionType, actionDetails) => {
   switch (actionType) {
-    case accountHistoryConstants.ACCOUNT_CREATE_WITH_DELEGATION:
-      return intl.formatMessage(
-        {
-          id: 'account_created_with_delegation',
-          defaultMessage: '{creator} created account with delegation {account}',
-        },
-        {
-          creator: actionDetails.creator,
-          account: actionDetails.new_account_name,
-        },
-      );
-    case accountHistoryConstants.ACCOUNT_CREATE:
-      return intl.formatMessage(
-        {
-          id: 'account_created',
-          defaultMessage: '{creator} created account {account}',
-        },
-        {
-          creator: actionDetails.creator,
-          account: actionDetails.new_account_name,
-        },
-      );
     case accountHistoryConstants.VOTE:
-      return getVoteMessage(intl, actionDetails);
-    case accountHistoryConstants.COMMENT:
-      return intl.formatMessage(
-        {
-          id: 'user_replied_to',
-          defaultMessage: '{username} replied to {author} ({postLink})',
-        },
-        {
-          username: '',
-          author: '',
-          postLink: '',
-        },
-      );
+      return getVoteFilterType(actionDetails);
     case accountHistoryConstants.CUSTOM_JSON:
-      return getCustomJSONMessage(intl, actionDetails);
-    case accountHistoryConstants.ACCOUNT_UPDATE:
-      return intl.formatMessage({
-        id: 'account_updated',
-        defaultMessage: 'Account Updated',
-      });
+      return getCustomJSONFilterType(actionDetails);
+    case accountHistoryConstants.COMMENT:
+      return accountHistoryConstants.REPLIED;
     case accountHistoryConstants.AUTHOR_REWARD:
-      return intl.formatMessage(
-        {
-          id: 'author_reward_for_post',
-          defaultMessage: 'Author Reward: {rewards} for {author} ({postLink})',
-        },
-        {
-          rewards: 'SBD, STEEM, SP',
-          author: '',
-          postLink: '',
-        },
-      );
+      return accountHistoryConstants.AUTHOR_REWARD;
     case accountHistoryConstants.CURATION_REWARD:
-      return intl.formatMessage(
-        {
-          id: 'curation_reward_for_post',
-          defaultMessage: 'Curation Reward: {steemPower} SP for {author} ({postLink})',
-        },
-        {
-          steemPower: 'SP',
-          author: '',
-          postLink: '',
-        },
-      );
-    case accountHistoryConstants.ACCOUNT_WITNESS_VOTE:
-      if (actionDetails.approve) {
-        return intl.formatMessage(
-          {
-            id: 'account_approve_witness',
-            defaultMessage: '{account} approve witness {witness}',
-          },
-          { account: actionDetails.account, witness: actionDetails.witness },
-        );
-      }
-      return intl.formatMessage(
-        {
-          id: 'account_unapprove_witness',
-          defaultMessage: '{account} unapprove witness {witness}',
-        },
-        {
-          account: actionDetails.account,
-          witness: actionDetails.witness,
-        },
-      );
+      return accountHistoryConstants.CURATION_REWARD;
+    case accountHistoryConstants.CLAIM_REWARDS:
+    case accountHistoryConstants.CLAIM_REWARD_BALANCE:
+      return accountHistoryConstants.CLAIM_REWARDS;
+    case accountHistoryConstants.TRANSFER_TO_VESTING:
+      return accountHistoryConstants.POWERED_UP;
     case accountHistoryConstants.TRANSFER:
       if (actionDetails.to === currentUsername) {
-        return intl.formatMessage(
-          {
-            id: 'received_from',
-            defaultMessage: 'Received from {username}',
-          },
-          {
-            username: actionDetails.from,
-          },
-        );
+        return accountHistoryConstants.RECEIVED;
       }
-      return intl.formatMessage(
-        {
-          id: 'transferred_to',
-          defaultMessage: 'Transferred to {username}',
-        },
-        {
-          username: actionDetails.to,
-        },
-      );
-    case accountHistoryConstants.TRANSFER_TO_VESTING:
-      return intl.formatMessage({
-        id: 'powered_up',
-        defaultMessage: 'Powered up ',
-      });
-    case accountHistoryConstants.CLAIM_REWARD_BALANCE:
-      return intl.formatMessage({
-        id: 'claim_rewards',
-        defaultMessage: 'Claim rewards',
-      });
-    case accountHistoryConstants.TRANSFER_TO_SAVINGS:
-      return intl.formatMessage(
-        {
-          id: 'transfer_to_savings',
-          defaultMessage: 'Transfer to savings {amount} to {username}',
-        },
-        {
-          amount: actionDetails.amount || ' STEEM',
-          username: actionDetails.to,
-        },
-      );
-    case accountHistoryConstants.TRANSFER_FROM_SAVINGS:
-      return intl.formatMessage(
-        {
-          id: 'transfer_from_savings',
-          defaultMessage: 'Transfer from savings {amount} to {username}',
-        },
-        {
-          amount: actionDetails.amount || ' STEEM',
-          username: actionDetails.from,
-        },
-      );
-    case accountHistoryConstants.CANCEL_TRANSFER_FROM_SAVINGS:
-      return intl.formatMessage(
-        {
-          id: 'cancel_transfer_from_savings',
-          defaultMessage: 'Cancel transfer from savings (request {requestId})',
-        },
-        {
-          requestId: actionDetails.request_id,
-        },
-      );
+      return accountHistoryConstants.TRANSFERRED;
     default:
-      return '';
+      return actionType;
   }
+};
+
+export const stringMatchesFilters = (string, filters = []) => {
+  let filterMatches = false;
+  for (let i = 0; i < filters.length; i += 1) {
+    const currentFilter = filters[i];
+    if (_.includes(string, currentFilter)) {
+      filterMatches = true;
+      break;
+    }
+  }
+  return filterMatches;
+};
+
+export const actionsFilter = (action, accountHistoryFilter, currentUsername) => {
+  const actionType = action.op[0];
+  const actionDetails = action.op[1];
+  const activitySearchIsEmpty = _.isEmpty(accountHistoryFilter);
+
+  if (activitySearchIsEmpty) {
+    return true;
+  }
+
+  const messageForActionType = getMessageForSearchFilter(
+    currentUsername,
+    actionType,
+    actionDetails,
+  );
+
+  return stringMatchesFilters(messageForActionType, accountHistoryFilter);
 };
