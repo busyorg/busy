@@ -15,18 +15,17 @@ import {
   getUsersTransactions,
   getUsersAccountHistory,
   getUsersAccountHistoryLoading,
-  getUsersEstAccountsValues,
-  getLoadingEstAccountValue,
   getLoadingGlobalProperties,
   getLoadingMoreUsersAccountHistory,
   getUserHasMoreAccountHistory,
+  getRate as getSteemRate,
 } from '../reducers';
 import {
   getGlobalProperties,
-  getUserEstAccountValue,
   getUserAccountHistory,
   getMoreUserAccountHistory,
 } from '../wallet/walletActions';
+import { getRate } from '../app/appActions';
 import { getAccountWithFollowingCount } from './usersActions';
 
 @withRouter
@@ -42,8 +41,6 @@ import { getAccountWithFollowingCount } from './usersActions';
     usersTransactions: getUsersTransactions(state),
     usersAccountHistory: getUsersAccountHistory(state),
     usersAccountHistoryLoading: getUsersAccountHistoryLoading(state),
-    usersEstAccountsValues: getUsersEstAccountsValues(state),
-    loadingEstAccountValue: getLoadingEstAccountValue(state),
     loadingGlobalProperties: getLoadingGlobalProperties(state),
     loadingMoreUsersAccountHistory: getLoadingMoreUsersAccountHistory(state),
     userHasMoreActions: getUserHasMoreAccountHistory(
@@ -52,13 +49,14 @@ import { getAccountWithFollowingCount } from './usersActions';
         ? getAuthenticatedUserName(state)
         : getUser(state, ownProps.match.params.name).name,
     ),
+    steemRate: getSteemRate(state),
   }),
   {
     getGlobalProperties,
     getUserAccountHistory,
     getMoreUserAccountHistory,
     getAccountWithFollowingCount,
-    getUserEstAccountValue,
+    getRate,
   },
 )
 class Wallet extends Component {
@@ -70,16 +68,15 @@ class Wallet extends Component {
     getGlobalProperties: PropTypes.func.isRequired,
     getUserAccountHistory: PropTypes.func.isRequired,
     getMoreUserAccountHistory: PropTypes.func.isRequired,
-    getUserEstAccountValue: PropTypes.func.isRequired,
     getAccountWithFollowingCount: PropTypes.func.isRequired,
+    getRate: PropTypes.func.isRequired,
     usersTransactions: PropTypes.shape().isRequired,
     usersAccountHistory: PropTypes.shape().isRequired,
-    usersEstAccountsValues: PropTypes.shape().isRequired,
     usersAccountHistoryLoading: PropTypes.bool.isRequired,
-    loadingEstAccountValue: PropTypes.bool.isRequired,
     loadingGlobalProperties: PropTypes.bool.isRequired,
     loadingMoreUsersAccountHistory: PropTypes.bool.isRequired,
     userHasMoreActions: PropTypes.bool.isRequired,
+    steemRate: PropTypes.number.isRequired,
     isCurrentUser: PropTypes.bool,
     authenticatedUserName: PropTypes.string,
   };
@@ -93,11 +90,11 @@ class Wallet extends Component {
     const {
       totalVestingShares,
       totalVestingFundSteem,
-      usersEstAccountsValues,
       usersTransactions,
       user,
       isCurrentUser,
       authenticatedUserName,
+      steemRate,
     } = this.props;
     const username = isCurrentUser
       ? authenticatedUserName
@@ -115,18 +112,8 @@ class Wallet extends Component {
       this.props.getAccountWithFollowingCount({ name: username });
     }
 
-    if (_.isEmpty(usersEstAccountsValues[username]) && !_.isEmpty(user.name)) {
-      this.props.getUserEstAccountValue(user);
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const { user, isCurrentUser } = this.props;
-    const username = isCurrentUser
-      ? user.name
-      : this.props.location.pathname.match(/@(.*)(.*?)\//)[1];
-    if (_.isEmpty(nextProps.usersEstAccountsValues[username]) && !_.isEmpty(user.name)) {
-      this.props.getUserEstAccountValue(user);
+    if (steemRate === 0) {
+      this.props.getRate();
     }
   }
 
@@ -135,29 +122,26 @@ class Wallet extends Component {
       user,
       totalVestingShares,
       totalVestingFundSteem,
-      loadingEstAccountValue,
       loadingGlobalProperties,
       usersTransactions,
       usersAccountHistoryLoading,
-      usersEstAccountsValues,
       loadingMoreUsersAccountHistory,
       userHasMoreActions,
       usersAccountHistory,
+      steemRate,
     } = this.props;
     const transactions = usersTransactions[user.name] || [];
     const actions = usersAccountHistory[user.name] || [];
-    const estAccountValue = usersEstAccountsValues[user.name];
 
     return (
       <div>
         <UserWalletSummary
           user={user}
-          estAccountValue={estAccountValue}
           loading={user.isFetching}
-          loadingEstAccountValue={loadingEstAccountValue}
           totalVestingShares={totalVestingShares}
           totalVestingFundSteem={totalVestingFundSteem}
           loadingGlobalProperties={loadingGlobalProperties}
+          steemRate={steemRate}
         />
         {transactions.length === 0 && usersAccountHistoryLoading ? (
           <Loading style={{ marginTop: '20px' }} />
