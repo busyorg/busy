@@ -25,13 +25,10 @@ export default class Invite extends React.Component {
     authenticatedUserName: '',
   };
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      copied: false,
-      inviteURL: '',
-    };
-  }
+  state = {
+    copied: false,
+    inviteURL: '',
+  };
 
   componentDidMount() {
     this.createInviteURL();
@@ -44,6 +41,8 @@ export default class Invite extends React.Component {
       this.setState({ inviteURL });
     }
   }
+
+  handleCopyClick = () => this.setState({ copied: true });
 
   render() {
     const buttonLabel = this.state.copied ? 'Copied' : 'Copy link';
@@ -80,7 +79,7 @@ export default class Invite extends React.Component {
                   />
                   <CopyToClipboard
                     text={this.state.inviteURL}
-                    onCopy={() => this.setState({ copied: true })}
+                    onCopy={this.handleCopyClick}
                   >
                     <button className="Action ant-btn-lg Action--primary">{buttonLabel}</button>
                   </CopyToClipboard>
