@@ -86,9 +86,9 @@ class Page extends React.Component {
         </Helmet>
         <ScrollToTop />
         <ScrollToTopOnMount />
+        <HeroBannerContainer />
         <div className="shifted">
           <div className="feed-layout container">
-            <HeroBannerContainer />
             <Affix className="leftContainer" stickPosition={77}>
               <div className="left">
                 <LeftSidebar />

@@ -14,9 +14,8 @@ const HeroBanner = ({ visible, location, onCloseClick }) => {
       <a onClick={onCloseClick} role="button" tabIndex="0" className="HeroBanner__close">
         <i className="iconfont icon-close" />
       </a>
-      <div className="feed-layout container">
-        <div className="leftContainer" />
-        <div className="HeroBanner__container center">
+      <div className="container">
+        <div className="HeroBanner__container">
           <div className="HeroBanner__container__content">
             <h1>
               <FormattedMessage
