@@ -18,6 +18,7 @@ import Topic from '../Button/Topic';
 import NSFWStoryPreviewMessage from './NSFWStoryPreviewMessage';
 import PopoverMenu, { PopoverMenuItem } from '../PopoverMenu/PopoverMenu';
 import HiddenStoryPreviewMessage from './HiddenStoryPreviewMessage';
+import PostedFrom from './PostedFrom';
 import './Story.less';
 
 @injectIntl class Story extends React.Component {
@@ -234,29 +235,34 @@ import './Story.less';
               <Avatar username={post.author} size={40} />
             </Link>
             <div className="Story__header__text">
-              <Link to={`/@${post.author}`}>
-                <h4>
-                  {post.author}
-                  <Tooltip title={intl.formatMessage({ id: 'reputation_score' })}>
-                    <Tag>{postAuthorReputation}</Tag>
-                  </Tooltip>
-                </h4>
-              </Link>
-              <Tooltip
-                title={
-                  <span>
-                    <FormattedDate value={`${post.created}Z`} />{' '}
-                    <FormattedTime value={`${post.created}Z`} />
-                  </span>
-                }
-              >
-                <span className="Story__date">
-                  <FormattedRelative value={`${post.created}Z`} />
+              <span className="Story__header__flex">
+                <Link to={`/@${post.author}`}>
+                  <h4>
+                    {post.author}
+                    <Tooltip title={intl.formatMessage({ id: 'reputation_score' })}>
+                      <Tag>{postAuthorReputation}</Tag>
+                    </Tooltip>
+                  </h4>
+                </Link>
+                <span className="Story__topics">
+                  <Topic name={post.category} />
                 </span>
-              </Tooltip>
-            </div>
-            <div className="Story__topics">
-              <Topic name={post.category} />
+              </span>
+              <span>
+                <Tooltip
+                  title={
+                    <span>
+                      <FormattedDate value={`${post.created}Z`} />{' '}
+                      <FormattedTime value={`${post.created}Z`} />
+                    </span>
+                  }
+                >
+                  <span className="Story__date">
+                    <FormattedRelative value={`${post.created}Z`} />
+                  </span>
+                </Tooltip>
+                <PostedFrom post={post} />
+              </span>
             </div>
           </div>
           <div className="Story__content">

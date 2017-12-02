@@ -9,6 +9,7 @@ const initialState = {
   trendingTopicsLoading: false,
   trendingTopics: [],
   rewardFund: {},
+  bannerClosed: false,
 };
 
 export default (state = initialState, action) => {
@@ -16,7 +17,9 @@ export default (state = initialState, action) => {
     case authActions.LOGIN_SUCCESS:
       return {
         ...state,
-        locale: action.payload.user_metadata.locale || initialState.locale,
+        locale:
+          (action.payload.user_metadata && action.payload.user_metadata.locale) ||
+          initialState.locale,
       };
     case appTypes.RATE_SUCCESS:
       return {
@@ -60,6 +63,11 @@ export default (state = initialState, action) => {
         trendingTopicsLoading: false,
         trendingTopics: [],
       };
+    case appTypes.CLOSE_BANNER:
+      return {
+        ...state,
+        bannerClosed: true,
+      };
     default:
       return state;
   }
@@ -70,3 +78,4 @@ export const getIsTrendingTopicsLoading = state => state.trendingTopicsLoading;
 export const getRewardFund = state => state.rewardFund;
 export const getTrendingTopics = state => state.trendingTopics;
 export const getIsFetching = state => state.isFetching;
+export const getIsBannerClosed = state => state.bannerClosed;

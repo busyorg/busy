@@ -1,0 +1,18 @@
+@import (reference) "../../styles/modules/variables.less";
+@import (reference) "../../styles/custom.less";
+
+.PostedFrom {
+  &__text {
+    font-size: 14px;
+    color: @blue-botticelli;
+    position: relative;
+    top: -1px;
+  }
+
+  &__bullet:after {
+    content: "\2022";
+    font-size: 14px;
+    margin: 0 8px;
+    color: @blue-botticelli;
+  }
+}
