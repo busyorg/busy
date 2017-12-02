@@ -23,7 +23,7 @@ export const getRate = () => (dispatch) => {
   fetch('https://api.coinmarketcap.com/v1/ticker/steem/')
     .then(res => res.json())
     .then((json) => {
-      const rate = json[0].price_usd;
+      const rate = parseFloat(json[0].price_usd);
       dispatch({
         type: RATE_SUCCESS,
         rate,
