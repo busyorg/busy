@@ -80,18 +80,19 @@
   &__container {
     display: flex;
     height: 100%;
-    padding: 16px 0;
+    padding: 16px;
 
-    @media @medium-max-width {
-      padding: 16px;
+    @media @medium {
+      padding: 16px 0;
     }
 
     &__content {
-      margin: auto 0;
+      margin: auto;
+      text-align: center;
 
-      @media @small-max-width {
-        margin: auto;
-        text-align: center;
+      @media @small {
+        margin: auto 0;
+        text-align: left;
       }
 
       h1 {
@@ -103,8 +104,12 @@
       &__buttons {
         margin-top: 24px;
 
-        &__button:not(:last-of-type) {
-          margin-right: 12px;
+        &__button {
+          display: inline-block;
+          
+          &:not(:last-of-type) {
+            margin-right: 12px;
+          }
         }
       }
     }
