@@ -3,17 +3,18 @@
 
 .QuickPostEditor {
   background-color: @white;
-  border-radius: @border-radius-base;
-  border: 1px solid @white-gainsboro;
+  border-top: 1px solid @white-gainsboro;
+  border-bottom: 1px solid @white-gainsboro;
   display: flex;
   flex-direction: column;
   margin-bottom: 10px;
 
   &__contents {
+    border-radius: @border-radius-base;
     background: @white;
     display: flex;
     flex-direction: row;
-    padding: 8px 10px 0 10px;
+    padding: 8px 10px;
 
     .ant-input {
       border: 0 !important;
@@ -51,12 +52,17 @@
 
   &__footer {
     align-items: center;
-    border-top: 1px solid @white-gainsboro;
+    border-top: 1px solid @blue-solitude;
     display: flex;
     flex-wrap: wrap;
+    height: 56px;
     justify-content: space-between;
     padding-left: 5px;
     padding-right: 10px;
+
+    &:focus {
+      outline-width: 0;
+    }
 
     > button {
       width: auto !important;
@@ -103,7 +109,7 @@
     flex-wrap: wrap;
 
     &__preview__image {
-      padding: 10px 5px 0 5px;
+      padding: 10px 5px 5px 5px;
 
       img {
         border-radius: 4px;
@@ -111,7 +117,7 @@
     }
 
     &__loading {
-      padding: 10px 5px 0 5px;
+      padding: 10px 5px;
       margin-top: 5px;
     }
 
@@ -143,12 +149,12 @@
       margin-top: 10px;
       padding: 3px;
 
-      .icon-picture {
+      &__icon.icon-picture {
         color: @blue-botticelli;
-        font-size: 32px !important;
+        font-size: 35px !important;
       }
 
-      .icon-add {
+      &__icon.icon-add {
         color: @blue-botticelli;
         font-size: 26px !important;
       }
@@ -172,5 +178,10 @@
       margin-right: 8px !important;
       vertical-align: 1px;
     }
+  }
+
+  @media @small {
+    border-radius: @border-radius-base;
+    border: 1px solid @white-gainsboro;
   }
 }

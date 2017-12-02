@@ -45,29 +45,15 @@ class QuickPostEditor extends React.Component {
     onImageInserted: () => {},
   };
 
-  static hotkeys = {
-    h1: 'ctrl+shift+1',
-    h2: 'ctrl+shift+2',
-    h3: 'ctrl+shift+3',
-    h4: 'ctrl+shift+4',
-    h5: 'ctrl+shift+5',
-    h6: 'ctrl+shift+6',
-    bold: 'ctrl+b',
-    italic: 'ctrl+i',
-    quote: 'ctrl+q',
-    link: 'ctrl+k',
-    image: 'ctrl+m',
-  };
-
   state = {
     noContent: false,
     imageUploading: false,
     dropzoneActive: false,
-    selectedPreview: false,
     currentInputValue: '',
     currentPostBody: '',
     currentImages: [],
     focusedInput: false,
+    inputMinRows: 1,
   };
 
   setInput = (input) => {
@@ -88,7 +74,7 @@ class QuickPostEditor extends React.Component {
     const currentPaths = this.props.location.pathname.split('/');
     const busyTag = 'busy';
     const tag = currentPaths[2];
-    const tags = [busyTag];
+    const tags = [];
     const images = _.map(this.state.currentImages, image => image.src);
     const postBody = _.reduce(
       this.state.currentImages,
@@ -121,9 +107,11 @@ class QuickPostEditor extends React.Component {
 
     if (!_.isEmpty(tag)) {
       tags.push(tag);
+    } else {
+      tags.push(busyTag);
     }
 
-    metaData.tags = _.uniq(tags);
+    metaData.tags = tags;
 
     data.parentPermlink = _.isEmpty(tag) ? busyTag : tag;
     data.permlink = _.kebabCase(postTitle);
@@ -132,7 +120,7 @@ class QuickPostEditor extends React.Component {
     return data;
   };
 
-  resizeTextarea = () => {
+  resizeTextArea = () => {
     if (this.originalInput) this.originalInput.resizeTextarea();
   };
 
@@ -250,11 +238,23 @@ class QuickPostEditor extends React.Component {
   };
 
   handleDragEnter = () => this.setState({ dropzoneActive: true });
+
   handleDragLeave = () => this.setState({ dropzoneActive: false });
-  handleFocusInput = () => this.setState({ focusedInput: true });
-  handleUnfocusInput = () => {
-    if (_.isEmpty(this.state.currentInputValue) && _.isEmpty(this.state.currentImages)) {
-      this.setState({ focusedInput: false });
+
+  handleFocusInput = () =>
+    this.setState({ focusedInput: true, inputMinRows: 2 }, () => this.resizeTextArea());
+
+  handleUnfocusInput = (e) => {
+    const footerClassName = _.isElement(e.relatedTarget) ? e.relatedTarget.className : '';
+    const clickedFooterContents =
+      footerClassName === 'QuickPostEditor__footer' ||
+      footerClassName === 'QuickPostEditor__footer__file';
+    if (
+      _.isEmpty(this.state.currentInputValue) &&
+      _.isEmpty(this.state.currentImages) &&
+      !clickedFooterContents
+    ) {
+      this.setState({ focusedInput: false, inputMinRows: 1 }, () => this.resizeTextArea());
     }
   };
 
@@ -292,13 +292,15 @@ class QuickPostEditor extends React.Component {
     this.setState({ currentImages });
   };
 
-  renderCreatePostInput = () => {
-    const { user, intl } = this.props;
-    if (!this.state.selectedPreview) {
-      return (
+  render() {
+    const { imageUploading, focusedInput, currentImages, inputMinRows } = this.state;
+    const { user, postCreationLoading, intl } = this.props;
+
+    return (
+      <div className="QuickPostEditor">
         <div className="QuickPostEditor__contents">
           <div className="QuickPostEditor__avatar">
-            <Avatar username={user.name} />
+            <Avatar username={user.name} size={40} />
           </div>
           <div className="QuickPostEditor__dropzone-base">
             <Dropzone
@@ -319,10 +321,10 @@ class QuickPostEditor extends React.Component {
                   </div>
                 </div>}
               <Input
-                autosize={{ minRows: 2, maxRows: 12 }}
+                autosize={{ minRows: inputMinRows, maxRows: 12 }}
                 onChange={this.handleUpdateCurrentInputValue}
-                onBlur={this.handleUnfocusInput}
                 onFocus={this.handleFocusInput}
+                onBlur={this.handleUnfocusInput}
                 ref={ref => this.setInput(ref)}
                 type="textarea"
                 placeholder={intl.formatMessage({
@@ -335,19 +337,6 @@ class QuickPostEditor extends React.Component {
             </Dropzone>
           </div>
         </div>
-      );
-    }
-
-    return null;
-  };
-
-  render() {
-    const { imageUploading, focusedInput, currentImages } = this.state;
-    const { postCreationLoading, intl } = this.props;
-
-    return (
-      <div className="QuickPostEditor">
-        {this.renderCreatePostInput()}
         {focusedInput &&
           <QuickPostEditorFooter
             imageUploading={imageUploading}
@@ -364,6 +353,7 @@ class QuickPostEditor extends React.Component {
             })}
             currentImages={currentImages}
             onRemoveImage={this.handleRemoveImage}
+            handleFooterFocus={this.handleFocusInput}
           />}
       </div>
     );

@@ -14,8 +14,10 @@ const QuickPostEditorFooter = ({
   postText,
   submittingPostText,
   onRemoveImage,
+  handleFooterFocus,
 }) => (
-  <div className="QuickPostEditor__footer">
+  // eslint-disable-next-line
+  <div className="QuickPostEditor__footer" tabIndex="0" onFocus={handleFooterFocus}>
     <div className="QuickPostEditor__imagebox">
       {_.map(currentImages, image => (
         <div className="QuickPostEditor__imagebox__preview__image" key={image.id}>
@@ -29,7 +31,13 @@ const QuickPostEditorFooter = ({
           <img src={image.src} width="38" height="38" alt={image.src} />
         </div>
       ))}
-      <input type="file" id="inputfile" accept="image/*" onChange={handleImageChange} />
+      <input
+        id="inputfile"
+        className="QuickPostEditor__footer__file"
+        type="file"
+        accept="image/*"
+        onChange={handleImageChange}
+      />
       <label htmlFor="inputfile">
         {imageUploading
           ? <div className="QuickPostEditor__imagebox__loading"><Icon type="loading" /></div>
@@ -65,6 +73,7 @@ QuickPostEditorFooter.propTypes = {
   handleCreatePost: PropTypes.func,
   handleImageChange: PropTypes.func,
   onRemoveImage: PropTypes.func,
+  handleFooterFocus: PropTypes.func,
   postText: PropTypes.string,
   submittingPostText: PropTypes.string,
 };
@@ -76,6 +85,7 @@ QuickPostEditorFooter.defaultProps = {
   handleCreatePost: () => {},
   handleImageChange: () => {},
   onRemoveImage: () => {},
+  handleFooterFocus: () => {},
   postText: 'Post',
   submittingPostText: 'Submitting',
 };
