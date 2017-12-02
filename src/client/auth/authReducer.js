@@ -24,7 +24,7 @@ export default (state = initialState, action) => {
         isFetching: false,
         isAuthenticated: true,
         loaded: true,
-        user: action.payload.account,
+        user: action.payload.account || state.user,
       };
     case types.LOGIN_ERROR:
       return {
