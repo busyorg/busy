@@ -1,5 +1,6 @@
 import * as settingsTypes from './settingsActions';
 import * as authTypes from '../auth/authActions';
+import { rewardsValues } from '../helpers/constants';
 
 const initialState = {
   locale: 'auto',
@@ -8,7 +9,7 @@ const initialState = {
   showNSFWPosts: false,
   loading: false,
   upvoteSetting: true,
-  rewardSetting: '50',
+  rewardSetting: rewardsValues.half,
 };
 
 const settings = (state = initialState, action) => {

@@ -11,6 +11,7 @@ import 'url-search-params-polyfill';
 import { injectIntl } from 'react-intl';
 import uuidv4 from 'uuid/v4';
 import { MAXIMUM_UPLOAD_SIZE_HUMAN } from '../../helpers/image';
+import { rewardsValues } from '../../helpers/constants';
 import GetBoost from '../../components/Sidebar/GetBoost';
 import DeleteDraftModal from './DeleteDraftModal';
 
@@ -71,7 +72,7 @@ class Write extends React.Component {
     saving: false,
     draftId: null,
     upvoteSetting: true,
-    rewardSetting: '50',
+    rewardSetting: rewardsValues.half,
     newPost: () => {},
     createPost: () => {},
     saveDraft: () => {},
@@ -85,7 +86,7 @@ class Write extends React.Component {
       initialTitle: '',
       initialTopics: [],
       initialBody: '',
-      initialReward: this.props.rewardSetting || '50',
+      initialReward: this.props.rewardSetting || rewardsValues.half,
       initialUpvote: this.props.upvoteSetting,
       initialUpdatedDate: Date.now(),
       isUpdating: false,
@@ -116,7 +117,7 @@ class Write extends React.Component {
         initialTitle: draftPost.title || '',
         initialTopics: tags || [],
         initialBody: draftPost.body || '',
-        initialReward: draftPost.reward || '50',
+        initialReward: draftPost.reward || rewardsValues.half,
         initialUpvote: draftPost.upvote,
         initialUpdatedDate: draftPost.lastUpdated || Date.now(),
         isUpdating: draftPost.isUpdating || false,
@@ -137,7 +138,7 @@ class Write extends React.Component {
         initialTitle: '',
         initialTopics: [],
         initialBody: '',
-        initialReward: '50',
+        initialReward: rewardsValues.half,
         initialUpvote: true,
         initialUpdatedDate: Date.now(),
         isUpdating: false,

@@ -5,6 +5,7 @@ import { push } from 'react-router-redux';
 import { createAction } from 'redux-actions';
 import { addDraftMetadata, deleteDraftMetadata } from '../../helpers/metadata';
 import { jsonParse } from '../../helpers/formatter';
+import { rewardsValues } from '../../helpers/constants';
 import { createPermlink, getBodyPatchIfSmaller } from '../../vendor/steemitHelpers';
 import { saveSettings } from '../../settings/settingsActions';
 
@@ -106,10 +107,10 @@ const broadcastComment = (
     percent_steem_dollars: 5000,
   };
 
-  if (reward === '0') {
+  if (reward === rewardsValues.none) {
     commentOptionsConfig.max_accepted_payout = '0.000 SBD';
     commentOptionsConfig.percent_steem_dollars = 10000;
-  } else if (reward === '100') {
+  } else if (reward === rewardsValues.all) {
     commentOptionsConfig.percent_steem_dollars = 0;
   }
 
@@ -123,7 +124,7 @@ const broadcastComment = (
     ];
   }
 
-  if (reward === '0' || reward === '100' || referral) {
+  if (reward === rewardsValues.none || reward === rewardsValues.all || referral) {
     operations.push(['comment_options', commentOptionsConfig]);
   }
 
@@ -166,7 +167,7 @@ export function createPost(postData) {
 
     const newBody = isUpdating ? getBodyPatchIfSmaller(postData.originalBody, body) : body;
 
-    saveSettings({ upvoteSetting: upvote, rewardSetting: reward });
+    dispatch(saveSettings({ upvoteSetting: upvote, rewardSetting: reward }));
 
     let referral;
     if (Cookie.get('referral')) {
