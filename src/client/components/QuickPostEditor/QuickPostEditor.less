@@ -14,11 +14,13 @@
     background: @white;
     display: flex;
     flex-direction: row;
-    padding: 8px 10px;
+    padding: 8px 16px;
 
     .ant-input {
       border: 0 !important;
       box-shadow: 0 0 !important;
+      margin-top: 3px;
+      font-size: 18px;
       resize: none;
     }
   }
@@ -55,10 +57,9 @@
     border-top: 1px solid @blue-solitude;
     display: flex;
     flex-wrap: wrap;
-    height: 56px;
+    min-height: 56px;
     justify-content: space-between;
-    padding-left: 5px;
-    padding-right: 10px;
+    padding: 5px 10px 5px 5px;
 
     &:focus {
       outline-width: 0;
@@ -145,6 +146,7 @@
       border: 2px solid @blue-botticelli;
       display: flex;
       height: 38px;
+      margin-bottom: 5px;
       margin-left: 5px;
       margin-top: 10px;
       padding: 3px;
