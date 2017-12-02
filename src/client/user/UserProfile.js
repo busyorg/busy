@@ -6,6 +6,7 @@ import { getIsAuthenticated, getAuthenticatedUser, getFeed, getPosts } from '../
 import {
   getFeedContentFromState,
   getFeedLoadingFromState,
+  getFeedFetchedFromState,
   getFeedHasMoreFromState,
 } from '../helpers/stateHelpers';
 import { getFeedContent, getMoreFeedContent } from '../feed/feedActions';
@@ -69,6 +70,7 @@ export default class UserProfile extends React.Component {
     const isOwnProfile = authenticated && username === authenticatedUser.name;
     const content = getFeedContentFromState('blog', username, feed, posts);
     const isFetching = getFeedLoadingFromState('blog', username, feed);
+    const fetched = getFeedFetchedFromState('blog', username, feed);
     const hasMore = getFeedHasMoreFromState('blog', username, feed);
     const loadMoreContentAction = () =>
       this.props.getMoreFeedContent({
@@ -87,9 +89,9 @@ export default class UserProfile extends React.Component {
             loadMoreContent={loadMoreContentAction}
           />
 
-          {content.length === 0 && !isFetching && isOwnProfile && <EmptyUserOwnProfile />}
+          {content.length === 0 && fetched && isOwnProfile && <EmptyUserOwnProfile />}
 
-          {content.length === 0 && !isFetching && !isOwnProfile && <EmptyUserProfile />}
+          {content.length === 0 && fetched && !isOwnProfile && <EmptyUserProfile />}
         </div>
       </div>
     );
