@@ -102,9 +102,16 @@
       width: auto;
       border-top: @table-border;
       overflow-x: auto;
-      padding: 11px;
       white-space: nowrap;
-      display: block;
+
+      > div {
+        padding: 11px;
+      }
+
+      > pre {
+        padding: 11px;
+        overflow-x: auto;
+      }
     }
 
     &__label {
@@ -114,8 +121,12 @@
       border-top: @table-border;
       font-weight: bold;
       overflow-x: auto;
-      padding: 11px;
-      display: block;
+      width: 30%;
+
+      > div {
+        padding: 11px;
+        overflow-x: auto;
+      }
     }
   }
 
