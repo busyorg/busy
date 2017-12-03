@@ -21,6 +21,7 @@ import StoryFooter from '../StoryFooter/StoryFooter';
 import Avatar from '../Avatar';
 import Topic from '../Button/Topic';
 import PopoverMenu, { PopoverMenuItem } from '../PopoverMenu/PopoverMenu';
+import PostedFrom from './PostedFrom';
 import './StoryFull.less';
 
 @injectIntl
@@ -311,7 +312,10 @@ class StoryFull extends React.Component {
                 <FormattedRelative value={`${post.created}Z`} />
               </span>
             </Tooltip>
-            { Math.ceil(readingTime(post.body).minutes) > 1 &&
+            <span className="StoryFull__posted_from">
+              <PostedFrom post={post} />
+            </span>
+            {Math.ceil(readingTime(post.body).minutes) > 1 &&
               <span>
                 <span className="StoryFull__bullet" />
                 <Tooltip
@@ -326,7 +330,6 @@ class StoryFull extends React.Component {
                   }
                 >
                   <span className="StoryFull__header__reading__time">
-
                     <FormattedMessage
                       id="reading_time_post"
                       defaultMessage={'{min} min read'}
