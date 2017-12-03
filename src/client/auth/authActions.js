@@ -35,6 +35,9 @@ export const login = () => (dispatch, getState, { steemConnectAPI }) => {
     payload: {
       promise,
     },
+    meta: {
+      refresh: getIsAuthenticated(getState()),
+    },
   });
 };
 
