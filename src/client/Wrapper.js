@@ -9,7 +9,8 @@ import enUS from 'antd/lib/locale-provider/en_US';
 
 import { getAuthenticatedUser, getLocale } from './reducers';
 
-import { login, logout, getCurrentUserFollowing } from './auth/authActions';
+import { login, logout } from './auth/authActions';
+import { getFollowing } from './user/userActions';
 import { getRate, getRewardFund, getTrendingTopics } from './app/appActions';
 import Topnav from './components/Navigation/Topnav';
 import Transfer from './wallet/Transfer';
@@ -25,7 +26,7 @@ import getTranslations, { getAvailableLocale } from './translations';
   {
     login,
     logout,
-    getCurrentUserFollowing,
+    getFollowing,
     getRate,
     getRewardFund,
     getTrendingTopics,
@@ -40,7 +41,7 @@ export default class Wrapper extends React.PureComponent {
     history: PropTypes.shape().isRequired,
     login: PropTypes.func,
     logout: PropTypes.func,
-    getCurrentUserFollowing: PropTypes.func,
+    getFollowing: PropTypes.func,
     getRewardFund: PropTypes.func,
     getRebloggedList: PropTypes.func,
     getRate: PropTypes.func,
@@ -50,7 +51,7 @@ export default class Wrapper extends React.PureComponent {
   static defaultProps = {
     login: () => {},
     logout: () => {},
-    getCurrentUserFollowing: () => {},
+    getFollowing: () => {},
     getRewardFund: () => {},
     getRebloggedList: () => {},
     getRate: () => {},
@@ -62,7 +63,7 @@ export default class Wrapper extends React.PureComponent {
   }
 
   componentDidMount() {
-    this.props.login().then(() => this.props.getCurrentUserFollowing());
+    this.props.login().then(() => this.props.getFollowing());
     this.props.getRewardFund();
     this.props.getRebloggedList();
     this.props.getRate();

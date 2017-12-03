@@ -11,6 +11,7 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case types.LOGIN_START:
+      if (action.meta && action.meta.refresh) return state;
       return {
         ...state,
         isFetching: true,
@@ -19,6 +20,7 @@ export default (state = initialState, action) => {
         user: {},
       };
     case types.LOGIN_SUCCESS:
+      if (action.meta && action.meta.refresh) return state;
       return {
         ...state,
         isFetching: false,
