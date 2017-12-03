@@ -10,7 +10,7 @@ import isArray from 'lodash/isArray';
 import { Icon, Checkbox, Form, Input, Select, Button } from 'antd';
 import Dropzone from 'react-dropzone';
 import { isValidImage, MAXIMUM_UPLOAD_SIZE } from '../../helpers/image';
-import { rewardsValues } from '../../helpers/constants';
+import { rewardsValues } from '../../../common/constants/rewards';
 import EditorToolbar from './EditorToolbar';
 import Action from '../Button/Action';
 import Body, { remarkable } from '../Story/Body';

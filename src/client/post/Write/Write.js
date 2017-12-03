@@ -11,7 +11,7 @@ import 'url-search-params-polyfill';
 import { injectIntl } from 'react-intl';
 import uuidv4 from 'uuid/v4';
 import { MAXIMUM_UPLOAD_SIZE_HUMAN } from '../../helpers/image';
-import { rewardsValues } from '../../helpers/constants';
+import { rewardsValues } from '../../../common/constants/rewards';
 import GetBoost from '../../components/Sidebar/GetBoost';
 import DeleteDraftModal from './DeleteDraftModal';
 

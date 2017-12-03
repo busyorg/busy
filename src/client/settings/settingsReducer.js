@@ -1,6 +1,6 @@
 import * as settingsTypes from './settingsActions';
 import * as authTypes from '../auth/authActions';
-import { rewardsValues } from '../helpers/constants';
+import { rewardsValues } from '../../common/constants/rewards';
 
 const initialState = {
   locale: 'auto',

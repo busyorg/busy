@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import settingsReducer, { getIsLoading, getLocale, getVotingPower } from '../settingsReducer';
 import * as settingsTypes from '../settingsActions';
 import * as authTypes from '../../auth/authActions';
-import { rewardsValues } from '../../helpers/constants';
+import { rewardsValues } from '../../../common/constants/rewards';
 
 describe('settingsReducer', () => {
   const initialState = {

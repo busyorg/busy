@@ -5,7 +5,7 @@ import { push } from 'react-router-redux';
 import { createAction } from 'redux-actions';
 import { addDraftMetadata, deleteDraftMetadata } from '../../helpers/metadata';
 import { jsonParse } from '../../helpers/formatter';
-import { rewardsValues } from '../../helpers/constants';
+import { rewardsValues } from '../../../common/constants/rewards';
 import { createPermlink, getBodyPatchIfSmaller } from '../../vendor/steemitHelpers';
 import { saveSettings } from '../../settings/settingsActions';
 
