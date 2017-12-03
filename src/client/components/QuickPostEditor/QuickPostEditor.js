@@ -33,11 +33,11 @@ const version = require('../../../../package.json').version;
 class QuickPostEditor extends React.Component {
   static propTypes = {
     postCreationLoading: PropTypes.bool.isRequired,
-    notify: PropTypes.func.isRequired,
-    createPost: PropTypes.func.isRequired,
     user: PropTypes.shape().isRequired,
     intl: PropTypes.shape().isRequired,
     location: PropTypes.shape().isRequired,
+    notify: PropTypes.func.isRequired,
+    createPost: PropTypes.func.isRequired,
   };
 
   static defaultProps = {

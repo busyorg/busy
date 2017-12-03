@@ -16,7 +16,7 @@ const QuickPostEditorFooter = ({
   onRemoveImage,
   handleFooterFocus,
 }) => (
-  // eslint-disable-next-line
+  // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
   <div className="QuickPostEditor__footer" tabIndex="0" onFocus={handleFooterFocus}>
     <div className="QuickPostEditor__imagebox">
       {_.map(currentImages, image => (
@@ -70,24 +70,24 @@ QuickPostEditorFooter.propTypes = {
   currentImages: PropTypes.arrayOf(PropTypes.shape()),
   imageUploading: PropTypes.bool,
   postCreationLoading: PropTypes.bool,
+  postText: PropTypes.string,
+  submittingPostText: PropTypes.string,
   handleCreatePost: PropTypes.func,
   handleImageChange: PropTypes.func,
   onRemoveImage: PropTypes.func,
   handleFooterFocus: PropTypes.func,
-  postText: PropTypes.string,
-  submittingPostText: PropTypes.string,
 };
 
 QuickPostEditorFooter.defaultProps = {
   currentImages: [],
   imageUploading: false,
   postCreationLoading: false,
+  postText: 'Post',
+  submittingPostText: 'Submitting',
   handleCreatePost: () => {},
   handleImageChange: () => {},
   onRemoveImage: () => {},
   handleFooterFocus: () => {},
-  postText: 'Post',
-  submittingPostText: 'Submitting',
 };
 
 export default QuickPostEditorFooter;
