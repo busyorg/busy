@@ -55,18 +55,26 @@ class Drafts extends React.Component {
             </div>
           </Affix>
           <div className="center">
-            <h1>
-              <FormattedMessage id="drafts" defaultMessage="Drafts" />
-            </h1>
+            <div>
+              <h1>
+                <FormattedMessage id="drafts" defaultMessage="Drafts" />
+              </h1>
+              <h3>
+                <FormattedMessage
+                  id="drafts_description"
+                  defaultMessage="Posts that never made public. You can republish them or delete them."
+                />
+              </h3>
+              <br />
+            </div>
             {reloading && <Loading center={false} />}
-            {noDrafts && (
+            {noDrafts &&
               <h3 className="text-center">
                 <FormattedMessage
                   id="drafts_empty"
                   defaultMessage="You don't have any draft saved"
                 />
-              </h3>
-            )}
+              </h3>}
             {!reloading &&
               _.map(sortedDraftPosts, draft => (
                 <DraftRow
