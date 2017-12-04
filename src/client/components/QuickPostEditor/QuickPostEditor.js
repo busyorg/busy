@@ -50,7 +50,6 @@ class QuickPostEditor extends React.Component {
     imageUploading: false,
     dropzoneActive: false,
     currentInputValue: '',
-    currentPostBody: '',
     currentImages: [],
     focusedInput: false,
     inputMinRows: 1,
@@ -82,7 +81,7 @@ class QuickPostEditor extends React.Component {
         const imageText = `![${image.name}](${image.src})\n`;
         return `${str}${imageText}`;
       },
-      '',
+      ' ',
     );
     const postTitle = this.state.currentInputValue;
     const data = {
