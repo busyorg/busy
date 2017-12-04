@@ -182,7 +182,7 @@
   "get_boost_content": "Want to boost your post? Add the topic \"busy\" and get a like from us.",
   "drafts": "Drafts",
   "drafts_empty": "You don't have any draft saved",
-  "drafts_description": "Posts that never made public. You can republish them or delete them.",
+  "drafts_description": "These are posts that were never made public. You can publish them or delete them.",
   "draft_untitled": "Untitled draft",
   "draft_delete": "Delete this draft",
   "draft_delete_success": "Draft has been deleted",

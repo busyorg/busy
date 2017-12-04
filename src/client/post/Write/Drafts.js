@@ -62,7 +62,7 @@ class Drafts extends React.Component {
               <h3>
                 <FormattedMessage
                   id="drafts_description"
-                  defaultMessage="Posts that never made public. You can republish them or delete them."
+                  defaultMessage="These are posts that were never made public. You can publish them or delete them."
                 />
               </h3>
               <br />
