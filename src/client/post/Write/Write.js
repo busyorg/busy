@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { replace } from 'react-router-redux';
+import _ from 'lodash';
+import classNames from 'classnames';
 import marked from 'marked';
 import kebabCase from 'lodash/kebabCase';
 import debounce from 'lodash/debounce';
@@ -13,6 +15,7 @@ import uuidv4 from 'uuid/v4';
 import { MAXIMUM_UPLOAD_SIZE_HUMAN } from '../../helpers/image';
 import GetBoost from '../../components/Sidebar/GetBoost';
 import DeleteDraftModal from './DeleteDraftModal';
+import SidenavUser from '../../components/Navigation/SidenavUser';
 
 import {
   getAuthenticatedUser,
@@ -51,6 +54,7 @@ class Write extends React.Component {
     intl: PropTypes.shape().isRequired,
     user: PropTypes.shape().isRequired,
     draftPosts: PropTypes.shape().isRequired,
+    location: PropTypes.shape().isRequired,
     loading: PropTypes.bool.isRequired,
     saving: PropTypes.bool,
     draftId: PropTypes.string,
@@ -298,11 +302,23 @@ class Write extends React.Component {
 
   render() {
     const { initialTitle, initialTopics, initialBody, initialReward, initialUpvote } = this.state;
-    const { loading, saving, draftId } = this.props;
+    const { loading, saving, draftId, location, user } = this.props;
+    const isDraft = _.includes(location.search, 'draft');
 
     return (
       <div className="shifted">
-        <div className="post-layout container">
+        <div
+          className={classNames('container', {
+            'post-layout': !isDraft,
+            'feed-layout': isDraft,
+          })}
+        >
+          {isDraft &&
+            <Affix className="leftContainer" stickPosition={77}>
+              <div className="left">
+                <SidenavUser username={user.name} />
+              </div>
+            </Affix>}
           <Affix className="rightContainer" stickPosition={77}>
             <div className="right">
               <GetBoost />
