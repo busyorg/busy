@@ -16,6 +16,7 @@ const settings = (state = initialState, action) => {
   switch (action.type) {
     case authTypes.LOGIN_SUCCESS:
     case authTypes.RELOAD_SUCCESS:
+      if (action.meta && action.meta.refresh) return state;
       if (action.payload.user_metadata && action.payload.user_metadata.settings) {
         return {
           ...state,
@@ -33,7 +34,6 @@ const settings = (state = initialState, action) => {
         };
       }
       return state;
-
     case settingsTypes.SAVE_SETTINGS_START:
       return {
         ...state,

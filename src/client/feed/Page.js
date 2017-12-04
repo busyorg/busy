@@ -14,6 +14,7 @@ import TopicSelector from '../components/TopicSelector';
 import Affix from '../components/Utils/Affix';
 import ScrollToTop from '../components/Utils/ScrollToTop';
 import ScrollToTopOnMount from '../components/Utils/ScrollToTopOnMount';
+import QuickPostEditor from '../components/QuickPostEditor/QuickPostEditor';
 
 @connect(state => ({
   authenticated: getIsAuthenticated(state),
@@ -109,6 +110,7 @@ class Page extends React.Component {
                   onTopicClose={this.handleTopicClose}
                 />
               )}
+              {authenticated && <QuickPostEditor />}
               <Route path={`${match.path}:sortBy?/:category?`} component={SubFeed} />
             </div>
           </div>
