@@ -1,0 +1,120 @@
+@import (reference) "../styles/custom.less";
+@import (reference) "../styles/modules/variables.less";
+
+.HeroBanner {
+  position: relative;
+  height: 240px;
+  background: url("/images/banner.png");
+  background-color: @primary-color;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  &__close {
+    position: absolute;
+    top: 8px;
+    right: 16px;
+    color: @white;
+    z-index: 1;
+    cursor: pointer;
+
+    &:link,
+    &:visited,
+    &:hover,
+    &:focus,
+    &:active {
+      text-decoration: none;
+    }
+
+    &:hover {
+      color: @white-gainsboro;
+    }
+  }
+
+  &__primary >  {
+    border-radius: 5px;
+    font-weight: bolder;
+    font-size: 16px;
+    padding: 8px 12px;
+    background-color: @green;
+    transition: background-color 0.5s ease-in-out;
+
+    &:link,
+    &:visited,
+    &:focus,
+    &:active {
+      color: @white;
+      text-decoration: none;
+    }
+
+    &:hover {
+      color: @white;
+      text-decoration: none;
+      background-color: darken(@green, 10%);
+    }
+  }
+
+  &__secondary >  {
+    border-radius: 5px;
+    font-weight: bolder;
+    font-size: 16px;
+    padding: 6px 10px;
+    border: 2px solid @white;
+    transition: all 0.5s ease-in-out;
+
+    &:link,
+    &:visited,
+    &:focus,
+    &:active {
+      color: @white;
+      text-decoration: none;
+    }
+
+    &:hover {
+      color: @blue-linkWater;
+      text-decoration: none;
+      border-color: @blue-linkWater;
+    }
+  }
+
+  .container {
+    height: 100%;
+  }
+
+  &__container {
+    display: flex;
+    height: 100%;
+    padding: 16px;
+
+    @media @medium {
+      padding: 16px 0;
+    }
+
+    &__content {
+      margin: auto;
+      text-align: center;
+
+      @media @small {
+        margin: auto 0;
+        text-align: left;
+      }
+
+      h1 {
+        font-size: 28px;
+        font-weight: bolder;
+        color: @white;
+      }
+
+      &__buttons {
+        margin-top: 24px;
+
+        &__button {
+          display: inline-block;
+          
+          &:not(:last-of-type) {
+            margin-right: 12px;
+          }
+        }
+      }
+    }
+  }
+}

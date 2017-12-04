@@ -11,8 +11,10 @@ import {
 import {
   getFeedContentFromState,
   getFeedLoadingFromState,
+  getFeedFetchedFromState,
   getUserFeedContentFromState,
   getUserFeedLoadingFromState,
+  getUserFeedFetchedFromState,
   getFeedHasMoreFromState,
 } from '../helpers/stateHelpers';
 import {
@@ -106,18 +108,21 @@ class SubFeed extends React.Component {
 
     let content = [];
     let isFetching = false;
+    let fetched = false;
     let hasMore = false;
     let loadMoreContent = () => {};
 
     if (authenticated && match.url === '/') {
       content = getUserFeedContentFromState(user.name, feed, posts);
       isFetching = getUserFeedLoadingFromState(user.name, feed);
+      fetched = getUserFeedFetchedFromState(user.name, feed);
       hasMore = feed.created[user.name] ? feed.created[user.name].hasMore : true;
       loadMoreContent = () => this.props.getMoreUserFeedContent(user.name);
     } else {
       const sortBy = match.params.sortBy || 'trending';
       content = getFeedContentFromState(sortBy, match.params.category, feed, posts);
       isFetching = getFeedLoadingFromState(sortBy, match.params.category, feed);
+      fetched = getFeedFetchedFromState(sortBy, match.params.category, feed);
       hasMore = getFeedHasMoreFromState(sortBy, match.params.category, feed);
       loadMoreContent = () => this.props.getMoreFeedContent(sortBy, match.params.category);
     }
@@ -131,7 +136,7 @@ class SubFeed extends React.Component {
           hasMore={hasMore}
           loadMoreContent={loadMoreContent}
         />
-        {!content.length && !isFetching && loaded && <EmptyFeed />}
+        {!content.length && fetched && loaded && <EmptyFeed />}
       </div>
     );
   }

@@ -7,12 +7,14 @@ import { Helmet } from 'react-helmet';
 import { getIsAuthenticated } from '../reducers';
 
 import SubFeed from './SubFeed';
+import HeroBannerContainer from './HeroBannerContainer';
 import LeftSidebar from '../app/Sidebar/LeftSidebar';
 import RightSidebar from '../app/Sidebar/RightSidebar';
 import TopicSelector from '../components/TopicSelector';
 import Affix from '../components/Utils/Affix';
 import ScrollToTop from '../components/Utils/ScrollToTop';
 import ScrollToTopOnMount from '../components/Utils/ScrollToTopOnMount';
+import QuickPostEditor from '../components/QuickPostEditor/QuickPostEditor';
 
 @connect(state => ({
   authenticated: getIsAuthenticated(state),
@@ -85,6 +87,7 @@ class Page extends React.Component {
         </Helmet>
         <ScrollToTop />
         <ScrollToTopOnMount />
+        <HeroBannerContainer />
         <div className="shifted">
           <div className="feed-layout container">
             <Affix className="leftContainer" stickPosition={77}>
@@ -107,6 +110,7 @@ class Page extends React.Component {
                   onTopicClose={this.handleTopicClose}
                 />
               )}
+              {authenticated && <QuickPostEditor />}
               <Route path={`${match.path}:sortBy?/:category?`} component={SubFeed} />
             </div>
           </div>

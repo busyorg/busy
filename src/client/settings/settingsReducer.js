@@ -13,16 +13,17 @@ const settings = (state = initialState, action) => {
   switch (action.type) {
     case authTypes.LOGIN_SUCCESS:
     case authTypes.RELOAD_SUCCESS:
+      if (action.meta && action.meta.refresh) return state;
       if (action.payload.user_metadata && action.payload.user_metadata.settings) {
         return {
           ...state,
           locale: action.payload.user_metadata.settings.locale || initialState.locale,
-          votingPower: action.payload.user_metadata.settings.votingPower ||
-            initialState.votingPower,
-          votePercent: action.payload.user_metadata.settings.votePercent ||
-            initialState.votePercent,
-          showNSFWPosts: action.payload.user_metadata.settings.showNSFWPosts ||
-            initialState.showNSFWPosts,
+          votingPower:
+            action.payload.user_metadata.settings.votingPower || initialState.votingPower,
+          votePercent:
+            action.payload.user_metadata.settings.votePercent || initialState.votePercent,
+          showNSFWPosts:
+            action.payload.user_metadata.settings.showNSFWPosts || initialState.showNSFWPosts,
         };
       }
       return state;
