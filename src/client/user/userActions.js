@@ -132,7 +132,7 @@ export const getFollowing = username => (dispatch, getState) => {
     type: GET_FOLLOWING,
     meta: targetUsername,
     payload: {
-      promise: getAllFollowing(username),
+      promise: getAllFollowing(targetUsername),
     },
   });
 };
