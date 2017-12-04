@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 import { FormattedMessage, FormattedRelative } from 'react-intl';
 import { Link } from 'react-router-dom';
 import DeleteDraftModal from './DeleteDraftModal';
@@ -49,6 +50,7 @@ class DraftRow extends React.Component {
     const { id, data } = this.props;
     const { displayDelete } = this.state;
     const { lastUpdated } = data;
+    const hasLastUpdated = !_.isUndefined(lastUpdated);
     let { title = '', body = '' } = data;
     title = title.trim();
     body = body.replace(/\r?\n|\r|[\u200B-\u200D\uFEFF]/g, ' ').substring(0, 50);
@@ -71,9 +73,12 @@ class DraftRow extends React.Component {
               </h3>
             </Link>
             <span className="DraftRow__date">
-              <FormattedMessage id="last_updated" defaultMessage="Last updated" />
-              {' '}
-              <FormattedRelative value={new Date(lastUpdated)} />
+              {hasLastUpdated &&
+                <span>
+                  <FormattedMessage id="last_updated" defaultMessage="Last updated" />
+                  {' '}
+                  <FormattedRelative value={new Date(lastUpdated)} />
+                </span>}
             </span>
           </div>
           {displayDelete &&
