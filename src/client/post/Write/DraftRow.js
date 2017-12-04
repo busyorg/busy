@@ -61,19 +61,21 @@ class DraftRow extends React.Component {
         onMouseEnter={this.handleDisplayDelete}
         onMouseLeave={this.handleHideDelete}
       >
-        <Link to={{ pathname: '/editor', search: `?draft=${id}` }}>
-          <h3>
-            {draftTitle.length === 0
-              ? <FormattedMessage id="draft_untitled" defaultMessage="Untitled draft" />
-              : draftTitle}
-          </h3>
-        </Link>
         <div className="DraftRow__contents">
-          <span className="DraftRow__date">
-            <FormattedMessage id="last_updated" defaultMessage="Last updated" />
-            {' '}
-            <FormattedRelative value={new Date(lastUpdated)} />
-          </span>
+          <div>
+            <Link to={{ pathname: '/editor', search: `?draft=${id}` }}>
+              <h3>
+                {draftTitle.length === 0
+                  ? <FormattedMessage id="draft_untitled" defaultMessage="Untitled draft" />
+                  : draftTitle}
+              </h3>
+            </Link>
+            <span className="DraftRow__date">
+              <FormattedMessage id="last_updated" defaultMessage="Last updated" />
+              {' '}
+              <FormattedRelative value={new Date(lastUpdated)} />
+            </span>
+          </div>
           {displayDelete &&
             <a role="presentation" onClick={this.showModal} className="DraftRow__delete">
               <i className="iconfont icon-trash DraftRow__delete__icon" />
