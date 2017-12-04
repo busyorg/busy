@@ -267,5 +267,7 @@
   "reading_time": "{words} words / {min} min read",
   "reading_time_post": "{min} min read",
   "words_tooltip": "{words} words",
-  "power_down_message": "Started power down: {value}"
+  "power_down_message": "Started power down: {value}",
+  "create_post": "Create post",
+  "posted_from_tooltip": "Version: {version}"
 }
