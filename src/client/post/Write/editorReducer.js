@@ -30,6 +30,7 @@ const editor = (state = defaultState, action) => {
         editedPosts: state.editedPosts.filter(post => post !== action.payload),
       };
     case authActions.LOGIN_SUCCESS:
+      if (action.meta && action.meta.refresh) return state;
       return {
         ...state,
         draftPosts: action.payload.user_metadata.drafts || defaultState.draftPosts,
