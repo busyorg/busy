@@ -87,6 +87,7 @@
     "raven-js": "^3.8.0",
     "react": "^16.1.0",
     "react-addons-css-transition-group": "^15.6.2",
+    "react-copy-to-clipboard": "^5.0.1",
     "react-custom-scrollbars": "^4.1.2",
     "react-dom": "^16.1.0",
     "react-dropzone": "^4.1.3",

@@ -13,6 +13,7 @@ import Wallet from '../client/wallet/Wallet';
 import Editor from '../client/post/Write/Write';
 import Settings from '../client/settings/Settings';
 import ProfileSettings from '../client/app/ProfileSettings';
+import Invite from '../client/invite/Invite';
 import User from '../client/user/User';
 import UserProfile from '../client/user/UserProfile';
 import UserComments from '../client/user/UserComments';
@@ -88,6 +89,11 @@ const routes = [
         path: '/edit-profile',
         exact: true,
         component: ProfileSettings,
+      },
+      {
+        path: '/invite',
+        exact: true,
+        component: Invite,
       },
       {
         path: '/@:name',
