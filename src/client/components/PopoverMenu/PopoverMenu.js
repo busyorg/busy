@@ -33,7 +33,7 @@ PopoverMenu.defaultProps = {
   children: null,
   onSelect: () => {},
   bold: true,
-  className: "PopoverMenu",
+  className: 'PopoverMenu',
 };
 
 export default PopoverMenu;

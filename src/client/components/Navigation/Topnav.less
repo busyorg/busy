@@ -87,22 +87,10 @@
   }
 
   &__popover {
-    .clearfix;
-
     & li {
-      width: 50%;
-      float: left;
       display: block;
-
-      &:nth-child(even) {
-        border-left: solid 1px @white-gainsboro;
-      }
-
+      
       @media screen and (min-width: 991px) {
-        width: auto;
-        border-left: 0 !important;
-        float: unset;
-
         &:nth-child(2) {
           display: none;
         }
