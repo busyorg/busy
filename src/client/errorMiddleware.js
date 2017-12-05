@@ -1,7 +1,14 @@
 import { notify } from './app/Notification/notificationActions';
 
 function parseBlockChainError(error) {
-  return error.split(':').slice(-1)[0];
+  let parsedError;
+  try {
+    parsedError = error.split(':')[2].split('\n')[0].substring(1);
+  } catch (e) {
+    parsedError = 'Unknown error';
+  }
+
+  return parsedError;
 }
 
 export default function errorMiddleware({ dispatch }) {
