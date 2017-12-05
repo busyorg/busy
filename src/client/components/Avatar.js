@@ -35,10 +35,11 @@ class Avatar extends Component {
     }
   }
 
-  onError = () =>
+  onError() {
     this.setState({
       loadFailed: true,
     });
+  }
 
   render() {
     const { username, size } = this.props;
