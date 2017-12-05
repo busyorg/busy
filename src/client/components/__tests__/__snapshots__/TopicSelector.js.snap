@@ -69,6 +69,7 @@ ShallowWrapper {
             content={
               <PopoverMenu
                 bold={true}
+                className="PopoverMenu"
                 onSelect={[Function]}
               >
                 <PopoverMenuItem
@@ -255,6 +256,7 @@ ShallowWrapper {
               content={
                 <PopoverMenu
                   bold={true}
+                  className="PopoverMenu"
                   onSelect={[Function]}
                 >
                   <PopoverMenuItem
@@ -394,6 +396,7 @@ ShallowWrapper {
               </span>,
               "content": <PopoverMenu
                 bold={true}
+                className="PopoverMenu"
                 onSelect={[Function]}
               >
                 <PopoverMenuItem
@@ -567,6 +570,7 @@ ShallowWrapper {
               content={
                 <PopoverMenu
                   bold={true}
+                  className="PopoverMenu"
                   onSelect={[Function]}
                 >
                   <PopoverMenuItem
@@ -753,6 +757,7 @@ ShallowWrapper {
                 content={
                   <PopoverMenu
                     bold={true}
+                    className="PopoverMenu"
                     onSelect={[Function]}
                   >
                     <PopoverMenuItem
@@ -892,6 +897,7 @@ ShallowWrapper {
                 </span>,
                 "content": <PopoverMenu
                   bold={true}
+                  className="PopoverMenu"
                   onSelect={[Function]}
                 >
                   <PopoverMenuItem
