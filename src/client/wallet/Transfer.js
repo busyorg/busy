@@ -46,6 +46,8 @@ export default class Transfer extends React.Component {
 
   static amountRegex = /^[0-9]*\.?[0-9]{0,3}$/;
 
+  static exchangeRegex = /^(bittrex|blocktrades|poloniex|changelly|openledge|shapeshiftio)$/;
+
   state = {
     currency: 'STEEM',
     oldAmount: undefined,
@@ -111,10 +113,21 @@ export default class Transfer extends React.Component {
     this.props.form.validateFields(['amount']);
   };
 
+  validateMemo = (rule, value, callback) => {
+    const { intl } = this.props;
+    const recipientIsExchange = Transfer.exchangeRegex.test(this.props.form.getFieldValue('to'));
+    if (recipientIsExchange && (!value || value === '')) {
+      callback([
+        new Error(intl.formatMessage({ id: 'memo_error_exchange', defaultMessage: 'Memo is required when sending to an exchange.' })),
+      ]);
+    } else {
+      callback();
+    }
+  };
+
   validateUsername = (rule, value, callback) => {
     const { intl } = this.props;
-    const exchanges = /^(bittrex|blocktrades|poloniex|changelly|openledge|shapeshiftio)$/;
-    const recipientIsExchange = exchanges.test(value);
+    this.props.form.validateFields(['memo'], { force: true });
 
     if (!value) {
       callback();
@@ -123,9 +136,6 @@ export default class Transfer extends React.Component {
 
     steem.api.getAccounts([value], (err, result) => {
       if (result[0]) {
-        if (recipientIsExchange) {
-          this.props.form.validateFields(['memo']);
-        }
         callback();
       } else {
         callback([
@@ -143,26 +153,6 @@ export default class Transfer extends React.Component {
         ]);
       }
     });
-  };
-
-  validateMemo = (rule, value, callback) => {
-    const { intl } = this.props;
-
-    const exchanges = /^(bittrex|blocktrades|poloniex|changelly|openledge|shapeshiftio)$/;
-    const recipientIsExchange = exchanges.test(this.props.form.getFieldValue('to'));
-
-    if (recipientIsExchange && (!value || value === '')) {
-      callback([
-        new Error(
-          intl.formatMessage({
-            id: 'memo_error_exchange',
-            defaultMessage: 'Memo is required when sending to an exchange.',
-          }),
-        ),
-      ]);
-    } else {
-      callback();
-    }
   };
 
   validateBalance = (rule, value, callback) => {
