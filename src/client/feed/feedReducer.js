@@ -140,37 +140,61 @@ const feedSortByItem = (state = {}, action) => {
   switch (action.type) {
     case feedTypes.GET_FEED_CONTENT:
     case feedTypes.GET_MORE_FEED_CONTENT:
+      return {
+        ...state,
+        fetched: false,
+        [action.payload.category]: feedSortBySubItem(state[action.payload.category], action),
+      };
     case feedTypes.GET_FEED_CONTENT_SUCCESS:
     case feedTypes.GET_MORE_FEED_CONTENT_SUCCESS:
     case feedTypes.FEED_HAS_NO_MORE:
       return {
         ...state,
+        fetched: true,
         [action.payload.category]: feedSortBySubItem(state[action.payload.category], action),
       };
     case feedTypes.GET_USER_FEED_CONTENT:
-    case feedTypes.GET_USER_FEED_CONTENT_SUCCESS:
     case feedTypes.GET_MORE_USER_FEED_CONTENT:
+      return {
+        ...state,
+        fetched: false,
+        [action.payload.username]: feedSortBySubItem(state[action.payload.username], action),
+      };
+    case feedTypes.GET_USER_FEED_CONTENT_SUCCESS:
     case feedTypes.GET_MORE_USER_FEED_CONTENT_SUCCESS:
       return {
         ...state,
+        fetched: true,
         [action.payload.username]: feedSortBySubItem(state[action.payload.username], action),
       };
     case userTypes.GET_USER_COMMENTS_START:
-    case userTypes.GET_USER_COMMENTS_SUCCESS:
     case userTypes.GET_MORE_USER_COMMENTS_START:
-    case userTypes.GET_MORE_USER_COMMENTS_SUCCESS:
     case repliesTypes.GET_REPLIES_START:
-    case repliesTypes.GET_REPLIES_SUCCESS:
     case repliesTypes.GET_MORE_REPLIES_START:
+      return {
+        ...state,
+        fetched: false,
+        [action.meta.username]: feedSortBySubItem(state[action.meta.username], action),
+      };
+    case userTypes.GET_USER_COMMENTS_SUCCESS:
+    case userTypes.GET_MORE_USER_COMMENTS_SUCCESS:
+    case repliesTypes.GET_REPLIES_SUCCESS:
     case repliesTypes.GET_MORE_REPLIES_SUCCESS:
       return {
         ...state,
+        fetched: true,
         [action.meta.username]: feedSortBySubItem(state[action.meta.username], action),
       };
     case bookmarksActions.GET_BOOKMARKS_START:
+      return {
+        ...state,
+        fetched: false,
+        all: feedSortBySubItem(state.all, action),
+      };
     case bookmarksActions.GET_BOOKMARKS_SUCCESS:
       return {
         ...state,
+        fetched: true,
         all: feedSortBySubItem(state.all, action),
       };
     default:

@@ -44,6 +44,24 @@ export const getFeedLoadingFromState = (sortBy, category = 'all', feedState) => 
   }
 };
 
+export const getFeedFetchedFromState = (sortBy, category = 'all', feedState) => {
+  switch (sortBy) {
+    case 'feed':
+    case 'hot':
+    case 'created':
+    case 'active':
+    case 'trending':
+    case 'comments':
+    case 'blog':
+    case 'bookmarks':
+    case 'replies':
+    case 'promoted':
+      return (feedState[sortBy][category] && feedState[sortBy][category].fetched) || false;
+    default:
+      return false;
+  }
+};
+
 export const getFeedHasMoreFromState = (sortBy, listName = 'all', feedState) => {
   switch (sortBy) {
     case 'feed':
@@ -70,6 +88,9 @@ export const getUserFeedContentFromState = (username, feedState, postsState) =>
 
 export const getUserFeedLoadingFromState = (username, feedState) =>
   (feedState.feed[username] && feedState.feed[username].isFetching) || false;
+
+export const getUserFeedFetchedFromState = (username, feedState) =>
+  (feedState.feed[username] && feedState.feed[username].fetched) || false;
 
 /**
  * Sort comments based on payout

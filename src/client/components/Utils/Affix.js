@@ -30,7 +30,8 @@ class Affix extends React.Component {
   };
 
   componentDidMount() {
-    this.lastScroll = document.body.scrollTop;
+    this.lastScroll =
+      window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
 
     this.top = 0;
     this.bindedBottom = false;
@@ -50,7 +51,7 @@ class Affix extends React.Component {
 
   componentWillUnmount() {
     document.removeEventListener('scroll', this.handleScroll);
-    this.ro.unobserve(this.affixContainer);
+    if (this.ro) this.ro.unobserve(this.affixContainer);
   }
 
   handleScroll = () => {
@@ -62,7 +63,8 @@ class Affix extends React.Component {
 
     const windowHeight = document.body.clientHeight;
     const sidebarHeight = this.affixContainer.clientHeight;
-    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    const scrollTop =
+      window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
     const scrollBottom = scrollTop + windowHeight;
     const scrollDiff = scrollTop - this.lastScroll;
     const scrollingDown = scrollDiff > 0;
@@ -71,17 +73,13 @@ class Affix extends React.Component {
 
     const viewportOffset = this.affixContainer.getBoundingClientRect();
 
-    const fits = windowHeight >= sidebarHeight;
+    const fits = windowHeight >= (sidebarHeight + stickPosition);
     const overlaps = viewportOffset.top < parent.getBoundingClientRect().top;
     const shouldBindTop =
       viewportOffset.top >= stickPosition &&
       !scrollingDown &&
       !overlaps &&
-      scrollTop >= parent.offsetTop;
-    const shouldFix =
-      this.affixContainer.offsetTop > parent.offsetTop &&
-      viewportOffset.top > parentSpace &&
-      !scrollingDown;
+      scrollTop >= parent.offsetTop - stickPosition;
 
     if (fits) {
       if (viewportOffset.top <= stickPosition) {
@@ -89,7 +87,7 @@ class Affix extends React.Component {
         this.affixContainer.style.top = `${stickPosition}px`;
       }
 
-      if (overlaps) {
+      if (overlaps && !scrollingDown) {
         this.affixContainer.style.position = 'absolute';
         this.affixContainer.style.top = 'auto';
       }
@@ -99,24 +97,25 @@ class Affix extends React.Component {
         this.affixContainer.style.top = `${windowHeight - sidebarHeight}px`;
         this.bindedBottom = true;
       }
-      if (shouldFix || shouldBindTop) {
+      if (shouldBindTop) {
         this.affixContainer.style.position = 'fixed';
         this.affixContainer.style.top = `${stickPosition}px`;
         this.bindedTop = true;
       }
       if (this.bindedBottom && !scrollingDown) {
         this.affixContainer.style.position = 'absolute';
-        this.affixContainer.style.top = `${scrollBottom - (sidebarHeight + parentSpace)}px`;
+        this.affixContainer.style.top = `${scrollBottom - (sidebarHeight + stickPosition + parentSpace)}px`;
         this.bindedBottom = false;
       }
-      if (this.bindedTop && scrollingDown) {
+      if (this.bindedTop && !this.bindedBottom && scrollingDown && !overlaps) {
         this.affixContainer.style.position = 'absolute';
         this.affixContainer.style.top = `${scrollTop - (parent.offsetTop - stickPosition)}px`;
         this.bindedTop = false;
       }
-      if (overlaps) {
+      if (overlaps && !scrollingDown) {
         this.affixContainer.style.position = 'absolute';
         this.affixContainer.style.top = 'auto';
+        this.bindedTop = true;
       }
     }
 

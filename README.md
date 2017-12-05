@@ -3,9 +3,11 @@
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/busyorg/busy/new-design/LICENSE)
 [![Busy channel on Discord](https://img.shields.io/badge/chat-discord-738bd7.svg)](https://discord.gg/G95rNZs)
 
-# Busy
+# Busy 🚀
 
-Blockchain-based social network where anyone can earn rewards 🚀
+Busy is an Open Source social network and communications platform which extends itself to a variety of rich features and functionality including free digital payments and a marketplace for goods and services. 
+
+For more info: https://busy.org/@busy.org
 
 ## Preview
 ![Preview](https://res.cloudinary.com/hpiynhbhq/image/upload/v1504423577/wft1ubbw2ozrbteril7u.png)
