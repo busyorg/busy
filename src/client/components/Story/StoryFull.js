@@ -21,6 +21,7 @@ import StoryFooter from '../StoryFooter/StoryFooter';
 import Avatar from '../Avatar';
 import Topic from '../Button/Topic';
 import PopoverMenu, { PopoverMenuItem } from '../PopoverMenu/PopoverMenu';
+import PostedFrom from './PostedFrom';
 import './StoryFull.less';
 
 @injectIntl
@@ -311,27 +312,32 @@ class StoryFull extends React.Component {
                 <FormattedRelative value={`${post.created}Z`} />
               </span>
             </Tooltip>
-            { Math.ceil(readingTime(post.body).minutes) > 1 &&
-              <Tooltip
-                title={
-                  <span>
+            <span className="StoryFull__posted_from">
+              <PostedFrom post={post} />
+            </span>
+            {Math.ceil(readingTime(post.body).minutes) > 1 &&
+              <span>
+                <span className="StoryFull__bullet" />
+                <Tooltip
+                  title={
+                    <span>
+                      <FormattedMessage
+                        id="words_tooltip"
+                        defaultMessage={'{words} words'}
+                        values={{ words: readingTime(post.body).words }}
+                      />
+                    </span>
+                  }
+                >
+                  <span className="StoryFull__header__reading__time">
                     <FormattedMessage
-                      id="words_tooltip"
-                      defaultMessage={'{words} words'}
-                      values={{ words: readingTime(post.body).words }}
+                      id="reading_time_post"
+                      defaultMessage={'{min} min read'}
+                      values={{ min: Math.ceil(readingTime(post.body).minutes) }}
                     />
                   </span>
-                }
-              >
-                <span className="StoryFull__header__reading__time">
-                  <span className="CommentFooter__bullet" />
-                  <FormattedMessage
-                    id="reading_time_post"
-                    defaultMessage={'{min} min read'}
-                    values={{ min: Math.ceil(readingTime(post.body).minutes) }}
-                  />
-                </span>
-              </Tooltip>
+                </Tooltip>
+              </span>
             }
           </div>
           <Popover

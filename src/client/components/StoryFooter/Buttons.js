@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import take from 'lodash/take';
 import { injectIntl, FormattedMessage, FormattedNumber } from 'react-intl';
+import { scroller } from 'react-scroll';
 import { Link } from 'react-router-dom';
 import { Icon, Tooltip, Modal } from 'antd';
 import classNames from 'classnames';
@@ -85,8 +86,9 @@ export default class Buttons extends React.Component {
   handleCommentClick = () => {
     const form = document.getElementById('commentFormInput');
     if (form) {
-      form.scrollIntoView(true);
-      document.body.scrollTop -= 200;
+      scroller.scrollTo('commentFormInputScrollerElement', {
+        offset: 50,
+      });
       form.focus();
     }
   };

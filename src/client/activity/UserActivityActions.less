@@ -4,7 +4,10 @@
 .UserActivityActions {
   background-color: @white;
   border: 1px solid @white-gainsboro;
-  border-radius: @border-radius-base;
+  border-left: 0;
+  border-right: 0;
+  border-radius: 0;
+  margin-bottom: 16px;
 
   &:empty {
     display: none;
@@ -79,6 +82,7 @@
     border: @table-border;
     box-shadow: none;
     color: rgba(0, 0, 0, .87);
+    padding: 14px 0;
     margin: 16px 0;
     overflow-x: auto;
     table-layout: fixed;
@@ -95,20 +99,34 @@
     }
 
     &__value {
+      width: auto;
       border-top: @table-border;
       overflow-x: auto;
-      padding: 11px;
       white-space: nowrap;
+
+      > div {
+        padding: 11px;
+      }
+
+      > pre {
+        padding: 11px;
+        overflow-x: auto;
+      }
     }
 
     &__label {
+      width: auto;
       background: @blue-solitude;
-      border-right: @table-border;
+      border-right: 0;
       border-top: @table-border;
       font-weight: bold;
       overflow-x: auto;
-      padding: 11px;
       width: 30%;
+
+      > div {
+        padding: 11px;
+        overflow-x: auto;
+      }
     }
   }
 
@@ -117,31 +135,26 @@
     font-size: 14px;
   }
 
-  @media @small-max-width {
-    border-left: 0;
-    border-right: 0;
-    border-radius: 0;
+  @media @small {
+    border: 1px solid @white-gainsboro;
+    border-radius: @border-radius-base;
 
-    &__contents__item {
-      padding: 14px 0;
-    }
+    &__contents {
+      padding: 0;
 
-    &__contents__value,
-    &__contents__label {
-      display: block;
-      width: auto;
-    }
+      &__item {
+        padding: 0;
+      }
 
-    &__contents__item:first-child td:first-of-type {
-      border-top: 0;
-    }
+      &__value {
+        display: table-cell;
+      }
 
-    &__contents__item:first-child td {
-      border-top: @table-border;
-    }
-
-    &__contents__label {
-      border-right: 0;
+      &__label {
+        width: 30%;
+        border-top: @table-border;
+        display: table-cell;
+      }
     }
   }
 

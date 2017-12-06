@@ -10,7 +10,7 @@
       padding-left: @mobile-padding;
     }
 
-    @media @medium {
+    @media @large {
       padding-left: 0;
     }
   }
@@ -21,37 +21,42 @@
     right: 0;
     width: @right-width;
     margin-right: 16px;
-
-    @media @medium {
-      margin-right: 0;
-    }
-
-    @media @small-max-width {
-      display: flex;
-      justify-content: flex-end;
-    }
-  }
-
-  .center {
-    display: none;
-    width: 100%;
+    justify-content: flex-end;
+    display: flex;
 
     @media @small {
       display: block;
+      justify-content: initial;
+    }
+
+    @media @large {
+      margin-right: 0;
+    }
+
+  }
+
+  .center {
+    width: calc(100% ~"-" 55px);
+    position: absolute;
+    display: none;
+    z-index: 1;
+
+    @media @small {
       width: calc(100% ~"-" (@left-width + @right-width + 2 * @margin));
+      position: static;
       margin-left: @left-width;
       margin-right: @right-width + @margin;
+      display: block;
     }
 
     @media @medium {
-      width: calc(100% ~"-" (@left-width + @right-width + 2 * @margin));
-      margin-left: @left-width + @margin;
+      width: calc(100% ~"-" (@left-width + @right-width + 4 * @margin));
+      margin-left: @left-width + 2 * @margin;
     }
 
-    @media @small-max-width {
-      position: absolute;
-      width: calc(100% ~"-" 55px);
-      z-index: 1;
+    @media @large {
+      width: calc(100% ~"-" (@left-width + @right-width + 2 * @margin));
+      margin-left: @left-width + @margin;
     }
 
     &.mobileVisible {

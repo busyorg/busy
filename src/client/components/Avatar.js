@@ -17,34 +17,33 @@ class Avatar extends Component {
     size: 34,
   };
 
-  state = {
-    imageUrl: defaultImage,
-  };
+  constructor(props) {
+    super(props);
 
-  componentWillMount() {
-    const { username, size } = this.props;
+    this.state = {
+      loadFailed: false,
+    };
 
-    this.setState({
-      imageUrl: getImage(`@${username}?s=${size}`),
-    });
+    this.onError = this.onError.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.username !== nextProps.username) {
       this.setState({
-        imageUrl: getImage(`@${nextProps.username}?s=${nextProps.size}`),
+        loadFailed: false,
       });
     }
   }
 
-  onError = () =>
+  onError() {
     this.setState({
-      imageUrl: defaultImage,
+      loadFailed: true,
     });
+  }
 
   render() {
     const { username, size } = this.props;
-    const { imageUrl } = this.state;
+    const { loadFailed } = this.state;
 
     return (
       <img
@@ -52,7 +51,7 @@ class Avatar extends Component {
         style={{ minWidth: `${size}px`, width: `${size}px`, height: `${size}px` }}
         onError={this.onError}
         alt={username}
-        src={imageUrl}
+        src={loadFailed ? defaultImage : getImage(`@${username}?s=${size}`)}
       />
     );
   }

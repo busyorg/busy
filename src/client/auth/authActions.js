@@ -23,15 +23,20 @@ export const LOGOUT_SUCCESS = '@auth/LOGOUT_SUCCESS';
 export const UPDATE_AUTH_USER = createAsyncActionType('@auth/UPDATE_AUTH_USER');
 
 export const login = () => (dispatch, getState, { steemConnectAPI }) => {
-  if (!steemConnectAPI.options.accessToken) return Promise.resolve(null);
-  if (getIsAuthenticated(getState())) return Promise.resolve(null);
+  let promise = steemConnectAPI.me().then((resp) => {
+    initPushpad(resp.user, Cookie.get('access_token'));
+    return resp;
+  });
+  if (!steemConnectAPI.options.accessToken) { promise = Promise.reject(new Error('There is not accessToken present')); }
+  if (getIsAuthenticated(getState())) promise = Promise.resolve(null);
+
   return dispatch({
     type: LOGIN,
     payload: {
-      promise: steemConnectAPI.me().then((resp) => {
-        initPushpad(resp.user, Cookie.get('access_token'));
-        return resp;
-      }),
+      promise,
+    },
+    meta: {
+      refresh: getIsAuthenticated(getState()),
     },
   });
 };

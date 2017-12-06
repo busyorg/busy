@@ -46,6 +46,8 @@ export default class Transfer extends React.Component {
 
   static amountRegex = /^[0-9]*\.?[0-9]{0,3}$/;
 
+  static exchangeRegex = /^(bittrex|blocktrades|poloniex|changelly|openledge|shapeshiftio)$/;
+
   state = {
     currency: 'STEEM',
     oldAmount: undefined,
@@ -111,8 +113,21 @@ export default class Transfer extends React.Component {
     this.props.form.validateFields(['amount']);
   };
 
+  validateMemo = (rule, value, callback) => {
+    const { intl } = this.props;
+    const recipientIsExchange = Transfer.exchangeRegex.test(this.props.form.getFieldValue('to'));
+    if (recipientIsExchange && (!value || value === '')) {
+      callback([
+        new Error(intl.formatMessage({ id: 'memo_error_exchange', defaultMessage: 'Memo is required when sending to an exchange.' })),
+      ]);
+    } else {
+      callback();
+    }
+  };
+
   validateUsername = (rule, value, callback) => {
     const { intl } = this.props;
+    this.props.form.validateFields(['memo'], { force: true });
 
     if (!value) {
       callback();
@@ -232,8 +247,7 @@ export default class Transfer extends React.Component {
                   pattern: Transfer.amountRegex,
                   message: intl.formatMessage({
                     id: 'amount_error_format',
-                    defaultMessage:
-                      'Incorrect format. Use comma or dot as decimal separator. Use at most 3 decimal places.',
+                    defaultMessage: 'Incorrect format. Use comma or dot as decimal separator. Use at most 3 decimal places.',
                   }),
                 },
                 { validator: this.validateBalance },
@@ -249,7 +263,7 @@ export default class Transfer extends React.Component {
                 style={{ width: '100%' }}
               />,
             )}
-            {authenticated && (
+            {authenticated &&
               <FormattedMessage
                 id="balance_amount"
                 defaultMessage="Your balance: {amount}"
@@ -260,11 +274,14 @@ export default class Transfer extends React.Component {
                     </span>
                   ),
                 }}
-              />
-            )}
+              />}
           </Form.Item>
           <Form.Item label={<FormattedMessage id="memo" defaultMessage="Memo" />}>
-            {getFieldDecorator('memo')(
+            {getFieldDecorator('memo', {
+              rules: [
+                { validator: this.validateMemo },
+              ],
+            })(
               <Input.TextArea
                 autosize={{ minRows: 2, maxRows: 6 }}
                 placeholder={intl.formatMessage({
