@@ -104,12 +104,11 @@ const broadcastComment = (
     allow_votes: true,
     allow_curation_rewards: true,
     max_accepted_payout: '1000000.000 SBD',
-    percent_steem_dollars: 5000,
+    percent_steem_dollars: 10000,
   };
 
   if (reward === rewardsValues.none) {
     commentOptionsConfig.max_accepted_payout = '0.000 SBD';
-    commentOptionsConfig.percent_steem_dollars = 10000;
   } else if (reward === rewardsValues.all) {
     commentOptionsConfig.percent_steem_dollars = 0;
   }
