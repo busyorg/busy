@@ -46,16 +46,11 @@ export const getAccount = username =>
 
 export const getFollowingCount = username => SteemAPI.getFollowCountAsync(username);
 
-export const getFollowsYou = (authenticatedUser, startFrom = '') =>
-  SteemAPI.getFollowersAsync(authenticatedUser, startFrom, 'blog', 1).then((result) => {
-    return result[0].follower === startFrom;
-  });
-
 export const getAccountWithFollowingCount = (username, authenticatedUser) =>
   Promise.all([
     getAccount(username),
     getFollowingCount(username),
-    getFollowsYou(authenticatedUser, username),
+    getFollowing(username, authenticatedUser, 'blog', 1),
   ]).then(([account, { following_count, follower_count }, followsYou]) => ({
     ...account,
     following_count,
