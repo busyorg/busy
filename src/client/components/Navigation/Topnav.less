@@ -86,6 +86,16 @@
     }
   }
 
+  &__popover {
+    &--replies {
+      display: block;
+
+      @media @antd-medium {
+        display: none;
+      }
+    }
+  }
+
   &__user {
     display: flex !important;
     align-items: center;
@@ -96,7 +106,7 @@
       margin-left: 8px;
       color: @purple;
 
-      @media screen and (min-width: 992px) {
+      @media @antd-medium {
         display: inline;
       }
     }
