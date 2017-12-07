@@ -42,6 +42,7 @@
   "followed": "Following",
   "unfollowing": "Unfollowing",
   "followers": "Followers",
+  "follows_you": "Follows you",
   "reblogged": "Re-blogged",
   "reblogged_username": "{username} reblogged",
   "follow_username": "Follow {username}",

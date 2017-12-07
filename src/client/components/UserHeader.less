@@ -26,6 +26,7 @@
     .UserHeader__rank,
     .UserHeader__rank & > i,
     .UserHeader__handle,
+    .UserHeader__followsyou,
     .UserHeader__more,
     .UserHeader__user__username {
       color: #ffffff !important;
@@ -66,6 +67,11 @@
     flex-direction: row;
     justify-content: center;
   }
+}
+
+.UserHeader__followsyou {
+  margin-top: -30px;
+  margin-left: 15px;
 }
 
 .UserHeader__rank {
@@ -122,6 +128,11 @@
 
   .UserHeader__rank {
     margin-top: -4px;
+    margin-left: 0;
+  }
+
+  .UserHeader__followsyou {
+    margin-top: -11px;
     margin-left: 0;
   }
 

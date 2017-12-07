@@ -19,6 +19,7 @@ const UserHeader = ({
   userReputation,
   vestingShares,
   isSameUser,
+  isFollowingYou,
   hasCover,
   isPopoverVisible,
   onSelect,
@@ -85,6 +86,11 @@ const UserHeader = ({
         </div>
         <div className="UserHeader__handle-rank-container">
           <div className="UserHeader__row UserHeader__handle">@{handle}</div>
+          {isFollowingYou && (
+            <div className="UserHeader__followsyou">
+              <FormattedMessage id="follows_you" defaultMessage="Follows you" />
+            </div>
+          )}
           <div className="UserHeader__rank">
             <i className="iconfont icon-ranking" />
             <FormattedMessage
@@ -105,6 +111,7 @@ UserHeader.propTypes = {
   userReputation: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   vestingShares: PropTypes.number,
   isSameUser: PropTypes.bool,
+  isFollowingYou: PropTypes.bool,
   hasCover: PropTypes.bool,
   isPopoverVisible: PropTypes.bool,
   onSelect: PropTypes.func,
@@ -117,6 +124,7 @@ UserHeader.defaultProps = {
   userReputation: '0',
   vestingShares: 0,
   isSameUser: false,
+  isFollowingYou: true,
   hasCover: false,
   isPopoverVisible: false,
   onSelect: () => {},
