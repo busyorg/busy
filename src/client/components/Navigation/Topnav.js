@@ -84,7 +84,7 @@ class Topnav extends React.Component {
                   <PopoverMenuItem key="activity">
                     <FormattedMessage id="activity" defaultMessage="Activity" />
                   </PopoverMenuItem>
-                  <PopoverMenuItem key="replies">
+                  <PopoverMenuItem key="replies" className="PopoverMenuItem Topnav__popover--replies">
                     <FormattedMessage id="replies" defaultMessage="Replies" />
                   </PopoverMenuItem>
                   <PopoverMenuItem key="bookmarks">
