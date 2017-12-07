@@ -46,6 +46,16 @@ export const getAccount = username =>
 
 export const getFollowingCount = username => SteemAPI.getFollowCountAsync(username);
 
+export const getFollowing = (username, startForm = '', type = 'blog', limit = 100) =>
+  SteemAPI.getFollowingAsync(username, startForm, type, limit).then(result =>
+    result.map(user => user.following),
+  );
+
+export const getFollowers = (username, startForm = '', type = 'blog', limit = 100) =>
+  SteemAPI.getFollowersAsync(username, startForm, type, limit).then(result =>
+    result.map(user => user.follower),
+  );
+
 export const getAccountWithFollowingCount = (username, authenticatedUser) =>
   Promise.all([
     getAccount(username),
@@ -58,15 +68,6 @@ export const getAccountWithFollowingCount = (username, authenticatedUser) =>
     followsYou,
   }));
 
-export const getFollowing = (username, startForm = '', type = 'blog', limit = 100) =>
-  SteemAPI.getFollowingAsync(username, startForm, type, limit).then(result =>
-    result.map(user => user.following),
-  );
-
-export const getFollowers = (username, startForm = '', type = 'blog', limit = 100) =>
-  SteemAPI.getFollowersAsync(username, startForm, type, limit).then(result =>
-    result.map(user => user.follower),
-  );
 
 export const getAllFollowing = username =>
   getFollowingCount(username)
