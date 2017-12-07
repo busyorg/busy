@@ -86,7 +86,7 @@ const UserHeader = ({
         </div>
         <div className="UserHeader__handle-rank-container">
           <div className="UserHeader__row UserHeader__handle">@{handle}</div>
-          {isFollowingYou && (
+          {!isSameUser && isFollowingYou && (
             <div className="UserHeader__followsyou">
               <FormattedMessage id="follows_you" defaultMessage="Follows you" />
             </div>
@@ -124,7 +124,7 @@ UserHeader.defaultProps = {
   userReputation: '0',
   vestingShares: 0,
   isSameUser: false,
-  isFollowingYou: true,
+  isFollowingYou: false,
   hasCover: false,
   isPopoverVisible: false,
   onSelect: () => {},

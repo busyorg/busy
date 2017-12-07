@@ -51,14 +51,14 @@ export default class User extends React.Component {
   };
 
   componentDidMount() {
-    if (!this.props.user.name) {
-      this.props.getAccountWithFollowingCount({ name: this.props.match.params.name });
+    if (!this.props.user.name && this.props.authenticatedUser.name) {
+      this.props.getAccountWithFollowingCount({ name: this.props.match.params.name, authUser: this.props.authenticatedUser.name });
     }
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.match.params.name !== this.props.match.params.name) {
-      this.props.getAccountWithFollowingCount({ name: this.props.match.params.name });
+      this.props.getAccountWithFollowingCount({ name: this.props.match.params.name, authUser: this.props.authenticatedUser.name });
     }
   }
 
@@ -90,6 +90,7 @@ export default class User extends React.Component {
     const title = `${displayedUsername} - Busy`;
 
     const isSameUser = authenticated && authenticatedUser.name === username;
+    const followsYou = user.follows_you;
 
     return (
       <div className="main-panel">
@@ -121,6 +122,7 @@ export default class User extends React.Component {
             user={user}
             username={displayedUsername}
             isSameUser={isSameUser}
+            isFollowingYou={followsYou}
             hasCover={hasCover}
             onFollowClick={this.handleFollowClick}
             isPopoverVisible={this.state.popoverVisible}
