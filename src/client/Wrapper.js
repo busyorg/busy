@@ -7,7 +7,7 @@ import { renderRoutes } from 'react-router-config';
 import { LocaleProvider, Layout } from 'antd';
 import enUS from 'antd/lib/locale-provider/en_US';
 
-import { getAuthenticatedUser, getLocale } from './reducers';
+import { getAuthenticatedUser, getAuthenticatedUserName, getLocale } from './reducers';
 
 import { login, logout } from './auth/authActions';
 import { getFollowing } from './user/userActions';
@@ -21,6 +21,7 @@ import getTranslations, { getAvailableLocale } from './translations';
 @connect(
   state => ({
     user: getAuthenticatedUser(state),
+    username: getAuthenticatedUserName(state),
     locale: getLocale(state),
   }),
   {
@@ -39,6 +40,7 @@ export default class Wrapper extends React.PureComponent {
     user: PropTypes.shape().isRequired,
     locale: PropTypes.string.isRequired,
     history: PropTypes.shape().isRequired,
+    username: PropTypes.string,
     login: PropTypes.func,
     logout: PropTypes.func,
     getFollowing: PropTypes.func,
@@ -49,6 +51,7 @@ export default class Wrapper extends React.PureComponent {
   };
 
   static defaultProps = {
+    username: '',
     login: () => {},
     logout: () => {},
     getFollowing: () => {},
@@ -89,6 +92,18 @@ export default class Wrapper extends React.PureComponent {
         break;
       case 'settings':
         this.props.history.push('/settings');
+        break;
+      case 'feed':
+        this.props.history.push('/');
+        break;
+      case 'news':
+        this.props.history.push('/trending');
+        break;
+      case 'wallet':
+        this.props.history.push('/wallet');
+        break;
+      case 'my-profile':
+        this.props.history.push(`/@${this.props.username}`);
         break;
       default:
         break;
