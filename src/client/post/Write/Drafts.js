@@ -48,7 +48,7 @@ class Drafts extends React.Component {
 
     return (
       <div className="shifted">
-        <div className="settings-layout container">
+        <div className="drafts-layout container">
           <Affix className="leftContainer" stickPosition={77}>
             <div className="left">
               <LeftSidebar />
