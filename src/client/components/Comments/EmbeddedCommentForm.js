@@ -120,7 +120,7 @@ class EmbeddedCommentForm extends React.Component {
             accept="image/*"
             maxSize={MAXIMUM_UPLOAD_SIZE}
             onDropRejected={this.props.onImageInvalid}
-            onDrop={f => this.props.handleDrop(this.insertImage, f)}
+            onDrop={files => this.props.handleDrop(this.insertImage, files)}
             onDragEnter={this.props.handleDragEnter}
             onDragLeave={this.props.handleDragLeave}
           >

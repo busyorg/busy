@@ -16,7 +16,7 @@ export default function editorBase(WrappedComponent) {
     static defaultProps = {
       onImageInserted: () => {},
       onImageInvalid: () => {},
-    }
+    };
 
     state = {
       isDisabledSubmit: false,
@@ -24,24 +24,18 @@ export default function editorBase(WrappedComponent) {
       dropzoneActive: false,
     };
 
-    updateIsDisabledSubmit = (isDisabledSubmit) => {
+    updateIsDisabledSubmit(isDisabledSubmit) {
       this.setState({ isDisabledSubmit });
-    };
+    }
 
-    updateImageUploading = (imageUploading) => {
+    updateImageUploading(imageUploading) {
       this.setState({ imageUploading });
-    };
+    }
 
-    updateDropzoneActive = (dropzoneActive) => {
+    updateDropzoneActive(dropzoneActive) {
       this.setState({ dropzoneActive });
-    };
-
-    disableAndInsertImage = (image, imageName = 'image', callback) => {
-      this.updateImageUploading(false);
-      callback(image, imageName);
-    };
-
-    handleDrop = (callback, files) => {
+    }
+    handleDrop(callback, files) {
       if (files.length === 0) {
         this.setState({
           dropzoneActive: false,
@@ -73,13 +67,13 @@ export default function editorBase(WrappedComponent) {
           },
         );
       });
-    };
+    }
 
-    handleDragEnter = () => this.updateDropzoneActive(true);
+    handleDragEnter() { this.updateDropzoneActive(true); }
 
-    handleDragLeave = () => this.updateDropzoneActive(false);
+    handleDragLeave() { this.updateDropzoneActive(false); }
 
-    handleImageChange = (callback, e) => {
+    handleImageChange(callback, e) {
       if (e.target.files && e.target.files[0]) {
         if (!isValidImage(e.target.files[0])) {
           this.props.onImageInvalid();
@@ -98,9 +92,9 @@ export default function editorBase(WrappedComponent) {
         // We have to reset its value, so if same image is selected it will emit onChange event.
         e.target.value = '';
       }
-    };
+    }
 
-    handlePastedImage = (callback, e) => {
+    handlePastedImage(callback, e) {
       if (e.clipboardData && e.clipboardData.items) {
         const items = e.clipboardData.items;
         Array.from(items).forEach((item) => {
@@ -122,18 +116,17 @@ export default function editorBase(WrappedComponent) {
           }
         });
       }
-    };
+    }
 
     newProps = {
-      handlePastedImage: this.handlePastedImage,
-      handleImageChange: this.handleImageChange,
-      handleDrop: this.handleDrop,
-      updateIsDisabledSubmit: this.updateIsDisabledSubmit,
-      updateImageUploading: this.updateImageUploading,
-      updateDropzoneActive: this.updateDropzoneActive,
-      disableAndInsertImage: this.disableAndInsertImage,
-      handleDragLeave: this.handleDragLeave,
-      handleDragEnter: this.handleDragEnter,
+      handlePastedImage: this.handlePastedImage.bind(this),
+      handleImageChange: this.handleImageChange.bind(this),
+      handleDrop: this.handleDrop.bind(this),
+      updateIsDisabledSubmit: this.updateIsDisabledSubmit.bind(this),
+      updateImageUploading: this.updateImageUploading.bind(this),
+      updateDropzoneActive: this.updateDropzoneActive.bind(this),
+      handleDragLeave: this.handleDragLeave.bind(this),
+      handleDragEnter: this.handleDragEnter.bind(this),
     };
 
     render() {
