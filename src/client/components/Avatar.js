@@ -3,17 +3,22 @@ import PropTypes from 'prop-types';
 import getImage from '../helpers/getImage';
 import './Avatar.less';
 
-const Avatar = ({ username, size }) => (
-  <div
-    className="Avatar"
-    style={{
-      minWidth: `${size}px`,
-      width: `${size}px`,
-      height: `${size}px`,
+const Avatar = ({ username, size }) => {
+  let style = {
+    minWidth: `${size}px`,
+    width: `${size}px`,
+    height: `${size}px`,
+  };
+
+  if (username) {
+    style = {
+      ...style,
       backgroundImage: `url(${getImage(`@${username}?width=${size}&height=${size}`)})`,
-    }}
-  />
-);
+    };
+  }
+
+  return <div className="Avatar" style={style} />;
+};
 
 Avatar.propTypes = {
   username: PropTypes.string.isRequired,
