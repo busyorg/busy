@@ -75,6 +75,7 @@
   "reblog_modal_title": "この記事をリブログしますか？",
   "reblog_modal_content": "この記事があなたのフィードに表示されます。この操作は元に戻すことができません。",
   "write_post": "投稿を書く",
+  "write_quick_post": "Write quick post",
   "transfer": "送る",
   "transfer_modal_title": "送金する",
   "transfer_modal_info": "下のボタンをクリックするとSteemConnectにリダイレクトされ、取引を完了します。",
@@ -109,6 +110,8 @@
   "select_language": "言語を選択してください",
   "discover_more_people": "もっと多くの人を探す",
   "discover_more_people_info": "Discover the most reputable users of this platform",
+  "invite": "Invite",
+  "invite_info": "Onboard new users on Busy.org today using the link below and get 10% of their rewards for 30 days.",
   "more_people_not_found": "No more people were found",
   "see_all_comments": "すべてのコメントを見る",
   "see_all_recommendations": "すべての提案を見る",
@@ -163,6 +166,7 @@
   "post_send": "投稿",
   "post_update_send": "投稿を更新する",
   "post_send_progress": "送信中",
+  "quick_post_error_empty_title": "Post title cannot be empty.",
   "heading_1": "見出し1",
   "heading_2": "見出し2",
   "heading_3": "見出し3",
@@ -261,5 +265,10 @@
   "post_preview_hidden_for_nsfw": "This post preview is currently hidden since it is tagged NSFW.",
   "reading_time": "{words} words / {min} min read",
   "reading_time_post": "{min} min read",
-  "words_tooltip": "{words} words"
+  "words_tooltip": "{words} words",
+  "power_down_message": "Started power down: {value}",
+  "create_post": "Create post",
+  "posted_from_tooltip": "Version: {version}",
+  "username_too_short": "Username {username} is too short.",
+  "username_too_long": "Username {username} is too long."
 }
