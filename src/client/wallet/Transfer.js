@@ -46,6 +46,8 @@ export default class Transfer extends React.Component {
 
   static amountRegex = /^[0-9]*\.?[0-9]{0,3}$/;
 
+  static minAccountLength = 3;
+  static maxAccountLength = 16;
   static exchangeRegex = /^(bittrex|blocktrades|poloniex|changelly|openledge|shapeshiftio)$/;
 
   state = {
@@ -134,6 +136,36 @@ export default class Transfer extends React.Component {
       return;
     }
 
+    if (value.length < Transfer.minAccountLength) {
+      callback([
+        new Error(
+          intl.formatMessage(
+            {
+              id: 'username_too_short',
+              defaultMessage: 'Username {username} is too short.',
+            },
+            {
+              username: value,
+            },
+          ),
+        ),
+      ]);
+    }
+    if (value.length > Transfer.maxAccountLength) {
+      callback([
+        new Error(
+          intl.formatMessage(
+            {
+              id: 'username_too_long',
+              defaultMessage: 'Username {username} is too long.',
+            },
+            {
+              username: value,
+            },
+          ),
+        ),
+      ]);
+    }
     steem.api.getAccounts([value], (err, result) => {
       if (result[0]) {
         callback();
