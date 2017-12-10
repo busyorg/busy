@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { Tag, Tooltip, Popover } from 'antd';
-import { formatter } from 'steem';
+import formatter from '../helpers/steemitFormatter';
 import { getUserRankKey, getUserRank } from '../helpers/user';
 import AvatarLightbox from './AvatarLightbox';
 import FollowButton from '../widgets/FollowButton';

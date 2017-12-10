@@ -13,7 +13,7 @@ import {
 import { Link } from 'react-router-dom';
 import { Tag, Icon, Popover, Tooltip } from 'antd';
 import Lightbox from 'react-image-lightbox';
-import { formatter } from 'steem';
+import formatter from '../../helpers/steemitFormatter';
 import { isPostDeleted } from '../../helpers/postHelpers';
 import Body from './Body';
 import StoryDeleted from './StoryDeleted';

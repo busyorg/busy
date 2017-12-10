@@ -10,7 +10,7 @@ import {
   FormattedMessage,
 } from 'react-intl';
 import { Tag, Tooltip } from 'antd';
-import { formatter } from 'steem';
+import formatter from '../../helpers/steemitFormatter';
 import { MAXIMUM_UPLOAD_SIZE_HUMAN } from '../../helpers/image';
 import { sortComments } from '../../helpers/sortHelpers';
 import CommentForm from './CommentForm';
