@@ -11,31 +11,24 @@ import * as accountHistoryConstants from '../../common/constants/accountHistory'
  * @param steemAPI - The same giving to Steem API
  * @returns {function}
  */
-export const getDiscussionsFromAPI = function getDiscussionsFromAPI(sortBy, query, steemAPI) {
+export function getDiscussionsFromAPI(sortBy, query, steemAPI) {
   switch (sortBy) {
     case 'feed':
-      return steemAPI.getDiscussionsByFeedAsync(query);
     case 'hot':
-      return steemAPI.getDiscussionsByHotAsync(query);
     case 'created':
-      return steemAPI.getDiscussionsByCreatedAsync(query);
     case 'active':
-      return steemAPI.getDiscussionsByActiveAsync(query);
     case 'trending':
-      return steemAPI.getDiscussionsByTrendingAsync(query);
     case 'blog':
-      return steemAPI.getDiscussionsByBlogAsync(query);
     case 'comments':
-      return steemAPI.getDiscussionsByCommentsAsync(query);
     case 'promoted':
-      return steemAPI.getDiscussionsByPromotedAsync(query);
+      return steemAPI.sendAsync(`get_discussions_by_${sortBy}`, [query]);
     default:
       throw new Error('There is not API endpoint defined for this sorting');
   }
-};
+}
 
 export const getAccount = username =>
-  SteemAPI.getAccountsAsync([username]).then((result) => {
+  SteemAPI.sendAsync('get_accounts', [[username]]).then((result) => {
     if (result.length) {
       const userAccount = result[0];
       userAccount.json_metadata = jsonParse(result[0].json_metadata);
@@ -44,7 +37,7 @@ export const getAccount = username =>
     throw new Error('User Not Found');
   });
 
-export const getFollowingCount = username => SteemAPI.getFollowCountAsync(username);
+export const getFollowingCount = username => SteemAPI.sendAsync('call', ['follow_api', 'get_follow_count', [username]]);
 
 export const getAccountWithFollowingCount = username =>
   Promise.all([
@@ -57,18 +50,18 @@ export const getAccountWithFollowingCount = username =>
   }));
 
 export const getFollowing = (username, startForm = '', type = 'blog', limit = 100) =>
-  SteemAPI.getFollowingAsync(username, startForm, type, limit).then(result =>
+  SteemAPI.sendAsync('call', ['follow_api', 'get_following', [username, startForm, type, limit]]).then(result =>
     result.map(user => user.following),
   );
 
 export const getFollowers = (username, startForm = '', type = 'blog', limit = 100) =>
-  SteemAPI.getFollowersAsync(username, startForm, type, limit).then(result =>
+  SteemAPI.sendAsync('call', ['follow_api', 'get_followers', [username, startForm, type, limit]]).then(result =>
     result.map(user => user.follower),
   );
 
 export const getAllFollowing = username =>
   getFollowingCount(username)
-    .get('following_count')
+    .then(resp => resp.following_count)
     .then((followingCount) => {
       const chunkSize = 100;
       const limitArray = Array.fill(Array(Math.ceil(followingCount / chunkSize)), chunkSize);
@@ -86,7 +79,7 @@ export const getAllFollowing = username =>
 
 export const getAllFollowers = username =>
   getFollowingCount(username)
-    .get('follower_count')
+    .then(resp => resp.follower_count)
     .then((followerCount) => {
       const chunkSize = 100;
       const limitArray = Array.fill(Array(Math.ceil(followerCount / chunkSize)), chunkSize);
@@ -115,9 +108,9 @@ export const mapAPIContentToId = apiRes => mapToId(apiRes.content);
 export const defaultAccountLimit = 500;
 
 export const getAccountHistory = (account, from = -1, limit = defaultAccountLimit) =>
-  SteemAPI.getAccountHistoryAsync(account, from, limit);
+  SteemAPI.sendAsync('get_account_history', [account, from, limit]);
 
-export const getDynamicGlobalProperties = () => SteemAPI.getDynamicGlobalPropertiesAsync();
+export const getDynamicGlobalProperties = () => SteemAPI.sendAsync('get_dynamic_global_properties', []);
 
 export const isWalletTransaction = actionType =>
   actionType === accountHistoryConstants.TRANSFER ||
