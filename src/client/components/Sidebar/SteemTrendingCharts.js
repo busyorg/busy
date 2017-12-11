@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Trend from 'react-trend';
 import fetch from 'isomorphic-fetch';
 import _ from 'lodash';
-import Promise from 'bluebird';
 import { FormattedMessage } from 'react-intl';
 import Loading from '../Icon/Loading';
 import './SteemTrendingCharts.less';

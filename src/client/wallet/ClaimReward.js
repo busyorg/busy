@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import steem from 'steem';
 import {
   FormattedMessage,
   FormattedRelative,
@@ -9,6 +8,7 @@ import {
   FormattedTime,
 } from 'react-intl';
 import { Tooltip } from 'antd';
+import formatter from '../helpers/steemitFormatter';
 
 const getFormattedPayout = (
   rewardSteem,
@@ -21,7 +21,7 @@ const getFormattedPayout = (
   const parsedRewardSteem = parseFloat(rewardSteem);
   const parsedRewardSbd = parseFloat(rewardSbd);
   const parsedRewardVests = parseFloat(
-    steem.formatter.vestToSteem(rewardVests, totalVestingShares, totalVestingFundSteem),
+    formatter.vestToSteem(rewardVests, totalVestingShares, totalVestingFundSteem),
   );
 
   if (parsedRewardSteem > 0) {

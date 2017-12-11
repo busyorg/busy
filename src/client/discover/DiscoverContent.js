@@ -13,7 +13,7 @@ class DiscoverContent extends React.Component {
 
   componentDidMount() {
     const initialUsers = people.slice(0, displayLimit);
-    SteemAPI.getAccountsAsync(initialUsers).then(users =>
+    SteemAPI.sendAsync('get_accounts', [initialUsers]).then(users =>
       this.setState({
         users,
       }),
@@ -24,7 +24,7 @@ class DiscoverContent extends React.Component {
     const { users } = this.state;
     const moreUsersStartIndex = users.length;
     const moreUsers = people.slice(moreUsersStartIndex, moreUsersStartIndex + displayLimit);
-    SteemAPI.getAccountsAsync(moreUsers).then(moreUsersResponse =>
+    SteemAPI.sendAsync('get_accounts', [moreUsers]).then(moreUsersResponse =>
       this.setState({
         users: users.concat(moreUsersResponse),
       }),
