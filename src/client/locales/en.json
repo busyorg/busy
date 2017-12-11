@@ -2,6 +2,8 @@
   "hero": "Ensuring compensation for the creators of value",
   "search": "Search",
   "search_placeholder": "Search...",
+  "search_results": "Search results",
+  "no_search_results_found": "No results were found for your search.",
   "save": "Save",
   "saved": "Saved",
   "cancel": "Cancel",

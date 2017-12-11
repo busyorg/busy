@@ -16,6 +16,7 @@ import editorReducer, * as fromEditor from './post/Write/editorReducer';
 import walletReducer, * as fromWallet from './wallet/walletReducer';
 import reblogReducers, * as fromReblog from './app/Reblog/reblogReducers';
 import settingsReducer, * as fromSettings from './settings/settingsReducer';
+import searchReducer, * as fromSearch from './search/searchReducer';
 import { responsiveReducer } from './vendor/responsive';
 
 const reducers = combineReducers({
@@ -35,6 +36,7 @@ const reducers = combineReducers({
   router: routerReducer,
   wallet: walletReducer,
   settings: settingsReducer,
+  search: searchReducer,
 });
 
 export default reducers;
@@ -117,3 +119,6 @@ export const getCurrentDisplayedActions = state =>
   fromWallet.getCurrentDisplayedActions(state.wallet);
 export const getCurrentFilteredActions = state =>
   fromWallet.getCurrentFilteredActions(state.wallet);
+
+export const getSearchLoading = state => fromSearch.getSearchLoading(state.search);
+export const getSearchResults = state => fromSearch.getSearchResults(state.search);

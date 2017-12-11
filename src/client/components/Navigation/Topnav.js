@@ -15,6 +15,7 @@ class Topnav extends React.Component {
   static propTypes = {
     intl: PropTypes.shape().isRequired,
     location: PropTypes.shape().isRequired,
+    history: PropTypes.shape().isRequired,
     username: PropTypes.string,
     onMenuItemClick: PropTypes.func,
   };
@@ -24,9 +25,15 @@ class Topnav extends React.Component {
     onMenuItemClick: () => {},
   };
 
-  state = {
-    searchBarActive: false,
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      searchBarActive: false,
+    };
+
+    this.handleSearch = this.handleSearch.bind(this);
+  }
 
   menuForLoggedOut = () => {
     const { location } = this.props;
@@ -133,6 +140,17 @@ class Topnav extends React.Component {
     });
   };
 
+  handleSearch = (event) => {
+    const search = event.target.value;
+    this.props.history.push({
+      pathname: '/search',
+      search: `q=${search}`,
+      state: {
+        query: search,
+      },
+    });
+  };
+
   render() {
     const { intl } = this.props;
     const { searchBarActive } = this.state;
@@ -152,13 +170,7 @@ class Topnav extends React.Component {
                 ref={(ref) => {
                   this.searchInputRef = ref;
                 }}
-                onPressEnter={event =>
-                  window.open(
-                    `https://www.google.com/search?q=${encodeURIComponent(
-                      `site:steemit.com ${event.target.value}`,
-                    )}`,
-                  )
-                }
+                onPressEnter={this.handleSearch}
                 placeholder={intl.formatMessage({
                   id: 'search_placeholder',
                   defaultMessage: 'Search...',

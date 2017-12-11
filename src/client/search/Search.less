@@ -1,0 +1,81 @@
+@import (reference) "../styles/custom.less";
+@import (reference) "../styles/modules/variables.less";
+
+.Search {
+  margin-bottom: 20px;
+
+  &__message-container {
+    background-color: @white;
+    border-radius: @border-radius-base;
+    border: 1px solid @white-gainsboro;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 20px;
+  }
+
+  &__post {
+    border: 1px solid @white-gainsboro;
+    border-radius: @border-radius-base;
+    background-color: @white;
+    margin-top: 12px;
+    padding-bottom: 16px;
+
+    &__header {
+      padding: 16px;
+      padding-bottom: 0;
+      display: flex;
+
+      &__author {
+        margin: 0 6px;
+      }
+    }
+
+    &__title {
+      h2 {
+        margin: 0 16px;
+        margin-bottom: 8px;
+      }
+    }
+
+    &__summary {
+      padding: 0 16px;
+      word-break: break-all;
+
+      &__body {
+        color: @grey-gondola !important;
+      }
+    }
+
+    &__created {
+      font-size: 14px;
+      color: @blue-botticelli;
+    }
+
+    &__tags {
+      display: flex;
+      flex-wrap: wrap;
+      padding: 5px 9px;
+
+      &__container {
+        margin: 0 5px;
+      }
+    }
+  }
+
+  &__user {
+    background-color: @white;
+    border-radius: @border-radius-base;
+    border: 1px solid @white-gainsboro;
+    margin-top: 12px;
+    padding: 16px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    &__name {
+      margin: 0 6px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  }
+}
