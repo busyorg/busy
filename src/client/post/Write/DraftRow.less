@@ -23,11 +23,17 @@
 
     .DraftRow__delete {
       display: block;
+      width: 100%;
+
+      span {
+        vertical-align: 1px;
+      }
     }
 
     @media @medium {
       .DraftRow__delete {
         display: none;
+        width: auto;
       }
 
       &:hover {
