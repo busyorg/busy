@@ -237,8 +237,8 @@
   "reblogged_filter": "Reblogged",
   "replied_filter": "Replied",
   "unfollowed_user": "unfollowed {following}",
-  "user_reblogged_post":"{username} reblogged {postLink}",
-  "reblogged_post":"reblogged {postLink}",
+  "user_reblogged_post": "{username} reblogged {postLink}",
+  "reblogged_post": "reblogged {postLink}",
   "account_updated": "Account updated",
   "curation_reward_for_post": "Curation reward: {steemPower} SP for {author} ({postLink})",
   "curation_reward": "Curation reward",
@@ -259,9 +259,12 @@
   "display_nsfw_posts_details": "You can enable all posts tagged with NSFW to be shown as default.",
   "display_nsfw_posts": "Display NSFW Posts",
   "post_preview_hidden_for_nsfw": "This post preview is currently hidden since it is tagged NSFW.",
-  "display_post_preview": "Display post preview",
   "reading_time": "{words} words / {min} min read",
   "reading_time_post": "{min} min read",
   "words_tooltip": "{words} words",
-  "power_down_message": "Started power down: {value}"
+  "power_down_message": "Started power down: {value}",
+  "create_post": "Create post",
+  "posted_from_tooltip": "Version: {version}",
+  "username_too_short": "Username {username} is too short.",
+  "username_too_long": "Username {username} is too long."
 }
