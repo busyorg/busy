@@ -16,26 +16,11 @@ class DraftRow extends React.Component {
     super(props);
 
     this.state = {
-      displayDelete: false,
       showModalDelete: false,
     };
 
-    this.handleDisplayDelete = this.handleDisplayDelete.bind(this);
-    this.handleHideDelete = this.handleHideDelete.bind(this);
     this.showModal = this.showModal.bind(this);
     this.hideModal = this.hideModal.bind(this);
-  }
-
-  handleDisplayDelete() {
-    this.setState({
-      displayDelete: true,
-    });
-  }
-
-  handleHideDelete() {
-    this.setState({
-      displayDelete: false,
-    });
   }
 
   showModal() {
@@ -48,7 +33,6 @@ class DraftRow extends React.Component {
 
   render() {
     const { id, data } = this.props;
-    const { displayDelete } = this.state;
     const { lastUpdated } = data;
     const hasLastUpdated = !_.isUndefined(lastUpdated);
     let { title = '', body = '' } = data;
@@ -81,11 +65,10 @@ class DraftRow extends React.Component {
                 </span>}
             </span>
           </div>
-          {displayDelete &&
-            <a role="presentation" onClick={this.showModal} className="DraftRow__delete">
-              <i className="iconfont icon-trash DraftRow__delete__icon" />
-              <FormattedMessage id="delete" defaultMessage="Delete" />
-            </a>}
+          <a role="presentation" onClick={this.showModal} className="DraftRow__delete">
+            <i className="iconfont icon-trash DraftRow__delete__icon" />
+            <FormattedMessage id="delete" defaultMessage="Delete" />
+          </a>
         </div>
         {this.state.showModalDelete &&
           <DeleteDraftModal draftId={this.props.id} onCancel={this.hideModal} />}

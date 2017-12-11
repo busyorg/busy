@@ -1,4 +1,6 @@
 @import (reference) "../../styles/custom.less";
+@import (reference) "../../styles/modules/variables.less";
+
 
 .DraftRow {
   background-color: @white;
@@ -15,8 +17,25 @@
   &__contents {
     align-items: center;
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     min-height: 30px;
+
+    .DraftRow__delete {
+      display: block;
+    }
+
+    @media @medium {
+      .DraftRow__delete {
+        display: none;
+      }
+
+      &:hover {
+        .DraftRow__delete {
+          display: block;
+        }
+      }
+    }
   }
 
   &__date {
