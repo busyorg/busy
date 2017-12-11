@@ -269,6 +269,6 @@
   "power_down_message": "পাওয়ার ডাউন শুরু-{value}",
   "create_post": "পোস্ট তৈরি করুন",
   "posted_from_tooltip": "সংস্করণ: {version}",
-  "username_too_short": "Username {username} is too short.",
-  "username_too_long": "Username {username} is too long."
+  "username_too_short": "ব্যবহারকারী {username} খুব ছোট হয়।",
+  "username_too_long": "ব্যবহারকারী {username} অনেক বড় হয়।"
 }
