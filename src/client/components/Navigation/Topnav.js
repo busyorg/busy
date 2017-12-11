@@ -81,6 +81,21 @@ class Topnav extends React.Component {
               trigger="click"
               content={
                 <PopoverMenu onSelect={onMenuItemClick}>
+                  <PopoverMenuItem key="my-profile" fullScreenHidden>
+                    <FormattedMessage id="my_profile" defaultMessage="My profile" />
+                  </PopoverMenuItem>
+                  <PopoverMenuItem key="feed" fullScreenHidden>
+                    <FormattedMessage id="feed" defaultMessage="Feed" />
+                  </PopoverMenuItem>
+                  <PopoverMenuItem key="news" fullScreenHidden>
+                    <FormattedMessage id="news" defaultMessage="News" />
+                  </PopoverMenuItem>
+                  <PopoverMenuItem key="replies" fullScreenHidden>
+                    <FormattedMessage id="replies" defaultMessage="Replies" />
+                  </PopoverMenuItem>
+                  <PopoverMenuItem key="wallet" fullScreenHidden>
+                    <FormattedMessage id="wallet" defaultMessage="Wallet" />
+                  </PopoverMenuItem>
                   <PopoverMenuItem key="activity">
                     <FormattedMessage id="activity" defaultMessage="Activity" />
                   </PopoverMenuItem>

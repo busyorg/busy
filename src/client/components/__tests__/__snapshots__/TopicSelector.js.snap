@@ -74,6 +74,7 @@ ShallowWrapper {
                 <PopoverMenuItem
                   bold={true}
                   disabled={false}
+                  fullScreenHidden={false}
                   itemKey=""
                   onClick={[Function]}
                 >
@@ -86,6 +87,7 @@ ShallowWrapper {
                 <PopoverMenuItem
                   bold={true}
                   disabled={false}
+                  fullScreenHidden={false}
                   itemKey=""
                   onClick={[Function]}
                 >
@@ -98,6 +100,7 @@ ShallowWrapper {
                 <PopoverMenuItem
                   bold={true}
                   disabled={false}
+                  fullScreenHidden={false}
                   itemKey=""
                   onClick={[Function]}
                 >
@@ -110,6 +113,7 @@ ShallowWrapper {
                 <PopoverMenuItem
                   bold={true}
                   disabled={false}
+                  fullScreenHidden={false}
                   itemKey=""
                   onClick={[Function]}
                 >
@@ -122,6 +126,7 @@ ShallowWrapper {
                 <PopoverMenuItem
                   bold={true}
                   disabled={false}
+                  fullScreenHidden={false}
                   itemKey=""
                   onClick={[Function]}
                 >
@@ -260,6 +265,7 @@ ShallowWrapper {
                   <PopoverMenuItem
                     bold={true}
                     disabled={false}
+                    fullScreenHidden={false}
                     itemKey=""
                     onClick={[Function]}
                   >
@@ -272,6 +278,7 @@ ShallowWrapper {
                   <PopoverMenuItem
                     bold={true}
                     disabled={false}
+                    fullScreenHidden={false}
                     itemKey=""
                     onClick={[Function]}
                   >
@@ -284,6 +291,7 @@ ShallowWrapper {
                   <PopoverMenuItem
                     bold={true}
                     disabled={false}
+                    fullScreenHidden={false}
                     itemKey=""
                     onClick={[Function]}
                   >
@@ -296,6 +304,7 @@ ShallowWrapper {
                   <PopoverMenuItem
                     bold={true}
                     disabled={false}
+                    fullScreenHidden={false}
                     itemKey=""
                     onClick={[Function]}
                   >
@@ -308,6 +317,7 @@ ShallowWrapper {
                   <PopoverMenuItem
                     bold={true}
                     disabled={false}
+                    fullScreenHidden={false}
                     itemKey=""
                     onClick={[Function]}
                   >
@@ -399,6 +409,7 @@ ShallowWrapper {
                 <PopoverMenuItem
                   bold={true}
                   disabled={false}
+                  fullScreenHidden={false}
                   itemKey=""
                   onClick={[Function]}
                 >
@@ -411,6 +422,7 @@ ShallowWrapper {
                 <PopoverMenuItem
                   bold={true}
                   disabled={false}
+                  fullScreenHidden={false}
                   itemKey=""
                   onClick={[Function]}
                 >
@@ -423,6 +435,7 @@ ShallowWrapper {
                 <PopoverMenuItem
                   bold={true}
                   disabled={false}
+                  fullScreenHidden={false}
                   itemKey=""
                   onClick={[Function]}
                 >
@@ -435,6 +448,7 @@ ShallowWrapper {
                 <PopoverMenuItem
                   bold={true}
                   disabled={false}
+                  fullScreenHidden={false}
                   itemKey=""
                   onClick={[Function]}
                 >
@@ -447,6 +461,7 @@ ShallowWrapper {
                 <PopoverMenuItem
                   bold={true}
                   disabled={false}
+                  fullScreenHidden={false}
                   itemKey=""
                   onClick={[Function]}
                 >
@@ -572,6 +587,7 @@ ShallowWrapper {
                   <PopoverMenuItem
                     bold={true}
                     disabled={false}
+                    fullScreenHidden={false}
                     itemKey=""
                     onClick={[Function]}
                   >
@@ -584,6 +600,7 @@ ShallowWrapper {
                   <PopoverMenuItem
                     bold={true}
                     disabled={false}
+                    fullScreenHidden={false}
                     itemKey=""
                     onClick={[Function]}
                   >
@@ -596,6 +613,7 @@ ShallowWrapper {
                   <PopoverMenuItem
                     bold={true}
                     disabled={false}
+                    fullScreenHidden={false}
                     itemKey=""
                     onClick={[Function]}
                   >
@@ -608,6 +626,7 @@ ShallowWrapper {
                   <PopoverMenuItem
                     bold={true}
                     disabled={false}
+                    fullScreenHidden={false}
                     itemKey=""
                     onClick={[Function]}
                   >
@@ -620,6 +639,7 @@ ShallowWrapper {
                   <PopoverMenuItem
                     bold={true}
                     disabled={false}
+                    fullScreenHidden={false}
                     itemKey=""
                     onClick={[Function]}
                   >
@@ -758,6 +778,7 @@ ShallowWrapper {
                     <PopoverMenuItem
                       bold={true}
                       disabled={false}
+                      fullScreenHidden={false}
                       itemKey=""
                       onClick={[Function]}
                     >
@@ -770,6 +791,7 @@ ShallowWrapper {
                     <PopoverMenuItem
                       bold={true}
                       disabled={false}
+                      fullScreenHidden={false}
                       itemKey=""
                       onClick={[Function]}
                     >
@@ -782,6 +804,7 @@ ShallowWrapper {
                     <PopoverMenuItem
                       bold={true}
                       disabled={false}
+                      fullScreenHidden={false}
                       itemKey=""
                       onClick={[Function]}
                     >
@@ -794,6 +817,7 @@ ShallowWrapper {
                     <PopoverMenuItem
                       bold={true}
                       disabled={false}
+                      fullScreenHidden={false}
                       itemKey=""
                       onClick={[Function]}
                     >
@@ -806,6 +830,7 @@ ShallowWrapper {
                     <PopoverMenuItem
                       bold={true}
                       disabled={false}
+                      fullScreenHidden={false}
                       itemKey=""
                       onClick={[Function]}
                     >
@@ -897,6 +922,7 @@ ShallowWrapper {
                   <PopoverMenuItem
                     bold={true}
                     disabled={false}
+                    fullScreenHidden={false}
                     itemKey=""
                     onClick={[Function]}
                   >
@@ -909,6 +935,7 @@ ShallowWrapper {
                   <PopoverMenuItem
                     bold={true}
                     disabled={false}
+                    fullScreenHidden={false}
                     itemKey=""
                     onClick={[Function]}
                   >
@@ -921,6 +948,7 @@ ShallowWrapper {
                   <PopoverMenuItem
                     bold={true}
                     disabled={false}
+                    fullScreenHidden={false}
                     itemKey=""
                     onClick={[Function]}
                   >
@@ -933,6 +961,7 @@ ShallowWrapper {
                   <PopoverMenuItem
                     bold={true}
                     disabled={false}
+                    fullScreenHidden={false}
                     itemKey=""
                     onClick={[Function]}
                   >
@@ -945,6 +974,7 @@ ShallowWrapper {
                   <PopoverMenuItem
                     bold={true}
                     disabled={false}
+                    fullScreenHidden={false}
                     itemKey=""
                     onClick={[Function]}
                   >

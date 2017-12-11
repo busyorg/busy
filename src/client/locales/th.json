@@ -75,6 +75,7 @@
   "reblog_modal_title": "รีบล็อกโพสต์นี่ไหม?",
   "reblog_modal_content": "โพสต์นี้จะปรากฏในฟีดส่วนตัวของคุณ ไม่สามารถย้อนกลับการกระทำนี้ได้",
   "write_post": "เขียนโพสต์",
+  "write_quick_post": "Write quick post",
   "transfer": "โอน",
   "transfer_modal_title": "โอนเงิน",
   "transfer_modal_info": "คลิกปุ่มด้านล่างเพื่อเปลี่ยนเส้นทางไปที่ SteemConnect เพื่อทำรายการของคุณให้สมบูรณ์",
@@ -109,6 +110,8 @@
   "select_language": "เลือกภาษาของคุณ",
   "discover_more_people": "ค้นพบผู้คนเพิ่มเติม",
   "discover_more_people_info": "Discover the most reputable users of this platform",
+  "invite": "Invite",
+  "invite_info": "Onboard new users on Busy.org today using the link below and get 10% of their rewards for 30 days.",
   "more_people_not_found": "No more people were found",
   "see_all_comments": "ดูความเห็นทั้งหมด",
   "see_all_recommendations": "ดูคำแนะนำทั้งหมด",
@@ -163,6 +166,7 @@
   "post_send": "โพสต์",
   "post_update_send": " อัปเดตโพสต์",
   "post_send_progress": "กำลังส่ง",
+  "quick_post_error_empty_title": "Post title cannot be empty.",
   "heading_1": "หัวข้อที่ 1",
   "heading_2": "หัวข้อที่ 2",
   "heading_3": "หัวข้อที่ 3",
@@ -261,5 +265,10 @@
   "post_preview_hidden_for_nsfw": "This post preview is currently hidden since it is tagged NSFW.",
   "reading_time": "{words} words / {min} min read",
   "reading_time_post": "{min} min read",
-  "words_tooltip": "{words} words"
+  "words_tooltip": "{words} words",
+  "power_down_message": "Started power down: {value}",
+  "create_post": "Create post",
+  "posted_from_tooltip": "Version: {version}",
+  "username_too_short": "Username {username} is too short.",
+  "username_too_long": "Username {username} is too long."
 }
