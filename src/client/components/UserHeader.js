@@ -4,7 +4,6 @@ import classNames from 'classnames';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { Tag, Tooltip, Popover } from 'antd';
 import { formatter } from 'steem';
-import getImage from '../helpers/getImage';
 import { getUserRankKey, getUserRank } from '../helpers/user';
 import AvatarLightbox from './AvatarLightbox';
 import FollowButton from '../widgets/FollowButton';
@@ -113,6 +112,7 @@ UserHeader.propTypes = {
   vestingShares: PropTypes.number,
   isSameUser: PropTypes.bool,
   isFollowingYou: PropTypes.bool,
+  coverImage: PropTypes.string,
   hasCover: PropTypes.bool,
   isPopoverVisible: PropTypes.bool,
   onSelect: PropTypes.func,
@@ -126,6 +126,7 @@ UserHeader.defaultProps = {
   vestingShares: 0,
   isSameUser: false,
   isFollowingYou: false,
+  coverImage: '',
   hasCover: false,
   isPopoverVisible: false,
   onSelect: () => {},
