@@ -75,6 +75,7 @@
   "reblog_modal_title": "இந்த போஸ்ட் Reblog?",
   "reblog_modal_content": "இந்த உணவு உங்கள் தனிப்பட்ட தோன்றும். இந்த நடவடிக்கை மாற்ற முடியாது.",
   "write_post": "அஞ்சல் எழுத",
+  "write_quick_post": "Write quick post",
   "transfer": "மாற்றம்",
   "transfer_modal_title": "பணபரிவர்த்தனை",
   "transfer_modal_info": "உங்கள் பரிவர்த்தனையைப் பூர்த்தி செய்வதற்கு SteemConnect திருப்ப கீழே உள்ள பொத்தானை கிளிக் செய்யவும்.",
@@ -109,6 +110,8 @@
   "select_language": "மொழிகளைத் தேர்ந்தெடு",
   "discover_more_people": "மேலும் மக்கள்",
   "discover_more_people_info": "Discover the most reputable users of this platform",
+  "invite": "Invite",
+  "invite_info": "Onboard new users on Busy.org today using the link below and get 10% of their rewards for 30 days.",
   "more_people_not_found": "No more people were found",
   "see_all_comments": "எல்லா கருத்துரைகளையும் பார்க்கவும்",
   "see_all_recommendations": "பரிந்துரைகள் அனைத்து பார்க்க",
@@ -163,6 +166,7 @@
   "post_send": "போஸ்ட்",
   "post_update_send": "போஸ்ட் புதுப்பி",
   "post_send_progress": "சமர்ப்பிக்கும்",
+  "quick_post_error_empty_title": "Post title cannot be empty.",
   "heading_1": "தலைப்பு 1",
   "heading_2": "தலைப்பு 2",
   "heading_3": "தலைப்பு 3",
@@ -261,5 +265,10 @@
   "post_preview_hidden_for_nsfw": "This post preview is currently hidden since it is tagged NSFW.",
   "reading_time": "{words} words / {min} min read",
   "reading_time_post": "{min} min read",
-  "words_tooltip": "{words} words"
+  "words_tooltip": "{words} words",
+  "power_down_message": "Started power down: {value}",
+  "create_post": "Create post",
+  "posted_from_tooltip": "Version: {version}",
+  "username_too_short": "Username {username} is too short.",
+  "username_too_long": "Username {username} is too long."
 }

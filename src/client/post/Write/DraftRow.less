@@ -1,0 +1,65 @@
+@import (reference) "../../styles/custom.less";
+@import (reference) "../../styles/modules/variables.less";
+
+
+.DraftRow {
+  background-color: @white;
+  border-radius: @border-radius-base;
+  border: 1px solid @white-gainsboro;
+  margin-bottom: 12px;
+  min-height: 60px;
+  padding: 14px;
+
+  h3 {
+    font-weight: bold;
+    word-break: break-all;
+  }
+
+  &__contents {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    min-height: 30px;
+
+    .DraftRow__delete {
+      display: block;
+      width: 100%;
+
+      span {
+        vertical-align: 1px;
+      }
+    }
+
+    @media @medium {
+      .DraftRow__delete {
+        display: none;
+        width: auto;
+      }
+
+      &:hover {
+        .DraftRow__delete {
+          display: block;
+        }
+      }
+    }
+  }
+
+  &__date {
+    color: @blue-botticelli;
+    font-size: 14px;
+  }
+
+  &__delete {
+    align-items: center;
+    color: @red;
+    display: flex;
+    font-weight: 600;
+    text-transform: capitalize;
+
+    &__icon {
+      font-size: 20px !important;
+      margin-right: 5px;
+    }
+  }
+}

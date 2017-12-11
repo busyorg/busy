@@ -75,6 +75,7 @@
   "reblog_modal_title": "¿Rebloguear este post?",
   "reblog_modal_content": "Esta publicación aparecerá en tu feed personal. Esta acción no se puede revertir.",
   "write_post": "Escribir una entrada",
+  "write_quick_post": "Write quick post",
   "transfer": "Transferir",
   "transfer_modal_title": "Transferir fondos",
   "transfer_modal_info": "Haga clic en el botón para ser redirigido a SteemConnect para completar su transacción.",
@@ -109,6 +110,8 @@
   "select_language": "Selecciona tu idioma",
   "discover_more_people": "Descubre más personas",
   "discover_more_people_info": "Discover the most reputable users of this platform",
+  "invite": "Invite",
+  "invite_info": "Onboard new users on Busy.org today using the link below and get 10% of their rewards for 30 days.",
   "more_people_not_found": "No more people were found",
   "see_all_comments": "Ver todos los comentarios",
   "see_all_recommendations": "Ver todas las recomendaciones",
@@ -163,6 +166,7 @@
   "post_send": "Publicar",
   "post_update_send": "Actualizar post",
   "post_send_progress": "Enviando",
+  "quick_post_error_empty_title": "Post title cannot be empty.",
   "heading_1": "Título 1",
   "heading_2": "Título 2",
   "heading_3": "Título 3",
@@ -261,5 +265,10 @@
   "post_preview_hidden_for_nsfw": "This post preview is currently hidden since it is tagged NSFW.",
   "reading_time": "{words} words / {min} min read",
   "reading_time_post": "{min} min read",
-  "words_tooltip": "{words} words"
+  "words_tooltip": "{words} words",
+  "power_down_message": "Started power down: {value}",
+  "create_post": "Create post",
+  "posted_from_tooltip": "Version: {version}",
+  "username_too_short": "Username {username} is too short.",
+  "username_too_long": "Username {username} is too long."
 }
