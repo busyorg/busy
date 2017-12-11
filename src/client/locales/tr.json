@@ -75,6 +75,7 @@
   "reblog_modal_title": "Yeniden yayınlansın mı?",
   "reblog_modal_content": "Bu yazı kişisel kanalınızda görüntülenecektir. Bu eylem geri alınamaz.",
   "write_post": "Bir yazı yaz",
+  "write_quick_post": "Write quick post",
   "transfer": "Transfer",
   "transfer_modal_title": "Kaynak transferi",
   "transfer_modal_info": "SteemConnect'e yönlendirilerek işleminizi tamamlamak için aşağıdaki düğmeye basın.",
@@ -109,6 +110,8 @@
   "select_language": "Dilinizi seçin",
   "discover_more_people": "Daha Fazla Kişi Keşfet",
   "discover_more_people_info": "Discover the most reputable users of this platform",
+  "invite": "Invite",
+  "invite_info": "Onboard new users on Busy.org today using the link below and get 10% of their rewards for 30 days.",
   "more_people_not_found": "No more people were found",
   "see_all_comments": "Tüm Yorumları Görüntüle",
   "see_all_recommendations": "Tavsiyelere bak",
@@ -163,6 +166,7 @@
   "post_send": "Yayınla",
   "post_update_send": "Yayını güncelle",
   "post_send_progress": "Gönderiliyor",
+  "quick_post_error_empty_title": "Post title cannot be empty.",
   "heading_1": "Başlık 1",
   "heading_2": "Başlık 2",
   "heading_3": "Başlık 3",
@@ -261,5 +265,10 @@
   "post_preview_hidden_for_nsfw": "This post preview is currently hidden since it is tagged NSFW.",
   "reading_time": "{words} words / {min} min read",
   "reading_time_post": "{min} min read",
-  "words_tooltip": "{words} words"
+  "words_tooltip": "{words} words",
+  "power_down_message": "Started power down: {value}",
+  "create_post": "Create post",
+  "posted_from_tooltip": "Version: {version}",
+  "username_too_short": "Username {username} is too short.",
+  "username_too_long": "Username {username} is too long."
 }

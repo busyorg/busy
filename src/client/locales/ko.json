@@ -75,6 +75,7 @@
   "reblog_modal_title": "이 게시물을 리블로그하시겠습니까?",
   "reblog_modal_content": "이 게시물이 당신의 개인 피드에 나타납니다. 이 작업은 되돌릴 수 없습니다.",
   "write_post": "글 쓰기",
+  "write_quick_post": "Write quick post",
   "transfer": "전송",
   "transfer_modal_title": "자금 전송",
   "transfer_modal_info": "아래 버튼을 클릭하면 SteemConnect로 리다이렉트 되어 거래를 완료합니다.",
@@ -109,6 +110,8 @@
   "select_language": "언어 선택",
   "discover_more_people": "더 많은 사람 찾기",
   "discover_more_people_info": "Discover the most reputable users of this platform",
+  "invite": "Invite",
+  "invite_info": "Onboard new users on Busy.org today using the link below and get 10% of their rewards for 30 days.",
   "more_people_not_found": "No more people were found",
   "see_all_comments": "모든 댓글 보기",
   "see_all_recommendations": "추천 글 모두 보기",
@@ -163,6 +166,7 @@
   "post_send": "게시하기",
   "post_update_send": "게시물 갱신",
   "post_send_progress": "전송 중",
+  "quick_post_error_empty_title": "Post title cannot be empty.",
   "heading_1": "제목 1",
   "heading_2": "제목 2",
   "heading_3": "제목 3",
@@ -261,5 +265,10 @@
   "post_preview_hidden_for_nsfw": "This post preview is currently hidden since it is tagged NSFW.",
   "reading_time": "{words} words / {min} min read",
   "reading_time_post": "{min} min read",
-  "words_tooltip": "{words} words"
+  "words_tooltip": "{words} words",
+  "power_down_message": "Started power down: {value}",
+  "create_post": "Create post",
+  "posted_from_tooltip": "Version: {version}",
+  "username_too_short": "Username {username} is too short.",
+  "username_too_long": "Username {username} is too long."
 }

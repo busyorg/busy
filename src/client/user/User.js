@@ -121,6 +121,7 @@ export default class User extends React.Component {
             user={user}
             username={displayedUsername}
             isSameUser={isSameUser}
+            coverImage={profile.cover_image}
             hasCover={hasCover}
             onFollowClick={this.handleFollowClick}
             isPopoverVisible={this.state.popoverVisible}

@@ -75,6 +75,7 @@
   "reblog_modal_title": "Reblog post ini?",
   "reblog_modal_content": "Posting ini akan muncul pada feed peribadi anda. Tindakan ini tidak boleh disongsangkan.",
   "write_post": "Tulis pos",
+  "write_quick_post": "Write quick post",
   "transfer": "Pemindahan",
   "transfer_modal_title": "Pemindahan dana",
   "transfer_modal_info": "Klik butang di bawah untuk diarah semula ke SteemConnect untuk melengkapkan transaksi anda.",
@@ -109,6 +110,8 @@
   "select_language": "Sila pilih bahasa yang ingin anda gunakan",
   "discover_more_people": "Discover More People",
   "discover_more_people_info": "Discover the most reputable users of this platform",
+  "invite": "Invite",
+  "invite_info": "Onboard new users on Busy.org today using the link below and get 10% of their rewards for 30 days.",
   "more_people_not_found": "No more people were found",
   "see_all_comments": "Lihat semua komen",
   "see_all_recommendations": "Lihat semua cadangan",
@@ -163,6 +166,7 @@
   "post_send": "Pos",
   "post_update_send": "Update post",
   "post_send_progress": "Sedang menyerahkan",
+  "quick_post_error_empty_title": "Post title cannot be empty.",
   "heading_1": "Tajuk 1",
   "heading_2": "Tajuk 2",
   "heading_3": "Tajuk 3",
@@ -261,5 +265,10 @@
   "post_preview_hidden_for_nsfw": "This post preview is currently hidden since it is tagged NSFW.",
   "reading_time": "{words} words / {min} min read",
   "reading_time_post": "{min} min read",
-  "words_tooltip": "{words} words"
+  "words_tooltip": "{words} words",
+  "power_down_message": "Started power down: {value}",
+  "create_post": "Create post",
+  "posted_from_tooltip": "Version: {version}",
+  "username_too_short": "Username {username} is too short.",
+  "username_too_long": "Username {username} is too long."
 }
