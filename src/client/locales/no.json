@@ -75,6 +75,7 @@
   "reblog_modal_title": "Reblogg dette innholdet?",
   "reblog_modal_content": "Dette innholdet vil vises på din personlige feed. Denne handlingen kan ikke angres.",
   "write_post": "Skriv innlegg",
+  "write_quick_post": "Write quick post",
   "transfer": "Overfør",
   "transfer_modal_title": "Overfør midler",
   "transfer_modal_info": "Klikk på knappen nedenfor for å bli overført til SteemConnect for å fullføre transaksjonen.",
@@ -109,6 +110,8 @@
   "select_language": "Velg språk",
   "discover_more_people": "Oppdag Flere Mennesker",
   "discover_more_people_info": "Discover the most reputable users of this platform",
+  "invite": "Invite",
+  "invite_info": "Onboard new users on Busy.org today using the link below and get 10% of their rewards for 30 days.",
   "more_people_not_found": "No more people were found",
   "see_all_comments": "Se Alle Kommentarer",
   "see_all_recommendations": "Se Alle Anbefalinger",
@@ -163,6 +166,7 @@
   "post_send": "Publiser",
   "post_update_send": "Oppdater innhold",
   "post_send_progress": "Sender inn",
+  "quick_post_error_empty_title": "Post title cannot be empty.",
   "heading_1": "Overskrift 1",
   "heading_2": "Overskrift 2",
   "heading_3": "Overskrift 3",
@@ -261,5 +265,10 @@
   "post_preview_hidden_for_nsfw": "This post preview is currently hidden since it is tagged NSFW.",
   "reading_time": "{words} words / {min} min read",
   "reading_time_post": "{min} min read",
-  "words_tooltip": "{words} words"
+  "words_tooltip": "{words} words",
+  "power_down_message": "Started power down: {value}",
+  "create_post": "Create post",
+  "posted_from_tooltip": "Version: {version}",
+  "username_too_short": "Username {username} is too short.",
+  "username_too_long": "Username {username} is too long."
 }
