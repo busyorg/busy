@@ -1,4 +1,3 @@
-import Promise from 'bluebird';
 import SteemAPI from '../steemAPI';
 import { jsonParse } from '../helpers/formatter';
 import * as accountHistoryConstants from '../../common/constants/accountHistory';
@@ -59,41 +58,31 @@ export const getFollowers = (username, startForm = '', type = 'blog', limit = 10
     result.map(user => user.follower),
   );
 
-export const getAllFollowing = username =>
-  getFollowingCount(username)
-    .then(resp => resp.following_count)
-    .then((followingCount) => {
-      const chunkSize = 100;
-      const limitArray = Array.fill(Array(Math.ceil(followingCount / chunkSize)), chunkSize);
-      return Promise.reduce(
-        limitArray,
-        (currentList, limit) => {
-          const startForm = currentList[currentList.length - 1] || '';
-          return getFollowing(username, startForm, 'blog', limit).then(following =>
-            currentList.slice(0, currentList.length - 1).concat(following),
-          );
-        },
-        [],
-      );
-    });
+export const getAllFollowing = username => new Promise(async (resolve) => {
+  const following = await getFollowingCount(username);
+  const chunkSize = 100;
+  const limitArray = Array.fill(Array(Math.ceil(following.following_count / chunkSize)), chunkSize);
+  const list = limitArray.reduce(async (currentListP, value) => {
+    const currentList = await currentListP;
+    const startForm = currentList[currentList.length - 1] || '';
+    const followers = await getFollowing(username, startForm, 'blog', value);
+    return currentList.slice(0, currentList.length - 1).concat(followers);
+  }, []);
+  resolve(list);
+});
 
-export const getAllFollowers = username =>
-  getFollowingCount(username)
-    .then(resp => resp.follower_count)
-    .then((followerCount) => {
-      const chunkSize = 100;
-      const limitArray = Array.fill(Array(Math.ceil(followerCount / chunkSize)), chunkSize);
-      return Promise.reduce(
-        limitArray,
-        (currentList, limit) => {
-          const startForm = currentList[currentList.length - 1] || '';
-          return getFollowers(username, startForm, 'blog', limit).then(following =>
-            currentList.slice(0, currentList.length - 1).concat(following),
-          );
-        },
-        [],
-      );
-    });
+export const getAllFollowers = username => new Promise(async (resolve) => {
+  const following = await getFollowingCount(username);
+  const chunkSize = 100;
+  const limitArray = Array.fill(Array(Math.ceil(following.follower_count / chunkSize)), chunkSize);
+  const list = limitArray.reduce(async (currentListP, value) => {
+    const currentList = await currentListP;
+    const startForm = currentList[currentList.length - 1] || '';
+    const followers = await getFollowers(username, startForm, 'blog', value);
+    return currentList.slice(0, currentList.length - 1).concat(followers);
+  }, []);
+  resolve(list);
+});
 
 export const mapToId = (content) => {
   const listById = {};
