@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
-import steem from 'steem';
 import { Tooltip } from 'antd';
+import formatter from '../helpers/steemitFormatter';
 import { calculateTotalDelegatedSP, calculateEstAccountValue } from '../vendor/steemitHelpers';
 import Loading from '../components/Icon/Loading';
 import USDDisplay from '../components/Utils/USDDisplay';
@@ -72,7 +72,7 @@ const UserWalletSummary = ({
           : <span>
             <FormattedNumber
               value={parseFloat(
-                steem.formatter.vestToSteem(
+                formatter.vestToSteem(
                   user.vesting_shares,
                   totalVestingShares,
                   totalVestingFundSteem,
