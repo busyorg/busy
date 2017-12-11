@@ -5,6 +5,7 @@ const initialState = {
   loading: false,
   searchError: false,
   searchResults: [],
+  autoCompleteSearchResults: [],
 };
 
 export default (state = initialState, action) => {
@@ -29,6 +30,13 @@ export default (state = initialState, action) => {
         loading: false,
         searchError: true,
       };
+
+    case searchActions.AUTO_COMPLETE_SEARCH.SUCCESS: {
+      return {
+        ...state,
+        autoCompleteSearchResults: action.payload,
+      };
+    }
     default:
       return state;
   }
@@ -36,3 +44,4 @@ export default (state = initialState, action) => {
 
 export const getSearchLoading = state => state.loading;
 export const getSearchResults = state => state.searchResults;
+export const getAutoCompleteSearchResults = state => state.autoCompleteSearchResults;

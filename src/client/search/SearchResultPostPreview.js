@@ -38,7 +38,7 @@ const SearchResultPostPreview = ({ author, summary, created, permlink, title, ta
           </Link>
         </div>
         <div className="Search__post__tags">
-          {_.map(tags, tag => (
+          {_.map(_.uniq(tags), tag => (
             <span key={tag} className="Search__post__tags__container"><Topic name={tag} /></span>
           ))}
         </div>

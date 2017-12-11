@@ -122,3 +122,5 @@ export const getCurrentFilteredActions = state =>
 
 export const getSearchLoading = state => fromSearch.getSearchLoading(state.search);
 export const getSearchResults = state => fromSearch.getSearchResults(state.search);
+export const getAutoCompleteSearchResults = state =>
+  fromSearch.getAutoCompleteSearchResults(state.search);
