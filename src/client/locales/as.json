@@ -75,6 +75,7 @@
   "reblog_modal_title": "এই পোষ্টটি ৰিব্লগ্ কৰিব?",
   "reblog_modal_content": "এই পোষ্টটি আপোনাৰ ব্যক্তিগত ফীডত উপলব্ধ হব। এই কাৰ্যটি ওলোটাব নোৱাৰিব।",
   "write_post": "পোষ্ট লিখা",
+  "write_quick_post": "Write quick post",
   "transfer": "ট্ৰানষ্ফাৰ্",
   "transfer_modal_title": "ট্ৰানষ্ফাৰ ফান্ডচ্",
   "transfer_modal_info": "আপোনাৰ কাৰ্যটি সম্পূৰ্ণ কথিবৰ বাবে তলত দিয়া বুটামটি টিপিলে পোনপটীয়াকৈ স্টীমকানেক্ট যাব।",
@@ -109,6 +110,8 @@
   "select_language": "আপোনাৰ ভাষা বাছনি কৰক",
   "discover_more_people": "অধিক মানুহ আবিষ্কাৰ",
   "discover_more_people_info": "Discover the most reputable users of this platform",
+  "invite": "Invite",
+  "invite_info": "Onboard new users on Busy.org today using the link below and get 10% of their rewards for 30 days.",
   "more_people_not_found": "No more people were found",
   "see_all_comments": "সকলো কমেন্টচ্ চোৱা",
   "see_all_recommendations": "সকলো ৰেকমেন্ডচন্ চোৱা",
@@ -163,6 +166,7 @@
   "post_send": "প'ষ্ট",
   "post_update_send": "পোষ্ট আপডেট কৰা",
   "post_send_progress": "জমা হৈ আছে",
+  "quick_post_error_empty_title": "Post title cannot be empty.",
   "heading_1": "হেডিং ১",
   "heading_2": "হেডিং ২",
   "heading_3": "হেডিং ৩",
@@ -261,5 +265,10 @@
   "post_preview_hidden_for_nsfw": "This post preview is currently hidden since it is tagged NSFW.",
   "reading_time": "{words} words / {min} min read",
   "reading_time_post": "{min} min read",
-  "words_tooltip": "{words} words"
+  "words_tooltip": "{words} words",
+  "power_down_message": "Started power down: {value}",
+  "create_post": "Create post",
+  "posted_from_tooltip": "Version: {version}",
+  "username_too_short": "Username {username} is too short.",
+  "username_too_long": "Username {username} is too long."
 }
