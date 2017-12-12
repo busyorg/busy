@@ -51,7 +51,7 @@ export default class User extends React.Component {
   };
 
   componentDidMount() {
-    if (!this.props.user.name && this.props.authenticatedUser.name) {
+    if (this.props.user.name && this.props.authenticatedUser.name) {
       this.props.getAccountWithFollowingCount({ name: this.props.match.params.name,
         authUser: this.props.authenticatedUser.name });
     }
