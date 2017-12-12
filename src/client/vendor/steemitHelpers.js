@@ -1,8 +1,9 @@
 import base58 from 'bs58';
-import steem from 'steem';
 import getSlug from 'speakingurl';
 import secureRandom from 'secure-random';
 import diff_match_patch from 'diff-match-patch';
+import steemAPI from '../steemAPI';
+import formatter from '../helpers/steemitFormatter';
 
 const dmp = new diff_match_patch();
 /**
@@ -117,7 +118,7 @@ export function createPermlink(title, author, parent_author, parent_permlink) {
     }
 
     return steem.api
-      .getContentAsync(author, s)
+      .steemAPI.sendAsync('get_content', [author, s])
       .then(content => {
         let prefix;
         if (content.body !== '') {
@@ -176,14 +177,14 @@ export const calculateVoteValue = (vests, recentClaims, rewardBalance, vp = 1000
 
 export const calculateTotalDelegatedSP = (user, totalVestingShares, totalVestingFundSteem) => {
   const receivedSP = parseFloat(
-    steem.formatter.vestToSteem(
+    formatter.vestToSteem(
       user.received_vesting_shares,
       totalVestingShares,
       totalVestingFundSteem,
     ),
   );
   const delegatedSP = parseFloat(
-    steem.formatter.vestToSteem(
+    formatter.vestToSteem(
       user.delegated_vesting_shares,
       totalVestingShares,
       totalVestingFundSteem,
@@ -199,7 +200,7 @@ export const calculateVotingPower = (user) => {
 
 
 export const calculateEstAccountValue = (user, totalVestingShares, totalVestingFundSteem, steemRate) => {
-  const steemPower = steem.formatter.vestToSteem(
+  const steemPower = formatter.vestToSteem(
     user.vesting_shares,
     totalVestingShares,
     totalVestingFundSteem,

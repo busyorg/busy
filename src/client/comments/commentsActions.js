@@ -61,7 +61,7 @@ export const getComments = (postId, reload = false, focusedComment = undefined) 
   dispatch({
     type: GET_COMMENTS,
     payload: {
-      promise: steemAPI.getStateAsync(`/${category}/@${author}/${permlink}`).then(apiRes => ({
+      promise: steemAPI.sendAsync('get_state', [`/${category}/@${author}/${permlink}`]).then(apiRes => ({
         rootCommentsList: getRootCommentsList(apiRes),
         commentsChildrenList: getCommentsChildrenLists(apiRes),
         content: apiRes.content,
@@ -148,7 +148,7 @@ export const likeComment = (commentId, weight = 10000, vote = 'like', retryCount
     payload: {
       promise: steemConnectAPI.vote(voter, author, permlink, weight).then((res) => {
         // reload comment data to fetch payout after vote
-        steemAPI.getContentAsync(author, permlink).then((data) => {
+        steemAPI.sendAsync('get_content', [author, permlink]).then((data) => {
           dispatch(reloadExistingComment(data));
           return data;
         });
