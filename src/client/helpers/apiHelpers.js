@@ -129,3 +129,37 @@ export const isWalletTransaction = actionType =>
   actionType === accountHistoryConstants.CLAIM_REWARD_BALANCE;
 
 export const getLookupAccountNames = name => SteemAPI.lookupAccountsAsync(name, 10);
+
+export const getAllSearchResultPages = search =>
+  Promise.all([
+    fetch(
+      `https://api.asksteem.com/search?q=${search}&types=user,post&pg=1`,
+    ).then(res => res.json()),
+    fetch(
+      `https://api.asksteem.com/search?q=${search}&types=user,post&pg=2`,
+    ).then(res => res.json()),
+    fetch(
+      `https://api.asksteem.com/search?q=${search}&types=user,post&pg=3`,
+    ).then(res => res.json()),
+    fetch(
+      `https://api.asksteem.com/search?q=${search}&types=user,post&pg=4`,
+    ).then(res => res.json()),
+    fetch(
+      `https://api.asksteem.com/search?q=${search}&types=user,post&pg=5`,
+    ).then(res => res.json()),
+    fetch(
+      `https://api.asksteem.com/search?q=${search}&types=user,post&pg=6`,
+    ).then(res => res.json()),
+    fetch(
+      `https://api.asksteem.com/search?q=${search}&types=user,post&pg=7`,
+    ).then(res => res.json()),
+    fetch(
+      `https://api.asksteem.com/search?q=${search}&types=user,post&pg=8`,
+    ).then(res => res.json()),
+    fetch(
+      `https://api.asksteem.com/search?q=${search}&types=user,post&pg=9`,
+    ).then(res => res.json()),
+    fetch(
+      `https://api.asksteem.com/search?q=${search}&types=user,post&pg=10`,
+    ).then(res => res.json()),
+  ]);

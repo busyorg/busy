@@ -8,14 +8,15 @@ import { searchAskSteem } from './searchActions';
 import LeftSidebar from '../app/Sidebar/LeftSidebar';
 import SearchResultEmptyMessage from './SearchResultEmptyMessage';
 import Affix from '../components/Utils/Affix';
-import './Search.less';
+import Loading from '../components/Icon/Loading';
 import SearchResultPostPreview from './SearchResultPostPreview';
 import SearchResultUserPreview from './SearchResultUserPreview';
+import './Search.less';
 
 @connect(
   state => ({
     searchResults: getSearchResults(state),
-    loading: getSearchLoading(state),
+    searchLoading: getSearchLoading(state),
   }),
   {
     searchAskSteem,
@@ -25,6 +26,7 @@ class Search extends React.Component {
   static propTypes = {
     location: PropTypes.shape().isRequired,
     searchResults: PropTypes.arrayOf(PropTypes.shape()),
+    searchLoading: PropTypes.bool.isRequired,
     searchAskSteem: PropTypes.func.isRequired,
   };
 
@@ -48,12 +50,12 @@ class Search extends React.Component {
 
   renderSearchResult() {
     const { searchResults } = this.props;
-    return _.map(searchResults, (result) => {
+    return _.map(searchResults, (result, i) => {
       switch (result.type) {
         case 'post':
           return (
             <SearchResultPostPreview
-              key={`${result.author}/${result.permlink}`}
+              key={`${i}/${result.author}/${result.permlink}`}
               author={result.author}
               created={result.created}
               title={result.title}
@@ -63,7 +65,7 @@ class Search extends React.Component {
             />
           );
         case 'user':
-          return <SearchResultUserPreview key={result.name} username={result.name} />;
+          return <SearchResultUserPreview key={`${i}/${result.name}`} username={result.name} />;
         default:
           return null;
       }
@@ -71,7 +73,7 @@ class Search extends React.Component {
   }
 
   render() {
-    const { searchResults } = this.props;
+    const { searchResults, searchLoading } = this.props;
     const noSearchResults = _.isEmpty(searchResults);
 
     return (
@@ -87,7 +89,7 @@ class Search extends React.Component {
           </h1>
           <div className="Search">
             {noSearchResults && <SearchResultEmptyMessage />}
-            {this.renderSearchResult()}
+            {searchLoading ? <Loading style={{ marginTop: '20px' }} /> : this.renderSearchResult()}
           </div>
         </div>
       </div>

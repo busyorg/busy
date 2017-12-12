@@ -17,10 +17,9 @@ export default (state = initialState, action) => {
         searchError: false,
       };
     case searchActions.SEARCH_ASK_STEEM.SUCCESS: {
-      const results = _.get(action.payload, 'results', []);
       return {
         ...state,
-        searchResults: results,
+        searchResults: action.payload,
         loading: false,
       };
     }
@@ -32,9 +31,10 @@ export default (state = initialState, action) => {
       };
 
     case searchActions.AUTO_COMPLETE_SEARCH.SUCCESS: {
+      const { result, search } = action.payload;
       return {
         ...state,
-        autoCompleteSearchResults: action.payload,
+        autoCompleteSearchResults: _.isEmpty(search) ? [] : result,
       };
     }
     default:
