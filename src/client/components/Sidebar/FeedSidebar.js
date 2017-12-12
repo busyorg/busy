@@ -38,7 +38,6 @@ class FeedSidebar extends React.Component {
     return (
       <div>
         <CryptoTrendingCharts crypto={currentTag} />
-        <br />
         {isAuthenticated &&
           <InterestingPeople
             users={recommendations}
