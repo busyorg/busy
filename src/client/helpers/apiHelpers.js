@@ -110,7 +110,7 @@ export const isWalletTransaction = actionType =>
   actionType === accountHistoryConstants.DELEGATE_VESTING_SHARES ||
   actionType === accountHistoryConstants.CLAIM_REWARD_BALANCE;
 
-export const getLookupAccountNames = name => SteemAPI.lookupAccountsAsync(name, 10);
+export const getLookupAccountNames = name => SteemAPI.sendAsync('lookup_accounts', [name, 10]);
 
 export const getAllSearchResultPages = search =>
   Promise.all([
