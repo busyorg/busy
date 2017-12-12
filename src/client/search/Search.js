@@ -74,7 +74,7 @@ class Search extends React.Component {
 
   render() {
     const { searchResults, searchLoading } = this.props;
-    const noSearchResults = _.isEmpty(searchResults);
+    const noSearchResults = _.isEmpty(searchResults) && !searchLoading;
 
     return (
       <div className="settings-layout container">
