@@ -4,6 +4,7 @@
   "search_placeholder": "Search...",
   "search_results": "Search results",
   "no_search_results_found": "No results were found for your search.",
+  "search_all_results_for": "Search all results for {search}",
   "save": "Save",
   "saved": "Saved",
   "cancel": "Cancel",

@@ -17,19 +17,26 @@ export default (state = initialState, action) => {
         searchError: false,
       };
     case searchActions.SEARCH_ASK_STEEM.SUCCESS: {
+      const askSteemResults = _.get(action.payload, 0, []);
+      const steemLookupResults = _.get(action.payload, 1, []);
+      const formattedSteemLookupResults = _.map(steemLookupResults, name => ({
+        type: 'user',
+        name,
+      }));
+      const searchResults = _.compact(_.concat(formattedSteemLookupResults, askSteemResults));
       return {
         ...state,
-        searchResults: action.payload,
+        searchResults,
         loading: false,
       };
     }
     case searchActions.SEARCH_ASK_STEEM.ERROR:
       return {
         ...state,
+        searchResults: [],
         loading: false,
         searchError: true,
       };
-
     case searchActions.AUTO_COMPLETE_SEARCH.SUCCESS: {
       const { result, search } = action.payload;
       return {

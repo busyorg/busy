@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -44,11 +45,14 @@ class Topnav extends React.Component {
 
     this.state = {
       searchBarActive: false,
+      searchBarValue: '',
     };
 
     this.handleSearchForAutoComplete = this.handleSearchForAutoComplete.bind(this);
     this.handleAutoCompleteSearch = this.handleAutoCompleteSearch.bind(this);
     this.handleSearchForInput = this.handleSearchForInput.bind(this);
+    this.handleOnChangeForAutoComplete = this.handleOnChangeForAutoComplete.bind(this);
+    this.hideAutoCompleteDropdown = this.hideAutoCompleteDropdown.bind(this);
   }
 
   menuForLoggedOut = () => {
@@ -165,8 +169,13 @@ class Topnav extends React.Component {
     });
   };
 
+  hideAutoCompleteDropdown() {
+    this.props.searchAutoComplete('');
+  }
+
   handleSearchForInput(event) {
     const value = event.target.value;
+    this.hideAutoCompleteDropdown();
     this.props.history.push({
       pathname: '/search',
       search: `q=${value}`,
@@ -181,18 +190,60 @@ class Topnav extends React.Component {
   }
 
   handleSearchForAutoComplete(value) {
-    this.props.history.push({
-      pathname: '/search',
-      search: `q=${value}`,
-      state: {
-        query: value,
+    this.setState(
+      {
+        searchBarValue: value,
       },
+      () =>
+        this.props.history.push({
+          pathname: '/search',
+          search: `q=${value}`,
+          state: {
+            query: value,
+          },
+        }),
+    );
+  }
+
+  handleOnChangeForAutoComplete(value) {
+    this.setState({
+      searchBarValue: value,
     });
   }
 
   render() {
     const { intl, autoCompleteSearchResults } = this.props;
-    const { searchBarActive } = this.state;
+    const { searchBarActive, searchBarValue } = this.state;
+
+    const dropdownOptions = _.map(autoCompleteSearchResults, option => (
+      <AutoComplete.Option key={option} value={option} className="Topnav__search-autocomplete">
+        {option}
+      </AutoComplete.Option>
+    ));
+    const formattedAutoCompleteDropdown = _.isEmpty(dropdownOptions)
+      ? dropdownOptions
+      : dropdownOptions.concat([
+        <AutoComplete.Option disabled key="all" className="Topnav__search-all-results">
+          <Link
+            to={{
+              pathname: '/search',
+              search: `?q=${searchBarValue}`,
+              state: { query: searchBarValue },
+            }}
+          >
+            <span onClick={this.hideAutoCompleteDropdown} role="presentation">
+              {intl.formatMessage(
+                {
+                  id: 'search_all_results_for',
+                  defaultMessage: 'Search all results for {search}',
+                },
+                { search: searchBarValue },
+              )}
+            </span>
+          </Link>
+        </AutoComplete.Option>,
+      ]);
+
     return (
       <div className="Topnav">
         <div className="topnav-layout container">
@@ -205,9 +256,15 @@ class Topnav extends React.Component {
           <div className={classNames('center', { mobileVisible: searchBarActive })}>
             <div className="Topnav__input-container">
               <AutoComplete
-                dataSource={autoCompleteSearchResults}
+                dropdownClassName="Topnav__search-dropdown-container"
+                dataSource={formattedAutoCompleteDropdown}
                 onSearch={this.handleAutoCompleteSearch}
                 onSelect={this.handleSearchForAutoComplete}
+                onChange={this.handleOnChangeForAutoComplete}
+                defaultActiveFirstOption={false}
+                dropdownMatchSelectWidth={false}
+                optionLabelProp="value"
+                value={searchBarValue}
               >
                 <Input
                   ref={(ref) => {

@@ -9,16 +9,19 @@ export const searchAskSteem = search => dispatch =>
   dispatch({
     type: SEARCH_ASK_STEEM.ACTION,
     payload: {
-      promise: getAllSearchResultPages(search)
-        .then((response) => {
-          let mergedResults = [];
-          _.each(response, (element) => {
-            mergedResults = _.concat(mergedResults, element.results);
-          });
+      promise: Promise.all([
+        getAllSearchResultPages(search)
+          .then((response) => {
+            let mergedResults = [];
+            _.each(response, (element) => {
+              mergedResults = _.concat(mergedResults, element.results);
+            });
 
-          return _.reverse(_.sortBy(mergedResults, ['type', 'created']));
-        })
-        .catch(() => dispatch({ type: SEARCH_ASK_STEEM.ERROR, error: true })),
+            return _.reverse(_.sortBy(mergedResults, ['type', 'created']));
+          })
+          .catch(() => dispatch({ type: SEARCH_ASK_STEEM.ERROR })),
+        getLookupAccountNames(search),
+      ]),
     },
   });
 

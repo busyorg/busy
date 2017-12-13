@@ -43,6 +43,10 @@
     border-left: solid 1px #e9e7e7;
     border-right: solid 1px #e9e7e7;
 
+    > .ant-select-show-search {
+      width: 100%;
+    }
+
     input {
       height: 54px !important;
       border-radius: 0 !important;
@@ -146,3 +150,21 @@
     }
   }
 }
+
+
+.Topnav__search-autocomplete.ant-select-dropdown-menu-item {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+}
+
+.Topnav__search-all-results {
+  border-top: 1px solid @white-gainsboro;
+  font-weight: 500 !important;
+  text-align: center;
+}
+
+.Topnav__search-dropdown-container .ant-select-dropdown-menu {
+  max-height: 300px;
+}
+
