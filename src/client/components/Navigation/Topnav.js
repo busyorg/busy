@@ -48,7 +48,7 @@ class Topnav extends React.Component {
       searchBarValue: '',
     };
 
-    this.handleSearchForAutoComplete = this.handleSearchForAutoComplete.bind(this);
+    this.handleSelectOnAutoCompleteDropdown = this.handleSelectOnAutoCompleteDropdown.bind(this);
     this.handleAutoCompleteSearch = this.handleAutoCompleteSearch.bind(this);
     this.handleSearchForInput = this.handleSearchForInput.bind(this);
     this.handleOnChangeForAutoComplete = this.handleOnChangeForAutoComplete.bind(this);
@@ -189,20 +189,8 @@ class Topnav extends React.Component {
     this.props.searchAutoComplete(value);
   }
 
-  handleSearchForAutoComplete(value) {
-    this.setState(
-      {
-        searchBarValue: value,
-      },
-      () =>
-        this.props.history.push({
-          pathname: '/search',
-          search: `q=${value}`,
-          state: {
-            query: value,
-          },
-        }),
-    );
+  handleSelectOnAutoCompleteDropdown(value) {
+    this.props.history.push(`/@${value}`);
   }
 
   handleOnChangeForAutoComplete(value) {
@@ -259,7 +247,7 @@ class Topnav extends React.Component {
                 dropdownClassName="Topnav__search-dropdown-container"
                 dataSource={formattedAutoCompleteDropdown}
                 onSearch={this.handleAutoCompleteSearch}
-                onSelect={this.handleSearchForAutoComplete}
+                onSelect={this.handleSelectOnAutoCompleteDropdown}
                 onChange={this.handleOnChangeForAutoComplete}
                 defaultActiveFirstOption={false}
                 dropdownMatchSelectWidth={false}
