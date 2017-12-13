@@ -36,7 +36,13 @@ class Search extends React.Component {
 
   componentDidMount() {
     const searchQuery = _.get(this.props.location.state, 'query', '');
-    this.props.searchAskSteem(searchQuery);
+    if (!_.isEmpty(searchQuery)) {
+      this.props.searchAskSteem(searchQuery);
+    } else {
+      const searchQueryRegexResults = this.props.location.search.match(/\?q=(.*)/);
+      const searchQueryFromUrl = _.get(searchQueryRegexResults, 1, '');
+      this.props.searchAskSteem(searchQueryFromUrl);
+    }
   }
 
   componentWillReceiveProps(nextProps) {
