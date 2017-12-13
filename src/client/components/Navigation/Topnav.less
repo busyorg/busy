@@ -153,6 +153,9 @@
 
 .Topnav__search-dropdown-container.ant-select-dropdown {
   top: 56px !important;
+  border-radius: 0;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
 }
 
 .Topnav__search-autocomplete.ant-select-dropdown-menu-item-active {
@@ -167,12 +170,15 @@
   justify-content: space-between !important;
   font-weight: bold;
   border-bottom: 1px solid @white-gainsboro;
+  padding: 10px 14px;
 }
 
 .Topnav__search-all-results {
   font-weight: bold !important;
   text-align: center;
   background-color: @white-darker;
+  padding: 10px 14px;
+  cursor: default !important;
 }
 
 .Topnav__search-dropdown-container .ant-select-dropdown-menu {
