@@ -275,6 +275,8 @@ class Topnav extends React.Component {
                     id: 'search_placeholder',
                     defaultMessage: 'Search...',
                   })}
+                  autoCapitalize="off"
+                  autoCorrect="off"
                 />
               </AutoComplete>
               <i className="iconfont icon-search" />

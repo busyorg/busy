@@ -151,17 +151,28 @@
   }
 }
 
+.Topnav__search-dropdown-container.ant-select-dropdown {
+  top: 56px !important;
+}
+
+.Topnav__search-autocomplete.ant-select-dropdown-menu-item-active {
+  &:hover {
+    background-color: @white-darker;
+  }
+}
 
 .Topnav__search-autocomplete.ant-select-dropdown-menu-item {
   display: flex !important;
   align-items: center !important;
   justify-content: space-between !important;
+  font-weight: bold;
+  border-bottom: 1px solid @white-gainsboro;
 }
 
 .Topnav__search-all-results {
-  border-top: 1px solid @white-gainsboro;
-  font-weight: 500 !important;
+  font-weight: bold !important;
   text-align: center;
+  background-color: @white-darker;
 }
 
 .Topnav__search-dropdown-container .ant-select-dropdown-menu {
