@@ -18,8 +18,7 @@ export const searchAskSteem = search => dispatch =>
             });
 
             return _.reverse(_.sortBy(mergedResults, ['type', 'created']));
-          })
-          .catch(() => dispatch({ type: SEARCH_ASK_STEEM.ERROR })),
+          }),
         getLookupAccountNames(search),
       ]),
     },

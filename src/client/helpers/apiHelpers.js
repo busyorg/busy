@@ -113,36 +113,16 @@ export const isWalletTransaction = actionType =>
 export const getLookupAccountNames = (name, limit = 5) =>
   SteemAPI.sendAsync('lookup_accounts', [name, limit]);
 
-export const getAllSearchResultPages = search => Promise.all([
-  fetch(
-    `https://api.asksteem.com/search?q=${search}&types=post&pg=1`,
-  ).then(res => res.json()),
-  fetch(
-    `https://api.asksteem.com/search?q=${search}&types=post&pg=2`,
-  ).then(res => res.json()),
-  fetch(
-    `https://api.asksteem.com/search?q=${search}&types=post&pg=3`,
-  ).then(res => res.json()),
-  fetch(
-    `https://api.asksteem.com/search?q=${search}&types=post&pg=4`,
-  ).then(res => res.json()),
-  fetch(
-    `https://api.asksteem.com/search?q=${search}&types=post&pg=5`,
-  ).then(res => res.json()),
-  fetch(
-    `https://api.asksteem.com/search?q=${search}&types=post&pg=6`,
-  ).then(res => res.json()),
-  fetch(
-    `https://api.asksteem.com/search?q=${search}&types=post&pg=7`,
-  ).then(res => res.json()),
-  fetch(
-    `https://api.asksteem.com/search?q=${search}&types=post&pg=8`,
-  ).then(res => res.json()),
-  fetch(
-    `https://api.asksteem.com/search?q=${search}&types=post&pg=9`,
-  ).then(res => res.json()),
-  fetch(
-    `https://api.asksteem.com/search?q=${search}&types=post&pg=10`,
-  ).then(res => res.json()),
-]);
+export const getAllSearchResultPages = (search) => {
+  const promises = [];
 
+  for (let i = 0; i <= 10; i += 1) {
+    promises.push(
+      fetch(`https://api.asksteem.com/search?q=${search}&types=post&pg=${i}`).then(res =>
+        res.json(),
+      ),
+    );
+  }
+
+  return Promise.all(promises);
+};
