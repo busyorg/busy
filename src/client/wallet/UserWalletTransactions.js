@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import { FormattedMessage } from 'react-intl';
 import ReduxInfiniteScroll from '../vendor/ReduxInfiniteScroll';
 import { defaultAccountLimit } from '../helpers/apiHelpers';
 import Loading from '../components/Icon/Loading';
 import WalletTransaction from './WalletTransaction';
-import { FormattedMessage } from 'react-intl';
 import './UserWalletTransactions.less';
 
 class UserWalletTransactions extends React.Component {
