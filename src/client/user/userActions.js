@@ -1,4 +1,3 @@
-import Promise from 'bluebird';
 import { createAction } from 'redux-actions';
 import { getFeed, getPosts, getIsAuthenticated, getAuthenticatedUserName } from '../reducers';
 import { getUserCommentsFromState, getFeedLoadingFromState } from '../helpers/stateHelpers';
@@ -20,17 +19,12 @@ export const getUserComments = ({ username, limit = 10 }) => (dispatch, getState
     return null;
   }
 
-  const getDiscussionsByComments = Promise.promisify(steemAPI.getDiscussionsByComments, {
-    context: steemAPI,
-  });
-
   return dispatch({
     type: GET_USER_COMMENTS,
     payload: {
-      promise: getDiscussionsByComments({
-        start_author: username,
-        limit,
-      }),
+      promise: steemAPI.sendAsync('get_discussions_by_comments', [
+        { start_author: username, limit },
+      ]),
     },
     meta: { username, limit },
   });
@@ -47,10 +41,6 @@ export const getMoreUserComments = (username, limit) => (dispatch, getState, { s
     return null;
   }
 
-  const getDiscussionsByComments = Promise.promisify(steemAPI.getDiscussionsByComments, {
-    context: steemAPI,
-  });
-
   const userComments = getUserCommentsFromState(username, feed, posts);
   const startAuthor = userComments[userComments.length - 1].author;
   const startPermlink = userComments[userComments.length - 1].permlink;
@@ -58,11 +48,13 @@ export const getMoreUserComments = (username, limit) => (dispatch, getState, { s
   return dispatch({
     type: GET_MORE_USER_COMMENTS,
     payload: {
-      promise: getDiscussionsByComments({
-        start_author: startAuthor,
-        start_permlink: startPermlink,
-        limit,
-      }),
+      promise: steemAPI.sendAsync('get_discussions_by_comments', [
+        {
+          start_author: startAuthor,
+          start_permlink: startPermlink,
+          limit,
+        },
+      ]),
     },
     meta: { username, limit },
   });

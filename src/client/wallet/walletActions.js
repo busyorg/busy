@@ -1,6 +1,6 @@
-import steem from 'steem';
 import _ from 'lodash';
 import { createAction } from 'redux-actions';
+import formatter from '../helpers/steemitFormatter';
 import { createAsyncActionType } from '../helpers/stateHelpers';
 import {
   getAccountHistory,
@@ -98,7 +98,7 @@ export const getUserEstAccountValue = user => dispatch =>
   dispatch({
     type: GET_USER_EST_ACCOUNT_VALUE.ACTION,
     payload: {
-      promise: steem.formatter.estimateAccountValue(user).then(value => ({
+      promise: formatter.estimateAccountValue(user).then(value => ({
         username: user.name,
         value,
       })),

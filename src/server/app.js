@@ -18,7 +18,8 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const http = require('http');
 const https = require('https');
-const steem = require('steem');
+
+const steemAPI = require('./steemAPI');
 
 http.globalAgent.maxSockets = Infinity;
 https.globalAgent.maxSockets = Infinity;
@@ -29,10 +30,6 @@ const app = express();
 const server = http.Server(app);
 
 const rootDir = path.join(__dirname, '../..');
-
-if (process.env.STEEMJS_URL) {
-  steem.api.setOptions({ url: process.env.STEEMJS_URL });
-}
 
 if (process.env.SENTRY_PUBLIC_DSN) {
   Raven.config(process.env.SENTRY_PUBLIC_DSN).install();
@@ -129,7 +126,7 @@ app.get('/callback', (req, res) => {
 
 app.get('/i/@:referral', (req, res) => {
   const { referral } = req.params;
-  steem.api.getAccountsAsync([referral]).then((accounts) => {
+  steemAPI.sendAsync('get_accounts', [[referral]]).then((accounts) => {
     if (accounts[0]) {
       res.cookie('referral', referral, { maxAge: 86400 * 30 * 1000 });
       res.redirect('/');
@@ -141,7 +138,7 @@ app.get('/i/@:referral', (req, res) => {
 
 app.get('/i/:parent/@:referral/:permlink', (req, res) => {
   const { parent, referral, permlink } = req.params;
-  steem.api.getContentAsync(referral, permlink).then((content) => {
+  steemAPI.sendAsync('get_content', [referral, permlink]).then((content) => {
     if (content.author) {
       res.cookie('referral', referral, { maxAge: 86400 * 30 * 1000 });
       res.redirect(`/${parent}/@${referral}/${permlink}`);
