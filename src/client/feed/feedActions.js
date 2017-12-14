@@ -37,19 +37,20 @@ export const getMoreUserFeedContentSuccess = createAction(GET_MORE_USER_FEED_CON
 
 export const feedHasNoMore = createAction(FEED_HAS_NO_MORE);
 
-export const getFeedContent = ({ sortBy, category, limit }) => (
-  dispatch,
-  getState,
-  { steemAPI },
-) => {
+// TODO: Fix issues with then
+export const getFeedContent = (
+  { sortBy = 'trending', category = 'all', limit },
+  resolve = () => {},
+  reject = () => {},
+) => (dispatch, getState, { steemAPI }) => {
   dispatch(
     getFeedContentWithoutAPI({
-      sortBy: sortBy || 'trending',
-      category: category || 'all',
+      sortBy,
+      category,
     }),
   );
 
-  return getDiscussionsFromAPI(
+  getDiscussionsFromAPI(
     sortBy,
     {
       tag: category,
@@ -57,21 +58,26 @@ export const getFeedContent = ({ sortBy, category, limit }) => (
     },
     steemAPI,
   )
-    .then(postsData =>
-      dispatch(
+    .then((postsData) => {
+      resolve(dispatch(
         getFeedContentSuccess({
-          sortBy: sortBy || 'trending',
-          category: category || 'all',
+          sortBy,
+          category,
           postsData,
           limit,
-        }),
-      ),
-    )
+        })),
+      ).then(() => {
+        resolve();
+      });
+    })
     .catch((err) => {
       Logger.error(`error while loading ${sortBy}/${category}`, err);
-      throw err;
+      reject(err);
     });
 };
+
+export const getFeedContentAsync = (store, options) =>
+  new Promise((resolve, reject) => store.dispatch(getFeedContent(options, resolve, reject)));
 
 export const getUserFeedContent = ({ username, limit, sortBy = 'feed' }) => (
   dispatch,
@@ -114,8 +120,12 @@ export const getMoreFeedContent = ({ sortBy, category, limit }) => (
   getState,
   { steemAPI },
 ) => {
-  const feedContent =
-    getFeedContentFromState(sortBy, category, getState().feed, getState().posts.list);
+  const feedContent = getFeedContentFromState(
+    sortBy,
+    category,
+    getState().feed,
+    getState().posts.list,
+  );
   const isLoading = getFeedLoadingFromState(sortBy, category, getState().feed);
 
   if (!feedContent.length || isLoading) {

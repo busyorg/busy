@@ -92,6 +92,7 @@ function serverSideResponse(req, res) {
   });
 
   return Promise.all(promises)
+    .catch(err => console.log(err))
     .then(() => {
       const context = {};
       const content = renderToString(
@@ -101,7 +102,6 @@ function serverSideResponse(req, res) {
           </StaticRouter>
         </Provider>,
       );
-
       res.send(renderPage(store, content));
     })
     .catch((err) => {

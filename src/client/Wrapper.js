@@ -61,9 +61,10 @@ export default class Wrapper extends React.PureComponent {
     getTrendingTopics: () => {},
   };
 
-  static fetchData(store) {
-    return store.dispatch(login());
-  }
+  // TODO: Handle errors and enable login
+  // static fetchData(store) {
+  //   return store.dispatch(login());
+  // }
 
   componentDidMount() {
     this.props.login().then(() => this.props.getFollowing());

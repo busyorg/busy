@@ -151,7 +151,7 @@ const routes = [
         component: Post,
       },
       {
-        path: '/',
+        path: '/:sortBy?/:category?',
         component: Page,
       },
     ],
