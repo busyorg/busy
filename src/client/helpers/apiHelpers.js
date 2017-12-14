@@ -63,29 +63,29 @@ export const getAccountWithFollowingCount = (username, authenticatedUser) =>
 
 export const getAllFollowing = username => new Promise(async (resolve) => {
   const following = await getFollowingCount(username);
-      const chunkSize = 100;
+  const chunkSize = 100;
   const limitArray = Array.fill(Array(Math.ceil(following.following_count / chunkSize)), chunkSize);
   const list = limitArray.reduce(async (currentListP, value) => {
     const currentList = await currentListP;
-          const startForm = currentList[currentList.length - 1] || '';
+    const startForm = currentList[currentList.length - 1] || '';
     const followers = await getFollowing(username, startForm, 'blog', value);
     return currentList.slice(0, currentList.length - 1).concat(followers);
   }, []);
   resolve(list);
-    });
+});
 
 export const getAllFollowers = username => new Promise(async (resolve) => {
   const following = await getFollowingCount(username);
-      const chunkSize = 100;
+  const chunkSize = 100;
   const limitArray = Array.fill(Array(Math.ceil(following.follower_count / chunkSize)), chunkSize);
   const list = limitArray.reduce(async (currentListP, value) => {
     const currentList = await currentListP;
-          const startForm = currentList[currentList.length - 1] || '';
+    const startForm = currentList[currentList.length - 1] || '';
     const followers = await getFollowers(username, startForm, 'blog', value);
     return currentList.slice(0, currentList.length - 1).concat(followers);
   }, []);
   resolve(list);
-    });
+});
 
 export const mapToId = (content) => {
   const listById = {};
