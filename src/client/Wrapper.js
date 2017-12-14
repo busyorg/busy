@@ -130,11 +130,11 @@ export default class Wrapper extends React.PureComponent {
 
   getAvailableLocale = (appLocale) => {
     let locale = appLocale || 'auto';
-  
+
     if (locale === 'auto') {
       locale = this.getBrowserLocale() || 'en';
     }
-  
+
     return locale;
   };
 
