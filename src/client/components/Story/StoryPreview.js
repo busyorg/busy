@@ -35,13 +35,15 @@ const StoryPreview = ({ post }) => {
   const video = jsonMetadata.video;
   let hasVideo = false;
   if (_.has(video, 'content.videohash') && _.has(video, 'info.snaphash')) {
+    const author = _.get(video, 'info.author', '');
+    const permlink = _.get(video, 'info.permlink', '');
+    const dTubeEmbedUrl = `https://emb.d.tube/#!/${author}/${permlink}`;
+    const dTubeIFrame = `<iframe width="100%" height="315" src="${dTubeEmbedUrl}"></iframe>`;
     hasVideo = true;
     embeds[0] = {
       type: 'video',
       provider_name: 'DTube',
-      embed: `<video controls="true" autoplay="true" src="https://ipfs.io/ipfs/${video.content
-        .videohash}" poster="https://ipfs.io/ipfs/${video.info
-        .snaphash}"><track kind="captions" /></video>`,
+      embed: dTubeIFrame,
       thumbnail: getProxyImageURL(`https://ipfs.io/ipfs/${video.info.snaphash}`, 'preview'),
     };
   }

@@ -117,6 +117,28 @@ class StoryFull extends React.Component {
     }
   };
 
+  renderDtubeEmbedPlayer() {
+    const { post } = this.props;
+    const parsedJsonMetaData = _.attempt(JSON.parse, post.json_metadata);
+
+    if (_.isError(parsedJsonMetaData)) {
+      return null;
+    }
+
+    const video = _.get(parsedJsonMetaData, 'video', {});
+    const isDtubeVideo = _.has(video, 'content.videohash') && _.has(video, 'info.snaphash');
+
+    if (isDtubeVideo) {
+      const videoTitle = _.get(video, 'info.title', '');
+      const author = _.get(video, 'info.author', '');
+      const permlink = _.get(video, 'info.permlink', '');
+      const dTubeEmbedUrl = `https://emb.d.tube/#!/${author}/${permlink}`;
+      return <iframe width="100%" height="315" src={dTubeEmbedUrl} title={videoTitle} />;
+    }
+
+    return null;
+  }
+
   render() {
     const {
       intl,
@@ -140,7 +162,6 @@ class StoryFull extends React.Component {
     const { open, index } = this.state.lightbox;
     const images = JSON.parse(post.json_metadata).image;
     const tags = _.union(JSON.parse(post.json_metadata).tags, [post.category]);
-    const video = JSON.parse(post.json_metadata).video;
 
     let followText = '';
 
@@ -249,16 +270,7 @@ class StoryFull extends React.Component {
           }}
           onClick={this.handleContentClick}
         >
-          {_.has(video, 'content.videohash') &&
-            _.has(video, 'info.snaphash') && (
-              <video
-                controls
-                src={`https://ipfs.io/ipfs/${video.content.videohash}`}
-                poster={`https://ipfs.io/ipfs/${video.info.snaphash}`}
-              >
-                <track kind="captions" />
-              </video>
-            )}
+          {this.renderDtubeEmbedPlayer()}
           <Body full body={post.body} json_metadata={post.json_metadata} />
         </div>
       );
