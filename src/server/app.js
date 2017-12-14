@@ -35,6 +35,8 @@ if (process.env.SENTRY_PUBLIC_DSN) {
   Raven.config(process.env.SENTRY_PUBLIC_DSN).install();
 }
 
+process.on('unhandledRejection', r => console.log(r));
+
 app.locals.env = process.env;
 app.enable('trust proxy');
 
@@ -92,7 +94,6 @@ function serverSideResponse(req, res) {
   });
 
   return Promise.all(promises)
-    .catch(err => console.log(err))
     .then(() => {
       const context = {};
       const content = renderToString(
