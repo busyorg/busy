@@ -35,8 +35,6 @@ if (process.env.SENTRY_PUBLIC_DSN) {
   Raven.config(process.env.SENTRY_PUBLIC_DSN).install();
 }
 
-process.on('unhandledRejection', r => console.log(r));
-
 app.locals.env = process.env;
 app.enable('trust proxy');
 
