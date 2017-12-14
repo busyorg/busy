@@ -38,7 +38,7 @@ const StoryPreview = ({ post }) => {
     const author = _.get(video, 'info.author', '');
     const permlink = _.get(video, 'info.permlink', '');
     const dTubeEmbedUrl = `https://emb.d.tube/#!/${author}/${permlink}`;
-    const dTubeIFrame = `<iframe width="100%" height="315" src="${dTubeEmbedUrl}"></iframe>`;
+    const dTubeIFrame = `<iframe width="100%" height="340" src="${dTubeEmbedUrl}"></iframe>`;
     hasVideo = true;
     embeds[0] = {
       type: 'video',

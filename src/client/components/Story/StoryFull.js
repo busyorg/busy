@@ -133,7 +133,7 @@ class StoryFull extends React.Component {
       const author = _.get(video, 'info.author', '');
       const permlink = _.get(video, 'info.permlink', '');
       const dTubeEmbedUrl = `https://emb.d.tube/#!/${author}/${permlink}`;
-      return <iframe width="100%" height="315" src={dTubeEmbedUrl} title={videoTitle} />;
+      return <iframe width="100%" height="340" src={dTubeEmbedUrl} title={videoTitle} />;
     }
 
     return null;
