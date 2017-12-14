@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { formatter } from 'steem';
 import VisibilitySensor from 'react-visibility-sensor';
+import formatter from '../helpers/steemitFormatter';
 import { getPostContent, getIsFetching, getIsPostEdited } from '../reducers';
 import { getContent } from './postActions';
 import Comments from '../comments/Comments';

@@ -2,7 +2,6 @@ import 'babel-polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import steem from 'steem';
 import Raven from 'raven-js';
 import Logger from 'js-logger';
 import { AppContainer } from 'react-hot-loader';
@@ -24,10 +23,6 @@ const store = getStore(steemConnectAPI);
 
 if (process.env.SENTRY_PUBLIC_DSN) {
   Raven.config(process.env.SENTRY_PUBLIC_DSN).install();
-}
-
-if (process.env.STEEMJS_URL) {
-  steem.api.setOptions({ url: process.env.STEEMJS_URL });
 }
 
 message.config({
