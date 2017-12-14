@@ -109,3 +109,20 @@ export const isWalletTransaction = actionType =>
   actionType === accountHistoryConstants.TRANSFER_TO_SAVINGS ||
   actionType === accountHistoryConstants.DELEGATE_VESTING_SHARES ||
   actionType === accountHistoryConstants.CLAIM_REWARD_BALANCE;
+
+export const getLookupAccountNames = (name, limit = 5) =>
+  SteemAPI.sendAsync('lookup_accounts', [name, limit]);
+
+export const getAllSearchResultPages = (search) => {
+  const promises = [];
+
+  for (let i = 0; i <= 10; i += 1) {
+    promises.push(
+      fetch(`https://api.asksteem.com/search?q=${search}&types=post&pg=${i}`).then(res =>
+        res.json(),
+      ),
+    );
+  }
+
+  return Promise.all(promises);
+};
