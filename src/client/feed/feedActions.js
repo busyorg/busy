@@ -37,7 +37,6 @@ export const getMoreUserFeedContentSuccess = createAction(GET_MORE_USER_FEED_CON
 
 export const feedHasNoMore = createAction(FEED_HAS_NO_MORE);
 
-// TODO: Fix issues with then
 export const getFeedContent = (
   { sortBy = 'trending', category = 'all', limit },
   resolve = () => {},
@@ -59,16 +58,15 @@ export const getFeedContent = (
     steemAPI,
   )
     .then((postsData) => {
-      resolve(dispatch(
+      dispatch(
         getFeedContentSuccess({
           sortBy,
           category,
           postsData,
           limit,
-        })),
-      ).then(() => {
-        resolve();
-      });
+        }),
+      );
+      resolve();
     })
     .catch((err) => {
       Logger.error(`error while loading ${sortBy}/${category}`, err);

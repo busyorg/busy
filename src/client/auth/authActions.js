@@ -38,7 +38,7 @@ export const login = () => (dispatch, getState, { steemConnectAPI }) => {
     meta: {
       refresh: getIsAuthenticated(getState()),
     },
-  });
+  }).catch(() => {});
 };
 
 export const getCurrentUserFollowing = () => dispatch => dispatch(getFollowing());
