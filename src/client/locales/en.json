@@ -222,6 +222,7 @@
   "market": "Market",
   "page_forbidden": "Page Requires Authentication",
   "page_forbidden_message": "Oops! Looks like you need to login to use this page.",
+  "phishing_warning_message": "Beware of spam and phishing links in transfer memos.",
   "post_hidden_for_low_ratings": "This post is currently hidden due to the author's low reputation or low post rating.",
   "post_preview_hidden_for_low_ratings": "This post preview is currently hidden due to the author's low reputation or low post rating.",
   "display_post": "Display post",

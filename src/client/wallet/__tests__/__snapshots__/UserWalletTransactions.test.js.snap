@@ -46,225 +46,13 @@ ShallowWrapper {
     "key": undefined,
     "nodeType": "host",
     "props": Object {
-      "children": <ReduxInfiniteScroll
-        animateItems={false}
-        className=""
-        containerHeight="100%"
-        elementIsScrollable={false}
-        hasMore={true}
-        holderType="div"
-        horizontal={false}
-        items={Array []}
-        loadMore={[Function]}
-        loader={
-          <div
-            style={
-              Object {
-                "margin": "20px",
-              }
-            }
-          >
-            <Loading
-              center={true}
-              style={Object {}}
-            />
-          </div>
-        }
-        loadingMore={false}
-        showLoader={true}
-        threshold={500}
-        transitionAppear={true}
-        transitionAppearTimeout={2000}
-        transitionEnter={true}
-        transitionEnterTimeout={2000}
-        transitionLeave={true}
-        transitionLeaveTimeout={1000}
-        transitionName="redux-infinite-scroll"
-      >
-        <div />
-        <WalletTransaction
-          currentUsername="hellosteem"
-          totalVestingFundSteem="0"
-          totalVestingShares="0"
-          transaction={
-            Object {
-              "op": Array [
-                "transfer_to_vesting",
-                Object {
-                  "amount": "100 STEEM",
-                },
-              ],
-              "timestamp": "0",
-            }
-          }
-        />
-        <WalletTransaction
-          currentUsername="hellosteem"
-          totalVestingFundSteem="0"
-          totalVestingShares="0"
-          transaction={
-            Object {
-              "op": Array [
-                "transfer",
-                Object {
-                  "amount": "100 STEEM",
-                  "from": "hellosteem1",
-                  "memo": "transfer memo",
-                },
-              ],
-              "timestamp": "0",
-            }
-          }
-        />
-      </ReduxInfiniteScroll>,
-      "className": "UserWalletTransactions",
-    },
-    "ref": null,
-    "rendered": Object {
-      "instance": null,
-      "key": undefined,
-      "nodeType": "class",
-      "props": Object {
-        "animateItems": false,
-        "children": Array [
-          <div />,
-          Array [
-            <WalletTransaction
-              currentUsername="hellosteem"
-              totalVestingFundSteem="0"
-              totalVestingShares="0"
-              transaction={
-                Object {
-                  "op": Array [
-                    "transfer_to_vesting",
-                    Object {
-                      "amount": "100 STEEM",
-                    },
-                  ],
-                  "timestamp": "0",
-                }
-              }
-            />,
-            <WalletTransaction
-              currentUsername="hellosteem"
-              totalVestingFundSteem="0"
-              totalVestingShares="0"
-              transaction={
-                Object {
-                  "op": Array [
-                    "transfer",
-                    Object {
-                      "amount": "100 STEEM",
-                      "from": "hellosteem1",
-                      "memo": "transfer memo",
-                    },
-                  ],
-                  "timestamp": "0",
-                }
-              }
-            />,
-          ],
-        ],
-        "className": "",
-        "containerHeight": "100%",
-        "elementIsScrollable": false,
-        "hasMore": true,
-        "holderType": "div",
-        "horizontal": false,
-        "items": Array [],
-        "loadMore": [Function],
-        "loader": <div
-          style={
-            Object {
-              "margin": "20px",
-            }
-          }
-        >
-          <Loading
-            center={true}
-            style={Object {}}
-          />
-        </div>,
-        "loadingMore": false,
-        "showLoader": true,
-        "threshold": 500,
-        "transitionAppear": true,
-        "transitionAppearTimeout": 2000,
-        "transitionEnter": true,
-        "transitionEnterTimeout": 2000,
-        "transitionLeave": true,
-        "transitionLeaveTimeout": 1000,
-        "transitionName": "redux-infinite-scroll",
-      },
-      "ref": null,
-      "rendered": Array [
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "host",
-          "props": Object {},
-          "ref": null,
-          "rendered": null,
-          "type": "div",
-        },
-        Object {
-          "instance": null,
-          "key": "undefinedundefined",
-          "nodeType": "function",
-          "props": Object {
-            "currentUsername": "hellosteem",
-            "totalVestingFundSteem": "0",
-            "totalVestingShares": "0",
-            "transaction": Object {
-              "op": Array [
-                "transfer_to_vesting",
-                Object {
-                  "amount": "100 STEEM",
-                },
-              ],
-              "timestamp": "0",
-            },
-          },
-          "ref": null,
-          "rendered": null,
-          "type": [Function],
-        },
-        Object {
-          "instance": null,
-          "key": "undefinedundefined",
-          "nodeType": "function",
-          "props": Object {
-            "currentUsername": "hellosteem",
-            "totalVestingFundSteem": "0",
-            "totalVestingShares": "0",
-            "transaction": Object {
-              "op": Array [
-                "transfer",
-                Object {
-                  "amount": "100 STEEM",
-                  "from": "hellosteem1",
-                  "memo": "transfer memo",
-                },
-              ],
-              "timestamp": "0",
-            },
-          },
-          "ref": null,
-          "rendered": null,
-          "type": [Function],
-        },
-      ],
-      "type": [Function],
-    },
-    "type": "div",
-  },
-  Symbol(enzyme.__nodes__): Array [
-    Object {
-      "instance": null,
-      "key": undefined,
-      "nodeType": "host",
-      "props": Object {
-        "children": <ReduxInfiniteScroll
+      "children": Array [
+        <FormattedMessage
+          defaultMessage="Beware of spam and phishing links in transfer memos."
+          id="phishing_warning_message"
+          values={Object {}}
+        />,
+        <ReduxInfiniteScroll
           animateItems={false}
           className=""
           containerHeight="100%"
@@ -335,10 +123,25 @@ ShallowWrapper {
             }
           />
         </ReduxInfiniteScroll>,
-        "className": "UserWalletTransactions",
+      ],
+      "className": "UserWalletTransactions",
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "defaultMessage": "Beware of spam and phishing links in transfer memos.",
+          "id": "phishing_warning_message",
+          "values": Object {},
+        },
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
       },
-      "ref": null,
-      "rendered": Object {
+      Object {
         "instance": null,
         "key": undefined,
         "nodeType": "class",
@@ -474,6 +277,247 @@ ShallowWrapper {
         ],
         "type": [Function],
       },
+    ],
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <FormattedMessage
+            defaultMessage="Beware of spam and phishing links in transfer memos."
+            id="phishing_warning_message"
+            values={Object {}}
+          />,
+          <ReduxInfiniteScroll
+            animateItems={false}
+            className=""
+            containerHeight="100%"
+            elementIsScrollable={false}
+            hasMore={true}
+            holderType="div"
+            horizontal={false}
+            items={Array []}
+            loadMore={[Function]}
+            loader={
+              <div
+                style={
+                  Object {
+                    "margin": "20px",
+                  }
+                }
+              >
+                <Loading
+                  center={true}
+                  style={Object {}}
+                />
+              </div>
+            }
+            loadingMore={false}
+            showLoader={true}
+            threshold={500}
+            transitionAppear={true}
+            transitionAppearTimeout={2000}
+            transitionEnter={true}
+            transitionEnterTimeout={2000}
+            transitionLeave={true}
+            transitionLeaveTimeout={1000}
+            transitionName="redux-infinite-scroll"
+          >
+            <div />
+            <WalletTransaction
+              currentUsername="hellosteem"
+              totalVestingFundSteem="0"
+              totalVestingShares="0"
+              transaction={
+                Object {
+                  "op": Array [
+                    "transfer_to_vesting",
+                    Object {
+                      "amount": "100 STEEM",
+                    },
+                  ],
+                  "timestamp": "0",
+                }
+              }
+            />
+            <WalletTransaction
+              currentUsername="hellosteem"
+              totalVestingFundSteem="0"
+              totalVestingShares="0"
+              transaction={
+                Object {
+                  "op": Array [
+                    "transfer",
+                    Object {
+                      "amount": "100 STEEM",
+                      "from": "hellosteem1",
+                      "memo": "transfer memo",
+                    },
+                  ],
+                  "timestamp": "0",
+                }
+              }
+            />
+          </ReduxInfiniteScroll>,
+        ],
+        "className": "UserWalletTransactions",
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "defaultMessage": "Beware of spam and phishing links in transfer memos.",
+            "id": "phishing_warning_message",
+            "values": Object {},
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "animateItems": false,
+            "children": Array [
+              <div />,
+              Array [
+                <WalletTransaction
+                  currentUsername="hellosteem"
+                  totalVestingFundSteem="0"
+                  totalVestingShares="0"
+                  transaction={
+                    Object {
+                      "op": Array [
+                        "transfer_to_vesting",
+                        Object {
+                          "amount": "100 STEEM",
+                        },
+                      ],
+                      "timestamp": "0",
+                    }
+                  }
+                />,
+                <WalletTransaction
+                  currentUsername="hellosteem"
+                  totalVestingFundSteem="0"
+                  totalVestingShares="0"
+                  transaction={
+                    Object {
+                      "op": Array [
+                        "transfer",
+                        Object {
+                          "amount": "100 STEEM",
+                          "from": "hellosteem1",
+                          "memo": "transfer memo",
+                        },
+                      ],
+                      "timestamp": "0",
+                    }
+                  }
+                />,
+              ],
+            ],
+            "className": "",
+            "containerHeight": "100%",
+            "elementIsScrollable": false,
+            "hasMore": true,
+            "holderType": "div",
+            "horizontal": false,
+            "items": Array [],
+            "loadMore": [Function],
+            "loader": <div
+              style={
+                Object {
+                  "margin": "20px",
+                }
+              }
+            >
+              <Loading
+                center={true}
+                style={Object {}}
+              />
+            </div>,
+            "loadingMore": false,
+            "showLoader": true,
+            "threshold": 500,
+            "transitionAppear": true,
+            "transitionAppearTimeout": 2000,
+            "transitionEnter": true,
+            "transitionEnterTimeout": 2000,
+            "transitionLeave": true,
+            "transitionLeaveTimeout": 1000,
+            "transitionName": "redux-infinite-scroll",
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {},
+              "ref": null,
+              "rendered": null,
+              "type": "div",
+            },
+            Object {
+              "instance": null,
+              "key": "undefinedundefined",
+              "nodeType": "function",
+              "props": Object {
+                "currentUsername": "hellosteem",
+                "totalVestingFundSteem": "0",
+                "totalVestingShares": "0",
+                "transaction": Object {
+                  "op": Array [
+                    "transfer_to_vesting",
+                    Object {
+                      "amount": "100 STEEM",
+                    },
+                  ],
+                  "timestamp": "0",
+                },
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": "undefinedundefined",
+              "nodeType": "function",
+              "props": Object {
+                "currentUsername": "hellosteem",
+                "totalVestingFundSteem": "0",
+                "totalVestingShares": "0",
+                "transaction": Object {
+                  "op": Array [
+                    "transfer",
+                    Object {
+                      "amount": "100 STEEM",
+                      "from": "hellosteem1",
+                      "memo": "transfer memo",
+                    },
+                  ],
+                  "timestamp": "0",
+                },
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+          ],
+          "type": [Function],
+        },
+      ],
       "type": "div",
     },
   ],
