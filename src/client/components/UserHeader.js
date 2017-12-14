@@ -85,7 +85,7 @@ const UserHeader = ({
           </div>
           <div className="UserHeader__handle-rank-container">
             <div className="UserHeader__row UserHeader__handle">
-              @{handle}&nbsp;
+              @{handle}{' '}
               {!isSameUser && isFollowingYou && (
                 <FormattedMessage id="follows_you" defaultMessage="follows you" />
               )}
