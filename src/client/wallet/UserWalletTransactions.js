@@ -5,8 +5,8 @@ import ReduxInfiniteScroll from '../vendor/ReduxInfiniteScroll';
 import { defaultAccountLimit } from '../helpers/apiHelpers';
 import Loading from '../components/Icon/Loading';
 import WalletTransaction from './WalletTransaction';
-import './UserWalletTransactions.less';
 import { FormattedMessage } from 'react-intl';
+import './UserWalletTransactions.less';
 
 class UserWalletTransactions extends React.Component {
   static propTypes = {
