@@ -26,6 +26,7 @@ import UserActivity from '../client/activity/UserActivity';
 import Post from '../client/post/Post';
 import Page from '../client/feed/Page';
 import Discover from '../client/discover/Discover';
+import Search from '../client/search/Search';
 
 const routes = [
   {
@@ -149,6 +150,10 @@ const routes = [
       {
         path: '/:category/@:author/:permlink',
         component: Post,
+      },
+      {
+        path: '/search',
+        component: Search,
       },
       {
         path: '/:sortBy?/:category?',
