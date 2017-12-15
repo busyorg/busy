@@ -1,23 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import _ from 'lodash';
 import VisibilitySensor from 'react-visibility-sensor';
 import formatter from '../helpers/steemitFormatter';
-import { getPostContent, getIsPostEdited, getIsPostFetching, getIsPostLoaded, getIsPostFailed } from '../reducers';
+import { getCryptoDetails } from '../helpers/cryptosHelper';
+import { getPostContent, getIsPostEdited, getIsPostFetching, getIsPostLoaded, getIsPostFailed, getIsAuthFetching } from '../reducers';
 import { getContent } from './postActions';
 import Error404 from '../statics/Error404';
 import Comments from '../comments/Comments';
 import Loading from '../components/Icon/Loading';
 import PostContent from './PostContent';
-import RightSidebar from '../app/Sidebar/RightSidebar';
 import Affix from '../components/Utils/Affix';
 import HiddenPostMessage from './HiddenPostMessage';
+import PostRecommendation from '../components/Sidebar/PostRecommendation';
+import CryptoTrendingCharts from '../components/Sidebar/CryptoTrendingCharts';
 import ScrollToTopOnMount from '../components/Utils/ScrollToTopOnMount';
 
 @connect(
   (state, ownProps) => ({
     edited: getIsPostEdited(state, ownProps.match.params.permlink),
     content: getPostContent(state, ownProps.match.params.author, ownProps.match.params.permlink),
+    isAuthFetching: getIsAuthFetching(state),
     fetching: getIsPostFetching(state),
     loaded: getIsPostLoaded(state),
     failed: getIsPostFailed(state),
@@ -33,6 +37,7 @@ export default class Post extends React.Component {
     loaded: PropTypes.bool,
     failed: PropTypes.bool,
     getContent: PropTypes.func,
+    isAuthFetching: PropTypes.bool.isRequired,
   };
 
   static defaultProps = {
@@ -92,8 +97,31 @@ export default class Post extends React.Component {
     });
   };
 
+  renderCryptoTrendingCharts() {
+    const { content } = this.props;
+    const parsedJsonMetadata = _.attempt(JSON.parse, content.json_metadata);
+
+    if (_.isError(parsedJsonMetadata)) {
+      return null;
+    }
+
+    const tags = _.get(parsedJsonMetadata, 'tags', []);
+    const allCryptoDetails = [];
+
+    _.each(tags, (tag) => {
+      const cryptoDetails = getCryptoDetails(tag);
+      if (!_.isEmpty(cryptoDetails)) {
+        allCryptoDetails.push(cryptoDetails);
+      }
+    });
+
+    const cryptoTags = _.map(_.uniqBy(allCryptoDetails, 'symbol'), crypto => crypto.symbol);
+    return !_.isEmpty(cryptoTags) && <CryptoTrendingCharts cryptos={cryptoTags} />;
+  }
+
   render() {
-    const { content, fetching, loaded, failed } = this.props;
+    const { content, fetching, loaded, failed, isAuthFetching } = this.props;
+
     if (failed) return <Error404 />;
     if (fetching || !content) return <Loading />;
 
@@ -108,7 +136,8 @@ export default class Post extends React.Component {
           <div className="post-layout container">
             <Affix className="rightContainer" stickPosition={77}>
               <div className="right">
-                <RightSidebar showPostRecommendation />
+                {loaded && this.renderCryptoTrendingCharts()}
+                <PostRecommendation isAuthFetching={isAuthFetching} />
               </div>
             </Affix>
             {showPost

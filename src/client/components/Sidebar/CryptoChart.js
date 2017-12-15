@@ -15,10 +15,14 @@ const fetchCryptoPriceHistory = symbol =>
 class CryptoChart extends React.Component {
   static propTypes = {
     crypto: PropTypes.string,
+    renderDivider: PropTypes.bool,
+    refreshCharts: PropTypes.bool,
   };
 
   static defaultProps = {
     crypto: '',
+    renderDivider: true,
+    refreshCharts: false,
   };
 
   constructor(props) {
@@ -28,6 +32,7 @@ class CryptoChart extends React.Component {
       currentCrypto,
       currentCryptoPriceHistory: [],
       loading: false,
+      apiError: false,
     };
 
     this.getCryptoPriceHistory = this.getCryptoPriceHistory.bind(this);
@@ -42,7 +47,10 @@ class CryptoChart extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     const currentCrypto = getCryptoDetails(nextProps.crypto);
-    if (!_.isEmpty(currentCrypto)) {
+    const isDifferentCrypto = this.props.crypto !== nextProps.crypto;
+    const isEmptyCryptoPriceHistory = _.isEmpty(this.state.currentCryptoPriceHistory);
+
+    if (isDifferentCrypto || isEmptyCryptoPriceHistory || nextProps.refreshCharts) {
       this.setState(
         {
           currentCrypto,
@@ -60,19 +68,35 @@ class CryptoChart extends React.Component {
     this.setState({
       loading: true,
     });
-    fetchCryptoPriceHistory(symbol).then((response) => {
-      const currentCryptoPriceHistory = _.map(response.Data, data => data.close);
-      this.setState({
-        currentCryptoPriceHistory,
-        loading: false,
+    fetchCryptoPriceHistory(symbol)
+      .then((response) => {
+        const responseStatus = _.get(response, 'Response', 'Error');
+        if (responseStatus !== 'Error') {
+          const currentCryptoPriceHistory = _.map(response.Data, data => data.close);
+          this.setState({
+            currentCryptoPriceHistory,
+            loading: false,
+            apiError: false,
+          });
+        } else {
+          this.setState({
+            apiError: true,
+          });
+        }
+      })
+      .catch(() => {
+        this.setState({
+          loading: false,
+          apiError: true,
+        });
       });
-    });
   }
 
   render() {
-    const { currentCryptoPriceHistory, loading, currentCrypto } = this.state;
+    const { renderDivider } = this.props;
+    const { currentCryptoPriceHistory, loading, currentCrypto, apiError } = this.state;
 
-    if (_.isEmpty(currentCrypto)) return null;
+    if (_.isEmpty(currentCrypto) || apiError) return null;
 
     const currentCryptoPrice = _.last(currentCryptoPriceHistory);
     const previousCryptoPrice = _.nth(currentCryptoPriceHistory, -2);
@@ -95,6 +119,7 @@ class CryptoChart extends React.Component {
         {loading
           ? <Loading />
           : <Trend data={currentCryptoPriceHistory} stroke={'#4757b2'} strokeWidth={5} />}
+        {renderDivider && <div className="CryptoTrendingCharts__divider" />}
       </div>
     );
   }

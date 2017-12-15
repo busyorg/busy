@@ -2,35 +2,62 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { FormattedMessage } from 'react-intl';
-import { getCryptoDetails } from '../../helpers/cryptosHelper';
 import CryptoChart from './CryptoChart';
 import './CryptoTrendingCharts.less';
 
 class CryptoTrendingCharts extends React.Component {
   static propTypes = {
-    crypto: PropTypes.string,
+    cryptos: PropTypes.arrayOf(PropTypes.string),
   };
 
   static defaultProps = {
-    crypto: '',
+    cryptos: [],
   };
 
   constructor(props) {
     super(props);
 
+    this.state = {
+      refreshCharts: false,
+    };
+
     this.handleOnClickRefresh = this.handleOnClickRefresh.bind(this);
   }
 
   handleOnClickRefresh() {
-    this.forceUpdate();
+    this.setState(
+      {
+        refreshCharts: true,
+      },
+      () => {
+        this.setState({
+          refreshCharts: false,
+        });
+      },
+    );
+  }
+
+  renderCryptoCharts() {
+    const { cryptos } = this.props;
+    const { refreshCharts } = this.state;
+
+    if (_.isEmpty(cryptos)) {
+      return null;
+    }
+    return _.map(cryptos, (crypto, index) => {
+      const isNotLastElement = index < cryptos.length - 1;
+      return (
+        <CryptoChart
+          key={crypto}
+          crypto={crypto}
+          renderDivider={isNotLastElement}
+          refreshCharts={refreshCharts}
+        />
+      );
+    });
   }
 
   render() {
-    const { crypto } = this.props;
-    const currentCrypto = getCryptoDetails(crypto);
-
-    if (_.isEmpty(currentCrypto)) return null;
-
     return (
       <div className="CryptoTrendingCharts">
         <h4 className="CryptoTrendingCharts__title">
@@ -43,7 +70,7 @@ class CryptoTrendingCharts extends React.Component {
           />
         </h4>
         <div className="CryptoTrendingCharts__divider" />
-        <CryptoChart crypto={crypto} />
+        {this.renderCryptoCharts()}
       </div>
     );
   }
