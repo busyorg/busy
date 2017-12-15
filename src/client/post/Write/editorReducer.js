@@ -19,7 +19,7 @@ const editor = (state = defaultState, action) => {
         ...state,
         editedPosts: [...state.editedPosts, action.payload],
       };
-    case postActions.GET_CONTENT_SUCCESS:
+    case postActions.GET_CONTENT.SUCCESS:
       return {
         ...state,
         editedPosts: state.editedPosts.filter(post => post !== action.payload.permlink),

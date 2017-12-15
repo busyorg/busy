@@ -68,7 +68,7 @@ const posts = (state = initialState, action) => {
         },
       };
     }
-    case postsActions.GET_CONTENT_SUCCESS:
+    case postsActions.GET_CONTENT.SUCCESS:
       if (action.meta.afterLike) {
         return {
           ...state,
