@@ -56,7 +56,7 @@ class InterestingPeopleWithAPI extends Component {
 
   getBlogAuthors = (username = '') =>
     steemAPI
-      .getBlogAuthorsAsync(username)
+      .sendAsync('call', ['follow_api', 'get_blog_authors', [username]])
       .then((result) => {
         const users = _.sortBy(result, user => user[1])
           .reverse()

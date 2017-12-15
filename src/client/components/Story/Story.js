@@ -9,7 +9,7 @@ import {
 } from 'react-intl';
 import { Link } from 'react-router-dom';
 import { Tag, Icon, Popover, Tooltip } from 'antd';
-import { formatter } from 'steem';
+import formatter from '../../helpers/steemitFormatter';
 import { isPostTaggedNSFW } from '../../helpers/postHelpers';
 import StoryPreview from './StoryPreview';
 import StoryFooter from '../StoryFooter/StoryFooter';

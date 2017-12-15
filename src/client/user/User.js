@@ -94,8 +94,9 @@ export default class User extends React.Component {
 
     const isSameUser = authenticated && authenticatedUser.name === username;
     let followsYou = false;
-    if (user.followsYou && user.followsYou.length > 0) {
-      followsYou = (user.followsYou[0] === authenticatedUser.name);
+    if (user.followsYou
+      && user.followsYou.length > 0) {
+      followsYou = user.followsYou[0] === authenticatedUser.name;
     }
 
     return (

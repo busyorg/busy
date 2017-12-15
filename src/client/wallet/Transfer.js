@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { injectIntl, FormattedMessage } from 'react-intl';
-import steem from 'steem';
 import { Form, Input, Radio, Modal } from 'antd';
+import steemAPI from '../steemAPI';
 import SteemConnect from '../steemConnectAPI';
 import { closeTransfer } from './walletActions';
 import {
@@ -166,7 +166,7 @@ export default class Transfer extends React.Component {
         ),
       ]);
     }
-    steem.api.getAccounts([value], (err, result) => {
+    steemAPI.sendAsync('get_accounts', [[value]], (err, result) => {
       if (result[0]) {
         callback();
       } else {

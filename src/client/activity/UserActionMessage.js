@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import steem from 'steem';
 import _ from 'lodash';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 import { Link } from 'react-router-dom';
+import formatter from '../helpers/steemitFormatter';
 import * as accountHistoryConstants from '../../common/constants/accountHistory';
 import VoteActionMessage from './VoteActionMessage';
 import CustomJSONMessage from './CustomJSONMessage';
@@ -140,7 +140,7 @@ class UserActionMessage extends React.Component {
               steemPower: (
                 <FormattedNumber
                   value={parseFloat(
-                    steem.formatter.vestToSteem(
+                    formatter.vestToSteem(
                       actionDetails.reward,
                       totalVestingShares,
                       totalVestingFundSteem,

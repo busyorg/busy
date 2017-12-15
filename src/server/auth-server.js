@@ -4,11 +4,7 @@
  */
 
 const express = require('express');
-const steem = require('steem');
-
-if (process.env.STEEMJS_URL) {
-  steem.api.setOptions({ url: process.env.STEEMJS_URL });
-}
+const steemAPI = require('./steemAPI');
 
 const app = express();
 
@@ -27,7 +23,7 @@ app.get('/callback', (req, res) => {
 
 app.get('/i/@:referral', (req, res) => {
   const { referral } = req.params;
-  steem.api.getAccountsAsync([referral]).then((accounts) => {
+  steemAPI.sendAsync('get_accounts', [[referral]]).then((accounts) => {
     if (accounts[0]) {
       res.cookie('referral', referral, { maxAge: 86400 * 30 * 1000 });
       res.redirect('/');
@@ -39,7 +35,7 @@ app.get('/i/@:referral', (req, res) => {
 
 app.get('/i/:parent/@:referral/:permlink', (req, res) => {
   const { parent, referral, permlink } = req.params;
-  steem.api.getContentAsync(referral, permlink).then((content) => {
+  steemAPI.sendAsync('get_content', [referral, permlink]).then((content) => {
     if (content.author) {
       res.cookie('referral', referral, { maxAge: 86400 * 30 * 1000 });
       res.redirect(`/${parent}/@${referral}/${permlink}`);
