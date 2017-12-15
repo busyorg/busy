@@ -89,6 +89,12 @@ export const getIsFetchingFollowingList = state => fromUser.getIsFetchingFollowi
 export const getRecommendations = state => fromUser.getRecommendations(state.user);
 
 export const getUser = (state, username) => fromUsers.getUser(state.users, username);
+export const getIsUserFetching = (state, username) =>
+  fromUsers.getIsUserFetching(state.users, username);
+export const getIsUserLoaded = (state, username) =>
+  fromUsers.getIsUserLoaded(state.users, username);
+export const getIsUserFailed = (state, username) =>
+  fromUsers.getIsUserFailed(state.users, username);
 
 export const getFavoriteCategories = state => fromFavorites.getFavoriteCategories(state.favorites);
 

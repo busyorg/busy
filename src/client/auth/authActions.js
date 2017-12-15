@@ -1,6 +1,6 @@
 import Cookie from 'js-cookie';
 import { getIsAuthenticated } from '../reducers';
-import { getAccountWithFollowingCount } from '../helpers/apiHelpers';
+import { getAccount } from '../helpers/apiHelpers';
 import { getFollowing } from '../user/userActions';
 import { createAsyncActionType } from '../helpers/stateHelpers';
 
@@ -63,6 +63,6 @@ export const updateAuthUser = username => dispatch =>
   dispatch({
     type: UPDATE_AUTH_USER.ACTION,
     payload: {
-      promise: getAccountWithFollowingCount(username),
+      promise: getAccount(username),
     },
   });
