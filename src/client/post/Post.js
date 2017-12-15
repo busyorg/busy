@@ -1,16 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import _ from 'lodash';
 import VisibilitySensor from 'react-visibility-sensor';
 import formatter from '../helpers/steemitFormatter';
-import { getPostContent, getIsFetching, getIsPostEdited } from '../reducers';
+import { getCryptoDetails } from '../helpers/cryptosHelper';
+import { getPostContent, getIsFetching, getIsPostEdited, getIsAuthFetching } from '../reducers';
 import { getContent } from './postActions';
 import Comments from '../comments/Comments';
 import Loading from '../components/Icon/Loading';
 import PostContent from './PostContent';
-import RightSidebar from '../app/Sidebar/RightSidebar';
 import Affix from '../components/Utils/Affix';
 import HiddenPostMessage from './HiddenPostMessage';
+import PostRecommendation from '../components/Sidebar/PostRecommendation';
+import CryptoTrendingCharts from '../components/Sidebar/CryptoTrendingCharts';
 import ScrollToTopOnMount from '../components/Utils/ScrollToTopOnMount';
 
 @connect(
@@ -18,6 +21,7 @@ import ScrollToTopOnMount from '../components/Utils/ScrollToTopOnMount';
     edited: getIsPostEdited(state, ownProps.match.params.permlink),
     content: getPostContent(state, ownProps.match.params.author, ownProps.match.params.permlink),
     fetching: getIsFetching(state),
+    isAuthFetching: getIsAuthFetching(state),
   }),
   { getContent },
 )
@@ -28,6 +32,7 @@ export default class Post extends React.Component {
     content: PropTypes.shape(),
     fetching: PropTypes.bool,
     getContent: PropTypes.func,
+    isAuthFetching: PropTypes.bool.isRequired,
   };
 
   static defaultProps = {
@@ -69,7 +74,7 @@ export default class Post extends React.Component {
     }
   }
 
-  handleCommentsVisibility = (visible) => {
+  handleCommentsVisibility = visible => {
     if (visible) {
       this.setState({
         commentsVisible: true,
@@ -83,8 +88,29 @@ export default class Post extends React.Component {
     });
   };
 
+  renderCryptoTrendingCharts() {
+    const { content } = this.props;
+    const parsedJsonMetadata = _.attempt(JSON.parse, content.json_metadata);
+
+    if (_.isError(parsedJsonMetadata)) {
+      return null;
+    }
+
+    const tags = _.get(parsedJsonMetadata, 'tags', []);
+    const cryptoTags = [];
+
+    _.each(tags, (tag) => {
+      const cryptoDetails = getCryptoDetails(tag);
+      if (!_.isEmpty(cryptoDetails)) {
+        cryptoTags.push(tag);
+      }
+    });
+
+    return !_.isEmpty(cryptoTags) && <CryptoTrendingCharts cryptos={cryptoTags} />;
+  }
+
   render() {
-    const { content, fetching, edited } = this.props;
+    const { content, fetching, edited, isAuthFetching } = this.props;
     const { showHiddenPost } = this.state;
     const loading = !content || (fetching && edited);
     const reputation = loading ? 0 : formatter.reputation(content.author_reputation);
@@ -97,7 +123,8 @@ export default class Post extends React.Component {
           <div className="post-layout container">
             <Affix className="rightContainer" stickPosition={77}>
               <div className="right">
-                <RightSidebar showPostRecommendation />
+                {!loading && this.renderCryptoTrendingCharts()}
+                <PostRecommendation isAuthFetching={isAuthFetching} />
               </div>
             </Affix>
             {showPost

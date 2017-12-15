@@ -2,17 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { FormattedMessage } from 'react-intl';
-import { getCryptoDetails } from '../../helpers/cryptosHelper';
 import CryptoChart from './CryptoChart';
 import './CryptoTrendingCharts.less';
 
 class CryptoTrendingCharts extends React.Component {
   static propTypes = {
-    crypto: PropTypes.string,
+    cryptos: PropTypes.arrayOf(PropTypes.string),
   };
 
   static defaultProps = {
-    crypto: '',
+    cryptos: [],
   };
 
   constructor(props) {
@@ -25,12 +24,15 @@ class CryptoTrendingCharts extends React.Component {
     this.forceUpdate();
   }
 
+  renderCryptoCharts() {
+    const { cryptos } = this.props;
+    if (_.isEmpty(cryptos)) {
+      return null;
+    }
+    return _.map(cryptos, crypto => <CryptoChart key={crypto} crypto={crypto} />);
+  }
+
   render() {
-    const { crypto } = this.props;
-    const currentCrypto = getCryptoDetails(crypto);
-
-    if (_.isEmpty(currentCrypto)) return null;
-
     return (
       <div className="CryptoTrendingCharts">
         <h4 className="CryptoTrendingCharts__title">
@@ -43,7 +45,7 @@ class CryptoTrendingCharts extends React.Component {
           />
         </h4>
         <div className="CryptoTrendingCharts__divider" />
-        <CryptoChart crypto={crypto} />
+        {this.renderCryptoCharts()}
       </div>
     );
   }
