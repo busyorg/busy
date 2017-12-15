@@ -101,6 +101,9 @@ function serverSideResponse(req, res) {
           </StaticRouter>
         </Provider>,
       );
+      if (context.status) {
+        res.status(context.status);
+      }
       res.send(renderPage(store, content));
     })
     .catch((err) => {
