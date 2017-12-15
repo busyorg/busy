@@ -27,13 +27,14 @@ export default (state = initialState, action) => {
         ...state,
         rate: action.rate,
       };
-    case postActions.GET_CONTENT_START:
+    case postActions.GET_CONTENT.START:
       return {
         ...state,
         isFetching: true,
         isLoaded: false,
       };
-    case postActions.GET_CONTENT_SUCCESS:
+    case postActions.GET_CONTENT.SUCCESS:
+    case postActions.GET_CONTENT.ERROR:
       return {
         ...state,
         isFetching: false,

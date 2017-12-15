@@ -52,6 +52,9 @@ export const getPosts = state => fromPosts.getPosts(state.posts);
 export const getPostContent = (state, author, permlink) =>
   fromPosts.getPostContent(state.posts, author, permlink);
 export const getPendingLikes = state => fromPosts.getPendingLikes(state.posts);
+export const getIsPostFetching = state => fromPosts.getIsPostFetching(state.posts);
+export const getIsPostLoaded = state => fromPosts.getIsPostLoaded(state.posts);
+export const getIsPostFailed = state => fromPosts.getIsPostFailed(state.posts);
 
 export const getDraftPosts = state => fromEditor.getDraftPosts(state.editor);
 export const getIsEditorLoading = state => fromEditor.getIsEditorLoading(state.editor);
@@ -86,6 +89,12 @@ export const getIsFetchingFollowingList = state => fromUser.getIsFetchingFollowi
 export const getRecommendations = state => fromUser.getRecommendations(state.user);
 
 export const getUser = (state, username) => fromUsers.getUser(state.users, username);
+export const getIsUserFetching = (state, username) =>
+  fromUsers.getIsUserFetching(state.users, username);
+export const getIsUserLoaded = (state, username) =>
+  fromUsers.getIsUserLoaded(state.users, username);
+export const getIsUserFailed = (state, username) =>
+  fromUsers.getIsUserFailed(state.users, username);
 
 export const getFavoriteCategories = state => fromFavorites.getFavoriteCategories(state.favorites);
 

@@ -1,39 +1,61 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { withRouter, Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import SteemConnect from '../steemConnectAPI';
+import './ErrorPage.less';
 
-const Error401 = () => (
-  <div className="main-panel">
-    <div className="container my-5">
-      <div className="ptl text-center">
-        <h1>
-          <FormattedMessage id="page_forbidden" defaultMessage="Page Requires Authentication" />
-        </h1>
-        <h2>
-          <FormattedMessage
-            id="page_forbidden_message"
-            defaultMessage="Oops! Looks like you need to login to use this page."
-          />
-        </h2>
-        <p>
-          <FormattedMessage
-            id="need_login"
-            defaultMessage="You need to login to use this feature, please"
-          />{' '}
-          <a href={SteemConnect.getLoginURL()}>
-            <FormattedMessage id="login" defaultMessage="Login" />
-          </a>
-          <br />
-          <FormattedMessage id="here_link" defaultMessage="Here's a link to the" />
-          <Link to="/">
-            <FormattedMessage id="homepage" defaultMessage="home page" />
-          </Link>
-          .
-        </p>
-      </div>
+const Error401 = ({ staticContext }) => {
+  if (staticContext) {
+    staticContext.status = 401; // eslint-disable-line no-param-reassign
+  }
+  return (
+    <div className="ErrorPage container">
+      <h1>
+        <FormattedMessage id="page_forbidden" defaultMessage="Page Requires Authentication" />
+      </h1>
+      <h2>
+        <FormattedMessage
+          id="page_forbidden_message"
+          defaultMessage="Oops! Looks like you need to login to use this page."
+        />
+      </h2>
+      <p>
+        <FormattedMessage
+          id="need_login_link_text"
+          defaultMessage="You need to login to use this feature, please {link}."
+          values={{
+            link: (
+              <a href={SteemConnect.getLoginURL()}>
+                <FormattedMessage id="login" defaultMessage="Login" />
+              </a>
+            ),
+          }}
+        />
+      </p>
+      <p>
+        <FormattedMessage
+          id="homepage_link_text"
+          defaultMessage="Here's a link to {link}."
+          values={{
+            link: (
+              <Link to="/">
+                <FormattedMessage id="homepage" defaultMessage="the home page" />
+              </Link>
+            ),
+          }}
+        />
+      </p>
     </div>
-  </div>
-);
+  );
+};
 
-export default Error401;
+Error401.propTypes = {
+  staticContext: PropTypes.shape(),
+};
+
+Error401.defaultProps = {
+  staticContext: null,
+};
+
+export default withRouter(Error401);
