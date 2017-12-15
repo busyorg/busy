@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import VisibilitySensor from 'react-visibility-sensor';
 import formatter from '../helpers/steemitFormatter';
-import { getPostContent, getIsFetching, getIsPostEdited } from '../reducers';
+import { getPostContent, getIsPostEdited, getIsPostFetching, getIsPostLoaded, getIsPostFailed } from '../reducers';
 import { getContent } from './postActions';
+import Error404 from '../statics/Error404';
 import Comments from '../comments/Comments';
 import Loading from '../components/Icon/Loading';
 import PostContent from './PostContent';
@@ -17,7 +18,9 @@ import ScrollToTopOnMount from '../components/Utils/ScrollToTopOnMount';
   (state, ownProps) => ({
     edited: getIsPostEdited(state, ownProps.match.params.permlink),
     content: getPostContent(state, ownProps.match.params.author, ownProps.match.params.permlink),
-    fetching: getIsFetching(state),
+    fetching: getIsPostFetching(state),
+    loaded: getIsPostLoaded(state),
+    failed: getIsPostFailed(state),
   }),
   { getContent },
 )
@@ -27,6 +30,8 @@ export default class Post extends React.Component {
     edited: PropTypes.bool,
     content: PropTypes.shape(),
     fetching: PropTypes.bool,
+    loaded: PropTypes.bool,
+    failed: PropTypes.bool,
     getContent: PropTypes.func,
   };
 
@@ -34,6 +39,8 @@ export default class Post extends React.Component {
     edited: false,
     content: undefined,
     fetching: false,
+    loaded: false,
+    failed: false,
     getContent: () => {},
   };
 
@@ -47,18 +54,20 @@ export default class Post extends React.Component {
   };
 
   componentDidMount() {
-    if ((!this.props.content || this.props.edited) && !this.props.fetching) {
+    const { edited, fetching, loaded, failed } = this.props;
+
+    const shouldUpdate = (!loaded && !failed) || edited;
+    if (shouldUpdate && !fetching) {
       this.props.getContent(this.props.match.params.author, this.props.match.params.permlink);
     }
   }
 
   componentWillReceiveProps(nextProps) {
     const { author, permlink } = nextProps.match.params;
-    if (
-      (!nextProps.content || nextProps.edited) &&
-      nextProps.match.params !== this.props.match.params &&
-      !nextProps.fetching
-    ) {
+    const { author: prevAuthor, permlink: prevPermlink } = this.props.match.params;
+
+    const shouldUpdate = (author !== prevAuthor) || (permlink !== prevPermlink);
+    if (shouldUpdate && !nextProps.fetching) {
       this.setState({ commentsVisible: false }, () => this.props.getContent(author, permlink));
     }
   }
@@ -84,10 +93,12 @@ export default class Post extends React.Component {
   };
 
   render() {
-    const { content, fetching, edited } = this.props;
+    const { content, fetching, loaded, failed } = this.props;
+    if (failed) return <Error404 />;
+    if (fetching || !content) return <Loading />;
+
     const { showHiddenPost } = this.state;
-    const loading = !content || (fetching && edited);
-    const reputation = loading ? 0 : formatter.reputation(content.author_reputation);
+    const reputation = loaded ? formatter.reputation(content.author_reputation) : 0;
     const showPost = reputation >= 0 || showHiddenPost;
 
     return (
@@ -102,10 +113,10 @@ export default class Post extends React.Component {
             </Affix>
             {showPost
               ? <div className="center" style={{ paddingBottom: '24px' }}>
-                {!loading ? <PostContent content={content} /> : <Loading />}
-                {!loading && <VisibilitySensor onChange={this.handleCommentsVisibility} />}
+                <PostContent content={content} />
+                <VisibilitySensor onChange={this.handleCommentsVisibility} />
                 <div id="comments">
-                  {!loading && <Comments show={this.state.commentsVisible} post={content} />}
+                  <Comments show={this.state.commentsVisible} post={content} />
                 </div>
               </div>
               : <HiddenPostMessage onClick={this.handleShowPost} />}

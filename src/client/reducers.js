@@ -52,6 +52,9 @@ export const getPosts = state => fromPosts.getPosts(state.posts);
 export const getPostContent = (state, author, permlink) =>
   fromPosts.getPostContent(state.posts, author, permlink);
 export const getPendingLikes = state => fromPosts.getPendingLikes(state.posts);
+export const getIsPostFetching = state => fromPosts.getIsPostFetching(state.posts);
+export const getIsPostLoaded = state => fromPosts.getIsPostLoaded(state.posts);
+export const getIsPostFailed = state => fromPosts.getIsPostFailed(state.posts);
 
 export const getDraftPosts = state => fromEditor.getDraftPosts(state.editor);
 export const getIsEditorLoading = state => fromEditor.getIsEditorLoading(state.editor);

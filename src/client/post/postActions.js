@@ -15,10 +15,14 @@ export const getContent = (postAuthor, postPermlink, afterLike) => (
   if (!postAuthor || !postPermlink) {
     return null;
   }
+
   return dispatch({
     type: GET_CONTENT.ACTION,
     payload: {
-      promise: steemAPI.sendAsync('get_content', [postAuthor, postPermlink]),
+      promise: steemAPI.sendAsync('get_content', [postAuthor, postPermlink]).then((res) => {
+        if (res.id === 0) throw new Error('There is no such post');
+        return res;
+      }),
     },
     meta: {
       afterLike,

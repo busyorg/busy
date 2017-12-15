@@ -34,6 +34,7 @@ export default (state = initialState, action) => {
         isLoaded: false,
       };
     case postActions.GET_CONTENT.SUCCESS:
+    case postActions.GET_CONTENT.ERROR:
       return {
         ...state,
         isFetching: false,

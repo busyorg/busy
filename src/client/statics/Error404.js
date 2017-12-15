@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import './ErrorPage.less';
 
@@ -42,4 +42,4 @@ Error404.defaultProps = {
   staticContext: null,
 };
 
-export default Error404;
+export default withRouter(Error404);
