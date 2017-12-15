@@ -18,16 +18,16 @@ const Error401 = () => (
         </h2>
         <p>
           <FormattedMessage
-            id="@statics/need_login"
+            id="need_login"
             defaultMessage="You need to login to use this feature, please"
           />{' '}
           <a href={SteemConnect.getLoginURL()}>
             <FormattedMessage id="login" defaultMessage="Login" />
           </a>
           <br />
-          <FormattedMessage id="@statics/here_link" defaultMessage="Here's a link to the" />
+          <FormattedMessage id="here_link" defaultMessage="Here's a link to the" />
           <Link to="/">
-            <FormattedMessage id="@statics/homepage" defaultMessage="home page" />
+            <FormattedMessage id="homepage" defaultMessage="home page" />
           </Link>
           .
         </p>
