@@ -26,6 +26,7 @@ const UserHeader = ({
   handleVisibleChange,
 }) => {
   const style = hasCover ? { backgroundImage: `url("${coverImage}")` } : {};
+  const displayFollowsYou = !isSameUser && isFollowingYou;
   return (
     <div className={classNames('UserHeader', { 'UserHeader--cover': hasCover })} style={style}>
       <div className="UserHeader__container">
@@ -86,7 +87,7 @@ const UserHeader = ({
           <div className="UserHeader__handle-rank-container">
             <div className="UserHeader__row UserHeader__handle">
               @{handle}&nbsp;
-              {!isSameUser && isFollowingYou && (
+              {displayFollowsYou && (
                 <FormattedMessage id="follows_you" defaultMessage="follows you" />
               )}
             </div>
