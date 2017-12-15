@@ -27,7 +27,7 @@ export const getContent = (postAuthor, postPermlink, afterLike) => (
     meta: {
       afterLike,
     },
-  });
+  }).catch(() => {});
 };
 
 export const votePost = (postId, author, permlink, weight = 10000) => (
