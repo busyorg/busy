@@ -17,19 +17,44 @@ class CryptoTrendingCharts extends React.Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      refreshCharts: false,
+    };
+
     this.handleOnClickRefresh = this.handleOnClickRefresh.bind(this);
   }
 
   handleOnClickRefresh() {
-    this.forceUpdate();
+    this.setState(
+      {
+        refreshCharts: true,
+      },
+      () => {
+        this.setState({
+          refreshCharts: false,
+        });
+      },
+    );
   }
 
   renderCryptoCharts() {
     const { cryptos } = this.props;
+    const { refreshCharts } = this.state;
+
     if (_.isEmpty(cryptos)) {
       return null;
     }
-    return _.map(cryptos, crypto => <CryptoChart key={crypto} crypto={crypto} />);
+    return _.map(cryptos, (crypto, index) => {
+      const isNotLastElement = index < cryptos.length - 1;
+      return (
+        <CryptoChart
+          key={crypto}
+          crypto={crypto}
+          renderDivider={isNotLastElement}
+          refreshCharts={refreshCharts}
+        />
+      );
+    });
   }
 
   render() {

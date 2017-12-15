@@ -74,7 +74,7 @@ export default class Post extends React.Component {
     }
   }
 
-  handleCommentsVisibility = visible => {
+  handleCommentsVisibility = (visible) => {
     if (visible) {
       this.setState({
         commentsVisible: true,
@@ -97,15 +97,16 @@ export default class Post extends React.Component {
     }
 
     const tags = _.get(parsedJsonMetadata, 'tags', []);
-    const cryptoTags = [];
+    const allCryptoDetails = [];
 
     _.each(tags, (tag) => {
       const cryptoDetails = getCryptoDetails(tag);
       if (!_.isEmpty(cryptoDetails)) {
-        cryptoTags.push(tag);
+        allCryptoDetails.push(cryptoDetails);
       }
     });
 
+    const cryptoTags = _.map(_.uniqBy(allCryptoDetails, 'symbol'), crypto => crypto.symbol);
     return !_.isEmpty(cryptoTags) && <CryptoTrendingCharts cryptos={cryptoTags} />;
   }
 
