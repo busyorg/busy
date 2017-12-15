@@ -1,3 +1,4 @@
+@import (reference) "../../styles/modules/variables.less";
 @import (reference) "../../styles/custom.less";
 
 .PopoverMenuItem {
@@ -27,5 +28,13 @@
     & > a {
       font-weight: bold !important;
     }
+  }
+}
+
+.PopoverMenuItem.PopOverMenuItem__full-screen-hidden {
+  display: list-item;
+
+  @media @small {
+    display: none;
   }
 }

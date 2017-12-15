@@ -48,25 +48,33 @@ class Drafts extends React.Component {
 
     return (
       <div className="shifted">
-        <div className="settings-layout container">
+        <div className="drafts-layout container">
           <Affix className="leftContainer" stickPosition={77}>
             <div className="left">
               <LeftSidebar />
             </div>
           </Affix>
           <div className="center">
-            <h1>
-              <FormattedMessage id="drafts" defaultMessage="Drafts" />
-            </h1>
+            <div>
+              <h1>
+                <FormattedMessage id="drafts" defaultMessage="Drafts" />
+              </h1>
+              <h3>
+                <FormattedMessage
+                  id="drafts_description"
+                  defaultMessage="These are posts that were never made public. You can publish them or delete them."
+                />
+              </h3>
+              <br />
+            </div>
             {reloading && <Loading center={false} />}
-            {noDrafts && (
+            {noDrafts &&
               <h3 className="text-center">
                 <FormattedMessage
                   id="drafts_empty"
                   defaultMessage="You don't have any draft saved"
                 />
-              </h3>
-            )}
+              </h3>}
             {!reloading &&
               _.map(sortedDraftPosts, draft => (
                 <DraftRow

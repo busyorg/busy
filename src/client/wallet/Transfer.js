@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { injectIntl, FormattedMessage } from 'react-intl';
-import steem from 'steem';
 import { Form, Input, Radio, Modal } from 'antd';
+import steemAPI from '../steemAPI';
 import SteemConnect from '../steemConnectAPI';
 import { closeTransfer } from './walletActions';
 import {
@@ -46,6 +46,8 @@ export default class Transfer extends React.Component {
 
   static amountRegex = /^[0-9]*\.?[0-9]{0,3}$/;
 
+  static minAccountLength = 3;
+  static maxAccountLength = 16;
   static exchangeRegex = /^(bittrex|blocktrades|poloniex|changelly|openledge|shapeshiftio)$/;
 
   state = {
@@ -134,7 +136,37 @@ export default class Transfer extends React.Component {
       return;
     }
 
-    steem.api.getAccounts([value], (err, result) => {
+    if (value.length < Transfer.minAccountLength) {
+      callback([
+        new Error(
+          intl.formatMessage(
+            {
+              id: 'username_too_short',
+              defaultMessage: 'Username {username} is too short.',
+            },
+            {
+              username: value,
+            },
+          ),
+        ),
+      ]);
+    }
+    if (value.length > Transfer.maxAccountLength) {
+      callback([
+        new Error(
+          intl.formatMessage(
+            {
+              id: 'username_too_long',
+              defaultMessage: 'Username {username} is too long.',
+            },
+            {
+              username: value,
+            },
+          ),
+        ),
+      ]);
+    }
+    steemAPI.sendAsync('get_accounts', [[value]], (err, result) => {
       if (result[0]) {
         callback();
       } else {

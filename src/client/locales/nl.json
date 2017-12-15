@@ -75,6 +75,7 @@
   "reblog_modal_title": "Dit bericht delen? ",
   "reblog_modal_content": "Dit bericht zal verschijnen op uw persoonlijke feed. Deze actie kan niet ongedaan gemaakt worden.",
   "write_post": "Schrijf bericht",
+  "write_quick_post": "Write quick post",
   "transfer": "Overschrijven",
   "transfer_modal_title": "Bedrag versturen",
   "transfer_modal_info": "Klik op de knop hieronder om doorgestuurd te worden naar SteemConnect en je transactie te voltooien.",
@@ -109,6 +110,8 @@
   "select_language": "Selecteer uw taal",
   "discover_more_people": "Ontdek meer mensen",
   "discover_more_people_info": "Discover the most reputable users of this platform",
+  "invite": "Invite",
+  "invite_info": "Onboard new users on Busy.org today using the link below and get 10% of their rewards for 30 days.",
   "more_people_not_found": "No more people were found",
   "see_all_comments": "Alle reacties weergeven",
   "see_all_recommendations": "Alle aanbevelingen bekijken",
@@ -163,6 +166,7 @@
   "post_send": "Bericht plaatsen",
   "post_update_send": "Bericht bijwerken",
   "post_send_progress": "Plaatsen",
+  "quick_post_error_empty_title": "Post title cannot be empty.",
   "heading_1": "Header 1",
   "heading_2": "Hoofding 2",
   "heading_3": "Hoofding 3",
@@ -261,5 +265,10 @@
   "post_preview_hidden_for_nsfw": "This post preview is currently hidden since it is tagged NSFW.",
   "reading_time": "{words} words / {min} min read",
   "reading_time_post": "{min} min read",
-  "words_tooltip": "{words} words"
+  "words_tooltip": "{words} words",
+  "power_down_message": "Started power down: {value}",
+  "create_post": "Create post",
+  "posted_from_tooltip": "Version: {version}",
+  "username_too_short": "Username {username} is too short.",
+  "username_too_long": "Username {username} is too long."
 }
