@@ -24,6 +24,9 @@ const postItem = (state = {}, action) => {
 const initialState = {
   pendingLikes: [],
   list: {},
+  fetching: false,
+  loaded: false,
+  failed: false,
 };
 
 const posts = (state = initialState, action) => {
@@ -68,21 +71,15 @@ const posts = (state = initialState, action) => {
         },
       };
     }
-    case postsActions.GET_CONTENT_SUCCESS:
-      if (action.meta.afterLike) {
-        return {
-          ...state,
-          pendingLikes: state.pendingLikes.filter(post => post !== action.payload.id),
-          list: {
-            ...state.list,
-            [action.payload.id]: {
-              ...state[action.payload.id],
-              ...action.payload,
-            },
-          },
-        };
-      }
+    case postsActions.GET_CONTENT.START:
       return {
+        ...state,
+        fetching: true,
+        loaded: false,
+        failed: false,
+      };
+    case postsActions.GET_CONTENT.SUCCESS: {
+      const baseState = {
         ...state,
         list: {
           ...state.list,
@@ -91,6 +88,24 @@ const posts = (state = initialState, action) => {
             ...action.payload,
           },
         },
+        fetching: false,
+        loaded: true,
+        failed: false,
+      };
+      if (action.meta.afterLike) {
+        return {
+          ...baseState,
+          pendingLikes: state.pendingLikes.filter(post => post !== action.payload.id),
+        };
+      }
+      return baseState;
+    }
+    case postsActions.GET_CONTENT.ERROR:
+      return {
+        ...state,
+        fetching: false,
+        loaded: false,
+        failed: true,
       };
     case postsActions.LIKE_POST_START:
       return {
@@ -118,3 +133,6 @@ export const getPosts = state => state.list;
 export const getPostContent = (state, author, permlink) =>
   Object.values(state.list).find(post => post.author === author && post.permlink === permlink);
 export const getPendingLikes = state => state.pendingLikes;
+export const getIsPostFetching = state => state.loading;
+export const getIsPostLoaded = state => state.loaded;
+export const getIsPostFailed = state => state.failed;

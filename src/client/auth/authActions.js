@@ -1,8 +1,7 @@
 import Cookie from 'js-cookie';
 import { getIsAuthenticated } from '../reducers';
-import { getAccountWithFollowingCount } from '../helpers/apiHelpers';
+import { getAccount } from '../helpers/apiHelpers';
 import { getFollowing } from '../user/userActions';
-import { initPushpad } from '../helpers/pushpadHelper';
 import { createAsyncActionType } from '../helpers/stateHelpers';
 
 export const LOGIN = '@auth/LOGIN';
@@ -23,11 +22,12 @@ export const LOGOUT_SUCCESS = '@auth/LOGOUT_SUCCESS';
 export const UPDATE_AUTH_USER = createAsyncActionType('@auth/UPDATE_AUTH_USER');
 
 export const login = () => (dispatch, getState, { steemConnectAPI }) => {
-  let promise = steemConnectAPI.me().then((resp) => {
-    initPushpad(resp.user, Cookie.get('access_token'));
-    return resp;
-  });
-  if (!steemConnectAPI.options.accessToken) { promise = Promise.reject(new Error('There is not accessToken present')); }
+  let promise = Promise.resolve(null);
+  if (!steemConnectAPI.options.accessToken) {
+    promise = Promise.reject(new Error('There is not accessToken present'));
+  } else {
+    promise = steemConnectAPI.me();
+  }
   if (getIsAuthenticated(getState())) promise = Promise.resolve(null);
 
   return dispatch({
@@ -38,7 +38,7 @@ export const login = () => (dispatch, getState, { steemConnectAPI }) => {
     meta: {
       refresh: getIsAuthenticated(getState()),
     },
-  });
+  }).catch(() => {});
 };
 
 export const getCurrentUserFollowing = () => dispatch => dispatch(getFollowing());
@@ -63,6 +63,6 @@ export const updateAuthUser = username => dispatch =>
   dispatch({
     type: UPDATE_AUTH_USER.ACTION,
     payload: {
-      promise: getAccountWithFollowingCount(username),
+      promise: getAccount(username),
     },
   });
