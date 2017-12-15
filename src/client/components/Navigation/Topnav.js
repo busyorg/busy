@@ -1,9 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { withRouter, Link } from 'react-router-dom';
-import { Menu, Popover, Tooltip, Input } from 'antd';
+import { connect } from 'react-redux';
+import { Menu, Popover, Tooltip, Input, AutoComplete } from 'antd';
 import classNames from 'classnames';
+import { searchAutoComplete } from '../../search/searchActions';
+import { getAutoCompleteSearchResults } from '../../reducers';
 import SteemConnect from '../../steemConnectAPI';
 import Avatar from '../Avatar';
 import PopoverMenu, { PopoverMenuItem } from '../PopoverMenu/PopoverMenu';
@@ -11,29 +15,57 @@ import './Topnav.less';
 
 @injectIntl
 @withRouter
+@connect(
+  state => ({
+    autoCompleteSearchResults: getAutoCompleteSearchResults(state),
+  }),
+  {
+    searchAutoComplete,
+  },
+)
 class Topnav extends React.Component {
   static propTypes = {
+    autoCompleteSearchResults: PropTypes.arrayOf(PropTypes.string),
     intl: PropTypes.shape().isRequired,
     location: PropTypes.shape().isRequired,
+    history: PropTypes.shape().isRequired,
     username: PropTypes.string,
+    searchAutoComplete: PropTypes.func.isRequired,
     onMenuItemClick: PropTypes.func,
   };
 
   static defaultProps = {
+    autoCompleteSearchResults: [],
     username: undefined,
     onMenuItemClick: () => {},
   };
 
-  state = {
-    searchBarActive: false,
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      searchBarActive: false,
+      searchBarValue: '',
+    };
+
+    this.handleSelectOnAutoCompleteDropdown = this.handleSelectOnAutoCompleteDropdown.bind(this);
+    this.handleAutoCompleteSearch = this.handleAutoCompleteSearch.bind(this);
+    this.handleSearchForInput = this.handleSearchForInput.bind(this);
+    this.handleOnChangeForAutoComplete = this.handleOnChangeForAutoComplete.bind(this);
+    this.hideAutoCompleteDropdown = this.hideAutoCompleteDropdown.bind(this);
+  }
 
   menuForLoggedOut = () => {
     const { location } = this.props;
+    const { searchBarActive } = this.state;
     const next = location.pathname.length > 1 ? location.pathname : '';
 
     return (
-      <div className="Topnav__menu-container">
+      <div
+        className={classNames('Topnav__menu-container', {
+          'Topnav__mobile-hidden': searchBarActive,
+        })}
+      >
         <Menu className="Topnav__menu-container__menu" mode="horizontal">
           <Menu.Item key="signup">
             <a target="_blank" rel="noopener noreferrer" href="https://steemit.com/pick_account">
@@ -55,9 +87,13 @@ class Topnav extends React.Component {
 
   menuForLoggedIn = () => {
     const { intl, username, onMenuItemClick } = this.props;
-
+    const { searchBarActive } = this.state;
     return (
-      <div className="Topnav__menu-container">
+      <div
+        className={classNames('Topnav__menu-container', {
+          'Topnav__mobile-hidden': searchBarActive,
+        })}
+      >
         <Menu selectedKeys={[]} className="Topnav__menu-container__menu" mode="horizontal">
           <Menu.Item key="write">
             <Tooltip
@@ -133,14 +169,73 @@ class Topnav extends React.Component {
     });
   };
 
+  hideAutoCompleteDropdown() {
+    this.props.searchAutoComplete('');
+  }
+
+  handleSearchForInput(event) {
+    const value = event.target.value;
+    this.hideAutoCompleteDropdown();
+    this.props.history.push({
+      pathname: '/search',
+      search: `q=${value}`,
+      state: {
+        query: value,
+      },
+    });
+  }
+
+  handleAutoCompleteSearch(value) {
+    this.props.searchAutoComplete(value);
+  }
+
+  handleSelectOnAutoCompleteDropdown(value) {
+    this.props.history.push(`/@${value}`);
+  }
+
+  handleOnChangeForAutoComplete(value) {
+    this.setState({
+      searchBarValue: value,
+    });
+  }
+
   render() {
-    const { intl } = this.props;
-    const { searchBarActive } = this.state;
+    const { intl, autoCompleteSearchResults } = this.props;
+    const { searchBarActive, searchBarValue } = this.state;
+
+    const dropdownOptions = _.map(autoCompleteSearchResults, option => (
+      <AutoComplete.Option key={option} value={option} className="Topnav__search-autocomplete">
+        {option}
+      </AutoComplete.Option>
+    ));
+    const formattedAutoCompleteDropdown = _.isEmpty(dropdownOptions)
+      ? dropdownOptions
+      : dropdownOptions.concat([
+        <AutoComplete.Option disabled key="all" className="Topnav__search-all-results">
+          <Link
+            to={{
+              pathname: '/search',
+              search: `?q=${searchBarValue}`,
+              state: { query: searchBarValue },
+            }}
+          >
+            <span onClick={this.hideAutoCompleteDropdown} role="presentation">
+              {intl.formatMessage(
+                {
+                  id: 'search_all_results_for',
+                  defaultMessage: 'Search all results for {search}',
+                },
+                { search: searchBarValue },
+              )}
+            </span>
+          </Link>
+        </AutoComplete.Option>,
+      ]);
 
     return (
       <div className="Topnav">
         <div className="topnav-layout container">
-          <div className="left">
+          <div className={classNames('left', { 'Topnav__mobile-hidden': searchBarActive })}>
             <Link className="Topnav__brand" to="/">
               busy
             </Link>
@@ -148,22 +243,30 @@ class Topnav extends React.Component {
           </div>
           <div className={classNames('center', { mobileVisible: searchBarActive })}>
             <div className="Topnav__input-container">
-              <Input
-                ref={(ref) => {
-                  this.searchInputRef = ref;
-                }}
-                onPressEnter={event =>
-                  window.open(
-                    `https://www.google.com/search?q=${encodeURIComponent(
-                      `site:steemit.com ${event.target.value}`,
-                    )}`,
-                  )
-                }
-                placeholder={intl.formatMessage({
-                  id: 'search_placeholder',
-                  defaultMessage: 'Search...',
-                })}
-              />
+              <AutoComplete
+                dropdownClassName="Topnav__search-dropdown-container"
+                dataSource={formattedAutoCompleteDropdown}
+                onSearch={this.handleAutoCompleteSearch}
+                onSelect={this.handleSelectOnAutoCompleteDropdown}
+                onChange={this.handleOnChangeForAutoComplete}
+                defaultActiveFirstOption={false}
+                dropdownMatchSelectWidth={false}
+                optionLabelProp="value"
+                value={searchBarValue}
+              >
+                <Input
+                  ref={(ref) => {
+                    this.searchInputRef = ref;
+                  }}
+                  onPressEnter={this.handleSearchForInput}
+                  placeholder={intl.formatMessage({
+                    id: 'search_placeholder',
+                    defaultMessage: 'Search...',
+                  })}
+                  autoCapitalize="off"
+                  autoCorrect="off"
+                />
+              </AutoComplete>
               <i className="iconfont icon-search" />
             </div>
           </div>
