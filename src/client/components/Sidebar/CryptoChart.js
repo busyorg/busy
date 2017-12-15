@@ -68,21 +68,28 @@ class CryptoChart extends React.Component {
     this.setState({
       loading: true,
     });
-    fetchCryptoPriceHistory(symbol).then((response) => {
-      const responseStatus = _.get(response, 'Response', 'Error');
-      if (responseStatus !== 'Error') {
-        const currentCryptoPriceHistory = _.map(response.Data, data => data.close);
+    fetchCryptoPriceHistory(symbol)
+      .then((response) => {
+        const responseStatus = _.get(response, 'Response', 'Error');
+        if (responseStatus !== 'Error') {
+          const currentCryptoPriceHistory = _.map(response.Data, data => data.close);
+          this.setState({
+            currentCryptoPriceHistory,
+            loading: false,
+            apiError: false,
+          });
+        } else {
+          this.setState({
+            apiError: true,
+          });
+        }
+      })
+      .catch(() => {
         this.setState({
-          currentCryptoPriceHistory,
           loading: false,
-          apiError: false,
-        });
-      } else {
-        this.setState({
           apiError: true,
         });
-      }
-    });
+      });
   }
 
   render() {
