@@ -120,7 +120,6 @@ export default class Post extends React.Component {
   }
 
   render() {
-    const { content, fetching, edited, isAuthFetching } = this.props;
     const { content, fetching, loaded, failed, isAuthFetching } = this.props;
 
     if (failed) return <Error404 />;
@@ -137,7 +136,7 @@ export default class Post extends React.Component {
           <div className="post-layout container">
             <Affix className="rightContainer" stickPosition={77}>
               <div className="right">
-                {!loading && this.renderCryptoTrendingCharts()}
+                {loaded && this.renderCryptoTrendingCharts()}
                 <PostRecommendation isAuthFetching={isAuthFetching} />
               </div>
             </Affix>
