@@ -156,7 +156,12 @@ const routes = [
         component: Search,
       },
       {
-        path: '/:sortBy?/:category?',
+        path: '/:sortBy(trending|created|active|hot|promoted)/:category?',
+        component: Page,
+      },
+      {
+        path: '/',
+        exact: true,
         component: Page,
       },
     ],
