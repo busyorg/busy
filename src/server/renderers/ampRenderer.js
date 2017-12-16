@@ -43,9 +43,9 @@ function getContext(post, body, appUrl) {
       name: 'Busy.org',
       logo: {
         '@type': 'ImageObject',
-        url: `${appUrl}/images/logo.png`,
-        height: 100,
-        width: 100,
+        url: `${appUrl}/images/logo-brand.png`,
+        height: 32,
+        width: 32,
       },
     },
     mainEntityOfPage: canonical,
