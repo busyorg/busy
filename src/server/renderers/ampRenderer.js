@@ -30,13 +30,22 @@ function getContext(post, body) {
   const datePublished = `${post.created}Z`;
   const dateModified = `${post.last_update}Z`;
 
-
   const manifest = {
     '@context': 'http://schema.org',
     '@type': 'BlogPosting',
     author: {
       '@type': 'Person',
       name: post.author,
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Busy.org',
+      logo: {
+        '@type': 'ImageObject',
+        url: '/images/logo.png',
+        height: 100,
+        width: 100,
+      },
     },
     headline: post.title,
     datePublished,
