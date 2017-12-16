@@ -7,6 +7,7 @@ import { StaticRouter } from 'react-router';
 import { matchRoutes, renderRoutes } from 'react-router-config';
 import Raven from 'raven-js';
 
+import _ from 'lodash';
 import cheerio from 'cheerio';
 import sc2 from 'sc2-sdk';
 import { getHtml } from '../client/components/Story/Body';
@@ -86,11 +87,16 @@ function renderAmpPage(post) {
     );
   });
 
+  const metadata = _.attempt(JSON.parse, post.json_metadata);
+  let images = [];
+  if (!_.isError(metadata)) images = metadata.image;
+
   $('head').remove();
 
   return ampIndexHtml
     .replace(/<!-- server:title -->/g, post.title)
     .replace(/<!-- server:UTC -->/g, date)
+    .replace(/<!-- server:image -->/g, images[0] || '/images/logo.png')
     .replace(/<!-- server:date -->/g, new Date(date).toLocaleDateString())
     .replace(/<!-- server:author -->/g, post.author)
     .replace(/<!-- server:body -->/g, $('body').html());
