@@ -7,6 +7,7 @@ import { StaticRouter } from 'react-router';
 import { matchRoutes, renderRoutes } from 'react-router-config';
 import Raven from 'raven-js';
 
+import cheerio from 'cheerio';
 import sc2 from 'sc2-sdk';
 import { getHtml } from '../client/components/Story/Body';
 import getStore from '../client/store';
@@ -74,12 +75,25 @@ function renderPage(store, html) {
 
 function renderAmpPage(post) {
   const date = `${post.created}Z`;
+  const html = getHtml(post.body, post.jsonMetadata, 'text');
+  const $ = cheerio.load(html);
+
+  $('img').each((i, elem) => {
+    $(elem).replaceWith(
+      `<div class="fixed-container"><amp-img class="contain" layout="fill" src="${$(elem).attr(
+        'src',
+      )}"></amp-img></div>`,
+    );
+  });
+
+  $('head').remove();
+
   return ampIndexHtml
     .replace(/<!-- server:title -->/g, post.title)
     .replace(/<!-- server:UTC -->/g, date)
     .replace(/<!-- server:date -->/g, new Date(date).toLocaleDateString())
     .replace(/<!-- server:author -->/g, post.author)
-    .replace(/<!-- server:body -->/g, getHtml(post.body, post.jsonMetadata, 'text'));
+    .replace(/<!-- server:body -->/g, $('body').html());
 }
 
 function serverSideResponse(req, res) {
@@ -148,28 +162,34 @@ app.get('/callback', (req, res) => {
 
 app.get('/i/@:referral', (req, res) => {
   const { referral } = req.params;
-  steemAPI.sendAsync('get_accounts', [[referral]]).then((accounts) => {
-    if (accounts[0]) {
-      res.cookie('referral', referral, { maxAge: 86400 * 30 * 1000 });
+  steemAPI
+    .sendAsync('get_accounts', [[referral]])
+    .then((accounts) => {
+      if (accounts[0]) {
+        res.cookie('referral', referral, { maxAge: 86400 * 30 * 1000 });
+        res.redirect('/');
+      }
+    })
+    .catch(() => {
       res.redirect('/');
-    }
-  }).catch(() => {
-    res.redirect('/');
-  });
+    });
 });
 
 app.get('/i/:parent/@:referral/:permlink', (req, res) => {
   const { parent, referral, permlink } = req.params;
-  steemAPI.sendAsync('get_content', [referral, permlink]).then((content) => {
-    if (content.author) {
-      res.cookie('referral', referral, { maxAge: 86400 * 30 * 1000 });
-      res.redirect(`/${parent}/@${referral}/${permlink}`);
-    } else {
+  steemAPI
+    .sendAsync('get_content', [referral, permlink])
+    .then((content) => {
+      if (content.author) {
+        res.cookie('referral', referral, { maxAge: 86400 * 30 * 1000 });
+        res.redirect(`/${parent}/@${referral}/${permlink}`);
+      } else {
+        res.redirect('/');
+      }
+    })
+    .catch(() => {
       res.redirect('/');
-    }
-  }).catch(() => {
-    res.redirect('/');
-  });
+    });
 });
 
 app.get('/:category/@:author/:permlink/amp', ampResponse);

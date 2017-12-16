@@ -48,6 +48,7 @@
     "babel-runtime": "^6.18.0",
     "body-parser": "~1.13.2",
     "bs58": "^4.0.0",
+    "cheerio": "^1.0.0-rc.2",
     "classnames": "^2.2.5",
     "clean-webpack-plugin": "^0.1.17",
     "config": "^1.26.2",
