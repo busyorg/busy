@@ -33,7 +33,7 @@ function getContext(post, body) {
 
   const manifest = {
     '@context': 'http://schema.org',
-    '@type': 'BlogPost',
+    '@type': 'BlogPosting',
     author: {
       '@type': 'Person',
       name: post.author,
