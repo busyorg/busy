@@ -7,14 +7,10 @@ import { StaticRouter } from 'react-router';
 import { matchRoutes, renderRoutes } from 'react-router-config';
 import Raven from 'raven-js';
 
-import Handlebars from 'handlebars';
-import HandlebarsIntl from 'handlebars-intl';
-import _ from 'lodash';
-import cheerio from 'cheerio';
 import sc2 from 'sc2-sdk';
-import { getHtml } from '../client/components/Story/Body';
 import getStore from '../client/store';
 import routes from '../common/routes';
+import renderAmpPage, { compileAmpTemplate } from './renderers/ampRenderer';
 
 const fs = require('fs');
 const express = require('express');
@@ -40,8 +36,6 @@ if (process.env.SENTRY_PUBLIC_DSN) {
   Raven.config(process.env.SENTRY_PUBLIC_DSN).install();
 }
 
-HandlebarsIntl.registerWith(Handlebars);
-
 app.locals.env = process.env;
 app.enable('trust proxy');
 
@@ -56,12 +50,11 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 const indexPath = `${rootDir}/public/index.html`;
-const ampIndexPath = `${rootDir}/templates/amp_index.hbs`;
-
 const indexHtml = fs.readFileSync(indexPath, 'utf-8');
-const ampIndexHtml = fs.readFileSync(ampIndexPath, 'utf-8');
 
-const ampTemplate = Handlebars.compile(ampIndexHtml);
+const ampIndexPath = `${rootDir}/templates/amp_index.hbs`;
+const ampIndexHtml = fs.readFileSync(ampIndexPath, 'utf-8');
+const ampTemplate = compileAmpTemplate(ampIndexHtml);
 
 function renderPage(store, html) {
   const preloadedState = store.getState();
@@ -78,58 +71,6 @@ function renderPage(store, html) {
         window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(/</g, '\\u003c')}
     </script>`,
     );
-}
-
-function renderAmpPage(post) {
-  const datePublished = `${post.created}Z`;
-  const dateModified = `${post.last_update}Z`;
-
-  const html = getHtml(post.body, post.jsonMetadata, 'text');
-  const $ = cheerio.load(html);
-
-  $('img').each((i, elem) => {
-    $(elem).replaceWith(
-      `<div class="fixed-container"><amp-img class="contain" layout="fill" src="${$(elem).attr(
-        'src',
-      )}"></amp-img></div>`,
-    );
-  });
-
-  const metadata = _.attempt(JSON.parse, post.json_metadata);
-  let images = [];
-  if (!_.isError(metadata)) images = metadata.image;
-
-  $('head').remove();
-
-  const manifest = {
-    '@context': 'http://schema.org',
-    '@type': 'BlogPost',
-    author: {
-      '@type': 'Person',
-      name: post.author,
-    },
-    headline: post.title,
-    datePublished,
-    dateModified,
-    image: images[0] || '/images/logo.png',
-  };
-
-  const data = {
-    manifest: JSON.stringify(manifest),
-    title: post.title,
-    datePublished,
-    dateModified,
-    author: post.author,
-    body: $('body').html(),
-  };
-
-  return ampTemplate(data, {
-    data: {
-      intl: {
-        locales: 'en_US',
-      },
-    },
-  });
 }
 
 function serverSideResponse(req, res) {
@@ -179,7 +120,7 @@ function serverSideResponse(req, res) {
 function ampResponse(req, res) {
   steemAPI.sendAsync('get_content', [req.params.author, req.params.permlink]).then((result) => {
     if (result.id === 0) res.sendStatus(404);
-    res.send(renderAmpPage(result));
+    res.send(renderAmpPage(result, ampTemplate));
   });
 }
 
