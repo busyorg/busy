@@ -22,13 +22,14 @@ function cleanHTML(html) {
   return $('body').html();
 }
 
-function getContext(post, body) {
+function getContext(post, body, appUrl) {
   const metadata = _.attempt(JSON.parse, post.json_metadata);
   let images = [];
   if (!_.isError(metadata)) images = metadata.image;
 
   const datePublished = `${post.created}Z`;
   const dateModified = `${post.last_update}Z`;
+  const canonical = `${appUrl}${post.url}`;
 
   const manifest = {
     '@context': 'http://schema.org',
@@ -42,20 +43,22 @@ function getContext(post, body) {
       name: 'Busy.org',
       logo: {
         '@type': 'ImageObject',
-        url: '/images/logo.png',
+        url: `${appUrl}/images/logo.png`,
         height: 100,
         width: 100,
       },
     },
+    mainEntityOfPage: canonical,
     headline: post.title,
     datePublished,
     dateModified,
-    image: images[0] || '/images/logo.png',
+    image: images[0] || `${appUrl}/images/logo.png`,
   };
 
   const context = {
     manifest: JSON.stringify(manifest),
     title: post.title,
+    canonical,
     datePublished,
     dateModified,
     author: post.author,
@@ -69,9 +72,9 @@ export function compileAmpTemplate(template) {
   return Handlebars.compile(template);
 }
 
-export default function renderAmpPage(post, template) {
+export default function renderAmpPage(post, appUrl, template) {
   const body = cleanHTML(getHtml(post.body, post.jsonMetadata, 'text'));
-  const context = getContext(post, body);
+  const context = getContext(post, body, appUrl);
 
   return template(context, {
     data: {

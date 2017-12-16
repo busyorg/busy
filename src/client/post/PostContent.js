@@ -176,6 +176,7 @@ class PostContent extends React.Component {
     const image = postMetaImage || getImage(`@${author}`) || '/images/logo.png';
     const canonicalUrl = `${canonicalHost}${content.url}`;
     const url = `${busyHost}${content.url}`;
+    const ampUrl = `${url}/amp`;
     const metaTitle = `${title} - Busy`;
 
     return (
@@ -183,6 +184,7 @@ class PostContent extends React.Component {
         <Helmet>
           <title>{title}</title>
           <link rel="canonical" href={canonicalUrl} />
+          <link rel="amphtml" href={ampUrl} />
           <meta property="description" content={desc} />
           <meta property="og:title" content={metaTitle} />
           <meta property="og:type" content="article" />
