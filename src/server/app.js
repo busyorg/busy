@@ -1,6 +1,5 @@
 /* eslint-disable no-console */
 import React from 'react';
-import { Helmet } from 'react-helmet';
 import { Provider } from 'react-redux';
 import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router';
@@ -11,6 +10,7 @@ import sc2 from 'sc2-sdk';
 import getStore from '../client/store';
 import routes from '../common/routes';
 import renderAmpPage, { compileAmpTemplate } from './renderers/ampRenderer';
+import renderSsrPage from './renderers/ssrRenderer';
 
 const fs = require('fs');
 const express = require('express');
@@ -56,23 +56,6 @@ const ampIndexPath = `${rootDir}/templates/amp_index.hbs`;
 const ampIndexHtml = fs.readFileSync(ampIndexPath, 'utf-8');
 const ampTemplate = compileAmpTemplate(ampIndexHtml);
 
-function renderPage(store, html) {
-  const preloadedState = store.getState();
-  const helmet = Helmet.renderStatic();
-  const header = helmet.meta.toString() + helmet.title.toString() + helmet.link.toString();
-  return indexHtml
-    .replace('<!--server:header-->', header)
-    .replace('<!--server:html-->', html)
-    .replace(
-      '<!--server:scripts-->',
-      `<script>
-        // WARNING: See the following for security issues around embedding JSON in HTML:
-        // http://redux.js.org/docs/recipes/ServerRendering.html#security-considerations
-        window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(/</g, '\\u003c')}
-    </script>`,
-    );
-}
-
 function serverSideResponse(req, res) {
   const api = sc2.Initialize({
     app: process.env.STEEMCONNECT_CLIENT_ID,
@@ -108,7 +91,7 @@ function serverSideResponse(req, res) {
       if (context.status) {
         res.status(context.status);
       }
-      res.send(renderPage(store, content));
+      res.send(renderSsrPage(store, content, indexHtml));
     })
     .catch((err) => {
       Raven.captureException(err);
