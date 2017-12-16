@@ -19,6 +19,7 @@ import {
   getVotingPower,
   getRewardFund,
   getVotePercent,
+  getAppUrl,
 } from '../reducers';
 import { editPost } from './Write/editorActions';
 import { votePost } from './postActions';
@@ -43,6 +44,7 @@ import StoryFull from '../components/Story/StoryFull';
     sliderMode: getVotingPower(state),
     rewardFund: getRewardFund(state),
     defaultVotePercent: getVotePercent(state),
+    appUrl: getAppUrl(state),
   }),
   {
     editPost,
@@ -66,6 +68,7 @@ class PostContent extends React.Component {
     saving: PropTypes.bool.isRequired,
     rewardFund: PropTypes.shape().isRequired,
     defaultVotePercent: PropTypes.number.isRequired,
+    appUrl: PropTypes.string.isRequired,
     bookmarks: PropTypes.shape(),
     sliderMode: PropTypes.oneOf(['on', 'off', 'auto']),
     editPost: PropTypes.func,
@@ -144,10 +147,11 @@ class PostContent extends React.Component {
       sliderMode,
       rewardFund,
       defaultVotePercent,
+      appUrl,
     } = this.props;
 
     const postMetaData = jsonParse(content.json_metadata);
-    const busyHost = global.postOrigin || 'https://busy.org';
+    const busyHost = global.postOrigin || appUrl || 'https://busy.org';
     let canonicalHost = busyHost;
     if (postMetaData.app && postMetaData.app.indexOf('steemit') === 0) {
       canonicalHost = 'https://steemit.com';

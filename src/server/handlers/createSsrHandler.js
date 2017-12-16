@@ -3,12 +3,14 @@ import { Provider } from 'react-redux';
 import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router';
 import { matchRoutes, renderRoutes } from 'react-router-config';
+import url from 'url';
 import Raven from 'raven-js';
 
 import sc2 from 'sc2-sdk';
 import getStore from '../../client/store';
 import routes from '../../common/routes';
 import renderSsrPage from '../renderers/ssrRenderer';
+import { setAppUrl } from '../../client/app/appActions';
 
 export default function createSsrHandler(template) {
   return function serverSideResponse(req, res) {
@@ -22,7 +24,13 @@ export default function createSsrHandler(template) {
       api.setAccessToken(req.cookies.access_token);
     }
 
+    const appUrl = url.format({
+      protocol: req.protocol,
+      host: req.get('host'),
+    });
+
     const store = getStore(api);
+    store.dispatch(setAppUrl(appUrl));
 
     const branch = matchRoutes(routes, req.url);
     const promises = branch.map(({ route, match }) => {
