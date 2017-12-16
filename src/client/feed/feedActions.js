@@ -38,14 +38,14 @@ export const getMoreUserFeedContentSuccess = createAction(GET_MORE_USER_FEED_CON
 export const feedHasNoMore = createAction(FEED_HAS_NO_MORE);
 
 export const getFeedContent = (
-  { sortBy = 'trending', category = 'all', limit },
+  { sortBy = 'trending', category, limit },
   resolve = () => {},
   reject = () => {},
 ) => (dispatch, getState, { steemAPI }) => {
   dispatch(
     getFeedContentWithoutAPI({
       sortBy,
-      category,
+      category: category || 'all',
     }),
   );
 
@@ -61,7 +61,7 @@ export const getFeedContent = (
       dispatch(
         getFeedContentSuccess({
           sortBy,
-          category,
+          category: category || 'all',
           postsData,
           limit,
         }),
