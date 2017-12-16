@@ -7,6 +7,8 @@ import { StaticRouter } from 'react-router';
 import { matchRoutes, renderRoutes } from 'react-router-config';
 import Raven from 'raven-js';
 
+import Handlebars from 'handlebars';
+import HandlebarsIntl from 'handlebars-intl';
 import _ from 'lodash';
 import cheerio from 'cheerio';
 import sc2 from 'sc2-sdk';
@@ -38,6 +40,8 @@ if (process.env.SENTRY_PUBLIC_DSN) {
   Raven.config(process.env.SENTRY_PUBLIC_DSN).install();
 }
 
+HandlebarsIntl.registerWith(Handlebars);
+
 app.locals.env = process.env;
 app.enable('trust proxy');
 
@@ -52,10 +56,12 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 const indexPath = `${rootDir}/public/index.html`;
-const ampIndexPath = `${rootDir}/templates/amp_index.html`;
+const ampIndexPath = `${rootDir}/templates/amp_index.hbs`;
 
 const indexHtml = fs.readFileSync(indexPath, 'utf-8');
 const ampIndexHtml = fs.readFileSync(ampIndexPath, 'utf-8');
+
+const ampTemplate = Handlebars.compile(ampIndexHtml);
 
 function renderPage(store, html) {
   const preloadedState = store.getState();
@@ -75,7 +81,9 @@ function renderPage(store, html) {
 }
 
 function renderAmpPage(post) {
-  const date = `${post.created}Z`;
+  const datePublished = `${post.created}Z`;
+  const dateModified = `${post.last_update}Z`;
+
   const html = getHtml(post.body, post.jsonMetadata, 'text');
   const $ = cheerio.load(html);
 
@@ -93,13 +101,35 @@ function renderAmpPage(post) {
 
   $('head').remove();
 
-  return ampIndexHtml
-    .replace(/<!-- server:title -->/g, post.title)
-    .replace(/<!-- server:UTC -->/g, date)
-    .replace(/<!-- server:image -->/g, images[0] || '/images/logo.png')
-    .replace(/<!-- server:date -->/g, new Date(date).toLocaleDateString())
-    .replace(/<!-- server:author -->/g, post.author)
-    .replace(/<!-- server:body -->/g, $('body').html());
+  const manifest = {
+    '@context': 'http://schema.org',
+    '@type': 'BlogPost',
+    author: {
+      '@type': 'Person',
+      name: post.author,
+    },
+    headline: post.title,
+    datePublished,
+    dateModified,
+    image: images[0] || '/images/logo.png',
+  };
+
+  const data = {
+    manifest: JSON.stringify(manifest),
+    title: post.title,
+    datePublished,
+    dateModified,
+    author: post.author,
+    body: $('body').html(),
+  };
+
+  return ampTemplate(data, {
+    data: {
+      intl: {
+        locales: 'en_US',
+      },
+    },
+  });
 }
 
 function serverSideResponse(req, res) {
