@@ -8,6 +8,7 @@ import { matchRoutes, renderRoutes } from 'react-router-config';
 import Raven from 'raven-js';
 
 import sc2 from 'sc2-sdk';
+import { getHtml } from '../client/components/Story/Body';
 import getStore from '../client/store';
 import routes from '../common/routes';
 
@@ -49,8 +50,10 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 const indexPath = `${rootDir}/public/index.html`;
+const ampIndexPath = `${rootDir}/templates/amp_index.html`;
 
 const indexHtml = fs.readFileSync(indexPath, 'utf-8');
+const ampIndexHtml = fs.readFileSync(ampIndexPath, 'utf-8');
 
 function renderPage(store, html) {
   const preloadedState = store.getState();
@@ -67,6 +70,16 @@ function renderPage(store, html) {
         window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(/</g, '\\u003c')}
     </script>`,
     );
+}
+
+function renderAmpPage(post) {
+  const date = `${post.created}Z`;
+  return ampIndexHtml
+    .replace(/<!-- server:title -->/g, post.title)
+    .replace(/<!-- server:UTC -->/g, date)
+    .replace(/<!-- server:date -->/g, new Date(date).toLocaleDateString())
+    .replace(/<!-- server:author -->/g, post.author)
+    .replace(/<!-- server:body -->/g, getHtml(post.body, post.jsonMetadata, 'text'));
 }
 
 function serverSideResponse(req, res) {
@@ -113,6 +126,13 @@ function serverSideResponse(req, res) {
     });
 }
 
+function ampResponse(req, res) {
+  steemAPI.sendAsync('get_content', [req.params.author, req.params.permlink]).then((result) => {
+    if (result.id === 0) res.sendStatus(404);
+    res.send(renderAmpPage(result));
+  });
+}
+
 app.get('/callback', (req, res) => {
   const accessToken = req.query.access_token;
   const expiresIn = req.query.expires_in;
@@ -152,6 +172,7 @@ app.get('/i/:parent/@:referral/:permlink', (req, res) => {
   });
 });
 
+app.get('/:category/@:author/:permlink/amp', ampResponse);
 app.get('/*', serverSideResponse);
 
 module.exports = { app, server };
