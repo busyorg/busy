@@ -24,9 +24,7 @@ const postItem = (state = {}, action) => {
 const initialState = {
   pendingLikes: [],
   list: {},
-  fetching: false,
-  loaded: false,
-  failed: false,
+  postsStates: {},
 };
 
 const posts = (state = initialState, action) => {
@@ -74,9 +72,14 @@ const posts = (state = initialState, action) => {
     case postsActions.GET_CONTENT.START:
       return {
         ...state,
-        fetching: true,
-        loaded: false,
-        failed: false,
+        postsStates: {
+          ...state.postsStates,
+          [`${action.meta.author}/${action.meta.permlink}}`]: {
+            fetching: true,
+            loaded: false,
+            failed: false,
+          },
+        },
       };
     case postsActions.GET_CONTENT.SUCCESS: {
       const baseState = {
@@ -88,9 +91,14 @@ const posts = (state = initialState, action) => {
             ...action.payload,
           },
         },
-        fetching: false,
-        loaded: true,
-        failed: false,
+        postsStates: {
+          ...state.postsStates,
+          [`${action.meta.author}/${action.meta.permlink}}`]: {
+            fetching: false,
+            loaded: true,
+            failed: false,
+          },
+        },
       };
       if (action.meta.afterLike) {
         return {
@@ -103,9 +111,14 @@ const posts = (state = initialState, action) => {
     case postsActions.GET_CONTENT.ERROR:
       return {
         ...state,
-        fetching: false,
-        loaded: false,
-        failed: true,
+        postsStates: {
+          ...state.postsStates,
+          [`${action.meta.author}/${action.meta.permlink}}`]: {
+            fetching: false,
+            loaded: false,
+            failed: true,
+          },
+        },
       };
     case postsActions.LIKE_POST_START:
       return {
@@ -133,6 +146,10 @@ export const getPosts = state => state.list;
 export const getPostContent = (state, author, permlink) =>
   Object.values(state.list).find(post => post.author === author && post.permlink === permlink);
 export const getPendingLikes = state => state.pendingLikes;
-export const getIsPostFetching = state => state.loading;
-export const getIsPostLoaded = state => state.loaded;
-export const getIsPostFailed = state => state.failed;
+export const getIsPostFetching = (state, author, permlink) =>
+  state.postsStates[`${author}/${permlink}}`] &&
+  state.postsStates[`${author}/${permlink}}`].fetching;
+export const getIsPostLoaded = (state, author, permlink) =>
+  state.postsStates[`${author}/${permlink}}`] && state.postsStates[`${author}/${permlink}}`].loaded;
+export const getIsPostFailed = (state, author, permlink) =>
+  state.postsStates[`${author}/${permlink}}`] && state.postsStates[`${author}/${permlink}}`].failed;
