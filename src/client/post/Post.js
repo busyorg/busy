@@ -5,7 +5,14 @@ import _ from 'lodash';
 import VisibilitySensor from 'react-visibility-sensor';
 import formatter from '../helpers/steemitFormatter';
 import { getCryptoDetails } from '../helpers/cryptosHelper';
-import { getPostContent, getIsPostEdited, getIsPostFetching, getIsPostLoaded, getIsPostFailed, getIsAuthFetching } from '../reducers';
+import {
+  getPostContent,
+  getIsPostEdited,
+  getIsPostFetching,
+  getIsPostLoaded,
+  getIsPostFailed,
+  getIsAuthFetching,
+} from '../reducers';
 import { getContent } from './postActions';
 import Error404 from '../statics/Error404';
 import Comments from '../comments/Comments';
@@ -22,9 +29,13 @@ import ScrollToTopOnMount from '../components/Utils/ScrollToTopOnMount';
     edited: getIsPostEdited(state, ownProps.match.params.permlink),
     content: getPostContent(state, ownProps.match.params.author, ownProps.match.params.permlink),
     isAuthFetching: getIsAuthFetching(state),
-    fetching: getIsPostFetching(state),
-    loaded: getIsPostLoaded(state),
-    failed: getIsPostFailed(state),
+    fetching: getIsPostFetching(
+      state,
+      ownProps.match.params.author,
+      ownProps.match.params.permlink,
+    ),
+    loaded: getIsPostLoaded(state, ownProps.match.params.author, ownProps.match.params.permlink),
+    failed: getIsPostFailed(state, ownProps.match.params.author, ownProps.match.params.permlink),
   }),
   { getContent },
 )
@@ -71,7 +82,7 @@ export default class Post extends React.Component {
     const { author, permlink } = nextProps.match.params;
     const { author: prevAuthor, permlink: prevPermlink } = this.props.match.params;
 
-    const shouldUpdate = (author !== prevAuthor) || (permlink !== prevPermlink);
+    const shouldUpdate = author !== prevAuthor || permlink !== prevPermlink;
     if (shouldUpdate && !nextProps.fetching) {
       this.setState({ commentsVisible: false }, () => this.props.getContent(author, permlink));
     }
@@ -140,15 +151,17 @@ export default class Post extends React.Component {
                 <PostRecommendation isAuthFetching={isAuthFetching} />
               </div>
             </Affix>
-            {showPost
-              ? <div className="center" style={{ paddingBottom: '24px' }}>
+            {showPost ? (
+              <div className="center" style={{ paddingBottom: '24px' }}>
                 <PostContent content={content} />
                 <VisibilitySensor onChange={this.handleCommentsVisibility} />
                 <div id="comments">
                   <Comments show={this.state.commentsVisible} post={content} />
                 </div>
               </div>
-              : <HiddenPostMessage onClick={this.handleShowPost} />}
+            ) : (
+              <HiddenPostMessage onClick={this.handleShowPost} />
+            )}
           </div>
         </div>
       </div>
