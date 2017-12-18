@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Link, withRouter } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
@@ -9,7 +9,7 @@ import steemAPI from '../../steemAPI';
 import './InterestingPeople.less';
 import './SidebarContentBlock.less';
 
-@withRouter class InterestingPeopleWithAPI extends Component {
+@withRouter class InterestingPeopleWithAPI extends React.Component {
   static propTypes = {
     authenticatedUser: PropTypes.shape({
       name: PropTypes.string,
