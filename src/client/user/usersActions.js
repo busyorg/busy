@@ -1,13 +1,11 @@
+import { createAsyncActionType } from '../helpers/stateHelpers';
 import { getAccountWithFollowingCount as getAccountWithFollowingCountAPI } from '../helpers/apiHelpers';
 
-export const GET_FOLLOWING_COUNT = '@users/GET_FOLLOWING_COUNT';
-export const GET_FOLLOWING_COUNT_START = '@users/GET_FOLLOWING_COUNT_START';
-export const GET_FOLLOWING_COUNT_SUCCESS = '@users/GET_FOLLOWING_COUNT_SUCCESS';
-export const GET_FOLLOWING_COUNT_ERROR = '@users/GET_FOLLOWING_COUNT_ERROR';
+export const GET_ACCOUNT = createAsyncActionType('@users/GET_ACCOUNT');
 
-export const getAccountWithFollowingCount = ({ name, authUser }) => dispatch =>
+export const getAccount = { name, authUser } => dispatch =>
   dispatch({
-    type: GET_FOLLOWING_COUNT,
+    type: GET_ACCOUNT.ACTION,
     payload: getAccountWithFollowingCountAPI(name, authUser),
     meta: { username: name, authenticedUser: authUser },
-  });
+  }).catch(() => {});

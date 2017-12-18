@@ -10,7 +10,11 @@ export function getCryptoDetails(cryptoQuery) {
 
   const cryptoDetails = _.find(CRYPTO_MAP, (crypto) => {
     const formattedCryptoName = _.toLower(crypto.name).replace(/\s/g, ''); // lowercase & remove spaces
-    return _.includes(formattedCryptoName, cryptoQuery);
+    const formattedCryptoSymbol = _.toLower(crypto.symbol);
+    const matchesCryptoId = crypto.id === cryptoQuery;
+    const matchesCryptoName = formattedCryptoName === cryptoQuery;
+    const matchesCryptoSymbol = formattedCryptoSymbol === cryptoQuery;
+    return matchesCryptoId || matchesCryptoName || matchesCryptoSymbol;
   });
 
   return cryptoDetails || {};

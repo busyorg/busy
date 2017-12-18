@@ -5,10 +5,11 @@ import { renderRoutes } from 'react-router-config';
 import { Helmet } from 'react-helmet';
 import getImage from '../helpers/getImage';
 
-import { getIsAuthenticated, getAuthenticatedUser, getUser } from '../reducers';
+import { getIsAuthenticated, getAuthenticatedUser, getUser, getIsUserFailed, getIsUserLoaded } from '../reducers';
 
 import { openTransfer } from '../wallet/walletActions';
-import { getAccountWithFollowingCount } from './usersActions';
+import { getAccount } from './usersActions';
+import Error404 from '../statics/Error404';
 import UserHero from './UserHero';
 import LeftSidebar from '../app/Sidebar/LeftSidebar';
 import RightSidebar from '../app/Sidebar/RightSidebar';
@@ -20,9 +21,11 @@ import ScrollToTopOnMount from '../components/Utils/ScrollToTopOnMount';
     authenticated: getIsAuthenticated(state),
     authenticatedUser: getAuthenticatedUser(state),
     user: getUser(state, ownProps.match.params.name),
+    loaded: getIsUserLoaded(state, ownProps.match.params.name),
+    failed: getIsUserFailed(state, ownProps.match.params.name),
   }),
   {
-    getAccountWithFollowingCount,
+    getAccount,
     openTransfer,
   },
 )
@@ -33,17 +36,21 @@ export default class User extends React.Component {
     authenticatedUser: PropTypes.shape().isRequired,
     match: PropTypes.shape().isRequired,
     user: PropTypes.shape().isRequired,
-    getAccountWithFollowingCount: PropTypes.func,
+    loaded: PropTypes.bool,
+    failed: PropTypes.bool,
+    getAccount: PropTypes.func,
     openTransfer: PropTypes.func,
   };
 
   static defaultProps = {
-    getAccountWithFollowingCount: () => {},
+    loaded: false,
+    failed: false,
+    getAccount: () => {},
     openTransfer: () => {},
   };
 
   static fetchData(store, match) {
-    return store.dispatch(getAccountWithFollowingCount({ name: match.params.name }));
+    return store.dispatch(getAccount(match.params.name));
   }
 
   state = {
@@ -51,8 +58,10 @@ export default class User extends React.Component {
   };
 
   componentDidMount() {
-    if (this.props.user.name && this.props.authenticatedUser.name) {
-      this.props.getAccountWithFollowingCount({ name: this.props.match.params.name,
+    const { user } = this.props;
+    if (!user.id && !user.failed
+      && this.props.authenticatedUser.name) {
+      this.props.getAccount({ name: this.props.match.params.name,
         authUser: this.props.authenticatedUser.name });
     }
   }
@@ -60,7 +69,7 @@ export default class User extends React.Component {
   componentDidUpdate(prevProps) {
     if (prevProps.match.params.name !== this.props.match.params.name
       && this.props.authenticatedUser.name) {
-      this.props.getAccountWithFollowingCount({ name: this.props.match.params.name,
+      this.props.getAccount({ name: this.props.match.params.name,
         authUser: this.props.authenticatedUser.name });
     }
   }
@@ -79,7 +88,9 @@ export default class User extends React.Component {
   };
 
   render() {
-    const { authenticated, authenticatedUser } = this.props;
+    const { authenticated, authenticatedUser, loaded, failed } = this.props;
+    if (failed) return <Error404 />;
+
     const username = this.props.match.params.name;
     const { user } = this.props;
     const { profile = {} } = user.json_metadata || {};
@@ -146,9 +157,9 @@ export default class User extends React.Component {
               </div>
             </Affix>
             <Affix className="rightContainer" stickPosition={72}>
-              <div className="right">{user && user.name && <RightSidebar key={user.name} />}</div>
+              <div className="right">{loaded && <RightSidebar key={user.name} />}</div>
             </Affix>
-            <div className="center">{renderRoutes(this.props.route.routes)}</div>
+            {loaded && <div className="center">{renderRoutes(this.props.route.routes)}</div>}
           </div>
         </div>
       </div>

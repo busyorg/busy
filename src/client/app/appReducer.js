@@ -10,6 +10,7 @@ const initialState = {
   trendingTopics: [],
   rewardFund: {},
   bannerClosed: false,
+  appUrl: 'https://busy.org',
 };
 
 export default (state = initialState, action) => {
@@ -27,13 +28,14 @@ export default (state = initialState, action) => {
         ...state,
         rate: action.rate,
       };
-    case postActions.GET_CONTENT_START:
+    case postActions.GET_CONTENT.START:
       return {
         ...state,
         isFetching: true,
         isLoaded: false,
       };
-    case postActions.GET_CONTENT_SUCCESS:
+    case postActions.GET_CONTENT.SUCCESS:
+    case postActions.GET_CONTENT.ERROR:
       return {
         ...state,
         isFetching: false,
@@ -69,6 +71,11 @@ export default (state = initialState, action) => {
         ...state,
         bannerClosed: true,
       };
+    case appTypes.SET_APP_URL:
+      return {
+        ...state,
+        appUrl: action.payload,
+      };
     default:
       return state;
   }
@@ -80,3 +87,4 @@ export const getRewardFund = state => state.rewardFund;
 export const getTrendingTopics = state => state.trendingTopics;
 export const getIsFetching = state => state.isFetching;
 export const getIsBannerClosed = state => state.bannerClosed;
+export const getAppUrl = state => state.appUrl;
