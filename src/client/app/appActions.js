@@ -17,6 +17,9 @@ export const RATE_SUCCESS = '@app/RATE_SUCCESS';
 export const CLOSE_BANNER = '@app/CLOSE_BANNER';
 export const closeBanner = createAction(CLOSE_BANNER);
 
+export const SET_APP_URL = '@app/SET_APP_URL';
+export const setAppUrl = createAction(SET_APP_URL);
+
 export const getRate = () => (dispatch) => {
   dispatch({ type: RATE_REQUEST });
   fetch('https://api.coinmarketcap.com/v1/ticker/steem/')

@@ -46,7 +46,7 @@ const UserHero = ({
         path="/@:name"
         render={() => (
           <div>
-            {user.isFetching ? (
+            {user.fetching ? (
               <UserHeaderLoading />
             ) : (
               <UserHeader

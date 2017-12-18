@@ -8,6 +8,7 @@ import { getUser, getAuthenticatedUser } from '../reducers';
 import * as accountHistoryConstants from '../../common/constants/accountHistory';
 import { updateAccountHistoryFilter } from '../wallet/walletActions';
 import './UserActivitySearch.less';
+import '../components/Sidebar/SidebarContentBlock.less';
 
 const filterValues = {
   [accountHistoryConstants.UPVOTED]: {
@@ -215,12 +216,12 @@ class UserActivitySearch extends React.Component {
     const { showGeneral, showFinance, showRewards } = this.state;
 
     return (
-      <div className="UserActivitySearch">
-        <h4 className="UserActivitySearch__title">
-          <i className="iconfont icon-trysearchlist UserActivitySearch__title__icon" />
+      <div className="UserActivitySearch SidebarContentBlock">
+        <h4 className="SidebarContentBlock__title">
+          <i className="iconfont icon-trysearchlist SidebarContentBlock__icon" />
           <FormattedMessage id="filter_activities" defaultMessage="Filter Activities" />
         </h4>
-        <div className="UserActivitySearch__filters__divider" />
+        <div className="SidebarContentBlock__divider" />
         <div className="UserActivitySearch__filters">
           <div className="UserActivitySearch__filters__container">
             <div
