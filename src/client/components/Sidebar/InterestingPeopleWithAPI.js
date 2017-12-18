@@ -7,9 +7,9 @@ import User from './User';
 import Loading from '../../components/Icon/Loading';
 import steemAPI from '../../steemAPI';
 import './InterestingPeople.less';
+import './SidebarContentBlock.less';
 
-@withRouter
-class InterestingPeopleWithAPI extends Component {
+@withRouter class InterestingPeopleWithAPI extends Component {
   static propTypes = {
     authenticatedUser: PropTypes.shape({
       name: PropTypes.string,
@@ -92,20 +92,18 @@ class InterestingPeopleWithAPI extends Component {
     }
 
     return (
-      <div className="InterestingPeople">
-        <div className="InterestingPeople__container">
-          <h4 className="InterestingPeople__title">
-            <i className="iconfont icon-group InterestingPeople__icon" />{' '}
-            <FormattedMessage id="top_reblogged_users" defaultMessage="Top Reblogged Users" />
-          </h4>
-          <div className="InterestingPeople__divider" />
-          {users && users.map(user => <User key={user.name} user={user} />)}
-          <h4 className="InterestingPeople__more">
-            <Link to={'/discover'}>
-              <FormattedMessage id="discover_more_people" defaultMessage="Discover More People" />
-            </Link>
-          </h4>
-        </div>
+      <div className="SidebarContentBlock">
+        <h4 className="SidebarContentBlock__title">
+          <i className="iconfont icon-group SidebarContentBlock__icon" />{' '}
+          <FormattedMessage id="top_reblogged_users" defaultMessage="Top Reblogged Users" />
+        </h4>
+        <div className="SidebarContentBlock__divider" />
+        {users && users.map(user => <User key={user.name} user={user} />)}
+        <h4 className="InterestingPeople__more">
+          <Link to={'/discover'}>
+            <FormattedMessage id="discover_more_people" defaultMessage="Discover More People" />
+          </Link>
+        </h4>
       </div>
     );
   }
