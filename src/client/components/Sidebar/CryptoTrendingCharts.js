@@ -4,6 +4,7 @@ import _ from 'lodash';
 import { FormattedMessage } from 'react-intl';
 import CryptoChart from './CryptoChart';
 import './CryptoTrendingCharts.less';
+import './SidebarContentBlock.less';
 
 class CryptoTrendingCharts extends React.Component {
   static propTypes = {
@@ -59,9 +60,9 @@ class CryptoTrendingCharts extends React.Component {
 
   render() {
     return (
-      <div className="CryptoTrendingCharts">
-        <h4 className="CryptoTrendingCharts__title">
-          <i className="iconfont icon-chart CryptoTrendingCharts__icon" />
+      <div className="SidebarContentBlock">
+        <h4 className="SidebarContentBlock__title">
+          <i className="iconfont icon-chart SidebarContentBlock__icon" />
           <FormattedMessage id="market" defaultMessage="Market" />
           <i
             role="presentation"
@@ -69,7 +70,7 @@ class CryptoTrendingCharts extends React.Component {
             className="iconfont icon-refresh CryptoTrendingCharts__icon-refresh"
           />
         </h4>
-        <div className="CryptoTrendingCharts__divider" />
+        <div className="SidebarContentBlock__divider" />
         {this.renderCryptoCharts()}
       </div>
     );

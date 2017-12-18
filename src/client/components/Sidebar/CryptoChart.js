@@ -119,7 +119,7 @@ class CryptoChart extends React.Component {
         {loading
           ? <Loading />
           : <Trend data={currentCryptoPriceHistory} stroke={'#4757b2'} strokeWidth={5} />}
-        {renderDivider && <div className="CryptoTrendingCharts__divider" />}
+        {renderDivider && <div className="SidebarContentBlock__divider" />}
       </div>
     );
   }
