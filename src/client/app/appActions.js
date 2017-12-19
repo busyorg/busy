@@ -1,4 +1,3 @@
-import Promise from 'bluebird';
 import fetch from 'isomorphic-fetch';
 import { createAction } from 'redux-actions';
 
@@ -18,6 +17,9 @@ export const RATE_SUCCESS = '@app/RATE_SUCCESS';
 export const CLOSE_BANNER = '@app/CLOSE_BANNER';
 export const closeBanner = createAction(CLOSE_BANNER);
 
+export const SET_APP_URL = '@app/SET_APP_URL';
+export const setAppUrl = createAction(SET_APP_URL);
+
 export const getRate = () => (dispatch) => {
   dispatch({ type: RATE_REQUEST });
   fetch('https://api.coinmarketcap.com/v1/ticker/steem/')
@@ -31,20 +33,16 @@ export const getRate = () => (dispatch) => {
     });
 };
 
-export const getRewardFund = () => (dispatch, getSelection, { steemAPI }) => {
-  const getRewardFundAsync = Promise.promisify(steemAPI.getRewardFund, { context: steemAPI });
-  return dispatch({
-    type: GET_REWARD_FUND,
-    payload: { promise: getRewardFundAsync('post') },
-  });
-};
+export const getRewardFund = () => (dispatch, getSelection, { steemAPI }) => dispatch({
+  type: GET_REWARD_FUND,
+  payload: { promise: steemAPI.sendAsync('get_reward_fund', ['post']) },
+});
 
 export const getTrendingTopics = () => (dispatch, getState, { steemAPI }) => {
-  const getTrendingTagsAsync = Promise.promisify(steemAPI.getTrendingTags, { context: steemAPI });
   dispatch({
     type: GET_TRENDING_TOPICS,
     payload: {
-      promise: getTrendingTagsAsync(undefined, 50).then(result =>
+      promise: steemAPI.sendAsync('get_trending_tags', [undefined, 50]).then(result =>
         Object.values(result)
           .map(tag => tag.name)
           .filter(tag => tag !== ''),

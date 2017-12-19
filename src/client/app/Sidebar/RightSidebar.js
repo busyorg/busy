@@ -19,6 +19,7 @@ import PostRecommendation from '../../components/Sidebar/PostRecommendation';
 import Loading from '../../components/Icon/Loading';
 import UserActivitySearch from '../../activity/UserActivitySearch';
 import WalletSidebar from '../../components/Sidebar/WalletSidebar';
+import FeedSidebar from '../../components/Sidebar/FeedSidebar';
 
 @withRouter
 @connect(
@@ -74,6 +75,11 @@ export default class RightSidebar extends React.Component {
           <Route path="/activity" component={UserActivitySearch} />
           <Route path="/@:name/activity" component={UserActivitySearch} />
           <Route path="/@:name/transfers" render={() => <WalletSidebar />} />
+          <Route path="/trending/:tag" component={FeedSidebar} />
+          <Route path="/created/:tag" component={FeedSidebar} />
+          <Route path="/active/:tag" component={FeedSidebar} />
+          <Route path="/hot/:tag" component={FeedSidebar} />
+          <Route path="/promoted/:tag" component={FeedSidebar} />
           <Route
             path="/@:name"
             render={() =>

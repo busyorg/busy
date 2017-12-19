@@ -5,9 +5,10 @@ import { withRouter } from 'react-router-dom';
 import { injectIntl } from 'react-intl';
 import { openTransfer } from '../../wallet/walletActions';
 import { getAuthenticatedUser } from '../../reducers';
+import { STEEM, SBD } from '../../../common/constants/cryptos';
 import Action from '../Button/Action';
 import ClaimRewardsBlock from '../../wallet/ClaimRewardsBlock';
-import SteemTrendingCharts from './SteemTrendingCharts';
+import CryptoTrendingCharts from './CryptoTrendingCharts';
 
 @withRouter
 @injectIntl
@@ -42,6 +43,7 @@ class WalletSidebar extends React.Component {
   render() {
     const { match, user, isCurrentUser } = this.props;
     const displayClaimRewards = match.params.name === user.name || isCurrentUser;
+    const cryptos = [STEEM.symbol, SBD.symbol];
 
     return (
       <div>
@@ -54,7 +56,7 @@ class WalletSidebar extends React.Component {
           })}
           onClick={this.handleOpenTransfer}
         />
-        <SteemTrendingCharts />
+        <CryptoTrendingCharts cryptos={cryptos} />
         {displayClaimRewards && <ClaimRewardsBlock />}
       </div>
     );

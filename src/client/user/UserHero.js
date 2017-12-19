@@ -34,6 +34,7 @@ const UserHero = ({
   user,
   username,
   isSameUser,
+  coverImage,
   hasCover,
   isPopoverVisible,
   onSelect,
@@ -45,7 +46,7 @@ const UserHero = ({
         path="/@:name"
         render={() => (
           <div>
-            {user.isFetching ? (
+            {user.fetching ? (
               <UserHeaderLoading />
             ) : (
               <UserHeader
@@ -54,6 +55,7 @@ const UserHero = ({
                 userReputation={user.reputation}
                 vestingShares={parseFloat(user.vesting_shares)}
                 isSameUser={isSameUser}
+                coverImage={coverImage}
                 hasCover={hasCover}
                 isPopoverVisible={isPopoverVisible}
                 onSelect={onSelect}
@@ -74,6 +76,7 @@ UserHero.propTypes = {
   user: PropTypes.shape().isRequired,
   username: PropTypes.string.isRequired,
   isSameUser: PropTypes.bool,
+  coverImage: PropTypes.string,
   hasCover: PropTypes.bool,
   isPopoverVisible: PropTypes.bool,
   onSelect: PropTypes.func,
@@ -82,6 +85,7 @@ UserHero.propTypes = {
 
 UserHero.defaultProps = {
   isSameUser: false,
+  coverImage: '',
   hasCover: false,
   isPopoverVisible: false,
   onSelect: () => {},

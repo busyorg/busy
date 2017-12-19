@@ -16,6 +16,7 @@ import editorReducer, * as fromEditor from './post/Write/editorReducer';
 import walletReducer, * as fromWallet from './wallet/walletReducer';
 import reblogReducers, * as fromReblog from './app/Reblog/reblogReducers';
 import settingsReducer, * as fromSettings from './settings/settingsReducer';
+import searchReducer, * as fromSearch from './search/searchReducer';
 import { responsiveReducer } from './vendor/responsive';
 
 const reducers = combineReducers({
@@ -35,6 +36,7 @@ const reducers = combineReducers({
   router: routerReducer,
   wallet: walletReducer,
   settings: settingsReducer,
+  search: searchReducer,
 });
 
 export default reducers;
@@ -50,6 +52,12 @@ export const getPosts = state => fromPosts.getPosts(state.posts);
 export const getPostContent = (state, author, permlink) =>
   fromPosts.getPostContent(state.posts, author, permlink);
 export const getPendingLikes = state => fromPosts.getPendingLikes(state.posts);
+export const getIsPostFetching = (state, author, permlink) =>
+  fromPosts.getIsPostFetching(state.posts, author, permlink);
+export const getIsPostLoaded = (state, author, permlink) =>
+  fromPosts.getIsPostLoaded(state.posts, author, permlink);
+export const getIsPostFailed = (state, author, permlink) =>
+  fromPosts.getIsPostFailed(state.posts, author, permlink);
 
 export const getDraftPosts = state => fromEditor.getDraftPosts(state.editor);
 export const getIsEditorLoading = state => fromEditor.getIsEditorLoading(state.editor);
@@ -64,6 +72,8 @@ export const getRewardFund = state => fromApp.getRewardFund(state.app);
 export const getTrendingTopics = state => fromApp.getTrendingTopics(state.app);
 export const getIsFetching = state => fromApp.getIsFetching(state.app);
 export const getIsBannerClosed = state => fromApp.getIsBannerClosed(state.app);
+export const getAppUrl = state => fromApp.getAppUrl(state.app);
+
 
 export const getFeed = state => fromFeed.getFeed(state.feed);
 
@@ -84,6 +94,12 @@ export const getIsFetchingFollowingList = state => fromUser.getIsFetchingFollowi
 export const getRecommendations = state => fromUser.getRecommendations(state.user);
 
 export const getUser = (state, username) => fromUsers.getUser(state.users, username);
+export const getIsUserFetching = (state, username) =>
+  fromUsers.getIsUserFetching(state.users, username);
+export const getIsUserLoaded = (state, username) =>
+  fromUsers.getIsUserLoaded(state.users, username);
+export const getIsUserFailed = (state, username) =>
+  fromUsers.getIsUserFailed(state.users, username);
 
 export const getFavoriteCategories = state => fromFavorites.getFavoriteCategories(state.favorites);
 
@@ -117,3 +133,8 @@ export const getCurrentDisplayedActions = state =>
   fromWallet.getCurrentDisplayedActions(state.wallet);
 export const getCurrentFilteredActions = state =>
   fromWallet.getCurrentFilteredActions(state.wallet);
+
+export const getSearchLoading = state => fromSearch.getSearchLoading(state.search);
+export const getSearchResults = state => fromSearch.getSearchResults(state.search);
+export const getAutoCompleteSearchResults = state =>
+  fromSearch.getAutoCompleteSearchResults(state.search);

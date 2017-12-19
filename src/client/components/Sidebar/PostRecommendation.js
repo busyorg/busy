@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter, Link } from 'react-router-dom';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
-import './PostRecommendation.less';
 import Loading from '../../components/Icon/Loading';
 import steemAPI from '../../steemAPI';
+import './PostRecommendation.less';
+import './SidebarContentBlock.less';
 
 @withRouter
 class PostRecommendation extends Component {
@@ -42,10 +43,10 @@ class PostRecommendation extends Component {
 
   getPostsByAuthor = (author) => {
     steemAPI
-      .getDiscussionsByBlogAsync({
+      .sendAsync('get_discussions_by_blog', [{
         tag: author,
         limit: 4,
-      })
+      }])
       .then((result) => {
         const recommendedPosts = Array.isArray(result) ? result : [];
         this.setState({
@@ -141,11 +142,12 @@ class PostRecommendation extends Component {
     }
 
     return (
-      <div className="PostRecommendation">
-        <h4 className="PostRecommendation__title SidebarBlock__content-title">
-          <i className="iconfont icon-headlines PostRecommendation__icon" />{' '}
+      <div className="SidebarContentBlock">
+        <h4 className="SidebarContentBlock__title">
+          <i className="iconfont icon-headlines SidebarContentBlock__icon" />{' '}
           <FormattedMessage id="recommended_posts" defaultMessage="Recommended Posts" />
         </h4>
+        <div className="SidebarContentBlock__divider" />
         {this.renderPosts()}
       </div>
     );

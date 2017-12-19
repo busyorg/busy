@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import steem from 'steem';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
+import formatter from '../helpers/steemitFormatter';
 
 const AuthorRewardMessage = ({
   actionDetails,
@@ -25,7 +25,7 @@ const AuthorRewardMessage = ({
       if (parsedPayout > 0) {
         let rewardsStr;
         if (reward.currency === 'SP') {
-          const vestsToSP = steem.formatter.vestToSteem(
+          const vestsToSP = formatter.vestToSteem(
             parsedPayout,
             totalVestingShares,
             totalVestingFundSteem,
