@@ -20,4 +20,56 @@ export function getCryptoDetails(cryptoQuery) {
   return cryptoDetails || {};
 }
 
-export default null;
+const DAYS_OF_THE_WEEK = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
+
+const getCurrentDaysOfTheWeek = () => {
+  const today = new Date();
+  const daysSorted = [];
+
+  for (let i = 0; i < DAYS_OF_THE_WEEK.length; i += 1) {
+    const newDate = new Date(today.setDate(today.getDate() - 1));
+    daysSorted.push(DAYS_OF_THE_WEEK[newDate.getDay()]);
+  }
+
+  return daysSorted.reverse();
+};
+
+export function getFormattedCryptoHistoryForRecharts(cryptoPriceHistory) {
+  const currentDaysOfTheWeek = getCurrentDaysOfTheWeek();
+
+  return _.map(cryptoPriceHistory, (price, index) => {
+    const day = currentDaysOfTheWeek[index];
+    return {
+      day,
+      price,
+    };
+  });
+}
+
+function getPriceDifferencePercentage(currentCryptoPrice, previousCryptoPrice) {
+  const priceDifference = currentCryptoPrice - previousCryptoPrice;
+  const priceIncrease = priceDifference / currentCryptoPrice;
+  return (Math.abs(priceIncrease));
+}
+
+export function getCryptoPriceIncreaseDetails(usdCryptoPriceHistory, btcCryptoPriceHistory) {
+  const currentUSDPrice = _.last(usdCryptoPriceHistory);
+  const previousUSDPrice = _.nth(usdCryptoPriceHistory, -2);
+  const cryptoUSDIncrease = currentUSDPrice > previousUSDPrice;
+  const usdPriceDifferencePercent = getPriceDifferencePercentage(currentUSDPrice, previousUSDPrice);
+
+  const currentBTCPrice = _.last(btcCryptoPriceHistory);
+  const previousBTCPrice = _.nth(btcCryptoPriceHistory, -2);
+  const cryptoBTCIncrease = currentBTCPrice > previousBTCPrice;
+  const btcPriceDifferencePercent = getPriceDifferencePercentage(currentBTCPrice, previousBTCPrice);
+
+
+  return {
+    currentUSDPrice,
+    currentBTCPrice,
+    cryptoUSDIncrease,
+    cryptoBTCIncrease,
+    usdPriceDifferencePercent,
+    btcPriceDifferencePercent,
+  };
+}

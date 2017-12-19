@@ -97,13 +97,14 @@ import './SidebarContentBlock.less';
           <i className="iconfont icon-group SidebarContentBlock__icon" />{' '}
           <FormattedMessage id="top_reblogged_users" defaultMessage="Top Reblogged Users" />
         </h4>
-        <div className="SidebarContentBlock__divider" />
-        {users && users.map(user => <User key={user.name} user={user} />)}
-        <h4 className="InterestingPeople__more">
-          <Link to={'/discover'}>
-            <FormattedMessage id="discover_more_people" defaultMessage="Discover More People" />
-          </Link>
-        </h4>
+        <div className="SidebarContentBlock__content">
+          {users && users.map(user => <User key={user.name} user={user} />)}
+          <h4 className="InterestingPeople__more">
+            <Link to={'/discover'}>
+              <FormattedMessage id="discover_more_people" defaultMessage="Discover More People" />
+            </Link>
+          </h4>
+        </div>
       </div>
     );
   }

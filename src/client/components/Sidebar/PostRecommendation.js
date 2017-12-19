@@ -147,8 +147,9 @@ class PostRecommendation extends Component {
           <i className="iconfont icon-headlines SidebarContentBlock__icon" />{' '}
           <FormattedMessage id="recommended_posts" defaultMessage="Recommended Posts" />
         </h4>
-        <div className="SidebarContentBlock__divider" />
-        {this.renderPosts()}
+        <div className="SidebarContentBlock__content">
+          {this.renderPosts()}
+        </div>
       </div>
     );
   }
