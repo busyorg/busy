@@ -57,7 +57,7 @@ class CryptoTrendingCharts extends React.Component {
         apiErrors.push(cryptoDetails);
       }
     });
-    console.log(cryptosPriceHistory);
+
     return _.keys(cryptosPriceHistory).length === apiErrors.length;
   }
 
