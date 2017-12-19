@@ -140,6 +140,8 @@ class CryptoChart extends React.Component {
           (<FormattedNumber
             style="percent" // eslint-disable-line react/style-prop-object
             value={usdPriceDifferencePercent}
+            minimumFractionDigits={2}
+            maximumFractionDigits={2}
           />)
         </span>
         <i
@@ -182,6 +184,8 @@ class CryptoChart extends React.Component {
           (<FormattedNumber
             style="percent" // eslint-disable-line react/style-prop-object
             value={btcPriceDifferencePercent}
+            minimumFractionDigits={2}
+            maximumFractionDigits={2}
           />)
         </span>
         <i
