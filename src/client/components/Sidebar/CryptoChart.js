@@ -91,7 +91,7 @@ class CryptoChart extends React.Component {
     const cryptoUSDPriceHistoryKey = `${currentCrypto.symbol}.usdPriceHistory`;
     const formattedData = _.get(cryptosPriceHistory, cryptoUSDPriceHistoryKey, []);
     return (
-      <ResponsiveContainer width="100%" height={100}>
+      <ResponsiveContainer width="100%" height={65}>
         <LineChart data={formattedData}>
           <YAxis dataKey="price" type="number" hide />
           <XAxis
@@ -105,6 +105,7 @@ class CryptoChart extends React.Component {
               fontWeight: 'bold',
               fill: '#99aab5',
             }}
+            mirror
           />
           <CartesianGrid horizontal={false} vertical={false} />
           <Tooltip content={<CryptoChartTooltip />} cursor={false} />
