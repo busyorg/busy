@@ -141,120 +141,124 @@ class Buttons extends React.Component {
 
     return (
       <div>
-        <Tooltip title={likeTooltip}>
-          <a
-            role="presentation"
-            className={classNames('CommentFooter__link', {
-              'CommentFooter__link--active': userUpVoted,
-            })}
-            onClick={this.props.onLikeClick}
-          >
-            {pendingLike ? <Icon type="loading" /> : <i className="iconfont icon-praise_fill" />}
-          </a>
-        </Tooltip>
-        <span
-          className={classNames('CommentFooter__count', {
-            'CommentFooter__count--clickable': upVotes.length > 0 || downVotes.length > 0,
-          })}
-          role="presentation"
-          onClick={this.handleShowReactions}
-        >
-          <Tooltip
-            title={
-              <div>
-                {upVotesPreview}
-                {upVotesMore}
-                {upVotesPreview.length === 0 && (
-                  <FormattedMessage id="no_likes" defaultMessage="No likes yet" />
-                )}
-              </div>
-            }
-          >
-            <FormattedNumber value={upVotes.length} />
-            <span />
-          </Tooltip>
-        </span>
-        <Tooltip title={intl.formatMessage({ id: 'dislike', defaultMessage: 'Dislike' })}>
-          <a
-            role="presentation"
-            className={classNames('CommentFooter__link', {
-              'CommentFooter__link--active': userDownVoted,
-            })}
-            onClick={this.props.onDislikeClick}
-          >
-            {pendingDisLike ? (
-              <Icon type="loading" />
-            ) : (
-              <i className="iconfont icon-praise_fill Comment__icon_dislike" />
-            )}
-          </a>
-        </Tooltip>
-        <span
-          className={classNames('CommentFooter__count', {
-            'CommentFooter__count--clickable': upVotes.length > 0 || downVotes.length > 0,
-          })}
-          role="presentation"
-          onClick={this.handleShowReactions}
-        >
-          <Tooltip
-            title={
-              <div>
-                {downVotesPreview}
-                {downVotesMore}
-                {downVotes.length === 0 && (
-                  <FormattedMessage id="no_dislikes" defaultMessage="No dislikes" />
-                )}
-              </div>
-            }
-          >
-            <FormattedNumber value={downVotes.length} />
-            <span />
-          </Tooltip>
-        </span>
-        <span className="CommentFooter__bullet" />
-        <span className="CommentFooter__payout">
-          <Tooltip title={<PayoutDetail post={comment} />}>
-            <USDDisplay
-              value={payout.cashoutInTime ? payout.potentialPayout : payout.pastPayouts}
-            />
-            <span />
-          </Tooltip>
-        </span>
-        {user.name && (
-          <span>
-            <span className="CommentFooter__bullet" />
+        <div>
+          <Tooltip title={likeTooltip}>
             <a
               role="presentation"
               className={classNames('CommentFooter__link', {
-                'CommentFooter__link--active': replying,
+                'CommentFooter__link--active': userUpVoted,
               })}
-              onClick={this.props.onReplyClick}
+              onClick={this.props.onLikeClick}
             >
-              <FormattedMessage id="reply" defaultMessage="Reply" />
+              {pendingLike ? <Icon type="loading" /> : <i className="iconfont icon-praise_fill" />}
             </a>
+          </Tooltip>
+          <span
+            className={classNames('CommentFooter__count', {
+              'CommentFooter__count--clickable': upVotes.length > 0 || downVotes.length > 0,
+            })}
+            role="presentation"
+            onClick={this.handleShowReactions}
+          >
+            <Tooltip
+              title={
+                <div>
+                  {upVotesPreview}
+                  {upVotesMore}
+                  {upVotesPreview.length === 0 && (
+                    <FormattedMessage id="no_likes" defaultMessage="No likes yet" />
+                  )}
+                </div>
+              }
+            >
+              <FormattedNumber value={upVotes.length} />
+              <span />
+            </Tooltip>
           </span>
-        )}
-        {editable && (
-          <span>
-            <span className="CommentFooter__bullet" />
+          <Tooltip title={intl.formatMessage({ id: 'dislike', defaultMessage: 'Dislike' })}>
             <a
               role="presentation"
               className={classNames('CommentFooter__link', {
-                'CommentFooter__link--active': editing,
+                'CommentFooter__link--active': userDownVoted,
               })}
-              onClick={this.props.onEditClick}
+              onClick={this.props.onDislikeClick}
             >
-              <FormattedMessage id="edit" defaultMessage="Edit" />
+              {pendingDisLike ? (
+                <Icon type="loading" />
+              ) : (
+                <i className="iconfont icon-praise_fill Comment__icon_dislike" />
+              )}
             </a>
+          </Tooltip>
+          <span
+            className={classNames('CommentFooter__count', {
+              'CommentFooter__count--clickable': upVotes.length > 0 || downVotes.length > 0,
+            })}
+            role="presentation"
+            onClick={this.handleShowReactions}
+          >
+            <Tooltip
+              title={
+                <div>
+                  {downVotesPreview}
+                  {downVotesMore}
+                  {downVotes.length === 0 && (
+                    <FormattedMessage id="no_dislikes" defaultMessage="No dislikes" />
+                  )}
+                </div>
+              }
+            >
+              <FormattedNumber value={downVotes.length} />
+              <span />
+            </Tooltip>
           </span>
-        )}
-        <ReactionsModal
-          visible={this.state.reactionsModalVisible}
-          upVotes={upVotes}
-          ratio={ratio}
-          downVotes={downVotes}
-          onClose={this.handleCloseReactions}
-        />
+          <span className="CommentFooter__bullet" />
+          <span className="CommentFooter__payout">
+            <Tooltip title={<PayoutDetail post={comment} />}>
+              <USDDisplay
+                value={payout.cashoutInTime ? payout.potentialPayout : payout.pastPayouts}
+              />
+              <span />
+            </Tooltip>
+          </span>
+        </div>
+        <br />
+        <div>
+          {user.name && (
+            <span>
+              <a
+                role="presentation"
+                className={classNames('CommentFooter__link', {
+                  'CommentFooter__link--active': replying,
+                })}
+                onClick={this.props.onReplyClick}
+              >
+                <FormattedMessage id="reply" defaultMessage="Reply" />
+              </a>
+            </span>
+          )}
+          {editable && (
+            <span>
+              <span className="CommentFooter__bullet" />
+              <a
+                role="presentation"
+                className={classNames('CommentFooter__link', {
+                  'CommentFooter__link--active': editing,
+                })}
+                onClick={this.props.onEditClick}
+              >
+                <FormattedMessage id="edit" defaultMessage="Edit" />
+              </a>
+            </span>
+          )}
+          <ReactionsModal
+            visible={this.state.reactionsModalVisible}
+            upVotes={upVotes}
+            ratio={ratio}
+            downVotes={downVotes}
+            onClose={this.handleCloseReactions}
+          />
+        </div>
       </div>
     );
   }
