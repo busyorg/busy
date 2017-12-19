@@ -1,14 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
+import { getCryptosPriceHistory } from '../../reducers';
 import CryptoChart from './CryptoChart';
 import './CryptoTrendingCharts.less';
 import './SidebarContentBlock.less';
 
+@connect(state => ({
+  cryptosPriceHistory: getCryptosPriceHistory(state),
+}))
 class CryptoTrendingCharts extends React.Component {
   static propTypes = {
     cryptos: PropTypes.arrayOf(PropTypes.string),
+    cryptosPriceHistory: PropTypes.shape().isRequired,
   };
 
   static defaultProps = {
@@ -38,6 +44,23 @@ class CryptoTrendingCharts extends React.Component {
     );
   }
 
+  hasAPIError() {
+    const { cryptosPriceHistory } = this.props;
+    const apiErrors = [];
+
+    if (_.isEmpty(cryptosPriceHistory)) {
+      return false;
+    }
+
+    _.each(cryptosPriceHistory, (cryptoDetails) => {
+      if (!_.isNull(cryptoDetails) && cryptoDetails.usdAPIError) {
+        apiErrors.push(cryptoDetails);
+      }
+    });
+
+    return _.keys(cryptosPriceHistory).length === apiErrors.length;
+  }
+
   renderCryptoCharts() {
     const { cryptos } = this.props;
     const { refreshCharts } = this.state;
@@ -45,6 +68,7 @@ class CryptoTrendingCharts extends React.Component {
     if (_.isEmpty(cryptos)) {
       return null;
     }
+
     return _.map(cryptos, (crypto, index) => {
       const isNotLastElement = index < cryptos.length - 1;
       return (
@@ -59,6 +83,8 @@ class CryptoTrendingCharts extends React.Component {
   }
 
   render() {
+    if (this.hasAPIError()) return <div />;
+
     return (
       <div className="SidebarContentBlock">
         <h4 className="SidebarContentBlock__title">
@@ -70,7 +96,6 @@ class CryptoTrendingCharts extends React.Component {
             className="iconfont icon-refresh CryptoTrendingCharts__icon-refresh"
           />
         </h4>
-        <div className="SidebarContentBlock__divider" />
         {this.renderCryptoCharts()}
       </div>
     );

@@ -1,6 +1,10 @@
+import _ from 'lodash';
 import * as appTypes from './appActions';
 import * as authActions from '../auth/authActions';
 import * as postActions from '../post/postActions';
+import {
+  getCryptoPriceIncreaseDetails,
+} from '../helpers/cryptosHelper';
 
 const initialState = {
   isFetching: false,
@@ -11,6 +15,7 @@ const initialState = {
   rewardFund: {},
   bannerClosed: false,
   appUrl: 'https://busy.org',
+  cryptosPriceHistory: {},
 };
 
 export default (state = initialState, action) => {
@@ -76,6 +81,38 @@ export default (state = initialState, action) => {
         ...state,
         appUrl: action.payload,
       };
+    case appTypes.REFRESH_CRYPTO_PRICE_HISTORY:
+      return {
+        ...state,
+        cryptosPriceHistory: {
+          ...state.cryptosPriceHistory,
+          [action.payload]: null,
+        },
+      };
+    case appTypes.GET_CRYPTO_PRICE_HISTORY.SUCCESS: {
+      const { symbol, usdPriceHistory, btcPriceHistory } = action.payload;
+      const usdPriceHistoryByClose = _.map(usdPriceHistory.Data, data => data.close);
+      const btcPriceHistoryByClose = _.map(btcPriceHistory.Data, data => data.close);
+      const priceDetails = getCryptoPriceIncreaseDetails(
+        usdPriceHistoryByClose,
+        btcPriceHistoryByClose,
+      );
+      const btcAPIError = btcPriceHistory.Response === 'Error';
+      const usdAPIError = usdPriceHistory.Response === 'Error';
+
+      return {
+        ...state,
+        cryptosPriceHistory: {
+          ...state.cryptosPriceHistory,
+          [symbol]: {
+            usdPriceHistory: usdPriceHistoryByClose,
+            priceDetails,
+            btcAPIError,
+            usdAPIError,
+          },
+        },
+      };
+    }
     default:
       return state;
   }
@@ -88,3 +125,4 @@ export const getTrendingTopics = state => state.trendingTopics;
 export const getIsFetching = state => state.isFetching;
 export const getIsBannerClosed = state => state.bannerClosed;
 export const getAppUrl = state => state.appUrl;
+export const getCryptosPriceHistory = state => state.cryptosPriceHistory;

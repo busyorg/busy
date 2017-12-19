@@ -106,7 +106,6 @@
     "react-router-dom": "^4.1.1",
     "react-router-redux": "^5.0.0-alpha.6",
     "react-scroll": "^1.6.4",
-    "react-trend": "^1.2.4",
     "react-visibility-sensor": "^3.10.1",
     "reading-time": "^1.1.0",
     "redux": "^3.5.2",
