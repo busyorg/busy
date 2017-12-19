@@ -13,6 +13,7 @@ import {
   Line,
 } from 'recharts';
 import { FormattedNumber } from 'react-intl';
+import { getCryptosPriceHistory } from '../../reducers';
 import { getCryptoPriceHistory } from '../../app/appActions';
 import { getCryptoDetails } from '../../helpers/cryptosHelper';
 import USDDisplay from '../Utils/USDDisplay';
@@ -21,7 +22,7 @@ import CryptoChartTooltip from './CryptoChartTooltip';
 
 @connect(
   state => ({
-    cryptosPriceHistory: state.app.cryptosPriceHistory,
+    cryptosPriceHistory: getCryptosPriceHistory(state),
   }),
   {
     getCryptoPriceHistory,

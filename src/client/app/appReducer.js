@@ -86,7 +86,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         cryptosPriceHistory: {
-          ...state,
+          ...state.cryptosPriceHistory,
           [action.payload]: null,
         },
       };
@@ -127,3 +127,4 @@ export const getTrendingTopics = state => state.trendingTopics;
 export const getIsFetching = state => state.isFetching;
 export const getIsBannerClosed = state => state.bannerClosed;
 export const getAppUrl = state => state.appUrl;
+export const getCryptosPriceHistory = state => state.cryptosPriceHistory;
