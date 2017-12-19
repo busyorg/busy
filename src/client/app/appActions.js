@@ -23,6 +23,8 @@ export const SET_APP_URL = '@app/SET_APP_URL';
 export const setAppUrl = createAction(SET_APP_URL);
 
 export const GET_CRYPTO_PRICE_HISTORY = createAsyncActionType('@app/GET_CRYPTOS_PRICE_HISTORY');
+export const REFRESH_CRYPTO_PRICE_HISTORY = '@app/REFRESH_CRYPTO_PRICE_HISTORY';
+export const refreshCryptoPriceHistory = createAction(REFRESH_CRYPTO_PRICE_HISTORY);
 
 export const getRate = () => (dispatch) => {
   dispatch({ type: RATE_REQUEST });
@@ -52,7 +54,10 @@ export const getTrendingTopics = () => (dispatch, getState, { steemAPI }) => {
   });
 };
 
-export const getCryptoPriceHistory = symbol => (dispatch) => {
+export const getCryptoPriceHistory = (symbol, refresh = false) => (dispatch) => {
+  if (refresh) {
+    dispatch(refreshCryptoPriceHistory(symbol));
+  }
   dispatch({
     type: GET_CRYPTO_PRICE_HISTORY.ACTION,
     payload: {

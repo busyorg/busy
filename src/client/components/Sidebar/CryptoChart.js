@@ -31,14 +31,15 @@ class CryptoChart extends React.Component {
   static propTypes = {
     cryptosPriceHistory: PropTypes.shape().isRequired,
     getCryptoPriceHistory: PropTypes.func.isRequired,
+    refreshCharts: PropTypes.bool,
     renderDivider: PropTypes.bool,
     crypto: PropTypes.string,
   };
 
   static defaultProps = {
-    crypto: '',
-    renderDivider: true,
     refreshCharts: false,
+    renderDivider: true,
+    crypto: '',
   };
 
   constructor(props) {
@@ -63,12 +64,12 @@ class CryptoChart extends React.Component {
   componentWillReceiveProps(nextProps) {
     const currentCrypto = getCryptoDetails(nextProps.crypto);
     const isDifferentCrypto = this.props.crypto !== nextProps.crypto;
-    if (isDifferentCrypto) {
+    if (isDifferentCrypto || nextProps.refreshCharts) {
       this.setState(
         {
           currentCrypto,
         },
-        () => this.props.getCryptoPriceHistory(currentCrypto.symbol),
+        () => this.props.getCryptoPriceHistory(currentCrypto.symbol, true),
       );
     } else {
       this.setState({

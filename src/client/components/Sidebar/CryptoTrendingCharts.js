@@ -15,8 +15,32 @@ class CryptoTrendingCharts extends React.Component {
     cryptos: [],
   };
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      refreshCharts: false,
+    };
+
+    this.handleOnClickRefresh = this.handleOnClickRefresh.bind(this);
+  }
+
+  handleOnClickRefresh() {
+    this.setState(
+      {
+        refreshCharts: true,
+      },
+      () => {
+        this.setState({
+          refreshCharts: false,
+        });
+      },
+    );
+  }
+
   renderCryptoCharts() {
     const { cryptos } = this.props;
+    const { refreshCharts } = this.state;
 
     if (_.isEmpty(cryptos)) {
       return null;
@@ -29,6 +53,7 @@ class CryptoTrendingCharts extends React.Component {
           key={crypto}
           crypto={crypto}
           renderDivider={isNotLastElement}
+          refreshCharts={refreshCharts}
         />
       );
     });
@@ -40,6 +65,11 @@ class CryptoTrendingCharts extends React.Component {
         <h4 className="SidebarContentBlock__title">
           <i className="iconfont icon-chart SidebarContentBlock__icon" />
           <FormattedMessage id="market" defaultMessage="Market" />
+          <i
+            role="presentation"
+            onClick={this.handleOnClickRefresh}
+            className="iconfont icon-refresh CryptoTrendingCharts__icon-refresh"
+          />
         </h4>
         {this.renderCryptoCharts()}
       </div>

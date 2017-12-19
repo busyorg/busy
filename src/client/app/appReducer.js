@@ -82,6 +82,14 @@ export default (state = initialState, action) => {
         ...state,
         appUrl: action.payload,
       };
+    case appTypes.REFRESH_CRYPTO_PRICE_HISTORY:
+      return {
+        ...state,
+        cryptosPriceHistory: {
+          ...state,
+          [action.payload]: null,
+        },
+      };
     case appTypes.GET_CRYPTO_PRICE_HISTORY.SUCCESS: {
       const { symbol, usdPriceHistory, btcPriceHistory } = action.payload;
       const usdPriceHistoryByClose = _.map(usdPriceHistory.Data, data => data.close);
