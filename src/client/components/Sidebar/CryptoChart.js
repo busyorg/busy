@@ -47,7 +47,7 @@ class CryptoChart extends React.Component {
 
     this.state = {
       currentCrypto,
-      displayChart: true,
+      displayChart: false,
     };
 
     this.toggleDisplayChart = this.toggleDisplayChart.bind(this);
