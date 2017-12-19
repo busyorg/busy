@@ -20,32 +20,6 @@ export function getCryptoDetails(cryptoQuery) {
   return cryptoDetails || {};
 }
 
-const DAYS_OF_THE_WEEK = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
-
-const getCurrentDaysOfTheWeek = () => {
-  const today = new Date();
-  const daysSorted = [];
-
-  for (let i = 0; i < DAYS_OF_THE_WEEK.length; i += 1) {
-    const newDate = new Date(today.setDate(today.getDate() - 1));
-    daysSorted.push(DAYS_OF_THE_WEEK[newDate.getDay()]);
-  }
-
-  return daysSorted.reverse();
-};
-
-export function getFormattedCryptoHistoryForRecharts(cryptoPriceHistory) {
-  const currentDaysOfTheWeek = getCurrentDaysOfTheWeek();
-
-  return _.map(cryptoPriceHistory, (price, index) => {
-    const day = currentDaysOfTheWeek[index];
-    return {
-      day,
-      price,
-    };
-  });
-}
-
 function getPriceDifferencePercentage(currentCryptoPrice, previousCryptoPrice) {
   const priceDifference = currentCryptoPrice - previousCryptoPrice;
   const priceIncrease = priceDifference / currentCryptoPrice;

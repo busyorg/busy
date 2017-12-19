@@ -3,7 +3,6 @@ import * as appTypes from './appActions';
 import * as authActions from '../auth/authActions';
 import * as postActions from '../post/postActions';
 import {
-  getFormattedCryptoHistoryForRecharts,
   getCryptoPriceIncreaseDetails,
 } from '../helpers/cryptosHelper';
 
@@ -94,7 +93,6 @@ export default (state = initialState, action) => {
       const { symbol, usdPriceHistory, btcPriceHistory } = action.payload;
       const usdPriceHistoryByClose = _.map(usdPriceHistory.Data, data => data.close);
       const btcPriceHistoryByClose = _.map(btcPriceHistory.Data, data => data.close);
-      const formattedUSDPriceHistory = getFormattedCryptoHistoryForRecharts(usdPriceHistoryByClose);
       const priceDetails = getCryptoPriceIncreaseDetails(
         usdPriceHistoryByClose,
         btcPriceHistoryByClose,
@@ -107,7 +105,7 @@ export default (state = initialState, action) => {
         cryptosPriceHistory: {
           ...state.cryptosPriceHistory,
           [symbol]: {
-            usdPriceHistory: formattedUSDPriceHistory,
+            usdPriceHistory: usdPriceHistoryByClose,
             priceDetails,
             btcAPIError,
             usdAPIError,

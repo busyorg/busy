@@ -3,22 +3,12 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
-import {
-  ResponsiveContainer,
-  LineChart,
-  XAxis,
-  YAxis,
-  Tooltip,
-  CartesianGrid,
-  Line,
-} from 'recharts';
 import { FormattedNumber } from 'react-intl';
 import { getCryptosPriceHistory } from '../../reducers';
 import { getCryptoPriceHistory } from '../../app/appActions';
 import { getCryptoDetails } from '../../helpers/cryptosHelper';
 import USDDisplay from '../Utils/USDDisplay';
 import Loading from '../Icon/Loading';
-import CryptoChartTooltip from './CryptoChartTooltip';
 
 @connect(
   state => ({
@@ -49,10 +39,7 @@ class CryptoChart extends React.Component {
 
     this.state = {
       currentCrypto,
-      displayChart: false,
     };
-
-    this.toggleDisplayChart = this.toggleDisplayChart.bind(this);
   }
 
   componentDidMount() {
@@ -77,48 +64,6 @@ class CryptoChart extends React.Component {
         currentCrypto,
       });
     }
-  }
-
-  toggleDisplayChart(displayChart) {
-    this.setState({
-      displayChart,
-    });
-  }
-
-  renderRecharts() {
-    const { cryptosPriceHistory } = this.props;
-    const { currentCrypto } = this.state;
-    const cryptoUSDPriceHistoryKey = `${currentCrypto.symbol}.usdPriceHistory`;
-    const formattedData = _.get(cryptosPriceHistory, cryptoUSDPriceHistoryKey, []);
-    return (
-      <ResponsiveContainer width="100%" height={65}>
-        <LineChart data={formattedData}>
-          <YAxis dataKey="price" type="number" hide />
-          <XAxis
-            dataKey="day"
-            type="category"
-            padding={{ left: 10 }}
-            axisLine={false}
-            tickLine={false}
-            tick={{
-              fontSize: 15,
-              fontWeight: 'bold',
-              fill: '#99aab5',
-            }}
-            mirror
-          />
-          <CartesianGrid horizontal={false} vertical={false} />
-          <Tooltip content={<CryptoChartTooltip />} cursor={false} />
-          <Line
-            dataKey="price"
-            stroke="#4757b2"
-            strokeWidth={3}
-            dot={false}
-            isAnimationActive={false}
-          />
-        </LineChart>
-      </ResponsiveContainer>
-    );
   }
 
   renderUSDPrice() {
@@ -206,7 +151,7 @@ class CryptoChart extends React.Component {
 
   render() {
     const { renderDivider, cryptosPriceHistory } = this.props;
-    const { currentCrypto, displayChart } = this.state;
+    const { currentCrypto } = this.state;
     const usdAPIErrorKey = `${currentCrypto.symbol}.usdAPIError`;
     const usdAPIError = _.get(cryptosPriceHistory, usdAPIErrorKey, true);
     const cryptoUSDPriceHistoryKey = `${currentCrypto.symbol}.usdPriceHistory`;
@@ -232,19 +177,10 @@ class CryptoChart extends React.Component {
           <div className="CryptoTrendingCharts__chart-header">
             <div className="CryptoTrendingCharts__crypto-name">
               {currentCrypto.name}
-              <i
-                role="presentation"
-                onClick={() => this.toggleDisplayChart(!displayChart)}
-                className={classNames('iconfont CryptoTrendingCharts__display-icon', {
-                  'icon-unfold': !displayChart,
-                  'icon-packup': displayChart,
-                })}
-              />
             </div>
             {this.renderUSDPrice()}
             {this.renderBTCPrice()}
           </div>
-          {displayChart && this.renderRecharts()}
         </div>
         {renderDivider && <div className="SidebarContentBlock__divider" />}
       </div>
