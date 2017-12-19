@@ -3,7 +3,7 @@ import { getAccountWithFollowingCount as getAccountWithFollowingCountAPI } from 
 
 export const GET_ACCOUNT = createAsyncActionType('@users/GET_ACCOUNT');
 
-export const getAccount = { name, authUser } => dispatch =>
+export const getAccount = ({ name, authUser }) => dispatch =>
   dispatch({
     type: GET_ACCOUNT.ACTION,
     payload: getAccountWithFollowingCountAPI(name, authUser),
