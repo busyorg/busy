@@ -15,7 +15,8 @@ import {
 import { FormattedNumber } from 'react-intl';
 import { getCryptoPriceHistory } from '../../app/appActions';
 import { getCryptoDetails } from '../../helpers/cryptosHelper';
-import USDDisplay from '../../components/Utils/USDDisplay';
+import USDDisplay from '../Utils/USDDisplay';
+import Loading from '../Icon/Loading';
 import CryptoChartTooltip from './CryptoChartTooltip';
 
 @connect(
@@ -205,6 +206,20 @@ class CryptoChart extends React.Component {
     const { currentCrypto, displayChart } = this.state;
     const usdAPIErrorKey = `${currentCrypto.symbol}.usdAPIError`;
     const usdAPIError = _.get(cryptosPriceHistory, usdAPIErrorKey, true);
+    const cryptoUSDPriceHistoryKey = `${currentCrypto.symbol}.usdPriceHistory`;
+    const usdPriceHistory = _.get(cryptosPriceHistory, cryptoUSDPriceHistoryKey, null);
+    const loading = _.isNull(usdPriceHistory);
+
+    if (loading) {
+      return (
+        <div>
+          <div className="SidebarContentBlock__content">
+            <Loading />
+          </div>
+          {renderDivider && <div className="SidebarContentBlock__divider" />}
+        </div>
+      );
+    }
 
     if (_.isEmpty(currentCrypto) || usdAPIError) return null;
 
