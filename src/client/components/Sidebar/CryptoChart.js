@@ -175,6 +175,8 @@ class CryptoChart extends React.Component {
       },
       chart: {
         height: '100px',
+        spacingLeft: 0,
+        spacingRight: 0,
       },
       xAxis: {
         categories: daysOfTheWeek,
@@ -217,6 +219,7 @@ class CryptoChart extends React.Component {
           marker: {
             enabled: false,
           },
+          borderWidth: 0,
         },
       },
       tooltip: {
