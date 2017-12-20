@@ -35,14 +35,12 @@ ShallowWrapper {
     "key": undefined,
     "nodeType": "host",
     "props": Object {
-      "children": <div
-        className="InterestingPeople__container"
-      >
+      "children": Array [
         <h4
-          className="InterestingPeople__title"
+          className="SidebarContentBlock__title"
         >
           <i
-            className="iconfont icon-group InterestingPeople__icon"
+            className="iconfont icon-group SidebarContentBlock__icon"
           />
            
           <FormattedMessage
@@ -55,345 +53,10 @@ ShallowWrapper {
             onClick={[Function]}
             role="presentation"
           />
-        </h4>
+        </h4>,
         <div
-          className="InterestingPeople__divider"
-        />
-        <User
-          user={
-            Object {
-              "name": "sekhmet",
-            }
-          }
-        />
-        <User
-          user={
-            Object {
-              "name": "fabien",
-            }
-          }
-        />
-        <User
-          user={
-            Object {
-              "name": "ekitcho",
-            }
-          }
-        />
-        <User
-          user={
-            Object {
-              "name": "jm90mm",
-            }
-          }
-        />
-        <h4
-          className="InterestingPeople__more"
+          className="SidebarContentBlock__content"
         >
-          <Link
-            replace={false}
-            to="/discover"
-          >
-            <FormattedMessage
-              defaultMessage="Discover More People"
-              id="discover_more_people"
-              values={Object {}}
-            />
-          </Link>
-        </h4>
-      </div>,
-      "className": "InterestingPeople",
-    },
-    "ref": null,
-    "rendered": Object {
-      "instance": null,
-      "key": undefined,
-      "nodeType": "host",
-      "props": Object {
-        "children": Array [
-          <h4
-            className="InterestingPeople__title"
-          >
-            <i
-              className="iconfont icon-group InterestingPeople__icon"
-            />
-             
-            <FormattedMessage
-              defaultMessage="Interesting People"
-              id="interesting_people"
-              values={Object {}}
-            />
-            <i
-              className="iconfont icon-refresh InterestingPeople__icon-refresh"
-              onClick={[Function]}
-              role="presentation"
-            />
-          </h4>,
-          <div
-            className="InterestingPeople__divider"
-          />,
-          Array [
-            <User
-              user={
-                Object {
-                  "name": "sekhmet",
-                }
-              }
-            />,
-            <User
-              user={
-                Object {
-                  "name": "fabien",
-                }
-              }
-            />,
-            <User
-              user={
-                Object {
-                  "name": "ekitcho",
-                }
-              }
-            />,
-            <User
-              user={
-                Object {
-                  "name": "jm90mm",
-                }
-              }
-            />,
-          ],
-          <h4
-            className="InterestingPeople__more"
-          >
-            <Link
-              replace={false}
-              to="/discover"
-            >
-              <FormattedMessage
-                defaultMessage="Discover More People"
-                id="discover_more_people"
-                values={Object {}}
-              />
-            </Link>
-          </h4>,
-        ],
-        "className": "InterestingPeople__container",
-      },
-      "ref": null,
-      "rendered": Array [
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "host",
-          "props": Object {
-            "children": Array [
-              <i
-                className="iconfont icon-group InterestingPeople__icon"
-              />,
-              " ",
-              <FormattedMessage
-                defaultMessage="Interesting People"
-                id="interesting_people"
-                values={Object {}}
-              />,
-              <i
-                className="iconfont icon-refresh InterestingPeople__icon-refresh"
-                onClick={[Function]}
-                role="presentation"
-              />,
-            ],
-            "className": "InterestingPeople__title",
-          },
-          "ref": null,
-          "rendered": Array [
-            Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "host",
-              "props": Object {
-                "className": "iconfont icon-group InterestingPeople__icon",
-              },
-              "ref": null,
-              "rendered": null,
-              "type": "i",
-            },
-            " ",
-            Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "class",
-              "props": Object {
-                "defaultMessage": "Interesting People",
-                "id": "interesting_people",
-                "values": Object {},
-              },
-              "ref": null,
-              "rendered": null,
-              "type": [Function],
-            },
-            Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "host",
-              "props": Object {
-                "className": "iconfont icon-refresh InterestingPeople__icon-refresh",
-                "onClick": [Function],
-                "role": "presentation",
-              },
-              "ref": null,
-              "rendered": null,
-              "type": "i",
-            },
-          ],
-          "type": "h4",
-        },
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "host",
-          "props": Object {
-            "className": "InterestingPeople__divider",
-          },
-          "ref": null,
-          "rendered": null,
-          "type": "div",
-        },
-        Object {
-          "instance": null,
-          "key": "sekhmet",
-          "nodeType": "function",
-          "props": Object {
-            "user": Object {
-              "name": "sekhmet",
-            },
-          },
-          "ref": null,
-          "rendered": null,
-          "type": [Function],
-        },
-        Object {
-          "instance": null,
-          "key": "fabien",
-          "nodeType": "function",
-          "props": Object {
-            "user": Object {
-              "name": "fabien",
-            },
-          },
-          "ref": null,
-          "rendered": null,
-          "type": [Function],
-        },
-        Object {
-          "instance": null,
-          "key": "ekitcho",
-          "nodeType": "function",
-          "props": Object {
-            "user": Object {
-              "name": "ekitcho",
-            },
-          },
-          "ref": null,
-          "rendered": null,
-          "type": [Function],
-        },
-        Object {
-          "instance": null,
-          "key": "jm90mm",
-          "nodeType": "function",
-          "props": Object {
-            "user": Object {
-              "name": "jm90mm",
-            },
-          },
-          "ref": null,
-          "rendered": null,
-          "type": [Function],
-        },
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "host",
-          "props": Object {
-            "children": <Link
-              replace={false}
-              to="/discover"
-            >
-              <FormattedMessage
-                defaultMessage="Discover More People"
-                id="discover_more_people"
-                values={Object {}}
-              />
-            </Link>,
-            "className": "InterestingPeople__more",
-          },
-          "ref": null,
-          "rendered": Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "class",
-            "props": Object {
-              "children": <FormattedMessage
-                defaultMessage="Discover More People"
-                id="discover_more_people"
-                values={Object {}}
-              />,
-              "replace": false,
-              "to": "/discover",
-            },
-            "ref": null,
-            "rendered": Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "class",
-              "props": Object {
-                "defaultMessage": "Discover More People",
-                "id": "discover_more_people",
-                "values": Object {},
-              },
-              "ref": null,
-              "rendered": null,
-              "type": [Function],
-            },
-            "type": [Function],
-          },
-          "type": "h4",
-        },
-      ],
-      "type": "div",
-    },
-    "type": "div",
-  },
-  Symbol(enzyme.__nodes__): Array [
-    Object {
-      "instance": null,
-      "key": undefined,
-      "nodeType": "host",
-      "props": Object {
-        "children": <div
-          className="InterestingPeople__container"
-        >
-          <h4
-            className="InterestingPeople__title"
-          >
-            <i
-              className="iconfont icon-group InterestingPeople__icon"
-            />
-             
-            <FormattedMessage
-              defaultMessage="Interesting People"
-              id="interesting_people"
-              values={Object {}}
-            />
-            <i
-              className="iconfont icon-refresh InterestingPeople__icon-refresh"
-              onClick={[Function]}
-              role="presentation"
-            />
-          </h4>
-          <div
-            className="InterestingPeople__divider"
-          />
           <User
             user={
               Object {
@@ -437,36 +100,83 @@ ShallowWrapper {
             </Link>
           </h4>
         </div>,
-        "className": "InterestingPeople",
-      },
-      "ref": null,
-      "rendered": Object {
+      ],
+      "className": "InterestingPeople SidebarContentBlock",
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
         "instance": null,
         "key": undefined,
         "nodeType": "host",
         "props": Object {
           "children": Array [
-            <h4
-              className="InterestingPeople__title"
-            >
-              <i
-                className="iconfont icon-group InterestingPeople__icon"
-              />
-               
-              <FormattedMessage
-                defaultMessage="Interesting People"
-                id="interesting_people"
-                values={Object {}}
-              />
-              <i
-                className="iconfont icon-refresh InterestingPeople__icon-refresh"
-                onClick={[Function]}
-                role="presentation"
-              />
-            </h4>,
-            <div
-              className="InterestingPeople__divider"
+            <i
+              className="iconfont icon-group SidebarContentBlock__icon"
             />,
+            " ",
+            <FormattedMessage
+              defaultMessage="Interesting People"
+              id="interesting_people"
+              values={Object {}}
+            />,
+            <i
+              className="iconfont icon-refresh InterestingPeople__icon-refresh"
+              onClick={[Function]}
+              role="presentation"
+            />,
+          ],
+          "className": "SidebarContentBlock__title",
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "className": "iconfont icon-group SidebarContentBlock__icon",
+            },
+            "ref": null,
+            "rendered": null,
+            "type": "i",
+          },
+          " ",
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "defaultMessage": "Interesting People",
+              "id": "interesting_people",
+              "values": Object {},
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "className": "iconfont icon-refresh InterestingPeople__icon-refresh",
+              "onClick": [Function],
+              "role": "presentation",
+            },
+            "ref": null,
+            "rendered": null,
+            "type": "i",
+          },
+        ],
+        "type": "h4",
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": Array [
             Array [
               <User
                 user={
@@ -512,87 +222,10 @@ ShallowWrapper {
               </Link>
             </h4>,
           ],
-          "className": "InterestingPeople__container",
+          "className": "SidebarContentBlock__content",
         },
         "ref": null,
         "rendered": Array [
-          Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "host",
-            "props": Object {
-              "children": Array [
-                <i
-                  className="iconfont icon-group InterestingPeople__icon"
-                />,
-                " ",
-                <FormattedMessage
-                  defaultMessage="Interesting People"
-                  id="interesting_people"
-                  values={Object {}}
-                />,
-                <i
-                  className="iconfont icon-refresh InterestingPeople__icon-refresh"
-                  onClick={[Function]}
-                  role="presentation"
-                />,
-              ],
-              "className": "InterestingPeople__title",
-            },
-            "ref": null,
-            "rendered": Array [
-              Object {
-                "instance": null,
-                "key": undefined,
-                "nodeType": "host",
-                "props": Object {
-                  "className": "iconfont icon-group InterestingPeople__icon",
-                },
-                "ref": null,
-                "rendered": null,
-                "type": "i",
-              },
-              " ",
-              Object {
-                "instance": null,
-                "key": undefined,
-                "nodeType": "class",
-                "props": Object {
-                  "defaultMessage": "Interesting People",
-                  "id": "interesting_people",
-                  "values": Object {},
-                },
-                "ref": null,
-                "rendered": null,
-                "type": [Function],
-              },
-              Object {
-                "instance": null,
-                "key": undefined,
-                "nodeType": "host",
-                "props": Object {
-                  "className": "iconfont icon-refresh InterestingPeople__icon-refresh",
-                  "onClick": [Function],
-                  "role": "presentation",
-                },
-                "ref": null,
-                "rendered": null,
-                "type": "i",
-              },
-            ],
-            "type": "h4",
-          },
-          Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "host",
-            "props": Object {
-              "className": "InterestingPeople__divider",
-            },
-            "ref": null,
-            "rendered": null,
-            "type": "div",
-          },
           Object {
             "instance": null,
             "key": "sekhmet",
@@ -697,6 +330,311 @@ ShallowWrapper {
         ],
         "type": "div",
       },
+    ],
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <h4
+            className="SidebarContentBlock__title"
+          >
+            <i
+              className="iconfont icon-group SidebarContentBlock__icon"
+            />
+             
+            <FormattedMessage
+              defaultMessage="Interesting People"
+              id="interesting_people"
+              values={Object {}}
+            />
+            <i
+              className="iconfont icon-refresh InterestingPeople__icon-refresh"
+              onClick={[Function]}
+              role="presentation"
+            />
+          </h4>,
+          <div
+            className="SidebarContentBlock__content"
+          >
+            <User
+              user={
+                Object {
+                  "name": "sekhmet",
+                }
+              }
+            />
+            <User
+              user={
+                Object {
+                  "name": "fabien",
+                }
+              }
+            />
+            <User
+              user={
+                Object {
+                  "name": "ekitcho",
+                }
+              }
+            />
+            <User
+              user={
+                Object {
+                  "name": "jm90mm",
+                }
+              }
+            />
+            <h4
+              className="InterestingPeople__more"
+            >
+              <Link
+                replace={false}
+                to="/discover"
+              >
+                <FormattedMessage
+                  defaultMessage="Discover More People"
+                  id="discover_more_people"
+                  values={Object {}}
+                />
+              </Link>
+            </h4>
+          </div>,
+        ],
+        "className": "InterestingPeople SidebarContentBlock",
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": Array [
+              <i
+                className="iconfont icon-group SidebarContentBlock__icon"
+              />,
+              " ",
+              <FormattedMessage
+                defaultMessage="Interesting People"
+                id="interesting_people"
+                values={Object {}}
+              />,
+              <i
+                className="iconfont icon-refresh InterestingPeople__icon-refresh"
+                onClick={[Function]}
+                role="presentation"
+              />,
+            ],
+            "className": "SidebarContentBlock__title",
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "className": "iconfont icon-group SidebarContentBlock__icon",
+              },
+              "ref": null,
+              "rendered": null,
+              "type": "i",
+            },
+            " ",
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "defaultMessage": "Interesting People",
+                "id": "interesting_people",
+                "values": Object {},
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "className": "iconfont icon-refresh InterestingPeople__icon-refresh",
+                "onClick": [Function],
+                "role": "presentation",
+              },
+              "ref": null,
+              "rendered": null,
+              "type": "i",
+            },
+          ],
+          "type": "h4",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": Array [
+              Array [
+                <User
+                  user={
+                    Object {
+                      "name": "sekhmet",
+                    }
+                  }
+                />,
+                <User
+                  user={
+                    Object {
+                      "name": "fabien",
+                    }
+                  }
+                />,
+                <User
+                  user={
+                    Object {
+                      "name": "ekitcho",
+                    }
+                  }
+                />,
+                <User
+                  user={
+                    Object {
+                      "name": "jm90mm",
+                    }
+                  }
+                />,
+              ],
+              <h4
+                className="InterestingPeople__more"
+              >
+                <Link
+                  replace={false}
+                  to="/discover"
+                >
+                  <FormattedMessage
+                    defaultMessage="Discover More People"
+                    id="discover_more_people"
+                    values={Object {}}
+                  />
+                </Link>
+              </h4>,
+            ],
+            "className": "SidebarContentBlock__content",
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": "sekhmet",
+              "nodeType": "function",
+              "props": Object {
+                "user": Object {
+                  "name": "sekhmet",
+                },
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": "fabien",
+              "nodeType": "function",
+              "props": Object {
+                "user": Object {
+                  "name": "fabien",
+                },
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": "ekitcho",
+              "nodeType": "function",
+              "props": Object {
+                "user": Object {
+                  "name": "ekitcho",
+                },
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": "jm90mm",
+              "nodeType": "function",
+              "props": Object {
+                "user": Object {
+                  "name": "jm90mm",
+                },
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": <Link
+                  replace={false}
+                  to="/discover"
+                >
+                  <FormattedMessage
+                    defaultMessage="Discover More People"
+                    id="discover_more_people"
+                    values={Object {}}
+                  />
+                </Link>,
+                "className": "InterestingPeople__more",
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {
+                  "children": <FormattedMessage
+                    defaultMessage="Discover More People"
+                    id="discover_more_people"
+                    values={Object {}}
+                  />,
+                  "replace": false,
+                  "to": "/discover",
+                },
+                "ref": null,
+                "rendered": Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "class",
+                  "props": Object {
+                    "defaultMessage": "Discover More People",
+                    "id": "discover_more_people",
+                    "values": Object {},
+                  },
+                  "ref": null,
+                  "rendered": null,
+                  "type": [Function],
+                },
+                "type": [Function],
+              },
+              "type": "h4",
+            },
+          ],
+          "type": "div",
+        },
+      ],
       "type": "div",
     },
   ],

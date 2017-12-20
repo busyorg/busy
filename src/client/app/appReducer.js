@@ -1,6 +1,10 @@
+import _ from 'lodash';
 import * as appTypes from './appActions';
 import * as authActions from '../auth/authActions';
 import * as postActions from '../post/postActions';
+import {
+  getCryptoPriceIncreaseDetails,
+} from '../helpers/cryptosHelper';
 
 const initialState = {
   isFetching: false,
@@ -10,6 +14,8 @@ const initialState = {
   trendingTopics: [],
   rewardFund: {},
   bannerClosed: false,
+  appUrl: 'https://busy.org',
+  cryptosPriceHistory: {},
 };
 
 export default (state = initialState, action) => {
@@ -27,13 +33,14 @@ export default (state = initialState, action) => {
         ...state,
         rate: action.rate,
       };
-    case postActions.GET_CONTENT_START:
+    case postActions.GET_CONTENT.START:
       return {
         ...state,
         isFetching: true,
         isLoaded: false,
       };
-    case postActions.GET_CONTENT_SUCCESS:
+    case postActions.GET_CONTENT.SUCCESS:
+    case postActions.GET_CONTENT.ERROR:
       return {
         ...state,
         isFetching: false,
@@ -69,6 +76,43 @@ export default (state = initialState, action) => {
         ...state,
         bannerClosed: true,
       };
+    case appTypes.SET_APP_URL:
+      return {
+        ...state,
+        appUrl: action.payload,
+      };
+    case appTypes.REFRESH_CRYPTO_PRICE_HISTORY:
+      return {
+        ...state,
+        cryptosPriceHistory: {
+          ...state.cryptosPriceHistory,
+          [action.payload]: null,
+        },
+      };
+    case appTypes.GET_CRYPTO_PRICE_HISTORY.SUCCESS: {
+      const { symbol, usdPriceHistory, btcPriceHistory } = action.payload;
+      const usdPriceHistoryByClose = _.map(usdPriceHistory.Data, data => data.close);
+      const btcPriceHistoryByClose = _.map(btcPriceHistory.Data, data => data.close);
+      const priceDetails = getCryptoPriceIncreaseDetails(
+        usdPriceHistoryByClose,
+        btcPriceHistoryByClose,
+      );
+      const btcAPIError = btcPriceHistory.Response === 'Error';
+      const usdAPIError = usdPriceHistory.Response === 'Error';
+
+      return {
+        ...state,
+        cryptosPriceHistory: {
+          ...state.cryptosPriceHistory,
+          [symbol]: {
+            usdPriceHistory: usdPriceHistoryByClose,
+            priceDetails,
+            btcAPIError,
+            usdAPIError,
+          },
+        },
+      };
+    }
     default:
       return state;
   }
@@ -80,3 +124,5 @@ export const getRewardFund = state => state.rewardFund;
 export const getTrendingTopics = state => state.trendingTopics;
 export const getIsFetching = state => state.isFetching;
 export const getIsBannerClosed = state => state.bannerClosed;
+export const getAppUrl = state => state.appUrl;
+export const getCryptosPriceHistory = state => state.cryptosPriceHistory;
