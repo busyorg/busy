@@ -270,8 +270,8 @@ class CryptoChart extends React.Component {
             {this.renderUSDPrice()}
             {this.renderBTCPrice()}
           </div>
-          {displayChart && this.renderChart()}
         </div>
+        {displayChart && this.renderChart()}
         {renderDivider && <div className="SidebarContentBlock__divider" />}
       </div>
     );
