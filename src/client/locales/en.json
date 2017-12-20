@@ -227,6 +227,7 @@
   "homepage_link_text": "Here's a link to {link}.",
   "homepage": "the home page",
   "need_login_link_text": "You need to login to use this feature, please {link}.",
+  "phishing_warning_message": "Beware of spam and phishing links in transfer memos.",
   "post_hidden_for_low_ratings": "This post is currently hidden due to the author's low reputation or low post rating.",
   "post_preview_hidden_for_low_ratings": "This post preview is currently hidden due to the author's low reputation or low post rating.",
   "display_post": "Display post",

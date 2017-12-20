@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import { FormattedMessage } from 'react-intl';
 import ReduxInfiniteScroll from '../vendor/ReduxInfiniteScroll';
 import { defaultAccountLimit } from '../helpers/apiHelpers';
 import Loading from '../components/Icon/Loading';
@@ -54,6 +55,7 @@ class UserWalletTransactions extends React.Component {
 
     return (
       <div className="UserWalletTransactions">
+        <FormattedMessage id="phishing_warning_message" defaultMessage="Beware of spam and phishing links in transfer memos." />
         <ReduxInfiniteScroll
           loadMore={this.handleLoadMore}
           hasMore={userHasMoreActions}
