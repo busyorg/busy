@@ -175,8 +175,8 @@ class CryptoChart extends React.Component {
       },
       chart: {
         height: '100px',
-        spacingLeft: 5,
-        spacingRight: 5,
+        spacingLeft: 8,
+        spacingRight: 8,
       },
       xAxis: {
         categories: daysOfTheWeek,
