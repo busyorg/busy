@@ -4,15 +4,17 @@ import _ from 'lodash';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 import { FormattedNumber } from 'react-intl';
-import { getCryptosPriceHistory } from '../../reducers';
+import ReactHighCharts from 'react-highcharts';
+import { getCryptosPriceHistory, getLocale } from '../../reducers';
 import { getCryptoPriceHistory } from '../../app/appActions';
-import { getCryptoDetails } from '../../helpers/cryptosHelper';
+import { getCryptoDetails, getCurrentDaysOfTheWeek } from '../../helpers/cryptosHelper';
 import USDDisplay from '../Utils/USDDisplay';
 import Loading from '../Icon/Loading';
 
 @connect(
   state => ({
     cryptosPriceHistory: getCryptosPriceHistory(state),
+    locale: getLocale(state),
   }),
   {
     getCryptoPriceHistory,
@@ -25,12 +27,14 @@ class CryptoChart extends React.Component {
     refreshCharts: PropTypes.bool,
     renderDivider: PropTypes.bool,
     crypto: PropTypes.string,
+    locale: PropTypes.string,
   };
 
   static defaultProps = {
     refreshCharts: false,
     renderDivider: true,
     crypto: '',
+    locale: '',
   };
 
   constructor(props) {
@@ -39,7 +43,10 @@ class CryptoChart extends React.Component {
 
     this.state = {
       currentCrypto,
+      displayChart: false,
     };
+
+    this.toggleDisplayChart = this.toggleDisplayChart.bind(this);
   }
 
   componentDidMount() {
@@ -64,6 +71,13 @@ class CryptoChart extends React.Component {
         currentCrypto,
       });
     }
+  }
+
+  toggleDisplayChart() {
+    const { displayChart } = this.state;
+    this.setState({
+      displayChart: !displayChart,
+    });
   }
 
   renderUSDPrice() {
@@ -149,9 +163,79 @@ class CryptoChart extends React.Component {
     );
   }
 
+  renderChart() {
+    const { cryptosPriceHistory, locale } = this.props;
+    const { currentCrypto } = this.state;
+    const cryptoUSDPriceHistoryKey = `${currentCrypto.symbol}.usdPriceHistory`;
+    const chartData = _.get(cryptosPriceHistory, cryptoUSDPriceHistoryKey, []);
+    const daysOfTheWeek = getCurrentDaysOfTheWeek(locale);
+    const config = {
+      title: {
+        text: '',
+      },
+      chart: {
+        height: '100px',
+        spacingLeft: 8,
+        spacingRight: 8,
+      },
+      xAxis: {
+        categories: daysOfTheWeek,
+        tickLength: 0,
+        lineWidth: 0,
+        gridLineWidth: 0,
+        minorGridLineWidth: 0,
+      },
+      yAxis: {
+        lineWidth: 0,
+        minorGridLineWidth: 0,
+        gridLineWidth: 0,
+        lineColor: 'transparent',
+        labels: {
+          enabled: false,
+        },
+        minorTickLength: 0,
+        tickLength: 0,
+        title: {
+          text: '',
+        },
+      },
+      series: [
+        {
+          label: {
+            enabled: false,
+          },
+          data: chartData,
+        },
+      ],
+      credits: {
+        enabled: false,
+      },
+      legend: {
+        enabled: false,
+      },
+      plotOptions: {
+        line: {
+          color: '#4757b2',
+          marker: {
+            enabled: false,
+          },
+          borderWidth: 0,
+        },
+      },
+      tooltip: {
+        // eslint disable object shorthand, func names
+        // eslint-disable-next-line
+        formatter: function() {
+          return `${this.x}: $${this.y}`;
+        },
+      },
+    };
+    return <ReactHighCharts config={config} />;
+  }
+
   render() {
     const { renderDivider, cryptosPriceHistory } = this.props;
-    const { currentCrypto } = this.state;
+    const { displayChart, currentCrypto } = this.state;
     const usdAPIErrorKey = `${currentCrypto.symbol}.usdAPIError`;
     const usdAPIError = _.get(cryptosPriceHistory, usdAPIErrorKey, true);
     const cryptoUSDPriceHistoryKey = `${currentCrypto.symbol}.usdPriceHistory`;
@@ -177,11 +261,20 @@ class CryptoChart extends React.Component {
           <div className="CryptoTrendingCharts__chart-header">
             <div className="CryptoTrendingCharts__crypto-name">
               {currentCrypto.name}
+              <i
+                role="presentation"
+                onClick={this.toggleDisplayChart}
+                className={classNames('iconfont CryptoTrendingCharts__display-icon', {
+                  'icon-unfold': !displayChart,
+                  'icon-packup': displayChart,
+                })}
+              />
             </div>
             {this.renderUSDPrice()}
             {this.renderBTCPrice()}
           </div>
         </div>
+        {displayChart && this.renderChart()}
         {renderDivider && <div className="SidebarContentBlock__divider" />}
       </div>
     );

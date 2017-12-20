@@ -20,10 +20,24 @@ export function getCryptoDetails(cryptoQuery) {
   return cryptoDetails || {};
 }
 
+export const getCurrentDaysOfTheWeek = (currentLocale) => {
+  const today = new Date();
+  const daysOfTheWeek = [];
+  const locale = _.isEmpty(currentLocale) ? window.navigator.language : currentLocale;
+
+  for (let i = 0; i < 7; i += 1) {
+    const newDate = new Date(today.setDate(today.getDate() - 1));
+    const dateLocale = newDate.toLocaleString(locale, { weekday: 'short' });
+    daysOfTheWeek.push(dateLocale);
+  }
+
+  return daysOfTheWeek;
+};
+
 function getPriceDifferencePercentage(currentCryptoPrice, previousCryptoPrice) {
   const priceDifference = currentCryptoPrice - previousCryptoPrice;
   const priceIncrease = priceDifference / currentCryptoPrice;
-  return (Math.abs(priceIncrease));
+  return Math.abs(priceIncrease);
 }
 
 export function getCryptoPriceIncreaseDetails(usdCryptoPriceHistory, btcCryptoPriceHistory) {
@@ -36,7 +50,6 @@ export function getCryptoPriceIncreaseDetails(usdCryptoPriceHistory, btcCryptoPr
   const previousBTCPrice = _.nth(btcCryptoPriceHistory, -2);
   const cryptoBTCIncrease = currentBTCPrice > previousBTCPrice;
   const btcPriceDifferencePercent = getPriceDifferencePercentage(currentBTCPrice, previousBTCPrice);
-
 
   return {
     currentUSDPrice,
