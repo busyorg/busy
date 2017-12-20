@@ -87,11 +87,6 @@ const UserHeader = ({
           <div className="UserHeader__handle-rank-container">
             <div className="UserHeader__row UserHeader__handle">
               @{handle}
-              {displayFollowsYou && (
-                <span className="UserHeader--follows-you-indicator">
-                  {intl.formatMessage({ id: 'follows_you', defaultMessage: 'follows you' })}
-                </span>
-              )}
             </div>
             <div className="UserHeader__rank">
               <i className="iconfont icon-ranking" />
@@ -101,6 +96,13 @@ const UserHeader = ({
               />
             </div>
           </div>
+          {displayFollowsYou && (
+            <div className="UserHeader__row">
+              <div className="UserHeader--follows-you-indicator">
+                {intl.formatMessage({ id: 'follows_you', defaultMessage: 'Follows you' })}
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
