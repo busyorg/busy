@@ -58,11 +58,7 @@ ShallowWrapper {
         loadMore={[Function]}
         loader={
           <div
-            style={
-              Object {
-                "padding": "20px",
-              }
-            }
+            className="UserWalletTransactions__loader"
           >
             <Loading
               center={true}
@@ -174,11 +170,7 @@ ShallowWrapper {
         "items": Array [],
         "loadMore": [Function],
         "loader": <div
-          style={
-            Object {
-              "padding": "20px",
-            }
-          }
+          className="UserWalletTransactions__loader"
         >
           <Loading
             center={true}
@@ -276,11 +268,7 @@ ShallowWrapper {
           loadMore={[Function]}
           loader={
             <div
-              style={
-                Object {
-                  "padding": "20px",
-                }
-              }
+              className="UserWalletTransactions__loader"
             >
               <Loading
                 center={true}
@@ -392,11 +380,7 @@ ShallowWrapper {
           "items": Array [],
           "loadMore": [Function],
           "loader": <div
-            style={
-              Object {
-                "padding": "20px",
-              }
-            }
+            className="UserWalletTransactions__loader"
           >
             <Loading
               center={true}

@@ -59,7 +59,7 @@ class UserWalletTransactions extends React.Component {
           hasMore={userHasMoreActions}
           elementIsScrollable={false}
           threshold={500}
-          loader={<div style={{ padding: '20px' }}><Loading /></div>}
+          loader={<div className="UserWalletTransactions__loader"><Loading /></div>}
           loadingMore={loadingMoreUsersAccountHistory}
         >
           <div />
