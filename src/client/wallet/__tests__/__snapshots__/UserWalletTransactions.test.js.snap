@@ -60,7 +60,7 @@ ShallowWrapper {
           <div
             style={
               Object {
-                "margin": "20px",
+                "padding": "20px",
               }
             }
           >
@@ -176,7 +176,7 @@ ShallowWrapper {
         "loader": <div
           style={
             Object {
-              "margin": "20px",
+              "padding": "20px",
             }
           }
         >
@@ -278,7 +278,7 @@ ShallowWrapper {
             <div
               style={
                 Object {
-                  "margin": "20px",
+                  "padding": "20px",
                 }
               }
             >
@@ -394,7 +394,7 @@ ShallowWrapper {
           "loader": <div
             style={
               Object {
-                "margin": "20px",
+                "padding": "20px",
               }
             }
           >
