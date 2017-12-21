@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import {
   getAuthenticatedUserName,
   getFollowingList,
-  getIsAuthenticated,
   getPendingFollows,
 } from '../reducers';
 import { followUser, unfollowUser } from '../user/userActions';
@@ -14,7 +13,6 @@ import Follow from '../components/Button/Follow';
 @withAuthAction
 @connect(
   state => ({
-    authenticated: getIsAuthenticated(state),
     authenticatedUserName: getAuthenticatedUserName(state),
     followingList: getFollowingList(state),
     pendingFollows: getPendingFollows(state),
@@ -27,7 +25,6 @@ import Follow from '../components/Button/Follow';
 class FollowButton extends React.Component {
   static propTypes = {
     username: PropTypes.string.isRequired,
-    authenticated: PropTypes.bool,
     authenticatedUserName: PropTypes.string,
     followingList: PropTypes.arrayOf(PropTypes.string).isRequired,
     pendingFollows: PropTypes.arrayOf(PropTypes.string).isRequired,
@@ -38,7 +35,6 @@ class FollowButton extends React.Component {
 
   static defaultProps = {
     authenticatedUserName: undefined,
-    authenticated: false,
     followUser: () => {},
     unfollowUser: () => {},
   };

@@ -2,29 +2,25 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { take, find } from 'lodash';
-import { connect } from 'react-redux';
 import { injectIntl, FormattedNumber, FormattedMessage } from 'react-intl';
 import { Icon, Tooltip } from 'antd';
 import { getUpvotes, getDownvotes } from '../../helpers/voteHelpers';
 import { sortVotes } from '../../helpers/sortHelpers';
 import { calculatePayout } from '../../vendor/steemitHelpers';
-import { getIsAuthenticated } from '../../reducers';
 import ReactionsModal from '../Reactions/ReactionsModal';
+import withAuthActions from '../../auth/withAuthActions';
 import USDDisplay from '../Utils/USDDisplay';
 import PayoutDetail from '../PayoutDetail';
-import LoginModal from '../LoginModal';
 
 @injectIntl
-@connect(state => ({
-  authenticated: getIsAuthenticated(state),
-}))
+@withAuthActions
 class Buttons extends React.Component {
   static propTypes = {
     intl: PropTypes.shape().isRequired,
     user: PropTypes.shape().isRequired,
     comment: PropTypes.shape().isRequired,
     defaultVotePercent: PropTypes.number.isRequired,
-    authenticated: PropTypes.bool,
+    onActionInitiated: PropTypes.func.isRequired,
     editable: PropTypes.bool,
     editing: PropTypes.bool,
     replying: PropTypes.bool,
@@ -41,7 +37,6 @@ class Buttons extends React.Component {
   };
 
   static defaultProps = {
-    authenticated: false,
     editable: false,
     editing: false,
     replying: false,
@@ -56,50 +51,21 @@ class Buttons extends React.Component {
     super(props);
 
     this.state = {
-      displayLoginModal: false,
       reactionsModalVisible: false,
     };
 
-    this.displayLoginModal = this.displayLoginModal.bind(this);
-    this.hideLoginModal = this.hideLoginModal.bind(this);
     this.handleLikeClick = this.handleLikeClick.bind(this);
     this.handleDislikeClick = this.handleDislikeClick.bind(this);
     this.handleShowReactions = this.handleShowReactions.bind(this);
     this.handleCloseReactions = this.handleCloseReactions.bind(this);
   }
 
-  displayLoginModal() {
-    this.setState({
-      displayLoginModal: true,
-    });
-  }
-
-  hideLoginModal() {
-    this.setState({
-      displayLoginModal: false,
-    });
-  }
-
   handleLikeClick() {
-    const { authenticated } = this.props;
-
-    if (!authenticated) {
-      this.displayLoginModal();
-      return;
-    }
-
-    this.props.onLikeClick();
+    this.props.onActionInitiated(this.props.onLikeClick);
   }
 
   handleDislikeClick() {
-    const { authenticated } = this.props;
-
-    if (!authenticated) {
-      this.displayLoginModal();
-      return;
-    }
-
-    this.props.onDislikeClick();
+    this.props.onActionInitiated(this.props.onDislikeClick);
   }
 
   handleShowReactions() {
@@ -301,11 +267,6 @@ class Buttons extends React.Component {
           ratio={ratio}
           downVotes={downVotes}
           onClose={this.handleCloseReactions}
-        />
-        <LoginModal
-          key="login-modal"
-          visible={this.state.displayLoginModal}
-          handleLoginModalCancel={this.hideLoginModal}
         />
       </div>
     );

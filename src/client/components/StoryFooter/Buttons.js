@@ -4,28 +4,24 @@ import take from 'lodash/take';
 import { injectIntl, FormattedMessage, FormattedNumber } from 'react-intl';
 import { scroller } from 'react-scroll';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
 import { Icon, Tooltip, Modal } from 'antd';
 import classNames from 'classnames';
-import { getIsAuthenticated } from '../../reducers';
+import withAuthActions from '../../auth/withAuthActions';
 import { sortVotes } from '../../helpers/sortHelpers';
 import { getUpvotes, getDownvotes } from '../../helpers/voteHelpers';
 import ReactionsModal from '../Reactions/ReactionsModal';
 import USDDisplay from '../Utils/USDDisplay';
-import LoginModal from '../LoginModal';
 import './Buttons.less';
 
 @injectIntl
-@connect(state => ({
-  authenticated: getIsAuthenticated(state),
-}))
+@withAuthActions
 export default class Buttons extends React.Component {
   static propTypes = {
     intl: PropTypes.shape().isRequired,
     post: PropTypes.shape().isRequired,
     postState: PropTypes.shape().isRequired,
     defaultVotePercent: PropTypes.number.isRequired,
-    authenticated: PropTypes.bool,
+    onActionInitiated: PropTypes.func.isRequired,
     ownPost: PropTypes.bool,
     pendingLike: PropTypes.bool,
     onLikeClick: PropTypes.func,
@@ -36,7 +32,6 @@ export default class Buttons extends React.Component {
   static defaultProps = {
     ownPost: false,
     pendingLike: false,
-    authenticated: false,
     onLikeClick: () => {},
     onShareClick: () => {},
     onEditClick: () => {},
@@ -50,12 +45,10 @@ export default class Buttons extends React.Component {
       shareModalLoading: false,
       reactionsModalVisible: false,
       loadingEdit: false,
-      displayLoginModal: false,
     };
 
-    this.displayLoginModal = this.displayLoginModal.bind(this);
-    this.hideLoginModal = this.hideLoginModal.bind(this);
     this.handleLikeClick = this.handleLikeClick.bind(this);
+    this.shareClick = this.shareClick.bind(this);
     this.handleShareClick = this.handleShareClick.bind(this);
     this.handleShareOk = this.handleShareOk.bind(this);
     this.handleShareCancel = this.handleShareCancel.bind(this);
@@ -74,38 +67,11 @@ export default class Buttons extends React.Component {
     }
   }
 
-  displayLoginModal() {
-    this.setState({
-      displayLoginModal: true,
-    });
-  }
-
-  hideLoginModal() {
-    this.setState({
-      displayLoginModal: false,
-    });
-  }
-
   handleLikeClick() {
-    const { authenticated } = this.props;
-
-    if (!authenticated) {
-      this.displayLoginModal();
-      return;
-    }
-
-    this.props.onLikeClick();
+    this.props.onActionInitiated(this.props.onLikeClick);
   }
 
-  handleShareClick(e) {
-    e.preventDefault();
-    const { authenticated } = this.props;
-
-    if (!authenticated) {
-      this.displayLoginModal();
-      return;
-    }
-
+  shareClick() {
     if (this.props.postState.isReblogged) {
       return;
     }
@@ -113,6 +79,11 @@ export default class Buttons extends React.Component {
     this.setState({
       shareModalVisible: true,
     });
+  }
+
+  handleShareClick(e) {
+    e.preventDefault();
+    this.props.onActionInitiated(this.shareClick);
   }
 
   handleShareOk() {
@@ -300,10 +271,6 @@ export default class Buttons extends React.Component {
           ratio={ratio}
           downVotes={downVotes}
           onClose={this.handleCloseReactions}
-        />
-        <LoginModal
-          visible={this.state.displayLoginModal}
-          handleLoginModalCancel={this.hideLoginModal}
         />
       </div>
     );
