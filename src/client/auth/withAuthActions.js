@@ -4,6 +4,10 @@ import { connect } from 'react-redux';
 import { getIsAuthenticated } from '../reducers';
 import LoginModal from '../components/LoginModal';
 
+function getDisplayName(WrappedComponent) {
+  return WrappedComponent.displayName || WrappedComponent.name || 'Component';
+}
+
 export default function withAuthActions(WrappedComponent) {
   @connect(state => ({
     authenticated: getIsAuthenticated(state),
@@ -63,6 +67,8 @@ export default function withAuthActions(WrappedComponent) {
       ];
     }
   }
+
+  Wrapper.displayName = `withAuthActions(${getDisplayName(WrappedComponent)})`;
 
   return Wrapper;
 }
