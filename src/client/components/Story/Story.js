@@ -18,6 +18,7 @@ import Topic from '../Button/Topic';
 import NSFWStoryPreviewMessage from './NSFWStoryPreviewMessage';
 import PopoverMenu, { PopoverMenuItem } from '../PopoverMenu/PopoverMenu';
 import HiddenStoryPreviewMessage from './HiddenStoryPreviewMessage';
+import LoginModal from '../LoginModal';
 import PostedFrom from './PostedFrom';
 import './Story.less';
 
@@ -30,6 +31,7 @@ import './Story.less';
     rewardFund: PropTypes.shape().isRequired,
     defaultVotePercent: PropTypes.number.isRequired,
     showNSFWPosts: PropTypes.bool.isRequired,
+    authenticated: PropTypes.bool,
     pendingLike: PropTypes.bool,
     pendingFollow: PropTypes.bool,
     pendingBookmark: PropTypes.bool,
@@ -45,6 +47,7 @@ import './Story.less';
   };
 
   static defaultProps = {
+    authenticated: false,
     pendingLike: false,
     pendingFollow: false,
     pendingBookmark: false,
@@ -60,11 +63,23 @@ import './Story.less';
     postState: {},
   };
 
-  state = {
-    showHiddenStoryPreview: false,
-  };
+  constructor(props) {
+    super(props);
 
-  getDisplayStoryPreview = () => {
+    this.state = {
+      showHiddenStoryPreview: false,
+      displayLoginModal: false,
+    };
+
+    this.displayLoginModal = this.displayLoginModal.bind(this);
+    this.hideLoginModal = this.hideLoginModal.bind(this);
+    this.getDisplayStoryPreview = this.getDisplayStoryPreview.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.handleShowStoryPreview = this.handleShowStoryPreview.bind(this);
+  }
+
+
+  getDisplayStoryPreview() {
     const { post, showNSFWPosts } = this.props;
     const { showHiddenStoryPreview } = this.state;
     const postAuthorReputation = formatter.reputation(post.author_reputation);
@@ -78,10 +93,27 @@ import './Story.less';
     }
 
     return true;
-  };
+  }
 
-  handleClick = (key) => {
-    const { post } = this.props;
+  displayLoginModal() {
+    this.setState({
+      displayLoginModal: true,
+    });
+  }
+
+  hideLoginModal() {
+    this.setState({
+      displayLoginModal: false,
+    });
+  }
+
+  handleClick(key) {
+    const { authenticated, post } = this.props;
+
+    if (!authenticated) {
+      this.displayLoginModal();
+      return;
+    }
 
     switch (key) {
       case 'follow':
@@ -98,13 +130,13 @@ import './Story.less';
         break;
       default:
     }
-  };
+  }
 
-  handleShowStoryPreview = () => {
+  handleShowStoryPreview() {
     this.setState({
       showHiddenStoryPreview: true,
     });
-  };
+  }
 
   render() {
     const {
@@ -297,6 +329,10 @@ import './Story.less';
             />
           </div>
         </div>
+        <LoginModal
+          visible={this.state.displayLoginModal}
+          handleLoginModalCancel={this.hideLoginModal}
+        />
       </div>
     );
   }

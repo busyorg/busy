@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import readingTime from 'reading-time';
+import { connect } from 'react-redux';
 import {
   injectIntl,
   FormattedMessage,
@@ -15,16 +16,21 @@ import { Tag, Icon, Popover, Tooltip } from 'antd';
 import Lightbox from 'react-image-lightbox';
 import formatter from '../../helpers/steemitFormatter';
 import { isPostDeleted } from '../../helpers/postHelpers';
+import { getIsAuthenticated } from '../../reducers';
 import Body from './Body';
 import StoryDeleted from './StoryDeleted';
 import StoryFooter from '../StoryFooter/StoryFooter';
 import Avatar from '../Avatar';
+import LoginModal from '../LoginModal';
 import Topic from '../Button/Topic';
 import PopoverMenu, { PopoverMenuItem } from '../PopoverMenu/PopoverMenu';
 import PostedFrom from './PostedFrom';
 import './StoryFull.less';
 
 @injectIntl
+@connect(state => ({
+  authenticated: getIsAuthenticated(state),
+}))
 class StoryFull extends React.Component {
   static propTypes = {
     intl: PropTypes.shape().isRequired,
@@ -33,6 +39,7 @@ class StoryFull extends React.Component {
     postState: PropTypes.shape().isRequired,
     rewardFund: PropTypes.shape().isRequired,
     defaultVotePercent: PropTypes.number.isRequired,
+    authenticated: PropTypes.bool,
     pendingLike: PropTypes.bool,
     pendingFollow: PropTypes.bool,
     pendingBookmark: PropTypes.bool,
@@ -49,6 +56,7 @@ class StoryFull extends React.Component {
   };
 
   static defaultProps = {
+    authenticated: false,
     pendingLike: false,
     pendingFollow: false,
     pendingBookmark: false,
@@ -67,12 +75,19 @@ class StoryFull extends React.Component {
 
   constructor(props) {
     super(props);
+
     this.state = {
       lightbox: {
         open: false,
         index: 0,
       },
+      displayLoginModal: false,
     };
+
+    this.displayLoginModal = this.displayLoginModal.bind(this);
+    this.hideLoginModal = this.hideLoginModal.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.handleContentClick = this.handleContentClick.bind(this);
   }
 
   componentDidMount() {
@@ -83,7 +98,26 @@ class StoryFull extends React.Component {
     document.body.classList.remove('white-bg');
   }
 
-  handleClick = (key) => {
+  displayLoginModal() {
+    this.setState({
+      displayLoginModal: true,
+    });
+  }
+
+  hideLoginModal() {
+    this.setState({
+      displayLoginModal: false,
+    });
+  }
+
+  handleClick(key) {
+    const { authenticated } = this.props;
+
+    if (!authenticated) {
+      this.displayLoginModal();
+      return;
+    }
+
     switch (key) {
       case 'follow':
         this.props.onFollowClick(this.props.post);
@@ -99,9 +133,9 @@ class StoryFull extends React.Component {
         break;
       default:
     }
-  };
+  }
 
-  handleContentClick = (e) => {
+  handleContentClick(e) {
     if (e.target.tagName === 'IMG') {
       const tags = this.contentDiv.getElementsByTagName('img');
       for (let i = 0; i < tags.length; i += 1) {
@@ -115,7 +149,7 @@ class StoryFull extends React.Component {
         }
       }
     }
-  };
+  }
 
   render() {
     const {
@@ -397,6 +431,10 @@ class StoryFull extends React.Component {
           onLikeClick={onLikeClick}
           onShareClick={onShareClick}
           onEditClick={onEditClick}
+        />
+        <LoginModal
+          visible={this.state.displayLoginModal}
+          handleLoginModalCancel={this.hideLoginModal}
         />
       </div>
     );

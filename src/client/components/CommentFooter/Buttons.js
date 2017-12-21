@@ -2,22 +2,29 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { take, find } from 'lodash';
+import { connect } from 'react-redux';
 import { injectIntl, FormattedNumber, FormattedMessage } from 'react-intl';
 import { Icon, Tooltip } from 'antd';
-import ReactionsModal from '../Reactions/ReactionsModal';
 import { getUpvotes, getDownvotes } from '../../helpers/voteHelpers';
 import { sortVotes } from '../../helpers/sortHelpers';
 import { calculatePayout } from '../../vendor/steemitHelpers';
+import { getIsAuthenticated } from '../../reducers';
+import ReactionsModal from '../Reactions/ReactionsModal';
 import USDDisplay from '../Utils/USDDisplay';
 import PayoutDetail from '../PayoutDetail';
+import LoginModal from '../LoginModal';
 
 @injectIntl
+@connect(state => ({
+  authenticated: getIsAuthenticated(state),
+}))
 class Buttons extends React.Component {
   static propTypes = {
     intl: PropTypes.shape().isRequired,
     user: PropTypes.shape().isRequired,
     comment: PropTypes.shape().isRequired,
     defaultVotePercent: PropTypes.number.isRequired,
+    authenticated: PropTypes.bool,
     editable: PropTypes.bool,
     editing: PropTypes.bool,
     replying: PropTypes.bool,
@@ -34,6 +41,7 @@ class Buttons extends React.Component {
   };
 
   static defaultProps = {
+    authenticated: false,
     editable: false,
     editing: false,
     replying: false,
@@ -44,19 +52,67 @@ class Buttons extends React.Component {
     onEditClick: () => {},
   };
 
-  state = {
-    reactionsModalVisible: false,
-  };
+  constructor(props) {
+    super(props);
 
-  handleShowReactions = () =>
+    this.state = {
+      displayLoginModal: false,
+      reactionsModalVisible: false,
+    };
+
+    this.displayLoginModal = this.displayLoginModal.bind(this);
+    this.hideLoginModal = this.hideLoginModal.bind(this);
+    this.handleLikeClick = this.handleLikeClick.bind(this);
+    this.handleDislikeClick = this.handleDislikeClick.bind(this);
+    this.handleShowReactions = this.handleShowReactions.bind(this);
+    this.handleCloseReactions = this.handleCloseReactions.bind(this);
+  }
+
+  displayLoginModal() {
+    this.setState({
+      displayLoginModal: true,
+    });
+  }
+
+  hideLoginModal() {
+    this.setState({
+      displayLoginModal: false,
+    });
+  }
+
+  handleLikeClick() {
+    const { authenticated } = this.props;
+
+    if (!authenticated) {
+      this.displayLoginModal();
+      return;
+    }
+
+    this.props.onLikeClick();
+  }
+
+  handleDislikeClick() {
+    const { authenticated } = this.props;
+
+    if (!authenticated) {
+      this.displayLoginModal();
+      return;
+    }
+
+    this.props.onDislikeClick();
+  }
+
+  handleShowReactions() {
     this.setState({
       reactionsModalVisible: true,
     });
+  }
 
-  handleCloseReactions = () =>
+  handleCloseReactions() {
     this.setState({
       reactionsModalVisible: false,
     });
+  }
 
   render() {
     const {
@@ -78,9 +134,7 @@ class Buttons extends React.Component {
     const payout = calculatePayout(comment);
 
     const upVotes = getUpvotes(comment.active_votes).sort(sortVotes);
-    const downVotes = getDownvotes(comment.active_votes)
-      .sort(sortVotes)
-      .reverse();
+    const downVotes = getDownvotes(comment.active_votes).sort(sortVotes).reverse();
 
     const totalPayout =
       parseFloat(comment.pending_payout_value) +
@@ -92,12 +146,11 @@ class Buttons extends React.Component {
     const upVotesPreview = take(upVotes, 10).map(vote => (
       <p key={vote.voter}>
         {vote.voter}
-        {vote.rshares * ratio > 0.01 && (
+        {vote.rshares * ratio > 0.01 &&
           <span style={{ opacity: '0.5' }}>
             {' '}
             <USDDisplay value={vote.rshares * ratio} />
-          </span>
-        )}
+          </span>}
       </p>
     ));
     const upVotesDiff = upVotes.length - upVotesPreview.length;
@@ -147,7 +200,7 @@ class Buttons extends React.Component {
             className={classNames('CommentFooter__link', {
               'CommentFooter__link--active': userUpVoted,
             })}
-            onClick={this.props.onLikeClick}
+            onClick={this.handleLikeClick}
           >
             {pendingLike ? <Icon type="loading" /> : <i className="iconfont icon-praise_fill" />}
           </a>
@@ -164,9 +217,8 @@ class Buttons extends React.Component {
               <div>
                 {upVotesPreview}
                 {upVotesMore}
-                {upVotesPreview.length === 0 && (
-                  <FormattedMessage id="no_likes" defaultMessage="No likes yet" />
-                )}
+                {upVotesPreview.length === 0 &&
+                  <FormattedMessage id="no_likes" defaultMessage="No likes yet" />}
               </div>
             }
           >
@@ -180,13 +232,11 @@ class Buttons extends React.Component {
             className={classNames('CommentFooter__link', {
               'CommentFooter__link--active': userDownVoted,
             })}
-            onClick={this.props.onDislikeClick}
+            onClick={this.handleDislikeClick}
           >
-            {pendingDisLike ? (
-              <Icon type="loading" />
-            ) : (
-              <i className="iconfont icon-praise_fill Comment__icon_dislike" />
-            )}
+            {pendingDisLike
+              ? <Icon type="loading" />
+              : <i className="iconfont icon-praise_fill Comment__icon_dislike" />}
           </a>
         </Tooltip>
         <span
@@ -201,9 +251,8 @@ class Buttons extends React.Component {
               <div>
                 {downVotesPreview}
                 {downVotesMore}
-                {downVotes.length === 0 && (
-                  <FormattedMessage id="no_dislikes" defaultMessage="No dislikes" />
-                )}
+                {downVotes.length === 0 &&
+                  <FormattedMessage id="no_dislikes" defaultMessage="No dislikes" />}
               </div>
             }
           >
@@ -220,7 +269,7 @@ class Buttons extends React.Component {
             <span />
           </Tooltip>
         </span>
-        {user.name && (
+        {user.name &&
           <span>
             <span className="CommentFooter__bullet" />
             <a
@@ -232,9 +281,8 @@ class Buttons extends React.Component {
             >
               <FormattedMessage id="reply" defaultMessage="Reply" />
             </a>
-          </span>
-        )}
-        {editable && (
+          </span>}
+        {editable &&
           <span>
             <span className="CommentFooter__bullet" />
             <a
@@ -246,14 +294,18 @@ class Buttons extends React.Component {
             >
               <FormattedMessage id="edit" defaultMessage="Edit" />
             </a>
-          </span>
-        )}
+          </span>}
         <ReactionsModal
           visible={this.state.reactionsModalVisible}
           upVotes={upVotes}
           ratio={ratio}
           downVotes={downVotes}
           onClose={this.handleCloseReactions}
+        />
+        <LoginModal
+          key="login-modal"
+          visible={this.state.displayLoginModal}
+          handleLoginModalCancel={this.hideLoginModal}
         />
       </div>
     );

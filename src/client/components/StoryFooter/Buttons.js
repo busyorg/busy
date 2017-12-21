@@ -4,21 +4,28 @@ import take from 'lodash/take';
 import { injectIntl, FormattedMessage, FormattedNumber } from 'react-intl';
 import { scroller } from 'react-scroll';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { Icon, Tooltip, Modal } from 'antd';
 import classNames from 'classnames';
-import ReactionsModal from '../Reactions/ReactionsModal';
-import USDDisplay from '../Utils/USDDisplay';
+import { getIsAuthenticated } from '../../reducers';
 import { sortVotes } from '../../helpers/sortHelpers';
 import { getUpvotes, getDownvotes } from '../../helpers/voteHelpers';
+import ReactionsModal from '../Reactions/ReactionsModal';
+import USDDisplay from '../Utils/USDDisplay';
+import LoginModal from '../LoginModal';
 import './Buttons.less';
 
 @injectIntl
+@connect(state => ({
+  authenticated: getIsAuthenticated(state),
+}))
 export default class Buttons extends React.Component {
   static propTypes = {
     intl: PropTypes.shape().isRequired,
     post: PropTypes.shape().isRequired,
     postState: PropTypes.shape().isRequired,
     defaultVotePercent: PropTypes.number.isRequired,
+    authenticated: PropTypes.bool,
     ownPost: PropTypes.bool,
     pendingLike: PropTypes.bool,
     onLikeClick: PropTypes.func,
@@ -29,31 +36,76 @@ export default class Buttons extends React.Component {
   static defaultProps = {
     ownPost: false,
     pendingLike: false,
+    authenticated: false,
     onLikeClick: () => {},
     onShareClick: () => {},
     onEditClick: () => {},
   };
 
-  state = {
-    shareModalVisible: false,
-    shareModalLoading: false,
-    reactionsModalVisible: false,
-    loadingEdit: false,
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      shareModalVisible: false,
+      shareModalLoading: false,
+      reactionsModalVisible: false,
+      loadingEdit: false,
+      displayLoginModal: false,
+    };
+
+    this.displayLoginModal = this.displayLoginModal.bind(this);
+    this.hideLoginModal = this.hideLoginModal.bind(this);
+    this.handleLikeClick = this.handleLikeClick.bind(this);
+    this.handleShareClick = this.handleShareClick.bind(this);
+    this.handleShareOk = this.handleShareOk.bind(this);
+    this.handleShareCancel = this.handleShareCancel.bind(this);
+    this.handleShowReactions = this.handleShowReactions.bind(this);
+    this.handleCloseReactions = this.handleCloseReactions.bind(this);
+    this.handleEdit = this.handleEdit.bind(this);
+  }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.postState.isReblogging !== this.props.postState.isReblogging) {
       this.setState({
         shareModalLoading: nextProps.postState.isReblogging,
-        shareModalVisible:
-          !(!nextProps.postState.isReblogging && this.props.postState.isReblogging) &&
-          this.state.shareModalVisible,
+        shareModalVisible: !(!nextProps.postState.isReblogging &&
+          this.props.postState.isReblogging) && this.state.shareModalVisible,
       });
     }
   }
 
-  handleShareClick = (e) => {
+  displayLoginModal() {
+    this.setState({
+      displayLoginModal: true,
+    });
+  }
+
+  hideLoginModal() {
+    this.setState({
+      displayLoginModal: false,
+    });
+  }
+
+  handleLikeClick() {
+    const { authenticated } = this.props;
+
+    if (!authenticated) {
+      this.displayLoginModal();
+      return;
+    }
+
+    this.props.onLikeClick();
+  }
+
+  handleShareClick(e) {
     e.preventDefault();
+    const { authenticated } = this.props;
+
+    if (!authenticated) {
+      this.displayLoginModal();
+      return;
+    }
+
     if (this.props.postState.isReblogged) {
       return;
     }
@@ -61,29 +113,32 @@ export default class Buttons extends React.Component {
     this.setState({
       shareModalVisible: true,
     });
-  };
+  }
 
-  handleShareOk = () => {
+  handleShareOk() {
     this.props.onShareClick();
-  };
+  }
 
-  handleShareCancel = () => {
+  handleShareCancel() {
     this.setState({
       shareModalVisible: false,
     });
-  };
+  }
 
-  handleShowReactions = () =>
+  handleShowReactions() {
     this.setState({
       reactionsModalVisible: true,
     });
+  }
 
-  handleCloseReactions = () =>
+  handleCloseReactions() {
     this.setState({
       reactionsModalVisible: false,
     });
+  }
 
-  handleCommentClick = () => {
+  // eslint-disable-next-line class-methods-use-this
+  handleCommentClick() {
     const form = document.getElementById('commentFormInput');
     if (form) {
       scroller.scrollTo('commentFormInputScrollerElement', {
@@ -91,22 +146,20 @@ export default class Buttons extends React.Component {
       });
       form.focus();
     }
-  };
+  }
 
-  handleEdit = () => {
+  handleEdit() {
     this.setState({
       loadingEdit: true,
     });
     this.props.onEditClick();
-  };
+  }
 
   render() {
     const { intl, post, postState, pendingLike, ownPost, defaultVotePercent } = this.props;
 
     const upVotes = getUpvotes(post.active_votes).sort(sortVotes);
-    const downVotes = getDownvotes(post.active_votes)
-      .sort(sortVotes)
-      .reverse();
+    const downVotes = getDownvotes(post.active_votes).sort(sortVotes).reverse();
 
     const totalPayout =
       parseFloat(post.pending_payout_value) +
@@ -119,29 +172,32 @@ export default class Buttons extends React.Component {
       <p key={vote.voter}>
         <Link to={`/@${vote.voter}`}>{vote.voter}</Link>
 
-        {vote.rshares * ratio > 0.01 && (
+        {vote.rshares * ratio > 0.01 &&
           <span style={{ opacity: '0.5' }}>
             {' '}
             <USDDisplay value={vote.rshares * ratio} />
-          </span>
-        )}
+          </span>}
       </p>
     ));
     const upVotesDiff = upVotes.length - upVotesPreview.length;
     const upVotesMore =
-      upVotesDiff > 0 && (
-        <p>
-          <a role="presentation" onClick={this.handleShowReactions}>
-            <FormattedMessage id="and_more_amount" defaultMessage="and {amount} more" values={{ amount: upVotesDiff }} />
-          </a>
-        </p>
-      );
+      upVotesDiff > 0 &&
+      <p>
+        <a role="presentation" onClick={this.handleShowReactions}>
+          <FormattedMessage
+            id="and_more_amount"
+            defaultMessage="and {amount} more"
+            values={{ amount: upVotesDiff }}
+          />
+        </a>
+      </p>;
 
     const likeClass = classNames({ active: postState.isLiked, Buttons__link: true });
     const rebloggedClass = classNames({ active: postState.isReblogged, Buttons__link: true });
 
-    const commentsLink =
-      post.url.indexOf('#') !== -1 ? post.url : { pathname: post.url, hash: '#comments' };
+    const commentsLink = post.url.indexOf('#') !== -1
+      ? post.url
+      : { pathname: post.url, hash: '#comments' };
     const showEditLink = ownPost && post.cashout_time !== '1969-12-31T23:59:59';
     const showReblogLink = !ownPost && post.parent_author === '';
 
@@ -165,14 +221,12 @@ export default class Buttons extends React.Component {
     return (
       <div className="Buttons">
         <Tooltip title={likeTooltip}>
-          <a role="presentation" className={likeClass} onClick={this.props.onLikeClick}>
-            {pendingLike ? (
-              <Icon type="loading" />
-            ) : (
-              <i
+          <a role="presentation" className={likeClass} onClick={this.handleLikeClick}>
+            {pendingLike
+              ? <Icon type="loading" />
+              : <i
                 className={`iconfont icon-${this.state.sliderVisible ? 'right' : 'praise_fill'}`}
-              />
-            )}
+              />}
           </a>
         </Tooltip>
         <span
@@ -187,9 +241,8 @@ export default class Buttons extends React.Component {
               <div>
                 {upVotesPreview}
                 {upVotesMore}
-                {upVotesPreview.length === 0 && (
-                  <FormattedMessage id="no_likes" defaultMessage="No likes yet" />
-                )}
+                {upVotesPreview.length === 0 &&
+                  <FormattedMessage id="no_likes" defaultMessage="No likes yet" />}
               </div>
             }
           >
@@ -205,7 +258,7 @@ export default class Buttons extends React.Component {
         <span className="Buttons__number">
           <FormattedNumber value={post.children} />
         </span>
-        {showReblogLink && (
+        {showReblogLink &&
           <Tooltip
             title={intl.formatMessage({
               id: postState.reblogged ? 'reblog_reblogged' : 'reblog',
@@ -215,19 +268,15 @@ export default class Buttons extends React.Component {
             <a role="presentation" className={rebloggedClass} onClick={this.handleShareClick}>
               <i className="iconfont icon-share1 Buttons__share" />
             </a>
-          </Tooltip>
-        )}
-        {showEditLink && (
+          </Tooltip>}
+        {showEditLink &&
           <a role="presentation" className="Buttons__link" onClick={this.handleEdit}>
-            {this.state.loadingEdit ? (
-              <Icon type="loading" />
-            ) : (
-              <i className="iconfont icon-write" />
-            )}
+            {this.state.loadingEdit
+              ? <Icon type="loading" />
+              : <i className="iconfont icon-write" />}
             <FormattedMessage id="edit" defaultMessage="Edit" />
-          </a>
-        )}
-        {!postState.isReblogged && (
+          </a>}
+        {!postState.isReblogged &&
           <Modal
             title={intl.formatMessage({
               id: 'reblog_modal_title',
@@ -244,14 +293,17 @@ export default class Buttons extends React.Component {
               id="reblog_modal_content"
               defaultMessage="This post will appear on your personal feed. This action cannot be reversed."
             />
-          </Modal>
-        )}
+          </Modal>}
         <ReactionsModal
           visible={this.state.reactionsModalVisible}
           upVotes={upVotes}
           ratio={ratio}
           downVotes={downVotes}
           onClose={this.handleCloseReactions}
+        />
+        <LoginModal
+          visible={this.state.displayLoginModal}
+          handleLoginModalCancel={this.hideLoginModal}
         />
       </div>
     );
