@@ -2,6 +2,7 @@ import { expect } from 'chai';
 import settingsReducer, { getIsLoading, getLocale, getVotingPower } from '../settingsReducer';
 import * as settingsTypes from '../settingsActions';
 import * as authTypes from '../../auth/authActions';
+import { rewardsValues } from '../../../common/constants/rewards';
 
 describe('settingsReducer', () => {
   const initialState = {
@@ -10,6 +11,8 @@ describe('settingsReducer', () => {
     votePercent: 10000,
     loading: false,
     showNSFWPosts: false,
+    upvoteSetting: true,
+    rewardSetting: rewardsValues.half,
   };
 
   it('should return initial state', () => {
@@ -77,6 +80,8 @@ describe('settingsReducer', () => {
         votingPower: 'on',
         votePercent: 10000,
         showNSFWPosts: true,
+        upvoteSetting: true,
+        rewardSetting: rewardsValues.half,
       },
     };
 
@@ -89,6 +94,8 @@ describe('settingsReducer', () => {
       ...stateBefore,
       locale: 'fr',
       votingPower: 'off',
+      upvoteSetting: true,
+      rewardSetting: rewardsValues.half,
     };
     const action = {
       type: authTypes.LOGIN_SUCCESS,
@@ -97,6 +104,8 @@ describe('settingsReducer', () => {
           settings: {
             locale: 'fr',
             votingPower: 'off',
+            upvoteSetting: true,
+            rewardSetting: rewardsValues.half,
           },
         },
       },
@@ -135,6 +144,8 @@ describe('settingsReducer', () => {
           settings: {
             locale: 'fr',
             votingPower: 'off',
+            upvoteSetting: true,
+            rewardSetting: rewardsValues.half,
           },
         },
       },
