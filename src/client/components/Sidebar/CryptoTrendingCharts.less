@@ -1,0 +1,63 @@
+@import (reference) "../../styles/custom.less";
+
+.CryptoTrendingCharts {
+  &__icon-refresh {
+    font-size: 22px !important;
+    margin-left: auto;
+    cursor: pointer;
+  }
+
+  &__chart-header {
+    padding: 10px 0;
+    font-size: 18px;
+    color: @black;
+  }
+
+  &__display-icon {
+    cursor: pointer;
+    font-size: 18px !important;
+    font-weight: bold;
+    margin-left: auto;
+  }
+
+  &__crypto-name {
+    display: flex;
+  }
+
+  &__chart-value {
+    display: flex;
+    align-items: center;
+  }
+
+  &__chart-caret {
+    margin-top: 4px;
+    font-size: 12px !important;
+    margin-left: 5px;
+  }
+
+  &__chart-price-up {
+    color: @green;
+  }
+
+  &__chart-price-down {
+    color: @red;
+  }
+
+  &__usd-price {
+    color: @purple;
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  &__btc-price {
+    color: @blue-botticelli;
+    font-size: 15px;
+    font-weight: bold;
+  }
+
+  &__chart-percent {
+    font-size: 15px;
+    font-weight: bold;
+    margin-left: 5px;
+  }
+}

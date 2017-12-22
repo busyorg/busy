@@ -1,4 +1,3 @@
-import Promise from 'bluebird';
 import assert from 'assert';
 import Cookie from 'js-cookie';
 import { push } from 'react-router-redux';

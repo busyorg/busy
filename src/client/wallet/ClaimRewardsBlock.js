@@ -9,6 +9,7 @@ import { getUserAccountHistory } from './walletActions';
 import { updateAuthUser } from '../auth/authActions';
 import Action from '../components/Button/Action';
 import './ClaimRewardsBlock.less';
+import '../components/Sidebar/SidebarContentBlock.less';
 
 @injectIntl
 @connect(
@@ -100,24 +101,25 @@ class ClaimRewardsBlock extends Component {
     if (!userHasRewards || rewardClaimed) return null;
 
     return (
-      <div className="ClaimRewardsBlock">
-        <h4 className="ClaimRewardsBlock__title SidebarBlock__content-title">
-          <i className="iconfont icon-ranking ClaimRewardsBlock__icon" />{' '}
+      <div className="SidebarContentBlock ClaimRewardsBlock">
+        <h4 className="SidebarContentBlock__title">
+          <i className="iconfont icon-ranking SidebarContentBlock__icon" />{' '}
           <FormattedMessage id="rewards" defaultMessage="Rewards" />
         </h4>
-        {!rewardClaimed && (
-          <div>
-            {rewardSteem > 0 && this.renderReward(rewardSteem, 'STEEM', 'steem')}
-            {rewardSbd > 0 && this.renderReward(rewardSbd, 'SBD', 'steem_dollar')}
-            {rewardSP > 0 && this.renderReward(rewardSP, 'SP', 'steem_power')}
-          </div>
-        )}
-        <Action
-          text={buttonText}
-          disabled={rewardClaimed}
-          onClick={this.handleClaimRewards}
-          loading={this.state.loading}
-        />
+        <div className="SidebarContentBlock__content">
+          {!rewardClaimed &&
+            <div>
+              {rewardSteem > 0 && this.renderReward(rewardSteem, 'STEEM', 'steem')}
+              {rewardSbd > 0 && this.renderReward(rewardSbd, 'SBD', 'steem_dollar')}
+              {rewardSP > 0 && this.renderReward(rewardSP, 'SP', 'steem_power')}
+            </div>}
+          <Action
+            text={buttonText}
+            disabled={rewardClaimed}
+            onClick={this.handleClaimRewards}
+            loading={this.state.loading}
+          />
+        </div>
       </div>
     );
   }

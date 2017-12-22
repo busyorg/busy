@@ -8,6 +8,7 @@ import { getUser, getAuthenticatedUser } from '../reducers';
 import * as accountHistoryConstants from '../../common/constants/accountHistory';
 import { updateAccountHistoryFilter } from '../wallet/walletActions';
 import './UserActivitySearch.less';
+import '../components/Sidebar/SidebarContentBlock.less';
 
 const filterValues = {
   [accountHistoryConstants.UPVOTED]: {
@@ -139,30 +140,39 @@ class UserActivitySearch extends React.Component {
     user: PropTypes.shape().isRequired,
   };
 
-  state = {
-    value: '',
-    checked: {
-      [filterValues[accountHistoryConstants.UPVOTED].id]: false,
-      [filterValues[accountHistoryConstants.DOWNVOTED].id]: false,
-      [filterValues[accountHistoryConstants.UNVOTED].id]: false,
-      [filterValues[accountHistoryConstants.FOLLOWED].id]: false,
-      [filterValues[accountHistoryConstants.UNFOLLOWED].id]: false,
-      [filterValues[accountHistoryConstants.REPLIED].id]: false,
-      [filterValues[accountHistoryConstants.REBLOGGED].id]: false,
-      [filterValues[accountHistoryConstants.AUTHOR_REWARD].id]: false,
-      [filterValues[accountHistoryConstants.CURATION_REWARD].id]: false,
-      [filterValues[accountHistoryConstants.CLAIM_REWARDS].id]: false,
-      [filterValues[accountHistoryConstants.POWERED_UP].id]: false,
-      [filterValues[accountHistoryConstants.RECEIVED].id]: false,
-      [filterValues[accountHistoryConstants.TRANSFER].id]: false,
-      [filterValues[accountHistoryConstants.SAVINGS].id]: false,
-    },
-    showGeneral: true,
-    showFinance: true,
-    showRewards: true,
-  };
+  constructor(props) {
+    super(props);
 
-  handleOnChangeCheckbox = (e) => {
+    this.state = {
+      value: '',
+      checked: {
+        [filterValues[accountHistoryConstants.UPVOTED].id]: false,
+        [filterValues[accountHistoryConstants.DOWNVOTED].id]: false,
+        [filterValues[accountHistoryConstants.UNVOTED].id]: false,
+        [filterValues[accountHistoryConstants.FOLLOWED].id]: false,
+        [filterValues[accountHistoryConstants.UNFOLLOWED].id]: false,
+        [filterValues[accountHistoryConstants.REPLIED].id]: false,
+        [filterValues[accountHistoryConstants.REBLOGGED].id]: false,
+        [filterValues[accountHistoryConstants.AUTHOR_REWARD].id]: false,
+        [filterValues[accountHistoryConstants.CURATION_REWARD].id]: false,
+        [filterValues[accountHistoryConstants.CLAIM_REWARDS].id]: false,
+        [filterValues[accountHistoryConstants.POWERED_UP].id]: false,
+        [filterValues[accountHistoryConstants.RECEIVED].id]: false,
+        [filterValues[accountHistoryConstants.TRANSFER].id]: false,
+        [filterValues[accountHistoryConstants.SAVINGS].id]: false,
+      },
+      showGeneral: true,
+      showFinance: true,
+      showRewards: true,
+    };
+
+    this.handleOnChangeCheckbox = this.handleOnChangeCheckbox.bind(this);
+    this.handleGeneralFiltersDisplay = this.handleGeneralFiltersDisplay.bind(this);
+    this.handleFinanceFiltersDisplay = this.handleFinanceFiltersDisplay.bind(this);
+    this.handleRewardsFilterDisplay = this.handleRewardsFilterDisplay.bind(this);
+  }
+
+  handleOnChangeCheckbox(e) {
     const checked = {
       ...this.state.checked,
       [e.target.name]: e.target.checked,
@@ -188,15 +198,28 @@ class UserActivitySearch extends React.Component {
           accountHistoryFilter,
         }),
     );
-  };
+  }
 
-  toggleFilterSection = showFilter =>
+  toggleFilterSection(showFilter) {
     this.setState({
       [showFilter]: !this.state[showFilter],
     });
+  }
 
-  renderFilters = filterTypes =>
-    _.map(filterTypes, filter => (
+  handleGeneralFiltersDisplay() {
+    this.toggleFilterSection('showGeneral');
+  }
+
+  handleFinanceFiltersDisplay() {
+    this.toggleFilterSection('showFinance');
+  }
+
+  handleRewardsFilterDisplay() {
+    this.toggleFilterSection('showRewards');
+  }
+
+  renderFilters(filterTypes) {
+    return _.map(filterTypes, filter => (
       <div key={filter.id} className="UserActivitySearch__filters__item">
         <Checkbox
           name={filter.id}
@@ -210,71 +233,73 @@ class UserActivitySearch extends React.Component {
         </Checkbox>
       </div>
     ));
+  }
 
   render() {
     const { showGeneral, showFinance, showRewards } = this.state;
 
     return (
-      <div className="UserActivitySearch">
-        <h4 className="UserActivitySearch__title">
-          <i className="iconfont icon-trysearchlist UserActivitySearch__title__icon" />
+      <div className="UserActivitySearch SidebarContentBlock">
+        <h4 className="SidebarContentBlock__title">
+          <i className="iconfont icon-trysearchlist SidebarContentBlock__icon" />
           <FormattedMessage id="filter_activities" defaultMessage="Filter Activities" />
         </h4>
-        <div className="UserActivitySearch__filters__divider" />
-        <div className="UserActivitySearch__filters">
-          <div className="UserActivitySearch__filters__container">
-            <div
-              role="presentation"
-              className="UserActivitySearch__filters__title"
-              onClick={() => this.toggleFilterSection('showGeneral')}
-            >
-              <FormattedMessage id="general" defaultMessage="general" />
-              <span className="UserActivitySearch__filters__title__icon">
-                {showGeneral
-                  ? <i className="iconfont icon-offline" />
-                  : <i className="iconfont icon-addition" />}
-              </span>
+        <div className="SidebarContentBlock__content">
+          <div className="UserActivitySearch__filters">
+            <div className="UserActivitySearch__filters__container">
+              <div
+                role="presentation"
+                className="UserActivitySearch__filters__title"
+                onClick={this.handleGeneralFiltersDisplay}
+              >
+                <FormattedMessage id="general" defaultMessage="general" />
+                <span className="UserActivitySearch__filters__title__icon">
+                  {showGeneral
+                    ? <i className="iconfont icon-offline" />
+                    : <i className="iconfont icon-addition" />}
+                </span>
+              </div>
+              {showGeneral &&
+                <div className="UserActivitySearch__filters__content">
+                  {this.renderFilters(generalFilters)}
+                </div>}
             </div>
-            {showGeneral &&
-              <div className="UserActivitySearch__filters__content">
-                {this.renderFilters(generalFilters)}
-              </div>}
-          </div>
-          <div className="UserActivitySearch__filters__container">
-            <div
-              role="presentation"
-              className="UserActivitySearch__filters__title"
-              onClick={() => this.toggleFilterSection('showFinance')}
-            >
-              <FormattedMessage id="finance" defaultMessage="finance" />
-              <span className="UserActivitySearch__filters__title__icon">
-                {showFinance
-                  ? <i className="iconfont icon-offline" />
-                  : <i className="iconfont icon-addition" />}
-              </span>
+            <div className="UserActivitySearch__filters__container">
+              <div
+                role="presentation"
+                className="UserActivitySearch__filters__title"
+                onClick={this.handleFinanceFiltersDisplay}
+              >
+                <FormattedMessage id="finance" defaultMessage="finance" />
+                <span className="UserActivitySearch__filters__title__icon">
+                  {showFinance
+                    ? <i className="iconfont icon-offline" />
+                    : <i className="iconfont icon-addition" />}
+                </span>
+              </div>
+              {showFinance &&
+                <div className="UserActivitySearch__filters__content">
+                  {this.renderFilters(financeFilters)}
+                </div>}
             </div>
-            {showFinance &&
-              <div className="UserActivitySearch__filters__content">
-                {this.renderFilters(financeFilters)}
-              </div>}
-          </div>
-          <div className="UserActivitySearch__filters__container">
-            <div
-              role="presentation"
-              className="UserActivitySearch__filters__title"
-              onClick={() => this.toggleFilterSection('showRewards')}
-            >
-              <FormattedMessage id="rewards" defaultMessage="Rewards" />
-              <span className="UserActivitySearch__filters__title__icon">
-                {showRewards
-                  ? <i className="iconfont icon-offline" />
-                  : <i className="iconfont icon-addition" />}
-              </span>
+            <div className="UserActivitySearch__filters__container">
+              <div
+                role="presentation"
+                className="UserActivitySearch__filters__title"
+                onClick={this.handleRewardsFilterDisplay}
+              >
+                <FormattedMessage id="rewards" defaultMessage="Rewards" />
+                <span className="UserActivitySearch__filters__title__icon">
+                  {showRewards
+                    ? <i className="iconfont icon-offline" />
+                    : <i className="iconfont icon-addition" />}
+                </span>
+              </div>
+              {showRewards &&
+                <div className="UserActivitySearch__filters__content">
+                  {this.renderFilters(rewardsFilters)}
+                </div>}
             </div>
-            {showRewards &&
-              <div className="UserActivitySearch__filters__content">
-                {this.renderFilters(rewardsFilters)}
-              </div>}
           </div>
         </div>
       </div>

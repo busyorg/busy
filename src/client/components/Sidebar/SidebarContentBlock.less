@@ -1,0 +1,41 @@
+@import (reference) "../../styles/custom.less";
+
+.SidebarContentBlock {
+  background: @white;
+  border-radius: 4px;
+  border: 1px solid @white-gainsboro;
+  margin-bottom: 10px;
+  padding-bottom: 16px;
+
+  &__title {
+    display: flex;
+    align-items: center;
+    background-color: @white-darker;
+    border-bottom: 1px solid @white-gainsboro;
+    border-top-right-radius: @border-radius-base;
+    border-top-left-radius: @border-radius-base;
+    margin-bottom: 12px;
+    color: @blue-baliHai;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 4px 16px;
+  }
+
+  &__content {
+    padding: 0 16px;
+  }
+
+  &__icon {
+    color: @blue-baliHai;
+    font-size: 22px !important;
+    margin-right: 5px;
+    vertical-align: -2px;
+  }
+
+  &__divider {
+    background-color: @white-gainsboro;
+    height: 1px;
+    margin: 12px 0;
+    width: 100%;
+  }
+}

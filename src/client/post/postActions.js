@@ -1,30 +1,35 @@
-export const GET_CONTENT = 'GET_CONTENT';
-export const GET_CONTENT_START = 'GET_CONTENT_START';
-export const GET_CONTENT_SUCCESS = 'GET_CONTENT_SUCCESS';
-export const GET_CONTENT_ERROR = 'GET_CONTENT_ERROR';
+import { createAsyncActionType } from '../helpers/stateHelpers';
+
+export const GET_CONTENT = createAsyncActionType('@post/GET_CONTENT');
 
 export const LIKE_POST = '@post/LIKE_POST';
 export const LIKE_POST_START = '@post/LIKE_POST_START';
 export const LIKE_POST_SUCCESS = '@post/LIKE_POST_SUCCESS';
 export const LIKE_POST_ERROR = '@post/LIKE_POST_ERROR';
 
-export const getContent = (postAuthor, postPermlink, afterLike) => (
+export const getContent = (author, permlink, afterLike) => (
   dispatch,
   getState,
   { steemAPI },
 ) => {
-  if (!postAuthor || !postPermlink) {
+  if (!author || !permlink) {
     return null;
   }
+
   return dispatch({
-    type: GET_CONTENT,
+    type: GET_CONTENT.ACTION,
     payload: {
-      promise: steemAPI.getContentAsync(postAuthor, postPermlink),
+      promise: steemAPI.sendAsync('get_content', [author, permlink]).then((res) => {
+        if (res.id === 0) throw new Error('There is no such post');
+        return res;
+      }),
     },
     meta: {
+      author,
+      permlink,
       afterLike,
     },
-  });
+  }).catch(() => {});
 };
 
 export const votePost = (postId, author, permlink, weight = 10000) => (

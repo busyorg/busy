@@ -3,7 +3,6 @@
 
 .UserWalletTransactions {
   background-color: @white;
-  border: 1px solid @white-gainsboro;
   border-right: 0;
   border-left: 0;
   border-radius: 0;
@@ -11,6 +10,20 @@
 
   &:empty {
     display: none;
+  }
+
+  &__loader {
+    border-bottom-left-radius: @border-radius-base;
+    border-bottom-right-radius: @border-radius-base;
+    border-bottom: 1px solid @white-gainsboro;
+    border-left: 1px solid @white-gainsboro;
+    border-right: 1px solid @white-gainsboro;
+    padding: 20px;
+
+    &:nth-of-type(2) {
+      border-top: 1px solid @white-gainsboro;
+      border-radius: @border-radius-base;
+    }
   }
 
   &__transaction {
@@ -105,7 +118,6 @@
   }
 
   @media @small {
-    border: 1px solid @white-gainsboro;
     border-radius: @border-radius-base;
   }
 
