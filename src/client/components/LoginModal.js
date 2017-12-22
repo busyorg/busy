@@ -1,14 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
-import { Modal, Button } from 'antd';
+import { Modal } from 'antd';
 import { withRouter } from 'react-router-dom';
-import { injectIntl, FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import SteemConnect from '../steemConnectAPI';
+import './LoginModal.less';
 
 class LoginModal extends React.Component {
   static propTypes = {
-    intl: PropTypes.shape().isRequired,
     location: PropTypes.shape().isRequired,
     handleLoginModalCancel: PropTypes.func,
     visible: PropTypes.bool,
@@ -37,31 +36,45 @@ class LoginModal extends React.Component {
   }
 
   render() {
-    const { intl, handleLoginModalCancel, visible } = this.props;
+    const { handleLoginModalCancel, visible } = this.props;
     return (
       <Modal
-        title={intl.formatMessage({
-          id: 'signup_or_login',
-          defaultMessage: 'Sign up or Log in',
-        })}
+        title=""
         visible={visible}
         onCancel={handleLoginModalCancel}
-        footer={[
-          <Button key="signup" onClick={this.handleSignup} size="large">
-            <FormattedMessage id="signup" defaultMessage="Sign up" />
-          </Button>,
-          <Button key="login" type="primary" onClick={this.handleLogin} size="large">
-            <FormattedMessage id="login" defaultMessage="Log in" />
-          </Button>,
-        ]}
+        footer={
+          <div className="LoginModal__footer">
+            <FormattedMessage
+              id="login_modal_footer_text"
+              defaultMessage="Don't have an account? Signup with {link}"
+              values={{
+                link: <a role="presentation" onClick={this.handleSignup}>Steemit.com</a>,
+              }}
+            />
+          </div>
+        }
       >
-        <FormattedMessage
-          id="need_login_text"
-          defaultMessage="You need to login to use this feature"
-        />
+        <div className="LoginModal__body">
+          <i className="iconfont icon-busy LoginModal__icon" />
+          <span className="LoginModal__login-title">
+            <FormattedMessage id="login_to_busy" defaultMessage="Login to Busy" />
+          </span>
+          <span className="LoginModal__login-description">
+            <FormattedMessage
+              id="login_modal_description"
+              defaultMessage="Login with your Steem account using SteemConnect to enjoy Busy at 100%"
+            />
+          </span>
+          <span role="presentation" className="LoginModal__login-button" onClick={this.handleLogin}>
+            <FormattedMessage
+              id="login_with_steemconnect"
+              defaultMessage="Login with SteemConnect"
+            />
+          </span>
+        </div>
       </Modal>
     );
   }
 }
 
-export default withRouter(injectIntl(LoginModal));
+export default withRouter(LoginModal);
