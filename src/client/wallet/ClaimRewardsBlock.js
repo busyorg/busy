@@ -40,15 +40,20 @@ class ClaimRewardsBlock extends Component {
 
   handleClaimRewards = () => {
     const { user } = this.props;
-    const { reward_steem_balance, reward_sbd_balance, reward_vesting_balance, name } = user;
+    const {
+      name,
+      reward_steem_balance: steemBalance,
+      reward_sbd_balance: sbdBalance,
+      reward_vesting_balance: vestingBalance,
+    } = user;
     this.setState({
       loading: true,
     });
     SteemConnect.claimRewardBalance(
       name,
-      reward_steem_balance,
-      reward_sbd_balance,
-      reward_vesting_balance,
+      steemBalance,
+      sbdBalance,
+      vestingBalance,
       (err) => {
         if (!err) {
           this.setState({

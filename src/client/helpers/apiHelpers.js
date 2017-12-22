@@ -42,10 +42,10 @@ export const getAccountWithFollowingCount = username =>
   Promise.all([
     getAccount(username),
     getFollowingCount(username),
-  ]).then(([account, { following_count, follower_count }]) => ({
+  ]).then(([account, following]) => ({
     ...account,
-    following_count,
-    follower_count,
+    following_count: following.following_count,
+    follower_count: following.follower_count,
   }));
 
 export const getFollowing = (username, startForm = '', type = 'blog', limit = 100) =>

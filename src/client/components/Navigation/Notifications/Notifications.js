@@ -62,7 +62,7 @@ const Notifications = ({ onClick, onSeeAllClick, notifications }) =>
 
 Notifications.propTypes = {
   onClick: PropTypes.func,
-  onSeeAllClick: () => {},
+  onSeeAllClick: PropTypes.func,
   notifications: PropTypes.arrayOf(PropTypes.shape()),
 };
 
