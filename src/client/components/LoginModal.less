@@ -1,0 +1,53 @@
+@import (reference) "../styles/custom.less";
+
+.LoginModal {
+  &__icon {
+    font-size: 50px !important;
+    color: @purple;
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0 100px;
+  }
+
+  &__footer {
+    display: flex;
+    font-weight: bold;
+    justify-content: center;
+    padding: 10px 0;
+  }
+
+  &__login-title {
+    font-size: 24px;
+    font-weight: bold;
+  }
+
+  &__login-description {
+    text-align: center;
+    padding-top: 6px;
+    color: @blue-baliHai;
+    font-weight: bold;
+  }
+
+  &__login-button {
+    color: @white;
+    cursor: pointer;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 16px;
+    padding: 12px 30px;
+    background-color: @green;
+    margin-top: 15px;
+    margin-bottom: 10px;
+
+    &:hover {
+      color: @white;
+      text-decoration: none;
+      background-color: darken(@green, 10%);
+    }
+  }
+}

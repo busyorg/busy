@@ -7,23 +7,28 @@ import {
   getPendingFollows,
 } from '../reducers';
 import { followUser, unfollowUser } from '../user/userActions';
-
+import withAuthAction from '../auth/withAuthActions';
 import Follow from '../components/Button/Follow';
 
-@connect(state => ({
-  authenticatedUserName: getAuthenticatedUserName(state),
-  followingList: getFollowingList(state),
-  pendingFollows: getPendingFollows(state),
-}), {
-  followUser,
-  unfollowUser,
-})
+@withAuthAction
+@connect(
+  state => ({
+    authenticatedUserName: getAuthenticatedUserName(state),
+    followingList: getFollowingList(state),
+    pendingFollows: getPendingFollows(state),
+  }),
+  {
+    followUser,
+    unfollowUser,
+  },
+)
 class FollowButton extends React.Component {
   static propTypes = {
     username: PropTypes.string.isRequired,
     authenticatedUserName: PropTypes.string,
     followingList: PropTypes.arrayOf(PropTypes.string).isRequired,
     pendingFollows: PropTypes.arrayOf(PropTypes.string).isRequired,
+    onActionInitiated: PropTypes.func.isRequired,
     followUser: PropTypes.func,
     unfollowUser: PropTypes.func,
   };
@@ -34,15 +39,27 @@ class FollowButton extends React.Component {
     unfollowUser: () => {},
   };
 
-  handleFollowClick = () => {
+  constructor(props) {
+    super(props);
+
+    this.handleFollowClick = this.handleFollowClick.bind(this);
+    this.followClick = this.followClick.bind(this);
+  }
+
+  followClick() {
     const { username } = this.props;
     const isFollowed = this.props.followingList.includes(username);
+
     if (isFollowed) {
       this.props.unfollowUser(username);
     } else {
       this.props.followUser(username);
     }
-  };
+  }
+
+  handleFollowClick() {
+    this.props.onActionInitiated(this.followClick);
+  }
 
   render() {
     const { authenticatedUserName, username, followingList, pendingFollows } = this.props;
