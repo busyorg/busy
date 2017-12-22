@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import readingTime from 'reading-time';
-import { connect } from 'react-redux';
 import {
   injectIntl,
   FormattedMessage,
@@ -16,21 +15,18 @@ import { Tag, Icon, Popover, Tooltip } from 'antd';
 import Lightbox from 'react-image-lightbox';
 import formatter from '../../helpers/steemitFormatter';
 import { isPostDeleted } from '../../helpers/postHelpers';
-import { getIsAuthenticated } from '../../reducers';
+import withAuthActions from '../../auth/withAuthActions';
 import Body from './Body';
 import StoryDeleted from './StoryDeleted';
 import StoryFooter from '../StoryFooter/StoryFooter';
 import Avatar from '../Avatar';
-import LoginModal from '../LoginModal';
 import Topic from '../Button/Topic';
 import PopoverMenu, { PopoverMenuItem } from '../PopoverMenu/PopoverMenu';
 import PostedFrom from './PostedFrom';
 import './StoryFull.less';
 
 @injectIntl
-@connect(state => ({
-  authenticated: getIsAuthenticated(state),
-}))
+@withAuthActions
 class StoryFull extends React.Component {
   static propTypes = {
     intl: PropTypes.shape().isRequired,
@@ -39,7 +35,7 @@ class StoryFull extends React.Component {
     postState: PropTypes.shape().isRequired,
     rewardFund: PropTypes.shape().isRequired,
     defaultVotePercent: PropTypes.number.isRequired,
-    authenticated: PropTypes.bool,
+    onActionInitiated: PropTypes.func.isRequired,
     pendingLike: PropTypes.bool,
     pendingFollow: PropTypes.bool,
     pendingBookmark: PropTypes.bool,
@@ -56,7 +52,6 @@ class StoryFull extends React.Component {
   };
 
   static defaultProps = {
-    authenticated: false,
     pendingLike: false,
     pendingFollow: false,
     pendingBookmark: false,
@@ -81,11 +76,8 @@ class StoryFull extends React.Component {
         open: false,
         index: 0,
       },
-      displayLoginModal: false,
     };
 
-    this.displayLoginModal = this.displayLoginModal.bind(this);
-    this.hideLoginModal = this.hideLoginModal.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handleContentClick = this.handleContentClick.bind(this);
   }
@@ -98,26 +90,7 @@ class StoryFull extends React.Component {
     document.body.classList.remove('white-bg');
   }
 
-  displayLoginModal() {
-    this.setState({
-      displayLoginModal: true,
-    });
-  }
-
-  hideLoginModal() {
-    this.setState({
-      displayLoginModal: false,
-    });
-  }
-
-  handleClick(key) {
-    const { authenticated } = this.props;
-
-    if (!authenticated) {
-      this.displayLoginModal();
-      return;
-    }
-
+  clickMenuItem(key) {
     switch (key) {
       case 'follow':
         this.props.onFollowClick(this.props.post);
@@ -133,6 +106,10 @@ class StoryFull extends React.Component {
         break;
       default:
     }
+  }
+
+  handleClick(key) {
+    this.props.onActionInitiated(this.clickMenuItem.bind(this, key));
   }
 
   handleContentClick(e) {
@@ -220,7 +197,7 @@ class StoryFull extends React.Component {
               />
             </Link>
           </h4>
-          {post.depth > 1 && (
+          {post.depth > 1 &&
             <h4>
               <Link to={`/${post.category}/@${post.parent_author}/${post.parent_permlink}`}>
                 <FormattedMessage
@@ -228,8 +205,7 @@ class StoryFull extends React.Component {
                   defaultMessage="Show parent discussion"
                 />
               </Link>
-            </h4>
-          )}
+            </h4>}
         </div>
       );
     }
@@ -284,15 +260,14 @@ class StoryFull extends React.Component {
           onClick={this.handleContentClick}
         >
           {_.has(video, 'content.videohash') &&
-            _.has(video, 'info.snaphash') && (
-              <video
-                controls
-                src={`https://ipfs.io/ipfs/${video.content.videohash}`}
-                poster={`https://ipfs.io/ipfs/${video.info.snaphash}`}
-              >
-                <track kind="captions" />
-              </video>
-            )}
+            _.has(video, 'info.snaphash') &&
+            <video
+              controls
+              src={`https://ipfs.io/ipfs/${video.content.videohash}`}
+              poster={`https://ipfs.io/ipfs/${video.info.snaphash}`}
+            >
+              <track kind="captions" />
+            </video>}
           <Body full body={post.body} json_metadata={post.json_metadata} />
         </div>
       );
@@ -304,8 +279,8 @@ class StoryFull extends React.Component {
         <h1 className="StoryFull__title">{post.title}</h1>
         <h3 className="StoryFull__comments_title">
           <a href="#comments">
-            {commentCount === 1 ?
-              <FormattedMessage
+            {commentCount === 1
+              ? <FormattedMessage
                 id="comment_count"
                 values={{ count: <FormattedNumber value={commentCount} /> }}
                 defaultMessage="{count} comment"
@@ -314,8 +289,7 @@ class StoryFull extends React.Component {
                 id="comments_count"
                 values={{ count: <FormattedNumber value={commentCount} /> }}
                 defaultMessage="{count} comments"
-              />
-            }
+              />}
           </a>
         </h3>
         <div className="StoryFull__header">
@@ -371,8 +345,7 @@ class StoryFull extends React.Component {
                     />
                   </span>
                 </Tooltip>
-              </span>
-            }
+              </span>}
           </div>
           <Popover
             placement="bottomRight"
@@ -387,7 +360,7 @@ class StoryFull extends React.Component {
           </Popover>
         </div>
         {content}
-        {open && (
+        {open &&
           <Lightbox
             mainSrc={images[index]}
             nextSrc={images[(index + 1) % images.length]}
@@ -414,8 +387,7 @@ class StoryFull extends React.Component {
                   index: (index + (images.length + 1)) % images.length,
                 },
               })}
-          />
-        )}
+          />}
         <div className="StoryFull__topics">
           {tags && tags.map(tag => <Topic key={tag} name={tag} />)}
         </div>
@@ -431,10 +403,6 @@ class StoryFull extends React.Component {
           onLikeClick={onLikeClick}
           onShareClick={onShareClick}
           onEditClick={onEditClick}
-        />
-        <LoginModal
-          visible={this.state.displayLoginModal}
-          handleLoginModalCancel={this.hideLoginModal}
         />
       </div>
     );

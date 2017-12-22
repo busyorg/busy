@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom';
 import { Tag, Icon, Popover, Tooltip } from 'antd';
 import formatter from '../../helpers/steemitFormatter';
 import { isPostTaggedNSFW } from '../../helpers/postHelpers';
+import withAuthActions from '../../auth/withAuthActions';
 import StoryPreview from './StoryPreview';
 import StoryFooter from '../StoryFooter/StoryFooter';
 import Avatar from '../Avatar';
@@ -18,11 +19,12 @@ import Topic from '../Button/Topic';
 import NSFWStoryPreviewMessage from './NSFWStoryPreviewMessage';
 import PopoverMenu, { PopoverMenuItem } from '../PopoverMenu/PopoverMenu';
 import HiddenStoryPreviewMessage from './HiddenStoryPreviewMessage';
-import LoginModal from '../LoginModal';
 import PostedFrom from './PostedFrom';
 import './Story.less';
 
-@injectIntl class Story extends React.Component {
+@injectIntl
+@withAuthActions
+class Story extends React.Component {
   static propTypes = {
     intl: PropTypes.shape().isRequired,
     user: PropTypes.shape().isRequired,
@@ -31,7 +33,7 @@ import './Story.less';
     rewardFund: PropTypes.shape().isRequired,
     defaultVotePercent: PropTypes.number.isRequired,
     showNSFWPosts: PropTypes.bool.isRequired,
-    authenticated: PropTypes.bool,
+    onActionInitiated: PropTypes.func.isRequired,
     pendingLike: PropTypes.bool,
     pendingFollow: PropTypes.bool,
     pendingBookmark: PropTypes.bool,
@@ -47,7 +49,6 @@ import './Story.less';
   };
 
   static defaultProps = {
-    authenticated: false,
     pendingLike: false,
     pendingFollow: false,
     pendingBookmark: false,
@@ -71,13 +72,10 @@ import './Story.less';
       displayLoginModal: false,
     };
 
-    this.displayLoginModal = this.displayLoginModal.bind(this);
-    this.hideLoginModal = this.hideLoginModal.bind(this);
     this.getDisplayStoryPreview = this.getDisplayStoryPreview.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handleShowStoryPreview = this.handleShowStoryPreview.bind(this);
   }
-
 
   getDisplayStoryPreview() {
     const { post, showNSFWPosts } = this.props;
@@ -95,26 +93,8 @@ import './Story.less';
     return true;
   }
 
-  displayLoginModal() {
-    this.setState({
-      displayLoginModal: true,
-    });
-  }
-
-  hideLoginModal() {
-    this.setState({
-      displayLoginModal: false,
-    });
-  }
-
-  handleClick(key) {
-    const { authenticated, post } = this.props;
-
-    if (!authenticated) {
-      this.displayLoginModal();
-      return;
-    }
-
+  clickMenuItem(key) {
+    const { post } = this.props;
     switch (key) {
       case 'follow':
         this.props.onFollowClick(post);
@@ -130,6 +110,10 @@ import './Story.less';
         break;
       default:
     }
+  }
+
+  handleClick(key) {
+    this.props.onActionInitiated(this.clickMenuItem.bind(this, key));
   }
 
   handleShowStoryPreview() {
@@ -329,10 +313,6 @@ import './Story.less';
             />
           </div>
         </div>
-        <LoginModal
-          visible={this.state.displayLoginModal}
-          handleLoginModalCancel={this.hideLoginModal}
-        />
       </div>
     );
   }

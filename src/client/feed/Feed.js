@@ -25,7 +25,6 @@ import {
   getRewardFund,
   getVotePercent,
   getShowNSFWPosts,
-  getIsAuthenticated,
 } from '../reducers';
 
 import Story from '../components/Story/Story';
@@ -37,7 +36,6 @@ import './Feed.less';
     user: getAuthenticatedUser(state),
     bookmarks: getBookmarks(state),
     pendingBookmarks: getPendingBookmarks(state),
-    authenticated: getIsAuthenticated(state),
     pendingLikes: getPendingLikes(state),
     reblogList: getRebloggedList(state),
     pendingReblogs: getPendingReblogs(state),
@@ -73,7 +71,6 @@ export default class Feed extends React.Component {
     rewardFund: PropTypes.shape().isRequired,
     defaultVotePercent: PropTypes.number.isRequired,
     showNSFWPosts: PropTypes.bool.isRequired,
-    authenticated: PropTypes.bool,
     isFetching: PropTypes.bool,
     hasMore: PropTypes.bool,
     sliderMode: PropTypes.oneOf(['on', 'off', 'auto']),
@@ -87,7 +84,6 @@ export default class Feed extends React.Component {
   };
 
   static defaultProps = {
-    authenticated: false,
     isFetching: false,
     hasMore: false,
     sliderMode: 'auto',
@@ -130,7 +126,6 @@ export default class Feed extends React.Component {
 
   render() {
     const {
-      authenticated,
       user,
       content,
       isFetching,
@@ -179,7 +174,6 @@ export default class Feed extends React.Component {
               key={post.id}
               post={post}
               postState={postState}
-              authenticated={authenticated}
               pendingLike={pendingLikes.includes(post.id)}
               pendingFollow={pendingFollows.includes(post.author)}
               pendingBookmark={pendingBookmarks.includes(post.id)}
