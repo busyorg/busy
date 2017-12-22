@@ -619,7 +619,7 @@ class Editor extends React.Component {
             </span>
           }
         >
-          {getFieldDecorator('reward', { initialValue: this.props.upvote })(
+          {getFieldDecorator('reward', { initialValue: this.props.reward })(
             <Select onChange={this.onUpdate} disabled={isUpdating}>
               <Select.Option value={rewardsValues.all}>
                 <FormattedMessage id="reward_option_100" defaultMessage="100% Steem Power" />
