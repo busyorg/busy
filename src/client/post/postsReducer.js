@@ -57,16 +57,26 @@ const posts = (state = initialState, action) => {
     case feedTypes.GET_USER_FEED_CONTENT_SUCCESS:
     case feedTypes.GET_MORE_USER_FEED_CONTENT_SUCCESS:
     case bookmarksActions.GET_BOOKMARKS_SUCCESS: {
-      const postsTemp = {};
+      const list = {
+        ...state.list,
+      };
+      const postsStates = {
+        ...state.postsStates,
+      };
+
       action.payload.postsData.forEach((post) => {
-        postsTemp[post.id] = post;
+        list[post.id] = post;
+        postsStates[`${post.author}/${post.permlink}}`] = {
+          fetching: false,
+          loaded: true,
+          failed: false,
+        };
       });
+
       return {
         ...state,
-        list: {
-          ...state.list,
-          ...postsTemp,
-        },
+        list,
+        postsStates,
       };
     }
     case postsActions.GET_CONTENT.START:
