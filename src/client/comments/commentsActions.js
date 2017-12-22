@@ -61,11 +61,13 @@ export const getComments = (postId, reload = false, focusedComment = undefined) 
   dispatch({
     type: GET_COMMENTS,
     payload: {
-      promise: steemAPI.sendAsync('get_state', [`/${category}/@${author}/${permlink}`]).then(apiRes => ({
-        rootCommentsList: getRootCommentsList(apiRes),
-        commentsChildrenList: getCommentsChildrenLists(apiRes),
-        content: apiRes.content,
-      })),
+      promise: steemAPI
+        .sendAsync('get_state', [`/${category}/@${author}/${permlink}`])
+        .then(apiRes => ({
+          rootCommentsList: getRootCommentsList(apiRes),
+          commentsChildrenList: getCommentsChildrenLists(apiRes),
+          content: apiRes.content,
+        })),
     },
     meta: {
       id: postId,
@@ -74,6 +76,45 @@ export const getComments = (postId, reload = false, focusedComment = undefined) 
     },
   });
 };
+
+function broadcastComment(
+  steemConnectAPI,
+  parentAuthor,
+  parentPermlink,
+  author,
+  permlink,
+  title,
+  body,
+  jsonMetadata,
+) {
+  const operations = [];
+
+  operations.push([
+    'comment',
+    {
+      parent_author: parentAuthor,
+      parent_permlink: parentPermlink,
+      author,
+      permlink,
+      title,
+      body,
+      json_metadata: JSON.stringify(jsonMetadata),
+    },
+  ]);
+
+  operations.push([
+    'comment_options',
+    {
+      author,
+      permlink,
+      allow_votes: true,
+      allow_curation_rewards: false,
+      max_accepted_payout: '1000000.000 SBD',
+      percent_steem_dollars: 10000,
+    },
+  ]);
+  return steemConnectAPI.broadcast(operations);
+}
 
 export const sendComment = (parentPost, body, isUpdating = false, originalComment) => (
   dispatch,
@@ -102,24 +143,31 @@ export const sendComment = (parentPost, body, isUpdating = false, originalCommen
   return dispatch({
     type: SEND_COMMENT,
     payload: {
-      promise: steemConnectAPI
-        .comment(parentAuthor, parentPermlink, author, permlink, '', newBody, jsonMetadata)
-        .then((resp) => {
-          const focusedComment = {
-            author: resp.result.operations[0][1].author,
-            permlink: resp.result.operations[0][1].permlink,
-          };
-          dispatch(notify('Comment submitted successfully', 'success'));
-          dispatch(getComments(id, true, focusedComment));
+      promise: broadcastComment(
+        steemConnectAPI,
+        parentAuthor,
+        parentPermlink,
+        author,
+        permlink,
+        '',
+        newBody,
+        jsonMetadata,
+      ).then((resp) => {
+        const focusedComment = {
+          author: resp.result.operations[0][1].author,
+          permlink: resp.result.operations[0][1].permlink,
+        };
+        dispatch(notify('Comment submitted successfully', 'success'));
+        dispatch(getComments(id, true, focusedComment));
 
-          if (window.analytics) {
-            window.analytics.track('Comment', {
-              category: 'comment',
-              label: 'submit',
-              value: 3,
-            });
-          }
-        }),
+        if (window.analytics) {
+          window.analytics.track('Comment', {
+            category: 'comment',
+            label: 'submit',
+            value: 3,
+          });
+        }
+      }),
     },
     meta: {
       parentId: parentPost.id,
