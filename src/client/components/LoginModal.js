@@ -20,7 +20,6 @@ class LoginModal extends React.Component {
 
   constructor(props) {
     super(props);
-    this.handleLogin = this.handleLogin.bind(this);
     this.handleSignup = this.handleSignup.bind(this);
   }
 
@@ -29,14 +28,10 @@ class LoginModal extends React.Component {
     this.props.handleLoginModalCancel();
   }
 
-  handleLogin() {
-    const { location } = this.props;
-    const next = location.pathname.length > 1 ? location.pathname : '';
-    window.location.href = SteemConnect.getLoginURL(next);
-  }
 
   render() {
-    const { handleLoginModalCancel, visible } = this.props;
+    const { handleLoginModalCancel, visible, location } = this.props;
+    const next = location.pathname.length > 1 ? location.pathname : '';
     return (
       <Modal
         title=""
@@ -65,12 +60,12 @@ class LoginModal extends React.Component {
               defaultMessage="Login with your Steem account using SteemConnect to enjoy Busy at 100%"
             />
           </span>
-          <span role="presentation" className="LoginModal__login-button" onClick={this.handleLogin}>
+          <a className="LoginModal__login-button" href={SteemConnect.getLoginURL(next)}>
             <FormattedMessage
               id="login_with_steemconnect"
               defaultMessage="Login with SteemConnect"
             />
-          </span>
+          </a>
         </div>
       </Modal>
     );

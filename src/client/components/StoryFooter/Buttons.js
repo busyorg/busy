@@ -37,6 +37,16 @@ export default class Buttons extends React.Component {
     onEditClick: () => {},
   };
 
+  static handleCommentClick() {
+    const form = document.getElementById('commentFormInput');
+    if (form) {
+      scroller.scrollTo('commentFormInputScrollerElement', {
+        offset: 50,
+      });
+      form.focus();
+    }
+  }
+
   constructor(props) {
     super(props);
 
@@ -106,17 +116,6 @@ export default class Buttons extends React.Component {
     this.setState({
       reactionsModalVisible: false,
     });
-  }
-
-  // eslint-disable-next-line class-methods-use-this
-  handleCommentClick() {
-    const form = document.getElementById('commentFormInput');
-    if (form) {
-      scroller.scrollTo('commentFormInputScrollerElement', {
-        offset: 50,
-      });
-      form.focus();
-    }
   }
 
   handleEdit() {
