@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import * as feedTypes from '../feed/feedActions';
 import * as bookmarksActions from '../bookmarks/bookmarksActions';
 import * as postsActions from './postActions';
@@ -64,7 +65,7 @@ const posts = (state = initialState, action) => {
         ...state.postsStates,
       };
 
-      action.payload.postsData.forEach((post) => {
+      _.each(action.payload.postsData, (post) => {
         list[post.id] = post;
         postsStates[`${post.author}/${post.permlink}}`] = {
           fetching: false,
