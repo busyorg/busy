@@ -151,16 +151,17 @@ export default class Buttons extends React.Component {
     ));
     const upVotesDiff = upVotes.length - upVotesPreview.length;
     const upVotesMore =
-      upVotesDiff > 0 &&
-      <p>
-        <a role="presentation" onClick={this.handleShowReactions}>
-          <FormattedMessage
-            id="and_more_amount"
-            defaultMessage="and {amount} more"
-            values={{ amount: upVotesDiff }}
-          />
-        </a>
-      </p>;
+      upVotesDiff > 0 && (
+        <p>
+          <a role="presentation" onClick={this.handleShowReactions}>
+            <FormattedMessage
+              id="and_more_amount"
+              defaultMessage="and {amount} more"
+              values={{ amount: upVotesDiff }}
+            />
+          </a>
+        </p>
+      );
 
     const likeClass = classNames({ active: postState.isLiked, Buttons__link: true });
     const rebloggedClass = classNames({ active: postState.isReblogged, Buttons__link: true });
@@ -192,11 +193,14 @@ export default class Buttons extends React.Component {
       <div className="Buttons">
         <Tooltip title={likeTooltip}>
           <a role="presentation" className={likeClass} onClick={this.handleLikeClick}>
-            {pendingLike
-              ? <Icon type="loading" />
-              : <i
-                className={`iconfont icon-${this.state.sliderVisible ? 'right' : 'praise_fill'}`}
-              />}
+            {pendingLike ? (
+              <Icon type="loading" />
+            )
+              : (
+                <i
+                  className={`iconfont icon-${this.state.sliderVisible ? 'right' : 'praise_fill'}`}
+                />
+              )}
           </a>
         </Tooltip>
         <span
@@ -228,7 +232,7 @@ export default class Buttons extends React.Component {
         <span className="Buttons__number">
           <FormattedNumber value={post.children} />
         </span>
-        {showReblogLink &&
+        {showReblogLink && (
           <Tooltip
             title={intl.formatMessage({
               id: postState.reblogged ? 'reblog_reblogged' : 'reblog',
@@ -238,15 +242,17 @@ export default class Buttons extends React.Component {
             <a role="presentation" className={rebloggedClass} onClick={this.handleShareClick}>
               <i className="iconfont icon-share1 Buttons__share" />
             </a>
-          </Tooltip>}
-        {showEditLink &&
+          </Tooltip>
+        )}
+        {showEditLink && (
           <a role="presentation" className="Buttons__link" onClick={this.handleEdit}>
             {this.state.loadingEdit
               ? <Icon type="loading" />
               : <i className="iconfont icon-write" />}
             <FormattedMessage id="edit" defaultMessage="Edit" />
-          </a>}
-        {!postState.isReblogged &&
+          </a>
+        )}
+        {!postState.isReblogged && (
           <Modal
             title={intl.formatMessage({
               id: 'reblog_modal_title',
@@ -263,7 +269,8 @@ export default class Buttons extends React.Component {
               id="reblog_modal_content"
               defaultMessage="This post will appear on your personal feed. This action cannot be reversed."
             />
-          </Modal>}
+          </Modal>
+        )}
         <ReactionsModal
           visible={this.state.reactionsModalVisible}
           upVotes={upVotes}

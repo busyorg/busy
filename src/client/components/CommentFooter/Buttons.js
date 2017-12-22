@@ -200,9 +200,11 @@ class Buttons extends React.Component {
             })}
             onClick={this.handleDislikeClick}
           >
-            {pendingDisLike
-              ? <Icon type="loading" />
-              : <i className="iconfont icon-praise_fill Comment__icon_dislike" />}
+            {pendingDisLike ? (
+              <Icon type="loading" />
+            ) : (
+              <i className="iconfont icon-praise_fill Comment__icon_dislike" />
+            )}
           </a>
         </Tooltip>
         <span
@@ -217,8 +219,9 @@ class Buttons extends React.Component {
               <div>
                 {downVotesPreview}
                 {downVotesMore}
-                {downVotes.length === 0 &&
-                  <FormattedMessage id="no_dislikes" defaultMessage="No dislikes" />}
+                {downVotes.length === 0 && (
+                  <FormattedMessage id="no_dislikes" defaultMessage="No dislikes" />
+                )}
               </div>
             }
           >
@@ -235,7 +238,7 @@ class Buttons extends React.Component {
             <span />
           </Tooltip>
         </span>
-        {user.name &&
+        {user.name && (
           <span>
             <span className="CommentFooter__bullet" />
             <a
@@ -247,8 +250,9 @@ class Buttons extends React.Component {
             >
               <FormattedMessage id="reply" defaultMessage="Reply" />
             </a>
-          </span>}
-        {editable &&
+          </span>
+        )}
+        {editable && (
           <span>
             <span className="CommentFooter__bullet" />
             <a
@@ -260,7 +264,8 @@ class Buttons extends React.Component {
             >
               <FormattedMessage id="edit" defaultMessage="Edit" />
             </a>
-          </span>}
+          </span>
+        )}
         <ReactionsModal
           visible={this.state.reactionsModalVisible}
           upVotes={upVotes}
