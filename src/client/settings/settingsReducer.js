@@ -18,19 +18,22 @@ const settings = (state = initialState, action) => {
     case authTypes.RELOAD_SUCCESS:
       if (action.meta && action.meta.refresh) return state;
       if (action.payload.user_metadata && action.payload.user_metadata.settings) {
+        const {
+          locale,
+          votingPower,
+          votePercent,
+          showNSFWPosts,
+          upvoteSetting,
+          rewardSetting,
+        } = action.payload.user_metadata.settings;
         return {
           ...state,
-          locale: action.payload.user_metadata.settings.locale || initialState.locale,
-          votingPower: action.payload.user_metadata.settings.votingPower ||
-            initialState.votingPower,
-          votePercent: action.payload.user_metadata.settings.votePercent ||
-            initialState.votePercent,
-          showNSFWPosts: action.payload.user_metadata.settings.showNSFWPosts ||
-            initialState.showNSFWPosts,
-          upvoteSetting: action.payload.user_metadata.settings.upvoteSetting ||
-            initialState.upvoteSetting,
-          rewardSetting: action.payload.user_metadata.settings.rewardSetting ||
-            initialState.rewardSetting,
+          locale: locale || initialState.locale,
+          votingPower: votingPower || initialState.votingPower,
+          votePercent: votePercent || initialState.votePercent,
+          showNSFWPosts: showNSFWPosts || initialState.showNSFWPosts,
+          upvoteSetting: typeof upvoteSetting === 'boolean' ? upvoteSetting : initialState.upvoteSetting,
+          rewardSetting: rewardSetting || initialState.rewardSetting,
         };
       }
       return state;
