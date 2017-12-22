@@ -47,10 +47,10 @@ class LoginModal extends React.Component {
         visible={visible}
         onCancel={handleLoginModalCancel}
         footer={[
-          <Button key="signup" onClick={this.handleSignup}>
+          <Button key="signup" onClick={this.handleSignup} size="large">
             <FormattedMessage id="signup" defaultMessage="Sign up" />
           </Button>,
-          <Button key="login" type="primary" onClick={this.handleLogin}>
+          <Button key="login" type="primary" onClick={this.handleLogin} size="large">
             <FormattedMessage id="login" defaultMessage="Log in" />
           </Button>,
         ]}
