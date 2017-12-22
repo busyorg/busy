@@ -361,7 +361,7 @@ class StoryFull extends React.Component {
           </Popover>
         </div>
         {content}
-        {open &&
+        {open && (
           <Lightbox
             mainSrc={images[index]}
             nextSrc={images[(index + 1) % images.length]}
@@ -388,7 +388,8 @@ class StoryFull extends React.Component {
                   index: (index + (images.length + 1)) % images.length,
                 },
               })}
-          />}
+          />
+        )}
         <div className="StoryFull__topics">
           {tags && tags.map(tag => <Topic key={tag} name={tag} />)}
         </div>

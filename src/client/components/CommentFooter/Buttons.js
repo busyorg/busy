@@ -184,8 +184,9 @@ class Buttons extends React.Component {
               <div>
                 {upVotesPreview}
                 {upVotesMore}
-                {upVotesPreview.length === 0 &&
-                  <FormattedMessage id="no_likes" defaultMessage="No likes yet" />}
+                {upVotesPreview.length === 0 && (
+                  <FormattedMessage id="no_likes" defaultMessage="No likes yet" />
+                )}
               </div>
             }
           >
