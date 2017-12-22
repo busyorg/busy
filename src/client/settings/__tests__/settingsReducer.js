@@ -114,6 +114,32 @@ describe('settingsReducer', () => {
     expect(settingsReducer(stateBefore, action)).to.eql(stateAfter);
   });
 
+  it('should set locale and voting power after login success', () => {
+    const stateBefore = initialState;
+    const stateAfter = {
+      ...stateBefore,
+      locale: 'fr',
+      votingPower: 'off',
+      upvoteSetting: false,
+      rewardSetting: rewardsValues.none,
+    };
+    const action = {
+      type: authTypes.LOGIN_SUCCESS,
+      payload: {
+        user_metadata: {
+          settings: {
+            locale: 'fr',
+            votingPower: 'off',
+            upvoteSetting: false,
+            rewardSetting: rewardsValues.none,
+          },
+        },
+      },
+    };
+
+    expect(settingsReducer(stateBefore, action)).to.eql(stateAfter);
+  });
+
   it('should return previous state after login success without settings', () => {
     const stateBefore = {
       ...initialState,
@@ -146,6 +172,32 @@ describe('settingsReducer', () => {
             votingPower: 'off',
             upvoteSetting: true,
             rewardSetting: rewardsValues.half,
+          },
+        },
+      },
+    };
+
+    expect(settingsReducer(stateBefore, action)).to.eql(stateAfter);
+  });
+
+  it('should set locale and voting power after reload success', () => {
+    const stateBefore = initialState;
+    const stateAfter = {
+      ...stateBefore,
+      locale: 'fr',
+      votingPower: 'off',
+      upvoteSetting: false,
+      rewardSetting: rewardsValues.all,
+    };
+    const action = {
+      type: authTypes.RELOAD_SUCCESS,
+      payload: {
+        user_metadata: {
+          settings: {
+            locale: 'fr',
+            votingPower: 'off',
+            upvoteSetting: false,
+            rewardSetting: rewardsValues.all,
           },
         },
       },
