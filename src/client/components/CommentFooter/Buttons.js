@@ -4,20 +4,23 @@ import classNames from 'classnames';
 import { take, find } from 'lodash';
 import { injectIntl, FormattedNumber, FormattedMessage } from 'react-intl';
 import { Icon, Tooltip } from 'antd';
-import ReactionsModal from '../Reactions/ReactionsModal';
 import { getUpvotes, getDownvotes } from '../../helpers/voteHelpers';
 import { sortVotes } from '../../helpers/sortHelpers';
 import { calculatePayout } from '../../vendor/steemitHelpers';
+import ReactionsModal from '../Reactions/ReactionsModal';
+import withAuthActions from '../../auth/withAuthActions';
 import USDDisplay from '../Utils/USDDisplay';
 import PayoutDetail from '../PayoutDetail';
 
 @injectIntl
+@withAuthActions
 class Buttons extends React.Component {
   static propTypes = {
     intl: PropTypes.shape().isRequired,
     user: PropTypes.shape().isRequired,
     comment: PropTypes.shape().isRequired,
     defaultVotePercent: PropTypes.number.isRequired,
+    onActionInitiated: PropTypes.func.isRequired,
     editable: PropTypes.bool,
     editing: PropTypes.bool,
     replying: PropTypes.bool,
@@ -44,19 +47,38 @@ class Buttons extends React.Component {
     onEditClick: () => {},
   };
 
-  state = {
-    reactionsModalVisible: false,
-  };
+  constructor(props) {
+    super(props);
 
-  handleShowReactions = () =>
+    this.state = {
+      reactionsModalVisible: false,
+    };
+
+    this.handleLikeClick = this.handleLikeClick.bind(this);
+    this.handleDislikeClick = this.handleDislikeClick.bind(this);
+    this.handleShowReactions = this.handleShowReactions.bind(this);
+    this.handleCloseReactions = this.handleCloseReactions.bind(this);
+  }
+
+  handleLikeClick() {
+    this.props.onActionInitiated(this.props.onLikeClick);
+  }
+
+  handleDislikeClick() {
+    this.props.onActionInitiated(this.props.onDislikeClick);
+  }
+
+  handleShowReactions() {
     this.setState({
       reactionsModalVisible: true,
     });
+  }
 
-  handleCloseReactions = () =>
+  handleCloseReactions() {
     this.setState({
       reactionsModalVisible: false,
     });
+  }
 
   render() {
     const {
@@ -78,9 +100,7 @@ class Buttons extends React.Component {
     const payout = calculatePayout(comment);
 
     const upVotes = getUpvotes(comment.active_votes).sort(sortVotes);
-    const downVotes = getDownvotes(comment.active_votes)
-      .sort(sortVotes)
-      .reverse();
+    const downVotes = getDownvotes(comment.active_votes).sort(sortVotes).reverse();
 
     const totalPayout =
       parseFloat(comment.pending_payout_value) +
@@ -147,7 +167,7 @@ class Buttons extends React.Component {
             className={classNames('CommentFooter__link', {
               'CommentFooter__link--active': userUpVoted,
             })}
-            onClick={this.props.onLikeClick}
+            onClick={this.handleLikeClick}
           >
             {pendingLike ? <Icon type="loading" /> : <i className="iconfont icon-praise_fill" />}
           </a>
@@ -180,7 +200,7 @@ class Buttons extends React.Component {
             className={classNames('CommentFooter__link', {
               'CommentFooter__link--active': userDownVoted,
             })}
-            onClick={this.props.onDislikeClick}
+            onClick={this.handleDislikeClick}
           >
             {pendingDisLike ? (
               <Icon type="loading" />

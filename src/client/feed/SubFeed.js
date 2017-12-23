@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 import Cookie from 'js-cookie';
 import {
   getFeedContent,
@@ -28,6 +29,7 @@ import Feed from './Feed';
 import EmptyFeed from '../statics/EmptyFeed';
 import ScrollToTop from '../components/Utils/ScrollToTop';
 
+@withRouter
 @connect(
   state => ({
     authenticated: getIsAuthenticated(state),

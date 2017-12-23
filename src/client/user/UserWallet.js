@@ -26,7 +26,7 @@ import {
   getMoreUserAccountHistory,
 } from '../wallet/walletActions';
 import { getRate } from '../app/appActions';
-import { getAccountWithFollowingCount } from './usersActions';
+import { getAccount } from './usersActions';
 
 @withRouter
 @connect(
@@ -55,7 +55,7 @@ import { getAccountWithFollowingCount } from './usersActions';
     getGlobalProperties,
     getUserAccountHistory,
     getMoreUserAccountHistory,
-    getAccountWithFollowingCount,
+    getAccount,
     getRate,
   },
 )
@@ -68,7 +68,7 @@ class Wallet extends Component {
     getGlobalProperties: PropTypes.func.isRequired,
     getUserAccountHistory: PropTypes.func.isRequired,
     getMoreUserAccountHistory: PropTypes.func.isRequired,
-    getAccountWithFollowingCount: PropTypes.func.isRequired,
+    getAccount: PropTypes.func.isRequired,
     getRate: PropTypes.func.isRequired,
     usersTransactions: PropTypes.shape().isRequired,
     usersAccountHistory: PropTypes.shape().isRequired,
@@ -109,7 +109,7 @@ class Wallet extends Component {
     }
 
     if (_.isEmpty(user)) {
-      this.props.getAccountWithFollowingCount({ name: username });
+      this.props.getAccount(username);
     }
 
     if (steemRate === 0) {
@@ -137,7 +137,7 @@ class Wallet extends Component {
       <div>
         <UserWalletSummary
           user={user}
-          loading={user.isFetching}
+          loading={user.fetching}
           totalVestingShares={totalVestingShares}
           totalVestingFundSteem={totalVestingFundSteem}
           loadingGlobalProperties={loadingGlobalProperties}

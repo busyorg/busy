@@ -220,11 +220,13 @@
   "reward_claimed": "Reward claimed",
   "powered_up": "Powered up ",
   "market": "Market",
+  "page_not_found": "Page not found",
+  "page_not_found_message": "Oops! Looks like you followed a bad link.",
   "page_forbidden": "Page Requires Authentication",
   "page_forbidden_message": "Oops! Looks like you need to login to use this page.",
-  "here_link": "Here's a link to the",
-  "homepage": "home page",
-  "need_login": "You need to login to use this feature, please",
+  "homepage_link_text": "Here's a link to {link}.",
+  "homepage": "the home page",
+  "need_login_link_text": "You need to login to use this feature, please {link}.",
   "post_hidden_for_low_ratings": "This post is currently hidden due to the author's low reputation or low post rating.",
   "post_preview_hidden_for_low_ratings": "This post preview is currently hidden due to the author's low reputation or low post rating.",
   "display_post": "Display post",
@@ -279,5 +281,9 @@
   "posted_from_tooltip": "Version: {version}",
   "last_updated": "Last updated",
   "username_too_short": "Username {username} is too short.",
-  "username_too_long": "Username {username} is too long."
+  "username_too_long": "Username {username} is too long.",
+  "login_modal_footer_text": "Don't have an account? Signup with {link}",
+  "login_to_busy": "Login to Busy",
+  "login_modal_description": "Login with your Steem account using SteemConnect to enjoy Busy at 100%",
+  "login_with_steemconnect": "Login with SteemConnect"
 }
