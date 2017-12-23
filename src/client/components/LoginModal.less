@@ -1,4 +1,5 @@
 @import (reference) "../styles/custom.less";
+@import (reference) "../styles/modules/variables.less";
 
 .LoginModal {
   &__icon {
@@ -11,7 +12,10 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 0 100px;
+
+    @media @small {
+      padding: 0 100px;
+    }
   }
 
   &__footer {
