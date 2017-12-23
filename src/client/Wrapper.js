@@ -16,7 +16,7 @@ import { getRate, getRewardFund, getTrendingTopics } from './app/appActions';
 import * as reblogActions from './app/Reblog/reblogActions';
 import Topnav from './components/Navigation/Topnav';
 import Transfer from './wallet/Transfer';
-import Loading from './components/Icon/Loading';
+import LoadingPage from './statics/LoadingPage';
 
 @withRouter
 @connect(
@@ -156,7 +156,7 @@ export default class Wrapper extends React.PureComponent {
     const { locale, user } = this.props;
     const { i18nLoaded, translations } = this.state;
 
-    if (!i18nLoaded) return <Loading />;
+    if (!i18nLoaded) return <LoadingPage />;
 
     const appLocale = getAvailableLocale(locale);
 
