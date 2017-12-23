@@ -9,14 +9,13 @@ import enUS from 'antd/lib/locale-provider/en_US';
 
 import { getIsLoaded, getAuthenticatedUser, getAuthenticatedUserName, getLocale } from './reducers';
 
-import { getAvailableLocale } from './translations';
+import { getAvailableLocale, getDefaultTranslation } from './translations';
 import { login, logout } from './auth/authActions';
 import { getFollowing } from './user/userActions';
 import { getRate, getRewardFund, getTrendingTopics } from './app/appActions';
 import * as reblogActions from './app/Reblog/reblogActions';
 import Topnav from './components/Navigation/Topnav';
 import Transfer from './wallet/Transfer';
-import LoadingPage from './statics/LoadingPage';
 
 @withRouter
 @connect(
@@ -72,8 +71,8 @@ export default class Wrapper extends React.PureComponent {
     super(props);
 
     this.state = {
-      i18nLoaded: false,
-      translations: {},
+      loadedLocale: 'en',
+      translations: getDefaultTranslation(),
     };
 
     this.loadLocale = this.loadLocale.bind(this);
@@ -82,6 +81,7 @@ export default class Wrapper extends React.PureComponent {
 
   componentDidMount() {
     const { loaded, locale } = this.props;
+    const { loadedLocale } = this.state;
 
     this.props.login().then(() => this.props.getFollowing());
     this.props.getRewardFund();
@@ -89,27 +89,29 @@ export default class Wrapper extends React.PureComponent {
     this.props.getRate();
     this.props.getTrendingTopics();
 
-    if (loaded) {
-      this.loadLocale(getAvailableLocale(locale));
+    if (loadedLocale !== getAvailableLocale(locale) && loaded) {
+      this.loadLocale(locale);
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    const { loaded, locale } = this.props;
+    const { loadedLocale } = this.state;
 
-    if (loaded !== nextProps.loaded || locale !== nextProps.locale) {
-      this.loadLocale(getAvailableLocale(nextProps.locale));
+    if (loadedLocale !== getAvailableLocale(nextProps.locale) && nextProps.loaded) {
+      this.loadLocale(nextProps.locale);
     }
   }
 
   loadLocale(locale) {
-    const localeDataPromise = import(`react-intl/locale-data/${locale}`);
-    const translationsPromise = import(`./locales/${locale}.json`);
+    const availableLocale = getAvailableLocale(locale);
+
+    const localeDataPromise = import(`react-intl/locale-data/${availableLocale}`);
+    const translationsPromise = import(`./locales/${availableLocale}.json`);
 
     Promise.all([localeDataPromise, translationsPromise]).then(([localeData, translations]) => {
       addLocaleData(localeData);
       this.setState({
-        i18nLoaded: true,
+        loadedLocale: availableLocale,
         translations,
       });
     });
@@ -153,15 +155,11 @@ export default class Wrapper extends React.PureComponent {
   }
 
   render() {
-    const { locale, user } = this.props;
-    const { i18nLoaded, translations } = this.state;
-
-    if (!i18nLoaded) return <LoadingPage />;
-
-    const appLocale = getAvailableLocale(locale);
+    const { user } = this.props;
+    const { loadedLocale, translations } = this.state;
 
     return (
-      <IntlProvider key={appLocale} locale={appLocale} messages={translations}>
+      <IntlProvider key={loadedLocale} locale={loadedLocale} messages={translations}>
         <LocaleProvider locale={enUS}>
           <Layout>
             <Layout.Header style={{ position: 'fixed', width: '100%', zIndex: 5 }}>

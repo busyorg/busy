@@ -1,3 +1,14 @@
+import { addLocaleData } from 'react-intl';
+import en from 'react-intl/locale-data/en';
+import enTranslations from '../locales/en.json';
+
+// Setup default locale and translations
+addLocaleData(en);
+
+export function getDefaultTranslation() {
+  return enTranslations;
+}
+
 export const availableLocales = ['en', 'cs', 'es', 'zh', 'fr', 'de', 'ru', 'ko', 'nl', 'sl', 'sv', 'pl', 'ar', 'tr', 'ro', 'ja', 'fil', 'th',
   'lo', 'id', 'ms', 'da', 'it', 'no', 'pt', 'vi', 'el', 'bg', 'uk', 'he', 'hi', 'ca', 'et', 'as', 'ta', 'bn', 'ne', 'yo', 'hr', 'hu'];
 
