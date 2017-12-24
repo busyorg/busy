@@ -83,6 +83,9 @@ const StoryPreview = ({ post }) => {
   } else if (isPostWithEmbedBeforeFirstHalf(tagPositions)) {
     bodyData.push(preview.text());
     bodyData.push(preview.embed());
+  } else if (imagePath !== '') {
+    bodyData.push(preview.text());
+    bodyData.push(preview.image());
   } else {
     bodyData.push(preview.text());
   }
