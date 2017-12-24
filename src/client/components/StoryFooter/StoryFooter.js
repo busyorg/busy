@@ -1,25 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import find from 'lodash/find';
 import Slider from '../Slider/Slider';
 import Payout from './Payout';
 import Buttons from './Buttons';
 import Confirmation from './Confirmation';
 import { getHasDefaultSlider, getVoteValue } from '../../helpers/user';
-import { getRate } from '../../reducers';
 import './StoryFooter.less';
 
-@connect(state => ({
-  rate: getRate(state),
-}))
 class StoryFooter extends React.Component {
   static propTypes = {
     user: PropTypes.shape().isRequired,
     post: PropTypes.shape().isRequired,
     postState: PropTypes.shape().isRequired,
     rewardFund: PropTypes.shape().isRequired,
-    rate: PropTypes.number.isRequired,
     defaultVotePercent: PropTypes.number.isRequired,
     ownPost: PropTypes.bool,
     sliderMode: PropTypes.oneOf(['on', 'off', 'auto']),
@@ -85,12 +79,11 @@ class StoryFooter extends React.Component {
   handleSliderCancel = () => this.setState({ sliderVisible: false });
 
   handleSliderChange = (value) => {
-    const { user, rewardFund, rate } = this.props;
+    const { user, rewardFund } = this.props;
     const voteWorth = getVoteValue(
       user,
       rewardFund.recent_claims,
       rewardFund.reward_balance,
-      rate,
       value * 100,
     );
     this.setState({ sliderValue: value, voteWorth });

@@ -167,11 +167,11 @@ export function getBodyPatchIfSmaller(originalBody, body) {
 /**
  * https://github.com/aaroncox/chainbb/blob/fcb09bee716e907c789a6494975093361482fb4f/services/frontend/src/components/elements/post/button/vote/options.js#L69
  */
-export const calculateVoteValue = (vests, recentClaims, rewardBalance, rate, vp = 10000, weight = 10000) => {
+export const calculateVoteValue = (vests, recentClaims, rewardBalance, vp = 10000, weight = 10000) => {
   const vestingShares = parseInt(vests * 1e6, 10);
   const power = (((vp * weight) / 10000) / 50);
   const rshares = (power * vestingShares) / 10000;
-  return rshares / recentClaims * rewardBalance * rate;
+  return rshares / recentClaims * rewardBalance;
 };
 
 export const calculateTotalDelegatedSP = (user, totalVestingShares, totalVestingFundSteem) => {
