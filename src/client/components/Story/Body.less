@@ -2,14 +2,16 @@
 @import (reference) "../../styles/fonts.less";
 
 .Body {
-  font-family: @font-text;
-  color: rgba(0, 0, 0, 0.8);
-  line-height: 1.6em;
+  font-family: 'Source Serif Pro', serif;
+  line-height: 1.4;
+  font-weight: 400;
+  color: #000;
   overflow-wrap: break-word;
   word-wrap: break-word;
   word-break: break-word;
   hyphens: none;
   margin: 4px 0;
+
 
   // Heading
 
@@ -197,10 +199,7 @@
   &--full {
     margin: 0;
     font-size: 18px;
-
-    @media @small {
-      font-size: 21px;
-    }
+    line-height: 1.5;
 
     p:not(:last-child) {
       margin: 0 0 1.5rem 0;
