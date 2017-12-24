@@ -26,9 +26,10 @@
     .UserHeader__rank,
     .UserHeader__rank & > i,
     .UserHeader__handle,
+    .UserHeader--follows-you-indicator,
     .UserHeader__more,
     .UserHeader__user__username {
-      color: #ffffff !important;
+      color: @white !important;
       text-shadow: 0 0 4px rgba(0, 0, 0, 0.8);
     }
   }
@@ -68,6 +69,10 @@
   }
 }
 
+.UserHeader--follows-you-indicator {
+  margin-top: -30px;
+}
+
 .UserHeader__rank {
   align-self: center;
   margin-top: -62px;
@@ -95,7 +100,7 @@
 
 .UserHeader__user__button {
   position: relative;
-  top: 40px;
+  top: 55px;
   margin: 0 10px;
 }
 
@@ -133,6 +138,11 @@
       flex-direction: initial;
       justify-content: initial;
     }
+  }
+
+  .UserHeader--follows-you-indicator {
+    margin-top: -55px;
+    margin-left: 45px;
   }
 
   .UserHeader__more {

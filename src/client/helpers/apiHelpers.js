@@ -38,16 +38,6 @@ export const getAccount = username =>
 
 export const getFollowingCount = username => SteemAPI.sendAsync('call', ['follow_api', 'get_follow_count', [username]]);
 
-export const getAccountWithFollowingCount = username =>
-  Promise.all([
-    getAccount(username),
-    getFollowingCount(username),
-  ]).then(([account, { following_count, follower_count }]) => ({
-    ...account,
-    following_count,
-    follower_count,
-  }));
-
 export const getFollowing = (username, startForm = '', type = 'blog', limit = 100) =>
   SteemAPI.sendAsync('call', ['follow_api', 'get_following', [username, startForm, type, limit]]).then(result =>
     result.map(user => user.following),
@@ -57,6 +47,19 @@ export const getFollowers = (username, startForm = '', type = 'blog', limit = 10
   SteemAPI.sendAsync('call', ['follow_api', 'get_followers', [username, startForm, type, limit]]).then(result =>
     result.map(user => user.follower),
   );
+
+export const getAccountWithFollowingCount = (username, authenticatedUser) =>
+  Promise.all([
+    getAccount(username),
+    getFollowingCount(username),
+    getFollowing(username, authenticatedUser, 'blog', 1),
+  ]).then(([account, { following_count, follower_count }, followsYou]) => ({
+    ...account,
+    following_count,
+    follower_count,
+    followsYou,
+  }));
+
 
 export const getAllFollowing = username => new Promise(async (resolve) => {
   const following = await getFollowingCount(username);
@@ -109,7 +112,6 @@ export const isWalletTransaction = actionType =>
   actionType === accountHistoryConstants.TRANSFER_TO_SAVINGS ||
   actionType === accountHistoryConstants.DELEGATE_VESTING_SHARES ||
   actionType === accountHistoryConstants.CLAIM_REWARD_BALANCE;
-
 export const getLookupAccountNames = (name, limit = 5) =>
   SteemAPI.sendAsync('lookup_accounts', [name, limit]);
 

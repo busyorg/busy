@@ -18,6 +18,7 @@ const UserHeader = ({
   userReputation,
   vestingShares,
   isSameUser,
+  isFollowingYou,
   coverImage,
   hasCover,
   isPopoverVisible,
@@ -25,6 +26,7 @@ const UserHeader = ({
   handleVisibleChange,
 }) => {
   const style = hasCover ? { backgroundImage: `url("${coverImage}")` } : {};
+  const displayFollowsYou = !isSameUser && isFollowingYou;
   return (
     <div className={classNames('UserHeader', { 'UserHeader--cover': hasCover })} style={style}>
       <div className="UserHeader__container">
@@ -83,7 +85,9 @@ const UserHeader = ({
             )}
           </div>
           <div className="UserHeader__handle-rank-container">
-            <div className="UserHeader__row UserHeader__handle">@{handle}</div>
+            <div className="UserHeader__row UserHeader__handle">
+              @{handle}
+            </div>
             <div className="UserHeader__rank">
               <i className="iconfont icon-ranking" />
               <FormattedMessage
@@ -92,6 +96,13 @@ const UserHeader = ({
               />
             </div>
           </div>
+          {displayFollowsYou && (
+            <div className="UserHeader__row">
+              <div className="UserHeader--follows-you-indicator">
+                {intl.formatMessage({ id: 'follows_you', defaultMessage: 'Follows you' })}
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
@@ -105,6 +116,7 @@ UserHeader.propTypes = {
   userReputation: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   vestingShares: PropTypes.number,
   isSameUser: PropTypes.bool,
+  isFollowingYou: PropTypes.bool,
   coverImage: PropTypes.string,
   hasCover: PropTypes.bool,
   isPopoverVisible: PropTypes.bool,
@@ -118,6 +130,7 @@ UserHeader.defaultProps = {
   userReputation: '0',
   vestingShares: 0,
   isSameUser: false,
+  isFollowingYou: false,
   coverImage: '',
   hasCover: false,
   isPopoverVisible: false,

@@ -34,6 +34,7 @@ const UserHero = ({
   user,
   username,
   isSameUser,
+  isFollowingYou,
   coverImage,
   hasCover,
   isPopoverVisible,
@@ -55,6 +56,7 @@ const UserHero = ({
                 userReputation={user.reputation}
                 vestingShares={parseFloat(user.vesting_shares)}
                 isSameUser={isSameUser}
+                isFollowingYou={isFollowingYou}
                 coverImage={coverImage}
                 hasCover={hasCover}
                 isPopoverVisible={isPopoverVisible}
@@ -76,6 +78,7 @@ UserHero.propTypes = {
   user: PropTypes.shape().isRequired,
   username: PropTypes.string.isRequired,
   isSameUser: PropTypes.bool,
+  isFollowingYou: PropTypes.bool,
   coverImage: PropTypes.string,
   hasCover: PropTypes.bool,
   isPopoverVisible: PropTypes.bool,
@@ -88,6 +91,7 @@ UserHero.defaultProps = {
   coverImage: '',
   hasCover: false,
   isPopoverVisible: false,
+  isFollowingYou: false,
   onSelect: () => {},
   handleVisibleChange: () => {},
 };

@@ -59,14 +59,18 @@ export default class User extends React.Component {
 
   componentDidMount() {
     const { user } = this.props;
-    if (!user.id && !user.failed) {
-      this.props.getAccount(this.props.match.params.name);
+    if (!user.id && !user.failed
+      && this.props.authenticatedUser.name) {
+      this.props.getAccount({ name: this.props.match.params.name,
+        authUser: this.props.authenticatedUser.name });
     }
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.match.params.name !== this.props.match.params.name) {
-      this.props.getAccount(this.props.match.params.name);
+    if (prevProps.match.params.name !== this.props.match.params.name
+      && this.props.authenticatedUser.name) {
+      this.props.getAccount({ name: this.props.match.params.name,
+        authUser: this.props.authenticatedUser.name });
     }
   }
 
@@ -100,6 +104,11 @@ export default class User extends React.Component {
     const title = `${displayedUsername} - Busy`;
 
     const isSameUser = authenticated && authenticatedUser.name === username;
+    let followsYou = false;
+    if (user.followsYou
+      && user.followsYou.length > 0) {
+      followsYou = user.followsYou[0] === authenticatedUser.name;
+    }
 
     return (
       <div className="main-panel">
@@ -131,6 +140,7 @@ export default class User extends React.Component {
             user={user}
             username={displayedUsername}
             isSameUser={isSameUser}
+            isFollowingYou={followsYou}
             coverImage={profile.cover_image}
             hasCover={hasCover}
             onFollowClick={this.handleFollowClick}
