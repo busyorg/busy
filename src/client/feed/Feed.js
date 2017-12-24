@@ -152,7 +152,7 @@ export default class Feed extends React.Component {
         loadingMore={isFetching}
         hasMore={hasMore}
         elementIsScrollable={false}
-        threshold={200}
+        threshold={1500}
       >
         {content.map((post) => {
           const userVote = _.find(post.active_votes, { voter: user.name }) || {};
