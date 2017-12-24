@@ -28,10 +28,10 @@ export default (state = initialState, action) => {
           (action.payload.user_metadata && action.payload.user_metadata.locale) ||
           initialState.locale,
       };
-    case appTypes.RATE_SUCCESS:
+    case appTypes.RATE_REQUEST.SUCCESS:
       return {
         ...state,
-        rate: action.rate,
+        rate: action.payload,
       };
     case postActions.GET_CONTENT.START:
       return {
