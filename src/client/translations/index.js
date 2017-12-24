@@ -1,9 +1,7 @@
 import { addLocaleData } from 'react-intl';
-import en from 'react-intl/locale-data/en';
+import { setUsedLocale } from '../app/appActions';
+import { getLocale } from '../reducers';
 import enTranslations from '../locales/en.json';
-
-// Setup default locale and translations
-addLocaleData(en);
 
 export function getDefaultTranslation() {
   return enTranslations;
@@ -38,4 +36,18 @@ export const getAvailableLocale = (appLocale) => {
   }
 
   return 'en';
+};
+
+export const loadTranslations = async (store) => {
+  const state = store.getState();
+  const availableLocale = getAvailableLocale(getLocale(state));
+
+  const localeDataPromise = await import(`react-intl/locale-data/${availableLocale}`);
+  const translationsPromise = await import(`../locales/${availableLocale}.json`);
+
+  const [localeData, translations] = await Promise.all([localeDataPromise, translationsPromise]);
+
+  addLocaleData(localeData);
+  global.translations = translations;
+  store.dispatch(setUsedLocale(availableLocale));
 };

@@ -6,10 +6,10 @@ import { withRouter } from 'react-router-dom';
 import { renderRoutes } from 'react-router-config';
 import { LocaleProvider, Layout } from 'antd';
 import enUS from 'antd/lib/locale-provider/en_US';
+import { getAvailableLocale } from './translations';
 
-import { getIsLoaded, getAuthenticatedUser, getAuthenticatedUserName, getLocale } from './reducers';
+import { getIsLoaded, getAuthenticatedUser, getAuthenticatedUserName, getLocale, getUsedLocale } from './reducers';
 
-import { getAvailableLocale, getDefaultTranslation } from './translations';
 import { login, logout } from './auth/authActions';
 import { getFollowing } from './user/userActions';
 import { getRate, getRewardFund, getTrendingTopics } from './app/appActions';
@@ -23,6 +23,7 @@ import Transfer from './wallet/Transfer';
     loaded: getIsLoaded(state),
     user: getAuthenticatedUser(state),
     username: getAuthenticatedUserName(state),
+    usedLocale: getUsedLocale(state),
     locale: getLocale(state),
   }),
   {
@@ -41,6 +42,7 @@ export default class Wrapper extends React.PureComponent {
     loaded: PropTypes.bool.isRequired,
     user: PropTypes.shape().isRequired,
     locale: PropTypes.string.isRequired,
+    usedLocale: PropTypes.string.isRequired,
     history: PropTypes.shape().isRequired,
     username: PropTypes.string,
     login: PropTypes.func,
@@ -71,8 +73,7 @@ export default class Wrapper extends React.PureComponent {
     super(props);
 
     this.state = {
-      loadedLocale: 'en',
-      translations: getDefaultTranslation(),
+      translations: global.translations,
     };
 
     this.loadLocale = this.loadLocale.bind(this);
@@ -80,8 +81,7 @@ export default class Wrapper extends React.PureComponent {
   }
 
   componentDidMount() {
-    const { loaded, locale } = this.props;
-    const { loadedLocale } = this.state;
+    const { loaded, locale, usedLocale } = this.props;
 
     this.props.login().then(() => this.props.getFollowing());
     this.props.getRewardFund();
@@ -89,15 +89,15 @@ export default class Wrapper extends React.PureComponent {
     this.props.getRate();
     this.props.getTrendingTopics();
 
-    if (loadedLocale !== getAvailableLocale(locale) && loaded) {
+    if (usedLocale !== getAvailableLocale(locale) && loaded) {
       this.loadLocale(locale);
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    const { loadedLocale } = this.state;
+    const { usedLocale } = this.props;
 
-    if (loadedLocale !== getAvailableLocale(nextProps.locale) && nextProps.loaded) {
+    if (usedLocale !== getAvailableLocale(nextProps.locale) && nextProps.loaded) {
       this.loadLocale(nextProps.locale);
     }
   }
@@ -111,7 +111,6 @@ export default class Wrapper extends React.PureComponent {
     Promise.all([localeDataPromise, translationsPromise]).then(([localeData, translations]) => {
       addLocaleData(localeData);
       this.setState({
-        loadedLocale: availableLocale,
         translations,
       });
     });
@@ -155,11 +154,11 @@ export default class Wrapper extends React.PureComponent {
   }
 
   render() {
-    const { user } = this.props;
-    const { loadedLocale, translations } = this.state;
+    const { user, usedLocale } = this.props;
+    const { translations } = this.state;
 
     return (
-      <IntlProvider key={loadedLocale} locale={loadedLocale} messages={translations}>
+      <IntlProvider key={usedLocale} locale={usedLocale} messages={translations}>
         <LocaleProvider locale={enUS}>
           <Layout>
             <Layout.Header style={{ position: 'fixed', width: '100%', zIndex: 5 }}>
