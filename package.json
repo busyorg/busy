@@ -17,7 +17,7 @@
     "test:watch": "cross-env IMG_HOST=https://img.busy.org jest --watch",
     "test:coverage": "cross-env IMG_HOST=https://img.busy.org jest --coverage",
     "eslint-autofix": "eslint --fix \"src/**/*.js\"",
-    "lint": "eslint \"src/**/*.js\"",
+    "lint": "node ./scripts/eslint/index.js",
     "run:server": "nodemon --watch busy.server.js busy.server.js",
     "build:server:dev": "cross-env NODE_ENV=development webpack --config ./webpack/webpack.server.config.js",
     "build:server": "cross-env NODE_ENV=production webpack -p --config ./webpack/webpack.server.config.js",
@@ -136,6 +136,7 @@
   "devDependencies": {
     "babel-register": "^6.24.1",
     "chai": "^3.5.0",
+    "chalk": "^2.3.0",
     "enzyme": "^3.1.1",
     "enzyme-adapter-react-16": "^1.0.4",
     "eslint": "^4.3.0",
