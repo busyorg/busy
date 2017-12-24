@@ -9,15 +9,17 @@ import { throttle, isEqual } from 'lodash';
 import isArray from 'lodash/isArray';
 import { Icon, Checkbox, Form, Input, Select, Button } from 'antd';
 import Dropzone from 'react-dropzone';
-import { isValidImage, MAXIMUM_UPLOAD_SIZE } from '../../helpers/image';
+import { MAXIMUM_UPLOAD_SIZE } from '../../helpers/image';
 import EditorToolbar from './EditorToolbar';
 import Action from '../Button/Action';
 import Body, { remarkable } from '../Story/Body';
 import requiresLogin from '../../auth/requiresLogin';
+import editorBase from './EditorBase';
 import './Editor.less';
 
 @requiresLogin
 @injectIntl
+@editorBase
 class Editor extends React.Component {
   static propTypes = {
     intl: PropTypes.shape().isRequired,
@@ -30,13 +32,22 @@ class Editor extends React.Component {
     loading: PropTypes.bool,
     isUpdating: PropTypes.bool,
     draftId: PropTypes.string,
+    isDisabledSubmit: PropTypes.bool,
+    imageUploading: PropTypes.bool,
+    dropzoneActive: PropTypes.bool,
     saving: PropTypes.bool,
     onUpdate: PropTypes.func,
     onDelete: PropTypes.func,
     onSubmit: PropTypes.func,
     onError: PropTypes.func,
-    onImageInserted: PropTypes.func,
     onImageInvalid: PropTypes.func,
+    handlePastedImage: PropTypes.func,
+    handleImageChange: PropTypes.func,
+    handleDrop: PropTypes.func,
+    updateIsDisabledSubmit: PropTypes.func,
+    updateImageUploading: PropTypes.func,
+    handleDragLeave: PropTypes.func,
+    handleDragEnter: PropTypes.func,
   };
 
   static defaultProps = {
@@ -51,12 +62,21 @@ class Editor extends React.Component {
     isUpdating: false,
     saving: false,
     draftId: null,
+    isDisabledSubmit: false,
+    imageUploading: false,
+    dropzoneActive: false,
     onDelete: () => {},
     onUpdate: () => {},
     onSubmit: () => {},
     onError: () => {},
-    onImageInserted: () => {},
     onImageInvalid: () => {},
+    handlePastedImage: () => {},
+    handleImageChange: () => {},
+    handleDrop: () => {},
+    updateIsDisabledSubmit: () => {},
+    updateImageUploading: () => {},
+    handleDragLeave: () => {},
+    handleDragEnter: () => {},
   };
 
   static hotkeys = {
@@ -75,15 +95,12 @@ class Editor extends React.Component {
 
   state = {
     contentHtml: '',
-    noContent: false,
-    imageUploading: false,
-    dropzoneActive: false,
   };
 
   componentDidMount() {
     if (this.input) {
       this.input.addEventListener('input', throttle(e => this.renderMarkdown(e.target.value), 500));
-      this.input.addEventListener('paste', this.handlePastedImage);
+      this.input.addEventListener('paste', e => this.props.handlePastedImage(this.disableAndInsertImage, e));
     }
 
     this.setValues(this.props);
@@ -190,12 +207,17 @@ class Editor extends React.Component {
   // Form validation and handling
   //
 
+  disableAndInsertImage = (image, imageName = 'image') => {
+    this.props.updateImageUploading(false);
+    this.insertImage(image, imageName);
+  };
+
   handleSubmit = (e) => {
     // NOTE: Wrapping textarea in getFormDecorator makes it impossible
     // to control its selection what is needed for markdown formatting.
     // This code adds requirement for body input to not be empty.
     e.preventDefault();
-    this.setState({ noContent: false });
+    this.props.updateIsDisabledSubmit(false);
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err && this.input.value !== '') {
         this.props.onSubmit({
@@ -214,7 +236,7 @@ class Editor extends React.Component {
             ],
           },
         };
-        this.setState({ noContent: true });
+        this.props.updateIsDisabledSubmit(false);
         this.props.onError(errors);
       } else {
         this.props.onError(err);
@@ -239,93 +261,6 @@ class Editor extends React.Component {
   // Editor methods
   //
 
-  handlePastedImage = (e) => {
-    if (e.clipboardData && e.clipboardData.items) {
-      const items = e.clipboardData.items;
-      Array.from(items).forEach((item) => {
-        if (item.kind === 'file') {
-          e.preventDefault();
-
-          const blob = item.getAsFile();
-
-          if (!isValidImage(blob)) {
-            this.props.onImageInvalid();
-            return;
-          }
-
-          this.setState({
-            imageUploading: true,
-          });
-
-          this.props.onImageInserted(blob, this.disableAndInsertImage, () =>
-            this.setState({
-              imageUploading: false,
-            }),
-          );
-        }
-      });
-    }
-  };
-
-  handleImageChange = (e) => {
-    if (e.target.files && e.target.files[0]) {
-      if (!isValidImage(e.target.files[0])) {
-        this.props.onImageInvalid();
-        return;
-      }
-
-      this.setState({
-        imageUploading: true,
-      });
-      this.props.onImageInserted(e.target.files[0], this.disableAndInsertImage, () =>
-        this.setState({
-          imageUploading: false,
-        }),
-      );
-      // Input reacts on value change, so if user selects the same file nothing will happen.
-      // We have to reset its value, so if same image is selected it will emit onChange event.
-      e.target.value = '';
-    }
-  };
-
-  handleDrop = (files) => {
-    if (files.length === 0) {
-      this.setState({
-        dropzoneActive: false,
-      });
-      return;
-    }
-
-    this.setState({
-      dropzoneActive: false,
-      imageUploading: true,
-    });
-    let callbacksCount = 0;
-    Array.from(files).forEach((item) => {
-      this.props.onImageInserted(
-        item,
-        (image, imageName) => {
-          callbacksCount += 1;
-          this.insertImage(image, imageName);
-          if (callbacksCount === files.length) {
-            this.setState({
-              imageUploading: false,
-            });
-          }
-        },
-        () => {
-          this.setState({
-            imageUploading: false,
-          });
-        },
-      );
-    });
-  };
-
-  handleDragEnter = () => this.setState({ dropzoneActive: true });
-
-  handleDragLeave = () => this.setState({ dropzoneActive: false });
-
   handleDelete = (e) => {
     e.stopPropagation();
     e.preventDefault();
@@ -346,13 +281,6 @@ class Editor extends React.Component {
 
     this.input.selectionStart = startPos + deltaStart;
     this.input.selectionEnd = endPos + deltaEnd;
-  };
-
-  disableAndInsertImage = (image, imageName = 'image') => {
-    this.setState({
-      imageUploading: false,
-    });
-    this.insertImage(image, imageName);
   };
 
   insertImage = (image, imageName = 'image') => {
@@ -435,11 +363,8 @@ class Editor extends React.Component {
     image: () => this.insertCode('image'),
   };
 
-  renderMarkdown = (value) => {
-    this.setState({
-      contentHtml: remarkable.render(value),
-    });
-  };
+  renderMarkdown = value =>
+    this.setState({ contentHtml: remarkable.render(value) });
 
   render() {
     const { getFieldDecorator } = this.props.form;
@@ -527,9 +452,9 @@ class Editor extends React.Component {
           )}
         </Form.Item>
         <Form.Item
-          validateStatus={this.state.noContent ? 'error' : ''}
+          validateStatus={this.props.isDisabledSubmit ? 'error' : ''}
           help={
-            this.state.noContent &&
+            this.props.isDisabledSubmit &&
             intl.formatMessage({
               id: 'story_error_empty',
               defaultMessage: "Story content can't be empty.",
@@ -544,11 +469,11 @@ class Editor extends React.Component {
               accept="image/*"
               maxSize={MAXIMUM_UPLOAD_SIZE}
               onDropRejected={this.props.onImageInvalid}
-              onDrop={this.handleDrop}
-              onDragEnter={this.handleDragEnter}
-              onDragLeave={this.handleDragLeave}
+              onDrop={files => this.props.handleDrop(this.insertImage, files)}
+              onDragEnter={this.props.handleDragEnter}
+              onDragLeave={this.props.handleDragLeave}
             >
-              {this.state.dropzoneActive && (
+              {this.props.dropzoneActive && (
                 <div className="Editor__dropzone">
                   <div>
                     <i className="iconfont icon-picture" />
@@ -571,14 +496,14 @@ class Editor extends React.Component {
             </Dropzone>
           </div>
           <p className="Editor__imagebox">
-            <input type="file" id="inputfile" accept="image/*" onChange={this.handleImageChange} />
+            <input type="file" id="inputfile" accept="image/*" onChange={e => this.props.handleImageChange(this.disableAndInsertImage, e)} />
             <label htmlFor="inputfile">
-              {this.state.imageUploading ? (
+              {this.props.imageUploading ? (
                 <Icon type="loading" />
               ) : (
                 <i className="iconfont icon-picture" />
               )}
-              {this.state.imageUploading ? (
+              {this.props.imageUploading ? (
                 <FormattedMessage id="image_uploading" defaultMessage="Uploading your image..." />
               ) : (
                 <FormattedMessage

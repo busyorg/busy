@@ -5,14 +5,16 @@ import { injectIntl, FormattedMessage } from 'react-intl';
 import { Input, Icon } from 'antd';
 import Dropzone from 'react-dropzone';
 import Scroll from 'react-scroll';
-import { isValidImage, MAXIMUM_UPLOAD_SIZE } from '../../helpers/image';
+import { MAXIMUM_UPLOAD_SIZE } from '../../helpers/image';
 import Body, { remarkable } from '../Story/Body';
 import Avatar from '../Avatar';
+import editorBase from '../Editor/EditorBase';
 import './CommentForm.less';
 
 const Element = Scroll.Element;
 
 @injectIntl
+@editorBase
 class CommentForm extends React.Component {
   static propTypes = {
     intl: PropTypes.shape().isRequired,
@@ -22,9 +24,17 @@ class CommentForm extends React.Component {
     isLoading: PropTypes.bool,
     submitted: PropTypes.bool,
     inputValue: PropTypes.string.isRequired,
-    onImageInserted: PropTypes.func,
+    imageUploading: PropTypes.bool,
+    dropzoneActive: PropTypes.bool,
     onImageInvalid: PropTypes.func,
     onSubmit: PropTypes.func,
+    handlePastedImage: PropTypes.func,
+    handleImageChange: PropTypes.func,
+    handleDrop: PropTypes.func,
+    updateIsDisabledSubmit: PropTypes.func,
+    updateImageUploading: PropTypes.func,
+    handleDragLeave: PropTypes.func,
+    handleDragEnter: PropTypes.func,
   };
 
   static defaultProps = {
@@ -33,21 +43,26 @@ class CommentForm extends React.Component {
     isLoading: false,
     submitted: false,
     inputValue: '',
-    onImageInserted: () => {},
+    imageUploading: false,
+    dropzoneActive: false,
     onImageInvalid: () => {},
     onSubmit: () => {},
+    handlePastedImage: () => {},
+    handleImageChange: () => {},
+    handleDrop: () => {},
+    updateIsDisabledSubmit: () => {},
+    updateImageUploading: () => {},
+    handleDragLeave: () => {},
+    handleDragEnter: () => {},
   };
 
   state = {
     inputValue: this.props.inputValue,
-    isDisabledSubmit: false,
-    imageUploading: false,
-    dropzoneActive: false,
   };
 
   componentDidMount() {
     if (this.input) {
-      this.input.addEventListener('paste', this.handlePastedImage);
+      this.input.addEventListener('paste', e => this.props.handlePastedImage(this.disableAndInsertImage, e));
 
       if (this.props.parentPost.depth !== 0) {
         this.input.focus();
@@ -75,9 +90,7 @@ class CommentForm extends React.Component {
   };
 
   disableAndInsertImage = (image, imageName = 'image') => {
-    this.setState({
-      imageUploading: false,
-    });
+    this.props.updateImageUploading(false);
     this.insertImage(image, imageName);
   };
 
@@ -99,96 +112,9 @@ class CommentForm extends React.Component {
     this.setState({ inputValue: e.target.value });
   };
 
-  handlePastedImage = (e) => {
-    if (e.clipboardData && e.clipboardData.items) {
-      const items = e.clipboardData.items;
-      Array.from(items).forEach((item) => {
-        if (item.kind === 'file') {
-          e.preventDefault();
-
-          const blob = item.getAsFile();
-
-          if (!isValidImage(blob)) {
-            this.props.onImageInvalid();
-            return;
-          }
-
-          this.setState({
-            imageUploading: true,
-          });
-
-          this.props.onImageInserted(blob, this.disableAndInsertImage, () =>
-            this.setState({
-              imageUploading: false,
-            }),
-          );
-        }
-      });
-    }
-  };
-
-  handleImageChange = (e) => {
-    if (e.target.files && e.target.files[0]) {
-      if (!isValidImage(e.target.files[0])) {
-        this.props.onImageInvalid();
-        return;
-      }
-
-      this.setState({
-        imageUploading: true,
-      });
-      this.props.onImageInserted(e.target.files[0], this.disableAndInsertImage, () =>
-        this.setState({
-          imageUploading: false,
-        }),
-      );
-      // Input reacts on value change, so if user selects the same file nothing will happen.
-      // We have to reset its value, so if same image is selected it will emit onChange event.
-      e.target.value = '';
-    }
-  };
-
-  handleDrop = (files) => {
-    if (files.length === 0) {
-      this.setState({
-        dropzoneActive: false,
-      });
-      return;
-    }
-
-    this.setState({
-      dropzoneActive: false,
-      imageUploading: true,
-    });
-    let callbacksCount = 0;
-    Array.from(files).forEach((item) => {
-      this.props.onImageInserted(
-        item,
-        (image, imageName) => {
-          callbacksCount += 1;
-          this.insertImage(image, imageName);
-          if (callbacksCount === files.length) {
-            this.setState({
-              imageUploading: false,
-            });
-          }
-        },
-        () => {
-          this.setState({
-            imageUploading: false,
-          });
-        },
-      );
-    });
-  };
-
-  handleDragEnter = () => this.setState({ dropzoneActive: true });
-
-  handleDragLeave = () => this.setState({ dropzoneActive: false });
-
   handleSubmit = (e) => {
     e.stopPropagation();
-    this.setState({ isDisabledSubmit: true });
+    this.props.updateIsDisabledSubmit(true);
     if (this.state.inputValue) {
       this.props.onSubmit(this.props.parentPost, this.state.inputValue);
     }
@@ -209,11 +135,11 @@ class CommentForm extends React.Component {
               accept="image/*"
               maxSize={MAXIMUM_UPLOAD_SIZE}
               onDropRejected={this.props.onImageInvalid}
-              onDrop={this.handleDrop}
-              onDragEnter={this.handleDragEnter}
-              onDragLeave={this.handleDragLeave}
+              onDrop={files => this.props.handleDrop(this.insertImage, files)}
+              onDragEnter={this.props.handleDragEnter}
+              onDragLeave={this.props.handleDragLeave}
             >
-              {this.state.dropzoneActive && (
+              {this.props.dropzoneActive && (
                 <div className="CommentForm__dropzone">
                   <div>
                     <i className="iconfont icon-picture" />
@@ -243,15 +169,15 @@ class CommentForm extends React.Component {
               type="file"
               accept="image/*"
               id={`inputfile${this.props.parentPost.id}`}
-              onChange={this.handleImageChange}
+              onChange={e => this.props.handleImageChange(this.disableAndInsertImage, e)}
             />
             <label htmlFor={`inputfile${this.props.parentPost.id}`}>
-              {this.state.imageUploading ? (
+              {this.props.imageUploading ? (
                 <Icon type="loading" />
               ) : (
                 <i className="iconfont icon-picture" />
               )}
-              {this.state.imageUploading ? (
+              {this.props.imageUploading ? (
                 <FormattedMessage id="image_uploading" defaultMessage="Uploading your image..." />
               ) : (
                 <FormattedMessage
