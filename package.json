@@ -9,6 +9,8 @@
   "main": "./server",
   "private": true,
   "scripts": {
+    "lint": "node ./scripts/eslint/index.js all",
+    "linc": "node ./scripts/eslint/index.js",
     "dev-server": "run-p dev-server:auth-server dev-server:client",
     "dev-server:client": "webpack-dev-server --config ./webpack/webpack-dev-server.js",
     "dev-server:auth-server": "node ./src/server/auth-server.js",
@@ -17,7 +19,6 @@
     "test:watch": "cross-env IMG_HOST=https://img.busy.org jest --watch",
     "test:coverage": "cross-env IMG_HOST=https://img.busy.org jest --coverage",
     "eslint-autofix": "eslint --fix \"src/**/*.js\"",
-    "lint": "node ./scripts/eslint/index.js",
     "run:server": "nodemon --watch busy.server.js busy.server.js",
     "build:server:dev": "cross-env NODE_ENV=development webpack --config ./webpack/webpack.server.config.js",
     "build:server": "cross-env NODE_ENV=production webpack -p --config ./webpack/webpack.server.config.js",
@@ -28,7 +29,7 @@
   },
   "pre-commit": [
     "test",
-    "lint"
+    "linc"
   ],
   "dependencies": {
     "antd": "^2.13.8",
