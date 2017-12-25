@@ -1,8 +1,12 @@
 const chalk = require('chalk');
 const CLIEngine = require('eslint').CLIEngine;
-
 const getChangedFiles = require('../utils/getChangedFiles');
 const intersect = require('../utils/intersect');
+
+// This message comes from eslint if we try to run eslint on file that is ignored.
+// We filter those warnings away.
+const ignoreMessage =
+  'File ignored because of a matching ignore pattern. Use "--no-ignore" to override.';
 
 const patterns = ['**/*.js'];
 
@@ -17,11 +21,17 @@ function lintFiles() {
   const files = onlyChanged ? intersect(getChangedFiles(), patterns) : patterns;
 
   const report = cli.executeOnFiles(files);
-  const output = formatter(report.results);
+  const messages = report.results.filter(
+    item => !(item.messages[0] && item.messages[0].message === ignoreMessage),
+  );
 
+  const output = formatter(messages);
   if (output !== '') console.log(output);
 
-  return report.warningCount === 0 && report.errorCount === 0;
+  const ignoredMessageCount = report.results.length - messages.length;
+  return (
+    report.warningCount - ignoredMessageCount === 0 && report.errorCount === 0
+  );
 }
 
 console.log(onlyChanged ? 'Linting changed files...' : 'Linting files...');
