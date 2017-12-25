@@ -5,7 +5,13 @@ const options = require('./options');
 
 function formatFile(file) {
   const input = fs.readFileSync(file, 'utf8');
-  const output = prettier.format(input, options);
+
+  const formatOptions = {
+    ...options,
+    parser: file.endsWith('.less') ? 'less' : 'babylon',
+  };
+
+  const output = prettier.format(input, formatOptions);
   if (input !== output) {
     fs.writeFileSync(file, output, 'utf8');
   }
