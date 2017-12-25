@@ -73,6 +73,7 @@ export const getTrendingTopics = state => fromApp.getTrendingTopics(state.app);
 export const getIsFetching = state => fromApp.getIsFetching(state.app);
 export const getIsBannerClosed = state => fromApp.getIsBannerClosed(state.app);
 export const getAppUrl = state => fromApp.getAppUrl(state.app);
+export const getUsedLocale = state => fromApp.getUsedLocale(state.app);
 export const getCryptosPriceHistory = state => fromApp.getCryptosPriceHistory(state.app);
 
 export const getFeed = state => fromFeed.getFeed(state.feed);
@@ -111,6 +112,8 @@ export const getLocale = state => fromSettings.getLocale(state.settings);
 export const getVotingPower = state => fromSettings.getVotingPower(state.settings);
 export const getVotePercent = state => fromSettings.getVotePercent(state.settings);
 export const getShowNSFWPosts = state => fromSettings.getShowNSFWPosts(state.settings);
+export const getUpvoteSetting = state => fromSettings.getUpvoteSetting(state.settings);
+export const getRewardSetting = state => fromSettings.getRewardSetting(state.settings);
 
 export const getTotalVestingShares = state => fromWallet.getTotalVestingShares(state.wallet);
 export const getTotalVestingFundSteem = state => fromWallet.getTotalVestingFundSteem(state.wallet);

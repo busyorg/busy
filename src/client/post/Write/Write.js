@@ -11,6 +11,7 @@ import 'url-search-params-polyfill';
 import { injectIntl } from 'react-intl';
 import uuidv4 from 'uuid/v4';
 import { MAXIMUM_UPLOAD_SIZE_HUMAN } from '../../helpers/image';
+import { rewardsValues } from '../../../common/constants/rewards';
 import GetBoost from '../../components/Sidebar/GetBoost';
 import DeleteDraftModal from './DeleteDraftModal';
 
@@ -19,6 +20,8 @@ import {
   getDraftPosts,
   getIsEditorLoading,
   getIsEditorSaving,
+  getUpvoteSetting,
+  getRewardSetting,
 } from '../../reducers';
 
 import { createPost, saveDraft, newPost } from './editorActions';
@@ -37,6 +40,8 @@ const version = require('../../../../package.json').version;
     loading: getIsEditorLoading(state),
     saving: getIsEditorSaving(state),
     draftId: new URLSearchParams(props.location.search).get('draft'),
+    upvoteSetting: getUpvoteSetting(state),
+    rewardSetting: getRewardSetting(state),
   }),
   {
     createPost,
@@ -54,6 +59,8 @@ class Write extends React.Component {
     loading: PropTypes.bool.isRequired,
     saving: PropTypes.bool,
     draftId: PropTypes.string,
+    upvoteSetting: PropTypes.bool,
+    rewardSetting: PropTypes.string,
     newPost: PropTypes.func,
     createPost: PropTypes.func,
     saveDraft: PropTypes.func,
@@ -64,6 +71,8 @@ class Write extends React.Component {
   static defaultProps = {
     saving: false,
     draftId: null,
+    upvoteSetting: true,
+    rewardSetting: rewardsValues.half,
     newPost: () => {},
     createPost: () => {},
     saveDraft: () => {},
@@ -77,8 +86,8 @@ class Write extends React.Component {
       initialTitle: '',
       initialTopics: [],
       initialBody: '',
-      initialReward: '50',
-      initialUpvote: true,
+      initialReward: this.props.rewardSetting,
+      initialUpvote: this.props.upvoteSetting,
       initialUpdatedDate: Date.now(),
       isUpdating: false,
       showModalDelete: false,
@@ -108,7 +117,7 @@ class Write extends React.Component {
         initialTitle: draftPost.title || '',
         initialTopics: tags || [],
         initialBody: draftPost.body || '',
-        initialReward: draftPost.reward || '50',
+        initialReward: draftPost.reward,
         initialUpvote: draftPost.upvote,
         initialUpdatedDate: draftPost.lastUpdated || Date.now(),
         isUpdating: draftPost.isUpdating || false,
@@ -129,7 +138,7 @@ class Write extends React.Component {
         initialTitle: '',
         initialTopics: [],
         initialBody: '',
-        initialReward: '50',
+        initialReward: rewardsValues.half,
         initialUpvote: true,
         initialUpdatedDate: Date.now(),
         isUpdating: false,

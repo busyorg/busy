@@ -5,25 +5,20 @@ import UserActivitySearchMessage from './UserActivitySearchMessage';
 import UserActivityActionsLoader from './UserActivityActionsLoader';
 import './UserActivityActions.less';
 
-class UserActivityActions extends React.Component {
-  static propTypes = {
-    isCurrentUser: PropTypes.bool,
-  };
+const UserActivityActions = ({ isCurrentUser }) => (
+  <div className="UserActivityActions">
+    <UserActivitySearchMessage />
+    <UserActivityActionsList isCurrentUser={isCurrentUser} />
+    <UserActivityActionsLoader isCurrentUser={isCurrentUser} />
+  </div>
+);
 
-  static defaultProps = {
-    isCurrentUser: false,
-  };
+UserActivityActions.propTypes = {
+  isCurrentUser: PropTypes.bool,
+};
 
-  render() {
-    const { isCurrentUser } = this.props;
-    return (
-      <div className="UserActivityActions">
-        <UserActivitySearchMessage />
-        <UserActivityActionsList isCurrentUser={isCurrentUser} />
-        <UserActivityActionsLoader isCurrentUser={isCurrentUser} />
-      </div>
-    );
-  }
-}
+UserActivityActions.defaultProps = {
+  isCurrentUser: false,
+};
 
 export default UserActivityActions;
