@@ -34,7 +34,7 @@ function checkFiles(files) {
   if (notFormattedFiles.length !== 0) {
     console.log(
       `${chalk.red('Please consider running')} ${chalk.red.bold(
-        'npm run prettier-all',
+        'yarn run prettier',
       )} ${chalk.red('and then commit your changes')}`,
     );
     console.log('Files not formatted properly:');
