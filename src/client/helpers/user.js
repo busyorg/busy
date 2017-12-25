@@ -35,11 +35,12 @@ export const getTotalShares = user =>
 
 export const getHasDefaultSlider = user => getTotalShares(user) >= 10000000;
 
-export const getVoteValue = (user, recentClaims, rewardBalance, weight = 10000) =>
+export const getVoteValue = (user, recentClaims, rewardBalance, rate, weight = 10000) =>
   calculateVoteValue(
     getTotalShares(user),
     parseFloat(recentClaims),
     parseFloat(rewardBalance),
+    rate,
     user.voting_power,
     weight,
   );

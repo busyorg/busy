@@ -64,7 +64,7 @@ export default function createSsrHandler(template) {
         if (context.status) {
           res.status(context.status);
         }
-        res.send(renderSsrPage(store, content, template));
+        res.send(renderSsrPage(store, content, template, appUrl !== 'https://busy.org'));
       })
       .catch((err) => {
         Raven.captureException(err);
