@@ -13,8 +13,7 @@ export const GET_REWARD_FUND_START = '@app/GET_REWARD_FUND_START';
 export const GET_REWARD_FUND_SUCCESS = '@app/GET_REWARD_FUND_SUCCESS';
 export const GET_REWARD_FUND_ERROR = '@app/GET_REWARD_FUND_ERROR';
 
-export const RATE_REQUEST = '@app/RATE_REQUEST';
-export const RATE_SUCCESS = '@app/RATE_SUCCESS';
+export const RATE_REQUEST = createAsyncActionType('@app/RATE_REQUEST');
 
 export const CLOSE_BANNER = '@app/CLOSE_BANNER';
 export const closeBanner = createAction(CLOSE_BANNER);
@@ -22,18 +21,19 @@ export const closeBanner = createAction(CLOSE_BANNER);
 export const SET_APP_URL = '@app/SET_APP_URL';
 export const setAppUrl = createAction(SET_APP_URL);
 
+export const SET_USED_LOCALE = '@app/SET_USED_LOCALE';
+export const setUsedLocale = createAction(SET_USED_LOCALE);
+
 export const GET_CRYPTO_PRICE_HISTORY = createAsyncActionType('@app/GET_CRYPTOS_PRICE_HISTORY');
 export const REFRESH_CRYPTO_PRICE_HISTORY = '@app/REFRESH_CRYPTO_PRICE_HISTORY';
 export const refreshCryptoPriceHistory = createAction(REFRESH_CRYPTO_PRICE_HISTORY);
 
-export const getRate = () => (dispatch) => {
-  dispatch({ type: RATE_REQUEST });
-  fetch('https://api.coinmarketcap.com/v1/ticker/steem/').then(res => res.json()).then((json) => {
-    const rate = parseFloat(json[0].price_usd);
-    dispatch({
-      type: RATE_SUCCESS,
-      rate,
-    });
+export const getRate = () => (dispatch, getState, { steemAPI }) => {
+  dispatch({
+    type: RATE_REQUEST.ACTION,
+    payload: {
+      promise: steemAPI.sendAsync('get_current_median_history_price', []).then(resp => parseFloat(resp.base)),
+    },
   });
 };
 

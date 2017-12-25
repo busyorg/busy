@@ -15,6 +15,7 @@ const initialState = {
   rewardFund: {},
   bannerClosed: false,
   appUrl: 'https://busy.org',
+  usedLocale: 'en',
   cryptosPriceHistory: {},
 };
 
@@ -28,10 +29,10 @@ export default (state = initialState, action) => {
           (action.payload.user_metadata && action.payload.user_metadata.locale) ||
           initialState.locale,
       };
-    case appTypes.RATE_SUCCESS:
+    case appTypes.RATE_REQUEST.SUCCESS:
       return {
         ...state,
-        rate: action.rate,
+        rate: action.payload,
       };
     case postActions.GET_CONTENT.START:
       return {
@@ -81,6 +82,11 @@ export default (state = initialState, action) => {
         ...state,
         appUrl: action.payload,
       };
+    case appTypes.SET_USED_LOCALE:
+      return {
+        ...state,
+        usedLocale: action.payload,
+      };
     case appTypes.REFRESH_CRYPTO_PRICE_HISTORY:
       return {
         ...state,
@@ -125,4 +131,5 @@ export const getTrendingTopics = state => state.trendingTopics;
 export const getIsFetching = state => state.isFetching;
 export const getIsBannerClosed = state => state.bannerClosed;
 export const getAppUrl = state => state.appUrl;
+export const getUsedLocale = state => state.usedLocale;
 export const getCryptosPriceHistory = state => state.cryptosPriceHistory;
