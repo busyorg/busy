@@ -9,7 +9,7 @@
   "main": "./server",
   "private": true,
   "scripts": {
-    "lint": "node ./scripts/eslint/index.js all",
+    "lint": "eslint \"src/**/*.js\"",
     "linc": "node ./scripts/eslint/index.js",
     "prettier": "node ./scripts/prettier/tasks/formatFiles.js",
     "prettier-all": "node ./scripts/prettier/tasks/formatFiles.js all",
@@ -33,9 +33,8 @@
     "heroku-postbuild": "npm run build"
   },
   "pre-commit": [
-    "linc",
-    "prettier-check",
-    "test"
+    "test",
+    "lint"
   ],
   "dependencies": {
     "antd": "^2.13.8",

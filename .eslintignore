@@ -12,3 +12,6 @@ busy.server.js
 # TODO: Eventually should be linted as well
 # Webpack
 webpack/
+
+# Temporary
+scripts/
