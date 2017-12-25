@@ -10,7 +10,11 @@ import sc2 from 'sc2-sdk';
 import getStore from '../../client/store';
 import routes from '../../common/routes';
 import renderSsrPage from '../renderers/ssrRenderer';
-import { setAppUrl } from '../../client/app/appActions';
+import { setAppUrl, setUsedLocale } from '../../client/app/appActions';
+import { getLocale } from '../../client/reducers';
+
+import { getAvailableLocale } from '../../client/translations';
+import translations from '../translations';
 
 export default function createSsrHandler(template) {
   return function serverSideResponse(req, res) {
@@ -43,6 +47,12 @@ export default function createSsrHandler(template) {
 
     return Promise.all(promises)
       .then(() => {
+        const state = store.getState();
+        const availableLocale = getAvailableLocale(getLocale(state));
+
+        global.translations = translations[availableLocale];
+        store.dispatch(setUsedLocale(availableLocale));
+
         const context = {};
         const content = renderToString(
           <Provider store={store}>
