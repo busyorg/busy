@@ -1,3 +1,6 @@
+const OFF = 0;
+const ERROR = 2;
+
 module.exports = {
   parser: 'babel-eslint',
   parserOptions: {
@@ -15,11 +18,12 @@ module.exports = {
   },
   extends: 'airbnb',
   rules: {
-    'react/jsx-filename-extension': [1, { extensions: ['.js'] }],
+    'react/jsx-filename-extension': [ERROR, { extensions: ['.js'] }],
     'import/no-extraneous-dependencies': [
-      'error',
+      ERROR,
       { devDependencies: ['**/__tests__/*.js', 'scripts/**/*.js'] },
     ],
-    'no-console': 'off',
+    'no-console': OFF,
+    'arrow-parens': [ERROR, 'as-needed'],
   },
 };

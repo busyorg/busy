@@ -1,0 +1,45 @@
+const chalk = require('chalk');
+const fs = require('fs');
+const prettier = require('prettier');
+const options = require('./options');
+
+function formatFile(file) {
+  const input = fs.readFileSync(file, 'utf8');
+  const output = prettier.format(input, options);
+  if (input !== output) {
+    fs.writeFileSync(file, output, 'utf8');
+  }
+}
+
+function formatFiles(files) {
+  files.forEach(file => formatFile(file));
+}
+
+function checkFiles(files) {
+  console.log('Checking files formatting.');
+  let notFormattedFiles = [];
+  files.forEach(file => {
+    const input = fs.readFileSync(file, 'utf-8');
+    if (!prettier.check(input, options)) {
+      notFormattedFiles = [...notFormattedFiles, file];
+    }
+  });
+
+  if (notFormattedFiles.length !== 0) {
+    console.log(
+      `${chalk.red('Please consider running')} ${chalk.red.bold(
+        'npm run prettier-all',
+      )} ${chalk.red('and then commit your changes')}`,
+    );
+    console.log('Files not formatted properly:');
+    notFormattedFiles.forEach(file => console.log(chalk.dim(file)));
+    process.exit(1);
+  }
+  console.log(chalk.green('All files formatted properly.'));
+}
+
+module.exports = {
+  formatFile,
+  formatFiles,
+  checkFiles,
+};

@@ -11,6 +11,11 @@
   "scripts": {
     "lint": "node ./scripts/eslint/index.js all",
     "linc": "node ./scripts/eslint/index.js",
+    "prettier": "node ./scripts/prettier/tasks/formatFiles.js",
+    "prettier-all": "node ./scripts/prettier/tasks/formatFiles.js all",
+    "prettier-check": "node ./scripts/prettier/tasks/checkFiles.js",
+    "prettier-check-all": "node ./scripts/prettier/tasks/checkFiles.js all",
+    "prettier-file": "node ./scripts/prettier/tasks/formatFile.js",
     "dev-server": "run-p dev-server:auth-server dev-server:client",
     "dev-server:client": "webpack-dev-server --config ./webpack/webpack-dev-server.js",
     "dev-server:auth-server": "node ./src/server/auth-server.js",
@@ -28,8 +33,9 @@
     "heroku-postbuild": "npm run build"
   },
   "pre-commit": [
-    "test",
-    "linc"
+    "linc",
+    "prettier-check",
+    "test"
   ],
   "dependencies": {
     "antd": "^2.13.8",
@@ -146,10 +152,12 @@
     "eslint-plugin-jest": "^20.0.3",
     "eslint-plugin-jsx-a11y": "^5.1.1",
     "eslint-plugin-react": "^7.1.0",
+    "glob": "^7.1.2",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^21.3.0-beta.8",
     "minimatch": "^3.0.4",
     "pre-commit": "^1.2.2",
+    "prettier": "^1.9.2",
     "react-test-renderer": "^15.6.1",
     "webpack-dev-server": "~2.9.3",
     "webpack-hot-middleware": "^2.20.0"
