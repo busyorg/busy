@@ -48,15 +48,17 @@ class Page extends React.Component {
 
   render() {
     const { authenticated, loaded, location, match } = this.props;
+    const { category, sortBy } = match.params;
 
     const shouldDisplaySelector = location.pathname !== '/' || (!authenticated && loaded);
 
-    const { category, sortBy } = match.params;
+    const robots = location.pathname === '/' ? 'index,follow' : 'noindex,follow';
 
     return (
       <div>
         <Helmet>
           <title>Busy</title>
+          <meta name="robots" content={robots} />
         </Helmet>
         <ScrollToTop />
         <ScrollToTopOnMount />
