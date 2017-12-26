@@ -57,7 +57,7 @@ class Page extends React.Component {
       <div>
         <Helmet>
           <title>Busy</title>
-          <meta name="robots" content="noindex" />
+          <meta name="robots" content="noindex, follow" />
         </Helmet>
         <ScrollToTop />
         <ScrollToTopOnMount />
