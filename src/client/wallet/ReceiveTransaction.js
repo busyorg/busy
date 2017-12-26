@@ -16,7 +16,9 @@ const ReceiveTransaction = ({ from, memo, amount, timestamp }) => (
           id="received_from"
           defaultMessage="Received from {username}"
           values={{
-            username: <Link to={`/@${from}`}>{from}</Link>,
+            username: (<Link to={`/@${from}`}>
+              <span className="username">{from}</span>
+            </Link>),
           }}
         />
         <span className="UserWalletTransactions__received">

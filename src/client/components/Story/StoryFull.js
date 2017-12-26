@@ -299,7 +299,7 @@ class StoryFull extends React.Component {
           </Link>
           <div className="StoryFull__header__text">
             <Link to={`/@${post.author}`}>
-              {post.author}
+              <span className="username">{post.author}</span>
               <Tooltip
                 title={intl.formatMessage({
                   id: 'reputation_score',

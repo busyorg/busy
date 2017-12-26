@@ -50,7 +50,11 @@ ShallowWrapper {
                     replace={false}
                     to="/@hellosteem"
                   >
-                    hellosteem
+                    <span
+                      className="username"
+                    >
+                      hellosteem
+                    </span>
                   </Link>,
                 }
               }
@@ -150,7 +154,11 @@ ShallowWrapper {
                       replace={false}
                       to="/@hellosteem"
                     >
-                      hellosteem
+                      <span
+                        className="username"
+                      >
+                        hellosteem
+                      </span>
                     </Link>,
                   }
                 }
@@ -220,7 +228,11 @@ ShallowWrapper {
                         replace={false}
                         to="/@hellosteem"
                       >
-                        hellosteem
+                        <span
+                          className="username"
+                        >
+                          hellosteem
+                        </span>
                       </Link>,
                     }
                   }
@@ -250,7 +262,11 @@ ShallowWrapper {
                       replace={false}
                       to="/@hellosteem"
                     >
-                      hellosteem
+                      <span
+                        className="username"
+                      >
+                        hellosteem
+                      </span>
                     </Link>,
                   },
                 },
@@ -432,7 +448,11 @@ ShallowWrapper {
                       replace={false}
                       to="/@hellosteem"
                     >
-                      hellosteem
+                      <span
+                        className="username"
+                      >
+                        hellosteem
+                      </span>
                     </Link>,
                   }
                 }
@@ -532,7 +552,11 @@ ShallowWrapper {
                         replace={false}
                         to="/@hellosteem"
                       >
-                        hellosteem
+                        <span
+                          className="username"
+                        >
+                          hellosteem
+                        </span>
                       </Link>,
                     }
                   }
@@ -602,7 +626,11 @@ ShallowWrapper {
                           replace={false}
                           to="/@hellosteem"
                         >
-                          hellosteem
+                          <span
+                            className="username"
+                          >
+                            hellosteem
+                          </span>
                         </Link>,
                       }
                     }
@@ -632,7 +660,11 @@ ShallowWrapper {
                         replace={false}
                         to="/@hellosteem"
                       >
-                        hellosteem
+                        <span
+                          className="username"
+                        >
+                          hellosteem
+                        </span>
                       </Link>,
                     },
                   },

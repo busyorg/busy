@@ -24,7 +24,9 @@ const getSavingsTransactionMessage = (transactionType, transactionDetails, amoun
           defaultMessage="Transfer to savings {amount} to {username}"
           values={{
             amount,
-            username: <Link to={`/@${transactionDetails.to}`}>{transactionDetails.to}</Link>,
+            username: (<Link to={`/@${transactionDetails.to}`}>
+              <span className="username">{transactionDetails.to}</span>
+            </Link>),
           }}
         />
       );
@@ -35,7 +37,9 @@ const getSavingsTransactionMessage = (transactionType, transactionDetails, amoun
           defaultMessage="Transfer from savings {amount} to {username}"
           values={{
             amount,
-            username: <Link to={`/@${transactionDetails.from}`}>{transactionDetails.from}</Link>,
+            username: (<Link to={`/@${transactionDetails.from}`}>
+              <span className="username">{transactionDetails.from}</span>
+            </Link>),
           }}
         />
       );

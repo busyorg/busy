@@ -40,7 +40,7 @@ const DiscoverUser = ({ user }) => {
             <div className="Discover__user__profile__header">
               <Link to={`/@${user.name}`}>
                 <span className="Discover__user__name">
-                  {name || user.name}
+                  <span className="username">{name || user.name}</span>
                 </span>
               </Link>
               <Tag>{reputation}</Tag>
