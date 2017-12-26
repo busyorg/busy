@@ -14,7 +14,7 @@
     "DEBUG": {
       "description": "Debug namespaces for https://github.com/visionmedia/debug.",
       "value": "busy:server",
-      "required": false,
+      "required": false
     }
   },
   "formation": {
