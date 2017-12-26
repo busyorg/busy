@@ -7,9 +7,6 @@ module.exports = {
     {
       name: 'busy',
       script: 'busy.server.js',
-      env: {
-        DEBUG: 'busy:server',
-      },
       instances: 4,
       exec_mode: 'cluster',
       max_memory_restart: '600M'
