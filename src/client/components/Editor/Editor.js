@@ -10,6 +10,7 @@ import isArray from 'lodash/isArray';
 import { Icon, Checkbox, Form, Input, Select, Button } from 'antd';
 import Dropzone from 'react-dropzone';
 import { isValidImage, MAXIMUM_UPLOAD_SIZE } from '../../helpers/image';
+import { rewardsValues } from '../../../common/constants/rewards';
 import EditorToolbar from './EditorToolbar';
 import Action from '../Button/Action';
 import Body, { remarkable } from '../Story/Body';
@@ -43,7 +44,7 @@ class Editor extends React.Component {
     title: '',
     topics: [],
     body: '',
-    reward: '50',
+    reward: rewardsValues.half,
     upvote: true,
     recentTopics: [],
     popularTopics: [],
@@ -618,15 +619,15 @@ class Editor extends React.Component {
             </span>
           }
         >
-          {getFieldDecorator('reward', { initialValue: '50' })(
+          {getFieldDecorator('reward', { initialValue: this.props.reward })(
             <Select onChange={this.onUpdate} disabled={isUpdating}>
-              <Select.Option value="100">
+              <Select.Option value={rewardsValues.all}>
                 <FormattedMessage id="reward_option_100" defaultMessage="100% Steem Power" />
               </Select.Option>
-              <Select.Option value="50">
+              <Select.Option value={rewardsValues.half}>
                 <FormattedMessage id="reward_option_50" defaultMessage="50% SBD and 50% SP" />
               </Select.Option>
-              <Select.Option value="0">
+              <Select.Option value={rewardsValues.none}>
                 <FormattedMessage id="reward_option_0" defaultMessage="Declined" />
               </Select.Option>
             </Select>,

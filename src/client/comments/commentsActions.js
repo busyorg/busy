@@ -86,6 +86,7 @@ function broadcastComment(
   title,
   body,
   jsonMetadata,
+  isUpdating,
 ) {
   const operations = [];
 
@@ -102,17 +103,20 @@ function broadcastComment(
     },
   ]);
 
-  operations.push([
-    'comment_options',
-    {
-      author,
-      permlink,
-      allow_votes: true,
-      allow_curation_rewards: false,
-      max_accepted_payout: '1000000.000 SBD',
-      percent_steem_dollars: 10000,
-    },
-  ]);
+  if (!isUpdating) {
+    operations.push([
+      'comment_options',
+      {
+        author,
+        permlink,
+        allow_votes: true,
+        allow_curation_rewards: false,
+        max_accepted_payout: '1000000.000 SBD',
+        percent_steem_dollars: 10000,
+      },
+    ]);
+  }
+
   return steemConnectAPI.broadcast(operations);
 }
 
@@ -152,6 +156,7 @@ export const sendComment = (parentPost, body, isUpdating = false, originalCommen
         '',
         newBody,
         jsonMetadata,
+        isUpdating,
       ).then((resp) => {
         const focusedComment = {
           author: resp.result.operations[0][1].author,
