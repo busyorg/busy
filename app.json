@@ -10,6 +10,11 @@
     },
     "NEW_RELIC_APP_NAME": {
       "required": true
+    },
+    "DEBUG": {
+      "description": "Debug namespaces for https://github.com/visionmedia/debug.",
+      "value": "busy:server",
+      "required": false,
     }
   },
   "formation": {

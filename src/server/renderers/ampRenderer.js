@@ -25,7 +25,7 @@ function cleanHTML(html) {
 function getContext(post, body, appUrl) {
   const metadata = _.attempt(JSON.parse, post.json_metadata);
   let images = [];
-  if (!_.isError(metadata)) images = metadata.image;
+  if (!_.isError(metadata) && metadata.image) images = metadata.image;
 
   const datePublished = `${post.created}Z`;
   const dateModified = `${post.last_update}Z`;
