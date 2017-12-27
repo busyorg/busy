@@ -43,7 +43,11 @@ const UserHeader = ({
                 <Tag>{formatter.reputation(userReputation)}</Tag>
               </Tooltip>
             </h2>
-            <div className="UserHeader__user__button">
+            <div
+              className={classNames('UserHeader__user__button', {
+                'UserHeader__user__button-follows-you': isFollowing,
+              })}
+            >
               {isSameUser
                 ? <a
                   target="_blank"
