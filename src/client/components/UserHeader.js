@@ -52,7 +52,7 @@ const UserHeader = ({
                 ? <a
                   target="_blank"
                   rel="noopener noreferrer"
-                  hrsef={`https://steemit.com/@${handle}/settings`}
+                  href={`https://steemit.com/@${handle}/settings`}
                 >
                   <Action
                     small
