@@ -8,6 +8,7 @@ const initialStateMock = {
   isReloading: false,
   loaded: false,
   user: {},
+  followers: {},
 };
 
 describe('authReducer', () => {

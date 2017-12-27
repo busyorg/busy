@@ -4,9 +4,14 @@ import { connect } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
 import { Helmet } from 'react-helmet';
 import getImage from '../helpers/getImage';
-
-import { getIsAuthenticated, getAuthenticatedUser, getUser, getIsUserFailed, getIsUserLoaded } from '../reducers';
-
+import {
+  getIsAuthenticated,
+  getAuthenticatedUser,
+  getUser,
+  getIsUserFailed,
+  getIsUserLoaded,
+  getAuthenticatedUserFollowers,
+} from '../reducers';
 import { openTransfer } from '../wallet/walletActions';
 import { getAccount } from './usersActions';
 import Error404 from '../statics/Error404';
@@ -20,6 +25,7 @@ import ScrollToTopOnMount from '../components/Utils/ScrollToTopOnMount';
   (state, ownProps) => ({
     authenticated: getIsAuthenticated(state),
     authenticatedUser: getAuthenticatedUser(state),
+    authenticatedUserFollowers: getAuthenticatedUserFollowers(state),
     user: getUser(state, ownProps.match.params.name),
     loaded: getIsUserLoaded(state, ownProps.match.params.name),
     failed: getIsUserFailed(state, ownProps.match.params.name),
@@ -34,6 +40,7 @@ export default class User extends React.Component {
     route: PropTypes.shape().isRequired,
     authenticated: PropTypes.bool.isRequired,
     authenticatedUser: PropTypes.shape().isRequired,
+    authenticatedUserFollowers: PropTypes.shape().isRequired,
     match: PropTypes.shape().isRequired,
     user: PropTypes.shape().isRequired,
     loaded: PropTypes.bool,
@@ -84,7 +91,13 @@ export default class User extends React.Component {
   };
 
   render() {
-    const { authenticated, authenticatedUser, loaded, failed } = this.props;
+    const {
+      authenticated,
+      authenticatedUser,
+      loaded,
+      failed,
+      authenticatedUserFollowers,
+    } = this.props;
     if (failed) return <Error404 />;
 
     const username = this.props.match.params.name;
@@ -100,6 +113,7 @@ export default class User extends React.Component {
     const title = `${displayedUsername} - Busy`;
 
     const isSameUser = authenticated && authenticatedUser.name === username;
+    const isFollowing = !isSameUser && authenticatedUserFollowers[username];
 
     return (
       <div className="main-panel">
@@ -125,20 +139,20 @@ export default class User extends React.Component {
           />
         </Helmet>
         <ScrollToTopOnMount />
-        {user && (
+        {user &&
           <UserHero
             authenticated={authenticated}
             user={user}
             username={displayedUsername}
             isSameUser={isSameUser}
+            isFollowing={isFollowing}
             coverImage={profile.cover_image}
             hasCover={hasCover}
             onFollowClick={this.handleFollowClick}
             isPopoverVisible={this.state.popoverVisible}
             onSelect={this.handleUserMenuSelect}
             handleVisibleChange={this.handleVisibleChange}
-          />
-        )}
+          />}
         <div className="shifted">
           <div className="feed-layout container">
             <Affix className="leftContainer leftContainer__user" stickPosition={72}>

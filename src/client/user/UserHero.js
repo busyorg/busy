@@ -7,8 +7,7 @@ import UserHeaderLoading from '../components/UserHeaderLoading';
 import UserMenu from '../components/UserMenu';
 import Hero from '../components/Hero';
 
-@withRouter
-class UserMenuWrapper extends React.Component {
+@withRouter class UserMenuWrapper extends React.Component {
   static propTypes = {
     match: PropTypes.shape().isRequired,
     location: PropTypes.shape().isRequired,
@@ -34,6 +33,7 @@ const UserHero = ({
   user,
   username,
   isSameUser,
+  isFollowing,
   coverImage,
   hasCover,
   isPopoverVisible,
@@ -46,22 +46,23 @@ const UserHero = ({
         path="/@:name"
         render={() => (
           <div>
-            {user.fetching ? (
-              <UserHeaderLoading />
-            ) : (
-              <UserHeader
-                username={username}
-                handle={user.name}
-                userReputation={user.reputation}
-                vestingShares={parseFloat(user.vesting_shares)}
-                isSameUser={isSameUser}
-                coverImage={coverImage}
-                hasCover={hasCover}
-                isPopoverVisible={isPopoverVisible}
-                onSelect={onSelect}
-                handleVisibleChange={handleVisibleChange}
-              />
-            )}
+            {user.fetching
+              ? <UserHeaderLoading />
+              : (
+                <UserHeader
+                  username={username}
+                  handle={user.name}
+                  userReputation={user.reputation}
+                  vestingShares={parseFloat(user.vesting_shares)}
+                  isSameUser={isSameUser}
+                  isFollowing={isFollowing}
+                  coverImage={coverImage}
+                  hasCover={hasCover}
+                  isPopoverVisible={isPopoverVisible}
+                  onSelect={onSelect}
+                  handleVisibleChange={handleVisibleChange}
+                />
+              )}
             <UserMenuWrapper followers={user.follower_count} following={user.following_count} />
           </div>
         )}
@@ -76,6 +77,7 @@ UserHero.propTypes = {
   user: PropTypes.shape().isRequired,
   username: PropTypes.string.isRequired,
   isSameUser: PropTypes.bool,
+  isFollowing: PropTypes.bool,
   coverImage: PropTypes.string,
   hasCover: PropTypes.bool,
   isPopoverVisible: PropTypes.bool,
@@ -85,6 +87,7 @@ UserHero.propTypes = {
 
 UserHero.defaultProps = {
   isSameUser: false,
+  isFollowing: false,
   coverImage: '',
   hasCover: false,
   isPopoverVisible: false,
