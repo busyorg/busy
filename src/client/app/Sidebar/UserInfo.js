@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Icon } from 'antd';
 import { injectIntl, FormattedMessage, FormattedNumber } from 'react-intl';
 import _ from 'lodash';
 import urlParse from 'url-parse';
@@ -94,7 +95,7 @@ class UserInfo extends React.Component {
                 <FormattedMessage id="vote_value" defaultMessage="Vote Value" />
                 :
                 {' '}
-                <USDDisplay value={voteWorth} />
+                {isNaN(voteWorth) ? <Icon type="loading" className="text-icon-right" /> : <USDDisplay value={voteWorth} />}
               </div>
             </div>
           </div>}
