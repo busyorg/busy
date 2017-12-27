@@ -27,6 +27,7 @@ import Post from '../client/post/Post';
 import Page from '../client/feed/Page';
 import Discover from '../client/discover/Discover';
 import Search from '../client/search/Search';
+import Error404 from '../client/statics/Error404';
 
 const routes = [
   {
@@ -156,8 +157,17 @@ const routes = [
         component: Search,
       },
       {
-        path: '/',
+        path: '/:sortBy(trending|created|active|hot|promoted)/:category?',
         component: Page,
+      },
+      {
+        path: '/',
+        exact: true,
+        component: Page,
+      },
+      {
+        path: '*',
+        component: Error404,
       },
     ],
   },

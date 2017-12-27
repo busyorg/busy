@@ -15,6 +15,7 @@ import { Tag, Icon, Popover, Tooltip } from 'antd';
 import Lightbox from 'react-image-lightbox';
 import formatter from '../../helpers/steemitFormatter';
 import { isPostDeleted } from '../../helpers/postHelpers';
+import withAuthActions from '../../auth/withAuthActions';
 import Body from './Body';
 import StoryDeleted from './StoryDeleted';
 import StoryFooter from '../StoryFooter/StoryFooter';
@@ -25,6 +26,7 @@ import PostedFrom from './PostedFrom';
 import './StoryFull.less';
 
 @injectIntl
+@withAuthActions
 class StoryFull extends React.Component {
   static propTypes = {
     intl: PropTypes.shape().isRequired,
@@ -33,6 +35,7 @@ class StoryFull extends React.Component {
     postState: PropTypes.shape().isRequired,
     rewardFund: PropTypes.shape().isRequired,
     defaultVotePercent: PropTypes.number.isRequired,
+    onActionInitiated: PropTypes.func.isRequired,
     pendingLike: PropTypes.bool,
     pendingFollow: PropTypes.bool,
     pendingBookmark: PropTypes.bool,
@@ -67,12 +70,16 @@ class StoryFull extends React.Component {
 
   constructor(props) {
     super(props);
+
     this.state = {
       lightbox: {
         open: false,
         index: 0,
       },
     };
+
+    this.handleClick = this.handleClick.bind(this);
+    this.handleContentClick = this.handleContentClick.bind(this);
   }
 
   componentDidMount() {
@@ -83,7 +90,7 @@ class StoryFull extends React.Component {
     document.body.classList.remove('white-bg');
   }
 
-  handleClick = (key) => {
+  clickMenuItem(key) {
     switch (key) {
       case 'follow':
         this.props.onFollowClick(this.props.post);
@@ -99,9 +106,13 @@ class StoryFull extends React.Component {
         break;
       default:
     }
-  };
+  }
 
-  handleContentClick = (e) => {
+  handleClick(key) {
+    this.props.onActionInitiated(this.clickMenuItem.bind(this, key));
+  }
+
+  handleContentClick(e) {
     if (e.target.tagName === 'IMG') {
       const tags = this.contentDiv.getElementsByTagName('img');
       for (let i = 0; i < tags.length; i += 1) {
@@ -115,7 +126,7 @@ class StoryFull extends React.Component {
         }
       }
     }
-  };
+  }
 
   renderDtubeEmbedPlayer() {
     const { post } = this.props;
@@ -207,7 +218,7 @@ class StoryFull extends React.Component {
               />
             </Link>
           </h4>
-          {post.depth > 1 && (
+          {post.depth > 1 &&
             <h4>
               <Link to={`/${post.category}/@${post.parent_author}/${post.parent_permlink}`}>
                 <FormattedMessage
@@ -215,8 +226,7 @@ class StoryFull extends React.Component {
                   defaultMessage="Show parent discussion"
                 />
               </Link>
-            </h4>
-          )}
+            </h4>}
         </div>
       );
     }
@@ -282,8 +292,8 @@ class StoryFull extends React.Component {
         <h1 className="StoryFull__title">{post.title}</h1>
         <h3 className="StoryFull__comments_title">
           <a href="#comments">
-            {commentCount === 1 ?
-              <FormattedMessage
+            {commentCount === 1
+              ? <FormattedMessage
                 id="comment_count"
                 values={{ count: <FormattedNumber value={commentCount} /> }}
                 defaultMessage="{count} comment"
@@ -292,8 +302,7 @@ class StoryFull extends React.Component {
                 id="comments_count"
                 values={{ count: <FormattedNumber value={commentCount} /> }}
                 defaultMessage="{count} comments"
-              />
-            }
+              />}
           </a>
         </h3>
         <div className="StoryFull__header">
@@ -349,8 +358,7 @@ class StoryFull extends React.Component {
                     />
                   </span>
                 </Tooltip>
-              </span>
-            }
+              </span>}
           </div>
           <Popover
             placement="bottomRight"

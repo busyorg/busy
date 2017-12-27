@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Route } from 'react-router';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 
-import { getIsAuthenticated } from '../reducers';
-
+import {
+  getFeedContentAsync,
+} from './feedActions';
+import { getIsLoaded, getIsAuthenticated } from '../reducers';
 import SubFeed from './SubFeed';
 import HeroBannerContainer from './HeroBannerContainer';
 import LeftSidebar from '../app/Sidebar/LeftSidebar';
@@ -18,72 +19,46 @@ import QuickPostEditor from '../components/QuickPostEditor/QuickPostEditor';
 
 @connect(state => ({
   authenticated: getIsAuthenticated(state),
+  loaded: getIsLoaded(state),
 }))
 class Page extends React.Component {
   static propTypes = {
     authenticated: PropTypes.bool.isRequired,
+    loaded: PropTypes.bool.isRequired,
     history: PropTypes.shape().isRequired,
     location: PropTypes.shape().isRequired,
     match: PropTypes.shape().isRequired,
   };
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      currentKey: 'trending',
-      categories: [],
-    };
+  static fetchData(store, match) {
+    const { sortBy, category } = match.params;
+    return getFeedContentAsync(store, { sortBy, category, limit: 10 });
   }
-
-  componentWillMount() {
-    this.updateFromPath(this.props.location.pathname);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.updateFromPath(nextProps.location.pathname);
-  }
-
-  updateFromPath = (pathname) => {
-    const sortBy = pathname.split('/')[1];
-    const category = pathname.split('/')[2];
-
-    if (sortBy) {
-      this.setState({
-        currentKey: sortBy,
-      });
-    }
-
-    this.setState({
-      categories: category ? [category] : [],
-    });
-  };
 
   handleSortChange = (key) => {
-    this.setState(
-      {
-        currentKey: key,
-      },
-      () => {
-        if (this.state.categories[0]) {
-          this.props.history.push(`/${key}/${this.state.categories[0]}`);
-        } else {
-          this.props.history.push(`/${key}`);
-        }
-      },
-    );
+    const { category } = this.props.match.params;
+    if (category) {
+      this.props.history.push(`/${key}/${category}`);
+    } else {
+      this.props.history.push(`/${key}`);
+    }
   };
 
-  handleTopicClose = () => this.props.history.push(`${this.props.match.url}trending`);
+  handleTopicClose = () => this.props.history.push('/trending');
 
   render() {
-    const { authenticated, match, location } = this.props;
+    const { authenticated, loaded, location, match } = this.props;
+    const { category, sortBy } = match.params;
 
-    const shouldDisplaySelector = location.pathname !== '/' || !authenticated;
+    const shouldDisplaySelector = location.pathname !== '/' || (!authenticated && loaded);
+
+    const robots = location.pathname === '/' ? 'index,follow' : 'noindex,follow';
 
     return (
       <div>
         <Helmet>
           <title>Busy</title>
+          <meta name="robots" content={robots} />
         </Helmet>
         <ScrollToTop />
         <ScrollToTopOnMount />
@@ -104,14 +79,14 @@ class Page extends React.Component {
               {shouldDisplaySelector && (
                 <TopicSelector
                   isSingle={false}
-                  sort={this.state.currentKey}
-                  topics={this.state.categories}
+                  sort={sortBy}
+                  topics={(category) ? [category] : []}
                   onSortChange={this.handleSortChange}
                   onTopicClose={this.handleTopicClose}
                 />
               )}
               {authenticated && <QuickPostEditor />}
-              <Route path={`${match.path}:sortBy?/:category?`} component={SubFeed} />
+              <SubFeed />
             </div>
           </div>
         </div>

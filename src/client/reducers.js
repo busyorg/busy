@@ -52,6 +52,12 @@ export const getPosts = state => fromPosts.getPosts(state.posts);
 export const getPostContent = (state, author, permlink) =>
   fromPosts.getPostContent(state.posts, author, permlink);
 export const getPendingLikes = state => fromPosts.getPendingLikes(state.posts);
+export const getIsPostFetching = (state, author, permlink) =>
+  fromPosts.getIsPostFetching(state.posts, author, permlink);
+export const getIsPostLoaded = (state, author, permlink) =>
+  fromPosts.getIsPostLoaded(state.posts, author, permlink);
+export const getIsPostFailed = (state, author, permlink) =>
+  fromPosts.getIsPostFailed(state.posts, author, permlink);
 
 export const getDraftPosts = state => fromEditor.getDraftPosts(state.editor);
 export const getIsEditorLoading = state => fromEditor.getIsEditorLoading(state.editor);
@@ -66,6 +72,9 @@ export const getRewardFund = state => fromApp.getRewardFund(state.app);
 export const getTrendingTopics = state => fromApp.getTrendingTopics(state.app);
 export const getIsFetching = state => fromApp.getIsFetching(state.app);
 export const getIsBannerClosed = state => fromApp.getIsBannerClosed(state.app);
+export const getAppUrl = state => fromApp.getAppUrl(state.app);
+export const getUsedLocale = state => fromApp.getUsedLocale(state.app);
+export const getCryptosPriceHistory = state => fromApp.getCryptosPriceHistory(state.app);
 
 export const getFeed = state => fromFeed.getFeed(state.feed);
 
@@ -86,6 +95,12 @@ export const getIsFetchingFollowingList = state => fromUser.getIsFetchingFollowi
 export const getRecommendations = state => fromUser.getRecommendations(state.user);
 
 export const getUser = (state, username) => fromUsers.getUser(state.users, username);
+export const getIsUserFetching = (state, username) =>
+  fromUsers.getIsUserFetching(state.users, username);
+export const getIsUserLoaded = (state, username) =>
+  fromUsers.getIsUserLoaded(state.users, username);
+export const getIsUserFailed = (state, username) =>
+  fromUsers.getIsUserFailed(state.users, username);
 
 export const getFavoriteCategories = state => fromFavorites.getFavoriteCategories(state.favorites);
 
@@ -97,6 +112,8 @@ export const getLocale = state => fromSettings.getLocale(state.settings);
 export const getVotingPower = state => fromSettings.getVotingPower(state.settings);
 export const getVotePercent = state => fromSettings.getVotePercent(state.settings);
 export const getShowNSFWPosts = state => fromSettings.getShowNSFWPosts(state.settings);
+export const getUpvoteSetting = state => fromSettings.getUpvoteSetting(state.settings);
+export const getRewardSetting = state => fromSettings.getRewardSetting(state.settings);
 
 export const getTotalVestingShares = state => fromWallet.getTotalVestingShares(state.wallet);
 export const getTotalVestingFundSteem = state => fromWallet.getTotalVestingFundSteem(state.wallet);

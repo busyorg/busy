@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import * as feedTypes from '../feed/feedActions';
 import * as bookmarksActions from '../bookmarks/bookmarksActions';
 import * as postsActions from './postActions';
@@ -24,6 +25,7 @@ const postItem = (state = {}, action) => {
 const initialState = {
   pendingLikes: [],
   list: {},
+  postsStates: {},
 };
 
 const posts = (state = initialState, action) => {
@@ -56,39 +58,77 @@ const posts = (state = initialState, action) => {
     case feedTypes.GET_USER_FEED_CONTENT_SUCCESS:
     case feedTypes.GET_MORE_USER_FEED_CONTENT_SUCCESS:
     case bookmarksActions.GET_BOOKMARKS_SUCCESS: {
-      const postsTemp = {};
-      action.payload.postsData.forEach((post) => {
-        postsTemp[post.id] = post;
+      const list = {
+        ...state.list,
+      };
+      const postsStates = {
+        ...state.postsStates,
+      };
+
+      _.each(action.payload.postsData, (post) => {
+        list[post.id] = post;
+        postsStates[`${post.author}/${post.permlink}}`] = {
+          fetching: false,
+          loaded: true,
+          failed: false,
+        };
       });
+
       return {
         ...state,
-        list: {
-          ...state.list,
-          ...postsTemp,
-        },
+        list,
+        postsStates,
       };
     }
-    case postsActions.GET_CONTENT_SUCCESS:
-      if (action.meta.afterLike) {
-        return {
-          ...state,
-          pendingLikes: state.pendingLikes.filter(post => post !== action.payload.id),
-          list: {
-            ...state.list,
-            [action.payload.id]: {
-              ...state[action.payload.id],
-              ...action.payload,
-            },
-          },
-        };
-      }
+    case postsActions.GET_CONTENT.START:
+      if (action.meta.afterLike) return state;
       return {
+        ...state,
+        postsStates: {
+          ...state.postsStates,
+          [`${action.meta.author}/${action.meta.permlink}}`]: {
+            fetching: true,
+            loaded: false,
+            failed: false,
+          },
+        },
+      };
+    case postsActions.GET_CONTENT.SUCCESS: {
+      const baseState = {
         ...state,
         list: {
           ...state.list,
           [action.payload.id]: {
             ...state[action.payload.id],
             ...action.payload,
+          },
+        },
+        postsStates: {
+          ...state.postsStates,
+          [`${action.meta.author}/${action.meta.permlink}}`]: {
+            fetching: false,
+            loaded: true,
+            failed: false,
+          },
+        },
+      };
+      if (action.meta.afterLike) {
+        return {
+          ...baseState,
+          pendingLikes: state.pendingLikes.filter(post => post !== action.payload.id),
+        };
+      }
+      return baseState;
+    }
+    case postsActions.GET_CONTENT.ERROR:
+      return {
+        ...state,
+        postsStates: {
+          ...state.postsStates,
+          [`${action.meta.author}/${action.meta.permlink}}`]: {
+            fetching: false,
+            loaded: false,
+            failed: true,
           },
         },
       };
@@ -118,3 +158,10 @@ export const getPosts = state => state.list;
 export const getPostContent = (state, author, permlink) =>
   Object.values(state.list).find(post => post.author === author && post.permlink === permlink);
 export const getPendingLikes = state => state.pendingLikes;
+export const getIsPostFetching = (state, author, permlink) =>
+  state.postsStates[`${author}/${permlink}}`] &&
+  state.postsStates[`${author}/${permlink}}`].fetching;
+export const getIsPostLoaded = (state, author, permlink) =>
+  state.postsStates[`${author}/${permlink}}`] && state.postsStates[`${author}/${permlink}}`].loaded;
+export const getIsPostFailed = (state, author, permlink) =>
+  state.postsStates[`${author}/${permlink}}`] && state.postsStates[`${author}/${permlink}}`].failed;

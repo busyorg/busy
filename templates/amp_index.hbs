@@ -1,0 +1,54 @@
+<!doctype html>
+<html amp lang="en">
+  <head>
+    <meta charset="utf-8">
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+    <title>{{title}}</title>
+    <link rel="canonical" href="{{canonical}}">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+    <script type="application/ld+json">{{{manifest}}}</script>
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <style amp-custom>
+      body {
+        line-height: 1.6;
+        font-size: 18px;
+        color: #444;
+      }
+      .wrapper {
+        margin: 40px auto;
+        max-width: 900px;
+        padding: 0 10px;
+      }
+      h1, h2, h3 {
+        line-height:1.2
+      }
+      .post-title {
+        font-size: 42px;
+        margin-bottom: 4px;
+      }
+      .post-info {
+        color:  #9a9a9a;
+      }
+      amp-img.contain img {
+        object-fit: contain;
+      }
+      .fixed-container {
+        position: relative;
+        width: 100%;
+        height: 150px;
+      }
+    </style>
+    <script async custom-element="amp-iframe" src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"></script>
+  </head>
+  <body>
+    <div class="wrapper">
+      <h1 class="post-title">{{title}}</h1>
+      <span class="post-info">
+        <a href="/@{{author}}">{{author}}</a>
+        -
+        <time datetime="{{date}}">{{formatRelative datePublished}}</time>
+      </span>
+      {{{body}}}
+    </div>
+  </body>
+</html>

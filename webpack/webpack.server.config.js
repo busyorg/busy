@@ -86,6 +86,9 @@ module.exports = {
     ],
   },
   plugins: [
+    new webpack.optimize.LimitChunkCountPlugin({
+      maxChunks: 1,
+    }),
     new webpack.DefinePlugin({
       'process.env': {
         IMG_HOST: JSON.stringify(process.env.IMG_HOST || 'https://img.busy.org'),

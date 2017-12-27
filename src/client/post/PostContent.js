@@ -19,6 +19,7 @@ import {
   getVotingPower,
   getRewardFund,
   getVotePercent,
+  getAppUrl,
 } from '../reducers';
 import { editPost } from './Write/editorActions';
 import { votePost } from './postActions';
@@ -43,6 +44,7 @@ import StoryFull from '../components/Story/StoryFull';
     sliderMode: getVotingPower(state),
     rewardFund: getRewardFund(state),
     defaultVotePercent: getVotePercent(state),
+    appUrl: getAppUrl(state),
   }),
   {
     editPost,
@@ -66,6 +68,7 @@ class PostContent extends React.Component {
     saving: PropTypes.bool.isRequired,
     rewardFund: PropTypes.shape().isRequired,
     defaultVotePercent: PropTypes.number.isRequired,
+    appUrl: PropTypes.string.isRequired,
     bookmarks: PropTypes.shape(),
     sliderMode: PropTypes.oneOf(['on', 'off', 'auto']),
     editPost: PropTypes.func,
@@ -144,10 +147,11 @@ class PostContent extends React.Component {
       sliderMode,
       rewardFund,
       defaultVotePercent,
+      appUrl,
     } = this.props;
 
     const postMetaData = jsonParse(content.json_metadata);
-    const busyHost = global.postOrigin || 'https://busy.org';
+    const busyHost = appUrl || 'https://busy.org';
     let canonicalHost = busyHost;
     if (postMetaData.app && postMetaData.app.indexOf('steemit') === 0) {
       canonicalHost = 'https://steemit.com';
@@ -172,6 +176,7 @@ class PostContent extends React.Component {
     const image = postMetaImage || getImage(`@${author}`) || '/images/logo.png';
     const canonicalUrl = `${canonicalHost}${content.url}`;
     const url = `${busyHost}${content.url}`;
+    const ampUrl = `${url}/amp`;
     const metaTitle = `${title} - Busy`;
 
     return (
@@ -179,6 +184,7 @@ class PostContent extends React.Component {
         <Helmet>
           <title>{title}</title>
           <link rel="canonical" href={canonicalUrl} />
+          <link rel="amphtml" href={ampUrl} />
           <meta property="description" content={desc} />
           <meta property="og:title" content={metaTitle} />
           <meta property="og:type" content="article" />

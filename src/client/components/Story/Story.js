@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom';
 import { Tag, Icon, Popover, Tooltip } from 'antd';
 import formatter from '../../helpers/steemitFormatter';
 import { isPostTaggedNSFW } from '../../helpers/postHelpers';
+import withAuthActions from '../../auth/withAuthActions';
 import StoryPreview from './StoryPreview';
 import StoryFooter from '../StoryFooter/StoryFooter';
 import Avatar from '../Avatar';
@@ -21,7 +22,9 @@ import HiddenStoryPreviewMessage from './HiddenStoryPreviewMessage';
 import PostedFrom from './PostedFrom';
 import './Story.less';
 
-@injectIntl class Story extends React.Component {
+@injectIntl
+@withAuthActions
+class Story extends React.Component {
   static propTypes = {
     intl: PropTypes.shape().isRequired,
     user: PropTypes.shape().isRequired,
@@ -30,6 +33,7 @@ import './Story.less';
     rewardFund: PropTypes.shape().isRequired,
     defaultVotePercent: PropTypes.number.isRequired,
     showNSFWPosts: PropTypes.bool.isRequired,
+    onActionInitiated: PropTypes.func.isRequired,
     pendingLike: PropTypes.bool,
     pendingFollow: PropTypes.bool,
     pendingBookmark: PropTypes.bool,
@@ -60,11 +64,20 @@ import './Story.less';
     postState: {},
   };
 
-  state = {
-    showHiddenStoryPreview: false,
-  };
+  constructor(props) {
+    super(props);
 
-  getDisplayStoryPreview = () => {
+    this.state = {
+      showHiddenStoryPreview: false,
+      displayLoginModal: false,
+    };
+
+    this.getDisplayStoryPreview = this.getDisplayStoryPreview.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.handleShowStoryPreview = this.handleShowStoryPreview.bind(this);
+  }
+
+  getDisplayStoryPreview() {
     const { post, showNSFWPosts } = this.props;
     const { showHiddenStoryPreview } = this.state;
     const postAuthorReputation = formatter.reputation(post.author_reputation);
@@ -78,11 +91,10 @@ import './Story.less';
     }
 
     return true;
-  };
+  }
 
-  handleClick = (key) => {
+  clickMenuItem(key) {
     const { post } = this.props;
-
     switch (key) {
       case 'follow':
         this.props.onFollowClick(post);
@@ -98,13 +110,17 @@ import './Story.less';
         break;
       default:
     }
-  };
+  }
 
-  handleShowStoryPreview = () => {
+  handleClick(key) {
+    this.props.onActionInitiated(this.clickMenuItem.bind(this, key));
+  }
+
+  handleShowStoryPreview() {
     this.setState({
       showHiddenStoryPreview: true,
     });
-  };
+  }
 
   render() {
     const {

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Link, withRouter } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
@@ -7,9 +7,9 @@ import User from './User';
 import Loading from '../../components/Icon/Loading';
 import steemAPI from '../../steemAPI';
 import './InterestingPeople.less';
+import './SidebarContentBlock.less';
 
-@withRouter
-class InterestingPeopleWithAPI extends Component {
+@withRouter class InterestingPeopleWithAPI extends React.Component {
   static propTypes = {
     authenticatedUser: PropTypes.shape({
       name: PropTypes.string,
@@ -92,13 +92,12 @@ class InterestingPeopleWithAPI extends Component {
     }
 
     return (
-      <div className="InterestingPeople">
-        <div className="InterestingPeople__container">
-          <h4 className="InterestingPeople__title">
-            <i className="iconfont icon-group InterestingPeople__icon" />{' '}
-            <FormattedMessage id="top_reblogged_users" defaultMessage="Top Reblogged Users" />
-          </h4>
-          <div className="InterestingPeople__divider" />
+      <div className="SidebarContentBlock">
+        <h4 className="SidebarContentBlock__title">
+          <i className="iconfont icon-group SidebarContentBlock__icon" />{' '}
+          <FormattedMessage id="top_reblogged_users" defaultMessage="Top Reblogged Users" />
+        </h4>
+        <div className="SidebarContentBlock__content">
           {users && users.map(user => <User key={user.name} user={user} />)}
           <h4 className="InterestingPeople__more">
             <Link to={'/discover'}>
