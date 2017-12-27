@@ -35,7 +35,7 @@ class Topic extends React.Component {
     });
   };
 
-  onCloseClick = (e) => {
+  onCloseClick = e => {
     e.preventDefault();
     this.props.onClose(this.props.name);
   };
@@ -52,14 +52,15 @@ class Topic extends React.Component {
         to={`/trending/${name}`}
       >
         {name}
-        {closable &&
+        {closable && (
           <i
             role="presentation"
             className="iconfont icon-close Topic__close"
             onClick={this.onCloseClick}
             onMouseOver={this.onCloseOver}
             onMouseOut={this.onCloseOut}
-          />}
+          />
+        )}
       </Link>
     );
   }

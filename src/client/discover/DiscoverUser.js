@@ -49,19 +49,22 @@ const DiscoverUser = ({ user }) => {
               </div>
             </div>
             <div className="Discover__user__location">
-              {location &&
-                <span><i className="iconfont icon-coordinates text-icon" />{`${location} `}</span>}
-              {website &&
+              {location && (
+                <span>
+                  <i className="iconfont icon-coordinates text-icon" />
+                  {`${location} `}
+                </span>
+              )}
+              {website && (
                 <span>
                   <i className="iconfont icon-link text-icon" />
                   <a target="_blank" rel="noopener noreferrer" href={website}>
                     {`${hostWithoutWWW}${url.pathname.replace(/\/$/, '')}`}
                   </a>
-                </span>}
+                </span>
+              )}
             </div>
-            <div className="Discover__user__about">
-              {about}
-            </div>
+            <div className="Discover__user__about">{about}</div>
           </div>
         </div>
       </div>

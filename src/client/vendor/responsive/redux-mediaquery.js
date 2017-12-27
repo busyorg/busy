@@ -29,7 +29,7 @@ let trackInnerWidth = false;
 let trackInnerHeight = false;
 let onResize;
 
-const getSizes = (data) => {
+const getSizes = data => {
   if (trackInnerWidth) {
     data.innerWidth = global.innerWidth;
   }
@@ -81,7 +81,7 @@ function trackMediaQuery(label, query, dispatch, initData) {
 }
 
 export function mediaQueryTracker(queries) {
-  return (dispatch) => {
+  return dispatch => {
     const initData = {};
     if (matchMedia) {
       each(queries, (query, label) => {

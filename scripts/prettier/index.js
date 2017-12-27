@@ -23,10 +23,15 @@ function formatFiles(files) {
 
 function checkFiles(files) {
   console.log('Checking files formatting.');
+
   let notFormattedFiles = [];
   files.forEach(file => {
+    const formatOptions = {
+      ...options,
+      parser: file.endsWith('.less') ? 'less' : 'babylon',
+    };
     const input = fs.readFileSync(file, 'utf-8');
-    if (!prettier.check(input, options)) {
+    if (!prettier.check(input, formatOptions)) {
       notFormattedFiles = [...notFormattedFiles, file];
     }
   });

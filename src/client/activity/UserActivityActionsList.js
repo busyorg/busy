@@ -117,21 +117,23 @@ class UserActivityActionsList extends Component {
       >
         {displayedActions.map(
           action =>
-            (isWalletTransaction(action.op[0])
-              ? <WalletTransaction
+            isWalletTransaction(action.op[0]) ? (
+              <WalletTransaction
                 key={`${action.trx_id}${action.actionCount}`}
                 transaction={action}
                 currentUsername={currentUsername}
                 totalVestingShares={totalVestingShares}
                 totalVestingFundSteem={totalVestingFundSteem}
               />
-              : <UserAction
+            ) : (
+              <UserAction
                 key={`${action.trx_id}${action.actionCount}`}
                 action={action}
                 totalVestingShares={totalVestingShares}
                 totalVestingFundSteem={totalVestingFundSteem}
                 currentUsername={currentUsername}
-              />),
+              />
+            ),
         )}
       </ReduxInfiniteScroll>
     );

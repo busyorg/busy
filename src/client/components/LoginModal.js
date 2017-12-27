@@ -28,7 +28,6 @@ class LoginModal extends React.Component {
     this.props.handleLoginModalCancel();
   }
 
-
   render() {
     const { handleLoginModalCancel, visible, location } = this.props;
     const next = location.pathname.length > 1 ? location.pathname : '';
@@ -43,7 +42,11 @@ class LoginModal extends React.Component {
               id="login_modal_footer_text"
               defaultMessage="Don't have an account? Signup with {link}"
               values={{
-                link: <a role="presentation" onClick={this.handleSignup}>Steemit.com</a>,
+                link: (
+                  <a role="presentation" onClick={this.handleSignup}>
+                    Steemit.com
+                  </a>
+                ),
               }}
             />
           </div>

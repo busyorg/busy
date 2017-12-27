@@ -126,9 +126,10 @@ const rewardsFilters = [
 
 @connect(
   (state, ownProps) => ({
-    user: ownProps.location.pathname === '/activity'
-      ? getAuthenticatedUser(state)
-      : getUser(state, ownProps.match.params.name),
+    user:
+      ownProps.location.pathname === '/activity'
+        ? getAuthenticatedUser(state)
+        : getUser(state, ownProps.match.params.name),
   }),
   {
     updateAccountHistoryFilter,
@@ -254,15 +255,18 @@ class UserActivitySearch extends React.Component {
               >
                 <FormattedMessage id="general" defaultMessage="general" />
                 <span className="UserActivitySearch__filters__title__icon">
-                  {showGeneral
-                    ? <i className="iconfont icon-offline" />
-                    : <i className="iconfont icon-addition" />}
+                  {showGeneral ? (
+                    <i className="iconfont icon-offline" />
+                  ) : (
+                    <i className="iconfont icon-addition" />
+                  )}
                 </span>
               </div>
-              {showGeneral &&
+              {showGeneral && (
                 <div className="UserActivitySearch__filters__content">
                   {this.renderFilters(generalFilters)}
-                </div>}
+                </div>
+              )}
             </div>
             <div className="UserActivitySearch__filters__container">
               <div
@@ -272,15 +276,18 @@ class UserActivitySearch extends React.Component {
               >
                 <FormattedMessage id="finance" defaultMessage="finance" />
                 <span className="UserActivitySearch__filters__title__icon">
-                  {showFinance
-                    ? <i className="iconfont icon-offline" />
-                    : <i className="iconfont icon-addition" />}
+                  {showFinance ? (
+                    <i className="iconfont icon-offline" />
+                  ) : (
+                    <i className="iconfont icon-addition" />
+                  )}
                 </span>
               </div>
-              {showFinance &&
+              {showFinance && (
                 <div className="UserActivitySearch__filters__content">
                   {this.renderFilters(financeFilters)}
-                </div>}
+                </div>
+              )}
             </div>
             <div className="UserActivitySearch__filters__container">
               <div
@@ -290,15 +297,18 @@ class UserActivitySearch extends React.Component {
               >
                 <FormattedMessage id="rewards" defaultMessage="Rewards" />
                 <span className="UserActivitySearch__filters__title__icon">
-                  {showRewards
-                    ? <i className="iconfont icon-offline" />
-                    : <i className="iconfont icon-addition" />}
+                  {showRewards ? (
+                    <i className="iconfont icon-offline" />
+                  ) : (
+                    <i className="iconfont icon-addition" />
+                  )}
                 </span>
               </div>
-              {showRewards &&
+              {showRewards && (
                 <div className="UserActivitySearch__filters__content">
                   {this.renderFilters(rewardsFilters)}
-                </div>}
+                </div>
+              )}
             </div>
           </div>
         </div>

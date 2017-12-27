@@ -37,8 +37,8 @@ class Affix extends React.Component {
     this.bindedBottom = false;
     this.bindedTop = true;
 
-    this.ro = new ResizeObserver((entries) => {
-      entries.forEach((entry) => {
+    this.ro = new ResizeObserver(entries => {
+      entries.forEach(entry => {
         const { height } = entry.contentRect;
         this.relativeContainer.style.height = `${height}px`;
         this.handleScroll();
@@ -73,7 +73,7 @@ class Affix extends React.Component {
 
     const viewportOffset = this.affixContainer.getBoundingClientRect();
 
-    const fits = windowHeight >= (sidebarHeight + stickPosition);
+    const fits = windowHeight >= sidebarHeight + stickPosition;
     const overlaps = viewportOffset.top < parent.getBoundingClientRect().top;
     const shouldBindTop =
       viewportOffset.top >= stickPosition &&
@@ -104,7 +104,8 @@ class Affix extends React.Component {
       }
       if (this.bindedBottom && !scrollingDown) {
         this.affixContainer.style.position = 'absolute';
-        this.affixContainer.style.top = `${scrollBottom - (sidebarHeight + stickPosition + parentSpace)}px`;
+        this.affixContainer.style.top = `${scrollBottom -
+          (sidebarHeight + stickPosition + parentSpace)}px`;
         this.bindedBottom = false;
       }
       if (this.bindedTop && !this.bindedBottom && scrollingDown && !overlaps) {
@@ -128,13 +129,13 @@ class Affix extends React.Component {
       <div
         className={className}
         style={{ height: 1 }}
-        ref={(relativeContainer) => {
+        ref={relativeContainer => {
           this.relativeContainer = relativeContainer;
         }}
       >
         <div
           style={{ position: 'absolute' }}
-          ref={(affixContainer) => {
+          ref={affixContainer => {
             this.affixContainer = affixContainer;
           }}
         >

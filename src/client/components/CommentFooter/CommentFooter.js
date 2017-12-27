@@ -87,7 +87,7 @@ export default class CommentFooter extends React.Component {
 
   handleSliderCancel = () => this.setState({ sliderVisible: false });
 
-  handleSliderChange = (value) => {
+  handleSliderChange = value => {
     const { user, rewardFund } = this.props;
     const voteWorth = getVoteValue(
       user,

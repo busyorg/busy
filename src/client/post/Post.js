@@ -94,7 +94,7 @@ export default class Post extends React.Component {
     }
   }
 
-  handleCommentsVisibility = (visible) => {
+  handleCommentsVisibility = visible => {
     if (visible) {
       this.setState({
         commentsVisible: true,
@@ -119,7 +119,7 @@ export default class Post extends React.Component {
     const tags = _.get(parsedJsonMetadata, 'tags', []);
     const allCryptoDetails = [];
 
-    _.each(tags, (tag) => {
+    _.each(tags, tag => {
       const cryptoDetails = getCryptoDetails(tag);
       if (!_.isEmpty(cryptoDetails)) {
         allCryptoDetails.push(cryptoDetails);

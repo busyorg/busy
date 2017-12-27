@@ -61,14 +61,14 @@ class CommentForm extends React.Component {
     }
   }
 
-  setInput = (input) => {
+  setInput = input => {
     if (input && input.refs && input.refs.input) {
       // eslint-disable-next-line react/no-find-dom-node
       this.input = ReactDOM.findDOMNode(input.refs.input);
     }
   };
 
-  setInputCursorPosition = (pos) => {
+  setInputCursorPosition = pos => {
     if (this.input && this.input.setSelectionRange) {
       this.input.setSelectionRange(pos, pos);
     }
@@ -95,14 +95,14 @@ class CommentForm extends React.Component {
     this.setInputCursorPosition(startPos + imageText.length);
   };
 
-  handleCommentTextChange = (e) => {
+  handleCommentTextChange = e => {
     this.setState({ inputValue: e.target.value });
   };
 
-  handlePastedImage = (e) => {
+  handlePastedImage = e => {
     if (e.clipboardData && e.clipboardData.items) {
       const items = e.clipboardData.items;
-      Array.from(items).forEach((item) => {
+      Array.from(items).forEach(item => {
         if (item.kind === 'file') {
           e.preventDefault();
 
@@ -127,7 +127,7 @@ class CommentForm extends React.Component {
     }
   };
 
-  handleImageChange = (e) => {
+  handleImageChange = e => {
     if (e.target.files && e.target.files[0]) {
       if (!isValidImage(e.target.files[0])) {
         this.props.onImageInvalid();
@@ -148,7 +148,7 @@ class CommentForm extends React.Component {
     }
   };
 
-  handleDrop = (files) => {
+  handleDrop = files => {
     if (files.length === 0) {
       this.setState({
         dropzoneActive: false,
@@ -161,7 +161,7 @@ class CommentForm extends React.Component {
       imageUploading: true,
     });
     let callbacksCount = 0;
-    Array.from(files).forEach((item) => {
+    Array.from(files).forEach(item => {
       this.props.onImageInserted(
         item,
         (image, imageName) => {
@@ -186,7 +186,7 @@ class CommentForm extends React.Component {
 
   handleDragLeave = () => this.setState({ dropzoneActive: false });
 
-  handleSubmit = (e) => {
+  handleSubmit = e => {
     e.stopPropagation();
     this.setState({ isDisabledSubmit: true });
     if (this.state.inputValue) {

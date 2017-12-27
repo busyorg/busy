@@ -2,8 +2,8 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import './About.less';
 
-export default () =>
-  (<div className="main-panel">
+export default () => (
+  <div className="main-panel">
     <div className="mt-5 text-center">
       <h1>
         <FormattedMessage id="about" defaultMessage="About" />
@@ -83,4 +83,5 @@ export default () =>
         </div>
       </div>
     </div>
-  </div>);
+  </div>
+);

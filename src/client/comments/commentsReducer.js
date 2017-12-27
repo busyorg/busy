@@ -21,7 +21,7 @@ const childrenById = (state = {}, action) => {
 
 const mapCommentsBasedOnId = (data, action) => {
   const commentsList = {};
-  Object.keys(data).forEach((key) => {
+  Object.keys(data).forEach(key => {
     const comment = data[key];
     if (
       action.meta.reload &&

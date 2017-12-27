@@ -2,7 +2,7 @@ import _ from 'lodash';
 
 export const isPostDeleted = post => post.title === 'deleted' && post.body === 'deleted';
 
-export const isPostTaggedNSFW = (post) => {
+export const isPostTaggedNSFW = post => {
   if (post.parent_permlink === 'nsfw') return true;
 
   const postJSONMetaData = _.attempt(JSON.parse, post.json_metadata);

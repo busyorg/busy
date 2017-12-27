@@ -60,7 +60,7 @@ export default class Tags extends React.Component {
         <ul>
           {sortedTags.map(
             tag =>
-              (tag.name ? (
+              tag.name ? (
                 <Tag
                   key={tag.name}
                   tag={tag}
@@ -70,7 +70,7 @@ export default class Tags extends React.Component {
                 />
               ) : (
                 []
-              )),
+              ),
           )}
         </ul>
 

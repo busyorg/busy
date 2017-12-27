@@ -1,6 +1,6 @@
 const START_WITH_PERCENT = 5;
 
-const getPositions = (text) => {
+const getPositions = text => {
   const imgPos = text.indexOf('<img');
   const embedPos = text.indexOf('<iframe');
   const percentMultiplier = 100 / text.length;

@@ -26,9 +26,7 @@ const SearchResultPostPreview = ({ author, summary, created, permlink, title, ta
       </div>
       <div className="Search__post__content">
         <Link to={postUrl} className="Search__post__title">
-          <h2>
-            {title}
-          </h2>
+          <h2>{title}</h2>
         </Link>
         <div className="Search__post__summary">
           <Link to={postUrl}>
@@ -39,7 +37,9 @@ const SearchResultPostPreview = ({ author, summary, created, permlink, title, ta
         </div>
         <div className="Search__post__tags">
           {_.map(_.uniq(tags), tag => (
-            <span key={tag} className="Search__post__tags__container"><Topic name={tag} /></span>
+            <span key={tag} className="Search__post__tags__container">
+              <Topic name={tag} />
+            </span>
           ))}
         </div>
       </div>

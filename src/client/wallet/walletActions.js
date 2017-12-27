@@ -30,11 +30,11 @@ export const LOADING_MORE_USERS_ACCOUNT_HISTORY = '@users/LOADING_MORE_USERS_ACC
 export const openTransfer = createAction(OPEN_TRANSFER);
 export const closeTransfer = createAction(CLOSE_TRANSFER);
 
-const getParsedUserActions = (userActions) => {
+const getParsedUserActions = userActions => {
   const userWalletTransactions = [];
   const userAccountHistory = [];
 
-  _.each(userActions.reverse(), (action) => {
+  _.each(userActions.reverse(), action => {
     const actionCount = action[0];
     const actionDetails = {
       ...action[1],
@@ -67,7 +67,7 @@ export const getUserAccountHistory = username => dispatch =>
   dispatch({
     type: GET_USER_ACCOUNT_HISTORY.ACTION,
     payload: {
-      promise: getAccountHistory(username).then((userActions) => {
+      promise: getAccountHistory(username).then(userActions => {
         const parsedUserActions = getParsedUserActions(userActions);
 
         return {
@@ -83,7 +83,7 @@ export const getMoreUserAccountHistory = (username, start, limit) => dispatch =>
   dispatch({
     type: GET_MORE_USER_ACCOUNT_HISTORY.ACTION,
     payload: {
-      promise: getAccountHistory(username, start, limit).then((userActions) => {
+      promise: getAccountHistory(username, start, limit).then(userActions => {
         const parsedUserActions = getParsedUserActions(userActions);
         return {
           username,
@@ -115,9 +115,7 @@ export const addMoreActionsToCurrentDisplayedActions = createAction(
   ADD_MORE_ACTIONS_TO_CURRENT_DISPLAYED_ACTIONS,
 );
 
-export const loadingMoreUsersAccountHistory = createAction(
-  LOADING_MORE_USERS_ACCOUNT_HISTORY,
-);
+export const loadingMoreUsersAccountHistory = createAction(LOADING_MORE_USERS_ACCOUNT_HISTORY);
 
 export const loadMoreCurrentUsersActions = username => (dispatch, getState) => {
   dispatch(loadingMoreUsersAccountHistory());
@@ -147,10 +145,12 @@ export const loadMoreCurrentUsersActions = username => (dispatch, getState) => {
     const filteredMoreActions = _.filter(moreActions, userAction =>
       actionsFilter(userAction, accountHistoryFilter, username),
     );
-    dispatch(addMoreActionsToCurrentDisplayedActions({
-      moreActions,
-      filteredMoreActions,
-    }));
+    dispatch(
+      addMoreActionsToCurrentDisplayedActions({
+        moreActions,
+        filteredMoreActions,
+      }),
+    );
   } else {
     const lastActionCount = _.last(currentUsersActions).actionCount;
     const limit = lastActionCount < defaultAccountLimit ? lastActionCount : defaultAccountLimit;

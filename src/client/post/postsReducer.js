@@ -42,7 +42,7 @@ const posts = (state = initialState, action) => {
     case userTypes.GET_USER_COMMENTS_SUCCESS:
     case userTypes.GET_MORE_USER_COMMENTS_SUCCESS: {
       const commentsMoreList = {};
-      action.payload.forEach((comment) => {
+      action.payload.forEach(comment => {
         commentsMoreList[comment.id] = comment;
       });
       return {
@@ -65,7 +65,7 @@ const posts = (state = initialState, action) => {
         ...state.postsStates,
       };
 
-      _.each(action.payload.postsData, (post) => {
+      _.each(action.payload.postsData, post => {
         list[post.id] = post;
         postsStates[`${post.author}/${post.permlink}}`] = {
           fetching: false,

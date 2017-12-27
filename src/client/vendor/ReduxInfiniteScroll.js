@@ -18,17 +18,16 @@ function leftPosition(domElt) {
 }
 
 export default class ReduxInfiniteScroll extends React.Component {
-
   constructor(props) {
     super(props);
     this.scrollFunction = this.scrollListener.bind(this);
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.attachScrollListener();
   }
 
-  componentDidUpdate () {
+  componentDidUpdate() {
     this.attachScrollListener();
   }
 
@@ -36,7 +35,7 @@ export default class ReduxInfiniteScroll extends React.Component {
     return this.props.elementIsScrollable ? ReactDOM.findDOMNode(this) : window;
   }
 
-  attachScrollListener () {
+  attachScrollListener() {
     if (!this.props.hasMore || this.props.loadingMore) return;
     let el = this._findElement();
     el.addEventListener('scroll', this.scrollFunction, true);
@@ -53,7 +52,7 @@ export default class ReduxInfiniteScroll extends React.Component {
       let containerFixedWidth = el.offsetWidth;
       let rightScrollPos = leftScrollPos + containerFixedWidth;
 
-      return (totalContainerWidth - rightScrollPos);
+      return totalContainerWidth - rightScrollPos;
     }
 
     let topScrollPos = el.scrollTop;
@@ -61,21 +60,27 @@ export default class ReduxInfiniteScroll extends React.Component {
     let containerFixedHeight = el.offsetHeight;
     let bottomScrollPos = topScrollPos + containerFixedHeight;
 
-    return (totalContainerHeight - bottomScrollPos);
+    return totalContainerHeight - bottomScrollPos;
   }
 
   _windowScrollListener() {
     let el = ReactDOM.findDOMNode(this);
 
-    if(this.props.horizontal) {
-      let windowScrollLeft = (window.pageXOffset !== undefined) ? window.pageXOffset : (document.documentElement || document.body.parentNode || document.body).scrollLeft;
+    if (this.props.horizontal) {
+      let windowScrollLeft =
+        window.pageXOffset !== undefined
+          ? window.pageXOffset
+          : (document.documentElement || document.body.parentNode || document.body).scrollLeft;
       let elTotalWidth = leftPosition(el) + el.offsetWidth;
       let currentRightPosition = elTotalWidth - windowScrollLeft - window.innerWidth;
 
       return currentRightPosition;
     }
 
-    let windowScrollTop = (window.pageYOffset !== undefined) ? window.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop;
+    let windowScrollTop =
+      window.pageYOffset !== undefined
+        ? window.pageYOffset
+        : (document.documentElement || document.body.parentNode || document.body).scrollTop;
     let elTotalHeight = topPosition(el) + el.offsetHeight;
     let currentBottomPosition = elTotalHeight - windowScrollTop - window.innerHeight;
 
@@ -87,7 +92,9 @@ export default class ReduxInfiniteScroll extends React.Component {
     // any data has been passed to the component
     if (this._totalItemsSize() <= 0) return;
 
-    let bottomPosition = this.props.elementIsScrollable ? this._elScrollListener() : this._windowScrollListener();
+    let bottomPosition = this.props.elementIsScrollable
+      ? this._elScrollListener()
+      : this._windowScrollListener();
 
     if (bottomPosition < Number(this.props.threshold)) {
       this.detachScrollListener();
@@ -95,7 +102,7 @@ export default class ReduxInfiniteScroll extends React.Component {
     }
   }
 
-  detachScrollListener () {
+  detachScrollListener() {
     let el = this._findElement();
     el.removeEventListener('scroll', this.scrollFunction, true);
     el.removeEventListener('resize', this.scrollFunction, true);
@@ -109,22 +116,23 @@ export default class ReduxInfiniteScroll extends React.Component {
 
   _totalItemsSize() {
     let totalSize;
-    totalSize += (this.props.children.size) ? this.props.children.size : this.props.children.length;
-    totalSize += (this.props.items.size) ? this.props.items.size : this.props.items.length;
+    totalSize += this.props.children.size ? this.props.children.size : this.props.children.length;
+    totalSize += this.props.items.size ? this.props.items.size : this.props.items.length;
     return totalSize;
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     this.detachScrollListener();
   }
 
   renderLoader() {
-    return (this.props.loadingMore && this.props.showLoader) ? this.props.loader : undefined;
+    return this.props.loadingMore && this.props.showLoader ? this.props.loader : undefined;
   }
 
   _assignHolderClass() {
     let additionalClass;
-    additionalClass = (typeof this.props.className === 'function') ? this.props.className() : this.props.className;
+    additionalClass =
+      typeof this.props.className === 'function' ? this.props.className() : this.props.className;
 
     return 'redux-infinite-scroll ' + additionalClass;
   }
@@ -132,40 +140,37 @@ export default class ReduxInfiniteScroll extends React.Component {
   _renderWithTransitions() {
     const allItems = this.props.children.concat(this.props.items);
 
-
     console.log('animating with tran');
     return (
-        <ReactCSSTransitionGroup transitionName={this.props.transitionName}
-                                 transitionEnter={this.props.transitionEnter}
-                                 transitionEnterTimeout={this.props.transitionEnterTimeout}
-                                 transitionLeave={this.props.transitionLeave}
-                                 transitionLeaveTimeout={this.props.transitionLeaveTimeout}
-                                 transitionAppear={this.props.transitionAppear}
-                                 transitionAppearTimeout={this.props.transitionAppearTimeout}
-        >
-          {allItems}
-        </ReactCSSTransitionGroup>
-    )
+      <ReactCSSTransitionGroup
+        transitionName={this.props.transitionName}
+        transitionEnter={this.props.transitionEnter}
+        transitionEnterTimeout={this.props.transitionEnterTimeout}
+        transitionLeave={this.props.transitionLeave}
+        transitionLeaveTimeout={this.props.transitionLeaveTimeout}
+        transitionAppear={this.props.transitionAppear}
+        transitionAppearTimeout={this.props.transitionAppearTimeout}
+      >
+        {allItems}
+      </ReactCSSTransitionGroup>
+    );
   }
 
-  render () {
+  render() {
     const Holder = this.props.holderType;
 
     return (
-      <Holder className={ this._assignHolderClass() } style={{height: this.props.containerHeight}}>
+      <Holder className={this._assignHolderClass()} style={{ height: this.props.containerHeight }}>
         {this.props.animateItems ? this._renderWithTransitions() : this._renderOptions()}
         {this.renderLoader()}
       </Holder>
-    )
+    );
   }
 }
 
 ReduxInfiniteScroll.propTypes = {
   elementIsScrollable: PropTypes.bool,
-  containerHeight: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string
-  ]),
+  containerHeight: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   threshold: PropTypes.number,
   horizontal: PropTypes.bool,
   hasMore: PropTypes.bool,
@@ -175,17 +180,14 @@ ReduxInfiniteScroll.propTypes = {
   loadMore: PropTypes.func.isRequired,
   items: PropTypes.oneOfType([
     //ImmutablePropTypes.list,
-    PropTypes.array
+    PropTypes.array,
   ]),
   children: PropTypes.oneOfType([
     //ImmutablePropTypes.list,
-    PropTypes.array
+    PropTypes.array,
   ]),
   holderType: PropTypes.string,
-  className: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.func
-  ]),
+  className: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   animateItems: PropTypes.bool,
   transitionName: PropTypes.string,
   transitionEnter: PropTypes.bool,
@@ -204,7 +206,7 @@ ReduxInfiniteScroll.defaultProps = {
   horizontal: false,
   hasMore: true,
   loadingMore: false,
-  loader: <div style={{textAlign: 'center'}}>Loading...</div>,
+  loader: <div style={{ textAlign: 'center' }}>Loading...</div>,
   showLoader: true,
   holderType: 'div',
   children: [],
@@ -216,5 +218,5 @@ ReduxInfiniteScroll.defaultProps = {
   transitionLeave: true,
   transitionLeaveTimeout: 1000,
   transitionAppear: true,
-  transitionAppearTimeout: 2000
+  transitionAppearTimeout: 2000,
 };
