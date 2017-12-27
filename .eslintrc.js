@@ -24,5 +24,6 @@ module.exports = {
       { devDependencies: ['**/__tests__/*.js', 'scripts/**/*.js'] },
     ],
     'no-console': OFF,
+    'arrow-parens': [ERROR, 'as-needed'],
   },
 };
