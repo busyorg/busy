@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import { createAsyncActionType } from '../helpers/stateHelpers';
-import { getLookupAccountNames, getAllSearchResultPages } from '../helpers/apiHelpers';
+import { getAccountReputation, getAllSearchResultPages } from '../helpers/apiHelpers';
 
 export const SEARCH_ASK_STEEM = createAsyncActionType('@search/SEARCH_ASK_STEEM');
 export const AUTO_COMPLETE_SEARCH = createAsyncActionType('@search/AUTO_COMPLETE_SEARCH');
@@ -19,7 +19,7 @@ export const searchAskSteem = search => dispatch =>
 
             return _.reverse(_.sortBy(mergedResults, ['type', 'created']));
           }),
-        getLookupAccountNames(search),
+        getAccountReputation(search),
       ]),
     },
   });
@@ -28,7 +28,7 @@ export const searchAutoComplete = search => dispatch =>
   dispatch({
     type: AUTO_COMPLETE_SEARCH.ACTION,
     payload: {
-      promise: getLookupAccountNames(search).then(result => ({
+      promise: getAccountReputation(search).then(result => ({
         result,
         search,
       })),

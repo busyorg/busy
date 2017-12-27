@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import * as searchActions from './searchActions';
+import formatter from '../helpers/steemitFormatter';
 
 const initialState = {
   loading: false,
@@ -19,11 +20,14 @@ export default (state = initialState, action) => {
     case searchActions.SEARCH_ASK_STEEM.SUCCESS: {
       const askSteemResults = _.get(action.payload, 0, []);
       const steemLookupResults = _.get(action.payload, 1, []);
-      const formattedSteemLookupResults = _.map(steemLookupResults, name => ({
+      const parsedSteemLookupResults = _.map(steemLookupResults, accountDetails => ({
+        ...accountDetails,
+        reputation: formatter.reputation(accountDetails.reputation),
+        name: accountDetails.account,
         type: 'user',
-        name,
       }));
-      const searchResults = _.compact(_.concat(formattedSteemLookupResults, askSteemResults));
+      const sortedSteemLookupResults = _.sortBy(parsedSteemLookupResults, 'reputation').reverse();
+      const searchResults = _.compact(_.concat(sortedSteemLookupResults, askSteemResults));
       return {
         ...state,
         searchResults,
@@ -39,9 +43,17 @@ export default (state = initialState, action) => {
       };
     case searchActions.AUTO_COMPLETE_SEARCH.SUCCESS: {
       const { result, search } = action.payload;
+      const parsedResults = _.map(result, account => ({
+        ...account,
+        reputation: formatter.reputation(account.reputation),
+      }));
+      const sortedResults = _.map(
+        _.sortBy(parsedResults, 'reputation').reverse(),
+        accountDetails => accountDetails.account,
+      );
       return {
         ...state,
-        autoCompleteSearchResults: _.isEmpty(search) ? [] : result,
+        autoCompleteSearchResults: _.isEmpty(search) ? [] : sortedResults,
       };
     }
     default:
