@@ -6,6 +6,10 @@ import { getHtml } from '../../client/components/Story/Body';
 
 HandlebarsIntl.registerWith(Handlebars);
 
+function upgradeURL(url) {
+  return url.replace(/^(\/\/)|(http:\/\/)/, 'https://');
+}
+
 function cleanHTML(html) {
   const $ = cheerio.load(html);
   $('head').remove();
@@ -19,13 +23,31 @@ function cleanHTML(html) {
     );
   });
 
+  // AMP requires amp-iframe instead of iframe
+  const allowedIframeAttrs = ['src', 'frameborder', 'allowfullscreen', 'width', 'height'];
+  $('iframe').each((i, elem) => {
+    const el = $('<amp-iframe></amp-iframe>');
+    const attribs = elem.attribs;
+
+    Object.keys(attribs).forEach((key) => {
+      if (allowedIframeAttrs.includes(key)) {
+        const value = key === 'src' ? upgradeURL(attribs[key]) : attribs[key];
+        el.attr(key, value);
+      }
+    });
+
+    el.attr('sandbox', 'allow-scripts allow-same-origin allow-presentation');
+    $(el).append('<span placeholder>Loading iframe</span>');
+    $(elem).replaceWith(el);
+  });
+
   return $('body').html();
 }
 
 function getContext(post, body, appUrl) {
   const metadata = _.attempt(JSON.parse, post.json_metadata);
   let images = [];
-  if (!_.isError(metadata)) images = metadata.image;
+  if (!_.isError(metadata) && metadata.image) images = metadata.image;
 
   const datePublished = `${post.created}Z`;
   const dateModified = `${post.last_update}Z`;
