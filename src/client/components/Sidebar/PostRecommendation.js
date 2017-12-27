@@ -98,7 +98,7 @@ class PostRecommendation extends Component {
           values={{
             username: (
               <Link role="presentation" to={`/@${post.author}`}>
-                {post.author}
+                <span className="username">{post.author}</span>
               </Link>
             ),
           }}

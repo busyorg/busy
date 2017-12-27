@@ -32,7 +32,9 @@ const VoteActionMessage = ({ actionDetails, currentUsername }) => {
           id={`user_${voteType}_post`}
           defaultMessage={`{username} ${voteType}`}
           values={{
-            username: <Link to={`/@${actionDetails.voter}`}>{actionDetails.voter}</Link>,
+            username: (<Link to={`/@${actionDetails.voter}`}>
+              <span className="username">{actionDetails.voter}</span>
+            </Link>),
           }}
         />}
       {actionDetails.weight === 0
@@ -40,7 +42,9 @@ const VoteActionMessage = ({ actionDetails, currentUsername }) => {
         : <Tooltip title={<FormattedMessage id="voting_weight" defaultMessage="Vote Weight" />}>
           {' ('}{voteWeight}{') '}
         </Tooltip>}
-      <Link to={`/@${actionDetails.author}`}>{actionDetails.author}</Link>
+      <Link to={`/@${actionDetails.author}`}>
+        <span className="username">{actionDetails.author}</span>
+      </Link>
       {' ('}<Link to={`/p/${postLink}`}>{actionDetails.permlink}</Link>{')'}
     </span>
   );
