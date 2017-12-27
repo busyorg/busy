@@ -232,7 +232,7 @@ import './Comment.less';
         <Avatar username={comment.author} size={comment.depth === 1 ? 40 : 32} />
         <div className="Comment__text">
           <Link to={`/@${comment.author}`}>
-            {comment.author}
+            <span className="username">{comment.author}</span>
             <Tooltip
               title={intl.formatMessage({
                 id: 'reputation_score',

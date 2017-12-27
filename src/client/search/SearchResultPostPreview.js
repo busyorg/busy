@@ -17,7 +17,7 @@ const SearchResultPostPreview = ({ author, summary, created, permlink, title, ta
         </Link>
         <div className="Search__post__header__author">
           <Link to={`/@${author}`}>
-            <b>{author}</b>
+            <span className="username">{author}</span>
           </Link>
           <div className="Search__post__created">
             <FormattedRelative value={created} />

@@ -11,7 +11,9 @@ const UserCard = ({ username, alt }) => (
       <Link to={`/@${username}`}>
         <Avatar username={username} size={40} />
       </Link>
-      <Link to={`/@${username}`}>{username}</Link>
+      <Link to={`/@${username}`}>
+        <span className="username">{username}</span>
+      </Link>
       {alt && <span className="UserCard__alt">{alt}</span>}
     </div>
     <FollowButton username={username} />

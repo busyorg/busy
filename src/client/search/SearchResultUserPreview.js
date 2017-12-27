@@ -9,7 +9,7 @@ const SearchResultUserPreview = ({ username }) => (
       <Avatar username={username} size={40} />
     </Link>
     <Link to={`/@${username}`}>
-      <span className="Search__user__name">{username}</span>
+      <span className="Search__user__name username">{username}</span>
     </Link>
   </div>
 );

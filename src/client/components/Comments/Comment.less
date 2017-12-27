@@ -62,20 +62,17 @@
     margin-left: @comment-text-left-margin;
     overflow: unset;
 
-    & > a {
+    & > a > .ant-tag {
       font-weight: bold;
+      font-size: 12px;
+      vertical-align: 1px;
 
-      .ant-tag {
-        font-size: 12px;
-        vertical-align: 1px;
+      &:first-of-type {
+        margin-left: 4px;
+      }
 
-        &:first-of-type {
-          margin-left: 4px;
-        }
-
-        &:last-child {
-          margin-right: 0;
-        }
+      &:last-child {
+        margin-right: 0;
       }
     }
   }
