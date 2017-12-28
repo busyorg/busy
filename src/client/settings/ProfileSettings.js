@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { Form, Input } from 'antd';
+import SteemConnect from '../steemConnectAPI';
 import Action from '../components/Button/Action';
 import Affix from '../components/Utils/Affix';
 import LeftSidebar from '../app/Sidebar/LeftSidebar';
@@ -39,7 +40,15 @@ export default class ProfileSettings extends React.Component {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
+        const cleanValues = Object.keys(values).reduce(
+          (a, b) => ({
+            ...a,
+            [b]: values[b] || '',
+          }),
+          {},
+        );
+        const win = window.open(SteemConnect.sign('profile-update', cleanValues), '_blank');
+        win.focus();
       }
     });
   }
