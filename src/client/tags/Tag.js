@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom';
 import USDDisplay from '../components/Utils/USDDisplay';
 import FavoriteButton from '../components/FavoriteButton';
 
-const Tag = ({ tag, favorited, addCategoryFavorite, removeCategoryFavorite }) =>
-  (<div className="page">
+const Tag = ({ tag, favorited, addCategoryFavorite, removeCategoryFavorite }) => (
+  <div className="page">
     <div className="my-5 text-center">
       <h1>
         <Link to={`/hot/${tag.name}`}># {tag.name}</Link>{' '}
@@ -16,11 +16,11 @@ const Tag = ({ tag, favorited, addCategoryFavorite, removeCategoryFavorite }) =>
           onClick={
             favorited
               ? () => {
-                removeCategoryFavorite(tag.name);
-              }
+                  removeCategoryFavorite(tag.name);
+                }
               : () => {
-                addCategoryFavorite(tag.name);
-              }
+                  addCategoryFavorite(tag.name);
+                }
           }
         />
       </h1>
@@ -29,7 +29,8 @@ const Tag = ({ tag, favorited, addCategoryFavorite, removeCategoryFavorite }) =>
         <i className="iconfont icon-collection" /> <USDDisplay value={tag.total_payouts} />
       </h2>
     </div>
-  </div>);
+  </div>
+);
 
 Tag.propTypes = {
   tag: PropTypes.shape().isRequired,

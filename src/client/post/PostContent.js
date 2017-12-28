@@ -121,7 +121,7 @@ class PostContent extends React.Component {
 
   handleSaveClick = post => this.props.toggleBookmark(post.id, post.author, post.permlink);
 
-  handleFollowClick = (post) => {
+  handleFollowClick = post => {
     const isFollowed = this.props.followingList.includes(post.author);
     if (isFollowed) {
       this.props.unfollowUser(post.author);

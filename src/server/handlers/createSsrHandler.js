@@ -66,7 +66,7 @@ export default function createSsrHandler(template) {
         }
         res.send(renderSsrPage(store, content, template, appUrl !== 'https://busy.org'));
       })
-      .catch((err) => {
+      .catch(err => {
         Raven.captureException(err);
         console.error('SSR error occured, falling back to bundled application instead', err); // eslint-disable-line no-console
         res.send(template);

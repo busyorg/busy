@@ -3,8 +3,9 @@ export const sortComments = (comments, sortType = 'BEST') => {
 
   const netNegative = a => a.net_rshares < 0;
   const totalPayout = a =>
-    parseFloat(a.pending_payout_value) + parseFloat(a.total_payout_value)
-      + parseFloat(a.curator_payout_value);
+    parseFloat(a.pending_payout_value) +
+    parseFloat(a.total_payout_value) +
+    parseFloat(a.curator_payout_value);
   const netRshares = a => a.net_rshares;
 
   switch (sortType) {

@@ -32,7 +32,7 @@ class TopicSelector extends React.Component {
     };
   }
 
-  onSelect = (key) => {
+  onSelect = key => {
     this.setState({ popoverVisible: false }, () => {
       this.props.onSortChange(key);
     });
@@ -48,9 +48,9 @@ class TopicSelector extends React.Component {
       <div className="TopicSelector">
         <div className="TopicSelector__topics">
           {topics &&
-            topics.map(topic =>
-              <Topic key={topic} closable={!isSingle} name={topic} onClose={onTopicClose} />,
-            )}
+            topics.map(topic => (
+              <Topic key={topic} closable={!isSingle} name={topic} onClose={onTopicClose} />
+            ))}
         </div>
         <div className="TopicSelector__sort">
           <span className="TopicSelector__sort__title">

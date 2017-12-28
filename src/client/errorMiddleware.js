@@ -3,7 +3,10 @@ import { notify } from './app/Notification/notificationActions';
 function parseBlockChainError(error) {
   let parsedError;
   try {
-    parsedError = error.split(':')[2].split('\n')[0].substring(1);
+    parsedError = error
+      .split(':')[2]
+      .split('\n')[0]
+      .substring(1);
   } catch (e) {
     parsedError = 'Unknown error';
   }
@@ -12,7 +15,7 @@ function parseBlockChainError(error) {
 }
 
 export default function errorMiddleware({ dispatch }) {
-  return next => (action) => {
+  return next => action => {
     if (action.type && action.type.match(/error/i) && action.payload instanceof Error) {
       if (action.payload && action.payload.error_description) {
         // Don't display error message for invalid_grant SDK error

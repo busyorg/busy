@@ -2,8 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 
-const EmptyUserProfile = () =>
-  (<div className="text-center">
+const EmptyUserProfile = () => (
+  <div className="text-center">
     <h3>
       <FormattedMessage
         id="empty_user_own_profile"
@@ -13,6 +13,7 @@ const EmptyUserProfile = () =>
         <FormattedMessage id="@statics/start_now" defaultMessage="Start now" />
       </Link>
     </h3>
-  </div>);
+  </div>
+);
 
 export default EmptyUserProfile;

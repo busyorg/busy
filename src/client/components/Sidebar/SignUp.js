@@ -2,8 +2,8 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import './SidebarBlock.less';
 
-const SignUp = () =>
-  (<div className="SidebarBlock">
+const SignUp = () => (
+  <div className="SidebarBlock">
     <h3 className="SidebarBlock__title">
       <FormattedMessage id="new_to_busy" defaultMessage="New to Busy?" />
     </h3>
@@ -12,6 +12,7 @@ const SignUp = () =>
         <FormattedMessage id="signup" defaultMessage="Sign up" />
       </button>
     </a>
-  </div>);
+  </div>
+);
 
 export default SignUp;

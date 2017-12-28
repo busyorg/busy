@@ -3,7 +3,7 @@ import * as accountHistoryConstants from '../../common/constants/accountHistory'
 
 export const ACTIONS_DISPLAY_LIMIT = 100;
 
-export const getVoteFilterType = (actionDetails) => {
+export const getVoteFilterType = actionDetails => {
   let voteType = accountHistoryConstants.UNVOTED;
   if (actionDetails.weight > 0) {
     voteType = accountHistoryConstants.UPVOTED;
@@ -13,7 +13,7 @@ export const getVoteFilterType = (actionDetails) => {
   return voteType;
 };
 
-export const getCustomJSONFilterType = (actionDetails) => {
+export const getCustomJSONFilterType = actionDetails => {
   const actionJSON = JSON.parse(actionDetails.json);
   const customActionType = actionJSON[0];
   const customActionDetails = actionJSON[1];

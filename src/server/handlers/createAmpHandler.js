@@ -6,7 +6,7 @@ const debug = require('debug')('busy:server');
 
 export default function createAmpHandler(template) {
   return function ampResponse(req, res) {
-    steemAPI.sendAsync('get_content', [req.params.author, req.params.permlink]).then((result) => {
+    steemAPI.sendAsync('get_content', [req.params.author, req.params.permlink]).then(result => {
       if (result.id === 0) return res.sendStatus(404);
       const appUrl = url.format({
         protocol: req.protocol,

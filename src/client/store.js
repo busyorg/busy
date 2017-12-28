@@ -8,7 +8,7 @@ import { mountResponsive } from './vendor/responsive';
 import errorMiddleware from './errorMiddleware';
 import reducers from './reducers';
 
-export default (steemConnectAPI) => {
+export default steemConnectAPI => {
   let preloadedState;
   if (process.env.IS_BROWSER) {
     /* eslint-disable no-underscore-dangle */

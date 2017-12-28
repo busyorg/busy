@@ -57,7 +57,7 @@ export const getFeedContent = (
     },
     steemAPI,
   )
-    .then((postsData) => {
+    .then(postsData => {
       dispatch(
         getFeedContentSuccess({
           sortBy,
@@ -68,7 +68,7 @@ export const getFeedContent = (
       );
       resolve();
     })
-    .catch((err) => {
+    .catch(err => {
       Logger.error(`error while loading ${sortBy}/${category}`, err);
       reject(err);
     });
@@ -107,7 +107,7 @@ export const getUserFeedContent = ({ username, limit, sortBy = 'feed' }) => (
         }),
       ),
     )
-    .catch((err) => {
+    .catch(err => {
       Logger.error(`error while loading ${sortBy}/${username}`, err);
       throw err;
     });
@@ -151,7 +151,7 @@ export const getMoreFeedContent = ({ sortBy, category, limit }) => (
     },
     steemAPI,
   )
-    .then((postsData) => {
+    .then(postsData => {
       // The feed is completely loaded
       if (postsData.length === 1) {
         return dispatch(
@@ -171,7 +171,7 @@ export const getMoreFeedContent = ({ sortBy, category, limit }) => (
         }),
       );
     })
-    .catch((err) => {
+    .catch(err => {
       Logger.error(`error while loading ${sortBy}/${category}`, err);
       throw err;
     });
@@ -212,7 +212,7 @@ export const getMoreUserFeedContent = ({ username, limit }) => (
     },
     steemAPI,
   )
-    .then((postsData) => {
+    .then(postsData => {
       // The feed is completely loaded
       if (postsData.length === 1) {
         return dispatch(
@@ -232,7 +232,7 @@ export const getMoreUserFeedContent = ({ username, limit }) => (
         }),
       );
     })
-    .catch((err) => {
+    .catch(err => {
       Logger.error(`error while loading ${sortBy}/${username}`, err);
       throw err;
     });

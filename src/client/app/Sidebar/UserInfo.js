@@ -49,22 +49,24 @@ class UserInfo extends React.Component {
 
     return (
       <div>
-        {user.name &&
+        {user.name && (
           <div style={{ wordBreak: 'break-word' }}>
             {_.get(user && user.json_metadata, 'profile.about')}
             <div style={{ marginTop: 16, marginBottom: 16 }}>
-              {location &&
+              {location && (
                 <div>
                   <i className="iconfont icon-coordinates text-icon" />
                   {location}
-                </div>}
-              {website &&
+                </div>
+              )}
+              {website && (
                 <div>
                   <i className="iconfont icon-link text-icon" />
                   <a target="_blank" rel="noopener noreferrer" href={website}>
                     {`${hostWithoutWWW}${url.pathname.replace(/\/$/, '')}`}
                   </a>
-                </div>}
+                </div>
+              )}
               <div>
                 <i className="iconfont icon-time text-icon" />
                 <FormattedMessage
@@ -82,8 +84,7 @@ class UserInfo extends React.Component {
               <div>
                 <i className="iconfont icon-flashlight text-icon" />
                 <FormattedMessage id="voting_power" defaultMessage="Voting Power" />
-                :
-                {' '}
+                :{' '}
                 <FormattedNumber
                   style="percent" // eslint-disable-line react/style-prop-object
                   value={calculateVotingPower(user)}
@@ -93,12 +94,16 @@ class UserInfo extends React.Component {
               <div>
                 <i className="iconfont icon-dollar text-icon" />
                 <FormattedMessage id="vote_value" defaultMessage="Vote Value" />
-                :
-                {' '}
-                {isNaN(voteWorth) ? <Icon type="loading" className="text-icon-right" /> : <USDDisplay value={voteWorth} />}
+                :{' '}
+                {isNaN(voteWorth) ? (
+                  <Icon type="loading" className="text-icon-right" />
+                ) : (
+                  <USDDisplay value={voteWorth} />
+                )}
               </div>
             </div>
-          </div>}
+          </div>
+        )}
       </div>
     );
   }

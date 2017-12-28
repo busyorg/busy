@@ -5,7 +5,13 @@ import { renderRoutes } from 'react-router-config';
 import { Helmet } from 'react-helmet';
 import getImage from '../helpers/getImage';
 
-import { getIsAuthenticated, getAuthenticatedUser, getUser, getIsUserFailed, getIsUserLoaded } from '../reducers';
+import {
+  getIsAuthenticated,
+  getAuthenticatedUser,
+  getUser,
+  getIsUserFailed,
+  getIsUserLoaded,
+} from '../reducers';
 
 import { openTransfer } from '../wallet/walletActions';
 import { getAccount } from './usersActions';
@@ -70,7 +76,7 @@ export default class User extends React.Component {
     }
   }
 
-  handleUserMenuSelect = (key) => {
+  handleUserMenuSelect = key => {
     if (key === 'transfer') {
       this.props.openTransfer(this.props.match.params.name);
       this.setState({
@@ -79,7 +85,7 @@ export default class User extends React.Component {
     }
   };
 
-  handleVisibleChange = (visible) => {
+  handleVisibleChange = visible => {
     this.setState({ popoverVisible: visible });
   };
 

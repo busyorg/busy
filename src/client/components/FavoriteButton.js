@@ -5,8 +5,8 @@ import { injectIntl } from 'react-intl';
 import { Tooltip } from 'antd';
 import './FavoriteButton.less';
 
-const FavoriteButton = ({ intl, isFavorited, onClick }) =>
-  (<Tooltip
+const FavoriteButton = ({ intl, isFavorited, onClick }) => (
+  <Tooltip
     title={intl.formatMessage({
       id: isFavorited ? 'remove_from_favorites' : 'add_to_favorites',
       defaultMessage: isFavorited ? 'Remove from favorites' : 'Add to favorites',
@@ -24,7 +24,8 @@ const FavoriteButton = ({ intl, isFavorited, onClick }) =>
         })}
       />
     </a>
-  </Tooltip>);
+  </Tooltip>
+);
 
 FavoriteButton.propTypes = {
   intl: PropTypes.shape().isRequired,

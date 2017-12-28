@@ -6,7 +6,7 @@ import apps from '../../helpers/apps';
 import { jsonParse } from '../../helpers/formatter';
 import './PostedFrom.less';
 
-const PostedFrom = (props) => {
+const PostedFrom = props => {
   let from;
   let version;
   try {
@@ -30,9 +30,7 @@ const PostedFrom = (props) => {
           </span>
         }
       >
-        <span className="PostedFrom__text">
-          {from}
-        </span>
+        <span className="PostedFrom__text">{from}</span>
       </Tooltip>
     </span>
   );

@@ -15,7 +15,7 @@ class UserMenuWrapper extends React.Component {
     history: PropTypes.shape().isRequired,
   };
 
-  onChange = (key) => {
+  onChange = key => {
     const { match, history } = this.props;
     const section = key === 'discussions' ? '' : `/${key}`;
     history.push(`${match.url}${section}`);

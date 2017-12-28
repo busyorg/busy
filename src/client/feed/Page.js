@@ -3,9 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 
-import {
-  getFeedContentAsync,
-} from './feedActions';
+import { getFeedContentAsync } from './feedActions';
 import { getIsLoaded, getIsAuthenticated } from '../reducers';
 import SubFeed from './SubFeed';
 import HeroBannerContainer from './HeroBannerContainer';
@@ -35,7 +33,7 @@ class Page extends React.Component {
     return getFeedContentAsync(store, { sortBy, category, limit: 10 });
   }
 
-  handleSortChange = (key) => {
+  handleSortChange = key => {
     const { category } = this.props.match.params;
     if (category) {
       this.props.history.push(`/${key}/${category}`);
@@ -80,7 +78,7 @@ class Page extends React.Component {
                 <TopicSelector
                   isSingle={false}
                   sort={sortBy}
-                  topics={(category) ? [category] : []}
+                  topics={category ? [category] : []}
                   onSortChange={this.handleSortChange}
                   onTopicClose={this.handleTopicClose}
                 />

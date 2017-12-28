@@ -10,7 +10,7 @@ const isReplies = (match, location) => location.pathname.match(/replies/);
 
 const Sidenav = ({ username }) => (
   <div>
-    {username &&
+    {username && (
       <ul className="Sidenav">
         <li>
           <NavLink to={`/@${username}`}>
@@ -42,7 +42,8 @@ const Sidenav = ({ username }) => (
             <FormattedMessage id="wallet" defaultMessage="Wallet" />
           </NavLink>
         </li>
-      </ul>}
+      </ul>
+    )}
   </div>
 );
 

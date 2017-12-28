@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom';
 import BodyShort from '../Story/BodyShort';
 import './LatestComments.less';
 
-const RenderComment = ({ text, author, created }) =>
-  (<div className="Comment">
+const RenderComment = ({ text, author, created }) => (
+  <div className="Comment">
     <div className="Comment__text">
       <div className="Comment__content">
         <BodyShort body={text} length={80} />
@@ -21,7 +21,8 @@ const RenderComment = ({ text, author, created }) =>
         </span>
       </div>
     </div>
-  </div>);
+  </div>
+);
 
 RenderComment.propTypes = {
   text: PropTypes.string.isRequired,
@@ -29,12 +30,11 @@ RenderComment.propTypes = {
   created: PropTypes.string.isRequired,
 };
 
-const LatestComments = ({ comments }) =>
-  (<div className="LatestComments">
+const LatestComments = ({ comments }) => (
+  <div className="LatestComments">
     <div className="LatestComments__container">
       <h4 className="LatestComments__title">
-        <i className="iconfont icon-time LatestComments__icon" />
-        {' '}
+        <i className="iconfont icon-time LatestComments__icon" />{' '}
         <FormattedMessage id="latest_comments" defaultMessage="Latest Comments" />
       </h4>
       <div className="LatestComments__divider" />
@@ -46,7 +46,8 @@ const LatestComments = ({ comments }) =>
         </Link>
       </h4>
     </div>
-  </div>);
+  </div>
+);
 
 LatestComments.propTypes = {
   comments: PropTypes.arrayOf(PropTypes.shape()),

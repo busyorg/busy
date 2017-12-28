@@ -21,7 +21,8 @@ import CommentFooter from '../CommentFooter/CommentFooter';
 import HiddenCommentMessage from './HiddenCommentMessage';
 import './Comment.less';
 
-@injectIntl class Comment extends React.Component {
+@injectIntl
+class Comment extends React.Component {
   static propTypes = {
     user: PropTypes.shape().isRequired,
     intl: PropTypes.shape().isRequired,
@@ -79,7 +80,7 @@ import './Comment.less';
     }
   }
 
-  setSelf = (c) => {
+  setSelf = c => {
     this.self = c;
   };
 
@@ -132,7 +133,8 @@ import './Comment.less';
       formatMessage(
         {
           id: 'notify_uploading_image_invalid',
-          defaultMessage: 'This file is invalid. Only image files with maximum size of {size} are supported',
+          defaultMessage:
+            'This file is invalid. Only image files with maximum size of {size} are supported',
         },
         { size: MAXIMUM_UPLOAD_SIZE_HUMAN },
       ),
@@ -211,11 +213,13 @@ import './Comment.less';
         />
       );
     } else {
-      content = this.state.collapsed
-        ? (<div className="Comment__content__collapsed">
+      content = this.state.collapsed ? (
+        <div className="Comment__content__collapsed">
           <FormattedMessage id="comment_collapsed" defaultMessage="Comment collapsed" />
-        </div>)
-        : <Body body={comment.body} />;
+        </div>
+      ) : (
+        <Body body={comment.body} />
+      );
     }
 
     return (
@@ -225,9 +229,11 @@ import './Comment.less';
           className="Comment__visibility"
           onClick={this.handleCollapseClick}
         >
-          {this.state.collapsed
-            ? <i className="iconfont icon-addition" />
-            : <i className="iconfont icon-offline" />}
+          {this.state.collapsed ? (
+            <i className="iconfont icon-addition" />
+          ) : (
+            <i className="iconfont icon-offline" />
+          )}
         </span>
         <Avatar username={comment.author} size={comment.depth === 1 ? 40 : 32} />
         <div className="Comment__text">
@@ -241,7 +247,7 @@ import './Comment.less';
             >
               <Tag>{formatter.reputation(comment.author_reputation)}</Tag>
             </Tooltip>
-            {comment.author === rootPostAuthor &&
+            {comment.author === rootPostAuthor && (
               <Tooltip
                 title={intl.formatMessage({
                   id: 'original_poster',
@@ -249,7 +255,8 @@ import './Comment.less';
                 })}
               >
                 <Tag color="#4f545c">OP</Tag>
-              </Tooltip>}
+              </Tooltip>
+            )}
           </Link>
           <span className="Comment__date">
             <Tooltip
@@ -266,9 +273,11 @@ import './Comment.less';
             </Tooltip>
           </span>
           <div className="Comment__content">
-            {showCommentContent
-              ? content
-              : <HiddenCommentMessage onClick={this.handleShowHiddenComment} />}
+            {showCommentContent ? (
+              content
+            ) : (
+              <HiddenCommentMessage onClick={this.handleShowHiddenComment} />
+            )}
           </div>
           <CommentFooter
             editable={editable}
@@ -286,17 +295,18 @@ import './Comment.less';
             onEditClick={this.handleEditClick}
           />
           {this.state.replyOpen &&
-            user.name &&
-            <CommentForm
-              username={user.name}
-              parentPost={comment}
-              isSmall={comment.depth !== 1}
-              onSubmit={this.handleSubmitComment}
-              isLoading={this.state.showCommentFormLoading}
-              inputValue={this.state.commentFormText}
-              onImageInserted={this.handleImageInserted}
-              onImageInvalid={this.handleImageInvalid}
-            />}
+            user.name && (
+              <CommentForm
+                username={user.name}
+                parentPost={comment}
+                isSmall={comment.depth !== 1}
+                onSubmit={this.handleSubmitComment}
+                isLoading={this.state.showCommentFormLoading}
+                inputValue={this.state.commentFormText}
+                onImageInserted={this.handleImageInserted}
+                onImageInvalid={this.handleImageInvalid}
+              />
+            )}
           <div
             className={classNames('Comment__replies', {
               'Comment__replies--no-indent': depth >= 1,
