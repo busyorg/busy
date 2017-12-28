@@ -103,7 +103,7 @@ const UserHeader = ({
         </div>
         {isFollowing &&
           <span
-            className={classNames('UserHeader__follows-you UserHeader__follows-you-mobile', {
+            className={classNames('UserHeader__follows-you UserHeader__follows-you--mobile', {
               'UserHeader__follows-you-cover-text-color': hasCover,
             })}
           >
