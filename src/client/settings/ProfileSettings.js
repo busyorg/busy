@@ -69,6 +69,14 @@ export default class ProfileSettings extends React.Component {
               </div>
               <div className="Settings__section">
                 <h3>
+                  <FormattedMessage id="profile_location" defaultMessage="Location" />
+                </h3>
+                <div className="Settings__section__inputs">
+                  <Input size="large" placeholder="Your location" />
+                </div>
+              </div>
+              <div className="Settings__section">
+                <h3>
                   <FormattedMessage id="profile_picture" defaultMessage="Profile picture" />
                 </h3>
                 <div className="Settings__section__inputs">
