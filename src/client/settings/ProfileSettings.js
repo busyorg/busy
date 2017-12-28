@@ -9,13 +9,13 @@ import './Settings.less';
 @requiresLogin
 export default class ProfileSettings extends React.Component {
   socialProfiles = [
-    { id: 'website', icon: 'link', name: 'Website' },
-    { id: 'facebook', icon: 'facebook', name: 'Facebook' },
-    { id: 'twitter', icon: 'twitter', name: 'Twitter' },
-    { id: 'instagram', icon: 'instagram', name: 'Instagram' },
-    { id: 'github', icon: 'github', name: 'GitHub' },
-    { id: 'bitcoin', icon: 'bitcoin', name: 'Bitcoin' },
-    { id: 'ethereum', icon: 'ethereum', name: 'Ethereum' },
+    { id: 'website', icon: 'link', color: 'black', name: 'Website' },
+    { id: 'facebook', icon: 'facebook', color: '#3b5998', name: 'Facebook' },
+    { id: 'twitter', icon: 'twitter', color: '#00aced', name: 'Twitter' },
+    { id: 'instagram', icon: 'instagram', color: '#8a3ab9', name: 'Instagram' },
+    { id: 'github', icon: 'github', color: 'black', name: 'GitHub' },
+    { id: 'bitcoin', icon: 'bitcoin', color: '#ff9900', name: 'Bitcoin' },
+    { id: 'ethereum', icon: 'ethereum', color: '#3c3c3d', name: 'Ethereum' },
   ];
 
   render() {
@@ -23,7 +23,14 @@ export default class ProfileSettings extends React.Component {
       <Input
         key={profile.id}
         size="large"
-        prefix={<i className={`Settings__prefix-icon iconfont icon-${profile.icon}`} />}
+        prefix={
+          <i
+            className={`Settings__prefix-icon iconfont icon-${profile.icon}`}
+            style={{
+              color: profile.color,
+            }}
+          />
+        }
         placeholder={profile.name}
       />
     ));
