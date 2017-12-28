@@ -1,13 +1,19 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import PropTypes from 'prop-types';
+import { injectIntl, FormattedMessage } from 'react-intl';
 import { Input } from 'antd';
 import Affix from '../components/Utils/Affix';
 import LeftSidebar from '../app/Sidebar/LeftSidebar';
 import requiresLogin from '../auth/requiresLogin';
 import './Settings.less';
 
+@injectIntl
 @requiresLogin
 export default class ProfileSettings extends React.Component {
+  static propTypes = {
+    intl: PropTypes.shape().isRequired,
+  };
+
   socialProfiles = [
     { id: 'website', icon: 'link', color: 'black', name: 'Website' },
     { id: 'facebook', icon: 'facebook', color: '#3b5998', name: 'Facebook' },
@@ -19,6 +25,8 @@ export default class ProfileSettings extends React.Component {
   ];
 
   render() {
+    const { intl } = this.props;
+
     const socialInputs = this.socialProfiles.map(profile => (
       <Input
         key={profile.id}
@@ -53,17 +61,26 @@ export default class ProfileSettings extends React.Component {
                   <FormattedMessage id="profile_name" defaultMessage="Name" />
                 </h3>
                 <div className="Settings__section__inputs">
-                  <Input size="large" placeholder="Name to display on your profile" />
+                  <Input
+                    size="large"
+                    placeholder={intl.formatMessage({
+                      id: 'profile_name_placeholder',
+                      defaultMessage: 'Name to display on your profile',
+                    })}
+                  />
                 </div>
               </div>
               <div className="Settings__section">
                 <h3>
-                  <FormattedMessage id="profile_about" defaultMessage="About" />
+                  <FormattedMessage id="profile_about" defaultMessage="About me" />
                 </h3>
                 <div className="Settings__section__inputs">
                   <Input.TextArea
                     autosize={{ minRows: 2, maxRows: 6 }}
-                    placeholder="Name to display on your profile"
+                    placeholder={intl.formatMessage({
+                      id: 'profile_about_placeholder',
+                      defaultMessage: 'Few words about you',
+                    })}
                   />
                 </div>
               </div>
@@ -72,7 +89,13 @@ export default class ProfileSettings extends React.Component {
                   <FormattedMessage id="profile_location" defaultMessage="Location" />
                 </h3>
                 <div className="Settings__section__inputs">
-                  <Input size="large" placeholder="Your location" />
+                  <Input
+                    size="large"
+                    placeholder={intl.formatMessage({
+                      id: 'profile_location',
+                      defaultMessage: 'Location',
+                    })}
+                  />
                 </div>
               </div>
               <div className="Settings__section">
@@ -80,20 +103,32 @@ export default class ProfileSettings extends React.Component {
                   <FormattedMessage id="profile_picture" defaultMessage="Profile picture" />
                 </h3>
                 <div className="Settings__section__inputs">
-                  <Input size="large" placeholder="Profile picture" />
+                  <Input
+                    size="large"
+                    placeholder={intl.formatMessage({
+                      id: 'profile_picture',
+                      defaultMessage: 'Profile picture',
+                    })}
+                  />
                 </div>
               </div>
               <div className="Settings__section">
                 <h3>
-                  <FormattedMessage id="cover_picture" defaultMessage="Cover picture" />
+                  <FormattedMessage id="profile_cover" defaultMessage="Cover picture" />
                 </h3>
                 <div className="Settings__section__inputs">
-                  <Input size="large" placeholder="Cover picture" />
+                  <Input
+                    size="large"
+                    placeholder={intl.formatMessage({
+                      id: 'profile_cover',
+                      defaultMessage: 'Cover picture',
+                    })}
+                  />
                 </div>
               </div>
               <div className="Settings__section">
                 <h3>
-                  <FormattedMessage id="Social profiles" defaultMessage="Social profiles" />
+                  <FormattedMessage id="profile_social_links" defaultMessage="Social links" />
                 </h3>
                 <div className="Settings__section__inputs">{socialInputs}</div>
               </div>
