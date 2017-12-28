@@ -1,3 +1,5 @@
+@import (reference) "./custom.less";
+
 body {
   overflow-y: scroll;
 }
@@ -22,6 +24,11 @@ body {
 .text-icon {
   font-size: 18px !important;
   margin-right: 4px;
+  vertical-align: -1px;
+}
+
+.text-icon-right {
+  margin-left: 4px;
   vertical-align: -1px;
 }
 
@@ -61,6 +68,11 @@ video {
   a {
     text-transform: none;
   }
+}
+
+.username {
+  color: @black;
+  font-weight: 500;
 }
 
 iframe {

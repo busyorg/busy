@@ -16,7 +16,9 @@ const TransferTransaction = ({ to, memo, amount, timestamp }) => (
           id="transferred_to"
           defaultMessage="Transferred to {username}"
           values={{
-            username: <Link to={`/@${to}`}>{to}</Link>,
+            username: (<Link to={`/@${to}`}>
+              <span className="username">{to}</span>
+            </Link>),
           }}
         />
         <span className="UserWalletTransactions__transfer">

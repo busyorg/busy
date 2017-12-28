@@ -1,25 +1,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Icon } from 'antd';
 import { injectIntl, FormattedMessage, FormattedNumber } from 'react-intl';
 import _ from 'lodash';
 import urlParse from 'url-parse';
-
-import { getUser } from '../../reducers';
+import { getUser, getRewardFund, getRate } from '../../reducers';
+import { getVoteValue } from '../../helpers/user';
 import { calculateVotingPower } from '../../vendor/steemitHelpers';
+import USDDisplay from '../../components/Utils/USDDisplay';
 
 @injectIntl
 @connect((state, ownProps) => ({
   user: getUser(state, ownProps.match.params.name),
+  rewardFund: getRewardFund(state),
+  rate: getRate(state),
 }))
 class UserInfo extends React.Component {
   static propTypes = {
     intl: PropTypes.shape().isRequired,
     user: PropTypes.shape().isRequired,
+    rewardFund: PropTypes.shape().isRequired,
+    rate: PropTypes.number.isRequired,
   };
 
   render() {
-    const { intl, user } = this.props;
+    const { intl, user, rewardFund, rate } = this.props;
     const location = user && _.get(user.json_metadata, 'profile.location');
     let website = user && _.get(user.json_metadata, 'profile.website');
 
@@ -32,6 +38,14 @@ class UserInfo extends React.Component {
     if (hostWithoutWWW.indexOf('www.') === 0) {
       hostWithoutWWW = hostWithoutWWW.slice(4);
     }
+
+    const voteWorth = getVoteValue(
+      user,
+      rewardFund.recent_claims,
+      rewardFund.reward_balance,
+      rate,
+      10000,
+    );
 
     return (
       <div>
@@ -75,6 +89,13 @@ class UserInfo extends React.Component {
                   value={calculateVotingPower(user)}
                   maximumFractionDigits={0}
                 />
+              </div>
+              <div>
+                <i className="iconfont icon-dollar text-icon" />
+                <FormattedMessage id="vote_value" defaultMessage="Vote Value" />
+                :
+                {' '}
+                {isNaN(voteWorth) ? <Icon type="loading" className="text-icon-right" /> : <USDDisplay value={voteWorth} />}
               </div>
             </div>
           </div>}

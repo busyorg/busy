@@ -1,0 +1,61 @@
+diff --git a/.eslintignore b/.eslintignore
+index ae26d51..749ab0b 100644
+--- a/.eslintignore
++++ b/.eslintignore
+@@ -12,6 +12,3 @@ busy.server.js
+ # TODO: Eventually should be linted as well
+ # Webpack
+ webpack/
+-
+-# Temporary
+-scripts/
+diff --git a/.eslintrc.js b/.eslintrc.js
+index bc40f7e..522c327 100644
+--- a/.eslintrc.js
++++ b/.eslintrc.js
+@@ -24,5 +24,6 @@ module.exports = {
+       { devDependencies: ['**/__tests__/*.js', 'scripts/**/*.js'] },
+     ],
+     'no-console': OFF,
++    'arrow-parens': [ERROR, 'as-needed'],
+   },
+ };
+diff --git a/circle.yml b/circle.yml
+index e6916a1..333b458 100644
+--- a/circle.yml
++++ b/circle.yml
+@@ -22,6 +22,9 @@ jobs:
+           name: lint
+           command: npm run lint
+       - run:
++          name: prettier
++          command: npm run prettier-check-all
++      - run:
+           name: test
+           command: npm run test
+       - run:
+diff --git a/package.json b/package.json
+index c76b1ec..b377463 100644
+--- a/package.json
++++ b/package.json
+@@ -9,7 +9,7 @@
+   "main": "./server",
+   "private": true,
+   "scripts": {
+-    "lint": "eslint \"src/**/*.js\"",
++    "lint": "node ./scripts/eslint/index.js all",
+     "linc": "node ./scripts/eslint/index.js",
+     "prettier": "node ./scripts/prettier/tasks/formatFiles.js",
+     "prettier-all": "node ./scripts/prettier/tasks/formatFiles.js all",
+@@ -33,8 +33,9 @@
+     "heroku-postbuild": "npm run build"
+   },
+   "pre-commit": [
+-    "test",
+-    "lint"
++    "linc",
++    "prettier-check",
++    "test"
+   ],
+   "dependencies": {
+     "antd": "^2.13.8",

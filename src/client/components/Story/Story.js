@@ -217,7 +217,9 @@ class Story extends React.Component {
             id="reblogged_username"
             defaultMessage="{username} reblogged"
             values={{
-              username: <Link to={`/@${post.first_reblogged_by}`}>{post.first_reblogged_by}</Link>,
+              username: (<Link to={`/@${post.first_reblogged_by}`}>
+                <span className="username">{post.first_reblogged_by}</span>
+              </Link>),
             }}
           />
         </div>
@@ -254,7 +256,7 @@ class Story extends React.Component {
               <span className="Story__header__flex">
                 <Link to={`/@${post.author}`}>
                   <h4>
-                    {post.author}
+                    <span className="username">{post.author}</span>
                     <Tooltip title={intl.formatMessage({ id: 'reputation_score' })}>
                       <Tag>{postAuthorReputation}</Tag>
                     </Tooltip>
