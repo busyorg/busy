@@ -100,7 +100,9 @@ class Buttons extends React.Component {
     const payout = calculatePayout(comment);
 
     const upVotes = getUpvotes(comment.active_votes).sort(sortVotes);
-    const downVotes = getDownvotes(comment.active_votes).sort(sortVotes).reverse();
+    const downVotes = getDownvotes(comment.active_votes)
+      .sort(sortVotes)
+      .reverse();
 
     const totalPayout =
       parseFloat(comment.pending_payout_value) +

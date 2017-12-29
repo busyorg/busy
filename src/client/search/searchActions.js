@@ -10,13 +10,11 @@ export const searchAskSteem = search => dispatch =>
     type: SEARCH_ASK_STEEM.ACTION,
     payload: {
       promise: Promise.all([
-        getAllSearchResultPages(search)
-          .then((response) => {
-            let mergedResults = [];
-            _.each(response, (element) => {
-              mergedResults = _.concat(mergedResults, element.results);
-            });
-
+        getAllSearchResultPages(search).then(response => {
+          let mergedResults = [];
+          _.each(response, element => {
+            mergedResults = _.concat(mergedResults, element.results);
+          });
             return _.reverse(_.sortBy(mergedResults, ['type', 'created']));
           }),
         getAccountReputation(search),

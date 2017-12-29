@@ -24,9 +24,11 @@ const getSavingsTransactionMessage = (transactionType, transactionDetails, amoun
           defaultMessage="Transfer to savings {amount} to {username}"
           values={{
             amount,
-            username: (<Link to={`/@${transactionDetails.to}`}>
-              <span className="username">{transactionDetails.to}</span>
-            </Link>),
+            username: (
+              <Link to={`/@${transactionDetails.to}`}>
+                <span className="username">{transactionDetails.to}</span>
+              </Link>
+            ),
           }}
         />
       );
@@ -37,9 +39,11 @@ const getSavingsTransactionMessage = (transactionType, transactionDetails, amoun
           defaultMessage="Transfer from savings {amount} to {username}"
           values={{
             amount,
-            username: (<Link to={`/@${transactionDetails.from}`}>
-              <span className="username">{transactionDetails.from}</span>
-            </Link>),
+            username: (
+              <Link to={`/@${transactionDetails.from}`}>
+                <span className="username">{transactionDetails.from}</span>
+              </Link>
+            ),
           }}
         />
       );
@@ -68,17 +72,16 @@ const SavingsTransaction = ({ timestamp, transactionType, transactionDetails, am
         <Tooltip
           title={
             <span>
-              <FormattedDate value={`${timestamp}Z`} />{' '}
-              <FormattedTime value={`${timestamp}Z`} />
+              <FormattedDate value={`${timestamp}Z`} /> <FormattedTime value={`${timestamp}Z`} />
             </span>
           }
         >
-          <span><FormattedRelative value={`${timestamp}Z`} /></span>
+          <span>
+            <FormattedRelative value={`${timestamp}Z`} />
+          </span>
         </Tooltip>
       </span>
-      <span className="UserWalletTransactions__memo">
-        {transactionDetails.memo}
-      </span>
+      <span className="UserWalletTransactions__memo">{transactionDetails.memo}</span>
     </div>
   </div>
 );

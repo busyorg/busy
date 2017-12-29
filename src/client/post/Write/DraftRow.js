@@ -51,18 +51,20 @@ class DraftRow extends React.Component {
           <div>
             <Link to={{ pathname: '/editor', search: `?draft=${id}` }}>
               <h3>
-                {draftTitle.length === 0
-                  ? <FormattedMessage id="draft_untitled" defaultMessage="Untitled draft" />
-                  : draftTitle}
+                {draftTitle.length === 0 ? (
+                  <FormattedMessage id="draft_untitled" defaultMessage="Untitled draft" />
+                ) : (
+                  draftTitle
+                )}
               </h3>
             </Link>
             <span className="DraftRow__date">
-              {hasLastUpdated &&
+              {hasLastUpdated && (
                 <span>
-                  <FormattedMessage id="last_updated" defaultMessage="Last updated" />
-                  {' '}
+                  <FormattedMessage id="last_updated" defaultMessage="Last updated" />{' '}
                   <FormattedRelative value={new Date(lastUpdated)} />
-                </span>}
+                </span>
+              )}
             </span>
           </div>
           <a role="presentation" onClick={this.showModal} className="DraftRow__delete">
@@ -70,8 +72,9 @@ class DraftRow extends React.Component {
             <FormattedMessage id="delete" defaultMessage="Delete" />
           </a>
         </div>
-        {this.state.showModalDelete &&
-          <DeleteDraftModal draftId={this.props.id} onCancel={this.hideModal} />}
+        {this.state.showModalDelete && (
+          <DeleteDraftModal draftId={this.props.id} onCancel={this.hideModal} />
+        )}
       </div>
     );
   }

@@ -52,7 +52,7 @@ class CryptoTrendingCharts extends React.Component {
       return false;
     }
 
-    _.each(cryptosPriceHistory, (cryptoDetails) => {
+    _.each(cryptosPriceHistory, cryptoDetails => {
       if (!_.isNull(cryptoDetails) && cryptoDetails.usdAPIError) {
         apiErrors.push(cryptoDetails);
       }

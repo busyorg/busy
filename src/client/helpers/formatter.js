@@ -1,4 +1,4 @@
-export const jsonParse = (str) => {
+export const jsonParse = str => {
   try {
     return jsonParse(JSON.parse(str));
   } catch (e) {

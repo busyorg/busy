@@ -32,7 +32,7 @@ export const addEditedPost = createAction(ADD_EDITED_POST);
 export const DELETE_EDITED_POST = '@editor/DELETE_EDITED_POST';
 export const deleteEditedPost = createAction(DELETE_EDITED_POST);
 
-export const saveDraft = (post, redirect) => (dispatch) => {
+export const saveDraft = (post, redirect) => dispatch => {
   if (redirect) dispatch(push(`/editor?draft=${post.id}`));
   return dispatch({
     type: SAVE_DRAFT,
@@ -52,7 +52,7 @@ export const deleteDraft = draftId => dispatch =>
     meta: { id: draftId },
   });
 
-export const editPost = post => (dispatch) => {
+export const editPost = post => dispatch => {
   const jsonMetadata = jsonParse(post.json_metadata);
   const draft = {
     ...post,
@@ -114,11 +114,12 @@ const broadcastComment = (
 
   if (referral) {
     commentOptionsConfig.extensions = [
-      [0, {
-        beneficiaries: [
-          { account: referral, weight: 1000 },
-        ],
-      }],
+      [
+        0,
+        {
+          beneficiaries: [{ account: referral, weight: 1000 }],
+        },
+      ],
     ];
   }
 
@@ -142,7 +143,7 @@ const broadcastComment = (
 };
 
 export function createPost(postData) {
-  requiredFields.forEach((field) => {
+  requiredFields.forEach(field => {
     assert(postData[field] != null, `Developer Error: Missing required field ${field}`);
   });
 
@@ -169,7 +170,12 @@ export function createPost(postData) {
 
     let referral;
     if (Cookie.get('referral')) {
-      const accountCreatedDaysAgo = (new Date().getTime() - new Date(`${getState().auth.user.created}Z`).getTime()) / 1000 / 60 / 60 / 24;
+      const accountCreatedDaysAgo =
+        (new Date().getTime() - new Date(`${getState().auth.user.created}Z`).getTime()) /
+        1000 /
+        60 /
+        60 /
+        24;
       if (accountCreatedDaysAgo < 30) {
         referral = Cookie.get('referral');
       }
@@ -191,7 +197,7 @@ export function createPost(postData) {
             !isUpdating && upvote,
             permlink,
             referral,
-          ).then((result) => {
+          ).then(result => {
             if (draftId) {
               dispatch(deleteDraft(draftId));
               dispatch(addEditedPost(permlink));

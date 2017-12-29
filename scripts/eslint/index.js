@@ -29,9 +29,7 @@ function lintFiles() {
   if (output !== '') console.log(output);
 
   const ignoredMessageCount = report.results.length - messages.length;
-  return (
-    report.warningCount - ignoredMessageCount === 0 && report.errorCount === 0
-  );
+  return report.warningCount - ignoredMessageCount === 0 && report.errorCount === 0;
 }
 
 console.log(onlyChanged ? 'Linting changed files...' : 'Linting files...');

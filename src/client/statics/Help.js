@@ -1,8 +1,8 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 
-export default () =>
-  (<div className="main-panel">
+export default () => (
+  <div className="main-panel">
     <div className="container text-center my-5">
       <h1>
         <FormattedMessage id="help" defaultMessage="Help" />
@@ -27,4 +27,5 @@ export default () =>
         </a>.
       </p>
     </div>
-  </div>);
+  </div>
+);

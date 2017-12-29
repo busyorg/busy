@@ -102,7 +102,7 @@ export default class Comments extends React.Component {
 
   getNestedComments = (commentsObj, commentsIdArray, nestedComments) => {
     const newNestedComments = nestedComments;
-    commentsIdArray.forEach((commentId) => {
+    commentsIdArray.forEach(commentId => {
       const nestedCommentArray = commentsObj.childrenById[commentId];
       if (nestedCommentArray.length) {
         newNestedComments[commentId] = nestedCommentArray.map(id => commentsObj.comments[id]);
@@ -125,7 +125,7 @@ export default class Comments extends React.Component {
     }
   };
 
-  handleDislikeClick = (id) => {
+  handleDislikeClick = id => {
     const { commentsList, pendingVotes, user } = this.props;
     if (pendingVotes[id]) return;
 

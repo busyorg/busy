@@ -30,7 +30,7 @@ export class FollowPure extends React.Component {
 
   onMouseOut = () => this.setState({ isHovered: false });
 
-  handleClick = (e) => {
+  handleClick = e => {
     e.preventDefault();
     if (this.props.pending) return;
     this.props.onClick(e);

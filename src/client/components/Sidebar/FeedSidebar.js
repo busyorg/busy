@@ -40,11 +40,12 @@ class FeedSidebar extends React.Component {
     return (
       <div>
         {!_.isEmpty(currentCrypto) && <CryptoTrendingCharts cryptos={[currentTag]} />}
-        {isAuthenticated &&
+        {isAuthenticated && (
           <InterestingPeople
             users={recommendations}
             onRefresh={this.handleInterestingPeopleRefresh}
-          />}
+          />
+        )}
       </div>
     );
   }

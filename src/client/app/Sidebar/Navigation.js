@@ -1,7 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getAuthenticatedUser, getIsTrendingTopicsLoading, getTrendingTopics } from '../../reducers';
+import {
+  getAuthenticatedUser,
+  getIsTrendingTopicsLoading,
+  getTrendingTopics,
+} from '../../reducers';
 
 import Topics from '../../components/Sidebar/Topics';
 import Sidenav from '../../components/Navigation/Sidenav';
@@ -19,10 +23,8 @@ Navigation.propTypes = {
   trendingTopics: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
-export default connect(
-  state => ({
-    authenticatedUser: getAuthenticatedUser(state),
-    trendingTopicsLoading: getIsTrendingTopicsLoading(state),
-    trendingTopics: getTrendingTopics(state),
-  }),
-)(Navigation);
+export default connect(state => ({
+  authenticatedUser: getAuthenticatedUser(state),
+  trendingTopicsLoading: getIsTrendingTopicsLoading(state),
+  trendingTopics: getTrendingTopics(state),
+}))(Navigation);

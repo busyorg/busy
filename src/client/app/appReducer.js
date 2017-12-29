@@ -2,9 +2,7 @@ import _ from 'lodash';
 import * as appTypes from './appActions';
 import * as authActions from '../auth/authActions';
 import * as postActions from '../post/postActions';
-import {
-  getCryptoPriceIncreaseDetails,
-} from '../helpers/cryptosHelper';
+import { getCryptoPriceIncreaseDetails } from '../helpers/cryptosHelper';
 
 const initialState = {
   isFetching: false,

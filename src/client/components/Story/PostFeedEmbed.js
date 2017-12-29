@@ -23,7 +23,7 @@ export default class PostFeedEmbed extends React.Component {
     };
   }
 
-  handleThumbClick = (e) => {
+  handleThumbClick = e => {
     e.preventDefault();
     this.setState({ showIframe: true });
   };

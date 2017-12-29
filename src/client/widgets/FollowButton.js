@@ -1,11 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import {
-  getAuthenticatedUserName,
-  getFollowingList,
-  getPendingFollows,
-} from '../reducers';
+import { getAuthenticatedUserName, getFollowingList, getPendingFollows } from '../reducers';
 import { followUser, unfollowUser } from '../user/userActions';
 import withAuthAction from '../auth/withAuthActions';
 import Follow from '../components/Button/Follow';

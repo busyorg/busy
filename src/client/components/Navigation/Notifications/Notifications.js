@@ -12,11 +12,11 @@ export const NOTIFICATION_REPLY = 'NOTIFICATION_REPLY';
 export const NOTIFICATION_TRANSFER = 'NOTIFICATION_TRANSFER';
 export const NOTIFICATION_MENTION = 'NOTIFICATION_MENTION';
 
-const Notifications = ({ onClick, onSeeAllClick, notifications }) =>
-  (<div className="Notifications">
+const Notifications = ({ onClick, onSeeAllClick, notifications }) => (
+  <div className="Notifications">
     <div className="Notifications__content">
       {notifications &&
-        notifications.map((notification) => {
+        notifications.map(notification => {
           if (notification.type === NOTIFICATION_FOLLOWING) {
             return (
               <NotificationFollowing
@@ -58,7 +58,8 @@ const Notifications = ({ onClick, onSeeAllClick, notifications }) =>
         <FormattedMessage id="see_all" defaultMessage="See All" />
       </a>
     </div>
-  </div>);
+  </div>
+);
 
 Notifications.propTypes = {
   onClick: PropTypes.func,

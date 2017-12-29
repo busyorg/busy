@@ -70,13 +70,13 @@ export default class Transfer extends React.Component {
     }
   }
 
-  handleBalanceClick = (event) => {
+  handleBalanceClick = event => {
     this.props.form.setFieldsValue({
       amount: parseFloat(event.currentTarget.innerText),
     });
   };
 
-  handleCurrencyChange = (event) => {
+  handleCurrencyChange = event => {
     const { form } = this.props;
     this.setState({ currency: event.target.value }, () =>
       form.validateFields(['amount'], { force: true }),
@@ -102,7 +102,7 @@ export default class Transfer extends React.Component {
 
   handleCancelClick = () => this.props.closeTransfer();
 
-  handleAmountChange = (event) => {
+  handleAmountChange = event => {
     const { value } = event.target;
     const { oldAmount } = this.state;
 
@@ -120,7 +120,12 @@ export default class Transfer extends React.Component {
     const recipientIsExchange = Transfer.exchangeRegex.test(this.props.form.getFieldValue('to'));
     if (recipientIsExchange && (!value || value === '')) {
       callback([
-        new Error(intl.formatMessage({ id: 'memo_error_exchange', defaultMessage: 'Memo is required when sending to an exchange.' })),
+        new Error(
+          intl.formatMessage({
+            id: 'memo_error_exchange',
+            defaultMessage: 'Memo is required when sending to an exchange.',
+          }),
+        ),
       ]);
     } else {
       callback();
@@ -279,7 +284,8 @@ export default class Transfer extends React.Component {
                   pattern: Transfer.amountRegex,
                   message: intl.formatMessage({
                     id: 'amount_error_format',
-                    defaultMessage: 'Incorrect format. Use comma or dot as decimal separator. Use at most 3 decimal places.',
+                    defaultMessage:
+                      'Incorrect format. Use comma or dot as decimal separator. Use at most 3 decimal places.',
                   }),
                 },
                 { validator: this.validateBalance },
@@ -295,7 +301,7 @@ export default class Transfer extends React.Component {
                 style={{ width: '100%' }}
               />,
             )}
-            {authenticated &&
+            {authenticated && (
               <FormattedMessage
                 id="balance_amount"
                 defaultMessage="Your balance: {amount}"
@@ -306,13 +312,12 @@ export default class Transfer extends React.Component {
                     </span>
                   ),
                 }}
-              />}
+              />
+            )}
           </Form.Item>
           <Form.Item label={<FormattedMessage id="memo" defaultMessage="Memo" />}>
             {getFieldDecorator('memo', {
-              rules: [
-                { validator: this.validateMemo },
-              ],
+              rules: [{ validator: this.validateMemo }],
             })(
               <Input.TextArea
                 autosize={{ minRows: 2, maxRows: 6 }}

@@ -16,30 +16,32 @@ const ReceiveTransaction = ({ from, memo, amount, timestamp }) => (
           id="received_from"
           defaultMessage="Received from {username}"
           values={{
-            username: (<Link to={`/@${from}`}>
-              <span className="username">{from}</span>
-            </Link>),
+            username: (
+              <Link to={`/@${from}`}>
+                <span className="username">{from}</span>
+              </Link>
+            ),
           }}
         />
         <span className="UserWalletTransactions__received">
-          {'+ '}{amount}
+          {'+ '}
+          {amount}
         </span>
       </div>
       <span className="UserWalletTransactions__timestamp">
         <Tooltip
           title={
             <span>
-              <FormattedDate value={`${timestamp}Z`} />{' '}
-              <FormattedTime value={`${timestamp}Z`} />
+              <FormattedDate value={`${timestamp}Z`} /> <FormattedTime value={`${timestamp}Z`} />
             </span>
           }
         >
-          <span><FormattedRelative value={`${timestamp}Z`} /></span>
+          <span>
+            <FormattedRelative value={`${timestamp}Z`} />
+          </span>
         </Tooltip>
       </span>
-      <span className="UserWalletTransactions__memo">
-        {memo}
-      </span>
+      <span className="UserWalletTransactions__memo">{memo}</span>
     </div>
   </div>
 );
