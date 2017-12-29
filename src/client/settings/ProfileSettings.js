@@ -1,8 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
+import { connect } from 'react-redux';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { Form, Input } from 'antd';
 import SteemConnect from '../steemConnectAPI';
+import { getIsReloading, getAuthenticatedUser } from '../reducers';
 import Action from '../components/Button/Action';
 import Affix from '../components/Utils/Affix';
 import LeftSidebar from '../app/Sidebar/LeftSidebar';
@@ -11,9 +14,32 @@ import './Settings.less';
 
 const FormItem = Form.Item;
 
+function mapPropsToFields(props) {
+  let metadata = _.attempt(JSON.parse, props.user.json_metadata);
+  if (_.isError(metadata)) metadata = {};
+
+  const profile = metadata.profile || {};
+
+  return Object.keys(profile).reduce(
+    (a, b) => ({
+      ...a,
+      [b]: {
+        value: profile[b],
+      },
+    }),
+    {},
+  );
+}
+
 @requiresLogin
 @injectIntl
-@Form.create()
+@connect(state => ({
+  user: getAuthenticatedUser(state),
+  reloading: getIsReloading(state),
+}))
+@Form.create({
+  mapPropsToFields,
+})
 export default class ProfileSettings extends React.Component {
   static propTypes = {
     intl: PropTypes.shape().isRequired,
