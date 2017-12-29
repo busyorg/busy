@@ -15,8 +15,8 @@ export const searchAskSteem = search => dispatch =>
           _.each(response, element => {
             mergedResults = _.concat(mergedResults, element.results);
           });
-            return _.reverse(_.sortBy(mergedResults, ['type', 'created']));
-          }),
+          return _.reverse(_.sortBy(mergedResults, ['type', 'created']));
+        }),
         getAccountReputation(search),
       ]),
     },
