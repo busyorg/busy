@@ -64,15 +64,21 @@ export default class ProfileSettings extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.form.validateFields((err, values) => {
+    const { form } = this.props;
+
+    if (!form.isFieldsTouched()) return;
+
+    form.validateFields((err, values) => {
       if (!err) {
-        const cleanValues = Object.keys(values).reduce(
-          (a, b) => ({
-            ...a,
-            [b]: values[b] || '',
-          }),
-          {},
-        );
+        const cleanValues = Object.keys(values)
+          .filter(field => form.isFieldTouched(field))
+          .reduce(
+            (a, b) => ({
+              ...a,
+              [b]: values[b] || '',
+            }),
+            {},
+          );
         const win = window.open(SteemConnect.sign('profile-update', cleanValues), '_blank');
         win.focus();
       }
@@ -216,6 +222,7 @@ export default class ProfileSettings extends React.Component {
               <Action
                 primary
                 type="submit"
+                disabled={!form.isFieldsTouched()}
                 text={this.props.intl.formatMessage({ id: 'save', defaultMessage: 'Save' })}
               />
             </Form>
