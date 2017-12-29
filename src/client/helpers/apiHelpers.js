@@ -124,7 +124,6 @@ export const isWalletTransaction = actionType =>
 export const getAccountReputation = (name, limit = 20) =>
   SteemAPI.sendAsync('call', ['follow_api', 'get_account_reputations', [name, limit]]);
 
-
 export const getAllSearchResultPages = search => {
   const promises = [];
 
