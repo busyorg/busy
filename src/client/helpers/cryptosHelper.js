@@ -8,7 +8,7 @@ export function getCryptoDetails(cryptoQuery) {
     return getCryptoBySymbol;
   }
 
-  const cryptoDetails = _.find(CRYPTO_MAP, (crypto) => {
+  const cryptoDetails = _.find(CRYPTO_MAP, crypto => {
     const formattedCryptoName = _.toLower(crypto.name).replace(/\s/g, ''); // lowercase & remove spaces
     const formattedCryptoSymbol = _.toLower(crypto.symbol);
     const matchesCryptoId = crypto.id === cryptoQuery;
@@ -20,7 +20,7 @@ export function getCryptoDetails(cryptoQuery) {
   return cryptoDetails || {};
 }
 
-export const getCurrentDaysOfTheWeek = (currentLocale) => {
+export const getCurrentDaysOfTheWeek = currentLocale => {
   const today = new Date();
   const daysOfTheWeek = [];
   const locale = _.isEmpty(currentLocale) ? window.navigator.language : currentLocale;

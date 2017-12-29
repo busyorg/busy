@@ -10,7 +10,7 @@ function decodeEntities(body) {
   return body.replace(/&lt;/g, '<').replace(/&gt;/g, '>');
 }
 
-const BodyShort = (props) => {
+const BodyShort = props => {
   let body = striptags(remarkable.render(striptags(decodeEntities(props.body))));
   body = body.replace(/(?:https?|ftp):\/\/[\S]+/g, '');
 

@@ -184,7 +184,7 @@ export default class Settings extends React.Component {
       );
     }
 
-    Object.keys(this.languages).forEach((key) => {
+    Object.keys(this.languages).forEach(key => {
       languageOptions.push(
         <Select.Option key={key} value={key}>
           {this.languages[key]}
@@ -297,7 +297,8 @@ export default class Settings extends React.Component {
                   text={this.props.intl.formatMessage({ id: 'save', defaultMessage: 'Save' })}
                   onClick={this.handleSave}
                 />
-              </div>)}
+              </div>
+            )}
           </div>
         </div>
       </div>

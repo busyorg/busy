@@ -197,7 +197,7 @@ class StoryFull extends React.Component {
               />
             </Link>
           </h4>
-          {post.depth > 1 &&
+          {post.depth > 1 && (
             <h4>
               <Link to={`/${post.category}/@${post.parent_author}/${post.parent_permlink}`}>
                 <FormattedMessage
@@ -205,7 +205,8 @@ class StoryFull extends React.Component {
                   defaultMessage="Show parent discussion"
                 />
               </Link>
-            </h4>}
+            </h4>
+          )}
         </div>
       );
     }
@@ -254,7 +255,7 @@ class StoryFull extends React.Component {
       content = (
         <div
           role="presentation"
-          ref={(div) => {
+          ref={div => {
             this.contentDiv = div;
           }}
           onClick={this.handleContentClick}
@@ -280,17 +281,19 @@ class StoryFull extends React.Component {
         <h1 className="StoryFull__title">{post.title}</h1>
         <h3 className="StoryFull__comments_title">
           <a href="#comments">
-            {commentCount === 1
-              ? <FormattedMessage
+            {commentCount === 1 ? (
+              <FormattedMessage
                 id="comment_count"
                 values={{ count: <FormattedNumber value={commentCount} /> }}
                 defaultMessage="{count} comment"
               />
-              : <FormattedMessage
+            ) : (
+              <FormattedMessage
                 id="comments_count"
                 values={{ count: <FormattedNumber value={commentCount} /> }}
                 defaultMessage="{count} comments"
-              />}
+              />
+            )}
           </a>
         </h3>
         <div className="StoryFull__header">
@@ -324,7 +327,7 @@ class StoryFull extends React.Component {
             <span className="StoryFull__posted_from">
               <PostedFrom post={post} />
             </span>
-            {Math.ceil(readingTime(post.body).minutes) > 1 &&
+            {Math.ceil(readingTime(post.body).minutes) > 1 && (
               <span>
                 <span className="StoryFull__bullet" />
                 <Tooltip
@@ -346,7 +349,8 @@ class StoryFull extends React.Component {
                     />
                   </span>
                 </Tooltip>
-              </span>}
+              </span>
+            )}
           </div>
           <Popover
             placement="bottomRight"
@@ -380,14 +384,16 @@ class StoryFull extends React.Component {
                   ...this.state.lightbox,
                   index: (index + (images.length - 1)) % images.length,
                 },
-              })}
+              })
+            }
             onMoveNextRequest={() =>
               this.setState({
                 lightbox: {
                   ...this.state.lightbox,
                   index: (index + (images.length + 1)) % images.length,
                 },
-              })}
+              })
+            }
           />
         )}
         <div className="StoryFull__topics">

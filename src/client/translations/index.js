@@ -7,8 +7,48 @@ export function getDefaultTranslation() {
   return enTranslations;
 }
 
-export const availableLocales = ['en', 'cs', 'es', 'zh', 'fr', 'de', 'ru', 'ko', 'nl', 'sl', 'sv', 'pl', 'ar', 'tr', 'ro', 'ja', 'fil', 'th',
-  'lo', 'id', 'ms', 'da', 'it', 'no', 'pt', 'vi', 'el', 'bg', 'uk', 'he', 'hi', 'ca', 'et', 'as', 'ta', 'bn', 'ne', 'yo', 'hr', 'hu'];
+export const availableLocales = [
+  'en',
+  'cs',
+  'es',
+  'zh',
+  'fr',
+  'de',
+  'ru',
+  'ko',
+  'nl',
+  'sl',
+  'sv',
+  'pl',
+  'ar',
+  'tr',
+  'ro',
+  'ja',
+  'fil',
+  'th',
+  'lo',
+  'id',
+  'ms',
+  'da',
+  'it',
+  'no',
+  'pt',
+  'vi',
+  'el',
+  'bg',
+  'uk',
+  'he',
+  'hi',
+  'ca',
+  'et',
+  'as',
+  'ta',
+  'bn',
+  'ne',
+  'yo',
+  'hr',
+  'hu',
+];
 
 export const getBrowserLocale = () => {
   let detectedLocale;
@@ -24,7 +64,7 @@ export const getBrowserLocale = () => {
   return undefined;
 };
 
-export const getAvailableLocale = (appLocale) => {
+export const getAvailableLocale = appLocale => {
   let locale = appLocale || 'auto';
 
   if (appLocale === 'auto') {
@@ -38,7 +78,7 @@ export const getAvailableLocale = (appLocale) => {
   return 'en';
 };
 
-export const loadTranslations = async (store) => {
+export const loadTranslations = async store => {
   const state = store.getState();
   const availableLocale = getAvailableLocale(getLocale(state));
 

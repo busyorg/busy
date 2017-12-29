@@ -71,8 +71,9 @@ export default class Buttons extends React.Component {
     if (nextProps.postState.isReblogging !== this.props.postState.isReblogging) {
       this.setState({
         shareModalLoading: nextProps.postState.isReblogging,
-        shareModalVisible: !(!nextProps.postState.isReblogging &&
-          this.props.postState.isReblogging) && this.state.shareModalVisible,
+        shareModalVisible:
+          !(!nextProps.postState.isReblogging && this.props.postState.isReblogging) &&
+          this.state.shareModalVisible,
       });
     }
   }
@@ -129,7 +130,9 @@ export default class Buttons extends React.Component {
     const { intl, post, postState, pendingLike, ownPost, defaultVotePercent } = this.props;
 
     const upVotes = getUpvotes(post.active_votes).sort(sortVotes);
-    const downVotes = getDownvotes(post.active_votes).sort(sortVotes).reverse();
+    const downVotes = getDownvotes(post.active_votes)
+      .sort(sortVotes)
+      .reverse();
 
     const totalPayout =
       parseFloat(post.pending_payout_value) +
@@ -142,33 +145,32 @@ export default class Buttons extends React.Component {
       <p key={vote.voter}>
         <Link to={`/@${vote.voter}`}>{vote.voter}</Link>
 
-        {vote.rshares * ratio > 0.01 &&
+        {vote.rshares * ratio > 0.01 && (
           <span style={{ opacity: '0.5' }}>
             {' '}
             <USDDisplay value={vote.rshares * ratio} />
-          </span>}
+          </span>
+        )}
       </p>
     ));
     const upVotesDiff = upVotes.length - upVotesPreview.length;
-    const upVotesMore =
-      upVotesDiff > 0 && (
-        <p>
-          <a role="presentation" onClick={this.handleShowReactions}>
-            <FormattedMessage
-              id="and_more_amount"
-              defaultMessage="and {amount} more"
-              values={{ amount: upVotesDiff }}
-            />
-          </a>
-        </p>
-      );
+    const upVotesMore = upVotesDiff > 0 && (
+      <p>
+        <a role="presentation" onClick={this.handleShowReactions}>
+          <FormattedMessage
+            id="and_more_amount"
+            defaultMessage="and {amount} more"
+            values={{ amount: upVotesDiff }}
+          />
+        </a>
+      </p>
+    );
 
     const likeClass = classNames({ active: postState.isLiked, Buttons__link: true });
     const rebloggedClass = classNames({ active: postState.isReblogged, Buttons__link: true });
 
-    const commentsLink = post.url.indexOf('#') !== -1
-      ? post.url
-      : { pathname: post.url, hash: '#comments' };
+    const commentsLink =
+      post.url.indexOf('#') !== -1 ? post.url : { pathname: post.url, hash: '#comments' };
     const showEditLink = ownPost && post.cashout_time !== '1969-12-31T23:59:59';
     const showReblogLink = !ownPost && post.parent_author === '';
 
@@ -195,12 +197,11 @@ export default class Buttons extends React.Component {
           <a role="presentation" className={likeClass} onClick={this.handleLikeClick}>
             {pendingLike ? (
               <Icon type="loading" />
-            )
-              : (
-                <i
-                  className={`iconfont icon-${this.state.sliderVisible ? 'right' : 'praise_fill'}`}
-                />
-              )}
+            ) : (
+              <i
+                className={`iconfont icon-${this.state.sliderVisible ? 'right' : 'praise_fill'}`}
+              />
+            )}
           </a>
         </Tooltip>
         <span
@@ -215,8 +216,9 @@ export default class Buttons extends React.Component {
               <div>
                 {upVotesPreview}
                 {upVotesMore}
-                {upVotesPreview.length === 0 &&
-                  <FormattedMessage id="no_likes" defaultMessage="No likes yet" />}
+                {upVotesPreview.length === 0 && (
+                  <FormattedMessage id="no_likes" defaultMessage="No likes yet" />
+                )}
               </div>
             }
           >
@@ -246,9 +248,11 @@ export default class Buttons extends React.Component {
         )}
         {showEditLink && (
           <a role="presentation" className="Buttons__link" onClick={this.handleEdit}>
-            {this.state.loadingEdit
-              ? <Icon type="loading" />
-              : <i className="iconfont icon-write" />}
+            {this.state.loadingEdit ? (
+              <Icon type="loading" />
+            ) : (
+              <i className="iconfont icon-write" />
+            )}
             <FormattedMessage id="edit" defaultMessage="Edit" />
           </a>
         )}

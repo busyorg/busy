@@ -9,7 +9,8 @@ import steemAPI from '../../steemAPI';
 import './InterestingPeople.less';
 import './SidebarContentBlock.less';
 
-@withRouter class InterestingPeopleWithAPI extends React.Component {
+@withRouter
+class InterestingPeopleWithAPI extends React.Component {
   static propTypes = {
     authenticatedUser: PropTypes.shape({
       name: PropTypes.string,
@@ -57,7 +58,7 @@ import './SidebarContentBlock.less';
   getBlogAuthors = (username = '') =>
     steemAPI
       .sendAsync('call', ['follow_api', 'get_blog_authors', [username]])
-      .then((result) => {
+      .then(result => {
         const users = _.sortBy(result, user => user[1])
           .reverse()
           .slice(0, 5)

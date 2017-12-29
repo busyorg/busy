@@ -212,26 +212,26 @@ class Topnav extends React.Component {
     const formattedAutoCompleteDropdown = _.isEmpty(dropdownOptions)
       ? dropdownOptions
       : dropdownOptions.concat([
-        <AutoComplete.Option disabled key="all" className="Topnav__search-all-results">
-          <Link
-            to={{
-              pathname: '/search',
-              search: `?q=${searchBarValue}`,
-              state: { query: searchBarValue },
-            }}
-          >
-            <span onClick={this.hideAutoCompleteDropdown} role="presentation">
-              {intl.formatMessage(
-                {
-                  id: 'search_all_results_for',
-                  defaultMessage: 'Search all results for {search}',
-                },
-                { search: searchBarValue },
-              )}
-            </span>
-          </Link>
-        </AutoComplete.Option>,
-      ]);
+          <AutoComplete.Option disabled key="all" className="Topnav__search-all-results">
+            <Link
+              to={{
+                pathname: '/search',
+                search: `?q=${searchBarValue}`,
+                state: { query: searchBarValue },
+              }}
+            >
+              <span onClick={this.hideAutoCompleteDropdown} role="presentation">
+                {intl.formatMessage(
+                  {
+                    id: 'search_all_results_for',
+                    defaultMessage: 'Search all results for {search}',
+                  },
+                  { search: searchBarValue },
+                )}
+              </span>
+            </Link>
+          </AutoComplete.Option>,
+        ]);
 
     return (
       <div className="Topnav">
@@ -257,7 +257,7 @@ class Topnav extends React.Component {
                 value={searchBarValue}
               >
                 <Input
-                  ref={(ref) => {
+                  ref={ref => {
                     this.searchInputRef = ref;
                   }}
                   onPressEnter={this.handleSearchForInput}

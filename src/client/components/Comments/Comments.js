@@ -61,7 +61,7 @@ class Comments extends React.Component {
     };
   }
 
-  handleSortClick = (e) => {
+  handleSortClick = e => {
     const type = e.target.parentNode && e.target.parentNode.dataset.type;
     if (type) {
       this.setState({
@@ -106,7 +106,11 @@ class Comments extends React.Component {
     this.props
       .onSendComment(parentPost, commentValue)
       .then(() => {
-        this.setState({ showCommentFormLoading: false, commentFormText: '', commentSubmitted: true });
+        this.setState({
+          showCommentFormLoading: false,
+          commentFormText: '',
+          commentSubmitted: true,
+        });
       })
       .catch(() => {
         this.setState({
@@ -167,7 +171,8 @@ class Comments extends React.Component {
             submitted={this.state.commentSubmitted}
             onImageInserted={this.handleImageInserted}
             onImageInvalid={this.handleImageInvalid}
-          />)}
+          />
+        )}
         {loading && <Loading />}
         {!loading &&
           show &&

@@ -134,9 +134,11 @@ class UserActivity extends React.Component {
 
     return (
       <div>
-        {actions.length === 0 || usersAccountHistoryLoading || loadingGlobalProperties
-          ? <Loading style={{ marginTop: '20px' }} />
-          : <UserActivityActions isCurrentUser={isCurrentUser} />}
+        {actions.length === 0 || usersAccountHistoryLoading || loadingGlobalProperties ? (
+          <Loading style={{ marginTop: '20px' }} />
+        ) : (
+          <UserActivityActions isCurrentUser={isCurrentUser} />
+        )}
       </div>
     );
   }

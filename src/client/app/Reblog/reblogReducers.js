@@ -15,10 +15,7 @@ const reblogReducer = (state = initialState, action) => {
     case reblogActions.REBLOG_POST_START:
       return {
         ...state,
-        pendingReblogs: [
-          ...state.pendingReblogs,
-          action.meta.postId,
-        ],
+        pendingReblogs: [...state.pendingReblogs, action.meta.postId],
       };
     case reblogActions.REBLOG_POST_SUCCESS:
     case reblogActions.REBLOG_POST_ERROR:

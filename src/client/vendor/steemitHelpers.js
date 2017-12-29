@@ -72,7 +72,7 @@ export const calculatePayout = post => {
 
   if (cashout_active) {
     // Append ".000Z" to make it ISO format (YYYY-MM-DDTHH:mm:ss.sssZ).
-    payoutDetails.cashoutInTime = cashout_time + ".000Z";
+    payoutDetails.cashoutInTime = cashout_time + '.000Z';
   }
 
   if (max_payout === 0) {
@@ -117,7 +117,8 @@ export function createPermlink(title, author, parent_author, parent_permlink) {
       s = base58.encode(secureRandom.randomBuffer(4));
     }
 
-    return steemAPI.sendAsync('get_content', [author, s])
+    return steemAPI
+      .sendAsync('get_content', [author, s])
       .then(content => {
         let prefix;
         if (content.body !== '') {
@@ -167,43 +168,48 @@ export function getBodyPatchIfSmaller(originalBody, body) {
 /**
  * https://github.com/aaroncox/chainbb/blob/fcb09bee716e907c789a6494975093361482fb4f/services/frontend/src/components/elements/post/button/vote/options.js#L69
  */
-export const calculateVoteValue = (vests, recentClaims, rewardBalance, rate, vp = 10000, weight = 10000) => {
+export const calculateVoteValue = (
+  vests,
+  recentClaims,
+  rewardBalance,
+  rate,
+  vp = 10000,
+  weight = 10000,
+) => {
   const vestingShares = parseInt(vests * 1e6, 10);
-  const power = (((vp * weight) / 10000) / 50);
-  const rshares = (power * vestingShares) / 10000;
+  const power = vp * weight / 10000 / 50;
+  const rshares = power * vestingShares / 10000;
   return rshares / recentClaims * rewardBalance * rate;
 };
 
 export const calculateTotalDelegatedSP = (user, totalVestingShares, totalVestingFundSteem) => {
   const receivedSP = parseFloat(
-    formatter.vestToSteem(
-      user.received_vesting_shares,
-      totalVestingShares,
-      totalVestingFundSteem,
-    ),
+    formatter.vestToSteem(user.received_vesting_shares, totalVestingShares, totalVestingFundSteem),
   );
   const delegatedSP = parseFloat(
-    formatter.vestToSteem(
-      user.delegated_vesting_shares,
-      totalVestingShares,
-      totalVestingFundSteem,
-    ),
+    formatter.vestToSteem(user.delegated_vesting_shares, totalVestingShares, totalVestingFundSteem),
   );
   return receivedSP - delegatedSP;
 };
 
-export const calculateVotingPower = (user) => {
-  const secondsago = (new Date().getTime() - new Date(user.last_vote_time + "Z").getTime()) / 1000;
-  return Math.min(10000, (user.voting_power + (10000 * secondsago / 432000))) / 10000;
+export const calculateVotingPower = user => {
+  const secondsago = (new Date().getTime() - new Date(user.last_vote_time + 'Z').getTime()) / 1000;
+  return Math.min(10000, user.voting_power + 10000 * secondsago / 432000) / 10000;
 };
 
-
-export const calculateEstAccountValue = (user, totalVestingShares, totalVestingFundSteem, steemRate) => {
+export const calculateEstAccountValue = (
+  user,
+  totalVestingShares,
+  totalVestingFundSteem,
+  steemRate,
+) => {
   const steemPower = formatter.vestToSteem(
     user.vesting_shares,
     totalVestingShares,
     totalVestingFundSteem,
   );
-  return parseFloat(steemRate) * (parseFloat(user.balance) + parseFloat(steemPower)) +
-    parseFloat(user.sbd_balance);
+  return (
+    parseFloat(steemRate) * (parseFloat(user.balance) + parseFloat(steemPower)) +
+    parseFloat(user.sbd_balance)
+  );
 };

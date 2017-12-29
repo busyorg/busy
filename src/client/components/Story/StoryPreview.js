@@ -39,9 +39,9 @@ const StoryPreview = ({ post }) => {
     embeds[0] = {
       type: 'video',
       provider_name: 'DTube',
-      embed: `<video controls="true" autoplay="true" src="https://ipfs.io/ipfs/${video.content
-        .videohash}" poster="https://ipfs.io/ipfs/${video.info
-        .snaphash}"><track kind="captions" /></video>`,
+      embed: `<video controls="true" autoplay="true" src="https://ipfs.io/ipfs/${
+        video.content.videohash
+      }" poster="https://ipfs.io/ipfs/${video.info.snaphash}"><track kind="captions" /></video>`,
       thumbnail: getProxyImageURL(`https://ipfs.io/ipfs/${video.info.snaphash}`, 'preview'),
     };
   }

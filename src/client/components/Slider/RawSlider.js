@@ -43,13 +43,13 @@ class RawSlider extends React.Component {
     100: '100%',
   };
 
-  handlePresetChange = (event) => {
+  handlePresetChange = event => {
     this.setState({ value: event.target.value }, () => {
       this.props.onChange(event.target.value);
     });
   };
 
-  handleChange = (value) => {
+  handleChange = value => {
     this.setState({ value }, () => {
       this.props.onChange(value);
     });

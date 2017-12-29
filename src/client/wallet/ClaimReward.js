@@ -95,12 +95,13 @@ const ClaimReward = ({
         <Tooltip
           title={
             <span>
-              <FormattedDate value={`${timestamp}Z`} />{' '}
-              <FormattedTime value={`${timestamp}Z`} />
+              <FormattedDate value={`${timestamp}Z`} /> <FormattedTime value={`${timestamp}Z`} />
             </span>
           }
         >
-          <span><FormattedRelative value={`${timestamp}Z`} /></span>
+          <span>
+            <FormattedRelative value={`${timestamp}Z`} />
+          </span>
         </Tooltip>
       </span>
     </div>

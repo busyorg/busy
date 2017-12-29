@@ -9,7 +9,7 @@
   "main": "./server",
   "private": true,
   "scripts": {
-    "lint": "eslint \"src/**/*.js\"",
+    "lint": "node ./scripts/eslint/index.js all",
     "linc": "node ./scripts/eslint/index.js",
     "prettier": "node ./scripts/prettier/tasks/formatFiles.js",
     "prettier-all": "node ./scripts/prettier/tasks/formatFiles.js all",
@@ -33,8 +33,9 @@
     "heroku-postbuild": "npm run build"
   },
   "pre-commit": [
-    "test",
-    "lint"
+    "linc",
+    "prettier-check",
+    "test"
   ],
   "dependencies": {
     "antd": "^2.13.8",
@@ -147,10 +148,12 @@
     "enzyme-adapter-react-16": "^1.0.4",
     "eslint": "^4.3.0",
     "eslint-config-airbnb": "^15.1.0",
+    "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-jest": "^20.0.3",
     "eslint-plugin-jsx-a11y": "^5.1.1",
     "eslint-plugin-react": "^7.1.0",
+    "glob": "^7.1.2",
     "jest": "^21.3.0-beta.8",
     "minimatch": "^3.0.4",
     "pre-commit": "^1.2.2",

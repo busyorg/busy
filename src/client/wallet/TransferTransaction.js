@@ -16,30 +16,32 @@ const TransferTransaction = ({ to, memo, amount, timestamp }) => (
           id="transferred_to"
           defaultMessage="Transferred to {username}"
           values={{
-            username: (<Link to={`/@${to}`}>
-              <span className="username">{to}</span>
-            </Link>),
+            username: (
+              <Link to={`/@${to}`}>
+                <span className="username">{to}</span>
+              </Link>
+            ),
           }}
         />
         <span className="UserWalletTransactions__transfer">
-          {'- '}{amount}
+          {'- '}
+          {amount}
         </span>
       </div>
       <span className="UserWalletTransactions__timestamp">
         <Tooltip
           title={
             <span>
-              <FormattedDate value={`${timestamp}Z`} />{' '}
-              <FormattedTime value={`${timestamp}Z`} />
+              <FormattedDate value={`${timestamp}Z`} /> <FormattedTime value={`${timestamp}Z`} />
             </span>
           }
         >
-          <span><FormattedRelative value={`${timestamp}Z`} /></span>
+          <span>
+            <FormattedRelative value={`${timestamp}Z`} />
+          </span>
         </Tooltip>
       </span>
-      <span className="UserWalletTransactions__memo">
-        {memo}
-      </span>
+      <span className="UserWalletTransactions__memo">{memo}</span>
     </div>
   </div>
 );
