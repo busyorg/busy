@@ -115,7 +115,7 @@ class Topnav extends React.Component {
             <Popover
               placement="bottom"
               trigger="click"
-              overlayStyle={{ position: fixed }}
+              overlayStyle={{ position: 'fixed' }}
               content={
                 <PopoverMenu onSelect={onMenuItemClick}>
                   <PopoverMenuItem key="my-profile" fullScreenHidden>
