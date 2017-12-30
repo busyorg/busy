@@ -45,6 +45,7 @@ class Topnav extends React.Component {
     this.state = {
       searchBarActive: false,
       searchBarValue: '',
+      popoverVisible: false,
     };
 
     this.handleSelectOnAutoCompleteDropdown = this.handleSelectOnAutoCompleteDropdown.bind(this);
