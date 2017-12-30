@@ -36,7 +36,7 @@ class Topnav extends React.Component {
 
   static defaultProps = {
     autoCompleteSearchResults: [],
-    username: undefined,    
+    username: undefined,
     onMenuItemClick: () => {},
   };
 
@@ -45,8 +45,8 @@ class Topnav extends React.Component {
 
     this.state = {
       searchBarActive: false,
-      searchBarValue: '',
       popoverVisible: false,
+      searchBarValue: '',
     };
 
     this.handleSelectOnAutoCompleteDropdown = this.handleSelectOnAutoCompleteDropdown.bind(this);
@@ -55,15 +55,15 @@ class Topnav extends React.Component {
     this.handleOnChangeForAutoComplete = this.handleOnChangeForAutoComplete.bind(this);
     this.hideAutoCompleteDropdown = this.hideAutoCompleteDropdown.bind(this);
   }
-
-  onMenuItemsClick = key => {
+  
+  onSelect = key => {
     this.setState({ popoverVisible: false }, () => {
       this.props.onMenuItemClick(key);
     });
   };
-  
+
   onVisibleChange = visible => this.setState({ popoverVisible: visible });
-  
+
   menuForLoggedOut = () => {
     const { location } = this.props;
     const { searchBarActive } = this.state;
@@ -95,7 +95,7 @@ class Topnav extends React.Component {
   };
 
   menuForLoggedIn = () => {
-    const { intl, username } = this.props;
+    const { intl, username, onMenuItemClick } = this.props;
     const { searchBarActive } = this.state;
     const { popoverVisible } = this.state;
     return (
@@ -129,7 +129,7 @@ class Topnav extends React.Component {
               onVisibleChange={this.onVisibleChange}
               overlayStyle={{ position: 'fixed' }}
               content={
-                <PopoverMenu onSelect={this.onMenuItemsClick}>
+                <PopoverMenu onSelect={this.onSelect}>
                   <PopoverMenuItem key="my-profile" fullScreenHidden>
                     <FormattedMessage id="my_profile" defaultMessage="My profile" />
                   </PopoverMenuItem>
