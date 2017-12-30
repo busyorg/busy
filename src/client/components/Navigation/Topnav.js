@@ -54,13 +54,15 @@ class Topnav extends React.Component {
     this.handleOnChangeForAutoComplete = this.handleOnChangeForAutoComplete.bind(this);
     this.hideAutoCompleteDropdown = this.hideAutoCompleteDropdown.bind(this);
   }
-  onMenuItemClick = key => {
-      this.setState({ popoverVisible: false }, () => {
-        this.props.onMenuItemClick(key);
-      });
-    };
-  onVisibleChange = visible => this.setState({ popoverVisible: visible });
 
+  onMenuItemClick = key => {
+    this.setState({ popoverVisible: false }, () => {
+      this.props.onMenuItemClick(key);
+    });
+  };
+  
+  onVisibleChange = visible => this.setState({ popoverVisible: visible });
+  
   menuForLoggedOut = () => {
     const { location } = this.props;
     const { searchBarActive } = this.state;
