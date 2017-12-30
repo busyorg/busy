@@ -102,6 +102,7 @@
   "edit": "திருத்து",
   "show_more": "மேலும் பார்க்க",
   "show_less": "குறைவாக பார்க்கவும்",
+  "vote_value": "Vote Value",
   "voting_power": "வாக்களிக்கும் திறன்",
   "voting_power_info": "You can enable Voting Power slider to specify exact percentage of your Voting Power to use for like.",
   "voting_power_off": "Disable slider",
