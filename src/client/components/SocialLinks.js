@@ -12,6 +12,17 @@ export const socialProfiles = [
   { id: 'ethereum', icon: 'ethereum', color: '#3c3c3d', name: 'Ethereum' },
 ];
 
+export const socialTransformers = {
+  facebook: id => `https://facebook.com/${id}`,
+  twitter: id => `https://twitter.com/${id}`,
+  instagram: id => `https://instagram.com/${id}`,
+  github: id => `https://github.com/${id}`,
+  bitcoin: id => `https://blockchain.info/address/${id}`,
+  ethereum: id => `https://etherscan.io/address/${id}`,
+};
+
+const transform = (socialId, id) => socialTransformers[socialId](id);
+
 const SocialLinks = ({ profile }) => {
   const union = _.intersection(
     socialProfiles.map(socialProfile => socialProfile.id),
@@ -28,7 +39,7 @@ const SocialLinks = ({ profile }) => {
         <SocialLink
           key={socialProfile.id}
           profile={socialProfile}
-          url={profile[socialProfile.id]}
+          url={transform(socialProfile.id, profile[socialProfile.id])}
         />
       ))}
     </div>
