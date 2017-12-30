@@ -55,6 +55,8 @@ class Topnav extends React.Component {
     this.hideAutoCompleteDropdown = this.hideAutoCompleteDropdown.bind(this);
   }
 
+  onVisibleChange = visible => this.setState({ popoverVisible: visible });
+
   menuForLoggedOut = () => {
     const { location } = this.props;
     const { searchBarActive } = this.state;
@@ -115,6 +117,7 @@ class Topnav extends React.Component {
             <Popover
               placement="bottom"
               trigger="click"
+              visible={popoverVisible}
               overlayStyle={{ position: 'fixed' }}
               content={
                 <PopoverMenu onSelect={onMenuItemClick}>
