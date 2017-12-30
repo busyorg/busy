@@ -102,6 +102,7 @@
   "edit": "编辑",
   "show_more": "查看更多",
   "show_less": "收起",
+  "vote_value": "Vote Value",
   "voting_power": "投票能量",
   "voting_power_info": "您可以启用 \"投票权\" 滑块来指定要使用的投票权的确切百分比。",
   "voting_power_off": "禁用滑块",
