@@ -227,13 +227,13 @@ export default class ProfileSettings extends React.Component {
                   </h3>
                   <div className="Settings__section__inputs">{socialInputs}</div>
                 </div>
+                <Action
+                  primary
+                  type="submit"
+                  disabled={!form.isFieldsTouched()}
+                  text={this.props.intl.formatMessage({ id: 'save', defaultMessage: 'Save' })}
+                />
               </div>
-              <Action
-                primary
-                type="submit"
-                disabled={!form.isFieldsTouched()}
-                text={this.props.intl.formatMessage({ id: 'save', defaultMessage: 'Save' })}
-              />
             </Form>
           </div>
         </div>
