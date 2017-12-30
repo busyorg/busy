@@ -55,7 +55,7 @@ class Topnav extends React.Component {
     this.hideAutoCompleteDropdown = this.hideAutoCompleteDropdown.bind(this);
   }
 
-  onMenuItemClick = key => {
+  onMenuItemsClick = key => {
     this.setState({ popoverVisible: false }, () => {
       this.props.onMenuItemClick(key);
     });
@@ -94,7 +94,7 @@ class Topnav extends React.Component {
   };
 
   menuForLoggedIn = () => {
-    const { intl, username, onMenuItemClick } = this.props;
+    const { intl, username } = this.props;
     const { searchBarActive } = this.state;
     const { popoverVisible } = this.state;
     return (
@@ -128,7 +128,7 @@ class Topnav extends React.Component {
               onVisibleChange={this.onVisibleChange}
               overlayStyle={{ position: 'fixed' }}
               content={
-                <PopoverMenu onSelect={this.onMenuItemClick}>
+                <PopoverMenu onSelect={this.onMenuItemsClick}>
                   <PopoverMenuItem key="my-profile" fullScreenHidden>
                     <FormattedMessage id="my_profile" defaultMessage="My profile" />
                   </PopoverMenuItem>
