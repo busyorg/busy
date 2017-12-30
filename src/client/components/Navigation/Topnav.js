@@ -36,7 +36,8 @@ class Topnav extends React.Component {
 
   static defaultProps = {
     autoCompleteSearchResults: [],
-    username: undefined,
+    username: undefined,    
+    onMenuItemClick: () => {},
   };
 
   constructor(props) {
