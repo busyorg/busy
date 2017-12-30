@@ -82,7 +82,18 @@ export default class ProfileSettings extends React.Component {
 
     const socialInputs = socialProfiles.map(profile => (
       <FormItem key={profile.id}>
-        {getFieldDecorator(profile.id)(
+        {getFieldDecorator(profile.id, {
+          rules: [
+            {
+              message: intl.formatMessage({
+                id: 'profile_social_profile_incorrect',
+                defaultMessage:
+                  "This doesn't seem to be valid username. Only alphanumeric characters, hyphens, underscores and dots are allowed.",
+              }),
+              pattern: /^[0-9A-Za-z-_.]+$/,
+            },
+          ],
+        })(
           <Input
             size="large"
             prefix={
@@ -223,7 +234,10 @@ export default class ProfileSettings extends React.Component {
                 </div>
                 <div className="Settings__section">
                   <h3>
-                    <FormattedMessage id="profile_social_links" defaultMessage="Social links" />
+                    <FormattedMessage
+                      id="profile_social_profiles"
+                      defaultMessage="Social profiles"
+                    />
                   </h3>
                   <div className="Settings__section__inputs">{socialInputs}</div>
                 </div>
