@@ -90,6 +90,7 @@ class Topnav extends React.Component {
   menuForLoggedIn = () => {
     const { intl, username, onMenuItemClick } = this.props;
     const { searchBarActive } = this.state;
+    const { popoverVisible } = this.state;
     return (
       <div
         className={classNames('Topnav__menu-container', {
@@ -118,6 +119,7 @@ class Topnav extends React.Component {
               placement="bottom"
               trigger="click"
               visible={popoverVisible}
+              onVisibleChange={this.onVisibleChange}
               overlayStyle={{ position: 'fixed' }}
               content={
                 <PopoverMenu onSelect={onMenuItemClick}>
