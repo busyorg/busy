@@ -95,7 +95,7 @@ class Topnav extends React.Component {
   };
 
   menuForLoggedIn = () => {
-    const { intl, username, onMenuItemClick } = this.props;
+    const { intl, username } = this.props;
     const { searchBarActive } = this.state;
     const { popoverVisible } = this.state;
     return (
