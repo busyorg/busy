@@ -104,6 +104,8 @@
   "profile_about_placeholder": "Few words about you",
   "profile_location": "Location",
   "profile_location_placeholder": "Your location",
+  "profile_website": "Website",
+  "profile_website_placeholder": "Your website URL",
   "profile_picture": "Profile picture",
   "profile_cover": "Cover picture",
   "profile_social_links": "Social links",

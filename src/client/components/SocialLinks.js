@@ -4,7 +4,6 @@ import _ from 'lodash';
 import SocialLink from './SocialLink';
 
 export const socialProfiles = [
-  { id: 'website', icon: 'link', color: 'black', name: 'Website' },
   { id: 'facebook', icon: 'facebook', color: '#3b5998', name: 'Facebook' },
   { id: 'twitter', icon: 'twitter', color: '#00aced', name: 'Twitter' },
   { id: 'instagram', icon: 'instagram', color: '#8a3ab9', name: 'Instagram' },

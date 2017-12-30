@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Icon } from 'antd';
 import { injectIntl, FormattedMessage, FormattedNumber } from 'react-intl';
 import _ from 'lodash';
+import urlParse from 'url-parse';
 import { getUser, getRewardFund, getRate } from '../../reducers';
 import { getVoteValue } from '../../helpers/user';
 import { calculateVotingPower } from '../../vendor/steemitHelpers';
@@ -28,6 +29,17 @@ class UserInfo extends React.Component {
     const { intl, user, rewardFund, rate } = this.props;
     const location = user && _.get(user.json_metadata, 'profile.location');
     const profile = (user && _.get(user.json_metadata, 'profile')) || {};
+    let website = user && _.get(user.json_metadata, 'profile.website');
+
+    if (website && website.indexOf('http://') === -1 && website.indexOf('https://') === -1) {
+      website = `http://${website}`;
+    }
+    const url = urlParse(website);
+    let hostWithoutWWW = url.host;
+
+    if (hostWithoutWWW.indexOf('www.') === 0) {
+      hostWithoutWWW = hostWithoutWWW.slice(4);
+    }
 
     const voteWorth = getVoteValue(
       user,
@@ -47,6 +59,14 @@ class UserInfo extends React.Component {
                 <div>
                   <i className="iconfont icon-coordinates text-icon" />
                   {location}
+                </div>
+              )}
+              {website && (
+                <div>
+                  <i className="iconfont icon-link text-icon" />
+                  <a target="_blank" rel="noopener noreferrer" href={website}>
+                    {`${hostWithoutWWW}${url.pathname.replace(/\/$/, '')}`}
+                  </a>
                 </div>
               )}
               <div>

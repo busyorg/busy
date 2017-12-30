@@ -159,8 +159,26 @@ export default class ProfileSettings extends React.Component {
                         <Input
                           size="large"
                           placeholder={intl.formatMessage({
-                            id: 'profile_location',
-                            defaultMessage: 'Location',
+                            id: 'profile_location_placeholder',
+                            defaultMessage: 'Your location',
+                          })}
+                        />,
+                      )}
+                    </FormItem>
+                  </div>
+                </div>
+                <div className="Settings__section">
+                  <h3>
+                    <FormattedMessage id="profile_website" defaultMessage="Website" />
+                  </h3>
+                  <div className="Settings__section__inputs">
+                    <FormItem>
+                      {getFieldDecorator('website')(
+                        <Input
+                          size="large"
+                          placeholder={intl.formatMessage({
+                            id: 'profile_website_placeholder',
+                            defaultMessage: 'Your website URL',
                           })}
                         />,
                       )}
