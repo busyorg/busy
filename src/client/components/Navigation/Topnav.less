@@ -1,194 +1,307 @@
-@import (reference) '../../styles/modules/variables.less';
-@import (reference) '../../styles/custom.less';
+import React from 'react';
+import PropTypes from 'prop-types';
+import _ from 'lodash';
+import { injectIntl, FormattedMessage } from 'react-intl';
+import { withRouter, Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { Menu, Popover, Tooltip, Input, AutoComplete } from 'antd';
+import classNames from 'classnames';
+import { searchAutoComplete } from '../../search/searchActions';
+import { getAutoCompleteSearchResults } from '../../reducers';
+import SteemConnect from '../../steemConnectAPI';
+import Avatar from '../Avatar';
+import PopoverMenu, { PopoverMenuItem } from '../PopoverMenu/PopoverMenu';
+import './Topnav.less';
 
-@base-spacing: 0;
+@injectIntl
+@withRouter
+@connect(
+  state => ({
+    autoCompleteSearchResults: getAutoCompleteSearchResults(state),
+  }),
+  {
+    searchAutoComplete,
+  },
+)
+class Topnav extends React.Component {
+  static propTypes = {
+    autoCompleteSearchResults: PropTypes.arrayOf(PropTypes.string),
+    intl: PropTypes.shape().isRequired,
+    location: PropTypes.shape().isRequired,
+    history: PropTypes.shape().isRequired,
+    username: PropTypes.string,
+    searchAutoComplete: PropTypes.func.isRequired,
+    onMenuItemClick: PropTypes.func,
+  };
 
-.Topnav {
-  background-color: @white;
-  border-bottom: 1px solid #e9e7e7;
-  box-shadow: 0 0 4px @white-shadow;
-  height: 56px;
-  line-height: 56px;
+  static defaultProps = {
+    autoCompleteSearchResults: [],
+    username: undefined,
+    onMenuItemClick: () => {},
+  };
 
-  &__brand {
-    font-size: 30px;
-    font-weight: bold;
-    letter-spacing: 1px;
-    color: @purple;
+  constructor(props) {
+    super(props);
 
-    &-icon {
-      margin-right: 4px;
-      font-size: 20px !important;
-      vertical-align: 2px;
-    }
-
-    &:hover,
-    &:visited,
-    &:link,
-    &:active {
-      text-decoration: none;
-    }
+    this.state = {
+      searchBarActive: false,
+      popoverVisible: false,
+      searchBarValue: '',
+    };
+    this.handleMoreMenuSelect = this.handleMoreMenuSelect.bind(this);
+    this.handleMoreMenuVisibleChange = this.handleMoreMenuVisibleChange.bind(this);
+    this.handleSelectOnAutoCompleteDropdown = this.handleSelectOnAutoCompleteDropdown.bind(this);
+    this.handleAutoCompleteSearch = this.handleAutoCompleteSearch.bind(this);
+    this.handleSearchForInput = this.handleSearchForInput.bind(this);
+    this.handleOnChangeForAutoComplete = this.handleOnChangeForAutoComplete.bind(this);
+    this.hideAutoCompleteDropdown = this.hideAutoCompleteDropdown.bind(this);
   }
 
-  &__version {
-    margin-left: 2px;
-    color: #99aab5;
-    font-weight: 500;
+  handleMoreMenuSelect(key) {
+    this.setState({ popoverVisible: false }, () => {
+      this.props.onMenuItemClick(key);
+    });
   }
 
-  &__container {
-    display: flex;
-    justify-content: space-around;
-    margin: 0 auto;
+  handleMoreMenuVisibleChange(visible) {
+    this.setState({ popoverVisible: visible });
   }
 
-  &__input-container {
-    padding: 0 @base-spacing;
-    position: relative;
-    height: 55px;
-    display: flex;
-    border-left: solid 1px #e9e7e7;
-    border-right: solid 1px #e9e7e7;
+  menuForLoggedOut = () => {
+    const { location } = this.props;
+    const { searchBarActive } = this.state;
+    const next = location.pathname.length > 1 ? location.pathname : '';
 
-    > .ant-select-show-search {
-      width: 100%;
-    }
+    return (
+      <div
+        className={classNames('Topnav__menu-container', {
+          'Topnav__mobile-hidden': searchBarActive,
+        })}
+      >
+        <Menu className="Topnav__menu-container__menu" mode="horizontal">
+          <Menu.Item key="signup">
+            <a target="_blank" rel="noopener noreferrer" href="https://steemit.com/pick_account">
+              <FormattedMessage id="signup" defaultMessage="Sign up" />
+            </a>
+          </Menu.Item>
+          <Menu.Item key="divider" disabled>
+            |
+          </Menu.Item>
+          <Menu.Item key="login">
+            <a href={SteemConnect.getLoginURL(next)}>
+              <FormattedMessage id="login" defaultMessage="Log in" />
+            </a>
+          </Menu.Item>
+        </Menu>
+      </div>
+    );
+  };
 
-    input {
-      height: 54px !important;
-      border-radius: 0 !important;
-      border: 0 !important;
-      padding: 0 0 0 43px !important;
+  menuForLoggedIn = () => {
+    const { intl, username } = this.props;
+    const { searchBarActive } = this.state;
+    const { popoverVisible } = this.state;
+    return (
+      <div
+        className={classNames('Topnav__menu-container', {
+          'Topnav__mobile-hidden': searchBarActive,
+        })}
+      >
+        <Menu selectedKeys={[]} className="Topnav__menu-container__menu" mode="horizontal">
+          <Menu.Item key="write">
+            <Tooltip
+              placement="bottom"
+              title={intl.formatMessage({ id: 'write_post', defaultMessage: 'Write post' })}
+            >
+              <Link to="/editor" className="Topnav__link">
+                <i className="iconfont icon-write" />
+              </Link>
+            </Tooltip>
+          </Menu.Item>
+          <Menu.Item key="user" className="Topnav__item-user">
+            <Link className="Topnav__user" to={`/@${username}`}>
+              <Avatar username={username} size={36} />
+              <span className="Topnav__user__username">{username}</span>
+            </Link>
+          </Menu.Item>
+          <Menu.Item key="more">
+            <Popover
+              placement="bottom"
+              trigger="click"
+              visible={popoverVisible}
+              onVisibleChange={this.handleMoreMenuVisibleChange}
+              overlayStyle={{ position: 'fixed' }}
+              content={
+                <PopoverMenu onSelect={this.handleMoreMenuSelect}>
+                  <PopoverMenuItem key="my-profile" fullScreenHidden>
+                    <FormattedMessage id="my_profile" defaultMessage="My profile" />
+                  </PopoverMenuItem>
+                  <PopoverMenuItem key="feed" fullScreenHidden>
+                    <FormattedMessage id="feed" defaultMessage="Feed" />
+                  </PopoverMenuItem>
+                  <PopoverMenuItem key="news" fullScreenHidden>
+                    <FormattedMessage id="news" defaultMessage="News" />
+                  </PopoverMenuItem>
+                  <PopoverMenuItem key="replies" fullScreenHidden>
+                    <FormattedMessage id="replies" defaultMessage="Replies" />
+                  </PopoverMenuItem>
+                  <PopoverMenuItem key="wallet" fullScreenHidden>
+                    <FormattedMessage id="wallet" defaultMessage="Wallet" />
+                  </PopoverMenuItem>
+                  <PopoverMenuItem key="activity">
+                    <FormattedMessage id="activity" defaultMessage="Activity" />
+                  </PopoverMenuItem>
+                  <PopoverMenuItem key="bookmarks">
+                    <FormattedMessage id="bookmarks" defaultMessage="Bookmarks" />
+                  </PopoverMenuItem>
+                  <PopoverMenuItem key="drafts">
+                    <FormattedMessage id="drafts" defaultMessage="Drafts" />
+                  </PopoverMenuItem>
+                  <PopoverMenuItem key="settings">
+                    <FormattedMessage id="settings" defaultMessage="Settings" />
+                  </PopoverMenuItem>
+                  <PopoverMenuItem key="logout">
+                    <FormattedMessage id="logout" defaultMessage="Logout" />
+                  </PopoverMenuItem>
+                </PopoverMenu>
+              }
+            >
+              <a className="Topnav__link Topnav__link--light">
+                <i className="iconfont icon-switch" />
+              </a>
+            </Popover>
+          </Menu.Item>
+        </Menu>
+      </div>
+    );
+  };
 
-      &:hover,
-      &:focus {
-        box-shadow: none !important;
-        border-color: #e9e7e7 !important;
-      }
-    }
+  content = () => (this.props.username ? this.menuForLoggedIn() : this.menuForLoggedOut());
 
-    i {
-      left: 16px;
-      position: absolute;
-      color: #c2ccd3;
-      font-size: 20px;
-    }
+  handleMobileSearchButtonClick = () => {
+    const { searchBarActive } = this.state;
+    this.setState({ searchBarActive: !searchBarActive }, () => {
+      this.searchInputRef.refs.input.focus();
+    });
+  };
+
+  hideAutoCompleteDropdown() {
+    this.props.searchAutoComplete('');
   }
 
-  &__menu-container {
-    display: flex;
-    justify-content: flex-end;
-
-    &__menu {
-      flex-shrink: 0;
-      height: 55px !important;
-      border: 0 !important;
-      line-height: 55px !important;
-      margin-left: @base-spacing;
-
-      & > li {
-        height: 55px !important;
-        padding: 0 4px !important;
-
-        & > a {
-          color: @purple !important;
-          font-weight: 600 !important;
-        }
-      }
-    }
+  handleSearchForInput(event) {
+    const value = event.target.value;
+    this.hideAutoCompleteDropdown();
+    this.props.history.push({
+      pathname: '/search',
+      search: `q=${value}`,
+      state: {
+        query: value,
+      },
+    });
   }
 
-  &__user {
-    display: flex !important;
-    align-items: center;
-    height: 54px;
-
-    &__username {
-      display: none;
-      margin-left: 8px;
-      color: @purple;
-
-      @media screen and (min-width: 992px) {
-        display: inline;
-      }
-    }
+  handleAutoCompleteSearch(value) {
+    this.props.searchAutoComplete(value);
   }
 
-  &__item-user {
-    margin: 0 10px !important;
+  handleSelectOnAutoCompleteDropdown(value) {
+    this.props.history.push(`/@${value}`);
   }
 
-  &__link {
-    i {
-      color: rgba(0, 0, 0, 0.65) !important;
-    }
-
-    &--light {
-      i {
-        font-weight: normal !important;
-      }
-    }
+  handleOnChangeForAutoComplete(value) {
+    this.setState({
+      searchBarValue: value,
+    });
   }
 
-  &__mobile-search {
-    background: transparent;
-    border: 0;
-    color: @purple;
-    display: block;
-    height: 55px;
-    margin-right: -16px;
-    outline: none;
-    width: 55px;
+  render() {
+    const { intl, autoCompleteSearchResults } = this.props;
+    const { searchBarActive, searchBarValue } = this.state;
 
-    &:hover {
-      cursor: pointer;
-    }
+    const dropdownOptions = _.map(autoCompleteSearchResults, option => (
+      <AutoComplete.Option key={option} value={option} className="Topnav__search-autocomplete">
+        {option}
+      </AutoComplete.Option>
+    ));
+    const formattedAutoCompleteDropdown = _.isEmpty(dropdownOptions)
+      ? dropdownOptions
+      : dropdownOptions.concat([
+          <AutoComplete.Option disabled key="all" className="Topnav__search-all-results">
+            <Link
+              to={{
+                pathname: '/search',
+                search: `?q=${searchBarValue}`,
+                state: { query: searchBarValue },
+              }}
+            >
+              <span onClick={this.hideAutoCompleteDropdown} role="presentation">
+                {intl.formatMessage(
+                  {
+                    id: 'search_all_results_for',
+                    defaultMessage: 'Search all results for {search}',
+                  },
+                  { search: searchBarValue },
+                )}
+              </span>
+            </Link>
+          </AutoComplete.Option>,
+        ]);
 
-    @media @small {
-      display: none;
-    }
-  }
-
-  &__mobile-hidden {
-    display: none;
-
-    @media @small {
-      display: initial;
-    }
+    return (
+      <div className="Topnav">
+        <div className="topnav-layout container">
+          <div className={classNames('left', { 'Topnav__mobile-hidden': searchBarActive })}>
+            <Link className="Topnav__brand" to="/">
+              <i className="iconfont icon-busy Topnav__brand-icon" />
+              busy
+            </Link>
+            <span className="Topnav__version">beta</span>
+          </div>
+          <div className={classNames('center', { mobileVisible: searchBarActive })}>
+            <div className="Topnav__input-container">
+              <AutoComplete
+                dropdownClassName="Topnav__search-dropdown-container"
+                dataSource={formattedAutoCompleteDropdown}
+                onSearch={this.handleAutoCompleteSearch}
+                onSelect={this.handleSelectOnAutoCompleteDropdown}
+                onChange={this.handleOnChangeForAutoComplete}
+                defaultActiveFirstOption={false}
+                dropdownMatchSelectWidth={false}
+                optionLabelProp="value"
+                value={searchBarValue}
+              >
+                <Input
+                  ref={ref => {
+                    this.searchInputRef = ref;
+                  }}
+                  onPressEnter={this.handleSearchForInput}
+                  placeholder={intl.formatMessage({
+                    id: 'search_placeholder',
+                    defaultMessage: 'Search...',
+                  })}
+                  autoCapitalize="off"
+                  autoCorrect="off"
+                />
+              </AutoComplete>
+              <i className="iconfont icon-search" />
+            </div>
+          </div>
+          <div className="right">
+            {this.content()}
+            <button className="Topnav__mobile-search" onClick={this.handleMobileSearchButtonClick}>
+              <i
+                className={classNames('iconfont', {
+                  'icon-close': searchBarActive,
+                  'icon-search': !searchBarActive,
+                })}
+              />
+            </button>
+          </div>
+        </div>
+      </div>
+    );
   }
 }
 
-.Topnav__search-dropdown-container.ant-select-dropdown {
-  top: 56px !important;
-  position: fixed;
-  border-radius: 0;
-  border-bottom-left-radius: 4px;
-  border-bottom-right-radius: 4px;
-}
-
-.Topnav__search-autocomplete.ant-select-dropdown-menu-item-active {
-  &:hover {
-    background-color: @white-darker;
-  }
-}
-
-.Topnav__search-autocomplete.ant-select-dropdown-menu-item {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: space-between !important;
-  font-weight: bold;
-  border-bottom: 1px solid @white-gainsboro;
-  padding: 10px 14px;
-}
-
-.Topnav__search-all-results {
-  font-weight: bold !important;
-  text-align: center;
-  background-color: @white-darker;
-  padding: 10px 14px;
-  cursor: default !important;
-}
-
-.Topnav__search-dropdown-container .ant-select-dropdown-menu {
-  max-height: 300px;
-}
+export default Topnav;
