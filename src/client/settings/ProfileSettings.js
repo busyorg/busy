@@ -6,7 +6,7 @@ import { injectIntl, FormattedMessage } from 'react-intl';
 import { Form, Input } from 'antd';
 import SteemConnect from '../steemConnectAPI';
 import { getIsReloading, getAuthenticatedUser } from '../reducers';
-import { socialProfiles } from '../components/SocialLinks';
+import socialProfiles from '../helpers/socialProfiles';
 import Action from '../components/Button/Action';
 import Affix from '../components/Utils/Affix';
 import LeftSidebar from '../app/Sidebar/LeftSidebar';
