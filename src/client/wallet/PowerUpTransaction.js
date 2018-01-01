@@ -11,16 +11,13 @@ const PowerUpTransaction = ({ timestamp, amount }) => (
     <div className="UserWalletTransactions__content">
       <div className="UserWalletTransactions__content-recipient">
         <FormattedMessage id="powered_up" defaultMessage="Powered up " />
-        <span className="UserWalletTransactions__payout">
-          {amount}
-        </span>
+        <span className="UserWalletTransactions__payout">{amount}</span>
       </div>
       <span className="UserWalletTransactions__timestamp">
         <Tooltip
           title={
             <span>
-              <FormattedDate value={`${timestamp}Z`} />{' '}
-              <FormattedTime value={`${timestamp}Z`} />
+              <FormattedDate value={`${timestamp}Z`} /> <FormattedTime value={`${timestamp}Z`} />
             </span>
           }
         >

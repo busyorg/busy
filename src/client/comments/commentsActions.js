@@ -29,9 +29,9 @@ const getRootCommentsList = apiRes =>
     .filter(commentKey => apiRes.content[commentKey].depth === 1)
     .map(commentKey => apiRes.content[commentKey].id);
 
-const getCommentsChildrenLists = (apiRes) => {
+const getCommentsChildrenLists = apiRes => {
   const listsById = {};
-  Object.keys(apiRes.content).forEach((commentKey) => {
+  Object.keys(apiRes.content).forEach(commentKey => {
     listsById[apiRes.content[commentKey].id] = apiRes.content[commentKey].replies.map(
       childKey => apiRes.content[childKey].id,
     );
@@ -157,7 +157,7 @@ export const sendComment = (parentPost, body, isUpdating = false, originalCommen
         newBody,
         jsonMetadata,
         isUpdating,
-      ).then((resp) => {
+      ).then(resp => {
         const focusedComment = {
           author: resp.result.operations[0][1].author,
           permlink: resp.result.operations[0][1].permlink,
@@ -199,9 +199,9 @@ export const likeComment = (commentId, weight = 10000, vote = 'like', retryCount
   dispatch({
     type: LIKE_COMMENT,
     payload: {
-      promise: steemConnectAPI.vote(voter, author, permlink, weight).then((res) => {
+      promise: steemConnectAPI.vote(voter, author, permlink, weight).then(res => {
         // reload comment data to fetch payout after vote
-        steemAPI.sendAsync('get_content', [author, permlink]).then((data) => {
+        steemAPI.sendAsync('get_content', [author, permlink]).then(data => {
           dispatch(reloadExistingComment(data));
           return data;
         });
@@ -209,7 +209,7 @@ export const likeComment = (commentId, weight = 10000, vote = 'like', retryCount
       }),
     },
     meta: { commentId, voter, weight, vote, isRetry: retryCount > 0 },
-  }).catch((err) => {
+  }).catch(err => {
     if (err.res && err.res.status === 500 && retryCount <= 5) {
       dispatch(likeComment(commentId, weight, vote, retryCount + 1));
     }

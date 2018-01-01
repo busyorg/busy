@@ -28,7 +28,7 @@ export function getHtml(body, jsonMetadata = {}, returnType = 'Object') {
 
   let parsedBody = body.replace(/<!--([\s\S]+?)(-->|$)/g, '(html comment removed: $1)');
 
-  parsedBody.replace(imageRegex, (img) => {
+  parsedBody.replace(imageRegex, img => {
     if (_.filter(parsedJsonMetadata.image, i => i.indexOf(img) !== -1).length === 0) {
       parsedJsonMetadata.image.push(img);
     }
@@ -65,7 +65,7 @@ export function getHtml(body, jsonMetadata = {}, returnType = 'Object') {
   return sections;
 }
 
-const Body = (props) => {
+const Body = props => {
   const htmlSections = getHtml(props.body, props.jsonMetadata);
   return <div className={classNames('Body', { 'Body--full': props.full })}>{htmlSections}</div>;
 };

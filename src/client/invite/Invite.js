@@ -11,11 +11,9 @@ import { getAuthenticatedUserName } from '../reducers';
 import './Invite.less';
 
 @requiresLogin
-@connect(
-  state => ({
-    authenticatedUserName: getAuthenticatedUserName(state),
-  }),
-)
+@connect(state => ({
+  authenticatedUserName: getAuthenticatedUserName(state),
+}))
 export default class Invite extends React.Component {
   static propTypes = {
     authenticatedUserName: PropTypes.string,
@@ -37,7 +35,9 @@ export default class Invite extends React.Component {
   createInviteURL() {
     const { authenticatedUserName } = this.props;
     if (typeof window !== 'undefined') {
-      const inviteURL = `${window.location.protocol}//${window.location.host}/i/@${authenticatedUserName}`;
+      const inviteURL = `${window.location.protocol}//${
+        window.location.host
+      }/i/@${authenticatedUserName}`;
       this.setState({ inviteURL });
     }
   }
@@ -57,10 +57,7 @@ export default class Invite extends React.Component {
           <div className="center">
             <div className="Invite__title">
               <h1>
-                <FormattedMessage
-                  id="invite"
-                  defaultMessage="Invite"
-                />
+                <FormattedMessage id="invite" defaultMessage="Invite" />
               </h1>
               <p>
                 <FormattedMessage
@@ -72,15 +69,8 @@ export default class Invite extends React.Component {
             <div className="Invite__content">
               <div className="">
                 <Form.Item>
-                  <Input
-                    className="Invite__input"
-                    value={this.state.inviteURL}
-                    readOnly
-                  />
-                  <CopyToClipboard
-                    text={this.state.inviteURL}
-                    onCopy={this.handleCopyClick}
-                  >
+                  <Input className="Invite__input" value={this.state.inviteURL} readOnly />
+                  <CopyToClipboard text={this.state.inviteURL} onCopy={this.handleCopyClick}>
                     <button className="Action ant-btn-lg Action--primary">{buttonLabel}</button>
                   </CopyToClipboard>
                 </Form.Item>

@@ -24,24 +24,38 @@ const VoteActionMessage = ({ actionDetails, currentUsername }) => {
 
   return (
     <span>
-      {currentUsername === actionDetails.voter
-        ? <span className="capitalize-text">
+      {currentUsername === actionDetails.voter ? (
+        <span className="capitalize-text">
           <FormattedMessage id={voteType} defaultMessage={voteType} />
         </span>
-        : <FormattedMessage
+      ) : (
+        <FormattedMessage
           id={`user_${voteType}_post`}
           defaultMessage={`{username} ${voteType}`}
           values={{
-            username: <Link to={`/@${actionDetails.voter}`}>{actionDetails.voter}</Link>,
+            username: (
+              <Link to={`/@${actionDetails.voter}`}>
+                <span className="username">{actionDetails.voter}</span>
+              </Link>
+            ),
           }}
-        />}
-      {actionDetails.weight === 0
-        ? ' '
-        : <Tooltip title={<FormattedMessage id="voting_weight" defaultMessage="Vote Weight" />}>
-          {' ('}{voteWeight}{') '}
-        </Tooltip>}
-      <Link to={`/@${actionDetails.author}`}>{actionDetails.author}</Link>
-      {' ('}<Link to={`/p/${postLink}`}>{actionDetails.permlink}</Link>{')'}
+        />
+      )}
+      {actionDetails.weight === 0 ? (
+        ' '
+      ) : (
+        <Tooltip title={<FormattedMessage id="voting_weight" defaultMessage="Vote Weight" />}>
+          {' ('}
+          {voteWeight}
+          {') '}
+        </Tooltip>
+      )}
+      <Link to={`/@${actionDetails.author}`}>
+        <span className="username">{actionDetails.author}</span>
+      </Link>
+      {' ('}
+      <Link to={`/p/${postLink}`}>{actionDetails.permlink}</Link>
+      {')'}
     </span>
   );
 };

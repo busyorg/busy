@@ -55,7 +55,7 @@ class QuickPostEditor extends React.Component {
     inputMinRows: 1,
   };
 
-  setInput = (input) => {
+  setInput = input => {
     if (input && input.refs && input.refs.input) {
       this.originalInput = input.refs.input;
       // eslint-disable-next-line react/no-find-dom-node
@@ -63,7 +63,7 @@ class QuickPostEditor extends React.Component {
     }
   };
 
-  setInputCursorPosition = (pos) => {
+  setInputCursorPosition = pos => {
     if (this.input && this.input.setSelectionRange) {
       this.input.setSelectionRange(pos, pos);
     }
@@ -136,7 +136,7 @@ class QuickPostEditor extends React.Component {
     });
   };
 
-  handleDrop = (files) => {
+  handleDrop = files => {
     if (files.length === 0) {
       this.setState({
         dropzoneActive: false,
@@ -149,7 +149,7 @@ class QuickPostEditor extends React.Component {
       imageUploading: true,
     });
     let callbacksCount = 0;
-    Array.from(files).forEach((item) => {
+    Array.from(files).forEach(item => {
       this.handleImageInserted(
         item,
         (image, imageName) => {
@@ -204,7 +204,8 @@ class QuickPostEditor extends React.Component {
       this.props.intl.formatMessage(
         {
           id: 'notify_uploading_image_invalid',
-          defaultMessage: 'This file is invalid. Only image files with maximum size of {size} are supported',
+          defaultMessage:
+            'This file is invalid. Only image files with maximum size of {size} are supported',
         },
         { size: MAXIMUM_UPLOAD_SIZE_HUMAN },
       ),
@@ -212,7 +213,7 @@ class QuickPostEditor extends React.Component {
     );
   };
 
-  handleImageChange = (e) => {
+  handleImageChange = e => {
     e.preventDefault();
     e.stopPropagation();
 
@@ -243,7 +244,7 @@ class QuickPostEditor extends React.Component {
   handleFocusInput = () =>
     this.setState({ focusedInput: true, inputMinRows: 2 }, () => this.resizeTextArea());
 
-  handleUnfocusInput = (e) => {
+  handleUnfocusInput = e => {
     const footerClassName = _.isElement(e.relatedTarget) ? e.relatedTarget.className : '';
     const clickedFooterContents =
       footerClassName === 'QuickPostEditor__footer' ||
@@ -284,7 +285,7 @@ class QuickPostEditor extends React.Component {
       currentInputValue: e.target.value,
     });
 
-  handleRemoveImage = (currentImage) => {
+  handleRemoveImage = currentImage => {
     const imageIndex = _.findIndex(this.state.currentImages, image => image.id === currentImage.id);
     const currentImages = [...this.state.currentImages];
     currentImages.splice(imageIndex, 1);
@@ -312,13 +313,14 @@ class QuickPostEditor extends React.Component {
               onDragEnter={this.handleDragEnter}
               onDragLeave={this.handleDragLeave}
             >
-              {this.state.dropzoneActive &&
+              {this.state.dropzoneActive && (
                 <div className="QuickPostEditor__dropzone">
                   <div>
                     <i className="iconfont icon-picture" />
                     <FormattedMessage id="drop_image" defaultMessage="Drop your images here" />
                   </div>
-                </div>}
+                </div>
+              )}
               <Input
                 autosize={{ minRows: inputMinRows, maxRows: 12 }}
                 onChange={this.handleUpdateCurrentInputValue}
@@ -336,7 +338,7 @@ class QuickPostEditor extends React.Component {
             </Dropzone>
           </div>
         </div>
-        {focusedInput &&
+        {focusedInput && (
           <QuickPostEditorFooter
             imageUploading={imageUploading}
             postCreationLoading={postCreationLoading}
@@ -353,7 +355,8 @@ class QuickPostEditor extends React.Component {
             currentImages={currentImages}
             onRemoveImage={this.handleRemoveImage}
             handleFooterFocus={this.handleFocusInput}
-          />}
+          />
+        )}
       </div>
     );
   }

@@ -41,13 +41,15 @@ class PostRecommendation extends Component {
     }
   }
 
-  getPostsByAuthor = (author) => {
+  getPostsByAuthor = author => {
     steemAPI
-      .sendAsync('get_discussions_by_blog', [{
-        tag: author,
-        limit: 4,
-      }])
-      .then((result) => {
+      .sendAsync('get_discussions_by_blog', [
+        {
+          tag: author,
+          limit: 4,
+        },
+      ])
+      .then(result => {
         const recommendedPosts = Array.isArray(result) ? result : [];
         this.setState({
           recommendedPosts,
@@ -64,7 +66,7 @@ class PostRecommendation extends Component {
       .slice(0, 3);
   };
 
-  navigateToPost = (author) => {
+  navigateToPost = author => {
     window.scrollTo(0, 0);
 
     if (author !== this.state.currentAuthor) {
@@ -98,7 +100,7 @@ class PostRecommendation extends Component {
           values={{
             username: (
               <Link role="presentation" to={`/@${post.author}`}>
-                {post.author}
+                <span className="username">{post.author}</span>
               </Link>
             ),
           }}
@@ -147,9 +149,7 @@ class PostRecommendation extends Component {
           <i className="iconfont icon-headlines SidebarContentBlock__icon" />{' '}
           <FormattedMessage id="recommended_posts" defaultMessage="Recommended Posts" />
         </h4>
-        <div className="SidebarContentBlock__content">
-          {this.renderPosts()}
-        </div>
+        <div className="SidebarContentBlock__content">{this.renderPosts()}</div>
       </div>
     );
   }

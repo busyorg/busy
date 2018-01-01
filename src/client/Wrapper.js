@@ -14,7 +14,6 @@ import {
   getLocale,
   getUsedLocale,
 } from './reducers';
-
 import { login, logout, getAuthUserFollowers } from './auth/authActions';
 import { getFollowing } from './user/userActions';
 import { getRate, getRewardFund, getTrendingTopics } from './app/appActions';

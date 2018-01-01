@@ -9,10 +9,7 @@ const favoriteItem = (state = [], action) => {
   switch (action.type) {
     case favoriteActions.ADD_CATEGORY_FAVORITE:
     case favoriteActions.ADD_USER_FAVORITE:
-      return [
-        ...state,
-        action.payload,
-      ];
+      return [...state, action.payload];
     case favoriteActions.REMOVE_CATEGORY_FAVORITE:
     case favoriteActions.REMOVE_USER_FAVORITE:
       return state.filter(item => item !== action.payload);

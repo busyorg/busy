@@ -31,7 +31,7 @@ message.config({
   duration: 3,
 });
 
-const render = async (Component) => {
+const render = async Component => {
   await loadTranslations(store);
 
   ReactDOM.hydrate(

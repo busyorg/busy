@@ -32,7 +32,8 @@ const settings = (state = initialState, action) => {
           votingPower: votingPower || initialState.votingPower,
           votePercent: votePercent || initialState.votePercent,
           showNSFWPosts: showNSFWPosts || initialState.showNSFWPosts,
-          upvoteSetting: typeof upvoteSetting === 'boolean' ? upvoteSetting : initialState.upvoteSetting,
+          upvoteSetting:
+            typeof upvoteSetting === 'boolean' ? upvoteSetting : initialState.upvoteSetting,
           rewardSetting: rewardSetting || initialState.rewardSetting,
         };
       }

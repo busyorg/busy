@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { Link } from 'react-router-dom';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { Tag, Tooltip, Popover } from 'antd';
 import formatter from '../helpers/steemitFormatter';
@@ -43,6 +44,7 @@ const UserHeader = ({
                 <Tag>{formatter.reputation(userReputation)}</Tag>
               </Tooltip>
             </h2>
+
             <div
               className={classNames('UserHeader__user__button', {
                 'UserHeader__user__button-follows-you': isFollowing,
@@ -54,6 +56,10 @@ const UserHeader = ({
                   rel="noopener noreferrer"
                   href={`https://steemit.com/@${handle}/settings`}
                 >
+
+            <div className="UserHeader__user__button">
+              {isSameUser ? (
+                <Link to="/edit-profile">
                   <Action
                     small
                     text={intl.formatMessage({
@@ -63,6 +69,10 @@ const UserHeader = ({
                   />
                 </a>
                 : <FollowButton username={handle} />}
+                </Link>
+              ) : (
+                <FollowButton username={handle} />
+              )}
             </div>
             {!isSameUser &&
               <Popover

@@ -32,7 +32,9 @@ export const getRate = () => (dispatch, getState, { steemAPI }) => {
   dispatch({
     type: RATE_REQUEST.ACTION,
     payload: {
-      promise: steemAPI.sendAsync('get_current_median_history_price', []).then(resp => parseFloat(resp.base)),
+      promise: steemAPI
+        .sendAsync('get_current_median_history_price', [])
+        .then(resp => parseFloat(resp.base)),
     },
   });
 };
@@ -47,14 +49,16 @@ export const getTrendingTopics = () => (dispatch, getState, { steemAPI }) => {
   dispatch({
     type: GET_TRENDING_TOPICS,
     payload: {
-      promise: steemAPI
-        .sendAsync('get_trending_tags', [undefined, 50])
-        .then(result => Object.values(result).map(tag => tag.name).filter(tag => tag !== '')),
+      promise: steemAPI.sendAsync('get_trending_tags', [undefined, 50]).then(result =>
+        Object.values(result)
+          .map(tag => tag.name)
+          .filter(tag => tag !== ''),
+      ),
     },
   });
 };
 
-export const getCryptoPriceHistory = (symbol, refresh = false) => (dispatch) => {
+export const getCryptoPriceHistory = (symbol, refresh = false) => dispatch => {
   if (refresh) {
     dispatch(refreshCryptoPriceHistory(symbol));
   }
@@ -68,7 +72,7 @@ export const getCryptoPriceHistory = (symbol, refresh = false) => (dispatch) => 
         fetch(
           `https://min-api.cryptocompare.com/data/histoday?fsym=${symbol}&tsym=BTC&limit=6`,
         ).then(res => res.json()),
-      ]).then((response) => {
+      ]).then(response => {
         const usdPriceHistory = _.get(response, 0, {});
         const btcPriceHistory = _.get(response, 1, {});
         return {

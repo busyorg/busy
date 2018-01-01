@@ -1,4 +1,4 @@
-@import (reference) "./variables.less";
+@import (reference) './variables.less';
 
 .topnav-layout {
   .left {
@@ -32,17 +32,16 @@
     @media @large {
       margin-right: 0;
     }
-
   }
 
   .center {
-    width: calc(100% ~"-" 55px);
+    width: calc(100% ~'-' 55px);
     position: absolute;
     display: none;
     z-index: 1;
 
     @media @small {
-      width: calc(100% ~"-" (@left-width + @right-width + 2 * @margin));
+      width: calc(100% ~'-' (@left-width + @right-width + 2 * @margin));
       position: static;
       margin-left: @left-width;
       margin-right: @right-width + @margin;
@@ -50,12 +49,12 @@
     }
 
     @media @medium {
-      width: calc(100% ~"-" (@left-width + @right-width + 4 * @margin));
+      width: calc(100% ~'-' (@left-width + @right-width + 4 * @margin));
       margin-left: @left-width + 2 * @margin;
     }
 
     @media @large {
-      width: calc(100% ~"-" (@left-width + @right-width + 2 * @margin));
+      width: calc(100% ~'-' (@left-width + @right-width + 2 * @margin));
       margin-left: @left-width + @margin;
     }
 

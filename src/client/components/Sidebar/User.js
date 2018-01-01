@@ -13,7 +13,7 @@ const User = ({ user }) => (
           <Avatar username={user.name} size={34} />
         </Link>
         <Link to={`/@${user.name}`} title={user.name} className="User__name">
-          {user.name}
+          <span className="username">{user.name}</span>
         </Link>
       </div>
       <div className="User__follow">

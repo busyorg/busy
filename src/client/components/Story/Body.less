@@ -1,18 +1,17 @@
-@import (reference) "../../styles/modules/variables.less";
-@import (reference) "../../styles/custom.less";
-@import (reference) "../../styles/fonts.less";
+@import (reference) '../../styles/modules/variables.less';
+@import (reference) '../../styles/custom.less';
+@import (reference) '../../styles/fonts.less';
 
 .Body {
   font-family: 'Source Serif Pro', serif;
   line-height: 1.4;
   font-weight: 400;
-  color: @black;
+  color: @black-text;
   overflow-wrap: break-word;
   word-wrap: break-word;
   word-break: break-word;
   hyphens: none;
   margin: 4px 0;
-
 
   // Heading
 
@@ -22,6 +21,7 @@
   h4,
   h5,
   h6 {
+    font-family: @font-family;
     font-weight: 700;
   }
 
@@ -192,14 +192,14 @@
   }
 
   &:after {
-    content: "";
+    content: '';
     display: table;
     clear: both;
   }
 
   &--full {
     margin: 0;
-    font-size: 18px;
+    font-size: 20px;
     line-height: 1.5;
 
     p:not(:last-child) {

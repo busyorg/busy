@@ -2,7 +2,6 @@
 /**
  * Module dependencies.
  */
-const config = require('config');
 const app = require('./app').app;
 const debug = require('debug')('busy:server');
 
@@ -31,7 +30,7 @@ function normalizePort(val) {
  * Get port from environment and store in Express.
  */
 
-const port = normalizePort(config.get('port'));
+const port = normalizePort(process.env.PORT) || 3000;
 app.set('port', port);
 
 /**

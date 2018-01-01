@@ -1,7 +1,17 @@
 .Settings {
+  padding-bottom: 24px;
+
   &__section {
     &:not(:first-child) {
       margin-top: 16px;
+    }
+
+    &__inputs {
+      padding-top: 8px;
+
+      .ant-form-item {
+        margin-bottom: 8px;
+      }
     }
 
     h3:not(:first-of-type) {
@@ -33,6 +43,10 @@
         align-items: center;
       }
     }
+  }
+
+  &__prefix-icon {
+    font-size: 14px !important;
   }
 
   .Action {

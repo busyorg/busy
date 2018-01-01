@@ -32,46 +32,48 @@ class ReactionsModal extends React.Component {
     const tabs = [];
 
     if (upVotes.length > 0) {
-      tabs.push(<Tabs.TabPane
-        tab={
-          <span>
-            <i className="iconfont icon-praise_fill" />
-            <span className="StoryFooter__icon-text">
-              <FormattedNumber value={upVotes.length} />
+      tabs.push(
+        <Tabs.TabPane
+          tab={
+            <span>
+              <i className="iconfont icon-praise_fill" />
+              <span className="StoryFooter__icon-text">
+                <FormattedNumber value={upVotes.length} />
+              </span>
             </span>
-          </span>
-        }
-        key="1"
-      >
-        <ReactionsList votes={upVotes} ratio={ratio} />
-      </Tabs.TabPane>);
+          }
+          key="1"
+        >
+          <ReactionsList votes={upVotes} ratio={ratio} />
+        </Tabs.TabPane>,
+      );
     }
 
     if (downVotes.length > 0) {
-      tabs.push(<Tabs.TabPane
-        tab={
-          <span>
-            <i className="iconfont icon-praise_fill StoryFooter__dislike" />
-            <span className="StoryFooter__icon-text StoryFooter__icon-text-dislike">
-              <FormattedNumber value={downVotes.length} />
+      tabs.push(
+        <Tabs.TabPane
+          tab={
+            <span>
+              <i className="iconfont icon-praise_fill StoryFooter__dislike" />
+              <span className="StoryFooter__icon-text StoryFooter__icon-text-dislike">
+                <FormattedNumber value={downVotes.length} />
+              </span>
             </span>
-          </span>
-        }
-        key="2"
-      >
-        <ReactionsList votes={downVotes} />
-      </Tabs.TabPane>);
+          }
+          key="2"
+        >
+          <ReactionsList votes={downVotes} />
+        </Tabs.TabPane>,
+      );
     }
 
     return (
       <Modal
-        visible={this.props.visible && ((upVotes.length > 0) || (downVotes.length > 0))}
+        visible={this.props.visible && (upVotes.length > 0 || downVotes.length > 0)}
         footer={null}
         onCancel={this.props.onClose}
       >
-        <Tabs>
-          {tabs}
-        </Tabs>
+        <Tabs>{tabs}</Tabs>
       </Modal>
     );
   }

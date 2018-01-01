@@ -6,8 +6,8 @@ import { Link } from 'react-router-dom';
 import Avatar from '../../Avatar';
 import './Notification.less';
 
-const NotificationReply = ({ onClick, id, read, date, payload }) =>
-  (<div
+const NotificationReply = ({ onClick, id, read, date, payload }) => (
+  <div
     role="presentation"
     onClick={() => onClick(id)}
     className={classNames('Notification', {
@@ -30,7 +30,8 @@ const NotificationReply = ({ onClick, id, read, date, payload }) =>
         <FormattedRelative value={date} />
       </div>
     </div>
-  </div>);
+  </div>
+);
 
 NotificationReply.propTypes = {
   onClick: PropTypes.func,

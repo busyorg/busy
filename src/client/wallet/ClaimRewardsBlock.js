@@ -49,25 +49,19 @@ class ClaimRewardsBlock extends Component {
     this.setState({
       loading: true,
     });
-    SteemConnect.claimRewardBalance(
-      name,
-      steemBalance,
-      sbdBalance,
-      vestingBalance,
-      (err) => {
-        if (!err) {
-          this.setState({
-            loading: false,
-            rewardClaimed: true,
-          });
-          this.props.getUserAccountHistory(name).then(() => this.props.updateAuthUser(name));
-        } else {
-          this.setState({
-            loading: false,
-          });
-        }
-      },
-    );
+    SteemConnect.claimRewardBalance(name, steemBalance, sbdBalance, vestingBalance, err => {
+      if (!err) {
+        this.setState({
+          loading: false,
+          rewardClaimed: true,
+        });
+        this.props.getUserAccountHistory(name).then(() => this.props.updateAuthUser(name));
+      } else {
+        this.setState({
+          loading: false,
+        });
+      }
+    });
   };
 
   renderReward = (value, currency, rewardField) => (
@@ -95,13 +89,13 @@ class ClaimRewardsBlock extends Component {
 
     const buttonText = rewardClaimed
       ? intl.formatMessage({
-        id: 'reward_claimed',
-        defaultMessage: 'Reward Claimed',
-      })
+          id: 'reward_claimed',
+          defaultMessage: 'Reward Claimed',
+        })
       : intl.formatMessage({
-        id: 'claim_rewards',
-        defaultMessage: 'Claim Rewards',
-      });
+          id: 'claim_rewards',
+          defaultMessage: 'Claim Rewards',
+        });
 
     if (!userHasRewards || rewardClaimed) return null;
 
@@ -112,12 +106,13 @@ class ClaimRewardsBlock extends Component {
           <FormattedMessage id="rewards" defaultMessage="Rewards" />
         </h4>
         <div className="SidebarContentBlock__content">
-          {!rewardClaimed &&
+          {!rewardClaimed && (
             <div>
               {rewardSteem > 0 && this.renderReward(rewardSteem, 'STEEM', 'steem')}
               {rewardSbd > 0 && this.renderReward(rewardSbd, 'SBD', 'steem_dollar')}
               {rewardSP > 0 && this.renderReward(rewardSP, 'SP', 'steem_power')}
-            </div>}
+            </div>
+          )}
           <Action
             text={buttonText}
             disabled={rewardClaimed}
