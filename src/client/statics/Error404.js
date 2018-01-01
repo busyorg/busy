@@ -1,15 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Helmet from 'react-helmet';
 import { withRouter, Link } from 'react-router-dom';
-import { FormattedMessage } from 'react-intl';
+import { injectIntl, FormattedMessage } from 'react-intl';
 import './ErrorPage.less';
 
-const Error404 = ({ staticContext }) => {
+const Error404 = ({ intl, staticContext }) => {
   if (staticContext) {
     staticContext.status = 404; // eslint-disable-line no-param-reassign
   }
   return (
     <div className="ErrorPage container">
+      <Helmet>
+        <title>
+          {intl.formatMessage({ id: 'page_not_found', defaultMessage: 'Page not found' })} - Busy
+        </title>
+      </Helmet>
       <h1>
         <FormattedMessage id="page_not_found" defaultMessage="Page not found" />
       </h1>
@@ -35,6 +41,7 @@ const Error404 = ({ staticContext }) => {
 };
 
 Error404.propTypes = {
+  intl: PropTypes.shape().isRequired,
   staticContext: PropTypes.shape(),
 };
 
@@ -42,4 +49,4 @@ Error404.defaultProps = {
   staticContext: null,
 };
 
-export default withRouter(Error404);
+export default withRouter(injectIntl(Error404));

@@ -1,10 +1,15 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import PropTypes from 'prop-types';
+import Helmet from 'react-helmet';
+import { injectIntl, FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
 import donors from '../helpers/donors';
 
-const Donors = () => (
+const Donors = ({ intl }) => (
   <div className="main-panel">
+    <Helmet>
+      <title>{intl.formatMessage({ id: 'donors', defaultMessage: 'Donors' })} - Busy</title>
+    </Helmet>
     <div className="container text-center my-5">
       <h1>
         <FormattedMessage id="donors" defaultMessage="Donors" />
@@ -24,4 +29,8 @@ const Donors = () => (
   </div>
 );
 
-export default Donors;
+Donors.propTypes = {
+  intl: PropTypes.shape().isRequired,
+};
+
+export default injectIntl(Donors);
