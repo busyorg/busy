@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Helmet from 'react-helmet';
+import { injectIntl } from 'react-intl';
 import { connect } from 'react-redux';
 import { getIsAuthenticated, getAuthenticatedUserName, getFeed, getPosts } from '../reducers';
 import {
@@ -17,6 +19,7 @@ import requiresLogin from '../auth/requiresLogin';
 
 export class IReplies extends React.Component {
   static propTypes = {
+    intl: PropTypes.shape().isRequired,
     authenticated: PropTypes.bool.isRequired,
     username: PropTypes.string,
     feed: PropTypes.shape(),
@@ -47,7 +50,7 @@ export class IReplies extends React.Component {
   }
 
   render() {
-    const { authenticated, username, feed, posts } = this.props;
+    const { intl, authenticated, username, feed, posts } = this.props;
 
     if (!authenticated) return <Loading />;
 
@@ -57,6 +60,9 @@ export class IReplies extends React.Component {
 
     return (
       <div className="shifted">
+        <Helmet>
+          <title>{intl.formatMessage({ id: 'replies', defaultMessage: 'Replies' })} - Busy</title>
+        </Helmet>
         <div className="feed-layout container">
           <Affix className="leftContainer" stickPosition={77}>
             <div className="left">
@@ -89,4 +95,6 @@ const mapStateToProps = state => ({
   posts: getPosts(state),
 });
 
-export default requiresLogin(connect(mapStateToProps, { getReplies, getMoreReplies })(IReplies));
+export default requiresLogin(
+  injectIntl(connect(mapStateToProps, { getReplies, getMoreReplies })(IReplies)),
+);

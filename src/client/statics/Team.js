@@ -1,11 +1,16 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import PropTypes from 'prop-types';
+import Helmet from 'react-helmet';
+import { injectIntl, FormattedMessage } from 'react-intl';
 import team from '../helpers/team';
 import advisors from '../helpers/advisors';
 import contributors from '../helpers/contributors';
 
-export default () => (
+const Team = ({ intl }) => (
   <div className="main-panel">
+    <Helmet>
+      <title>{intl.formatMessage({ id: 'team', defaultMessage: 'Team' })} - Busy</title>
+    </Helmet>
     <div className="container text-center my-5">
       <h1>
         <FormattedMessage id="team" defaultMessage="Team" />
@@ -34,3 +39,9 @@ export default () => (
     </div>
   </div>
 );
+
+Team.propTypes = {
+  intl: PropTypes.shape().isRequired,
+};
+
+export default injectIntl(Team);

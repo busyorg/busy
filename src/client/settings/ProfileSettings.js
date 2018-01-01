@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Helmet from 'react-helmet';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import { injectIntl, FormattedMessage } from 'react-intl';
@@ -112,6 +113,11 @@ export default class ProfileSettings extends React.Component {
 
     return (
       <div className="shifted">
+        <Helmet>
+          <title>
+            {intl.formatMessage({ id: 'edit_profile', defaultMessage: 'Edit profile' })} - Busy
+          </title>
+        </Helmet>
         <div className="settings-layout container">
           <Affix className="leftContainer" stickPosition={77}>
             <div className="left">

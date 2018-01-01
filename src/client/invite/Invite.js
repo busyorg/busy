@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
-import { FormattedMessage } from 'react-intl';
+import { injectIntl, FormattedMessage } from 'react-intl';
 import { Form, Input } from 'antd';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import Affix from '../components/Utils/Affix';
@@ -11,11 +12,13 @@ import { getAuthenticatedUserName } from '../reducers';
 import './Invite.less';
 
 @requiresLogin
+@injectIntl
 @connect(state => ({
   authenticatedUserName: getAuthenticatedUserName(state),
 }))
 export default class Invite extends React.Component {
   static propTypes = {
+    intl: PropTypes.shape().isRequired,
     authenticatedUserName: PropTypes.string,
   };
 
@@ -45,9 +48,13 @@ export default class Invite extends React.Component {
   handleCopyClick = () => this.setState({ copied: true });
 
   render() {
+    const { intl } = this.props;
     const buttonLabel = this.state.copied ? 'Copied' : 'Copy link';
     return (
       <div className="shifted">
+        <Helmet>
+          <title>{intl.formatMessage({ id: 'invite', defaultMessage: 'Invite' })} - Busy</title>
+        </Helmet>
         <div className="settings-layout container">
           <Affix className="leftContainer" stickPosition={77}>
             <div className="left">

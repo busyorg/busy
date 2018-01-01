@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Helmet from 'react-helmet';
 import ReactDOM from 'react-dom';
 import readingTime from 'reading-time';
 import classNames from 'classnames';
@@ -448,6 +449,11 @@ class Editor extends React.Component {
 
     return (
       <Form className="Editor" layout="vertical" onSubmit={this.handleSubmit}>
+        <Helmet>
+          <title>
+            {intl.formatMessage({ id: 'write_post', defaultMessage: 'Write post' })} - Busy
+          </title>
+        </Helmet>
         <Form.Item
           label={
             <span className="Editor__label">
