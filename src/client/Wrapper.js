@@ -7,7 +7,6 @@ import { renderRoutes } from 'react-router-config';
 import { LocaleProvider, Layout } from 'antd';
 import enUS from 'antd/lib/locale-provider/en_US';
 import { getAvailableLocale } from './translations';
-
 import {
   getIsLoaded,
   getAuthenticatedUser,
@@ -15,8 +14,7 @@ import {
   getLocale,
   getUsedLocale,
 } from './reducers';
-
-import { login, logout } from './auth/authActions';
+import { login, logout, getAuthUserFollowers } from './auth/authActions';
 import { getFollowing } from './user/userActions';
 import { getRate, getRewardFund, getTrendingTopics } from './app/appActions';
 import * as reblogActions from './app/Reblog/reblogActions';
@@ -40,6 +38,7 @@ import Transfer from './wallet/Transfer';
     getRewardFund,
     getTrendingTopics,
     getRebloggedList: reblogActions.getRebloggedList,
+    getAuthUserFollowers,
   },
 )
 export default class Wrapper extends React.PureComponent {
@@ -50,6 +49,7 @@ export default class Wrapper extends React.PureComponent {
     locale: PropTypes.string.isRequired,
     usedLocale: PropTypes.string.isRequired,
     history: PropTypes.shape().isRequired,
+    getAuthUserFollowers: PropTypes.func.isRequired,
     username: PropTypes.string,
     login: PropTypes.func,
     logout: PropTypes.func,
@@ -89,7 +89,10 @@ export default class Wrapper extends React.PureComponent {
   componentDidMount() {
     const { loaded, locale, usedLocale } = this.props;
 
-    this.props.login().then(() => this.props.getFollowing());
+    this.props.login().then(() => {
+      this.props.getFollowing();
+      this.props.getAuthUserFollowers();
+    });
     this.props.getRewardFund();
     this.props.getRebloggedList();
     this.props.getRate();

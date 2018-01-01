@@ -1,7 +1,6 @@
 import Cookie from 'js-cookie';
-import { getIsAuthenticated } from '../reducers';
-import { getAccount } from '../helpers/apiHelpers';
-import { getFollowing } from '../user/userActions';
+import { getIsAuthenticated, getAuthenticatedUserName } from '../reducers';
+import { getAccount, getAllFollowers } from '../helpers/apiHelpers';
 import { createAsyncActionType } from '../helpers/stateHelpers';
 
 export const LOGIN = '@auth/LOGIN';
@@ -20,6 +19,7 @@ export const LOGOUT_ERROR = '@auth/LOGOUT_ERROR';
 export const LOGOUT_SUCCESS = '@auth/LOGOUT_SUCCESS';
 
 export const UPDATE_AUTH_USER = createAsyncActionType('@auth/UPDATE_AUTH_USER');
+export const GET_AUTH_USER_FOLLOWERS = createAsyncActionType('@auth/GET_AUTH_USER_FOLLOWERS');
 
 export const login = () => (dispatch, getState, { steemConnectAPI }) => {
   let promise = Promise.resolve(null);
@@ -41,7 +41,16 @@ export const login = () => (dispatch, getState, { steemConnectAPI }) => {
   }).catch(() => {});
 };
 
-export const getCurrentUserFollowing = () => dispatch => dispatch(getFollowing());
+export const getAuthUserFollowers = () => (dispatch, getState) => {
+  const state = getState();
+  const getAuthUsername = getAuthenticatedUserName(state);
+  dispatch({
+    type: GET_AUTH_USER_FOLLOWERS.ACTION,
+    payload: {
+      promise: getAllFollowers(getAuthUsername),
+    },
+  });
+};
 
 export const reload = () => (dispatch, getState, { steemConnectAPI }) =>
   dispatch({

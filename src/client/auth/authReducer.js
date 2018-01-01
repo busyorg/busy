@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import * as types from './authActions';
 
 const initialState = {
@@ -6,6 +7,7 @@ const initialState = {
   isReloading: false,
   loaded: false,
   user: {},
+  followers: {},
 };
 
 export default (state = initialState, action) => {
@@ -69,6 +71,21 @@ export default (state = initialState, action) => {
         },
         loadingUpdateAuthUser: false,
       };
+    case types.GET_AUTH_USER_FOLLOWERS.SUCCESS: {
+      const followers = _.reduce(
+        action.payload,
+        (obj, follower) => {
+          const copyObj = { ...obj };
+          copyObj[follower] = true;
+          return copyObj;
+        },
+        {},
+      );
+      return {
+        ...state,
+        followers,
+      };
+    }
     default:
       return state;
   }
@@ -80,3 +97,4 @@ export const getIsLoaded = state => state.loaded;
 export const getIsReloading = state => state.isReloading;
 export const getAuthenticatedUser = state => state.user;
 export const getAuthenticatedUserName = state => state.user.name;
+export const getAuthenticatedUserFollowers = state => state.followers;
