@@ -2,24 +2,24 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import ReactDOM from 'react-dom';
-import readingTime from 'reading-time';
 import classNames from 'classnames';
 import { injectIntl, FormattedMessage } from 'react-intl';
-import { HotKeys } from 'react-hotkeys';
-import { throttle, isEqual } from 'lodash';
+import { isEqual } from 'lodash';
 import isArray from 'lodash/isArray';
-import { Icon, Checkbox, Form, Input, Select, Button } from 'antd';
-import Dropzone from 'react-dropzone';
-import { isValidImage, MAXIMUM_UPLOAD_SIZE } from '../../helpers/image';
+import readingTime from 'reading-time';
+import { Checkbox, Form, Input, Select, Button } from 'antd';
 import { rewardsValues } from '../../../common/constants/rewards';
-import EditorToolbar from './EditorToolbar';
 import Action from '../Button/Action';
-import Body, { remarkable } from '../Story/Body';
 import requiresLogin from '../../auth/requiresLogin';
+import withEditor from './withEditor';
+import EditorInput from './EditorInput';
+import Body, { remarkable } from '../Story/Body';
 import './Editor.less';
 
-@requiresLogin
 @injectIntl
+@requiresLogin
+@Form.create()
+@withEditor
 class Editor extends React.Component {
   static propTypes = {
     intl: PropTypes.shape().isRequired,
@@ -31,13 +31,13 @@ class Editor extends React.Component {
     upvote: PropTypes.bool,
     loading: PropTypes.bool,
     isUpdating: PropTypes.bool,
-    draftId: PropTypes.string,
     saving: PropTypes.bool,
+    draftId: PropTypes.string,
     onUpdate: PropTypes.func,
     onDelete: PropTypes.func,
     onSubmit: PropTypes.func,
     onError: PropTypes.func,
-    onImageInserted: PropTypes.func,
+    onImageUpload: PropTypes.func,
     onImageInvalid: PropTypes.func,
   };
 
@@ -53,41 +53,45 @@ class Editor extends React.Component {
     isUpdating: false,
     saving: false,
     draftId: null,
-    onDelete: () => {},
     onUpdate: () => {},
+    onDelete: () => {},
     onSubmit: () => {},
     onError: () => {},
-    onImageInserted: () => {},
+    onImageUpload: () => {},
     onImageInvalid: () => {},
   };
 
-  static hotkeys = {
-    h1: 'ctrl+shift+1',
-    h2: 'ctrl+shift+2',
-    h3: 'ctrl+shift+3',
-    h4: 'ctrl+shift+4',
-    h5: 'ctrl+shift+5',
-    h6: 'ctrl+shift+6',
-    bold: 'ctrl+b',
-    italic: 'ctrl+i',
-    quote: 'ctrl+q',
-    link: 'ctrl+k',
-    image: 'ctrl+m',
-  };
-
-  state = {
-    contentHtml: '',
-    noContent: false,
-    imageUploading: false,
-    dropzoneActive: false,
-  };
-
-  componentDidMount() {
-    if (this.input) {
-      this.input.addEventListener('input', throttle(e => this.renderMarkdown(e.target.value), 500));
-      this.input.addEventListener('paste', this.handlePastedImage);
+  static checkTopics(rule, value, callback) {
+    if (!value || value.length < 1 || value.length > 5) {
+      callback('You have to add 1 to 5 topics');
     }
 
+    value
+      .map(topic => ({ topic, valid: /^[a-z0-9]+(-[a-z0-9]+)*$/.test(topic) }))
+      .filter(topic => !topic.valid)
+      .map(topic => callback(`Topic ${topic.topic} is invalid`));
+
+    callback();
+  }
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      body: '',
+      bodyHTML: '',
+    };
+
+    this.onUpdate = this.onUpdate.bind(this);
+    this.setValues = this.setValues.bind(this);
+    this.setBodyAndRender = this.setBodyAndRender.bind(this);
+    this.getValues = this.getValues.bind(this);
+    this.handleBodyUpdate = this.handleBodyUpdate.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentDidMount() {
     this.setValues(this.props);
 
     // eslint-disable-next-line react/no-find-dom-node
@@ -115,50 +119,46 @@ class Editor extends React.Component {
     }
   }
 
-  onUpdate = e => {
-    // NOTE: antd doesn't update field value on Select before firing onChange
-    // so we have to get value from event.
-    const values = this.getValues(e);
-    const topics = values.topics || [];
-    const title = values.title || '';
+  onUpdate(e) {
+    const { body } = this.state;
+    const values = {
+      topics: [],
+      title: '',
+      body,
+      ...this.getValues(e),
+    };
 
     this.props.onUpdate({
       ...values,
-      topics: topics.slice(0, 5),
-      title: title.slice(0, 255),
+      topics: values.topics.slice(0, 5),
+      title: values.title.slice(0, 255),
     });
-  };
+  }
 
-  setInput = input => {
-    if (input && input.refs && input.refs.input) {
-      this.originalInput = input.refs.input;
-      // eslint-disable-next-line react/no-find-dom-node
-      this.input = ReactDOM.findDOMNode(input.refs.input);
-    }
-  };
-
-  setValues = post => {
+  setValues(post) {
     this.props.form.setFieldsValue({
       title: post.title,
       topics: post.topics,
       reward: post.reward,
       upvote: post.upvote,
     });
-    if (this.input) {
-      this.input.value = post.body;
-      this.renderMarkdown(this.input.value);
-      this.resizeTextarea();
-    }
-  };
 
-  getValues = e => {
+    this.setBodyAndRender(post.body);
+  }
+
+  setBodyAndRender(body) {
+    this.setState({
+      body,
+      bodyHTML: remarkable.render(body),
+    });
+  }
+
+  getValues(e) {
     // NOTE: antd API is inconsistent and returns event or just value depending of input type.
     // this code extracts value from event based of event type
     // (array or just value for Select, proxy event for inputs and checkboxes)
-
     const values = {
       ...this.props.form.getFieldsValue(['title', 'topics', 'reward', 'upvote']),
-      body: this.input.value,
     };
 
     if (!e) return values;
@@ -176,35 +176,23 @@ class Editor extends React.Component {
     }
 
     return values;
-  };
+  }
 
-  setInputCursorPosition = pos => {
-    if (this.input && this.input.setSelectionRange) {
-      this.input.setSelectionRange(pos, pos);
-    }
-  };
-
-  resizeTextarea = () => {
-    if (this.originalInput) this.originalInput.resizeTextarea();
-  };
-
-  //
-  // Form validation and handling
-  //
-
-  handleSubmit = e => {
+  handleSubmit(e) {
+    e.preventDefault();
+    const { body } = this.state;
     // NOTE: Wrapping textarea in getFormDecorator makes it impossible
     // to control its selection what is needed for markdown formatting.
     // This code adds requirement for body input to not be empty.
-    e.preventDefault();
+
     this.setState({ noContent: false });
     this.props.form.validateFieldsAndScroll((err, values) => {
-      if (!err && this.input.value !== '') {
+      if (!err && body !== '') {
         this.props.onSubmit({
           ...values,
-          body: this.input.value,
+          body,
         });
-      } else if (this.input.value === '') {
+      } else if (body === '') {
         const errors = {
           ...err,
           body: {
@@ -222,230 +210,26 @@ class Editor extends React.Component {
         this.props.onError(err);
       }
     });
-  };
+  }
 
-  checkTopics = (rule, value, callback) => {
-    if (!value || value.length < 1 || value.length > 5) {
-      callback('You have to add 1 to 5 topics');
-    }
+  handleBodyUpdate(body) {
+    this.onUpdate(body, true);
 
-    value
-      .map(topic => ({ topic, valid: /^[a-z0-9]+(-[a-z0-9]+)*$/.test(topic) }))
-      .filter(topic => !topic.valid)
-      .map(topic => callback(`Topic ${topic.topic} is invalid`));
+    this.setBodyAndRender(body);
+  }
 
-    callback();
-  };
-
-  //
-  // Editor methods
-  //
-
-  handlePastedImage = e => {
-    if (e.clipboardData && e.clipboardData.items) {
-      const items = e.clipboardData.items;
-      Array.from(items).forEach(item => {
-        if (item.kind === 'file') {
-          e.preventDefault();
-
-          const blob = item.getAsFile();
-
-          if (!isValidImage(blob)) {
-            this.props.onImageInvalid();
-            return;
-          }
-
-          this.setState({
-            imageUploading: true,
-          });
-
-          this.props.onImageInserted(blob, this.disableAndInsertImage, () =>
-            this.setState({
-              imageUploading: false,
-            }),
-          );
-        }
-      });
-    }
-  };
-
-  handleImageChange = e => {
-    if (e.target.files && e.target.files[0]) {
-      if (!isValidImage(e.target.files[0])) {
-        this.props.onImageInvalid();
-        return;
-      }
-
-      this.setState({
-        imageUploading: true,
-      });
-      this.props.onImageInserted(e.target.files[0], this.disableAndInsertImage, () =>
-        this.setState({
-          imageUploading: false,
-        }),
-      );
-      // Input reacts on value change, so if user selects the same file nothing will happen.
-      // We have to reset its value, so if same image is selected it will emit onChange event.
-      e.target.value = '';
-    }
-  };
-
-  handleDrop = files => {
-    if (files.length === 0) {
-      this.setState({
-        dropzoneActive: false,
-      });
-      return;
-    }
-
-    this.setState({
-      dropzoneActive: false,
-      imageUploading: true,
-    });
-    let callbacksCount = 0;
-    Array.from(files).forEach(item => {
-      this.props.onImageInserted(
-        item,
-        (image, imageName) => {
-          callbacksCount += 1;
-          this.insertImage(image, imageName);
-          if (callbacksCount === files.length) {
-            this.setState({
-              imageUploading: false,
-            });
-          }
-        },
-        () => {
-          this.setState({
-            imageUploading: false,
-          });
-        },
-      );
-    });
-  };
-
-  handleDragEnter = () => this.setState({ dropzoneActive: true });
-
-  handleDragLeave = () => this.setState({ dropzoneActive: false });
-
-  handleDelete = e => {
+  handleDelete(e) {
     e.stopPropagation();
     e.preventDefault();
     this.props.onDelete();
-  };
-
-  insertAtCursor = (before, after, deltaStart = 0, deltaEnd = 0) => {
-    if (!this.input) return;
-
-    const startPos = this.input.selectionStart;
-    const endPos = this.input.selectionEnd;
-    this.input.value =
-      this.input.value.substring(0, startPos) +
-      before +
-      this.input.value.substring(startPos, endPos) +
-      after +
-      this.input.value.substring(endPos, this.input.value.length);
-
-    this.input.selectionStart = startPos + deltaStart;
-    this.input.selectionEnd = endPos + deltaEnd;
-  };
-
-  disableAndInsertImage = (image, imageName = 'image') => {
-    this.setState({
-      imageUploading: false,
-    });
-    this.insertImage(image, imageName);
-  };
-
-  insertImage = (image, imageName = 'image') => {
-    if (!this.input) return;
-
-    const startPos = this.input.selectionStart;
-    const endPos = this.input.selectionEnd;
-    const imageText = `![${imageName}](${image})\n`;
-    this.input.value = `${this.input.value.substring(
-      0,
-      startPos,
-    )}${imageText}${this.input.value.substring(endPos, this.input.value.length)}`;
-    this.resizeTextarea();
-    this.renderMarkdown(this.input.value);
-    this.setInputCursorPosition(startPos + imageText.length);
-    this.onUpdate();
-  };
-
-  insertCode = type => {
-    if (!this.input) return;
-    this.input.focus();
-
-    switch (type) {
-      case 'h1':
-        this.insertAtCursor('# ', '', 2, 2);
-        break;
-      case 'h2':
-        this.insertAtCursor('## ', '', 3, 3);
-        break;
-      case 'h3':
-        this.insertAtCursor('### ', '', 4, 4);
-        break;
-      case 'h4':
-        this.insertAtCursor('#### ', '', 5, 5);
-        break;
-      case 'h5':
-        this.insertAtCursor('##### ', '', 6, 6);
-        break;
-      case 'h6':
-        this.insertAtCursor('###### ', '', 7, 7);
-        break;
-      case 'b':
-        this.insertAtCursor('**', '**', 2, 2);
-        break;
-      case 'i':
-        this.insertAtCursor('*', '*', 1, 1);
-        break;
-      case 'q':
-        this.insertAtCursor('> ', '', 2, 2);
-        break;
-      case 'link':
-        this.insertAtCursor('[', '](url)', 1, 1);
-        break;
-      case 'image':
-        this.insertAtCursor('![', '](url)', 2, 2);
-        break;
-      default:
-        break;
-    }
-
-    this.resizeTextarea();
-    this.renderMarkdown(this.input.value);
-    this.onUpdate();
-  };
-
-  handlers = {
-    h1: () => this.insertCode('h1'),
-    h2: () => this.insertCode('h2'),
-    h3: () => this.insertCode('h3'),
-    h4: () => this.insertCode('h4'),
-    h5: () => this.insertCode('h5'),
-    h6: () => this.insertCode('h6'),
-    bold: () => this.insertCode('b'),
-    italic: () => this.insertCode('i'),
-    quote: () => this.insertCode('q'),
-    link: e => {
-      e.preventDefault();
-      this.insertCode('link');
-    },
-    image: () => this.insertCode('image'),
-  };
-
-  renderMarkdown = value => {
-    this.setState({
-      contentHtml: remarkable.render(value),
-    });
-  };
+  }
 
   render() {
-    const { getFieldDecorator } = this.props.form;
-    const { intl, loading, isUpdating, saving, draftId } = this.props;
+    const { intl, form, body, loading, isUpdating, saving, draftId } = this.props;
+    const { getFieldDecorator } = form;
+    const { bodyHTML } = this.state;
+
+    const { words, minutes } = readingTime(bodyHTML);
 
     return (
       <Form className="Editor" layout="vertical" onSubmit={this.handleSubmit}>
@@ -514,7 +298,7 @@ class Editor extends React.Component {
                 }),
                 type: 'array',
               },
-              { validator: this.checkTopics },
+              { validator: Editor.checkTopics },
             ],
           })(
             <Select
@@ -543,70 +327,24 @@ class Editor extends React.Component {
             })
           }
         >
-          <EditorToolbar onSelect={this.insertCode} />
-          <div className="Editor__dropzone-base">
-            <Dropzone
-              disableClick
-              style={{}}
-              accept="image/*"
-              maxSize={MAXIMUM_UPLOAD_SIZE}
-              onDropRejected={this.props.onImageInvalid}
-              onDrop={this.handleDrop}
-              onDragEnter={this.handleDragEnter}
-              onDragLeave={this.handleDragLeave}
-            >
-              {this.state.dropzoneActive && (
-                <div className="Editor__dropzone">
-                  <div>
-                    <i className="iconfont icon-picture" />
-                    <FormattedMessage id="drop_image" defaultMessage="Drop your images here" />
-                  </div>
-                </div>
-              )}
-              <HotKeys keyMap={Editor.hotkeys} handlers={this.handlers}>
-                <Input
-                  autosize={{ minRows: 6, maxRows: 12 }}
-                  onChange={this.onUpdate}
-                  ref={ref => this.setInput(ref)}
-                  type="textarea"
-                  placeholder={intl.formatMessage({
-                    id: 'story_placeholder',
-                    defaultMessage: 'Write your story...',
-                  })}
-                />
-              </HotKeys>
-            </Dropzone>
-          </div>
-          <p className="Editor__imagebox">
-            <input type="file" id="inputfile" accept="image/*" onChange={this.handleImageChange} />
-            <label htmlFor="inputfile">
-              {this.state.imageUploading ? (
-                <Icon type="loading" />
-              ) : (
-                <i className="iconfont icon-picture" />
-              )}
-              {this.state.imageUploading ? (
-                <FormattedMessage id="image_uploading" defaultMessage="Uploading your image..." />
-              ) : (
-                <FormattedMessage
-                  id="select_or_past_image"
-                  defaultMessage="Select image or paste it from the clipboard."
-                />
-              )}
-            </label>
-            <label htmlFor="reading_time" className="Editor__reading_time">
+          <EditorInput
+            initialValue={body}
+            addon={
               <FormattedMessage
                 id="reading_time"
                 defaultMessage={'{words} words / {min} min read'}
                 values={{
-                  words: readingTime(this.state.contentHtml).words,
-                  min: Math.ceil(readingTime(this.state.contentHtml).minutes),
+                  words,
+                  min: Math.ceil(minutes),
                 }}
               />
-            </label>
-          </p>
+            }
+            onChange={this.handleBodyUpdate}
+            onImageUpload={this.props.onImageUpload}
+            onImageInvalid={this.props.onImageInvalid}
+          />
         </Form.Item>
-        {this.state.contentHtml && (
+        {bodyHTML && (
           <Form.Item
             label={
               <span className="Editor__label">
@@ -614,7 +352,7 @@ class Editor extends React.Component {
               </span>
             }
           >
-            <Body full body={this.state.contentHtml} />
+            <Body full body={bodyHTML} />
           </Form.Item>
         )}
         <Form.Item
@@ -697,4 +435,4 @@ class Editor extends React.Component {
   }
 }
 
-export default Form.create()(Editor);
+export default Editor;

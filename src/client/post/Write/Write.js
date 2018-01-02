@@ -10,7 +10,6 @@ import isArray from 'lodash/isArray';
 import 'url-search-params-polyfill';
 import { injectIntl } from 'react-intl';
 import uuidv4 from 'uuid/v4';
-import { MAXIMUM_UPLOAD_SIZE_HUMAN } from '../../helpers/image';
 import { rewardsValues } from '../../../common/constants/rewards';
 import GetBoost from '../../components/Sidebar/GetBoost';
 import DeleteDraftModal from './DeleteDraftModal';
@@ -25,7 +24,6 @@ import {
 } from '../../reducers';
 
 import { createPost, saveDraft, newPost } from './editorActions';
-import { notify } from '../../app/Notification/notificationActions';
 import Editor from '../../components/Editor/Editor';
 import Affix from '../../components/Utils/Affix';
 
@@ -47,13 +45,11 @@ const version = require('../../../../package.json').version;
     createPost,
     saveDraft,
     newPost,
-    notify,
     replace,
   },
 )
 class Write extends React.Component {
   static propTypes = {
-    intl: PropTypes.shape().isRequired,
     user: PropTypes.shape().isRequired,
     draftPosts: PropTypes.shape().isRequired,
     loading: PropTypes.bool.isRequired,
@@ -64,7 +60,6 @@ class Write extends React.Component {
     newPost: PropTypes.func,
     createPost: PropTypes.func,
     saveDraft: PropTypes.func,
-    notify: PropTypes.func,
     replace: PropTypes.func,
   };
 
@@ -247,48 +242,6 @@ class Write extends React.Component {
     return data;
   };
 
-  handleImageInserted = (blob, callback, errorCallback) => {
-    const { formatMessage } = this.props.intl;
-    this.props.notify(
-      formatMessage({ id: 'notify_uploading_image', defaultMessage: 'Uploading image' }),
-      'info',
-    );
-    const formData = new FormData();
-    formData.append('files', blob);
-
-    fetch(`https://busy-img.herokuapp.com/@${this.props.user.name}/uploads`, {
-      method: 'POST',
-      body: formData,
-    })
-      .then(res => res.json())
-      .then(res => callback(res.secure_url, blob.name))
-      .catch(() => {
-        errorCallback();
-        this.props.notify(
-          formatMessage({
-            id: 'notify_uploading_iamge_error',
-            defaultMessage: "Couldn't upload image",
-          }),
-          'error',
-        );
-      });
-  };
-
-  handleImageInvalid = () => {
-    const { formatMessage } = this.props.intl;
-    this.props.notify(
-      formatMessage(
-        {
-          id: 'notify_uploading_image_invalid',
-          defaultMessage:
-            'This file is invalid. Only image files with maximum size of {size} are supported',
-        },
-        { size: MAXIMUM_UPLOAD_SIZE_HUMAN },
-      ),
-      'error',
-    );
-  };
-
   handleCancelDeleteDraft = () => this.setState({ showModalDelete: false });
 
   saveDraft = debounce(form => {
@@ -332,8 +285,6 @@ class Write extends React.Component {
               onUpdate={this.saveDraft}
               onSubmit={this.onSubmit}
               onDelete={this.onDelete}
-              onImageInserted={this.handleImageInserted}
-              onImageInvalid={this.handleImageInvalid}
             />
           </div>
           {this.state.showModalDelete && (
