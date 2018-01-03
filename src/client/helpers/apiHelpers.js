@@ -137,3 +137,10 @@ export const getAllSearchResultPages = search => {
 
   return Promise.all(promises);
 };
+
+export const currentUserFollowersUser = (currentUsername, username) =>
+  SteemAPI.sendAsync('call', [
+    'follow_api',
+    'get_following',
+    [username, currentUsername, 'blog', 1],
+  ]);

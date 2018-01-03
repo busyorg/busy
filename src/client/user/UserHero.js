@@ -39,6 +39,7 @@ const UserHero = ({
   isPopoverVisible,
   onSelect,
   handleVisibleChange,
+  isFollowing,
 }) => (
   <div>
     <Switch>
@@ -60,6 +61,7 @@ const UserHero = ({
                 isPopoverVisible={isPopoverVisible}
                 onSelect={onSelect}
                 handleVisibleChange={handleVisibleChange}
+                isFollowing={isFollowing}
               />
             )}
             <UserMenuWrapper followers={user.follower_count} following={user.following_count} />
@@ -78,6 +80,7 @@ UserHero.propTypes = {
   isSameUser: PropTypes.bool,
   coverImage: PropTypes.string,
   hasCover: PropTypes.bool,
+  isFollowing: PropTypes.bool,
   isPopoverVisible: PropTypes.bool,
   onSelect: PropTypes.func,
   handleVisibleChange: PropTypes.func,
@@ -87,6 +90,7 @@ UserHero.defaultProps = {
   isSameUser: false,
   coverImage: '',
   hasCover: false,
+  isFollowing: false,
   isPopoverVisible: false,
   onSelect: () => {},
   handleVisibleChange: () => {},
