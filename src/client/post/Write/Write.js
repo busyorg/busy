@@ -231,7 +231,7 @@ class Write extends React.Component {
       metaData.users = users;
     }
     if (links.length) {
-      metaData.links = links;
+      metaData.links = links.slice(0, 10);
     }
     if (images.length) {
       metaData.image = images;
