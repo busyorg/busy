@@ -25,7 +25,9 @@ const UserHeader = ({
   onSelect,
   handleVisibleChange,
 }) => {
-  const style = hasCover ? { backgroundImage: `url("${coverImage}")` } : {};
+  const style = hasCover
+    ? { backgroundImage: `url("https://steemitimages.com/2048x512/${coverImage}")` }
+    : {};
   return (
     <div className={classNames('UserHeader', { 'UserHeader--cover': hasCover })} style={style}>
       <div className="UserHeader__container">
