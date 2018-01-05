@@ -14,6 +14,7 @@ import { Link } from 'react-router-dom';
 import { Tag, Icon, Popover, Tooltip } from 'antd';
 import Lightbox from 'react-image-lightbox';
 import formatter from '../../helpers/steemitFormatter';
+import { getFromMetadata } from '../../helpers/parser';
 import { isPostDeleted } from '../../helpers/postHelpers';
 import withAuthActions from '../../auth/withAuthActions';
 import Body from './Body';
@@ -113,10 +114,10 @@ class StoryFull extends React.Component {
   }
 
   handleContentClick(e) {
-    if (e.target.tagName === 'IMG') {
+    if (e.target.tagName === 'IMG' && this.images) {
       const tags = this.contentDiv.getElementsByTagName('img');
       for (let i = 0; i < tags.length; i += 1) {
-        if (tags[i] === e.target) {
+        if (tags[i] === e.target && this.images.length > i) {
           this.setState({
             lightbox: {
               open: true,
@@ -149,9 +150,9 @@ class StoryFull extends React.Component {
     } = this.props;
 
     const { open, index } = this.state.lightbox;
-    const images = JSON.parse(post.json_metadata).image;
-    const tags = _.union(JSON.parse(post.json_metadata).tags, [post.category]);
-    const video = JSON.parse(post.json_metadata).video;
+    this.images = getFromMetadata(post.json_metadata, 'image');
+    const tags = _.union(getFromMetadata(post.json_metadata, 'tags'), [post.category]);
+    const video = getFromMetadata(post.json_metadata, 'video');
 
     let followText = '';
 
@@ -367,9 +368,9 @@ class StoryFull extends React.Component {
         {content}
         {open && (
           <Lightbox
-            mainSrc={images[index]}
-            nextSrc={images[(index + 1) % images.length]}
-            prevSrc={images[(index + (images.length - 1)) % images.length]}
+            mainSrc={this.images[index]}
+            nextSrc={this.images[(index + 1) % this.images.length]}
+            prevSrc={this.images[(index + (this.images.length - 1)) % this.images.length]}
             onCloseRequest={() => {
               this.setState({
                 lightbox: {
@@ -382,7 +383,7 @@ class StoryFull extends React.Component {
               this.setState({
                 lightbox: {
                   ...this.state.lightbox,
-                  index: (index + (images.length - 1)) % images.length,
+                  index: (index + (this.images.length - 1)) % this.images.length,
                 },
               })
             }
@@ -390,7 +391,7 @@ class StoryFull extends React.Component {
               this.setState({
                 lightbox: {
                   ...this.state.lightbox,
-                  index: (index + (images.length + 1)) % images.length,
+                  index: (index + (this.images.length + 1)) % this.images.length,
                 },
               })
             }
