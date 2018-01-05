@@ -32,6 +32,33 @@
       text-shadow: 0 0 4px rgba(0, 0, 0, 0.8);
     }
   }
+
+  &__handle {
+    .UserHeader__follows-you {
+      display: none;
+    }
+
+    @media @small {
+      .UserHeader__follows-you {
+        display: inline-block;
+        margin-left: 5px;
+      }
+    }
+  }
+
+  &__follows-you--mobile {
+    position: relative;
+    top: -30px;
+    text-align: center;
+
+    @media @small {
+      display: none;
+    }
+  }
+
+  &__follows-you-cover-text-color {
+    color: @white;
+  }
 }
 
 .UserHeader__container {
@@ -97,6 +124,10 @@
   position: relative;
   top: 40px;
   margin: 0 10px;
+
+  &-follows-you {
+    top: 50px;
+  }
 }
 
 @media @small {
