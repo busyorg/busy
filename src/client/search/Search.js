@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Helmet from 'react-helmet';
 import _ from 'lodash';
 import { connect } from 'react-redux';
-import { FormattedMessage } from 'react-intl';
+import { injectIntl, FormattedMessage } from 'react-intl';
 import { getSearchResults, getSearchLoading } from '../reducers';
 import { searchAskSteem } from './searchActions';
 import LeftSidebar from '../app/Sidebar/LeftSidebar';
@@ -13,6 +14,7 @@ import SearchResultPostPreview from './SearchResultPostPreview';
 import SearchResultUserPreview from './SearchResultUserPreview';
 import './Search.less';
 
+@injectIntl
 @connect(
   state => ({
     searchResults: getSearchResults(state),
@@ -24,6 +26,7 @@ import './Search.less';
 )
 class Search extends React.Component {
   static propTypes = {
+    intl: PropTypes.shape().isRequired,
     location: PropTypes.shape().isRequired,
     searchResults: PropTypes.arrayOf(PropTypes.shape()),
     searchLoading: PropTypes.bool.isRequired,
@@ -79,11 +82,14 @@ class Search extends React.Component {
   }
 
   render() {
-    const { searchResults, searchLoading } = this.props;
+    const { intl, searchResults, searchLoading } = this.props;
     const noSearchResults = _.isEmpty(searchResults) && !searchLoading;
 
     return (
       <div className="settings-layout container">
+        <Helmet>
+          <title>{intl.formatMessage({ id: 'search', defaultMessage: 'Search' })} - Busy</title>
+        </Helmet>
         <Affix className="leftContainer" stickPosition={77}>
           <div className="left">
             <LeftSidebar />

@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
-import { FormattedMessage } from 'react-intl';
+import { injectIntl, FormattedMessage } from 'react-intl';
 import _ from 'lodash';
 import {
   getFeed,
@@ -24,6 +25,7 @@ import RightSidebar from '../app/Sidebar/RightSidebar';
 import requiresLogin from '../auth/requiresLogin';
 
 @requiresLogin
+@injectIntl
 @connect(
   state => ({
     feed: getFeed(state),
@@ -36,6 +38,7 @@ import requiresLogin from '../auth/requiresLogin';
 )
 export default class Bookmarks extends React.Component {
   static propTypes = {
+    intl: PropTypes.shape().isRequired,
     reloading: PropTypes.bool,
     feed: PropTypes.shape().isRequired,
     posts: PropTypes.shape().isRequired,
@@ -63,7 +66,7 @@ export default class Bookmarks extends React.Component {
   }
 
   render() {
-    const { reloading, feed, posts } = this.props;
+    const { intl, reloading, feed, posts } = this.props;
 
     const content = getFeedContentFromState('bookmarks', 'all', feed, posts);
     const isFetching = getFeedLoadingFromState('bookmarks', 'all', feed) || reloading;
@@ -82,6 +85,11 @@ export default class Bookmarks extends React.Component {
 
     return (
       <div className="shifted">
+        <Helmet>
+          <title>
+            {intl.formatMessage({ id: 'bookmarks', defaultMessage: 'Bookmarks' })} - Busy
+          </title>
+        </Helmet>
         <div className="feed-layout container">
           <Affix className="leftContainer" stickPosition={77}>
             <div className="left">

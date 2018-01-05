@@ -115,6 +115,7 @@ class UserActivityActionsList extends Component {
         loader={null}
         loadingMore={loadingMoreUsersAccountHistory}
       >
+        <div />
         {displayedActions.map(
           action =>
             isWalletTransaction(action.op[0]) ? (

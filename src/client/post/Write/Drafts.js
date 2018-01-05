@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import Helmet from 'react-helmet';
+import { injectIntl, FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import Loading from '../../components/Icon/Loading';
@@ -12,6 +13,7 @@ import DraftRow from './DraftRow';
 import requiresLogin from '../../auth/requiresLogin';
 
 @requiresLogin
+@injectIntl
 @connect(
   state => ({
     reloading: getIsReloading(state),
@@ -22,6 +24,7 @@ import requiresLogin from '../../auth/requiresLogin';
 )
 class Drafts extends React.Component {
   static propTypes = {
+    intl: PropTypes.shape().isRequired,
     reloading: PropTypes.bool,
     draftPosts: PropTypes.shape().isRequired,
     pendingDrafts: PropTypes.arrayOf(PropTypes.string),
@@ -39,7 +42,7 @@ class Drafts extends React.Component {
   }
 
   render() {
-    const { reloading, draftPosts, pendingDrafts } = this.props;
+    const { intl, reloading, draftPosts, pendingDrafts } = this.props;
     const sortedDraftPosts = _.sortBy(
       _.map(draftPosts, (draft, id) => ({ ...draft, id })),
       draft => new Date(draft.lastUpdated),
@@ -48,6 +51,9 @@ class Drafts extends React.Component {
 
     return (
       <div className="shifted">
+        <Helmet>
+          <title>{intl.formatMessage({ id: 'drafts', defaultMessage: 'Drafts' })} - Busy</title>
+        </Helmet>
         <div className="drafts-layout container">
           <Affix className="leftContainer" stickPosition={77}>
             <div className="left">

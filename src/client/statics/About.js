@@ -1,9 +1,14 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import PropTypes from 'prop-types';
+import Helmet from 'react-helmet';
+import { injectIntl, FormattedMessage } from 'react-intl';
 import './About.less';
 
-export default () => (
+const About = ({ intl }) => (
   <div className="main-panel">
+    <Helmet>
+      <title>{intl.formatMessage({ id: 'about', defaultMessage: 'About' })} - Busy</title>
+    </Helmet>
     <div className="mt-5 text-center">
       <h1>
         <FormattedMessage id="about" defaultMessage="About" />
@@ -85,3 +90,9 @@ export default () => (
     </div>
   </div>
 );
+
+About.propTypes = {
+  intl: PropTypes.shape().isRequired,
+};
+
+export default injectIntl(About);

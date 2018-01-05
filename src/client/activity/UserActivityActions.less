@@ -3,7 +3,6 @@
 
 .UserActivityActions {
   background-color: @white;
-  border: 1px solid @white-gainsboro;
   border-left: 0;
   border-right: 0;
   border-radius: 0;
@@ -22,12 +21,21 @@
   &__action {
     color: @grey-nightRider;
     display: flex;
-    padding: 10px 0;
-    margin: 0 15px;
+    padding: 10px 15px;
+
+    border-right: 1px solid @white-gainsboro;
+    border-left: 1px solid @white-gainsboro;
     border-bottom: 1px solid @white-gainsboro;
 
+    &:nth-of-type(2) {
+      border-top: 1px solid @white-gainsboro;
+      border-top-left-radius: @border-radius-base;
+      border-top-right-radius: @border-radius-base;
+    }
+
     &:last-of-type {
-      border-bottom: 0;
+      border-bottom-left-radius: @border-radius-base;
+      border-bottom-right-radius: @border-radius-base;
     }
   }
 
@@ -136,7 +144,6 @@
   }
 
   @media @small {
-    border: 1px solid @white-gainsboro;
     border-radius: @border-radius-base;
 
     &__contents {

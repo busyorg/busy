@@ -4,7 +4,7 @@ import { Icon } from 'antd';
 import classNames from 'classnames';
 import './Action.less';
 
-const Action = ({ text, loading, disabled, primary, style, small, onClick }) => (
+const Action = ({ text, loading, disabled, primary, style, small, type, onClick }) => (
   <button
     disabled={disabled}
     style={style}
@@ -12,6 +12,7 @@ const Action = ({ text, loading, disabled, primary, style, small, onClick }) => 
       'ant-btn-lg': !small,
       'Action--primary': primary,
     })}
+    type={type}
     onClick={onClick}
   >
     {loading && <Icon type="loading" />}
@@ -26,6 +27,7 @@ Action.propTypes = {
   primary: PropTypes.bool,
   style: PropTypes.shape(),
   small: PropTypes.bool,
+  type: PropTypes.string,
   onClick: PropTypes.func,
 };
 
@@ -35,6 +37,7 @@ Action.defaultProps = {
   primary: false,
   style: {},
   small: false,
+  type: '',
   onClick: () => {},
 };
 

@@ -1,10 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { NavLink } from 'react-router-dom';
 import './Sidenav.less';
 
-const SidenavUser = ({ username }) => (
+const SidenavUser = () => (
   <ul className="Sidenav">
     <li>
       <NavLink to="/activity" activeClassName="Sidenav__item--active">
@@ -25,10 +24,10 @@ const SidenavUser = ({ username }) => (
       </NavLink>
     </li>
     <li>
-      <a href={`https://steemit.com/@${username}/settings`} target="_blank">
+      <NavLink to="/edit-profile" activeClassName="Sidenav__item--active">
         <i className="iconfont icon-mine" />
         <FormattedMessage id="edit_profile" defaultMessage="Edit profile" />
-      </a>
+      </NavLink>
     </li>
     <li>
       <NavLink to="/invite" activeClassName="Sidenav__item--active">
@@ -44,9 +43,5 @@ const SidenavUser = ({ username }) => (
     </li>
   </ul>
 );
-
-SidenavUser.propTypes = {
-  username: PropTypes.string.isRequired,
-};
 
 export default SidenavUser;

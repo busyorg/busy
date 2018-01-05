@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { Link } from 'react-router-dom';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { Tag, Tooltip, Popover } from 'antd';
 import formatter from '../helpers/steemitFormatter';
@@ -44,11 +45,7 @@ const UserHeader = ({
             </h2>
             <div className="UserHeader__user__button">
               {isSameUser ? (
-                <a
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  href={`https://steemit.com/@${handle}/settings`}
-                >
+                <Link to="/edit-profile">
                   <Action
                     small
                     text={intl.formatMessage({
@@ -56,7 +53,7 @@ const UserHeader = ({
                       defaultMessage: 'Edit profile',
                     })}
                   />
-                </a>
+                </Link>
               ) : (
                 <FollowButton username={handle} />
               )}

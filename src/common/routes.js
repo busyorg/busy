@@ -12,7 +12,7 @@ import Activity from '../client/activity/Activity';
 import Wallet from '../client/wallet/Wallet';
 import Editor from '../client/post/Write/Write';
 import Settings from '../client/settings/Settings';
-import ProfileSettings from '../client/app/ProfileSettings';
+import ProfileSettings from '../client/settings/ProfileSettings';
 import Invite from '../client/invite/Invite';
 import User from '../client/user/User';
 import UserProfile from '../client/user/UserProfile';
