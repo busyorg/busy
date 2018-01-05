@@ -26,11 +26,13 @@ const UserHeader = ({
   handleVisibleChange,
   isFollowing,
 }) => {
-  const style = hasCover ? { backgroundImage: `url("${coverImage}")` } : {};
+  const style = hasCover
+    ? { backgroundImage: `url("https://steemitimages.com/2048x512/${coverImage}")` }
+    : {};
   return (
     <div className={classNames('UserHeader', { 'UserHeader--cover': hasCover })} style={style}>
       <div className="UserHeader__container">
-        <AvatarLightbox username={handle} size={100} previewSize={800} />
+        <AvatarLightbox username={handle} size={100} />
         <div className="UserHeader__user">
           <div className="UserHeader__row">
             <h2 className="UserHeader__user__username">

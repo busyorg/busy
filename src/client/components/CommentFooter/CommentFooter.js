@@ -1,16 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import find from 'lodash/find';
 import { getHasDefaultSlider, getVoteValue } from '../../helpers/user';
 import Slider from '../Slider/Slider';
 import Buttons from './Buttons';
 import Confirmation from './Confirmation';
+import { getRate } from '../../reducers';
 import './CommentFooter.less';
 
+@connect(state => ({
+  rate: getRate(state),
+}))
 export default class CommentFooter extends React.Component {
   static propTypes = {
     user: PropTypes.shape().isRequired,
     comment: PropTypes.shape().isRequired,
     rewardFund: PropTypes.shape().isRequired,
+    rate: PropTypes.number.isRequired,
     defaultVotePercent: PropTypes.number.isRequired,
     sliderMode: PropTypes.oneOf(['on', 'off', 'auto']),
     editable: PropTypes.bool,
@@ -88,11 +95,12 @@ export default class CommentFooter extends React.Component {
   handleSliderCancel = () => this.setState({ sliderVisible: false });
 
   handleSliderChange = value => {
-    const { user, rewardFund } = this.props;
+    const { user, rewardFund, rate } = this.props;
     const voteWorth = getVoteValue(
       user,
       rewardFund.recent_claims,
       rewardFund.reward_balance,
+      rate,
       value * 100,
     );
     this.setState({ sliderValue: value, voteWorth });

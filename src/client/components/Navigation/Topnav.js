@@ -45,14 +45,26 @@ class Topnav extends React.Component {
 
     this.state = {
       searchBarActive: false,
+      popoverVisible: false,
       searchBarValue: '',
     };
-
+    this.handleMoreMenuSelect = this.handleMoreMenuSelect.bind(this);
+    this.handleMoreMenuVisibleChange = this.handleMoreMenuVisibleChange.bind(this);
     this.handleSelectOnAutoCompleteDropdown = this.handleSelectOnAutoCompleteDropdown.bind(this);
     this.handleAutoCompleteSearch = this.handleAutoCompleteSearch.bind(this);
     this.handleSearchForInput = this.handleSearchForInput.bind(this);
     this.handleOnChangeForAutoComplete = this.handleOnChangeForAutoComplete.bind(this);
     this.hideAutoCompleteDropdown = this.hideAutoCompleteDropdown.bind(this);
+  }
+
+  handleMoreMenuSelect(key) {
+    this.setState({ popoverVisible: false }, () => {
+      this.props.onMenuItemClick(key);
+    });
+  }
+
+  handleMoreMenuVisibleChange(visible) {
+    this.setState({ popoverVisible: visible });
   }
 
   menuForLoggedOut = () => {
@@ -86,8 +98,9 @@ class Topnav extends React.Component {
   };
 
   menuForLoggedIn = () => {
-    const { intl, username, onMenuItemClick } = this.props;
+    const { intl, username } = this.props;
     const { searchBarActive } = this.state;
+    const { popoverVisible } = this.state;
     return (
       <div
         className={classNames('Topnav__menu-container', {
@@ -115,9 +128,11 @@ class Topnav extends React.Component {
             <Popover
               placement="bottom"
               trigger="click"
+              visible={popoverVisible}
+              onVisibleChange={this.handleMoreMenuVisibleChange}
               overlayStyle={{ position: 'fixed' }}
               content={
-                <PopoverMenu onSelect={onMenuItemClick}>
+                <PopoverMenu onSelect={this.handleMoreMenuSelect}>
                   <PopoverMenuItem key="my-profile" fullScreenHidden>
                     <FormattedMessage id="my_profile" defaultMessage="My profile" />
                   </PopoverMenuItem>
