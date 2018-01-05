@@ -3,16 +3,17 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
 import { Helmet } from 'react-helmet';
+import _ from 'lodash';
 import getImage from '../helpers/getImage';
-
+import { currentUserFollowersUser } from '../helpers/apiHelpers';
 import {
   getIsAuthenticated,
   getAuthenticatedUser,
   getUser,
   getIsUserFailed,
   getIsUserLoaded,
+  getAuthenticatedUserName,
 } from '../reducers';
-
 import { openTransfer } from '../wallet/walletActions';
 import { getAccount } from './usersActions';
 import Error404 from '../statics/Error404';
@@ -26,6 +27,7 @@ import ScrollToTopOnMount from '../components/Utils/ScrollToTopOnMount';
   (state, ownProps) => ({
     authenticated: getIsAuthenticated(state),
     authenticatedUser: getAuthenticatedUser(state),
+    authenticatedUserName: getAuthenticatedUserName(state),
     user: getUser(state, ownProps.match.params.name),
     loaded: getIsUserLoaded(state, ownProps.match.params.name),
     failed: getIsUserFailed(state, ownProps.match.params.name),
@@ -40,6 +42,7 @@ export default class User extends React.Component {
     route: PropTypes.shape().isRequired,
     authenticated: PropTypes.bool.isRequired,
     authenticatedUser: PropTypes.shape().isRequired,
+    authenticatedUserName: PropTypes.string,
     match: PropTypes.shape().isRequired,
     user: PropTypes.shape().isRequired,
     loaded: PropTypes.bool,
@@ -49,6 +52,7 @@ export default class User extends React.Component {
   };
 
   static defaultProps = {
+    authenticatedUserName: '',
     loaded: false,
     failed: false,
     getAccount: () => {},
@@ -61,12 +65,41 @@ export default class User extends React.Component {
 
   state = {
     popoverVisible: false,
+    isFollowing: null,
   };
 
   componentDidMount() {
-    const { user } = this.props;
+    const { user, authenticated, authenticatedUserName } = this.props;
     if (!user.id && !user.failed) {
       this.props.getAccount(this.props.match.params.name);
+    }
+
+    if (authenticated) {
+      currentUserFollowersUser(authenticatedUserName, this.props.match.params.name).then(resp => {
+        const result = _.head(resp);
+        const followingUsername = _.get(result, 'following', '');
+        const isFollowing = this.props.authenticatedUserName === followingUsername;
+        this.setState({
+          isFollowing,
+        });
+      });
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const diffUsername = this.props.match.params.name !== nextProps.match.params.name;
+    const diffAuthUsername = this.props.authenticatedUserName !== nextProps.authenticatedUserName;
+    if (diffUsername || diffAuthUsername || _.isNull(this.state.isFollowing)) {
+      currentUserFollowersUser(nextProps.authenticatedUserName, nextProps.match.params.name).then(
+        resp => {
+          const result = _.head(resp);
+          const followingUsername = _.get(result, 'following', '');
+          const isFollowing = nextProps.authenticatedUserName === followingUsername;
+          this.setState({
+            isFollowing,
+          });
+        },
+      );
     }
   }
 
@@ -91,6 +124,7 @@ export default class User extends React.Component {
 
   render() {
     const { authenticated, authenticatedUser, loaded, failed } = this.props;
+    const { isFollowing } = this.state;
     if (failed) return <Error404 />;
 
     const username = this.props.match.params.name;
@@ -138,6 +172,7 @@ export default class User extends React.Component {
             username={displayedUsername}
             isSameUser={isSameUser}
             coverImage={profile.cover_image}
+            isFollowing={isFollowing}
             hasCover={hasCover}
             onFollowClick={this.handleFollowClick}
             isPopoverVisible={this.state.popoverVisible}

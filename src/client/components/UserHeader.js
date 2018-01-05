@@ -24,12 +24,15 @@ const UserHeader = ({
   isPopoverVisible,
   onSelect,
   handleVisibleChange,
+  isFollowing,
 }) => {
-  const style = hasCover ? { backgroundImage: `url("${coverImage}")` } : {};
+  const style = hasCover
+    ? { backgroundImage: `url("https://steemitimages.com/2048x512/${coverImage}")` }
+    : {};
   return (
     <div className={classNames('UserHeader', { 'UserHeader--cover': hasCover })} style={style}>
       <div className="UserHeader__container">
-        <AvatarLightbox username={handle} size={100} previewSize={800} />
+        <AvatarLightbox username={handle} size={100} />
         <div className="UserHeader__user">
           <div className="UserHeader__row">
             <h2 className="UserHeader__user__username">
@@ -43,7 +46,11 @@ const UserHeader = ({
                 <Tag>{formatter.reputation(userReputation)}</Tag>
               </Tooltip>
             </h2>
-            <div className="UserHeader__user__button">
+            <div
+              className={classNames('UserHeader__user__button', {
+                'UserHeader__user__button-follows-you': isFollowing && !isSameUser,
+              })}
+            >
               {isSameUser ? (
                 <Link to="/edit-profile">
                   <Action
@@ -80,7 +87,14 @@ const UserHeader = ({
             )}
           </div>
           <div className="UserHeader__handle-rank-container">
-            <div className="UserHeader__row UserHeader__handle">@{handle}</div>
+            <div className="UserHeader__row UserHeader__handle">
+              @{handle}
+              {isFollowing && (
+                <span className="UserHeader__follows-you">
+                  <FormattedMessage id="follows_you" defaultMessage="Follows you" />
+                </span>
+              )}
+            </div>
             <div className="UserHeader__rank">
               <i className="iconfont icon-ranking" />
               <FormattedMessage
@@ -89,6 +103,16 @@ const UserHeader = ({
               />
             </div>
           </div>
+          {isFollowing &&
+            !isSameUser && (
+              <span
+                className={classNames('UserHeader__follows-you UserHeader__follows-you--mobile', {
+                  'UserHeader__follows-you-cover-text-color': hasCover,
+                })}
+              >
+                <FormattedMessage id="follows_you" defaultMessage="Follows you" />
+              </span>
+            )}
         </div>
       </div>
     </div>
@@ -105,6 +129,7 @@ UserHeader.propTypes = {
   coverImage: PropTypes.string,
   hasCover: PropTypes.bool,
   isPopoverVisible: PropTypes.bool,
+  isFollowing: PropTypes.bool,
   onSelect: PropTypes.func,
   handleVisibleChange: PropTypes.func,
 };
@@ -118,6 +143,7 @@ UserHeader.defaultProps = {
   coverImage: '',
   hasCover: false,
   isPopoverVisible: false,
+  isFollowing: false,
   onSelect: () => {},
   handleVisibleChange: () => {},
 };
