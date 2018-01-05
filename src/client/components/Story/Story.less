@@ -1,5 +1,5 @@
-@import (reference) "../../styles/custom.less";
-@import (reference) "../../styles/modules/variables.less";
+@import (reference) '../../styles/custom.less';
+@import (reference) '../../styles/modules/variables.less';
 
 .Story {
   background-color: @white;
@@ -68,19 +68,15 @@
         margin-left: 0 12px;
       }
 
-      a > h4 {
+      a > h4 > .ant-tag {
         font-weight: bold;
-        color: @primary-color;
+        margin-left: 6px;
+        font-size: 12px;
+        vertical-align: 1px;
+        padding: 0 4px;
 
-        .ant-tag {
-          margin-left: 6px;
-          font-size: 12px;
-          vertical-align: 1px;
-          padding: 0 4px;
-
-          @media @small {
-            padding: 0 8px;
-          }
+        @media @small {
+          padding: 0 8px;
         }
       }
     }
@@ -128,7 +124,7 @@
     }
 
     &__preview {
-      font-family: Source Serif Pro,serif;
+      font-family: Source Serif Pro, serif;
       font-weight: 400;
       font-size: 16px;
       line-height: 1.4;

@@ -3,7 +3,7 @@ import steemAPI from '../steemAPI';
 
 // Vendor file - disable eslint
 /* eslint-disable */
-const createFormatter = (api) => {
+const createFormatter = api => {
   function numberWithCommas(x) {
     return x.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   }
@@ -20,20 +20,20 @@ const createFormatter = (api) => {
     const sbdOrders = !open_orders
       ? 0
       : open_orders.reduce((o, order) => {
-        if (order.sell_price.base.indexOf('SBD') !== -1) {
-          o += order.for_sale;
-        }
-        return o;
-      }, 0) / assetPrecision;
+          if (order.sell_price.base.indexOf('SBD') !== -1) {
+            o += order.for_sale;
+          }
+          return o;
+        }, 0) / assetPrecision;
 
     const steemOrders = !open_orders
       ? 0
       : open_orders.reduce((o, order) => {
-        if (order.sell_price.base.indexOf('STEEM') !== -1) {
-          o += order.for_sale;
-        }
-        return o;
-      }, 0) / assetPrecision;
+          if (order.sell_price.base.indexOf('STEEM') !== -1) {
+            o += order.for_sale;
+          }
+          return o;
+        }, 0) / assetPrecision;
 
     return { steemOrders, sbdOrders };
   }
@@ -41,7 +41,7 @@ const createFormatter = (api) => {
   function calculateSaving(savings_withdraws) {
     let savings_pending = 0;
     let savings_sbd_pending = 0;
-    savings_withdraws.forEach((withdraw) => {
+    savings_withdraws.forEach(withdraw => {
       const [amount, asset] = withdraw.amount.split(' ');
       if (asset === 'STEEM') savings_pending += parseFloat(amount);
       else if (asset === 'SBD') savings_sbd_pending += parseFloat(amount);
@@ -56,13 +56,12 @@ const createFormatter = (api) => {
     const promises = [];
     const username = account.name;
     const assetPrecision = 1000;
-    let orders,
-      savings;
+    let orders, savings;
 
     if (!vesting_steem || !feed_price) {
       if (!gprops || !feed_price) {
         promises.push(
-          api.sendAsync('get-state', [`/@${username}`]).then((data) => {
+          api.sendAsync('get-state', [`/@${username}`]).then(data => {
             gprops = data.props;
             feed_price = data.feed_price;
             vesting_steem = vestingSteem(account, gprops);
@@ -75,7 +74,7 @@ const createFormatter = (api) => {
 
     if (!open_orders) {
       promises.push(
-        api.sendAsync('get_open_orders', [username]).then((open_orders) => {
+        api.sendAsync('get_open_orders', [username]).then(open_orders => {
           orders = processOrders(open_orders, assetPrecision);
         }),
       );
@@ -85,7 +84,7 @@ const createFormatter = (api) => {
 
     if (!savings_withdraws) {
       promises.push(
-        api.sendAsync('get_savings_withdraw_from', [username]).then((savings_withdraws) => {
+        api.sendAsync('get_savings_withdraw_from', [username]).then(savings_withdraws => {
           savings = calculateSaving(savings_withdraws);
         }),
       );

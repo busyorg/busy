@@ -1,4 +1,4 @@
-export const getCountryCode = (language) => {
+export const getCountryCode = language => {
   const languages = {
     cmn: 'cn',
     spa: 'es',

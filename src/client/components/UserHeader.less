@@ -1,5 +1,5 @@
-@import (reference) "../styles/custom.less";
-@import (reference) "../styles/modules/variables.less";
+@import (reference) '../styles/custom.less';
+@import (reference) '../styles/modules/variables.less';
 
 .UserHeader {
   background-color: #f3f4f6;
@@ -31,6 +31,33 @@
       color: #ffffff !important;
       text-shadow: 0 0 4px rgba(0, 0, 0, 0.8);
     }
+  }
+
+  &__handle {
+    .UserHeader__follows-you {
+      display: none;
+    }
+
+    @media @small {
+      .UserHeader__follows-you {
+        display: inline-block;
+        margin-left: 5px;
+      }
+    }
+  }
+
+  &__follows-you--mobile {
+    position: relative;
+    top: -30px;
+    text-align: center;
+
+    @media @small {
+      display: none;
+    }
+  }
+
+  &__follows-you-cover-text-color {
+    color: @white;
   }
 }
 
@@ -97,6 +124,10 @@
   position: relative;
   top: 40px;
   margin: 0 10px;
+
+  &-follows-you {
+    top: 50px;
+  }
 }
 
 @media @small {

@@ -34,10 +34,14 @@ class UserActionMessage extends React.Component {
             id="account_created_with_delegation"
             defaultMessage="{creator} created account with delegation {account}"
             values={{
-              creator: <Link to={`/@${actionDetails.creator}`}>{actionDetails.creator}</Link>,
+              creator: (
+                <Link to={`/@${actionDetails.creator}`}>
+                  <span className="username">{actionDetails.creator}</span>
+                </Link>
+              ),
               account: (
                 <Link to={`/@${actionDetails.new_account_name}`}>
-                  {actionDetails.new_account_name}
+                  <span className="username">{actionDetails.new_account_name}</span>
                 </Link>
               ),
             }}
@@ -49,10 +53,14 @@ class UserActionMessage extends React.Component {
             id="account_created"
             defaultMessage="{creator} created account {account}"
             values={{
-              creator: <Link to={`/@${actionDetails.creator}`}>{actionDetails.creator}</Link>,
+              creator: (
+                <Link to={`/@${actionDetails.creator}`}>
+                  <span className="username">{actionDetails.creator}</span>
+                </Link>
+              ),
               account: (
                 <Link to={`/@${actionDetails.new_account_name}`}>
-                  {actionDetails.new_account_name}
+                  <span className="username">{actionDetails.new_account_name}</span>
                 </Link>
               ),
             }}
@@ -64,9 +72,13 @@ class UserActionMessage extends React.Component {
         );
       case accountHistoryConstants.COMMENT: {
         const author = _.isEmpty(actionDetails.parent_author) ? (
-          <Link to={`/@${actionDetails.author}`}>{actionDetails.author}</Link>
+          <Link to={`/@${actionDetails.author}`}>
+            <span className="username">{actionDetails.author}</span>
+          </Link>
         ) : (
-          <Link to={`/@${actionDetails.parent_author}`}>{actionDetails.parent_author}</Link>
+          <Link to={`/@${actionDetails.parent_author}`}>
+            <span className="username">{actionDetails.parent_author}</span>
+          </Link>
         );
         const postLink = _.isEmpty(actionDetails.parent_author) ? (
           <Link to={`/p/@${actionDetails.author}/${actionDetails.permlink}`}>
@@ -74,7 +86,9 @@ class UserActionMessage extends React.Component {
           </Link>
         ) : (
           <Link
-            to={`/p/@${actionDetails.parent_author}/${actionDetails.parent_permlink}#@${actionDetails.author}/${actionDetails.permlink}`}
+            to={`/p/@${actionDetails.parent_author}/${actionDetails.parent_permlink}#@${
+              actionDetails.author
+            }/${actionDetails.permlink}`}
           >
             {actionDetails.parent_permlink}
           </Link>
@@ -96,7 +110,11 @@ class UserActionMessage extends React.Component {
             id="user_replied_to"
             defaultMessage="{username} replied to {author} ({postLink})"
             values={{
-              username: <Link to={`/@${actionDetails.author}`}>{actionDetails.author}</Link>,
+              username: (
+                <Link to={`/@${actionDetails.author}`}>
+                  <span className="username">{actionDetails.author}</span>
+                </Link>
+              ),
               author,
               postLink,
             }}
@@ -149,11 +167,15 @@ class UserActionMessage extends React.Component {
                 />
               ),
               author: (
-                <Link to={`/@${actionDetails.comment_author}`}>{actionDetails.comment_author}</Link>
+                <Link to={`/@${actionDetails.comment_author}`}>
+                  <span className="username">{actionDetails.comment_author}</span>
+                </Link>
               ),
               postLink: (
                 <Link
-                  to={`/p/@${actionDetails.comment_author}/${actionDetails.comment_permlink}#@${actionDetails.comment_author}/${actionDetails.comment_permlink}`}
+                  to={`/p/@${actionDetails.comment_author}/${actionDetails.comment_permlink}#@${
+                    actionDetails.comment_author
+                  }/${actionDetails.comment_permlink}`}
                 >
                   {actionDetails.comment_permlink}
                 </Link>
@@ -168,8 +190,16 @@ class UserActionMessage extends React.Component {
               id="account_approve_witness"
               defaultMessage="{account} approve witness {witness}"
               values={{
-                account: <Link to={`/@${actionDetails.account}`}>{actionDetails.account}</Link>,
-                witness: <Link to={`/@${actionDetails.witness}`}>{actionDetails.witness}</Link>,
+                account: (
+                  <Link to={`/@${actionDetails.account}`}>
+                    <span className="username">{actionDetails.account}</span>
+                  </Link>
+                ),
+                witness: (
+                  <Link to={`/@${actionDetails.witness}`}>
+                    <span className="username">{actionDetails.witness}</span>
+                  </Link>
+                ),
               }}
             />
           );
@@ -179,8 +209,16 @@ class UserActionMessage extends React.Component {
             id="account_unapprove_witness"
             defaultMessage="{account} unapprove witness {witness}"
             values={{
-              account: <Link to={`/@${actionDetails.account}`}>{actionDetails.account}</Link>,
-              witness: <Link to={`/@${actionDetails.witness}`}>{actionDetails.witness}</Link>,
+              account: (
+                <Link to={`/@${actionDetails.account}`}>
+                  <span className="username">{actionDetails.account}</span>
+                </Link>
+              ),
+              witness: (
+                <Link to={`/@${actionDetails.witness}`}>
+                  <span className="username">{actionDetails.witness}</span>
+                </Link>
+              ),
             }}
           />
         );

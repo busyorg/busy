@@ -1,3 +1,5 @@
+@import (reference) './custom.less';
+
 body {
   overflow-y: scroll;
 }
@@ -5,6 +7,10 @@ body {
 #app {
   width: 100%;
   height: 100%;
+}
+
+a:focus {
+  text-decoration: none;
 }
 
 .white-bg {
@@ -22,6 +28,11 @@ body {
 .text-icon {
   font-size: 18px !important;
   margin-right: 4px;
+  vertical-align: -1px;
+}
+
+.text-icon-right {
+  margin-left: 4px;
   vertical-align: -1px;
 }
 
@@ -63,8 +74,13 @@ video {
   }
 }
 
+.username {
+  color: @black;
+  font-weight: 500;
+}
+
 iframe {
-  border: none; 
+  border: none;
 }
 
 .float-right {

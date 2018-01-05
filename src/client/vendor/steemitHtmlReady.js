@@ -77,7 +77,7 @@ const XMLSerializer = new xmldom.XMLSerializer();
 // }
 
 /** Embed videos, link mentions and hashtags, etc...
-*/
+ */
 export default function(html, { mutate = true, resolveIframe } = {}) {
   const state = { mutate, resolveIframe };
   state.hashtags = new Set();

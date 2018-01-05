@@ -52,7 +52,7 @@ export default class Slider extends React.Component {
       currency: 'USD',
     });
 
-  handleChange = (value) => {
+  handleChange = value => {
     this.setState({ value }, () => {
       this.props.onChange(value);
     });

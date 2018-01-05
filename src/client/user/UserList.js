@@ -15,7 +15,7 @@ export default class UserList extends React.Component {
 
   state = { filterText: null, page: 1 };
 
-  search = (event) => {
+  search = event => {
     this.setState({
       search: event.target.value.trim().toLowerCase(),
       page: 1,

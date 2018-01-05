@@ -151,7 +151,7 @@ class Write extends React.Component {
 
   onDelete = () => this.setState({ showModalDelete: true });
 
-  onSubmit = (form) => {
+  onSubmit = form => {
     const data = this.getNewPostData(form);
     if (this.props.draftId) {
       data.draftId = this.props.draftId;
@@ -159,7 +159,7 @@ class Write extends React.Component {
     this.props.createPost(data);
   };
 
-  getNewPostData = (form) => {
+  getNewPostData = form => {
     const data = {
       body: form.body,
       title: form.title,
@@ -189,12 +189,12 @@ class Write extends React.Component {
 
     const renderer = new marked.Renderer();
 
-    renderer.link = (href) => {
+    renderer.link = href => {
       links.push(href);
       return marked.Renderer.prototype.link.apply(renderer, arguments);
     };
 
-    renderer.image = (href) => {
+    renderer.image = href => {
       images.push(href);
       return marked.Renderer.prototype.image.apply(renderer, arguments);
     };
@@ -231,7 +231,7 @@ class Write extends React.Component {
       metaData.users = users;
     }
     if (links.length) {
-      metaData.links = links;
+      metaData.links = links.slice(0, 10);
     }
     if (images.length) {
       metaData.image = images;
@@ -291,7 +291,7 @@ class Write extends React.Component {
 
   handleCancelDeleteDraft = () => this.setState({ showModalDelete: false });
 
-  saveDraft = debounce((form) => {
+  saveDraft = debounce(form => {
     const data = this.getNewPostData(form);
     const postBody = data.body;
     const id = this.props.draftId;

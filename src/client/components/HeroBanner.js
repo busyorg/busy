@@ -24,10 +24,18 @@ const HeroBanner = ({ visible, location, onCloseClick }) => {
               />
             </h1>
             <div className="HeroBanner__container__content__buttons">
-              <a className="HeroBanner__container__content__buttons__button HeroBanner__primary" target="_blank" rel="noopener noreferrer" href="https://steemit.com/pick_account">
+              <a
+                className="HeroBanner__container__content__buttons__button HeroBanner__primary"
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://steemit.com/pick_account"
+              >
                 <FormattedMessage id="signup" defaultMessage="Sign up" />
               </a>
-              <a className="HeroBanner__container__content__buttons__button HeroBanner__secondary" href={SteemConnect.getLoginURL(next)}>
+              <a
+                className="HeroBanner__container__content__buttons__button HeroBanner__secondary"
+                href={SteemConnect.getLoginURL(next)}
+              >
                 <FormattedMessage id="login" defaultMessage="Log in" />
               </a>
             </div>

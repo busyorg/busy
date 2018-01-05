@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import './PopoverMenuItem.less';
 
-const PopoverMenuItem = ({ itemKey, children, onClick, bold, disabled, fullScreenHidden }) =>
-  (<li
+const PopoverMenuItem = ({ itemKey, children, onClick, bold, disabled, fullScreenHidden }) => (
+  <li
     className={classNames('PopoverMenuItem', {
       'PopoverMenuItem--bold': bold,
       'PopOverMenuItem__full-screen-hidden': fullScreenHidden,
@@ -13,14 +13,15 @@ const PopoverMenuItem = ({ itemKey, children, onClick, bold, disabled, fullScree
     <a
       role="presentation"
       disabled={disabled}
-      onClick={(e) => {
+      onClick={e => {
         e.preventDefault();
         onClick(itemKey);
       }}
     >
       {children}
     </a>
-  </li>);
+  </li>
+);
 
 PopoverMenuItem.propTypes = {
   children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),

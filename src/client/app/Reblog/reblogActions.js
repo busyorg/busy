@@ -9,7 +9,7 @@ export const REBLOG_POST_ERROR = '@reblog/REBLOG_POST_ERROR';
 export const GET_REBLOGGED_LIST = '@reblog/GET_REBLOGGED_LIST';
 const getRebloggedListAction = createAction(GET_REBLOGGED_LIST);
 
-const storePostId = (postId) => {
+const storePostId = postId => {
   const reblogged = store.get('reblogged') || [];
   const newReblogged = [...reblogged, postId];
   store.set('reblogged', newReblogged);
@@ -23,7 +23,7 @@ export const reblog = postId => (dispatch, getState, { steemConnectAPI }) => {
   dispatch({
     type: REBLOG_POST,
     payload: {
-      promise: steemConnectAPI.reblog(auth.user.name, post.author, post.permlink).then((result) => {
+      promise: steemConnectAPI.reblog(auth.user.name, post.author, post.permlink).then(result => {
         const list = storePostId(postId);
         dispatch(getRebloggedListAction(list));
 
@@ -42,7 +42,7 @@ export const reblog = postId => (dispatch, getState, { steemConnectAPI }) => {
   });
 };
 
-export const getRebloggedList = () => (dispatch) => {
+export const getRebloggedList = () => dispatch => {
   const list = store.get('reblogged') || [];
   dispatch(getRebloggedListAction(list));
 };

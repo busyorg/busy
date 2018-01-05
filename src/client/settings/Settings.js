@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import { injectIntl, FormattedMessage } from 'react-intl';
@@ -166,6 +167,7 @@ export default class Settings extends React.Component {
 
   render() {
     const {
+      intl,
       reloading,
       locale: initialLocale,
       votingPower: initialVotingPower,
@@ -184,7 +186,7 @@ export default class Settings extends React.Component {
       );
     }
 
-    Object.keys(this.languages).forEach((key) => {
+    Object.keys(this.languages).forEach(key => {
       languageOptions.push(
         <Select.Option key={key} value={key}>
           {this.languages[key]}
@@ -194,6 +196,9 @@ export default class Settings extends React.Component {
 
     return (
       <div className="shifted">
+        <Helmet>
+          <title>{intl.formatMessage({ id: 'settings', defaultMessage: 'Settings' })} - Busy</title>
+        </Helmet>
         <div className="settings-layout container">
           <Affix className="leftContainer" stickPosition={77}>
             <div className="left">
@@ -297,7 +302,8 @@ export default class Settings extends React.Component {
                   text={this.props.intl.formatMessage({ id: 'save', defaultMessage: 'Save' })}
                   onClick={this.handleSave}
                 />
-              </div>)}
+              </div>
+            )}
           </div>
         </div>
       </div>

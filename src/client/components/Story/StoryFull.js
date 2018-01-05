@@ -14,6 +14,7 @@ import { Link } from 'react-router-dom';
 import { Tag, Icon, Popover, Tooltip } from 'antd';
 import Lightbox from 'react-image-lightbox';
 import formatter from '../../helpers/steemitFormatter';
+import { getFromMetadata } from '../../helpers/parser';
 import { isPostDeleted } from '../../helpers/postHelpers';
 import withAuthActions from '../../auth/withAuthActions';
 import Body from './Body';
@@ -113,10 +114,10 @@ class StoryFull extends React.Component {
   }
 
   handleContentClick(e) {
-    if (e.target.tagName === 'IMG') {
+    if (e.target.tagName === 'IMG' && this.images) {
       const tags = this.contentDiv.getElementsByTagName('img');
       for (let i = 0; i < tags.length; i += 1) {
-        if (tags[i] === e.target) {
+        if (tags[i] === e.target && this.images.length > i) {
           this.setState({
             lightbox: {
               open: true,
@@ -171,8 +172,9 @@ class StoryFull extends React.Component {
     } = this.props;
 
     const { open, index } = this.state.lightbox;
-    const images = JSON.parse(post.json_metadata).image;
-    const tags = _.union(JSON.parse(post.json_metadata).tags, [post.category]);
+    this.images = getFromMetadata(post.json_metadata, 'image');
+    const tags = _.union(getFromMetadata(post.json_metadata, 'tags'), [post.category]);
+    const video = getFromMetadata(post.json_metadata, 'video');
 
     let followText = '';
 
@@ -218,7 +220,7 @@ class StoryFull extends React.Component {
               />
             </Link>
           </h4>
-          {post.depth > 1 &&
+          {post.depth > 1 && (
             <h4>
               <Link to={`/${post.category}/@${post.parent_author}/${post.parent_permlink}`}>
                 <FormattedMessage
@@ -226,7 +228,8 @@ class StoryFull extends React.Component {
                   defaultMessage="Show parent discussion"
                 />
               </Link>
-            </h4>}
+            </h4>
+          )}
         </div>
       );
     }
@@ -275,7 +278,7 @@ class StoryFull extends React.Component {
       content = (
         <div
           role="presentation"
-          ref={(div) => {
+          ref={div => {
             this.contentDiv = div;
           }}
           onClick={this.handleContentClick}
@@ -292,17 +295,19 @@ class StoryFull extends React.Component {
         <h1 className="StoryFull__title">{post.title}</h1>
         <h3 className="StoryFull__comments_title">
           <a href="#comments">
-            {commentCount === 1
-              ? <FormattedMessage
+            {commentCount === 1 ? (
+              <FormattedMessage
                 id="comment_count"
                 values={{ count: <FormattedNumber value={commentCount} /> }}
                 defaultMessage="{count} comment"
               />
-              : <FormattedMessage
+            ) : (
+              <FormattedMessage
                 id="comments_count"
                 values={{ count: <FormattedNumber value={commentCount} /> }}
                 defaultMessage="{count} comments"
-              />}
+              />
+            )}
           </a>
         </h3>
         <div className="StoryFull__header">
@@ -311,7 +316,7 @@ class StoryFull extends React.Component {
           </Link>
           <div className="StoryFull__header__text">
             <Link to={`/@${post.author}`}>
-              {post.author}
+              <span className="username">{post.author}</span>
               <Tooltip
                 title={intl.formatMessage({
                   id: 'reputation_score',
@@ -336,7 +341,7 @@ class StoryFull extends React.Component {
             <span className="StoryFull__posted_from">
               <PostedFrom post={post} />
             </span>
-            {Math.ceil(readingTime(post.body).minutes) > 1 &&
+            {Math.ceil(readingTime(post.body).minutes) > 1 && (
               <span>
                 <span className="StoryFull__bullet" />
                 <Tooltip
@@ -358,7 +363,8 @@ class StoryFull extends React.Component {
                     />
                   </span>
                 </Tooltip>
-              </span>}
+              </span>
+            )}
           </div>
           <Popover
             placement="bottomRight"
@@ -375,9 +381,9 @@ class StoryFull extends React.Component {
         {content}
         {open && (
           <Lightbox
-            mainSrc={images[index]}
-            nextSrc={images[(index + 1) % images.length]}
-            prevSrc={images[(index + (images.length - 1)) % images.length]}
+            mainSrc={this.images[index]}
+            nextSrc={this.images[(index + 1) % this.images.length]}
+            prevSrc={this.images[(index + (this.images.length - 1)) % this.images.length]}
             onCloseRequest={() => {
               this.setState({
                 lightbox: {
@@ -390,16 +396,18 @@ class StoryFull extends React.Component {
               this.setState({
                 lightbox: {
                   ...this.state.lightbox,
-                  index: (index + (images.length - 1)) % images.length,
+                  index: (index + (this.images.length - 1)) % this.images.length,
                 },
-              })}
+              })
+            }
             onMoveNextRequest={() =>
               this.setState({
                 lightbox: {
                   ...this.state.lightbox,
-                  index: (index + (images.length + 1)) % images.length,
+                  index: (index + (this.images.length + 1)) % this.images.length,
                 },
-              })}
+              })
+            }
           />
         )}
         <div className="StoryFull__topics">

@@ -1,8 +1,8 @@
 import React from 'react';
 import './StoryLoading.less';
 
-const StoryLoading = () =>
-  (<div className="StoryLoading">
+const StoryLoading = () => (
+  <div className="StoryLoading">
     <div className="StoryLoading__header">
       <p className="StoryLoading__header__avatar ant-card-loading-block" />
       <div style={{ width: '100%' }}>
@@ -32,6 +32,7 @@ const StoryLoading = () =>
         <span className="ant-card-loading-block" style={{ width: '40%' }} />
       </p>
     </div>
-  </div>);
+  </div>
+);
 
 export default StoryLoading;

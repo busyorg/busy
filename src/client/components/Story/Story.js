@@ -142,9 +142,11 @@ class Story extends React.Component {
     } = this.props;
     const postAuthorReputation = formatter.reputation(post.author_reputation);
     const showStoryPreview = this.getDisplayStoryPreview();
-    const hiddenStoryPreviewMessage = isPostTaggedNSFW(post)
-      ? <NSFWStoryPreviewMessage onClick={this.handleShowStoryPreview} />
-      : <HiddenStoryPreviewMessage onClick={this.handleShowStoryPreview} />;
+    const hiddenStoryPreviewMessage = isPostTaggedNSFW(post) ? (
+      <NSFWStoryPreviewMessage onClick={this.handleShowStoryPreview} />
+    ) : (
+      <HiddenStoryPreviewMessage onClick={this.handleShowStoryPreview} />
+    );
 
     let followText = '';
 
@@ -217,7 +219,11 @@ class Story extends React.Component {
             id="reblogged_username"
             defaultMessage="{username} reblogged"
             values={{
-              username: <Link to={`/@${post.first_reblogged_by}`}>{post.first_reblogged_by}</Link>,
+              username: (
+                <Link to={`/@${post.first_reblogged_by}`}>
+                  <span className="username">{post.first_reblogged_by}</span>
+                </Link>
+              ),
             }}
           />
         </div>
@@ -254,7 +260,7 @@ class Story extends React.Component {
               <span className="Story__header__flex">
                 <Link to={`/@${post.author}`}>
                   <h4>
-                    {post.author}
+                    <span className="username">{post.author}</span>
                     <Tooltip title={intl.formatMessage({ id: 'reputation_score' })}>
                       <Tag>{postAuthorReputation}</Tag>
                     </Tooltip>
@@ -284,18 +290,21 @@ class Story extends React.Component {
           <div className="Story__content">
             <Link to={post.url} className="Story__content__title">
               <h2>
-                {post.title ||
+                {post.title || (
                   <span>
                     <Tag color="#4f545c">RE</Tag>
                     {post.root_title}
-                  </span>}
+                  </span>
+                )}
               </h2>
             </Link>
-            {showStoryPreview
-              ? <Link to={post.url} className="Story__content__preview">
+            {showStoryPreview ? (
+              <Link to={post.url} className="Story__content__preview">
                 <StoryPreview post={post} />
               </Link>
-              : hiddenStoryPreviewMessage}
+            ) : (
+              hiddenStoryPreviewMessage
+            )}
           </div>
           <div className="Story__footer">
             <StoryFooter

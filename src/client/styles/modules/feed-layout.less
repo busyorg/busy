@@ -1,13 +1,14 @@
-@import (reference) "./variables.less";
+@import (reference) './variables.less';
 
 .feed-layout {
   position: relative;
+
   @media only screen and (min-width: 768px) and (max-width: 1200px) {
     padding: 0 @mobile-padding;
   }
 
   &:after {
-    content: "";
+    content: '';
     display: table;
     clear: both;
   }
@@ -49,11 +50,11 @@
     width: 100%;
 
     @media @small {
-      width: calc(100% ~"-" (@right-width + @margin)); 
+      width: calc(100% ~'-' (@right-width + @margin));
     }
 
     @media @medium {
-      width: calc(100% ~"-" (@left-width + @right-width + 2 * @margin));
+      width: calc(100% ~'-' (@left-width + @right-width + 2 * @margin));
       margin-left: @margin;
     }
   }

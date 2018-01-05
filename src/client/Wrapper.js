@@ -8,7 +8,13 @@ import { LocaleProvider, Layout } from 'antd';
 import enUS from 'antd/lib/locale-provider/en_US';
 import { getAvailableLocale } from './translations';
 
-import { getIsLoaded, getAuthenticatedUser, getAuthenticatedUserName, getLocale, getUsedLocale } from './reducers';
+import {
+  getIsLoaded,
+  getAuthenticatedUser,
+  getAuthenticatedUserName,
+  getLocale,
+  getUsedLocale,
+} from './reducers';
 
 import { login, logout } from './auth/authActions';
 import { getFollowing } from './user/userActions';

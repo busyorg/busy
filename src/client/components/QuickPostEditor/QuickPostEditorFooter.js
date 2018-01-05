@@ -39,9 +39,12 @@ const QuickPostEditorFooter = ({
         onChange={handleImageChange}
       />
       <label htmlFor="inputfile">
-        {imageUploading
-          ? <div className="QuickPostEditor__imagebox__loading"><Icon type="loading" /></div>
-          : <div
+        {imageUploading ? (
+          <div className="QuickPostEditor__imagebox__loading">
+            <Icon type="loading" />
+          </div>
+        ) : (
+          <div
             className={classNames({
               QuickPostEditor__imagebox__upload: !_.isEmpty(currentImages),
             })}
@@ -52,7 +55,8 @@ const QuickPostEditorFooter = ({
                 'icon-add': !_.isEmpty(currentImages),
               })}
             />
-          </div>}
+          </div>
+        )}
       </label>
     </div>
     <Action
