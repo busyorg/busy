@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import getImage from '../helpers/getImage';
 import './Avatar.less';
 
 const Avatar = ({ username, size }) => {
@@ -10,10 +9,15 @@ const Avatar = ({ username, size }) => {
     height: `${size}px`,
   };
 
+  const url =
+    size > 64
+      ? `https://steemitimages.com/u/${username}/avatar`
+      : `https://steemitimages.com/u/${username}/avatar/small`;
+
   if (username) {
     style = {
       ...style,
-      backgroundImage: `url(${getImage(`@${username}?width=${size}&height=${size}`)})`,
+      backgroundImage: `url(${url})`,
     };
   }
 

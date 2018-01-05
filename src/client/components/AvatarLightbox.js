@@ -1,20 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Lightbox from 'react-image-lightbox';
-import getImage from '../helpers/getImage';
 import Avatar from './Avatar';
 
 export default class AvatarLightbox extends React.Component {
   static propTypes = {
     username: PropTypes.string,
     size: PropTypes.number,
-    previewSize: PropTypes.number,
   };
 
   static defaultProps = {
     username: undefined,
     size: 100,
-    previewSize: 800,
   };
 
   state = {
@@ -26,7 +23,7 @@ export default class AvatarLightbox extends React.Component {
   handleCloseRequest = () => this.setState({ open: false });
 
   render() {
-    const { username, size, previewSize } = this.props;
+    const { username, size } = this.props;
 
     return (
       <div>
@@ -35,7 +32,7 @@ export default class AvatarLightbox extends React.Component {
         </a>
         {this.state.open && (
           <Lightbox
-            mainSrc={getImage(`@${username}?crop=limit&s=${previewSize}`)}
+            mainSrc={`https://steemitimages.com/u/${username}/avatar/large`}
             onCloseRequest={this.handleCloseRequest}
           />
         )}
