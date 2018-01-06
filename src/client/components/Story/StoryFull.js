@@ -137,7 +137,7 @@ class StoryFull extends React.Component {
       return null;
     }
 
-    const video = _.get(parsedJsonMetaData, 'video', {});
+    const video = getFromMetadata(post.json_metadata, 'video');
     const isDtubeVideo = _.has(video, 'content.videohash') && _.has(video, 'info.snaphash');
 
     if (isDtubeVideo) {
@@ -174,7 +174,6 @@ class StoryFull extends React.Component {
     const { open, index } = this.state.lightbox;
     this.images = getFromMetadata(post.json_metadata, 'image');
     const tags = _.union(getFromMetadata(post.json_metadata, 'tags'), [post.category]);
-    const video = getFromMetadata(post.json_metadata, 'video');
 
     let followText = '';
 
