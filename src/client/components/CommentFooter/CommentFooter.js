@@ -143,16 +143,18 @@ export default class CommentFooter extends React.Component {
     }
 
     return (
-      <div className="CommentFooter">
-        {actionPanel}
-        {sliderVisible && (
-          <Slider
-            value={this.state.sliderValue}
-            voteWorth={this.state.voteWorth}
-            onChange={this.handleSliderChange}
-          />
-        )}
-      </div>
+      <Scrollbars universal autoHide style={{ width: '100%', height: 35 }}>
+        <div className="CommentFooter">
+          {actionPanel}
+          {sliderVisible && (
+            <Slider
+              value={this.state.sliderValue}
+              voteWorth={this.state.voteWorth}
+              onChange={this.handleSliderChange}
+            />
+          )}
+        </div>
+      </Scrollbars>
     );
   }
 }
