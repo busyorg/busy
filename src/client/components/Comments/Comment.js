@@ -222,6 +222,8 @@ class Comment extends React.Component {
       );
     }
 
+    const avatarSize = comment.depth === 1 ? 40 : 32;
+
     return (
       <div ref={this.setSelf} className="Comment" id={anchorId}>
         <span
@@ -235,7 +237,9 @@ class Comment extends React.Component {
             <i className="iconfont icon-offline" />
           )}
         </span>
-        <Avatar username={comment.author} size={comment.depth === 1 ? 40 : 32} />
+        <Link to={`/@${comment.author}`} style={{ height: avatarSize }}>
+          <Avatar username={comment.author} size={avatarSize} />
+        </Link>
         <div className="Comment__text">
           <Link to={`/@${comment.author}`}>
             <span className="username">{comment.author}</span>
