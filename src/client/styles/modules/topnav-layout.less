@@ -63,3 +63,44 @@
     }
   }
 }
+
+div[data-dir='rtl'] .topnav-layout {
+  .left {
+    right: 0;
+    padding-right: 16px;
+    padding-left: 0px;
+  }
+
+  .right {
+    right: unset;
+    left: 0;
+    margin-right: 0px;
+    margin-left: 16px;
+  }
+
+  .center {
+    @media @small {
+      width: calc(100% ~'-' (@left-width + @right-width + 2 * @margin));
+      position: static;
+      margin-left: @right-width;
+      margin-right: @left-width + @margin;
+      display: block;
+    }
+
+    @media @medium {
+      width: calc(100% ~'-' (@left-width + @right-width + 4 * @margin));
+      margin-left: 0;
+      margin-right: @left-width + 2 * @margin;
+    }
+
+    @media @large {
+      width: calc(100% ~'-' (@left-width + @right-width + 2 * @margin));
+      margin-left: 0;
+      margin-right: @left-width + @margin;
+    }
+
+    &.mobileVisible {
+      background-color: white;
+    }
+  }
+}

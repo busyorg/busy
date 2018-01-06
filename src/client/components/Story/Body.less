@@ -207,3 +207,9 @@
     }
   }
 }
+
+// This one is required to let rtl readers
+// to read both ltr and rtl (using .text-rtl) posts
+div[data-dir='rtl'] .Body {
+  direction: ltr;
+}

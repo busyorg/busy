@@ -23,6 +23,17 @@
   }
 }
 
+div[data-dir='rtl'] .Sidenav {
+  & > li {
+    & > a {
+      & > i {
+        margin-left: 5px;
+        margin-right: 0px;
+      }
+    }
+  }
+}
+
 .Sidenav__item--active {
   color: @purple !important;
   & > i {

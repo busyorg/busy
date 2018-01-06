@@ -158,6 +158,25 @@
   }
 }
 
+div[data-dir='rtl'] .Topnav {
+  &__menu-container {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  &__user {
+    &__username {
+      margin-left: 0px;
+      margin-right: 8px;
+    }
+  }
+
+  &__mobile-search {
+    margin-right: 0;
+    margin-left: -16px;
+  }
+}
+
 .Topnav__search-dropdown-container.ant-select-dropdown {
   top: 56px !important;
   position: fixed;
