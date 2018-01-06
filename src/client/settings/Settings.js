@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
-import _ from 'lodash';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { Select, Radio, Checkbox } from 'antd';
 import {
@@ -67,7 +66,7 @@ export default class Settings extends React.Component {
     locale: 'auto',
     votingPower: 'auto',
     votePercent: 10000,
-    showNSFWPosts: null,
+    showNSFWPosts: false,
   };
 
   componentWillMount() {
@@ -75,6 +74,7 @@ export default class Settings extends React.Component {
       locale: this.props.locale,
       votingPower: this.props.votingPower,
       votePercent: this.props.votePercent / 100,
+      showNSFWPosts: this.props.showNSFWPosts,
     });
   }
 
@@ -286,7 +286,7 @@ export default class Settings extends React.Component {
                     <Checkbox
                       name="nsfw_posts"
                       defaultChecked={initialShowNSFWPosts}
-                      checked={_.isBoolean(showNSFWPosts) ? showNSFWPosts : initialShowNSFWPosts}
+                      checked={showNSFWPosts}
                       onChange={this.handleShowNSFWPosts}
                     >
                       <FormattedMessage
