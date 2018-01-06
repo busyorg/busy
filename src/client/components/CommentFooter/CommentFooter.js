@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import find from 'lodash/find';
+import { Scrollbars } from 'react-custom-scrollbars';
 import { getHasDefaultSlider, getVoteValue } from '../../helpers/user';
 import Slider from '../Slider/Slider';
 import Buttons from './Buttons';
