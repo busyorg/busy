@@ -50,6 +50,8 @@ export const availableLocales = [
   'hu',
 ];
 
+const rtlLocales = ['he', 'ar', 'far', 'yi', 'ku', 'ur', 'dv', 'ha', 'ps'];
+
 export const getBrowserLocale = () => {
   let detectedLocale;
   if (typeof navigator !== 'undefined') {
@@ -63,6 +65,8 @@ export const getBrowserLocale = () => {
   }
   return undefined;
 };
+
+export const getLocaleDirection = locale => (rtlLocales.includes(locale) ? 'rtl' : 'ltr');
 
 export const getAvailableLocale = appLocale => {
   let locale = appLocale || 'auto';

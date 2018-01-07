@@ -6,7 +6,7 @@ import { withRouter } from 'react-router-dom';
 import { renderRoutes } from 'react-router-config';
 import { LocaleProvider, Layout } from 'antd';
 import enUS from 'antd/lib/locale-provider/en_US';
-import { getAvailableLocale } from './translations';
+import { getAvailableLocale, getLocaleDirection } from './translations';
 
 import {
   getIsLoaded,
@@ -166,7 +166,7 @@ export default class Wrapper extends React.PureComponent {
     return (
       <IntlProvider key={usedLocale} locale={usedLocale} messages={translations}>
         <LocaleProvider locale={enUS}>
-          <Layout data-dir={getAvailableLocale(locale) === 'he' ? 'rtl' : 'ltr'}>
+          <Layout data-dir={getLocaleDirection(getAvailableLocale(locale))}>
             <Layout.Header style={{ position: 'fixed', width: '100%', zIndex: 5 }}>
               <Topnav username={user.name} onMenuItemClick={this.handleMenuItemClick} />
             </Layout.Header>
