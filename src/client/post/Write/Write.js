@@ -3,13 +3,14 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { replace } from 'react-router-redux';
-import marked from 'marked';
+import cheerio from 'cheerio';
 import kebabCase from 'lodash/kebabCase';
 import debounce from 'lodash/debounce';
 import isArray from 'lodash/isArray';
 import 'url-search-params-polyfill';
 import { injectIntl } from 'react-intl';
 import uuidv4 from 'uuid/v4';
+import { remarkable } from '../../components/Story/Body';
 import { rewardsValues } from '../../../common/constants/rewards';
 import GetBoost from '../../components/Sidebar/GetBoost';
 import DeleteDraftModal from './DeleteDraftModal';
@@ -182,19 +183,15 @@ class Write extends React.Component {
       }
     }
 
-    const renderer = new marked.Renderer();
+    const $ = cheerio.load(remarkable.render(postBody));
 
-    renderer.link = href => {
-      links.push(href);
-      return marked.Renderer.prototype.link.apply(renderer, arguments);
-    };
+    $('a').each((_, el) => {
+      links.push($(el).attr('href'));
+    });
 
-    renderer.image = href => {
-      images.push(href);
-      return marked.Renderer.prototype.image.apply(renderer, arguments);
-    };
-
-    marked(postBody || '', { renderer });
+    $('img').each((_, el) => {
+      images.push($(el).attr('src'));
+    });
 
     if (data.title && !this.permlink) {
       data.permlink = kebabCase(data.title);
