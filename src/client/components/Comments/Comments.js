@@ -163,6 +163,7 @@ class Comments extends React.Component {
 
         {authenticated && (
           <CommentForm
+            top
             parentPost={this.props.parentPost}
             username={username}
             onSubmit={this.submitComment}

@@ -37,15 +37,26 @@ class EmbeddedCommentForm extends React.Component {
       isDisabledSubmit: false,
     };
 
+    this.setInput = this.setInput.bind(this);
     this.setBodyAndRender = this.setBodyAndRender.bind(this);
     this.handleBodyUpdate = this.handleBodyUpdate.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    if (this.input) {
+      this.input.focus();
+    }
   }
 
   componentWillReceiveProps(nextProps) {
     if (!nextProps.isLoading) {
       this.setBodyAndRender(nextProps.inputValue);
     }
+  }
+
+  setInput(input) {
+    this.input = input;
   }
 
   setBodyAndRender(body) {
@@ -79,6 +90,7 @@ class EmbeddedCommentForm extends React.Component {
       <div className="EmbeddedCommentForm">
         <EditorInput
           initialValue={inputValue}
+          inputRef={this.setInput}
           onChange={this.handleBodyUpdate}
           onImageUpload={this.props.onImageUpload}
           onImageInvalid={this.props.onImageInvalid}

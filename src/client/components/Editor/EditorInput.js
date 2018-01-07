@@ -13,6 +13,7 @@ class EditorInput extends React.Component {
   static propTypes = {
     initialValue: PropTypes.string,
     addon: PropTypes.node,
+    inputRef: PropTypes.func,
     onChange: PropTypes.func,
     onImageUpload: PropTypes.func,
     onImageInvalid: PropTypes.func,
@@ -21,6 +22,7 @@ class EditorInput extends React.Component {
   static defaultProps = {
     initialValue: '',
     addon: null,
+    inputRef: () => {},
     onChange: () => {},
     onImageUpload: () => {},
     onImageInvalid: () => {},
@@ -78,6 +80,7 @@ class EditorInput extends React.Component {
       this.originalInput = input.refs.input;
       // eslint-disable-next-line react/no-find-dom-node
       this.input = ReactDOM.findDOMNode(input.refs.input);
+      this.props.inputRef(this.input);
     }
   }
 

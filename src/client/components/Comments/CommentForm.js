@@ -16,6 +16,7 @@ class CommentForm extends React.Component {
   static propTypes = {
     parentPost: PropTypes.shape().isRequired,
     username: PropTypes.string.isRequired,
+    top: PropTypes.bool,
     isSmall: PropTypes.bool,
     isLoading: PropTypes.bool,
     submitted: PropTypes.bool,
@@ -26,7 +27,7 @@ class CommentForm extends React.Component {
   };
 
   static defaultProps = {
-    username: undefined,
+    top: false,
     isSmall: false,
     isLoading: false,
     submitted: false,
@@ -45,15 +46,26 @@ class CommentForm extends React.Component {
       isDisabledSubmit: false,
     };
 
+    this.setInput = this.setInput.bind(this);
     this.setBodyAndRender = this.setBodyAndRender.bind(this);
     this.handleBodyUpdate = this.handleBodyUpdate.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    if (this.input && !this.props.top) {
+      this.input.focus();
+    }
   }
 
   componentWillReceiveProps(nextProps) {
     if ((!nextProps.isLoading && nextProps.inputValue !== '') || nextProps.submitted) {
       this.setBodyAndRender(nextProps.inputValue);
     }
+  }
+
+  setInput(input) {
+    this.input = input;
   }
 
   setBodyAndRender(body) {
@@ -88,6 +100,7 @@ class CommentForm extends React.Component {
         <div className="CommentForm__text">
           <Element name="commentFormInputScrollerElement">
             <EditorInput
+              inputRef={this.setInput}
               onChange={this.handleBodyUpdate}
               onImageUpload={this.props.onImageUpload}
               onImageInvalid={this.props.onImageInvalid}
