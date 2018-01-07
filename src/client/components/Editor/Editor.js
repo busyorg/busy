@@ -501,7 +501,7 @@ class Editor extends React.Component {
           extra={intl.formatMessage({
             id: 'topics_extra',
             defaultMessage:
-              'Separate topics with commas. Only lowercase letters, numbers and hyphen character is permitted.',
+              'Separate topics with spaces. Only lowercase letters, numbers and hyphen character is permitted.',
           })}
         >
           {getFieldDecorator('topics', {
