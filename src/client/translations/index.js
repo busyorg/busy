@@ -50,7 +50,7 @@ export const availableLocales = [
   'hu',
 ];
 
-const rtlLocales = ['he', 'ar', 'far', 'yi', 'ku', 'ur', 'dv', 'ha', 'ps'];
+export const rtlLocales = ['he', 'ar', 'far', 'yi', 'ku', 'ur', 'dv', 'ha', 'ps'];
 
 export const getBrowserLocale = () => {
   let detectedLocale;
