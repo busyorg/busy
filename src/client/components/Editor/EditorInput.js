@@ -48,6 +48,8 @@ class EditorInput extends React.Component {
       dropzoneActive: false,
     };
 
+    props.onChange(this.state.value);
+
     this.setInput = this.setInput.bind(this);
     this.disableAndInsertImage = this.disableAndInsertImage.bind(this);
     this.insertCode = this.insertCode.bind(this);

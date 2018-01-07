@@ -122,8 +122,6 @@ class Editor extends React.Component {
   onUpdate(e) {
     const { body } = this.state;
     const values = {
-      topics: [],
-      title: '',
       body,
       ...this.getValues(e),
     };
@@ -246,6 +244,7 @@ class Editor extends React.Component {
           }
         >
           {getFieldDecorator('title', {
+            initialValue: '',
             rules: [
               {
                 required: true,
@@ -289,6 +288,7 @@ class Editor extends React.Component {
           })}
         >
           {getFieldDecorator('topics', {
+            initialValue: [],
             rules: [
               {
                 required: true,
