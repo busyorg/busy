@@ -17,7 +17,7 @@ const User = ({ user }) => (
         </Link>
       </div>
       <div className="User__follow">
-        <FollowButton username={user.name} />
+        <FollowButton username={user.name} secondary />
       </div>
     </div>
     <div className="User__divider" />

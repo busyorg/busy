@@ -16,7 +16,7 @@ const UserCard = ({ username, alt }) => (
       </Link>
       {alt && <span className="UserCard__alt">{alt}</span>}
     </div>
-    <FollowButton username={username} />
+    <FollowButton username={username} secondary />
   </div>
 );
 
