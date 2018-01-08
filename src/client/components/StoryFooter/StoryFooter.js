@@ -24,18 +24,26 @@ class StoryFooter extends React.Component {
     ownPost: PropTypes.bool,
     sliderMode: PropTypes.oneOf(['on', 'off', 'auto']),
     pendingLike: PropTypes.bool,
+    pendingFollow: PropTypes.bool,
+    pendingBookmark: PropTypes.bool,
+    saving: PropTypes.bool,
     onLikeClick: PropTypes.func,
     onShareClick: PropTypes.func,
     onEditClick: PropTypes.func,
+    handlePostPopoverMenuClick: PropTypes.func,
   };
 
   static defaultProps = {
     pendingLike: false,
     ownPost: false,
+    pendingFollow: false,
+    pendingBookmark: false,
+    saving: false,
     sliderMode: 'auto',
     onLikeClick: () => {},
     onShareClick: () => {},
     onEditClick: () => {},
+    handlePostPopoverMenuClick: () => {},
   };
 
   state = {
@@ -97,7 +105,17 @@ class StoryFooter extends React.Component {
   };
 
   render() {
-    const { post, postState, pendingLike, ownPost, defaultVotePercent } = this.props;
+    const {
+      post,
+      postState,
+      pendingLike,
+      ownPost,
+      defaultVotePercent,
+      pendingFollow,
+      pendingBookmark,
+      saving,
+      handlePostPopoverMenuClick,
+    } = this.props;
 
     return (
       <div className="StoryFooter">
@@ -111,11 +129,15 @@ class StoryFooter extends React.Component {
               post={post}
               postState={postState}
               pendingLike={pendingLike}
+              pendingFollow={pendingFollow}
+              pendingBookmark={pendingBookmark}
+              saving={saving}
               ownPost={ownPost}
               defaultVotePercent={defaultVotePercent}
               onLikeClick={this.handleLikeClick}
               onShareClick={this.handleShareClick}
               onEditClick={this.handleEditClick}
+              handlePostPopoverMenuClick={handlePostPopoverMenuClick}
             />
           )}
         </div>
