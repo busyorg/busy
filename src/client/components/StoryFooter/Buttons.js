@@ -4,11 +4,12 @@ import take from 'lodash/take';
 import { injectIntl, FormattedMessage, FormattedNumber } from 'react-intl';
 import { scroller } from 'react-scroll';
 import { Link } from 'react-router-dom';
-import { Icon, Tooltip, Modal } from 'antd';
+import { Icon, Tooltip, Modal, Popover } from 'antd';
 import classNames from 'classnames';
 import withAuthActions from '../../auth/withAuthActions';
 import { sortVotes } from '../../helpers/sortHelpers';
 import { getUpvotes, getDownvotes } from '../../helpers/voteHelpers';
+import PopoverMenu, { PopoverMenuItem } from '../PopoverMenu/PopoverMenu';
 import ReactionsModal from '../Reactions/ReactionsModal';
 import USDDisplay from '../Utils/USDDisplay';
 import './Buttons.less';
@@ -24,17 +25,25 @@ export default class Buttons extends React.Component {
     onActionInitiated: PropTypes.func.isRequired,
     ownPost: PropTypes.bool,
     pendingLike: PropTypes.bool,
+    pendingFollow: PropTypes.bool,
+    pendingBookmark: PropTypes.bool,
+    saving: PropTypes.bool,
     onLikeClick: PropTypes.func,
     onShareClick: PropTypes.func,
     onEditClick: PropTypes.func,
+    handlePostPopoverMenuClick: PropTypes.func,
   };
 
   static defaultProps = {
     ownPost: false,
     pendingLike: false,
+    pendingFollow: false,
+    pendingBookmark: false,
+    saving: false,
     onLikeClick: () => {},
     onShareClick: () => {},
     onEditClick: () => {},
+    handlePostPopoverMenuClick: () => {},
   };
 
   static handleCommentClick() {
@@ -124,6 +133,93 @@ export default class Buttons extends React.Component {
       loadingEdit: true,
     });
     this.props.onEditClick();
+  }
+
+  renderPostPopoverMenu() {
+    const {
+      pendingFollow,
+      pendingBookmark,
+      saving,
+      postState,
+      intl,
+      post,
+      handlePostPopoverMenuClick,
+      ownPost,
+    } = this.props;
+    let followText = '';
+
+    if (postState.userFollowed && !pendingFollow) {
+      followText = intl.formatMessage(
+        { id: 'unfollow_username', defaultMessage: 'Unfollow {username}' },
+        { username: post.author },
+      );
+    } else if (postState.userFollowed && pendingFollow) {
+      followText = intl.formatMessage(
+        { id: 'unfollow_username', defaultMessage: 'Unfollow {username}' },
+        { username: post.author },
+      );
+    } else if (!postState.userFollowed && !pendingFollow) {
+      followText = intl.formatMessage(
+        { id: 'follow_username', defaultMessage: 'Follow {username}' },
+        { username: post.author },
+      );
+    } else if (!postState.userFollowed && pendingFollow) {
+      followText = intl.formatMessage(
+        { id: 'follow_username', defaultMessage: 'Follow {username}' },
+        { username: post.author },
+      );
+    }
+
+    let popoverMenu = [];
+
+    if (ownPost && post.cashout_time !== '1969-12-31T23:59:59') {
+      popoverMenu = [
+        ...popoverMenu,
+        <PopoverMenuItem key="edit">
+          {saving ? <Icon type="loading" /> : <i className="iconfont icon-write" />}
+          <FormattedMessage id="edit_post" defaultMessage="Edit post" />
+        </PopoverMenuItem>,
+      ];
+    }
+
+    if (!ownPost) {
+      popoverMenu = [
+        ...popoverMenu,
+        <PopoverMenuItem key="follow" disabled={pendingFollow}>
+          {pendingFollow ? <Icon type="loading" /> : <i className="iconfont icon-people" />}
+          {followText}
+        </PopoverMenuItem>,
+      ];
+    }
+
+    popoverMenu = [
+      ...popoverMenu,
+      <PopoverMenuItem key="save">
+        {pendingBookmark ? <Icon type="loading" /> : <i className="iconfont icon-collection" />}
+        <FormattedMessage
+          id={postState.isSaved ? 'unsave_post' : 'save_post'}
+          defaultMessage={postState.isSaved ? 'Unsave post' : 'Save post'}
+        />
+      </PopoverMenuItem>,
+      <PopoverMenuItem key="report">
+        <i className="iconfont icon-flag" />
+        <FormattedMessage id="report_post" defaultMessage="Report post" />
+      </PopoverMenuItem>,
+    ];
+
+    return (
+      <Popover
+        placement="bottomRight"
+        trigger="click"
+        content={
+          <PopoverMenu onSelect={handlePostPopoverMenuClick} bold={false}>
+            {popoverMenu}
+          </PopoverMenu>
+        }
+      >
+        <i className="Buttons__post-menu iconfont icon-more" />
+      </Popover>
+    );
   }
 
   render() {
@@ -256,6 +352,7 @@ export default class Buttons extends React.Component {
             <FormattedMessage id="edit" defaultMessage="Edit" />
           </a>
         )}
+        {this.renderPostPopoverMenu()}
         {!postState.isReblogged && (
           <Modal
             title={intl.formatMessage({

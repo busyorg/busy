@@ -58,7 +58,7 @@
   // Paragraph
 
   p {
-    font-size: 100%;
+    font-size: 18px;
     line-height: 150%;
 
     &:not(:last-child) {
@@ -204,6 +204,12 @@
 
     p:not(:last-child) {
       margin: 0 0 1.5rem 0;
+    }
+  }
+
+  @media @small {
+    p {
+      font-size: 100%;
     }
   }
 }

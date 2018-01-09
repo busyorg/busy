@@ -11,11 +11,13 @@ export class FollowPure extends React.Component {
     isFollowed: PropTypes.bool,
     pending: PropTypes.bool,
     onClick: PropTypes.func,
+    secondary: PropTypes.bool,
   };
 
   static defaultProps = {
     isFollowed: false,
     pending: false,
+    secondary: false,
     onClick: () => {},
   };
 
@@ -37,8 +39,9 @@ export class FollowPure extends React.Component {
   };
 
   render() {
-    const { intl, isFollowed, pending } = this.props;
+    const { intl, isFollowed, pending, secondary } = this.props;
     const { isHovered } = this.state;
+    const isDangerStyles = isFollowed && (isHovered || pending);
 
     let followingText = intl.formatMessage({ id: 'follow', defaultMessage: 'Follow' });
     if (isFollowed && !(isHovered || pending)) {
@@ -56,7 +59,9 @@ export class FollowPure extends React.Component {
     return (
       <button
         className={classNames('Follow', {
-          'Follow--danger': isFollowed && (isHovered || pending),
+          'Follow--danger': isDangerStyles,
+          'Follow--danger--secondary': isDangerStyles && secondary,
+          'Follow--secondary': secondary,
         })}
         onClick={this.handleClick}
         onMouseOver={this.onMouseOver}

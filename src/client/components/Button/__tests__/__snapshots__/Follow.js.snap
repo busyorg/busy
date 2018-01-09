@@ -33,6 +33,7 @@ ShallowWrapper {
     isFollowed={true}
     onClick={[Function]}
     pending={false}
+    secondary={false}
   />,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
