@@ -10,4 +10,5 @@ export default {
   steepshot: 'Steepshot',
   zappl: 'Zappl',
   steemkr: 'Steemkr',
+  timer: 'Timer',
 };
