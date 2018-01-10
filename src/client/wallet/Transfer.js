@@ -155,6 +155,7 @@ export default class Transfer extends React.Component {
           ),
         ),
       ]);
+      return;
     }
     if (value.length > Transfer.maxAccountLength) {
       callback([
@@ -170,8 +171,9 @@ export default class Transfer extends React.Component {
           ),
         ),
       ]);
+      return;
     }
-    steemAPI.sendAsync('get_accounts', [[value]], (err, result) => {
+    steemAPI.sendAsync('get_accounts', [[value]]).then(result => {
       if (result[0]) {
         callback();
       } else {
