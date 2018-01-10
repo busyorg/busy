@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { replace } from 'react-router-redux';
-import cheerio from 'cheerio';
 import kebabCase from 'lodash/kebabCase';
 import debounce from 'lodash/debounce';
 import isArray from 'lodash/isArray';
@@ -11,6 +10,7 @@ import 'url-search-params-polyfill';
 import { injectIntl } from 'react-intl';
 import uuidv4 from 'uuid/v4';
 import { remarkable } from '../../components/Story/Body';
+import { extractImages, extractLinks } from '../../helpers/parser';
 import { rewardsValues } from '../../../common/constants/rewards';
 import GetBoost from '../../components/Sidebar/GetBoost';
 import DeleteDraftModal from './DeleteDraftModal';
@@ -170,8 +170,6 @@ class Write extends React.Component {
     const tags = form.topics;
     const users = [];
     const userRegex = /@([a-zA-Z.0-9-]+)/g;
-    const links = [];
-    const images = [];
     let matches;
 
     const postBody = data.body;
@@ -183,15 +181,10 @@ class Write extends React.Component {
       }
     }
 
-    const $ = cheerio.load(remarkable.render(postBody));
+    const parsedBody = remarkable.render(postBody);
 
-    $('a').each((_, el) => {
-      links.push($(el).attr('href'));
-    });
-
-    $('img').each((_, el) => {
-      images.push($(el).attr('src'));
-    });
+    const images = extractImages(parsedBody);
+    const links = extractLinks(parsedBody);
 
     if (data.title && !this.permlink) {
       data.permlink = kebabCase(data.title);

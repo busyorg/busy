@@ -11,11 +11,10 @@ import {
   FormattedNumber,
 } from 'react-intl';
 import { Link } from 'react-router-dom';
-import cheerio from 'cheerio';
 import { Tag, Icon, Popover, Tooltip } from 'antd';
 import Lightbox from 'react-image-lightbox';
 import formatter from '../../helpers/steemitFormatter';
-import { getFromMetadata } from '../../helpers/parser';
+import { getFromMetadata, extractImages } from '../../helpers/parser';
 import { isPostDeleted } from '../../helpers/postHelpers';
 import withAuthActions from '../../auth/withAuthActions';
 import { getProxyImageURL } from '../../helpers/image';
@@ -186,10 +185,9 @@ class StoryFull extends React.Component {
 
     const { open, index } = this.state.lightbox;
 
-    const $ = cheerio.load(remarkable.render(post.body));
-    $('img').each((id, el) => {
-      this.images.push(`https://steemitimages.com/0x0/${$(el).attr('src')}`);
-    });
+    const parsedBody = remarkable.render(post.body);
+
+    this.images = extractImages(parsedBody);
 
     const tags = _.union(getFromMetadata(post.json_metadata, 'tags'), [post.category]);
 
