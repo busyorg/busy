@@ -329,6 +329,7 @@ class Editor extends React.Component {
         >
           <EditorInput
             initialValue={body}
+            autosize={{ minRows: 6, maxRows: 12 }}
             addon={
               <FormattedMessage
                 id="reading_time"

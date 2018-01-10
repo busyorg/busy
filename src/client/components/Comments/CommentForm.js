@@ -101,6 +101,7 @@ class CommentForm extends React.Component {
           <Element name="commentFormInputScrollerElement">
             <EditorInput
               inputRef={this.setInput}
+              autosize={{ minRows: 3, maxRows: 6 }}
               onChange={this.handleBodyUpdate}
               onImageUpload={this.props.onImageUpload}
               onImageInvalid={this.props.onImageInvalid}

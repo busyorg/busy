@@ -90,6 +90,7 @@ class EmbeddedCommentForm extends React.Component {
       <div className="EmbeddedCommentForm">
         <EditorInput
           initialValue={inputValue}
+          autosize={{ minRows: 3, maxRows: 6 }}
           inputRef={this.setInput}
           onChange={this.handleBodyUpdate}
           onImageUpload={this.props.onImageUpload}

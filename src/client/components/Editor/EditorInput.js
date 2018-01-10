@@ -14,6 +14,13 @@ class EditorInput extends React.Component {
     initialValue: PropTypes.string,
     addon: PropTypes.node,
     inputRef: PropTypes.func,
+    autosize: PropTypes.oneOfType([
+      PropTypes.bool,
+      PropTypes.shape({
+        minRows: PropTypes.number,
+        maxRows: PropTypes.number,
+      }),
+    ]),
     onChange: PropTypes.func,
     onImageUpload: PropTypes.func,
     onImageInvalid: PropTypes.func,
@@ -22,6 +29,7 @@ class EditorInput extends React.Component {
   static defaultProps = {
     initialValue: '',
     addon: null,
+    autosize: false,
     inputRef: () => {},
     onChange: () => {},
     onImageUpload: () => {},
@@ -300,7 +308,7 @@ class EditorInput extends React.Component {
   }
 
   render() {
-    const { addon } = this.props;
+    const { addon, autosize } = this.props;
     const { value, dropzoneActive } = this.state;
 
     return (
@@ -327,7 +335,7 @@ class EditorInput extends React.Component {
             )}
             <HotKeys keyMap={this.constructor.hotkeys} handlers={this.handlers}>
               <Input
-                autosize={{ minRows: 6, maxRows: 12 }}
+                autosize={autosize}
                 onChange={this.handleChange}
                 value={value}
                 ref={ref => this.setInput(ref)}
