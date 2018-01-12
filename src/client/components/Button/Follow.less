@@ -14,7 +14,18 @@
   }
 }
 
+.Follow--secondary {
+  color: @purple !important;
+  background-color: @blue-hawkesBlue !important;
+  border: 1px solid @purple;
+
+  &:hover {
+    background: darken(@blue-hawkesBlue, 15%, 'relative') !important;
+    border-color: darken(@purple, 15%, 'relative') !important;
+  }
+}
+
 .Follow--danger {
-  color: #fff !important;
+  color: @white !important;
   .colorize-button(@red, @red);
 }

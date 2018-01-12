@@ -8,7 +8,7 @@ import {
   FormattedTime,
 } from 'react-intl';
 import { Link } from 'react-router-dom';
-import { Tag, Icon, Popover, Tooltip } from 'antd';
+import { Tag, Tooltip } from 'antd';
 import formatter from '../../helpers/steemitFormatter';
 import { isPostTaggedNSFW } from '../../helpers/postHelpers';
 import withAuthActions from '../../auth/withAuthActions';
@@ -17,7 +17,6 @@ import StoryFooter from '../StoryFooter/StoryFooter';
 import Avatar from '../Avatar';
 import Topic from '../Button/Topic';
 import NSFWStoryPreviewMessage from './NSFWStoryPreviewMessage';
-import PopoverMenu, { PopoverMenuItem } from '../PopoverMenu/PopoverMenu';
 import HiddenStoryPreviewMessage from './HiddenStoryPreviewMessage';
 import PostedFrom from './PostedFrom';
 import './Story.less';
@@ -73,7 +72,7 @@ class Story extends React.Component {
     };
 
     this.getDisplayStoryPreview = this.getDisplayStoryPreview.bind(this);
-    this.handleClick = this.handleClick.bind(this);
+    this.handlePostPopoverMenuClick = this.handlePostPopoverMenuClick.bind(this);
     this.handleShowStoryPreview = this.handleShowStoryPreview.bind(this);
   }
 
@@ -112,7 +111,7 @@ class Story extends React.Component {
     }
   }
 
-  handleClick(key) {
+  handlePostPopoverMenuClick(key) {
     this.props.onActionInitiated(this.clickMenuItem.bind(this, key));
   }
 
@@ -148,67 +147,6 @@ class Story extends React.Component {
       <HiddenStoryPreviewMessage onClick={this.handleShowStoryPreview} />
     );
 
-    let followText = '';
-
-    if (postState.userFollowed && !pendingFollow) {
-      followText = intl.formatMessage(
-        { id: 'unfollow_username', defaultMessage: 'Unfollow {username}' },
-        { username: post.author },
-      );
-    } else if (postState.userFollowed && pendingFollow) {
-      followText = intl.formatMessage(
-        { id: 'unfollow_username', defaultMessage: 'Unfollow {username}' },
-        { username: post.author },
-      );
-    } else if (!postState.userFollowed && !pendingFollow) {
-      followText = intl.formatMessage(
-        { id: 'follow_username', defaultMessage: 'Follow {username}' },
-        { username: post.author },
-      );
-    } else if (!postState.userFollowed && pendingFollow) {
-      followText = intl.formatMessage(
-        { id: 'follow_username', defaultMessage: 'Follow {username}' },
-        { username: post.author },
-      );
-    }
-
-    let popoverMenu = [];
-
-    if (ownPost && post.cashout_time !== '1969-12-31T23:59:59') {
-      popoverMenu = [
-        ...popoverMenu,
-        <PopoverMenuItem key="edit">
-          {saving ? <Icon type="loading" /> : <i className="iconfont icon-write" />}
-          <FormattedMessage id="edit_post" defaultMessage="Edit post" />
-        </PopoverMenuItem>,
-      ];
-    }
-
-    if (!ownPost) {
-      popoverMenu = [
-        ...popoverMenu,
-        <PopoverMenuItem key="follow" disabled={pendingFollow}>
-          {pendingFollow ? <Icon type="loading" /> : <i className="iconfont icon-people" />}
-          {followText}
-        </PopoverMenuItem>,
-      ];
-    }
-
-    popoverMenu = [
-      ...popoverMenu,
-      <PopoverMenuItem key="save">
-        {pendingBookmark ? <Icon type="loading" /> : <i className="iconfont icon-collection" />}
-        <FormattedMessage
-          id={postState.isSaved ? 'unsave_post' : 'save_post'}
-          defaultMessage={postState.isSaved ? 'Unsave post' : 'Save post'}
-        />
-      </PopoverMenuItem>,
-      <PopoverMenuItem key="report">
-        <i className="iconfont icon-flag" />
-        <FormattedMessage id="report_post" defaultMessage="Report post" />
-      </PopoverMenuItem>,
-    ];
-
     let rebloggedUI = null;
 
     if (post.first_reblogged_by) {
@@ -241,17 +179,6 @@ class Story extends React.Component {
       <div className="Story">
         {rebloggedUI}
         <div className="Story__content">
-          <Popover
-            placement="bottomRight"
-            trigger="click"
-            content={
-              <PopoverMenu onSelect={this.handleClick} bold={false}>
-                {popoverMenu}
-              </PopoverMenu>
-            }
-          >
-            <i className="iconfont icon-unfold Story__more" />
-          </Popover>
           <div className="Story__header">
             <Link to={`/@${post.author}`}>
               <Avatar username={post.author} size={40} />
@@ -319,6 +246,10 @@ class Story extends React.Component {
               onLikeClick={onLikeClick}
               onShareClick={onShareClick}
               onEditClick={onEditClick}
+              pendingFollow={pendingFollow}
+              pendingBookmark={pendingBookmark}
+              saving={saving}
+              handlePostPopoverMenuClick={this.handlePostPopoverMenuClick}
             />
           </div>
         </div>

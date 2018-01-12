@@ -53,7 +53,9 @@ class UserInfo extends React.Component {
       <div>
         {user.name && (
           <div style={{ wordBreak: 'break-word' }}>
-            {_.get(user && user.json_metadata, 'profile.about')}
+            <div style={{ fontSize: '18px' }}>
+              {_.get(user && user.json_metadata, 'profile.about')}
+            </div>
             <div style={{ marginTop: 16, marginBottom: 16 }}>
               {location && (
                 <div>
