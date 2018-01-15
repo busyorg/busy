@@ -4,8 +4,47 @@
   &__link {
     border-bottom: 1px solid @white-gainsboro;
     font-size: 15px;
+    display: flex;
     padding: 10px 0;
     overflow-wrap: break-word;
+
+    &__header {
+      color: @blue-heather;
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    &__author {
+      color: @blue-heather !important;
+
+      &:after {
+        content: '\2022';
+        font-size: 14px;
+        margin: 0 8px;
+        color: @blue-heather;
+      }
+    }
+
+    &__post-title {
+      color: @black;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    &__image-container {
+      margin-left: auto;
+      margin-top: 5px;
+    }
+
+    &__image {
+      border-radius: @border-radius-base;
+      height: 40px;
+      width: 40px;
+    }
+
+    &:first-of-type {
+      padding-top: 0;
+    }
 
     &:last-of-type {
       border-bottom: 0;
@@ -13,12 +52,19 @@
     }
   }
 
-  &__link-title {
+  &__link--title {
     font-size: 16px;
     font-weight: bold;
   }
 
-  &__comment-link {
-    color: @grey-mortar;
+  &__comments {
+    align-items: center;
+    color: @blue-heather;
+    display: flex;
+
+    &__icon {
+      font-size: 20px !important;
+      margin-right: 3px;
+    }
   }
 }
