@@ -267,7 +267,6 @@ export default class Buttons extends React.Component {
 
     const commentsLink =
       post.url.indexOf('#') !== -1 ? post.url : { pathname: post.url, hash: '#comments' };
-    const showEditLink = ownPost && post.cashout_time !== '1969-12-31T23:59:59';
     const showReblogLink = !ownPost && post.parent_author === '';
 
     let likeTooltip = <span>{intl.formatMessage({ id: 'like' })}</span>;
@@ -341,16 +340,6 @@ export default class Buttons extends React.Component {
               <i className="iconfont icon-share1 Buttons__share" />
             </a>
           </Tooltip>
-        )}
-        {showEditLink && (
-          <a role="presentation" className="Buttons__link" onClick={this.handleEdit}>
-            {this.state.loadingEdit ? (
-              <Icon type="loading" />
-            ) : (
-              <i className="iconfont icon-write" />
-            )}
-            <FormattedMessage id="edit" defaultMessage="Edit" />
-          </a>
         )}
         {this.renderPostPopoverMenu()}
         {!postState.isReblogged && (
