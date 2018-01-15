@@ -101,11 +101,27 @@ export default class Invite extends React.Component {
                 <FacebookShare url={this.state.inviteURL} />
                 <TwitterShare
                   url={this.state.inviteURL}
-                  text={`${intl.formatMessage({ id: 'invite', defaultMessage: 'Invite' })} - Busy`}
+                  text={intl.formatMessage(
+                    {
+                      id: 'invite_share',
+                      defaultMessage: 'Join me today on busy.org and get rewarded to blog {link}',
+                    },
+                    {
+                      link: '',
+                    },
+                  )}
                 />
                 <EmailShare
                   url={this.state.inviteURL}
-                  text={`${intl.formatMessage({ id: 'invite', defaultMessage: 'Invite' })} - Busy`}
+                  text={intl.formatMessage(
+                    {
+                      id: 'invite_share',
+                      defaultMessage: 'Join me today on busy.org and get rewarded to blog {link}',
+                    },
+                    {
+                      link: this.state.inviteURL,
+                    },
+                  )}
                 />
               </div>
             </div>
