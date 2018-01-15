@@ -28,6 +28,7 @@ const PostRecommendationLink = ({ post, navigateToPost, navigateToPostComments }
           <Link role="presentation" to={`/@${post.author}`}>
             <span className="PostRecommendation__link__author username">{post.author}</span>
           </Link>
+          <span className="PostRecommendation__link__bullet" />
           <FormattedRelative value={`${post.created}Z`} />
         </div>
         <Link
@@ -37,7 +38,6 @@ const PostRecommendationLink = ({ post, navigateToPost, navigateToPostComments }
         >
           {post.title}
         </Link>
-        <br />
         {post.children > 0 && (
           <Link
             to={`/${post.category}/@${post.author}/${post.permlink}#comments`}

@@ -16,7 +16,9 @@
 
     &__author {
       color: @blue-heather !important;
+    }
 
+    &__bullet {
       &:after {
         content: '\2022';
         font-size: 14px;
@@ -27,7 +29,7 @@
 
     &__post-title {
       color: @black;
-      font-size: 14px;
+      font-size: 16px;
       font-weight: bold;
     }
 
@@ -40,6 +42,7 @@
       border-radius: @border-radius-base;
       height: 40px;
       width: 40px;
+      object-fit: contain;
     }
 
     &:first-of-type {
