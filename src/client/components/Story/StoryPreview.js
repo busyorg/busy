@@ -55,7 +55,7 @@ const StoryPreview = ({ post }) => {
 
     image: () => (
       <div key={imagePath} className="Story__content__img-container">
-        <img alt="post" src={imagePath} />
+        <img alt="" src={imagePath} />
       </div>
     ),
   };
