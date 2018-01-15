@@ -2,29 +2,74 @@
 @import (reference) '../styles/modules/variables';
 
 .Invite {
-  &__content {
-    background-color: @white;
-    border-radius: 4px;
-    border: 1px solid @white-gainsboro;
-    padding: 0 15px;
-    padding-top: 20px;
-    margin-bottom: 15px;
+  align-items: center;
+  background-color: @white;
+  border-radius: @border-radius-base;
+  border: 1px solid @white-gainsboro;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 15px;
+  margin-bottom: 15px;
 
-    .Action {
-      width: auto !important;
-    }
+  &__icon-container {
+    align-items: center;
+    background-color: @white-smoke;
+    border-radius: 50%;
+    display: flex;
+    height: 250px;
+    justify-content: center;
+    width: 250px;
+  }
+
+  &__icon {
+    font-size: 150px !important;
+    color: @purple;
   }
 
   &__title {
+    margin: 8px 0;
+  }
+
+  &__description {
+    max-width: 450px;
     margin-bottom: 8px;
-    padding-bottom: 8px;
+    text-align: center;
+  }
+
+  &__input-container {
+    width: 100%;
+    text-align: center;
   }
 
   &__input {
+    color: @blue-botticelli;
     height: 46px !important;
     font-size: 18px !important;
-    vertical-align: bottom;
-    margin-right: 10px;
-    max-width: 380px;
+
+    &__copy {
+      background-color: @green;
+      border-radius: @border-radius-base;
+      color: @white;
+      padding: 4px 10px;
+      position: absolute;
+      margin-left: -90px;
+      margin-top: 7px;
+      cursor: pointer;
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+
+    @media @small {
+      max-width: 480px;
+    }
+  }
+
+  &__social {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    min-width: 100px;
   }
 }

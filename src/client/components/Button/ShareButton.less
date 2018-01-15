@@ -1,0 +1,33 @@
+@import (reference) '../../styles/custom.less';
+
+.ShareButton {
+  display: inline-block;
+
+  &__contents {
+    border-radius: 5px;
+    transition: 25ms ease-out;
+    padding: 5px;
+
+    &__facebook {
+      background-color: #3b5998;
+    }
+
+    &__twitter {
+      background-color: #55acee;
+    }
+
+    &__email {
+      background-color: #777777;
+    }
+  }
+
+  &__icon {
+    width: 1em;
+    height: 1em;
+    fill: @white;
+  }
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
