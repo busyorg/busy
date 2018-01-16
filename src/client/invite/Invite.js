@@ -74,8 +74,7 @@ export default class Invite extends React.Component {
           </Affix>
           <div className="center">
             <div className="Invite">
-              <div className="Invite__icon-container">
-              </div>
+              <div className="Invite__icon-container" />
               <h1 className="Invite__title">
                 <FormattedMessage
                   id="invite_and_earn_rewards"
