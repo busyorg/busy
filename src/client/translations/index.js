@@ -1,54 +1,65 @@
 import { addLocaleData } from 'react-intl';
+import _ from 'lodash';
 import { setUsedLocale } from '../app/appActions';
 import { getLocale } from '../reducers';
-import enTranslations from '../locales/en.json';
 
-export function getDefaultTranslation() {
-  return enTranslations;
-}
-
-export const availableLocales = [
-  'en',
-  'cs',
-  'es',
-  'zh',
-  'fr',
-  'de',
-  'ru',
-  'ko',
-  'nl',
-  'sl',
-  'sv',
-  'pl',
-  'ar',
-  'tr',
-  'ro',
-  'ja',
-  'fil',
-  'th',
-  'lo',
-  'id',
-  'ms',
-  'da',
-  'it',
-  'no',
-  'pt',
-  'vi',
-  'el',
-  'bg',
-  'uk',
-  'he',
-  'hi',
-  'ca',
-  'et',
-  'as',
-  'ta',
-  'bn',
-  'ne',
-  'yo',
-  'hr',
-  'hu',
-];
+export const availableLocalesToReactIntl = {
+  'af-ZA': '',
+  'ar-SA': 'ar',
+  'as-IN': 'as',
+  'bg-BG': 'bg',
+  'bn-BD': '',
+  'bn-IN': 'bn',
+  'bs-BA': '',
+  'ca-ES': 'ca',
+  'cs-CZ': 'cs',
+  'da-DK': 'da',
+  'de-DE': 'de',
+  'el-GR': 'el',
+  'en-US': 'en',
+  'eo-UY': '',
+  'es-ES': 'es',
+  'et-EE': 'et',
+  'fi-FI': '',
+  'fil-PH': 'fil',
+  'fr-FR': 'fr',
+  'ha-HG': '',
+  'he-IL': 'he',
+  'hi-IN': 'hi',
+  'hr-HR': 'hr',
+  'hu-HU': 'hu',
+  'id-ID': 'id',
+  'ig-NG': '',
+  'it-IT': 'it',
+  'ja-JP': 'ja',
+  'ko-KR': 'ko',
+  'lo-LA': 'lo',
+  'ms-MY': 'ms',
+  'ne-NP': 'ne',
+  'nl-NL': 'nl',
+  'no-NO': 'no',
+  'or-IN': '',
+  'pcm-NG': '',
+  'pl-PL': 'pl',
+  'pt-BR': 'pt',
+  'pt-PT': '',
+  'ro-RO': 'ro',
+  'ru-RU': 'ru',
+  'sk-SK': '',
+  'sl-SI': 'sl',
+  'sr-SP': '',
+  'sv-SE': 'sv',
+  'ta-IN': 'ta',
+  'th-TH': 'th',
+  'tr-TR': 'tr',
+  'tt-RU': '',
+  'uk-UA': 'uk',
+  'vi-VN': 'vi',
+  'vls-BE': '',
+  'yo-NG': 'yo',
+  'zh-CN': 'zh',
+  'zh-TW': '',
+};
 
 export const getBrowserLocale = () => {
   let detectedLocale;
@@ -71,19 +82,22 @@ export const getAvailableLocale = appLocale => {
     locale = getBrowserLocale() || 'en';
   }
 
-  if (availableLocales.includes(locale)) {
-    return locale;
-  }
+  return _.get(availableLocalesToReactIntl, locale, 'en');
+};
 
-  return 'en';
+export const getTranslationsByLocale = appLocale => {
+  const allTranslations = _.keys(availableLocalesToReactIntl);
+  return _.get(allTranslations, _.indexOf(allTranslations, appLocale), 'default');
 };
 
 export const loadTranslations = async store => {
   const state = store.getState();
-  const availableLocale = getAvailableLocale(getLocale(state));
+  const locale = getLocale(state);
+  const availableLocale = getAvailableLocale(locale);
+  const translationsLocale = getTranslationsByLocale(locale);
 
   const localeDataPromise = await import(`react-intl/locale-data/${availableLocale}`);
-  const translationsPromise = await import(`../locales/${availableLocale}.json`);
+  const translationsPromise = await import(`../locales/${translationsLocale}.json`);
 
   const [localeData, translations] = await Promise.all([localeDataPromise, translationsPromise]);
 
