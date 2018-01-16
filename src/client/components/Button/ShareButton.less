@@ -4,9 +4,9 @@
   display: inline-block;
 
   &__contents {
-    border-radius: 5px;
+    border-radius: @border-radius-base;
     transition: 25ms ease-out;
-    padding: 5px;
+    padding: 0 5px;
 
     &__facebook {
       background-color: @facebook-background-color;
@@ -22,9 +22,8 @@
   }
 
   &__icon {
-    width: 1em;
-    height: 1em;
-    fill: @white;
+    color: @white;
+    font-size: 20px !important;
   }
 
   &:hover {

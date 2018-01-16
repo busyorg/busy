@@ -75,7 +75,6 @@ export default class Invite extends React.Component {
           <div className="center">
             <div className="Invite">
               <div className="Invite__icon-container">
-                <i className="iconfont icon-icon_invite_fill Invite__icon" />
               </div>
               <h1 className="Invite__title">
                 <FormattedMessage
