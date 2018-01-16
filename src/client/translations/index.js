@@ -76,10 +76,10 @@ export const getBrowserLocale = () => {
 };
 
 export const getAvailableLocale = appLocale => {
-  let locale = appLocale || 'auto';
+  const locale = appLocale || 'auto';
 
   if (appLocale === 'auto') {
-    locale = getBrowserLocale() || 'en';
+    return getBrowserLocale() || 'en';
   }
 
   return _.get(availableLocalesToReactIntl, locale, 'en');
@@ -87,6 +87,12 @@ export const getAvailableLocale = appLocale => {
 
 export const getTranslationsByLocale = appLocale => {
   const allTranslations = _.keys(availableLocalesToReactIntl);
+
+  if (appLocale === 'auto') {
+    const browserLocale = getBrowserLocale();
+    return _.findKey(availableLocalesToReactIntl, locale => locale === browserLocale) || 'default';
+  }
+
   return _.get(allTranslations, _.indexOf(allTranslations, appLocale), 'default');
 };
 
