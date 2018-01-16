@@ -253,7 +253,7 @@ class CryptoChart extends React.Component {
       );
     }
 
-    if (_.isEmpty(currentCrypto) || usdAPIError) return null;
+    if (_.isEmpty(currentCrypto) || usdAPIError || _.isEmpty(usdPriceHistory)) return null;
 
     return (
       <div>
