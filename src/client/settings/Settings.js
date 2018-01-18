@@ -88,7 +88,7 @@ export default class Settings extends React.Component {
     }
 
     if (nextProps.votingPower !== this.props.votingPower) {
-      this.setState({ votingPower: nextProps.votingPower / 100 });
+      this.setState({ votingPower: nextProps.votingPower });
     }
 
     if (nextProps.votePercent !== this.props.votePercent) {
