@@ -25,14 +25,12 @@ class CryptoChart extends React.Component {
     cryptosPriceHistory: PropTypes.shape().isRequired,
     getCryptoPriceHistory: PropTypes.func.isRequired,
     refreshCharts: PropTypes.bool,
-    renderDivider: PropTypes.bool,
     crypto: PropTypes.string,
     locale: PropTypes.string,
   };
 
   static defaultProps = {
     refreshCharts: false,
-    renderDivider: true,
     crypto: '',
     locale: '',
   };
@@ -234,7 +232,7 @@ class CryptoChart extends React.Component {
   }
 
   render() {
-    const { renderDivider, cryptosPriceHistory } = this.props;
+    const { cryptosPriceHistory } = this.props;
     const { displayChart, currentCrypto } = this.state;
     const usdAPIErrorKey = `${currentCrypto.symbol}.usdAPIError`;
     const usdAPIError = _.get(cryptosPriceHistory, usdAPIErrorKey, true);
@@ -248,7 +246,6 @@ class CryptoChart extends React.Component {
           <div className="SidebarContentBlock__content">
             <Loading />
           </div>
-          {renderDivider && <div className="SidebarContentBlock__divider" />}
         </div>
       );
     }
@@ -275,7 +272,6 @@ class CryptoChart extends React.Component {
           </div>
         </div>
         {displayChart && this.renderChart()}
-        {renderDivider && <div className="SidebarContentBlock__divider" />}
       </div>
     );
   }

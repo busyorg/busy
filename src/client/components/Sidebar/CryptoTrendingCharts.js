@@ -53,7 +53,10 @@ class CryptoTrendingCharts extends React.Component {
     }
 
     _.each(cryptosPriceHistory, cryptoDetails => {
-      if (!_.isNull(cryptoDetails) && cryptoDetails.usdAPIError) {
+      if (
+        !_.isNull(cryptoDetails) &&
+        (cryptoDetails.usdAPIError || _.isEmpty(cryptoDetails.usdPriceHistory))
+      ) {
         apiErrors.push(cryptoDetails);
       }
     });
@@ -69,17 +72,10 @@ class CryptoTrendingCharts extends React.Component {
       return null;
     }
 
-    return _.map(cryptos, (crypto, index) => {
-      const isNotLastElement = index < cryptos.length - 1;
-      return (
-        <CryptoChart
-          key={crypto}
-          crypto={crypto}
-          renderDivider={isNotLastElement}
-          refreshCharts={refreshCharts}
-        />
-      );
-    });
+    return _.map(cryptos, crypto => [
+      <CryptoChart key={crypto} crypto={crypto} refreshCharts={refreshCharts} />,
+      <div key={`${crypto}-divider`} className="SidebarContentBlock__divider" />,
+    ]);
   }
 
   render() {
