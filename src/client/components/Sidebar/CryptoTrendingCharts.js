@@ -65,7 +65,7 @@ class CryptoTrendingCharts extends React.Component {
   }
 
   renderCryptoCharts() {
-    const { cryptos } = this.props;
+    const { cryptos, cryptosPriceHistory } = this.props;
     const { refreshCharts } = this.state;
 
     if (_.isEmpty(cryptos)) {
@@ -74,7 +74,9 @@ class CryptoTrendingCharts extends React.Component {
 
     return _.map(cryptos, crypto => [
       <CryptoChart key={crypto} crypto={crypto} refreshCharts={refreshCharts} />,
-      <div key={`${crypto}-divider`} className="SidebarContentBlock__divider" />,
+      !_.isEmpty(_.get(cryptosPriceHistory, `${crypto}.usdPriceHistory`, [])) && (
+        <div key={`${crypto}-divider`} className="SidebarContentBlock__divider" />
+      ),
     ]);
   }
 
