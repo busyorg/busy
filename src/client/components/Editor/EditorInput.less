@@ -1,0 +1,62 @@
+@import (reference) '../../styles/custom.less';
+
+.EditorInput {
+  &__dropzone-base {
+    position: relative;
+  }
+
+  &__dropzone {
+    display: flex;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+    border-radius: 4px;
+    background: fade(@purple, 60%);
+    color: white;
+
+    & > div {
+      margin: auto;
+      font-weight: 700;
+      font-size: 20px;
+
+      & > span {
+        margin-left: 8px;
+        vertical-align: 3px;
+      }
+    }
+  }
+
+  &__imagebox {
+    input {
+      width: 0.1px;
+      height: 0.1px;
+      opacity: 0;
+      overflow: hidden;
+      position: absolute;
+      z-index: -1;
+    }
+
+    label {
+      cursor: pointer;
+    }
+
+    .iconfont {
+      font-size: 22px !important;
+      margin-right: 4px;
+      vertical-align: -2px;
+    }
+
+    .anticon {
+      font-size: 16px !important;
+      margin-right: 8px !important;
+      vertical-align: 1px;
+    }
+  }
+
+  &__addon {
+    float: right;
+  }
+}
