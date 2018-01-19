@@ -6,7 +6,7 @@ import SteemConnect from '../steemConnectAPI';
 import './HeroBanner.less';
 
 const HeroBanner = ({ visible, location, onCloseClick }) => {
-  if (!visible) return null;
+  if (!visible) return <div />;
 
   const next = location.pathname.length > 1 ? location.pathname : '';
   return (
