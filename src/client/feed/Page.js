@@ -83,7 +83,7 @@ class Page extends React.Component {
                   onTopicClose={this.handleTopicClose}
                 />
               )}
-              {authenticated && <QuickPostEditor />}
+              {authenticated ? <QuickPostEditor /> : <div />}
               <SubFeed />
             </div>
           </div>
