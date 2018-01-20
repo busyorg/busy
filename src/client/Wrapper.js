@@ -6,8 +6,8 @@ import { withRouter } from 'react-router-dom';
 import { renderRoutes } from 'react-router-config';
 import { LocaleProvider, Layout } from 'antd';
 import enUS from 'antd/lib/locale-provider/en_US';
-import { getAvailableLocale, getLocaleDirection } from './translations';
 import Cookie from 'js-cookie';
+import { getAvailableLocale, getLocaleDirection } from './translations';
 import {
   getIsLoaded,
   getAuthenticatedUser,
