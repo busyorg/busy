@@ -20,6 +20,7 @@ import Follow from '../components/Button/Follow';
 )
 class FollowButton extends React.Component {
   static propTypes = {
+    secondary: PropTypes.bool,
     username: PropTypes.string.isRequired,
     authenticatedUserName: PropTypes.string,
     followingList: PropTypes.arrayOf(PropTypes.string).isRequired,
@@ -30,6 +31,7 @@ class FollowButton extends React.Component {
   };
 
   static defaultProps = {
+    secondary: false,
     authenticatedUserName: undefined,
     followUser: () => {},
     unfollowUser: () => {},
@@ -58,13 +60,26 @@ class FollowButton extends React.Component {
   }
 
   render() {
-    const { authenticatedUserName, username, followingList, pendingFollows } = this.props;
+    const {
+      authenticatedUserName,
+      username,
+      followingList,
+      pendingFollows,
+      secondary,
+    } = this.props;
     const followed = followingList.includes(username);
     const pending = pendingFollows.includes(username);
 
     if (authenticatedUserName === username) return null;
 
-    return <Follow isFollowed={followed} pending={pending} onClick={this.handleFollowClick} />;
+    return (
+      <Follow
+        isFollowed={followed}
+        pending={pending}
+        onClick={this.handleFollowClick}
+        secondary={secondary}
+      />
+    );
   }
 }
 

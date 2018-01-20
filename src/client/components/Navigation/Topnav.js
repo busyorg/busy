@@ -288,8 +288,12 @@ class Topnav extends React.Component {
             </div>
           </div>
           <div className="right">
-            {this.content()}
-            <button className="Topnav__mobile-search" onClick={this.handleMobileSearchButtonClick}>
+            <button
+              className={classNames('Topnav__mobile-search', {
+                'Topnav__mobile-search-close': searchBarActive,
+              })}
+              onClick={this.handleMobileSearchButtonClick}
+            >
               <i
                 className={classNames('iconfont', {
                   'icon-close': searchBarActive,
@@ -297,6 +301,7 @@ class Topnav extends React.Component {
                 })}
               />
             </button>
+            {this.content()}
           </div>
         </div>
       </div>

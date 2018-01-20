@@ -17,12 +17,14 @@ import formatter from '../../helpers/steemitFormatter';
 import { getFromMetadata } from '../../helpers/parser';
 import { isPostDeleted } from '../../helpers/postHelpers';
 import withAuthActions from '../../auth/withAuthActions';
+import { getProxyImageURL } from '../../helpers/image';
 import Body from './Body';
 import StoryDeleted from './StoryDeleted';
 import StoryFooter from '../StoryFooter/StoryFooter';
 import Avatar from '../Avatar';
 import Topic from '../Button/Topic';
 import PopoverMenu, { PopoverMenuItem } from '../PopoverMenu/PopoverMenu';
+import PostFeedEmbed from './PostFeedEmbed';
 import PostedFrom from './PostedFrom';
 import './StoryFull.less';
 
@@ -129,6 +131,35 @@ class StoryFull extends React.Component {
     }
   }
 
+  renderDtubeEmbedPlayer() {
+    const { post } = this.props;
+    const parsedJsonMetaData = _.attempt(JSON.parse, post.json_metadata);
+
+    if (_.isError(parsedJsonMetaData)) {
+      return null;
+    }
+
+    const video = getFromMetadata(post.json_metadata, 'video');
+    const isDtubeVideo = _.has(video, 'content.videohash') && _.has(video, 'info.snaphash');
+
+    if (isDtubeVideo) {
+      const videoTitle = _.get(video, 'info.title', '');
+      const author = _.get(video, 'info.author', '');
+      const permlink = _.get(video, 'info.permlink', '');
+      const dTubeEmbedUrl = `https://emb.d.tube/#!/${author}/${permlink}/true`;
+      const dTubeIFrame = `<iframe width="100%" height="340" src="${dTubeEmbedUrl}" title="${videoTitle}" allowFullScreen></iframe>`;
+      const embed = {
+        type: 'video',
+        provider_name: 'DTube',
+        embed: dTubeIFrame,
+        thumbnail: getProxyImageURL(`https://ipfs.io/ipfs/${video.info.snaphash}`, 'preview'),
+      };
+      return <PostFeedEmbed embed={embed} />;
+    }
+
+    return null;
+  }
+
   render() {
     const {
       intl,
@@ -152,7 +183,6 @@ class StoryFull extends React.Component {
     const { open, index } = this.state.lightbox;
     this.images = getFromMetadata(post.json_metadata, 'image');
     const tags = _.union(getFromMetadata(post.json_metadata, 'tags'), [post.category]);
-    const video = getFromMetadata(post.json_metadata, 'video');
 
     let followText = '';
 
@@ -261,16 +291,7 @@ class StoryFull extends React.Component {
           }}
           onClick={this.handleContentClick}
         >
-          {_.has(video, 'content.videohash') &&
-            _.has(video, 'info.snaphash') && (
-              <video
-                controls
-                src={`https://ipfs.io/ipfs/${video.content.videohash}`}
-                poster={`https://ipfs.io/ipfs/${video.info.snaphash}`}
-              >
-                <track kind="captions" />
-              </video>
-            )}
+          {this.renderDtubeEmbedPlayer()}
           <Body full body={post.body} json_metadata={post.json_metadata} />
         </div>
       );
