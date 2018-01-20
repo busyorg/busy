@@ -17,12 +17,14 @@ import formatter from '../../helpers/steemitFormatter';
 import { getFromMetadata } from '../../helpers/parser';
 import { isPostDeleted } from '../../helpers/postHelpers';
 import withAuthActions from '../../auth/withAuthActions';
+import { getProxyImageURL } from '../../helpers/image';
 import Body from './Body';
 import StoryDeleted from './StoryDeleted';
 import StoryFooter from '../StoryFooter/StoryFooter';
 import Avatar from '../Avatar';
 import Topic from '../Button/Topic';
 import PopoverMenu, { PopoverMenuItem } from '../PopoverMenu/PopoverMenu';
+import PostFeedEmbed from './PostFeedEmbed';
 import PostedFrom from './PostedFrom';
 import './StoryFull.less';
 
@@ -144,8 +146,15 @@ class StoryFull extends React.Component {
       const videoTitle = _.get(video, 'info.title', '');
       const author = _.get(video, 'info.author', '');
       const permlink = _.get(video, 'info.permlink', '');
-      const dTubeEmbedUrl = `https://emb.d.tube/#!/${author}/${permlink}`;
-      return <iframe width="100%" height="340" src={dTubeEmbedUrl} title={videoTitle} />;
+      const dTubeEmbedUrl = `https://emb.d.tube/#!/${author}/${permlink}/true`;
+      const dTubeIFrame = `<iframe width="100%" height="340" src="${dTubeEmbedUrl}" title="${videoTitle}" allowFullScreen></iframe>`;
+      const embed = {
+        type: 'video',
+        provider_name: 'DTube',
+        embed: dTubeIFrame,
+        thumbnail: getProxyImageURL(`https://ipfs.io/ipfs/${video.info.snaphash}`, 'preview'),
+      };
+      return <PostFeedEmbed embed={embed} />;
     }
 
     return null;

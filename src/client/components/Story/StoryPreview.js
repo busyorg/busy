@@ -37,8 +37,8 @@ const StoryPreview = ({ post }) => {
   if (_.has(video, 'content.videohash') && _.has(video, 'info.snaphash')) {
     const author = _.get(video, 'info.author', '');
     const permlink = _.get(video, 'info.permlink', '');
-    const dTubeEmbedUrl = `https://emb.d.tube/#!/${author}/${permlink}`;
-    const dTubeIFrame = `<iframe width="100%" height="340" src="${dTubeEmbedUrl}"></iframe>`;
+    const dTubeEmbedUrl = `https://emb.d.tube/#!/${author}/${permlink}/true`;
+    const dTubeIFrame = `<iframe width="100%" height="340" src="${dTubeEmbedUrl}" allowFullScreen></iframe>`;
     hasVideo = true;
     embeds[0] = {
       type: 'video',
