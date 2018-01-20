@@ -426,11 +426,14 @@ class StoryFull extends React.Component {
           post={post}
           postState={postState}
           pendingLike={pendingLike}
+          pendingFollow={pendingFollow}
+          pendingBookmark={pendingBookmark}
           ownPost={ownPost}
           rewardFund={rewardFund}
           sliderMode={sliderMode}
           defaultVotePercent={defaultVotePercent}
           onLikeClick={onLikeClick}
+          handlePostPopoverMenuClick={this.handleClick}
           onShareClick={onShareClick}
           onEditClick={onEditClick}
         />
