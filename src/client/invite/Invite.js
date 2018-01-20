@@ -3,12 +3,15 @@ import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
 import { injectIntl, FormattedMessage } from 'react-intl';
-import { Form, Input } from 'antd';
+import { Input } from 'antd';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import Affix from '../components/Utils/Affix';
 import LeftSidebar from '../app/Sidebar/LeftSidebar';
 import requiresLogin from '../auth/requiresLogin';
 import { getAuthenticatedUserName } from '../reducers';
+import FacebookShare from '../components/Button/FacebookShare';
+import TwitterShare from '../components/Button/TwitterShare';
+import EmailShare from '../components/Button/EmailShare';
 import './Invite.less';
 
 @requiresLogin
@@ -26,10 +29,16 @@ export default class Invite extends React.Component {
     authenticatedUserName: '',
   };
 
-  state = {
-    copied: false,
-    inviteURL: '',
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      copied: false,
+      inviteURL: '',
+    };
+
+    this.handleCopyClick = this.handleCopyClick.bind(this);
+  }
 
   componentDidMount() {
     this.createInviteURL();
@@ -45,7 +54,9 @@ export default class Invite extends React.Component {
     }
   }
 
-  handleCopyClick = () => this.setState({ copied: true });
+  handleCopyClick() {
+    this.setState({ copied: true });
+  }
 
   render() {
     const { intl } = this.props;
@@ -62,25 +73,51 @@ export default class Invite extends React.Component {
             </div>
           </Affix>
           <div className="center">
-            <div className="Invite__title">
-              <h1>
-                <FormattedMessage id="invite" defaultMessage="Invite" />
+            <div className="Invite">
+              <div className="Invite__icon-container" />
+              <h1 className="Invite__title">
+                <FormattedMessage id="invite_title" defaultMessage="Don't use Busy alone!" />
               </h1>
-              <p>
+              <p className="Invite__description">
                 <FormattedMessage
                   id="invite_info"
                   defaultMessage="Onboard new users on Busy.org today using the link below and get 10% of their rewards for 30 days."
                 />
               </p>
-            </div>
-            <div className="Invite__content">
-              <div className="">
-                <Form.Item>
+              <div className="Invite__input-container">
+                <div className="Invite__input-wrapper">
                   <Input className="Invite__input" value={this.state.inviteURL} readOnly />
                   <CopyToClipboard text={this.state.inviteURL} onCopy={this.handleCopyClick}>
-                    <button className="Action ant-btn-lg Action--primary">{buttonLabel}</button>
+                    <span className="Invite__input__copy">{buttonLabel}</span>
                   </CopyToClipboard>
-                </Form.Item>
+                </div>
+              </div>
+              <div className="Invite__social">
+                <FacebookShare url={this.state.inviteURL} />
+                <TwitterShare
+                  url={this.state.inviteURL}
+                  text={intl.formatMessage(
+                    {
+                      id: 'invite_share',
+                      defaultMessage: 'Join me today on busy.org and get rewarded to blog {link}',
+                    },
+                    {
+                      link: '',
+                    },
+                  )}
+                />
+                <EmailShare
+                  url={this.state.inviteURL}
+                  text={intl.formatMessage(
+                    {
+                      id: 'invite_share',
+                      defaultMessage: 'Join me today on busy.org and get rewarded to blog {link}',
+                    },
+                    {
+                      link: this.state.inviteURL,
+                    },
+                  )}
+                />
               </div>
             </div>
           </div>
