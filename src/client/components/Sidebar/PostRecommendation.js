@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withRouter, Link } from 'react-router-dom';
-import { FormattedMessage, FormattedNumber } from 'react-intl';
+import { withRouter } from 'react-router-dom';
+import { FormattedMessage } from 'react-intl';
 import Loading from '../../components/Icon/Loading';
 import steemAPI from '../../steemAPI';
+import PostRecommendationLink from './PostRecommendationLink';
 import './PostRecommendation.less';
 import './SidebarContentBlock.less';
 
@@ -85,49 +86,12 @@ class PostRecommendation extends Component {
     const filteredRecommendedPosts = this.getFilteredPosts();
 
     return filteredRecommendedPosts.map(post => (
-      <div className="PostRecommendation__link" key={post.id}>
-        <Link
-          to={`/${post.category}/@${post.author}/${post.permlink}`}
-          onClick={() => this.navigateToPost(post.author)}
-          className="PostRecommendation__link-title"
-        >
-          {post.title}
-        </Link>
-        <br />
-        <FormattedMessage
-          id="by"
-          defaultMessage="By {username}"
-          values={{
-            username: (
-              <Link role="presentation" to={`/@${post.author}`}>
-                <span className="username">{post.author}</span>
-              </Link>
-            ),
-          }}
-        />
-        <br />
-        {post.children > 0 && (
-          <Link
-            to={`/${post.category}/@${post.author}/${post.permlink}#comments`}
-            onClick={() => this.navigateToPostComments()}
-            className="PostRecommendation__comment-link"
-          >
-            {post.children === 1 ? (
-              <FormattedMessage
-                id="comment_count"
-                values={{ count: <FormattedNumber value={post.children} /> }}
-                defaultMessage="{count} comment"
-              />
-            ) : (
-              <FormattedMessage
-                id="comments_count"
-                values={{ count: <FormattedNumber value={post.children} /> }}
-                defaultMessage="{count} comments"
-              />
-            )}
-          </Link>
-        )}
-      </div>
+      <PostRecommendationLink
+        post={post}
+        navigateToPost={this.navigateToPost}
+        navigateToPostComments={this.navigateToPostComments}
+        key={post.id}
+      />
     ));
   };
 

@@ -81,6 +81,7 @@ const broadcastComment = (
   upvote,
   permlink,
   referral,
+  authUsername,
 ) => {
   const operations = [];
   const commentOp = [
@@ -112,7 +113,7 @@ const broadcastComment = (
     commentOptionsConfig.percent_steem_dollars = 0;
   }
 
-  if (referral) {
+  if (referral && referral !== authUsername) {
     commentOptionsConfig.extensions = [
       [
         0,
@@ -163,7 +164,8 @@ export function createPost(postData) {
     const getPermLink = isUpdating
       ? Promise.resolve(postData.permlink)
       : createPermlink(title, author, parentAuthor, parentPermlink);
-
+    const state = getState();
+    const authUser = state.auth.user;
     const newBody = isUpdating ? getBodyPatchIfSmaller(postData.originalBody, body) : body;
 
     dispatch(saveSettings({ upvoteSetting: upvote, rewardSetting: reward }));
@@ -171,11 +173,7 @@ export function createPost(postData) {
     let referral;
     if (Cookie.get('referral')) {
       const accountCreatedDaysAgo =
-        (new Date().getTime() - new Date(`${getState().auth.user.created}Z`).getTime()) /
-        1000 /
-        60 /
-        60 /
-        24;
+        (new Date().getTime() - new Date(`${authUser.created}Z`).getTime()) / 1000 / 60 / 60 / 24;
       if (accountCreatedDaysAgo < 30) {
         referral = Cookie.get('referral');
       }
@@ -197,6 +195,7 @@ export function createPost(postData) {
             !isUpdating && upvote,
             permlink,
             referral,
+            authUser.name,
           ).then(result => {
             if (draftId) {
               dispatch(deleteDraft(draftId));

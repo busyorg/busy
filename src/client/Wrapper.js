@@ -7,7 +7,7 @@ import { renderRoutes } from 'react-router-config';
 import { LocaleProvider, Layout } from 'antd';
 import enUS from 'antd/lib/locale-provider/en_US';
 import Cookie from 'js-cookie';
-import { getAvailableLocale } from './translations';
+import { getAvailableLocale, getLocaleDirection } from './translations';
 import {
   getIsLoaded,
   getAuthenticatedUser,
@@ -162,13 +162,13 @@ export default class Wrapper extends React.PureComponent {
   }
 
   render() {
-    const { user, usedLocale } = this.props;
+    const { user, usedLocale, locale } = this.props;
     const { translations } = this.state;
 
     return (
       <IntlProvider key={usedLocale} locale={usedLocale} messages={translations}>
         <LocaleProvider locale={enUS}>
-          <Layout>
+          <Layout data-dir={getLocaleDirection(getAvailableLocale(locale))}>
             <Layout.Header style={{ position: 'fixed', width: '100%', zIndex: 5 }}>
               <Topnav username={user.name} onMenuItemClick={this.handleMenuItemClick} />
             </Layout.Header>
