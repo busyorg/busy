@@ -430,6 +430,7 @@ class StoryFull extends React.Component {
           pendingBookmark={pendingBookmark}
           ownPost={ownPost}
           rewardFund={rewardFund}
+          saving={saving}
           sliderMode={sliderMode}
           defaultVotePercent={defaultVotePercent}
           onLikeClick={onLikeClick}
