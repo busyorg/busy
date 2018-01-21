@@ -142,3 +142,42 @@
     }
   }
 }
+
+div[data-dir='rtl'] .UserWalletTransactions {
+  &__content {
+    padding-left: 0;
+    padding-right: 10px;
+  }
+
+  &__payout {
+    direction: ltr;
+    margin-right: auto;
+    margin-left: 0;
+  }
+
+  &__transfer {
+    direction: ltr;
+    margin-right: auto;
+    margin-left: 0;
+  }
+
+  &__received {
+    direction: ltr;
+    margin-right: auto;
+    margin-left: 0;
+  }
+
+  @media @very-small-max-width {
+    &__transfer {
+      margin-right: 0;
+    }
+
+    &__received {
+      margin-right: 0;
+    }
+
+    &__payout {
+      margin-right: 0;
+    }
+  }
+}
