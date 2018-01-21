@@ -7,6 +7,7 @@ import { getCryptosPriceHistory } from '../../reducers';
 import CryptoChart from './CryptoChart';
 import './CryptoTrendingCharts.less';
 import './SidebarContentBlock.less';
+import { getCryptoDetails } from '../../helpers/cryptosHelper';
 
 @connect(state => ({
   cryptosPriceHistory: getCryptosPriceHistory(state),
@@ -45,23 +46,26 @@ class CryptoTrendingCharts extends React.Component {
   }
 
   hasAPIError() {
-    const { cryptosPriceHistory } = this.props;
+    const { cryptosPriceHistory, cryptos } = this.props;
     const apiErrors = [];
 
     if (_.isEmpty(cryptosPriceHistory)) {
       return false;
     }
 
-    _.each(cryptosPriceHistory, cryptoDetails => {
-      if (
-        !_.isNull(cryptoDetails) &&
-        (cryptoDetails.usdAPIError || _.isEmpty(cryptoDetails.usdPriceHistory))
-      ) {
+    _.each(cryptos, crypto => {
+      const cryptoDetails = getCryptoDetails(crypto);
+      const cryptoSymbol = _.get(cryptoDetails, 'symbol', null);
+      const cryptoAPIDetails = _.get(cryptosPriceHistory, _.upperCase(cryptoSymbol), null);
+      const hasAPIError =
+        !(_.isUndefined(cryptoAPIDetails) || _.isNull(cryptoAPIDetails)) &&
+        (cryptoAPIDetails.usdAPIError || _.isEmpty(cryptoAPIDetails.usdPriceHistory));
+      if (hasAPIError) {
         apiErrors.push(cryptoDetails);
       }
     });
 
-    return _.keys(cryptosPriceHistory).length === apiErrors.length;
+    return cryptos.length === apiErrors.length;
   }
 
   renderCryptoCharts() {
