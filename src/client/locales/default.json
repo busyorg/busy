@@ -153,7 +153,7 @@
   "title_error_too_long": "Title can't be longer than 255 characters.",
   "topics": "Topics",
   "topics_placeholder": "Add story topics here",
-  "topics_extra": "Separate topics with commas. Only lowercase letters, numbers and hyphen character is permitted.",
+  "topics_extra": "Separate topics with spaces. Only lowercase letters, numbers and hyphen characters are permitted.",
   "topics_error_empty": "Please enter topics",
   "topics_error_count": "You have to add 1 to 5 topics.",
   "topics_error_invalid_topic": "Topic {topic} is invalid.",
