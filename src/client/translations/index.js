@@ -35,7 +35,7 @@ export const availableLocalesToReactIntl = {
   'ko-KR': 'ko',
   'lo-LA': 'lo',
   'ms-MY': 'ms',
-  'ne-NP': 'ne',
+  'ne-NP': 'np',
   'nl-NL': 'nl',
   'no-NO': 'no',
   'or-IN': '',

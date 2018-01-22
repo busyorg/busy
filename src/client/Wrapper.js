@@ -8,7 +8,6 @@ import { LocaleProvider, Layout } from 'antd';
 import enUS from 'antd/lib/locale-provider/en_US';
 import Cookie from 'js-cookie';
 import { getAvailableLocale, getTranslationsByLocale, getLocaleDirection } from './translations';
-
 import {
   getIsLoaded,
   getAuthenticatedUser,
