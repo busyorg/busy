@@ -39,3 +39,23 @@
     }
   }
 }
+
+div[data-dir='rtl'] .menu-layout {
+  .center {
+    @media @small {
+      margin-left: @right-width + @margin;
+      margin-right: 0;
+    }
+
+    @media @medium {
+      margin-right: @left-width + @margin;
+      margin-left: 0;
+      padding: 0;
+    }
+  }
+}
+
+div[data-dir='rtl'] .menu-layout > div > div {
+  margin-right: 0px !important;
+  margin-left: -15px !important;
+}

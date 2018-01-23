@@ -26,3 +26,17 @@
     margin-left: 8px;
   }
 }
+
+div[data-dir='rtl'] .UserCard {
+  & > &__left {
+    & > a:nth-child(2) {
+      margin-left: 0px;
+      margin-right: 8px;
+    }
+  }
+
+  &__alt {
+    margin-left: 0px;
+    margin-right: 8px;
+  }
+}
