@@ -33,11 +33,21 @@
   margin-left: auto;
 }
 
+div[data-dir='rtl'] .User__follow {
+  margin-left: 0;
+  margin-right: auto;
+}
+
 .User__name {
   margin-left: 8px;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+}
+
+div[data-dir='rtl'] .User__name {
+  margin-left: 0;
+  margin-right: 8px;
 }
 
 .User__about {

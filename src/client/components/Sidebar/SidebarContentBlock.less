@@ -36,5 +36,16 @@
     height: 1px;
     margin: 12px 0;
     width: 100%;
+
+    &:last-of-type {
+      display: none;
+    }
+  }
+}
+
+div[data-dir='rtl'] .SidebarContentBlock {
+  &__icon {
+    margin-right: 0px;
+    margin-left: 5px;
   }
 }

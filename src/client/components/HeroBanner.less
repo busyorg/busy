@@ -118,3 +118,29 @@
     }
   }
 }
+
+div[data-dir='rtl'] .HeroBanner {
+  &__container {
+    @media @medium {
+      padding: 16px 0;
+    }
+
+    &__content {
+      @media @small {
+        margin: auto 0;
+        text-align: right;
+      }
+
+      &__buttons {
+        &__button {
+          display: inline-block;
+
+          &:not(:last-of-type) {
+            margin-right: 0px;
+            margin-left: 12px;
+          }
+        }
+      }
+    }
+  }
+}

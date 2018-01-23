@@ -63,3 +63,39 @@
     }
   }
 }
+
+div[data-dir='rtl'] .topnav-layout {
+  .left {
+    right: 0;
+    padding-right: 16px;
+    padding-left: 0px;
+  }
+
+  .right {
+    right: unset;
+    left: 0;
+    margin-right: 0px;
+    margin-left: 16px;
+  }
+
+  .center {
+    @media @small {
+      margin-left: @right-width;
+      margin-right: @left-width + @margin;
+    }
+
+    @media @medium {
+      margin-left: 0;
+      margin-right: @left-width + 2 * @margin;
+    }
+
+    @media @large {
+      margin-left: 0;
+      margin-right: @left-width + @margin;
+    }
+
+    &.mobileVisible {
+      background-color: white;
+    }
+  }
+}
