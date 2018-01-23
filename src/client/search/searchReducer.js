@@ -3,7 +3,7 @@ import * as searchActions from './searchActions';
 import formatter from '../helpers/steemitFormatter';
 
 const initialState = {
-  loading: false,
+  loading: true,
   searchError: false,
   searchResults: [],
   autoCompleteSearchResults: [],
