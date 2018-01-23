@@ -95,8 +95,8 @@ class QuickPostEditor extends React.Component {
     };
 
     const metaData = {
-      community: 'busy',
-      app: `busy/${version}`,
+      community: 'dlearn',
+      app: `dlearn/${version}`,
       format: 'markdown',
     };
 

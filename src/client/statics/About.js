@@ -24,7 +24,7 @@ const About = ({ intl }) => (
           <h1>
             <FormattedMessage
               id="@statics/ensure_compensation"
-              defaultMessage="Ensuring compensation for the creators of value"
+              defaultMessage="DLearn | Learning Decentralized and Incentivized"
             />
           </h1>
           <p>

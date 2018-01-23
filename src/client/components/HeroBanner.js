@@ -20,7 +20,7 @@ const HeroBanner = ({ visible, location, onCloseClick }) => {
             <h1>
               <FormattedMessage
                 id="hero"
-                defaultMessage="Ensuring compensation for the creators of value"
+                defaultMessage="DLearn | Learning Decentralized and Incentivized"
               />
             </h1>
             <div className="HeroBanner__container__content__buttons">

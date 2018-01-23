@@ -1,5 +1,5 @@
 {
-  "name": "busy",
+  "name": "dlearn",
   "version": "2.2.0",
   "engines": {
     "node": ">=7.10.1",
@@ -24,7 +24,7 @@
     "test:watch": "cross-env IMG_HOST=https://img.busy.org jest --watch",
     "test:coverage": "cross-env IMG_HOST=https://img.busy.org jest --coverage",
     "eslint-autofix": "eslint --fix \"src/**/*.js\"",
-    "run:server": "nodemon --watch busy.server.js busy.server.js",
+    "run:server": "nodemon --watch dlearn.server.js dlearn.server.js",
     "build:server:dev": "cross-env NODE_ENV=development webpack --config ./webpack/webpack.server.config.js",
     "build:server": "cross-env NODE_ENV=production webpack -p --config ./webpack/webpack.server.config.js",
     "build:client": "webpack -p --config ./webpack/webpack.prod.config.js",
@@ -168,6 +168,6 @@
     },
     "setupTestFrameworkScriptFile": "<rootDir>/setupTests.js"
   },
-  "repository": "https://github.com/adcpm/busy.git",
+  "repository": "https://github.com/Decentralize-it/dlearn.git",
   "license": "MIT"
 }

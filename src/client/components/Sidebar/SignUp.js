@@ -5,7 +5,7 @@ import './SidebarBlock.less';
 const SignUp = () => (
   <div className="SidebarBlock">
     <h3 className="SidebarBlock__title">
-      <FormattedMessage id="new_to_busy" defaultMessage="New to Busy?" />
+      <FormattedMessage id="new_to_dlearn" defaultMessage="New to DLearn?" />
     </h3>
     <a target="_blank" rel="noopener noreferrer" href="https://steemit.com/pick_account">
       <button className="SidebarBlock__button">

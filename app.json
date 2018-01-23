@@ -1,5 +1,5 @@
 {
-  "name": "busy",
+  "name": "dlearn.app",
   "scripts": {},
   "env": {
     "NEW_RELIC_LICENSE_KEY": {
@@ -12,8 +12,8 @@
       "required": true
     },
     "DEBUG": {
-      "description": "Debug namespaces for https://github.com/visionmedia/debug.",
-      "value": "busy:server",
+      "description": "Debug namespaces for https://github.com/Decentralize-it/dlearn/debug.",
+      "value": "dlearn:server",
       "required": false
     }
   },
