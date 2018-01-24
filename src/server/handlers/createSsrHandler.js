@@ -68,7 +68,7 @@ export default function createSsrHandler(template) {
       })
       .catch(err => {
         Raven.captureException(err);
-        console.error('SSR error occured, falling back to bundled application instead', err); // eslint-disable-line no-console
+        console.error('SSR error occured, falling back to bundled application instead  test', err); // eslint-disable-line no-console
         res.send(template);
       });
   };
