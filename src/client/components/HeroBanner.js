@@ -14,31 +14,29 @@ const HeroBanner = ({ visible, location, onCloseClick }) => {
       <a onClick={onCloseClick} role="button" tabIndex="0" className="HeroBanner__close">
         <i className="iconfont icon-close" />
       </a>
-      <div className="container">
-        <div className="HeroBanner__container">
-          <div className="HeroBanner__container__content">
-            <h1>
-              <FormattedMessage
-                id="hero"
-                defaultMessage="Ensuring compensation for the creators of value"
-              />
-            </h1>
-            <div className="HeroBanner__container__content__buttons">
-              <a
-                className="HeroBanner__container__content__buttons__button HeroBanner__primary"
-                target="_blank"
-                rel="noopener noreferrer"
-                href="https://steemit.com/pick_account"
-              >
-                <FormattedMessage id="signup" defaultMessage="Sign up" />
-              </a>
-              <a
-                className="HeroBanner__container__content__buttons__button HeroBanner__secondary"
-                href={SteemConnect.getLoginURL(next)}
-              >
-                <FormattedMessage id="login" defaultMessage="Log in" />
-              </a>
-            </div>
+      <div className="HeroBanner__container">
+        <div className="HeroBanner__container__content">
+          <h1>
+            <FormattedMessage
+              id="hero"
+              defaultMessage="Ensuring compensation for the creators of value"
+            />
+          </h1>
+          <div className="HeroBanner__container__content__buttons">
+            <a
+              className="HeroBanner__container__content__buttons__button HeroBanner__primary"
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://steemit.com/pick_account"
+            >
+              <FormattedMessage id="signup" defaultMessage="Sign up" />
+            </a>
+            <a
+              className="HeroBanner__container__content__buttons__button HeroBanner__secondary"
+              href={SteemConnect.getLoginURL(next)}
+            >
+              <FormattedMessage id="login" defaultMessage="Log in" />
+            </a>
           </div>
         </div>
       </div>
