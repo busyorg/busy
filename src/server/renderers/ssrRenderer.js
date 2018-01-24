@@ -3,10 +3,10 @@ import { Helmet } from 'react-helmet';
 export default function renderSsrPage(store, html, template, noindex) {
   const preloadedState = store.getState();
   const helmet = Helmet.renderStatic();
-  const header =
-    helmet.meta.toString() + helmet.title.toString() + helmet.link.toString() + noindex
-      ? '<meta name="robots" content="noindex, nofollow">'
-      : '';
+  const baseHelmet = helmet.meta.toString() + helmet.title.toString() + helmet.link.toString();
+  const header = noindex
+    ? `<meta name="robots" content="noindex, nofollow">${baseHelmet}`
+    : baseHelmet;
   return template
     .replace('<!--server:header-->', header)
     .replace('<!--server:html-->', html)
