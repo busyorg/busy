@@ -110,12 +110,12 @@
   "vote_percent": "Default vote percent",
   "vote_percent_info": "You can select your default vote value. It will be used as default value in voting slider and as value used for vote when voting slider is disabled.",
   "language": "Language",
-  "language_info": "What language do you want to use on Busy?",
+  "language_info": "What language do you want to use on DLearn?",
   "select_language": "Select your language",
   "discover_more_people": "Discover more people",
   "discover_more_people_info": "Discover the most reputable users of this platform",
   "invite": "Invite",
-  "invite_info": "Onboard new users on Busy.org today using the link below and get 10% of their rewards for 30 days.",
+  "invite_info": "Onboard new users on DLearn today using the link below and get 10% of their rewards for 30 days.",
   "more_people_not_found": "No more people were found",
   "see_all_comments": "See All Comments",
   "see_all_recommendations": "See All Recommendations",
@@ -182,8 +182,8 @@
   "quote": "Add quote",
   "link": "Add link",
   "image": "Add image",
-  "get_boost": "Get the Busy boost!",
-  "get_boost_content": "Want to boost your post? Add the topic \"busy\" and get a like from us.",
+  "get_boost": "Get the DLearn boost!",
+  "get_boost_content": "Want to boost your post? Add the topic \"dlearn\" and get a like from us.",
   "drafts": "Drafts",
   "drafts_empty": "You don't have any draft saved",
   "drafts_description": "These are posts that were never made public. You can publish them or delete them.",
@@ -286,6 +286,5 @@
   "login_modal_footer_text": "Don't have an account? Signup with {link}",
   "login_to_busy": "Login to Busy",
   "login_modal_description": "Login with your Steem account using SteemConnect to enjoy Busy at 100%",
-  "login_with_steemconnect": "Login with SteemConnect",
-  "follows_you": "Follows you"
+  "login_with_steemconnect": "Login with SteemConnect"
 }

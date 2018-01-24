@@ -12,7 +12,7 @@ ShallowWrapper {
     sort="active"
     topics={
       Array [
-        "busy",
+        "dlearn",
         "introduceyourself",
         "steemfest",
       ]
@@ -37,7 +37,7 @@ ShallowWrapper {
           <Topic
             closable={false}
             favorite={false}
-            name="busy"
+            name="dlearn"
             onClose={[Function]}
           />
           <Topic
@@ -176,7 +176,7 @@ ShallowWrapper {
             <Topic
               closable={false}
               favorite={false}
-              name="busy"
+              name="dlearn"
               onClose={[Function]}
             />,
             <Topic
@@ -198,12 +198,12 @@ ShallowWrapper {
         "rendered": Array [
           Object {
             "instance": null,
-            "key": "busy",
+            "key": "dlearn",
             "nodeType": "class",
             "props": Object {
               "closable": false,
               "favorite": false,
-              "name": "busy",
+              "name": "dlearn",
               "onClose": [Function],
             },
             "ref": null,
@@ -550,7 +550,7 @@ ShallowWrapper {
             <Topic
               closable={false}
               favorite={false}
-              name="busy"
+              name="dlearn"
               onClose={[Function]}
             />
             <Topic
@@ -689,7 +689,7 @@ ShallowWrapper {
               <Topic
                 closable={false}
                 favorite={false}
-                name="busy"
+                name="dlearn"
                 onClose={[Function]}
               />,
               <Topic
@@ -711,12 +711,12 @@ ShallowWrapper {
           "rendered": Array [
             Object {
               "instance": null,
-              "key": "busy",
+              "key": "dlearn",
               "nodeType": "class",
               "props": Object {
                 "closable": false,
                 "favorite": false,
-                "name": "busy",
+                "name": "dlearn",
                 "onClose": [Function],
               },
               "ref": null,
