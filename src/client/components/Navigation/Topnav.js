@@ -250,7 +250,7 @@ class Topnav extends React.Component {
 
     return (
       <div className="Topnav">
-        <div className="topnav-layout container">
+        <div className="topnav-layout">
           <div className={classNames('left', { 'Topnav__mobile-hidden': searchBarActive })}>
             <Link className="Topnav__brand" to="/">
               <i className="iconfont icon-busy Topnav__brand-icon" />
