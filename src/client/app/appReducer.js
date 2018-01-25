@@ -15,6 +15,8 @@ const initialState = {
   appUrl: 'https://busy.org',
   usedLocale: 'en',
   cryptosPriceHistory: {},
+  showPostModal: false,
+  currentShownPostID: 0,
 };
 
 export default (state = initialState, action) => {
@@ -117,6 +119,18 @@ export default (state = initialState, action) => {
         },
       };
     }
+    case appTypes.SHOW_POST_MODAL:
+      console.log(action.payload);
+      return {
+        ...state,
+        showPostModal: true,
+        currentShownPostID: action.payload,
+      };
+    case appTypes.HIDE_POST_MODAL:
+      return {
+        ...state,
+        showPostModal: false,
+      };
     default:
       return state;
   }
@@ -131,3 +145,5 @@ export const getIsBannerClosed = state => state.bannerClosed;
 export const getAppUrl = state => state.appUrl;
 export const getUsedLocale = state => state.usedLocale;
 export const getCryptosPriceHistory = state => state.cryptosPriceHistory;
+export const getShowPostModal = state => state.showPostModal;
+export const getCurrentShownPostID = state => state.currentShownPostID;

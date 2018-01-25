@@ -45,6 +45,7 @@ class Story extends React.Component {
     onLikeClick: PropTypes.func,
     onShareClick: PropTypes.func,
     onEditClick: PropTypes.func,
+    showPostModal: PropTypes.func,
   };
 
   static defaultProps = {
@@ -61,6 +62,7 @@ class Story extends React.Component {
     onShareClick: () => {},
     onEditClick: () => {},
     postState: {},
+    showPostModal: () => {},
   };
 
   constructor(props) {
@@ -176,7 +178,7 @@ class Story extends React.Component {
     }
 
     return (
-      <div className="Story">
+      <div className="Story" id={`${post.author}-${post.permlink}`}>
         {rebloggedUI}
         <div className="Story__content">
           <div className="Story__header">
@@ -215,7 +217,11 @@ class Story extends React.Component {
             </div>
           </div>
           <div className="Story__content">
-            <Link to={post.url} className="Story__content__title">
+            <a
+              role="presentation"
+              onClick={() => this.props.showPostModal(post.id)}
+              className="Story__content__title"
+            >
               <h2>
                 {post.title || (
                   <span>
@@ -224,11 +230,15 @@ class Story extends React.Component {
                   </span>
                 )}
               </h2>
-            </Link>
+            </a>
             {showStoryPreview ? (
-              <Link to={post.url} className="Story__content__preview">
+              <a
+                role="presentation"
+                onClick={() => this.props.showPostModal(post.id)}
+                className="Story__content__preview"
+              >
                 <StoryPreview post={post} />
-              </Link>
+              </a>
             ) : (
               hiddenStoryPreviewMessage
             )}
