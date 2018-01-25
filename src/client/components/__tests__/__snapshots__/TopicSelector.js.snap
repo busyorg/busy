@@ -123,19 +123,6 @@ ShallowWrapper {
                     values={Object {}}
                   />
                 </PopoverMenuItem>
-                <PopoverMenuItem
-                  bold={true}
-                  disabled={false}
-                  fullScreenHidden={false}
-                  itemKey=""
-                  onClick={[Function]}
-                >
-                  <FormattedMessage
-                    defaultMessage="Promoted"
-                    id="sort_promoted"
-                    values={Object {}}
-                  />
-                </PopoverMenuItem>
               </PopoverMenu>
             }
             mouseEnterDelay={0.1}
@@ -314,19 +301,6 @@ ShallowWrapper {
                       values={Object {}}
                     />
                   </PopoverMenuItem>
-                  <PopoverMenuItem
-                    bold={true}
-                    disabled={false}
-                    fullScreenHidden={false}
-                    itemKey=""
-                    onClick={[Function]}
-                  >
-                    <FormattedMessage
-                      defaultMessage="Promoted"
-                      id="sort_promoted"
-                      values={Object {}}
-                    />
-                  </PopoverMenuItem>
                 </PopoverMenu>
               }
               mouseEnterDelay={0.1}
@@ -455,19 +429,6 @@ ShallowWrapper {
                   <FormattedMessage
                     defaultMessage="Hot"
                     id="sort_hot"
-                    values={Object {}}
-                  />
-                </PopoverMenuItem>
-                <PopoverMenuItem
-                  bold={true}
-                  disabled={false}
-                  fullScreenHidden={false}
-                  itemKey=""
-                  onClick={[Function]}
-                >
-                  <FormattedMessage
-                    defaultMessage="Promoted"
-                    id="sort_promoted"
                     values={Object {}}
                   />
                 </PopoverMenuItem>
@@ -633,19 +594,6 @@ ShallowWrapper {
                     <FormattedMessage
                       defaultMessage="Hot"
                       id="sort_hot"
-                      values={Object {}}
-                    />
-                  </PopoverMenuItem>
-                  <PopoverMenuItem
-                    bold={true}
-                    disabled={false}
-                    fullScreenHidden={false}
-                    itemKey=""
-                    onClick={[Function]}
-                  >
-                    <FormattedMessage
-                      defaultMessage="Promoted"
-                      id="sort_promoted"
                       values={Object {}}
                     />
                   </PopoverMenuItem>
@@ -827,19 +775,6 @@ ShallowWrapper {
                         values={Object {}}
                       />
                     </PopoverMenuItem>
-                    <PopoverMenuItem
-                      bold={true}
-                      disabled={false}
-                      fullScreenHidden={false}
-                      itemKey=""
-                      onClick={[Function]}
-                    >
-                      <FormattedMessage
-                        defaultMessage="Promoted"
-                        id="sort_promoted"
-                        values={Object {}}
-                      />
-                    </PopoverMenuItem>
                   </PopoverMenu>
                 }
                 mouseEnterDelay={0.1}
@@ -968,19 +903,6 @@ ShallowWrapper {
                     <FormattedMessage
                       defaultMessage="Hot"
                       id="sort_hot"
-                      values={Object {}}
-                    />
-                  </PopoverMenuItem>
-                  <PopoverMenuItem
-                    bold={true}
-                    disabled={false}
-                    fullScreenHidden={false}
-                    itemKey=""
-                    onClick={[Function]}
-                  >
-                    <FormattedMessage
-                      defaultMessage="Promoted"
-                      id="sort_promoted"
                       values={Object {}}
                     />
                   </PopoverMenuItem>

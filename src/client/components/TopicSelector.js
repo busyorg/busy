@@ -74,9 +74,6 @@ class TopicSelector extends React.Component {
                 <PopoverMenuItem key="hot">
                   <FormattedMessage id="sort_hot" defaultMessage="Hot" />
                 </PopoverMenuItem>
-                <PopoverMenuItem key="promoted">
-                  <FormattedMessage id="sort_promoted" defaultMessage="Promoted" />
-                </PopoverMenuItem>
               </PopoverMenu>
             }
           >
