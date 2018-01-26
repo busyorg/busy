@@ -284,7 +284,7 @@
   "username_too_short": "Tu nombre de usuario {username} es demasiado corto.",
   "username_too_long": "Tu nombre de usuario {username} es demasiado largo.",
   "login_modal_footer_text": "¿No tienes una cuenta? Realiza tu registro con {link}",
-  "login_to_busy": "Iniciar sesión en Busy",
+  "login_to_dlearn": "Iniciar sesión en Busy",
   "login_modal_description": "Inicia sesión con tu cuenta Steem utilizando SteemConnect para poder disfrutar de Busy al 100%",
   "login_with_steemconnect": "Iniciar sesión con SteemConnect"
 }

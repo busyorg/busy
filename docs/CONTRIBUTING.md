@@ -1,6 +1,6 @@
-## Contributing to Busy
+## Contributing to DLearn
 
-Want to get involved in Busy developement? Thanks! There are plenty of ways you can help!
+Want to get involved in DLearn developement? Thanks! There are plenty of ways you can help!
 
 Please take a moment to review this document in order to make the contribution process easy and
 effective for everyone involved.
@@ -11,7 +11,7 @@ addressing your issue or assessing patches and features.
 
 ### Using the issue tracker
 
-The [issue tracker](https://github.com/busyorg/busy/issues) is the preferred channel
+The [issue tracker](https://github.com/Decentralize-it/dlearn/issues) is the preferred channel
 for [bug reports](#bugs), [features requests](#features) and [submitting pull requests](#pull-requests).
 
 ### Bug reports

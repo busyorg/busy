@@ -296,7 +296,7 @@
   "username_too_short": "Username {username} is too short.",
   "username_too_long": "Username {username} is too long.",
   "login_modal_footer_text": "Don't have an account? Signup with {link}",
-  "login_to_busy": "Login to Busy",
+  "login_to_dlearn": "Login to DLearn",
   "login_modal_description": "Login with your Steem account using SteemConnect to enjoy Busy at 100%",
   "login_with_steemconnect": "Login with SteemConnect",
   "follows_you": "Follows you"

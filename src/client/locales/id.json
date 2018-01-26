@@ -284,7 +284,7 @@
   "username_too_short": "Nama pengguna {username} adalah terlalu pendek.",
   "username_too_long": "Nama pengguna {username} adalah terlalu panjang.",
   "login_modal_footer_text": "Don't have an account? Signup with {link}",
-  "login_to_busy": "Login to Busy",
+  "login_to_dlearn": "Login to DLearn",
   "login_modal_description": "Login with your Steem account using SteemConnect to enjoy Busy at 100%",
   "login_with_steemconnect": "Login with SteemConnect"
 }

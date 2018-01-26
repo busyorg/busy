@@ -1,6 +1,6 @@
 {
   "name": "dlearn",
-  "version": "2.2.0",
+  "version": "0.0.1",
   "engines": {
     "node": ">=7.10.1",
     "npm": "=5.3.0"

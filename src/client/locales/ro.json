@@ -284,7 +284,7 @@
   "username_too_short": "Numele de utilizator {username} e prea scurt.",
   "username_too_long": "Numele de utilizator {username} e prea lung.",
   "login_modal_footer_text": "Nu ai cont? Înscrie-te cu {link}",
-  "login_to_busy": "Conectaţi-vă la Busy",
+  "login_to_dlearn": "Conectaţi-vă la Busy",
   "login_modal_description": "Conectaţi-vă cu contul dvs de Steem folosind SteemConnect ca să vă bucuraţi de Busy 100%",
   "login_with_steemconnect": "Conectaţi-vă cu SteemConnect"
 }
