@@ -13,22 +13,12 @@ class PostModal extends React.Component {
     currentShownPostID: PropTypes.number.isRequired,
     visible: PropTypes.bool.isRequired,
     currentFeed: PropTypes.arrayOf(PropTypes.shape()),
-    showPostModal: PropTypes.func.isRequired,
     hidePostModal: PropTypes.func.isRequired,
-    loadMoreFeedContent: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
     currentFeed: [],
   };
-
-  static scrollPostFromFeedIntoView(content) {
-    const elementID = `${content.author}-${content.permlink}`;
-    if (document) {
-      const element = document.getElementById(elementID);
-      element.scrollIntoView();
-    }
-  }
 
   constructor(props) {
     super(props);
@@ -38,16 +28,6 @@ class PostModal extends React.Component {
     };
 
     this.handleCommentsVisibility = this.handleCommentsVisibility.bind(this);
-    this.handleKeyDown = this.handleKeyDown.bind(this);
-    this.handleModalClose = this.handleModalClose.bind(this);
-    this.navigateToNextPost = this.navigateToNextPost.bind(this);
-    this.navigateToPrevPost = this.navigateToPrevPost.bind(this);
-  }
-
-  componentWillMount() {
-    if (document) {
-      document.addEventListener('keydown', this.handleKeyDown);
-    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -58,73 +38,12 @@ class PostModal extends React.Component {
     }
   }
 
-  componentWillUnmount() {
-    if (document) {
-      document.removeEventListener('keydown', this.handleKeyDown);
-    }
-  }
-
-  handleKeyDown(key) {
-    let activeElementTag;
-
-    if (document) {
-      activeElementTag = document.activeElement.tagName;
-    }
-
-    if (activeElementTag === 'TEXTAREA') {
-      return;
-    }
-
-    if (key.code === 'ArrowRight') {
-      this.navigateToNextPost();
-    } else if (key.code === 'ArrowLeft') {
-      this.navigateToPrevPost();
-    }
-  }
-
-  navigateToNextPost() {
-    const { currentFeed, currentShownPostID } = this.props;
-    const currentPostIndex = _.findIndex(currentFeed, post => post.id === currentShownPostID);
-    const nextPostIndex = currentPostIndex + 1;
-
-    if (nextPostIndex > currentFeed.length - 1) {
-      this.props.loadMoreFeedContent();
-    } else {
-      const nextPost = _.get(currentFeed, nextPostIndex, currentPostIndex);
-      const nextPostID = nextPost.id;
-
-      this.props.showPostModal(nextPostID);
-      PostModal.scrollPostFromFeedIntoView(nextPost);
-    }
-  }
-
-  navigateToPrevPost() {
-    const { currentFeed, currentShownPostID } = this.props;
-    const currentPostIndex = _.findIndex(currentFeed, post => post.id === currentShownPostID);
-    const prevPostIndex = currentPostIndex - 1;
-
-    if (prevPostIndex >= 0) {
-      const prevPost = _.get(currentFeed, prevPostIndex, currentPostIndex);
-      const prevPostID = prevPost.id;
-
-      this.props.showPostModal(prevPostID);
-      PostModal.scrollPostFromFeedIntoView(prevPost);
-    }
-  }
-
   handleCommentsVisibility(visible) {
     if (visible) {
       this.setState({
         commentsVisible: true,
       });
     }
-  }
-
-  handleModalClose() {
-    const { hidePostModal, currentShownPostID, currentFeed } = this.props;
-    const post = _.find(currentFeed, ['id', currentShownPostID]);
-    hidePostModal();
-    PostModal.scrollPostFromFeedIntoView(post);
   }
 
   render() {
@@ -140,7 +59,7 @@ class PostModal extends React.Component {
         title={null}
         footer={null}
         visible={visible}
-        onCancel={this.handleModalClose}
+        onCancel={this.props.hidePostModal}
         width={720}
         wrapClassName="PostModal"
         destroyOnClose
