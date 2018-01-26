@@ -38,6 +38,10 @@ class PostModal extends React.Component {
     }
   }
 
+  componentWillUnmount() {
+    this.props.hidePostModal();
+  }
+
   handleCommentsVisibility(visible) {
     if (visible) {
       this.setState({

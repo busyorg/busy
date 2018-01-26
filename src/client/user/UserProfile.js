@@ -112,6 +112,7 @@ export default class UserProfile extends React.Component {
             isFetching={isFetching}
             hasMore={hasMore}
             loadMoreContent={loadMoreContentAction}
+            showPostModal={this.props.showPostModal}
           />
 
           {content.length === 0 && fetched && isOwnProfile && <EmptyUserOwnProfile />}
