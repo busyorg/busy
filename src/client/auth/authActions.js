@@ -1,4 +1,5 @@
 import Cookie from 'js-cookie';
+import { createAction } from 'redux-actions';
 import { getIsAuthenticated } from '../reducers';
 import { getAccount } from '../helpers/apiHelpers';
 import { getFollowing } from '../user/userActions';
@@ -21,12 +22,14 @@ export const LOGOUT_SUCCESS = '@auth/LOGOUT_SUCCESS';
 
 export const UPDATE_AUTH_USER = createAsyncActionType('@auth/UPDATE_AUTH_USER');
 
+const loginError = createAction(LOGIN_ERROR);
+
 export const login = () => (dispatch, getState, { steemConnectAPI }) => {
   let promise = Promise.resolve(null);
   if (!steemConnectAPI.options.accessToken) {
     promise = Promise.reject(new Error('There is not accessToken present'));
   } else {
-    promise = steemConnectAPI.me();
+    promise = steemConnectAPI.me().catch(() => dispatch(loginError()));
   }
   if (getIsAuthenticated(getState())) promise = Promise.resolve(null);
 
@@ -38,7 +41,7 @@ export const login = () => (dispatch, getState, { steemConnectAPI }) => {
     meta: {
       refresh: getIsAuthenticated(getState()),
     },
-  }).catch(() => {});
+  }).catch(() => dispatch(loginError()));
 };
 
 export const getCurrentUserFollowing = () => dispatch => dispatch(getFollowing());
