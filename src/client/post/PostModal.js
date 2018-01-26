@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { Modal } from 'antd';
+import { FormattedMessage } from 'react-intl';
 import VisibilitySensor from 'react-visibility-sensor';
 import PostContent from './PostContent';
 import Comments from '../comments/Comments';
@@ -23,9 +24,10 @@ class PostModal extends React.Component {
 
   static scrollPostFromFeedIntoView(content) {
     const elementID = `${content.author}-${content.permlink}`;
-    const element = document.getElementById(elementID);
-
-    element.scrollIntoView();
+    if (document) {
+      const element = document.getElementById(elementID);
+      element.scrollIntoView();
+    }
   }
 
   constructor(props) {
@@ -37,12 +39,15 @@ class PostModal extends React.Component {
 
     this.handleCommentsVisibility = this.handleCommentsVisibility.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
+    this.handleModalClose = this.handleModalClose.bind(this);
     this.navigateToNextPost = this.navigateToNextPost.bind(this);
     this.navigateToPrevPost = this.navigateToPrevPost.bind(this);
   }
 
   componentWillMount() {
-    document.addEventListener('keydown', this.handleKeyDown);
+    if (document) {
+      document.addEventListener('keydown', this.handleKeyDown);
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -54,11 +59,17 @@ class PostModal extends React.Component {
   }
 
   componentWillUnmount() {
-    document.removeEventListener('keydown', this.handleKeyDown);
+    if (document) {
+      document.removeEventListener('keydown', this.handleKeyDown);
+    }
   }
 
   handleKeyDown(key) {
-    const activeElementTag = document.activeElement.tagName;
+    let activeElementTag;
+
+    if (document) {
+      activeElementTag = document.activeElement.tagName;
+    }
 
     if (activeElementTag === 'TEXTAREA') {
       return;
@@ -109,8 +120,15 @@ class PostModal extends React.Component {
     }
   }
 
+  handleModalClose() {
+    const { hidePostModal, currentShownPostID, currentFeed } = this.props;
+    const post = _.find(currentFeed, ['id', currentShownPostID]);
+    hidePostModal();
+    PostModal.scrollPostFromFeedIntoView(post);
+  }
+
   render() {
-    const { visible, hidePostModal, currentFeed, currentShownPostID } = this.props;
+    const { visible, currentFeed, currentShownPostID } = this.props;
     let post = _.find(currentFeed, ['id', currentShownPostID]);
 
     if (_.isUndefined(post)) {
@@ -122,11 +140,18 @@ class PostModal extends React.Component {
         title={null}
         footer={null}
         visible={visible}
-        onCancel={hidePostModal}
+        onCancel={this.handleModalClose}
         width={720}
         wrapClassName="PostModal"
         destroyOnClose
+        maskStyle={{ backgroundColor: 'rgba(255, 255, 255, .8)' }}
       >
+        <div className="PostModal__back">
+          <a className="PostModal__back__link" role="presentation" onClick={this.handleModalClose}>
+            <i className="iconfont icon-return" />
+            <FormattedMessage id="back" defaultMessage="Back" />
+          </a>
+        </div>
         <PostContent content={post} />
         <VisibilitySensor onChange={this.handleCommentsVisibility} />
         <div id="comments">

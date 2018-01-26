@@ -287,5 +287,6 @@
   "login_modal_footer_text": "Don't have an account? Signup with {link}",
   "login_to_busy": "Login to Busy",
   "login_modal_description": "Login with your Steem account using SteemConnect to enjoy Busy at 100%",
-  "login_with_steemconnect": "Login with SteemConnect"
+  "login_with_steemconnect": "Login with SteemConnect",
+  "back": "Back"
 }

@@ -1,5 +1,68 @@
+@import (reference) '../styles/custom.less';
+@import (reference) '../styles/modules/variables.less';
+
 .PostModal {
   .ant-modal {
-    top: 10px !important;
+    top: 40px !important;
+  }
+
+  button.ant-modal-close {
+    display: none;
+    background: @white;
+    right: -20px;
+    top: -20px;
+
+    .ant-modal-close-x {
+      &:before {
+        border-radius: 50%;
+        border: 1px solid @white-gainsboro;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+    }
+
+    @media @medium {
+      display: block;
+    }
+  }
+
+  &__back {
+    align-items: center;
+    background: @white;
+    border-bottom: 1px solid @white-gainsboro;
+    display: flex;
+    left: 0px;
+    padding: 10px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+
+    &__link {
+      align-items: center;
+      display: flex;
+      color: @blue-botticelli;
+      font-size: 20px !important;
+      font-weight: bold;
+
+      &:hover {
+        color: @blue-botticelli;
+      }
+
+      .icon-return {
+        padding-right: 5px;
+      }
+    }
+
+    @media @medium {
+      display: none;
+    }
+  }
+
+  .StoryFull {
+    margin-top: 50px !important;
+
+    @media @medium {
+      margin-top: 12px !important;
+    }
   }
 }
