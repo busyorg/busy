@@ -246,7 +246,7 @@ class Write extends React.Component {
     const redirect = id !== this.draftId;
 
     this.props.saveDraft({ postData: data, id: this.draftId }, redirect);
-  }, 400);
+  }, 2000);
 
   render() {
     const { initialTitle, initialTopics, initialBody, initialReward, initialUpvote } = this.state;
