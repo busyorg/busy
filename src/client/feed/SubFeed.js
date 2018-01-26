@@ -115,7 +115,6 @@ class SubFeed extends React.Component {
 
   render() {
     const { authenticated, loaded, user, feed, posts, match } = this.props;
-
     let content = [];
     let isFetching = false;
     let fetched = false;
@@ -137,9 +136,11 @@ class SubFeed extends React.Component {
       loadMoreContent = () => this.props.getMoreFeedContent(sortBy, match.params.category);
     }
 
+    const loadScrollToTop = _.isEmpty(content);
+
     return (
       <div>
-        <ScrollToTop />
+        {loadScrollToTop && <ScrollToTop />}
         <Feed
           content={content}
           isFetching={isFetching}
