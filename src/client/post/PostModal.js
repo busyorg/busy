@@ -66,7 +66,11 @@ class PostModal extends React.Component {
         maskStyle={{ backgroundColor: 'rgba(255, 255, 255, .8)' }}
       >
         <div className="PostModal__back">
-          <a className="PostModal__back__link" role="presentation" onClick={this.handleModalClose}>
+          <a
+            className="PostModal__back__link"
+            role="presentation"
+            onClick={this.props.hidePostModal}
+          >
             <i className="iconfont icon-return" />
             <FormattedMessage id="back" defaultMessage="Back" />
           </a>
