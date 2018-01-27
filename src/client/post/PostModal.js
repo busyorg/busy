@@ -46,16 +46,16 @@ class PostModal extends React.Component {
       this.setState({
         commentsVisible: false,
       });
-      if (document) {
-        _.debounce(() => {
-          console.log('DEBOUNCEDD');
+
+      _.debounce(() => {
+        if (document) {
           const modalContents = document.getElementsByClassName('ant-modal-content');
           const modalContentElement = _.get(modalContents, 0);
           if (modalContentElement) {
             modalContentElement.scrollIntoView();
           }
-        }, 2000);
-      }
+        }
+      }, 2000)();
     }
   }
 
@@ -103,7 +103,7 @@ class PostModal extends React.Component {
             <FormattedMessage id="back" defaultMessage="Back" />
           </a>
         </div>
-        <div className="PostModal__actions-container" id="PostModal-post-title">
+        <div className="PostModal__actions-container">
           <a role="presentation" onClick={this.props.hidePostModal} className="PostModal__action">
             <i className="iconfont icon-close PostModal__icon" />
           </a>
