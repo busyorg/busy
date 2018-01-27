@@ -393,7 +393,7 @@ class StoryFull extends React.Component {
             <i className="iconfont icon-more StoryFull__header__more" />
           </Popover>
         </div>
-        {content}
+        <div className="StoryFull__content">{content}</div>
         {open && (
           <Lightbox
             mainSrc={this.images[index]}
