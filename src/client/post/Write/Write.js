@@ -9,7 +9,7 @@ import isArray from 'lodash/isArray';
 import 'url-search-params-polyfill';
 import { injectIntl } from 'react-intl';
 import uuidv4 from 'uuid/v4';
-import { remarkable } from '../../components/Story/Body';
+import { getHtml } from '../../components/Story/Body';
 import { extractImages, extractLinks } from '../../helpers/parser';
 import { rewardsValues } from '../../../common/constants/rewards';
 import GetBoost from '../../components/Sidebar/GetBoost';
@@ -181,7 +181,7 @@ class Write extends React.Component {
       }
     }
 
-    const parsedBody = remarkable.render(postBody);
+    const parsedBody = getHtml(postBody, {}, 'text');
 
     const images = extractImages(parsedBody);
     const links = extractLinks(parsedBody);

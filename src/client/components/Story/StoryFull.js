@@ -18,7 +18,7 @@ import { getFromMetadata, extractImages } from '../../helpers/parser';
 import { isPostDeleted } from '../../helpers/postHelpers';
 import withAuthActions from '../../auth/withAuthActions';
 import { getProxyImageURL } from '../../helpers/image';
-import Body, { remarkable } from './Body';
+import Body, { getHtml } from './Body';
 import StoryDeleted from './StoryDeleted';
 import StoryFooter from '../StoryFooter/StoryFooter';
 import Avatar from '../Avatar';
@@ -185,7 +185,7 @@ class StoryFull extends React.Component {
 
     const { open, index } = this.state.lightbox;
 
-    const parsedBody = remarkable.render(post.body);
+    const parsedBody = getHtml(post.body, {}, 'text');
 
     this.images = extractImages(parsedBody);
 
