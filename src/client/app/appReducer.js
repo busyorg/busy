@@ -120,7 +120,6 @@ export default (state = initialState, action) => {
       };
     }
     case appTypes.SHOW_POST_MODAL:
-      console.log(action.payload);
       return {
         ...state,
         showPostModal: true,

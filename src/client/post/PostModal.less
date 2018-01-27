@@ -1,28 +1,26 @@
 @import (reference) '../styles/custom.less';
 @import (reference) '../styles/modules/variables.less';
 
+.ant-modal-mask {
+  animation: 0s !important;
+}
+
 .PostModal {
   .ant-modal {
     top: 40px !important;
+    animation: 0s !important;
+  }
+
+  .ant-modal-body {
+    padding: 16px !important;
+
+    @media @medium {
+      padding: 32px 56px !important;
+    }
   }
 
   button.ant-modal-close {
     display: none;
-    background: @white;
-    right: -20px;
-    top: -20px;
-
-    .ant-modal-close-x {
-      &:before {
-        border-radius: 50%;
-        border: 1px solid @white-gainsboro;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-      }
-    }
-
-    @media @medium {
-      display: block;
-    }
   }
 
   &__back {
@@ -30,7 +28,7 @@
     background: @white;
     border-bottom: 1px solid @white-gainsboro;
     display: flex;
-    left: 0px;
+    left: 0;
     padding: 10px;
     position: fixed;
     top: 0;
@@ -64,5 +62,46 @@
     @media @medium {
       margin-top: 12px !important;
     }
+  }
+
+  &__actions-container {
+    background: transparent;
+    display: none;
+    flex-direction: column;
+    position: fixed;
+    top: 36px;
+    transform: translateX(690px);
+    width: 57px;
+
+    @media @medium {
+      display: flex;
+    }
+  }
+
+  &__action {
+    background: @white;
+    border-radius: 50%;
+    border: 1px solid @white-gainsboro;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    color: @blue-heather !important;
+    display: flex;
+    margin: 5px;
+
+    &:hover {
+      color: @blue-heather !important;
+    }
+  }
+
+  &__icon {
+    display: block;
+    font-style: normal;
+    vertical-align: baseline;
+    text-align: center;
+    text-transform: none;
+    text-rendering: auto;
+    width: 48px;
+    height: 48px;
+    line-height: 48px;
+    font-size: 21px !important;
   }
 }

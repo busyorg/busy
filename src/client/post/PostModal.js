@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import { Link } from 'react-router-dom';
 import { Modal } from 'antd';
 import { FormattedMessage } from 'react-intl';
 import VisibilitySensor from 'react-visibility-sensor';
@@ -30,11 +31,31 @@ class PostModal extends React.Component {
     this.handleCommentsVisibility = this.handleCommentsVisibility.bind(this);
   }
 
+  componentDidMount() {
+    if (document) {
+      const modalContents = document.getElementsByClassName('ant-modal-content');
+      const modalContentElement = _.get(modalContents, 0);
+      if (modalContentElement) {
+        modalContentElement.scrollIntoView();
+      }
+    }
+  }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.currentShownPostID !== this.props.currentShownPostID) {
       this.setState({
         commentsVisible: false,
       });
+      if (document) {
+        _.debounce(() => {
+          console.log('DEBOUNCEDD');
+          const modalContents = document.getElementsByClassName('ant-modal-content');
+          const modalContentElement = _.get(modalContents, 0);
+          if (modalContentElement) {
+            modalContentElement.scrollIntoView();
+          }
+        }, 2000);
+      }
     }
   }
 
@@ -58,6 +79,10 @@ class PostModal extends React.Component {
       post = _.head(currentFeed);
     }
 
+    const category = _.get(post, 'category', '');
+    const author = _.get(post, 'author', '');
+    const permlink = _.get(post, 'permlink', '');
+
     return (
       <Modal
         title={null}
@@ -67,7 +92,6 @@ class PostModal extends React.Component {
         width={720}
         wrapClassName="PostModal"
         destroyOnClose
-        maskStyle={{ backgroundColor: 'rgba(255, 255, 255, .8)' }}
       >
         <div className="PostModal__back">
           <a
@@ -78,6 +102,14 @@ class PostModal extends React.Component {
             <i className="iconfont icon-return" />
             <FormattedMessage id="back" defaultMessage="Back" />
           </a>
+        </div>
+        <div className="PostModal__actions-container" id="PostModal-post-title">
+          <a role="presentation" onClick={this.props.hidePostModal} className="PostModal__action">
+            <i className="iconfont icon-close PostModal__icon" />
+          </a>
+          <Link to={`/${category}/@${author}/${permlink}`} className="PostModal__action">
+            <i className="iconfont icon-send PostModal__icon" />
+          </Link>
         </div>
         <PostContent content={post} />
         <VisibilitySensor onChange={this.handleCommentsVisibility} />
