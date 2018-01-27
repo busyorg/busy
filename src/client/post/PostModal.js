@@ -55,7 +55,7 @@ class PostModal extends React.Component {
             modalContentElement.scrollIntoView();
           }
         }
-      }, 2000)();
+      }, 400)();
     }
   }
 
