@@ -6,7 +6,6 @@ import { withRouter } from 'react-router-dom';
 import { renderRoutes } from 'react-router-config';
 import { LocaleProvider, Layout } from 'antd';
 import enUS from 'antd/lib/locale-provider/en_US';
-import Cookie from 'js-cookie';
 import { getAvailableLocale, getTranslationsByLocale, getLocaleDirection } from './translations';
 import {
   getIsLoaded,
@@ -88,9 +87,7 @@ export default class Wrapper extends React.PureComponent {
   componentDidMount() {
     const { loaded, locale, usedLocale } = this.props;
 
-    if (Cookie.get('access_token')) {
-      this.props.login().then(() => this.props.getFollowing());
-    }
+    this.props.login().then(() => this.props.getFollowing());
 
     this.props.getRewardFund();
     this.props.getRebloggedList();
