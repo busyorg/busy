@@ -3,13 +3,14 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { replace } from 'react-router-redux';
-import marked from 'marked';
 import kebabCase from 'lodash/kebabCase';
 import debounce from 'lodash/debounce';
 import isArray from 'lodash/isArray';
 import 'url-search-params-polyfill';
 import { injectIntl } from 'react-intl';
 import uuidv4 from 'uuid/v4';
+import { getHtml } from '../../components/Story/Body';
+import { extractImages, extractLinks } from '../../helpers/parser';
 import { rewardsValues } from '../../../common/constants/rewards';
 import GetBoost from '../../components/Sidebar/GetBoost';
 import DeleteDraftModal from './DeleteDraftModal';
@@ -169,8 +170,6 @@ class Write extends React.Component {
     const tags = form.topics;
     const users = [];
     const userRegex = /@([a-zA-Z.0-9-]+)/g;
-    const links = [];
-    const images = [];
     let matches;
 
     const postBody = data.body;
@@ -182,19 +181,10 @@ class Write extends React.Component {
       }
     }
 
-    const renderer = new marked.Renderer();
+    const parsedBody = getHtml(postBody, {}, 'text');
 
-    renderer.link = href => {
-      links.push(href);
-      return marked.Renderer.prototype.link.apply(renderer, arguments);
-    };
-
-    renderer.image = href => {
-      images.push(href);
-      return marked.Renderer.prototype.image.apply(renderer, arguments);
-    };
-
-    marked(postBody || '', { renderer });
+    const images = extractImages(parsedBody);
+    const links = extractLinks(parsedBody);
 
     if (data.title && !this.permlink) {
       data.permlink = kebabCase(data.title);
