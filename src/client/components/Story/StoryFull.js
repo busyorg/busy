@@ -39,6 +39,7 @@ class StoryFull extends React.Component {
     rewardFund: PropTypes.shape().isRequired,
     defaultVotePercent: PropTypes.number.isRequired,
     onActionInitiated: PropTypes.func.isRequired,
+    rewriteLinks: PropTypes.bool,
     pendingLike: PropTypes.bool,
     pendingFollow: PropTypes.bool,
     pendingBookmark: PropTypes.bool,
@@ -55,6 +56,7 @@ class StoryFull extends React.Component {
   };
 
   static defaultProps = {
+    rewriteLinks: false,
     pendingLike: false,
     pendingFollow: false,
     pendingBookmark: false,
@@ -169,6 +171,7 @@ class StoryFull extends React.Component {
       user,
       post,
       postState,
+      rewriteLinks,
       pendingLike,
       pendingFollow,
       pendingBookmark,
@@ -299,7 +302,12 @@ class StoryFull extends React.Component {
           onClick={this.handleContentClick}
         >
           {this.renderDtubeEmbedPlayer()}
-          <Body full body={post.body} json_metadata={post.json_metadata} />
+          <Body
+            full
+            rewriteLinks={rewriteLinks}
+            body={post.body}
+            json_metadata={post.json_metadata}
+          />
         </div>
       );
     }
