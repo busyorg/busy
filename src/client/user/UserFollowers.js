@@ -30,10 +30,8 @@ export default class UserFollowers extends React.Component {
   render() {
     return (
       <div className="UserFollowers">
-        <div className="container UserFollowers__container">
-          {this.state.users && <UserList users={this.state.users} />}
-          {this.state.isLoading && <Loading />}
-        </div>
+        {this.state.users && <UserList users={this.state.users} />}
+        {this.state.isLoading && <Loading />}
       </div>
     );
   }
