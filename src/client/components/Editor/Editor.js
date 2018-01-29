@@ -5,7 +5,6 @@ import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { isEqual } from 'lodash';
-import isArray from 'lodash/isArray';
 import readingTime from 'reading-time';
 import { Checkbox, Form, Input, Select, Button } from 'antd';
 import { rewardsValues } from '../../../common/constants/rewards';
@@ -85,7 +84,6 @@ class Editor extends React.Component {
     this.onUpdate = this.onUpdate.bind(this);
     this.setValues = this.setValues.bind(this);
     this.setBodyAndRender = this.setBodyAndRender.bind(this);
-    this.getValues = this.getValues.bind(this);
     this.handleBodyUpdate = this.handleBodyUpdate.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -119,18 +117,22 @@ class Editor extends React.Component {
     }
   }
 
-  onUpdate(e) {
+  onUpdate() {
+    const { form } = this.props;
     const { body } = this.state;
-    const values = {
-      body,
-      ...this.getValues(e),
-    };
 
-    this.props.onUpdate({
-      ...values,
-      topics: values.topics.slice(0, 5),
-      title: values.title.slice(0, 255),
-    });
+    setTimeout(() => {
+      const values = {
+        body,
+        ...form.getFieldsValue(['title', 'topics', 'reward', 'upvote']),
+      };
+
+      this.props.onUpdate({
+        ...values,
+        topics: values.topics.slice(0, 5),
+        title: values.title.slice(0, 255),
+      });
+    }, 0);
   }
 
   setValues(post) {
@@ -149,31 +151,6 @@ class Editor extends React.Component {
       body,
       bodyHTML: remarkable.render(body),
     });
-  }
-
-  getValues(e) {
-    // NOTE: antd API is inconsistent and returns event or just value depending of input type.
-    // this code extracts value from event based of event type
-    // (array or just value for Select, proxy event for inputs and checkboxes)
-    const values = {
-      ...this.props.form.getFieldsValue(['title', 'topics', 'reward', 'upvote']),
-    };
-
-    if (!e) return values;
-
-    if (isArray(e)) {
-      values.topics = e;
-    } else if (typeof e === 'string') {
-      values.reward = e;
-    } else if (e.target.type === 'textarea') {
-      values.body = e.target.value;
-    } else if (e.target.type === 'text') {
-      values.title = e.target.value;
-    } else if (e.target.type === 'checkbox') {
-      values.upvote = e.target.checked;
-    }
-
-    return values;
   }
 
   handleSubmit(e) {
