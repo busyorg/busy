@@ -51,7 +51,7 @@ function makePlugins(options) {
           process.env.STEEMCONNECT_REDIRECT_URL || 'http://localhost:3000/callback',
         ),
         STEEMCONNECT_HOST: JSON.stringify(
-          process.env.STEEMCONNECT_HOST || 'https://v2.steemconnect.com',
+          process.env.STEEMCONNECT_HOST || 'https://steemconnect.com',
         ),
         STEEMJS_URL: JSON.stringify(process.env.STEEMJS_URL || 'https://api.steemit.com'),
         IS_BROWSER: JSON.stringify(true),
