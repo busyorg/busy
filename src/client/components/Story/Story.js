@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom';
 import { Tag, Tooltip } from 'antd';
 import formatter from '../../helpers/steemitFormatter';
 import { isPostTaggedNSFW } from '../../helpers/postHelpers';
+import { postHasVideo } from './StoryHelper';
 import withAuthActions from '../../auth/withAuthActions';
 import StoryPreview from './StoryPreview';
 import StoryFooter from '../StoryFooter/StoryFooter';
@@ -76,6 +77,7 @@ class Story extends React.Component {
     this.getDisplayStoryPreview = this.getDisplayStoryPreview.bind(this);
     this.handlePostPopoverMenuClick = this.handlePostPopoverMenuClick.bind(this);
     this.handleShowStoryPreview = this.handleShowStoryPreview.bind(this);
+    this.handlePostModalDisplay = this.handlePostModalDisplay.bind(this);
   }
 
   getDisplayStoryPreview() {
@@ -121,6 +123,15 @@ class Story extends React.Component {
     this.setState({
       showHiddenStoryPreview: true,
     });
+  }
+
+  handlePostModalDisplay() {
+    const { post } = this.props;
+    const hasVideo = postHasVideo(post);
+
+    if (!hasVideo) {
+      this.props.showPostModal(post.id);
+    }
   }
 
   render() {
@@ -234,7 +245,7 @@ class Story extends React.Component {
             {showStoryPreview ? (
               <a
                 role="presentation"
-                onClick={() => this.props.showPostModal(post.id)}
+                onClick={this.handlePostModalDisplay}
                 className="Story__content__preview"
               >
                 <StoryPreview post={post} />

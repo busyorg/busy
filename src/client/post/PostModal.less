@@ -29,7 +29,7 @@
     border-bottom: 1px solid @white-gainsboro;
     display: flex;
     left: 0;
-    padding: 10px;
+    height: 50px;
     position: fixed;
     top: 0;
     width: 100%;
@@ -80,12 +80,15 @@
 
   &__action {
     background: @white;
-    border-radius: 50%;
+    border-radius: 50px;
     border: 1px solid @white-gainsboro;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     color: @blue-heather !important;
     display: flex;
     margin: 5px;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
 
     &:hover {
       color: @blue-heather !important;
@@ -93,15 +96,12 @@
   }
 
   &__icon {
-    display: block;
     font-style: normal;
     vertical-align: baseline;
     text-align: center;
     text-transform: none;
     text-rendering: auto;
-    width: 48px;
-    height: 48px;
-    line-height: 48px;
+    width: 100%;
     font-size: 21px !important;
   }
 }

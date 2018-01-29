@@ -1,3 +1,7 @@
+import _ from 'lodash';
+import { jsonParse } from '../../helpers/formatter';
+import { getHtml } from './Body';
+
 const START_WITH_PERCENT = 5;
 
 const getPositions = text => {
@@ -30,10 +34,37 @@ const isPostStartsWithAnEmbed = tagPositions => postWithAnEmbed(tagPositions, ST
 const isPostWithPictureBeforeFirstHalf = tagPositions => postWithPicture(tagPositions, 50);
 const isPostWithEmbedBeforeFirstHalf = tagPositions => postWithAnEmbed(tagPositions, 50);
 
+const postHasVideo = post => {
+  const jsonMetadata = jsonParse(post.json_metadata);
+  const video = _.get(jsonMetadata, 'video', {});
+  const htmlBody = getHtml(post.body, {}, 'text');
+  const tagPositions = getPositions(htmlBody);
+  let hasVideo = false;
+
+  if (_.has(video, 'content.videohash') && _.has(video, 'info.snaphash')) {
+    hasVideo = true;
+  } else if (htmlBody.length <= 1500 && postWithPicture(tagPositions, 100)) {
+    hasVideo = false;
+  } else if (htmlBody.length <= 1500 && postWithAnEmbed(tagPositions, 100)) {
+    hasVideo = true;
+  } else if (isPostStartsWithAPicture(tagPositions)) {
+    hasVideo = false;
+  } else if (isPostStartsWithAnEmbed(tagPositions)) {
+    return true;
+  } else if (isPostWithPictureBeforeFirstHalf(tagPositions)) {
+    hasVideo = false;
+  } else if (isPostWithEmbedBeforeFirstHalf(tagPositions)) {
+    hasVideo = true;
+  }
+
+  return hasVideo;
+};
+
 export {
   getPositions,
   postWithPicture,
   postWithAnEmbed,
+  postHasVideo,
   isPostStartsWithAPicture,
   isPostStartsWithAnEmbed,
   isPostWithPictureBeforeFirstHalf,

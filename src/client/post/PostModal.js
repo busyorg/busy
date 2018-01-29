@@ -33,29 +33,11 @@ class PostModal extends React.Component {
 
   componentDidMount() {
     if (document) {
-      const modalContents = document.getElementsByClassName('ant-modal-content');
+      const modalContents = document.getElementsByClassName('ant-modal-wrap');
       const modalContentElement = _.get(modalContents, 0);
       if (modalContentElement) {
-        modalContentElement.scrollIntoView();
+        modalContentElement.scrollTop = 0;
       }
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.currentShownPostID !== this.props.currentShownPostID) {
-      this.setState({
-        commentsVisible: false,
-      });
-
-      _.debounce(() => {
-        if (document) {
-          const modalContents = document.getElementsByClassName('ant-modal-content');
-          const modalContentElement = _.get(modalContents, 0);
-          if (modalContentElement) {
-            modalContentElement.scrollIntoView();
-          }
-        }
-      }, 400)();
     }
   }
 
@@ -83,6 +65,8 @@ class PostModal extends React.Component {
     const author = _.get(post, 'author', '');
     const permlink = _.get(post, 'permlink', '');
 
+    if (!visible) return null;
+
     return (
       <Modal
         title={null}
@@ -105,7 +89,7 @@ class PostModal extends React.Component {
         </div>
         <div className="PostModal__actions-container">
           <a role="presentation" onClick={this.props.hidePostModal} className="PostModal__action">
-            <i className="iconfont icon-close PostModal__icon" />
+            <i className="iconfont icon-close-big PostModal__icon" />
           </a>
           <Link to={`/${category}/@${author}/${permlink}`} className="PostModal__action">
             <i className="iconfont icon-send PostModal__icon" />
