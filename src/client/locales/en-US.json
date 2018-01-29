@@ -287,5 +287,12 @@
   "login_modal_footer_text": "Don't have an account? Signup with {link}",
   "login_to_busy": "Login to Busy",
   "login_modal_description": "Login with your Steem account using SteemConnect to enjoy Busy at 100%",
-  "login_with_steemconnect": "Login with SteemConnect"
+  "login_with_steemconnect": "Login with SteemConnect",
+  "follows_you": "Follows you",
+  "lets_get_started": "Let's get started",
+  "completed": "Completed",
+  "create_a_profile": "Create a profile",
+  "follow_steemians": "Follow steemians",
+  "upvote_good_posts": "Upvote good posts",
+  "create_first_post": "Create your first post"
 }
