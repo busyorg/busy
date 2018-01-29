@@ -37,6 +37,10 @@ export function getHtml(body, jsonMetadata = {}, returnType = 'Object', options 
   const htmlReadyOptions = { mutate: true, resolveIframe: returnType === 'text' };
   parsedBody = remarkable.render(parsedBody);
   parsedBody = htmlReady(parsedBody, htmlReadyOptions).html;
+  parsedBody = parsedBody.replace(
+    /<a href="https:\/\/d.tube.#!\/v\/[^/"]+\/[^/"]+"><img src="[^"]+"\/><\/a>/g,
+    '',
+  );
   parsedBody = sanitizeHtml(parsedBody, sanitizeConfig({}));
   if (returnType === 'text') {
     return parsedBody;
