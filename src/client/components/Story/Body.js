@@ -22,7 +22,7 @@ export const remarkable = new Remarkable({
 
 // Should return text(html) if returnType is text
 // Should return Object(React Compatible) if returnType is Object
-export function getHtml(body, jsonMetadata = {}, returnType = 'Object') {
+export function getHtml(body, jsonMetadata = {}, returnType = 'Object', options = {}) {
   const parsedJsonMetadata = jsonParse(jsonMetadata) || {};
   parsedJsonMetadata.image = parsedJsonMetadata.image || [];
 
@@ -40,6 +40,13 @@ export function getHtml(body, jsonMetadata = {}, returnType = 'Object') {
   parsedBody = sanitizeHtml(parsedBody, sanitizeConfig({}));
   if (returnType === 'text') {
     return parsedBody;
+  }
+
+  if (options.rewriteLinks) {
+    parsedBody = parsedBody.replace(
+      /"https?:\/\/(?:www)?steemit.com\/([A-Za-z0-9@/\-.]*)"/g,
+      (match, p1) => `"/${p1}"`,
+    );
   }
 
   const sections = [];
@@ -66,7 +73,10 @@ export function getHtml(body, jsonMetadata = {}, returnType = 'Object') {
 }
 
 const Body = props => {
-  const htmlSections = getHtml(props.body, props.jsonMetadata);
+  const options = {
+    rewriteLinks: props.rewriteLinks,
+  };
+  const htmlSections = getHtml(props.body, props.jsonMetadata, 'Object', options);
   return <div className={classNames('Body', { 'Body--full': props.full })}>{htmlSections}</div>;
 };
 
@@ -74,12 +84,14 @@ Body.propTypes = {
   body: PropTypes.string,
   jsonMetadata: PropTypes.string,
   full: PropTypes.bool,
+  rewriteLinks: PropTypes.bool,
 };
 
 Body.defaultProps = {
   body: '',
   jsonMetadata: '',
   full: false,
+  rewriteLinks: false,
 };
 
 export default Body;
