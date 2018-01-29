@@ -27,6 +27,7 @@ class Comments extends React.Component {
     ),
     rewardFund: PropTypes.shape().isRequired,
     defaultVotePercent: PropTypes.number.isRequired,
+    rewriteLinks: PropTypes.bool,
     sliderMode: PropTypes.oneOf(['on', 'off', 'auto']),
     loading: PropTypes.bool,
     show: PropTypes.bool,
@@ -42,6 +43,7 @@ class Comments extends React.Component {
     comments: [],
     commentsChildren: undefined,
     pendingVotes: [],
+    rewriteLinks: false,
     sliderMode: 'auto',
     loading: false,
     show: false,
@@ -135,6 +137,7 @@ class Comments extends React.Component {
       sliderMode,
       rewardFund,
       defaultVotePercent,
+      rewriteLinks,
     } = this.props;
     const { sort } = this.state;
 
@@ -195,6 +198,7 @@ class Comments extends React.Component {
               rewardFund={rewardFund}
               sliderMode={sliderMode}
               defaultVotePercent={defaultVotePercent}
+              rewriteLinks={rewriteLinks}
               onLikeClick={onLikeClick}
               onDislikeClick={onDislikeClick}
               onSendComment={this.props.onSendComment}
