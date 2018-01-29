@@ -1,40 +1,32 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import UserList from './UserList';
-import Loading from '../components/Icon/Loading';
-import { getAllFollowers } from '../helpers/apiHelpers';
-import './UserFollowers.less';
+import { getFollowers } from '../helpers/apiHelpers';
+import UserDynamicList from './UserDynamicList';
 
 export default class UserFollowers extends React.Component {
   static propTypes = {
     match: PropTypes.shape().isRequired,
   };
 
-  state = {
-    isLoading: false,
-    isLoaded: false,
-    users: [],
-  };
+  static limit = 50;
 
-  componentWillMount() {
-    this.setState({ isLoading: true });
-    getAllFollowers(this.props.match.params.name).then(users =>
-      this.setState({
-        isLoading: false,
-        isLoaded: true,
-        users: users.sort(),
-      }),
+  constructor(props) {
+    super(props);
+
+    this.fetcher = this.fetcher.bind(this);
+  }
+
+  fetcher(previous) {
+    const { match } = this.props;
+    return getFollowers(
+      match.params.name,
+      previous[previous.length - 1],
+      'blog',
+      UserFollowers.limit,
     );
   }
 
   render() {
-    return (
-      <div className="UserFollowers">
-        <div className="container UserFollowers__container">
-          {this.state.users && <UserList users={this.state.users} />}
-          {this.state.isLoading && <Loading />}
-        </div>
-      </div>
-    );
+    return <UserDynamicList limit={UserFollowers.limit} fetcher={this.fetcher} />;
   }
 }

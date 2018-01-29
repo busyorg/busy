@@ -1,11 +1,16 @@
 @import (reference) '../styles/custom.less';
 
-.UserFollowing {
+.UserDynamicList {
   background: @white;
   border: 1px solid #e9e7e7;
   border-radius: @border-radius-base;
+  margin-bottom: 16px;
 
   &__container {
-    padding: 14px 16px 16px 16px;
+    padding: 16px 16px 0 16px;
+
+    .Loading {
+      margin: 8px 0;
+    }
   }
 }
