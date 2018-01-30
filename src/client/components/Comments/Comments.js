@@ -55,20 +55,45 @@ class Comments extends React.Component {
 
   constructor(props) {
     super(props);
+
     this.state = {
       sort: 'BEST',
       showCommentFormLoading: false,
       commentFormText: '',
       commentSubmitted: false,
     };
+
+    this.detectSort = this.detectSort.bind(this);
+    this.setSort = this.setSort.bind(this);
+  }
+
+  componentDidMount() {
+    this.detectSort(this.props.comments);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.detectSort(nextProps.comments);
+  }
+
+  setSort(sort) {
+    this.setState({
+      sort,
+    });
+  }
+
+  detectSort(comments) {
+    if (
+      comments.length > 0 &&
+      comments.filter(comment => comment.active_votes.length > 0).length === 0
+    ) {
+      this.setSort('OLDEST');
+    }
   }
 
   handleSortClick = e => {
     const type = e.target.parentNode && e.target.parentNode.dataset.type;
     if (type) {
-      this.setState({
-        sort: type,
-      });
+      this.setSort(type);
     }
   };
 
