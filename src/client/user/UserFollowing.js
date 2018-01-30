@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getFollowers } from '../helpers/apiHelpers';
+import { getFollowing } from '../helpers/apiHelpers';
 import UserDynamicList from './UserDynamicList';
 
 export default class UserFollowing extends React.Component {
@@ -18,7 +18,7 @@ export default class UserFollowing extends React.Component {
 
   fetcher(previous) {
     const { match } = this.props;
-    return getFollowers(
+    return getFollowing(
       match.params.name,
       previous[previous.length - 1],
       'blog',
