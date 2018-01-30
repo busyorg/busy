@@ -11,6 +11,7 @@ import {
   getIsSettingsLoading,
   getVotePercent,
   getShowNSFWPosts,
+  getRewriteLinks,
 } from '../reducers';
 import { saveSettings } from './settingsActions';
 import { reload } from '../auth/authActions';
@@ -32,6 +33,7 @@ import './Settings.less';
     votingPower: getVotingPower(state),
     votePercent: getVotePercent(state),
     showNSFWPosts: getShowNSFWPosts(state),
+    rewriteLinks: getRewriteLinks(state),
     loading: getIsSettingsLoading(state),
   }),
   { reload, saveSettings, notify },
@@ -45,6 +47,7 @@ export default class Settings extends React.Component {
     votePercent: PropTypes.number,
     loading: PropTypes.bool,
     showNSFWPosts: PropTypes.bool,
+    rewriteLinks: PropTypes.bool,
     reload: PropTypes.func,
     saveSettings: PropTypes.func,
     notify: PropTypes.func,
@@ -57,6 +60,7 @@ export default class Settings extends React.Component {
     votePercent: 10000,
     loading: false,
     showNSFWPosts: false,
+    rewriteLinks: false,
     reload: () => {},
     saveSettings: () => {},
     notify: () => {},
@@ -67,6 +71,7 @@ export default class Settings extends React.Component {
     votingPower: 'auto',
     votePercent: 10000,
     showNSFWPosts: false,
+    rewriteLinks: false,
   };
 
   componentWillMount() {
@@ -75,6 +80,7 @@ export default class Settings extends React.Component {
       votingPower: this.props.votingPower,
       votePercent: this.props.votePercent / 100,
       showNSFWPosts: this.props.showNSFWPosts,
+      rewriteLinks: this.props.rewriteLinks,
     });
   }
 
@@ -97,6 +103,10 @@ export default class Settings extends React.Component {
 
     if (nextProps.showNSFWPosts !== this.props.showNSFWPosts) {
       this.setState({ showNSFWPosts: nextProps.showNSFWPosts });
+    }
+
+    if (nextProps.rewriteLinks !== this.props.rewriteLinks) {
+      this.setState({ rewriteLinks: nextProps.rewriteLinks });
     }
   }
 
@@ -151,6 +161,7 @@ export default class Settings extends React.Component {
         votingPower: this.state.votingPower,
         votePercent: this.state.votePercent * 100,
         showNSFWPosts: this.state.showNSFWPosts,
+        rewriteLinks: this.state.rewriteLinks,
       })
       .then(() =>
         this.props.notify(
@@ -164,6 +175,7 @@ export default class Settings extends React.Component {
   handleVotingPowerChange = event => this.setState({ votingPower: event.target.value });
   handleVotePercentChange = value => this.setState({ votePercent: value });
   handleShowNSFWPosts = event => this.setState({ showNSFWPosts: event.target.checked });
+  handleRewriteLinksChange = event => this.setState({ rewriteLinks: event.target.checked });
 
   render() {
     const {
@@ -174,7 +186,7 @@ export default class Settings extends React.Component {
       showNSFWPosts: initialShowNSFWPosts,
       loading,
     } = this.props;
-    const { votingPower, locale, showNSFWPosts } = this.state;
+    const { votingPower, locale, showNSFWPosts, rewriteLinks } = this.state;
 
     const languageOptions = [];
 
@@ -282,7 +294,7 @@ export default class Settings extends React.Component {
                       defaultMessage="You can enable all posts tagged with NSFW to be shown as default."
                     />
                   </p>
-                  <div className="Settings__section__nsfw">
+                  <div className="Settings__section__checkbox">
                     <Checkbox
                       name="nsfw_posts"
                       defaultChecked={initialShowNSFWPosts}
@@ -293,6 +305,26 @@ export default class Settings extends React.Component {
                         id="display_nsfw_posts"
                         defaultMessage="Display NSFW Posts"
                       />
+                    </Checkbox>
+                  </div>
+                </div>
+                <div className="Settings__section">
+                  <h3>
+                    <FormattedMessage id="rewrite_links" defaultMessage="Rewrite links" />
+                  </h3>
+                  <p>
+                    <FormattedMessage
+                      id="rewrite_links_details"
+                      defaultMessage="You can enable this option to replace Steemit.com links with Busy.org links."
+                    />
+                  </p>
+                  <div className="Settings__section__checkbox">
+                    <Checkbox
+                      name="rewrite_links"
+                      checked={rewriteLinks}
+                      onChange={this.handleRewriteLinksChange}
+                    >
+                      <FormattedMessage id="rewrite_links" defaultMessage="Rewrite links" />
                     </Checkbox>
                   </div>
                 </div>

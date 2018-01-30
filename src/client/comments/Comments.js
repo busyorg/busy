@@ -14,6 +14,7 @@ import {
   getVotingPower,
   getRewardFund,
   getVotePercent,
+  getRewriteLinks,
 } from '../reducers';
 import CommentsList from '../components/Comments/Comments';
 import * as commentsActions from './commentsActions';
@@ -31,6 +32,7 @@ import './Comments.less';
     sliderMode: getVotingPower(state),
     rewardFund: getRewardFund(state),
     defaultVotePercent: getVotePercent(state),
+    rewriteLinks: getRewriteLinks(state),
   }),
   dispatch =>
     bindActionCreators(
@@ -50,6 +52,7 @@ export default class Comments extends React.Component {
     user: PropTypes.shape().isRequired,
     rewardFund: PropTypes.shape().isRequired,
     defaultVotePercent: PropTypes.number.isRequired,
+    rewriteLinks: PropTypes.bool.isRequired,
     sliderMode: PropTypes.oneOf(['on', 'off', 'auto']),
     username: PropTypes.string,
     post: PropTypes.shape(),
@@ -148,6 +151,7 @@ export default class Comments extends React.Component {
       sliderMode,
       rewardFund,
       defaultVotePercent,
+      rewriteLinks,
     } = this.props;
     const postId = post.id;
     let fetchedCommentsList = [];
@@ -180,6 +184,7 @@ export default class Comments extends React.Component {
           rewardFund={rewardFund}
           sliderMode={sliderMode}
           defaultVotePercent={defaultVotePercent}
+          rewriteLinks={rewriteLinks}
           onLikeClick={this.handleLikeClick}
           onDislikeClick={this.handleDislikeClick}
           onSendComment={this.props.sendComment}

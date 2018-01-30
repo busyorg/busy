@@ -7,6 +7,7 @@ const initialState = {
   votingPower: 'auto',
   votePercent: 10000,
   showNSFWPosts: false,
+  rewriteLinks: false,
   loading: false,
   upvoteSetting: true,
   rewardSetting: rewardsValues.half,
@@ -23,6 +24,7 @@ const settings = (state = initialState, action) => {
           votingPower,
           votePercent,
           showNSFWPosts,
+          rewriteLinks,
           upvoteSetting,
           rewardSetting,
         } = action.payload.user_metadata.settings;
@@ -32,6 +34,8 @@ const settings = (state = initialState, action) => {
           votingPower: votingPower || initialState.votingPower,
           votePercent: votePercent || initialState.votePercent,
           showNSFWPosts: showNSFWPosts || initialState.showNSFWPosts,
+          rewriteLinks:
+            typeof rewriteLinks === 'boolean' ? rewriteLinks : initialState.rewriteLinks,
           upvoteSetting:
             typeof upvoteSetting === 'boolean' ? upvoteSetting : initialState.upvoteSetting,
           rewardSetting: rewardSetting || initialState.rewardSetting,
@@ -51,6 +55,7 @@ const settings = (state = initialState, action) => {
         votingPower: action.payload.votingPower,
         votePercent: action.payload.votePercent,
         showNSFWPosts: action.payload.showNSFWPosts,
+        rewriteLinks: action.payload.rewriteLinks,
         upvoteSetting: action.payload.upvoteSetting,
         rewardSetting: action.payload.rewardSetting,
       };
@@ -71,5 +76,6 @@ export const getLocale = state => state.locale;
 export const getVotingPower = state => state.votingPower;
 export const getVotePercent = state => state.votePercent;
 export const getShowNSFWPosts = state => state.showNSFWPosts;
+export const getRewriteLinks = state => !!state.rewriteLinks;
 export const getUpvoteSetting = state => state.upvoteSetting;
 export const getRewardSetting = state => state.rewardSetting;

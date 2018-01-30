@@ -14,11 +14,11 @@ import { Link } from 'react-router-dom';
 import { Tag, Icon, Popover, Tooltip } from 'antd';
 import Lightbox from 'react-image-lightbox';
 import formatter from '../../helpers/steemitFormatter';
-import { getFromMetadata } from '../../helpers/parser';
+import { getFromMetadata, extractImages } from '../../helpers/parser';
 import { isPostDeleted } from '../../helpers/postHelpers';
 import withAuthActions from '../../auth/withAuthActions';
 import { getProxyImageURL } from '../../helpers/image';
-import Body from './Body';
+import Body, { getHtml } from './Body';
 import StoryDeleted from './StoryDeleted';
 import StoryFooter from '../StoryFooter/StoryFooter';
 import Avatar from '../Avatar';
@@ -39,6 +39,7 @@ class StoryFull extends React.Component {
     rewardFund: PropTypes.shape().isRequired,
     defaultVotePercent: PropTypes.number.isRequired,
     onActionInitiated: PropTypes.func.isRequired,
+    rewriteLinks: PropTypes.bool,
     pendingLike: PropTypes.bool,
     pendingFollow: PropTypes.bool,
     pendingBookmark: PropTypes.bool,
@@ -55,6 +56,7 @@ class StoryFull extends React.Component {
   };
 
   static defaultProps = {
+    rewriteLinks: false,
     pendingLike: false,
     pendingFollow: false,
     pendingBookmark: false,
@@ -80,6 +82,8 @@ class StoryFull extends React.Component {
         index: 0,
       },
     };
+
+    this.images = [];
 
     this.handleClick = this.handleClick.bind(this);
     this.handleContentClick = this.handleContentClick.bind(this);
@@ -120,6 +124,7 @@ class StoryFull extends React.Component {
       const tags = this.contentDiv.getElementsByTagName('img');
       for (let i = 0; i < tags.length; i += 1) {
         if (tags[i] === e.target && this.images.length > i) {
+          if (e.target.parentNode && e.target.parentNode.tagName === 'A') return;
           this.setState({
             lightbox: {
               open: true,
@@ -166,6 +171,7 @@ class StoryFull extends React.Component {
       user,
       post,
       postState,
+      rewriteLinks,
       pendingLike,
       pendingFollow,
       pendingBookmark,
@@ -181,7 +187,11 @@ class StoryFull extends React.Component {
     } = this.props;
 
     const { open, index } = this.state.lightbox;
-    this.images = getFromMetadata(post.json_metadata, 'image');
+
+    const parsedBody = getHtml(post.body, {}, 'text');
+
+    this.images = extractImages(parsedBody);
+
     const tags = _.union(getFromMetadata(post.json_metadata, 'tags'), [post.category]);
 
     let followText = '';
@@ -292,7 +302,12 @@ class StoryFull extends React.Component {
           onClick={this.handleContentClick}
         >
           {this.renderDtubeEmbedPlayer()}
-          <Body full body={post.body} json_metadata={post.json_metadata} />
+          <Body
+            full
+            rewriteLinks={rewriteLinks}
+            body={post.body}
+            json_metadata={post.json_metadata}
+          />
         </div>
       );
     }
@@ -386,7 +401,7 @@ class StoryFull extends React.Component {
             <i className="iconfont icon-more StoryFull__header__more" />
           </Popover>
         </div>
-        {content}
+        <div className="StoryFull__content">{content}</div>
         {open && (
           <Lightbox
             mainSrc={this.images[index]}

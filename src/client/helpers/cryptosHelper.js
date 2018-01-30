@@ -21,13 +21,14 @@ export function getCryptoDetails(cryptoQuery) {
 }
 
 export const getCurrentDaysOfTheWeek = currentLocale => {
-  const today = new Date();
+  const date = new Date();
+  date.setDate(date.getDate() - 7);
   const daysOfTheWeek = [];
   const locale = _.isEmpty(currentLocale) ? window.navigator.language : currentLocale;
 
   for (let i = 0; i < 7; i += 1) {
-    const newDate = new Date(today.setDate(today.getDate() - 1));
-    const dateLocale = newDate.toLocaleString(locale, { weekday: 'short' });
+    date.setDate(date.getDate() + 1);
+    const dateLocale = date.toLocaleString(locale, { weekday: 'short' });
     daysOfTheWeek.push(dateLocale);
   }
 

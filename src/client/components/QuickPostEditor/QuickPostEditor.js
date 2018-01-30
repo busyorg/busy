@@ -9,8 +9,9 @@ import { Input } from 'antd';
 import uuidv4 from 'uuid/v4';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { getAuthenticatedUser, getIsEditorLoading } from '../../reducers';
-import { isValidImage, MAXIMUM_UPLOAD_SIZE, MAXIMUM_UPLOAD_SIZE_HUMAN } from '../../helpers/image';
+import { isValidImage, MAXIMUM_UPLOAD_SIZE } from '../../helpers/image';
 import { notify } from '../../app/Notification/notificationActions';
+import withEditor from '../Editor/withEditor';
 import { createPost } from '../../post/Write/editorActions';
 import Avatar from '../Avatar';
 import QuickPostEditorFooter from './QuickPostEditorFooter';
@@ -20,6 +21,7 @@ const version = require('../../../../package.json').version;
 
 @withRouter
 @injectIntl
+@withEditor
 @connect(
   state => ({
     user: getAuthenticatedUser(state),
@@ -38,11 +40,13 @@ class QuickPostEditor extends React.Component {
     location: PropTypes.shape().isRequired,
     notify: PropTypes.func.isRequired,
     createPost: PropTypes.func.isRequired,
+    onImageUpload: PropTypes.func,
+    onImageInvalid: PropTypes.func,
   };
 
   static defaultProps = {
+    onImageUpload: () => {},
     onImageInvalid: () => {},
-    onImageInserted: () => {},
   };
 
   state = {
@@ -150,7 +154,7 @@ class QuickPostEditor extends React.Component {
     });
     let callbacksCount = 0;
     Array.from(files).forEach(item => {
-      this.handleImageInserted(
+      this.props.onImageUpload(
         item,
         (image, imageName) => {
           callbacksCount += 1;
@@ -170,63 +174,20 @@ class QuickPostEditor extends React.Component {
     });
   };
 
-  handleImageInserted = (blob, callback, errorCallback) => {
-    this.props.notify(
-      this.props.intl.formatMessage({
-        id: 'notify_uploading_image',
-        defaultMessage: 'Uploading image',
-      }),
-      'info',
-    );
-    const formData = new FormData();
-    formData.append('files', blob);
-
-    fetch(`https://busy-img.herokuapp.com/@${this.props.user.name}/uploads`, {
-      method: 'POST',
-      body: formData,
-    })
-      .then(res => res.json())
-      .then(res => callback(res.secure_url, blob.name))
-      .catch(() => {
-        errorCallback();
-        this.props.notify(
-          this.props.intl.formatMessage({
-            id: 'notify_uploading_iamge_error',
-            defaultMessage: "Couldn't upload image",
-          }),
-          'error',
-        );
-      });
-  };
-
-  handleImageInvalid = () => {
-    this.props.notify(
-      this.props.intl.formatMessage(
-        {
-          id: 'notify_uploading_image_invalid',
-          defaultMessage:
-            'This file is invalid. Only image files with maximum size of {size} are supported',
-        },
-        { size: MAXIMUM_UPLOAD_SIZE_HUMAN },
-      ),
-      'error',
-    );
-  };
-
   handleImageChange = e => {
     e.preventDefault();
     e.stopPropagation();
 
     if (e.target.files && e.target.files[0]) {
       if (!isValidImage(e.target.files[0])) {
-        this.handleImageInvalid();
+        this.props.onImageInvalid();
         return;
       }
 
       this.setState({
         imageUploading: true,
       });
-      this.handleImageInserted(e.target.files[0], this.disableAndInsertImage, () =>
+      this.props.onImageUpload(e.target.files[0], this.disableAndInsertImage, () =>
         this.setState({
           imageUploading: false,
         }),
@@ -308,7 +269,7 @@ class QuickPostEditor extends React.Component {
               style={{ flex: 1 }}
               accept="image/*"
               maxSize={MAXIMUM_UPLOAD_SIZE}
-              onDropRejected={this.handleImageInvalid}
+              onDropRejected={this.props.onImageInvalid}
               onDrop={this.handleDrop}
               onDragEnter={this.handleDragEnter}
               onDragLeave={this.handleDragLeave}

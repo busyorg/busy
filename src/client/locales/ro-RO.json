@@ -102,7 +102,7 @@
   "edit": "Modifică",
   "show_more": "Vezi mai multe",
   "show_less": "Vezi mai puțin",
-  "vote_value": "Vote Value",
+  "vote_value": "Valoare Vot",
   "voting_power": "Puterea de Votare",
   "voting_power_info": "Puteţi să activaţi reglajul puterii de vot, pentru a specifica procentajul exact al puterii de vot al like-ului.",
   "voting_power_off": "Dezactivează cursorul de reglaj",
@@ -115,7 +115,9 @@
   "discover_more_people": "Descoperiți Mai Multa Lume",
   "discover_more_people_info": "Descoperă cei mai respectați utilizatori ai acestei platforme",
   "invite": "Invită",
+  "invite_title": "Don't use Busy alone!",
   "invite_info": "Îmbarcați noi utilizatori pe Busy.org azi cu linkul de mai jos și primiți 10% din răsplata lor pentru 30 de zile.",
+  "invite_share": "Join me today on busy.org and get rewarded to blog {link}",
   "more_people_not_found": "Nu s-au găsit mai mulţi oameni",
   "see_all_comments": "Vizualizează toate comentariile",
   "see_all_recommendations": "Vezi toate recomandările",
@@ -273,6 +275,8 @@
   "nsfw_posts": "Postări NSFW 18+",
   "display_nsfw_posts_details": "Aveţi posibilitatea să activaţi toate postările NSFW 18+ să fie afişate în mod implicit.",
   "display_nsfw_posts": "Arată Postări NSFW 18+",
+  "rewrite_links": "Rewrite links",
+  "rewrite_links_details": "You can enable this option to replace Steemit.com links with Busy.org links.",
   "post_preview_hidden_for_nsfw": "Acestă previzualizare este în prezent ascunsă, deoarece este etichetată NSFW 18+.",
   "reading_time": "{words} cuvinte/{min} min de citit",
   "reading_time_post": "{min} min de citit",
@@ -286,5 +290,6 @@
   "login_modal_footer_text": "Nu ai cont? Înscrie-te cu {link}",
   "login_to_busy": "Conectaţi-vă la Busy",
   "login_modal_description": "Conectaţi-vă cu contul dvs de Steem folosind SteemConnect ca să vă bucuraţi de Busy 100%",
-  "login_with_steemconnect": "Conectaţi-vă cu SteemConnect"
+  "login_with_steemconnect": "Conectaţi-vă cu SteemConnect",
+  "follows_you": "Follows you"
 }

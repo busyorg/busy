@@ -85,7 +85,6 @@
     "lightrpc": "0.0.1",
     "lodash": "^4.0.0",
     "lodash-webpack-plugin": "^0.11.4",
-    "marked": "^0.3.6",
     "matchmedia": "^0.1.2",
     "morgan": "^1.8.2",
     "newrelic": "^1.40.0",

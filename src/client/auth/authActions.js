@@ -26,12 +26,14 @@ const loginError = createAction(LOGIN_ERROR);
 
 export const login = () => (dispatch, getState, { steemConnectAPI }) => {
   let promise = Promise.resolve(null);
-  if (!steemConnectAPI.options.accessToken) {
+
+  if (getIsAuthenticated(getState())) {
+    promise = Promise.resolve(null);
+  } else if (!steemConnectAPI.options.accessToken) {
     promise = Promise.reject(new Error('There is not accessToken present'));
   } else {
     promise = steemConnectAPI.me().catch(() => dispatch(loginError()));
   }
-  if (getIsAuthenticated(getState())) promise = Promise.resolve(null);
 
   return dispatch({
     type: LOGIN,

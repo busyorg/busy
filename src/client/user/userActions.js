@@ -115,7 +115,7 @@ export const getFollowing = username => (dispatch, getState) => {
   const state = getState();
 
   if (!username && !getIsAuthenticated(state)) {
-    return Promise.reject(new Error('User is not authenticated'));
+    return dispatch({ type: GET_FOLLOWING_ERROR });
   }
 
   const targetUsername = username || getAuthenticatedUserName(state);

@@ -115,7 +115,9 @@
   "discover_more_people": "Khám phá những người khác",
   "discover_more_people_info": "Khám phá những người sử dụng có điểm uy tín nhất của nền tảng này",
   "invite": "Mời bạn",
+  "invite_title": "Don't use Busy alone!",
   "invite_info": "Hôm nay người sử dụng trên Busy.org bằng cách sử dụng liên kết dưới đây và nhận được 10% của phần thưởng trong 30 ngày.",
+  "invite_share": "Join me today on busy.org and get rewarded to blog {link}",
   "more_people_not_found": "Không có nhiều người đã được tìm thấy",
   "see_all_comments": "Xem Tất cả Bình luận",
   "see_all_recommendations": "Xem tất cả những đề nghị",
@@ -273,6 +275,8 @@
   "nsfw_posts": "NSFW bài viết",
   "display_nsfw_posts_details": "Bạn có thể bật tất cả các bài viết được dán nhãn NSFW sẽ được hiển thị mặc định.",
   "display_nsfw_posts": "Hiển thị bài viết NSFW",
+  "rewrite_links": "Rewrite links",
+  "rewrite_links_details": "You can enable this option to replace Steemit.com links with Busy.org links.",
   "post_preview_hidden_for_nsfw": "Xem trước bài đăng này hiện tại đang bị ẩn kể từ khi nó được gắn thẻ NSFW.",
   "reading_time": "từ {words} / {min} phút đọc",
   "reading_time_post": "{min} phút đọc",
@@ -286,5 +290,6 @@
   "login_modal_footer_text": "Don't have an account? Signup with {link}",
   "login_to_busy": "Login to Busy",
   "login_modal_description": "Login with your Steem account using SteemConnect to enjoy Busy at 100%",
-  "login_with_steemconnect": "Login with SteemConnect"
+  "login_with_steemconnect": "Login with SteemConnect",
+  "follows_you": "Follows you"
 }

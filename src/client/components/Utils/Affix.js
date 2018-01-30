@@ -110,7 +110,7 @@ class Affix extends React.Component {
       }
       if (this.bindedTop && !this.bindedBottom && scrollingDown && !overlaps) {
         this.affixContainer.style.position = 'absolute';
-        this.affixContainer.style.top = `${scrollTop - (parent.offsetTop - stickPosition)}px`;
+        this.affixContainer.style.top = '0px';
         this.bindedTop = false;
       }
       if (overlaps && !scrollingDown) {
