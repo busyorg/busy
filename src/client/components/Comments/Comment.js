@@ -9,7 +9,7 @@ import {
   FormattedTime,
   FormattedMessage,
 } from 'react-intl';
-import { Tag, Tooltip } from 'antd';
+import { Tag, Tooltip, message } from 'antd';
 import formatter from '../../helpers/steemitFormatter';
 import { MAXIMUM_UPLOAD_SIZE_HUMAN } from '../../helpers/image';
 import { sortComments } from '../../helpers/sortHelpers';
@@ -72,6 +72,8 @@ class Comment extends React.Component {
       commentFormText: '',
       showHiddenComment: false,
     };
+
+    this.handleSubmitComment = this.handleSubmitComment.bind(this);
   }
 
   componentDidMount() {
@@ -149,12 +151,30 @@ class Comment extends React.Component {
     );
   };
 
-  handleSubmitComment = (parentPost, commentValue, isUpdating, originalComment) => {
+  handleSubmitComment(parentPost, commentValue, isUpdating, originalComment) {
+    const { intl } = this.props;
+
     this.setState({ showCommentFormLoading: true });
 
     return this.props
       .onSendComment(parentPost, commentValue, isUpdating, originalComment)
       .then(() => {
+        if (isUpdating) {
+          message.success(
+            intl.formatMessage({
+              id: 'notify_comment_updated',
+              defaultMessage: 'Comment updated',
+            }),
+          );
+        } else {
+          message.success(
+            intl.formatMessage({
+              id: 'notify_comment_sent',
+              defaultMessage: 'Comment submitted',
+            }),
+          );
+        }
+
         this.setState({
           showCommentFormLoading: false,
           replyOpen: false,
@@ -170,7 +190,7 @@ class Comment extends React.Component {
           commentFormText: commentValue,
         });
       });
-  };
+  }
 
   handleEditComment = (parentPost, commentValue) => {
     this.handleSubmitComment(parentPost, commentValue, true, this.props.comment);
