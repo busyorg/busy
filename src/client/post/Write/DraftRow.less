@@ -21,9 +21,22 @@
     justify-content: space-between;
     min-height: 30px;
 
+    &__main {
+      display: flex;
+      align-items: center;
+
+      & > .ant-checkbox-wrapper {
+        display: flex;
+        align-items: center;
+        margin: 0 24px 0 10px;
+      }
+    }
+
     .DraftRow__delete {
       display: block;
       width: 100%;
+      margin-top: 8px;
+      margin-left: 44px;
 
       span {
         vertical-align: 1px;
@@ -34,6 +47,7 @@
       .DraftRow__delete {
         display: none;
         width: auto;
+        margin: 0;
       }
 
       &:hover {
