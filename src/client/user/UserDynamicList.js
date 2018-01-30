@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FormattedMessage } from 'react-intl';
 import ReduxInfiniteScroll from '../vendor/ReduxInfiniteScroll';
 import UserCard from '../components/UserCard';
 import Loading from '../components/Icon/Loading';
@@ -44,6 +45,9 @@ export default class UserDynamicList extends React.Component {
 
   render() {
     const { loading, hasMore, users } = this.state;
+
+    const empty = !hasMore && users.length === 0;
+
     return (
       <div className="UserDynamicList">
         <ReduxInfiniteScroll
@@ -55,6 +59,11 @@ export default class UserDynamicList extends React.Component {
         >
           {users.map(user => <UserCard key={user} username={user} />)}
         </ReduxInfiniteScroll>
+        {empty && (
+          <div className="UserDynamicList__empty">
+            <FormattedMessage id="list_empty" defaultMessage="Nothing is there" />
+          </div>
+        )}
       </div>
     );
   }
