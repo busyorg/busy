@@ -4,6 +4,7 @@ import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { Select, Radio, Checkbox } from 'antd';
+import { SUPPORTED_LANGUAGES } from '../../common/constants/settings';
 import {
   getIsReloading,
   getLocale,
@@ -110,50 +111,6 @@ export default class Settings extends React.Component {
     }
   }
 
-  languages = {
-    'en-US': 'English',
-    'id-ID': 'Bahasa Indonesia - Indonesian',
-    'ms-MY': 'Bahasa Melayu - Malay',
-    'ca-ES': 'Català - Catalan',
-    'cs-CZ': 'Čeština - Czech',
-    'da-DK': 'Dansk - Danish',
-    'de-DE': 'Deutsch - German',
-    'et-EE': 'Eesti - Estonian',
-    'es-ES': 'Español - Spanish',
-    'fil-PH': 'Filipino',
-    'fr-FR': 'Français - French',
-    'hr-HR': 'Hrvatski - Croatian',
-    'it-IT': 'Italiano - Italian',
-    'hu-HU': 'Magyar - Hungarian',
-    'nl-NL': 'Nederlands - Dutch',
-    'no-NO': 'Norsk - Norwegian',
-    'pl-PL': 'Polski - Polish',
-    'pt-BR': 'Português - Portuguese',
-    'ro-RO': 'Română - Romanian',
-    'sl-SI': 'Slovenščina - Slovenian',
-    'sv-SE': 'Svenska - Swedish',
-    'vi-VN': 'Tiếng Việt - Vietnamese',
-    'tr-TR': 'Türkçe - Turkish',
-    'yo-NG': 'Yorùbá - Yoruba',
-    'el-GR': 'Ελληνικά - Greek',
-    'bg-BG': 'Български език - Bulgarian',
-    'ru-RU': 'Русский - Russian',
-    'uk-UA': 'Українська мова - Ukrainian',
-    'he-IL': 'עִבְרִית - Hebrew',
-    'ar-SA': 'العربية - Arabic‏',
-    'ne-NP': 'नेपाली - Nepali',
-    'hi-IN': 'हिन्दी - Hindi',
-    'as-IN': 'অসমীয়া - Assamese',
-    'bn-IN': 'বাংলা - Bengali',
-    'ta-IN': 'தமிழ் - Tamil',
-    'lo-LA': 'ພາສາລາວ - Lao',
-    'th-TH': 'ภาษาไทย - Thai',
-    'ko-KR': '한국어 - Korean',
-    'ja-JP': '日本語 - Japanese',
-    'zh-CN': '简体中文 - Simplified Chinese',
-    // zh: '繁體中文 - Traditional Chinese',
-  };
-
   handleSave = () => {
     this.props
       .saveSettings({
@@ -198,10 +155,10 @@ export default class Settings extends React.Component {
       );
     }
 
-    Object.keys(this.languages).forEach(key => {
+    Object.keys(SUPPORTED_LANGUAGES).forEach(key => {
       languageOptions.push(
         <Select.Option key={key} value={key}>
-          {this.languages[key]}
+          {SUPPORTED_LANGUAGES[key].longName}
         </Select.Option>,
       );
     });

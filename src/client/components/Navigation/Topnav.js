@@ -11,6 +11,7 @@ import { getAutoCompleteSearchResults } from '../../reducers';
 import SteemConnect from '../../steemConnectAPI';
 import Avatar from '../Avatar';
 import PopoverMenu, { PopoverMenuItem } from '../PopoverMenu/PopoverMenu';
+import LanguageSettings from './LanguageSettings';
 import './Topnav.less';
 
 @injectIntl
@@ -92,6 +93,12 @@ class Topnav extends React.Component {
               <FormattedMessage id="login" defaultMessage="Log in" />
             </a>
           </Menu.Item>
+          <Menu.Item key="divider1" disabled>
+            |
+          </Menu.Item>
+          <Menu.Item key="language">
+            <LanguageSettings />
+          </Menu.Item>
         </Menu>
       </div>
     );
@@ -170,6 +177,9 @@ class Topnav extends React.Component {
                 <i className="iconfont icon-switch" />
               </a>
             </Popover>
+          </Menu.Item>
+          <Menu.Item key="language">
+            <LanguageSettings />
           </Menu.Item>
         </Menu>
       </div>

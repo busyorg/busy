@@ -104,6 +104,8 @@ export default class Wrapper extends React.PureComponent {
 
     if (usedLocale !== getAvailableLocale(nextProps.locale) && nextProps.loaded) {
       this.loadLocale(nextProps.locale);
+    } else if (nextProps.locale !== this.props.locale) {
+      this.loadLocale(nextProps.locale);
     }
   }
 
