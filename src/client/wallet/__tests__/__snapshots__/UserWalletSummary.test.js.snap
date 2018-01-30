@@ -7,6 +7,7 @@ ShallowWrapper {
   Symbol(enzyme.__unrendered__): <UserWalletSummary
     estAccountValue="100.00 STEEM"
     loading={false}
+    steemRateLoading={false}
     totalVestingFundSteem="100 STEEM"
     totalVestingShares="100 STEEM"
     user={

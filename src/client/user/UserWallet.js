@@ -18,14 +18,13 @@ import {
   getLoadingGlobalProperties,
   getLoadingMoreUsersAccountHistory,
   getUserHasMoreAccountHistory,
-  getRate as getSteemRate,
+  getCryptosPriceHistory,
 } from '../reducers';
 import {
   getGlobalProperties,
   getUserAccountHistory,
   getMoreUserAccountHistory,
 } from '../wallet/walletActions';
-import { getRate } from '../app/appActions';
 import { getAccount } from './usersActions';
 
 @withRouter
@@ -49,14 +48,13 @@ import { getAccount } from './usersActions';
         ? getAuthenticatedUserName(state)
         : getUser(state, ownProps.match.params.name).name,
     ),
-    steemRate: getSteemRate(state),
+    cryptosPriceHistory: getCryptosPriceHistory(state),
   }),
   {
     getGlobalProperties,
     getUserAccountHistory,
     getMoreUserAccountHistory,
     getAccount,
-    getRate,
   },
 )
 class Wallet extends Component {
@@ -69,14 +67,13 @@ class Wallet extends Component {
     getUserAccountHistory: PropTypes.func.isRequired,
     getMoreUserAccountHistory: PropTypes.func.isRequired,
     getAccount: PropTypes.func.isRequired,
-    getRate: PropTypes.func.isRequired,
     usersTransactions: PropTypes.shape().isRequired,
     usersAccountHistory: PropTypes.shape().isRequired,
+    cryptosPriceHistory: PropTypes.shape().isRequired,
     usersAccountHistoryLoading: PropTypes.bool.isRequired,
     loadingGlobalProperties: PropTypes.bool.isRequired,
     loadingMoreUsersAccountHistory: PropTypes.bool.isRequired,
     userHasMoreActions: PropTypes.bool.isRequired,
-    steemRate: PropTypes.number.isRequired,
     isCurrentUser: PropTypes.bool,
     authenticatedUserName: PropTypes.string,
   };
@@ -94,7 +91,6 @@ class Wallet extends Component {
       user,
       isCurrentUser,
       authenticatedUserName,
-      steemRate,
     } = this.props;
     const username = isCurrentUser
       ? authenticatedUserName
@@ -111,10 +107,6 @@ class Wallet extends Component {
     if (_.isEmpty(user)) {
       this.props.getAccount(username);
     }
-
-    if (steemRate === 0) {
-      this.props.getRate();
-    }
   }
 
   render() {
@@ -128,10 +120,12 @@ class Wallet extends Component {
       loadingMoreUsersAccountHistory,
       userHasMoreActions,
       usersAccountHistory,
-      steemRate,
+      cryptosPriceHistory,
     } = this.props;
     const transactions = usersTransactions[user.name] || [];
     const actions = usersAccountHistory[user.name] || [];
+    const currentSteemRate = _.get(cryptosPriceHistory, 'STEEM.priceDetails.currentUSDPrice', null);
+    const steemRateLoading = _.isNull(currentSteemRate);
 
     return (
       <div>
@@ -141,7 +135,8 @@ class Wallet extends Component {
           totalVestingShares={totalVestingShares}
           totalVestingFundSteem={totalVestingFundSteem}
           loadingGlobalProperties={loadingGlobalProperties}
-          steemRate={steemRate}
+          steemRate={currentSteemRate}
+          steemRateLoading={steemRateLoading}
         />
         {transactions.length === 0 && usersAccountHistoryLoading ? (
           <Loading style={{ marginTop: '20px' }} />
