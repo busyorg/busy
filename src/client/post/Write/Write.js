@@ -235,6 +235,8 @@ class Write extends React.Component {
   handleCancelDeleteDraft = () => this.setState({ showModalDelete: false });
 
   saveDraft = debounce(form => {
+    if (this.props.saving) return;
+
     const data = this.getNewPostData(form);
     const postBody = data.body;
     const id = this.props.draftId;
@@ -246,7 +248,7 @@ class Write extends React.Component {
     const redirect = id !== this.draftId;
 
     this.props.saveDraft({ postData: data, id: this.draftId }, redirect);
-  }, 400);
+  }, 2000);
 
   render() {
     const { initialTitle, initialTopics, initialBody, initialReward, initialUpvote } = this.state;
