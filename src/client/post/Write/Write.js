@@ -235,6 +235,8 @@ class Write extends React.Component {
   handleCancelDeleteDraft = () => this.setState({ showModalDelete: false });
 
   saveDraft = debounce(form => {
+    if (this.props.saving) return;
+
     const data = this.getNewPostData(form);
     const postBody = data.body;
     const id = this.props.draftId;
