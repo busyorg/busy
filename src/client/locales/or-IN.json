@@ -115,7 +115,9 @@
   "discover_more_people": "Discover more people",
   "discover_more_people_info": "Discover the most reputable users of this platform",
   "invite": "Invite",
+  "invite_title": "Don't use Busy alone!",
   "invite_info": "Onboard new users on Busy.org today using the link below and get 10% of their rewards for 30 days.",
+  "invite_share": "Join me today on busy.org and get rewarded to blog {link}",
   "more_people_not_found": "No more people were found",
   "see_all_comments": "See All Comments",
   "see_all_recommendations": "See All Recommendations",
@@ -273,6 +275,8 @@
   "nsfw_posts": "NSFW Posts",
   "display_nsfw_posts_details": "You can enable all posts tagged with NSFW to be shown as default.",
   "display_nsfw_posts": "Display NSFW Posts",
+  "rewrite_links": "Rewrite links",
+  "rewrite_links_details": "You can enable this option to replace Steemit.com links with Busy.org links.",
   "post_preview_hidden_for_nsfw": "This post preview is currently hidden since it is tagged NSFW.",
   "reading_time": "{words} words / {min} min read",
   "reading_time_post": "{min} min read",
@@ -286,5 +290,6 @@
   "login_modal_footer_text": "Don't have an account? Signup with {link}",
   "login_to_busy": "Login to Busy",
   "login_modal_description": "Login with your Steem account using SteemConnect to enjoy Busy at 100%",
-  "login_with_steemconnect": "Login with SteemConnect"
+  "login_with_steemconnect": "Login with SteemConnect",
+  "follows_you": "Follows you"
 }

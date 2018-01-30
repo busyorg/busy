@@ -115,7 +115,9 @@
   "discover_more_people": "Ανακαλύψτε περισσότερα άτομα",
   "discover_more_people_info": "Ανακαλύψτε τους πιο αξιόλογους χρήστες αυτής της πλατφόρμας",
   "invite": "Πρόσκληση",
+  "invite_title": "Don't use Busy alone!",
   "invite_info": "Προσκάλεσε νέους χρήστες στο Busy.org σήμερα χρησιμοποιώντας το παρακάτω link, και κέρδισε 10% των ανταμοιβών τους για τις επόμενες 30 ημέρες.",
+  "invite_share": "Join me today on busy.org and get rewarded to blog {link}",
   "more_people_not_found": "Δεν βρέθηκαν άλλα άτομα",
   "see_all_comments": "Δες όλα τα σχόλια",
   "see_all_recommendations": "Δες όλες τις προτάσεις",
@@ -273,6 +275,8 @@
   "nsfw_posts": "Ακατάλληλες δημοσιεύσεις",
   "display_nsfw_posts_details": "Μπορείτε να ενεργοποιήσετε όλες τις θέσεις με ετικέτα \"Ακατάλληλο\" να εμφανίζονται ως προεπιλογή.",
   "display_nsfw_posts": "Εμφάνιση μηνυμάτων NSFW",
+  "rewrite_links": "Rewrite links",
+  "rewrite_links_details": "You can enable this option to replace Steemit.com links with Busy.org links.",
   "post_preview_hidden_for_nsfw": "Αυτή η προεπισκόπηση είναι αυτήν τη στιγμή κρυμμένη, δεδομένου ότι είναι ετικέτα NSFW.",
   "reading_time": "{words} λέξεις / {min} λεπτά",
   "reading_time_post": "{min} λεπτά διαβάστε",
@@ -286,5 +290,6 @@
   "login_modal_footer_text": "Don't have an account? Signup with {link}",
   "login_to_busy": "Login to Busy",
   "login_modal_description": "Login with your Steem account using SteemConnect to enjoy Busy at 100%",
-  "login_with_steemconnect": "Login with SteemConnect"
+  "login_with_steemconnect": "Login with SteemConnect",
+  "follows_you": "Follows you"
 }
