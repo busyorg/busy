@@ -93,7 +93,7 @@ class Story extends React.Component {
   }
 
   clickMenuItem(key) {
-    const { post } = this.props;
+    const { post, postState } = this.props;
     switch (key) {
       case 'follow':
         this.props.onFollowClick(post);
@@ -102,7 +102,7 @@ class Story extends React.Component {
         this.props.onSaveClick(post);
         break;
       case 'report':
-        this.props.onReportClick(post);
+        this.props.onReportClick(post, postState);
         break;
       case 'edit':
         this.props.onEditClick(post);

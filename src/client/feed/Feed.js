@@ -96,6 +96,12 @@ export default class Feed extends React.Component {
     loadMoreContent: () => {},
   };
 
+  constructor(props) {
+    super(props);
+
+    this.handleReportClick = this.handleReportClick.bind(this);
+  }
+
   handleLikeClick = (post, postState, weight = 10000) => {
     const { sliderMode, user, defaultVotePercent } = this.props;
     if (sliderMode === 'on' || (sliderMode === 'auto' && getHasDefaultSlider(user))) {
@@ -107,7 +113,10 @@ export default class Feed extends React.Component {
     }
   };
 
-  handleReportClick = post => this.props.votePost(post.id, post.author, post.permlink, -10000);
+  handleReportClick(post, postState) {
+    const weight = postState.isReported ? 0 : -10000;
+    this.props.votePost(post.id, post.author, post.permlink, weight);
+  }
 
   handleShareClick = post => this.props.reblog(post.id);
 

@@ -98,6 +98,12 @@ class PostContent extends React.Component {
     unfollowUser: () => {},
   };
 
+  constructor(props) {
+    super(props);
+
+    this.handleReportClick = this.handleReportClick.bind(this);
+  }
+
   componentDidMount() {
     const { hash } = window.location;
     // PostContent renders only when content is loaded so it's good moment to scroll to comments.
@@ -118,7 +124,10 @@ class PostContent extends React.Component {
     }
   };
 
-  handleReportClick = post => this.props.votePost(post.id, post.author, post.permlink, -10000);
+  handleReportClick(post, postState) {
+    const weight = postState.isReported ? 0 : -10000;
+    this.props.votePost(post.id, post.author, post.permlink, weight);
+  }
 
   handleShareClick = post => this.props.reblog(post.id);
 
