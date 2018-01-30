@@ -147,7 +147,7 @@ class Comment extends React.Component {
   handleSubmitComment = (parentPost, commentValue, isUpdating, originalComment) => {
     this.setState({ showCommentFormLoading: true });
 
-    this.props
+    return this.props
       .onSendComment(parentPost, commentValue, isUpdating, originalComment)
       .then(() => {
         this.setState({
