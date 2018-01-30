@@ -46,17 +46,15 @@ export default class UserDynamicList extends React.Component {
     const { loading, hasMore, users } = this.state;
     return (
       <div className="UserDynamicList">
-        <div className="container UserDynamicList__container">
-          <ReduxInfiniteScroll
-            elementIsScrollable={false}
-            loadingMore={loading}
-            hasMore={hasMore}
-            loader={<Loading />}
-            loadMore={this.handleLoadMore}
-          >
-            {users.map(user => <UserCard key={user} username={user} />)}
-          </ReduxInfiniteScroll>
-        </div>
+        <ReduxInfiniteScroll
+          elementIsScrollable={false}
+          loadingMore={loading}
+          hasMore={hasMore}
+          loader={<Loading />}
+          loadMore={this.handleLoadMore}
+        >
+          {users.map(user => <UserCard key={user} username={user} />)}
+        </ReduxInfiniteScroll>
       </div>
     );
   }
