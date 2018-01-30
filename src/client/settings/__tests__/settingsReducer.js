@@ -89,10 +89,7 @@ describe('settingsReducer', () => {
       },
     };
 
-    const res = settingsReducer(stateBefore, action);
-    console.log(res);
-
-    expect(res).to.eql(stateAfter);
+    expect(settingsReducer(stateBefore, action)).to.eql(stateAfter);
   });
 
   it('should set locale and voting power after login success', () => {
