@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { Popover } from 'antd';
 import { connect } from 'react-redux';
+import { availableLocalesToReactIntl } from '../../translations/index';
 import { SUPPORTED_LANGUAGES } from '../../../common/constants/settings';
 import { saveSettings, setLocale } from '../../settings/settingsActions';
 import { getIsAuthenticated, getLocale } from '../../reducers';
@@ -31,13 +32,40 @@ class LanguageSettings extends React.Component {
     locale: 'en-US',
   };
 
+  static getValidLocale = locale => {
+    const availableLocales = _.keys(availableLocalesToReactIntl);
+    let validLocale = 'en-US';
+
+    for (let i = 0; i < availableLocales.length; i += 1) {
+      const currentLocale = availableLocales[i];
+      const currentLocaleShortValue = availableLocalesToReactIntl[currentLocale];
+
+      if (locale === currentLocale) {
+        validLocale = currentLocale;
+        break;
+      } else if (locale === currentLocaleShortValue) {
+        validLocale = currentLocale;
+        break;
+      }
+    }
+    return validLocale;
+  };
+
   constructor(props) {
     super(props);
-    let localeStorageLanguage = 'en-US';
+
+    let localeStorageLanguage;
+    let browserLanguage;
 
     if (localStorage) localeStorageLanguage = localStorage.language;
+    if (navigator) {
+      browserLanguage = LanguageSettings.getValidLocale(
+        _.get(navigator.languages, 0, navigator.language),
+      );
+    }
 
-    const selectedLanguage = props.authenticated ? props.locale : localeStorageLanguage;
+    const localLanguage = localeStorageLanguage || browserLanguage;
+    const selectedLanguage = props.authenticated ? props.locale : localLanguage;
 
     this.state = {
       languageSettingsVisible: false,
@@ -48,9 +76,15 @@ class LanguageSettings extends React.Component {
     this.handleLanguageSettingsSelect = this.handleLanguageSettingsSelect.bind(this);
   }
 
+  componentDidMount() {
+    this.props.setLocale(this.state.selectedLanguage);
+  }
+
   componentWillReceiveProps(nextProps) {
     const diffLocale = this.props.locale !== nextProps.locale;
-    if (diffLocale) this.setState({ selectedLanguage: nextProps.locale });
+    if (diffLocale) {
+      this.setState({ selectedLanguage: LanguageSettings.getValidLocale(nextProps.locale) });
+    }
   }
 
   handleLanguageSettingsVisibleChange(visible) {
