@@ -274,7 +274,7 @@
   "finance": "financo",
   "nsfw_posts": "NSFW-afiŝoj (Maldecaj Por Laborjo)",
   "display_nsfw_posts_details": "You can enable all posts tagged with NSFW to be shown as default.",
-  "display_nsfw_posts": "Display NSFW Posts",
+  "display_nsfw_posts": "Montri NSFW-afiŝojn (Maldecaj Por Laborjo)",
   "rewrite_links": "Rewrite links",
   "rewrite_links_details": "You can enable this option to replace Steemit.com links with Busy.org links.",
   "post_preview_hidden_for_nsfw": "This post preview is currently hidden since it is tagged NSFW.",
