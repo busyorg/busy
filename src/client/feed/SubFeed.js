@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import Cookie from 'js-cookie';
+import _ from 'lodash';
 import {
   getFeedContent,
   getMoreFeedContent,
@@ -68,16 +69,23 @@ class SubFeed extends React.Component {
   };
 
   componentDidMount() {
-    const { authenticated, loaded, user, match } = this.props;
-    const sortBy = match.params.sortBy || 'trending';
+    const { authenticated, loaded, user, match, feed, posts } = this.props;
     const category = match.params.category;
+    let content = [];
 
     if (!loaded && Cookie.get('access_token')) return;
 
     if (match.url === '/' && authenticated) {
-      this.props.getUserFeedContent(user.name);
+      content = getUserFeedContentFromState(user.name, feed, posts);
+      if (_.isEmpty(content)) {
+        this.props.getUserFeedContent(user.name);
+      }
     } else {
-      this.props.getFeedContent(sortBy, category);
+      const sortBy = match.params.sortBy || 'trending';
+      content = getFeedContentFromState(sortBy, match.params.category, feed, posts);
+      if (_.isEmpty(content)) {
+        this.props.getFeedContent(sortBy, category);
+      }
     }
   }
 
@@ -107,7 +115,6 @@ class SubFeed extends React.Component {
 
   render() {
     const { authenticated, loaded, user, feed, posts, match } = this.props;
-
     let content = [];
     let isFetching = false;
     let fetched = false;
@@ -129,9 +136,11 @@ class SubFeed extends React.Component {
       loadMoreContent = () => this.props.getMoreFeedContent(sortBy, match.params.category);
     }
 
+    const loadScrollToTop = _.isEmpty(content);
+
     return (
       <div>
-        <ScrollToTop />
+        {loadScrollToTop && <ScrollToTop />}
         <Feed
           content={content}
           isFetching={isFetching}
