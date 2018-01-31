@@ -7,7 +7,7 @@ import Remarkable from 'remarkable';
 import embedjs from 'embedjs';
 import { jsonParse } from '../../helpers/formatter';
 import sanitizeConfig from '../../vendor/SanitizeConfig';
-import { imageRegex } from '../../helpers/regexHelpers';
+import { imageRegex, dtubeImageRegex } from '../../helpers/regexHelpers';
 import htmlReady from '../../vendor/steemitHtmlReady';
 import PostFeedEmbed from './PostFeedEmbed';
 import './Body.less';
@@ -37,6 +37,7 @@ export function getHtml(body, jsonMetadata = {}, returnType = 'Object', options 
   const htmlReadyOptions = { mutate: true, resolveIframe: returnType === 'text' };
   parsedBody = remarkable.render(parsedBody);
   parsedBody = htmlReady(parsedBody, htmlReadyOptions).html;
+  parsedBody = parsedBody.replace(dtubeImageRegex, '');
   parsedBody = sanitizeHtml(parsedBody, sanitizeConfig({}));
   if (returnType === 'text') {
     return parsedBody;
