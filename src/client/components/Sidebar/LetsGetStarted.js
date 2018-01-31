@@ -44,23 +44,10 @@ class LetsGetStarted extends React.Component {
     };
   }
 
-  static displayContentsByPostRootDate(lastRootPost) {
-    if (lastRootPost === '1970-01-01T00:00:00') return true;
-    const lastRootPostDate = new Date(lastRootPost);
-    const currentDate = new Date();
-    const timeDiff = Math.abs(currentDate.getTime() - lastRootPostDate.getTime());
-    const diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
-
-    console.log('DIFF DAYS', diffDays);
-    return diffDays > 5;
-  }
-
   constructor(props) {
     super(props);
 
-    this.state = {
-      ...LetsGetStarted.getCurrentUserState(props.authenticatedUser, props.followingList),
-    };
+    this.state = LetsGetStarted.getCurrentUserState(props.authenticatedUser, props.followingList);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -85,7 +72,7 @@ class LetsGetStarted extends React.Component {
   }
 
   render() {
-    const { isAuthFetching, isFetchingFollowingList, authenticatedUser } = this.props;
+    const { isAuthFetching, isFetchingFollowingList } = this.props;
     const { hasProfile, hasPost, hasVoted, hasFollowed } = this.state;
     const totalOptions = 4;
     const currentSelected = _.reduce(
@@ -100,9 +87,7 @@ class LetsGetStarted extends React.Component {
       0,
     );
     const hideSidebarContent =
-      (currentSelected === totalOptions &&
-        LetsGetStarted.displayContentsByPostRootDate(authenticatedUser.last_root_post)) ||
-      (isAuthFetching || isFetchingFollowingList);
+      currentSelected === totalOptions || (isAuthFetching || isFetchingFollowingList);
 
     if (hideSidebarContent) return null;
 
