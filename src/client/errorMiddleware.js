@@ -1,17 +1,17 @@
+import _ from 'lodash';
+import errors from '../common/constants/errors';
 import { notify } from './app/Notification/notificationActions';
 
 function parseBlockChainError(error) {
-  let parsedError;
-  try {
-    parsedError = error
-      .split(':')[2]
-      .split('\n')[0]
-      .substring(1);
-  } catch (e) {
-    parsedError = 'Unknown error';
+  const errorType = _.find(errors, e => _.includes(error, e.fingerprint));
+
+  if (_.has(errorType, 'message')) {
+    return errorType.message;
   }
 
-  return parsedError;
+  // Log error to console for further investigation.
+  console.log('Unknown error', error);
+  return 'Unkown error has occured.';
 }
 
 export default function errorMiddleware({ dispatch }) {
