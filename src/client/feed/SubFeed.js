@@ -10,7 +10,7 @@ import {
   getUserFeedContent,
   getMoreUserFeedContent,
 } from './feedActions';
-import { showPostModal } from '../app/appActions';
+import { showPostModal, hidePostModal } from '../app/appActions';
 import {
   getFeedContentFromState,
   getFeedLoadingFromState,
@@ -51,7 +51,8 @@ import PostModal from '../post/PostModalContainer';
       dispatch(getMoreFeedContent({ sortBy, category, limit: 10 })),
     getUserFeedContent: username => dispatch(getUserFeedContent({ username, limit: 10 })),
     getMoreUserFeedContent: username => dispatch(getMoreUserFeedContent({ username, limit: 10 })),
-    showPostModal: postID => dispatch(showPostModal(postID)),
+    showPostModal: post => dispatch(showPostModal(post)),
+    hidePostModal: () => dispatch(hidePostModal()),
   }),
 )
 class SubFeed extends React.Component {
@@ -64,6 +65,7 @@ class SubFeed extends React.Component {
     posts: PropTypes.shape().isRequired,
     match: PropTypes.shape().isRequired,
     showPostModal: PropTypes.func.isRequired,
+    hidePostModal: PropTypes.func.isRequired,
     getFeedContent: PropTypes.func,
     getMoreFeedContent: PropTypes.func,
     getUserFeedContent: PropTypes.func,
@@ -96,6 +98,7 @@ class SubFeed extends React.Component {
         this.props.getFeedContent(sortBy, category);
       }
     }
+    this.props.hidePostModal();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -116,8 +119,10 @@ class SubFeed extends React.Component {
       ((match.url !== this.props.match.url && isAuthenticated) ||
         (isAuthenticated && !wasAuthenticated))
     ) {
+      this.props.hidePostModal();
       this.props.getUserFeedContent(user.name);
     } else if (oldSortBy !== newSortBy || oldCategory !== newCategory || (!wasLoaded && isLoaded)) {
+      this.props.hidePostModal();
       this.props.getFeedContent(newSortBy || 'trending', match.params.category);
     }
   }

@@ -28,10 +28,8 @@ class PostModal extends React.Component {
   constructor(props) {
     super(props);
 
-    const previousURL = window ? window.location.href : '';
     this.state = {
       commentsVisible: false,
-      previousURL,
     };
 
     this.handleCommentsVisibility = this.handleCommentsVisibility.bind(this);
@@ -68,7 +66,7 @@ class PostModal extends React.Component {
     const { showPostModal, currentShownPost } = this.props;
     const { category, author, permlink, title, url } = currentShownPost;
     const baseURL = window ? window.location.origin : 'https://busy.org';
-    const postURL = `${baseURL}/p/${url}`;
+    const postURL = `${baseURL}${url}`;
     const twitterShareURL = `https://twitter.com/intent/tweet/?text=${title}&url=${postURL}`;
 
     return (
@@ -79,6 +77,7 @@ class PostModal extends React.Component {
         onCancel={this.props.hidePostModal}
         width={767}
         wrapClassName={classNames('PostModal', { PostModal__hidden: !showPostModal })}
+        destroyOnHide
       >
         <div className="PostModal__back">
           <a

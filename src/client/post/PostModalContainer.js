@@ -8,7 +8,7 @@ export default connect(
     showPostModal: getShowPostModal(state),
     currentShownPost: getCurrentShownPost(state),
   }),
-  dispatch => ({
-    hidePostModal: post => dispatch(hidePostModal(post)),
-  }),
+  {
+    hidePostModal,
+  },
 )(PostModal);
