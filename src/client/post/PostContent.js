@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
 import find from 'lodash/find';
 import { Helmet } from 'react-helmet';
 import sanitize from 'sanitize-html';
@@ -55,6 +56,7 @@ import StoryFull from '../components/Story/StoryFull';
     toggleBookmark,
     followUser,
     unfollowUser,
+    push,
   },
 )
 class PostContent extends React.Component {
@@ -80,6 +82,7 @@ class PostContent extends React.Component {
     reblog: PropTypes.func,
     followUser: PropTypes.func,
     unfollowUser: PropTypes.func,
+    push: PropTypes.func,
   };
 
   static defaultProps = {
@@ -96,6 +99,7 @@ class PostContent extends React.Component {
     reblog: () => {},
     followUser: () => {},
     unfollowUser: () => {},
+    push: () => {},
   };
 
   constructor(props) {
@@ -142,7 +146,11 @@ class PostContent extends React.Component {
     }
   };
 
-  handleEditClick = post => this.props.editPost(post);
+  handleEditClick = post => {
+    if (post.depth === 0) return this.props.editPost(post);
+    this.props.push(`${post.url}-edit`);
+    return Promise.resolve(null);
+  };
 
   render() {
     const {

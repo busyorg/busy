@@ -31,7 +31,6 @@ export default class Buttons extends React.Component {
     saving: PropTypes.bool,
     onLikeClick: PropTypes.func,
     onShareClick: PropTypes.func,
-    onEditClick: PropTypes.func,
     handlePostPopoverMenuClick: PropTypes.func,
   };
 
@@ -44,7 +43,6 @@ export default class Buttons extends React.Component {
     saving: false,
     onLikeClick: () => {},
     onShareClick: () => {},
-    onEditClick: () => {},
     handlePostPopoverMenuClick: () => {},
   };
 
@@ -75,7 +73,6 @@ export default class Buttons extends React.Component {
     this.handleShareCancel = this.handleShareCancel.bind(this);
     this.handleShowReactions = this.handleShowReactions.bind(this);
     this.handleCloseReactions = this.handleCloseReactions.bind(this);
-    this.handleEdit = this.handleEdit.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -128,13 +125,6 @@ export default class Buttons extends React.Component {
     this.setState({
       reactionsModalVisible: false,
     });
-  }
-
-  handleEdit() {
-    this.setState({
-      loadingEdit: true,
-    });
-    this.props.onEditClick();
   }
 
   renderPostPopoverMenu() {

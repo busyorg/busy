@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
 import _ from 'lodash';
 import ReduxInfiniteScroll from '../vendor/ReduxInfiniteScroll';
 import { getHasDefaultSlider } from '../helpers/user';
@@ -54,6 +55,7 @@ import './Feed.less';
     reblog: reblogActions.reblog,
     followUser,
     unfollowUser,
+    push,
   },
 )
 export default class Feed extends React.Component {
@@ -81,6 +83,7 @@ export default class Feed extends React.Component {
     followUser: PropTypes.func,
     unfollowUser: PropTypes.func,
     loadMoreContent: PropTypes.func,
+    push: PropTypes.func,
   };
 
   static defaultProps = {
@@ -94,6 +97,7 @@ export default class Feed extends React.Component {
     followUser: () => {},
     unfollowUser: () => {},
     loadMoreContent: () => {},
+    push: () => {},
   };
 
   constructor(props) {
@@ -131,8 +135,11 @@ export default class Feed extends React.Component {
     }
   };
 
-  handleEditClick = post => this.props.editPost(post);
-
+  handleEditClick = post => {
+    if (post.depth === 0) return this.props.editPost(post);
+    this.props.push(`${post.url}-edit`);
+    return Promise.resolve(null);
+  };
   render() {
     const {
       user,

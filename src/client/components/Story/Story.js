@@ -220,12 +220,8 @@ class Story extends React.Component {
           <div className="Story__content">
             <Link to={post.url} className="Story__content__title">
               <h2>
-                {post.title || (
-                  <span>
-                    <Tag color="#4f545c">RE</Tag>
-                    {post.root_title}
-                  </span>
-                )}
+                {post.depth !== 0 && <Tag color="#4f545c">RE</Tag>}
+                {post.title || post.root_title}
               </h2>
             </Link>
             {showStoryPreview ? (
