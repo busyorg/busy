@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 import { Modal } from 'antd';
 import { FormattedMessage } from 'react-intl';
@@ -22,10 +23,6 @@ class PostModal extends React.Component {
 
   static pushURLState(post) {
     if (window) window.history.pushState({}, post.title, post.url);
-  }
-
-  static replaceURLState(title, url) {
-    if (window) window.history.replaceState({}, title, url);
   }
 
   constructor(props) {
@@ -56,8 +53,8 @@ class PostModal extends React.Component {
   }
 
   componentWillUnmount() {
+    console.log('component will unmount');
     this.props.hidePostModal();
-    PostModal.pushURLState({ title: 'Busy', url: this.state.previousURL });
   }
 
   handleCommentsVisibility(visible) {
@@ -70,9 +67,10 @@ class PostModal extends React.Component {
 
   render() {
     const { showPostModal, currentShownPost } = this.props;
-    const category = _.get(currentShownPost, 'category', '');
-    const author = _.get(currentShownPost, 'author', '');
-    const permlink = _.get(currentShownPost, 'permlink', '');
+    const { category, author, permlink, title, url } = currentShownPost;
+    const baseURL = window ? window.location.origin : 'https://busy.org';
+    const postURL = `${baseURL}/p/${url}`;
+    const twitterShareURL = `https://twitter.com/intent/tweet/?text=${title}&url=${postURL}`;
 
     return (
       <Modal
@@ -80,9 +78,8 @@ class PostModal extends React.Component {
         footer={null}
         visible={showPostModal}
         onCancel={this.props.hidePostModal}
-        width={720}
-        wrapClassName="PostModal"
-        destroyOnClose
+        width={767}
+        wrapClassName={classNames("PostModal", {"PostModal__hidden": !showPostModal})}
       >
         <div className="PostModal__back">
           <a
@@ -96,11 +93,14 @@ class PostModal extends React.Component {
         </div>
         <div className="PostModal__actions-container">
           <a role="presentation" onClick={this.props.hidePostModal} className="PostModal__action">
-            <i className="iconfont icon-close-big PostModal__icon" />
+            <i className="iconfont icon-close PostModal__icon" />
           </a>
           <Link to={`/${category}/@${author}/${permlink}`} className="PostModal__action">
             <i className="iconfont icon-send PostModal__icon" />
           </Link>
+          <a href={twitterShareURL} target="_blank" className="PostModal__action">
+            <i className="iconfont icon-twitter PostModal__icon" />
+          </a>
         </div>
         <PostContent content={currentShownPost} />
         <VisibilitySensor onChange={this.handleCommentsVisibility} />

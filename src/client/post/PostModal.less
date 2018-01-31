@@ -5,10 +5,18 @@
   animation: 0s !important;
 }
 
+.ant-modal-mask.fade-leave {
+  display: none;
+}
+
 .PostModal {
   .ant-modal {
     top: 40px !important;
     animation: 0s !important;
+
+    &.zoom-leave {
+      display: none;
+    }
   }
 
   .ant-modal-body {
@@ -20,6 +28,10 @@
   }
 
   button.ant-modal-close {
+    display: none;
+  }
+
+  &__hidden {
     display: none;
   }
 
@@ -72,7 +84,7 @@
     flex-direction: column;
     position: fixed;
     top: 36px;
-    transform: translateX(690px);
+    transform: translateX(737px);
     width: 57px;
 
     @media @medium {
@@ -105,5 +117,9 @@
     text-rendering: auto;
     width: 100%;
     font-size: 21px !important;
+  }
+
+  &__icon.icon-twitter {
+    color: @twitter-link-color;
   }
 }
