@@ -151,8 +151,10 @@ class LanguageSettings extends React.Component {
           <PopoverMenu onSelect={this.handleLanguageSettingsSelect}>
             {_.map(SUPPORTED_LANGUAGES, (languageDetails, language) => (
               <PopoverMenuItem key={language}>
-                {language === selectedLoadingLanguage && loading && <Loading />}
-                <span>{` ${languageDetails.longName}`}</span>
+                <span className="LanguageSettings__option">
+                  {language === selectedLoadingLanguage && loading && <Loading />}
+                  {` ${languageDetails.longName}`}
+                </span>
               </PopoverMenuItem>
             ))}
           </PopoverMenu>
