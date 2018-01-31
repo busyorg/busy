@@ -2,6 +2,7 @@
 [![Crowdin](http://d322cqt584bo4o.cloudfront.net/busy/localized.svg)](https://translate.busy.org/project/busy)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/busyorg/busy/new-design/LICENSE)
 [![Busy channel on Discord](https://img.shields.io/badge/chat-discord-738bd7.svg)](https://discord.gg/G95rNZs)
+[![Open Source Helpers](https://www.codetriage.com/busyorg/busy/badges/users.svg)](https://www.codetriage.com/busyorg/busy)
 
 # Busy 🚀
 
