@@ -42,6 +42,7 @@ class StoryFull extends React.Component {
     onActionInitiated: PropTypes.func.isRequired,
     rewriteLinks: PropTypes.bool,
     pendingLike: PropTypes.bool,
+    pendingFlag: PropTypes.bool,
     pendingFollow: PropTypes.bool,
     pendingBookmark: PropTypes.bool,
     commentCount: PropTypes.number,
@@ -59,6 +60,7 @@ class StoryFull extends React.Component {
   static defaultProps = {
     rewriteLinks: false,
     pendingLike: false,
+    pendingFlag: false,
     pendingFollow: false,
     pendingBookmark: false,
     commentCount: 0,
@@ -176,6 +178,7 @@ class StoryFull extends React.Component {
       postState,
       rewriteLinks,
       pendingLike,
+      pendingFlag,
       pendingFollow,
       pendingBookmark,
       commentCount,
@@ -288,7 +291,7 @@ class StoryFull extends React.Component {
         />
       </PopoverMenuItem>,
       <PopoverMenuItem key="report">
-        {pendingLike ? (
+        {pendingFlag ? (
           <Icon type="loading" />
         ) : (
           <i
@@ -458,6 +461,7 @@ class StoryFull extends React.Component {
           post={post}
           postState={postState}
           pendingLike={pendingLike}
+          pendingFlag={pendingFlag}
           pendingFollow={pendingFollow}
           pendingBookmark={pendingBookmark}
           ownPost={ownPost}

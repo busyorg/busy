@@ -34,6 +34,7 @@ class Story extends React.Component {
     showNSFWPosts: PropTypes.bool.isRequired,
     onActionInitiated: PropTypes.func.isRequired,
     pendingLike: PropTypes.bool,
+    pendingFlag: PropTypes.bool,
     pendingFollow: PropTypes.bool,
     pendingBookmark: PropTypes.bool,
     saving: PropTypes.bool,
@@ -49,6 +50,7 @@ class Story extends React.Component {
 
   static defaultProps = {
     pendingLike: false,
+    pendingFlag: false,
     pendingFollow: false,
     pendingBookmark: false,
     saving: false,
@@ -128,6 +130,7 @@ class Story extends React.Component {
       post,
       postState,
       pendingLike,
+      pendingFlag,
       pendingFollow,
       pendingBookmark,
       saving,
@@ -239,6 +242,7 @@ class Story extends React.Component {
               post={post}
               postState={postState}
               pendingLike={pendingLike}
+              pendingFlag={pendingFlag}
               rewardFund={rewardFund}
               ownPost={ownPost}
               sliderMode={sliderMode}

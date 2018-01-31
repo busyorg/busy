@@ -24,6 +24,7 @@ class StoryFooter extends React.Component {
     ownPost: PropTypes.bool,
     sliderMode: PropTypes.oneOf(['on', 'off', 'auto']),
     pendingLike: PropTypes.bool,
+    pendingFlag: PropTypes.bool,
     pendingFollow: PropTypes.bool,
     pendingBookmark: PropTypes.bool,
     saving: PropTypes.bool,
@@ -35,6 +36,7 @@ class StoryFooter extends React.Component {
 
   static defaultProps = {
     pendingLike: false,
+    pendingFlag: false,
     ownPost: false,
     pendingFollow: false,
     pendingBookmark: false,
@@ -109,6 +111,7 @@ class StoryFooter extends React.Component {
       post,
       postState,
       pendingLike,
+      pendingFlag,
       ownPost,
       defaultVotePercent,
       pendingFollow,
@@ -129,6 +132,7 @@ class StoryFooter extends React.Component {
               post={post}
               postState={postState}
               pendingLike={pendingLike}
+              pendingFlag={pendingFlag}
               pendingFollow={pendingFollow}
               pendingBookmark={pendingBookmark}
               saving={saving}
