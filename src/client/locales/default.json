@@ -11,6 +11,7 @@
   "confirm": "Confirm",
   "continue": "Continue",
   "close": "Close",
+  "list_empty": "Nothing is there",
   "notify_uploading_image": "Uploading image",
   "notify_uploading_iamge_error": "Couldn't upload image",
   "notify_uploading_image_invalid": "This file is invalid. Only image files with maximum size of {size} are supported",
