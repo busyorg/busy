@@ -38,10 +38,6 @@ export const getFeedContent = ({ sortBy = 'trending', category, limit = 20 }) =>
     },
   });
 
-// TODO: IT WON'T WORK NOW, BUT MAYBE ABOVE WILL.
-export const getFeedContentAsync = (store, options) =>
-  new Promise((resolve, reject) => store.dispatch(getFeedContent(options, resolve, reject)));
-
 export const getMoreFeedContent = ({ sortBy, category, limit = 20 }) => (
   dispatch,
   getState,
