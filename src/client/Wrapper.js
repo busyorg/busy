@@ -16,7 +16,7 @@ import {
 } from './reducers';
 import { login, logout } from './auth/authActions';
 import { getFollowing } from './user/userActions';
-import { getRate, getRewardFund, getTrendingTopics } from './app/appActions';
+import { getRate, getRewardFund, getTrendingTopics, setUsedLocale } from './app/appActions';
 import * as reblogActions from './app/Reblog/reblogActions';
 import Topnav from './components/Navigation/Topnav';
 import Transfer from './wallet/Transfer';
@@ -37,6 +37,7 @@ import Transfer from './wallet/Transfer';
     getRate,
     getRewardFund,
     getTrendingTopics,
+    setUsedLocale,
     getRebloggedList: reblogActions.getRebloggedList,
   },
 )
@@ -56,6 +57,7 @@ export default class Wrapper extends React.PureComponent {
     getRebloggedList: PropTypes.func,
     getRate: PropTypes.func,
     getTrendingTopics: PropTypes.func,
+    setUsedLocale: PropTypes.func,
   };
 
   static defaultProps = {
@@ -67,6 +69,7 @@ export default class Wrapper extends React.PureComponent {
     getRebloggedList: () => {},
     getRate: () => {},
     getTrendingTopics: () => {},
+    setUsedLocale: () => {},
   };
 
   static fetchData(store) {
@@ -118,9 +121,12 @@ export default class Wrapper extends React.PureComponent {
 
     Promise.all([localeDataPromise, translationsPromise]).then(([localeData, translations]) => {
       addLocaleData(localeData);
-      this.setState({
-        translations,
-      });
+      this.setState(
+        {
+          translations,
+        },
+        () => this.props.setUsedLocale(availableLocale),
+      );
     });
   }
 

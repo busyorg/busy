@@ -9,6 +9,7 @@ import { saveSettings, setLocale } from '../../settings/settingsActions';
 import { getIsAuthenticated, getLocale } from '../../reducers';
 import PopoverMenu, { PopoverMenuItem } from '../PopoverMenu/PopoverMenu';
 import './LanguageSettings.less';
+import Loading from '../Icon/Loading';
 
 @connect(
   state => ({
@@ -17,7 +18,7 @@ import './LanguageSettings.less';
   }),
   {
     saveSettings,
-    setLocale: locale => dispatch => dispatch(setLocale(locale)),
+    setLocale,
   },
 )
 class LanguageSettings extends React.Component {
@@ -70,6 +71,8 @@ class LanguageSettings extends React.Component {
     this.state = {
       languageSettingsVisible: false,
       selectedLanguage,
+      loading: false,
+      selectedLoadingLanguage: '',
     };
 
     this.handleLanguageSettingsVisibleChange = this.handleLanguageSettingsVisibleChange.bind(this);
@@ -87,17 +90,29 @@ class LanguageSettings extends React.Component {
     }
   }
 
+  setLoadingLanguage(loading, selectedLoadingLanguage) {
+    this.setState({ loading, selectedLoadingLanguage });
+  }
+
   handleLanguageSettingsVisibleChange(visible) {
     this.setState({ languageSettingsVisible: visible });
   }
 
   handleLanguageSettingsSelect(selectedLanguage) {
     const { authenticated } = this.props;
+    const { loading } = this.state;
+
+    if (loading) return;
+
+    this.setLoadingLanguage(true, selectedLanguage);
+
     if (authenticated) {
       this.props.saveSettings({ locale: selectedLanguage }).then(() => {
         this.setState({
           selectedLanguage,
           languageSettingsVisible: false,
+          loading: false,
+          selectedLoadingLanguage: '',
         });
       });
     } else {
@@ -106,12 +121,19 @@ class LanguageSettings extends React.Component {
       this.setState({
         selectedLanguage,
         languageSettingsVisible: false,
+        loading: false,
+        selectedLoadingLanguage: '',
       });
     }
   }
 
   render() {
-    const { languageSettingsVisible, selectedLanguage } = this.state;
+    const {
+      languageSettingsVisible,
+      selectedLanguage,
+      selectedLoadingLanguage,
+      loading,
+    } = this.state;
     const displaySelectedLanguage = _.get(
       SUPPORTED_LANGUAGES,
       `${selectedLanguage}.shortName`,
@@ -129,7 +151,8 @@ class LanguageSettings extends React.Component {
           <PopoverMenu onSelect={this.handleLanguageSettingsSelect}>
             {_.map(SUPPORTED_LANGUAGES, (languageDetails, language) => (
               <PopoverMenuItem key={language}>
-                <span>{languageDetails.longName}</span>
+                {language === selectedLoadingLanguage && loading && <Loading />}
+                <span>{` ${languageDetails.longName}`}</span>
               </PopoverMenuItem>
             ))}
           </PopoverMenu>
