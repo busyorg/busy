@@ -1,7 +1,5 @@
 import * as feedTypes from './feedActions';
-import * as userTypes from '../user/userActions';
-import * as repliesTypes from '../replies/repliesActions';
-import * as bookmarksActions from '../bookmarks/bookmarksActions';
+import { TOGGLE_BOOKMARK } from '../bookmarks/bookmarksActions';
 
 const initialState = {
   feed: {},
@@ -19,183 +17,100 @@ const initialState = {
 
 const feedFetching = (state = false, action) => {
   switch (action.type) {
-    case feedTypes.FEED_HAS_NO_MORE:
-    case feedTypes.GET_FEED_CONTENT_SUCCESS:
-    case feedTypes.GET_MORE_FEED_CONTENT_SUCCESS:
-    case feedTypes.GET_USER_FEED_CONTENT_SUCCESS:
-    case feedTypes.GET_MORE_USER_FEED_CONTENT_SUCCESS:
-    case bookmarksActions.GET_BOOKMARKS_SUCCESS:
-    case repliesTypes.GET_REPLIES_SUCCESS:
-    case repliesTypes.GET_MORE_REPLIES_SUCCESS:
-    case userTypes.GET_USER_COMMENTS_SUCCESS:
-    case userTypes.GET_MORE_USER_COMMENTS_SUCCESS:
-      return false;
-    case feedTypes.GET_FEED_CONTENT:
-    case feedTypes.GET_MORE_FEED_CONTENT:
-    case feedTypes.GET_USER_FEED_CONTENT:
-    case feedTypes.GET_MORE_USER_FEED_CONTENT:
-    case bookmarksActions.GET_BOOKMARKS_START:
-    case repliesTypes.GET_REPLIES_START:
-    case repliesTypes.GET_MORE_REPLIES_START:
-    case userTypes.GET_USER_COMMENTS_START:
-    case userTypes.GET_MORE_USER_COMMENTS_START:
+    case feedTypes.GET_FEED_CONTENT.START:
+    case feedTypes.GET_MORE_FEED_CONTENT.START:
+    case feedTypes.GET_USER_COMMENTS.START:
+    case feedTypes.GET_MORE_USER_COMMENTS.START:
+    case feedTypes.GET_REPLIES.START:
+    case feedTypes.GET_MORE_REPLIES.START:
+    case feedTypes.GET_BOOKMARKS.START:
       return true;
+    case feedTypes.GET_FEED_CONTENT.SUCCESS:
+    case feedTypes.GET_MORE_FEED_CONTENT.SUCCESS:
+    case feedTypes.GET_USER_COMMENTS.SUCCESS:
+    case feedTypes.GET_MORE_USER_COMMENTS.SUCCESS:
+    case feedTypes.GET_REPLIES.SUCCESS:
+    case feedTypes.GET_MORE_REPLIES.SUCCESS:
+    case feedTypes.GET_BOOKMARKS.SUCCESS:
+      return false;
     default:
       return state;
   }
 };
 
 const feedIdsList = (state = [], action) => {
-  let postsIds;
   switch (action.type) {
-    case feedTypes.GET_FEED_CONTENT_SUCCESS:
-    case feedTypes.GET_USER_FEED_CONTENT_SUCCESS:
-    case bookmarksActions.GET_BOOKMARKS_SUCCESS:
-      postsIds = action.payload.postsData.map(post => post.id);
-      return [...postsIds];
-    case feedTypes.GET_MORE_FEED_CONTENT_SUCCESS:
-    case feedTypes.GET_MORE_USER_FEED_CONTENT_SUCCESS: {
-      // first element of the array is the same element loaded in the previous chunk
-      const morePostsIds = action.payload.postsData.map(post => post.id).slice(1);
-      // add data only if it doesn't exist
-      if (state[state.length - 1] !== morePostsIds[morePostsIds.length - 1]) {
-        return [...state, ...morePostsIds];
-      }
-      return state;
-    }
-    case userTypes.GET_USER_COMMENTS_SUCCESS:
-      return [...state, ...action.payload.map(comment => comment.id)];
-    case userTypes.GET_MORE_USER_COMMENTS_SUCCESS:
-      // remove last element from current state because we used it as start_permlink
-      // for pagination
-      return [...state.slice(0, state.length - 1), ...action.payload.map(comment => comment.id)];
-    case repliesTypes.GET_REPLIES_SUCCESS:
-    case repliesTypes.GET_MORE_REPLIES_SUCCESS: {
-      const replies = [...state, ...Object.keys(action.payload).reverse()];
-      return [...new Set(replies)];
-    }
+    case feedTypes.GET_FEED_CONTENT.SUCCESS:
+    case feedTypes.GET_MORE_FEED_CONTENT.SUCCESS:
+    case feedTypes.GET_USER_COMMENTS.SUCCESS:
+    case feedTypes.GET_MORE_USER_COMMENTS.SUCCESS:
+    case feedTypes.GET_REPLIES.SUCCESS:
+    case feedTypes.GET_MORE_REPLIES.SUCCESS:
+    case feedTypes.GET_BOOKMARKS.SUCCESS:
+      return [...state, ...action.payload.map(post => post.id)];
     default:
       return state;
   }
 };
 
-const feedSortBySubItem = (state = {}, action) => {
+const feedCategory = (state = {}, action) => {
   switch (action.type) {
-    case feedTypes.GET_FEED_CONTENT:
-    case feedTypes.GET_MORE_FEED_CONTENT:
-    case feedTypes.GET_MORE_FEED_CONTENT_SUCCESS:
-    case feedTypes.GET_USER_FEED_CONTENT:
-    case feedTypes.GET_MORE_USER_FEED_CONTENT:
-    case feedTypes.GET_MORE_USER_FEED_CONTENT_SUCCESS:
-    case userTypes.GET_USER_COMMENTS_START:
-    case userTypes.GET_MORE_USER_COMMENTS_START:
-    case bookmarksActions.GET_BOOKMARKS_START:
-    case bookmarksActions.GET_BOOKMARKS_SUCCESS:
-    case repliesTypes.GET_REPLIES_START:
-    case repliesTypes.GET_MORE_REPLIES_START:
+    case feedTypes.GET_FEED_CONTENT.START:
+    case feedTypes.GET_MORE_FEED_CONTENT.START:
+    case feedTypes.GET_USER_COMMENTS.START:
+    case feedTypes.GET_MORE_USER_COMMENTS.START:
+    case feedTypes.GET_REPLIES.START:
+    case feedTypes.GET_MORE_REPLIES.START:
+    case feedTypes.GET_BOOKMARKS.START:
       return {
         ...state,
         isFetching: feedFetching(undefined, action),
         list: feedIdsList(state.list, action),
       };
-    case feedTypes.GET_FEED_CONTENT_SUCCESS:
-    case feedTypes.GET_USER_FEED_CONTENT_SUCCESS:
+    case feedTypes.GET_FEED_CONTENT.SUCCESS:
+    case feedTypes.GET_MORE_FEED_CONTENT.SUCCESS:
+    case feedTypes.GET_USER_COMMENTS.SUCCESS:
+    case feedTypes.GET_MORE_USER_COMMENTS.SUCCESS:
+    case feedTypes.GET_REPLIES.SUCCESS:
+    case feedTypes.GET_MORE_REPLIES.SUCCESS:
+    case feedTypes.GET_BOOKMARKS.SUCCESS:
       return {
         ...state,
-        hasMore: action.payload.postsData.length === action.payload.limit,
+        hasMore: action.payload.length === action.meta.limit || action.meta.once,
         isLoaded: true,
         isFetching: feedFetching(undefined, action),
         list: feedIdsList(state.list, action),
-      };
-    case userTypes.GET_USER_COMMENTS_SUCCESS:
-    case userTypes.GET_MORE_USER_COMMENTS_SUCCESS:
-      return {
-        ...state,
-        hasMore: action.payload.length === action.meta.limit,
-        isLoaded: true,
-        isFetching: feedFetching(undefined, action),
-        list: feedIdsList(state.list, action),
-      };
-    case repliesTypes.GET_REPLIES_SUCCESS:
-    case repliesTypes.GET_MORE_REPLIES_SUCCESS:
-      return {
-        ...state,
-        hasMore: action.payload.length === action.meta.limit,
-        isLoaded: true,
-        isFetching: feedFetching(undefined, action),
-        list: feedIdsList(state.list, action),
-      };
-    case feedTypes.FEED_HAS_NO_MORE:
-      return {
-        ...state,
-        hasMore: false,
-        isFetching: feedFetching(undefined, action),
       };
     default:
       return state;
   }
 };
 
-const feedSortByItem = (state = {}, action) => {
+const feedSortBy = (state = {}, action) => {
   switch (action.type) {
-    case feedTypes.GET_FEED_CONTENT:
-    case feedTypes.GET_MORE_FEED_CONTENT:
+    case feedTypes.GET_FEED_CONTENT.START:
+    case feedTypes.GET_MORE_FEED_CONTENT.START:
+    case feedTypes.GET_USER_COMMENTS.START:
+    case feedTypes.GET_MORE_USER_COMMENTS.START:
+    case feedTypes.GET_REPLIES.START:
+    case feedTypes.GET_MORE_REPLIES.START:
+    case feedTypes.GET_BOOKMARKS.START:
       return {
         ...state,
         fetched: false,
-        [action.payload.category]: feedSortBySubItem(state[action.payload.category], action),
+        [action.meta.category]: feedCategory(state[action.meta.category], action),
       };
-    case feedTypes.GET_FEED_CONTENT_SUCCESS:
-    case feedTypes.GET_MORE_FEED_CONTENT_SUCCESS:
-    case feedTypes.FEED_HAS_NO_MORE:
+    case feedTypes.GET_FEED_CONTENT.SUCCESS:
+    case feedTypes.GET_MORE_FEED_CONTENT.SUCCESS:
+    case feedTypes.GET_USER_COMMENTS.SUCCESS:
+    case feedTypes.GET_MORE_USER_COMMENTS.SUCCESS:
+    case feedTypes.GET_REPLIES.SUCCESS:
+    case feedTypes.GET_MORE_REPLIES.SUCCESS:
+    case feedTypes.GET_BOOKMARKS.SUCCESS:
       return {
         ...state,
         fetched: true,
-        [action.payload.category]: feedSortBySubItem(state[action.payload.category], action),
-      };
-    case feedTypes.GET_USER_FEED_CONTENT:
-    case feedTypes.GET_MORE_USER_FEED_CONTENT:
-      return {
-        ...state,
-        fetched: false,
-        [action.payload.username]: feedSortBySubItem(state[action.payload.username], action),
-      };
-    case feedTypes.GET_USER_FEED_CONTENT_SUCCESS:
-    case feedTypes.GET_MORE_USER_FEED_CONTENT_SUCCESS:
-      return {
-        ...state,
-        fetched: true,
-        [action.payload.username]: feedSortBySubItem(state[action.payload.username], action),
-      };
-    case userTypes.GET_USER_COMMENTS_START:
-    case userTypes.GET_MORE_USER_COMMENTS_START:
-    case repliesTypes.GET_REPLIES_START:
-    case repliesTypes.GET_MORE_REPLIES_START:
-      return {
-        ...state,
-        fetched: false,
-        [action.meta.username]: feedSortBySubItem(state[action.meta.username], action),
-      };
-    case userTypes.GET_USER_COMMENTS_SUCCESS:
-    case userTypes.GET_MORE_USER_COMMENTS_SUCCESS:
-    case repliesTypes.GET_REPLIES_SUCCESS:
-    case repliesTypes.GET_MORE_REPLIES_SUCCESS:
-      return {
-        ...state,
-        fetched: true,
-        [action.meta.username]: feedSortBySubItem(state[action.meta.username], action),
-      };
-    case bookmarksActions.GET_BOOKMARKS_START:
-      return {
-        ...state,
-        fetched: false,
-        all: feedSortBySubItem(state.all, action),
-      };
-    case bookmarksActions.GET_BOOKMARKS_SUCCESS:
-      return {
-        ...state,
-        fetched: true,
-        all: feedSortBySubItem(state.all, action),
+        [action.meta.category]: feedCategory(state[action.meta.category], action),
       };
     default:
       return state;
@@ -204,58 +119,35 @@ const feedSortByItem = (state = {}, action) => {
 
 const feed = (state = initialState, action) => {
   switch (action.type) {
-    case feedTypes.GET_FEED_CONTENT:
-    case feedTypes.GET_MORE_FEED_CONTENT:
-    case feedTypes.GET_FEED_CONTENT_SUCCESS:
-    case feedTypes.GET_MORE_FEED_CONTENT_SUCCESS:
-    case feedTypes.GET_USER_FEED_CONTENT:
-    case feedTypes.GET_USER_FEED_CONTENT_SUCCESS:
-    case feedTypes.GET_MORE_USER_FEED_CONTENT:
-    case feedTypes.GET_MORE_USER_FEED_CONTENT_SUCCESS:
-    case feedTypes.FEED_HAS_NO_MORE:
+    case feedTypes.GET_FEED_CONTENT.START:
+    case feedTypes.GET_MORE_FEED_CONTENT.START:
+    case feedTypes.GET_FEED_CONTENT.SUCCESS:
+    case feedTypes.GET_MORE_FEED_CONTENT.SUCCESS:
+    case feedTypes.GET_USER_COMMENTS.START:
+    case feedTypes.GET_USER_COMMENTS.SUCCESS:
+    case feedTypes.GET_MORE_USER_COMMENTS.START:
+    case feedTypes.GET_MORE_USER_COMMENTS.SUCCESS:
+    case feedTypes.GET_REPLIES.START:
+    case feedTypes.GET_REPLIES.SUCCESS:
+    case feedTypes.GET_MORE_REPLIES.START:
+    case feedTypes.GET_MORE_REPLIES.SUCCESS:
+    case feedTypes.GET_BOOKMARKS.START:
+    case feedTypes.GET_BOOKMARKS.SUCCESS:
       return {
         ...state,
-        [action.payload.sortBy]: feedSortByItem(state[action.payload.sortBy], action),
+        [action.meta.sortBy]: feedSortBy(state[action.meta.sortBy], action),
       };
-    case userTypes.GET_USER_COMMENTS_START:
-    case userTypes.GET_USER_COMMENTS_SUCCESS:
-    case userTypes.GET_MORE_USER_COMMENTS_START:
-    case userTypes.GET_MORE_USER_COMMENTS_SUCCESS:
+    case TOGGLE_BOOKMARK:
       return {
         ...state,
-        comments: feedSortByItem(state.comments, action),
-      };
-    case bookmarksActions.GET_BOOKMARKS_START:
-    case bookmarksActions.GET_BOOKMARKS_SUCCESS:
-      return {
-        ...state,
-        bookmarks: feedSortByItem(state.bookmarks, action),
-      };
-    case repliesTypes.GET_REPLIES_START:
-    case repliesTypes.GET_REPLIES_SUCCESS:
-    case repliesTypes.GET_MORE_REPLIES_START:
-    case repliesTypes.GET_MORE_REPLIES_SUCCESS:
-      return {
-        ...state,
-        replies: feedSortByItem(state.replies, action),
-      };
-    case bookmarksActions.TOGGLE_BOOKMARK: {
-      const toggledId = action.payload;
-      // remove from feed if toggled off
-      if (state.bookmarks.all && state.bookmarks.all.list.includes(toggledId)) {
-        return {
-          ...state,
-          bookmarks: {
-            ...state.bookmarks,
-            all: {
-              ...state.bookmarks.all,
-              list: state.bookmarks.all.list.filter(item => item !== toggledId),
-            },
+        bookmarks: {
+          ...state.bookmarks,
+          all: {
+            ...state.bookmarks.all,
+            list: state.bookmarks.all.list.filter(item => item !== action.payload),
           },
-        };
-      }
-      return state;
-    }
+        },
+      };
     default:
       return state;
   }
