@@ -1,0 +1,30 @@
+@import (reference) '../styles/custom.less';
+@import (reference) '../styles/modules/variables.less';
+
+.UserDynamicList {
+  background: @white;
+  border-top: 1px solid @white-gainsboro;
+  border-bottom: 1px solid @white-gainsboro;
+  margin-bottom: 16px;
+  padding: 16px 16px 0 16px;
+
+  @media @small {
+    border: 1px solid @white-gainsboro;
+    border-radius: @border-radius-base;
+  }
+
+  &__empty {
+    margin-bottom: 16px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  .Loading {
+    margin: 8px 0;
+
+    &:only-child {
+      margin: 0 0 8px 0;
+    }
+  }
+}
