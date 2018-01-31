@@ -53,7 +53,6 @@ class PostModal extends React.Component {
   }
 
   componentWillUnmount() {
-    console.log('component will unmount');
     this.props.hidePostModal();
   }
 
