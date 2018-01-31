@@ -117,19 +117,26 @@ class Drafts extends React.Component {
                 />
               </h3>
             </div>
-            <div className="Drafts__toolbar">
-              <Checkbox
-                checked={_.isEqual(selectedDrafts, Object.keys(draftPosts))}
-                onChange={this.handleCheckAll}
-              />
-              <div>
-                <a role="presentation" className="Drafts__toolbar__delete" onClick={this.showModal}>
-                  <i className="iconfont icon-trash Drafts__toolbar__delete__icon" />
-                  <FormattedMessage id="delete_selected" defaultMessage="Delete selected" />
-                </a>
-              </div>
-            </div>
             {reloading && <Loading center={false} />}
+            {!reloading &&
+              _.size(draftPosts) !== 0 && (
+                <div className="Drafts__toolbar">
+                  <Checkbox
+                    checked={_.isEqual(selectedDrafts, Object.keys(draftPosts))}
+                    onChange={this.handleCheckAll}
+                  />
+                  <div>
+                    <a
+                      role="presentation"
+                      className="Drafts__toolbar__delete"
+                      onClick={this.showModal}
+                    >
+                      <i className="iconfont icon-trash Drafts__toolbar__delete__icon" />
+                      <FormattedMessage id="delete_selected" defaultMessage="Delete selected" />
+                    </a>
+                  </div>
+                </div>
+              )}
             {noDrafts && (
               <h3 className="text-center">
                 <FormattedMessage
