@@ -1,3 +1,4 @@
+import { setTimeout } from 'timers';
 import React from 'react';
 import { Provider } from 'react-redux';
 import { renderToString } from 'react-dom/server';
@@ -15,6 +16,17 @@ import { getLocale } from '../../client/reducers';
 
 import { getAvailableLocale } from '../../client/translations';
 import translations from '../translations';
+
+const ssrTimeout = 5000;
+
+function createTimeout(timeout, promise) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      reject(new Error(`Request has timed out. It should take no longer than ${timeout}ms.`));
+    }, timeout);
+    promise.then(resolve, reject);
+  });
+}
 
 export default function createSsrHandler(template) {
   return function serverSideResponse(req, res) {
@@ -45,7 +57,7 @@ export default function createSsrHandler(template) {
       return Promise.resolve(null);
     });
 
-    return Promise.all(promises)
+    return createTimeout(ssrTimeout, Promise.all(promises))
       .then(() => {
         const state = store.getState();
         const availableLocale = getAvailableLocale(getLocale(state));

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 import { connect } from 'react-redux';
 import Feed from '../feed/Feed';
 import { getIsAuthenticated, getAuthenticatedUser, getFeed, getPosts } from '../reducers';
@@ -44,11 +45,17 @@ export default class UserProfile extends React.Component {
   };
 
   componentDidMount() {
-    this.props.getFeedContent({
-      sortBy: 'blog',
-      category: this.props.match.params.name,
-      limit: this.props.limit,
-    });
+    const { feed, posts } = this.props;
+    const username = this.props.match.params.name;
+    const content = getFeedContentFromState('blog', username, feed, posts);
+
+    if (_.isEmpty(content)) {
+      this.props.getFeedContent({
+        sortBy: 'blog',
+        category: this.props.match.params.name,
+        limit: this.props.limit,
+      });
+    }
   }
 
   componentWillReceiveProps(nextProps) {

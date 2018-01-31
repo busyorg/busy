@@ -115,7 +115,9 @@
   "discover_more_people": "Fedezz fel több embert",
   "discover_more_people_info": "Fedezd fel a legelismertebb felhasználokat a platformon",
   "invite": "Meghívás",
+  "invite_title": "Don't use Busy alone!",
   "invite_info": "Hívj meg új felhasználókat a Busy.org-ra az alábbi linkkel és az első 30 napban megkapok a jutalmaik 10%-át.",
+  "invite_share": "Join me today on busy.org and get rewarded to blog {link}",
   "more_people_not_found": "Nincs több találat",
   "see_all_comments": "Mutass minden hozzászólást",
   "see_all_recommendations": "Mutass minden ajánlást",
@@ -273,6 +275,8 @@
   "nsfw_posts": "NSFW Posztok",
   "display_nsfw_posts_details": "Engedélyezheted, hogy az NSFW-vel megjelölt posztok mindig megjelenjenek.",
   "display_nsfw_posts": "NSFW Posztok megjelenítése",
+  "rewrite_links": "Rewrite links",
+  "rewrite_links_details": "You can enable this option to replace Steemit.com links with Busy.org links.",
   "post_preview_hidden_for_nsfw": "A poszt bemutatója jelenleg el van rejtve mert NSFW-ként van megjelölve.",
   "reading_time": "{words} szó / {min} min olvasás",
   "reading_time_post": "{min} min olvasás",
@@ -286,5 +290,6 @@
   "login_modal_footer_text": "Don't have an account? Signup with {link}",
   "login_to_busy": "Login to Busy",
   "login_modal_description": "Login with your Steem account using SteemConnect to enjoy Busy at 100%",
-  "login_with_steemconnect": "Login with SteemConnect"
+  "login_with_steemconnect": "Login with SteemConnect",
+  "follows_you": "Follows you"
 }
