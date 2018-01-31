@@ -60,7 +60,11 @@ export default class Invite extends React.Component {
 
   render() {
     const { intl } = this.props;
-    const buttonLabel = this.state.copied ? 'Copied' : 'Copy link';
+    const buttonLabel = this.state.copied ? (
+      <FormattedMessage id="invite_copied" defaultMessage="Copied" />
+    ) : (
+      <FormattedMessage id="invite_copy_link" defaultMessage="Copy link" />
+    );
     return (
       <div className="shifted">
         <Helmet>
