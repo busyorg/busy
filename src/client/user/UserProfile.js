@@ -7,7 +7,6 @@ import {
   getAuthenticatedUser,
   getFeed,
   getPosts,
-  getCurrentShownPostID,
   getShowPostModal,
 } from '../reducers';
 import {
@@ -17,10 +16,10 @@ import {
   getFeedHasMoreFromState,
 } from '../helpers/stateHelpers';
 import { getFeedContent, getMoreFeedContent } from '../feed/feedActions';
-import { hidePostModal, showPostModal } from '../app/appActions';
+import { showPostModal } from '../app/appActions';
 import EmptyUserProfile from '../statics/EmptyUserProfile';
 import EmptyUserOwnProfile from '../statics/EmptyUserOwnProfile';
-import PostModal from '../post/PostModal';
+import PostModal from '../post/PostModalContainer';
 
 @connect(
   state => ({
@@ -29,13 +28,11 @@ import PostModal from '../post/PostModal';
     feed: getFeed(state),
     posts: getPosts(state),
     showPostModalState: getShowPostModal(state),
-    currentShownPostID: getCurrentShownPostID(state),
   }),
   {
     getFeedContent,
     getMoreFeedContent,
     showPostModal: postID => dispatch => dispatch(showPostModal(postID)),
-    hidePostModal: postID => dispatch => dispatch(hidePostModal(postID)),
   },
 )
 export default class UserProfile extends React.Component {
@@ -46,9 +43,7 @@ export default class UserProfile extends React.Component {
     feed: PropTypes.shape().isRequired,
     posts: PropTypes.shape().isRequired,
     match: PropTypes.shape().isRequired,
-    currentShownPostID: PropTypes.number.isRequired,
     showPostModal: PropTypes.func.isRequired,
-    hidePostModal: PropTypes.func.isRequired,
     limit: PropTypes.number,
     getFeedContent: PropTypes.func,
     getMoreFeedContent: PropTypes.func,
@@ -82,15 +77,7 @@ export default class UserProfile extends React.Component {
   }
 
   render() {
-    const {
-      authenticated,
-      authenticatedUser,
-      feed,
-      posts,
-      limit,
-      showPostModalState,
-      currentShownPostID,
-    } = this.props;
+    const { authenticated, authenticatedUser, feed, posts, limit, showPostModalState } = this.props;
     const username = this.props.match.params.name;
     const isOwnProfile = authenticated && username === authenticatedUser.name;
     const content = getFeedContentFromState('blog', username, feed, posts);
@@ -114,19 +101,10 @@ export default class UserProfile extends React.Component {
             loadMoreContent={loadMoreContentAction}
             showPostModal={this.props.showPostModal}
           />
-
           {content.length === 0 && fetched && isOwnProfile && <EmptyUserOwnProfile />}
-
           {content.length === 0 && fetched && !isOwnProfile && <EmptyUserProfile />}
-          <PostModal
-            currentFeed={content}
-            visible={showPostModalState}
-            currentShownPostID={currentShownPostID}
-            showPostModal={this.props.showPostModal}
-            hidePostModal={this.props.hidePostModal}
-            loadMoreFeedContent={loadMoreContentAction}
-          />
         </div>
+        {showPostModalState && <PostModal />}
       </div>
     );
   }

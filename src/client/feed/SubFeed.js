@@ -9,7 +9,7 @@ import {
   getUserFeedContent,
   getMoreUserFeedContent,
 } from './feedActions';
-import { showPostModal, hidePostModal } from '../app/appActions';
+import { showPostModal } from '../app/appActions';
 import {
   getFeedContentFromState,
   getFeedLoadingFromState,
@@ -26,12 +26,12 @@ import {
   getFeed,
   getPosts,
   getShowPostModal,
-  getCurrentShownPostID,
+  getCurrentShownPost,
 } from '../reducers';
 import Feed from './Feed';
 import EmptyFeed from '../statics/EmptyFeed';
 import ScrollToTop from '../components/Utils/ScrollToTop';
-import PostModal from '../post/PostModal';
+import PostModal from '../post/PostModalContainer';
 
 @withRouter
 @connect(
@@ -42,7 +42,7 @@ import PostModal from '../post/PostModal';
     feed: getFeed(state),
     posts: getPosts(state),
     showPostModalState: getShowPostModal(state),
-    currentShownPostID: getCurrentShownPostID(state),
+    currentShownPost: getCurrentShownPost(state),
   }),
   dispatch => ({
     getFeedContent: (sortBy, category) => dispatch(getFeedContent({ sortBy, category, limit: 10 })),
@@ -51,7 +51,6 @@ import PostModal from '../post/PostModal';
     getUserFeedContent: username => dispatch(getUserFeedContent({ username, limit: 10 })),
     getMoreUserFeedContent: username => dispatch(getMoreUserFeedContent({ username, limit: 10 })),
     showPostModal: postID => dispatch(showPostModal(postID)),
-    hidePostModal: postID => dispatch(hidePostModal(postID)),
   }),
 )
 class SubFeed extends React.Component {
@@ -64,8 +63,6 @@ class SubFeed extends React.Component {
     posts: PropTypes.shape().isRequired,
     match: PropTypes.shape().isRequired,
     showPostModal: PropTypes.func.isRequired,
-    hidePostModal: PropTypes.func.isRequired,
-    currentShownPostID: PropTypes.number.isRequired,
     getFeedContent: PropTypes.func,
     getMoreFeedContent: PropTypes.func,
     getUserFeedContent: PropTypes.func,
@@ -118,16 +115,7 @@ class SubFeed extends React.Component {
   }
 
   render() {
-    const {
-      authenticated,
-      loaded,
-      user,
-      feed,
-      posts,
-      match,
-      showPostModalState,
-      currentShownPostID,
-    } = this.props;
+    const { authenticated, loaded, user, feed, posts, match, showPostModalState } = this.props;
 
     let content = [];
     let isFetching = false;
@@ -152,23 +140,18 @@ class SubFeed extends React.Component {
 
     return (
       <div>
-        <ScrollToTop />
-        <Feed
-          content={content}
-          isFetching={isFetching}
-          hasMore={hasMore}
-          loadMoreContent={loadMoreContent}
-          showPostModal={this.props.showPostModal}
-        />
-        {!content.length && fetched && loaded && <EmptyFeed />}
-        <PostModal
-          currentFeed={content}
-          visible={showPostModalState}
-          currentShownPostID={currentShownPostID}
-          showPostModal={this.props.showPostModal}
-          hidePostModal={this.props.hidePostModal}
-          loadMoreFeedContent={loadMoreContent}
-        />
+        <div>
+          <ScrollToTop />
+          <Feed
+            content={content}
+            isFetching={isFetching}
+            hasMore={hasMore}
+            loadMoreContent={loadMoreContent}
+            showPostModal={this.props.showPostModal}
+          />
+          {!content.length && fetched && loaded && <EmptyFeed />}
+        </div>
+        {showPostModalState && <PostModal />}
       </div>
     );
   }

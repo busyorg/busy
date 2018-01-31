@@ -16,7 +16,7 @@ const initialState = {
   usedLocale: 'en',
   cryptosPriceHistory: {},
   showPostModal: false,
-  currentShownPostID: 0,
+  currentShownPost: {},
 };
 
 export default (state = initialState, action) => {
@@ -123,7 +123,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         showPostModal: true,
-        currentShownPostID: action.payload,
+        currentShownPost: action.payload,
       };
     case appTypes.HIDE_POST_MODAL:
       return {
@@ -145,4 +145,4 @@ export const getAppUrl = state => state.appUrl;
 export const getUsedLocale = state => state.usedLocale;
 export const getCryptosPriceHistory = state => state.cryptosPriceHistory;
 export const getShowPostModal = state => state.showPostModal;
-export const getCurrentShownPostID = state => state.currentShownPostID;
+export const getCurrentShownPost = state => state.currentShownPost;

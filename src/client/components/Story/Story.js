@@ -130,7 +130,7 @@ class Story extends React.Component {
     const hasVideo = postHasVideo(post);
 
     if (!hasVideo) {
-      this.props.showPostModal(post.id);
+      this.props.showPostModal(post);
     }
   }
 
@@ -230,7 +230,7 @@ class Story extends React.Component {
           <div className="Story__content">
             <a
               role="presentation"
-              onClick={() => this.props.showPostModal(post.id)}
+              onClick={() => this.props.showPostModal(post)}
               className="Story__content__title"
             >
               <h2>

@@ -11,21 +11,30 @@ import './PostModal.less';
 
 class PostModal extends React.Component {
   static propTypes = {
-    currentShownPostID: PropTypes.number.isRequired,
-    visible: PropTypes.bool.isRequired,
-    currentFeed: PropTypes.arrayOf(PropTypes.shape()),
+    currentShownPost: PropTypes.shape(),
+    showPostModal: PropTypes.bool.isRequired,
     hidePostModal: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
-    currentFeed: [],
+    currentShownPost: {},
   };
+
+  static pushURLState(post) {
+    if (window) window.history.pushState({}, post.title, post.url);
+  }
+
+  static replaceURLState(title, url) {
+    if (window) window.history.replaceState({}, title, url);
+  }
 
   constructor(props) {
     super(props);
 
+    const previousURL = window ? window.location.href : '';
     this.state = {
       commentsVisible: false,
+      previousURL,
     };
 
     this.handleCommentsVisibility = this.handleCommentsVisibility.bind(this);
@@ -39,10 +48,16 @@ class PostModal extends React.Component {
         modalContentElement.scrollTop = 0;
       }
     }
+
+    if (window) {
+      const { currentShownPost } = this.props;
+      PostModal.pushURLState(currentShownPost);
+    }
   }
 
   componentWillUnmount() {
     this.props.hidePostModal();
+    PostModal.pushURLState({ title: 'Busy', url: this.state.previousURL });
   }
 
   handleCommentsVisibility(visible) {
@@ -54,24 +69,16 @@ class PostModal extends React.Component {
   }
 
   render() {
-    const { visible, currentFeed, currentShownPostID } = this.props;
-    let post = _.find(currentFeed, ['id', currentShownPostID]);
-
-    if (_.isUndefined(post)) {
-      post = _.head(currentFeed);
-    }
-
-    const category = _.get(post, 'category', '');
-    const author = _.get(post, 'author', '');
-    const permlink = _.get(post, 'permlink', '');
-
-    if (!visible) return null;
+    const { showPostModal, currentShownPost } = this.props;
+    const category = _.get(currentShownPost, 'category', '');
+    const author = _.get(currentShownPost, 'author', '');
+    const permlink = _.get(currentShownPost, 'permlink', '');
 
     return (
       <Modal
         title={null}
         footer={null}
-        visible={visible}
+        visible={showPostModal}
         onCancel={this.props.hidePostModal}
         width={720}
         wrapClassName="PostModal"
@@ -95,10 +102,10 @@ class PostModal extends React.Component {
             <i className="iconfont icon-send PostModal__icon" />
           </Link>
         </div>
-        <PostContent content={post} />
+        <PostContent content={currentShownPost} />
         <VisibilitySensor onChange={this.handleCommentsVisibility} />
         <div id="comments">
-          <Comments show={this.state.commentsVisible} post={post} />
+          <Comments show={this.state.commentsVisible} post={currentShownPost} />
         </div>
       </Modal>
     );

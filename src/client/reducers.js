@@ -76,7 +76,7 @@ export const getAppUrl = state => fromApp.getAppUrl(state.app);
 export const getUsedLocale = state => fromApp.getUsedLocale(state.app);
 export const getCryptosPriceHistory = state => fromApp.getCryptosPriceHistory(state.app);
 export const getShowPostModal = state => fromApp.getShowPostModal(state.app);
-export const getCurrentShownPostID = state => fromApp.getCurrentShownPostID(state.app);
+export const getCurrentShownPost = state => fromApp.getCurrentShownPost(state.app);
 
 export const getFeed = state => fromFeed.getFeed(state.feed);
 
