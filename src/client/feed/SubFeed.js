@@ -151,17 +151,17 @@ class SubFeed extends React.Component {
     return (
       <div>
         <div>
-        {loadScrollToTop && <ScrollToTop />}
-         <Feed
+          {loadScrollToTop && <ScrollToTop />}
+          <Feed
             content={content}
             isFetching={isFetching}
             hasMore={hasMore}
             loadMoreContent={loadMoreContent}
             showPostModal={this.props.showPostModal}
           />
-        {!content.length && fetched && loaded && <EmptyFeed />}
-          </div>
-         {showPostModalState && <PostModal />}
+          {!content.length && fetched && loaded && <EmptyFeed />}
+        </div>
+        {showPostModalState && <PostModal />}
       </div>
     );
   }

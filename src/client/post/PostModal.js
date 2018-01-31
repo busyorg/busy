@@ -79,7 +79,7 @@ class PostModal extends React.Component {
         visible={showPostModal}
         onCancel={this.props.hidePostModal}
         width={767}
-        wrapClassName={classNames("PostModal", {"PostModal__hidden": !showPostModal})}
+        wrapClassName={classNames('PostModal', { PostModal__hidden: !showPostModal })}
       >
         <div className="PostModal__back">
           <a
