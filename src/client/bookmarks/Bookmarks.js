@@ -18,7 +18,7 @@ import {
   getFeedHasMoreFromState,
 } from '../helpers/stateHelpers';
 import { reload } from '../auth/authActions';
-import { getBookmarks } from './bookmarksActions';
+import { getBookmarks } from '../feed/feedActions';
 import Affix from '../components/Utils/Affix';
 import LeftSidebar from '../app/Sidebar/LeftSidebar';
 import RightSidebar from '../app/Sidebar/RightSidebar';

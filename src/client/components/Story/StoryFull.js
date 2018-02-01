@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import classNames from 'classnames';
 import readingTime from 'reading-time';
 import {
   injectIntl,
@@ -15,7 +16,7 @@ import { Tag, Icon, Popover, Tooltip } from 'antd';
 import Lightbox from 'react-image-lightbox';
 import formatter from '../../helpers/steemitFormatter';
 import { getFromMetadata, extractImages } from '../../helpers/parser';
-import { isPostDeleted } from '../../helpers/postHelpers';
+import { isPostDeleted, dropCategory } from '../../helpers/postHelpers';
 import withAuthActions from '../../auth/withAuthActions';
 import { getProxyImageURL } from '../../helpers/image';
 import Body, { getHtml } from './Body';
@@ -41,6 +42,7 @@ class StoryFull extends React.Component {
     onActionInitiated: PropTypes.func.isRequired,
     rewriteLinks: PropTypes.bool,
     pendingLike: PropTypes.bool,
+    pendingFlag: PropTypes.bool,
     pendingFollow: PropTypes.bool,
     pendingBookmark: PropTypes.bool,
     commentCount: PropTypes.number,
@@ -58,6 +60,7 @@ class StoryFull extends React.Component {
   static defaultProps = {
     rewriteLinks: false,
     pendingLike: false,
+    pendingFlag: false,
     pendingFollow: false,
     pendingBookmark: false,
     commentCount: 0,
@@ -98,18 +101,20 @@ class StoryFull extends React.Component {
   }
 
   clickMenuItem(key) {
+    const { post, postState } = this.props;
+
     switch (key) {
       case 'follow':
-        this.props.onFollowClick(this.props.post);
+        this.props.onFollowClick(post);
         break;
       case 'save':
-        this.props.onSaveClick(this.props.post);
+        this.props.onSaveClick(post);
         break;
       case 'report':
-        this.props.onReportClick(this.props.post);
+        this.props.onReportClick(post, postState);
         break;
       case 'edit':
-        this.props.onEditClick(this.props.post);
+        this.props.onEditClick(post);
         break;
       default:
     }
@@ -173,6 +178,7 @@ class StoryFull extends React.Component {
       postState,
       rewriteLinks,
       pendingLike,
+      pendingFlag,
       pendingFollow,
       pendingBookmark,
       commentCount,
@@ -185,6 +191,7 @@ class StoryFull extends React.Component {
       onShareClick,
       onEditClick,
     } = this.props;
+    const { isReported } = postState;
 
     const { open, index } = this.state.lightbox;
 
@@ -231,7 +238,7 @@ class StoryFull extends React.Component {
             />
           </h3>
           <h4>
-            <Link to={post.url}>
+            <Link to={dropCategory(post.url)}>
               <FormattedMessage
                 id="post_reply_show_original_post"
                 defaultMessage="Show original post"
@@ -240,7 +247,7 @@ class StoryFull extends React.Component {
           </h4>
           {post.depth > 1 && (
             <h4>
-              <Link to={`/${post.category}/@${post.parent_author}/${post.parent_permlink}`}>
+              <Link to={`/@${post.parent_author}/${post.parent_permlink}`}>
                 <FormattedMessage
                   id="post_reply_show_parent_discussion"
                   defaultMessage="Show parent discussion"
@@ -284,8 +291,21 @@ class StoryFull extends React.Component {
         />
       </PopoverMenuItem>,
       <PopoverMenuItem key="report">
-        <i className="iconfont icon-flag" />
-        <FormattedMessage id="report_post" defaultMessage="Report post" />
+        {pendingFlag ? (
+          <Icon type="loading" />
+        ) : (
+          <i
+            className={classNames('iconfont', {
+              'icon-flag': !postState.isReported,
+              'icon-flag_fill': postState.isReported,
+            })}
+          />
+        )}
+        {isReported ? (
+          <FormattedMessage id="unflag_post" defaultMessage="Unflag post" />
+        ) : (
+          <FormattedMessage id="flag_post" defaultMessage="Flag post" />
+        )}
       </PopoverMenuItem>,
     ];
 
@@ -441,6 +461,7 @@ class StoryFull extends React.Component {
           post={post}
           postState={postState}
           pendingLike={pendingLike}
+          pendingFlag={pendingFlag}
           pendingFollow={pendingFollow}
           pendingBookmark={pendingBookmark}
           ownPost={ownPost}

@@ -69,10 +69,17 @@ class CommentForm extends React.Component {
   }
 
   setBodyAndRender(body) {
-    this.setState({
-      body,
-      bodyHTML: remarkable.render(body),
-    });
+    this.setState(
+      {
+        body,
+        bodyHTML: remarkable.render(body),
+      },
+      () => {
+        if (this.input) {
+          this.input.value = body;
+        }
+      },
+    );
   }
 
   handleBodyUpdate(body) {
@@ -83,8 +90,9 @@ class CommentForm extends React.Component {
     e.stopPropagation();
     this.setState({ isDisabledSubmit: true });
     if (this.state.body) {
-      this.props.onSubmit(this.props.parentPost, this.state.body);
-      this.setBodyAndRender('');
+      this.props.onSubmit(this.props.parentPost, this.state.body).then(() => {
+        this.setBodyAndRender('');
+      });
     }
   }
 

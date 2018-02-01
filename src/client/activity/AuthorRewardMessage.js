@@ -57,7 +57,7 @@ const AuthorRewardMessage = ({
         rewards: parsedRewards.join(', '),
         author: actionDetails.author,
         postLink: (
-          <Link to={`/p/@${actionDetails.author}/${actionDetails.permlink}`}>
+          <Link to={`/@${actionDetails.author}/${actionDetails.permlink}`}>
             {actionDetails.permlink}
           </Link>
         ),

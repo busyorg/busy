@@ -83,19 +83,19 @@ const editor = (state = defaultState, action) => {
     case editorActions.DELETE_DRAFT_START:
       return {
         ...state,
-        pendingDrafts: [...state.pendingDrafts, action.meta.id],
+        pendingDrafts: [...state.pendingDrafts, ...action.meta.ids],
       };
     case editorActions.DELETE_DRAFT_SUCCESS: {
       return {
         ...state,
         draftPosts: action.payload,
-        pendingDrafts: state.pendingDrafts.filter(id => id !== action.meta.id),
+        pendingDrafts: state.pendingDrafts.filter(id => !action.meta.ids.includes(id)),
       };
     }
     case editorActions.DELETE_DRAFT_ERROR:
       return {
         ...state,
-        pendingDrafts: state.pendingDrafts.filter(id => id !== action.meta.id),
+        pendingDrafts: state.pendingDrafts.filter(id => !action.meta.ids.includes(id)),
       };
     default:
       return state;

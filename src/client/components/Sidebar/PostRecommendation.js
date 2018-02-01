@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
+import { usernameURLRegex } from '../../helpers/regexHelpers';
 import Loading from '../../components/Icon/Loading';
 import steemAPI from '../../steemAPI';
 import PostRecommendationLink from './PostRecommendationLink';
@@ -12,34 +13,43 @@ import './SidebarContentBlock.less';
 class PostRecommendation extends Component {
   static propTypes = {
     location: PropTypes.shape().isRequired,
+    match: PropTypes.shape().isRequired,
     isAuthFetching: PropTypes.bool.isRequired,
   };
+  constructor(props) {
+    super(props);
 
-  state = {
-    recommendedPosts: [],
-    loading: false,
-    currentAuthor: '',
-  };
+    this.state = {
+      recommendedPosts: [],
+      loading: false,
+      currentAuthor: '',
+    };
+
+    this.getRecommendations = this.getRecommendations.bind(this);
+  }
 
   componentWillMount() {
     const { location, isAuthFetching } = this.props;
     if (!isAuthFetching && location.pathname !== '/') {
-      const currentAuthor = location.pathname.split('/')[2].replace('@', '');
-      this.setState({
-        loading: true,
-      });
-      this.getPostsByAuthor(currentAuthor);
+      this.getRecommendations();
     }
   }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.isAuthFetching !== nextProps.isAuthFetching) {
-      const currentAuthor = this.props.location.pathname.split('/')[2].replace('@', '');
-      this.setState({
-        loading: true,
-      });
-      this.getPostsByAuthor(currentAuthor);
+      this.getRecommendations();
     }
+  }
+
+  getRecommendations() {
+    const { location } = this.props;
+
+    const author = location.pathname.match(usernameURLRegex)[1];
+
+    this.setState({
+      loading: true,
+    });
+    this.getPostsByAuthor(author);
   }
 
   getPostsByAuthor = author => {
@@ -61,9 +71,9 @@ class PostRecommendation extends Component {
   };
 
   getFilteredPosts = () => {
-    const currentPostPermlink = this.props.location.pathname.split('/')[3];
+    const { match } = this.props;
     return this.state.recommendedPosts
-      .filter(post => post.permlink !== currentPostPermlink)
+      .filter(post => post.permlink !== match.params.permlink)
       .slice(0, 3);
   };
 

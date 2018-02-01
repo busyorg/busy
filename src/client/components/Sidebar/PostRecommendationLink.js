@@ -32,7 +32,7 @@ const PostRecommendationLink = ({ post, navigateToPost, navigateToPostComments }
           <FormattedRelative value={`${post.created}Z`} />
         </div>
         <Link
-          to={`/${post.category}/@${post.author}/${post.permlink}`}
+          to={`/@${post.author}/${post.permlink}`}
           onClick={() => navigateToPost(post.author)}
           className="PostRecommendation__link__post-title"
         >
@@ -40,7 +40,7 @@ const PostRecommendationLink = ({ post, navigateToPost, navigateToPostComments }
         </Link>
         {post.children > 0 && (
           <Link
-            to={`/${post.category}/@${post.author}/${post.permlink}#comments`}
+            to={`/@${post.author}/${post.permlink}#comments`}
             onClick={navigateToPostComments}
             className="PostRecommendation__comments"
           >

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { injectIntl, FormattedMessage } from 'react-intl';
+import { message } from 'antd';
 import { MAXIMUM_UPLOAD_SIZE_HUMAN } from '../../helpers/image';
 import { sortComments } from '../../helpers/sortHelpers';
 import Loading from '../Icon/Loading';
@@ -128,11 +129,20 @@ class Comments extends React.Component {
     );
   };
 
-  submitComment = (parentPost, commentValue) => {
+  handleSubmitComment(parentPost, commentValue) {
+    const { intl } = this.props;
+
     this.setState({ showCommentFormLoading: true });
-    this.props
+    return this.props
       .onSendComment(parentPost, commentValue)
       .then(() => {
+        message.success(
+          intl.formatMessage({
+            id: 'notify_comment_sent',
+            defaultMessage: 'Comment submitted',
+          }),
+        );
+
         this.setState({
           showCommentFormLoading: false,
           commentFormText: '',
@@ -145,7 +155,7 @@ class Comments extends React.Component {
           commentFormText: commentValue,
         });
       });
-  };
+  }
 
   render() {
     const {
@@ -194,7 +204,7 @@ class Comments extends React.Component {
             top
             parentPost={this.props.parentPost}
             username={username}
-            onSubmit={this.submitComment}
+            onSubmit={this.handleSubmitComment}
             isLoading={this.state.showCommentFormLoading}
             inputValue={this.state.commentFormText}
             submitted={this.state.commentSubmitted}
