@@ -16,7 +16,7 @@ import { Tag, Icon, Popover, Tooltip } from 'antd';
 import Lightbox from 'react-image-lightbox';
 import formatter from '../../helpers/steemitFormatter';
 import { getFromMetadata, extractImages } from '../../helpers/parser';
-import { isPostDeleted } from '../../helpers/postHelpers';
+import { isPostDeleted, dropCategory } from '../../helpers/postHelpers';
 import withAuthActions from '../../auth/withAuthActions';
 import { getProxyImageURL } from '../../helpers/image';
 import Body, { getHtml } from './Body';
@@ -238,7 +238,7 @@ class StoryFull extends React.Component {
             />
           </h3>
           <h4>
-            <Link to={post.url}>
+            <Link to={dropCategory(post.url)}>
               <FormattedMessage
                 id="post_reply_show_original_post"
                 defaultMessage="Show original post"
@@ -247,7 +247,7 @@ class StoryFull extends React.Component {
           </h4>
           {post.depth > 1 && (
             <h4>
-              <Link to={`/${post.category}/@${post.parent_author}/${post.parent_permlink}`}>
+              <Link to={`/@${post.parent_author}/${post.parent_permlink}`}>
                 <FormattedMessage
                   id="post_reply_show_parent_discussion"
                   defaultMessage="Show parent discussion"

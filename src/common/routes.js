@@ -98,8 +98,9 @@ const routes = [
         component: Invite,
       },
       {
-        path: '/@:name',
+        path: '/@:name/(comments|followers|followed|reblogs|feed|transfers|activity)?',
         component: User,
+        exact: true,
         routes: [
           {
             path: '/@:name',
@@ -149,7 +150,7 @@ const routes = [
         component: Discover,
       },
       {
-        path: '/:category/@:author/:permlink',
+        path: '/:category?/@:author/:permlink',
         component: Post,
       },
       {

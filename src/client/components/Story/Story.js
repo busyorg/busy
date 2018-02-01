@@ -10,7 +10,7 @@ import {
 import { Link } from 'react-router-dom';
 import { Tag, Tooltip } from 'antd';
 import formatter from '../../helpers/steemitFormatter';
-import { isPostTaggedNSFW } from '../../helpers/postHelpers';
+import { isPostTaggedNSFW, dropCategory } from '../../helpers/postHelpers';
 import withAuthActions from '../../auth/withAuthActions';
 import StoryPreview from './StoryPreview';
 import StoryFooter from '../StoryFooter/StoryFooter';
@@ -218,14 +218,14 @@ class Story extends React.Component {
             </div>
           </div>
           <div className="Story__content">
-            <Link to={post.url} className="Story__content__title">
+            <Link to={dropCategory(post.url)} className="Story__content__title">
               <h2>
                 {post.depth !== 0 && <Tag color="#4f545c">RE</Tag>}
                 {post.title || post.root_title}
               </h2>
             </Link>
             {showStoryPreview ? (
-              <Link to={post.url} className="Story__content__preview">
+              <Link to={dropCategory(post.url)} className="Story__content__preview">
                 <StoryPreview post={post} />
               </Link>
             ) : (
