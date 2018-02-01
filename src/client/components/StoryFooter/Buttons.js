@@ -25,6 +25,7 @@ export default class Buttons extends React.Component {
     onActionInitiated: PropTypes.func.isRequired,
     ownPost: PropTypes.bool,
     pendingLike: PropTypes.bool,
+    pendingFlag: PropTypes.bool,
     pendingFollow: PropTypes.bool,
     pendingBookmark: PropTypes.bool,
     saving: PropTypes.bool,
@@ -37,6 +38,7 @@ export default class Buttons extends React.Component {
   static defaultProps = {
     ownPost: false,
     pendingLike: false,
+    pendingFlag: false,
     pendingFollow: false,
     pendingBookmark: false,
     saving: false,
@@ -137,6 +139,7 @@ export default class Buttons extends React.Component {
 
   renderPostPopoverMenu() {
     const {
+      pendingFlag,
       pendingFollow,
       pendingBookmark,
       saving,
@@ -146,6 +149,8 @@ export default class Buttons extends React.Component {
       handlePostPopoverMenuClick,
       ownPost,
     } = this.props;
+    const { isReported } = postState;
+
     let followText = '';
 
     if (postState.userFollowed && !pendingFollow) {
@@ -202,8 +207,21 @@ export default class Buttons extends React.Component {
         />
       </PopoverMenuItem>,
       <PopoverMenuItem key="report">
-        <i className="iconfont icon-flag" />
-        <FormattedMessage id="report_post" defaultMessage="Report post" />
+        {pendingFlag ? (
+          <Icon type="loading" />
+        ) : (
+          <i
+            className={classNames('iconfont', {
+              'icon-flag': !postState.isReported,
+              'icon-flag_fill': postState.isReported,
+            })}
+          />
+        )}
+        {isReported ? (
+          <FormattedMessage id="unflag_post" defaultMessage="Unflag post" />
+        ) : (
+          <FormattedMessage id="flag_post" defaultMessage="Flag post" />
+        )}
       </PopoverMenuItem>,
     ];
 

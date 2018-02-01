@@ -23,7 +23,7 @@ const postItem = (state = {}, action) => {
 };
 
 const initialState = {
-  pendingLikes: [],
+  pendingLikes: {},
   list: {},
   postsStates: {},
 };
@@ -115,7 +115,7 @@ const posts = (state = initialState, action) => {
       if (action.meta.afterLike) {
         return {
           ...baseState,
-          pendingLikes: state.pendingLikes.filter(post => post !== action.payload.id),
+          pendingLikes: _.omit(state.pendingLikes, action.payload.id),
         };
       }
       return baseState;
@@ -135,12 +135,12 @@ const posts = (state = initialState, action) => {
     case postsActions.LIKE_POST_START:
       return {
         ...state,
-        pendingLikes: [...state.pendingLikes, action.meta.postId],
+        pendingLikes: { ...state.pendingLikes, [action.meta.postId]: action.meta },
       };
     case postsActions.LIKE_POST_ERROR:
       return {
         ...state,
-        pendingLikes: state.pendingLikes.filter(post => post !== action.meta.postId),
+        pendingLikes: _.omit(state.pendingLikes, action.meta.postId),
       };
     case commentsActions.SEND_COMMENT_START:
       return {

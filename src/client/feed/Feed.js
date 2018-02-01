@@ -60,7 +60,7 @@ export default class Feed extends React.Component {
   static propTypes = {
     user: PropTypes.shape().isRequired,
     content: PropTypes.arrayOf(PropTypes.shape()).isRequired,
-    pendingLikes: PropTypes.arrayOf(PropTypes.number).isRequired,
+    pendingLikes: PropTypes.shape().isRequired,
     pendingFollows: PropTypes.arrayOf(PropTypes.string).isRequired,
     pendingReblogs: PropTypes.arrayOf(PropTypes.number).isRequired,
     bookmarks: PropTypes.shape().isRequired,
@@ -96,6 +96,12 @@ export default class Feed extends React.Component {
     loadMoreContent: () => {},
   };
 
+  constructor(props) {
+    super(props);
+
+    this.handleReportClick = this.handleReportClick.bind(this);
+  }
+
   handleLikeClick = (post, postState, weight = 10000) => {
     const { sliderMode, user, defaultVotePercent } = this.props;
     if (sliderMode === 'on' || (sliderMode === 'auto' && getHasDefaultSlider(user))) {
@@ -107,7 +113,10 @@ export default class Feed extends React.Component {
     }
   };
 
-  handleReportClick = post => this.props.votePost(post.id, post.author, post.permlink, -10000);
+  handleReportClick(post, postState) {
+    const weight = postState.isReported ? 0 : -10000;
+    this.props.votePost(post.id, post.author, post.permlink, weight);
+  }
 
   handleShareClick = post => this.props.reblog(post.id);
 
@@ -168,13 +177,24 @@ export default class Feed extends React.Component {
 
           if (isPostDeleted(post)) return null;
 
+          const pendingLike =
+            pendingLikes[post.id] &&
+            (pendingLikes[post.id].weight > 0 ||
+              (pendingLikes[post.id].weight === 0 && postState.isLiked));
+
+          const pendingFlag =
+            pendingLikes[post.id] &&
+            (pendingLikes[post.id].weight < 0 ||
+              (pendingLikes[post.id].weight === 0 && postState.isReported));
+
           return (
             <Story
               user={user}
               key={post.id}
               post={post}
               postState={postState}
-              pendingLike={pendingLikes.includes(post.id)}
+              pendingLike={pendingLike}
+              pendingFlag={pendingFlag}
               pendingFollow={pendingFollows.includes(post.author)}
               pendingBookmark={pendingBookmarks.includes(post.id)}
               saving={saving}

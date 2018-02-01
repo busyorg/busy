@@ -61,7 +61,7 @@ class PostContent extends React.Component {
   static propTypes = {
     user: PropTypes.shape().isRequired,
     content: PropTypes.shape().isRequired,
-    pendingLikes: PropTypes.arrayOf(PropTypes.number),
+    pendingLikes: PropTypes.shape(),
     reblogList: PropTypes.arrayOf(PropTypes.number),
     pendingReblogs: PropTypes.arrayOf(PropTypes.number),
     followingList: PropTypes.arrayOf(PropTypes.string),
@@ -83,7 +83,7 @@ class PostContent extends React.Component {
   };
 
   static defaultProps = {
-    pendingLikes: [],
+    pendingLikes: {},
     reblogList: [],
     pendingReblogs: [],
     followingList: [],
@@ -97,6 +97,12 @@ class PostContent extends React.Component {
     followUser: () => {},
     unfollowUser: () => {},
   };
+
+  constructor(props) {
+    super(props);
+
+    this.handleReportClick = this.handleReportClick.bind(this);
+  }
 
   componentDidMount() {
     const { hash } = window.location;
@@ -118,7 +124,10 @@ class PostContent extends React.Component {
     }
   };
 
-  handleReportClick = post => this.props.votePost(post.id, post.author, post.permlink, -10000);
+  handleReportClick(post, postState) {
+    const weight = postState.isReported ? 0 : -10000;
+    this.props.votePost(post.id, post.author, post.permlink, weight);
+  }
 
   handleShareClick = post => this.props.reblog(post.id);
 
@@ -172,6 +181,16 @@ class PostContent extends React.Component {
       userFollowed: followingList.includes(content.author),
     };
 
+    const pendingLike =
+      pendingLikes[content.id] &&
+      (pendingLikes[content.id].weight > 0 ||
+        (pendingLikes[content.id].weight === 0 && postState.isLiked));
+
+    const pendingFlag =
+      pendingLikes[content.id] &&
+      (pendingLikes[content.id].weight < 0 ||
+        (pendingLikes[content.id].weight === 0 && postState.isReported));
+
     const { title, category, created, author, body } = content;
     const postMetaImage = postMetaData.image && postMetaData.image[0];
     const htmlBody = getHtml(body, {}, 'text');
@@ -209,7 +228,8 @@ class PostContent extends React.Component {
           post={content}
           postState={postState}
           commentCount={content.children}
-          pendingLike={pendingLikes.includes(content.id)}
+          pendingLike={pendingLike}
+          pendingFlag={pendingFlag}
           pendingFollow={pendingFollows.includes(content.author)}
           pendingBookmark={pendingBookmarks.includes(content.id)}
           saving={saving}
