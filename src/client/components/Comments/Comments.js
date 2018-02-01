@@ -130,7 +130,7 @@ class Comments extends React.Component {
 
   submitComment = (parentPost, commentValue) => {
     this.setState({ showCommentFormLoading: true });
-    this.props
+    return this.props
       .onSendComment(parentPost, commentValue)
       .then(() => {
         this.setState({
