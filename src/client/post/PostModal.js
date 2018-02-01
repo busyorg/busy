@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import classNames from 'classnames';
 import { Link } from 'react-router-dom';
-import { Modal } from 'antd';
+import Modal from 'react-modal';
 import { FormattedMessage } from 'react-intl';
 import VisibilitySensor from 'react-visibility-sensor';
 import PostContent from './PostContent';
@@ -21,8 +20,8 @@ class PostModal extends React.Component {
     currentShownPost: {},
   };
 
-  static pushURLState(post) {
-    if (window) window.history.pushState({}, post.title, post.url);
+  static pushURLState(title, url) {
+    if (window) window.history.pushState({}, title, url);
   }
 
   constructor(props) {
@@ -33,6 +32,11 @@ class PostModal extends React.Component {
     };
 
     this.handleCommentsVisibility = this.handleCommentsVisibility.bind(this);
+  }
+
+  componentWillMount() {
+    Modal.setAppElement('body');
+    if (document) document.body.style = 'overflow-y: hidden';
   }
 
   componentDidMount() {
@@ -46,11 +50,12 @@ class PostModal extends React.Component {
 
     if (window) {
       const { currentShownPost } = this.props;
-      PostModal.pushURLState(currentShownPost);
+      PostModal.pushURLState(currentShownPost.title, currentShownPost.url);
     }
   }
 
   componentWillUnmount() {
+    if (document) document.body.style = '';
     this.props.hidePostModal();
   }
 
@@ -71,13 +76,18 @@ class PostModal extends React.Component {
 
     return (
       <Modal
-        title={null}
-        footer={null}
-        visible={showPostModal}
-        onCancel={this.props.hidePostModal}
-        width={767}
-        wrapClassName={classNames('PostModal', { PostModal__hidden: !showPostModal })}
-        destroyOnClose
+        isOpen={showPostModal}
+        onRequestClose={this.props.hidePostModal}
+        className={{
+          base: 'PostModal',
+          afterOpen: 'PostModal_after-open',
+          beforeClose: 'PostModal_before-close',
+        }}
+        overlayClassName={{
+          base: 'PostModal__overlay',
+          afterOpen: 'PostModal__overlay_after-open',
+          beforeClose: 'PostModal__overlay_before-close',
+        }}
       >
         <div className="PostModal__back">
           <a

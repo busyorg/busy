@@ -10,24 +10,34 @@
 }
 
 .PostModal {
-  .ant-modal {
-    top: 40px !important;
-    animation: 0s !important;
+  background-clip: padding-box;
+  background-color: @white;
+  border-radius: 4px;
+  border: 0;
+  bottom: 40px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  left: 40px;
+  margin: 0 auto;
+  outline: none;
+  overflow: auto;
+  padding: 32px 56px;
+  position: relative;
+  right: 40px;
+  top: 40px;
+  width: 760px;
 
-    &.zoom-leave {
-      display: none;
-    }
+  &__overlay {
+    z-index: 1200;
+    background-color: rgba(242, 242, 242, 0.97) !important;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow-y: auto;
   }
 
-  .ant-modal-body {
-    padding: 16px !important;
-
-    @media @medium {
-      padding: 32px 56px !important;
-    }
-  }
-
-  button.ant-modal-close {
+  &__before-close {
     display: none;
   }
 
