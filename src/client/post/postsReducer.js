@@ -1,10 +1,7 @@
 import _ from 'lodash';
 import * as feedTypes from '../feed/feedActions';
-import * as bookmarksActions from '../bookmarks/bookmarksActions';
 import * as postsActions from './postActions';
 import * as commentsActions from '../comments/commentsActions';
-import * as repliesTypes from '../replies/repliesActions';
-import * as userTypes from '../user/userActions';
 
 const postItem = (state = {}, action) => {
   switch (action.type) {
@@ -30,17 +27,8 @@ const initialState = {
 
 const posts = (state = initialState, action) => {
   switch (action.type) {
-    case repliesTypes.GET_REPLIES_SUCCESS:
-    case repliesTypes.GET_MORE_REPLIES_SUCCESS:
-      return {
-        ...state,
-        list: {
-          ...state.list,
-          ...action.payload,
-        },
-      };
-    case userTypes.GET_USER_COMMENTS_SUCCESS:
-    case userTypes.GET_MORE_USER_COMMENTS_SUCCESS: {
+    case feedTypes.GET_USER_COMMENTS.SUCCESS:
+    case feedTypes.GET_MORE_USER_COMMENTS.SUCCESS: {
       const commentsMoreList = {};
       action.payload.forEach(comment => {
         commentsMoreList[comment.id] = comment;
@@ -53,11 +41,11 @@ const posts = (state = initialState, action) => {
         },
       };
     }
-    case feedTypes.GET_FEED_CONTENT_SUCCESS:
-    case feedTypes.GET_MORE_FEED_CONTENT_SUCCESS:
-    case feedTypes.GET_USER_FEED_CONTENT_SUCCESS:
-    case feedTypes.GET_MORE_USER_FEED_CONTENT_SUCCESS:
-    case bookmarksActions.GET_BOOKMARKS_SUCCESS: {
+    case feedTypes.GET_FEED_CONTENT.SUCCESS:
+    case feedTypes.GET_MORE_FEED_CONTENT.SUCCESS:
+    case feedTypes.GET_REPLIES.SUCCESS:
+    case feedTypes.GET_MORE_REPLIES.SUCCESS:
+    case feedTypes.GET_BOOKMARKS.SUCCESS: {
       const list = {
         ...state.list,
       };
@@ -65,7 +53,7 @@ const posts = (state = initialState, action) => {
         ...state.postsStates,
       };
 
-      _.each(action.payload.postsData, post => {
+      _.each(action.payload, post => {
         list[post.id] = post;
         postsStates[`${post.author}/${post.permlink}}`] = {
           fetching: false,

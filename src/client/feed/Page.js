@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 
-import { getFeedContentAsync } from './feedActions';
+import { getFeedContent } from './feedActions';
 import { getIsLoaded, getIsAuthenticated } from '../reducers';
 import SubFeed from './SubFeed';
 import HeroBannerContainer from './HeroBannerContainer';
@@ -30,7 +30,7 @@ class Page extends React.Component {
 
   static fetchData(store, match) {
     const { sortBy, category } = match.params;
-    return getFeedContentAsync(store, { sortBy, category, limit: 10 });
+    return store.dispatch(getFeedContent({ sortBy, category, limit: 10 }));
   }
 
   handleSortChange = key => {
