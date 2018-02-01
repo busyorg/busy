@@ -5,7 +5,7 @@ import { FormattedMessage, FormattedNumber } from 'react-intl';
 import { Tooltip } from 'antd';
 
 const VoteActionMessage = ({ actionDetails, currentUsername }) => {
-  const postLink = `@${actionDetails.author}/${actionDetails.permlink}`;
+  const postLink = `/@${actionDetails.author}/${actionDetails.permlink}`;
   let voteType = 'unvoted';
   const voteWeight = (
     <FormattedNumber
@@ -54,7 +54,7 @@ const VoteActionMessage = ({ actionDetails, currentUsername }) => {
         <span className="username">{actionDetails.author}</span>
       </Link>
       {' ('}
-      <Link to={`/p/${postLink}`}>{actionDetails.permlink}</Link>
+      <Link to={postLink}>{actionDetails.permlink}</Link>
       {')'}
     </span>
   );

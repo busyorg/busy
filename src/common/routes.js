@@ -1,10 +1,5 @@
 import Wrapper from '../client/Wrapper';
 
-import About from '../client/statics/About';
-import Team from '../client/statics/Team';
-import Donors from '../client/statics/Donors';
-import Help from '../client/statics/Help';
-
 import Bookmarks from '../client/bookmarks/Bookmarks';
 import Drafts from '../client/post/Write/Drafts';
 import Replies from '../client/replies/Replies';
@@ -33,26 +28,6 @@ const routes = [
   {
     component: Wrapper,
     routes: [
-      {
-        path: '/about',
-        exact: true,
-        component: About,
-      },
-      {
-        path: '/team',
-        exact: true,
-        component: Team,
-      },
-      {
-        path: '/donors',
-        exact: true,
-        component: Donors,
-      },
-      {
-        path: '/help',
-        exact: true,
-        component: Help,
-      },
       {
         path: '/bookmarks',
         exact: true,
@@ -98,8 +73,9 @@ const routes = [
         component: Invite,
       },
       {
-        path: '/@:name',
+        path: '/@:name/(comments|followers|followed|reblogs|feed|transfers|activity)?',
         component: User,
+        exact: true,
         routes: [
           {
             path: '/@:name',
@@ -149,7 +125,7 @@ const routes = [
         component: Discover,
       },
       {
-        path: '/:category/@:author/:permlink',
+        path: '/:category?/@:author/:permlink',
         component: Post,
       },
       {
