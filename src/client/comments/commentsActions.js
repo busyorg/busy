@@ -162,7 +162,6 @@ export const sendComment = (parentPost, body, isUpdating = false, originalCommen
           author: resp.result.operations[0][1].author,
           permlink: resp.result.operations[0][1].permlink,
         };
-        dispatch(notify('Comment submitted successfully', 'success'));
         dispatch(getComments(id, true, focusedComment));
 
         if (window.analytics) {

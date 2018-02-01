@@ -8,7 +8,7 @@ import {
   getFeedLoadingFromState,
   getFeedHasMoreFromState,
 } from '../helpers/stateHelpers';
-import { getUserComments, getMoreUserComments } from './userActions';
+import { getUserComments, getMoreUserComments } from '../feed/feedActions';
 
 @connect(
   state => ({
@@ -49,7 +49,7 @@ export default class UserProfilePosts extends React.Component {
     const content = getUserCommentsFromState(username, feed, posts);
     const isFetching = getFeedLoadingFromState('comments', username, feed);
     const hasMore = getFeedHasMoreFromState('comments', username, feed);
-    const loadMoreContentAction = () => this.props.getMoreUserComments(username, limit);
+    const loadMoreContentAction = () => this.props.getMoreUserComments({ username, limit });
 
     return (
       <Feed

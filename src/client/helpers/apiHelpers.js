@@ -77,16 +77,6 @@ export const getAllFollowing = username =>
     resolve(list);
   });
 
-export const mapToId = content => {
-  const listById = {};
-  Object.values(content).forEach(value => {
-    listById[value.id] = value;
-  });
-  return listById;
-};
-
-export const mapAPIContentToId = apiRes => mapToId(apiRes.content);
-
 export const defaultAccountLimit = 500;
 
 export const getAccountHistory = (account, from = -1, limit = defaultAccountLimit) =>

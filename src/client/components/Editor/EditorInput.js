@@ -338,7 +338,7 @@ class EditorInput extends React.Component {
                 autosize={autosize}
                 onChange={this.handleChange}
                 value={value}
-                ref={ref => this.setInput(ref)}
+                ref={this.setInput}
                 type="textarea"
               />
             </HotKeys>

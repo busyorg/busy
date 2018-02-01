@@ -43,13 +43,13 @@ export const saveDraft = (post, redirect) => dispatch => {
   });
 };
 
-export const deleteDraft = draftId => dispatch =>
+export const deleteDraft = draftIds => dispatch =>
   dispatch({
     type: DELETE_DRAFT,
     payload: {
-      promise: deleteDraftMetadata(draftId),
+      promise: deleteDraftMetadata(draftIds),
     },
-    meta: { id: draftId },
+    meta: { ids: draftIds },
   });
 
 export const editPost = post => dispatch => {

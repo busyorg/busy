@@ -39,12 +39,12 @@ export const addDraftMetadata = draft =>
     )
     .then(resp => resp.user_metadata.drafts[draft.id]);
 
-export const deleteDraftMetadata = draftId =>
+export const deleteDraftMetadata = draftIds =>
   getMetadata()
     .then(metadata =>
       SteemConnect.updateUserMetadata({
         ...metadata,
-        drafts: omit(metadata.drafts, draftId),
+        drafts: omit(metadata.drafts, draftIds),
       }),
     )
     .then(resp => resp.user_metadata.drafts);

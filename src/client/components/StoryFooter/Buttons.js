@@ -25,24 +25,24 @@ export default class Buttons extends React.Component {
     onActionInitiated: PropTypes.func.isRequired,
     ownPost: PropTypes.bool,
     pendingLike: PropTypes.bool,
+    pendingFlag: PropTypes.bool,
     pendingFollow: PropTypes.bool,
     pendingBookmark: PropTypes.bool,
     saving: PropTypes.bool,
     onLikeClick: PropTypes.func,
     onShareClick: PropTypes.func,
-    onEditClick: PropTypes.func,
     handlePostPopoverMenuClick: PropTypes.func,
   };
 
   static defaultProps = {
     ownPost: false,
     pendingLike: false,
+    pendingFlag: false,
     pendingFollow: false,
     pendingBookmark: false,
     saving: false,
     onLikeClick: () => {},
     onShareClick: () => {},
-    onEditClick: () => {},
     handlePostPopoverMenuClick: () => {},
   };
 
@@ -73,7 +73,6 @@ export default class Buttons extends React.Component {
     this.handleShareCancel = this.handleShareCancel.bind(this);
     this.handleShowReactions = this.handleShowReactions.bind(this);
     this.handleCloseReactions = this.handleCloseReactions.bind(this);
-    this.handleEdit = this.handleEdit.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -128,15 +127,9 @@ export default class Buttons extends React.Component {
     });
   }
 
-  handleEdit() {
-    this.setState({
-      loadingEdit: true,
-    });
-    this.props.onEditClick();
-  }
-
   renderPostPopoverMenu() {
     const {
+      pendingFlag,
       pendingFollow,
       pendingBookmark,
       saving,
@@ -146,6 +139,8 @@ export default class Buttons extends React.Component {
       handlePostPopoverMenuClick,
       ownPost,
     } = this.props;
+    const { isReported } = postState;
+
     let followText = '';
 
     if (postState.userFollowed && !pendingFollow) {
@@ -202,8 +197,21 @@ export default class Buttons extends React.Component {
         />
       </PopoverMenuItem>,
       <PopoverMenuItem key="report">
-        <i className="iconfont icon-flag" />
-        <FormattedMessage id="report_post" defaultMessage="Report post" />
+        {pendingFlag ? (
+          <Icon type="loading" />
+        ) : (
+          <i
+            className={classNames('iconfont', {
+              'icon-flag': !postState.isReported,
+              'icon-flag_fill': postState.isReported,
+            })}
+          />
+        )}
+        {isReported ? (
+          <FormattedMessage id="unflag_post" defaultMessage="Unflag post" />
+        ) : (
+          <FormattedMessage id="flag_post" defaultMessage="Flag post" />
+        )}
       </PopoverMenuItem>,
     ];
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
 import find from 'lodash/find';
 import { Helmet } from 'react-helmet';
 import sanitize from 'sanitize-html';
@@ -55,13 +56,14 @@ import StoryFull from '../components/Story/StoryFull';
     toggleBookmark,
     followUser,
     unfollowUser,
+    push,
   },
 )
 class PostContent extends React.Component {
   static propTypes = {
     user: PropTypes.shape().isRequired,
     content: PropTypes.shape().isRequired,
-    pendingLikes: PropTypes.arrayOf(PropTypes.number),
+    pendingLikes: PropTypes.shape(),
     reblogList: PropTypes.arrayOf(PropTypes.number),
     pendingReblogs: PropTypes.arrayOf(PropTypes.number),
     followingList: PropTypes.arrayOf(PropTypes.string),
@@ -80,10 +82,11 @@ class PostContent extends React.Component {
     reblog: PropTypes.func,
     followUser: PropTypes.func,
     unfollowUser: PropTypes.func,
+    push: PropTypes.func,
   };
 
   static defaultProps = {
-    pendingLikes: [],
+    pendingLikes: {},
     reblogList: [],
     pendingReblogs: [],
     followingList: [],
@@ -96,7 +99,14 @@ class PostContent extends React.Component {
     reblog: () => {},
     followUser: () => {},
     unfollowUser: () => {},
+    push: () => {},
   };
+
+  constructor(props) {
+    super(props);
+
+    this.handleReportClick = this.handleReportClick.bind(this);
+  }
 
   componentDidMount() {
     const { hash } = window.location;
@@ -118,7 +128,10 @@ class PostContent extends React.Component {
     }
   };
 
-  handleReportClick = post => this.props.votePost(post.id, post.author, post.permlink, -10000);
+  handleReportClick(post, postState) {
+    const weight = postState.isReported ? 0 : -10000;
+    this.props.votePost(post.id, post.author, post.permlink, weight);
+  }
 
   handleShareClick = post => this.props.reblog(post.id);
 
@@ -133,7 +146,11 @@ class PostContent extends React.Component {
     }
   };
 
-  handleEditClick = post => this.props.editPost(post);
+  handleEditClick = post => {
+    if (post.depth === 0) return this.props.editPost(post);
+    this.props.push(`${post.url}-edit`);
+    return Promise.resolve(null);
+  };
 
   render() {
     const {
@@ -172,6 +189,16 @@ class PostContent extends React.Component {
       userFollowed: followingList.includes(content.author),
     };
 
+    const pendingLike =
+      pendingLikes[content.id] &&
+      (pendingLikes[content.id].weight > 0 ||
+        (pendingLikes[content.id].weight === 0 && postState.isLiked));
+
+    const pendingFlag =
+      pendingLikes[content.id] &&
+      (pendingLikes[content.id].weight < 0 ||
+        (pendingLikes[content.id].weight === 0 && postState.isReported));
+
     const { title, category, created, author, body } = content;
     const postMetaImage = postMetaData.image && postMetaData.image[0];
     const htmlBody = getHtml(body, {}, 'text');
@@ -209,7 +236,8 @@ class PostContent extends React.Component {
           post={content}
           postState={postState}
           commentCount={content.children}
-          pendingLike={pendingLikes.includes(content.id)}
+          pendingLike={pendingLike}
+          pendingFlag={pendingFlag}
           pendingFollow={pendingFollows.includes(content.author)}
           pendingBookmark={pendingBookmarks.includes(content.id)}
           saving={saving}
