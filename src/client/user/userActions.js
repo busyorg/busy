@@ -1,64 +1,6 @@
 import { createAction } from 'redux-actions';
-import { getFeed, getPosts, getIsAuthenticated, getAuthenticatedUserName } from '../reducers';
-import { getUserCommentsFromState, getFeedLoadingFromState } from '../helpers/stateHelpers';
+import { getIsAuthenticated, getAuthenticatedUserName } from '../reducers';
 import { getAllFollowing } from '../helpers/apiHelpers';
-
-export const GET_USER_COMMENTS = 'GET_USER_COMMENTS';
-export const GET_USER_COMMENTS_START = 'GET_USER_COMMENTS_START';
-export const GET_USER_COMMENTS_SUCCESS = 'GET_USER_COMMENTS_SUCCESS';
-export const GET_USER_COMMENTS_ERROR = 'GET_USER_COMMENTS_ERROR';
-
-export const GET_MORE_USER_COMMENTS = 'GET_MORE_USER_COMMENTS';
-export const GET_MORE_USER_COMMENTS_START = 'GET_MORE_USER_COMMENTS_START';
-export const GET_MORE_USER_COMMENTS_SUCCESS = 'GET_MORE_USER_COMMENTS_SUCCESS';
-export const GET_MORE_USER_COMMENTS_ERROR = 'GET_MORE_USER_COMMENTS_ERROR';
-
-export const getUserComments = ({ username, limit = 10 }) => (dispatch, getState, { steemAPI }) => {
-  const feed = getFeed(getState());
-  if (feed.comments[username] && feed.comments[username].isLoaded) {
-    return null;
-  }
-
-  return dispatch({
-    type: GET_USER_COMMENTS,
-    payload: {
-      promise: steemAPI.sendAsync('get_discussions_by_comments', [
-        { start_author: username, limit },
-      ]),
-    },
-    meta: { username, limit },
-  });
-};
-
-export const getMoreUserComments = (username, limit) => (dispatch, getState, { steemAPI }) => {
-  const feed = getFeed(getState());
-  const posts = getPosts(getState());
-
-  const feedContent = getUserCommentsFromState(username, feed, posts);
-  const isLoading = getFeedLoadingFromState('comments', username, feed);
-
-  if (!feedContent.length || isLoading) {
-    return null;
-  }
-
-  const userComments = getUserCommentsFromState(username, feed, posts);
-  const startAuthor = userComments[userComments.length - 1].author;
-  const startPermlink = userComments[userComments.length - 1].permlink;
-
-  return dispatch({
-    type: GET_MORE_USER_COMMENTS,
-    payload: {
-      promise: steemAPI.sendAsync('get_discussions_by_comments', [
-        {
-          start_author: startAuthor,
-          start_permlink: startPermlink,
-          limit,
-        },
-      ]),
-    },
-    meta: { username, limit },
-  });
-};
 
 export const FOLLOW_USER = '@user/FOLLOW_USER';
 export const FOLLOW_USER_START = '@user/FOLLOW_USER_START';

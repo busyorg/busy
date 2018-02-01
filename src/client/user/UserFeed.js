@@ -8,7 +8,7 @@ import {
   getFeedLoadingFromState,
   getFeedHasMoreFromState,
 } from '../helpers/stateHelpers';
-import { getUserFeedContent, getMoreUserFeedContent } from '../feed/feedActions';
+import { getFeedContent, getMoreFeedContent } from '../feed/feedActions';
 
 @connect(
   state => ({
@@ -16,8 +16,8 @@ import { getUserFeedContent, getMoreUserFeedContent } from '../feed/feedActions'
     posts: getPosts(state),
   }),
   {
-    getUserFeedContent,
-    getMoreUserFeedContent,
+    getFeedContent,
+    getMoreFeedContent,
   },
 )
 export default class UserProfileFeed extends React.Component {
@@ -26,8 +26,8 @@ export default class UserProfileFeed extends React.Component {
     posts: PropTypes.shape(),
     match: PropTypes.shape(),
     limit: PropTypes.number,
-    getUserFeedContent: PropTypes.func,
-    getMoreUserFeedContent: PropTypes.func,
+    getFeedContent: PropTypes.func,
+    getMoreFeedContent: PropTypes.func,
   };
 
   static defaultProps = {
@@ -35,14 +35,14 @@ export default class UserProfileFeed extends React.Component {
     posts: {},
     match: {},
     limit: 10,
-    getUserFeedContent: () => {},
-    getMoreUserFeedContent: () => {},
+    getFeedContent: () => {},
+    getMoreFeedContent: () => {},
   };
 
   componentDidMount() {
-    this.props.getUserFeedContent({
+    this.props.getFeedContent({
       sortBy: 'feed',
-      username: this.props.match.params.name,
+      category: this.props.match.params.name,
       limit: this.props.limit,
     });
   }
@@ -54,7 +54,7 @@ export default class UserProfileFeed extends React.Component {
     const isFetching = getFeedLoadingFromState('feed', username, feed);
     const hasMore = getFeedHasMoreFromState('feed', username, feed);
     const loadMoreContentAction = () =>
-      this.props.getMoreUserFeedContent({
+      this.props.getMoreFeedContent({
         sortBy: 'feed',
         username,
         limit: this.props.limit,

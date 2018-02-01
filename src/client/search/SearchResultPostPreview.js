@@ -8,7 +8,7 @@ import BodyShort from '../components/Story/BodyShort';
 import Topic from '../components/Button/Topic';
 
 const SearchResultPostPreview = ({ author, summary, created, permlink, title, tags }) => {
-  const postUrl = `/p/@${author}/${permlink}`;
+  const postUrl = `/@${author}/${permlink}`;
   return (
     <div className="Search__post">
       <div className="Search__post__header">

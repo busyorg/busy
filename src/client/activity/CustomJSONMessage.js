@@ -53,7 +53,7 @@ const CustomJSONMessage = ({ actionDetails, currentUsername }) => {
           defaultMessage="reblogged {postLink}"
           values={{
             postLink: (
-              <Link to={`/p/@${customActionDetails.author}/${customActionDetails.permlink}`}>{`@${
+              <Link to={`/@${customActionDetails.author}/${customActionDetails.permlink}`}>{`@${
                 customActionDetails.author
               }/${customActionDetails.permlink}`}</Link>
             ),
