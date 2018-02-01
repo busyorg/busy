@@ -95,7 +95,15 @@ app.get('/i/:parent/@:referral/:permlink', (req, res) => {
     });
 });
 
-app.get('/:category/@:author/:permlink/amp', ampHandler);
+app.get('/@:author/:permlink/amp', ampHandler);
+app.get('/:category/@:author/:permlink/amp', (req, res) => {
+  const { author, permlink } = req.params;
+  res.redirect(301, `/@${author}/${permlink}/amp`);
+});
+app.get('/:category/@:author/:permlink', (req, res) => {
+  const { author, permlink } = req.params;
+  res.redirect(301, `/@${author}/${permlink}`);
+});
 app.get('/*', ssrHandler);
 
 module.exports = { app, server };

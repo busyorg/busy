@@ -13,6 +13,7 @@ import './SidebarContentBlock.less';
 class PostRecommendation extends Component {
   static propTypes = {
     location: PropTypes.shape().isRequired,
+    match: PropTypes.shape().isRequired,
     isAuthFetching: PropTypes.bool.isRequired,
   };
   constructor(props) {
@@ -70,9 +71,9 @@ class PostRecommendation extends Component {
   };
 
   getFilteredPosts = () => {
-    const currentPostPermlink = this.props.location.pathname.split('/')[3];
+    const { match } = this.props;
     return this.state.recommendedPosts
-      .filter(post => post.permlink !== currentPostPermlink)
+      .filter(post => post.permlink !== match.params.permlink)
       .slice(0, 3);
   };
 

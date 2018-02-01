@@ -7,6 +7,7 @@ import { Helmet } from 'react-helmet';
 import sanitize from 'sanitize-html';
 import getImage from '../helpers/getImage';
 import { getHasDefaultSlider } from '../helpers/user';
+import { dropCategory } from '../helpers/postHelpers';
 import {
   getAuthenticatedUser,
   getBookmarks,
@@ -205,8 +206,8 @@ class PostContent extends React.Component {
     const bodyText = sanitize(htmlBody, { allowedTags: [] });
     const desc = `${bodyText.substring(0, 140)} by ${author}`;
     const image = postMetaImage || getImage(`@${author}`) || '/images/logo.png';
-    const canonicalUrl = `${canonicalHost}${content.url}`;
-    const url = `${busyHost}${content.url}`;
+    const canonicalUrl = `${canonicalHost}${dropCategory(content.url)}`;
+    const url = `${busyHost}${dropCategory(content.url)}`;
     const ampUrl = `${url}/amp`;
     const metaTitle = `${title} - Busy`;
 

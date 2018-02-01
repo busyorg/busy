@@ -4,4 +4,6 @@ export const dtubeImageRegex = /<a href="https:\/\/d.tube.#!\/v\/[^/"]+\/[^/"]+"
 
 export const usernameURLRegex = /@([^/]+)/;
 
+export const categoryRegex = /\/([^/]+)/;
+
 export default null;

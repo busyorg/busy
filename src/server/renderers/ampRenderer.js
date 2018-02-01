@@ -3,6 +3,7 @@ import cheerio from 'cheerio';
 import Handlebars from 'handlebars';
 import HandlebarsIntl from 'handlebars-intl';
 import { getHtml } from '../../client/components/Story/Body';
+import { dropCategory } from '../../client/helpers/postHelpers';
 
 HandlebarsIntl.registerWith(Handlebars);
 
@@ -51,7 +52,7 @@ function getContext(post, body, appUrl) {
 
   const datePublished = `${post.created}Z`;
   const dateModified = `${post.last_update}Z`;
-  const canonical = `${appUrl}${post.url}`;
+  const canonical = `${appUrl}${dropCategory(post.url)}`;
 
   const manifest = {
     '@context': 'http://schema.org',
