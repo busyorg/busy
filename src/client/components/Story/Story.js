@@ -7,7 +7,8 @@ import {
   FormattedDate,
   FormattedTime,
 } from 'react-intl';
-import { Link } from 'react-router-dom';
+import _ from 'lodash';
+import { Link, withRouter } from 'react-router-dom';
 import { Tag, Tooltip } from 'antd';
 import formatter from '../../helpers/steemitFormatter';
 import { isPostTaggedNSFW } from '../../helpers/postHelpers';
@@ -22,6 +23,7 @@ import HiddenStoryPreviewMessage from './HiddenStoryPreviewMessage';
 import PostedFrom from './PostedFrom';
 import './Story.less';
 
+@withRouter
 @injectIntl
 @withAuthActions
 class Story extends React.Component {
@@ -40,6 +42,7 @@ class Story extends React.Component {
     saving: PropTypes.bool,
     ownPost: PropTypes.bool,
     sliderMode: PropTypes.oneOf(['on', 'off', 'auto']),
+    history: PropTypes.shape(),
     onFollowClick: PropTypes.func,
     onSaveClick: PropTypes.func,
     onReportClick: PropTypes.func,
@@ -56,6 +59,7 @@ class Story extends React.Component {
     saving: false,
     ownPost: false,
     sliderMode: 'auto',
+    history: {},
     onFollowClick: () => {},
     onSaveClick: () => {},
     onReportClick: () => {},
@@ -78,6 +82,7 @@ class Story extends React.Component {
     this.handlePostPopoverMenuClick = this.handlePostPopoverMenuClick.bind(this);
     this.handleShowStoryPreview = this.handleShowStoryPreview.bind(this);
     this.handlePostModalDisplay = this.handlePostModalDisplay.bind(this);
+    this.handlePreviewClickPostModalDisplay = this.handlePreviewClickPostModalDisplay.bind(this);
   }
 
   getDisplayStoryPreview() {
@@ -127,10 +132,26 @@ class Story extends React.Component {
 
   handlePostModalDisplay() {
     const { post } = this.props;
+    const isReplyPreview = _.isEmpty(post.title);
+
+    if (isReplyPreview) {
+      this.props.history.push(post.url);
+    } else {
+      this.props.showPostModal(post);
+    }
+  }
+
+  handlePreviewClickPostModalDisplay() {
+    const { post } = this.props;
     const hasVideo = postHasVideo(post);
+    const isReplyPreview = _.isEmpty(post.title);
 
     if (!hasVideo) {
-      this.props.showPostModal(post);
+      if (isReplyPreview) {
+        this.props.history.push(post.url);
+      } else {
+        this.props.showPostModal(post);
+      }
     }
   }
 
@@ -230,7 +251,7 @@ class Story extends React.Component {
           <div className="Story__content">
             <a
               role="presentation"
-              onClick={() => this.props.showPostModal(post)}
+              onClick={this.handlePostModalDisplay}
               className="Story__content__title"
             >
               <h2>
@@ -245,7 +266,7 @@ class Story extends React.Component {
             {showStoryPreview ? (
               <a
                 role="presentation"
-                onClick={this.handlePostModalDisplay}
+                onClick={this.handlePreviewClickPostModalDisplay}
                 className="Story__content__preview"
               >
                 <StoryPreview post={post} />

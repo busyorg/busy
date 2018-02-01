@@ -77,7 +77,7 @@ class PostModal extends React.Component {
         onCancel={this.props.hidePostModal}
         width={767}
         wrapClassName={classNames('PostModal', { PostModal__hidden: !showPostModal })}
-        destroyOnHide
+        destroyOnClose
       >
         <div className="PostModal__back">
           <a

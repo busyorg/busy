@@ -17,7 +17,7 @@ import {
   getFeedHasMoreFromState,
 } from '../helpers/stateHelpers';
 import { getFeedContent, getMoreFeedContent } from '../feed/feedActions';
-import { showPostModal } from '../app/appActions';
+import { showPostModal, hidePostModal } from '../app/appActions';
 import EmptyUserProfile from '../statics/EmptyUserProfile';
 import EmptyUserOwnProfile from '../statics/EmptyUserOwnProfile';
 import PostModal from '../post/PostModalContainer';
@@ -33,7 +33,8 @@ import PostModal from '../post/PostModalContainer';
   {
     getFeedContent,
     getMoreFeedContent,
-    showPostModal: postID => dispatch => dispatch(showPostModal(postID)),
+    showPostModal,
+    hidePostModal,
   },
 )
 export default class UserProfile extends React.Component {
@@ -45,6 +46,7 @@ export default class UserProfile extends React.Component {
     posts: PropTypes.shape().isRequired,
     match: PropTypes.shape().isRequired,
     showPostModal: PropTypes.func.isRequired,
+    hidePostModal: PropTypes.func.isRequired,
     limit: PropTypes.number,
     getFeedContent: PropTypes.func,
     getMoreFeedContent: PropTypes.func,
@@ -80,6 +82,7 @@ export default class UserProfile extends React.Component {
         category: nextProps.match.params.name,
         limit: nextProps.limit,
       });
+      this.props.hidePostModal();
     }
   }
 

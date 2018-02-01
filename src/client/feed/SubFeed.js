@@ -127,6 +127,10 @@ class SubFeed extends React.Component {
     }
   }
 
+  componentWillUnmount() {
+    this.props.hidePostModal();
+  }
+
   render() {
     const { authenticated, loaded, user, feed, posts, match, showPostModalState } = this.props;
 
