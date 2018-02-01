@@ -291,5 +291,6 @@
   "login_to_busy": "Login to Busy",
   "login_modal_description": "Login with your Steem account using SteemConnect to enjoy Busy at 100%",
   "login_with_steemconnect": "Login with SteemConnect",
+  "back": "Back",
   "follows_you": "Follows you"
 }

@@ -1,0 +1,139 @@
+@import (reference) '../styles/custom.less';
+@import (reference) '../styles/modules/variables.less';
+
+.ant-modal-mask {
+  animation: 0s !important;
+}
+
+.ant-modal-mask.fade-leave {
+  display: none;
+}
+
+.PostModal {
+  background-clip: padding-box;
+  background-color: @white;
+  border-radius: 4px;
+  border: 0;
+  bottom: 40px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  left: 40px;
+  margin: 0 auto;
+  outline: none;
+  overflow: auto;
+  padding: 32px 56px;
+  position: relative;
+  right: 40px;
+  top: 40px;
+  width: 760px;
+
+  &__overlay {
+    z-index: 1200;
+    background-color: rgba(242, 242, 242, 0.97) !important;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow-y: auto;
+  }
+
+  &__before-close {
+    display: none;
+  }
+
+  &__hidden {
+    display: none;
+  }
+
+  &__back {
+    align-items: center;
+    background: @white;
+    border-bottom: 1px solid @white-gainsboro;
+    display: flex;
+    left: 0;
+    height: 50px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+
+    &__link {
+      align-items: center;
+      display: flex;
+      color: @blue-botticelli;
+      font-size: 20px !important;
+      font-weight: bold;
+
+      &:hover {
+        color: @blue-botticelli;
+      }
+
+      .icon-return {
+        font-size: 23px !important;
+        padding-left: 10px;
+        padding-right: 5px;
+      }
+    }
+
+    @media @medium {
+      display: none;
+    }
+  }
+
+  .StoryFull {
+    margin-top: 50px !important;
+
+    @media @medium {
+      margin-top: 12px !important;
+    }
+  }
+
+  &__actions-container {
+    background: transparent;
+    display: none;
+    flex-direction: column;
+    position: fixed;
+    top: 36px;
+    transform: translateX(737px);
+    width: 57px;
+
+    @media @medium {
+      display: flex;
+    }
+  }
+
+  &__action {
+    background: @white;
+    border-radius: 50px;
+    border: 1px solid @white-gainsboro;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    color: @blue-heather !important;
+    display: flex;
+    margin: 5px;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+
+    &:hover {
+      color: @blue-heather !important;
+    }
+  }
+
+  &__icon {
+    font-style: normal;
+    vertical-align: baseline;
+    text-align: center;
+    text-transform: none;
+    text-rendering: auto;
+    width: 100%;
+    font-size: 21px !important;
+  }
+
+  &__icon.icon-twitter {
+    color: @twitter-link-color;
+  }
+}
+
+.ant-modal-mask-hidden + .PostModal {
+  display: none !important;
+}
