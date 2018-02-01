@@ -77,6 +77,8 @@
   "comment_send_progress": "Commenting",
   "comment_update_send": "Update comment",
   "comment_update_progress": "Updating",
+  "notify_comment_sent": "Comment submitted",
+  "notify_comment_updated": "Comment updated",
   "reblog": "Reblog",
   "reblog_reblogged": "You already reblogged this post",
   "reblog_modal_title": "Reblog this post?",
