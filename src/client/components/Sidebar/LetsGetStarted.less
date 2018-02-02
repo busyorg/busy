@@ -1,4 +1,5 @@
 @import (reference) '../../styles/custom.less';
+@import (reference) '../../styles/modules/variables.less';
 
 .LetsGetStarted {
   &__title {
@@ -36,7 +37,7 @@
       }
     }
 
-    &__selected {
+    &__completed {
       text-decoration: line-through;
     }
 
@@ -47,6 +48,14 @@
     &:last-of-type {
       border-bottom: 0;
       padding-bottom: 0;
+    }
+  }
+
+  &__mobile-only {
+    display: block;
+
+    @media @small {
+      display: none;
     }
   }
 
