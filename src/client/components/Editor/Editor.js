@@ -119,7 +119,10 @@ class Editor extends React.Component {
     setTimeout(() => {
       this.props.form.validateFieldsAndScroll((err, values) => {
         if (err) this.props.onError();
-        else this.props.onUpdate(values);
+        else {
+          this.setBodyAndRender(values.body);
+          this.props.onUpdate(values);
+        }
       });
     }, 0);
   }
