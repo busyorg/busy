@@ -14,6 +14,7 @@ describe('settingsReducer', () => {
     rewriteLinks: false,
     upvoteSetting: true,
     rewardSetting: rewardsValues.half,
+    useBeta: false,
   };
 
   it('should return initial state', () => {

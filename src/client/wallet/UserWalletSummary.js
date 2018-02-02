@@ -48,6 +48,8 @@ const UserWalletSummary = ({
   totalVestingFundSteem,
   loadingGlobalProperties,
   steemRate,
+  sbdRate,
+  steemRateLoading,
 }) => (
   <div className="UserWalletSummary">
     <div className="UserWalletSummary__item">
@@ -131,7 +133,7 @@ const UserWalletSummary = ({
         <FormattedMessage id="est_account_value" defaultMessage="Est. Account Value" />
       </div>
       <div className="UserWalletSummary__value">
-        {loading || loadingGlobalProperties ? (
+        {loading || loadingGlobalProperties || steemRateLoading ? (
           <Loading />
         ) : (
           <USDDisplay
@@ -140,6 +142,7 @@ const UserWalletSummary = ({
               totalVestingShares,
               totalVestingFundSteem,
               steemRate,
+              sbdRate,
             )}
           />
         )}
@@ -153,12 +156,17 @@ UserWalletSummary.propTypes = {
   user: PropTypes.shape().isRequired,
   totalVestingShares: PropTypes.string.isRequired,
   totalVestingFundSteem: PropTypes.string.isRequired,
+  steemRate: PropTypes.number,
+  sbdRate: PropTypes.number,
   loading: PropTypes.bool,
-  steemRate: PropTypes.number.isRequired,
+  steemRateLoading: PropTypes.bool,
 };
 
 UserWalletSummary.defaultProps = {
+  steemRate: 1,
+  sbdRate: 1,
   loading: false,
+  steemRateLoading: false,
 };
 
 export default UserWalletSummary;
