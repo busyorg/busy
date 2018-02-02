@@ -91,7 +91,7 @@ class LetsGetStarted extends React.Component {
       0,
     );
     const hideSidebarContent =
-      currentSelected === totalOptions || (isAuthFetching || isFetchingFollowingList);
+      currentSelected === totalOptions || isAuthFetching || isFetchingFollowingList;
 
     if (hideSidebarContent) return <div />;
 
