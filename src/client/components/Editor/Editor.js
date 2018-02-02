@@ -136,10 +136,21 @@ class Editor extends React.Component {
   }
 
   setValues(post) {
+    // NOTE: Used to rollback damaged drafts - https://github.com/busyorg/busy/issues/1412
+    // Might be deleted after a while.
+    let reward = rewardsValues.half;
+    if (
+      post.rewad === rewardsValues.all ||
+      post.reward === rewardsValues.half ||
+      post.reward === rewardsValues.none
+    ) {
+      reward = post.reward;
+    }
+
     this.props.form.setFieldsValue({
       title: post.title,
       topics: post.topics,
-      reward: post.reward,
+      reward,
       upvote: post.upvote,
     });
 
