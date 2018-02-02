@@ -86,8 +86,9 @@ class EditorInput extends React.Component {
   setValue(value, start, end) {
     this.props.onChange(value);
     if (start && end) {
-      this.input.electionStart = start;
-      this.input.selectionEnd = end;
+      setTimeout(() => {
+        this.input.setSelectionRange(start, end);
+      }, 0);
     }
   }
 
