@@ -202,6 +202,7 @@ export const calculateEstAccountValue = (
   totalVestingShares,
   totalVestingFundSteem,
   steemRate,
+  sbdRate,
 ) => {
   const steemPower = formatter.vestToSteem(
     user.vesting_shares,
@@ -210,6 +211,6 @@ export const calculateEstAccountValue = (
   );
   return (
     parseFloat(steemRate) * (parseFloat(user.balance) + parseFloat(steemPower)) +
-    parseFloat(user.sbd_balance)
+    parseFloat(user.sbd_balance) * parseFloat(sbdRate)
   );
 };
