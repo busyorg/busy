@@ -1,5 +1,5 @@
-@import (reference) '../../styles/custom.less';
-@import (reference) '../../styles/modules/variables.less';
+@import (reference) '../styles/custom.less';
+@import (reference) '../styles/modules/variables.less';
 
 .LetsGetStarted {
   &__title {
@@ -39,6 +39,10 @@
 
     &__completed {
       text-decoration: line-through;
+    }
+
+    a {
+      color: @black !important;
     }
 
     &:first-of-type {

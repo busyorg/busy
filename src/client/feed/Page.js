@@ -14,7 +14,7 @@ import Affix from '../components/Utils/Affix';
 import ScrollToTop from '../components/Utils/ScrollToTop';
 import ScrollToTopOnMount from '../components/Utils/ScrollToTopOnMount';
 import QuickPostEditor from '../components/QuickPostEditor/QuickPostEditor';
-import LetsGetStarted from '../components/Sidebar/LetsGetStarted';
+import LetsGetStarted from './LetsGetStarted';
 
 @connect(state => ({
   authenticated: getIsAuthenticated(state),
@@ -50,6 +50,7 @@ class Page extends React.Component {
     const { category, sortBy } = match.params;
 
     const shouldDisplaySelector = location.pathname !== '/' || (!authenticated && loaded);
+    const shouldDisplayLetsGetStarted = location.pathname === '/' && authenticated;
 
     const robots = location.pathname === '/' ? 'index,follow' : 'noindex,follow';
 
@@ -85,7 +86,7 @@ class Page extends React.Component {
                 />
               )}
               {authenticated && <QuickPostEditor />}
-              {authenticated && <LetsGetStarted displayMobileOnly />}
+              {shouldDisplayLetsGetStarted && <LetsGetStarted />}
               <SubFeed />
             </div>
           </div>

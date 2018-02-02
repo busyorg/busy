@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Loading from '../Icon/Loading';
+import Loading from '../components/Icon/Loading';
 
 const LetsGetStartedIcon = ({ renderCheck, isLoading, iconClassName }) => {
   const checkedIcon = (

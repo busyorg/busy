@@ -19,7 +19,6 @@ import Loading from '../../components/Icon/Loading';
 import UserActivitySearch from '../../activity/UserActivitySearch';
 import WalletSidebar from '../../components/Sidebar/WalletSidebar';
 import FeedSidebar from '../../components/Sidebar/FeedSidebar';
-import LetsGetStarted from '../../components/Sidebar/LetsGetStarted';
 
 @withRouter
 @connect(
@@ -96,7 +95,6 @@ export default class RightSidebar extends React.Component {
             path="/"
             render={() => (
               <div>
-                {authenticated && <LetsGetStarted />}
                 {authenticated &&
                 this.props.recommendations.length > 0 &&
                 !showPostRecommendation ? (

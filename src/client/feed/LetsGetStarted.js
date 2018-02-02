@@ -5,16 +5,15 @@ import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
-import { Tooltip } from 'antd';
 import {
   getAuthenticatedUser,
   getFollowingList,
   getIsAuthFetching,
   getIsFetchingFollowingList,
-} from '../../reducers';
-import HorizontalBarChart from '../HorizontalBarChart';
+} from '../reducers';
+import HorizontalBarChart from '../components/HorizontalBarChart';
 import LetsGetStartedIcon from './LetsGetStartedIcon';
-import './SidebarContentBlock.less';
+import '../components/Sidebar/SidebarContentBlock.less';
 import './LetsGetStarted.less';
 
 @connect(state => ({
@@ -29,11 +28,6 @@ class LetsGetStarted extends React.Component {
     isAuthFetching: PropTypes.bool.isRequired,
     isFetchingFollowingList: PropTypes.bool.isRequired,
     authenticatedUser: PropTypes.shape().isRequired,
-    displayMobileOnly: PropTypes.bool,
-  };
-
-  static defaultProps = {
-    displayMobileOnly: false,
   };
 
   static getCurrentUserState(authenticatedUser, followingList) {
@@ -82,7 +76,7 @@ class LetsGetStarted extends React.Component {
   }
 
   render() {
-    const { isAuthFetching, isFetchingFollowingList, displayMobileOnly } = this.props;
+    const { isAuthFetching, isFetchingFollowingList } = this.props;
     const { hasProfile, hasPost, hasVoted, hasFollowed } = this.state;
     const totalOptions = 4;
     const currentSelected = _.reduce(
@@ -102,11 +96,7 @@ class LetsGetStarted extends React.Component {
     if (hideSidebarContent) return <div />;
 
     return (
-      <div
-        className={classNames('LetsGetStarted SidebarContentBlock', {
-          'LetsGetStarted__mobile-only': displayMobileOnly,
-        })}
-      >
+      <div className="LetsGetStarted SidebarContentBlock">
         <h4 className="LetsGetStarted__title SidebarContentBlock__title">
           <span className="LetsGetStarted__title__text">
             <FormattedMessage id="lets_get_started" defaultMessage="Let's get started" />
@@ -124,27 +114,18 @@ class LetsGetStarted extends React.Component {
               isLoading={isAuthFetching}
               iconClassName="icon-mine"
             />
-            <Tooltip
-              title={
+            <Link to="/edit-profile">
+              <span
+                className={classNames('LetsGetStarted__action__text', {
+                  LetsGetStarted__action__completed: hasProfile,
+                })}
+              >
                 <FormattedMessage
-                  id="complete_profile_tooltip"
-                  defaultMessage="Must fill out the name, about, and profile picture fields"
+                  id="complete_your_profile"
+                  defaultMessage="Complete your profile"
                 />
-              }
-            >
-              <Link to="/edit-profile">
-                <span
-                  className={classNames('LetsGetStarted__action__text', {
-                    LetsGetStarted__action__completed: hasProfile,
-                  })}
-                >
-                  <FormattedMessage
-                    id="complete_your_profile"
-                    defaultMessage="Complete your profile"
-                  />
-                </span>
-              </Link>
-            </Tooltip>
+              </span>
+            </Link>
           </div>
           <div className="LetsGetStarted__action">
             <LetsGetStartedIcon
