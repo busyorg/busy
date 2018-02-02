@@ -1,3 +1,4 @@
+@import (reference) '../../styles/modules/variables.less';
 @import (reference) '../../styles/custom.less';
 
 .Comments {
@@ -6,14 +7,12 @@
   overflow: hidden;
 
   &__header {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
+    display: block;
     padding-bottom: 16px;
 
     &__sort {
-      text-align: right;
+      margin: 8px 0 0 -8px;
+      text-align: left;
 
       & > a {
         margin: 0 8px;
@@ -27,6 +26,18 @@
         &.active {
           color: @purple !important;
         }
+      }
+    }
+
+    @media @small {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+
+      &__sort {
+        margin: 0;
+        text-align: right;
       }
     }
   }
