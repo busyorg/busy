@@ -11,7 +11,7 @@ import './EditorInput.less';
 
 class EditorInput extends React.Component {
   static propTypes = {
-    initialValue: PropTypes.string,
+    value: PropTypes.string, // eslint-disable-line react/require-default-props
     addon: PropTypes.node,
     inputRef: PropTypes.func,
     autosize: PropTypes.oneOfType([
@@ -27,7 +27,6 @@ class EditorInput extends React.Component {
   };
 
   static defaultProps = {
-    initialValue: '',
     addon: null,
     autosize: false,
     inputRef: () => {},
@@ -54,11 +53,9 @@ class EditorInput extends React.Component {
     super(props);
 
     this.state = {
-      value: props.initialValue,
+      imageUploading: false,
       dropzoneActive: false,
     };
-
-    props.onChange(this.state.value);
 
     this.setInput = this.setInput.bind(this);
     this.disableAndInsertImage = this.disableAndInsertImage.bind(this);
@@ -77,12 +74,6 @@ class EditorInput extends React.Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.initialValue !== this.props.initialValue) {
-      this.setValue(nextProps.initialValue);
-    }
-  }
-
   setInput(input) {
     if (input && input.refs && input.refs.input) {
       this.originalInput = input.refs.input;
@@ -93,24 +84,17 @@ class EditorInput extends React.Component {
   }
 
   setValue(value, start, end) {
-    this.setState(
-      {
-        value,
-      },
-      () => {
-        this.props.onChange(value);
-        if (start && end) {
-          this.input.electionStart = start;
-          this.input.selectionEnd = end;
-        }
-      },
-    );
+    this.props.onChange(value);
+    if (start && end) {
+      this.input.electionStart = start;
+      this.input.selectionEnd = end;
+    }
   }
 
   insertAtCursor(before, after, deltaStart = 0, deltaEnd = 0) {
     if (!this.input) return;
 
-    const { value } = this.state;
+    const { value } = this.props;
 
     const startPos = this.input.selectionStart;
     const endPos = this.input.selectionEnd;
@@ -134,7 +118,7 @@ class EditorInput extends React.Component {
   insertImage(image, imageName = 'image') {
     if (!this.input) return;
 
-    const { value } = this.state;
+    const { value } = this.props;
 
     const startPos = this.input.selectionStart;
     const endPos = this.input.selectionEnd;
@@ -308,8 +292,8 @@ class EditorInput extends React.Component {
   }
 
   render() {
-    const { addon, autosize } = this.props;
-    const { value, dropzoneActive } = this.state;
+    const { addon, autosize, value } = this.props;
+    const { dropzoneActive } = this.state;
 
     return (
       <React.Fragment>
