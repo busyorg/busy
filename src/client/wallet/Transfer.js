@@ -2,16 +2,21 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { injectIntl, FormattedMessage } from 'react-intl';
+import _ from 'lodash';
 import { Form, Input, Radio, Modal } from 'antd';
+import { STEEM, SBD } from '../../common/constants/cryptos';
 import steemAPI from '../steemAPI';
 import SteemConnect from '../steemConnectAPI';
+import { getCryptoPriceHistory } from '../app/appActions';
 import { closeTransfer } from './walletActions';
 import {
   getIsAuthenticated,
   getAuthenticatedUser,
   getIsTransferVisible,
   getTransferTo,
+  getCryptosPriceHistory,
 } from '../reducers';
+import USDDisplay from '../components/Utils/USDDisplay';
 import './Transfer.less';
 
 @injectIntl
@@ -21,9 +26,11 @@ import './Transfer.less';
     to: getTransferTo(state),
     authenticated: getIsAuthenticated(state),
     user: getAuthenticatedUser(state),
+    cryptosPriceHistory: getCryptosPriceHistory(state),
   }),
   {
     closeTransfer,
+    getCryptoPriceHistory,
   },
 )
 @Form.create()
@@ -35,6 +42,8 @@ export default class Transfer extends React.Component {
     authenticated: PropTypes.bool.isRequired,
     user: PropTypes.shape().isRequired,
     form: PropTypes.shape().isRequired,
+    cryptosPriceHistory: PropTypes.shape().isRequired,
+    getCryptoPriceHistory: PropTypes.func.isRequired,
     closeTransfer: PropTypes.func,
   };
 
@@ -51,9 +60,23 @@ export default class Transfer extends React.Component {
   static exchangeRegex = /^(bittrex|blocktrades|poloniex|changelly|openledge|shapeshiftio)$/;
 
   state = {
-    currency: 'STEEM',
+    currency: STEEM.symbol,
     oldAmount: undefined,
   };
+
+  componentDidMount() {
+    const { cryptosPriceHistory } = this.props;
+    const currentSteemRate = _.get(cryptosPriceHistory, 'STEEM.priceDetails.currentUSDPrice', null);
+    const currentSBDRate = _.get(cryptosPriceHistory, 'SBD.priceDetails.currentUSDPrice', null);
+
+    if (_.isNull(currentSteemRate)) {
+      this.props.getCryptoPriceHistory(STEEM.symbol);
+    }
+
+    if (_.isNull(currentSBDRate)) {
+      this.props.getCryptoPriceHistory(SBD.symbol);
+    }
+  }
 
   componentWillReceiveProps(nextProps) {
     const { form, to } = nextProps;
@@ -61,18 +84,23 @@ export default class Transfer extends React.Component {
       form.setFieldsValue({
         to,
         amount: undefined,
-        currency: 'STEEM',
+        currency: STEEM.symbol,
         memo: undefined,
       });
       this.setState({
-        currency: 'STEEM',
+        currency: STEEM.symbol,
       });
     }
   }
 
   handleBalanceClick = event => {
+    const { oldAmount } = this.state;
+    const value = parseFloat(event.currentTarget.innerText);
+    this.setState({
+      oldAmount: Transfer.amountRegex.test(value) ? value : oldAmount,
+    });
     this.props.form.setFieldsValue({
-      amount: parseFloat(event.currentTarget.innerText),
+      amount: value,
     });
   };
 
@@ -224,18 +252,49 @@ export default class Transfer extends React.Component {
     }
   };
 
+  renderUSDValue() {
+    const { cryptosPriceHistory } = this.props;
+    const { currency, oldAmount } = this.state;
+    const currentSteemRate = _.get(cryptosPriceHistory, 'STEEM.priceDetails.currentUSDPrice', null);
+    const currentSBDRate = _.get(cryptosPriceHistory, 'SBD.priceDetails.currentUSDPrice', null);
+    const steemRateLoading = _.isNull(currentSteemRate) || _.isNull(currentSBDRate);
+    const parsedAmount = parseFloat(oldAmount);
+    const invalidAmount = parsedAmount <= 0 || _.isNaN(parsedAmount);
+    let amount = 0;
+
+    if (steemRateLoading || invalidAmount) return <div />;
+
+    if (currency === STEEM.symbol) {
+      amount = parsedAmount * parseFloat(currentSteemRate);
+    } else {
+      amount = parsedAmount * parseFloat(currentSBDRate);
+    }
+
+    return (
+      <div>
+        <FormattedMessage
+          id="transfer_current_usd_amount"
+          defaultMessage="Current USD value of this transfer: {amount}"
+          values={{
+            amount: <USDDisplay value={amount} />,
+          }}
+        />
+      </div>
+    );
+  }
+
   render() {
     const { intl, visible, authenticated, user } = this.props;
     const { getFieldDecorator } = this.props.form;
 
-    const balance = this.state.currency === 'STEEM' ? user.balance : user.sbd_balance;
+    const balance = this.state.currency === STEEM.symbol ? user.balance : user.sbd_balance;
 
     const currencyPrefix = getFieldDecorator('currency', {
       initialValue: this.state.currency,
     })(
       <Radio.Group onChange={this.handleCurrencyChange}>
-        <Radio.Button value="STEEM">STEEM</Radio.Button>
-        <Radio.Button value="SBD">SBD</Radio.Button>
+        <Radio.Button value={STEEM.symbol}>{STEEM.symbol}</Radio.Button>
+        <Radio.Button value={SBD.symbol}>{SBD.symbol}</Radio.Button>
       </Radio.Group>,
     );
 
@@ -316,6 +375,7 @@ export default class Transfer extends React.Component {
                 }}
               />
             )}
+            {this.renderUSDValue()}
           </Form.Item>
           <Form.Item label={<FormattedMessage id="memo" defaultMessage="Memo" />}>
             {getFieldDecorator('memo', {
