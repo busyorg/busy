@@ -10,6 +10,7 @@ import {
   getFollowingList,
   getIsAuthFetching,
   getIsFetchingFollowingList,
+  getIsAuthenticated,
 } from '../reducers';
 import HorizontalBarChart from '../components/HorizontalBarChart';
 import LetsGetStartedIcon from './LetsGetStartedIcon';
@@ -21,12 +22,14 @@ import './LetsGetStarted.less';
   followingList: getFollowingList(state),
   isAuthFetching: getIsAuthFetching(state),
   isFetchingFollowingList: getIsFetchingFollowingList(state),
+  authenticated: getIsAuthenticated(state),
 }))
 class LetsGetStarted extends React.Component {
   static propTypes = {
     followingList: PropTypes.arrayOf(PropTypes.string).isRequired,
     isAuthFetching: PropTypes.bool.isRequired,
     isFetchingFollowingList: PropTypes.bool.isRequired,
+    authenticated: PropTypes.bool.isRequired,
     authenticatedUser: PropTypes.shape().isRequired,
   };
 
@@ -76,7 +79,7 @@ class LetsGetStarted extends React.Component {
   }
 
   render() {
-    const { isAuthFetching, isFetchingFollowingList } = this.props;
+    const { authenticated, isFetchingFollowingList, isAuthFetching } = this.props;
     const { hasProfile, hasPost, hasVoted, hasFollowed } = this.state;
     const totalOptions = 4;
     const currentSelected = _.reduce(
@@ -91,7 +94,7 @@ class LetsGetStarted extends React.Component {
       0,
     );
     const hideSidebarContent =
-      currentSelected === totalOptions || isAuthFetching || isFetchingFollowingList;
+      currentSelected === totalOptions || !authenticated || isFetchingFollowingList;
 
     if (hideSidebarContent) return <div />;
 
