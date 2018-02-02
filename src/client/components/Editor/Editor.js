@@ -4,7 +4,7 @@ import Helmet from 'react-helmet';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 import { injectIntl, FormattedMessage } from 'react-intl';
-import { isEqual } from 'lodash';
+import _ from 'lodash';
 import readingTime from 'reading-time';
 import { Checkbox, Form, Input, Select, Button } from 'antd';
 import { rewardsValues } from '../../../common/constants/rewards';
@@ -83,6 +83,7 @@ class Editor extends React.Component {
     this.onUpdate = this.onUpdate.bind(this);
     this.setValues = this.setValues.bind(this);
     this.setBodyAndRender = this.setBodyAndRender.bind(this);
+    this.throttledUpdate = this.throttledUpdate.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -105,7 +106,7 @@ class Editor extends React.Component {
     const { title, topics, body, reward, upvote, draftId } = this.props;
     if (
       title !== nextProps.title ||
-      !isEqual(topics, nextProps.topics) ||
+      !_.isEqual(topics, nextProps.topics) ||
       body !== nextProps.body ||
       reward !== nextProps.reward ||
       upvote !== nextProps.upvote ||
@@ -116,15 +117,7 @@ class Editor extends React.Component {
   }
 
   onUpdate() {
-    setTimeout(() => {
-      this.props.form.validateFieldsAndScroll((err, values) => {
-        if (err) this.props.onError();
-        else {
-          this.setBodyAndRender(values.body);
-          this.props.onUpdate(values);
-        }
-      });
-    }, 0);
+    _.throttle(this.throttledUpdate, 200, { leading: false, trailing: true })();
   }
 
   setValues(post) {
@@ -153,6 +146,16 @@ class Editor extends React.Component {
   setBodyAndRender(body) {
     this.setState({
       bodyHTML: remarkable.render(body),
+    });
+  }
+
+  throttledUpdate() {
+    this.props.form.validateFieldsAndScroll((err, values) => {
+      if (err) this.props.onError();
+      else {
+        this.setBodyAndRender(values.body);
+        this.props.onUpdate(values);
+      }
     });
   }
 
