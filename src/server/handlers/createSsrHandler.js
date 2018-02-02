@@ -12,7 +12,7 @@ import getStore from '../../client/store';
 import routes from '../../common/routes';
 import renderSsrPage from '../renderers/ssrRenderer';
 import { setAppUrl, setUsedLocale } from '../../client/app/appActions';
-import { getLocale } from '../../client/reducers';
+import { getLocale, getUseBeta } from '../../client/reducers';
 
 import { getAvailableLocale } from '../../client/translations';
 import translations from '../translations';
@@ -60,6 +60,12 @@ export default function createSsrHandler(template) {
     return createTimeout(ssrTimeout, Promise.all(promises))
       .then(() => {
         const state = store.getState();
+        const useBeta = getUseBeta(state);
+
+        if (useBeta && req.hostname === 'busy.org') {
+          return res.redirect(`https://staging.busy.org${req.originalUrl}`);
+        }
+
         const availableLocale = getAvailableLocale(getLocale(state));
 
         global.translations = translations[availableLocale];
@@ -76,12 +82,12 @@ export default function createSsrHandler(template) {
         if (context.status) {
           res.status(context.status);
         }
-        res.send(renderSsrPage(store, content, template, appUrl !== 'https://busy.org'));
+        return res.send(renderSsrPage(store, content, template, appUrl !== 'https://busy.org'));
       })
       .catch(err => {
         Raven.captureException(err);
         console.error('SSR error occured, falling back to bundled application instead', err); // eslint-disable-line no-console
-        res.send(template);
+        return res.send(template);
       });
   };
 }
