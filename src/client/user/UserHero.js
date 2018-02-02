@@ -51,7 +51,6 @@ const UserHero = ({
               <UserHeaderLoading />
             ) : (
               <UserHeader
-                authenticated={authenticated}
                 username={username}
                 handle={user.name}
                 userReputation={user.reputation}

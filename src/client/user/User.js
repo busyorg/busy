@@ -100,6 +100,8 @@ export default class User extends React.Component {
           });
         },
       );
+    } else if (!nextProps.authenticated) {
+      this.setState({ isFollowing: false });
     }
   }
 

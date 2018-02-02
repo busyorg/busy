@@ -25,7 +25,6 @@ const UserHeader = ({
   onSelect,
   handleVisibleChange,
   isFollowing,
-  authenticated,
 }) => {
   const style = hasCover
     ? { backgroundImage: `url("https://steemitimages.com/2048x512/${coverImage}")` }
@@ -104,8 +103,7 @@ const UserHeader = ({
               />
             </div>
           </div>
-          {authenticated &&
-            isFollowing &&
+          {isFollowing &&
             !isSameUser && (
               <span
                 className={classNames('UserHeader__follows-you UserHeader__follows-you--mobile', {
@@ -132,7 +130,6 @@ UserHeader.propTypes = {
   hasCover: PropTypes.bool,
   isPopoverVisible: PropTypes.bool,
   isFollowing: PropTypes.bool,
-  authenticated: PropTypes.bool,
   onSelect: PropTypes.func,
   handleVisibleChange: PropTypes.func,
 };
@@ -147,7 +144,6 @@ UserHeader.defaultProps = {
   hasCover: false,
   isPopoverVisible: false,
   isFollowing: false,
-  authenticated: false,
   onSelect: () => {},
   handleVisibleChange: () => {},
 };
