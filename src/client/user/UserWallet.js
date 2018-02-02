@@ -125,7 +125,8 @@ class Wallet extends Component {
     const transactions = usersTransactions[user.name] || [];
     const actions = usersAccountHistory[user.name] || [];
     const currentSteemRate = _.get(cryptosPriceHistory, 'STEEM.priceDetails.currentUSDPrice', null);
-    const steemRateLoading = _.isNull(currentSteemRate);
+    const currentSBDRate = _.get(cryptosPriceHistory, 'SBD.priceDetails.currentUSDPrice', null);
+    const steemRateLoading = _.isNull(currentSteemRate) || _.isNull(currentSBDRate);
 
     return (
       <div>
@@ -136,6 +137,7 @@ class Wallet extends Component {
           totalVestingFundSteem={totalVestingFundSteem}
           loadingGlobalProperties={loadingGlobalProperties}
           steemRate={currentSteemRate}
+          sbdRate={currentSBDRate}
           steemRateLoading={steemRateLoading}
         />
         {transactions.length === 0 && usersAccountHistoryLoading ? (

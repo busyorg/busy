@@ -48,6 +48,7 @@ const UserWalletSummary = ({
   totalVestingFundSteem,
   loadingGlobalProperties,
   steemRate,
+  sbdRate,
   steemRateLoading,
 }) => (
   <div className="UserWalletSummary">
@@ -141,6 +142,7 @@ const UserWalletSummary = ({
               totalVestingShares,
               totalVestingFundSteem,
               steemRate,
+              sbdRate,
             )}
           />
         )}
@@ -154,12 +156,15 @@ UserWalletSummary.propTypes = {
   user: PropTypes.shape().isRequired,
   totalVestingShares: PropTypes.string.isRequired,
   totalVestingFundSteem: PropTypes.string.isRequired,
-  steemRate: PropTypes.number.isRequired,
+  steemRate: PropTypes.number,
+  sbdRate: PropTypes.number,
   loading: PropTypes.bool,
   steemRateLoading: PropTypes.bool,
 };
 
 UserWalletSummary.defaultProps = {
+  steemRate: 1,
+  sbdRate: 1,
   loading: false,
   steemRateLoading: false,
 };
