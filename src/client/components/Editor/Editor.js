@@ -150,13 +150,14 @@ class Editor extends React.Component {
   }
 
   throttledUpdate() {
-    this.props.form.validateFieldsAndScroll((err, values) => {
-      if (err) this.props.onError();
-      else {
-        this.setBodyAndRender(values.body);
-        this.props.onUpdate(values);
-      }
-    });
+    const { form } = this.props;
+
+    if (Object.values(form.getFieldsError()).filter(e => e).length > 0) return;
+
+    const values = form.getFieldsValue();
+
+    this.setBodyAndRender(values.body);
+    this.props.onUpdate(values);
   }
 
   handleSubmit(e) {
