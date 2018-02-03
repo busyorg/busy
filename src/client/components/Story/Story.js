@@ -137,7 +137,7 @@ class Story extends React.Component {
     const isReplyPreview = _.isEmpty(post.title);
 
     if (isReplyPreview) {
-      this.props.history.push(post.url);
+      this.props.history.push(dropCategory(post.url));
     } else {
       this.props.showPostModal(post);
     }

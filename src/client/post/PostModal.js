@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { Modal } from 'antd';
 import { FormattedMessage } from 'react-intl';
 import VisibilitySensor from 'react-visibility-sensor';
+import { dropCategory } from '../helpers/postHelpers';
 import PostContent from './PostContent';
 import Comments from '../comments/Comments';
 import './PostModal.less';
@@ -22,7 +23,7 @@ class PostModal extends React.Component {
   };
 
   static pushURLState(post) {
-    if (window) window.history.pushState({}, post.title, post.url);
+    if (window) window.history.pushState({}, post.title, dropCategory(post.url));
   }
 
   constructor(props) {

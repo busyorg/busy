@@ -45,8 +45,6 @@ import PostModal from '../post/PostModalContainer';
     getFeedContent: (sortBy, category) => dispatch(getFeedContent({ sortBy, category, limit: 10 })),
     getMoreFeedContent: (sortBy, category) =>
       dispatch(getMoreFeedContent({ sortBy, category, limit: 10 })),
-    getUserFeedContent: username => dispatch(getUserFeedContent({ username, limit: 10 })),
-    getMoreUserFeedContent: username => dispatch(getMoreUserFeedContent({ username, limit: 10 })),
     showPostModal: post => dispatch(showPostModal(post)),
     hidePostModal: () => dispatch(hidePostModal()),
   }),
