@@ -1,44 +1,13 @@
-@import (reference) '../../styles/modules/variables.less';
-@import (reference) '../../styles/custom.less';
-
 .Comments {
   max-width: 990px;
   margin: 0 auto;
   overflow: hidden;
 
   &__header {
-    display: block;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
     padding-bottom: 16px;
-
-    &__sort {
-      margin: 8px 0 0 -8px;
-      text-align: left;
-
-      & > a {
-        margin: 0 8px;
-        font-weight: bold;
-        color: @blue-botticelli !important;
-
-        &:hover {
-          color: @purple !important;
-        }
-
-        &.active {
-          color: @purple !important;
-        }
-      }
-    }
-
-    @media @small {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-
-      &__sort {
-        margin: 0;
-        text-align: right;
-      }
-    }
   }
 }
