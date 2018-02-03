@@ -1,23 +1,30 @@
 @import (reference) '../../styles/custom.less';
+@import (reference) '../../styles/modules/variables.less';
 
 .SidebarContentBlock {
   background: @white;
-  border-radius: 4px;
-  border: 1px solid @white-gainsboro;
+  border-radius: 0;
+  border-top: @base-border;
+  border-bottom: @base-border;
   margin-bottom: 10px;
   padding-bottom: 16px;
 
   &__title {
     display: flex;
     align-items: center;
-    border-bottom: 1px solid @white-gainsboro;
-    border-top-right-radius: @border-radius-base;
-    border-top-left-radius: @border-radius-base;
+    border-bottom: @base-border;
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
     margin-bottom: 12px;
     color: @blue-baliHai;
     font-size: 16px;
     font-weight: 500;
     padding: 4px 16px;
+
+    @media @small {
+      border-top-right-radius: @border-radius-base;
+      border-top-left-radius: @border-radius-base;
+    }
   }
 
   &__content {
@@ -40,6 +47,11 @@
     &:last-of-type {
       display: none;
     }
+  }
+
+  @media @small {
+    border: @base-border;
+    border-radius: @border-radius-base;
   }
 }
 
