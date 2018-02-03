@@ -11,7 +11,7 @@ import _ from 'lodash';
 import { Link, withRouter } from 'react-router-dom';
 import { Tag, Tooltip } from 'antd';
 import formatter from '../../helpers/steemitFormatter';
-import { isPostTaggedNSFW } from '../../helpers/postHelpers';
+import { isPostTaggedNSFW, dropCategory } from '../../helpers/postHelpers';
 import { postHasVideo } from './StoryHelper';
 import withAuthActions from '../../auth/withAuthActions';
 import StoryPreview from './StoryPreview';
@@ -37,6 +37,7 @@ class Story extends React.Component {
     showNSFWPosts: PropTypes.bool.isRequired,
     onActionInitiated: PropTypes.func.isRequired,
     pendingLike: PropTypes.bool,
+    pendingFlag: PropTypes.bool,
     pendingFollow: PropTypes.bool,
     pendingBookmark: PropTypes.bool,
     saving: PropTypes.bool,
@@ -54,6 +55,7 @@ class Story extends React.Component {
 
   static defaultProps = {
     pendingLike: false,
+    pendingFlag: false,
     pendingFollow: false,
     pendingBookmark: false,
     saving: false,
@@ -102,7 +104,7 @@ class Story extends React.Component {
   }
 
   clickMenuItem(key) {
-    const { post } = this.props;
+    const { post, postState } = this.props;
     switch (key) {
       case 'follow':
         this.props.onFollowClick(post);
@@ -111,7 +113,7 @@ class Story extends React.Component {
         this.props.onSaveClick(post);
         break;
       case 'report':
-        this.props.onReportClick(post);
+        this.props.onReportClick(post, postState);
         break;
       case 'edit':
         this.props.onEditClick(post);
@@ -162,6 +164,7 @@ class Story extends React.Component {
       post,
       postState,
       pendingLike,
+      pendingFlag,
       pendingFollow,
       pendingBookmark,
       saving,
@@ -255,12 +258,8 @@ class Story extends React.Component {
               className="Story__content__title"
             >
               <h2>
-                {post.title || (
-                  <span>
-                    <Tag color="#4f545c">RE</Tag>
-                    {post.root_title}
-                  </span>
-                )}
+                {post.depth !== 0 && <Tag color="#4f545c">RE</Tag>}
+                {post.title || post.root_title}
               </h2>
             </a>
             {showStoryPreview ? (
@@ -281,6 +280,7 @@ class Story extends React.Component {
               post={post}
               postState={postState}
               pendingLike={pendingLike}
+              pendingFlag={pendingFlag}
               rewardFund={rewardFund}
               ownPost={ownPost}
               sliderMode={sliderMode}

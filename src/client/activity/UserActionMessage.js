@@ -81,12 +81,12 @@ class UserActionMessage extends React.Component {
           </Link>
         );
         const postLink = _.isEmpty(actionDetails.parent_author) ? (
-          <Link to={`/p/@${actionDetails.author}/${actionDetails.permlink}`}>
+          <Link to={`/@${actionDetails.author}/${actionDetails.permlink}`}>
             {actionDetails.permlink}
           </Link>
         ) : (
           <Link
-            to={`/p/@${actionDetails.parent_author}/${actionDetails.parent_permlink}#@${
+            to={`/@${actionDetails.parent_author}/${actionDetails.parent_permlink}#@${
               actionDetails.author
             }/${actionDetails.permlink}`}
           >
@@ -128,7 +128,7 @@ class UserActionMessage extends React.Component {
             defaultMessage="Deleted comment ({link})"
             values={{
               link: (
-                <Link to={`/p/@${actionDetails.author}/${actionDetails.permlink}`}>
+                <Link to={`/@${actionDetails.author}/${actionDetails.permlink}`}>
                   {actionDetails.permlink}
                 </Link>
               ),

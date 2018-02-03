@@ -4,13 +4,9 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import Cookie from 'js-cookie';
 import _ from 'lodash';
-import {
-  getFeedContent,
-  getMoreFeedContent,
-  getUserFeedContent,
-  getMoreUserFeedContent,
-} from './feedActions';
 import { showPostModal, hidePostModal } from '../app/appActions';
+import { getFeedContent, getMoreFeedContent } from './feedActions';
+
 import {
   getFeedContentFromState,
   getFeedLoadingFromState,
@@ -68,15 +64,11 @@ class SubFeed extends React.Component {
     hidePostModal: PropTypes.func.isRequired,
     getFeedContent: PropTypes.func,
     getMoreFeedContent: PropTypes.func,
-    getUserFeedContent: PropTypes.func,
-    getMoreUserFeedContent: PropTypes.func,
   };
 
   static defaultProps = {
     getFeedContent: () => {},
     getMoreFeedContent: () => {},
-    getUserFeedContent: () => {},
-    getMoreUserFeedContent: () => {},
   };
 
   componentDidMount() {
@@ -89,7 +81,7 @@ class SubFeed extends React.Component {
     if (match.url === '/' && authenticated) {
       content = getUserFeedContentFromState(user.name, feed, posts);
       if (_.isEmpty(content)) {
-        this.props.getUserFeedContent(user.name);
+        this.props.getFeedContent('feed', user.name);
       }
     } else {
       const sortBy = match.params.sortBy || 'trending';
@@ -120,7 +112,7 @@ class SubFeed extends React.Component {
         (isAuthenticated && !wasAuthenticated))
     ) {
       this.props.hidePostModal();
-      this.props.getUserFeedContent(user.name);
+      this.props.getFeedContent('feed', user.name);
     } else if (oldSortBy !== newSortBy || oldCategory !== newCategory || (!wasLoaded && isLoaded)) {
       this.props.hidePostModal();
       this.props.getFeedContent(newSortBy || 'trending', match.params.category);
@@ -145,7 +137,7 @@ class SubFeed extends React.Component {
       isFetching = getUserFeedLoadingFromState(user.name, feed);
       fetched = getUserFeedFetchedFromState(user.name, feed);
       hasMore = feed.created[user.name] ? feed.created[user.name].hasMore : true;
-      loadMoreContent = () => this.props.getMoreUserFeedContent(user.name);
+      loadMoreContent = () => this.props.getMoreFeedContent('feed', user.name);
     } else {
       const sortBy = match.params.sortBy || 'trending';
       content = getFeedContentFromState(sortBy, match.params.category, feed, posts);

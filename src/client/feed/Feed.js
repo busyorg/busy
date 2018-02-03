@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
 import _ from 'lodash';
 import ReduxInfiniteScroll from '../vendor/ReduxInfiniteScroll';
 import { getHasDefaultSlider } from '../helpers/user';
@@ -54,13 +55,14 @@ import './Feed.less';
     reblog: reblogActions.reblog,
     followUser,
     unfollowUser,
+    push,
   },
 )
 export default class Feed extends React.Component {
   static propTypes = {
     user: PropTypes.shape().isRequired,
     content: PropTypes.arrayOf(PropTypes.shape()).isRequired,
-    pendingLikes: PropTypes.arrayOf(PropTypes.number).isRequired,
+    pendingLikes: PropTypes.shape().isRequired,
     pendingFollows: PropTypes.arrayOf(PropTypes.string).isRequired,
     pendingReblogs: PropTypes.arrayOf(PropTypes.number).isRequired,
     bookmarks: PropTypes.shape().isRequired,
@@ -82,6 +84,7 @@ export default class Feed extends React.Component {
     unfollowUser: PropTypes.func,
     loadMoreContent: PropTypes.func,
     showPostModal: PropTypes.func,
+    push: PropTypes.func,
   };
 
   static defaultProps = {
@@ -96,7 +99,14 @@ export default class Feed extends React.Component {
     unfollowUser: () => {},
     loadMoreContent: () => {},
     showPostModal: () => {},
+    push: () => {},
   };
+
+  constructor(props) {
+    super(props);
+
+    this.handleReportClick = this.handleReportClick.bind(this);
+  }
 
   handleLikeClick = (post, postState, weight = 10000) => {
     const { sliderMode, user, defaultVotePercent } = this.props;
@@ -109,7 +119,10 @@ export default class Feed extends React.Component {
     }
   };
 
-  handleReportClick = post => this.props.votePost(post.id, post.author, post.permlink, -10000);
+  handleReportClick(post, postState) {
+    const weight = postState.isReported ? 0 : -10000;
+    this.props.votePost(post.id, post.author, post.permlink, weight);
+  }
 
   handleShareClick = post => this.props.reblog(post.id);
 
@@ -124,8 +137,11 @@ export default class Feed extends React.Component {
     }
   };
 
-  handleEditClick = post => this.props.editPost(post);
-
+  handleEditClick = post => {
+    if (post.depth === 0) return this.props.editPost(post);
+    this.props.push(`${post.url}-edit`);
+    return Promise.resolve(null);
+  };
   render() {
     const {
       user,
@@ -171,13 +187,24 @@ export default class Feed extends React.Component {
 
           if (isPostDeleted(post)) return null;
 
+          const pendingLike =
+            pendingLikes[post.id] &&
+            (pendingLikes[post.id].weight > 0 ||
+              (pendingLikes[post.id].weight === 0 && postState.isLiked));
+
+          const pendingFlag =
+            pendingLikes[post.id] &&
+            (pendingLikes[post.id].weight < 0 ||
+              (pendingLikes[post.id].weight === 0 && postState.isReported));
+
           return (
             <Story
               user={user}
               key={post.id}
               post={post}
               postState={postState}
-              pendingLike={pendingLikes.includes(post.id)}
+              pendingLike={pendingLike}
+              pendingFlag={pendingFlag}
               pendingFollow={pendingFollows.includes(post.author)}
               pendingBookmark={pendingBookmarks.includes(post.id)}
               saving={saving}

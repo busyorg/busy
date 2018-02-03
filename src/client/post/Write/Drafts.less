@@ -1,0 +1,27 @@
+@import (reference) '../../styles/custom.less';
+
+.Drafts {
+  &__toolbar {
+    display: flex;
+    align-items: center;
+    height: 60px;
+
+    & > .ant-checkbox-wrapper {
+      display: flex;
+      align-items: center;
+      margin: 8px 24px;
+    }
+
+    &__delete {
+      display: flex;
+      align-items: center;
+      color: @red;
+      font-weight: 600;
+
+      &__icon {
+        font-size: 20px !important;
+        margin-right: 5px;
+      }
+    }
+  }
+}
