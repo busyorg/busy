@@ -277,10 +277,7 @@ export default class ProfileSettings extends React.Component {
                 </div>
                 <div className="Settings__section">
                   <h3>
-                    <FormattedMessage
-                      id="profile_social_profiles"
-                      defaultMessage="Social profiles"
-                    />
+                    <FormattedMessage id="profile_signature" defaultMessage="Signature" />
                   </h3>
                   <div className="Settings__section__inputs">
                     {getFieldDecorator('signature', {
@@ -294,13 +291,7 @@ export default class ProfileSettings extends React.Component {
                       />,
                     )}
                     {bodyHTML && (
-                      <Form.Item
-                        label={
-                          <span className="Editor__label">
-                            <FormattedMessage id="preview" defaultMessage="Preview" />
-                          </span>
-                        }
-                      >
+                      <Form.Item label={<FormattedMessage id="preview" defaultMessage="Preview" />}>
                         <Body full body={bodyHTML} />
                       </Form.Item>
                     )}
