@@ -12,7 +12,6 @@ import { Link, withRouter } from 'react-router-dom';
 import { Tag, Tooltip } from 'antd';
 import formatter from '../../helpers/steemitFormatter';
 import { isPostTaggedNSFW, dropCategory } from '../../helpers/postHelpers';
-import { postHasVideo } from './StoryHelper';
 import withAuthActions from '../../auth/withAuthActions';
 import StoryPreview from './StoryPreview';
 import StoryFooter from '../StoryFooter/StoryFooter';
@@ -143,17 +142,13 @@ class Story extends React.Component {
     }
   }
 
-  handlePreviewClickPostModalDisplay() {
+  handlePreviewClickPostModalDisplay(e) {
     const { post } = this.props;
-    const hasVideo = postHasVideo(post);
-    const isReplyPreview = _.isEmpty(post.title);
+    const elementClassName = _.get(e, 'target.className', '');
+    const isText = _.includes(elementClassName, 'Story__content__body');
 
-    if (!hasVideo) {
-      if (isReplyPreview) {
-        this.props.history.push(post.url);
-      } else {
-        this.props.showPostModal(post);
-      }
+    if (isText) {
+      this.props.showPostModal(post);
     }
   }
 
