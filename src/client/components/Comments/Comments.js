@@ -66,6 +66,7 @@ class Comments extends React.Component {
 
     this.detectSort = this.detectSort.bind(this);
     this.setSort = this.setSort.bind(this);
+    this.handleSubmitComment = this.handleSubmitComment.bind(this);
   }
 
   componentDidMount() {

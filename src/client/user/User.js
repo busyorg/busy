@@ -65,7 +65,7 @@ export default class User extends React.Component {
 
   state = {
     popoverVisible: false,
-    isFollowing: null,
+    isFollowing: false,
   };
 
   componentDidMount() {
@@ -89,7 +89,7 @@ export default class User extends React.Component {
   componentWillReceiveProps(nextProps) {
     const diffUsername = this.props.match.params.name !== nextProps.match.params.name;
     const diffAuthUsername = this.props.authenticatedUserName !== nextProps.authenticatedUserName;
-    if (diffUsername || diffAuthUsername || _.isNull(this.state.isFollowing)) {
+    if (diffUsername || diffAuthUsername) {
       currentUserFollowersUser(nextProps.authenticatedUserName, nextProps.match.params.name).then(
         resp => {
           const result = _.head(resp);
