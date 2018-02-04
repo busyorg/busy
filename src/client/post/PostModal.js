@@ -14,23 +14,27 @@ import './PostModal.less';
 class PostModal extends React.Component {
   static propTypes = {
     currentShownPost: PropTypes.shape(),
+    location: PropTypes.shape(),
     showPostModal: PropTypes.bool.isRequired,
     hidePostModal: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
     currentShownPost: {},
+    location: {},
   };
 
-  static pushURLState(post) {
-    if (window) window.history.pushState({}, post.title, dropCategory(post.url));
+  static pushURLState(title, url) {
+    if (window) window.history.pushState({}, title, url);
   }
 
   constructor(props) {
     super(props);
 
+    const previousURL = window ? window.location.href : '';
     this.state = {
       commentsVisible: false,
+      previousURL,
     };
 
     this.handleCommentsVisibility = this.handleCommentsVisibility.bind(this);
@@ -47,12 +51,22 @@ class PostModal extends React.Component {
 
     if (window) {
       const { currentShownPost } = this.props;
-      PostModal.pushURLState(currentShownPost);
+      const { title, url } = currentShownPost;
+      PostModal.pushURLState(title, dropCategory(url));
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const diffPath = this.props.currentShownPost.url !== nextProps.location.pathname;
+
+    if (diffPath) {
+      this.props.hidePostModal();
     }
   }
 
   componentWillUnmount() {
     this.props.hidePostModal();
+    PostModal.pushURLState('', this.state.previousURL);
   }
 
   handleCommentsVisibility(visible) {

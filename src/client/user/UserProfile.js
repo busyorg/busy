@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import Feed from '../feed/Feed';
 import {
   getIsAuthenticated,
@@ -22,6 +23,7 @@ import EmptyUserProfile from '../statics/EmptyUserProfile';
 import EmptyUserOwnProfile from '../statics/EmptyUserOwnProfile';
 import PostModal from '../post/PostModalContainer';
 
+@withRouter
 @connect(
   state => ({
     authenticated: getIsAuthenticated(state),
@@ -48,12 +50,14 @@ export default class UserProfile extends React.Component {
     showPostModal: PropTypes.func.isRequired,
     hidePostModal: PropTypes.func.isRequired,
     limit: PropTypes.number,
+    location: PropTypes.shape(),
     getFeedContent: PropTypes.func,
     getMoreFeedContent: PropTypes.func,
   };
 
   static defaultProps = {
     limit: 10,
+    location: {},
     getFeedContent: () => {},
     getMoreFeedContent: () => {},
   };
@@ -87,7 +91,15 @@ export default class UserProfile extends React.Component {
   }
 
   render() {
-    const { authenticated, authenticatedUser, feed, posts, limit, showPostModalState } = this.props;
+    const {
+      authenticated,
+      authenticatedUser,
+      feed,
+      posts,
+      limit,
+      showPostModalState,
+      location,
+    } = this.props;
     const username = this.props.match.params.name;
     const isOwnProfile = authenticated && username === authenticatedUser.name;
     const content = getFeedContentFromState('blog', username, feed, posts);
@@ -114,7 +126,7 @@ export default class UserProfile extends React.Component {
           {content.length === 0 && fetched && isOwnProfile && <EmptyUserOwnProfile />}
           {content.length === 0 && fetched && !isOwnProfile && <EmptyUserProfile />}
         </div>
-        {showPostModalState && <PostModal />}
+        {showPostModalState && <PostModal location={location} />}
       </div>
     );
   }

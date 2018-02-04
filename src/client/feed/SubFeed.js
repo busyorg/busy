@@ -60,11 +60,13 @@ class SubFeed extends React.Component {
     match: PropTypes.shape().isRequired,
     showPostModal: PropTypes.func.isRequired,
     hidePostModal: PropTypes.func.isRequired,
+    location: PropTypes.shape(),
     getFeedContent: PropTypes.func,
     getMoreFeedContent: PropTypes.func,
   };
 
   static defaultProps = {
+    location: {},
     getFeedContent: () => {},
     getMoreFeedContent: () => {},
   };
@@ -122,7 +124,16 @@ class SubFeed extends React.Component {
   }
 
   render() {
-    const { authenticated, loaded, user, feed, posts, match, showPostModalState } = this.props;
+    const {
+      authenticated,
+      loaded,
+      user,
+      feed,
+      posts,
+      match,
+      showPostModalState,
+      location,
+    } = this.props;
 
     let content = [];
     let isFetching = false;
@@ -160,7 +171,7 @@ class SubFeed extends React.Component {
           />
           {!content.length && fetched && loaded && <EmptyFeed />}
         </div>
-        {showPostModalState && <PostModal />}
+        {showPostModalState && <PostModal location={location} />}
       </div>
     );
   }
