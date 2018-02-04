@@ -1,11 +1,9 @@
 @import (reference) '../../styles/custom.less';
 @import (reference) '../../styles/modules/variables.less';
+@import (reference) '../../styles/mixins';
 
 .SidebarContentBlock {
-  background: @white;
-  border-radius: 0;
-  border-top: @base-border;
-  border-bottom: @base-border;
+  .content-block();
   margin-bottom: 10px;
   padding-bottom: 16px;
 
@@ -47,11 +45,6 @@
     &:last-of-type {
       display: none;
     }
-  }
-
-  @media @small {
-    border: @base-border;
-    border-radius: @border-radius-base;
   }
 }
 
