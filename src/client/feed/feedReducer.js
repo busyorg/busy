@@ -15,29 +15,6 @@ const initialState = {
   promoted: {},
 };
 
-const feedFetching = (state = false, action) => {
-  switch (action.type) {
-    case feedTypes.GET_FEED_CONTENT.START:
-    case feedTypes.GET_MORE_FEED_CONTENT.START:
-    case feedTypes.GET_USER_COMMENTS.START:
-    case feedTypes.GET_MORE_USER_COMMENTS.START:
-    case feedTypes.GET_REPLIES.START:
-    case feedTypes.GET_MORE_REPLIES.START:
-    case feedTypes.GET_BOOKMARKS.START:
-      return true;
-    case feedTypes.GET_FEED_CONTENT.SUCCESS:
-    case feedTypes.GET_MORE_FEED_CONTENT.SUCCESS:
-    case feedTypes.GET_USER_COMMENTS.SUCCESS:
-    case feedTypes.GET_MORE_USER_COMMENTS.SUCCESS:
-    case feedTypes.GET_REPLIES.SUCCESS:
-    case feedTypes.GET_MORE_REPLIES.SUCCESS:
-    case feedTypes.GET_BOOKMARKS.SUCCESS:
-      return false;
-    default:
-      return state;
-  }
-};
-
 const feedIdsList = (state = [], action) => {
   switch (action.type) {
     case feedTypes.GET_FEED_CONTENT.SUCCESS:
@@ -64,7 +41,8 @@ const feedCategory = (state = {}, action) => {
     case feedTypes.GET_BOOKMARKS.START:
       return {
         ...state,
-        isFetching: feedFetching(undefined, action),
+        isFetching: true,
+        isLoaded: false,
         list: feedIdsList(state.list, action),
       };
     case feedTypes.GET_FEED_CONTENT.SUCCESS:
@@ -76,9 +54,9 @@ const feedCategory = (state = {}, action) => {
     case feedTypes.GET_BOOKMARKS.SUCCESS:
       return {
         ...state,
-        hasMore: action.payload.length === action.meta.limit || action.meta.once,
+        isFetching: false,
         isLoaded: true,
-        isFetching: feedFetching(undefined, action),
+        hasMore: action.payload.length === action.meta.limit || action.meta.once,
         list: feedIdsList(state.list, action),
       };
     default:
@@ -97,7 +75,6 @@ const feedSortBy = (state = {}, action) => {
     case feedTypes.GET_BOOKMARKS.START:
       return {
         ...state,
-        fetched: false,
         [action.meta.category]: feedCategory(state[action.meta.category], action),
       };
     case feedTypes.GET_FEED_CONTENT.SUCCESS:
@@ -109,7 +86,6 @@ const feedSortBy = (state = {}, action) => {
     case feedTypes.GET_BOOKMARKS.SUCCESS:
       return {
         ...state,
-        fetched: true,
         [action.meta.category]: feedCategory(state[action.meta.category], action),
       };
     default:

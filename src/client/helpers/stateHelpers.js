@@ -56,7 +56,7 @@ export const getFeedFetchedFromState = (sortBy, category = 'all', feedState) => 
     case 'bookmarks':
     case 'replies':
     case 'promoted':
-      return (feedState[sortBy][category] && feedState[sortBy][category].fetched) || false;
+      return (feedState[sortBy][category] && feedState[sortBy][category].isLoaded) || false;
     default:
       return false;
   }
@@ -87,10 +87,10 @@ export const getUserFeedContentFromState = (username, feedState, postsState) =>
   getFeedContentFromState('feed', username, feedState, postsState);
 
 export const getUserFeedLoadingFromState = (username, feedState) =>
-  (feedState.feed[username] && feedState.feed[username].isFetching) || false;
+  getFeedLoadingFromState('feed', username, feedState);
 
 export const getUserFeedFetchedFromState = (username, feedState) =>
-  (feedState.feed[username] && feedState.feed[username].fetched) || false;
+  getFeedLoadingFromState('feed', username, feedState);
 
 /**
  * Sort comments based on payout
