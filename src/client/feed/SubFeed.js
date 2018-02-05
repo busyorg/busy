@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import Cookie from 'js-cookie';
 import _ from 'lodash';
-import { showPostModal, hidePostModal } from '../app/appActions';
+import { showPostModal } from '../app/appActions';
 import { getFeedContent, getMoreFeedContent } from './feedActions';
 
 import {
@@ -42,7 +42,6 @@ import PostModal from '../post/PostModalContainer';
     getMoreFeedContent: (sortBy, category) =>
       dispatch(getMoreFeedContent({ sortBy, category, limit: 10 })),
     showPostModal: post => dispatch(showPostModal(post)),
-    hidePostModal: () => dispatch(hidePostModal()),
   }),
 )
 class SubFeed extends React.Component {
@@ -54,8 +53,6 @@ class SubFeed extends React.Component {
     posts: PropTypes.shape().isRequired,
     match: PropTypes.shape().isRequired,
     showPostModal: PropTypes.func.isRequired,
-    hidePostModal: PropTypes.func.isRequired,
-    location: PropTypes.shape(),
     getFeedContent: PropTypes.func,
     getMoreFeedContent: PropTypes.func,
   };
@@ -85,7 +82,6 @@ class SubFeed extends React.Component {
         this.props.getFeedContent(sortBy, category);
       }
     }
-    this.props.hidePostModal();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -106,14 +102,12 @@ class SubFeed extends React.Component {
       ((match.url !== this.props.match.url && isAuthenticated) ||
         (isAuthenticated && !wasAuthenticated))
     ) {
-      this.props.hidePostModal();
       const fetching = getUserFeedLoadingFromState(user.name, feed);
       const fetched = getUserFeedFetchedFromState(user.name, feed);
       if (!fetching && !fetched) {
         this.props.getFeedContent('feed', user.name);
       }
     } else if (oldSortBy !== newSortBy || oldCategory !== newCategory || (!wasLoaded && isLoaded)) {
-      this.props.hidePostModal();
       const fetching = getFeedLoadingFromState(newSortBy, newCategory, feed);
       const fetched = getFeedFetchedFromState(newSortBy, newCategory, feed);
       if (!fetching && !fetched) {
@@ -122,12 +116,8 @@ class SubFeed extends React.Component {
     }
   }
 
-  componentWillUnmount() {
-    this.props.hidePostModal();
-  }
-
   render() {
-    const { authenticated, loaded, user, feed, posts, match, location } = this.props;
+    const { authenticated, loaded, user, feed, posts, match } = this.props;
 
     let content = [];
     let isFetching = false;
@@ -165,7 +155,7 @@ class SubFeed extends React.Component {
           />
           {!content.length && fetched && loaded && <EmptyFeed />}
         </div>
-        <PostModal location={location} />
+        <PostModal />
       </div>
     );
   }

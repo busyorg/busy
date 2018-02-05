@@ -9,7 +9,6 @@ import {
   getAuthenticatedUser,
   getFeed,
   getPosts,
-  getShowPostModal,
 } from '../reducers';
 import {
   getFeedContentFromState,
@@ -30,7 +29,6 @@ import PostModal from '../post/PostModalContainer';
     authenticatedUser: getAuthenticatedUser(state),
     feed: getFeed(state),
     posts: getPosts(state),
-    showPostModalState: getShowPostModal(state),
   }),
   {
     getFeedContent,
@@ -42,7 +40,6 @@ import PostModal from '../post/PostModalContainer';
 export default class UserProfile extends React.Component {
   static propTypes = {
     authenticated: PropTypes.bool.isRequired,
-    showPostModalState: PropTypes.bool.isRequired,
     authenticatedUser: PropTypes.shape().isRequired,
     feed: PropTypes.shape().isRequired,
     posts: PropTypes.shape().isRequired,
@@ -50,7 +47,6 @@ export default class UserProfile extends React.Component {
     showPostModal: PropTypes.func.isRequired,
     hidePostModal: PropTypes.func.isRequired,
     limit: PropTypes.number,
-    location: PropTypes.shape(),
     getFeedContent: PropTypes.func,
     getMoreFeedContent: PropTypes.func,
   };
@@ -91,15 +87,7 @@ export default class UserProfile extends React.Component {
   }
 
   render() {
-    const {
-      authenticated,
-      authenticatedUser,
-      feed,
-      posts,
-      limit,
-      showPostModalState,
-      location,
-    } = this.props;
+    const { authenticated, authenticatedUser, feed, posts, limit } = this.props;
     const username = this.props.match.params.name;
     const isOwnProfile = authenticated && username === authenticatedUser.name;
     const content = getFeedContentFromState('blog', username, feed, posts);
@@ -126,7 +114,7 @@ export default class UserProfile extends React.Component {
           {content.length === 0 && fetched && isOwnProfile && <EmptyUserOwnProfile />}
           {content.length === 0 && fetched && !isOwnProfile && <EmptyUserProfile />}
         </div>
-        {showPostModalState && <PostModal location={location} />}
+        {<PostModal />}
       </div>
     );
   }

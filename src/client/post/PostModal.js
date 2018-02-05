@@ -14,7 +14,6 @@ import './PostModal.less';
 class PostModal extends React.Component {
   static propTypes = {
     currentShownPost: PropTypes.shape(),
-    location: PropTypes.shape(),
     showPostModal: PropTypes.bool.isRequired,
     hidePostModal: PropTypes.func.isRequired,
   };
@@ -50,19 +49,9 @@ class PostModal extends React.Component {
       }
     }
 
-    if (window) {
-      const { currentShownPost } = this.props;
-      const { title, url } = currentShownPost;
-      PostModal.pushURLState(title, dropCategory(url));
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const diffPath = this.props.currentShownPost.url !== nextProps.location.pathname;
-
-    if (diffPath) {
-      this.props.hidePostModal();
-    }
+    const { currentShownPost } = this.props;
+    const { title, url } = currentShownPost;
+    PostModal.pushURLState(title, dropCategory(url));
   }
 
   componentWillUnmount() {

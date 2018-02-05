@@ -125,6 +125,7 @@ export default (state = initialState, action) => {
         showPostModal: true,
         currentShownPost: action.payload,
       };
+    case appTypes.LOCATION_CHANGE:
     case appTypes.HIDE_POST_MODAL:
       return {
         ...state,
