@@ -10,6 +10,7 @@ import 'url-search-params-polyfill';
 import { injectIntl } from 'react-intl';
 import uuidv4 from 'uuid/v4';
 import { getHtml } from '../../components/Story/Body';
+import improve from '../../helpers/improve';
 import { extractImages, extractLinks } from '../../helpers/parser';
 import { rewardsValues } from '../../../common/constants/rewards';
 import GetBoost from '../../components/Sidebar/GetBoost';
@@ -149,6 +150,7 @@ class Write extends React.Component {
 
   onSubmit = form => {
     const data = this.getNewPostData(form);
+    data.body = improve(data.body);
     if (this.props.draftId) {
       data.draftId = this.props.draftId;
     }
