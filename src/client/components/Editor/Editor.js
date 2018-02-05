@@ -4,7 +4,7 @@ import Helmet from 'react-helmet';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 import { injectIntl, FormattedMessage } from 'react-intl';
-import { isEqual } from 'lodash';
+import _ from 'lodash';
 import readingTime from 'reading-time';
 import { Checkbox, Form, Input, Select, Button } from 'antd';
 import { rewardsValues } from '../../../common/constants/rewards';
@@ -77,14 +77,13 @@ class Editor extends React.Component {
     super(props);
 
     this.state = {
-      body: '',
       bodyHTML: '',
     };
 
     this.onUpdate = this.onUpdate.bind(this);
     this.setValues = this.setValues.bind(this);
     this.setBodyAndRender = this.setBodyAndRender.bind(this);
-    this.handleBodyUpdate = this.handleBodyUpdate.bind(this);
+    this.throttledUpdate = this.throttledUpdate.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -107,7 +106,7 @@ class Editor extends React.Component {
     const { title, topics, body, reward, upvote, draftId } = this.props;
     if (
       title !== nextProps.title ||
-      !isEqual(topics, nextProps.topics) ||
+      !_.isEqual(topics, nextProps.topics) ||
       body !== nextProps.body ||
       reward !== nextProps.reward ||
       upvote !== nextProps.upvote ||
@@ -118,21 +117,7 @@ class Editor extends React.Component {
   }
 
   onUpdate() {
-    const { form } = this.props;
-    const { body } = this.state;
-
-    setTimeout(() => {
-      const values = {
-        body,
-        ...form.getFieldsValue(['title', 'topics', 'reward', 'upvote']),
-      };
-
-      this.props.onUpdate({
-        ...values,
-        topics: values.topics.slice(0, 5),
-        title: values.title.slice(0, 255),
-      });
-    }, 0);
+    _.throttle(this.throttledUpdate, 200, { leading: false, trailing: true })();
   }
 
   setValues(post) {
@@ -140,7 +125,7 @@ class Editor extends React.Component {
     // Might be deleted after a while.
     let reward = rewardsValues.half;
     if (
-      post.rewad === rewardsValues.all ||
+      post.reward === rewardsValues.all ||
       post.reward === rewardsValues.half ||
       post.reward === rewardsValues.none
     ) {
@@ -150,6 +135,7 @@ class Editor extends React.Component {
     this.props.form.setFieldsValue({
       title: post.title,
       topics: post.topics,
+      body: post.body,
       reward,
       upvote: post.upvote,
     });
@@ -159,49 +145,28 @@ class Editor extends React.Component {
 
   setBodyAndRender(body) {
     this.setState({
-      body,
       bodyHTML: remarkable.render(body),
     });
   }
 
-  handleSubmit(e) {
-    e.preventDefault();
-    const { body } = this.state;
-    // NOTE: Wrapping textarea in getFormDecorator makes it impossible
-    // to control its selection what is needed for markdown formatting.
-    // This code adds requirement for body input to not be empty.
+  throttledUpdate() {
+    const { form } = this.props;
 
-    this.setState({ noContent: false });
-    this.props.form.validateFieldsAndScroll((err, values) => {
-      if (!err && body !== '') {
-        this.props.onSubmit({
-          ...values,
-          body,
-        });
-      } else if (body === '') {
-        const errors = {
-          ...err,
-          body: {
-            errors: [
-              {
-                field: 'body',
-                message: "Content can't be empty",
-              },
-            ],
-          },
-        };
-        this.setState({ noContent: true });
-        this.props.onError(errors);
-      } else {
-        this.props.onError(err);
-      }
-    });
+    if (Object.values(form.getFieldsError()).filter(e => e).length > 0) return;
+
+    const values = form.getFieldsValue();
+
+    this.setBodyAndRender(values.body);
+    this.props.onUpdate(values);
   }
 
-  handleBodyUpdate(body) {
-    this.onUpdate(body, true);
+  handleSubmit(e) {
+    e.preventDefault();
 
-    this.setBodyAndRender(body);
+    this.props.form.validateFieldsAndScroll((err, values) => {
+      if (err) this.props.onError();
+      else this.props.onSubmit(values);
+    });
   }
 
   handleDelete(e) {
@@ -211,7 +176,7 @@ class Editor extends React.Component {
   }
 
   render() {
-    const { intl, form, body, loading, isUpdating, saving, draftId } = this.props;
+    const { intl, form, loading, isUpdating, saving, draftId } = this.props;
     const { getFieldDecorator } = form;
     const { bodyHTML } = this.state;
 
@@ -305,33 +270,35 @@ class Editor extends React.Component {
             />,
           )}
         </Form.Item>
-        <Form.Item
-          validateStatus={this.state.noContent ? 'error' : ''}
-          help={
-            this.state.noContent &&
-            intl.formatMessage({
-              id: 'story_error_empty',
-              defaultMessage: "Story content can't be empty.",
-            })
-          }
-        >
-          <EditorInput
-            initialValue={body}
-            autosize={{ minRows: 6, maxRows: 12 }}
-            addon={
-              <FormattedMessage
-                id="reading_time"
-                defaultMessage={'{words} words / {min} min read'}
-                values={{
-                  words,
-                  min: Math.ceil(minutes),
-                }}
-              />
-            }
-            onChange={this.handleBodyUpdate}
-            onImageUpload={this.props.onImageUpload}
-            onImageInvalid={this.props.onImageInvalid}
-          />
+        <Form.Item>
+          {getFieldDecorator('body', {
+            rules: [
+              {
+                required: true,
+                message: intl.formatMessage({
+                  id: 'story_error_empty',
+                  defaultMessage: "Story content can't be empty.",
+                }),
+              },
+            ],
+          })(
+            <EditorInput
+              autosize={{ minRows: 6, maxRows: 12 }}
+              addon={
+                <FormattedMessage
+                  id="reading_time"
+                  defaultMessage={'{words} words / {min} min read'}
+                  values={{
+                    words,
+                    min: Math.ceil(minutes),
+                  }}
+                />
+              }
+              onChange={this.onUpdate}
+              onImageUpload={this.props.onImageUpload}
+              onImageInvalid={this.props.onImageInvalid}
+            />,
+          )}
         </Form.Item>
         {bodyHTML && (
           <Form.Item
@@ -352,7 +319,7 @@ class Editor extends React.Component {
             </span>
           }
         >
-          {getFieldDecorator('reward', { initialValue: this.props.reward })(
+          {getFieldDecorator('reward')(
             <Select onChange={this.onUpdate} disabled={isUpdating}>
               <Select.Option value={rewardsValues.all}>
                 <FormattedMessage id="reward_option_100" defaultMessage="100% Steem Power" />
