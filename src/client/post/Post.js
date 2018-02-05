@@ -11,9 +11,11 @@ import {
   getIsPostFetching,
   getIsPostLoaded,
   getIsPostFailed,
+  getUser,
   getIsAuthFetching,
 } from '../reducers';
 import { getContent } from './postActions';
+import { getAccount } from '../user/usersActions';
 import Error404 from '../statics/Error404';
 import Comments from '../comments/Comments';
 import Loading from '../components/Icon/Loading';
@@ -36,32 +38,41 @@ import ScrollToTopOnMount from '../components/Utils/ScrollToTopOnMount';
     ),
     loaded: getIsPostLoaded(state, ownProps.match.params.author, ownProps.match.params.permlink),
     failed: getIsPostFailed(state, ownProps.match.params.author, ownProps.match.params.permlink),
+    user: getUser(state, ownProps.match.params.author),
   }),
-  { getContent },
+  { getContent, getAccount },
 )
 export default class Post extends React.Component {
   static propTypes = {
+    isAuthFetching: PropTypes.bool.isRequired,
     match: PropTypes.shape().isRequired,
+    user: PropTypes.shape(),
     edited: PropTypes.bool,
     content: PropTypes.shape(),
     fetching: PropTypes.bool,
     loaded: PropTypes.bool,
     failed: PropTypes.bool,
     getContent: PropTypes.func,
-    isAuthFetching: PropTypes.bool.isRequired,
+    getAccount: PropTypes.func,
   };
 
   static defaultProps = {
+    user: {},
     edited: false,
     content: undefined,
     fetching: false,
     loaded: false,
     failed: false,
     getContent: () => {},
+    getAccount: () => {},
   };
 
   static fetchData(store, match) {
-    return store.dispatch(getContent(match.params.author, match.params.permlink));
+    const { author, permlink } = match.params;
+    return Promise.all([
+      store.dispatch(getAccount(author)),
+      store.dispatch(getContent(author, permlink)),
+    ]);
   }
 
   state = {
@@ -70,11 +81,13 @@ export default class Post extends React.Component {
   };
 
   componentDidMount() {
-    const { edited, fetching, loaded, failed } = this.props;
+    const { match, edited, fetching, loaded, failed } = this.props;
+    const { author, permlink } = match.params;
 
     const shouldUpdate = (!loaded && !failed) || edited;
     if (shouldUpdate && !fetching) {
-      this.props.getContent(this.props.match.params.author, this.props.match.params.permlink);
+      this.props.getContent(author, permlink);
+      this.props.getAccount(author);
     }
   }
 
@@ -84,7 +97,10 @@ export default class Post extends React.Component {
 
     const shouldUpdate = author !== prevAuthor || permlink !== prevPermlink;
     if (shouldUpdate && !nextProps.fetching) {
-      this.setState({ commentsVisible: false }, () => this.props.getContent(author, permlink));
+      this.setState({ commentsVisible: false }, () => {
+        this.props.getContent(author, permlink);
+        this.props.getAccount(author);
+      });
     }
   }
 
@@ -131,7 +147,7 @@ export default class Post extends React.Component {
   }
 
   render() {
-    const { match, content, fetching, loaded, failed, isAuthFetching } = this.props;
+    const { match, content, fetching, loaded, failed, isAuthFetching, user } = this.props;
 
     if (!!content && match.params.category && typeof window !== 'undefined') {
       window.history.pushState({}, '', `/@${content.author}/${content.permlink}`);
@@ -143,6 +159,8 @@ export default class Post extends React.Component {
     const { showHiddenPost } = this.state;
     const reputation = loaded ? formatter.reputation(content.author_reputation) : 0;
     const showPost = reputation >= 0 || showHiddenPost;
+
+    const signature = _.get(user, 'json_metadata.profile.signature', null);
 
     return (
       <div className="main-panel">
@@ -157,7 +175,7 @@ export default class Post extends React.Component {
             </Affix>
             {showPost ? (
               <div className="center" style={{ paddingBottom: '24px' }}>
-                <PostContent content={content} />
+                <PostContent content={content} signature={signature} />
                 <VisibilitySensor onChange={this.handleCommentsVisibility} />
                 <div id="comments">
                   <Comments show={this.state.commentsVisible} post={content} />
