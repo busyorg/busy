@@ -22,8 +22,6 @@ import {
   getAuthenticatedUser,
   getFeed,
   getPosts,
-  getShowPostModal,
-  getCurrentShownPost,
 } from '../reducers';
 import Feed from './Feed';
 import EmptyFeed from '../statics/EmptyFeed';
@@ -38,8 +36,6 @@ import PostModal from '../post/PostModalContainer';
     user: getAuthenticatedUser(state),
     feed: getFeed(state),
     posts: getPosts(state),
-    showPostModalState: getShowPostModal(state),
-    currentShownPost: getCurrentShownPost(state),
   }),
   dispatch => ({
     getFeedContent: (sortBy, category) => dispatch(getFeedContent({ sortBy, category, limit: 10 })),
@@ -53,7 +49,6 @@ class SubFeed extends React.Component {
   static propTypes = {
     authenticated: PropTypes.bool.isRequired,
     loaded: PropTypes.bool.isRequired,
-    showPostModalState: PropTypes.bool.isRequired,
     user: PropTypes.shape().isRequired,
     feed: PropTypes.shape().isRequired,
     posts: PropTypes.shape().isRequired,
@@ -124,16 +119,7 @@ class SubFeed extends React.Component {
   }
 
   render() {
-    const {
-      authenticated,
-      loaded,
-      user,
-      feed,
-      posts,
-      match,
-      showPostModalState,
-      location,
-    } = this.props;
+    const { authenticated, loaded, user, feed, posts, match, location } = this.props;
 
     let content = [];
     let isFetching = false;
@@ -171,7 +157,7 @@ class SubFeed extends React.Component {
           />
           {!content.length && fetched && loaded && <EmptyFeed />}
         </div>
-        {showPostModalState && <PostModal location={location} />}
+        <PostModal location={location} />
       </div>
     );
   }

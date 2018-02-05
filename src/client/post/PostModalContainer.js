@@ -1,7 +1,17 @@
+import React from 'react';
 import { connect } from 'react-redux';
 import { getShowPostModal, getCurrentShownPost } from '../reducers';
-import { hidePostModal } from '../app/appActions';
+import { hidePostModal as hidePostModalAction } from '../app/appActions';
 import PostModal from './PostModal';
+
+const PostModalContainer = ({ showPostModal, currentShownPost, hidePostModal }) =>
+  showPostModal && (
+    <PostModal
+      showPostModal={showPostModal}
+      currentShownPost={currentShownPost}
+      hidePostModal={hidePostModal}
+    />
+  );
 
 export default connect(
   state => ({
@@ -9,6 +19,6 @@ export default connect(
     currentShownPost: getCurrentShownPost(state),
   }),
   {
-    hidePostModal,
+    hidePostModal: hidePostModalAction,
   },
-)(PostModal);
+)(PostModalContainer);

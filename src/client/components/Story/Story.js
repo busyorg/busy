@@ -144,10 +144,10 @@ class Story extends React.Component {
 
   handlePreviewClickPostModalDisplay(e) {
     const { post } = this.props;
-    const elementClassName = _.get(e, 'target.className', '');
-    const isText = _.includes(elementClassName, 'Story__content__body');
+    const elementNodeName = _.toLower(_.get(e, 'target.nodeName', ''));
+    const showPostModal = elementNodeName !== 'i';
 
-    if (isText) {
+    if (showPostModal) {
       this.props.showPostModal(post);
     }
   }
