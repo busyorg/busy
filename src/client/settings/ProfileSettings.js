@@ -8,6 +8,9 @@ import { Form, Input } from 'antd';
 import SteemConnect from '../steemConnectAPI';
 import { getIsReloading, getAuthenticatedUser } from '../reducers';
 import socialProfiles from '../helpers/socialProfiles';
+import withEditor from '../components/Editor/withEditor';
+import EditorInput from '../components/Editor/EditorInput';
+import Body, { remarkable } from '../components/Story/Body';
 import Action from '../components/Button/Action';
 import Affix from '../components/Utils/Affix';
 import LeftSidebar from '../app/Sidebar/LeftSidebar';
@@ -42,16 +45,34 @@ function mapPropsToFields(props) {
 @Form.create({
   mapPropsToFields,
 })
+@withEditor
 export default class ProfileSettings extends React.Component {
   static propTypes = {
     intl: PropTypes.shape().isRequired,
     form: PropTypes.shape().isRequired,
+    onImageUpload: PropTypes.func,
+    onImageInvalid: PropTypes.func,
+  };
+
+  static defaultProps = {
+    onImageUpload: () => {},
+    onImageInvalid: () => {},
   };
 
   constructor(props) {
     super(props);
 
+    this.state = {
+      bodyHTML: '',
+    };
+
+    this.handleSignatureChange = this.handleSignatureChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.renderBody = this.renderBody.bind(this);
+  }
+
+  handleSignatureChange(body) {
+    _.throttle(this.renderBody, 200, { leading: false, trailing: true })(body);
   }
 
   handleSubmit(e) {
@@ -77,8 +98,15 @@ export default class ProfileSettings extends React.Component {
     });
   }
 
+  renderBody(body) {
+    this.setState({
+      bodyHTML: remarkable.render(body),
+    });
+  }
+
   render() {
     const { intl, form } = this.props;
+    const { bodyHTML } = this.state;
     const { getFieldDecorator } = form;
 
     const socialInputs = socialProfiles.map(profile => (
@@ -246,6 +274,28 @@ export default class ProfileSettings extends React.Component {
                     />
                   </h3>
                   <div className="Settings__section__inputs">{socialInputs}</div>
+                </div>
+                <div className="Settings__section">
+                  <h3>
+                    <FormattedMessage id="profile_signature" defaultMessage="Signature" />
+                  </h3>
+                  <div className="Settings__section__inputs">
+                    {getFieldDecorator('signature', {
+                      initialValue: '',
+                    })(
+                      <EditorInput
+                        autosize={{ minRows: 3, maxRows: 6 }}
+                        onChange={this.handleSignatureChange}
+                        onImageUpload={this.props.onImageUpload}
+                        onImageInvalid={this.props.onImageInvalid}
+                      />,
+                    )}
+                    {bodyHTML && (
+                      <Form.Item label={<FormattedMessage id="preview" defaultMessage="Preview" />}>
+                        <Body full body={bodyHTML} />
+                      </Form.Item>
+                    )}
+                  </div>
                 </div>
                 <Action
                   primary
