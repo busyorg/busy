@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { replace } from 'react-router-redux';
-import _ from 'lodash';
+import kebabCase from 'lodash/kebabCase';
+import debounce from 'lodash/debounce';
+import isArray from 'lodash/isArray';
 import 'url-search-params-polyfill';
 import { injectIntl } from 'react-intl';
 import uuidv4 from 'uuid/v4';
@@ -94,7 +96,7 @@ class Write extends React.Component {
     const draftPost = draftPosts[draftId];
     if (draftPost) {
       let tags = [];
-      if (_.isArray(draftPost.jsonMetadata.tags)) {
+      if (isArray(draftPost.jsonMetadata.tags)) {
         tags = draftPost.jsonMetadata.tags;
       }
 
@@ -146,17 +148,14 @@ class Write extends React.Component {
   onDelete = () => this.setState({ showModalDelete: true });
 
   onSubmit = form => {
-    const { isUpdating } = this.state;
-    const data = this.getNewPostData(form, !isUpdating);
+    const data = this.getNewPostData(form);
     if (this.props.draftId) {
       data.draftId = this.props.draftId;
     }
     this.props.createPost(data);
   };
 
-  getNewPostData = (form, submit = false) => {
-    const { user } = this.props;
-
+  getNewPostData = form => {
     const data = {
       body: form.body,
       title: form.title,
@@ -173,16 +172,6 @@ class Write extends React.Component {
     const userRegex = /@([a-zA-Z.0-9-]+)/g;
     let matches;
 
-    if (submit) {
-      let metadata = _.attempt(JSON.parse, user.json_metadata);
-      if (_.isError(metadata)) metadata = {};
-
-      const signature = _.get(metadata, 'profile.signature', null);
-      if (signature) {
-        data.body += `\n${signature}`;
-      }
-    }
-
     const postBody = data.body;
 
     // eslint-disable-next-line
@@ -198,7 +187,7 @@ class Write extends React.Component {
     const links = extractLinks(parsedBody);
 
     if (data.title && !this.permlink) {
-      data.permlink = _.kebabCase(data.title);
+      data.permlink = kebabCase(data.title);
     } else {
       data.permlink = this.permlink;
     }
@@ -245,7 +234,7 @@ class Write extends React.Component {
 
   handleCancelDeleteDraft = () => this.setState({ showModalDelete: false });
 
-  saveDraft = _.debounce(form => {
+  saveDraft = debounce(form => {
     if (this.props.saving) return;
 
     const data = this.getNewPostData(form);
