@@ -98,7 +98,7 @@ class CommentForm extends React.Component {
 
   render() {
     const { username, isSmall, isLoading } = this.props;
-    const { bodyHTML } = this.state;
+    const { body, bodyHTML } = this.state;
 
     const buttonClass = isLoading ? 'CommentForm__button_disabled' : 'CommentForm__button_primary';
 
@@ -110,6 +110,7 @@ class CommentForm extends React.Component {
             <EditorInput
               inputRef={this.setInput}
               autosize={{ minRows: 3, maxRows: 6 }}
+              value={body}
               onChange={this.handleBodyUpdate}
               onImageUpload={this.props.onImageUpload}
               onImageInvalid={this.props.onImageInvalid}
