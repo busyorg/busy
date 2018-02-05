@@ -4,12 +4,7 @@ import _ from 'lodash';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import Feed from '../feed/Feed';
-import {
-  getIsAuthenticated,
-  getAuthenticatedUser,
-  getFeed,
-  getPosts,
-} from '../reducers';
+import { getIsAuthenticated, getAuthenticatedUser, getFeed, getPosts } from '../reducers';
 import {
   getFeedContentFromState,
   getFeedLoadingFromState,
