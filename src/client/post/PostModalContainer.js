@@ -4,12 +4,13 @@ import { getShowPostModal, getCurrentShownPost } from '../reducers';
 import { hidePostModal as hidePostModalAction } from '../app/appActions';
 import PostModal from './PostModal';
 
-const PostModalContainer = ({ showPostModal, currentShownPost, hidePostModal }) =>
+const PostModalContainer = ({ showPostModal, currentShownPost, hidePostModal, location }) =>
   showPostModal && (
     <PostModal
       showPostModal={showPostModal}
       currentShownPost={currentShownPost}
       hidePostModal={hidePostModal}
+      location={location}
     />
   );
 

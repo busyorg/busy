@@ -38,6 +38,7 @@ class PostModal extends React.Component {
     };
 
     this.handleCommentsVisibility = this.handleCommentsVisibility.bind(this);
+    this.handleHidePostModal = this.handleHidePostModal.bind(this);
   }
 
   componentDidMount() {
@@ -66,7 +67,6 @@ class PostModal extends React.Component {
 
   componentWillUnmount() {
     this.props.hidePostModal();
-    PostModal.pushURLState('', this.state.previousURL);
   }
 
   handleCommentsVisibility(visible) {
@@ -75,6 +75,11 @@ class PostModal extends React.Component {
         commentsVisible: true,
       });
     }
+  }
+
+  handleHidePostModal() {
+    PostModal.pushURLState('', this.state.previousURL);
+    this.props.hidePostModal();
   }
 
   render() {
@@ -89,7 +94,7 @@ class PostModal extends React.Component {
         title={null}
         footer={null}
         visible={showPostModal}
-        onCancel={this.props.hidePostModal}
+        onCancel={this.handleHidePostModal}
         width={767}
         wrapClassName={classNames('PostModal', { PostModal__hidden: !showPostModal })}
         destroyOnClose
@@ -98,14 +103,14 @@ class PostModal extends React.Component {
           <a
             className="PostModal__back__link"
             role="presentation"
-            onClick={this.props.hidePostModal}
+            onClick={this.handleHidePostModal}
           >
             <i className="iconfont icon-return" />
             <FormattedMessage id="back" defaultMessage="Back" />
           </a>
         </div>
         <div className="PostModal__actions-container">
-          <a role="presentation" onClick={this.props.hidePostModal} className="PostModal__action">
+          <a role="presentation" onClick={this.handleHidePostModal} className="PostModal__action">
             <i className="iconfont icon-close PostModal__icon" />
           </a>
           <Link to={`/${category}/@${author}/${permlink}`} className="PostModal__action">
