@@ -40,6 +40,7 @@ class StoryFull extends React.Component {
     rewardFund: PropTypes.shape().isRequired,
     defaultVotePercent: PropTypes.number.isRequired,
     onActionInitiated: PropTypes.func.isRequired,
+    signature: PropTypes.string,
     rewriteLinks: PropTypes.bool,
     pendingLike: PropTypes.bool,
     pendingFlag: PropTypes.bool,
@@ -58,6 +59,7 @@ class StoryFull extends React.Component {
   };
 
   static defaultProps = {
+    signature: null,
     rewriteLinks: false,
     pendingLike: false,
     pendingFlag: false,
@@ -176,6 +178,7 @@ class StoryFull extends React.Component {
       user,
       post,
       postState,
+      signature,
       rewriteLinks,
       pendingLike,
       pendingFlag,
@@ -195,7 +198,12 @@ class StoryFull extends React.Component {
 
     const { open, index } = this.state.lightbox;
 
-    const parsedBody = getHtml(post.body, {}, 'text');
+    let signedBody = post.body;
+    if (signature) {
+      signedBody = `${post.body}<hr>${signature}`;
+    }
+
+    const parsedBody = getHtml(signedBody, {}, 'text');
 
     this.images = extractImages(parsedBody);
 
@@ -325,7 +333,7 @@ class StoryFull extends React.Component {
           <Body
             full
             rewriteLinks={rewriteLinks}
-            body={post.body}
+            body={signedBody}
             json_metadata={post.json_metadata}
           />
         </div>
