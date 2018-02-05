@@ -1,9 +1,22 @@
 @import (reference) '../styles/custom.less';
 @import (reference) '../styles/modules/variables.less';
+@import (reference) '../styles/mixins.less';
 
 .LetsGetStarted {
+  .content-block();
+  margin-bottom: @content-margin;
+  padding-bottom: 16px;
+
   &__title {
     flex-direction: column;
+    display: flex;
+    align-items: center;
+    border-bottom: @base-border;
+    margin-bottom: 12px;
+    color: @blue-baliHai;
+    font-size: @font-size-lg;
+    font-weight: 500;
+    padding: 4px 16px;
 
     &__text {
       font-size: 20px;
@@ -21,9 +34,13 @@
     }
   }
 
+  &__content {
+    padding: 0 16px;
+  }
+
   &__action {
     align-items: center;
-    border-bottom: 1px solid @white-gainsboro;
+    border-bottom: @base-border;
     color: @black;
     display: flex;
     padding: 5px 0;
@@ -65,7 +82,7 @@
 
   .Loading {
     margin-right: 10px;
-    padding: 5px 0px;
+    padding: 5px 0;
 
     &__icon {
       font-size: 24px !important;

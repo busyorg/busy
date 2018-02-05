@@ -99,8 +99,8 @@ class LetsGetStarted extends React.Component {
     if (hideSidebarContent) return <div />;
 
     return (
-      <div className="LetsGetStarted SidebarContentBlock">
-        <h4 className="LetsGetStarted__title SidebarContentBlock__title">
+      <div className="LetsGetStarted">
+        <h4 className="LetsGetStarted__title">
           <span className="LetsGetStarted__title__text">
             <FormattedMessage id="lets_get_started" defaultMessage="Let's get started" />
           </span>
@@ -110,7 +110,7 @@ class LetsGetStarted extends React.Component {
             <FormattedMessage id="completed" defaultMessage="Completed" />
           </span>
         </h4>
-        <div className="SidebarContentBlock__content">
+        <div className="LetsGetStarted__content">
           <div className="LetsGetStarted__action">
             <LetsGetStartedIcon
               renderCheck={hasProfile}
