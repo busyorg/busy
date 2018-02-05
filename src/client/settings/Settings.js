@@ -13,6 +13,7 @@ import {
   getVotePercent,
   getShowNSFWPosts,
   getRewriteLinks,
+  getUseBeta,
 } from '../reducers';
 import { saveSettings } from './settingsActions';
 import { reload } from '../auth/authActions';
@@ -35,6 +36,7 @@ import './Settings.less';
     votePercent: getVotePercent(state),
     showNSFWPosts: getShowNSFWPosts(state),
     rewriteLinks: getRewriteLinks(state),
+    useBeta: getUseBeta(state),
     loading: getIsSettingsLoading(state),
   }),
   { reload, saveSettings, notify },
@@ -49,6 +51,7 @@ export default class Settings extends React.Component {
     loading: PropTypes.bool,
     showNSFWPosts: PropTypes.bool,
     rewriteLinks: PropTypes.bool,
+    useBeta: PropTypes.bool,
     reload: PropTypes.func,
     saveSettings: PropTypes.func,
     notify: PropTypes.func,
@@ -62,6 +65,7 @@ export default class Settings extends React.Component {
     loading: false,
     showNSFWPosts: false,
     rewriteLinks: false,
+    useBeta: false,
     reload: () => {},
     saveSettings: () => {},
     notify: () => {},
@@ -82,6 +86,7 @@ export default class Settings extends React.Component {
       votePercent: this.props.votePercent / 100,
       showNSFWPosts: this.props.showNSFWPosts,
       rewriteLinks: this.props.rewriteLinks,
+      useBeta: this.props.useBeta,
     });
   }
 
@@ -109,6 +114,10 @@ export default class Settings extends React.Component {
     if (nextProps.rewriteLinks !== this.props.rewriteLinks) {
       this.setState({ rewriteLinks: nextProps.rewriteLinks });
     }
+
+    if (nextProps.useBeta !== this.props.useBeta) {
+      this.setState({ useBeta: nextProps.useBeta });
+    }
   }
 
   handleSave = () => {
@@ -119,6 +128,7 @@ export default class Settings extends React.Component {
         votePercent: this.state.votePercent * 100,
         showNSFWPosts: this.state.showNSFWPosts,
         rewriteLinks: this.state.rewriteLinks,
+        useBeta: this.state.useBeta,
       })
       .then(() =>
         this.props.notify(
@@ -133,6 +143,7 @@ export default class Settings extends React.Component {
   handleVotePercentChange = value => this.setState({ votePercent: value });
   handleShowNSFWPosts = event => this.setState({ showNSFWPosts: event.target.checked });
   handleRewriteLinksChange = event => this.setState({ rewriteLinks: event.target.checked });
+  handleUseBetaChange = event => this.setState({ useBeta: event.target.checked });
 
   render() {
     const {
@@ -143,7 +154,7 @@ export default class Settings extends React.Component {
       showNSFWPosts: initialShowNSFWPosts,
       loading,
     } = this.props;
-    const { votingPower, locale, showNSFWPosts, rewriteLinks } = this.state;
+    const { votingPower, locale, showNSFWPosts, rewriteLinks, useBeta } = this.state;
 
     const languageOptions = [];
 
@@ -282,6 +293,22 @@ export default class Settings extends React.Component {
                       onChange={this.handleRewriteLinksChange}
                     >
                       <FormattedMessage id="rewrite_links" defaultMessage="Rewrite links" />
+                    </Checkbox>
+                  </div>
+                </div>
+                <div className="Settings__section">
+                  <h3>
+                    <FormattedMessage id="use_beta" defaultMessage="Use Busy beta" />
+                  </h3>
+                  <p>
+                    <FormattedMessage
+                      id="use_beta_details"
+                      defaultMessage="You can enable this option to use Busy beta by default."
+                    />
+                  </p>
+                  <div className="Settings__section__checkbox">
+                    <Checkbox name="use_beta" checked={useBeta} onChange={this.handleUseBetaChange}>
+                      <FormattedMessage id="use_beta" defaultMessage="Use Busy beta" />
                     </Checkbox>
                   </div>
                 </div>

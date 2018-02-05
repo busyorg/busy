@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { message } from 'antd';
 import { MAXIMUM_UPLOAD_SIZE_HUMAN } from '../../helpers/image';
 import { sortComments } from '../../helpers/sortHelpers';
 import Loading from '../Icon/Loading';
+import SortSelector from '../SortSelector/SortSelector';
 import CommentForm from './CommentForm';
 import Comment from './Comment';
 import './Comments.less';
@@ -66,6 +66,8 @@ class Comments extends React.Component {
 
     this.detectSort = this.detectSort.bind(this);
     this.setSort = this.setSort.bind(this);
+    this.handleSortChange = this.handleSortChange.bind(this);
+    this.handleSubmitComment = this.handleSubmitComment.bind(this);
   }
 
   componentDidMount() {
@@ -91,12 +93,9 @@ class Comments extends React.Component {
     }
   }
 
-  handleSortClick = e => {
-    const type = e.target.parentNode && e.target.parentNode.dataset.type;
-    if (type) {
-      this.setSort(type);
-    }
-  };
+  handleSortChange(type) {
+    this.setSort(type);
+  }
 
   handleImageInserted = (blob, callback, errorCallback) => {
     const { authenticated, username } = this.props;
@@ -182,21 +181,17 @@ class Comments extends React.Component {
           <h2>
             <FormattedMessage id="comments" defaultMessage="Comments" />
           </h2>
-          <div
-            role="presentation"
-            className="Comments__header__sort"
-            onClick={this.handleSortClick}
-          >
-            <a className={classNames({ active: sort === 'BEST' })} data-type="BEST">
+          <SortSelector sort={sort} onChange={this.handleSortChange}>
+            <SortSelector.Item key="BEST">
               <FormattedMessage id="sort_best" defaultMessage="Best" />
-            </a>
-            <a className={classNames({ active: sort === 'NEWEST' })} data-type="NEWEST">
+            </SortSelector.Item>
+            <SortSelector.Item key="NEWEST">
               <FormattedMessage id="sort_newest" defaultMessage="Newest" />
-            </a>
-            <a className={classNames({ active: sort === 'OLDEST' })} data-type="OLDEST">
+            </SortSelector.Item>
+            <SortSelector.Item key="OLDEST">
               <FormattedMessage id="sort_oldest" defaultMessage="Oldest" />
-            </a>
-          </div>
+            </SortSelector.Item>
+          </SortSelector>
         </div>
 
         {authenticated && (

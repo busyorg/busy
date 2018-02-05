@@ -18,6 +18,7 @@ import { login, logout } from './auth/authActions';
 import { getFollowing } from './user/userActions';
 import { getRate, getRewardFund, getTrendingTopics, setUsedLocale } from './app/appActions';
 import * as reblogActions from './app/Reblog/reblogActions';
+import Redirect from './components/Utils/Redirect';
 import Topnav from './components/Navigation/Topnav';
 import Transfer from './wallet/Transfer';
 
@@ -180,6 +181,7 @@ export default class Wrapper extends React.PureComponent {
             </Layout.Header>
             <div className="content">
               {renderRoutes(this.props.route.routes)}
+              <Redirect />
               <Transfer />
             </div>
           </Layout>

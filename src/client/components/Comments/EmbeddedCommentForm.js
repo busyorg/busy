@@ -44,6 +44,7 @@ class EmbeddedCommentForm extends React.Component {
   }
 
   componentDidMount() {
+    this.setBodyAndRender(this.props.inputValue);
     if (this.input) {
       this.input.focus();
     }
@@ -79,8 +80,8 @@ class EmbeddedCommentForm extends React.Component {
   }
 
   render() {
-    const { isLoading, inputValue } = this.props;
-    const { bodyHTML } = this.state;
+    const { isLoading } = this.props;
+    const { body, bodyHTML } = this.state;
 
     const buttonClass = isLoading
       ? 'EmbeddedCommentForm__button_disabled'
@@ -89,9 +90,9 @@ class EmbeddedCommentForm extends React.Component {
     return (
       <div className="EmbeddedCommentForm">
         <EditorInput
-          initialValue={inputValue}
           autosize={{ minRows: 3, maxRows: 6 }}
           inputRef={this.setInput}
+          value={body}
           onChange={this.handleBodyUpdate}
           onImageUpload={this.props.onImageUpload}
           onImageInvalid={this.props.onImageInvalid}

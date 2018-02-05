@@ -79,9 +79,9 @@ class SubFeed extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { authenticated, loaded, user, match } = nextProps;
+    const { authenticated, loaded, user, match, feed } = nextProps;
     const oldSortBy = this.props.match.params.sortBy;
-    const newSortBy = match.params.sortBy;
+    const newSortBy = match.params.sortBy || 'trending';
     const oldCategory = this.props.match.params.category;
     const newCategory = match.params.category;
     const wasAuthenticated = this.props.authenticated;
@@ -96,9 +96,17 @@ class SubFeed extends React.Component {
       ((match.url !== this.props.match.url && isAuthenticated) ||
         (isAuthenticated && !wasAuthenticated))
     ) {
-      this.props.getFeedContent('feed', user.name);
+      const fetching = getUserFeedLoadingFromState(user.name, feed);
+      const fetched = getUserFeedFetchedFromState(user.name, feed);
+      if (!fetching && !fetched) {
+        this.props.getFeedContent('feed', user.name);
+      }
     } else if (oldSortBy !== newSortBy || oldCategory !== newCategory || (!wasLoaded && isLoaded)) {
-      this.props.getFeedContent(newSortBy || 'trending', match.params.category);
+      const fetching = getFeedLoadingFromState(newSortBy, newCategory, feed);
+      const fetched = getFeedFetchedFromState(newSortBy, newCategory, feed);
+      if (!fetching && !fetched) {
+        this.props.getFeedContent(newSortBy, newCategory);
+      }
     }
   }
 
