@@ -53,102 +53,63 @@ ShallowWrapper {
             onClose={[Function]}
           />
         </div>,
-        <div
-          className="TopicSelector__sort"
+        <SortSelector
+          onChange={[Function]}
+          sort="active"
         >
-          <span
-            className="TopicSelector__sort__title"
+          <PopoverMenuItem
+            bold={true}
+            disabled={false}
+            fullScreenHidden={false}
+            itemKey=""
+            onClick={[Function]}
           >
             <FormattedMessage
-              defaultMessage="Sort by"
-              id="sort_by"
+              defaultMessage="Trending"
+              id="sort_trending"
               values={Object {}}
             />
-          </span>
-          <Popover
-            content={
-              <PopoverMenu
-                bold={true}
-                onSelect={[Function]}
-              >
-                <PopoverMenuItem
-                  bold={true}
-                  disabled={false}
-                  fullScreenHidden={false}
-                  itemKey=""
-                  onClick={[Function]}
-                >
-                  <FormattedMessage
-                    defaultMessage="Trending"
-                    id="sort_trending"
-                    values={Object {}}
-                  />
-                </PopoverMenuItem>
-                <PopoverMenuItem
-                  bold={true}
-                  disabled={false}
-                  fullScreenHidden={false}
-                  itemKey=""
-                  onClick={[Function]}
-                >
-                  <FormattedMessage
-                    defaultMessage="Created"
-                    id="sort_created"
-                    values={Object {}}
-                  />
-                </PopoverMenuItem>
-                <PopoverMenuItem
-                  bold={true}
-                  disabled={false}
-                  fullScreenHidden={false}
-                  itemKey=""
-                  onClick={[Function]}
-                >
-                  <FormattedMessage
-                    defaultMessage="Active"
-                    id="sort_active"
-                    values={Object {}}
-                  />
-                </PopoverMenuItem>
-                <PopoverMenuItem
-                  bold={true}
-                  disabled={false}
-                  fullScreenHidden={false}
-                  itemKey=""
-                  onClick={[Function]}
-                >
-                  <FormattedMessage
-                    defaultMessage="Hot"
-                    id="sort_hot"
-                    values={Object {}}
-                  />
-                </PopoverMenuItem>
-              </PopoverMenu>
-            }
-            mouseEnterDelay={0.1}
-            mouseLeaveDelay={0.1}
-            onVisibleChange={[Function]}
-            overlayStyle={Object {}}
-            placement="top"
-            prefixCls="ant-popover"
-            transitionName="zoom-big"
-            trigger="click"
-            visible={false}
+          </PopoverMenuItem>
+          <PopoverMenuItem
+            bold={true}
+            disabled={false}
+            fullScreenHidden={false}
+            itemKey=""
+            onClick={[Function]}
           >
-            <span
-              className="TopicSelector__sort__current"
-            >
-              <FormattedMessage
-                defaultMessage="Active"
-                id="sort_active"
-                values={Object {}}
-              />
-              <i
-                className="iconfont icon-unfold"
-              />
-            </span>
-          </Popover>
-        </div>,
+            <FormattedMessage
+              defaultMessage="Created"
+              id="sort_created"
+              values={Object {}}
+            />
+          </PopoverMenuItem>
+          <PopoverMenuItem
+            bold={true}
+            disabled={false}
+            fullScreenHidden={false}
+            itemKey=""
+            onClick={[Function]}
+          >
+            <FormattedMessage
+              defaultMessage="Active"
+              id="sort_active"
+              values={Object {}}
+            />
+          </PopoverMenuItem>
+          <PopoverMenuItem
+            bold={true}
+            disabled={false}
+            fullScreenHidden={false}
+            itemKey=""
+            onClick={[Function]}
+          >
+            <FormattedMessage
+              defaultMessage="Hot"
+              id="sort_hot"
+              values={Object {}}
+            />
+          </PopoverMenuItem>
+        </SortSelector>,
       ],
       "className": "TopicSelector",
     },
@@ -231,117 +192,82 @@ ShallowWrapper {
       Object {
         "instance": null,
         "key": undefined,
-        "nodeType": "host",
+        "nodeType": "class",
         "props": Object {
           "children": Array [
-            <span
-              className="TopicSelector__sort__title"
+            <PopoverMenuItem
+              bold={true}
+              disabled={false}
+              fullScreenHidden={false}
+              itemKey=""
+              onClick={[Function]}
             >
               <FormattedMessage
-                defaultMessage="Sort by"
-                id="sort_by"
+                defaultMessage="Trending"
+                id="sort_trending"
                 values={Object {}}
               />
-            </span>,
-            <Popover
-              content={
-                <PopoverMenu
-                  bold={true}
-                  onSelect={[Function]}
-                >
-                  <PopoverMenuItem
-                    bold={true}
-                    disabled={false}
-                    fullScreenHidden={false}
-                    itemKey=""
-                    onClick={[Function]}
-                  >
-                    <FormattedMessage
-                      defaultMessage="Trending"
-                      id="sort_trending"
-                      values={Object {}}
-                    />
-                  </PopoverMenuItem>
-                  <PopoverMenuItem
-                    bold={true}
-                    disabled={false}
-                    fullScreenHidden={false}
-                    itemKey=""
-                    onClick={[Function]}
-                  >
-                    <FormattedMessage
-                      defaultMessage="Created"
-                      id="sort_created"
-                      values={Object {}}
-                    />
-                  </PopoverMenuItem>
-                  <PopoverMenuItem
-                    bold={true}
-                    disabled={false}
-                    fullScreenHidden={false}
-                    itemKey=""
-                    onClick={[Function]}
-                  >
-                    <FormattedMessage
-                      defaultMessage="Active"
-                      id="sort_active"
-                      values={Object {}}
-                    />
-                  </PopoverMenuItem>
-                  <PopoverMenuItem
-                    bold={true}
-                    disabled={false}
-                    fullScreenHidden={false}
-                    itemKey=""
-                    onClick={[Function]}
-                  >
-                    <FormattedMessage
-                      defaultMessage="Hot"
-                      id="sort_hot"
-                      values={Object {}}
-                    />
-                  </PopoverMenuItem>
-                </PopoverMenu>
-              }
-              mouseEnterDelay={0.1}
-              mouseLeaveDelay={0.1}
-              onVisibleChange={[Function]}
-              overlayStyle={Object {}}
-              placement="top"
-              prefixCls="ant-popover"
-              transitionName="zoom-big"
-              trigger="click"
-              visible={false}
+            </PopoverMenuItem>,
+            <PopoverMenuItem
+              bold={true}
+              disabled={false}
+              fullScreenHidden={false}
+              itemKey=""
+              onClick={[Function]}
             >
-              <span
-                className="TopicSelector__sort__current"
-              >
-                <FormattedMessage
-                  defaultMessage="Active"
-                  id="sort_active"
-                  values={Object {}}
-                />
-                <i
-                  className="iconfont icon-unfold"
-                />
-              </span>
-            </Popover>,
+              <FormattedMessage
+                defaultMessage="Created"
+                id="sort_created"
+                values={Object {}}
+              />
+            </PopoverMenuItem>,
+            <PopoverMenuItem
+              bold={true}
+              disabled={false}
+              fullScreenHidden={false}
+              itemKey=""
+              onClick={[Function]}
+            >
+              <FormattedMessage
+                defaultMessage="Active"
+                id="sort_active"
+                values={Object {}}
+              />
+            </PopoverMenuItem>,
+            <PopoverMenuItem
+              bold={true}
+              disabled={false}
+              fullScreenHidden={false}
+              itemKey=""
+              onClick={[Function]}
+            >
+              <FormattedMessage
+                defaultMessage="Hot"
+                id="sort_hot"
+                values={Object {}}
+              />
+            </PopoverMenuItem>,
           ],
-          "className": "TopicSelector__sort",
+          "onChange": [Function],
+          "sort": "active",
         },
         "ref": null,
         "rendered": Array [
           Object {
             "instance": null,
-            "key": undefined,
-            "nodeType": "host",
+            "key": "trending",
+            "nodeType": "function",
             "props": Object {
+              "bold": true,
               "children": <FormattedMessage
-                defaultMessage="Sort by"
-                id="sort_by"
+                defaultMessage="Trending"
+                id="sort_trending"
                 values={Object {}}
               />,
-              "className": "TopicSelector__sort__title",
+              "disabled": false,
+              "fullScreenHidden": false,
+              "itemKey": "",
+              "onClick": [Function],
             },
             "ref": null,
             "rendered": Object {
@@ -349,151 +275,114 @@ ShallowWrapper {
               "key": undefined,
               "nodeType": "class",
               "props": Object {
-                "defaultMessage": "Sort by",
-                "id": "sort_by",
+                "defaultMessage": "Trending",
+                "id": "sort_trending",
                 "values": Object {},
               },
               "ref": null,
               "rendered": null,
               "type": [Function],
             },
-            "type": "span",
+            "type": [Function],
           },
           Object {
             "instance": null,
-            "key": undefined,
-            "nodeType": "class",
+            "key": "created",
+            "nodeType": "function",
             "props": Object {
-              "children": <span
-                className="TopicSelector__sort__current"
-              >
-                <FormattedMessage
-                  defaultMessage="Active"
-                  id="sort_active"
-                  values={Object {}}
-                />
-                <i
-                  className="iconfont icon-unfold"
-                />
-              </span>,
-              "content": <PopoverMenu
-                bold={true}
-                onSelect={[Function]}
-              >
-                <PopoverMenuItem
-                  bold={true}
-                  disabled={false}
-                  fullScreenHidden={false}
-                  itemKey=""
-                  onClick={[Function]}
-                >
-                  <FormattedMessage
-                    defaultMessage="Trending"
-                    id="sort_trending"
-                    values={Object {}}
-                  />
-                </PopoverMenuItem>
-                <PopoverMenuItem
-                  bold={true}
-                  disabled={false}
-                  fullScreenHidden={false}
-                  itemKey=""
-                  onClick={[Function]}
-                >
-                  <FormattedMessage
-                    defaultMessage="Created"
-                    id="sort_created"
-                    values={Object {}}
-                  />
-                </PopoverMenuItem>
-                <PopoverMenuItem
-                  bold={true}
-                  disabled={false}
-                  fullScreenHidden={false}
-                  itemKey=""
-                  onClick={[Function]}
-                >
-                  <FormattedMessage
-                    defaultMessage="Active"
-                    id="sort_active"
-                    values={Object {}}
-                  />
-                </PopoverMenuItem>
-                <PopoverMenuItem
-                  bold={true}
-                  disabled={false}
-                  fullScreenHidden={false}
-                  itemKey=""
-                  onClick={[Function]}
-                >
-                  <FormattedMessage
-                    defaultMessage="Hot"
-                    id="sort_hot"
-                    values={Object {}}
-                  />
-                </PopoverMenuItem>
-              </PopoverMenu>,
-              "mouseEnterDelay": 0.1,
-              "mouseLeaveDelay": 0.1,
-              "onVisibleChange": [Function],
-              "overlayStyle": Object {},
-              "placement": "top",
-              "prefixCls": "ant-popover",
-              "transitionName": "zoom-big",
-              "trigger": "click",
-              "visible": false,
+              "bold": true,
+              "children": <FormattedMessage
+                defaultMessage="Created"
+                id="sort_created"
+                values={Object {}}
+              />,
+              "disabled": false,
+              "fullScreenHidden": false,
+              "itemKey": "",
+              "onClick": [Function],
             },
             "ref": null,
             "rendered": Object {
               "instance": null,
               "key": undefined,
-              "nodeType": "host",
+              "nodeType": "class",
               "props": Object {
-                "children": Array [
-                  <FormattedMessage
-                    defaultMessage="Active"
-                    id="sort_active"
-                    values={Object {}}
-                  />,
-                  <i
-                    className="iconfont icon-unfold"
-                  />,
-                ],
-                "className": "TopicSelector__sort__current",
+                "defaultMessage": "Created",
+                "id": "sort_created",
+                "values": Object {},
               },
               "ref": null,
-              "rendered": Array [
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "class",
-                  "props": Object {
-                    "defaultMessage": "Active",
-                    "id": "sort_active",
-                    "values": Object {},
-                  },
-                  "ref": null,
-                  "rendered": null,
-                  "type": [Function],
-                },
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "host",
-                  "props": Object {
-                    "className": "iconfont icon-unfold",
-                  },
-                  "ref": null,
-                  "rendered": null,
-                  "type": "i",
-                },
-              ],
-              "type": "span",
+              "rendered": null,
+              "type": [Function],
+            },
+            "type": [Function],
+          },
+          Object {
+            "instance": null,
+            "key": "active",
+            "nodeType": "function",
+            "props": Object {
+              "bold": true,
+              "children": <FormattedMessage
+                defaultMessage="Active"
+                id="sort_active"
+                values={Object {}}
+              />,
+              "disabled": false,
+              "fullScreenHidden": false,
+              "itemKey": "",
+              "onClick": [Function],
+            },
+            "ref": null,
+            "rendered": Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "defaultMessage": "Active",
+                "id": "sort_active",
+                "values": Object {},
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            "type": [Function],
+          },
+          Object {
+            "instance": null,
+            "key": "hot",
+            "nodeType": "function",
+            "props": Object {
+              "bold": true,
+              "children": <FormattedMessage
+                defaultMessage="Hot"
+                id="sort_hot"
+                values={Object {}}
+              />,
+              "disabled": false,
+              "fullScreenHidden": false,
+              "itemKey": "",
+              "onClick": [Function],
+            },
+            "ref": null,
+            "rendered": Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "defaultMessage": "Hot",
+                "id": "sort_hot",
+                "values": Object {},
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
             },
             "type": [Function],
           },
         ],
-        "type": "div",
+        "type": [Function],
       },
     ],
     "type": "div",
@@ -527,102 +416,63 @@ ShallowWrapper {
               onClose={[Function]}
             />
           </div>,
-          <div
-            className="TopicSelector__sort"
+          <SortSelector
+            onChange={[Function]}
+            sort="active"
           >
-            <span
-              className="TopicSelector__sort__title"
+            <PopoverMenuItem
+              bold={true}
+              disabled={false}
+              fullScreenHidden={false}
+              itemKey=""
+              onClick={[Function]}
             >
               <FormattedMessage
-                defaultMessage="Sort by"
-                id="sort_by"
+                defaultMessage="Trending"
+                id="sort_trending"
                 values={Object {}}
               />
-            </span>
-            <Popover
-              content={
-                <PopoverMenu
-                  bold={true}
-                  onSelect={[Function]}
-                >
-                  <PopoverMenuItem
-                    bold={true}
-                    disabled={false}
-                    fullScreenHidden={false}
-                    itemKey=""
-                    onClick={[Function]}
-                  >
-                    <FormattedMessage
-                      defaultMessage="Trending"
-                      id="sort_trending"
-                      values={Object {}}
-                    />
-                  </PopoverMenuItem>
-                  <PopoverMenuItem
-                    bold={true}
-                    disabled={false}
-                    fullScreenHidden={false}
-                    itemKey=""
-                    onClick={[Function]}
-                  >
-                    <FormattedMessage
-                      defaultMessage="Created"
-                      id="sort_created"
-                      values={Object {}}
-                    />
-                  </PopoverMenuItem>
-                  <PopoverMenuItem
-                    bold={true}
-                    disabled={false}
-                    fullScreenHidden={false}
-                    itemKey=""
-                    onClick={[Function]}
-                  >
-                    <FormattedMessage
-                      defaultMessage="Active"
-                      id="sort_active"
-                      values={Object {}}
-                    />
-                  </PopoverMenuItem>
-                  <PopoverMenuItem
-                    bold={true}
-                    disabled={false}
-                    fullScreenHidden={false}
-                    itemKey=""
-                    onClick={[Function]}
-                  >
-                    <FormattedMessage
-                      defaultMessage="Hot"
-                      id="sort_hot"
-                      values={Object {}}
-                    />
-                  </PopoverMenuItem>
-                </PopoverMenu>
-              }
-              mouseEnterDelay={0.1}
-              mouseLeaveDelay={0.1}
-              onVisibleChange={[Function]}
-              overlayStyle={Object {}}
-              placement="top"
-              prefixCls="ant-popover"
-              transitionName="zoom-big"
-              trigger="click"
-              visible={false}
+            </PopoverMenuItem>
+            <PopoverMenuItem
+              bold={true}
+              disabled={false}
+              fullScreenHidden={false}
+              itemKey=""
+              onClick={[Function]}
             >
-              <span
-                className="TopicSelector__sort__current"
-              >
-                <FormattedMessage
-                  defaultMessage="Active"
-                  id="sort_active"
-                  values={Object {}}
-                />
-                <i
-                  className="iconfont icon-unfold"
-                />
-              </span>
-            </Popover>
-          </div>,
+              <FormattedMessage
+                defaultMessage="Created"
+                id="sort_created"
+                values={Object {}}
+              />
+            </PopoverMenuItem>
+            <PopoverMenuItem
+              bold={true}
+              disabled={false}
+              fullScreenHidden={false}
+              itemKey=""
+              onClick={[Function]}
+            >
+              <FormattedMessage
+                defaultMessage="Active"
+                id="sort_active"
+                values={Object {}}
+              />
+            </PopoverMenuItem>
+            <PopoverMenuItem
+              bold={true}
+              disabled={false}
+              fullScreenHidden={false}
+              itemKey=""
+              onClick={[Function]}
+            >
+              <FormattedMessage
+                defaultMessage="Hot"
+                id="sort_hot"
+                values={Object {}}
+              />
+            </PopoverMenuItem>
+          </SortSelector>,
         ],
         "className": "TopicSelector",
       },
@@ -705,117 +555,82 @@ ShallowWrapper {
         Object {
           "instance": null,
           "key": undefined,
-          "nodeType": "host",
+          "nodeType": "class",
           "props": Object {
             "children": Array [
-              <span
-                className="TopicSelector__sort__title"
+              <PopoverMenuItem
+                bold={true}
+                disabled={false}
+                fullScreenHidden={false}
+                itemKey=""
+                onClick={[Function]}
               >
                 <FormattedMessage
-                  defaultMessage="Sort by"
-                  id="sort_by"
+                  defaultMessage="Trending"
+                  id="sort_trending"
                   values={Object {}}
                 />
-              </span>,
-              <Popover
-                content={
-                  <PopoverMenu
-                    bold={true}
-                    onSelect={[Function]}
-                  >
-                    <PopoverMenuItem
-                      bold={true}
-                      disabled={false}
-                      fullScreenHidden={false}
-                      itemKey=""
-                      onClick={[Function]}
-                    >
-                      <FormattedMessage
-                        defaultMessage="Trending"
-                        id="sort_trending"
-                        values={Object {}}
-                      />
-                    </PopoverMenuItem>
-                    <PopoverMenuItem
-                      bold={true}
-                      disabled={false}
-                      fullScreenHidden={false}
-                      itemKey=""
-                      onClick={[Function]}
-                    >
-                      <FormattedMessage
-                        defaultMessage="Created"
-                        id="sort_created"
-                        values={Object {}}
-                      />
-                    </PopoverMenuItem>
-                    <PopoverMenuItem
-                      bold={true}
-                      disabled={false}
-                      fullScreenHidden={false}
-                      itemKey=""
-                      onClick={[Function]}
-                    >
-                      <FormattedMessage
-                        defaultMessage="Active"
-                        id="sort_active"
-                        values={Object {}}
-                      />
-                    </PopoverMenuItem>
-                    <PopoverMenuItem
-                      bold={true}
-                      disabled={false}
-                      fullScreenHidden={false}
-                      itemKey=""
-                      onClick={[Function]}
-                    >
-                      <FormattedMessage
-                        defaultMessage="Hot"
-                        id="sort_hot"
-                        values={Object {}}
-                      />
-                    </PopoverMenuItem>
-                  </PopoverMenu>
-                }
-                mouseEnterDelay={0.1}
-                mouseLeaveDelay={0.1}
-                onVisibleChange={[Function]}
-                overlayStyle={Object {}}
-                placement="top"
-                prefixCls="ant-popover"
-                transitionName="zoom-big"
-                trigger="click"
-                visible={false}
+              </PopoverMenuItem>,
+              <PopoverMenuItem
+                bold={true}
+                disabled={false}
+                fullScreenHidden={false}
+                itemKey=""
+                onClick={[Function]}
               >
-                <span
-                  className="TopicSelector__sort__current"
-                >
-                  <FormattedMessage
-                    defaultMessage="Active"
-                    id="sort_active"
-                    values={Object {}}
-                  />
-                  <i
-                    className="iconfont icon-unfold"
-                  />
-                </span>
-              </Popover>,
+                <FormattedMessage
+                  defaultMessage="Created"
+                  id="sort_created"
+                  values={Object {}}
+                />
+              </PopoverMenuItem>,
+              <PopoverMenuItem
+                bold={true}
+                disabled={false}
+                fullScreenHidden={false}
+                itemKey=""
+                onClick={[Function]}
+              >
+                <FormattedMessage
+                  defaultMessage="Active"
+                  id="sort_active"
+                  values={Object {}}
+                />
+              </PopoverMenuItem>,
+              <PopoverMenuItem
+                bold={true}
+                disabled={false}
+                fullScreenHidden={false}
+                itemKey=""
+                onClick={[Function]}
+              >
+                <FormattedMessage
+                  defaultMessage="Hot"
+                  id="sort_hot"
+                  values={Object {}}
+                />
+              </PopoverMenuItem>,
             ],
-            "className": "TopicSelector__sort",
+            "onChange": [Function],
+            "sort": "active",
           },
           "ref": null,
           "rendered": Array [
             Object {
               "instance": null,
-              "key": undefined,
-              "nodeType": "host",
+              "key": "trending",
+              "nodeType": "function",
               "props": Object {
+                "bold": true,
                 "children": <FormattedMessage
-                  defaultMessage="Sort by"
-                  id="sort_by"
+                  defaultMessage="Trending"
+                  id="sort_trending"
                   values={Object {}}
                 />,
-                "className": "TopicSelector__sort__title",
+                "disabled": false,
+                "fullScreenHidden": false,
+                "itemKey": "",
+                "onClick": [Function],
               },
               "ref": null,
               "rendered": Object {
@@ -823,151 +638,114 @@ ShallowWrapper {
                 "key": undefined,
                 "nodeType": "class",
                 "props": Object {
-                  "defaultMessage": "Sort by",
-                  "id": "sort_by",
+                  "defaultMessage": "Trending",
+                  "id": "sort_trending",
                   "values": Object {},
                 },
                 "ref": null,
                 "rendered": null,
                 "type": [Function],
               },
-              "type": "span",
+              "type": [Function],
             },
             Object {
               "instance": null,
-              "key": undefined,
-              "nodeType": "class",
+              "key": "created",
+              "nodeType": "function",
               "props": Object {
-                "children": <span
-                  className="TopicSelector__sort__current"
-                >
-                  <FormattedMessage
-                    defaultMessage="Active"
-                    id="sort_active"
-                    values={Object {}}
-                  />
-                  <i
-                    className="iconfont icon-unfold"
-                  />
-                </span>,
-                "content": <PopoverMenu
-                  bold={true}
-                  onSelect={[Function]}
-                >
-                  <PopoverMenuItem
-                    bold={true}
-                    disabled={false}
-                    fullScreenHidden={false}
-                    itemKey=""
-                    onClick={[Function]}
-                  >
-                    <FormattedMessage
-                      defaultMessage="Trending"
-                      id="sort_trending"
-                      values={Object {}}
-                    />
-                  </PopoverMenuItem>
-                  <PopoverMenuItem
-                    bold={true}
-                    disabled={false}
-                    fullScreenHidden={false}
-                    itemKey=""
-                    onClick={[Function]}
-                  >
-                    <FormattedMessage
-                      defaultMessage="Created"
-                      id="sort_created"
-                      values={Object {}}
-                    />
-                  </PopoverMenuItem>
-                  <PopoverMenuItem
-                    bold={true}
-                    disabled={false}
-                    fullScreenHidden={false}
-                    itemKey=""
-                    onClick={[Function]}
-                  >
-                    <FormattedMessage
-                      defaultMessage="Active"
-                      id="sort_active"
-                      values={Object {}}
-                    />
-                  </PopoverMenuItem>
-                  <PopoverMenuItem
-                    bold={true}
-                    disabled={false}
-                    fullScreenHidden={false}
-                    itemKey=""
-                    onClick={[Function]}
-                  >
-                    <FormattedMessage
-                      defaultMessage="Hot"
-                      id="sort_hot"
-                      values={Object {}}
-                    />
-                  </PopoverMenuItem>
-                </PopoverMenu>,
-                "mouseEnterDelay": 0.1,
-                "mouseLeaveDelay": 0.1,
-                "onVisibleChange": [Function],
-                "overlayStyle": Object {},
-                "placement": "top",
-                "prefixCls": "ant-popover",
-                "transitionName": "zoom-big",
-                "trigger": "click",
-                "visible": false,
+                "bold": true,
+                "children": <FormattedMessage
+                  defaultMessage="Created"
+                  id="sort_created"
+                  values={Object {}}
+                />,
+                "disabled": false,
+                "fullScreenHidden": false,
+                "itemKey": "",
+                "onClick": [Function],
               },
               "ref": null,
               "rendered": Object {
                 "instance": null,
                 "key": undefined,
-                "nodeType": "host",
+                "nodeType": "class",
                 "props": Object {
-                  "children": Array [
-                    <FormattedMessage
-                      defaultMessage="Active"
-                      id="sort_active"
-                      values={Object {}}
-                    />,
-                    <i
-                      className="iconfont icon-unfold"
-                    />,
-                  ],
-                  "className": "TopicSelector__sort__current",
+                  "defaultMessage": "Created",
+                  "id": "sort_created",
+                  "values": Object {},
                 },
                 "ref": null,
-                "rendered": Array [
-                  Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "class",
-                    "props": Object {
-                      "defaultMessage": "Active",
-                      "id": "sort_active",
-                      "values": Object {},
-                    },
-                    "ref": null,
-                    "rendered": null,
-                    "type": [Function],
-                  },
-                  Object {
-                    "instance": null,
-                    "key": undefined,
-                    "nodeType": "host",
-                    "props": Object {
-                      "className": "iconfont icon-unfold",
-                    },
-                    "ref": null,
-                    "rendered": null,
-                    "type": "i",
-                  },
-                ],
-                "type": "span",
+                "rendered": null,
+                "type": [Function],
+              },
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": "active",
+              "nodeType": "function",
+              "props": Object {
+                "bold": true,
+                "children": <FormattedMessage
+                  defaultMessage="Active"
+                  id="sort_active"
+                  values={Object {}}
+                />,
+                "disabled": false,
+                "fullScreenHidden": false,
+                "itemKey": "",
+                "onClick": [Function],
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {
+                  "defaultMessage": "Active",
+                  "id": "sort_active",
+                  "values": Object {},
+                },
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": "hot",
+              "nodeType": "function",
+              "props": Object {
+                "bold": true,
+                "children": <FormattedMessage
+                  defaultMessage="Hot"
+                  id="sort_hot"
+                  values={Object {}}
+                />,
+                "disabled": false,
+                "fullScreenHidden": false,
+                "itemKey": "",
+                "onClick": [Function],
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {
+                  "defaultMessage": "Hot",
+                  "id": "sort_hot",
+                  "values": Object {},
+                },
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
               },
               "type": [Function],
             },
           ],
-          "type": "div",
+          "type": [Function],
         },
       ],
       "type": "div",

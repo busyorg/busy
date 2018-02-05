@@ -64,6 +64,7 @@ class PostContent extends React.Component {
   static propTypes = {
     user: PropTypes.shape().isRequired,
     content: PropTypes.shape().isRequired,
+    signature: PropTypes.string,
     pendingLikes: PropTypes.shape(),
     reblogList: PropTypes.arrayOf(PropTypes.number),
     pendingReblogs: PropTypes.arrayOf(PropTypes.number),
@@ -87,6 +88,7 @@ class PostContent extends React.Component {
   };
 
   static defaultProps = {
+    signature: null,
     pendingLikes: {},
     reblogList: [],
     pendingReblogs: [],
@@ -157,6 +159,7 @@ class PostContent extends React.Component {
     const {
       user,
       content,
+      signature,
       pendingLikes,
       reblogList,
       pendingReblogs,
@@ -236,6 +239,7 @@ class PostContent extends React.Component {
           user={user}
           post={content}
           postState={postState}
+          signature={signature}
           commentCount={content.children}
           pendingLike={pendingLike}
           pendingFlag={pendingFlag}
