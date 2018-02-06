@@ -2,6 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './Avatar.less';
 
+export function getAvatarURL(username, size = 100) {
+  return size > 64
+    ? `https://steemitimages.com/u/${username}/avatar`
+    : `https://steemitimages.com/u/${username}/avatar/small`;
+}
+
 const Avatar = ({ username, size }) => {
   let style = {
     minWidth: `${size}px`,
@@ -9,10 +15,7 @@ const Avatar = ({ username, size }) => {
     height: `${size}px`,
   };
 
-  const url =
-    size > 64
-      ? `https://steemitimages.com/u/${username}/avatar`
-      : `https://steemitimages.com/u/${username}/avatar/small`;
+  const url = getAvatarURL(username, size);
 
   if (username) {
     style = {
