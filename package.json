@@ -161,6 +161,9 @@
     "webpack-dev-server": "~2.9.3",
     "webpack-hot-middleware": "^2.20.0"
   },
+  "peerDependencies": {
+    "react": "15.6.2"
+  },
   "jest": {
     "moduleNameMapper": {
       "\\.((s)css|less)$": "identity-obj-proxy"
