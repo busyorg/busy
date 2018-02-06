@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
 import { Helmet } from 'react-helmet';
 import _ from 'lodash';
-import getImage from '../helpers/getImage';
 import { currentUserFollowersUser } from '../helpers/apiHelpers';
 import {
   getIsAuthenticated,
@@ -16,6 +15,7 @@ import {
 } from '../reducers';
 import { openTransfer } from '../wallet/walletActions';
 import { getAccount } from './usersActions';
+import { getAvatarURL } from '../components/Avatar';
 import Error404 from '../statics/Error404';
 import UserHero from './UserHero';
 import LeftSidebar from '../app/Sidebar/LeftSidebar';
@@ -132,7 +132,7 @@ export default class User extends React.Component {
     const { profile = {} } = user.json_metadata || {};
     const busyHost = global.postOrigin || 'https://busy.org';
     const desc = profile.about || `Posts by ${username}`;
-    const image = getImage(`@${username}`) || '/images/logo.png';
+    const image = getAvatarURL(username) || '/images/logo.png';
     const canonicalUrl = `${busyHost}/@${username}`;
     const url = `${busyHost}/@${username}`;
     const displayedUsername = profile.name || username || '';
