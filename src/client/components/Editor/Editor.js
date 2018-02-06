@@ -8,6 +8,7 @@ import _ from 'lodash';
 import readingTime from 'reading-time';
 import { Checkbox, Form, Input, Select, Button } from 'antd';
 import { rewardsValues } from '../../../common/constants/rewards';
+import improve from '../../helpers/improve';
 import Action from '../Button/Action';
 import requiresLogin from '../../auth/requiresLogin';
 import withEditor from './withEditor';
@@ -145,7 +146,7 @@ class Editor extends React.Component {
 
   setBodyAndRender(body) {
     this.setState({
-      bodyHTML: remarkable.render(body),
+      bodyHTML: remarkable.render(improve(body)),
     });
   }
 
