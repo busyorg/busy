@@ -43,6 +43,7 @@ class QuickPostEditor extends React.Component {
     createPost: PropTypes.func.isRequired,
     onImageUpload: PropTypes.func,
     onImageInvalid: PropTypes.func,
+    upvote: PropTypes.bool.isRequired,
   };
 
   static defaultProps = {
