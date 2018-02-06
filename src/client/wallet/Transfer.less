@@ -1,3 +1,5 @@
+@import (reference) '../styles/custom.less';
+
 .Transfer {
   input.ant-input {
     height: 38px !important;
@@ -12,5 +14,31 @@
   .balance {
     border-bottom: 1px dotted rgb(160, 159, 159);
     cursor: pointer;
+  }
+
+  &__amount {
+    display: flex !important;
+
+    &__input {
+      border-right: 0 !important;
+    }
+
+    .ant-input-group-wrapper {
+      top: 0 !important;
+    }
+
+    .ant-input-group-addon {
+      text-align: right;
+    }
+  }
+
+  &__usd-value {
+    border-left: 0 !important;
+    border-radius: 0 !important;
+    pointer-events: none;
+    text-align: right;
+    color: @blue-heather !important;
+    &__hidden {
+    }
   }
 }

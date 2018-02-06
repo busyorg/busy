@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import _ from 'lodash';
 import { Form, Input, Radio, Modal } from 'antd';
+import classNames from 'classnames';
 import { STEEM, SBD } from '../../common/constants/cryptos';
 import steemAPI from '../steemAPI';
 import SteemConnect from '../steemConnectAPI';
@@ -16,8 +17,9 @@ import {
   getTransferTo,
   getCryptosPriceHistory,
 } from '../reducers';
-import USDDisplay from '../components/Utils/USDDisplay';
 import './Transfer.less';
+
+const InputGroup = Input.Group;
 
 @injectIntl
 @connect(
@@ -91,6 +93,27 @@ export default class Transfer extends React.Component {
         currency: STEEM.symbol,
       });
     }
+  }
+
+  getUSDValue() {
+    const { cryptosPriceHistory, intl } = this.props;
+    const { currency, oldAmount } = this.state;
+    const currentSteemRate = _.get(cryptosPriceHistory, 'STEEM.priceDetails.currentUSDPrice', null);
+    const currentSBDRate = _.get(cryptosPriceHistory, 'SBD.priceDetails.currentUSDPrice', null);
+    const steemRateLoading = _.isNull(currentSteemRate) || _.isNull(currentSBDRate);
+    const parsedAmount = parseFloat(oldAmount);
+    const invalidAmount = parsedAmount <= 0 || _.isNaN(parsedAmount);
+    let amount = 0;
+
+    if (steemRateLoading || invalidAmount) return '';
+
+    if (currency === STEEM.symbol) {
+      amount = parsedAmount * parseFloat(currentSteemRate);
+    } else {
+      amount = parsedAmount * parseFloat(currentSBDRate);
+    }
+
+    return `$${intl.formatNumber(amount, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
   }
 
   handleBalanceClick = event => {
@@ -252,37 +275,6 @@ export default class Transfer extends React.Component {
     }
   };
 
-  renderUSDValue() {
-    const { cryptosPriceHistory } = this.props;
-    const { currency, oldAmount } = this.state;
-    const currentSteemRate = _.get(cryptosPriceHistory, 'STEEM.priceDetails.currentUSDPrice', null);
-    const currentSBDRate = _.get(cryptosPriceHistory, 'SBD.priceDetails.currentUSDPrice', null);
-    const steemRateLoading = _.isNull(currentSteemRate) || _.isNull(currentSBDRate);
-    const parsedAmount = parseFloat(oldAmount);
-    const invalidAmount = parsedAmount <= 0 || _.isNaN(parsedAmount);
-    let amount = 0;
-
-    if (steemRateLoading || invalidAmount) return <div />;
-
-    if (currency === STEEM.symbol) {
-      amount = parsedAmount * parseFloat(currentSteemRate);
-    } else {
-      amount = parsedAmount * parseFloat(currentSBDRate);
-    }
-
-    return (
-      <div>
-        <FormattedMessage
-          id="transfer_current_usd_amount"
-          defaultMessage="Current USD value of this transfer: {amount}"
-          values={{
-            amount: <USDDisplay value={amount} />,
-          }}
-        />
-      </div>
-    );
-  }
-
   render() {
     const { intl, visible, authenticated, user } = this.props;
     const { getFieldDecorator } = this.props.form;
@@ -292,11 +284,14 @@ export default class Transfer extends React.Component {
     const currencyPrefix = getFieldDecorator('currency', {
       initialValue: this.state.currency,
     })(
-      <Radio.Group onChange={this.handleCurrencyChange}>
+      <Radio.Group onChange={this.handleCurrencyChange} className="Transfer__amount__type">
         <Radio.Button value={STEEM.symbol}>{STEEM.symbol}</Radio.Button>
         <Radio.Button value={SBD.symbol}>{SBD.symbol}</Radio.Button>
       </Radio.Group>,
     );
+
+    const usdValue = this.getUSDValue();
+    const displayUSDValue = !_.isEmpty(usdValue);
 
     return (
       <Modal
@@ -331,37 +326,45 @@ export default class Transfer extends React.Component {
             )}
           </Form.Item>
           <Form.Item label={<FormattedMessage id="amount" defaultMessage="Amount" />}>
-            {getFieldDecorator('amount', {
-              trigger: '',
-              rules: [
-                {
-                  required: true,
-                  message: intl.formatMessage({
-                    id: 'amount_error_empty',
-                    defaultMessage: 'Amount is required.',
-                  }),
-                },
-                {
-                  pattern: Transfer.amountRegex,
-                  message: intl.formatMessage({
-                    id: 'amount_error_format',
-                    defaultMessage:
-                      'Incorrect format. Use comma or dot as decimal separator. Use at most 3 decimal places.',
-                  }),
-                },
-                { validator: this.validateBalance },
-              ],
-            })(
+            <InputGroup className="Transfer__amount">
+              {getFieldDecorator('amount', {
+                trigger: '',
+                rules: [
+                  {
+                    required: true,
+                    message: intl.formatMessage({
+                      id: 'amount_error_empty',
+                      defaultMessage: 'Amount is required.',
+                    }),
+                  },
+                  {
+                    pattern: Transfer.amountRegex,
+                    message: intl.formatMessage({
+                      id: 'amount_error_format',
+                      defaultMessage:
+                        'Incorrect format. Use comma or dot as decimal separator. Use at most 3 decimal places.',
+                    }),
+                  },
+                  { validator: this.validateBalance },
+                ],
+              })(
+                <Input
+                  className="Transfer__amount__input"
+                  onChange={this.handleAmountChange}
+                  placeholder={intl.formatMessage({
+                    id: 'amount_placeholder',
+                    defaultMessage: 'How much do you want to send',
+                  })}
+                />,
+              )}
               <Input
-                addonAfter={currencyPrefix}
-                onChange={this.handleAmountChange}
-                placeholder={intl.formatMessage({
-                  id: 'amount_placeholder',
-                  defaultMessage: 'How much do you want to send',
+                className={classNames('Transfer__usd-value', {
+                  'Transfer__usd-value__hidden': !displayUSDValue,
                 })}
-                style={{ width: '100%' }}
-              />,
-            )}
+                addonAfter={currencyPrefix}
+                placeholder={this.getUSDValue()}
+              />
+            </InputGroup>
             {authenticated && (
               <FormattedMessage
                 id="balance_amount"
@@ -375,7 +378,6 @@ export default class Transfer extends React.Component {
                 }}
               />
             )}
-            {this.renderUSDValue()}
           </Form.Item>
           <Form.Item label={<FormattedMessage id="memo" defaultMessage="Memo" />}>
             {getFieldDecorator('memo', {
