@@ -8,6 +8,7 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 
 const DEFAULTS = {
   isDevelopment: process.env.NODE_ENV !== 'production',
@@ -67,6 +68,10 @@ function makePlugins(options) {
     }),
     new Visualizer({
       filename: './statistics.html',
+    }),
+    new SWPrecacheWebpackPlugin({
+      filepath: path.resolve(DEFAULTS.baseDir, 'public/service-worker.js'),
+      stripPrefix: path.resolve(DEFAULTS.baseDir, 'public'),
     }),
   ];
 
@@ -169,13 +174,13 @@ function makeConfig(options = {}) {
     entry: {
       main: (isDevelopment
         ? [
-          'webpack-hot-middleware/client?reload=true',
-          'react-hot-loader/patch',
-          // activate HMR for React
-          'webpack/hot/only-dev-server',
-          // bundle the client for hot reloading
-          // only- means to only hot reload for successful updates
-        ]
+            'webpack-hot-middleware/client?reload=true',
+            'react-hot-loader/patch',
+            // activate HMR for React
+            'webpack/hot/only-dev-server',
+            // bundle the client for hot reloading
+            // only- means to only hot reload for successful updates
+          ]
         : []
       ).concat([path.join(options.baseDir, 'src/client/index.js')]),
     },
