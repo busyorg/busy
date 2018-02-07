@@ -47,17 +47,16 @@
     position: relative;
     height: 55px;
     display: flex;
-    border-left: solid 1px #e9e7e7;
-    border-right: solid 1px #e9e7e7;
+    margin-left: 15px;
 
     > .ant-select-show-search {
       width: 100%;
     }
 
     input {
-      height: 54px !important;
-      border-radius: 0 !important;
-      border: 0 !important;
+      height: 45px !important;
+      margin-top: 5px;
+      border-radius: @border-radius-base;
       padding: 0 0 0 43px !important;
 
       &:hover,
@@ -72,6 +71,9 @@
       position: absolute;
       color: #c2ccd3;
       font-size: 20px;
+    }
+    @media @small {
+      margin-left: auto;
     }
   }
 

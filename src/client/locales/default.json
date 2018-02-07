@@ -1,7 +1,7 @@
 {
   "hero": "Ensuring compensation for the creators of value",
   "search": "Search",
-  "search_placeholder": "Search...",
+  "search_placeholder": "What are you looking for?",
   "search_results": "Search results",
   "no_search_results_found": "No results were found for your search.",
   "search_all_results_for": "Search all results for {search}",
@@ -16,7 +16,8 @@
   "delete_selected": "Delete selected",
   "notify_uploading_image": "Uploading image",
   "notify_uploading_iamge_error": "Couldn't upload image",
-  "notify_uploading_image_invalid": "This file is invalid. Only image files with maximum size of {size} are supported",
+  "notify_uploading_image_invalid":
+    "This file is invalid. Only image files with maximum size of {size} are supported",
   "signup": "Sign up",
   "login": "Log in",
   "activity": "Activity",
@@ -82,12 +83,14 @@
   "reblog": "Reblog",
   "reblog_reblogged": "You already reblogged this post",
   "reblog_modal_title": "Reblog this post?",
-  "reblog_modal_content": "This post will appear on your personal feed. This action cannot be reversed.",
+  "reblog_modal_content":
+    "This post will appear on your personal feed. This action cannot be reversed.",
   "write_post": "Write post",
   "write_quick_post": "Write quick post",
   "transfer": "Transfer",
   "transfer_modal_title": "Transfer funds",
-  "transfer_modal_info": "Click the button below to be redirected to SteemConnect to complete your transaction.",
+  "transfer_modal_info":
+    "Click the button below to be redirected to SteemConnect to complete your transaction.",
   "to": "To",
   "to_placeholder": "Payment recipient",
   "to_error_empty": "Recipient is required.",
@@ -95,7 +98,8 @@
   "amount": "Amount",
   "amount_placeholder": "How much do you want to send",
   "amount_error_empty": "Amount is required.",
-  "amount_error_format": "Incorrect format. Use dot as decimal separator and at most 3 decimal places.",
+  "amount_error_format":
+    "Incorrect format. Use dot as decimal separator and at most 3 decimal places.",
   "amount_error_zero": "Amount has to be higher than 0.",
   "amount_error_funds": "Insufficient funds.",
   "balance_amount": "Your balance: {amount}.",
@@ -115,7 +119,8 @@
   "profile_picture": "Profile picture",
   "profile_cover": "Cover picture",
   "profile_social_profiles": "Social profiles",
-  "profile_social_profile_incorrect": "This doesn't seem to be valid username. Only alphanumeric characters, hyphens, underscores and dots are allowed.",
+  "profile_social_profile_incorrect":
+    "This doesn't seem to be valid username. Only alphanumeric characters, hyphens, underscores and dots are allowed.",
   "profile_signature": "Signature",
   "reply": "Reply",
   "edit": "Edit",
@@ -123,11 +128,13 @@
   "show_less": "View less",
   "vote_value": "Vote Value",
   "voting_power": "Voting Power",
-  "voting_power_info": "You can enable Voting Power slider to specify exact percentage of your Voting Power to use for like.",
+  "voting_power_info":
+    "You can enable Voting Power slider to specify exact percentage of your Voting Power to use for like.",
   "voting_power_off": "Disable slider",
   "voting_power_on": "Enable slider",
   "vote_percent": "Default vote percent",
-  "vote_percent_info": "You can select your default vote value. It will be used as default value in voting slider and as value used for vote when voting slider is disabled.",
+  "vote_percent_info":
+    "You can select your default vote value. It will be used as default value in voting slider and as value used for vote when voting slider is disabled.",
   "language": "Language",
   "language_info": "What language do you want to use on Busy?",
   "select_language": "Select your language",
@@ -135,7 +142,8 @@
   "discover_more_people_info": "Discover the most reputable users of this platform",
   "invite": "Invite",
   "invite_title": "Don't use Busy alone!",
-  "invite_info": "Onboard new users on Busy.org today using the link below and get 10% of their rewards for 30 days.",
+  "invite_info":
+    "Onboard new users on Busy.org today using the link below and get 10% of their rewards for 30 days.",
   "invite_share": "Join me today on busy.org and get rewarded to blog {link}",
   "invite_copy_link": "Copy link",
   "invite_copied": "Copied",
@@ -174,7 +182,8 @@
   "title_error_too_long": "Title can't be longer than 255 characters.",
   "topics": "Topics",
   "topics_placeholder": "Add story topics here",
-  "topics_extra": "Separate topics with commas. Only lowercase letters, numbers and hyphen character is permitted.",
+  "topics_extra":
+    "Separate topics with commas. Only lowercase letters, numbers and hyphen character is permitted.",
   "topics_error_empty": "Please enter topics",
   "topics_error_count": "You have to add 1 to 5 topics.",
   "topics_error_invalid_topic": "Topic {topic} is invalid.",
@@ -209,7 +218,8 @@
   "get_boost_content": "Want to boost your post? Add the topic \"busy\" and get a like from us.",
   "drafts": "Drafts",
   "drafts_empty": "You don't have any draft saved",
-  "drafts_description": "These are posts that were never made public. You can publish them or delete them.",
+  "drafts_description":
+    "These are posts that were never made public. You can publish them or delete them.",
   "draft_untitled": "Untitled draft",
   "draft_delete": "Delete this draft",
   "draft_delete_success": "Draft has been deleted",
@@ -250,11 +260,14 @@
   "homepage_link_text": "Here's a link to {link}.",
   "homepage": "the home page",
   "need_login_link_text": "You need to login to use this feature, please {link}.",
-  "post_hidden_for_low_ratings": "This post is currently hidden due to the author's low reputation or low post rating.",
-  "post_preview_hidden_for_low_ratings": "This post preview is currently hidden due to the author's low reputation or low post rating.",
+  "post_hidden_for_low_ratings":
+    "This post is currently hidden due to the author's low reputation or low post rating.",
+  "post_preview_hidden_for_low_ratings":
+    "This post preview is currently hidden due to the author's low reputation or low post rating.",
   "display_post": "Display post",
   "display_post_preview": "Display post preview",
-  "comment_hidden_message": "This comment is currently hidden due to the author's low reputation or low comment rating.",
+  "comment_hidden_message":
+    "This comment is currently hidden due to the author's low reputation or low comment rating.",
   "reveal_comment": "Reveal comment",
   "account_created_with_delegation": "{creator} created account with delegation {account}",
   "account_created": "{creator} created account {account}",
@@ -287,7 +300,8 @@
   "vote_weight": "Vote weight",
   "filter_activities": "Filter activities",
   "no_results_found_for_search": "No results were found for your filters.",
-  "loading_more_account_history_for_filters": "Loading more of this user's account history for your filters...",
+  "loading_more_account_history_for_filters":
+    "Loading more of this user's account history for your filters...",
   "search_activity_placeholder": "upvoted, downvoted, etc...",
   "deleted_comment": "Deleted comment ({link})",
   "general": "general",
@@ -296,7 +310,8 @@
   "display_nsfw_posts_details": "You can enable all posts tagged with NSFW to be shown as default.",
   "display_nsfw_posts": "Display NSFW Posts",
   "rewrite_links": "Rewrite links",
-  "rewrite_links_details": "You can enable this option to replace Steemit.com links with Busy.org links.",
+  "rewrite_links_details":
+    "You can enable this option to replace Steemit.com links with Busy.org links.",
   "use_beta": "Use Busy beta",
   "use_beta_details": "You can enable this option to use Busy beta by default.",
   "post_preview_hidden_for_nsfw": "This post preview is currently hidden since it is tagged NSFW.",
@@ -311,7 +326,8 @@
   "username_too_long": "Username {username} is too long.",
   "login_modal_footer_text": "Don't have an account? Signup with {link}",
   "login_to_busy": "Login to Busy",
-  "login_modal_description": "Login with your Steem account using SteemConnect to enjoy Busy at 100%",
+  "login_modal_description":
+    "Login with your Steem account using SteemConnect to enjoy Busy at 100%",
   "login_with_steemconnect": "Login with SteemConnect",
   "follows_you": "Follows you"
 }
