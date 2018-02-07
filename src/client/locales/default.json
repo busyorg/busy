@@ -314,5 +314,4 @@
   "login_modal_description": "Login with your Steem account using SteemConnect to enjoy Busy at 100%",
   "login_with_steemconnect": "Login with SteemConnect",
   "follows_you": "Follows you",
-  "transfer_current_usd_amount": "Current USD value of this transfer: ${amount}"
 }
