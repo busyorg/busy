@@ -1,4 +1,5 @@
 @import (reference) '../styles/custom.less';
+@import (reference) '../styles/modules/variables.less';
 
 .Transfer {
   input.ant-input {
@@ -21,14 +22,46 @@
 
     &__input {
       border-right: 0 !important;
+      &:focus,
+      &:hover {
+        outline: none !important;
+        box-shadow: none !important;
+        + .ant-input-group-wrapper {
+          .Transfer__usd-value {
+            border: @border-width-base @border-style-base @primary-color;
+            border-right: 0;
+          }
+          .ant-input-group-addon {
+            border: @border-width-base @border-style-base @primary-color;
+          }
+        }
+      }
     }
 
     .ant-input-group-wrapper {
       top: 0 !important;
-    }
 
-    .ant-input-group-addon {
-      text-align: right;
+      .ant-input-group {
+        display: flex !important;
+
+        .ant-input-group-addon {
+          text-align: right;
+          width: 160px !important;
+        }
+      }
+    }
+  }
+
+  .has-error {
+    .Transfer__amount {
+      .Transfer__usd-value {
+        border: @border-width-base @border-style-base @red-6 !important;
+        border-right: 0 !important;
+        border-left: 0 !important;
+      }
+      .ant-input-group-addon {
+        border: @border-width-base @border-style-base @red-6 !important;
+      }
     }
   }
 
@@ -38,7 +71,10 @@
     pointer-events: none;
     text-align: right;
     color: @blue-heather !important;
-    &__hidden {
+    width: 100% !important;
+
+    @media @medium {
+      width: 105px !important;
     }
   }
 }

@@ -113,7 +113,10 @@ export default class Transfer extends React.Component {
       amount = parsedAmount * parseFloat(currentSBDRate);
     }
 
-    return `$${intl.formatNumber(amount, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+    return `~ $${intl.formatNumber(amount, {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    })}`;
   }
 
   handleBalanceClick = event => {
@@ -291,7 +294,6 @@ export default class Transfer extends React.Component {
     );
 
     const usdValue = this.getUSDValue();
-    const displayUSDValue = !_.isEmpty(usdValue);
 
     return (
       <Modal
@@ -358,11 +360,9 @@ export default class Transfer extends React.Component {
                 />,
               )}
               <Input
-                className={classNames('Transfer__usd-value', {
-                  'Transfer__usd-value__hidden': !displayUSDValue,
-                })}
+                className="Transfer__usd-value"
                 addonAfter={currencyPrefix}
-                placeholder={this.getUSDValue()}
+                placeholder={usdValue}
               />
             </InputGroup>
             {authenticated && (
