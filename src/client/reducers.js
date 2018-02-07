@@ -93,6 +93,7 @@ export const getFollowingList = state => fromUser.getFollowingList(state.user);
 export const getPendingFollows = state => fromUser.getPendingFollows(state.user);
 export const getIsFetchingFollowingList = state => fromUser.getIsFetchingFollowingList(state.user);
 export const getRecommendations = state => fromUser.getRecommendations(state.user);
+export const getFollowingFetched = state => fromUser.getFollowingFetched(state.user);
 
 export const getUser = (state, username) => fromUsers.getUser(state.users, username);
 export const getIsUserFetching = (state, username) =>

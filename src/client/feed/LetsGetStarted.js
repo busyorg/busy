@@ -12,10 +12,10 @@ import {
   getIsFetchingFollowingList,
   getIsAuthenticated,
   getIsLoaded,
+  getFollowingFetched,
 } from '../reducers';
 import HorizontalBarChart from '../components/HorizontalBarChart';
 import LetsGetStartedIcon from './LetsGetStartedIcon';
-import DelayComponent from '../components/DelayComponent';
 import './LetsGetStarted.less';
 
 @connect(state => ({
@@ -25,6 +25,7 @@ import './LetsGetStarted.less';
   isFetchingFollowingList: getIsFetchingFollowingList(state),
   loaded: getIsLoaded(state),
   authenticated: getIsAuthenticated(state),
+  followingFetched: getFollowingFetched(state),
 }))
 class LetsGetStarted extends React.Component {
   static propTypes = {
@@ -34,6 +35,7 @@ class LetsGetStarted extends React.Component {
     authenticated: PropTypes.bool.isRequired,
     authenticatedUser: PropTypes.shape().isRequired,
     loaded: PropTypes.bool.isRequired,
+    followingFetched: PropTypes.bool.isRequired,
   };
 
   static getCurrentUserState(authenticatedUser, followingList) {
@@ -82,7 +84,13 @@ class LetsGetStarted extends React.Component {
   }
 
   render() {
-    const { authenticated, isFetchingFollowingList, isAuthFetching, loaded } = this.props;
+    const {
+      authenticated,
+      isFetchingFollowingList,
+      isAuthFetching,
+      loaded,
+      followingFetched,
+    } = this.props;
     const { hasProfile, hasPost, hasVoted, hasFollowed } = this.state;
     const totalOptions = 4;
     const currentSelected = _.reduce(
@@ -96,10 +104,11 @@ class LetsGetStarted extends React.Component {
       },
       0,
     );
-    const hideSidebarContent =
-      currentSelected === totalOptions || !authenticated || isFetchingFollowingList || !loaded;
+    const ready = followingFetched && loaded;
 
-    if (hideSidebarContent) return <div />;
+    const hide = !authenticated || currentSelected === totalOptions;
+
+    if (!ready || hide) return <div />;
 
     return (
       <div className="LetsGetStarted">
@@ -191,4 +200,4 @@ class LetsGetStarted extends React.Component {
   }
 }
 
-export default DelayComponent({ delay: 500 })(LetsGetStarted);
+export default LetsGetStarted;
