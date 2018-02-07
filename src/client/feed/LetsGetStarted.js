@@ -11,10 +11,11 @@ import {
   getIsAuthFetching,
   getIsFetchingFollowingList,
   getIsAuthenticated,
+  getIsLoaded,
 } from '../reducers';
 import HorizontalBarChart from '../components/HorizontalBarChart';
 import LetsGetStartedIcon from './LetsGetStartedIcon';
-import '../components/Sidebar/SidebarContentBlock.less';
+import DelayComponent from '../components/DelayComponent';
 import './LetsGetStarted.less';
 
 @connect(state => ({
@@ -22,6 +23,7 @@ import './LetsGetStarted.less';
   followingList: getFollowingList(state),
   isAuthFetching: getIsAuthFetching(state),
   isFetchingFollowingList: getIsFetchingFollowingList(state),
+  loaded: getIsLoaded(state),
   authenticated: getIsAuthenticated(state),
 }))
 class LetsGetStarted extends React.Component {
@@ -31,6 +33,7 @@ class LetsGetStarted extends React.Component {
     isFetchingFollowingList: PropTypes.bool.isRequired,
     authenticated: PropTypes.bool.isRequired,
     authenticatedUser: PropTypes.shape().isRequired,
+    loaded: PropTypes.bool.isRequired,
   };
 
   static getCurrentUserState(authenticatedUser, followingList) {
@@ -79,7 +82,7 @@ class LetsGetStarted extends React.Component {
   }
 
   render() {
-    const { authenticated, isFetchingFollowingList, isAuthFetching } = this.props;
+    const { authenticated, isFetchingFollowingList, isAuthFetching, loaded } = this.props;
     const { hasProfile, hasPost, hasVoted, hasFollowed } = this.state;
     const totalOptions = 4;
     const currentSelected = _.reduce(
@@ -94,7 +97,7 @@ class LetsGetStarted extends React.Component {
       0,
     );
     const hideSidebarContent =
-      currentSelected === totalOptions || !authenticated || isFetchingFollowingList;
+      currentSelected === totalOptions || !authenticated || isFetchingFollowingList || !loaded;
 
     if (hideSidebarContent) return <div />;
 
@@ -188,4 +191,4 @@ class LetsGetStarted extends React.Component {
   }
 }
 
-export default LetsGetStarted;
+export default DelayComponent({ delay: 500 })(LetsGetStarted);

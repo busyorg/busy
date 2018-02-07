@@ -23,6 +23,7 @@ import {
 } from '../reducers';
 import Feed from './Feed';
 import EmptyFeed from '../statics/EmptyFeed';
+import LetsGetStarted from './LetsGetStarted';
 import ScrollToTop from '../components/Utils/ScrollToTop';
 
 @withRouter
@@ -117,8 +118,9 @@ class SubFeed extends React.Component {
     let fetched = false;
     let hasMore = false;
     let loadMoreContent = () => {};
+    const isAuthHomeFeed = match.url === '/' && authenticated;
 
-    if (authenticated && match.url === '/') {
+    if (isAuthHomeFeed) {
       content = getUserFeedContentFromState(user.name, feed, posts);
       isFetching = getUserFeedLoadingFromState(user.name, feed);
       fetched = getUserFeedFetchedFromState(user.name, feed);
@@ -137,6 +139,7 @@ class SubFeed extends React.Component {
 
     return (
       <div>
+        {isAuthHomeFeed && <LetsGetStarted />}
         {loadScrollToTop && <ScrollToTop />}
         <Feed
           content={content}
