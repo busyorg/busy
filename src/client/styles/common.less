@@ -44,17 +44,26 @@ a:focus {
   z-index: @ant-layout-header-z-index !important;
 }
 
+.ant-popover {
+  z-index: @ant-popover-z-index !important;
+}
+
+.ant-tooltip {
+  z-index: @ant-tooltip-z-index !important;
+}
+
 .ant-modal-mask,
 .ant-modal-wrap {
   z-index: @ant-modal-z-index;
 }
 
-.ant-tooltip {
-  z-index: @ant-modal-tooltip-z-index !important;
+// for when modals are active
+.white-bg .ant-popover {
+  z-index: @ant-modal-popover-z-index !important;
 }
 
-.ant-popover {
-  z-index: @ant-modal-popover-z-index !important;
+.white-bg .ant-tooltip {
+  z-index: @ant-modal-tooltip-z-index !important;
 }
 
 .ant-tooltip {
