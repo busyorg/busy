@@ -13,14 +13,15 @@ import './PostModal.less';
 
 class PostModal extends React.Component {
   static propTypes = {
-    currentShownPost: PropTypes.shape(),
     showPostModal: PropTypes.bool.isRequired,
     hidePostModal: PropTypes.func.isRequired,
+    currentShownPost: PropTypes.shape(),
+    author: PropTypes.shape(),
   };
 
   static defaultProps = {
     currentShownPost: {},
-    location: {},
+    author: {},
   };
 
   static pushURLState(title, url) {
@@ -72,11 +73,12 @@ class PostModal extends React.Component {
   }
 
   render() {
-    const { showPostModal, currentShownPost } = this.props;
+    const { showPostModal, currentShownPost, author: authorDetails } = this.props;
     const { category, author, permlink, title, url } = currentShownPost;
     const baseURL = window ? window.location.origin : 'https://busy.org';
     const postURL = `${baseURL}${url}`;
     const twitterShareURL = `https://twitter.com/intent/tweet/?text=${title}&url=${postURL}`;
+    const signature = _.get(authorDetails, 'json_metadata.profile.signature', null);
 
     return (
       <Modal
@@ -109,7 +111,7 @@ class PostModal extends React.Component {
             <i className="iconfont icon-twitter PostModal__icon" />
           </a>
         </div>
-        <PostContent content={currentShownPost} />
+        <PostContent content={currentShownPost} signature={signature} />
         <VisibilitySensor onChange={this.handleCommentsVisibility} />
         <div id="comments">
           <Comments show={this.state.commentsVisible} post={currentShownPost} />
