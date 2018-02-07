@@ -5,7 +5,6 @@ import { push } from 'react-router-redux';
 import find from 'lodash/find';
 import { Helmet } from 'react-helmet';
 import sanitize from 'sanitize-html';
-import getImage from '../helpers/getImage';
 import { getHasDefaultSlider } from '../helpers/user';
 import { dropCategory } from '../helpers/postHelpers';
 import {
@@ -29,6 +28,7 @@ import { votePost } from './postActions';
 import { reblog } from '../app/Reblog/reblogActions';
 import { toggleBookmark } from '../bookmarks/bookmarksActions';
 import { followUser, unfollowUser } from '../user/userActions';
+import { getAvatarURL } from '../components/Avatar';
 import { getHtml } from '../components/Story/Body';
 import { jsonParse } from '../helpers/formatter';
 import StoryFull from '../components/Story/StoryFull';
@@ -208,7 +208,7 @@ class PostContent extends React.Component {
     const htmlBody = getHtml(body, {}, 'text');
     const bodyText = sanitize(htmlBody, { allowedTags: [] });
     const desc = `${bodyText.substring(0, 140)} by ${author}`;
-    const image = postMetaImage || getImage(`@${author}`) || '/images/logo.png';
+    const image = postMetaImage || getAvatarURL(author) || '/images/logo.png';
     const canonicalUrl = `${canonicalHost}${dropCategory(content.url)}`;
     const url = `${busyHost}${dropCategory(content.url)}`;
     const ampUrl = `${url}/amp`;
