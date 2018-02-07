@@ -22,6 +22,9 @@
 
     &__input {
       border-right: 0 !important;
+      width: auto !important;
+      min-width: 225px;
+
       &:focus,
       &:hover {
         outline: none !important;
@@ -35,6 +38,10 @@
             border: @border-width-base @border-style-base @primary-color;
           }
         }
+      }
+
+      @media @medium {
+        width: 100% !important;
       }
     }
 

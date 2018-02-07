@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import _ from 'lodash';
 import { Form, Input, Radio, Modal } from 'antd';
-import classNames from 'classnames';
 import { STEEM, SBD } from '../../common/constants/cryptos';
 import steemAPI from '../steemAPI';
 import SteemConnect from '../steemConnectAPI';
