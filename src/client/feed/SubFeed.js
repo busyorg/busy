@@ -58,7 +58,6 @@ class SubFeed extends React.Component {
   };
 
   static defaultProps = {
-    location: {},
     getFeedContent: () => {},
     getMoreFeedContent: () => {},
   };
@@ -118,7 +117,6 @@ class SubFeed extends React.Component {
 
   render() {
     const { authenticated, loaded, user, feed, posts, match } = this.props;
-
     let content = [];
     let isFetching = false;
     let fetched = false;
