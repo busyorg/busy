@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
+const configUtils = require('./configUtils');
 
 const isDevelopment = process.env.NODE_ENV !== 'production';
 const baseDir = path.resolve(__dirname, '..');
@@ -22,7 +23,7 @@ module.exports = {
   module: {
     loaders: [
       {
-        test: /\.js$/,
+        test: configUtils.MATCH_JS_JSX,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',

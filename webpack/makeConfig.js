@@ -8,6 +8,7 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const configUtils = require('./configUtils');
 
 const DEFAULTS = {
   isDevelopment: process.env.NODE_ENV !== 'production',
@@ -116,7 +117,7 @@ function makeStyleLoaders(options) {
   if (options.isDevelopment) {
     return [
       {
-        test: /\.css|.less$/,
+        test: configUtils.MATCH_CSS_LESS,
         use: [
           {
             loader: 'style-loader',
@@ -139,7 +140,7 @@ function makeStyleLoaders(options) {
 
   return [
     {
-      test: /\.css|.less$/,
+      test: configUtils.MATCH_CSS_LESS,
       loader: ExtractTextPlugin.extract({
         fallback: 'style-loader',
         use: [
@@ -188,7 +189,7 @@ function makeConfig(options = {}) {
     module: {
       rules: [
         {
-          test: /\.js?$/,
+          test: configUtils.MATCH_JS_JSX,
           exclude: /node_modules/,
           use: (options.isDevelopment ? [{ loader: 'react-hot-loader/webpack' }] : []).concat([
             {
