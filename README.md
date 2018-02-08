@@ -10,7 +10,7 @@ Busy is an Open Source social network and communications platform which extends 
 For more info: https://busy.org/@busy.org
 
 ## Preview
-![Preview](https://res.cloudinary.com/hpiynhbhq/image/upload/v1504423577/wft1ubbw2ozrbteril7u.png)
+![Preview](https://user-images.githubusercontent.com/16245250/35974135-6fe56d5a-0d0a-11e8-99f6-a90d59696f82.png)
 
 ## Usage
 
@@ -18,8 +18,8 @@ For more info: https://busy.org/@busy.org
 git clone https://github.com/busyorg/busy.git
 cd busy
 
-npm install
-npm run dev-server
+yarn install
+yarn run dev-server
 ```
 
 ## Contribution 
