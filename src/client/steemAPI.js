@@ -1,6 +1,8 @@
 import { createClient } from 'lightrpc';
 
-const client = createClient(process.env.STEEMJS_URL || 'https://api.steemit.com');
+const client = createClient(process.env.STEEMJS_URL || 'https://api.steemit.com', {
+  timeout: 10000,
+});
 client.sendAsync = (message, params) =>
   new Promise((resolve, reject) => {
     client.send(message, params, (err, result) => {
