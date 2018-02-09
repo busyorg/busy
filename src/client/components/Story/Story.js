@@ -144,10 +144,13 @@ class Story extends React.Component {
 
   handlePreviewClickPostModalDisplay(e) {
     const { post } = this.props;
+    const isReplyPreview = _.isEmpty(post.title);
     const elementNodeName = _.toLower(_.get(e, 'target.nodeName', ''));
     const showPostModal = elementNodeName !== 'i';
 
-    if (showPostModal) {
+    if (isReplyPreview) {
+      this.props.history.push(dropCategory(post.url));
+    } else if (showPostModal) {
       this.props.showPostModal(post);
     }
   }
