@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
@@ -7,11 +8,11 @@ import {
   FormattedDate,
   FormattedTime,
 } from 'react-intl';
-import _ from 'lodash';
 import { Link, withRouter } from 'react-router-dom';
 import { Tag, Tooltip } from 'antd';
 import formatter from '../../helpers/steemitFormatter';
-import { isPostTaggedNSFW, dropCategory } from '../../helpers/postHelpers';
+import { getHasDefaultSlider } from '../../helpers/user';
+import { isPostDeleted, isPostTaggedNSFW, dropCategory } from '../../helpers/postHelpers';
 import withAuthActions from '../../auth/withAuthActions';
 import StoryPreview from './StoryPreview';
 import StoryFooter from '../StoryFooter/StoryFooter';
@@ -43,13 +44,14 @@ class Story extends React.Component {
     ownPost: PropTypes.bool,
     sliderMode: PropTypes.oneOf(['on', 'off', 'auto']),
     history: PropTypes.shape(),
-    onFollowClick: PropTypes.func,
-    onSaveClick: PropTypes.func,
-    onReportClick: PropTypes.func,
-    onLikeClick: PropTypes.func,
-    onShareClick: PropTypes.func,
-    onEditClick: PropTypes.func,
     showPostModal: PropTypes.func,
+    votePost: PropTypes.func,
+    toggleBookmark: PropTypes.func,
+    reblog: PropTypes.func,
+    editPost: PropTypes.func,
+    followUser: PropTypes.func,
+    unfollowUser: PropTypes.func,
+    push: PropTypes.func,
   };
 
   static defaultProps = {
@@ -61,14 +63,14 @@ class Story extends React.Component {
     ownPost: false,
     sliderMode: 'auto',
     history: {},
-    onFollowClick: () => {},
-    onSaveClick: () => {},
-    onReportClick: () => {},
-    onLikeClick: () => {},
-    onShareClick: () => {},
-    onEditClick: () => {},
-    postState: {},
     showPostModal: () => {},
+    votePost: () => {},
+    toggleBookmark: () => {},
+    reblog: () => {},
+    editPost: () => {},
+    followUser: () => {},
+    unfollowUser: () => {},
+    push: () => {},
   };
 
   constructor(props) {
@@ -84,6 +86,15 @@ class Story extends React.Component {
     this.handleShowStoryPreview = this.handleShowStoryPreview.bind(this);
     this.handlePostModalDisplay = this.handlePostModalDisplay.bind(this);
     this.handlePreviewClickPostModalDisplay = this.handlePreviewClickPostModalDisplay.bind(this);
+    this.handleLikeClick = this.handleLikeClick.bind(this);
+    this.handleReportClick = this.handleReportClick.bind(this);
+    this.handleShareClick = this.handleShareClick.bind(this);
+    this.handleFollowClick = this.handleFollowClick.bind(this);
+    this.handleEditClick = this.handleEditClick.bind(this);
+  }
+
+  shouldComponentUpdate(nextProps) {
+    return !_.isEqual(nextProps, this.props);
   }
 
   getDisplayStoryPreview() {
@@ -102,20 +113,54 @@ class Story extends React.Component {
     return true;
   }
 
+  handleLikeClick(post, postState, weight = 10000) {
+    const { sliderMode, user, defaultVotePercent } = this.props;
+    if (sliderMode === 'on' || (sliderMode === 'auto' && getHasDefaultSlider(user))) {
+      this.props.votePost(post.id, post.author, post.permlink, weight);
+    } else if (postState.isLiked) {
+      this.props.votePost(post.id, post.author, post.permlink, 0);
+    } else {
+      this.props.votePost(post.id, post.author, post.permlink, defaultVotePercent);
+    }
+  }
+
+  handleReportClick(post, postState) {
+    const weight = postState.isReported ? 0 : -10000;
+    this.props.votePost(post.id, post.author, post.permlink, weight);
+  }
+
+  handleShareClick(post) {
+    this.props.reblog(post.id);
+  }
+
+  handleFollowClick(post) {
+    const { userFollowed } = this.props.postState;
+    if (userFollowed) {
+      this.props.unfollowUser(post.author);
+    } else {
+      this.props.followUser(post.author);
+    }
+  }
+
+  handleEditClick(post) {
+    if (post.depth === 0) return this.props.editPost(post);
+    return this.props.push(`${post.url}-edit`);
+  }
+
   clickMenuItem(key) {
     const { post, postState } = this.props;
     switch (key) {
       case 'follow':
-        this.props.onFollowClick(post);
+        this.handleFollowClick(post);
         break;
       case 'save':
-        this.props.onSaveClick(post);
+        this.props.toggleBookmark(post.id, post.author, post.permlink);
         break;
       case 'report':
-        this.props.onReportClick(post, postState);
+        this.handleReportClick(post, postState);
         break;
       case 'edit':
-        this.props.onEditClick(post);
+        this.handleEditClick(post);
         break;
       default:
     }
@@ -170,10 +215,9 @@ class Story extends React.Component {
       ownPost,
       sliderMode,
       defaultVotePercent,
-      onLikeClick,
-      onShareClick,
-      onEditClick,
     } = this.props;
+    if (isPostDeleted(post)) return <div />;
+
     const postAuthorReputation = formatter.reputation(post.author_reputation);
     const showStoryPreview = this.getDisplayStoryPreview();
     const hiddenStoryPreviewMessage = isPostTaggedNSFW(post) ? (
@@ -283,9 +327,9 @@ class Story extends React.Component {
               ownPost={ownPost}
               sliderMode={sliderMode}
               defaultVotePercent={defaultVotePercent}
-              onLikeClick={onLikeClick}
-              onShareClick={onShareClick}
-              onEditClick={onEditClick}
+              onLikeClick={this.handleLikeClick}
+              onShareClick={this.handleShareClick}
+              onEditClick={this.handleEditClick}
               pendingFollow={pendingFollow}
               pendingBookmark={pendingBookmark}
               saving={saving}
