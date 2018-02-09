@@ -19,7 +19,7 @@ git clone https://github.com/busyorg/busy.git
 cd busy
 
 yarn install
-yarn run dev-server
+yarn dev-server
 ```
 
 ## Contribution 
