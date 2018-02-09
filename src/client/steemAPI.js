@@ -1,9 +1,10 @@
-import { createClient } from 'lightrpc';
+const { Client } = require('busyjs');
 
-const client = createClient(process.env.STEEMJS_URL || 'https://api.steemit.com');
+const client = new Client('wss://steemd.privex.io');
+
 client.sendAsync = (message, params) =>
   new Promise((resolve, reject) => {
-    client.send(message, params, (err, result) => {
+    client.call(message, params, (err, result) => {
       if (err !== null) return reject(err);
       return resolve(result);
     });
