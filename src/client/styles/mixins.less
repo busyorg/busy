@@ -1,3 +1,6 @@
+@import (reference) './custom.less';
+@import (reference) './modules/variables.less';
+
 // Buttons
 .colorize-button(@color, @border-color) {
   background: @color !important;
@@ -26,5 +29,17 @@
     border-color: @color !important;
     background-color: @color !important;
     color: white !important;
+  }
+}
+
+.content-block() {
+  background: @white;
+  border-radius: 0;
+  border-top: @base-border;
+  border-bottom: @base-border;
+
+  @media @small {
+    border: @base-border;
+    border-radius: @border-radius-base;
   }
 }
