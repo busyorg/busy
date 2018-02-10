@@ -13,7 +13,6 @@ import {
 import { updateRecommendations } from '../../user/userActions';
 import InterestingPeople from '../../components/Sidebar/InterestingPeople';
 import InterestingPeopleWithAPI from '../../components/Sidebar/InterestingPeopleWithAPI';
-import StartNow from '../../components/Sidebar/StartNow';
 import SignUp from '../../components/Sidebar/SignUp';
 import PostRecommendation from '../../components/Sidebar/PostRecommendation';
 import Loading from '../../components/Icon/Loading';
@@ -96,7 +95,6 @@ export default class RightSidebar extends React.Component {
             path="/"
             render={() => (
               <div>
-                {authenticatedUser.last_root_post === '1970-01-01T00:00:00' && <StartNow />}
                 {authenticated &&
                 this.props.recommendations.length > 0 &&
                 !showPostRecommendation ? (
