@@ -1583,7 +1583,7 @@ builtin-status-codes@^3.0.0:
 
 "busyjs@https://github.com/busyorg/busyjs#dev":
   version "0.0.3"
-  resolved "https://github.com/busyorg/busyjs#46ba6857da0b4d140ed41eac33b81c352d456605"
+  resolved "https://github.com/busyorg/busyjs#6ee62e6931b08dfc175cfb538f9f0f20c91f5f8e"
   dependencies:
     ws "^4.0.0"
 
