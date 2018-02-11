@@ -80,7 +80,7 @@ class Topnav extends React.Component {
       >
         <Menu className="Topnav__menu-container__menu" mode="horizontal">
           <Menu.Item key="signup">
-            <a target="_blank" rel="noopener noreferrer" href="https://steemit.com/pick_account">
+            <a target="_blank" rel="noopener noreferrer" href={process.env.SIGNUP_URL}>
               <FormattedMessage id="signup" defaultMessage="Sign up" />
             </a>
           </Menu.Item>
