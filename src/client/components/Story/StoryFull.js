@@ -432,6 +432,11 @@ class StoryFull extends React.Component {
         <div className="StoryFull__content">{content}</div>
         {open && (
           <Lightbox
+            reactModalStyle={{
+              overlay: {
+                zIndex: '1051'
+              },
+            }}
             mainSrc={this.images[index]}
             nextSrc={this.images[(index + 1) % this.images.length]}
             prevSrc={this.images[(index + (this.images.length - 1)) % this.images.length]}
