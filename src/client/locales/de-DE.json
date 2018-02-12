@@ -27,7 +27,7 @@
   "feed": "Neuigkeiten",
   "feed_empty": "Hoppla! Dieser Feed ist leer",
   "empty_user_profile": "Dieser Nutzer hat bisher noch keine Beiträge veröffentlicht.",
-  "news": "Neuigkeiten",
+  "news": "Trends",
   "wallet": "Brieftasche",
   "bookmarks": "Lesezeichen",
   "bookmarks_empty": "Du hast keine gespeicherten Beiträge.",
@@ -313,5 +313,12 @@
   "login_to_busy": "Einloggen auf Busy",
   "login_modal_description": "Loggen Sie sich ein mit Ihrem Steem Konto über SteemConnect ein um 100% zu genießen",
   "login_with_steemconnect": "Einloggen mit SteemConnect",
-  "follows_you": "Follows you"
+  "follows_you": "Follows you",
+  "lets_get_started": "Let's get started",
+  "completed": "Completed",
+  "complete_your_profile": "Complete your profile",
+  "follow_steemians": "Follow {amount} steemians",
+  "like_good_posts": "Like some good posts",
+  "write_first_post": "Write your first post",
+  "complete_profile_tooltip": "Must fill out the name, about, and profile picture fields"
 }
