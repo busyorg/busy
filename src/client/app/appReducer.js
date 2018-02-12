@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import { LOCATION_CHANGE } from 'react-router-redux/reducer';
 import * as appTypes from './appActions';
 import * as authActions from '../auth/authActions';
 import * as postActions from '../post/postActions';
@@ -125,7 +126,7 @@ export default (state = initialState, action) => {
         showPostModal: true,
         currentShownPost: action.payload,
       };
-    case appTypes.LOCATION_CHANGE:
+    case LOCATION_CHANGE:
     case appTypes.HIDE_POST_MODAL:
       return {
         ...state,

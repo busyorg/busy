@@ -90,5 +90,3 @@ export const HIDE_POST_MODAL = '@app/HIDE_POST_MODAL';
 
 export const showPostModal = createAction(SHOW_POST_MODAL);
 export const hidePostModal = createAction(HIDE_POST_MODAL);
-
-export const LOCATION_CHANGE = '@@router/LOCATION_CHANGE';
