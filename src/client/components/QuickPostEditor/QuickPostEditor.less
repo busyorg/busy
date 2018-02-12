@@ -7,7 +7,7 @@
   border-bottom: 1px solid @white-gainsboro;
   display: flex;
   flex-direction: column;
-  margin-bottom: 10px;
+  margin-bottom: @content-margin;
 
   &__contents {
     border-radius: @border-radius-base;
@@ -84,7 +84,7 @@
     left: 0;
     z-index: 1;
     border-radius: 4px;
-    background: fade(@purple, 60%);
+    background: fade(@primary-color, 60%);
     color: white;
 
     & > div {
@@ -125,7 +125,7 @@
     &__remove {
       align-items: center;
       background-color: @white;
-      color: @purple !important;
+      color: @primary-color !important;
       cursor: pointer;
       display: flex;
       height: 10px;
