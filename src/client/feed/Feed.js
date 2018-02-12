@@ -83,6 +83,7 @@ export default class Feed extends React.Component {
     followUser: PropTypes.func,
     unfollowUser: PropTypes.func,
     loadMoreContent: PropTypes.func,
+    showPostModal: PropTypes.func,
     push: PropTypes.func,
   };
 
@@ -97,6 +98,7 @@ export default class Feed extends React.Component {
     followUser: () => {},
     unfollowUser: () => {},
     loadMoreContent: () => {},
+    showPostModal: () => {},
     push: () => {},
   };
 
@@ -158,6 +160,7 @@ export default class Feed extends React.Component {
       rewardFund,
       defaultVotePercent,
       showNSFWPosts,
+      showPostModal,
     } = this.props;
 
     return (
@@ -216,6 +219,7 @@ export default class Feed extends React.Component {
               onFollowClick={this.handleFollowClick}
               onEditClick={this.handleEditClick}
               showNSFWPosts={showNSFWPosts}
+              showPostModal={showPostModal}
             />
           );
         })}
