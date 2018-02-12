@@ -116,7 +116,7 @@
   "profile_cover": "ภาพหน้าปก",
   "profile_social_profiles": "โปรไฟล์สังคม",
   "profile_social_profile_incorrect": "นี้ดูเหมือนจะไม่เป็นชื่อผู้ใช้ที่ถูกต้อง. อนุญาตเฉพาะอักขระตัวเลขยัติภังค์ขีดเส้นใต้และจุดเท่านั้น",
-  "profile_signature": "Signature",
+  "profile_signature": "ลายเซ็น (Automatic Translation)",
   "reply": "ตอบกลับ",
   "edit": "แก้ไข",
   "show_more": "ดูเพิ่มเติม",
@@ -313,5 +313,12 @@
   "login_to_busy": "เข้าสู่ระบบ Busy",
   "login_modal_description": "เข้าสู่ระบบด้วยบัญชี Steem ของคุณโดยใช้ SteemConnect สู่ Busy ที่ 100%",
   "login_with_steemconnect": "เข้าสู่ระบบ ด้วย SteemConnect",
-  "follows_you": "ติดตามคุณ"
+  "follows_you": "ติดตามคุณ",
+  "lets_get_started": "Let's get started",
+  "completed": "Completed",
+  "complete_your_profile": "Complete your profile",
+  "follow_steemians": "Follow {amount} steemians",
+  "like_good_posts": "Like some good posts",
+  "write_first_post": "Write your first post",
+  "complete_profile_tooltip": "Must fill out the name, about, and profile picture fields"
 }
