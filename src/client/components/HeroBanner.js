@@ -27,7 +27,7 @@ const HeroBanner = ({ visible, location, onCloseClick }) => {
               className="HeroBanner__container__content__buttons__button HeroBanner__primary"
               target="_blank"
               rel="noopener noreferrer"
-              href="https://steemit.com/pick_account"
+              href={process.env.SIGNUP_URL}
             >
               <FormattedMessage id="signup" defaultMessage="Sign up" />
             </a>

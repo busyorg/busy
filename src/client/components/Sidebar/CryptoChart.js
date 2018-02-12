@@ -213,7 +213,6 @@ class CryptoChart extends React.Component {
       },
       plotOptions: {
         line: {
-          color: '#4757b2',
           marker: {
             enabled: false,
           },
