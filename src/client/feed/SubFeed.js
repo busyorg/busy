@@ -140,12 +140,13 @@ class SubFeed extends React.Component {
       loadMoreContent = () => this.props.getMoreFeedContent(sortBy, match.params.category);
     }
 
-    const loadScrollToTop = _.isEmpty(content);
+    const empty = _.isEmpty(content);
+    const displayEmptyFeed = empty && fetched && loaded && !isFetching;
 
     return (
       <div>
         {isAuthHomeFeed && <LetsGetStarted />}
-        {loadScrollToTop && <ScrollToTop />}
+        {empty && <ScrollToTop />}
         <Feed
           content={content}
           isFetching={isFetching}
@@ -153,8 +154,8 @@ class SubFeed extends React.Component {
           loadMoreContent={loadMoreContent}
           showPostModal={this.props.showPostModal}
         />
-        {fetched && loaded && !isFetching && <EmptyFeed />}
         <PostModal />
+        {displayEmptyFeed && <EmptyFeed />}
       </div>
     );
   }
