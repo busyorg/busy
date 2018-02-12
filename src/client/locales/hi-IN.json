@@ -313,5 +313,13 @@
   "login_to_busy": "बिजी में लॉगिन करें",
   "login_modal_description": "बिजी में १००% मस्ती करने के लिए अपने स्टीम खाते से लॉगिन करें स्टीमकनेक्ट का उपयोग करते हुवे",
   "login_with_steemconnect": "स्टीमकनेक्ट से लॉगिन करें",
-  "follows_you": "Follows you"
+  "follows_you": "Follows you",
+  "back": "Back",
+  "lets_get_started": "Let's get started",
+  "completed": "Completed",
+  "complete_your_profile": "Complete your profile",
+  "follow_steemians": "Follow {amount} steemians",
+  "like_good_posts": "Like some good posts",
+  "write_first_post": "Write your first post",
+  "complete_profile_tooltip": "Must fill out the name, about, and profile picture fields"
 }
