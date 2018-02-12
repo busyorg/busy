@@ -7,7 +7,8 @@ import {
   FormattedDate,
   FormattedTime,
 } from 'react-intl';
-import { Link } from 'react-router-dom';
+import _ from 'lodash';
+import { Link, withRouter } from 'react-router-dom';
 import { Tag, Tooltip } from 'antd';
 import formatter from '../../helpers/steemitFormatter';
 import { isPostTaggedNSFW, dropCategory } from '../../helpers/postHelpers';
@@ -21,6 +22,7 @@ import HiddenStoryPreviewMessage from './HiddenStoryPreviewMessage';
 import PostedFrom from './PostedFrom';
 import './Story.less';
 
+@withRouter
 @injectIntl
 @withAuthActions
 class Story extends React.Component {
@@ -40,12 +42,14 @@ class Story extends React.Component {
     saving: PropTypes.bool,
     ownPost: PropTypes.bool,
     sliderMode: PropTypes.oneOf(['on', 'off', 'auto']),
+    history: PropTypes.shape(),
     onFollowClick: PropTypes.func,
     onSaveClick: PropTypes.func,
     onReportClick: PropTypes.func,
     onLikeClick: PropTypes.func,
     onShareClick: PropTypes.func,
     onEditClick: PropTypes.func,
+    showPostModal: PropTypes.func,
   };
 
   static defaultProps = {
@@ -56,6 +60,7 @@ class Story extends React.Component {
     saving: false,
     ownPost: false,
     sliderMode: 'auto',
+    history: {},
     onFollowClick: () => {},
     onSaveClick: () => {},
     onReportClick: () => {},
@@ -63,6 +68,7 @@ class Story extends React.Component {
     onShareClick: () => {},
     onEditClick: () => {},
     postState: {},
+    showPostModal: () => {},
   };
 
   constructor(props) {
@@ -76,6 +82,8 @@ class Story extends React.Component {
     this.getDisplayStoryPreview = this.getDisplayStoryPreview.bind(this);
     this.handlePostPopoverMenuClick = this.handlePostPopoverMenuClick.bind(this);
     this.handleShowStoryPreview = this.handleShowStoryPreview.bind(this);
+    this.handlePostModalDisplay = this.handlePostModalDisplay.bind(this);
+    this.handlePreviewClickPostModalDisplay = this.handlePreviewClickPostModalDisplay.bind(this);
   }
 
   getDisplayStoryPreview() {
@@ -121,6 +129,30 @@ class Story extends React.Component {
     this.setState({
       showHiddenStoryPreview: true,
     });
+  }
+
+  handlePostModalDisplay() {
+    const { post } = this.props;
+    const isReplyPreview = _.isEmpty(post.title);
+
+    if (isReplyPreview) {
+      this.props.history.push(dropCategory(post.url));
+    } else {
+      this.props.showPostModal(post);
+    }
+  }
+
+  handlePreviewClickPostModalDisplay(e) {
+    const { post } = this.props;
+    const isReplyPreview = _.isEmpty(post.title);
+    const elementNodeName = _.toLower(_.get(e, 'target.nodeName', ''));
+    const showPostModal = elementNodeName !== 'i';
+
+    if (isReplyPreview) {
+      this.props.history.push(dropCategory(post.url));
+    } else if (showPostModal) {
+      this.props.showPostModal(post);
+    }
   }
 
   render() {
@@ -179,7 +211,7 @@ class Story extends React.Component {
     }
 
     return (
-      <div className="Story">
+      <div className="Story" id={`${post.author}-${post.permlink}`}>
         {rebloggedUI}
         <div className="Story__content">
           <div className="Story__header">
@@ -218,16 +250,24 @@ class Story extends React.Component {
             </div>
           </div>
           <div className="Story__content">
-            <Link to={dropCategory(post.url)} className="Story__content__title">
+            <a
+              role="presentation"
+              onClick={this.handlePostModalDisplay}
+              className="Story__content__title"
+            >
               <h2>
                 {post.depth !== 0 && <Tag color="#4f545c">RE</Tag>}
                 {post.title || post.root_title}
               </h2>
-            </Link>
+            </a>
             {showStoryPreview ? (
-              <Link to={dropCategory(post.url)} className="Story__content__preview">
+              <a
+                role="presentation"
+                onClick={this.handlePreviewClickPostModalDisplay}
+                className="Story__content__preview"
+              >
                 <StoryPreview post={post} />
-              </Link>
+              </a>
             ) : (
               hiddenStoryPreviewMessage
             )}

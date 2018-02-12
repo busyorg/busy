@@ -4,7 +4,9 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import Cookie from 'js-cookie';
 import _ from 'lodash';
+import { showPostModal } from '../app/appActions';
 import { getFeedContent, getMoreFeedContent } from './feedActions';
+
 import {
   getFeedContentFromState,
   getFeedLoadingFromState,
@@ -25,6 +27,7 @@ import Feed from './Feed';
 import EmptyFeed from '../statics/EmptyFeed';
 import LetsGetStarted from './LetsGetStarted';
 import ScrollToTop from '../components/Utils/ScrollToTop';
+import PostModal from '../post/PostModalContainer';
 
 @withRouter
 @connect(
@@ -39,6 +42,7 @@ import ScrollToTop from '../components/Utils/ScrollToTop';
     getFeedContent: (sortBy, category) => dispatch(getFeedContent({ sortBy, category, limit: 10 })),
     getMoreFeedContent: (sortBy, category) =>
       dispatch(getMoreFeedContent({ sortBy, category, limit: 10 })),
+    showPostModal: post => dispatch(showPostModal(post)),
   }),
 )
 class SubFeed extends React.Component {
@@ -49,6 +53,7 @@ class SubFeed extends React.Component {
     feed: PropTypes.shape().isRequired,
     posts: PropTypes.shape().isRequired,
     match: PropTypes.shape().isRequired,
+    showPostModal: PropTypes.func.isRequired,
     getFeedContent: PropTypes.func,
     getMoreFeedContent: PropTypes.func,
   };
@@ -146,8 +151,10 @@ class SubFeed extends React.Component {
           isFetching={isFetching}
           hasMore={hasMore}
           loadMoreContent={loadMoreContent}
+          showPostModal={this.props.showPostModal}
         />
         {fetched && loaded && !isFetching && <EmptyFeed />}
+        <PostModal />
       </div>
     );
   }
