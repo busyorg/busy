@@ -313,5 +313,12 @@
   "login_to_busy": "Ensaluti al Busy",
   "login_modal_description": "Ensaluti per via Steem-konto uzante SteemConnect-on por la ĝui Busy 100%",
   "login_with_steemconnect": "Ensaluti per SteemConnect",
-  "follows_you": "Sekvas vin"
+  "follows_you": "Sekvas vin",
+  "lets_get_started": "Let's get started",
+  "completed": "Completed",
+  "complete_your_profile": "Complete your profile",
+  "follow_steemians": "Follow {amount} steemians",
+  "like_good_posts": "Like some good posts",
+  "write_first_post": "Write your first post",
+  "complete_profile_tooltip": "Must fill out the name, about, and profile picture fields"
 }
