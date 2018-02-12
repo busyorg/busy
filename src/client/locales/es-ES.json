@@ -313,5 +313,13 @@
   "login_to_busy": "Iniciar sesión en Busy",
   "login_modal_description": "Inicia sesión con tu cuenta Steem utilizando SteemConnect para poder disfrutar de Busy al 100%",
   "login_with_steemconnect": "Iniciar sesión con SteemConnect",
-  "follows_you": "Follows you"
+  "follows_you": "Follows you",
+  "back": "Back",
+  "lets_get_started": "Let's get started",
+  "completed": "Completed",
+  "complete_your_profile": "Complete your profile",
+  "follow_steemians": "Follow {amount} steemians",
+  "like_good_posts": "Like some good posts",
+  "write_first_post": "Write your first post",
+  "complete_profile_tooltip": "Must fill out the name, about, and profile picture fields"
 }
