@@ -7,6 +7,7 @@ const initialState = {
     list: [],
     pendingFollows: [],
     isFetching: false,
+    fetched: false,
   },
 };
 
@@ -30,6 +31,7 @@ export default function userReducer(state = initialState, action) {
           ...state.following,
           list: [],
           isFetching: true,
+          fetched: false,
         },
       };
     case actions.GET_FOLLOWING_ERROR:
@@ -39,6 +41,7 @@ export default function userReducer(state = initialState, action) {
           ...state.following,
           list: [],
           isFetching: false,
+          fetched: true,
         },
       };
     case actions.GET_FOLLOWING_SUCCESS:
@@ -49,6 +52,7 @@ export default function userReducer(state = initialState, action) {
           ...state.following,
           list: action.payload,
           isFetching: false,
+          fetched: true,
         },
       };
     case actions.FOLLOW_USER_START:
@@ -111,3 +115,4 @@ export const getFollowingList = state => state.following.list;
 export const getPendingFollows = state => state.following.pendingFollows;
 export const getIsFetchingFollowingList = state => state.following.isFetching;
 export const getRecommendations = state => state.recommendations;
+export const getFollowingFetched = state => state.following.fetched;

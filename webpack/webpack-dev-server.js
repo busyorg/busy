@@ -17,7 +17,6 @@ module.exports = {
       'process.env': {
         NODE_ENV: JSON.stringify('development'),
         ENABLE_LOGGER: JSON.stringify(process.env.ENABLE_LOGGER),
-        IMG_HOST: JSON.stringify(process.env.IMG_HOST || 'https://img.busy.org'),
         SENTRY_PUBLIC_DSN: null,
         STEEMCONNECT_CLIENT_ID: JSON.stringify(process.env.STEEMCONNECT_CLIENT_ID || 'busy.app'),
         STEEMCONNECT_REDIRECT_URL: JSON.stringify(
@@ -28,8 +27,7 @@ module.exports = {
         ),
         STEEMJS_URL: JSON.stringify(process.env.STEEMJS_URL || 'https://api.steemit.com'),
         IS_BROWSER: JSON.stringify(true),
-        PUSHPAD_PROJECT_ID: process.env.PUSHPAD_PROJECT_ID,
-        BUSYPUSH_ENDPOINT: process.env.BUSYPUSH_ENDPOINT,
+        SIGNUP_URL: JSON.stringify(process.env.SIGNUP_URL || 'https://signup.steemit.com/?ref=busy'),
       },
     }),
   ],

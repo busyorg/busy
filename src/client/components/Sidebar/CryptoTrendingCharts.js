@@ -88,7 +88,7 @@ class CryptoTrendingCharts extends React.Component {
     if (this.hasAPIError()) return <div />;
 
     return (
-      <div className="SidebarContentBlock">
+      <div className="SidebarContentBlock CryptoTrendingCharts">
         <h4 className="SidebarContentBlock__title">
           <i className="iconfont icon-chart SidebarContentBlock__icon" />
           <FormattedMessage id="market" defaultMessage="Market" />
