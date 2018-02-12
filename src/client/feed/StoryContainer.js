@@ -39,15 +39,12 @@ const mapStateToProps = (state, { id }) => {
     userFollowed: getFollowingList(state).includes(post.author),
   };
 
-  const pendingLikes = getPendingLikes(state);
+  const pendingVote = getPendingLikes(state)[post.id];
 
   const pendingLike =
-    pendingLikes[post.id] &&
-    (pendingLikes[post.id].weight > 0 || (pendingLikes[post.id].weight === 0 && postState.isLiked));
+    pendingVote && (pendingVote.weight > 0 || (pendingVote.weight === 0 && postState.isLiked));
   const pendingFlag =
-    pendingLikes[post.id] &&
-    (pendingLikes[post.id].weight < 0 ||
-      (pendingLikes[post.id].weight === 0 && postState.isReported));
+    pendingVote && (pendingVote.weight < 0 || (pendingVote.weight === 0 && postState.isReported));
 
   return {
     user,
