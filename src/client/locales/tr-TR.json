@@ -313,5 +313,12 @@
   "login_to_busy": "Busy'e Giriş Yap",
   "login_modal_description": "SteemConnect'i kullanarak Steem hesabınla giriş yap ve Busy'nin tadını çıkar",
   "login_with_steemconnect": "SteemConnect ile Giriş yap",
-  "follows_you": "Sizi takip ediyor"
+  "follows_you": "Sizi takip ediyor",
+  "lets_get_started": "Let's get started",
+  "completed": "Completed",
+  "complete_your_profile": "Complete your profile",
+  "follow_steemians": "Follow {amount} steemians",
+  "like_good_posts": "Like some good posts",
+  "write_first_post": "Write your first post",
+  "complete_profile_tooltip": "Must fill out the name, about, and profile picture fields"
 }
