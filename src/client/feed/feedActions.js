@@ -42,7 +42,8 @@ export const getMoreFeedContent = ({ sortBy, category, limit = 20 }) => (
   getState,
   { steemAPI },
 ) => {
-  const { feed, ...state } = getState();
+  const state = getState();
+  const feed = getFeed(state);
   const posts = getPosts(state);
   const feedContent = getFeedFromState(sortBy, category, feed);
 
@@ -74,7 +75,9 @@ export const getMoreFeedContent = ({ sortBy, category, limit = 20 }) => (
 };
 
 export const getUserComments = ({ username, limit = 20 }) => (dispatch, getState, { steemAPI }) => {
-  const feed = getFeed(getState());
+  const state = getState();
+  const feed = getFeed(state);
+
   if (feed.comments[username] && feed.comments[username].isLoaded) {
     return null;
   }
@@ -93,8 +96,9 @@ export const getMoreUserComments = ({ username, limit = 20 }) => (
   getState,
   { steemAPI },
 ) => {
-  const feed = getFeed(getState());
-  const posts = getPosts(getState());
+  const state = getState();
+  const feed = getFeed(state);
+  const posts = getPosts(state);
 
   const feedContent = getFeedFromState('comments', username, feed);
   const isLoading = getFeedLoadingFromState('comments', username, feed);
@@ -124,7 +128,9 @@ export const getMoreUserComments = ({ username, limit = 20 }) => (
 };
 
 export const getReplies = () => (dispatch, getState, { steemAPI }) => {
-  const category = getAuthenticatedUserName(getState());
+  const state = getState();
+  const category = getAuthenticatedUserName(state);
+
   dispatch({
     type: GET_REPLIES.ACTION,
     payload: steemAPI
@@ -135,8 +141,11 @@ export const getReplies = () => (dispatch, getState, { steemAPI }) => {
 };
 
 export const getMoreReplies = () => (dispatch, getState, { steemAPI }) => {
-  const category = getAuthenticatedUserName(getState());
-  const { feed, posts } = getState();
+  const state = getState();
+  const feed = getFeed(state);
+  const posts = getPosts(state);
+  const category = getAuthenticatedUserName(state);
+
   const lastFetchedReplyId =
     feed.replies[category] && feed.replies[category].list[feed.replies[category].list.length - 1];
 
@@ -179,7 +188,8 @@ async function getBookmarksData(bookmarks, steemAPI) {
 }
 
 export const getBookmarks = () => (dispatch, getState, { steemAPI }) => {
-  const bookmarks = getBookmarksSelector(getState());
+  const state = getState();
+  const bookmarks = getBookmarksSelector(state);
 
   dispatch({
     type: GET_BOOKMARKS.ACTION,
