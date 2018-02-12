@@ -109,6 +109,29 @@ class EditorInput extends React.Component {
     this.setValue(newValue, startPos + deltaStart, endPos + deltaEnd);
   }
 
+  insertLinkAtCursor() {
+    if (!this.input) return;
+
+    const { value } = this.props;
+
+    const startPos = this.input.selectionStart;
+    const endPos = this.input.selectionEnd;
+    const selectedText = value.substring(startPos, endPos);
+
+    if (selectedText) {
+      const linkMd = `[${selectedText}](url)`;
+      const newValue =
+        value.substring(0, startPos) + linkMd + value.substring(endPos, value.length);
+      this.setValue(
+        newValue,
+        startPos + selectedText.length + 3,
+        startPos + selectedText.length + 6,
+      );
+    } else {
+      this.insertAtCursor('[', '](url)', 1, 1);
+    }
+  }
+
   disableAndInsertImage(image, imageName = 'image') {
     this.setState({
       imageUploading: false,
@@ -165,7 +188,7 @@ class EditorInput extends React.Component {
         this.insertAtCursor('> ', '', 2, 2);
         break;
       case 'link':
-        this.insertAtCursor('[', '](url)', 1, 1);
+        this.insertLinkAtCursor();
         break;
       case 'image':
         this.insertAtCursor('![', '](url)', 2, 2);
