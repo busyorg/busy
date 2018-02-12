@@ -2,6 +2,7 @@ const webpack = require('webpack');
 const path = require('path');
 const autoprefixer = require('autoprefixer');
 const postcssFlexbugs = require('postcss-flexbugs-fixes');
+const configUtils = require('./configUtils');
 
 const baseDir = path.resolve(__dirname, '..');
 
@@ -34,7 +35,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js?$/,
+        test: configUtils.MATCH_JS_JSX,
         exclude: /node_modules/,
         loader: 'babel-loader',
       },
@@ -43,7 +44,7 @@ module.exports = {
         loader: 'url-loader',
       },
       {
-        test: /\.css|.less$/,
+        test: configUtils.MATCH_CSS_LESS,
         use: [
           'style-loader',
           'css-loader',
