@@ -1,9 +1,7 @@
 import Cookie from 'js-cookie';
 import { createAction } from 'redux-actions';
 import { getIsAuthenticated } from '../reducers';
-import { getAccount } from '../helpers/apiHelpers';
 import { getFollowing } from '../user/userActions';
-import { createAsyncActionType } from '../helpers/stateHelpers';
 
 export const LOGIN = '@auth/LOGIN';
 export const LOGIN_START = '@auth/LOGIN_START';
@@ -19,8 +17,6 @@ export const LOGOUT = '@auth/LOGOUT';
 export const LOGOUT_START = '@auth/LOGOUT_START';
 export const LOGOUT_ERROR = '@auth/LOGOUT_ERROR';
 export const LOGOUT_SUCCESS = '@auth/LOGOUT_SUCCESS';
-
-export const UPDATE_AUTH_USER = createAsyncActionType('@auth/UPDATE_AUTH_USER');
 
 const loginError = createAction(LOGIN_ERROR);
 
@@ -61,13 +57,5 @@ export const logout = () => (dispatch, getState, { steemConnectAPI }) =>
     type: LOGOUT,
     payload: {
       promise: steemConnectAPI.revokeToken().then(() => Cookie.remove('access_token')),
-    },
-  });
-
-export const updateAuthUser = username => dispatch =>
-  dispatch({
-    type: UPDATE_AUTH_USER.ACTION,
-    payload: {
-      promise: getAccount(username),
     },
   });
