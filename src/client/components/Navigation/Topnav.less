@@ -5,7 +5,7 @@
 
 .Topnav {
   background-color: @white;
-  border-bottom: 1px solid #e9e7e7;
+  border-bottom: @base-border;
   box-shadow: 0 0 4px @white-shadow;
   height: 56px;
   line-height: 56px;
@@ -57,12 +57,13 @@
       height: 45px !important;
       margin-top: 5px;
       border-radius: @border-radius-base;
+      border-color: @border-color-base;
       padding: 0 0 0 43px !important;
 
       &:hover,
       &:focus {
         box-shadow: none !important;
-        border-color: #e9e7e7 !important;
+        border-color: @border-color-base !important;
       }
     }
 
@@ -182,7 +183,7 @@ div[data-dir='rtl'] .Topnav {
 }
 
 .Topnav__search-dropdown-container.ant-select-dropdown {
-  top: 56px !important;
+  top: 48px !important;
   position: fixed;
   border-radius: 0;
   border-bottom-left-radius: 4px;
@@ -200,7 +201,7 @@ div[data-dir='rtl'] .Topnav {
   align-items: center !important;
   justify-content: space-between !important;
   font-weight: bold;
-  border-bottom: 1px solid @white-gainsboro;
+  border-bottom: @base-border;
   padding: 10px 14px;
 }
 

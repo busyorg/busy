@@ -3,8 +3,8 @@
 
 .QuickPostEditor {
   background-color: @white;
-  border-top: 1px solid @white-gainsboro;
-  border-bottom: 1px solid @white-gainsboro;
+  border-top: @base-border;
+  border-bottom: @base-border;
   display: flex;
   flex-direction: column;
   margin-bottom: @content-margin;
@@ -30,7 +30,7 @@
   }
 
   &__header {
-    border-bottom: 1px solid @white-gainsboro;
+    border-bottom: @base-border;
     font-size: 16px;
     font-weight: 500;
     padding: 0 10px;
@@ -184,7 +184,7 @@
 
   @media @small {
     border-radius: @border-radius-base;
-    border: 1px solid @white-gainsboro;
+    border: @base-border;
   }
 }
 
