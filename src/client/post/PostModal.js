@@ -77,7 +77,9 @@ class PostModal extends React.Component {
     const { category, author, permlink, title, url } = currentShownPost;
     const baseURL = window ? window.location.origin : 'https://busy.org';
     const postURL = `${baseURL}${url}`;
-    const twitterShareURL = `https://twitter.com/intent/tweet/?text=${title}&url=${postURL}`;
+    const twitterShareURL = `https://twitter.com/intent/tweet/?text="${encodeURIComponent(
+      title,
+    )}"&url=${postURL}`;
     const signature = _.get(authorDetails, 'json_metadata.profile.signature', null);
 
     return (
