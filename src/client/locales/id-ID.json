@@ -104,7 +104,7 @@
   "memo_placeholder": "Tambahan pesan  untuk pembayaran ini (opsional)",
   "message": "Pesan",
   "edit_profile": "Edit profil",
-  "profile_name": "Name",
+  "profile_name": "Nama",
   "profile_name_placeholder": "Name to display on your profile",
   "profile_about": "About me",
   "profile_about_placeholder": "Few words about you",
@@ -313,5 +313,12 @@
   "login_to_busy": "Masuk ke Busy",
   "login_modal_description": "Masuk menggunakan akun Steem Anda via SteemConnect dan nikmati Busy sepenuhnya",
   "login_with_steemconnect": "Login dengan SteemConnect",
-  "follows_you": "Follows you"
+  "follows_you": "Follows you",
+  "lets_get_started": "Let's get started",
+  "completed": "Completed",
+  "complete_your_profile": "Complete your profile",
+  "follow_steemians": "Follow {amount} steemians",
+  "like_good_posts": "Like some good posts",
+  "write_first_post": "Write your first post",
+  "complete_profile_tooltip": "Must fill out the name, about, and profile picture fields"
 }
