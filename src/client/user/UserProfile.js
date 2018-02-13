@@ -4,12 +4,12 @@ import _ from 'lodash';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import Feed from '../feed/Feed';
-import { getIsAuthenticated, getAuthenticatedUser, getFeed, getPosts } from '../reducers';
+import { getIsAuthenticated, getAuthenticatedUser, getFeed } from '../reducers';
 import {
-  getFeedContentFromState,
   getFeedLoadingFromState,
   getFeedFetchedFromState,
   getFeedHasMoreFromState,
+  getFeedFromState,
 } from '../helpers/stateHelpers';
 import { getFeedContent, getMoreFeedContent } from '../feed/feedActions';
 import { showPostModal, hidePostModal } from '../app/appActions';
@@ -23,7 +23,6 @@ import PostModal from '../post/PostModalContainer';
     authenticated: getIsAuthenticated(state),
     authenticatedUser: getAuthenticatedUser(state),
     feed: getFeed(state),
-    posts: getPosts(state),
   }),
   {
     getFeedContent,
@@ -37,7 +36,6 @@ export default class UserProfile extends React.Component {
     authenticated: PropTypes.bool.isRequired,
     authenticatedUser: PropTypes.shape().isRequired,
     feed: PropTypes.shape().isRequired,
-    posts: PropTypes.shape().isRequired,
     match: PropTypes.shape().isRequired,
     showPostModal: PropTypes.func.isRequired,
     hidePostModal: PropTypes.func.isRequired,
@@ -54,9 +52,9 @@ export default class UserProfile extends React.Component {
   };
 
   componentDidMount() {
-    const { feed, posts } = this.props;
+    const { feed } = this.props;
     const username = this.props.match.params.name;
-    const content = getFeedContentFromState('blog', username, feed, posts);
+    const content = getFeedFromState('blog', username, feed);
 
     if (_.isEmpty(content)) {
       this.props.getFeedContent({
@@ -82,10 +80,10 @@ export default class UserProfile extends React.Component {
   }
 
   render() {
-    const { authenticated, authenticatedUser, feed, posts, limit } = this.props;
+    const { authenticated, authenticatedUser, feed, limit } = this.props;
     const username = this.props.match.params.name;
     const isOwnProfile = authenticated && username === authenticatedUser.name;
-    const content = getFeedContentFromState('blog', username, feed, posts);
+    const content = getFeedFromState('blog', username, feed);
     const isFetching = getFeedLoadingFromState('blog', username, feed);
     const fetched = getFeedFetchedFromState('blog', username, feed);
     const hasMore = getFeedHasMoreFromState('blog', username, feed);
