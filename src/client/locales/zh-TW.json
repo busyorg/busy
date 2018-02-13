@@ -313,5 +313,13 @@
   "login_to_busy": "登入 Busy",
   "login_modal_description": "通過SteemConnect使用您的Steem賬號登入並享受100% 的 Busy",
   "login_with_steemconnect": "通過SteemConnect登入",
-  "follows_you": "關注了你"
+  "follows_you": "關注了你",
+  "back": "Back",
+  "lets_get_started": "Let's get started",
+  "completed": "Completed",
+  "complete_your_profile": "Complete your profile",
+  "follow_steemians": "Follow {amount} steemians",
+  "like_good_posts": "Like some good posts",
+  "write_first_post": "Write your first post",
+  "complete_profile_tooltip": "Must fill out the name, about, and profile picture fields"
 }
