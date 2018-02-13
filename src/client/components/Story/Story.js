@@ -176,7 +176,9 @@ class Story extends React.Component {
     });
   }
 
-  handlePostModalDisplay() {
+  handlePostModalDisplay(e) {
+    e.preventDefault();
+
     const { post } = this.props;
     const isReplyPreview = _.isEmpty(post.title);
 
@@ -188,10 +190,14 @@ class Story extends React.Component {
   }
 
   handlePreviewClickPostModalDisplay(e) {
+    e.preventDefault();
+
     const { post } = this.props;
     const isReplyPreview = _.isEmpty(post.title);
     const elementNodeName = _.toLower(_.get(e, 'target.nodeName', ''));
-    const showPostModal = elementNodeName !== 'i';
+    const elementClassName = _.get(e, 'target.className', '');
+    const showPostModal =
+      elementNodeName !== 'i' && elementClassName !== 'PostFeedEmbed__playButton';
 
     if (isReplyPreview) {
       this.props.history.push(dropCategory(post.url));
@@ -295,7 +301,8 @@ class Story extends React.Component {
           </div>
           <div className="Story__content">
             <a
-              role="presentation"
+              href={dropCategory(post.url)}
+              target="_blank"
               onClick={this.handlePostModalDisplay}
               className="Story__content__title"
             >
@@ -306,7 +313,8 @@ class Story extends React.Component {
             </a>
             {showStoryPreview ? (
               <a
-                role="presentation"
+                href={dropCategory(post.url)}
+                target="_blank"
                 onClick={this.handlePreviewClickPostModalDisplay}
                 className="Story__content__preview"
               >
