@@ -150,7 +150,9 @@ class Story extends React.Component {
     const { post } = this.props;
     const isReplyPreview = _.isEmpty(post.title);
     const elementNodeName = _.toLower(_.get(e, 'target.nodeName', ''));
-    const showPostModal = elementNodeName !== 'i';
+    const elementClassName = _.get(e, 'target.className', '');
+    const showPostModal =
+      elementNodeName !== 'i' && elementClassName !== 'PostFeedEmbed__playButton';
 
     if (isReplyPreview) {
       this.props.history.push(dropCategory(post.url));
