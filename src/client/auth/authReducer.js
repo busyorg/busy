@@ -41,6 +41,11 @@ export default (state = initialState, action) => {
         isReloading: true,
       };
     case types.RELOAD_SUCCESS:
+      return {
+        ...state,
+        isReloading: false,
+        user: action.payload.account || state.user,
+      };
     case types.RELOAD_ERROR:
       return {
         ...state,
