@@ -10,10 +10,10 @@ import HeroBannerContainer from './HeroBannerContainer';
 import LeftSidebar from '../app/Sidebar/LeftSidebar';
 import RightSidebar from '../app/Sidebar/RightSidebar';
 import TopicSelector from '../components/TopicSelector';
-import Affix from '../components/Utils/Affix';
 import ScrollToTop from '../components/Utils/ScrollToTop';
 import ScrollToTopOnMount from '../components/Utils/ScrollToTopOnMount';
 import QuickPostEditor from '../components/QuickPostEditor/QuickPostEditor';
+import BaseLayout from '../components/Layouts/BaseLayout';
 
 @connect(state => ({
   authenticated: getIsAuthenticated(state),
@@ -62,18 +62,11 @@ class Page extends React.Component {
         <ScrollToTopOnMount />
         <HeroBannerContainer />
         <div className="shifted">
-          <div className="feed-layout container">
-            <Affix className="leftContainer" stickPosition={77}>
-              <div className="left">
-                <LeftSidebar />
-              </div>
-            </Affix>
-            <Affix className="rightContainer" stickPosition={77}>
-              <div className="right">
-                <RightSidebar />
-              </div>
-            </Affix>
-            <div className="center">
+          <BaseLayout>
+            <BaseLayout.Left>
+              <LeftSidebar />
+            </BaseLayout.Left>
+            <BaseLayout.Center>
               {shouldDisplaySelector && (
                 <TopicSelector
                   isSingle={false}
@@ -85,8 +78,11 @@ class Page extends React.Component {
               )}
               {authenticated && <QuickPostEditor />}
               <SubFeed />
-            </div>
-          </div>
+            </BaseLayout.Center>
+            <BaseLayout.Right>
+              <RightSidebar />
+            </BaseLayout.Right>
+          </BaseLayout>
         </div>
       </div>
     );

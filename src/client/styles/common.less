@@ -95,3 +95,34 @@ iframe {
 div[data-dir='rtl'] {
   direction: rtl;
 }
+
+.new-layout {
+  display: flex;
+  max-width: 1010px;
+  margin: 0 auto;
+}
+
+#content {
+  min-height: 1px;
+  width: 100%;
+  margin: 0 40px;
+}
+
+#sidebarLeft {
+  flex: 0 0 180px;
+}
+
+#sidebarRight {
+  flex: 0 0 270px;
+}
+
+.sidebar {
+  will-change: min-height;
+}
+
+.sidebar .sidebar__inner {
+  position: relative;
+  transform: translate(0, 0);
+  transform: translate3d(0, 0, 0);
+  will-change: position, transform;
+}
