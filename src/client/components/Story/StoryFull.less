@@ -47,7 +47,11 @@
   }
 
   &__topics {
-    margin: 16px 0;
+    margin: 16px -@mobile-padding 16px 0;
+
+    @media @small {
+      margin: 16px 0;
+    }
 
     &__content {
       display: flex;
