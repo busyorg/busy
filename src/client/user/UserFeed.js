@@ -2,18 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Feed from '../feed/Feed';
-import { getFeed, getPosts } from '../reducers';
+import { getFeed } from '../reducers';
 import {
-  getFeedContentFromState,
   getFeedLoadingFromState,
   getFeedHasMoreFromState,
+  getFeedFromState,
 } from '../helpers/stateHelpers';
 import { getFeedContent, getMoreFeedContent } from '../feed/feedActions';
 
 @connect(
   state => ({
     feed: getFeed(state),
-    posts: getPosts(state),
   }),
   {
     getFeedContent,
@@ -23,7 +22,6 @@ import { getFeedContent, getMoreFeedContent } from '../feed/feedActions';
 export default class UserProfileFeed extends React.Component {
   static propTypes = {
     feed: PropTypes.shape(),
-    posts: PropTypes.shape(),
     match: PropTypes.shape(),
     limit: PropTypes.number,
     getFeedContent: PropTypes.func,
@@ -48,9 +46,9 @@ export default class UserProfileFeed extends React.Component {
   }
 
   render() {
-    const { feed, posts } = this.props;
+    const { feed } = this.props;
     const username = this.props.match.params.name;
-    const content = getFeedContentFromState('feed', username, feed, posts);
+    const content = getFeedFromState('feed', username, feed);
     const isFetching = getFeedLoadingFromState('feed', username, feed);
     const hasMore = getFeedHasMoreFromState('feed', username, feed);
     const loadMoreContentAction = () =>

@@ -24,7 +24,7 @@ class LoginModal extends React.Component {
   }
 
   handleSignup() {
-    window.open('https://steemit.com/pick_account');
+    window.open(process.env.SIGNUP_URL);
     this.props.handleLoginModalCancel();
   }
 
