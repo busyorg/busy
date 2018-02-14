@@ -116,7 +116,7 @@
   "profile_cover": "Titulní obrázek",
   "profile_social_profiles": "Profily na scoiálních sítích",
   "profile_social_profile_incorrect": "Uživatelské jméno je neplatné. Povoleny jsou pouze písmena, středník, podtržítko a tečka.",
-  "profile_signature": "Signature",
+  "profile_signature": "Podpis",
   "reply": "Odpovědět",
   "edit": "Upravit",
   "show_more": "Zobrazit více",
@@ -313,5 +313,13 @@
   "login_to_busy": "Přihlaste se do Busy",
   "login_modal_description": "Přihlaste se se Steem účtem pomocí SteemConnect a využijte Busy naplno",
   "login_with_steemconnect": "Přihlaste se přes SteemConnect",
-  "follows_you": "Sleduje vás"
+  "follows_you": "Sleduje vás",
+  "back": "Back",
+  "lets_get_started": "Let's get started",
+  "completed": "Completed",
+  "complete_your_profile": "Complete your profile",
+  "follow_steemians": "Follow {amount} steemians",
+  "like_good_posts": "Like some good posts",
+  "write_first_post": "Write your first post",
+  "complete_profile_tooltip": "Must fill out the name, about, and profile picture fields"
 }

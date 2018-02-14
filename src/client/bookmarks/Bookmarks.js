@@ -3,17 +3,10 @@ import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
 import { injectIntl, FormattedMessage } from 'react-intl';
-import _ from 'lodash';
-import {
-  getFeed,
-  getPosts,
-  getPendingBookmarks,
-  getIsReloading,
-  getBookmarks as getBookmarksState,
-} from '../reducers';
+import { getFeed, getPosts, getPendingBookmarks, getIsReloading } from '../reducers';
 import Feed from '../feed/Feed';
 import {
-  getFeedContentFromState,
+  getFeedFromState,
   getFeedLoadingFromState,
   getFeedHasMoreFromState,
 } from '../helpers/stateHelpers';
@@ -32,7 +25,6 @@ import requiresLogin from '../auth/requiresLogin';
     posts: getPosts(state),
     pendingBookmarks: getPendingBookmarks(state),
     reloading: getIsReloading(state),
-    bookmarks: getBookmarksState(state),
   }),
   { getBookmarks, reload },
 )
@@ -41,11 +33,9 @@ export default class Bookmarks extends React.Component {
     intl: PropTypes.shape().isRequired,
     reloading: PropTypes.bool,
     feed: PropTypes.shape().isRequired,
-    posts: PropTypes.shape().isRequired,
     pendingBookmarks: PropTypes.arrayOf(PropTypes.number),
     getBookmarks: PropTypes.func,
     reload: PropTypes.func,
-    bookmarks: PropTypes.shape().isRequired,
   };
 
   static defaultProps = {
@@ -66,22 +56,15 @@ export default class Bookmarks extends React.Component {
   }
 
   render() {
-    const { intl, reloading, feed, posts } = this.props;
+    const { intl, reloading, feed } = this.props;
 
-    const content = getFeedContentFromState('bookmarks', 'all', feed, posts);
+    const content = getFeedFromState('bookmarks', 'all', feed);
     const isFetching = getFeedLoadingFromState('bookmarks', 'all', feed) || reloading;
     const hasMore = getFeedHasMoreFromState('bookmarks', 'all', feed);
     const loadContentAction = () => null;
     const loadMoreContentAction = () => null;
 
     const noBookmarks = !reloading && !isFetching && !content.length;
-    const contentMap = content.reduce((postMap, post) => ({ ...postMap, [post.id]: post }), {});
-    const sortedBookmarks = _.sortBy(
-      this.props.bookmarks,
-      bookmark => new Date(bookmark.bookmarkDate),
-    ).reverse();
-    const mappedContentToBookmarks =
-      content.length > 0 ? _.compact(_.map(sortedBookmarks, post => contentMap[post.id])) : [];
 
     return (
       <div className="shifted">
@@ -103,7 +86,7 @@ export default class Bookmarks extends React.Component {
           </Affix>
           <div className="center">
             <Feed
-              content={mappedContentToBookmarks}
+              content={content}
               isFetching={isFetching}
               hasMore={hasMore}
               loadContent={loadContentAction}

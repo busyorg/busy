@@ -99,7 +99,11 @@ class StoryFull extends React.Component {
   }
 
   componentWillUnmount() {
-    document.body.classList.remove('white-bg');
+    const { post } = this.props;
+    const hideWhiteBG = document && document.location.pathname !== dropCategory(post.url);
+    if (hideWhiteBG) {
+      document.body.classList.remove('white-bg');
+    }
   }
 
   clickMenuItem(key) {

@@ -8,6 +8,7 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const configUtils = require('./configUtils');
 
 const DEFAULTS = {
   isDevelopment: process.env.NODE_ENV !== 'production',
@@ -44,7 +45,6 @@ function makePlugins(options) {
         // This has effect on the react lib size
         NODE_ENV: isDevelopment ? JSON.stringify('development') : JSON.stringify('production'),
         ENABLE_LOGGER: JSON.stringify(process.env.ENABLE_LOGGER),
-        IMG_HOST: JSON.stringify(process.env.IMG_HOST || 'https://img.busy.org'),
         SENTRY_PUBLIC_DSN: isDevelopment ? null : JSON.stringify(process.env.SENTRY_PUBLIC_DSN),
         STEEMCONNECT_CLIENT_ID: JSON.stringify(process.env.STEEMCONNECT_CLIENT_ID || 'busy.app'),
         STEEMCONNECT_REDIRECT_URL: JSON.stringify(
@@ -55,8 +55,7 @@ function makePlugins(options) {
         ),
         STEEMJS_URL: JSON.stringify(process.env.STEEMJS_URL || 'https://api.steemit.com'),
         IS_BROWSER: JSON.stringify(true),
-        PUSHPAD_PROJECT_ID: process.env.PUSHPAD_PROJECT_ID,
-        BUSYPUSH_ENDPOINT: process.env.BUSYPUSH_ENDPOINT,
+        SIGNUP_URL: JSON.stringify(process.env.SIGNUP_URL || 'https://signup.steemit.com/?ref=busy'),
       },
     }),
     new LodashModuleReplacementPlugin({
@@ -116,7 +115,7 @@ function makeStyleLoaders(options) {
   if (options.isDevelopment) {
     return [
       {
-        test: /\.css|.less$/,
+        test: configUtils.MATCH_CSS_LESS,
         use: [
           {
             loader: 'style-loader',
@@ -139,7 +138,7 @@ function makeStyleLoaders(options) {
 
   return [
     {
-      test: /\.css|.less$/,
+      test: configUtils.MATCH_CSS_LESS,
       loader: ExtractTextPlugin.extract({
         fallback: 'style-loader',
         use: [
@@ -188,7 +187,7 @@ function makeConfig(options = {}) {
     module: {
       rules: [
         {
-          test: /\.js?$/,
+          test: configUtils.MATCH_JS_JSX,
           exclude: /node_modules/,
           use: (options.isDevelopment ? [{ loader: 'react-hot-loader/webpack' }] : []).concat([
             {

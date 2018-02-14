@@ -7,7 +7,7 @@ const SignUp = () => (
     <h3 className="SidebarBlock__title">
       <FormattedMessage id="new_to_busy" defaultMessage="New to Busy?" />
     </h3>
-    <a target="_blank" rel="noopener noreferrer" href="https://steemit.com/pick_account">
+    <a target="_blank" rel="noopener noreferrer" href={process.env.SIGNUP_URL}>
       <button className="SidebarBlock__button">
         <FormattedMessage id="signup" defaultMessage="Sign up" />
       </button>

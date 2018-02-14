@@ -1,8 +1,7 @@
 import { getDiscussionsFromAPI } from '../helpers/apiHelpers';
 import {
   createAsyncActionType,
-  getFeedContentFromState,
-  getUserCommentsFromState,
+  getFeedFromState,
   getFeedLoadingFromState,
 } from '../helpers/stateHelpers';
 import {
@@ -43,13 +42,17 @@ export const getMoreFeedContent = ({ sortBy, category, limit = 20 }) => (
   getState,
   { steemAPI },
 ) => {
-  const { feed, posts } = getState();
-  const feedContent = getFeedContentFromState(sortBy, category, feed, posts.list);
+  const state = getState();
+  const feed = getFeed(state);
+  const posts = getPosts(state);
+  const feedContent = getFeedFromState(sortBy, category, feed);
 
   if (!feedContent.length) return Promise.resolve(null);
 
-  const startAuthor = feedContent[feedContent.length - 1].author;
-  const startPermlink = feedContent[feedContent.length - 1].permlink;
+  const lastPost = posts[feedContent[feedContent.length - 1]];
+
+  const startAuthor = lastPost.author;
+  const startPermlink = lastPost.permlink;
 
   return dispatch({
     type: GET_MORE_FEED_CONTENT.ACTION,
@@ -72,7 +75,9 @@ export const getMoreFeedContent = ({ sortBy, category, limit = 20 }) => (
 };
 
 export const getUserComments = ({ username, limit = 20 }) => (dispatch, getState, { steemAPI }) => {
-  const feed = getFeed(getState());
+  const state = getState();
+  const feed = getFeed(state);
+
   if (feed.comments[username] && feed.comments[username].isLoaded) {
     return null;
   }
@@ -91,19 +96,21 @@ export const getMoreUserComments = ({ username, limit = 20 }) => (
   getState,
   { steemAPI },
 ) => {
-  const feed = getFeed(getState());
-  const posts = getPosts(getState());
+  const state = getState();
+  const feed = getFeed(state);
+  const posts = getPosts(state);
 
-  const feedContent = getUserCommentsFromState(username, feed, posts);
+  const feedContent = getFeedFromState('comments', username, feed);
   const isLoading = getFeedLoadingFromState('comments', username, feed);
 
   if (!feedContent.length || isLoading) {
     return null;
   }
 
-  const userComments = getUserCommentsFromState(username, feed, posts);
-  const startAuthor = userComments[userComments.length - 1].author;
-  const startPermlink = userComments[userComments.length - 1].permlink;
+  const lastPost = posts[feedContent[feedContent.length - 1]];
+
+  const startAuthor = lastPost.author;
+  const startPermlink = lastPost.permlink;
 
   return dispatch({
     type: GET_MORE_USER_COMMENTS.ACTION,
@@ -121,7 +128,9 @@ export const getMoreUserComments = ({ username, limit = 20 }) => (
 };
 
 export const getReplies = () => (dispatch, getState, { steemAPI }) => {
-  const category = getAuthenticatedUserName(getState());
+  const state = getState();
+  const category = getAuthenticatedUserName(state);
+
   dispatch({
     type: GET_REPLIES.ACTION,
     payload: steemAPI
@@ -132,8 +141,11 @@ export const getReplies = () => (dispatch, getState, { steemAPI }) => {
 };
 
 export const getMoreReplies = () => (dispatch, getState, { steemAPI }) => {
-  const category = getAuthenticatedUserName(getState());
-  const { feed, posts } = getState();
+  const state = getState();
+  const feed = getFeed(state);
+  const posts = getPosts(state);
+  const category = getAuthenticatedUserName(state);
+
   const lastFetchedReplyId =
     feed.replies[category] && feed.replies[category].list[feed.replies[category].list.length - 1];
 
@@ -176,7 +188,8 @@ async function getBookmarksData(bookmarks, steemAPI) {
 }
 
 export const getBookmarks = () => (dispatch, getState, { steemAPI }) => {
-  const bookmarks = getBookmarksSelector(getState());
+  const state = getState();
+  const bookmarks = getBookmarksSelector(state);
 
   dispatch({
     type: GET_BOOKMARKS.ACTION,
