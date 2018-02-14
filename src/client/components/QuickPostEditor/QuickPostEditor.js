@@ -8,7 +8,7 @@ import _ from 'lodash';
 import { Input } from 'antd';
 import uuidv4 from 'uuid/v4';
 import { injectIntl, FormattedMessage } from 'react-intl';
-import { getAuthenticatedUser, getIsEditorLoading } from '../../reducers';
+import { getAuthenticatedUser, getIsEditorLoading, getUpvoteSetting } from '../../reducers';
 import { isValidImage, MAXIMUM_UPLOAD_SIZE } from '../../helpers/image';
 import { notify } from '../../app/Notification/notificationActions';
 import withEditor from '../Editor/withEditor';
@@ -26,6 +26,7 @@ const version = require('../../../../package.json').version;
   state => ({
     user: getAuthenticatedUser(state),
     postCreationLoading: getIsEditorLoading(state),
+    upvote: getUpvoteSetting(state),
   }),
   {
     notify,
@@ -42,6 +43,7 @@ class QuickPostEditor extends React.Component {
     createPost: PropTypes.func.isRequired,
     onImageUpload: PropTypes.func,
     onImageInvalid: PropTypes.func,
+    upvote: PropTypes.bool.isRequired,
   };
 
   static defaultProps = {
@@ -95,7 +97,7 @@ class QuickPostEditor extends React.Component {
       author: this.props.user.name,
       parentAuthor: '',
       lastUpdated: Date.now(),
-      upvote: true,
+      upvote: this.props.upvote,
     };
 
     const metaData = {
