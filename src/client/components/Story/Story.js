@@ -93,8 +93,8 @@ class Story extends React.Component {
     this.handleEditClick = this.handleEditClick.bind(this);
   }
 
-  shouldComponentUpdate(nextProps) {
-    return !_.isEqual(nextProps, this.props);
+  shouldComponentUpdate(nextProps, nextState) {
+    return !_.isEqual(nextProps, this.props) || !_.isEqual(nextState, this.state);
   }
 
   getDisplayStoryPreview() {
