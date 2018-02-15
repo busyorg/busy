@@ -1,11 +1,30 @@
+@import (reference) '../../styles/custom.less';
+@import (reference) '../../styles/modules/variables.less';
+
 .EditorToolbar {
-  margin: 0 0 4px;
+  background: @component-background;
+  border-bottom: 0;
+  white-space: nowrap;
 
   & > &__button {
     margin-right: 4px;
+    border: none !important;
+
+    &:active {
+      border: none !important;
+    }
 
     .iconfont {
       font-size: 16px !important;
     }
   }
+}
+
+.EditorToolbar__container {
+  border: @base-border;
+  border-bottom: 0;
+  border-top-left-radius: @border-radius-base;
+  border-top-right-radius: @border-radius-base;
+  margin-right: 0 !important;
+  overflow-y: hidden !important;
 }
