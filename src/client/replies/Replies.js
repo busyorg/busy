@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import { injectIntl } from 'react-intl';
 import { connect } from 'react-redux';
-import { getIsAuthenticated, getAuthenticatedUserName, getFeed, getPosts } from '../reducers';
+import { getIsAuthenticated, getAuthenticatedUserName, getFeed } from '../reducers';
 import {
-  getFeedContentFromState,
+  getFeedFromState,
   getFeedLoadingFromState,
   getFeedHasMoreFromState,
 } from '../helpers/stateHelpers';
@@ -23,7 +23,6 @@ export class IReplies extends React.Component {
     authenticated: PropTypes.bool.isRequired,
     username: PropTypes.string,
     feed: PropTypes.shape(),
-    posts: PropTypes.shape(),
     getReplies: PropTypes.func,
     getMoreReplies: PropTypes.func,
   };
@@ -50,11 +49,11 @@ export class IReplies extends React.Component {
   }
 
   render() {
-    const { intl, authenticated, username, feed, posts } = this.props;
+    const { intl, authenticated, username, feed } = this.props;
 
     if (!authenticated) return <Loading />;
 
-    const content = getFeedContentFromState('replies', username, feed, posts);
+    const content = getFeedFromState('replies', username, feed);
     const fetching = getFeedLoadingFromState('replies', username, feed);
     const hasMore = getFeedHasMoreFromState('replies', username, feed);
 
@@ -92,7 +91,6 @@ const mapStateToProps = state => ({
   authenticated: getIsAuthenticated(state),
   username: getAuthenticatedUserName(state),
   feed: getFeed(state),
-  posts: getPosts(state),
 });
 
 export default requiresLogin(

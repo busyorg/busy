@@ -16,11 +16,13 @@ class PostModal extends React.Component {
     showPostModal: PropTypes.bool.isRequired,
     hidePostModal: PropTypes.func.isRequired,
     currentShownPost: PropTypes.shape(),
+    shownPostContents: PropTypes.shape(),
     author: PropTypes.shape(),
   };
 
   static defaultProps = {
     currentShownPost: {},
+    shownPostContents: {},
     author: {},
   };
 
@@ -73,11 +75,17 @@ class PostModal extends React.Component {
   }
 
   render() {
-    const { showPostModal, currentShownPost, author: authorDetails } = this.props;
+    const {
+      showPostModal,
+      currentShownPost,
+      author: authorDetails,
+      shownPostContents,
+    } = this.props;
     const { category, author, permlink, title, url } = currentShownPost;
     const baseURL = window ? window.location.origin : 'https://busy.org';
     const postURL = `${baseURL}${url}`;
-    const twitterShareURL = `https://twitter.com/intent/tweet/?text=${title}&url=${postURL}`;
+    const twitterText = `"${encodeURIComponent(title)}" by @${author}`;
+    const twitterShareURL = `https://twitter.com/intent/tweet/?text=${twitterText}&url=${postURL}`;
     const signature = _.get(authorDetails, 'json_metadata.profile.signature', null);
 
     return (
@@ -111,10 +119,10 @@ class PostModal extends React.Component {
             <i className="iconfont icon-twitter PostModal__icon" />
           </a>
         </div>
-        <PostContent content={currentShownPost} signature={signature} />
+        <PostContent content={shownPostContents} signature={signature} />
         <VisibilitySensor onChange={this.handleCommentsVisibility} />
         <div id="comments">
-          <Comments show={this.state.commentsVisible} post={currentShownPost} />
+          <Comments show={this.state.commentsVisible} post={shownPostContents} />
         </div>
       </Modal>
     );
