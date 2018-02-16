@@ -1,7 +1,7 @@
 const chalk = require('chalk');
 const fs = require('fs');
 const prettier = require('prettier');
-const options = require('./options');
+const options = require('../../.prettierrc.js');
 
 function formatFile(file) {
   const input = fs.readFileSync(file, 'utf8');
