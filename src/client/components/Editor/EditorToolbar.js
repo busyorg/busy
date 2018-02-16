@@ -51,7 +51,7 @@ const EditorToolbar = ({ intl, onSelect }) => {
 
   return (
     <Scrollbars
-      style={{ width: '100%', height: 32 }}
+      style={{ width: '100%', height: 40 }}
       universal
       autoHide
       renderView={({ style, ...props }) => (
