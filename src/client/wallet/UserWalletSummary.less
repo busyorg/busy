@@ -2,7 +2,7 @@
 @import (reference) '../styles/modules/variables.less';
 
 .UserWalletSummary {
-  border: 1px solid @white-gainsboro;
+  border: @base-border;
   border-right: 0;
   border-left: 0;
   border-radius: 0;
@@ -10,7 +10,7 @@
 
   &__item {
     display: flex;
-    border-bottom: 1px solid @white-gainsboro;
+    border-bottom: @base-border;
     align-items: center;
     margin: 0 15px;
     flex-direction: row;
@@ -57,7 +57,7 @@
   }
 
   @media @small {
-    border: 1px solid @white-gainsboro;
+    border: @base-border;
     border-radius: @border-radius-base;
   }
 }

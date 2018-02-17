@@ -94,7 +94,9 @@
 @ant-modal-z-index: 1260;
 @ant-modal-tooltip-z-index: @ant-modal-z-index + 5;
 @ant-modal-popover-z-index: @ant-modal-z-index + 5;
-@base-border: @border-width-base @border-style-base @white-gainsboro;
+
+@border-color-base: @white-gainsboro;
+@base-border: @border-width-base @border-style-base @border-color-base;
 
 // Content Blocks
 @content-margin: 12px;
