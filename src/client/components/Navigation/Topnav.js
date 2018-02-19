@@ -4,10 +4,10 @@ import _ from 'lodash';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Menu, Popover, Tooltip, Input, AutoComplete, Badge } from 'antd';
+import { Menu, Popover, Tooltip, Input, AutoComplete } from 'antd';
 import classNames from 'classnames';
 import { searchAutoComplete } from '../../search/searchActions';
-import { getAutoCompleteSearchResults } from '../../reducers';
+import { getAutoCompleteSearchResults, getNotifications } from '../../reducers';
 import SteemConnect from '../../steemConnectAPI';
 import Avatar from '../Avatar';
 import PopoverMenu, { PopoverMenuItem } from '../PopoverMenu/PopoverMenu';
@@ -19,6 +19,7 @@ import './Topnav.less';
 @connect(
   state => ({
     autoCompleteSearchResults: getAutoCompleteSearchResults(state),
+    notifications: getNotifications(state),
   }),
   {
     searchAutoComplete,

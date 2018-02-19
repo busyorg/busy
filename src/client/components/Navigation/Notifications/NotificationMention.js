@@ -6,28 +6,28 @@ import { Link } from 'react-router-dom';
 import Avatar from '../../Avatar';
 import './Notification.less';
 
-const NotificationMention = ({ onClick, id, read, date, payload }) => (
+const NotificationMention = ({ onClick, notification }) => (
   <div
     role="presentation"
-    onClick={() => onClick(id)}
+    onClick={() => onClick(notification.id)}
     className={classNames('Notification', {
-      'Notification--unread': !read,
+      'Notification--unread': !notification.read,
     })}
   >
-    <Avatar username={payload.user} size={40} />
+    <Avatar username={notification.author} size={40} />
     <div className="Notification__text">
       <div className="Notification__text__message">
         <FormattedMessage
           id="notification_mention_username_post"
           defaultMessage="{username} mentioned you on this post {post}."
           values={{
-            username: <Link to={`/${payload.user}`}>{payload.user}</Link>,
-            post: <Link to={payload.post_url}>{payload.post_title}</Link>,
+            username: <Link to={`/${notification.author}`}>{notification.author}</Link>,
+            post: <Link to={notification.permlink}>{notification.permlink}</Link>,
           }}
         />
       </div>
       <div className="Notification__text__date">
-        <FormattedRelative value={date} />
+        <FormattedRelative value={notification.timestamp} />
       </div>
     </div>
   </div>
@@ -35,14 +35,17 @@ const NotificationMention = ({ onClick, id, read, date, payload }) => (
 
 NotificationMention.propTypes = {
   onClick: PropTypes.func,
-  id: PropTypes.number.isRequired,
-  read: PropTypes.bool.isRequired,
-  date: PropTypes.string.isRequired,
-  payload: PropTypes.shape().isRequired,
+  notification: PropTypes.shape({
+    is_root_post: PropTypes.bool,
+    author: PropTypes.string,
+    permlink: PropTypes.string,
+    timestamp: PropTypes.number,
+  }),
 };
 
 NotificationMention.defaultProps = {
   onClick: () => {},
+  notification: {},
 };
 
 export default NotificationMention;

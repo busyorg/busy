@@ -9,6 +9,7 @@ const initialState = {
     isFetching: false,
     fetched: false,
   },
+  notifications: [],
 };
 
 // filterRecommendations generates a random list of `count` recommendations
@@ -105,6 +106,11 @@ export default function userReducer(state = initialState, action) {
         recommendations: filterRecommendations(state.following.list),
       };
 
+    case actions.GET_NOTIFICATIONS.SUCCESS:
+      return {
+        ...state,
+        notifications: action.payload,
+      };
     default: {
       return state;
     }
@@ -116,3 +122,4 @@ export const getPendingFollows = state => state.following.pendingFollows;
 export const getIsFetchingFollowingList = state => state.following.isFetching;
 export const getRecommendations = state => state.recommendations;
 export const getFollowingFetched = state => state.following.fetched;
+export const getNotifications = state => state.notifications;

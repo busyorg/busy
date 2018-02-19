@@ -6,27 +6,27 @@ import { Link } from 'react-router-dom';
 import Avatar from '../../Avatar';
 import './Notification.less';
 
-const NotificationFollowing = ({ onClick, id, read, date, payload }) => (
+const NotificationFollowing = ({ onClick, notification }) => (
   <div
     role="presentation"
-    onClick={() => onClick(id)}
+    onClick={() => onClick(notification.id)}
     className={classNames('Notification', {
-      'Notification--unread': !read,
+      'Notification--unread': !notification.read,
     })}
   >
-    <Avatar username={payload.user} size={40} />
+    <Avatar username={notification.follower} size={40} />
     <div className="Notification__text">
       <div className="Notification__text__message">
         <FormattedMessage
           id="notification_following_username"
           defaultMessage="{username} is now following you."
           values={{
-            username: <Link to={`/${payload.user}`}>{payload.user}</Link>,
+            username: <Link to={`/${notification.follower}`}>{notification.follower}</Link>,
           }}
         />
       </div>
       <div className="Notification__text__date">
-        <FormattedRelative value={date} />
+        <FormattedRelative value={notification.timestamp} />
       </div>
     </div>
   </div>
@@ -34,14 +34,15 @@ const NotificationFollowing = ({ onClick, id, read, date, payload }) => (
 
 NotificationFollowing.propTypes = {
   onClick: PropTypes.func,
-  id: PropTypes.number.isRequired,
-  read: PropTypes.bool.isRequired,
-  date: PropTypes.string.isRequired,
-  payload: PropTypes.shape().isRequired,
+  notification: PropTypes.shape({
+    follower: PropTypes.string,
+    timestamp: PropTypes.number,
+  }),
 };
 
 NotificationFollowing.defaultProps = {
   onClick: () => {},
+  notification: {},
 };
 
 export default NotificationFollowing;

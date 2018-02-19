@@ -1,57 +1,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+import _ from 'lodash';
+import * as notificationConstants from '../../../../common/constants/notifications';
 import NotificationFollowing from './NotificationFollowing';
 import NotificationReply from './NotificationReply';
-import NotificationTransfer from './NotificationTransfer';
 import NotificationMention from './NotificationMention';
 import './Notifications.less';
-
-export const NOTIFICATION_FOLLOWING = 'NOTIFICATION_FOLLOWING';
-export const NOTIFICATION_REPLY = 'NOTIFICATION_REPLY';
-export const NOTIFICATION_TRANSFER = 'NOTIFICATION_TRANSFER';
-export const NOTIFICATION_MENTION = 'NOTIFICATION_MENTION';
 
 const Notifications = ({ onClick, onSeeAllClick, notifications }) => (
   <div className="Notifications">
     <div className="Notifications__content">
-      {notifications &&
-        notifications.map(notification => {
-          if (notification.type === NOTIFICATION_FOLLOWING) {
+      {_.map(notifications, (notification, index) => {
+        const key = `${index}${notification.timestamp}`;
+        switch (notification.type) {
+          case notificationConstants.REPLY:
+            return <NotificationReply key={key} onClick={onClick} notification={notification} />;
+          case notificationConstants.FOLLOW:
             return (
-              <NotificationFollowing
-                onClick={id => onClick(id)}
-                key={notification.id}
-                {...notification}
-              />
+              <NotificationFollowing key={key} onClick={onClick} notification={notification} />
             );
-          } else if (notification.type === NOTIFICATION_REPLY) {
-            return (
-              <NotificationReply
-                onClick={id => onClick(id)}
-                key={notification.id}
-                {...notification}
-              />
-            );
-          } else if (notification.type === NOTIFICATION_TRANSFER) {
-            return (
-              <NotificationTransfer
-                onClick={id => onClick(id)}
-                key={notification.id}
-                {...notification}
-              />
-            );
-          } else if (notification.type === NOTIFICATION_MENTION) {
-            return (
-              <NotificationMention
-                onClick={id => onClick(id)}
-                key={notification.id}
-                {...notification}
-              />
-            );
-          }
-          return null;
-        })}
+          case notificationConstants.MENTION:
+            return <NotificationMention key={key} onClick={onClick} notification={notification} />;
+          default:
+            return null;
+        }
+      })}
     </div>
     <div className="Notifications__footer">
       <a role="presentation" onClick={onSeeAllClick}>
