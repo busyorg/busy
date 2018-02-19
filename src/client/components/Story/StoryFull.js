@@ -467,12 +467,13 @@ class StoryFull extends React.Component {
             universal
             autoHide
             renderView={({ style, ...props }) => (
-              <div style={{ ...style, marginBottom: '-20px', padding: '0 20px' }} {...props} />
+              <div style={{ ...style, marginBottom: '-20px' }} {...props} />
             )}
             style={{ width: '100%', height: 46 }}
           >
             <div className="StoryFull__topics__content">
               {tags && tags.map(tag => <Topic key={tag} name={tag} />)}
+              <div style={{ flex: '0 0 20px' }} />
             </div>
           </Scrollbars>
         </div>
