@@ -467,11 +467,7 @@ class StoryFull extends React.Component {
             universal
             autoHide
             renderView={({ style, ...props }) => (
-              <div
-                style={{ ...style, marginBottom: '-20px', padding: '0 20px' }}
-                {...props}
-                className="StoryFull__topics__container"
-              />
+              <div style={{ ...style, marginBottom: '-20px', padding: '0 20px' }} {...props} />
             )}
             style={{ width: '100%', height: 46 }}
           >
