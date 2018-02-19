@@ -368,7 +368,7 @@ export default class Settings extends React.Component {
                 </div>
                 <div className="Settings__section">
                   <h3>
-                    <FormattedMessage id="upvote_setting" defaultMessage="Automatically upvote" />
+                    <FormattedMessage id="upvote_setting" defaultMessage="Like my posts" />
                   </h3>
                   <p>
                     <FormattedMessage
@@ -382,7 +382,7 @@ export default class Settings extends React.Component {
                       checked={upvoteSetting}
                       onChange={this.handleUpvoteSettingChange}
                     >
-                      <FormattedMessage id="upvote_setting" defaultMessage="Automatically upvote" />
+                      <FormattedMessage id="upvote_setting" defaultMessage="Like my posts" />
                     </Checkbox>
                   </div>
                 </div>
