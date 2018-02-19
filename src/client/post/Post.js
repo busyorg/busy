@@ -147,11 +147,7 @@ export default class Post extends React.Component {
   }
 
   render() {
-    const { match, content, fetching, loaded, failed, isAuthFetching, user } = this.props;
-
-    if (!!content && match.params.category && typeof window !== 'undefined') {
-      window.history.pushState({}, '', `/@${content.author}/${content.permlink}`);
-    }
+    const { content, fetching, loaded, failed, isAuthFetching, user } = this.props;
 
     if (failed) return <Error404 />;
     if (fetching || !content) return <Loading />;
