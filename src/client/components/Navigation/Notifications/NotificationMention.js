@@ -21,7 +21,7 @@ const NotificationMention = ({ onClick, notification }) => (
           id="notification_mention_username_post"
           defaultMessage="{username} mentioned you on this post {post}."
           values={{
-            username: <Link to={`/${notification.author}`}>{notification.author}</Link>,
+            username: <Link to={`/@${notification.author}`}>{notification.author}</Link>,
             post: <Link to={notification.permlink}>{notification.permlink}</Link>,
           }}
         />

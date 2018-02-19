@@ -21,7 +21,7 @@ const NotificationFollowing = ({ onClick, notification }) => (
           id="notification_following_username"
           defaultMessage="{username} is now following you."
           values={{
-            username: <Link to={`/${notification.follower}`}>{notification.follower}</Link>,
+            username: <Link to={`/@${notification.follower}`}>{notification.follower}</Link>,
           }}
         />
       </div>

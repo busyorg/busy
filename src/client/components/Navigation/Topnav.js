@@ -41,49 +41,7 @@ class Topnav extends React.Component {
 
   static defaultProps = {
     autoCompleteSearchResults: [],
-    notifications: [
-      {
-        id: 0,
-        read: false,
-        date: '2018-02-02T16:17:42',
-        payload: {
-          user: 'fabien',
-        },
-        type: 'NOTIFICATION_FOLLOWING',
-      },
-      {
-        id: 1,
-        read: false,
-        date: '2018-02-02T16:17:42',
-        payload: {
-          user: 'ekitcho',
-          post_url: '/selfimprovement/@manifestmovement/life-lesson-7-days-of-sun-tzu-day-',
-          post_title: 'Life Lessons 7 days of Sun Tzi',
-        },
-        type: 'NOTIFICATION_REPLY',
-      },
-      {
-        id: 2,
-        read: false,
-        date: '2018-02-02T16:17:42',
-        payload: {
-          user: 'ekitcho',
-          amount: '1000',
-        },
-        type: 'NOTIFICATION_TRANSFER',
-      },
-      {
-        id: 3,
-        read: false,
-        date: '2018-02-02T16:17:42',
-        payload: {
-          user: 'ekitcho',
-          post_url: '/selfimprovement/@manifestmovement/life-lesson-7-days-of-sun-tzu-day-',
-          post_title: 'Life Lessons 7 days of Sun Tzi',
-        },
-        type: 'NOTIFICATION_MENTION',
-      },
-    ],
+    notifications: [],
     username: undefined,
     onMenuItemClick: () => {},
     onNotificationClick: () => {},

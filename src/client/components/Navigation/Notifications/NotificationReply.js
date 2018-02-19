@@ -21,7 +21,7 @@ const NotificationReply = ({ onClick, notification }) => (
           id="notification_reply_username_post"
           defaultMessage="{username} replied you on your {post}."
           values={{
-            username: <Link to={`/${notification.author}`}>{notification.author}</Link>,
+            username: <Link to={`/@${notification.author}`}>{notification.author}</Link>,
             post: <Link to={notification.permlink}>{notification.permlink}</Link>,
           }}
         />
