@@ -17,6 +17,7 @@ import {
 import { login, logout } from './auth/authActions';
 import { getFollowing } from './user/userActions';
 import { getRate, getRewardFund, getTrendingTopics } from './app/appActions';
+import busyAPI from './busyAPI';
 import * as reblogActions from './app/Reblog/reblogActions';
 import Redirect from './components/Utils/Redirect';
 import Topnav from './components/Navigation/Topnav';
@@ -98,6 +99,10 @@ export default class Wrapper extends React.PureComponent {
     if (usedLocale !== getAvailableLocale(locale) && loaded) {
       this.loadLocale(locale);
     }
+
+    busyAPI.subscribe((a, b, c) => {
+      debugger;
+    });
   }
 
   componentWillReceiveProps(nextProps) {

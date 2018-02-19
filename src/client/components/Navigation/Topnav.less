@@ -162,6 +162,22 @@
       display: initial;
     }
   }
+
+  &__notifications-count {
+    height: 36px;
+    min-width: 36px;
+    border-radius: 50%;
+    background-color: @primary-color;
+    color: @white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    margin-left: 6px;
+  }
+  .icon-caretbottom {
+    font-size: 14px !important;
+  }
 }
 
 div[data-dir='rtl'] .Topnav {
@@ -220,4 +236,12 @@ div[data-dir='rtl'] .Topnav {
 
 .Topnav__search-dropdown-container .ant-select-dropdown-menu {
   max-height: 300px;
+}
+
+.ant-popover-title {
+  font-size: 16px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  color: @blue-baliHai !important;
 }

@@ -4,13 +4,14 @@ import _ from 'lodash';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Menu, Popover, Tooltip, Input, AutoComplete } from 'antd';
+import { Menu, Popover, Tooltip, Input, AutoComplete, Badge } from 'antd';
 import classNames from 'classnames';
 import { searchAutoComplete } from '../../search/searchActions';
 import { getAutoCompleteSearchResults } from '../../reducers';
 import SteemConnect from '../../steemConnectAPI';
 import Avatar from '../Avatar';
 import PopoverMenu, { PopoverMenuItem } from '../PopoverMenu/PopoverMenu';
+import Notifications from './Notifications/Notifications';
 import './Topnav.less';
 
 @injectIntl
@@ -30,14 +31,62 @@ class Topnav extends React.Component {
     location: PropTypes.shape().isRequired,
     history: PropTypes.shape().isRequired,
     username: PropTypes.string,
+    notifications: PropTypes.arrayOf(PropTypes.shape()),
     searchAutoComplete: PropTypes.func.isRequired,
     onMenuItemClick: PropTypes.func,
+    onNotificationClick: PropTypes.func,
+    onSeeAllClick: PropTypes.func,
   };
 
   static defaultProps = {
     autoCompleteSearchResults: [],
+    notifications: [
+      {
+        id: 0,
+        read: false,
+        date: '2018-02-02T16:17:42',
+        payload: {
+          user: 'fabien',
+        },
+        type: 'NOTIFICATION_FOLLOWING',
+      },
+      {
+        id: 1,
+        read: false,
+        date: '2018-02-02T16:17:42',
+        payload: {
+          user: 'ekitcho',
+          post_url: '/selfimprovement/@manifestmovement/life-lesson-7-days-of-sun-tzu-day-',
+          post_title: 'Life Lessons 7 days of Sun Tzi',
+        },
+        type: 'NOTIFICATION_REPLY',
+      },
+      {
+        id: 2,
+        read: false,
+        date: '2018-02-02T16:17:42',
+        payload: {
+          user: 'ekitcho',
+          amount: '1000',
+        },
+        type: 'NOTIFICATION_TRANSFER',
+      },
+      {
+        id: 3,
+        read: false,
+        date: '2018-02-02T16:17:42',
+        payload: {
+          user: 'ekitcho',
+          post_url: '/selfimprovement/@manifestmovement/life-lesson-7-days-of-sun-tzu-day-',
+          post_title: 'Life Lessons 7 days of Sun Tzi',
+        },
+        type: 'NOTIFICATION_MENTION',
+      },
+    ],
     username: undefined,
     onMenuItemClick: () => {},
+    onNotificationClick: () => {},
+    onSeeAllClick: () => {},
   };
 
   constructor(props) {
@@ -98,9 +147,12 @@ class Topnav extends React.Component {
   };
 
   menuForLoggedIn = () => {
-    const { intl, username } = this.props;
+    const { intl, username, notifications, onNotificationClick, onSeeAllClick } = this.props;
     const { searchBarActive } = this.state;
     const { popoverVisible } = this.state;
+    const notificationsCount =
+      notifications && notifications.filter(notification => !notification.read).length;
+    const displayBadge = notificationsCount > 0;
     return (
       <div
         className={classNames('Topnav__menu-container', {
@@ -118,10 +170,36 @@ class Topnav extends React.Component {
               </Link>
             </Tooltip>
           </Menu.Item>
+          <Menu.Item key="notifications" className="Topnav__item--badge">
+            <Tooltip
+              placement="bottom"
+              title={intl.formatMessage({ id: 'notifications', defaultMessage: 'Notifications' })}
+            >
+              <Popover
+                placement="bottomRight"
+                trigger="click"
+                content={
+                  <Notifications
+                    notifications={notifications}
+                    onClick={onNotificationClick}
+                    onSeeAllClick={onSeeAllClick}
+                  />
+                }
+                title={intl.formatMessage({ id: 'notifications', defaultMessage: 'Notifications' })}
+              >
+                <a className="Topnav__link Topnav__link--light">
+                  {displayBadge ? (
+                    <div className="Topnav__notifications-count">{notificationsCount}</div>
+                  ) : (
+                    <i className="iconfont icon-remind" />
+                  )}
+                </a>
+              </Popover>
+            </Tooltip>
+          </Menu.Item>
           <Menu.Item key="user" className="Topnav__item-user">
             <Link className="Topnav__user" to={`/@${username}`}>
               <Avatar username={username} size={36} />
-              <span className="Topnav__user__username">{username}</span>
             </Link>
           </Menu.Item>
           <Menu.Item key="more">
@@ -167,7 +245,7 @@ class Topnav extends React.Component {
               }
             >
               <a className="Topnav__link Topnav__link--light">
-                <i className="iconfont icon-switch" />
+                <i className="iconfont icon-caretbottom" />
               </a>
             </Popover>
           </Menu.Item>
