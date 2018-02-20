@@ -4,14 +4,14 @@
   display: flex;
   padding: 12px;
   background-color: @white;
-  border-bottom: 1px solid #e5e8ec;
+  border-bottom: @base-border;
 
   &:hover {
     cursor: pointer;
   }
 
   &--unread {
-    background-color: #f3f6fa;
+    background-color: @notification-unread-background-color;
   }
 
   &__text {
@@ -29,5 +29,11 @@
       font-size: 14px;
       color: #9d9d9d;
     }
+  }
+
+  &__empty {
+    border-bottom: @base-border;
+    color: @black;
+    justify-content: center;
   }
 }

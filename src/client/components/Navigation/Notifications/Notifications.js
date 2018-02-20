@@ -6,6 +6,7 @@ import * as notificationConstants from '../../../../common/constants/notificatio
 import NotificationFollowing from './NotificationFollowing';
 import NotificationReply from './NotificationReply';
 import NotificationMention from './NotificationMention';
+import './Notification.less';
 import './Notifications.less';
 
 const Notifications = ({ onClick, onSeeAllClick, notifications, currentAuthUsername }) => (
@@ -33,6 +34,14 @@ const Notifications = ({ onClick, onSeeAllClick, notifications, currentAuthUsern
             return null;
         }
       })}
+      {_.isEmpty(notifications) && (
+        <div className="Notification Notification__empty">
+          <FormattedMessage
+            id="notifications_empty_message"
+            defaultMessage="You currently have no notifications."
+          />
+        </div>
+      )}
     </div>
     <div className="Notifications__footer">
       <a role="presentation" onClick={onSeeAllClick}>

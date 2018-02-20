@@ -38,6 +38,7 @@
   "notification_reply_username_post": "{username} commented your post.",
   "notification_reply_username_comment": "{username} replied on your comment.",
   "notification_transfer_username_amount": "{username} sent you {amount}.",
+  "notifications_empty_message": "You currently have no notifications.",
   "see_all": "See All",
   "discussions": "Discussions",
   "comments": "Comments",

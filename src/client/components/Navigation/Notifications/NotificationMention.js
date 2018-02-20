@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import { FormattedMessage, FormattedRelative } from 'react-intl';
 import { Link } from 'react-router-dom';
 import Avatar from '../../Avatar';
+import { epochToUTC } from '../../../helpers/formatter';
 import './Notification.less';
 
 const NotificationMention = ({ onClick, notification }) => {
@@ -40,7 +41,7 @@ const NotificationMention = ({ onClick, notification }) => {
             )}
           </div>
           <div className="Notification__text__date">
-            <FormattedRelative value={timestamp} />
+            <FormattedRelative value={epochToUTC(timestamp)} />
           </div>
         </div>
       </div>
