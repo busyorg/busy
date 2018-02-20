@@ -23,17 +23,17 @@ const NotificationMention = ({ notification, read }) => {
             {notification.is_root_post ? (
               <FormattedMessage
                 id="notification_mention_username_post"
-                defaultMessage="{username} mentioned you in a post."
+                defaultMessage="{username} mentioned you in a post"
                 values={{
-                  username: author,
+                  username: <span className="username">{author}</span>,
                 }}
               />
             ) : (
               <FormattedMessage
                 id="notification_mention_username_post"
-                defaultMessage="{username} mentioned you in a comment."
+                defaultMessage="{username} mentioned you in a comment"
                 values={{
-                  username: author,
+                  username: <span className="username">{author}</span>,
                 }}
               />
             )}

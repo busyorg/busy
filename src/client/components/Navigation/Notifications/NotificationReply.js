@@ -22,9 +22,9 @@ const NotificationReply = ({ notification, currentAuthUsername, read }) => {
           <div className="Notification__text__message">
             <FormattedMessage
               id="notification_reply_username_post"
-              defaultMessage="{username} commented on your post."
+              defaultMessage="{username} commented on your post"
               values={{
-                username: author,
+                username: <span className="username">{author}</span>,
               }}
             />
           </div>

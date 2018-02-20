@@ -19,9 +19,9 @@ const NotificationFollowing = ({ notification, read }) => (
         <div className="Notification__text__message">
           <FormattedMessage
             id="notification_following_username"
-            defaultMessage="{username} started following you."
+            defaultMessage="{username} started following you"
             values={{
-              username: notification.follower,
+              username: <span className="username">{notification.follower}</span>,
             }}
           />
         </div>
