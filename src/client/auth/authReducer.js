@@ -41,6 +41,11 @@ export default (state = initialState, action) => {
         isReloading: true,
       };
     case types.RELOAD_SUCCESS:
+      return {
+        ...state,
+        isReloading: false,
+        user: action.payload.account || state.user,
+      };
     case types.RELOAD_ERROR:
       return {
         ...state,
@@ -59,15 +64,6 @@ export default (state = initialState, action) => {
         isFetching: false,
         loaded: true,
         user: {},
-      };
-    case types.UPDATE_AUTH_USER.SUCCESS:
-      return {
-        ...state,
-        user: {
-          ...state.user,
-          ...action.payload,
-        },
-        loadingUpdateAuthUser: false,
       };
     default:
       return state;
