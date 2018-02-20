@@ -107,7 +107,6 @@ export default function userReducer(state = initialState, action) {
       };
 
     case actions.GET_NOTIFICATIONS.SUCCESS:
-      console.log(action.payload);
       return {
         ...state,
         notifications: action.payload,
