@@ -7,29 +7,31 @@ import Avatar from '../../Avatar';
 import './Notification.less';
 
 const NotificationFollowing = ({ onClick, notification }) => (
-  <div
-    role="presentation"
-    onClick={() => onClick(notification.id)}
-    className={classNames('Notification', {
-      'Notification--unread': !notification.read,
-    })}
-  >
-    <Avatar username={notification.follower} size={40} />
-    <div className="Notification__text">
-      <div className="Notification__text__message">
-        <FormattedMessage
-          id="notification_following_username"
-          defaultMessage="{username} is now following you."
-          values={{
-            username: <Link to={`/@${notification.follower}`}>{notification.follower}</Link>,
-          }}
-        />
-      </div>
-      <div className="Notification__text__date">
-        <FormattedRelative value={notification.timestamp} />
+  <Link to={`/@${notification.follower}`}>
+    <div
+      role="presentation"
+      onClick={() => onClick(notification.id)}
+      className={classNames('Notification', {
+        'Notification--unread': !notification.read,
+      })}
+    >
+      <Avatar username={notification.follower} size={40} />
+      <div className="Notification__text">
+        <div className="Notification__text__message">
+          <FormattedMessage
+            id="notification_following_username"
+            defaultMessage="{username} started following you."
+            values={{
+              username: notification.follower,
+            }}
+          />
+        </div>
+        <div className="Notification__text__date">
+          <FormattedRelative value={notification.timestamp} />
+        </div>
       </div>
     </div>
-  </div>
+  </Link>
 );
 
 NotificationFollowing.propTypes = {

@@ -8,14 +8,21 @@ import NotificationReply from './NotificationReply';
 import NotificationMention from './NotificationMention';
 import './Notifications.less';
 
-const Notifications = ({ onClick, onSeeAllClick, notifications }) => (
+const Notifications = ({ onClick, onSeeAllClick, notifications, currentAuthUsername }) => (
   <div className="Notifications">
     <div className="Notifications__content">
       {_.map(notifications, (notification, index) => {
         const key = `${index}${notification.timestamp}`;
         switch (notification.type) {
           case notificationConstants.REPLY:
-            return <NotificationReply key={key} onClick={onClick} notification={notification} />;
+            return (
+              <NotificationReply
+                key={key}
+                onClick={onClick}
+                notification={notification}
+                currentAuthUsername={currentAuthUsername}
+              />
+            );
           case notificationConstants.FOLLOW:
             return (
               <NotificationFollowing key={key} onClick={onClick} notification={notification} />
@@ -39,12 +46,14 @@ Notifications.propTypes = {
   onClick: PropTypes.func,
   onSeeAllClick: PropTypes.func,
   notifications: PropTypes.arrayOf(PropTypes.shape()),
+  currentAuthUsername: PropTypes.string,
 };
 
 Notifications.defaultProps = {
   onClick: () => {},
   onSeeAllClick: () => {},
   notifications: [],
+  currentAuthUsername: '',
 };
 
 export default Notifications;

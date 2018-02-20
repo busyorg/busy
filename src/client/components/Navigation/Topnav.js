@@ -112,6 +112,7 @@ class Topnav extends React.Component {
     const notificationsCount =
       notifications && notifications.filter(notification => !notification.read).length;
     const displayBadge = notificationsCount > 0;
+    const notificationsCountDisplay = notificationsCount > 99 ? '99+' : notificationsCount;
     return (
       <div
         className={classNames('Topnav__menu-container', {
@@ -142,13 +143,15 @@ class Topnav extends React.Component {
                     notifications={notifications}
                     onClick={onNotificationClick}
                     onSeeAllClick={onSeeAllClick}
+                    currentAuthUsername={username}
                   />
                 }
+                overlayClassName="Notifications__popover-overlay"
                 title={intl.formatMessage({ id: 'notifications', defaultMessage: 'Notifications' })}
               >
                 <a className="Topnav__link Topnav__link--light">
                   {displayBadge ? (
-                    <div className="Topnav__notifications-count">{notificationsCount}</div>
+                    <div className="Topnav__notifications-count">{notificationsCountDisplay}</div>
                   ) : (
                     <i className="iconfont icon-remind" />
                   )}

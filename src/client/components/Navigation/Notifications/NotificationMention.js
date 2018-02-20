@@ -6,32 +6,47 @@ import { Link } from 'react-router-dom';
 import Avatar from '../../Avatar';
 import './Notification.less';
 
-const NotificationMention = ({ onClick, notification }) => (
-  <div
-    role="presentation"
-    onClick={() => onClick(notification.id)}
-    className={classNames('Notification', {
-      'Notification--unread': !notification.read,
-    })}
-  >
-    <Avatar username={notification.author} size={40} />
-    <div className="Notification__text">
-      <div className="Notification__text__message">
-        <FormattedMessage
-          id="notification_mention_username_post"
-          defaultMessage="{username} mentioned you on this post {post}."
-          values={{
-            username: <Link to={`/@${notification.author}`}>{notification.author}</Link>,
-            post: <Link to={notification.permlink}>{notification.permlink}</Link>,
-          }}
-        />
+const NotificationMention = ({ onClick, notification }) => {
+  const { author, permlink, timestamp } = notification;
+
+  return (
+    <Link to={`/@${author}/${permlink}`}>
+      <div
+        role="presentation"
+        onClick={() => onClick(notification.id)}
+        className={classNames('Notification', {
+          'Notification--unread': !notification.read,
+        })}
+      >
+        <Avatar username={author} size={40} />
+        <div className="Notification__text">
+          <div className="Notification__text__message">
+            {notification.is_root_post ? (
+              <FormattedMessage
+                id="notification_mention_username_post"
+                defaultMessage="{username} mentioned you in a post."
+                values={{
+                  username: author,
+                }}
+              />
+            ) : (
+              <FormattedMessage
+                id="notification_mention_username_post"
+                defaultMessage="{username} mentioned you in a comment."
+                values={{
+                  username: author,
+                }}
+              />
+            )}
+          </div>
+          <div className="Notification__text__date">
+            <FormattedRelative value={timestamp} />
+          </div>
+        </div>
       </div>
-      <div className="Notification__text__date">
-        <FormattedRelative value={notification.timestamp} />
-      </div>
-    </div>
-  </div>
-);
+    </Link>
+  );
+};
 
 NotificationMention.propTypes = {
   onClick: PropTypes.func,
