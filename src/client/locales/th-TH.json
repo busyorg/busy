@@ -314,12 +314,12 @@
   "login_modal_description": "เข้าสู่ระบบด้วยบัญชี Steem ของคุณโดยใช้ SteemConnect สู่ Busy ที่ 100%",
   "login_with_steemconnect": "เข้าสู่ระบบ ด้วย SteemConnect",
   "follows_you": "ติดตามคุณ",
-  "back": "Back",
-  "lets_get_started": "Let's get started",
-  "completed": "Completed",
-  "complete_your_profile": "Complete your profile",
-  "follow_steemians": "Follow {amount} steemians",
-  "like_good_posts": "Like some good posts",
-  "write_first_post": "Write your first post",
-  "complete_profile_tooltip": "Must fill out the name, about, and profile picture fields"
+  "back": "กลับ",
+  "lets_get_started": "มาเริ่มกันเถอะ",
+  "completed": "เสร็จสมบูรณ์",
+  "complete_your_profile": "โปร์ไฟล์ของคุณเสร็จสมบูรณ์",
+  "follow_steemians": "ติดตาม {จำนวน} Steemians",
+  "like_good_posts": "เช่นบางโพสต์ที่ดี",
+  "write_first_post": "เขียนโพสต์แรกของคุณ",
+  "complete_profile_tooltip": "ต้องกรอกชื่อ เกี่ยวกับ และฟิลด์รูปภาพโพรไฟล์"
 }
