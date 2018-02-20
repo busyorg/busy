@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import { Menu, Popover, Tooltip, Input, AutoComplete } from 'antd';
 import classNames from 'classnames';
 import { searchAutoComplete } from '../../search/searchActions';
+import { getUpdatedSCUserMetadata } from '../../auth/authActions';
 import {
   getAutoCompleteSearchResults,
   getNotifications,
@@ -28,6 +29,7 @@ import './Topnav.less';
   }),
   {
     searchAutoComplete,
+    getUpdatedSCUserMetadata,
   },
 )
 class Topnav extends React.Component {
@@ -39,6 +41,7 @@ class Topnav extends React.Component {
     username: PropTypes.string,
     notifications: PropTypes.arrayOf(PropTypes.shape()),
     searchAutoComplete: PropTypes.func.isRequired,
+    getUpdatedSCUserMetadata: PropTypes.func.isRequired,
     onMenuItemClick: PropTypes.func,
     onNotificationClick: PropTypes.func,
     onSeeAllClick: PropTypes.func,
@@ -62,9 +65,13 @@ class Topnav extends React.Component {
       searchBarActive: false,
       popoverVisible: false,
       searchBarValue: '',
+      notificationsPopoverVisible: false,
     };
     this.handleMoreMenuSelect = this.handleMoreMenuSelect.bind(this);
     this.handleMoreMenuVisibleChange = this.handleMoreMenuVisibleChange.bind(this);
+    this.handleNotificationsPopoverVisibleChange = this.handleNotificationsPopoverVisibleChange.bind(
+      this,
+    );
     this.handleSelectOnAutoCompleteDropdown = this.handleSelectOnAutoCompleteDropdown.bind(this);
     this.handleAutoCompleteSearch = this.handleAutoCompleteSearch.bind(this);
     this.handleSearchForInput = this.handleSearchForInput.bind(this);
@@ -80,6 +87,14 @@ class Topnav extends React.Component {
 
   handleMoreMenuVisibleChange(visible) {
     this.setState({ popoverVisible: visible });
+  }
+
+  handleNotificationsPopoverVisibleChange(visible) {
+    this.setState({ notificationsPopoverVisible: visible }, () => {
+      if (!visible) {
+        this.props.getUpdatedSCUserMetadata();
+      }
+    });
   }
 
   menuForLoggedOut = () => {
@@ -121,8 +136,7 @@ class Topnav extends React.Component {
       onSeeAllClick,
       userSCMetaData,
     } = this.props;
-    const { searchBarActive } = this.state;
-    const { popoverVisible } = this.state;
+    const { searchBarActive, notificationsPopoverVisible, popoverVisible } = this.state;
     const lastSeenTimestamp = _.get(userSCMetaData, 'notifications_last_timestamp');
     const notificationsCount = _.isUndefined(lastSeenTimestamp)
       ? _.size(notifications)
@@ -163,6 +177,8 @@ class Topnav extends React.Component {
                     lastSeenTimestamp={lastSeenTimestamp}
                   />
                 }
+                visible={notificationsPopoverVisible}
+                onVisibleChange={this.handleNotificationsPopoverVisibleChange}
                 overlayClassName="Notifications__popover-overlay"
                 title={intl.formatMessage({ id: 'notifications', defaultMessage: 'Notifications' })}
               >

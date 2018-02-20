@@ -1,6 +1,7 @@
 import Cookie from 'js-cookie';
 import { createAction } from 'redux-actions';
 import { getIsAuthenticated } from '../reducers';
+import { createAsyncActionType } from '../helpers/stateHelpers';
 import { getFollowing } from '../user/userActions';
 
 export const LOGIN = '@auth/LOGIN';
@@ -17,6 +18,8 @@ export const LOGOUT = '@auth/LOGOUT';
 export const LOGOUT_START = '@auth/LOGOUT_START';
 export const LOGOUT_ERROR = '@auth/LOGOUT_ERROR';
 export const LOGOUT_SUCCESS = '@auth/LOGOUT_SUCCESS';
+
+export const UPDATE_SC2_USER_METADATA = createAsyncActionType('@auth/UPDATE_SC2_USER_METADATA');
 
 const loginError = createAction(LOGIN_ERROR);
 
@@ -57,5 +60,13 @@ export const logout = () => (dispatch, getState, { steemConnectAPI }) =>
     type: LOGOUT,
     payload: {
       promise: steemConnectAPI.revokeToken().then(() => Cookie.remove('access_token')),
+    },
+  });
+
+export const getUpdatedSCUserMetadata = () => (dispatch, getState, { steemConnectAPI }) =>
+  dispatch({
+    type: UPDATE_SC2_USER_METADATA.ACTION,
+    payload: {
+      promise: steemConnectAPI.me(),
     },
   });
