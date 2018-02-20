@@ -18,8 +18,8 @@ import requiresLogin from '../auth/requiresLogin';
 import NotificationReply from '../components/Navigation/Notifications/NotificationReply';
 import NotificationMention from '../components/Navigation/Notifications/NotificationMention';
 import NotificationFollowing from '../components/Navigation/Notifications/NotificationFollowing';
-import './Notifications.less';
 import Loading from '../components/Icon/Loading';
+import './Notifications.less';
 
 class Notifications extends React.Component {
   static propTypes = {
