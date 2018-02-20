@@ -7,16 +7,14 @@ import Avatar from '../../Avatar';
 import { epochToUTC } from '../../../helpers/formatter';
 import './Notification.less';
 
-const NotificationMention = ({ onClick, notification }) => {
+const NotificationMention = ({ notification, read }) => {
   const { author, permlink, timestamp } = notification;
 
   return (
     <Link to={`/@${author}/${permlink}`}>
       <div
-        role="presentation"
-        onClick={() => onClick(notification.id)}
         className={classNames('Notification', {
-          'Notification--unread': !notification.read,
+          'Notification--unread': !read,
         })}
       >
         <Avatar username={author} size={40} />
@@ -50,7 +48,7 @@ const NotificationMention = ({ onClick, notification }) => {
 };
 
 NotificationMention.propTypes = {
-  onClick: PropTypes.func,
+  read: PropTypes.bool,
   notification: PropTypes.shape({
     is_root_post: PropTypes.bool,
     author: PropTypes.string,
@@ -60,7 +58,7 @@ NotificationMention.propTypes = {
 };
 
 NotificationMention.defaultProps = {
-  onClick: () => {},
+  read: false,
   notification: {},
 };
 

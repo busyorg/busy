@@ -7,7 +7,7 @@ import { epochToUTC } from '../../../helpers/formatter';
 import Avatar from '../../Avatar';
 import './Notification.less';
 
-const NotificationReply = ({ onClick, notification, currentAuthUsername }) => {
+const NotificationReply = ({ notification, currentAuthUsername, read }) => {
   const { permlink, parent_permlink: parentPermlink, author, timestamp } = notification;
   const userRepliedToPost = parentPermlink === permlink;
   const commentURL = `/@${currentAuthUsername}/${parentPermlink}/#@${author}/${permlink}`;
@@ -15,10 +15,8 @@ const NotificationReply = ({ onClick, notification, currentAuthUsername }) => {
   return (
     <Link to={commentURL}>
       <div
-        role="presentation"
-        onClick={() => onClick(notification.id)}
         className={classNames('Notification', {
-          'Notification--unread': !notification.read,
+          'Notification--unread': !read,
         })}
       >
         <Avatar username={author} size={40} />
@@ -52,7 +50,7 @@ const NotificationReply = ({ onClick, notification, currentAuthUsername }) => {
 };
 
 NotificationReply.propTypes = {
-  onClick: PropTypes.func,
+  read: PropTypes.bool,
   notification: PropTypes.shape({
     author: PropTypes.string,
     permlink: PropTypes.string,
@@ -63,7 +61,7 @@ NotificationReply.propTypes = {
 };
 
 NotificationReply.defaultProps = {
-  onClick: () => {},
+  read: false,
   notification: {},
   currentAuthUsername: '',
 };

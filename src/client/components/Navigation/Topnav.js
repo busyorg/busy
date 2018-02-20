@@ -7,7 +7,11 @@ import { connect } from 'react-redux';
 import { Menu, Popover, Tooltip, Input, AutoComplete } from 'antd';
 import classNames from 'classnames';
 import { searchAutoComplete } from '../../search/searchActions';
-import { getAutoCompleteSearchResults, getNotifications } from '../../reducers';
+import {
+  getAutoCompleteSearchResults,
+  getNotifications,
+  getAuthenticatedUserSCMetaData,
+} from '../../reducers';
 import SteemConnect from '../../steemConnectAPI';
 import Avatar from '../Avatar';
 import PopoverMenu, { PopoverMenuItem } from '../PopoverMenu/PopoverMenu';
@@ -20,6 +24,7 @@ import './Topnav.less';
   state => ({
     autoCompleteSearchResults: getAutoCompleteSearchResults(state),
     notifications: getNotifications(state),
+    userSCMetaData: getAuthenticatedUserSCMetaData(state),
   }),
   {
     searchAutoComplete,
@@ -37,6 +42,7 @@ class Topnav extends React.Component {
     onMenuItemClick: PropTypes.func,
     onNotificationClick: PropTypes.func,
     onSeeAllClick: PropTypes.func,
+    userSCMetaData: PropTypes.shape(),
   };
 
   static defaultProps = {
@@ -46,6 +52,7 @@ class Topnav extends React.Component {
     onMenuItemClick: () => {},
     onNotificationClick: () => {},
     onSeeAllClick: () => {},
+    userSCMetaData: {},
   };
 
   constructor(props) {
@@ -106,11 +113,21 @@ class Topnav extends React.Component {
   };
 
   menuForLoggedIn = () => {
-    const { intl, username, notifications, onNotificationClick, onSeeAllClick } = this.props;
+    const {
+      intl,
+      username,
+      notifications,
+      onNotificationClick,
+      onSeeAllClick,
+      userSCMetaData,
+    } = this.props;
     const { searchBarActive } = this.state;
     const { popoverVisible } = this.state;
-    const notificationsCount =
-      notifications && notifications.filter(notification => !notification.read).length;
+    const lastSeenTimestamp = _.get(userSCMetaData, 'notifications_last_timestamp');
+    const notificationsCount = _.filter(
+      notifications,
+      notification => notification.timestamp < lastSeenTimestamp,
+    );
     const displayBadge = notificationsCount > 0;
     const notificationsCountDisplay = notificationsCount > 99 ? '99+' : notificationsCount;
     return (
@@ -144,6 +161,7 @@ class Topnav extends React.Component {
                     onClick={onNotificationClick}
                     onSeeAllClick={onSeeAllClick}
                     currentAuthUsername={username}
+                    lastSeenTimestamp={lastSeenTimestamp}
                   />
                 }
                 overlayClassName="Notifications__popover-overlay"

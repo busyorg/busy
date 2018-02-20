@@ -7,13 +7,11 @@ import Avatar from '../../Avatar';
 import { epochToUTC } from '../../../helpers/formatter';
 import './Notification.less';
 
-const NotificationFollowing = ({ onClick, notification }) => (
+const NotificationFollowing = ({ notification, read }) => (
   <Link to={`/@${notification.follower}`}>
     <div
-      role="presentation"
-      onClick={() => onClick(notification.id)}
       className={classNames('Notification', {
-        'Notification--unread': !notification.read,
+        'Notification--unread': !read,
       })}
     >
       <Avatar username={notification.follower} size={40} />
@@ -36,7 +34,7 @@ const NotificationFollowing = ({ onClick, notification }) => (
 );
 
 NotificationFollowing.propTypes = {
-  onClick: PropTypes.func,
+  read: PropTypes.bool,
   notification: PropTypes.shape({
     follower: PropTypes.string,
     timestamp: PropTypes.number,
@@ -44,7 +42,7 @@ NotificationFollowing.propTypes = {
 };
 
 NotificationFollowing.defaultProps = {
-  onClick: () => {},
+  read: false,
   notification: {},
 };
 
