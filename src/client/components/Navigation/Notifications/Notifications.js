@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import _ from 'lodash';
 import * as notificationConstants from '../../../../common/constants/notifications';
@@ -15,16 +16,12 @@ class Notifications extends React.Component {
     notifications: PropTypes.arrayOf(PropTypes.shape()),
     currentAuthUsername: PropTypes.string,
     lastSeenTimestamp: PropTypes.number,
-    onClick: PropTypes.func,
-    onSeeAllClick: PropTypes.func,
   };
 
   static defaultProps = {
     notifications: [],
     currentAuthUsername: '',
     lastSeenTimestamp: 0,
-    onClick: () => {},
-    onSeeAllClick: () => {},
   };
 
   componentDidMount() {
@@ -35,13 +32,7 @@ class Notifications extends React.Component {
   }
 
   render() {
-    const {
-      onClick,
-      onSeeAllClick,
-      notifications,
-      currentAuthUsername,
-      lastSeenTimestamp,
-    } = this.props;
+    const { notifications, currentAuthUsername, lastSeenTimestamp } = this.props;
 
     return (
       <div className="Notifications">
@@ -54,30 +45,15 @@ class Notifications extends React.Component {
                 return (
                   <NotificationReply
                     key={key}
-                    onClick={onClick}
                     notification={notification}
                     currentAuthUsername={currentAuthUsername}
                     read={read}
                   />
                 );
               case notificationConstants.FOLLOW:
-                return (
-                  <NotificationFollowing
-                    key={key}
-                    onClick={onClick}
-                    notification={notification}
-                    read={read}
-                  />
-                );
+                return <NotificationFollowing key={key} notification={notification} read={read} />;
               case notificationConstants.MENTION:
-                return (
-                  <NotificationMention
-                    key={key}
-                    onClick={onClick}
-                    notification={notification}
-                    read={read}
-                  />
-                );
+                return <NotificationMention key={key} notification={notification} read={read} />;
               default:
                 return null;
             }
@@ -92,9 +68,9 @@ class Notifications extends React.Component {
           )}
         </div>
         <div className="Notifications__footer">
-          <a role="presentation" onClick={onSeeAllClick}>
+          <Link to="/notifications">
             <FormattedMessage id="see_all" defaultMessage="See All" />
-          </a>
+          </Link>
         </div>
       </div>
     );

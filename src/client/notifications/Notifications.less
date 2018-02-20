@@ -1,0 +1,29 @@
+@import (reference) '../styles/custom.less';
+@import (reference) '../styles/modules/variables.less';
+@import (reference) '../styles/mixins';
+
+.NotificationsPage {
+  display: inline-block;
+  width: 100%;
+
+  @media @medium {
+    width: 80%;
+  }
+
+  &__title {
+    margin-bottom: 8px;
+    padding-bottom: 8px;
+    text-align: left;
+  }
+
+  &__content {
+    .content-block();
+
+    border-bottom: 0 !important;
+  }
+
+  &__loading {
+    padding: 20px;
+    border-bottom: @base-border;
+  }
+}
