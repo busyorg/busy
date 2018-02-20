@@ -124,10 +124,9 @@ class Topnav extends React.Component {
     const { searchBarActive } = this.state;
     const { popoverVisible } = this.state;
     const lastSeenTimestamp = _.get(userSCMetaData, 'notifications_last_timestamp');
-    const notificationsCount = _.filter(
-      notifications,
-      notification => notification.timestamp < lastSeenTimestamp,
-    );
+    const notificationsCount = _.isUndefined(lastSeenTimestamp)
+      ? _.size(notifications)
+      : _.filter(notifications, notification => lastSeenTimestamp < notification.timestamp).length;
     const displayBadge = notificationsCount > 0;
     const notificationsCountDisplay = notificationsCount > 99 ? '99+' : notificationsCount;
     return (
