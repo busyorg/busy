@@ -5,12 +5,13 @@ import { FormattedMessage } from 'react-intl';
 import _ from 'lodash';
 import * as notificationConstants from '../../../../common/constants/notifications';
 import { saveNotificationsLastTimestamp } from '../../../helpers/metadata';
-import ReduxInfiniteScroll from '../../../vendor/ReduxInfiniteScroll';
 import NotificationFollowing from './NotificationFollowing';
 import NotificationReply from './NotificationReply';
 import NotificationMention from './NotificationMention';
 import './Notification.less';
 import './Notifications.less';
+
+const displayLimit = 6;
 
 class Notifications extends React.Component {
   static propTypes = {
@@ -27,11 +28,55 @@ class Notifications extends React.Component {
     onNotificationClick: () => {},
   };
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      displayedNotifications: _.slice(props.notifications, 0, displayLimit),
+    };
+
+    this.notificationsContent = null;
+
+    this.handleLoadMore = this.handleLoadMore.bind(this);
+    this.onScroll = this.onScroll.bind(this);
+  }
+
   componentDidMount() {
     const { notifications } = this.props;
     const latestNotification = _.get(notifications, 0);
     const timestamp = _.get(latestNotification, 'timestamp');
     saveNotificationsLastTimestamp(timestamp);
+  }
+
+  onScroll() {
+    const { notifications } = this.props;
+    const { displayedNotifications } = this.state;
+    const contentElement = this.notificationsContent;
+    const topScrollPos = contentElement.scrollTop;
+    const totalContainerHeight = contentElement.scrollHeight;
+    const containerFixedHeight = contentElement.offsetHeight;
+    const bottomScrollPos = topScrollPos + containerFixedHeight;
+    const bottomPosition = totalContainerHeight - bottomScrollPos;
+    const threshold = 100;
+    const hasMore = displayedNotifications.length !== notifications.length;
+
+    if (bottomPosition < threshold && hasMore) {
+      this.handleLoadMore();
+    }
+  }
+
+  handleLoadMore() {
+    const { notifications } = this.props;
+    const { displayedNotifications } = this.state;
+    const moreNotificationsStartIndex = displayedNotifications.length;
+    const moreNotifications = _.slice(
+      notifications,
+      moreNotificationsStartIndex,
+      moreNotificationsStartIndex + displayLimit,
+    );
+    this.setState({
+      displayedNotifications: displayedNotifications.concat(moreNotifications),
+    });
   }
 
   render() {
@@ -41,48 +86,53 @@ class Notifications extends React.Component {
       lastSeenTimestamp,
       onNotificationClick,
     } = this.props;
+    const { displayedNotifications } = this.state;
 
     return (
       <div className="Notifications">
-        <div className="Notifications__content">
-          <ReduxInfiniteScroll loadMore={() => {}}>
-            {_.map(notifications, (notification, index) => {
-              const key = `${index}${notification.timestamp}`;
-              const read = lastSeenTimestamp >= notification.timestamp;
-              switch (notification.type) {
-                case notificationConstants.REPLY:
-                  return (
-                    <NotificationReply
-                      key={key}
-                      notification={notification}
-                      currentAuthUsername={currentAuthUsername}
-                      read={read}
-                      onClick={onNotificationClick}
-                    />
-                  );
-                case notificationConstants.FOLLOW:
-                  return (
-                    <NotificationFollowing
-                      key={key}
-                      notification={notification}
-                      read={read}
-                      onClick={onNotificationClick}
-                    />
-                  );
-                case notificationConstants.MENTION:
-                  return (
-                    <NotificationMention
-                      key={key}
-                      notification={notification}
-                      read={read}
-                      onClick={onNotificationClick}
-                    />
-                  );
-                default:
-                  return null;
-              }
-            })}
-          </ReduxInfiniteScroll>
+        <div
+          className="Notifications__content"
+          onScroll={this.onScroll}
+          ref={element => {
+            this.notificationsContent = element;
+          }}
+        >
+          {_.map(displayedNotifications, (notification, index) => {
+            const key = `${index}${notification.timestamp}`;
+            const read = lastSeenTimestamp >= notification.timestamp;
+            switch (notification.type) {
+              case notificationConstants.REPLY:
+                return (
+                  <NotificationReply
+                    key={key}
+                    notification={notification}
+                    currentAuthUsername={currentAuthUsername}
+                    read={read}
+                    onClick={onNotificationClick}
+                  />
+                );
+              case notificationConstants.FOLLOW:
+                return (
+                  <NotificationFollowing
+                    key={key}
+                    notification={notification}
+                    read={read}
+                    onClick={onNotificationClick}
+                  />
+                );
+              case notificationConstants.MENTION:
+                return (
+                  <NotificationMention
+                    key={key}
+                    notification={notification}
+                    read={read}
+                    onClick={onNotificationClick}
+                  />
+                );
+              default:
+                return null;
+            }
+          })}
           {_.isEmpty(notifications) && (
             <div className="Notification Notification__empty">
               <FormattedMessage

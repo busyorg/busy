@@ -5,7 +5,6 @@ import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import LeftSidebar from '../app/Sidebar/LeftSidebar';
 import Affix from '../components/Utils/Affix';
-import ReduxInfiniteScroll from '../vendor/ReduxInfiniteScroll';
 import * as notificationConstants from '../../common/constants/notifications';
 import { getUpdatedSCUserMetadata } from '../auth/authActions';
 import { getNotifications } from '../user/userActions';
@@ -73,33 +72,40 @@ class Notifications extends React.Component {
                   <Loading />
                 </div>
               )}
-              <ReduxInfiniteScroll loadMore={() => {}}>
-                {_.map(notifications, (notification, index) => {
-                  const key = `${index}${notification.timestamp}`;
-                  const read = lastSeenTimestamp >= notification.timestamp;
-                  switch (notification.type) {
-                    case notificationConstants.REPLY:
-                      return (
-                        <NotificationReply
-                          key={key}
-                          notification={notification}
-                          currentAuthUsername={currentAuthUsername}
-                          read={read}
-                        />
-                      );
-                    case notificationConstants.FOLLOW:
-                      return (
-                        <NotificationFollowing key={key} notification={notification} read={read} />
-                      );
-                    case notificationConstants.MENTION:
-                      return (
-                        <NotificationMention key={key} notification={notification} read={read} />
-                      );
-                    default:
-                      return null;
-                  }
-                })}
-              </ReduxInfiniteScroll>
+              {_.map(notifications, (notification, index) => {
+                const key = `${index}${notification.timestamp}`;
+                const read = lastSeenTimestamp >= notification.timestamp;
+                switch (notification.type) {
+                  case notificationConstants.REPLY:
+                    return (
+                      <NotificationReply
+                        key={key}
+                        notification={notification}
+                        currentAuthUsername={currentAuthUsername}
+                        read={read}
+                      />
+                    );
+                  case notificationConstants.FOLLOW:
+                    return (
+                      <NotificationFollowing key={key} notification={notification} read={read} />
+                    );
+                  case notificationConstants.MENTION:
+                    return (
+                      <NotificationMention key={key} notification={notification} read={read} />
+                    );
+                  default:
+                    return null;
+                }
+              })}
+              {_.isEmpty(notifications) &&
+                !loadingNotifications && (
+                  <div className="Notification Notification__empty">
+                    <FormattedMessage
+                      id="notifications_empty_message"
+                      defaultMessage="You currently have no notifications."
+                    />
+                  </div>
+                )}
             </div>
           </div>
         </div>
