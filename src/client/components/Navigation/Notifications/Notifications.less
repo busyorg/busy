@@ -1,8 +1,14 @@
 @import (reference) '../../../styles/custom.less';
+@import (reference) '../../../styles/modules/variables.less';
 
 .Notifications {
-  margin: -8px -16px;
-  width: 400px;
+  margin: initial;
+  width: auto;
+
+  @media @medium {
+    margin: -8px -16px;
+    width: 400px;
+  }
 
   &__content {
     overflow-y: hidden;
