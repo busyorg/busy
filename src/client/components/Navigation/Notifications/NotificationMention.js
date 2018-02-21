@@ -7,7 +7,7 @@ import Avatar from '../../Avatar';
 import { epochToUTC } from '../../../helpers/formatter';
 import './Notification.less';
 
-const NotificationMention = ({ notification, read }) => {
+const NotificationMention = ({ notification, read, onClick }) => {
   const { author, permlink, timestamp } = notification;
 
   return (
@@ -16,6 +16,7 @@ const NotificationMention = ({ notification, read }) => {
       className={classNames('Notification', {
         'Notification--unread': !read,
       })}
+      onClick={onClick}
     >
       <Avatar username={author} size={40} />
       <div className="Notification__text">
@@ -54,11 +55,13 @@ NotificationMention.propTypes = {
     permlink: PropTypes.string,
     timestamp: PropTypes.number,
   }),
+  onClick: PropTypes.func,
 };
 
 NotificationMention.defaultProps = {
   read: false,
   notification: {},
+  onClick: () => {},
 };
 
 export default NotificationMention;

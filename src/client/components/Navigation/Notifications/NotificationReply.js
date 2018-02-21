@@ -7,12 +7,13 @@ import { epochToUTC } from '../../../helpers/formatter';
 import Avatar from '../../Avatar';
 import './Notification.less';
 
-const NotificationReply = ({ notification, currentAuthUsername, read }) => {
+const NotificationReply = ({ notification, currentAuthUsername, read, onClick }) => {
   const { permlink, parent_permlink: parentPermlink, author, timestamp } = notification;
   const commentURL = `/@${currentAuthUsername}/${parentPermlink}/#@${author}/${permlink}`;
   return (
     <Link
       to={commentURL}
+      onClick={onClick}
       className={classNames('Notification', {
         'Notification--unread': !read,
       })}
@@ -45,12 +46,14 @@ NotificationReply.propTypes = {
     timestamp: PropTypes.number,
   }),
   currentAuthUsername: PropTypes.string,
+  onClick: PropTypes.func,
 };
 
 NotificationReply.defaultProps = {
   read: false,
   notification: {},
   currentAuthUsername: '',
+  onClick: () => {},
 };
 
 export default NotificationReply;

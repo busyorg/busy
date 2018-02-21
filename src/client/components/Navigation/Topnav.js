@@ -43,8 +43,6 @@ class Topnav extends React.Component {
     searchAutoComplete: PropTypes.func.isRequired,
     getUpdatedSCUserMetadata: PropTypes.func.isRequired,
     onMenuItemClick: PropTypes.func,
-    onNotificationClick: PropTypes.func,
-    onSeeAllClick: PropTypes.func,
     userSCMetaData: PropTypes.shape(),
   };
 
@@ -53,8 +51,6 @@ class Topnav extends React.Component {
     notifications: [],
     username: undefined,
     onMenuItemClick: () => {},
-    onNotificationClick: () => {},
-    onSeeAllClick: () => {},
     userSCMetaData: {},
   };
 
@@ -72,6 +68,7 @@ class Topnav extends React.Component {
     this.handleNotificationsPopoverVisibleChange = this.handleNotificationsPopoverVisibleChange.bind(
       this,
     );
+    this.handleCloseNotificationsPopover = this.handleCloseNotificationsPopover.bind(this);
     this.handleSelectOnAutoCompleteDropdown = this.handleSelectOnAutoCompleteDropdown.bind(this);
     this.handleAutoCompleteSearch = this.handleAutoCompleteSearch.bind(this);
     this.handleSearchForInput = this.handleSearchForInput.bind(this);
@@ -90,11 +87,20 @@ class Topnav extends React.Component {
   }
 
   handleNotificationsPopoverVisibleChange(visible) {
-    this.setState({ notificationsPopoverVisible: visible }, () => {
-      if (!visible) {
-        this.props.getUpdatedSCUserMetadata();
-      }
-    });
+    if (visible) {
+      this.setState({ notificationsPopoverVisible: visible });
+    } else {
+      this.handleCloseNotificationsPopover();
+    }
+  }
+
+  handleCloseNotificationsPopover() {
+    this.setState(
+      {
+        notificationsPopoverVisible: false,
+      },
+      () => this.props.getUpdatedSCUserMetadata(),
+    );
   }
 
   menuForLoggedOut = () => {
@@ -128,14 +134,7 @@ class Topnav extends React.Component {
   };
 
   menuForLoggedIn = () => {
-    const {
-      intl,
-      username,
-      notifications,
-      onNotificationClick,
-      onSeeAllClick,
-      userSCMetaData,
-    } = this.props;
+    const { intl, username, notifications, userSCMetaData } = this.props;
     const { searchBarActive, notificationsPopoverVisible, popoverVisible } = this.state;
     const lastSeenTimestamp = _.get(userSCMetaData, 'notifications_last_timestamp');
     const notificationsCount = _.isUndefined(lastSeenTimestamp)
@@ -171,8 +170,7 @@ class Topnav extends React.Component {
                 content={
                   <Notifications
                     notifications={notifications}
-                    onClick={onNotificationClick}
-                    onSeeAllClick={onSeeAllClick}
+                    onNotificationClick={this.handleCloseNotificationsPopover}
                     currentAuthUsername={username}
                     lastSeenTimestamp={lastSeenTimestamp}
                   />

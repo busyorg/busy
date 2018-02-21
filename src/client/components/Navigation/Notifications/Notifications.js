@@ -5,6 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import _ from 'lodash';
 import * as notificationConstants from '../../../../common/constants/notifications';
 import { saveNotificationsLastTimestamp } from '../../../helpers/metadata';
+import ReduxInfiniteScroll from '../../../vendor/ReduxInfiniteScroll';
 import NotificationFollowing from './NotificationFollowing';
 import NotificationReply from './NotificationReply';
 import NotificationMention from './NotificationMention';
@@ -16,12 +17,14 @@ class Notifications extends React.Component {
     notifications: PropTypes.arrayOf(PropTypes.shape()),
     currentAuthUsername: PropTypes.string,
     lastSeenTimestamp: PropTypes.number,
+    onNotificationClick: PropTypes.func,
   };
 
   static defaultProps = {
     notifications: [],
     currentAuthUsername: '',
     lastSeenTimestamp: 0,
+    onNotificationClick: () => {},
   };
 
   componentDidMount() {
@@ -32,32 +35,54 @@ class Notifications extends React.Component {
   }
 
   render() {
-    const { notifications, currentAuthUsername, lastSeenTimestamp } = this.props;
+    const {
+      notifications,
+      currentAuthUsername,
+      lastSeenTimestamp,
+      onNotificationClick,
+    } = this.props;
 
     return (
       <div className="Notifications">
         <div className="Notifications__content">
-          {_.map(notifications, (notification, index) => {
-            const key = `${index}${notification.timestamp}`;
-            const read = lastSeenTimestamp >= notification.timestamp;
-            switch (notification.type) {
-              case notificationConstants.REPLY:
-                return (
-                  <NotificationReply
-                    key={key}
-                    notification={notification}
-                    currentAuthUsername={currentAuthUsername}
-                    read={read}
-                  />
-                );
-              case notificationConstants.FOLLOW:
-                return <NotificationFollowing key={key} notification={notification} read={read} />;
-              case notificationConstants.MENTION:
-                return <NotificationMention key={key} notification={notification} read={read} />;
-              default:
-                return null;
-            }
-          })}
+          <ReduxInfiniteScroll loadMore={() => {}}>
+            {_.map(notifications, (notification, index) => {
+              const key = `${index}${notification.timestamp}`;
+              const read = lastSeenTimestamp >= notification.timestamp;
+              switch (notification.type) {
+                case notificationConstants.REPLY:
+                  return (
+                    <NotificationReply
+                      key={key}
+                      notification={notification}
+                      currentAuthUsername={currentAuthUsername}
+                      read={read}
+                      onClick={onNotificationClick}
+                    />
+                  );
+                case notificationConstants.FOLLOW:
+                  return (
+                    <NotificationFollowing
+                      key={key}
+                      notification={notification}
+                      read={read}
+                      onClick={onNotificationClick}
+                    />
+                  );
+                case notificationConstants.MENTION:
+                  return (
+                    <NotificationMention
+                      key={key}
+                      notification={notification}
+                      read={read}
+                      onClick={onNotificationClick}
+                    />
+                  );
+                default:
+                  return null;
+              }
+            })}
+          </ReduxInfiniteScroll>
           {_.isEmpty(notifications) && (
             <div className="Notification Notification__empty">
               <FormattedMessage
@@ -68,7 +93,7 @@ class Notifications extends React.Component {
           )}
         </div>
         <div className="Notifications__footer">
-          <Link to="/notifications">
+          <Link to="/notifications" onClick={onNotificationClick}>
             <FormattedMessage id="see_all" defaultMessage="See All" />
           </Link>
         </div>
