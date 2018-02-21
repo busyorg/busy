@@ -91,7 +91,7 @@ export default class Post extends React.Component {
     }
 
     if (!!content && match.params.category && typeof window !== 'undefined') {
-      window.history.pushState(
+      window.history.replaceState(
         {},
         '',
         `/@${content.author}/${content.permlink}${window.location.hash}`,
