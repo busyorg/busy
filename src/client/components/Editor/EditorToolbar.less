@@ -5,11 +5,17 @@
   background: @component-background;
   border-bottom: 0;
   white-space: nowrap;
+  margin: 0 15px;
 
   & > &__button {
     margin-right: 4px;
     border: none !important;
     padding: 0 10px !important;
+    animation: 0 !important;
+
+    &.ant-btn-clicked:after {
+      animation: 0 !important;
+    }
 
     &:focus,
     &:active {
@@ -19,7 +25,7 @@
     }
 
     &:hover {
-      border: @border-width-base @border-style-base @primary-color !important;
+      color: @black;
       transition: unset;
     }
 
@@ -35,6 +41,7 @@
   border-top-left-radius: @border-radius-base;
   border-top-right-radius: @border-radius-base;
   border: @base-border;
+  border-bottom: 0;
   display: flex;
   margin-right: 0 !important;
   overflow-y: hidden !important;
