@@ -10,6 +10,7 @@ import NotificationReply from './NotificationReply';
 import NotificationMention from './NotificationMention';
 import './Notification.less';
 import './Notifications.less';
+import Loading from '../../Icon/Loading';
 
 const displayLimit = 6;
 
@@ -19,6 +20,7 @@ class Notifications extends React.Component {
     currentAuthUsername: PropTypes.string,
     lastSeenTimestamp: PropTypes.number,
     onNotificationClick: PropTypes.func,
+    loadingNotifications: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -26,6 +28,7 @@ class Notifications extends React.Component {
     currentAuthUsername: '',
     lastSeenTimestamp: 0,
     onNotificationClick: () => {},
+    loadingNotifications: false,
   };
 
   constructor(props) {
@@ -85,8 +88,10 @@ class Notifications extends React.Component {
       currentAuthUsername,
       lastSeenTimestamp,
       onNotificationClick,
+      loadingNotifications,
     } = this.props;
     const { displayedNotifications } = this.state;
+    const displayEmptyNotifications = _.isEmpty(notifications) && !loadingNotifications;
 
     return (
       <div className="Notifications">
@@ -97,6 +102,7 @@ class Notifications extends React.Component {
             this.notificationsContent = element;
           }}
         >
+          {loadingNotifications && <Loading style={{ padding: 20 }} />}
           {_.map(displayedNotifications, (notification, index) => {
             const key = `${index}${notification.timestamp}`;
             const read = lastSeenTimestamp >= notification.timestamp;
@@ -133,7 +139,7 @@ class Notifications extends React.Component {
                 return null;
             }
           })}
-          {_.isEmpty(notifications) && (
+          {displayEmptyNotifications && (
             <div className="Notification Notification__empty">
               <FormattedMessage
                 id="notifications_empty_message"

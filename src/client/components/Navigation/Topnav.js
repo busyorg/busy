@@ -12,6 +12,7 @@ import {
   getAutoCompleteSearchResults,
   getNotifications,
   getAuthenticatedUserSCMetaData,
+  getIsLoadingNotifications,
 } from '../../reducers';
 import SteemConnect from '../../steemConnectAPI';
 import Avatar from '../Avatar';
@@ -26,6 +27,7 @@ import './Topnav.less';
     autoCompleteSearchResults: getAutoCompleteSearchResults(state),
     notifications: getNotifications(state),
     userSCMetaData: getAuthenticatedUserSCMetaData(state),
+    loadingNotifications: getIsLoadingNotifications(state),
   }),
   {
     searchAutoComplete,
@@ -44,6 +46,7 @@ class Topnav extends React.Component {
     getUpdatedSCUserMetadata: PropTypes.func.isRequired,
     onMenuItemClick: PropTypes.func,
     userSCMetaData: PropTypes.shape(),
+    loadingNotifications: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -52,6 +55,7 @@ class Topnav extends React.Component {
     username: undefined,
     onMenuItemClick: () => {},
     userSCMetaData: {},
+    loadingNotifications: false,
   };
 
   constructor(props) {
@@ -134,7 +138,7 @@ class Topnav extends React.Component {
   };
 
   menuForLoggedIn = () => {
-    const { intl, username, notifications, userSCMetaData } = this.props;
+    const { intl, username, notifications, userSCMetaData, loadingNotifications } = this.props;
     const { searchBarActive, notificationsPopoverVisible, popoverVisible } = this.state;
     const lastSeenTimestamp = _.get(userSCMetaData, 'notifications_last_timestamp');
     const notificationsCount = _.isUndefined(lastSeenTimestamp)
@@ -173,6 +177,7 @@ class Topnav extends React.Component {
                     onNotificationClick={this.handleCloseNotificationsPopover}
                     currentAuthUsername={username}
                     lastSeenTimestamp={lastSeenTimestamp}
+                    loadingNotifications={loadingNotifications}
                   />
                 }
                 visible={notificationsPopoverVisible}
