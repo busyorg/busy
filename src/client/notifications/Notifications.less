@@ -20,11 +20,21 @@
 
   &__content {
     .content-block();
-    margin-bottom: @content-margin;
+    margin: 0 20px @content-margin 20px;
 
     .Notification {
-      padding-left: @page-padding - 1 !important;
-      padding-right: @page-padding - 1 !important;
+      padding-left: @page-padding;
+      padding-right: @page-padding;
+
+      &:first-of-type {
+        border-top-right-radius: @border-radius-base;
+        border-top-left-radius: @border-radius-base;
+      }
+
+      &:last-of-type {
+        border-bottom-right-radius: @border-radius-base;
+        border-bottom-left-radius: @border-radius-base;
+      }
     }
   }
 
