@@ -51,6 +51,20 @@ class Notifications extends React.Component {
     saveNotificationsLastTimestamp(timestamp);
   }
 
+  componentWillReceiveProps(nextProps) {
+    const differentNotifications = !_.isEqual(
+      _.size(this.props.notifications),
+      _.size(nextProps.notifications),
+    );
+    const emptyDisplayedNotifications = _.isEmpty(this.state.displayedNotifications);
+
+    if (differentNotifications && emptyDisplayedNotifications) {
+      this.setState({
+        displayedNotifications: _.slice(nextProps.notifications, 0, displayLimit),
+      });
+    }
+  }
+
   onScroll() {
     const { notifications } = this.props;
     const { displayedNotifications } = this.state;
