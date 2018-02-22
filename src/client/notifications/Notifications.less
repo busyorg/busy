@@ -2,7 +2,7 @@
 @import (reference) '../styles/modules/variables.less';
 @import (reference) '../styles/mixins';
 
-@page-padding: 20px;
+@page-padding: 17px;
 
 .NotificationsPage {
   display: inline-block;
@@ -23,8 +23,8 @@
     margin-bottom: @content-margin;
 
     .Notification {
-      padding-left: @page-padding !important;
-      padding-right: @page-padding !important;
+      padding-left: @page-padding - 1 !important;
+      padding-right: @page-padding - 1 !important;
     }
   }
 
