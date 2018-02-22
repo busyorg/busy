@@ -49,7 +49,7 @@ class Notifications extends React.Component {
     const latestNotification = _.get(notifications, 0);
     const timestamp = _.get(latestNotification, 'timestamp');
 
-    if (timestamp < lastSeenTimestamp) {
+    if (timestamp > lastSeenTimestamp) {
       saveNotificationsLastTimestamp(timestamp);
     }
   }
