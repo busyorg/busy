@@ -99,12 +99,9 @@ class Topnav extends React.Component {
   }
 
   handleCloseNotificationsPopover() {
-    this.setState(
-      {
-        notificationsPopoverVisible: false,
-      },
-      () => this.props.getUpdatedSCUserMetadata(),
-    );
+    this.setState({
+      notificationsPopoverVisible: false,
+    });
   }
 
   menuForLoggedOut = () => {
@@ -178,6 +175,7 @@ class Topnav extends React.Component {
                     currentAuthUsername={username}
                     lastSeenTimestamp={lastSeenTimestamp}
                     loadingNotifications={loadingNotifications}
+                    getUpdatedSCUserMetadata={this.props.getUpdatedSCUserMetadata}
                   />
                 }
                 visible={notificationsPopoverVisible}

@@ -17,18 +17,20 @@ const displayLimit = 6;
 class Notifications extends React.Component {
   static propTypes = {
     notifications: PropTypes.arrayOf(PropTypes.shape()),
-    currentAuthUsername: PropTypes.string,
-    lastSeenTimestamp: PropTypes.number,
-    onNotificationClick: PropTypes.func,
     loadingNotifications: PropTypes.bool,
+    lastSeenTimestamp: PropTypes.number,
+    currentAuthUsername: PropTypes.string,
+    onNotificationClick: PropTypes.func,
+    getUpdatedSCUserMetadata: PropTypes.func,
   };
 
   static defaultProps = {
     notifications: [],
-    currentAuthUsername: '',
-    lastSeenTimestamp: 0,
-    onNotificationClick: () => {},
     loadingNotifications: false,
+    lastSeenTimestamp: 0,
+    currentAuthUsername: '',
+    onNotificationClick: () => {},
+    getUpdatedSCUserMetadata: () => {},
   };
 
   constructor(props) {
@@ -50,7 +52,7 @@ class Notifications extends React.Component {
     const timestamp = _.get(latestNotification, 'timestamp');
 
     if (timestamp > lastSeenTimestamp) {
-      saveNotificationsLastTimestamp(timestamp);
+      saveNotificationsLastTimestamp(timestamp).then(() => this.props.getUpdatedSCUserMetadata());
     }
   }
 
