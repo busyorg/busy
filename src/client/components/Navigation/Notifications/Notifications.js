@@ -45,10 +45,13 @@ class Notifications extends React.Component {
   }
 
   componentDidMount() {
-    const { notifications } = this.props;
+    const { notifications, lastSeenTimestamp } = this.props;
     const latestNotification = _.get(notifications, 0);
     const timestamp = _.get(latestNotification, 'timestamp');
-    saveNotificationsLastTimestamp(timestamp);
+
+    if (timestamp < lastSeenTimestamp) {
+      saveNotificationsLastTimestamp(timestamp);
+    }
   }
 
   componentWillReceiveProps(nextProps) {
