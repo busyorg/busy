@@ -154,8 +154,9 @@ class Topnav extends React.Component {
             <Tooltip
               placement="bottom"
               title={intl.formatMessage({ id: 'write_post', defaultMessage: 'Write post' })}
+              mouseEnterDelay={1}
             >
-              <Link to="/editor" className="Topnav__link">
+              <Link to="/editor" className="Topnav__link Topnav__link--action">
                 <i className="iconfont icon-write" />
               </Link>
             </Tooltip>
@@ -165,6 +166,7 @@ class Topnav extends React.Component {
               placement="bottom"
               title={intl.formatMessage({ id: 'notifications', defaultMessage: 'Notifications' })}
               overlayClassName="Topnav__notifications-tooltip"
+              mouseEnterDelay={1}
             >
               <Popover
                 placement="bottomRight"
@@ -184,7 +186,7 @@ class Topnav extends React.Component {
                 overlayClassName="Notifications__popover-overlay"
                 title={intl.formatMessage({ id: 'notifications', defaultMessage: 'Notifications' })}
               >
-                <a className="Topnav__link Topnav__link--light">
+                <a className="Topnav__link Topnav__link--light Topnav__link--action">
                   {displayBadge ? (
                     <div className="Topnav__notifications-count">{notificationsCountDisplay}</div>
                   ) : (
