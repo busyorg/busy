@@ -74,6 +74,11 @@ export default class Settings extends React.Component {
     notify: () => {},
   };
 
+  constructor(props) {
+    super(props);
+    this.handleUpvoteSettingChange = this.handleUpvoteSettingChange.bind(this);
+  }
+
   state = {
     locale: 'auto',
     votingPower: 'auto',
@@ -197,7 +202,10 @@ export default class Settings extends React.Component {
   handleShowNSFWPosts = event => this.setState({ showNSFWPosts: event.target.checked });
   handleRewriteLinksChange = event => this.setState({ rewriteLinks: event.target.checked });
   handleUseBetaChange = event => this.setState({ useBeta: event.target.checked });
-  handleUpvoteSettingChange = event => this.setState({ upvoteSetting: event.target.checked });
+
+  handleUpvoteSettingChange(event) {
+    this.setState({ upvoteSetting: event.target.checked });
+  }
 
   render() {
     const {
