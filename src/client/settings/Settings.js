@@ -174,7 +174,7 @@ export default class Settings extends React.Component {
     'ko-KR': '한국어 - Korean',
     'ja-JP': '日本語 - Japanese',
     'zh-CN': '简体中文 - Simplified Chinese',
-    // zh: '繁體中文 - Traditional Chinese',
+    'zh-TW': '繁體中文 - Traditional Chinese',
   };
 
   handleSave = () => {

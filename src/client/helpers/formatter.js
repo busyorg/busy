@@ -6,4 +6,6 @@ export const jsonParse = str => {
   }
 };
 
+export const epochToUTC = epochTimestamp => new Date(0).setUTCSeconds(epochTimestamp);
+
 export default jsonParse;

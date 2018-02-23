@@ -314,12 +314,12 @@
   "login_modal_description": "Přihlaste se se Steem účtem pomocí SteemConnect a využijte Busy naplno",
   "login_with_steemconnect": "Přihlaste se přes SteemConnect",
   "follows_you": "Sleduje vás",
-  "back": "Back",
-  "lets_get_started": "Let's get started",
-  "completed": "Completed",
-  "complete_your_profile": "Complete your profile",
-  "follow_steemians": "Follow {amount} steemians",
-  "like_good_posts": "Like some good posts",
-  "write_first_post": "Write your first post",
-  "complete_profile_tooltip": "Must fill out the name, about, and profile picture fields"
+  "back": "Zpět",
+  "lets_get_started": "Začínáme",
+  "completed": "Splněno",
+  "complete_your_profile": "Vyplňte si profil",
+  "follow_steemians": "Sledujte {amount} steemerů",
+  "like_good_posts": "Ohlasujte dobré příspěvky",
+  "write_first_post": "Napište první přípěvek",
+  "complete_profile_tooltip": "Musíte vyplnit jméno, položku o vás a profilový obrázek"
 }

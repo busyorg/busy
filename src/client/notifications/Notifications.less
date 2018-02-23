@@ -1,0 +1,45 @@
+@import (reference) '../styles/custom.less';
+@import (reference) '../styles/modules/variables.less';
+@import (reference) '../styles/mixins';
+
+@page-padding: 17px;
+
+.NotificationsPage {
+  display: inline-block;
+  width: 100%;
+
+  @media @medium {
+    width: 80%;
+  }
+
+  &__title {
+    padding-bottom: 16px;
+    padding-left: @page-padding;
+    text-align: left;
+  }
+
+  &__content {
+    .content-block();
+    margin: 0 20px @content-margin 20px;
+
+    .Notification {
+      padding-left: @page-padding;
+      padding-right: @page-padding;
+      background-color: @white !important;
+
+      &:first-of-type {
+        border-top-right-radius: @border-radius-base;
+        border-top-left-radius: @border-radius-base;
+      }
+
+      &:last-of-type {
+        border-bottom-right-radius: @border-radius-base;
+        border-bottom-left-radius: @border-radius-base;
+      }
+    }
+  }
+
+  &__loading {
+    padding: 20px;
+  }
+}

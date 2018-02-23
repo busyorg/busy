@@ -1,10 +1,14 @@
 @import (reference) '../../../styles/custom.less';
-
-@count: 5;
+@import (reference) '../../../styles/modules/variables.less';
 
 .Notifications {
-  margin: -8px -16px;
-  width: 400px;
+  margin: initial;
+  width: auto;
+
+  @media @medium {
+    margin: -8px -16px;
+    width: 400px;
+  }
 
   &__content {
     overflow-y: hidden;
@@ -13,13 +17,14 @@
       overflow-y: auto;
     }
 
-    max-height: @count * 70px;
+    max-height: 345px;
   }
 
   &__footer {
     text-align: center;
     height: 35px;
     line-height: 35px;
+    border-top: @base-border;
 
     & > a {
       font-weight: 500;
