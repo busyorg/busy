@@ -140,7 +140,7 @@ class Topnav extends React.Component {
     const lastSeenTimestamp = _.get(userSCMetaData, 'notifications_last_timestamp');
     const notificationsCount = _.isUndefined(lastSeenTimestamp)
       ? _.size(notifications)
-      : _.filter(notifications, notification => lastSeenTimestamp < notification.timestamp).length;
+      : _.size(_.filter(notifications, notification => lastSeenTimestamp < notification.timestamp));
     const displayBadge = notificationsCount > 0;
     const notificationsCountDisplay = notificationsCount > 99 ? '99+' : notificationsCount;
     return (
