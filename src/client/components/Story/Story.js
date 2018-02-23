@@ -179,7 +179,7 @@ class Story extends React.Component {
   handlePostModalDisplay(e) {
     e.preventDefault();
     const { post } = this.props;
-    const isReplyPreview = _.isEmpty(post.title);
+    const isReplyPreview = _.isEmpty(post.title) || post.title !== post.root_title;
     const openInNewTab = _.get(e, 'metaKey', false) || _.get(e, 'ctrlKey', false);
     const postURL = dropCategory(post.url);
 
@@ -199,7 +199,7 @@ class Story extends React.Component {
     e.preventDefault();
 
     const { post } = this.props;
-    const isReplyPreview = _.isEmpty(post.title);
+    const isReplyPreview = _.isEmpty(post.title) || post.title !== post.root_title;
     const elementNodeName = _.toLower(_.get(e, 'target.nodeName', ''));
     const elementClassName = _.get(e, 'target.className', '');
     const showPostModal =
