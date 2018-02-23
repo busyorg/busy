@@ -89,13 +89,22 @@
       line-height: 55px !important;
       margin-left: @base-spacing;
 
-      & > li {
+      & > li.ant-menu-item {
         height: 55px !important;
-        padding: 0 4px !important;
+        padding: 0 !important;
+        width: 41px;
+        display: flex;
+        justify-content: center;
+        border-bottom: 0 !important;
+        align-items: center;
 
         & > a {
-          color: @primary-color !important;
+          color: @blue-botticelli !important;
           font-weight: 600 !important;
+
+          &:hover {
+            color: @grey-mortar !important;
+          }
         }
       }
     }
@@ -122,10 +131,6 @@
   }
 
   &__link {
-    i {
-      color: rgba(0, 0, 0, 0.65) !important;
-    }
-
     &--light {
       i {
         font-weight: normal !important;
@@ -172,13 +177,19 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 10px;
-    margin-left: 6px;
     font-size: 16px;
   }
 
   .icon-caretbottom {
     font-size: 12px !important;
+  }
+
+  .icon-remind {
+    font-size: 28px !important;
+  }
+
+  .icon-write {
+    font-size: 28px !important;
   }
 }
 
@@ -246,4 +257,8 @@ div[data-dir='rtl'] .Topnav {
   display: flex;
   align-items: center;
   color: @blue-baliHai !important;
+}
+
+.Topnav__notifications-tooltip {
+  top: 61px !important;
 }

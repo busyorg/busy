@@ -164,6 +164,7 @@ class Topnav extends React.Component {
             <Tooltip
               placement="bottom"
               title={intl.formatMessage({ id: 'notifications', defaultMessage: 'Notifications' })}
+              overlayClassName="Topnav__notifications-tooltip"
             >
               <Popover
                 placement="bottomRight"
