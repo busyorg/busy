@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+import _ from 'lodash';
 import ReduxInfiniteScroll from '../vendor/ReduxInfiniteScroll';
 import UserCard from '../components/UserCard';
 import Loading from '../components/Icon/Loading';
@@ -36,7 +37,7 @@ export default class UserDynamicList extends React.Component {
           this.setState(state => ({
             loading: false,
             hasMore: newUsers.length === limit,
-            users: [...state.users, ...newUsers.slice(1)],
+            users: _.union(state.users, newUsers),
           })),
         );
       },

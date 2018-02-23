@@ -89,13 +89,26 @@
       line-height: 55px !important;
       margin-left: @base-spacing;
 
-      & > li {
+      & > li.ant-menu-item {
         height: 55px !important;
-        padding: 0 4px !important;
+        padding: 0 !important;
+        width: 41px;
+        display: flex;
+        justify-content: center;
+        border-bottom: 0 !important;
+        align-items: center;
 
         & > a {
-          color: @primary-color !important;
+          color: @blue-botticelli !important;
           font-weight: 600 !important;
+
+          &.Topnav__link--action {
+            margin-top: 7px;
+          }
+
+          &:hover {
+            color: @grey-mortar !important;
+          }
         }
       }
     }
@@ -118,14 +131,10 @@
   }
 
   &__item-user {
-    margin: 0 10px !important;
+    margin: 0 !important;
   }
 
   &__link {
-    i {
-      color: rgba(0, 0, 0, 0.65) !important;
-    }
-
     &--light {
       i {
         font-weight: normal !important;
@@ -161,6 +170,31 @@
     @media @small {
       display: initial;
     }
+  }
+
+  &__notifications-count {
+    height: 35px;
+    min-width: 35px;
+    border-radius: 50%;
+    background-color: @primary-color;
+    color: @white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    margin-bottom: 6px;
+  }
+
+  .icon-caretbottom {
+    font-size: 12px !important;
+  }
+
+  .icon-remind {
+    font-size: 28px !important;
+  }
+
+  .icon-write {
+    font-size: 28px !important;
   }
 }
 
@@ -220,4 +254,16 @@ div[data-dir='rtl'] .Topnav {
 
 .Topnav__search-dropdown-container .ant-select-dropdown-menu {
   max-height: 300px;
+}
+
+.ant-popover-title {
+  font-size: 16px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  color: @blue-baliHai !important;
+}
+
+.Topnav__notifications-tooltip {
+  top: 61px !important;
 }

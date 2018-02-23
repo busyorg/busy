@@ -1,6 +1,8 @@
 import { createAction } from 'redux-actions';
+import busyAPI from '../busyAPI';
 import { getIsAuthenticated, getAuthenticatedUserName } from '../reducers';
 import { getAllFollowing } from '../helpers/apiHelpers';
+import { createAsyncActionType } from '../helpers/stateHelpers';
 
 export const FOLLOW_USER = '@user/FOLLOW_USER';
 export const FOLLOW_USER_START = '@user/FOLLOW_USER_START';
@@ -73,3 +75,23 @@ export const getFollowing = username => (dispatch, getState) => {
 
 export const UPDATE_RECOMMENDATIONS = '@user/UPDATE_RECOMMENDATIONS';
 export const updateRecommendations = createAction(UPDATE_RECOMMENDATIONS);
+
+export const GET_NOTIFICATIONS = createAsyncActionType('@user/GET_NOTIFICATIONS');
+
+export const getNotifications = username => (dispatch, getState) => {
+  const state = getState();
+
+  if (!username && !getIsAuthenticated(state)) {
+    return dispatch({ type: GET_NOTIFICATIONS.ERROR });
+  }
+
+  const targetUsername = username || getAuthenticatedUserName(state);
+
+  return dispatch({
+    type: GET_NOTIFICATIONS.ACTION,
+    meta: targetUsername,
+    payload: {
+      promise: busyAPI.sendAsync('get_notifications', [targetUsername]),
+    },
+  });
+};
