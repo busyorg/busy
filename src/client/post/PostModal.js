@@ -82,9 +82,9 @@ class PostModal extends React.Component {
       author: authorDetails,
       shownPostContents,
     } = this.props;
-    const { category, author, permlink, title, url } = currentShownPost;
+    const { author, permlink, title, url } = currentShownPost;
     const baseURL = window ? window.location.origin : 'https://busy.org';
-    const postURL = `${baseURL}${url}`;
+    const postURL = `${baseURL}${dropCategory(url)}`;
     const twitterText = `"${encodeURIComponent(title)}" by @${author}`;
     const twitterShareURL = getTwitterShareURL(twitterText, postURL);
     const facebookShareURL = getFacebookShareURL(postURL);
@@ -114,7 +114,7 @@ class PostModal extends React.Component {
           <a role="presentation" onClick={this.handleHidePostModal} className="PostModal__action">
             <i className="iconfont icon-close PostModal__icon" />
           </a>
-          <Link to={`/${category}/@${author}/${permlink}`} className="PostModal__action">
+          <Link to={`/@${author}/${permlink}`} className="PostModal__action">
             <i className="iconfont icon-send PostModal__icon" />
           </Link>
           <a href={twitterShareURL} target="_blank" className="PostModal__action">
