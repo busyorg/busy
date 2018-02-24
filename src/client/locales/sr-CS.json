@@ -116,6 +116,7 @@
   "profile_cover": "Cover picture",
   "profile_social_profiles": "Social profiles",
   "profile_social_profile_incorrect": "This doesn't seem to be valid username. Only alphanumeric characters, hyphens, underscores and dots are allowed.",
+  "profile_signature": "Signature",
   "reply": "Odgovori",
   "edit": "Uredi",
   "show_more": "Prikaži više",
@@ -312,5 +313,13 @@
   "login_to_busy": "Prijavite se na Busy",
   "login_modal_description": "Prijavite se svojim Steem nalogom koristeći SteemConnect da biste uživali na Busy",
   "login_with_steemconnect": "Prijavite se koristeći SteemConnect",
-  "follows_you": "Vas prati"
+  "follows_you": "Vas prati",
+  "back": "Back",
+  "lets_get_started": "Let's get started",
+  "completed": "Completed",
+  "complete_your_profile": "Complete your profile",
+  "follow_steemians": "Follow {amount} steemians",
+  "like_good_posts": "Like some good posts",
+  "write_first_post": "Write your first post",
+  "complete_profile_tooltip": "Must fill out the name, about, and profile picture fields"
 }

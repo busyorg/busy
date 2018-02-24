@@ -37,12 +37,39 @@ a:focus {
 }
 
 .ant-layout {
-  overflow: hidden;
+  overflow: visible;
+}
+
+.ant-layout-header {
+  z-index: @ant-layout-header-z-index !important;
+}
+
+.ant-popover {
+  z-index: @ant-popover-z-index !important;
+}
+
+.ant-tooltip {
+  z-index: @ant-tooltip-z-index !important;
+}
+
+.Notifications__popover-overlay {
+  top: 46px !important;
+  z-index: @ant-popover-notifications-z-index !important;
+  position: fixed;
 }
 
 .ant-modal-mask,
 .ant-modal-wrap {
-  z-index: 1200;
+  z-index: @ant-modal-z-index;
+}
+
+// for when modals are active
+body.white-bg .ant-popover {
+  z-index: @ant-modal-popover-z-index !important;
+}
+
+body.white-bg .ant-tooltip {
+  z-index: @ant-modal-tooltip-z-index !important;
 }
 
 .ant-tooltip {
@@ -94,4 +121,12 @@ iframe {
 
 div[data-dir='rtl'] {
   direction: rtl;
+}
+
+.ant-modal-mask {
+  background-color: rgba(242, 242, 242, 0.97) !important;
+}
+
+.ReactModal__Overlay.ReactModal__Overlay--after-open {
+  z-index: @react-modal-z-index !important;
 }

@@ -4,44 +4,63 @@ import classNames from 'classnames';
 import { FormattedMessage, FormattedRelative } from 'react-intl';
 import { Link } from 'react-router-dom';
 import Avatar from '../../Avatar';
+import { epochToUTC } from '../../../helpers/formatter';
 import './Notification.less';
 
-const NotificationMention = ({ onClick, id, read, date, payload }) => (
-  <div
-    role="presentation"
-    onClick={() => onClick(id)}
-    className={classNames('Notification', {
-      'Notification--unread': !read,
-    })}
-  >
-    <Avatar username={payload.user} size={40} />
-    <div className="Notification__text">
-      <div className="Notification__text__message">
-        <FormattedMessage
-          id="notification_mention_username_post"
-          defaultMessage="{username} mentioned you on this post {post}."
-          values={{
-            username: <Link to={`/${payload.user}`}>{payload.user}</Link>,
-            post: <Link to={payload.post_url}>{payload.post_title}</Link>,
-          }}
-        />
+const NotificationMention = ({ notification, read, onClick }) => {
+  const { author, permlink, timestamp } = notification;
+
+  return (
+    <Link
+      to={`/@${author}/${permlink}`}
+      className={classNames('Notification', {
+        'Notification--unread': !read,
+      })}
+      onClick={onClick}
+    >
+      <Avatar username={author} size={40} />
+      <div className="Notification__text">
+        <div className="Notification__text__message">
+          {notification.is_root_post ? (
+            <FormattedMessage
+              id="notification_mention_username_post"
+              defaultMessage="{username} mentioned you in a post"
+              values={{
+                username: <span className="username">{author}</span>,
+              }}
+            />
+          ) : (
+            <FormattedMessage
+              id="notification_mention_username_post"
+              defaultMessage="{username} mentioned you in a comment"
+              values={{
+                username: <span className="username">{author}</span>,
+              }}
+            />
+          )}
+        </div>
+        <div className="Notification__text__date">
+          <FormattedRelative value={epochToUTC(timestamp)} />
+        </div>
       </div>
-      <div className="Notification__text__date">
-        <FormattedRelative value={date} />
-      </div>
-    </div>
-  </div>
-);
+    </Link>
+  );
+};
 
 NotificationMention.propTypes = {
+  read: PropTypes.bool,
+  notification: PropTypes.shape({
+    is_root_post: PropTypes.bool,
+    author: PropTypes.string,
+    permlink: PropTypes.string,
+    timestamp: PropTypes.number,
+  }),
   onClick: PropTypes.func,
-  id: PropTypes.number.isRequired,
-  read: PropTypes.bool.isRequired,
-  date: PropTypes.string.isRequired,
-  payload: PropTypes.shape().isRequired,
 };
 
 NotificationMention.defaultProps = {
+  read: false,
+  notification: {},
   onClick: () => {},
 };
 

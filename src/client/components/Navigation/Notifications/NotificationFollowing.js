@@ -4,43 +4,47 @@ import classNames from 'classnames';
 import { FormattedMessage, FormattedRelative } from 'react-intl';
 import { Link } from 'react-router-dom';
 import Avatar from '../../Avatar';
+import { epochToUTC } from '../../../helpers/formatter';
 import './Notification.less';
 
-const NotificationFollowing = ({ onClick, id, read, date, payload }) => (
-  <div
-    role="presentation"
-    onClick={() => onClick(id)}
+const NotificationFollowing = ({ notification, read, onClick }) => (
+  <Link
+    to={`/@${notification.follower}`}
     className={classNames('Notification', {
       'Notification--unread': !read,
     })}
+    onClick={onClick}
   >
-    <Avatar username={payload.user} size={40} />
+    <Avatar username={notification.follower} size={40} />
     <div className="Notification__text">
       <div className="Notification__text__message">
         <FormattedMessage
           id="notification_following_username"
-          defaultMessage="{username} is now following you."
+          defaultMessage="{username} started following you"
           values={{
-            username: <Link to={`/${payload.user}`}>{payload.user}</Link>,
+            username: <span className="username">{notification.follower}</span>,
           }}
         />
       </div>
       <div className="Notification__text__date">
-        <FormattedRelative value={date} />
+        <FormattedRelative value={epochToUTC(notification.timestamp)} />
       </div>
     </div>
-  </div>
+  </Link>
 );
 
 NotificationFollowing.propTypes = {
+  read: PropTypes.bool,
+  notification: PropTypes.shape({
+    follower: PropTypes.string,
+    timestamp: PropTypes.number,
+  }),
   onClick: PropTypes.func,
-  id: PropTypes.number.isRequired,
-  read: PropTypes.bool.isRequired,
-  date: PropTypes.string.isRequired,
-  payload: PropTypes.shape().isRequired,
 };
 
 NotificationFollowing.defaultProps = {
+  read: false,
+  notification: {},
   onClick: () => {},
 };
 
