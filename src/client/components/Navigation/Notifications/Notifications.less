@@ -11,13 +11,17 @@
   }
 
   &__content {
-    overflow-y: hidden;
+    overflow-y: auto;
 
     &:hover {
       overflow-y: auto;
     }
 
     max-height: 345px;
+
+    @media @medium {
+      overflow-y: hidden;
+    }
   }
 
   &__footer {
