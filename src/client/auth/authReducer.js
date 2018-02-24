@@ -6,6 +6,7 @@ const initialState = {
   isReloading: false,
   loaded: false,
   user: {},
+  userSCMetaData: {},
 };
 
 export default (state = initialState, action) => {
@@ -27,6 +28,7 @@ export default (state = initialState, action) => {
         isAuthenticated: true,
         loaded: true,
         user: action.payload.account || state.user,
+        userSCMetaData: action.payload.user_metadata,
       };
     case types.LOGIN_ERROR:
       return {
@@ -65,6 +67,11 @@ export default (state = initialState, action) => {
         loaded: true,
         user: {},
       };
+    case types.UPDATE_SC2_USER_METADATA.SUCCESS:
+      return {
+        ...state,
+        userSCMetaData: action.payload.user_metadata,
+      };
     default:
       return state;
   }
@@ -76,3 +83,4 @@ export const getIsLoaded = state => state.loaded;
 export const getIsReloading = state => state.isReloading;
 export const getAuthenticatedUser = state => state.user;
 export const getAuthenticatedUserName = state => state.user.name;
+export const getAuthenticatedUserSCMetaData = state => state.userSCMetaData;

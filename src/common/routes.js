@@ -22,6 +22,7 @@ import Post from '../client/post/Post';
 import Page from '../client/feed/Page';
 import Discover from '../client/discover/Discover';
 import Search from '../client/search/Search';
+import Notifications from '../client/notifications/Notifications';
 import Error404 from '../client/statics/Error404';
 
 const routes = [
@@ -71,6 +72,11 @@ const routes = [
         path: '/invite',
         exact: true,
         component: Invite,
+      },
+      {
+        path: '/notifications',
+        exact: true,
+        component: Notifications,
       },
       {
         path: '/@:name/(comments|followers|followed|reblogs|feed|transfers|activity)?',
