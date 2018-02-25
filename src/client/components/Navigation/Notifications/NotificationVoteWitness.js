@@ -7,23 +7,22 @@ import Avatar from '../../Avatar';
 import { epochToUTC } from '../../../helpers/formatter';
 import './Notification.less';
 
-const NotificationTransfer = ({ notification, read, onClick }) => (
+const NotificationVoteWitness = ({ notification, read, onClick }) => (
   <Link
-    to={`/@${notification.from}`}
+    to={`/@${notification.account}`}
     className={classNames('Notification', {
       'Notification--unread': !read,
     })}
     onClick={onClick}
   >
-    <Avatar username={notification.from} size={40} />
+    <Avatar username={notification.account} size={40} />
     <div className="Notification__text">
       <div className="Notification__text__message">
         <FormattedMessage
-          id="notification_transfer_username_amount"
-          defaultMessage="{username} transfered {amount} to you"
+          id="notification_vote_username_witness"
+          defaultMessage="{username} voted for your witness"
           values={{
-            username: <span className="username">{notification.from}</span>,
-            amount: notification.amount,
+            username: <span className="username">{notification.account}</span>,
           }}
         />
       </div>
@@ -34,19 +33,19 @@ const NotificationTransfer = ({ notification, read, onClick }) => (
   </Link>
 );
 
-NotificationTransfer.propTypes = {
+NotificationVoteWitness.propTypes = {
   read: PropTypes.bool,
   notification: PropTypes.shape({
-    follower: PropTypes.string,
+    account: PropTypes.string,
     timestamp: PropTypes.number,
   }),
   onClick: PropTypes.func,
 };
 
-NotificationTransfer.defaultProps = {
+NotificationVoteWitness.defaultProps = {
   read: false,
   notification: {},
   onClick: () => {},
 };
 
-export default NotificationTransfer;
+export default NotificationVoteWitness;
