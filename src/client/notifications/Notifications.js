@@ -17,6 +17,10 @@ import requiresLogin from '../auth/requiresLogin';
 import NotificationReply from '../components/Navigation/Notifications/NotificationReply';
 import NotificationMention from '../components/Navigation/Notifications/NotificationMention';
 import NotificationFollowing from '../components/Navigation/Notifications/NotificationFollowing';
+import NotificationVote from '../components/Navigation/Notifications/NotificationVote';
+import NotificationReblog from '../components/Navigation/Notifications/NotificationReblog';
+import NotificationTransfer from '../components/Navigation/Notifications/NotificationTransfer';
+import NotificationVoteWitness from '../components/Navigation/Notifications/NotificationVoteWitness';
 import Loading from '../components/Icon/Loading';
 import './Notifications.less';
 
@@ -92,6 +96,32 @@ class Notifications extends React.Component {
                   case notificationConstants.MENTION:
                     return (
                       <NotificationMention key={key} notification={notification} read={read} />
+                    );
+                  case notificationConstants.VOTE:
+                    return (
+                      <NotificationVote
+                        key={key}
+                        notification={notification}
+                        read={read}
+                        currentAuthUsername={currentAuthUsername}
+                      />
+                    );
+                  case notificationConstants.REBLOG:
+                    return (
+                      <NotificationReblog
+                        key={key}
+                        notification={notification}
+                        read={read}
+                        currentAuthUsername={currentAuthUsername}
+                      />
+                    );
+                  case notificationConstants.TRANSFER:
+                    return (
+                      <NotificationTransfer key={key} notification={notification} read={read} />
+                    );
+                  case notificationConstants.WITNESS_VOTE:
+                    return (
+                      <NotificationVoteWitness key={key} notification={notification} read={read} />
                     );
                   default:
                     return null;

@@ -7,23 +7,22 @@ import Avatar from '../../Avatar';
 import { epochToUTC } from '../../../helpers/formatter';
 import './Notification.less';
 
-const NotificationTransfer = ({ notification, read, onClick }) => (
+const NotificationReblog = ({ notification, read, onClick, currentAuthUsername }) => (
   <Link
-    to={`/@${notification.from}`}
+    to={`/@${currentAuthUsername}/${notification.permlink}`}
     className={classNames('Notification', {
       'Notification--unread': !read,
     })}
     onClick={onClick}
   >
-    <Avatar username={notification.from} size={40} />
+    <Avatar username={notification.account} size={40} />
     <div className="Notification__text">
       <div className="Notification__text__message">
         <FormattedMessage
-          id="notification_transfer_username_amount"
-          defaultMessage="{username} transfered {amount} to you"
+          id="notification_reblogged_username_post"
+          defaultMessage="{username} reblogged your post"
           values={{
-            username: <span className="username">{notification.from}</span>,
-            amount: notification.amount,
+            username: <span className="username">{notification.account}</span>,
           }}
         />
       </div>
@@ -34,19 +33,22 @@ const NotificationTransfer = ({ notification, read, onClick }) => (
   </Link>
 );
 
-NotificationTransfer.propTypes = {
+NotificationReblog.propTypes = {
   read: PropTypes.bool,
   notification: PropTypes.shape({
-    follower: PropTypes.string,
+    account: PropTypes.string,
+    permlink: PropTypes.string,
     timestamp: PropTypes.number,
   }),
   onClick: PropTypes.func,
+  currentAuthUsername: PropTypes.string,
 };
 
-NotificationTransfer.defaultProps = {
+NotificationReblog.defaultProps = {
   read: false,
   notification: {},
   onClick: () => {},
+  currentAuthUsername: '',
 };
 
-export default NotificationTransfer;
+export default NotificationReblog;
