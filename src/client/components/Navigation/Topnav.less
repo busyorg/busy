@@ -5,16 +5,14 @@
 
 .Topnav {
   background-color: @white;
-  border-bottom: @base-border;
-  box-shadow: 0 0 4px @white-shadow;
   height: 56px;
   line-height: 52px;
+  border-bottom: 1px solid @border-color-base;
 
   &__brand {
     font-size: 30px;
     font-weight: bold;
     letter-spacing: 0.5px;
-    color: @primary-color;
 
     &:hover,
     &:visited,
@@ -48,16 +46,15 @@
     }
 
     input {
-      height: 42px !important;
-      margin-top: 7px;
+      height: 38px !important;
+      margin-top: 8px;
       border-radius: @border-radius-base;
-      border-color: @border-color-base;
       padding: 0 0 0 43px !important;
+      border: 1px solid @border-color-base;
 
       &:hover,
       &:focus {
         box-shadow: none !important;
-        border-color: @border-color-base !important;
       }
     }
 
