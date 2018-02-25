@@ -18,13 +18,23 @@ const NotificationVoteWitness = ({ notification, read, onClick }) => (
     <Avatar username={notification.account} size={40} />
     <div className="Notification__text">
       <div className="Notification__text__message">
-        <FormattedMessage
-          id="notification_vote_username_witness"
-          defaultMessage="{username} voted for your witness"
-          values={{
-            username: <span className="username">{notification.account}</span>,
-          }}
-        />
+        {notification.approve ? (
+          <FormattedMessage
+            id="notification_approved_witness"
+            defaultMessage="{username} approved your witness"
+            values={{
+              username: <span className="username">{notification.account}</span>,
+            }}
+          />
+        ) : (
+          <FormattedMessage
+            id="notification_unapproved_witness"
+            defaultMessage="{username} unapproved your witness"
+            values={{
+              username: <span className="username">{notification.account}</span>,
+            }}
+          />
+        )}
       </div>
       <div className="Notification__text__date">
         <FormattedRelative value={epochToUTC(notification.timestamp)} />
