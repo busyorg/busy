@@ -34,7 +34,7 @@
   "notifications": "Сповіщення",
   "notification_following_username": "{username} підписався на Вас.",
   "notification_mention_username_post": "{username} згадав вас в цьому повідомленні {post}.",
-  "notification_mention_username_comment": "{username} mentioned you in a comment",
+  "notification_mention_username_comment": "{username} згадав вас в коментарі",
   "notification_reply_username_post": "{username} відповів вам на ваш {post}.",
   "notification_reply_username_comment": "{username} replied to your comment",
   "notification_approved_witness": "{username} approved your witness",
