@@ -209,7 +209,7 @@ class Topnav extends React.Component {
               <Avatar username={username} size={36} />
             </Link>
           </Menu.Item>
-          <Menu.Item key="more">
+          <Menu.Item key="more" className="Topnav__menu--icon">
             <Popover
               placement="bottom"
               trigger="click"
