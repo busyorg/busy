@@ -50,11 +50,12 @@
       margin-top: 8px;
       border-radius: @border-radius-base;
       padding: 0 0 0 43px !important;
-      border: 1px solid @border-color-base;
+      border: @border-width-base @border-style-base @border-color-base;
 
       &:hover,
       &:focus {
         box-shadow: none !important;
+        border: @border-width-base @border-style-base @border-color-base !important;
       }
     }
 
@@ -208,7 +209,7 @@ div[data-dir='rtl'] .Topnav {
 }
 
 .Topnav__search-dropdown-container.ant-select-dropdown {
-  top: 45px !important;
+  top: 40px !important;
   position: fixed;
   border-radius: 0;
   border-bottom-left-radius: @border-radius-base;
