@@ -12,6 +12,7 @@ import {
   getAuthenticatedUserSCMetaData,
   getNotifications as getNotificationsState,
   getIsLoadingNotifications,
+  getAuthenticatedUserName,
 } from '../reducers';
 import requiresLogin from '../auth/requiresLogin';
 import NotificationReply from '../components/Navigation/Notifications/NotificationReply';
@@ -148,6 +149,7 @@ export default connect(
   state => ({
     notifications: getNotificationsState(state),
     userSCMetaData: getAuthenticatedUserSCMetaData(state),
+    currentAuthUsername: getAuthenticatedUserName(state),
     loadingNotifications: getIsLoadingNotifications(state),
   }),
   {
