@@ -91,7 +91,7 @@
         align-items: center;
 
         & > a {
-          color: @blue-botticelli !important;
+          color: @tertiary-color !important;
           font-weight: 600 !important;
 
           &.Topnav__link--action {
@@ -99,7 +99,7 @@
           }
 
           &:hover {
-            color: @grey-mortar !important;
+            color: @quaternary-color !important;
           }
         }
       }
@@ -137,11 +137,15 @@
   &__mobile-search {
     background: transparent;
     border: 0;
-    color: @primary-color;
+    color: @tertiary-color;
     display: block;
     height: 55px;
     outline: none;
-    width: 55px;
+    width: 30px;
+
+    .icon-search {
+      font-size: 28px !important;
+    }
 
     &-close {
       margin-right: -16px;
@@ -149,6 +153,7 @@
 
     &:hover {
       cursor: pointer;
+      color: @quaternary-color;
     }
 
     @media @small {
