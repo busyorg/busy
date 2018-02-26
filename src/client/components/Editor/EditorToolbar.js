@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Scrollbars } from 'react-custom-scrollbars';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { Button, Tooltip, Menu, Dropdown, Icon } from 'antd';
 import './EditorToolbar.less';
@@ -49,51 +50,66 @@ const EditorToolbar = ({ intl, onSelect }) => {
   );
 
   return (
-    <div className="EditorToolbar">
-      <Dropdown overlay={menu}>
-        <Button className="EditorToolbar__button">
-          <i className="iconfont icon-fontsize" /> <Icon type="down" />
-        </Button>
-      </Dropdown>
-      <Tooltip
-        title={tooltip(intl.formatMessage({ id: 'bold', defaultMessage: 'Add bold' }), 'Ctrl+b')}
-      >
-        <Button className="EditorToolbar__button" onClick={() => onSelect('b')}>
-          <i className="iconfont icon-bold" />
-        </Button>
-      </Tooltip>
-      <Tooltip
-        title={tooltip(
-          intl.formatMessage({ id: 'italic', defaultMessage: 'Add italic' }),
-          'Ctrl+i',
-        )}
-      >
-        <Button className="EditorToolbar__button" onClick={() => onSelect('i')}>
-          <i className="iconfont icon-italic" />
-        </Button>
-      </Tooltip>
-      <Tooltip
-        title={tooltip(intl.formatMessage({ id: 'quote', defaultMessage: 'Add quote' }), 'Ctrl+q')}
-      >
-        <Button className="EditorToolbar__button" onClick={() => onSelect('q')}>
-          <i className="iconfont icon-q1" />
-        </Button>
-      </Tooltip>
-      <Tooltip
-        title={tooltip(intl.formatMessage({ id: 'link', defaultMessage: 'Add link' }), 'Ctrl+k')}
-      >
-        <Button className="EditorToolbar__button" onClick={() => onSelect('link')}>
-          <i className="iconfont icon-link" />
-        </Button>
-      </Tooltip>
-      <Tooltip
-        title={tooltip(intl.formatMessage({ id: 'image', defaultMessage: 'Add image' }), 'Ctrl+m')}
-      >
-        <Button className="EditorToolbar__button" onClick={() => onSelect('image')}>
-          <i className="iconfont icon-picture" />
-        </Button>
-      </Tooltip>
-    </div>
+    <Scrollbars
+      style={{ width: '100%', height: 40 }}
+      universal
+      autoHide
+      renderView={({ style, ...props }) => (
+        <div style={{ ...style }} {...props} className="EditorToolbar__container" />
+      )}
+    >
+      <div className="EditorToolbar">
+        <Dropdown overlay={menu}>
+          <Button className="EditorToolbar__button">
+            <i className="iconfont icon-fontsize" /> <Icon type="down" />
+          </Button>
+        </Dropdown>
+        <Tooltip
+          title={tooltip(intl.formatMessage({ id: 'bold', defaultMessage: 'Add bold' }), 'Ctrl+b')}
+        >
+          <Button className="EditorToolbar__button" onClick={() => onSelect('b')}>
+            <i className="iconfont icon-bold" />
+          </Button>
+        </Tooltip>
+        <Tooltip
+          title={tooltip(
+            intl.formatMessage({ id: 'italic', defaultMessage: 'Add italic' }),
+            'Ctrl+i',
+          )}
+        >
+          <Button className="EditorToolbar__button" onClick={() => onSelect('i')}>
+            <i className="iconfont icon-italic" />
+          </Button>
+        </Tooltip>
+        <Tooltip
+          title={tooltip(
+            intl.formatMessage({ id: 'quote', defaultMessage: 'Add quote' }),
+            'Ctrl+q',
+          )}
+        >
+          <Button className="EditorToolbar__button" onClick={() => onSelect('q')}>
+            <i className="iconfont icon-q1" />
+          </Button>
+        </Tooltip>
+        <Tooltip
+          title={tooltip(intl.formatMessage({ id: 'link', defaultMessage: 'Add link' }), 'Ctrl+k')}
+        >
+          <Button className="EditorToolbar__button" onClick={() => onSelect('link')}>
+            <i className="iconfont icon-link" />
+          </Button>
+        </Tooltip>
+        <Tooltip
+          title={tooltip(
+            intl.formatMessage({ id: 'image', defaultMessage: 'Add image' }),
+            'Ctrl+m',
+          )}
+        >
+          <Button className="EditorToolbar__button" onClick={() => onSelect('image')}>
+            <i className="iconfont icon-picture" />
+          </Button>
+        </Tooltip>
+      </div>
+    </Scrollbars>
   );
 };
 

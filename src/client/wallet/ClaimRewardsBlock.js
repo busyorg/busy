@@ -6,7 +6,7 @@ import { injectIntl, FormattedMessage, FormattedNumber } from 'react-intl';
 import SteemConnect from '../steemConnectAPI';
 import { getAuthenticatedUser } from '../reducers';
 import { getUserAccountHistory } from './walletActions';
-import { updateAuthUser } from '../auth/authActions';
+import { reload } from '../auth/authActions';
 import Action from '../components/Button/Action';
 import './ClaimRewardsBlock.less';
 import '../components/Sidebar/SidebarContentBlock.less';
@@ -18,7 +18,7 @@ import '../components/Sidebar/SidebarContentBlock.less';
   }),
   {
     getUserAccountHistory,
-    updateAuthUser,
+    reload,
   },
 )
 class ClaimRewardsBlock extends Component {
@@ -26,7 +26,7 @@ class ClaimRewardsBlock extends Component {
     user: PropTypes.shape(),
     intl: PropTypes.shape().isRequired,
     getUserAccountHistory: PropTypes.func.isRequired,
-    updateAuthUser: PropTypes.func.isRequired,
+    reload: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -55,7 +55,7 @@ class ClaimRewardsBlock extends Component {
           loading: false,
           rewardClaimed: true,
         });
-        this.props.getUserAccountHistory(name).then(() => this.props.updateAuthUser(name));
+        this.props.getUserAccountHistory(name).then(() => this.props.reload());
       } else {
         this.setState({
           loading: false,

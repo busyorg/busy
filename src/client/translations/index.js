@@ -58,7 +58,7 @@ export const availableLocalesToReactIntl = {
   'vls-BE': '',
   'yo-NG': 'yo',
   'zh-CN': 'zh',
-  'zh-TW': '',
+  'zh-TW': 'zh',
 };
 
 export const rtlLocales = ['he', 'ar', 'far', 'yi', 'ku', 'ur', 'dv', 'ha', 'ps'];

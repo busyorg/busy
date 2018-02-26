@@ -84,3 +84,9 @@ export const getCryptoPriceHistory = (symbol, refresh = false) => dispatch => {
     },
   });
 };
+
+export const SHOW_POST_MODAL = '@app/SHOW_POST_MODAL';
+export const HIDE_POST_MODAL = '@app/HIDE_POST_MODAL';
+
+export const showPostModal = createAction(SHOW_POST_MODAL);
+export const hidePostModal = createAction(HIDE_POST_MODAL);
