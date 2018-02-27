@@ -45,7 +45,10 @@ a:focus {
 }
 
 .ant-popover {
-  z-index: @ant-popover-z-index !important;
+  z-index: @ant-popover-mobile-z-index !important;
+  @media @medium {
+    z-index: @ant-popover-z-index !important;
+  }
 }
 
 .ant-tooltip {
@@ -134,4 +137,21 @@ div[data-dir='rtl'] {
 
 .ReactModal__Overlay.ReactModal__Overlay--after-open {
   z-index: @react-modal-z-index !important;
+}
+
+.Popover__overlay {
+  background-color: @modal-background-color;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+
+  @media @medium {
+    display: none;
+  }
 }

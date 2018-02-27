@@ -4,7 +4,7 @@ import _ from 'lodash';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Menu, Popover, Tooltip, Input, AutoComplete } from 'antd';
+import { Menu, Tooltip, Input, AutoComplete } from 'antd';
 import classNames from 'classnames';
 import { searchAutoComplete } from '../../search/searchActions';
 import { getUpdatedSCUserMetadata } from '../../auth/authActions';
@@ -18,6 +18,7 @@ import SteemConnect from '../../steemConnectAPI';
 import { PARSED_NOTIFICATIONS } from '../../../common/constants/notifications';
 import Avatar from '../Avatar';
 import PopoverMenu, { PopoverMenuItem } from '../PopoverMenu/PopoverMenu';
+import Popover from '../Popover';
 import Notifications from './Notifications/Notifications';
 import './Topnav.less';
 
@@ -112,7 +113,7 @@ class Topnav extends React.Component {
 
     return (
       <div
-        className={classNames('Topnav__menu-container', {
+        className={classNames('Topnav__menu-container Topnav__menu-logged-out', {
           'Topnav__mobile-hidden': searchBarActive,
         })}
       >
