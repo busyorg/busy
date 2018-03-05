@@ -20,7 +20,7 @@ const Feed = ({ content, isFetching, hasMore, loadMoreContent, showPostModal }) 
 );
 
 Feed.propTypes = {
-  showPostModal: PropTypes.func.isRequired,
+  showPostModal: PropTypes.func,
   content: PropTypes.arrayOf(PropTypes.number),
   isFetching: PropTypes.bool,
   hasMore: PropTypes.bool,
@@ -32,6 +32,7 @@ Feed.defaultProps = {
   isFetching: false,
   hasMore: false,
   loadMoreContent: () => {},
+  showPostModal: () => {},
 };
 
 export default Feed;

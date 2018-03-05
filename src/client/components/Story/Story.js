@@ -93,8 +93,8 @@ class Story extends React.Component {
     this.handleEditClick = this.handleEditClick.bind(this);
   }
 
-  shouldComponentUpdate(nextProps) {
-    return !_.isEqual(nextProps, this.props);
+  shouldComponentUpdate(nextProps, nextState) {
+    return !_.isEqual(nextProps, this.props) || !_.isEqual(nextState, this.state);
   }
 
   getDisplayStoryPreview() {
@@ -178,12 +178,18 @@ class Story extends React.Component {
 
   handlePostModalDisplay(e) {
     e.preventDefault();
-
     const { post } = this.props;
-    const isReplyPreview = _.isEmpty(post.title);
+    const isReplyPreview = _.isEmpty(post.title) || post.title !== post.root_title;
+    const openInNewTab = _.get(e, 'metaKey', false) || _.get(e, 'ctrlKey', false);
+    const postURL = dropCategory(post.url);
 
     if (isReplyPreview) {
-      this.props.history.push(dropCategory(post.url));
+      this.props.history.push(postURL);
+    } else if (openInNewTab) {
+      if (window) {
+        const url = `${window.location.origin}${postURL}`;
+        window.open(url);
+      }
     } else {
       this.props.showPostModal(post);
     }
@@ -193,14 +199,21 @@ class Story extends React.Component {
     e.preventDefault();
 
     const { post } = this.props;
-    const isReplyPreview = _.isEmpty(post.title);
+    const isReplyPreview = _.isEmpty(post.title) || post.title !== post.root_title;
     const elementNodeName = _.toLower(_.get(e, 'target.nodeName', ''));
     const elementClassName = _.get(e, 'target.className', '');
     const showPostModal =
       elementNodeName !== 'i' && elementClassName !== 'PostFeedEmbed__playButton';
+    const openInNewTab = _.get(e, 'metaKey', false) || _.get(e, 'ctrlKey', false);
+    const postURL = dropCategory(post.url);
 
     if (isReplyPreview) {
-      this.props.history.push(dropCategory(post.url));
+      this.props.history.push(postURL);
+    } else if (openInNewTab && showPostModal) {
+      if (window) {
+        const url = `${window.location.origin}${postURL}`;
+        window.open(url);
+      }
     } else if (showPostModal) {
       this.props.showPostModal(post);
     }
