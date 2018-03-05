@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import { usernameURLRegex } from '../../helpers/regexHelpers';
+import formatter from '../../helpers/steemitFormatter';
 import Loading from '../../components/Icon/Loading';
 import steemAPI from '../../steemAPI';
 import PostRecommendationLink from './PostRecommendationLink';
@@ -73,6 +74,7 @@ class PostRecommendation extends Component {
   getFilteredPosts = () => {
     const { match } = this.props;
     return this.state.recommendedPosts
+      .filter(post => formatter.reputation(post.author_reputation) > -1)
       .filter(post => post.permlink !== match.params.permlink)
       .slice(0, 3);
   };
