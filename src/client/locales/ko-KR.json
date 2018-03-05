@@ -35,7 +35,7 @@
   "notification_following_username": "팔로워가 추가되었습니다: {username}",
   "notification_mention_username_post": "{username} 의 글에서 당신이 언급되었습니다.",
   "notification_mention_username_comment": "{username} 가 댓글에서 당신을 언급했습니다.",
-  "notification_reply_username_post": "{username} 님이 당신의 {post} 에 댓글을 달았습니다.",
+  "notification_reply_username_post": "{username} 가 당신의 글에 댓글을 달았습니다.",
   "notification_reply_username_comment": "{username} 가 당신의 댓글에 답변을 남겼습니다.",
   "notification_approved_witness": "{username} 가 당신에 대한 증인 투표를 승인했습니다.",
   "notification_unapproved_witness": "{username} 가 당신에 대한 증인 투표를 취소했습니다.",
