@@ -74,8 +74,10 @@ class PostRecommendation extends Component {
   getFilteredPosts = () => {
     const { match } = this.props;
     return this.state.recommendedPosts
-      .filter(post => formatter.reputation(post.author_reputation) > -1)
-      .filter(post => post.permlink !== match.params.permlink)
+      .filter(post => (
+        formatter.reputation(post.author_reputation) > -1 &&
+        post.permlink !== match.params.permlink
+      ))
       .slice(0, 3);
   };
 
