@@ -4,29 +4,27 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import Cookie from 'js-cookie';
 import _ from 'lodash';
+import { showPostModal } from '../app/appActions';
 import { getFeedContent, getMoreFeedContent } from './feedActions';
+
 import {
-  getFeedContentFromState,
+  getFeedFromState,
   getFeedLoadingFromState,
   getFeedFetchedFromState,
-  getUserFeedContentFromState,
   getUserFeedLoadingFromState,
   getUserFeedFetchedFromState,
   getFeedHasMoreFromState,
   getUserFeedFailedFromState,
   getFeedFailedFromState,
+  getUserFeedFromState,
 } from '../helpers/stateHelpers';
-import {
-  getIsAuthenticated,
-  getIsLoaded,
-  getAuthenticatedUser,
-  getFeed,
-  getPosts,
-} from '../reducers';
+import { getIsAuthenticated, getIsLoaded, getAuthenticatedUser, getFeed } from '../reducers';
 import Feed from './Feed';
 import FetchFailed from '../statics/FetchFailed';
 import EmptyFeed from '../statics/EmptyFeed';
+import LetsGetStarted from './LetsGetStarted';
 import ScrollToTop from '../components/Utils/ScrollToTop';
+import PostModal from '../post/PostModalContainer';
 
 @withRouter
 @connect(
@@ -35,12 +33,12 @@ import ScrollToTop from '../components/Utils/ScrollToTop';
     loaded: getIsLoaded(state),
     user: getAuthenticatedUser(state),
     feed: getFeed(state),
-    posts: getPosts(state),
   }),
   dispatch => ({
     getFeedContent: (sortBy, category) => dispatch(getFeedContent({ sortBy, category, limit: 10 })),
     getMoreFeedContent: (sortBy, category) =>
       dispatch(getMoreFeedContent({ sortBy, category, limit: 10 })),
+    showPostModal: post => dispatch(showPostModal(post)),
   }),
 )
 class SubFeed extends React.Component {
@@ -49,8 +47,8 @@ class SubFeed extends React.Component {
     loaded: PropTypes.bool.isRequired,
     user: PropTypes.shape().isRequired,
     feed: PropTypes.shape().isRequired,
-    posts: PropTypes.shape().isRequired,
     match: PropTypes.shape().isRequired,
+    showPostModal: PropTypes.func.isRequired,
     getFeedContent: PropTypes.func,
     getMoreFeedContent: PropTypes.func,
   };
@@ -61,20 +59,20 @@ class SubFeed extends React.Component {
   };
 
   componentDidMount() {
-    const { authenticated, loaded, user, match, feed, posts } = this.props;
+    const { authenticated, loaded, user, match, feed } = this.props;
     const category = match.params.category;
     let content = [];
 
     if (!loaded && Cookie.get('access_token')) return;
 
     if (match.url === '/' && authenticated) {
-      content = getUserFeedContentFromState(user.name, feed, posts);
+      content = getUserFeedFromState(user.name, feed);
       if (_.isEmpty(content)) {
         this.props.getFeedContent('feed', user.name);
       }
     } else {
       const sortBy = match.params.sortBy || 'trending';
-      content = getFeedContentFromState(sortBy, match.params.category, feed, posts);
+      content = getFeedFromState(sortBy, match.params.category, feed);
       if (_.isEmpty(content)) {
         this.props.getFeedContent(sortBy, category);
       }
@@ -114,16 +112,17 @@ class SubFeed extends React.Component {
   }
 
   render() {
-    const { authenticated, loaded, user, feed, posts, match } = this.props;
+    const { authenticated, loaded, user, feed, match } = this.props;
     let content = [];
     let isFetching = false;
     let fetched = false;
     let hasMore = false;
     let failed = false;
     let loadMoreContent = () => {};
+    const isAuthHomeFeed = match.url === '/' && authenticated;
 
-    if (authenticated && match.url === '/') {
-      content = getUserFeedContentFromState(user.name, feed, posts);
+    if (isAuthHomeFeed) {
+      content = getUserFeedFromState(user.name, feed);
       isFetching = getUserFeedLoadingFromState(user.name, feed);
       fetched = getUserFeedFetchedFromState(user.name, feed);
       hasMore = feed.created[user.name] ? feed.created[user.name].hasMore : true;
@@ -131,7 +130,7 @@ class SubFeed extends React.Component {
       loadMoreContent = () => this.props.getMoreFeedContent('feed', user.name);
     } else {
       const sortBy = match.params.sortBy || 'trending';
-      content = getFeedContentFromState(sortBy, match.params.category, feed, posts);
+      content = getFeedFromState(sortBy, match.params.category, feed);
       isFetching = getFeedLoadingFromState(sortBy, match.params.category, feed);
       fetched = getFeedFetchedFromState(sortBy, match.params.category, feed);
       hasMore = getFeedHasMoreFromState(sortBy, match.params.category, feed);
@@ -139,21 +138,25 @@ class SubFeed extends React.Component {
       loadMoreContent = () => this.props.getMoreFeedContent(sortBy, match.params.category);
     }
 
-    const loadScrollToTop = _.isEmpty(content);
+    const empty = _.isEmpty(content);
+    const displayEmptyFeed = empty && fetched && loaded && !isFetching && !failed;
 
     const ready = loaded && fetched && !isFetching;
 
     return (
       <div>
-        {loadScrollToTop && <ScrollToTop />}
+        {isAuthHomeFeed && <LetsGetStarted />}
+        {empty && <ScrollToTop />}
         <Feed
           content={content}
           isFetching={isFetching}
           hasMore={hasMore}
           loadMoreContent={loadMoreContent}
+          showPostModal={this.props.showPostModal}
         />
         {ready && failed && <FetchFailed />}
-        {ready && !failed && <EmptyFeed />}
+        {displayEmptyFeed && <EmptyFeed />}
+        <PostModal />
       </div>
     );
   }

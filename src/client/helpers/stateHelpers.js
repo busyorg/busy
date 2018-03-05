@@ -16,16 +16,6 @@ export const getFeedFromState = (sortBy, category = 'all', state) => {
   }
 };
 
-export const getFeedContentFromState = (sortBy, category, feedState, postsState) => {
-  const feedList = getFeedFromState(sortBy, category, feedState);
-  return feedList.map(feedId => postsState[feedId]);
-};
-
-export const getUserCommentsFromState = (username, feedState, posts) => {
-  const feedList = getFeedFromState('comments', username, feedState);
-  return feedList.map(feedId => posts[feedId]);
-};
-
 export const getFeedLoadingFromState = (sortBy, category = 'all', feedState) => {
   switch (sortBy) {
     case 'feed':
@@ -102,8 +92,7 @@ export const getFeedFailedFromState = (sortBy, listName = 'all', feedState) => {
 
 // returning the same function but different naming helps to understand the code's flow better
 // and defines a pattern to scale this feature with reselect
-export const getUserFeedContentFromState = (username, feedState, postsState) =>
-  getFeedContentFromState('feed', username, feedState, postsState);
+export const getUserFeedFromState = (username, feed) => getFeedFromState('feed', username, feed);
 
 export const getUserFeedLoadingFromState = (username, feedState) =>
   getFeedLoadingFromState('feed', username, feedState);

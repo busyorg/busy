@@ -11,7 +11,7 @@ const Hero = () => (
           defaultMessage="Ensuring compensation for the creators of value"
         />
       </h1>
-      <a target="_blank" rel="noopener noreferrer" href="https://steemit.com/pick_account">
+      <a target="_blank" rel="noopener noreferrer" href={process.env.SIGNUP_URL}>
         <button className="ant-btn-lg hero-signup">
           <FormattedMessage id="signup" defaultMessage="Sign up" />
         </button>

@@ -5,7 +5,7 @@
 
 .Topnav {
   background-color: @white;
-  border-bottom: 1px solid #e9e7e7;
+  border-bottom: @base-border;
   box-shadow: 0 0 4px @white-shadow;
   height: 56px;
   line-height: 56px;
@@ -14,7 +14,7 @@
     font-size: 30px;
     font-weight: bold;
     letter-spacing: 1px;
-    color: @purple;
+    color: @primary-color;
 
     &-icon {
       margin-right: 4px;
@@ -47,23 +47,23 @@
     position: relative;
     height: 55px;
     display: flex;
-    border-left: solid 1px #e9e7e7;
-    border-right: solid 1px #e9e7e7;
+    margin-left: 15px;
 
     > .ant-select-show-search {
       width: 100%;
     }
 
     input {
-      height: 54px !important;
-      border-radius: 0 !important;
-      border: 0 !important;
+      height: 42px !important;
+      margin-top: 7px;
+      border-radius: @border-radius-base;
+      border-color: @border-color-base;
       padding: 0 0 0 43px !important;
 
       &:hover,
       &:focus {
         box-shadow: none !important;
-        border-color: #e9e7e7 !important;
+        border-color: @border-color-base !important;
       }
     }
 
@@ -72,6 +72,9 @@
       position: absolute;
       color: #c2ccd3;
       font-size: 20px;
+    }
+    @media @small {
+      margin-left: auto;
     }
   }
 
@@ -86,13 +89,25 @@
       line-height: 55px !important;
       margin-left: @base-spacing;
 
-      & > li {
+      & > li.ant-menu-item {
         height: 55px !important;
-        padding: 0 4px !important;
+        padding: 0 3px !important;
+        display: flex;
+        justify-content: center;
+        border-bottom: 0 !important;
+        align-items: center;
 
         & > a {
-          color: @purple !important;
+          color: @blue-botticelli !important;
           font-weight: 600 !important;
+
+          &.Topnav__link--action {
+            margin-top: 7px;
+          }
+
+          &:hover {
+            color: @grey-mortar !important;
+          }
         }
       }
     }
@@ -106,7 +121,7 @@
     &__username {
       display: none;
       margin-left: 8px;
-      color: @purple;
+      color: @primary-color;
 
       @media screen and (min-width: 992px) {
         display: inline;
@@ -115,14 +130,10 @@
   }
 
   &__item-user {
-    margin: 0 10px !important;
+    margin: 0 !important;
   }
 
   &__link {
-    i {
-      color: rgba(0, 0, 0, 0.65) !important;
-    }
-
     &--light {
       i {
         font-weight: normal !important;
@@ -133,7 +144,7 @@
   &__mobile-search {
     background: transparent;
     border: 0;
-    color: @purple;
+    color: @primary-color;
     display: block;
     height: 55px;
     outline: none;
@@ -159,6 +170,31 @@
       display: initial;
     }
   }
+
+  &__notifications-count {
+    height: 35px;
+    min-width: 35px;
+    border-radius: 50%;
+    background-color: @primary-color;
+    color: @white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    margin-bottom: 6px;
+  }
+
+  .icon-caretbottom {
+    font-size: 12px !important;
+  }
+
+  .icon-remind {
+    font-size: 28px !important;
+  }
+
+  .icon-write {
+    font-size: 28px !important;
+  }
 }
 
 div[data-dir='rtl'] .Topnav {
@@ -180,11 +216,16 @@ div[data-dir='rtl'] .Topnav {
 }
 
 .Topnav__search-dropdown-container.ant-select-dropdown {
-  top: 56px !important;
+  top: 45px !important;
   position: fixed;
   border-radius: 0;
-  border-bottom-left-radius: 4px;
-  border-bottom-right-radius: 4px;
+  border-bottom-left-radius: @border-radius-base;
+  border-bottom-right-radius: @border-radius-base;
+  border-right: @base-border;
+  border-left: @base-border;
+  border-bottom: @base-border;
+  box-shadow: none;
+  padding-top: 5px;
 }
 
 .Topnav__search-autocomplete.ant-select-dropdown-menu-item-active {
@@ -198,7 +239,7 @@ div[data-dir='rtl'] .Topnav {
   align-items: center !important;
   justify-content: space-between !important;
   font-weight: bold;
-  border-bottom: 1px solid @white-gainsboro;
+  border-bottom: @base-border;
   padding: 10px 14px;
 }
 
@@ -212,4 +253,16 @@ div[data-dir='rtl'] .Topnav {
 
 .Topnav__search-dropdown-container .ant-select-dropdown-menu {
   max-height: 300px;
+}
+
+.ant-popover-title {
+  font-size: 16px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  color: @blue-baliHai !important;
+}
+
+.Topnav__notifications-tooltip {
+  top: 61px !important;
 }

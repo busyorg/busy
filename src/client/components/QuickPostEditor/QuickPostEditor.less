@@ -3,11 +3,11 @@
 
 .QuickPostEditor {
   background-color: @white;
-  border-top: 1px solid @white-gainsboro;
-  border-bottom: 1px solid @white-gainsboro;
+  border-top: @base-border;
+  border-bottom: @base-border;
   display: flex;
   flex-direction: column;
-  margin-bottom: 10px;
+  margin-bottom: @content-margin;
 
   &__contents {
     border-radius: @border-radius-base;
@@ -30,7 +30,7 @@
   }
 
   &__header {
-    border-bottom: 1px solid @white-gainsboro;
+    border-bottom: @base-border;
     font-size: 16px;
     font-weight: 500;
     padding: 0 10px;
@@ -84,7 +84,7 @@
     left: 0;
     z-index: 1;
     border-radius: 4px;
-    background: fade(@purple, 60%);
+    background: fade(@primary-color, 60%);
     color: white;
 
     & > div {
@@ -125,7 +125,7 @@
     &__remove {
       align-items: center;
       background-color: @white;
-      color: @purple !important;
+      color: @primary-color !important;
       cursor: pointer;
       display: flex;
       height: 10px;
@@ -184,7 +184,7 @@
 
   @media @small {
     border-radius: @border-radius-base;
-    border: 1px solid @white-gainsboro;
+    border: @base-border;
   }
 }
 
