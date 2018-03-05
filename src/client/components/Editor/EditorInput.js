@@ -236,6 +236,7 @@ class EditorInput extends React.Component {
       this.setState({
         imageUploading: true,
       });
+
       this.props.onImageUpload(e.target.files[0], this.disableAndInsertImage, () =>
         this.setState({
           imageUploading: false,
@@ -330,8 +331,8 @@ class EditorInput extends React.Component {
           </Dropzone>
         </div>
         <p className="EditorInput__imagebox">
-          <input type="file" id="inputfile" accept="image/*" onChange={this.handleImageChange} />
-          <label htmlFor="inputfile">
+          <label>
+            <input type="file" className="inputfile" accept="image/*" onChange={this.handleImageChange} />
             {this.state.imageUploading ? (
               <Icon type="loading" />
             ) : (
