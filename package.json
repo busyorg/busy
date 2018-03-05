@@ -94,7 +94,6 @@
     "postcss-flexbugs-fixes": "^3.0.0",
     "postcss-loader": "^2.0.8",
     "prop-types": "^15.5.10",
-    "raven-js": "^3.8.0",
     "react": "^16.2.0",
     "react-addons-css-transition-group": "^15.6.2",
     "react-copy-to-clipboard": "^5.0.1",

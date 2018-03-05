@@ -1,5 +1,4 @@
 /* eslint-disable no-console */
-import Raven from 'raven-js';
 import { compileAmpTemplate } from './renderers/ampRenderer';
 import createSsrHandler from './handlers/createSsrHandler';
 import createAmpHandler from './handlers/createAmpHandler';
@@ -22,10 +21,6 @@ const app = express();
 const server = http.Server(app);
 
 const rootDir = path.join(__dirname, '../..');
-
-if (process.env.SENTRY_PUBLIC_DSN) {
-  Raven.config(process.env.SENTRY_PUBLIC_DSN).install();
-}
 
 app.locals.env = process.env;
 app.enable('trust proxy');
