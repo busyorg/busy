@@ -65,7 +65,14 @@ class InterestingPeopleWithAPI extends React.Component {
     steemAPI
       .sendAsync('call', ['follow_api', 'get_blog_authors', [username]])
       .then(result => {
-        const users = _.sortBy(result, user => user[1])
+        const users = _.sortBy(result, user => {
+          let count = _.get(user, 1);
+
+          if (_.isEmpty(count)) {
+            count = _.get(user, 'count');
+          }
+          return count;
+        })
           .reverse()
           .slice(0, 5)
           .map(user => {
