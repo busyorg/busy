@@ -3,13 +3,14 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { Popover } from 'antd';
 import { connect } from 'react-redux';
+import classNames from 'classnames';
 import { availableLocalesToReactIntl } from '../../translations/index';
 import { SUPPORTED_LANGUAGES } from '../../../common/constants/settings';
 import { saveSettings, setLocale } from '../../settings/settingsActions';
 import { getIsAuthenticated, getLocale } from '../../reducers';
 import PopoverMenu, { PopoverMenuItem } from '../PopoverMenu/PopoverMenu';
-import './LanguageSettings.less';
 import Loading from '../Icon/Loading';
+import './LanguageSettings.less';
 
 @connect(
   state => ({
@@ -134,11 +135,6 @@ class LanguageSettings extends React.Component {
       selectedLoadingLanguage,
       loading,
     } = this.state;
-    const displaySelectedLanguage = _.get(
-      SUPPORTED_LANGUAGES,
-      `${selectedLanguage}.shortName`,
-      'English',
-    );
     return (
       <Popover
         placement="bottom"
@@ -151,7 +147,11 @@ class LanguageSettings extends React.Component {
           <PopoverMenu onSelect={this.handleLanguageSettingsSelect}>
             {_.map(SUPPORTED_LANGUAGES, (languageDetails, language) => (
               <PopoverMenuItem key={language}>
-                <span className="LanguageSettings__option">
+                <span
+                  className={classNames('LanguageSettings__option', {
+                    'LanguageSettings__option-selected': selectedLanguage === language,
+                  })}
+                >
                   {language === selectedLoadingLanguage && loading && <Loading />}
                   {` ${languageDetails.longName}`}
                 </span>
@@ -160,7 +160,9 @@ class LanguageSettings extends React.Component {
           </PopoverMenu>
         }
       >
-        <a className="Topnav__link Topnav__link--light">{displaySelectedLanguage}</a>
+        <a className="Topnav__link Topnav__link--light">
+          <i className="iconfont icon-language" />
+        </a>
       </Popover>
     );
   }

@@ -1,4 +1,5 @@
-@import (reference) '../../styles/modules/variables';
+@import (reference) '../../styles/modules/variables.less';
+@import (reference) '../../styles/custom.less';
 
 .LanguageSettings {
   .ant-popover-inner-content {
@@ -9,6 +10,10 @@
   &__option {
     display: flex;
     height: 22px;
+
+    &-selected {
+      color: @primary-color;
+    }
   }
 
   .Loading {
