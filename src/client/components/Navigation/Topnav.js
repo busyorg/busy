@@ -15,6 +15,7 @@ import {
   getIsLoadingNotifications,
 } from '../../reducers';
 import SteemConnect from '../../steemConnectAPI';
+import { PARSED_NOTIFICATIONS } from '../../../common/constants/notifications';
 import Avatar from '../Avatar';
 import PopoverMenu, { PopoverMenuItem } from '../PopoverMenu/PopoverMenu';
 import Notifications from './Notifications/Notifications';
@@ -140,7 +141,14 @@ class Topnav extends React.Component {
     const lastSeenTimestamp = _.get(userSCMetaData, 'notifications_last_timestamp');
     const notificationsCount = _.isUndefined(lastSeenTimestamp)
       ? _.size(notifications)
-      : _.size(_.filter(notifications, notification => lastSeenTimestamp < notification.timestamp));
+      : _.size(
+          _.filter(
+            notifications,
+            notification =>
+              lastSeenTimestamp < notification.timestamp &&
+              _.includes(PARSED_NOTIFICATIONS, notification.type),
+          ),
+        );
     const displayBadge = notificationsCount > 0;
     const notificationsCountDisplay = notificationsCount > 99 ? '99+' : notificationsCount;
     return (

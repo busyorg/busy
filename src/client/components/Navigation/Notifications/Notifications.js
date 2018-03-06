@@ -8,6 +8,10 @@ import { saveNotificationsLastTimestamp } from '../../../helpers/metadata';
 import NotificationFollowing from './NotificationFollowing';
 import NotificationReply from './NotificationReply';
 import NotificationMention from './NotificationMention';
+import NotificationVote from './NotificationVote';
+import NotificationReblog from './NotificationReblog';
+import NotificationTransfer from './NotificationTransfer';
+import NotificationVoteWitness from './NotificationVoteWitness';
 import './Notification.less';
 import './Notifications.less';
 import Loading from '../../Icon/Loading';
@@ -148,6 +152,44 @@ class Notifications extends React.Component {
               case notificationConstants.MENTION:
                 return (
                   <NotificationMention
+                    key={key}
+                    notification={notification}
+                    read={read}
+                    onClick={onNotificationClick}
+                  />
+                );
+              case notificationConstants.VOTE:
+                return (
+                  <NotificationVote
+                    key={key}
+                    notification={notification}
+                    read={read}
+                    currentAuthUsername={currentAuthUsername}
+                    onClick={onNotificationClick}
+                  />
+                );
+              case notificationConstants.REBLOG:
+                return (
+                  <NotificationReblog
+                    key={key}
+                    notification={notification}
+                    read={read}
+                    currentAuthUsername={currentAuthUsername}
+                    onClick={onNotificationClick}
+                  />
+                );
+              case notificationConstants.TRANSFER:
+                return (
+                  <NotificationTransfer
+                    key={key}
+                    notification={notification}
+                    read={read}
+                    onClick={onNotificationClick}
+                  />
+                );
+              case notificationConstants.WITNESS_VOTE:
+                return (
+                  <NotificationVoteWitness
                     key={key}
                     notification={notification}
                     read={read}
