@@ -5,7 +5,6 @@ import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router';
 import { matchRoutes, renderRoutes } from 'react-router-config';
 import url from 'url';
-import Raven from 'raven-js';
 
 import sc2 from 'sc2-sdk';
 import getStore from '../../client/store';
@@ -85,7 +84,6 @@ export default function createSsrHandler(template) {
         return res.send(renderSsrPage(store, content, template, appUrl !== 'https://busy.org'));
       })
       .catch(err => {
-        Raven.captureException(err);
         console.error('SSR error occured, falling back to bundled application instead', err); // eslint-disable-line no-console
         return res.send(template);
       });
