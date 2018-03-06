@@ -3,22 +3,23 @@
 .Notification {
   display: flex;
   padding: 12px;
-  background-color: @white;
-  border-bottom: 1px solid #e5e8ec;
+  background-color: @notification-read-background-color;
+  border-bottom: @base-border;
 
   &:hover {
     cursor: pointer;
   }
 
   &--unread {
-    background-color: #f3f6fa;
+    background-color: @notification-unread-background-color;
   }
 
   &__text {
     padding: 0 12px;
+    text-align: left;
 
     &__message {
-      color: #353535;
+      color: @grey-mortar;
 
       & > a {
         font-weight: 700;
@@ -29,5 +30,15 @@
       font-size: 14px;
       color: #9d9d9d;
     }
+  }
+
+  &__empty {
+    border-bottom: @base-border;
+    color: @black;
+    justify-content: center;
+  }
+
+  &:last-of-type {
+    border-bottom: 0 !important;
   }
 }

@@ -10,6 +10,10 @@ const socialTransformers = {
 
 export const transform = (socialId, id) => socialTransformers[socialId](id);
 
+export const getFacebookShareURL = url => `https://facebook.com/sharer/sharer.php?u=${url}`;
+export const getTwitterShareURL = (text, url) =>
+  `https://twitter.com/intent/tweet/?text=${text}&url=${url}`;
+
 export default [
   { id: 'facebook', icon: 'facebook', color: '#3b5998', name: 'Facebook' },
   { id: 'twitter', icon: 'twitter', color: '#00aced', name: 'Twitter' },
