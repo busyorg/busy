@@ -68,6 +68,11 @@ const settings = (state = initialState, action) => {
         ...state,
         loading: false,
       };
+    case settingsTypes.SET_LOCALE:
+      return {
+        ...state,
+        locale: action.payload,
+      };
     default:
       return state;
   }

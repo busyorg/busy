@@ -23,6 +23,7 @@ import Affix from '../components/Utils/Affix';
 import LeftSidebar from '../app/Sidebar/LeftSidebar';
 import RawSlider from '../components/Slider/RawSlider';
 import requiresLogin from '../auth/requiresLogin';
+import { SUPPORTED_LANGUAGES } from '../../common/constants/settings'
 import './Settings.less';
 
 @requiresLogin
