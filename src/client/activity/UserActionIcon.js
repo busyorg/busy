@@ -89,7 +89,7 @@ class UserActionIcon extends React.Component {
       case accountHistoryConstants.ACCOUNT_UPDATE:
         return actionDetails.account;
       default:
-        return null;
+        return _.get(actionDetails, 'author', '');
     }
   }
   render() {

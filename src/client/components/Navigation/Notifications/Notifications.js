@@ -47,6 +47,7 @@ class Notifications extends React.Component {
     this.notificationsContent = null;
 
     this.handleLoadMore = this.handleLoadMore.bind(this);
+    this.handleNotificationsClick = this.handleNotificationsClick.bind(this);
     this.onScroll = this.onScroll.bind(this);
   }
 
@@ -105,6 +106,13 @@ class Notifications extends React.Component {
     });
   }
 
+  handleNotificationsClick(e) {
+    const openedInNewTab = _.get(e, 'metaKey', false) || _.get(e, 'ctrlKey', false);
+    if (!openedInNewTab) {
+      this.props.onNotificationClick();
+    }
+  }
+
   render() {
     const {
       notifications,
@@ -137,7 +145,7 @@ class Notifications extends React.Component {
                     notification={notification}
                     currentAuthUsername={currentAuthUsername}
                     read={read}
-                    onClick={onNotificationClick}
+                    onClick={this.handleNotificationsClick}
                   />
                 );
               case notificationConstants.FOLLOW:
@@ -146,7 +154,7 @@ class Notifications extends React.Component {
                     key={key}
                     notification={notification}
                     read={read}
-                    onClick={onNotificationClick}
+                    onClick={this.handleNotificationsClick}
                   />
                 );
               case notificationConstants.MENTION:
@@ -155,7 +163,7 @@ class Notifications extends React.Component {
                     key={key}
                     notification={notification}
                     read={read}
-                    onClick={onNotificationClick}
+                    onClick={this.handleNotificationsClick}
                   />
                 );
               case notificationConstants.VOTE:
@@ -165,7 +173,7 @@ class Notifications extends React.Component {
                     notification={notification}
                     read={read}
                     currentAuthUsername={currentAuthUsername}
-                    onClick={onNotificationClick}
+                    onClick={this.handleNotificationsClick}
                   />
                 );
               case notificationConstants.REBLOG:
@@ -175,7 +183,7 @@ class Notifications extends React.Component {
                     notification={notification}
                     read={read}
                     currentAuthUsername={currentAuthUsername}
-                    onClick={onNotificationClick}
+                    onClick={this.handleNotificationsClick}
                   />
                 );
               case notificationConstants.TRANSFER:
@@ -184,7 +192,7 @@ class Notifications extends React.Component {
                     key={key}
                     notification={notification}
                     read={read}
-                    onClick={onNotificationClick}
+                    onClick={this.handleNotificationsClick}
                   />
                 );
               case notificationConstants.WITNESS_VOTE:
@@ -193,7 +201,7 @@ class Notifications extends React.Component {
                     key={key}
                     notification={notification}
                     read={read}
-                    onClick={onNotificationClick}
+                    onClick={this.handleNotificationsClick}
                   />
                 );
               default:
