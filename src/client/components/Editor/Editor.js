@@ -145,7 +145,7 @@ class Editor extends React.Component {
   }
 
   setBodyAndRender(body) {
-    const parsedBody = body.replace(/[\t ]+</g, '<');
+    const parsedBody = body.replace(/^\s+</gm, '<');
     this.setState({
       bodyHTML: remarkable.render(improve(parsedBody)),
     });
