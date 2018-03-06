@@ -12,6 +12,7 @@ import './EditorInput.less';
 class EditorInput extends React.Component {
   static propTypes = {
     value: PropTypes.string, // eslint-disable-line react/require-default-props
+    inputId: PropTypes.string,
     addon: PropTypes.node,
     inputRef: PropTypes.func,
     autosize: PropTypes.oneOfType([
@@ -29,6 +30,7 @@ class EditorInput extends React.Component {
   static defaultProps = {
     addon: null,
     autosize: false,
+    inputId: '',
     inputRef: () => {},
     onChange: () => {},
     onImageUpload: () => {},
@@ -331,8 +333,13 @@ class EditorInput extends React.Component {
           </Dropzone>
         </div>
         <p className="EditorInput__imagebox">
-          <label>
-            <input type="file" className="inputfile" accept="image/*" onChange={this.handleImageChange} />
+          <input
+            type="file"
+            id={this.props.inputId}
+            accept="image/*"
+            onChange={this.handleImageChange}
+          />
+          <label htmlFor={this.props.inputId}>
             {this.state.imageUploading ? (
               <Icon type="loading" />
             ) : (
