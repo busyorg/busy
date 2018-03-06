@@ -28,14 +28,7 @@ export function getHtml(body, jsonMetadata = {}, returnType = 'Object', options 
 
   let parsedBody = body.replace(/<!--([\s\S]+?)(-->|$)/g, '(html comment removed: $1)');
 
-  let isHtml = false;
-  const m = parsedBody.match(/^<html>([\S\s]*)<\/html>$/);
-  if (m && m.length === 2) {
-    isHtml = true;
-    parsedBody = m[1];
-  } else {
-    isHtml = /^<p>[\S\s]*<\/p>/.test(parsedBody);
-  }
+  parsedBody = parsedBody.replace(/[\t ]+</g, '<');
 
   parsedBody.replace(imageRegex, img => {
     if (_.filter(parsedJsonMetadata.image, i => i.indexOf(img) !== -1).length === 0) {
@@ -44,7 +37,7 @@ export function getHtml(body, jsonMetadata = {}, returnType = 'Object', options 
   });
 
   const htmlReadyOptions = { mutate: true, resolveIframe: returnType === 'text' };
-  parsedBody = isHtml ? parsedBody : remarkable.render(parsedBody);
+  parsedBody = remarkable.render(parsedBody);
   parsedBody = htmlReady(parsedBody, htmlReadyOptions).html;
   parsedBody = parsedBody.replace(dtubeImageRegex, '');
   parsedBody = sanitizeHtml(parsedBody, sanitizeConfig({}));
