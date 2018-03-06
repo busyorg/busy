@@ -381,7 +381,7 @@ export default class Settings extends React.Component {
                   <p>
                     <FormattedMessage
                       id="upvote_setting_details"
-                      defaultMessage="Enable this option to automatically upvote your own posts."
+                      defaultMessage="Enable this option to automatically like your own posts."
                     />
                   </p>
                   <div className="Settings__section__checkbox">
