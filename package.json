@@ -156,7 +156,7 @@
     "prettier": "^1.9.2",
     "react-test-renderer": "^15.6.1",
     "webpack-cli": "^2.0.10",
-    "webpack-dev-server": "~2.9.3",
+    "webpack-dev-server": "^3.1.0",
     "webpack-hot-middleware": "^2.20.0"
   },
   "jest": {
