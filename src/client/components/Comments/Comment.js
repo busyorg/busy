@@ -356,6 +356,7 @@ class Comment extends React.Component {
                   intl={this.props.intl}
                   comment={child}
                   parent={comment}
+                  sort={sort}
                   pendingVotes={pendingVotes}
                   rootPostAuthor={rootPostAuthor}
                   commentsChildren={commentsChildren}
