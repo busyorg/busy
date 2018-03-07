@@ -54,9 +54,6 @@ module.exports = {
       'process.env.STEEMJS_URL': JSON.stringify(
         process.env.STEEMJS_URL || 'https://api.steemit.com',
       ),
-      'process.env.SENTRY_PUBLIC_DSN': isDevelopment
-        ? null
-        : JSON.stringify(process.env.SENTRY_PUBLIC_DSN),
       'process.env.IS_BROWSER': JSON.stringify(false),
       'process.env.SIGNUP_URL': JSON.stringify(
         process.env.SIGNUP_URL || 'https://signup.steemit.com/?ref=busy',
