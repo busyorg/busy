@@ -21,7 +21,7 @@ module.exports = {
     __dirname: true,
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: configUtils.MATCH_JS_JSX,
         exclude: /node_modules/,
