@@ -74,7 +74,7 @@
     "handlebars-intl": "^1.1.2",
     "history": "^4.6.3",
     "html-loader": "^0.5.1",
-    "html-webpack-plugin": "^2.30.1",
+    "html-webpack-plugin": "^3.0.6",
     "identity-obj-proxy": "^3.0.0",
     "isomorphic-fetch": "^2.2.1",
     "isomorphic-style-loader": "^4.0.0",
@@ -132,7 +132,7 @@
     "url-parse": "^1.1.9",
     "url-search-params-polyfill": "^2.0.0",
     "uuid": "^3.1.0",
-    "webpack": "^3.8.1",
+    "webpack": "^4.1.0",
     "webpack-visualizer-plugin": "^0.1.11",
     "xmldom": "^0.1.27"
   },
@@ -155,6 +155,7 @@
     "pre-commit": "^1.2.2",
     "prettier": "^1.9.2",
     "react-test-renderer": "^15.6.1",
+    "webpack-cli": "^2.0.10",
     "webpack-dev-server": "~2.9.3",
     "webpack-hot-middleware": "^2.20.0"
   },
