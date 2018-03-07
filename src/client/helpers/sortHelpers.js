@@ -1,3 +1,5 @@
+import formatter from '../helpers/steemitFormatter';
+
 export const sortComments = (comments, sortType = 'BEST') => {
   const sortedComments = [...comments];
 
@@ -30,6 +32,11 @@ export const sortComments = (comments, sortType = 'BEST') => {
       return sortedComments.sort((a, b) => Date.parse(a.created) - Date.parse(b.created)).reverse();
     case 'OLDEST':
       return sortedComments.sort((a, b) => Date.parse(a.created) - Date.parse(b.created));
+    case 'AUTHOR_REPUTATION':
+      return sortedComments.sort(
+        (a, b) =>
+          formatter.reputation(b.author_reputation) - formatter.reputation(a.author_reputation),
+      );
     default:
       return sortedComments;
   }
