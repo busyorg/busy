@@ -84,16 +84,6 @@ function makePlugins(options) {
       ]),
       new webpack.optimize.ModuleConcatenationPlugin(),
       new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-      new webpack.optimize.CommonsChunkPlugin({
-        name: 'vendor',
-        minChunks(module) {
-          // this assumes your vendor imports exist in the node_modules directory
-          return isVendor(module);
-        },
-      }),
-      new webpack.optimize.CommonsChunkPlugin({
-        name: 'manifest',
-      }),
       new webpack.optimize.AggressiveMergingPlugin(),
       new ExtractTextPlugin({
         allChunks: true,
@@ -183,6 +173,11 @@ function makeConfig(options = {}) {
       publicPath: '/js/',
     },
     plugins: makePlugins(options),
+    optimization: {
+      splitChunks: {
+        name: 'vendor',
+      },
+    },
     module: {
       rules: [
         {
