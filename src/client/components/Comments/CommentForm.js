@@ -114,7 +114,7 @@ class CommentForm extends React.Component {
               onChange={this.handleBodyUpdate}
               onImageUpload={this.props.onImageUpload}
               onImageInvalid={this.props.onImageInvalid}
-              inputId={`${this.props.parentPost.id}-inputfile`}
+              inputId={`${this.props.parentPost.id}-comment-inputfile`}
             />
           </Element>
           <button

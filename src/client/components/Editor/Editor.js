@@ -298,6 +298,7 @@ class Editor extends React.Component {
               onChange={this.onUpdate}
               onImageUpload={this.props.onImageUpload}
               onImageInvalid={this.props.onImageInvalid}
+              inputId={'editor-inputfile'}
             />,
           )}
         </Form.Item>
