@@ -260,7 +260,9 @@ function isEmbedable(child, links, images, resolveIframe) {
     if (embed && embed.id) {
       const domString = resolveIframe
         ? embed.embed
-        : `~~~ embed:${embed.id} ${embed.provider_name} ${embed.url} ~~~`;
+        : `${data.slice(0, foundLinks.index)}~~~ embed:${embed.id} ${embed.provider_name} ${
+            embed.url
+          } ~~~${data.slice(foundLinks.index + foundLinks[0].length, data.length)}`;
       const v = DOMParser.parseFromString(domString);
       child.parentNode.replaceChild(v, child);
       // console.trace('embed.embed', v);
