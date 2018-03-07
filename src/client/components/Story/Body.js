@@ -21,6 +21,20 @@ export const remarkable = new Remarkable({
   quotes: '“”‘’',
 });
 
+const getEmbed = link => {
+  const embed = embedjs.get(link, { width: '100%', height: 400, autoplay: false });
+
+  if (_.isUndefined(embed)) {
+    return {
+      provider_name: '',
+      thumbnail: '',
+      embed: link,
+    };
+  }
+
+  return embed;
+};
+
 // Should return text(html) if returnType is text
 // Should return Object(React Compatible) if returnType is Object
 export function getHtml(body, jsonMetadata = {}, returnType = 'Object', options = {}) {
@@ -62,7 +76,7 @@ export function getHtml(body, jsonMetadata = {}, returnType = 'Object', options 
       const id = match[1];
       const type = match[2];
       const link = match[3];
-      const embed = embedjs.get(link, { width: '100%', height: 'auto', autoplay: false });
+      const embed = getEmbed(link);
       sections.push(
         ReactDOMServer.renderToString(<PostFeedEmbed key={`embed-a-${i}`} inPost embed={embed} />),
       );
