@@ -339,7 +339,7 @@ class EditorInput extends React.Component {
             accept="image/*"
             onChange={this.handleImageChange}
           />
-          <label htmlFor={this.props.inputId}>
+          <label htmlFor={this.props.inputId || 'inputfile'}>
             {this.state.imageUploading ? (
               <Icon type="loading" />
             ) : (
