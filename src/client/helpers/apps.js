@@ -11,7 +11,7 @@ export default {
   steepshot: 'Steepshot',
   zappl: 'Zappl',
   steemkr: 'Steemkr',
-  steemhunt: 'SteemHunt',
+  steemhunt: 'Steemhunt',
   steemjs: 'Steem.js',
   strimi: 'Strimi',
 };
