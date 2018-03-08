@@ -2,20 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { Tooltip } from 'antd';
-import apps from '../../helpers/apps';
-import { jsonParse } from '../../helpers/formatter';
 import './PostedFrom.less';
+import { getAppData } from '../../helpers/postHelpers';
 
-const PostedFrom = props => {
-  let from;
-  let version;
-  try {
-    const app = jsonParse(props.post.json_metadata).app.split('/');
-    from = apps[app[0]];
-    version = app[1];
-  } catch (e) {
-    return <div />;
+const PostedFrom = ({ post }) => {
+  const { from, version } = getAppData(post);
+  if (!from) {
+    return null;
   }
+
   return (
     <span className="PostedFrom">
       <span className="PostedFrom__bullet" />
