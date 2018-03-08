@@ -169,7 +169,7 @@ export default class Settings extends React.Component {
     Object.keys(SUPPORTED_LANGUAGES).forEach(key => {
       languageOptions.push(
         <Select.Option key={key} value={key}>
-          {SUPPORTED_LANGUAGES[key]}
+          {SUPPORTED_LANGUAGES[key].longName}
         </Select.Option>,
       );
     });
