@@ -26,18 +26,18 @@ export function dropCategory(url) {
  * @returns {*}
  */
 export function getAppData(post) {
-  let from;
+  let appName;
   let version;
   try {
     const app = jsonParse(post.json_metadata).app.split('/');
     if (whiteListedApps[app[0]]) {
-      from = app[0];
+      appName = app[0];
       version = app[1];
     }
   } catch (e) {
     return {};
   }
-  return { from, version };
+  return { appName, version };
 }
 
 export default null;

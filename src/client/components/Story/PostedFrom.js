@@ -6,8 +6,8 @@ import './PostedFrom.less';
 import { getAppData } from '../../helpers/postHelpers';
 
 const PostedFrom = ({ post }) => {
-  const { from, version } = getAppData(post);
-  if (!from) {
+  const { appName, version } = getAppData(post);
+  if (!appName) {
     return null;
   }
 
@@ -25,7 +25,7 @@ const PostedFrom = ({ post }) => {
           </span>
         }
       >
-        <span className="PostedFrom__text">{from}</span>
+        <span className="PostedFrom__text">{appName}</span>
       </Tooltip>
     </span>
   );
