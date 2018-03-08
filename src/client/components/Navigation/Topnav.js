@@ -205,7 +205,7 @@ class Topnav extends React.Component {
             </Tooltip>
           </Menu.Item>
           <Menu.Item key="user" className="Topnav__item-user">
-            <Link className="Topnav__user" to={`/@${username}`}>
+            <Link className="Topnav__user" to={`/@${username}`} onClick={window.scrollTo(0, 0)}>
               <Avatar username={username} size={36} />
             </Link>
           </Menu.Item>
