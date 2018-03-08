@@ -13,6 +13,7 @@ import {
   getShowNSFWPosts,
   getRewriteLinks,
   getUseBeta,
+  getUpvoteSetting,
 } from '../reducers';
 import { saveSettings } from './settingsActions';
 import { reload } from '../auth/authActions';
@@ -38,6 +39,7 @@ import './Settings.less';
     rewriteLinks: getRewriteLinks(state),
     useBeta: getUseBeta(state),
     loading: getIsSettingsLoading(state),
+    upvoteSetting: getUpvoteSetting(state),
   }),
   { reload, saveSettings, notify },
 )
@@ -55,6 +57,7 @@ export default class Settings extends React.Component {
     reload: PropTypes.func,
     saveSettings: PropTypes.func,
     notify: PropTypes.func,
+    upvoteSetting: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -66,10 +69,16 @@ export default class Settings extends React.Component {
     showNSFWPosts: false,
     rewriteLinks: false,
     useBeta: false,
+    upvoteSetting: true,
     reload: () => {},
     saveSettings: () => {},
     notify: () => {},
   };
+
+  constructor(props) {
+    super(props);
+    this.handleUpvoteSettingChange = this.handleUpvoteSettingChange.bind(this);
+  }
 
   state = {
     locale: 'auto',
@@ -87,6 +96,7 @@ export default class Settings extends React.Component {
       showNSFWPosts: this.props.showNSFWPosts,
       rewriteLinks: this.props.rewriteLinks,
       useBeta: this.props.useBeta,
+      upvoteSetting: this.props.upvoteSetting,
     });
   }
 
@@ -118,6 +128,10 @@ export default class Settings extends React.Component {
     if (nextProps.useBeta !== this.props.useBeta) {
       this.setState({ useBeta: nextProps.useBeta });
     }
+
+    if (nextProps.upvoteSetting !== this.props.upvoteSetting) {
+      this.setState({ upvoteSetting: nextProps.upvoteSetting });
+    }
   }
 
   handleSave = () => {
@@ -129,6 +143,7 @@ export default class Settings extends React.Component {
         showNSFWPosts: this.state.showNSFWPosts,
         rewriteLinks: this.state.rewriteLinks,
         useBeta: this.state.useBeta,
+        upvoteSetting: this.state.upvoteSetting,
       })
       .then(() =>
         this.props.notify(
@@ -145,6 +160,10 @@ export default class Settings extends React.Component {
   handleRewriteLinksChange = event => this.setState({ rewriteLinks: event.target.checked });
   handleUseBetaChange = event => this.setState({ useBeta: event.target.checked });
 
+  handleUpvoteSettingChange(event) {
+    this.setState({ upvoteSetting: event.target.checked });
+  }
+
   render() {
     const {
       intl,
@@ -154,7 +173,7 @@ export default class Settings extends React.Component {
       showNSFWPosts: initialShowNSFWPosts,
       loading,
     } = this.props;
-    const { votingPower, locale, showNSFWPosts, rewriteLinks, useBeta } = this.state;
+    const { votingPower, locale, showNSFWPosts, rewriteLinks, useBeta, upvoteSetting } = this.state;
 
     const languageOptions = [];
 
@@ -309,6 +328,26 @@ export default class Settings extends React.Component {
                   <div className="Settings__section__checkbox">
                     <Checkbox name="use_beta" checked={useBeta} onChange={this.handleUseBetaChange}>
                       <FormattedMessage id="use_beta" defaultMessage="Use Busy beta" />
+                    </Checkbox>
+                  </div>
+                </div>
+                <div className="Settings__section">
+                  <h3>
+                    <FormattedMessage id="upvote_setting" defaultMessage="Like my posts" />
+                  </h3>
+                  <p>
+                    <FormattedMessage
+                      id="upvote_setting_details"
+                      defaultMessage="Enable this option to automatically like your own posts."
+                    />
+                  </p>
+                  <div className="Settings__section__checkbox">
+                    <Checkbox
+                      name="upvote_setting"
+                      checked={upvoteSetting}
+                      onChange={this.handleUpvoteSettingChange}
+                    >
+                      <FormattedMessage id="upvote_setting" defaultMessage="Like my posts" />
                     </Checkbox>
                   </div>
                 </div>
