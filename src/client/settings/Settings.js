@@ -4,6 +4,7 @@ import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { Select, Radio, Checkbox } from 'antd';
+import { SUPPORTED_LANGUAGES } from '../../common/constants/settings';
 import {
   getIsReloading,
   getLocale,
@@ -228,10 +229,10 @@ export default class Settings extends React.Component {
       );
     }
 
-    Object.keys(this.languages).forEach(key => {
+    Object.keys(SUPPORTED_LANGUAGES).forEach(key => {
       languageOptions.push(
         <Select.Option key={key} value={key}>
-          {this.languages[key]}
+          {SUPPORTED_LANGUAGES[key].longName}
         </Select.Option>,
       );
     });

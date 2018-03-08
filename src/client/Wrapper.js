@@ -15,8 +15,8 @@ import {
   getUsedLocale,
 } from './reducers';
 import { login, logout } from './auth/authActions';
+import { getRate, getRewardFund, getTrendingTopics, setUsedLocale } from './app/appActions';
 import { getFollowing, getNotifications } from './user/userActions';
-import { getRate, getRewardFund, getTrendingTopics } from './app/appActions';
 import * as reblogActions from './app/Reblog/reblogActions';
 import Redirect from './components/Utils/Redirect';
 import Topnav from './components/Navigation/Topnav';
@@ -39,6 +39,7 @@ import Transfer from './wallet/Transfer';
     getRate,
     getRewardFund,
     getTrendingTopics,
+    setUsedLocale,
     getRebloggedList: reblogActions.getRebloggedList,
   },
 )
@@ -58,6 +59,7 @@ export default class Wrapper extends React.PureComponent {
     getRebloggedList: PropTypes.func,
     getRate: PropTypes.func,
     getTrendingTopics: PropTypes.func,
+    setUsedLocale: PropTypes.func,
     getNotifications: PropTypes.func,
   };
 
@@ -70,6 +72,7 @@ export default class Wrapper extends React.PureComponent {
     getRebloggedList: () => {},
     getRate: () => {},
     getTrendingTopics: () => {},
+    setUsedLocale: () => {},
     getNotifications: () => {},
   };
 
@@ -111,6 +114,8 @@ export default class Wrapper extends React.PureComponent {
 
     if (usedLocale !== getAvailableLocale(nextProps.locale) && nextProps.loaded) {
       this.loadLocale(nextProps.locale);
+    } else if (nextProps.locale !== this.props.locale) {
+      this.loadLocale(nextProps.locale);
     }
   }
 
@@ -123,9 +128,12 @@ export default class Wrapper extends React.PureComponent {
 
     Promise.all([localeDataPromise, translationsPromise]).then(([localeData, translations]) => {
       addLocaleData(localeData);
-      this.setState({
-        translations,
-      });
+      this.setState(
+        {
+          translations,
+        },
+        () => this.props.setUsedLocale(availableLocale),
+      );
     });
   }
 

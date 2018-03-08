@@ -4,14 +4,18 @@
   position: relative;
   margin: 0 auto;
   max-width: @container-width;
+  display: flex;
 
   .left {
-    position: absolute;
     width: @left-width;
     padding-left: 16px;
 
     @media @small {
       padding-left: @mobile-padding;
+    }
+
+    @media @medium {
+      padding-right: 200px;
     }
 
     @media @large {
@@ -20,46 +24,41 @@
   }
 
   .right {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: @right-width;
     margin-right: 16px;
     justify-content: flex-end;
     display: flex;
+    margin-left: auto;
 
     @media @small {
       display: block;
       justify-content: initial;
     }
 
+    @media @medium {
+      margin-left: 34px;
+    }
+
     @media @large {
       margin-right: 0;
+      margin-left: 30px;
     }
   }
 
   .center {
     width: calc(100% ~'-' 55px);
-    position: absolute;
     display: none;
     z-index: 1;
 
     @media @small {
       width: calc(100% ~'-' (@left-width + @right-width + 2 * @margin));
-      position: static;
-      margin-left: @left-width;
-      margin-right: @right-width + @margin;
       display: block;
     }
 
     @media @medium {
-      width: calc(100% ~'-' (@left-width + @right-width + 4 * @margin));
-      margin-left: @left-width + 2 * @margin;
     }
 
     @media @large {
       width: calc(100% ~'-' (@left-width + @right-width + 2 * @margin));
-      margin-left: @left-width + @margin;
     }
 
     &.mobileVisible {
@@ -83,21 +82,6 @@ div[data-dir='rtl'] .topnav-layout {
   }
 
   .center {
-    @media @small {
-      margin-left: @right-width;
-      margin-right: @left-width + @margin;
-    }
-
-    @media @medium {
-      margin-left: 0;
-      margin-right: @left-width + 2 * @margin;
-    }
-
-    @media @large {
-      margin-left: 0;
-      margin-right: @left-width + @margin;
-    }
-
     &.mobileVisible {
       background-color: white;
     }

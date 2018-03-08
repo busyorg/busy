@@ -18,6 +18,7 @@ import SteemConnect from '../../steemConnectAPI';
 import { PARSED_NOTIFICATIONS } from '../../../common/constants/notifications';
 import Avatar from '../Avatar';
 import PopoverMenu, { PopoverMenuItem } from '../PopoverMenu/PopoverMenu';
+import LanguageSettings from './LanguageSettings';
 import Notifications from './Notifications/Notifications';
 import './Topnav.less';
 
@@ -129,6 +130,12 @@ class Topnav extends React.Component {
             <a href={SteemConnect.getLoginURL(next)}>
               <FormattedMessage id="login" defaultMessage="Log in" />
             </a>
+          </Menu.Item>
+          <Menu.Item key="divider1" disabled>
+            |
+          </Menu.Item>
+          <Menu.Item key="language">
+            <LanguageSettings />
           </Menu.Item>
         </Menu>
       </div>
@@ -255,6 +262,9 @@ class Topnav extends React.Component {
                 <i className="iconfont icon-caretbottom" />
               </a>
             </Popover>
+          </Menu.Item>
+          <Menu.Item key="language">
+            <LanguageSettings />
           </Menu.Item>
         </Menu>
       </div>
