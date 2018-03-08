@@ -42,6 +42,8 @@ export function getHtml(body, jsonMetadata = {}, returnType = 'Object', options 
 
   let parsedBody = body.replace(/<!--([\s\S]+?)(-->|$)/g, '(html comment removed: $1)');
 
+  parsedBody = parsedBody.replace(/^\s+</gm, '<');
+
   parsedBody.replace(imageRegex, img => {
     if (_.filter(parsedJsonMetadata.image, i => i.indexOf(img) !== -1).length === 0) {
       parsedJsonMetadata.image.push(img);
