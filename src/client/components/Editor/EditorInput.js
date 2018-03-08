@@ -335,7 +335,7 @@ class EditorInput extends React.Component {
         <p className="EditorInput__imagebox">
           <input
             type="file"
-            id={this.props.inputId}
+            id={this.props.inputId || 'inputfile'}
             accept="image/*"
             onChange={this.handleImageChange}
           />
