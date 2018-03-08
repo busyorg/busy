@@ -135,6 +135,11 @@ class LanguageSettings extends React.Component {
       selectedLoadingLanguage,
       loading,
     } = this.state;
+    const loaderStyle = {
+      display: 'flex',
+      marginTop: '-5px',
+    };
+
     return (
       <Popover
         placement="bottom"
@@ -152,7 +157,8 @@ class LanguageSettings extends React.Component {
                     'LanguageSettings__option-selected': selectedLanguage === language,
                   })}
                 >
-                  {language === selectedLoadingLanguage && loading && <Loading />}
+                  {language === selectedLoadingLanguage &&
+                    loading && <Loading style={loaderStyle} />}
                   {` ${languageDetails.longName}`}
                 </span>
               </PopoverMenuItem>

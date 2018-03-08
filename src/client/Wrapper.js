@@ -128,9 +128,12 @@ export default class Wrapper extends React.PureComponent {
 
     Promise.all([localeDataPromise, translationsPromise]).then(([localeData, translations]) => {
       addLocaleData(localeData);
-      this.setState({
-        translations,
-      }, () => this.props.setUsedLocale(availableLocale));
+      this.setState(
+        {
+          translations,
+        },
+        () => this.props.setUsedLocale(availableLocale),
+      );
     });
   }
 

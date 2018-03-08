@@ -131,6 +131,9 @@ class Topnav extends React.Component {
               <FormattedMessage id="login" defaultMessage="Log in" />
             </a>
           </Menu.Item>
+          <Menu.Item key="divider-2" disabled>
+            |
+          </Menu.Item>
           <Menu.Item key="language">
             <LanguageSettings />
           </Menu.Item>
@@ -259,9 +262,6 @@ class Topnav extends React.Component {
                 <i className="iconfont icon-caretbottom" />
               </a>
             </Popover>
-          </Menu.Item>
-          <Menu.Item key="language">
-            <LanguageSettings />
           </Menu.Item>
         </Menu>
       </div>
