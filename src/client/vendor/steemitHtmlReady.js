@@ -4,8 +4,9 @@
  * https://github.com/steemit/steemit.com/blob/2c2b89a6745aebec1fa45453f31362d700f1bfb7/shared/HtmlReady.js
  */
 
-import xmldom from 'xmldom';
 import embedjs from 'embedjs';
+import slice from 'lodash/slice';
+import xmldom from 'xmldom';
 import linksRe from './steemitLinks';
 import { validateAccountName } from './ChainValidation';
 import { getProxyImageURL } from '../helpers/image';
@@ -260,9 +261,9 @@ function isEmbedable(child, links, images, resolveIframe) {
     if (embed && embed.id) {
       const domString = resolveIframe
         ? embed.embed
-        : `${data.slice(0, foundLinks.index)}~~~ embed:${embed.id} ${embed.provider_name} ${
+        : `${slice(data, 0, foundLinks.index)}~~~ embed:${embed.id} ${embed.provider_name} ${
             embed.url
-          } ~~~${data.slice(foundLinks.index + foundLinks[0].length, data.length)}`;
+          } ~~~${slice(data, foundLinks.index + foundLinks[0].length, data.length)}`;
       const v = DOMParser.parseFromString(domString);
       child.parentNode.replaceChild(v, child);
       // console.trace('embed.embed', v);
