@@ -23,21 +23,18 @@ export function dropCategory(url) {
  * Gets app data from a post.
  * Only Returns app info from apps whitelisted in apps.json
  * @param post
- * @returns {*}
+ * @returns An empty object if app is not valid otherwise an object with {appName: String, version: String}
  */
 export function getAppData(post) {
-  let appName;
-  let version;
-  try {
-    const app = jsonParse(post.json_metadata).app.split('/');
-    if (whiteListedApps[app[0]]) {
-      appName = app[0];
-      version = app[1];
-    }
-  } catch (e) {
-    return {};
+  const [appKey, version] = _.split(jsonParse(post.json_metadata).app, '/');
+
+  if (whiteListedApps[appKey]) {
+    return {
+      appName: whiteListedApps[appKey],
+      version: version || '',
+    };
   }
-  return { appName, version };
+  return {};
 }
 
 export default null;

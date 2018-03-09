@@ -16,13 +16,15 @@ const PostedFrom = ({ post }) => {
       <span className="PostedFrom__bullet" />
       <Tooltip
         title={
-          <span>
-            <FormattedMessage
-              id="posted_from_tooltip"
-              defaultMessage={'Version: {version}'}
-              values={{ version }}
-            />
-          </span>
+          version && (
+            <span>
+              <FormattedMessage
+                id="posted_from_tooltip"
+                defaultMessage={'Version: {version}'}
+                values={{ version }}
+              />
+            </span>
+          )
         }
       >
         <span className="PostedFrom__text">{appName}</span>
