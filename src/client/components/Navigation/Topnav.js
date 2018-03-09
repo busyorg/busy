@@ -105,6 +105,12 @@ class Topnav extends React.Component {
     });
   }
 
+  handleScrollToTop() {
+    if (window) {
+      window.scrollTo(0, 0);
+    }
+  }
+
   menuForLoggedOut = () => {
     const { location } = this.props;
     const { searchBarActive } = this.state;
@@ -205,7 +211,7 @@ class Topnav extends React.Component {
             </Tooltip>
           </Menu.Item>
           <Menu.Item key="user" className="Topnav__item-user">
-            <Link className="Topnav__user" to={`/@${username}`} onClick={window.scrollTo(0, 0)}>
+            <Link className="Topnav__user" to={`/@${username}`} onClick={this.handleScrollToTop}>
               <Avatar username={username} size={36} />
             </Link>
           </Menu.Item>
