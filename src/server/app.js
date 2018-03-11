@@ -76,7 +76,7 @@ app.get('/i/:parent/@:referral/:permlink', async (req, res) => {
   try {
     const { parent, referral, permlink } = req.params;
 
-    const content = steemAPI.sendAsync('get_content', [referral, permlink]);
+    const content = await steemAPI.sendAsync('get_content', [referral, permlink]);
 
     if (content.author) {
       res.cookie('referral', referral, { maxAge: 86400 * 30 * 1000 });
