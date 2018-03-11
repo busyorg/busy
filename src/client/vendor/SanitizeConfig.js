@@ -156,7 +156,7 @@ export default ({ large = true, noImage = false, sanitizeErrors = [] }) => ({
       if (!href) href = '#';
       href = href.trim();
       const attys = { href };
-      if (!href.match(/^https:\/\/(staging\.)?busy\.org(?![\w\.]+)/)) {
+      if (!href.match(/^^(\/|https:\/\/(staging\.)?busy\.org(?![\w\.]+))/)) {
         attys.target = '_blank'; // pending iframe impl https://mathiasbynens.github.io/rel-noopener/
         attys.rel = 'nofollow noopener';
       }
