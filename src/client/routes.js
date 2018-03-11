@@ -16,4 +16,4 @@ if (typeof window !== 'undefined' && window.analytics) {
 }
 
 export { history };
-export default <Switch>{renderRoutes(routes)}</Switch>;
+export default <Switch onUpdate={() => window.scrollTo(0, 0)}>{renderRoutes(routes)}</Switch>;
