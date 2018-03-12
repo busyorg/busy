@@ -1,31 +1,44 @@
-import Wrapper from '../client/Wrapper';
+import Wrapper, { NoHeaderWrapper } from '../client/Wrapper';
 
-import Bookmarks from '../client/bookmarks/Bookmarks';
-import Drafts from '../client/post/Write/Drafts';
-import Replies from '../client/replies/Replies';
 import Activity from '../client/activity/Activity';
-import Wallet from '../client/wallet/Wallet';
+import Bookmarks from '../client/bookmarks/Bookmarks';
+import Discover from '../client/discover/Discover';
+import Drafts from '../client/post/Write/Drafts';
 import Editor from '../client/post/Write/Write';
-import Settings from '../client/settings/Settings';
-import ProfileSettings from '../client/settings/ProfileSettings';
+import EmbedPostComments from '../client/embed-post-comments/EmbedPostComments';
+import Error404 from '../client/statics/Error404';
 import Invite from '../client/invite/Invite';
+import Notifications from '../client/notifications/Notifications';
+import Page from '../client/feed/Page';
+import Post from '../client/post/Post';
+import ProfileSettings from '../client/settings/ProfileSettings';
+import Replies from '../client/replies/Replies';
+import Search from '../client/search/Search';
+import Settings from '../client/settings/Settings';
 import User from '../client/user/User';
-import UserProfile from '../client/user/UserProfile';
+import UserActivity from '../client/activity/UserActivity';
 import UserComments from '../client/user/UserComments';
+import UserFeed from '../client/user/UserFeed';
 import UserFollowers from '../client/user/UserFollowers';
 import UserFollowing from '../client/user/UserFollowing';
+import UserProfile from '../client/user/UserProfile';
 import UserReblogs from '../client/user/UserReblogs';
-import UserFeed from '../client/user/UserFeed';
 import UserWallet from '../client/user/UserWallet';
-import UserActivity from '../client/activity/UserActivity';
-import Post from '../client/post/Post';
-import Page from '../client/feed/Page';
-import Discover from '../client/discover/Discover';
-import Search from '../client/search/Search';
-import Notifications from '../client/notifications/Notifications';
-import Error404 from '../client/statics/Error404';
+import Wallet from '../client/wallet/Wallet';
 
 const routes = [
+  {
+    component: NoHeaderWrapper,
+    path: '/embed/comments/@:author/:permlink',
+    exact: true,
+    routes: [
+      {
+        path: '/embed/comments/@:author/:permlink',
+        exact: true,
+        component: EmbedPostComments,
+      },
+    ],
+  },
   {
     component: Wrapper,
     routes: [

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { message } from 'antd';
 import { MAXIMUM_UPLOAD_SIZE_HUMAN } from '../../helpers/image';
@@ -36,9 +37,11 @@ class Comments extends React.Component {
     onLikeClick: PropTypes.func,
     onDislikeClick: PropTypes.func,
     onSendComment: PropTypes.func,
+    fullWidth: PropTypes.bool,
   };
 
   static defaultProps = {
+    fullWidth: false,
     username: undefined,
     parentPost: undefined,
     comments: [],
@@ -172,11 +175,16 @@ class Comments extends React.Component {
       rewardFund,
       defaultVotePercent,
       rewriteLinks,
+      fullWidth,
     } = this.props;
     const { sort } = this.state;
 
     return (
-      <div className="Comments">
+      <div
+        className={classNames('Comments', {
+          'Comments--fullWidth': fullWidth,
+        })}
+      >
         <div className="Comments__header">
           <h2>
             <FormattedMessage id="comments" defaultMessage="Comments" />
