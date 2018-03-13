@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOMServer from 'react-dom/server';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import classNames from 'classnames';
@@ -20,6 +21,20 @@ export const remarkable = new Remarkable({
   quotes: '“”‘’',
 });
 
+const getEmbed = link => {
+  const embed = embedjs.get(link, { width: '100%', height: 400, autoplay: false });
+
+  if (_.isUndefined(embed)) {
+    return {
+      provider_name: '',
+      thumbnail: '',
+      embed: link,
+    };
+  }
+
+  return embed;
+};
+
 // Should return text(html) if returnType is text
 // Should return Object(React Compatible) if returnType is Object
 export function getHtml(body, jsonMetadata = {}, returnType = 'Object', options = {}) {
@@ -27,6 +42,8 @@ export function getHtml(body, jsonMetadata = {}, returnType = 'Object', options 
   parsedJsonMetadata.image = parsedJsonMetadata.image || [];
 
   let parsedBody = body.replace(/<!--([\s\S]+?)(-->|$)/g, '(html comment removed: $1)');
+
+  parsedBody = parsedBody.replace(/^\s+</gm, '<');
 
   parsedBody.replace(imageRegex, img => {
     if (_.filter(parsedJsonMetadata.image, i => i.indexOf(img) !== -1).length === 0) {
@@ -61,16 +78,18 @@ export function getHtml(body, jsonMetadata = {}, returnType = 'Object', options 
       const id = match[1];
       const type = match[2];
       const link = match[3];
-      const embed = embedjs.get(link, { width: '100%', height: 400, autoplay: false });
-      sections.push(<PostFeedEmbed key={`embed-a-${i}`} inPost embed={embed} />);
+      const embed = getEmbed(link);
+      sections.push(
+        ReactDOMServer.renderToString(<PostFeedEmbed key={`embed-a-${i}`} inPost embed={embed} />),
+      );
       section = section.substring(`${id} ${type} ${link} ~~~`.length);
     }
     if (section !== '') {
-      // eslint-disable-next-line react/no-danger
-      sections.push(<div key={`embed-b-${i}`} dangerouslySetInnerHTML={{ __html: section }} />);
+      sections.push(section);
     }
   }
-  return sections;
+  // eslint-disable-next-line react/no-danger
+  return <div dangerouslySetInnerHTML={{ __html: sections.join('') }} />;
 }
 
 const Body = props => {
