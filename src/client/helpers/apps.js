@@ -13,5 +13,6 @@ export default {
   steemkr: 'Steemkr',
   steemhunt: 'Steemhunt',
   steemjs: 'Steem.js',
+  steemplace: 'Steem.Place',
   strimi: 'Strimi',
 };
