@@ -13,6 +13,7 @@ import {
   getIsAuthenticated,
   getIsLoaded,
   getFollowingFetched,
+  getFetchFollowListError,
 } from '../reducers';
 import HorizontalBarChart from '../components/HorizontalBarChart';
 import LetsGetStartedIcon from './LetsGetStartedIcon';
@@ -26,6 +27,7 @@ import './LetsGetStarted.less';
   loaded: getIsLoaded(state),
   authenticated: getIsAuthenticated(state),
   followingFetched: getFollowingFetched(state),
+  fetchFollowListError: getFetchFollowListError(state),
 }))
 class LetsGetStarted extends React.Component {
   static propTypes = {
@@ -36,6 +38,7 @@ class LetsGetStarted extends React.Component {
     authenticatedUser: PropTypes.shape().isRequired,
     loaded: PropTypes.bool.isRequired,
     followingFetched: PropTypes.bool.isRequired,
+    fetchFollowListError: PropTypes.bool.isRequired,
   };
 
   static getCurrentUserState(authenticatedUser, followingList) {
@@ -90,6 +93,7 @@ class LetsGetStarted extends React.Component {
       isAuthFetching,
       loaded,
       followingFetched,
+      fetchFollowListError,
     } = this.props;
     const { hasProfile, hasPost, hasVoted, hasFollowed } = this.state;
     const totalOptions = 4;
@@ -105,10 +109,9 @@ class LetsGetStarted extends React.Component {
       0,
     );
     const ready = followingFetched && loaded;
-
     const hide = !authenticated || currentSelected === totalOptions;
 
-    if (!ready || hide) return <div />;
+    if (!ready || hide || fetchFollowListError) return <div />;
 
     return (
       <div className="LetsGetStarted">

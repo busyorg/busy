@@ -77,49 +77,6 @@ export const getComments = (postId, reload = false, focusedComment = undefined) 
   });
 };
 
-function broadcastComment(
-  steemConnectAPI,
-  parentAuthor,
-  parentPermlink,
-  author,
-  permlink,
-  title,
-  body,
-  jsonMetadata,
-  isUpdating,
-) {
-  const operations = [];
-
-  operations.push([
-    'comment',
-    {
-      parent_author: parentAuthor,
-      parent_permlink: parentPermlink,
-      author,
-      permlink,
-      title,
-      body,
-      json_metadata: JSON.stringify(jsonMetadata),
-    },
-  ]);
-
-  if (!isUpdating) {
-    operations.push([
-      'comment_options',
-      {
-        author,
-        permlink,
-        allow_votes: true,
-        allow_curation_rewards: false,
-        max_accepted_payout: '1000000.000 SBD',
-        percent_steem_dollars: 10000,
-      },
-    ]);
-  }
-
-  return steemConnectAPI.broadcast(operations);
-}
-
 export const sendComment = (parentPost, body, isUpdating = false, originalComment) => (
   dispatch,
   getState,
@@ -147,31 +104,23 @@ export const sendComment = (parentPost, body, isUpdating = false, originalCommen
   return dispatch({
     type: SEND_COMMENT,
     payload: {
-      promise: broadcastComment(
-        steemConnectAPI,
-        parentAuthor,
-        parentPermlink,
-        author,
-        permlink,
-        '',
-        newBody,
-        jsonMetadata,
-        isUpdating,
-      ).then(resp => {
-        const focusedComment = {
-          author: resp.result.operations[0][1].author,
-          permlink: resp.result.operations[0][1].permlink,
-        };
-        dispatch(getComments(id, true, focusedComment));
+      promise: steemConnectAPI
+        .comment(parentAuthor, parentPermlink, author, permlink, '', newBody, jsonMetadata)
+        .then(resp => {
+          const focusedComment = {
+            author: resp.result.operations[0][1].author,
+            permlink: resp.result.operations[0][1].permlink,
+          };
+          dispatch(getComments(id, true, focusedComment));
 
-        if (window.analytics) {
-          window.analytics.track('Comment', {
-            category: 'comment',
-            label: 'submit',
-            value: 3,
-          });
-        }
-      }),
+          if (window.analytics) {
+            window.analytics.track('Comment', {
+              category: 'comment',
+              label: 'submit',
+              value: 3,
+            });
+          }
+        }),
     },
     meta: {
       parentId: parentPost.id,
