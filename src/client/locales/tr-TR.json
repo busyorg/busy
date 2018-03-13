@@ -330,5 +330,7 @@
   "follow_steemians": "Takip {amount}steemianlar",
   "like_good_posts": "Bir kaç iyi gönderi beğen",
   "write_first_post": "İlk gönderini paylaş",
-  "complete_profile_tooltip": "Ad,hakkında ve profil fotoğrafı kısımlarını doldurmalısınız."
+  "complete_profile_tooltip": "Ad,hakkında ve profil fotoğrafı kısımlarını doldurmalısınız.",
+  "upvote_setting_details": "Enable this option to automatically like your own posts.",
+  "upvote_setting": "Like my posts"
 }
