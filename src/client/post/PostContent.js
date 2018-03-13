@@ -230,7 +230,7 @@ class PostContent extends React.Component {
           <meta property="article:tag" content={category} />
           <meta property="article:published_time" content={created} />
           <meta property="twitter:card" content={image ? 'summary_large_image' : 'summary'} />
-          <meta property="twitter:site" content={'@steemit'} />
+          <meta property="twitter:site" content={'@busyorg'} />
           <meta property="twitter:title" content={metaTitle} />
           <meta property="twitter:description" content={desc} />
           <meta property="twitter:image" content={image} />
