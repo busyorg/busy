@@ -35,7 +35,7 @@ export function getAppData(post) {
   if (whiteListedApps[appKey]) {
     return {
       appName: whiteListedApps[appKey],
-      version: version,
+      version,
     };
   }
   return {};
