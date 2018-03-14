@@ -8,7 +8,7 @@ export const jsonParse = str => {
 
 export function postSummary(post, author) {
   let formattedPost = post.substring(0, 140);
-  if(post.length > 140) formattedPost += "...";
+  if (post.length > 140) formattedPost += '...';
   formattedPost += ` by ${author}`;
   return formattedPost;
 }
