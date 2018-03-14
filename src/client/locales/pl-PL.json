@@ -330,5 +330,7 @@
   "follow_steemians": "Zaobserwuj {amount} Steemowiczów",
   "like_good_posts": "Zagłosuj na jakieś fajne posty",
   "write_first_post": "Napisz swój pierwszy post",
-  "complete_profile_tooltip": "Musisz podać pseudonim, napisać notatkę o sobie i dodać zdjęcie profilowe"
+  "complete_profile_tooltip": "Musisz podać pseudonim, napisać notatkę o sobie i dodać zdjęcie profilowe",
+  "upvote_setting_details": "Enable this option to automatically like your own posts.",
+  "upvote_setting": "Like my posts"
 }

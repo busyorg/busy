@@ -330,5 +330,7 @@
   "follow_steemians": "Следва {amount} steem-яни",
   "like_good_posts": "Харесайте няколко добри поста",
   "write_first_post": "Напишете първия си пост",
-  "complete_profile_tooltip": "Трябва да попълните полетата за име, относно и профилна снимка"
+  "complete_profile_tooltip": "Трябва да попълните полетата за име, относно и профилна снимка",
+  "upvote_setting_details": "Enable this option to automatically like your own posts.",
+  "upvote_setting": "Like my posts"
 }
