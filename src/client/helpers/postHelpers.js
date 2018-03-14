@@ -26,12 +26,16 @@ export function dropCategory(url) {
  * @returns An empty object if app is not valid otherwise an object with {appName: String, version: String}
  */
 export function getAppData(post) {
-  const [appKey, version] = _.split(jsonParse(post.json_metadata).app, '/');
+  const jsonMetadata = jsonParse(post.json_metadata);
+  const app = _.get(jsonMetadata, 'app', '');
+  const appData = _.split(app, '/');
+  const appKey = _.get(appData, 0, '');
+  const version = _.get(appData, 1, '');
 
   if (whiteListedApps[appKey]) {
     return {
       appName: whiteListedApps[appKey],
-      version: version || '',
+      version,
     };
   }
   return {};

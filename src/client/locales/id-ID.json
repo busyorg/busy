@@ -330,5 +330,7 @@
   "follow_steemians": "Ikuti {amount} steemians",
   "like_good_posts": "Seperti beberapa posting baik",
   "write_first_post": "Tulis posting pertama anda",
-  "complete_profile_tooltip": "Harus mengisi kolom nama, tentang, dan kolom gambar profil"
+  "complete_profile_tooltip": "Harus mengisi kolom nama, tentang, dan kolom gambar profil",
+  "upvote_setting_details": "Enable this option to automatically like your own posts.",
+  "upvote_setting": "Like my posts"
 }
