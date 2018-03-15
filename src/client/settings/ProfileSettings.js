@@ -288,6 +288,7 @@ export default class ProfileSettings extends React.Component {
                         onChange={this.handleSignatureChange}
                         onImageUpload={this.props.onImageUpload}
                         onImageInvalid={this.props.onImageInvalid}
+                        inputId={'profile-inputfile'}
                       />,
                     )}
                     {bodyHTML && (

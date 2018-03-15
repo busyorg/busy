@@ -330,5 +330,7 @@
   "follow_steemians": "{amount} 스티미언 팔로우하기",
   "like_good_posts": "맘에 드는 글에 좋아요 누르기",
   "write_first_post": "첫 번째 글 작성하기",
-  "complete_profile_tooltip": "이름, 소개, 프로필 사진은 반드시 입력해야 합니다."
+  "complete_profile_tooltip": "이름, 소개, 프로필 사진은 반드시 입력해야 합니다.",
+  "upvote_setting_details": "Enable this option to automatically like your own posts.",
+  "upvote_setting": "Like my posts"
 }
