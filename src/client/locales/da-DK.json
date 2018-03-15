@@ -330,5 +330,7 @@
   "follow_steemians": "Følg {amount} steemians",
   "like_good_posts": "Tryk \"Synes godt om\" på et godt indlæg",
   "write_first_post": "Skriv dit første indlæg",
-  "complete_profile_tooltip": "Du skal udfylde navn, om og profilbillede felterne"
+  "complete_profile_tooltip": "Du skal udfylde navn, om og profilbillede felterne",
+  "upvote_setting_details": "Enable this option to automatically like your own posts.",
+  "upvote_setting": "Like my posts"
 }

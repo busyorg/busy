@@ -330,5 +330,7 @@
   "follow_steemians": "Folge {amount} steemians",
   "like_good_posts": "Markiere ein paar gute Posts mit \"Gefällt mir\"",
   "write_first_post": "Erstellen Sie Ihren ersten Beitrag",
-  "complete_profile_tooltip": "Du musst deinen folgende Felder vervollständigen: Name, über dich\nZusätzlich musst du ein Profilbild festlegen"
+  "complete_profile_tooltip": "Du musst deinen folgende Felder vervollständigen: Name, über dich\nZusätzlich musst du ein Profilbild festlegen",
+  "upvote_setting_details": "Enable this option to automatically like your own posts.",
+  "upvote_setting": "Like my posts"
 }
