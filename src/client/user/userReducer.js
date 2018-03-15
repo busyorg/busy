@@ -9,6 +9,9 @@ const initialState = {
     isFetching: false,
     fetched: false,
   },
+  notifications: [],
+  loadingNotifications: false,
+  fetchFollowListError: false,
 };
 
 // filterRecommendations generates a random list of `count` recommendations
@@ -33,6 +36,7 @@ export default function userReducer(state = initialState, action) {
           isFetching: true,
           fetched: false,
         },
+        fetchFollowListError: false,
       };
     case actions.GET_FOLLOWING_ERROR:
       return {
@@ -43,6 +47,7 @@ export default function userReducer(state = initialState, action) {
           isFetching: false,
           fetched: true,
         },
+        fetchFollowListError: true,
       };
     case actions.GET_FOLLOWING_SUCCESS:
       return {
@@ -54,6 +59,7 @@ export default function userReducer(state = initialState, action) {
           isFetching: false,
           fetched: true,
         },
+        fetchFollowListError: false,
       };
     case actions.FOLLOW_USER_START:
     case actions.UNFOLLOW_USER_START:
@@ -105,6 +111,24 @@ export default function userReducer(state = initialState, action) {
         recommendations: filterRecommendations(state.following.list),
       };
 
+    case actions.GET_NOTIFICATIONS.START:
+      return {
+        ...state,
+        loadingNotifications: true,
+      };
+
+    case actions.GET_NOTIFICATIONS.SUCCESS:
+      return {
+        ...state,
+        notifications: action.payload,
+        loadingNotifications: false,
+      };
+
+    case actions.GET_NOTIFICATIONS.ERROR:
+      return {
+        ...state,
+        loadingNotifications: false,
+      };
     default: {
       return state;
     }
@@ -116,3 +140,6 @@ export const getPendingFollows = state => state.following.pendingFollows;
 export const getIsFetchingFollowingList = state => state.following.isFetching;
 export const getRecommendations = state => state.recommendations;
 export const getFollowingFetched = state => state.following.fetched;
+export const getNotifications = state => state.notifications;
+export const getIsLoadingNotifications = state => state.loadingNotifications;
+export const getFetchFollowListError = state => state.fetchFollowListError;

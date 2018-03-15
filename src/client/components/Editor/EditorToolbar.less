@@ -1,11 +1,48 @@
+@import (reference) '../../styles/custom.less';
+@import (reference) '../../styles/modules/variables.less';
+
 .EditorToolbar {
-  margin: 0 0 4px;
+  background: @component-background;
+  border-bottom: 0;
+  white-space: nowrap;
+  margin: 0 10px;
 
   & > &__button {
-    margin-right: 4px;
+    border: none !important;
+    padding: 0 10px !important;
+    animation: 0 !important;
+
+    &.ant-btn-clicked:after {
+      animation: 0 !important;
+    }
+
+    &:focus,
+    &:active {
+      outline: none !important;
+      border: none !important;
+      box-shadow: none !important;
+    }
+
+    &:hover {
+      color: @black;
+      transition: unset;
+    }
 
     .iconfont {
-      font-size: 16px !important;
+      font-size: 18px !important;
     }
   }
+}
+
+.EditorToolbar__container {
+  align-items: center;
+  border-bottom: 0;
+  border-top-left-radius: @border-radius-base;
+  border-top-right-radius: @border-radius-base;
+  border: @base-border;
+  border-bottom: 0;
+  display: flex;
+  margin-right: 0 !important;
+  overflow-y: hidden !important;
+  background: @component-background;
 }

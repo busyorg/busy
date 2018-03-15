@@ -38,7 +38,7 @@
   &__back {
     align-items: center;
     background: @white;
-    border-bottom: 1px solid @white-gainsboro;
+    border-bottom: @base-border;
     display: flex;
     left: 0;
     height: 50px;
@@ -95,7 +95,7 @@
   &__action {
     background: @white;
     border-radius: 50px;
-    border: 1px solid @white-gainsboro;
+    border: @base-border;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     color: @blue-heather !important;
     display: flex;
@@ -121,6 +121,10 @@
 
   &__icon.icon-twitter {
     color: @twitter-link-color;
+  }
+
+  &__icon.icon-facebook {
+    color: @facebook-background-color;
   }
 }
 

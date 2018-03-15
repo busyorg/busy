@@ -1,6 +1,6 @@
 {
   "name": "busy",
-  "version": "2.3.0",
+  "version": "2.4.0",
   "engines": {
     "node": ">=7.10.1",
     "npm": "=5.3.0"
@@ -87,13 +87,11 @@
     "lodash-webpack-plugin": "^0.11.4",
     "matchmedia": "^0.1.2",
     "morgan": "^1.8.2",
-    "newrelic": "^1.40.0",
     "nodemon": "^1.9.2",
     "npm-run-all": "^4.0.2",
     "postcss-flexbugs-fixes": "^3.0.0",
     "postcss-loader": "^2.0.8",
     "prop-types": "^15.5.10",
-    "raven-js": "^3.8.0",
     "react": "^16.2.0",
     "react-addons-css-transition-group": "^15.6.2",
     "react-copy-to-clipboard": "^5.0.1",

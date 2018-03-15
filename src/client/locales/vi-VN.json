@@ -34,8 +34,17 @@
   "notifications": "Thông báo",
   "notification_following_username": "{username} hiện tại đang theo dõi bạn.",
   "notification_mention_username_post": "{username} đã trả lời bạn trong bài đăng này {post}",
+  "notification_mention_username_comment": "{username} mentioned you in a comment",
   "notification_reply_username_post": "{username} đã trả lời bạn trong {post} của bạn.",
+  "notification_reply_username_comment": "{username} replied to your comment",
+  "notification_approved_witness": "{username} approved your witness",
+  "notification_unapproved_witness": "{username} unapproved your witness",
   "notification_transfer_username_amount": "{username} gửi cho bạn {amount}.",
+  "notification_reblogged_username_post": "{username} reblogged your post",
+  "notification_upvoted_username_post": "{username} upvoted your post",
+  "notification_downvoted_username_post": "{username} downvoted your post",
+  "notification_unvoted_username_post": "{username} unvoted your post",
+  "notifications_empty_message": "You currently have no notifications.",
   "see_all": "Xem tất cả",
   "discussions": "Thảo luận",
   "comments": "Bình luận",
@@ -321,5 +330,7 @@
   "follow_steemians": "Follow {amount} steemians",
   "like_good_posts": "Like some good posts",
   "write_first_post": "Write your first post",
-  "complete_profile_tooltip": "Must fill out the name, about, and profile picture fields"
+  "complete_profile_tooltip": "Must fill out the name, about, and profile picture fields",
+  "upvote_setting_details": "Enable this option to automatically like your own posts.",
+  "upvote_setting": "Like my posts"
 }

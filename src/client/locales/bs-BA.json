@@ -34,8 +34,17 @@
   "notifications": "Obavjest",
   "notification_following_username": "{username} vas prati.",
   "notification_mention_username_post": "{username} vas pominje u {post}.",
+  "notification_mention_username_comment": "{username} mentioned you in a comment",
   "notification_reply_username_post": "{username} replied you on your {post}.",
+  "notification_reply_username_comment": "{username} replied to your comment",
+  "notification_approved_witness": "{username} approved your witness",
+  "notification_unapproved_witness": "{username} unapproved your witness",
   "notification_transfer_username_amount": "{username} sent you {amount}.",
+  "notification_reblogged_username_post": "{username} reblogged your post",
+  "notification_upvoted_username_post": "{username} upvoted your post",
+  "notification_downvoted_username_post": "{username} downvoted your post",
+  "notification_unvoted_username_post": "{username} unvoted your post",
+  "notifications_empty_message": "You currently have no notifications.",
   "see_all": "See All",
   "discussions": "Discussions",
   "comments": "Comments",
@@ -321,5 +330,7 @@
   "follow_steemians": "Follow {amount} steemians",
   "like_good_posts": "Like some good posts",
   "write_first_post": "Write your first post",
-  "complete_profile_tooltip": "Must fill out the name, about, and profile picture fields"
+  "complete_profile_tooltip": "Must fill out the name, about, and profile picture fields",
+  "upvote_setting_details": "Enable this option to automatically like your own posts.",
+  "upvote_setting": "Like my posts"
 }

@@ -7,10 +7,18 @@ import { connect } from 'react-redux';
 import { Menu, Popover, Tooltip, Input, AutoComplete } from 'antd';
 import classNames from 'classnames';
 import { searchAutoComplete } from '../../search/searchActions';
-import { getAutoCompleteSearchResults } from '../../reducers';
+import { getUpdatedSCUserMetadata } from '../../auth/authActions';
+import {
+  getAutoCompleteSearchResults,
+  getNotifications,
+  getAuthenticatedUserSCMetaData,
+  getIsLoadingNotifications,
+} from '../../reducers';
 import SteemConnect from '../../steemConnectAPI';
+import { PARSED_NOTIFICATIONS } from '../../../common/constants/notifications';
 import Avatar from '../Avatar';
 import PopoverMenu, { PopoverMenuItem } from '../PopoverMenu/PopoverMenu';
+import Notifications from './Notifications/Notifications';
 import './Topnav.less';
 
 @injectIntl
@@ -18,9 +26,13 @@ import './Topnav.less';
 @connect(
   state => ({
     autoCompleteSearchResults: getAutoCompleteSearchResults(state),
+    notifications: getNotifications(state),
+    userSCMetaData: getAuthenticatedUserSCMetaData(state),
+    loadingNotifications: getIsLoadingNotifications(state),
   }),
   {
     searchAutoComplete,
+    getUpdatedSCUserMetadata,
   },
 )
 class Topnav extends React.Component {
@@ -30,15 +42,28 @@ class Topnav extends React.Component {
     location: PropTypes.shape().isRequired,
     history: PropTypes.shape().isRequired,
     username: PropTypes.string,
+    notifications: PropTypes.arrayOf(PropTypes.shape()),
     searchAutoComplete: PropTypes.func.isRequired,
+    getUpdatedSCUserMetadata: PropTypes.func.isRequired,
     onMenuItemClick: PropTypes.func,
+    userSCMetaData: PropTypes.shape(),
+    loadingNotifications: PropTypes.bool,
   };
 
   static defaultProps = {
     autoCompleteSearchResults: [],
+    notifications: [],
     username: undefined,
     onMenuItemClick: () => {},
+    userSCMetaData: {},
+    loadingNotifications: false,
   };
+
+  static handleScrollToTop() {
+    if (window) {
+      window.scrollTo(0, 0);
+    }
+  }
 
   constructor(props) {
     super(props);
@@ -47,9 +72,14 @@ class Topnav extends React.Component {
       searchBarActive: false,
       popoverVisible: false,
       searchBarValue: '',
+      notificationsPopoverVisible: false,
     };
     this.handleMoreMenuSelect = this.handleMoreMenuSelect.bind(this);
     this.handleMoreMenuVisibleChange = this.handleMoreMenuVisibleChange.bind(this);
+    this.handleNotificationsPopoverVisibleChange = this.handleNotificationsPopoverVisibleChange.bind(
+      this,
+    );
+    this.handleCloseNotificationsPopover = this.handleCloseNotificationsPopover.bind(this);
     this.handleSelectOnAutoCompleteDropdown = this.handleSelectOnAutoCompleteDropdown.bind(this);
     this.handleAutoCompleteSearch = this.handleAutoCompleteSearch.bind(this);
     this.handleSearchForInput = this.handleSearchForInput.bind(this);
@@ -65,6 +95,20 @@ class Topnav extends React.Component {
 
   handleMoreMenuVisibleChange(visible) {
     this.setState({ popoverVisible: visible });
+  }
+
+  handleNotificationsPopoverVisibleChange(visible) {
+    if (visible) {
+      this.setState({ notificationsPopoverVisible: visible });
+    } else {
+      this.handleCloseNotificationsPopover();
+    }
+  }
+
+  handleCloseNotificationsPopover() {
+    this.setState({
+      notificationsPopoverVisible: false,
+    });
   }
 
   menuForLoggedOut = () => {
@@ -98,9 +142,21 @@ class Topnav extends React.Component {
   };
 
   menuForLoggedIn = () => {
-    const { intl, username } = this.props;
-    const { searchBarActive } = this.state;
-    const { popoverVisible } = this.state;
+    const { intl, username, notifications, userSCMetaData, loadingNotifications } = this.props;
+    const { searchBarActive, notificationsPopoverVisible, popoverVisible } = this.state;
+    const lastSeenTimestamp = _.get(userSCMetaData, 'notifications_last_timestamp');
+    const notificationsCount = _.isUndefined(lastSeenTimestamp)
+      ? _.size(notifications)
+      : _.size(
+          _.filter(
+            notifications,
+            notification =>
+              lastSeenTimestamp < notification.timestamp &&
+              _.includes(PARSED_NOTIFICATIONS, notification.type),
+          ),
+        );
+    const displayBadge = notificationsCount > 0;
+    const notificationsCountDisplay = notificationsCount > 99 ? '99+' : notificationsCount;
     return (
       <div
         className={classNames('Topnav__menu-container', {
@@ -112,16 +168,51 @@ class Topnav extends React.Component {
             <Tooltip
               placement="bottom"
               title={intl.formatMessage({ id: 'write_post', defaultMessage: 'Write post' })}
+              mouseEnterDelay={1}
             >
-              <Link to="/editor" className="Topnav__link">
+              <Link to="/editor" className="Topnav__link Topnav__link--action">
                 <i className="iconfont icon-write" />
               </Link>
             </Tooltip>
           </Menu.Item>
+          <Menu.Item key="notifications" className="Topnav__item--badge">
+            <Tooltip
+              placement="bottom"
+              title={intl.formatMessage({ id: 'notifications', defaultMessage: 'Notifications' })}
+              overlayClassName="Topnav__notifications-tooltip"
+              mouseEnterDelay={1}
+            >
+              <Popover
+                placement="bottomRight"
+                trigger="click"
+                content={
+                  <Notifications
+                    notifications={notifications}
+                    onNotificationClick={this.handleCloseNotificationsPopover}
+                    currentAuthUsername={username}
+                    lastSeenTimestamp={lastSeenTimestamp}
+                    loadingNotifications={loadingNotifications}
+                    getUpdatedSCUserMetadata={this.props.getUpdatedSCUserMetadata}
+                  />
+                }
+                visible={notificationsPopoverVisible}
+                onVisibleChange={this.handleNotificationsPopoverVisibleChange}
+                overlayClassName="Notifications__popover-overlay"
+                title={intl.formatMessage({ id: 'notifications', defaultMessage: 'Notifications' })}
+              >
+                <a className="Topnav__link Topnav__link--light Topnav__link--action">
+                  {displayBadge ? (
+                    <div className="Topnav__notifications-count">{notificationsCountDisplay}</div>
+                  ) : (
+                    <i className="iconfont icon-remind" />
+                  )}
+                </a>
+              </Popover>
+            </Tooltip>
+          </Menu.Item>
           <Menu.Item key="user" className="Topnav__item-user">
-            <Link className="Topnav__user" to={`/@${username}`}>
+            <Link className="Topnav__user" to={`/@${username}`} onClick={Topnav.handleScrollToTop}>
               <Avatar username={username} size={36} />
-              <span className="Topnav__user__username">{username}</span>
             </Link>
           </Menu.Item>
           <Menu.Item key="more">
@@ -167,7 +258,7 @@ class Topnav extends React.Component {
               }
             >
               <a className="Topnav__link Topnav__link--light">
-                <i className="iconfont icon-switch" />
+                <i className="iconfont icon-caretbottom" />
               </a>
             </Popover>
           </Menu.Item>
@@ -278,7 +369,7 @@ class Topnav extends React.Component {
                   onPressEnter={this.handleSearchForInput}
                   placeholder={intl.formatMessage({
                     id: 'search_placeholder',
-                    defaultMessage: 'Search...',
+                    defaultMessage: 'What are you looking for?',
                   })}
                   autoCapitalize="off"
                   autoCorrect="off"

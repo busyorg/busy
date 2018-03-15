@@ -14,8 +14,8 @@ import {
   getLocale,
   getUsedLocale,
 } from './reducers';
-import { login, logout } from './auth/authActions';
-import { getFollowing } from './user/userActions';
+import { login, logout, busyLogin } from './auth/authActions';
+import { getFollowing, getNotifications } from './user/userActions';
 import { getRate, getRewardFund, getTrendingTopics } from './app/appActions';
 import * as reblogActions from './app/Reblog/reblogActions';
 import Redirect from './components/Utils/Redirect';
@@ -35,9 +35,11 @@ import Transfer from './wallet/Transfer';
     login,
     logout,
     getFollowing,
+    getNotifications,
     getRate,
     getRewardFund,
     getTrendingTopics,
+    busyLogin,
     getRebloggedList: reblogActions.getRebloggedList,
   },
 )
@@ -57,6 +59,8 @@ export default class Wrapper extends React.PureComponent {
     getRebloggedList: PropTypes.func,
     getRate: PropTypes.func,
     getTrendingTopics: PropTypes.func,
+    getNotifications: PropTypes.func,
+    busyLogin: PropTypes.func,
   };
 
   static defaultProps = {
@@ -68,6 +72,8 @@ export default class Wrapper extends React.PureComponent {
     getRebloggedList: () => {},
     getRate: () => {},
     getTrendingTopics: () => {},
+    getNotifications: () => {},
+    busyLogin: () => {},
   };
 
   static fetchData(store) {
@@ -88,7 +94,11 @@ export default class Wrapper extends React.PureComponent {
   componentDidMount() {
     const { loaded, locale, usedLocale } = this.props;
 
-    this.props.login().then(() => this.props.getFollowing());
+    this.props.login().then(() => {
+      this.props.getFollowing();
+      this.props.getNotifications();
+      this.props.busyLogin();
+    });
 
     this.props.getRewardFund();
     this.props.getRebloggedList();
