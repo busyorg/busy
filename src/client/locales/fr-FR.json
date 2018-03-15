@@ -330,5 +330,7 @@
   "follow_steemians": "Suivez {amount} steemiens",
   "like_good_posts": "Votez quelques posts de qualité",
   "write_first_post": "Écrivez votre premier article",
-  "complete_profile_tooltip": "Vous devez remplir les champs : nom, à propos et photo de profil"
+  "complete_profile_tooltip": "Vous devez remplir les champs : nom, à propos et photo de profil",
+  "upvote_setting_details": "Enable this option to automatically like your own posts.",
+  "upvote_setting": "Like my posts"
 }
