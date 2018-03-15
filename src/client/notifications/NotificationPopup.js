@@ -47,11 +47,15 @@ class NotificationPopup extends Component {
     );
 
     if (diffNotification) {
+      const key = `open${Date.now()}`;
       notification.open({
         message: (
           <a
             role="presentation"
-            onClick={() => this.navigateToNotification(nextProps.latestNotification)}
+            onClick={() => {
+              this.navigateToNotification(nextProps.latestNotification);
+              notification.close(key);
+            }}
           >
             {getNotificationsMessage(nextProps.latestNotification, this.props.intl)}
           </a>
@@ -68,6 +72,7 @@ class NotificationPopup extends Component {
           />
         ),
         duration: 0,
+        key,
       });
     }
   }
