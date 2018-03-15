@@ -68,7 +68,7 @@ class Notifications extends React.Component {
     );
     const emptyDisplayedNotifications = _.isEmpty(this.state.displayedNotifications);
 
-    if (differentNotifications && emptyDisplayedNotifications) {
+    if (differentNotifications || emptyDisplayedNotifications) {
       this.setState({
         displayedNotifications: _.slice(nextProps.notifications, 0, displayLimit),
       });
