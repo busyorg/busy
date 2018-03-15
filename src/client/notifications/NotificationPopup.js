@@ -79,7 +79,7 @@ class NotificationPopup extends Component {
 
   navigateToNotification(latestNotification) {
     const { history, currentAuthUsername } = this.props;
-    history.push(getNotificationsLink(latestNotification), currentAuthUsername);
+    history.push(getNotificationsLink(latestNotification, currentAuthUsername));
   }
 
   render() {
