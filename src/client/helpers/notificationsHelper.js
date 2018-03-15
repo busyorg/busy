@@ -1,6 +1,6 @@
+import React from 'react';
 import * as notificationConstants from '../../common/constants/notifications';
-
-export const getNotificationsMessage = (notification, intl) => {
+export const getNotificationsMessage = (notification, intl, displayUsername) => {
   switch (notification.type) {
     case notificationConstants.REPLY:
       return intl.formatMessage(
@@ -8,7 +8,7 @@ export const getNotificationsMessage = (notification, intl) => {
           id: 'notification_reply_username_post',
           defaultMessage: '{username} commented on your post',
         },
-        { username: notification.author },
+        { username: displayUsername ? notification.author : '' },
       );
     case notificationConstants.FOLLOW:
       return intl.formatMessage(
@@ -16,7 +16,7 @@ export const getNotificationsMessage = (notification, intl) => {
           id: 'notification_following_username',
           defaultMessage: '{username} started following you',
         },
-        { username: notification.follower },
+        { username: displayUsername ? notification.follower : '' },
       );
     case notificationConstants.MENTION:
       return notification.is_root_post
@@ -25,14 +25,14 @@ export const getNotificationsMessage = (notification, intl) => {
               id: 'notification_mention_username_post',
               defaultMessage: '{username} mentioned you in a post',
             },
-            { username: notification.author },
+            { username: displayUsername ? notification.author : '' },
           )
         : intl.formatMessage(
             {
               id: 'notification_mention_username_post',
               defaultMessage: '{username} mentioned you in a comment',
             },
-            { username: notification.author },
+            { username: displayUsername ? notification.author : '' },
           );
     case notificationConstants.VOTE: {
       let message = intl.formatMessage(
@@ -41,7 +41,7 @@ export const getNotificationsMessage = (notification, intl) => {
           defaultMessage: '{username} unvoted your post',
         },
         {
-          username: notification.voter,
+          username: displayUsername ? notification.voter : '',
         },
       );
 
@@ -51,7 +51,7 @@ export const getNotificationsMessage = (notification, intl) => {
             id: 'notification_upvoted_username_post',
             defaultMessage: '{username} upvoted your post',
           },
-          { username: notification.voter },
+          { username: displayUsername ? notification.voter : '' },
         );
       } else if (notification.weight < 0) {
         message = intl.formatMessage(
@@ -59,7 +59,7 @@ export const getNotificationsMessage = (notification, intl) => {
             id: 'notification_downvoted_username_post',
             defaultMessage: '{username} downvoted your post',
           },
-          { username: notification.voter },
+          { username: displayUsername ? notification.voter : '' },
         );
       }
 
@@ -71,7 +71,7 @@ export const getNotificationsMessage = (notification, intl) => {
           id: 'notification_reblogged_username_post',
           defaultMessage: '{username} reblogged your post',
         },
-        { username: notification.account },
+        { username: displayUsername ? notification.account : '' },
       );
     case notificationConstants.TRANSFER:
       return intl.formatMessage(
@@ -80,7 +80,7 @@ export const getNotificationsMessage = (notification, intl) => {
           defaultMessage: '{username} transfered {amount} to you',
         },
         {
-          username: notification.from,
+          username: displayUsername ? notification.from : '',
           amount: notification.amount,
         },
       );
@@ -91,14 +91,14 @@ export const getNotificationsMessage = (notification, intl) => {
               id: 'notification_approved_witness',
               defaultMessage: '{username} approved your witness',
             },
-            { username: notification.account },
+            { username: displayUsername ? notification.account : '' },
           )
         : intl.formatMessage(
             {
               id: 'notification_unapproved_witness',
               defaultMessage: '{username} unapproved your witness',
             },
-            { username: notification.account },
+            { username: displayUsername ? notification.account : '' },
           );
     default:
       return intl.formatMessage({

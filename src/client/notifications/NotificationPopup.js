@@ -11,7 +11,9 @@ import {
   getNotificationsLink,
   getNotificationsAvatar,
 } from '../helpers/notificationsHelper';
+import { epochToUTC } from '../helpers/formatter';
 import Avatar from '../components/Avatar';
+import './NotificationPopup.less';
 
 @withRouter
 @injectIntl
@@ -47,32 +49,33 @@ class NotificationPopup extends Component {
     );
 
     if (diffNotification) {
+      const { latestNotification, currentAuthUsername } = nextProps;
       const key = `open${Date.now()}`;
+      const username = getNotificationsAvatar(latestNotification, '');
       notification.open({
         message: (
           <a
             role="presentation"
             onClick={() => {
-              this.navigateToNotification(nextProps.latestNotification);
+              this.navigateToNotification(latestNotification);
               notification.close(key);
             }}
           >
-            {getNotificationsMessage(nextProps.latestNotification, this.props.intl)}
+            <span className="username">{username}</span>
+            {getNotificationsMessage(latestNotification, this.props.intl)}
           </a>
         ),
-        description: '',
+        description: this.props.intl.formatRelative(epochToUTC(latestNotification.timestamp)),
         placement: 'bottomLeft',
         icon: (
           <Avatar
-            username={getNotificationsAvatar(
-              nextProps.latestNotification,
-              nextProps.currentAuthUsername,
-            )}
-            size={30}
+            username={getNotificationsAvatar(latestNotification, currentAuthUsername)}
+            size={40}
           />
         ),
         duration: 0,
         key,
+        className: 'NotificationPopup',
       });
     }
   }
