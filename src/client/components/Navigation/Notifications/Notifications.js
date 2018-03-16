@@ -78,7 +78,7 @@ class Notifications extends React.Component {
 
       if (timestamp > nextProps.lastSeenTimestamp) {
         saveNotificationsLastTimestamp(timestamp).then(() => this.props.getUpdatedSCUserMetadata());
-      } 
+      }
     }
   }
 
