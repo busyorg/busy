@@ -73,7 +73,7 @@ class NotificationPopup extends Component {
             size={40}
           />
         ),
-        duration: 0,
+        duration: 5,
         key,
         className: 'NotificationPopup',
       });
