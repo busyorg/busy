@@ -30,7 +30,7 @@ import { toggleBookmark } from '../bookmarks/bookmarksActions';
 import { followUser, unfollowUser } from '../user/userActions';
 import { getAvatarURL } from '../components/Avatar';
 import { getHtml } from '../components/Story/Body';
-import { jsonParse, postSummary } from '../helpers/formatter';
+import { jsonParse } from '../helpers/formatter';
 import StoryFull from '../components/Story/StoryFull';
 
 @connect(
@@ -207,7 +207,7 @@ class PostContent extends React.Component {
     const postMetaImage = postMetaData.image && postMetaData.image[0];
     const htmlBody = getHtml(body, {}, 'text');
     const bodyText = sanitize(htmlBody, { allowedTags: [] });
-    const desc = postSummary(bodyText, author);
+    const desc = `${bodyText.substring(0, 140)} by ${author}`;
     const image = postMetaImage || getAvatarURL(author) || '/images/logo.png';
     const canonicalUrl = `${canonicalHost}${dropCategory(content.url)}`;
     const url = `${busyHost}${dropCategory(content.url)}`;
@@ -230,7 +230,7 @@ class PostContent extends React.Component {
           <meta property="article:tag" content={category} />
           <meta property="article:published_time" content={created} />
           <meta property="twitter:card" content={image ? 'summary_large_image' : 'summary'} />
-          <meta property="twitter:site" content={'@busyorg'} />
+          <meta property="twitter:site" content={'@steemit'} />
           <meta property="twitter:title" content={metaTitle} />
           <meta property="twitter:description" content={desc} />
           <meta property="twitter:image" content={image} />
