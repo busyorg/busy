@@ -51,6 +51,7 @@ class PostModal extends React.Component {
       if (modalContentElement) {
         modalContentElement.scrollTop = 0;
       }
+      document.body.classList.add('fixed-body');
     }
 
     const { currentShownPost } = this.props;
@@ -72,6 +73,8 @@ class PostModal extends React.Component {
 
   handleHidePostModal() {
     PostModal.pushURLState('', this.state.previousURL);
+    if (document) document.body.classList.remove('fixed-body');
+
     this.props.hidePostModal();
   }
 
