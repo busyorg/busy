@@ -115,10 +115,10 @@
   "edit_profile": "Profiel bewerken",
   "profile_name": "Name",
   "profile_name_placeholder": "Name to display on your profile",
-  "profile_about": "About me",
+  "profile_about": "Over mij",
   "profile_about_placeholder": "Few words about you",
-  "profile_location": "Location",
-  "profile_location_placeholder": "Your location",
+  "profile_location": "Locatie",
+  "profile_location_placeholder": "Uw locatie",
   "profile_website": "Website",
   "profile_website_placeholder": "Your website URL",
   "profile_picture": "Profile picture",
@@ -330,5 +330,7 @@
   "follow_steemians": "Follow {amount} steemians",
   "like_good_posts": "Like some good posts",
   "write_first_post": "Write your first post",
-  "complete_profile_tooltip": "Must fill out the name, about, and profile picture fields"
+  "complete_profile_tooltip": "Must fill out the name, about, and profile picture fields",
+  "upvote_setting_details": "Enable this option to automatically like your own posts.",
+  "upvote_setting": "Like my posts"
 }
