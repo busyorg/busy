@@ -358,7 +358,7 @@ class Editor extends React.Component {
             )}
             <Form.Item className="Editor__bottom__cancel">
               {draftId && (
-                <Button type="danger" disabled={loading} onClick={this.handleDelete}>
+                <Button type="danger" size="large" disabled={loading} onClick={this.handleDelete}>
                   <FormattedMessage id="draft_delete" defaultMessage="Delete this draft" />
                 </Button>
               )}

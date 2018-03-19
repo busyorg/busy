@@ -68,10 +68,17 @@ class Notifications extends React.Component {
     );
     const emptyDisplayedNotifications = _.isEmpty(this.state.displayedNotifications);
 
-    if (differentNotifications && emptyDisplayedNotifications) {
+    if (differentNotifications || emptyDisplayedNotifications) {
       this.setState({
         displayedNotifications: _.slice(nextProps.notifications, 0, displayLimit),
       });
+    } else {
+      const latestNotification = _.get(nextProps.notifications, 0);
+      const timestamp = _.get(latestNotification, 'timestamp');
+
+      if (timestamp > nextProps.lastSeenTimestamp) {
+        saveNotificationsLastTimestamp(timestamp).then(() => this.props.getUpdatedSCUserMetadata());
+      }
     }
   }
 

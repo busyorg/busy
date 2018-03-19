@@ -44,6 +44,7 @@
   "notification_upvoted_username_post": "{username} upvoted your post",
   "notification_downvoted_username_post": "{username} downvoted your post",
   "notification_unvoted_username_post": "{username} unvoted your post",
+  "notification_generic_default_message": "You have a new notification",
   "notifications_empty_message": "You currently have no notifications.",
   "see_all": "See all",
   "discussions": "Discussions",
