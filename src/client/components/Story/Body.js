@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOMServer from 'react-dom/server';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import classNames from 'classnames';
@@ -78,15 +79,17 @@ export function getHtml(body, jsonMetadata = {}, returnType = 'Object', options 
       const type = match[2];
       const link = match[3];
       const embed = getEmbed(link);
-      sections.push(<PostFeedEmbed key={`embed-a-${i}`} inPost embed={embed} />);
+      sections.push(
+        ReactDOMServer.renderToString(<PostFeedEmbed key={`embed-a-${i}`} inPost embed={embed} />),
+      );
       section = section.substring(`${id} ${type} ${link} ~~~`.length);
     }
     if (section !== '') {
-      // eslint-disable-next-line react/no-danger
-      sections.push(<div key={`embed-b-${i}`} dangerouslySetInnerHTML={{ __html: section }} />);
+      sections.push(section);
     }
   }
-  return sections;
+  // eslint-disable-next-line react/no-danger
+  return <div dangerouslySetInnerHTML={{ __html: sections.join('') }} />;
 }
 
 const Body = props => {

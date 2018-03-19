@@ -11,9 +11,9 @@
   "confirm": "Potvrdi",
   "continue": "Nastavi",
   "close": "Zatvori",
-  "list_empty": "Nothing is there",
+  "list_empty": " Not busy",
   "delete": "izbriši",
-  "delete_selected": "Delete selected",
+  "delete_selected": "No",
   "notify_uploading_image": "Dodavanje fotografije",
   "notify_uploading_iamge_error": "Nije moguće dodati fotografiju",
   "notify_uploading_image_invalid": "Ova datoteka nije podržana. Dozvoljene su samo fotografije maksimalne veličine {size}",
@@ -330,5 +330,7 @@
   "follow_steemians": "Follow {amount} steemians",
   "like_good_posts": "Like some good posts",
   "write_first_post": "Write your first post",
-  "complete_profile_tooltip": "Must fill out the name, about, and profile picture fields"
+  "complete_profile_tooltip": "Must fill out the name, about, and profile picture fields",
+  "upvote_setting_details": "Enable this option to automatically like your own posts.",
+  "upvote_setting": "Like my posts"
 }
