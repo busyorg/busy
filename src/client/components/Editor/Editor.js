@@ -8,12 +8,14 @@ import _ from 'lodash';
 import readingTime from 'reading-time';
 import { Checkbox, Form, Input, Select, Button } from 'antd';
 import { rewardsValues } from '../../../common/constants/rewards';
+import { validateTopics } from '../../helpers/postHelpers';
 import improve from '../../helpers/improve';
 import Action from '../Button/Action';
 import requiresLogin from '../../auth/requiresLogin';
 import withEditor from './withEditor';
 import EditorInput from './EditorInput';
 import Body, { remarkable } from '../Story/Body';
+import EditorFullscreen from './EditorFullscreen';
 import './Editor.less';
 
 @injectIntl
@@ -66,6 +68,7 @@ class Editor extends React.Component {
 
     this.state = {
       bodyHTML: '',
+      displayFullscreenEditor: false,
     };
 
     this.onUpdate = this.onUpdate.bind(this);
@@ -167,6 +170,14 @@ class Editor extends React.Component {
     callback();
   };
 
+  setEditorFullscreenDisplay = displayFullscreenEditor => () =>
+    this.setState({
+      displayFullscreenEditor,
+    });
+
+  handleValidateTopics = intl => (rule, value, callback) =>
+    validateTopics(rule, value, callback, intl);
+
   throttledUpdate() {
     const { form } = this.props;
 
@@ -196,12 +207,13 @@ class Editor extends React.Component {
   render() {
     const { intl, form, loading, isUpdating, saving, draftId } = this.props;
     const { getFieldDecorator } = form;
-    const { bodyHTML } = this.state;
+    const { bodyHTML, displayFullscreenEditor } = this.state;
 
     const { words, minutes } = readingTime(bodyHTML);
 
     return (
       <Form className="Editor" layout="vertical" onSubmit={this.handleSubmit}>
+        <i className="iconfont icon-fullscreen" onClick={this.setEditorFullscreenDisplay(true)} />
         <Helmet>
           <title>
             {intl.formatMessage({ id: 'write_post', defaultMessage: 'Write post' })} - Busy
@@ -405,6 +417,21 @@ class Editor extends React.Component {
             </Form.Item>
           </div>
         </div>
+        {displayFullscreenEditor && (
+          <EditorFullscreen
+            displayFullscreenEditor={displayFullscreenEditor}
+            handleHideFullscreenEditor={this.setEditorFullscreenDisplay(false)}
+            bodyHTML={bodyHTML}
+            onUpdate={this.onUpdate}
+            isUpdating={isUpdating}
+            form={form}
+            loading={loading}
+            title={this.title}
+            select={this.select}
+            rewards={this.rewards}
+            setBodyAndRender={this.setBodyAndRender}
+          />
+        )}
       </Form>
     );
   }

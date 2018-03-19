@@ -1,0 +1,24 @@
+@import (reference) '../../styles/custom.less';
+
+.EditorFullscreen {
+  .ant-modal {
+    padding-bottom: 0 !important;
+  }
+
+  &__container {
+    display: flex;
+    height: 100%;
+  }
+
+  &__column {
+    width: 50%;
+    padding: 10px;
+  }
+
+  &__form {
+    background-color: @body-background;
+  }
+  &__preview {
+    background-color: @component-background;
+  }
+}

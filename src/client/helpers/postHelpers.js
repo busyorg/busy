@@ -54,4 +54,32 @@ export const isBannedPost = post => {
   return _.includes(bannedAuthors, post.author) || _.includes(bannedPosts, postURL);
 };
 
-export default null;
+export const validateTopics = (rule, value, callback, intl) => {
+  if (!value || value.length < 1 || value.length > 5) {
+    callback(
+      intl.formatMessage({
+        id: 'topics_error_count',
+        defaultMessage: 'You have to add 1 to 5 topics.',
+      }),
+    );
+  }
+
+  value
+    .map(topic => ({ topic, valid: /^[a-z0-9]+(-[a-z0-9]+)*$/.test(topic) }))
+    .filter(topic => !topic.valid)
+    .map(topic =>
+      callback(
+        intl.formatMessage(
+          {
+            id: 'topics_error_invalid_topic',
+            defaultMessage: 'Topic {topic} is invalid.',
+          },
+          {
+            topic: topic.topic,
+          },
+        ),
+      ),
+    );
+
+  callback();
+};
