@@ -68,10 +68,18 @@ class NotificationPopup extends Component {
         description: this.props.intl.formatRelative(epochToUTC(latestNotification.timestamp)),
         placement: 'bottomLeft',
         icon: (
-          <Avatar
-            username={getNotificationsAvatar(latestNotification, currentAuthUsername)}
-            size={40}
-          />
+          <a
+            role="presentation"
+            onClick={() => {
+              this.navigateToNotification(latestNotification);
+              notification.close(key);
+            }}
+          >
+            <Avatar
+              username={getNotificationsAvatar(latestNotification, currentAuthUsername)}
+              size={40}
+            />
+          </a>
         ),
         duration: 5,
         key,
