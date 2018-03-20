@@ -127,10 +127,12 @@ class PostModal extends React.Component {
             <i className="iconfont icon-facebook PostModal__icon" />
           </a>
         </div>
-        <PostContent content={shownPostContents} signature={signature} />
-        <VisibilitySensor onChange={this.handleCommentsVisibility} />
-        <div id="comments">
-          <Comments show={this.state.commentsVisible} post={shownPostContents} />
+        <div style={{ postion: 'sticky' }}>
+          <PostContent content={shownPostContents} signature={signature} />
+          <VisibilitySensor onChange={this.handleCommentsVisibility} />
+          <div id="comments">
+            <Comments show={this.state.commentsVisible} post={shownPostContents} />
+          </div>
         </div>
       </Modal>
     );
