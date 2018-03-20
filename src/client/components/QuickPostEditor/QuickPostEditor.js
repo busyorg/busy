@@ -62,10 +62,10 @@ class QuickPostEditor extends React.Component {
   };
 
   setInput = input => {
-    if (input && input.refs && input.refs.input) {
-      this.originalInput = input.refs.input;
+    if (input) {
+      this.originalInput = input;
       // eslint-disable-next-line react/no-find-dom-node
-      this.input = ReactDOM.findDOMNode(input.refs.input);
+      this.input = ReactDOM.findDOMNode(input);
     }
   };
 
@@ -284,13 +284,12 @@ class QuickPostEditor extends React.Component {
                   </div>
                 </div>
               )}
-              <Input
+              <Input.TextArea
                 autosize={{ minRows: inputMinRows, maxRows: 12 }}
                 onChange={this.handleUpdateCurrentInputValue}
                 onFocus={this.handleFocusInput}
                 onBlur={this.handleUnfocusInput}
                 ref={ref => this.setInput(ref)}
-                type="textarea"
                 placeholder={intl.formatMessage({
                   id: 'write_quick_post',
                   defaultMessage: 'Write quick post',

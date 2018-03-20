@@ -24,19 +24,19 @@ export default function withEditor(WrappedComponent) {
     };
 
     handleImageUpload = (blob, callback, errorCallback) => {
-      const { intl: { formatMessage }, user } = this.props;
+      const { intl: { formatMessage } } = this.props;
       message.info(
         formatMessage({ id: 'notify_uploading_image', defaultMessage: 'Uploading image' }),
       );
       const formData = new FormData();
-      formData.append('files', blob);
+      formData.append('file', blob);
 
-      fetch(`https://img.busy.org/@${user.name}/uploads`, {
+      fetch(`https://ipfs.busy.org/upload`, {
         method: 'POST',
         body: formData,
       })
         .then(res => res.json())
-        .then(res => callback(res.secure_url, blob.name))
+        .then(res => callback(res.url, blob.name))
         .catch(err => {
           console.log('err', err);
           errorCallback();
