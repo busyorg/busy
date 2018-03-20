@@ -189,6 +189,9 @@ class Comment extends React.Component {
           editOpen: false,
           commentFormText: commentValue,
         });
+        return {
+          error: true,
+        };
       });
   }
 
