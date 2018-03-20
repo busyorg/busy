@@ -153,6 +153,9 @@ class Comments extends React.Component {
           showCommentFormLoading: false,
           commentFormText: commentValue,
         });
+        return {
+          error: true,
+        };
       });
   }
 
