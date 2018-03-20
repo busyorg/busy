@@ -77,10 +77,10 @@ class EditorInput extends React.Component {
   }
 
   setInput(input) {
-    if (input && input.refs && input.refs.input) {
-      this.originalInput = input.refs.input;
+    if (input) {
+      this.originalInput = input;
       // eslint-disable-next-line react/no-find-dom-node
-      this.input = ReactDOM.findDOMNode(input.refs.input);
+      this.input = ReactDOM.findDOMNode(input);
       this.props.inputRef(this.input);
     }
   }
@@ -322,12 +322,11 @@ class EditorInput extends React.Component {
               </div>
             )}
             <HotKeys keyMap={this.constructor.hotkeys} handlers={this.handlers}>
-              <Input
+              <Input.TextArea
                 autosize={autosize}
                 onChange={this.handleChange}
                 value={value}
                 ref={this.setInput}
-                type="textarea"
               />
             </HotKeys>
           </Dropzone>
