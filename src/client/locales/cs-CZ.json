@@ -330,5 +330,7 @@
   "follow_steemians": "Sledujte {amount} steemerů",
   "like_good_posts": "Ohlasujte dobré příspěvky",
   "write_first_post": "Napište první přípěvek",
-  "complete_profile_tooltip": "Musíte vyplnit jméno, položku o vás a profilový obrázek"
+  "complete_profile_tooltip": "Musíte vyplnit jméno, položku o vás a profilový obrázek",
+  "upvote_setting_details": "Enable this option to automatically like your own posts.",
+  "upvote_setting": "Like my posts"
 }

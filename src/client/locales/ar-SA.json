@@ -330,5 +330,7 @@
   "follow_steemians": "تتابع {amount} ستيميانز",
   "like_good_posts": "أعجب ببعض المشاركات الجيدة",
   "write_first_post": "اكتب مشاركتك الأولى",
-  "complete_profile_tooltip": "يجب ملء حقول الاسم وصور الملف الشخصي"
+  "complete_profile_tooltip": "يجب ملء حقول الاسم وصور الملف الشخصي",
+  "upvote_setting_details": "Enable this option to automatically like your own posts.",
+  "upvote_setting": "Like my posts"
 }

@@ -12,10 +12,12 @@ import {
 } from '../helpers/stateHelpers';
 import { reload } from '../auth/authActions';
 import { getBookmarks } from '../feed/feedActions';
+import { showPostModal } from '../app/appActions';
 import Affix from '../components/Utils/Affix';
 import LeftSidebar from '../app/Sidebar/LeftSidebar';
 import RightSidebar from '../app/Sidebar/RightSidebar';
 import requiresLogin from '../auth/requiresLogin';
+import PostModal from '../post/PostModalContainer';
 
 @requiresLogin
 @injectIntl
@@ -26,7 +28,7 @@ import requiresLogin from '../auth/requiresLogin';
     pendingBookmarks: getPendingBookmarks(state),
     reloading: getIsReloading(state),
   }),
-  { getBookmarks, reload },
+  { getBookmarks, reload, showPostModal },
 )
 export default class Bookmarks extends React.Component {
   static propTypes = {
@@ -36,6 +38,7 @@ export default class Bookmarks extends React.Component {
     pendingBookmarks: PropTypes.arrayOf(PropTypes.number),
     getBookmarks: PropTypes.func,
     reload: PropTypes.func,
+    showPostModal: PropTypes.func,
   };
 
   static defaultProps = {
@@ -43,6 +46,7 @@ export default class Bookmarks extends React.Component {
     pendingBookmarks: [],
     getBookmarks: () => {},
     reload: () => {},
+    showPostModal: () => {},
   };
 
   componentDidMount() {
@@ -91,6 +95,7 @@ export default class Bookmarks extends React.Component {
               hasMore={hasMore}
               loadContent={loadContentAction}
               loadMoreContent={loadMoreContentAction}
+              showPostModal={this.props.showPostModal}
             />
             {noBookmarks && (
               <div className="container">
@@ -104,6 +109,7 @@ export default class Bookmarks extends React.Component {
             )}
           </div>
         </div>
+        <PostModal />
       </div>
     );
   }

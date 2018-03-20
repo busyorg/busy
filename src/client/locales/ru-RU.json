@@ -330,5 +330,7 @@
   "follow_steemians": "Подпишитесь на {amount} стимеанов",
   "like_good_posts": "Лайкните несколько хороших постов",
   "write_first_post": "Напишите ваш первый пост",
-  "complete_profile_tooltip": "Вы должны заполнить поля имя, о вас и изображение профиля"
+  "complete_profile_tooltip": "Вы должны заполнить поля имя, о вас и изображение профиля",
+  "upvote_setting_details": "Enable this option to automatically like your own posts.",
+  "upvote_setting": "Like my posts"
 }
