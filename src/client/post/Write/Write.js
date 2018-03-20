@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -86,6 +85,7 @@ class Write extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      loaded: false,
       initialTitle: '',
       initialTopics: [],
       initialBody: '',
@@ -95,6 +95,8 @@ class Write extends React.Component {
       isUpdating: false,
       showModalDelete: false,
     };
+
+    this.draftId = uuidv4();
 
     this.loadPost = this.loadPost.bind(this);
   }
@@ -108,32 +110,17 @@ class Write extends React.Component {
 
     if (draftId) {
       this.draftId = draftId;
-    } else {
-      this.draftId = uuidv4();
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    if (!_.isEqual(this.props.draftPost, nextProps.draftPost) && nextProps.draftPost) {
-      this.loadPost(nextProps.draftPost);
+    if (this.state.loaded && this.props.draftId === nextProps.draftId) return;
 
+    if (nextProps.draftPost) {
+      this.loadPost(nextProps.draftPost);
       if (nextProps.draftId) {
         this.draftId = nextProps.draftId;
       }
-    }
-
-    if (this.props.draftId !== nextProps.draftId && nextProps.draftId === null) {
-      this.draftId = uuidv4();
-      this.setState({
-        initialTitle: '',
-        initialTopics: [],
-        initialBody: '',
-        initialReward: rewardsValues.half,
-        initialUpvote: true,
-        initialUpdatedDate: Date.now(),
-        isUpdating: false,
-        showModalDelete: false,
-      });
     }
   }
 
@@ -243,6 +230,7 @@ class Write extends React.Component {
 
     // eslint-disable-next-line
     this.setState({
+      loaded: true,
       initialTitle: draftPost.title || '',
       initialTopics: tags || [],
       initialBody: draftPost.body || '',
