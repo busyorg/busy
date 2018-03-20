@@ -16,7 +16,13 @@ import {
 } from './reducers';
 import { login, logout, busyLogin } from './auth/authActions';
 import { getFollowing, getNotifications } from './user/userActions';
-import { getRate, getRewardFund, getTrendingTopics, setUsedLocale, busyAPIHandler } from './app/appActions';
+import {
+  getRate,
+  getRewardFund,
+  getTrendingTopics,
+  setUsedLocale,
+  busyAPIHandler,
+} from './app/appActions';
 import * as reblogActions from './app/Reblog/reblogActions';
 import busyAPI from './busyAPI';
 import Redirect from './components/Utils/Redirect';
