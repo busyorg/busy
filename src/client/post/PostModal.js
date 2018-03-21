@@ -72,7 +72,6 @@ class PostModal extends React.Component {
 
   handleHidePostModal() {
     PostModal.pushURLState('', this.state.previousURL);
-
     this.props.hidePostModal();
   }
 
