@@ -12,7 +12,12 @@ import { Link, withRouter } from 'react-router-dom';
 import { Tag, Tooltip } from 'antd';
 import formatter from '../../helpers/steemitFormatter';
 import { getHasDefaultSlider } from '../../helpers/user';
-import { isPostDeleted, isPostTaggedNSFW, dropCategory } from '../../helpers/postHelpers';
+import {
+  isPostDeleted,
+  isPostTaggedNSFW,
+  dropCategory,
+  isBannedPost,
+} from '../../helpers/postHelpers';
 import withAuthActions from '../../auth/withAuthActions';
 import StoryPreview from './StoryPreview';
 import StoryFooter from '../StoryFooter/StoryFooter';
@@ -235,7 +240,8 @@ class Story extends React.Component {
       sliderMode,
       defaultVotePercent,
     } = this.props;
-    if (isPostDeleted(post)) return <div />;
+
+    if (isPostDeleted(post) || isBannedPost(post)) return <div />;
 
     const postAuthorReputation = formatter.reputation(post.author_reputation);
     const showStoryPreview = this.getDisplayStoryPreview();
