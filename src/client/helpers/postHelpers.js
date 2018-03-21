@@ -43,8 +43,8 @@ export function getAppData(post) {
 }
 
 export const isBannedPost = post => {
-  const bannedAuthors = _.get(DMCA, 'authors');
-  const bannedPostIDs = _.get(DMCA, 'post_ids');
+  const bannedAuthors = _.get(DMCA, 'authors', []);
+  const bannedPostIDs = _.get(DMCA, 'post_ids', []);
   return _.includes(bannedAuthors, post.author) || _.includes(bannedPostIDs, post.id);
 };
 

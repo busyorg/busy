@@ -5,6 +5,7 @@ import _ from 'lodash';
 import VisibilitySensor from 'react-visibility-sensor';
 import formatter from '../helpers/steemitFormatter';
 import { getCryptoDetails } from '../helpers/cryptosHelper';
+import { isBannedPost } from '../helpers/postHelpers';
 import {
   getPostContent,
   getIsPostEdited,
@@ -25,6 +26,7 @@ import HiddenPostMessage from './HiddenPostMessage';
 import PostRecommendation from '../components/Sidebar/PostRecommendation';
 import CryptoTrendingCharts from '../components/Sidebar/CryptoTrendingCharts';
 import ScrollToTopOnMount from '../components/Utils/ScrollToTopOnMount';
+import DMCARemovedMessage from '../components/Story/DMCARemovedMessage';
 
 @connect(
   (state, ownProps) => ({
@@ -165,6 +167,8 @@ export default class Post extends React.Component {
     const showPost = reputation >= 0 || showHiddenPost;
 
     const signature = _.get(user, 'json_metadata.profile.signature', null);
+
+    if (isBannedPost(content)) return <DMCARemovedMessage />;
 
     return (
       <div className="main-panel">

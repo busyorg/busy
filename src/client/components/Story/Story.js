@@ -25,6 +25,7 @@ import Avatar from '../Avatar';
 import Topic from '../Button/Topic';
 import NSFWStoryPreviewMessage from './NSFWStoryPreviewMessage';
 import HiddenStoryPreviewMessage from './HiddenStoryPreviewMessage';
+import DMCARemovedMessage from './DMCARemovedMessage';
 import PostedFrom from './PostedFrom';
 import './Story.less';
 
@@ -224,6 +225,33 @@ class Story extends React.Component {
     }
   }
 
+  renderStoryPreview() {
+    const { post } = this.props;
+    const showStoryPreview = this.getDisplayStoryPreview();
+    const hiddenStoryPreviewMessage = isPostTaggedNSFW(post) ? (
+      <NSFWStoryPreviewMessage onClick={this.handleShowStoryPreview} />
+    ) : (
+      <HiddenStoryPreviewMessage onClick={this.handleShowStoryPreview} />
+    );
+
+    if (isBannedPost(post)) {
+      return <DMCARemovedMessage />;
+    }
+
+    return showStoryPreview ? (
+      <a
+        href={dropCategory(post.url)}
+        target="_blank"
+        onClick={this.handlePreviewClickPostModalDisplay}
+        className="Story__content__preview"
+      >
+        <StoryPreview post={post} />
+      </a>
+    ) : (
+      hiddenStoryPreviewMessage
+    );
+  }
+
   render() {
     const {
       intl,
@@ -241,15 +269,9 @@ class Story extends React.Component {
       defaultVotePercent,
     } = this.props;
 
-    if (isPostDeleted(post) || isBannedPost(post)) return <div />;
+    if (isPostDeleted(post)) return <div />;
 
     const postAuthorReputation = formatter.reputation(post.author_reputation);
-    const showStoryPreview = this.getDisplayStoryPreview();
-    const hiddenStoryPreviewMessage = isPostTaggedNSFW(post) ? (
-      <NSFWStoryPreviewMessage onClick={this.handleShowStoryPreview} />
-    ) : (
-      <HiddenStoryPreviewMessage onClick={this.handleShowStoryPreview} />
-    );
 
     let rebloggedUI = null;
 
@@ -330,18 +352,7 @@ class Story extends React.Component {
                 {post.title || post.root_title}
               </h2>
             </a>
-            {showStoryPreview ? (
-              <a
-                href={dropCategory(post.url)}
-                target="_blank"
-                onClick={this.handlePreviewClickPostModalDisplay}
-                className="Story__content__preview"
-              >
-                <StoryPreview post={post} />
-              </a>
-            ) : (
-              hiddenStoryPreviewMessage
-            )}
+            {this.renderStoryPreview()}
           </div>
           <div className="Story__footer">
             <StoryFooter
