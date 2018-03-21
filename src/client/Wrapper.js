@@ -50,6 +50,7 @@ export default class Wrapper extends React.PureComponent {
   static propTypes = {
     route: PropTypes.shape().isRequired,
     loaded: PropTypes.bool.isRequired,
+    noHeader: PropTypes.bool,
     user: PropTypes.shape().isRequired,
     locale: PropTypes.string.isRequired,
     usedLocale: PropTypes.string.isRequired,
@@ -68,6 +69,7 @@ export default class Wrapper extends React.PureComponent {
   };
 
   static defaultProps = {
+    noHeader: false,
     username: '',
     login: () => {},
     logout: () => {},
@@ -178,17 +180,19 @@ export default class Wrapper extends React.PureComponent {
   }
 
   render() {
-    const { user, usedLocale, locale } = this.props;
+    const { user, usedLocale, locale, noHeader } = this.props;
     const { translations } = this.state;
 
     return (
       <IntlProvider key={usedLocale} locale={usedLocale} messages={translations}>
         <LocaleProvider locale={enUS}>
           <Layout data-dir={getLocaleDirection(getAvailableLocale(locale))}>
-            <Layout.Header style={{ position: 'fixed', width: '100%', zIndex: 1050 }}>
-              <Topnav username={user.name} onMenuItemClick={this.handleMenuItemClick} />
-            </Layout.Header>
-            <div className="content">
+            {noHeader ? null : (
+              <Layout.Header style={{ position: 'fixed', width: '100%', zIndex: 1050 }}>
+                <Topnav username={user.name} onMenuItemClick={this.handleMenuItemClick} />
+              </Layout.Header>
+            )}
+            <div className={noHeader ? null : 'content'}>
               {renderRoutes(this.props.route.routes)}
               <Redirect />
               <Transfer />
@@ -199,4 +203,8 @@ export default class Wrapper extends React.PureComponent {
       </IntlProvider>
     );
   }
+}
+
+export function NoHeaderWrapper(props) {
+  return <Wrapper {...props} noHeader />;
 }

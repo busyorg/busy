@@ -49,6 +49,7 @@ import './Comments.less';
 export default class Comments extends React.Component {
   static propTypes = {
     authenticated: PropTypes.bool.isRequired,
+    fullWidth: PropTypes.bool,
     user: PropTypes.shape().isRequired,
     rewardFund: PropTypes.shape().isRequired,
     defaultVotePercent: PropTypes.number.isRequired,
@@ -72,6 +73,7 @@ export default class Comments extends React.Component {
   };
 
   static defaultProps = {
+    fullWidth: false,
     username: undefined,
     sliderMode: 'auto',
     post: {},
@@ -175,6 +177,7 @@ export default class Comments extends React.Component {
           parentPost={post}
           comments={fetchedCommentsList}
           authenticated={this.props.authenticated}
+          fullWidth={this.props.fullWidth}
           username={this.props.username}
           commentsChildren={commentsChildren}
           pendingVotes={pendingVotes}
