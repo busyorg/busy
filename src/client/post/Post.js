@@ -168,7 +168,7 @@ export default class Post extends React.Component {
 
     const signature = _.get(user, 'json_metadata.profile.signature', null);
 
-    if (isBannedPost(content)) return <DMCARemovedMessage />;
+    if (isBannedPost(content)) return <DMCARemovedMessage className="center" />;
 
     return (
       <div className="main-panel">
