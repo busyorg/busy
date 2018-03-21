@@ -10,6 +10,7 @@ import HeroBannerContainer from './HeroBannerContainer';
 import LeftSidebar from '../app/Sidebar/LeftSidebar';
 import RightSidebar from '../app/Sidebar/RightSidebar';
 import TopicSelector from '../components/TopicSelector';
+import TrendingTagsSlider from '../components/TrendingTagsSlider';
 import Affix from '../components/Utils/Affix';
 import ScrollToTop from '../components/Utils/ScrollToTop';
 import ScrollToTopOnMount from '../components/Utils/ScrollToTopOnMount';
@@ -74,6 +75,7 @@ class Page extends React.Component {
               </div>
             </Affix>
             <div className="center">
+              {shouldDisplaySelector && <TrendingTagsSlider />}
               {shouldDisplaySelector && (
                 <TopicSelector
                   isSingle={false}
