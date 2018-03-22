@@ -8,7 +8,13 @@ import './SidebarContentBlock.less';
 
 const Draft = ({ draft }) => (
   <div className="LastDrafts__draft">
-    <Link to={{ pathname: '/editor', search: `?draft=${draft.id}` }}>{draft.title}</Link>
+    <Link to={{ pathname: '/editor', search: `?draft=${draft.id}` }}>
+      {draft.title.length ? (
+        draft.title
+      ) : (
+        <FormattedMessage id="draft_untitled" defaultMessage="Untitled draft" />
+      )}
+    </Link>
     <div className="LastDrafts__draft__date">
       <FormattedRelative value={new Date(draft.lastUpdated)} />
     </div>
