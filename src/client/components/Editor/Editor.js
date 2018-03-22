@@ -61,19 +61,6 @@ class Editor extends React.Component {
     onImageInvalid: () => {},
   };
 
-  static checkTopics(rule, value, callback) {
-    if (!value || value.length < 1 || value.length > 5) {
-      callback('You have to add 1 to 5 topics');
-    }
-
-    value
-      .map(topic => ({ topic, valid: /^[a-z0-9]+(-[a-z0-9]+)*$/.test(topic) }))
-      .filter(topic => !topic.valid)
-      .map(topic => callback(`Topic ${topic.topic} is invalid`));
-
-    callback();
-  }
-
   constructor(props) {
     super(props);
 
@@ -149,6 +136,36 @@ class Editor extends React.Component {
       bodyHTML: remarkable.render(improve(body)),
     });
   }
+
+  checkTopics = intl => (rule, value, callback) => {
+    if (!value || value.length < 1 || value.length > 5) {
+      callback(
+        intl.formatMessage({
+          id: 'topics_error_count',
+          defaultMessage: 'You have to add 1 to 5 topics.',
+        }),
+      );
+    }
+
+    value
+      .map(topic => ({ topic, valid: /^[a-z0-9]+(-[a-z0-9]+)*$/.test(topic) }))
+      .filter(topic => !topic.valid)
+      .map(topic =>
+        callback(
+          intl.formatMessage(
+            {
+              id: 'topics_error_invalid_topic',
+              defaultMessage: 'Topic {topic} is invalid.',
+            },
+            {
+              topic: topic.topic,
+            },
+          ),
+        ),
+      );
+
+    callback();
+  };
 
   throttledUpdate() {
     const { form } = this.props;
@@ -252,7 +269,7 @@ class Editor extends React.Component {
                 }),
                 type: 'array',
               },
-              { validator: Editor.checkTopics },
+              { validator: this.checkTopics(intl) },
             ],
           })(
             <Select
