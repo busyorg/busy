@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import { categoryRegex } from './regexHelpers';
 import { jsonParse } from './formatter';
+import DMCA from '../../common/constants/dmca.json';
 import whiteListedApps from './apps';
 
 export const isPostDeleted = post => post.title === 'deleted' && post.body === 'deleted';
@@ -40,5 +41,13 @@ export function getAppData(post) {
   }
   return {};
 }
+
+export const isBannedPost = post => {
+  const bannedAuthors = _.get(DMCA, 'authors', []);
+  const bannedPosts = _.get(DMCA, 'posts', []);
+  const postURL = `${post.author}/${post.permlink}`;
+
+  return _.includes(bannedAuthors, post.author) || _.includes(bannedPosts, postURL);
+};
 
 export default null;
