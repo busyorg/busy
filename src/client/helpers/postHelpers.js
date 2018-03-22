@@ -44,10 +44,10 @@ export function getAppData(post) {
 
 export const isBannedPost = post => {
   const bannedAuthors = _.get(DMCA, 'authors', []);
-  const bannedPostURLs = _.get(DMCA, 'post_urls', []);
+  const bannedPosts = _.get(DMCA, 'posts', []);
   const postURL = `${post.author}/${post.permlink}`;
 
-  return _.includes(bannedAuthors, post.author) || _.includes(bannedPostURLs, postURL);
+  return _.includes(bannedAuthors, post.author) || _.includes(bannedPosts, postURL);
 };
 
 export default null;
