@@ -213,7 +213,11 @@ class Editor extends React.Component {
 
     return (
       <Form className="Editor" layout="vertical" onSubmit={this.handleSubmit}>
-        <i className="iconfont icon-fullscreen" onClick={this.setEditorFullscreenDisplay(true)} />
+        <i
+          role="presentation"
+          className="iconfont icon-fullscreen"
+          onClick={this.setEditorFullscreenDisplay(true)}
+        />
         <Helmet>
           <title>
             {intl.formatMessage({ id: 'write_post', defaultMessage: 'Write post' })} - Busy
