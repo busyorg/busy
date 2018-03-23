@@ -27,19 +27,23 @@ export function dropCategory(url) {
  * @returns An empty object if app is not valid otherwise an object with {appName: String, version: String}
  */
 export function getAppData(post) {
-  const jsonMetadata = jsonParse(post.json_metadata);
-  const app = _.get(jsonMetadata, 'app', '');
-  const appData = _.split(app, '/');
-  const appKey = _.get(appData, 0, '');
-  const version = _.get(appData, 1, '');
+  try {
+    const jsonMetadata = jsonParse(post.json_metadata);
+    const appDetails = _.get(jsonMetadata, 'app', '');
+    const appData = _.split(appDetails, '/');
+    const appKey = _.get(appData, 0, '');
+    const version = _.get(appData, 1, '');
 
-  if (whiteListedApps[appKey]) {
-    return {
-      appName: whiteListedApps[appKey],
-      version,
-    };
+    if (whiteListedApps[appKey]) {
+      return {
+        appName: whiteListedApps[appKey],
+        version,
+      };
+    }
+    return {};
+  } catch (error) {
+    return {};
   }
-  return {};
 }
 
 export const isBannedPost = post => {
