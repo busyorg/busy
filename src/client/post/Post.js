@@ -5,6 +5,7 @@ import _ from 'lodash';
 import VisibilitySensor from 'react-visibility-sensor';
 import formatter from '../helpers/steemitFormatter';
 import { getCryptoDetails } from '../helpers/cryptosHelper';
+import { isBannedPost } from '../helpers/postHelpers';
 import {
   getPostContent,
   getIsPostEdited,
@@ -181,9 +182,11 @@ export default class Post extends React.Component {
               <div className="center" style={{ paddingBottom: '24px' }}>
                 <PostContent content={content} signature={signature} />
                 <VisibilitySensor onChange={this.handleCommentsVisibility} />
-                <div id="comments">
-                  <Comments show={this.state.commentsVisible} post={content} />
-                </div>
+                {!isBannedPost(content) && (
+                  <div id="comments">
+                    <Comments show={this.state.commentsVisible} post={content} />
+                  </div>
+                )}
               </div>
             ) : (
               <HiddenPostMessage onClick={this.handleShowPost} />

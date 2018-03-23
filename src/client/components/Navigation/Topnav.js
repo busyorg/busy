@@ -272,7 +272,7 @@ class Topnav extends React.Component {
   handleMobileSearchButtonClick = () => {
     const { searchBarActive } = this.state;
     this.setState({ searchBarActive: !searchBarActive }, () => {
-      this.searchInputRef.refs.input.focus();
+      this.searchInputRef.input.focus();
     });
   };
 
