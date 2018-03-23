@@ -18,17 +18,22 @@ class EditorFullScreen extends React.Component {
   static propTypes = {
     displayFullscreenEditor: PropTypes.bool.isRequired,
     handleHideFullscreenEditor: PropTypes.func.isRequired,
-    setBodyAndRender: PropTypes.func.isRequired,
     bodyHTML: PropTypes.string,
+    intl: PropTypes.shape().isRequired,
+    form: PropTypes.shape().isRequired,
+    loading: PropTypes.bool.isRequired,
+    isUpdating: PropTypes.bool.isRequired,
+    saving: PropTypes.bool.isRequired,
+    draftId: PropTypes.number,
+    onImageInvalid: PropTypes.func.isRequired,
+    onImageUpload: PropTypes.func.isRequired,
+    onUpdate: PropTypes.func.isRequired,
   };
 
-  static defaultProps = {};
-
-  constructor(props) {
-    super(props);
-  }
-
-  componentDidMount() {}
+  static defaultProps = {
+    draftId: 0,
+    bodyHTML: '',
+  };
 
   handleValidateTopics = intl => (rule, value, callback) =>
     validateTopics(rule, value, callback, intl);
