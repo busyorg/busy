@@ -6,7 +6,7 @@ import find from 'lodash/find';
 import { Helmet } from 'react-helmet';
 import sanitize from 'sanitize-html';
 import { getHasDefaultSlider } from '../helpers/user';
-import { dropCategory } from '../helpers/postHelpers';
+import { dropCategory, isBannedPost } from '../helpers/postHelpers';
 import {
   getAuthenticatedUser,
   getBookmarks,
@@ -32,6 +32,7 @@ import { getAvatarURL } from '../components/Avatar';
 import { getHtml } from '../components/Story/Body';
 import { jsonParse } from '../helpers/formatter';
 import StoryFull from '../components/Story/StoryFull';
+import DMCARemovedMessage from '../components/Story/DMCARemovedMessage';
 
 @connect(
   state => ({
@@ -174,6 +175,8 @@ class PostContent extends React.Component {
       rewriteLinks,
       appUrl,
     } = this.props;
+
+    if (isBannedPost(content)) return <DMCARemovedMessage className="center" />;
 
     const postMetaData = jsonParse(content.json_metadata);
     const busyHost = appUrl || 'https://busy.org';

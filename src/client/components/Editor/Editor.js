@@ -153,11 +153,11 @@ class Editor extends React.Component {
   throttledUpdate() {
     const { form } = this.props;
 
+    const values = form.getFieldsValue();
+    this.setBodyAndRender(values.body);
+
     if (Object.values(form.getFieldsError()).filter(e => e).length > 0) return;
 
-    const values = form.getFieldsValue();
-
-    this.setBodyAndRender(values.body);
     this.props.onUpdate(values);
   }
 
