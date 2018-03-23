@@ -27,8 +27,8 @@ export function dropCategory(url) {
  */
 export function getAppData(post) {
   const jsonMetadata = jsonParse(post.json_metadata);
-  const app = _.get(jsonMetadata, 'app', '');
-  const appData = _.split(app, '/');
+  const appDetails = _.get(jsonMetadata, 'app', '');
+  const appData = _.split(appDetails, '/');
   const appKey = _.get(appData, 0, '');
   const version = _.get(appData, 1, '');
 
