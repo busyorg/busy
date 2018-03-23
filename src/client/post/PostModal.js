@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { Modal } from 'antd';
 import { FormattedMessage } from 'react-intl';
 import VisibilitySensor from 'react-visibility-sensor';
-import { dropCategory } from '../helpers/postHelpers';
+import { dropCategory, isBannedPost } from '../helpers/postHelpers';
 import PostContent from './PostContent';
 import Comments from '../comments/Comments';
 import { getFacebookShareURL, getTwitterShareURL } from '../helpers/socialProfiles';
@@ -126,9 +126,11 @@ class PostModal extends React.Component {
         </div>
         <PostContent content={shownPostContents} signature={signature} />
         <VisibilitySensor onChange={this.handleCommentsVisibility} />
-        <div id="comments">
-          <Comments show={this.state.commentsVisible} post={shownPostContents} />
-        </div>
+        {!isBannedPost(shownPostContents) && (
+          <div id="comments">
+            <Comments show={this.state.commentsVisible} post={shownPostContents} />
+          </div>
+        )}
       </Modal>
     );
   }
