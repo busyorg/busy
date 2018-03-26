@@ -334,5 +334,6 @@
   "write_first_post": "Scrie prima ta postare",
   "complete_profile_tooltip": "Trebuie să completați câmpurile cu numele, descrierea, și poza de profil",
   "upvote_setting_details": "Activați această opțiune pentru a vota automat propriile postări.",
-  "upvote_setting": "Votează propriile postări"
+  "upvote_setting": "Votează propriile postări",
+  "dmca_content_removed": "Content removed due to DMCA notice"
 }
