@@ -334,5 +334,6 @@
   "write_first_post": "اكتب مشاركتك الأولى",
   "complete_profile_tooltip": "يجب ملء حقول الاسم وصور الملف الشخصي",
   "upvote_setting_details": "تمكين هذا الخيار للإعجاب تلقائيا بمشاركاتك.",
-  "upvote_setting": "الإعجاب بمشاركاتي"
+  "upvote_setting": "الإعجاب بمشاركاتي",
+  "dmca_content_removed": "Content removed due to DMCA notice"
 }
