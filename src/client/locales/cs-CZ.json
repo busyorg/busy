@@ -44,7 +44,7 @@
   "notification_upvoted_username_post": "{username} dal hlas vašemu příspěvku",
   "notification_downvoted_username_post": "{username} dal záporný hlas vašemu příspěvku",
   "notification_unvoted_username_post": "{username} odebral hlas z vašeho příspěvku",
-  "notification_generic_default_message": "You have a new notification",
+  "notification_generic_default_message": "Nové oznámení",
   "notifications_empty_message": "Momentálně nemáte žádná oznámení.",
   "see_all": "Zobrazit vše",
   "discussions": "Diskuse",
@@ -165,7 +165,7 @@
   "sort_best": "Nejlepší",
   "sort_newest": "Nejnovější",
   "sort_oldest": "Nejstarší",
-  "sort_author_reputation": "Reputation",
+  "sort_author_reputation": "Reputace",
   "trending_topics": "Populární témata",
   "favorite_topics": "Oblíbená témata",
   "interesting_people": "Zajímaví lidé",
@@ -244,9 +244,9 @@
   "steem_power_delegated_to_account_tooltip": "Steem Power delegovaná tomuto účtu",
   "savings": "Úspory",
   "est_account_value": "Odhad hodnoty účtu",
-  "transferred_to": "Odesláno {username}",
-  "transfer_to_savings": "Přeposlat {amount} do úspor {username}",
-  "transfer_from_savings": "Přeposlat {username} {amount} z úspor",
+  "transferred_to": "Převedeno {username}",
+  "transfer_to_savings": "Převést {amount} do úspor {username}",
+  "transfer_from_savings": "Převést {username} {amount} z úspor",
   "cancel_transfer_from_savings": "Zrušit převod z úspor (požadavek {requestId})",
   "received_from": "Příchozí od {username}",
   "received": "Příchozí",
@@ -334,5 +334,6 @@
   "write_first_post": "Napište první přípěvek",
   "complete_profile_tooltip": "Musíte vyplnit jméno, položku o vás a profilový obrázek",
   "upvote_setting_details": "Povolte možnost k automatickému hlasování pro vlastní příspvěky.",
-  "upvote_setting": "Hlasovat pro své příspěvky"
+  "upvote_setting": "Hlasovat pro své příspěvky",
+  "dmca_content_removed": "Content removed due to DMCA notice"
 }
