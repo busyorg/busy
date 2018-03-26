@@ -44,6 +44,7 @@
   "notification_upvoted_username_post": "{username} upvoted โพสต์ของคุณ",
   "notification_downvoted_username_post": "{username} downvoted โพสต์ของคุณ",
   "notification_unvoted_username_post": "{username} upvoted โพสต์ของคุณ",
+  "notification_generic_default_message": "You have a new notification",
   "notifications_empty_message": "ขณะคุณไม่มีการแจ้งเตือนใดๆ",
   "see_all": "ดูทั้งหมด",
   "discussions": "การสนทนา",
@@ -164,6 +165,7 @@
   "sort_best": "ดีที่สุด",
   "sort_newest": "ล่าสุด",
   "sort_oldest": "เก่าที่สุด",
+  "sort_author_reputation": "Reputation",
   "trending_topics": "หัวข้อยอดนิยม",
   "favorite_topics": "หัวข้อเรื่องที่ชื่นชอบ",
   "interesting_people": "คนที่น่าสนใจ",
@@ -331,6 +333,7 @@
   "like_good_posts": "เช่นบางโพสต์ที่ดี",
   "write_first_post": "เขียนโพสต์แรกของคุณ",
   "complete_profile_tooltip": "ต้องกรอกชื่อ เกี่ยวกับ และฟิลด์รูปภาพโพรไฟล์",
-  "upvote_setting_details": "Enable this option to automatically like your own posts.",
-  "upvote_setting": "Like my posts"
+  "upvote_setting_details": "เปิดใช้ตัวเลือกนี้โดยอัตโนมัติเช่นโพสต์ของคุณเอง",
+  "upvote_setting": "ชอบโพสต์ของฉัน",
+  "dmca_content_removed": "Content removed due to DMCA notice"
 }

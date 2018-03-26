@@ -44,6 +44,7 @@
   "notification_upvoted_username_post": "{username} проголосовал за ваш пост",
   "notification_downvoted_username_post": "{username} проголосовал против вашего поста",
   "notification_unvoted_username_post": "{username} отменил голос за ваш пост",
+  "notification_generic_default_message": "You have a new notification",
   "notifications_empty_message": "У вас нет уведомлений.",
   "see_all": "Посмотреть все",
   "discussions": "Обсуждения",
@@ -164,6 +165,7 @@
   "sort_best": "Лучшие",
   "sort_newest": "Самые новые",
   "sort_oldest": "Старейшие",
+  "sort_author_reputation": "Reputation",
   "trending_topics": "Актуальные темы",
   "favorite_topics": "Любимые темы",
   "interesting_people": "Интересные люди",
@@ -332,5 +334,6 @@
   "write_first_post": "Напишите ваш первый пост",
   "complete_profile_tooltip": "Вы должны заполнить поля имя, о вас и изображение профиля",
   "upvote_setting_details": "Enable this option to automatically like your own posts.",
-  "upvote_setting": "Like my posts"
+  "upvote_setting": "Like my posts",
+  "dmca_content_removed": "Content removed due to DMCA notice"
 }
