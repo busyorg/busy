@@ -56,6 +56,10 @@ class HeroBannerSlider extends React.Component {
     });
   }
 
+  handleChangeSlider = index => () => {
+    this.setState({ currentSlide: index });
+  };
+
   render() {
     const currentSlide = HeroBannerSlider.SLIDER_CONTENTS[this.state.currentSlide];
 
@@ -65,6 +69,7 @@ class HeroBannerSlider extends React.Component {
           className="HeroBannerSlider fade-in-left"
           onClick={this.changeSlider}
           key={currentSlide.id}
+          role="presentation"
         >
           <img src={currentSlide.image} className="HeroBannerSlider__image" alt={currentSlide.id} />
           <div className="HeroBannerSlider__content">
@@ -75,6 +80,8 @@ class HeroBannerSlider extends React.Component {
         <div className="HeroBannerSlider__controls">
           {_.map(HeroBannerSlider.SLIDER_CONTENTS, (slide, index) => (
             <div
+              role="presentation"
+              onClick={this.handleChangeSlider(index)}
               key={slide.id}
               className={classNames('HeroBannerSlider__controls__item', {
                 'HeroBannerSlider__controls__item--selected': index === this.state.currentSlide,
