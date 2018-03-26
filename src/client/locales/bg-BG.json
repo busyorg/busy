@@ -44,6 +44,7 @@
   "notification_upvoted_username_post": "{username} upvoted your post",
   "notification_downvoted_username_post": "{username} downvoted your post",
   "notification_unvoted_username_post": "{username} unvoted your post",
+  "notification_generic_default_message": "You have a new notification",
   "notifications_empty_message": "В момента нямате известия.",
   "see_all": "Виж всички",
   "discussions": "Дискусии",
@@ -164,6 +165,7 @@
   "sort_best": "Най-добри",
   "sort_newest": "Най-нови",
   "sort_oldest": "Най-стари",
+  "sort_author_reputation": "Reputation",
   "trending_topics": "Актуални теми",
   "favorite_topics": "Любими теми",
   "interesting_people": "Интересни хора",
@@ -332,5 +334,6 @@
   "write_first_post": "Напишете първия си пост",
   "complete_profile_tooltip": "Трябва да попълните полетата за име, относно и профилна снимка",
   "upvote_setting_details": "Enable this option to automatically like your own posts.",
-  "upvote_setting": "Like my posts"
+  "upvote_setting": "Like my posts",
+  "dmca_content_removed": "Content removed due to DMCA notice"
 }

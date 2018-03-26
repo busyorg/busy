@@ -44,6 +44,7 @@
   "notification_upvoted_username_post": "{username} synes godt om dit indlæg",
   "notification_downvoted_username_post": "{username} nedstemte dit indlæg",
   "notification_unvoted_username_post": "{username} Syntes ikke godt om dit indlæg længere",
+  "notification_generic_default_message": "You have a new notification",
   "notifications_empty_message": "Du har i øjeblikket ingen notifikationer.",
   "see_all": "Se alle",
   "discussions": "Diskussioner",
@@ -164,6 +165,7 @@
   "sort_best": "Bedste",
   "sort_newest": "Nyeste",
   "sort_oldest": "Ældste",
+  "sort_author_reputation": "Reputation",
   "trending_topics": "Populære emner",
   "favorite_topics": "Foretrukne emner",
   "interesting_people": "Interessante mennesker",
@@ -332,5 +334,6 @@
   "write_first_post": "Skriv dit første indlæg",
   "complete_profile_tooltip": "Du skal udfylde navn, om og profilbillede felterne",
   "upvote_setting_details": "Enable this option to automatically like your own posts.",
-  "upvote_setting": "Like my posts"
+  "upvote_setting": "Like my posts",
+  "dmca_content_removed": "Content removed due to DMCA notice"
 }
