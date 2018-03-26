@@ -334,5 +334,6 @@
   "write_first_post": "Напишите ваш первый пост",
   "complete_profile_tooltip": "Вы должны заполнить поля имя, о вас и изображение профиля",
   "upvote_setting_details": "Enable this option to automatically like your own posts.",
-  "upvote_setting": "Like my posts"
+  "upvote_setting": "Like my posts",
+  "dmca_content_removed": "Content removed due to DMCA notice"
 }
