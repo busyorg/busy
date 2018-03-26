@@ -334,5 +334,6 @@
   "write_first_post": "Escreva o seu primeiro post",
   "complete_profile_tooltip": "Deve preencher o nome, sobre e campos de imagem de perfil",
   "upvote_setting_details": "Enable this option to automatically like your own posts.",
-  "upvote_setting": "Like my posts"
+  "upvote_setting": "Like my posts",
+  "dmca_content_removed": "Content removed due to DMCA notice"
 }
