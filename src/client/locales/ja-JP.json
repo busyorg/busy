@@ -334,5 +334,6 @@
   "write_first_post": "初めての投稿を書く",
   "complete_profile_tooltip": "名前、自己紹介、プロフィール画像欄を記入してください。",
   "upvote_setting_details": "Enable this option to automatically like your own posts.",
-  "upvote_setting": "Like my posts"
+  "upvote_setting": "Like my posts",
+  "dmca_content_removed": "Content removed due to DMCA notice"
 }
