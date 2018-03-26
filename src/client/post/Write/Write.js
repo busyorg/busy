@@ -136,7 +136,7 @@ class Write extends React.Component {
         initialTopics: [],
         initialBody: '',
         initialReward: rewardsValues.half,
-        initialUpvote: true,
+        initialUpvote: nextProps.upvoteSetting,
         initialUpdatedDate: Date.now(),
         isUpdating: false,
         showModalDelete: false,
