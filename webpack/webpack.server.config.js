@@ -9,6 +9,7 @@ const baseDir = path.resolve(__dirname, '..');
 module.exports = {
   entry: path.resolve(baseDir, './src/server/index.js'),
   output: {
+    path: path.join(path.resolve(__dirname, '..')),
     filename: 'busy.server.js',
   },
   target: 'node',
