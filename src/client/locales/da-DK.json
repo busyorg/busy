@@ -334,5 +334,6 @@
   "write_first_post": "Skriv dit første indlæg",
   "complete_profile_tooltip": "Du skal udfylde navn, om og profilbillede felterne",
   "upvote_setting_details": "Enable this option to automatically like your own posts.",
-  "upvote_setting": "Like my posts"
+  "upvote_setting": "Like my posts",
+  "dmca_content_removed": "Content removed due to DMCA notice"
 }
