@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import { categoryRegex } from './regexHelpers';
 import { jsonParse } from './formatter';
+import DMCA from '../../common/constants/dmca.json';
 import whiteListedApps from './apps';
 
 export const isPostDeleted = post => post.title === 'deleted' && post.body === 'deleted';
@@ -26,19 +27,31 @@ export function dropCategory(url) {
  * @returns An empty object if app is not valid otherwise an object with {appName: String, version: String}
  */
 export function getAppData(post) {
-  const jsonMetadata = jsonParse(post.json_metadata);
-  const app = _.get(jsonMetadata, 'app', '');
-  const appData = _.split(app, '/');
-  const appKey = _.get(appData, 0, '');
-  const version = _.get(appData, 1, '');
+  try {
+    const jsonMetadata = jsonParse(post.json_metadata);
+    const appDetails = _.get(jsonMetadata, 'app', '');
+    const appData = _.split(appDetails, '/');
+    const appKey = _.get(appData, 0, '');
+    const version = _.get(appData, 1, '');
 
-  if (whiteListedApps[appKey]) {
-    return {
-      appName: whiteListedApps[appKey],
-      version,
-    };
+    if (whiteListedApps[appKey]) {
+      return {
+        appName: whiteListedApps[appKey],
+        version,
+      };
+    }
+    return {};
+  } catch (error) {
+    return {};
   }
-  return {};
 }
+
+export const isBannedPost = post => {
+  const bannedAuthors = _.get(DMCA, 'authors', []);
+  const bannedPosts = _.get(DMCA, 'posts', []);
+  const postURL = `${post.author}/${post.permlink}`;
+
+  return _.includes(bannedAuthors, post.author) || _.includes(bannedPosts, postURL);
+};
 
 export default null;

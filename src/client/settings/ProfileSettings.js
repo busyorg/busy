@@ -28,9 +28,9 @@ function mapPropsToFields(props) {
   return Object.keys(profile).reduce(
     (a, b) => ({
       ...a,
-      [b]: {
+      [b]: Form.createFormField({
         value: profile[b],
-      },
+      }),
     }),
     {},
   );
