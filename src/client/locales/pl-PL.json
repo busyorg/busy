@@ -44,6 +44,7 @@
   "notification_upvoted_username_post": "{username} zaplusował Twój post",
   "notification_downvoted_username_post": "{username} zaminusował Twój post",
   "notification_unvoted_username_post": "{username} cofnął głos na Twój post",
+  "notification_generic_default_message": "Masz nowe powiadomienie",
   "notifications_empty_message": "Nie masz żadnych powiadomień.",
   "see_all": "Zobacz wszystkie",
   "discussions": "Dyskusje",
@@ -164,6 +165,7 @@
   "sort_best": "Najlepsze",
   "sort_newest": "Najnowsze",
   "sort_oldest": "Najstarsze",
+  "sort_author_reputation": "Reputacja",
   "trending_topics": "Tematy zyskujące popularność",
   "favorite_topics": "Ulubione tematy",
   "interesting_people": "Ciekawi ludzie",
@@ -332,5 +334,6 @@
   "write_first_post": "Napisz swój pierwszy post",
   "complete_profile_tooltip": "Musisz podać pseudonim, napisać notatkę o sobie i dodać zdjęcie profilowe",
   "upvote_setting_details": "Enable this option to automatically like your own posts.",
-  "upvote_setting": "Like my posts"
+  "upvote_setting": "Like my posts",
+  "dmca_content_removed": "Content removed due to DMCA notice"
 }

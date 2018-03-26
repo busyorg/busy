@@ -44,6 +44,7 @@
   "notification_upvoted_username_post": "{username} さんがあなたの投稿にいいねをつけました",
   "notification_downvoted_username_post": "{username} さんがあなたの投稿にダメをつけました",
   "notification_unvoted_username_post": "{username} さんがあなたの投稿への投票を削除しました",
+  "notification_generic_default_message": "You have a new notification",
   "notifications_empty_message": "通知がありません。",
   "see_all": "すべて見る",
   "discussions": "ディスカッション",
@@ -164,6 +165,7 @@
   "sort_best": "ベスト",
   "sort_newest": "新着順",
   "sort_oldest": "古い順",
+  "sort_author_reputation": "Reputation",
   "trending_topics": "トレンドトピック",
   "favorite_topics": "お気に入りのトピック",
   "interesting_people": "気になる人",
@@ -332,5 +334,6 @@
   "write_first_post": "初めての投稿を書く",
   "complete_profile_tooltip": "名前、自己紹介、プロフィール画像欄を記入してください。",
   "upvote_setting_details": "Enable this option to automatically like your own posts.",
-  "upvote_setting": "Like my posts"
+  "upvote_setting": "Like my posts",
+  "dmca_content_removed": "Content removed due to DMCA notice"
 }

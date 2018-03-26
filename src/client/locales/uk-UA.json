@@ -44,6 +44,7 @@
   "notification_upvoted_username_post": "{username} проголосував за ваш пост",
   "notification_downvoted_username_post": "{username} проголосував проти вашого посту",
   "notification_unvoted_username_post": "{username} відкликав голос за ваш пост",
+  "notification_generic_default_message": "You have a new notification",
   "notifications_empty_message": "На даний момент у вас немає сповіщень.",
   "see_all": "Переглянути всі",
   "discussions": "Обговорення",
@@ -164,6 +165,7 @@
   "sort_best": "Найкраще",
   "sort_newest": "Найновіші",
   "sort_oldest": "Найстаріші",
+  "sort_author_reputation": "Reputation",
   "trending_topics": "Популярні теми",
   "favorite_topics": "Вибрані теми",
   "interesting_people": "Цікаві люди",
@@ -332,5 +334,6 @@
   "write_first_post": "Напишіть ваш перший пост",
   "complete_profile_tooltip": "Потрібно заповнити поля ім'я, про себе, та зображення профілю",
   "upvote_setting_details": "Enable this option to automatically like your own posts.",
-  "upvote_setting": "Like my posts"
+  "upvote_setting": "Like my posts",
+  "dmca_content_removed": "Content removed due to DMCA notice"
 }
