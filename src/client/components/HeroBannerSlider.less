@@ -1,0 +1,76 @@
+@import (reference) '../styles/custom.less';
+@import (reference) '../styles/modules/variables.less';
+
+.HeroBannerSlider {
+  display: flex;
+
+  &__image {
+    height: 150px;
+  }
+
+  &__content {
+    max-width: 500px;
+
+    @media @small {
+      padding: 0 30px;
+    }
+  }
+
+  &__controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &__item {
+      background-color: @primary-color;
+      border-radius: 50%;
+      height: 10px;
+      margin: 0 8px;
+      opacity: 0.5;
+      width: 10px;
+
+      &--selected {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+.HeroBannerSlider.fade-in-left {
+  -webkit-animation: fadeinleft 600ms ease-in-out;
+  -moz-animation: fadeinleft 600ms ease-in-out;
+  -o-animation: fadeinleft 600ms ease-in-out;
+  -ms-animation: fadeinleft 600ms ease-in-out;
+  animation: fadeinleft 600ms ease-in-out;
+}
+
+@-webkit-keyframes fadeinleft {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateX(100%);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: translateX(0%);
+  }
+}
+@-moz-keyframes fadeinleft {
+  0% {
+    opacity: 0;
+    -moz-transform: translateX(100%);
+  }
+  100% {
+    opacity: 1;
+    -moz-transform: translateX(0%);
+  }
+}
+@keyframes fadeinleft {
+  0% {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0%);
+  }
+}
