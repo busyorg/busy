@@ -1,6 +1,6 @@
 {
   "hero": "Asegurando compensacion de los creadores de valor",
-  "search": "Busqueda",
+  "search": "Buscar",
   "search_placeholder": "Buscar...",
   "search_results": "Buscar resultados",
   "no_search_results_found": "Tu búsqueda no produjo resultados.",
@@ -44,7 +44,7 @@
   "notification_upvoted_username_post": "{username} votó tu publicación",
   "notification_downvoted_username_post": "{username} votó negativamente tu publicación",
   "notification_unvoted_username_post": "{username} quitó su voto de tu publicación",
-  "notification_generic_default_message": "You have a new notification",
+  "notification_generic_default_message": "Tienes una nueva notificación",
   "notifications_empty_message": "Actualmente no tienes notificaciones.",
   "see_all": "Ver todo",
   "discussions": "Discusiones",
@@ -165,7 +165,7 @@
   "sort_best": "Mejores",
   "sort_newest": "Más recientes",
   "sort_oldest": "Más antiguos",
-  "sort_author_reputation": "Reputation",
+  "sort_author_reputation": "Reputación",
   "trending_topics": "Temas populares",
   "favorite_topics": "Temas favoritos",
   "interesting_people": "Personas Interesantes",
@@ -334,5 +334,6 @@
   "write_first_post": "Escribe tu primera publicación",
   "complete_profile_tooltip": "Debes completar el nombre, acerca de y las fotos de perfil",
   "upvote_setting_details": "Habilita esta opción para dar Me Gusta automáticamente a tus publicaciones.",
-  "upvote_setting": "Da Me Gusta a mis publicaciones"
+  "upvote_setting": "Da Me Gusta a mis publicaciones",
+  "dmca_content_removed": "Content removed due to DMCA notice"
 }
