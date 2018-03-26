@@ -334,5 +334,6 @@
   "write_first_post": "Írd meg az első cikkedet",
   "complete_profile_tooltip": "Ki kell tölteni a név, a magadról és a profil kép mezőket",
   "upvote_setting_details": "Enable this option to automatically like your own posts.",
-  "upvote_setting": "Like my posts"
+  "upvote_setting": "Like my posts",
+  "dmca_content_removed": "Content removed due to DMCA notice"
 }
