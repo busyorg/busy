@@ -71,7 +71,6 @@ class EditorFullScreen extends React.Component {
 
   throttledUpdate() {
     const { form } = this.props;
-
     this.props.handleEditorUpdates(form.getFieldsValue());
   }
 
