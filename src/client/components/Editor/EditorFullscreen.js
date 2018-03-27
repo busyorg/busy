@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import readingTime from 'reading-time';
-import { Checkbox, Form, Input, Select, Button, Modal } from 'antd';
+import { Checkbox, Form, Input, Select, Modal } from 'antd';
 import { rewardsValues } from '../../../common/constants/rewards';
 import Action from '../Button/Action';
 import EditorInput from './EditorInput';
@@ -24,7 +24,6 @@ class EditorFullScreen extends React.Component {
     loading: PropTypes.bool.isRequired,
     isUpdating: PropTypes.bool.isRequired,
     saving: PropTypes.bool.isRequired,
-    draftId: PropTypes.number,
     onImageInvalid: PropTypes.func.isRequired,
     onImageUpload: PropTypes.func.isRequired,
     onUpdate: PropTypes.func.isRequired,
@@ -48,7 +47,6 @@ class EditorFullScreen extends React.Component {
       loading,
       isUpdating,
       saving,
-      draftId,
     } = this.props;
     const { getFieldDecorator } = form;
     const { words, minutes } = readingTime(bodyHTML);
@@ -66,6 +64,47 @@ class EditorFullScreen extends React.Component {
         bodyStyle={{ height: '100vh', padding: 0 }}
       >
         <div className="EditorFullscreen__container">
+          <div className="EditorFullscreen__header">
+            <div className="Editor__bottom">
+              <span className="Editor__bottom__info">
+                <i className="iconfont icon-markdown" />{' '}
+                <FormattedMessage
+                  id="markdown_supported"
+                  defaultMessage="Styling with markdown supported"
+                />
+              </span>
+              <div className="Editor__bottom__right">
+                {saving && (
+                  <span className="Editor__bottom__right__saving">
+                    <FormattedMessage id="saving" defaultMessage="Saving..." />
+                  </span>
+                )}
+              </div>
+            </div>
+          </div>
+          <Form.Item className="Editor__bottom__submit">
+            {isUpdating ? (
+              <Action
+                primary
+                loading={loading}
+                disabled={loading}
+                text={intl.formatMessage({
+                  id: loading ? 'post_send_progress' : 'post_update_send',
+                  defaultMessage: loading ? 'Submitting' : 'Update post',
+                })}
+              />
+            ) : (
+              <Action
+                primary
+                loading={loading}
+                disabled={loading}
+                text={intl.formatMessage({
+                  id: loading ? 'post_send_progress' : 'post_send',
+                  defaultMessage: loading ? 'Submitting' : 'Post',
+                })}
+              />
+            )}
+          </Form.Item>
           <div className="EditorFullscreen__column EditorFullscreen__form">
             <Form className="Editor" layout="vertical" onSubmit={this.handleSubmit}>
               <Form.Item
@@ -203,52 +242,6 @@ class EditorFullScreen extends React.Component {
                   </Checkbox>,
                 )}
               </Form.Item>
-              <div className="Editor__bottom">
-                <span className="Editor__bottom__info">
-                  <i className="iconfont icon-markdown" />{' '}
-                  <FormattedMessage
-                    id="markdown_supported"
-                    defaultMessage="Styling with markdown supported"
-                  />
-                </span>
-                <div className="Editor__bottom__right">
-                  {saving && (
-                    <span className="Editor__bottom__right__saving">
-                      <FormattedMessage id="saving" defaultMessage="Saving..." />
-                    </span>
-                  )}
-                  <Form.Item className="Editor__bottom__cancel">
-                    {draftId && (
-                      <Button type="danger" disabled={loading} onClick={this.handleDelete}>
-                        <FormattedMessage id="draft_delete" defaultMessage="Delete this draft" />
-                      </Button>
-                    )}
-                  </Form.Item>
-                  <Form.Item className="Editor__bottom__submit">
-                    {isUpdating ? (
-                      <Action
-                        primary
-                        loading={loading}
-                        disabled={loading}
-                        text={intl.formatMessage({
-                          id: loading ? 'post_send_progress' : 'post_update_send',
-                          defaultMessage: loading ? 'Submitting' : 'Update post',
-                        })}
-                      />
-                    ) : (
-                      <Action
-                        primary
-                        loading={loading}
-                        disabled={loading}
-                        text={intl.formatMessage({
-                          id: loading ? 'post_send_progress' : 'post_send',
-                          defaultMessage: loading ? 'Submitting' : 'Post',
-                        })}
-                      />
-                    )}
-                  </Form.Item>
-                </div>
-              </div>
             </Form>
           </div>
           <div className="EditorFullscreen__column EditorFullscreen__preview">
