@@ -8,7 +8,6 @@ import _ from 'lodash';
 import readingTime from 'reading-time';
 import { Checkbox, Form, Input, Select, Button } from 'antd';
 import { rewardsValues } from '../../../common/constants/rewards';
-import { validateTopics } from '../../helpers/postHelpers';
 import improve from '../../helpers/improve';
 import Action from '../Button/Action';
 import requiresLogin from '../../auth/requiresLogin';
@@ -174,9 +173,6 @@ class Editor extends React.Component {
 
     callback();
   };
-
-  handleValidateTopics = intl => (rule, value, callback) =>
-    validateTopics(rule, value, callback, intl);
 
   throttledUpdate() {
     const { form } = this.props;
