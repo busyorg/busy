@@ -140,6 +140,11 @@ class Editor extends React.Component {
     });
   }
 
+  setEditorFullscreenDisplay = displayFullscreenEditor => () =>
+    this.setState({
+      displayFullscreenEditor,
+    });
+
   checkTopics = intl => (rule, value, callback) => {
     if (!value || value.length < 1 || value.length > 5) {
       callback(
@@ -169,11 +174,6 @@ class Editor extends React.Component {
 
     callback();
   };
-
-  setEditorFullscreenDisplay = displayFullscreenEditor => () =>
-    this.setState({
-      displayFullscreenEditor,
-    });
 
   handleValidateTopics = intl => (rule, value, callback) =>
     validateTopics(rule, value, callback, intl);
@@ -434,6 +434,7 @@ class Editor extends React.Component {
             select={this.select}
             rewards={this.rewards}
             setBodyAndRender={this.setBodyAndRender}
+            saving={saving}
           />
         )}
       </Form>
