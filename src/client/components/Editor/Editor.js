@@ -76,6 +76,7 @@ class Editor extends React.Component {
     this.throttledUpdate = this.throttledUpdate.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleFullscreenEditorUpdates = this.handleFullscreenEditorUpdates.bind(this);
   }
 
   componentDidMount() {
@@ -129,7 +130,6 @@ class Editor extends React.Component {
       reward,
       upvote: post.upvote,
     });
-
     this.setBodyAndRender(post.body);
   }
 
@@ -183,6 +183,17 @@ class Editor extends React.Component {
     if (Object.values(form.getFieldsError()).filter(e => e).length > 0) return;
 
     this.props.onUpdate(values);
+  }
+
+  handleFullscreenEditorUpdates(formValues) {
+    this.props.form.setFieldsValue({
+      title: formValues.title,
+      topics: formValues.topics,
+      body: formValues.body,
+      upvote: formValues.upvote,
+      reward: formValues.reward,
+    });
+    this.setBodyAndRender(formValues.body);
   }
 
   handleSubmit(e) {
@@ -424,13 +435,16 @@ class Editor extends React.Component {
             bodyHTML={bodyHTML}
             onUpdate={this.onUpdate}
             isUpdating={isUpdating}
-            form={form}
             loading={loading}
-            title={this.title}
-            select={this.select}
-            rewards={this.rewards}
+            title={form.getFieldValue('title')}
+            topics={form.getFieldValue('topics')}
+            body={form.getFieldValue('body')}
+            upvote={form.getFieldValue('upvote')}
+            reward={form.getFieldValue('reward')}
             setBodyAndRender={this.setBodyAndRender}
             saving={saving}
+            handleSubmit={this.handleSubmit}
+            handleEditorUpdates={this.handleFullscreenEditorUpdates}
           />
         )}
       </Form>
