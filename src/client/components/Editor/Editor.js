@@ -433,7 +433,6 @@ class Editor extends React.Component {
             displayFullscreenEditor={displayFullscreenEditor}
             handleHideFullscreenEditor={this.setEditorFullscreenDisplay(false)}
             bodyHTML={bodyHTML}
-            onUpdate={this.onUpdate}
             isUpdating={isUpdating}
             loading={loading}
             title={form.getFieldValue('title')}

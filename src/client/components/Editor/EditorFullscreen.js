@@ -28,7 +28,6 @@ class EditorFullScreen extends React.Component {
     saving: PropTypes.bool.isRequired,
     onImageInvalid: PropTypes.func.isRequired,
     onImageUpload: PropTypes.func.isRequired,
-    onUpdate: PropTypes.func.isRequired,
     handleSubmit: PropTypes.func.isRequired,
     handleEditorUpdates: PropTypes.func.isRequired,
     title: PropTypes.string,
@@ -141,7 +140,7 @@ class EditorFullScreen extends React.Component {
                     ],
                   })(
                     <Input
-                      onChange={this.props.onUpdate}
+                      onChange={this.onUpdate}
                       className="Editor__title"
                       placeholder={intl.formatMessage({
                         id: 'title_placeholder',
@@ -229,7 +228,11 @@ class EditorFullScreen extends React.Component {
                   }
                 >
                   {getFieldDecorator('reward')(
-                    <Select onChange={this.onUpdate} disabled={isUpdating}>
+                    <Select
+                      onChange={this.onUpdate}
+                      disabled={isUpdating}
+                      className="EditorFullScreen__reward-select"
+                    >
                       <Select.Option value={rewardsValues.all}>
                         <FormattedMessage
                           id="reward_option_100"
@@ -258,17 +261,15 @@ class EditorFullScreen extends React.Component {
               </Form>
             </div>
             <div className="EditorFullscreen__column EditorFullscreen__preview">
-              {bodyHTML && (
-                <Form.Item
-                  label={
-                    <span className="Editor__label">
-                      <FormattedMessage id="preview" defaultMessage="Preview" />
-                    </span>
-                  }
-                >
-                  <Body full body={bodyHTML} />
-                </Form.Item>
-              )}
+              <Form.Item
+                label={
+                  <span className="Editor__label">
+                    <FormattedMessage id="preview" defaultMessage="Preview" />
+                  </span>
+                }
+              >
+                <Body full body={bodyHTML} />
+              </Form.Item>
             </div>
           </div>
         </div>
