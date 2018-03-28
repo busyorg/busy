@@ -6,9 +6,10 @@ import { Link } from 'react-router-dom';
 import { Modal } from 'antd';
 import { FormattedMessage } from 'react-intl';
 import VisibilitySensor from 'react-visibility-sensor';
-import { dropCategory } from '../helpers/postHelpers';
+import { dropCategory, isBannedPost } from '../helpers/postHelpers';
 import PostContent from './PostContent';
 import Comments from '../comments/Comments';
+import { getFacebookShareURL, getTwitterShareURL } from '../helpers/socialProfiles';
 import './PostModal.less';
 
 class PostModal extends React.Component {
@@ -81,11 +82,12 @@ class PostModal extends React.Component {
       author: authorDetails,
       shownPostContents,
     } = this.props;
-    const { category, author, permlink, title, url } = currentShownPost;
+    const { author, permlink, title, url } = currentShownPost;
     const baseURL = window ? window.location.origin : 'https://busy.org';
-    const postURL = `${baseURL}${url}`;
+    const postURL = `${baseURL}${dropCategory(url)}`;
     const twitterText = `"${encodeURIComponent(title)}" by @${author}`;
-    const twitterShareURL = `https://twitter.com/intent/tweet/?text=${twitterText}&url=${postURL}`;
+    const twitterShareURL = getTwitterShareURL(twitterText, postURL);
+    const facebookShareURL = getFacebookShareURL(postURL);
     const signature = _.get(authorDetails, 'json_metadata.profile.signature', null);
 
     return (
@@ -112,18 +114,23 @@ class PostModal extends React.Component {
           <a role="presentation" onClick={this.handleHidePostModal} className="PostModal__action">
             <i className="iconfont icon-close PostModal__icon" />
           </a>
-          <Link to={`/${category}/@${author}/${permlink}`} className="PostModal__action">
+          <Link to={`/@${author}/${permlink}`} className="PostModal__action">
             <i className="iconfont icon-send PostModal__icon" />
           </Link>
           <a href={twitterShareURL} target="_blank" className="PostModal__action">
             <i className="iconfont icon-twitter PostModal__icon" />
           </a>
+          <a href={facebookShareURL} target="_blank" className="PostModal__action">
+            <i className="iconfont icon-facebook PostModal__icon" />
+          </a>
         </div>
         <PostContent content={shownPostContents} signature={signature} />
         <VisibilitySensor onChange={this.handleCommentsVisibility} />
-        <div id="comments">
-          <Comments show={this.state.commentsVisible} post={shownPostContents} />
-        </div>
+        {!isBannedPost(shownPostContents) && (
+          <div id="comments">
+            <Comments show={this.state.commentsVisible} post={shownPostContents} />
+          </div>
+        )}
       </Modal>
     );
   }

@@ -28,9 +28,9 @@ function mapPropsToFields(props) {
   return Object.keys(profile).reduce(
     (a, b) => ({
       ...a,
-      [b]: {
+      [b]: Form.createFormField({
         value: profile[b],
-      },
+      }),
     }),
     {},
   );
@@ -288,6 +288,7 @@ export default class ProfileSettings extends React.Component {
                         onChange={this.handleSignatureChange}
                         onImageUpload={this.props.onImageUpload}
                         onImageInvalid={this.props.onImageInvalid}
+                        inputId={'profile-inputfile'}
                       />,
                     )}
                     {bodyHTML && (

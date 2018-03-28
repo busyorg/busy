@@ -26,11 +26,17 @@ class InterestingPeopleWithAPI extends React.Component {
     followingList: [],
   };
 
-  state = {
-    users: [],
-    loading: true,
-    noUsers: false,
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      users: [],
+      loading: true,
+      noUsers: false,
+    };
+
+    this.getBlogAuthors = this.getBlogAuthors.bind(this);
+  }
 
   componentDidMount() {
     const authenticatedUsername = this.props.authenticatedUser.name;
@@ -55,14 +61,30 @@ class InterestingPeopleWithAPI extends React.Component {
     }
   }
 
-  getBlogAuthors = (username = '') =>
+  getBlogAuthors(username = '') {
     steemAPI
       .sendAsync('call', ['follow_api', 'get_blog_authors', [username]])
       .then(result => {
-        const users = _.sortBy(result, user => user[1])
+        const users = _.sortBy(result, user => {
+          let count = _.get(user, 1);
+
+          if (_.isEmpty(count)) {
+            count = _.get(user, 'count');
+          }
+          return count;
+        })
           .reverse()
           .slice(0, 5)
-          .map(user => ({ name: user[0] }));
+          .map(user => {
+            let name = _.get(user, 0);
+
+            if (_.isEmpty(name)) {
+              name = _.get(user, 'author');
+            }
+            return {
+              name,
+            };
+          });
         if (users.length > 0) {
           this.setState({
             users,
@@ -80,6 +102,7 @@ class InterestingPeopleWithAPI extends React.Component {
           noUsers: true,
         });
       });
+  }
 
   render() {
     const { users, loading, noUsers } = this.state;

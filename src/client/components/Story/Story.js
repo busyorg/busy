@@ -12,7 +12,12 @@ import { Link, withRouter } from 'react-router-dom';
 import { Tag, Tooltip } from 'antd';
 import formatter from '../../helpers/steemitFormatter';
 import { getHasDefaultSlider } from '../../helpers/user';
-import { isPostDeleted, isPostTaggedNSFW, dropCategory } from '../../helpers/postHelpers';
+import {
+  isPostDeleted,
+  isPostTaggedNSFW,
+  dropCategory,
+  isBannedPost,
+} from '../../helpers/postHelpers';
 import withAuthActions from '../../auth/withAuthActions';
 import StoryPreview from './StoryPreview';
 import StoryFooter from '../StoryFooter/StoryFooter';
@@ -20,6 +25,7 @@ import Avatar from '../Avatar';
 import Topic from '../Button/Topic';
 import NSFWStoryPreviewMessage from './NSFWStoryPreviewMessage';
 import HiddenStoryPreviewMessage from './HiddenStoryPreviewMessage';
+import DMCARemovedMessage from './DMCARemovedMessage';
 import PostedFrom from './PostedFrom';
 import './Story.less';
 
@@ -93,8 +99,8 @@ class Story extends React.Component {
     this.handleEditClick = this.handleEditClick.bind(this);
   }
 
-  shouldComponentUpdate(nextProps) {
-    return !_.isEqual(nextProps, this.props);
+  shouldComponentUpdate(nextProps, nextState) {
+    return !_.isEqual(nextProps, this.props) || !_.isEqual(nextState, this.state);
   }
 
   getDisplayStoryPreview() {
@@ -178,12 +184,18 @@ class Story extends React.Component {
 
   handlePostModalDisplay(e) {
     e.preventDefault();
-
     const { post } = this.props;
-    const isReplyPreview = _.isEmpty(post.title);
+    const isReplyPreview = _.isEmpty(post.title) || post.title !== post.root_title;
+    const openInNewTab = _.get(e, 'metaKey', false) || _.get(e, 'ctrlKey', false);
+    const postURL = dropCategory(post.url);
 
     if (isReplyPreview) {
-      this.props.history.push(dropCategory(post.url));
+      this.props.history.push(postURL);
+    } else if (openInNewTab) {
+      if (window) {
+        const url = `${window.location.origin}${postURL}`;
+        window.open(url);
+      }
     } else {
       this.props.showPostModal(post);
     }
@@ -193,17 +205,51 @@ class Story extends React.Component {
     e.preventDefault();
 
     const { post } = this.props;
-    const isReplyPreview = _.isEmpty(post.title);
+    const isReplyPreview = _.isEmpty(post.title) || post.title !== post.root_title;
     const elementNodeName = _.toLower(_.get(e, 'target.nodeName', ''));
     const elementClassName = _.get(e, 'target.className', '');
     const showPostModal =
       elementNodeName !== 'i' && elementClassName !== 'PostFeedEmbed__playButton';
+    const openInNewTab = _.get(e, 'metaKey', false) || _.get(e, 'ctrlKey', false);
+    const postURL = dropCategory(post.url);
 
     if (isReplyPreview) {
-      this.props.history.push(dropCategory(post.url));
+      this.props.history.push(postURL);
+    } else if (openInNewTab && showPostModal) {
+      if (window) {
+        const url = `${window.location.origin}${postURL}`;
+        window.open(url);
+      }
     } else if (showPostModal) {
       this.props.showPostModal(post);
     }
+  }
+
+  renderStoryPreview() {
+    const { post } = this.props;
+    const showStoryPreview = this.getDisplayStoryPreview();
+    const hiddenStoryPreviewMessage = isPostTaggedNSFW(post) ? (
+      <NSFWStoryPreviewMessage onClick={this.handleShowStoryPreview} />
+    ) : (
+      <HiddenStoryPreviewMessage onClick={this.handleShowStoryPreview} />
+    );
+
+    if (isBannedPost(post)) {
+      return <DMCARemovedMessage />;
+    }
+
+    return showStoryPreview ? (
+      <a
+        href={dropCategory(post.url)}
+        target="_blank"
+        onClick={this.handlePreviewClickPostModalDisplay}
+        className="Story__content__preview"
+      >
+        <StoryPreview post={post} />
+      </a>
+    ) : (
+      hiddenStoryPreviewMessage
+    );
   }
 
   render() {
@@ -222,15 +268,10 @@ class Story extends React.Component {
       sliderMode,
       defaultVotePercent,
     } = this.props;
+
     if (isPostDeleted(post)) return <div />;
 
     const postAuthorReputation = formatter.reputation(post.author_reputation);
-    const showStoryPreview = this.getDisplayStoryPreview();
-    const hiddenStoryPreviewMessage = isPostTaggedNSFW(post) ? (
-      <NSFWStoryPreviewMessage onClick={this.handleShowStoryPreview} />
-    ) : (
-      <HiddenStoryPreviewMessage onClick={this.handleShowStoryPreview} />
-    );
 
     let rebloggedUI = null;
 
@@ -311,18 +352,7 @@ class Story extends React.Component {
                 {post.title || post.root_title}
               </h2>
             </a>
-            {showStoryPreview ? (
-              <a
-                href={dropCategory(post.url)}
-                target="_blank"
-                onClick={this.handlePreviewClickPostModalDisplay}
-                className="Story__content__preview"
-              >
-                <StoryPreview post={post} />
-              </a>
-            ) : (
-              hiddenStoryPreviewMessage
-            )}
+            {this.renderStoryPreview()}
           </div>
           <div className="Story__footer">
             <StoryFooter

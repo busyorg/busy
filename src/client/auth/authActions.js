@@ -1,9 +1,9 @@
 import Cookie from 'js-cookie';
 import { createAction } from 'redux-actions';
-import { getIsAuthenticated } from '../reducers';
-import { getAccount } from '../helpers/apiHelpers';
-import { getFollowing } from '../user/userActions';
+import { getAuthenticatedUserName, getIsAuthenticated } from '../reducers';
 import { createAsyncActionType } from '../helpers/stateHelpers';
+import { getFollowing } from '../user/userActions';
+import busyAPI from '../busyAPI';
 
 export const LOGIN = '@auth/LOGIN';
 export const LOGIN_START = '@auth/LOGIN_START';
@@ -20,7 +20,8 @@ export const LOGOUT_START = '@auth/LOGOUT_START';
 export const LOGOUT_ERROR = '@auth/LOGOUT_ERROR';
 export const LOGOUT_SUCCESS = '@auth/LOGOUT_SUCCESS';
 
-export const UPDATE_AUTH_USER = createAsyncActionType('@auth/UPDATE_AUTH_USER');
+export const UPDATE_SC2_USER_METADATA = createAsyncActionType('@auth/UPDATE_SC2_USER_METADATA');
+export const BUSY_LOGIN = createAsyncActionType('@auth/BUSY_LOGIN');
 
 const loginError = createAction(LOGIN_ERROR);
 
@@ -64,10 +65,29 @@ export const logout = () => (dispatch, getState, { steemConnectAPI }) =>
     },
   });
 
-export const updateAuthUser = username => dispatch =>
+export const getUpdatedSCUserMetadata = () => (dispatch, getState, { steemConnectAPI }) =>
   dispatch({
-    type: UPDATE_AUTH_USER.ACTION,
+    type: UPDATE_SC2_USER_METADATA.ACTION,
     payload: {
-      promise: getAccount(username),
+      promise: steemConnectAPI.me(),
     },
   });
+
+export const busyLogin = () => (dispatch, getState) => {
+  const accessToken = Cookie.get('access_token');
+  const state = getState();
+
+  if (!getIsAuthenticated(state)) {
+    return dispatch({ type: BUSY_LOGIN.ERROR });
+  }
+
+  const targetUsername = getAuthenticatedUserName(state);
+
+  return dispatch({
+    type: BUSY_LOGIN.ACTION,
+    meta: targetUsername,
+    payload: {
+      promise: busyAPI.sendAsync('login', [accessToken]),
+    },
+  });
+};

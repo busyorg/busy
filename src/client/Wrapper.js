@@ -14,11 +14,13 @@ import {
   getLocale,
   getUsedLocale,
 } from './reducers';
-import { login, logout } from './auth/authActions';
-import { getFollowing } from './user/userActions';
-import { getRate, getRewardFund, getTrendingTopics } from './app/appActions';
+import { login, logout, busyLogin } from './auth/authActions';
+import { getFollowing, getNotifications } from './user/userActions';
+import { getRate, getRewardFund, getTrendingTopics, busyAPIHandler } from './app/appActions';
 import * as reblogActions from './app/Reblog/reblogActions';
+import busyAPI from './busyAPI';
 import Redirect from './components/Utils/Redirect';
+import NotificationPopup from './notifications/NotificationPopup';
 import Topnav from './components/Navigation/Topnav';
 import Transfer from './wallet/Transfer';
 
@@ -35,9 +37,12 @@ import Transfer from './wallet/Transfer';
     login,
     logout,
     getFollowing,
+    getNotifications,
     getRate,
     getRewardFund,
     getTrendingTopics,
+    busyLogin,
+    busyAPIHandler,
     getRebloggedList: reblogActions.getRebloggedList,
   },
 )
@@ -57,6 +62,9 @@ export default class Wrapper extends React.PureComponent {
     getRebloggedList: PropTypes.func,
     getRate: PropTypes.func,
     getTrendingTopics: PropTypes.func,
+    getNotifications: PropTypes.func,
+    busyLogin: PropTypes.func,
+    busyAPIHandler: PropTypes.func,
   };
 
   static defaultProps = {
@@ -68,6 +76,9 @@ export default class Wrapper extends React.PureComponent {
     getRebloggedList: () => {},
     getRate: () => {},
     getTrendingTopics: () => {},
+    getNotifications: () => {},
+    busyLogin: () => {},
+    busyAPIHandler: () => {},
   };
 
   static fetchData(store) {
@@ -88,7 +99,11 @@ export default class Wrapper extends React.PureComponent {
   componentDidMount() {
     const { loaded, locale, usedLocale } = this.props;
 
-    this.props.login().then(() => this.props.getFollowing());
+    this.props.login().then(() => {
+      this.props.getFollowing();
+      this.props.getNotifications();
+      this.props.busyLogin();
+    });
 
     this.props.getRewardFund();
     this.props.getRebloggedList();
@@ -98,6 +113,8 @@ export default class Wrapper extends React.PureComponent {
     if (usedLocale !== getAvailableLocale(locale) && loaded) {
       this.loadLocale(locale);
     }
+
+    busyAPI.subscribe(this.props.busyAPIHandler);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -168,13 +185,14 @@ export default class Wrapper extends React.PureComponent {
       <IntlProvider key={usedLocale} locale={usedLocale} messages={translations}>
         <LocaleProvider locale={enUS}>
           <Layout data-dir={getLocaleDirection(getAvailableLocale(locale))}>
-            <Layout.Header style={{ position: 'fixed', width: '100%', zIndex: 1050 }}>
+            <Layout.Header style={{ position: 'fixed', width: '99vw', zIndex: 1050 }}>
               <Topnav username={user.name} onMenuItemClick={this.handleMenuItemClick} />
             </Layout.Header>
             <div className="content">
               {renderRoutes(this.props.route.routes)}
               <Redirect />
               <Transfer />
+              <NotificationPopup />
             </div>
           </Layout>
         </LocaleProvider>

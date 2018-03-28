@@ -47,6 +47,8 @@ export const getIsLoaded = state => fromAuth.getIsLoaded(state.auth);
 export const getIsReloading = state => fromAuth.getIsReloading(state.auth);
 export const getAuthenticatedUser = state => fromAuth.getAuthenticatedUser(state.auth);
 export const getAuthenticatedUserName = state => fromAuth.getAuthenticatedUserName(state.auth);
+export const getAuthenticatedUserSCMetaData = state =>
+  fromAuth.getAuthenticatedUserSCMetaData(state.auth);
 
 export const getPosts = state => fromPosts.getPosts(state.posts);
 export const getPostContent = (state, author, permlink) =>
@@ -96,6 +98,10 @@ export const getPendingFollows = state => fromUser.getPendingFollows(state.user)
 export const getIsFetchingFollowingList = state => fromUser.getIsFetchingFollowingList(state.user);
 export const getRecommendations = state => fromUser.getRecommendations(state.user);
 export const getFollowingFetched = state => fromUser.getFollowingFetched(state.user);
+export const getNotifications = state => fromUser.getNotifications(state.user);
+export const getIsLoadingNotifications = state => fromUser.getIsLoadingNotifications(state.user);
+export const getFetchFollowListError = state => fromUser.getFetchFollowListError(state.user);
+export const getLatestNotification = state => fromUser.getLatestNotification(state.user);
 
 export const getUser = (state, username) => fromUsers.getUser(state.users, username);
 export const getIsUserFetching = (state, username) =>

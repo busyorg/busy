@@ -153,6 +153,9 @@ class Comments extends React.Component {
           showCommentFormLoading: false,
           commentFormText: commentValue,
         });
+        return {
+          error: true,
+        };
       });
   }
 
@@ -190,6 +193,9 @@ class Comments extends React.Component {
             </SortSelector.Item>
             <SortSelector.Item key="OLDEST">
               <FormattedMessage id="sort_oldest" defaultMessage="Oldest" />
+            </SortSelector.Item>
+            <SortSelector.Item key="AUTHOR_REPUTATION">
+              <FormattedMessage id="sort_author_reputation" defaultMessage="Reputation" />
             </SortSelector.Item>
           </SortSelector>
         </div>

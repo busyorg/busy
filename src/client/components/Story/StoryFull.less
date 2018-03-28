@@ -18,7 +18,7 @@
 
   &__reply {
     border-radius: 5px;
-    border: solid 1px #e9e7e7;
+    border: @base-border;
     padding: 16px 12px;
 
     & > &__title {
@@ -47,10 +47,18 @@
   }
 
   &__topics {
-    margin: 16px 0;
+    margin: 16px -@mobile-padding 16px;
 
-    & > .Topic {
-      margin: 2px 4px 2px 0;
+    &__content {
+      display: flex;
+      height: 46px;
+      white-space: nowrap;
+      margin-left: @mobile-padding;
+      margin-right: @mobile-padding;
+
+      & > .Topic {
+        margin: auto 4px auto 0;
+      }
     }
   }
 

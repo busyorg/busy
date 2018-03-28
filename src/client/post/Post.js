@@ -5,6 +5,7 @@ import _ from 'lodash';
 import VisibilitySensor from 'react-visibility-sensor';
 import formatter from '../helpers/steemitFormatter';
 import { getCryptoDetails } from '../helpers/cryptosHelper';
+import { isBannedPost } from '../helpers/postHelpers';
 import {
   getPostContent,
   getIsPostEdited,
@@ -81,13 +82,21 @@ export default class Post extends React.Component {
   };
 
   componentDidMount() {
-    const { match, edited, fetching, loaded, failed } = this.props;
+    const { match, edited, fetching, loaded, failed, content } = this.props;
     const { author, permlink } = match.params;
 
     const shouldUpdate = (!loaded && !failed) || edited;
     if (shouldUpdate && !fetching) {
       this.props.getContent(author, permlink);
       this.props.getAccount(author);
+    }
+
+    if (!!content && match.params.category && typeof window !== 'undefined') {
+      window.history.replaceState(
+        {},
+        '',
+        `/@${content.author}/${content.permlink}${window.location.hash}`,
+      );
     }
   }
 
@@ -147,11 +156,7 @@ export default class Post extends React.Component {
   }
 
   render() {
-    const { match, content, fetching, loaded, failed, isAuthFetching, user } = this.props;
-
-    if (!!content && match.params.category && typeof window !== 'undefined') {
-      window.history.pushState({}, '', `/@${content.author}/${content.permlink}`);
-    }
+    const { content, fetching, loaded, failed, isAuthFetching, user } = this.props;
 
     if (failed) return <Error404 />;
     if (fetching || !content) return <Loading />;
@@ -177,9 +182,11 @@ export default class Post extends React.Component {
               <div className="center" style={{ paddingBottom: '24px' }}>
                 <PostContent content={content} signature={signature} />
                 <VisibilitySensor onChange={this.handleCommentsVisibility} />
-                <div id="comments">
-                  <Comments show={this.state.commentsVisible} post={content} />
-                </div>
+                {!isBannedPost(content) && (
+                  <div id="comments">
+                    <Comments show={this.state.commentsVisible} post={content} />
+                  </div>
+                )}
               </div>
             ) : (
               <HiddenPostMessage onClick={this.handleShowPost} />

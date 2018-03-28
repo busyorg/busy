@@ -28,7 +28,7 @@ class Comment extends React.Component {
     intl: PropTypes.shape().isRequired,
     comment: PropTypes.shape().isRequired,
     parent: PropTypes.shape().isRequired,
-    sort: PropTypes.oneOf(['BEST', 'NEWEST', 'OLDEST']),
+    sort: PropTypes.oneOf(['BEST', 'NEWEST', 'OLDEST', 'AUTHOR_REPUTATION']),
     rewardFund: PropTypes.shape().isRequired,
     defaultVotePercent: PropTypes.number.isRequired,
     rewriteLinks: PropTypes.bool,
@@ -189,6 +189,9 @@ class Comment extends React.Component {
           editOpen: false,
           commentFormText: commentValue,
         });
+        return {
+          error: true,
+        };
       });
   }
 
@@ -356,6 +359,7 @@ class Comment extends React.Component {
                   intl={this.props.intl}
                   comment={child}
                   parent={comment}
+                  sort={sort}
                   pendingVotes={pendingVotes}
                   rootPostAuthor={rootPostAuthor}
                   commentsChildren={commentsChildren}
