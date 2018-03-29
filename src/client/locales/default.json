@@ -335,5 +335,8 @@
   "complete_profile_tooltip": "Must fill out the name, about, and profile picture fields",
   "upvote_setting_details": "Enable this option to automatically like your own posts.",
   "upvote_setting": "Like my posts",
-  "dmca_content_removed": "Content removed due to DMCA notice"
+  "dmca_content_removed": "Content removed due to DMCA notice",
+  "hero_slider_title_1": "Write and publish post",
+  "hero_slider_title_2": "Get upvoted by the community",
+  "hero_slider_title_3": "Get rewards in Steem cryptocurrency"
 }

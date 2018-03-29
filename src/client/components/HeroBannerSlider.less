@@ -3,14 +3,18 @@
 
 .HeroBannerSlider {
   display: flex;
+  overflow-x: hidden;
 
   &__image {
-    height: 150px;
-    width: 150px;
+    height: 225px;
+    width: 225px;
   }
 
   &__content {
     max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
 
     @media @small {
       padding: 0 30px;
@@ -21,10 +25,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-top: -30px;
 
     &__item {
       background-color: @primary-color;
-      border-radius: 50%;
+      border-radius: 5px;
       height: 10px;
       margin: 0 8px;
       cursor: pointer;
@@ -34,6 +39,13 @@
       &--selected {
         opacity: 1;
       }
+    }
+  }
+
+  &__description {
+    display: none;
+    @media @medium {
+      display: block;
     }
   }
 }

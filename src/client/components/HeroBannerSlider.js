@@ -1,5 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
+import { FormattedMessage } from 'react-intl';
 import classNames from 'classnames';
 import './HeroBannerSlider.less';
 
@@ -7,19 +8,22 @@ class HeroBannerSlider extends React.Component {
   static SLIDER_CONTENTS = [
     {
       image: '/images/hero-1.svg',
-      id: 'Lorem Ipsum 1',
+      titleID: 'hero_slider_title_1',
+      defaultTitle: 'Write and publish post',
       description:
         'Lorem ipsum Lorem ipsumL orem ipsumLorem ipsuLorem ipsumLorem ipsummLorem ipsumLorem ipsumipsum',
     },
     {
       image: '/images/hero-2.svg',
-      id: 'Lorem Ipsum 2',
+      titleID: 'hero_slider_title_2',
+      defaultTitle: 'Get upvoted by the community',
       description:
         'Lorem ipsum Lorem ipsumL orem ipsumLorem ipsuLorem ipsumLorem ipsummLorem ipsumLorem ipsumipsum',
     },
     {
       image: '/images/hero-3.svg',
-      id: 'Lorem Ipsum 3',
+      titleID: 'hero_slider_title_3',
+      defaultTitle: 'Get rewards in Steem cryptocurrency',
       description:
         'Lorem ipsum Lorem ipsumL orem ipsumLorem ipsuLorem ipsumLorem ipsummLorem ipsumLorem ipsumipsum',
     },
@@ -68,12 +72,21 @@ class HeroBannerSlider extends React.Component {
         <div
           className="HeroBannerSlider fade-in-left"
           onClick={this.changeSlider}
-          key={currentSlide.id}
+          key={currentSlide.titleID}
           role="presentation"
         >
-          <img src={currentSlide.image} className="HeroBannerSlider__image" alt={currentSlide.id} />
+          <img
+            src={currentSlide.image}
+            className="HeroBannerSlider__image"
+            alt={currentSlide.titleID}
+          />
           <div className="HeroBannerSlider__content">
-            <h1 className="HeroBannerSlider__title">{currentSlide.id}</h1>
+            <h1 className="HeroBannerSlider__title">
+              <FormattedMessage
+                id={currentSlide.titleID}
+                defaultMessage={currentSlide.defaultTitle}
+              />
+            </h1>
             <span className="HeroBannerSlider__description">{currentSlide.description}</span>
           </div>
         </div>
@@ -82,7 +95,7 @@ class HeroBannerSlider extends React.Component {
             <div
               role="presentation"
               onClick={this.handleChangeSlider(index)}
-              key={slide.id}
+              key={slide.titleID}
               className={classNames('HeroBannerSlider__controls__item', {
                 'HeroBannerSlider__controls__item--selected': index === this.state.currentSlide,
               })}
