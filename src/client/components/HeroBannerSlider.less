@@ -6,8 +6,13 @@
   overflow-x: hidden;
 
   &__image {
-    height: 225px;
-    width: 225px;
+    height: 150px;
+    width: 150px;
+
+    @media @small {
+      height: 225px;
+      width: 225px;
+    }
   }
 
   &__content {
