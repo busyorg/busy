@@ -6,8 +6,8 @@
   overflow-x: hidden;
 
   &__image {
-    height: 150px;
-    width: 150px;
+    height: 175px;
+    width: 175px;
 
     @media @small {
       height: 225px;
@@ -30,7 +30,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: -30px;
+
+    @media @small {
+      margin-top: -30px;
+    }
 
     &__item {
       background-color: @primary-color;
