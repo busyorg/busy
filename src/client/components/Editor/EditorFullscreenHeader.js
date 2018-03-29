@@ -3,7 +3,15 @@ import PropTypes from 'prop-types';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import Action from '../Button/Action';
 
-const EditorFullscreenHeader = ({ saving, loading, isUpdating, intl, handleSubmit }) => (
+const EditorFullscreenHeader = ({
+  saving,
+  loading,
+  isUpdating,
+  intl,
+  handleSubmit,
+  words,
+  minutes,
+}) => (
   <div className="EditorFullscreen__header">
     <span className="EditorFullscreen__header__info">
       <i className="iconfont icon-markdown" />
@@ -15,6 +23,13 @@ const EditorFullscreenHeader = ({ saving, loading, isUpdating, intl, handleSubmi
           <FormattedMessage id="saving" defaultMessage="Saving..." />
         </span>
       )}
+      <div className="EditorFullscreen__header__word-count">
+        <FormattedMessage
+          id="reading_time"
+          defaultMessage="{words} words / {min} min read"
+          values={{ words, min: Math.ceil(minutes) }}
+        />
+      </div>
       {isUpdating ? (
         <Action
           primary
@@ -47,6 +62,13 @@ EditorFullscreenHeader.propTypes = {
   isUpdating: PropTypes.bool.isRequired,
   intl: PropTypes.shape().isRequired,
   handleSubmit: PropTypes.func.isRequired,
+  words: PropTypes.number,
+  minutes: PropTypes.number,
+};
+
+EditorFullscreenHeader.defaultProps = {
+  words: 0,
+  minutes: 0,
 };
 
 export default injectIntl(EditorFullscreenHeader);

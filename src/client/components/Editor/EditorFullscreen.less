@@ -14,9 +14,24 @@
     background-color: @white;
   }
 
+  &__upvote {
+    .ant-checkbox {
+      vertical-align: -1px;
+    }
+  }
+
   &__header {
     display: flex;
-    padding: 28px 50px 0 15px;
+    padding: 10px 50px 10px 15px;
+    margin-bottom: 10px;
+    border-bottom: @base-border;
+
+    &__word-count {
+      display: flex;
+      > span {
+        width: 150px;
+      }
+    }
 
     &__info {
       > i {
@@ -104,4 +119,5 @@
 
 .EditorFullScreen__reward-select {
   margin-left: 10px !important;
+  width: 210px;
 }
