@@ -203,7 +203,7 @@ class EditorFullScreen extends React.Component {
                     ],
                   })(
                     <EditorInput
-                      autosize={{ minRows: 6, maxRows: 12 }}
+                      autosize={{ minRows: 6, maxRows: 50 }}
                       onChange={this.onUpdate}
                       onImageUpload={this.props.onImageUpload}
                       onImageInvalid={this.props.onImageInvalid}
