@@ -109,6 +109,8 @@ class EditorFullScreen extends React.Component {
             loading={loading}
             isUpdating={isUpdating}
             handleSubmit={handleSubmit}
+            words={words}
+            minutes={minutes}
           />
           <div className="EditorFullscreen__contents">
             <div className="EditorFullscreen__column">
@@ -202,16 +204,6 @@ class EditorFullScreen extends React.Component {
                   })(
                     <EditorInput
                       autosize={{ minRows: 6, maxRows: 12 }}
-                      addon={
-                        <FormattedMessage
-                          id="reading_time"
-                          defaultMessage={'{words} words / {min} min read'}
-                          values={{
-                            words,
-                            min: Math.ceil(minutes),
-                          }}
-                        />
-                      }
                       onChange={this.onUpdate}
                       onImageUpload={this.props.onImageUpload}
                       onImageInvalid={this.props.onImageInvalid}
@@ -251,7 +243,9 @@ class EditorFullScreen extends React.Component {
                     </Select>,
                   )}
                 </Form.Item>
-                <Form.Item className={classNames({ Editor__hidden: isUpdating })}>
+                <Form.Item
+                  className={classNames('EditorFullscreen__upvote', { Editor__hidden: isUpdating })}
+                >
                   {getFieldDecorator('upvote', { valuePropName: 'checked', initialValue: true })(
                     <Checkbox onChange={this.onUpdate} disabled={isUpdating}>
                       <FormattedMessage id="like_post" defaultMessage="Like this post" />
