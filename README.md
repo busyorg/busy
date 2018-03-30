@@ -29,7 +29,7 @@ So you found a bug? Or perhaps you just want to improve something? Patches are w
 
 Busy is an MIT-licensed open source project. It's an independent project with its ongoing development made possible entirely thanks to the support by these awesome backers.
 
-![Steemit Inc](https://avatars2.githubusercontent.com/u/17434692?v=4&s=50)
+[@steemit](https://busy.org/@steemit)
 [@smooth](https://busy.org/@smooth)
 [@jamesc](https://busy.org/@jamesc)
 [@cass](https://busy.org/@cass)
