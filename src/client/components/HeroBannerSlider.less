@@ -5,6 +5,7 @@
   display: flex;
   height: 205px;
   padding-bottom: 50px;
+  justify-content: center;
 
   &__title {
     line-height: 30px;
@@ -26,30 +27,6 @@
 
     @media @small {
       padding: 0 30px;
-    }
-  }
-
-  &__controls {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    @media @small {
-      margin-top: -30px;
-    }
-
-    &__item {
-      background-color: @primary-color;
-      border-radius: 5px;
-      height: 10px;
-      margin: 0 8px;
-      cursor: pointer;
-      opacity: 0.5;
-      width: 10px;
-
-      &--selected {
-        opacity: 1;
-      }
     }
   }
 
