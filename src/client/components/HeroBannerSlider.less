@@ -3,7 +3,11 @@
 
 .HeroBannerSlider {
   display: flex;
-  overflow-x: hidden;
+  height: 220px;
+
+  &__title {
+    line-height: 30px;
+  }
 
   &__image {
     height: 175px;
@@ -58,41 +62,17 @@
   }
 }
 
-.HeroBannerSlider.fade-in-left {
-  -webkit-animation: fadeinleft 600ms ease-in-out;
-  -moz-animation: fadeinleft 600ms ease-in-out;
-  -o-animation: fadeinleft 600ms ease-in-out;
-  -ms-animation: fadeinleft 600ms ease-in-out;
-  animation: fadeinleft 600ms ease-in-out;
-}
+.HeroBannerSlider__container {
+  .ant-carousel .slick-slide {
+    height: 160px;
+    overflow: hidden;
+  }
 
-@-webkit-keyframes fadeinleft {
-  0% {
-    opacity: 0;
-    -webkit-transform: translateX(100%);
+  .ant-carousel .slick-dots {
+    bottom: 20px !important;
   }
-  100% {
-    opacity: 1;
-    -webkit-transform: translateX(0%);
-  }
-}
-@-moz-keyframes fadeinleft {
-  0% {
-    opacity: 0;
-    -moz-transform: translateX(100%);
-  }
-  100% {
-    opacity: 1;
-    -moz-transform: translateX(0%);
-  }
-}
-@keyframes fadeinleft {
-  0% {
-    opacity: 0;
-    transform: translateX(100%);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0%);
+
+  .ant-carousel .slick-dots li button {
+    background: @primary-color !important;
   }
 }
