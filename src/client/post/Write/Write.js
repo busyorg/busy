@@ -37,12 +37,27 @@ const version = require('../../../../package.json').version;
   (state, props) => {
     const draftId = new URLSearchParams(props.location.search).get('draft');
 
+    const draftPost = getDraftPosts(state)[draftId] || {
+      jsonMetadata: {},
+    };
+
+    let tags = [];
+    if (isArray(draftPost.jsonMetadata.tags)) {
+      tags = draftPost.jsonMetadata.tags;
+    }
+
     return {
       draftId,
-      draftPost: getDraftPosts(state)[draftId],
       user: getAuthenticatedUser(state),
       loading: getIsEditorLoading(state),
       saving: getIsEditorSaving(state),
+      updating: draftPost.isUpdating,
+      permlink: draftPost.permlink,
+      initialTitle: draftPost.title,
+      initialTopics: tags,
+      initialBody: draftPost.body,
+      originalBody: draftPost.originalBody,
+      jsonMetadata: draftPost.jsonMetadata,
       upvoteSetting: getUpvoteSetting(state),
       rewardSetting: getRewardSetting(state),
     };
@@ -57,10 +72,16 @@ const version = require('../../../../package.json').version;
 class Write extends React.Component {
   static propTypes = {
     user: PropTypes.shape().isRequired,
-    draftPost: PropTypes.shape(),
     loading: PropTypes.bool.isRequired,
-    saving: PropTypes.bool,
-    draftId: PropTypes.string,
+    saving: PropTypes.bool.isRequired,
+    draftId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    updating: PropTypes.bool,
+    permlink: PropTypes.string,
+    initialTitle: PropTypes.string,
+    initialTopics: PropTypes.arrayOf(PropTypes.string),
+    initialBody: PropTypes.string,
+    originalBody: PropTypes.string,
+    jsonMetadata: PropTypes.shape(),
     upvoteSetting: PropTypes.bool,
     rewardSetting: PropTypes.string,
     newPost: PropTypes.func,
@@ -70,9 +91,14 @@ class Write extends React.Component {
   };
 
   static defaultProps = {
-    draftPost: null,
-    saving: false,
     draftId: null,
+    updating: false,
+    permlink: '',
+    initialTitle: '',
+    initialTopics: [],
+    initialBody: '',
+    originalBody: '',
+    jsonMetadata: {},
     upvoteSetting: true,
     rewardSetting: rewardsValues.half,
     newPost: () => {},
@@ -86,58 +112,23 @@ class Write extends React.Component {
     super(props);
     this.state = {
       loaded: false,
-      initialTitle: '',
-      initialTopics: [],
-      initialBody: '',
-      initialReward: this.props.rewardSetting,
-      initialUpvote: this.props.upvoteSetting,
-      initialUpdatedDate: Date.now(),
       isUpdating: false,
       showModalDelete: false,
     };
 
-    this.draftId = uuidv4();
+    this.handleDraftDeleted = this.handleDraftDeleted.bind(this);
+    this.handleDeleteDraftClick = this.handleDeleteDraftClick.bind(this);
+    this.handleDeleteDraftCancel = this.handleDeleteDraftCancel.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
 
-    this.loadPost = this.loadPost.bind(this);
+    this.getNewPostData = this.getNewPostData.bind(this);
   }
 
   componentDidMount() {
     this.props.newPost();
-    const { draftPost, draftId } = this.props;
-    if (draftPost) {
-      this.loadPost(draftPost);
-    }
-
-    if (draftId) {
-      this.draftId = draftId;
-    }
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (this.state.loaded && this.props.draftId === nextProps.draftId) return;
-
-    if (nextProps.draftPost) {
-      this.loadPost(nextProps.draftPost, nextProps.upvoteSetting);
-      if (nextProps.draftId) {
-        this.draftId = nextProps.draftId;
-      }
-    }
-  }
-
-  onDeleteDraft = () => this.props.replace('/editor');
-
-  onDelete = () => this.setState({ showModalDelete: true });
-
-  onSubmit = form => {
-    const data = this.getNewPostData(form);
-    data.body = improve(data.body);
-    if (this.props.draftId) {
-      data.draftId = this.props.draftId;
-    }
-    this.props.createPost(data);
-  };
-
-  getNewPostData = form => {
+  getNewPostData(form) {
     const data = {
       body: form.body,
       title: form.title,
@@ -168,13 +159,11 @@ class Write extends React.Component {
     const images = extractImages(parsedBody);
     const links = extractLinks(parsedBody);
 
-    if (data.title && !this.permlink) {
-      data.permlink = kebabCase(data.title);
-    } else {
-      data.permlink = this.permlink;
+    data.isUpdating = this.props.updating;
+    data.permlink = this.props.permlink || kebabCase(data.title);
+    if (this.props.originalBody) {
+      data.originalBody = this.props.originalBody;
     }
-
-    if (this.state.isUpdating) data.isUpdating = this.state.isUpdating;
 
     let metaData = {
       community: 'busy',
@@ -184,10 +173,10 @@ class Write extends React.Component {
 
     // Merging jsonMetadata makes sure that users don't lose any metadata when they edit post using
     // Busy (like video data from DTube)
-    if (this.props.draftPost && this.props.draftPost.jsonMetadata) {
+    if (this.props.jsonMetadata) {
       metaData = {
         ...metaData,
-        ...this.props.draftPost.jsonMetadata,
+        ...this.props.jsonMetadata,
       };
     }
 
@@ -207,43 +196,34 @@ class Write extends React.Component {
     data.parentPermlink = tags.length ? tags[0] : 'general';
     data.jsonMetadata = metaData;
 
-    if (this.originalBody) {
-      data.originalBody = this.originalBody;
-    }
-
     return data;
-  };
-
-  loadPost(draftPost, upvotePost) {
-    let tags = [];
-    if (isArray(draftPost.jsonMetadata.tags)) {
-      tags = draftPost.jsonMetadata.tags;
-    }
-
-    if (draftPost.permlink) {
-      this.permlink = draftPost.permlink;
-    }
-
-    if (draftPost.originalBody) {
-      this.originalBody = draftPost.originalBody;
-    }
-
-    // eslint-disable-next-line
-    this.setState({
-      loaded: true,
-      initialTitle: draftPost.title || '',
-      initialTopics: tags || [],
-      initialBody: draftPost.body || '',
-      initialReward: draftPost.reward,
-      initialUpvote: upvotePost,
-      initialUpdatedDate: draftPost.lastUpdated || Date.now(),
-      isUpdating: draftPost.isUpdating || false,
-    });
   }
 
-  handleCancelDeleteDraft = () => this.setState({ showModalDelete: false });
+  handleDraftDeleted() {
+    this.setState(
+      {
+        showModalDelete: false,
+      },
+      () => this.props.replace('/editor'),
+    );
+  }
 
-  saveDraft = debounce(form => {
+  handleDeleteDraftCancel() {
+    this.setState({ showModalDelete: false });
+  }
+
+  handleDeleteDraftClick() {
+    this.setState({ showModalDelete: true });
+  }
+
+  handleSubmit(form) {
+    const data = this.getNewPostData(form);
+    data.body = improve(data.body);
+    data.draftId = this.props.draftId;
+    this.props.createPost(data);
+  }
+
+  handleDraftSave = debounce(form => {
     if (this.props.saving) return;
 
     const data = this.getNewPostData(form);
@@ -254,14 +234,21 @@ class Write extends React.Component {
 
     if (isBodyEmpty) return;
 
-    const redirect = id !== this.draftId;
-
-    this.props.saveDraft({ postData: data, id: this.draftId }, redirect);
+    this.props.saveDraft({ postData: data, id: id || uuidv4() }, !!id);
   }, 2000);
 
   render() {
-    const { initialTitle, initialTopics, initialBody, initialReward, initialUpvote } = this.state;
-    const { loading, saving, draftId } = this.props;
+    const {
+      loading,
+      saving,
+      updating,
+      draftId,
+      initialTitle,
+      initialTopics,
+      initialBody,
+      upvoteSetting,
+      rewardSetting,
+    } = this.props;
 
     return (
       <div className="shifted">
@@ -273,14 +260,14 @@ class Write extends React.Component {
               title={initialTitle}
               topics={initialTopics}
               body={initialBody}
-              reward={initialReward}
-              upvote={initialUpvote}
+              upvote={upvoteSetting}
+              reward={rewardSetting}
               draftId={draftId}
               loading={loading}
-              isUpdating={this.state.isUpdating}
-              onUpdate={this.saveDraft}
-              onSubmit={this.onSubmit}
-              onDelete={this.onDelete}
+              isUpdating={updating}
+              onUpdate={this.handleDraftSave}
+              onSubmit={this.handleSubmit}
+              onDelete={this.handleDeleteDraftClick}
             />
           </div>
           <Affix className="rightContainer" stickPosition={77}>
@@ -291,9 +278,9 @@ class Write extends React.Component {
 
           {this.state.showModalDelete && (
             <DeleteDraftModal
-              draftId={draftId}
-              onDelete={this.onDeleteDraft}
-              onCancel={this.handleCancelDeleteDraft}
+              draftIds={[draftId]}
+              onDelete={this.handleDraftDeleted}
+              onCancel={this.handleDeleteDraftCancel}
             />
           )}
         </div>
