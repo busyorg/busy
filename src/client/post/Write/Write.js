@@ -117,7 +117,7 @@ class Write extends React.Component {
     if (this.state.loaded && this.props.draftId === nextProps.draftId) return;
 
     if (nextProps.draftPost) {
-      this.loadPost(nextProps.draftPost);
+      this.loadPost(nextProps.draftPost, nextProps.upvoteSetting);
       if (nextProps.draftId) {
         this.draftId = nextProps.draftId;
       }
@@ -214,7 +214,7 @@ class Write extends React.Component {
     return data;
   };
 
-  loadPost(draftPost) {
+  loadPost(draftPost, upvotePost) {
     let tags = [];
     if (isArray(draftPost.jsonMetadata.tags)) {
       tags = draftPost.jsonMetadata.tags;
@@ -235,7 +235,7 @@ class Write extends React.Component {
       initialTopics: tags || [],
       initialBody: draftPost.body || '',
       initialReward: draftPost.reward,
-      initialUpvote: draftPost.upvote,
+      initialUpvote: upvotePost,
       initialUpdatedDate: draftPost.lastUpdated || Date.now(),
       isUpdating: draftPost.isUpdating || false,
     });
