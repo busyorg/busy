@@ -40,7 +40,7 @@ const HeroBanner = ({ visible, onCloseClick }) => {
       </a>
       <div className="HeroBanner__container">
         <div className="HeroBanner__container__content HeroBannerSlider__container">
-          <Carousel>
+          <Carousel effect="fade">
             {_.map(SLIDER_CONTENTS, slide => (
               <div key={slide.titleID}>
                 <div className="HeroBannerSlider">
