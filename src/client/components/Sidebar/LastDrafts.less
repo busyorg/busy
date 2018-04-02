@@ -1,0 +1,29 @@
+@import (reference) '../../styles/custom.less';
+
+.LastDrafts {
+  &__title {
+    color: @blue-botticelli;
+    font-size: 18px;
+    font-weight: 500;
+  }
+
+  &__more > a {
+    color: @blue-botticelli;
+    font-weight: 500;
+  }
+
+  &__draft {
+    & > a {
+      color: @black;
+      font-weight: bold;
+    }
+
+    &__date {
+      color: @blue-heather;
+    }
+
+    &:last-of-type {
+      padding-bottom: 8px;
+    }
+  }
+}
