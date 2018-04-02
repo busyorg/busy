@@ -185,7 +185,7 @@ export default class Wrapper extends React.PureComponent {
       <IntlProvider key={usedLocale} locale={usedLocale} messages={translations}>
         <LocaleProvider locale={enUS}>
           <Layout data-dir={getLocaleDirection(getAvailableLocale(locale))}>
-            <Layout.Header style={{ position: 'fixed', width: '99vw', zIndex: 1050 }}>
+            <Layout.Header style={{ position: 'fixed', width: '100vw', zIndex: 1050 }}>
               <Topnav username={user.name} onMenuItemClick={this.handleMenuItemClick} />
             </Layout.Header>
             <div className="content">
