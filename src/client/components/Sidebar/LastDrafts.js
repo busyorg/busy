@@ -9,7 +9,7 @@ import './SidebarContentBlock.less';
 const Draft = ({ draft }) => (
   <div className="LastDrafts__draft">
     <Link to={{ pathname: '/editor', search: `?draft=${draft.id}` }}>
-      {draft.title.length ? (
+      {draft.title ? (
         draft.title
       ) : (
         <FormattedMessage id="draft_untitled" defaultMessage="Untitled draft" />
