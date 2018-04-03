@@ -12,6 +12,9 @@
   }
 
   &__image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 175px;
 
     @media @small {
@@ -19,18 +22,14 @@
     }
   }
 
-  &__image-1 {
-    width: 175px;
-  }
-
   &__content {
-    max-width: 500px;
     display: flex;
     flex-direction: column;
     margin-top: 20px;
 
     @media @small {
       padding: 0 30px;
+      width: 510px;
     }
   }
 

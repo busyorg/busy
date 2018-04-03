@@ -47,7 +47,9 @@ const HeroBanner = ({ visible, onCloseClick }) => {
             {_.map(SLIDER_CONTENTS, slide => (
               <div key={slide.titleID}>
                 <div className="HeroBannerSlider">
-                  <img src={slide.image} className={slide.className} alt={slide.titleID} />
+                  <div className={slide.className}>
+                    <img src={slide.image} alt={slide.titleID} />
+                  </div>
                   <div className="HeroBannerSlider__content">
                     <h1 className="HeroBannerSlider__title">
                       <FormattedMessage id={slide.titleID} defaultMessage={slide.defaultTitle} />
