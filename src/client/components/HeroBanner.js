@@ -39,11 +39,11 @@ const HeroBanner = ({ visible, onCloseClick }) => {
   return (
     <div className="HeroBanner">
       <div className="HeroBanner__container">
-        <a onClick={onCloseClick} role="button" tabIndex="0" className="HeroBanner__close">
-          <i className="iconfont icon-close" />
-        </a>
         <div className="HeroBanner__container__content HeroBannerSlider__container">
-          <Carousel effect="fade" autoplay>
+          <a onClick={onCloseClick} role="button" tabIndex="0" className="HeroBanner__close">
+            <i className="iconfont icon-close" />
+          </a>
+          <Carousel effect="fade" autoplay autoplaySpeed={8000} focusOnSelect adaptiveHeight>
             {_.map(SLIDER_CONTENTS, slide => (
               <div key={slide.titleID}>
                 <div className="HeroBannerSlider">
