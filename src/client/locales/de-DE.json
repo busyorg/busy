@@ -44,6 +44,7 @@
   "notification_upvoted_username_post": "{username} gefällt dein Beitrag",
   "notification_downvoted_username_post": "{username} gefällt dein Beitrag nicht",
   "notification_unvoted_username_post": "{username} gefällt dein Beitrag nicht mehr",
+  "notification_generic_default_message": "You have a new notification",
   "notifications_empty_message": "Du hast keine Benachrichtigungen.",
   "see_all": "Alle anzeigen",
   "discussions": "Diskussionen",
@@ -164,6 +165,7 @@
   "sort_best": "Beste",
   "sort_newest": "Neueste",
   "sort_oldest": "Älteste",
+  "sort_author_reputation": "Reputation",
   "trending_topics": "Beliebte Themen",
   "favorite_topics": "Lieblingsthemen",
   "interesting_people": "Interessante Leute",
@@ -332,5 +334,6 @@
   "write_first_post": "Erstellen Sie Ihren ersten Beitrag",
   "complete_profile_tooltip": "Du musst deinen folgende Felder vervollständigen: Name, über dich\nZusätzlich musst du ein Profilbild festlegen",
   "upvote_setting_details": "Enable this option to automatically like your own posts.",
-  "upvote_setting": "Like my posts"
+  "upvote_setting": "Like my posts",
+  "dmca_content_removed": "Content removed due to DMCA notice"
 }

@@ -44,6 +44,7 @@
   "notification_upvoted_username_post": "{username} 点赞了你的邮件",
   "notification_downvoted_username_post": "{username} 踩了你的邮件",
   "notification_unvoted_username_post": "{username} 踩了你的帖子",
+  "notification_generic_default_message": "You have a new notification",
   "notifications_empty_message": "你当前没有任何通知",
   "see_all": "查看全部",
   "discussions": "讨论",
@@ -164,6 +165,7 @@
   "sort_best": "最受欢迎",
   "sort_newest": "最新",
   "sort_oldest": "最早",
+  "sort_author_reputation": "Reputation",
   "trending_topics": "热门话题",
   "favorite_topics": "收藏的主题",
   "interesting_people": "猜你喜欢",
@@ -332,5 +334,6 @@
   "write_first_post": "发表你的第一篇帖子",
   "complete_profile_tooltip": "必须填写姓名、简介和头像字段",
   "upvote_setting_details": "Enable this option to automatically like your own posts.",
-  "upvote_setting": "Like my posts"
+  "upvote_setting": "Like my posts",
+  "dmca_content_removed": "Content removed due to DMCA notice"
 }
