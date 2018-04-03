@@ -61,19 +61,6 @@ class Editor extends React.Component {
     onImageInvalid: () => {},
   };
 
-  static checkTopics(rule, value, callback) {
-    if (!value || value.length < 1 || value.length > 5) {
-      callback('You have to add 1 to 5 topics');
-    }
-
-    value
-      .map(topic => ({ topic, valid: /^[a-z0-9]+(-[a-z0-9]+)*$/.test(topic) }))
-      .filter(topic => !topic.valid)
-      .map(topic => callback(`Topic ${topic.topic} is invalid`));
-
-    callback();
-  }
-
   constructor(props) {
     super(props);
 
@@ -150,14 +137,44 @@ class Editor extends React.Component {
     });
   }
 
+  checkTopics = intl => (rule, value, callback) => {
+    if (!value || value.length < 1 || value.length > 5) {
+      callback(
+        intl.formatMessage({
+          id: 'topics_error_count',
+          defaultMessage: 'You have to add 1 to 5 topics.',
+        }),
+      );
+    }
+
+    value
+      .map(topic => ({ topic, valid: /^[a-z0-9]+(-[a-z0-9]+)*$/.test(topic) }))
+      .filter(topic => !topic.valid)
+      .map(topic =>
+        callback(
+          intl.formatMessage(
+            {
+              id: 'topics_error_invalid_topic',
+              defaultMessage: 'Topic {topic} is invalid.',
+            },
+            {
+              topic: topic.topic,
+            },
+          ),
+        ),
+      );
+
+    callback();
+  };
+
   throttledUpdate() {
     const { form } = this.props;
 
+    const values = form.getFieldsValue();
+    this.setBodyAndRender(values.body);
+
     if (Object.values(form.getFieldsError()).filter(e => e).length > 0) return;
 
-    const values = form.getFieldsValue();
-
-    this.setBodyAndRender(values.body);
     this.props.onUpdate(values);
   }
 
@@ -252,7 +269,7 @@ class Editor extends React.Component {
                 }),
                 type: 'array',
               },
-              { validator: Editor.checkTopics },
+              { validator: this.checkTopics(intl) },
             ],
           })(
             <Select
@@ -358,7 +375,7 @@ class Editor extends React.Component {
             )}
             <Form.Item className="Editor__bottom__cancel">
               {draftId && (
-                <Button type="danger" disabled={loading} onClick={this.handleDelete}>
+                <Button type="danger" size="large" disabled={loading} onClick={this.handleDelete}>
                   <FormattedMessage id="draft_delete" defaultMessage="Delete this draft" />
                 </Button>
               )}

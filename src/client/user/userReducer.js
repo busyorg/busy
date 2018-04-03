@@ -1,4 +1,5 @@
 import * as actions from './userActions';
+import * as appTypes from '../app/appActions';
 import people from '../helpers/people';
 
 const initialState = {
@@ -10,6 +11,7 @@ const initialState = {
     fetched: false,
   },
   notifications: [],
+  latestNotification: {},
   loadingNotifications: false,
   fetchFollowListError: false,
 };
@@ -129,6 +131,13 @@ export default function userReducer(state = initialState, action) {
         ...state,
         loadingNotifications: false,
       };
+
+    case appTypes.ADD_NEW_NOTIFICATION:
+      return {
+        ...state,
+        notifications: [action.payload, ...state.notifications],
+        latestNotification: action.payload,
+      };
     default: {
       return state;
     }
@@ -143,3 +152,4 @@ export const getFollowingFetched = state => state.following.fetched;
 export const getNotifications = state => state.notifications;
 export const getIsLoadingNotifications = state => state.loadingNotifications;
 export const getFetchFollowListError = state => state.fetchFollowListError;
+export const getLatestNotification = state => state.latestNotification;

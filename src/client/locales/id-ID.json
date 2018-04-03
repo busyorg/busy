@@ -44,6 +44,7 @@
   "notification_upvoted_username_post": "{namapengguna} memilih menaikkan posting anda",
   "notification_downvoted_username_post": "{namapengguna} memilih menurunkan posting anda",
   "notification_unvoted_username_post": "{namapengguna} tidak memilih posting anda",
+  "notification_generic_default_message": "You have a new notification",
   "notifications_empty_message": "Kamu sekarang tidak memiliki pemberitahuan.",
   "see_all": "Tampilkan Semua",
   "discussions": "Diskusi",
@@ -164,6 +165,7 @@
   "sort_best": "Terbaik",
   "sort_newest": "Terbaru",
   "sort_oldest": "Terlama",
+  "sort_author_reputation": "Reputasi",
   "trending_topics": "Tren topik",
   "favorite_topics": "Topik favorit",
   "interesting_people": "Orang-orang yang menarik",
@@ -331,6 +333,7 @@
   "like_good_posts": "Seperti beberapa posting baik",
   "write_first_post": "Tulis posting pertama anda",
   "complete_profile_tooltip": "Harus mengisi kolom nama, tentang, dan kolom gambar profil",
-  "upvote_setting_details": "Enable this option to automatically like your own posts.",
-  "upvote_setting": "Like my posts"
+  "upvote_setting_details": "Mengaktifkan opsi ini untuk secara otomatis seperti posting Anda sendiri.",
+  "upvote_setting": "Menyukai postingan saya",
+  "dmca_content_removed": "Content removed due to DMCA notice"
 }

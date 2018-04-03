@@ -44,6 +44,7 @@
   "notification_upvoted_username_post": "{username} upvoted your post",
   "notification_downvoted_username_post": "{username} downvoted your post",
   "notification_unvoted_username_post": "{username} unvoted your post",
+  "notification_generic_default_message": "You have a new notification",
   "notifications_empty_message": "You currently have no notifications.",
   "see_all": "Mutasd mindet",
   "discussions": "Beszélgetések",
@@ -164,6 +165,7 @@
   "sort_best": "Legjobb",
   "sort_newest": "Legújabb",
   "sort_oldest": "Legrégibb",
+  "sort_author_reputation": "Reputation",
   "trending_topics": "Népszerű témák",
   "favorite_topics": "Kedvenc témák",
   "interesting_people": "Érdekes emberek",
@@ -332,5 +334,6 @@
   "write_first_post": "Írd meg az első cikkedet",
   "complete_profile_tooltip": "Ki kell tölteni a név, a magadról és a profil kép mezőket",
   "upvote_setting_details": "Enable this option to automatically like your own posts.",
-  "upvote_setting": "Like my posts"
+  "upvote_setting": "Like my posts",
+  "dmca_content_removed": "Content removed due to DMCA notice"
 }
