@@ -118,6 +118,7 @@ class ClaimRewardsBlock extends Component {
             disabled={rewardClaimed}
             onClick={this.handleClaimRewards}
             loading={this.state.loading}
+            primary
           />
         </div>
       </div>
