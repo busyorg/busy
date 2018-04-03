@@ -28,7 +28,7 @@ const SLIDER_CONTENTS = [
   {
     image: '/images/hero-3.svg',
     titleID: 'hero_slider_title_3',
-    defaultTitle: 'Get rewards in Steem cryptocurrency',
+    defaultTitle: 'Get rewarded in Steem',
     descriptionID: 'hero_slider_description_1',
     defaultDescription:
       'Contrary to other social media networks, here you can earn cryptocurrency that has a real dollar value for your work',
