@@ -44,6 +44,7 @@
   "notification_upvoted_username_post": "{username} upvoted your post",
   "notification_downvoted_username_post": "{username} downvoted your post",
   "notification_unvoted_username_post": "{username} unvoted your post",
+  "notification_generic_default_message": "You have a new notification",
   "notifications_empty_message": "You currently have no notifications.",
   "see_all": "See All",
   "discussions": "Discussions",
@@ -164,6 +165,7 @@
   "sort_best": "Best",
   "sort_newest": "Newest",
   "sort_oldest": "Oldest",
+  "sort_author_reputation": "Reputation",
   "trending_topics": "Trending topics",
   "favorite_topics": "Favorite topics",
   "interesting_people": "Interesting People",
@@ -332,5 +334,6 @@
   "write_first_post": "Write your first post",
   "complete_profile_tooltip": "Must fill out the name, about, and profile picture fields",
   "upvote_setting_details": "Enable this option to automatically like your own posts.",
-  "upvote_setting": "Like my posts"
+  "upvote_setting": "Like my posts",
+  "dmca_content_removed": "Content removed due to DMCA notice"
 }

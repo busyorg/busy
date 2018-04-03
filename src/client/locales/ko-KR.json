@@ -44,6 +44,7 @@
   "notification_upvoted_username_post": "{username} 가 당신 글을 업보트했습니다.",
   "notification_downvoted_username_post": "{username} 가 당신 글을 다운보트했습니다.",
   "notification_unvoted_username_post": "{username} 가 당신 글에 대한 보트를 취소했습니다.",
+  "notification_generic_default_message": "You have a new notification",
   "notifications_empty_message": "알림 정보가 없습니다.",
   "see_all": "전체 보기",
   "discussions": "토론",
@@ -164,6 +165,7 @@
   "sort_best": "인기 순",
   "sort_newest": "최신 순",
   "sort_oldest": "작성 일자 순",
+  "sort_author_reputation": "Reputation",
   "trending_topics": "인기있는 주제",
   "favorite_topics": "즐겨찾는 주제",
   "interesting_people": "인기있는 작가들",
@@ -331,6 +333,7 @@
   "like_good_posts": "맘에 드는 글에 좋아요 누르기",
   "write_first_post": "첫 번째 글 작성하기",
   "complete_profile_tooltip": "이름, 소개, 프로필 사진은 반드시 입력해야 합니다.",
-  "upvote_setting_details": "Enable this option to automatically like your own posts.",
-  "upvote_setting": "Like my posts"
+  "upvote_setting_details": "이 옵션을 활성화하면 글 작성시 좋아요 기능이 자동으로 선택됩니다",
+  "upvote_setting": "저는 제 글이 좋다고 생각해요",
+  "dmca_content_removed": "Content removed due to DMCA notice"
 }

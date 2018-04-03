@@ -44,6 +44,7 @@
   "notification_upvoted_username_post": "{username} upvoted your post",
   "notification_downvoted_username_post": "{username} downvoted your post",
   "notification_unvoted_username_post": "{username} unvoted your post",
+  "notification_generic_default_message": "You have a new notification",
   "notifications_empty_message": "Yeni bildirimin yok.",
   "see_all": "Tümünü Gör",
   "discussions": "Tartışmalar",
@@ -164,6 +165,7 @@
   "sort_best": "En iyi",
   "sort_newest": "En yeni",
   "sort_oldest": "En eski",
+  "sort_author_reputation": "Reputation",
   "trending_topics": "Popüler Başlıklar",
   "favorite_topics": "Favori başlıklar",
   "interesting_people": "Enteresan kişilikler",
@@ -332,5 +334,6 @@
   "write_first_post": "İlk gönderini paylaş",
   "complete_profile_tooltip": "Ad,hakkında ve profil fotoğrafı kısımlarını doldurmalısınız.",
   "upvote_setting_details": "Enable this option to automatically like your own posts.",
-  "upvote_setting": "Like my posts"
+  "upvote_setting": "Like my posts",
+  "dmca_content_removed": "Content removed due to DMCA notice"
 }
