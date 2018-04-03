@@ -58,6 +58,7 @@ export const editPost = post => dispatch => {
     ...post,
     originalBody: post.body,
     jsonMetadata,
+    lastUpdated: new Date(),
     isUpdating: true,
   };
   dispatch(saveDraft({ postData: draft, id: post.id })).then(() =>
@@ -201,7 +202,7 @@ export function createPost(postData) {
               dispatch(deleteDraft(draftId));
               dispatch(addEditedPost(permlink));
             }
-            dispatch(push(`/${parentPermlink}/@${author}/${permlink}`));
+            dispatch(push(`/@${author}/${permlink}`));
 
             if (window.analytics) {
               window.analytics.track('Post', {
