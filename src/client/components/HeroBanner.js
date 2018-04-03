@@ -13,6 +13,7 @@ const SLIDER_CONTENTS = [
     defaultTitle: 'Write and publish post',
     description:
       'Lorem ipsum Lorem ipsumL orem ipsumLorem ipsuLorem ipsumLorem ipsummLorem ipsumLorem ipsumipsum',
+    className: 'HeroBannerSlider__image HeroBannerSlider__image-1',
   },
   {
     image: '/images/hero-2.svg',
@@ -20,6 +21,7 @@ const SLIDER_CONTENTS = [
     defaultTitle: 'Get upvoted by the community',
     description:
       'Lorem ipsum Lorem ipsumL orem ipsumLorem ipsuLorem ipsumLorem ipsummLorem ipsumLorem ipsumipsum',
+    className: 'HeroBannerSlider__image',
   },
   {
     image: '/images/hero-3.svg',
@@ -27,6 +29,7 @@ const SLIDER_CONTENTS = [
     defaultTitle: 'Get rewards in Steem cryptocurrency',
     description:
       'Lorem ipsum Lorem ipsumL orem ipsumLorem ipsuLorem ipsumLorem ipsummLorem ipsumLorem ipsumipsum',
+    className: 'HeroBannerSlider__image',
   },
 ];
 
@@ -44,7 +47,7 @@ const HeroBanner = ({ visible, onCloseClick }) => {
             {_.map(SLIDER_CONTENTS, slide => (
               <div key={slide.titleID}>
                 <div className="HeroBannerSlider">
-                  <img src={slide.image} className="HeroBannerSlider__image" alt={slide.titleID} />
+                  <img src={slide.image} className={slide.className} alt={slide.titleID} />
                   <div className="HeroBannerSlider__content">
                     <h1 className="HeroBannerSlider__title">
                       <FormattedMessage id={slide.titleID} defaultMessage={slide.defaultTitle} />
