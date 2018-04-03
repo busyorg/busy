@@ -58,6 +58,7 @@ export const editPost = post => dispatch => {
     ...post,
     originalBody: post.body,
     jsonMetadata,
+    lastUpdated: new Date(),
     isUpdating: true,
   };
   dispatch(saveDraft({ postData: draft, id: post.id })).then(() =>
