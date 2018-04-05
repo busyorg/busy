@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { replace } from 'react-router-redux';
-import _ from 'lodash';
+import kebabCase from 'lodash/kebabCase';
+import debounce from 'lodash/debounce';
+import isArray from 'lodash/isArray';
 import 'url-search-params-polyfill';
 import { injectIntl } from 'react-intl';
 import uuidv4 from 'uuid/v4';
@@ -40,7 +42,7 @@ const version = require('../../../../package.json').version;
     };
 
     let tags = [];
-    if (_.isArray(draftPost.jsonMetadata.tags)) {
+    if (isArray(draftPost.jsonMetadata.tags)) {
       tags = draftPost.jsonMetadata.tags;
     }
 
@@ -158,7 +160,7 @@ class Write extends React.Component {
     const links = extractLinks(parsedBody);
 
     data.isUpdating = this.props.updating;
-    data.permlink = this.props.permlink || _.kebabCase(data.title);
+    data.permlink = this.props.permlink || kebabCase(data.title);
     if (this.props.originalBody) {
       data.originalBody = this.props.originalBody;
     }
@@ -221,24 +223,18 @@ class Write extends React.Component {
     this.props.createPost(data);
   }
 
-  handleDraftSave = _.debounce(form => {
+  handleDraftSave = debounce(form => {
     if (this.props.saving) return;
 
     const data = this.getNewPostData(form);
     const postBody = data.body;
+    const id = this.props.draftId;
     // Remove zero width space
-    let id = this.props.draftId;
-    const redirect = !!this.props.draftId;
     const isBodyEmpty = postBody.replace(/[\u200B-\u200D\uFEFF]/g, '').trim().length === 0;
 
     if (isBodyEmpty) return;
 
-    if (_.isNull(id) || _.isUndefined(id)) {
-      id = uuidv4();
-      if (history) history.pushState({}, '', `editor?draft=${id}`);
-    }
-
-    this.props.saveDraft({ postData: data, id }, redirect);
+    this.props.saveDraft({ postData: data, id: id || uuidv4() }, !id);
   }, 2000);
 
   render() {
