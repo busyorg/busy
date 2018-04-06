@@ -1,18 +1,13 @@
-export default {
-  steemit: 'Steemit',
-  busy: 'Busy',
-  esteem: 'eSteem',
-  chainbb: 'chainBB',
-  utopian: 'Utopian',
-  dtube: 'DTube',
-  dlive: 'DLive',
-  dmania: 'dMania',
-  dsound: 'DSound',
-  steepshot: 'Steepshot',
-  zappl: 'Zappl',
-  steemkr: 'Steemkr',
-  steemhunt: 'Steemhunt',
-  steemjs: 'Steem.js',
-  steemplace: 'Steem.Place',
-  strimi: 'Strimi',
-};
+// get full application list from scripts json.
+const appsList = require('steemscript/apps.json')
+
+// start an empty object for the applications names.
+const apps = {}
+
+// "map" each one extracting the name key
+Object.keys(appsList).forEach((key) => {
+  apps[key] = appsList[key].name
+});
+
+// export the result.
+export default apps

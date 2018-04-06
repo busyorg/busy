@@ -8446,6 +8446,10 @@ stealthy-require@^1.1.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/stealthy-require/-/stealthy-require-1.1.1.tgz#35b09875b4ff49f26a777e509b3090a3226bf24b"
 
+"steemscript@https://github.com/busyorg/steemscript.git":
+  version "0.0.1"
+  resolved "https://github.com/busyorg/steemscript.git#0a2ffcba66e9ebb093a0e511e78ffa22b7b9023d"
+
 store@^1.3.20:
   version "1.3.20"
   resolved "https://registry.yarnpkg.com/store/-/store-1.3.20.tgz#13ea7e3fb2d6c239868265d686b1d84e99c5be3e"
