@@ -5,7 +5,7 @@ const appsList = require('steemscript/apps.json');
 const apps = {};
 
 // "map" each one extracting the name key
-Object.keys(appsList).forEach((key) => {
+Object.keys(appsList).forEach(key => {
   apps[key] = appsList[key].name;
 });
 
