@@ -15,4 +15,5 @@ export default {
   steemjs: 'Steem.js',
   steemplace: 'Steem.Place',
   strimi: 'Strimi',
+  steemitlol: 'Steemit.LOL',
 };
