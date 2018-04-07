@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
-import find from 'lodash/find';
+import { find, truncate } from 'lodash';
 import { Helmet } from 'react-helmet';
 import sanitize from 'sanitize-html';
 import { getHasDefaultSlider } from '../helpers/user';
@@ -210,7 +210,7 @@ class PostContent extends React.Component {
     const postMetaImage = postMetaData.image && postMetaData.image[0];
     const htmlBody = getHtml(body, {}, 'text');
     const bodyText = sanitize(htmlBody, { allowedTags: [] });
-    const desc = `${bodyText.substring(0, 140)} by ${author}`;
+    const desc = `${truncate(bodyText, { length: 143 })} by ${author}`;
     const image = postMetaImage || getAvatarURL(author) || '/images/logo.png';
     const canonicalUrl = `${canonicalHost}${dropCategory(content.url)}`;
     const url = `${busyHost}${dropCategory(content.url)}`;
@@ -233,7 +233,7 @@ class PostContent extends React.Component {
           <meta property="article:tag" content={category} />
           <meta property="article:published_time" content={created} />
           <meta property="twitter:card" content={image ? 'summary_large_image' : 'summary'} />
-          <meta property="twitter:site" content={'@steemit'} />
+          <meta property="twitter:site" content={'@busyorg'} />
           <meta property="twitter:title" content={metaTitle} />
           <meta property="twitter:description" content={desc} />
           <meta property="twitter:image" content={image} />
