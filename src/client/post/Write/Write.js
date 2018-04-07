@@ -3,9 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { replace } from 'react-router-redux';
-import kebabCase from 'lodash/kebabCase';
-import debounce from 'lodash/debounce';
-import isArray from 'lodash/isArray';
+import _ from 'lodash';
 import 'url-search-params-polyfill';
 import { injectIntl } from 'react-intl';
 import uuidv4 from 'uuid/v4';
@@ -41,11 +39,6 @@ const version = require('../../../../package.json').version;
       jsonMetadata: {},
     };
 
-    let tags = [];
-    if (isArray(draftPost.jsonMetadata.tags)) {
-      tags = draftPost.jsonMetadata.tags;
-    }
-
     return {
       draftId,
       user: getAuthenticatedUser(state),
@@ -53,13 +46,11 @@ const version = require('../../../../package.json').version;
       saving: getIsEditorSaving(state),
       updating: draftPost.isUpdating,
       permlink: draftPost.permlink,
-      initialTitle: draftPost.title,
-      initialTopics: tags,
-      initialBody: draftPost.body,
       originalBody: draftPost.originalBody,
       jsonMetadata: draftPost.jsonMetadata,
       upvoteSetting: getUpvoteSetting(state),
       rewardSetting: getRewardSetting(state),
+      draftPosts: getDraftPosts(state),
     };
   },
   {
@@ -72,14 +63,13 @@ const version = require('../../../../package.json').version;
 class Write extends React.Component {
   static propTypes = {
     user: PropTypes.shape().isRequired,
+    location: PropTypes.shape().isRequired,
+    draftPosts: PropTypes.shape().isRequired,
     loading: PropTypes.bool.isRequired,
     saving: PropTypes.bool.isRequired,
     draftId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     updating: PropTypes.bool,
     permlink: PropTypes.string,
-    initialTitle: PropTypes.string,
-    initialTopics: PropTypes.arrayOf(PropTypes.string),
-    initialBody: PropTypes.string,
     originalBody: PropTypes.string,
     jsonMetadata: PropTypes.shape(),
     upvoteSetting: PropTypes.bool,
@@ -109,11 +99,22 @@ class Write extends React.Component {
   };
 
   constructor(props) {
+    const draftId = new URLSearchParams(props.location.search).get('draft');
+    const draftPost = _.get(props.draftPosts, draftId, {});
+
+    let tags = [];
+    if (_.isArray(_.get(draftPost, 'jsonMetadata.tags'))) {
+      tags = draftPost.jsonMetadata.tags;
+    }
+
     super(props);
     this.state = {
       loaded: false,
       isUpdating: false,
       showModalDelete: false,
+      initialTitle: draftPost.title,
+      initialTopics: tags,
+      initialBody: draftPost.body,
     };
 
     this.handleDraftDeleted = this.handleDraftDeleted.bind(this);
@@ -126,6 +127,25 @@ class Write extends React.Component {
 
   componentDidMount() {
     this.props.newPost();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const diffDraftID = !_.isEqual(this.props.draftId, nextProps.draftId);
+
+    if (diffDraftID) {
+      const draftPost = _.get(nextProps.draftPosts, nextProps.draftId, {});
+      let tags = [];
+
+      if (_.isArray(_.get(draftPost, 'jsonMetadata.tags'))) {
+        tags = draftPost.jsonMetadata.tags;
+      }
+
+      this.setState({
+        initialTitle: draftPost.title,
+        initialTopics: tags,
+        initialBody: draftPost.body,
+      });
+    }
   }
 
   getNewPostData(form) {
@@ -160,7 +180,7 @@ class Write extends React.Component {
     const links = extractLinks(parsedBody);
 
     data.isUpdating = this.props.updating;
-    data.permlink = this.props.permlink || kebabCase(data.title);
+    data.permlink = this.props.permlink || _.kebabCase(data.title);
     if (this.props.originalBody) {
       data.originalBody = this.props.originalBody;
     }
@@ -223,7 +243,7 @@ class Write extends React.Component {
     this.props.createPost(data);
   }
 
-  handleDraftSave = debounce(form => {
+  handleDraftSave = _.debounce(form => {
     if (this.props.saving) return;
 
     const data = this.getNewPostData(form);
@@ -238,17 +258,8 @@ class Write extends React.Component {
   }, 2000);
 
   render() {
-    const {
-      loading,
-      saving,
-      updating,
-      draftId,
-      initialTitle,
-      initialTopics,
-      initialBody,
-      upvoteSetting,
-      rewardSetting,
-    } = this.props;
+    const { loading, saving, updating, draftId, upvoteSetting, rewardSetting } = this.props;
+    const { initialTitle, initialTopics, initialBody } = this.state;
 
     return (
       <div className="shifted">
