@@ -3,9 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { replace } from 'react-router-redux';
-import kebabCase from 'lodash/kebabCase';
-import debounce from 'lodash/debounce';
-import isArray from 'lodash/isArray';
+import _ from 'lodash';
 import 'url-search-params-polyfill';
 import { injectIntl } from 'react-intl';
 import uuidv4 from 'uuid/v4';
@@ -13,6 +11,7 @@ import { getHtml } from '../../components/Story/Body';
 import improve from '../../helpers/improve';
 import { extractImages, extractLinks } from '../../helpers/parser';
 import { rewardsValues } from '../../../common/constants/rewards';
+import LastDraftsContainer from './LastDraftsContainer';
 import DeleteDraftModal from './DeleteDraftModal';
 
 import {
@@ -94,9 +93,10 @@ class Write extends React.Component {
     this.props.newPost();
     const { draftPosts, draftId } = this.props;
     const draftPost = draftPosts[draftId];
+
     if (draftPost) {
       let tags = [];
-      if (isArray(draftPost.jsonMetadata.tags)) {
+      if (_.isArray(draftPost.jsonMetadata.tags)) {
         tags = draftPost.jsonMetadata.tags;
       }
 
@@ -128,7 +128,9 @@ class Write extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.draftId !== nextProps.draftId && nextProps.draftId === null) {
+    const newDraft = nextProps.draftId === null;
+    const differentDraft = this.props.draftId !== nextProps.draftId;
+    if (differentDraft && newDraft) {
       this.draftId = uuidv4();
       this.setState({
         initialTitle: '',
@@ -139,6 +141,18 @@ class Write extends React.Component {
         initialUpdatedDate: Date.now(),
         isUpdating: false,
         showModalDelete: false,
+      });
+    } else if (differentDraft) {
+      const { draftPosts, draftId } = nextProps;
+      const draftPost = _.get(draftPosts, draftId, {});
+      const initialTitle = _.get(draftPost, 'title', '');
+      const initialBody = _.get(draftPost, 'body', '');
+      const initialTopics = _.get(draftPost, 'jsonMetadata.tags', []);
+      this.draftId = draftId;
+      this.setState({
+        initialTitle,
+        initialBody,
+        initialTopics,
       });
     }
   }
@@ -188,7 +202,7 @@ class Write extends React.Component {
     const links = extractLinks(parsedBody);
 
     if (data.title && !this.permlink) {
-      data.permlink = kebabCase(data.title);
+      data.permlink = _.kebabCase(data.title);
     } else {
       data.permlink = this.permlink;
     }
@@ -235,7 +249,7 @@ class Write extends React.Component {
 
   handleCancelDeleteDraft = () => this.setState({ showModalDelete: false });
 
-  saveDraft = debounce(form => {
+  saveDraft = _.debounce(form => {
     if (this.props.saving) return;
 
     const data = this.getNewPostData(form);
@@ -259,7 +273,9 @@ class Write extends React.Component {
       <div className="shifted">
         <div className="post-layout container">
           <Affix className="rightContainer" stickPosition={77}>
-            <div className="right" />
+            <div className="right">
+              <LastDraftsContainer />
+            </div>
           </Affix>
           <div className="center">
             <Editor
