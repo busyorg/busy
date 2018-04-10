@@ -181,9 +181,9 @@ class PostContent extends React.Component {
     const postMetaData = jsonParse(content.json_metadata);
     const busyHost = appUrl || 'https://busy.org';
     let canonicalHost = busyHost;
-    
+
     if (typeof postMetaData.app !== 'string') {
-      postMetaData.app = "";
+      postMetaData.app = '';
     }
 
     if (postMetaData.app && postMetaData.app.indexOf('steemit') === 0) {
