@@ -7,6 +7,7 @@ import { Icon, Tooltip } from 'antd';
 import { getUpvotes, getDownvotes } from '../../helpers/voteHelpers';
 import { sortVotes } from '../../helpers/sortHelpers';
 import { calculatePayout } from '../../vendor/steemitHelpers';
+import BTooltip from '../BTooltip';
 import ReactionsModal from '../Reactions/ReactionsModal';
 import withAuthActions from '../../auth/withAuthActions';
 import USDDisplay from '../Utils/USDDisplay';
@@ -181,7 +182,7 @@ class Buttons extends React.Component {
           role="presentation"
           onClick={this.handleShowReactions}
         >
-          <Tooltip
+          <BTooltip
             title={
               <div>
                 {upVotesPreview}
@@ -194,7 +195,7 @@ class Buttons extends React.Component {
           >
             <FormattedNumber value={upVotes.length} />
             <span />
-          </Tooltip>
+          </BTooltip>
         </span>
         <Tooltip title={intl.formatMessage({ id: 'dislike', defaultMessage: 'Dislike' })}>
           <a
@@ -218,7 +219,7 @@ class Buttons extends React.Component {
           role="presentation"
           onClick={this.handleShowReactions}
         >
-          <Tooltip
+          <BTooltip
             title={
               <div>
                 {downVotesPreview}
@@ -231,7 +232,7 @@ class Buttons extends React.Component {
           >
             <FormattedNumber value={downVotes.length} />
             <span />
-          </Tooltip>
+          </BTooltip>
         </span>
         <span className="CommentFooter__bullet" />
         <span className="CommentFooter__payout">
