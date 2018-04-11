@@ -301,7 +301,7 @@ class Editor extends React.Component {
             ],
           })(
             <EditorInput
-              autosize={{ minRows: 6, maxRows: 12 }}
+              autosize={{ minRows: 6, maxRows: 30 }}
               addon={
                 <FormattedMessage
                   id="reading_time"
