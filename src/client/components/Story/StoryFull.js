@@ -85,6 +85,7 @@ class StoryFull extends React.Component {
     this.state = {
       lightbox: {
         open: false,
+        title: '',
         index: 0,
       },
     };
@@ -140,6 +141,7 @@ class StoryFull extends React.Component {
           this.setState({
             lightbox: {
               open: true,
+              title: e.target.getAttribute('alt'),
               index: i,
             },
           });
@@ -201,7 +203,7 @@ class StoryFull extends React.Component {
     } = this.props;
     const { isReported } = postState;
 
-    const { open, index } = this.state.lightbox;
+    const { open, index, title } = this.state.lightbox;
 
     let signedBody = post.body;
     if (signature) {
@@ -437,6 +439,7 @@ class StoryFull extends React.Component {
         <div className="StoryFull__content">{content}</div>
         {open && (
           <Lightbox
+            imageTitle={title}
             mainSrc={this.images[index]}
             nextSrc={this.images[(index + 1) % this.images.length]}
             prevSrc={this.images[(index + (this.images.length - 1)) % this.images.length]}
