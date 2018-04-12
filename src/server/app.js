@@ -2,6 +2,7 @@
 import { compileAmpTemplate } from './renderers/ampRenderer';
 import createSsrHandler from './handlers/createSsrHandler';
 import createAmpHandler from './handlers/createAmpHandler';
+import embedsRouter from './embeds';
 import steemAPI from './steemAPI';
 
 const fs = require('fs');
@@ -98,6 +99,7 @@ app.get('/:category/@:author/:permlink', (req, res) => {
   const { author, permlink } = req.params;
   res.redirect(301, `/@${author}/${permlink}`);
 });
+app.use('/embeds', embedsRouter);
 app.get('/*', ssrHandler);
 
 module.exports = { app, server };
