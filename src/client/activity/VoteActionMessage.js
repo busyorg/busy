@@ -30,7 +30,7 @@ const VoteActionMessage = ({ actionDetails, currentUsername }) => {
         </span>
       ) : (
         <FormattedMessage
-          id={`user_${voteType}_post`}
+          id={`user_${voteType}`}
           defaultMessage={`{username} ${voteType}`}
           values={{
             username: (
