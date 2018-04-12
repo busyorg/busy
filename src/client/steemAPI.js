@@ -1,15 +1,10 @@
-import { createClient } from 'lightrpc';
+import { Client } from 'busyjs';
 
-const options = {
-  timeout: 15000,
-};
+const client = new Client('wss://rpc.buildteam.io');
 
-const steemUrl = process.env.STEEMJS_URL || 'https://api.steemit.com';
-
-const client = createClient(steemUrl, options);
 client.sendAsync = (message, params) =>
   new Promise((resolve, reject) => {
-    client.send(message, params, (err, result) => {
+    client.call(message, params, (err, result) => {
       if (err !== null) return reject(err);
       return resolve(result);
     });
