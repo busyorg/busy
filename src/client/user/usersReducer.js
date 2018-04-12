@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import * as actions from './usersActions';
 
 const initialState = {
@@ -52,7 +53,15 @@ export default function usersReducer(state = initialState, action) {
   }
 }
 
-export const getUser = (state, username) => state.users[username] || {};
+export const getUser = (state, username) => {
+  const userDetails = _.get(state.users, username, {});
+
+  if (_.isFunction(userDetails)) {
+    return {};
+  }
+
+  return userDetails;
+};
 export const getIsUserFetching = (state, username) => getUser(state, username).fetching || false;
 export const getIsUserLoaded = (state, username) => getUser(state, username).loaded || false;
 export const getIsUserFailed = (state, username) => getUser(state, username).failed || false;
