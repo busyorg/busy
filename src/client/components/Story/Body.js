@@ -43,6 +43,17 @@ export function getHtml(body, jsonMetadata = {}, returnType = 'Object', options 
 
   let parsedBody = body.replace(/<!--([\s\S]+?)(-->|$)/g, '(html comment removed: $1)');
 
+  parsedBody = parsedBody.replace(
+    /https:\/\/gist\.github\.com\/\w+\/(\w+)/,
+    `<iframe
+      title="$1"
+      width="100%"
+      height="300"
+      src="/embeds/github/$1"
+      frameBorder="0"
+    />`,
+  );
+
   parsedBody = parsedBody.replace(/^\s+</gm, '<');
 
   parsedBody.replace(imageRegex, img => {
@@ -93,6 +104,7 @@ export function getHtml(body, jsonMetadata = {}, returnType = 'Object', options 
       sections.push(section);
     }
   }
+
   // eslint-disable-next-line react/no-danger
   return <div dangerouslySetInnerHTML={{ __html: sections.join('') }} />;
 }
