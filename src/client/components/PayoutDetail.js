@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { injectIntl, FormattedMessage } from 'react-intl';
+import { Link } from 'react-router-dom';
+import { injectIntl, FormattedMessage, FormattedNumber } from 'react-intl';
 import _ from 'lodash';
 import USDDisplay from './Utils/USDDisplay';
 import { calculatePayout } from '../vendor/steemitHelpers';
@@ -31,6 +32,37 @@ AmountWithLabel.defaultProps = {
   amount: 0,
 };
 
+const getBeneficiariesPercent = user => {
+  try {
+    const weight = parseFloat(_.get(user, 'weight', 0)) / 10000;
+    // eslint-disable-next-line react/style-prop-object
+    return <FormattedNumber value={weight} style="percent" />;
+  } catch (error) {
+    // eslint-disable-next-line react/style-prop-object
+    return <FormattedNumber value="0" style="percent" />;
+  }
+};
+
+const getBeneficaries = post => {
+  const beneficiaries = _.get(post, 'beneficiaries', []);
+
+  if (_.isEmpty(beneficiaries)) return null;
+
+  return (
+    <div>
+      <p>
+        <FormattedMessage id="beneficiaries" defaultMessage="Beneficiaries" />
+      </p>
+      {_.map(beneficiaries, user => (
+        <p key={user.account}>
+          <Link to={`/@${user.account}`}>{user.account}</Link>{' '}
+          <span style={{ opacity: '0.5' }}>{getBeneficiariesPercent(user)}</span>
+        </p>
+      ))}
+    </div>
+  );
+};
+
 const PayoutDetail = ({ intl, post }) => {
   const {
     payoutLimitHit,
@@ -42,6 +74,7 @@ const PayoutDetail = ({ intl, post }) => {
     authorPayouts,
     curatorPayouts,
   } = calculatePayout(post);
+  const beneficaries = getBeneficaries(post);
 
   if (isPayoutDeclined) {
     return <FormattedMessage id="payout_declined" defaultMessage="Payout declined" />;
@@ -49,6 +82,7 @@ const PayoutDetail = ({ intl, post }) => {
 
   return (
     <div>
+      {beneficaries}
       {payoutLimitHit && (
         <FormattedMessage
           id="payout_limit_reached"
