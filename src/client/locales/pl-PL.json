@@ -37,8 +37,8 @@
   "notification_mention_username_comment": "{username} napisał do Ciebie w komentarzu",
   "notification_reply_username_post": "{username} odpisał Ci w Twoim poście",
   "notification_reply_username_comment": "{username} odpowiedział na Twój komentarz",
-  "notification_approved_witness": "{username} approved your witness",
-  "notification_unapproved_witness": "{username} unapproved your witness",
+  "notification_approved_witness": "{username} zatwierdził Twój delegat",
+  "notification_unapproved_witness": "{username} nie zatwierdził twojego delegatu",
   "notification_transfer_username_amount": "{username} przelał Ci {amount}",
   "notification_reblogged_username_post": "{username} reblogował Twój post",
   "notification_upvoted_username_post": "{username} zaplusował Twój post",
@@ -172,6 +172,7 @@
   "top_reblogged_users": "Najczęściej reblogowani",
   "latest_comments": "Ostatnie komentarze",
   "latest_recommendations": "Ostatnie rekomendacje",
+  "last_drafts": "Last drafts",
   "new_to_busy": "Nowy w Busy?",
   "never_written_post": "Zacznij swoją przygodę",
   "start_now": "Zacznij teraz",
@@ -216,8 +217,6 @@
   "quote": "Dodaj cytat",
   "link": "Dodaj link",
   "image": "Dodaj obrazek",
-  "get_boost": "Dostań doładowanie od Busy!",
-  "get_boost_content": "Chcesz doładować swój post? Dodaj temat \"busy\" a dostaniesz od nas polubienie.",
   "drafts": "Szkice",
   "drafts_empty": "Nie masz żadnych zapisanych szkiców",
   "drafts_description": "To są posty które nigdy nie były publiczne. Możesz je opublikować lub je usunąć.",
@@ -333,7 +332,7 @@
   "like_good_posts": "Zagłosuj na jakieś fajne posty",
   "write_first_post": "Napisz swój pierwszy post",
   "complete_profile_tooltip": "Musisz podać pseudonim, napisać notatkę o sobie i dodać zdjęcie profilowe",
-  "upvote_setting_details": "Enable this option to automatically like your own posts.",
-  "upvote_setting": "Like my posts",
-  "dmca_content_removed": "Content removed due to DMCA notice"
+  "upvote_setting_details": "Zaznacz tą opcję, aby automatycznie dawać polubienia swoim własnym postom.",
+  "upvote_setting": "Polub moje posty",
+  "dmca_content_removed": "Usunięte z powodu naruszenia praw autorskich (DMCA)"
 }

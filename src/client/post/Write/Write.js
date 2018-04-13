@@ -13,7 +13,6 @@ import { getHtml } from '../../components/Story/Body';
 import improve from '../../helpers/improve';
 import { extractImages, extractLinks } from '../../helpers/parser';
 import { rewardsValues } from '../../../common/constants/rewards';
-import GetBoost from '../../components/Sidebar/GetBoost';
 import DeleteDraftModal from './DeleteDraftModal';
 
 import {
@@ -55,6 +54,7 @@ class Write extends React.Component {
     user: PropTypes.shape().isRequired,
     draftPosts: PropTypes.shape().isRequired,
     loading: PropTypes.bool.isRequired,
+    intl: PropTypes.shape().isRequired,
     saving: PropTypes.bool,
     draftId: PropTypes.string,
     upvoteSetting: PropTypes.bool,
@@ -249,7 +249,7 @@ class Write extends React.Component {
 
     const redirect = id !== this.draftId;
 
-    this.props.saveDraft({ postData: data, id: this.draftId }, redirect);
+    this.props.saveDraft({ postData: data, id: this.draftId }, redirect, this.props.intl);
   }, 2000);
 
   render() {
@@ -260,9 +260,7 @@ class Write extends React.Component {
       <div className="shifted">
         <div className="post-layout container">
           <Affix className="rightContainer" stickPosition={77}>
-            <div className="right">
-              <GetBoost />
-            </div>
+            <div className="right" />
           </Affix>
           <div className="center">
             <Editor
