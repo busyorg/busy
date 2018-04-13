@@ -29,15 +29,10 @@ export default class ExitPage extends React.Component {
           defaultMessage="You are about to go to external website. Please be careful when sharing your credentials."
         />
         <pre>{url}</pre>
-        <ActionLink style={{ width: 'auto' }} primary href={url}>
+        <ActionLink className="ExitPage__go" primary href={url}>
           <FormattedMessage id="page_exit_go" defaultMessage="Visit this website" />
         </ActionLink>
-        <ActionButton
-          style={{ width: 'auto', marginLeft: '16px' }}
-          small
-          text="Go back"
-          onClick={this.closeWindow}
-        />
+        <ActionButton className="ExitPage__back" small text="Go back" onClick={this.closeWindow} />
       </div>
     );
   }

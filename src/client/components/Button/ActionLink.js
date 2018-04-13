@@ -3,11 +3,10 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import './Action.less';
 
-const Action = ({ style, children, href, primary, small }) => (
+const Action = ({ className, children, primary, small, ...restProps }) => (
   <a
-    href={href}
-    style={style}
-    className={classNames('Action', {
+    {...restProps}
+    className={classNames('Action', className, {
       'ant-btn-lg': !small,
       'Action--primary': primary,
     })}
@@ -17,17 +16,15 @@ const Action = ({ style, children, href, primary, small }) => (
 );
 
 Action.propTypes = {
-  style: PropTypes.shape(),
+  className: PropTypes.string,
   children: PropTypes.node,
-  href: PropTypes.string,
   primary: PropTypes.bool,
   small: PropTypes.bool,
 };
 
 Action.defaultProps = {
-  style: {},
+  className: '',
   children: null,
-  href: '#',
   primary: false,
   small: false,
 };
