@@ -7,6 +7,7 @@ import { jsonParse } from '../../helpers/formatter';
 import { rewardsValues } from '../../../common/constants/rewards';
 import { createPermlink, getBodyPatchIfSmaller } from '../../vendor/steemitHelpers';
 import { saveSettings } from '../../settings/settingsActions';
+import { notify } from '../../app/Notification/notificationActions';
 
 export const CREATE_POST = '@editor/CREATE_POST';
 export const CREATE_POST_START = '@editor/CREATE_POST_START';
@@ -32,12 +33,23 @@ export const addEditedPost = createAction(ADD_EDITED_POST);
 export const DELETE_EDITED_POST = '@editor/DELETE_EDITED_POST';
 export const deleteEditedPost = createAction(DELETE_EDITED_POST);
 
-export const saveDraft = (post, redirect) => dispatch => {
+export const saveDraft = (post, redirect, intl) => dispatch => {
   if (redirect) dispatch(push(`/editor?draft=${post.id}`));
   return dispatch({
     type: SAVE_DRAFT,
     payload: {
-      promise: addDraftMetadata(post),
+      promise: addDraftMetadata(post).catch(() => {
+        let errorMessage =
+          'Oops! You hit the storage limit of 16mb, delete some drafts to go forward';
+        if (intl) {
+          errorMessage = intl.formatMessage({
+            id: 'drafts_memory_usage_error',
+            defaultMessage:
+              'Oops! You hit the storage limit of 16mb, delete some drafts to go forward',
+          });
+        }
+        dispatch(notify(errorMessage, 'error'));
+      }),
     },
     meta: { postId: post.id },
   });
