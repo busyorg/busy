@@ -48,10 +48,6 @@ class BTooltip extends React.Component {
         {...props}
         title={<div ref={this.setTitle}>{title}</div>}
         placement={bottom ? 'bottom' : 'top'}
-        getPopupContainer={() => {
-          console.log('get');
-          return document.body;
-        }}
         onVisibleChange={this.handleVisibleChange}
       />
     );
