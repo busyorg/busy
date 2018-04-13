@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import UserWalletSummary from '../wallet/UserWalletSummary';
+import { getUserDetailsKey } from '../helpers/stateHelpers';
 import UserWalletTransactions from '../wallet/UserWalletTransactions';
 import Loading from '../components/Icon/Loading';
 import {
@@ -100,7 +101,7 @@ class Wallet extends Component {
       this.props.getGlobalProperties();
     }
 
-    if (_.isEmpty(usersTransactions[username])) {
+    if (_.isEmpty(usersTransactions[getUserDetailsKey(username)])) {
       this.props.getUserAccountHistory(username);
     }
 
@@ -122,8 +123,9 @@ class Wallet extends Component {
       usersAccountHistory,
       cryptosPriceHistory,
     } = this.props;
-    const transactions = usersTransactions[user.name] || [];
-    const actions = usersAccountHistory[user.name] || [];
+    const userKey = getUserDetailsKey(user.name);
+    const transactions = _.get(usersTransactions, userKey, []);
+    const actions = _.get(usersAccountHistory, userKey, []);
     const currentSteemRate = _.get(cryptosPriceHistory, 'STEEM.priceDetails.currentUSDPrice', null);
     const currentSBDRate = _.get(cryptosPriceHistory, 'SBD.priceDetails.currentUSDPrice', null);
     const steemRateLoading = _.isNull(currentSteemRate) || _.isNull(currentSBDRate);
