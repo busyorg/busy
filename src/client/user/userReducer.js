@@ -1,4 +1,5 @@
 import * as actions from './userActions';
+import * as appTypes from '../app/appActions';
 import people from '../helpers/people';
 
 const initialState = {
@@ -10,7 +11,9 @@ const initialState = {
     fetched: false,
   },
   notifications: [],
+  latestNotification: {},
   loadingNotifications: false,
+  fetchFollowListError: false,
 };
 
 // filterRecommendations generates a random list of `count` recommendations
@@ -35,6 +38,7 @@ export default function userReducer(state = initialState, action) {
           isFetching: true,
           fetched: false,
         },
+        fetchFollowListError: false,
       };
     case actions.GET_FOLLOWING_ERROR:
       return {
@@ -45,6 +49,7 @@ export default function userReducer(state = initialState, action) {
           isFetching: false,
           fetched: true,
         },
+        fetchFollowListError: true,
       };
     case actions.GET_FOLLOWING_SUCCESS:
       return {
@@ -56,6 +61,7 @@ export default function userReducer(state = initialState, action) {
           isFetching: false,
           fetched: true,
         },
+        fetchFollowListError: false,
       };
     case actions.FOLLOW_USER_START:
     case actions.UNFOLLOW_USER_START:
@@ -125,6 +131,13 @@ export default function userReducer(state = initialState, action) {
         ...state,
         loadingNotifications: false,
       };
+
+    case appTypes.ADD_NEW_NOTIFICATION:
+      return {
+        ...state,
+        notifications: [action.payload, ...state.notifications],
+        latestNotification: action.payload,
+      };
     default: {
       return state;
     }
@@ -138,3 +151,5 @@ export const getRecommendations = state => state.recommendations;
 export const getFollowingFetched = state => state.following.fetched;
 export const getNotifications = state => state.notifications;
 export const getIsLoadingNotifications = state => state.loadingNotifications;
+export const getFetchFollowListError = state => state.fetchFollowListError;
+export const getLatestNotification = state => state.latestNotification;

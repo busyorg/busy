@@ -5,8 +5,6 @@
 const app = require('./app').app;
 const debug = require('debug')('busy:server');
 
-if (process.env.NODE_ENV === 'production') require('newrelic'); // eslint-disable-line global-require
-
 /**
  * Normalize a port into a number, string, or false.
  */

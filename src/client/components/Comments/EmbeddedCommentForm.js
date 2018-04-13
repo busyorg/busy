@@ -96,6 +96,7 @@ class EmbeddedCommentForm extends React.Component {
           onChange={this.handleBodyUpdate}
           onImageUpload={this.props.onImageUpload}
           onImageInvalid={this.props.onImageInvalid}
+          inputId={`${this.props.parentPost.id}-embedded-comment-inputfile`}
         />
         <button
           onClick={this.handleSubmit}

@@ -1,5 +1,4 @@
 /* eslint-disable no-console */
-import Raven from 'raven-js';
 import { compileAmpTemplate } from './renderers/ampRenderer';
 import createSsrHandler from './handlers/createSsrHandler';
 import createAmpHandler from './handlers/createAmpHandler';
@@ -22,10 +21,6 @@ const app = express();
 const server = http.Server(app);
 
 const rootDir = path.join(__dirname, '../..');
-
-if (process.env.SENTRY_PUBLIC_DSN) {
-  Raven.config(process.env.SENTRY_PUBLIC_DSN).install();
-}
 
 app.locals.env = process.env;
 app.enable('trust proxy');
@@ -63,36 +58,35 @@ app.get('/callback', (req, res) => {
   }
 });
 
-app.get('/i/@:referral', (req, res) => {
-  const { referral } = req.params;
-  steemAPI
-    .sendAsync('get_accounts', [[referral]])
-    .then(accounts => {
-      if (accounts[0]) {
-        res.cookie('referral', referral, { maxAge: 86400 * 30 * 1000 });
-        res.redirect('/');
-      }
-    })
-    .catch(() => {
+app.get('/i/@:referral', async (req, res) => {
+  try {
+    const { referral } = req.params;
+
+    const accounts = await steemAPI.sendAsync('get_accounts', [[referral]]);
+    if (accounts[0]) {
+      res.cookie('referral', referral, { maxAge: 86400 * 30 * 1000 });
       res.redirect('/');
-    });
+    }
+  } catch (err) {
+    res.redirect('/');
+  }
 });
 
-app.get('/i/:parent/@:referral/:permlink', (req, res) => {
-  const { parent, referral, permlink } = req.params;
-  steemAPI
-    .sendAsync('get_content', [referral, permlink])
-    .then(content => {
-      if (content.author) {
-        res.cookie('referral', referral, { maxAge: 86400 * 30 * 1000 });
-        res.redirect(`/${parent}/@${referral}/${permlink}`);
-      } else {
-        res.redirect('/');
-      }
-    })
-    .catch(() => {
+app.get('/i/:parent/@:referral/:permlink', async (req, res) => {
+  try {
+    const { parent, referral, permlink } = req.params;
+
+    const content = await steemAPI.sendAsync('get_content', [referral, permlink]);
+
+    if (content.author) {
+      res.cookie('referral', referral, { maxAge: 86400 * 30 * 1000 });
+      res.redirect(`/${parent}/@${referral}/${permlink}`);
+    } else {
       res.redirect('/');
-    });
+    }
+  } catch (err) {
+    res.redirect('/');
+  }
 });
 
 app.get('/@:author/:permlink/amp', ampHandler);

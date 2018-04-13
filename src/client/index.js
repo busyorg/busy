@@ -2,7 +2,6 @@ import 'babel-polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import Raven from 'raven-js';
 import Logger from 'js-logger';
 import { AppContainer } from 'react-hot-loader';
 import { message } from 'antd';
@@ -25,10 +24,6 @@ if (accessToken) {
 }
 
 const store = getStore(steemConnectAPI);
-
-if (process.env.SENTRY_PUBLIC_DSN) {
-  Raven.config(process.env.SENTRY_PUBLIC_DSN).install();
-}
 
 message.config({
   top: 62,
