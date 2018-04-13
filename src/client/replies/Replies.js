@@ -18,7 +18,7 @@ import LeftSidebar from '../app/Sidebar/LeftSidebar';
 import RightSidebar from '../app/Sidebar/RightSidebar';
 import requiresLogin from '../auth/requiresLogin';
 
-export class IReplies extends React.Component {
+class Replies extends React.Component {
   static propTypes = {
     intl: PropTypes.shape().isRequired,
     authenticated: PropTypes.bool.isRequired,
@@ -97,5 +97,5 @@ const mapStateToProps = state => ({
 });
 
 export default requiresLogin(
-  injectIntl(connect(mapStateToProps, { getReplies, getMoreReplies })(IReplies)),
+  injectIntl(connect(mapStateToProps, { getReplies, getMoreReplies })(Replies)),
 );
