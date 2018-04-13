@@ -476,7 +476,9 @@ class StoryFull extends React.Component {
             style={{ width: '100%', height: 46 }}
           >
             <div className="StoryFull__topics__content">
-              {tags && tags.map(tag => <Topic key={tag} name={tag} />)}
+              {_.uniq(tags)
+                .filter(_.isString)
+                .map(tag => <Topic key={tag} name={tag} />)}
               <div style={{ flex: '0 0 20px' }} />
             </div>
           </Scrollbars>
