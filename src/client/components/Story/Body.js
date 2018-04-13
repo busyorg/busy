@@ -67,6 +67,11 @@ export function getHtml(body, jsonMetadata = {}, returnType = 'Object', options 
     );
   }
 
+  parsedBody = parsedBody.replace(
+    /https:\/\/ipfs\.busy\.org\/ipfs\/(\w+)/g,
+    (match, p1) => `https://gateway.ipfs.io/ipfs/${p1}`,
+  );
+
   const sections = [];
 
   const splittedBody = parsedBody.split('~~~ embed:');
