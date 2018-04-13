@@ -157,7 +157,8 @@ export default ({ large = true, noImage = false, sanitizeErrors = [] }) => ({
       href = href.trim();
       const attys = {};
       // If it's not a (relative or absolute) steemit URL...
-      if (href !== '#' && !href.match(/^(\/(?!\/)|https:\/\/(app\.|dev\.)?busy.org)/)) {
+      if (!href.match(/^^(\/|https:\/\/(staging\.)?busy\.org(?![\w\.]+))/)) {
+        attys.target = '_blank';
         href = `/exit?url=${encodeURI(href)}`;
       }
       attys.href = href;
