@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import { injectIntl } from 'react-intl';
 import { connect } from 'react-redux';
+import _ from 'lodash';
 import { getIsAuthenticated, getAuthenticatedUserName, getFeed } from '../reducers';
 import {
   getFeedFromState,
@@ -37,7 +38,9 @@ export class IReplies extends React.Component {
   };
 
   componentDidMount() {
-    if (this.props.authenticated) {
+    const { username, feed, authenticated } = this.props;
+    const content = getFeedFromState('replies', username, feed);
+    if (authenticated && _.isEmpty(content)) {
       this.props.getReplies();
     }
   }
