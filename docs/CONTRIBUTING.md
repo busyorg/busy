@@ -40,7 +40,7 @@ these details will help people to fix any potential bugs.
 
 ## Feature requests
 
-Feature requests are welcome. But take a moment to find out whether your idea fits with the scope
+Feature requests are welcome. Take a moment to find out whether your idea fits with the scope
 and aims of the project. It's up to _you_ to make a strong case to convince the project's developers
 of the merits of this feature. Please provide as much detail and context as possible.
 
@@ -56,10 +56,18 @@ or list of [help wanted issues](https://github.com/busyorg/busy/issues?q=is%3Ais
 ### Getting started
 
 1. Fork this project.
-2. Clone your fork locally `git clone git@github.com:YourUsername/busy.git`
-3. Create branch for your changes `git checkout -b something-amazing`
-4. Commit your changes.
-5. Create a [pull request](https://github.com/busyorg/busy/compare).
+2. Clone your fork locally:
+   `git clone git@github.com:YourUsername/busy.git`
+
+   If you didn't add your SSH key to GitHub you can [add it](https://help.github.com/articles/connecting-to-github-with-ssh/),
+   or use HTTPS clone:
+
+   `git clone https://github.com/busyorg/busy.git`
+
+3. Install dependencies: `yarn`
+4. Create branch for your changes: `git checkout -b something-amazing`
+5. Commit your changes.
+6. Create a [pull request](https://github.com/busyorg/busy/compare).
 
 If you have problems setting up you might find those resources helpful:
 
@@ -68,6 +76,24 @@ If you have problems setting up you might find those resources helpful:
 ### Before your first Pull Request
 
 We have precommit hooks that check your code for problems. Make sure that those pass before pushing your changes. We use [eslint](https://eslint.org/) and [Prettier](https://prettier.io/) - it's recommended to add plugins for your editor of choise for those tools.
+
+Running linter (code formatting and syntax errors):
+
+```bash
+yarn lint
+```
+
+Running Prettier (code formatting):
+
+```bash
+yarn prettier-check-all
+```
+
+Running tests:
+
+```bash
+yarn test
+```
 
 ### Working on the client
 
