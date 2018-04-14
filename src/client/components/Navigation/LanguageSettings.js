@@ -36,21 +36,20 @@ class LanguageSettings extends React.Component {
 
   static getValidLocale = locale => {
     const availableLocales = _.keys(availableLocalesToReactIntl);
-    let validLocale = 'en-US';
+    const defaultLocale = 'en-US';
 
     for (let i = 0; i < availableLocales.length; i += 1) {
       const currentLocale = availableLocales[i];
       const currentLocaleShortValue = availableLocalesToReactIntl[currentLocale];
 
       if (locale === currentLocale) {
-        validLocale = currentLocale;
-        break;
+        return currentLocale;
       } else if (locale === currentLocaleShortValue) {
-        validLocale = currentLocale;
-        break;
+        return currentLocale;
       }
     }
-    return validLocale;
+
+    return defaultLocale;
   };
 
   constructor(props) {
@@ -85,8 +84,7 @@ class LanguageSettings extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const diffLocale = this.props.locale !== nextProps.locale;
-    if (diffLocale) {
+    if (this.props.locale !== nextProps.locale) {
       this.setState({ selectedLanguage: LanguageSettings.getValidLocale(nextProps.locale) });
     }
   }
@@ -105,9 +103,8 @@ class LanguageSettings extends React.Component {
 
     if (loading) return;
 
-    this.setLoadingLanguage(true, selectedLanguage);
-
     if (authenticated) {
+      this.setLoadingLanguage(true, selectedLanguage);
       this.props.saveSettings({ locale: selectedLanguage }).then(() => {
         this.setState({
           selectedLanguage,
