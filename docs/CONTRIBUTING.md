@@ -110,11 +110,14 @@ Server-specific code lives under [src/server][server src]
 
 ## Team
 
-| Fabien          | Sekhmet      | JM         |
-| --------------- | ------------ | ---------- |
-| ![][bonustrack] | ![][sekhmet] | ![][jm90m] |
-| @bonustrack     | @Sekhmet     | @jm90m     |
+| Fabien                     | Sekhmet              | JM               |
+| -------------------------- | -------------------- | ---------------- |
+| ![][bonustrack]            | ![][sekhmet]         | ![][jm90m]       |
+| [@bonustrack][@bonustrack] | [@Sekhmet][@sekhmet] | [@jm90m][@jm90m] |
 
+[@bonustrack]: https://github.com/bonustrack
+[@sekhmet]: https://github.com/sekhmet
+[@jm90m]: https://github.com/jm90m
 [client src]: ../src/client
 [server src]: ../src/server
 [bonustrack]: https://avatars.githubusercontent.com/bonustrack?size=56
