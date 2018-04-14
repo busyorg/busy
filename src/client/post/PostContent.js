@@ -182,10 +182,6 @@ class PostContent extends React.Component {
     const busyHost = appUrl || 'https://busy.org';
     let canonicalHost = busyHost;
 
-    if (_.isString(postMetaData.app)) {
-      postMetaData.app = '';
-    }
-
     if (_.indexOf(postMetaData.app, 'steemit') === 0) {
       canonicalHost = 'https://steemit.com';
     }
