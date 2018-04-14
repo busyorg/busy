@@ -44,7 +44,7 @@ export function getHtml(body, jsonMetadata = {}, returnType = 'Object', options 
   let parsedBody = body.replace(/<!--([\s\S]+?)(-->|$)/g, '(html comment removed: $1)');
 
   parsedBody = parsedBody.replace(
-    /https:\/\/gist\.github\.com\/\w+\/(\w+)/,
+    /^https:\/\/gist\.github\.com\/\w+\/(\w+)$/gm,
     `<iframe
       title="$1"
       width="100%"
