@@ -57,6 +57,7 @@ export const reload = () => (dispatch, getState, { steemConnectAPI }) =>
 export const logout = () => (dispatch, getState, { steemConnectAPI }) => {
   steemConnectAPI.revokeToken();
   Cookie.remove('access_token');
+
   dispatch({
     type: LOGOUT,
   });
