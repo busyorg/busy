@@ -5,14 +5,20 @@ Want to get involved in Busy developement? Thanks! There are plenty of ways you 
 Please take a moment to review this document in order to make the contribution process easy and
 effective for everyone involved.
 
-Following these guidelines helps to communicate that you respect the time of the developers
-managing and developing this open source project. In return, they should reciprocate that respect in
-addressing your issue or assessing patches and features.
+* [Using the issue tracker](#using-the-issue-tracker)
+* [Bug reports](#bug-reports)
+* [Feature requests](#feature-requests)
+* [Pull requests](#pull-requests)
+  * [Getting started](#getting-started)
+  * [Before your first Pull Request](#before-your-first-pull-request)
+  * [Working on the client](#working-on-the-client)
+  * [Working on the client](#working-on-the-server)
+* [Team](#team)
 
 ### Using the issue tracker
 
 The [issue tracker](https://github.com/busyorg/busy/issues) is the preferred channel
-for [bug reports](#bugs), [features requests](#features) and [submitting pull requests](#pull-requests).
+for [bug reports](#bug-reports), [features requests](#feature-requests) and [submitting pull requests](#pull-requests).
 
 ### Bug reports
 
@@ -23,7 +29,7 @@ Guidelines for bug reports:
 
 1. **Use the GitHub issue search** &mdash; check if the issue has already been reported.
 
-2. **Check if the issue has been fixed** &mdash; try to reproduce it using the latest `new-design` branch in the repository.
+2. **Check if the issue has been fixed** &mdash; try to reproduce it on [the staging server](https://staging.busy.org/).
 
 3. **Isolate the problem** &mdash; ideally create a reduced test case and a live example.
 
@@ -35,17 +41,76 @@ these details will help people to fix any potential bugs.
 ## Feature requests
 
 Feature requests are welcome. But take a moment to find out whether your idea fits with the scope
-and aims of the project. It's up to *you* to make a strong case to convince the project's developers
+and aims of the project. It's up to _you_ to make a strong case to convince the project's developers
 of the merits of this feature. Please provide as much detail and context as possible.
 
 ## Pull requests
 
-Good pull requests - patches, improvements, new features - are a fantastic help. They should remain
-focused in scope and avoid containing unrelated commits.
+If you don't know where to start, feel free to contact us on our Discord server (#contributing channel).
+If you want to create your first PR take a look at our list of
+[good first issues](https://github.com/busyorg/busy/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22)
+or list of [help wanted issues](https://github.com/busyorg/busy/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22).
 
-**Please ask first** before embarking on any significant pull request (e.g. implementing features,
-refactoring code, porting to a different language), otherwise you risk spending a lot of time
-working on something that the project's developers might not want to merge into the project.
+**Working on your first Pull Request?** You can learn how from this _free_ series [How to Contribute to an Open Source Project on GitHub](https://egghead.io/series/how-to-contribute-to-an-open-source-project-on-github)
 
-Please adhere to the coding conventions used throughout a project (indentation, accurate comments,
-etc.) and any other requirements (such as test coverage).
+### Getting started
+
+1. Fork this project.
+2. Clone your fork locally `git clone git@github.com:YourUsername/busy.git`
+3. Create branch for your changes `git checkout -b something-amazing`
+4. Commit your changes.
+5. Create a [pull request](https://github.com/busyorg/busy/compare).
+
+If you have problems setting up you might find those resources helpful:
+
+* https://opensource.guide/how-to-contribute/#opening-a-pull-request
+
+### Before your first Pull Request
+
+We have precommit hooks that check your code for problems. Make sure that those pass before pushing your changes. We use [eslint](https://eslint.org/) and [Prettier](https://prettier.io/) - it's recommended to add plugins for your editor of choise for those tools.
+
+### Working on the client
+
+To work on the client you need to start development server using
+
+```bash
+yarn dev-server
+```
+
+After some time (it can take few minutes) you should be able to see Busy running at https://localhost:3000
+
+Development server provides live-reload so the app will update automatically after you make a change to the code.
+
+Client-specific code lives under [src/client](https://github.com/busyorg/busy/tree/master/src/client).
+
+### Working on the server
+
+Busy is Server-Side Rendered application. Working on the server requires more knowledge about Node and Express and might be more problematic.
+To run the server you have to build client first:
+
+```bash
+yarn build:client
+```
+
+Afer that you can build the server:
+
+```bash
+yarn build:server:dev
+```
+
+It will create busy.server.js file that you have to run using node:
+
+```bash
+node busy.server.js
+```
+
+After you make some changes to the server you will have to rebuild it and start again (`yarn build:server:dev` and `node busy.server.js`).
+
+Server-specific code lives under [src/server](https://github.com/busyorg/busy/tree/master/src/server).
+
+## Team
+
+| Fabien          | Sekhmet      | JM         |
+| --------------- | ------------ | ---------- |
+| ![][bonustrack] | ![][sekhmet] | ![][jm90m] |
+| @bonustrack     | @Sekhmet     | @jm90m     |
