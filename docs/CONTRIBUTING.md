@@ -81,7 +81,7 @@ After some time (it can take few minutes) you should be able to see Busy running
 
 Development server provides live-reload so the app will update automatically after you make a change to the code.
 
-Client-specific code lives under [src/client](https://github.com/busyorg/busy/tree/master/src/client).
+Client-specific code lives under [src/client][client src].
 
 ### Working on the server
 
@@ -106,7 +106,7 @@ node busy.server.js
 
 After you make some changes to the server you will have to rebuild it and start again (`yarn build:server:dev` and `node busy.server.js`).
 
-Server-specific code lives under [src/server](https://github.com/busyorg/busy/tree/master/src/server).
+Server-specific code lives under [src/server][server src]
 
 ## Team
 
@@ -114,3 +114,9 @@ Server-specific code lives under [src/server](https://github.com/busyorg/busy/tr
 | --------------- | ------------ | ---------- |
 | ![][bonustrack] | ![][sekhmet] | ![][jm90m] |
 | @bonustrack     | @Sekhmet     | @jm90m     |
+
+[client src]: ../src/client
+[server src]: ../src/server
+[bonustrack]: https://avatars.githubusercontent.com/bonustrack?size=56
+[sekhmet]: https://avatars.githubusercontent.com/sekhmet?size=56
+[jm90m]: https://avatars.githubusercontent.com/jm90m?size=56

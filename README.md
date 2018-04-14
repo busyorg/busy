@@ -27,7 +27,7 @@ yarn dev-server
 ## Getting involved
 
 We at Busy really appreciate help from the community. We want to make a Busy project as friendly too contributors as possible. It doesn't matter if you are a beginner looking for a place to improve your skills or just want to help us build something great.
-If you would like to contribute, but don't know what to work on, check our [Contributing guide](https://github.com/busyorg/busy/blob/master/docs/CONTRIBUTING.md).
+If you would like to contribute, but don't know what to work on, check our [Contributing guide][contributing].
 
 ## Backers
 
@@ -72,3 +72,5 @@ Busy is an MIT-licensed open source project. It's an independent project with it
 
 [![](https://res.cloudinary.com/hpiynhbhq/image/upload/v1507199425/hevqheh9nltx0dfbuvo8.png)](https://crowdin.com/project/busy)  
 [![](https://res.cloudinary.com/hpiynhbhq/image/upload/v1507199050/fqxowyhiwlj9vhb5wdue.png)](https://www.browserstack.com/)
+
+[contributing]: ./docs/CONTRIBUTING.md
