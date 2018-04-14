@@ -292,8 +292,10 @@ class Topnav extends React.Component {
     });
   }
 
+  debouncedSearch = _.debounce(value => this.props.searchAutoComplete(value), 300);
+
   handleAutoCompleteSearch(value) {
-    this.props.searchAutoComplete(value);
+    this.debouncedSearch(value);
   }
 
   handleSelectOnAutoCompleteDropdown(value) {
