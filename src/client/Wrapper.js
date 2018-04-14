@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { IntlProvider, addLocaleData } from 'react-intl';
 import { withRouter } from 'react-router-dom';
 import { renderRoutes } from 'react-router-config';
-import { LocaleProvider, Layout } from 'antd';
+import { LocaleProvider, Layout, BackTop } from 'antd';
 import enUS from 'antd/lib/locale-provider/en_US';
 import { getAvailableLocale, getTranslationsByLocale, getLocaleDirection } from './translations';
 import {
@@ -193,6 +193,7 @@ export default class Wrapper extends React.PureComponent {
               <Redirect />
               <Transfer />
               <NotificationPopup />
+              <BackTop />
             </div>
           </Layout>
         </LocaleProvider>
