@@ -54,6 +54,7 @@ class Write extends React.Component {
     user: PropTypes.shape().isRequired,
     draftPosts: PropTypes.shape().isRequired,
     loading: PropTypes.bool.isRequired,
+    intl: PropTypes.shape().isRequired,
     saving: PropTypes.bool,
     draftId: PropTypes.string,
     upvoteSetting: PropTypes.bool,
@@ -248,7 +249,7 @@ class Write extends React.Component {
 
     const redirect = id !== this.draftId;
 
-    this.props.saveDraft({ postData: data, id: this.draftId }, redirect);
+    this.props.saveDraft({ postData: data, id: this.draftId }, redirect, this.props.intl);
   }, 2000);
 
   render() {
