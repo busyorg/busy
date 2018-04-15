@@ -35,13 +35,8 @@ AmountWithLabel.defaultProps = {
 const getBeneficiariesPercent = user => {
   const weight = parseFloat(_.get(user, 'weight', 0)) / 10000;
 
-  if (_.isNaN(weight)) {
-    // eslint-disable-next-line react/style-prop-object
-    return <FormattedNumber value="0" style="percent" />;
-  }
-
   // eslint-disable-next-line react/style-prop-object
-  return <FormattedNumber value={weight} style="percent" />;
+  return <FormattedNumber value={_.isNan(weight) ? 0 : weight} style="percent" />;
 };
 
 const getBeneficaries = post => {
