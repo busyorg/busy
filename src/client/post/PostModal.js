@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
-import { Modal } from 'antd';
+import { Modal, BackTop } from 'antd';
 import { FormattedMessage } from 'react-intl';
 import VisibilitySensor from 'react-visibility-sensor';
 import { dropCategory, isBannedPost } from '../helpers/postHelpers';
@@ -29,6 +29,10 @@ class PostModal extends React.Component {
 
   static pushURLState(title, url) {
     if (window) window.history.pushState({}, title, url);
+  }
+
+  static findScrollElement() {
+    return document.querySelector('.PostModal');
   }
 
   constructor(props) {
@@ -100,6 +104,7 @@ class PostModal extends React.Component {
         wrapClassName={classNames('PostModal', { PostModal__hidden: !showPostModal })}
         destroyOnClose
       >
+        <BackTop target={PostModal.findScrollElement} />
         <div className="PostModal__back">
           <a
             className="PostModal__back__link"
