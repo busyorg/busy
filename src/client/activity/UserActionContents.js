@@ -22,7 +22,7 @@ const UserActionContents = ({ actionType, actionDetails }) => {
                   <code>{JSON.stringify(details, null, 2)}</code>
                 </pre>
               ) : (
-                <div>{details}</div>
+                <div>{JSON.stringify(details)}</div>
               )}
             </td>
           </tr>
