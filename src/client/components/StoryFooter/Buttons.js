@@ -307,36 +307,40 @@ export default class Buttons extends React.Component {
             )}
           </a>
         </Tooltip>
-        <span
-          className={classNames('Buttons__number', {
-            'Buttons__reactions-count': upVotes.length > 0 || downVotes.length > 0,
-          })}
-          role="presentation"
-          onClick={this.handleShowReactions}
-        >
-          <Tooltip
-            title={
-              <div>
-                {upVotesPreview}
-                {upVotesMore}
-                {upVotesPreview.length === 0 && (
-                  <FormattedMessage id="no_likes" defaultMessage="No likes yet" />
-                )}
-              </div>
-            }
+        {upVotes.length > 0 && (
+          <span
+            className={classNames('Buttons__number', {
+              'Buttons__reactions-count': upVotes.length > 0 || downVotes.length > 0,
+            })}
+            role="presentation"
+            onClick={this.handleShowReactions}
           >
-            <FormattedNumber value={upVotes.length} />
-            <span />
-          </Tooltip>
-        </span>
+            <Tooltip
+              title={
+                <div>
+                  {upVotesPreview}
+                  {upVotesMore}
+                  {upVotesPreview.length === 0 && (
+                    <FormattedMessage id="no_likes" defaultMessage="No likes yet" />
+                  )}
+                </div>
+              }
+            >
+              <FormattedNumber value={upVotes.length} />
+              <span />
+            </Tooltip>
+          </span>
+        )}
         <Tooltip title={intl.formatMessage({ id: 'comment', defaultMessage: 'Comment' })}>
           <Link className="Buttons__link" to={commentsLink} onClick={this.handleCommentClick}>
             <i className="iconfont icon-message_fill" />
           </Link>
         </Tooltip>
-        <span className="Buttons__number">
-          <FormattedNumber value={post.children} />
-        </span>
+        {post.children > 0 && (
+          <span className="Buttons__number">
+            <FormattedNumber value={post.children} />
+          </span>
+        )}
         {showReblogLink && (
           <Tooltip
             title={intl.formatMessage({

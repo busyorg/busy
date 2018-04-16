@@ -10,29 +10,32 @@ import './Payout.less';
 
 const Payout = ({ intl, post }) => {
   const payout = calculatePayout(post);
+  const payoutValue = payout.cashoutInTime ? payout.potentialPayout : payout.pastPayouts;
 
   return (
-    <span className="Payout">
-      <Tooltip title={<PayoutDetail post={post} />}>
-        <span
-          className={classNames({
-            'Payout--rejected': payout.isPayoutDeclined,
-          })}
-        >
-          <USDDisplay value={payout.cashoutInTime ? payout.potentialPayout : payout.pastPayouts} />
-        </span>
-      </Tooltip>
-      {post.percent_steem_dollars === 0 && (
-        <Tooltip
-          title={intl.formatMessage({
-            id: 'reward_option_100',
-            defaultMessage: '100% Steem Power',
-          })}
-        >
-          <i className="iconfont icon-flashlight" />
+    payoutValue > 0 && (
+      <span className="Payout">
+        <Tooltip title={<PayoutDetail post={post} />}>
+          <span
+            className={classNames({
+              'Payout--rejected': payout.isPayoutDeclined,
+            })}
+          >
+            <USDDisplay value={payoutValue} />
+          </span>
         </Tooltip>
-      )}
-    </span>
+        {post.percent_steem_dollars === 0 && (
+          <Tooltip
+            title={intl.formatMessage({
+              id: 'reward_option_100',
+              defaultMessage: '100% Steem Power',
+            })}
+          >
+            <i className="iconfont icon-flashlight" />
+          </Tooltip>
+        )}
+      </span>
+    )
   );
 };
 
