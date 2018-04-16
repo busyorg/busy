@@ -31,9 +31,11 @@ export function extractImageTags(body) {
 
     return pairs.reduce((a, b) => {
       const matches = b.match(attr);
+      const key = _.get(matches, 1);
+      const value = _.get(matches, 2);
       return {
         ...a,
-        [matches[1]]: matches[2],
+        [key]: value,
       };
     }, {});
   });
