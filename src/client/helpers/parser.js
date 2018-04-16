@@ -7,7 +7,8 @@ export function getFromMetadata(jsonMetadata, key) {
   return _.get(metadata, key);
 }
 
-const imgRegex = /<img[^>]+src="([^">]+)"/g;
+const attr = /(\w+)="(.*?)"/;
+const imgTag = /<img(.*)\/>/g;
 const hrefRegex = /<a[^>]+href="([^">]+)"/g;
 
 function extract(body, regex) {
@@ -22,8 +23,20 @@ function extract(body, regex) {
   return matches;
 }
 
-export function extractImages(body) {
-  return extract(body, imgRegex);
+export function extractImageTags(body) {
+  const imageTags = extract(body, imgTag);
+
+  return imageTags.map(image => {
+    const pairs = image.trim().split(' ');
+
+    return pairs.reduce((a, b) => {
+      const matches = b.match(attr);
+      return {
+        ...a,
+        [matches[1]]: matches[2],
+      };
+    }, {});
+  });
 }
 
 export function extractLinks(body) {
