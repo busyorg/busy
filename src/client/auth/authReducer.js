@@ -53,18 +53,10 @@ export default (state = initialState, action) => {
         ...state,
         isReloading: false,
       };
-    case types.LOGOUT_START:
-      return {
-        ...state,
-        isFetching: true,
-        loaded: false,
-      };
-    case types.LOGOUT_SUCCESS:
+    case types.LOGOUT:
       return {
         ...state,
         isAuthenticated: false,
-        isFetching: false,
-        loaded: true,
         user: {},
       };
     case types.UPDATE_SC2_USER_METADATA.SUCCESS:

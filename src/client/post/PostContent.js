@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
-import { find, truncate } from 'lodash';
+import _ from 'lodash';
 import { Helmet } from 'react-helmet';
 import sanitize from 'sanitize-html';
 import { getHasDefaultSlider } from '../helpers/user';
@@ -181,11 +181,12 @@ class PostContent extends React.Component {
     const postMetaData = jsonParse(content.json_metadata);
     const busyHost = appUrl || 'https://busy.org';
     let canonicalHost = busyHost;
-    if (postMetaData.app && postMetaData.app.indexOf('steemit') === 0) {
+
+    if (_.indexOf(postMetaData.app, 'steemit') === 0) {
       canonicalHost = 'https://steemit.com';
     }
 
-    const userVote = find(content.active_votes, { voter: user.name }) || {};
+    const userVote = _.find(content.active_votes, { voter: user.name }) || {};
 
     const postState = {
       isReblogged: reblogList.includes(content.id),
@@ -210,7 +211,7 @@ class PostContent extends React.Component {
     const postMetaImage = postMetaData.image && postMetaData.image[0];
     const htmlBody = getHtml(body, {}, 'text');
     const bodyText = sanitize(htmlBody, { allowedTags: [] });
-    const desc = `${truncate(bodyText, { length: 143 })} by ${author}`;
+    const desc = `${_.truncate(bodyText, { length: 143 })} by ${author}`;
     const image = postMetaImage || getAvatarURL(author) || '/images/logo.png';
     const canonicalUrl = `${canonicalHost}${dropCategory(content.url)}`;
     const url = `${busyHost}${dropCategory(content.url)}`;

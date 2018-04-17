@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import _ from 'lodash';
+import { getUserDetailsKey } from '../helpers/stateHelpers';
 import {
   getUser,
   getAuthenticatedUser,
@@ -100,7 +101,7 @@ class UserActivity extends React.Component {
       this.props.getGlobalProperties();
     }
 
-    if (_.isEmpty(usersAccountHistory[username])) {
+    if (_.isEmpty(usersAccountHistory[getUserDetailsKey(username)])) {
       this.props.getUserAccountHistory(username);
     }
 
@@ -108,7 +109,7 @@ class UserActivity extends React.Component {
       this.props.getAccount(username);
     }
 
-    if (_.isEmpty(usersEstAccountsValues[username]) && !_.isEmpty(user.name)) {
+    if (_.isEmpty(usersEstAccountsValues[getUserDetailsKey(username)]) && !_.isEmpty(user.name)) {
       this.props.getUserEstAccountValue(user);
     }
 
@@ -130,7 +131,7 @@ class UserActivity extends React.Component {
       loadingGlobalProperties,
       isCurrentUser,
     } = this.props;
-    const actions = usersAccountHistory[user.name] || [];
+    const actions = _.get(usersAccountHistory, getUserDetailsKey(user.name), []);
 
     return (
       <div>
