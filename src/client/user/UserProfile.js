@@ -66,8 +66,8 @@ export default class UserProfile extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { feed } = this.props;
-    const username = this.props.match.params.name;
+    const { feed } = nextProps;
+    const username = nextProps.match.params.name;
     const content = getFeedFromState('blog', username, feed);
 
     if (_.isEmpty(content) && nextProps.match.url !== this.props.match.url) {
