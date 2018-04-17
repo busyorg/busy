@@ -58,6 +58,7 @@
     &__description {
       width: 230px;
       display: flex;
+      align-items: center;
     }
 
     &__title {
@@ -66,20 +67,21 @@
       font-weight: bold;
       color: @black;
       width: 165px;
+      line-height: 22px;
     }
 
     &__image {
-      height: 150px;
-      width: 150px;
+      height: 175px;
+      width: 175px;
     }
 
     &__number {
-      margin-right: 10px;
+      margin-right: 15px;
       background-color: @primary-color;
       color: @white;
-      width: 30px;
-      height: 30px;
-      border-radius: 15px;
+      width: 40px;
+      height: 40px;
+      border-radius: 20px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -89,6 +91,8 @@
   &__content-container {
     display: flex;
     flex-direction: row;
+    width: 100%;
+    justify-content: space-around;
   }
 }
 

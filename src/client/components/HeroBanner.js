@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import './HeroBanner.less';
-import './HeroBannerSlider.less';
 
 const HeroBanner = ({ visible, onCloseClick }) => {
   if (!visible) return null;
@@ -15,7 +14,11 @@ const HeroBanner = ({ visible, onCloseClick }) => {
       <div className="HeroBanner__container">
         <div className="HeroBanner__content-container">
           <div className="HeroBanner__content">
-            <img src="/images/hero-1.svg" className="HeroBanner__content__image" />
+            <img
+              src="/images/hero-1.svg"
+              className="HeroBanner__content__image"
+              alt="Write and publish a post on Steem"
+            />
             <div className="HeroBanner__content__description">
               <div className="HeroBanner__content__number">1</div>
               <div className="HeroBanner__content__title">
@@ -27,7 +30,11 @@ const HeroBanner = ({ visible, onCloseClick }) => {
             </div>
           </div>
           <div className="HeroBanner__content">
-            <img src="/images/hero-2.svg" className="HeroBanner__content__image" />
+            <img
+              src="/images/hero-2.svg"
+              className="HeroBanner__content__image"
+              alt="The community upvotes your post"
+            />
             <div className="HeroBanner__content__description">
               <div className="HeroBanner__content__number">2</div>
               <div className="HeroBanner__content__title">
@@ -39,7 +46,11 @@ const HeroBanner = ({ visible, onCloseClick }) => {
             </div>
           </div>
           <div className="HeroBanner__content">
-            <img src="/images/hero-3.svg" className="HeroBanner__content__image" />
+            <img
+              src="/images/hero-3.svg"
+              className="HeroBanner__content__image"
+              alt="Earn rewards in Steem"
+            />
             <div className="HeroBanner__content__description">
               <div className="HeroBanner__content__number">3</div>
               <div className="HeroBanner__content__title">
