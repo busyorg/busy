@@ -335,11 +335,8 @@
   "upvote_setting_details": "Enable this option to automatically like your own posts.",
   "upvote_setting": "Like my posts",
   "dmca_content_removed": "Content removed due to DMCA notice",
-  "hero_slider_title_1": "Write and publish post",
-  "hero_slider_title_2": "Get upvoted by the community",
-  "hero_slider_title_3": "Get rewarded in Steem",
-  "hero_slider_description_1": "Spread your ideas with the world through the easy to use and interactive Busy editor with markdown built-in",
-  "hero_slider_description_2": "By providing value to the community in any form, the people can upvote you to show their appreciation and reward your efforts",
-  "hero_slider_description_3": "Contrary to other social media networks, here you can earn cryptocurrency that has a real dollar value for your work",
   "drafts_memory_usage_error": "Oops! You hit the storage limit of 16mb, delete some drafts to go forward"
+  "hero_banner_title_1": "Write and publish a post on Steem",
+  "hero_banner_title_2": "The community upvotes your pos",
+  "hero_banner_title_3": "Earn rewards in Steem"
 }
