@@ -1,0 +1,63 @@
+@import (reference) '../styles/custom.less';
+@import (reference) '../styles/modules/variables.less';
+
+.HeroBannerSlider__container {
+  width: 100%;
+  display: block;
+  @media @small {
+    display: none !important;
+  }
+}
+
+.HeroBannerSlider {
+  display: flex;
+  height: 205px;
+  padding-bottom: 50px;
+  justify-content: center;
+
+  &__image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 150px;
+  }
+
+  &__image-1 {
+    img {
+      width: 175px;
+    }
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+
+    @media @small {
+      padding: 0 30px;
+      width: 510px;
+    }
+  }
+  &__title {
+    line-height: 35px;
+    margin-left: 25px;
+    font-size: 20px;
+    font-weight: bold;
+    color: @black;
+  }
+}
+
+.HeroBannerSlider__container {
+  .ant-carousel .slick-slide {
+    height: 160px;
+    overflow: hidden;
+  }
+
+  .ant-carousel .slick-dots {
+    bottom: initial !important;
+  }
+
+  .ant-carousel .slick-dots li button {
+    background: @primary-color !important;
+  }
+}
