@@ -44,19 +44,12 @@ const getBeneficaries = post => {
 
   if (_.isEmpty(beneficiaries)) return null;
 
-  return (
-    <div>
-      <p>
-        <FormattedMessage id="beneficiaries" defaultMessage="Beneficiaries" />
-      </p>
-      {_.map(beneficiaries, user => (
-        <p key={user.account}>
-          <Link to={`/@${user.account}`}>{user.account}</Link>{' '}
-          <span style={{ opacity: '0.5' }}>{getBeneficiariesPercent(user)}</span>
-        </p>
-      ))}
-    </div>
-  );
+  return _.map(beneficiaries, user => (
+    <p key={user.account}>
+      <Link to={`/@${user.account}`}>{user.account}</Link>{' '}
+      <span style={{ opacity: '0.5' }}>{getBeneficiariesPercent(user)}</span>
+    </p>
+  ));
 };
 
 const PayoutDetail = ({ intl, post }) => {
@@ -78,7 +71,6 @@ const PayoutDetail = ({ intl, post }) => {
 
   return (
     <div>
-      {beneficaries}
       {payoutLimitHit && (
         <FormattedMessage
           id="payout_limit_reached"
@@ -98,6 +90,7 @@ const PayoutDetail = ({ intl, post }) => {
             defaultMessage="Potential Payout: {amount}"
             amount={potentialPayout}
           />
+          {beneficaries}
           <FormattedMessage
             id="payout_will_release_in_time"
             defaultMessage="Will release {time}"
