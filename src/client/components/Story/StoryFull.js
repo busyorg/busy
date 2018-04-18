@@ -16,7 +16,7 @@ import { Tag, Icon, Popover, Tooltip } from 'antd';
 import Lightbox from 'react-image-lightbox';
 import { Scrollbars } from 'react-custom-scrollbars';
 import formatter from '../../helpers/steemitFormatter';
-import { getFromMetadata, extractImages } from '../../helpers/parser';
+import { getFromMetadata, extractImageTags } from '../../helpers/parser';
 import { isPostDeleted, dropCategory } from '../../helpers/postHelpers';
 import withAuthActions from '../../auth/withAuthActions';
 import { getProxyImageURL } from '../../helpers/image';
@@ -90,6 +90,7 @@ class StoryFull extends React.Component {
     };
 
     this.images = [];
+    this.imagesAlts = [];
 
     this.handleClick = this.handleClick.bind(this);
     this.handleContentClick = this.handleContentClick.bind(this);
@@ -210,7 +211,7 @@ class StoryFull extends React.Component {
 
     const parsedBody = getHtml(signedBody, {}, 'text');
 
-    this.images = extractImages(parsedBody);
+    this.images = extractImageTags(parsedBody);
 
     const tags = _.union(getFromMetadata(post.json_metadata, 'tags'), [post.category]);
 
@@ -437,9 +438,10 @@ class StoryFull extends React.Component {
         <div className="StoryFull__content">{content}</div>
         {open && (
           <Lightbox
-            mainSrc={this.images[index]}
-            nextSrc={this.images[(index + 1) % this.images.length]}
-            prevSrc={this.images[(index + (this.images.length - 1)) % this.images.length]}
+            imageTitle={this.images[index].alt}
+            mainSrc={this.images[index].src}
+            nextSrc={this.images[(index + 1) % this.images.length].src}
+            prevSrc={this.images[(index + (this.images.length - 1)) % this.images.length].src}
             onCloseRequest={() => {
               this.setState({
                 lightbox: {

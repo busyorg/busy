@@ -3,15 +3,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { replace } from 'react-router-redux';
-import kebabCase from 'lodash/kebabCase';
-import debounce from 'lodash/debounce';
-import isArray from 'lodash/isArray';
+import _ from 'lodash';
 import 'url-search-params-polyfill';
 import { injectIntl } from 'react-intl';
 import uuidv4 from 'uuid/v4';
 import { getHtml } from '../../components/Story/Body';
 import improve from '../../helpers/improve';
-import { extractImages, extractLinks } from '../../helpers/parser';
+import { extractImageTags, extractLinks } from '../../helpers/parser';
 import { rewardsValues } from '../../../common/constants/rewards';
 import DeleteDraftModal from './DeleteDraftModal';
 
@@ -97,7 +95,7 @@ class Write extends React.Component {
     const draftPost = draftPosts[draftId];
     if (draftPost) {
       let tags = [];
-      if (isArray(draftPost.jsonMetadata.tags)) {
+      if (_.isArray(draftPost.jsonMetadata.tags)) {
         tags = draftPost.jsonMetadata.tags;
       }
 
@@ -185,11 +183,11 @@ class Write extends React.Component {
 
     const parsedBody = getHtml(postBody, {}, 'text');
 
-    const images = extractImages(parsedBody);
+    const images = _.map(extractImageTags, tag => tag.src);
     const links = extractLinks(parsedBody);
 
     if (data.title && !this.permlink) {
-      data.permlink = kebabCase(data.title);
+      data.permlink = _.kebabCase(data.title);
     } else {
       data.permlink = this.permlink;
     }
@@ -236,7 +234,7 @@ class Write extends React.Component {
 
   handleCancelDeleteDraft = () => this.setState({ showModalDelete: false });
 
-  saveDraft = debounce(form => {
+  saveDraft = _.debounce(form => {
     if (this.props.saving) return;
 
     const data = this.getNewPostData(form);
