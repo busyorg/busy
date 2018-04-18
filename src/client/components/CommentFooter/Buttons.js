@@ -234,7 +234,7 @@ class Buttons extends React.Component {
           </span>
         )}
         {payoutValue >= 0.01 && (
-          <>
+          <React.Fragment>
             <span className="CommentFooter__bullet" />
             <span className="CommentFooter__payout">
               <Tooltip title={<PayoutDetail post={comment} />}>
@@ -242,7 +242,7 @@ class Buttons extends React.Component {
                 <span />
               </Tooltip>
             </span>
-          </>
+          </React.Fragment>
         )}
         {user.name && (
           <span>
