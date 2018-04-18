@@ -179,7 +179,7 @@ class Buttons extends React.Component {
         {upVotes.length > 0 && (
           <span
             className={classNames('CommentFooter__count', {
-              'CommentFooter__count--clickable': upVotes.length > 0 || downVotes.length > 0,
+              'CommentFooter__count--clickable': downVotes.length > 0,
             })}
             role="presentation"
             onClick={this.handleShowReactions}
@@ -189,9 +189,6 @@ class Buttons extends React.Component {
                 <div>
                   {upVotesPreview}
                   {upVotesMore}
-                  {upVotesPreview.length === 0 && (
-                    <FormattedMessage id="no_likes" defaultMessage="No likes yet" />
-                  )}
                 </div>
               }
             >
@@ -218,7 +215,7 @@ class Buttons extends React.Component {
         {downVotes.length > 0 && (
           <span
             className={classNames('CommentFooter__count', {
-              'CommentFooter__count--clickable': upVotes.length > 0 || downVotes.length > 0,
+              'CommentFooter__count--clickable': upVotes.length > 0,
             })}
             role="presentation"
             onClick={this.handleShowReactions}
@@ -228,9 +225,6 @@ class Buttons extends React.Component {
                 <div>
                   {downVotesPreview}
                   {downVotesMore}
-                  {downVotes.length === 0 && (
-                    <FormattedMessage id="no_dislikes" defaultMessage="No dislikes" />
-                  )}
                 </div>
               }
             >
@@ -239,14 +233,16 @@ class Buttons extends React.Component {
             </Tooltip>
           </span>
         )}
-        {payoutValue >= 0.01 && <span className="CommentFooter__bullet" />}
         {payoutValue >= 0.01 && (
-          <span className="CommentFooter__payout">
-            <Tooltip title={<PayoutDetail post={comment} />}>
-              <USDDisplay value={payoutValue} />
-              <span />
-            </Tooltip>
-          </span>
+          <>
+            <span className="CommentFooter__bullet" />
+            <span className="CommentFooter__payout">
+              <Tooltip title={<PayoutDetail post={comment} />}>
+                <USDDisplay value={payoutValue} />
+                <span />
+              </Tooltip>
+            </span>
+          </>
         )}
         {user.name && (
           <span>
