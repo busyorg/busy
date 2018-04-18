@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 import { injectIntl, FormattedMessage } from 'react-intl';
-import { Tag, Tooltip, Popover } from 'antd';
+import { Tag, Popover } from 'antd';
 import formatter from '../helpers/steemitFormatter';
 import { getUserRankKey, getUserRank } from '../helpers/user';
+import BTooltip from './BTooltip';
 import AvatarLightbox from './AvatarLightbox';
 import FollowButton from '../widgets/FollowButton';
 import Action from './Button/Action';
@@ -37,14 +38,14 @@ const UserHeader = ({
           <div className="UserHeader__row">
             <h2 className="UserHeader__user__username">
               {username}
-              <Tooltip
+              <BTooltip
                 title={intl.formatMessage({
                   id: 'reputation_score',
                   defaultMessage: 'Reputation Score',
                 })}
               >
                 <Tag>{formatter.reputation(userReputation)}</Tag>
-              </Tooltip>
+              </BTooltip>
             </h2>
             <div
               className={classNames('UserHeader__user__button', {

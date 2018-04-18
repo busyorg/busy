@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { injectIntl } from 'react-intl';
-import { Tooltip } from 'antd';
+import BTooltip from './BTooltip';
 import './FavoriteButton.less';
 
 const FavoriteButton = ({ intl, isFavorited, onClick }) => (
-  <Tooltip
+  <BTooltip
     title={intl.formatMessage({
       id: isFavorited ? 'remove_from_favorites' : 'add_to_favorites',
       defaultMessage: isFavorited ? 'Remove from favorites' : 'Add to favorites',
@@ -24,7 +24,7 @@ const FavoriteButton = ({ intl, isFavorited, onClick }) => (
         })}
       />
     </a>
-  </Tooltip>
+  </BTooltip>
 );
 
 FavoriteButton.propTypes = {

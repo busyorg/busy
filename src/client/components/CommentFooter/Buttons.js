@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { take, find } from 'lodash';
 import { injectIntl, FormattedNumber, FormattedMessage } from 'react-intl';
-import { Icon, Tooltip } from 'antd';
+import { Icon } from 'antd';
 import { getUpvotes, getDownvotes } from '../../helpers/voteHelpers';
 import { sortVotes } from '../../helpers/sortHelpers';
 import { calculatePayout } from '../../vendor/steemitHelpers';
@@ -164,7 +164,7 @@ class Buttons extends React.Component {
 
     return (
       <div>
-        <Tooltip title={likeTooltip}>
+        <BTooltip title={likeTooltip}>
           <a
             role="presentation"
             className={classNames('CommentFooter__link', {
@@ -174,7 +174,7 @@ class Buttons extends React.Component {
           >
             {pendingLike ? <Icon type="loading" /> : <i className="iconfont icon-praise_fill" />}
           </a>
-        </Tooltip>
+        </BTooltip>
         <span
           className={classNames('CommentFooter__count', {
             'CommentFooter__count--clickable': upVotes.length > 0 || downVotes.length > 0,
@@ -197,7 +197,7 @@ class Buttons extends React.Component {
             <span />
           </BTooltip>
         </span>
-        <Tooltip title={intl.formatMessage({ id: 'dislike', defaultMessage: 'Dislike' })}>
+        <BTooltip title={intl.formatMessage({ id: 'dislike', defaultMessage: 'Dislike' })}>
           <a
             role="presentation"
             className={classNames('CommentFooter__link', {
@@ -211,7 +211,7 @@ class Buttons extends React.Component {
               <i className="iconfont icon-praise_fill Comment__icon_dislike" />
             )}
           </a>
-        </Tooltip>
+        </BTooltip>
         <span
           className={classNames('CommentFooter__count', {
             'CommentFooter__count--clickable': upVotes.length > 0 || downVotes.length > 0,
@@ -236,12 +236,12 @@ class Buttons extends React.Component {
         </span>
         <span className="CommentFooter__bullet" />
         <span className="CommentFooter__payout">
-          <Tooltip title={<PayoutDetail post={comment} />}>
+          <BTooltip title={<PayoutDetail post={comment} />}>
             <USDDisplay
               value={payout.cashoutInTime ? payout.potentialPayout : payout.pastPayouts}
             />
             <span />
-          </Tooltip>
+          </BTooltip>
         </span>
         {user.name && (
           <span>
