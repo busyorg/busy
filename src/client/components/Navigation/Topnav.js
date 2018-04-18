@@ -332,7 +332,11 @@ class Topnav extends React.Component {
                 state: { query: searchBarValue },
               }}
             >
-              <span onClick={this.hideAutoCompleteDropdown} role="presentation">
+              <span
+                data-testid="searchAllResultsLink"
+                onClick={this.hideAutoCompleteDropdown}
+                role="presentation"
+              >
                 {intl.formatMessage(
                   {
                     id: 'search_all_results_for',
@@ -369,6 +373,7 @@ class Topnav extends React.Component {
                 value={searchBarValue}
               >
                 <Input
+                  data-testid="searchInput"
                   ref={ref => {
                     this.searchInputRef = ref;
                   }}
