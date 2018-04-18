@@ -1,13 +1,11 @@
-import puppeteer from 'puppeteer';
 import faker from 'faker';
+import { createBrowser } from './utils';
 
 export default function(suiteName, appUrl) {
   describe(suiteName, () => {
     let browser;
     beforeAll(async () => {
-      browser = await puppeteer.launch({
-        headless: false,
-      });
+      browser = await createBrowser();
     });
 
     it('should navigate to search page', async () => {

@@ -1,14 +1,10 @@
-import puppeteer from 'puppeteer';
-
-import { waitForNewPage } from './utils';
+import { createBrowser, waitForNewPage } from './utils';
 
 export default function auth(suiteName, appUrl) {
   describe(suiteName, () => {
     let browser;
     beforeAll(async () => {
-      browser = await puppeteer.launch({
-        headless: false,
-      });
+      browser = await createBrowser();
     });
 
     it('should redirect to sign up page', async () => {
