@@ -8,7 +8,7 @@
   background-color: @white;
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 100% auto;
+  background-size: cover;
   border-bottom: @base-border;
 
   &__close {
@@ -54,6 +54,8 @@
   &__content {
     display: none;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
     @media @small {
       display: flex;
@@ -75,18 +77,19 @@
     }
 
     &__image {
-      height: 150px;
-      width: 175px;
-      margin-bottom: 5px;
+      height: 115px;
+      width: 135px;
+      margin-bottom: 15px;
     }
 
     &__number {
-      margin-right: 15px;
+      margin-right: 20px;
+      font-weight: bold;
       background-color: @primary-color;
       color: @white;
-      width: 40px;
-      height: 40px;
-      border-radius: 20px;
+      width: 30px;
+      height: 30px;
+      border-radius: 15px;
       display: flex;
       align-items: center;
       justify-content: center;
