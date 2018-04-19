@@ -335,5 +335,6 @@
   "upvote_setting_details": "Enable this option to automatically like your own posts.",
   "upvote_setting": "Like my posts",
   "dmca_content_removed": "Content removed due to DMCA notice",
-  "drafts_memory_usage_error": "Oops! You hit the storage limit of 16mb, delete some drafts to go forward"
+  "drafts_memory_usage_error": "Oops! You hit the storage limit of 16mb, delete some drafts to go forward",
+  "beneficiaries": "Beneficiaries"
 }
