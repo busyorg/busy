@@ -77,7 +77,7 @@ const HeroBanner = ({ visible, onCloseClick }) => {
             />
             <div className="HeroBanner__content__description">
               <div className="HeroBanner__content__number">3</div>
-              <div className="HeroBanner__content__title">
+              <div className="HeroBanner__content__title" style={{ width: '130px' }}>
                 <FormattedMessage id="hero_banner_title_3" defaultMessage="Earn rewards in Steem" />
               </div>
             </div>
