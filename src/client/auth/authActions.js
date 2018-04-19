@@ -16,9 +16,6 @@ export const RELOAD_SUCCESS = '@auth/RELOAD_SUCCESS';
 export const RELOAD_ERROR = '@auth/RELOAD_ERROR';
 
 export const LOGOUT = '@auth/LOGOUT';
-export const LOGOUT_START = '@auth/LOGOUT_START';
-export const LOGOUT_ERROR = '@auth/LOGOUT_ERROR';
-export const LOGOUT_SUCCESS = '@auth/LOGOUT_SUCCESS';
 
 export const UPDATE_SC2_USER_METADATA = createAsyncActionType('@auth/UPDATE_SC2_USER_METADATA');
 export const BUSY_LOGIN = createAsyncActionType('@auth/BUSY_LOGIN');
@@ -57,13 +54,14 @@ export const reload = () => (dispatch, getState, { steemConnectAPI }) =>
     },
   });
 
-export const logout = () => (dispatch, getState, { steemConnectAPI }) =>
+export const logout = () => (dispatch, getState, { steemConnectAPI }) => {
+  steemConnectAPI.revokeToken();
+  Cookie.remove('access_token');
+
   dispatch({
     type: LOGOUT,
-    payload: {
-      promise: steemConnectAPI.revokeToken().then(() => Cookie.remove('access_token')),
-    },
   });
+};
 
 export const getUpdatedSCUserMetadata = () => (dispatch, getState, { steemConnectAPI }) =>
   dispatch({

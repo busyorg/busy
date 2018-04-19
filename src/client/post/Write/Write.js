@@ -9,7 +9,7 @@ import { injectIntl } from 'react-intl';
 import uuidv4 from 'uuid/v4';
 import { getHtml } from '../../components/Story/Body';
 import improve from '../../helpers/improve';
-import { extractImages, extractLinks } from '../../helpers/parser';
+import { extractImageTags, extractLinks } from '../../helpers/parser';
 import { rewardsValues } from '../../../common/constants/rewards';
 import LastDraftsContainer from './LastDraftsContainer';
 import DeleteDraftModal from './DeleteDraftModal';
@@ -53,6 +53,7 @@ class Write extends React.Component {
     user: PropTypes.shape().isRequired,
     draftPosts: PropTypes.shape().isRequired,
     loading: PropTypes.bool.isRequired,
+    intl: PropTypes.shape().isRequired,
     saving: PropTypes.bool,
     draftId: PropTypes.string,
     upvoteSetting: PropTypes.bool,
@@ -198,7 +199,7 @@ class Write extends React.Component {
 
     const parsedBody = getHtml(postBody, {}, 'text');
 
-    const images = extractImages(parsedBody);
+    const images = _.map(extractImageTags, tag => tag.src);
     const links = extractLinks(parsedBody);
 
     if (data.title && !this.permlink) {
@@ -262,7 +263,7 @@ class Write extends React.Component {
 
     const redirect = id !== this.draftId;
 
-    this.props.saveDraft({ postData: data, id: this.draftId }, redirect);
+    this.props.saveDraft({ postData: data, id: this.draftId }, redirect, this.props.intl);
   }, 2000);
 
   render() {

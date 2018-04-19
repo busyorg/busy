@@ -1,3 +1,4 @@
+import { createAction } from 'redux-actions';
 import { saveSettingsMetadata } from '../helpers/metadata';
 
 export const SAVE_SETTINGS = '@app/SAVE_SETTINGS';
@@ -12,3 +13,7 @@ export const saveSettings = settings => dispatch =>
       promise: saveSettingsMetadata(settings),
     },
   });
+
+export const SET_LOCALE = '@app/SET_LOCALE';
+
+export const setLocale = createAction(SET_LOCALE);
