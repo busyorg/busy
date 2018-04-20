@@ -12,7 +12,7 @@ import {
   FormattedNumber,
 } from 'react-intl';
 import { Link } from 'react-router-dom';
-import { Tag, Icon, Popover, Tooltip } from 'antd';
+import { Tag, Icon, Popover } from 'antd';
 import Lightbox from 'react-image-lightbox';
 import { Scrollbars } from 'react-custom-scrollbars';
 import formatter from '../../helpers/steemitFormatter';
@@ -20,6 +20,7 @@ import { getFromMetadata, extractImageTags } from '../../helpers/parser';
 import { isPostDeleted, dropCategory } from '../../helpers/postHelpers';
 import withAuthActions from '../../auth/withAuthActions';
 import { getProxyImageURL } from '../../helpers/image';
+import BTooltip from '../BTooltip';
 import Body, { getHtml } from './Body';
 import StoryDeleted from './StoryDeleted';
 import StoryFooter from '../StoryFooter/StoryFooter';
@@ -374,16 +375,16 @@ class StoryFull extends React.Component {
           <div className="StoryFull__header__text">
             <Link to={`/@${post.author}`}>
               <span className="username">{post.author}</span>
-              <Tooltip
+              <BTooltip
                 title={intl.formatMessage({
                   id: 'reputation_score',
                   defaultMessage: 'Reputation score',
                 })}
               >
                 <Tag>{formatter.reputation(post.author_reputation)}</Tag>
-              </Tooltip>
+              </BTooltip>
             </Link>
-            <Tooltip
+            <BTooltip
               title={
                 <span>
                   <FormattedDate value={`${post.created}Z`} />{' '}
@@ -394,14 +395,14 @@ class StoryFull extends React.Component {
               <span className="StoryFull__header__text__date">
                 <FormattedRelative value={`${post.created}Z`} />
               </span>
-            </Tooltip>
+            </BTooltip>
             <span className="StoryFull__posted_from">
               <PostedFrom post={post} />
             </span>
             {Math.ceil(readingTime(post.body).minutes) > 1 && (
               <span>
                 <span className="StoryFull__bullet" />
-                <Tooltip
+                <BTooltip
                   title={
                     <span>
                       <FormattedMessage
@@ -419,7 +420,7 @@ class StoryFull extends React.Component {
                       values={{ min: Math.ceil(readingTime(post.body).minutes) }}
                     />
                   </span>
-                </Tooltip>
+                </BTooltip>
               </span>
             )}
           </div>
