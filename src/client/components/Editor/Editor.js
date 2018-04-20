@@ -234,6 +234,7 @@ class Editor extends React.Component {
             ],
           })(
             <Input
+              data-testid="editorInputTitle"
               ref={title => {
                 this.title = title;
               }}
@@ -273,6 +274,7 @@ class Editor extends React.Component {
             ],
           })(
             <Select
+              data-testid="editorInputTags"
               ref={ref => {
                 this.select = ref;
               }}
@@ -301,6 +303,7 @@ class Editor extends React.Component {
             ],
           })(
             <EditorInput
+              data-testid="editorInputBody"
               rows={12}
               addon={
                 <FormattedMessage
@@ -393,6 +396,7 @@ class Editor extends React.Component {
                 />
               ) : (
                 <Action
+                  data-testid="editorButtonSubmit"
                   primary
                   loading={loading}
                   disabled={loading}
