@@ -20,6 +20,7 @@ import BTooltip from '../BTooltip';
 import Avatar from '../Avatar';
 import PopoverMenu, { PopoverMenuItem } from '../PopoverMenu/PopoverMenu';
 import Notifications from './Notifications/Notifications';
+import LanguageSettings from './LanguageSettings';
 import './Topnav.less';
 
 @injectIntl
@@ -136,6 +137,9 @@ class Topnav extends React.Component {
             <a href={SteemConnect.getLoginURL(next)}>
               <FormattedMessage id="login" defaultMessage="Log in" />
             </a>
+          </Menu.Item>
+          <Menu.Item key="language">
+            <LanguageSettings />
           </Menu.Item>
         </Menu>
       </div>
@@ -293,8 +297,10 @@ class Topnav extends React.Component {
     });
   }
 
+  debouncedSearch = _.debounce(value => this.props.searchAutoComplete(value), 300);
+
   handleAutoCompleteSearch(value) {
-    this.props.searchAutoComplete(value);
+    this.debouncedSearch(value);
   }
 
   handleSelectOnAutoCompleteDropdown(value) {

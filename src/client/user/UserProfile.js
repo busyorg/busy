@@ -104,8 +104,8 @@ export default class UserProfile extends React.Component {
             loadMoreContent={loadMoreContentAction}
             showPostModal={this.props.showPostModal}
           />
-          {content.length === 0 && fetched && isOwnProfile && <EmptyUserOwnProfile />}
-          {content.length === 0 && fetched && !isOwnProfile && <EmptyUserProfile />}
+          {_.isEmpty(content) && fetched && isOwnProfile && <EmptyUserOwnProfile />}
+          {_.isEmpty(content) && fetched && !isOwnProfile && <EmptyUserProfile />}
         </div>
         {<PostModal />}
       </div>
