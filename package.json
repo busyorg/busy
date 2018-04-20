@@ -23,7 +23,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "test:e2e": "jest test/index.test.js",
+    "test:e2e": "jest test/*.test.js",
     "eslint-autofix": "eslint --fix \"src/**/*.js\"",
     "run:server": "nodemon --watch busy.server.js busy.server.js",
     "build:server:dev": "cross-env NODE_ENV=development webpack --config ./webpack/webpack.server.config.js",

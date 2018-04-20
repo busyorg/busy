@@ -1,5 +1,7 @@
 import puppeteer from 'puppeteer';
 
+export const appUrl = process.env.TEST_URL || 'http://localhost:3000';
+
 export const waitForNewPage = browser =>
   new Promise(x => browser.once('targetcreated', target => x(target.page())));
 
