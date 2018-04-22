@@ -336,11 +336,9 @@ export default class Buttons extends React.Component {
             <i className="iconfont icon-message_fill" />
           </Link>
         </Tooltip>
-        {post.children > 0 && (
-          <span className="Buttons__number">
-            <FormattedNumber value={post.children} />
-          </span>
-        )}
+        <span className="Buttons__number">
+          {post.children > 0 && <FormattedNumber value={post.children} />}
+        </span>
         {showReblogLink && (
           <Tooltip
             title={intl.formatMessage({
