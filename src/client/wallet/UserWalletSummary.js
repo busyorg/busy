@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
-import { Tooltip } from 'antd';
 import formatter from '../helpers/steemitFormatter';
 import { calculateTotalDelegatedSP, calculateEstAccountValue } from '../vendor/steemitHelpers';
+import BTooltip from '../components/BTooltip';
 import Loading from '../components/Icon/Loading';
 import USDDisplay from '../components/Utils/USDDisplay';
 import './UserWalletSummary.less';
@@ -17,7 +17,7 @@ const getFormattedTotalDelegatedSP = (user, totalVestingShares, totalVestingFund
 
   if (totalDelegatedSP !== 0) {
     return (
-      <Tooltip
+      <BTooltip
         title={
           <span>
             <FormattedMessage
@@ -34,7 +34,7 @@ const getFormattedTotalDelegatedSP = (user, totalVestingShares, totalVestingFund
           />
           {' SP)'}
         </span>
-      </Tooltip>
+      </BTooltip>
     );
   }
 

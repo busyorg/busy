@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl } from 'react-intl';
-import { Tooltip } from 'antd';
 import classNames from 'classnames';
 import { calculatePayout } from '../../vendor/steemitHelpers';
+import BTooltip from '../BTooltip';
 import USDDisplay from '../Utils/USDDisplay';
 import PayoutDetail from '../PayoutDetail';
 import './Payout.less';
@@ -15,7 +15,7 @@ const Payout = ({ intl, post }) => {
   return (
     payoutValue > 0 && (
       <span className="Payout">
-        <Tooltip title={<PayoutDetail post={post} />}>
+        <BTooltip title={<PayoutDetail post={post} />}>
           <span
             className={classNames({
               'Payout--rejected': payout.isPayoutDeclined,
@@ -23,16 +23,16 @@ const Payout = ({ intl, post }) => {
           >
             <USDDisplay value={payoutValue} />
           </span>
-        </Tooltip>
+        </BTooltip>
         {post.percent_steem_dollars === 0 && (
-          <Tooltip
+          <BTooltip
             title={intl.formatMessage({
               id: 'reward_option_100',
               defaultMessage: '100% Steem Power',
             })}
           >
             <i className="iconfont icon-flashlight" />
-          </Tooltip>
+          </BTooltip>
         )}
       </span>
     )

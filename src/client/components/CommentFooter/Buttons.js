@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { take, find } from 'lodash';
 import { injectIntl, FormattedNumber, FormattedMessage } from 'react-intl';
-import { Icon, Tooltip } from 'antd';
+import { Icon } from 'antd';
 import { getUpvotes, getDownvotes } from '../../helpers/voteHelpers';
 import { sortVotes } from '../../helpers/sortHelpers';
 import { calculatePayout } from '../../vendor/steemitHelpers';
+import BTooltip from '../BTooltip';
 import ReactionsModal from '../Reactions/ReactionsModal';
 import withAuthActions from '../../auth/withAuthActions';
 import USDDisplay from '../Utils/USDDisplay';
@@ -165,7 +166,7 @@ class Buttons extends React.Component {
 
     return (
       <div>
-        <Tooltip title={likeTooltip}>
+        <BTooltip title={likeTooltip}>
           <a
             role="presentation"
             className={classNames('CommentFooter__link', {
@@ -175,7 +176,7 @@ class Buttons extends React.Component {
           >
             {pendingLike ? <Icon type="loading" /> : <i className="iconfont icon-praise_fill" />}
           </a>
-        </Tooltip>
+        </BTooltip>
         {upVotes.length > 0 && (
           <span
             className={classNames('CommentFooter__count', {
@@ -184,7 +185,7 @@ class Buttons extends React.Component {
             role="presentation"
             onClick={this.handleShowReactions}
           >
-            <Tooltip
+            <BTooltip
               title={
                 <div>
                   {upVotesPreview}
@@ -194,10 +195,10 @@ class Buttons extends React.Component {
             >
               <FormattedNumber value={upVotes.length} />
               <span />
-            </Tooltip>
+            </BTooltip>
           </span>
         )}
-        <Tooltip title={intl.formatMessage({ id: 'dislike', defaultMessage: 'Dislike' })}>
+        <BTooltip title={intl.formatMessage({ id: 'dislike', defaultMessage: 'Dislike' })}>
           <a
             role="presentation"
             className={classNames('CommentFooter__link', {
@@ -211,7 +212,7 @@ class Buttons extends React.Component {
               <i className="iconfont icon-praise_fill Comment__icon_dislike" />
             )}
           </a>
-        </Tooltip>
+        </BTooltip>
         {downVotes.length > 0 && (
           <span
             className={classNames('CommentFooter__count', {
@@ -220,7 +221,7 @@ class Buttons extends React.Component {
             role="presentation"
             onClick={this.handleShowReactions}
           >
-            <Tooltip
+            <BTooltip
               title={
                 <div>
                   {downVotesPreview}
@@ -230,17 +231,17 @@ class Buttons extends React.Component {
             >
               <FormattedNumber value={downVotes.length} />
               <span />
-            </Tooltip>
+            </BTooltip>
           </span>
         )}
         {payoutValue >= 0.01 && (
           <React.Fragment>
             <span className="CommentFooter__bullet" />
             <span className="CommentFooter__payout">
-              <Tooltip title={<PayoutDetail post={comment} />}>
+              <BTooltip title={<PayoutDetail post={comment} />}>
                 <USDDisplay value={payoutValue} />
                 <span />
-              </Tooltip>
+              </BTooltip>
             </span>
           </React.Fragment>
         )}
