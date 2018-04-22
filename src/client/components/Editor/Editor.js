@@ -14,7 +14,7 @@ import requiresLogin from '../../auth/requiresLogin';
 import withEditor from './withEditor';
 import EditorInput from './EditorInput';
 import Body, { remarkable } from '../Story/Body';
-import EditorFullscreen from './EditorFullscreen';
+import EditorFullscreen from './EditorFullScreen';
 import './Editor.less';
 
 @injectIntl

@@ -10,8 +10,9 @@ import EditorInput from './EditorInput';
 import Body from '../Story/Body';
 import { validateTopics } from '../../helpers/postHelpers';
 import withEditor from './withEditor';
-import EditorFullscreenHeader from './EditorFullscreenHeader';
-import './EditorFullscreen.less';
+import EditorFullScreenHeader from './EditorFullScreenHeader';
+import Action from '../Button/Action';
+import './EditorFullScreen.less';
 
 @injectIntl
 @withEditor
@@ -97,14 +98,14 @@ class EditorFullScreen extends React.Component {
         footer={null}
         visible={displayFullscreenEditor}
         onCancel={handleHideFullscreenEditor}
-        wrapClassName="EditorFullscreen"
+        wrapClassName="EditorFullScreen"
         destroyOnClose
         width="100%"
         style={{ top: 0 }}
         bodyStyle={{ height: '100vh', padding: 0 }}
       >
-        <div className="EditorFullscreen__container">
-          <EditorFullscreenHeader
+        <div className="EditorFullScreen__container">
+          <EditorFullScreenHeader
             saving={saving}
             loading={loading}
             isUpdating={isUpdating}
@@ -112,9 +113,9 @@ class EditorFullScreen extends React.Component {
             words={words}
             minutes={minutes}
           />
-          <div className="EditorFullscreen__contents">
-            <div className="EditorFullscreen__column">
-              <Form className="EditorFullscreen__form" layout="vertical" onSubmit={handleSubmit}>
+          <div className="EditorFullScreen__contents">
+            <div className="EditorFullScreen__column">
+              <Form className="EditorFullScreen__form" layout="vertical" onSubmit={handleSubmit}>
                 <Form.Item
                   label={
                     <span className="Editor__label">
@@ -203,7 +204,7 @@ class EditorFullScreen extends React.Component {
                     ],
                   })(
                     <EditorInput
-                      autosize={{ minRows: 6, maxRows: 50 }}
+                      autosize={{ minRows: 6, maxRows: 12 }}
                       onChange={this.onUpdate}
                       onImageUpload={this.props.onImageUpload}
                       onImageInvalid={this.props.onImageInvalid}
@@ -211,58 +212,74 @@ class EditorFullScreen extends React.Component {
                     />,
                   )}
                 </Form.Item>
-                <Form.Item
-                  className={classNames({ Editor__hidden: isUpdating })}
-                  label={
-                    <span className="Editor__label">
-                      <FormattedMessage id="reward" defaultMessage="Reward" />
-                    </span>
-                  }
-                >
-                  {getFieldDecorator('reward')(
-                    <Select
-                      onChange={this.onUpdate}
-                      disabled={isUpdating}
-                      className="EditorFullScreen__reward-select"
-                    >
-                      <Select.Option value={rewardsValues.all}>
-                        <FormattedMessage
-                          id="reward_option_100"
-                          defaultMessage="100% Steem Power"
-                        />
-                      </Select.Option>
-                      <Select.Option value={rewardsValues.half}>
-                        <FormattedMessage
-                          id="reward_option_50"
-                          defaultMessage="50% SBD and 50% SP"
-                        />
-                      </Select.Option>
-                      <Select.Option value={rewardsValues.none}>
-                        <FormattedMessage id="reward_option_0" defaultMessage="Declined" />
-                      </Select.Option>
-                    </Select>,
-                  )}
-                </Form.Item>
-                <Form.Item
-                  className={classNames('EditorFullscreen__upvote', { Editor__hidden: isUpdating })}
-                >
-                  {getFieldDecorator('upvote', { valuePropName: 'checked', initialValue: true })(
-                    <Checkbox onChange={this.onUpdate} disabled={isUpdating}>
-                      <FormattedMessage id="like_post" defaultMessage="Like this post" />
-                    </Checkbox>,
-                  )}
-                </Form.Item>
               </Form>
             </div>
-            <div className="EditorFullscreen__column EditorFullscreen__preview">
+            <div className="EditorFullScreen__column EditorFullScreen__preview">
+              <Body full body={bodyHTML} />
+              {_.isEmpty(bodyHTML) && (
+                <div className="EditorFullScreen__preview__empty">
+                  <FormattedMessage
+                    id="preview_of_your_post"
+                    defaultMessage="Preview of your post"
+                  />
+                </div>
+              )}
+            </div>
+          </div>
+          <div className="EditorFullScreen__footer">
+            <div className="EditorFullScreen__footer__left">
+              <Form.Item className={classNames({ Editor__hidden: isUpdating })}>
+                {getFieldDecorator('reward')(
+                  <Select
+                    onChange={this.onUpdate}
+                    disabled={isUpdating}
+                    className="EditorFullScreen__reward-select"
+                  >
+                    <Select.Option value={rewardsValues.all}>
+                      <FormattedMessage id="reward_option_100" defaultMessage="100% Steem Power" />
+                    </Select.Option>
+                    <Select.Option value={rewardsValues.half}>
+                      <FormattedMessage id="reward_option_50" defaultMessage="50% SBD and 50% SP" />
+                    </Select.Option>
+                    <Select.Option value={rewardsValues.none}>
+                      <FormattedMessage id="reward_option_0" defaultMessage="Declined" />
+                    </Select.Option>
+                  </Select>,
+                )}
+              </Form.Item>
+            </div>
+            <div className="EditorFullScreen__footer__right">
               <Form.Item
-                label={
-                  <span className="Editor__label">
-                    <FormattedMessage id="preview" defaultMessage="Preview" />
-                  </span>
-                }
+                className={classNames('EditorFullScreen__upvote', { Editor__hidden: isUpdating })}
               >
-                <Body full body={bodyHTML} />
+                {getFieldDecorator('upvote', { valuePropName: 'checked', initialValue: true })(
+                  <Checkbox onChange={this.onUpdate} disabled={isUpdating}>
+                    <FormattedMessage id="like_post" defaultMessage="Like this post" />
+                  </Checkbox>,
+                )}
+              </Form.Item>
+              <Form.Item className="Editor__bottom__submit">
+                {isUpdating ? (
+                  <Action
+                    primary
+                    loading={loading}
+                    disabled={loading}
+                    text={intl.formatMessage({
+                      id: loading ? 'post_send_progress' : 'post_update_send',
+                      defaultMessage: loading ? 'Submitting' : 'Update post',
+                    })}
+                  />
+                ) : (
+                  <Action
+                    primary
+                    loading={loading}
+                    disabled={loading}
+                    text={intl.formatMessage({
+                      id: loading ? 'post_send_progress' : 'post_send',
+                      defaultMessage: loading ? 'Submitting' : 'Post',
+                    })}
+                  />
+                )}
               </Form.Item>
             </div>
           </div>
