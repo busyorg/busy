@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
-import { Tooltip } from 'antd';
+import BTooltip from '../components/BTooltip';
 
 const VoteActionMessage = ({ actionDetails, currentUsername }) => {
   const postLink = `/@${actionDetails.author}/${actionDetails.permlink}`;
@@ -30,7 +30,7 @@ const VoteActionMessage = ({ actionDetails, currentUsername }) => {
         </span>
       ) : (
         <FormattedMessage
-          id={`user_${voteType}_post`}
+          id={`user_${voteType}`}
           defaultMessage={`{username} ${voteType}`}
           values={{
             username: (
@@ -44,11 +44,11 @@ const VoteActionMessage = ({ actionDetails, currentUsername }) => {
       {actionDetails.weight === 0 ? (
         ' '
       ) : (
-        <Tooltip title={<FormattedMessage id="voting_weight" defaultMessage="Vote Weight" />}>
+        <BTooltip title={<FormattedMessage id="voting_weight" defaultMessage="Vote Weight" />}>
           {' ('}
           {voteWeight}
           {') '}
-        </Tooltip>
+        </BTooltip>
       )}
       <Link to={`/@${actionDetails.author}`}>
         <span className="username">{actionDetails.author}</span>

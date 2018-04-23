@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { getUserDetailsKey } from '../helpers/stateHelpers';
 import {
   getUser,
   getAuthenticatedUser,
@@ -100,7 +101,8 @@ class UserActivityActionsList extends Component {
       currentFilteredActions,
     } = this.props;
     const currentUsername = user.name;
-    const actions = usersAccountHistory[currentUsername];
+    const userKey = getUserDetailsKey(currentUsername);
+    const actions = _.get(usersAccountHistory, userKey, []);
     const displayedActions = _.isEmpty(accountHistoryFilter)
       ? currentDisplayedActions
       : currentFilteredActions;

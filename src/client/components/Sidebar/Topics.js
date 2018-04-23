@@ -55,14 +55,14 @@ class Topics extends React.Component {
           </ul>
         )}
         {!loading && topics.length > maxItems && !this.state.showMore ? (
-          <h5 role="presentation" onClick={() => this.changeVisibility(true)}>
+          <a role="button" tabIndex={0} onClick={() => this.changeVisibility(true)}>
             <FormattedMessage id="show_more" defaultMessage="View more" />
-          </h5>
+          </a>
         ) : null}
         {!loading && topics.length > maxItems && this.state.showMore ? (
-          <h5 role="presentation" onClick={() => this.changeVisibility(false)}>
+          <a role="button" tabIndex={0} onClick={() => this.changeVisibility(false)}>
             <FormattedMessage id="show_less" defaultMessage="View less" />
-          </h5>
+          </a>
         ) : null}
       </div>
     );

@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import { Tooltip } from 'antd';
-import './PostedFrom.less';
+import BTooltip from '../BTooltip';
 import { getAppData } from '../../helpers/postHelpers';
+import './PostedFrom.less';
 
 const PostedFrom = ({ post }) => {
   const { appName, version } = getAppData(post);
@@ -14,7 +14,7 @@ const PostedFrom = ({ post }) => {
   return (
     <span className="PostedFrom">
       <span className="PostedFrom__bullet" />
-      <Tooltip
+      <BTooltip
         title={
           version && (
             <span>
@@ -28,7 +28,7 @@ const PostedFrom = ({ post }) => {
         }
       >
         <span className="PostedFrom__text">{appName}</span>
-      </Tooltip>
+      </BTooltip>
     </span>
   );
 };

@@ -7,8 +7,8 @@ import {
   FormattedDate,
   FormattedTime,
 } from 'react-intl';
-import { Tooltip } from 'antd';
 import formatter from '../helpers/steemitFormatter';
+import BTooltip from '../components/BTooltip';
 
 const getFormattedPayout = (
   rewardSteem,
@@ -92,7 +92,7 @@ const ClaimReward = ({
         </span>
       </div>
       <span className="UserWalletTransactions__timestamp">
-        <Tooltip
+        <BTooltip
           title={
             <span>
               <FormattedDate value={`${timestamp}Z`} /> <FormattedTime value={`${timestamp}Z`} />
@@ -102,7 +102,7 @@ const ClaimReward = ({
           <span>
             <FormattedRelative value={`${timestamp}Z`} />
           </span>
-        </Tooltip>
+        </BTooltip>
       </span>
     </div>
   </div>

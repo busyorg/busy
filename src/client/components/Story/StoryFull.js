@@ -12,14 +12,15 @@ import {
   FormattedNumber,
 } from 'react-intl';
 import { Link } from 'react-router-dom';
-import { Tag, Icon, Popover, Tooltip } from 'antd';
+import { Tag, Icon, Popover } from 'antd';
 import Lightbox from 'react-image-lightbox';
 import { Scrollbars } from 'react-custom-scrollbars';
 import formatter from '../../helpers/steemitFormatter';
-import { getFromMetadata, extractImages } from '../../helpers/parser';
+import { getFromMetadata, extractImageTags } from '../../helpers/parser';
 import { isPostDeleted, dropCategory } from '../../helpers/postHelpers';
 import withAuthActions from '../../auth/withAuthActions';
 import { getProxyImageURL } from '../../helpers/image';
+import BTooltip from '../BTooltip';
 import Body, { getHtml } from './Body';
 import StoryDeleted from './StoryDeleted';
 import StoryFooter from '../StoryFooter/StoryFooter';
@@ -90,6 +91,7 @@ class StoryFull extends React.Component {
     };
 
     this.images = [];
+    this.imagesAlts = [];
 
     this.handleClick = this.handleClick.bind(this);
     this.handleContentClick = this.handleContentClick.bind(this);
@@ -210,7 +212,7 @@ class StoryFull extends React.Component {
 
     const parsedBody = getHtml(signedBody, {}, 'text');
 
-    this.images = extractImages(parsedBody);
+    this.images = extractImageTags(parsedBody);
 
     const tags = _.union(getFromMetadata(post.json_metadata, 'tags'), [post.category]);
 
@@ -373,16 +375,16 @@ class StoryFull extends React.Component {
           <div className="StoryFull__header__text">
             <Link to={`/@${post.author}`}>
               <span className="username">{post.author}</span>
-              <Tooltip
+              <BTooltip
                 title={intl.formatMessage({
                   id: 'reputation_score',
                   defaultMessage: 'Reputation score',
                 })}
               >
                 <Tag>{formatter.reputation(post.author_reputation)}</Tag>
-              </Tooltip>
+              </BTooltip>
             </Link>
-            <Tooltip
+            <BTooltip
               title={
                 <span>
                   <FormattedDate value={`${post.created}Z`} />{' '}
@@ -393,14 +395,14 @@ class StoryFull extends React.Component {
               <span className="StoryFull__header__text__date">
                 <FormattedRelative value={`${post.created}Z`} />
               </span>
-            </Tooltip>
+            </BTooltip>
             <span className="StoryFull__posted_from">
               <PostedFrom post={post} />
             </span>
             {Math.ceil(readingTime(post.body).minutes) > 1 && (
               <span>
                 <span className="StoryFull__bullet" />
-                <Tooltip
+                <BTooltip
                   title={
                     <span>
                       <FormattedMessage
@@ -418,7 +420,7 @@ class StoryFull extends React.Component {
                       values={{ min: Math.ceil(readingTime(post.body).minutes) }}
                     />
                   </span>
-                </Tooltip>
+                </BTooltip>
               </span>
             )}
           </div>
@@ -437,9 +439,10 @@ class StoryFull extends React.Component {
         <div className="StoryFull__content">{content}</div>
         {open && (
           <Lightbox
-            mainSrc={this.images[index]}
-            nextSrc={this.images[(index + 1) % this.images.length]}
-            prevSrc={this.images[(index + (this.images.length - 1)) % this.images.length]}
+            imageTitle={this.images[index].alt}
+            mainSrc={this.images[index].src}
+            nextSrc={this.images[(index + 1) % this.images.length].src}
+            prevSrc={this.images[(index + (this.images.length - 1)) % this.images.length].src}
             onCloseRequest={() => {
               this.setState({
                 lightbox: {
@@ -476,7 +479,9 @@ class StoryFull extends React.Component {
             style={{ width: '100%', height: 46 }}
           >
             <div className="StoryFull__topics__content">
-              {tags && tags.map(tag => <Topic key={tag} name={tag} />)}
+              {_.uniq(tags)
+                .filter(_.isString)
+                .map(tag => <Topic key={tag} name={tag} />)}
               <div style={{ flex: '0 0 20px' }} />
             </div>
           </Scrollbars>

@@ -172,6 +172,7 @@
   "top_reblogged_users": "Nej ze sdílených uživatelů",
   "latest_comments": "Nejnovější komentáře",
   "latest_recommendations": "Nejnovější doporučení",
+  "last_drafts": "Last drafts",
   "new_to_busy": "Poprvé na Busy?",
   "never_written_post": "Ještě jste nic nenapsali?",
   "start_now": "Začněte nyní",
@@ -216,8 +217,6 @@
   "quote": "Citovat",
   "link": "Přidat odkaz",
   "image": "Přidat obrázek",
-  "get_boost": "Získejte hlas od Busy!",
-  "get_boost_content": "Chcete podpořit svůj příspěvek? Přidejte kategorii \"busy\" a dostanete od nás hlas.",
   "drafts": "Koncepty",
   "drafts_empty": "Nemáte uložené žádné koncepty",
   "drafts_description": "Tyto příspěvky nebyly dosud zveřejněny. Můžete je publikovat nebo odstranit.",
@@ -335,5 +334,5 @@
   "complete_profile_tooltip": "Musíte vyplnit jméno, položku o vás a profilový obrázek",
   "upvote_setting_details": "Povolte možnost k automatickému hlasování pro vlastní příspvěky.",
   "upvote_setting": "Hlasovat pro své příspěvky",
-  "dmca_content_removed": "Content removed due to DMCA notice"
+  "dmca_content_removed": "Obsah odebrán kvůli oznámení DMCA"
 }

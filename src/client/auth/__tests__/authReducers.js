@@ -69,9 +69,9 @@ describe('authReducer', () => {
     });
   });
 
-  describe(`dispatching action ${authTypes.LOGOUT_SUCCESS}`, () => {
+  describe(`dispatching action ${authTypes.LOGOUT}`, () => {
     it('is expected to return isAuthenticated as false', () => {
-      expect(authReducer(undefined, { type: authTypes.LOGOUT_SUCCESS }))
+      expect(authReducer(undefined, { type: authTypes.LOGOUT }))
         .to.have.property('isAuthenticated')
         .and.equal(false);
     });

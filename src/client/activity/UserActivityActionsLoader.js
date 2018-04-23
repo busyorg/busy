@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { getUserDetailsKey } from '../helpers/stateHelpers';
 import {
   getLoadingMoreUsersAccountHistory,
   getCurrentDisplayedActions,
@@ -50,7 +51,7 @@ class UserActivityActionsLoader extends React.Component {
 
   shouldComponentUpdate(nextProps) {
     const currentUsername = nextProps.user.name;
-    const actions = nextProps.usersAccountHistory[currentUsername];
+    const actions = nextProps.usersAccountHistory[getUserDetailsKey(currentUsername)];
     const hasMore =
       nextProps.userHasMoreActions || actions.length !== nextProps.currentDisplayedActions.length;
     const diffActivityFilter = !_.isEqual(
