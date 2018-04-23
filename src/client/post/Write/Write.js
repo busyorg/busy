@@ -158,6 +158,12 @@ class Write extends React.Component {
     }
   }
 
+  componentDidUpdate(prevProps) {
+    if (_.get(this.props, 'location.search') !== _.get(prevProps, 'location.search')) {
+      this.saveDraft.cancel();
+    }
+  }
+
   onDeleteDraft = () => this.props.replace('/editor');
 
   onDelete = () => this.setState({ showModalDelete: true });
