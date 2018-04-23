@@ -204,8 +204,8 @@ class Write extends React.Component {
     // Busy (like video data from DTube)
     if (this.props.draftPosts[this.draftId] && this.props.draftPosts[this.draftId].jsonMetadata) {
       metaData = {
-        ...metaData,
         ...this.props.draftPosts[this.draftId].jsonMetadata,
+        ...metaData,
       };
     }
 
