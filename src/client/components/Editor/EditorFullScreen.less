@@ -82,6 +82,7 @@
     background: @white;
 
     &__left {
+      display: flex;
       padding-left: 10px;
       margin-top: 10px;
     }
@@ -118,9 +119,25 @@
       content: '' !important;
     }
   }
+
+  &__topics {
+    width: 500px;
+  }
+
+  &__title-input {
+    border: 0 !important;
+    box-shadow: none !important;
+    padding-left: 20px !important;
+
+    &:focus {
+      box-shadow: none !important;
+    }
+  }
 }
 
 .EditorFullScreen__reward-select {
   margin-left: 10px !important;
   width: 210px;
+  margin-top: 25px;
+  margin-right: 20px;
 }

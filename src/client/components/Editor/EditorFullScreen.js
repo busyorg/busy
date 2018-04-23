@@ -113,84 +113,21 @@ class EditorFullScreen extends React.Component {
             words={words}
             minutes={minutes}
           />
+          {getFieldDecorator('title', {
+            initialValue: '',
+          })(
+            <Input
+              onChange={this.onUpdate}
+              className="EditorFullScreen__title-input"
+              placeholder={intl.formatMessage({
+                id: 'title_placeholder',
+                defaultMessage: 'Add title',
+              })}
+            />,
+          )}
           <div className="EditorFullScreen__contents">
             <div className="EditorFullScreen__column">
               <Form className="EditorFullScreen__form" layout="vertical" onSubmit={handleSubmit}>
-                <Form.Item
-                  label={
-                    <span className="Editor__label">
-                      <FormattedMessage id="title" defaultMessage="Title" />
-                    </span>
-                  }
-                >
-                  {getFieldDecorator('title', {
-                    initialValue: '',
-                    rules: [
-                      {
-                        required: true,
-                        message: intl.formatMessage({
-                          id: 'title_error_empty',
-                          defaultMessage: 'title_error_empty',
-                        }),
-                      },
-                      {
-                        max: 255,
-                        message: intl.formatMessage({
-                          id: 'title_error_too_long',
-                          defaultMessage: "Title can't be longer than 255 characters.",
-                        }),
-                      },
-                    ],
-                  })(
-                    <Input
-                      onChange={this.onUpdate}
-                      className="Editor__title"
-                      placeholder={intl.formatMessage({
-                        id: 'title_placeholder',
-                        defaultMessage: 'Add title',
-                      })}
-                    />,
-                  )}
-                </Form.Item>
-                <Form.Item
-                  label={
-                    <span className="Editor__label">
-                      <FormattedMessage id="topics" defaultMessage="Topics" />
-                    </span>
-                  }
-                  extra={intl.formatMessage({
-                    id: 'topics_extra',
-                    defaultMessage:
-                      'Separate topics with commas. Only lowercase letters, numbers and hyphen character is permitted.',
-                  })}
-                >
-                  {getFieldDecorator('topics', {
-                    initialValue: [],
-                    rules: [
-                      {
-                        required: true,
-                        message: intl.formatMessage({
-                          id: 'topics_error_empty',
-                          defaultMessage: 'Please enter topics',
-                        }),
-                        type: 'array',
-                      },
-                      { validator: this.handleValidateTopics(this.props.intl) },
-                    ],
-                  })(
-                    <Select
-                      onChange={this.onUpdate}
-                      className="Editor__topics"
-                      mode="tags"
-                      placeholder={intl.formatMessage({
-                        id: 'topics_placeholder',
-                        defaultMessage: 'Add story topics here',
-                      })}
-                      dropdownStyle={{ display: 'none' }}
-                      tokenSeparators={[' ', ',']}
-                    />,
-                  )}
-                </Form.Item>
                 <Form.Item>
                   {getFieldDecorator('body', {
                     rules: [
@@ -228,6 +165,45 @@ class EditorFullScreen extends React.Component {
           </div>
           <div className="EditorFullScreen__footer">
             <div className="EditorFullScreen__footer__left">
+              <Form.Item>
+                {getFieldDecorator('topics', {
+                  initialValue: [],
+                  rules: [
+                    {
+                      required: true,
+                      message: intl.formatMessage({
+                        id: 'topics_error_empty',
+                        defaultMessage: 'Please enter topics',
+                      }),
+                      type: 'array',
+                    },
+                    { validator: this.handleValidateTopics(this.props.intl) },
+                  ],
+                })(
+                  <Select
+                    onChange={this.onUpdate}
+                    className="EditorFullScreen__topics"
+                    mode="tags"
+                    placeholder={intl.formatMessage({
+                      id: 'topics_placeholder',
+                      defaultMessage: 'Add story topics here',
+                    })}
+                    dropdownStyle={{ display: 'none' }}
+                    tokenSeparators={[' ', ',']}
+                  />,
+                )}
+              </Form.Item>
+            </div>
+            <div className="EditorFullScreen__footer__right">
+              <Form.Item
+                className={classNames('EditorFullScreen__upvote', { Editor__hidden: isUpdating })}
+              >
+                {getFieldDecorator('upvote', { valuePropName: 'checked', initialValue: true })(
+                  <Checkbox onChange={this.onUpdate} disabled={isUpdating}>
+                    <FormattedMessage id="like_post" defaultMessage="Like this post" />
+                  </Checkbox>,
+                )}
+              </Form.Item>
               <Form.Item className={classNames({ Editor__hidden: isUpdating })}>
                 {getFieldDecorator('reward')(
                   <Select
@@ -245,17 +221,6 @@ class EditorFullScreen extends React.Component {
                       <FormattedMessage id="reward_option_0" defaultMessage="Declined" />
                     </Select.Option>
                   </Select>,
-                )}
-              </Form.Item>
-            </div>
-            <div className="EditorFullScreen__footer__right">
-              <Form.Item
-                className={classNames('EditorFullScreen__upvote', { Editor__hidden: isUpdating })}
-              >
-                {getFieldDecorator('upvote', { valuePropName: 'checked', initialValue: true })(
-                  <Checkbox onChange={this.onUpdate} disabled={isUpdating}>
-                    <FormattedMessage id="like_post" defaultMessage="Like this post" />
-                  </Checkbox>,
                 )}
               </Form.Item>
               <Form.Item className="Editor__bottom__submit">
