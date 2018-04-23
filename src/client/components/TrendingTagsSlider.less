@@ -2,8 +2,15 @@
 @import (reference) '../styles/modules/variables.less';
 
 .TrendingTagsSlider {
+  display: flex;
   margin-bottom: 10px;
+  flex-wrap: wrap;
+
   @media @small {
     display: none;
+  }
+
+  .Topic {
+    margin: 5px !important;
   }
 }
