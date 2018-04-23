@@ -311,7 +311,7 @@ export default class Buttons extends React.Component {
         {upVotes.length > 0 && (
           <span
             className={classNames('Buttons__number', {
-              'Buttons__reactions-count': upVotes.length > 0 || downVotes.length > 0,
+              'Buttons__reactions-count': downVotes.length > 0,
             })}
             role="presentation"
             onClick={this.handleShowReactions}
@@ -321,9 +321,6 @@ export default class Buttons extends React.Component {
                 <div>
                   {upVotesPreview}
                   {upVotesMore}
-                  {upVotesPreview.length === 0 && (
-                    <FormattedMessage id="no_likes" defaultMessage="No likes yet" />
-                  )}
                 </div>
               }
             >
