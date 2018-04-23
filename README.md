@@ -26,7 +26,7 @@ yarn dev-server
 
 ## Getting involved
 
-We at Busy really appreciate help from the community. We want to make a Busy project as friendly too contributors as possible. It doesn't matter if you are a beginner looking for a place to improve your skills or just want to help us build something great.
+We at Busy really appreciate help from the community. We want to make the Busy project as friendly as possible to contributors. It doesn't matter if you are a beginner looking for a place to improve your skills or just want to help us build something great.
 If you would like to contribute, but don't know what to work on, check our [Contributing guide][contributing].
 
 ## Backers
