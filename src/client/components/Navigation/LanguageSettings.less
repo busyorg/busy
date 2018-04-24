@@ -1,0 +1,32 @@
+@import (reference) '../../styles/modules/variables.less';
+@import (reference) '../../styles/custom.less';
+
+.LanguageSettings {
+  .ant-popover-inner-content {
+    overflow-y: auto;
+    max-height: 500px;
+  }
+
+  &__option {
+    display: flex;
+    height: 22px;
+    justify-content: center;
+
+    &-selected {
+      color: @primary-color;
+    }
+
+    @media @medium {
+      justify-content: flex-start;
+    }
+  }
+
+  .Loading {
+    display: inline-block;
+
+    &__icon:before {
+      font-size: 15px !important;
+      vertical-align: middle;
+    }
+  }
+}

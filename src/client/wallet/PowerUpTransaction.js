@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedRelative, FormattedDate, FormattedTime } from 'react-intl';
-import { Tooltip } from 'antd';
+import BTooltip from '../components/BTooltip';
 
 const PowerUpTransaction = ({ timestamp, amount }) => (
   <div className="UserWalletTransactions__transaction">
@@ -14,7 +14,7 @@ const PowerUpTransaction = ({ timestamp, amount }) => (
         <span className="UserWalletTransactions__payout">{amount}</span>
       </div>
       <span className="UserWalletTransactions__timestamp">
-        <Tooltip
+        <BTooltip
           title={
             <span>
               <FormattedDate value={`${timestamp}Z`} /> <FormattedTime value={`${timestamp}Z`} />
@@ -24,7 +24,7 @@ const PowerUpTransaction = ({ timestamp, amount }) => (
           <span>
             <FormattedRelative value={`${timestamp}Z`} />
           </span>
-        </Tooltip>
+        </BTooltip>
       </span>
     </div>
   </div>
