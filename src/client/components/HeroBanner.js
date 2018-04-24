@@ -12,18 +12,21 @@ const SLIDER_CONTENTS = [
     titleID: 'hero_banner_title_1',
     defaultTitle: 'Write and publish a post on Steem',
     className: 'HeroBannerSlider__image HeroBannerSlider__image-1',
+    number: 1,
   },
   {
     image: '/images/hero-2.svg',
     titleID: 'hero_banner_title_2',
     defaultTitle: 'The community upvotes your post',
     className: 'HeroBannerSlider__image',
+    number: 2,
   },
   {
     image: '/images/hero-3.svg',
     titleID: 'hero_banner_title_3',
     defaultTitle: 'Earn rewards in Steem',
     className: 'HeroBannerSlider__image',
+    number: 3,
   },
 ];
 
@@ -92,7 +95,8 @@ const HeroBanner = ({ visible, onCloseClick }) => {
                     <img src={slide.image} alt={slide.titleID} />
                   </div>
                   <div className="HeroBannerSlider__content">
-                    <div className="HeroBannerSlider__title">
+                    <div className="HeroBannerSlider__content__number">{slide.number}</div>
+                    <div className="HeroBannerSlider__content__title">
                       <FormattedMessage id={slide.titleID} defaultMessage={slide.defaultTitle} />
                     </div>
                   </div>

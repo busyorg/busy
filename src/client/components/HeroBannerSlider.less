@@ -10,40 +10,58 @@
 }
 
 .HeroBannerSlider {
+  align-items: center;
   display: flex;
-  height: 205px;
-  padding-bottom: 50px;
+  flex-direction: column;
+  height: 230px;
   justify-content: center;
+  padding-bottom: 50px;
+  width: 100%;
 
   &__image {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 150px;
-  }
 
-  &__image-1 {
     img {
-      width: 175px;
+      height: 115px;
+      width: 135px;
     }
   }
 
   &__content {
     display: flex;
-    flex-direction: column;
-    margin-top: 20px;
+    width: 230px;
+    height: 100px;
+    align-items: center;
 
     @media @small {
       padding: 0 30px;
       width: 510px;
     }
-  }
-  &__title {
-    line-height: 35px;
-    margin-left: 25px;
-    font-size: 20px;
-    font-weight: bold;
-    color: @black;
+
+    &__number {
+      margin-right: 20px;
+      font-weight: bold;
+      background-color: @primary-color;
+      color: @white;
+      width: 30px;
+      height: 30px;
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    &__title {
+      width: 165px;
+      display: flex;
+      align-items: center;
+      font-size: 20px;
+      font-weight: bold;
+      color: @black;
+      line-height: 22px;
+    }
   }
 }
 
@@ -54,7 +72,7 @@
   }
 
   .ant-carousel .slick-dots {
-    bottom: initial !important;
+    bottom: -20px !important;
   }
 
   .ant-carousel .slick-dots li button {
