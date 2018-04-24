@@ -54,13 +54,7 @@ ShallowWrapper {
           <span
             className="UserWalletTransactions__timestamp"
           >
-            <Tooltip
-              arrowPointAtCenter={false}
-              autoAdjustOverflow={true}
-              mouseEnterDelay={0.1}
-              mouseLeaveDelay={0.1}
-              placement="top"
-              prefixCls="ant-tooltip"
+            <BTooltip
               title={
                 <span>
                   <FormattedDate
@@ -72,7 +66,6 @@ ShallowWrapper {
                   />
                 </span>
               }
-              transitionName="zoom-big-fast"
             >
               <span>
                 <FormattedRelative
@@ -80,7 +73,7 @@ ShallowWrapper {
                   value="0Z"
                 />
               </span>
-            </Tooltip>
+            </BTooltip>
           </span>
         </div>,
       ],
@@ -137,13 +130,7 @@ ShallowWrapper {
             <span
               className="UserWalletTransactions__timestamp"
             >
-              <Tooltip
-                arrowPointAtCenter={false}
-                autoAdjustOverflow={true}
-                mouseEnterDelay={0.1}
-                mouseLeaveDelay={0.1}
-                placement="top"
-                prefixCls="ant-tooltip"
+              <BTooltip
                 title={
                   <span>
                     <FormattedDate
@@ -155,7 +142,6 @@ ShallowWrapper {
                     />
                   </span>
                 }
-                transitionName="zoom-big-fast"
               >
                 <span>
                   <FormattedRelative
@@ -163,7 +149,7 @@ ShallowWrapper {
                     value="0Z"
                   />
                 </span>
-              </Tooltip>
+              </BTooltip>
             </span>,
           ],
           "className": "UserWalletTransactions__content",
@@ -238,13 +224,7 @@ ShallowWrapper {
             "key": undefined,
             "nodeType": "host",
             "props": Object {
-              "children": <Tooltip
-                arrowPointAtCenter={false}
-                autoAdjustOverflow={true}
-                mouseEnterDelay={0.1}
-                mouseLeaveDelay={0.1}
-                placement="top"
-                prefixCls="ant-tooltip"
+              "children": <BTooltip
                 title={
                   <span>
                     <FormattedDate
@@ -256,7 +236,6 @@ ShallowWrapper {
                     />
                   </span>
                 }
-                transitionName="zoom-big-fast"
               >
                 <span>
                   <FormattedRelative
@@ -264,7 +243,7 @@ ShallowWrapper {
                     value="0Z"
                   />
                 </span>
-              </Tooltip>,
+              </BTooltip>,
               "className": "UserWalletTransactions__timestamp",
             },
             "ref": null,
@@ -273,18 +252,12 @@ ShallowWrapper {
               "key": undefined,
               "nodeType": "class",
               "props": Object {
-                "arrowPointAtCenter": false,
-                "autoAdjustOverflow": true,
                 "children": <span>
                   <FormattedRelative
                     updateInterval={10000}
                     value="0Z"
                   />
                 </span>,
-                "mouseEnterDelay": 0.1,
-                "mouseLeaveDelay": 0.1,
-                "placement": "top",
-                "prefixCls": "ant-tooltip",
                 "title": <span>
                   <FormattedDate
                     value="0Z"
@@ -294,7 +267,6 @@ ShallowWrapper {
                     value="0Z"
                   />
                 </span>,
-                "transitionName": "zoom-big-fast",
               },
               "ref": null,
               "rendered": Object {
@@ -368,13 +340,7 @@ ShallowWrapper {
             <span
               className="UserWalletTransactions__timestamp"
             >
-              <Tooltip
-                arrowPointAtCenter={false}
-                autoAdjustOverflow={true}
-                mouseEnterDelay={0.1}
-                mouseLeaveDelay={0.1}
-                placement="top"
-                prefixCls="ant-tooltip"
+              <BTooltip
                 title={
                   <span>
                     <FormattedDate
@@ -386,7 +352,6 @@ ShallowWrapper {
                     />
                   </span>
                 }
-                transitionName="zoom-big-fast"
               >
                 <span>
                   <FormattedRelative
@@ -394,7 +359,7 @@ ShallowWrapper {
                     value="0Z"
                   />
                 </span>
-              </Tooltip>
+              </BTooltip>
             </span>
           </div>,
         ],
@@ -451,13 +416,7 @@ ShallowWrapper {
               <span
                 className="UserWalletTransactions__timestamp"
               >
-                <Tooltip
-                  arrowPointAtCenter={false}
-                  autoAdjustOverflow={true}
-                  mouseEnterDelay={0.1}
-                  mouseLeaveDelay={0.1}
-                  placement="top"
-                  prefixCls="ant-tooltip"
+                <BTooltip
                   title={
                     <span>
                       <FormattedDate
@@ -469,7 +428,6 @@ ShallowWrapper {
                       />
                     </span>
                   }
-                  transitionName="zoom-big-fast"
                 >
                   <span>
                     <FormattedRelative
@@ -477,7 +435,7 @@ ShallowWrapper {
                       value="0Z"
                     />
                   </span>
-                </Tooltip>
+                </BTooltip>
               </span>,
             ],
             "className": "UserWalletTransactions__content",
@@ -552,13 +510,7 @@ ShallowWrapper {
               "key": undefined,
               "nodeType": "host",
               "props": Object {
-                "children": <Tooltip
-                  arrowPointAtCenter={false}
-                  autoAdjustOverflow={true}
-                  mouseEnterDelay={0.1}
-                  mouseLeaveDelay={0.1}
-                  placement="top"
-                  prefixCls="ant-tooltip"
+                "children": <BTooltip
                   title={
                     <span>
                       <FormattedDate
@@ -570,7 +522,6 @@ ShallowWrapper {
                       />
                     </span>
                   }
-                  transitionName="zoom-big-fast"
                 >
                   <span>
                     <FormattedRelative
@@ -578,7 +529,7 @@ ShallowWrapper {
                       value="0Z"
                     />
                   </span>
-                </Tooltip>,
+                </BTooltip>,
                 "className": "UserWalletTransactions__timestamp",
               },
               "ref": null,
@@ -587,18 +538,12 @@ ShallowWrapper {
                 "key": undefined,
                 "nodeType": "class",
                 "props": Object {
-                  "arrowPointAtCenter": false,
-                  "autoAdjustOverflow": true,
                   "children": <span>
                     <FormattedRelative
                       updateInterval={10000}
                       value="0Z"
                     />
                   </span>,
-                  "mouseEnterDelay": 0.1,
-                  "mouseLeaveDelay": 0.1,
-                  "placement": "top",
-                  "prefixCls": "ant-tooltip",
                   "title": <span>
                     <FormattedDate
                       value="0Z"
@@ -608,7 +553,6 @@ ShallowWrapper {
                       value="0Z"
                     />
                   </span>,
-                  "transitionName": "zoom-big-fast",
                 },
                 "ref": null,
                 "rendered": Object {
