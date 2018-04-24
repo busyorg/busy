@@ -9,6 +9,7 @@ const baseDir = path.resolve(__dirname, '..');
 module.exports = {
   entry: path.resolve(baseDir, './src/server/index.js'),
   output: {
+    path: path.join(path.resolve(__dirname, '..')),
     filename: 'busy.server.js',
   },
   target: 'node',
@@ -21,7 +22,7 @@ module.exports = {
     __dirname: true,
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: configUtils.MATCH_JS_JSX,
         exclude: /node_modules/,
