@@ -83,13 +83,7 @@ ShallowWrapper {
                 value={0}
               />
                SP 
-              <Tooltip
-                arrowPointAtCenter={false}
-                autoAdjustOverflow={true}
-                mouseEnterDelay={0.1}
-                mouseLeaveDelay={0.1}
-                placement="top"
-                prefixCls="ant-tooltip"
+              <BTooltip
                 title={
                   <span>
                     <FormattedMessage
@@ -99,7 +93,6 @@ ShallowWrapper {
                     />
                   </span>
                 }
-                transitionName="zoom-big-fast"
               >
                 <span>
                   (
@@ -108,7 +101,7 @@ ShallowWrapper {
                   />
                    SP)
                 </span>
-              </Tooltip>
+              </BTooltip>
             </span>
           </div>
         </div>,
@@ -342,13 +335,7 @@ ShallowWrapper {
                   value={0}
                 />
                  SP 
-                <Tooltip
-                  arrowPointAtCenter={false}
-                  autoAdjustOverflow={true}
-                  mouseEnterDelay={0.1}
-                  mouseLeaveDelay={0.1}
-                  placement="top"
-                  prefixCls="ant-tooltip"
+                <BTooltip
                   title={
                     <span>
                       <FormattedMessage
@@ -358,7 +345,6 @@ ShallowWrapper {
                       />
                     </span>
                   }
-                  transitionName="zoom-big-fast"
                 >
                   <span>
                     (
@@ -367,7 +353,7 @@ ShallowWrapper {
                     />
                      SP)
                   </span>
-                </Tooltip>
+                </BTooltip>
               </span>
             </div>,
           ],
@@ -424,13 +410,7 @@ ShallowWrapper {
                   value={0}
                 />
                  SP 
-                <Tooltip
-                  arrowPointAtCenter={false}
-                  autoAdjustOverflow={true}
-                  mouseEnterDelay={0.1}
-                  mouseLeaveDelay={0.1}
-                  placement="top"
-                  prefixCls="ant-tooltip"
+                <BTooltip
                   title={
                     <span>
                       <FormattedMessage
@@ -440,7 +420,6 @@ ShallowWrapper {
                       />
                     </span>
                   }
-                  transitionName="zoom-big-fast"
                 >
                   <span>
                     (
@@ -449,7 +428,7 @@ ShallowWrapper {
                     />
                      SP)
                   </span>
-                </Tooltip>
+                </BTooltip>
               </span>,
               "className": "UserWalletSummary__value",
             },
@@ -464,13 +443,7 @@ ShallowWrapper {
                     value={0}
                   />,
                   " SP ",
-                  <Tooltip
-                    arrowPointAtCenter={false}
-                    autoAdjustOverflow={true}
-                    mouseEnterDelay={0.1}
-                    mouseLeaveDelay={0.1}
-                    placement="top"
-                    prefixCls="ant-tooltip"
+                  <BTooltip
                     title={
                       <span>
                         <FormattedMessage
@@ -480,7 +453,6 @@ ShallowWrapper {
                         />
                       </span>
                     }
-                    transitionName="zoom-big-fast"
                   >
                     <span>
                       (
@@ -489,7 +461,7 @@ ShallowWrapper {
                       />
                        SP)
                     </span>
-                  </Tooltip>,
+                  </BTooltip>,
                 ],
               },
               "ref": null,
@@ -511,8 +483,6 @@ ShallowWrapper {
                   "key": undefined,
                   "nodeType": "class",
                   "props": Object {
-                    "arrowPointAtCenter": false,
-                    "autoAdjustOverflow": true,
                     "children": <span>
                       (
                       <FormattedNumber
@@ -520,10 +490,6 @@ ShallowWrapper {
                       />
                        SP)
                     </span>,
-                    "mouseEnterDelay": 0.1,
-                    "mouseLeaveDelay": 0.1,
-                    "placement": "top",
-                    "prefixCls": "ant-tooltip",
                     "title": <span>
                       <FormattedMessage
                         defaultMessage="Steem Power delegated to this account"
@@ -531,7 +497,6 @@ ShallowWrapper {
                         values={Object {}}
                       />
                     </span>,
-                    "transitionName": "zoom-big-fast",
                   },
                   "ref": null,
                   "rendered": Object {
@@ -994,13 +959,7 @@ ShallowWrapper {
                   value={0}
                 />
                  SP 
-                <Tooltip
-                  arrowPointAtCenter={false}
-                  autoAdjustOverflow={true}
-                  mouseEnterDelay={0.1}
-                  mouseLeaveDelay={0.1}
-                  placement="top"
-                  prefixCls="ant-tooltip"
+                <BTooltip
                   title={
                     <span>
                       <FormattedMessage
@@ -1010,7 +969,6 @@ ShallowWrapper {
                       />
                     </span>
                   }
-                  transitionName="zoom-big-fast"
                 >
                   <span>
                     (
@@ -1019,7 +977,7 @@ ShallowWrapper {
                     />
                      SP)
                   </span>
-                </Tooltip>
+                </BTooltip>
               </span>
             </div>
           </div>,
@@ -1253,13 +1211,7 @@ ShallowWrapper {
                     value={0}
                   />
                    SP 
-                  <Tooltip
-                    arrowPointAtCenter={false}
-                    autoAdjustOverflow={true}
-                    mouseEnterDelay={0.1}
-                    mouseLeaveDelay={0.1}
-                    placement="top"
-                    prefixCls="ant-tooltip"
+                  <BTooltip
                     title={
                       <span>
                         <FormattedMessage
@@ -1269,7 +1221,6 @@ ShallowWrapper {
                         />
                       </span>
                     }
-                    transitionName="zoom-big-fast"
                   >
                     <span>
                       (
@@ -1278,7 +1229,7 @@ ShallowWrapper {
                       />
                        SP)
                     </span>
-                  </Tooltip>
+                  </BTooltip>
                 </span>
               </div>,
             ],
@@ -1335,13 +1286,7 @@ ShallowWrapper {
                     value={0}
                   />
                    SP 
-                  <Tooltip
-                    arrowPointAtCenter={false}
-                    autoAdjustOverflow={true}
-                    mouseEnterDelay={0.1}
-                    mouseLeaveDelay={0.1}
-                    placement="top"
-                    prefixCls="ant-tooltip"
+                  <BTooltip
                     title={
                       <span>
                         <FormattedMessage
@@ -1351,7 +1296,6 @@ ShallowWrapper {
                         />
                       </span>
                     }
-                    transitionName="zoom-big-fast"
                   >
                     <span>
                       (
@@ -1360,7 +1304,7 @@ ShallowWrapper {
                       />
                        SP)
                     </span>
-                  </Tooltip>
+                  </BTooltip>
                 </span>,
                 "className": "UserWalletSummary__value",
               },
@@ -1375,13 +1319,7 @@ ShallowWrapper {
                       value={0}
                     />,
                     " SP ",
-                    <Tooltip
-                      arrowPointAtCenter={false}
-                      autoAdjustOverflow={true}
-                      mouseEnterDelay={0.1}
-                      mouseLeaveDelay={0.1}
-                      placement="top"
-                      prefixCls="ant-tooltip"
+                    <BTooltip
                       title={
                         <span>
                           <FormattedMessage
@@ -1391,7 +1329,6 @@ ShallowWrapper {
                           />
                         </span>
                       }
-                      transitionName="zoom-big-fast"
                     >
                       <span>
                         (
@@ -1400,7 +1337,7 @@ ShallowWrapper {
                         />
                          SP)
                       </span>
-                    </Tooltip>,
+                    </BTooltip>,
                   ],
                 },
                 "ref": null,
@@ -1422,8 +1359,6 @@ ShallowWrapper {
                     "key": undefined,
                     "nodeType": "class",
                     "props": Object {
-                      "arrowPointAtCenter": false,
-                      "autoAdjustOverflow": true,
                       "children": <span>
                         (
                         <FormattedNumber
@@ -1431,10 +1366,6 @@ ShallowWrapper {
                         />
                          SP)
                       </span>,
-                      "mouseEnterDelay": 0.1,
-                      "mouseLeaveDelay": 0.1,
-                      "placement": "top",
-                      "prefixCls": "ant-tooltip",
                       "title": <span>
                         <FormattedMessage
                           defaultMessage="Steem Power delegated to this account"
@@ -1442,7 +1373,6 @@ ShallowWrapper {
                           values={Object {}}
                         />
                       </span>,
-                      "transitionName": "zoom-big-fast",
                     },
                     "ref": null,
                     "rendered": Object {

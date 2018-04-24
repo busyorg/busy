@@ -1,3 +1,4 @@
+@import (reference) '../../styles/custom.less';
 @text-color: #99aab5;
 
 .Topics {
@@ -8,14 +9,23 @@
     font-weight: 500;
   }
 
-  & > h5 {
+  & > a {
     color: @text-color;
+    display: inline-block;
     margin: 12px 0;
     font-size: 14px;
     font-weight: 500;
 
     &:hover {
       cursor: pointer;
+    }
+
+    &:hover {
+      color: @primary-color;
+    }
+
+    &:focus {
+      text-decoration: none;
     }
   }
 

@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Scrollbars } from 'react-custom-scrollbars';
 import { injectIntl, FormattedMessage } from 'react-intl';
-import { Button, Tooltip, Menu, Dropdown, Icon } from 'antd';
+import { Button, Menu, Dropdown, Icon } from 'antd';
+import BTooltip from '../BTooltip';
 import './EditorToolbar.less';
 
 const tooltip = (description, shortcut) => (
@@ -64,14 +65,14 @@ const EditorToolbar = ({ intl, onSelect }) => {
             <i className="iconfont icon-fontsize" /> <Icon type="down" />
           </Button>
         </Dropdown>
-        <Tooltip
+        <BTooltip
           title={tooltip(intl.formatMessage({ id: 'bold', defaultMessage: 'Add bold' }), 'Ctrl+b')}
         >
           <Button className="EditorToolbar__button" onClick={() => onSelect('b')}>
             <i className="iconfont icon-bold" />
           </Button>
-        </Tooltip>
-        <Tooltip
+        </BTooltip>
+        <BTooltip
           title={tooltip(
             intl.formatMessage({ id: 'italic', defaultMessage: 'Add italic' }),
             'Ctrl+i',
@@ -80,8 +81,8 @@ const EditorToolbar = ({ intl, onSelect }) => {
           <Button className="EditorToolbar__button" onClick={() => onSelect('i')}>
             <i className="iconfont icon-italic" />
           </Button>
-        </Tooltip>
-        <Tooltip
+        </BTooltip>
+        <BTooltip
           title={tooltip(
             intl.formatMessage({ id: 'quote', defaultMessage: 'Add quote' }),
             'Ctrl+q',
@@ -90,15 +91,15 @@ const EditorToolbar = ({ intl, onSelect }) => {
           <Button className="EditorToolbar__button" onClick={() => onSelect('q')}>
             <i className="iconfont icon-q1" />
           </Button>
-        </Tooltip>
-        <Tooltip
+        </BTooltip>
+        <BTooltip
           title={tooltip(intl.formatMessage({ id: 'link', defaultMessage: 'Add link' }), 'Ctrl+k')}
         >
           <Button className="EditorToolbar__button" onClick={() => onSelect('link')}>
             <i className="iconfont icon-link" />
           </Button>
-        </Tooltip>
-        <Tooltip
+        </BTooltip>
+        <BTooltip
           title={tooltip(
             intl.formatMessage({ id: 'image', defaultMessage: 'Add image' }),
             'Ctrl+m',
@@ -107,7 +108,7 @@ const EditorToolbar = ({ intl, onSelect }) => {
           <Button className="EditorToolbar__button" onClick={() => onSelect('image')}>
             <i className="iconfont icon-picture" />
           </Button>
-        </Tooltip>
+        </BTooltip>
       </div>
     </Scrollbars>
   );

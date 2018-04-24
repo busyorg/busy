@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedDate, FormattedTime, FormattedRelative } from 'react-intl';
-import { Tooltip } from 'antd';
+import BTooltip from '../components/BTooltip';
 import UserActionIcon from './UserActionIcon';
 import UserActionMessage from './UserActionMessage';
 import UserActionContents from './UserActionContents';
@@ -25,7 +25,7 @@ const UserAction = ({ action, totalVestingShares, totalVestingFundSteem, current
           currentUsername={currentUsername}
         />
         <span className="UserActivityActions__timestamp">
-          <Tooltip
+          <BTooltip
             title={
               <span>
                 <FormattedDate value={`${action.timestamp}Z`} />{' '}
@@ -36,7 +36,7 @@ const UserAction = ({ action, totalVestingShares, totalVestingFundSteem, current
             <span>
               <FormattedRelative value={`${action.timestamp}Z`} />
             </span>
-          </Tooltip>
+          </BTooltip>
         </span>
         <UserActionContents actionType={actionType} actionDetails={actionDetails} />
       </div>
