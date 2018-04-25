@@ -23,6 +23,7 @@ import Page from '../client/feed/Page';
 import Discover from '../client/discover/Discover';
 import Search from '../client/search/Search';
 import Notifications from '../client/notifications/Notifications';
+import EditorFullScreen from '../client/components/Editor/EditorFullScreen';
 import Error404 from '../client/statics/Error404';
 
 const routes = [
@@ -137,6 +138,11 @@ const routes = [
       {
         path: '/search',
         component: Search,
+      },
+      {
+        path: '/full-editor',
+        exact: true,
+        component: EditorFullScreen,
       },
       {
         path: '/:sortBy(trending|created|active|hot|promoted)/:category?',

@@ -4,6 +4,7 @@ import Helmet from 'react-helmet';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 import { injectIntl, FormattedMessage } from 'react-intl';
+import { Link } from 'react-router-dom';
 import _ from 'lodash';
 import readingTime from 'reading-time';
 import { Checkbox, Form, Input, Select, Button } from 'antd';
@@ -14,7 +15,6 @@ import requiresLogin from '../../auth/requiresLogin';
 import withEditor from './withEditor';
 import EditorInput from './EditorInput';
 import Body, { remarkable } from '../Story/Body';
-import EditorFullscreen from './EditorFullScreen';
 import './Editor.less';
 
 @injectIntl
@@ -67,7 +67,6 @@ class Editor extends React.Component {
 
     this.state = {
       bodyHTML: '',
-      displayFullscreenEditor: false,
     };
 
     this.onUpdate = this.onUpdate.bind(this);
@@ -76,7 +75,6 @@ class Editor extends React.Component {
     this.throttledUpdate = this.throttledUpdate.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleFullscreenEditorUpdates = this.handleFullscreenEditorUpdates.bind(this);
   }
 
   componentDidMount() {
@@ -139,11 +137,6 @@ class Editor extends React.Component {
     });
   }
 
-  setEditorFullscreenDisplay = displayFullscreenEditor => () =>
-    this.setState({
-      displayFullscreenEditor,
-    });
-
   checkTopics = intl => (rule, value, callback) => {
     if (!value || value.length < 1 || value.length > 5) {
       callback(
@@ -185,16 +178,7 @@ class Editor extends React.Component {
     this.props.onUpdate(values);
   }
 
-  handleFullscreenEditorUpdates(formValues) {
-    this.props.form.setFieldsValue({
-      title: formValues.title,
-      topics: formValues.topics,
-      body: formValues.body,
-      upvote: formValues.upvote,
-      reward: formValues.reward,
-    });
-    this.setBodyAndRender(formValues.body);
-  }
+  handleNavigateToFullScreenEditor() {}
 
   handleSubmit(e) {
     e.preventDefault();
@@ -214,17 +198,15 @@ class Editor extends React.Component {
   render() {
     const { intl, form, loading, isUpdating, saving, draftId } = this.props;
     const { getFieldDecorator } = form;
-    const { bodyHTML, displayFullscreenEditor } = this.state;
+    const { bodyHTML } = this.state;
 
     const { words, minutes } = readingTime(bodyHTML);
 
     return (
       <Form className="Editor" layout="vertical" onSubmit={this.handleSubmit}>
-        <i
-          role="presentation"
-          className="iconfont icon-fullscreen"
-          onClick={this.setEditorFullscreenDisplay(true)}
-        />
+        <Link to="/full-editor">
+          <i className="iconfont icon-fullscreen" />
+        </Link>
         <Helmet>
           <title>
             {intl.formatMessage({ id: 'write_post', defaultMessage: 'Write post' })} - Busy
@@ -428,24 +410,6 @@ class Editor extends React.Component {
             </Form.Item>
           </div>
         </div>
-        {displayFullscreenEditor && (
-          <EditorFullscreen
-            displayFullscreenEditor={displayFullscreenEditor}
-            handleHideFullscreenEditor={this.setEditorFullscreenDisplay(false)}
-            bodyHTML={bodyHTML}
-            isUpdating={isUpdating}
-            loading={loading}
-            title={form.getFieldValue('title')}
-            topics={form.getFieldValue('topics')}
-            body={form.getFieldValue('body')}
-            upvote={form.getFieldValue('upvote')}
-            reward={form.getFieldValue('reward')}
-            setBodyAndRender={this.setBodyAndRender}
-            saving={saving}
-            handleSubmit={this.handleSubmit}
-            handleEditorUpdates={this.handleFullscreenEditorUpdates}
-          />
-        )}
       </Form>
     );
   }
