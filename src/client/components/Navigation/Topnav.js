@@ -4,7 +4,7 @@ import _ from 'lodash';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Menu, Tooltip, Input, AutoComplete } from 'antd';
+import { Menu, Input, AutoComplete } from 'antd';
 import classNames from 'classnames';
 import { searchAutoComplete } from '../../search/searchActions';
 import { getUpdatedSCUserMetadata } from '../../auth/authActions';

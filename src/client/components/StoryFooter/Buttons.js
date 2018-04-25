@@ -4,7 +4,7 @@ import take from 'lodash/take';
 import { injectIntl, FormattedMessage, FormattedNumber } from 'react-intl';
 import { scroller } from 'react-scroll';
 import { Link } from 'react-router-dom';
-import { Icon, Tooltip, Modal } from 'antd';
+import { Icon, Modal } from 'antd';
 import classNames from 'classnames';
 import withAuthActions from '../../auth/withAuthActions';
 import { sortVotes } from '../../helpers/sortHelpers';
