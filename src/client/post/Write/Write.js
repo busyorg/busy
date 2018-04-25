@@ -11,6 +11,7 @@ import { getHtml } from '../../components/Story/Body';
 import improve from '../../helpers/improve';
 import { extractImageTags, extractLinks } from '../../helpers/parser';
 import { rewardsValues } from '../../../common/constants/rewards';
+import LastDraftsContainer from './LastDraftsContainer';
 import DeleteDraftModal from './DeleteDraftModal';
 
 import {
@@ -93,6 +94,7 @@ class Write extends React.Component {
     this.props.newPost();
     const { draftPosts, draftId } = this.props;
     const draftPost = draftPosts[draftId];
+
     if (draftPost) {
       let tags = [];
       if (_.isArray(draftPost.jsonMetadata.tags)) {
@@ -127,7 +129,9 @@ class Write extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.draftId !== nextProps.draftId && nextProps.draftId === null) {
+    const newDraft = nextProps.draftId === null;
+    const differentDraft = this.props.draftId !== nextProps.draftId;
+    if (differentDraft && newDraft) {
       this.draftId = uuidv4();
       this.setState({
         initialTitle: '',
@@ -139,6 +143,24 @@ class Write extends React.Component {
         isUpdating: false,
         showModalDelete: false,
       });
+    } else if (differentDraft) {
+      const { draftPosts, draftId } = nextProps;
+      const draftPost = _.get(draftPosts, draftId, {});
+      const initialTitle = _.get(draftPost, 'title', '');
+      const initialBody = _.get(draftPost, 'body', '');
+      const initialTopics = _.get(draftPost, 'jsonMetadata.tags', []);
+      this.draftId = draftId;
+      this.setState({
+        initialTitle,
+        initialBody,
+        initialTopics,
+      });
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (_.get(this.props, 'location.search') !== _.get(prevProps, 'location.search')) {
+      this.saveDraft.cancel();
     }
   }
 
@@ -258,7 +280,9 @@ class Write extends React.Component {
       <div className="shifted">
         <div className="post-layout container">
           <Affix className="rightContainer" stickPosition={77}>
-            <div className="right" />
+            <div className="right">
+              <LastDraftsContainer />
+            </div>
           </Affix>
           <div className="center">
             <Editor
