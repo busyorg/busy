@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import _ from 'lodash';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import readingTime from 'reading-time';
-import { Checkbox, Form, Input, Select, Modal } from 'antd';
+import { Checkbox, Form, Input, Select } from 'antd';
 import { rewardsValues } from '../../../common/constants/rewards';
 import EditorInput from './EditorInput';
 import Body from '../Story/Body';
@@ -15,12 +15,10 @@ import Action from '../Button/Action';
 import './EditorFullScreen.less';
 
 @injectIntl
-@withEditor
 @Form.create()
+@withEditor
 class EditorFullScreen extends React.Component {
   static propTypes = {
-    displayFullscreenEditor: PropTypes.bool.isRequired,
-    handleHideFullscreenEditor: PropTypes.func.isRequired,
     bodyHTML: PropTypes.string,
     intl: PropTypes.shape().isRequired,
     form: PropTypes.shape().isRequired,
@@ -78,178 +76,153 @@ class EditorFullScreen extends React.Component {
     validateTopics(rule, value, callback, intl);
 
   render() {
-    const {
-      displayFullscreenEditor,
-      handleHideFullscreenEditor,
-      bodyHTML,
-      intl,
-      form,
-      loading,
-      isUpdating,
-      saving,
-      handleSubmit,
-    } = this.props;
+    const { bodyHTML, intl, form, loading, isUpdating, saving, handleSubmit } = this.props;
     const { getFieldDecorator } = form;
     const { words, minutes } = readingTime(bodyHTML);
 
     return (
-      <Modal
-        title={null}
-        footer={null}
-        visible={displayFullscreenEditor}
-        onCancel={handleHideFullscreenEditor}
-        wrapClassName="EditorFullScreen"
-        destroyOnClose
-        width="100%"
-        style={{ top: 0 }}
-        bodyStyle={{ height: '100vh', padding: 0 }}
-      >
-        <div className="EditorFullScreen__container">
-          <EditorFullScreenHeader
-            saving={saving}
-            loading={loading}
-            isUpdating={isUpdating}
-            handleSubmit={handleSubmit}
-            words={words}
-            minutes={minutes}
-          />
-          {getFieldDecorator('title', {
-            initialValue: '',
-          })(
-            <Input
-              onChange={this.onUpdate}
-              className="EditorFullScreen__title-input"
-              placeholder={intl.formatMessage({
-                id: 'title_placeholder',
-                defaultMessage: 'Add title',
-              })}
-            />,
-          )}
-          <div className="EditorFullScreen__contents">
-            <div className="EditorFullScreen__column">
-              <Form className="EditorFullScreen__form" layout="vertical" onSubmit={handleSubmit}>
-                <Form.Item>
-                  {getFieldDecorator('body', {
-                    rules: [
-                      {
-                        required: true,
-                        message: intl.formatMessage({
-                          id: 'story_error_empty',
-                          defaultMessage: "Story content can't be empty.",
-                        }),
-                      },
-                    ],
-                  })(
-                    <EditorInput
-                      autosize={{ minRows: 6, maxRows: 12 }}
-                      onChange={this.onUpdate}
-                      onImageUpload={this.props.onImageUpload}
-                      onImageInvalid={this.props.onImageInvalid}
-                      inputId={'fullscreen-editor-inputfile'}
-                    />,
-                  )}
-                </Form.Item>
-              </Form>
-            </div>
-            <div className="EditorFullScreen__column EditorFullScreen__preview">
-              <Body full body={bodyHTML} />
-              {_.isEmpty(bodyHTML) && (
-                <div className="EditorFullScreen__preview__empty">
-                  <FormattedMessage
-                    id="preview_of_your_post"
-                    defaultMessage="Preview of your post"
-                  />
-                </div>
-              )}
-            </div>
-          </div>
-          <div className="EditorFullScreen__footer">
-            <div className="EditorFullScreen__footer__left">
+      <div className="EditorFullScreen__container">
+        <EditorFullScreenHeader
+          saving={saving}
+          loading={loading}
+          isUpdating={isUpdating}
+          handleSubmit={handleSubmit}
+          words={words}
+          minutes={minutes}
+        />
+        {getFieldDecorator('title', {
+          initialValue: '',
+        })(
+          <Input
+            onChange={this.onUpdate}
+            className="EditorFullScreen__title-input"
+            placeholder={intl.formatMessage({
+              id: 'title_placeholder',
+              defaultMessage: 'Add title',
+            })}
+          />,
+        )}
+        <div className="EditorFullScreen__contents">
+          <div className="EditorFullScreen__column">
+            <Form className="EditorFullScreen__form" layout="vertical" onSubmit={handleSubmit}>
               <Form.Item>
-                {getFieldDecorator('topics', {
-                  initialValue: [],
+                {getFieldDecorator('body', {
                   rules: [
                     {
                       required: true,
                       message: intl.formatMessage({
-                        id: 'topics_error_empty',
-                        defaultMessage: 'Please enter topics',
+                        id: 'story_error_empty',
+                        defaultMessage: "Story content can't be empty.",
                       }),
-                      type: 'array',
                     },
-                    { validator: this.handleValidateTopics(this.props.intl) },
                   ],
                 })(
-                  <Select
+                  <EditorInput
+                    autosize={{ minRows: 6, maxRows: 12 }}
                     onChange={this.onUpdate}
-                    className="EditorFullScreen__topics"
-                    mode="tags"
-                    placeholder={intl.formatMessage({
-                      id: 'topics_placeholder',
-                      defaultMessage: 'Add story topics here',
-                    })}
-                    dropdownStyle={{ display: 'none' }}
-                    tokenSeparators={[' ', ',']}
+                    onImageUpload={this.props.onImageUpload}
+                    onImageInvalid={this.props.onImageInvalid}
+                    inputId={'fullscreen-editor-inputfile'}
                   />,
                 )}
               </Form.Item>
-            </div>
-            <div className="EditorFullScreen__footer__right">
-              <Form.Item
-                className={classNames('EditorFullScreen__upvote', { Editor__hidden: isUpdating })}
-              >
-                {getFieldDecorator('upvote', { valuePropName: 'checked', initialValue: true })(
-                  <Checkbox onChange={this.onUpdate} disabled={isUpdating}>
-                    <FormattedMessage id="like_post" defaultMessage="Like this post" />
-                  </Checkbox>,
-                )}
-              </Form.Item>
-              <Form.Item className={classNames({ Editor__hidden: isUpdating })}>
-                {getFieldDecorator('reward')(
-                  <Select
-                    onChange={this.onUpdate}
-                    disabled={isUpdating}
-                    className="EditorFullScreen__reward-select"
-                  >
-                    <Select.Option value={rewardsValues.all}>
-                      <FormattedMessage id="reward_option_100" defaultMessage="100% Steem Power" />
-                    </Select.Option>
-                    <Select.Option value={rewardsValues.half}>
-                      <FormattedMessage id="reward_option_50" defaultMessage="50% SBD and 50% SP" />
-                    </Select.Option>
-                    <Select.Option value={rewardsValues.none}>
-                      <FormattedMessage id="reward_option_0" defaultMessage="Declined" />
-                    </Select.Option>
-                  </Select>,
-                )}
-              </Form.Item>
-              <Form.Item className="Editor__bottom__submit">
-                {isUpdating ? (
-                  <Action
-                    primary
-                    loading={loading}
-                    disabled={loading}
-                    text={intl.formatMessage({
-                      id: loading ? 'post_send_progress' : 'post_update_send',
-                      defaultMessage: loading ? 'Submitting' : 'Update post',
-                    })}
-                  />
-                ) : (
-                  <Action
-                    primary
-                    loading={loading}
-                    disabled={loading}
-                    text={intl.formatMessage({
-                      id: loading ? 'post_send_progress' : 'post_send',
-                      defaultMessage: loading ? 'Submitting' : 'Post',
-                    })}
-                  />
-                )}
-              </Form.Item>
-            </div>
+            </Form>
+          </div>
+          <div className="EditorFullScreen__column EditorFullScreen__preview">
+            <Body full body={bodyHTML} />
+            {_.isEmpty(bodyHTML) && (
+              <div className="EditorFullScreen__preview__empty">
+                <FormattedMessage id="preview_of_your_post" defaultMessage="Preview of your post" />
+              </div>
+            )}
           </div>
         </div>
-      </Modal>
+        <div className="EditorFullScreen__footer">
+          <div className="EditorFullScreen__footer__left">
+            <Form.Item>
+              {getFieldDecorator('topics', {
+                initialValue: [],
+                rules: [
+                  {
+                    required: true,
+                    message: intl.formatMessage({
+                      id: 'topics_error_empty',
+                      defaultMessage: 'Please enter topics',
+                    }),
+                    type: 'array',
+                  },
+                  { validator: this.handleValidateTopics(this.props.intl) },
+                ],
+              })(
+                <Select
+                  onChange={this.onUpdate}
+                  className="EditorFullScreen__topics"
+                  mode="tags"
+                  placeholder={intl.formatMessage({
+                    id: 'topics_placeholder',
+                    defaultMessage: 'Add story topics here',
+                  })}
+                  dropdownStyle={{ display: 'none' }}
+                  tokenSeparators={[' ', ',']}
+                />,
+              )}
+            </Form.Item>
+          </div>
+          <div className="EditorFullScreen__footer__right">
+            <Form.Item
+              className={classNames('EditorFullScreen__upvote', { Editor__hidden: isUpdating })}
+            >
+              {getFieldDecorator('upvote', { valuePropName: 'checked', initialValue: true })(
+                <Checkbox onChange={this.onUpdate} disabled={isUpdating}>
+                  <FormattedMessage id="like_post" defaultMessage="Like this post" />
+                </Checkbox>,
+              )}
+            </Form.Item>
+            <Form.Item className={classNames({ Editor__hidden: isUpdating })}>
+              {getFieldDecorator('reward')(
+                <Select
+                  onChange={this.onUpdate}
+                  disabled={isUpdating}
+                  className="EditorFullScreen__reward-select"
+                >
+                  <Select.Option value={rewardsValues.all}>
+                    <FormattedMessage id="reward_option_100" defaultMessage="100% Steem Power" />
+                  </Select.Option>
+                  <Select.Option value={rewardsValues.half}>
+                    <FormattedMessage id="reward_option_50" defaultMessage="50% SBD and 50% SP" />
+                  </Select.Option>
+                  <Select.Option value={rewardsValues.none}>
+                    <FormattedMessage id="reward_option_0" defaultMessage="Declined" />
+                  </Select.Option>
+                </Select>,
+              )}
+            </Form.Item>
+            <Form.Item className="Editor__bottom__submit">
+              {isUpdating ? (
+                <Action
+                  primary
+                  loading={loading}
+                  disabled={loading}
+                  text={intl.formatMessage({
+                    id: loading ? 'post_send_progress' : 'post_update_send',
+                    defaultMessage: loading ? 'Submitting' : 'Update post',
+                  })}
+                />
+              ) : (
+                <Action
+                  primary
+                  loading={loading}
+                  disabled={loading}
+                  text={intl.formatMessage({
+                    id: loading ? 'post_send_progress' : 'post_send',
+                    defaultMessage: loading ? 'Submitting' : 'Post',
+                  })}
+                />
+              )}
+            </Form.Item>
+          </div>
+        </div>
+      </div>
     );
   }
 }
