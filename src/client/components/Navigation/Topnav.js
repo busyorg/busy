@@ -16,6 +16,7 @@ import {
 } from '../../reducers';
 import SteemConnect from '../../steemConnectAPI';
 import { PARSED_NOTIFICATIONS } from '../../../common/constants/notifications';
+import BTooltip from '../BTooltip';
 import Avatar from '../Avatar';
 import PopoverMenu, { PopoverMenuItem } from '../PopoverMenu/PopoverMenu';
 import Popover from '../Popover';
@@ -170,7 +171,7 @@ class Topnav extends React.Component {
       >
         <Menu selectedKeys={[]} className="Topnav__menu-container__menu" mode="horizontal">
           <Menu.Item key="write">
-            <Tooltip
+            <BTooltip
               placement="bottom"
               title={intl.formatMessage({ id: 'write_post', defaultMessage: 'Write post' })}
               mouseEnterDelay={1}
@@ -178,10 +179,10 @@ class Topnav extends React.Component {
               <Link to="/editor" className="Topnav__link Topnav__link--action">
                 <i className="iconfont icon-write" />
               </Link>
-            </Tooltip>
+            </BTooltip>
           </Menu.Item>
           <Menu.Item key="notifications" className="Topnav__item--badge">
-            <Tooltip
+            <BTooltip
               placement="bottom"
               title={intl.formatMessage({ id: 'notifications', defaultMessage: 'Notifications' })}
               overlayClassName="Topnav__notifications-tooltip"
@@ -213,7 +214,7 @@ class Topnav extends React.Component {
                   )}
                 </a>
               </Popover>
-            </Tooltip>
+            </BTooltip>
           </Menu.Item>
           <Menu.Item key="user" className="Topnav__item-user">
             <Link className="Topnav__user" to={`/@${username}`} onClick={Topnav.handleScrollToTop}>

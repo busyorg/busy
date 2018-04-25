@@ -9,7 +9,8 @@ import {
   FormattedTime,
   FormattedMessage,
 } from 'react-intl';
-import { Tag, Tooltip, message } from 'antd';
+import { Tag, message } from 'antd';
+import BTooltip from '../../components/BTooltip';
 import formatter from '../../helpers/steemitFormatter';
 import { MAXIMUM_UPLOAD_SIZE_HUMAN } from '../../helpers/image';
 import { sortComments } from '../../helpers/sortHelpers';
@@ -274,27 +275,27 @@ class Comment extends React.Component {
         <div className="Comment__text">
           <Link to={`/@${comment.author}`}>
             <span className="username">{comment.author}</span>
-            <Tooltip
+            <BTooltip
               title={intl.formatMessage({
                 id: 'reputation_score',
                 defaultMessage: 'Reputation score',
               })}
             >
               <Tag>{formatter.reputation(comment.author_reputation)}</Tag>
-            </Tooltip>
+            </BTooltip>
             {comment.author === rootPostAuthor && (
-              <Tooltip
+              <BTooltip
                 title={intl.formatMessage({
                   id: 'original_poster',
                   defaultMessage: 'Original poster',
                 })}
               >
                 <Tag color="#4f545c">OP</Tag>
-              </Tooltip>
+              </BTooltip>
             )}
           </Link>
           <span className="Comment__date">
-            <Tooltip
+            <BTooltip
               title={
                 <span>
                   <FormattedDate value={`${comment.created}Z`} />{' '}
@@ -305,7 +306,7 @@ class Comment extends React.Component {
               <Link to={anchorLink} className="Comment__anchor" onClick={this.handleAnchorClick}>
                 <FormattedRelative value={`${comment.created}Z`} />
               </Link>
-            </Tooltip>
+            </BTooltip>
           </span>
           <div className="Comment__content">
             {showCommentContent ? (

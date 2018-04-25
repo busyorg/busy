@@ -66,7 +66,11 @@ export default class UserProfile extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.match.url !== this.props.match.url) {
+    const { feed } = nextProps;
+    const username = nextProps.match.params.name;
+    const content = getFeedFromState('blog', username, feed);
+
+    if (_.isEmpty(content) && nextProps.match.url !== this.props.match.url) {
       if (window) {
         window.scrollTo(0, 0);
       }

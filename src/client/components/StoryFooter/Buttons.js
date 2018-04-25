@@ -10,6 +10,7 @@ import withAuthActions from '../../auth/withAuthActions';
 import { sortVotes } from '../../helpers/sortHelpers';
 import { getUpvotes, getDownvotes } from '../../helpers/voteHelpers';
 import Popover from '../Popover';
+import BTooltip from '../BTooltip';
 import PopoverMenu, { PopoverMenuItem } from '../PopoverMenu/PopoverMenu';
 import ReactionsModal from '../Reactions/ReactionsModal';
 import USDDisplay from '../Utils/USDDisplay';
@@ -297,7 +298,7 @@ export default class Buttons extends React.Component {
 
     return (
       <div className="Buttons">
-        <Tooltip title={likeTooltip}>
+        <BTooltip title={likeTooltip}>
           <a role="presentation" className={likeClass} onClick={this.handleLikeClick}>
             {pendingLike ? (
               <Icon type="loading" />
@@ -307,7 +308,7 @@ export default class Buttons extends React.Component {
               />
             )}
           </a>
-        </Tooltip>
+        </BTooltip>
         <span
           className={classNames('Buttons__number', {
             'Buttons__reactions-count': upVotes.length > 0 || downVotes.length > 0,
@@ -315,7 +316,7 @@ export default class Buttons extends React.Component {
           role="presentation"
           onClick={this.handleShowReactions}
         >
-          <Tooltip
+          <BTooltip
             title={
               <div>
                 {upVotesPreview}
@@ -328,18 +329,18 @@ export default class Buttons extends React.Component {
           >
             <FormattedNumber value={upVotes.length} />
             <span />
-          </Tooltip>
+          </BTooltip>
         </span>
-        <Tooltip title={intl.formatMessage({ id: 'comment', defaultMessage: 'Comment' })}>
+        <BTooltip title={intl.formatMessage({ id: 'comment', defaultMessage: 'Comment' })}>
           <Link className="Buttons__link" to={commentsLink} onClick={this.handleCommentClick}>
             <i className="iconfont icon-message_fill" />
           </Link>
-        </Tooltip>
+        </BTooltip>
         <span className="Buttons__number">
           <FormattedNumber value={post.children} />
         </span>
         {showReblogLink && (
-          <Tooltip
+          <BTooltip
             title={intl.formatMessage({
               id: postState.reblogged ? 'reblog_reblogged' : 'reblog',
               defaultMessage: postState.reblogged ? 'You already reblogged this post' : 'Reblog',
@@ -348,7 +349,7 @@ export default class Buttons extends React.Component {
             <a role="presentation" className={rebloggedClass} onClick={this.handleShareClick}>
               <i className="iconfont icon-share1 Buttons__share" />
             </a>
-          </Tooltip>
+          </BTooltip>
         )}
         {this.renderPostPopoverMenu()}
         {!postState.isReblogged && (
