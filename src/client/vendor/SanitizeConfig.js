@@ -39,6 +39,13 @@ const iframeWhitelist = [
     fn: src => src, // handled by embedjs
   },
   {
+    re: /^\/embeds\/github\/\w+/i,
+    fn: src => {
+      console.log('src', src);
+      return src;
+    },
+  },
+  {
     re: /^(https?:)?\/\/(?:www\.)?(?:(player.)?twitch.tv\/)(.*)?$/i,
     fn: src => src, // handled by embedjs
   },
