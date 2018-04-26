@@ -190,7 +190,7 @@ export const getUsersAccountHistory = state => state.usersAccountHistory;
 export const getLoadingMoreUsersAccountHistory = state => state.loadingMoreUsersAccountHistory;
 export const getUserHasMoreAccountHistory = (state, username) => {
   const lastAction = _.last(state.usersAccountHistory[getUserDetailsKey(username)]) || {};
-  return lastAction.actionCount !== 0;
+  return lastAction.actionCount !== 1 && lastAction.actionCount !== 0;
 };
 export const getAccountHistoryFilter = state => state.accountHistoryFilter;
 export const getCurrentDisplayedActions = state => state.currentDisplayedActions;
