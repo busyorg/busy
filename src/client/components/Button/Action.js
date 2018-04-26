@@ -4,8 +4,19 @@ import { Icon } from 'antd';
 import classNames from 'classnames';
 import './Action.less';
 
-const Action = ({ text, loading, disabled, primary, style, small, type, onClick }) => (
+const Action = ({
+  text,
+  loading,
+  disabled,
+  primary,
+  style,
+  small,
+  type,
+  onClick,
+  ...restProps
+}) => (
   <button
+    {...restProps}
     disabled={disabled}
     style={style}
     className={classNames('Action', {

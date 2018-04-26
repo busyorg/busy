@@ -126,7 +126,12 @@ class Topnav extends React.Component {
       >
         <Menu className="Topnav__menu-container__menu" mode="horizontal">
           <Menu.Item key="signup">
-            <a target="_blank" rel="noopener noreferrer" href={process.env.SIGNUP_URL}>
+            <a
+              data-testid="signupLink"
+              target="_blank"
+              rel="noopener noreferrer"
+              href={process.env.SIGNUP_URL}
+            >
               <FormattedMessage id="signup" defaultMessage="Sign up" />
             </a>
           </Menu.Item>
@@ -134,7 +139,7 @@ class Topnav extends React.Component {
             |
           </Menu.Item>
           <Menu.Item key="login">
-            <a href={SteemConnect.getLoginURL(next)}>
+            <a data-testid="loginLink" href={SteemConnect.getLoginURL(next)}>
               <FormattedMessage id="login" defaultMessage="Log in" />
             </a>
           </Menu.Item>
@@ -175,7 +180,11 @@ class Topnav extends React.Component {
               title={intl.formatMessage({ id: 'write_post', defaultMessage: 'Write post' })}
               mouseEnterDelay={1}
             >
-              <Link to="/editor" className="Topnav__link Topnav__link--action">
+              <Link
+                data-testid="writeLink"
+                to="/editor"
+                className="Topnav__link Topnav__link--action"
+              >
                 <i className="iconfont icon-write" />
               </Link>
             </BTooltip>
@@ -333,7 +342,11 @@ class Topnav extends React.Component {
                 state: { query: searchBarValue },
               }}
             >
-              <span onClick={this.hideAutoCompleteDropdown} role="presentation">
+              <span
+                data-testid="searchAllResultsLink"
+                onClick={this.hideAutoCompleteDropdown}
+                role="presentation"
+              >
                 {intl.formatMessage(
                   {
                     id: 'search_all_results_for',
@@ -370,6 +383,7 @@ class Topnav extends React.Component {
                 value={searchBarValue}
               >
                 <Input
+                  data-testid="searchInput"
                   ref={ref => {
                     this.searchInputRef = ref;
                   }}

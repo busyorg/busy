@@ -245,7 +245,7 @@ class StoryFull extends React.Component {
     if (post.depth !== 0) {
       replyUI = (
         <div className="StoryFull__reply">
-          <h3 className="StoryFull__reply__title">
+          <h3 data-testid="storyFullTitle" className="StoryFull__reply__title">
             <FormattedMessage
               id="post_reply_title"
               defaultMessage="This is a reply to: {title}"
