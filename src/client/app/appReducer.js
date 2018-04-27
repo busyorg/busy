@@ -4,7 +4,6 @@ import * as appTypes from './appActions';
 import * as authActions from '../auth/authActions';
 import * as postActions from '../post/postActions';
 import { getCryptoPriceIncreaseDetails } from '../helpers/cryptosHelper';
-import { SBD } from '../../common/constants/cryptos';
 
 const initialState = {
   isFetching: false,
@@ -99,10 +98,7 @@ export default (state = initialState, action) => {
       };
     case appTypes.GET_CRYPTO_PRICE_HISTORY.SUCCESS: {
       const { symbol, usdPriceHistory, btcPriceHistory } = action.payload;
-      const usdPriceHistoryByClose = _.map(
-        usdPriceHistory.Data,
-        data => (symbol === SBD.symbol ? data.open : data.close),
-      );
+      const usdPriceHistoryByClose = _.map(usdPriceHistory.Data, data => data.close);
       const btcPriceHistoryByClose = _.map(btcPriceHistory.Data, data => data.close);
       const priceDetails = getCryptoPriceIncreaseDetails(
         usdPriceHistoryByClose,
