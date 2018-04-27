@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { FormattedMessage, FormattedRelative, FormattedDate, FormattedTime } from 'react-intl';
-import { Tooltip } from 'antd';
+import BTooltip from '../components/BTooltip';
 import Avatar from '../components/Avatar';
 
 const getSavingsTransactionMessage = (transactionType, transactionDetails, amount) => {
@@ -69,7 +69,7 @@ const SavingsTransaction = ({ timestamp, transactionType, transactionDetails, am
         {getSavingsTransactionMessage(transactionType, transactionDetails, amount)}
       </div>
       <span className="UserWalletTransactions__timestamp">
-        <Tooltip
+        <BTooltip
           title={
             <span>
               <FormattedDate value={`${timestamp}Z`} /> <FormattedTime value={`${timestamp}Z`} />
@@ -79,7 +79,7 @@ const SavingsTransaction = ({ timestamp, transactionType, transactionDetails, am
           <span>
             <FormattedRelative value={`${timestamp}Z`} />
           </span>
-        </Tooltip>
+        </BTooltip>
       </span>
       <span className="UserWalletTransactions__memo">{transactionDetails.memo}</span>
     </div>

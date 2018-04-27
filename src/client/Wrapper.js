@@ -16,7 +16,13 @@ import {
 } from './reducers';
 import { login, logout, busyLogin } from './auth/authActions';
 import { getFollowing, getNotifications } from './user/userActions';
-import { getRate, getRewardFund, getTrendingTopics, busyAPIHandler } from './app/appActions';
+import {
+  getRate,
+  getRewardFund,
+  getTrendingTopics,
+  setUsedLocale,
+  busyAPIHandler,
+} from './app/appActions';
 import * as reblogActions from './app/Reblog/reblogActions';
 import busyAPI from './busyAPI';
 import Redirect from './components/Utils/Redirect';
@@ -44,6 +50,7 @@ import Transfer from './wallet/Transfer';
     busyLogin,
     busyAPIHandler,
     getRebloggedList: reblogActions.getRebloggedList,
+    setUsedLocale,
   },
 )
 export default class Wrapper extends React.PureComponent {
@@ -63,6 +70,7 @@ export default class Wrapper extends React.PureComponent {
     getRate: PropTypes.func,
     getTrendingTopics: PropTypes.func,
     getNotifications: PropTypes.func,
+    setUsedLocale: PropTypes.func,
     busyLogin: PropTypes.func,
     busyAPIHandler: PropTypes.func,
   };
@@ -77,6 +85,7 @@ export default class Wrapper extends React.PureComponent {
     getRate: () => {},
     getTrendingTopics: () => {},
     getNotifications: () => {},
+    setUsedLocale: () => {},
     busyLogin: () => {},
     busyAPIHandler: () => {},
   };
@@ -122,6 +131,8 @@ export default class Wrapper extends React.PureComponent {
 
     if (usedLocale !== getAvailableLocale(nextProps.locale) && nextProps.loaded) {
       this.loadLocale(nextProps.locale);
+    } else if (nextProps.locale !== this.props.locale) {
+      this.loadLocale(nextProps.locale);
     }
   }
 
@@ -134,9 +145,12 @@ export default class Wrapper extends React.PureComponent {
 
     Promise.all([localeDataPromise, translationsPromise]).then(([localeData, translations]) => {
       addLocaleData(localeData);
-      this.setState({
-        translations,
-      });
+      this.setState(
+        {
+          translations,
+        },
+        () => this.props.setUsedLocale(availableLocale),
+      );
     });
   }
 
