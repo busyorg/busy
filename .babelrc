@@ -18,6 +18,7 @@
     }
   },
   "plugins": [
+    "dynamic-import-node",
     "transform-decorators-legacy",
     "transform-runtime",
     "lodash",

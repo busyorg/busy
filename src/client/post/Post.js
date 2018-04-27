@@ -68,7 +68,7 @@ export default class Post extends React.Component {
     getAccount: () => {},
   };
 
-  static fetchData(store, match) {
+  static fetchData({ store, match }) {
     const { author, permlink } = match.params;
     return Promise.all([
       store.dispatch(getAccount(author)),
