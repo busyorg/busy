@@ -6,13 +6,13 @@ import { withRouter } from 'react-router-dom';
 import { Popover } from 'antd';
 import { getTrendingTopics } from '../reducers';
 import PopoverMenu, { PopoverMenuItem } from './PopoverMenu/PopoverMenu';
-import './TrendingTagsSlider.less';
+import './TrendingTagsMenu.less';
 
 @withRouter
 @connect(state => ({
   trendingTopics: getTrendingTopics(state),
 }))
-class TrendingTagsSlider extends React.Component {
+class TrendingTagsMenu extends React.Component {
   static propTypes = {
     history: PropTypes.shape().isRequired,
     trendingTopics: PropTypes.arrayOf(PropTypes.string).isRequired,
@@ -73,4 +73,4 @@ class TrendingTagsSlider extends React.Component {
   }
 }
 
-export default TrendingTagsSlider;
+export default TrendingTagsMenu;

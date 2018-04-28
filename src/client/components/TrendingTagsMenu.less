@@ -1,7 +1,12 @@
 @import (reference) '../styles/custom.less';
 @import (reference) '../styles/modules/variables.less';
 
-.TrendingTagsSlider {
+.TrendingTagsMenu {
+  .ant-popover-inner-content {
+    overflow-y: auto;
+    max-height: 500px;
+  }
+
   display: flex;
   margin-bottom: 10px;
   flex-wrap: wrap;
