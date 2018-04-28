@@ -12,6 +12,7 @@
   "continue": "Continue",
   "close": "Close",
   "list_empty": "Nothing is there",
+  "error_fetch_failed": "We couldn't faild this feed contents. Check your connection and try again",
   "delete": "delete",
   "delete_selected": "Delete selected",
   "notify_uploading_image": "Uploading image",

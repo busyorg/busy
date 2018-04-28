@@ -71,6 +71,25 @@ export const getFeedHasMoreFromState = (sortBy, listName = 'all', feedState) => 
   }
 };
 
+export const getFeedFailedFromState = (sortBy, listName = 'all', feedState) => {
+  switch (sortBy) {
+    case 'feed':
+    case 'hot':
+    case 'cashout':
+    case 'created':
+    case 'active':
+    case 'trending':
+    case 'comments':
+    case 'blog':
+    case 'bookmarks':
+    case 'replies':
+    case 'promoted':
+      return (feedState[sortBy][listName] && feedState[sortBy][listName].failed) || false;
+    default:
+      return false;
+  }
+};
+
 // returning the same function but different naming helps to understand the code's flow better
 // and defines a pattern to scale this feature with reselect
 export const getUserFeedFromState = (username, feed) => getFeedFromState('feed', username, feed);
@@ -80,6 +99,9 @@ export const getUserFeedLoadingFromState = (username, feedState) =>
 
 export const getUserFeedFetchedFromState = (username, feedState) =>
   getFeedLoadingFromState('feed', username, feedState);
+
+export const getUserFeedFailedFromState = (username, feedState) =>
+  getFeedFailedFromState('feed', username, feedState);
 
 /**
  * Sort comments based on payout
