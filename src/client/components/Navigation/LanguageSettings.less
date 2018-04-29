@@ -2,9 +2,12 @@
 @import (reference) '../../styles/custom.less';
 
 .LanguageSettings {
-  .ant-popover-inner-content {
-    overflow-y: auto;
-    max-height: 500px;
+  & .ant-popover-inner-content {
+    padding: 0 !important;
+
+    & > .PopoverMenu {
+      padding: 12px 16px;
+    }
   }
 
   &__option {
