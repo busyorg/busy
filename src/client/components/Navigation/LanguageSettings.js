@@ -58,8 +58,10 @@ class LanguageSettings extends React.Component {
     let localeStorageLanguage;
     let browserLanguage;
 
-    if (localStorage) localeStorageLanguage = localStorage.language;
-    if (navigator) {
+    if (typeof localStorage !== 'undefined') {
+      localeStorageLanguage = localStorage.language;
+    }
+    if (typeof navigator !== 'undefined') {
       browserLanguage = LanguageSettings.getValidLocale(
         _.get(navigator.languages, 0, navigator.language),
       );
@@ -114,7 +116,7 @@ class LanguageSettings extends React.Component {
         });
       });
     } else {
-      if (localStorage) localStorage.setItem('language', selectedLanguage);
+      if (typeof localStorage !== 'undefined') localStorage.setItem('language', selectedLanguage);
       this.props.setLocale(selectedLanguage);
       this.setState({
         selectedLanguage,
