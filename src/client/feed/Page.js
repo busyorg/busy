@@ -28,7 +28,7 @@ class Page extends React.Component {
     match: PropTypes.shape().isRequired,
   };
 
-  static fetchData(store, match) {
+  static fetchData({ store, match }) {
     const { sortBy, category } = match.params;
     return store.dispatch(getFeedContent({ sortBy, category, limit: 10 }));
   }
