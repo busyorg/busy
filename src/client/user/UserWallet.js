@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import UserWalletSummary from '../wallet/UserWalletSummary';
+import { SBD, STEEM } from '../../common/constants/cryptos';
 import { getUserDetailsKey } from '../helpers/stateHelpers';
 import UserWalletTransactions from '../wallet/UserWalletTransactions';
 import Loading from '../components/Icon/Loading';
@@ -126,8 +127,16 @@ class Wallet extends Component {
     const userKey = getUserDetailsKey(user.name);
     const transactions = _.get(usersTransactions, userKey, []);
     const actions = _.get(usersAccountHistory, userKey, []);
-    const currentSteemRate = _.get(cryptosPriceHistory, 'STEEM.priceDetails.currentUSDPrice', null);
-    const currentSBDRate = _.get(cryptosPriceHistory, 'SBD.priceDetails.currentUSDPrice', null);
+    const currentSteemRate = _.get(
+      cryptosPriceHistory,
+      `${STEEM.symbol}.priceDetails.currentUSDPrice`,
+      null,
+    );
+    const currentSBDRate = _.get(
+      cryptosPriceHistory,
+      `${SBD.symbol}.priceDetails.currentUSDPrice`,
+      null,
+    );
     const steemRateLoading = _.isNull(currentSteemRate) || _.isNull(currentSBDRate);
 
     return (

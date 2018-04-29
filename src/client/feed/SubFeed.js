@@ -14,10 +14,13 @@ import {
   getUserFeedLoadingFromState,
   getUserFeedFetchedFromState,
   getFeedHasMoreFromState,
+  getUserFeedFailedFromState,
+  getFeedFailedFromState,
   getUserFeedFromState,
 } from '../helpers/stateHelpers';
 import { getIsAuthenticated, getIsLoaded, getAuthenticatedUser, getFeed } from '../reducers';
 import Feed from './Feed';
+import FetchFailed from '../statics/FetchFailed';
 import EmptyFeed from '../statics/EmptyFeed';
 import LetsGetStarted from './LetsGetStarted';
 import ScrollToTop from '../components/Utils/ScrollToTop';
@@ -114,6 +117,7 @@ class SubFeed extends React.Component {
     let isFetching = false;
     let fetched = false;
     let hasMore = false;
+    let failed = false;
     let loadMoreContent = () => {};
     const isAuthHomeFeed = match.url === '/' && authenticated;
 
@@ -122,6 +126,7 @@ class SubFeed extends React.Component {
       isFetching = getUserFeedLoadingFromState(user.name, feed);
       fetched = getUserFeedFetchedFromState(user.name, feed);
       hasMore = feed.created[user.name] ? feed.created[user.name].hasMore : true;
+      failed = getUserFeedFailedFromState(user.name, feed);
       loadMoreContent = () => this.props.getMoreFeedContent('feed', user.name);
     } else {
       const sortBy = match.params.sortBy || 'trending';
@@ -129,11 +134,14 @@ class SubFeed extends React.Component {
       isFetching = getFeedLoadingFromState(sortBy, match.params.category, feed);
       fetched = getFeedFetchedFromState(sortBy, match.params.category, feed);
       hasMore = getFeedHasMoreFromState(sortBy, match.params.category, feed);
+      failed = getFeedFailedFromState(sortBy, match.params.category, feed);
       loadMoreContent = () => this.props.getMoreFeedContent(sortBy, match.params.category);
     }
 
     const empty = _.isEmpty(content);
-    const displayEmptyFeed = empty && fetched && loaded && !isFetching;
+    const displayEmptyFeed = empty && fetched && loaded && !isFetching && !failed;
+
+    const ready = loaded && fetched && !isFetching;
 
     return (
       <div>
@@ -146,8 +154,9 @@ class SubFeed extends React.Component {
           loadMoreContent={loadMoreContent}
           showPostModal={this.props.showPostModal}
         />
-        <PostModal />
+        {ready && failed && <FetchFailed />}
         {displayEmptyFeed && <EmptyFeed />}
+        <PostModal />
       </div>
     );
   }
