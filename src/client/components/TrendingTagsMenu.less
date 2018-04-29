@@ -2,11 +2,6 @@
 @import (reference) '../styles/modules/variables.less';
 
 .TrendingTagsMenu {
-  .ant-popover-title {
-    color: @primary-color !important;
-    justify-content: center;
-  }
-
   .ant-popover-inner-content {
     overflow-y: auto;
     max-height: 500px;
@@ -17,6 +12,10 @@
     float: left;
     margin-left: 20px;
 
+    @media @small {
+      display: none;
+    }
+
     .icon-unfold {
       font-size: 16px !important;
     }
@@ -26,15 +25,13 @@
     }
   }
 
-  display: flex;
-  margin-bottom: 10px;
-  flex-wrap: wrap;
-
-  @media @small {
-    display: none;
-  }
-
   .Topic {
     margin: 5px !important;
+  }
+
+  .PopoverMenuItem {
+    &:first-of-type {
+      border-top: 0 !important;
+    }
   }
 }
