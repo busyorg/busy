@@ -2,9 +2,28 @@
 @import (reference) '../styles/modules/variables.less';
 
 .TrendingTagsMenu {
+  .ant-popover-title {
+    color: @primary-color !important;
+    justify-content: center;
+  }
+
   .ant-popover-inner-content {
     overflow-y: auto;
     max-height: 500px;
+  }
+
+  &__select {
+    color: @blue-botticelli;
+    float: left;
+    margin-left: 20px;
+
+    .icon-unfold {
+      font-size: 16px !important;
+    }
+
+    &--text {
+      margin-left: 8px;
+    }
   }
 
   display: flex;

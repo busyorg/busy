@@ -2,12 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { connect } from 'react-redux';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import { withRouter } from 'react-router-dom';
 import { Popover } from 'antd';
 import { getTrendingTopics } from '../reducers';
 import PopoverMenu, { PopoverMenuItem } from './PopoverMenu/PopoverMenu';
 import './TrendingTagsMenu.less';
 
+@injectIntl
 @withRouter
 @connect(state => ({
   trendingTopics: getTrendingTopics(state),
@@ -16,6 +18,7 @@ class TrendingTagsMenu extends React.Component {
   static propTypes = {
     history: PropTypes.shape().isRequired,
     trendingTopics: PropTypes.arrayOf(PropTypes.string).isRequired,
+    intl: PropTypes.shape().isRequired,
   };
   constructor(props) {
     super(props);
@@ -45,9 +48,8 @@ class TrendingTagsMenu extends React.Component {
   }
 
   render() {
-    const { trendingTopics } = this.props;
+    const { trendingTopics, intl } = this.props;
     const { displayTagsMenu } = this.state;
-    const currentTag = _.get(this.props, 'match.params.category', '');
 
     return (
       <Popover
@@ -57,6 +59,7 @@ class TrendingTagsMenu extends React.Component {
         onVisibleChange={this.handleTagMenuVisibleChange}
         overlayStyle={{ position: 'fixed' }}
         overlayClassName="TrendingTagsMenu"
+        title={intl.formatMessage({ id: 'trending_topics', defaultMessage: 'Trending topics' })}
         content={
           <PopoverMenu onSelect={this.handleTagMenuSelect}>
             {_.map(trendingTopics, tag => (
@@ -67,7 +70,13 @@ class TrendingTagsMenu extends React.Component {
           </PopoverMenu>
         }
       >
-        <span>{currentTag}</span>
+        <div className="TrendingTagsMenu__select">
+          <FormattedMessage id="topics" defaultMessage="Topics" />
+          <span className="TrendingTagsMenu__select--text">
+            <FormattedMessage id="all" defaultMessage="All" />
+          </span>
+          <i className="iconfont icon-unfold" />
+        </div>
       </Popover>
     );
   }

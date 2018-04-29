@@ -50,6 +50,7 @@ class Page extends React.Component {
     const { category, sortBy } = match.params;
 
     const shouldDisplaySelector = location.pathname !== '/' || (!authenticated && loaded);
+    const displayTopicSelector = location.pathname === '/trending';
 
     const robots = location.pathname === '/' ? 'index,follow' : 'noindex,follow';
 
@@ -75,7 +76,7 @@ class Page extends React.Component {
               </div>
             </Affix>
             <div className="center">
-              {shouldDisplaySelector && <TrendingTagsMenu />}
+              {displayTopicSelector && <TrendingTagsMenu />}
               {shouldDisplaySelector && (
                 <TopicSelector
                   isSingle={false}
