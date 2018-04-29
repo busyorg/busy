@@ -196,7 +196,7 @@ class Buttons extends React.Component {
               <FormattedNumber value={upVotes.length} />
               <span />
             </BTooltip>
-            )}
+          )}
         </span>
         <BTooltip title={intl.formatMessage({ id: 'dislike', defaultMessage: 'Dislike' })}>
           <a
@@ -214,13 +214,13 @@ class Buttons extends React.Component {
           </a>
         </BTooltip>
         {downVotes.length > 0 && (
-        <span
-          className={classNames('CommentFooter__count', {
-            'CommentFooter__count--clickable': upVotes.length > 0,
-          })}
-          role="presentation"
-          onClick={this.handleShowReactions}
-        >
+          <span
+            className={classNames('CommentFooter__count', {
+              'CommentFooter__count--clickable': upVotes.length > 0,
+            })}
+            role="presentation"
+            onClick={this.handleShowReactions}
+          >
             <BTooltip
               title={
                 <div>
@@ -232,9 +232,9 @@ class Buttons extends React.Component {
               <FormattedNumber value={downVotes.length} />
               <span />
             </BTooltip>
-        </span>
-      )}
-         {payoutValue >= 0.01 && (
+          </span>
+        )}
+        {payoutValue >= 0.01 && (
           <React.Fragment>
             <span className="CommentFooter__bullet" />
             <span className="CommentFooter__payout">
