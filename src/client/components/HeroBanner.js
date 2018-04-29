@@ -41,22 +41,8 @@ class HeroBanner extends React.Component {
     onCloseClick: () => {},
   };
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      loading: true,
-    };
-  }
-
-  componentWillMount() {
-    setTimeout(() => this.setState({ loading: false }, () => this.forceUpdate()), 1500);
-  }
-
   render() {
     const { onCloseClick, visible } = this.props;
-    const { loading } = this.state;
-    const sliderStyles = loading ? { visibility: 'hidden' } : {};
     if (!visible) return null;
 
     return (
@@ -115,7 +101,7 @@ class HeroBanner extends React.Component {
               </div>
             </div>
           </div>
-          <div className="HeroBannerSlider__container" style={sliderStyles}>
+          <div className="HeroBannerSlider__container">
             <Carousel effect="fade" autoplay autoplaySpeed={8000}>
               {_.map(HeroBanner.SLIDER_CONTENTS, slide => (
                 <div key={slide.titleID}>

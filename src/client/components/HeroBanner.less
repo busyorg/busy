@@ -52,14 +52,10 @@
   }
 
   &__content {
-    display: none;
+    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
-    @media @small {
-      display: flex;
-    }
 
     &__description {
       width: 230px;
@@ -97,10 +93,14 @@
   }
 
   &__content-container {
-    display: flex;
+    display: none;
     flex-direction: row;
     width: 100%;
     justify-content: space-around;
+
+    @media @small {
+      display: flex;
+    }
   }
 }
 
