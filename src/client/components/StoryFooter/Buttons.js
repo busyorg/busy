@@ -308,35 +308,34 @@ export default class Buttons extends React.Component {
             )}
           </a>
         </BTooltip>
-        <span
-          className={classNames('Buttons__number', {
-            'Buttons__reactions-count': upVotes.length > 0 || downVotes.length > 0,
-          })}
-          role="presentation"
-          onClick={this.handleShowReactions}
-        >
-          <BTooltip
-            title={
-              <div>
-                {upVotesPreview}
-                {upVotesMore}
-                {upVotesPreview.length === 0 && (
-                  <FormattedMessage id="no_likes" defaultMessage="No likes yet" />
-                )}
-              </div>
-            }
+        {upVotes.length > 0 && (
+          <span
+            className={classNames('Buttons__number', {
+              'Buttons__reactions-count': downVotes.length > 0,
+            })}
+            role="presentation"
+            onClick={this.handleShowReactions}
           >
-            <FormattedNumber value={upVotes.length} />
-            <span />
-          </BTooltip>
-        </span>
+            <BTooltip
+              title={
+                <div>
+                  {upVotesPreview}
+                  {upVotesMore}
+                </div>
+              }
+            >
+              <FormattedNumber value={upVotes.length} />
+              <span />
+            </BTooltip>
+          </span>
+        )}
         <BTooltip title={intl.formatMessage({ id: 'comment', defaultMessage: 'Comment' })}>
           <Link className="Buttons__link" to={commentsLink} onClick={this.handleCommentClick}>
             <i className="iconfont icon-message_fill" />
           </Link>
         </BTooltip>
         <span className="Buttons__number">
-          <FormattedNumber value={post.children} />
+          {post.children > 0 && <FormattedNumber value={post.children} />}
         </span>
         {showReblogLink && (
           <BTooltip
