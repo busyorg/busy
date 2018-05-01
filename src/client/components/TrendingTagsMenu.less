@@ -2,15 +2,18 @@
 @import (reference) '../styles/modules/variables.less';
 
 .TrendingTagsMenu {
+  .ant-popover-title {
+    border-top: @base-border;
+  }
+
   .ant-popover-inner-content {
     overflow-y: auto;
     max-height: 500px;
   }
 
-  &__select {
-    color: @blue-botticelli;
-    cursor: pointer;
+  &__container {
     float: left;
+    color: @blue-botticelli;
     margin-left: 20px;
 
     @media @small {
@@ -21,11 +24,12 @@
       font-size: 16px !important;
       margin-left: 4px;
     }
+  }
 
-    &--text {
-      margin-left: 8px;
-      font-weight: 500;
-    }
+  &__select--text {
+    cursor: pointer;
+    margin-left: 8px;
+    font-weight: 500;
   }
 
   .Topic {

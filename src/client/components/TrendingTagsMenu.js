@@ -4,8 +4,8 @@ import _ from 'lodash';
 import { connect } from 'react-redux';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { withRouter } from 'react-router-dom';
-import { Popover } from 'antd';
 import { getTrendingTopics } from '../reducers';
+import Popover from './Popover';
 import PopoverMenu, { PopoverMenuItem } from './PopoverMenu/PopoverMenu';
 import './TrendingTagsMenu.less';
 
@@ -52,32 +52,32 @@ class TrendingTagsMenu extends React.Component {
     const { displayTagsMenu } = this.state;
 
     return (
-      <Popover
-        placement="bottom"
-        trigger="click"
-        visible={displayTagsMenu}
-        onVisibleChange={this.handleTagMenuVisibleChange}
-        overlayStyle={{ position: 'fixed' }}
-        overlayClassName="TrendingTagsMenu"
-        title={intl.formatMessage({ id: 'trending_topics', defaultMessage: 'Trending topics' })}
-        content={
-          <PopoverMenu onSelect={this.handleTagMenuSelect}>
-            {_.map(trendingTopics, tag => (
-              <PopoverMenuItem key={tag} fullScreenHidden>
-                {tag}
-              </PopoverMenuItem>
-            ))}
-          </PopoverMenu>
-        }
-      >
-        <div className="TrendingTagsMenu__select">
-          <FormattedMessage id="topics" defaultMessage="Topics" />
+      <div className="TrendingTagsMenu__container">
+        <FormattedMessage id="topics" defaultMessage="Topics" />
+        <Popover
+          placement="bottom"
+          trigger="click"
+          visible={displayTagsMenu}
+          onVisibleChange={this.handleTagMenuVisibleChange}
+          overlayStyle={{ position: 'fixed' }}
+          overlayClassName="TrendingTagsMenu"
+          title={intl.formatMessage({ id: 'trending_topics', defaultMessage: 'Trending topics' })}
+          content={
+            <PopoverMenu onSelect={this.handleTagMenuSelect}>
+              {_.map(trendingTopics, tag => (
+                <PopoverMenuItem key={tag} fullScreenHidden>
+                  {tag}
+                </PopoverMenuItem>
+              ))}
+            </PopoverMenu>
+          }
+        >
           <span className="TrendingTagsMenu__select--text">
             <FormattedMessage id="all" defaultMessage="All" />
           </span>
           <i className="iconfont icon-unfold" />
-        </div>
-      </Popover>
+        </Popover>
+      </div>
     );
   }
 }
