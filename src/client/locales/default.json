@@ -12,6 +12,7 @@
   "continue": "Continue",
   "close": "Close",
   "list_empty": "Nothing is there",
+  "error_fetch_failed": "We couldn't faild this feed contents. Check your connection and try again",
   "delete": "delete",
   "delete_selected": "Delete selected",
   "notify_uploading_image": "Uploading image",
@@ -337,5 +338,8 @@
   "dmca_content_removed": "Content removed due to DMCA notice",
   "drafts_memory_usage_error": "Oops! You hit the storage limit of 16mb, delete some drafts to go forward",
   "beneficiaries": "Beneficiaries",
-  "all": "All"
+  "all": "All",
+  "hero_banner_title_1": "Write and publish a post on Steem",
+  "hero_banner_title_2": "The community upvotes your post",
+  "hero_banner_title_3": "Earn rewards in Steem"
 }

@@ -2,28 +2,32 @@
 [![Crowdin](http://d322cqt584bo4o.cloudfront.net/busy/localized.svg)](https://translate.busy.org/project/busy)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/busyorg/busy/new-design/LICENSE)
 [![Busy channel on Discord](https://img.shields.io/badge/chat-discord-738bd7.svg)](https://discord.gg/G95rNZs)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
 
 # Busy 🚀
 
-Busy is an Open Source social network and communications platform which extends itself to a variety of rich features and functionality including free digital payments and a marketplace for goods and services. 
+Busy is an Open Source social network and communications platform which extends itself to a variety of rich features and functionality including free digital payments and a marketplace for goods and services.
 
 For more info: https://busy.org/@busy.org
 
 ## Preview
+
 ![Preview](https://user-images.githubusercontent.com/16245250/35974135-6fe56d5a-0d0a-11e8-99f6-a90d59696f82.png)
 
-## Usage
+## Quick Setup
 
 ```
 git clone https://github.com/busyorg/busy.git
 cd busy
 
-yarn install
+yarn
 yarn dev-server
 ```
 
-## Contribution 
-So you found a bug? Or perhaps you just want to improve something? Patches are welcome! If you would like to contribute, but don't know what to work on, check the issues list.
+## Getting involved
+
+We at Busy really appreciate help from the community. We want to make the Busy project as friendly as possible to contributors. It doesn't matter if you are a beginner looking for a place to improve your skills or just want to help us build something great.
+If you would like to contribute, but don't know what to work on, check our [Contributing guide][contributing].
 
 ## Backers
 
@@ -68,3 +72,5 @@ Busy is an MIT-licensed open source project. It's an independent project with it
 
 [![](https://res.cloudinary.com/hpiynhbhq/image/upload/v1507199425/hevqheh9nltx0dfbuvo8.png)](https://crowdin.com/project/busy)  
 [![](https://res.cloudinary.com/hpiynhbhq/image/upload/v1507199050/fqxowyhiwlj9vhb5wdue.png)](https://www.browserstack.com/)
+
+[contributing]: ./docs/CONTRIBUTING.md

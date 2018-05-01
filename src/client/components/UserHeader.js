@@ -3,13 +3,14 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 import { injectIntl, FormattedMessage } from 'react-intl';
-import { Tag, Popover } from 'antd';
+import { Tag } from 'antd';
 import formatter from '../helpers/steemitFormatter';
 import { getUserRankKey, getUserRank } from '../helpers/user';
 import BTooltip from './BTooltip';
 import AvatarLightbox from './AvatarLightbox';
 import FollowButton from '../widgets/FollowButton';
 import Action from './Button/Action';
+import Popover from './Popover';
 import PopoverMenu, { PopoverMenuItem } from './PopoverMenu/PopoverMenu';
 import './UserHeader.less';
 

@@ -2,13 +2,18 @@
 
 .Sidenav {
   min-width: 150px;
+  margin-left: -11px;
   & > li {
     & > a {
+      padding: 0 10px !important;
+      display: block;
       color: #99aab5;
       font-weight: 500;
+      line-height: 2.3em;
+      border: @border-width-base @border-style-base transparent;
 
       &:hover {
-        color: @primary-color;
+        color: rgba(0, 0, 0, 0.65);
       }
 
       &:focus {
@@ -35,7 +40,10 @@ div[data-dir='rtl'] .Sidenav {
 }
 
 .Sidenav__item--active {
-  color: @primary-color !important;
+  background: white;
+  border: @border-width-base @border-style-base @border-color-base !important;
+  border-radius: @border-radius-base;
+  color: rgba(0, 0, 0, 0.65) !important;
   & > i {
     color: @primary-color;
   }
