@@ -12,7 +12,7 @@ import {
   FormattedNumber,
 } from 'react-intl';
 import { Link } from 'react-router-dom';
-import { Tag, Icon, Popover } from 'antd';
+import { Tag, Icon } from 'antd';
 import Lightbox from 'react-image-lightbox';
 import { Scrollbars } from 'react-custom-scrollbars';
 import formatter from '../../helpers/steemitFormatter';
@@ -20,6 +20,7 @@ import { getFromMetadata, extractImageTags } from '../../helpers/parser';
 import { isPostDeleted, dropCategory } from '../../helpers/postHelpers';
 import withAuthActions from '../../auth/withAuthActions';
 import { getProxyImageURL } from '../../helpers/image';
+import Popover from '../Popover';
 import BTooltip from '../BTooltip';
 import Body, { getHtml } from './Body';
 import StoryDeleted from './StoryDeleted';

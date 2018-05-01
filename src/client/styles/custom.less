@@ -5,19 +5,15 @@
 @white-shadow: rgba(0, 0, 0, 0.05);
 @white-darker: #f9f9f9;
 @white-gainsboro: #e9e7e7;
-@white-ghostWhite: #fcfcff;
+@white-ghostWhite: #fafbfc;
 @white-smoke: #f2f2f2;
 @black: #000;
 @black-text: rgba(0, 0, 0, 0.84);
 @red: #d9534f;
-@pink: #ff5b77;
 @orange: #f6a623;
-@yellow: #ffd500;
 @green: #54d2a0;
-@green-mediumSeaGreen: #42bb8b;
-@green-bubbles: #eaf4ef;
-@purple: #4757b2;
-@blue: #0275d8;
+@blue-dodgerBlue: #2088ff;
+@blue-navyBlue: #79b8ff;
 @blue-botticelli: #99aab5;
 @blue-hawkesBlue: #e7e9f5;
 @blue-linkWater: #c2ccd3;
@@ -32,9 +28,13 @@
 @grey-nightRider: #303030;
 @grey-darkGrey: #9d9d9d;
 @grey-gondola: #353535;
-@grey-nero: #282828;
+@grey-nero: #24292e;
+@grey-empress: #777676;
 
-@primary-color: @purple;
+@primary-color: @blue-dodgerBlue;
+@secondary-color: @blue-navyBlue;
+@tertiary-color: @blue-botticelli;
+@quaternary-color: @grey-mortar;
 
 @font-family-sans-serif: Whitney, 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial,
   'Lucida Grande', sans-serif;
@@ -53,6 +53,10 @@
 @btn-height-lg: 46px;
 @btn-height-sm: 25px;
 @primary-button-border: darken(@primary-color, 20%);
+
+@topic-button-color: @grey-empress;
+@topic-button-background-color: @white-gainsboro;
+@topic-button-border: 0;
 
 // Tooltip
 @tooltip-bg: @grey-nero;
@@ -94,6 +98,7 @@
 @ant-popup-z-index: 1030;
 @ant-tooltip-z-index: @ant-popup-z-index;
 @ant-popover-z-index: @ant-popup-z-index;
+@ant-popover-mobile-z-index: @ant-popup-z-index + 300;
 @ant-modal-z-index: 1260;
 @ant-modal-tooltip-z-index: @ant-modal-z-index + 5;
 @ant-modal-popover-z-index: @ant-modal-z-index + 5;
