@@ -9,14 +9,16 @@ import Cookie from 'js-cookie';
 import steemConnectAPI from './steemConnectAPI';
 import { history } from './routes';
 import getStore from './store';
-import { loadTranslations } from './translations';
 import AppHost from './AppHost';
+import { getBrowserLocale, loadLanguage } from './translations';
+import { setUsedLocale } from './app/appActions';
+import { getLocale } from './reducers';
 
 Logger.useDefaults();
 
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/service-worker.js');
-}
+// if ('serviceWorker' in navigator) {
+//   navigator.serviceWorker.register('/service-worker.js');
+// }
 
 const accessToken = Cookie.get('access_token');
 if (accessToken) {
@@ -31,9 +33,20 @@ message.config({
 });
 
 const render = async Component => {
-  await loadTranslations(store);
+  const state = store.getState();
 
-  ReactDOM.hydrate(
+  const userLocale = getLocale(state);
+
+  let activeLocale = userLocale;
+  if (activeLocale === 'auto') {
+    activeLocale = Cookie.get('language') || getBrowserLocale() || 'en-US';
+  }
+
+  const lang = await loadLanguage(activeLocale);
+
+  store.dispatch(setUsedLocale(lang));
+
+  ReactDOM.render(
     <Provider store={store}>
       {process.env.NODE_ENV !== 'production' ? (
         <AppContainer>
