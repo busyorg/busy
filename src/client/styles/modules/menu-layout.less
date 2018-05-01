@@ -28,12 +28,12 @@
     padding: 0 @mobile-padding;
 
     @media @small {
-      width: calc(100% ~'-' (@right-width + @margin));
+      width: calc(100% - (@right-width + @margin));
       margin-right: @right-width + @margin;
     }
 
     @media @medium {
-      width: calc(100% ~'-' (@left-width + @right-width + 2 * @margin));
+      width: calc(100% - (@left-width + @right-width + 2 * @margin));
       margin-left: @left-width + @margin;
       padding: 0;
     }

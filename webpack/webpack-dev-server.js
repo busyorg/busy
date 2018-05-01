@@ -27,7 +27,9 @@ module.exports = {
         ),
         STEEMJS_URL: JSON.stringify(process.env.STEEMJS_URL || 'https://api.steemit.com'),
         IS_BROWSER: JSON.stringify(true),
-        SIGNUP_URL: JSON.stringify(process.env.SIGNUP_URL || 'https://signup.steemit.com/?ref=busy'),
+        SIGNUP_URL: JSON.stringify(
+          process.env.SIGNUP_URL || 'https://signup.steemit.com/?ref=busy',
+        ),
       },
     }),
   ],
@@ -64,7 +66,12 @@ module.exports = {
               ],
             },
           },
-          'less-loader',
+          {
+            loader: 'less-loader',
+            options: {
+              javascriptEnabled: true,
+            },
+          },
         ],
       },
     ],
