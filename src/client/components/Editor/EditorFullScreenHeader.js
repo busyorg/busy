@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
-const EditorFullScreenHeader = ({ saving, words, minutes }) => (
+const EditorFullScreenHeader = ({ saving }) => (
   <div className="EditorFullScreen__header">
     <span className="EditorFullScreen__header__info">
       <span className="EditorFullScreen__brand">
@@ -16,7 +16,7 @@ const EditorFullScreenHeader = ({ saving, words, minutes }) => (
           <FormattedMessage id="saving" defaultMessage="Saving..." />
         </span>
       )}
-      <div className="EditorFullScreen__header__word-count">
+      <div className="EditorFullScreen__header__minimize">
         <i className="iconfont icon-narrow" />
         <FormattedMessage id="minimize" defaultMessage="Minimize" />
       </div>
@@ -26,13 +26,6 @@ const EditorFullScreenHeader = ({ saving, words, minutes }) => (
 
 EditorFullScreenHeader.propTypes = {
   saving: PropTypes.bool.isRequired,
-  words: PropTypes.number,
-  minutes: PropTypes.number,
-};
-
-EditorFullScreenHeader.defaultProps = {
-  words: 0,
-  minutes: 0,
 };
 
 export default EditorFullScreenHeader;
