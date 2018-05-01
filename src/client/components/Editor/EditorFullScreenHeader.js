@@ -7,7 +7,7 @@ const EditorFullScreenHeader = ({ saving, words, minutes }) => (
     <span className="EditorFullScreen__header__info">
       <span className="EditorFullScreen__brand">
         <i className="iconfont icon-busy EditorFullScreen__brand-icon" />
-        BUSY
+        busy
       </span>
     </span>
     <div className="EditorFullScreen__header__right">
@@ -17,11 +17,8 @@ const EditorFullScreenHeader = ({ saving, words, minutes }) => (
         </span>
       )}
       <div className="EditorFullScreen__header__word-count">
-        <FormattedMessage
-          id="reading_time"
-          defaultMessage="{words} words / {min} min read"
-          values={{ words, min: Math.ceil(minutes) }}
-        />
+        <i className="iconfont icon-narrow" />
+        <FormattedMessage id="minimize" defaultMessage="Minimize" />
       </div>
     </div>
   </div>
