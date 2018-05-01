@@ -16,9 +16,9 @@ import { getLocale } from './reducers';
 
 Logger.useDefaults();
 
-// if ('serviceWorker' in navigator) {
-//   navigator.serviceWorker.register('/service-worker.js');
-// }
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/service-worker.js');
+}
 
 const accessToken = Cookie.get('access_token');
 if (accessToken) {
