@@ -1,14 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './MoreCommentsLink.less';
 
 const MoreCommentsLink = ({ comments, visibleComments, onClick }) => {
   if (comments === 0 || visibleComments >= comments) {
     return null;
   }
   return (
-    <div role="button" tabIndex="-1" onClick={onClick}>
-      <a>show more comments ({comments - visibleComments})</a>
-    </div>
+    <button className="MoreCommentsLink" onClick={onClick}>
+      <span className="MoreCommentsLink__text">
+        Show more comments ({comments - visibleComments})
+      </span>
+      <i className="iconfont icon-unfold" />
+    </button>
   );
 };
 
