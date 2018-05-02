@@ -59,9 +59,13 @@ export default class Transfer extends React.Component {
   static minAccountLength = 3;
   static maxAccountLength = 16;
   static exchangeRegex = /^(bittrex|blocktrades|poloniex|changelly|openledge|shapeshiftio)$/;
+  static CURRENCIES = {
+    STEEM: 'STEEM',
+    SBD: 'SBD',
+  };
 
   state = {
-    currency: STEEM.symbol,
+    currency: Transfer.CURRENCIES.STEEM,
     oldAmount: undefined,
   };
 
@@ -264,7 +268,8 @@ export default class Transfer extends React.Component {
       return;
     }
 
-    const selectedBalance = this.state.currency === 'STEEM' ? user.balance : user.sbd_balance;
+    const selectedBalance =
+      this.state.currency === Transfer.CURRENCIES.STEEM ? user.balance : user.sbd_balance;
 
     if (authenticated && currentValue !== 0 && currentValue > parseFloat(selectedBalance)) {
       callback([
@@ -281,14 +286,15 @@ export default class Transfer extends React.Component {
     const { intl, visible, authenticated, user } = this.props;
     const { getFieldDecorator } = this.props.form;
 
-    const balance = this.state.currency === STEEM.symbol ? user.balance : user.sbd_balance;
+    const balance =
+      this.state.currency === Transfer.CURRENCIES.STEEM ? user.balance : user.sbd_balance;
 
     const currencyPrefix = getFieldDecorator('currency', {
       initialValue: this.state.currency,
     })(
       <Radio.Group onChange={this.handleCurrencyChange} className="Transfer__amount__type">
-        <Radio.Button value={STEEM.symbol}>{STEEM.symbol}</Radio.Button>
-        <Radio.Button value={SBD.symbol}>{SBD.symbol}</Radio.Button>
+        <Radio.Button value={Transfer.CURRENCIES.STEEM}>{Transfer.CURRENCIES.STEEM}</Radio.Button>
+        <Radio.Button value={Transfer.CURRENCIES.SBD}>{Transfer.CURRENCIES.SBD}</Radio.Button>
       </Radio.Group>,
     );
 

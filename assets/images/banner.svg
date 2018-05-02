@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1440px" height="242px" viewBox="0 0 1440 242" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49.2 (51160) - http://www.bohemiancoding.com/sketch -->
+    <title>Page 1</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="1440" height="242"></rect>
+    </defs>
+    <g id="Busy-Homepage" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Final-Banner-3" transform="translate(0.000000, -56.000000)">
+            <g id="Page-1" transform="translate(0.000000, 56.000000)">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <use id="Mask" fill="#FFFFFF" xlink:href="#path-1"></use>
+                <path d="M198.767647,-6.23235255 L197.767647,-6.23235255 L197.767647,-0.232352555 L191.767647,-0.232352555 L191.767647,0.767647445 L197.767647,0.767647445 L197.767647,6.76764745 L198.767647,6.76764745 L198.767647,0.767647445 L204.767647,0.767647445 L204.767647,-0.232352555 L198.767647,-0.232352555 L198.767647,-6.23235255 Z" id="Shape" stroke="#0274DB" stroke-width="3" opacity="0.77" mask="url(#mask-2)" fill-rule="nonzero" transform="translate(198.267647, 0.267647) rotate(-10.000000) translate(-198.267647, -0.267647) "></path>
+                <circle id="Oval" stroke="#7AB8FE" stroke-width="3" mask="url(#mask-2)" transform="translate(242.203604, 111.203604) scale(-1, -1) rotate(-53.000000) translate(-242.203604, -111.203604) " cx="242.203604" cy="111.203604" r="6.5"></circle>
+                <g id="Group-2" mask="url(#mask-2)">
+                    <g transform="translate(-11.000000, -12.000000)">
+                        <circle id="Oval" stroke="none" fill="#E9E7E7" fill-rule="evenodd" transform="translate(149.368184, 112.368184) scale(-1, 1) rotate(-169.000000) translate(-149.368184, -112.368184) " cx="149.368184" cy="112.368184" r="5.4315828"></circle>
+                        <circle id="Oval" stroke="#E9E7E7" stroke-width="3" fill="none" transform="translate(1294.152982, 253.152982) scale(1, -1) rotate(-99.000000) translate(-1294.152982, -253.152982) " cx="1294.15298" cy="253.152982" r="6.5"></circle>
+                        <circle id="Oval" stroke="#7AB8FE" stroke-width="3" fill="none" opacity="0.75" transform="translate(11.286149, 214.286149) rotate(-229.000000) translate(-11.286149, -214.286149) " cx="11.2861489" cy="214.286149" r="6.5"></circle>
+                        <circle id="Oval" stroke="#7AB8FE" stroke-width="3" fill="none" opacity="0.88" transform="translate(1100.174418, 11.174418) scale(1, -1) rotate(-126.000000) translate(-1100.174418, -11.174418) " cx="1100.17442" cy="11.174418" r="6.5"></circle>
+                        <rect id="Rectangle" stroke="#7AB8FE" stroke-width="3" fill="none" opacity="0.4" transform="translate(70.397251, 70.397251) scale(-1, -1) rotate(-336.000000) translate(-70.397251, -70.397251) " x="64.0222286" y="64.0222286" width="12.7500443" height="12.7500443"></rect>
+                        <rect id="Rectangle" stroke="#FFFFFF" stroke-width="3" fill="none" opacity="0.72" transform="translate(1178.882539, 21.882539) scale(-1, -1) rotate(-336.000000) translate(-1178.882539, -21.882539) " x="1171.38254" y="14.3825389" width="15" height="15"></rect>
+                        <path d="M145.806816,195.806816 L144.806816,195.806816 L144.806816,201.806816 L138.806816,201.806816 L138.806816,202.806816 L144.806816,202.806816 L144.806816,208.806816 L145.806816,208.806816 L145.806816,202.806816 L151.806816,202.806816 L151.806816,201.806816 L145.806816,201.806816 L145.806816,195.806816 Z" id="Shape" stroke="#0274DB" stroke-width="3" fill="none" opacity="0.77" fill-rule="nonzero" transform="translate(145.306816, 202.306816) scale(-1, -1) rotate(-223.000000) translate(-145.306816, -202.306816) "></path>
+                        <g id="Group-4" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(1162.000000, 36.000000)">
+                            <circle id="Oval" stroke="#E9E7E7" stroke-width="3" transform="translate(282.203604, 87.203604) scale(-1, -1) rotate(-53.000000) translate(-282.203604, -87.203604) " cx="282.203604" cy="87.2036043" r="6.5"></circle>
+                            <circle id="Oval" fill="#0274DB" opacity="0.2" transform="translate(199.368184, 6.368184) scale(-1, 1) rotate(-169.000000) translate(-199.368184, -6.368184) " cx="199.368184" cy="6.36818419" r="5.4315828"></circle>
+                            <circle id="Oval" stroke="#2088FF" stroke-width="3" transform="translate(11.286149, 159.286149) rotate(-229.000000) translate(-11.286149, -159.286149) " cx="11.2861489" cy="159.286149" r="6.5"></circle>
+                            <rect id="Rectangle" stroke="#7AB8FE" stroke-width="3" transform="translate(73.397251, 32.397251) scale(-1, -1) rotate(-336.000000) translate(-73.397251, -32.397251) " x="67.0222286" y="26.0222286" width="12.7500443" height="12.7500443"></rect>
+                            <path d="M170.806816,107.806816 L169.806816,107.806816 L169.806816,113.806816 L163.806816,113.806816 L163.806816,114.806816 L169.806816,114.806816 L169.806816,120.806816 L170.806816,120.806816 L170.806816,114.806816 L176.806816,114.806816 L176.806816,113.806816 L170.806816,113.806816 L170.806816,107.806816 Z" id="Shape" stroke="#7AB8FE" stroke-width="3" opacity="0.6" fill-rule="nonzero" transform="translate(170.306816, 114.306816) scale(-1, -1) rotate(-223.000000) translate(-170.306816, -114.306816) "></path>
+                        </g>
+                        <circle id="Oval" stroke="none" fill="#2ED8B1" fill-rule="evenodd" opacity="0.87" transform="translate(1132.000000, 259.000000) scale(-1, -1) rotate(-180.000000) translate(-1132.000000, -259.000000) " cx="1132" cy="259" r="6"></circle>
+                        <circle id="Oval" stroke="none" fill="#FFFFFF" fill-rule="evenodd" opacity="0.76" transform="translate(323.196152, 197.196152) scale(-1, -1) rotate(-300.000000) translate(-323.196152, -197.196152) " cx="323.196152" cy="197.196152" r="6"></circle>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

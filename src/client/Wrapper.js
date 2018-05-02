@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import url from 'url';
 import { connect } from 'react-redux';
 import { IntlProvider, addLocaleData } from 'react-intl';
 import { withRouter } from 'react-router-dom';
@@ -13,12 +14,22 @@ import {
   getAuthenticatedUserName,
   getLocale,
   getUsedLocale,
+  getUseBeta,
 } from './reducers';
-import { login, logout } from './auth/authActions';
+import { login, logout, busyLogin } from './auth/authActions';
 import { getFollowing, getNotifications } from './user/userActions';
-import { getRate, getRewardFund, getTrendingTopics } from './app/appActions';
+import {
+  getRate,
+  getRewardFund,
+  getTrendingTopics,
+  setUsedLocale,
+  busyAPIHandler,
+  setAppUrl,
+} from './app/appActions';
 import * as reblogActions from './app/Reblog/reblogActions';
+import busyAPI from './busyAPI';
 import Redirect from './components/Utils/Redirect';
+import NotificationPopup from './notifications/NotificationPopup';
 import Topnav from './components/Navigation/Topnav';
 import Transfer from './wallet/Transfer';
 
@@ -39,7 +50,10 @@ import Transfer from './wallet/Transfer';
     getRate,
     getRewardFund,
     getTrendingTopics,
+    busyLogin,
+    busyAPIHandler,
     getRebloggedList: reblogActions.getRebloggedList,
+    setUsedLocale,
   },
 )
 export default class Wrapper extends React.PureComponent {
@@ -59,6 +73,9 @@ export default class Wrapper extends React.PureComponent {
     getRate: PropTypes.func,
     getTrendingTopics: PropTypes.func,
     getNotifications: PropTypes.func,
+    setUsedLocale: PropTypes.func,
+    busyLogin: PropTypes.func,
+    busyAPIHandler: PropTypes.func,
   };
 
   static defaultProps = {
@@ -71,18 +88,52 @@ export default class Wrapper extends React.PureComponent {
     getRate: () => {},
     getTrendingTopics: () => {},
     getNotifications: () => {},
+    setUsedLocale: () => {},
+    busyLogin: () => {},
+    busyAPIHandler: () => {},
   };
 
-  static fetchData(store) {
-    return store.dispatch(login());
+  static async fetchData({ store, req, res }) {
+    await store.dispatch(login());
+
+    const appUrl = url.format({
+      protocol: req.protocol,
+      host: req.get('host'),
+    });
+
+    store.dispatch(setAppUrl(appUrl));
+
+    const state = store.getState();
+
+    const useBeta = getUseBeta(state);
+
+    if (useBeta && appUrl === 'https://busy.org') {
+      res.redirect(`https://staging.busy.org${req.originalUrl}`);
+      return;
+    }
+
+    const locale = getLocale(state);
+
+    await Wrapper.loadLocaleData(locale);
+
+    store.dispatch(setUsedLocale(getAvailableLocale(locale)));
+  }
+
+  static async loadLocaleData(locale) {
+    const availableLocale = getAvailableLocale(locale);
+    const translationsLocale = getTranslationsByLocale(locale);
+
+    const localeDataPromise = import(`react-intl/locale-data/${availableLocale}`);
+    const translationsPromise = import(`./locales/${translationsLocale}.json`);
+
+    const [localeData, translations] = await Promise.all([localeDataPromise, translationsPromise]);
+
+    addLocaleData(localeData);
+    global.translations = translations;
   }
 
   constructor(props) {
     super(props);
-
-    this.state = {
-      translations: global.translations,
-    };
 
     this.loadLocale = this.loadLocale.bind(this);
     this.handleMenuItemClick = this.handleMenuItemClick.bind(this);
@@ -94,6 +145,7 @@ export default class Wrapper extends React.PureComponent {
     this.props.login().then(() => {
       this.props.getFollowing();
       this.props.getNotifications();
+      this.props.busyLogin();
     });
 
     this.props.getRewardFund();
@@ -104,6 +156,8 @@ export default class Wrapper extends React.PureComponent {
     if (usedLocale !== getAvailableLocale(locale) && loaded) {
       this.loadLocale(locale);
     }
+
+    busyAPI.subscribe(this.props.busyAPIHandler);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -111,22 +165,14 @@ export default class Wrapper extends React.PureComponent {
 
     if (usedLocale !== getAvailableLocale(nextProps.locale) && nextProps.loaded) {
       this.loadLocale(nextProps.locale);
+    } else if (nextProps.locale !== this.props.locale) {
+      this.loadLocale(nextProps.locale);
     }
   }
 
-  loadLocale(locale) {
-    const availableLocale = getAvailableLocale(locale);
-    const translationsLocale = getTranslationsByLocale(locale);
-
-    const localeDataPromise = import(`react-intl/locale-data/${availableLocale}`);
-    const translationsPromise = import(`./locales/${translationsLocale}.json`);
-
-    Promise.all([localeDataPromise, translationsPromise]).then(([localeData, translations]) => {
-      addLocaleData(localeData);
-      this.setState({
-        translations,
-      });
-    });
+  async loadLocale(locale) {
+    await Wrapper.loadLocaleData(locale);
+    this.props.setUsedLocale(getAvailableLocale(locale));
   }
 
   handleMenuItemClick(key) {
@@ -168,19 +214,19 @@ export default class Wrapper extends React.PureComponent {
 
   render() {
     const { user, usedLocale, locale } = this.props;
-    const { translations } = this.state;
 
     return (
-      <IntlProvider key={usedLocale} locale={usedLocale} messages={translations}>
+      <IntlProvider key={usedLocale} locale={usedLocale} messages={global.translations}>
         <LocaleProvider locale={enUS}>
           <Layout data-dir={getLocaleDirection(getAvailableLocale(locale))}>
-            <Layout.Header style={{ position: 'fixed', width: '100%', zIndex: 1050 }}>
+            <Layout.Header style={{ position: 'fixed', width: '100vw', zIndex: 1050 }}>
               <Topnav username={user.name} onMenuItemClick={this.handleMenuItemClick} />
             </Layout.Header>
             <div className="content">
               {renderRoutes(this.props.route.routes)}
               <Redirect />
               <Transfer />
+              <NotificationPopup />
             </div>
           </Layout>
         </LocaleProvider>

@@ -28,9 +28,9 @@ function mapPropsToFields(props) {
   return Object.keys(profile).reduce(
     (a, b) => ({
       ...a,
-      [b]: {
+      [b]: Form.createFormField({
         value: profile[b],
-      },
+      }),
     }),
     {},
   );
@@ -284,10 +284,11 @@ export default class ProfileSettings extends React.Component {
                       initialValue: '',
                     })(
                       <EditorInput
-                        autosize={{ minRows: 3, maxRows: 6 }}
+                        rows={6}
                         onChange={this.handleSignatureChange}
                         onImageUpload={this.props.onImageUpload}
                         onImageInvalid={this.props.onImageInvalid}
+                        inputId={'profile-inputfile'}
                       />,
                     )}
                     {bodyHTML && (

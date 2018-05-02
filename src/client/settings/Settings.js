@@ -13,6 +13,7 @@ import {
   getShowNSFWPosts,
   getRewriteLinks,
   getUseBeta,
+  getUpvoteSetting,
 } from '../reducers';
 import { saveSettings } from './settingsActions';
 import { reload } from '../auth/authActions';
@@ -23,6 +24,7 @@ import Affix from '../components/Utils/Affix';
 import LeftSidebar from '../app/Sidebar/LeftSidebar';
 import RawSlider from '../components/Slider/RawSlider';
 import requiresLogin from '../auth/requiresLogin';
+import { SUPPORTED_LANGUAGES } from '../../common/constants/settings';
 import './Settings.less';
 
 @requiresLogin
@@ -37,6 +39,7 @@ import './Settings.less';
     rewriteLinks: getRewriteLinks(state),
     useBeta: getUseBeta(state),
     loading: getIsSettingsLoading(state),
+    upvoteSetting: getUpvoteSetting(state),
   }),
   { reload, saveSettings, notify },
 )
@@ -54,6 +57,7 @@ export default class Settings extends React.Component {
     reload: PropTypes.func,
     saveSettings: PropTypes.func,
     notify: PropTypes.func,
+    upvoteSetting: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -65,10 +69,16 @@ export default class Settings extends React.Component {
     showNSFWPosts: false,
     rewriteLinks: false,
     useBeta: false,
+    upvoteSetting: true,
     reload: () => {},
     saveSettings: () => {},
     notify: () => {},
   };
+
+  constructor(props) {
+    super(props);
+    this.handleUpvoteSettingChange = this.handleUpvoteSettingChange.bind(this);
+  }
 
   state = {
     locale: 'auto',
@@ -86,6 +96,7 @@ export default class Settings extends React.Component {
       showNSFWPosts: this.props.showNSFWPosts,
       rewriteLinks: this.props.rewriteLinks,
       useBeta: this.props.useBeta,
+      upvoteSetting: this.props.upvoteSetting,
     });
   }
 
@@ -117,51 +128,11 @@ export default class Settings extends React.Component {
     if (nextProps.useBeta !== this.props.useBeta) {
       this.setState({ useBeta: nextProps.useBeta });
     }
-  }
 
-  languages = {
-    'en-US': 'English',
-    'id-ID': 'Bahasa Indonesia - Indonesian',
-    'ms-MY': 'Bahasa Melayu - Malay',
-    'ca-ES': 'Català - Catalan',
-    'cs-CZ': 'Čeština - Czech',
-    'da-DK': 'Dansk - Danish',
-    'de-DE': 'Deutsch - German',
-    'et-EE': 'Eesti - Estonian',
-    'es-ES': 'Español - Spanish',
-    'fil-PH': 'Filipino',
-    'fr-FR': 'Français - French',
-    'hr-HR': 'Hrvatski - Croatian',
-    'it-IT': 'Italiano - Italian',
-    'hu-HU': 'Magyar - Hungarian',
-    'nl-NL': 'Nederlands - Dutch',
-    'no-NO': 'Norsk - Norwegian',
-    'pl-PL': 'Polski - Polish',
-    'pt-BR': 'Português - Portuguese',
-    'ro-RO': 'Română - Romanian',
-    'sl-SI': 'Slovenščina - Slovenian',
-    'sv-SE': 'Svenska - Swedish',
-    'vi-VN': 'Tiếng Việt - Vietnamese',
-    'tr-TR': 'Türkçe - Turkish',
-    'yo-NG': 'Yorùbá - Yoruba',
-    'el-GR': 'Ελληνικά - Greek',
-    'bg-BG': 'Български език - Bulgarian',
-    'ru-RU': 'Русский - Russian',
-    'uk-UA': 'Українська мова - Ukrainian',
-    'he-IL': 'עִבְרִית - Hebrew',
-    'ar-SA': 'العربية - Arabic‏',
-    'ne-NP': 'नेपाली - Nepali',
-    'hi-IN': 'हिन्दी - Hindi',
-    'as-IN': 'অসমীয়া - Assamese',
-    'bn-IN': 'বাংলা - Bengali',
-    'ta-IN': 'தமிழ் - Tamil',
-    'lo-LA': 'ພາສາລາວ - Lao',
-    'th-TH': 'ภาษาไทย - Thai',
-    'ko-KR': '한국어 - Korean',
-    'ja-JP': '日本語 - Japanese',
-    'zh-CN': '简体中文 - Simplified Chinese',
-    'zh-TW': '繁體中文 - Traditional Chinese',
-  };
+    if (nextProps.upvoteSetting !== this.props.upvoteSetting) {
+      this.setState({ upvoteSetting: nextProps.upvoteSetting });
+    }
+  }
 
   handleSave = () => {
     this.props
@@ -172,6 +143,7 @@ export default class Settings extends React.Component {
         showNSFWPosts: this.state.showNSFWPosts,
         rewriteLinks: this.state.rewriteLinks,
         useBeta: this.state.useBeta,
+        upvoteSetting: this.state.upvoteSetting,
       })
       .then(() =>
         this.props.notify(
@@ -188,6 +160,10 @@ export default class Settings extends React.Component {
   handleRewriteLinksChange = event => this.setState({ rewriteLinks: event.target.checked });
   handleUseBetaChange = event => this.setState({ useBeta: event.target.checked });
 
+  handleUpvoteSettingChange(event) {
+    this.setState({ upvoteSetting: event.target.checked });
+  }
+
   render() {
     const {
       intl,
@@ -197,7 +173,7 @@ export default class Settings extends React.Component {
       showNSFWPosts: initialShowNSFWPosts,
       loading,
     } = this.props;
-    const { votingPower, locale, showNSFWPosts, rewriteLinks, useBeta } = this.state;
+    const { votingPower, locale, showNSFWPosts, rewriteLinks, useBeta, upvoteSetting } = this.state;
 
     const languageOptions = [];
 
@@ -209,10 +185,10 @@ export default class Settings extends React.Component {
       );
     }
 
-    Object.keys(this.languages).forEach(key => {
+    Object.keys(SUPPORTED_LANGUAGES).forEach(key => {
       languageOptions.push(
         <Select.Option key={key} value={key}>
-          {this.languages[key]}
+          {SUPPORTED_LANGUAGES[key].longName}
         </Select.Option>,
       );
     });
@@ -352,6 +328,26 @@ export default class Settings extends React.Component {
                   <div className="Settings__section__checkbox">
                     <Checkbox name="use_beta" checked={useBeta} onChange={this.handleUseBetaChange}>
                       <FormattedMessage id="use_beta" defaultMessage="Use Busy beta" />
+                    </Checkbox>
+                  </div>
+                </div>
+                <div className="Settings__section">
+                  <h3>
+                    <FormattedMessage id="upvote_setting" defaultMessage="Like my posts" />
+                  </h3>
+                  <p>
+                    <FormattedMessage
+                      id="upvote_setting_details"
+                      defaultMessage="Enable this option to automatically like your own posts."
+                    />
+                  </p>
+                  <div className="Settings__section__checkbox">
+                    <Checkbox
+                      name="upvote_setting"
+                      checked={upvoteSetting}
+                      onChange={this.handleUpvoteSettingChange}
+                    >
+                      <FormattedMessage id="upvote_setting" defaultMessage="Like my posts" />
                     </Checkbox>
                   </div>
                 </div>

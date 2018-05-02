@@ -9,17 +9,24 @@ import {
   FormattedTime,
 } from 'react-intl';
 import { Link, withRouter } from 'react-router-dom';
-import { Tag, Tooltip } from 'antd';
+import { Tag } from 'antd';
 import formatter from '../../helpers/steemitFormatter';
 import { getHasDefaultSlider } from '../../helpers/user';
-import { isPostDeleted, isPostTaggedNSFW, dropCategory } from '../../helpers/postHelpers';
+import {
+  isPostDeleted,
+  isPostTaggedNSFW,
+  dropCategory,
+  isBannedPost,
+} from '../../helpers/postHelpers';
 import withAuthActions from '../../auth/withAuthActions';
+import BTooltip from '../BTooltip';
 import StoryPreview from './StoryPreview';
 import StoryFooter from '../StoryFooter/StoryFooter';
 import Avatar from '../Avatar';
 import Topic from '../Button/Topic';
 import NSFWStoryPreviewMessage from './NSFWStoryPreviewMessage';
 import HiddenStoryPreviewMessage from './HiddenStoryPreviewMessage';
+import DMCARemovedMessage from './DMCARemovedMessage';
 import PostedFrom from './PostedFrom';
 import './Story.less';
 
@@ -219,6 +226,33 @@ class Story extends React.Component {
     }
   }
 
+  renderStoryPreview() {
+    const { post } = this.props;
+    const showStoryPreview = this.getDisplayStoryPreview();
+    const hiddenStoryPreviewMessage = isPostTaggedNSFW(post) ? (
+      <NSFWStoryPreviewMessage onClick={this.handleShowStoryPreview} />
+    ) : (
+      <HiddenStoryPreviewMessage onClick={this.handleShowStoryPreview} />
+    );
+
+    if (isBannedPost(post)) {
+      return <DMCARemovedMessage />;
+    }
+
+    return showStoryPreview ? (
+      <a
+        href={dropCategory(post.url)}
+        target="_blank"
+        onClick={this.handlePreviewClickPostModalDisplay}
+        className="Story__content__preview"
+      >
+        <StoryPreview post={post} />
+      </a>
+    ) : (
+      hiddenStoryPreviewMessage
+    );
+  }
+
   render() {
     const {
       intl,
@@ -235,15 +269,10 @@ class Story extends React.Component {
       sliderMode,
       defaultVotePercent,
     } = this.props;
+
     if (isPostDeleted(post)) return <div />;
 
     const postAuthorReputation = formatter.reputation(post.author_reputation);
-    const showStoryPreview = this.getDisplayStoryPreview();
-    const hiddenStoryPreviewMessage = isPostTaggedNSFW(post) ? (
-      <NSFWStoryPreviewMessage onClick={this.handleShowStoryPreview} />
-    ) : (
-      <HiddenStoryPreviewMessage onClick={this.handleShowStoryPreview} />
-    );
 
     let rebloggedUI = null;
 
@@ -286,9 +315,9 @@ class Story extends React.Component {
                 <Link to={`/@${post.author}`}>
                   <h4>
                     <span className="username">{post.author}</span>
-                    <Tooltip title={intl.formatMessage({ id: 'reputation_score' })}>
+                    <BTooltip title={intl.formatMessage({ id: 'reputation_score' })}>
                       <Tag>{postAuthorReputation}</Tag>
-                    </Tooltip>
+                    </BTooltip>
                   </h4>
                 </Link>
                 <span className="Story__topics">
@@ -296,7 +325,7 @@ class Story extends React.Component {
                 </span>
               </span>
               <span>
-                <Tooltip
+                <BTooltip
                   title={
                     <span>
                       <FormattedDate value={`${post.created}Z`} />{' '}
@@ -307,7 +336,7 @@ class Story extends React.Component {
                   <span className="Story__date">
                     <FormattedRelative value={`${post.created}Z`} />
                   </span>
-                </Tooltip>
+                </BTooltip>
                 <PostedFrom post={post} />
               </span>
             </div>
@@ -324,18 +353,7 @@ class Story extends React.Component {
                 {post.title || post.root_title}
               </h2>
             </a>
-            {showStoryPreview ? (
-              <a
-                href={dropCategory(post.url)}
-                target="_blank"
-                onClick={this.handlePreviewClickPostModalDisplay}
-                className="Story__content__preview"
-              >
-                <StoryPreview post={post} />
-              </a>
-            ) : (
-              hiddenStoryPreviewMessage
-            )}
+            {this.renderStoryPreview()}
           </div>
           <div className="Story__footer">
             <StoryFooter

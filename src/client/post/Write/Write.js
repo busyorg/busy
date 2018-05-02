@@ -3,17 +3,15 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { replace } from 'react-router-redux';
-import kebabCase from 'lodash/kebabCase';
-import debounce from 'lodash/debounce';
-import isArray from 'lodash/isArray';
+import _ from 'lodash';
 import 'url-search-params-polyfill';
 import { injectIntl } from 'react-intl';
 import uuidv4 from 'uuid/v4';
 import { getHtml } from '../../components/Story/Body';
 import improve from '../../helpers/improve';
-import { extractImages, extractLinks } from '../../helpers/parser';
+import { extractImageTags, extractLinks } from '../../helpers/parser';
 import { rewardsValues } from '../../../common/constants/rewards';
-import GetBoost from '../../components/Sidebar/GetBoost';
+import LastDraftsContainer from './LastDraftsContainer';
 import DeleteDraftModal from './DeleteDraftModal';
 
 import {
@@ -55,6 +53,7 @@ class Write extends React.Component {
     user: PropTypes.shape().isRequired,
     draftPosts: PropTypes.shape().isRequired,
     loading: PropTypes.bool.isRequired,
+    intl: PropTypes.shape().isRequired,
     saving: PropTypes.bool,
     draftId: PropTypes.string,
     upvoteSetting: PropTypes.bool,
@@ -95,9 +94,10 @@ class Write extends React.Component {
     this.props.newPost();
     const { draftPosts, draftId } = this.props;
     const draftPost = draftPosts[draftId];
+
     if (draftPost) {
       let tags = [];
-      if (isArray(draftPost.jsonMetadata.tags)) {
+      if (_.isArray(draftPost.jsonMetadata.tags)) {
         tags = draftPost.jsonMetadata.tags;
       }
 
@@ -129,18 +129,38 @@ class Write extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.draftId !== nextProps.draftId && nextProps.draftId === null) {
+    const newDraft = nextProps.draftId === null;
+    const differentDraft = this.props.draftId !== nextProps.draftId;
+    if (differentDraft && newDraft) {
       this.draftId = uuidv4();
       this.setState({
         initialTitle: '',
         initialTopics: [],
         initialBody: '',
         initialReward: rewardsValues.half,
-        initialUpvote: true,
+        initialUpvote: nextProps.upvoteSetting,
         initialUpdatedDate: Date.now(),
         isUpdating: false,
         showModalDelete: false,
       });
+    } else if (differentDraft) {
+      const { draftPosts, draftId } = nextProps;
+      const draftPost = _.get(draftPosts, draftId, {});
+      const initialTitle = _.get(draftPost, 'title', '');
+      const initialBody = _.get(draftPost, 'body', '');
+      const initialTopics = _.get(draftPost, 'jsonMetadata.tags', []);
+      this.draftId = draftId;
+      this.setState({
+        initialTitle,
+        initialBody,
+        initialTopics,
+      });
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (_.get(this.props, 'location.search') !== _.get(prevProps, 'location.search')) {
+      this.saveDraft.cancel();
     }
   }
 
@@ -185,11 +205,11 @@ class Write extends React.Component {
 
     const parsedBody = getHtml(postBody, {}, 'text');
 
-    const images = extractImages(parsedBody);
+    const images = _.map(extractImageTags, tag => tag.src);
     const links = extractLinks(parsedBody);
 
     if (data.title && !this.permlink) {
-      data.permlink = kebabCase(data.title);
+      data.permlink = _.kebabCase(data.title);
     } else {
       data.permlink = this.permlink;
     }
@@ -206,8 +226,8 @@ class Write extends React.Component {
     // Busy (like video data from DTube)
     if (this.props.draftPosts[this.draftId] && this.props.draftPosts[this.draftId].jsonMetadata) {
       metaData = {
-        ...metaData,
         ...this.props.draftPosts[this.draftId].jsonMetadata,
+        ...metaData,
       };
     }
 
@@ -236,7 +256,7 @@ class Write extends React.Component {
 
   handleCancelDeleteDraft = () => this.setState({ showModalDelete: false });
 
-  saveDraft = debounce(form => {
+  saveDraft = _.debounce(form => {
     if (this.props.saving) return;
 
     const data = this.getNewPostData(form);
@@ -249,7 +269,7 @@ class Write extends React.Component {
 
     const redirect = id !== this.draftId;
 
-    this.props.saveDraft({ postData: data, id: this.draftId }, redirect);
+    this.props.saveDraft({ postData: data, id: this.draftId }, redirect, this.props.intl);
   }, 2000);
 
   render() {
@@ -261,7 +281,7 @@ class Write extends React.Component {
         <div className="post-layout container">
           <Affix className="rightContainer" stickPosition={77}>
             <div className="right">
-              <GetBoost />
+              <LastDraftsContainer />
             </div>
           </Affix>
           <div className="center">

@@ -12,15 +12,9 @@ import './EditorInput.less';
 class EditorInput extends React.Component {
   static propTypes = {
     value: PropTypes.string, // eslint-disable-line react/require-default-props
+    inputId: PropTypes.string,
     addon: PropTypes.node,
     inputRef: PropTypes.func,
-    autosize: PropTypes.oneOfType([
-      PropTypes.bool,
-      PropTypes.shape({
-        minRows: PropTypes.number,
-        maxRows: PropTypes.number,
-      }),
-    ]),
     onChange: PropTypes.func,
     onImageUpload: PropTypes.func,
     onImageInvalid: PropTypes.func,
@@ -28,7 +22,7 @@ class EditorInput extends React.Component {
 
   static defaultProps = {
     addon: null,
-    autosize: false,
+    inputId: '',
     inputRef: () => {},
     onChange: () => {},
     onImageUpload: () => {},
@@ -75,10 +69,10 @@ class EditorInput extends React.Component {
   }
 
   setInput(input) {
-    if (input && input.refs && input.refs.input) {
-      this.originalInput = input.refs.input;
+    if (input) {
+      this.originalInput = input;
       // eslint-disable-next-line react/no-find-dom-node
-      this.input = ReactDOM.findDOMNode(input.refs.input);
+      this.input = ReactDOM.findDOMNode(input);
       this.props.inputRef(this.input);
     }
   }
@@ -236,6 +230,7 @@ class EditorInput extends React.Component {
       this.setState({
         imageUploading: true,
       });
+
       this.props.onImageUpload(e.target.files[0], this.disableAndInsertImage, () =>
         this.setState({
           imageUploading: false,
@@ -293,7 +288,7 @@ class EditorInput extends React.Component {
   }
 
   render() {
-    const { addon, autosize, value } = this.props;
+    const { addon, value, ...restProps } = this.props;
     const { dropzoneActive } = this.state;
 
     return (
@@ -319,19 +314,23 @@ class EditorInput extends React.Component {
               </div>
             )}
             <HotKeys keyMap={this.constructor.hotkeys} handlers={this.handlers}>
-              <Input
-                autosize={autosize}
+              <Input.TextArea
+                {...restProps}
                 onChange={this.handleChange}
                 value={value}
                 ref={this.setInput}
-                type="textarea"
               />
             </HotKeys>
           </Dropzone>
         </div>
         <p className="EditorInput__imagebox">
-          <input type="file" id="inputfile" accept="image/*" onChange={this.handleImageChange} />
-          <label htmlFor="inputfile">
+          <input
+            type="file"
+            id={this.props.inputId || 'inputfile'}
+            accept="image/*"
+            onChange={this.handleImageChange}
+          />
+          <label htmlFor={this.props.inputId || 'inputfile'}>
             {this.state.imageUploading ? (
               <Icon type="loading" />
             ) : (

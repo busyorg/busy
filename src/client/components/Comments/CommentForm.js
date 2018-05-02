@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 import { FormattedMessage } from 'react-intl';
 import { Icon } from 'antd';
 import Scroll from 'react-scroll';
@@ -90,8 +91,10 @@ class CommentForm extends React.Component {
     e.stopPropagation();
     this.setState({ isDisabledSubmit: true });
     if (this.state.body) {
-      this.props.onSubmit(this.props.parentPost, this.state.body).then(() => {
-        this.setBodyAndRender('');
+      this.props.onSubmit(this.props.parentPost, this.state.body).then(response => {
+        if (!_.get(response, 'error', false)) {
+          this.setBodyAndRender('');
+        }
       });
     }
   }
@@ -108,12 +111,13 @@ class CommentForm extends React.Component {
         <div className="CommentForm__text">
           <Element name="commentFormInputScrollerElement">
             <EditorInput
+              rows={3}
               inputRef={this.setInput}
-              autosize={{ minRows: 3, maxRows: 6 }}
               value={body}
               onChange={this.handleBodyUpdate}
               onImageUpload={this.props.onImageUpload}
               onImageInvalid={this.props.onImageInvalid}
+              inputId={`${this.props.parentPost.id}-comment-inputfile`}
             />
           </Element>
           <button
