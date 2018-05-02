@@ -66,7 +66,7 @@
     "css-loader": "^0.28.7",
     "debug": "~2.2.0",
     "diff-match-patch": "^1.0.0",
-    "embedjs": "^0.0.10",
+    "embedjs": "^0.0.11",
     "express": "^4.15.4",
     "extract-text-webpack-plugin": "^3.0.1",
     "file-loader": "^1.1.5",
