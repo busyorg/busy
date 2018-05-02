@@ -4,6 +4,7 @@ import Helmet from 'react-helmet';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 import { injectIntl, FormattedMessage } from 'react-intl';
+import { Link } from 'react-router-dom';
 import _ from 'lodash';
 import readingTime from 'reading-time';
 import { Checkbox, Form, Input, Select, Button } from 'antd';
@@ -127,7 +128,6 @@ class Editor extends React.Component {
       reward,
       upvote: post.upvote,
     });
-
     this.setBodyAndRender(post.body);
   }
 
@@ -178,6 +178,8 @@ class Editor extends React.Component {
     this.props.onUpdate(values);
   }
 
+  handleNavigateToFullScreenEditor() {}
+
   handleSubmit(e) {
     e.preventDefault();
 
@@ -202,6 +204,9 @@ class Editor extends React.Component {
 
     return (
       <Form className="Editor" layout="vertical" onSubmit={this.handleSubmit}>
+        <Link to="/full-editor">
+          <i className="iconfont icon-fullscreen" />
+        </Link>
         <Helmet>
           <title>
             {intl.formatMessage({ id: 'write_post', defaultMessage: 'Write post' })} - Busy

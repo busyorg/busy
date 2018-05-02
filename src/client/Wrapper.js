@@ -213,15 +213,18 @@ export default class Wrapper extends React.PureComponent {
   }
 
   render() {
-    const { user, usedLocale, locale } = this.props;
+    const { user, usedLocale, locale, location } = this.props;
+    const renderTopnav = location.pathname !== '/full-editor';
 
     return (
       <IntlProvider key={usedLocale} locale={usedLocale} messages={global.translations}>
         <LocaleProvider locale={enUS}>
           <Layout data-dir={getLocaleDirection(getAvailableLocale(locale))}>
-            <Layout.Header style={{ position: 'fixed', width: '100vw', zIndex: 1050 }}>
-              <Topnav username={user.name} onMenuItemClick={this.handleMenuItemClick} />
-            </Layout.Header>
+            {renderTopnav && (
+              <Layout.Header style={{ position: 'fixed', width: '100vw', zIndex: 1050 }}>
+                <Topnav username={user.name} onMenuItemClick={this.handleMenuItemClick} />
+              </Layout.Header>
+            )}
             <div className="content">
               {renderRoutes(this.props.route.routes)}
               <Redirect />
