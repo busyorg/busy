@@ -20,7 +20,6 @@ import Body from '../Story/Body';
 import CommentFooter from '../CommentFooter/CommentFooter';
 import HiddenCommentMessage from './HiddenCommentMessage';
 import './Comment.less';
-import MoreCommentsLink from './MoreCommentsLink';
 
 @injectIntl
 class Comment extends React.Component {
@@ -47,7 +46,6 @@ class Comment extends React.Component {
     onLikeClick: PropTypes.func,
     onDislikeClick: PropTypes.func,
     onSendComment: PropTypes.func,
-    renderAllChildren: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -58,14 +56,11 @@ class Comment extends React.Component {
     commentsChildren: undefined,
     pendingVotes: [],
     depth: 0,
-    renderAllChildren: false,
     notify: () => {},
     onLikeClick: () => {},
     onDislikeClick: () => {},
     onSendComment: () => {},
   };
-
-  static SHOW_COMMENTS_INCREMENT = 20;
 
   constructor(props) {
     super(props);
@@ -76,11 +71,9 @@ class Comment extends React.Component {
       showCommentFormLoading: false,
       commentFormText: '',
       showHiddenComment: false,
-      nRenderedComments: props.renderAllChildren ? Infinity : Math.floor(3 / (props.depth + 1)),
     };
 
     this.handleSubmitComment = this.handleSubmitComment.bind(this);
-    this.handleShowMoreComments = this.handleShowMoreComments.bind(this);
   }
 
   componentDidMount() {
@@ -209,12 +202,6 @@ class Comment extends React.Component {
     });
   };
 
-  handleShowMoreComments() {
-    this.setState(prevState => ({
-      nRenderedComments: prevState.nRenderedComments + Comment.SHOW_COMMENTS_INCREMENT,
-    }));
-  }
-
   render() {
     const {
       user,
@@ -231,7 +218,7 @@ class Comment extends React.Component {
       defaultVotePercent,
       rewriteLinks,
     } = this.props;
-    const { showHiddenComment, nRenderedComments } = this.state;
+    const { showHiddenComment } = this.state;
     const anchorId = `@${comment.author}/${comment.permlink}`;
     const anchorLink = `${comment.url.slice(0, comment.url.indexOf('#'))}#${anchorId}`;
 
@@ -361,39 +348,27 @@ class Comment extends React.Component {
             {!this.state.collapsed &&
               commentsChildren &&
               commentsChildren[comment.id] &&
-              sortComments(commentsChildren[comment.id], sort)
-                .slice(0, nRenderedComments)
-                .map(child => (
-                  <Comment
-                    key={child.id}
-                    user={user}
-                    depth={depth + 1}
-                    intl={this.props.intl}
-                    comment={child}
-                    parent={comment}
-                    pendingVotes={pendingVotes}
-                    rootPostAuthor={rootPostAuthor}
-                    commentsChildren={commentsChildren}
-                    notify={this.props.notify}
-                    rewardFund={rewardFund}
-                    sliderMode={sliderMode}
-                    defaultVotePercent={defaultVotePercent}
-                    rewriteLinks={rewriteLinks}
-                    onLikeClick={this.props.onLikeClick}
-                    onDislikeClick={this.props.onDislikeClick}
-                    onSendComment={this.props.onSendComment}
-                    renderAllChildren={this.props.renderAllChildren}
-                  />
-                ))}
-            {!this.state.collapsed &&
-              commentsChildren &&
-              commentsChildren[comment.id] && (
-                <MoreCommentsLink
-                  comments={commentsChildren[comment.id].length}
-                  visibleComments={nRenderedComments}
-                  onClick={this.handleShowMoreComments}
+              sortComments(commentsChildren[comment.id], sort).map(child => (
+                <Comment
+                  key={child.id}
+                  user={user}
+                  depth={depth + 1}
+                  intl={this.props.intl}
+                  comment={child}
+                  parent={comment}
+                  pendingVotes={pendingVotes}
+                  rootPostAuthor={rootPostAuthor}
+                  commentsChildren={commentsChildren}
+                  notify={this.props.notify}
+                  rewardFund={rewardFund}
+                  sliderMode={sliderMode}
+                  defaultVotePercent={defaultVotePercent}
+                  rewriteLinks={rewriteLinks}
+                  onLikeClick={this.props.onLikeClick}
+                  onDislikeClick={this.props.onDislikeClick}
+                  onSendComment={this.props.onSendComment}
                 />
-              )}
+              ))}
           </div>
         </div>
       </div>

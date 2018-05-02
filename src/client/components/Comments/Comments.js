@@ -267,7 +267,6 @@ class Comments extends React.Component {
               onLikeClick={onLikeClick}
               onDislikeClick={onDislikeClick}
               onSendComment={this.props.onSendComment}
-              renderAllChildren={rootLinkedComment && comment.id === rootLinkedComment.id}
             />
           ))}
         <MoreCommentsLink

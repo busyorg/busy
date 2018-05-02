@@ -27,9 +27,6 @@ class ReactionsModal extends React.Component {
   };
 
   render() {
-    if (!this.props.visible) {
-      return null;
-    }
     const { upVotes, downVotes, ratio } = this.props;
 
     const tabs = [];
