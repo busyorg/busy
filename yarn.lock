@@ -2705,9 +2705,9 @@ elliptic@^6.0.0:
     minimalistic-assert "^1.0.0"
     minimalistic-crypto-utils "^1.0.0"
 
-embedjs@^0.0.10:
-  version "0.0.10"
-  resolved "https://registry.yarnpkg.com/embedjs/-/embedjs-0.0.10.tgz#f595041ed4d627c189860aa33c1ce1f0f36333f6"
+embedjs@^0.0.11:
+  version "0.0.11"
+  resolved "https://registry.yarnpkg.com/embedjs/-/embedjs-0.0.11.tgz#112794ca9b96cc4bd84846de34d4a6cb8a9915e0"
   dependencies:
     get-urls "^5.0.1"
 

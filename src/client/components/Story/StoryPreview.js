@@ -31,7 +31,7 @@ const StoryPreview = ({ post }) => {
     }
   }
 
-  const embeds = embedjs.getAll(post.body);
+  const embeds = embedjs.getAll(post.body, { height: '100%' });
   const video = jsonMetadata.video;
   let hasVideo = false;
   if (_.has(video, 'content.videohash') && _.has(video, 'info.snaphash')) {
