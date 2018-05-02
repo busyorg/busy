@@ -9,7 +9,7 @@ import SortSelector from '../SortSelector/SortSelector';
 import CommentForm from './CommentForm';
 import Comment from './Comment';
 import './Comments.less';
-import MoreCommentsLink from './MoreCommentsLink';
+import MoreCommentsButton from './MoreCommentsButton';
 import { findRootComment, getLinkedComment } from '../../helpers/commentHelpers';
 
 @injectIntl
@@ -272,7 +272,7 @@ class Comments extends React.Component {
               onSendComment={this.props.onSendComment}
             />
           ))}
-        <MoreCommentsLink
+        <MoreCommentsButton
           comments={rootLevelComments.length}
           visibleComments={commentsToRender.length}
           onClick={this.handleShowMoreComments}
