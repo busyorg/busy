@@ -337,8 +337,9 @@
   "upvote_setting": "Like my posts",
   "dmca_content_removed": "Content removed due to DMCA notice",
   "drafts_memory_usage_error": "Oops! You hit the storage limit of 16mb, delete some drafts to go forward",
+  "beneficiaries": "Beneficiaries",
+  "all": "All",
   "hero_banner_title_1": "Write and publish a post on Steem",
   "hero_banner_title_2": "The community upvotes your post",
-  "hero_banner_title_3": "Earn rewards in Steem",
-  "beneficiaries": "Beneficiaries"
+  "hero_banner_title_3": "Earn rewards in Steem"
 }
