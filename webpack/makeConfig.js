@@ -1,7 +1,7 @@
 /* eslint-disable global-require */
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
-const Visualizer = require('webpack-visualizer-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const _ = require('lodash');
 const path = require('path');
 const webpack = require('webpack');
@@ -66,8 +66,10 @@ function makePlugins(options) {
       shorthands: true,
       flattening: true,
     }),
-    new Visualizer({
-      filename: './statistics.html',
+    new BundleAnalyzerPlugin({
+      analyzerMode: 'static',
+      reportFilename: './statistics.html',
+      openAnalyzer: false,
     }),
     new SWPrecacheWebpackPlugin({
       filepath: path.resolve(DEFAULTS.baseDir, 'public/service-worker.js'),

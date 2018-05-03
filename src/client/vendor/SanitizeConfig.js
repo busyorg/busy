@@ -42,6 +42,10 @@ const iframeWhitelist = [
     re: /^(https?:)?\/\/(?:www\.)?(?:(player.)?twitch.tv\/)(.*)?$/i,
     fn: src => src, // handled by embedjs
   },
+  {
+    re: /^(https?:)?\/\/(?:www\.)?(?:bitchute\.com\/)(.*)?$/i,
+    fn: src => src, // handled by embedjs
+  },
 ];
 export const noImageText = '(Image not shown due to low ratings)';
 export const allowedTags = `
