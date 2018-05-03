@@ -138,6 +138,9 @@ function makeStyleLoaders(options) {
           POSTCSS_LOADER,
           {
             loader: 'less-loader',
+            options: {
+              javascriptEnabled: true,
+            },
           },
         ],
       },
@@ -159,6 +162,9 @@ function makeStyleLoaders(options) {
           POSTCSS_LOADER,
           {
             loader: 'less-loader',
+            options: {
+              javascriptEnabled: true,
+            },
           },
         ],
       }),
