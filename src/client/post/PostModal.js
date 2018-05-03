@@ -3,13 +3,14 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
-import { Modal, BackTop } from 'antd';
+import { Modal } from 'antd';
 import { FormattedMessage } from 'react-intl';
 import VisibilitySensor from 'react-visibility-sensor';
 import { dropCategory, isBannedPost } from '../helpers/postHelpers';
 import PostContent from './PostContent';
 import Comments from '../comments/Comments';
 import { getFacebookShareURL, getTwitterShareURL } from '../helpers/socialProfiles';
+import BBackTop from '../components/BBackTop';
 import './PostModal.less';
 
 class PostModal extends React.Component {
@@ -104,7 +105,7 @@ class PostModal extends React.Component {
         wrapClassName={classNames('PostModal', { PostModal__hidden: !showPostModal })}
         destroyOnClose
       >
-        <BackTop target={PostModal.findScrollElement} />
+        <BBackTop isModal target={PostModal.findScrollElement} />
         <div className="PostModal__back">
           <a
             className="PostModal__back__link"

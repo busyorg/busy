@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { IntlProvider, addLocaleData } from 'react-intl';
 import { withRouter } from 'react-router-dom';
 import { renderRoutes } from 'react-router-config';
-import { LocaleProvider, Layout, BackTop } from 'antd';
+import { LocaleProvider, Layout } from 'antd';
 import enUS from 'antd/lib/locale-provider/en_US';
 import { getAvailableLocale, getTranslationsByLocale, getLocaleDirection } from './translations';
 import {
@@ -32,6 +32,7 @@ import Redirect from './components/Utils/Redirect';
 import NotificationPopup from './notifications/NotificationPopup';
 import Topnav from './components/Navigation/Topnav';
 import Transfer from './wallet/Transfer';
+import BBackTop from './components/BBackTop';
 
 @withRouter
 @connect(
@@ -227,7 +228,7 @@ export default class Wrapper extends React.PureComponent {
               <Redirect />
               <Transfer />
               <NotificationPopup />
-              <BackTop />
+              <BBackTop />
             </div>
           </Layout>
         </LocaleProvider>
