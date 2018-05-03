@@ -17,7 +17,6 @@ import walletReducer, * as fromWallet from './wallet/walletReducer';
 import reblogReducers, * as fromReblog from './app/Reblog/reblogReducers';
 import settingsReducer, * as fromSettings from './settings/settingsReducer';
 import searchReducer, * as fromSearch from './search/searchReducer';
-import { responsiveReducer } from './vendor/responsive';
 
 const reducers = combineReducers({
   app: appReducer,
@@ -28,7 +27,6 @@ const reducers = combineReducers({
   feed: feedReducer,
   user: userReducer,
   users: usersReducer,
-  responsive: responsiveReducer,
   notifications: notificationReducer,
   bookmarks: bookmarksReducer,
   favorites: favoritesReducer,
