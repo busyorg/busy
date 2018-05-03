@@ -27,7 +27,17 @@ function makeStyleLoaders() {
     return [
       {
         test: MATCH_CSS_LESS,
-        use: ['style-loader', 'css-loader', POSTCSS_LOADER, 'less-loader'],
+        use: [
+          'style-loader',
+          'css-loader',
+          POSTCSS_LOADER,
+          {
+            loader: 'less-loader',
+            options: {
+              javascriptEnabled: true,
+            },
+          },
+        ],
       },
     ];
   }
@@ -37,7 +47,16 @@ function makeStyleLoaders() {
       test: MATCH_CSS_LESS,
       loader: ExtractTextPlugin.extract({
         fallback: 'style-loader',
-        use: ['css-loader', POSTCSS_LOADER, 'less-loader'],
+        use: [
+          'css-loader',
+          POSTCSS_LOADER,
+          {
+            loader: 'less-loader',
+            options: {
+              javascriptEnabled: true,
+            },
+          },
+        ],
       }),
     },
   ];

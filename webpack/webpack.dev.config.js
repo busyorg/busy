@@ -30,7 +30,17 @@ module.exports = {
       },
       {
         test: MATCH_CSS_LESS,
-        use: ['style-loader', 'css-loader', POSTCSS_LOADER, 'less-loader'],
+        use: [
+          'style-loader',
+          'css-loader',
+          POSTCSS_LOADER,
+          {
+            loader: 'less-loader',
+            options: {
+              javascriptEnabled: true,
+            },
+          },
+        ],
       },
     ],
   },
