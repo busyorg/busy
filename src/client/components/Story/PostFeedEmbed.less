@@ -12,7 +12,7 @@
     display: flex;
     height: 100%;
     width: 100%;
-    background: fade(@primary-color, 60%);
+    background: fade(@primary-color, 40%);
 
     & .iconfont {
       margin: auto;
@@ -26,5 +26,20 @@
     width: 100%;
     max-height: 400px;
     margin: 0 auto;
+  }
+
+  &__container {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%;
+
+    & > iframe {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      left: 0;
+      top: 0;
+    }
   }
 }

@@ -1,0 +1,45 @@
+@import (reference) '../styles/custom.less';
+@import (reference) '../styles/modules/variables.less';
+
+.TrendingTagsMenu {
+  .ant-popover-title {
+    border-top: @base-border;
+  }
+
+  .ant-popover-inner-content {
+    overflow-y: auto;
+    max-height: 500px;
+  }
+
+  &__container {
+    float: left;
+    color: @blue-botticelli;
+    margin-left: 20px;
+
+    @media @small {
+      display: none;
+    }
+
+    .icon-unfold {
+      cursor: pointer;
+      font-size: 16px !important;
+      margin-left: 4px;
+    }
+  }
+
+  &__select--text {
+    cursor: pointer;
+    margin-left: 8px;
+    font-weight: 500;
+  }
+
+  .Topic {
+    margin: 5px !important;
+  }
+
+  .PopoverMenuItem {
+    &:first-of-type {
+      border-top: 0 !important;
+    }
+  }
+}

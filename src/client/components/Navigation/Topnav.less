@@ -5,16 +5,14 @@
 
 .Topnav {
   background-color: @white;
-  border-bottom: @base-border;
-  box-shadow: 0 0 4px @white-shadow;
   height: 56px;
-  line-height: 56px;
+  line-height: 52px;
+  border-bottom: @base-border;
 
   &__brand {
     font-size: 30px;
     font-weight: bold;
-    letter-spacing: 1px;
-    color: @primary-color;
+    letter-spacing: 0.5px;
 
     &-icon {
       margin-right: 4px;
@@ -31,9 +29,11 @@
   }
 
   &__version {
-    margin-left: 2px;
-    color: #99aab5;
+    color: @tertiary-color;
     font-weight: 500;
+    position: absolute;
+    margin-top: 6px;
+    font-size: 16px;
   }
 
   &__container {
@@ -54,16 +54,16 @@
     }
 
     input {
-      height: 42px !important;
-      margin-top: 7px;
+      height: 38px !important;
+      margin-top: 8px;
       border-radius: @border-radius-base;
-      border-color: @border-color-base;
       padding: 0 0 0 43px !important;
+      border: @border-width-base @border-style-base @border-color-base;
 
       &:hover,
       &:focus {
         box-shadow: none !important;
-        border-color: @border-color-base !important;
+        border: @border-width-base @border-style-base @border-color-base !important;
       }
     }
 
@@ -98,7 +98,7 @@
         align-items: center;
 
         & > a {
-          color: @blue-botticelli !important;
+          color: @tertiary-color !important;
           font-weight: 600 !important;
 
           &.Topnav__link--action {
@@ -106,10 +106,16 @@
           }
 
           &:hover {
-            color: @grey-mortar !important;
+            color: @quaternary-color !important;
           }
         }
       }
+    }
+  }
+  &__menu-logged-out {
+    margin-left: 15px;
+    @media @medium {
+      margin-left: 0;
     }
   }
 
@@ -144,11 +150,16 @@
   &__mobile-search {
     background: transparent;
     border: 0;
-    color: @primary-color;
+    color: @tertiary-color;
     display: block;
     height: 55px;
     outline: none;
-    width: 55px;
+    width: 30px;
+    margin-top: 2px;
+
+    .icon-search {
+      font-size: 28px !important;
+    }
 
     &-close {
       margin-right: -16px;
@@ -156,6 +167,7 @@
 
     &:hover {
       cursor: pointer;
+      color: @quaternary-color;
     }
 
     @media @small {
@@ -219,7 +231,7 @@ div[data-dir='rtl'] .Topnav {
 }
 
 .Topnav__search-dropdown-container.ant-select-dropdown {
-  top: 45px !important;
+  top: 40px !important;
   position: fixed;
   border-radius: 0;
   border-bottom-left-radius: @border-radius-base;
@@ -268,4 +280,9 @@ div[data-dir='rtl'] .Topnav {
 
 .Topnav__notifications-tooltip {
   top: 61px !important;
+}
+
+.Topnav__menu--icon {
+  width: 16px !important;
+  justify-content: flex-end !important;
 }

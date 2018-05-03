@@ -4,7 +4,7 @@ import _ from 'lodash';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Menu, Popover, Tooltip, Input, AutoComplete } from 'antd';
+import { Menu, Input, AutoComplete } from 'antd';
 import classNames from 'classnames';
 import { searchAutoComplete } from '../../search/searchActions';
 import { getUpdatedSCUserMetadata } from '../../auth/authActions';
@@ -16,8 +16,10 @@ import {
 } from '../../reducers';
 import SteemConnect from '../../steemConnectAPI';
 import { PARSED_NOTIFICATIONS } from '../../../common/constants/notifications';
+import BTooltip from '../BTooltip';
 import Avatar from '../Avatar';
 import PopoverMenu, { PopoverMenuItem } from '../PopoverMenu/PopoverMenu';
+import Popover from '../Popover';
 import Notifications from './Notifications/Notifications';
 import LanguageSettings from './LanguageSettings';
 import './Topnav.less';
@@ -119,7 +121,7 @@ class Topnav extends React.Component {
 
     return (
       <div
-        className={classNames('Topnav__menu-container', {
+        className={classNames('Topnav__menu-container Topnav__menu-logged-out', {
           'Topnav__mobile-hidden': searchBarActive,
         })}
       >
@@ -169,7 +171,7 @@ class Topnav extends React.Component {
       >
         <Menu selectedKeys={[]} className="Topnav__menu-container__menu" mode="horizontal">
           <Menu.Item key="write">
-            <Tooltip
+            <BTooltip
               placement="bottom"
               title={intl.formatMessage({ id: 'write_post', defaultMessage: 'Write post' })}
               mouseEnterDelay={1}
@@ -177,10 +179,10 @@ class Topnav extends React.Component {
               <Link to="/editor" className="Topnav__link Topnav__link--action">
                 <i className="iconfont icon-write" />
               </Link>
-            </Tooltip>
+            </BTooltip>
           </Menu.Item>
           <Menu.Item key="notifications" className="Topnav__item--badge">
-            <Tooltip
+            <BTooltip
               placement="bottom"
               title={intl.formatMessage({ id: 'notifications', defaultMessage: 'Notifications' })}
               overlayClassName="Topnav__notifications-tooltip"
@@ -212,14 +214,14 @@ class Topnav extends React.Component {
                   )}
                 </a>
               </Popover>
-            </Tooltip>
+            </BTooltip>
           </Menu.Item>
           <Menu.Item key="user" className="Topnav__item-user">
             <Link className="Topnav__user" to={`/@${username}`} onClick={Topnav.handleScrollToTop}>
               <Avatar username={username} size={36} />
             </Link>
           </Menu.Item>
-          <Menu.Item key="more">
+          <Menu.Item key="more" className="Topnav__menu--icon">
             <Popover
               placement="bottom"
               trigger="click"
