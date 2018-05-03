@@ -11,9 +11,10 @@
   .BBackTop__container {
     position: relative;
     margin: 0 auto;
-    max-width: 1010px;
-    @media only screen and (max-width: 1200px) {
-      padding: 0 20px;
+    padding: 0 20px;
+    max-width: @container-width;
+    @media @large {
+      padding: 0;
     }
 
     &--shifted {
