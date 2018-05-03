@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { take, find } from 'lodash';
 import { injectIntl, FormattedNumber, FormattedMessage } from 'react-intl';
-import { Icon, Tooltip } from 'antd';
+import { Icon } from 'antd';
 import { getUpvotes, getDownvotes } from '../../helpers/voteHelpers';
 import { sortVotes } from '../../helpers/sortHelpers';
 import { calculatePayout } from '../../vendor/steemitHelpers';
+import BTooltip from '../BTooltip';
 import ReactionsModal from '../Reactions/ReactionsModal';
 import withAuthActions from '../../auth/withAuthActions';
 import USDDisplay from '../Utils/USDDisplay';
@@ -161,9 +162,11 @@ class Buttons extends React.Component {
       );
     }
 
+    const payoutValue = payout.cashoutInTime ? payout.potentialPayout : payout.pastPayouts;
+
     return (
       <div>
-        <Tooltip title={likeTooltip}>
+        <BTooltip title={likeTooltip}>
           <a
             role="presentation"
             className={classNames('CommentFooter__link', {
@@ -173,30 +176,29 @@ class Buttons extends React.Component {
           >
             {pendingLike ? <Icon type="loading" /> : <i className="iconfont icon-praise_fill" />}
           </a>
-        </Tooltip>
+        </BTooltip>
         <span
           className={classNames('CommentFooter__count', {
-            'CommentFooter__count--clickable': upVotes.length > 0 || downVotes.length > 0,
+            'CommentFooter__count--clickable': downVotes.length > 0,
           })}
           role="presentation"
           onClick={this.handleShowReactions}
         >
-          <Tooltip
-            title={
-              <div>
-                {upVotesPreview}
-                {upVotesMore}
-                {upVotesPreview.length === 0 && (
-                  <FormattedMessage id="no_likes" defaultMessage="No likes yet" />
-                )}
-              </div>
-            }
-          >
-            <FormattedNumber value={upVotes.length} />
-            <span />
-          </Tooltip>
+          {upVotes.length > 0 && (
+            <BTooltip
+              title={
+                <div>
+                  {upVotesPreview}
+                  {upVotesMore}
+                </div>
+              }
+            >
+              <FormattedNumber value={upVotes.length} />
+              <span />
+            </BTooltip>
+          )}
         </span>
-        <Tooltip title={intl.formatMessage({ id: 'dislike', defaultMessage: 'Dislike' })}>
+        <BTooltip title={intl.formatMessage({ id: 'dislike', defaultMessage: 'Dislike' })}>
           <a
             role="presentation"
             className={classNames('CommentFooter__link', {
@@ -210,38 +212,39 @@ class Buttons extends React.Component {
               <i className="iconfont icon-praise_fill Comment__icon_dislike" />
             )}
           </a>
-        </Tooltip>
-        <span
-          className={classNames('CommentFooter__count', {
-            'CommentFooter__count--clickable': upVotes.length > 0 || downVotes.length > 0,
-          })}
-          role="presentation"
-          onClick={this.handleShowReactions}
-        >
-          <Tooltip
-            title={
-              <div>
-                {downVotesPreview}
-                {downVotesMore}
-                {downVotes.length === 0 && (
-                  <FormattedMessage id="no_dislikes" defaultMessage="No dislikes" />
-                )}
-              </div>
-            }
+        </BTooltip>
+        {downVotes.length > 0 && (
+          <span
+            className={classNames('CommentFooter__count', {
+              'CommentFooter__count--clickable': upVotes.length > 0,
+            })}
+            role="presentation"
+            onClick={this.handleShowReactions}
           >
-            <FormattedNumber value={downVotes.length} />
-            <span />
-          </Tooltip>
-        </span>
-        <span className="CommentFooter__bullet" />
-        <span className="CommentFooter__payout">
-          <Tooltip title={<PayoutDetail post={comment} />}>
-            <USDDisplay
-              value={payout.cashoutInTime ? payout.potentialPayout : payout.pastPayouts}
-            />
-            <span />
-          </Tooltip>
-        </span>
+            <BTooltip
+              title={
+                <div>
+                  {downVotesPreview}
+                  {downVotesMore}
+                </div>
+              }
+            >
+              <FormattedNumber value={downVotes.length} />
+              <span />
+            </BTooltip>
+          </span>
+        )}
+        {payoutValue >= 0.01 && (
+          <React.Fragment>
+            <span className="CommentFooter__bullet" />
+            <span className="CommentFooter__payout">
+              <BTooltip title={<PayoutDetail post={comment} />}>
+                <USDDisplay value={payoutValue} />
+                <span />
+              </BTooltip>
+            </span>
+          </React.Fragment>
+        )}
         {user.name && (
           <span>
             <span className="CommentFooter__bullet" />

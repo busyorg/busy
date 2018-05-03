@@ -59,7 +59,7 @@ export default class User extends React.Component {
     openTransfer: () => {},
   };
 
-  static fetchData(store, match) {
+  static fetchData({ store, match }) {
     return store.dispatch(getAccount(match.params.name));
   }
 

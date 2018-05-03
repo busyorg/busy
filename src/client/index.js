@@ -14,6 +14,10 @@ import AppHost from './AppHost';
 
 Logger.useDefaults();
 
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/service-worker.js');
+}
+
 const accessToken = Cookie.get('access_token');
 if (accessToken) {
   steemConnectAPI.setAccessToken(accessToken);

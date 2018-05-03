@@ -17,13 +17,7 @@ const UserActionContents = ({ actionType, actionDetails }) => {
               <div>{property}</div>
             </td>
             <td className="UserActivityActions__contents__value">
-              {_.isObject(details) ? (
-                <pre>
-                  <code>{JSON.stringify(details, null, 2)}</code>
-                </pre>
-              ) : (
-                <div>{details}</div>
-              )}
+              <pre>{JSON.stringify(details, null, 2)}</pre>
             </td>
           </tr>
         ))}
