@@ -19,27 +19,26 @@ import settingsReducer, * as fromSettings from './settings/settingsReducer';
 import searchReducer, * as fromSearch from './search/searchReducer';
 import { responsiveReducer } from './vendor/responsive';
 
-const reducers = combineReducers({
-  app: appReducer,
-  auth: authReducer,
-  comments: commentsReducer,
-  editor: editorReducer,
-  posts: postsReducer,
-  feed: feedReducer,
-  user: userReducer,
-  users: usersReducer,
-  responsive: responsiveReducer,
-  notifications: notificationReducer,
-  bookmarks: bookmarksReducer,
-  favorites: favoritesReducer,
-  reblog: reblogReducers,
-  router: routerReducer,
-  wallet: walletReducer,
-  settings: settingsReducer,
-  search: searchReducer,
-});
-
-export default reducers;
+export default () =>
+  combineReducers({
+    app: appReducer,
+    auth: authReducer,
+    comments: commentsReducer,
+    editor: editorReducer,
+    posts: postsReducer,
+    feed: feedReducer,
+    user: userReducer,
+    users: usersReducer,
+    responsive: responsiveReducer,
+    notifications: notificationReducer,
+    bookmarks: bookmarksReducer,
+    favorites: favoritesReducer,
+    reblog: reblogReducers,
+    router: routerReducer,
+    wallet: walletReducer,
+    settings: settingsReducer,
+    search: searchReducer,
+  });
 
 export const getIsAuthenticated = state => fromAuth.getIsAuthenticated(state.auth);
 export const getIsAuthFetching = state => fromAuth.getIsAuthFetching(state.auth);
