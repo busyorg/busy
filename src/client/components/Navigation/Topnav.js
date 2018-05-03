@@ -4,7 +4,7 @@ import _ from 'lodash';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Menu, Popover, Input, AutoComplete } from 'antd';
+import { Menu, Input, AutoComplete } from 'antd';
 import classNames from 'classnames';
 import { searchAutoComplete } from '../../search/searchActions';
 import { getUpdatedSCUserMetadata } from '../../auth/authActions';
@@ -19,6 +19,7 @@ import { PARSED_NOTIFICATIONS } from '../../../common/constants/notifications';
 import BTooltip from '../BTooltip';
 import Avatar from '../Avatar';
 import PopoverMenu, { PopoverMenuItem } from '../PopoverMenu/PopoverMenu';
+import Popover from '../Popover';
 import Notifications from './Notifications/Notifications';
 import LanguageSettings from './LanguageSettings';
 import './Topnav.less';
@@ -120,7 +121,7 @@ class Topnav extends React.Component {
 
     return (
       <div
-        className={classNames('Topnav__menu-container', {
+        className={classNames('Topnav__menu-container Topnav__menu-logged-out', {
           'Topnav__mobile-hidden': searchBarActive,
         })}
       >
@@ -220,7 +221,7 @@ class Topnav extends React.Component {
               <Avatar username={username} size={36} />
             </Link>
           </Menu.Item>
-          <Menu.Item key="more">
+          <Menu.Item key="more" className="Topnav__menu--icon">
             <Popover
               placement="bottom"
               trigger="click"

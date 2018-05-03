@@ -4,16 +4,18 @@
 .HeroBanner {
   position: relative;
   height: 240px;
-  background: url('/images/banner.png');
-  background-color: @primary-color;
+  background-image: url('/images/banner.svg');
+  background-color: @white;
   background-repeat: no-repeat;
   background-position: center;
+  background-size: cover;
+  border-bottom: @base-border;
 
   &__close {
     position: absolute;
     top: 8px;
-    right: 16px;
-    color: @white;
+    right: 30px;
+    color: @primary-color;
     z-index: 1;
     cursor: pointer;
 
@@ -30,52 +32,6 @@
     }
   }
 
-  &__primary >  {
-    border-radius: 5px;
-    font-weight: bolder;
-    font-size: 16px;
-    padding: 8px 12px;
-    background-color: @green;
-    transition: background-color 0.5s ease-in-out;
-
-    &:link,
-    &:visited,
-    &:focus,
-    &:active {
-      color: @white;
-      text-decoration: none;
-    }
-
-    &:hover {
-      color: @white;
-      text-decoration: none;
-      background-color: darken(@green, 10%);
-    }
-  }
-
-  &__secondary >  {
-    border-radius: 5px;
-    font-weight: bolder;
-    font-size: 16px;
-    padding: 6px 10px;
-    border: 2px solid @white;
-    transition: all 0.5s ease-in-out;
-
-    &:link,
-    &:visited,
-    &:focus,
-    &:active {
-      color: @white;
-      text-decoration: none;
-    }
-
-    &:hover {
-      color: @blue-linkWater;
-      text-decoration: none;
-      border-color: @blue-linkWater;
-    }
-  }
-
   .container {
     height: 100%;
   }
@@ -83,6 +39,8 @@
   &__container {
     position: relative;
     display: flex;
+    justify-content: center;
+    align-items: center;
     height: 100%;
     margin: 0 auto;
     max-width: @container-width;
@@ -91,33 +49,57 @@
     @media @medium {
       padding: 16px 0;
     }
+  }
 
-    &__content {
-      margin: auto;
-      text-align: center;
+  &__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
-      @media @small {
-        margin: auto 0;
-        text-align: left;
-      }
+    &__description {
+      width: 230px;
+      display: flex;
+      align-items: center;
+    }
 
-      h1 {
-        font-size: 28px;
-        font-weight: bolder;
-        color: @white;
-      }
+    &__title {
+      display: flex;
+      font-size: 20px;
+      font-weight: bold;
+      color: @black;
+      width: 165px;
+      line-height: 22px;
+    }
 
-      &__buttons {
-        margin-top: 24px;
+    &__image {
+      height: 115px;
+      width: 135px;
+      margin-bottom: 15px;
+    }
 
-        &__button {
-          display: inline-block;
+    &__number {
+      margin-right: 20px;
+      font-weight: bold;
+      background-color: @primary-color;
+      color: @white;
+      width: 30px;
+      height: 30px;
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
 
-          &:not(:last-of-type) {
-            margin-right: 12px;
-          }
-        }
-      }
+  &__content-container {
+    display: none;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-around;
+
+    @media @small {
+      display: flex;
     }
   }
 }
@@ -126,24 +108,6 @@ div[data-dir='rtl'] .HeroBanner {
   &__container {
     @media @medium {
       padding: 16px 0;
-    }
-
-    &__content {
-      @media @small {
-        margin: auto 0;
-        text-align: right;
-      }
-
-      &__buttons {
-        &__button {
-          display: inline-block;
-
-          &:not(:last-of-type) {
-            margin-right: 0px;
-            margin-left: 12px;
-          }
-        }
-      }
     }
   }
 }
