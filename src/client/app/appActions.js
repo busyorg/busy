@@ -2,7 +2,6 @@ import fetch from 'isomorphic-fetch';
 import _ from 'lodash';
 import { createAction } from 'redux-actions';
 import { createAsyncActionType } from '../helpers/stateHelpers';
-import { BUSY_API_TYPES } from '../../common/constants/notifications';
 
 export const GET_TRENDING_TOPICS = '@app/GET_TRENDING_TOPICS';
 export const GET_TRENDING_TOPICS_START = '@app/GET_TRENDING_TOPICS_START';
@@ -88,15 +87,6 @@ export const getCryptoPriceHistory = (symbol, refresh = false) => dispatch => {
 
 export const ADD_NEW_NOTIFICATION = '@user/ADD_NEW_NOTIFICATION';
 export const addNewNotification = createAction(ADD_NEW_NOTIFICATION);
-
-export const busyAPIHandler = (response, message) => dispatch => {
-  const type = _.get(message, 'type');
-
-  if (_.isEqual(type, BUSY_API_TYPES.notification)) {
-    const notification = _.get(message, BUSY_API_TYPES.notification);
-    dispatch(addNewNotification(notification));
-  }
-};
 
 export const SHOW_POST_MODAL = '@app/SHOW_POST_MODAL';
 export const HIDE_POST_MODAL = '@app/HIDE_POST_MODAL';
