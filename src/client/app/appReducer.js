@@ -14,7 +14,8 @@ const initialState = {
   rewardFund: {},
   bannerClosed: false,
   appUrl: 'https://busy.org',
-  usedLocale: 'en',
+  usedLocale: null,
+  translations: {},
   cryptosPriceHistory: {},
   showPostModal: false,
   currentShownPost: {},
@@ -86,7 +87,8 @@ export default (state = initialState, action) => {
     case appTypes.SET_USED_LOCALE:
       return {
         ...state,
-        usedLocale: action.payload,
+        usedLocale: action.payload.id,
+        translations: action.payload.translations,
       };
     case appTypes.REFRESH_CRYPTO_PRICE_HISTORY:
       return {
@@ -145,6 +147,7 @@ export const getIsFetching = state => state.isFetching;
 export const getIsBannerClosed = state => state.bannerClosed;
 export const getAppUrl = state => state.appUrl;
 export const getUsedLocale = state => state.usedLocale;
+export const getTranslations = state => state.translations;
 export const getCryptosPriceHistory = state => state.cryptosPriceHistory;
 export const getShowPostModal = state => state.showPostModal;
 export const getCurrentShownPost = state => state.currentShownPost;

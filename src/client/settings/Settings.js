@@ -24,7 +24,8 @@ import Affix from '../components/Utils/Affix';
 import LeftSidebar from '../app/Sidebar/LeftSidebar';
 import RawSlider from '../components/Slider/RawSlider';
 import requiresLogin from '../auth/requiresLogin';
-import { SUPPORTED_LANGUAGES } from '../../common/constants/settings';
+import LANGUAGES from '../translations/languages';
+import { getLanguageText } from '../translations';
 import './Settings.less';
 
 @requiresLogin
@@ -185,10 +186,10 @@ export default class Settings extends React.Component {
       );
     }
 
-    Object.keys(SUPPORTED_LANGUAGES).forEach(key => {
+    LANGUAGES.forEach(lang => {
       languageOptions.push(
-        <Select.Option key={key} value={key}>
-          {SUPPORTED_LANGUAGES[key].longName}
+        <Select.Option key={lang.id} value={lang.id}>
+          {getLanguageText(lang)}
         </Select.Option>,
       );
     });
