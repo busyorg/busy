@@ -5,12 +5,14 @@ process.env.NODE_ENV = 'development';
 const webpack = require('webpack');
 const DevServer = require('webpack-dev-server');
 
-const clientConfig = require('../webpack/client');
-const serverConfig = require('../webpack/server');
+const createClientConfig = require('../webpack/client');
+const createServerConfig = require('../webpack/server');
 
 async function main() {
+  const clientConfig = createClientConfig('dev');
+
   const clientCompiler = webpack(clientConfig);
-  const serverCompiler = webpack(serverConfig);
+  const serverCompiler = webpack(createServerConfig('dev'));
 
   clientCompiler.plugin('done', () => {
     serverCompiler.watch(null, () => {});

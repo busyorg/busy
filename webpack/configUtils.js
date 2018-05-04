@@ -1,7 +1,8 @@
 const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
+const paths = require('../scripts/paths');
 
-const isDevelopment = process.env.NODE_ENV !== 'production';
+const IS_DEV = process.env.NODE_ENV !== 'production';
 
 const MATCH_JS = /\.js$/i;
 const MATCH_CSS_LESS = /\.(css|less)$/i;
@@ -20,9 +21,7 @@ const POSTCSS_LOADER = {
 };
 
 const DEFINE_PLUGIN = new webpack.DefinePlugin({
-  'process.env.NODE_ENV': isDevelopment
-    ? JSON.stringify('development')
-    : JSON.stringify('production'),
+  'process.env.NODE_ENV': IS_DEV ? JSON.stringify('development') : JSON.stringify('production'),
   'process.env.STEEMCONNECT_CLIENT_ID': JSON.stringify(
     process.env.STEEMCONNECT_CLIENT_ID || 'busy.app',
   ),
@@ -36,6 +35,7 @@ const DEFINE_PLUGIN = new webpack.DefinePlugin({
   'process.env.SIGNUP_URL': JSON.stringify(
     process.env.SIGNUP_URL || 'https://signup.steemit.com/?ref=busy',
   ),
+  'process.env.ASSETS_PATH': JSON.stringify(IS_DEV ? paths.public : paths.buildPublic),
 });
 
 module.exports = {

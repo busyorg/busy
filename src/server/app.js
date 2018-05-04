@@ -23,10 +23,12 @@ const getHTML = (content, state, pageAssets) => `<!DOCTYPE html>
     <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="manifest" href="/manifest.json" />
-    <link rel="stylesheet" href="${pageAssets.main.css}">
+    <link rel="stylesheet" href="${pageAssets.vendor.css}" />
+    <link rel="stylesheet" href="${pageAssets.main.css}" />
   </head>
   <body>
   <div id="app">${content}</div>
+  <script src="${pageAssets.vendor.js}" defer></script>
   <script src="${pageAssets.main.js}" defer></script>
   <script>
     window.__PRELOADED_STATE__ =  ${JSON.stringify(state)
@@ -51,6 +53,7 @@ function createTimeout(timeout, promise) {
 const app = express();
 
 app.use(cookieParser());
+app.use(express.static(process.env.ASSETS_PATH));
 
 app.get('/*', async (req, res) => {
   const api = sc2.Initialize({
