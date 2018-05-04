@@ -15,6 +15,7 @@ const baseDir = path.resolve(__dirname, '..');
 const buildDir = path.resolve(baseDir, './build');
 
 module.exports = {
+  mode: 'development',
   devtool: 'cheap-module-eval-source-map',
   entry: [
     require.resolve('webpack-dev-server/client'),

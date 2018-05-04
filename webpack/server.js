@@ -1,6 +1,6 @@
+const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
-const nodeExternals = require('webpack-node-externals');
 const WebpackBar = require('webpackbar');
 const StartServerPlugin = require('start-server-webpack-plugin');
 
@@ -10,6 +10,7 @@ const baseDir = path.resolve(__dirname, '..');
 const buildDir = path.resolve(baseDir, './build');
 
 module.exports = {
+  mode: 'development',
   entry: ['webpack/hot/poll?300', path.resolve(baseDir, './src/server/index.js')],
   output: {
     path: buildDir,
@@ -18,15 +19,16 @@ module.exports = {
   watch: true,
   context: process.cwd(),
   target: 'node',
-  externals: nodeExternals({
-    whitelist: ['webpack/hot/poll?300'],
-  }),
+  externals: fs
+    .readdirSync(path.resolve(baseDir, 'node_modules'))
+    .map(module => ({ [module]: `commonjs ${module}` }))
+    .reduce((a, b) => Object.assign({}, a, b), {}),
   node: {
     __filename: true,
     __dirname: true,
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: MATCH_JS,
         exclude: /node_modules/,
