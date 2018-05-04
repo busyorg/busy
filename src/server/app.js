@@ -14,10 +14,10 @@ import routes from '../common/routes';
 // eslint-disable-next-line import/no-unresolved
 const assets = require('../../build/assets.json');
 
-const getHTML = (content, pageAssets) => `<!DOCTYPE html>
+const getHTML = (content, state, pageAssets) => `<!DOCTYPE html>
 <html>
   <head>
-    <title>Busys</title>
+    <title>Busy</title>
     <meta charset="UTF-8">
     <meta name="description" content="Busy is a decentralized social network based on Steem blockchain">
     <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
@@ -28,6 +28,11 @@ const getHTML = (content, pageAssets) => `<!DOCTYPE html>
   <body>
   <div id="app">${content}</div>
   <script src="${pageAssets.main.js}" defer></script>
+  <script>
+    window.__PRELOADED_STATE__ =  ${JSON.stringify(state)
+      .replace(/\u2028/g, '\\n')
+      .replace(/</g, '\\u003c')}
+  </script>
   </body>
 </html>
 `;
@@ -85,7 +90,7 @@ app.get('/*', async (req, res) => {
     res.status(context.status);
   }
 
-  return res.status(200).send(getHTML(content, assets));
+  return res.status(200).send(getHTML(content, store.getState(), assets));
 });
 
 export default app;

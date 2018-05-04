@@ -45,7 +45,7 @@ const render = async Component => {
 
   store.dispatch(setUsedLocale(lang));
 
-  ReactDOM.render(
+  ReactDOM.hydrate(
     <Provider store={store}>
       <Component history={history} />
     </Provider>,
