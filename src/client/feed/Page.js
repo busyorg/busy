@@ -10,6 +10,7 @@ import HeroBannerContainer from './HeroBannerContainer';
 import LeftSidebar from '../app/Sidebar/LeftSidebar';
 import RightSidebar from '../app/Sidebar/RightSidebar';
 import TopicSelector from '../components/TopicSelector';
+import TrendingTagsMenu from '../components/TrendingTagsMenu';
 import Affix from '../components/Utils/Affix';
 import ScrollToTop from '../components/Utils/ScrollToTop';
 import ScrollToTopOnMount from '../components/Utils/ScrollToTopOnMount';
@@ -49,6 +50,7 @@ class Page extends React.Component {
     const { category, sortBy } = match.params;
 
     const shouldDisplaySelector = location.pathname !== '/' || (!authenticated && loaded);
+    const displayTopicSelector = location.pathname === '/trending';
 
     const robots = location.pathname === '/' ? 'index,follow' : 'noindex,follow';
 
@@ -74,6 +76,7 @@ class Page extends React.Component {
               </div>
             </Affix>
             <div className="center">
+              {displayTopicSelector && <TrendingTagsMenu />}
               {shouldDisplaySelector && (
                 <TopicSelector
                   isSingle={false}
