@@ -19,6 +19,7 @@
     "dev-server": "run-p dev-server:auth-server dev-server:client",
     "dev-server:client": "webpack-dev-server --config ./webpack/webpack.dev.config.js",
     "dev-server:auth-server": "node ./src/server/auth-server.js",
+    "dev": "node ./scripts/start.js",
     "start": "cross-env NODE_ENV=production npm run run:server",
     "test": "jest",
     "test:watch": "jest --watch",
@@ -137,6 +138,7 @@
     "xmldom": "^0.1.27"
   },
   "devDependencies": {
+    "assets-webpack-plugin": "^3.5.1",
     "babel-register": "^6.24.1",
     "chai": "^3.5.0",
     "chalk": "^2.3.0",
@@ -155,7 +157,10 @@
     "minimatch": "^3.0.4",
     "prettier": "^1.9.2",
     "react-test-renderer": "^15.6.1",
-    "webpack-dev-server": "~2.9.3"
+    "start-server-webpack-plugin": "^2.2.5",
+    "webpack-dev-server": "~2.9.3",
+    "webpack-node-externals": "^1.7.2",
+    "webpackbar": "^2.6.1"
   },
   "jest": {
     "moduleNameMapper": {

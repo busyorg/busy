@@ -24,5 +24,6 @@ module.exports = {
       { devDependencies: ['**/__tests__/*.js', 'scripts/**/*.js', 'webpack/**/*.js'] },
     ],
     'no-console': OFF,
+    'global-require': OFF,
   },
 };
