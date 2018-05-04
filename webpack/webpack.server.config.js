@@ -1,9 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
-const configUtils = require('./configUtils');
+const { MATCH_JS, MATCH_CSS_LESS, DEFINE_PLUGIN } = require('./configUtils');
 
-const isDevelopment = process.env.NODE_ENV !== 'production';
 const baseDir = path.resolve(__dirname, '..');
 
 module.exports = {
@@ -23,7 +22,7 @@ module.exports = {
   module: {
     loaders: [
       {
-        test: configUtils.MATCH_JS_JSX,
+        test: MATCH_JS,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
@@ -37,27 +36,10 @@ module.exports = {
     ],
   },
   plugins: [
-    new webpack.NormalModuleReplacementPlugin(/\.(css|less)$/, 'identity-obj-proxy'),
+    DEFINE_PLUGIN,
+    new webpack.NormalModuleReplacementPlugin(MATCH_CSS_LESS, 'identity-obj-proxy'),
     new webpack.optimize.LimitChunkCountPlugin({
       maxChunks: 1,
-    }),
-    new webpack.DefinePlugin({
-      'process.env.STEEMCONNECT_CLIENT_ID': JSON.stringify(
-        process.env.STEEMCONNECT_CLIENT_ID || 'busy.app',
-      ),
-      'process.env.STEEMCONNECT_REDIRECT_URL': JSON.stringify(
-        process.env.STEEMCONNECT_REDIRECT_URL || 'http://localhost:3000/callback',
-      ),
-      'process.env.STEEMCONNECT_HOST': JSON.stringify(
-        process.env.STEEMCONNECT_HOST || 'https://steemconnect.com',
-      ),
-      'process.env.STEEMJS_URL': JSON.stringify(
-        process.env.STEEMJS_URL || 'https://api.steemit.com',
-      ),
-      'process.env.IS_BROWSER': JSON.stringify(false),
-      'process.env.SIGNUP_URL': JSON.stringify(
-        process.env.SIGNUP_URL || 'https://signup.steemit.com/?ref=busy',
-      ),
     }),
   ],
 };
