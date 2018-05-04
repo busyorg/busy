@@ -16,16 +16,12 @@ module.exports = {
     browser: true,
     jest: true,
   },
-  extends: [
-    'airbnb',
-    'prettier',
-    'prettier/react'
-  ],
+  extends: ['airbnb', 'prettier', 'prettier/react'],
   rules: {
     'react/jsx-filename-extension': [ERROR, { extensions: ['.js'] }],
     'import/no-extraneous-dependencies': [
       ERROR,
-      { devDependencies: ['**/__tests__/*.js', 'scripts/**/*.js'] },
+      { devDependencies: ['**/__tests__/*.js', 'scripts/**/*.js', 'webpack/**/*.js'] },
     ],
     'no-console': OFF,
   },

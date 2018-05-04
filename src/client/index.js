@@ -3,7 +3,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import Logger from 'js-logger';
-import { AppContainer } from 'react-hot-loader';
 import { message } from 'antd';
 import Cookie from 'js-cookie';
 import steemConnectAPI from './steemConnectAPI';
@@ -35,23 +34,10 @@ const render = async Component => {
 
   ReactDOM.hydrate(
     <Provider store={store}>
-      {process.env.NODE_ENV !== 'production' ? (
-        <AppContainer>
-          <Component history={history} />
-        </AppContainer>
-      ) : (
-        <Component history={history} />
-      )}
+      <Component history={history} />
     </Provider>,
     document.getElementById('app'),
   );
 };
 
 render(AppHost);
-
-// Hot Module Replacement API
-if (module.hot) {
-  module.hot.accept('./AppHost', () => {
-    render(AppHost);
-  });
-}
