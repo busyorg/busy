@@ -2,8 +2,9 @@ import Cookie from 'js-cookie';
 import { createAction } from 'redux-actions';
 import { getAuthenticatedUserName, getIsAuthenticated } from '../reducers';
 import { createAsyncActionType } from '../helpers/stateHelpers';
+import { addNewNotification } from '../app/appActions';
 import { getFollowing } from '../user/userActions';
-import busyAPI from '../busyAPI';
+import { BUSY_API_TYPES } from '../../common/constants/notifications';
 
 export const LOGIN = '@auth/LOGIN';
 export const LOGIN_START = '@auth/LOGIN_START';
@@ -71,13 +72,21 @@ export const getUpdatedSCUserMetadata = () => (dispatch, getState, { steemConnec
     },
   });
 
-export const busyLogin = () => (dispatch, getState) => {
+export const busyLogin = () => (dispatch, getState, { busyAPI }) => {
   const accessToken = Cookie.get('access_token');
   const state = getState();
 
   if (!getIsAuthenticated(state)) {
     return dispatch({ type: BUSY_LOGIN.ERROR });
   }
+
+  busyAPI.subscribe((response, message) => {
+    const type = message && message.type;
+
+    if (type === BUSY_API_TYPES.notification && message.notification) {
+      dispatch(addNewNotification(message.notification));
+    }
+  });
 
   const targetUsername = getAuthenticatedUserName(state);
 

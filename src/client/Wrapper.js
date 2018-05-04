@@ -25,11 +25,9 @@ import {
   getRewardFund,
   getTrendingTopics,
   setUsedLocale,
-  busyAPIHandler,
   setAppUrl,
 } from './app/appActions';
 import * as reblogActions from './app/Reblog/reblogActions';
-import busyAPI from './busyAPI';
 import Redirect from './components/Utils/Redirect';
 import NotificationPopup from './notifications/NotificationPopup';
 import Topnav from './components/Navigation/Topnav';
@@ -54,7 +52,6 @@ import Transfer from './wallet/Transfer';
     getRewardFund,
     getTrendingTopics,
     busyLogin,
-    busyAPIHandler,
     getRebloggedList: reblogActions.getRebloggedList,
     setUsedLocale,
   },
@@ -78,7 +75,6 @@ export default class Wrapper extends React.PureComponent {
     getNotifications: PropTypes.func,
     setUsedLocale: PropTypes.func,
     busyLogin: PropTypes.func,
-    busyAPIHandler: PropTypes.func,
   };
 
   static defaultProps = {
@@ -95,7 +91,6 @@ export default class Wrapper extends React.PureComponent {
     getNotifications: () => {},
     setUsedLocale: () => {},
     busyLogin: () => {},
-    busyAPIHandler: () => {},
   };
 
   static async fetchData({ store, req, res }) {
@@ -145,8 +140,6 @@ export default class Wrapper extends React.PureComponent {
     this.props.getRebloggedList();
     this.props.getRate();
     this.props.getTrendingTopics();
-
-    busyAPI.subscribe(this.props.busyAPIHandler);
   }
 
   componentWillReceiveProps(nextProps) {

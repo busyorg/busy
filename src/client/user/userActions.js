@@ -1,5 +1,4 @@
 import { createAction } from 'redux-actions';
-import busyAPI from '../busyAPI';
 import { getIsAuthenticated, getAuthenticatedUserName } from '../reducers';
 import { getAllFollowing } from '../helpers/apiHelpers';
 import { createAsyncActionType } from '../helpers/stateHelpers';
@@ -78,7 +77,7 @@ export const updateRecommendations = createAction(UPDATE_RECOMMENDATIONS);
 
 export const GET_NOTIFICATIONS = createAsyncActionType('@user/GET_NOTIFICATIONS');
 
-export const getNotifications = username => (dispatch, getState) => {
+export const getNotifications = username => (dispatch, getState, { busyAPI }) => {
   const state = getState();
 
   if (!username && !getIsAuthenticated(state)) {
