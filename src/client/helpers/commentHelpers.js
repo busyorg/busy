@@ -1,3 +1,13 @@
+import _ from 'lodash';
+
+function getCommentAnchor(comment) {
+  const { url } = comment;
+
+  if (typeof url !== 'string') return null;
+
+  return _.get(url.split('#'), '[1]', null);
+}
+
 /**
  * Finds the currently linked comment in the url after the anchor #
  * @param comments a array|object of comment objects
@@ -7,8 +17,7 @@ export function getLinkedComment(comments = []) {
   const anchor = window.location.hash.replace('#', '');
   if (Array.isArray(comments)) {
     for (let i = 0; i < comments.length; i += 1) {
-      const commentAnchor = comments[i].url.split('#')[1];
-      if (commentAnchor === anchor) {
+      if (getCommentAnchor(comments[i]) === anchor) {
         return comments[i];
       }
     }
@@ -16,8 +25,7 @@ export function getLinkedComment(comments = []) {
     const commentsKeys = Object.keys(comments);
     for (let i = 0; i < commentsKeys.length; i += 1) {
       const comment = comments[commentsKeys[i]];
-      const commentAnchor = comment.url.split('#')[1];
-      if (commentAnchor === anchor) {
+      if (getCommentAnchor(comment) === anchor) {
         return comment;
       }
     }
