@@ -23,6 +23,7 @@ const getHTML = (content, pageAssets) => `<!DOCTYPE html>
     <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="manifest" href="/manifest.json" />
+    <link rel="stylesheet" href="${pageAssets.main.css}">
   </head>
   <body>
   <div id="app">${content}</div>

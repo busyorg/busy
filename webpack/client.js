@@ -1,4 +1,5 @@
 const AssetsPlugin = require('assets-webpack-plugin');
+const CSSExtract = require('mini-css-extract-plugin');
 const WebpackBar = require('webpackbar');
 const path = require('path');
 
@@ -33,6 +34,9 @@ module.exports = {
       path: buildDir,
       filename: 'assets.json',
     }),
+    new CSSExtract({
+      filename: '[name].css',
+    }),
     new WebpackBar({
       name: 'client',
       color: '#f56be2',
@@ -52,7 +56,7 @@ module.exports = {
       {
         test: MATCH_CSS_LESS,
         use: [
-          'style-loader',
+          CSSExtract.loader,
           'css-loader',
           POSTCSS_LOADER,
           {
