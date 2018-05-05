@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet';
 
 export default function renderSsrPage(store, html, assets, template, noindex) {
-  const preloadedState = store.getState();
+  const preloadedState = store ? store.getState() : {};
 
   const helmet = Helmet.renderStatic();
   const baseHelmet = helmet.meta.toString() + helmet.title.toString() + helmet.link.toString();
