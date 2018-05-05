@@ -23,8 +23,6 @@ const app = express();
 const IS_DEV = process.env.NODE_ENV === 'development';
 const assetsPath = IS_DEV ? paths.publicRuntime() : paths.buildPublicRuntime();
 
-console.log('assets path', assetsPath);
-
 app.use(cookieParser());
 app.use(express.static(assetsPath));
 
