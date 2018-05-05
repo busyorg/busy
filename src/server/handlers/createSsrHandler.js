@@ -10,6 +10,10 @@ import getStore from '../../client/store';
 import routes from '../../common/routes';
 import renderSsrPage from '../renderers/ssrRenderer';
 
+// TODO: Update PATH
+// eslint-disable-next-line import/no-unresolved
+const assets = require('../../../build/assets.json');
+
 const ssrTimeout = 5000;
 
 function createTimeout(timeout, promise) {
@@ -61,7 +65,7 @@ export default function createSsrHandler(template) {
         res.status(context.status);
       }
 
-      return res.send(renderSsrPage(store, content, template, req.hostname !== 'busy.org'));
+      return res.send(renderSsrPage(store, content, assets, template, req.hostname !== 'busy.org'));
     } catch (err) {
       console.error('SSR error occured, falling back to bundled application instead', err);
       return res.send(template);

@@ -9,6 +9,7 @@ module.exports = {
   build: resolveApp('./build'),
   public: resolveApp('./public'),
   buildPublic: resolveApp('./build/public'),
+  templates: resolveApp('./templates'),
   assets: resolveApp('./build/assets.json'),
   server: resolveApp('./src/server/index.js'),
   client: resolveApp('./src/client/index.js'),
