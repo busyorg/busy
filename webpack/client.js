@@ -84,12 +84,13 @@ module.exports = function createConfig(env = 'dev') {
         minChunks: 1,
         maxAsyncRequests: 5,
         maxInitialRequests: 3,
-        name: true,
         cacheGroups: {
           vendor: {
+            name: 'vendor',
             test: /[\\/]node_modules[\\/]/,
           },
           main: {
+            name: 'main',
             minChunks: 2,
             reuseExistingChunk: true,
             enforce: true,
