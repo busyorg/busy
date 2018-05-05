@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import { Helmet } from 'react-helmet';
 
 export default function renderSsrPage(store, html, assets, template, noindex) {
@@ -8,16 +9,15 @@ export default function renderSsrPage(store, html, assets, template, noindex) {
 
   let header = baseHelmet;
   if (noindex) header += `<meta name="robots" content="noindex, nofollow">`;
-  header += `<link rel="stylesheet" href="${assets.vendor.css}" />`;
-  header += `<link rel="stylesheet" href="${assets.main.css}" />`;
 
   let scripts = `<script>window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState)
     .replace(/\u2028/g, '\\n')
     .replace(/</g, '\\u003c')}</script>`;
 
-  scripts += `<script src="${assets.manifest.js}" defer></script>`;
-  scripts += `<script src="${assets.vendor.js}" defer></script>`;
-  scripts += `<script src="${assets.main.js}" defer></script>`;
+  _.forEach(assets, asset => {
+    if (asset.css) header += `<link rel="stylesheet" href="${asset.css}" />`;
+    if (asset.js) scripts += `<script src="${asset.js}" defer></script>`;
+  });
 
   const production = process.env.NODE_ENV === 'production';
 

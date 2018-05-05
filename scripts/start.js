@@ -20,10 +20,7 @@ async function main() {
 
   const clientDevServer = new DevServer(clientCompiler, clientConfig.devServer);
 
-  const appPort = process.env.PORT || 3000;
-  const staticPort = appPort + 1;
-
-  clientDevServer.listen(staticPort, () => console.log('server started'));
+  clientDevServer.listen(clientConfig.devServer.port, () => console.log('server started'));
 }
 
 main();

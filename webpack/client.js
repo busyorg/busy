@@ -8,6 +8,7 @@ const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 const paths = require('../scripts/paths');
 
 const {
+  CONTENT_PORT,
   MATCH_JS,
   MATCH_CSS_LESS,
   MATCH_FONTS,
@@ -17,7 +18,7 @@ const {
 
 module.exports = function createConfig(env = 'dev') {
   const IS_DEV = env === 'dev';
-  const PORT = process.env.PORT || 3000;
+  const IS_PROD = !IS_DEV;
 
   const appPath = IS_DEV ? paths.build : paths.buildPublic;
 
@@ -27,7 +28,7 @@ module.exports = function createConfig(env = 'dev') {
     output: {
       path: appPath,
       filename: IS_DEV ? 'bundle.js' : 'bundle-[name].[chunkhash].js',
-      publicPath: IS_DEV ? `http://localhost:${PORT + 1}/` : '/',
+      publicPath: IS_DEV ? `http://localhost:${CONTENT_PORT}/` : '/',
     },
     context: process.cwd(),
     plugins: [
@@ -77,7 +78,42 @@ module.exports = function createConfig(env = 'dev') {
         },
       ],
     },
-    optimization: {
+    devServer: {
+      port: CONTENT_PORT,
+      compress: true,
+      noInfo: true,
+      historyApiFallback: {
+        disableDotRule: true,
+      },
+    },
+  };
+
+  if (IS_DEV) {
+    config.entry = ['webpack-dev-server/client', ...config.entry];
+  }
+
+  if (IS_PROD) {
+    config.plugins = [
+      ...config.plugins,
+      new webpack.optimize.AggressiveMergingPlugin(),
+      new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+      new LodashModuleReplacementPlugin({
+        collections: true,
+        paths: true,
+        shorthands: true,
+        flattening: true,
+      }),
+      new BundleAnalyzerPlugin({
+        analyzerMode: 'static',
+        reportFilename: './statistics.html',
+        openAnalyzer: false,
+      }),
+      new SWPrecacheWebpackPlugin({
+        filepath: paths.sw,
+        stripPrefix: appPath,
+      }),
+    ];
+    config.optimization = {
       splitChunks: {
         chunks: 'initial',
         minSize: 30000,
@@ -100,37 +136,7 @@ module.exports = function createConfig(env = 'dev') {
       runtimeChunk: {
         name: 'manifest',
       },
-    },
-    devServer: {
-      compress: true,
-      noInfo: true,
-      historyApiFallback: {
-        disableDotRule: true,
-      },
-    },
-  };
-
-  if (!IS_DEV) {
-    config.plugins = [
-      ...config.plugins,
-      new webpack.optimize.AggressiveMergingPlugin(),
-      new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-      new LodashModuleReplacementPlugin({
-        collections: true,
-        paths: true,
-        shorthands: true,
-        flattening: true,
-      }),
-      new BundleAnalyzerPlugin({
-        analyzerMode: 'static',
-        reportFilename: './statistics.html',
-        openAnalyzer: false,
-      }),
-      new SWPrecacheWebpackPlugin({
-        filepath: paths.sw,
-        stripPrefix: appPath,
-      }),
-    ];
+    };
   }
 
   return config;
