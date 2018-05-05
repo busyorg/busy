@@ -18,13 +18,19 @@ const ampTemplate = Handlebars.compile(ampIndexHtml);
 const ssrHandler = createSsrHandler(template);
 const ampHandler = createAmpHandler(ampTemplate);
 
+const CACHE_AGE = 1000 * 60 * 60 * 24 * 7;
+
 const app = express();
 
 const IS_DEV = process.env.NODE_ENV === 'development';
-const assetsPath = IS_DEV ? paths.publicRuntime() : paths.buildPublicRuntime();
 
 app.use(cookieParser());
-app.use(express.static(assetsPath));
+
+if (IS_DEV) {
+  app.use(express.static(paths.publicRuntime(), { index: false }));
+} else {
+  app.use(express.static(paths.buildPublicRuntime(), { maxAge: CACHE_AGE, index: false }));
+}
 
 app.get('/callback', (req, res) => {
   const accessToken = req.query.access_token;
