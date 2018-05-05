@@ -35,7 +35,6 @@ const DEFINE_PLUGIN = new webpack.DefinePlugin({
   'process.env.SIGNUP_URL': JSON.stringify(
     process.env.SIGNUP_URL || 'https://signup.steemit.com/?ref=busy',
   ),
-  'process.env.ASSETS_PATH': JSON.stringify(IS_DEV ? paths.public : paths.buildPublic),
   'process.env.MANIFEST_PATH': JSON.stringify(paths.assets),
 });
 

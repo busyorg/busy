@@ -3,6 +3,7 @@ const path = require('path');
 
 const root = fs.realpathSync(process.cwd());
 const resolveApp = relativePath => path.resolve(root, relativePath);
+const resolveRuntime = relativePath => path.resolve(fs.realpathSync(process.cwd()), relativePath);
 
 module.exports = {
   app: resolveApp('.'),
@@ -14,4 +15,6 @@ module.exports = {
   server: resolveApp('./src/server/index.js'),
   client: resolveApp('./src/client/index.js'),
   sw: resolveApp('./build/public/service-worker.js'),
+  publicRuntime: () => resolveRuntime('./public'),
+  buildPublicRuntime: () => resolveRuntime('./build/public'),
 };

@@ -20,10 +20,13 @@ const ampHandler = createAmpHandler(ampTemplate);
 
 const app = express();
 
-console.log('assets path', process.env.ASSETS_PATH);
+const IS_DEV = process.env.NODE_ENV === 'development';
+const assetsPath = IS_DEV ? paths.publicRuntime() : paths.buildPublicRuntime();
+
+console.log('assets path', assetsPath);
 
 app.use(cookieParser());
-app.use(express.static(process.env.ASSETS_PATH));
+app.use(express.static(assetsPath));
 
 app.get('/callback', (req, res) => {
   const accessToken = req.query.access_token;
