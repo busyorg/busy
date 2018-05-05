@@ -10,9 +10,8 @@ import getStore from '../../client/store';
 import routes from '../../common/routes';
 import renderSsrPage from '../renderers/ssrRenderer';
 
-// TODO: Update PATH
-// eslint-disable-next-line import/no-unresolved
-const assets = require('../../../build/assets.json');
+// eslint-disable-next-line import/no-dynamic-require
+const assets = require(process.env.MANIFEST_PATH);
 
 const ssrTimeout = 5000;
 
