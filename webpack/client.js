@@ -93,6 +93,9 @@ module.exports = function createConfig(env = 'dev') {
           },
         },
       },
+      runtimeChunk: {
+        name: 'manifest',
+      },
     },
     devServer: {
       compress: true,

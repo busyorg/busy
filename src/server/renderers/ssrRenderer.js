@@ -15,6 +15,7 @@ export default function renderSsrPage(store, html, assets, template, noindex) {
     .replace(/\u2028/g, '\\n')
     .replace(/</g, '\\u003c')}</script>`;
 
+  scripts += `<script src="${assets.manifest.js}" defer></script>`;
   scripts += `<script src="${assets.vendor.js}" defer></script>`;
   scripts += `<script src="${assets.main.js}" defer></script>`;
 
