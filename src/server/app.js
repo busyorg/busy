@@ -20,6 +20,8 @@ const ampHandler = createAmpHandler(ampTemplate);
 
 const app = express();
 
+console.log('assets path', process.env.ASSETS_PATH);
+
 app.use(cookieParser());
 app.use(express.static(process.env.ASSETS_PATH));
 
