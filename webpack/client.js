@@ -59,7 +59,13 @@ module.exports = function createConfig(env = 'dev') {
           test: MATCH_CSS_LESS,
           use: [
             CSSExtract.loader,
-            'css-loader',
+            {
+              loader: 'css-loader',
+              options: {
+                importLoaders: 1,
+                minimize: !IS_DEV,
+              },
+            },
             POSTCSS_LOADER,
             {
               loader: 'less-loader',
@@ -73,20 +79,17 @@ module.exports = function createConfig(env = 'dev') {
     },
     optimization: {
       splitChunks: {
-        chunks: 'all',
+        chunks: 'initial',
         minSize: 30000,
         minChunks: 1,
         maxAsyncRequests: 5,
         maxInitialRequests: 3,
         name: true,
         cacheGroups: {
-          commons: {
+          vendor: {
             test: /[\\/]node_modules[\\/]/,
-            name: 'vendor',
-            chunks: 'all',
           },
           main: {
-            chunks: 'all',
             minChunks: 2,
             reuseExistingChunk: true,
             enforce: true,
