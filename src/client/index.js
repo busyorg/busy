@@ -6,7 +6,7 @@ import Logger from 'js-logger';
 import { message } from 'antd';
 import Cookie from 'js-cookie';
 import steemConnectAPI from './steemConnectAPI';
-import { history } from './routes';
+import history from './history';
 import getStore from './store';
 import AppHost from './AppHost';
 import { getBrowserLocale, loadLanguage } from './translations';

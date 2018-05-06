@@ -4,7 +4,7 @@ import { applyMiddleware, createStore, compose } from 'redux';
 import { routerMiddleware } from 'react-router-redux';
 import steemAPI from './steemAPI';
 import createBusyAPI from '../common/services/createBusyAPI';
-import { history } from './routes';
+import history from './history';
 import errorMiddleware from './errorMiddleware';
 import createReducer from './reducers';
 
