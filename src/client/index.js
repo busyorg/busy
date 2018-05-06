@@ -54,3 +54,10 @@ const render = async Component => {
 };
 
 render(AppHost);
+
+if (module.hot) {
+  module.hot.accept('./AppHost', () => {
+    console.log('AppHost updated');
+    render(AppHost);
+  });
+}

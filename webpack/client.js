@@ -80,8 +80,12 @@ module.exports = function createConfig(env = 'dev') {
     },
     devServer: {
       port: CONTENT_PORT,
+      hot: true,
       compress: true,
       noInfo: true,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+      },
       historyApiFallback: {
         disableDotRule: true,
       },
@@ -89,7 +93,8 @@ module.exports = function createConfig(env = 'dev') {
   };
 
   if (IS_DEV) {
-    config.entry = ['webpack-dev-server/client', ...config.entry];
+    config.entry = ['webpack-dev-server/client', 'webpack/hot/dev-server', ...config.entry];
+    config.plugins = [...config.plugins, new webpack.HotModuleReplacementPlugin()];
   }
 
   if (IS_PROD) {

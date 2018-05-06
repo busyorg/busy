@@ -39,6 +39,5 @@ export default steemConnectAPI => {
     enhancer = compose(applyMiddleware(...middleware));
   }
 
-  const store = createStore(createReducer(), preloadedState, enhancer);
-  return store;
+  return createStore(createReducer(), preloadedState, enhancer);
 };
