@@ -20,7 +20,6 @@
 
   &__content {
     .content-block();
-    margin: 0 20px @content-margin 20px;
 
     .Notification {
       padding-left: @page-padding;
@@ -36,6 +35,10 @@
         border-bottom-right-radius: @border-radius-base;
         border-bottom-left-radius: @border-radius-base;
       }
+    }
+
+    @media @medium {
+      margin: 0 20px @content-margin 20px;
     }
   }
 

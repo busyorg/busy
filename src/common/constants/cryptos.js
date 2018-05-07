@@ -601,7 +601,7 @@ export const FTC = {
 export const SBD = {
   id: 'steem-dollars',
   name: 'Steem Dollars',
-  symbol: 'SBD',
+  symbol: 'SBD*',
 };
 
 export const CRYPTO_MAP = {

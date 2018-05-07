@@ -68,7 +68,7 @@ export default class Post extends React.Component {
     getAccount: () => {},
   };
 
-  static fetchData(store, match) {
+  static fetchData({ store, match }) {
     const { author, permlink } = match.params;
     return Promise.all([
       store.dispatch(getAccount(author)),
@@ -114,8 +114,8 @@ export default class Post extends React.Component {
   }
 
   componentWillUnmount() {
-    if (process.env.IS_BROWSER) {
-      global.document.title = 'Busy';
+    if (typeof window !== 'undefined') {
+      window.document.title = 'Busy';
     }
   }
 
