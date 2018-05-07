@@ -37,9 +37,6 @@ module.exports = function createConfig(env = 'dev') {
         path: paths.build,
         filename: 'assets.json',
       }),
-      new CSSExtract({
-        filename: '[name].css',
-      }),
       new WebpackBar({
         name: 'client',
         color: '#f56be2',
@@ -59,7 +56,7 @@ module.exports = function createConfig(env = 'dev') {
         {
           test: MATCH_CSS_LESS,
           use: [
-            CSSExtract.loader,
+            IS_PROD ? CSSExtract.loader : 'style-loader',
             {
               loader: 'css-loader',
               options: {
@@ -107,6 +104,9 @@ module.exports = function createConfig(env = 'dev') {
         paths: true,
         shorthands: true,
         flattening: true,
+      }),
+      new CSSExtract({
+        filename: '[name].css',
       }),
       new BundleAnalyzerPlugin({
         analyzerMode: 'static',
