@@ -210,6 +210,8 @@ class Comments extends React.Component {
     const rootLinkedComment = findRootComment(comments, getLinkedComment(comments));
     const commentsToRender = this.commentsToRender(rootLevelComments, rootLinkedComment);
 
+    const empty = !loading && commentsToRender.length === 0;
+
     return (
       <div className="Comments">
         <div className="Comments__header">
@@ -246,6 +248,11 @@ class Comments extends React.Component {
           />
         )}
         {loading && <Loading />}
+        {empty && (
+          <div className="Comments__empty">
+            <FormattedMessage id="empty_comments" defaultMessage="There are no comments yet." />
+          </div>
+        )}
         {!loading &&
           show &&
           comments &&
