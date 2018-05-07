@@ -75,18 +75,6 @@ module.exports = function createConfig(env = 'dev') {
         },
       ],
     },
-    devServer: {
-      port: CONTENT_PORT,
-      hot: true,
-      compress: true,
-      noInfo: true,
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-      },
-      historyApiFallback: {
-        disableDotRule: true,
-      },
-    },
   };
 
   if (IS_DEV) {
