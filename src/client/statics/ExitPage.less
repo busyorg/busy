@@ -1,20 +1,34 @@
-.ExitPage {
-  margin-top: 24px !important;
+@import (reference) '../styles/custom.less';
 
-  h2 {
+.ExitPage {
+  max-width: 800px !important;
+  margin-top: 48px !important;
+  padding: 16px;
+  text-align: center;
+
+  &__title {
+    color: @primary-color;
     margin: 4px 0 12px;
   }
 
+  &__content {
+    color: @tertiary-color;
+  }
+
   pre {
-    margin: 8px 0;
+    margin: 16px 0;
+    white-space: normal;
   }
 
-  &__go {
-    width: auto;
-  }
+  &__buttons {
+    margin-top: 24px;
 
-  &__back {
-    width: auto;
-    margin-left: 16px;
+    &__button {
+      width: auto;
+
+      &:not(:first-child) {
+        margin-left: 16px;
+      }
+    }
   }
 }

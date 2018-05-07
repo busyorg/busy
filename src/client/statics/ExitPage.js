@@ -21,18 +21,26 @@ export default class ExitPage extends React.Component {
 
     return (
       <div className="ExitPage container">
-        <h2>
+        <h1 className="ExitPage__title">
           <FormattedMessage id="page_exit" defaultMessage="You are leaving Busy.org" />
-        </h2>
-        <FormattedMessage
-          id="page_exit_message"
-          defaultMessage="You are about to go to external website. Please be careful when sharing your credentials."
-        />
+        </h1>
+        <p className="ExitPage__content">
+          <FormattedMessage
+            id="page_exit_message"
+            defaultMessage="You are about to go to external website. Please be careful when sharing your credentials."
+          />
+        </p>
         <pre>{url}</pre>
-        <ActionLink className="ExitPage__go" primary href={url}>
-          <FormattedMessage id="page_exit_go" defaultMessage="Visit this website" />
-        </ActionLink>
-        <ActionButton className="ExitPage__back" small text="Go back" onClick={this.closeWindow} />
+        <div className="ExitPage__buttons">
+          <ActionLink className="ExitPage__buttons__button" primary href={url}>
+            <FormattedMessage id="page_exit_go" defaultMessage="Visit this website" />
+          </ActionLink>
+          <ActionButton
+            className="ExitPage__buttons__button"
+            text="Go back"
+            onClick={this.closeWindow}
+          />
+        </div>
       </div>
     );
   }
