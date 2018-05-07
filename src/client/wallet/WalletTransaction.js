@@ -43,6 +43,8 @@ const WalletTransaction = ({
         <PowerUpTransaction
           amount={getFormattedTransactionAmount(transactionDetails.amount, 'SP')}
           timestamp={transaction.timestamp}
+          to={transactionDetails.to}
+          from={transactionDetails.from}
         />
       );
     case accountHistoryConstants.TRANSFER:

@@ -234,6 +234,7 @@
   "claim_rewards": "Claim rewards ",
   "reward_claimed": "Reward claimed",
   "powered_up": "Powered up ",
+  "powered_up_to": "Powered up {to} ",
   "market": "Market",
   "page_not_found": "Page not found",
   "page_not_found_message": "Oops! Looks like you followed a bad link.",
