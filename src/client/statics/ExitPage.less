@@ -1,0 +1,34 @@
+@import (reference) '../styles/custom.less';
+
+.ExitPage {
+  max-width: 800px !important;
+  margin-top: 48px !important;
+  padding: 16px;
+  text-align: center;
+
+  &__title {
+    color: @primary-color;
+    margin: 4px 0 12px;
+  }
+
+  &__content {
+    color: @tertiary-color;
+  }
+
+  pre {
+    margin: 16px 0;
+    white-space: normal;
+  }
+
+  &__buttons {
+    margin-top: 24px;
+
+    &__button {
+      width: auto;
+
+      &:not(:first-child) {
+        margin-left: 16px;
+      }
+    }
+  }
+}
