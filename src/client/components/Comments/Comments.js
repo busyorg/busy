@@ -190,6 +190,7 @@ class Comments extends React.Component {
   render() {
     const {
       user,
+      parentPost,
       comments,
       rootLevelComments,
       commentsChildren,
@@ -209,8 +210,6 @@ class Comments extends React.Component {
 
     const rootLinkedComment = findRootComment(comments, getLinkedComment(comments));
     const commentsToRender = this.commentsToRender(rootLevelComments, rootLinkedComment);
-
-    const empty = !loading && commentsToRender.length === 0;
 
     return (
       <div className="Comments">
@@ -248,7 +247,7 @@ class Comments extends React.Component {
           />
         )}
         {loading && <Loading />}
-        {empty && (
+        {parentPost.children === 0 && (
           <div className="Comments__empty">
             <FormattedMessage id="empty_comments" defaultMessage="There are no comments yet." />
           </div>
