@@ -13,6 +13,18 @@
   hyphens: none;
   margin: 4px 0;
 
+  a[target='_blank'] {
+    &:after {
+      content: '\e673';
+      font-family: 'iconfont' !important;
+      font-size: 80%;
+      font-style: normal;
+      -webkit-font-smoothing: antialiased;
+      margin-left: 4px;
+      vertical-align: middle;
+    }
+  }
+
   // Heading
 
   h1,
