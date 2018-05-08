@@ -47,7 +47,6 @@ ShallowWrapper {
     "nodeType": "host",
     "props": Object {
       "children": <ReduxInfiniteScroll
-        animateItems={false}
         className=""
         containerHeight="100%"
         elementIsScrollable={false}
@@ -69,13 +68,6 @@ ShallowWrapper {
         loadingMore={false}
         showLoader={true}
         threshold={500}
-        transitionAppear={true}
-        transitionAppearTimeout={2000}
-        transitionEnter={true}
-        transitionEnterTimeout={2000}
-        transitionLeave={true}
-        transitionLeaveTimeout={1000}
-        transitionName="redux-infinite-scroll"
       >
         <div />
         <WalletTransaction
@@ -121,7 +113,6 @@ ShallowWrapper {
       "key": undefined,
       "nodeType": "class",
       "props": Object {
-        "animateItems": false,
         "children": Array [
           <div />,
           Array [
@@ -180,13 +171,6 @@ ShallowWrapper {
         "loadingMore": false,
         "showLoader": true,
         "threshold": 500,
-        "transitionAppear": true,
-        "transitionAppearTimeout": 2000,
-        "transitionEnter": true,
-        "transitionEnterTimeout": 2000,
-        "transitionLeave": true,
-        "transitionLeaveTimeout": 1000,
-        "transitionName": "redux-infinite-scroll",
       },
       "ref": null,
       "rendered": Array [
@@ -257,7 +241,6 @@ ShallowWrapper {
       "nodeType": "host",
       "props": Object {
         "children": <ReduxInfiniteScroll
-          animateItems={false}
           className=""
           containerHeight="100%"
           elementIsScrollable={false}
@@ -279,13 +262,6 @@ ShallowWrapper {
           loadingMore={false}
           showLoader={true}
           threshold={500}
-          transitionAppear={true}
-          transitionAppearTimeout={2000}
-          transitionEnter={true}
-          transitionEnterTimeout={2000}
-          transitionLeave={true}
-          transitionLeaveTimeout={1000}
-          transitionName="redux-infinite-scroll"
         >
           <div />
           <WalletTransaction
@@ -331,7 +307,6 @@ ShallowWrapper {
         "key": undefined,
         "nodeType": "class",
         "props": Object {
-          "animateItems": false,
           "children": Array [
             <div />,
             Array [
@@ -390,13 +365,6 @@ ShallowWrapper {
           "loadingMore": false,
           "showLoader": true,
           "threshold": 500,
-          "transitionAppear": true,
-          "transitionAppearTimeout": 2000,
-          "transitionEnter": true,
-          "transitionEnterTimeout": 2000,
-          "transitionLeave": true,
-          "transitionLeaveTimeout": 1000,
-          "transitionName": "redux-infinite-scroll",
         },
         "ref": null,
         "rendered": Array [
