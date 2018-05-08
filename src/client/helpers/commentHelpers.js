@@ -34,27 +34,29 @@ export function getLinkedComment(comments = []) {
 }
 
 /**
- * Finds the root comment from a give child comment.
- * Root refers to level 1 comments not the post related to the comments.
+ * Finds the top comment based on its child and root post.
+ * @param root Parent post to all comments
  * @param comments An object of id:comment objects
  * @param child The comment to start the traversal from
  * @returns {*}
  */
-export function findRootComment(comments, child) {
-  if (!child) {
+export function findTopComment(root, comments, child) {
+  if (!child || !root) {
     return null;
   }
-  let root = child;
-  const commentIDS = Object.keys(comments);
-  while (root && root.depth > 1) {
-    for (let i = 0; i < commentIDS.length; i += 1) {
-      if (comments[commentIDS[i]].permlink === root.parent_permlink) {
-        root = comments[commentIDS[i]];
+
+  let top = child;
+  const commentIds = Object.keys(comments);
+  while (top && top.parent_permlink !== root.permlink && top.parent_author !== root.author) {
+    for (let i = 0; i < commentIds.length; i += 1) {
+      if (comments[commentIds[i]].permlink === top.parent_permlink) {
+        top = comments[commentIds[i]];
         break;
       }
     }
   }
-  return root;
+
+  return top;
 }
 
 export default null;
