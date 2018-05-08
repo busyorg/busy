@@ -2,18 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import url from 'url';
 import { connect } from 'react-redux';
-import { IntlProvider, addLocaleData } from 'react-intl';
+import { IntlProvider } from 'react-intl';
 import { withRouter } from 'react-router-dom';
 import { renderRoutes } from 'react-router-config';
 import { LocaleProvider, Layout } from 'antd';
 import enUS from 'antd/lib/locale-provider/en_US';
-import { getAvailableLocale, getTranslationsByLocale, getLocaleDirection } from './translations';
+import Cookie from 'js-cookie';
+import { findLanguage, getRequestLocale, getBrowserLocale, loadLanguage } from './translations';
 import {
   getIsLoaded,
   getAuthenticatedUser,
   getAuthenticatedUserName,
   getLocale,
   getUsedLocale,
+  getTranslations,
   getUseBeta,
 } from './reducers';
 import { login, logout, busyLogin } from './auth/authActions';
@@ -23,11 +25,9 @@ import {
   getRewardFund,
   getTrendingTopics,
   setUsedLocale,
-  busyAPIHandler,
   setAppUrl,
 } from './app/appActions';
 import * as reblogActions from './app/Reblog/reblogActions';
-import busyAPI from './busyAPI';
 import Redirect from './components/Utils/Redirect';
 import NotificationPopup from './notifications/NotificationPopup';
 import Topnav from './components/Navigation/Topnav';
@@ -41,6 +41,7 @@ import BBackTop from './components/BBackTop';
     user: getAuthenticatedUser(state),
     username: getAuthenticatedUserName(state),
     usedLocale: getUsedLocale(state),
+    translations: getTranslations(state),
     locale: getLocale(state),
   }),
   {
@@ -52,7 +53,6 @@ import BBackTop from './components/BBackTop';
     getRewardFund,
     getTrendingTopics,
     busyLogin,
-    busyAPIHandler,
     getRebloggedList: reblogActions.getRebloggedList,
     setUsedLocale,
   },
@@ -60,11 +60,11 @@ import BBackTop from './components/BBackTop';
 export default class Wrapper extends React.PureComponent {
   static propTypes = {
     route: PropTypes.shape().isRequired,
-    loaded: PropTypes.bool.isRequired,
     user: PropTypes.shape().isRequired,
     locale: PropTypes.string.isRequired,
-    usedLocale: PropTypes.string.isRequired,
     history: PropTypes.shape().isRequired,
+    usedLocale: PropTypes.string,
+    translations: PropTypes.shape(),
     username: PropTypes.string,
     login: PropTypes.func,
     logout: PropTypes.func,
@@ -76,10 +76,11 @@ export default class Wrapper extends React.PureComponent {
     getNotifications: PropTypes.func,
     setUsedLocale: PropTypes.func,
     busyLogin: PropTypes.func,
-    busyAPIHandler: PropTypes.func,
   };
 
   static defaultProps = {
+    usedLocale: null,
+    translations: {},
     username: '',
     login: () => {},
     logout: () => {},
@@ -91,7 +92,6 @@ export default class Wrapper extends React.PureComponent {
     getNotifications: () => {},
     setUsedLocale: () => {},
     busyLogin: () => {},
-    busyAPIHandler: () => {},
   };
 
   static async fetchData({ store, req, res }) {
@@ -113,24 +113,14 @@ export default class Wrapper extends React.PureComponent {
       return;
     }
 
-    const locale = getLocale(state);
+    let activeLocale = getLocale(state);
+    if (activeLocale === 'auto') {
+      activeLocale = req.cookies.language || getRequestLocale(req.get('Accept-Language'));
+    }
 
-    await Wrapper.loadLocaleData(locale);
+    const lang = await loadLanguage(activeLocale);
 
-    store.dispatch(setUsedLocale(getAvailableLocale(locale)));
-  }
-
-  static async loadLocaleData(locale) {
-    const availableLocale = getAvailableLocale(locale);
-    const translationsLocale = getTranslationsByLocale(locale);
-
-    const localeDataPromise = import(`react-intl/locale-data/${availableLocale}`);
-    const translationsPromise = import(`./locales/${translationsLocale}.json`);
-
-    const [localeData, translations] = await Promise.all([localeDataPromise, translationsPromise]);
-
-    addLocaleData(localeData);
-    global.translations = translations;
+    store.dispatch(setUsedLocale(lang));
   }
 
   constructor(props) {
@@ -141,8 +131,6 @@ export default class Wrapper extends React.PureComponent {
   }
 
   componentDidMount() {
-    const { loaded, locale, usedLocale } = this.props;
-
     this.props.login().then(() => {
       this.props.getFollowing();
       this.props.getNotifications();
@@ -153,27 +141,25 @@ export default class Wrapper extends React.PureComponent {
     this.props.getRebloggedList();
     this.props.getRate();
     this.props.getTrendingTopics();
-
-    if (usedLocale !== getAvailableLocale(locale) && loaded) {
-      this.loadLocale(locale);
-    }
-
-    busyAPI.subscribe(this.props.busyAPIHandler);
   }
 
   componentWillReceiveProps(nextProps) {
-    const { usedLocale } = this.props;
+    const { locale } = this.props;
 
-    if (usedLocale !== getAvailableLocale(nextProps.locale) && nextProps.loaded) {
-      this.loadLocale(nextProps.locale);
-    } else if (nextProps.locale !== this.props.locale) {
+    if (locale !== nextProps.locale) {
       this.loadLocale(nextProps.locale);
     }
   }
 
   async loadLocale(locale) {
-    await Wrapper.loadLocaleData(locale);
-    this.props.setUsedLocale(getAvailableLocale(locale));
+    let activeLocale = locale;
+    if (activeLocale === 'auto') {
+      activeLocale = Cookie.get('language') || getBrowserLocale();
+    }
+
+    const lang = await loadLanguage(activeLocale);
+
+    this.props.setUsedLocale(lang);
   }
 
   handleMenuItemClick(key) {
@@ -214,12 +200,14 @@ export default class Wrapper extends React.PureComponent {
   }
 
   render() {
-    const { user, usedLocale, locale } = this.props;
+    const { user, usedLocale, translations } = this.props;
+
+    const language = findLanguage(usedLocale);
 
     return (
-      <IntlProvider key={usedLocale} locale={usedLocale} messages={global.translations}>
+      <IntlProvider key={language.id} locale={language.localeData} messages={translations}>
         <LocaleProvider locale={enUS}>
-          <Layout data-dir={getLocaleDirection(getAvailableLocale(locale))}>
+          <Layout data-dir={language && language.rtl ? 'rtl' : 'ltr'}>
             <Layout.Header style={{ position: 'fixed', width: '100vw', zIndex: 1050 }}>
               <Topnav username={user.name} onMenuItemClick={this.handleMenuItemClick} />
             </Layout.Header>

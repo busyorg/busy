@@ -17,29 +17,26 @@ import walletReducer, * as fromWallet from './wallet/walletReducer';
 import reblogReducers, * as fromReblog from './app/Reblog/reblogReducers';
 import settingsReducer, * as fromSettings from './settings/settingsReducer';
 import searchReducer, * as fromSearch from './search/searchReducer';
-import { responsiveReducer } from './vendor/responsive';
 
-const reducers = combineReducers({
-  app: appReducer,
-  auth: authReducer,
-  comments: commentsReducer,
-  editor: editorReducer,
-  posts: postsReducer,
-  feed: feedReducer,
-  user: userReducer,
-  users: usersReducer,
-  responsive: responsiveReducer,
-  notifications: notificationReducer,
-  bookmarks: bookmarksReducer,
-  favorites: favoritesReducer,
-  reblog: reblogReducers,
-  router: routerReducer,
-  wallet: walletReducer,
-  settings: settingsReducer,
-  search: searchReducer,
-});
-
-export default reducers;
+export default () =>
+  combineReducers({
+    app: appReducer,
+    auth: authReducer,
+    comments: commentsReducer,
+    editor: editorReducer,
+    posts: postsReducer,
+    feed: feedReducer,
+    user: userReducer,
+    users: usersReducer,
+    notifications: notificationReducer,
+    bookmarks: bookmarksReducer,
+    favorites: favoritesReducer,
+    reblog: reblogReducers,
+    router: routerReducer,
+    wallet: walletReducer,
+    settings: settingsReducer,
+    search: searchReducer,
+  });
 
 export const getIsAuthenticated = state => fromAuth.getIsAuthenticated(state.auth);
 export const getIsAuthFetching = state => fromAuth.getIsAuthFetching(state.auth);
@@ -76,6 +73,7 @@ export const getIsFetching = state => fromApp.getIsFetching(state.app);
 export const getIsBannerClosed = state => fromApp.getIsBannerClosed(state.app);
 export const getAppUrl = state => fromApp.getAppUrl(state.app);
 export const getUsedLocale = state => fromApp.getUsedLocale(state.app);
+export const getTranslations = state => fromApp.getTranslations(state.app);
 export const getCryptosPriceHistory = state => fromApp.getCryptosPriceHistory(state.app);
 export const getShowPostModal = state => fromApp.getShowPostModal(state.app);
 export const getCurrentShownPost = state => fromApp.getCurrentShownPost(state.app);

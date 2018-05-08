@@ -9,6 +9,8 @@ import SortSelector from '../SortSelector/SortSelector';
 import CommentForm from './CommentForm';
 import Comment from './Comment';
 import './Comments.less';
+import MoreCommentsButton from './MoreCommentsButton';
+import { findRootComment, getLinkedComment } from '../../helpers/commentHelpers';
 
 @injectIntl
 class Comments extends React.Component {
@@ -18,7 +20,8 @@ class Comments extends React.Component {
     authenticated: PropTypes.bool.isRequired,
     username: PropTypes.string,
     parentPost: PropTypes.shape(),
-    comments: PropTypes.arrayOf(PropTypes.shape()),
+    comments: PropTypes.shape(),
+    rootLevelComments: PropTypes.arrayOf(PropTypes.shape()),
     commentsChildren: PropTypes.shape(),
     pendingVotes: PropTypes.arrayOf(
       PropTypes.shape({
@@ -41,7 +44,8 @@ class Comments extends React.Component {
   static defaultProps = {
     username: undefined,
     parentPost: undefined,
-    comments: [],
+    comments: {},
+    rootLevelComments: [],
     commentsChildren: undefined,
     pendingVotes: [],
     rewriteLinks: false,
@@ -54,6 +58,8 @@ class Comments extends React.Component {
     onSendComment: () => {},
   };
 
+  static SHOW_COMMENTS_INCREMENT = 20;
+
   constructor(props) {
     super(props);
 
@@ -62,12 +68,14 @@ class Comments extends React.Component {
       showCommentFormLoading: false,
       commentFormText: '',
       commentSubmitted: false,
+      nRenderedComments: 20,
     };
 
     this.detectSort = this.detectSort.bind(this);
     this.setSort = this.setSort.bind(this);
     this.handleSortChange = this.handleSortChange.bind(this);
     this.handleSubmitComment = this.handleSubmitComment.bind(this);
+    this.handleShowMoreComments = this.handleShowMoreComments.bind(this);
   }
 
   componentDidMount() {
@@ -95,6 +103,12 @@ class Comments extends React.Component {
 
   handleSortChange(type) {
     this.setSort(type);
+  }
+
+  handleShowMoreComments() {
+    this.setState(prevState => ({
+      nRenderedComments: prevState.nRenderedComments + Comments.SHOW_COMMENTS_INCREMENT,
+    }));
   }
 
   handleImageInserted = (blob, callback, errorCallback) => {
@@ -159,13 +173,28 @@ class Comments extends React.Component {
       });
   }
 
+  commentsToRender(rootLevelComments, rootLinkedComment) {
+    const { nRenderedComments, sort } = this.state;
+
+    const filteredComments = sortComments(rootLevelComments, sort)
+      .filter(comment => comment.id !== (rootLinkedComment && rootLinkedComment.id))
+      .slice(
+        0,
+        rootLinkedComment
+          ? nRenderedComments - Comments.SHOW_COMMENTS_INCREMENT
+          : nRenderedComments,
+      );
+    return rootLinkedComment ? [rootLinkedComment, ...filteredComments] : filteredComments;
+  }
+
   render() {
     const {
       user,
       comments,
+      rootLevelComments,
+      commentsChildren,
       loading,
       show,
-      commentsChildren,
       pendingVotes,
       onLikeClick,
       onDislikeClick,
@@ -177,6 +206,9 @@ class Comments extends React.Component {
       rewriteLinks,
     } = this.props;
     const { sort } = this.state;
+
+    const rootLinkedComment = findRootComment(comments, getLinkedComment(comments));
+    const commentsToRender = this.commentsToRender(rootLevelComments, rootLinkedComment);
 
     return (
       <div className="Comments">
@@ -217,7 +249,7 @@ class Comments extends React.Component {
         {!loading &&
           show &&
           comments &&
-          sortComments(comments, sort).map(comment => (
+          commentsToRender.map(comment => (
             <Comment
               key={comment.id}
               user={user}
@@ -240,6 +272,11 @@ class Comments extends React.Component {
               onSendComment={this.props.onSendComment}
             />
           ))}
+        <MoreCommentsButton
+          comments={rootLevelComments.length}
+          visibleComments={commentsToRender.length}
+          onClick={this.handleShowMoreComments}
+        />
       </div>
     );
   }
