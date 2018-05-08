@@ -44,34 +44,36 @@ const UserHeader = ({
                 <Tag>{formatter.reputation(userReputation)}</Tag>
               </BTooltip>
             </h2>
-            <div
-              className={classNames('UserHeader__user__button', {
-                'UserHeader__user__button-follows-you': isFollowing && !isSameUser,
-              })}
-            >
-              {isSameUser ? (
-                <Link to="/edit-profile">
+            <div className="UserHeader__user__buttons">
+              <div
+                className={classNames('UserHeader__user__button', {
+                  'UserHeader__user__button-follows-you': isFollowing && !isSameUser,
+                })}
+              >
+                {isSameUser ? (
+                  <Link to="/edit-profile">
+                    <Action
+                      small
+                      text={intl.formatMessage({
+                        id: 'edit_profile',
+                        defaultMessage: 'Edit profile',
+                      })}
+                    />
+                  </Link>
+                ) : (
+                  <FollowButton username={handle} />
+                )}
+              </div>
+              {!isSameUser && (
+                <div className="UserHeader__user__button">
                   <Action
                     small
-                    text={intl.formatMessage({
-                      id: 'edit_profile',
-                      defaultMessage: 'Edit profile',
-                    })}
+                    text={intl.formatMessage({ id: 'transfer', defaultMessage: 'Transfer' })}
+                    onClick={onTransferClick}
                   />
-                </Link>
-              ) : (
-                <FollowButton username={handle} />
+                </div>
               )}
             </div>
-            {!isSameUser && (
-              <div className="UserHeader__user__button">
-                <Action
-                  small
-                  text={intl.formatMessage({ id: 'transfer', defaultMessage: 'Transfer' })}
-                  onClick={onTransferClick}
-                />
-              </div>
-            )}
           </div>
           <div className="UserHeader__handle-rank-container">
             <div className="UserHeader__row UserHeader__handle">
