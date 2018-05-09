@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 function topPosition(domElt) {
   if (!domElt) {
@@ -137,31 +136,12 @@ export default class ReduxInfiniteScroll extends React.Component {
     return 'redux-infinite-scroll ' + additionalClass;
   }
 
-  _renderWithTransitions() {
-    const allItems = this.props.children.concat(this.props.items);
-
-    console.log('animating with tran');
-    return (
-      <ReactCSSTransitionGroup
-        transitionName={this.props.transitionName}
-        transitionEnter={this.props.transitionEnter}
-        transitionEnterTimeout={this.props.transitionEnterTimeout}
-        transitionLeave={this.props.transitionLeave}
-        transitionLeaveTimeout={this.props.transitionLeaveTimeout}
-        transitionAppear={this.props.transitionAppear}
-        transitionAppearTimeout={this.props.transitionAppearTimeout}
-      >
-        {allItems}
-      </ReactCSSTransitionGroup>
-    );
-  }
-
   render() {
     const Holder = this.props.holderType;
 
     return (
       <Holder className={this._assignHolderClass()} style={{ height: this.props.containerHeight }}>
-        {this.props.animateItems ? this._renderWithTransitions() : this._renderOptions()}
+        {this._renderOptions()}
         {this.renderLoader()}
       </Holder>
     );
@@ -188,14 +168,6 @@ ReduxInfiniteScroll.propTypes = {
   ]),
   holderType: PropTypes.string,
   className: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-  animateItems: PropTypes.bool,
-  transitionName: PropTypes.string,
-  transitionEnter: PropTypes.bool,
-  transitionEnterTimeout: PropTypes.number,
-  transitionLeave: PropTypes.bool,
-  transitionLeaveTimeout: PropTypes.number,
-  transitionAppear: PropTypes.bool,
-  transitionAppearTimeout: PropTypes.number,
 };
 
 ReduxInfiniteScroll.defaultProps = {
@@ -211,12 +183,4 @@ ReduxInfiniteScroll.defaultProps = {
   holderType: 'div',
   children: [],
   items: [],
-  animateItems: false,
-  transitionName: 'redux-infinite-scroll',
-  transitionEnter: true,
-  transitionEnterTimeout: 2000,
-  transitionLeave: true,
-  transitionLeaveTimeout: 1000,
-  transitionAppear: true,
-  transitionAppearTimeout: 2000,
 };

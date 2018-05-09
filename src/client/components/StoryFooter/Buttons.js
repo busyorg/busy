@@ -311,9 +311,7 @@ export default class Buttons extends React.Component {
         </BTooltip>
         {upVotes.length > 0 && (
           <span
-            className={classNames('Buttons__number', {
-              'Buttons__reactions-count': downVotes.length > 0,
-            })}
+            className="Buttons__number Buttons__reactions-count"
             role="presentation"
             onClick={this.handleShowReactions}
           >
