@@ -19,6 +19,12 @@ class BBackTop extends React.Component {
     return window;
   }
 
+  static getScroll(target) {
+    if (typeof window === 'undefined') return 0;
+
+    return target === window ? target.pageYOffset : target.scrollTop
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -27,13 +33,8 @@ class BBackTop extends React.Component {
   }
 
   componentDidMount() {
+    this.previousScroll = 0;
     this.scrollEvent = this.getTarget().addEventListener('scroll', this.handleScroll);
-    this.timer = setInterval(() => {
-      if (Date.now() - this.lastTick > 3000) {
-        this.setState({ visible: true });
-      }
-    }, 500);
-    this.lastTick = 0;
   }
 
   componentWillUnmount() {
@@ -46,10 +47,15 @@ class BBackTop extends React.Component {
   }
 
   handleScroll = () => {
-    this.lastTick = Date.now();
-    if (this.state.visible === true) {
+    const currentScroll = BBackTop.getScroll(this.getTarget());
+    
+    if (currentScroll - this.previousScroll < -100) {
+      this.setState({ visible: true });
+    } else {
       this.setState({ visible: false });
     }
+
+    this.previousScroll = currentScroll;
   };
 
   render() {
@@ -61,7 +67,9 @@ class BBackTop extends React.Component {
               'BBackTop__container--shifted': this.props.isModal,
             })}
           >
-            <BackTop {...this.props} className="BBackTop_button" />
+            <BackTop {...this.props} className="BBackTop_button">
+              <i className="iconfont icon-back-top"/>
+            </BackTop>
           </div>
         </div>
       )
