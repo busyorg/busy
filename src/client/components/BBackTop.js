@@ -8,11 +8,13 @@ class BBackTop extends React.Component {
   static propTypes = {
     isModal: PropTypes.bool,
     target: PropTypes.node,
+    toggleHeight: PropTypes.number,
   };
 
   static defaultProps = {
     isModal: false,
     target: undefined,
+    toggleHeight: 100,
   };
 
   static getDefaultTarget() {
@@ -54,12 +56,13 @@ class BBackTop extends React.Component {
     if (diff > 0) {
       this.previousScroll = currentScroll;
       this.setState({ visible: false });
-    } else if (diff < -100) {
+    } else if (diff < -this.props.toggleHeight) {
       this.setState({ visible: true });
     }
   };
 
   render() {
+    const { isModal, toggleHeight, ...otherProps } = this.props;
     return (
       this.state.visible && (
         <div className="BBackTop">
@@ -68,7 +71,7 @@ class BBackTop extends React.Component {
               'BBackTop__container--shifted': this.props.isModal,
             })}
           >
-            <BackTop target={this.props.target} className="BBackTop_button">
+            <BackTop className="BBackTop_button" {...otherProps}>
               <i className="iconfont icon-back-top" />
             </BackTop>
           </div>
