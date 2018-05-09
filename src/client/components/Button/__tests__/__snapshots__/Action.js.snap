@@ -5,6 +5,7 @@ ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <Action
+    className=""
     disabled={false}
     loading={true}
     onClick={[Function]}
@@ -12,7 +13,6 @@ ShallowWrapper {
     small={false}
     style={Object {}}
     text="Example text"
-    type=""
   />,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
@@ -36,7 +36,6 @@ ShallowWrapper {
       "disabled": false,
       "onClick": [Function],
       "style": Object {},
-      "type": "",
     },
     "ref": null,
     "rendered": Array [
@@ -71,7 +70,6 @@ ShallowWrapper {
         "disabled": false,
         "onClick": [Function],
         "style": Object {},
-        "type": "",
       },
       "ref": null,
       "rendered": Array [
