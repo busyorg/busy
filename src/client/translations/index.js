@@ -37,7 +37,7 @@ export async function loadLanguage(locale) {
 
   const [localeData, translations] = await Promise.all([localeDataPromise, translationsPromise]);
 
-  addLocaleData(localeData);
+  addLocaleData(localeData.default);
 
   return {
     id: language.id,
