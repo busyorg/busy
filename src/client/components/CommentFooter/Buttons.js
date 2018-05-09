@@ -177,14 +177,12 @@ class Buttons extends React.Component {
             {pendingLike ? <Icon type="loading" /> : <i className="iconfont icon-praise_fill" />}
           </a>
         </BTooltip>
-        <span
-          className={classNames('CommentFooter__count', {
-            'CommentFooter__count--clickable': downVotes.length > 0,
-          })}
-          role="presentation"
-          onClick={this.handleShowReactions}
-        >
-          {upVotes.length > 0 && (
+        {upVotes.length > 0 && (
+          <span
+            className="CommentFooter__count"
+            role="presentation"
+            onClick={this.handleShowReactions}
+          >
             <BTooltip
               title={
                 <div>
@@ -196,8 +194,8 @@ class Buttons extends React.Component {
               <FormattedNumber value={upVotes.length} />
               <span />
             </BTooltip>
-          )}
-        </span>
+          </span>
+        )}
         <BTooltip title={intl.formatMessage({ id: 'dislike', defaultMessage: 'Dislike' })}>
           <a
             role="presentation"
@@ -215,9 +213,7 @@ class Buttons extends React.Component {
         </BTooltip>
         {downVotes.length > 0 && (
           <span
-            className={classNames('CommentFooter__count', {
-              'CommentFooter__count--clickable': upVotes.length > 0,
-            })}
+            className="CommentFooter__count"
             role="presentation"
             onClick={this.handleShowReactions}
           >
