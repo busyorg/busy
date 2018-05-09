@@ -68,7 +68,7 @@ class BBackTop extends React.Component {
               'BBackTop__container--shifted': this.props.isModal,
             })}
           >
-            <BackTop {...this.props} className="BBackTop_button">
+            <BackTop target={this.props.target} className="BBackTop_button">
               <i className="iconfont icon-back-top" />
             </BackTop>
           </div>
