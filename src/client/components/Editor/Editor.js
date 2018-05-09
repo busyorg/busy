@@ -178,8 +178,6 @@ class Editor extends React.Component {
     this.props.onUpdate(values);
   }
 
-  handleNavigateToFullScreenEditor() {}
-
   handleSubmit(e) {
     e.preventDefault();
 

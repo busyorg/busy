@@ -199,9 +199,9 @@ export default class Wrapper extends React.PureComponent {
   }
 
   render() {
-    const { user, usedLocale, locale, location } = this.props;
+    const { user, usedLocale, translations } = this.props;
     const language = findLanguage(usedLocale);
-    
+
     const renderTopnav = location.pathname !== '/full-editor';
 
     return (
