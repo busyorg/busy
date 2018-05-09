@@ -22,7 +22,7 @@ class BBackTop extends React.Component {
   static getScroll(target) {
     if (typeof window === 'undefined') return 0;
 
-    return target === window ? target.pageYOffset : target.scrollTop
+    return target === window ? target.pageYOffset : target.scrollTop;
   }
 
   constructor(props) {
@@ -39,23 +39,24 @@ class BBackTop extends React.Component {
 
   componentWillUnmount() {
     if (this.scrollEvent) this.scrollEvent.remove();
-    if (this.timer) clearInterval(this.timer);
   }
 
-  getTarget() {
-    return this.props.target || BBackTop.getDefaultTarget();
-  }
+  getTarget = () => this.props.target || BBackTop.getDefaultTarget();
 
   handleScroll = () => {
     const currentScroll = BBackTop.getScroll(this.getTarget());
-    
-    if (currentScroll - this.previousScroll < -100) {
-      this.setState({ visible: true });
-    } else {
-      this.setState({ visible: false });
+    if (currentScroll === 0) {
+      this.previousScroll = 0;
+      return;
     }
 
-    this.previousScroll = currentScroll;
+    const diff = currentScroll - this.previousScroll;
+    if (diff > 0) {
+      this.previousScroll = currentScroll;
+      this.setState({ visible: false });
+    } else if (diff < -100) {
+      this.setState({ visible: true });
+    }
   };
 
   render() {
@@ -68,7 +69,7 @@ class BBackTop extends React.Component {
             })}
           >
             <BackTop {...this.props} className="BBackTop_button">
-              <i className="iconfont icon-back-top"/>
+              <i className="iconfont icon-back-top" />
             </BackTop>
           </div>
         </div>
