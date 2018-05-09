@@ -91,10 +91,6 @@ function getContext(post, body, appUrl) {
   return context;
 }
 
-export function compileAmpTemplate(template) {
-  return Handlebars.compile(template);
-}
-
 export default function renderAmpPage(post, appUrl, template) {
   const body = cleanHTML(getHtml(post.body, post.jsonMetadata, 'text'));
   const context = getContext(post, body, appUrl);
