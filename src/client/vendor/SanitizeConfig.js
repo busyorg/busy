@@ -159,11 +159,13 @@ export default ({ large = true, noImage = false, sanitizeErrors = [] }) => ({
       let { href } = attribs;
       if (!href) href = '#';
       href = href.trim();
-      const attys = { href };
+      const attys = {};
+      // If it's not a (relative or absolute) steemit URL...
       if (!href.match(/^^(\/|https:\/\/(staging\.)?busy\.org(?![\w\.]+))/)) {
-        attys.target = '_blank'; // pending iframe impl https://mathiasbynens.github.io/rel-noopener/
-        attys.rel = 'nofollow noopener';
+        attys.target = '_blank';
+        href = `/exit?url=${encodeURI(href)}`;
       }
+      attys.href = href;
       return {
         tagName,
         attribs: attys,
