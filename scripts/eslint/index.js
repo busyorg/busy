@@ -8,7 +8,7 @@ const intersect = require('../utils/intersect');
 const ignoreMessage =
   'File ignored because of a matching ignore pattern. Use "--no-ignore" to override.';
 
-const patterns = ['**/*.js'];
+const patterns = ['scripts/**/*.js', 'src/**/*.js', 'webpack/**/*.js'];
 
 const onlyChanged = process.argv[2] !== 'all';
 
