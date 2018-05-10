@@ -90,7 +90,7 @@ export default class Comments extends React.Component {
   };
 
   componentDidMount() {
-    if (this.props.show) {
+    if (this.props.show && this.props.post.children !== 0) {
       this.props.getComments(this.props.post.id);
     }
   }
@@ -98,7 +98,11 @@ export default class Comments extends React.Component {
   componentWillReceiveProps(nextProps) {
     const { post, show } = this.props;
 
-    if (nextProps.show && (nextProps.post.id !== post.id || !show)) {
+    if (
+      nextProps.show &&
+      nextProps.post.children !== 0 &&
+      (nextProps.post.id !== post.id || !show)
+    ) {
       this.props.getComments(nextProps.post.id);
     }
   }
@@ -154,29 +158,30 @@ export default class Comments extends React.Component {
       rewriteLinks,
     } = this.props;
     const postId = post.id;
-    let fetchedCommentsList = [];
+    let rootLevelComments = [];
 
-    const rootNode = comments.childrenById[postId];
+    const parentNode = comments.childrenById[postId];
 
-    if (rootNode instanceof Array) {
-      fetchedCommentsList = rootNode.map(id => comments.comments[id]);
+    if (parentNode instanceof Array) {
+      rootLevelComments = parentNode.map(id => comments.comments[id]);
     }
 
     let commentsChildren = {};
 
-    if (fetchedCommentsList && fetchedCommentsList.length) {
+    if (rootLevelComments && rootLevelComments.length) {
       commentsChildren = this.getNestedComments(comments, comments.childrenById[postId], {});
     }
 
     return (
-      fetchedCommentsList && (
+      rootLevelComments && (
         <CommentsList
           user={user}
           parentPost={post}
-          comments={fetchedCommentsList}
+          comments={comments.comments}
+          rootLevelComments={rootLevelComments}
+          commentsChildren={commentsChildren}
           authenticated={this.props.authenticated}
           username={this.props.username}
-          commentsChildren={commentsChildren}
           pendingVotes={pendingVotes}
           loading={comments.isFetching}
           show={show}

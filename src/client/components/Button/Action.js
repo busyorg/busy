@@ -4,15 +4,13 @@ import { Icon } from 'antd';
 import classNames from 'classnames';
 import './Action.less';
 
-const Action = ({ text, loading, disabled, primary, style, small, type, onClick }) => (
+const Action = ({ className, text, loading, primary, small, onClick, ...restProps }) => (
   <button
-    disabled={disabled}
-    style={style}
-    className={classNames('Action', {
+    {...restProps}
+    className={classNames('Action', className, {
       'ant-btn-lg': !small,
       'Action--primary': primary,
     })}
-    type={type}
     onClick={onClick}
   >
     {loading && <Icon type="loading" />}
@@ -22,22 +20,18 @@ const Action = ({ text, loading, disabled, primary, style, small, type, onClick 
 
 Action.propTypes = {
   text: PropTypes.string.isRequired,
+  className: PropTypes.string,
   loading: PropTypes.bool,
-  disabled: PropTypes.bool,
   primary: PropTypes.bool,
-  style: PropTypes.shape(),
   small: PropTypes.bool,
-  type: PropTypes.string,
   onClick: PropTypes.func,
 };
 
 Action.defaultProps = {
+  className: '',
   loading: false,
-  disabled: false,
   primary: false,
-  style: {},
   small: false,
-  type: '',
   onClick: () => {},
 };
 
