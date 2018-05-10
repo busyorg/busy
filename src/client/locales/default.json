@@ -283,6 +283,7 @@
   "user_unvoted": "{username} unvoted",
   "user_replied_to": "{username} replied to {author} ({postLink})",
   "replied_to": "Replied to {author} ({postLink})",
+  "authored_post": "Authored a post ({postLink})",
   "user_followed": "{follower} followed {following}",
   "user_unfollowed": "{follower} unfollowed {following}",
   "followed_user": "followed {following}",
