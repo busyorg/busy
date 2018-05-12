@@ -7,7 +7,7 @@ import './BBackTop.less';
 class BBackTop extends React.Component {
   static propTypes = {
     isModal: PropTypes.bool,
-    target: PropTypes.node,
+    target: PropTypes.func,
     toggleHeight: PropTypes.number,
   };
 
@@ -43,7 +43,7 @@ class BBackTop extends React.Component {
     if (this.scrollEvent) this.scrollEvent.remove();
   }
 
-  getTarget = () => this.props.target || BBackTop.getDefaultTarget();
+  getTarget = () => (this.props.target || BBackTop.getDefaultTarget)();
 
   handleScroll = () => {
     const currentScroll = BBackTop.getScroll(this.getTarget());
