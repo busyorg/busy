@@ -21,7 +21,7 @@ git clone https://github.com/busyorg/busy.git
 cd busy
 
 yarn
-yarn dev-server
+yarn start
 ```
 
 ## Getting involved

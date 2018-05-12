@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
 import { FormattedMessage, FormattedNumber } from 'react-intl';
 import { Link } from 'react-router-dom';
 import formatter from '../helpers/steemitFormatter';
 import * as accountHistoryConstants from '../../common/constants/accountHistory';
 import VoteActionMessage from './VoteActionMessage';
+import CommentActionMessage from './CommentActionMessage';
 import CustomJSONMessage from './CustomJSONMessage';
 import AuthorRewardMessage from './AuthorRewardMessage';
 
@@ -70,57 +70,10 @@ class UserActionMessage extends React.Component {
         return (
           <VoteActionMessage actionDetails={actionDetails} currentUsername={currentUsername} />
         );
-      case accountHistoryConstants.COMMENT: {
-        const author = _.isEmpty(actionDetails.parent_author) ? (
-          <Link to={`/@${actionDetails.author}`}>
-            <span className="username">{actionDetails.author}</span>
-          </Link>
-        ) : (
-          <Link to={`/@${actionDetails.parent_author}`}>
-            <span className="username">{actionDetails.parent_author}</span>
-          </Link>
-        );
-        const postLink = _.isEmpty(actionDetails.parent_author) ? (
-          <Link to={`/@${actionDetails.author}/${actionDetails.permlink}`}>
-            {actionDetails.permlink}
-          </Link>
-        ) : (
-          <Link
-            to={`/@${actionDetails.parent_author}/${actionDetails.parent_permlink}#@${
-              actionDetails.author
-            }/${actionDetails.permlink}`}
-          >
-            {actionDetails.parent_permlink}
-          </Link>
-        );
-        if (currentUsername === actionDetails.author) {
-          return (
-            <FormattedMessage
-              id="replied_to"
-              defaultMessage="Replied to {author} ({postLink})"
-              values={{
-                author,
-                postLink,
-              }}
-            />
-          );
-        }
+      case accountHistoryConstants.COMMENT:
         return (
-          <FormattedMessage
-            id="user_replied_to"
-            defaultMessage="{username} replied to {author} ({postLink})"
-            values={{
-              username: (
-                <Link to={`/@${actionDetails.author}`}>
-                  <span className="username">{actionDetails.author}</span>
-                </Link>
-              ),
-              author,
-              postLink,
-            }}
-          />
+          <CommentActionMessage actionDetails={actionDetails} currentUsername={currentUsername} />
         );
-      }
       case accountHistoryConstants.DELETE_COMMENT:
         return (
           <FormattedMessage
