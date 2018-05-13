@@ -27,7 +27,7 @@ const EditorFullScreenFooter = ({ isUpdating, getFieldDecorator, onUpdate, loadi
       })(
         <Select
           onChange={this.onUpdate}
-          className="EditorFullScreen__topics"
+          className="EditorFullScreen__footer__topics"
           mode="tags"
           placeholder={intl.formatMessage({
             id: 'topics_placeholder',
@@ -38,12 +38,20 @@ const EditorFullScreenFooter = ({ isUpdating, getFieldDecorator, onUpdate, loadi
         />,
       )}
     </Form.Item>
-    <Form.Item className={classNames({ Editor__hidden: isUpdating })}>
+    <div className="EditorFullScreen__footer__right">
+    <Form.Item className={classNames('EditorFullScreen__footer__right__upvote', { Editor__hidden: isUpdating })}>
+      {getFieldDecorator('upvote', { valuePropName: 'checked', initialValue: true })(
+        <Checkbox onChange={onUpdate} disabled={isUpdating}>
+          <FormattedMessage id="like_post" defaultMessage="Like this post" />
+        </Checkbox>,
+      )}
+    </Form.Item>
+    <Form.Item className={classNames('EditorFullScreen__footer__right__reward', { Editor__hidden: isUpdating })}>
       {getFieldDecorator('reward')(
         <Select
           onChange={onUpdate}
           disabled={isUpdating}
-          className="EditorFullScreen__footer__reward-select"
+          className="EditorFullScreen__footer__right__reward__select"
         >
           <Select.Option value={rewardsValues.all}>
             <FormattedMessage id="reward_option_100" defaultMessage="100% Steem Power" />
@@ -55,13 +63,6 @@ const EditorFullScreenFooter = ({ isUpdating, getFieldDecorator, onUpdate, loadi
             <FormattedMessage id="reward_option_0" defaultMessage="Declined" />
           </Select.Option>
         </Select>,
-      )}
-    </Form.Item>
-    <Form.Item className={classNames('EditorFullScreen__upvote', { Editor__hidden: isUpdating })}>
-      {getFieldDecorator('upvote', { valuePropName: 'checked', initialValue: true })(
-        <Checkbox onChange={onUpdate} disabled={isUpdating}>
-          <FormattedMessage id="like_post" defaultMessage="Like this post" />
-        </Checkbox>,
       )}
     </Form.Item>
     <Form.Item className="Editor__bottom__submit">
@@ -87,6 +88,7 @@ const EditorFullScreenFooter = ({ isUpdating, getFieldDecorator, onUpdate, loadi
         />
       )}
     </Form.Item>
+    </div>
   </div>
 );
 

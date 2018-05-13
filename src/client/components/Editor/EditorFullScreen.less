@@ -1,5 +1,9 @@
 @import (reference) '../../styles/custom.less';
 
+.content {
+  margin-top: 0px !important;
+}
+
 .EditorFullScreen {
   .ant-modal {
     padding-bottom: 0 !important;
@@ -7,7 +11,8 @@
 
   &__container {
     height: 100vh;
-    margin-top: -56px;
+    display: flex;
+    flex-direction: column;
   }
 
   &__brand {
@@ -22,14 +27,8 @@
 
   &__contents {
     display: flex;
+    flex: 1 0 auto;
     background-color: @white;
-  }
-
-  &__upvote {
-    margin-bottom: 0 !important;
-    .ant-checkbox {
-      vertical-align: -1px;
-    }
   }
 
   &__form {
@@ -37,7 +36,7 @@
     display: flex;
     flex: 1;
     flex-direction: column;
-    height: 80vh;
+    height: 100%;
     padding: 10px;
   }
 
@@ -92,7 +91,7 @@
       flex: 1;
       justify-content: center;
       align-items: center;
-      height: 80vh;
+      height: 100%;
       color: @blue-botticelli;
     }
   }
@@ -101,10 +100,6 @@
     &:before {
       content: '' !important;
     }
-  }
-
-  &__topics {
-    width: 500px;
   }
 
   &__title-input {

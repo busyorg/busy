@@ -54,7 +54,7 @@ export const isBannedPost = post => {
   return _.includes(bannedAuthors, post.author) || _.includes(bannedPosts, postURL);
 };
 
-export const validateTopics = (rule, value, callback, intl) => {
+export const validateTopics = intl => (rule, value, callback) => {
   if (!value || value.length < 1 || value.length > 5) {
     callback(
       intl.formatMessage({
