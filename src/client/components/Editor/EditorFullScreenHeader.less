@@ -1,0 +1,58 @@
+@import (reference) '../../styles/custom.less';
+
+.EditorFullScreen__header {
+  display: flex;
+  padding: 10px 50px 10px 15px;
+  border-bottom: @base-border;
+  height: 60px;
+
+  &__word-count {
+    display: flex;
+    > span {
+      width: 150px;
+    }
+  }
+
+  &__info {
+    > i {
+      margin-right: 5px;
+    }
+
+    display: flex;
+    align-items: center;
+  }
+  &__right {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+
+    &__saving {
+      margin-right: 10px;
+    }
+  }
+
+  &__minimize {
+    display: flex;
+    align-items: center;
+  }
+  &__brand {
+    font-weight: bold;
+    font-size: 30px;
+    color: @primary-color;
+    letter-spacing: 0.5px;
+
+    &__icon {
+      margin-right: 4px;
+      font-size: 20px !important;
+      vertical-align: 2px;
+    }
+
+    &__version-beta {
+      color: @blue-botticelli;
+      font-weight: 500;
+      position: relative;
+      margin-top: 12px;
+      font-size: 16px;
+    }
+  }
+}

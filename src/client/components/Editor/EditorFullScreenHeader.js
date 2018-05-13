@@ -1,14 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+import './EditorFullScreenHeader.less';
 
 const EditorFullScreenHeader = ({ saving }) => (
   <div className="EditorFullScreen__header">
     <span className="EditorFullScreen__header__info">
-      <span className="EditorFullScreen__brand">
-        <i className="iconfont icon-busy EditorFullScreen__brand-icon" />
+      <span className="EditorFullScreen__header__brand">
+        <i className="iconfont icon-busy EditorFullScreen__header__brand__icon" />
         busy
       </span>
+      <span className="EditorFullScreen__header__brand__version-beta">beta</span>
     </span>
     <div className="EditorFullScreen__header__right">
       {saving && (
