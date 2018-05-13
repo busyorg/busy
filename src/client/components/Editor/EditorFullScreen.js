@@ -123,6 +123,7 @@ class EditorFullScreen extends React.Component {
               </Form.Item>
             </Form>
           </div>
+          <div className="EditorFullScreen__separator" />
           <div className="EditorFullScreen__column EditorFullScreen__preview">
             <Body full body={bodyHTML} />
             {_.isEmpty(bodyHTML) && (
