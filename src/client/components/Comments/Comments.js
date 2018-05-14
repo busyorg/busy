@@ -10,7 +10,7 @@ import CommentForm from './CommentForm';
 import Comment from './Comment';
 import './Comments.less';
 import MoreCommentsButton from './MoreCommentsButton';
-import { findRootComment, getLinkedComment } from '../../helpers/commentHelpers';
+import { findTopComment, getLinkedComment } from '../../helpers/commentHelpers';
 
 @injectIntl
 class Comments extends React.Component {
@@ -208,7 +208,8 @@ class Comments extends React.Component {
     } = this.props;
     const { sort } = this.state;
 
-    const rootLinkedComment = findRootComment(comments, getLinkedComment(comments));
+    const linkedComment = getLinkedComment(comments);
+    const rootLinkedComment = findTopComment(parentPost, comments, linkedComment);
     const commentsToRender = this.commentsToRender(rootLevelComments, rootLinkedComment);
 
     return (
