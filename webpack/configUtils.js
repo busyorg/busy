@@ -1,7 +1,11 @@
 const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
+const paths = require('../scripts/paths');
 
-const isDevelopment = process.env.NODE_ENV !== 'production';
+const IS_DEV = process.env.NODE_ENV !== 'production';
+
+const SERVER_PORT = process.env.PORT || 3000;
+const CONTENT_PORT = IS_DEV ? SERVER_PORT + 1 : SERVER_PORT;
 
 const MATCH_JS = /\.js$/i;
 const MATCH_CSS_LESS = /\.(css|less)$/i;
@@ -20,9 +24,7 @@ const POSTCSS_LOADER = {
 };
 
 const DEFINE_PLUGIN = new webpack.DefinePlugin({
-  'process.env.NODE_ENV': isDevelopment
-    ? JSON.stringify('development')
-    : JSON.stringify('production'),
+  'process.env.NODE_ENV': IS_DEV ? JSON.stringify('development') : JSON.stringify('production'),
   'process.env.STEEMCONNECT_CLIENT_ID': JSON.stringify(
     process.env.STEEMCONNECT_CLIENT_ID || 'busy.app',
   ),
@@ -36,9 +38,12 @@ const DEFINE_PLUGIN = new webpack.DefinePlugin({
   'process.env.SIGNUP_URL': JSON.stringify(
     process.env.SIGNUP_URL || 'https://signup.steemit.com/?ref=busy',
   ),
+  'process.env.MANIFEST_PATH': JSON.stringify(paths.assets),
 });
 
 module.exports = {
+  SERVER_PORT,
+  CONTENT_PORT,
   MATCH_JS,
   MATCH_CSS_LESS,
   MATCH_FONTS,

@@ -10,6 +10,7 @@ Please take a moment to review this document in order to make the contribution p
 * [Pull requests](#pull-requests)
   * [Getting started](#getting-started)
   * [Before your first Pull Request](#before-your-first-pull-request)
+  * [Starting development server](#starting-development-server)
   * [Working on the client](#working-on-the-client)
   * [Working on the client](#working-on-the-server)
   * [Common problems](#common-problems)
@@ -104,45 +105,28 @@ Running tests:
 yarn test
 ```
 
-### Working on the client
+### Starting development server
 
-To work on the client you need to start development server using
+To start development server you need to run one command:
 
 ```bash
-yarn dev-server
+yarn dev
 ```
 
 After some time (it can take few minutes) you should be able to see Busy running at http://localhost:3000
 
-Development server provides live-reload so the app will update automatically after you make a change to the code.
+After making some change to the code web browser will reload (in case of client code) or server will reload
+(you need to refresh page manually).
+
+### Working on the client
 
 Client-specific code lives under [src/client][client src].
 
 ### Working on the server
 
-Busy is Server-Side Rendered application. Working on the server requires
-more knowledge about Node and Express and might be more problematic.
-To run the server you have to build client first:
+Server-specific code lives under [src/server][server src].
 
-```bash
-yarn build:client
-```
-
-Afer that you can build the server:
-
-```bash
-yarn build:server:dev
-```
-
-It will create busy.server.js file that you have to run using node:
-
-```bash
-node busy.server.js
-```
-
-After you make some changes to the server you will have to rebuild it and start again (`yarn build:server:dev` and `node busy.server.js`).
-
-Server-specific code lives under [src/server][server src]
+If server didn't reload properly you can just type `rs` in the console.
 
 ### Common problems
 

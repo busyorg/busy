@@ -32,6 +32,7 @@ import Redirect from './components/Utils/Redirect';
 import NotificationPopup from './notifications/NotificationPopup';
 import Topnav from './components/Navigation/Topnav';
 import Transfer from './wallet/Transfer';
+import BBackTop from './components/BBackTop';
 
 @withRouter
 @connect(
@@ -215,6 +216,7 @@ export default class Wrapper extends React.PureComponent {
               <Redirect />
               <Transfer />
               <NotificationPopup />
+              <BBackTop />
             </div>
           </Layout>
         </LocaleProvider>
