@@ -258,8 +258,8 @@
   "powered_up": "Navýšení SP ",
   "market": "Burza",
   "page_exit": "Počkat!",
-  "page_exit_message": "Warning: this link might be unsafe, please double check the link before you proceed.",
-  "page_exit_go": "Visit this website",
+  "page_exit_message": "Varování: tento odkaz nemusí být bezpečný, překontrolujte daný odkaz, než budete pokračovat.",
+  "page_exit_go": "Navštívit webovou stránku",
   "page_not_found": "Stránka nenalezena",
   "page_not_found_message": "Vypadá to, že máte špatný odkaz.",
   "page_forbidden": "Stránka vyžaduje přihlášení.",
@@ -283,7 +283,7 @@
   "user_unvoted": "{username} odebral hlas",
   "user_replied_to": "{username} odpověděl {author} ({postLink})",
   "replied_to": "Reakce na {author} ({postLink})",
-  "authored_post": "Authored a post ({postLink})",
+  "authored_post": "Publikoval příspěvek ({postLink})",
   "user_followed": "{follower} sleduje {following}",
   "user_unfollowed": "{follower} už nesleduje {following}",
   "followed_user": "sleduje {following}",
@@ -346,7 +346,7 @@
   "drafts_memory_usage_error": "Oops! You hit the storage limit of 16mb, delete some drafts to go forward",
   "beneficiaries": "Beneficiaries",
   "all": "Vše",
-  "hero_banner_title_1": "Write and publish a post on Steem",
-  "hero_banner_title_2": "The community upvotes your post",
-  "hero_banner_title_3": "Earn rewards in Steem"
+  "hero_banner_title_1": "Pište a publikujte příspěvky na Steem",
+  "hero_banner_title_2": "Komunita hlasuje pro váš příspěvek",
+  "hero_banner_title_3": "Získejte odměnu ve Steemu"
 }
