@@ -36,10 +36,8 @@ const UserHero = ({
   isSameUser,
   coverImage,
   hasCover,
-  isPopoverVisible,
-  onSelect,
-  handleVisibleChange,
   isFollowing,
+  onTransferClick,
 }) => (
   <div>
     <Switch>
@@ -58,10 +56,8 @@ const UserHero = ({
                 isSameUser={isSameUser}
                 coverImage={coverImage}
                 hasCover={hasCover}
-                isPopoverVisible={isPopoverVisible}
-                onSelect={onSelect}
-                handleVisibleChange={handleVisibleChange}
                 isFollowing={isFollowing}
+                onTransferClick={onTransferClick}
               />
             )}
             <UserMenuWrapper followers={user.follower_count} following={user.following_count} />
@@ -81,9 +77,7 @@ UserHero.propTypes = {
   coverImage: PropTypes.string,
   hasCover: PropTypes.bool,
   isFollowing: PropTypes.bool,
-  isPopoverVisible: PropTypes.bool,
-  onSelect: PropTypes.func,
-  handleVisibleChange: PropTypes.func,
+  onTransferClick: PropTypes.func,
 };
 
 UserHero.defaultProps = {
@@ -92,8 +86,7 @@ UserHero.defaultProps = {
   hasCover: false,
   isFollowing: false,
   isPopoverVisible: false,
-  onSelect: () => {},
-  handleVisibleChange: () => {},
+  onTransferClick: () => {},
 };
 
 export default UserHero;

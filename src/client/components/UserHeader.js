@@ -10,8 +10,6 @@ import BTooltip from './BTooltip';
 import AvatarLightbox from './AvatarLightbox';
 import FollowButton from '../widgets/FollowButton';
 import Action from './Button/Action';
-import Popover from './Popover';
-import PopoverMenu, { PopoverMenuItem } from './PopoverMenu/PopoverMenu';
 import './UserHeader.less';
 
 const UserHeader = ({
@@ -23,10 +21,8 @@ const UserHeader = ({
   isSameUser,
   coverImage,
   hasCover,
-  isPopoverVisible,
-  onSelect,
-  handleVisibleChange,
   isFollowing,
+  onTransferClick,
 }) => {
   const style = hasCover
     ? { backgroundImage: `url("https://steemitimages.com/2048x512/${coverImage}")` }
@@ -48,45 +44,36 @@ const UserHeader = ({
                 <Tag>{formatter.reputation(userReputation)}</Tag>
               </BTooltip>
             </h2>
-            <div
-              className={classNames('UserHeader__user__button', {
-                'UserHeader__user__button-follows-you': isFollowing && !isSameUser,
-              })}
-            >
-              {isSameUser ? (
-                <Link to="/edit-profile">
+            <div className="UserHeader__user__buttons">
+              <div
+                className={classNames('UserHeader__user__button', {
+                  'UserHeader__user__button-follows-you': isFollowing && !isSameUser,
+                })}
+              >
+                {isSameUser ? (
+                  <Link to="/edit-profile">
+                    <Action
+                      small
+                      text={intl.formatMessage({
+                        id: 'edit_profile',
+                        defaultMessage: 'Edit profile',
+                      })}
+                    />
+                  </Link>
+                ) : (
+                  <FollowButton username={handle} />
+                )}
+              </div>
+              {!isSameUser && (
+                <div className="UserHeader__user__button">
                   <Action
                     small
-                    text={intl.formatMessage({
-                      id: 'edit_profile',
-                      defaultMessage: 'Edit profile',
-                    })}
+                    text={intl.formatMessage({ id: 'transfer', defaultMessage: 'Transfer' })}
+                    onClick={onTransferClick}
                   />
-                </Link>
-              ) : (
-                <FollowButton username={handle} />
+                </div>
               )}
             </div>
-            {!isSameUser && (
-              <Popover
-                placement="bottom"
-                trigger="click"
-                visible={isPopoverVisible}
-                onVisibleChange={handleVisibleChange}
-                content={
-                  <PopoverMenu onSelect={onSelect}>
-                    <PopoverMenuItem key="transfer">
-                      <FormattedMessage id="transfer" defaultMessage="Transfer" />
-                    </PopoverMenuItem>
-                    <PopoverMenuItem key="mute">
-                      <FormattedMessage id="block_user" defaultMessage="Block this user" />
-                    </PopoverMenuItem>
-                  </PopoverMenu>
-                }
-              >
-                <i className="iconfont icon-more UserHeader__more" />
-              </Popover>
-            )}
           </div>
           <div className="UserHeader__handle-rank-container">
             <div className="UserHeader__row UserHeader__handle">
@@ -130,10 +117,8 @@ UserHeader.propTypes = {
   isSameUser: PropTypes.bool,
   coverImage: PropTypes.string,
   hasCover: PropTypes.bool,
-  isPopoverVisible: PropTypes.bool,
   isFollowing: PropTypes.bool,
-  onSelect: PropTypes.func,
-  handleVisibleChange: PropTypes.func,
+  onTransferClick: PropTypes.func,
 };
 
 UserHeader.defaultProps = {
@@ -144,10 +129,8 @@ UserHeader.defaultProps = {
   isSameUser: false,
   coverImage: '',
   hasCover: false,
-  isPopoverVisible: false,
   isFollowing: false,
-  onSelect: () => {},
-  handleVisibleChange: () => {},
+  onTransferClick: () => {},
 };
 
 export default injectIntl(UserHeader);
