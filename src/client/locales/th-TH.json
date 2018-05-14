@@ -11,7 +11,7 @@
   "confirm": "ยืนยัน",
   "continue": "ดำเนินการต่อไป",
   "close": "ปิด ",
-  "go_back": "ย้อนกลับ",
+  "go_back": "กลับ, ย้อนกลับ",
   "list_empty": "ไม่มีอะไรอยู่",
   "error_fetch_failed": "เราไม่สามารถโหลดฟีดนี้ได้ ตรวจสอบการเชื่อมต่อของคุณและลองอีกครั้ง",
   "delete": "ลบ",
@@ -347,6 +347,6 @@
   "beneficiaries": "ผู้รับประโยชน์",
   "all": "ทั้งหมด",
   "hero_banner_title_1": "เขียน และเผยแพร่โพสต์บน steem",
-  "hero_banner_title_2": "The community upvotes your post",
-  "hero_banner_title_3": "Earn rewards in Steem"
+  "hero_banner_title_2": "ชุมชนอัพโหวตโพสต์ของคุณ",
+  "hero_banner_title_3": "ได้รับรางวับใน steem"
 }
