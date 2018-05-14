@@ -192,7 +192,6 @@ class Comments extends React.Component {
       user,
       parentPost,
       comments,
-      parentPost,
       rootLevelComments,
       commentsChildren,
       loading,
