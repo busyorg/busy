@@ -48,11 +48,14 @@ ShallowWrapper {
             id="interesting_people"
             values={Object {}}
           />
-          <i
-            className="iconfont icon-refresh InterestingPeople__icon-refresh"
+          <button
+            className="InterestingPeople__button-refresh"
             onClick={[Function]}
-            role="presentation"
-          />
+          >
+            <i
+              className="iconfont icon-refresh"
+            />
+          </button>
         </h4>,
         <div
           className="SidebarContentBlock__content"
@@ -120,11 +123,14 @@ ShallowWrapper {
               id="interesting_people"
               values={Object {}}
             />,
-            <i
-              className="iconfont icon-refresh InterestingPeople__icon-refresh"
+            <button
+              className="InterestingPeople__button-refresh"
               onClick={[Function]}
-              role="presentation"
-            />,
+            >
+              <i
+                className="iconfont icon-refresh"
+              />
+            </button>,
           ],
           "className": "SidebarContentBlock__title",
         },
@@ -160,13 +166,25 @@ ShallowWrapper {
             "key": undefined,
             "nodeType": "host",
             "props": Object {
-              "className": "iconfont icon-refresh InterestingPeople__icon-refresh",
+              "children": <i
+                className="iconfont icon-refresh"
+              />,
+              "className": "InterestingPeople__button-refresh",
               "onClick": [Function],
-              "role": "presentation",
             },
             "ref": null,
-            "rendered": null,
-            "type": "i",
+            "rendered": Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "className": "iconfont icon-refresh",
+              },
+              "ref": null,
+              "rendered": null,
+              "type": "i",
+            },
+            "type": "button",
           },
         ],
         "type": "h4",
@@ -352,11 +370,14 @@ ShallowWrapper {
               id="interesting_people"
               values={Object {}}
             />
-            <i
-              className="iconfont icon-refresh InterestingPeople__icon-refresh"
+            <button
+              className="InterestingPeople__button-refresh"
               onClick={[Function]}
-              role="presentation"
-            />
+            >
+              <i
+                className="iconfont icon-refresh"
+              />
+            </button>
           </h4>,
           <div
             className="SidebarContentBlock__content"
@@ -424,11 +445,14 @@ ShallowWrapper {
                 id="interesting_people"
                 values={Object {}}
               />,
-              <i
-                className="iconfont icon-refresh InterestingPeople__icon-refresh"
+              <button
+                className="InterestingPeople__button-refresh"
                 onClick={[Function]}
-                role="presentation"
-              />,
+              >
+                <i
+                  className="iconfont icon-refresh"
+                />
+              </button>,
             ],
             "className": "SidebarContentBlock__title",
           },
@@ -464,13 +488,25 @@ ShallowWrapper {
               "key": undefined,
               "nodeType": "host",
               "props": Object {
-                "className": "iconfont icon-refresh InterestingPeople__icon-refresh",
+                "children": <i
+                  className="iconfont icon-refresh"
+                />,
+                "className": "InterestingPeople__button-refresh",
                 "onClick": [Function],
-                "role": "presentation",
               },
               "ref": null,
-              "rendered": null,
-              "type": "i",
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "className": "iconfont icon-refresh",
+                },
+                "ref": null,
+                "rendered": null,
+                "type": "i",
+              },
+              "type": "button",
             },
           ],
           "type": "h4",

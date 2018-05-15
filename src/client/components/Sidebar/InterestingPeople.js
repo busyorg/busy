@@ -11,11 +11,9 @@ const InterestingPeople = ({ users, onRefresh }) => (
     <h4 className="SidebarContentBlock__title">
       <i className="iconfont icon-group SidebarContentBlock__icon" />{' '}
       <FormattedMessage id="interesting_people" defaultMessage="Interesting People" />
-      <i
-        role="presentation"
-        onClick={onRefresh}
-        className="iconfont icon-refresh InterestingPeople__icon-refresh"
-      />
+      <button onClick={onRefresh} className="InterestingPeople__button-refresh">
+        <i className="iconfont icon-refresh" />
+      </button>
     </h4>
     <div className="SidebarContentBlock__content">
       {users && users.map(user => <User key={user.name} user={user} />)}
