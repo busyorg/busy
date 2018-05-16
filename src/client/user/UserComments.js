@@ -2,12 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Feed from '../feed/Feed';
+import PostModal from '../post/PostModalContainer';
 import { getFeed } from '../reducers';
 import {
   getFeedFromState,
   getFeedLoadingFromState,
   getFeedHasMoreFromState,
 } from '../helpers/stateHelpers';
+import { showPostModal } from '../app/appActions';
 import { getUserComments, getMoreUserComments } from '../feed/feedActions';
 
 @connect(
@@ -17,12 +19,14 @@ import { getUserComments, getMoreUserComments } from '../feed/feedActions';
   {
     getUserComments,
     getMoreUserComments,
+    showPostModal,
   },
 )
 export default class UserProfilePosts extends React.Component {
   static propTypes = {
     feed: PropTypes.shape().isRequired,
     match: PropTypes.shape().isRequired,
+    showPostModal: PropTypes.func.isRequired,
     limit: PropTypes.number,
     getUserComments: PropTypes.func,
     getMoreUserComments: PropTypes.func,
@@ -50,12 +54,16 @@ export default class UserProfilePosts extends React.Component {
     const loadMoreContentAction = () => this.props.getMoreUserComments({ username, limit });
 
     return (
-      <Feed
-        content={content}
-        isFetching={isFetching}
-        hasMore={hasMore}
-        loadMoreContent={loadMoreContentAction}
-      />
+      <React.Fragment>
+        <Feed
+          content={content}
+          isFetching={isFetching}
+          hasMore={hasMore}
+          loadMoreContent={loadMoreContentAction}
+          showPostModal={this.props.showPostModal}
+        />
+        <PostModal />
+      </React.Fragment>
     );
   }
 }
