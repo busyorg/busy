@@ -10,6 +10,7 @@ import { jsonParse } from '../../helpers/formatter';
 import sanitizeConfig from '../../vendor/SanitizeConfig';
 import { imageRegex, dtubeImageRegex } from '../../helpers/regexHelpers';
 import htmlReady from '../../vendor/steemitHtmlReady';
+import improve from '../../helpers/improve';
 import PostFeedEmbed from './PostFeedEmbed';
 import './Body.less';
 
@@ -52,6 +53,7 @@ export function getHtml(body, jsonMetadata = {}, returnType = 'Object', options 
   });
 
   const htmlReadyOptions = { mutate: true, resolveIframe: returnType === 'text' };
+  parsedBody = improve(parsedBody);
   parsedBody = remarkable.render(parsedBody);
 
   if (options.rewriteLinks) {
