@@ -10,7 +10,9 @@ import {
   getFeedHasMoreFromState,
   getFeedFromState,
 } from '../helpers/stateHelpers';
+import { showPostModal } from '../app/appActions';
 import { getFeedContent, getMoreFeedContent } from '../feed/feedActions';
+import PostModal from '../post/PostModalContainer';
 import EmptyUserProfile from '../statics/EmptyUserProfile';
 import EmptyUserOwnProfile from '../statics/EmptyUserOwnProfile';
 
@@ -23,6 +25,7 @@ import EmptyUserOwnProfile from '../statics/EmptyUserOwnProfile';
   {
     getFeedContent,
     getMoreFeedContent,
+    showPostModal,
   },
 )
 export default class UserReblogs extends React.Component {
@@ -31,6 +34,7 @@ export default class UserReblogs extends React.Component {
     authenticatedUser: PropTypes.shape().isRequired,
     feed: PropTypes.shape().isRequired,
     match: PropTypes.shape().isRequired,
+    showPostModal: PropTypes.func.isRequired,
     limit: PropTypes.number,
     getFeedContent: PropTypes.func,
     getMoreFeedContent: PropTypes.func,
@@ -71,9 +75,11 @@ export default class UserReblogs extends React.Component {
           isFetching={isFetching}
           hasMore={hasMore}
           loadMoreContent={loadMoreContentAction}
+          showPostModal={this.props.showPostModal}
         />
         {content.length === 0 && !isFetching && isOwnProfile && <EmptyUserOwnProfile />}
         {content.length === 0 && !isFetching && !isOwnProfile && <EmptyUserProfile />}
+        <PostModal />
       </div>
     );
   }
