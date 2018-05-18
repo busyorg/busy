@@ -33,12 +33,12 @@ import PostModal from '../post/PostModalContainer';
 export default class Bookmarks extends React.Component {
   static propTypes = {
     intl: PropTypes.shape().isRequired,
-    reloading: PropTypes.bool,
     feed: PropTypes.shape().isRequired,
+    showPostModal: PropTypes.func.isRequired,
+    reloading: PropTypes.bool,
     pendingBookmarks: PropTypes.arrayOf(PropTypes.number),
     getBookmarks: PropTypes.func,
     reload: PropTypes.func,
-    showPostModal: PropTypes.func,
   };
 
   static defaultProps = {
@@ -46,7 +46,6 @@ export default class Bookmarks extends React.Component {
     pendingBookmarks: [],
     getBookmarks: () => {},
     reload: () => {},
-    showPostModal: () => {},
   };
 
   componentDidMount() {

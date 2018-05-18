@@ -24,7 +24,7 @@ const PopoverMenuItem = ({ itemKey, children, onClick, bold, disabled, fullScree
 );
 
 PopoverMenuItem.propTypes = {
-  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
+  children: PropTypes.node,
   itemKey: PropTypes.string,
   onClick: PropTypes.func,
   bold: PropTypes.bool,
@@ -40,9 +40,5 @@ PopoverMenuItem.defaultProps = {
   disabled: false,
   fullScreenHidden: false,
 };
-
-export const popoverMenuItemType = PropTypes.shape({
-  type: PropTypes.oneOf([PopoverMenuItem]),
-});
 
 export default PopoverMenuItem;

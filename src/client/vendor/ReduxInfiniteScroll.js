@@ -158,14 +158,8 @@ ReduxInfiniteScroll.propTypes = {
   loader: PropTypes.any,
   showLoader: PropTypes.bool,
   loadMore: PropTypes.func.isRequired,
-  items: PropTypes.oneOfType([
-    //ImmutablePropTypes.list,
-    PropTypes.array,
-  ]),
-  children: PropTypes.oneOfType([
-    //ImmutablePropTypes.list,
-    PropTypes.array,
-  ]),
+  items: PropTypes.node,
+  children: PropTypes.node,
   holderType: PropTypes.string,
   className: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
 };
