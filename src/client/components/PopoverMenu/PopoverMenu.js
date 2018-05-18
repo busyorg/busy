@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import PopoverMenuItem, { popoverMenuItemType } from './PopoverMenuItem';
+import PopoverMenuItem from './PopoverMenuItem';
 import './PopoverMenu.less';
 
 const PopoverMenu = ({ children, onSelect, bold }) => (
@@ -24,7 +24,7 @@ const PopoverMenu = ({ children, onSelect, bold }) => (
 );
 
 PopoverMenu.propTypes = {
-  children: PropTypes.oneOfType([PropTypes.arrayOf(popoverMenuItemType), popoverMenuItemType]),
+  children: PropTypes.node,
   onSelect: PropTypes.func,
   bold: PropTypes.bool,
 };

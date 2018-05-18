@@ -20,7 +20,7 @@ const PopoverContainer = props => (
 
 PopoverContainer.propTypes = {
   onVisibleChange: PropTypes.func,
-  content: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
+  content: PropTypes.node,
 };
 
 PopoverContainer.defaultProps = {
