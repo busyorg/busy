@@ -65,7 +65,12 @@ export function getHtml(body, jsonMetadata = {}, returnType = 'Object', options 
 
   parsedBody = htmlReady(parsedBody, htmlReadyOptions).html;
   parsedBody = parsedBody.replace(dtubeImageRegex, '');
-  parsedBody = sanitizeHtml(parsedBody, sanitizeConfig({}));
+  parsedBody = sanitizeHtml(
+    parsedBody,
+    sanitizeConfig({
+      secureLinks: options.secureLinks,
+    }),
+  );
   if (returnType === 'text') {
     return parsedBody;
   }
@@ -103,6 +108,7 @@ export function getHtml(body, jsonMetadata = {}, returnType = 'Object', options 
 const Body = props => {
   const options = {
     rewriteLinks: props.rewriteLinks,
+    secureLinks: true,
   };
   const htmlSections = getHtml(props.body, props.jsonMetadata, 'Object', options);
   return <div className={classNames('Body', { 'Body--full': props.full })}>{htmlSections}</div>;
