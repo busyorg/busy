@@ -22,7 +22,7 @@ const UserCard = ({ username, alt }) => (
 
 UserCard.propTypes = {
   username: PropTypes.string.isRequired,
-  alt: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
+  alt: PropTypes.node,
 };
 
 UserCard.defaultProps = {
