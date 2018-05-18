@@ -17,7 +17,7 @@
 }
 
 .Comments > .Comment > .Comment__text {
-  width: calc(~'100% - @{comment-text-offset-default}');
+  width: calc(~'100% - (@{comment-text-offset-default})');
 }
 
 .Comment {
@@ -58,7 +58,7 @@
 
   &__text {
     position: relative;
-    width: calc(~'100% - @{comment-text-offset-small}');
+    width: calc(~'100% - (@{comment-text-offset-small})');
     margin-left: @comment-text-left-margin;
     overflow: unset;
 
