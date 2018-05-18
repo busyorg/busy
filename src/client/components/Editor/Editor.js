@@ -328,7 +328,7 @@ class Editor extends React.Component {
               </span>
             }
           >
-            <Body full body={body} />
+            <Body full preview body={body} />
           </Form.Item>
         )}
         <Form.Item
