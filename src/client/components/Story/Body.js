@@ -53,18 +53,19 @@ export function getHtml(body, jsonMetadata = {}, returnType = 'Object', options 
 
   const htmlReadyOptions = { mutate: true, resolveIframe: returnType === 'text' };
   parsedBody = remarkable.render(parsedBody);
-  parsedBody = htmlReady(parsedBody, htmlReadyOptions).html;
-  parsedBody = parsedBody.replace(dtubeImageRegex, '');
-  parsedBody = sanitizeHtml(parsedBody, sanitizeConfig({}));
-  if (returnType === 'text') {
-    return parsedBody;
-  }
 
   if (options.rewriteLinks) {
     parsedBody = parsedBody.replace(
       /"https?:\/\/(?:www)?steemit.com\/([A-Za-z0-9@/\-.]*)"/g,
       (match, p1) => `"/${p1}"`,
     );
+  }
+
+  parsedBody = htmlReady(parsedBody, htmlReadyOptions).html;
+  parsedBody = parsedBody.replace(dtubeImageRegex, '');
+  parsedBody = sanitizeHtml(parsedBody, sanitizeConfig({}));
+  if (returnType === 'text') {
+    return parsedBody;
   }
 
   parsedBody = parsedBody.replace(
