@@ -47,7 +47,6 @@ export function getHtml(body, jsonMetadata = {}, returnType = 'Object', options 
   parsedBody = parsedBody.replace(/^\s+</gm, '<');
 
   if (options.preview) {
-    console.log('parsedBody', parsedBody);
     parsedBody = parsedBody.replace(
       /https:\/\/gateway\.ipfs\.io\/ipfs\/(\w+)/gm,
       (match, p1) => `https://ipfs.busy.org/ipfs/${p1}`,
