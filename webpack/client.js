@@ -94,7 +94,7 @@ module.exports = function createConfig(env = 'dev') {
         flattening: true,
       }),
       new CSSExtract({
-        filename: '[name].css',
+        filename: '[name].[contenthash].css',
       }),
       new BundleAnalyzerPlugin({
         analyzerMode: 'static',

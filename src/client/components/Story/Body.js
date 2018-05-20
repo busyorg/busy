@@ -10,6 +10,7 @@ import { jsonParse } from '../../helpers/formatter';
 import sanitizeConfig from '../../vendor/SanitizeConfig';
 import { imageRegex, dtubeImageRegex } from '../../helpers/regexHelpers';
 import htmlReady from '../../vendor/steemitHtmlReady';
+import improve from '../../helpers/improve';
 import PostFeedEmbed from './PostFeedEmbed';
 import './Body.less';
 
@@ -45,6 +46,13 @@ export function getHtml(body, jsonMetadata = {}, returnType = 'Object', options 
 
   parsedBody = parsedBody.replace(/^\s+</gm, '<');
 
+  if (options.preview) {
+    parsedBody = parsedBody.replace(
+      /https:\/\/gateway\.ipfs\.io\/ipfs\/(\w+)/gm,
+      (match, p1) => `https://ipfs.busy.org/ipfs/${p1}`,
+    );
+  }
+
   parsedBody.replace(imageRegex, img => {
     if (_.filter(parsedJsonMetadata.image, i => i.indexOf(img) !== -1).length === 0) {
       parsedJsonMetadata.image.push(img);
@@ -52,13 +60,8 @@ export function getHtml(body, jsonMetadata = {}, returnType = 'Object', options 
   });
 
   const htmlReadyOptions = { mutate: true, resolveIframe: returnType === 'text' };
+  parsedBody = improve(parsedBody);
   parsedBody = remarkable.render(parsedBody);
-  parsedBody = htmlReady(parsedBody, htmlReadyOptions).html;
-  parsedBody = parsedBody.replace(dtubeImageRegex, '');
-  parsedBody = sanitizeHtml(parsedBody, sanitizeConfig({}));
-  if (returnType === 'text') {
-    return parsedBody;
-  }
 
   if (options.rewriteLinks) {
     parsedBody = parsedBody.replace(
@@ -67,10 +70,17 @@ export function getHtml(body, jsonMetadata = {}, returnType = 'Object', options 
     );
   }
 
-  parsedBody = parsedBody.replace(
-    /https:\/\/ipfs\.busy\.org\/ipfs\/(\w+)/g,
-    (match, p1) => `https://gateway.ipfs.io/ipfs/${p1}`,
+  parsedBody = htmlReady(parsedBody, htmlReadyOptions).html;
+  parsedBody = parsedBody.replace(dtubeImageRegex, '');
+  parsedBody = sanitizeHtml(
+    parsedBody,
+    sanitizeConfig({
+      secureLinks: options.secureLinks,
+    }),
   );
+  if (returnType === 'text') {
+    return parsedBody;
+  }
 
   const sections = [];
 
@@ -100,6 +110,8 @@ export function getHtml(body, jsonMetadata = {}, returnType = 'Object', options 
 const Body = props => {
   const options = {
     rewriteLinks: props.rewriteLinks,
+    secureLinks: true,
+    preview: props.preview,
   };
   const htmlSections = getHtml(props.body, props.jsonMetadata, 'Object', options);
   return <div className={classNames('Body', { 'Body--full': props.full })}>{htmlSections}</div>;
@@ -109,6 +121,7 @@ Body.propTypes = {
   body: PropTypes.string,
   jsonMetadata: PropTypes.string,
   full: PropTypes.bool,
+  preview: PropTypes.bool,
   rewriteLinks: PropTypes.bool,
 };
 
@@ -116,6 +129,7 @@ Body.defaultProps = {
   body: '',
   jsonMetadata: '',
   full: false,
+  preview: false,
   rewriteLinks: false,
 };
 
