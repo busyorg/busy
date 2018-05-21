@@ -137,7 +137,7 @@ class CommentForm extends React.Component {
               <span className="Editor__label">
                 <FormattedMessage id="preview" defaultMessage="Preview" />
               </span>
-              <Body body={bodyHTML} />
+              <Body preview body={bodyHTML} />
             </div>
           )}
         </div>
