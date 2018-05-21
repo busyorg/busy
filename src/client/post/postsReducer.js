@@ -82,13 +82,19 @@ const posts = (state = initialState, action) => {
         },
       };
     case postsActions.GET_CONTENT.SUCCESS: {
+      const {
+        reblogged_by: rebloggedBy,
+        first_reblogged_on: firstRebloggedOn,
+        ...newPost
+      } = action.payload;
+
       const baseState = {
         ...state,
         list: {
           ...state.list,
           [action.payload.id]: {
-            ...state[action.payload.id],
-            ...action.payload,
+            ...state.list[action.payload.id],
+            ...newPost,
           },
         },
         postsStates: {
