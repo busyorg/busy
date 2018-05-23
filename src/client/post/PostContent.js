@@ -123,13 +123,13 @@ class PostContent extends React.Component {
     }
 
     if (this.props.modal) {
-      document.body.classList.add('modal-block');
+      document.getElementById('app').classList.add('modal-block');
     }
   }
 
   componentWillUnmount() {
     if (this.props.modal) {
-      document.body.classList.remove('modal-block');
+      document.getElementById('app').classList.remove('modal-block');
     }
   }
 
