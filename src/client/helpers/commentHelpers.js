@@ -14,6 +14,10 @@ function getCommentAnchor(comment) {
  * @returns the comment linked or null if not found
  */
 export function getLinkedComment(comments = []) {
+  if (typeof window === 'undefined') {
+    return null;
+  }
+
   const anchor = window.location.hash.replace('#', '');
   if (Array.isArray(comments)) {
     for (let i = 0; i < comments.length; i += 1) {
