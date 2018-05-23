@@ -163,7 +163,7 @@ export default ({ large = true, noImage = false, sanitizeErrors = [], secureLink
       // If it's not a (relative or absolute) steemit URL...
       if (secureLinks && !href.match(/^^(\/|https:\/\/(staging\.)?busy\.org(?![\w\.]+))/)) {
         attys.target = '_blank';
-        href = `/exit?url=${encodeURI(href)}`;
+        href = `/exit?url=${encodeURIComponent(href)}`;
       }
       attys.href = href;
       return {

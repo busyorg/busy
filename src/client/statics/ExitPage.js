@@ -13,26 +13,6 @@ export default class ExitPage extends React.Component {
     location: PropTypes.shape().isRequired,
   };
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      url: null,
-    };
-  }
-
-  componentDidMount() {
-    if (typeof window !== 'undefined') this.getUrl();
-  }
-
-  getUrl = () => {
-    const { location } = this.props;
-
-    this.setState({
-      url: `${new URLSearchParams(location.search).get('url')}${location.hash}`,
-    });
-  };
-
   closeWindow = () => {
     if (typeof window !== 'undefined') {
       window.close();
@@ -40,8 +20,9 @@ export default class ExitPage extends React.Component {
   };
 
   render() {
-    const { intl } = this.props;
-    const { url } = this.state;
+    const { intl, location } = this.props;
+
+    const url = decodeURIComponent(new URLSearchParams(location.search).get('url'));
 
     if (!url) return <div />;
 
