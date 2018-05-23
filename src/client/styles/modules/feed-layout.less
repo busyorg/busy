@@ -3,8 +3,12 @@
 .feed-layout {
   position: relative;
 
-  @media only screen and (min-width: 768px) and (max-width: 1200px) {
+  @media @small {
     padding: 0 @mobile-padding;
+  }
+
+  @media @large {
+    padding: auto;
   }
 
   &:after {
