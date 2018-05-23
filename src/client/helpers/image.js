@@ -1,8 +1,8 @@
 import filesize from 'filesize';
 
-const IMG_PROXY = 'https://steemitimages.com/0x0/';
-const IMG_PROXY_PREVIEW = 'https://steemitimages.com/600x800/';
-const IMG_PROXY_SMALL = 'https://steemitimages.com/40x40/';
+const IMG_PROXY = 'https://images.steemitimages.com/0x0/';
+const IMG_PROXY_PREVIEW = 'https://images.steemitimages.com/600x800/';
+const IMG_PROXY_SMALL = 'https://images.steemitimages.com/40x40/';
 
 export const MAXIMUM_UPLOAD_SIZE = 15728640;
 export const MAXIMUM_UPLOAD_SIZE_HUMAN = filesize(MAXIMUM_UPLOAD_SIZE);

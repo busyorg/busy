@@ -25,7 +25,7 @@ const UserHeader = ({
   onTransferClick,
 }) => {
   const style = hasCover
-    ? { backgroundImage: `url("https://steemitimages.com/2048x512/${coverImage}")` }
+    ? { backgroundImage: `url("https://images.steemitimages.com/2048x512/${coverImage}")` }
     : {};
   return (
     <div className={classNames('UserHeader', { 'UserHeader--cover': hasCover })} style={style}>
