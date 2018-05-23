@@ -65,6 +65,7 @@ class PostContent extends React.Component {
   static propTypes = {
     user: PropTypes.shape().isRequired,
     content: PropTypes.shape().isRequired,
+    modal: PropTypes.bool,
     signature: PropTypes.string,
     pendingLikes: PropTypes.shape(),
     reblogList: PropTypes.arrayOf(PropTypes.number),
@@ -89,6 +90,7 @@ class PostContent extends React.Component {
   };
 
   static defaultProps = {
+    modal: false,
     signature: null,
     pendingLikes: {},
     reblogList: [],
@@ -118,6 +120,16 @@ class PostContent extends React.Component {
     if (hash.indexOf('comments') !== -1 || /#@[a-zA-Z-.]+\/[a-zA-Z-]+/.test(hash)) {
       const el = document.getElementById('comments');
       if (el) el.scrollIntoView({ block: 'start' });
+    }
+
+    if (this.props.modal) {
+      document.body.classList.add('modal-block');
+    }
+  }
+
+  componentWillUnmount() {
+    if (this.props.modal) {
+      document.body.classList.remove('modal-block');
     }
   }
 

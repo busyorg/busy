@@ -130,7 +130,7 @@ class PostModal extends React.Component {
             <i className="iconfont icon-facebook PostModal__icon" />
           </a>
         </div>
-        <PostContent content={shownPostContents} signature={signature} />
+        <PostContent modal content={shownPostContents} signature={signature} />
         <VisibilitySensor onChange={this.handleCommentsVisibility} />
         {!isBannedPost(shownPostContents) && (
           <div id="comments">
