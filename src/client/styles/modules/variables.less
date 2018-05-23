@@ -10,6 +10,7 @@
 @medium-bp: 998px;
 @large-bp: 1200px;
 
+@xsmall: ~'only screen and (min-width: @{xsmall-bp})';
 @small: ~'only screen and (min-width: @{small-bp})';
 @medium: ~'only screen and (min-width: @{medium-bp})';
 @large: ~'only screen and (min-width: @{large-bp})';
@@ -18,7 +19,7 @@
 // and then use @xsmall, @small, @medium, @large to handle bigger screens.
 // Only use those when absolutely needed (like when making 3rd-party component
 // responsive.
+@xsmall-max: ~'only screen and (max-width: @{xsmall-bp + 1px}';
 @small-max: ~'only screen and (max-width: @{small-bp + 1px}';
 @medium-max: ~'only screen and (max-width: @{medium-bp + 1px})';
 @large-max: ~'only screen and (max-width: @{large-bp + 1px})';
-@very-small-max-width: ~'screen and (max-width: 400px)';

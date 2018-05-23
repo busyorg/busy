@@ -10,8 +10,10 @@ const PowerUpTransaction = ({ timestamp, amount }) => (
     </div>
     <div className="UserWalletTransactions__content">
       <div className="UserWalletTransactions__content-recipient">
-        <FormattedMessage id="powered_up" defaultMessage="Powered up " />
-        <span className="UserWalletTransactions__payout">{amount}</span>
+        <div>
+          <FormattedMessage id="powered_up" defaultMessage="Powered up " />
+        </div>
+        <div className="UserWalletTransactions__payout">{amount}</div>
       </div>
       <span className="UserWalletTransactions__timestamp">
         <BTooltip
