@@ -46,13 +46,6 @@ export function getHtml(body, jsonMetadata = {}, returnType = 'Object', options 
 
   parsedBody = parsedBody.replace(/^\s+</gm, '<');
 
-  if (options.preview) {
-    parsedBody = parsedBody.replace(
-      /https:\/\/gateway\.ipfs\.io\/ipfs\/(\w+)/gm,
-      (match, p1) => `https://ipfs.busy.org/ipfs/${p1}`,
-    );
-  }
-
   parsedBody.replace(imageRegex, img => {
     if (_.filter(parsedJsonMetadata.image, i => i.indexOf(img) !== -1).length === 0) {
       parsedJsonMetadata.image.push(img);
@@ -111,7 +104,6 @@ const Body = props => {
   const options = {
     rewriteLinks: props.rewriteLinks,
     secureLinks: true,
-    preview: props.preview,
   };
   const htmlSections = getHtml(props.body, props.jsonMetadata, 'Object', options);
   return <div className={classNames('Body', { 'Body--full': props.full })}>{htmlSections}</div>;
@@ -121,7 +113,6 @@ Body.propTypes = {
   body: PropTypes.string,
   jsonMetadata: PropTypes.string,
   full: PropTypes.bool,
-  preview: PropTypes.bool,
   rewriteLinks: PropTypes.bool,
 };
 
@@ -129,7 +120,6 @@ Body.defaultProps = {
   body: '',
   jsonMetadata: '',
   full: false,
-  preview: false,
   rewriteLinks: false,
 };
 
