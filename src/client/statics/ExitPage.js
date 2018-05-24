@@ -10,6 +10,7 @@ import './ExitPage.less';
 export default class ExitPage extends React.Component {
   static propTypes = {
     intl: PropTypes.shape().isRequired,
+    location: PropTypes.shape().isRequired,
   };
 
   closeWindow = () => {
@@ -19,12 +20,11 @@ export default class ExitPage extends React.Component {
   };
 
   render() {
-    const { intl } = this.props;
-    const url = new URLSearchParams(location.search).get('url');
+    const { intl, location } = this.props;
 
-    if (!url) {
-      return null;
-    }
+    const url = decodeURIComponent(new URLSearchParams(location.search).get('url'));
+
+    if (!url) return <div />;
 
     return (
       <div className="ExitPage container">
