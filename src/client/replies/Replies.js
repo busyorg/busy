@@ -10,18 +10,21 @@ import {
   getFeedLoadingFromState,
   getFeedHasMoreFromState,
 } from '../helpers/stateHelpers';
+import { showPostModal } from '../app/appActions';
 import { getReplies, getMoreReplies } from '../feed/feedActions';
 import Feed from '../feed/Feed';
 import Loading from '../components/Icon/Loading';
 import Affix from '../components/Utils/Affix';
 import LeftSidebar from '../app/Sidebar/LeftSidebar';
 import RightSidebar from '../app/Sidebar/RightSidebar';
+import PostModal from '../post/PostModalContainer';
 import requiresLogin from '../auth/requiresLogin';
 
 class Replies extends React.Component {
   static propTypes = {
     intl: PropTypes.shape().isRequired,
     authenticated: PropTypes.bool.isRequired,
+    showPostModal: PropTypes.func.isRequired,
     username: PropTypes.string,
     feed: PropTypes.shape(),
     getReplies: PropTypes.func,
@@ -82,7 +85,9 @@ class Replies extends React.Component {
               isFetching={fetching}
               hasMore={hasMore}
               loadMoreContent={this.props.getMoreReplies}
+              showPostModal={this.props.showPostModal}
             />
+            <PostModal />
           </div>
         </div>
       </div>
@@ -97,5 +102,5 @@ const mapStateToProps = state => ({
 });
 
 export default requiresLogin(
-  injectIntl(connect(mapStateToProps, { getReplies, getMoreReplies })(Replies)),
+  injectIntl(connect(mapStateToProps, { getReplies, getMoreReplies, showPostModal })(Replies)),
 );

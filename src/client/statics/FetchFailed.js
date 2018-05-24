@@ -8,7 +8,7 @@ const FetchFailed = () => (
     <div>
       <FormattedMessage
         id="error_fetch_failed"
-        defaultMessage="We couldn't faild this feed contents. Check your connection and try again"
+        defaultMessage="We couldn't load this feed contents. Check your connection and try again"
       />
     </div>
   </div>

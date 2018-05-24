@@ -10,6 +10,7 @@ import { jsonParse } from '../../helpers/formatter';
 import sanitizeConfig from '../../vendor/SanitizeConfig';
 import { imageRegex, dtubeImageRegex } from '../../helpers/regexHelpers';
 import htmlReady from '../../vendor/steemitHtmlReady';
+import improve from '../../helpers/improve';
 import PostFeedEmbed from './PostFeedEmbed';
 import './Body.less';
 
@@ -52,13 +53,8 @@ export function getHtml(body, jsonMetadata = {}, returnType = 'Object', options 
   });
 
   const htmlReadyOptions = { mutate: true, resolveIframe: returnType === 'text' };
+  parsedBody = improve(parsedBody);
   parsedBody = remarkable.render(parsedBody);
-  parsedBody = htmlReady(parsedBody, htmlReadyOptions).html;
-  parsedBody = parsedBody.replace(dtubeImageRegex, '');
-  parsedBody = sanitizeHtml(parsedBody, sanitizeConfig({}));
-  if (returnType === 'text') {
-    return parsedBody;
-  }
 
   if (options.rewriteLinks) {
     parsedBody = parsedBody.replace(
@@ -67,10 +63,17 @@ export function getHtml(body, jsonMetadata = {}, returnType = 'Object', options 
     );
   }
 
-  parsedBody = parsedBody.replace(
-    /https:\/\/ipfs\.busy\.org\/ipfs\/(\w+)/g,
-    (match, p1) => `https://gateway.ipfs.io/ipfs/${p1}`,
+  parsedBody = htmlReady(parsedBody, htmlReadyOptions).html;
+  parsedBody = parsedBody.replace(dtubeImageRegex, '');
+  parsedBody = sanitizeHtml(
+    parsedBody,
+    sanitizeConfig({
+      secureLinks: options.secureLinks,
+    }),
   );
+  if (returnType === 'text') {
+    return parsedBody;
+  }
 
   const sections = [];
 
@@ -100,6 +103,7 @@ export function getHtml(body, jsonMetadata = {}, returnType = 'Object', options 
 const Body = props => {
   const options = {
     rewriteLinks: props.rewriteLinks,
+    secureLinks: true,
   };
   const htmlSections = getHtml(props.body, props.jsonMetadata, 'Object', options);
   return <div className={classNames('Body', { 'Body--full': props.full })}>{htmlSections}</div>;

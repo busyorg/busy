@@ -10,6 +10,7 @@ import { dropCategory, isBannedPost } from '../helpers/postHelpers';
 import PostContent from './PostContent';
 import Comments from '../comments/Comments';
 import { getFacebookShareURL, getTwitterShareURL } from '../helpers/socialProfiles';
+import BBackTop from '../components/BBackTop';
 import './PostModal.less';
 
 class PostModal extends React.Component {
@@ -29,6 +30,10 @@ class PostModal extends React.Component {
 
   static pushURLState(title, url) {
     if (window) window.history.pushState({}, title, url);
+  }
+
+  static findScrollElement() {
+    return document.querySelector('.PostModal');
   }
 
   constructor(props) {
@@ -100,6 +105,7 @@ class PostModal extends React.Component {
         wrapClassName={classNames('PostModal', { PostModal__hidden: !showPostModal })}
         destroyOnClose
       >
+        <BBackTop isModal target={PostModal.findScrollElement} />
         <div className="PostModal__back">
           <a
             className="PostModal__back__link"

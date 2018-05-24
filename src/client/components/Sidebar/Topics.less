@@ -5,8 +5,14 @@
   min-width: 150px;
   & > h4 {
     color: @text-color;
-    margin: 16px 0;
     font-weight: 500;
+    margin-bottom: 16px;
+  }
+
+  &:not(:first-child) {
+    & > h4 {
+      margin-top: 16px;
+    }
   }
 
   & > a {

@@ -58,7 +58,7 @@ export const allowedTags = `
   .split(/,\s*/);
 
 // Medium insert plugin uses: div, figure, figcaption, iframe
-export default ({ large = true, noImage = false, sanitizeErrors = [] }) => ({
+export default ({ large = true, noImage = false, sanitizeErrors = [], secureLinks = false }) => ({
   allowedTags,
   // figure, figcaption,
 
@@ -159,11 +159,13 @@ export default ({ large = true, noImage = false, sanitizeErrors = [] }) => ({
       let { href } = attribs;
       if (!href) href = '#';
       href = href.trim();
-      const attys = { href };
-      if (!href.match(/^^(\/|https:\/\/(staging\.)?busy\.org(?![\w\.]+))/)) {
-        attys.target = '_blank'; // pending iframe impl https://mathiasbynens.github.io/rel-noopener/
-        attys.rel = 'nofollow noopener';
+      const attys = {};
+      // If it's not a (relative or absolute) steemit URL...
+      if (secureLinks && !href.match(/^^(\/|https:\/\/(staging\.)?busy\.org(?![\w\.]+))/)) {
+        attys.target = '_blank';
+        href = `/exit?url=${encodeURIComponent(href)}`;
       }
+      attys.href = href;
       return {
         tagName,
         attribs: attys,

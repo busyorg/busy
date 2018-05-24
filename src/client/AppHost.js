@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { hot } from 'react-hot-loader';
 import { ConnectedRouter } from 'react-router-redux';
 
 import routes from './routes';
@@ -12,4 +13,4 @@ AppHost.propTypes = {
   history: PropTypes.shape().isRequired,
 };
 
-export default AppHost;
+export default hot(module)(AppHost);

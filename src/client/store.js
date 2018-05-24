@@ -3,22 +3,18 @@ import thunk from 'redux-thunk';
 import { applyMiddleware, createStore, compose } from 'redux';
 import { routerMiddleware } from 'react-router-redux';
 import steemAPI from './steemAPI';
-import { history } from './routes';
-import { mountResponsive } from './vendor/responsive';
+import createBusyAPI from '../common/services/createBusyAPI';
+import history from './history';
 import errorMiddleware from './errorMiddleware';
-import reducers from './reducers';
+import createReducer from './reducers';
 
 export default steemConnectAPI => {
   let preloadedState;
-  if (process.env.IS_BROWSER) {
+  if (typeof window !== 'undefined') {
     /* eslint-disable no-underscore-dangle */
     preloadedState = window.__PRELOADED_STATE__;
     delete window.__PRELOADED_STATE__;
     /* eslint-enable no-underscore-dangle */
-  }
-
-  if (process.env.IS_BROWSER && process.env.NODE_ENV !== 'production') {
-    window.steemAPI = steemAPI;
   }
 
   const middleware = [
@@ -29,12 +25,13 @@ export default steemConnectAPI => {
     thunk.withExtraArgument({
       steemAPI,
       steemConnectAPI,
+      busyAPI: createBusyAPI(),
     }),
     routerMiddleware(history),
   ];
 
   let enhancer;
-  if (process.env.IS_BROWSER) {
+  if (typeof window !== 'undefined') {
     // eslint-disable-next-line no-underscore-dangle
     const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
     enhancer = composeEnhancers(applyMiddleware(...middleware));
@@ -42,7 +39,5 @@ export default steemConnectAPI => {
     enhancer = compose(applyMiddleware(...middleware));
   }
 
-  const store = createStore(reducers, preloadedState, enhancer);
-  mountResponsive(store);
-  return store;
+  return createStore(createReducer(), preloadedState, enhancer);
 };

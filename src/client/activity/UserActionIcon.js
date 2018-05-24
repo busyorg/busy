@@ -52,6 +52,9 @@ class UserActionIcon extends React.Component {
       case accountHistoryConstants.CURATION_REWARD:
         return 'icon-ranking';
       case accountHistoryConstants.COMMENT:
+        if (actionDetails.parent_author === '') {
+          return 'icon-brush_fill';
+        }
         if (currentUsername === actionDetails.author) {
           return 'icon-message_fill';
         }

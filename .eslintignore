@@ -7,8 +7,4 @@ src/client/vendor
 # Build files
 assets/
 public/
-busy.server.js
-
-# TODO: Eventually should be linted as well
-# Webpack
-webpack/
+build/

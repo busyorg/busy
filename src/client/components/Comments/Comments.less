@@ -1,3 +1,5 @@
+@import (reference) '../../styles/custom.less';
+
 .Comments {
   max-width: 990px;
   margin: 0 auto;
@@ -9,5 +11,11 @@
     justify-content: space-between;
     align-items: center;
     padding-bottom: 16px;
+  }
+
+  &__empty {
+    color: @tertiary-color;
+    font-weight: bold;
+    text-align: center;
   }
 }

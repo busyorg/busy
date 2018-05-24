@@ -1,0 +1,40 @@
+@import (reference) '../styles/custom.less';
+@import (reference) '../styles/modules/variables.less';
+
+.BBackTop {
+  position: fixed;
+  width: 100%;
+  height: 0px;
+  bottom: 60px;
+  right: 20px;
+
+  .BBackTop__container {
+    position: relative;
+    margin: 0 auto;
+    max-width: @container-width;
+    @media @large {
+      padding: 0;
+    }
+
+    &--shifted {
+      max-width: 935px;
+    }
+  }
+
+  &_button {
+    position: static !important;
+    float: right;
+
+    i {
+      color: @primary-color !important;
+      font-size: 40px;
+      line-height: 40px;
+      background-color: white;
+      border-radius: 50%;
+
+      &:hover {
+        color: @blue-navyBlue !important;
+      }
+    }
+  }
+}

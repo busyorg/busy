@@ -2,12 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Feed from '../feed/Feed';
+import PostModal from '../post/PostModalContainer';
 import { getFeed } from '../reducers';
 import {
   getFeedLoadingFromState,
   getFeedHasMoreFromState,
   getFeedFromState,
 } from '../helpers/stateHelpers';
+import { showPostModal } from '../app/appActions';
 import { getFeedContent, getMoreFeedContent } from '../feed/feedActions';
 
 @connect(
@@ -17,10 +19,12 @@ import { getFeedContent, getMoreFeedContent } from '../feed/feedActions';
   {
     getFeedContent,
     getMoreFeedContent,
+    showPostModal,
   },
 )
 export default class UserProfileFeed extends React.Component {
   static propTypes = {
+    showPostModal: PropTypes.func.isRequired,
     feed: PropTypes.shape(),
     match: PropTypes.shape(),
     limit: PropTypes.number,
@@ -59,12 +63,16 @@ export default class UserProfileFeed extends React.Component {
       });
 
     return (
-      <Feed
-        content={content}
-        isFetching={isFetching}
-        hasMore={hasMore}
-        loadMoreContent={loadMoreContentAction}
-      />
+      <React.Fragment>
+        <Feed
+          content={content}
+          isFetching={isFetching}
+          hasMore={hasMore}
+          loadMoreContent={loadMoreContentAction}
+          showPostModal={this.props.showPostModal}
+        />
+        <PostModal />
+      </React.Fragment>
     );
   }
 }

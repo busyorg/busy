@@ -8,7 +8,6 @@ import _ from 'lodash';
 import readingTime from 'reading-time';
 import { Checkbox, Form, Input, Select, Button } from 'antd';
 import { rewardsValues } from '../../../common/constants/rewards';
-import improve from '../../helpers/improve';
 import Action from '../Button/Action';
 import requiresLogin from '../../auth/requiresLogin';
 import withEditor from './withEditor';
@@ -65,6 +64,7 @@ class Editor extends React.Component {
     super(props);
 
     this.state = {
+      body: '',
       bodyHTML: '',
     };
 
@@ -133,7 +133,8 @@ class Editor extends React.Component {
 
   setBodyAndRender(body) {
     this.setState({
-      bodyHTML: remarkable.render(improve(body)),
+      body,
+      bodyHTML: remarkable.render(body),
     });
   }
 
@@ -196,7 +197,7 @@ class Editor extends React.Component {
   render() {
     const { intl, form, loading, isUpdating, saving, draftId } = this.props;
     const { getFieldDecorator } = form;
-    const { bodyHTML } = this.state;
+    const { body, bodyHTML } = this.state;
 
     const { words, minutes } = readingTime(bodyHTML);
 
@@ -319,7 +320,7 @@ class Editor extends React.Component {
             />,
           )}
         </Form.Item>
-        {bodyHTML && (
+        {body && (
           <Form.Item
             label={
               <span className="Editor__label">
@@ -327,7 +328,7 @@ class Editor extends React.Component {
               </span>
             }
           >
-            <Body full body={bodyHTML} />
+            <Body full body={body} />
           </Form.Item>
         )}
         <Form.Item
