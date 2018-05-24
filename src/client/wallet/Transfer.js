@@ -58,7 +58,7 @@ export default class Transfer extends React.Component {
 
   static minAccountLength = 3;
   static maxAccountLength = 16;
-  static exchangeRegex = /^(bittrex|blocktrades|poloniex|changelly|openledge|shapeshiftio)$/;
+  static exchangeRegex = /^(bittrex|blocktrades|poloniex|changelly|openledge|shapeshiftio|deepcrypto8)$/;
   static CURRENCIES = {
     STEEM: 'STEEM',
     SBD: 'SBD',
