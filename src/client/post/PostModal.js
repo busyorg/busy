@@ -120,7 +120,7 @@ class PostModal extends React.Component {
           <a role="presentation" onClick={this.handleHidePostModal} className="PostModal__action">
             <i className="iconfont icon-close PostModal__icon" />
           </a>
-          <Link to={`/@${author}/${permlink}`} className="PostModal__action">
+          <Link replace to={`/@${author}/${permlink}`} className="PostModal__action">
             <i className="iconfont icon-send PostModal__icon" />
           </Link>
           <a href={twitterShareURL} target="_blank" className="PostModal__action">
