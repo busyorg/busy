@@ -40,11 +40,13 @@ ShallowWrapper {
           <div
             className="UserWalletTransactions__content-recipient"
           >
-            <FormattedMessage
-              defaultMessage="Powered up "
-              id="powered_up"
-              values={Object {}}
-            />
+            <div>
+              <FormattedMessage
+                defaultMessage="Powered up "
+                id="powered_up"
+                values={Object {}}
+              />
+            </div>
             <span
               className="UserWalletTransactions__payout"
             >
@@ -116,11 +118,13 @@ ShallowWrapper {
             <div
               className="UserWalletTransactions__content-recipient"
             >
-              <FormattedMessage
-                defaultMessage="Powered up "
-                id="powered_up"
-                values={Object {}}
-              />
+              <div>
+                <FormattedMessage
+                  defaultMessage="Powered up "
+                  id="powered_up"
+                  values={Object {}}
+                />
+              </div>
               <span
                 className="UserWalletTransactions__payout"
               >
@@ -164,11 +168,13 @@ ShallowWrapper {
             "nodeType": "host",
             "props": Object {
               "children": Array [
-                <FormattedMessage
-                  defaultMessage="Powered up "
-                  id="powered_up"
-                  values={Object {}}
-                />,
+                <div>
+                  <FormattedMessage
+                    defaultMessage="Powered up "
+                    id="powered_up"
+                    values={Object {}}
+                  />
+                </div>,
                 <span
                   className="UserWalletTransactions__payout"
                 >
@@ -184,15 +190,29 @@ ShallowWrapper {
               Object {
                 "instance": null,
                 "key": undefined,
-                "nodeType": "class",
+                "nodeType": "host",
                 "props": Object {
-                  "defaultMessage": "Powered up ",
-                  "id": "powered_up",
-                  "values": Object {},
+                  "children": <FormattedMessage
+                    defaultMessage="Powered up "
+                    id="powered_up"
+                    values={Object {}}
+                  />,
                 },
                 "ref": null,
-                "rendered": null,
-                "type": [Function],
+                "rendered": Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "class",
+                  "props": Object {
+                    "defaultMessage": "Powered up ",
+                    "id": "powered_up",
+                    "values": Object {},
+                  },
+                  "ref": null,
+                  "rendered": null,
+                  "type": [Function],
+                },
+                "type": "div",
               },
               Object {
                 "instance": null,
@@ -326,11 +346,13 @@ ShallowWrapper {
             <div
               className="UserWalletTransactions__content-recipient"
             >
-              <FormattedMessage
-                defaultMessage="Powered up "
-                id="powered_up"
-                values={Object {}}
-              />
+              <div>
+                <FormattedMessage
+                  defaultMessage="Powered up "
+                  id="powered_up"
+                  values={Object {}}
+                />
+              </div>
               <span
                 className="UserWalletTransactions__payout"
               >
@@ -402,11 +424,13 @@ ShallowWrapper {
               <div
                 className="UserWalletTransactions__content-recipient"
               >
-                <FormattedMessage
-                  defaultMessage="Powered up "
-                  id="powered_up"
-                  values={Object {}}
-                />
+                <div>
+                  <FormattedMessage
+                    defaultMessage="Powered up "
+                    id="powered_up"
+                    values={Object {}}
+                  />
+                </div>
                 <span
                   className="UserWalletTransactions__payout"
                 >
@@ -450,11 +474,13 @@ ShallowWrapper {
               "nodeType": "host",
               "props": Object {
                 "children": Array [
-                  <FormattedMessage
-                    defaultMessage="Powered up "
-                    id="powered_up"
-                    values={Object {}}
-                  />,
+                  <div>
+                    <FormattedMessage
+                      defaultMessage="Powered up "
+                      id="powered_up"
+                      values={Object {}}
+                    />
+                  </div>,
                   <span
                     className="UserWalletTransactions__payout"
                   >
@@ -470,15 +496,29 @@ ShallowWrapper {
                 Object {
                   "instance": null,
                   "key": undefined,
-                  "nodeType": "class",
+                  "nodeType": "host",
                   "props": Object {
-                    "defaultMessage": "Powered up ",
-                    "id": "powered_up",
-                    "values": Object {},
+                    "children": <FormattedMessage
+                      defaultMessage="Powered up "
+                      id="powered_up"
+                      values={Object {}}
+                    />,
                   },
                   "ref": null,
-                  "rendered": null,
-                  "type": [Function],
+                  "rendered": Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "class",
+                    "props": Object {
+                      "defaultMessage": "Powered up ",
+                      "id": "powered_up",
+                      "values": Object {},
+                    },
+                    "ref": null,
+                    "rendered": null,
+                    "type": [Function],
+                  },
+                  "type": "div",
                 },
                 Object {
                   "instance": null,

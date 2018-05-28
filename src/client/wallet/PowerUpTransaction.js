@@ -11,21 +11,23 @@ const PowerUpTransaction = ({ timestamp, amount, to, from }) => (
     </div>
     <div className="UserWalletTransactions__content">
       <div className="UserWalletTransactions__content-recipient">
-        {to === from ? (
-          <FormattedMessage id="powered_up" defaultMessage="Powered up " />
-        ) : (
-          <FormattedMessage
-            id="powered_up_to"
-            defaultMessage="Powered up {to} "
-            values={{
-              to: (
-                <Link to={`/@${to}`}>
-                  <span className="username">{to}</span>
-                </Link>
-              ),
-            }}
-          />
-        )}
+        <div>
+          {to === from ? (
+            <FormattedMessage id="powered_up" defaultMessage="Powered up " />
+          ) : (
+            <FormattedMessage
+              id="powered_up_to"
+              defaultMessage="Powered up {to} "
+              values={{
+                to: (
+                  <Link to={`/@${to}`}>
+                    <span className="username">{to}</span>
+                  </Link>
+                ),
+              }}
+            />
+          )}
+        </div>
 
         <span className="UserWalletTransactions__payout">{amount}</span>
       </div>
