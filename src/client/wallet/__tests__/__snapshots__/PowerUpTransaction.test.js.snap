@@ -10,7 +10,9 @@ ShallowWrapper {
         0 STEEM
       </span>
     }
+    from="hellosteem"
     timestamp="0"
+    to="hellosteem"
   />,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
