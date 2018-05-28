@@ -205,7 +205,7 @@ class Write extends React.Component {
 
     const parsedBody = getHtml(postBody, {}, 'text');
 
-    const images = _.map(extractImageTags, tag => tag.src);
+    const images = extractImageTags(parsedBody).map(tag => tag.src);
     const links = extractLinks(parsedBody);
 
     if (data.title && !this.permlink) {
