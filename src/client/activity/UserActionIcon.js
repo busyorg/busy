@@ -43,7 +43,14 @@ class UserActionIcon extends React.Component {
           customActionType === accountHistoryConstants.FOLLOW &&
           currentUsername === customActionDetails.follower
         ) {
-          return _.isEmpty(customActionDetails.what) ? 'icon-addpeople' : 'icon-addpeople_fill';
+          switch (customActionDetails.what[0]) {
+            case 'ignore':
+              return 'icon-delete_fill';
+            case 'blog':
+              return 'icon-addpeople_fill';
+            default:
+              return 'icon-addpeople';
+          }
         }
 
         return null;

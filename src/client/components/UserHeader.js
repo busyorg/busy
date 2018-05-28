@@ -65,7 +65,11 @@ const UserHeader = ({
                 )}
               </div>
               {!isSameUser && (
-                <div className="UserHeader__user__button">
+                <div
+                  className={classNames('UserHeader__user__button', {
+                    'UserHeader__user__button-follows-you': isFollowing && !isSameUser,
+                  })}
+                >
                   <Action
                     small
                     text={intl.formatMessage({ id: 'transfer', defaultMessage: 'Transfer' })}

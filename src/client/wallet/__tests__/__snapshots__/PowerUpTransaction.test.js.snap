@@ -10,7 +10,9 @@ ShallowWrapper {
         0 STEEM
       </span>
     }
+    from="hellosteem"
     timestamp="0"
+    to="hellosteem"
   />,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
@@ -45,13 +47,13 @@ ShallowWrapper {
                 values={Object {}}
               />
             </div>
-            <div
+            <span
               className="UserWalletTransactions__payout"
             >
               <span>
                 0 STEEM
               </span>
-            </div>
+            </span>
           </div>
           <span
             className="UserWalletTransactions__timestamp"
@@ -123,13 +125,13 @@ ShallowWrapper {
                   values={Object {}}
                 />
               </div>
-              <div
+              <span
                 className="UserWalletTransactions__payout"
               >
                 <span>
                   0 STEEM
                 </span>
-              </div>
+              </span>
             </div>,
             <span
               className="UserWalletTransactions__timestamp"
@@ -173,13 +175,13 @@ ShallowWrapper {
                     values={Object {}}
                   />
                 </div>,
-                <div
+                <span
                   className="UserWalletTransactions__payout"
                 >
                   <span>
                     0 STEEM
                   </span>
-                </div>,
+                </span>,
               ],
               "className": "UserWalletTransactions__content-recipient",
             },
@@ -234,7 +236,7 @@ ShallowWrapper {
                   "rendered": "0 STEEM",
                   "type": "span",
                 },
-                "type": "div",
+                "type": "span",
               },
             ],
             "type": "div",
@@ -351,13 +353,13 @@ ShallowWrapper {
                   values={Object {}}
                 />
               </div>
-              <div
+              <span
                 className="UserWalletTransactions__payout"
               >
                 <span>
                   0 STEEM
                 </span>
-              </div>
+              </span>
             </div>
             <span
               className="UserWalletTransactions__timestamp"
@@ -429,13 +431,13 @@ ShallowWrapper {
                     values={Object {}}
                   />
                 </div>
-                <div
+                <span
                   className="UserWalletTransactions__payout"
                 >
                   <span>
                     0 STEEM
                   </span>
-                </div>
+                </span>
               </div>,
               <span
                 className="UserWalletTransactions__timestamp"
@@ -479,13 +481,13 @@ ShallowWrapper {
                       values={Object {}}
                     />
                   </div>,
-                  <div
+                  <span
                     className="UserWalletTransactions__payout"
                   >
                     <span>
                       0 STEEM
                     </span>
-                  </div>,
+                  </span>,
                 ],
                 "className": "UserWalletTransactions__content-recipient",
               },
@@ -540,7 +542,7 @@ ShallowWrapper {
                     "rendered": "0 STEEM",
                     "type": "span",
                   },
-                  "type": "div",
+                  "type": "span",
                 },
               ],
               "type": "div",
