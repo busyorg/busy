@@ -72,9 +72,10 @@ let us know in the issue so we can mark it as In progress.
    `git clone https://github.com/busyorg/busy.git`
 
 3. Install dependencies: `yarn`
-4. Create branch for your changes: `git checkout -b something-amazing`
-5. Commit your changes.
-6. Create a [pull request](https://github.com/busyorg/busy/compare).
+4. Start the server: `yarn dev`
+5. Create branch for your changes: `git checkout -b something-amazing`
+6. Commit your changes.
+7. Create a [pull request](https://github.com/busyorg/busy/compare).
 
 If you have problems setting up you might find those resources helpful:
 
