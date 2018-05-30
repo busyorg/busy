@@ -27,7 +27,7 @@ import requiresLogin from '../auth/requiresLogin';
 import LANGUAGES from '../translations/languages';
 import { getLanguageText } from '../translations';
 import './Settings.less';
-import PackageJson from '../../../package.json';
+import packageJson from '../../../package.json';
 
 @requiresLogin
 @injectIntl
@@ -363,7 +363,7 @@ export default class Settings extends React.Component {
                   <p>
                     <FormattedMessage
                       id="busy_version"
-                      defaultMessage={`Version: ${PackageJson.version}`}
+                      defaultMessage={`Version: ${packageJson.version}`}
                     />
                   </p>
                 </div>
