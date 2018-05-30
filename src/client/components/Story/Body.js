@@ -60,7 +60,7 @@ export function getHtml(body, jsonMetadata = {}, returnType = 'Object', options 
   parsedBody = parsedBody.replace(dtubeImageRegex, '');
 
   if (options.rewriteLinks) {
-    parsedBody = parsedBody.replace(rewriteRegex, (match, p1) => `"/${p1}"`);
+    parsedBody = parsedBody.replace(rewriteRegex, (match, p1) => `"${p1 || '/'}"`);
   }
 
   parsedBody = sanitizeHtml(
