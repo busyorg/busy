@@ -359,12 +359,14 @@ export default class Settings extends React.Component {
                   text={this.props.intl.formatMessage({ id: 'save', defaultMessage: 'Save' })}
                   onClick={this.handleSave}
                 />
-                <p>
-                  <FormattedMessage
-                    id="busy_version"
-                    defaultMessage={`Busy Version: ${PackageJson.version}`}
-                  />
-                </p>
+                <div className="Settings__version">
+                  <p>
+                    <FormattedMessage
+                      id="busy_version"
+                      defaultMessage={`Busy Version: ${PackageJson.version}`}
+                    />
+                  </p>
+                </div>
               </div>
             )}
           </div>
