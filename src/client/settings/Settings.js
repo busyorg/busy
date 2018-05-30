@@ -363,7 +363,7 @@ export default class Settings extends React.Component {
                   <p>
                     <FormattedMessage
                       id="busy_version"
-                      defaultMessage={`Busy Version: ${PackageJson.version}`}
+                      defaultMessage={`Version: ${PackageJson.version}`}
                     />
                   </p>
                 </div>
