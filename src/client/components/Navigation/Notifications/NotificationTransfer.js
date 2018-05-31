@@ -9,7 +9,7 @@ import './Notification.less';
 
 const NotificationTransfer = ({ notification, read, onClick }) => (
   <Link
-    to="wallet"
+    to="/wallet"
     className={classNames('Notification', {
       'Notification--unread': !read,
     })}
