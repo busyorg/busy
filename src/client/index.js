@@ -2,7 +2,6 @@ import 'babel-polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import Logger from 'js-logger';
 import { message } from 'antd';
 import Cookie from 'js-cookie';
 import steemConnectAPI from './steemConnectAPI';
@@ -12,8 +11,6 @@ import AppHost from './AppHost';
 import { getBrowserLocale, loadLanguage } from './translations';
 import { setUsedLocale } from './app/appActions';
 import { getLocale } from './reducers';
-
-Logger.useDefaults();
 
 if ('serviceWorker' in navigator && process.env.NODE_ENV === 'production') {
   navigator.serviceWorker.register('/service-worker.js');
