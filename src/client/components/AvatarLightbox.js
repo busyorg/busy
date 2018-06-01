@@ -7,11 +7,13 @@ export default class AvatarLightbox extends React.Component {
   static propTypes = {
     username: PropTypes.string,
     size: PropTypes.number,
+    active: PropTypes.bool,
   };
 
   static defaultProps = {
     username: undefined,
     size: 100,
+    active: false,
   };
 
   state = {
@@ -23,12 +25,13 @@ export default class AvatarLightbox extends React.Component {
   handleCloseRequest = () => this.setState({ open: false });
 
   render() {
-    const { username, size } = this.props;
+    const { username, size, active } = this.props;
 
     return (
       <div>
         <a role="presentation" onClick={this.handleAvatarClick}>
           <Avatar username={username} size={size} />
+          {active && <div className="UserHeader__container--active" />}
         </a>
         {this.state.open && (
           <Lightbox
