@@ -12,7 +12,7 @@ import Action from '../Button/Action';
 import requiresLogin from '../../auth/requiresLogin';
 import withEditor from './withEditor';
 import EditorInput from './EditorInput';
-import Body, { remarkable } from '../Story/Body';
+import Body, { converter } from '../Story/Body';
 import './Editor.less';
 
 @injectIntl
@@ -134,7 +134,7 @@ class Editor extends React.Component {
   setBodyAndRender(body) {
     this.setState({
       body,
-      bodyHTML: remarkable.render(body),
+      bodyHTML: converter.makeHtml(body),
     });
   }
 
