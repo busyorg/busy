@@ -4793,10 +4793,6 @@ js-cookie@^2.1.4:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/js-cookie/-/js-cookie-2.2.0.tgz#1b2c279a6eece380a12168b92485265b35b1effb"
 
-js-logger@^1.3.0:
-  version "1.4.1"
-  resolved "https://registry.yarnpkg.com/js-logger/-/js-logger-1.4.1.tgz#f0230dc5e84e120f213d6e5a6b767a913d290335"
-
 js-tokens@^3.0.0, js-tokens@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-3.0.2.tgz#9866df395102130e38f7f996bceb65443209c25b"
