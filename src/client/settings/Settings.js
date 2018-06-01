@@ -27,6 +27,7 @@ import requiresLogin from '../auth/requiresLogin';
 import LANGUAGES from '../translations/languages';
 import { getLanguageText } from '../translations';
 import './Settings.less';
+import packageJson from '../../../package.json';
 
 @requiresLogin
 @injectIntl
@@ -358,6 +359,15 @@ export default class Settings extends React.Component {
                   text={this.props.intl.formatMessage({ id: 'save', defaultMessage: 'Save' })}
                   onClick={this.handleSave}
                 />
+                <div className="Settings__version">
+                  <p>
+                    <FormattedMessage
+                      id="version"
+                      defaultMessage="Version: {version}"
+                      values={{ version: packageJson.version }}
+                    />
+                  </p>
+                </div>
               </div>
             )}
           </div>
