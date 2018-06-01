@@ -12,21 +12,23 @@ const ReceiveTransaction = ({ from, memo, amount, timestamp }) => (
     </div>
     <div className="UserWalletTransactions__content">
       <div className="UserWalletTransactions__content-recipient">
-        <FormattedMessage
-          id="received_from"
-          defaultMessage="Received from {username}"
-          values={{
-            username: (
-              <Link to={`/@${from}`}>
-                <span className="username">{from}</span>
-              </Link>
-            ),
-          }}
-        />
-        <span className="UserWalletTransactions__received">
+        <div>
+          <FormattedMessage
+            id="received_from"
+            defaultMessage="Received from {username}"
+            values={{
+              username: (
+                <Link to={`/@${from}`}>
+                  <span className="username">{from}</span>
+                </Link>
+              ),
+            }}
+          />
+        </div>
+        <div className="UserWalletTransactions__received">
           {'+ '}
           {amount}
-        </span>
+        </div>
       </div>
       <span className="UserWalletTransactions__timestamp">
         <BTooltip

@@ -89,9 +89,7 @@ class UserActionMessage extends React.Component {
           />
         );
       case accountHistoryConstants.CUSTOM_JSON:
-        return (
-          <CustomJSONMessage actionDetails={actionDetails} currentUsername={currentUsername} />
-        );
+        return <CustomJSONMessage actionDetails={actionDetails} />;
       case accountHistoryConstants.ACCOUNT_UPDATE:
         return <FormattedMessage id="account_updated" defaultMessage="Account Updated" />;
       case accountHistoryConstants.AUTHOR_REWARD:

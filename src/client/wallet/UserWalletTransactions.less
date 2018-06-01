@@ -79,10 +79,14 @@
   }
 
   &__content-recipient {
-    display: flex;
-    flex-direction: row;
+    display: block;
     white-space: nowrap;
     color: @grey-mortar;
+
+    @media @xsmall {
+      display: flex;
+      flex-direction: row;
+    }
   }
 
   &__timestamp {
@@ -120,27 +124,6 @@
   @media @small {
     border-radius: @border-radius-base;
   }
-
-  @media @very-small-max-width {
-    &__content-recipient {
-      flex-wrap: wrap;
-    }
-
-    &__transfer {
-      width: 100%;
-      margin-left: 0;
-    }
-
-    &__received {
-      width: 100%;
-      margin-left: 0;
-    }
-
-    &__payout {
-      width: 100%;
-      margin-left: 0;
-    }
-  }
 }
 
 div[data-dir='rtl'] .UserWalletTransactions {
@@ -165,19 +148,5 @@ div[data-dir='rtl'] .UserWalletTransactions {
     direction: ltr;
     margin-right: auto;
     margin-left: 0;
-  }
-
-  @media @very-small-max-width {
-    &__transfer {
-      margin-right: 0;
-    }
-
-    &__received {
-      margin-right: 0;
-    }
-
-    &__payout {
-      margin-right: 0;
-    }
   }
 }

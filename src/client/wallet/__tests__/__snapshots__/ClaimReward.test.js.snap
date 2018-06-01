@@ -38,12 +38,14 @@ ShallowWrapper {
           <div
             className="UserWalletTransactions__content-recipient"
           >
-            <FormattedMessage
-              defaultMessage="Claim rewards"
-              id="claim_rewards"
-              values={Object {}}
-            />
-            <span
+            <div>
+              <FormattedMessage
+                defaultMessage="Claim rewards"
+                id="claim_rewards"
+                values={Object {}}
+              />
+            </div>
+            <div
               className="UserWalletTransactions__payout"
             />
           </div>
@@ -110,12 +112,14 @@ ShallowWrapper {
             <div
               className="UserWalletTransactions__content-recipient"
             >
-              <FormattedMessage
-                defaultMessage="Claim rewards"
-                id="claim_rewards"
-                values={Object {}}
-              />
-              <span
+              <div>
+                <FormattedMessage
+                  defaultMessage="Claim rewards"
+                  id="claim_rewards"
+                  values={Object {}}
+                />
+              </div>
+              <div
                 className="UserWalletTransactions__payout"
               />
             </div>,
@@ -154,12 +158,14 @@ ShallowWrapper {
             "nodeType": "host",
             "props": Object {
               "children": Array [
-                <FormattedMessage
-                  defaultMessage="Claim rewards"
-                  id="claim_rewards"
-                  values={Object {}}
-                />,
-                <span
+                <div>
+                  <FormattedMessage
+                    defaultMessage="Claim rewards"
+                    id="claim_rewards"
+                    values={Object {}}
+                  />
+                </div>,
+                <div
                   className="UserWalletTransactions__payout"
                 />,
               ],
@@ -170,15 +176,29 @@ ShallowWrapper {
               Object {
                 "instance": null,
                 "key": undefined,
-                "nodeType": "class",
+                "nodeType": "host",
                 "props": Object {
-                  "defaultMessage": "Claim rewards",
-                  "id": "claim_rewards",
-                  "values": Object {},
+                  "children": <FormattedMessage
+                    defaultMessage="Claim rewards"
+                    id="claim_rewards"
+                    values={Object {}}
+                  />,
                 },
                 "ref": null,
-                "rendered": null,
-                "type": [Function],
+                "rendered": Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "class",
+                  "props": Object {
+                    "defaultMessage": "Claim rewards",
+                    "id": "claim_rewards",
+                    "values": Object {},
+                  },
+                  "ref": null,
+                  "rendered": null,
+                  "type": [Function],
+                },
+                "type": "div",
               },
               Object {
                 "instance": null,
@@ -190,7 +210,7 @@ ShallowWrapper {
                 },
                 "ref": null,
                 "rendered": Array [],
-                "type": "span",
+                "type": "div",
               },
             ],
             "type": "div",
@@ -300,12 +320,14 @@ ShallowWrapper {
             <div
               className="UserWalletTransactions__content-recipient"
             >
-              <FormattedMessage
-                defaultMessage="Claim rewards"
-                id="claim_rewards"
-                values={Object {}}
-              />
-              <span
+              <div>
+                <FormattedMessage
+                  defaultMessage="Claim rewards"
+                  id="claim_rewards"
+                  values={Object {}}
+                />
+              </div>
+              <div
                 className="UserWalletTransactions__payout"
               />
             </div>
@@ -372,12 +394,14 @@ ShallowWrapper {
               <div
                 className="UserWalletTransactions__content-recipient"
               >
-                <FormattedMessage
-                  defaultMessage="Claim rewards"
-                  id="claim_rewards"
-                  values={Object {}}
-                />
-                <span
+                <div>
+                  <FormattedMessage
+                    defaultMessage="Claim rewards"
+                    id="claim_rewards"
+                    values={Object {}}
+                  />
+                </div>
+                <div
                   className="UserWalletTransactions__payout"
                 />
               </div>,
@@ -416,12 +440,14 @@ ShallowWrapper {
               "nodeType": "host",
               "props": Object {
                 "children": Array [
-                  <FormattedMessage
-                    defaultMessage="Claim rewards"
-                    id="claim_rewards"
-                    values={Object {}}
-                  />,
-                  <span
+                  <div>
+                    <FormattedMessage
+                      defaultMessage="Claim rewards"
+                      id="claim_rewards"
+                      values={Object {}}
+                    />
+                  </div>,
+                  <div
                     className="UserWalletTransactions__payout"
                   />,
                 ],
@@ -432,15 +458,29 @@ ShallowWrapper {
                 Object {
                   "instance": null,
                   "key": undefined,
-                  "nodeType": "class",
+                  "nodeType": "host",
                   "props": Object {
-                    "defaultMessage": "Claim rewards",
-                    "id": "claim_rewards",
-                    "values": Object {},
+                    "children": <FormattedMessage
+                      defaultMessage="Claim rewards"
+                      id="claim_rewards"
+                      values={Object {}}
+                    />,
                   },
                   "ref": null,
-                  "rendered": null,
-                  "type": [Function],
+                  "rendered": Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "class",
+                    "props": Object {
+                      "defaultMessage": "Claim rewards",
+                      "id": "claim_rewards",
+                      "values": Object {},
+                    },
+                    "ref": null,
+                    "rendered": null,
+                    "type": [Function],
+                  },
+                  "type": "div",
                 },
                 Object {
                   "instance": null,
@@ -452,7 +492,7 @@ ShallowWrapper {
                   },
                   "ref": null,
                   "rendered": Array [],
-                  "type": "span",
+                  "type": "div",
                 },
               ],
               "type": "div",

@@ -80,8 +80,10 @@ const ClaimReward = ({
     </div>
     <div className="UserWalletTransactions__content">
       <div className="UserWalletTransactions__content-recipient">
-        <FormattedMessage id="claim_rewards" defaultMessage="Claim rewards" />
-        <span className="UserWalletTransactions__payout">
+        <div>
+          <FormattedMessage id="claim_rewards" defaultMessage="Claim rewards" />
+        </div>
+        <div className="UserWalletTransactions__payout">
           {getFormattedPayout(
             rewardSteem,
             rewardSbd,
@@ -89,7 +91,7 @@ const ClaimReward = ({
             totalVestingShares,
             totalVestingFundSteem,
           )}
-        </span>
+        </div>
       </div>
       <span className="UserWalletTransactions__timestamp">
         <BTooltip

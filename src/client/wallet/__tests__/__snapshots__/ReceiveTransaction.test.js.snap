@@ -41,32 +41,34 @@ ShallowWrapper {
           <div
             className="UserWalletTransactions__content-recipient"
           >
-            <FormattedMessage
-              defaultMessage="Received from {username}"
-              id="received_from"
-              values={
-                Object {
-                  "username": <Link
-                    replace={false}
-                    to="/@hellosteem"
-                  >
-                    <span
-                      className="username"
+            <div>
+              <FormattedMessage
+                defaultMessage="Received from {username}"
+                id="received_from"
+                values={
+                  Object {
+                    "username": <Link
+                      replace={false}
+                      to="/@hellosteem"
                     >
-                      hellosteem
-                    </span>
-                  </Link>,
+                      <span
+                        className="username"
+                      >
+                        hellosteem
+                      </span>
+                    </Link>,
+                  }
                 }
-              }
-            />
-            <span
+              />
+            </div>
+            <div
               className="UserWalletTransactions__received"
             >
               + 
               <span>
                 0 STEEM
               </span>
-            </span>
+            </div>
           </div>
           <span
             className="UserWalletTransactions__timestamp"
@@ -138,32 +140,34 @@ ShallowWrapper {
             <div
               className="UserWalletTransactions__content-recipient"
             >
-              <FormattedMessage
-                defaultMessage="Received from {username}"
-                id="received_from"
-                values={
-                  Object {
-                    "username": <Link
-                      replace={false}
-                      to="/@hellosteem"
-                    >
-                      <span
-                        className="username"
+              <div>
+                <FormattedMessage
+                  defaultMessage="Received from {username}"
+                  id="received_from"
+                  values={
+                    Object {
+                      "username": <Link
+                        replace={false}
+                        to="/@hellosteem"
                       >
-                        hellosteem
-                      </span>
-                    </Link>,
+                        <span
+                          className="username"
+                        >
+                          hellosteem
+                        </span>
+                      </Link>,
+                    }
                   }
-                }
-              />
-              <span
+                />
+              </div>
+              <div
                 className="UserWalletTransactions__received"
               >
                 + 
                 <span>
                   0 STEEM
                 </span>
-              </span>
+              </div>
             </div>,
             <span
               className="UserWalletTransactions__timestamp"
@@ -205,11 +209,72 @@ ShallowWrapper {
             "nodeType": "host",
             "props": Object {
               "children": Array [
-                <FormattedMessage
-                  defaultMessage="Received from {username}"
-                  id="received_from"
-                  values={
-                    Object {
+                <div>
+                  <FormattedMessage
+                    defaultMessage="Received from {username}"
+                    id="received_from"
+                    values={
+                      Object {
+                        "username": <Link
+                          replace={false}
+                          to="/@hellosteem"
+                        >
+                          <span
+                            className="username"
+                          >
+                            hellosteem
+                          </span>
+                        </Link>,
+                      }
+                    }
+                  />
+                </div>,
+                <div
+                  className="UserWalletTransactions__received"
+                >
+                  + 
+                  <span>
+                    0 STEEM
+                  </span>
+                </div>,
+              ],
+              "className": "UserWalletTransactions__content-recipient",
+            },
+            "ref": null,
+            "rendered": Array [
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": <FormattedMessage
+                    defaultMessage="Received from {username}"
+                    id="received_from"
+                    values={
+                      Object {
+                        "username": <Link
+                          replace={false}
+                          to="/@hellosteem"
+                        >
+                          <span
+                            className="username"
+                          >
+                            hellosteem
+                          </span>
+                        </Link>,
+                      }
+                    }
+                  />,
+                },
+                "ref": null,
+                "rendered": Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "class",
+                  "props": Object {
+                    "defaultMessage": "Received from {username}",
+                    "id": "received_from",
+                    "values": Object {
                       "username": <Link
                         replace={false}
                         to="/@hellosteem"
@@ -220,45 +285,13 @@ ShallowWrapper {
                           hellosteem
                         </span>
                       </Link>,
-                    }
-                  }
-                />,
-                <span
-                  className="UserWalletTransactions__received"
-                >
-                  + 
-                  <span>
-                    0 STEEM
-                  </span>
-                </span>,
-              ],
-              "className": "UserWalletTransactions__content-recipient",
-            },
-            "ref": null,
-            "rendered": Array [
-              Object {
-                "instance": null,
-                "key": undefined,
-                "nodeType": "class",
-                "props": Object {
-                  "defaultMessage": "Received from {username}",
-                  "id": "received_from",
-                  "values": Object {
-                    "username": <Link
-                      replace={false}
-                      to="/@hellosteem"
-                    >
-                      <span
-                        className="username"
-                      >
-                        hellosteem
-                      </span>
-                    </Link>,
+                    },
                   },
+                  "ref": null,
+                  "rendered": null,
+                  "type": [Function],
                 },
-                "ref": null,
-                "rendered": null,
-                "type": [Function],
+                "type": "div",
               },
               Object {
                 "instance": null,
@@ -288,7 +321,7 @@ ShallowWrapper {
                     "type": "span",
                   },
                 ],
-                "type": "span",
+                "type": "div",
               },
             ],
             "type": "div",
@@ -411,32 +444,34 @@ ShallowWrapper {
             <div
               className="UserWalletTransactions__content-recipient"
             >
-              <FormattedMessage
-                defaultMessage="Received from {username}"
-                id="received_from"
-                values={
-                  Object {
-                    "username": <Link
-                      replace={false}
-                      to="/@hellosteem"
-                    >
-                      <span
-                        className="username"
+              <div>
+                <FormattedMessage
+                  defaultMessage="Received from {username}"
+                  id="received_from"
+                  values={
+                    Object {
+                      "username": <Link
+                        replace={false}
+                        to="/@hellosteem"
                       >
-                        hellosteem
-                      </span>
-                    </Link>,
+                        <span
+                          className="username"
+                        >
+                          hellosteem
+                        </span>
+                      </Link>,
+                    }
                   }
-                }
-              />
-              <span
+                />
+              </div>
+              <div
                 className="UserWalletTransactions__received"
               >
                 + 
                 <span>
                   0 STEEM
                 </span>
-              </span>
+              </div>
             </div>
             <span
               className="UserWalletTransactions__timestamp"
@@ -508,32 +543,34 @@ ShallowWrapper {
               <div
                 className="UserWalletTransactions__content-recipient"
               >
-                <FormattedMessage
-                  defaultMessage="Received from {username}"
-                  id="received_from"
-                  values={
-                    Object {
-                      "username": <Link
-                        replace={false}
-                        to="/@hellosteem"
-                      >
-                        <span
-                          className="username"
+                <div>
+                  <FormattedMessage
+                    defaultMessage="Received from {username}"
+                    id="received_from"
+                    values={
+                      Object {
+                        "username": <Link
+                          replace={false}
+                          to="/@hellosteem"
                         >
-                          hellosteem
-                        </span>
-                      </Link>,
+                          <span
+                            className="username"
+                          >
+                            hellosteem
+                          </span>
+                        </Link>,
+                      }
                     }
-                  }
-                />
-                <span
+                  />
+                </div>
+                <div
                   className="UserWalletTransactions__received"
                 >
                   + 
                   <span>
                     0 STEEM
                   </span>
-                </span>
+                </div>
               </div>,
               <span
                 className="UserWalletTransactions__timestamp"
@@ -575,11 +612,72 @@ ShallowWrapper {
               "nodeType": "host",
               "props": Object {
                 "children": Array [
-                  <FormattedMessage
-                    defaultMessage="Received from {username}"
-                    id="received_from"
-                    values={
-                      Object {
+                  <div>
+                    <FormattedMessage
+                      defaultMessage="Received from {username}"
+                      id="received_from"
+                      values={
+                        Object {
+                          "username": <Link
+                            replace={false}
+                            to="/@hellosteem"
+                          >
+                            <span
+                              className="username"
+                            >
+                              hellosteem
+                            </span>
+                          </Link>,
+                        }
+                      }
+                    />
+                  </div>,
+                  <div
+                    className="UserWalletTransactions__received"
+                  >
+                    + 
+                    <span>
+                      0 STEEM
+                    </span>
+                  </div>,
+                ],
+                "className": "UserWalletTransactions__content-recipient",
+              },
+              "ref": null,
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": <FormattedMessage
+                      defaultMessage="Received from {username}"
+                      id="received_from"
+                      values={
+                        Object {
+                          "username": <Link
+                            replace={false}
+                            to="/@hellosteem"
+                          >
+                            <span
+                              className="username"
+                            >
+                              hellosteem
+                            </span>
+                          </Link>,
+                        }
+                      }
+                    />,
+                  },
+                  "ref": null,
+                  "rendered": Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "class",
+                    "props": Object {
+                      "defaultMessage": "Received from {username}",
+                      "id": "received_from",
+                      "values": Object {
                         "username": <Link
                           replace={false}
                           to="/@hellosteem"
@@ -590,45 +688,13 @@ ShallowWrapper {
                             hellosteem
                           </span>
                         </Link>,
-                      }
-                    }
-                  />,
-                  <span
-                    className="UserWalletTransactions__received"
-                  >
-                    + 
-                    <span>
-                      0 STEEM
-                    </span>
-                  </span>,
-                ],
-                "className": "UserWalletTransactions__content-recipient",
-              },
-              "ref": null,
-              "rendered": Array [
-                Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "class",
-                  "props": Object {
-                    "defaultMessage": "Received from {username}",
-                    "id": "received_from",
-                    "values": Object {
-                      "username": <Link
-                        replace={false}
-                        to="/@hellosteem"
-                      >
-                        <span
-                          className="username"
-                        >
-                          hellosteem
-                        </span>
-                      </Link>,
+                      },
                     },
+                    "ref": null,
+                    "rendered": null,
+                    "type": [Function],
                   },
-                  "ref": null,
-                  "rendered": null,
-                  "type": [Function],
+                  "type": "div",
                 },
                 Object {
                   "instance": null,
@@ -658,7 +724,7 @@ ShallowWrapper {
                       "type": "span",
                     },
                   ],
-                  "type": "span",
+                  "type": "div",
                 },
               ],
               "type": "div",
