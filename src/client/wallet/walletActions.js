@@ -12,6 +12,8 @@ import { ACTIONS_DISPLAY_LIMIT, actionsFilter } from '../helpers/accountHistoryH
 
 export const OPEN_TRANSFER = '@wallet/OPEN_TRANSFER';
 export const CLOSE_TRANSFER = '@wallet/CLOSE_TRANSFER';
+export const OPEN_POWER_UP_OR_DOWN = '@wallet/OPEN_POWER_UP_OR_DOWN';
+export const CLOSE_POWER_UP_OR_DOWN = '@wallet/CLOSE_POWER_UP_OR_DOWN';
 export const GET_GLOBAL_PROPERTIES = createAsyncActionType('@wallet/GET_GLOBAL_PROPERTIES');
 export const GET_USER_ACCOUNT_HISTORY = createAsyncActionType('@users/GET_USER_ACCOUNT_HISTORY');
 export const GET_MORE_USER_ACCOUNT_HISTORY = createAsyncActionType(
@@ -29,6 +31,9 @@ export const LOADING_MORE_USERS_ACCOUNT_HISTORY = '@users/LOADING_MORE_USERS_ACC
 
 export const openTransfer = createAction(OPEN_TRANSFER);
 export const closeTransfer = createAction(CLOSE_TRANSFER);
+
+export const openPowerUpOrDown = createAction(OPEN_POWER_UP_OR_DOWN);
+export const closePowerUpOrDown = createAction(CLOSE_POWER_UP_OR_DOWN);
 
 const getParsedUserActions = userActions => {
   const userWalletTransactions = [];

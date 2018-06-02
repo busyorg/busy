@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { injectIntl } from 'react-intl';
-import { openTransfer } from '../../wallet/walletActions';
+import { openTransfer, openPowerUpOrDown } from '../../wallet/walletActions';
 import { getAuthenticatedUser } from '../../reducers';
 import { STEEM, SBD } from '../../../common/constants/cryptos';
 import Action from '../Button/Action';
 import ClaimRewardsBlock from '../../wallet/ClaimRewardsBlock';
 import CryptoTrendingCharts from './CryptoTrendingCharts';
+import './WalletSidebar.less';
 
 @withRouter
 @injectIntl
@@ -18,15 +19,17 @@ import CryptoTrendingCharts from './CryptoTrendingCharts';
   }),
   {
     openTransfer,
+    openPowerUpOrDown,
   },
 )
 class WalletSidebar extends React.Component {
   static propTypes = {
+    intl: PropTypes.shape().isRequired,
     user: PropTypes.shape(),
     isCurrentUser: PropTypes.bool,
     match: PropTypes.shape().isRequired,
     openTransfer: PropTypes.func.isRequired,
-    intl: PropTypes.shape().isRequired,
+    openPowerUpOrDown: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -40,24 +43,50 @@ class WalletSidebar extends React.Component {
     this.props.openTransfer(username);
   };
 
+  handleOpenPowerUp = () => {
+    this.props.openPowerUpOrDown();
+  };
+
+  handleOpenPowerDown = () => {
+    this.props.openPowerUpOrDown(true);
+  };
+
   render() {
     const { match, user, isCurrentUser } = this.props;
-    const displayClaimRewards = match.params.name === user.name || isCurrentUser;
+    const ownProfile = match.params.name === user.name || isCurrentUser;
     const cryptos = [STEEM.symbol, SBD.symbol];
 
     return (
-      <div>
+      <div className="WalletSidebar">
         <Action
+          className="WalletSidebar__transfer"
           primary
-          style={{ marginBottom: '10px' }}
           text={this.props.intl.formatMessage({
             id: 'transfer',
             defaultMessage: 'Transfer',
           })}
           onClick={this.handleOpenTransfer}
         />
+        {ownProfile && (
+          <div className="WalletSidebar__power">
+            <Action
+              text={this.props.intl.formatMessage({
+                id: 'power_up',
+                defaultMessage: 'Power up',
+              })}
+              onClick={this.handleOpenPowerUp}
+            />
+            <Action
+              text={this.props.intl.formatMessage({
+                id: 'power_down',
+                defaultMessage: 'Power down',
+              })}
+              onClick={this.handleOpenPowerDown}
+            />
+          </div>
+        )}
         <CryptoTrendingCharts cryptos={cryptos} />
-        {displayClaimRewards && <ClaimRewardsBlock />}
+        {ownProfile && <ClaimRewardsBlock />}
       </div>
     );
   }

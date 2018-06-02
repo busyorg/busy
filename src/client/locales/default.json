@@ -116,6 +116,8 @@
   "by": "By {username}",
   "memo": "Memo",
   "memo_placeholder": "Additional message to include in this payment (optional)",
+  "power_up": "Power up",
+  "power_down": "Power down",
   "message": "Message",
   "edit_profile": "Edit profile",
   "profile_name": "Name",
@@ -348,5 +350,6 @@
   "hero_banner_title_1": "Write and publish a post on Steem",
   "hero_banner_title_2": "The community upvotes your post",
   "hero_banner_title_3": "Earn rewards in Steem",
-  "version": "Version: {version}"
+  "version": "Version: {version}",
+  "amount_currency": "{amount} {currency}"
 }
