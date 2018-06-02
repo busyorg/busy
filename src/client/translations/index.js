@@ -6,7 +6,7 @@ export function findLanguage(locale) {
 }
 
 export function getRequestLocale(locales) {
-  if (locales === '*') return LANGUAGES[0];
+  if (!locales || locales === '*') return LANGUAGES[0];
 
   return locales.split(',').map(lang => lang.split(';')[0])[0];
 }
