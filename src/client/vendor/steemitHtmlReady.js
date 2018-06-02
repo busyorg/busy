@@ -226,7 +226,7 @@ function linkify(content, mutate, hashtags, usertags, images, links) {
   });
 
   // usertag (mention)
-  content = content.replace(/(^|\s)(@[a-z][-\.a-z\d]+[a-z\d])/gi, user => {
+  content = content.replace(/(@[a-z][-\.a-z\d]+[a-z\d])/gi, user => {
     const space = /^\s/.test(user) ? user[0] : '';
     const user2 = user.trim().substring(1);
     const userLower = user2.toLowerCase();
