@@ -4,6 +4,7 @@ import 'url-search-params-polyfill';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import ActionLink from '../components/Button/ActionLink';
 import ActionButton from '../components/Button/Action';
+import { whitelistDomains } from '../helpers/exitPageHelper';
 import './ExitPage.less';
 
 @injectIntl
@@ -12,6 +13,14 @@ export default class ExitPage extends React.Component {
     intl: PropTypes.shape().isRequired,
     location: PropTypes.shape().isRequired,
   };
+
+  componentWillMount() {
+    const url = decodeURIComponent(new URLSearchParams(location.search).get('url'));
+    const hostname = new URL(url).hostname;
+    if (whitelistDomains.includes(hostname.replace(/^[^.]+\./g, ''))) {
+      window.location = url;
+    }
+  }
 
   closeWindow = () => {
     if (typeof window !== 'undefined') {
