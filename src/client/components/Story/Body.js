@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import classNames from 'classnames';
 import sanitizeHtml from 'sanitize-html';
-import showdown from 'showdown';
+import Remarkable from 'remarkable';
 import embedjs from 'embedjs';
 import { jsonParse } from '../../helpers/formatter';
 import sanitizeConfig from '../../vendor/SanitizeConfig';
@@ -14,9 +14,12 @@ import improve from '../../helpers/improve';
 import PostFeedEmbed from './PostFeedEmbed';
 import './Body.less';
 
-export const converter = new showdown.Converter({
-  tables: true,
-  strikethrough: true,
+export const remarkable = new Remarkable({
+  html: true, // remarkable renders first then sanitize runs...
+  breaks: true,
+  linkify: false, // linkify is done locally
+  typographer: false, // https://github.com/jonschlinkert/remarkable/issues/142#issuecomment-221546793
+  quotes: '“”‘’',
 });
 
 const getEmbed = link => {
@@ -50,7 +53,7 @@ export function getHtml(body, jsonMetadata = {}, returnType = 'Object', options 
   });
 
   parsedBody = improve(parsedBody);
-  parsedBody = converter.makeHtml(parsedBody);
+  parsedBody = remarkable.render(parsedBody);
 
   const htmlReadyOptions = { mutate: true, resolveIframe: returnType === 'text' };
   parsedBody = htmlReady(parsedBody, htmlReadyOptions).html;
