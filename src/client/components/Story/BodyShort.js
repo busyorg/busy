@@ -2,16 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ellipsis from 'text-ellipsis';
 import striptags from 'striptags';
-import Remarkable from 'remarkable';
+import MarkdownIt from 'markdown-it';
 
-const remarkable = new Remarkable({ html: true });
+const markdownIt = new MarkdownIt({ html: true });
 
 function decodeEntities(body) {
   return body.replace(/&lt;/g, '<').replace(/&gt;/g, '>');
 }
 
 const BodyShort = props => {
-  let body = striptags(remarkable.render(striptags(decodeEntities(props.body))));
+  let body = striptags(markdownIt.render(striptags(decodeEntities(props.body))));
   body = body.replace(/(?:https?|ftp):\/\/[\S]+/g, '');
 
   // If body consists of whitespace characters only skip it.
