@@ -17,7 +17,6 @@ import walletReducer, * as fromWallet from './wallet/walletReducer';
 import reblogReducers, * as fromReblog from './app/Reblog/reblogReducers';
 import settingsReducer, * as fromSettings from './settings/settingsReducer';
 import searchReducer, * as fromSearch from './search/searchReducer';
-import globalPropertiesReducer, * as fromGlobalProperties from './globalproperties/globalPropertiesReducer';
 
 export default () =>
   combineReducers({
@@ -37,7 +36,6 @@ export default () =>
     wallet: walletReducer,
     settings: settingsReducer,
     search: searchReducer,
-    globalProperties: globalPropertiesReducer,
   });
 
 export const getIsAuthenticated = state => fromAuth.getIsAuthenticated(state.auth);
@@ -152,6 +150,3 @@ export const getSearchLoading = state => fromSearch.getSearchLoading(state.searc
 export const getSearchResults = state => fromSearch.getSearchResults(state.search);
 export const getAutoCompleteSearchResults = state =>
   fromSearch.getAutoCompleteSearchResults(state.search);
-
-export const getGlobalPropertiesTime = state =>
-  fromGlobalProperties.getTime(state.globalProperties);

@@ -1,13 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Route, Switch, withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
 import UserHeader from '../components/UserHeader';
 import UserHeaderLoading from '../components/UserHeaderLoading';
 import UserMenu from '../components/UserMenu';
 import Hero from '../components/Hero';
-import { getGlobalProperties } from '../globalproperties/globalPropertiesActions';
-import { getGlobalPropertiesTime } from '../reducers';
 
 const activityFields = [
   'last_owner_update',
@@ -40,91 +37,74 @@ class UserMenuWrapper extends React.Component {
   }
 }
 
-// eslint-disable-next-line react/no-multi-comp
-@connect(
-  state => ({
-    time: getGlobalPropertiesTime(state),
-  }),
-  {
-    getGlobalProperties,
-  },
-)
-class UserHero extends React.Component {
-  static propTypes = {
-    getGlobalProperties: PropTypes.func.isRequired,
-    authenticated: PropTypes.bool.isRequired,
-    user: PropTypes.shape().isRequired,
-    username: PropTypes.string.isRequired,
-    isSameUser: PropTypes.bool,
-    coverImage: PropTypes.string,
-    hasCover: PropTypes.bool,
-    isFollowing: PropTypes.bool,
-    onTransferClick: PropTypes.func,
-    time: PropTypes.string,
-  };
-
-  static defaultProps = {
-    isSameUser: false,
-    coverImage: '',
-    hasCover: false,
-    isFollowing: false,
-    isPopoverVisible: false,
-    time: '1970-01-01T00:00:00',
-    onTransferClick: () => {},
-  };
-
-  componentDidMount() {
-    this.props.getGlobalProperties();
-  }
-
-  render() {
-    const {
-      authenticated,
-      user,
-      username,
-      isSameUser,
-      coverImage,
-      hasCover,
-      isFollowing,
-      onTransferClick,
-      time,
-    } = this.props;
-    return (
-      <div>
-        <Switch>
-          <Route
-            path="/@:name"
-            render={() => (
-              <div>
-                {user.fetching ? (
-                  <UserHeaderLoading />
-                ) : (
-                  <UserHeader
-                    username={username}
-                    handle={user.name}
-                    userReputation={user.reputation}
-                    vestingShares={parseFloat(user.vesting_shares)}
-                    isSameUser={isSameUser}
-                    coverImage={coverImage}
-                    hasCover={hasCover}
-                    isFollowing={isFollowing}
-                    onTransferClick={onTransferClick}
-                    isActive={() =>
-                      activityFields.some(
-                        field => Date.parse(time) - Date.parse(user[field]) < 5 * 60 * 1000,
-                      )
-                    }
-                  />
-                )}
-                <UserMenuWrapper followers={user.follower_count} following={user.following_count} />
-              </div>
+const UserHero = ({
+  authenticated,
+  user,
+  username,
+  isSameUser,
+  coverImage,
+  hasCover,
+  isFollowing,
+  onTransferClick,
+}) => (
+  <div>
+    <Switch>
+      <Route
+        path="/@:name"
+        render={() => (
+          <div>
+            {user.fetching ? (
+              <UserHeaderLoading />
+            ) : (
+              <UserHeader
+                username={username}
+                handle={user.name}
+                userReputation={user.reputation}
+                vestingShares={parseFloat(user.vesting_shares)}
+                isSameUser={isSameUser}
+                coverImage={coverImage}
+                hasCover={hasCover}
+                isFollowing={isFollowing}
+                onTransferClick={onTransferClick}
+                isActive={() =>
+                  activityFields.some(
+                    field =>
+                      new Date(
+                        new Date().valueOf() + new Date().getTimezoneOffset() * 60000,
+                      ).valueOf() -
+                        Date.parse(user[field]) <
+                      5 * 60 * 1000,
+                  )
+                }
+              />
             )}
-          />
-          <Route render={() => (authenticated ? <Hero /> : <div />)} />
-        </Switch>
-      </div>
-    );
-  }
-}
+            <UserMenuWrapper followers={user.follower_count} following={user.following_count} />
+          </div>
+        )}
+      />
+      <Route render={() => (authenticated ? <Hero /> : <div />)} />
+    </Switch>
+  </div>
+);
+
+UserHero.propTypes = {
+  authenticated: PropTypes.bool.isRequired,
+  user: PropTypes.shape().isRequired,
+  username: PropTypes.string.isRequired,
+  isSameUser: PropTypes.bool,
+  coverImage: PropTypes.string,
+  hasCover: PropTypes.bool,
+  isFollowing: PropTypes.bool,
+  onTransferClick: PropTypes.func,
+};
+
+UserHero.defaultProps = {
+  isSameUser: false,
+  coverImage: '',
+  hasCover: false,
+  isFollowing: false,
+  isPopoverVisible: false,
+  onTransferClick: () => {},
+};
 
 export default UserHero;
