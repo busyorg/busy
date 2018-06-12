@@ -37,6 +37,14 @@ class UserMenuWrapper extends React.Component {
   }
 }
 
+const isUserActive = user =>
+  activityFields.some(
+    field =>
+      new Date(new Date().valueOf() + new Date().getTimezoneOffset() * 60000).valueOf() -
+        Date.parse(user[field]) <
+      5 * 60 * 1000,
+  );
+
 const UserHero = ({
   authenticated,
   user,
@@ -66,16 +74,7 @@ const UserHero = ({
                 hasCover={hasCover}
                 isFollowing={isFollowing}
                 onTransferClick={onTransferClick}
-                isActive={() =>
-                  activityFields.some(
-                    field =>
-                      new Date(
-                        new Date().valueOf() + new Date().getTimezoneOffset() * 60000,
-                      ).valueOf() -
-                        Date.parse(user[field]) <
-                      5 * 60 * 1000,
-                  )
-                }
+                isActive={isUserActive(user)}
               />
             )}
             <UserMenuWrapper followers={user.follower_count} following={user.following_count} />
