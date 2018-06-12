@@ -97,7 +97,9 @@ export const sendComment = (parentPost, body, isUpdating = false, originalCommen
   const permlink = isUpdating
     ? originalComment.permlink
     : createCommentPermlink(parentAuthor, parentPermlink);
-  const jsonMetadata = { tags: [category], community: 'busy', app: `busy/${version}` };
+  const jsonMetadata = isUpdating
+    ? JSON.parse(originalComment.json_metadata)
+    : { tags: [category], community: 'busy', app: `busy/${version}` };
 
   const newBody = isUpdating ? getBodyPatchIfSmaller(originalComment.body, body) : body;
 
