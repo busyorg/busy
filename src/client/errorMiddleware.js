@@ -8,8 +8,10 @@ function parseBlockChainError(error) {
   if (_.has(errorType, 'message')) {
     return errorType.message;
   }
-  // Log error to console for further investigation.
-  console.log('Unknown error', error);
+  const idx = error.indexOf(':');
+  if (idx > 0) {
+    return error.slice(idx + 1).trim();
+  }
   return error;
 }
 
