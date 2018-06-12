@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import _ from 'lodash';
 import classNames from 'classnames';
 import sanitizeHtml from 'sanitize-html';
@@ -11,6 +12,7 @@ import sanitizeConfig from '../../vendor/SanitizeConfig';
 import { imageRegex, dtubeImageRegex, rewriteRegex } from '../../helpers/regexHelpers';
 import htmlReady from '../../vendor/steemitHtmlReady';
 import improve from '../../helpers/improve';
+import { getExitPageSetting } from '../../reducers';
 import PostFeedEmbed from './PostFeedEmbed';
 import './Body.less';
 
@@ -98,7 +100,7 @@ export function getHtml(body, jsonMetadata = {}, returnType = 'Object', options 
 const Body = props => {
   const options = {
     rewriteLinks: props.rewriteLinks,
-    secureLinks: true,
+    secureLinks: props.exitPageSetting,
   };
   const htmlSections = getHtml(props.body, props.jsonMetadata, 'Object', options);
   return <div className={classNames('Body', { 'Body--full': props.full })}>{htmlSections}</div>;
@@ -109,6 +111,7 @@ Body.propTypes = {
   jsonMetadata: PropTypes.string,
   full: PropTypes.bool,
   rewriteLinks: PropTypes.bool,
+  exitPageSetting: PropTypes.bool,
 };
 
 Body.defaultProps = {
@@ -116,6 +119,12 @@ Body.defaultProps = {
   jsonMetadata: '',
   full: false,
   rewriteLinks: false,
+  exitPageSetting: true,
 };
 
-export default Body;
+export default connect(
+  state => ({
+    exitPageSetting: getExitPageSetting(state),
+  }),
+  null,
+)(Body);
