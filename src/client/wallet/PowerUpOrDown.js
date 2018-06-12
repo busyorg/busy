@@ -61,9 +61,8 @@ export default class PowerUpOrDown extends React.Component {
     const { user, down, totalVestingShares, totalVestingFundSteem } = this.props;
 
     return down
-      ? parseFloat(user.vesting_shares)
-      : parseFloat(user.balance) /
-          formatter.vestToSteem(1, totalVestingShares, totalVestingFundSteem);
+      ? formatter.vestToSteem(user.vesting_shares, totalVestingShares, totalVestingFundSteem)
+      : parseFloat(user.balance);
   };
 
   handleBalanceClick = event => {
@@ -78,15 +77,17 @@ export default class PowerUpOrDown extends React.Component {
   };
 
   handleContinueClick = () => {
-    const { form, user, down } = this.props;
+    const { form, user, down, totalVestingShares, totalVestingFundSteem } = this.props;
     form.validateFields({ force: true }, (errors, values) => {
+      const vests =
+        values.amount / formatter.vestToSteem(1, totalVestingShares, totalVestingFundSteem);
       if (!errors) {
         const transferQuery = down
           ? {
-              vesting_shares: `${values.amount} VESTS`,
+              vesting_shares: `${vests} VESTS`,
             }
           : {
-              amount: `${values.amount} VESTS`,
+              amount: `${vests} VESTS`,
               to: user.name,
             };
 
@@ -195,8 +196,8 @@ export default class PowerUpOrDown extends React.Component {
                       id="amount_currency"
                       defaultMessage="{amount} {currency}"
                       values={{
-                        amount: Math.floor(this.getAvailableBalance() * 1000000) / 1000000,
-                        currency: 'VESTS',
+                        amount: Math.floor(this.getAvailableBalance() * 1000) / 1000,
+                        currency: down ? 'SP' : 'STEEM',
                       }}
                     />
                   </span>
