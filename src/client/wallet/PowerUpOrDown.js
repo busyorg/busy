@@ -15,8 +15,6 @@ import {
 import formatter from '../helpers/steemitFormatter';
 import './Transfer.less';
 
-const InputGroup = Input.Group;
-
 @injectIntl
 @connect(
   state => ({
@@ -163,29 +161,27 @@ export default class PowerUpOrDown extends React.Component {
       >
         <Form className="Transfer" hideRequiredMark>
           <Form.Item label={<FormattedMessage id="amount" defaultMessage="Amount" />}>
-            <InputGroup className="Transfer__amount">
-              {getFieldDecorator('amount', {
-                trigger: '',
-                rules: [
-                  {
-                    required: true,
-                    message: intl.formatMessage({
-                      id: 'amount_error_empty',
-                      defaultMessage: 'Amount is required.',
-                    }),
-                  },
-                  {
-                    pattern: PowerUpOrDown.amountRegex,
-                    message: intl.formatMessage({
-                      id: 'amount_error_format',
-                      defaultMessage:
-                        'Incorrect format. Use comma or dot as decimal separator. Use at most 3 decimal places.',
-                    }),
-                  },
-                  { validator: this.validateBalance },
-                ],
-              })(<Input onChange={this.handleAmountChange} />)}
-            </InputGroup>
+            {getFieldDecorator('amount', {
+              trigger: '',
+              rules: [
+                {
+                  required: true,
+                  message: intl.formatMessage({
+                    id: 'amount_error_empty',
+                    defaultMessage: 'Amount is required.',
+                  }),
+                },
+                {
+                  pattern: PowerUpOrDown.amountRegex,
+                  message: intl.formatMessage({
+                    id: 'amount_error_format',
+                    defaultMessage:
+                      'Incorrect format. Use comma or dot as decimal separator. Use at most 3 decimal places.',
+                  }),
+                },
+                { validator: this.validateBalance },
+              ],
+            })(<Input onChange={this.handleAmountChange} />)}
             <FormattedMessage
               id="balance_amount"
               defaultMessage="Your balance: {amount}"
