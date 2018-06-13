@@ -12,7 +12,8 @@ function parseBlockChainError(error) {
   if (idx > 0) {
     return error.slice(idx + 1).trim();
   }
-  return error;
+  console.log(error);
+  return 'Unknown error';
 }
 
 export default function errorMiddleware({ dispatch }) {
