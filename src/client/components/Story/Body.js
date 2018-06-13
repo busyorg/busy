@@ -122,9 +122,8 @@ Body.defaultProps = {
   exitPageSetting: true,
 };
 
-export default connect(
-  state => ({
-    exitPageSetting: getExitPageSetting(state),
-  }),
-  null,
-)(Body);
+const BodyContainer = props => <Body {...props} />;
+
+export default connect(state => ({
+  exitPageSetting: getExitPageSetting(state),
+}))(BodyContainer);
