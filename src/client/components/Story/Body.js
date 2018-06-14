@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import _ from 'lodash';
 import classNames from 'classnames';
 import sanitizeHtml from 'sanitize-html';
@@ -12,7 +11,6 @@ import sanitizeConfig from '../../vendor/SanitizeConfig';
 import { imageRegex, dtubeImageRegex, rewriteRegex } from '../../helpers/regexHelpers';
 import htmlReady from '../../vendor/steemitHtmlReady';
 import improve from '../../helpers/improve';
-import { getExitPageSetting } from '../../reducers';
 import PostFeedEmbed from './PostFeedEmbed';
 import './Body.less';
 
@@ -122,8 +120,4 @@ Body.defaultProps = {
   exitPageSetting: true,
 };
 
-const BodyContainer = props => <Body {...props} />;
-
-export default connect(state => ({
-  exitPageSetting: getExitPageSetting(state),
-}))(BodyContainer);
+export default Body;
