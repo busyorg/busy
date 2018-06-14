@@ -284,14 +284,13 @@
   "user_replied_to": "{username} válaszolt erre {author} ({postLink})",
   "replied_to": "Válaszolt erre {author} ({postLink})",
   "authored_post": "Authored a post ({postLink})",
-  "user_followed": "{follower} követte {following}",
-  "user_unfollowed": "{follower} már nem követi {following}",
+  "unfollowed_user": "már nem követed {following} -t",
   "followed_user": "követte {following}",
+  "ignored_user": "Ignored ${following}",
   "followed_filter": "Követed",
   "unfollowed_filter": "Leiratkozva",
   "reblogged_filter": "Megosztva",
   "replied_filter": "Válasz elküldve",
-  "unfollowed_user": "már nem követed {following} -t",
   "user_reblogged_post": "{username} megosztotta {postLink}",
   "reblogged_post": "megosztotta {postLink}",
   "account_updated": "Fiók frissítve",
@@ -348,5 +347,6 @@
   "all": "All",
   "hero_banner_title_1": "Write and publish a post on Steem",
   "hero_banner_title_2": "The community upvotes your post",
-  "hero_banner_title_3": "Earn rewards in Steem"
+  "hero_banner_title_3": "Earn rewards in Steem",
+  "version": "Version: {version}"
 }
