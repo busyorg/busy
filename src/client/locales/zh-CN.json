@@ -284,14 +284,13 @@
   "user_replied_to": "{username} 回复了 {author} ({postLink})",
   "replied_to": "已回复 {author} ({postLink})",
   "authored_post": "Authored a post ({postLink})",
-  "user_followed": "{follower} 关注了{following}",
-  "user_unfollowed": "{follower} 取消了对{following} 的关注",
+  "unfollowed_user": "取消关注 {following}",
   "followed_user": "关注了{following}",
+  "ignored_user": "Ignored ${following}",
   "followed_filter": "已关注",
   "unfollowed_filter": "取消关注",
   "reblogged_filter": "已转发",
   "replied_filter": "已回复",
-  "unfollowed_user": "取消关注 {following}",
   "user_reblogged_post": "{username} 已转发 {postLink}",
   "reblogged_post": "已转发 {postLink}",
   "account_updated": "帐户已更新",
@@ -348,5 +347,6 @@
   "all": "All",
   "hero_banner_title_1": "Write and publish a post on Steem",
   "hero_banner_title_2": "The community upvotes your post",
-  "hero_banner_title_3": "Earn rewards in Steem"
+  "hero_banner_title_3": "Earn rewards in Steem",
+  "version": "Version: {version}"
 }
