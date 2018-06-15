@@ -62,7 +62,7 @@ class ReactionsModal extends React.Component {
           }
           key="2"
         >
-          <ReactionsList votes={downVotes} />
+          <ReactionsList votes={downVotes} ratio={ratio} />
         </Tabs.TabPane>,
       );
     }
