@@ -77,8 +77,9 @@ export default class PowerUpOrDown extends React.Component {
   handleContinueClick = () => {
     const { form, user, down, totalVestingShares, totalVestingFundSteem } = this.props;
     form.validateFields({ force: true }, (errors, values) => {
-      const vests =
-        values.amount / formatter.vestToSteem(1, totalVestingShares, totalVestingFundSteem);
+      const vests = (
+        values.amount / formatter.vestToSteem(1, totalVestingShares, totalVestingFundSteem)
+      ).toFixed(6);
       if (!errors) {
         const transferQuery = down
           ? {
