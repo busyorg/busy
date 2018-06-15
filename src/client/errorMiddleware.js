@@ -3,15 +3,17 @@ import errors from '../common/constants/errors';
 import { notify } from './app/Notification/notificationActions';
 
 function parseBlockChainError(error) {
-  const errorType = _.find(errors, e => _.includes(error, e.fingerprint));
+  const errorType = _.find(errors, e => error.includes(e.fingerprint));
 
   if (_.has(errorType, 'message')) {
     return errorType.message;
   }
-
-  // Log error to console for further investigation.
-  console.log('Unknown error', error);
-  return 'Unkown error has occured.';
+  const idx = error.indexOf(':');
+  if (idx > 0) {
+    return error.slice(idx + 1).trim();
+  }
+  console.log(error);
+  return 'Unknown error';
 }
 
 export default function errorMiddleware({ dispatch }) {

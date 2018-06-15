@@ -23,4 +23,8 @@ export default {
     fingerprint: 'bandwidth limit exceeded',
     message: 'Your bandwith has been exceeded. Please wait to transact or power up STEEM.',
   },
+  VOTING_POWER_TOO_SMALL: {
+    fingerprint: 'abs_rshares > STEEM_VOTE_DUST_THRESHOLD',
+    message: 'Your voting power is too small, please accumulate more voting power or steem power.',
+  },
 };
