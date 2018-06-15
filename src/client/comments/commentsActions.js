@@ -98,7 +98,7 @@ export const sendComment = (parentPost, body, isUpdating = false, originalCommen
   const permlink = isUpdating
     ? originalComment.permlink
     : createCommentPermlink(parentAuthor, parentPermlink);
-  
+
   const jsonMetadata =
     isUpdating && isJsonStr(originalComment.json_metadata)
       ? JSON.parse(originalComment.json_metadata)
