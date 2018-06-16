@@ -13,16 +13,21 @@
   }
 
   &__loader {
-    border-bottom-left-radius: @border-radius-base;
-    border-bottom-right-radius: @border-radius-base;
     border-bottom: @base-border;
-    border-left: @base-border;
-    border-right: @base-border;
     padding: 20px;
 
     &:nth-of-type(2) {
       border-top: @base-border;
-      border-radius: @border-radius-base;
+    }
+
+    @media @small {
+      border-right: @base-border;
+      border-left: @base-border;
+
+      &:nth-of-type(2) {
+        border-top-left-radius: @border-radius-base;
+        border-top-right-radius: @border-radius-base;
+      }
     }
   }
 
