@@ -5,7 +5,7 @@ import _ from 'lodash';
 import PostFeedEmbed from './PostFeedEmbed';
 import BodyShort from './BodyShort';
 import { jsonParse } from '../../helpers/formatter';
-import { image } from '../../vendor/steemitLinks';
+import { getContentImages } from '../../helpers/postHelpers';
 import {
   getPositions,
   postWithPicture,
@@ -25,9 +25,9 @@ const StoryPreview = ({ post }) => {
   if (jsonMetadata.image && jsonMetadata.image[0]) {
     imagePath = getProxyImageURL(jsonMetadata.image[0], 'preview');
   } else {
-    const bodyImg = post.body.match(image());
-    if (bodyImg && bodyImg.length) {
-      imagePath = getProxyImageURL(bodyImg[0], 'preview');
+    const contentImages = getContentImages(post.body);
+    if (contentImages.length) {
+      imagePath = getProxyImageURL(contentImages[0], 'preview');
     }
   }
 
