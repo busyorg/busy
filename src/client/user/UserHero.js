@@ -1,11 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Route, Switch, withRouter } from 'react-router-dom';
-
 import UserHeader from '../components/UserHeader';
 import UserHeaderLoading from '../components/UserHeaderLoading';
 import UserMenu from '../components/UserMenu';
 import Hero from '../components/Hero';
+
+const activityFields = [
+  'last_owner_update',
+  'last_account_update',
+  'last_vote_time',
+  'last_account_recovery',
+  'last_post',
+  'last_root_post',
+];
 
 @withRouter
 class UserMenuWrapper extends React.Component {
@@ -28,6 +36,14 @@ class UserMenuWrapper extends React.Component {
     return <UserMenu defaultKey={currentKey} onChange={this.onChange} {...otherProps} />;
   }
 }
+
+const isUserActive = user =>
+  activityFields.some(
+    field =>
+      new Date(new Date().valueOf() + new Date().getTimezoneOffset() * 60000).valueOf() -
+        Date.parse(user[field]) <
+      5 * 60 * 1000,
+  );
 
 const UserHero = ({
   authenticated,
@@ -58,6 +74,7 @@ const UserHero = ({
                 hasCover={hasCover}
                 isFollowing={isFollowing}
                 onTransferClick={onTransferClick}
+                isActive={isUserActive(user)}
               />
             )}
             <UserMenuWrapper followers={user.follower_count} following={user.following_count} />

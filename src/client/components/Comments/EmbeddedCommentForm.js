@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl';
 import { Icon } from 'antd';
 import withEditor from '../Editor/withEditor';
 import EditorInput from '../Editor/EditorInput';
-import { converter } from '../Story/Body';
+import { markdownIt } from '../Story/Body';
 import BodyContainer from '../../containers/Story/BodyContainer';
 import './EmbeddedCommentForm.less';
 
@@ -64,7 +64,7 @@ class EmbeddedCommentForm extends React.Component {
   setBodyAndRender(body) {
     this.setState({
       body,
-      bodyHTML: converter.makeHtml(body),
+      bodyHTML: markdownIt.render(body),
     });
   }
 
