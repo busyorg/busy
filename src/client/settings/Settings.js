@@ -375,11 +375,11 @@ export default class Settings extends React.Component {
                 </div>
                 <div className="Settings__section">
                   <h3>
-                    <FormattedMessage id="exit_page_setting" defaultMessage="Use exit page" />
+                    <FormattedMessage id="enable_exit_page" defaultMessage="Enable exit page" />
                   </h3>
                   <p>
                     <FormattedMessage
-                      id="exit_page_setting_details"
+                      id="enable_exit_page_details"
                       defaultMessage="Enable this option to use the exit page when clicking on an external link."
                     />
                   </p>
