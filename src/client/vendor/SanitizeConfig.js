@@ -1,3 +1,7 @@
+import URL from 'url-parse';
+import { ownUrl } from '../helpers/regexHelpers';
+import { knownDomains } from '../helpers/constants';
+
 /**
 This function is extracted from steemit.com source code and does the same tasks with some slight-
  * adjustments to meet our needs. Refer to the main one in case of future problems:
@@ -161,11 +165,14 @@ export default ({ large = true, noImage = false, sanitizeErrors = [], secureLink
       href = href.trim();
       const attys = {};
 
-      if (!href.match(/^^(\/|https:\/\/(staging\.)?busy\.org(?![\w\.]+))/)) {
+      const url = new URL(href);
+      const hostname = url.hostname || 'localhost';
+
+      if (!hostname.match(ownUrl)) {
         attys.target = '_blank';
       }
 
-      if (secureLinks) {
+      if (secureLinks && knownDomains.indexOf(hostname) === -1) {
         href = `/exit?url=${encodeURIComponent(href)}`;
       }
 
