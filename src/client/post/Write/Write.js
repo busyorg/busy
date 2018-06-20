@@ -9,7 +9,8 @@ import { injectIntl } from 'react-intl';
 import uuidv4 from 'uuid/v4';
 import { getHtml } from '../../components/Story/Body';
 import improve from '../../helpers/improve';
-import { extractImageTags, extractLinks } from '../../helpers/parser';
+import { extractLinks } from '../../helpers/parser';
+import { getContentImages } from '../../helpers/postHelpers';
 import { rewardsValues } from '../../../common/constants/rewards';
 import LastDraftsContainer from './LastDraftsContainer';
 import DeleteDraftModal from './DeleteDraftModal';
@@ -205,7 +206,7 @@ class Write extends React.Component {
 
     const parsedBody = getHtml(postBody, {}, 'text');
 
-    const images = _.map(extractImageTags, tag => tag.src);
+    const images = getContentImages(parsedBody, true);
     const links = extractLinks(parsedBody);
 
     if (data.title && !this.permlink) {
