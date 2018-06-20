@@ -23,6 +23,7 @@ const UserHeader = ({
   hasCover,
   isFollowing,
   onTransferClick,
+  isActive,
 }) => {
   const style = hasCover
     ? { backgroundImage: `url("https://steemitimages.com/2048x512/${coverImage}")` }
@@ -30,7 +31,7 @@ const UserHeader = ({
   return (
     <div className={classNames('UserHeader', { 'UserHeader--cover': hasCover })} style={style}>
       <div className="UserHeader__container">
-        <AvatarLightbox username={handle} size={100} />
+        <AvatarLightbox username={handle} size={100} isActive={isActive} />
         <div className="UserHeader__user">
           <div className="UserHeader__row">
             <h2 className="UserHeader__user__username">
@@ -123,6 +124,7 @@ UserHeader.propTypes = {
   hasCover: PropTypes.bool,
   isFollowing: PropTypes.bool,
   onTransferClick: PropTypes.func,
+  isActive: PropTypes.bool.isRequired,
 };
 
 UserHeader.defaultProps = {

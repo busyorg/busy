@@ -69,6 +69,18 @@
   padding: 30px 16px;
   align-items: center;
   flex-direction: column;
+  a {
+    position: relative;
+  }
+  &--active {
+    position: absolute;
+    left: 75px;
+    bottom: 0;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: @green;
+  }
 }
 
 .UserHeader__user {
