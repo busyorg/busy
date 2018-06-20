@@ -389,7 +389,7 @@ export default class Settings extends React.Component {
                       checked={exitPageSetting}
                       onChange={this.handleExitPageSettingChange}
                     >
-                      <FormattedMessage id="exit_page_setting" defaultMessage="Use exit page" />
+                      <FormattedMessage id="enable_exit_page" defaultMessage="Enable exit page" />
                     </Checkbox>
                   </div>
                 </div>
