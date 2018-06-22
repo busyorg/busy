@@ -284,14 +284,13 @@
   "user_replied_to": "{username} odpowiedział {autor} ({postLink})",
   "replied_to": "Odpowiedział {author} ({postLink})",
   "authored_post": "Stworzył post ({postLink})",
-  "user_followed": "{follower} obserwuje {following}",
-  "user_unfollowed": "{follower} przestał obserwować {following}",
+  "unfollowed_user": "nieśledzony {following}",
   "followed_user": "obserwowany {following}",
+  "ignored_user": "Ignored ${following}",
   "followed_filter": "followed",
   "unfollowed_filter": "Przestał obserwować",
   "reblogged_filter": "Reblogowane",
   "replied_filter": "Odpowiedział",
-  "unfollowed_user": "nieśledzony {following}",
   "user_reblogged_post": "{username}} {postLink}",
   "reblogged_post": "zreblogował {postLink}",
   "account_updated": "Konto zaktualizowane",
@@ -348,5 +347,6 @@
   "all": "Wszystko",
   "hero_banner_title_1": "Napisz i opublikuj post na Steem",
   "hero_banner_title_2": "Społeczność głosuje na Twój post",
-  "hero_banner_title_3": "Zdobywasz wynagrodzenie w Steem"
+  "hero_banner_title_3": "Zdobywasz wynagrodzenie w Steem",
+  "version": "Version: {version}"
 }

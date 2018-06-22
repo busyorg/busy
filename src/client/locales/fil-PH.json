@@ -284,14 +284,13 @@
   "user_replied_to": "{username} ay sumagot kay {author} ({postLink})",
   "replied_to": "Sumagot kay {author} sa ({postLink})",
   "authored_post": "Authored a post ({postLink})",
-  "user_followed": "Si {follower} ay nag follow kay {following}",
-  "user_unfollowed": "Si {follower} ay in-unfollow si {following}",
+  "unfollowed_user": "nag-unfollow kay {following}",
   "followed_user": "nag-follow kay {following}",
+  "ignored_user": "Ignored ${following}",
   "followed_filter": "Nag-follow",
   "unfollowed_filter": "Nag-unfollow",
   "reblogged_filter": "Nag-reblog",
   "replied_filter": "Sumagot",
-  "unfollowed_user": "nag-unfollow kay {following}",
   "user_reblogged_post": "Si {username} ay ni-reblog ang {postLink}",
   "reblogged_post": "ni-reblog ang {postLink}",
   "account_updated": "In-update and akawnt",
@@ -348,5 +347,6 @@
   "all": "All",
   "hero_banner_title_1": "Write and publish a post on Steem",
   "hero_banner_title_2": "The community upvotes your post",
-  "hero_banner_title_3": "Earn rewards in Steem"
+  "hero_banner_title_3": "Earn rewards in Steem",
+  "version": "Version: {version}"
 }

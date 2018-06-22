@@ -284,14 +284,13 @@
   "user_replied_to": "Korisnik {username} je odgovorio autoru {author} ({postLink})",
   "replied_to": "Odgovoreno autoru {author} ({postLink})",
   "authored_post": "Authored a post ({postLink})",
-  "user_followed": "Korisnik {follower} ja zapratio {following}",
-  "user_unfollowed": "Корисник {follower} је отпратио {following}",
+  "unfollowed_user": "korisnik {following} je otpraćen",
   "followed_user": "korisnik {following} je zapraćen",
+  "ignored_user": "Ignored ${following}",
   "followed_filter": "Zapraćeni",
   "unfollowed_filter": "Otpraćeni",
   "reblogged_filter": "Podeljeno",
   "replied_filter": "Odgovoreno",
-  "unfollowed_user": "korisnik {following} je otpraćen",
   "user_reblogged_post": "Korisnik {username} je podelio {postLink}",
   "reblogged_post": "podeljeno {postLink}",
   "account_updated": "Profil je ažuriran",
@@ -348,5 +347,6 @@
   "all": "All",
   "hero_banner_title_1": "Write and publish a post on Steem",
   "hero_banner_title_2": "The community upvotes your post",
-  "hero_banner_title_3": "Earn rewards in Steem"
+  "hero_banner_title_3": "Earn rewards in Steem",
+  "version": "Version: {version}"
 }
