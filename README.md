@@ -6,7 +6,7 @@ For more info:
 
 ## Preview
 
-![Preview](https://user-images.githubusercontent.com/16245250/35974135-6fe56d5a-0d0a-11e8-99f6-a90d59696f82.png)
+![Preview](https://media.discordapp.net/attachments/364872455774535680/459830043367964692/dsc09789-blackvikingsml-e1440699807863.jpg)
 
 ## Quick Setup
 
