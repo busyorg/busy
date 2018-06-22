@@ -193,7 +193,9 @@ export const getBookmarks = () => (dispatch, getState, { steemAPI }) => {
 
   dispatch({
     type: GET_BOOKMARKS.ACTION,
-    payload: getBookmarksData(bookmarks, steemAPI),
+    payload: getBookmarksData(bookmarks, steemAPI).then(posts =>
+      posts.filter(post => post.id !== 0),
+    ),
     meta: {
       sortBy: 'bookmarks',
       category: 'all',
