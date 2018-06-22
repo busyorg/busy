@@ -284,14 +284,13 @@
   "user_replied_to": "{username} {author} ({postLink}) বললেন",
   "replied_to": "{author} ({postLink}) বললেন",
   "authored_post": "Authored a post ({postLink})",
-  "user_followed": "{follower} {following} অনুসরণ",
-  "user_unfollowed": "{follower} {following} অনুসরণ নয়",
+  "unfollowed_user": "অনুসরণ নয় {following}",
   "followed_user": "অনুসরণ করে {following}",
+  "ignored_user": "Ignored ${following}",
   "followed_filter": "অনুসরণ",
   "unfollowed_filter": "unfollowed",
   "reblogged_filter": "রি ব্লক",
   "replied_filter": "বললেন-",
-  "unfollowed_user": "অনুসরণ নয় {following}",
   "user_reblogged_post": "{username} রিব্লগ {postLink}",
   "reblogged_post": "রিব্লগ {postLink}",
   "account_updated": "একাউন্ট আপডেট",
@@ -348,5 +347,6 @@
   "all": "All",
   "hero_banner_title_1": "Write and publish a post on Steem",
   "hero_banner_title_2": "The community upvotes your post",
-  "hero_banner_title_3": "Earn rewards in Steem"
+  "hero_banner_title_3": "Earn rewards in Steem",
+  "version": "Version: {version}"
 }
