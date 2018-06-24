@@ -13,7 +13,7 @@ export default {
   },
   DUPLICATE_REBLOG: {
     fingerprint: 'Account has already reblogged this post',
-    message: 'You have already reblogged this post',
+    message: 'You have already reblogged this post.',
   },
   POST_TOO_BIG: {
     fingerprint: '<= (get_dynamic_global_properties().maximum_block_size - 256)',

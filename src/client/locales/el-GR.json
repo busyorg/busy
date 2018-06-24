@@ -284,14 +284,13 @@
   "user_replied_to": "Ο/Η {username} απάντησε στο {author} ({postLink})",
   "replied_to": "Απάντησε στο {author} ({postLink})",
   "authored_post": "Authored a post ({postLink})",
-  "user_followed": "Ο/Η {follower} ξεκίνησε να ακολουθεί τον/την {following}",
-  "user_unfollowed": "Ο/Η {follower} σταμάτησε να ακολουθεί τον/την {following}",
+  "unfollowed_user": "σταμάτησε να ακολουθεί {following}",
   "followed_user": "άρχισε να ακολουθεί τον/την {following}",
+  "ignored_user": "Ignored ${following}",
   "followed_filter": "Ακολούθησε",
   "unfollowed_filter": "Σταμάτησε να ακολουθεί",
   "reblogged_filter": "Αναδημοσίευσε",
   "replied_filter": "Απάντησε",
-  "unfollowed_user": "σταμάτησε να ακολουθεί {following}",
   "user_reblogged_post": "{username} αναδηοσίευσε {postLink}",
   "reblogged_post": "αναδημοσίευσε {postLink}",
   "account_updated": "Ο λογαριασμός ενημερώθηκε",
@@ -348,5 +347,6 @@
   "all": "All",
   "hero_banner_title_1": "Write and publish a post on Steem",
   "hero_banner_title_2": "The community upvotes your post",
-  "hero_banner_title_3": "Earn rewards in Steem"
+  "hero_banner_title_3": "Earn rewards in Steem",
+  "version": "Version: {version}"
 }

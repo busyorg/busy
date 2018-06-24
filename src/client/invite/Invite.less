@@ -44,6 +44,11 @@
     text-align: center;
   }
 
+  &__input-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   &__input {
     color: @blue-botticelli;
     height: 46px !important;
@@ -53,11 +58,11 @@
       background-color: @secondary-color;
       border-radius: @border-radius-base;
       color: @white;
-      padding: 4px 10px;
-      position: absolute;
-      margin-left: -90px;
-      margin-top: 7px;
+      padding: 11px 10px;
+      position: relative;
+      margin-left: 1rem;
       cursor: pointer;
+      white-space: nowrap;
 
       &:hover {
         opacity: 0.8;
