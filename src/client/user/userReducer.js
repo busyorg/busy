@@ -1,6 +1,6 @@
 import * as actions from './userActions';
 import * as appTypes from '../app/appActions';
-import people from '../helpers/people';
+import { people } from '../helpers/constants';
 
 const initialState = {
   recommendations: [],
