@@ -284,14 +284,13 @@
   "user_replied_to": "{username} odpověděl {author} ({postLink})",
   "replied_to": "Reakce na {author} ({postLink})",
   "authored_post": "Publikoval příspěvek ({postLink})",
-  "user_followed": "{follower} sleduje {following}",
-  "user_unfollowed": "{follower} už nesleduje {following}",
+  "unfollowed_user": "už nesleduje {following}",
   "followed_user": "sleduje {following}",
+  "ignored_user": "Ignored ${following}",
   "followed_filter": "Začátek sledování",
   "unfollowed_filter": "Zrušení sledování",
   "reblogged_filter": "Sdíleno",
   "replied_filter": "Reakce",
-  "unfollowed_user": "už nesleduje {following}",
   "user_reblogged_post": "{username} sdílí {postLink}",
   "reblogged_post": "sdíleno {postLink}",
   "account_updated": "Účet aktualizován",
@@ -348,5 +347,6 @@
   "all": "Vše",
   "hero_banner_title_1": "Pište a publikujte příspěvky na Steem",
   "hero_banner_title_2": "Komunita hlasuje pro váš příspěvek",
-  "hero_banner_title_3": "Získejte odměnu ve Steemu"
+  "hero_banner_title_3": "Získejte odměnu ve Steemu",
+  "version": "Version: {version}"
 }
