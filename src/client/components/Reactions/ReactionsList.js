@@ -48,6 +48,7 @@ export default class UserList extends React.Component {
                     <FormattedNumber
                       style="percent" // eslint-disable-line react/style-prop-object
                       value={vote.percent / 10000}
+                      maximumFractionDigits={2}
                     />
                   </span>
                 }
