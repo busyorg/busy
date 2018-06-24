@@ -72,7 +72,7 @@ export default class Transfer extends React.Component {
   componentDidMount() {
     const { cryptosPriceHistory } = this.props;
     const currentSteemRate = _.get(cryptosPriceHistory, 'STEEM.priceDetails.currentUSDPrice', null);
-    const currentSBDRate = _.get(cryptosPriceHistory, 'SBD.priceDetails.currentUSDPrice', null);
+    const currentSBDRate = _.get(cryptosPriceHistory, 'SBD*.priceDetails.currentUSDPrice', null);
 
     if (_.isNull(currentSteemRate)) {
       this.props.getCryptoPriceHistory(STEEM.symbol);
@@ -102,7 +102,7 @@ export default class Transfer extends React.Component {
     const { cryptosPriceHistory, intl } = this.props;
     const { currency, oldAmount } = this.state;
     const currentSteemRate = _.get(cryptosPriceHistory, 'STEEM.priceDetails.currentUSDPrice', null);
-    const currentSBDRate = _.get(cryptosPriceHistory, 'SBD.priceDetails.currentUSDPrice', null);
+    const currentSBDRate = _.get(cryptosPriceHistory, 'SBD*.priceDetails.currentUSDPrice', null);
     const steemRateLoading = _.isNull(currentSteemRate) || _.isNull(currentSBDRate);
     const parsedAmount = parseFloat(oldAmount);
     const invalidAmount = parsedAmount <= 0 || _.isNaN(parsedAmount);
