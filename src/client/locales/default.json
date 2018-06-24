@@ -156,7 +156,7 @@
   "more_people_not_found": "No more people were found",
   "see_all_comments": "See All Comments",
   "see_all_recommendations": "See All Recommendations",
-  "reputation_score": "Reputation score",
+  "reputation_score_value": "Reputation score: {value}",
   "original_poster": "Original poster",
   "no_likes": "No likes yet",
   "no_dislikes": "No dislikes",

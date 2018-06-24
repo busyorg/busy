@@ -14,6 +14,7 @@ import BTooltip from '../../components/BTooltip';
 import formatter from '../../helpers/steemitFormatter';
 import { MAXIMUM_UPLOAD_SIZE_HUMAN } from '../../helpers/image';
 import { sortComments } from '../../helpers/sortHelpers';
+import ReputationTag from '../../components/ReputationTag';
 import CommentForm from './CommentForm';
 import EmbeddedCommentForm from './EmbeddedCommentForm';
 import Avatar from '../Avatar';
@@ -275,14 +276,7 @@ class Comment extends React.Component {
         <div className="Comment__text">
           <Link to={`/@${comment.author}`}>
             <span className="username">{comment.author}</span>
-            <BTooltip
-              title={intl.formatMessage({
-                id: 'reputation_score',
-                defaultMessage: 'Reputation score',
-              })}
-            >
-              <Tag>{formatter.reputation(comment.author_reputation)}</Tag>
-            </BTooltip>
+            <ReputationTag reputation={comment.author_reputation} />
             {comment.author === rootPostAuthor && (
               <BTooltip
                 title={intl.formatMessage({
