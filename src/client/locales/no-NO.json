@@ -284,14 +284,13 @@
   "user_replied_to": "{brukernavn} svarte på {author} ({postLink})",
   "replied_to": "Svaret til {author} ({postLink})",
   "authored_post": "Authored a post ({postLink})",
-  "user_followed": "{følger} fulgte {følge}",
-  "user_unfollowed": "{følger} ufølge {følge}",
+  "unfollowed_user": "unfollowed {following}",
   "followed_user": "fulgte etter {følge}",
+  "ignored_user": "Ignored ${following}",
   "followed_filter": "followed",
   "unfollowed_filter": "unfollowed",
   "reblogged_filter": "reblogged",
   "replied_filter": "replied",
-  "unfollowed_user": "unfollowed {following}",
   "user_reblogged_post": "{brukernavn} reblogged {postLink}",
   "reblogged_post": "reblogged {postLink}",
   "account_updated": "Account Updated",
@@ -348,5 +347,6 @@
   "all": "All",
   "hero_banner_title_1": "Write and publish a post on Steem",
   "hero_banner_title_2": "The community upvotes your post",
-  "hero_banner_title_3": "Earn rewards in Steem"
+  "hero_banner_title_3": "Earn rewards in Steem",
+  "version": "Version: {version}"
 }
