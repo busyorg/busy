@@ -1,7 +1,7 @@
 import { jsonParse } from '../formatter';
 
 describe('jsonParse', () => {
-  it('should return null on incorrect input', () => {
+  it('should return undefined on undefined input', () => {
     expect(jsonParse(undefined)).toBeNull();
 
     expect(jsonParse('{')).toBeNull();

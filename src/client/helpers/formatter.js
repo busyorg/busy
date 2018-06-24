@@ -1,6 +1,4 @@
 export function jsonParse(input) {
-  if (!input) return null;
-
   try {
     return JSON.parse(input);
   } catch (e) {
