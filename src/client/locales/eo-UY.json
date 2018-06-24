@@ -284,14 +284,13 @@
   "user_replied_to": "{username} respondis al {author} ({postLink})",
   "replied_to": "Respondis al {author} ({postLink})",
   "authored_post": "Authored a post ({postLink})",
-  "user_followed": "{follower} sekvis {following}",
-  "user_unfollowed": "{follower} malsekvis {following}",
+  "unfollowed_user": "malsekvis {following}",
   "followed_user": "sekvis {following}",
+  "ignored_user": "Ignored ${following}",
   "followed_filter": "Sekvis",
   "unfollowed_filter": "Malsekvis",
   "reblogged_filter": "Reblogigis",
   "replied_filter": "Respondis",
-  "unfollowed_user": "malsekvis {following}",
   "user_reblogged_post": "{username} reblogigis {postLink}",
   "reblogged_post": "reblogigis {postLink}",
   "account_updated": "Konto ĝisdatigita",
@@ -348,5 +347,6 @@
   "all": "All",
   "hero_banner_title_1": "Write and publish a post on Steem",
   "hero_banner_title_2": "The community upvotes your post",
-  "hero_banner_title_3": "Earn rewards in Steem"
+  "hero_banner_title_3": "Earn rewards in Steem",
+  "version": "Version: {version}"
 }

@@ -1,7 +1,7 @@
 {
   "hero": "สร้างความมั่นใจให้กับผู้ที่สร้างสรรค์เพื่อค่าตอบแทน",
   "search": "ค้นหา",
-  "search_placeholder": "ค้นหา",
+  "search_placeholder": "คุณกำลังมองหาอะไร",
   "search_results": "ผลการค้นหา",
   "no_search_results_found": "ไม่พบผลการค้นหาที่คุณต้องการ",
   "search_all_results_for": "ผลลัพธ์ทั้งหมดสำหรับการค้นหา {search}",
@@ -284,14 +284,13 @@
   "user_replied_to": "{username} ตอบกลับ {author} ({postLink})",
   "replied_to": "ตอบกลับ {author} ({postLink})",
   "authored_post": "โพสต์ข้อความ({postLink})",
-  "user_followed": "{follower} ตาม {following}",
-  "user_unfollowed": "{follower} ไม่ติดตาม {following}",
+  "unfollowed_user": "การไม่ติดตาม {following}",
   "followed_user": "การติดตาม {following}",
+  "ignored_user": "Ignored ${following}",
   "followed_filter": "followed",
   "unfollowed_filter": "unfollowed",
   "reblogged_filter": "reblogged",
   "replied_filter": "replied",
-  "unfollowed_user": "การไม่ติดตาม {following}",
   "user_reblogged_post": "{username} รีบล็อก {postLink}",
   "reblogged_post": "รีบล็อก {postLink}",
   "account_updated": "Account Updated",
@@ -348,5 +347,6 @@
   "all": "ทั้งหมด",
   "hero_banner_title_1": "เขียน และเผยแพร่โพสต์บน steem",
   "hero_banner_title_2": "ชุมชนอัพโหวตโพสต์ของคุณ",
-  "hero_banner_title_3": "ได้รับรางวับใน steem"
+  "hero_banner_title_3": "ได้รับรางวับใน steem",
+  "version": "Version: {version}"
 }
