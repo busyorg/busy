@@ -1,8 +1,8 @@
 import _ from 'lodash';
-import errors from '../common/constants/errors';
-import { notify } from './app/Notification/notificationActions';
+import errors from '../../common/constants/errors';
+import { notify } from '../app/Notification/notificationActions';
 
-function parseBlockChainError(error) {
+export function parseBlockChainError(error) {
   const errorType = _.find(errors, e => error.includes(e.fingerprint));
 
   if (_.has(errorType, 'message')) {
@@ -13,7 +13,7 @@ function parseBlockChainError(error) {
     return error.slice(idx + 1).trim();
   }
   console.log(error);
-  return 'Unknown error';
+  return 'Unknown error.';
 }
 
 export default function errorMiddleware({ dispatch }) {

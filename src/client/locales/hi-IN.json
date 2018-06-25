@@ -284,14 +284,13 @@
   "user_replied_to": "{username} ने जबाब दिया {author} ({postLink}) को",
   "replied_to": "{author} ({postLink}) को जबाब दिया",
   "authored_post": "Authored a post ({postLink})",
-  "user_followed": "{follower} ने अनुकरण किया {following}",
-  "user_unfollowed": "{follower} अनुकरण करना छोड़ दिया {following}",
+  "unfollowed_user": "अनुकरण करना छोड़ दिया {following} को",
   "followed_user": "अनुकरण किया {following} को",
+  "ignored_user": "Ignored ${following}",
   "followed_filter": "अनुकरण किया",
   "unfollowed_filter": "अनुकरण करना छोड़ दिया",
   "reblogged_filter": "पुनःब्लॉग",
   "replied_filter": "जबाब दिया",
-  "unfollowed_user": "अनुकरण करना छोड़ दिया {following} को",
   "user_reblogged_post": "{username} ने पुनःब्लॉग किया इसे {postLink}",
   "reblogged_post": "पुनःब्लॉग किया {postLink}",
   "account_updated": "खाता अद्यतन हुआ",
@@ -348,5 +347,6 @@
   "all": "All",
   "hero_banner_title_1": "Write and publish a post on Steem",
   "hero_banner_title_2": "The community upvotes your post",
-  "hero_banner_title_3": "Earn rewards in Steem"
+  "hero_banner_title_3": "Earn rewards in Steem",
+  "version": "Version: {version}"
 }

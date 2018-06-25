@@ -284,14 +284,13 @@
   "user_replied_to": "{username} ענה ל{author} ({postLink})",
   "replied_to": "ענה ל{author} ({postLink})",
   "authored_post": "Authored a post ({postLink})",
-  "user_followed": "{follower} עקב אחר {following}",
-  "user_unfollowed": "{follower} הפסיק מעקב אחר {following}",
+  "unfollowed_user": "הפסקת מעקב אחר {following}",
   "followed_user": "עקב אחר {following}",
+  "ignored_user": "Ignored ${following}",
   "followed_filter": "עוקב",
   "unfollowed_filter": "הפסקת לעקוב",
   "reblogged_filter": "שותף",
   "replied_filter": "הגיב",
-  "unfollowed_user": "הפסקת מעקב אחר {following}",
   "user_reblogged_post": "{username} שיתף {postLink}",
   "reblogged_post": "שיתף {postLink}",
   "account_updated": "החשבון עודכן",
@@ -348,5 +347,6 @@
   "all": "All",
   "hero_banner_title_1": "Write and publish a post on Steem",
   "hero_banner_title_2": "The community upvotes your post",
-  "hero_banner_title_3": "Earn rewards in Steem"
+  "hero_banner_title_3": "Earn rewards in Steem",
+  "version": "Version: {version}"
 }
