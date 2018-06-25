@@ -316,6 +316,8 @@
   "rewrite_links_details": "You can enable this option to replace Steemit.com links with Busy.org links.",
   "use_beta": "Use Busy beta",
   "use_beta_details": "You can enable this option to use Busy beta by default.",
+  "enable_exit_page": "Enable exit page",
+  "enable_exit_page_details": "Enable this option to use the exit page when clicking on an external link.",
   "post_preview_hidden_for_nsfw": "This post preview is currently hidden since it is tagged NSFW.",
   "reading_time": "{words} words / {min} min read",
   "reading_time_post": "{min} min read",

@@ -121,6 +121,7 @@ export const getVotePercent = state => fromSettings.getVotePercent(state.setting
 export const getShowNSFWPosts = state => fromSettings.getShowNSFWPosts(state.settings);
 export const getRewriteLinks = state => fromSettings.getRewriteLinks(state.settings);
 export const getUpvoteSetting = state => fromSettings.getUpvoteSetting(state.settings);
+export const getExitPageSetting = state => fromSettings.getExitPageSetting(state.settings);
 export const getRewardSetting = state => fromSettings.getRewardSetting(state.settings);
 export const getUseBeta = state => fromSettings.getUseBeta(state.settings);
 
