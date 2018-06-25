@@ -13,6 +13,7 @@ describe('settingsReducer', () => {
     showNSFWPosts: false,
     rewriteLinks: false,
     upvoteSetting: true,
+    exitPageSetting: true,
     rewardSetting: rewardsValues.half,
     useBeta: false,
   };
@@ -85,6 +86,7 @@ describe('settingsReducer', () => {
         showNSFWPosts: true,
         rewriteLinks: true,
         upvoteSetting: true,
+        exitPageSetting: true,
         rewardSetting: rewardsValues.half,
       },
     };

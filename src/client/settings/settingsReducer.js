@@ -10,6 +10,7 @@ const initialState = {
   rewriteLinks: false,
   loading: false,
   upvoteSetting: true,
+  exitPageSetting: true,
   rewardSetting: rewardsValues.half,
   useBeta: false,
 };
@@ -27,6 +28,7 @@ const settings = (state = initialState, action) => {
           showNSFWPosts,
           rewriteLinks,
           upvoteSetting,
+          exitPageSetting,
           rewardSetting,
           useBeta,
         } = action.payload.user_metadata.settings;
@@ -40,6 +42,8 @@ const settings = (state = initialState, action) => {
             typeof rewriteLinks === 'boolean' ? rewriteLinks : initialState.rewriteLinks,
           upvoteSetting:
             typeof upvoteSetting === 'boolean' ? upvoteSetting : initialState.upvoteSetting,
+          exitPageSetting:
+            typeof exitPageSetting === 'boolean' ? exitPageSetting : initialState.exitPageSetting,
           rewardSetting: rewardSetting || initialState.rewardSetting,
           useBeta: typeof useBeta === 'boolean' ? useBeta : initialState.useBeta,
         };
@@ -60,6 +64,7 @@ const settings = (state = initialState, action) => {
         showNSFWPosts: action.payload.showNSFWPosts,
         rewriteLinks: action.payload.rewriteLinks,
         upvoteSetting: action.payload.upvoteSetting,
+        exitPageSetting: action.payload.exitPageSetting,
         rewardSetting: action.payload.rewardSetting,
         useBeta: !!action.payload.useBeta,
       };
@@ -87,5 +92,6 @@ export const getVotePercent = state => state.votePercent;
 export const getShowNSFWPosts = state => state.showNSFWPosts;
 export const getRewriteLinks = state => !!state.rewriteLinks;
 export const getUpvoteSetting = state => state.upvoteSetting;
+export const getExitPageSetting = state => state.exitPageSetting;
 export const getRewardSetting = state => state.rewardSetting;
 export const getUseBeta = state => state.useBeta;
