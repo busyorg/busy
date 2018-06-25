@@ -288,7 +288,15 @@ class EditorInput extends React.Component {
   }
 
   render() {
-    const { addon, value, ...restProps } = this.props;
+    const {
+      addon,
+      value,
+      inputId,
+      inputRef,
+      onImageUpload,
+      onImageInvalid,
+      ...restProps
+    } = this.props;
     const { dropzoneActive } = this.state;
 
     return (
