@@ -3,10 +3,8 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 import { injectIntl, FormattedMessage } from 'react-intl';
-import { Tag } from 'antd';
-import formatter from '../helpers/steemitFormatter';
 import { getUserRankKey, getUserRank } from '../helpers/user';
-import BTooltip from './BTooltip';
+import ReputationTag from './ReputationTag';
 import AvatarLightbox from './AvatarLightbox';
 import FollowButton from '../widgets/FollowButton';
 import Action from './Button/Action';
@@ -23,6 +21,7 @@ const UserHeader = ({
   hasCover,
   isFollowing,
   onTransferClick,
+  isActive,
 }) => {
   const style = hasCover
     ? { backgroundImage: `url("https://steemitimages.com/2048x512/${coverImage}")` }
@@ -30,19 +29,12 @@ const UserHeader = ({
   return (
     <div className={classNames('UserHeader', { 'UserHeader--cover': hasCover })} style={style}>
       <div className="UserHeader__container">
-        <AvatarLightbox username={handle} size={100} />
+        <AvatarLightbox username={handle} size={100} isActive={isActive} />
         <div className="UserHeader__user">
           <div className="UserHeader__row">
             <h2 className="UserHeader__user__username">
               {username}
-              <BTooltip
-                title={intl.formatMessage({
-                  id: 'reputation_score',
-                  defaultMessage: 'Reputation Score',
-                })}
-              >
-                <Tag>{formatter.reputation(userReputation)}</Tag>
-              </BTooltip>
+              <ReputationTag reputation={userReputation} />
             </h2>
             <div className="UserHeader__user__buttons">
               <div
@@ -123,6 +115,7 @@ UserHeader.propTypes = {
   hasCover: PropTypes.bool,
   isFollowing: PropTypes.bool,
   onTransferClick: PropTypes.func,
+  isActive: PropTypes.bool.isRequired,
 };
 
 UserHeader.defaultProps = {

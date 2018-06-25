@@ -43,7 +43,7 @@ class LetsGetStarted extends React.Component {
 
   static getCurrentUserState(authenticatedUser, followingList) {
     const hasPost = authenticatedUser.last_root_post !== '1970-01-01T00:00:00';
-    const hasVoted = authenticatedUser.last_vote_time !== '1970-01-01T00:00:00';
+    const hasVoted = authenticatedUser.last_vote_time !== authenticatedUser.created;
     const jsonMetadata = _.attempt(JSON.parse, authenticatedUser.json_metadata);
     const hasProfile =
       _.has(jsonMetadata, 'profile.name') &&
