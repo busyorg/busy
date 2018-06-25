@@ -10,7 +10,8 @@ import { getIsReloading, getAuthenticatedUser } from '../reducers';
 import socialProfiles from '../helpers/socialProfiles';
 import withEditor from '../components/Editor/withEditor';
 import EditorInput from '../components/Editor/EditorInput';
-import Body, { converter } from '../components/Story/Body';
+import { markdownIt } from '../components/Story/Body';
+import BodyContainer from '../containers/Story/BodyContainer';
 import Action from '../components/Button/Action';
 import Affix from '../components/Utils/Affix';
 import LeftSidebar from '../app/Sidebar/LeftSidebar';
@@ -100,7 +101,7 @@ export default class ProfileSettings extends React.Component {
 
   renderBody(body) {
     this.setState({
-      bodyHTML: converter.makeHtml(body),
+      bodyHTML: markdownIt.render(body),
     });
   }
 
@@ -293,7 +294,7 @@ export default class ProfileSettings extends React.Component {
                     )}
                     {bodyHTML && (
                       <Form.Item label={<FormattedMessage id="preview" defaultMessage="Preview" />}>
-                        <Body full body={bodyHTML} />
+                        <BodyContainer full body={bodyHTML} />
                       </Form.Item>
                     )}
                   </div>

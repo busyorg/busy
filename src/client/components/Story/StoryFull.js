@@ -22,7 +22,8 @@ import withAuthActions from '../../auth/withAuthActions';
 import { getProxyImageURL } from '../../helpers/image';
 import Popover from '../Popover';
 import BTooltip from '../BTooltip';
-import Body, { getHtml } from './Body';
+import { getHtml } from './Body';
+import BodyContainer from '../../containers/Story/BodyContainer';
 import StoryDeleted from './StoryDeleted';
 import StoryFooter from '../StoryFooter/StoryFooter';
 import Avatar from '../Avatar';
@@ -338,7 +339,7 @@ class StoryFull extends React.Component {
           onClick={this.handleContentClick}
         >
           {this.renderDtubeEmbedPlayer()}
-          <Body
+          <BodyContainer
             full
             rewriteLinks={rewriteLinks}
             body={signedBody}

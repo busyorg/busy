@@ -6,7 +6,8 @@ import { Icon } from 'antd';
 import Scroll from 'react-scroll';
 import withEditor from '../Editor/withEditor';
 import EditorInput from '../Editor/EditorInput';
-import Body, { converter } from '../Story/Body';
+import { markdownIt } from '../Story/Body';
+import BodyContainer from '../../containers/Story/BodyContainer';
 import Avatar from '../Avatar';
 import './CommentForm.less';
 
@@ -73,7 +74,7 @@ class CommentForm extends React.Component {
     this.setState(
       {
         body,
-        bodyHTML: converter.makeHtml(body),
+        bodyHTML: markdownIt.render(body),
       },
       () => {
         if (this.input) {
@@ -137,7 +138,7 @@ class CommentForm extends React.Component {
               <span className="Editor__label">
                 <FormattedMessage id="preview" defaultMessage="Preview" />
               </span>
-              <Body body={bodyHTML} />
+              <BodyContainer body={bodyHTML} />
             </div>
           )}
         </div>

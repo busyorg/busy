@@ -17,7 +17,7 @@ import { sortComments } from '../../helpers/sortHelpers';
 import CommentForm from './CommentForm';
 import EmbeddedCommentForm from './EmbeddedCommentForm';
 import Avatar from '../Avatar';
-import Body from '../Story/Body';
+import BodyContainer from '../../containers/Story/BodyContainer';
 import CommentFooter from '../CommentFooter/CommentFooter';
 import HiddenCommentMessage from './HiddenCommentMessage';
 import './Comment.less';
@@ -250,7 +250,7 @@ class Comment extends React.Component {
           <FormattedMessage id="comment_collapsed" defaultMessage="Comment collapsed" />
         </div>
       ) : (
-        <Body rewriteLinks={rewriteLinks} body={comment.body} />
+        <BodyContainer rewriteLinks={rewriteLinks} body={comment.body} />
       );
     }
 
