@@ -5,15 +5,15 @@ ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <Action
+    big={false}
     className=""
     disabled={false}
     loading={true}
     onClick={[Function]}
     primary={true}
-    small={false}
-    style={Object {}}
-    text="Example text"
-  />,
+  >
+    Example text
+  </Action>,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
     "getNode": [Function],
@@ -32,10 +32,9 @@ ShallowWrapper {
         />,
         "Example text",
       ],
-      "className": "Action ant-btn-lg Action--primary",
+      "className": "Action Action--primary",
       "disabled": false,
       "onClick": [Function],
-      "style": Object {},
     },
     "ref": null,
     "rendered": Array [
@@ -66,10 +65,9 @@ ShallowWrapper {
           />,
           "Example text",
         ],
-        "className": "Action ant-btn-lg Action--primary",
+        "className": "Action Action--primary",
         "disabled": false,
         "onClick": [Function],
-        "style": Object {},
       },
       "ref": null,
       "rendered": Array [

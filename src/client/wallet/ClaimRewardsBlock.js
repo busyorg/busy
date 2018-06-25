@@ -114,12 +114,15 @@ class ClaimRewardsBlock extends Component {
             </div>
           )}
           <Action
-            text={buttonText}
-            disabled={rewardClaimed}
-            onClick={this.handleClaimRewards}
-            loading={this.state.loading}
             primary
-          />
+            big
+            disabled={rewardClaimed}
+            loading={this.state.loading}
+            style={{ width: '100%' }}
+            onClick={this.handleClaimRewards}
+          >
+            {buttonText}
+          </Action>
         </div>
       </div>
     );

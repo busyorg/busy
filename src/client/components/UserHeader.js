@@ -53,13 +53,9 @@ const UserHeader = ({
               >
                 {isSameUser ? (
                   <Link to="/edit-profile">
-                    <Action
-                      small
-                      text={intl.formatMessage({
-                        id: 'edit_profile',
-                        defaultMessage: 'Edit profile',
-                      })}
-                    />
+                    <Action>
+                      <FormattedMessage id="edit_profile" defaultMessage="Edit profile" />
+                    </Action>
                   </Link>
                 ) : (
                   <FollowButton username={handle} />
@@ -71,11 +67,9 @@ const UserHeader = ({
                     'UserHeader__user__button-follows-you': isFollowing && !isSameUser,
                   })}
                 >
-                  <Action
-                    small
-                    text={intl.formatMessage({ id: 'transfer', defaultMessage: 'Transfer' })}
-                    onClick={onTransferClick}
-                  />
+                  <Action onClick={onTransferClick}>
+                    <FormattedMessage id="tranfer" defaultMessage="Transfer" />
+                  </Action>
                 </div>
               )}
             </div>

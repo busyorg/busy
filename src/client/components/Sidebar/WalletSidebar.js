@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { injectIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import { openTransfer } from '../../wallet/walletActions';
 import { getAuthenticatedUser } from '../../reducers';
 import { STEEM, SBD } from '../../../common/constants/cryptos';
@@ -11,7 +11,6 @@ import ClaimRewardsBlock from '../../wallet/ClaimRewardsBlock';
 import CryptoTrendingCharts from './CryptoTrendingCharts';
 
 @withRouter
-@injectIntl
 @connect(
   state => ({
     user: getAuthenticatedUser(state),
@@ -26,7 +25,6 @@ class WalletSidebar extends React.Component {
     isCurrentUser: PropTypes.bool,
     match: PropTypes.shape().isRequired,
     openTransfer: PropTypes.func.isRequired,
-    intl: PropTypes.shape().isRequired,
   };
 
   static defaultProps = {
@@ -49,13 +47,12 @@ class WalletSidebar extends React.Component {
       <div>
         <Action
           primary
-          style={{ marginBottom: '10px' }}
-          text={this.props.intl.formatMessage({
-            id: 'transfer',
-            defaultMessage: 'Transfer',
-          })}
+          big
+          style={{ width: '100%', marginBottom: '10px' }}
           onClick={this.handleOpenTransfer}
-        />
+        >
+          <FormattedMessage id="transfer" defaultMessage="Transfer" />
+        </Action>
         <CryptoTrendingCharts cryptos={cryptos} />
         {displayClaimRewards && <ClaimRewardsBlock />}
       </div>

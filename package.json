@@ -19,6 +19,7 @@
     "dev": "node ./scripts/start.js",
     "build": "node ./scripts/build.js",
     "start": "node ./build/server.js",
+    "storybook": "start-storybook -p 9001 -c .storybook",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
@@ -110,6 +111,8 @@
     "xmldom": "^0.1.27"
   },
   "devDependencies": {
+    "@storybook/addon-actions": "^3.4.8",
+    "@storybook/react": "^3.4.8",
     "assets-webpack-plugin": "^3.5.1",
     "autoprefixer": "^7.1.1",
     "chai": "^3.5.0",

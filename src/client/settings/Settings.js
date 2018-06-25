@@ -393,12 +393,9 @@ export default class Settings extends React.Component {
                     </Checkbox>
                   </div>
                 </div>
-                <Action
-                  primary
-                  loading={loading}
-                  text={this.props.intl.formatMessage({ id: 'save', defaultMessage: 'Save' })}
-                  onClick={this.handleSave}
-                />
+                <Action primary big loading={loading} onClick={this.handleSave}>
+                  <FormattedMessage id="save" defaultMessage="Save" />
+                </Action>
                 <div className="Settings__version">
                   <p>
                     <FormattedMessage
