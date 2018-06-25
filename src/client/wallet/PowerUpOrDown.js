@@ -86,7 +86,7 @@ export default class PowerUpOrDown extends React.Component {
               vesting_shares: `${vests} VESTS`,
             }
           : {
-              amount: `${vests} VESTS`,
+              amount: `${values.amount} STEEM`,
               to: user.name,
             };
 
