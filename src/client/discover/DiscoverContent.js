@@ -1,5 +1,5 @@
 import React from 'react';
-import people from '../helpers/people';
+import { people } from '../helpers/constants';
 import DiscoverUser from './DiscoverUser';
 import SteemAPI from '../steemAPI';
 import ReduxInfiniteScroll from '../vendor/ReduxInfiniteScroll';

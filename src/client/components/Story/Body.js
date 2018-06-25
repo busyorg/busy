@@ -101,7 +101,7 @@ export function getHtml(body, jsonMetadata = {}, returnType = 'Object', options 
 const Body = props => {
   const options = {
     rewriteLinks: props.rewriteLinks,
-    secureLinks: true,
+    secureLinks: props.exitPageSetting,
   };
   const htmlSections = getHtml(props.body, props.jsonMetadata, 'Object', options);
   return <div className={classNames('Body', { 'Body--full': props.full })}>{htmlSections}</div>;
@@ -112,6 +112,7 @@ Body.propTypes = {
   jsonMetadata: PropTypes.string,
   full: PropTypes.bool,
   rewriteLinks: PropTypes.bool,
+  exitPageSetting: PropTypes.bool,
 };
 
 Body.defaultProps = {
@@ -119,6 +120,7 @@ Body.defaultProps = {
   jsonMetadata: '',
   full: false,
   rewriteLinks: false,
+  exitPageSetting: true,
 };
 
 export default Body;

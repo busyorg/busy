@@ -12,7 +12,8 @@ import Action from '../Button/Action';
 import requiresLogin from '../../auth/requiresLogin';
 import withEditor from './withEditor';
 import EditorInput from './EditorInput';
-import Body, { markdownIt } from '../Story/Body';
+import { markdownIt } from '../Story/Body';
+import BodyContainer from '../../containers/Story/BodyContainer';
 import './Editor.less';
 
 @injectIntl
@@ -328,7 +329,7 @@ class Editor extends React.Component {
               </span>
             }
           >
-            <Body full body={body} />
+            <BodyContainer full body={body} />
           </Form.Item>
         )}
         <Form.Item
