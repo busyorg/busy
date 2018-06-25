@@ -1,11 +1,9 @@
-export const jsonParse = str => {
+export function jsonParse(input) {
   try {
-    return jsonParse(JSON.parse(str));
+    return JSON.parse(input);
   } catch (e) {
-    return str;
+    return null;
   }
-};
+}
 
 export const epochToUTC = epochTimestamp => new Date(0).setUTCSeconds(epochTimestamp);
-
-export default jsonParse;
