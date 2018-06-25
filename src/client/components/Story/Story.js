@@ -1,13 +1,7 @@
 import _ from 'lodash';
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  injectIntl,
-  FormattedMessage,
-  FormattedRelative,
-  FormattedDate,
-  FormattedTime,
-} from 'react-intl';
+import { FormattedMessage, FormattedRelative, FormattedDate, FormattedTime } from 'react-intl';
 import { Link, withRouter } from 'react-router-dom';
 import { Tag } from 'antd';
 import formatter from '../../helpers/steemitFormatter';
@@ -20,6 +14,7 @@ import {
 } from '../../helpers/postHelpers';
 import withAuthActions from '../../auth/withAuthActions';
 import BTooltip from '../BTooltip';
+import ReputationTag from '../ReputationTag';
 import StoryPreview from './StoryPreview';
 import StoryFooter from '../StoryFooter/StoryFooter';
 import Avatar from '../Avatar';
@@ -31,11 +26,9 @@ import PostedFrom from './PostedFrom';
 import './Story.less';
 
 @withRouter
-@injectIntl
 @withAuthActions
 class Story extends React.Component {
   static propTypes = {
-    intl: PropTypes.shape().isRequired,
     user: PropTypes.shape().isRequired,
     post: PropTypes.shape().isRequired,
     postState: PropTypes.shape().isRequired,
@@ -255,7 +248,6 @@ class Story extends React.Component {
 
   render() {
     const {
-      intl,
       user,
       post,
       postState,
@@ -271,8 +263,6 @@ class Story extends React.Component {
     } = this.props;
 
     if (isPostDeleted(post)) return <div />;
-
-    const postAuthorReputation = formatter.reputation(post.author_reputation);
 
     let rebloggedUI = null;
 
@@ -315,9 +305,7 @@ class Story extends React.Component {
                 <Link to={`/@${post.author}`}>
                   <h4>
                     <span className="username">{post.author}</span>
-                    <BTooltip title={intl.formatMessage({ id: 'reputation_score' })}>
-                      <Tag>{postAuthorReputation}</Tag>
-                    </BTooltip>
+                    <ReputationTag reputation={post.author_reputation} />
                   </h4>
                 </Link>
                 <span className="Story__topics">
