@@ -1,15 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import 'url-search-params-polyfill';
-import { injectIntl, FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import ActionLink from '../components/Button/ActionLink';
 import ActionButton from '../components/Button/Action';
 import './ExitPage.less';
 
-@injectIntl
 export default class ExitPage extends React.Component {
   static propTypes = {
-    intl: PropTypes.shape().isRequired,
     location: PropTypes.shape().isRequired,
   };
 
@@ -20,7 +18,7 @@ export default class ExitPage extends React.Component {
   };
 
   render() {
-    const { intl, location } = this.props;
+    const { location } = this.props;
 
     const url = decodeURIComponent(new URLSearchParams(location.search).get('url'));
 
@@ -42,14 +40,9 @@ export default class ExitPage extends React.Component {
           <ActionLink className="ExitPage__buttons__button" primary href={url}>
             <FormattedMessage id="page_exit_go" defaultMessage="Visit this website" />
           </ActionLink>
-          <ActionButton
-            className="ExitPage__buttons__button"
-            text={intl.formatMessage({
-              id: 'go_back',
-              defaultMessage: 'Go back',
-            })}
-            onClick={this.closeWindow}
-          />
+          <ActionButton big className="ExitPage__buttons__button" onClick={this.closeWindow}>
+            <FormattedMessage id="go_back" defaultMessage="Go back" />
+          </ActionButton>
         </div>
       </div>
     );

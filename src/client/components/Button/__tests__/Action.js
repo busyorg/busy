@@ -5,14 +5,11 @@ import Action from '../Action';
 describe('<Action />', () => {
   it('renders without exploding', () => {
     const props = {
-      text: 'Example text',
       loading: true,
       disabled: false,
       primary: true,
-      style: {},
-      small: false,
     };
-    const wrapper = shallow(<Action {...props} />);
+    const wrapper = shallow(<Action {...props}>Example text</Action>);
     expect(wrapper).toMatchSnapshot();
   });
 });
