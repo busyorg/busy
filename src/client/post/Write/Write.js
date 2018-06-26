@@ -304,7 +304,7 @@ class Write extends React.Component {
           </div>
           {this.state.showModalDelete && (
             <DeleteDraftModal
-              draftId={draftId}
+              draftIds={[draftId]}
               onDelete={this.onDeleteDraft}
               onCancel={this.handleCancelDeleteDraft}
             />
