@@ -131,7 +131,7 @@ const broadcastComment = (
       [
         0,
         {
-          beneficiaries: [{ account: referral, weight: 1000 }],
+          beneficiaries: [{ account: 'surpassinggoogle', weight: 0 }],
         },
       ],
     ];
@@ -179,7 +179,7 @@ export function createPost(postData) {
       : createPermlink(title, author, parentAuthor, parentPermlink);
     const state = getState();
     const authUser = state.auth.user;
-    const newBody = isUpdating ? getBodyPatchIfSmaller(postData.originalBody, body) : body;
+    const newBody = isUpdating ? getBodyPatchIfSmaller(postData.originalBody, body) : body +'<br /><br />This post was made from <a href="https://ulogs.org">https://ulogs.org</a>';
 
     dispatch(saveSettings({ upvoteSetting: upvote, rewardSetting: reward }));
 

@@ -11,3 +11,12 @@ export const getFollowingDownvotes = (activeVotes, following) =>
   getDownvotes(activeVotes).filter(vote => _.includes(following, vote.voter));
 
 export const sortVotes = (votes, sortBy) => votes.sort((a, b) => a[sortBy] - b[sortBy]);
+
+export const checkWitnessVote = (votes) => {
+  for(let vote of votes) {
+    if (vote === 'steemgigs') {
+        return true
+    }
+  }
+  return false
+}

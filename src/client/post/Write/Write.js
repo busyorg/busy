@@ -80,8 +80,8 @@ class Write extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      initialTitle: '',
-      initialTopics: [],
+      initialTitle: 'ULOG:',
+      initialTopics: ['ulog','surpassinggoogle'],
       initialBody: '',
       initialReward: this.props.rewardSetting,
       initialUpvote: this.props.upvoteSetting,
@@ -218,8 +218,8 @@ class Write extends React.Component {
     if (this.state.isUpdating) data.isUpdating = this.state.isUpdating;
 
     let metaData = {
-      community: 'busy',
-      app: `busy/${version}`,
+      community: 'ulogs',
+      app: `ulogs/${version}`,
       format: 'markdown',
     };
 

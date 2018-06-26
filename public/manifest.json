@@ -1,7 +1,7 @@
 {
-  "name": "Busy",
-  "short_name": "Busy",
-  "description": "Busy is a decentralized social network based on Steem blockchain",
+  "name": "Ulog",
+  "short_name": "Ulog",
+  "description": "Ulog is a decentralized social network based on Steem blockchain",
   "theme_color": "#4757b2",
   "background_color": "#fcfcff",
   "display": "standalone",

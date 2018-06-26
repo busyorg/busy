@@ -1,3 +1,4 @@
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -9,23 +10,23 @@ import './HeroBannerSlider.less';
 class HeroBanner extends React.Component {
   static SLIDER_CONTENTS = [
     {
-      image: '/images/hero-1.svg',
+      image: '/images/hero-1.png',
       titleID: 'hero_banner_title_1',
-      defaultTitle: 'Write and publish a post on Steem',
+      defaultTitle: 'Write and publish a ULOG on steem',
       className: 'HeroBannerSlider__image',
       number: 1,
     },
     {
-      image: '/images/hero-2.svg',
+      image: '/images/hero-2.png',
       titleID: 'hero_banner_title_2',
-      defaultTitle: 'The community upvotes your post',
+      defaultTitle: 'Our Community will become your true fan and upvote your ULOG',
       className: 'HeroBannerSlider__image',
       number: 2,
     },
     {
-      image: '/images/hero-3.svg',
+      image: '/images/hero-3.png',
       titleID: 'hero_banner_title_3',
-      defaultTitle: 'Earn rewards in Steem',
+      defaultTitle: 'Earn variety of rewards and steem from your true fan',
       className: 'HeroBannerSlider__image',
       number: 3,
     },
@@ -54,39 +55,39 @@ class HeroBanner extends React.Component {
           <div className="HeroBanner__content-container">
             <div className="HeroBanner__content">
               <img
-                src="/images/hero-1.svg"
+                src="/images/hero-1.png"
                 className="HeroBanner__content__image"
-                alt="Write and publish a post on Steem"
+                alt="Write and publish a ULOG on steem"
               />
               <div className="HeroBanner__content__description">
                 <div className="HeroBanner__content__number">1</div>
                 <div className="HeroBanner__content__title">
                   <FormattedMessage
                     id="hero_banner_title_1"
-                    defaultMessage="Write and publish a post on Steem"
+                    defaultMessage="Write and publish a ULOG on steem"
                   />
                 </div>
               </div>
             </div>
             <div className="HeroBanner__content">
               <img
-                src="/images/hero-2.svg"
+                src="/images/hero-2.png"
                 className="HeroBanner__content__image"
-                alt="The community upvotes your post"
+                alt="Our Community will become your true fan and upvote your ULOG"
               />
               <div className="HeroBanner__content__description">
                 <div className="HeroBanner__content__number">2</div>
                 <div className="HeroBanner__content__title">
                   <FormattedMessage
                     id="hero_banner_title_2"
-                    defaultMessage="The community upvotes your post"
+                    defaultMessage="Our Community will become your true fan and upvote your ULOG"
                   />
                 </div>
               </div>
             </div>
             <div className="HeroBanner__content">
               <img
-                src="/images/hero-3.svg"
+                src="/images/hero-3.png"
                 className="HeroBanner__content__image"
                 alt="Earn rewards in Steem"
               />
@@ -95,7 +96,7 @@ class HeroBanner extends React.Component {
                 <div className="HeroBanner__content__title" style={{ width: '130px' }}>
                   <FormattedMessage
                     id="hero_banner_title_3"
-                    defaultMessage="Earn rewards in Steem"
+                    defaultMessage="Earn variety of rewards and steem from your true fan"
                   />
                 </div>
               </div>

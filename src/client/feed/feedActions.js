@@ -22,7 +22,7 @@ export const GET_MORE_REPLIES = createAsyncActionType('@user/GET_MORE_REPLIES');
 
 export const GET_BOOKMARKS = createAsyncActionType('@bookmarks/GET_BOOKMARKS');
 
-export const getFeedContent = ({ sortBy = 'trending', category, limit = 20 }) => (
+export const getFeedContent = ({ sortBy = 'created', category ='ulog', limit = 20 }) => (
   dispatch,
   getState,
   { steemAPI },
@@ -32,12 +32,12 @@ export const getFeedContent = ({ sortBy = 'trending', category, limit = 20 }) =>
     payload: getDiscussionsFromAPI(sortBy, { tag: category, limit }, steemAPI),
     meta: {
       sortBy,
-      category: category || 'all',
+      category: category || 'ulog',
       limit,
     },
   });
 
-export const getMoreFeedContent = ({ sortBy, category, limit = 20 }) => (
+export const getMoreFeedContent = ({ sortBy, category = 'ulog', limit = 20 }) => (
   dispatch,
   getState,
   { steemAPI },
@@ -45,7 +45,7 @@ export const getMoreFeedContent = ({ sortBy, category, limit = 20 }) => (
   const state = getState();
   const feed = getFeed(state);
   const posts = getPosts(state);
-  const feedContent = getFeedFromState(sortBy, category, feed);
+  const feedContent = getFeedFromState(sortBy, category , feed);
 
   if (!feedContent.length) return Promise.resolve(null);
 
@@ -68,7 +68,7 @@ export const getMoreFeedContent = ({ sortBy, category, limit = 20 }) => (
     ).then(postsData => postsData.slice(1)),
     meta: {
       sortBy,
-      category: category || 'all',
+      category: category || 'ulog',
       limit,
     },
   });
@@ -193,12 +193,10 @@ export const getBookmarks = () => (dispatch, getState, { steemAPI }) => {
 
   dispatch({
     type: GET_BOOKMARKS.ACTION,
-    payload: getBookmarksData(bookmarks, steemAPI).then(posts =>
-      posts.filter(post => post.id !== 0),
-    ),
+    payload: getBookmarksData(bookmarks, steemAPI),
     meta: {
       sortBy: 'bookmarks',
-      category: 'all',
+      category: 'ulog',
       once: true,
     },
   });

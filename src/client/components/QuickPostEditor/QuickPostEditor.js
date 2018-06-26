@@ -77,7 +77,7 @@ class QuickPostEditor extends React.Component {
 
   getQuickPostData = () => {
     const currentPaths = this.props.location.pathname.split('/');
-    const busyTag = 'busy';
+    const busyTag = 'ulog';
     const tag = currentPaths[2];
     const tags = [];
     const images = _.map(this.state.currentImages, image => image.src);
@@ -101,8 +101,8 @@ class QuickPostEditor extends React.Component {
     };
 
     const metaData = {
-      community: 'busy',
-      app: `busy/${version}`,
+      community: 'ulogs',
+      app: `ulogs/${version}`,
       format: 'markdown',
     };
 
@@ -292,7 +292,7 @@ class QuickPostEditor extends React.Component {
                 ref={ref => this.setInput(ref)}
                 placeholder={intl.formatMessage({
                   id: 'write_quick_post',
-                  defaultMessage: 'Write quick post',
+                  defaultMessage: `Save the day! Tell us what you see; what is on your mind; what's going on around you currently...`,
                 })}
                 value={this.state.currentInputValue}
                 maxLength="255"

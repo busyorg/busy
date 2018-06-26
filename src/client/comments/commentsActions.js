@@ -99,12 +99,12 @@ export const sendComment = (parentPost, body, isUpdating = false, originalCommen
     ? originalComment.permlink
     : createCommentPermlink(parentAuthor, parentPermlink);
 
-  const defaultJsonMetadata = { tags: [category], community: 'busy', app: `busy/${version}` };
+  const defaultJsonMetadata = { tags: [category], community: 'ulogs', app: `ulogs/${version}` };
   const jsonMetadata = isUpdating
     ? jsonParse(originalComment.json_metadata) || defaultJsonMetadata
     : defaultJsonMetadata;
 
-  const newBody = isUpdating ? getBodyPatchIfSmaller(originalComment.body, body) : body;
+  const newBody = isUpdating ? getBodyPatchIfSmaller(originalComment.body, body) : body + '<br /><br />This comment was made from <a href="https://ulogs.org">https://ulogs.org</a>';
 
   return dispatch({
     type: SEND_COMMENT,

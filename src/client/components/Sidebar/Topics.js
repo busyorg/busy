@@ -47,6 +47,19 @@ class Topics extends React.Component {
         {loading && <Loading center={false} />}
         {!loading && (
           <ul className="Topics__list">
+              <li key='ulog'>
+                <Topic name='ulog' favorite={favorite} />
+              </li>
+              <li key='steemgigs'>
+                <Topic name='steemgigs' favorite={favorite} />
+              </li>
+              <li key='teardrops'>
+                <Topic name='teardrops' favorite={favorite} />
+              </li>
+              <li key='untalented'>
+                <Topic name='untalented' favorite={favorite} />
+              </li>
+
             {displayedTopics.map(topic => (
               <li key={topic}>
                 <Topic name={topic} favorite={favorite} />

@@ -26,7 +26,7 @@ const POSTCSS_LOADER = {
 const DEFINE_PLUGIN = new webpack.DefinePlugin({
   'process.env.NODE_ENV': IS_DEV ? JSON.stringify('development') : JSON.stringify('production'),
   'process.env.STEEMCONNECT_CLIENT_ID': JSON.stringify(
-    process.env.STEEMCONNECT_CLIENT_ID || 'busy.app',
+    process.env.STEEMCONNECT_CLIENT_ID || 'ulogs.app',
   ),
   'process.env.STEEMCONNECT_REDIRECT_URL': JSON.stringify(
     process.env.STEEMCONNECT_REDIRECT_URL || 'http://localhost:3000/callback',
@@ -36,7 +36,7 @@ const DEFINE_PLUGIN = new webpack.DefinePlugin({
   ),
   'process.env.STEEMJS_URL': JSON.stringify(process.env.STEEMJS_URL || 'https://api.steemit.com'),
   'process.env.SIGNUP_URL': JSON.stringify(
-    process.env.SIGNUP_URL || 'https://signup.steemit.com/?ref=busy',
+    process.env.SIGNUP_URL || 'https://signup.steemit.com/?ref=ulogs',
   ),
   'process.env.MANIFEST_PATH': JSON.stringify(paths.assets),
 });

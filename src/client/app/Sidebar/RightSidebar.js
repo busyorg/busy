@@ -10,10 +10,12 @@ import {
   getFollowingList,
   getIsFetchingFollowingList,
 } from '../../reducers';
+import { checkWitnessVote } from '../../helpers/voteHelpers';
 import { updateRecommendations } from '../../user/userActions';
 import InterestingPeople from '../../components/Sidebar/InterestingPeople';
 import InterestingPeopleWithAPI from '../../components/Sidebar/InterestingPeopleWithAPI';
 import SignUp from '../../components/Sidebar/SignUp';
+import WitnessVote from '../../components/Sidebar/WitnessVote';
 import PostRecommendation from '../../components/Sidebar/PostRecommendation';
 import Loading from '../../components/Icon/Loading';
 import UserActivitySearch from '../../activity/UserActivitySearch';
@@ -67,6 +69,16 @@ export default class RightSidebar extends React.Component {
       return <Loading />;
     }
 
+    /*eslint-disable */
+    function checkVote() {
+      if (authenticated === true) {
+        return checkWitnessVote(authenticatedUser.witness_votes);
+      } else if (authenticated === false) {
+        return false;
+      }
+    }
+    const isWitnessVoted = checkVote();
+
     return (
       <div>
         {!authenticated && <SignUp />}
@@ -105,6 +117,7 @@ export default class RightSidebar extends React.Component {
                 ) : (
                   <div />
                 )}
+                {authenticated && !isWitnessVoted ? <WitnessVote /> : ''}
               </div>
             )}
           />

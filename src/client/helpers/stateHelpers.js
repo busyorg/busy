@@ -1,4 +1,4 @@
-export const getFeedFromState = (sortBy, category = 'all', state) => {
+export const getFeedFromState = (sortBy, category = 'ulog', state) => {
   switch (sortBy) {
     case 'feed':
     case 'hot':
@@ -16,7 +16,7 @@ export const getFeedFromState = (sortBy, category = 'all', state) => {
   }
 };
 
-export const getFeedLoadingFromState = (sortBy, category = 'all', feedState) => {
+export const getFeedLoadingFromState = (sortBy, category = 'ulog', feedState) => {
   switch (sortBy) {
     case 'feed':
     case 'hot':
@@ -34,7 +34,7 @@ export const getFeedLoadingFromState = (sortBy, category = 'all', feedState) => 
   }
 };
 
-export const getFeedFetchedFromState = (sortBy, category = 'all', feedState) => {
+export const getFeedFetchedFromState = (sortBy, category = 'ulog', feedState) => {
   switch (sortBy) {
     case 'feed':
     case 'hot':
@@ -52,7 +52,7 @@ export const getFeedFetchedFromState = (sortBy, category = 'all', feedState) => 
   }
 };
 
-export const getFeedHasMoreFromState = (sortBy, listName = 'all', feedState) => {
+export const getFeedHasMoreFromState = (sortBy, listName = 'ulog', feedState) => {
   switch (sortBy) {
     case 'feed':
     case 'hot':
@@ -71,7 +71,7 @@ export const getFeedHasMoreFromState = (sortBy, listName = 'all', feedState) => 
   }
 };
 
-export const getFeedFailedFromState = (sortBy, listName = 'all', feedState) => {
+export const getFeedFailedFromState = (sortBy, listName = 'ulog', feedState) => {
   switch (sortBy) {
     case 'feed':
     case 'hot':

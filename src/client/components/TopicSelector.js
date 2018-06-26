@@ -39,7 +39,7 @@ TopicSelector.propTypes = {
 };
 
 TopicSelector.defaultProps = {
-  sort: 'trending',
+  sort: 'created',
   isSingle: true,
   topics: [],
   onTopicClose: () => {},

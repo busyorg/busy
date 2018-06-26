@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-
+import { Carousel } from 'antd';
 import { getFeedContent } from './feedActions';
 import { getIsLoaded, getIsAuthenticated } from '../reducers';
 import SubFeed from './SubFeed';
@@ -53,16 +53,26 @@ class Page extends React.Component {
     const displayTopicSelector = location.pathname === '/trending';
 
     const robots = location.pathname === '/' ? 'index,follow' : 'noindex,follow';
-
+    
     return (
       <div>
         <Helmet>
-          <title>Busy</title>
+          <title>Ulogs</title>
           <meta name="robots" content={robots} />
         </Helmet>
         <ScrollToTop />
+
         <ScrollToTopOnMount />
-        <HeroBannerContainer />
+        { authenticated?
+            <Carousel autoplay>
+              <div> <img width={'100%'} height={'100%'} alt="900x500" src="/images/slide1.jpg" /> </div>
+              <div> <img width={'100%'}  height={'100%'} alt="900x500" src="/images/slide2.jpg" /> </div>
+              <div> <img width={'100%'}  height={'100%'} alt="900x500" src="/images/slide3.jpg" /> </div>
+              <div> <img width={'100%'}  height={'100%'} alt="900x500" src="/images/slide4.jpg" /> </div>
+            </Carousel>
+                :
+                <HeroBannerContainer />
+              }
         <div className="shifted">
           <div className="feed-layout container">
             <Affix className="leftContainer" stickPosition={77}>

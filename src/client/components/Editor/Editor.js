@@ -106,7 +106,7 @@ class Editor extends React.Component {
   }
 
   onUpdate() {
-    _.throttle(this.throttledUpdate, 200, { leading: false, trailing: true })();
+    // _.throttle(this.throttledUpdate, 200, { leading: false, trailing: true })();
   }
 
   setValues(post) {
@@ -243,7 +243,7 @@ class Editor extends React.Component {
               className="Editor__title"
               placeholder={intl.formatMessage({
                 id: 'title_placeholder',
-                defaultMessage: 'Add title',
+                defaultMessage: 'ULOG: ',
               })}
             />,
           )}
@@ -290,6 +290,16 @@ class Editor extends React.Component {
             />,
           )}
         </Form.Item>
+        <h4>Note:</h4>
+        <ul>
+          <li className='ant-form-extra'>
+            If your post falls under #teardrops, simply delete 'ULOG:' from Title and replace that with 'TEARDROPS:'. Then, make #teardrops your first hashtag.
+          </li>
+          <li className='ant-form-extra'>
+            If your post falls under #untalented, simply delete 'ULOG:' from Title and replace that with 'UN(dis)TALENTED:'. Then, make #untalented your first hashtag.
+          </li>
+        </ul>
+
         <Form.Item>
           {getFieldDecorator('body', {
             rules: [

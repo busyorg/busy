@@ -1,10 +1,10 @@
 {
-  "name": "busy",
+  "name": "ulog",
   "scripts": {},
   "env": {
     "DEBUG": {
       "description": "Debug namespaces for https://github.com/visionmedia/debug.",
-      "value": "busy:server",
+      "value": "ulog:server",
       "required": false
     }
   },

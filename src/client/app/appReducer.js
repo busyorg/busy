@@ -13,7 +13,7 @@ const initialState = {
   trendingTopics: [],
   rewardFund: {},
   bannerClosed: false,
-  appUrl: 'https://busy.org',
+  appUrl: 'https://ulogs.org',
   usedLocale: null,
   translations: {},
   cryptosPriceHistory: {},
