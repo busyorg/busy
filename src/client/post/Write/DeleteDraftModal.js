@@ -14,7 +14,7 @@ import { notify } from '../../app/Notification/notificationActions';
 class DeleteDraftModal extends React.Component {
   static propTypes = {
     intl: PropTypes.shape().isRequired,
-    draftIds: PropTypes.arrayOf(PropTypes.string),
+    draftIds: PropTypes.arrayOf(PropTypes.string).isRequired,
     deleteDraft: PropTypes.func,
     notify: PropTypes.func,
     onDelete: PropTypes.func,
@@ -22,7 +22,6 @@ class DeleteDraftModal extends React.Component {
   };
 
   static defaultProps = {
-    draftIds: [],
     deleteDraft: () => {},
     notify: () => {},
     onDelete: () => {},
