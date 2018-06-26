@@ -67,7 +67,7 @@ export const getFollowing = username => (dispatch, getState) => {
     type: GET_FOLLOWING,
     meta: targetUsername,
     payload: {
-      promise: getAllFollowing(targetUsername).catch(() => dispatch({ type: GET_FOLLOWING_ERROR })),
+      promise: getAllFollowing(targetUsername),
     },
   });
 };
