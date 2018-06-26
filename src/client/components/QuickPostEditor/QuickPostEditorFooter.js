@@ -61,12 +61,12 @@ const QuickPostEditorFooter = ({
     </div>
     <Action
       primary
-      small
       loading={postCreationLoading}
       disabled={postCreationLoading}
-      text={postCreationLoading ? submittingPostText : postText}
       onClick={handleCreatePost}
-    />
+    >
+      {postCreationLoading ? submittingPostText : postText}
+    </Action>
   </div>
 );
 
