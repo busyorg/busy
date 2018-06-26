@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage, FormattedRelative } from 'react-intl';
 import { Link } from 'react-router-dom';
 import ListWidget from './ListWidget';
+import './LastDraftsWidget.less';
 
 function Draft({ id, title, lastUpdated }) {
   return (
@@ -10,7 +11,7 @@ function Draft({ id, title, lastUpdated }) {
       <Link to={{ pathname: '/editor', search: `?draft=${id}` }}>
         {title || <FormattedMessage id="draft_untitled" defaultMessage="Untitled draft" />}
       </Link>
-      <div>
+      <div className="LastDraftsWidget__Draft__date">
         <FormattedRelative value={lastUpdated} />
       </div>
     </div>
