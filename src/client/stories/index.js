@@ -4,12 +4,14 @@ import { action } from '@storybook/addon-actions';
 import { MemoryRouter } from 'react-router';
 import { IntlProvider } from 'react-intl';
 import translations from '../locales/default.json';
+import { drafts, people } from './data';
 import Action from '../components/Button/Action';
 import Avatar from '../components/Avatar';
 import BTooltip from '../components/BTooltip';
 import Loading from '../components/Icon/Loading';
 import BaseWidget from '../components/Widgets/BaseWidget';
 import PeopleWidget from '../components/Widgets/PeopleWidget';
+import LastDraftsWidget from '../components/Widgets/LastDraftsWidget';
 import '../styles/base.less';
 
 const IntlDecorator = storyFn => (
@@ -91,6 +93,5 @@ storiesOf('Sidebar', module)
       This is SidebarWidget content
     </BaseWidget>
   ))
-  .add('PeopleWidget', () => (
-    <PeopleWidget people={['sekhmet', 'fabien', 'ekitcho']} onRefresh={action('refresh')} />
-  ));
+  .add('PeopleWidget', () => <PeopleWidget people={people} onRefresh={action('refresh')} />)
+  .add('LastDraftsWidget', () => <LastDraftsWidget drafts={drafts} />);

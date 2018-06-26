@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
-import BaseWidget from './BaseWidget';
+import ListWidget from './ListWidget';
 import Avatar from '../Avatar';
 import Action from '../Button/Action';
 import './PeopleWidget.less';
@@ -29,21 +29,30 @@ User.propTypes = {
   name: PropTypes.string.isRequired,
 };
 
+function renderPerson(person) {
+  return <User key={person} name={person} />;
+}
+
+function keyExtractor(item) {
+  return item;
+}
+
 export default function PeopleWidget({ people, onRefresh }) {
   return (
-    <BaseWidget
+    <ListWidget
       refreshable
       icon="icon-group"
       title="Interesting People"
+      data={people}
+      renderItem={renderPerson}
+      keyExtractor={keyExtractor}
       footer={
         <Link to={'/discover'}>
           <FormattedMessage id="discover_more_people" defaultMessage="Discover More People" />
         </Link>
       }
       onRefresh={onRefresh}
-    >
-      {people.map(person => <User key={person} name={person} />)}
-    </BaseWidget>
+    />
   );
 }
 

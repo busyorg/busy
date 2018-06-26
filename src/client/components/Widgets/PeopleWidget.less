@@ -5,7 +5,6 @@
   flex-wrap: nowrap;
   justify-content: space-between;
   align-items: center;
-  padding: 6px 0;
   width: 100%;
   white-space: nowrap;
 
@@ -30,23 +29,19 @@
     }
   }
 
-  &:not(:last-of-type) {
-    border-bottom: 1px solid @white-gainsboro;
+  &__follow {
+    display: flex;
+    vertical-align: middle;
+    margin-left: auto;
   }
-}
 
-.User__follow {
-  display: flex;
-  vertical-align: middle;
-  margin-left: auto;
-}
+  div[data-dir='rtl'] &__follow {
+    margin-left: 0;
+    margin-right: auto;
+  }
 
-div[data-dir='rtl'] .User__follow {
-  margin-left: 0;
-  margin-right: auto;
-}
-
-div[data-dir='rtl'] .User__name {
-  margin-left: 0;
-  margin-right: 8px;
+  div[data-dir='rtl'] &__name {
+    margin-left: 0;
+    margin-right: 8px;
+  }
 }
