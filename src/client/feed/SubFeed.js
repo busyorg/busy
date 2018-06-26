@@ -59,23 +59,16 @@ class SubFeed extends React.Component {
   };
 
   componentDidMount() {
-    const { authenticated, loaded, user, match, feed } = this.props;
+    const { authenticated, loaded, user, match } = this.props;
     const category = match.params.category;
-    let content = [];
 
     if (!loaded && Cookie.get('access_token')) return;
 
     if (match.url === '/' && authenticated) {
-      content = getUserFeedFromState(user.name, feed);
-      if (_.isEmpty(content)) {
-        this.props.getFeedContent('feed', user.name);
-      }
+      this.props.getFeedContent('feed', user.name);
     } else {
       const sortBy = match.params.sortBy || 'trending';
-      content = getFeedFromState(sortBy, match.params.category, feed);
-      if (_.isEmpty(content)) {
-        this.props.getFeedContent(sortBy, category);
-      }
+      this.props.getFeedContent(sortBy, category);
     }
   }
 
