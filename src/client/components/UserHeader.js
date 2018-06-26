@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
-import { injectIntl, FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import { getUserRankKey, getUserRank } from '../helpers/user';
 import ReputationTag from './ReputationTag';
 import AvatarLightbox from './AvatarLightbox';
@@ -11,7 +11,6 @@ import Action from './Button/Action';
 import './UserHeader.less';
 
 const UserHeader = ({
-  intl,
   username,
   handle,
   userReputation,
@@ -99,7 +98,6 @@ const UserHeader = ({
 };
 
 UserHeader.propTypes = {
-  intl: PropTypes.shape().isRequired,
   username: PropTypes.string,
   handle: PropTypes.string,
   userReputation: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
@@ -124,4 +122,4 @@ UserHeader.defaultProps = {
   onTransferClick: () => {},
 };
 
-export default injectIntl(UserHeader);
+export default UserHeader;
