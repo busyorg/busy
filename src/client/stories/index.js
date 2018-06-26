@@ -1,13 +1,23 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
+import { MemoryRouter } from 'react-router';
+import { IntlProvider } from 'react-intl';
+import translations from '../locales/default.json';
 import Action from '../components/Button/Action';
 import Avatar from '../components/Avatar';
 import BTooltip from '../components/BTooltip';
 import Loading from '../components/Icon/Loading';
-import SidebarWidget from '../components/Sidebar/SidebarWidget';
+import BaseWidget from '../components/Widgets/BaseWidget';
+import PeopleWidget from '../components/Widgets/PeopleWidget';
 import '../styles/base.less';
 
+const IntlDecorator = storyFn => (
+  <IntlProvider locale="en" messages={translations}>
+    {storyFn()}
+  </IntlProvider>
+);
+const RouterDecorator = storyFn => <MemoryRouter initialEntries={['/']}>{storyFn()}</MemoryRouter>;
 const DefaultDecorator = storyFn => <div style={{ padding: 16 }}>{storyFn()}</div>;
 const CenterDecorator = storyFn => (
   <div
@@ -22,6 +32,7 @@ const CenterDecorator = storyFn => (
     {storyFn()}
   </div>
 );
+const WidgetDecorator = storyFn => <div style={{ maxWidth: 440 }}>{storyFn()}</div>;
 
 storiesOf('Action Button', module)
   .addDecorator(DefaultDecorator)
@@ -61,25 +72,25 @@ storiesOf('Loading', module)
   .add('default', () => <Loading />);
 
 storiesOf('Sidebar', module)
+  .addDecorator(IntlDecorator)
+  .addDecorator(RouterDecorator)
   .addDecorator(DefaultDecorator)
-  .add('SidebarWidget', () => (
-    <div style={{ maxWidth: 440 }}>
-      <SidebarWidget icon="icon-wallet" title="Sample SidebarWidget">
-        This is SidebarWidget content
-      </SidebarWidget>
-    </div>
+  .addDecorator(WidgetDecorator)
+  .add('BaseWidget', () => (
+    <BaseWidget icon="icon-wallet" title="Sample SidebarWidget">
+      This is SidebarWidget content
+    </BaseWidget>
   ))
-  .add('SidebarWidget - refreshable', () => (
-    <div style={{ maxWidth: 440 }}>
-      <SidebarWidget refreshable title="Sample SidebarWidget" onRefresh={action('refresh')}>
-        This is SidebarWidget content
-      </SidebarWidget>
-    </div>
+  .add('BaseWidget - refreshable', () => (
+    <BaseWidget refreshable title="Sample SidebarWidget" onRefresh={action('refresh')}>
+      This is SidebarWidget content
+    </BaseWidget>
   ))
-  .add('SidebarWidget - with footer', () => (
-    <div style={{ maxWidth: 440 }}>
-      <SidebarWidget title="Sample SidebarWidget" footer={<a>See more</a>}>
-        This is SidebarWidget content
-      </SidebarWidget>
-    </div>
+  .add('BaseWidget - with footer', () => (
+    <BaseWidget title="Sample SidebarWidget" footer={<a>See more</a>}>
+      This is SidebarWidget content
+    </BaseWidget>
+  ))
+  .add('PeopleWidget', () => (
+    <PeopleWidget people={['sekhmet', 'fabien', 'ekitcho']} onRefresh={action('refresh')} />
   ));
