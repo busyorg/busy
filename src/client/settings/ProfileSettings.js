@@ -299,12 +299,9 @@ export default class ProfileSettings extends React.Component {
                     )}
                   </div>
                 </div>
-                <Action
-                  primary
-                  type="submit"
-                  disabled={!form.isFieldsTouched()}
-                  text={this.props.intl.formatMessage({ id: 'save', defaultMessage: 'Save' })}
-                />
+                <Action primary big type="submit" disabled={!form.isFieldsTouched()}>
+                  <FormattedMessage id="save" defaultMessage="Save" />
+                </Action>
               </div>
             </Form>
           </div>

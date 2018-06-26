@@ -21,7 +21,14 @@ module.exports = {
     'react/jsx-filename-extension': [ERROR, { extensions: ['.js'] }],
     'import/no-extraneous-dependencies': [
       ERROR,
-      { devDependencies: ['**/__tests__/*.js', 'scripts/**/*.js', 'webpack/**/*.js'] },
+      {
+        devDependencies: [
+          '**/__tests__/*.js',
+          'scripts/**/*.js',
+          'webpack/**/*.js',
+          'src/client/stories/**/*.js',
+        ],
+      },
     ],
     'no-console': OFF,
     'global-require': OFF,

@@ -1,0 +1,63 @@
+@import (reference) '../../styles/custom.less';
+@import (reference) '../../styles/modules/variables.less';
+@import (reference) '../../styles/mixins';
+
+.SidebarWidget {
+  background: @white;
+  border: @base-border;
+  border-radius: 4px;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 48px;
+    border-bottom: @base-border;
+    color: @blue-baliHai;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 4px 12px;
+  }
+
+  &__content {
+    padding: 16px;
+  }
+
+  &__footer {
+    color: @blue-botticelli;
+    font-weight: 500;
+    padding: 8px 16px;
+    border-top: @base-border;
+
+    & > a {
+      color: @blue-botticelli;
+    }
+  }
+
+  &__icon {
+    color: @blue-baliHai;
+    font-size: 22px !important;
+    margin-right: 8px;
+    vertical-align: -2px;
+  }
+
+  &__icon-right {
+    margin-left: auto;
+    cursor: pointer;
+    background: none;
+    border: none;
+    outline: none;
+  }
+
+  div[data-dir='rtl'] &__icon-right {
+    margin-left: 0;
+    margin-right: auto;
+  }
+
+  &__divider {
+    background-color: @white-gainsboro;
+    height: 1px;
+    margin: 12px 0;
+    width: 100%;
+  }
+}
