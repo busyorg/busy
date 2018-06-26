@@ -1,13 +1,21 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
+import { IntlProvider } from 'react-intl';
+import translations from '../locales/default.json';
 import Action from '../components/Button/Action';
 import Avatar from '../components/Avatar';
 import BTooltip from '../components/BTooltip';
+import ReputationTag from '../components/ReputationTag';
 import Loading from '../components/Icon/Loading';
 import SidebarWidget from '../components/Sidebar/SidebarWidget';
 import '../styles/base.less';
 
+const IntlDecorator = storyFn => (
+  <IntlProvider locale="en" messages={translations}>
+    {storyFn()}
+  </IntlProvider>
+);
 const DefaultDecorator = storyFn => <div style={{ padding: 16 }}>{storyFn()}</div>;
 const CenterDecorator = storyFn => (
   <div
@@ -55,6 +63,11 @@ storiesOf('Avatar', module)
 storiesOf('BTooltip', module)
   .addDecorator(CenterDecorator)
   .add('default', () => <BTooltip title="This is tooltip">Hover me</BTooltip>);
+
+storiesOf('ReputationTag', module)
+  .addDecorator(IntlDecorator)
+  .addDecorator(CenterDecorator)
+  .add('default', () => <ReputationTag reputation="198532625245566" />);
 
 storiesOf('Loading', module)
   .addDecorator(DefaultDecorator)
