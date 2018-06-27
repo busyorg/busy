@@ -13,6 +13,7 @@ import BaseWidget from '../components/Widgets/BaseWidget';
 import PeopleWidget from '../components/Widgets/PeopleWidget';
 import LastDraftsWidget from '../components/Widgets/LastDraftsWidget';
 import PostsWidgets from '../components/Widgets/PostsWidget';
+import ClaimRewardsWidget from '../components/Widgets/ClaimRewardsWidget';
 import '../styles/base.less';
 
 const IntlDecorator = storyFn => (
@@ -96,4 +97,7 @@ storiesOf('Sidebar', module)
   ))
   .add('PeopleWidget', () => <PeopleWidget people={people} onRefresh={action('refresh')} />)
   .add('LastDraftsWidget', () => <LastDraftsWidget drafts={drafts} />)
-  .add('PostsWidget', () => <PostsWidgets posts={posts} />);
+  .add('PostsWidget', () => <PostsWidgets posts={posts} />)
+  .add('ClaimRewardsWidget', () => (
+    <ClaimRewardsWidget steem={21.12} sbd={0} sp={11.442} onClaim={action('claim')} />
+  ));
