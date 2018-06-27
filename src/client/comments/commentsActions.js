@@ -104,7 +104,7 @@ export const sendComment = (parentPost, body, isUpdating = false, originalCommen
     ? jsonParse(originalComment.json_metadata) || defaultJsonMetadata
     : defaultJsonMetadata;
 
-  const newBody = isUpdating ? getBodyPatchIfSmaller(postData.originalBody, body) : body +'<br /><br /> <blockquote>This comment was made from <a href="https://ulogs.org">https://ulogs.org</a><blockquote/>';
+  const newBody = isUpdating ? getBodyPatchIfSmaller(postData.originalBody, body) : body +'> This comment was made from [https://ulogs.org](https://ulogs.org)';
 
   return dispatch({
     type: SEND_COMMENT,
