@@ -8,6 +8,7 @@ import { drafts, people, posts } from './data';
 import Action from '../components/Button/Action';
 import Avatar from '../components/Avatar';
 import BTooltip from '../components/BTooltip';
+import ReputationTag from '../components/ReputationTag';
 import Loading from '../components/Icon/Loading';
 import BaseWidget from '../components/Widgets/BaseWidget';
 import PeopleWidget from '../components/Widgets/PeopleWidget';
@@ -70,6 +71,11 @@ storiesOf('Avatar', module)
 storiesOf('BTooltip', module)
   .addDecorator(CenterDecorator)
   .add('default', () => <BTooltip title="This is tooltip">Hover me</BTooltip>);
+
+storiesOf('ReputationTag', module)
+  .addDecorator(IntlDecorator)
+  .addDecorator(CenterDecorator)
+  .add('default', () => <ReputationTag reputation="198532625245566" />);
 
 storiesOf('Loading', module)
   .addDecorator(DefaultDecorator)
