@@ -179,7 +179,7 @@ export function createPost(postData) {
       : createPermlink(title, author, parentAuthor, parentPermlink);
     const state = getState();
     const authUser = state.auth.user;
-    const newBody = isUpdating ? getBodyPatchIfSmaller(postData.originalBody, body) : body +'<br /><br />>This post was made from <a href="https://ulogs.org">https://ulogs.org</a>';
+    const newBody = isUpdating ? getBodyPatchIfSmaller(postData.originalBody, body) : body +'<br /><br /> <blockquote>This post was made from <a href="https://ulogs.org">https://ulogs.org</a><blockquote/>';
 
     dispatch(saveSettings({ upvoteSetting: upvote, rewardSetting: reward }));
 
