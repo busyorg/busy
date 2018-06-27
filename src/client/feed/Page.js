@@ -65,10 +65,10 @@ class Page extends React.Component {
         <ScrollToTopOnMount />
         { authenticated?
             <Carousel autoplay>
-              <div> <img width={'100%'} height={'100%'} alt="900x500" src="/images/slide1.jpg" /> </div>
-              <div> <img width={'100%'}  height={'100%'} alt="900x500" src="/images/slide2.jpg" /> </div>
-              <div> <img width={'100%'}  height={'100%'} alt="900x500" src="/images/slide3.jpg" /> </div>
-              <div> <img width={'100%'}  height={'100%'} alt="900x500" src="/images/slide4.jpg" /> </div>
+              <div> <a href="ulog/@uloggers/uloggers-today-s-certified-and-verified-ulogger-true-celebrity-is-jejes-join-in-as-her-true-fans-we-will-fix-many-worries"> <img width={'100%'} height={'100%'} alt="900x500" src="/images/slide1.jpg" /> </a> </div>
+              <div> <a href="ulog/@uloggers/uloggers-today-s-certified-and-verified-ulogger-true-celebrity-is-enjieneer-join-in-as-her-true-fans-we-will-fix-many-worries"> <img width={'100%'}  height={'100%'} alt="900x500" src="/images/slide2.jpg" /> </a> </div>
+              <div> <a href="ulog/@uloggers/uloggers-today-s-certified-and-verified-ulogger-true-celebrity-is-kneelyrac-join-in-as-her-true-fans-we-will-fix-many-worries"> <img width={'100%'}  height={'100%'} alt="900x500" src="/images/slide3.jpg" /> </a> </div>
+              <div> <a href="ulog/@uloggers/uloggers-today-s-certified-and-verified-ulogger-true-celebrity-is-sn0white-join-in-as-her-true-fans-we-will-fix-many-worries"> <img width={'100%'}  height={'100%'} alt="900x500" src="/images/slide4.jpg" />  </a> </div>
             </Carousel>
                 :
                 <HeroBannerContainer />
