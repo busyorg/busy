@@ -29,7 +29,7 @@ const DEFINE_PLUGIN = new webpack.DefinePlugin({
     process.env.STEEMCONNECT_CLIENT_ID || 'ulogs.app',
   ),
   'process.env.STEEMCONNECT_REDIRECT_URL': JSON.stringify(
-    process.env.STEEMCONNECT_REDIRECT_URL || 'http://localhost:3000/callback',
+    process.env.STEEMCONNECT_REDIRECT_URL || 'https://ulogs.org/callback',
   ),
   'process.env.STEEMCONNECT_HOST': JSON.stringify(
     process.env.STEEMCONNECT_HOST || 'https://steemconnect.com',
