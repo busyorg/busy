@@ -6,7 +6,7 @@ import { Icon } from 'antd';
 import Scroll from 'react-scroll';
 import withEditor from '../Editor/withEditor';
 import EditorInput from '../Editor/EditorInput';
-import { markdownIt } from '../Story/Body';
+import { remarkable } from '../Story/Body';
 import BodyContainer from '../../containers/Story/BodyContainer';
 import Avatar from '../Avatar';
 import './CommentForm.less';
@@ -74,7 +74,7 @@ class CommentForm extends React.Component {
     this.setState(
       {
         body,
-        bodyHTML: markdownIt.render(body),
+        bodyHTML: remarkable.render(body),
       },
       () => {
         if (this.input) {
