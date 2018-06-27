@@ -21,7 +21,7 @@ function Draft({ id, title, lastUpdated }) {
 Draft.propTypes = {
   id: PropTypes.string.isRequired,
   title: PropTypes.string,
-  lastUpdated: PropTypes.isRequired,
+  lastUpdated: PropTypes.string.isRequired,
 };
 
 Draft.defaultProps = {
