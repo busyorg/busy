@@ -189,7 +189,7 @@
   "title_error_empty": "Please enter a title.",
   "title_error_too_long": "Title must be less than 255 characters.",
   "topics": "Hashtags",
-  "topics_placeholder": "Add story hashtags here",
+  "topics_placeholder": "ulog, surpassinggoogle",
   "topics_extra": "If your post is a ULOG, you always do a steemit post right here too. Simply remove the default \"ULOG:\" from Title above and kindly remove the default \"#ulog\" from among the tags in the Topics box. Please help us as we try to reserve #ulog, only for ULOGS. If you are doing a ULOG, it is best done once a day. Try too, to use your location as one of your tags.           ",
   "topics_extra_2": "If your post falls under #teardrops, simply delete 'ULOG:' from Title and replace that with 'TEARDROPS:'. Then, make #teardrops your first hashtag.",
   "topics_extra_3": "If your post falls under #untalented, simply delete 'ULOG:' from Title and replace that with 'UN(dis)TALENTED:'. Then, make #untalented your first hashtag.",
