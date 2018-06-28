@@ -1,0 +1,25 @@
+@import (reference) '../../styles/custom.less';
+
+.ClaimRewardsWidget {
+  &__Reward {
+    display: flex;
+    justify-content: space-between;
+    padding: 4px 0;
+    font-size: 16px;
+    font-weight: 700;
+    padding: 8px 0;
+
+    &__currency {
+      margin-left: 4px;
+    }
+
+    &:not(:last-of-type) {
+      border-bottom: @base-border;
+    }
+  }
+
+  &__action {
+    width: 100%;
+    margin: 8px 0;
+  }
+}

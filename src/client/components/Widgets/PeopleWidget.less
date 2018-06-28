@@ -1,0 +1,47 @@
+@import (reference) '../../styles/custom.less';
+
+.User {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  white-space: nowrap;
+
+  &__left {
+    display: flex;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    overflow: hidden;
+    align-items: center;
+
+    &__name {
+      margin-left: 8px;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    & > a {
+      vertical-align: middle;
+      max-width: 100%;
+    }
+  }
+
+  &__follow {
+    display: flex;
+    vertical-align: middle;
+    margin-left: auto;
+  }
+
+  div[data-dir='rtl'] &__follow {
+    margin-left: 0;
+    margin-right: auto;
+  }
+
+  div[data-dir='rtl'] &__name {
+    margin-left: 0;
+    margin-right: 8px;
+  }
+}
