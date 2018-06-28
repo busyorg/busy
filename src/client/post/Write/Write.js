@@ -80,8 +80,8 @@ class Write extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      initialTitle: 'ULOG:',
-      initialTopics: ['ulog','surpassinggoogle'],
+      initialTitle: '',
+      initialTopics: [],
       initialBody: '',
       initialReward: this.props.rewardSetting,
       initialUpvote: this.props.upvoteSetting,
