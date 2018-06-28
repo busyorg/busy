@@ -106,7 +106,7 @@ class Editor extends React.Component {
   }
 
   onUpdate() {
-    // _.throttle(this.throttledUpdate, 200, { leading: false, trailing: true })();
+    _.throttle(this.throttledUpdate, 200, { leading: false, trailing: true })();
   }
 
   setValues(post) {
