@@ -1,29 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Icon } from 'antd';
 import classNames from 'classnames';
+import { Icon } from 'antd';
 import './Action.less';
 
-const Action = ({ className, text, loading, primary, small, onClick, ...restProps }) => (
+const Action = ({ className, primary, big, loading, children, ...restProps }) => (
   <button
-    {...restProps}
     className={classNames('Action', className, {
-      'ant-btn-lg': !small,
+      'Action--big': big,
       'Action--primary': primary,
     })}
-    onClick={onClick}
+    {...restProps}
   >
     {loading && <Icon type="loading" />}
-    {text}
+    {children}
   </button>
 );
 
 Action.propTypes = {
-  text: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
   className: PropTypes.string,
-  loading: PropTypes.bool,
   primary: PropTypes.bool,
-  small: PropTypes.bool,
+  big: PropTypes.bool,
+  loading: PropTypes.bool,
   onClick: PropTypes.func,
 };
 
@@ -31,7 +30,7 @@ Action.defaultProps = {
   className: '',
   loading: false,
   primary: false,
-  small: false,
+  big: false,
   onClick: () => {},
 };
 

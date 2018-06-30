@@ -12,7 +12,8 @@ import Action from '../Button/Action';
 import requiresLogin from '../../auth/requiresLogin';
 import withEditor from './withEditor';
 import EditorInput from './EditorInput';
-import Body, { markdownIt } from '../Story/Body';
+import { remarkable } from '../Story/Body';
+import BodyContainer from '../../containers/Story/BodyContainer';
 import './Editor.less';
 
 @injectIntl
@@ -134,7 +135,7 @@ class Editor extends React.Component {
   setBodyAndRender(body) {
     this.setState({
       body,
-      bodyHTML: markdownIt.render(body),
+      bodyHTML: remarkable.render(body),
     });
   }
 
@@ -328,7 +329,7 @@ class Editor extends React.Component {
               </span>
             }
           >
-            <Body full body={body} />
+            <BodyContainer full body={body} />
           </Form.Item>
         )}
         <Form.Item
@@ -383,25 +384,19 @@ class Editor extends React.Component {
             </Form.Item>
             <Form.Item className="Editor__bottom__submit">
               {isUpdating ? (
-                <Action
-                  primary
-                  loading={loading}
-                  disabled={loading}
-                  text={intl.formatMessage({
-                    id: loading ? 'post_send_progress' : 'post_update_send',
-                    defaultMessage: loading ? 'Submitting' : 'Update post',
-                  })}
-                />
+                <Action primary big loading={loading} disabled={loading}>
+                  <FormattedMessage
+                    id={loading ? 'post_send_progress' : 'post_update_send'}
+                    defaultMessage={loading ? 'Submitting' : 'Update post'}
+                  />
+                </Action>
               ) : (
-                <Action
-                  primary
-                  loading={loading}
-                  disabled={loading}
-                  text={intl.formatMessage({
-                    id: loading ? 'post_send_progress' : 'post_send',
-                    defaultMessage: loading ? 'Submitting' : 'Post',
-                  })}
-                />
+                <Action primary big loading={loading} disabled={loading}>
+                  <FormattedMessage
+                    id={loading ? 'post_send_progress' : 'post_send'}
+                    defaultMessage={loading ? 'Submitting' : 'Post'}
+                  />
+                </Action>
               )}
             </Form.Item>
           </div>

@@ -19,6 +19,7 @@
     "dev": "node ./scripts/start.js",
     "build": "node ./scripts/build.js",
     "start": "node ./build/server.js",
+    "storybook": "start-storybook -p 9001 -c .storybook",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
@@ -67,7 +68,6 @@
     "js-cookie": "^2.1.4",
     "lightrpc": "0.0.1",
     "lodash": "^4.0.0",
-    "markdown-it": "^8.4.1",
     "matchmedia": "^0.1.2",
     "npm-run-all": "^4.0.2",
     "prop-types": "^15.6.1",
@@ -95,6 +95,7 @@
     "redux-actions": "^0.12.0",
     "redux-promise-middleware": "^4.0.0",
     "redux-thunk": "^2.1.0",
+    "remarkable": "1.7.1",
     "resize-observer-polyfill": "^1.4.2",
     "sanitize-html": "1.15.0",
     "sc2-sdk": "^1.0.1",
@@ -110,6 +111,8 @@
     "xmldom": "^0.1.27"
   },
   "devDependencies": {
+    "@storybook/addon-actions": "^3.4.8",
+    "@storybook/react": "^3.4.8",
     "assets-webpack-plugin": "^3.5.1",
     "autoprefixer": "^7.1.1",
     "chai": "^3.5.0",

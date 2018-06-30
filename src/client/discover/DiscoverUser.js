@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import urlParse from 'url-parse';
 import { Link } from 'react-router-dom';
-import { Tag } from 'antd';
-import formatter from '../helpers/steemitFormatter';
+import ReputationTag from '../components/ReputationTag';
 import Avatar from '../components/Avatar';
 import FollowButton from '../widgets/FollowButton';
 
@@ -15,7 +14,6 @@ const DiscoverUser = ({ user }) => {
   const location = userProfile.location;
   const name = userProfile.name;
   const about = userProfile.about;
-  const reputation = formatter.reputation(user.reputation);
   let website = userProfile.website;
 
   if (website && website.indexOf('http://') === -1 && website.indexOf('https://') === -1) {
@@ -42,8 +40,8 @@ const DiscoverUser = ({ user }) => {
                 <span className="Discover__user__name">
                   <span className="username">{name || user.name}</span>
                 </span>
+                <ReputationTag reputation={user.reputation} />
               </Link>
-              <Tag>{reputation}</Tag>
               <div className="Discover__user__follow">
                 <FollowButton username={user.name} />
               </div>

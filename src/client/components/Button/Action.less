@@ -8,7 +8,6 @@
   .colorize-button(#c2ccd3, #99aab5);
 
   color: @white;
-  width: 100%;
 
   &--primary {
     .colorize-button(@primary-color, @primary-button-border);
@@ -22,6 +21,11 @@
     &.active {
       color: @white-darker !important;
     }
+  }
+
+  &--big {
+    padding: 0 15px;
+    height: 46px;
   }
 
   &:hover,

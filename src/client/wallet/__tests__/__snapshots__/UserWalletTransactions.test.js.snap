@@ -61,7 +61,6 @@ ShallowWrapper {
           >
             <Loading
               center={true}
-              style={Object {}}
             />
           </div>
         }
@@ -165,7 +164,6 @@ ShallowWrapper {
         >
           <Loading
             center={true}
-            style={Object {}}
           />
         </div>,
         "loadingMore": false,
@@ -255,7 +253,6 @@ ShallowWrapper {
             >
               <Loading
                 center={true}
-                style={Object {}}
               />
             </div>
           }
@@ -359,7 +356,6 @@ ShallowWrapper {
           >
             <Loading
               center={true}
-              style={Object {}}
             />
           </div>,
           "loadingMore": false,

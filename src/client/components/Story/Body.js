@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import classNames from 'classnames';
 import sanitizeHtml from 'sanitize-html';
-import MarkdownIt from 'markdown-it';
+import Remarkable from 'remarkable';
 import embedjs from 'embedjs';
 import { jsonParse } from '../../helpers/formatter';
 import sanitizeConfig from '../../vendor/SanitizeConfig';
@@ -14,8 +14,8 @@ import improve from '../../helpers/improve';
 import PostFeedEmbed from './PostFeedEmbed';
 import './Body.less';
 
-export const markdownIt = new MarkdownIt({
-  html: true, // MarkdownIt renders first then sanitize runs...
+export const remarkable = new Remarkable({
+  html: true, // Remarkable renders first then sanitize runs...
   breaks: true,
   linkify: false, // linkify is done locally
   typographer: false, // https://github.com/jonschlinkert/remarkable/issues/142#issuecomment-221546793
@@ -44,8 +44,6 @@ export function getHtml(body, jsonMetadata = {}, returnType = 'Object', options 
 
   let parsedBody = body.replace(/<!--([\s\S]+?)(-->|$)/g, '(html comment removed: $1)');
 
-  parsedBody = parsedBody.replace(/^\s+</gm, '<');
-
   parsedBody.replace(imageRegex, img => {
     if (_.filter(parsedJsonMetadata.image, i => i.indexOf(img) !== -1).length === 0) {
       parsedJsonMetadata.image.push(img);
@@ -53,7 +51,7 @@ export function getHtml(body, jsonMetadata = {}, returnType = 'Object', options 
   });
 
   parsedBody = improve(parsedBody);
-  parsedBody = markdownIt.render(parsedBody);
+  parsedBody = remarkable.render(parsedBody);
 
   const htmlReadyOptions = { mutate: true, resolveIframe: returnType === 'text' };
   parsedBody = htmlReady(parsedBody, htmlReadyOptions).html;
@@ -101,7 +99,7 @@ export function getHtml(body, jsonMetadata = {}, returnType = 'Object', options 
 const Body = props => {
   const options = {
     rewriteLinks: props.rewriteLinks,
-    secureLinks: true,
+    secureLinks: props.exitPageSetting,
   };
   const htmlSections = getHtml(props.body, props.jsonMetadata, 'Object', options);
   return <div className={classNames('Body', { 'Body--full': props.full })}>{htmlSections}</div>;
@@ -112,6 +110,7 @@ Body.propTypes = {
   jsonMetadata: PropTypes.string,
   full: PropTypes.bool,
   rewriteLinks: PropTypes.bool,
+  exitPageSetting: PropTypes.bool,
 };
 
 Body.defaultProps = {
@@ -119,6 +118,7 @@ Body.defaultProps = {
   jsonMetadata: '',
   full: false,
   rewriteLinks: false,
+  exitPageSetting: true,
 };
 
 export default Body;
