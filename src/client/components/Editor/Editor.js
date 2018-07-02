@@ -12,7 +12,7 @@ import Action from '../Button/Action';
 import requiresLogin from '../../auth/requiresLogin';
 import withEditor from './withEditor';
 import EditorInput from './EditorInput';
-import { markdownIt } from '../Story/Body';
+import { remarkable } from '../Story/Body';
 import BodyContainer from '../../containers/Story/BodyContainer';
 import './Editor.less';
 
@@ -135,7 +135,7 @@ class Editor extends React.Component {
   setBodyAndRender(body) {
     this.setState({
       body,
-      bodyHTML: markdownIt.render(body),
+      bodyHTML: remarkable.render(body),
     });
   }
 

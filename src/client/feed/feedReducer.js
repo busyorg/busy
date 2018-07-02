@@ -28,8 +28,8 @@ const feedIdsList = (state = [], action) => {
     case feedTypes.GET_REPLIES.SUCCESS:
     case feedTypes.GET_BOOKMARKS.SUCCESS:
       return action.payload.map(post => post.id);
-    case feedTypes.GET_MORE_FEED_CONTENT.SUCCESS:
-    case feedTypes.GET_MORE_USER_COMMENTS.SUCCESS:
+    case feedTypes.GET_MORE_FEED_CONTENT:
+    case feedTypes.GET_MORE_USER_COMMENTS:
     case feedTypes.GET_MORE_REPLIES.SUCCESS:
       return _.uniq([...state, ...action.payload.map(post => post.id)]);
     default:
@@ -153,7 +153,7 @@ const feed = (state = initialState, action) => {
           ...state.bookmarks,
           all: {
             ...state.bookmarks.all,
-            list: state.bookmarks.all.list.filter(item => item !== action.payload),
+            list: state.bookmarks.all.list.filter(item => item !== action.meta.id),
           },
         },
       };
