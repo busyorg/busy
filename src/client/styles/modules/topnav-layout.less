@@ -7,10 +7,10 @@
 
   .left {
     position: absolute;
-    width: @left-width;
     padding-left: 16px;
 
     @media @small {
+      width: @left-width;
       padding-left: @mobile-padding;
     }
 
@@ -23,7 +23,6 @@
     position: absolute;
     top: 0;
     right: 0;
-    width: @right-width;
     margin-right: 16px;
     justify-content: flex-end;
     display: flex;
@@ -31,6 +30,7 @@
     @media @small {
       display: block;
       justify-content: initial;
+      width: @right-width;
     }
 
     @media @large {

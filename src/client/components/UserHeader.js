@@ -2,18 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
-import { injectIntl, FormattedMessage } from 'react-intl';
-import { Tag } from 'antd';
-import formatter from '../helpers/steemitFormatter';
+import { FormattedMessage } from 'react-intl';
 import { getUserRankKey, getUserRank } from '../helpers/user';
-import BTooltip from './BTooltip';
+import ReputationTag from './ReputationTag';
 import AvatarLightbox from './AvatarLightbox';
 import FollowButton from '../widgets/FollowButton';
 import Action from './Button/Action';
 import './UserHeader.less';
 
 const UserHeader = ({
-  intl,
   username,
   handle,
   userReputation,
@@ -36,14 +33,7 @@ const UserHeader = ({
           <div className="UserHeader__row">
             <h2 className="UserHeader__user__username">
               {username}
-              <BTooltip
-                title={intl.formatMessage({
-                  id: 'reputation_score',
-                  defaultMessage: 'Reputation Score',
-                })}
-              >
-                <Tag>{formatter.reputation(userReputation)}</Tag>
-              </BTooltip>
+              <ReputationTag reputation={userReputation} />
             </h2>
             <div className="UserHeader__user__buttons">
               <div
@@ -53,13 +43,9 @@ const UserHeader = ({
               >
                 {isSameUser ? (
                   <Link to="/edit-profile">
-                    <Action
-                      small
-                      text={intl.formatMessage({
-                        id: 'edit_profile',
-                        defaultMessage: 'Edit profile',
-                      })}
-                    />
+                    <Action>
+                      <FormattedMessage id="edit_profile" defaultMessage="Edit profile" />
+                    </Action>
                   </Link>
                 ) : (
                   <FollowButton username={handle} />
@@ -71,11 +57,9 @@ const UserHeader = ({
                     'UserHeader__user__button-follows-you': isFollowing && !isSameUser,
                   })}
                 >
-                  <Action
-                    small
-                    text={intl.formatMessage({ id: 'transfer', defaultMessage: 'Transfer' })}
-                    onClick={onTransferClick}
-                  />
+                  <Action onClick={onTransferClick}>
+                    <FormattedMessage id="tranfer" defaultMessage="Transfer" />
+                  </Action>
                 </div>
               )}
             </div>
@@ -114,7 +98,6 @@ const UserHeader = ({
 };
 
 UserHeader.propTypes = {
-  intl: PropTypes.shape().isRequired,
   username: PropTypes.string,
   handle: PropTypes.string,
   userReputation: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
@@ -139,4 +122,4 @@ UserHeader.defaultProps = {
   onTransferClick: () => {},
 };
 
-export default injectIntl(UserHeader);
+export default UserHeader;

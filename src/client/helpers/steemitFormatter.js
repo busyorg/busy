@@ -137,7 +137,7 @@ const createFormatter = api => {
   }
 
   return {
-    reputation(reputation) {
+    reputationFloat(reputation) {
       if (reputation == null) return reputation;
       reputation = parseInt(reputation);
       let rep = String(reputation);
@@ -152,8 +152,11 @@ const createFormatter = api => {
       out = Math.max(out - 9, 0);
       out = (neg ? -1 : 1) * out;
       out = out * 9 + 25;
-      out = parseInt(out);
-      return out;
+      return parseFloat(out);
+    },
+
+    reputation(reputation) {
+      return parseInt(this.reputationFloat(reputation));
     },
 
     vestToSteem(vestingShares, totalVestingShares, totalVestingFundSteem) {

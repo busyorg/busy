@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import * as feedTypes from './feedActions';
 import { TOGGLE_BOOKMARK } from '../bookmarks/bookmarksActions';
 
@@ -23,7 +24,7 @@ const feedIdsList = (state = [], action) => {
     case feedTypes.GET_MORE_USER_COMMENTS.SUCCESS:
     case feedTypes.GET_REPLIES.SUCCESS:
     case feedTypes.GET_MORE_REPLIES.SUCCESS:
-      return [...state, ...action.payload.map(post => post.id)];
+      return _.uniq([...state, ...action.payload.map(post => post.id)]);
     case feedTypes.GET_BOOKMARKS.SUCCESS:
       return action.payload.map(post => post.id);
     default:
