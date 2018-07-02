@@ -230,7 +230,7 @@ class Buttons extends React.Component {
             </BTooltip>
           </span>
         )}
-        {payoutValue >= 0.01 && (
+        {payoutValue >= 0.05 && (
           <React.Fragment>
             <span className="CommentFooter__bullet" />
             <span className="CommentFooter__payout">
