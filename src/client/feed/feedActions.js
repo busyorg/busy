@@ -74,22 +74,14 @@ export const getMoreFeedContent = ({ sortBy, category, limit = 20 }) => (
   });
 };
 
-export const getUserComments = ({ username, limit = 20 }) => (dispatch, getState, { steemAPI }) => {
-  const state = getState();
-  const feed = getFeed(state);
-
-  if (feed.comments[username] && feed.comments[username].isLoaded) {
-    return null;
-  }
-
-  return dispatch({
+export const getUserComments = ({ username, limit = 20 }) => (dispatch, getState, { steemAPI }) =>
+  dispatch({
     type: GET_USER_COMMENTS.ACTION,
     payload: steemAPI
       .sendAsync('get_discussions_by_comments', [{ start_author: username, limit }])
       .then(postsData => postsData),
     meta: { sortBy: 'comments', category: username, limit },
   });
-};
 
 export const getMoreUserComments = ({ username, limit = 20 }) => (
   dispatch,
