@@ -40,15 +40,17 @@ export const saveDraft = (post, redirect, intl) => dispatch => {
     payload: {
       promise: addDraftMetadata(post).catch(() => {
         let errorMessage =
-          'Oops! You hit the storage limit of 16mb, delete some drafts to go forward';
+          "Couldn't save this draft. Make sure you are connected to the internet and don't have too much drafts already";
         if (intl) {
           errorMessage = intl.formatMessage({
-            id: 'drafts_memory_usage_error',
+            id: 'draft_save_error',
             defaultMessage:
-              'Oops! You hit the storage limit of 16mb, delete some drafts to go forward',
+              "Couldn't save this draft. Make sure you are connected to the internet and don't have too much drafts already",
           });
         }
         dispatch(notify(errorMessage, 'error'));
+
+        throw new Error();
       }),
     },
     meta: { postId: post.id },

@@ -12,16 +12,16 @@ import {
   FormattedNumber,
 } from 'react-intl';
 import { Link } from 'react-router-dom';
-import { Tag, Icon } from 'antd';
+import { Icon } from 'antd';
 import Lightbox from 'react-image-lightbox';
 import { Scrollbars } from 'react-custom-scrollbars';
-import formatter from '../../helpers/steemitFormatter';
 import { getFromMetadata, extractImageTags } from '../../helpers/parser';
 import { isPostDeleted, dropCategory } from '../../helpers/postHelpers';
 import withAuthActions from '../../auth/withAuthActions';
 import { getProxyImageURL } from '../../helpers/image';
 import Popover from '../Popover';
 import BTooltip from '../BTooltip';
+import ReputationTag from '../ReputationTag';
 import { getHtml } from './Body';
 import BodyContainer from '../../containers/Story/BodyContainer';
 import StoryDeleted from './StoryDeleted';
@@ -377,14 +377,7 @@ class StoryFull extends React.Component {
           <div className="StoryFull__header__text">
             <Link to={`/@${post.author}`}>
               <span className="username">{post.author}</span>
-              <BTooltip
-                title={intl.formatMessage({
-                  id: 'reputation_score',
-                  defaultMessage: 'Reputation score',
-                })}
-              >
-                <Tag>{formatter.reputation(post.author_reputation)}</Tag>
-              </BTooltip>
+              <ReputationTag reputation={post.author_reputation} />
             </Link>
             <BTooltip
               title={
