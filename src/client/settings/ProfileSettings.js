@@ -10,7 +10,7 @@ import { getIsReloading, getAuthenticatedUser } from '../reducers';
 import socialProfiles from '../helpers/socialProfiles';
 import withEditor from '../components/Editor/withEditor';
 import EditorInput from '../components/Editor/EditorInput';
-import { markdownIt } from '../components/Story/Body';
+import { remarkable } from '../components/Story/Body';
 import BodyContainer from '../containers/Story/BodyContainer';
 import Action from '../components/Button/Action';
 import Affix from '../components/Utils/Affix';
@@ -101,7 +101,7 @@ export default class ProfileSettings extends React.Component {
 
   renderBody(body) {
     this.setState({
-      bodyHTML: markdownIt.render(body),
+      bodyHTML: remarkable.render(body),
     });
   }
 
