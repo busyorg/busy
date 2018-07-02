@@ -116,6 +116,8 @@
   "by": "By {username}",
   "memo": "Memo",
   "memo_placeholder": "Additional message to include in this payment (optional)",
+  "power_up": "Power up",
+  "power_down": "Power down",
   "message": "Message",
   "edit_profile": "Edit profile",
   "profile_name": "Name",
@@ -349,6 +351,7 @@
   "hero_banner_title_1": "Write and publish a post on Steem",
   "hero_banner_title_2": "The community upvotes your post",
   "hero_banner_title_3": "Earn rewards in Steem",
+  "amount_currency": "{amount} {currency}",
   "save_draft_error": "Couldn't save this draft. Make sure you are connected to the internet and don't have too much drafts already",
   "version": "Version: {version}"
 }
