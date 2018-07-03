@@ -50,6 +50,9 @@ class Topics extends React.Component {
               <li key='ulog'>
                 <Topic name='ulog' favorite={favorite} />
               </li>
+              <li key='ulogs'>
+                <Topic name='ulogs' favorite={favorite} />
+              </li>
               <li key='surpassinggoogle'>
                 <Topic name='surpassinggoogle' favorite={favorite} />
               </li>
