@@ -22,7 +22,7 @@ const StoryPreview = ({ post }) => {
   const jsonMetadata = jsonParse(post.json_metadata);
   let imagePath = '';
 
-  if (jsonMetadata.image && jsonMetadata.image[0]) {
+  if (jsonMetadata && jsonMetadata.image && jsonMetadata.image[0]) {
     imagePath = getProxyImageURL(jsonMetadata.image[0], 'preview');
   } else {
     const contentImages = getContentImages(post.body);
@@ -32,7 +32,7 @@ const StoryPreview = ({ post }) => {
   }
 
   const embeds = embedjs.getAll(post.body, { height: '100%' });
-  const video = jsonMetadata.video;
+  const video = jsonMetadata && jsonMetadata.video;
   let hasVideo = false;
   if (_.has(video, 'content.videohash') && _.has(video, 'info.snaphash')) {
     const author = _.get(video, 'info.author', '');
