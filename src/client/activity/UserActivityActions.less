@@ -46,6 +46,18 @@
     }
   }
 
+  &__loader {
+    border-bottom: @base-border;
+    padding: 20px;
+
+    @media @small {
+      border-right: @base-border;
+      border-left: @base-border;
+      border-bottom-left-radius: @border-radius-base;
+      border-bottom-right-radius: @border-radius-base;
+    }
+  }
+
   &__memo {
     word-wrap: break-word;
   }
