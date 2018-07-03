@@ -182,7 +182,7 @@ class PostContent extends React.Component {
     const busyHost = appUrl || 'https://busy.org';
     let canonicalHost = busyHost;
 
-    if (_.indexOf(postMetaData.app, 'steemit') === 0) {
+    if (postMetaData && _.indexOf(postMetaData.app, 'steemit') === 0) {
       canonicalHost = 'https://steemit.com';
     }
 
@@ -208,7 +208,7 @@ class PostContent extends React.Component {
         (pendingLikes[content.id].weight === 0 && postState.isReported));
 
     const { title, category, created, author, body } = content;
-    const postMetaImage = postMetaData.image && postMetaData.image[0];
+    const postMetaImage = postMetaData && postMetaData.image && postMetaData.image[0];
     const htmlBody = getHtml(body, {}, 'text');
     const bodyText = sanitize(htmlBody, { allowedTags: [] });
     const desc = `${_.truncate(bodyText, { length: 143 })} by ${author}`;
